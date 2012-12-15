@@ -1,0 +1,23 @@
+object EditorView: TEditorView
+  Left = 2337
+  Height = 421
+  Top = 80
+  Width = 630
+  AllowDropFiles = True
+  BorderIcons = []
+  BorderStyle = bsSingle
+  DragMode = dmAutomatic
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  KeyPreview = True
+  OnDropFiles = FormDropFiles
+  OnShortCut = FormShortCut
+  ShowHint = True
+  ShowInTaskBar = stNever
+  UseDockManager = True
+  LCLVersion = '1.1'
+  object ApplicationProperties: TApplicationProperties
+    left = 112
+    top = 16
+  end
+end

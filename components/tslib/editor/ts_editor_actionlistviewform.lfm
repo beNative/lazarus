@@ -1,0 +1,127 @@
+object frmActionListView: TfrmActionListView
+  Left = 2431
+  Height = 526
+  Top = 163
+  Width = 800
+  Caption = 'Actions'
+  ClientHeight = 526
+  ClientWidth = 800
+  OnShow = FormShow
+  Position = poOwnerFormCenter
+  LCLVersion = '1.1'
+  object pnlEditorList: TPanel
+    Left = 0
+    Height = 526
+    Top = 0
+    Width = 800
+    Align = alClient
+    BevelOuter = bvSpace
+    ClientHeight = 526
+    ClientWidth = 800
+    TabOrder = 0
+    object pnlButtons: TButtonPanel
+      Left = 7
+      Height = 34
+      Top = 485
+      Width = 786
+      OKButton.Name = 'OKButton'
+      OKButton.DefaultCaption = True
+      HelpButton.Name = 'HelpButton'
+      HelpButton.DefaultCaption = True
+      CloseButton.Name = 'CloseButton'
+      CloseButton.DefaultCaption = True
+      CancelButton.Name = 'CancelButton'
+      CancelButton.DefaultCaption = True
+      TabOrder = 0
+      ShowButtons = [pbClose]
+    end
+    object pgcMain: TPageControl
+      Left = 1
+      Height = 478
+      Top = 1
+      Width = 798
+      ActivePage = tsActions
+      Align = alClient
+      TabIndex = 0
+      TabOrder = 1
+      object tsActions: TTabSheet
+        Caption = 'Actions'
+        ClientHeight = 452
+        ClientWidth = 790
+        object vstActions: TVirtualStringTree
+          Left = 2
+          Height = 448
+          Top = 2
+          Width = 786
+          Align = alClient
+          BorderSpacing.Around = 2
+          DefaultText = 'Node'
+          Header.AutoSizeIndex = -1
+          Header.Columns = <>
+          Header.DefaultHeight = 17
+          Header.MainColumn = -1
+          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+          IncrementalSearch = isAll
+          TabOrder = 0
+          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
+          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
+          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
+          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
+          TreeOptions.StringOptions = [toAutoAcceptEditChange]
+        end
+      end
+      object tsCommands: TTabSheet
+        Caption = 'Editor key commands'
+        ClientHeight = 452
+        ClientWidth = 790
+        object vstCommands: TVirtualStringTree
+          Left = 2
+          Height = 448
+          Top = 2
+          Width = 786
+          Align = alClient
+          BorderSpacing.Around = 2
+          DefaultText = 'Node'
+          Header.AutoSizeIndex = -1
+          Header.Columns = <>
+          Header.DefaultHeight = 17
+          Header.MainColumn = -1
+          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+          IncrementalSearch = isAll
+          TabOrder = 0
+          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
+          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
+          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
+          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
+          TreeOptions.StringOptions = [toAutoAcceptEditChange]
+        end
+      end
+      object tsMouseActions: TTabSheet
+        Caption = 'Editor mouse commands'
+        ClientHeight = 452
+        ClientWidth = 790
+        object vstMouseActions: TVirtualStringTree
+          Left = 2
+          Height = 448
+          Top = 2
+          Width = 786
+          Align = alClient
+          BorderSpacing.Around = 2
+          DefaultText = 'Node'
+          Header.AutoSizeIndex = -1
+          Header.Columns = <>
+          Header.DefaultHeight = 17
+          Header.MainColumn = -1
+          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+          IncrementalSearch = isAll
+          TabOrder = 0
+          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
+          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
+          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
+          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
+          TreeOptions.StringOptions = [toAutoAcceptEditChange]
+        end
+      end
+    end
+  end
+end

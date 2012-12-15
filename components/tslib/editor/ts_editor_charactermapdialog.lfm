@@ -1,0 +1,49 @@
+object CharacterMapDialog: TCharacterMapDialog
+  Left = 750
+  Height = 588
+  Top = 314
+  Width = 719
+  Caption = 'CharacterMapDialog'
+  ClientHeight = 588
+  ClientWidth = 719
+  FormStyle = fsStayOnTop
+  KeyPreview = True
+  OnCreate = FormCreate
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '0.9.31'
+  object ButtonPanel: TButtonPanel
+    Left = 6
+    Height = 26
+    Top = 556
+    Width = 707
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    OKButton.Enabled = False
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    HelpButton.Enabled = False
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    CancelButton.Enabled = False
+    TabOrder = 0
+    ShowButtons = [pbClose]
+    ShowBevel = False
+  end
+  object PageControl1: TPageControl
+    AnchorSideLeft.Control = Owner
+    AnchorSideTop.Control = Owner
+    AnchorSideRight.Control = Owner
+    AnchorSideRight.Side = asrBottom
+    AnchorSideBottom.Control = ButtonPanel
+    Left = 6
+    Height = 544
+    Top = 6
+    Width = 707
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderSpacing.Around = 6
+    TabOrder = 1
+  end
+end

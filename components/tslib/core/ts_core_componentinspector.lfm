@@ -1,0 +1,43 @@
+object ComponentInspectorForm: TComponentInspectorForm
+  Left = 577
+  Height = 749
+  Top = 75
+  Width = 340
+  BorderStyle = bsSizeToolWin
+  ClientHeight = 749
+  ClientWidth = 340
+  DragKind = dkDock
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  KeyPreview = True
+  OnClose = FormClose
+  OnResize = FormResize
+  OnShow = FormShow
+  ShowInTaskBar = stNever
+  LCLVersion = '1.1'
+  object pnlMain: TPanel
+    Left = 3
+    Height = 743
+    Top = 3
+    Width = 334
+    Align = alClient
+    BorderSpacing.Around = 3
+    BevelOuter = bvNone
+    ClientHeight = 743
+    ClientWidth = 334
+    TabOrder = 0
+    object cbxInspector: TComboBox
+      Left = 2
+      Height = 21
+      Top = 2
+      Width = 330
+      Align = alTop
+      BorderSpacing.Around = 2
+      Color = 15133420
+      ItemHeight = 13
+      OnChange = cbxInspectorChange
+      Style = csDropDownList
+      TabOrder = 0
+    end
+  end
+end

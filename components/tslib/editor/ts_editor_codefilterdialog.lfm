@@ -1,0 +1,187 @@
+object frmCodeFilterDialog: TfrmCodeFilterDialog
+  Left = 2423
+  Height = 572
+  Top = 258
+  Width = 612
+  Caption = 'Code filter'
+  ClientHeight = 572
+  ClientWidth = 612
+  KeyPreview = True
+  OnCloseQuery = FormCloseQuery
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
+  PopupMenu = ppmMain
+  PopupMode = pmAuto
+  Position = poMainFormCenter
+  LCLVersion = '1.1'
+  object sbrMain: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 552
+    Width = 612
+    Panels = <>
+  end
+  object pnlVST: TPanel
+    Left = 0
+    Height = 526
+    Top = 26
+    Width = 612
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 612
+    Align = alTop
+    BevelOuter = bvNone
+    ChildSizing.LeftRightSpacing = 2
+    ChildSizing.TopBottomSpacing = 2
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 2
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 5
+    ClientHeight = 26
+    ClientWidth = 612
+    TabOrder = 2
+    object lblSearch: TLabel
+      Left = 2
+      Height = 22
+      Top = 2
+      Width = 37
+      Align = alLeft
+      Caption = 'Search:'
+      FocusControl = edtFilter
+      Layout = tlCenter
+      ParentColor = False
+    end
+    object edtFilter: TEdit
+      Left = 43
+      Height = 22
+      Top = 2
+      Width = 268
+      Align = alClient
+      Font.Style = [fsBold]
+      OnChange = edtFilterChange
+      OnKeyDown = edtFilterKeyDown
+      OnKeyUp = edtFilterKeyUp
+      ParentFont = False
+      TabOrder = 0
+    end
+    object chkRegEx: TCheckBox
+      Left = 498
+      Height = 22
+      Top = 2
+      Width = 112
+      Align = alRight
+      Caption = '&Regular expression'
+      TabOrder = 1
+    end
+    object chkMatchCase: TCheckBox
+      Left = 420
+      Height = 22
+      Top = 2
+      Width = 74
+      Align = alRight
+      Caption = 'Match &case'
+      OnClick = chkMatchCaseClick
+      TabOrder = 2
+    end
+    object btnApplyFilter: TButton
+      Left = 315
+      Height = 22
+      Top = 2
+      Width = 101
+      Action = actApplyFilter
+      Align = alRight
+      Anchors = [akTop]
+      AutoSize = True
+      Default = True
+      TabOrder = 3
+    end
+  end
+  object aclMain: TActionList
+    Images = imlMain
+    left = 112
+    top = 40
+    object actApplyFilter: TAction
+      Caption = 'Apply filter (F5)'
+      ImageIndex = 0
+      OnExecute = actApplyFilterExecute
+      ShortCut = 116
+    end
+    object actSelectAll: TAction
+      Caption = 'Select all'
+      OnExecute = actSelectAllExecute
+      ShortCut = 16449
+    end
+    object actCopy: TAction
+      Caption = 'Copy'
+      OnExecute = actCopyExecute
+      ShortCut = 16451
+    end
+    object actCopyToNewView: TAction
+      Caption = 'Copy to new view'
+      Hint = 'Copy selected lines to new view'
+      OnExecute = actCopyToNewViewExecute
+    end
+  end
+  object imlMain: TImageList
+    left = 8
+    top = 40
+    Bitmap = {
+      4C69010000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF0063BBDBFF7EC6E0FF7EC6E0FF7EC6E0FF7EC6
+      E0FF7EC6E0FF7EC6E0FF7EC6E0FF7EC6E0FF7EC6E0FF7EC6E0FF7EC6E0FF7EC6
+      E0FF7EC6E0FF53ADD4FFFFFFFF0049B0D6FF95D9F8FF84DDF8FF68E3F8FF4BE9
+      F8FF2CEFF8FF14F1F8FF06F1F8FF06E9F5FF0EDCF1FF1BCCECFF28BFE8FF33B4
+      E5FF3AADE2FF2D8FC8FFFFFFFF0049B0D6FF49B0D6FF84DDF8FF68E3F8FF4EF6
+      FFFF2CFCFFFF10FFFFFF00FFFFFF00F7FCFF08E9F8FF17D9F4FF27BFE8FF33B5
+      E5FF2D8FC8FF2D8FC8FFFFFFFF002D8FC80049B0D6FF49B0D6FF68E3F8FF4AE9
+      F8FF2CFDFFFF10FFFFFF00FFFFFF00F7FCFF08E9F8FF1BCCECFF27BFE8FF2D8F
+      C8FF2D8FC8FF2D8FC800FFFFFF002D8FC8002D8FC80049B0D6FF49B0D6FF4AE9
+      F8FF2CEEF8FF10FFFFFF00FFFFFF00F7FCFF0EDCF1FF1BCCECFF2D8FC8FF2D8F
+      C8FF2D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC80049B0D6FF49B0
+      D6FF2CEEF8FF14F1F8FF00FFFFFF06E9F5FF0EDCF1FF2D8FC8FF2D8FC8FF2D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC80049B0
+      D6FF49B0D6FF14F1F8FF06F1F8FF06E9F5FF2D8FC8FF2D8FC8FF2D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C80049B0D6FF49B0D6FF06F1F8FF2D8FC8FF2D8FC8FF2D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC80049B0D6FF06F1F8FF2C8EC8FF2D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8003A9FCFFF06F1F8FF2C8EC8FF2D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8003A9FCFFF06F1F8FF2C8EC8FF2D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8003A9FCFFF06F1F8FF2C8EC8FF2D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF002D8FC8002D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002C8EC8FF2C8EC8FF2C8EC8FF2D8FC8002D8FC8002D8FC8002D8F
+      C8002D8FC8002D8FC800FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00
+    }
+  end
+  object ppmMain: TPopupMenu
+    left = 56
+    top = 40
+    object mniSelectAll: TMenuItem
+      Action = actSelectAll
+    end
+    object mniCopy: TMenuItem
+      Action = actCopy
+    end
+    object mniCopyToNewView: TMenuItem
+      Action = actCopyToNewView
+    end
+  end
+end

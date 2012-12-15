@@ -1,0 +1,63 @@
+object frmViewList: TfrmViewList
+  Left = 453
+  Height = 501
+  Top = 321
+  Width = 800
+  ClientHeight = 501
+  ClientWidth = 800
+  Position = poOwnerFormCenter
+  LCLVersion = '1.1'
+  object pnlButtons: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 461
+    Width = 788
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 0
+    DefaultButton = pbClose
+    ShowButtons = [pbClose]
+  end
+  object vstList: TVirtualStringTree
+    Left = 2
+    Height = 453
+    Top = 2
+    Width = 796
+    Align = alClient
+    BorderSpacing.Around = 2
+    DefaultText = 'Node'
+    Header.AutoSizeIndex = -1
+    Header.Columns = <>
+    Header.DefaultHeight = 17
+    Header.MainColumn = -1
+    Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
+    IncrementalSearch = isAll
+    TabOrder = 1
+    TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
+    TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
+    TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
+    TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
+    TreeOptions.StringOptions = [toAutoAcceptEditChange]
+  end
+  object aclMain: TActionList
+    left = 256
+    top = 129
+    object actClose: TAction
+      Caption = 'Close'
+      OnExecute = actCloseExecute
+    end
+  end
+  object ppmMain: TPopupMenu
+    left = 180
+    top = 129
+    object mniClose: TMenuItem
+      Action = actClose
+    end
+  end
+end

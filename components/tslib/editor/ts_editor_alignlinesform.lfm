@@ -1,0 +1,174 @@
+object frmAlignLines: TfrmAlignLines
+  Left = 2410
+  Height = 382
+  Top = 277
+  Width = 170
+  Caption = 'Align selection'
+  ClientHeight = 382
+  ClientWidth = 170
+  Constraints.MinWidth = 170
+  OnShow = FormShow
+  LCLVersion = '1.1'
+  object lstTokens: TListBox
+    Left = 8
+    Height = 84
+    Top = 24
+    Width = 156
+    Anchors = [akTop, akLeft, akRight]
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -16
+    Font.Name = 'Consolas'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ItemHeight = 0
+    ParentFont = False
+    TabOrder = 0
+  end
+  object btnOK: TButton
+    Left = -3
+    Height = 25
+    Top = 357
+    Width = 80
+    Action = actExecute
+    Anchors = [akRight, akBottom]
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object btnCancel: TButton
+    Left = 84
+    Height = 25
+    Top = 357
+    Width = 80
+    Anchors = [akRight, akBottom]
+    Cancel = True
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object gbxInsertSpace: TGroupBox
+    Left = 7
+    Height = 66
+    Top = 200
+    Width = 157
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Keep at least one space'
+    ClientHeight = 48
+    ClientWidth = 153
+    TabOrder = 3
+    object chkBeforeToken: TCheckBox
+      Left = 11
+      Height = 17
+      Top = 3
+      Width = 82
+      Caption = '&Before token'
+      Checked = True
+      OnClick = chkBeforeTokenClick
+      State = cbChecked
+      TabOrder = 0
+    end
+    object chkAfterToken: TCheckBox
+      Left = 11
+      Height = 17
+      Top = 26
+      Width = 75
+      Caption = '&After token'
+      Checked = True
+      OnClick = chkAfterTokenClick
+      State = cbChecked
+      TabOrder = 1
+    end
+  end
+  object lblTokens: TLabel
+    Left = 8
+    Height = 13
+    Top = 7
+    Width = 69
+    Alignment = taCenter
+    Caption = 'Tokens found:'
+    ParentColor = False
+    ParentFont = False
+  end
+  object rgpAlignAt: TRadioGroup
+    Left = 8
+    Height = 74
+    Top = 272
+    Width = 157
+    Anchors = [akTop, akLeft, akRight]
+    AutoFill = True
+    Caption = 'Align at:'
+    ChildSizing.LeftRightSpacing = 6
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 1
+    ClientHeight = 56
+    ClientWidth = 153
+    ItemIndex = 0
+    Items.Strings = (
+      'Rightmost token'
+      'Leftmost token'
+    )
+    TabOrder = 4
+  end
+  object gbxOptions: TGroupBox
+    Left = 8
+    Height = 81
+    Top = 112
+    Width = 156
+    Anchors = [akTop, akLeft, akRight]
+    Caption = 'Options'
+    ClientHeight = 63
+    ClientWidth = 152
+    TabOrder = 5
+    object chkRemoveWhitespace: TCheckBox
+      Left = 9
+      Height = 17
+      Top = 8
+      Width = 20
+      Align = alCustom
+      Checked = True
+      OnClick = chkRemoveWhitespaceClick
+      State = cbChecked
+      TabOrder = 0
+    end
+    object chkAlignInParagraphs: TCheckBox
+      Left = 9
+      Height = 17
+      Top = 40
+      Width = 112
+      Caption = 'Align in paragraphs'
+      Checked = True
+      OnClick = chkAlignInParagraphsClick
+      State = cbChecked
+      TabOrder = 1
+    end
+    object lblRemoveWhiteSpace: TLabel
+      Left = 30
+      Height = 32
+      Top = 1
+      Width = 121
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = False
+      Caption = 'Remove whitespace from text before aligning'
+      Font.Height = -11
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+  end
+  object aclMain: TActionList
+    left = 24
+    top = 40
+    object actExecute: TAction
+      Caption = 'Execute'
+      OnExecute = actExecuteExecute
+    end
+  end
+end

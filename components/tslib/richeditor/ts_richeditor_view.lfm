@@ -1,0 +1,20 @@
+object RichEditorView: TRichEditorView
+  Left = 859
+  Height = 467
+  Top = 144
+  Width = 578
+  Caption = 'RichEditorView'
+  ClientHeight = 467
+  ClientWidth = 578
+  OnShortCut = FormShortCut
+  LCLVersion = '0.9.31'
+  object pnlRichEditor: TPanel
+    Left = 0
+    Height = 467
+    Top = 0
+    Width = 578
+    Align = alClient
+    BevelOuter = bvLowered
+    TabOrder = 0
+  end
+end

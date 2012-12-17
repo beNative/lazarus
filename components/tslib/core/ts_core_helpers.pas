@@ -70,7 +70,43 @@ begin
   VST.Parent   := AParent;
   VST.HintMode := hmTooltip;
   VST.Align    := alClient;
-  VST.Header.Options := VST.Header.Options + [hoAutoSpring, hoAutoResize];
+  VST.Header.Options := [
+    hoAutoResize,
+    hoAutoSpring,
+    hoColumnResize,
+    hoDblClickResize,
+    hoDisableAnimatedResize,
+    hoDrag,
+    hoFullRepaintOnResize,
+    hoShowSortGlyphs,
+    hoVisible
+  ];
+  VST.TreeOptions.SelectionOptions := [
+    toExtendedFocus
+  ];
+  VST.TreeOptions.MiscOptions := [
+    toAcceptOLEDrop,
+    toEditable,
+    toEditOnClick,
+    toFullRepaintOnResize,
+    toInitOnSave,
+    toToggleOnDblClick,
+    toVariableNodeHeight,
+    toWheelPanning
+  ];
+  VST.TreeOptions.PaintOptions := [
+    toHideFocusRect,
+    toShowButtons,
+    toShowDropmark,
+    toShowHorzGridLines,
+    toShowRoot,
+    toShowTreeLines,
+    toShowVertGridLines,
+    toThemeAware,
+    toUseBlendedImages,
+    toUseBlendedSelection
+  ];
+  VST.DragType := dtVCL; // dtOLE does not work yet
   Result := VST;
 end;
 

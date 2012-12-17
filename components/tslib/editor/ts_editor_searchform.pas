@@ -190,7 +190,6 @@ begin
   FTVP.MultiSelect := False;
   FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 20);
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160);
-  //FTVP.ColumnDefinitions.AddColumn('Pos', 'Position', dtNumeric, 60);
   FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60);
   FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40);
   FTVP.ItemsSource := SearchEngine.ItemList;
@@ -412,8 +411,6 @@ begin
   else
     S := '%d search matches found.';
   sbrMain.Panels[0].Text := Format(S, [FTVP.ItemsSource.Count]);
-
-
   Manager.ActiveView.SetHighlightSearch(SearchText, Options);
 end;
 

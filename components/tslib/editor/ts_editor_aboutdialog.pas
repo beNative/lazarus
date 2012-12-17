@@ -75,7 +75,6 @@ type
     lblLegalCopyright: TLabel;
     lblTargetCPU: TLabel;
     lblTargetOS: TLabel;
-    lblWarning        : TLabel;
     lblWidgetSet: TLabel;
     pgcMain: TPageControl;
     pnlBuildDate: TPanel;

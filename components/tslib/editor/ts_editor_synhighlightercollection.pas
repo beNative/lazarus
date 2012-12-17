@@ -18,7 +18,7 @@
 
 unit ts_Editor_SynHighlighterCollection;
 
-{ Holds settings that are specific to each highlighter. }
+{ Holds editor settings that are specific to each highlighter. }
 
 {$mode delphi}
 
@@ -168,7 +168,7 @@ type
       const ACodeFormatter       : ICodeFormatter = nil;
       const ADescription         : string = '';  // highlighter description
       const ALayoutFileName      : string = ''   // only for TSynUNIHighlighter
-      ); virtual;
+    ); virtual;
 
     // public properties
     { The TCollectionItem decendant class of the collection items. }
@@ -208,7 +208,6 @@ _______________________________________________________________________________
 constructor THighlighters.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner, THighlighterItem);
-  //Logger.Send('Create Highlightercollection');
 end;
 
 //*****************************************************************************
@@ -375,8 +374,6 @@ begin
     Result := -1;
 end;
 
-//-----------------------------------------------------------------------------
-
 { The FindItemID method returns the item in the collection whose ID property
   is passed to it as a parameter. If no item has the specified ID, FindItemID
   returns nil. }
@@ -385,8 +382,6 @@ function THighlighters.FindItemID(ID: Integer): THighlighterItem;
 begin
   Result := inherited FindItemID(ID) as THighlighterItem;
 end;
-
-//-----------------------------------------------------------------------------
 
 function THighlighters.Find(const AName: string): THighlighterItem;
 var
@@ -416,7 +411,6 @@ begin
         or IsWordPresent(AFileExt, HL.DefaultFilter, [',']) then
         begin
           Result := Items[I];
-//          ShowMessage(Items[I].AsString);
         end;
     end;
   end;
@@ -476,7 +470,6 @@ _______________________________________________________________________________
 constructor THighlighterItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
-  //Logger.Send('Create HI');
   FCommentType := ctDefault;
   FFileExtensions := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
@@ -485,7 +478,6 @@ end;
 
 procedure THighlighterItem.BeforeDestruction;
 begin
-  //Logger.Send('Destroy HI', Name);
   FreeAndNil(FFileExtensions);
   inherited BeforeDestruction;
 end;

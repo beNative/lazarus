@@ -32,6 +32,7 @@ object frmViewList: TfrmViewList
     Align = alClient
     BorderSpacing.Around = 2
     DefaultText = 'Node'
+    DragType = dtVCL
     Header.AutoSizeIndex = -1
     Header.Columns = <>
     Header.DefaultHeight = 17

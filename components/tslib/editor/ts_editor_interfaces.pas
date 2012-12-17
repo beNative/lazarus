@@ -50,19 +50,32 @@ uses
 //=============================================================================
 
 type
-  //
-  TCaretPositionEvent = procedure(Sender: TObject; X, Y: Integer) of object;
-  TStatusMessageEvent = procedure(Sender: TObject; Text: string) of object;
+  TCaretPositionEvent = procedure(
+    Sender : TObject;
+    X, Y   : Integer
+  ) of object;
+
+  TStatusMessageEvent = procedure(
+    Sender : TObject;
+    Text   : string
+  ) of object;
+
   TMacroStateChangeEvent = procedure(
     Sender: TObject;
     AState: TSynMacroState
   ) of object;
-  TFileEvent = procedure(Sender: TObject; var AFileName: string) of object;
+
+  TFileEvent = procedure(
+        Sender    : TObject;
+    var AFileName : string
+  ) of object;
+
   TNewFileEvent = procedure(
           Sender    : TObject;
     var   AFileName : string;
     const AText     : string
   ) of object;
+
   TOnFilteredLineChangeEvent = procedure(
           Sender  : TObject;
           AIndex  : Integer;

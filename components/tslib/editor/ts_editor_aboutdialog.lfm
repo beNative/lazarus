@@ -1,7 +1,7 @@
 object frmAbout: TfrmAbout
-  Left = 2598
+  Left = 804
   Height = 267
-  Top = 121
+  Top = 110
   Width = 552
   BorderIcons = [biSystemMenu]
   Caption = 'About'
@@ -18,19 +18,6 @@ object frmAbout: TfrmAbout
     Width = 546
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 0
-  end
-  object lblWarning: TLabel
-    Left = 4
-    Height = 22
-    Top = 241
-    Width = 288
-    Anchors = [akLeft, akBottom]
-    Caption = 'Warning: '#13#10'This is not a release build.Some functions might not work as intended!'
-    Font.Color = clRed
-    Font.Height = -9
-    ParentColor = False
-    ParentFont = False
-    WordWrap = True
   end
   object pgcMain: TPageControl
     Left = 216
@@ -178,6 +165,7 @@ object frmAbout: TfrmAbout
         Colors.GridLineColor = clSilver
         DefaultNodeHeight = 17
         DefaultText = 'Node'
+        DragType = dtVCL
         Header.AutoSizeIndex = 0
         Header.Columns = <>
         Header.DefaultHeight = 17

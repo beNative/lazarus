@@ -333,7 +333,7 @@
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
-        <Filename Value="NotePas.lpr"/>
+        <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="NotePas"/>
       </Unit0>

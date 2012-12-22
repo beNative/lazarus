@@ -8,8 +8,8 @@ interface
 
 uses
   ts_Editor_ActionListViewForm, ts_Editor_CharacterMapDialog, 
-  ts_Editor_CodeFilterDialog, ts_Editor_CodeShaperForm, 
-  ts_Editor_SettingsDialog, ts_Editor_AboutDialog, ts_Editor_SearchForm, 
+  ts_Editor_CodeFilterDialog, ts_Editor_SettingsDialog, 
+  ts_Editor_CodeShaperForm, ts_Editor_AboutDialog, ts_Editor_SearchForm, 
   ts_Editor_ShortcutsDialog, ts_Editor_ViewListForm, ts_Editor_Manager, 
   ts_Editor_Helpers, ts_Editor_Interfaces, ts_Editor_Resources, 
   ts_Editor_Settings, ts_Editor_Utils, ts_Editor_View, 

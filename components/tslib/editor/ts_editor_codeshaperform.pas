@@ -22,6 +22,7 @@ unit ts_Editor_CodeShaperForm;
 
 {
   TODO:
+    - Work in progress...
     - CodeShaper profiles (collection to save with settings)
 }
 
@@ -94,8 +95,6 @@ type
     btnTrim                         : TBitBtn;
     btnURLDecode                    : TButton;
     btnURLEncode                    : TButton;
-    Button1: TButton;
-    Button2: TButton;
     chkAlignLinesInParagraphs       : TCheckBox;
     chkAlignLinesInsertSpace        : TCheckBox;
     chkAlignLinesRemoveWhitespace   : TCheckBox;
@@ -570,7 +569,6 @@ var
 begin
   if ALockUpdates then
     BeginUpdate;
-  //View.SelectAll;
   if View.Editor.SelAvail then
     View.Editor.TextBetweenPointsEx[View.BlockBegin, View.BlockEnd, scamEnd]
       := AText

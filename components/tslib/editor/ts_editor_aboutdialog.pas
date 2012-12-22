@@ -283,11 +283,11 @@ begin
     'Kirill Burtsev and Vitaly Nevzorov, FPC port by Tom Lisjac with modifications by Tim Sinaeve',
     ''
   );
-  //AddCredit(
-  //  'Multilog',
-  //  'Luiz Américo Pereira Câmara',
-  //  ''
-  //);
+  AddCredit(
+    'Multilog',
+    'Luiz Américo Pereira Câmara',
+    ''
+  );
   AddCredit(
     'DWScript',
     'Matthias Ackermann, maintained by Eric Grange; FPC port by Alexander Shishkin',

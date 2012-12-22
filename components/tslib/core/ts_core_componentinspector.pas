@@ -237,6 +237,30 @@ begin
   FInspector.PreferredSplitterX := 120;
   FInspector.SplitterX := 120;
   FInspector.DoubleBuffered := True;
+  FInspector.Filter := [
+    tkInteger,
+    tkChar,
+    tkEnumeration,
+    tkFloat,
+    tkSet,
+    tkSString,
+    tkLString,
+    tkAString,
+    tkWString,
+    tkVariant,
+    tkArray,
+    tkInterface,
+    tkClass,
+    tkObject,
+    tkWChar,
+    tkBool,
+    tkInt64,
+    tkQWord,
+    tkDynArray,
+    tkUString,
+    tkUChar,
+    tkHelper
+  ];
   GlobalDesignHook := PropertyEditorHook;
 
   PropertyEditorHook.AddHandlerSetSelection(OnSetSelection);

@@ -668,7 +668,7 @@ type
 
     procedure ClearHighlightSearch;
 
-    // TSI voorlopig
+    // TSI temp
     function ActiveToolView: IEditorToolView;
 
     // properties
@@ -788,7 +788,7 @@ implementation
 uses
   FileUtil, Clipbrd, StrUtils, Math, ShlObj, Windows, Graphics,
 
-  LConvEncoding, Base64, fgl,
+  LConvEncoding, Base64,
 
   SynEditTypes, SynPluginSyncroEdit,
 
@@ -2097,7 +2097,6 @@ begin
       A.Category := 'Highlighter';
       A.OnExecute   := actHighlighterExecute;
     end;
-
   finally
     FreeAndNil(SL);
   end;
@@ -2602,13 +2601,13 @@ begin
     actDequoteLines.Visible            := B;
     actDequoteSelection.Visible        := B;
     actFormat.Visible                  := B;
-    actInsertCharacterFromMap.Visible  := B;
+    actInsertCharacterFromMap.Visible  := actInsertCharacterFromMap.Visible and B;
     actPascalStringOfSelection.Visible := B;
     actPaste.Visible                   := B;
     actQuoteSelection.Visible          := B;
     actQuoteLines.Visible              := B;
     actQuoteLinesAndDelimit.Visible    := B;
-    actShapeCode.Visible               := B;
+    actShapeCode.Visible               := actShapeCode.Visible and B;
     actToggleComment.Visible           := B;
     actStripLastChar.Visible           := B;
     actStripFirstChar.Visible          := B;
@@ -2618,7 +2617,6 @@ begin
 
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
-    //actUndoOld.Enabled := B and V.CanUndo;  //=> causes flicker when undocked view has focus!
 
     B := V.SupportsFolding;
     actToggleFoldLevel.Enabled := B;
@@ -2719,7 +2717,6 @@ begin
   Result := nil;
   for I := 0 to FToolViewList.Count -1 do
   begin
-    //if (FToolViewList[I] as IEditorToolView).Focused and
     if (FToolViewList[I] as IEditorToolView).Visible and
       Supports(FToolViewList[I], IClipboardCommands)
     then
@@ -2744,7 +2741,6 @@ begin
       A.Checked := True;
   end;
 end;
-
 {$endregion}
 
 {$region 'Find' /fold}

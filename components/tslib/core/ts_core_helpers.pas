@@ -42,6 +42,9 @@ function CreatePI(
 
 implementation
 
+uses
+  TypInfo, ObjectInspector;
+
 type
   TLocalClass = class
   strict private
@@ -134,9 +137,30 @@ begin
   PI.DefaultItemHeight  := 17;
   PI.PreferredSplitterX := 160;
   PI.SplitterX          := 160;
+  PI.Filter             := [
+    tkInteger,
+    tkChar,
+    tkEnumeration,
+    tkFloat,
+    tkSet,
+    tkSString,
+    tkLString,
+    tkAString,
+    tkWString,
+    tkVariant,
+    tkArray,
+    tkWChar,
+    tkBool,
+    tkInt64,
+    tkQWord,
+    tkDynArray,
+    tkUString,
+    tkUChar
+  ];
   GlobalDesignHook      := PI.PropertyEditorHook;
   TLocalClass.Inspector := PI;
   PI.PropertyEditorHook.AddHandlerSetSelection(TLocalClass.OnSetSelection);
+  PI.Layout := oilHorizontal;
   Result := PI;
 end;
 

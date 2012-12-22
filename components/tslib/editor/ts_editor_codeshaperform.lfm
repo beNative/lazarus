@@ -1,44 +1,41 @@
 object frmCodeShaper: TfrmCodeShaper
-  Left = 2602
-  Height = 855
-  Top = 253
-  Width = 373
+  Left = 3056
+  Height = 695
+  Top = 45
+  Width = 410
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   Align = alClient
-  AutoSize = True
   BorderIcons = []
   BorderStyle = bsNone
   Caption = 'Code shaper'
-  ClientHeight = 855
-  ClientWidth = 373
+  ClientHeight = 695
+  ClientWidth = 410
   Position = poDefault
   ShowHint = True
   LCLVersion = '1.1'
   object sbrMain: TScrollBox
     Left = 0
-    Height = 855
+    Height = 695
     Top = 0
-    Width = 373
-    HorzScrollBar.Page = 407
-    HorzScrollBar.Range = 409
+    Width = 410
+    HorzScrollBar.Increment = 39
+    HorzScrollBar.Page = 410
     HorzScrollBar.Visible = False
-    VertScrollBar.Increment = 74
-    VertScrollBar.Page = 749
+    VertScrollBar.Increment = 69
+    VertScrollBar.Page = 695
     VertScrollBar.Smooth = True
-    VertScrollBar.Range = 742
     VertScrollBar.Tracking = True
     Align = alClient
-    AutoScroll = False
     BorderStyle = bsNone
-    ClientHeight = 855
-    ClientWidth = 373
+    ClientHeight = 695
+    ClientWidth = 410
     TabOrder = 0
     object pnlOperations: TPanel
       Left = 2
-      Height = 851
+      Height = 691
       Top = 0
-      Width = 369
+      Width = 406
       Align = alClient
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
@@ -54,18 +51,18 @@ object frmCodeShaper: TfrmCodeShaper
       ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 851
-      ClientWidth = 369
+      ClientHeight = 691
+      ClientWidth = 406
       TabOrder = 0
       object grpInsertBreaks: TGroupBox
         Left = 4
         Height = 67
         Top = 4
-        Width = 361
+        Width = 398
         Caption = 'Insert breaks'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 49
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 0
         object edtBreakLinesToken: TLabeledEdit
           Left = 208
@@ -127,7 +124,7 @@ object frmCodeShaper: TfrmCodeShaper
           Height = 41
           Hint = 'nannem'
           Top = 4
-          Width = 94
+          Width = 131
           Action = actInsertBreaks
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -151,11 +148,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 68
         Top = 75
-        Width = 361
+        Width = 398
         Caption = 'Remove breaks'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 50
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 1
         object chkUnBreakLinesWrap: TCheckBox
           Left = 10
@@ -194,7 +191,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 263
           Height = 42
           Top = 4
-          Width = 94
+          Width = 131
           Action = actRemoveBreaks
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -206,11 +203,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 82
         Top = 147
-        Width = 361
+        Width = 398
         Caption = 'Trim'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 64
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 2
         object chkTrimLinesLeft: TCheckBox
           Left = 10
@@ -232,7 +229,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 263
           Height = 56
           Top = 4
-          Width = 94
+          Width = 131
           Action = actTrim
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -269,11 +266,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 80
         Top = 233
-        Width = 361
+        Width = 398
         Caption = 'Align'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 62
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 3
         object edtAlignLinesToken: TLabeledEdit
           Left = 208
@@ -323,7 +320,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 264
           Height = 54
           Top = 4
-          Width = 93
+          Width = 130
           Action = actAlignLines
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -349,11 +346,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 87
         Top = 317
-        Width = 361
+        Width = 398
         Caption = 'Quote lines'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 69
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 4
         object edtQuoteLinesQuoteChar: TLabeledEdit
           Left = 99
@@ -418,7 +415,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 263
           Height = 61
           Top = 4
-          Width = 94
+          Width = 131
           Action = actQuoteLines
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -429,11 +426,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 67
         Top = 408
-        Width = 361
+        Width = 398
         Caption = 'Dequote lines'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 49
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 5
         object edtDequoteLinesQuoteChar: TLabeledEdit
           Left = 99
@@ -469,7 +466,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 263
           Height = 41
           Top = 4
-          Width = 94
+          Width = 131
           Action = actDequoteLines
           Align = alRight
           Anchors = [akTop, akLeft, akRight, akBottom]
@@ -480,11 +477,11 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 105
         Top = 479
-        Width = 361
+        Width = 398
         Caption = 'Replace strings'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 87
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 6
         object chkReplaceStringsCaseSensitive: TCheckBox
           Left = 10
@@ -506,7 +503,7 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 10
           Height = 57
           Top = 4
-          Width = 244
+          Width = 281
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoAdvance = aaRightDown
           AutoFillColumns = True
@@ -516,12 +513,12 @@ object frmCodeShaper: TfrmCodeShaper
               Color = clNone
               Title.Alignment = taCenter
               Title.Caption = 'From'
-              Width = 112
+              Width = 130
             end          
             item
               Title.Alignment = taCenter
               Title.Caption = 'To'
-              Width = 112
+              Width = 131
             end>
           DefaultRowHeight = 18
           FixedCols = 0
@@ -530,17 +527,18 @@ object frmCodeShaper: TfrmCodeShaper
           TabOrder = 2
           TitleStyle = tsNative
           ColWidths = (
-            112
-            112
+            130
+            131
           )
         end
         object btnAlign2: TBitBtn
-          Left = 263
+          Left = 300
           Height = 79
           Top = 4
           Width = 94
           Action = actReplace
           Align = alRight
+          Margin = 0
           TabOrder = 3
         end
       end
@@ -548,7 +546,7 @@ object frmCodeShaper: TfrmCodeShaper
         Left = 4
         Height = 72
         Top = 588
-        Width = 361
+        Width = 398
         Caption = 'Miscellanious operations'
         ChildSizing.TopBottomSpacing = 4
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -558,37 +556,37 @@ object frmCodeShaper: TfrmCodeShaper
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 4
         ClientHeight = 54
-        ClientWidth = 357
+        ClientWidth = 394
         TabOrder = 7
         object btnPascalString: TButton
           Left = 0
           Height = 23
           Top = 4
-          Width = 93
+          Width = 103
           Action = actMakePascalString
           TabOrder = 0
         end
         object btnStripFirstChar: TButton
-          Left = 93
+          Left = 103
           Height = 23
           Top = 4
-          Width = 85
+          Width = 94
           Action = actStripFirstChar
           TabOrder = 1
         end
         object btnStripLastChar: TButton
-          Left = 178
+          Left = 197
           Height = 23
           Top = 4
-          Width = 84
+          Width = 92
           Action = actStripLastChar
           TabOrder = 2
         end
         object btnStripLastChar1: TButton
-          Left = 262
+          Left = 289
           Height = 23
           Top = 4
-          Width = 95
+          Width = 105
           Action = actRemoveDoubles
           TabOrder = 3
         end
@@ -596,23 +594,23 @@ object frmCodeShaper: TfrmCodeShaper
           Left = 0
           Height = 23
           Top = 27
-          Width = 93
+          Width = 103
           Action = actApplyConsistentCase
           TabOrder = 4
         end
         object btnURLEncode: TButton
-          Left = 93
+          Left = 103
           Height = 23
           Top = 27
-          Width = 85
+          Width = 94
           Action = actURLEncode
           TabOrder = 5
         end
         object btnURLDecode: TButton
-          Left = 178
+          Left = 197
           Height = 23
           Top = 27
-          Width = 84
+          Width = 92
           Action = actURLDecode
           TabOrder = 6
         end
@@ -620,31 +618,13 @@ object frmCodeShaper: TfrmCodeShaper
       object btnRevert: TButton
         Left = 6
         Height = 23
-        Top = 720
-        Width = 361
+        Top = 664
+        Width = 398
         Action = actRevert
         Anchors = [akTop, akLeft, akRight]
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 8
-      end
-      object Button1: TButton
-        Left = 4
-        Height = 23
-        Top = 664
-        Width = 361
-        Caption = 'Button1'
-        OnClick = Button1Click
-        TabOrder = 9
-      end
-      object Button2: TButton
-        Left = 4
-        Height = 23
-        Top = 691
-        Width = 361
-        Caption = 'Button2'
-        OnClick = Button2Click
-        TabOrder = 10
       end
     end
   end

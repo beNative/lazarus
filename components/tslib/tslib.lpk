@@ -65,12 +65,12 @@
         <UnitName Value="ts_Editor_CodeFilterDialog"/>
       </Item4>
       <Item5>
-        <Filename Value="editor\ts_editor_codeshaperform.pas"/>
-        <UnitName Value="ts_Editor_CodeShaperForm"/>
-      </Item5>
-      <Item6>
         <Filename Value="editor\ts_editor_settingsdialog.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog"/>
+      </Item5>
+      <Item6>
+        <Filename Value="editor\ts_editor_codeshaperform.pas"/>
+        <UnitName Value="ts_Editor_CodeShaperForm"/>
       </Item6>
       <Item7>
         <Filename Value="editor\ts_editor_aboutdialog.pas"/>

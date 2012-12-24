@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 523
+  Left = 2020
   Height = 618
-  Top = 217
+  Top = 72
   Width = 1066
   AllowDropFiles = True
   Anchors = []
@@ -254,10 +254,13 @@ object frmMain: TfrmMain
         BorderSpacing.InnerBorder = 2
         BorderSpacing.CellAlignHorizontal = ccaCenter
         BorderSpacing.CellAlignVertical = ccaCenter
-        Caption = 'x'
+        Caption = 'r'
         Flat = True
+        Font.Height = -11
+        Font.Name = 'Marlett'
         Layout = blGlyphBottom
-        Visible = False
+        OnClick = SpeedButton1Click
+        ParentFont = False
       end
       object lblHeader: TLabel
         Left = 2
@@ -267,7 +270,6 @@ object frmMain: TfrmMain
         Align = alLeft
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight, akBottom]
-        Font.Style = [fsBold]
         Layout = tlCenter
         ParentColor = False
         ParentFont = False

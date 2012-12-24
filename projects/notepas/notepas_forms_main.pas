@@ -109,6 +109,7 @@ uses
 
 type
   TfrmMain = class(TForm)
+    {$region 'designer controls' /fold}
     aclMain               : TActionList;
     actClose              : TAction;
     actAbout              : TAction;
@@ -138,11 +139,15 @@ type
     SpeedButton1          : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
+    {$endregion}
 
+    {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actToggleMaximizedExecute(Sender: TObject);
+    {$endregion}
 
+    {$region 'event handlers' /fold}
     procedure ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure AHSActivate(Sender: TObject);
     procedure AHSActivateSite(Sender: TObject);
@@ -158,15 +163,18 @@ type
     procedure frmMainActiveViewChange(Sender: TObject);
     procedure ScreenActiveControlChange(Sender: TObject);
     procedure ScreenActiveFormChange(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
     procedure TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
+    {$endregion}
   private
-    // property access methods
+    {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;
     function GetManager: IEditorManager;
     function GetMenus: IEditorMenus;
     function GetSettings: IEditorSettings;
     function GetViews: IEditorViews;
+    {$endregion}
 
     procedure InitDebugAction(const AActionName: string);
 
@@ -365,6 +373,8 @@ end;
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
+
+{ TODO: needs to be refactored. }
 
 procedure TfrmMain.ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
 var
@@ -619,6 +629,18 @@ begin
   end;
 end;
 
+procedure TfrmMain.SpeedButton1Click(Sender: TObject);
+var
+  I: Integer;
+begin
+  pnlTool.Visible := False;
+  splVertical.Visible := False;
+  for I := 0 to Manager.ToolViews.Count - 1 do
+  begin
+    Manager.ToolViews.Views[I].Visible := False;
+  end;
+end;
+
 procedure TfrmMain.TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
 begin
   Logger.Send('ControlChanging', Sender);
@@ -654,7 +676,7 @@ var
 begin
   PPM := DockMaster.GetPopupMenu;
   MI := TMenuItem.Create(PPM);
-  MI.Action := Actions.ActionList.ActionByName('actCloseOthers');
+  MI.Action := Actions['actCloseOthers'];
   PPM.Items.Add(MI);
 end;
 

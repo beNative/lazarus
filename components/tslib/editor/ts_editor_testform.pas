@@ -26,6 +26,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ExtCtrls,
+
+  XMLTree,
 
   ts_Editor_Interfaces;
 
@@ -35,12 +38,17 @@ type
   TfrmTest = class(TForm, IEditorToolView)
     btnExecute: TButton;
     edtInput: TEdit;
+    pnlXML: TPanel;
   private
+    FXMLTree: TXMLTree;
+
     function GetForm: TForm;
     function GetManager: IEditorManager;
     function GetName: string;
+    function GetView: IEditorView;
 
   protected
+
     procedure UpdateView;
 
     property Manager: IEditorManager
@@ -58,8 +66,11 @@ type
     property Form: TForm
       read GetForm;
 
-  public
+    property View: IEditorView
+      read GetView;
 
+  public
+    procedure AfterConstruction; override;
   end; 
 
 //*****************************************************************************
@@ -67,6 +78,9 @@ type
 implementation
 
 {$R *.lfm}
+
+uses
+  ts_Core_Helpers;
 
 function TfrmTest.GetForm: TForm;
 begin
@@ -83,9 +97,17 @@ begin
   Result := inherited Name;
 end;
 
+function TfrmTest.GetView: IEditorView;
+begin
+  Result := Owner as IEditorView;
+end;
+
 procedure TfrmTest.UpdateView;
 begin
-  //
+  try
+    FXMLTree.XML := View.Text;
+  except
+  end;
 end;
 
 function TfrmTest.GetVisible: Boolean;
@@ -96,6 +118,12 @@ end;
 procedure TfrmTest.SetVisible(AValue: Boolean);
 begin
   inherited SetVisible(AValue);
+end;
+
+procedure TfrmTest.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 end.

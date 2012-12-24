@@ -175,6 +175,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actShowTest: TAction;
     actSelectAll                  : TAction;
     actUndo                       : TAction;
     actPaste                      : TAction;
@@ -480,6 +481,7 @@ type
     procedure actShowActionsExecute(Sender: TObject);
     procedure actShowControlCharactersExecute(Sender: TObject);
     procedure actShowPreviewExecute(Sender: TObject);
+    procedure actShowTestExecute(Sender: TObject);
     procedure actShowViewsExecute(Sender: TObject);
     procedure actSmartSelectExecute(Sender: TObject);
     procedure actSortSelectionExecute(Sender: TObject);
@@ -1200,6 +1202,8 @@ begin
 
   if actShowPreview.Checked then
     ToolViews['frmPreview'].UpdateView;
+  if ToolViews['frmTest'].Visible then
+    ToolViews['frmTest'].UpdateView;
 end;
 
 procedure TdmEditorManager.DoMacroStateChange(AState: TSynMacroState);
@@ -1727,6 +1731,11 @@ procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
   Settings.PreviewVisible := (Sender as TAction).Checked;
   ApplySettings;
+end;
+
+procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
+begin
+  ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
 end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);

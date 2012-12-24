@@ -1,25 +1,35 @@
 object frmTest: TfrmTest
-  Left = 1190
-  Height = 240
+  Left = 981
+  Height = 735
   Top = 74
-  Width = 320
+  Width = 529
   Caption = 'Testform'
-  ClientHeight = 240
-  ClientWidth = 320
+  ClientHeight = 735
+  ClientWidth = 529
   LCLVersion = '1.1'
   object edtInput: TEdit
-    Left = 10
+    Left = 8
     Height = 21
-    Top = 10
+    Top = 6
     Width = 80
     TabOrder = 0
   end
   object btnExecute: TButton
-    Left = 112
+    Left = 96
     Height = 25
-    Top = 8
+    Top = 6
     Width = 75
     Caption = 'Execute'
     TabOrder = 1
+  end
+  object pnlXML: TPanel
+    Left = 0
+    Height = 703
+    Top = 32
+    Width = 529
+    Align = alBottom
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    TabOrder = 2
   end
 end

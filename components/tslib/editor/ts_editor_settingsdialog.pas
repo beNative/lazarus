@@ -51,12 +51,15 @@ type
     pnlHighlighterAttributes    : TPanel;
     pnlPI                       : TPanel;
     pnlTop                      : TPanel;
+    pnlXML: TPanel;
     splHAVertical               : TSplitter;
+    tsXML: TTabSheet;
     tsHighlighters              : TTabSheet;
     tsSettings                  : TTabSheet;
     {$endregion}
 
     procedure FTVPSelectionChanged(Sender: TObject);
+    procedure tsXMLEnter(Sender: TObject);
 
   private
     FEditorSettings  : IEditorSettings;
@@ -66,7 +69,7 @@ type
     FPI              : TTIPropertyGrid;
     FHAPI            : TTIPropertyGrid;
     FHAVST           : TVirtualStringTree;
-//    FXMLTree         : TXMLTree;
+    FXMLTree         : TXMLTree;
 
     function GetEditorSettings: IEditorSettings;
     procedure SetEditorSettings(const AValue: IEditorSettings);
@@ -156,9 +159,7 @@ begin
   FHAPI := CreatePI(Self, pnlHARight);
   FHAVST := CreateVST(Self, pnlHALeft);
 
-  //FXMLTree := TXMLTree.Create(Self);
-  //FXMLTree.Parent := tsXML;
-  //FXMLTree.Align := alClient;
+  FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
@@ -181,6 +182,11 @@ begin
   FHAPI.ExpandedProperties.Add('Attributes.Style');
   FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
   FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
+end;
+
+procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
+begin
+  FXMLTree.XML := EditorSettings.XML;
 end;
 
 function TfrmEditorSettings.GetEditorSettings: IEditorSettings;
@@ -212,8 +218,7 @@ var
   S: string;
 begin
   S := EditorSettings.XML;
-  //FXMLTree.XML := S;
-  //FXMLTree.Refresh;
+   //FXMLTree.XML := S;
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
   FList.Clear;

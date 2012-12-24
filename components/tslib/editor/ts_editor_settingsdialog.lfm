@@ -88,6 +88,22 @@ object frmEditorSettings: TfrmEditorSettings
           end
         end
       end
+      object tsXML: TTabSheet
+        Caption = 'XML'
+        ClientHeight = 506
+        ClientWidth = 478
+        OnEnter = tsXMLEnter
+        object pnlXML: TPanel
+          Left = 3
+          Height = 500
+          Top = 3
+          Width = 472
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+      end
     end
   end
   object pnlBottom: TPanel

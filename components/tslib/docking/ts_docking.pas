@@ -329,6 +329,7 @@ type
     property OnActivateSite: TNotifyEvent
       read FOnActivateSite write FOnActivateSite;
   end;
+
   TAnchorDockHostSiteClass = class of TAnchorDockHostSite;
 
   TADMResizePolicy = (
@@ -380,6 +381,7 @@ type
     function StoredConstraintsValid: boolean;
     property PreferredSiteSizeAsSiteMinimum: boolean read FPreferredSiteSizeAsSiteMinimum write SetPreferredSiteSizeAsSiteMinimum;
   end;
+
   TAnchorDockManagerClass = class of TAnchorDockManager;
 
   { TAnchorDockSettings }
@@ -4828,17 +4830,21 @@ begin
   inherited Create(TheOwner);
   //FHeaderPosition:=adlhpAuto;
   FHeaderPosition := adlhpTop;
-  FCloseButton:=TAnchorDockCloseButton.Create(Self);
-  BevelOuter:=bvNone;
-  BorderWidth:=0;
+  //FCloseButton:=TAnchorDockCloseButton.Create(Self);
+  FCloseButton := TSpeedButton.Create(Self);
+  BevelOuter:=bvLowered;
+  BevelInner := bvRaised;
+  BevelWidth := 1;
+  //BorderWidth:=0;
   with FCloseButton do begin
     Name:='CloseButton';
+    Caption := 'x';
     Parent:=Self;
     Flat:=true;
     ShowHint:=true;
     Hint:=adrsClose;
     OnClick:=CloseButtonClick;
-    AutoSize:=true;
+    Width := 14;
   end;
   Align:=alTop;
   AutoSize:=true;

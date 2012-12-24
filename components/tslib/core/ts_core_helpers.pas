@@ -15,7 +15,7 @@ uses
 
   PropEdits,
 
-  VirtualTrees,
+  VirtualTrees, XMLTree,
 
   ts_Core_TreeViewPresenter, ts_Core_DataTemplates;
 
@@ -23,6 +23,11 @@ function CreateVST(
   AOwner  : TComponent;
   AParent : TWinControl
 ): TVirtualStringTree;
+
+function CreateXMLTree(
+  AOwner  : TComponent;
+  AParent : TWinControl
+): TXMLTree;
 
 { Cannot be used yet because the assignment sequence seems to matter. }
 
@@ -111,6 +116,16 @@ begin
   ];
   VST.DragType := dtVCL; // dtOLE does not work yet
   Result := VST;
+end;
+
+function CreateXMLTree(AOwner: TComponent; AParent: TWinControl): TXMLTree;
+var
+  XT: TXMLTree;
+begin
+  XT := TXMLTree.Create(AOwner);
+  XT.Parent := AParent;
+  XT.Align := alClient;
+  Result := XT;
 end;
 
 function CreateTVP(AOwner: TComponent; AVST: TVirtualStringTree;

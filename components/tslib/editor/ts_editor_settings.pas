@@ -91,7 +91,6 @@ type
     procedure SetShowControlCharacters(const AValue: Boolean);
 
   public
-    constructor Create(AOwner: TComponent); override;
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
@@ -171,9 +170,9 @@ uses
 // construction and destruction                                          BEGIN
 //*****************************************************************************
 
-constructor TEditorSettings.Create(AOwner: TComponent);
+procedure TEditorSettings.AfterConstruction;
 begin
-  inherited Create(AOwner);
+  inherited AfterConstruction;
   Name := 'Settings';
   FFormSettings := TFormSettings.Create;
   FAlignLinesSettings := TAlignLinesSettings.Create;
@@ -188,12 +187,6 @@ begin
   FDefaultFont := TFont.Create;
   FDefaultFont.Name := 'Consolas';
   FDefaultFont.Size := 10;
-end;
-
-procedure TEditorSettings.AfterConstruction;
-begin
-  inherited AfterConstruction;
-
 end;
 
 procedure TEditorSettings.BeforeDestruction;

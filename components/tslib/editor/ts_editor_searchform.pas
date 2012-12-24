@@ -199,7 +199,6 @@ begin
   btnPrevious.Action := Manager.Actions['actFindPrevious'];
   btnNext.Caption    := '';
   btnPrevious.Caption := '';
-  Caption := '';
   cbxSearchText.Text     := '';
   cbxReplaceWith.Text    := '';
   Modified;
@@ -492,8 +491,6 @@ begin
     SearchEngine.Options := Options;
     SearchEngine.SearchText := SearchText;
     SearchEngine.ReplaceText := ReplaceText;
-    //if
-    //Execute;
   end;
 end;
 
@@ -505,4 +502,6 @@ initialization
   {$I ts_editor_searchform.lrs}
 
 end.
+
+
 

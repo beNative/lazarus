@@ -234,35 +234,43 @@ object frmMain: TfrmMain
     Visible = False
     object pnlTop: TPanel
       Left = 0
-      Height = 13
-      Top = 0
+      Height = 18
+      Top = 4
       Width = 369
       Align = alTop
-      BevelOuter = bvNone
-      ClientHeight = 13
+      BorderSpacing.Top = 4
+      BevelInner = bvRaised
+      BevelOuter = bvLowered
+      ClientHeight = 18
       ClientWidth = 369
       TabOrder = 0
       object SpeedButton1: TSpeedButton
-        Left = 347
-        Height = 11
-        Top = 1
-        Width = 12
-        Align = alCustom
+        Left = 353
+        Height = 14
+        Top = 2
+        Width = 14
+        Align = alRight
         Anchors = [akTop, akRight]
         BorderSpacing.InnerBorder = 2
         BorderSpacing.CellAlignHorizontal = ccaCenter
         BorderSpacing.CellAlignVertical = ccaCenter
+        Caption = 'x'
         Flat = True
+        Layout = blGlyphBottom
+        Visible = False
       end
       object lblHeader: TLabel
-        Left = 0
-        Height = 13
-        Top = 0
-        Width = 345
+        Left = 2
+        Height = 14
+        Top = 2
+        Width = 343
         Align = alLeft
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight, akBottom]
+        Font.Style = [fsBold]
+        Layout = tlCenter
         ParentColor = False
+        ParentFont = False
       end
     end
   end

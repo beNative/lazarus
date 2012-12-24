@@ -8,12 +8,11 @@ object frmPreview: TfrmPreview
   ClientWidth = 673
   LCLVersion = '1.1'
   object mmoPreview: TRichMemo
-    Left = 3
-    Height = 511
-    Top = 3
-    Width = 667
+    Left = 0
+    Height = 517
+    Top = 0
+    Width = 673
     Align = alClient
-    BorderSpacing.Around = 3
     BorderStyle = bsNone
     Color = clWhite
     HideSelection = False

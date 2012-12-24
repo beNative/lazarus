@@ -175,7 +175,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
-    actShowTest: TAction;
+    actShowTest                   : TAction;
     actSelectAll                  : TAction;
     actUndo                       : TAction;
     actPaste                      : TAction;
@@ -270,7 +270,7 @@ type
     MenuItem19                    : TMenuItem;
     MenuItem2                     : TMenuItem;
     MenuItem20                    : TMenuItem;
-    MenuItem21: TMenuItem;
+    MenuItem21                    : TMenuItem;
     MenuItem22                    : TMenuItem;
     MenuItem23                    : TMenuItem;
     MenuItem24                    : TMenuItem;
@@ -281,7 +281,7 @@ type
     MenuItem29                    : TMenuItem;
     MenuItem3                     : TMenuItem;
     MenuItem30                    : TMenuItem;
-    MenuItem31: TMenuItem;
+    MenuItem31                    : TMenuItem;
     MenuItem32                    : TMenuItem;
     MenuItem33                    : TMenuItem;
     MenuItem34                    : TMenuItem;
@@ -305,16 +305,16 @@ type
     MenuItem50                    : TMenuItem;
     MenuItem51                    : TMenuItem;
     MenuItem52                    : TMenuItem;
-    MenuItem53: TMenuItem;
+    MenuItem53                    : TMenuItem;
     MenuItem54                    : TMenuItem;
     MenuItem55                    : TMenuItem;
     MenuItem56                    : TMenuItem;
     MenuItem57                    : TMenuItem;
-    MenuItem58: TMenuItem;
+    MenuItem58                    : TMenuItem;
     MenuItem59                    : TMenuItem;
     MenuItem6                     : TMenuItem;
     MenuItem60                    : TMenuItem;
-    MenuItem61: TMenuItem;
+    MenuItem61                    : TMenuItem;
     MenuItem62                    : TMenuItem;
     MenuItem63                    : TMenuItem;
     MenuItem64                    : TMenuItem;
@@ -2624,6 +2624,11 @@ begin
     actLowerCaseSelection.Visible      := B;
     actSyncEdit.Visible                := B;
 
+    actFind.Checked           := ToolViews['frmSearchForm'].Visible;
+    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
+    actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
+    actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
+
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
 
@@ -2642,8 +2647,6 @@ begin
     actFoldLevel10.Enabled     := B;
 
     actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
-
-    actShowPreview.Checked           := Settings.PreviewVisible;
     actShowControlCharacters.Checked := V.ShowSpecialChars;
 
     actClose.Visible       := ViewCount > 1;

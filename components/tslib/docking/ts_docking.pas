@@ -4832,19 +4832,21 @@ begin
   FHeaderPosition := adlhpTop;
   //FCloseButton:=TAnchorDockCloseButton.Create(Self);
   FCloseButton := TSpeedButton.Create(Self);
+  FCloseButton.Font.Name := 'Marlett';
+  FCloseButton.Font.Size := 8;
+  FCloseButton.Caption := 'r';
   BevelOuter:=bvLowered;
   BevelInner := bvRaised;
   BevelWidth := 1;
   //BorderWidth:=0;
   with FCloseButton do begin
     Name:='CloseButton';
-    Caption := 'x';
     Parent:=Self;
     Flat:=true;
     ShowHint:=true;
     Hint:=adrsClose;
     OnClick:=CloseButtonClick;
-    Width := 14;
+    Width := 12;
   end;
   Align:=alTop;
   AutoSize:=true;

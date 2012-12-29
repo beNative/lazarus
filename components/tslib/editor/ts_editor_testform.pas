@@ -25,8 +25,8 @@ unit ts_Editor_Testform;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls,
+  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls,
 
   XMLTree,
 

@@ -20,6 +20,7 @@ unit ts_Editor_Manager;
 
 {$mode delphi}
 
+{$region 'documentation' /fold}
 {
   Datamodule holding common actions, menu's to manage one or more IEditorView
   instances.
@@ -118,6 +119,7 @@ unit ts_Editor_Manager;
       actClose
       actCloseOthers
 }
+{$endregion}
 
 //*****************************************************************************
 
@@ -729,8 +731,6 @@ type
     property ToolViewCount: Integer
       read GetToolViewCount;
 
-     // event properties ------------------------------------------------------
-
     property OnCaretPositionChange: TCaretPositionEvent
       read GetOnCaretPositionChange write SetOnCaretPositionChange;
 
@@ -808,6 +808,7 @@ uses
 var
   dmEditorManager: TdmEditorManager;
 
+{$region 'interfaced methods' /fold}
 //*****************************************************************************
 // interfaced methods                                                    BEGIN
 //*****************************************************************************
@@ -822,12 +823,13 @@ end;
 //*****************************************************************************
 // interfaced methods                                                      END
 //*****************************************************************************
+{$endregion}
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
 
-{$region 'construction and destruction' /fold}
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -857,17 +859,17 @@ begin
   FreeAndNil(FToolViewList);
   inherited BeforeDestruction;
 end;
-{$endregion}
 
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access methods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-{$region 'property access methods' /fold}
 function TdmEditorManager.GetEditor: TSynEdit;
 begin
   if Assigned(ActiveView) then
@@ -1176,17 +1178,16 @@ begin
   end;
 end;
 
-{$endregion}
-
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event dispatch methods' /fold}
 //*****************************************************************************
 // event dispatch methods                                                BEGIN
 //*****************************************************************************
 
-{$region 'event dispatch methods' /fold}
 procedure TdmEditorManager.DoActiveViewChange;
 begin
   if Assigned(FOnActiveViewChange) then
@@ -1320,17 +1321,17 @@ begin
   //  ActiveView.TopLine := NewTopLine;
   //end;
 end;
-{$endregion}
 
 //*****************************************************************************
 // event dispatch methods                                                  END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
 
-{$region 'action handlers' /fold}
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
   ShowMessage('TODO');
@@ -1895,17 +1896,17 @@ procedure TdmEditorManager.actLineBreakStyleExecute(Sender: TObject);
 begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
 end;
-{$endregion}
 
 //*****************************************************************************
 // action handlers                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event handlers' /fold}
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-{$region 'event handlers' /fold}
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
   DoMacroStateChange(SynMacroRecorder.State);
@@ -1921,12 +1922,13 @@ procedure TdmEditorManager.EditorSettingsApplySettings(Sender: TObject);
 begin
   ApplySettings;
 end;
-{$endregion}
 
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'private methods' /fold}
 //*****************************************************************************
 // private methods                                                       BEGIN
 //*****************************************************************************
@@ -2177,7 +2179,9 @@ end;
 //*****************************************************************************
 // private methods                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -2796,6 +2800,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 initialization
   dmEditorManager := TdmEditorManager.Create(Application);

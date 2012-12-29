@@ -608,18 +608,18 @@ type
     property DockOutsideMargin: integer read FDockOutsideMargin write SetDockOutsideMargin default 10; // max distance for outside mouse snapping
     property DockParentMargin: integer read FDockParentMargin write SetDockParentMargin default 10; // max distance for snap to parent
     property PageAreaInPercent: integer read FPageAreaInPercent write SetPageAreaInPercent default 40; // size of inner mouse snapping area for page docking
+    property ShowHeader: boolean read FShowHeader write SetShowHeader default true; // set to false to hide all headers
+    property ShowMenuItemShowHeader: boolean read FShowMenuItemShowHeader write SetShowMenuItemShowHeader default false;
+    property ShowHeaderCaption: boolean read FShowHeaderCaption write SetShowHeaderCaption default true; // set to false to remove the text in the headers
+    property HideHeaderCaptionFloatingControl: boolean read FHideHeaderCaptionFloatingControl
+                          write SetHideHeaderCaptionFloatingControl default true; // disables ShowHeaderCaption for floating controls
     property HeaderAlignTop: integer read FHeaderAlignTop write SetHeaderAlignTop default 80; // move header to top, when (width/height)*100<=HeaderAlignTop
     property HeaderAlignLeft: integer read FHeaderAlignLeft write SetHeaderAlignLeft default 120; // move header to left, when (width/height)*100>=HeaderAlignLeft
+    property HeaderButtonSize: integer read FHeaderButtonSize write SetHeaderButtonSize default 10;
     property HeaderHint: string read FHeaderHint write SetHeaderHint;
     property SplitterWidth: integer read FSplitterWidth write SetSplitterWidth default 4;
     property ScaleOnResize: boolean read FScaleOnResize write SetScaleOnResize default true; // scale children when resizing a site
-    property ShowHeader: boolean read FShowHeader write SetShowHeader default true; // set to false to hide all headers
-    property ShowMenuItemShowHeader: boolean read FShowMenuItemShowHeader write SetShowMenuItemShowHeader default false;
-    property ShowHeaderCaption: boolean read FShowHeaderCaption write SetShowHeaderCaption default true; // set to false to disable showing header captions
-    property HideHeaderCaptionFloatingControl: boolean read FHideHeaderCaptionFloatingControl
-                          write SetHideHeaderCaptionFloatingControl default true;
     property AllowDragging: boolean read FAllowDragging write SetAllowDragging default true;
-    property HeaderButtonSize: integer read FHeaderButtonSize write SetHeaderButtonSize default 10;
     property OptionsChangeStamp: int64 read FOptionsChangeStamp;
     procedure IncreaseOptionsChangeStamp; inline;
 
@@ -1955,7 +1955,7 @@ end;
 
 procedure TAnchorDockMaster.FreeCloseButtonBitmap;
 begin
-  fCloseBtnBitmap.Free;
+  FreeAndNil(fCloseBtnBitmap);
 end;
 
 procedure TAnchorDockMaster.AutoSizeAllHeaders(EnableAutoSizing: boolean);
@@ -2515,9 +2515,7 @@ begin
     // commit (this can raise an exception)
     EnableAllAutoSizing;
   end;
-  {$IFDEF VerboseAnchorDockRestore}
-  DebugWriteChildAnchors(Application.MainForm,true,false);
-  {$ENDIF}
+
   Result:=true;
 end;
 

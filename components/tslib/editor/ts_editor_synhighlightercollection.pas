@@ -125,7 +125,7 @@ type
 
   THighlighterItemClass = class of THighlighterItem;
 
-  //=============================================================================
+//=============================================================================
 
   { THighlighters inherits from TOwnedCollection to show the items in
     the Object Treeview of the IDE at designtime. }

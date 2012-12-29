@@ -1,7 +1,7 @@
 object frmAlignLines: TfrmAlignLines
-  Left = 2410
+  Left = 1936
   Height = 382
-  Top = 277
+  Top = 34
   Width = 170
   Caption = 'Align selection'
   ClientHeight = 382
@@ -10,10 +10,10 @@ object frmAlignLines: TfrmAlignLines
   OnShow = FormShow
   LCLVersion = '1.1'
   object lstTokens: TListBox
-    Left = 8
+    Left = 0
     Height = 84
     Top = 24
-    Width = 156
+    Width = 168
     Anchors = [akTop, akLeft, akRight]
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
@@ -27,7 +27,7 @@ object frmAlignLines: TfrmAlignLines
     TabOrder = 0
   end
   object btnOK: TButton
-    Left = -3
+    Left = 0
     Height = 25
     Top = 357
     Width = 80
@@ -38,7 +38,7 @@ object frmAlignLines: TfrmAlignLines
     TabOrder = 1
   end
   object btnCancel: TButton
-    Left = 84
+    Left = 90
     Height = 25
     Top = 357
     Width = 80
@@ -49,14 +49,14 @@ object frmAlignLines: TfrmAlignLines
     TabOrder = 2
   end
   object gbxInsertSpace: TGroupBox
-    Left = 7
+    Left = 0
     Height = 66
     Top = 200
-    Width = 157
+    Width = 170
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Keep at least one space'
     ClientHeight = 48
-    ClientWidth = 153
+    ClientWidth = 166
     TabOrder = 3
     object chkBeforeToken: TCheckBox
       Left = 11
@@ -82,7 +82,7 @@ object frmAlignLines: TfrmAlignLines
     end
   end
   object lblTokens: TLabel
-    Left = 8
+    Left = 0
     Height = 13
     Top = 7
     Width = 69
@@ -92,10 +92,10 @@ object frmAlignLines: TfrmAlignLines
     ParentFont = False
   end
   object rgpAlignAt: TRadioGroup
-    Left = 8
+    Left = 0
     Height = 74
     Top = 272
-    Width = 157
+    Width = 168
     Anchors = [akTop, akLeft, akRight]
     AutoFill = True
     Caption = 'Align at:'
@@ -108,7 +108,7 @@ object frmAlignLines: TfrmAlignLines
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 56
-    ClientWidth = 153
+    ClientWidth = 164
     ItemIndex = 0
     Items.Strings = (
       'Rightmost token'
@@ -117,14 +117,14 @@ object frmAlignLines: TfrmAlignLines
     TabOrder = 4
   end
   object gbxOptions: TGroupBox
-    Left = 8
+    Left = 0
     Height = 81
     Top = 112
-    Width = 156
+    Width = 170
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Options'
     ClientHeight = 63
-    ClientWidth = 152
+    ClientWidth = 166
     TabOrder = 5
     object chkRemoveWhitespace: TCheckBox
       Left = 9
@@ -152,7 +152,7 @@ object frmAlignLines: TfrmAlignLines
       Left = 30
       Height = 32
       Top = 1
-      Width = 121
+      Width = 135
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Remove whitespace from text before aligning'

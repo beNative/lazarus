@@ -1,7 +1,7 @@
 object frmTest: TfrmTest
-  Left = 981
+  Left = 490
   Height = 735
-  Top = 74
+  Top = 243
   Width = 529
   Caption = 'Testform'
   ClientHeight = 735

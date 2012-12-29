@@ -3059,7 +3059,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Export'
       Caption = 'Save as Wiki file'
       Enabled = False
-      Hint = 'Save as TeX file'
+      Hint = 'Save as Wiki file'
       OnExecute = actExportToWikiExecute
     end
     object actExportToRTF: TAction

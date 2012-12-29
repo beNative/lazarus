@@ -84,7 +84,8 @@ type
     FItemList: TObjectList;
     FTVP     : TTreeViewPresenter;
 
-    procedure DoOnSelectionChanged(Sender: TObject);
+    procedure FTVPSelectionChanged(Sender: TObject);
+
     function GetForm: TForm;
     function GetManager: IEditorManager;
     function GetName: string;
@@ -204,7 +205,7 @@ begin
   FTVP.ItemsSource := FItemList;
   FTVP.PopupMenu := ppmMain;
   FTVP.TreeView := vstList;
-  FTVP.OnSelectionChanged  := DoOnSelectionChanged;
+  FTVP.OnSelectionChanged  := FTVPSelectionChanged;
   vstList.Header.AutoFitColumns;
 end;
 
@@ -281,7 +282,7 @@ end;
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-procedure TfrmViewList.DoOnSelectionChanged(Sender: TObject);
+procedure TfrmViewList.FTVPSelectionChanged(Sender: TObject);
 var
   V: IEditorView;
 begin

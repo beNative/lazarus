@@ -20,8 +20,8 @@ unit ts_Editor_View;
 
 {$mode delphi}
 
+{$region 'documentation' /fold}
 {
-_______________________________________________________________________________
 Form holding a complete customizable text editor based on the open source
 SynEdit components.
 Technical details:
@@ -86,8 +86,8 @@ TODO:
   TODO
     - commands executed on selections should be factored out. They all have in
       common that undo information needs to be managed by the TSynEdit instance
-_______________________________________________________________________________
 }
+{$endregion}
 
 //*****************************************************************************
 
@@ -95,7 +95,7 @@ interface
 
 uses
   Classes, Controls, Forms, Graphics, Menus, SysUtils, Windows,
-  Dialogs, StdCtrls, Types,
+  Dialogs, StdCtrls, Types, eventlog,
 
   LMessages,
 
@@ -127,8 +127,11 @@ type
       var AMode: TSynSelectionMode; ALogStartPos: TPoint;
       var AnAction: TSynCopyPasteAction);
     procedure EditorStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+
     procedure DirectoryWatchNotify(const Sender: TObject;
       const AAction: TWatchAction; const FileName: string);
+
+    function IsActive: Boolean;
 
   private
     FDirectoryWatch       : TDirectoryWatch;
@@ -164,9 +167,6 @@ type
     FSearchText     : string;
     FSearchOptions  : TSynSearchOptions;
 
-    procedure CMShowingChanged(var Message: TMessage); message CM_SHOWINGCHANGED;
-
-    // private methods
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetBlockBegin: TPoint;
@@ -268,7 +268,7 @@ type
     procedure Undo;
     procedure Redo;
 
-    procedure Activate;
+    procedure Activate; override;
 
     procedure AssignHighlighterForFileType(const AFileExt: string);
     procedure SmartSelect;
@@ -508,11 +508,11 @@ uses
 
   ts_Editor_Utils;
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
 
-{$region 'construction and destruction' /fold}
 procedure TEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -536,7 +536,6 @@ end;
 
 procedure TEditorView.BeforeDestruction;
 begin
-  inherited BeforeDestruction;
   DisableAutoSizing;
   FreeAndNil(FDirectoryWatch);
   FreeAndNil(FReplaceHistory);
@@ -545,39 +544,19 @@ begin
   FreeAndNil(FSyncronizedEdit);
   FreeAndNil(FTemplateEdit);
   FreeAndNil(FFileFilterList);
-  //Logger.Send('Destroyed EditorView instance %d with Name %s and FileName %s',
-  //  [Index, Name, FileName]);
+  inherited BeforeDestruction;
 end;
-{$endregion}
 
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
-//*****************************************************************************
-// message handlers                                                      BEGIN
-//*****************************************************************************
-
-{ TODO: does not work for all cases. }
-
-procedure TEditorView.CMShowingChanged(var Message: TMessage);
-begin
-  inherited;
-  Logger.EnterMethod(Self, 'CMShowingChanged');
-	if Showing and Editor.CanFocus and GetParentForm(Self).Active then
-		Activate;
-  Logger.ExitMethod(Self, 'CMShowingChanged');
-end;
-
-//*****************************************************************************
-// message handlers                                                        END
-//*****************************************************************************
-
+{$region 'event handlers' /fold}
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-{$region 'event handlers' /fold}
 procedure TEditorView.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 begin
@@ -635,7 +614,10 @@ end;
 procedure TEditorView.EditorStatusChange(Sender: TObject;
   Changes: TSynStatusChanges);
 begin
-  //Activate;
+  // we use this event to ensure that the view is activated because the OnEnter
+  // event is not triggered when the form is undocked!
+  if not IsActive then
+		Activate;
   if Assigned(FOnStatusChange) then
     FOnStatusChange(Self, Changes);
   Events.DoStatusChange(Changes);
@@ -644,17 +626,17 @@ begin
     Events.DoCaretPositionChange;
   end;
 end;
-{$endregion}
 
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event dispatch methods' /fold}
 //*****************************************************************************
 // event dispatch methods                                                BEGIN
 //*****************************************************************************
 
-{$region event dispatch methods' /fold}
 procedure TEditorView.DoChange;
 begin
   if Assigned(FOnChange) then
@@ -666,17 +648,17 @@ begin
   CloseAction :=  caFree;
   inherited DoClose(CloseAction);
 end;
-{$endregion}
 
 //*****************************************************************************
 // event dispatch methods                                                  END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access methods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-{$region 'property access methods' /fold}
 procedure TEditorView.SetSelEnd(const AValue: Integer);
 begin
   Editor.SelEnd := AValue;
@@ -1169,17 +1151,17 @@ procedure TEditorView.SetBlockEnd(const AValue: TPoint);
 begin
   Editor.BlockEnd := AValue;
 end;
-{$endregion}
 
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'private methods' /fold}
 //*****************************************************************************
 // private methods                                                       BEGIN
 //*****************************************************************************
 
-{$region 'private methods' /fold}
 procedure TEditorView.AssignHighlighter(const AHighlighter: string);
 begin
   HighlighterItem := Manager.Highlighters.ItemsByName[AHighlighter];
@@ -1190,6 +1172,11 @@ begin
   HighlighterItem := Manager.Highlighters.FindHighlighterForFileType(AFileExt);
   if not Assigned(HighlighterItem) and Settings.AutoGuessHighlighterType then
     AssignHighlighter(GuessHighlighterType(Text));
+end;
+
+function TEditorView.IsActive: Boolean;
+begin
+  Result := Manager.ActiveView = (Self as IEditorView);
 end;
 
 procedure TEditorView.StoreBlock;
@@ -1390,19 +1377,17 @@ begin
 
   }
   ActiveControl := Editor;
-
 end;
-{$endregion}
 
 //*****************************************************************************
 // private methods                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
-
-{$region 'protected methods' /fold}
 { TODO: store caret pos? }
 
 procedure TEditorView.BeginUpdate;
@@ -1470,10 +1455,8 @@ end;
 
 procedure TEditorView.Activate;
 begin
-  Logger.EnterMethod(Self, 'Activate');
-  Logger.SendCallStack('Test');
+  inherited;
   Manager.ActiveView := Self as IEditorView;
-  Logger.ExitMethod(Self, 'Activate');
 end;
 
 { Selects block of code around cursor between AStartTag and AEndTag. Used by
@@ -1812,28 +1795,34 @@ begin
 
   if B then
   begin
-    Editor.Color := clWhite;
     Activate;
+  end;
+
+  if Manager.ActiveView = (Self as IEditorView) then
+  begin
+    Editor.Color := clWhite;
   end
   else
   begin
     if Settings.DimInactiveView then
       Editor.Color := GetHighLightColor(15329769, 10);
   end;
+
+
   if Assigned(Actions) then
     Actions.UpdateActions;
 end;
-{$endregion}
 
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
 
-{$region 'public methods' /fold}
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;
@@ -1965,11 +1954,10 @@ begin
   Result := Editor.GetWordAtRowCol(ACaretPos);
 end;
 
-{$endregion}
-
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
 
 //*****************************************************************************
 
@@ -2004,86 +1992,7 @@ end;
 
 *)
 
-
-{   Keystrokes
-       item
-        Command = ecCopy
-        ShortCut = 16451
-      end           => removed completely
-
-      item
-        Command = ecInsertLine
-        ShortCut = 16462 => removed
-      end
-
-
-// different shortcuts
-item
-   Command = EcFoldCurrent
-   ShortCut = 24685
- end
- item
-   Command = EcUnFoldCurrent
-   ShortCut = 24683
- end
-
- // orphans?
-item
-   Command = 627
-   ShortCut = 49237
- end
- item
-   Command = 623
-   ShortCut = 49236
- end
-
-// additional
-item
-       Shift = [ssCtrl]
-       ShiftMask = [ssShift, ssAlt, ssCtrl]
-       Button = mbLeft
-       ClickCount = ccSingle
-       ClickDir = cdUp
-       Command = 11
-       MoveCaret = False
-       Option = 0
-       Priority = 0
-     end
-     item
-       Shift = [ssAlt]
-       ShiftMask = [ssShift, ssAlt]
-       Button = mbLeft
-       ClickCount = ccSingle
-       ClickDir = cdDown
-       Command = 3
-       MoveCaret = True
-       Option = 0
-       Priority = 0
-     end
-     item
-       Shift = [ssShift, ssAlt]
-       ShiftMask = [ssShift, ssAlt]
-       Button = mbLeft
-       ClickCount = ccSingle
-       ClickDir = cdDown
-       Command = 3
-       MoveCaret = True
-       Option = 1
-       Priority = 0
-     end
-     item
-       Shift = [ssCtrl]
-       ShiftMask = [ssShift, ssAlt, ssCtrl]
-       Button = mbLeft
-       ClickCount = ccSingle
-       ClickDir = cdUp
-       Command = 11
-       MoveCaret = False
-       Option = 0
-       Priority = 0
-     end
-}
-
+{$region 'Keyboard shortcuts' /fold}
 (*//F1                      Topic Search
 //Ctrl+F1                Topic Search
   ecNextEditor: SetResult(VK_F6,[]);
@@ -2267,3 +2176,4 @@ item
     GetDefaultKeyForCommand(Command,TheKeyA,TheKeyB);
   end;
 *)
+{$endregion}

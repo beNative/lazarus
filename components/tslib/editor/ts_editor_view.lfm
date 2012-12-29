@@ -16,8 +16,4 @@ object EditorView: TEditorView
   ShowInTaskBar = stNever
   UseDockManager = True
   LCLVersion = '1.1'
-  object ApplicationProperties: TApplicationProperties
-    left = 112
-    top = 16
-  end
 end

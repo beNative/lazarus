@@ -302,11 +302,7 @@ end;
 //*****************************************************************************
 
 procedure TfrmViewList.UpdateView;
-var
-  V: IEditorView;
 begin
-  for V in Manager.Views do
-  ;
 end;
 
 procedure TfrmViewList.UpdateActions;

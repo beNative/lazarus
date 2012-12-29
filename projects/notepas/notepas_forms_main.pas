@@ -81,7 +81,6 @@ uses
 {
   KNOWN PROBLEMS
     - Close all but current tab does not work in all cases
-    - when all tabs are closed and one editor remains, the tab is still shown
     - The highlighter of the selected view does not show correctly in the
       popup menu
     - idem for the folding level
@@ -100,7 +99,6 @@ uses
   IDEAS
     - surround with function for selected block (as in Notepad2)
     - duplicate lines
-    - remove first/last char in selected block
     - draw tables
     - status bar builder
 }
@@ -500,7 +498,7 @@ end;
 
 procedure TfrmMain.AHSActivate(Sender: TObject);
 begin
-  Logger.Send('AHS.Activate', Sender);
+//  Logger.Send('AHS.Activate', Sender);
 end;
 
 procedure TfrmMain.AHSActivateSite(Sender: TObject);
@@ -519,17 +517,17 @@ end;
 
 procedure TfrmMain.AHSEnter(Sender: TObject);
 begin
-  Logger.Send('AHS.Enter', Sender);
+//  Logger.Send('AHS.Enter', Sender);
 end;
 
 procedure TfrmMain.AHSShow(Sender: TObject);
 begin
-  Logger.Send('AHS.Show', Sender);
+//  Logger.Send('AHS.Show', Sender);
 end;
 
 procedure TfrmMain.AHSWindowStateChange(Sender: TObject);
 begin
-Logger.Send('AHS.WindowStateChange', Sender);
+//Logger.Send('AHS.WindowStateChange', Sender);
 end;
 
 procedure TfrmMain.ENewFile(Sender: TObject; var AFileName: string;
@@ -612,21 +610,21 @@ end;
 
 procedure TfrmMain.ScreenActiveControlChange(Sender: TObject);
 begin
-  if Assigned(Screen.ActiveControl) then
-  begin
-    if Screen.ActiveControl is TSynEdit then
-      Logger.Send('EditorView', Format('%s', [Screen.ActiveControl.Parent.Name]))
-    else
-      Logger.Send('Screen.ActiveControl changed', Format('%s, %s', [Screen.ActiveControl.ClassName, Screen.ActiveControl.Name]));
-  end;
+  //if Assigned(Screen.ActiveControl) then
+  //begin
+  //  if Screen.ActiveControl is TSynEdit then
+  //    Logger.Send('EditorView', Format('%s', [Screen.ActiveControl.Parent.Name]))
+  //  else
+  //    Logger.Send('Screen.ActiveControl changed', Format('%s, %s', [Screen.ActiveControl.ClassName, Screen.ActiveControl.Name]));
+  //end;
 end;
 
 procedure TfrmMain.ScreenActiveFormChange(Sender: TObject);
 begin
-  if Assigned(Screen.ActiveCustomForm) then
-  begin
-      Logger.Send('Screen.ActiveForm changed', Format('%s, %s', [Screen.ActiveCustomForm.ClassName, Screen.ActiveCustomForm.Name]));
-  end;
+  //if Assigned(Screen.ActiveCustomForm) then
+  //begin
+  //    Logger.Send('Screen.ActiveForm changed', Format('%s, %s', [Screen.ActiveCustomForm.ClassName, Screen.ActiveCustomForm.Name]));
+  //end;
 end;
 
 procedure TfrmMain.SpeedButton1Click(Sender: TObject);
@@ -643,7 +641,7 @@ end;
 
 procedure TfrmMain.TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
 begin
-  Logger.Send('ControlChanging', Sender);
+//  Logger.Send('ControlChanging', Sender);
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
 end;
 

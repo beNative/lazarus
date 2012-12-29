@@ -856,10 +856,10 @@ end;
 
 procedure TdmEditorManager.BeforeDestruction;
 begin
+  FActiveView := nil; // !!!!!!!!! after a long search this was a long lasting bug
   if PersistSettings then
     FSettings.Save;
   FSearchEngine := nil;
-  FActiveView := nil; // !!!!!!!!! after a long search this was a long lasting bug
   FSettings := nil;
   FreeAndNil(FSynHighlighterPo);
   FreeAndNil(FViewList);

@@ -31,7 +31,7 @@ unit ts_Editor_Utils;
 interface
 
 uses
-  Classes, SysUtils, Windows,
+  Classes, SysUtils, Windows, TypInfo,
 
   sharedlogger;
 
@@ -191,6 +191,15 @@ function StrPos(
 ): Integer;
 
 function PointToPos(AStrings: TStrings; APoint: TPoint): Integer;
+
+function SetToString(
+        ATypeInfo    : PTypeInfo;
+  const AValue;
+        AQuoteValues : Boolean = True;
+        ABrackets    : Boolean = True;
+        ATrimChars   : Integer = -1
+): string;
+
 
 //*****************************************************************************
 
@@ -916,7 +925,6 @@ begin
     or AnsiContainsText(AString, '<HTML');
 end;
 
-
 function GuessHighlighterType(const AText: string): string;
 begin
   Result := '';
@@ -1265,6 +1273,77 @@ begin
   end;
   if I < AStrings.Count then
     Result := Result + P.X;
+end;
+
+function SetToString(ATypeInfo: PTypeInfo; const AValue;
+  AQuoteValues: Boolean = True; ABrackets: Boolean = True;
+  ATrimChars: Integer = -1): string;
+var
+  S    : TIntegerSet;
+  I    : Integer;
+  N    : Integer;
+  Name : string;
+
+  function GetOrdValue(Info: PTypeInfo; const SetParam): Integer;
+  begin
+    Result := 0;
+
+    case GetTypeData(Info)^.OrdType of
+      otSByte, otUByte:
+        Result := Byte(SetParam);
+      otSWord, otUWord:
+        Result := Word(SetParam);
+      otSLong, otULong:
+        Result := Integer(SetParam);
+    end;
+  end;
+
+  function GetPrefixLength(const AString: string): Integer;
+  var
+    C: Char;
+    N: Integer;
+  begin
+    N := 0;
+    if Length(AString) > 0 then
+    begin
+      C := AString[1];
+      while (N < Length(AString)) and IsCharLower(C) do
+      begin
+        Inc(N);
+        C := AString[N + 1];
+      end;
+    end;
+    Result := N;
+  end;
+
+begin
+  Result := '';
+  Integer(S) := GetOrdValue(ATypeInfo, AValue);
+  ATypeInfo := GetTypeData(ATypeInfo)^.CompType;
+  for I := 0 to SizeOf(Integer) * 8 - 1 do
+  begin
+    if I in S then
+    begin
+      if Result <> '' then
+        Result := Result + ',';
+      Name := GetEnumName(ATypeInfo, I);
+
+      if ATrimChars >= 0 then
+        N := ATrimChars
+      else
+        N := GetPrefixLength(Name);
+
+      if N > 0 then
+        Name := Copy(Name, N + 1, Length(Name) - N + 1);
+
+      if AQuoteValues then
+        Name := QuotedStr(Name);
+
+      Result := Result + Name;
+    end;
+  end;
+  if ABrackets and (Result <> '') then
+    Result := '(' + Result + ')';
 end;
 
 

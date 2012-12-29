@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2020
+  Left = 238
   Height = 618
-  Top = 72
+  Top = 211
   Width = 1066
   AllowDropFiles = True
   Anchors = []
@@ -235,10 +235,9 @@ object frmMain: TfrmMain
     object pnlTop: TPanel
       Left = 0
       Height = 18
-      Top = 4
+      Top = 0
       Width = 369
       Align = alTop
-      BorderSpacing.Top = 4
       BevelInner = bvRaised
       BevelOuter = bvLowered
       ClientHeight = 18

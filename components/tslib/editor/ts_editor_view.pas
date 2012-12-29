@@ -94,8 +94,8 @@ TODO:
 interface
 
 uses
-  Classes, Controls, Forms, Graphics, Menus, SysUtils, Windows,
-  Dialogs, StdCtrls, Types, eventlog,
+  Classes, Controls, Forms, Graphics, Menus, SysUtils, Windows, Dialogs,
+  StdCtrls, Types,
 
   LMessages,
 
@@ -113,7 +113,6 @@ uses
 type
   TEditorView = class(TForm, IEditorView)
   published
-    ApplicationProperties : TApplicationProperties;
 
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
@@ -225,7 +224,6 @@ type
     procedure SetCodeCompletionFormat(const Value: string); virtual;
     procedure SetCompletionInsertList(const Value: TStrings); virtual;
     procedure SetCompletionItemList(const Value: TStrings); virtual;
-    procedure SetEditor(AValue: TSynEdit);
     procedure SetEditorFont(AValue: TFont);
     procedure SetEncoding(const AValue: string);
     procedure SetFileName(const AValue: string);
@@ -288,8 +286,8 @@ type
     procedure Clear;
     procedure SelectAll;
     procedure UpdateActions; override;
-    procedure SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-      AIncludeStartTag, AIncludeEndTag: Boolean);
+    function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
+      AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 
@@ -619,16 +617,19 @@ end;
 procedure TEditorView.EditorStatusChange(Sender: TObject;
   Changes: TSynStatusChanges);
 begin
-  // we use this event to ensure that the view is activated because the OnEnter
-  // event is not triggered when the form is undocked!
-  if not IsActive then
-		Activate;
-  if Assigned(FOnStatusChange) then
-    FOnStatusChange(Self, Changes);
-  Events.DoStatusChange(Changes);
-  if (scCaretX in Changes) or (scCaretY in Changes) then
+  if not (csDestroying in ComponentState) then
   begin
-    Events.DoCaretPositionChange;
+    // we use this event to ensure that the view is activated because the OnEnter
+    // event is not triggered when the form is undocked!
+    if not IsActive then
+		  Activate;
+    if Assigned(FOnStatusChange) then
+      FOnStatusChange(Self, Changes);
+    Events.DoStatusChange(Changes);
+    if (scCaretX in Changes) or (scCaretY in Changes) then
+    begin
+      Events.DoCaretPositionChange;
+    end;
   end;
 end;
 
@@ -849,11 +850,6 @@ procedure TEditorView.SetCompletionItemList(const Value: TStrings);
 begin
   //SynCompletionProposal.ItemList.Clear;
   //SynCompletionProposal.ItemList.AddStrings(Value);
-end;
-
-procedure TEditorView.SetEditor(AValue: TSynEdit);
-begin
-  FEditor := AValue;
 end;
 
 function TEditorView.GetSearchText: string;
@@ -1194,7 +1190,7 @@ end;
 
 function TEditorView.IsActive: Boolean;
 begin
-  Result := Manager.ActiveView = (Self as IEditorView);
+  Result := Manager.ActiveView = (Self as IEditorView)
 end;
 
 procedure TEditorView.StoreBlock;
@@ -1219,18 +1215,15 @@ var
 begin
   FEditor.Parent := Self;
   FEditor.Align := alClient;
-  FEditor.Font.Height := -13;
-  FEditor.Font.Name := 'Consolas';
-  FEditor.Font.Pitch := fpFixed;
-  FEditor.Font.Quality := fqCleartype;
+  FEditor.Font.Assign(Settings.EditorFont);
   FEditor.BorderStyle := bsNone;
   FEditor.DoubleBuffered := True;
-  FEditor.BorderSpacing.Around := 2;
 
   FEditor.Gutter.Color := 15329769; // light gray
   FEditor.Gutter.Width := 29;
-  FEditor.Gutter.MarksPart.Width := 0;
+  FEditor.Gutter.MarksPart.Width := 0;       // Bookmarks
   FEditor.Gutter.MarksPart.Visible := False;
+
   FEditor.Gutter.SeparatorPart.Visible := False;
   with FEditor.Gutter.LineNumberPart do
   begin
@@ -1303,10 +1296,10 @@ begin
   FEditor.HighlightAllColor.Foreground := clNone;
   FEditor.HighlightAllColor.MergeFinalStyle := True;
 
-  FEditor.LineHighlightColor.Background := $009FFFFF;
+  FEditor.LineHighlightColor.Background := $009FFFFF; // yellow
   FEditor.LineHighlightColor.FrameEdges := sfeAround;
   FEditor.LineHighlightColor.FrameStyle := slsWaved;
-  FEditor.LineHighlightColor.FrameColor := $0000C4C4;
+  FEditor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
   FEditor.LineHighlightColor.MergeFinalStyle := True;
 
   FEditor.OnStatusChange := EditorStatusChange;
@@ -1482,11 +1475,10 @@ end;
 
   TODO:
     - support for nested AStartTag and AEndTag (ignore sublevels)
+}
 
-  }
-
-procedure TEditorView.SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-  AIncludeStartTag, AIncludeEndTag: Boolean);
+function TEditorView.SelectBlockAroundCursor(const AStartTag, AEndTag: string;
+  AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
 var
   Pos : Integer;
   S   : string;
@@ -1498,7 +1490,7 @@ begin
     Exit;
 
   S := Text;
-  Pos := Editor.SelStart;
+  Pos := SelStart;
   B := False;
   while not B and (Pos > 1) do
   begin
@@ -1517,14 +1509,14 @@ begin
   if B then
   begin
     if AIncludeStartTag then
-      Editor.SelStart := Pos
+      SelStart := Pos
     else
-      Editor.SelStart := Pos + N;
+      SelStart := Pos + N;
   end;
 
   if B then
   begin
-    Pos := Editor.SelStart;
+    Pos := SelStart;
     B := False;
     while not B and (Pos <= Length(S)) do
     begin
@@ -1543,11 +1535,12 @@ begin
     if B then
     begin
       if AIncludeEndTag then
-        Editor.SelEnd := Pos + 1
+        SelEnd := Pos + 1
       else
-        Editor.SelEnd := Pos - N + 1;
+        SelEnd := Pos - N + 1;
     end;
   end;
+  Result := SelAvail;
 end;
 
 procedure TEditorView.AdjustFontSize(AOffset: Integer);
@@ -1848,7 +1841,7 @@ begin
   Result := True;
   if Modified then
   begin
-    Activate;
+    //Activate;
     MR := MessageDlg(SAskSaveChanges, mtWarning, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
     begin

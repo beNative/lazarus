@@ -224,8 +224,8 @@ type
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
     procedure SmartSelect;
-    procedure SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-      AIncludeStartTag, AIncludeEndTag: Boolean);
+    function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
+      AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
 
     // clipboard commands
     procedure Cut;

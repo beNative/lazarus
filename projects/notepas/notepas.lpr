@@ -11,8 +11,7 @@ uses
   { you can add units after this }
   DefaultTranslator,
 
-  richmemopackage
-  ;
+  richmemopackage;
 
 {$R *.res}
 

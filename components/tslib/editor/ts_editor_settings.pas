@@ -31,7 +31,8 @@ uses
 
   ts_Core_FormSettings,
 
-  ts_Editor_Settings_AlignLines,
+  ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
+  ts_Editor_Settings_CodeShaper,
 
   ts_Editor_Interfaces, ts_Editor_SynHighlighterCollection,
   ts_Editor_SynHighlighterAttributesCollection;
@@ -52,18 +53,21 @@ type
     FHighlighters             : THighLighters;
     FDimInactiveView          : Boolean;
     FFormSettings             : TFormSettings;
-    FDefaultFont              : TFont;
+    FEditorFont               : TFont;
     FHighlighterAttributes    : TSynHighlighterAttributesCollection;
     FAlignLinesSettings       : TAlignLinesSettings;
+    FSearchEngineSettings     : TSearchEngineSettings;
+    FCodeShaperSettings       : TCodeShaperSettings;
 
     // property access methods
     function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
+    function GetCodeShaperSettings: TCodeShaperSettings;
     function GetDebugMode: Boolean;
-    function GetDefaultFont: TFont;
     function GetDimInactiveView: Boolean;
+    function GetEditorFont: TFont;
     function GetFileName: string;
     function GetFoldLevel: Integer;
     function GetFormSettings: TFormSettings;
@@ -72,15 +76,17 @@ type
     function GetHighlighterType: string;
     function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
+    function GetSearchEngineSettings: TSearchEngineSettings;
     function GetShowControlCharacters: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
     procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetDebugMode(AValue: Boolean);
-    procedure SetDefaultFont(const AValue: TFont);
     procedure SetDimInactiveView(const AValue: Boolean);
+    procedure SetEditorFont(AValue: TFont);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
     procedure SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
@@ -88,6 +94,7 @@ type
     procedure SetHighlighterType(const AValue: string);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
+    procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetShowControlCharacters(const AValue: Boolean);
 
   public
@@ -145,8 +152,14 @@ type
     property AlignLinesSettings: TAlignLinesSettings
       read GetAlignLinesSettings write SetAlignLinesSettings;
 
-    property DefaultFont: TFont
-      read GetDefaultFont write SetDefaultFont;
+    property SearchEngineSettings: TSearchEngineSettings
+      read GetSearchEngineSettings write SetSearchEngineSettings;
+
+    property CodeShaperSettings: TCodeShaperSettings
+      read GetCodeShaperSettings write SetCodeShaperSettings;
+
+    property EditorFont: TFont
+      read GetEditorFont write SetEditorFont;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
@@ -176,6 +189,8 @@ begin
   Name := 'Settings';
   FFormSettings := TFormSettings.Create;
   FAlignLinesSettings := TAlignLinesSettings.Create;
+  FSearchEngineSettings := TSearchEngineSettings.Create;
+  FCodeShaperSettings := TCodeShaperSettings.Create;
   FHighlighters := THighLighters.Create(Self);
   FHighlighterAttributes := TSynHighlighterAttributesCollection.Create(nil);
 
@@ -184,18 +199,20 @@ begin
   AutoFormatXML := True;
   AutoGuessHighlighterType := True;
   PreviewVisible := False;
-  FDefaultFont := TFont.Create;
-  FDefaultFont.Name := 'Consolas';
-  FDefaultFont.Size := 10;
+  FEditorFont := TFont.Create;
+  FEditorFont.Name := 'Consolas';
+  FEditorFont.Size := 10;
 end;
 
 procedure TEditorSettings.BeforeDestruction;
 begin
   FreeAndNil(FFormSettings);
   FreeAndNil(FHighlighters);
-  FreeAndNil(FDefaultFont);
+  FreeAndNil(FEditorFont);
   FreeAndNil(FHighlighterAttributes);
   FreeAndNil(FAlignLinesSettings);
+  FreeAndNil(FSearchEngineSettings);
+  FreeAndNil(FCodeShaperSettings);
   inherited BeforeDestruction;
 end;
 
@@ -217,6 +234,11 @@ begin
   Result := FAlignLinesSettings;
 end;
 
+procedure TEditorSettings.SetAlignLinesSettings(AValue: TAlignLinesSettings);
+begin
+  FAlignLinesSettings := AValue;
+end;
+
 function TEditorSettings.GetAutoGuessHighlighterType: Boolean;
 begin
   Result := FAutoGuessHighlighterType;
@@ -227,6 +249,16 @@ begin
   Result := FCloseWithESC;
 end;
 
+function TEditorSettings.GetCodeShaperSettings: TCodeShaperSettings;
+begin
+  Result := FCodeShaperSettings;
+end;
+
+procedure TEditorSettings.SetCodeShaperSettings(AValue: TCodeShaperSettings);
+begin
+  FCodeShaperSettings := AValue;
+end;
+
 function TEditorSettings.GetDebugMode: Boolean;
 begin
   Result := FDebugMode;
@@ -235,6 +267,19 @@ end;
 function TEditorSettings.GetDimInactiveView: Boolean;
 begin
   Result := FDimInactiveView;
+end;
+
+function TEditorSettings.GetEditorFont: TFont;
+begin
+  Result := FEditorFont;
+end;
+
+procedure TEditorSettings.SetEditorFont(AValue: TFont);
+begin
+  if not FEditorFont.IsEqual(AValue) then
+  begin
+    FEditorFont.Assign(AValue);
+  end;
 end;
 
 function TEditorSettings.GetFileName: string;
@@ -277,6 +322,16 @@ begin
   Result := FReadOnly;
 end;
 
+function TEditorSettings.GetSearchEngineSettings: TSearchEngineSettings;
+begin
+  Result := FSearchEngineSettings;
+end;
+
+procedure TEditorSettings.SetSearchEngineSettings(AValue: TSearchEngineSettings);
+begin
+  FSearchEngineSettings := AValue;
+end;
+
 function TEditorSettings.GetShowControlCharacters: Boolean;
 begin
   Result := FShowControlCharacters;
@@ -285,11 +340,6 @@ end;
 function TEditorSettings.GetXML: string;
 begin
   Result := ReadFileToString(FileName);
-end;
-
-procedure TEditorSettings.SetAlignLinesSettings(AValue: TAlignLinesSettings);
-begin
-  FAlignLinesSettings := AValue;
 end;
 
 procedure TEditorSettings.SetAutoFormatXML(const AValue: Boolean);
@@ -321,19 +371,6 @@ begin
   if AValue <> DebugMode then
   begin
     FDebugMode := AValue;
-  end;
-end;
-
-function TEditorSettings.GetDefaultFont: TFont;
-begin
-  Result := FDefaultFont;
-end;
-
-procedure TEditorSettings.SetDefaultFont(const AValue: TFont);
-begin
-  if AValue <> DefaultFont then
-  begin
-    FDefaultFont := AValue;
   end;
 end;
 

@@ -47,7 +47,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="66">
+    <Files Count="67">
       <Item1>
         <Filename Value="laz_images.lrs"/>
         <Type Value="LRS"/>
@@ -312,6 +312,10 @@
         <Filename Value="editor\ts_editor_settings_alignlines.pas"/>
         <UnitName Value="ts_Editor_Settings_AlignLines"/>
       </Item66>
+      <Item67>
+        <Filename Value="editor\ts_editor_settings_searchengine.pas"/>
+        <UnitName Value="ts_editor_settings_searchengine"/>
+      </Item67>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

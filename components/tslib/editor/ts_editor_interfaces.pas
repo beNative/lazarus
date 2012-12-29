@@ -25,7 +25,7 @@ unit ts_Editor_Interfaces;
 interface
 
 uses
-  Classes, ActnList, Controls, Forms, Menus, Contnrs,
+  Classes, ActnList, Controls, Forms, Menus, Contnrs, Graphics,
 
   LCLType,
 
@@ -92,6 +92,7 @@ type
 type
   IEditorActions = interface;
   IEditorSettings = interface;
+  TEditorViewListEnumerator = class;
 
   { Handles display view of the editor. }
 
@@ -109,6 +110,7 @@ type
     function GetCaretY: Integer;
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
+    function GetEditorFont: TFont;
     function GetEncoding: string;
     function GetFileName: string;
     function GetFindHistory: TStrings;
@@ -148,6 +150,7 @@ type
     procedure SetCaretX(const AValue: Integer);
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const AValue: Integer);
+    procedure SetEditorFont(AValue: TFont);
     procedure SetEncoding(const AValue: string);
     procedure SetFileName(const AValue: string);
     procedure SetFoldLevel(const AValue: Integer);
@@ -373,6 +376,9 @@ type
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;
 
+    property EditorFont: TFont
+      read GetEditorFont write SetEditorFont;
+
     // events
     property OnDropFiles: TDropFilesEvent
       read GetOnDropFiles write SetOnDropFiles;
@@ -488,6 +494,7 @@ type
     function GetCloseWithESC: Boolean;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
+    function GetEditorFont: TFont;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
     function GetHighlighterAttributes: TSynHighlighterAttributesCollection;
@@ -503,6 +510,7 @@ type
     procedure SetCloseWithESC(const AValue: Boolean);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
+    procedure SetEditorFont(AValue: TFont);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
     procedure SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
@@ -517,6 +525,9 @@ type
 
     property FileName: string
       read GetFileName write SetFileName;
+
+    property EditorFont: TFont
+      read GetEditorFont write SetEditorFont;
 
     property DimInactiveView: Boolean
       read GetDimInactiveView write SetDimInactiveView;
@@ -578,6 +589,8 @@ type
     function Delete(AView: IEditorView): Boolean; overload;
     function Delete(const AName: string): Boolean; overload;
     procedure Clear(AExceptActive: Boolean = False);
+
+    function GetEnumerator: TEditorViewListEnumerator;
 
     property Views[AIndex: Integer]: IEditorView
       read GetView; default;
@@ -769,6 +782,19 @@ type
     procedure SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
     property OnFilteredLineChange: TOnFilteredLineChangeEvent
       read GetOnFilteredLineChange write SetOnFilteredLineChange;
+  end;
+
+  TEditorViewListEnumerator = class
+  strict private
+    FIndex: Integer;
+    FList : TEditorViewList;
+
+  public
+    constructor Create(AList: TEditorViewList);
+    function GetCurrent: IEditorView;
+    function MoveNext: Boolean;
+    property Current: IEditorView
+      read GetCurrent;
   end;
 
 const
@@ -1025,6 +1051,24 @@ var
 //*****************************************************************************
 
 implementation
+
+constructor TEditorViewListEnumerator.Create(AList: TEditorViewList);
+begin
+  FList := AList;
+  FIndex := -1;
+end;
+
+function TEditorViewListEnumerator.GetCurrent: IEditorView;
+begin
+  Result := FList[FIndex] as IEditorView;
+end;
+
+function TEditorViewListEnumerator.MoveNext: Boolean;
+begin
+  Result := FIndex < (FList.Count - 1);
+  if Result then
+    Inc(FIndex);
+end;
 
 end.
 

@@ -527,10 +527,13 @@ type
     FToolViewList : TEditorToolViewList;
     FFormsCreated : Boolean;
 
+    FCurrentViewIndex: Integer;
+
     {$region 'property access methods' /fold}
     function GetActionList: TActionList;
     function GetActions: IEditorActions;
     function GetCommands: IEditorCommands;
+    function GetCurrent: IEditorView;
     function GetEditor: TSynEdit;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEditorViews: IEditorViews;
@@ -612,6 +615,10 @@ type
     function IEditorViews.Add = AddView;
     function IEditorViews.Delete = DeleteView;
     function IEditorViews.Clear = ClearViews;
+    function IEditorViews.GetEnumerator = GetViewsEnumerator;
+
+    function GetViewsEnumerator: TEditorViewListEnumerator;
+
     function AddView(
       const AName        : string = '';
       const AFileName    : string = '';
@@ -947,6 +954,11 @@ end;
 function TdmEditorManager.GetCommands: IEditorCommands;
 begin
   Result := Self as IEditorCommands;
+end;
+
+function TdmEditorManager.GetCurrent: IEditorView;
+begin
+  Result := FViewList[FCurrentViewIndex] as IEditorView;
 end;
 
 function TdmEditorManager.GetItem(AName: string): TCustomAction;
@@ -1517,7 +1529,6 @@ end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
-  //(FEditorSettings as IInterfaceComponentReference).GetComponent;
   InspectComponent((ActiveView.Editor as IInterfaceComponentReference).GetComponent);
 end;
 
@@ -2197,9 +2208,17 @@ end;
 
 { Apply stored settings to the views and actions. }
 
+{ TODO -oTS : Apply to all views }
+
 procedure TdmEditorManager.ApplySettings;
 begin
   ActiveView.ShowSpecialChars := Settings.ShowControlCharacters;
+  ActiveView.EditorFont := Settings.EditorFont;
+end;
+
+function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
+begin
+  Result := TEditorViewListEnumerator.Create(FViewList);
 end;
 
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
@@ -2290,7 +2309,6 @@ end;
 
 { Closes and clears all views in the list (except for the active view when
   AExceptActive is True).
-
 
   TODO: Does not work when AExeptActive is False}
 

@@ -59,6 +59,7 @@ type
     {$endregion}
 
     procedure FTVPSelectionChanged(Sender: TObject);
+    procedure OKButtonClick(Sender: TObject);
     procedure tsXMLEnter(Sender: TObject);
 
   private
@@ -182,6 +183,11 @@ begin
   FHAPI.ExpandedProperties.Add('Attributes.Style');
   FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
   FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
+end;
+
+procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
+begin
+   Apply;
 end;
 
 procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);

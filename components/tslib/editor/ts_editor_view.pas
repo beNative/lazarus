@@ -180,6 +180,7 @@ type
     function GetCommands: IEditorCommands;
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
+    function GetEditorFont: TFont;
     function GetManager: IEditorManager;
     function GetEncoding: string;
     function GetEvents: IEditorEvents;
@@ -225,6 +226,7 @@ type
     procedure SetCompletionInsertList(const Value: TStrings); virtual;
     procedure SetCompletionItemList(const Value: TStrings); virtual;
     procedure SetEditor(AValue: TSynEdit);
+    procedure SetEditorFont(AValue: TFont);
     procedure SetEncoding(const AValue: string);
     procedure SetFileName(const AValue: string);
     procedure SetFoldLevel(const AValue: Integer);
@@ -237,7 +239,7 @@ type
     procedure SetLogicalCaretXY(const AValue: TPoint);
     procedure SetModified(const AValue: Boolean);
     procedure SetMonitorChanges(const AValue: Boolean);
-    procedure SetName(AValue: string);
+    procedure SetName(AValue: string); reintroduce;
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
@@ -479,6 +481,9 @@ type
     { Current file encoding (Editor encoding is always UTF-8). }
     property Encoding: string
       read GetEncoding write SetEncoding;
+
+    property EditorFont: TFont
+      read GetEditorFont write SetEditorFont;
 
     property LineBreakStyle: string
       read GetLineBreakStyle write SetLineBreakStyle;
@@ -799,6 +804,19 @@ end;
 function TEditorView.GetEditor: TSynEdit;
 begin
   Result := FEditor;
+end;
+
+function TEditorView.GetEditorFont: TFont;
+begin
+  Result := Editor.Font;
+end;
+
+procedure TEditorView.SetEditorFont(AValue: TFont);
+begin
+  if not Editor.Font.IsEqual(AValue) then
+  begin
+    Editor.Font.Assign(AValue);
+  end;
 end;
 
 function TEditorView.GetManager: IEditorManager;

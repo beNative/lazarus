@@ -123,6 +123,7 @@ object frmEditorSettings: TfrmEditorSettings
       Width = 478
       OKButton.Name = 'OKButton'
       OKButton.DefaultCaption = True
+      OKButton.OnClick = OKButtonClick
       HelpButton.Name = 'HelpButton'
       HelpButton.DefaultCaption = True
       CloseButton.Name = 'CloseButton'
@@ -136,11 +137,11 @@ object frmEditorSettings: TfrmEditorSettings
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 440
+    left = 256
     top = 488
   end
   object imlMain: TImageList
-    left = 480
+    left = 304
     top = 488
   end
 end

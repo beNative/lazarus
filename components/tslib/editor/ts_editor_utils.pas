@@ -38,14 +38,15 @@ uses
 type
   // comments
   TCommentType = (
-    ctDefault,    // decide automatically
-    ctNone,       // no comment
-    ctPascal,     // {}
-    ctDelphi,     // //
-    ctTurboPascal,// (* *)
-    ctCPP,        // /* */
-    ctPerl,       // #
-    ctHtml,       // <!-- -->
+    ctDefault,     // decide automatically
+    ctNone,        // no comment
+    ctPascal,      // {}
+    ctDelphi,      // //
+    ctTurboPascal, // (* *)
+    ctCPP,         // /* */
+    ctPerl,        // #
+    ctSQL,         // --
+    ctHtml,        // <!-- -->
     ctBatch,       // ::
     ctINI          // ;
   );

@@ -122,7 +122,7 @@ type
     property WatchOptions: TWatchOptions read FWatchOptions write SetWatchOptions;
     property WatchActions: TWatchActions read FWatchActions write SetWatchActions;
     property Directory: string read FDirectory write SetDirectory;
-    // notification properties. Notify about internal and exernal changes
+    // notification properties. Notify about internal and external changes
     property OnNotify: TFileChangeNotifyEvent read FOnNotify write FOnNotify;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;

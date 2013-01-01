@@ -53,7 +53,7 @@ const
   LAYOUT_RES      = 'Resource.hgl';
   LAYOUT_BALTALOG = 'Log.hgl';
 
-  // comma seperated lists of supported file extensions (no spaces)
+  // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
   FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc';
   FILE_EXTENSIONS_CPP  = 'cpp,h';

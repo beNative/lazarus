@@ -31,8 +31,6 @@ uses
 
   SynEditHighlighter,
 
-  //sharedloggerlcl,
-
   ts_Editor_Utils, ts_Editor_CodeFormatters;
 
 //=============================================================================
@@ -54,14 +52,12 @@ type
     FName                 : string;
     FSynHighlighter       : TSynCustomHighlighter;
     FSynHighlighterClass  : TSynHighlighterClass;
-    FCommentType          : TCommentType;
     FFileExtensions       : TStringList;
 
     // private property access methods
     function GetFileExtensions: string;
     procedure SetCollection(const Value: THighlighters); reintroduce;
     function GetCollection: THighlighters;
-    procedure SetCommentType(const AValue: TCommentType);
     procedure SetFileExtensions(AValue: string);
     procedure SetFormatterSupport(const AValue: Boolean);
 
@@ -97,9 +93,6 @@ type
     { The name displayed in the collection editor at design time. }
     property Name: string
       read FName write FName;
-
-    property CommentType: TCommentType
-      read FCommentType write SetCommentType;
 
     property BlockCommentStartTag: string
       read FBlockCommentStartTag write FBlockCommentStartTag;
@@ -160,14 +153,16 @@ type
     function FindHighlighterForFileType(const AFileExt: string): THighlighterItem;
 
     procedure RegisterHighlighter(
-            ASynHighlighterClass : TSynHighlighterClass;
-            ASynHighlighter      : TSynCustomHighlighter;
-      const AName                : string;       // unique name
-      const AFileExtensions      : string = '';  // comma seperated list
-      const ACommentType         : TCommentType = ctNone; // comment type (for line)
-      const ACodeFormatter       : ICodeFormatter = nil;
-      const ADescription         : string = '';  // highlighter description
-      const ALayoutFileName      : string = ''   // only for TSynUNIHighlighter
+            ASynHighlighterClass  : TSynHighlighterClass;
+            ASynHighlighter       : TSynCustomHighlighter;
+      const AName                 : string;       // unique name
+      const AFileExtensions       : string = '';  // comma separated list
+      const ALineCommentTag       : string = '';
+      const ABlockCommentStartTag : string = '';
+      const ABlockCommentEndTag   : string = '';
+      const ACodeFormatter        : ICodeFormatter = nil;
+      const ADescription          : string = '';  // highlighter description
+      const ALayoutFileName       : string = ''   // only for TSynUNIHighlighter
     ); virtual;
 
     // public properties
@@ -417,10 +412,11 @@ begin
 end;
 
 procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
-  TSynHighlighterClass; ASynHighlighter: TSynCustomHighlighter; const AName:
-  string; const AFileExtensions: string; const ACommentType: TCommentType; const
-  ACodeFormatter: ICodeFormatter; const ADescription: string; const
-  ALayoutFileName: string);
+  TSynHighlighterClass; ASynHighlighter: TSynCustomHighlighter;
+  const AName: string; const AFileExtensions: string;
+  const ALineCommentTag: string; const ABlockCommentStartTag: string;
+  const ABlockCommentEndTag: string; const ACodeFormatter: ICodeFormatter;
+  const ADescription: string; const ALayoutFileName: string);
 var
   HI: THighlighterItem;
   S : string;
@@ -439,7 +435,9 @@ begin
   if Assigned(ASynHighlighter) then
     HI.SynHighlighter := ASynHighlighter;
   HI.CodeFormatter  := ACodeFormatter;
-  HI.CommentType    := ACommentType;
+  HI.LineCommentTag := ALineCommentTag;
+  HI.BlockCommentStartTag := ABlockCommentStartTag;
+  HI.BlockCommentEndTag := ABlockCommentEndTag;
   HI.LayoutFileName := ALayoutFileName;
   HI.FileExtensions := AFileExtensions;
   if FileExists(S + ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
@@ -470,7 +468,6 @@ _______________________________________________________________________________
 constructor THighlighterItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
-  FCommentType := ctDefault;
   FFileExtensions := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted := True;
@@ -503,15 +500,6 @@ end;
 procedure THighlighterItem.SetCollection(const Value: THighlighters);
 begin
   inherited Collection := Value;
-end;
-
-procedure THighlighterItem.SetCommentType(const AValue: TCommentType);
-begin
-  if AValue <> CommentType then
-  begin
-    FCommentType := AValue;
-    Changed(False);
-  end;
 end;
 
 procedure THighlighterItem.SetFileExtensions(AValue: string);
@@ -553,7 +541,6 @@ begin
       Name                 := HLI.Name;
       Description          := HLI.Description;
       LayoutFileName       := HLI.LayoutFileName;
-      CommentType          := HLI.CommentType;
       BlockCommentEndTag   := HLI.BlockCommentEndTag;
       BlockCommentStartTag := HLI.BlockCommentStartTag;
       LineCommentTag       := HLI.LineCommentTag;

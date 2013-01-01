@@ -699,7 +699,7 @@ end;
 //-----------------------------------------------------------------------------
 {
    SELECT
-     <comma seperated AResultFields>
+     <comma separated AResultFields>
    FROM
      <ATable>
    WHERE

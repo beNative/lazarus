@@ -203,6 +203,7 @@ type
     procedure AdjustFontSize(AOffset: Integer);
     procedure SetFocus;
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
+    procedure BlockCommentSelection;
     procedure InsertTextAtCaret(const AText: string);
     procedure Close;
 

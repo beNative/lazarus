@@ -177,6 +177,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actBlockCommentSelection: TAction;
     actShowTest                   : TAction;
     actSelectAll                  : TAction;
     actUndo                       : TAction;
@@ -411,6 +412,7 @@ type
     procedure actATSelectAllExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCloseOthersExecute(Sender: TObject);
@@ -1806,6 +1808,11 @@ begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
 end;
 
+procedure TdmEditorManager.actBlockCommentSelectionExecute(Sender: TObject);
+begin
+  ActiveView.BlockCommentSelection;
+end;
+
 procedure TdmEditorManager.actClearExecute(Sender: TObject);
 begin
   ActiveView.Clear;
@@ -2132,7 +2139,8 @@ procedure TdmEditorManager.RegisterHighlighters;
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
     const AFileExtensions: string = ''; const ADescription: string = '';
-    const ACommentType: TCommentType = ctNone; ACodeFormatter: ICodeFormatter = nil;
+    const ALineCommentTag: string = ''; const ABlockCommentStartTag: string = '';
+    const ABlockCommentEndTag: string = ''; ACodeFormatter: ICodeFormatter = nil;
     const ALayoutFileName: string = '');
   begin
     Highlighters.RegisterHighlighter(
@@ -2140,7 +2148,9 @@ procedure TdmEditorManager.RegisterHighlighters;
       ASynHighlighter,
       AName,
       AFileExtensions,
-      ACommentType,
+      ALineCommentTag,
+      ABlockCommentStartTag,
+      ABlockCommentEndTag,
       ACodeFormatter,
       ADescription,
       ALayoutFileName
@@ -2151,21 +2161,21 @@ begin
   Highlighters.Clear;
   Reg(TSynAnySyn, SynAnySyn, 'None');
   Reg(TSynAnySyn, SynAnySyn, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
-  Reg(TSynPasSyn, SynPasSyn, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, ctPascal, TPascalFormatter.Create);
-  Reg(TSynSQLSyn, SynSQLSyn, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, ctCPP, TSQLFormatter.Create);
-  Reg(TSynXMLSyn, SynXMLSyn, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, ctHtml, TXMLFormatter.Create);
+  Reg(TSynPasSyn, SynPasSyn, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
+  Reg(TSynSQLSyn, SynSQLSyn, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
+  Reg(TSynXMLSyn, SynXMLSyn, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
   Reg(TSynLFMSyn, SynLFMSyn, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
-  Reg(TSynUniSyn, SynUniSyn, HL_BaltaLOG, 'log', SBaltaLOGDescription, ctNone, nil, LAYOUT_BALTALOG);
-  Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ctNone, nil, LAYOUT_INI);
-  Reg(TSynBatSyn, SynBatSyn, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription);
-  Reg(TSynUniSyn, FSynHighlighterPo, HL_PO, FILE_EXTENSIONS_PO, SPODescription);
-  Reg(TSynCppSyn, SynCppSyn, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, ctCPP, TCPPFormatter.Create);
-  Reg(TSynJavaSyn, SynJavaSyn, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, ctCPP, TJavaFormatter.Create);
-  Reg(TSynPerlSyn, SynPerlSyn, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription);
-  Reg(TSynPythonSyn, SynPythonSyn, HL_PY, FILE_EXTENSIONS_PY, SPYDescription);
-  Reg(TSynHTMLSyn, SynHTMLSyn, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription,ctHtml, THTMLFormatter.Create);
-  Reg(TSynUniSyn, SynUniSyn, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, ctNone, nil, LAYOUT_RTF);
-  Reg(TSynUniSyn, SynUniSyn, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ctNone, nil, LAYOUT_RES);
+  Reg(TSynUniSyn, SynUniSyn, HL_BaltaLOG, 'log', SBaltaLOGDescription, '', '', '', nil, LAYOUT_BALTALOG);
+  Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
+  Reg(TSynBatSyn, SynBatSyn, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
+  Reg(TSynUniSyn, FSynHighlighterPo, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynCppSyn, SynCppSyn, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
+  Reg(TSynJavaSyn, SynJavaSyn, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
+  Reg(TSynPerlSyn, SynPerlSyn, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
+  Reg(TSynPythonSyn, SynPythonSyn, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
+  Reg(TSynHTMLSyn, SynHTMLSyn, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynUniSyn, SynUniSyn, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
+  Reg(TSynUniSyn, SynUniSyn, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
   ApplyHighlighterAttributes;
 end;
 
@@ -2608,13 +2618,13 @@ begin
     actAlignSelection.Enabled           := B;
     actDequoteSelection.Enabled         := B;
     actLowerCaseSelection.Enabled       := B;
+    actBlockCommentSelection.Enabled    := B;
     actOpenSelectionInNewEditor.Enabled := B;
     actPascalStringOfSelection.Enabled  := B;
     actStripMarkup.Enabled              := B;
     actQuoteSelection.Enabled           := B;
     actQuoteLinesAndDelimit.Enabled     := B;
     actSortSelection.Enabled            := B;
-//    actToggleComment.Enabled   := B;
     actUpperCaseSelection.Enabled       := B;
     actStripFirstChar.Enabled           := B;
     actStripLastChar.Enabled            := B;

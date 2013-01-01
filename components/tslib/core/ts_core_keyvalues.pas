@@ -353,7 +353,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-{ Creates a list of keyvalues for the given comma seperated list of key names. }
+{ Creates a list of keyvalues for the given comma separated list of key names. }
 
 constructor TtsKeyValues.Create(const AKeyNames: string);
 var
@@ -701,7 +701,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-{ Returns a comma seperated string of values for the given comma seperated
+{ Returns a comma separated string of values for the given comma separated
   key names. }
 
 function TtsKeyValues.AsCommaText(const AKeyNames: string): string;
@@ -723,7 +723,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-{ Returns a comma seperated string of all values. }
+{ Returns a comma separated string of all values. }
 
 function TtsKeyValues.AsCommaText: string;
 var
@@ -788,7 +788,7 @@ end;
   array.
 
   AKeyNames
-    Comma seperated list of key names.
+    Comma separated list of key names.
 
   Result
     Variant array with the corresponding values.

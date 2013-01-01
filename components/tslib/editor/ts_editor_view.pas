@@ -61,13 +61,13 @@ TODO:
   - configurable page setup and printing with preview
   - quickbuttons (like the Delphi version had)
   - URI opener, to open hyperlinks directly from the editor
-  - configurable syntax coloring (Lettterpress alike or XML?)
+  - configurable syntax colouring (Lettterpress alike or XML?)
   - customizable keystroke-function mappings
   - configurable code completion proposal
   - make the editor available as a component
   - documentation (in RTF)
   - convert to another encoding (partially implemented)
-  - find a way to fold particular secions (now only levels are supported)
+  - find a way to fold particular sections (now only levels are supported)
 
   CODE STRUCTURE
   - make TEditorView more suitable to inherit from
@@ -75,7 +75,7 @@ TODO:
 
   KNOWN ISSUES:
   - When created at runtime, the cleanup of the TSynEdit instance is magnitudes
-    faster than using a designtime instance. Therefor we rely on a manually
+    faster than using a design-time instance. Therefor we rely on a manually
     created instance.
     This way it is easier to adapt to changes in the SynEdit component.
 
@@ -99,16 +99,16 @@ uses
 
   LMessages,
 
-    // logging
-  sharedloggerlcl,
-
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
   SynEditMarkupBracket, SynEditMarkupSelection, SynEditHighlighterFoldBase,
 
   ts_Core_DirectoryWatch,
 
-  ts_Editor_Resources, ts_Editor_SynHighlighterCollection, ts_Editor_Interfaces;
+  ts_Editor_Resources, ts_Editor_SynHighlighterCollection, ts_Editor_Interfaces,
+
+  // logging
+  sharedloggerlcl;
 
 type
   TEditorView = class(TForm, IEditorView)
@@ -290,6 +290,7 @@ type
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
+    procedure BlockCommentSelection;
 
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
@@ -302,7 +303,7 @@ type
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
-    // public overidden methods
+    // public overridden methods
     function CloseQuery: Boolean; override;
 
     // public methods
@@ -1553,11 +1554,13 @@ end;
 
 procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 var
-  OldCaretPos: TPoint;
-  WasSelAvail: Boolean;
-  BlockBeginLine: Integer;
-  BlockEndLine: Integer;
-  CommonIndent: Integer;
+  OldCaretPos    : TPoint;
+  WasSelAvail    : Boolean;
+  BlockBeginLine : Integer;
+  BlockEndLine   : Integer;
+  CommonIndent   : Integer;
+  Prefix         : string;
+  PrefixLength   : Integer;
 
   function FirstNonBlankPos(const Text: string; Start: Integer = 1): Integer;
   var
@@ -1613,33 +1616,40 @@ var
 
   function DeletePos(ALine: Integer): Integer;
   var
-    Line: string;
+    S: string;
+    T: string;
+    N: Integer;
   begin
-    Line := Lines[ALine - 1];
-    Result := FirstNonBlankPos(Line, InsertPos(ALine));
-    if (FSelectionMode = smColumn) and ((Result < 1) or (Result > length(Line) - 1)) then
-      Result := length(Line) - 1;
+    S := Lines[ALine - 1];
+    N := Length(S);
+    Result := FirstNonBlankPos(S, InsertPos(ALine));
+    if (FSelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
+      Result := N - 1;
     Result := Max(1, Result);
-    if (Length(Line) < Result + 1) or (Line[Result] <> '/') or
-      (Line[Result + 1] <> '/') then
+    T := System.Copy(S, Result, PrefixLength);
+    if (N < Result + 1) or (T <> Prefix) then
       Result := -1;
   end;
 
 var
-  I: Integer;
-  NonBlankStart: Integer;
+  I             : Integer;
+  NonBlankStart : Integer;
 begin
   if Settings.ReadOnly then
     Exit;
+
+  Prefix := HighlighterItem.LineCommentTag;
+  PrefixLength := Length(Prefix);
+
   OldCaretPos := CaretXY;
   StoreBlock;
   WasSelAvail := SelAvail;
   CommonIndent := 0;
 
   BlockBeginLine := FBlockBegin.Y;
-  BlockEndLine := FBlockEnd.Y;
-  if (FBlockEnd.X = 1) and (BlockEndLine > BlockBeginLine) and
-    (Editor.SelectionMode <> smLine) then
+  BlockEndLine   := FBlockEnd.Y;
+  if (FBlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
+    and (Editor.SelectionMode <> smLine) then
     Dec(BlockEndLine);
 
   if AToggle then
@@ -1659,13 +1669,13 @@ begin
   if ACommentOn then
   begin
     for I := BlockEndLine downto BlockBeginLine do
-      Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := '//';
+      Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
     if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
-      OldCaretPos.x := OldCaretPos.X + 2;
+      OldCaretPos.x := OldCaretPos.X + PrefixLength;
     if FBlockBegin.X > InsertPos(FBlockBegin.Y) then
-      FBlockBegin.X := FBlockBegin.X + 2;
+      FBlockBegin.X := FBlockBegin.X + PrefixLength;
     if FBlockEnd.X > InsertPos(FBlockEnd.Y) then
-      FBlockEnd.X := FBlockEnd.X + 2;
+      FBlockEnd.X := FBlockEnd.X + PrefixLength;
   end
   else
   begin
@@ -1675,19 +1685,33 @@ begin
       if NonBlankStart < 1 then
         continue;
       Editor.TextBetweenPoints[Point(NonBlankStart, I),
-        Point(NonBlankStart + 2, I)] := '';
+        Point(NonBlankStart + PrefixLength, I)] := '';
       if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
-        OldCaretPos.x := Max(OldCaretPos.X - 2, NonBlankStart);
+        OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
       if (FBlockBegin.Y = I) and (FBlockBegin.X > NonBlankStart) then
-        FBlockBegin.X := Max(FBlockBegin.X - 2, NonBlankStart);
+        FBlockBegin.X := Max(FBlockBegin.X - PrefixLength, NonBlankStart);
       if (FBlockEnd.Y = I) and (FBlockEnd.X > NonBlankStart) then
-        FBlockEnd.X := Max(FBlockEnd.X - 2, NonBlankStart);
+        FBlockEnd.X := Max(FBlockEnd.X - PrefixLength, NonBlankStart);
     end;
   end;
 
   EndUpdate;
   CaretXY       := OldCaretPos;
   RestoreBlock;
+end;
+
+procedure TEditorView.BlockCommentSelection;
+begin
+  if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
+  begin
+    StoreBlock;
+    BeginUpdate;
+    SelText := HighlighterItem.BlockCommentStartTag + SelText
+      + HighlighterItem.BlockCommentEndTag;
+    RestoreBlock;
+    EndUpdate;
+    Modified := True;
+  end;
 end;
 
 procedure TEditorView.UpperCaseSelection;

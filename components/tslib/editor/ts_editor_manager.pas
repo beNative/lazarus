@@ -177,7 +177,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
-    actBlockCommentSelection: TAction;
+    actToggleBlockCommentSelection: TAction;
     actShowTest                   : TAction;
     actSelectAll                  : TAction;
     actUndo                       : TAction;
@@ -412,7 +412,7 @@ type
     procedure actATSelectAllExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
-    procedure actBlockCommentSelectionExecute(Sender: TObject);
+    procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCloseOthersExecute(Sender: TObject);
@@ -1808,9 +1808,9 @@ begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
 end;
 
-procedure TdmEditorManager.actBlockCommentSelectionExecute(Sender: TObject);
+procedure TdmEditorManager.actToggleBlockCommentSelectionExecute(Sender: TObject);
 begin
-  ActiveView.BlockCommentSelection;
+  ActiveView.ToggleBlockCommentSelection;
 end;
 
 procedure TdmEditorManager.actClearExecute(Sender: TObject);
@@ -2618,7 +2618,7 @@ begin
     actAlignSelection.Enabled           := B;
     actDequoteSelection.Enabled         := B;
     actLowerCaseSelection.Enabled       := B;
-    actBlockCommentSelection.Enabled    := B;
+    actToggleBlockCommentSelection.Enabled    := B;
     actOpenSelectionInNewEditor.Enabled := B;
     actPascalStringOfSelection.Enabled  := B;
     actStripMarkup.Enabled              := B;

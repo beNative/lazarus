@@ -156,10 +156,9 @@ type
     FOnStatusChange       : TStatusChangeEvent;
     FOnChange             : TNotifyEvent;
 
-    FBlockBegin           : TPoint;
-    FBlockEnd             : TPoint;
-    FCaretXY              : TPoint;
-    FSelectionMode        : TSynSelectionMode;
+    FStoredBlockBegin     : TPoint;
+    FStoredBlockEnd       : TPoint;
+    FStoredSelectionMode  : TSynSelectionMode;
 
     { search settings }
     FFileFilterList : TStringList;
@@ -290,7 +289,7 @@ type
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
-    procedure BlockCommentSelection;
+    procedure ToggleBlockCommentSelection;
 
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
@@ -320,13 +319,15 @@ type
     procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
     // public properties
+    { Column and line of the start of the selected block. }
     property BlockBegin: TPoint
       read GetBlockBegin write SetBlockBegin;
 
+    { Column and line of the end of the selected block. }
     property BlockEnd: TPoint
       read GetBlockEnd write SetBlockEnd;
 
-    { current coordinate of the caret. }
+    { Current coordinate of the caret. }
     property CaretXY: TPoint
       read GetCaretXY write SetCaretXY;
 
@@ -1196,18 +1197,24 @@ end;
 
 procedure TEditorView.StoreBlock;
 begin
-  FBlockBegin    := BlockBegin;
-  FBlockEnd      := BlockEnd;
-  FSelectionMode := Editor.SelectionMode;
-  FCaretXY       := Editor.CaretXY;
+  Logger.EnterMethod(Self, 'StoreBlock');
+  FStoredBlockBegin    := BlockBegin;
+  Logger.Send('FBlockBegin', FStoredBlockBegin);
+  FStoredBlockEnd      := BlockEnd;
+  Logger.Send('FBlockEnd', FStoredBlockEnd);
+  FStoredSelectionMode := Editor.SelectionMode;
+  Logger.ExitMethod(Self, 'StoreBlock');
 end;
 
 procedure TEditorView.RestoreBlock;
 begin
-  BlockBegin           := FBlockBegin;
-  BlockEnd             := FBlockEnd;
-  Editor.SelectionMode := FSelectionMode;
-  Editor.CaretXY       := FCaretXY;
+  Logger.EnterMethod(Self, 'RestoreBlock');
+  Logger.Send('FBlockBegin', FStoredBlockBegin);
+  Logger.Send('FBlockEnd', FStoredBlockEnd);
+  BlockBegin           := FStoredBlockBegin;
+  BlockEnd             := FStoredBlockEnd;
+  Editor.SelectionMode := FStoredSelectionMode;
+  Logger.ExitMethod(Self, 'RestoreBlock');
 end;
 
 procedure TEditorView.InitializeEditor;
@@ -1404,18 +1411,20 @@ end;
 
 procedure TEditorView.BeginUpdate;
 begin
-//  StoreBlock;
+  Logger.EnterMethod(Self, 'BeginUpdate');
 //  Editor.BeginUpdate;
 //  Editor.BeginUpdateBounds; // TODO investigate this
   Editor.BeginUndoBlock;
+  Logger.ExitMethod(Self, 'BeginUpdate');
 end;
 
 procedure TEditorView.EndUpdate;
 begin
+  Logger.EnterMethod(Self, 'EndUpdate');
   Editor.EndUndoBlock;
 //  Editor.EndUpdateBounds; // TODO investigate this
 //  Editor.EndUpdate;
-//  RestoreBlock;
+  Logger.ExitMethod(Self, 'EndUpdate');
 end;
 
 procedure TEditorView.CopyToClipboard;
@@ -1594,18 +1603,18 @@ var
     if not WasSelAvail then
       Result := MinCommonIndent
     else
-      case FSelectionMode of
+      case FStoredSelectionMode of
         smColumn: // CommonIndent is not used otherwise
         begin
           if CommonIndent = 0 then
-            CommonIndent := Min(Editor.LogicalToPhysicalPos(FBlockBegin).X,
-              Editor.LogicalToPhysicalPos(FBlockEnd).X);
+            CommonIndent := Min(Editor.LogicalToPhysicalPos(FStoredBlockBegin).X,
+              Editor.LogicalToPhysicalPos(FStoredBlockEnd).X);
           Result := Editor.PhysicalToLogicalPos(Point(CommonIndent, ALine)).X;
         end;
         smNormal:
         begin
-          if FBlockBegin.Y = FBlockEnd.Y then
-            Result := FBlockBegin.X
+          if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
+            Result := FStoredBlockBegin.X
           else
             Result := MinCommonIndent;
         end;
@@ -1623,7 +1632,7 @@ var
     S := Lines[ALine - 1];
     N := Length(S);
     Result := FirstNonBlankPos(S, InsertPos(ALine));
-    if (FSelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
+    if (FStoredSelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
       Result := N - 1;
     Result := Max(1, Result);
     T := System.Copy(S, Result, PrefixLength);
@@ -1646,9 +1655,9 @@ begin
   WasSelAvail := SelAvail;
   CommonIndent := 0;
 
-  BlockBeginLine := FBlockBegin.Y;
-  BlockEndLine   := FBlockEnd.Y;
-  if (FBlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
+  BlockBeginLine := FStoredBlockBegin.Y;
+  BlockEndLine   := FStoredBlockEnd.Y;
+  if (FStoredBlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
     and (Editor.SelectionMode <> smLine) then
     Dec(BlockEndLine);
 
@@ -1671,11 +1680,11 @@ begin
     for I := BlockEndLine downto BlockBeginLine do
       Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
     if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
-      OldCaretPos.x := OldCaretPos.X + PrefixLength;
-    if FBlockBegin.X > InsertPos(FBlockBegin.Y) then
-      FBlockBegin.X := FBlockBegin.X + PrefixLength;
-    if FBlockEnd.X > InsertPos(FBlockEnd.Y) then
-      FBlockEnd.X := FBlockEnd.X + PrefixLength;
+      OldCaretPos.X := OldCaretPos.X + PrefixLength;
+    if FStoredBlockBegin.X > InsertPos(FStoredBlockBegin.Y) then
+      FStoredBlockBegin.X := FStoredBlockBegin.X + PrefixLength;
+    if FStoredBlockEnd.X > InsertPos(FStoredBlockEnd.Y) then
+      FStoredBlockEnd.X := FStoredBlockEnd.X + PrefixLength;
   end
   else
   begin
@@ -1688,10 +1697,10 @@ begin
         Point(NonBlankStart + PrefixLength, I)] := '';
       if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
         OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
-      if (FBlockBegin.Y = I) and (FBlockBegin.X > NonBlankStart) then
-        FBlockBegin.X := Max(FBlockBegin.X - PrefixLength, NonBlankStart);
-      if (FBlockEnd.Y = I) and (FBlockEnd.X > NonBlankStart) then
-        FBlockEnd.X := Max(FBlockEnd.X - PrefixLength, NonBlankStart);
+      if (FStoredBlockBegin.Y = I) and (FStoredBlockBegin.X > NonBlankStart) then
+        FStoredBlockBegin.X := Max(FStoredBlockBegin.X - PrefixLength, NonBlankStart);
+      if (FStoredBlockEnd.Y = I) and (FStoredBlockEnd.X > NonBlankStart) then
+        FStoredBlockEnd.X := Max(FStoredBlockEnd.X - PrefixLength, NonBlankStart);
     end;
   end;
 
@@ -1700,16 +1709,55 @@ begin
   RestoreBlock;
 end;
 
-procedure TEditorView.BlockCommentSelection;
+procedure TEditorView.ToggleBlockCommentSelection;
+var
+  S  : string;
+  S1 : string;
+  S2 : string;
+  N1 : Integer;
+  N2 : Integer;
 begin
   if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
   begin
     StoreBlock;
-    BeginUpdate;
-    SelText := HighlighterItem.BlockCommentStartTag + SelText
-      + HighlighterItem.BlockCommentEndTag;
+    N1 := Length(HighlighterItem.BlockCommentStartTag);
+    N2 := Length(HighlighterItem.BlockCommentEndTag);
+    S := Trim(SelText);
+    S1 := System.Copy(S, 1, N1);
+    S2 := System.Copy(S, Length(S) - N2 + 1, Length(S));
+    Logger.Send('S1', S1);
+    Logger.Send('S2', S2);
+    if (S1 = HighlighterItem.BlockCommentStartTag) and
+      (S2 = HighlighterItem.BlockCommentEndTag)
+    then
+    begin
+      SelText := System.Copy(S, N1 + 1, Length(S) - N2 - N1);
+      if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
+        Dec(FStoredBlockEnd.X, N1 + N2)
+      else
+        Dec(FStoredBlockEnd.X, N2)
+    end
+    else
+    begin
+      SelText := HighlighterItem.BlockCommentStartTag + SelText
+        + HighlighterItem.BlockCommentEndTag;
+      if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
+        Inc(FStoredBlockEnd.X, N1 + N2)
+      else
+        Inc(FStoredBlockEnd.X, N2);
+    end;
+    Logger.Send('BlockBegin', BlockBegin);
+    Logger.Send('BlockEnd', BlockEnd);
+
+    Logger.Send('BlockBegin', BlockBegin);
+    Logger.Send('BlockEnd', BlockEnd);
     RestoreBlock;
-    EndUpdate;
+    Logger.Send('BlockBegin', BlockBegin);
+    Logger.Send('BlockEnd', BlockEnd);
+
+    //SelStart := SelStart - Length(HighlighterItem.BlockCommentStartTag);
+    //SelEnd   := SelEnd + Length(HighlighterItem.BlockCommentEndTag) + Length(HighlighterItem.BlockCommentStartTag) - 1;
+//    EndUpdate;
     Modified := True;
   end;
 end;

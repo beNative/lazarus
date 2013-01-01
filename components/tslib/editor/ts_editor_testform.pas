@@ -25,8 +25,8 @@ unit ts_Editor_Testform;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls,
+  Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, Forms, Controls,
+  Graphics, Dialogs, StdCtrls, ExtCtrls,
 
   XMLTree,
 
@@ -105,7 +105,7 @@ end;
 procedure TfrmTest.UpdateView;
 begin
   try
-    FXMLTree.XML := View.Text;
+//    FXMLTree.XML := View.Text;
   except
   end;
 end;
@@ -123,7 +123,7 @@ end;
 procedure TfrmTest.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FXMLTree := CreateXMLTree(Self, pnlXML);
+  //FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 end.

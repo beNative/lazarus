@@ -3707,11 +3707,13 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actShowTestExecute
       ShortCut = 49220
     end
-    object actBlockCommentSelection: TAction
+    object actToggleBlockCommentSelection: TAction
       Category = 'Selection'
-      Caption = 'Block comment selection'
+      Caption = 'Toggle block comment selection'
+      Hint = 'Comment/uncomment the selection with the highlighter''s block comment tags.'
       ImageIndex = 17
-      OnExecute = actBlockCommentSelectionExecute
+      OnExecute = actToggleBlockCommentSelectionExecute
+      ShortCut = 24767
     end
   end
   object ppmEditor: TPopupMenu
@@ -4473,7 +4475,7 @@ object dmEditorManager: TdmEditorManager
         OnClick = actToggleCommentExecute
       end
       object MenuItem64: TMenuItem
-        Action = actBlockCommentSelection
+        Action = actToggleBlockCommentSelection
       end
       object MenuItem56: TMenuItem
         Caption = '-'

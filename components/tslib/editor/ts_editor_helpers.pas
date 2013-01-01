@@ -190,7 +190,7 @@ begin
   AddButton('actFormat');
   AddButton('actSyncEdit');
   AddButton('');
-  AddButton('actBlockCommentSelection');
+  AddButton('actToggleBlockCommentSelection');
   AddButton('actQuoteLines');
   AddButton('actDeQuoteLines');
   AddButton('actQuoteSelection');
@@ -274,7 +274,7 @@ begin
   AddEditorMenuItem(MI, 'actQuoteLinesAndDelimit');
   AddEditorMenuItem(MI, 'actDeQuoteLines');
   AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actBlockCommentSelection');
+  AddEditorMenuItem(MI, 'actToggleBlockCommentSelection');
   AddEditorMenuItem(MI, 'actPascalStringOfSelection');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actStripFirstChar');

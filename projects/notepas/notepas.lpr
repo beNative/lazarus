@@ -16,6 +16,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title := 'Notepas';
   //if FileExists('NotePas.trc') then
   //  DeleteFile('NotePas.trc');
   //SetHeapTraceOutput('NotePas.trc');

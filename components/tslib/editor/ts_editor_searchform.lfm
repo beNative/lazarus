@@ -1,7 +1,7 @@
 object frmSearchForm: TfrmSearchForm
-  Left = 946
+  Left = 2622
   Height = 916
-  Top = 36
+  Top = 48
   Width = 302
   ActiveControl = cbxSearchText
   BorderIcons = [biSystemMenu]
@@ -60,7 +60,7 @@ object frmSearchForm: TfrmSearchForm
       end
       object lblSearchText: TLabel
         AnchorSideTop.Side = asrCenter
-        Left = 8
+        Left = 12
         Height = 13
         Top = 5
         Width = 57
@@ -72,10 +72,10 @@ object frmSearchForm: TfrmSearchForm
       object cbxSearchText: TComboBox
         AnchorSideLeft.Control = lblSearchText
         AnchorSideLeft.Side = asrBottom
-        Left = 73
+        Left = 77
         Height = 21
         Top = 0
-        Width = 221
+        Width = 217
         Anchors = [akTop, akLeft, akRight]
         AutoCompleteText = [cbactEndOfLineComplete]
         AutoSelect = False
@@ -94,14 +94,14 @@ object frmSearchForm: TfrmSearchForm
       Top = 51
       Width = 302
       Caption = 'Replace with'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ClientHeight = 29
       ClientWidth = 298
       TabOrder = 1
       object chkReplaceWith: TCheckBox
         AnchorSideTop.Side = asrCenter
-        Left = 6
+        Left = 11
         Height = 17
         Top = 6
         Width = 85
@@ -133,7 +133,7 @@ object frmSearchForm: TfrmSearchForm
       Top = 102
       Width = 302
       Caption = 'Options'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -146,10 +146,10 @@ object frmSearchForm: TfrmSearchForm
       ClientWidth = 298
       TabOrder = 2
       object chkWholeWordsOnly: TCheckBox
-        Left = 2
+        Left = 8
         Height = 17
         Top = 8
-        Width = 148
+        Width = 142
         BorderSpacing.Top = 6
         BorderSpacing.Around = 2
         Caption = '&Whole words only'
@@ -163,7 +163,7 @@ object frmSearchForm: TfrmSearchForm
         Height = 17
         Hint = 'Search in all opened editors.'
         Top = 8
-        Width = 138
+        Width = 132
         BorderSpacing.Top = 6
         BorderSpacing.Around = 2
         Caption = 'Search in &all views'
@@ -175,10 +175,10 @@ object frmSearchForm: TfrmSearchForm
         TabOrder = 1
       end
       object chkRegularExpressions: TCheckBox
-        Left = 2
+        Left = 8
         Height = 17
         Top = 33
-        Width = 148
+        Width = 142
         BorderSpacing.Top = 6
         BorderSpacing.Around = 2
         Caption = 'Regular e&xpressions'
@@ -191,7 +191,7 @@ object frmSearchForm: TfrmSearchForm
         Left = 158
         Height = 17
         Top = 33
-        Width = 138
+        Width = 132
         BorderSpacing.Top = 6
         BorderSpacing.Around = 2
         Caption = '&Case sensitive'
@@ -201,10 +201,10 @@ object frmSearchForm: TfrmSearchForm
         TabOrder = 3
       end
       object chkMultiLine: TCheckBox
-        Left = 2
+        Left = 8
         Height = 17
         Top = 58
-        Width = 148
+        Width = 142
         BorderSpacing.Top = 6
         BorderSpacing.Around = 2
         Caption = '&MultiLine'
@@ -220,7 +220,7 @@ object frmSearchForm: TfrmSearchForm
       Top = 203
       Width = 302
       Caption = 'Origin'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -233,10 +233,10 @@ object frmSearchForm: TfrmSearchForm
       ClientWidth = 298
       TabOrder = 3
       object rbtFromCursor: TRadioButton
-        Left = 2
+        Left = 8
         Height = 17
         Top = 4
-        Width = 142
+        Width = 136
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&From cursor'
@@ -248,7 +248,7 @@ object frmSearchForm: TfrmSearchForm
         Left = 152
         Height = 17
         Top = 4
-        Width = 144
+        Width = 138
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&Entire scope'
@@ -261,7 +261,7 @@ object frmSearchForm: TfrmSearchForm
       Top = 250
       Width = 302
       Caption = 'Scope'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -274,10 +274,10 @@ object frmSearchForm: TfrmSearchForm
       ClientWidth = 298
       TabOrder = 4
       object rbtSelected: TRadioButton
-        Left = 2
+        Left = 8
         Height = 17
         Top = 4
-        Width = 149
+        Width = 143
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&Selected'
@@ -287,7 +287,7 @@ object frmSearchForm: TfrmSearchForm
         Left = 159
         Height = 17
         Top = 4
-        Width = 137
+        Width = 131
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&Global'
@@ -302,7 +302,7 @@ object frmSearchForm: TfrmSearchForm
       Top = 297
       Width = 302
       Caption = 'Direction'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -315,10 +315,10 @@ object frmSearchForm: TfrmSearchForm
       ClientWidth = 298
       TabOrder = 5
       object rbtBackward: TRadioButton
-        Left = 2
+        Left = 8
         Height = 17
         Top = 4
-        Width = 146
+        Width = 140
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&Backward'
@@ -328,7 +328,7 @@ object frmSearchForm: TfrmSearchForm
         Left = 156
         Height = 17
         Top = 4
-        Width = 140
+        Width = 134
         AutoSize = False
         BorderSpacing.Around = 2
         Caption = '&Forward'

@@ -152,7 +152,6 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
     procedure UpdateActions; override;
 
@@ -173,7 +172,7 @@ implementation
 uses
   Messages, Windows,
 
-  ts_Core_ColumnDefinitions, ts_Core_Helpers,
+  ts_Core_ColumnDefinitions, ts_Core_Helpers, ts_Core_ComponentInspector,
 
   ts_Editor_SearchEngine, ts_Editor_Utils;
 
@@ -188,25 +187,21 @@ begin
   //FTVP := CreateTVP();   // TODO
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 20);
-  FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160);
-  FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60);
-  FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40);
+  FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 40, 20, 60);
+  FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160, 120, 400);
+  FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60, 60, 80);
+  FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
-  btnNext.Action     := Manager.Actions['actFindNext'];
-  btnPrevious.Action := Manager.Actions['actFindPrevious'];
-  btnNext.Caption    := '';
+  btnNext.Action      := Manager.Actions['actFindNext'];
+  btnPrevious.Action  := Manager.Actions['actFindPrevious'];
+  btnNext.Caption     := '';
   btnPrevious.Caption := '';
-  cbxSearchText.Text     := '';
-  cbxReplaceWith.Text    := '';
+  cbxSearchText.Text  := '';
+  cbxReplaceWith.Text := '';
   Modified;
-end;
-
-procedure TfrmSearchForm.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
+  InspectComponents([FVST, FTVP]);
 end;
 
 //*****************************************************************************

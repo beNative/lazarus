@@ -113,6 +113,7 @@ uses
 type
   TEditorView = class(TForm, IEditorView)
   published
+    imlBookmarkImages: TImageList;
 
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
@@ -1226,7 +1227,7 @@ begin
   FEditor.Font.Assign(Settings.EditorFont);
   FEditor.BorderStyle := bsNone;
   FEditor.DoubleBuffered := True;
-
+  FEditor.BookMarkOptions.BookmarkImages := imlBookmarkImages;
   FEditor.Gutter.Color := 15329769; // light gray
   FEditor.Gutter.Width := 29;
   FEditor.Gutter.MarksPart.Width := 0;       // Bookmarks
@@ -1254,6 +1255,12 @@ begin
   begin
     MarkupInfo.Background := clNone;
     MarkupInfo.Foreground := clGray;
+  end;
+  with FEditor.Gutter.MarksPart do
+  begin
+    Width := 1;
+    AutoSize := True;
+    Visible := True;
   end;
 
   FEditor.Options := [

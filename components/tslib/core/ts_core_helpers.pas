@@ -89,6 +89,7 @@ begin
     hoShowSortGlyphs,
     hoVisible
   ];
+  VST.Header.Height := 18;
   VST.TreeOptions.SelectionOptions := [
     toExtendedFocus
   ];

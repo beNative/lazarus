@@ -29,6 +29,7 @@ type
     function GetOriginalFilename: string;
     function GetProductName: string;
     function GetProductVersion: string;
+    function GetURL: string;
     function GetWidgetSet: string;
 
   public
@@ -80,6 +81,9 @@ type
 
     property WidgetSet: string
       read GetWidgetSet;
+
+    property URL: string
+      read GetURL;
 
     property Icon: TIcon
       read GetIcon;
@@ -136,6 +140,7 @@ begin
   FTargetOS := LowerCase({$I %FPCTARGETOS%});
   FBuildDate := {$I %DATE%};
   FFileVersionInfo := TFileVersionInfo.Create(Self);
+  FFileVersionInfo.AddExtraVersionString('URL');
   FFileVersionInfo.FileName := ParamStr(0);
   FLCLVersion := lcl_version;
 end;
@@ -181,6 +186,11 @@ end;
 function TVersionInfo.GetProductVersion: string;
 begin
   Result := FFileVersionInfo.GetVersionSetting('ProductVersion');
+end;
+
+function TVersionInfo.GetURL: string;
+begin
+  Result := FFileVersionInfo.GetVersionSetting('URL');
 end;
 
 function TVersionInfo.GetFileName: string;

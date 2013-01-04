@@ -75,6 +75,7 @@ type
     lblLegalCopyright: TLabel;
     lblTargetCPU: TLabel;
     lblTargetOS: TLabel;
+    lblURL: TLabel;
     lblWidgetSet: TLabel;
     pgcMain: TPageControl;
     pnlBuildDate: TPanel;
@@ -89,6 +90,8 @@ type
     tsCredits: TTabSheet;
     vstCredits: TVirtualStringTree;
     procedure actCloseExecute(Sender: TObject);
+    procedure lblURLClick(Sender: TObject);
+    procedure lblURLDblClick(Sender: TObject);
     {$endregion}
   private
     FVersionInfo : TVersionInfo;
@@ -132,6 +135,9 @@ implementation
 
 {$R *.lfm}
 
+uses
+  LCLIntf;
+
 procedure ShowAboutDialog;
 var
   F : TfrmAbout;
@@ -159,8 +165,8 @@ begin
   pnlBuildDate.Caption      := FVersionInfo.BuildDate;
   pnlWidgetSet.Caption      := FVersionInfo.WidgetSet;
   pnlFileVersion.Caption    := FVersionInfo.FileVersion;
-  pnlName.Caption           := FVersionInfo.ProductName
-    + ' ' + FVersionInfo.ProductVersion;
+  pnlName.Caption           := FVersionInfo.ProductName + ' ' + FVersionInfo.ProductVersion;;
+  lblURL.Caption            := FVersionInfo.URL;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
   FCredits := TObjectList.Create(True);
@@ -219,6 +225,16 @@ end;
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmAbout.lblURLClick(Sender: TObject);
+begin
+  OpenURL(FVersionInfo.URL);
+end;
+
+procedure TfrmAbout.lblURLDblClick(Sender: TObject);
+begin
+  OpenURL(FVersionInfo.URL);
 end;
 
 //*****************************************************************************

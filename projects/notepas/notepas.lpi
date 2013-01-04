@@ -20,9 +20,11 @@
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="1"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion=""/>
+      <RevisionNr Value="3"/>
+      <BuildNr Value="3"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="6">
       <Item1 Name="Default" Default="True"/>

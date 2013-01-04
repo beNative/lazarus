@@ -1,7 +1,7 @@
 object frmAbout: TfrmAbout
-  Left = 804
+  Left = 640
   Height = 267
-  Top = 110
+  Top = 378
   Width = 552
   BorderIcons = [biSystemMenu]
   Caption = 'About'
@@ -755,9 +755,26 @@ object frmAbout: TfrmAbout
     ModalResult = 11
     TabOrder = 3
   end
+  object lblURL: TLabel
+    Cursor = crHandPoint
+    Left = 8
+    Height = 33
+    Top = 180
+    Width = 200
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'URL'
+    Font.Color = clBlue
+    Font.Style = [fsUnderline]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+    OnClick = lblURLClick
+    OnDblClick = lblURLDblClick
+  end
   object aclMain: TActionList
-    left = 97
-    top = 189
+    left = 208
+    top = 224
     object actClose: TAction
       Caption = '&Close'
       OnExecute = actCloseExecute

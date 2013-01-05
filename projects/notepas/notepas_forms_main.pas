@@ -95,6 +95,7 @@ uses
 
   TODO
     - Dequote lines in code shaper
+    - cheat panel with shortcut/button overview for all supported actions
 
   IDEAS
     - surround with function for selected block (as in Notepad2)
@@ -147,11 +148,7 @@ type
 
     {$region 'event handlers' /fold}
     procedure ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
-    procedure AHSActivate(Sender: TObject);
     procedure AHSActivateSite(Sender: TObject);
-    procedure AHSEnter(Sender: TObject);
-    procedure AHSShow(Sender: TObject);
-    procedure AHSWindowStateChange(Sender: TObject);
     procedure btnEncodingClick(Sender: TObject);
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
@@ -159,8 +156,6 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
     procedure frmMainActiveViewChange(Sender: TObject);
-    procedure ScreenActiveControlChange(Sender: TObject);
-    procedure ScreenActiveFormChange(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
     {$endregion}
@@ -187,6 +182,12 @@ type
     procedure ConfigureAvailableActions;
     procedure UpdateStatusBar;
     procedure UpdateCaptions;
+
+    procedure DisplayToolForm(
+            AAction   : TAction;
+      const AFormName : string;
+            ASetFocus : Boolean = False
+    );
 
   public
     procedure AfterConstruction; override;
@@ -229,7 +230,7 @@ uses
 
   SynEditTypes,
 
-  ts_Core_Utils, ts_Core_VersionInfo,
+  ts_Core_Utils, ts_Core_VersionInfo, ts_Core_Helpers,
 
   ts_Editor_Manager, ts_Editor_AboutDialog, ts_Editor_Helpers;
 
@@ -256,8 +257,6 @@ begin
     // for debugging
     Logger.Channels.Add(TIPCChannel.Create);
     Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
-    Screen.OnActiveControlChange := ScreenActiveControlChange;
-    Screen.OnActiveFormChange := ScreenActiveFormChange;
     AddEditorDebugMenu(mnuMain);
   end;
   pnlViewerCount.Visible := Settings.DebugMode;
@@ -376,129 +375,42 @@ end;
 
 procedure TfrmMain.ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
 var
-  F: TForm;
-  A: TAction;
+  A : TAction;
+  S : string;
+begin
+  A := TAction(AAction);
+  S := A.Name;
+  if S = 'actShapeCode' then
+    DisplayToolForm(A, 'frmCodeShaper')
+  else if S = 'actFind' then
+    DisplayToolForm(A, 'frmSearchForm', True)
+  else if S = 'actShowPreview' then
+    DisplayToolForm(A, 'frmPreview')
+  else if S = 'actTestForm' then
+    DisplayToolForm(A, 'frmTest')
+  else if S = 'actAlignSelection' then
+    DisplayToolForm(A, 'actAlignSelection', True);
+{$region 'docking support' /fold}
+/// below works to support docking toolforms!
+{
+  below works to support docking toolforms!
   ADHS: TAnchorDockHostSite;
-begin
-  /// below works!
-  //if AAction.Name = 'actFindNext' then
-  //begin
-  //  Actions.FindReplaceDialog;
-  //  DockMaster.MakeDockable(Actions.FindReplaceDialog);
-  //  DockMaster.ManualDock(DockMaster.GetAnchorSite(Actions.FindReplaceDialog),Self, alRight);
-  //end;
-    A := TAction(AAction);
-    if A.Name = 'actShapeCode' then
-    begin
-      pnlTool.BeginUpdateBounds;
-      //F := CodeShaperForm;
-      //ShowMessage(F.Name);
 
-      F := EditorManager.ToolViews['frmCodeShaper'].Form;
-      if Assigned(F) then
-      begin
-        lblHeader.Caption := F.Caption;
-        F.BeginUpdateBounds;
-        F.Parent := pnlTool;
-        F.BorderStyle := bsNone;
-        F.Align := alClient;
-        F.Visible := A.Checked;
-        F.EndUpdateBounds;
-        pnlTool.EndUpdateBounds;
-        pnlTool.Visible := A.Checked;
-        splVertical.Visible := A.Checked;
-      end
-    end
-    else if A.Name = 'actFind' then
-    begin
-      F := EditorManager.ToolViews['frmSearchForm'].Form;
-      if Assigned(F) then
-      begin
-        pnlTool.BeginUpdateBounds;
-        lblHeader.Caption := F.Caption;
-        F.BeginUpdateBounds;
-        F.Parent := pnlTool;
-        F.BorderStyle := bsNone;
-        F.Align := alClient;
-        F.Visible := A.Checked;
-        F.EndUpdateBounds;
-        pnlTool.EndUpdateBounds;
-        pnlTool.Visible := A.Checked;
-        splVertical.Visible := A.Checked;
-        Application.ProcessMessages;  // required to be able to set focus to this window
-        if F.CanFocus then
-          F.SetFocus;
-      end;
-    end
-
-    else if A.Name = 'actShowPreview' then
-    begin
-      F := EditorManager.ToolViews['frmPreview'].Form;
-      if Assigned(F) then
-      begin
-        pnlTool.BeginUpdateBounds;
-        lblHeader.Caption := F.Caption;
-        F.BeginUpdateBounds;
-        F.Parent := pnlTool;
-        F.BorderStyle := bsNone;
-        F.Align := alClient;
-        F.Visible := A.Checked;
-        F.EndUpdateBounds;
-        pnlTool.Visible := A.Checked;
-        splVertical.Visible := A.Checked;
-        pnlTool.EndUpdateBounds;
-      end;
-    end
-    else if A.Name = 'actTestForm' then
-    begin
-      F := EditorManager.ToolViews['frmTest'].Form;
-      if Assigned(F) then
-      begin
-        pnlTool.BeginUpdateBounds;
-        lblHeader.Caption := F.Caption;
-        F.BeginUpdateBounds;
-        F.Parent := pnlTool;
-        F.BorderStyle := bsNone;
-        F.Align := alClient;
-        F.Visible := True;
-        F.EndUpdateBounds;
-        pnlTool.Visible := A.Checked;
-        splVertical.Visible := A.Checked;
-        pnlTool.EndUpdateBounds;
-      end;
-    end
-    else if A.Name = 'actAlignSelection' then
-    begin
-      F := EditorManager.ToolViews['frmAlignLines'].Form;
-      if Assigned(F) then
-      begin
-        pnlTool.BeginUpdateBounds;
-        lblHeader.Caption := F.Caption;
-        F.BeginUpdateBounds;
-        F.Parent := pnlTool;
-        F.BorderStyle := bsNone;
-        F.Align := alClient;
-        F.Visible := True;
-        F.EndUpdateBounds;
-        pnlTool.Visible := A.Checked;
-        splVertical.Visible := A.Checked;
-        EditorManager.ToolViews['frmAlignLines'].UpdateView;
-        pnlTool.EndUpdateBounds;
-      end;
-    end;
-      //DockMaster.BeginUpdate;
-      //DockMaster.MakeDockable(CodeShaperForm.CodeShaperForm);
-      //ADHS := DockMaster.GetAnchorSite(CodeShaperForm.CodeShaperForm);
-      //ADHS.BeginUpdateLayout;
-      //DockMaster.ManualDock(ADHS, FToolForm, alLeft);
-      //ADHS.EndUpdateLayout;
-      //DockMaster.EndUpdate;
-  Logger.SendCallStack('CallStack');
-end;
-
-procedure TfrmMain.AHSActivate(Sender: TObject);
-begin
-//  Logger.Send('AHS.Activate', Sender);
+  if AAction.Name = 'actFindNext' then
+  begin
+    Actions.FindReplaceDialog;
+    DockMaster.MakeDockable(Actions.FindReplaceDialog);
+    DockMaster.ManualDock(DockMaster.GetAnchorSite(Actions.FindReplaceDialog),Self, alRight);
+  end;
+  DockMaster.BeginUpdate;
+  DockMaster.MakeDockable(CodeShaperForm.CodeShaperForm);
+  ADHS := DockMaster.GetAnchorSite(CodeShaperForm.CodeShaperForm);
+  ADHS.BeginUpdateLayout;
+  DockMaster.ManualDock(ADHS, FToolForm, alLeft);
+  ADHS.EndUpdateLayout;
+  DockMaster.EndUpdate;
+}
+{$endregion}
 end;
 
 procedure TfrmMain.AHSActivateSite(Sender: TObject);
@@ -513,21 +425,6 @@ begin
     if C is IEditorView then
       (C as IEditorView).Activate;
   end;
-end;
-
-procedure TfrmMain.AHSEnter(Sender: TObject);
-begin
-//  Logger.Send('AHS.Enter', Sender);
-end;
-
-procedure TfrmMain.AHSShow(Sender: TObject);
-begin
-//  Logger.Send('AHS.Show', Sender);
-end;
-
-procedure TfrmMain.AHSWindowStateChange(Sender: TObject);
-begin
-//Logger.Send('AHS.WindowStateChange', Sender);
 end;
 
 procedure TfrmMain.ENewFile(Sender: TObject; var AFileName: string;
@@ -606,25 +503,6 @@ procedure TfrmMain.frmMainActiveViewChange(Sender: TObject);
 begin
   if Assigned(Editor) then
     DockMaster.MakeVisible(Editor.Form, True);
-end;
-
-procedure TfrmMain.ScreenActiveControlChange(Sender: TObject);
-begin
-  //if Assigned(Screen.ActiveControl) then
-  //begin
-  //  if Screen.ActiveControl is TSynEdit then
-  //    Logger.Send('EditorView', Format('%s', [Screen.ActiveControl.Parent.Name]))
-  //  else
-  //    Logger.Send('Screen.ActiveControl changed', Format('%s, %s', [Screen.ActiveControl.ClassName, Screen.ActiveControl.Name]));
-  //end;
-end;
-
-procedure TfrmMain.ScreenActiveFormChange(Sender: TObject);
-begin
-  //if Assigned(Screen.ActiveCustomForm) then
-  //begin
-  //    Logger.Send('Screen.ActiveForm changed', Format('%s, %s', [Screen.ActiveCustomForm.ClassName, Screen.ActiveCustomForm.Name]));
-  //end;
 end;
 
 procedure TfrmMain.SpeedButton1Click(Sender: TObject);
@@ -766,6 +644,28 @@ begin
   end;
 end;
 
+procedure TfrmMain.DisplayToolForm(AAction: TAction; const AFormName: string;
+  ASetFocus: Boolean);
+var
+  TV : IEditorToolView;
+begin
+  TV := EditorManager.ToolViews[AFormName];
+  if Assigned(TV) then
+  begin
+    lblHeader.Caption := TV.Form.Caption;
+    AssignFormParent(TV.Form, pnlTool);
+    TV.Visible := AAction.Checked;
+    pnlTool.Visible := AAction.Checked;
+    splVertical.Visible := AAction.Checked;
+    if TV.Visible then
+      TV.UpdateView;
+    if ASetFocus and TV.Form.CanFocus then
+      TV.Form.SetFocus;
+  end
+  else
+    raise Exception.CreateFmt('Toolform with name %s does not exist!', [AFormName]);
+end;
+
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
@@ -789,10 +689,6 @@ begin
     try
       DockMaster.MakeDockable(V.Form);
       AHS := DockMaster.GetAnchorSite(V.Form);
-      AHS.OnEnter := AHSEnter;
-      AHS.OnShow := AHSShow;
-      AHS.OnWindowStateChange := AHSWindowStateChange;
-      AHS.OnActivate := AHSActivate;
       DockMaster.ManualDock(AHS, Self, alClient);
       AHS.Header.Visible := Views.Count > 1;
       AHS.Header.HeaderPosition := adlhpTop;

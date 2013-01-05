@@ -9,7 +9,7 @@ unit ts_Core_Helpers;
 interface
 
 uses
-  Classes, SysUtils, Controls, Contnrs,
+  Classes, SysUtils, Controls, Contnrs, ExtCtrls, Forms,
 
   RTTIGrids, RTTICtrls,
 
@@ -42,6 +42,11 @@ function CreatePI(
   AOwner  : TComponent;
   AParent : TWinControl
 ): TTIPropertyGrid;
+
+procedure AssignFormParent(
+  AForm   : TCustomForm;
+  AParent : TCustomControl
+);
 
 //*****************************************************************************
 
@@ -178,6 +183,21 @@ begin
   PI.PropertyEditorHook.AddHandlerSetSelection(TLocalClass.OnSetSelection);
   PI.Layout := oilHorizontal;
   Result := PI;
+end;
+
+procedure AssignFormParent(AForm: TCustomForm; AParent: TCustomControl);
+begin
+  if AForm.Parent <> AParent then
+  begin;
+    AParent.BeginUpdateBounds;
+    AForm.BeginUpdateBounds;
+    AForm.Parent := AParent;
+    AForm.BorderStyle := bsNone;
+    AForm.Align := alClient;
+    AForm.Visible := True;
+    AForm.EndUpdateBounds;
+    AParent.EndUpdateBounds;
+  end;
 end;
 
 end.

@@ -206,6 +206,13 @@ type
     procedure ToggleBlockCommentSelection;
     procedure InsertTextAtCaret(const AText: string);
     procedure Close;
+    procedure AlignSelection(
+      const AToken                  : string;
+            ACompressWS             : Boolean;
+            AInsertSpaceBeforeToken : Boolean;
+            AInsertSpaceAfterToken  : Boolean;
+            AAlignInParagraphs      : Boolean
+    );
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);

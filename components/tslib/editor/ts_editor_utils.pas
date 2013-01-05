@@ -60,58 +60,81 @@ const
     #13
   );
 
-function CompressSpace(const AString: string;
-  APreserveIndent: Boolean = True): string;
+function CompressSpace(
+  const AString         : string;
+        APreserveIndent : Boolean = True
+): string;
 
-procedure AlignLines(AStrings: TStrings;
-  const AToken: string;
-  ACompressWS: Boolean = True;
-  AInsertSpaceBeforeToken: Boolean = True;
-  AInsertSpaceAfterToken: Boolean = True); overload;
+procedure AlignLines(
+        AStrings                : TStrings;
+  const AToken                  : string;
+        ACompressWS             : Boolean = True;
+        AInsertSpaceBeforeToken : Boolean = True;
+        AInsertSpaceAfterToken  : Boolean = True
+); overload;
 
-function AlignLines(const AString: string;
-  const AToken: string;
-  ACompressWS: Boolean;
-  AInsertSpaceBeforeToken: Boolean;
-  AInsertSpaceAfterToken: Boolean): string; overload;
+function AlignLines(
+  const AString                 : string;
+  const AToken                  : string;
+        ACompressWS             : Boolean;
+        AInsertSpaceBeforeToken : Boolean;
+        AInsertSpaceAfterToken  : Boolean
+): string; overload;
 
-function AlignLines(const AString: string;
-  const AToken: string;
-  ACompressWS: Boolean;
-  AInsertSpaceBeforeToken: Boolean;
-  AInsertSpaceAfterToken: Boolean;
-  AAlignInParagraphs: Boolean): string; overload;
+function AlignLines(
+  const AString                 : string;
+  const AToken                  : string;
+        ACompressWS             : Boolean;
+        AInsertSpaceBeforeToken : Boolean;
+        AInsertSpaceAfterToken  : Boolean;
+        AAlignInParagraphs      : Boolean
+): string; overload;
 
-function BreakLines(const AString: string;
-  const AToken: string;
-  ABeforeToken: Boolean = False;
-  AIndent: Integer = 0;
-  ATrimSpace: Boolean = True;
-  ABreakStyle: TTextLineBreakStyle = tlbsCRLF): string;
+function BreakLines(
+  const AString      : string;
+  const AToken       : string;
+        ABeforeToken : Boolean = False;
+        AIndent      : Integer = 0;
+        ATrimSpace   : Boolean = True;
+        ABreakStyle  : TTextLineBreakStyle = tlbsCRLF
+): string;
 
-function UnBreakLines(const AString: string;
-  ABreakStyle: TTextLineBreakStyle = tlbsCRLF): string;
+function JoinLines(
+  const AString     : string;
+        ABreakStyle : TTextLineBreakStyle = tlbsCRLF
+): string;
 
-function CompressLines(const AString: string;
-  APreserveIndent: Boolean = True): string;
+function CompressLines(
+  const AString         : string;
+        APreserveIndent : Boolean = True
+): string;
 
-function TrimLines(const AString: string;
-  ALeft: Boolean;
-  ARight: Boolean;
-  AIndent: Integer = 0;
-  AChars : TSysCharSet = [' ']): string;
+function TrimLines(
+  const AString : string;
+        ALeft   : Boolean;
+        ARight  : Boolean;
+        AIndent : Integer = 0;
+        AChars  : TSysCharSet = [' ']
+): string;
 
-function QuoteLines(const AString: string;
-  const AQuoteChar: Char = '''';
-  ATrimSpace: Boolean = False): string;
+function QuoteLines(
+  const AString    : string;
+  const AQuoteChar : Char = '''';
+        ATrimSpace : Boolean = False
+): string;
 
-function QuoteLinesAndDelimit(const AString: string;
-  const AQuoteChar: Char = '''';
-  const ADelimiter: string = ', ';
-  ATrimSpace: Boolean = False): string;
+function QuoteLinesAndDelimit(
+  const AString    : string;
+  const AQuoteChar : Char = '''';
+  const ADelimiter : string = ', ';
+        ATrimSpace : Boolean = False
+): string;
 
-function DequoteLines(const AString: string; const AQuoteChar: Char = '''';
-  ATrimSpace: Boolean = False): string;
+function DequoteLines(
+  const AString    : string;
+  const AQuoteChar : Char = '''';
+        ATrimSpace : Boolean = False
+): string;
 
 function CommentText(const AString: string; ACommentType: TCommentType): string;
 
@@ -119,14 +142,25 @@ function UnCommentText(const AString: string; ACommentType: TCommentType): strin
 
 function FormatXML(const AXMLString: string): string;
 
-function PascalStringOf(const AString: string;
-  ATrimLines: Boolean = False): string;
+function PascalStringOf(
+  const AString    : string;
+        ATrimLines : Boolean = False
+): string;
 
-procedure FilterLines(ASource, AInclude, AExclude, ADestination: TStrings;
-  AIncludeCaseSensitive: Boolean = True; AExcludeCaseSensitive: Boolean = True);
+procedure FilterLines(
+  ASource               : TStrings;
+  AInclude              : TStrings;
+  AExclude              : TStrings;
+  ADestination          : TStrings;
+  AIncludeCaseSensitive : Boolean = True;
+  AExcludeCaseSensitive : Boolean = True
+);
 
-procedure AddStringsPresentInString(ASource, ADest: TStrings;
-  const AFilterString: string);
+procedure AddStringsPresentInString(
+        ASource       : TStrings;
+        ADest         : TStrings;
+  const AFilterString : string
+);
 
 function IsXML(const AString: string): Boolean;
 
@@ -142,8 +176,10 @@ function IsHTML(const AString: string): Boolean;
 
 function GuessHighlighterType(const AText: string): string;
 
-function ChangeLineBreakStyle(const AString         : string;
-                                    ALineBreakStyle : TTextLineBreakStyle): string;
+function ChangeLineBreakStyle(
+  const AString         : string;
+        ALineBreakStyle : TTextLineBreakStyle
+): string;
 
 function GuessLineBreakStyle(const AString: string): TTextLineBreakStyle;
 
@@ -161,6 +197,8 @@ function RemoveDoubles(const AString: string): string;
 procedure MergeBlankStream(Stream: TStream);
 
 function StripPASComments(const AString: string): string;
+
+function StripLastLineEnding(const AString: string): string;
 
 function MatchRegExpr(
   const AString        : string;
@@ -200,7 +238,6 @@ function SetToString(
         ABrackets    : Boolean = True;
         ATrimChars   : Integer = -1
 ): string;
-
 
 //*****************************************************************************
 
@@ -388,7 +425,7 @@ begin
   );
 end;
 
-function UnBreakLines(const AString: string; ABreakStyle: TTextLineBreakStyle): string;
+function JoinLines(const AString: string; ABreakStyle: TTextLineBreakStyle): string;
 var
   BR: string;
 begin
@@ -1199,6 +1236,26 @@ begin
   end;
 end;
 
+function StripLastLineEnding(const AString: string): string;
+var
+  S: string;
+  N1: Integer;
+  N2: Integer;
+begin
+  N1 := Length(LineEnding);
+  N2 := Length(AString);
+  if N2 >= N1 then
+  begin
+    S := Copy(AString, N2 - N1 + 1, N2);
+    if S = LineEnding then
+      Result := Copy(AString, 1, N2 - N1)
+    else
+      Result := AString;
+  end
+  else
+    Result := AString;
+end;
+
 function MatchRegExpr(const AString: string; const ARegExpr: string;
   ACaseSensitive: Boolean): Boolean;
 var
@@ -1214,7 +1271,8 @@ begin
   end;
 end;
 
-function MatchRegExpr(const AString: string; const ARegExpr: string; var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
+function MatchRegExpr(const AString: string; const ARegExpr: string;
+  var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
 var
   RE: TRegExpr;
 begin

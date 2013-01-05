@@ -31,15 +31,25 @@ uses
 
 type
   TAlignLinesSettings = class(TPersistent)
-  private
+  strict private
     FAlignInParagraphs    : Boolean;
     FKeepSpaceAfterToken  : Boolean;
     FKeepSpaceBeforeToken : Boolean;
     FRemoveWhiteSpace     : Boolean;
+    FTokenList            : TStringList;
+
+    function GetTokenList: TStrings;
+    function GetTokens: string;
+    procedure SetTokens(AValue: string);
   public
     procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
+
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
+
+    property TokenList: TStrings
+      read GetTokenList;
 
   published
     property AlignInParagraphs: Boolean
@@ -54,6 +64,8 @@ type
     property KeepSpaceAfterToken: Boolean
       read FKeepSpaceAfterToken write FKeepSpaceAfterToken;
 
+    property Tokens: string
+      read GetTokens write SetTokens;
   end;
 
 //*****************************************************************************
@@ -67,10 +79,43 @@ implementation
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FTokenList := TStringList.Create;
+  FTokenList.Duplicates := dupIgnore;
+  FTokenList.Delimiter := ',';
+  FTokenList.Sorted := True;
+end;
+
+procedure TAlignLinesSettings.BeforeDestruction;
+begin
+  FTokenList.Free;
+  inherited BeforeDestruction;
 end;
 
 //*****************************************************************************
 // construction and destruction                                            END
+//*****************************************************************************
+
+//*****************************************************************************
+// property access methods                                               BEGIN
+//*****************************************************************************
+
+function TAlignLinesSettings.GetTokens: string;
+begin
+  Result := FTokenList.Text;
+end;
+
+function TAlignLinesSettings.GetTokenList: TStrings;
+begin
+  Result := FTokenList;
+end;
+
+procedure TAlignLinesSettings.SetTokens(AValue: string);
+begin
+  FTokenList.Text := AValue;
+end;
+
+//*****************************************************************************
+// property access methods                                                 END
 //*****************************************************************************
 
 //*****************************************************************************
@@ -88,6 +133,7 @@ begin
     ALS.KeepSpaceBeforeToken := KeepSpaceBeforeToken;
     ALS.AlignInParagraphs    := AlignInParagraphs;
     ALS.RemoveWhiteSpace     := RemoveWhiteSpace;
+    ALS.Tokens               := Tokens;
   end
   else
     inherited AssignTo(Dest);
@@ -104,6 +150,7 @@ begin
     KeepSpaceBeforeToken := ALS.KeepSpaceBeforeToken;
     AlignInParagraphs    := ALS.AlignInParagraphs;
     RemoveWhiteSpace     := ALS.RemoveWhiteSpace;
+    Tokens               := ALS.Tokens;
   end
   else
     inherited Assign(Source);

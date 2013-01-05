@@ -327,7 +327,7 @@ var
   S: string;
 begin
   S := Text;
-  S := UnBreakLines(S);
+  S := JoinLines(S);
   if chkUnBreakLinesWrap.Checked then
     S := WrapText(S, edtUnBreakLinesWrapPosition.Value);
   AssignText(S);
@@ -442,7 +442,7 @@ begin
     S,
     edtDequoteLinesQuoteChar.Text[1],
     chkDeQuoteLinesTrimSpace.Checked
-    );
+  );
   AssignText(S);
 end;
 

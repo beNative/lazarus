@@ -292,6 +292,14 @@ type
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
     procedure ToggleBlockCommentSelection;
 
+    procedure AlignSelection(
+      const AToken                  : string;
+            ACompressWS             : Boolean;
+            AInsertSpaceBeforeToken : Boolean;
+            AInsertSpaceAfterToken  : Boolean;
+            AAlignInParagraphs      : Boolean
+    );
+
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
 
@@ -1230,9 +1238,6 @@ begin
   FEditor.BookMarkOptions.BookmarkImages := imlBookmarkImages;
   FEditor.Gutter.Color := 15329769; // light gray
   FEditor.Gutter.Width := 29;
-  FEditor.Gutter.MarksPart.Width := 0;       // Bookmarks
-  FEditor.Gutter.MarksPart.Visible := False;
-
   FEditor.Gutter.SeparatorPart.Visible := False;
   with FEditor.Gutter.LineNumberPart do
   begin
@@ -1256,11 +1261,11 @@ begin
     MarkupInfo.Background := clNone;
     MarkupInfo.Foreground := clGray;
   end;
+  // TODO: Bookmarks
   with FEditor.Gutter.MarksPart do
   begin
     Width := 1;
-    AutoSize := True;
-    Visible := True;
+    Visible := False;
   end;
 
   FEditor.Options := [
@@ -1565,8 +1570,8 @@ begin
   Editor.Font.Size := Editor.Font.Size + AOffset;
 end;
 
-{ TODO: support for other comment types (dependent on currently active
-  highlighter) }
+{ Comments or uncomments selected code lines based on the line comment tag of
+  the active highlighter. }
 
 procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 var
@@ -1578,12 +1583,12 @@ var
   Prefix         : string;
   PrefixLength   : Integer;
 
-  function FirstNonBlankPos(const Text: string; Start: Integer = 1): Integer;
+  function FirstNonBlankPos(const AText: string; AStart: Integer = 1): Integer;
   var
     I: Integer;
   begin
-    for I := Start to Length(Text) do
-      if (Text[I] <> #32) and (Text[I] <> #9) then
+    for I := AStart to Length(AText) do
+      if (AText[I] <> #32) and (AText[I] <> #9) then
         Exit(I);
     Result := -1;
   end;
@@ -1726,6 +1731,7 @@ var
 begin
   if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
   begin
+    BeginUpdate;
     StoreBlock;
     N1 := Length(HighlighterItem.BlockCommentStartTag);
     N2 := Length(HighlighterItem.BlockCommentEndTag);
@@ -1761,11 +1767,64 @@ begin
     RestoreBlock;
     Logger.Send('BlockBegin', BlockBegin);
     Logger.Send('BlockEnd', BlockEnd);
-
-    //SelStart := SelStart - Length(HighlighterItem.BlockCommentStartTag);
-    //SelEnd   := SelEnd + Length(HighlighterItem.BlockCommentEndTag) + Length(HighlighterItem.BlockCommentStartTag) - 1;
-//    EndUpdate;
+    EndUpdate;
     Modified := True;
+  end;
+end;
+
+procedure TEditorView.AlignSelection(const AToken: string; ACompressWS: Boolean;
+  AInsertSpaceBeforeToken: Boolean; AInsertSpaceAfterToken: Boolean;
+  AAlignInParagraphs: Boolean);
+var
+  SL : TStringList;
+  B  : Boolean;
+  S : string;
+  OldCaretPos    : TPoint;
+begin
+  SL := TStringList.Create;
+  try
+    OldCaretPos := CaretXY;
+    SL.Text := SelText;
+
+    BeginUpdate;
+    StoreBlock;
+
+  //  BlockBeginLine := FStoredBlockBegin.Y;
+  //BlockEndLine   := FStoredBlockEnd.Y;
+
+  if (FStoredBlockEnd.X = 1) and (FStoredBlockEnd.Y > FStoredBlockBegin.Y)
+    and (Editor.SelectionMode <> smLine) then
+  begin
+    Dec(FStoredBlockEnd.Y);
+    B := False;
+  end
+  else
+    B := True;
+  AlignLines(
+    SL,
+    AToken,
+    ACompressWS,
+    AInsertSpaceBeforeToken,
+    AInsertSpaceAfterToken
+    //,     AAlignInParagraphs
+  );
+  FStoredBlockEnd.X := Length(SL[SL.Count - 1]) + 1;
+  if B then
+  begin
+    S := SL.Text;
+    Logger.Send('SL.Text before', S);
+    S := StripLastLineEnding(S);
+    Logger.Send('SL.Text after', S);
+    SelText := S;
+
+  end
+  else
+    SelText := SL.Text;
+  //  CaretXY       := OldCaretPos;
+    RestoreBlock;
+    EndUpdate;
+  finally
+    SL.Free;
   end;
 end;
 

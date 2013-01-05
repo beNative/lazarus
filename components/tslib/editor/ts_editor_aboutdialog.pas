@@ -64,6 +64,7 @@ type
   TfrmAbout = class(TForm)
     aclMain: TActionList;
     actClose: TAction;
+    actURL: TAction;
     btnClose: TButton;
     {$region 'designer controls' /fold}
     grpLine           : TGroupBox;
@@ -90,6 +91,7 @@ type
     tsCredits: TTabSheet;
     vstCredits: TVirtualStringTree;
     procedure actCloseExecute(Sender: TObject);
+    procedure actURLExecute(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
     {$endregion}
@@ -108,9 +110,9 @@ type
 
   TCredit = class(TPersistent)
   strict private
-    FAuthor: string;
-    FName: string;
-    FURL: string;
+    FAuthor : string;
+    FName   : string;
+    FURL    : string;
 
     procedure SetAuthor(AValue: string);
     procedure SetName(AValue: string);
@@ -165,7 +167,8 @@ begin
   pnlBuildDate.Caption      := FVersionInfo.BuildDate;
   pnlWidgetSet.Caption      := FVersionInfo.WidgetSet;
   pnlFileVersion.Caption    := FVersionInfo.FileVersion;
-  pnlName.Caption           := FVersionInfo.ProductName + ' ' + FVersionInfo.ProductVersion;;
+  pnlName.Caption           := FVersionInfo.ProductName + ' '
+    + FVersionInfo.ProductVersion;;
   lblURL.Caption            := FVersionInfo.URL;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
@@ -227,14 +230,19 @@ begin
   Close;
 end;
 
-procedure TfrmAbout.lblURLClick(Sender: TObject);
+procedure TfrmAbout.actURLExecute(Sender: TObject);
 begin
   OpenURL(FVersionInfo.URL);
 end;
 
+procedure TfrmAbout.lblURLClick(Sender: TObject);
+begin
+  actURL.Execute;
+end;
+
 procedure TfrmAbout.lblURLDblClick(Sender: TObject);
 begin
-  OpenURL(FVersionInfo.URL);
+  actURL.Execute;
 end;
 
 //*****************************************************************************

@@ -24,9 +24,9 @@ object frmAbout: TfrmAbout
     Height = 217
     Top = 4
     Width = 334
-    ActivePage = tsCredits
+    ActivePage = tsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object tsAbout: TTabSheet
       Caption = 'Version'
@@ -779,6 +779,10 @@ object frmAbout: TfrmAbout
       Caption = '&Close'
       OnExecute = actCloseExecute
       ShortCut = 27
+    end
+    object actURL: TAction
+      Caption = 'Visit URL'
+      OnExecute = actURLExecute
     end
   end
 end

@@ -28,16 +28,19 @@ uses
   Classes, SysUtils, FileUtil, MenuButton, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls, Spin, Buttons, Grids, ActnList,
 
-  ts_Editor_Interfaces, ts_Editor_Settings_AlignLines;
+  ts_Editor_Interfaces, ts_Editor_Settings_AlignLines,
+
+  sharedloggerlcl;
 
 const
-  DEFAULT_TOKENS: array[0..13] of string = (
+  DEFAULT_TOKENS: array[0..14] of string = (
     ':=',
     '=',
     '//',
     '{',
     '(*',
     '''',
+    ',',
     ':',
     '+',
     'read',
@@ -70,11 +73,11 @@ type
     procedure chkRemoveWhitespaceClick(Sender: TObject);
     procedure chkBeforeTokenClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
   private
     function GetSettings: TAlignLinesSettings;
-  strict private
-    FTokens: TStrings;
 
+  strict private
     function GetManager: IEditorManager;
     function GetForm: TForm;
     function GetName: string;
@@ -100,11 +103,12 @@ type
       read GetSettings;
 
     procedure Execute;
+
   protected
     procedure UpdateActions; override;
+
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
   end;
 
@@ -126,18 +130,15 @@ uses
 procedure TfrmAlignLines.AfterConstruction;
 var
   I: Integer;
+  SL: TStringList;
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
-  FTokens := TStringList.Create;
+  SL := TStringList.Create;
   for I := Low(DEFAULT_TOKENS) to High(DEFAULT_TOKENS) do
-    FTokens.Add(DEFAULT_TOKENS[I]);
-end;
-
-procedure TfrmAlignLines.BeforeDestruction;
-begin
-  FTokens.Free;
-  inherited BeforeDestruction;
+    SL.Add(DEFAULT_TOKENS[I]);
+  Settings.Tokens := SL.Text;
+  SL.Free;
 end;
 
 //*****************************************************************************
@@ -183,13 +184,12 @@ end;
 
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
-  AddStringsPresentInString(FTokens, lstTokens.Items, Manager.ActiveView.SelText);
+  AddStringsPresentInString(
+    Settings.TokenList,
+    lstTokens.Items,
+    Manager.ActiveView.SelText
+  );
   lstTokens.SetFocus;
-end;
-
-function TfrmAlignLines.GetSettings: TAlignLinesSettings;
-begin
-  Result := (Manager as IEditorSettings).AlignLinesSettings;
 end;
 
 //*****************************************************************************
@@ -224,9 +224,18 @@ procedure TfrmAlignLines.SetVisible(AValue: Boolean);
 begin
   inherited SetVisible(AValue);
   if AValue then
-    AddStringsPresentInString(FTokens, lstTokens.Items, Manager.ActiveView.SelText)
+    AddStringsPresentInString(
+      Settings.TokenList,
+      lstTokens.Items,
+      Manager.ActiveView.SelText
+    )
   else
     lstTokens.Clear;
+end;
+
+function TfrmAlignLines.GetSettings: TAlignLinesSettings;
+begin
+  Result := (Manager as IEditorSettings).AlignLinesSettings;
 end;
 
 //*****************************************************************************
@@ -239,22 +248,23 @@ end;
 
 procedure TfrmAlignLines.UpdateView;
 begin
-  AddStringsPresentInString(FTokens, lstTokens.Items, Manager.ActiveView.SelText);
+  AddStringsPresentInString(
+    Settings.TokenList,
+    lstTokens.Items,
+    Manager.ActiveView.SelText
+  );
   if lstTokens.Items.Count > 0 then
     lstTokens.ItemIndex := 0;
 end;
 
 procedure TfrmAlignLines.Execute;
 var
-  S : string;
   T : string;
 begin
   if lstTokens.ItemIndex >= 0 then
   begin
     T := lstTokens.Items[lstTokens.ItemIndex];
-    S := Manager.ActiveView.SelText;
-    Manager.ActiveView.SelText := AlignLines(
-      S,
+    Manager.ActiveView.AlignSelection(
       T,
       chkRemoveWhitespace.Checked,
       chkBeforeToken.Checked,
@@ -262,6 +272,7 @@ begin
       chkAlignInParagraphs.Checked
     );
   end;
+  CloseQuery;
 end;
 
 procedure TfrmAlignLines.UpdateActions;

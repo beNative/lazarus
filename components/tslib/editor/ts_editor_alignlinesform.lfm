@@ -1,7 +1,7 @@
 object frmAlignLines: TfrmAlignLines
-  Left = 1936
+  Left = 3401
   Height = 382
-  Top = 34
+  Top = 620
   Width = 170
   Caption = 'Align selection'
   ClientHeight = 382

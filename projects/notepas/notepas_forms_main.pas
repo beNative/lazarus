@@ -389,7 +389,7 @@ begin
   else if S = 'actTestForm' then
     DisplayToolForm(A, 'frmTest')
   else if S = 'actAlignSelection' then
-    DisplayToolForm(A, 'actAlignSelection', True);
+    DisplayToolForm(A, 'frmAlignLines');
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {

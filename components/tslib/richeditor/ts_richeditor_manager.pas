@@ -386,13 +386,12 @@ end;
 
 procedure TdmRichEditorActions.UpdateActions;
 begin
-  if Assigned(ActiveView) then
-  begin
-    actBold.Checked      := ActiveView.TextAttributes.Bold;
-    actUnderline.Checked := ActiveView.TextAttributes.Underline;
-    actItalic.Checked    := ActiveView.TextAttributes.Italic;
-  end;
-//
+  //if Assigned(ActiveView) then
+  //begin
+  //  actBold.Checked      := ActiveView.TextAttributes.Bold;
+  //  actUnderline.Checked := ActiveView.TextAttributes.Underline;
+  //  actItalic.Checked    := ActiveView.TextAttributes.Italic;
+  //end;
 end;
 
 procedure TdmRichEditorActions.OpenFileAtCursor;

@@ -134,6 +134,7 @@ type
     function IsActive: Boolean;
 
   private
+    FUpdate               : Boolean;
     FDirectoryWatch       : TDirectoryWatch;
     FEncoding             : string;
     FLineBreakStyle       : string;
@@ -254,6 +255,7 @@ type
     {$endregion}
 
     procedure InitializeEditor;
+    procedure OnSettingsChanged(ASender: TObject);
 
   protected
     procedure BeginUpdate;
@@ -289,9 +291,14 @@ type
     function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
+    // operations on selections
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
     procedure ToggleBlockCommentSelection;
-
+    procedure StripMarkupFromSelection;
+    procedure StripCharsFromSelection(
+      AFirst : Boolean;
+      ALast  : Boolean
+    );
     procedure AlignSelection(
       const AToken                  : string;
             ACompressWS             : Boolean;
@@ -318,8 +325,6 @@ type
     function GetWordAtPosition(APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     procedure InsertTextAtCaret(const AText: string);
-    { TODO: remove this, not used anymore }
-    procedure Search;
     procedure LoadFromFile(const AFileName: string);
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
@@ -546,10 +551,13 @@ begin
   InitializeEditor;
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
+  Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
 end;
 
 procedure TEditorView.BeforeDestruction;
 begin
+  if Assigned(Settings) then
+    Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
   DisableAutoSizing;
   FreeAndNil(FDirectoryWatch);
   FreeAndNil(FReplaceHistory);
@@ -1410,6 +1418,11 @@ begin
   ActiveControl := Editor;
 end;
 
+procedure TEditorView.OnSettingsChanged(ASender: TObject);
+begin
+  FUpdate := True;
+end;
+
 //*****************************************************************************
 // private methods                                                         END
 //*****************************************************************************
@@ -1772,6 +1785,20 @@ begin
   end;
 end;
 
+procedure TEditorView.StripMarkupFromSelection;
+begin
+  BeginUpdate;
+  SelText := StripMarkup(SelText);
+  EndUpdate;
+end;
+
+procedure TEditorView.StripCharsFromSelection(AFirst: Boolean; ALast: Boolean);
+begin
+  BeginUpdate;
+  SelText := StripChars(SelText, AFirst, ALast);
+  EndUpdate;
+end;
+
 procedure TEditorView.AlignSelection(const AToken: string; ACompressWS: Boolean;
   AInsertSpaceBeforeToken: Boolean; AInsertSpaceAfterToken: Boolean;
   AAlignInParagraphs: Boolean);
@@ -1957,9 +1984,15 @@ begin
       Editor.Color := GetHighLightColor(15329769, 10);
   end;
 
-
   if Assigned(Actions) then
     Actions.UpdateActions;
+
+  if FUpdate then
+  begin
+    ShowSpecialChars := Settings.ShowControlCharacters;
+    EditorFont := Settings.EditorFont;
+    FUpdate := False;
+  end;
 end;
 
 //*****************************************************************************
@@ -1971,6 +2004,8 @@ end;
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
+
+{ TODO: CloseQuery is not called when application is closed! }
 
 function TEditorView.CloseQuery: Boolean;
 var
@@ -1996,17 +2031,7 @@ end;
 
 procedure TEditorView.InsertTextAtCaret(const AText: string);
 begin
-  Editor.InsertTextAtCaret(AText);
-end;
-
-{ TODO: remove this, not used anymore }
-
-procedure TEditorView.Search;
-var
-  Flags: TSynSearchOptions;
-begin
-  Flags := [ssoWholeWord];
-  Editor.SearchReplace(SearchText, '', Flags);
+  Editor.InsertTextAtCaret(AText); // has implicit undoblock
 end;
 
 procedure TEditorView.LoadFromFile(const AFileName: string);

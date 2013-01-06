@@ -27,6 +27,8 @@ interface
 uses
   Classes, SysUtils, Graphics, FileUtil,
 
+  LazMethodList,
+
   NativeXML, NativeXmlObjectStorage,
 
   ts_Core_FormSettings,
@@ -37,9 +39,18 @@ uses
   ts_Editor_Interfaces, ts_Editor_SynHighlighterCollection,
   ts_Editor_SynHighlighterAttributesCollection;
 
+{ TODO: make this a subject with the EV's and EM as observers to notify them
+  when settings change. }
+
 type
+  TEditorSettingsChangedEventList = class(TMethodList)
+  public
+    procedure CallEditorSettingsChangedHandlers(Sender: TObject);
+  end;
+
   TEditorSettings = class(TComponent, IEditorSettings)
   private
+    FChangedEventList         : TEditorSettingsChangedEventList;
     FAutoFormatXML            : Boolean;
     FReadOnly                 : Boolean;
     FPreviewVisible           : Boolean;
@@ -103,6 +114,10 @@ type
 
     procedure Load;
     procedure Save;
+    procedure Apply; // to manually notify observers
+
+    procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+    procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -112,6 +127,7 @@ type
 
   protected
     procedure InitializeHighlighterAttributes;
+    procedure Changed;
 
   published
     property HighlighterAttributes: TSynHighlighterAttributesCollection
@@ -179,6 +195,15 @@ uses
 
   ts_Editor_Resources;
 
+procedure TEditorSettingsChangedEventList.CallEditorSettingsChangedHandlers(Sender: TObject);
+var
+  I: Integer;
+begin
+  I := Count;
+  while NextDownIndex(I) do
+    TNotifyEvent(Items[i])(Sender);
+end;
+
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -187,6 +212,7 @@ procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   Name := 'Settings';
+  FChangedEventList := TEditorSettingsChangedEventList.Create;
   FFormSettings := TFormSettings.Create;
   FAlignLinesSettings := TAlignLinesSettings.Create;
   FSearchEngineSettings := TSearchEngineSettings.Create;
@@ -213,6 +239,7 @@ begin
   FreeAndNil(FAlignLinesSettings);
   FreeAndNil(FSearchEngineSettings);
   FreeAndNil(FCodeShaperSettings);
+  FreeAndNil(FChangedEventList);
   inherited BeforeDestruction;
 end;
 
@@ -227,6 +254,14 @@ end;
 function TEditorSettings.GetAutoFormatXML: Boolean;
 begin
   Result := FAutoFormatXML;
+end;
+
+procedure TEditorSettings.SetAutoFormatXML(const AValue: Boolean);
+begin
+  if AValue <> AutoFormatXML then
+  begin
+    FAutoFormatXML := AValue;
+  end;
 end;
 
 function TEditorSettings.GetAlignLinesSettings: TAlignLinesSettings;
@@ -244,9 +279,25 @@ begin
   Result := FAutoGuessHighlighterType;
 end;
 
+procedure TEditorSettings.SetAutoGuessHighlighterType(const AValue: Boolean);
+begin
+  if AValue <> AutoGuessHighlighterType then
+  begin
+    FAutoGuessHighlighterType := AValue;
+  end;
+end;
+
 function TEditorSettings.GetCloseWithESC: Boolean;
 begin
   Result := FCloseWithESC;
+end;
+
+procedure TEditorSettings.SetCloseWithESC(const AValue: Boolean);
+begin
+  if AValue <> CloseWithESC then
+  begin
+    FCloseWithESC := AValue;
+  end;
 end;
 
 function TEditorSettings.GetCodeShaperSettings: TCodeShaperSettings;
@@ -264,9 +315,26 @@ begin
   Result := FDebugMode;
 end;
 
+procedure TEditorSettings.SetDebugMode(AValue: Boolean);
+begin
+  if AValue <> DebugMode then
+  begin
+    FDebugMode := AValue;
+  end;
+end;
+
 function TEditorSettings.GetDimInactiveView: Boolean;
 begin
   Result := FDimInactiveView;
+end;
+
+procedure TEditorSettings.SetDimInactiveView(const AValue: Boolean);
+begin
+  if AValue <> DimInactiveView then
+  begin
+    FDimInactiveView := AValue;
+    Changed;
+  end;
 end;
 
 function TEditorSettings.GetEditorFont: TFont;
@@ -279,12 +347,21 @@ begin
   if not FEditorFont.IsEqual(AValue) then
   begin
     FEditorFont.Assign(AValue);
+    Changed;
   end;
 end;
 
 function TEditorSettings.GetFileName: string;
 begin
   Result := FFileName;
+end;
+
+procedure TEditorSettings.SetFileName(const AValue: string);
+begin
+  if AValue <> FileName then
+  begin
+    FFileName := AValue;
+  end;
 end;
 
 function TEditorSettings.GetFoldLevel: Integer;
@@ -297,9 +374,19 @@ begin
   Result := FFormSettings;
 end;
 
+procedure TEditorSettings.SetFormSettings(const AValue: TFormSettings);
+begin
+  FFormSettings := AValue;
+end;
+
 function TEditorSettings.GetHighlighterAttributes: TSynHighlighterAttributesCollection;
 begin
   Result := FHighlighterAttributes;
+end;
+
+procedure TEditorSettings.SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
+begin
+  FHighlighterAttributes.Assign(AValue);
 end;
 
 function TEditorSettings.GetHighlighters: THighlighters;
@@ -307,9 +394,23 @@ begin
   Result := FHighlighters;
 end;
 
+procedure TEditorSettings.SetHighlighters(const AValue: THighlighters);
+begin
+  FHighlighters := AValue;
+end;
+
 function TEditorSettings.GetHighlighterType: string;
 begin
   Result := FHighlighterType;
+end;
+
+procedure TEditorSettings.SetHighlighterType(const AValue: string);
+begin
+  if AValue <> HighlighterType then
+  begin
+    FHighlighterType := AValue;
+    Changed;
+  end;
 end;
 
 function TEditorSettings.GetPreviewVisible: Boolean;
@@ -317,9 +418,27 @@ begin
   Result := FPreviewVisible;
 end;
 
+procedure TEditorSettings.SetPreviewVisible(const AValue: Boolean);
+begin
+  if AValue <> PreviewVisible then
+  begin
+    FPreviewVisible := AValue;
+    Changed;
+  end;
+end;
+
 function TEditorSettings.GetReadOnly: Boolean;
 begin
   Result := FReadOnly;
+end;
+
+procedure TEditorSettings.SetReadOnly(const AValue: Boolean);
+begin
+  if AValue <> ReadOnly then
+  begin
+    FReadOnly := AValue;
+    Changed;
+  end;
 end;
 
 function TEditorSettings.GetSearchEngineSettings: TSearchEngineSettings;
@@ -337,108 +456,35 @@ begin
   Result := FShowControlCharacters;
 end;
 
-function TEditorSettings.GetXML: string;
-begin
-  Result := ReadFileToString(FileName);
-end;
-
-procedure TEditorSettings.SetAutoFormatXML(const AValue: Boolean);
-begin
-  if AValue <> AutoFormatXML then
-  begin
-    FAutoFormatXML := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetAutoGuessHighlighterType(const AValue: Boolean);
-begin
-  if AValue <> AutoGuessHighlighterType then
-  begin
-    FAutoGuessHighlighterType := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetCloseWithESC(const AValue: Boolean);
-begin
-  if AValue <> CloseWithESC then
-  begin
-    FCloseWithESC := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetDebugMode(AValue: Boolean);
-begin
-  if AValue <> DebugMode then
-  begin
-    FDebugMode := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetDimInactiveView(const AValue: Boolean);
-begin
-  if AValue <> DimInactiveView then
-  begin
-    FDimInactiveView := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetFileName(const AValue: string);
-begin
-  if AValue <> FileName then
-  begin
-    FFileName := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetFormSettings(const AValue: TFormSettings);
-begin
-  FFormSettings := AValue;
-end;
-
-procedure TEditorSettings.SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
-begin
-  FHighlighterAttributes.Assign(AValue);
-end;
-
-procedure TEditorSettings.SetHighlighters(const AValue: THighlighters);
-begin
-  FHighlighters := AValue;
-end;
-
-procedure TEditorSettings.SetHighlighterType(const AValue: string);
-begin
-  if AValue <> HighlighterType then
-  begin
-    FHighlighterType := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetPreviewVisible(const AValue: Boolean);
-begin
-  if AValue <> PreviewVisible then
-  begin
-    FPreviewVisible := AValue;
-  end;
-end;
-
-procedure TEditorSettings.SetReadOnly(const AValue: Boolean);
-begin
-  if AValue <> ReadOnly then
-  begin
-    FReadOnly := AValue;
-  end;
-end;
-
 procedure TEditorSettings.SetShowControlCharacters(const AValue: Boolean);
 begin
   if AValue <> ShowControlCharacters then
   begin
     FShowControlCharacters := AValue;
+    Changed;
   end;
+end;
+
+function TEditorSettings.GetXML: string;
+begin
+  Result := ReadFileToString(FileName);
 end;
 
 //*****************************************************************************
 // property access methods                                                 END
+//*****************************************************************************
+
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
+
+procedure TEditorSettings.Changed;
+begin
+  FChangedEventList.CallEditorSettingsChangedHandlers(Self);
+end;
+
+//*****************************************************************************
+// protected methods                                                       END
 //*****************************************************************************
 
 //*****************************************************************************
@@ -468,7 +514,6 @@ begin
     end;
   end;
   InitializeHighlighterAttributes;
-
 end;
 
 procedure TEditorSettings.Save;
@@ -491,6 +536,21 @@ begin
   finally
     FreeAndNil(Doc);
   end;
+end;
+
+procedure TEditorSettings.Apply;
+begin
+  Changed;
+end;
+
+procedure TEditorSettings.AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+begin
+  FChangedEventList.Add(TMethod(AEvent));
+end;
+
+procedure TEditorSettings.RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+begin
+  FChangedEventList.Remove(TMethod(AEvent));
 end;
 
 procedure TEditorSettings.InitializeHighlighterAttributes;

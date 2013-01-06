@@ -201,7 +201,6 @@ begin
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
   Modified;
-  InspectComponents([FVST, FTVP]);
 end;
 
 //*****************************************************************************

@@ -119,8 +119,6 @@ function URLDecode(const AString: string): string;
 function Pack(I: string):string;
 function UnPack(I: string): string;
 
-function StripMarkup(S: string): string;
-
 //-----------------------------------------------------------------------------
 
 // string formatting routines
@@ -2119,29 +2117,6 @@ begin
       History := Copy(History, 1024, 8100);
     Inc(P);
   end;
-end;
-
-//-----------------------------------------------------------------------------
-
-function StripMarkup(S: string): string;
-var
-  TagBegin, TagEnd, TagLength: integer;
-begin
-  TagBegin := Pos( '<', S);      // search position of first <
-
-  while (TagBegin > 0) do begin  // while there is a < in S
-    TagEnd := Pos('>', S);              // find the matching >
-    TagLength := TagEnd - TagBegin + 1;
-    Delete(S, TagBegin, TagLength);     // delete the tag
-    TagBegin:= Pos( '<', S);            // search for next <
-  end;
-
-  S := StringReplace(S,'&nbsp;',' ',[rfReplaceAll]);
-  S := StringReplace(S,'&amp;','&',[rfReplaceAll]);
-  S := StringReplace(S,'&lt;','<',[rfReplaceAll]);
-  S := StringReplace(S,'&gt;','>',[rfReplaceAll]);
-  S := StringReplace(S,'&quot;','"',[rfReplaceAll]);
-  Result := S;                   // give the result
 end;
 
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;

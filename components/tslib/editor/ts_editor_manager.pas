@@ -593,7 +593,7 @@ type
       const ALine   : string;
       const AFilter : string
     );
-    procedure EditorSettingsApplySettings(Sender: TObject);
+    procedure EditorSettingsChanged(ASender: TObject);
 
     procedure InitializeHighlighters;
     procedure InitializePopupMenus;
@@ -611,7 +611,6 @@ type
     procedure FormatCode;
 
     procedure InsertCharacterFromMap;
-    procedure ApplySettings;
 
     { IEditorViews }
     function IEditorViews.Add = AddView;
@@ -844,6 +843,7 @@ begin
   inherited AfterConstruction;
   FPersistSettings := False;
   FSettings        := TEditorSettings.Create(Self);
+  FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FViewList        := TEditorViewList.Create;
   FToolViewList    := TEditorToolViewList.Create;
   FSearchEngine    := TSearchEngine.Create(Self);
@@ -1581,17 +1581,17 @@ end;
 
 procedure TdmEditorManager.actStripFirstCharExecute(Sender: TObject);
 begin
-  ActiveView.SelText := StripChars(ActiveView.SelText, True, False);
+  ActiveView.StripCharsFromSelection(True, False);
 end;
 
 procedure TdmEditorManager.actStripMarkupExecute(Sender: TObject);
 begin
-  ActiveView.SelText := StripMarkup(ActiveView.SelText);
+  ActiveView.StripMarkupFromSelection;
 end;
 
 procedure TdmEditorManager.actStripLastCharExecute(Sender: TObject);
 begin
-  ActiveView.SelText := StripChars(ActiveView.SelText, False, True);
+  ActiveView.StripCharsFromSelection(False, True);
 end;
 
 procedure TdmEditorManager.actSyncEditExecute(Sender: TObject);
@@ -1744,7 +1744,6 @@ end;
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
   Settings.PreviewVisible := (Sender as TAction).Checked;
-  ApplySettings;
 end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
@@ -1781,7 +1780,7 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
-  ExecuteSettingsDialog(FSettings, EditorSettingsApplySettings);
+  ExecuteSettingsDialog(FSettings);
 end;
 
 procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
@@ -1902,7 +1901,6 @@ procedure TdmEditorManager.actShowControlCharactersExecute(Sender: TObject);
 begin
   (Sender as TAction).Checked := not (Sender as TAction).Checked;
   Settings.ShowControlCharacters := (Sender as TAction).Checked;
-  ApplySettings;
 end;
 
 procedure TdmEditorManager.actEncodingExecute(Sender: TObject);
@@ -1936,9 +1934,12 @@ begin
   ActiveView.SearchAndSelectLine(AIndex, ALine);
 end;
 
-procedure TdmEditorManager.EditorSettingsApplySettings(Sender: TObject);
+procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
-  ApplySettings;
+  if actShowPreview.Checked <> Settings.PreviewVisible then
+  begin
+    actShowPreview.Execute;
+  end;
 end;
 
 //*****************************************************************************
@@ -2005,12 +2006,12 @@ end;
 
 procedure TdmEditorManager.InitializePopupMenus;
 var
-  SL: TStringList;
-  S : string;
-  MI: TMenuItem;
-  HI: THighlighterItem;
-  A : TCustomAction;
-  I : Integer;
+  SL : TStringList;
+  S  : string;
+  MI : TMenuItem;
+  HI : THighlighterItem;
+  A  : TCustomAction;
+  I  : Integer;
 begin
   ppmHighLighters.Items.Caption := 'Highlighters';
   ppmHighLighters.Items.Action := actToggleHighlighter;
@@ -2077,7 +2078,6 @@ begin
     end;
     ppmHighLighters.Items.Add(MI);
   end;
-
 end;
 
 procedure TdmEditorManager.InitializeActions;
@@ -2165,8 +2165,6 @@ begin
   Reg(TSynSQLSyn, SynSQLSyn, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
   Reg(TSynXMLSyn, SynXMLSyn, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
   Reg(TSynLFMSyn, SynLFMSyn, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
-  Reg(TSynUniSyn, SynUniSyn, HL_BaltaLOG, 'log', SBaltaLOGDescription, '', '', '', nil, LAYOUT_BALTALOG);
-  Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
   Reg(TSynBatSyn, SynBatSyn, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
   Reg(TSynUniSyn, FSynHighlighterPo, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
   Reg(TSynCppSyn, SynCppSyn, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
@@ -2174,8 +2172,15 @@ begin
   Reg(TSynPerlSyn, SynPerlSyn, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
   Reg(TSynPythonSyn, SynPythonSyn, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
   Reg(TSynHTMLSyn, SynHTMLSyn, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
-  Reg(TSynUniSyn, SynUniSyn, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
-  Reg(TSynUniSyn, SynUniSyn, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
+
+  if FileExists(LAYOUT_BALTALOG) then
+    Reg(TSynUniSyn, SynUniSyn, HL_BaltaLOG, 'log', SBaltaLOGDescription, '', '', '', nil, LAYOUT_BALTALOG);
+  if FileExists(LAYOUT_INI) then
+    Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
+  if FileExists(LAYOUT_RTF) then
+    Reg(TSynUniSyn, SynUniSyn, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
+  if FileExists(LAYOUT_RES) then
+    Reg(TSynUniSyn, SynUniSyn, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
   ApplyHighlighterAttributes;
 end;
 
@@ -2214,16 +2219,6 @@ begin
   UpdateLineBreakStyleActions;
   UpdateFileActions;
   UpdateSearchMatches;
-end;
-
-{ Apply stored settings to the views and actions. }
-
-{ TODO -oTS : Apply to all views }
-
-procedure TdmEditorManager.ApplySettings;
-begin
-  ActiveView.ShowSpecialChars := Settings.ShowControlCharacters;
-  ActiveView.EditorFont := Settings.EditorFont;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2657,7 +2652,8 @@ begin
     actSyncEdit.Visible                := B;
 
     actFind.Checked           := ToolViews['frmSearchForm'].Visible;
-    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
+
+    //ToolViews['frmPreview'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
 
@@ -2679,7 +2675,7 @@ begin
     actFoldLevel10.Enabled     := B;
 
     actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
-    actShowControlCharacters.Checked := V.ShowSpecialChars;
+    actShowControlCharacters.Checked := Settings.ShowControlCharacters;
 
     actClose.Visible       := ViewCount > 1;
     actCloseOthers.Visible := ViewCount > 1;

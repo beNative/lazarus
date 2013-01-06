@@ -213,11 +213,15 @@ type
             AInsertSpaceAfterToken  : Boolean;
             AAlignInParagraphs      : Boolean
     );
+    procedure StripMarkupFromSelection;
+    procedure StripCharsFromSelection(
+      AFirst : Boolean;
+      ALast  : Boolean
+    );
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
     procedure SearchAndSelectText(const AText: string);
-    procedure Search;
     procedure ClearHighlightSearch;
 
     // load and save
@@ -530,6 +534,10 @@ type
 
     procedure Load;
     procedure Save;
+    procedure Apply;
+
+    procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+    procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
 
     property FileName: string
       read GetFileName write SetFileName;

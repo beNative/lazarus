@@ -64,7 +64,6 @@ type
 
   private
     FEditorSettings  : IEditorSettings;
-    FOnApplySettings : TNotifyEvent;
     FTVP             : TTreeViewPresenter;
     FList            : TObjectList;
     FPI              : TTIPropertyGrid;
@@ -87,16 +86,12 @@ type
 
     property EditorSettings: IEditorSettings
       read GetEditorSettings write SetEditorSettings;
-
-    property OnApplySettings: TNotifyEvent
-      read FOnApplySettings write FOnApplySettings;
   end;
 
 //=============================================================================
 
 procedure ExecuteSettingsDialog(
-  AEditorSettings  : IEditorSettings;
-  AOnApplySettings : TNotifyEvent = nil
+  AEditorSettings  : IEditorSettings
 );
 
 //*****************************************************************************
@@ -132,13 +127,11 @@ end;
 // interfaced routines                                                   BEGIN
 //*****************************************************************************
 
-procedure ExecuteSettingsDialog(AEditorSettings: IEditorSettings;
-  AOnApplySettings: TNotifyEvent = nil);
+procedure ExecuteSettingsDialog(AEditorSettings: IEditorSettings);
 begin
   if not Assigned(FForm) then
     FForm := TfrmEditorSettings.Create(Application);
   FForm.EditorSettings := AEditorSettings;
-  FForm.OnApplySettings := AOnApplySettings;
   FForm.Execute;
 end;
 
@@ -253,8 +246,7 @@ end;
 
 procedure TfrmEditorSettings.Apply;
 begin
-  if Assigned(FOnApplySettings) then
-    FOnApplySettings(Self);
+  FEditorSettings.Apply;
 end;
 
 //*****************************************************************************

@@ -192,6 +192,8 @@ function StripChars(
         AIgnoreChars : TSysCharSet = [' ']
 ): string;
 
+function StripMarkup(S: string): string;
+
 function RemoveDoubles(const AString: string): string;
 
 procedure MergeBlankStream(Stream: TStream);
@@ -1119,6 +1121,27 @@ begin
   finally
     FreeAndNil(SL);
   end;
+end;
+
+function StripMarkup(S: string): string;
+var
+  TagBegin, TagEnd, TagLength: integer;
+begin
+  TagBegin := Pos( '<', S);      // search position of first <
+
+  while (TagBegin > 0) do begin  // while there is a < in S
+    TagEnd := Pos('>', S);              // find the matching >
+    TagLength := TagEnd - TagBegin + 1;
+    Delete(S, TagBegin, TagLength);     // delete the tag
+    TagBegin:= Pos( '<', S);            // search for next <
+  end;
+
+  S := StringReplace(S,'&nbsp;',' ',[rfReplaceAll]);
+  S := StringReplace(S,'&amp;','&',[rfReplaceAll]);
+  S := StringReplace(S,'&lt;','<',[rfReplaceAll]);
+  S := StringReplace(S,'&gt;','>',[rfReplaceAll]);
+  S := StringReplace(S,'&quot;','"',[rfReplaceAll]);
+  Result := S;                   // give the result
 end;
 
 { Will remove double lines after sorting each line. }

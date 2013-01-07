@@ -1509,11 +1509,18 @@ begin
 end;
 
 procedure TdmEditorManager.actFilterCodeExecute(Sender: TObject);
+var
+  ETV: IEditorToolView;
 begin
-  if Assigned(ToolViews['frmCodeFilterDialog']) then
+  ETV := ToolViews['frmCodeFilterDialog'];
+  if Assigned(ETV) then
   begin
-    ToolViews['frmCodeFilterDialog'].Visible := True;
-    ToolViews['frmCodeFilterDialog'].UpdateView;
+    if not ETV.Visible then
+    begin
+      ETV.Visible := True;
+      ETV.UpdateView;
+    end;
+    ETV.SetFocus;
     FChanged := True;
   end;
 end;

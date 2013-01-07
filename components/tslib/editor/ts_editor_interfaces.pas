@@ -629,6 +629,7 @@ type
     procedure SetVisible(AValue: Boolean);
     { Lets the view respond to changes. }
     procedure UpdateView;
+    procedure SetFocus;
     function Focused: Boolean;
 
     property Visible: Boolean

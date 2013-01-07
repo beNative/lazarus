@@ -25,7 +25,6 @@ unit ts_Editor_SearchForm;
 
 {
   TODO: copy all matches to a stringlist when regular expressions are used
-
 }
 
 {$mode delphi}

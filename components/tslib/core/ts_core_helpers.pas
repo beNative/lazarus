@@ -83,26 +83,27 @@ begin
   VST.Parent   := AParent;
   VST.HintMode := hmTooltip;
   VST.Align    := alClient;
+  VST.Header.Height := 18;
   VST.Header.Options := [
-    hoAutoResize,
+//    hoAutoResize,
     hoAutoSpring,
     hoColumnResize,
     hoDblClickResize,
     hoDisableAnimatedResize,
-    hoDrag,
-    hoFullRepaintOnResize,
+//    hoDrag,
+//    hoFullRepaintOnResize,
     hoShowSortGlyphs,
     hoVisible
   ];
-  VST.Header.Height := 18;
   VST.TreeOptions.SelectionOptions := [
     toExtendedFocus
   ];
   VST.TreeOptions.MiscOptions := [
-    toAcceptOLEDrop,
-    toEditable,
-    toEditOnClick,
-    toFullRepaintOnResize,
+//    toAcceptOLEDrop,
+//    toEditable,
+//    toEditOnClick,
+//    toFullRepaintOnResize,
+//    toEditOnDblClick,
     toInitOnSave,
     toToggleOnDblClick,
     toVariableNodeHeight,

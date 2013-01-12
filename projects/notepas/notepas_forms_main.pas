@@ -255,7 +255,7 @@ begin
   if Settings.DebugMode then
   begin
     // for debugging
-    Logger.Channels.Add(TIPCChannel.Create);
+    //Logger.Channels.Add(TIPCChannel.Create);
     Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
     AddEditorDebugMenu(mnuMain);
   end;
@@ -715,6 +715,8 @@ end;
 
 initialization
 {$I notepas_forms_main.lrs}
+
+  Logger.Channels.Add(TIPCChannel.Create);
 
 end.
 

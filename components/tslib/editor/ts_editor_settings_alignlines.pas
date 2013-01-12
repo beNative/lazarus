@@ -101,7 +101,7 @@ end;
 
 function TAlignLinesSettings.GetTokens: string;
 begin
-  Result := FTokenList.Text;
+  Result := FTokenList.CommaText;
 end;
 
 function TAlignLinesSettings.GetTokenList: TStrings;
@@ -111,7 +111,7 @@ end;
 
 procedure TAlignLinesSettings.SetTokens(AValue: string);
 begin
-  FTokenList.Text := AValue;
+  FTokenList.CommaText := AValue;
 end;
 
 //*****************************************************************************

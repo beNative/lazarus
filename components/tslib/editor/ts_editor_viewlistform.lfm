@@ -3,6 +3,7 @@ object frmViewList: TfrmViewList
   Height = 501
   Top = 321
   Width = 800
+  Align = alClient
   ClientHeight = 501
   ClientWidth = 800
   Position = poOwnerFormCenter
@@ -24,27 +25,14 @@ object frmViewList: TfrmViewList
     DefaultButton = pbClose
     ShowButtons = [pbClose]
   end
-  object vstList: TVirtualStringTree
-    Left = 2
-    Height = 453
-    Top = 2
-    Width = 796
+  object pnlVST: TPanel
+    Left = 0
+    Height = 455
+    Top = 0
+    Width = 800
     Align = alClient
-    BorderSpacing.Around = 2
-    DefaultText = 'Node'
-    DragType = dtVCL
-    Header.AutoSizeIndex = -1
-    Header.Columns = <>
-    Header.DefaultHeight = 17
-    Header.MainColumn = -1
-    Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
-    IncrementalSearch = isAll
+    BevelOuter = bvNone
     TabOrder = 1
-    TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
-    TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-    TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
-    TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
-    TreeOptions.StringOptions = [toAutoAcceptEditChange]
   end
   object aclMain: TActionList
     left = 256

@@ -102,6 +102,7 @@ type
     procedure chkWholeWordsOnlyClick(Sender: TObject);
     procedure DoOnSelectionChanged(Sender: TObject);
     procedure FormHide(Sender: TObject);
+
   private
     FTVP      : TTreeViewPresenter;
     FVST      : TVirtualStringTree;
@@ -183,6 +184,8 @@ procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlResultList);
+
+//  FVST.Background := imgBackground.Picture;
   //FTVP := CreateTVP();   // TODO
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
@@ -192,6 +195,7 @@ begin
   FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
+  //FTVP.
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
   btnNext.Action      := Manager.Actions['actFindNext'];
   btnPrevious.Action  := Manager.Actions['actFindPrevious'];
@@ -397,7 +401,7 @@ begin
   // END workaround
   SearchEngine.Execute;
   FTVP.Refresh;
-  FVST.Header.AutoFitColumns(False);
+  FVST.Header.AutoFitColumns(False, smaAllColumns, 0);
   if FTVP.ItemsSource.Count = 1 then
     S := '%d search match found.'
   else

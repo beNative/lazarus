@@ -100,8 +100,6 @@ begin
     inherited;
 end;
 
-//-----------------------------------------------------------------------------
-
 procedure TFormSettings.AssignTo(Dest: TPersistent);
 var
   Form : TForm;
@@ -122,8 +120,8 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
-
-initialization
-  RegisterClass(TFormSettings);
-
+//
+//initialization
+//  RegisterClass(TFormSettings);
+//
 end.

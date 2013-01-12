@@ -33,19 +33,17 @@ uses
   sharedloggerlcl;
 
 const
-  DEFAULT_TOKENS: array[0..14] of string = (
+  DEFAULT_TOKENS: array[0..12] of string = (
     ':=',
     '=',
     '//',
     '{',
     '(*',
-    '''',
-    ',',
     ':',
     '+',
     'read',
     'write',
-    'in ''',
+    'in',
     'as',
     'and',
     'or'
@@ -137,7 +135,7 @@ begin
   SL := TStringList.Create;
   for I := Low(DEFAULT_TOKENS) to High(DEFAULT_TOKENS) do
     SL.Add(DEFAULT_TOKENS[I]);
-  Settings.Tokens := SL.Text;
+  Settings.Tokens := SL.CommaText;
   SL.Free;
 end;
 

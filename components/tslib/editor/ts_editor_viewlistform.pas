@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
   Menus, Contnrs,
 
-  ButtonPanel,
+  ButtonPanel, ExtCtrls,
 
   VirtualTrees,
 
@@ -68,21 +68,22 @@ type
       read GetModified;
   end;
 
-//-----------------------------------------------------------------------------
+//=============================================================================
 
   TfrmViewList = class(TForm, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
     mniClose   : TMenuItem;
     pnlButtons : TButtonPanel;
+    pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
-    vstList    : TVirtualStringTree;
 
     procedure actCloseExecute(Sender: TObject);
 
   private
-    FItemList: TObjectList;
-    FTVP     : TTreeViewPresenter;
+    FVST      : TVirtualStringTree;
+    FItemList : TObjectList;
+    FTVP      : TTreeViewPresenter;
 
     procedure FTVPSelectionChanged(Sender: TObject);
 
@@ -126,7 +127,9 @@ implementation
 {$R *.lfm}
 
 uses
-  ts_Core_ColumnDefinitions;
+  ts_Core_ColumnDefinitions,
+
+  ts_Core_Helpers;
 
 //*****************************************************************************
 // construction and destruction                                          BEGIN
@@ -187,6 +190,7 @@ end;
 procedure TfrmViewList.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FVST := CreateVST(Self, pnlVST);
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 150);
@@ -204,9 +208,9 @@ begin
   Refresh;
   FTVP.ItemsSource := FItemList;
   FTVP.PopupMenu := ppmMain;
-  FTVP.TreeView := vstList;
+  FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged  := FTVPSelectionChanged;
-  vstList.Header.AutoFitColumns;
+  FVST.Header.AutoFitColumns;
 end;
 
 procedure TfrmViewList.BeforeDestruction;
@@ -322,7 +326,7 @@ begin
     FItemList.Add(TEditorViewInfo.Create(Views[I]));
   end;
   FTVP.Refresh;
-  vstList.Header.AutoFitColumns;
+  FVST.Header.AutoFitColumns;
 end;
 
 //*****************************************************************************

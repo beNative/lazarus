@@ -18,7 +18,7 @@
 
 unit ts_Editor_SynHighlighterCollection;
 
-{ Holds editor settings that are specific to each highlighter. }
+{ Holds settings that are specific to each highlighter. }
 
 {$mode delphi}
 
@@ -30,6 +30,8 @@ uses
   SysUtils, Classes,
 
   SynEditHighlighter,
+
+  NativeXmlObjectStorage, sharedloggerlcl,
 
   ts_Editor_Utils, ts_Editor_CodeFormatters;
 
@@ -60,33 +62,28 @@ type
     function GetCollection: THighlighters;
     procedure SetFileExtensions(AValue: string);
     procedure SetFormatterSupport(const AValue: Boolean);
+    procedure SetSynHighlighter(AValue: TSynCustomHighlighter);
+    procedure SetSynHighlighterClass(AValue: TSynHighlighterClass);
 
   public
     // constructors and destructors
     constructor Create(ACollection: TCollection); override;
+    procedure BeforeDestruction; override;
 
-    // public methods
+    procedure InitSynHighlighter;
     procedure Assign(Source: TPersistent); override;
+    function AsString: string;
+    procedure Reload;
 
-    // public properties
     { Collection that owns the instance of current THighlighterItem item. }
     property Collection: THighlighters
       read GetCollection write SetCollection;
 
-    function AsString: string;
-
-    procedure Reload;
-
-    procedure BeforeDestruction; override;
-
     property SynHighlighterClass: TSynHighlighterClass
-      read FSynHighlighterClass write FSynHighlighterClass;
+      read FSynHighlighterClass write SetSynHighlighterClass;
 
     property CodeFormatter: ICodeFormatter
       read FCodeFormatter write FCodeFormatter;
-
-    property SynHighlighter: TSynCustomHighlighter
-      read FSynHighlighter write FSynHighlighter;
 
   published
     // published properties
@@ -114,6 +111,9 @@ type
 
     property LayoutFileName: string
       read FLayoutFileName write FLayoutFileName;
+
+    property SynHighlighter: TSynCustomHighlighter
+      read FSynHighlighter write SetSynHighlighter;
   end;
 
   THighlighterItemClass = class of THighlighterItem;
@@ -154,7 +154,7 @@ type
 
     procedure RegisterHighlighter(
             ASynHighlighterClass  : TSynHighlighterClass;
-            ASynHighlighter       : TSynCustomHighlighter;
+            ASynHighlighter       : TSynCustomHighlighter;  // To ASSIGN the settings!!!
       const AName                 : string;       // unique name
       const AFileExtensions       : string = '';  // comma separated list
       const ALineCommentTag       : string = '';
@@ -263,8 +263,6 @@ begin
   // Update gets called from TCollection.Changed.
 end;
 
-//-----------------------------------------------------------------------------
-
 { Responds when items are added to or removed from the collection. }
 
 procedure THighlighters.Notify(Item: TCollectionItem;
@@ -294,8 +292,6 @@ begin
   Result := inherited Add as THighlighterItem;
 end;
 
-//-----------------------------------------------------------------------------
-
 { Inserts a new THighlighterItem instance to the THighlighters
   collection before position specified with Index. }
 
@@ -303,8 +299,6 @@ function THighlighters.Insert(Index: Integer): THighlighterItem;
 begin
   Result := inherited Insert(Index) as THighlighterItem;
 end;
-
-//-----------------------------------------------------------------------------
 
 { Constructs a unique itemname for a new collection item. }
 
@@ -316,8 +310,6 @@ begin
   THighlighterItem(Item).Name :=
     Copy(Item.ClassName, 2, Length(Item.ClassName)) + IntToStr(Item.ID + 1);
 end;
-
-//-----------------------------------------------------------------------------
 
 function THighlighters.Owner: TComponent;
 var
@@ -347,8 +339,6 @@ function THighlighters.Exists(const AName: string): Boolean;
 begin
   Result := Assigned(Find(AName));
 end;
-
-//-----------------------------------------------------------------------------
 
 function THighlighters.IndexOf(const AName: string): Integer;
 var
@@ -389,8 +379,6 @@ begin
     Result := Items[I];
 end;
 
-// TSI TODO: does not work!
-
 function THighlighters.FindHighlighterForFileType(const AFileExt: string): THighlighterItem;
 var
   I  : Integer;
@@ -402,8 +390,15 @@ begin
     HL :=  Items[I].SynHighlighter;
     if Assigned(HL) then
     begin
+      //Logger.Send('Items[I].FileExtensions', Items[I].FileExtensions);
+      //Logger.Send('IsWordPresent(AFileExt, Items[I].FileExtensions',
+        //IsWordPresent(AFileExt, Items[I].FileExtensions, [',']));
+      //Logger.Send('IsWordPresent(AFileExt, HL.DefaultFilter)',
+        //IsWordPresent(AFileExt, HL.DefaultFilter, [',', '.', ';']));
+
+      //Logger.Send('HL.DefaultFilter', HL.DefaultFilter);
       if IsWordPresent(AFileExt, Items[I].FileExtensions, [','])
-        or IsWordPresent(AFileExt, HL.DefaultFilter, [',']) then
+        or IsWordPresent(AFileExt, HL.DefaultFilter, [',','.', ';']) then
         begin
           Result := Items[I];
         end;
@@ -430,16 +425,19 @@ begin
   HI.Name := AName;
   if ADescription <> '' then
     HI.Description := ADescription;
-  if ASynHighlighterClass <> nil then
-    HI.SynHighlighterClass := ASynHighlighterClass;
-  if Assigned(ASynHighlighter) then
-    HI.SynHighlighter := ASynHighlighter;
-  HI.CodeFormatter  := ACodeFormatter;
-  HI.LineCommentTag := ALineCommentTag;
+  HI.SynHighlighterClass  := ASynHighlighterClass;
+  HI.CodeFormatter        := ACodeFormatter;
+  HI.LineCommentTag       := ALineCommentTag;
   HI.BlockCommentStartTag := ABlockCommentStartTag;
-  HI.BlockCommentEndTag := ABlockCommentEndTag;
-  HI.LayoutFileName := ALayoutFileName;
-  HI.FileExtensions := AFileExtensions;
+  HI.BlockCommentEndTag   := ABlockCommentEndTag;
+  HI.LayoutFileName       := ALayoutFileName;
+  HI.FileExtensions       := AFileExtensions;
+
+  HI.InitSynHighlighter;
+
+  //if Assigned(ASynHighlighter) then
+  //  HI.SynHighlighter := ASynHighlighter;
+
   if FileExists(S + ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(ASynHighlighter) then
@@ -475,6 +473,8 @@ end;
 
 procedure THighlighterItem.BeforeDestruction;
 begin
+  if Assigned(FSynHighlighter) then
+    FreeAndNil(FSynHighlighter);
   FreeAndNil(FFileExtensions);
   inherited BeforeDestruction;
 end;
@@ -518,6 +518,27 @@ begin
   end;
 end;
 
+procedure THighlighterItem.SetSynHighlighter(AValue: TSynCustomHighlighter);
+begin
+  //FSynHighlighter := AValue;
+
+//  if Assigned(FSynHighlighter) then
+//  begin
+    FSynHighlighter.Assign(AValue);
+    FSynHighlighter.SetSubComponent(True);
+  //  Logger.Send(Name, ObjectSaveToXmlString(AValue));
+
+  //end;
+end;
+
+procedure THighlighterItem.SetSynHighlighterClass(AValue: TSynHighlighterClass);
+begin
+  if AValue <> SynHighlighterClass then
+  begin
+    FSynHighlighterClass := AValue;
+  end;
+end;
+
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
@@ -536,8 +557,8 @@ begin
       Collection.BeginUpdate;
     try
       HLI := THighlighterItem(Source);
-      SynHighlighter       := HLI.SynHighlighter;
       SynHighlighterClass  := HLI.SynHighlighterClass;
+      SynHighlighter.Assign(HLI.SynHighlighter);
       Name                 := HLI.Name;
       Description          := HLI.Description;
       LayoutFileName       := HLI.LayoutFileName;
@@ -563,6 +584,21 @@ const
     'LayoutFileName = %s';
 begin
   Result := Format(DATA, [SynHighlighter.ClassName, Name, Description, LayoutFileName]);
+end;
+
+procedure THighlighterItem.InitSynHighlighter;
+begin
+  if not Assigned(SynHighlighter) then
+  begin
+    FSynHighlighter := SynHighlighterClass.Create(nil);
+    // We need to call SetSubComponent to indicate that this component is a
+    // subcomponent.
+    // A subcomponent is a component whose Owner is a component other than the
+    // form or data module in which it resides. Unless such a component calls
+    // SetSubComponent with IsSubComponent set to True, its published properties
+    // will not be persisted.
+    FSynHighlighter.SetSubComponent(True);
+  end;
 end;
 
 procedure THighlighterItem.Reload;

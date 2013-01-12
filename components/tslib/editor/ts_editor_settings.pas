@@ -29,7 +29,7 @@ uses
 
   LazMethodList,
 
-  NativeXML, NativeXmlObjectStorage,
+  NativeXML, NativeXmlObjectStorage, sharedloggerlcl,
 
   ts_Core_FormSettings,
 
@@ -38,9 +38,6 @@ uses
 
   ts_Editor_Interfaces, ts_Editor_SynHighlighterCollection,
   ts_Editor_SynHighlighterAttributesCollection;
-
-{ TODO: make this a subject with the EV's and EM as observers to notify them
-  when settings change. }
 
 type
   TEditorSettingsChangedEventList = class(TMethodList)
@@ -70,7 +67,7 @@ type
     FSearchEngineSettings     : TSearchEngineSettings;
     FCodeShaperSettings       : TCodeShaperSettings;
 
-    // property access methods
+    {$region 'property access methods' /fold}
     function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
@@ -107,6 +104,7 @@ type
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetShowControlCharacters(const AValue: Boolean);
+    {$endregion}
 
   public
     procedure AfterConstruction; override;
@@ -114,7 +112,7 @@ type
 
     procedure Load;
     procedure Save;
-    procedure Apply; // to manually notify observers
+    procedure Apply; // to manually force a notification
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
@@ -129,12 +127,13 @@ type
     procedure InitializeHighlighterAttributes;
     procedure Changed;
 
+  public
+    property Highlighters: THighlighters
+      read GetHighlighters write SetHighlighters;
+
   published
     property HighlighterAttributes: TSynHighlighterAttributesCollection
       read GetHighlighterAttributes write SetHighlighterAttributes;
-
-    property Highlighters: THighlighters
-      read GetHighlighters write SetHighlighters;
 
     { Default highlighter type to use. }
     property HighlighterType: string
@@ -195,6 +194,11 @@ uses
 
   ts_Editor_Resources;
 
+{$region 'public methods' /fold}
+//*****************************************************************************
+// public methods                                                        BEGIN
+//*****************************************************************************
+
 procedure TEditorSettingsChangedEventList.CallEditorSettingsChangedHandlers(Sender: TObject);
 var
   I: Integer;
@@ -204,6 +208,12 @@ begin
     TNotifyEvent(Items[i])(Sender);
 end;
 
+//*****************************************************************************
+// public methods                                                          END
+//*****************************************************************************
+{$endregion}
+
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -246,7 +256,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access methods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -376,7 +388,7 @@ end;
 
 procedure TEditorSettings.SetFormSettings(const AValue: TFormSettings);
 begin
-  FFormSettings := AValue;
+  FFormSettings.Assign(AValue);
 end;
 
 function TEditorSettings.GetHighlighterAttributes: TSynHighlighterAttributesCollection;
@@ -396,7 +408,7 @@ end;
 
 procedure TEditorSettings.SetHighlighters(const AValue: THighlighters);
 begin
-  FHighlighters := AValue;
+  FHighlighters.Assign(AValue);
 end;
 
 function TEditorSettings.GetHighlighterType: string;
@@ -473,7 +485,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods'}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -486,7 +500,9 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
@@ -506,6 +522,8 @@ begin
       Reader := TsdXmlObjectReader.Create;
       try
         Reader.ReadComponent(Doc.Root, Self, nil);
+        //Logger.Send('Settings', ObjectSaveToXmlString(Highlighters.Items[3]));
+        Logger.Send('Settings LOAD', ObjectSaveToXmlString(Self));
       finally
         FreeAndNil(Reader);
       end;
@@ -527,6 +545,7 @@ begin
   try
     Writer := TsdXmlObjectWriter.Create;
     try
+      Logger.Send('Settings SAVE', ObjectSaveToXmlString(Self));
       Doc.XmlFormat := xfReadable;
       Writer.WriteComponent(Doc.Root, Self);
       Doc.SaveToFile(S);
@@ -615,7 +634,6 @@ begin
       end;
       FreeAndNil(HA);
 
-
       HA := TSynHighlighterAttributes.Create(SYNS_AttrFloat, SYNS_XML_AttrFloat);
       with FHighlighterAttributes.Add do
       begin
@@ -639,13 +657,8 @@ begin
         Attributes.Assign(HA);
       end;
       FreeAndNil(HA);
-
-
     end;
   end;
-
-
-
 //Add( TSynHighlighterAttributes.Create(SYNS_AttrComment, SYNS_XML_AttrComment));
 //    Add(TSynHighlighterAttributes.Create(SYNS_AttrIdentifier, SYNS_XML_AttrIdentifier));
 //    Add(TSynHighlighterAttributes.Create(SYNS_AttrString, SYNS_XML_AttrString));
@@ -656,6 +669,7 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
 
 //*****************************************************************************
 

@@ -19,10 +19,7 @@
 unit ts_Editor_SynHighlighterAttributesCollection;
 
 { Collection class which wraps TSynHighlighterAttributes. This collection is
-  intended to support persistence to XML.
-
-  In addition the comment tags can be stored.
-}
+  intended to support persistence to XML. }
 
 {$mode delphi}
 
@@ -44,14 +41,17 @@ type
   private
     FAttributes : TSynHighlighterAttributes;
     FName       : string;
+
     // private property access methods
     function GetAttributes: TSynHighlighterAttributes;
     procedure SetAttributes(AValue: TSynHighlighterAttributes);
     procedure SetCollection(const Value: TSynHighlighterAttributesCollection); reintroduce;
     function GetCollection: TSynHighlighterAttributesCollection;
+
   protected
     procedure SetDisplayName(const Value: string); override;
     function GetDisplayName: string; override;
+
   public
     // constructors and destructors
     constructor Create(ACollection: TCollection); override;
@@ -82,19 +82,21 @@ type
 
 //=============================================================================
 
-  { TSynHighlighterAttributesCollection inherits from TOwnedCollection to show the items in
-    the Object Treeview of the Delphi IDE at designtime. }
+  { TSynHighlighterAttributesCollection inherits from TOwnedCollection to show
+    the items in the Object Treeview at designtime. }
 
   TSynHighlighterAttributesCollection = class(TOwnedCollection)
   private
     // property access methods
     function GetItem(Index: Integer): TSynHighlighterAttributesItem;
     procedure SetItem(Index: Integer; const Value: TSynHighlighterAttributesItem);
+
   protected
     procedure SetItemName(Item: TCollectionItem); override;
     procedure Update(AItem: TCollectionItem); override;
     procedure Notify(Item: TCollectionItem; Action: TCollectionNotification);
       override;
+
   public
     // constructors and destructors
     constructor Create(AOwner : TPersistent);

@@ -111,9 +111,12 @@ begin
   ];
   VST.TreeOptions.PaintOptions := [
     toHideFocusRect,
+    toPopupMode,
     toShowButtons,
     toShowDropmark,
     toShowHorzGridLines,
+    toShowBackground,
+    toStaticBackground,
     toShowRoot,
     toShowTreeLines,
     toShowVertGridLines,

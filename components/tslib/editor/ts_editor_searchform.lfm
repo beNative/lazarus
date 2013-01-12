@@ -1,7 +1,7 @@
 object frmSearchForm: TfrmSearchForm
-  Left = 2622
+  Left = 3172
   Height = 916
-  Top = 48
+  Top = 107
   Width = 302
   ActiveControl = cbxSearchText
   BorderIcons = [biSystemMenu]

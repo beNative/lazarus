@@ -5553,7 +5553,7 @@ object dmEditorManager: TdmEditorManager
     end
   end
   object SynPasSyn: TSynPasSyn
-    DefaultFilter = 'Pascal Files (*.pas,*.pp,*.dpr,*.dpk,*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc'
+    DefaultFilter = 'Pascal Files (*.pas,*.pp,*.dpr,*.dpk,*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc;*.pipo'
     Enabled = False
     AsmAttri.Foreground = clGray
     AsmAttri.FrameEdges = sfeAround

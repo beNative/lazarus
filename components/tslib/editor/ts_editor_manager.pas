@@ -408,9 +408,7 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
-    procedure actATOpenSelectionInNewEditorExecute(Sender: TObject);
-    procedure actATSelectAllExecute(Sender: TObject);
-    procedure actAutoFormatXMLExecute(Sender: TObject);
+        procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
     procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
@@ -669,7 +667,6 @@ type
     procedure DoSaveFile;
     procedure DoOpenFile;
     procedure DoNewFile(const AFileName: string = ''; const AText: string = '');
-    function DoFindAndReplace: Integer;
 
     procedure UpdateActions;
     procedure UpdateEncodingActions;
@@ -1034,10 +1031,9 @@ begin
   begin
     if AValue then
     begin
-      FSettings.Load;
+      Settings.Load;
       // TSI voorlopig
       RegisterHighlighters;
-
     end;
     FPersistSettings := AValue;
   end;
@@ -1285,55 +1281,6 @@ begin
     FOnNewFile(Self, S, AText);
   if S <> '' then
     ActiveView.FileName := S;
-end;
-
-{ TSI TODO: integrate visualisation logic in searchengine }
-
-function TdmEditorManager.DoFindAndReplace: Integer;
-//var
-//  OldCaretXY : TPoint;
-//  NewTopLine : Integer;
-begin
-  Result := 0;
-  //if (ssoReplace in FFindReplaceDialog.Options) and Settings.ReadOnly then
-  //begin
-  //  Exit;
-  //end;
-  //
-  //OldCaretXY := ActiveView.CaretXY;
-  //if ActiveView.SelAvail and not (ssoSelectedOnly in FFindReplaceDialog.Options) then
-  //begin
-  //  // Adjust the cursor. to exclude the selection from being searched
-  //  // needed for find next / find previous
-  //  if ssoBackwards in FFindReplaceDialog.Options then
-  //    ActiveView.LogicalCaretXY := ActiveView.BlockBegin
-  //  else
-  //    ActiveView.LogicalCaretXY := ActiveView.BlockEnd;
-  //end;
-  //
-  //// TSI : TODO
-  //Result := ActiveView.Editor.SearchReplace(
-  //  FFindReplaceDialog.FindText,
-  //  FFindReplaceDialog.ReplaceText,
-  //  FFindReplaceDialog.Options
-  //);
-  //
-  //if (OldCaretXY.X = ActiveView.CaretX) and (OldCaretXY.Y = ActiveView.CaretY) and
-  //  not (ssoReplaceAll in FFindReplaceDialog.Options) then
-  //begin
-  //  //    ACaption := lisUENotFound;
-  //  //AText := Format(lisUESearchStringNotFound, [ValidUTF8String(FFindReplaceDialog.FindText)]);
-  //  //MessageDlg(ACaption, AText, mtInformation, [mbOk], 0);
-  //  //TSourceNotebook(Owner).DeleteLastJumpPointClicked(Self);
-  //end
-  //else if (ActiveView.CaretY <= ActiveView.TopLine + 1)
-  //  or (ActiveView.CaretY >= ActiveView.TopLine + ActiveView.LinesInWindow - 1) then
-  //begin
-  //  NewTopLine := ActiveView.CaretY - (ActiveView.LinesInWindow div 2);
-  //  if NewTopLine < 1 then
-  //    NewTopLine := 1;
-  //  ActiveView.TopLine := NewTopLine;
-  //end;
 end;
 
 //*****************************************************************************
@@ -1703,32 +1650,7 @@ end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
 begin
-  // TSI TODO: smart mode.
-  //  - detect common tokens on multiple lines, show dialog with possibilities
-  //    if multiple tokens are possible
-  //ActiveView.SelText := AlignLines(ActiveView.SelText, ':', True, True, True);
-end;
-
-procedure TdmEditorManager.actATOpenSelectionInNewEditorExecute(Sender: TObject);
-{ TODO : yet to implement }
-//var
-//  S : string;
-//  T : string;
-begin
-  //S := '';
-  //if Assigned(FOnNewFile) then
-  //begin
-  //  if mmoPreview.SelText = '' then
-  //    T := Editor.LineText
-  //  else
-  //    T := mmoPreview.SelText;
-  //  FOnNewFile(Self, S, T);
-  //end;
-end;
-
-procedure TdmEditorManager.actATSelectAllExecute(Sender: TObject);
-begin
-  //mmoPreview.SelectAll;
+// TOOLVIEW
 end;
 
 procedure TdmEditorManager.actAutoFormatXMLExecute(Sender: TObject);
@@ -1871,7 +1793,7 @@ end;
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
    // TODO: FIX THIS!!!
-//  ClearViews(True);
+  ClearViews(True);
   Application.Terminate;
 end;
 

@@ -34,7 +34,8 @@ uses
 
   ts_Core_FormSettings,
 
-  ts_Editor_Settings_AlignLines,
+  ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
+  ts_Editor_Settings_CodeShaper,
 
   ts_Editor_SynHighlighterCollection, ts_Editor_SynHighlighterAttributesCollection;
 
@@ -404,7 +405,7 @@ type
 
   IEditorSearchEngine = interface
   ['{5403336C-3E81-4A1B-B2BB-170CF0EF0B84}']
-  function GetCurrentIndex: Integer;
+    function GetCurrentIndex: Integer;
     function GetItemList: TObjectList;
     function GetOptions: TSynSearchOptions;
     function GetReplaceText: string;
@@ -468,7 +469,6 @@ type
     procedure DoSaveFile;
     procedure DoOpenFile;
     procedure DoNewFile(const AFileName: string = ''; const AText: string = '');
-    function DoFindAndReplace: Integer;
 
     // events
     { triggered when caret position changes }
@@ -504,6 +504,7 @@ type
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
+    function GetCodeShaperSettings: TCodeShaperSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
@@ -514,12 +515,14 @@ type
     function GetHighlighterType: string;
     function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
+    function GetSearchEngineSettings: TSearchEngineSettings;
     function GetShowControlCharacters: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
     procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
@@ -529,6 +532,7 @@ type
     procedure SetHighlighterType(const AValue: string);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
+    procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetShowControlCharacters(const AValue: Boolean);
     {$endregion}
 
@@ -580,6 +584,12 @@ type
 
     property HighlighterAttributes: TSynHighlighterAttributesCollection
       read GetHighlighterAttributes write SetHighlighterAttributes;
+
+    property SearchEngineSettings: TSearchEngineSettings
+      read GetSearchEngineSettings write SetSearchEngineSettings;
+
+    property CodeShaperSettings: TCodeShaperSettings
+      read GetCodeShaperSettings write SetCodeShaperSettings;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;

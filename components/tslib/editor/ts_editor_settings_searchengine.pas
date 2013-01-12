@@ -25,16 +25,30 @@ unit ts_Editor_Settings_SearchEngine;
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes, Forms, Controls,
+
+  SynEditTypes;
 
 //=============================================================================
 
 type
   TSearchEngineSettings = class(TPersistent)
+  private
+    FOptions        : TSynSearchOptions;
+    FSearchAllViews : Boolean;
+
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
+
+  published
+    property Options : TSynSearchOptions
+      read FOptions write FOptions;
+
+    property SearchAllViews: Boolean
+      read FSearchAllViews write FSearchAllViews;
+
   end;
 
 //*****************************************************************************
@@ -59,13 +73,31 @@ end;
 //*****************************************************************************
 
 procedure TSearchEngineSettings.AssignTo(Dest: TPersistent);
+var
+  SES: TSearchEngineSettings;
 begin
-  inherited AssignTo(Dest);
+  if Dest is TSearchEngineSettings then
+  begin
+    SES := TSearchEngineSettings(Dest);
+    SES.Options        := Options;
+    SES.SearchAllViews := SearchAllViews;
+  end
+  else
+    inherited AssignTo(Dest);
 end;
 
 procedure TSearchEngineSettings.Assign(Source: TPersistent);
+var
+  SES: TSearchEngineSettings;
 begin
-  inherited Assign(Source);
+  if Source is TSearchEngineSettings then
+  begin
+    SES := TSearchEngineSettings(Source);
+    Options        := SES.Options;
+    SearchAllViews := SES.SearchAllViews;
+  end
+  else
+    inherited Assign(Source);
 end;
 
 //*****************************************************************************

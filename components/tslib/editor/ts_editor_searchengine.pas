@@ -29,7 +29,7 @@ uses
 
   SynEditTypes, SynEditSearch,
 
-  ts_Editor_Interfaces,
+  ts_Editor_Interfaces, ts_Editor_Settings_SearchEngine,
 
   sharedloggerlcl;
 
@@ -78,8 +78,6 @@ type
 
   TSearchEngine = class(TComponent, IEditorSearchEngine)
   private
-    FOptions        : TSynSearchOptions;
-    FSearchAllViews : Boolean;
     FSearchText     : string;
     FReplaceText    : string;
     FItemList       : TObjectList;
@@ -93,6 +91,7 @@ type
     function GetReplaceText: string;
     function GetSearchAllViews: Boolean;
     function GetSearchText: string;
+    function GetSettings: TSearchEngineSettings;
     function GetView: IEditorView;
     function GetViews: IEditorViews;
     procedure SetCurrentIndex(AValue: Integer);
@@ -136,6 +135,9 @@ type
 
     property SearchAllViews: Boolean
       read GetSearchAllViews write SetSearchAllViews;
+
+    property Settings: TSearchEngineSettings
+      read GetSettings;
 
     property ItemList: TObjectList
       read GetItemList;
@@ -199,7 +201,7 @@ end;
 
 function TSearchEngine.GetOptions: TSynSearchOptions;
 begin
-  Result := FOptions;
+  Result := Settings.Options;
 end;
 
 function TSearchEngine.GetReplaceText: string;
@@ -218,12 +220,17 @@ end;
 
 function TSearchEngine.GetSearchAllViews: Boolean;
 begin
-  Result := FSearchAllViews;
+  Result := Settings.SearchAllViews;
 end;
 
 function TSearchEngine.GetSearchText: string;
 begin
   Result := FSearchText;
+end;
+
+function TSearchEngine.GetSettings: TSearchEngineSettings;
+begin
+  Result := (Manager as IEditorSettings).SearchEngineSettings;
 end;
 
 procedure TSearchEngine.SetSearchText(AValue: string);
@@ -252,20 +259,20 @@ end;
 
 procedure TSearchEngine.SetOptions(AValue: TSynSearchOptions);
 begin
-  if AValue <> Options then
+  if AValue <> Settings.Options then
   begin
-    FOptions := AValue;
-    FSESearch.Sensitive          := ssoMatchCase in FOptions;
-    FSESearch.Whole              := ssoWholeWord in FOptions;
-    FSESearch.RegularExpressions := ssoRegExpr in FOptions;
-    FSESearch.RegExprMultiLine   := ssoRegExprMultiLine in FOptions;
-    FSESearch.Backwards          := ssoBackwards in FOptions;
+    Settings.Options := AValue;
+    FSESearch.Sensitive          := ssoMatchCase in Options;
+    FSESearch.Whole              := ssoWholeWord in Options;
+    FSESearch.RegularExpressions := ssoRegExpr in Options;
+    FSESearch.RegExprMultiLine   := ssoRegExprMultiLine in Options;
+    FSESearch.Backwards          := ssoBackwards in Options;
   end;
 end;
 
 procedure TSearchEngine.SetSearchAllViews(AValue: Boolean);
 begin
-  FSearchAllViews := AValue;
+  Settings.SearchAllViews := AValue;
 end;
 
 //*****************************************************************************
@@ -284,7 +291,9 @@ var
   ptCurrent    : TPoint;
   ptFoundStart : TPoint;
   ptFoundEnd   : TPoint;
+  N            : Integer;
 begin
+  N := 0;
   ptStart := Point(1, 1);
   ptEnd.Y := AView.Lines.Count;
   ptEnd.X := Length(AView.Lines[ptEnd.Y - 1]) + 1;
@@ -296,8 +305,9 @@ begin
     ptFoundStart,
     ptFoundEnd,
     True           // Support unicode case
-  ) do
+  ) and (N < 10000) do
   begin
+    Inc(N);
     SR := TSearchResult.Create;
     SR.FileName   := ExtractFileName(AView.FileName);
     SR.ViewName   := AView.Name;
@@ -443,7 +453,6 @@ begin
       V.EndUpdate;
     end;
     Options := Options - [ssoReplaceAll];
-    //Logger.Send('Result', Manager.ActiveView.Editor.SearchReplace(SearchText, ReplaceText, Options));
   end;
 end;
 

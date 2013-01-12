@@ -2036,7 +2036,7 @@ end;
 
 procedure TEditorView.LoadFromFile(const AFileName: string);
 var
-  S: string;
+  S  : string;
   FS : TFileStream;
 begin
   if FileExists(AFileName) then
@@ -2051,6 +2051,7 @@ begin
     LineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];
     S := ExtractFileExt(AFileName);
     S := System.Copy(S, 2, Length(S));
+    Logger.Send('Extension', S);
     try
       AssignHighlighterForFileType(S);
     except

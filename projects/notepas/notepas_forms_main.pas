@@ -20,46 +20,6 @@ unit Notepas_Forms_Main;
 
 {$mode delphi}
 
-{
-
-procedure AssociateFileExtension(const IconPath, ProgramName, Path, Extension: string);
-begin
-  with TRegistry.Create do
-  begin
-    RootKey := HKEY_CLASSES_ROOT;
-    OpenKey(ProgramName, True);
-    WriteString('', ProgramName);
-    if IconPath <> '' then
-    begin
-      OpenKey(RC_DefaultIcon, True);
-      WriteString('', IconPath);
-    end;
-    CloseKey;
-    OpenKey(ProgramName, True);
-    OpenKey('shell', True);
-    OpenKey('open', True);
-    OpenKey('command', True);
-    WriteString('', '"' + Path + '" "%1"');
-    Free;
-  end;
-  with TRegistry.Create do
-  begin
-    RootKey := HKEY_CLASSES_ROOT;
-    OpenKey('.' + Extension, True);
-    WriteString('', ProgramName);
-    Free;
-  end;
-  RebuildIconCache;
-end;
-
-procedure AssociateExtension(const IconPath, ProgramName, Path, Extension: string);
-begin
-  AssociateFileExtension(IconPath, ProgramName, Path, Extension);
-end;
-
-}
-
-
 //*****************************************************************************
 
 interface
@@ -135,7 +95,7 @@ type
     pnlEditMode           : TPanel;
     pnlStatusBar          : TPanel;
     Shape1                : TShape;
-    SpeedButton1          : TSpeedButton;
+    btnCloseToolView          : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
     {$endregion}
@@ -153,10 +113,11 @@ type
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
     procedure frmMainActiveViewChange(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure btnCloseToolViewClick(Sender: TObject);
     procedure TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
     {$endregion}
   private
@@ -469,6 +430,11 @@ begin
   btnLineBreakStyle.PopupMenu.PopUp;
 end;
 
+procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  CanClose := Actions['actExit'].Execute;
+end;
+
 procedure TfrmMain.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 var
@@ -505,7 +471,7 @@ begin
     DockMaster.MakeVisible(Editor.Form, True);
 end;
 
-procedure TfrmMain.SpeedButton1Click(Sender: TObject);
+procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
 var
   I: Integer;
 begin

@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 238
+  Left = 2477
   Height = 618
-  Top = 211
+  Top = 78
   Width = 1066
   AllowDropFiles = True
   Anchors = []
@@ -12,6 +12,7 @@ object frmMain: TfrmMain
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
   Menu = mnuMain
+  OnCloseQuery = FormCloseQuery
   OnDropFiles = FormDropFiles
   OnShow = FormShow
   PopupMode = pmAuto
@@ -243,7 +244,7 @@ object frmMain: TfrmMain
       ClientHeight = 18
       ClientWidth = 369
       TabOrder = 0
-      object SpeedButton1: TSpeedButton
+      object btnCloseToolView: TSpeedButton
         Left = 353
         Height = 14
         Top = 2
@@ -257,8 +258,10 @@ object frmMain: TfrmMain
         Flat = True
         Font.Height = -11
         Font.Name = 'Marlett'
-        Layout = blGlyphBottom
-        OnClick = SpeedButton1Click
+        Layout = blGlyphRight
+        Margin = 0
+        Spacing = 0
+        OnClick = btnCloseToolViewClick
         ParentFont = False
       end
       object lblHeader: TLabel

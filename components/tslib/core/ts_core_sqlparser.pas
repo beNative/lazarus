@@ -251,13 +251,11 @@ uses
 
 Resourcestring
   SerrUnmatchedBrace = 'Expected ).';
-  SErrCommaOrBraceExpected = 'Expected , or ).';
   SErrUnexpectedToken = 'Unexpected token: %s';
   SErrUnexpectedTokenOf = 'Unexpected token: %s, expected one of %s';
   SErrTokenMismatch = 'Unexpected token: ''%s'', expected: ''%s''';
   SErrExpectedDBObject = 'Expected database object type. Got: ''%s''';
   SErrDomainNotAllowed = 'Domain name not allowed in typ definition.';
-  SErrExpectedChar = 'Expected CHAR or CHARACTER, got "%s"';
   SERRVaryingNotAllowed = 'VARYING not allowed at this point.';
   SErrUnknownBooleanOp = 'Unknown boolean operation';
   SErrUnknownComparison = 'unknown Comparison operation';
@@ -2196,7 +2194,6 @@ function TSQLParser.ParseExprLevel1(APArent : TSQLElement;
 var
   tt   : TSQLToken;
   B    : TSQLBinaryExpression;
-  Right: TSQLExpression;
   L    : TSQLLiteralExpression;
 
 begin
@@ -2580,14 +2577,10 @@ end;
 function TSQLParser.ParseIdentifierList(APArent : TSQLElement;
   AList : TSQLelementList) : integer;
 
-var
-  Done : Boolean;
-
 begin
   // on entry, we're on first identifier
   Expect(tsqlIdentifier);
   Result := 0;
-  Done := False;
   repeat
     if CurrentToken = tsqlComma then
       GetNextToken;

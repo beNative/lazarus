@@ -25,8 +25,8 @@ unit ts_Editor_AlignLinesForm;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, MenuButton, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Spin, Buttons, Grids, ActnList,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ExtCtrls, Buttons, Grids, ActnList,
 
   ts_Editor_Interfaces, ts_Editor_Settings_AlignLines,
 
@@ -72,18 +72,18 @@ type
     procedure chkBeforeTokenClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
-  private
+  protected
     function GetSettings: TAlignLinesSettings;
-
-  strict private
     function GetManager: IEditorManager;
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
+    procedure SetVisible(AValue: Boolean); reintroduce;
 
     { Lets the view respond to changes. }
     procedure UpdateView;
+    procedure Execute;
+    procedure UpdateActions; override;
 
     property Visible: Boolean
       read GetVisible write SetVisible;
@@ -99,11 +99,6 @@ type
 
     property Settings: TAlignLinesSettings
       read GetSettings;
-
-    procedure Execute;
-
-  protected
-    procedure UpdateActions; override;
 
   public
     procedure AfterConstruction; override;
@@ -220,7 +215,6 @@ end;
 
 procedure TfrmAlignLines.SetVisible(AValue: Boolean);
 begin
-  inherited SetVisible(AValue);
   if AValue then
     AddStringsPresentInString(
       Settings.TokenList,
@@ -229,6 +223,7 @@ begin
     )
   else
     lstTokens.Clear;
+  inherited SetVisible(AValue);
 end;
 
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;

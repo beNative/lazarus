@@ -32,13 +32,19 @@ unit ts_Editor_Manager;
    - fix DeleteView methods
    - fix SortText
 
+   - customizable shortcuts for actions.
+
+   - no highlighter components here. They should be managed by the editor
+     settings once the persistence mechanism is ready.
+
    - show a hintwindow of the selection with the proposed operation!
    - list of all supported actions, category, shortcut, description (treeview)
 
    - make ts_Editor_Actions, ts_Editor_Menus, ts_Editor_Images ?
    - make ts_Editor_Highlighters, ts_Editor_Events and ts_Editor_Views?
 
-   - xml treeview?
+   - xml/HTML treeview?
+   - binary editor view
    - settings dialog (store settings in xml)
 
    - goto line
@@ -126,8 +132,7 @@ unit ts_Editor_Manager;
 interface
 
 uses
-  Classes, SysUtils, Controls, ActnList, StdActns, Menus, Dialogs, Forms,
-  Contnrs,
+  Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
 
   // logging
   sharedloggerlcl,
@@ -408,7 +413,7 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
-        procedure actAutoFormatXMLExecute(Sender: TObject);
+    procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
     procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
@@ -677,7 +682,7 @@ type
 
     procedure ClearHighlightSearch;
 
-    // TSI temp
+    // TS temp
     function ActiveToolView: IEditorToolView;
 
     // properties
@@ -855,15 +860,17 @@ end;
 
 procedure TdmEditorManager.BeforeDestruction;
 begin
+  Logger.EnterMethod(Self, 'BeforeDestruction');
   FActiveView := nil; // !!!!!!!!! after a long search this was a long lasting bug
   if PersistSettings then
     FSettings.Save;
   FSearchEngine := nil;
   FSettings := nil;
   FreeAndNil(FSynHighlighterPo);
-  FreeAndNil(FViewList);
   FreeAndNil(FToolViewList);
+  FreeAndNil(FViewList);
   inherited BeforeDestruction;
+  Logger.ExitMethod(Self, 'BeforeDestruction');
 end;
 
 //*****************************************************************************
@@ -961,8 +968,14 @@ begin
 end;
 
 function TdmEditorManager.GetItem(AName: string): TCustomAction;
+var
+  A : TCustomAction;
 begin
-  Result := aclActions.ActionByName(AName) as TCustomAction;
+  A := aclActions.ActionByName(AName) as TCustomAction;
+  if not Assigned(A) then
+    Exception.CreateFmt('Action (%s) does not exist!', [AName])
+  else
+    Result := A;
 end;
 
 function TdmEditorManager.GetLineBreakStylePopupMenu: TPopupMenu;
@@ -1186,6 +1199,8 @@ begin
     if (FToolViewList[I] as IEditorToolView).Name = AName then
       Result := FToolViewList[I] as IEditorToolView;
   end;
+  if not Assigned(Result) then
+    Exception.CreateFmt('Toolview (%s) does not exist!', [AName]);
 end;
 
 //*****************************************************************************
@@ -1209,8 +1224,7 @@ begin
   if Assigned(FOnCaretPositionChange) then
     FOnCaretPositionChange(Self, ActiveView.CaretX, ActiveView.CaretY);
 
-  // TODO TSI!!!!
-
+  { TODO -oTS : Needs to be refactored }
   if actShowPreview.Checked then
     ToolViews['frmPreview'].UpdateView;
   if ToolViews['frmTest'].Visible then
@@ -1295,8 +1309,8 @@ end;
 
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
+  { TODO -oTS : implement a new toolform for this }
   ShowMessage('TODO');
-  //SortSelection;
 end;
 
 procedure TdmEditorManager.actToggleCommentExecute(Sender: TObject);
@@ -1644,7 +1658,7 @@ end;
 
 procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
 begin
-//  InsertCharacterFromMap;
+  { TODO -oTS : Will be implemented as a toolview. }
   ShowMessage('TODO');
 end;
 
@@ -1657,17 +1671,6 @@ procedure TdmEditorManager.actAutoFormatXMLExecute(Sender: TObject);
 begin
   (Sender as TAction).Checked := not (Sender as TAction).Checked;
   Settings.AutoFormatXML := (Sender as TAction).Checked;
-end;
-
-procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);
-var
-  S: string;
-begin
-  S := ActiveView.SelText;
-  //S := S Text(S, sdAscending, sdLines, False, True);
-  S := AlignLines(S, ':', True, True, True);
-  // TODO: TrimRight is needed because AlignLines adds an extra #13#10 to the string
-  ActiveView.SelText := TrimRight(S);
 end;
 
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
@@ -1751,9 +1754,14 @@ begin
   ShowAboutDialog;
 end;
 
+procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);
+begin
+  { TODO -oTS : Implement as a shortcut which takes default settings from the
+  dedicated toolview. }
+end;
+
 procedure TdmEditorManager.actCloseExecute(Sender: TObject);
 begin
-  {TODO: make a new event handler }
   if ViewCount > 1 then
     DeleteView(ActiveView);
 end;
@@ -1792,9 +1800,7 @@ end;
 
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
-   // TODO: FIX THIS!!!
-  ClearViews(True);
-  Application.Terminate;
+  ClearViews;
 end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);
@@ -2102,8 +2108,8 @@ begin
   Reg(TSynPythonSyn, SynPythonSyn, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
   Reg(TSynHTMLSyn, SynHTMLSyn, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
 
-  if FileExists(LAYOUT_BALTALOG) then
-    Reg(TSynUniSyn, SynUniSyn, HL_BaltaLOG, 'log', SBaltaLOGDescription, '', '', '', nil, LAYOUT_BALTALOG);
+  if FileExists(LAYOUT_LOG) then
+    Reg(TSynUniSyn, SynUniSyn, HL_LOG, 'log', SLOGDescription, '', '', '', nil, LAYOUT_LOG);
   if FileExists(LAYOUT_INI) then
     Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
   if FileExists(LAYOUT_RTF) then
@@ -2157,11 +2163,13 @@ end;
 
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
 begin
-  if (Operation = opRemove) and Supports(AComponent, IEditorView) then
-  begin
-    DeleteView(AComponent as IEditorView);
-  end;
+  Logger.EnterMethod(Self, 'Notification');
+  //if (Operation = opRemove) and Supports(AComponent, IEditorView) then
+  //begin
+  //  DeleteView(AComponent as IEditorView);
+  //end;
   inherited Notification(AComponent, Operation);
+  Logger.ExitMethod(Self, 'Notification');
 end;
 
 {$region 'IEditorActions' /fold}
@@ -2172,7 +2180,7 @@ var
 begin
   V := TEditorView.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
-  /// HUH!??? TSI
+  { TODO -oTS : Needs to be refactored. }
   if AName <> '' then
     V.Name := AName;
   V.FileName := AFileName;
@@ -2185,14 +2193,19 @@ end;
 function TdmEditorManager.DeleteView(AIndex: Integer): Boolean;
 var
   I : Integer;
+  V : IEditorView;
 begin
+  Logger.EnterMethod(Self, 'DeleteView(AIndex)');
   if (AIndex > -1) and (AIndex < ViewCount) {and (ViewCount > 1)} then
   begin
+    Logger.Watch('AIndex', AIndex);
     I := ViewList.IndexOf(ActiveView);
+    Logger.Send('ViewList.IndexOf(ActiveView)', I);
     if I = AIndex then // select a new active view
     begin
-      I := IfThen(I > 0, I - 1, 1);
-      Views[I].Activate;
+      //I := IfThen(I > 0, I - 1, 1);
+      V := Views[I];
+      V.Activate
     end;
     Views[AIndex].Close;
     ViewList.Delete(AIndex);
@@ -2200,6 +2213,7 @@ begin
   end
   else
     Result := False;
+  Logger.ExitMethod(Self, 'DeleteView(AIndex)');
 end;
 
 { 1. Removes the given instance from the list
@@ -2211,21 +2225,22 @@ function TdmEditorManager.DeleteView(AView: IEditorView): Boolean;
 var
   I : Integer;
 begin
-  if Assigned(AView) then
+  Logger.EnterMethod(Self, 'DeleteView(AView)');
+  if Assigned(AView) and Assigned(ViewList) then
   begin
     I := ViewList.IndexOf(AView);
     if I > -1 then
     begin
       if AView = ActiveView then
       begin
-        AView.Form.Close;
+        AView.Close;
         ViewList.Delete(I);
         Views[0].Activate;
         Result := True;
       end
       else
       begin
-        AView.Form.Close;
+        AView.Close;
         ViewList.Delete(I);
       end;
     end
@@ -2234,6 +2249,7 @@ begin
   end
   else
     Result := False;
+  Logger.ExitMethod(Self, 'DeleteView(AView)');
 end;
 
 function TdmEditorManager.DeleteView(const AName: string): Boolean;
@@ -2270,7 +2286,12 @@ end;
 
 function TdmEditorManager.DeleteToolView(AIndex: Integer): Boolean;
 begin
-  FToolViewList.Delete(AIndex);
+  if AIndex <> -1 then
+  begin
+    FToolViewList.Delete(AIndex);
+  end
+  else
+    Result := False;
 end;
 
 function TdmEditorManager.DeleteToolView(AView: IEditorToolView): Boolean;
@@ -2278,12 +2299,7 @@ var
   I : Integer;
 begin
   I := FToolViewList.IndexOf(AView);
-  if I <> -1 then
-  begin
-    FToolViewList.Delete(I);
-  end
-  else
-    Result := False;
+  Result := DeleteToolView(I);
 end;
 
 function TdmEditorManager.DeleteToolView(const AName: string): Boolean;
@@ -2504,6 +2520,7 @@ var
   InFolder : array[0..MAX_PATH] of Char;
   SL       : TShellLink;
 begin
+  PIDL := nil;
   SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY, PIDL) ;
   SHGetPathFromIDList(PIDL, InFolder) ;
   SL.Filename := InFolder + '\' + ExtractFileName(ActiveView.FileName) + '.lnk';
@@ -2581,8 +2598,6 @@ begin
     actSyncEdit.Visible                := B;
 
     actFind.Checked           := ToolViews['frmSearchForm'].Visible;
-
-    //ToolViews['frmPreview'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
 

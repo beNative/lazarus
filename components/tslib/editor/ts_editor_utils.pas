@@ -515,6 +515,7 @@ var
   I :  Integer;
   T :  string;
 begin
+  Result := '';
   SL := TStringList.Create;
   try
     SL.Text := AString;
@@ -928,8 +929,7 @@ function IsPAS(const AString: string): Boolean;
 const
   MATCH =  '(unit|program|package|library) .+;(.|\n)*end\.';
 begin
-   //Result := MatchRegExpr(AString, MATCH, False);
-
+  Result := MatchRegExpr(AString, MATCH, False);
 end;
 
 function IsSQL(const AString: string): Boolean;
@@ -969,7 +969,7 @@ function GuessHighlighterType(const AText: string): string;
 begin
   Result := '';
   if IsLOG(AText) then
-    Result := HL_BaltaLOG
+    Result := HL_LOG
   else if IsPAS(AText) then
     Result := HL_PAS
   else if IsLFM(AText) then
@@ -1427,7 +1427,6 @@ begin
   if ABrackets and (Result <> '') then
     Result := '(' + Result + ')';
 end;
-
 
 end.
 

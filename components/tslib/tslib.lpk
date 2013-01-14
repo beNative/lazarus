@@ -39,6 +39,7 @@
           <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
         </Verbosity>
         <CompilerMessages>
+          <IgnoredMessages idx5024="True"/>
           <UseMsgFile Value="True"/>
         </CompilerMessages>
         <CompilerPath Value="$(CompPath)"/>
@@ -47,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="67">
+    <Files Count="68">
       <Item1>
         <Filename Value="laz_images.lrs"/>
         <Type Value="LRS"/>
@@ -314,8 +315,12 @@
       </Item66>
       <Item67>
         <Filename Value="editor\ts_editor_settings_searchengine.pas"/>
-        <UnitName Value="ts_editor_settings_searchengine"/>
+        <UnitName Value="ts_Editor_Settings_SearchEngine"/>
       </Item67>
+      <Item68>
+        <Filename Value="editor\ts_editor_types.pas"/>
+        <UnitName Value="ts_Editor_Types"/>
+      </Item68>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

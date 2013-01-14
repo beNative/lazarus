@@ -320,7 +320,7 @@ procedure AutoSizeDisplayWidths(ADataSet : TDataSet;
                                 ACount   : Integer;
                                 AOffset  : Integer);
 var
-  BM : TBookmarkStr;
+  BM : TBookmark;
   I  : Integer;
   J  : Integer;
   L  : Integer;
@@ -358,7 +358,7 @@ begin
     raise Exception.Create('ADataSet not assigned!');
   ADataSet.DisableControls;
   try
-    BM := ADataSet.Bookmark;
+    BM := ADataSet.GetBookmark;
     try
       for J := 0 to ADataSet.Fields.Count - 1 do
         ADataSet.Fields[J].DisplayWidth := Length(ADataSet.Fields[J].DisplayLabel);
@@ -381,7 +381,7 @@ begin
         Inc(I);
       end;
     finally
-      ADataSet.Bookmark := BM;
+      ADataSet.GotoBookmark(BM);
     end;
   finally
     ADataSet.EnableControls;
@@ -401,7 +401,7 @@ end;
 procedure AutoSizeDisplayWidths(ADataSet : TDataSet; ACount : Integer;
   AOffSet : Integer);
 var
-  BM : TBookmarkStr;
+  BM : TBookmark;
   I  : Integer;
   J  : Integer;
   L  : Integer;
@@ -432,7 +432,7 @@ begin
     raise Exception.Create('ADataSet not assigned!');
   ADataSet.DisableControls;
   try
-    BM := ADataSet.Bookmark;
+    BM := ADataSet.GetBookmark;
     try
       for J := 0 to ADataSet.Fields.Count - 1 do
         ADataSet.Fields[J].DisplayWidth := Length(ADataSet.Fields[J].DisplayLabel);
@@ -454,7 +454,7 @@ begin
         Inc(I);
       end;
     finally
-      ADataSet.Bookmark := BM;
+      ADataSet.GotoBookmark(BM);
     end;
   finally
     ADataSet.EnableControls;
@@ -1150,13 +1150,13 @@ var
   sTxt  : string;
   sLine : string;
   sFmt  : string;
-  BM    : TBookmarkStr;
+  BM    : TBookmark;
 begin
   sLine := '';
   sTxt  := '';
   ADataSet.DisableControls;
   try
-    BM := ADataSet.Bookmark;
+    BM := ADataSet.GetBookmark;
     try
       AutoSizeDisplayWidths(ADataSet);
       ADataSet.First;
@@ -1194,7 +1194,7 @@ begin
       end;
       Result := Result + #13#10 + sLine;
     finally
-      ADataSet.Bookmark := BM;
+      ADataSet.GotoBookmark(BM);
     end;
   finally
     ADataSet.EnableControls;

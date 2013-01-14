@@ -1914,10 +1914,9 @@ begin
     Editor.SelectAll
 end;
 
-{ Makes a smart selection of a block around the cursor.
+{ Makes a smart selection of a block around the cursor. }
 
-  TODO: make this configurable per highlighter
-}
+{ TODO -oTS : Make this configurable per highlighter. }
 
 procedure TEditorView.SmartSelect;
 begin
@@ -1939,22 +1938,7 @@ begin
   // workaround to prevent that the editor shows a caret when it has no focus
   // and the highlight search colors are painted.
   WC := Screen.ActiveControl;
-  //Editor.Options := Editor.Options + [eoNoCaret];
-  //Enabled := False;
-  try
-    Editor.SetHighlightSearch(ASearch, AOptions);
-  finally
-
-    //    if Assigned(ActiveControl) then
-    //  PostMessage(ActiveControl.Handle,WM_SETFOCUS,0,0);
-    //Enabled := True;
-    //Editor.Options := Editor.Options - [eoNoCaret];
-    //PostMessage(Handle, WM_KILLFOCUS, 0, 0);
-    //
-    //if Assigned(WC) then
-    //  PostMessage(WC.Handle, WM_SETFOCUS, 0, 0);
-    //PostMessage(WC.Handle, WM_SETFOCUS, 1, 1);
-  end;
+  Editor.SetHighlightSearch(ASearch, AOptions);
 end;
 
 procedure TEditorView.UpdateActions;
@@ -2014,7 +1998,7 @@ begin
   Result := True;
   if Modified then
   begin
-    //Activate;
+    Activate;
     MR := MessageDlg(SAskSaveChanges, mtWarning, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
     begin
@@ -2055,8 +2039,8 @@ begin
     try
       AssignHighlighterForFileType(S);
     except
-    //   dirty: need to fix this
-    // for an unknown reason an EAbort is raised
+      { TODO -oTS : dirty: need to fix this }
+      // for an unknown reason an EAbort is raised
     end;
     Modified := False;
   end;
@@ -2084,8 +2068,21 @@ begin
 end;
 
 procedure TEditorView.SaveToStream(AStream: TStream);
+var
+  S  : string;
 begin
-  // TODO!!!
+  if LineBreakStyle <> ALineBreakStyles[GuessLineBreakStyle(Text)] then
+  begin
+    Text := ChangeLineBreakStyle(Text, StrToLineBreakStyle(LineBreakStyle));
+  end;
+  if Length(Text) > 0 then
+  begin
+    S := Text;
+    S := ConvertEncoding(Text, EncodingUTF8, FEncoding);
+    AStream.Write(S[1], Length(S));
+  end;
+  Modified := False;
+  Editor.MarkTextAsSaved;
 end;
 
 procedure TEditorView.SaveToFile(const AFileName: string);
@@ -2097,22 +2094,10 @@ begin
   FN := Utf8ToAnsi(AFileName);
   FS := TFileStream.Create(FN, fmCreate);
   try
-    if LineBreakStyle <> ALineBreakStyles[GuessLineBreakStyle(Text)] then
-    begin
-      Text := ChangeLineBreakStyle(Text, StrToLineBreakStyle(LineBreakStyle));
-    end;
-    if Length(Text) > 0 then
-    begin
-      S := Text;
-      S := ConvertEncoding(Text, EncodingUTF8, FEncoding);
-      FS.Write(S[1], Length(S));
-    end
+    SaveToStream(FS);
   finally
     FreeAndNil(FS);
   end;
-
-  Modified := False;
-  Editor.MarkTextAsSaved;
 end;
 
 function TEditorView.GetWordAtPosition(APosition: TPoint): string;

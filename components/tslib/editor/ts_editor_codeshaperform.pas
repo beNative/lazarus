@@ -179,7 +179,7 @@ type
     function GetText: string;
     function GetView: IEditorView;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
+    procedure SetVisible(AValue: Boolean); override;
 
   protected
     { IClipboardCommands }

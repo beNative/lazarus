@@ -31,7 +31,7 @@ uses
 
   SynEditHighlighter,
 
-  NativeXmlObjectStorage, sharedloggerlcl,
+  sharedloggerlcl,
 
   ts_Editor_Utils, ts_Editor_CodeFormatters;
 

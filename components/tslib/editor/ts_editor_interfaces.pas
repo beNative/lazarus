@@ -29,10 +29,11 @@ uses
 
   LCLType,
 
-  SynEdit, SynMacroRecorder, SynEditTypes, SynHighlighterPas, SynHighlighterLFM,
-  SynHighlighterXML, SynHighlighterHTML, SynHighlighterDiff,
+  SynEdit, SynEditTypes, SynMacroRecorder,
 
   ts_Core_FormSettings,
+
+  ts_Editor_Types,
 
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
@@ -83,8 +84,6 @@ type
     const ALine   : string;
     const AFilter : string
   ) of object;
-
-//-----------------------------------------------------------------------------
 
 type
   TEditorViewList     = TInterfaceList;
@@ -824,261 +823,13 @@ type
       read GetCurrent;
   end;
 
-const
-  DEFAULT_BLEND_FACTOR = 128;
 
-const
-  ALineBreakStyles : array[TTextLineBreakStyle] of string = (
-    'LF',
-    'CRLF',
-    'CR'
-  );
-
-type
-  TEditorOptionsFoldInfo = record
-    Name    : string;     // Name for display
-    Xml     : string;     // Name for XML
-    Index   : Integer;    // FHighlighter.FoldConf[index]
-    Enabled : Boolean;
-  end;
-
-type
-  TEditorOptionsDividerInfo = record
-    Name     : string;   // Name for display
-    Xml      : string;   // Name for XML
-    BoolOpt  : Boolean;  // Checkbox only
-    MaxLevel : Integer;
-  end;
-
-const
-  dlgFoldPasBeginEnd        = 'Begin/End (nested)';
-  dlgFoldPasProcBeginEnd    = 'Begin/End (procedure)';
-  dlgFoldPasNestedComment   = 'Nested Comment';
-  dlgFoldPasProcedure       = 'Procedure';
-  dlgFoldPasUses            = 'Uses';
-  dlgFoldPasVarType         = 'Var/Type (global)';
-  dlgFoldLocalPasVarType    = 'Var/Type (local)';
-  dlgFoldPasClass           = 'Class/Object';
-  dlgFoldPasClassSection    = 'public/private';
-  dlgFoldPasUnitSection     = 'Unit section';
-  dlgFoldPasProgram         = 'Program';
-  dlgFoldPasUnit            = 'Unit';
-  dlgFoldPasRecord          = 'Record';
-  dlgFoldPasTry             = 'Try';
-  dlgFoldPasExcept          = 'Except/Finally';
-  dlgFoldPasRepeat          = 'Repeat';
-  dlgFoldPasCase            = 'Case';
-  dlgFoldPasCaseElse        = 'Case/Else';
-  dlgFoldPasAsm             = 'Asm';
-  dlgFoldPasIfDef           = '{$IfDef}';
-  dlgFoldPasUserRegion      = '{%Region}';
-  dlgFoldPasAnsiComment     = 'Comment (* *)';
-  dlgFoldPasBorComment      = 'Comment { }';
-  dlgFoldPasSlashComment    = 'Comment //';
-
-  dlgFoldLfmObject      = 'Object (inherited, inline)';
-  dlgFoldLfmList        = 'List <>';
-  dlgFoldLfmItem        = 'Item';
-
-  dlgFoldXmlNode        = 'Node';
-  dlgFoldXmlComment     = 'Comment';
-  dlgFoldXmlCData       = 'CData';
-  dlgFoldXmlDocType     = 'DocType';
-  dlgFoldXmlProcess     = 'Processing Instruction';
-
-  // TSI: not supported yet
-  dlgFoldHtmlNode        = 'Node';
-  dlgFoldHtmlComment     = 'Comment';
-  dlgFoldHtmlAsp         = 'ASP';
-
-  // TSI: not supported yet
-  dlgFoldDiffFile      = 'File';
-  dlgFoldDiffChunk     = 'Chunk';
-  dlgFoldDiffChunkSect = 'Chunk section';
-
-  dlgDividerOnOff        = 'Draw divider';
-  dlgDividerDrawDepth    = 'Draw divider level';
-  dlgDividerTopColor     = 'Line color';
-  dlgDividerColorDefault = 'Use right margin color';
-  dlgDividerNestColor    = 'Nested line color';
-
-  dlgDivPasUnitSectionName  = 'Unit sections';
-  dlgDivPasUsesName         = 'Uses clause';
-  dlgDivPasVarGlobalName    = 'Var/Type';
-  dlgDivPasVarLocalName     = 'Var/Type (local)';
-  dlgDivPasStructGlobalName = 'Class/Struct';
-  dlgDivPasStructLocalName  = 'Class/Struct (local)';
-  dlgDivPasProcedureName    = 'Procedure/Function';
-  dlgDivPasBeginEndName     = 'Begin/End';
-  dlgDivPasTryName          = 'Try/Except';
-
-const
-  EditorOptionsFoldInfoPas: array [0..23] of TEditorOptionsFoldInfo = (
-    (Name:  dlgFoldPasProcedure;     Xml:     'Procedure';
-     Index: Ord(cfbtProcedure);    Enabled: True),
-    (Name:  dlgFoldLocalPasVarType;  Xml:     'LocalVarType';
-     Index: Ord(cfbtLocalVarType); Enabled: False),
-    (Name:  dlgFoldPasProcBeginEnd;  Xml:     'ProcBeginEnd';
-     Index: Ord(cfbtTopBeginEnd);  Enabled: False),
-    (Name:  dlgFoldPasBeginEnd;      Xml:     'BeginEnd';
-     Index: Ord(cfbtBeginEnd);     Enabled: False),
-    (Name:  dlgFoldPasRepeat;        Xml:     'Repeat';
-     Index: Ord(cfbtRepeat);       Enabled: False),
-    (Name:  dlgFoldPasCase;          Xml:     'Case';
-     Index: Ord(cfbtCase);         Enabled: False),
-    (Name:  dlgFoldPasCaseElse;      Xml:     'CaseElse';
-     Index: Ord(cfbtCaseElse);         Enabled: False),
-    (Name:  dlgFoldPasTry;           Xml:     'Try';
-     Index: Ord(cfbtTry);          Enabled: False),
-    (Name:  dlgFoldPasExcept;        Xml:     'Except';
-     Index: Ord(cfbtExcept);       Enabled: False),
-    (Name:  dlgFoldPasAsm;           Xml:     'Asm';
-     Index: Ord(cfbtAsm);          Enabled: True),
-
-    (Name:  dlgFoldPasProgram;       Xml:     'Program';
-     Index: Ord(cfbtProgram);      Enabled: True),
-    (Name:  dlgFoldPasUnit;          Xml:     'Unit';
-     Index: Ord(cfbtUnit);         Enabled: True),
-    (Name:  dlgFoldPasUnitSection;   Xml:     'UnitSection';
-     Index: Ord(cfbtUnitSection);  Enabled: True),
-    (Name:  dlgFoldPasUses;          Xml:     'Uses';
-     Index: Ord(cfbtUses);         Enabled: True),
-
-    (Name:  dlgFoldPasVarType;       Xml:     'VarType';
-     Index: Ord(cfbtVarType);      Enabled: True),
-    (Name:  dlgFoldPasClass;         Xml:     'Class';
-     Index: Ord(cfbtClass);        Enabled: True),
-    (Name:  dlgFoldPasClassSection;  Xml:     'ClassSection';
-     Index: Ord(cfbtClassSection); Enabled: True),
-    (Name:  dlgFoldPasRecord;        Xml:     'Record';
-     Index: Ord(cfbtRecord);       Enabled: True),
-
-    (Name:  dlgFoldPasIfDef;         Xml:     'IfDef';
-     Index: Ord(cfbtIfDef)  ;        Enabled: True),
-    (Name:  dlgFoldPasUserRegion;    Xml:     'UserRegion';
-     Index: Ord(cfbtRegion);       Enabled: True),
-
-    (Name:  dlgFoldPasAnsiComment;   Xml:     'AnsiComment';
-     Index: Ord(cfbtAnsiComment);  Enabled: True),
-    (Name:  dlgFoldPasBorComment;    Xml:     'BorComment';
-     Index: Ord(cfbtBorCommand);   Enabled: True),
-    (Name:  dlgFoldPasSlashComment;    Xml:     'SlashComment';
-     Index: Ord(cfbtSlashComment); Enabled: True),
-
-    (Name:  dlgFoldPasNestedComment; Xml:     'NestedComment';
-     Index: Ord(cfbtNestedComment);Enabled: True)
-
-  );
-
-  EditorOptionsFoldInfoLFM: array [0..2] of TEditorOptionsFoldInfo = (
-    ( Name:    dlgFoldLfmObject;
-      Xml:    'Object';
-      Index:   Ord(cfbtLfmObject);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldLfmList;
-      Xml:     'List';
-      Index:   Ord(cfbtLfmList);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldLfmItem;
-      Xml:     'Item';
-      Index:   Ord(cfbtLfmItem);
-      Enabled: True
-    )
-  );
-
-  EditorOptionsFoldInfoXML: array [0..4] of TEditorOptionsFoldInfo = (
-    ( Name:    dlgFoldXmlNode;
-      Xml:    'Node';
-      Index:   Ord(cfbtXmlNode);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldXmlComment;
-      Xml:    'Comment';
-      Index:   Ord(cfbtXmlComment);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldXmlCData;
-      Xml:    'CData';
-      Index:   Ord(cfbtXmlCData);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldXmlDocType;
-      Xml:    'DocType';
-      Index:   Ord(cfbtXmlDocType);
-      Enabled: True
-    ),
-    ( Name:    dlgFoldXmlProcess;
-      Xml:    'ProcessInstr';
-      Index:   Ord(cfbtXmlProcess);
-      Enabled: True
-    )
-  );
-  EditorOptionsFoldInfoHTML: array [0..2] of TEditorOptionsFoldInfo
-  = (
-      ( Name:    dlgFoldHtmlNode;
-        Xml:    'Node';
-        Index:   Ord(cfbtHtmlNode);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldHtmlComment;
-        Xml:    'Comment';
-        Index:   Ord(cfbtXmlComment);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldHtmlAsp;
-        Xml:    'ASP';
-        Index:   Ord(cfbtHtmlAsp);
-        Enabled: True
-      )
-    );
-
-  EditorOptionsFoldInfoDiff: array [0..2] of TEditorOptionsFoldInfo
-  = (
-      ( Name:    dlgFoldDiffFile;
-        Xml:    'File';
-        Index:   Ord(cfbtDiffFile);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldDiffChunk;
-        Xml:    'Chunk';
-        Index:   Ord(cfbtDiffChunk);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldDiffChunkSect;
-        Xml:    'ChunkSect';
-        Index:   Ord(cfbtDiffChunkSect);
-        Enabled: True
-      )
-    );
-
-type
-  TEditorOptionsDividerInfoList = array [0..999] of TEditorOptionsDividerInfo;
-  PEditorOptionsDividerInfoList = ^TEditorOptionsDividerInfoList;
-
-  TEditorOptionsDividerRecord = record
-    Count: Integer;
-    Info: PEditorOptionsDividerInfoList;
-  end;
-
-var
-  EditorOptionsDividerInfoPas: array [0..8] of TEditorOptionsDividerInfo  = (
-    (Name: dlgDivPasUnitSectionName;  Xml: 'Sect';    BoolOpt: True;  MaxLevel: 1),
-    (Name: dlgDivPasUsesName;         Xml: 'Uses';    BoolOpt: True;  MaxLevel: 0),
-    (Name: dlgDivPasVarGlobalName;    Xml: 'GVar';    BoolOpt: True;  MaxLevel: 1),
-    (Name: dlgDivPasVarLocalName;     Xml: 'LVar';    BoolOpt: False; MaxLevel: 0),
-    (Name: dlgDivPasStructGlobalName; Xml: 'GStruct'; BoolOpt: False; MaxLevel: 1),
-    (Name: dlgDivPasStructLocalName;  Xml: 'LStruct'; BoolOpt: False; MaxLevel: 0),
-    (Name: dlgDivPasProcedureName;    Xml: 'Proc';    BoolOpt: False; MaxLevel: 1),
-    (Name: dlgDivPasBeginEndName;     Xml: 'Begin';   BoolOpt: False; MaxLevel: 0),
-    (Name: dlgDivPasTryName;          Xml: 'Try';     BoolOpt: False; MaxLevel: 0)
-  );
 
 //*****************************************************************************
 
 implementation
 
+{$region 'TEditorViewListEnumerator' /fold}
 constructor TEditorViewListEnumerator.Create(AList: TEditorViewList);
 begin
   FList := AList;
@@ -1096,6 +847,7 @@ begin
   if Result then
     Inc(FIndex);
 end;
+{$endregion}
 
 end.
 

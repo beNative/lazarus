@@ -35,7 +35,7 @@ interface
 
 uses
   Classes, SysUtils, Controls, StdCtrls, Forms, Buttons, ExtCtrls, Dialogs,
-  Graphics, Grids, ComCtrls, ActnList, StdActns,
+  Graphics, Grids, ComCtrls, ActnList,
 
   LCLProc, LCLType, LResources,
 
@@ -43,7 +43,7 @@ uses
 
   VirtualTrees,
 
-  ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitionsDataTemplate,
+  ts_Core_TreeViewPresenter,
 
   ts_Editor_Interfaces;
 
@@ -107,7 +107,6 @@ type
     FTVP      : TTreeViewPresenter;
     FVST      : TVirtualStringTree;
     FUpdate   : Boolean;
-    FCaretPos : Integer;
 
     function GetForm: TForm;
     function GetManager: IEditorManager;
@@ -139,7 +138,7 @@ type
       read GetManager;
 
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
+    procedure SetVisible(AValue: Boolean); override;
 
     property Visible: Boolean
       read GetVisible write SetVisible;
@@ -170,9 +169,9 @@ type
 implementation
 
 uses
-  Messages, Windows,
+  Windows,
 
-  ts_Core_ColumnDefinitions, ts_Core_Helpers, ts_Core_ComponentInspector,
+  ts_Core_ColumnDefinitions, ts_Core_Helpers,
 
   ts_Editor_SearchEngine, ts_Editor_Utils;
 
@@ -450,7 +449,6 @@ end;
 procedure TfrmSearchForm.DoOnSelectionChanged(Sender: TObject);
 var
   SR : TSearchResult;
-  V  : IEditorView;
 begin
   SR := (FTVP.CurrentItem as TSearchResult);
   if Assigned(SR) then

@@ -1706,16 +1706,16 @@ end;
 procedure TAnchorDockMaster.PopupMenuPopup(Sender: TObject);
 var
   Popup: TPopupMenu;
-  ChangeLockItem: TMenuItem;
+  //ChangeLockItem: TMenuItem;
   ShowHeadersItem: TMenuItem;
 begin
   if not (Sender is TPopupMenu) then exit;
   Popup:=TPopupMenu(Sender);
-  //Popup.Items.Clear; // TSI
+  //Popup.Items.Clear; // TS
 
   // top popup menu item can be clicked by accident, so use something simple:
   // lock/unlock
-  // disabled by TSI
+  // disabled by TS
   //ChangeLockItem:=AddPopupMenuItem('ChangeLockMenuItem', adrsLocked,
   //                                  ChangeLockButtonClick);
   //ChangeLockItem.Checked:=not AllowDragging;
@@ -2035,7 +2035,6 @@ end;
 destructor TAnchorDockMaster.Destroy;
 var
   AControl: TControl;
-  i: Integer;
 begin
   QueueSimplify:=false;
   FreeAndNil(FRestoreLayouts);
@@ -5618,11 +5617,10 @@ end;
 procedure TAnchorDockPageControl.DoChange;
 var
   ADS: TAnchorDockHostSite;
-  C    : TControl;
 begin
   inherited DoChange;
   ADS := GetActiveSite;
-  if Assigned(ADS) {and ADS.CanFocus} then
+  if Assigned(ADS) then
   begin
     ADS.DoActivateSite;
   end;

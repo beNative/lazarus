@@ -20,12 +20,6 @@ unit ts_Core_Utils;
 
 {$mode delphi}
 
-
-{ Author: Tim Sinaeve
-
-  Lazarus support (21/05/2010)
-}
-
 //*****************************************************************************
 
 {
@@ -61,11 +55,6 @@ type
     HotKey      : Integer;
   end;
 
-{
-  TODO : FreeAndNil([...]);
-
-}
-
 //=============================================================================
 
 { Sets DoubleBuffered property for all TWinControl instances owned by the given
@@ -75,13 +64,9 @@ procedure SetDoubleBuffered(AOwner: TComponent; AEnable: Boolean = True);
 
 procedure CloneComponent(AFrom: TComponent; ATo: TComponent);
 
-//=============================================================================
-
 function VirtualKeyToChar(AKey : Word) : string;
 
 function GetFullName(AComponent: TComponent) : string;
-
-//-----------------------------------------------------------------------------
 
 // string manipulation routines
 
@@ -110,8 +95,6 @@ function ExtractWord(const AIndex      : Integer;
                      const AString     : string;
                      const AWordDelims : TSysCharSet = AnsiWhiteSpace): string;
 
-//-----------------------------------------------------------------------------
-
 function URLEncode(const AString: string): string;
 
 function URLDecode(const AString: string): string;
@@ -119,29 +102,19 @@ function URLDecode(const AString: string): string;
 function Pack(I: string):string;
 function UnPack(I: string): string;
 
-//-----------------------------------------------------------------------------
-
 // string formatting routines
 
 function FormatElapsedTime(ASeconds: Extended): string;
 
 function FormatByteText(ABytes: Integer): string;
 
-//-----------------------------------------------------------------------------
-
 function CreateGUIDString: string;
 function CreateUniqueID: string;
-
-//-----------------------------------------------------------------------------
 
 // windows utilities
 
 function GetLocalUserName: string;
 function GetLocalComputerName: string;
-
-procedure RunApplication(AParams : string;
-                         AFile   : string;
-                         AWait   : Boolean = True);
 
 function ExploreFile(const AFileName: string): Boolean;
 
@@ -149,9 +122,7 @@ function GetParentDir(sPath : string) : string;
 
 procedure CreateShellLink(ShellLink: TShellLink);
 
-//-----------------------------------------------------------------------------
-
-// VCL utilities
+// FCL utilities
 
 procedure ChangeOwner(AComponent, ANewOwner : TComponent);
 
@@ -159,8 +130,6 @@ procedure EnableControls(AControlContainer : TWinControl;
                          AEnabled          : Boolean = True);
 
 procedure DisableControls(AControlContainer : TWinControl);
-
-//-----------------------------------------------------------------------------
 
 function GetTextWidth(const AText : string;
                             AFont : TFont): Integer;
@@ -170,7 +139,6 @@ function GetTextHeight(const AText : string;
 
 procedure OptimizeWidth(APanel: TPanel);
 
-//-----------------------------------------------------------------------------
 
  // Variants and TVarRec conversions
 
@@ -205,8 +173,6 @@ function ValueNeedsConversion(const AVarType   : Integer;
 
 function StringToVariant(AString : string): Variant;
 
-//-----------------------------------------------------------------------------
-
 function MixColors(FG, BG: TColor; T: Byte): TColor;
 
 procedure Delay(Milliseconds: Integer);
@@ -214,8 +180,6 @@ procedure Delay(Milliseconds: Integer);
 function StringReplaceMultiple(const Source: AnsiString;
   const OldPatterns, NewPatterns: array of AnsiString;
   CaseSensitive: Boolean = True): AnsiString;
-
-//-----------------------------------------------------------------------------
 
 // Dialog boxes
 
@@ -234,12 +198,9 @@ procedure ShowWarning(const AWarningString : string); overload;
 procedure ShowWarning(const AWarningString : string;
                       const AArguments     : array of const); overload;
 
-//-----------------------------------------------------------------------------
 // Interface utility routines
 
 function GetPIMTOffset(const I : IInterface): Integer;
-
-//-----------------------------------------------------------------------------
 
 // UI windows utils
 
@@ -249,7 +210,7 @@ procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
 
 function GetCommonPath(ASL: TStrings): string;
 
-function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;
+function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string): Integer;
 
 function IsFormCovered(AForm: TForm): Boolean;
 
@@ -258,7 +219,7 @@ function IsFormCovered(AForm: TForm): Boolean;
 implementation
 
 uses
-  ActiveX, Variants, TypInfo, ShlObj, ComObj;
+  ActiveX, Variants, TypInfo, ShlObj, ComObj, Registry;
 
 //=============================================================================
 
@@ -384,8 +345,6 @@ begin
   end;
 end;
 
-
-
 { Note that SetWindowSizeGrip(..., false) does not really remove the hook -
   it just sets "Enabled" to false. The hook plus all data is removed when
   the window is destroyed.
@@ -487,27 +446,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
-//{ Returns a unique component name based on AName. If the given name is not
-//  unique, the given AName will be suffixed with an underscore followed by a
-//  number. }
-//
-//function FindUniqueName(const AName: string): string;
-//var
-//  I: Integer;
-//begin
-//  I := 0;
-//  Result := AName;
-//  while not IsUniqueGlobalComponentName(Result) do
-//  begin
-//    Inc(I);
-//    Result := Format('%s_%d', [AName, I]);
-//  end;
-//end;
-
-//-----------------------------------------------------------------------------
-
 { Returns fully qualified component instance name. The name is preceded by its
   owner name(s) (seperated by dots). }
 
@@ -522,8 +460,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 procedure ClearVarRec(var AVarRecArray: TVarRecArray);
 var
   I : Integer;
@@ -534,8 +470,6 @@ begin
   Finalize(AVarRecArray);
 end;
 
-//-----------------------------------------------------------------------------
-
 function ConvertValueToFieldType(const AVariant: Variant;
   const AField: TField): Variant;
 begin
@@ -544,8 +478,6 @@ begin
   else
    Result := AVariant;
 end;
-
-//-----------------------------------------------------------------------------
 
 {
   Returns True if the Variant represents a value of a primitive type.
@@ -565,8 +497,6 @@ begin
             not (VarIsStr(V) and (V = ''));
 end;
 
-//-----------------------------------------------------------------------------
-
 function FieldTypeForVariant(const AVariant: Variant): TFieldType;
 begin
   case VarType(AVariant) and varTypeMask of
@@ -585,8 +515,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function GetLocalComputerName: string;
 var
   Count : DWORD;
@@ -600,8 +528,6 @@ begin
     S := '';
   Result := S;
 end;
-
-//-----------------------------------------------------------------------------
 
 function GetLocalUserName: string;
 var
@@ -617,8 +543,6 @@ begin
     S := '';
   Result := S;
 end;
-
-//-----------------------------------------------------------------------------
 
 function GetTextHeight(const AText: string; AFont: TFont): Integer;
 var
@@ -644,8 +568,6 @@ begin
     APanel.Width := 0;
 end;
 
-//-----------------------------------------------------------------------------
-
 function GetTextWidth(const AText: string; AFont: TFont): Integer;
 var
   Bitmap : Graphics.TBitmap;
@@ -658,8 +580,6 @@ begin
     Bitmap.Free;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function GetVariantTypeName(const AVariant: Variant): string;
 begin
@@ -689,8 +609,6 @@ begin
     Result := Result + ' (By Reference)';
 end;
 
-//-----------------------------------------------------------------------------
-
 procedure OleVarFromVariant(var AOleVariant: OleVariant; const AVariant: Variant);
 begin
   if VarType(AVariant) = varString then
@@ -698,8 +616,6 @@ begin
   else
    AOleVariant := AVariant;
 end;
-
-//-----------------------------------------------------------------------------
 
 function StringToVariant(AString : string): Variant;
 var
@@ -729,8 +645,6 @@ begin
     end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function VirtualKeyToChar(AKey : Word) : string;
 var
   KS : TKeyboardState;
@@ -747,8 +661,6 @@ begin
       Result := '';
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 procedure StrToStrings(const AString: string; AList: TStrings; ASeparator: Char);
 var
@@ -774,8 +686,6 @@ begin
     AList.EndUpdate;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function ValueNeedsConversion(const AVarType: Integer;
   const AFieldType: TFieldType): Boolean;
@@ -814,8 +724,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function VarArrayElemCount(const AVarArray: Variant): Integer;
 begin
   if not VarIsArray(AVarArray) then
@@ -827,8 +735,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function VarAsTypeDef(const AValue: Variant; AVarType: TVarType;
   const ADefValue: Variant): Variant;
 begin
@@ -837,8 +743,6 @@ begin
   else
     Result := ADefValue;
 end;
-
-//-----------------------------------------------------------------------------
 
 procedure VariantToVarRec(AVariant: Variant; var AVarRecArray: TVarRecArray);
 var
@@ -885,8 +789,6 @@ begin
     end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function VariantTypeForFieldType(const AFieldType: TFieldType): Integer;
 begin
   case AFieldType of
@@ -926,8 +828,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function VarRecToOleVariant(const AVarRec: TVarRec): OleVariant;
 begin
   case AVarRec.VType of
@@ -949,8 +849,6 @@ begin
    vtInterface  : TVarData(Result).VDispatch := AVarRec.VInterface;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function VarRecToString(const AVarRec: TVarRec): string;
 var
@@ -976,7 +874,7 @@ begin
   Result := S;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function VarRecToVariant(const AVarRec: TVarRec): Variant;
 begin
@@ -996,7 +894,7 @@ begin
     end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ChangeOwner(AComponent, ANewOwner: TComponent);
 begin
@@ -1007,7 +905,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function Unformat(const ASource, APattern: string; const AArgs: array of const)
   : Integer;
@@ -1148,7 +1046,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function VariantCompare(AVariant1, AVariant2 : Variant) : Boolean;
 begin
@@ -1157,7 +1055,7 @@ begin
      Result := AVariant1 = AVariant2;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { 'Like' code is written by Wladimir Perepletchick }
 
@@ -1221,7 +1119,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function CreateGUIDString: string;
 var
@@ -1234,7 +1132,7 @@ begin
   CoTaskMemFree(P);
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function CreateUniqueID: String;
 var
@@ -1249,7 +1147,7 @@ begin
   Result := StringReplace(Result, '-', '', [rfReplaceAll]);
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { Formats the given time amount (in seconds) to the form:
   <Hours>:<Minutes>:<Seconds>.<Hundreds> }
@@ -1271,7 +1169,7 @@ begin
   Result := Format('%2.2d:%2.2d:%2.2d.%2.2d', [H, M, S, HS]);
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { Author: Michael Haller }
 
@@ -1306,7 +1204,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { Mixes two colors for a given transparancy level (Author: Yurii Zhukow). }
 
@@ -1346,7 +1244,7 @@ begin
   Result := R + G * 256 + B * 65536;
 end; // MixColors
 
-//-----------------------------------------------------------------------------
+
 
 procedure Delay(Milliseconds: Integer);
 var
@@ -1369,7 +1267,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { TODO: original author? }
 
@@ -1551,7 +1449,7 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowInfo(const AInfoString : string);
 begin
@@ -1563,7 +1461,7 @@ begin
   );
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowInfo(const AInfoString : string;
   const AArguments : array of const);
@@ -1571,7 +1469,7 @@ begin
   ShowInfo(Format(AInfoString, AArguments));
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowError(const AErrorString: string);
 begin
@@ -1583,7 +1481,7 @@ begin
   );
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowError(const AErrorString: string;
   const AArguments: array of const);
@@ -1591,7 +1489,7 @@ begin
   ShowError(Format(AErrorString, AArguments));
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowWarning(const AWarningString : string);
 begin
@@ -1603,7 +1501,7 @@ begin
   );
 end;
 
-//-----------------------------------------------------------------------------
+
 
 procedure ShowWarning(const AWarningString : string;
   const AArguments: array of const);
@@ -1611,7 +1509,7 @@ begin
   ShowWarning(Format(AWarningString, AArguments));
 end;
 
-//-----------------------------------------------------------------------------
+
 
 { Returns the offset to the Pointer to the Interface Method Table.
 
@@ -1659,23 +1557,6 @@ begin
     end;
 end;
 
-//-----------------------------------------------------------------------------
-
-procedure RunApplication(AParams: string; AFile: string; AWait : Boolean);
-begin
-  if FileExists(AFile) then
-  begin
-    //if AWait then
-    //  ShellExecAndWait(AFile, AParams)
-    //else
-      //ShellExecEx(AFile, AParams);
-  end
-  else
-    raise Exception.CreateFmt('"%s" not found', [AFile]);
-end;
-
-//-----------------------------------------------------------------------------
-
 function ExploreFile(const AFileName: string): Boolean;
 const
   PARAM = '/e,/select,"%s"';
@@ -1699,7 +1580,7 @@ begin
     Result := False;
 end;
 
-//-----------------------------------------------------------------------------
+
 
 function GetParentDir(sPath : string) : string;
 var
@@ -1747,8 +1628,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function WordCount(const AString: string; const AWordDelims: TSysCharSet)
   : Integer;
 var
@@ -1767,8 +1646,6 @@ begin
         Inc(I);
     end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function WordPosition(const AIndex: Integer; const AString: string;
   const AWordDelims: TSysCharSet): Integer;
@@ -1795,8 +1672,6 @@ begin
     end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function ExtractWord(const AIndex: Integer; const AString: string;
   const AWordDelims: TSysCharSet): string;
 var
@@ -1818,14 +1693,10 @@ begin
   SetLength(Result, Len);
 end;
 
-//-----------------------------------------------------------------------------
-
 procedure DisableControls(AControlContainer : TWinControl);
 begin
   EnableControls(AControlContainer, False)
 end;
-
-//-----------------------------------------------------------------------------
 
 { Enables/disables all child controls of the AControlContainer control (
   eg. TPanel, TGroupBox, etc.). }
@@ -1866,8 +1737,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function URLEncode(const AString: string): string;
 var
   I: Integer;
@@ -1885,8 +1754,6 @@ begin
     end;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function URLDecode(const AString: string): string;
 const
@@ -1913,7 +1780,7 @@ begin
   SetLength(Result, pred(J));
 end;
 
-//-----------------------------------------------------------------------------
+
 //  DwordToStr()  : Converts a DWORD to a 4 byte string
 function DwordToStr(Value: dword): string;
 var
@@ -1986,7 +1853,8 @@ begin
   Str[CharNr] := char(Original);
 end;
 
-//  GetBit()      : Returns the state of a single bit in a string
+{
+   GetBit()      : Returns the state of a single bit in a string }
 function GetBit(Str: string; BitNr: dword): boolean;
 var
   CharNr        : dword;
@@ -2003,8 +1871,9 @@ begin
     Result := false;
 end;
 
-//  FindBest()    : Finds a substring in another string and returns position and
-//                  the number of characters upto where they are equal
+{  FindBest()    : Finds a substring in another string and returns position and
+                  the number of characters upto where they are equal}
+
 procedure FindBest(Main, Sub: string; var FoundLen, FoundPos: integer);
 var
   P, T, FL, MaxLen: integer;
@@ -2033,7 +1902,7 @@ begin
   end;
 end;
 
-//  Pack()        : Compresses a string to a hopefully smaller string
+{ Pack()        : Compresses a string to a hopefully smaller string }
 function Pack(I: string):string;
 var
   Header : string;
@@ -2075,7 +1944,7 @@ begin
   Result := Header + Tag + Buffer;
 end;
 
-//  UnPack()      : DeCompresses a string compressed with Pack()
+{  UnPack()      : DeCompresses a string compressed with Pack() }
 function UnPack(I: string): string;
 var
   Tag   : string;
@@ -2349,39 +2218,111 @@ begin
   Result := x;
 end;
 
- //I was looking for a way to determine if a Form is actually visible (even only partially) to the user.
-//In particular when it was supposed to be visible and Showing was True but the window was actually entirely behind another one.
+{ From stackoverflow:
+  I was looking for a way to determine if a Form is actually visible (even only
+  partially) to the user. In particular when it was supposed to be visible and
+  Showing was True but the window was actually entirely behind another one.
+}
 
 function IsFormCovered(AForm: TForm): Boolean;
 var
-   MyRect: TRect;
-   MyRgn, TempRgn: HRGN;
-   RType: Integer;
-   hw: HWND;
+  R      : TRect;
+  Rgn    : HRGN;
+  TmpRgn : HRGN;
+  RType  : Integer;
+  H      : HWND;
 begin
-  MyRect := AForm.BoundsRect;            // screen coordinates
-  MyRgn := CreateRectRgnIndirect(MyRect); // AForm not overlapped region
-  hw := GetTopWindow(0);                  // currently examined topwindow
-  RType := SIMPLEREGION;                  // MyRgn type
+  R := AForm.BoundsRect;           // screen coordinates
+  Rgn := CreateRectRgnIndirect(R); // AForm not overlapped region
+  H := GetTopWindow(0);            // currently examined topwindow
+  RType := SIMPLEREGION;           // Rgn type
 
 // From topmost window downto AForm, build the not overlapped portion of AForm
-  while (hw<>0) and (hw <> AForm.handle) and (RType <> NULLREGION) do
+  while (H <> 0) and (H <> AForm.handle) and (RType <> NULLREGION) do
   begin
     // nothing to do if hidden window
-    if IsWindowVisible(hw) then
+    if IsWindowVisible(H) then
     begin
-      GetWindowRect(hw, MyRect);
-      TempRgn := CreateRectRgnIndirect(MyRect);// currently examined window region
-      RType := CombineRgn(MyRgn, MyRgn, TempRgn, RGN_DIFF); // diff intersect
-      DeleteObject( TempRgn );
-    end; {if}
+      GetWindowRect(H, R);
+      TmpRgn := CreateRectRgnIndirect(R);// currently examined window region
+      RType := CombineRgn(Rgn, Rgn, TmpRgn, RGN_DIFF); // diff intersect
+      DeleteObject( TmpRgn );
+    end;
     if RType <> NULLREGION then // there's a remaining portion
-      hw := GetNextWindow(hw, GW_HWNDNEXT);
-  end; {while}
+      H := GetNextWindow(H, GW_HWNDNEXT);
+  end;
 
-  DeleteObject(MyRgn);
+  DeleteObject(Rgn);
   Result := RType = NULLREGION;
 end;
+
+{  Associates a given file extension with an application in the windows registry.
+     example:  RegisterFileType('log','c:\MyLogViewer.exe') ;
+}
+
+procedure RegisterFileType(const AExtension: string; const AAppPath: string);
+var
+  R: TRegistry;
+begin
+  R := TRegistry.Create;
+  try
+    R.RootKey:= HKEY_CLASSES_ROOT;
+    R.OpenKey('.' + AExtension, True);
+    R.WriteString('', AExtension + 'file');
+    R.CloseKey;
+    R.CreateKey(AExtension + 'file') ;
+    R.OpenKey(AExtension + 'file\DefaultIcon', True);
+    R.WriteString('', AAppPath + ',0');
+    R.CloseKey;
+    R.OpenKey(AExtension + 'file\shell\open\command', True);
+    R.WriteString('',AAppPath+' "%1"');
+    R.CloseKey;
+  finally
+    R.Free;
+  end;
+  SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
+end;
+
+
+{
+
+procedure AssociateFileExtension(const IconPath, ProgramName, Path, Extension: string);
+begin
+  with TRegistry.Create do
+  begin
+    RootKey := HKEY_CLASSES_ROOT;
+    OpenKey(ProgramName, True);
+    WriteString('', ProgramName);
+    if IconPath <> '' then
+    begin
+      OpenKey(RC_DefaultIcon, True);
+      WriteString('', IconPath);
+    end;
+    CloseKey;
+    OpenKey(ProgramName, True);
+    OpenKey('shell', True);
+    OpenKey('open', True);
+    OpenKey('command', True);
+    WriteString('', '"' + Path + '" "%1"');
+    Free;
+  end;
+  with TRegistry.Create do
+  begin
+    RootKey := HKEY_CLASSES_ROOT;
+    OpenKey('.' + Extension, True);
+    WriteString('', ProgramName);
+    Free;
+  end;
+  RebuildIconCache;
+end;
+
+procedure AssociateExtension(const IconPath, ProgramName, Path, Extension: string);
+begin
+  AssociateFileExtension(IconPath, ProgramName, Path, Extension);
+end;
+
+}
+
 
 //*****************************************************************************
 

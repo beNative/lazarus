@@ -154,8 +154,6 @@ implementation
 uses
   FileUtil,
 
-  ts_Core_StringUtils,
-
   ts_Editor_Utils;
 
 //*****************************************************************************
@@ -288,7 +286,6 @@ var
   SR           : TSearchResult;
   ptStart      : TPoint;
   ptEnd        : TPoint;
-  ptCurrent    : TPoint;
   ptFoundStart : TPoint;
   ptFoundEnd   : TPoint;
   N            : Integer;
@@ -297,7 +294,6 @@ begin
   ptStart := Point(1, 1);
   ptEnd.Y := AView.Lines.Count;
   ptEnd.X := Length(AView.Lines[ptEnd.Y - 1]) + 1;
-  ptCurrent := ptStart;
   while FSESearch.FindNextOne(
     AView.Lines,
     ptStart,
@@ -378,7 +374,6 @@ end;
 procedure TSearchEngine.FindNext;
 var
   SR: TSearchResult;
-  V: IEditorView;
 begin
   if CurrentIndex < ItemList.Count - 1 then
   begin
@@ -393,7 +388,6 @@ end;
 procedure TSearchEngine.FindPrevious;
 var
   SR: TSearchResult;
-  V: IEditorView;
 begin
   if CurrentIndex > 0 then
   begin
@@ -408,7 +402,6 @@ end;
 procedure TSearchEngine.Replace;
 var
   SR : TSearchResult;
-  V  : IEditorView;
 begin
   if CurrentIndex >= 0 then
   begin

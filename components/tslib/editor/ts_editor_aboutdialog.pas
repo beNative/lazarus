@@ -268,9 +268,9 @@ procedure TfrmAbout.FillCredits;
 
 begin
   AddCredit(
-    'Virtual TreeView',
-    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with modifications by Tim Sinaeve',
-    'http://www.soft-gems.net/'
+    'FPC',
+    'Free Pascal development team',
+    'http://www.freepascal.org/'
   );
   AddCredit(
     'Lazarus',
@@ -278,9 +278,9 @@ begin
     'http://www.lazarus.freepascal.org/'
   );
   AddCredit(
-    'FPC',
-    'Free Pascal development team',
-    'http://www.freepascal.org/'
+    'Virtual TreeView',
+    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with modifications by Tim Sinaeve',
+    'http://www.soft-gems.net/'
   );
   AddCredit(
     'Anchor Docking',
@@ -299,12 +299,13 @@ begin
   );
   AddCredit(
     'SynEdit',
-    'Martin Waldenburg, and currently maintained by the Lazarus team.',
+    'Lazarus development team. Original implementation by Martin Waldenburg.',
     'http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'
   );
   AddCredit(
     'SynUniHighlighter',
-    'Kirill Burtsev and Vitaly Nevzorov, FPC port by Tom Lisjac with modifications by Tim Sinaeve',
+    'Original implementation by Kirill Burtsev and Vitaly Nevzorov,' + #13#10 +
+    'heavily modified and ported to FPC by Tim Sinaeve.',
     ''
   );
   AddCredit(
@@ -314,7 +315,8 @@ begin
   );
   AddCredit(
     'DWScript',
-    'Matthias Ackermann, maintained by Eric Grange; FPC port by Alexander Shishkin',
+    'Original implementation by Matthias Ackermann,' +
+    'currently maintained by Eric Grange. FPC port by Alexander Shishkin.',
     'http://code.google.com/p/dwscript/'
   );
   AddCredit(

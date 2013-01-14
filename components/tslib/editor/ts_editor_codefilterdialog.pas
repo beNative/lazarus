@@ -26,9 +26,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  ActnList, Buttons, Contnrs, ImgList, Menus, ComCtrls,
+  ActnList, Buttons, Contnrs, Menus, ComCtrls,
 
-  FileUtil, LResources, LMessages, LCLType,
+  FileUtil, LResources, LCLType,
 
   VirtualTrees, SynEdit,
 
@@ -85,8 +85,6 @@ type
     procedure FVSTKeyPress(Sender: TObject; var Key: char);
 
   private
-    function GetManager: IEditorManager;
-  private
     FTVP        : TTreeViewPresenter;
     FVST        : TVirtualStringTree;
     FLines      : TObjectList;
@@ -97,6 +95,7 @@ type
 
     FOnFilteredLineChange : TOnFilteredLineChangeEvent;
 
+    function GetManager: IEditorManager;
     function GetFilter: string;
     procedure SetFilter(AValue: string);
     function GetMatchCase: Boolean;
@@ -107,6 +106,7 @@ type
     function GetForm: TForm;
     function GetName: string;
 
+  protected
     procedure Modified;
 
     { IClipboardCommands }
@@ -118,7 +118,7 @@ type
 
     { IEditorToolView }
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
+    procedure SetVisible(AValue: Boolean); override;
     procedure UpdateView;
 
     property Visible: Boolean
@@ -145,7 +145,6 @@ type
     property MatchCase: Boolean
       read GetMatchCase;
 
-  protected
     procedure UpdateActions; override;
     procedure ApplyFilter;
     procedure FillList(AStrings: TStrings);
@@ -196,13 +195,11 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, StrUtils, Windows, Clipbrd,
+  Variants, Windows, Clipbrd,
 
-  SynEditTypes, SynEditHighlighter,
+  SynEditHighlighter,
 
-  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers, ts_Core_Utils,
-
-  ts_Editor_Helpers;
+  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers;
 
 constructor TLine.Create(const AIndex: Integer; const AText: string);
 begin
@@ -498,14 +495,14 @@ var
   Line   : string;
   P      : TPoint;
   A      : TSynHighlighterAttributes;
-  X      : Integer;
-  Y      : Integer;
   R      : TRect;
   I      : Integer;
-  W      : Integer;
   Offset : Integer;
   Match  : string;
 begin
+  Offset := 0;
+  Match  := '';
+  Result := True;
   if DrawMode = dmAfterCellPaint then
   begin
     L := TLine(Item);
@@ -614,7 +611,6 @@ end;
 
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
-  S: string;
   I: Integer;
 begin
   FLines.Clear;

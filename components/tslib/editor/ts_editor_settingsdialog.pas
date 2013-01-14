@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
-  ExtCtrls, ComCtrls, ButtonPanel, StdCtrls, Contnrs,
+  ExtCtrls, ComCtrls, ButtonPanel, Contnrs,
 
   RTTIGrids,
 
@@ -37,6 +37,11 @@ uses
   ts_Editor_Interfaces;
 
 //=============================================================================
+
+{
+  TODO:
+    - Associate file extensions
+}
 
 type
   TfrmEditorSettings = class(TForm)
@@ -63,13 +68,13 @@ type
     procedure tsXMLEnter(Sender: TObject);
 
   private
-    FEditorSettings  : IEditorSettings;
-    FTVP             : TTreeViewPresenter;
-    FList            : TObjectList;
-    FPI              : TTIPropertyGrid;
-    FHAPI            : TTIPropertyGrid;
-    FHAVST           : TVirtualStringTree;
-    FXMLTree         : TXMLTree;
+    FEditorSettings : IEditorSettings;
+    FTVP            : TTreeViewPresenter;
+    FList           : TObjectList;
+    FPI             : TTIPropertyGrid;
+    FHAPI           : TTIPropertyGrid;
+    FHAVST          : TVirtualStringTree;
+    FXMLTree        : TXMLTree;
 
     function GetEditorSettings: IEditorSettings;
     procedure SetEditorSettings(const AValue: IEditorSettings);
@@ -91,7 +96,7 @@ type
 //=============================================================================
 
 procedure ExecuteSettingsDialog(
-  AEditorSettings  : IEditorSettings
+  AEditorSettings : IEditorSettings
 );
 
 //*****************************************************************************
@@ -123,6 +128,7 @@ begin
   Result := (Item as TSynHighlighterAttributesItem).Name;
 end;
 
+{$region 'interfaced methods' /fold}
 //*****************************************************************************
 // interfaced routines                                                   BEGIN
 //*****************************************************************************
@@ -138,7 +144,9 @@ end;
 //*****************************************************************************
 // interfaced routines                                                     END
 //*****************************************************************************
+{$endregion}
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -165,28 +173,12 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
-
-procedure TfrmEditorSettings.FTVPSelectionChanged(Sender: TObject);
-begin
-  FHAPI.ExpandedProperties.Add('Attributes');
-  FHAPI.ExpandedProperties.Add('Attributes.Style');
-  FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
-  FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
-end;
-
-procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
-begin
-   Apply;
-end;
-
-procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
-begin
-  FXMLTree.XML := EditorSettings.XML;
-end;
 
 function TfrmEditorSettings.GetEditorSettings: IEditorSettings;
 begin
@@ -206,7 +198,37 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
+procedure TfrmEditorSettings.FTVPSelectionChanged(Sender: TObject);
+begin
+  FHAPI.ExpandedProperties.Add('Attributes');
+  FHAPI.ExpandedProperties.Add('Attributes.Style');
+  FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
+  FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
+end;
+
+procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
+begin
+    Apply;
+end;
+
+procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
+begin
+  FXMLTree.XML := EditorSettings.XML;
+end;
+
+//*****************************************************************************
+// event handlers                                                          END
+//*****************************************************************************
+{$endregion}
+
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -214,10 +236,7 @@ end;
 procedure TfrmEditorSettings.UpdateData;
 var
   I: Integer;
-  S: string;
 begin
-  S := EditorSettings.XML;
-   //FXMLTree.XML := S;
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
   FList.Clear;
@@ -233,7 +252,9 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
@@ -252,6 +273,7 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
 
 end.
 

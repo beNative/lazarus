@@ -27,7 +27,7 @@ uses
   ts_Core_ComponentInspector, ts_Editor_CodeFormatters, 
   ts_Editor_AlignLinesForm, ts_Core_Helpers, ts_editor_commentstripper, 
   ts_Editor_Settings_CodeShaper, ts_Editor_Settings_AlignLines, 
-  ts_Editor_Settings_SearchEngine;
+  ts_Editor_Settings_SearchEngine, ts_Editor_Types;
 
 implementation
 

@@ -1249,25 +1249,11 @@ begin
 end;
 
 procedure TTreeViewPresenter.SetItemsSource(const Value: TObjectList);
-var
-  LNotifyCollectionChanged: INotifyCollectionChanged;
-  LCollectionChanged: TCollectionChangedEvent;
 begin
   if FItemsSource <> Value then
   begin
-    if Supports(FItemsSource, INotifyCollectionChanged, LNotifyCollectionChanged) then
-    begin
-      LCollectionChanged := LNotifyCollectionChanged.OnCollectionChanged;
-    end;
-
     FItemsSource := Value;
-
-    if Supports(FItemsSource, INotifyCollectionChanged, LNotifyCollectionChanged) then
-    begin
-      LCollectionChanged := LNotifyCollectionChanged.OnCollectionChanged;
-    end;
     ResetRootNodeCount;
-
     DoPropertyChanged('ItemsSource');
   end;
 end;
@@ -1320,14 +1306,12 @@ procedure TTreeViewPresenter.SetSelectedItems(const Value: TObjectList);
 var
   LItem: TObject;
   LNode: PVirtualNode;
-  SNode: PVirtualNode;
 begin
   FTreeView.BeginUpdate;
   FTreeView.ClearSelection;
   if Assigned(Value) then
   begin
     LNode := FTreeView.GetFirst;
-    SNode := LNode;
     while Assigned(LNode) do
     begin
       LItem := GetNodeItem(FTreeView, LNode);
@@ -1400,34 +1384,18 @@ var
   i: Integer;
   LItem: TObject;
   LNotifyPropertyChanged: INotifyPropertyChanged;
-  LPropertyChanged: TPropertyChangedEvent;
   LSelectedNodes: TNodeArray;
 begin
-  // TSI removed...
-  //for LItem in FSelectedItems do
-  //begin
-  //  if Supports(LItem, INotifyPropertyChanged, LNotifyPropertyChanged) then
-  //  begin
-  //    LPropertyChanged := LNotifyPropertyChanged.OnPropertyChanged;
-  //  end;
-  //end;
-
   FSelectedItems.Clear;
   LSelectedNodes := FTreeView.GetSortedSelection(False);
-
   for i := Low(LSelectedNodes) to High(LSelectedNodes) do
   begin
     LItem := GetNodeItem(FTreeView, LSelectedNodes[i]);
     if Assigned(LItem) then
     begin
       FSelectedItems.Add(LItem);
-      if Supports(LItem, INotifyPropertyChanged, LNotifyPropertyChanged) then
-      begin
-        LPropertyChanged := LNotifyPropertyChanged.OnPropertyChanged;
-      end;
     end;
   end;
-
   DoPropertyChanged('CurrentItem');
   DoPropertyChanged('SelectedItem');
   DoPropertyChanged('SelectedItems');

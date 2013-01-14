@@ -88,7 +88,7 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnEditingDone: TNotifyEvent;
-    function GetPopupMenu: TPopupMenu;
+    function GetPopupMenu: TPopupMenu; override;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
@@ -386,7 +386,7 @@ end;
 
 function TRichEditorView.GetIndex: Integer;
 begin
-//
+  Result := 0;
 end;
 
 procedure TRichEditorView.SetIndex(const AValue: Integer);

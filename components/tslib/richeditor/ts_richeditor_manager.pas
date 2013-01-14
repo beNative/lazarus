@@ -401,7 +401,7 @@ end;
 
 function TdmRichEditorActions.SaveFile: Boolean;
 begin
-//
+  Result := False;
 end;
 
 procedure TdmRichEditorActions.LoadFile;
@@ -426,8 +426,8 @@ end;
 
 function TdmRichEditorActions.DeleteView(AIndex: Integer): Boolean;
 begin
-  // TSI TODO!!!!!
-//     //
+  { TODO -oTS : Needs implementation }
+  Result := False;
 end;
 
 procedure TdmRichEditorActions.ClearViews;

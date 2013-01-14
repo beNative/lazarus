@@ -36,9 +36,10 @@ uses
 
 type
   TfrmTest = class(TForm, IEditorToolView)
-    btnExecute: TButton;
-    edtInput: TEdit;
-    pnlXML: TPanel;
+    btnExecute : TButton;
+    edtInput   : TEdit;
+    pnlXML     : TPanel;
+
   private
     FXMLTree: TXMLTree;
 
@@ -55,7 +56,7 @@ type
       read GetManager;
 
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
+    procedure SetVisible(AValue: Boolean); override;
 
     property Visible: Boolean
       read GetVisible write SetVisible;
@@ -78,9 +79,6 @@ type
 implementation
 
 {$R *.lfm}
-
-uses
-  ts_Core_Helpers;
 
 function TfrmTest.GetForm: TForm;
 begin

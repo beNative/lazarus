@@ -102,7 +102,6 @@ implementation
 { TSourceStripper }
 
 const
-  SToDo = 'TODO';
   SToDoDone = 'DONE';
 
 constructor TSourceStripper.Create(AOwner: TComponent);
@@ -226,6 +225,7 @@ var
   PTodo: PChar;
   STodo: String;
 begin
+  STodo := '';
   Result := False;
   if FInStream = nil then Exit;
 

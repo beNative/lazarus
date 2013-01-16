@@ -110,7 +110,7 @@ uses
 
   ts_Core_DataTemplates, ts_Core_Helpers,
 
-  ts_Editor_SynHighlighterAttributesCollection;
+  ts_Editor_HighlighterAttributes;
 
 var
   FForm: TfrmEditorSettings;
@@ -125,7 +125,7 @@ type
 function TSynAttributesDataTemplate.GetText(const Item: TObject;
   const ColumnIndex: Integer): string;
 begin
-  Result := (Item as TSynHighlighterAttributesItem).Name;
+  Result := (Item as THighlighterAttributesItem).Name;
 end;
 
 {$region 'interfaced methods' /fold}

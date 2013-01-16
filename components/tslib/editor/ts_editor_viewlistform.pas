@@ -42,11 +42,13 @@ type
   TEditorViewInfo = class
   private
     FView: TComponent; // TSI: no interface reference here!
+
     function GetFileName: string;
     function GetHighlighter: string;
     function GetModified: Boolean;
     function GetPath: string;
     function GetView: IEditorView;
+
   public
     constructor Create(AView: IEditorView);
     procedure BeforeDestruction; override;
@@ -73,10 +75,13 @@ type
   TfrmViewList = class(TForm, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     mniClose   : TMenuItem;
     pnlButtons : TButtonPanel;
     pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
+    ppmHL: TPopupMenu;
 
     procedure actCloseExecute(Sender: TObject);
 
@@ -127,9 +132,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts_Core_ColumnDefinitions,
-
-  ts_Core_Helpers;
+  ts_Core_ColumnDefinitions, ts_Core_Utils, ts_Core_Helpers;
 
 //*****************************************************************************
 // construction and destruction                                          BEGIN
@@ -188,6 +191,8 @@ end;
 //*****************************************************************************
 
 procedure TfrmViewList.AfterConstruction;
+var
+  I: Integer;
 begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlVST);
@@ -195,11 +200,11 @@ begin
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 150);
   FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
-  with FTVP.ColumnDefinitions.AddColumn('Highlighter', dtString, 60) do
+  with FTVP.ColumnDefinitions.AddColumn('Highlighter', dtString, 80) do
   begin
     Fixed := True;
   end;
-  with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 60) do
+  with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 80) do
   begin
     Fixed := True;
     CheckBox := True;
@@ -211,6 +216,13 @@ begin
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged  := FTVPSelectionChanged;
   FVST.Header.AutoFitColumns;
+
+  for I := 0 to Manager.Menus.HighlighterPopupMenu.Items.Count - 1 do
+    ppmHL.Items.Add(CloneMenuItem(Manager.Menus.HighlighterPopupMenu.Items[I]));
+
+  //ppmHL.Items.Assign(Manager.Menus.HighlighterPopupMenu.Items);
+  ppmMain.Items.Insert(1, ppmHL.Items);
+  //ppmEditor.Items.Insert(15, ppmHighLighters.Items);
 end;
 
 procedure TfrmViewList.BeforeDestruction;

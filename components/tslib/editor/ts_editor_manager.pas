@@ -147,7 +147,7 @@ uses
   SynHighlighterPython, SynExportRTF, SynExportWiki, SynUniHighlighter,
   SynHighlighterPo,
 
-  ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_SynHighlighterCollection,
+  ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
   ts_Editor_View;
 
 type
@@ -806,10 +806,10 @@ uses
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 
-  ts_Editor_Settings, ts_Editor_Utils,
+  ts_Editor_Settings, ts_Editor_HighlighterAttributes,
   ts_Editor_ViewListForm, ts_Editor_CodeShaperForm , ts_Editor_PreviewForm,
   ts_Editor_Testform, ts_Editor_SearchForm, ts_Editor_ShortcutsDialog,
-  ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog,
+  ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
   ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
 
@@ -843,12 +843,12 @@ end;
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FPersistSettings := False;
-  FSettings        := TEditorSettings.Create(Self);
+  FPersistSettings  := False;
+  FSettings         := TEditorSettings.Create(Self);
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
-  FViewList        := TEditorViewList.Create;
-  FToolViewList    := TEditorToolViewList.Create;
-  FSearchEngine    := TSearchEngine.Create(Self);
+  FViewList         := TEditorViewList.Create;
+  FToolViewList     := TEditorToolViewList.Create;
+  FSearchEngine     := TSearchEngine.Create(Self);
   FSynHighlighterPo := TSynPoSyn.Create(Self);
 
   InitializeHighlighters;
@@ -933,20 +933,20 @@ end;
 
 procedure TdmEditorManager.ApplyHighlighterAttributes;
 var
-  K: Integer;
-  J: Integer;
-  I: Integer;
-  A: TSynHighlighterAttributes;
+  I   : Integer;
+  HL  : THighlighterItem;
+  HAI : THighlighterAttributesItem;
+  A   : TSynHighlighterAttributes;
 begin
-  for I := 0 to Settings.Highlighters.Count - 1 do
+  for HL in Settings.Highlighters do
   begin
-    for J := 0 to Settings.HighlighterAttributes.Count - 1 do
+    for HAI in Settings.HighlighterAttributes do
     begin
-      for K := 0 to Settings.Highlighters.Items[I].SynHighlighter.AttrCount - 1 do
+      for I := 0 to HL.SynHighlighter.AttrCount - 1 do
       begin
-        A := Settings.Highlighters.Items[I].SynHighlighter.Attribute[K];
-        if A.Name = Settings.HighlighterAttributes.Items[J].Name then
-          A.Assign(Settings.HighlighterAttributes.Items[J].Attributes);
+        A := HL.SynHighlighter.Attribute[I];
+        if A.Name = HAI.Name then
+          A.Assign(HAI.Attributes);
       end;
     end;
   end;
@@ -1942,20 +1942,20 @@ var
   A  : TCustomAction;
   I  : Integer;
 begin
-  ppmHighLighters.Items.Caption := 'Highlighters';
-  ppmHighLighters.Items.Action := actToggleHighlighter;
-  ppmFold.Items.Caption := 'Folding';
-  ppmFold.Items.Action := actToggleFoldLevel;
-  ppmEditor.Items.Insert(15, ppmHighLighters.Items);
-  ppmEditor.Items.Insert(16, ppmFold.Items);
+  HighlighterPopupMenu.Items.Caption := 'Highlighters';
+  HighlighterPopupMenu.Items.Action := actToggleHighlighter;
+  FoldPopupMenu.Items.Caption := 'Folding';
+  FoldPopupMenu.Items.Action := actToggleFoldLevel;
+  EditorPopupMenu.Items.Insert(15, HighlighterPopupMenu.Items);
+  EditorPopupMenu.Items.Insert(16, FoldPopupMenu.Items);
 
   SL := TStringList.Create;
   try
-    ppmEncoding.Items.Clear;
+    EncodingPopupMenu.Items.Clear;
     GetSupportedEncodings(SL);
     for S in SL do
     begin
-      MI := TMenuItem.Create(ppmEncoding);
+      MI := TMenuItem.Create(EncodingPopupMenu);
       MI.Caption := S;
       S := 'actEncoding' + DelChars(S, '-');
       A := Items[S];
@@ -1966,16 +1966,16 @@ begin
         MI.RadioItem  := True;
         MI.GroupIndex := A.GroupIndex;
       end;
-      ppmEncoding.Items.Add(MI);
+      EncodingPopupMenu.Items.Add(MI);
     end;
   finally
     FreeAndNil(SL);
   end;
 
-  ppmLineBreakStyle.Items.Clear;
+  LineBreakStylePopupMenu.Items.Clear;
   for S in ALineBreakStyles do
   begin
-    MI := TMenuItem.Create(ppmLineBreakStyle);
+    MI := TMenuItem.Create(LineBreakStylePopupMenu);
     S := 'actLineBreakStyle' +  S;
     A := Items[S];
     if Assigned(A) then
@@ -1986,14 +1986,13 @@ begin
       MI.RadioItem  := True;
       MI.GroupIndex := A.GroupIndex;
     end;
-    ppmLineBreakStyle.Items.Add(MI);
+    LineBreakStylePopupMenu.Items.Add(MI);
   end;
 
-  ppmHighLighters.Items.Clear;
-  for I := 0 to Highlighters.Count -1 do
+  HighlighterPopupMenu.Items.Clear;
+  for HI in Highlighters do
   begin
-    HI := Highlighters[I];
-    MI := TMenuItem.Create(ppmHighLighters);
+    MI := TMenuItem.Create(HighlighterPopupMenu);
     S := 'actHighlighter' + HI.Name;
     A := Items[S];
     if Assigned(A) then
@@ -2005,7 +2004,7 @@ begin
       MI.RadioItem  := True;
       MI.GroupIndex := A.GroupIndex;
     end;
-    ppmHighLighters.Items.Add(MI);
+    HighlighterPopupMenu.Items.Add(MI);
   end;
 end;
 

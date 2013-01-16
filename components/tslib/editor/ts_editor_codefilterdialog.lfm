@@ -131,6 +131,11 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Hint = 'Copy selected lines to new view'
       OnExecute = actCopyToNewViewExecute
     end
+    object actFocusSearchFilter: TAction
+      Caption = 'Set focus to searchfilter'
+      OnExecute = actFocusSearchFilterExecute
+      ShortCut = 113
+    end
   end
   object imlMain: TImageList
     left = 8

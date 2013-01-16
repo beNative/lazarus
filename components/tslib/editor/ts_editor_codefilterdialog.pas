@@ -49,6 +49,7 @@ type
     actApplyFilter   : TAction;
     actCopy          : TAction;
     actCopyToNewView : TAction;
+    actFocusSearchFilter: TAction;
     actSelectAll     : TAction;
     btnApplyFilter   : TButton;
     chkMatchCase     : TCheckBox;
@@ -72,6 +73,7 @@ type
     procedure actApplyFilterExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyToNewViewExecute(Sender: TObject);
+    procedure actFocusSearchFilterExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
     procedure chkMatchCaseClick(Sender: TObject);
     procedure edtFilterChange(Sender: TObject);
@@ -204,6 +206,41 @@ uses
 
   ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers;
 
+type
+  TVKSet = set of Byte;
+
+var
+  VK_EDIT_KEYS : TVKSet = [
+    VK_DELETE,
+    VK_BACK,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END,
+    VK_SHIFT,
+    VK_CONTROL,
+    VK_SPACE,
+    VK_0..VK_Z
+  ];
+
+  VK_CTRL_EDIT_KEYS : TVKSet = [
+    VK_INSERT,
+    VK_DELETE,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END
+  ];
+
+  VK_SHIFT_EDIT_KEYS : TVKSet = [
+    VK_INSERT,
+    VK_DELETE,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END
+  ];
+
 constructor TLine.Create(const AIndex: Integer; const AText: string);
 begin
   inherited Create;
@@ -229,7 +266,7 @@ begin
   FTextStyle.Alignment := taLeftJustify;
   FTextStyle.Layout := tlCenter;
   FVST := CreateVST(Self, pnlVST);
-  FVST.Font.Name := 'Consolas';
+  FVST.Font.Name := Manager.Settings.EditorFont.Name;
   FVST.Font.Size := 8;
   FVST.Colors.FocusedSelectionColor := clSilver;
   FVST.Colors.FocusedSelectionBorderColor := clSilver;
@@ -413,6 +450,11 @@ begin
   //end;
 end;
 
+procedure TfrmCodeFilterDialog.actFocusSearchFilterExecute(Sender: TObject);
+begin
+  edtFilter.SetFocus;
+end;
+
 procedure TfrmCodeFilterDialog.actSelectAllExecute(Sender: TObject);
 begin
   FTVP.SelectAll;
@@ -446,10 +488,9 @@ var
 begin
   Logger.Send('Key', Key);
   A := (ssAlt in Shift) or (ssShift in Shift);
-  B := Key in [VK_DELETE, VK_BACK, VK_LEFT, VK_RIGHT, VK_HOME, VK_END, VK_SHIFT, VK_CONTROL, VK_SPACE];
-  C := (Key in [VK_INSERT, VK_DELETE, VK_LEFT, VK_RIGHT, VK_HOME, VK_END]) and
-    ((ssCtrl in Shift) or (ssShift in Shift));
-  D := ((Key >= VK_0) and (Key <= VK_Z));
+  B := (Key in VK_EDIT_KEYS) and (Shift = []);
+  C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
   if not (A or B or C or D) then
   begin
     FVKPressed := True;

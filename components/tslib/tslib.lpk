@@ -118,12 +118,12 @@
         <UnitName Value="ts_Editor_View"/>
       </Item17>
       <Item18>
-        <Filename Value="editor\ts_editor_synhighlighterattributescollection.pas"/>
-        <UnitName Value="ts_Editor_SynHighlighterAttributesCollection"/>
+        <Filename Value="editor\ts_editor_highlighterattributes.pas"/>
+        <UnitName Value="ts_editor_highlighterattributes"/>
       </Item18>
       <Item19>
-        <Filename Value="editor\ts_editor_synhighlightercollection.pas"/>
-        <UnitName Value="ts_Editor_SynHighlighterCollection"/>
+        <Filename Value="editor\ts_editor_highlighters.pas"/>
+        <UnitName Value="ts_Editor_Highlighters"/>
       </Item19>
       <Item20>
         <Filename Value="core\ts_core_datatemplates.pas"/>

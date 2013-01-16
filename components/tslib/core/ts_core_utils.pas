@@ -30,7 +30,7 @@ unit ts_Core_Utils;
 interface
 
 uses
-  Graphics, SysUtils, Classes, Controls, Windows, ExtCtrls, Forms,
+  Graphics, SysUtils, Classes, Controls, Windows, ExtCtrls, Forms, Menus,
 
   DB;
 
@@ -138,6 +138,8 @@ function GetTextHeight(const AText : string;
                              AFont : TFont): Integer;
 
 procedure OptimizeWidth(APanel: TPanel);
+
+function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
 
 
  // Variants and TVarRec conversions
@@ -566,6 +568,18 @@ begin
     APanel.Width := GetTextWidth(APanel.Caption, APanel.Font) + 10
   else
     APanel.Width := 0;
+end;
+
+function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
+var
+  I: Integer;
+Begin
+  with SourceItem do
+  Begin
+    Result := NewItem(Caption, Shortcut, Checked, Enabled, OnClick, HelpContext, Name + 'Copy');
+    for I := 0 To Count - 1 do
+      Result.Add(CloneMenuItem(Items[I]));
+  end;
 end;
 
 function GetTextWidth(const AText: string; AFont: TFont): Integer;

@@ -105,7 +105,7 @@ uses
 
   ts_Core_DirectoryWatch,
 
-  ts_Editor_Resources, ts_Editor_SynHighlighterCollection, ts_Editor_Interfaces,
+  ts_Editor_Resources, ts_Editor_Highlighters, ts_Editor_Interfaces,
 
   // logging
   sharedloggerlcl;
@@ -1989,8 +1989,6 @@ end;
 // public methods                                                        BEGIN
 //*****************************************************************************
 
-{ TODO: CloseQuery is not called when application is closed! }
-
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;
@@ -1999,7 +1997,7 @@ begin
   if Modified then
   begin
     Activate;
-    MR := MessageDlg(SAskSaveChanges, mtWarning, [mbYes, mbNo, mbCancel], 0);
+    MR := MessageDlg(SAskSaveChanges, mtConfirmation, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
     begin
       Result := Commands.SaveFile;

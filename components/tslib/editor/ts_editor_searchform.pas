@@ -184,7 +184,6 @@ begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlResultList);
 
-//  FVST.Background := imgBackground.Picture;
   //FTVP := CreateTVP();   // TODO
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
@@ -194,7 +193,6 @@ begin
   FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
-  //FTVP.
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
   btnNext.Action      := Manager.Actions['actFindNext'];
   btnPrevious.Action  := Manager.Actions['actFindPrevious'];

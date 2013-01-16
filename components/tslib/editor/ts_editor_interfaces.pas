@@ -38,7 +38,7 @@ uses
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
 
-  ts_Editor_SynHighlighterCollection, ts_Editor_SynHighlighterAttributesCollection;
+  ts_Editor_Highlighters, ts_Editor_HighlighterAttributes;
 
 {
   TODO:
@@ -509,7 +509,7 @@ type
     function GetEditorFont: TFont;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
-    function GetHighlighterAttributes: TSynHighlighterAttributesCollection;
+    function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetPreviewVisible: Boolean;
@@ -527,7 +527,7 @@ type
     procedure SetEditorFont(AValue: TFont);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
-    procedure SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
+    procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
@@ -581,7 +581,7 @@ type
     property AlignLinesSettings: TAlignLinesSettings
       read GetAlignLinesSettings write SetAlignLinesSettings;
 
-    property HighlighterAttributes: TSynHighlighterAttributesCollection
+    property HighlighterAttributes: THighlighterAttributes
       read GetHighlighterAttributes write SetHighlighterAttributes;
 
     property SearchEngineSettings: TSearchEngineSettings

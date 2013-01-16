@@ -36,8 +36,7 @@ uses
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
 
-  ts_Editor_Interfaces, ts_Editor_SynHighlighterCollection,
-  ts_Editor_SynHighlighterAttributesCollection;
+  ts_Editor_Interfaces, ts_Editor_Highlighters, ts_Editor_HighlighterAttributes;
 
 type
   TEditorSettingsChangedEventList = class(TMethodList)
@@ -62,7 +61,7 @@ type
     FDimInactiveView          : Boolean;
     FFormSettings             : TFormSettings;
     FEditorFont               : TFont;
-    FHighlighterAttributes    : TSynHighlighterAttributesCollection;
+    FHighlighterAttributes    : THighlighterAttributes;
     FAlignLinesSettings       : TAlignLinesSettings;
     FSearchEngineSettings     : TSearchEngineSettings;
     FCodeShaperSettings       : TCodeShaperSettings;
@@ -79,7 +78,7 @@ type
     function GetFileName: string;
     function GetFoldLevel: Integer;
     function GetFormSettings: TFormSettings;
-    function GetHighlighterAttributes: TSynHighlighterAttributesCollection;
+    function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetPreviewVisible: Boolean;
@@ -97,7 +96,7 @@ type
     procedure SetEditorFont(AValue: TFont);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
-    procedure SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
+    procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighters(const AValue: THighlighters);
     procedure SetHighlighterType(const AValue: string);
     procedure SetPreviewVisible(const AValue: Boolean);
@@ -132,7 +131,7 @@ type
       read GetHighlighters write SetHighlighters;
 
   published
-    property HighlighterAttributes: TSynHighlighterAttributesCollection
+    property HighlighterAttributes: THighlighterAttributes
       read GetHighlighterAttributes write SetHighlighterAttributes;
 
     { Default highlighter type to use. }
@@ -228,7 +227,7 @@ begin
   FSearchEngineSettings := TSearchEngineSettings.Create;
   FCodeShaperSettings := TCodeShaperSettings.Create;
   FHighlighters := THighLighters.Create(Self);
-  FHighlighterAttributes := TSynHighlighterAttributesCollection.Create(nil);
+  FHighlighterAttributes := THighlighterAttributes.Create(nil);
 
   FFileName := SETTINGS_FILE;
   HighlighterType := HL_TXT;
@@ -391,12 +390,12 @@ begin
   FFormSettings.Assign(AValue);
 end;
 
-function TEditorSettings.GetHighlighterAttributes: TSynHighlighterAttributesCollection;
+function TEditorSettings.GetHighlighterAttributes: THighlighterAttributes;
 begin
   Result := FHighlighterAttributes;
 end;
 
-procedure TEditorSettings.SetHighlighterAttributes(AValue: TSynHighlighterAttributesCollection);
+procedure TEditorSettings.SetHighlighterAttributes(AValue: THighlighterAttributes);
 begin
   FHighlighterAttributes.Assign(AValue);
 end;

@@ -27,9 +27,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
 
-  SynExportRTF, RichMemo,
+  RichMemo,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_ExportRTF;
 
 type
   TfrmPreview = class(TForm, IEditorToolView)

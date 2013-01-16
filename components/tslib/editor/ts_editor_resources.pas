@@ -98,7 +98,7 @@ resourcestring
   SPERLDescription = 'Perl';
   SPYDescription   = 'Python';
 
-  SAskSaveChanges = 'File is modified. Do you want to save changes?';
+  SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 
 const
   DEFAULT_BLEND_FACTOR = 128;

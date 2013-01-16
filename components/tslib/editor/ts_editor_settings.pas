@@ -521,7 +521,6 @@ begin
       Reader := TsdXmlObjectReader.Create;
       try
         Reader.ReadComponent(Doc.Root, Self, nil);
-        //Logger.Send('Settings', ObjectSaveToXmlString(Highlighters.Items[3]));
         Logger.Send('Settings LOAD', ObjectSaveToXmlString(Self));
       finally
         FreeAndNil(Reader);

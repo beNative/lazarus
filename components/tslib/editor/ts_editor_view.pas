@@ -1985,12 +1985,14 @@ end;
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;
+  S : string;
 begin
   Result := True;
   if Modified then
   begin
     Activate;
-    MR := MessageDlg(SAskSaveChanges, mtConfirmation, [mbYes, mbNo, mbCancel], 0);
+    S := Format(SAskSaveChanges, [FileName]);
+    MR := MessageDlg(S, mtConfirmation, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
     begin
       Result := Commands.SaveFile;

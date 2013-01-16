@@ -1,8 +1,8 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfrmSearchForm','FORMDATA',[
-  'TPF0'#14'TfrmSearchForm'#13'frmSearchForm'#4'Left'#3'd'#12#6'Height'#3#148#3
-  +#3'Top'#2'k'#5'Width'#3'.'#1#13'ActiveControl'#7#13'cbxSearchText'#11'Border'
+  'TPF0'#14'TfrmSearchForm'#13'frmSearchForm'#4'Left'#3#230#11#6'Height'#3#148#3
+  +#3'Top'#2#26#5'Width'#3'.'#1#13'ActiveControl'#7#13'cbxSearchText'#11'Border'
   +'Icons'#11#12'biSystemMenu'#0#7'Caption'#6#4'Find'#12'ClientHeight'#3#148#3
   +#11'ClientWidth'#3'.'#1#21'Constraints.MinHeight'#3'8'#1#20'Constraints.MinW'
   +'idth'#3','#1#10'KeyPreview'#9#6'OnHide'#7#8'FormHide'#9'PopupMode'#7#6'pmAu'

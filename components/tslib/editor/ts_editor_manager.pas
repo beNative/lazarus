@@ -144,11 +144,11 @@ uses
   SynHighlighterPas, SynHighlighterAny, SynHighlighterSQL, SynHighlighterLFM,
   SynHighlighterXML, SynMacroRecorder, SynExportHTML, SynHighlighterBat,
   SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava, SynHighlighterPerl,
-  SynHighlighterPython, SynExportRTF, SynExportWiki, SynUniHighlighter,
+  SynHighlighterPython,
   SynHighlighterPo,
 
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
-  ts_Editor_View;
+  ts_Editor_View, ts_Editor_UniHighlighter, ts_Editor_ExportRTF;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,
@@ -395,8 +395,7 @@ type
     SynBatSyn                     : TSynBatSyn;
     SynCppSyn                     : TSynCppSyn;
     SynExporterHTML               : TSynExporterHTML;
-    SynExporterRTF                : TSynExporterRTF;
-    SynExporterWiki               : TSynExporterWiki;
+    //SynExporterWiki               : TSynExporterWiki;
     SynHTMLSyn                    : TSynHTMLSyn;
     SynJavaSyn                    : TSynJavaSyn;
     SynLFMSyn                     : TSynLFMSyn;
@@ -513,6 +512,7 @@ type
   private
     FPersistSettings   : Boolean;
     FSynHighlighterPo  : TSynPoSyn;
+    FSynExporterRTF    : TSynExporterRTF;
 
     FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
@@ -641,7 +641,7 @@ type
     function DeleteToolView(AView: IEditorToolView): Boolean; overload;
     function DeleteToolView(const AName: string): Boolean; overload;
 
-    { IEditorCommands }
+    { IEditorCommands } { TODO -oTS : Move to dedicated class or TEditorView }
     function SaveFile(const AFileName: string = ''): Boolean;
     procedure LoadFile;
     procedure OpenFileAtCursor;
@@ -850,6 +850,7 @@ begin
   FToolViewList     := TEditorToolViewList.Create;
   FSearchEngine     := TSearchEngine.Create(Self);
   FSynHighlighterPo := TSynPoSyn.Create(Self);
+  FSynExporterRTF   := TSynExporterRTF.Create(Self);
 
   InitializeHighlighters;
   RegisterHighlighters;
@@ -2041,9 +2042,8 @@ begin
       A.Category := 'LineBreakStyle';
       A.OnExecute  := actLineBreakStyleExecute;
     end;
-    for I := 0 to Highlighters.Count - 1 do
+    for HI in Highlighters do
     begin
-      HI := Highlighters[I];
       A.Tag := I;
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
@@ -2173,7 +2173,6 @@ var
   V : IEditorView;
 begin
   Logger.EnterMethod(Self, 'AddView');
-  Logger.SendHeapInfo('Heapinfo');
   V := TEditorView.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
   { TODO -oTS : Needs to be refactored. }
@@ -2368,47 +2367,47 @@ begin
     end
     else if AFormat = HL_RTF then
     begin
-      SynExporterRTF.Highlighter := ActiveView.Editor.Highlighter;
-      SynExporterRTF.ExportAsText := not ANativeFormat;
-      SynExporterRTF.Font.Assign(ActiveView.Editor.Font);
+      FSynExporterRTF.Highlighter := ActiveView.Editor.Highlighter;
+      FSynExporterRTF.ExportAsText := not ANativeFormat;
+      FSynExporterRTF.Font.Assign(ActiveView.Editor.Font);
       if ActiveView.SelAvail then
         SL.Text := ActiveView.SelText
       else
         SL.Text := ActiveView.Text;
-      SynExporterRTF.ExportAll(SL);
+      FSynExporterRTF.ExportAll(SL);
       if AToClipboard then
-        SynExporterRTF.CopyToClipboard
+        FSynExporterRTF.CopyToClipboard
       else
       begin
         S := dlgSave.Filter;
-        dlgSave.Filter := SynExporterRTF.DefaultFilter;
+        dlgSave.Filter := FSynExporterRTF.DefaultFilter;
         dlgSave.FileName := ExtractFileNameWithoutExt(Settings.FileName) + '.rtf';
         if dlgSave.Execute then
-          SynExporterRTF.SaveToFile(dlgSave.FileName);
+          FSynExporterRTF.SaveToFile(dlgSave.FileName);
         dlgSave.Filter := S;
       end;
     end
-    else if AFormat = 'WIKI' then
-    begin
-      SynExporterWiki.Highlighter := ActiveView.Editor.Highlighter;
-      SynExporterWiki.ExportAsText := not ANativeFormat;
-      if ActiveView.SelAvail then
-        SL.Text := ActiveView.SelText
-      else
-        SL.Text := ActiveView.Text;
-      SynExporterWiki.ExportAll(SL);
-      if AToClipboard then
-        SynExporterWiki.CopyToClipboard
-      else
-      begin
-        S := dlgSave.Filter;
-        dlgSave.Filter := SynExporterWiki.DefaultFilter;
-        dlgSave.FileName := ExtractFileNameWithoutExt(Settings.FileName) + '.txt';
-        if dlgSave.Execute then
-          SynExporterWiki.SaveToFile(dlgSave.FileName);
-        dlgSave.Filter := S;
-      end;
-    end;
+    //else if AFormat = 'WIKI' then
+    //begin
+    //  SynExporterWiki.Highlighter := ActiveView.Editor.Highlighter;
+    //  SynExporterWiki.ExportAsText := not ANativeFormat;
+    //  if ActiveView.SelAvail then
+    //    SL.Text := ActiveView.SelText
+    //  else
+    //    SL.Text := ActiveView.Text;
+    //  SynExporterWiki.ExportAll(SL);
+    //  if AToClipboard then
+    //    SynExporterWiki.CopyToClipboard
+    //  else
+    //  begin
+    //    S := dlgSave.Filter;
+    //    dlgSave.Filter := SynExporterWiki.DefaultFilter;
+    //    dlgSave.FileName := ExtractFileNameWithoutExt(Settings.FileName) + '.txt';
+    //    if dlgSave.Execute then
+    //      SynExporterWiki.SaveToFile(dlgSave.FileName);
+    //    dlgSave.Filter := S;
+    //  end;
+    //end;
   finally
     SL.Free;
   end;

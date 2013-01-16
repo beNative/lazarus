@@ -6295,27 +6295,6 @@ object dmEditorManager: TdmEditorManager
     left = 120
     top = 80
   end
-  object SynExporterRTF: TSynExporterRTF
-    Color = clWindow
-    DefaultFilter = 'Rich Text Format (*.rtf)|*.rtf'
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Title = 'Untitled'
-    UseBackground = False
-    left = 120
-    top = 16
-  end
-  object SynExporterWiki: TSynExporterWiki
-    Color = clWindow
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Title = 'Untitled'
-    UseBackground = False
-    left = 120
-    top = 136
-  end
   object ppmEncoding: TPopupMenu
     left = 27
     top = 299

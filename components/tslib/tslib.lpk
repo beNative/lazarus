@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="68">
+    <Files Count="70">
       <Item1>
         <Filename Value="laz_images.lrs"/>
         <Type Value="LRS"/>
@@ -119,7 +119,7 @@
       </Item17>
       <Item18>
         <Filename Value="editor\ts_editor_highlighterattributes.pas"/>
-        <UnitName Value="ts_editor_highlighterattributes"/>
+        <UnitName Value="ts_Editor_HighlighterAttributes"/>
       </Item18>
       <Item19>
         <Filename Value="editor\ts_editor_highlighters.pas"/>
@@ -321,85 +321,60 @@
         <Filename Value="editor\ts_editor_types.pas"/>
         <UnitName Value="ts_Editor_Types"/>
       </Item68>
+      <Item69>
+        <Filename Value="editor\ts_editor_unihighlighter.pas"/>
+        <UnitName Value="ts_Editor_UniHighlighter"/>
+      </Item69>
+      <Item70>
+        <Filename Value="editor\ts_editor_exportrtf.pas"/>
+        <UnitName Value="ts_Editor_ExportRTF"/>
+      </Item70>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="24">
+    <RequiredPkgs Count="13">
       <Item1>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="zcomponent"/>
       </Item1>
       <Item2>
-        <PackageName Value="tsBundle"/>
+        <PackageName Value="LazRichEdit"/>
       </Item2>
       <Item3>
-        <PackageName Value="xicontrols"/>
+        <PackageName Value="XMLTreepkg"/>
       </Item3>
       <Item4>
-        <PackageName Value="viewerpackage"/>
+        <PackageName Value="luicontrols"/>
       </Item4>
       <Item5>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="nativexml_laz"/>
       </Item5>
       <Item6>
-        <PackageName Value="atbinhex_lcl"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item6>
       <Item7>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="luicomponents"/>
       </Item7>
       <Item8>
-        <PackageName Value="MemDSLaz"/>
+        <PackageName Value="multiloglaz"/>
       </Item8>
       <Item9>
-        <PackageName Value="virtualdbgrid_package"/>
+        <PackageName Value="LCL"/>
       </Item9>
       <Item10>
-        <PackageName Value="XMLTreepkg"/>
+        <PackageName Value="richmemopackage"/>
       </Item10>
       <Item11>
-        <PackageName Value="luicontrols"/>
+        <PackageName Value="SynEdit"/>
       </Item11>
       <Item12>
-        <PackageName Value="nativexml_laz"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item12>
       <Item13>
-        <PackageName Value="virtualtreeview_package"/>
-      </Item13>
-      <Item14>
-        <PackageName Value="luicomponents"/>
-      </Item14>
-      <Item15>
-        <PackageName Value="IDEIntf"/>
-      </Item15>
-      <Item16>
-        <PackageName Value="multiloglaz"/>
-      </Item16>
-      <Item17>
-        <PackageName Value="LCLBase"/>
-      </Item17>
-      <Item18>
-        <PackageName Value="LCL"/>
-      </Item18>
-      <Item19>
-        <PackageName Value="synuni"/>
-      </Item19>
-      <Item20>
-        <PackageName Value="syneditextras"/>
-      </Item20>
-      <Item21>
-        <PackageName Value="richmemopackage"/>
-      </Item21>
-      <Item22>
-        <PackageName Value="SynEdit"/>
-      </Item22>
-      <Item23>
-        <PackageName Value="RunTimeTypeInfoControls"/>
-      </Item23>
-      <Item24>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item24>
+      </Item13>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

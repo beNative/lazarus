@@ -1,0 +1,83 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts_core_sqlparser.serrasteriskonlyincount
+msgid "* allowed only in COUNT aggregate"
+msgstr ""
+
+#: ts_core_sqlparser.serrcannotaltergenerator
+msgid "Alter generator statement unknown"
+msgstr ""
+
+#: ts_core_sqlparser.serrdomainnotallowed
+msgid "Domain name not allowed in typ definition."
+msgstr ""
+
+#: ts_core_sqlparser.serrexpecteddbobject
+msgid "Expected database object type. Got: '%s'"
+msgstr ""
+
+#: ts_core_sqlparser.serrhavingwithoutgroupby
+msgid "HAVING without GROUP BY clause not allowed"
+msgstr ""
+
+#: ts_core_sqlparser.serrintegerexpected
+msgid "Integer expression expected"
+msgstr ""
+
+#: ts_core_sqlparser.serrinvalidextract
+msgid "Invalid element for extract: %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrinvalidliteral
+msgid "Invalid literal: \"%s\""
+msgstr ""
+
+#: ts_core_sqlparser.serrinvaliduseofcollate
+msgid "Invalid use of COLLATE"
+msgstr ""
+
+#: ts_core_sqlparser.serrnoaggregateallowed
+msgid "Aggregate function not allowed."
+msgstr ""
+
+#: ts_core_sqlparser.serrnoasteriskinsingleton
+msgid "* not allowed in singleton select"
+msgstr ""
+
+#: ts_core_sqlparser.serrtokenmismatch
+msgid "Unexpected token: '%s', expected: '%s'"
+msgstr ""
+
+#: ts_core_sqlparser.serrunexpectedtoken
+msgid "Unexpected token: %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrunexpectedtokenof
+msgid "Unexpected token: %s, expected one of %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrunionfieldcountmatch
+msgid "Field count mismatch in select union : %d <> %d"
+msgstr ""
+
+#: ts_core_sqlparser.serrunknownbooleanop
+msgid "Unknown boolean operation"
+msgstr ""
+
+#: ts_core_sqlparser.serrunknowncomparison
+msgid "unknown Comparison operation"
+msgstr ""
+
+#: ts_core_sqlparser.serrunmatchedbrace
+msgid "Expected )."
+msgstr ""
+
+#: ts_core_sqlparser.serrupperoneargument
+msgid "Only one argument for UPPER allowed"
+msgstr ""
+
+#: ts_core_sqlparser.serrvaryingnotallowed
+msgid "VARYING not allowed at this point."
+msgstr ""
+

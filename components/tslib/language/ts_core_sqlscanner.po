@@ -1,0 +1,43 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts_core_sqlscanner.sbarexpected
+msgid "|character expected"
+msgstr ""
+
+#: ts_core_sqlscanner.serrifxxxnestinglimitreached
+msgid "Nesting of$IFxxx too deep"
+msgstr ""
+
+#: ts_core_sqlscanner.serrincludefilenotfound
+msgid "Could not find include file'%s'"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidcharacter
+msgid "Invalid character'%s'"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidnonequal
+msgid "SyntaxError:!=or!==expected"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidppelse
+msgid "$ELSE without matching$IFxxx"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidppendif
+msgid "$ENDIF without matching$IFxxx"
+msgstr ""
+
+#: ts_core_sqlscanner.serropenstring
+msgid "string exceeds end of line"
+msgstr ""
+
+#: ts_core_sqlscanner.serrunknowntoken
+msgid "Unknown token: %s"
+msgstr ""
+
+#: ts_core_sqlscanner.sinvalidhexadecimalnumber
+msgid "Invalid decimal number"
+msgstr ""
+

@@ -1,0 +1,19 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: nativexmlobjectstorage.sillegalvartype
+msgid "illegal variant type"
+msgstr ""
+
+#: nativexmlobjectstorage.sinvalidmethodname
+msgid "invalid method name"
+msgstr ""
+
+#: nativexmlobjectstorage.sinvalidpropertyvalue
+msgid "invalid property value"
+msgstr ""
+
+#: nativexmlobjectstorage.sunregisteredclasstype
+msgid "unregistered classtype encountered in "
+msgstr ""
+

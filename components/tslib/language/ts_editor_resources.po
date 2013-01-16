@@ -1,0 +1,83 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts_editor_resources.sasksavechanges
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts_editor_resources.sbatdescription
+msgid "Windows batch script"
+msgstr ""
+
+#: ts_editor_resources.scppdescription
+msgid "C++"
+msgstr ""
+
+#: ts_editor_resources.shtmldescription
+msgid "HTML document"
+msgstr ""
+
+#: ts_editor_resources.sinidescription
+msgid "INI"
+msgstr ""
+
+#: ts_editor_resources.sjavadescription
+msgid "Java"
+msgstr ""
+
+#: ts_editor_resources.slfmdescription
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts_editor_resources.slogdescription
+msgid "Log"
+msgstr ""
+
+#: ts_editor_resources.spasdescription
+msgid "Object Pascal"
+msgstr ""
+
+#: ts_editor_resources.sperldescription
+msgid "Perl"
+msgstr ""
+
+#: ts_editor_resources.sphpdescription
+msgid "PHP"
+msgstr ""
+
+#: ts_editor_resources.spodescription
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts_editor_resources.spydescription
+msgid "Python"
+msgstr ""
+
+#: ts_editor_resources.sresdescription
+msgid "Windows resources"
+msgstr ""
+
+#: ts_editor_resources.srtfdescription
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts_editor_resources.ssearching
+msgid "Searching..."
+msgstr ""
+
+#: ts_editor_resources.ssqldescription
+msgid "SQL"
+msgstr ""
+
+#: ts_editor_resources.stextnotfound
+msgid "Text not found"
+msgstr ""
+
+#: ts_editor_resources.stxtdescription
+msgid "Text document"
+msgstr ""
+
+#: ts_editor_resources.sxmldescription
+msgid "XML document"
+msgstr ""
+

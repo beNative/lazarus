@@ -1,0 +1,111 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: nativexml.sbeginendmismatch
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: nativexml.scannotaddattribute
+msgid "cannot add attribute"
+msgstr ""
+
+#: nativexml.scannotaddnode
+msgid "cannot add node to this type of element"
+msgstr ""
+
+#: nativexml.scannotmanipulate
+msgid "cannot manipulate nodes in this type of element"
+msgstr ""
+
+#: nativexml.scannotsetname
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: nativexml.scannotsetvalue
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: nativexml.scopyfromonlywithxmlnode
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: nativexml.sdefaultcharused
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: nativexml.serrorcalcstreamlength
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: nativexml.sillegalendtag
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: nativexml.sillegaltag
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: nativexml.sinvalidstream
+msgid "invalid stream"
+msgstr ""
+
+#: nativexml.slevelmismatch
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: nativexml.smissingdatainbinarystream
+msgid "missing data in binary stream"
+msgstr ""
+
+#: nativexml.snondefaultchardata
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: nativexml.snotsupported
+msgid "feature is not supported yet"
+msgstr ""
+
+#: nativexml.sprematureend
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: nativexml.squotecharexpected
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: nativexml.srootelementnotdefined
+msgid "XML root element not defined."
+msgstr ""
+
+#: nativexml.ssignificantdigitsoutofrange
+msgid "significant digits out of range"
+msgstr ""
+
+#: nativexml.sunknownbinaryencodingbinhex
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: nativexml.sunknownencoding
+msgid "unknown encoding"
+msgstr ""
+
+#: nativexml.sunsupportedencoding
+msgid "unsupported encoding (%s)"
+msgstr ""
+
+#: nativexml.sunsupportedtag
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: nativexml.sxmlnodenotassigned
+msgid "XML node is not assigned"
+msgstr ""
+
+#: nativexml.sxmlownernotassigned
+msgid "XML owner is not assigned"
+msgstr ""
+
+#: nativexml.sxmlparentnotassigned
+msgid "XML parent is not assigned"
+msgstr ""
+

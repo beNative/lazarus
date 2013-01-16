@@ -60,6 +60,9 @@ type
     MenuItem1        : TMenuItem;
     MenuItem2        : TMenuItem;
     MenuItem3        : TMenuItem;
+    mniCopy: TMenuItem;
+    mniCopyToNewView: TMenuItem;
+    mniSelectAll: TMenuItem;
     pnlTop           : TPanel;
     pnlVST           : TPanel;
     ppmMain          : TPopupMenu;

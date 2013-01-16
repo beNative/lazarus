@@ -78,7 +78,7 @@
     - close button for pages
 }
 
-{ This version is slightly modified by Tim Sinaeve }
+{ This version is only slightly modified by Tim Sinaeve. }
 
 unit ts_Docking;
 
@@ -2374,10 +2374,6 @@ begin
         if Site<>nil then begin
           LayoutNode:=LayoutTree.NewNode(LayoutNode);
           Site.SaveLayout(LayoutTree,LayoutNode);
-          {if Site.BoundSplitter<>nil then begin
-            LayoutNode:=LayoutTree.NewNode(LayoutNode);
-            Site.BoundSplitter.SaveLayout(LayoutNode);
-          end;}
         end;
       end else
         raise EAnchorDockLayoutError.Create('invalid root control for save: '+DbgSName(AControl));
@@ -4309,11 +4305,7 @@ begin
         AForm:=TCustomForm(AControl);
         IsMainForm := (Application.MainForm = AForm)
                       or (AForm.IsParentOf(Application.MainForm));
-        if IsMainForm then
-          CloseAction := caFree
-        else
-          CloseAction := caHide;  // TSI : was hide
-        // ToDo: TCustomForm(AControl).DoClose(CloseAction);
+        CloseAction := caFree;
         case CloseAction of
         caHide: Hide;
         caMinimize: WindowState := wsMinimized;
@@ -4596,57 +4588,6 @@ end;
 
 { TAnchorDockHeader }
 
-procedure TAnchorDockHeader.PopupMenuPopup(Sender: TObject);
-begin
-  //ParentSite:=TAnchorDockHostSite(Parent);
-  //SideCaptions[akLeft]:=adrsLeft;
-  //SideCaptions[akTop]:=adrsTop;
-  //SideCaptions[akRight]:=adrsRight;
-  //SideCaptions[akBottom]:=adrsBottom;
-
-  // undock, merge
-  //DockMaster.AddRemovePopupMenuItem(ParentSite.CanUndock,'UndockMenuItem',
-  //                                  adrsUndock,UndockButtonClick);
-  //DockMaster.AddRemovePopupMenuItem(ParentSite.CanMerge,'MergeMenuItem',
-  //                                  adrsMerge, MergeButtonClick);
-
-  // header position
-  // disabled by TSI
-  //HeaderPosItem:=DockMaster.AddPopupMenuItem('HeaderPosMenuItem',
-  //                                           adrsHeaderPosition, nil);
-  //Item:=DockMaster.AddPopupMenuItem('HeaderPosAutoMenuItem', adrsAutomatically,
-  //                 HeaderPositionItemClick, HeaderPosItem);
-  //if Item<>nil then begin
-  //  Item.Tag:=ord(adlhpAuto);
-  //  Item.Checked:=HeaderPosition=TADLHeaderPosition(Item.Tag);
-  //end;
-  //for Side:=Low(TAnchorKind) to High(TAnchorKind) do begin
-  //  Item:=DockMaster.AddPopupMenuItem('HeaderPos'+DbgS(Side)+'MenuItem',
-  //                   SideCaptions[Side], HeaderPositionItemClick,
-  //                   HeaderPosItem);
-  //  if Item=nil then continue;
-  //  Item.Tag:=ord(Side)+1;
-  //  Item.Checked:=HeaderPosition=TADLHeaderPosition(Item.Tag);
-  //end;
-
-  // enlarge
-  //for Side:=Low(TAnchorKind) to High(TAnchorKind) do begin
-  //  Item:=DockMaster.AddRemovePopupMenuItem(ParentSite.EnlargeSide(Side,true),
-  //    'Enlarge'+DbgS(Side)+'MenuItem', Format(adrsEnlargeSide, [
-  //      SideCaptions[Side]]),EnlargeSideClick);
-  //  if Item<>nil then Item.Tag:=ord(Side);
-  //end;
-
-  // close
-  //ContainsMainForm:=ParentSite.IsParentOf(Application.MainForm);
-  //if ContainsMainForm then
-  //  s:=Format(adrsQuit, [Application.Title])
-  //else
-  //  s:=adrsClose;
-  //DockMaster.AddRemovePopupMenuItem(CloseButton.Visible,'CloseMenuItem',s,
-  //                                  CloseButtonClick);
-end;
-
 procedure TAnchorDockHeader.CloseButtonClick(Sender: TObject);
 begin
   if Parent is TAnchorDockHostSite then begin
@@ -4822,12 +4763,15 @@ begin
   inherited DoOnShowHint(HintInfo);
 end;
 
+procedure TAnchorDockHeader.PopupMenuPopup(Sender: TObject);
+begin
+  // Do nothing
+end;
+
 constructor TAnchorDockHeader.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  //FHeaderPosition:=adlhpAuto;
   FHeaderPosition := adlhpTop;
-  //FCloseButton:=TAnchorDockCloseButton.Create(Self);
   FCloseButton := TSpeedButton.Create(Self);
   FCloseButton.Font.Name := 'Marlett';
   FCloseButton.Font.Size := 8;
@@ -4835,7 +4779,6 @@ begin
   BevelOuter:=bvLowered;
   BevelInner := bvRaised;
   BevelWidth := 1;
-  //BorderWidth:=0;
   with FCloseButton do begin
     Name:='CloseButton';
     Parent:=Self;
@@ -5401,6 +5344,7 @@ end;
 procedure TAnchorDockSplitter.PopupMenuPopup(Sender: TObject);
 begin
 end;
+
 procedure TAnchorDockSplitter.UpdateDockBounds;
 begin
   FDockBounds:=BoundsRect;

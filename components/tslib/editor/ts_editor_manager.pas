@@ -968,14 +968,8 @@ begin
 end;
 
 function TdmEditorManager.GetItem(AName: string): TCustomAction;
-var
-  A : TCustomAction;
 begin
-  A := aclActions.ActionByName(AName) as TCustomAction;
-  if not Assigned(A) then
-    Exception.CreateFmt('Action (%s) does not exist!', [AName])
-  else
-    Result := A;
+  Result := aclActions.ActionByName(AName) as TCustomAction;
 end;
 
 function TdmEditorManager.GetLineBreakStylePopupMenu: TPopupMenu;
@@ -2163,13 +2157,14 @@ end;
 
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
 begin
-  Logger.EnterMethod(Self, 'Notification');
-  //if (Operation = opRemove) and Supports(AComponent, IEditorView) then
-  //begin
-  //  DeleteView(AComponent as IEditorView);
-  //end;
+  if Supports(AComponent, IEditorView) and (Operation = opRemove) then
+  begin
+    Logger.EnterMethod(Self, 'Notification');
+    DeleteView(AComponent as IEditorView);
+    Logger.Watch('ViewCount', ViewCount);
+    Logger.ExitMethod(Self, 'Notification');
+  end;
   inherited Notification(AComponent, Operation);
-  Logger.ExitMethod(Self, 'Notification');
 end;
 
 {$region 'IEditorActions' /fold}
@@ -2178,6 +2173,8 @@ function TdmEditorManager.AddView(const AName: string; const AFileName: string;
 var
   V : IEditorView;
 begin
+  Logger.EnterMethod(Self, 'AddView');
+  Logger.SendHeapInfo('Heapinfo');
   V := TEditorView.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
   { TODO -oTS : Needs to be refactored. }
@@ -2188,6 +2185,8 @@ begin
   V.Form.Caption := '';
   ViewList.Add(V);
   Result := V;
+  Logger.Watch('ViewCount', ViewCount);
+  Logger.ExitMethod(Self, 'AddView');
 end;
 
 function TdmEditorManager.DeleteView(AIndex: Integer): Boolean;
@@ -2203,7 +2202,6 @@ begin
     Logger.Send('ViewList.IndexOf(ActiveView)', I);
     if I = AIndex then // select a new active view
     begin
-      //I := IfThen(I > 0, I - 1, 1);
       V := Views[I];
       V.Activate
     end;
@@ -2213,6 +2211,7 @@ begin
   end
   else
     Result := False;
+  Logger.Watch('ViewCount', ViewCount);
   Logger.ExitMethod(Self, 'DeleteView(AIndex)');
 end;
 
@@ -2249,6 +2248,7 @@ begin
   end
   else
     Result := False;
+  Logger.Watch('ViewCount', ViewCount);
   Logger.ExitMethod(Self, 'DeleteView(AView)');
 end;
 
@@ -2266,6 +2266,7 @@ procedure TdmEditorManager.ClearViews(AExceptActive: Boolean);
 var
   I: Integer;
 begin
+  Logger.EnterMethod(Self, 'AExceptActive');
   if AExceptActive then
   begin
     I := ViewList.IndexOf(ActiveView);
@@ -2276,6 +2277,7 @@ begin
   ViewList.Clear;
   if AExceptActive then
     ViewList.Add(ActiveView);
+  Logger.ExitMethod(Self, 'AExceptActive');
 end;
 
 procedure TdmEditorManager.AddToolView(AToolView: IEditorToolView);

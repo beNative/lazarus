@@ -144,7 +144,6 @@ procedure InspectComponents(AComponents : array of TComponent);
 var
   F : TComponentInspectorForm;
   C : TComponent;
-  I : Integer;
 begin
   if Length(AComponents) > 0 then
   begin
@@ -162,7 +161,6 @@ procedure InspectComponents(AComponents : TComponentList);
 var
   F : TComponentInspectorForm;
   C : TComponent;
-  I : Integer;
 begin
   if Assigned(AComponents) then
   begin
@@ -356,7 +354,7 @@ end;
 
 function TComponentInspectorForm.OnBeforeAddPersistent(Sender: TObject; APersistentClass: TPersistentClass; Parent: TPersistent): boolean;
 begin
-
+  Result := False;
 end;
 
 procedure TComponentInspectorForm.OnComponentRenamed(AComponent: TComponent);

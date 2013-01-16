@@ -179,9 +179,9 @@ type
     function GetText: string;
     function GetView: IEditorView;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean); override;
 
   protected
+    procedure SetVisible(AValue: Boolean); override;
     { IClipboardCommands }
     procedure Cut;
     procedure Copy;

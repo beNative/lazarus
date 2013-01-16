@@ -149,8 +149,8 @@ type
     FCompletionInsertList : TStrings;
     FCompletionItemList   : TStrings;
     FMHAC                 : TSynEditMarkupHighlightAllCaret;
-    FMHA                  : TSynEditMarkupHighlightAll;
-    FMS                   : TSynEditMarkupSelection;
+    //FMHA                  : TSynEditMarkupHighlightAll;
+    //FMS                   : TSynEditMarkupSelection;
     FFileName             : string;
     FFoldLevel            : Integer;
     FBeautifier           : TSynBeautifier;
@@ -1806,11 +1806,9 @@ var
   SL : TStringList;
   B  : Boolean;
   S : string;
-  OldCaretPos    : TPoint;
 begin
   SL := TStringList.Create;
   try
-    OldCaretPos := CaretXY;
     SL.Text := SelText;
 
     BeginUpdate;
@@ -1932,12 +1930,7 @@ begin
 end;
 
 procedure TEditorView.SetHighlightSearch(const ASearch: string; AOptions: TSynSearchOptions);
-var
-  WC : TWinControl;
 begin
-  // workaround to prevent that the editor shows a caret when it has no focus
-  // and the highlight search colors are painted.
-  WC := Screen.ActiveControl;
   Editor.SetHighlightSearch(ASearch, AOptions);
 end;
 
@@ -2085,7 +2078,6 @@ end;
 
 procedure TEditorView.SaveToFile(const AFileName: string);
 var
-  S  : string;
   FS : TFileStream;
   FN : string;
 begin

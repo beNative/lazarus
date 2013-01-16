@@ -428,7 +428,7 @@ begin
       if H > NodeHeight then
         NodeHeight := H;
     end;
-    if NodeHeight > VST.DefaultNodeHeight then
+    if NodeHeight > Integer(VST.DefaultNodeHeight) then
       NodeHeight := NodeHeight + 4; // needed to avoid multiline text drawing issues
   end;
 end;
@@ -654,7 +654,6 @@ end;
 procedure TTreeViewPresenter.DoFilterNode(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  i: Integer;
   LItem: TObject;
   LAccepted: Boolean;
 begin
@@ -1383,7 +1382,6 @@ procedure TTreeViewPresenter.UpdateSelectedItems;
 var
   i: Integer;
   LItem: TObject;
-  LNotifyPropertyChanged: INotifyPropertyChanged;
   LSelectedNodes: TNodeArray;
 begin
   FSelectedItems.Clear;

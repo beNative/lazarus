@@ -33,8 +33,6 @@ uses
 
   ts_Core_FormSettings,
 
-  ts_Editor_Types,
-
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
 

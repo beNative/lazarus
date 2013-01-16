@@ -1,0 +1,56 @@
+#   File generated automatically by Lazarus Package Manager
+#
+#   Makefile.fpc for tslib 2.0
+#
+#   This file was generated on 16/01/2013
+
+[package]
+name=tslib
+version=2.0
+
+[compiler]
+unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
+unitdir=../NativeXml ../NativeXml/nativexml ../NativeXml/general dialogs editor core richeditor docking ../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET) ../NativeXml/lib/$(CPU_TARGET)-$(OS_TARGET) ../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET) ../virtualtreeview/XMLTree/lib/$(CPU_TARGET)-$(OS_TARGET) ../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET) ../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) ../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET) ../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) ../../packager/units/$(CPU_TARGET)-$(OS_TARGET) .
+includedir=../NativeXml ../NativeXml/nativexml dialogs core editor
+options= -MObjFPC -Scghi -CX -Cirot -O2 -gs -gl -gh -vewnhid -l -vm5024 -dLCL -dLCL$(LCL_PLATFORM)
+
+[target]
+units=tslib.pas
+
+[clean]
+files=$(wildcard $(COMPILER_UNITTARGETDIR)/*$(OEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(PPUEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*$(RSTEXT)) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.lfm) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.res) \
+      $(wildcard $(COMPILER_UNITTARGETDIR)/*.compiled) \
+      $(wildcard *$(OEXT)) $(wildcard *$(PPUEXT)) $(wildcard *$(RSTEXT))
+[prerules]
+# LCL Platform
+ifndef LCL_PLATFORM
+ifeq ($(OS_TARGET),win32)
+LCL_PLATFORM=win32
+else
+ifeq ($(OS_TARGET),win64)
+LCL_PLATFORM=win32
+else
+ifeq ($(OS_TARGET),darwin)
+LCL_PLATFORM=carbon
+else
+LCL_PLATFORM=gtk2
+endif
+endif
+endif
+endif
+export LCL_PLATFORM
+
+[rules]
+.PHONY: cleartarget compiled all
+
+cleartarget:
+        -$(DEL) $(COMPILER_UNITTARGETDIR)/tslib$(PPUEXT)
+
+compiled:
+        $(CPPROG) -f Makefile.compiled $(COMPILER_UNITTARGETDIR)/tslib.compiled
+
+all: cleartarget $(COMPILER_UNITTARGETDIR) tslib$(PPUEXT) compiled

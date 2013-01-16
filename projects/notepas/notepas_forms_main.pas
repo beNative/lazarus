@@ -485,7 +485,6 @@ end;
 
 procedure TfrmMain.TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
 begin
-//  Logger.Send('ControlChanging', Sender);
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
 end;
 

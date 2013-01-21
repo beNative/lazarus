@@ -19,6 +19,8 @@ uses
 
   ts_Core_TreeViewPresenter, ts_Core_DataTemplates;
 
+{ Create a TVirtualStringTree with the most common settings. }
+
 function CreateVST(
   AOwner  : TComponent;
   AParent : TWinControl
@@ -38,10 +40,15 @@ function CreateTVP(
   AItemTemplate : IDataTemplate = nil
 ): TTreeViewPresenter;
 
+{ Create a TTIPropertyGrid instance to be used as a property inspector. }
+
 function CreatePI(
   AOwner  : TComponent;
   AParent : TWinControl
 ): TTIPropertyGrid;
+
+{ Make the given form a child control of a given other visual control (in most
+  cases this will be a TPanel). }
 
 procedure AssignFormParent(
   AForm   : TCustomForm;
@@ -55,6 +62,146 @@ implementation
 uses
   TypInfo, ObjectInspector;
 
+{$region 'default VST options' /fold}
+const
+  DEFAULT_VST_SELECTIONOPTIONS = [
+    toExtendedFocus
+  ];
+  DEFAULT_VST_MISCOPTIONS = [
+//    toAcceptOLEDrop,
+//    toEditable,
+//    toEditOnClick,
+//    toFullRepaintOnResize,
+//    toEditOnDblClick,
+    toInitOnSave,
+    toToggleOnDblClick,
+    toVariableNodeHeight,
+    toWheelPanning
+  ];
+  DEFAULT_VST_PAINTOPTIONS = [
+    { Avoid drawing the dotted rectangle around the currently focused node. }
+    toHideFocusRect,
+    { Paint tree as would it always have the focus }
+    toPopupMode,
+    { Display collapse/expand buttons left to a node. }
+    toShowButtons,
+    { Show the dropmark during drag'n drop operations. }
+    toShowDropmark,
+    { Display horizontal lines to simulate a grid. }
+    toShowHorzGridLines,
+    { Use the background image if there's one. }
+    toShowBackground,
+    { Show static background instead of a tiled one. }
+    toStaticBackground,
+    { Show lines also at top level (does not show the hidden/internal root
+      node). }
+    toShowRoot,
+    { Display tree lines to show hierarchy of nodes. }
+    toShowTreeLines,
+    { Display vertical lines (depending on columns) to simulate a grid. }
+    toShowVertGridLines,
+    { Draw UI elements (header, tree buttons etc.) according to the current
+      theme if enabled (Windows XP+ only, application must be themed). }
+    toThemeAware,
+    { Enable alpha blending for ghosted nodes or those which are being
+      cut/copied. }
+    toUseBlendedImages,
+    { Enable alpha blending for node selections. }
+    toUseBlendedSelection
+  ];
+  DEFAULT_VST_HEADEROPTIONS = [
+    { Adjust a column so that the header never exceeds the client width of the
+      owner control. }
+    //hoAutoResize,
+    { Resizing columns with the mouse is allowed. }
+    hoColumnResize,
+    { Allows a column to resize itself to its largest entry. }
+    hoDblClickResize,
+    { Dragging columns is allowed. }
+    //hoDrag,
+    { Header captions are highlighted when mouse is over a particular column. }
+    //hoHotTrack,
+    { Header items with the owner draw style can be drawn by the application
+      via event. }
+    //hoOwnerDraw,
+    { Header can only be dragged horizontally. }
+    //hoRestrictDrag,
+    { Show application defined header hint. }
+    hoShowHint,
+    { Show header images. }
+    hoShowImages,
+    { Allow visible sort glyphs. }
+    hoShowSortGlyphs,
+    { Distribute size changes of the header to all columns, which are sizable
+      and have the coAutoSpring option enabled. hoAutoResize must be enabled
+      too. }
+    hoAutoSpring,
+    { Fully invalidate the header (instead of subsequent columns only) when a
+      column is resized. }
+    //hoFullRepaintOnResize,
+    { Disable animated resize for all columns. }
+    hoDisableAnimatedResize,
+    { Allow resizing header height via mouse. }
+    //hoHeightResize,
+    { Allow the header to resize itself to its default height. }
+    //hoHeightDblClickResize
+    { Header is visible. }
+    hoVisible
+  ];
+  DEFAULT_VST_STRINGOPTIONS = [
+    { If set then the caption is automatically saved with the tree node,
+      regardless of what is saved in the user data. }
+    //toSaveCaptions,
+    { Show static text in a caption which can be differently formatted than the
+      caption but cannot be edited. }
+    //toShowStaticText,
+    { Automatically accept changes during edit if the user finishes editing
+      other then VK_RETURN or ESC. If not set then changes are cancelled. }
+    toAutoAcceptEditChange
+  ];
+  DEFAULT_VST_ANIMATIONOPTIONS = [
+    toAnimatedToggle,          // Expanding and collapsing a node is animated (quick window scroll).
+    toAdvancedAnimatedToggle   // Do some advanced animation effects when toggling a node.
+  ];
+  DEFAULT_VST_AUTOOPTIONS = [
+    { Expand node if it is the drop target for more than a certain time. }
+    toAutoDropExpand,
+    { Nodes are expanded (collapsed) when getting (losing) the focus. }
+    toAutoExpand,
+    { Scroll if mouse is near the border while dragging or selecting. }
+    toAutoScroll,
+    { Scroll as many child nodes in view as possible after expanding a node. }
+    toAutoScrollOnExpand,
+    { Sort tree when Header.SortColumn or Header.SortDirection change or sort
+      node if child nodes are added. }
+    toAutoSort,
+    { Large entries continue into next column(s) if there's no text in them
+      (no clipping). }
+    //toAutoSpanColumns,
+    { Checkstates are automatically propagated for tri state check boxes. }
+    toAutoTristateTracking,
+    { Node buttons are hidden when there are child nodes, but all are invisible.}
+    //toAutoHideButtons,
+    { Delete nodes which where moved in a drag operation (if not directed
+      otherwise). }
+    toAutoDeleteMovedNodes,
+    { Disable scrolling a node or column into view if it gets focused. }
+    //toDisableAutoscrollOnFocus,
+    { Change default node height automatically if the system's font scale is
+      set to big fonts. }
+    toAutoChangeScale,
+    { Frees any child node after a node has been collapsed (HasChildren flag
+      stays there). }
+    //toAutoFreeOnCollapse,
+    { Do not center a node horizontally when it is edited. }
+    toDisableAutoscrollOnEdit,
+    { When set then columns (if any exist) will be reordered from lowest index
+      to highest index and vice versa when the tree's bidi mode is changed. }
+    toAutoBidiColumnOrdering
+  ];
+{$endregion}
+
+{$region 'TLocalClass' /fold}
 type
   TLocalClass = class
   strict private
@@ -74,6 +221,7 @@ begin
     Inspector.TIObject := ASelection.Items[0];
   end;
 end;
+{$endregion}
 
 function CreateVST(AOwner: TComponent; AParent: TWinControl): TVirtualStringTree;
 var
@@ -84,47 +232,15 @@ begin
   VST.HintMode := hmTooltip;
   VST.Align    := alClient;
   VST.Header.Height := 18;
-  VST.Header.Options := [
-//    hoAutoResize,
-    hoAutoSpring,
-    hoColumnResize,
-    hoDblClickResize,
-    hoDisableAnimatedResize,
-//    hoDrag,
-//    hoFullRepaintOnResize,
-    hoShowSortGlyphs,
-    hoVisible
-  ];
-  VST.TreeOptions.SelectionOptions := [
-    toExtendedFocus
-  ];
-  VST.TreeOptions.MiscOptions := [
-//    toAcceptOLEDrop,
-//    toEditable,
-//    toEditOnClick,
-//    toFullRepaintOnResize,
-//    toEditOnDblClick,
-    toInitOnSave,
-    toToggleOnDblClick,
-    toVariableNodeHeight,
-    toWheelPanning
-  ];
-  VST.TreeOptions.PaintOptions := [
-    toHideFocusRect,
-    toPopupMode,
-    toShowButtons,
-    toShowDropmark,
-    toShowHorzGridLines,
-    toShowBackground,
-    toStaticBackground,
-    toShowRoot,
-    toShowTreeLines,
-    toShowVertGridLines,
-    toThemeAware,
-    toUseBlendedImages,
-    toUseBlendedSelection
-  ];
-  VST.DragType := dtVCL; // dtOLE does not work yet
+  VST.Header.Options               := DEFAULT_VST_HEADEROPTIONS;
+  VST.TreeOptions.SelectionOptions := DEFAULT_VST_SELECTIONOPTIONS;
+  VST.TreeOptions.MiscOptions      := DEFAULT_VST_MISCOPTIONS;
+  VST.TreeOptions.PaintOptions     := DEFAULT_VST_PAINTOPTIONS;
+  VST.TreeOptions.StringOptions    := DEFAULT_VST_STRINGOPTIONS;
+  VST.TreeOptions.AnimationOptions := DEFAULT_VST_ANIMATIONOPTIONS;
+  VST.TreeOptions.AutoOptions      := DEFAULT_VST_AUTOOPTIONS;
+
+  VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
   Result := VST;
 end;
 

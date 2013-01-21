@@ -361,7 +361,7 @@ var
 begin
   BeginUpdate;
   try
-    Refresh;
+    //Refresh;
     LNode := FTreeView.GetFirst;
     while Assigned(LNode) do
     begin
@@ -516,7 +516,7 @@ begin
       S1 := LItemTemplate1.GetText(LItem1, Column);
       S2 := LItemTemplate2.GetText(LItem2, Column);
       case ColumnDefinitions[Column].DataType of
-        dtString:
+       dtString:
           Result := CompareText(S1, S2);
        dtNumeric:
        begin
@@ -1317,7 +1317,7 @@ begin
       if Assigned(LItem) and (Value.IndexOf(LItem) > -1) then
       begin
         FTreeView.Selected[LNode] := True;
-        // TSI
+        // TS
         FTreeView.ScrollIntoView(LNode, False);
       end;
       LNode := FTreeView.GetNext(LNode);

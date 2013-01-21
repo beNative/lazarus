@@ -241,12 +241,16 @@ function SetToString(
         ATrimChars   : Integer = -1
 ): string;
 
+function FileIsText(const AFilename: string): Boolean;
+
 //*****************************************************************************
 
 implementation
 
 uses
   StrUtils, Dialogs,
+
+  LazFileUtils,
 
   //RegExpr,
   SynRegExpr,
@@ -1428,8 +1432,11 @@ begin
     Result := '(' + Result + ')';
 end;
 
+function FileIsText(const AFilename: string): Boolean;
+begin
+  Result := LazFileUtils.FileIsText(AFilename);
+end;
+
 end.
-
-
 //  /**/ style comments : /\*[\d\D]*?\*/
 // (\/\*(\s*|.*?)*\*\/)|(\/\/.*)

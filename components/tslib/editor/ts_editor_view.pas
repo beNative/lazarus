@@ -1924,7 +1924,7 @@ begin
       SelectBlockAroundCursor('>', '<', False, False)
     else if HighlighterItem.Name = 'PAS' then
       SelectBlockAroundCursor('begin', 'end', True, True)
-    else if HighlighterItem.Name = 'BaltaLOG' then
+    else if HighlighterItem.Name = 'LOG' then
       SelectBlockAroundCursor('<XMLRoot>', '</XMLRoot>', True, True);
   end;
 end;

@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 16/01/2013
+   This file was generated on 21/01/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,11 +30,10 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('tsbundle');
     P.Dependencies.Add('zcomponent');
     P.Dependencies.Add('lazrichedit');
-    P.Dependencies.Add('xmltreepkg');
     P.Dependencies.Add('luicontrols');
-    P.Dependencies.Add('nativexml_laz');
     P.Dependencies.Add('virtualtreeview_package');
     P.Dependencies.Add('luicomponents');
     P.Dependencies.Add('multiloglaz');
@@ -56,15 +55,8 @@ begin
     P.Options.Add('-vm5024');
     P.Options.Add('-dLCL');
     P.Options.Add('-dLCL$(LCL_PLATFORM)');
-    P.IncludePath.Add('../NativeXml');
-    P.IncludePath.Add('../NativeXml/nativexml');
-    P.IncludePath.Add('dialogs');
     P.IncludePath.Add('core');
     P.IncludePath.Add('editor');
-    P.Options.Add('-Fu../NativeXml');
-    P.Options.Add('-Fu../NativeXml/nativexml');
-    P.Options.Add('-Fu../NativeXml/general');
-    P.Options.Add('-Fudialogs');
     P.Options.Add('-Fueditor');
     P.Options.Add('-Fucore');
     P.Options.Add('-Furicheditor');
@@ -72,17 +64,16 @@ begin
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../NativeXml/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../virtualtreeview/XMLTree/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -145,6 +136,7 @@ begin
     t.Dependencies.AddUnit('ts_editor_types');
     t.Dependencies.AddUnit('ts_editor_unihighlighter');
     t.Dependencies.AddUnit('ts_editor_exportrtf');
+    t.Dependencies.AddUnit('ts_core_collections');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -202,6 +194,7 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_types.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_unihighlighter.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_exportrtf.pas');
+    T:=P.Targets.AddUnit('core\ts_core_collections.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

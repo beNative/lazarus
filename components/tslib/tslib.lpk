@@ -8,8 +8,8 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="e:\lazarus\components\NativeXml\;e:\lazarus\components\NativeXml\nativexml\;dialogs;core;editor"/>
-        <OtherUnitFiles Value="e:\lazarus\components\NativeXml\;e:\lazarus\components\NativeXml\nativexml\;e:\lazarus\components\NativeXml\general\;dialogs;editor;core;richeditor;docking"/>
+        <IncludeFiles Value="core;editor"/>
+        <OtherUnitFiles Value="editor;core;richeditor;docking"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <CodeGeneration>
@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="70">
+    <Files Count="71">
       <Item1>
         <Filename Value="laz_images.lrs"/>
         <Type Value="LRS"/>
@@ -329,52 +329,53 @@
         <Filename Value="editor\ts_editor_exportrtf.pas"/>
         <UnitName Value="ts_Editor_ExportRTF"/>
       </Item70>
+      <Item71>
+        <Filename Value="core\ts_core_collections.pas"/>
+        <UnitName Value="ts_core_collections"/>
+      </Item71>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="13">
+    <RequiredPkgs Count="12">
       <Item1>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="tsBundle"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="zcomponent"/>
       </Item2>
       <Item3>
-        <PackageName Value="XMLTreepkg"/>
+        <PackageName Value="LazRichEdit"/>
       </Item3>
       <Item4>
         <PackageName Value="luicontrols"/>
       </Item4>
       <Item5>
-        <PackageName Value="nativexml_laz"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="luicomponents"/>
       </Item6>
       <Item7>
-        <PackageName Value="luicomponents"/>
+        <PackageName Value="multiloglaz"/>
       </Item7>
       <Item8>
-        <PackageName Value="multiloglaz"/>
+        <PackageName Value="LCL"/>
       </Item8>
       <Item9>
-        <PackageName Value="LCL"/>
+        <PackageName Value="richmemopackage"/>
       </Item9>
       <Item10>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="SynEdit"/>
       </Item10>
       <Item11>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item11>
       <Item12>
-        <PackageName Value="RunTimeTypeInfoControls"/>
-      </Item12>
-      <Item13>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item13>
+      </Item12>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

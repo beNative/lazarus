@@ -79,7 +79,7 @@ type
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     function FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
@@ -87,7 +87,7 @@ type
       TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FTVPSelectionChanged(Sender: TObject);
-    procedure FVSTKeyPress(Sender: TObject; var Key: char);
+    procedure FVSTKeyPress(Sender: TObject; var Key: Char);
 
   private
     FTVP        : TTreeViewPresenter;
@@ -157,9 +157,9 @@ type
       const AString : string;
         var AMatch  : string;
         var APos    : Integer
-    ): Boolean; overload;
+    ): Boolean; overload; inline;
 
-    function IsMatch(const AString : string): Boolean; overload;
+    function IsMatch(const AString : string): Boolean; overload; inline;
 
     procedure DoFilteredLineChange(
             AIndex  : Integer;
@@ -509,7 +509,7 @@ begin
   FVKPressed := False;
 end;
 
-procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   Filter := '';
 end;
@@ -554,11 +554,11 @@ begin
     begin
       S := IntToStr(L.Index + 1);
       R := CellRect;
-      R.Right := R.Right - 8;
       TargetCanvas.FillRect(R);
       FTextStyle.Alignment := taRightJustify;
       TargetCanvas.Font.Color := clGray;
       TargetCanvas.Font.Name := 'Consolas';
+      R.Right := R.Right - 8;
       TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
     end
     else
@@ -714,6 +714,8 @@ begin
   if FUpdate then
   begin
     FTVP.ApplyFilter;
+
+    Logger.Send('FVST.VisibleCount', FVST.VisibleCount);
     FUpdate := False;
   end;
   if FUpdateView then

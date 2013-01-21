@@ -351,6 +351,8 @@ var
     (Name: dlgDivPasTryName;          Xml: 'Try';     BoolOpt: False; MaxLevel: 0)
   );
 
+
+
 //*****************************************************************************
 
 implementation

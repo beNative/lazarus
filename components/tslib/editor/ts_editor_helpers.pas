@@ -368,7 +368,7 @@ begin
   AddEditorMenuItem(MI, 'actHighlighterPERL');
   AddEditorMenuItem(MI, 'actHighlighterPY');
   AddEditorMenuItem(MI, 'actHighlighterHTML');
-  AddEditorMenuItem(MI, 'actHighlighterBaltaLog');
+  AddEditorMenuItem(MI, 'actHighlighterLog');
   AddEditorMenuItem(MI, 'actHighlighterTXT');
   AddEditorMenuItem(MI, 'actHighlighterBAT');
   AddEditorMenuItem(MI, 'actHighlighterINI');

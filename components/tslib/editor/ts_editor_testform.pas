@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ExtCtrls,
 
-  XMLTree,
+  //XMLTree,
 
   ts_Editor_Interfaces;
 
@@ -41,7 +41,7 @@ type
     pnlXML     : TPanel;
 
   private
-    FXMLTree: TXMLTree;
+    //FXMLTree: TXMLTree;
 
     function GetForm: TForm;
     function GetManager: IEditorManager;

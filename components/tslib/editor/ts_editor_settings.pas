@@ -570,6 +570,8 @@ begin
   FChangedEventList.Remove(TMethod(AEvent));
 end;
 
+{ TODO -oTS : Refactor this }
+
 procedure TEditorSettings.InitializeHighlighterAttributes;
 var
   HA : TSynHighlighterAttributes;

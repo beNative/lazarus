@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2224
+  Left = 2113
   Height = 618
-  Top = 346
+  Top = 187
   Width = 1066
   AllowDropFiles = True
   Anchors = []

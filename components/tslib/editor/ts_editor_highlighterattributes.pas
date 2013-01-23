@@ -105,7 +105,9 @@ type
 
     // property access methods
     function GetItem(Index: Integer): THighlighterAttributesItem;
+    function GetItemByName(const AName: string): THighlighterAttributesItem;
     procedure SetItem(Index: Integer; const Value: THighlighterAttributesItem);
+    procedure SetItemByName(const AName: string; AValue: THighlighterAttributesItem);
 
   protected
     procedure SetItemName(Item: TCollectionItem); override;
@@ -121,6 +123,8 @@ type
     function Insert(Index: Integer): THighlighterAttributesItem;
     function Owner: TComponent; reintroduce;
 
+    function RegisterItem(const AName: string): Boolean;
+
     function GetEnumerator: THighlighterAttributesEnumerator;
 
     function IndexOf(const AName: string): Integer; virtual;
@@ -134,6 +138,9 @@ type
     { Provides indexed access to the list of collection items. }
     property Items[Index: Integer]: THighlighterAttributesItem
       read GetItem write SetItem; default;
+
+    property ItemsByName[const AName: string]: THighlighterAttributesItem
+      read GetItemByName write SetItemByName;
   end;
 
 //*****************************************************************************
@@ -187,16 +194,38 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-//---|Items|-------------------------------------------------------------------
-
 function THighlighterAttributes.GetItem(Index: Integer): THighlighterAttributesItem;
 begin
   Result := inherited Items[Index] as THighlighterAttributesItem;
 end;
 
-procedure THighlighterAttributes.SetItem(Index: Integer; const Value: THighlighterAttributesItem);
+procedure THighlighterAttributes.SetItem(Index: Integer; const Value:
+  THighlighterAttributesItem);
 begin
   Items[Index].Assign(Value);
+end;
+
+function THighlighterAttributes.GetItemByName(const AName: string):
+  THighlighterAttributesItem;
+begin
+  Result := Find(AName);
+end;
+
+procedure THighlighterAttributes.SetItemByName(const AName: string; AValue:
+  THighlighterAttributesItem);
+var
+  Item: THighlighterAttributesItem;
+begin
+  Item := Find(AName);
+  if Assigned(Item) then
+    Item.Assign(AValue)
+  else
+  begin
+    Item := Add;
+    Item.Name := AName;
+    //Item.Attributes. := AName;
+    Item.Attributes.StoredName := AName;
+  end;
 end;
 
 //*****************************************************************************
@@ -275,6 +304,22 @@ begin
     Result := TComponent(AOwner)
   else
     Result := nil;
+end;
+
+function THighlighterAttributes.RegisterItem(const AName: string): Boolean;
+var
+  Item: THighlighterAttributesItem;
+begin
+  Item := Find(AName);
+  if Assigned(Item) then
+    Result := False
+  else
+  begin
+    Item := Add;
+    Item.Name := AName;
+    Item.Attributes.StoredName := AName;
+    Result := True;
+  end;
 end;
 
 function THighlighterAttributes.GetEnumerator: THighlighterAttributesEnumerator;
@@ -366,7 +411,7 @@ end;
 
 procedure THighlighterAttributesItem.SetAttributes(AValue: TSynHighlighterAttributes);
 begin
-  FAttributes := AValue;
+  FAttributes.Assign(AValue);
 end;
 
 // By default, DisplayName is the name of the TCollectionItem descendant class

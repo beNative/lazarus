@@ -50,16 +50,20 @@ const
   HL_PY   = 'PY';
   HL_PO   = 'PO';
   HL_HTML = 'HTML';
+  HL_CSS  = 'CSS';
+  HL_JS   = 'JS';
+  HL_CS   = 'CS';
 
   LAYOUT_INI = 'Ini.hgl';
   LAYOUT_RTF = 'RTF.hgl';
   LAYOUT_RES = 'Resource.hgl';
   LAYOUT_LOG = 'Log.hgl';
+  LAYOUT_CS  = 'C#.hgl';
 
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
-  FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc';
-  FILE_EXTENSIONS_CPP  = 'cpp,h';
+  FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk,lpk';
+  FILE_EXTENSIONS_CPP  = 'cpp,h,hpp';
   FILE_EXTENSIONS_JAVA = 'java';
   FILE_EXTENSIONS_SQL  = 'sql';
   FILE_EXTENSIONS_XML  = 'xml,hgl,lpi,dproj,groupproj';
@@ -69,10 +73,14 @@ const
   FILE_EXTENSIONS_RTF  = 'rtf';
   FILE_EXTENSIONS_RES  = 'res';
   FILE_EXTENSIONS_PHP  = 'php';
-  FILE_EXTENSIONS_PERL = '';
+  FILE_EXTENSIONS_PERL = 'pl';
   FILE_EXTENSIONS_PY   = 'py';
   FILE_EXTENSIONS_HTML = 'html,htm';
   FILE_EXTENSIONS_PO   = 'po';
+  FILE_EXTENSIONS_JS   = 'js';
+  FILE_EXTENSIONS_CSS  = 'css';
+  FILE_EXTENSIONS_CS   = 'cs';
+
 
 //-----------------------------------------------------------------------------
 
@@ -97,6 +105,9 @@ resourcestring
   SPHPDescription  = 'PHP';
   SPERLDescription = 'Perl';
   SPYDescription   = 'Python';
+  SCSSDescription  = 'Cascading Style Sheet';
+  SJSDescription   = 'JavaScript';
+  SCSDescription   = 'C#';
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 
@@ -203,7 +214,7 @@ const
     (Name:  dlgFoldPasCase;          Xml:     'Case';
      Index: Ord(cfbtCase);         Enabled: False),
     (Name:  dlgFoldPasCaseElse;      Xml:     'CaseElse';
-     Index: Ord(cfbtCaseElse);         Enabled: False),
+     Index: Ord(cfbtCaseElse);      Enabled: False),
     (Name:  dlgFoldPasTry;           Xml:     'Try';
      Index: Ord(cfbtTry);          Enabled: False),
     (Name:  dlgFoldPasExcept;        Xml:     'Except';

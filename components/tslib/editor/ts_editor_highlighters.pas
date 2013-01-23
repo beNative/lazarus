@@ -70,7 +70,10 @@ type
     constructor Create(ACollection: TCollection); override;
     procedure BeforeDestruction; override;
 
-    procedure InitSynHighlighter;
+    procedure InitSynHighlighter(
+      { Optional instance to assign the settings to. }
+      ASynHighlighter: TSynCustomHighlighter = nil
+    );
     procedure Assign(Source: TPersistent); override;
     function AsString: string;
     procedure Reload;
@@ -250,8 +253,6 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-//---|Items|-------------------------------------------------------------------
-
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
   Result := inherited Items[Index] as THighlighterItem;
@@ -261,8 +262,6 @@ procedure THighlighters.SetItem(Index: Integer; const Value: THighlighterItem);
 begin
   Items[Index].Assign(Value);
 end;
-
-//---|ItemsByName|-------------------------------------------------------------
 
 function THighlighters.GetItemByName(const AName: string): THighlighterItem;
 begin
@@ -468,7 +467,7 @@ begin
   HI.LayoutFileName       := ALayoutFileName;
   HI.FileExtensions       := AFileExtensions;
 
-  HI.InitSynHighlighter;
+  HI.InitSynHighlighter(ASynHighlighter);
 
   if FileExists(S + ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
   begin
@@ -500,7 +499,7 @@ begin
   inherited Create(ACollection);
   FFileExtensions := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
-  FFileExtensions.Sorted := True;
+  FFileExtensions.Sorted     := True;
 end;
 
 procedure THighlighterItem.BeforeDestruction;
@@ -611,7 +610,7 @@ begin
   Result := Format(DATA, [SynHighlighter.ClassName, Name, Description, LayoutFileName]);
 end;
 
-procedure THighlighterItem.InitSynHighlighter;
+procedure THighlighterItem.InitSynHighlighter(ASynHighlighter: TSynCustomHighlighter);
 begin
   if not Assigned(SynHighlighter) then
   begin
@@ -624,6 +623,8 @@ begin
     // will not be persisted.
     FSynHighlighter.SetSubComponent(True);
   end;
+  if Assigned(ASynHighlighter) then
+    FSynHighlighter.Assign(ASynHighlighter);
 end;
 
 procedure THighlighterItem.Reload;

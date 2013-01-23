@@ -13,6 +13,14 @@ msgstr ""
 msgid "C++"
 msgstr ""
 
+#: ts_editor_resources.scsdescription
+msgid "C#"
+msgstr ""
+
+#: ts_editor_resources.scssdescription
+msgid "Cascading Style Sheet"
+msgstr ""
+
 #: ts_editor_resources.shtmldescription
 msgid "HTML document"
 msgstr ""
@@ -23,6 +31,10 @@ msgstr ""
 
 #: ts_editor_resources.sjavadescription
 msgid "Java"
+msgstr ""
+
+#: ts_editor_resources.sjsdescription
+msgid "JavaScript"
 msgstr ""
 
 #: ts_editor_resources.slfmdescription

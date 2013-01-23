@@ -573,97 +573,29 @@ end;
 { TODO -oTS : Refactor this }
 
 procedure TEditorSettings.InitializeHighlighterAttributes;
-var
-  HA : TSynHighlighterAttributes;
 begin
-  if FHighlighterAttributes.Count = 0 then
+  with FHighlighterAttributes do
   begin
-    with FHighlighterAttributes do
-    begin
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrComment, SYNS_XML_AttrComment);
-      HA.StoredName := SYNS_XML_AttrComment;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrComment;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrIdentifier, SYNS_XML_AttrIdentifier);
-      HA.StoredName := SYNS_XML_AttrIdentifier;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrIdentifier;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrString, SYNS_XML_AttrString);
-      HA.StoredName := SYNS_XML_AttrString;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrString;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrSymbol, SYNS_XML_AttrSymbol);
-      HA.StoredName := SYNS_XML_AttrSymbol;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrSymbol;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrNumber, SYNS_XML_AttrNumber);
-      HA.StoredName := SYNS_XML_AttrNumber;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrNumber;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrKey, SYNS_XML_AttrKey);
-      HA.StoredName := SYNS_XML_AttrKey;
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrKey;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrFloat, SYNS_XML_AttrFloat);
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrFloat;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrHexadecimal, SYNS_XML_AttrHexadecimal);
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrHexadecimal;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-
-      HA := TSynHighlighterAttributes.Create(SYNS_AttrReservedWord, SYNS_XML_AttrReservedWord);
-      with FHighlighterAttributes.Add do
-      begin
-        Name := SYNS_XML_AttrReservedWord;
-        Attributes.Assign(HA);
-      end;
-      FreeAndNil(HA);
-    end;
+    RegisterItem(SYNS_XML_AttrComment);// SYNS_XML_AttrDocumentation  SYNS_XML_AttrRplComment SYNS_XML_AttrSASMComment
+    RegisterItem(SYNS_XML_AttrString);
+    RegisterItem(SYNS_XML_AttrSymbol); // SYNS_XML_AttrBrackets  // SYNS_XML_AttrSquareBracket SYNS_XML_AttrRoundBracket
+    RegisterItem(SYNS_XML_AttrNumber);
+    RegisterItem(SYNS_XML_AttrKey);  //SYNS_XML_AttrRplKey  SYNS_XML_AttrSQLKey  SYNS_XML_AttrSQLPlus  SYNS_XML_AttrTeXCommand SYNS_XML_AttrSASMKey
+    RegisterItem(SYNS_XML_AttrFloat);
+    RegisterItem(SYNS_XML_AttrHexadecimal);
+    RegisterItem(SYNS_XML_AttrReservedWord);   // SYNS_XML_AttrPLSQL   SYNS_XML_AttrSecondReservedWord
+    RegisterItem(SYNS_XML_AttrDirective);  // SYNS_XML_AttrIDEDirective SYNS_XML_AttrInclude SYNS_XML_AttrPreprocessor  SYNS_XML_AttrProcessingInstr
+    RegisterItem(SYNS_XML_AttrCharacter);
+    RegisterItem(SYNS_XML_AttrVariable);  // SYNS_XML_AttrSpecialVariable
+    RegisterItem(SYNS_XML_AttrNull);
+    RegisterItem(SYNS_XML_AttrOperator);
+    RegisterItem(SYNS_XML_AttrAttributeName); // SYNS_XML_AttrIdentifier; SYNS_XML_AttrNamespaceAttrName SYNS_XML_AttrElementName
+    RegisterItem(SYNS_XML_AttrAttributeValue); // SYNS_XML_AttrValue SYNS_XML_AttrNamespaceAttrValue  SYNS_XML_AttrCDATA  SYNS_XML_AttrDOCTYPE
+    RegisterItem(SYNS_XML_AttrMacro);   // SYNS_XML_AttrPragma
+    RegisterItem(SYNS_XML_AttrText);    //SYNS_XML_AttrEmbedText
+    RegisterItem(SYNS_XML_AttrSection); //      SYNS_XML_AttrASP  SYNS_XML_AttrDOCTYPESection  SYNS_XML_AttrCDATASection
+    RegisterItem(SYNS_XML_AttrDataType);
   end;
-//Add( TSynHighlighterAttributes.Create(SYNS_AttrComment, SYNS_XML_AttrComment));
-//    Add(TSynHighlighterAttributes.Create(SYNS_AttrIdentifier, SYNS_XML_AttrIdentifier));
-//    Add(TSynHighlighterAttributes.Create(SYNS_AttrString, SYNS_XML_AttrString));
-//    Add(TSynHighlighterAttributes.Create(SYNS_AttrSymbol, SYNS_XML_AttrSymbol));
-//    Add(TSynHighlighterAttributes.Create(SYNS_AttrNumber, SYNS_XML_AttrNumber));
 end;
 
 //*****************************************************************************

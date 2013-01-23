@@ -41,7 +41,7 @@ unit ts_Editor_Manager;
    - list of all supported actions, category, shortcut, description (treeview)
 
    - make ts_Editor_Actions, ts_Editor_Menus, ts_Editor_Images ?
-   - make ts_Editor_Highlighters, ts_Editor_Events and ts_Editor_Views?
+   - make ts_Editor_Events and ts_Editor_Views?
 
    - xml/HTML treeview?
    - binary editor view
@@ -139,16 +139,12 @@ uses
 
   LCLType,
 
-  SynEdit, SynEditHighlighter,
+  SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  SynHighlighterPas, SynHighlighterAny, SynHighlighterSQL, SynHighlighterLFM,
-  SynHighlighterXML, SynMacroRecorder, SynExportHTML, SynHighlighterBat,
-  SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava, SynHighlighterPerl,
-  SynHighlighterPython,
-  SynHighlighterPo,
+  SynHighlighterAny,
 
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
-  ts_Editor_View, ts_Editor_UniHighlighter, ts_Editor_ExportRTF;
+  ts_Editor_View, ts_Editor_ExportRTF;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,
@@ -392,20 +388,8 @@ type
     ppmHighLighters               : TPopupMenu;
     ppmLineBreakStyle             : TPopupMenu;
     SynAnySyn                     : TSynAnySyn;
-    SynBatSyn                     : TSynBatSyn;
-    SynCppSyn                     : TSynCppSyn;
     SynExporterHTML               : TSynExporterHTML;
-    //SynExporterWiki               : TSynExporterWiki;
-    SynHTMLSyn                    : TSynHTMLSyn;
-    SynJavaSyn                    : TSynJavaSyn;
-    SynLFMSyn                     : TSynLFMSyn;
     SynMacroRecorder              : TSynMacroRecorder;
-    SynPasSyn                     : TSynPasSyn;
-    SynPerlSyn                    : TSynPerlSyn;
-    SynPythonSyn                  : TSynPythonSyn;
-    SynSQLSyn                     : TSynSQLSyn;
-    SynUniSyn                     : TSynUniSyn;
-    SynXMLSyn                     : TSynXMLSyn;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -511,7 +495,6 @@ type
 
   private
     FPersistSettings   : Boolean;
-    FSynHighlighterPo  : TSynPoSyn;
     FSynExporterRTF    : TSynExporterRTF;
 
     FOnChange              : TNotifyEvent;
@@ -598,7 +581,7 @@ type
     );
     procedure EditorSettingsChanged(ASender: TObject);
 
-    procedure InitializeHighlighters;
+    procedure InitializeFoldHighlighters;
     procedure InitializePopupMenus;
     procedure InitializeActions;
     procedure RegisterHighlighters;
@@ -802,7 +785,13 @@ uses
 
   LConvEncoding, Base64,
 
-  SynEditTypes, SynPluginSyncroEdit,
+  SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
+
+  SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
+  SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
+  SynHighlighterPerl, SynHighlighterPython, SynHighlighterPo,
+  SynHighlighterPHP, SynHighlighterCss, SynHighlighterJScript,
+  synhighlighterunixshellscript,
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 
@@ -811,7 +800,7 @@ uses
   ts_Editor_Testform, ts_Editor_SearchForm, ts_Editor_ShortcutsDialog,
   ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
-  ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
+  ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_Editor_UniHighlighter,
 
   ts_Editor_CodeFormatters, ts_Editor_SearchEngine;
 
@@ -849,11 +838,10 @@ begin
   FViewList         := TEditorViewList.Create;
   FToolViewList     := TEditorToolViewList.Create;
   FSearchEngine     := TSearchEngine.Create(Self);
-  FSynHighlighterPo := TSynPoSyn.Create(Self);
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
 
-  InitializeHighlighters;
   RegisterHighlighters;
+  InitializeFoldHighlighters;
 
   InitializeActions;
   InitializePopupMenus;
@@ -867,7 +855,6 @@ begin
     FSettings.Save;
   FSearchEngine := nil;
   FSettings := nil;
-  FreeAndNil(FSynHighlighterPo);
   FreeAndNil(FToolViewList);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
@@ -1042,6 +1029,7 @@ begin
       Settings.Load;
       // TSI voorlopig
       RegisterHighlighters;
+      InitializeFoldHighlighters;
     end;
     FPersistSettings := AValue;
   end;
@@ -1494,7 +1482,8 @@ end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
-  InspectComponent((ActiveView.Editor as IInterfaceComponentReference).GetComponent);
+  //InspectComponent((ActiveView.Editor as IInterfaceComponentReference).GetComponent);
+  InspectComponent(ActiveView.Editor.Highlighter);
 end;
 
 procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);
@@ -1886,52 +1875,48 @@ end;
 { Initializes extra information related to the built-in highlighters like
   folding configuration and devider info. }
 
-procedure TdmEditorManager.InitializeHighlighters;
+procedure TdmEditorManager.InitializeFoldHighlighters;
 var
-  I: Integer;
-  N: Integer;
+  I  : Integer;
+  N  : Integer;
+  FH : TSynCustomFoldHighlighter;
 begin
-  SynPasSyn.AddSpecialAttribute('');
+
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['PAS'].SynHighlighter);
+  FH.AddSpecialAttribute(''); // not sure why this is needed...
   for I := Low(EditorOptionsDividerInfoPas) to High(EditorOptionsDividerInfoPas) do
   begin
-    SynPasSyn.DividerDrawConfig[I].MaxDrawDepth :=
+    FH.DividerDrawConfig[I].MaxDrawDepth :=
       EditorOptionsDividerInfoPas[I].MaxLevel;
   end;
-
   for I := Low(EditorOptionsFoldInfoPas) to High(EditorOptionsFoldInfoPas) do
   begin
     N := EditorOptionsFoldInfoPas[I].Index;
     if N >= 0 then
-      SynPasSyn.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
   end;
 
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['XML'].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoXML) to High(EditorOptionsFoldInfoXML) do
   begin
     N := EditorOptionsFoldInfoXML[I].Index;
     if N >= 0 then
-      SynXMLSyn.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
   end;
-
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['LFM'].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoLFM) to High(EditorOptionsFoldInfoLFM) do
   begin
     N := EditorOptionsFoldInfoLFM[I].Index;
     if N >= 0 then
-      SynLFMSyn.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
   end;
-
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['HTML'].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoHTML) to High(EditorOptionsFoldInfoHTML) do
   begin
     N := EditorOptionsFoldInfoHTML[I].Index;
     if N >= 0 then
-      SynHTMLSyn.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
   end;
-
-  FSynHighlighterPo.CommentAttri.Foreground := clNavy;
-  FSynHighlighterPo.CommentAttri.Style := [fsItalic];
-  FSynHighlighterPo.KeyAttri.Foreground := clBlue;
-  FSynHighlighterPo.KeyAttri.Style := [fsBold];
-  FSynHighlighterPo.StringAttribute.ForeGround := clGreen;
-  FSynHighlighterPo.StringAttribute.Style := [fsBold, fsItalic];
 end;
 
 procedure TdmEditorManager.InitializePopupMenus;
@@ -1941,7 +1926,6 @@ var
   MI : TMenuItem;
   HI : THighlighterItem;
   A  : TCustomAction;
-  I  : Integer;
 begin
   HighlighterPopupMenu.Items.Caption := 'Highlighters';
   HighlighterPopupMenu.Items.Action := actToggleHighlighter;
@@ -2014,7 +1998,6 @@ var
   A : TAction;
   SL: TStringList;
   S : string;
-  I : Integer;
   HI: THighlighterItem;
 begin
   SL := TStringList.Create;
@@ -2044,7 +2027,7 @@ begin
     end;
     for HI in Highlighters do
     begin
-      A.Tag := I;
+      A.Tag := HI.Index;
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
       A.Caption := HI.Name;
@@ -2089,26 +2072,32 @@ begin
   Highlighters.Clear;
   Reg(TSynAnySyn, SynAnySyn, 'None');
   Reg(TSynAnySyn, SynAnySyn, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
-  Reg(TSynPasSyn, SynPasSyn, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
-  Reg(TSynSQLSyn, SynSQLSyn, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
-  Reg(TSynXMLSyn, SynXMLSyn, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
-  Reg(TSynLFMSyn, SynLFMSyn, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
-  Reg(TSynBatSyn, SynBatSyn, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
-  Reg(TSynUniSyn, FSynHighlighterPo, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
-  Reg(TSynCppSyn, SynCppSyn, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
-  Reg(TSynJavaSyn, SynJavaSyn, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
-  Reg(TSynPerlSyn, SynPerlSyn, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
-  Reg(TSynPythonSyn, SynPythonSyn, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
-  Reg(TSynHTMLSyn, SynHTMLSyn, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
+  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
+  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
+  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
+  Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
+  Reg(TSynUniSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
+  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
+  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
+  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
+  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
+  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
+  Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
+
 
   if FileExists(LAYOUT_LOG) then
-    Reg(TSynUniSyn, SynUniSyn, HL_LOG, 'log', SLOGDescription, '', '', '', nil, LAYOUT_LOG);
+    Reg(TSynUniSyn, nil, HL_LOG, 'log', SLOGDescription, '', '', '', nil, LAYOUT_LOG);
   if FileExists(LAYOUT_INI) then
-    Reg(TSynUniSyn, SynUniSyn, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
+    Reg(TSynUniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
   if FileExists(LAYOUT_RTF) then
-    Reg(TSynUniSyn, SynUniSyn, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
+    Reg(TSynUniSyn, nil, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
   if FileExists(LAYOUT_RES) then
-    Reg(TSynUniSyn, SynUniSyn, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
+    Reg(TSynUniSyn, nil, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
+  if FileExists(LAYOUT_CS) then
+    Reg(TSynUniSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, LAYOUT_CS);
   ApplyHighlighterAttributes;
 end;
 

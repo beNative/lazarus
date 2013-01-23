@@ -3,7 +3,7 @@ object dmEditorManager: TdmEditorManager
   Height = 384
   HorizontalOffset = 1053
   VerticalOffset = 81
-  Width = 457
+  Width = 511
   object imlMain: TImageList
     AllocBy = 1
     DrawingStyle = dsTransparent
@@ -5551,41 +5551,6 @@ object dmEditorManager: TdmEditorManager
       Action = actCloseOthers
     end
   end
-  object SynPasSyn: TSynPasSyn
-    DefaultFilter = 'Pascal Files (*.pas,*.pp,*.dpr,*.dpk,*.inc)|*.pas;*.pp;*.dpr;*.dpk;*.inc;*.pipo'
-    Enabled = False
-    AsmAttri.Foreground = clGray
-    AsmAttri.FrameEdges = sfeAround
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    IDEDirectiveAttri.Foreground = clTeal
-    IDEDirectiveAttri.FrameEdges = sfeAround
-    IDEDirectiveAttri.Style = [fsBold]
-    IdentifierAttri.Foreground = clDefault
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.Foreground = clGreen
-    StringAttri.FrameEdges = sfeAround
-    StringAttri.Style = [fsBold, fsItalic]
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    SymbolAttri.Style = [fsBold]
-    CaseLabelAttri.Foreground = clMaroon
-    CaseLabelAttri.FrameEdges = sfeAround
-    DirectiveAttri.Foreground = clOlive
-    DirectiveAttri.FrameEdges = sfeAround
-    DirectiveAttri.Style = [fsBold]
-    CompilerMode = pcmDelphi
-    NestedComments = False
-    ExtendedKeywordsMode = True
-    left = 344
-    top = 76
-  end
   object SynAnySyn: TSynAnySyn
     DefaultFilter = 'Txt files|*.txt'
     Enabled = False
@@ -5612,97 +5577,6 @@ object dmEditorManager: TdmEditorManager
     left = 344
     top = 24
   end
-  object SynSQLSyn: TSynSQLSyn
-    DefaultFilter = 'SQL Files (*.sql)|*.sql'
-    Enabled = False
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    DataTypeAttri.FrameEdges = sfeAround
-    DefaultPackageAttri.FrameEdges = sfeAround
-    ExceptionAttri.FrameEdges = sfeAround
-    FunctionAttri.Foreground = clBlue
-    FunctionAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    PLSQLAttri.Foreground = clBlue
-    PLSQLAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SQLPlusAttri.Foreground = clBlue
-    SQLPlusAttri.FrameEdges = sfeAround
-    StringAttri.Foreground = clGreen
-    StringAttri.FrameEdges = sfeAround
-    StringAttri.Style = [fsBold, fsItalic]
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    SymbolAttri.Style = [fsBold]
-    TableNameAttri.FrameEdges = sfeAround
-    VariableAttri.Foreground = clPurple
-    VariableAttri.FrameEdges = sfeAround
-    VariableAttri.Style = [fsBold]
-    SQLDialect = sqlMSSQL2K
-    left = 344
-    top = 132
-  end
-  object SynLFMSyn: TSynLFMSyn
-    DefaultFilter = 'Lazarus formulier bestanden (*.lfm, *.dfm)|*.lfm;*.dfm'
-    Enabled = False
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.Foreground = clBlack
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.Foreground = clGreen
-    StringAttri.FrameEdges = sfeAround
-    StringAttri.Style = [fsBold, fsItalic]
-    left = 344
-    top = 188
-  end
-  object SynXMLSyn: TSynXMLSyn
-    DefaultFilter = 'XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd'
-    Enabled = False
-    ElementAttri.Foreground = clBlue
-    ElementAttri.FrameEdges = sfeAround
-    AttributeAttri.FrameEdges = sfeAround
-    AttributeAttri.Style = [fsBold]
-    NamespaceAttributeAttri.FrameEdges = sfeAround
-    AttributeValueAttri.Foreground = clGreen
-    AttributeValueAttri.FrameEdges = sfeAround
-    AttributeValueAttri.Style = [fsBold, fsItalic]
-    NamespaceAttributeValueAttri.Foreground = clBlack
-    NamespaceAttributeValueAttri.FrameEdges = sfeAround
-    TextAttri.FrameEdges = sfeAround
-    TextAttri.Style = []
-    CDATAAttri.Foreground = clGray
-    CDATAAttri.FrameEdges = sfeAround
-    CDATAAttri.Style = []
-    EntityRefAttri.Foreground = clPurple
-    EntityRefAttri.FrameEdges = sfeAround
-    ProcessingInstructionAttri.Foreground = clOlive
-    ProcessingInstructionAttri.FrameEdges = sfeAround
-    ProcessingInstructionAttri.Style = [fsBold]
-    CommentAttri.Background = clNone
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    CommentAttri.Style = [fsItalic]
-    DocTypeAttri.FrameEdges = sfeAround
-    DocTypeAttri.Style = [fsBold]
-    SpaceAttri.FrameEdges = sfeAround
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    SymbolAttri.Style = [fsBold]
-    WantBracesParsed = False
-    left = 404
-    top = 24
-  end
   object ppmExport: TPopupMenu
     Images = imlMain
     left = 24
@@ -5719,30 +5593,6 @@ object dmEditorManager: TdmEditorManager
       Action = actExportToWiki
       OnClick = actExportToWikiExecute
     end
-  end
-  object SynBatSyn: TSynBatSyn
-    DefaultFilter = 'MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd'
-    Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.Foreground = clBlack
-    IdentifierAttri.FrameEdges = sfeAround
-    IdentifierAttri.Style = [fsBold, fsItalic]
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    SpaceAttri.FrameEdges = sfeAround
-    VariableAttri.Foreground = clPurple
-    VariableAttri.FrameEdges = sfeAround
-    VariableAttri.Style = [fsBold]
-    left = 407
-    top = 76
-  end
-  object SynUniSyn: TSynUniSyn
-    Enabled = False
-    left = 404
-    top = 132
   end
   object ppmHighLighters: TPopupMenu
     Images = imlMain
@@ -6305,121 +6155,5 @@ object dmEditorManager: TdmEditorManager
   object ppmLineBreakStyle: TPopupMenu
     left = 129
     top = 304
-  end
-  object SynHTMLSyn: TSynHTMLSyn
-    DefaultFilter = 'HTML Document (*.htm,*.html)|*.htm;*.html'
-    Enabled = False
-    AndAttri.Foreground = clBlue
-    AndAttri.FrameEdges = sfeAround
-    ASPAttri.Background = clNone
-    ASPAttri.FrameEdges = sfeAround
-    CDATAAttri.FrameEdges = sfeAround
-    DOCTYPEAttri.FrameEdges = sfeAround
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    CommentAttri.Style = [fsItalic]
-    IdentifierAttri.Foreground = clMaroon
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    TextAttri.Foreground = clBlack
-    TextAttri.FrameEdges = sfeAround
-    UndefKeyAttri.Foreground = clMaroon
-    UndefKeyAttri.FrameEdges = sfeAround
-    ValueAttri.Foreground = clGreen
-    ValueAttri.FrameEdges = sfeAround
-    ValueAttri.Style = [fsBold, fsItalic]
-    left = 344
-    top = 248
-  end
-  object SynCppSyn: TSynCppSyn
-    DefaultFilter = 'C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh'
-    Enabled = False
-    AsmAttri.FrameEdges = sfeAround
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    DirecAttri.Foreground = clOlive
-    DirecAttri.FrameEdges = sfeAround
-    DirecAttri.Style = [fsBold]
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.Foreground = clGreen
-    StringAttri.FrameEdges = sfeAround
-    StringAttri.Style = [fsBold, fsItalic]
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    SymbolAttri.Style = [fsBold]
-    left = 344
-    top = 304
-  end
-  object SynJavaSyn: TSynJavaSyn
-    DefaultFilter = 'Java Files (*.java)|*.java'
-    Enabled = False
-    CommentAttri.Foreground = clNavy
-    CommentAttri.FrameEdges = sfeAround
-    DocumentAttri.Foreground = clNavy
-    DocumentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
-    KeyAttri.Foreground = clBlue
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.Foreground = clRed
-    NumberAttri.FrameEdges = sfeAround
-    NumberAttri.Style = [fsBold, fsItalic]
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.Foreground = clGreen
-    StringAttri.FrameEdges = sfeAround
-    StringAttri.Style = [fsBold, fsItalic]
-    SymbolAttri.Foreground = clRed
-    SymbolAttri.FrameEdges = sfeAround
-    SymbolAttri.Style = [fsBold]
-    left = 404
-    top = 192
-  end
-  object SynPerlSyn: TSynPerlSyn
-    DefaultFilter = 'Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi'
-    Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    InvalidAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    OperatorAttri.FrameEdges = sfeAround
-    PragmaAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
-    left = 407
-    top = 250
-  end
-  object SynPythonSyn: TSynPythonSyn
-    DefaultFilter = 'Python Files (*.py)|*.py'
-    Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    IdentifierAttri.FrameEdges = sfeAround
-    KeyAttri.FrameEdges = sfeAround
-    NonKeyAttri.FrameEdges = sfeAround
-    SystemAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    HexAttri.FrameEdges = sfeAround
-    OctalAttri.FrameEdges = sfeAround
-    FloatAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    DocStringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    ErrorAttri.FrameEdges = sfeAround
-    left = 416
-    top = 308
   end
 end

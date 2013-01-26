@@ -1,5 +1,5 @@
 object frmSearchForm: TfrmSearchForm
-  Left = 3046
+  Left = 3143
   Height = 916
   Top = 26
   Width = 302

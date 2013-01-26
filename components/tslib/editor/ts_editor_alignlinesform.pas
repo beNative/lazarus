@@ -28,7 +28,11 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ExtCtrls, Buttons, Grids, ActnList,
 
+  VirtualTrees,
+
   ts_Editor_Interfaces, ts_Editor_Settings_AlignLines,
+
+  ts_Core_TreeViewPresenter,
 
   sharedloggerlcl;
 
@@ -63,7 +67,7 @@ type
     gbxOptions: TGroupBox;
     lblRemoveWhiteSpace: TLabel;
     lblTokens: TLabel;
-    lstTokens: TListBox;
+    pnlVST: TPanel;
     rgpAlignAt: TRadioGroup;
     procedure actExecuteExecute(Sender: TObject);
     procedure chkAfterTokenClick(Sender: TObject);
@@ -71,6 +75,11 @@ type
     procedure chkRemoveWhitespaceClick(Sender: TObject);
     procedure chkBeforeTokenClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
+  strict private
+    FTokens : TStringList;
+    FTVP    : TTreeViewPresenter;
+    FVST    : TVirtualStringTree;
 
   protected
     function GetSettings: TAlignLinesSettings;
@@ -102,6 +111,7 @@ type
 
   public
     procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
 
   end;
 
@@ -112,7 +122,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts_Core_Utils,
+  ts_Core_Utils, ts_Core_Helpers,
 
   ts_Editor_Utils;
 
@@ -122,16 +132,26 @@ uses
 
 procedure TfrmAlignLines.AfterConstruction;
 var
-  I: Integer;
-  SL: TStringList;
+  I  : Integer;
+  SL : TStringList;
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
+  FVST := CreateVST(Self, pnlVST);
+  FTVP := CreateTVP(Self, FVST);
   SL := TStringList.Create;
   for I := Low(DEFAULT_TOKENS) to High(DEFAULT_TOKENS) do
     SL.Add(DEFAULT_TOKENS[I]);
-  Settings.Tokens := SL.CommaText;
+  FTokens := TStringList.Create;
+  Settings.Tokens := SL;
+  FTVP.ItemsSource;
   SL.Free;
+end;
+
+procedure TfrmAlignLines.BeforeDestruction;
+begin
+  FTokens.Free;
+  inherited BeforeDestruction;
 end;
 
 //*****************************************************************************
@@ -178,11 +198,11 @@ end;
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
   AddStringsPresentInString(
-    Settings.TokenList,
-    lstTokens.Items,
+    Settings.Tokens,
+    FTokens,
     Manager.ActiveView.SelText
   );
-  lstTokens.SetFocus;
+  FVST.SetFocus;
 end;
 
 //*****************************************************************************
@@ -217,12 +237,12 @@ procedure TfrmAlignLines.SetVisible(AValue: Boolean);
 begin
   if AValue then
     AddStringsPresentInString(
-      Settings.TokenList,
-      lstTokens.Items,
+      Settings.Tokens,
+      FTokens,
       Manager.ActiveView.SelText
     )
   else
-    lstTokens.Clear;
+    FTokens.Clear;
   inherited SetVisible(AValue);
 end;
 
@@ -242,21 +262,21 @@ end;
 procedure TfrmAlignLines.UpdateView;
 begin
   AddStringsPresentInString(
-    Settings.TokenList,
-    lstTokens.Items,
+    Settings.Tokens,
+    FTokens,
     Manager.ActiveView.SelText
   );
-  if lstTokens.Items.Count > 0 then
-    lstTokens.ItemIndex := 0;
+//  if FTokens.Count > 0 then
+//    lstTokens.ItemIndex := 0;
 end;
 
 procedure TfrmAlignLines.Execute;
 var
   T : string;
 begin
-  if lstTokens.ItemIndex >= 0 then
+  //if lstTokens.ItemIndex >= 0 then
   begin
-    T := lstTokens.Items[lstTokens.ItemIndex];
+//    T := lstTokens.Items[lstTokens.ItemIndex];
     Manager.ActiveView.AlignSelection(
       T,
       chkRemoveWhitespace.Checked,

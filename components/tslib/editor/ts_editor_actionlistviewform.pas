@@ -46,13 +46,13 @@ type
     tsMouseActions  : TTabSheet;
     tsCommands      : TTabSheet;
     tsActions       : TTabSheet;
-    vstActions      : TVirtualStringTree;
-    vstCommands     : TVirtualStringTree;
-    vstMouseActions : TVirtualStringTree;
 
     procedure FormShow(Sender: TObject);
 
   private
+    FVSTActions      : TVirtualStringTree;
+    FVSTCommands     : TVirtualStringTree;
+    FVSTMouseActions : TVirtualStringTree;
     FTVPActions      : TTreeViewPresenter;
     FTVPCommands     : TTreeViewPresenter;
     FTVPMouseActions : TTreeViewPresenter;
@@ -102,7 +102,8 @@ uses
 
   LCLProc,
 
-  ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate;
+  ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate,
+  ts_Core_Helpers;
 
 type
   TActionListTemplate = class(TColumnDefinitionsDataTemplate)
@@ -213,28 +214,27 @@ end;
 procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FVSTActions := CreateVST(Self, tsActions);
+  FVSTCommands := CreateVST(Self, tsCommands);
+  FVSTMouseActions := CreateVST(Self, tsMouseActions);
+
   FTVPActions := TTreeViewPresenter.Create(Self);
   FTVPActions.ListMode := True;
   FTVPActions.ImageList := Manager.Actions.ActionList.Images as TImageList;
   FTVPActions.ItemTemplate := TActionListTemplate.Create(FTVPActions.ColumnDefinitions);
   FTVPActions.ColumnDefinitions.AddColumn('Name', dtString, 150, 150, 200);
-  with FTVPActions.ColumnDefinitions.AddColumn('', dtString, 24) do
-  begin
-    Fixed := True;
-  end;
+  FTVPActions.ColumnDefinitions.AddColumn('', dtString, 24);
   FTVPActions.ColumnDefinitions.AddColumn('Category', dtString, 80);
   FTVPActions.ColumnDefinitions.AddColumn('Caption', dtString, 120, 100, 200);
   FTVPActions.ColumnDefinitions.AddColumn('Shortcut', dtString, 100);
   FTVPActions.ColumnDefinitions.AddColumn('Hint', dtString, 200, 200, 400);
   with FTVPActions.ColumnDefinitions.AddColumn('Visible', dtString, 50) do
   begin
-    Fixed := True;
-    CheckBox := True;
+    ColumnType := TColumnType.ctCheckBox;
   end;
   with FTVPActions.ColumnDefinitions.AddColumn('Enabled', dtString, 50) do
   begin
-    Fixed := True;
-    CheckBox := True;
+    ColumnType := TColumnType.ctCheckBox;
   end;
 
   FTVPCommands := TTreeViewPresenter.Create(Self);
@@ -256,8 +256,7 @@ begin
   FTVPMouseActions.ColumnDefinitions.AddColumn('ClickDir', dtString, 100);
   with FTVPMouseActions.ColumnDefinitions.AddColumn('MoveCaret', dtString, 100) do
   begin
-    Fixed := True;
-    CheckBox := True;
+    ColumnType := TColumnType.ctCheckBox;
   end;
 
   FActionItems := TObjectList.Create(False);
@@ -265,13 +264,13 @@ begin
   FMouseItems := TObjectList.Create(False);
 
   FTVPActions.ItemsSource := FActionItems;
-  FTVPActions.TreeView := vstActions;
+  FTVPActions.TreeView := FVSTActions;
 
   FTVPMouseActions.ItemsSource := FMouseItems;
-  FTVPMouseActions.TreeView    := vstMouseActions;
+  FTVPMouseActions.TreeView    := FVSTMouseActions;
 
   FTVPCommands.ItemsSource := FKeyStrokeItems;
-  FTVPCommands.TreeView    := vstCommands;
+  FTVPCommands.TreeView    := FVSTCommands;
 end;
 
 procedure TfrmActionListView.BeforeDestruction;
@@ -315,11 +314,6 @@ begin
   inherited SetVisible(AValue);
 end;
 
-procedure TfrmActionListView.UpdateView;
-begin
-  //
-end;
-
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
@@ -341,6 +335,11 @@ end;
 // protected methods                                                     BEGIN
 //*****************************************************************************
 
+procedure TfrmActionListView.UpdateView;
+begin
+  //
+end;
+
 procedure TfrmActionListView.UpdateLists;
 var
   K: TCollectionItem;
@@ -358,16 +357,6 @@ begin
   FTVPActions.Refresh;
   FTVPCommands.Refresh;
   FTVPMouseActions.Refresh;
-  vstActions.Header.AutoFitColumns;
-  vstMouseActions.Header.AutoFitColumns;
-  vstCommands.Header.AutoFitColumns;
-  vstActions.Header.MainColumn := 0;
-  vstActions.Header.Options := vstActions.Header.Options + [hoAutoSpring, hoAutoResize];
-  vstMouseActions.Header.MainColumn := 0;
-  vstMouseActions.Header.Options := vstMouseActions.Header.Options + [hoAutoSpring, hoAutoResize];
-  vstCommands.Header.MainColumn := 0;
-  vstCommands.Header.Options := vstCommands.Header.Options + [hoAutoSpring, hoAutoResize];
-
 end;
 
 //*****************************************************************************

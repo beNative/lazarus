@@ -41,9 +41,12 @@ type
   private
     FAttributes : TSynHighlighterAttributes;
     FName       : string;
+    FAliasNames : TStrings;
 
     // private property access methods
+    function GetAliasNames: TStrings;
     function GetAttributes: TSynHighlighterAttributes;
+    procedure SetAliasNames(AValue: TStrings);
     procedure SetAttributes(AValue: TSynHighlighterAttributes);
     procedure SetCollection(const Value: THighlighterAttributes); reintroduce;
     function GetCollection: THighlighterAttributes;
@@ -75,6 +78,9 @@ type
 
     property Attributes: TSynHighlighterAttributes
       read GetAttributes write SetAttributes;
+
+    property AliasNames: TStrings
+      read GetAliasNames write SetAliasNames;
 
   end;
 
@@ -123,7 +129,10 @@ type
     function Insert(Index: Integer): THighlighterAttributesItem;
     function Owner: TComponent; reintroduce;
 
-    function RegisterItem(const AName: string): Boolean;
+    function RegisterItem(
+      const AName       : string;
+            AAliasNames : array of string
+    ): Boolean;
 
     function GetEnumerator: THighlighterAttributesEnumerator;
 
@@ -306,17 +315,25 @@ begin
     Result := nil;
 end;
 
-function THighlighterAttributes.RegisterItem(const AName: string): Boolean;
+function THighlighterAttributes.RegisterItem(const AName: string; AAliasNames: array of string): Boolean;
 var
   Item: THighlighterAttributesItem;
+  S   : string;
 begin
   Item := Find(AName);
   if Assigned(Item) then
+  begin
+    for S in AAliasNames do
+      Item.FAliasNames.Add(S);
+    Item.Attributes.StoredName := AName;
     Result := False
+  end
   else
   begin
     Item := Add;
     Item.Name := AName;
+    for S in AAliasNames do
+      Item.FAliasNames.Add(S);
     Item.Attributes.StoredName := AName;
     Result := True;
   end;
@@ -377,12 +394,15 @@ constructor THighlighterAttributesItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
   FAttributes := TSynHighlighterAttributes.Create('', '');
-  // Add your property storage initializations here.
+  FAliasNames := TStringList.Create;
+  TStringList(FAliasNames).Duplicates := dupIgnore;
+  TStringList(FAliasNames).Sorted     := True;
 end;
 
 destructor THighlighterAttributesItem.Destroy;
 begin
   FreeAndNil(FAttributes);
+  FreeAndNil(FAliasNames);
   inherited;
 end;
 
@@ -404,9 +424,19 @@ begin
   inherited Collection := Value;
 end;
 
+function THighlighterAttributesItem.GetAliasNames: TStrings;
+begin
+  Result := FAliasNames;
+end;
+
 function THighlighterAttributesItem.GetAttributes: TSynHighlighterAttributes;
 begin
   Result := FAttributes;
+end;
+
+procedure THighlighterAttributesItem.SetAliasNames(AValue: TStrings);
+begin
+  FAliasNames.Assign(AValue);
 end;
 
 procedure THighlighterAttributesItem.SetAttributes(AValue: TSynHighlighterAttributes);
@@ -453,6 +483,7 @@ begin
    try
      AI := THighlighterAttributesItem(Source);
      Attributes.Assign(AI.Attributes);
+     FAliasNames.Assign(AI.FAliasNames);
    finally
      if Assigned(Collection) then
        Collection.EndUpdate;

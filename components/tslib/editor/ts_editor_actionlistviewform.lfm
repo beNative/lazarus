@@ -46,84 +46,12 @@ object frmActionListView: TfrmActionListView
       TabOrder = 1
       object tsActions: TTabSheet
         Caption = 'Actions'
-        ClientHeight = 452
-        ClientWidth = 790
-        object vstActions: TVirtualStringTree
-          Left = 2
-          Height = 448
-          Top = 2
-          Width = 786
-          Align = alClient
-          BorderSpacing.Around = 2
-          DefaultText = 'Node'
-          DragType = dtVCL
-          Header.AutoSizeIndex = -1
-          Header.Columns = <>
-          Header.DefaultHeight = 17
-          Header.MainColumn = -1
-          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
-          IncrementalSearch = isAll
-          TabOrder = 0
-          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
-          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
-          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
-          TreeOptions.StringOptions = [toAutoAcceptEditChange]
-        end
       end
       object tsCommands: TTabSheet
         Caption = 'Editor key commands'
-        ClientHeight = 452
-        ClientWidth = 790
-        object vstCommands: TVirtualStringTree
-          Left = 2
-          Height = 448
-          Top = 2
-          Width = 786
-          Align = alClient
-          BorderSpacing.Around = 2
-          DefaultText = 'Node'
-          DragType = dtVCL
-          Header.AutoSizeIndex = -1
-          Header.Columns = <>
-          Header.DefaultHeight = 17
-          Header.MainColumn = -1
-          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
-          IncrementalSearch = isAll
-          TabOrder = 0
-          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
-          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
-          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
-          TreeOptions.StringOptions = [toAutoAcceptEditChange]
-        end
       end
       object tsMouseActions: TTabSheet
         Caption = 'Editor mouse commands'
-        ClientHeight = 452
-        ClientWidth = 790
-        object vstMouseActions: TVirtualStringTree
-          Left = 2
-          Height = 448
-          Top = 2
-          Width = 786
-          Align = alClient
-          BorderSpacing.Around = 2
-          DefaultText = 'Node'
-          DragType = dtVCL
-          Header.AutoSizeIndex = -1
-          Header.Columns = <>
-          Header.DefaultHeight = 17
-          Header.MainColumn = -1
-          Header.Options = [hoColumnResize, hoDrag, hoShowSortGlyphs, hoVisible]
-          IncrementalSearch = isAll
-          TabOrder = 0
-          TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
-          TreeOptions.MiscOptions = [toAcceptOLEDrop, toCheckSupport, toFullRepaintOnResize, toGridExtensions, toInitOnSave, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-          TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages, toUseBlendedSelection]
-          TreeOptions.SelectionOptions = [toExtendedFocus, toFullRowSelect]
-          TreeOptions.StringOptions = [toAutoAcceptEditChange]
-        end
       end
     end
   end

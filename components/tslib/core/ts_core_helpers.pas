@@ -71,7 +71,7 @@ const
 //    toAcceptOLEDrop,
 //    toEditable,
 //    toEditOnClick,
-//    toFullRepaintOnResize,
+    //toFullRepaintOnResize,
 //    toEditOnDblClick,
     toInitOnSave,
     toToggleOnDblClick,

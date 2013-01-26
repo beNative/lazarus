@@ -207,7 +207,7 @@ begin
   with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 80) do
   begin
     Fixed := True;
-    CheckBox := True;
+    ColumnType := TColumnType.ctCheckBox;
   end;
   FItemList := TObjectList.Create;
   Refresh;

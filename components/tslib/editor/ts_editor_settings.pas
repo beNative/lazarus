@@ -576,25 +576,126 @@ procedure TEditorSettings.InitializeHighlighterAttributes;
 begin
   with FHighlighterAttributes do
   begin
-    RegisterItem(SYNS_XML_AttrComment);// SYNS_XML_AttrDocumentation  SYNS_XML_AttrRplComment SYNS_XML_AttrSASMComment
-    RegisterItem(SYNS_XML_AttrString);
-    RegisterItem(SYNS_XML_AttrSymbol); // SYNS_XML_AttrBrackets  // SYNS_XML_AttrSquareBracket SYNS_XML_AttrRoundBracket
-    RegisterItem(SYNS_XML_AttrNumber);
-    RegisterItem(SYNS_XML_AttrKey);  //SYNS_XML_AttrRplKey  SYNS_XML_AttrSQLKey  SYNS_XML_AttrSQLPlus  SYNS_XML_AttrTeXCommand SYNS_XML_AttrSASMKey
-    RegisterItem(SYNS_XML_AttrFloat);
-    RegisterItem(SYNS_XML_AttrHexadecimal);
-    RegisterItem(SYNS_XML_AttrReservedWord);   // SYNS_XML_AttrPLSQL   SYNS_XML_AttrSecondReservedWord
-    RegisterItem(SYNS_XML_AttrDirective);  // SYNS_XML_AttrIDEDirective SYNS_XML_AttrInclude SYNS_XML_AttrPreprocessor  SYNS_XML_AttrProcessingInstr
-    RegisterItem(SYNS_XML_AttrCharacter);
-    RegisterItem(SYNS_XML_AttrVariable);  // SYNS_XML_AttrSpecialVariable
-    RegisterItem(SYNS_XML_AttrNull);
-    RegisterItem(SYNS_XML_AttrOperator);
-    RegisterItem(SYNS_XML_AttrAttributeName); // SYNS_XML_AttrIdentifier; SYNS_XML_AttrNamespaceAttrName SYNS_XML_AttrElementName
-    RegisterItem(SYNS_XML_AttrAttributeValue); // SYNS_XML_AttrValue SYNS_XML_AttrNamespaceAttrValue  SYNS_XML_AttrCDATA  SYNS_XML_AttrDOCTYPE
-    RegisterItem(SYNS_XML_AttrMacro);   // SYNS_XML_AttrPragma
-    RegisterItem(SYNS_XML_AttrText);    //SYNS_XML_AttrEmbedText
-    RegisterItem(SYNS_XML_AttrSection); //      SYNS_XML_AttrASP  SYNS_XML_AttrDOCTYPESection  SYNS_XML_AttrCDATASection
-    RegisterItem(SYNS_XML_AttrDataType);
+    RegisterItem(
+      SYNS_XML_AttrComment, [
+        SYNS_XML_AttrComment,
+        SYNS_XML_AttrDocumentation,
+        SYNS_XML_AttrRplComment,
+        SYNS_XML_AttrSASMComment
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrString, [
+        SYNS_XML_AttrString
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrSymbol, [
+        SYNS_XML_AttrSymbol,
+        SYNS_XML_AttrBrackets,
+        SYNS_XML_AttrSquareBracket,
+        SYNS_XML_AttrRoundBracket
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrNumber, [
+        SYNS_XML_AttrNumber
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrKey, [
+        SYNS_XML_AttrKey,
+        SYNS_XML_AttrRplKey,
+        SYNS_XML_AttrSQLKey,
+        SYNS_XML_AttrSQLPlus,
+        SYNS_XML_AttrTeXCommand,
+        SYNS_XML_AttrSASMKey
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrFloat, [
+        SYNS_XML_AttrFloat
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrHexadecimal, [
+        SYNS_XML_AttrHexadecimal
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrReservedWord, [
+        SYNS_XML_AttrReservedWord,
+        SYNS_XML_AttrPLSQL,
+        SYNS_XML_AttrSecondReservedWord
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrDirective, [
+        SYNS_XML_AttrIDEDirective,
+        SYNS_XML_AttrInclude,
+        SYNS_XML_AttrPreprocessor,
+        SYNS_XML_AttrProcessingInstr
+      ]
+    );  //
+    RegisterItem(
+      SYNS_XML_AttrCharacter, [
+        SYNS_XML_AttrCharacter
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrVariable, [
+        SYNS_XML_AttrSpecialVariable
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrNull, [
+        SYNS_XML_AttrNull
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrOperator, [
+        SYNS_XML_AttrOperator
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrAttributeName, [
+        SYNS_XML_AttrIdentifier,
+        SYNS_XML_AttrNamespaceAttrName,
+        SYNS_XML_AttrElementName
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrAttributeValue, [
+        SYNS_XML_AttrValue,
+        SYNS_XML_AttrNamespaceAttrValue,
+        SYNS_XML_AttrCDATA,
+        SYNS_XML_AttrDOCTYPE
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrMacro, [
+        SYNS_XML_AttrPragma
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrText, [
+        SYNS_XML_AttrText,
+        SYNS_XML_AttrEmbedText
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrSection, [
+        SYNS_XML_AttrSection,
+        SYNS_XML_AttrASP,
+        SYNS_XML_AttrDOCTYPESection,
+        SYNS_XML_AttrCDATASection
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrDataType, [
+        SYNS_XML_AttrDataType
+      ]
+    );
   end;
 end;
 

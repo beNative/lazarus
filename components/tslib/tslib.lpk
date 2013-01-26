@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="71">
+    <Files Count="72">
       <Item1>
         <Filename Value="laz_images.lrs"/>
         <Type Value="LRS"/>
@@ -331,8 +331,12 @@
       </Item70>
       <Item71>
         <Filename Value="core\ts_core_collections.pas"/>
-        <UnitName Value="ts_core_collections"/>
+        <UnitName Value="ts_Core_Collections"/>
       </Item71>
+      <Item72>
+        <Filename Value="core\hecontnrs.pas"/>
+        <UnitName Value="heContnrs"/>
+      </Item72>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

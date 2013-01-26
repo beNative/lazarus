@@ -36,6 +36,8 @@ unit ts_Core_TreeViewPresenter;
     - ImageList: TCustomImageList instead of TImageList
     - Header options added in InitColumns
     - Added DoMeasureItem for row height calculation
+
+    - Added TStringlist support
 }
 
 {$mode delphi}
@@ -43,11 +45,13 @@ unit ts_Core_TreeViewPresenter;
 interface
 
 uses
-  ActiveX, Classes, Controls, Menus, SysUtils, Types, Contnrs,
+  ActiveX, Classes, Controls, Menus, SysUtils, Types, Contnrs, ComCtrls,
 
-  VirtualTrees,
+  fgl,
 
-  ts_Core_ColumnDefinitions, ts_Core_DataTemplates;
+  ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
+
+  VirtualTrees;
 
 type
   TCompareEvent = procedure(Sender: TObject; Item1, Item2: TObject;
@@ -58,7 +62,7 @@ type
   TDragDropEvent = procedure(Sender: TObject; TargetItem: TObject;
     DragOperation: TDragOperation) of object;
   TUpdateTrigger = (utPropertyChanged, utLostFocus, utExplicit);
-  TCollectionChangedAction = (caAdd, caRemove, caReplace, caMove);
+  TCollectionChangedAction = (caAdd, caRemove, caReplace, caMove, caReset);
   TCollectionChangedEvent = procedure(Sender: TObject; Item: TObject;
     Action: TCollectionChangedAction) of object;
 
@@ -108,16 +112,30 @@ type
   TCheckSupport = (
     csNone,
     csSimple,
-    csTriState
+    csTriState,
+    csRadio
+  );
+
+  TSelectionMode = (
+    smSingle,
+    smLevel,
+    smMulti,
+    smNone
   );
 
   TTreeViewPresenter = class(TComponent, ICollectionView, INotifyPropertyChanged)
   private
+    FAction: TBasicAction;
+    FUpdateCount: Integer;
+    FAllowClearSelection: Boolean;
     FAllowMove: Boolean;
     FCheckedItems: TObjectList;
     FCheckSupport: TCheckSupport;
+    FCollectionChanging: Integer;
+    FCurrentNode: PVirtualNode;
     FColumnDefinitions: TColumnDefinitions;
     FExpandedItems: TObjectList;
+    FHitInfo: THitInfo;
     FImageList: TCustomImageList;
     FItemsSource: TObjectList;
     FItemTemplate: IDataTemplate;
@@ -130,11 +148,18 @@ type
     FOnDragBegin: TDragBeginEvent;
     FOnDragDrop: TDragDropEvent;
     FOnDragOver: TDragOverEvent;
+    FOnKeyAction: TKeyEvent;
     FOnFilter: TFilterEvent;
     FOnPropertyChanged: TPropertyChangedEvent;
     FOnSelectionChanged: TNotifyEvent;
+    FProgressBar: TProgressBar;
     FPopupMenu: TPopupMenu;
     FSelectedItems: TObjectList;
+    FShowHeader: Boolean;
+    FSelectionMode: TSelectionMode;
+    FSorting: Boolean;
+    FSyncing: Boolean;
+    FSyncMode: Boolean;
     FTreeView: TVirtualStringTree;
 
     procedure DoMeasureItem(Sender: TBaseVirtualTree; TargetCanvas: TCanvas;
@@ -146,11 +171,11 @@ type
       CellPaintMode: TVTCellPaintMode; CellRect: TRect; var ContentRect: TRect);
     procedure DoChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoChecked(Sender: TBaseVirtualTree; Node: PVirtualNode);
+    procedure DoCollapsed(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoCompareNodes(Sender: TBaseVirtualTree;
       Node1, Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
     procedure DoCurrentItemPropertyChanged(Sender: TObject;
       PropertyName: string; UpdateTrigger: TUpdateTrigger = utPropertyChanged);
-    procedure DoDblClick(Sender: TObject);
     procedure DoDragAllowed(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var Allowed: Boolean);
     procedure DoDragDrop(Sender: TBaseVirtualTree; Source: TObject;
@@ -159,9 +184,19 @@ type
     procedure DoDragOver(Sender: TBaseVirtualTree; Source: TObject;
       Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode: TDropMode;
       var Effect: LongWord; var Accept: Boolean);
+    procedure DoEdited(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex);
+    procedure DoEditing(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; var Allowed: Boolean);
+    procedure DoExpanded(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoFilterNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoFocusChanged(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex);
+    procedure DoFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
+
+    procedure DoGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;
+      var HintText: string);
     procedure DoGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Kind: TVTImageKind; Column: TColumnIndex; var Ghosted: Boolean;
       var ImageIndex: Integer);
@@ -171,18 +206,35 @@ type
 
     procedure DoHeaderClick(Sender: TVTHeader; Column: TColumnIndex;
       Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure DoIncrementalSearch(Sender: TBaseVirtualTree;
+      Node: PVirtualNode; const SearchText: string; var Result: Integer);
     procedure DoInitNode(Sender: TBaseVirtualTree; ParentNode,
       Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
     procedure DoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure DoMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure DoMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure DoMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure DoNewText(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Column: TColumnIndex; NewText: string);
     procedure DoNodeMoved(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoPaintText(Sender: TBaseVirtualTree; const TargetCanvas: TCanvas;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType);
+    procedure DrawCheckBox(TargetCanvas: TCanvas; Node: PVirtualNode;
+      Column: TColumnIndex; CellRect: TRect; Value: Boolean);
+    procedure DrawProgressBar(TargetCanvas: TCanvas; Node: PVirtualNode;
+      Column: TColumnIndex; CellRect: TRect; Value: Integer);
+    procedure DrawImage(TargetCanvas: TCanvas; Node: PVirtualNode;
+      Column: TColumnIndex; CellRect: TRect; Value: Integer);
     procedure DoSourceCollectionChanged(Sender: TObject; Item: TObject;
       Action: TCollectionChangedAction);
 
+    procedure ExpandNode(Node: PVirtualNode);
+    function GetCheckedItem: TObject;
     function GetCheckedItems: TObjectList;
+    function GetCanMoveCurrentToNext: Boolean;
+    function GetCanMoveCurrentToPrevious: Boolean;
     function GetCurrentItem: TObject;
     function GetExpandedItems: TObjectList;
     procedure GetItemNode(Sender: TBaseVirtualTree; Node: PVirtualNode;
@@ -190,18 +242,37 @@ type
     function GetItemsSource: TObjectList;
     function GetItemTemplate: IDataTemplate; overload;
     function GetItemTemplate(const Item: TObject): IDataTemplate; overload;
+    procedure GetItemsNode(Sender: TBaseVirtualTree; Node: PVirtualNode;
+      Data: Pointer; var Abort: Boolean);
     function GetNodeItem(Tree: TBaseVirtualTree; Node: PVirtualNode): TObject;
-    function GetOnCollectionChanged: TCollectionChangedEvent;
-    function GetOnPropertyChanged: TPropertyChangedEvent;
+    function GetNodeItems(Tree: TBaseVirtualTree; Node: PVirtualNode): TObjectList;
+    function GetNodeItemsAsObject(Tree: TBaseVirtualTree; Node: PVirtualNode): TObject;
+    function GetParentItem(const Level: Integer): TObject;
     function GetSelectedItem: TObject;
     function GetSelectedItems: TObjectList;
+    function CalcCheckBoxRect(const Rect: TRect): TRect;
+    function CalcImageRect(const Rect: TRect): TRect;
+    function IsMouseInCheckBox(Node: PVirtualNode; Column: TColumnIndex): Boolean;
+    function IsMouseInToggleIcon(HitInfo: THitInfo): Boolean;
+    procedure ToggleIcon(Node: PVirtualNode; Column: TColumnIndex);
+
+    function GetOnCollectionChanged: TCollectionChangedEvent;
+    function GetOnPropertyChanged: TPropertyChangedEvent;
 
     procedure InitColumns;
+    procedure InitControl;
     procedure InitEvents;
-    procedure InitTreeOptions;
+    procedure InitProperties;
+    procedure MoveCurrentToFirst;
+    procedure MoveCurrentToLast;
+    procedure MoveCurrentToNext;
+    procedure MoveCurrentToPrevious;
 
+    procedure ReadMultiSelect(Reader: TReader);
     procedure ResetRootNodeCount;
 
+    procedure SetCheckedItem(const Value: TObject);
+    procedure SetCheckedItems(const Value: TObjectList);
     procedure SetCheckSupport(const Value: TCheckSupport);
     procedure SetColumnDefinitions(const Value: TColumnDefinitions);
     procedure SetCurrentItem(const Value: TObject);
@@ -213,20 +284,27 @@ type
     procedure SetMultiSelect(const Value: Boolean);
     procedure SetNodeItem(Tree: TBaseVirtualTree; Node: PVirtualNode; Item: TObject);
     procedure SetPopupMenu(const Value: TPopupMenu);
+    procedure SetNodeItems(Tree: TBaseVirtualTree; Node: PVirtualNode; Items: TObjectList);
     procedure SetSelectedItem(const Value: TObject);
     procedure SetSelectedItems(const Value: TObjectList);
+    procedure SetSelectionMode(const Value: TSelectionMode);
+    procedure SetShowHeader(const Value: Boolean);
+    procedure SetSorting(const Value: Boolean);
     procedure SetTreeView(const Value: TVirtualStringTree);
-
-    procedure DrawCheckBox(Sender: TVirtualStringTree; const Canvas: TCanvas;
-      const Rect: TRect; const Checked: Boolean);
 
     procedure UpdateCheckedItems;
     procedure UpdateExpandedItems;
     procedure UpdateSelectedItems;
   protected
+    procedure DefineProperties(Filer: TFiler); override;
+    procedure DoCheckedItemsChanged(Sender: TObject; const Item: TObject;
+      Action: TCollectionChangedAction);
+    procedure DoDblClick(Sender: TObject);
+    procedure DoExpandedItemsChanged(Sender: TObject; const Item: TObject;
+      Action: TCollectionChangedAction);
     procedure DoPropertyChanged(const APropertyName: string;
       AUpdateTrigger: TUpdateTrigger = utPropertyChanged);
-    procedure Loaded; override;
+
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -242,14 +320,21 @@ type
 
     procedure Refresh;
 
+    property CheckedItem: TObject read GetCheckedItem write SetCheckedItem;
     property CheckedItems: TObjectList read GetCheckedItems;
     property CurrentItem: TObject read GetCurrentItem write SetCurrentItem;
     property ExpandedItems: TObjectList read GetExpandedItems write SetExpandedItems;
+    property ParentItem[const Level: Integer]: TObject read GetParentItem;
     property ItemsSource: TObjectList read GetItemsSource write SetItemsSource;
     property ItemTemplate: IDataTemplate read GetItemTemplate write SetItemTemplate;
+    //property StringsSource: TStrings read GetStringsSource write SetStringsSource;
     property SelectedItem: TObject read GetSelectedItem write SetSelectedItem;
     property SelectedItems: TObjectList read GetSelectedItems write SetSelectedItems;
   published
+    property Action: TBasicAction
+      read FAction write FAction;
+    property AllowClearSelection: Boolean
+      read FAllowClearSelection write FAllowClearSelection default True;
     property AllowMove: Boolean read FAllowMove write FAllowMove default True;
     property CheckSupport: TCheckSupport read FCheckSupport write SetCheckSupport default csNone;
     property ColumnDefinitions: TColumnDefinitions
@@ -264,8 +349,13 @@ type
     property OnDragBegin: TDragBeginEvent read FOnDragBegin write FOnDragBegin;
     property OnDragDrop: TDragDropEvent read FOnDragDrop write FOnDragDrop;
     property OnDragOver: TDragOverEvent read FOnDragOver write FOnDragOver;
+    property OnKeyAction: TKeyEvent read FOnKeyAction write FOnKeyAction;
     property OnSelectionChanged: TNotifyEvent
       read FOnSelectionChanged write FOnSelectionChanged;
+    property SelectionMode: TSelectionMode read FSelectionMode write SetSelectionMode default smSingle;
+    property ShowHeader: Boolean read FShowHeader write SetShowHeader default True;
+    property Sorting: Boolean read FSorting write SetSorting default True;
+    property SyncMode: Boolean read FSyncMode write FSyncMode default False;
     property PopupMenu: TPopupMenu read FPopupMenu write SetPopupMenu;
     property TreeView: TVirtualStringTree read FTreeView write SetTreeView;
     property OnFilter: TFilterEvent read FOnFilter write FOnFilter;
@@ -274,7 +364,7 @@ type
 implementation
 
 uses
-  Themes, Windows, Math,
+  Themes, Windows, Math, Forms,
 
   ts_Core_ColumnDefinitionsDataTemplate;
 
@@ -282,55 +372,65 @@ const
   CDefaultCellRect: TRect = (Left: 0; Top: 0; Right: 0; Bottom: 0);
 
 type
+  PNodeData = ^TNodeData;
+  TNodeData = record
+    Item: TObject;
+    Items: TObjectList;
+    ItemsAsObject: TObject;
+  end;
+
+type
   PObject = ^TObject;
 
+var
+  CheckBoxSize: Byte;
+
+procedure Synchronize(Target, Source: TObjectList);
+var
+  i: Integer;
+begin
+  i := 0;
+  while i < Target.Count do
+  begin
+    if Source.IndexOf(Target[i]) <> -1 then
+    begin
+      Inc(i);
+    end
+    else
+    begin
+      Target.Delete(i);
+    end;
+  end;
+  for i := 0 to Pred(Source.Count) do
+  begin
+    if Target.IndexOf(Source[i]) = -1 then
+    begin
+      Target.Add(Source[i]);
+    end;
+  end;
+end;
 { TTreeViewPresenter }
 
-procedure TTreeViewPresenter.DrawCheckBox(Sender: TVirtualStringTree; const Canvas: TCanvas;
-const Rect: TRect; const Checked: Boolean);
-var
-  Details: TThemedElementDetails;
-  X, Y: Integer;
-  R: TRect;
-  NonThemedCheckBoxState: Cardinal;
-const
-  CHECKBOX_SIZE = 13;
+function RectWidth(const Rect: TRect): Integer;
 begin
-  if ( // if it's a TVirtualStringTree, then key off of the paint options
-      (Sender is TVirtualStringTree) and
-      (toThemeAware in TVirtualStringTree(Sender).TreeOptions.PaintOptions)
-     ) or
-     // If it is not themed, but the OS is themed, you can check it like this
-    ThemeServices.ThemesEnabled then
-  begin
+  Result := Rect.Right - Rect.Left;
+end;
 
-    if Checked then
-      Details := ThemeServices.GetElementDetails(tbCheckBoxCheckedNormal)
-    else
-      Details := ThemeServices.GetElementDetails(tbCheckBoxUncheckedNormal);
-
-    X := Rect.Left + (Rect.Right - Rect.Left - CHECKBOX_SIZE) div 2;
-    Y := Rect.Top + (Rect.Bottom - Rect.Top - CHECKBOX_SIZE) div 2;
-    R := Types.Rect(X, Y, X + CHECKBOX_SIZE, Y + CHECKBOX_SIZE);
-    ThemeServices.DrawElement(Canvas.Handle, Details, R);
-  end
-  else
-  begin
-    // Fill the background
-    Canvas.FillRect(Rect);
-    NonThemedCheckBoxState := DFCS_BUTTONCHECK;
-    if Checked then
-      NonThemedCheckBoxState := NonThemedCheckBoxState or DFCS_CHECKED;
-    X := Rect.Left + (Rect.Right - Rect.Left - CHECKBOX_SIZE) div 2;
-    Y := Rect.Top + (Rect.Bottom - Rect.Top - CHECKBOX_SIZE) div 2;
-    R := Types.Rect(X, Y, X + CHECKBOX_SIZE, Y + CHECKBOX_SIZE);
-    DrawFrameControl(Canvas.Handle, R, DFC_BUTTON, NonThemedCheckBoxState);
-  end;
+function RectHeight(const Rect: TRect): Integer;
+begin
+  Result := Rect.Bottom - Rect.Top;
 end;
 
 constructor TTreeViewPresenter.Create(AOwner: TComponent);
 begin
   inherited;
+  FAllowClearSelection := True;
+  FAllowMove := True;
+  FShowHeader := True;
+  FSorting := True;
+  FProgressBar := TProgressBar.Create(Self);
+  FProgressBar.Smooth := True;
+  FProgressBar.Visible := False;
   FAllowMove := True;
   FListMode := True;
   FMultiLine := True;
@@ -338,7 +438,6 @@ begin
   FExpandedItems := TObjectList.Create(False);
   FSelectedItems := TObjectList.Create(False);
   FOnCollectionChanged := DoSourceCollectionChanged;
-
   FColumnDefinitions := TColumnDefinitions.Create(Self, TColumnDefinition);
   FItemTemplate := TColumnDefinitionsDataTemplate.Create(FColumnDefinitions);
 end;
@@ -378,9 +477,26 @@ begin
   FTreeView.BeginUpdate;
 end;
 
-procedure TTreeViewPresenter.EndUpdate;
+function TTreeViewPresenter.CalcCheckBoxRect(const Rect: TRect): TRect;
 begin
-  FTreeView.EndUpdate;
+  Result.Left := Rect.Left + (RectWidth(Rect) - CheckBoxSize) div 2;
+  Result.Top := Rect.Top + (RectHeight(Rect) - CheckBoxSize) div 2;
+  Result.Right := Result.Left + CheckBoxSize;
+  Result.Bottom := Result.Top + CheckBoxSize;
+end;
+
+function TTreeViewPresenter.CalcImageRect(const Rect: TRect): TRect;
+begin
+  Result.Left := Rect.Left + (RectWidth(Rect) - ImageList.Width) div 2;
+  Result.Top := Rect.Top + (RectHeight(Rect) - ImageList.Height) div 2;
+  Result.Right := Result.Left + ImageList.Width;
+  Result.Bottom := Result.Top + ImageList.Height;
+end;
+
+procedure TTreeViewPresenter.DefineProperties(Filer: TFiler);
+begin
+  inherited;
+  Filer.DefineProperty('MultiSelect', ReadMultiSelect, nil, False);
 end;
 
 procedure TTreeViewPresenter.DeleteItems(Items: TObjectList);
@@ -445,10 +561,10 @@ begin
   LItemTemplate := GetItemTemplate(LItem);
   if Assigned(LItemTemplate) then
   begin
-    if ColumnDefinitions[Column].CheckBox then
+    if ColumnDefinitions[Column].ColumnType = TColumnType.ctCheckBox then
     begin
       B := LItemTemplate.GetText(LItem, Column) = '1';
-      DrawCheckBox(Sender as TVirtualStringTree, TargetCanvas, CellRect, B);
+      DrawCheckBox(TargetCanvas, Node, Column, CellRect, B);
     end
     else
     begin
@@ -488,6 +604,47 @@ procedure TTreeViewPresenter.DoChecked(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
   UpdateCheckedItems;
+end;
+
+procedure TTreeViewPresenter.DoCheckedItemsChanged(Sender: TObject;
+  const Item: TObject; Action: TCollectionChangedAction);
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) and not (csDestroying in ComponentState) then
+  begin
+    if FCollectionChanging = 0 then
+    begin
+      LNode := FTreeView.GetFirst();
+      while Assigned(LNode) do
+      begin
+        if GetNodeItem(FTreeView, LNode) = Item then
+        begin
+          case Action of
+            caAdd: FTreeView.CheckState[LNode] := csCheckedNormal;
+            caRemove: FTreeView.CheckState[LNode] := csUncheckedNormal;
+          end;
+        end;
+        LNode := FTreeView.GetNext(LNode);
+      end;
+    end;
+
+    if FSyncMode and not FSyncing then
+    try
+      FSyncing := True;
+      SetSelectedItems(FCheckedItems);
+    finally
+      FSyncing := False;
+    end;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoCollapsed(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
+begin
+  UpdateExpandedItems();
+
+  DoPropertyChanged('ExpandedItems');
 end;
 
 procedure TTreeViewPresenter.DoCompareNodes(Sender: TBaseVirtualTree; Node1,
@@ -564,20 +721,32 @@ begin
   LCursorPos := FTreeView.ScreenToClient(Mouse.CursorPos);
   FTreeView.GetHitTestInfoAt(LCursorPos.X, LCursorPos.Y, False, LHitInfo);
 
-  if not FListMode and ((hiOnNormalIcon in LHitInfo.HitPositions)
-    or not Assigned(FOnDoubleClick)) then
+  if not IsMouseInToggleIcon(LHitInfo) then
   begin
-    FTreeView.ToggleNode(LHitInfo.HitNode);
+    if FListMode and Assigned(LHitInfo.HitNode)
+      and (LHitInfo.HitColumn < 1)
+      and ((hiOnNormalIcon in LHitInfo.HitPositions)
+      or (not Assigned(OnDoubleClick) and not Assigned(Action))) then
+    begin
+      FTreeView.ToggleNode(LHitInfo.HitNode);
+    end
+    else
+    begin
+      if ([hiOnItemButton..hiOnItemCheckbox] * LHitInfo.HitPositions = [])
+        and Assigned(LHitInfo.HitNode)
+        and not IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn) then
+      begin
+        inherited;
+      end;
+    end;
   end
   else
   begin
-    if ([hiOnItemButton..hiOnItemCheckbox] * LHitInfo.HitPositions = [])
-      and Assigned(LHitInfo.HitNode) then
+    if Assigned(ColumnDefinitions) and (LHitInfo.HitColumn > -1)
+      and (LHitInfo.HitColumn < ColumnDefinitions.Count)
+      and (ColumnDefinitions[LHitInfo.HitColumn].ToggleMode = tmDoubleClick) then
     begin
-      if Assigned(FOnDoubleClick) then
-      begin
-        FOnDoubleClick(Self);
-      end;
+      ToggleIcon(LHitInfo.HitNode, LHitInfo.HitColumn);
     end;
   end;
 end;
@@ -621,12 +790,29 @@ begin
       begin
         FOnDragDrop(Sender, LItem, doMove);
       end;
-      for i := Low(LSelectedNodes) to High(LSelectedNodes) do
+      if Sender = Source then
       begin
-        case Mode of
-          dmAbove: FTreeView.MoveTo(LSelectedNodes[i], LNode, amInsertBefore, False);
-          dmOnNode: FTreeView.MoveTo(LSelectedNodes[i], LNode, amAddChildLast, False);
-          dmBelow: FTreeView.MoveTo(LSelectedNodes[i], LNode, amInsertAfter, False);
+        Inc(FUpdateCount);
+        try
+          for i := Low(LSelectedNodes) to High(LSelectedNodes) do
+          begin
+            FCurrentNode := LSelectedNodes[i].Parent;
+            case Mode of
+              dmNowhere: FTreeView.MoveTo(LSelectedNodes[i], nil, amAddChildLast, False);
+              dmAbove: FTreeView.MoveTo(LSelectedNodes[i], LNode, amInsertBefore, False);
+              dmOnNode:
+              begin
+                if FCurrentNode <> LNode then
+                begin
+                  FTreeView.MoveTo(LSelectedNodes[i], LNode, amAddChildLast, False);
+                  ExpandNode(LNode);
+                end;
+              end;
+              dmBelow: FTreeView.MoveTo(LSelectedNodes[i], LNode, amInsertAfter, False);
+            end;
+          end;
+        finally
+          Dec(FUpdateCount);
         end;
       end;
     end;
@@ -639,15 +825,90 @@ procedure TTreeViewPresenter.DoDragOver(Sender: TBaseVirtualTree;
 var
   LItem: TObject;
   LNode: PVirtualNode;
+  LItemNode: PVirtualNode;
 begin
-  LNode := Sender.GetNodeAt(Pt.X, Pt.Y);
-  LItem := GetNodeItem(Sender, LNode);
-  case Mode of
-    dmAbove, dmBelow: Accept := FAllowMove;
-  end;
-  if Assigned(LItem) and Assigned(FOnDragOver) then
+  if Pt.Y > -1 then
   begin
-    FOnDragOver(Sender, LItem, Accept);
+    LNode := Sender.GetNodeAt(Pt.X, Pt.Y);
+    LItem := GetNodeItem(Sender, LNode);
+    case Mode of
+      dmAbove, dmBelow: Accept := FAllowMove;
+    end;
+    if Assigned(FOnDragOver) then
+    begin
+      FOnDragOver(Sender, LItem, Accept);
+    end
+    else
+    begin
+      if Sender = Source then
+      begin
+        if not Assigned(LNode) then
+        begin
+          LNode := Sender.RootNode;
+        end;
+        Accept := Assigned(GetNodeItemsAsObject(Sender, LNode));
+        if Accept then
+        begin
+          //for LItemNode in Sender.SelectedNodes do
+          //begin
+          //  if (LItemNode = LNode) or (LItemNode.Parent = LNode) or
+          //    Sender.HasAsParent(LNode, LItemNode) then
+          //  begin
+          //    Accept := False;
+          //    Break;
+          //  end;
+          //end;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoEdited(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex);
+begin
+  if FTreeView.Header.SortColumn = Column then
+  begin
+    FTreeView.Sort(Node.Parent, FTreeView.Header.SortColumn, FTreeView.Header.SortDirection);
+  end;
+end;
+procedure TTreeViewPresenter.DoEditing(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
+begin
+  Allowed := Assigned(ColumnDefinitions) and (Column > -1)
+    and (Column < ColumnDefinitions.Count)
+    and (ColumnDefinitions[Column].ColumnType = ctText)
+    and ColumnDefinitions[Column].AllowEdit;
+end;
+
+procedure TTreeViewPresenter.DoExpanded(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
+begin
+  UpdateExpandedItems();
+
+  DoPropertyChanged('ExpandedItems');
+end;
+
+procedure TTreeViewPresenter.DoExpandedItemsChanged(Sender: TObject;
+  const Item: TObject; Action: TCollectionChangedAction);
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) and not (csDestroying in ComponentState)
+    and (FCollectionChanging = 0) then
+  begin
+    LNode := FTreeView.GetFirst();
+    while Assigned(LNode) do
+    begin
+      if GetNodeItem(FTreeView, LNode) = Item then
+      begin
+        case Action of
+          caAdd: ExpandNode(LNode);
+          caRemove: FTreeView.Expanded[LNode] := False;
+        end;
+      end;
+      LNode := FTreeView.GetNext(LNode);
+    end;
   end;
 end;
 
@@ -695,6 +956,33 @@ begin
   end;
 end;
 
+procedure TTreeViewPresenter.DoFreeNode(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
+begin
+  SetNodeItems(Sender, Node, nil);
+  if FHitInfo.HitNode = Node then
+  begin
+    FHitInfo.HitNode := nil;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoGetHint(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex;
+  var LineBreakStyle: TVTTooltipLineBreakStyle; var HintText: string);
+var
+  LItem: TObject;
+  LItemTemplate: IDataTemplate;
+begin
+  FCurrentNode := Node;
+  DoPropertyChanged('ParentItem');
+
+  LItem := GetNodeItem(Sender, Node);
+  LItemTemplate := GetItemTemplate(LItem);
+  if Assigned(LItemTemplate) then
+  begin
+    //HintText := LItemTemplate.GetHint(LItem, Column);
+  end;
+end;
 procedure TTreeViewPresenter.DoGetImageIndex(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
   var Ghosted: Boolean; var ImageIndex: Integer);
@@ -702,11 +990,14 @@ var
   LItem: TObject;
   LItemTemplate: IDataTemplate;
 begin
-  LItem := GetNodeItem(Sender, Node);
-  LItemTemplate := GetItemTemplate(LItem);
-  if Assigned(LItemTemplate) then
+  if Kind in [ikNormal, ikSelected] then
   begin
-    ImageIndex := LItemTemplate.GetImageIndex(LItem, Column);
+    LItem := GetNodeItem(Sender, Node);
+    LItemTemplate := GetItemTemplate(LItem);
+    if Assigned(LItemTemplate) then
+    begin
+      ImageIndex := LItemTemplate.GetImageIndex(LItem, Column);
+    end;
   end;
 end;
 
@@ -717,38 +1008,85 @@ var
   LItem: TObject;
   LItemTemplate: IDataTemplate;
 begin
-  if Column > -1 then
-  begin
+  FCurrentNode := Node;
+  DoPropertyChanged('ParentItem');
+
     LItem := GetNodeItem(Sender, Node);
     LItemTemplate := GetItemTemplate(LItem);
     if Assigned(LItemTemplate) then
     begin
-      if not ColumnDefinitions[Column].CheckBox then
-        CellText := LItemTemplate.GetText(LItem, Column)
-      else
+    if Assigned(ColumnDefinitions) and (Column > -1)
+      and (Column < ColumnDefinitions.Count)
+      and (ColumnDefinitions[Column].ColumnType <> TColumnType.ctText) then
+    begin
         CellText := '';
+    end
+    else
+    begin
+      CellText := LItemTemplate.GetText(LItem, Column);
     end;
   end;
 end;
 
 procedure TTreeViewPresenter.DoHeaderClick(Sender: TVTHeader;
   Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  LCursor: TCursor;
 begin
-  if Sender.SortColumn <> Column then
+  if FSorting and (Button = mbLeft) and (Column > -1) then
   begin
-    Sender.SortColumn := Column;
+    LCursor := Screen.Cursor;
+    Screen.Cursor := crHourGlass;
+    try
+      if Sender.SortColumn <> Column then
+      begin
+        Sender.SortColumn := Column;
+      end
+      else
+      begin
+        if Sender.SortDirection = sdAscending then
+        begin
+          Sender.SortDirection := sdDescending;
+    end
+        else
+        begin
+          Sender.SortDirection := sdAscending;
+        end;
+      end;
+
+      if Sender.SortColumn = -1 then
+      begin
+        Refresh();
+      end;
+    finally
+      Screen.Cursor := LCursor;
+    end;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoIncrementalSearch(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; const SearchText: string; var Result: Integer);
+var
+  LCellText: string;
+  LItem: TObject;
+  LItemTemplate: IDataTemplate;
+begin
+  FCurrentNode := Node;
+  DoPropertyChanged('ParentItem');
+
+  LItem := GetNodeItem(Sender, Node);
+  LItemTemplate := GetItemTemplate(LItem);
+  if Assigned(LItemTemplate) then
+  begin
+    LCellText := LItemTemplate.GetText(LItem, ColumnDefinitions.MainColumnIndex);
   end
   else
   begin
-    if Sender.SortDirection = sdAscending then
-    begin
-      Sender.SortDirection := sdDescending;
-    end
-    else
-    begin
-      Sender.SortDirection := sdAscending;
-    end;
+    LCellText := '';
   end;
+
+  Result := StrLIComp(PChar(SearchText), PChar(LCellText),
+    Min(Length(SearchText), Length(LCellText)));
 end;
 
 procedure TTreeViewPresenter.DoInitNode(Sender: TBaseVirtualTree; ParentNode,
@@ -759,12 +1097,11 @@ var
   LParentItem: TObject;
 begin
   Include(InitialStates, ivsMultiline);
-  if FCheckSupport = csTriState then
-  begin
-    Node.CheckType := ctTriStateCheckbox;
-  end
+  DoPropertyChanged('ParentItem');
+  case FCheckSupport of
+    csTriState: Node.CheckType := ctTriStateCheckBox;
+    csRadio: Node.CheckType := ctRadioButton;
   else
-  begin
     Node.CheckType := ctCheckBox;
   end;
 
@@ -802,8 +1139,19 @@ var
   LAllowed: Boolean;
   LNodes: TNodeArray;
 begin
+  if Key = VK_RETURN then
+  begin
+    if Assigned(Action) then
+    begin
+      if FTreeView.SelectedCount > 0 then
+      begin
+        Action.Execute();
+      end;
+    end;
+  end;
+
   // moving elements with Ctrl+Up and Ctrl+Down only when sorting is off
-  if (ssCtrl in Shift) and (FTreeView.Header.SortColumn = -1) then
+  if FAllowMove and (ssCtrl in Shift) and (FTreeView.Header.SortColumn = -1) then
   begin
     case Key of
       VK_UP:
@@ -820,9 +1168,15 @@ begin
         end;
         if LAllowed then
         begin
+          Inc(FUpdateCount);
+          try
           for i := Low(LNodes) to High(LNodes) do
           begin
+              FCurrentNode := LNodes[i].Parent;
             FTreeView.MoveTo(LNodes[i], LNodes[i].PrevSibling, amInsertBefore, False);
+            end;
+          finally
+            Dec(FUpdateCount);
           end;
         end;
       end;
@@ -840,30 +1194,142 @@ begin
         end;
         if LAllowed then
         begin
-          for i := High(LNodes) downto Low(LNodes) do
-          begin
-            FTreeView.MoveTo(LNodes[i], LNodes[i].NextSibling, amInsertAfter, False);
+          Inc(FUpdateCount);
+          try
+            for i := High(LNodes) downto Low(LNodes) do
+            begin
+              FCurrentNode := LNodes[i].Parent;
+              FTreeView.MoveTo(LNodes[i], LNodes[i].NextSibling, amInsertAfter, False);
+            end;
+          finally
+            Dec(FUpdateCount);
           end;
         end;
       end;
     end;
+  end;
+
+  if Assigned(FOnKeyAction) then
+  begin
+    FOnKeyAction(Self, Key, Shift);
   end;
 end;
 
 procedure TTreeViewPresenter.DoMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 var
-  LCursorPos: TPoint;
   LHitInfo: THitInfo;
 begin
   if not (ssDouble in Shift) then
   begin
-    LCursorPos := FTreeView.ScreenToClient(Mouse.CursorPos);
-    FTreeView.GetHitTestInfoAt(LCursorPos.X, LCursorPos.Y, False, LHitInfo);
-    if not Assigned(LHitInfo.HitNode) and not FMultiSelect then
+    FTreeView.GetHitTestInfoAt(X, Y, False, LHitInfo);
+    if not Assigned(LHitInfo.HitNode) then
     begin
-      FTreeView.ClearSelection;
+      if FAllowClearSelection then
+      begin
+        FTreeView.ClearSelection();
+      end
+      else
+      begin
+        Abort;
+      end;
+    end
+    else
+    begin
+      if IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn) then
+      begin
+        FTreeView.RepaintNode(LHitInfo.HitNode);
+      end;
     end;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoMouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+var
+  LHitInfo: THitInfo;
+begin
+  if GetAsyncKeyState(VK_LBUTTON) = 0 then
+  begin
+    FTreeView.GetHitTestInfoAt(X, Y, True, LHitInfo);
+
+    if Assigned(FHitInfo.HitNode) and (FHitInfo.HitNode <> LHitInfo.HitNode) then
+    begin
+      FTreeView.RepaintNode(FHitInfo.HitNode);
+    end;
+
+    if Assigned(LHitInfo.HitNode) then
+    begin
+      FTreeView.RepaintNode(LHitInfo.HitNode);
+    end;
+
+    FHitInfo := LHitInfo;
+
+    if IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn) then
+      FHitInfo.HitPositions := [hiOnItem, hiOnItemCheckbox];
+
+    if IsMouseInToggleIcon(LHitInfo) then
+      FHitInfo.HitPositions := [hiOnItem, hiOnNormalIcon];
+  end;
+end;
+
+procedure TTreeViewPresenter.DoMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  LHitInfo: THitInfo;
+  LItem: TObject;
+  LItemTemplate: IDataTemplate;
+  LColumnDefinition: TColumnDefinition;
+begin
+  if Assigned(FHitInfo.HitNode) then
+  begin
+    FTreeView.GetHitTestInfoAt(X, Y, False, LHitInfo);
+    if (FHitInfo.HitNode = LHitInfo.HitNode)
+      and (FHitInfo.HitColumn = LHitInfo.HitColumn)
+      and Assigned(ColumnDefinitions) and (LHitInfo.HitColumn > -1)
+      and (LHitInfo.HitColumn < ColumnDefinitions.Count) then
+    begin
+      LItem := GetNodeItem(FTreeView, LHitInfo.HitNode);
+      LItemTemplate := GetItemTemplate(LItem);
+      LColumnDefinition := ColumnDefinitions[LHitInfo.HitColumn];
+
+      if Assigned(LItemTemplate) then
+      begin
+        if IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn)
+          and LColumnDefinition.AllowEdit then
+        begin
+          //LItemTemplate.SetValue(LItem, LHitInfo.HitColumn,
+          //  not LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsBoolean);
+        end;
+
+        if (hiOnNormalIcon in FHitInfo.HitPositions)
+          and IsMouseInToggleIcon(LHitInfo)
+          and (LColumnDefinition.ToggleMode = tmClick) then
+        begin
+          ToggleIcon(LHitInfo.HitNode, LHitInfo.HitColumn);
+        end;
+      end;
+    end;
+
+    FTreeView.RepaintNode(FHitInfo.HitNode);
+    if LHitInfo.HitNode <> FHitInfo.HitNode then
+    begin
+      FTreeView.RepaintNode(LHitInfo.HitNode);
+    end;
+  end;
+end;
+
+procedure TTreeViewPresenter.DoNewText(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex; NewText: string);
+var
+  LItem: TObject;
+  LItemTemplate: IDataTemplate;
+begin
+  LItem := GetNodeItem(Sender, Node);
+  LItemTemplate := GetItemTemplate(LItem);
+  if Assigned(LItemTemplate) then
+  begin
+    LItemTemplate.SetText(LItem, Column, NewText);
   end;
 end;
 
@@ -924,22 +1390,167 @@ procedure TTreeViewPresenter.DoSourceCollectionChanged(Sender: TObject;
   Item: TObject; Action: TCollectionChangedAction);
 var
   LNode: PVirtualNode;
+  LSelectedNode: PVirtualNode;
 begin
-  if Assigned(FTreeView) then
+  if Assigned(FTreeView) and not (csDestroying in ComponentState)
+    and (FUpdateCount = 0) then
   begin
-    LNode := FTreeView.IterateSubtree(nil, GetItemNode, Pointer(Item));
     case Action of
-      caAdd: ResetRootNodeCount;
-      caRemove: ResetRootNodeCount;
+      caAdd:
+      begin
+        LNode := FTreeView.IterateSubtree(nil, GetItemsNode, Pointer(Sender));
+        FTreeView.AddChild(LNode);
+      end;
+
+      caRemove:
+      begin
+        LNode := FTreeView.IterateSubtree(nil, GetItemsNode, Pointer(Sender));
+        LNode := FTreeView.IterateSubtree(LNode, GetItemNode, Pointer(Item));
+
+        // find node to select after deleting current node
+        if FTreeView.Selected[LNode] and (FSelectionMode = smSingle) then
+        begin
+          LSelectedNode := FTreeView.GetNextVisibleSibling(LNode);
+
+          if not Assigned(LSelectedNode) then
+            LSelectedNode := FTreeView.GetPreviousVisibleSibling(LNode);
+          if not Assigned(LSelectedNode) then
+            LSelectedNode := LNode.Parent;
+          if Assigned(LSelectedNode) then
+          begin
+            FTreeView.Selected[LSelectedNode] := True;
+            FTreeView.FocusedNode := LSelectedNode;
+          end;
+        end;
+
+        FTreeView.DeleteNode(LNode);
+      end;
+
       caReplace:
       begin
-        FTreeView.ReinitNode(LNode, True);
-        FTreeView.InvalidateNode(LNode);
+        LNode := FTreeView.IterateSubtree(nil, GetItemsNode, Pointer(Sender));
+        FTreeView.Sort(LNode, FTreeView.Header.SortColumn, FTreeView.Header.SortDirection);
+      end;
+
+      caReset:
+      begin
+        ResetRootNodeCount;
       end;
     end;
   end;
+end;
 
-  DoPropertyChanged('ItemsSource');
+procedure TTreeViewPresenter.DrawCheckBox(TargetCanvas: TCanvas;
+  Node: PVirtualNode; Column: TColumnIndex; CellRect: TRect; Value: Boolean);
+var
+  LThemedButton: TThemedButton;
+  LCheckBoxRect: TRect;
+  LDetails: TThemedElementDetails;
+  LState: Cardinal;
+begin
+  LCheckBoxRect := CalcCheckBoxRect(CellRect);
+
+  if Value then
+  begin
+    LThemedButton := tbCheckBoxCheckedNormal;
+  end
+  else
+  begin
+    LThemedButton := tbCheckBoxUncheckedNormal;
+  end;
+
+  if IsMouseInCheckBox(Node, Column) then
+  begin
+    Inc(LThemedButton);
+  end;
+
+  if (FHitInfo.HitNode = Node) and (FHitInfo.HitColumn = Column)
+    and (hiOnItemCheckbox in FHitInfo.HitPositions)
+    and (GetAsyncKeyState(VK_LBUTTON) <> 0)
+    and ColumnDefinitions[FHitInfo.HitColumn].AllowEdit then
+  begin
+    if Value then
+    begin
+      LThemedButton := tbCheckBoxCheckedPressed;
+    end
+    else
+    begin
+      LThemedButton := tbCheckBoxUncheckedPressed;
+    end;
+  end;
+
+  //if StyleServices.Enabled and
+  //  (toThemeAware in FTreeView.TreeOptions.PaintOptions) then
+  //begin
+  //  LDetails := StyleServices.GetElementDetails(LThemedButton);
+  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, LCheckBoxRect);
+  //end
+  //else
+  begin
+    LState := DFCS_BUTTONCHECK;
+    if LThemedButton in [tbCheckBoxCheckedNormal, tbCheckBoxCheckedHot] then
+    begin
+      LState := LState or DFCS_CHECKED;
+    end;
+
+    DrawFrameControl(TargetCanvas.Handle, LCheckBoxRect, DFC_BUTTON, LState);
+  end;
+end;
+
+procedure TTreeViewPresenter.DrawImage(TargetCanvas: TCanvas;
+  Node: PVirtualNode; Column: TColumnIndex; CellRect: TRect; Value: Integer);
+var
+  LRect: TRect;
+begin
+  if Assigned(ImageList) then
+  begin
+    LRect := CalcImageRect(CellRect);
+    ImageList.Draw(TargetCanvas, LRect.Left, LRect.Top, Value);
+  end;
+end;
+
+procedure TTreeViewPresenter.DrawProgressBar(TargetCanvas: TCanvas;
+  Node: PVirtualNode; Column: TColumnIndex; CellRect: TRect; Value: Integer);
+var
+  LDetails: TThemedElementDetails;
+begin
+  //if StyleServices.Enabled and
+  //  (toThemeAware in FTreeView.TreeOptions.PaintOptions) then
+  //begin
+  //  InflateRect(CellRect, -1, -1);
+  //  LDetails := StyleServices.GetElementDetails(tpBar);
+  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, CellRect, nil);
+  //  InflateRect(CellRect, -2, -2);
+  //  CellRect.Right := CellRect.Left + Trunc(RectWidth(CellRect) * Value / 100);
+  //  LDetails := StyleServices.GetElementDetails(tpChunk);
+  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, CellRect, nil);
+  //end
+  //else
+  begin
+    InflateRect(CellRect, -1, -1);
+    FProgressBar.Position := Value;
+    FProgressBar.Height := RectHeight(CellRect);
+    FProgressBar.Width := RectWidth(CellRect);
+    FProgressBar.PaintTo(TargetCanvas, CellRect.Left, 1);
+  end;
+end;
+
+procedure TTreeViewPresenter.EndUpdate;
+begin
+  inherited;
+  FTreeView.EndUpdate();
+end;
+
+procedure TTreeViewPresenter.ExpandNode(Node: PVirtualNode);
+begin
+  while Assigned(Node) do
+  begin
+    if [vsChecking..vsExpanded] * Node.States = [] then
+    begin
+      FTreeView.Expanded[Node] := True;
+    end;
+    Node := Node.Parent;
+  end;
 end;
 
 procedure TTreeViewPresenter.FullCollapse;
@@ -950,6 +1561,43 @@ end;
 procedure TTreeViewPresenter.FullExpand;
 begin
   FTreeView.FullExpand;
+end;
+
+function TTreeViewPresenter.GetCanMoveCurrentToNext: Boolean;
+var
+  LNode: PVirtualNode;
+begin
+  Result := False;
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetFirstSelected();
+    LNode := FTreeView.GetNextVisible(LNode);
+    Result := Assigned(LNode);
+  end;
+end;
+function TTreeViewPresenter.GetCanMoveCurrentToPrevious: Boolean;
+var
+  LNode: PVirtualNode;
+begin
+  Result := False;
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetFirstSelected();
+    LNode := FTreeView.GetPreviousVisible(LNode);
+    Result := Assigned(LNode);
+  end;
+end;
+
+function TTreeViewPresenter.GetCheckedItem: TObject;
+begin
+  if FCheckedItems.Count > 0 then
+  begin
+    Result := FCheckedItems[0];
+  end
+  else
+  begin
+    Result := nil;
+  end;
 end;
 
 function TTreeViewPresenter.GetCheckedItems: TObjectList;
@@ -995,16 +1643,51 @@ begin
   end;
 end;
 
+procedure TTreeViewPresenter.GetItemsNode(Sender: TBaseVirtualTree;
+  Node: PVirtualNode; Data: Pointer; var Abort: Boolean);
+var
+  LNodeData: PNodeData;
+begin
+  LNodeData := PNodeData(Sender.GetNodeData(Node));
+  Abort := Assigned(LNodeData) and (LNodeData.ItemsAsObject = TObject(Data));
+end;
+
 function TTreeViewPresenter.GetNodeItem(Tree: TBaseVirtualTree;
   Node: PVirtualNode): TObject;
+var
+  LNodeData: PNodeData;
 begin
-  if Assigned(Tree) and Assigned(Node) then
+  LNodeData := PNodeData(Tree.GetNodeData(Node));
+  if Assigned(LNodeData) then
   begin
-    Result := PObject(Tree.GetNodeData(Node))^;
+    Result := LNodeData.Item;
   end
   else
   begin
     Result := nil;
+  end;
+end;
+
+function TTreeViewPresenter.GetNodeItems(Tree: TBaseVirtualTree;
+  Node: PVirtualNode): TObjectList;
+var
+  LNodeData: PNodeData;
+begin
+  LNodeData := PNodeData(Tree.GetNodeData(Node));
+  if Assigned(LNodeData) then
+  begin
+    Result := LNodeData.Items;
+  end
+  else
+  begin
+    if Node = Tree.RootNode then
+    begin
+      Result := ItemsSource;
+    end
+    else
+    begin
+      Result := nil;
+    end;
   end;
 end;
 
@@ -1018,9 +1701,49 @@ begin
   Result := FOnPropertyChanged;
 end;
 
+function TTreeViewPresenter.GetNodeItemsAsObject(Tree: TBaseVirtualTree;
+  Node: PVirtualNode): TObject;
+var
+  LNodeData: PNodeData;
+begin
+  LNodeData := PNodeData(Tree.GetNodeData(Node));
+  if Assigned(LNodeData) then
+  begin
+    Result := LNodeData.ItemsAsObject;
+  end
+  else
+  begin
+    if Node = Tree.RootNode then
+    begin
+      Result := ItemsSource;
+    end
+    else
+    begin
+      Result := nil;
+    end;
+  end;
+end;
+
+function TTreeViewPresenter.GetParentItem(const Level: Integer): TObject;
+var
+  LLevel: Integer;
+  LNode: PVirtualNode;
+begin
+  Result := GetNodeItem(FTreeView, FCurrentNode);
+
+  LLevel := 0;
+  LNode := FCurrentNode;
+  while Assigned(LNode) and (LLevel < Level) do
+  begin
+    LNode := LNode.Parent;
+    Result := GetNodeItem(FTreeView, LNode);
+    Inc(LLevel);
+  end;
+end;
+
 function TTreeViewPresenter.GetSelectedItem: TObject;
 begin
-  if FSelectedItems.Count > 0 then
+  if (FSelectedItems.Count > 0) and (FSelectionMode <> smNone) then
   begin
     Result := FSelectedItems[0];
   end
@@ -1032,6 +1755,10 @@ end;
 
 function TTreeViewPresenter.GetSelectedItems: TObjectList;
 begin
+  if (FSelectedItems.Count > 0) and (FSelectionMode = smNone) then
+  begin
+    FSelectedItems.Clear;
+  end;
   Result := FSelectedItems;
 end;
 
@@ -1054,7 +1781,7 @@ begin
           Width     := CD.Width;
           MinWidth  := CD.MinWidth;
           MaxWidth  := CD.MaxWidth;
-          CheckBox  := CD.CheckBox;
+          CheckBox  := CD.ColumnType = TColumnType.ctCheckBox;
           Alignment := CD.Alignment;
           Spacing   := CD.Spacing;
           Options := Options + [
@@ -1087,6 +1814,21 @@ begin
   end;
 end;
 
+procedure TTreeViewPresenter.InitControl;
+begin
+  if Assigned(FTreeView) and ([csDesigning, csDestroying] * ComponentState = []) then
+  begin
+    FTreeView.Images := ImageList;
+    FTreeView.NodeDataSize := SizeOf(TNodeData);
+    FTreeView.PopupMenu := PopupMenu;
+
+    InitColumns();
+    InitProperties();
+    InitEvents();
+    ResetRootNodeCount();
+  end;
+end;
+
 procedure TTreeViewPresenter.InitEvents;
 begin
   if Assigned(FTreeView) and not (csDesigning in ComponentState) then
@@ -1096,24 +1838,34 @@ begin
     FTreeView.OnBeforeCellPaint := DoBeforeCellPaint;
     FTreeView.OnChange := DoChange;
     FTreeView.OnChecked := DoChecked;
+    FTreeView.OnCollapsed := DoCollapsed;
     FTreeView.OnCompareNodes := DoCompareNodes;
     FTreeView.OnDblClick := DoDblClick;
     FTreeView.OnDragAllowed := DoDragAllowed;
     FTreeView.OnDragDrop := DoDragDrop;
     FTreeView.OnDragOver := DoDragOver;
+    FTreeView.OnEdited := DoEdited;
+    FTreeView.OnEditing := DoEditing;
+    FTreeView.OnExpanded := DoExpanded;
     FTreeView.OnFocusChanged := DoFocusChanged;
+    FTreeView.OnFreeNode := DoFreeNode;
+    FTreeView.OnGetHint := DoGetHint;
     FTreeView.OnGetImageIndex := DoGetImageIndex;
     FTreeView.OnGetText := DoGetText;
     FTreeView.OnHeaderClick := DoHeaderClick;
+    FTreeView.OnIncrementalSearch := DoIncrementalSearch;
     FTreeView.OnInitNode := DoInitNode;
     FTreeView.OnKeyDown := DoKeyDown;
     FTreeView.OnMouseDown := DoMouseDown;
+    FTreeView.OnMouseMove := DoMouseMove;
+    FTreeView.OnMouseUp := DoMouseUp;
+    //FTreeView.OnNewText := DoNewText;
     FTreeView.OnNodeMoved := DoNodeMoved;
     FTreeView.OnPaintText := DoPaintText;
   end;
 end;
 
-procedure TTreeViewPresenter.InitTreeOptions;
+procedure TTreeViewPresenter.InitProperties;
 begin
   if Assigned(FTreeView) and not (csDesigning in ComponentState) then
   begin
@@ -1172,10 +1924,138 @@ begin
   end;
 end;
 
-procedure TTreeViewPresenter.Loaded;
+function TTreeViewPresenter.IsMouseInCheckBox(Node: PVirtualNode;
+  Column: TColumnIndex): Boolean;
+var
+  LCursorPos: TPoint;
+  LHitInfo: THitInfo;
+  LRect: TRect;
 begin
-  inherited;
-  InitColumns;
+  if Assigned(Node) and Assigned(ColumnDefinitions) and (Column > -1)
+    and (Column < ColumnDefinitions.Count)
+    and (ColumnDefinitions[Column].ColumnType = TColumnType.ctCheckBox) then
+  begin
+    LCursorPos := FTreeView.ScreenToClient(Mouse.CursorPos);
+    FTreeView.GetHitTestInfoAt(LCursorPos.X, LCursorPos.Y, False, LHitInfo);
+    LRect := FTreeView.GetDisplayRect(Node, Column, False);
+    LRect := CalcCheckBoxRect(LRect);
+    Result := PtInRect(LRect, LCursorPos);
+  end
+  else
+  begin
+    Result := False;
+  end;
+end;
+
+function TTreeViewPresenter.IsMouseInToggleIcon(HitInfo: THitInfo): Boolean;
+var
+  LCursorPos: TPoint;
+  LRect: TRect;
+begin
+  if Assigned(ColumnDefinitions) and (HitInfo.HitColumn > -1)
+    and (HitInfo.HitColumn < ColumnDefinitions.Count) then
+  begin
+    if ColumnDefinitions[HitInfo.HitColumn].ColumnType = ctImage then
+    begin
+      LCursorPos := FTreeView.ScreenToClient(Mouse.CursorPos);
+      LRect := FTreeView.GetDisplayRect(HitInfo.HitNode, HitInfo.HitColumn, False);
+      LRect := CalcImageRect(LRect);
+      if PtInRect(LRect, LCursorPos) then
+      begin
+        Include(HitInfo.HitPositions, hiOnNormalIcon);
+      end;
+    end;
+
+    Result := (hiOnNormalIcon in HitInfo.HitPositions)
+      and (ColumnDefinitions[HitInfo.HitColumn].ToggleMode <> tmNone);
+  end
+  else
+  begin
+    Result := False;
+  end;
+end;
+
+procedure TTreeViewPresenter.MoveCurrentToFirst;
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetFirstVisible();
+    if Assigned(LNode) then
+    begin
+      FTreeView.Selected[LNode] := True;
+      if FTreeView.HandleAllocated then
+      begin
+        FTreeView.ScrollIntoView(LNode, True, True);
+      end;
+    end;
+  end;
+end;
+procedure TTreeViewPresenter.MoveCurrentToLast;
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetLastVisible();
+    if Assigned(LNode) then
+    begin
+      FTreeView.Selected[LNode] := True;
+      if FTreeView.HandleAllocated then
+      begin
+        FTreeView.ScrollIntoView(LNode, True, True);
+      end;
+    end;
+  end;
+end;
+procedure TTreeViewPresenter.MoveCurrentToNext;
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetFirstSelected();
+    LNode := FTreeView.GetNextVisibleSibling(LNode);
+    if Assigned(LNode) then
+    begin
+      FTreeView.Selected[LNode] := True;
+      if FTreeView.HandleAllocated then
+      begin
+        FTreeView.ScrollIntoView(LNode, True, True);
+      end;
+    end;
+  end;
+end;
+procedure TTreeViewPresenter.MoveCurrentToPrevious;
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) then
+  begin
+    LNode := FTreeView.GetFirstSelected();
+    LNode := FTreeView.GetPreviousVisibleSibling(LNode);
+    if Assigned(LNode) then
+    begin
+      FTreeView.Selected[LNode] := True;
+      if FTreeView.HandleAllocated then
+      begin
+        FTreeView.ScrollIntoView(LNode, True, True);
+      end;
+    end;
+  end;
+end;
+
+procedure TTreeViewPresenter.ReadMultiSelect(Reader: TReader);
+begin
+  if Reader.ReadBoolean then
+  begin
+    FSelectionMode := smMulti;
+  end
+  else
+  begin
+    FSelectionMode := smSingle;
+  end;
 end;
 
 procedure TTreeViewPresenter.Refresh;
@@ -1199,10 +2079,44 @@ begin
   end;
 end;
 
+procedure TTreeViewPresenter.SetCheckedItem(const Value: TObject);
+begin
+  FCheckedItems.Clear();
+  if Assigned(Value) then
+  begin
+    FCheckedItems.Add(Value);
+  end;
+  SetCheckedItems(FCheckedItems);
+end;
+
+procedure TTreeViewPresenter.SetCheckedItems(const Value: TObjectList);
+var
+  LItem: TObject;
+  LNode: PVirtualNode;
+begin
+  if Assigned(Value) then
+  begin
+    LNode := FTreeView.GetFirstInitialized();
+    while Assigned(LNode) do
+    begin
+      LItem := GetNodeItem(FTreeView, LNode);
+      if Assigned(LItem) and (Value.IndexOf(LItem) <> -1) then
+      begin
+        FTreeView.CheckState[LNode] := csCheckedNormal;
+      end
+      else
+      begin
+        FTreeView.CheckState[LNode] := csUncheckedNormal;
+      end;
+      LNode := FTreeView.GetNextInitialized(LNode);
+    end;
+  end;
+end;
+
 procedure TTreeViewPresenter.SetCheckSupport(const Value: TCheckSupport);
 begin
   FCheckSupport := Value;
-  InitTreeOptions;
+  InitProperties;
 end;
 
 procedure TTreeViewPresenter.SetColumnDefinitions(
@@ -1226,7 +2140,8 @@ var
   LItem: TObject;
   LNode: PVirtualNode;
 begin
-  if Assigned(Value) then
+  FTreeView.FullCollapse;
+  if Assigned(Value) and (Value.Count > 0) then
   begin
     LNode := FTreeView.GetFirst;
     while Assigned(LNode) do
@@ -1234,7 +2149,7 @@ begin
       LItem := GetNodeItem(FTreeView, LNode);
       if Assigned(LItem) and (Value.IndexOf(LItem) > -1) then
       begin
-        FTreeView.Expanded[LNode] := True;
+        ExpandNode(LNode);
       end;
       LNode := FTreeView.GetNext(LNode);
     end;
@@ -1270,21 +2185,24 @@ end;
 procedure TTreeViewPresenter.SetListMode(const Value: Boolean);
 begin
   FListMode := Value;
-  InitTreeOptions;
+  InitProperties;
 end;
 
 procedure TTreeViewPresenter.SetMultiSelect(const Value: Boolean);
 begin
   FMultiSelect := Value;
-  InitTreeOptions;
+  InitProperties;
 end;
 
 procedure TTreeViewPresenter.SetNodeItem(Tree: TBaseVirtualTree;
   Node: PVirtualNode; Item: TObject);
+var
+  LNodeData: PNodeData;
 begin
-  if Assigned(Tree) and Assigned(Node) then
+  LNodeData := PNodeData(Tree.GetNodeData(Node));
+  if Assigned(LNodeData) then
   begin
-    PObject(Tree.GetNodeData(Node))^ := Item;
+    LNodeData.Item := Item;
   end;
 end;
 
@@ -1294,11 +2212,41 @@ begin
   SetTreeView(FTreeView);
 end;
 
+procedure TTreeViewPresenter.SetNodeItems(Tree: TBaseVirtualTree; Node: PVirtualNode; Items: TObjectList);
+var
+  LNodeData: PNodeData;
+  //LCollectionChanged: IEvent<TCollectionChangedEvent>;
+begin
+  LNodeData := PNodeData(Tree.GetNodeData(Node));
+  if Assigned(LNodeData) then
+  begin
+    if Assigned(LNodeData.Items) then
+    begin
+      //LCollectionChanged := IEvent<TCollectionChangedEvent>(LNodeData.Items.OnCollectionChanged);
+      //LCollectionChanged.Remove(DoSourceCollectionChanged);
+    end;
+    LNodeData.Items := Items;
+    if Assigned(LNodeData.Items) then
+    begin
+      LNodeData.ItemsAsObject := Items;
+      //LCollectionChanged := IEvent<TCollectionChangedEvent>(LNodeData.Items.OnCollectionChanged);
+      //LCollectionChanged.Add(DoSourceCollectionChanged);
+    end;
+  end;
+end;
+
 procedure TTreeViewPresenter.SetSelectedItem(const Value: TObject);
 begin
-  FSelectedItems.Clear;
+  if ((Value <> SelectedItem) or (SelectedItems.Count > 1))
+    and (FSelectionMode <> smNone) then
+  begin
+    FSelectedItems.Clear();
+    if Assigned(Value) then
+    begin
   FSelectedItems.Add(Value);
+    end;
   SetSelectedItems(FSelectedItems);
+  end;
 end;
 
 procedure TTreeViewPresenter.SetSelectedItems(const Value: TObjectList);
@@ -1306,39 +2254,127 @@ var
   LItem: TObject;
   LNode: PVirtualNode;
 begin
-  FTreeView.BeginUpdate;
-  FTreeView.ClearSelection;
-  if Assigned(Value) then
+  if Assigned(FTreeView) and not (csDestroying in FTreeView.ComponentState)
+    and (FSelectionMode <> smNone) then
   begin
-    LNode := FTreeView.GetFirst;
-    while Assigned(LNode) do
+    FTreeView.BeginUpdate();
+    FTreeView.ClearSelection();
+    if Assigned(Value) and (Value.Count > 0) then
     begin
-      LItem := GetNodeItem(FTreeView, LNode);
-      if Assigned(LItem) and (Value.IndexOf(LItem) > -1) then
+      LNode := FTreeView.GetFirst();
+      while Assigned(LNode) do
       begin
-        FTreeView.Selected[LNode] := True;
-        // TS
-        FTreeView.ScrollIntoView(LNode, False);
+        LItem := GetNodeItem(FTreeView, LNode);
+        if Assigned(LItem) and (Value.IndexOf(LItem) <> -1) then
+        begin
+          FTreeView.Selected[LNode] := True;
+        end;
+        LNode := FTreeView.GetNext(LNode);
       end;
-      LNode := FTreeView.GetNext(LNode);
+      LNode := FTreeView.GetFirstSelected();
+      FTreeView.FocusedNode := LNode;
+      if Assigned(LNode) and (FCollectionChanging = 0)
+        and FTreeView.HandleAllocated then
+      begin
+        FTreeView.ScrollIntoView(LNode, True, True);
+      end;
     end;
+    FTreeView.EndUpdate();
   end;
-  FTreeView.EndUpdate;
+end;
+
+procedure TTreeViewPresenter.SetSelectionMode(const Value: TSelectionMode);
+begin
+  FSelectionMode := Value;
+  InitProperties;
+end;
+
+procedure TTreeViewPresenter.SetShowHeader(const Value: Boolean);
+begin
+  FShowHeader := Value;
+  InitProperties();
+end;
+
+procedure TTreeViewPresenter.SetSorting(const Value: Boolean);
+begin
+  FSorting := Value;
+  if Assigned(FTreeView) and not FSorting then
+  begin
+    FTreeView.Header.SortColumn := -1;
+    Refresh();
+  end;
+  InitProperties();
 end;
 
 procedure TTreeViewPresenter.SetTreeView(const Value: TVirtualStringTree);
 begin
+  if FTreeView <> Value then
+  begin
+    if Assigned(FTreeView) then
+    begin
+      FTreeView.RemoveFreeNotification(Self);
+    end;
+
   FTreeView := Value;
+
   if Assigned(FTreeView) then
   begin
-    FTreeView.Images := FImageList;
-    FTreeView.NodeDataSize := SizeOf(TObject);
-    FTreeView.PopupMenu := FPopupMenu;
+      FTreeView.FreeNotification(Self);
+    end;
 
-    InitColumns;
-    InitTreeOptions;
-    InitEvents;
-    ResetRootNodeCount;
+    if not (csDesigning in ComponentState) then
+    begin
+      FProgressBar.Parent := FTreeView;
+    end;
+    InitControl;
+  end;
+end;
+
+procedure TTreeViewPresenter.ToggleIcon(Node: PVirtualNode;
+  Column: TColumnIndex);
+var
+  LItem: TObject;
+  LItemTemplate: IDataTemplate;
+  LColumnDefinition: TColumnDefinition;
+  //LValue: TValue;
+
+  //procedure ToggleValue;
+  //begin
+  //  if LValue.AsOrdinal < LValue.TypeData.MaxValue then
+  //  begin
+  //    TValue.Make(LValue.AsOrdinal + 1, LValue.TypeInfo, LValue);
+  //  end
+  //  else
+  //  begin
+  //    TValue.Make(LValue.TypeData.MinValue, LValue.TypeInfo, LValue);
+  //  end;
+  //end;
+
+begin
+  LItem := GetNodeItem(FTreeView, Node);
+  LColumnDefinition := ColumnDefinitions[Column];
+  if LColumnDefinition.ColumnType = ctImage then
+  begin
+    LItemTemplate := GetItemTemplate(LItem);
+    if Assigned(LItemTemplate) then
+    begin
+      //LValue := LItemTemplate.GetValue(LItem, Column);
+      //if LValue.IsOrdinal then
+      //begin
+      //  ToggleValue;
+      //  LItemTemplate.SetValue(LItem, Column, LValue);
+      //end;
+    end;
+  end
+  else
+  begin
+    //LColumnDefinition.ImageIndexPropertyExpression.Instance := LItem;
+    //LValue := LColumnDefinition.ImageIndexPropertyExpression.Value;
+    //if LValue.IsOrdinal then
+    //begin
+    //  ToggleValue;
+    //  LColumnDefinition.ImageIndexPropertyExpression.Value := LValue;
+    //end;
   end;
 end;
 
@@ -1398,5 +2434,8 @@ begin
   DoPropertyChanged('SelectedItem');
   DoPropertyChanged('SelectedItems');
 end;
+
+initialization
+  CheckBoxSize := GetSystemMetrics(SM_CYMENUCHECK);
 
 end.

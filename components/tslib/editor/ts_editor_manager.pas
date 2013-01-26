@@ -1483,7 +1483,7 @@ end;
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
   //InspectComponent((ActiveView.Editor as IInterfaceComponentReference).GetComponent);
-  InspectComponent(ActiveView.Editor.Highlighter);
+  InspectComponent((Settings as IInterfaceComponentReference).GetComponent);
 end;
 
 procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);

@@ -248,6 +248,7 @@ begin
   FText  := AText;
 end;
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -305,7 +306,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -328,31 +331,6 @@ end;
 function TfrmCodeFilterDialog.GetName: string;
 begin
   Result := inherited Name;
-end;
-
-procedure TfrmCodeFilterDialog.Cut;
-begin
-  PostMessage(GetFocus, WM_CUT, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Copy;
-begin
-  PostMessage(GetFocus, WM_COPY, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Paste;
-begin
-  PostMessage(GetFocus, WM_PASTE, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Undo;
-begin
-  PostMessage(GetFocus, WM_UNDO, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Redo;
-begin
-  PostMessage(GetFocus, WM_UNDO, 1, 0);
 end;
 
 function TfrmCodeFilterDialog.GetOnFilteredLineChange: TOnFilteredLineChangeEvent;
@@ -401,7 +379,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -460,18 +440,20 @@ begin
   FTVP.SelectAll;
 end;
 
+//*****************************************************************************
+// action handlers                                                         END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
 procedure TfrmCodeFilterDialog.chkMatchCaseClick(Sender: TObject);
 begin
   FUpdate := True;
 end;
-
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
-
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
@@ -505,153 +487,150 @@ begin
     PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
-  end;
-  FVKPressed := False;
+    end;
+    FVKPressed := False;
 end;
 
 procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  Filter := '';
+    Filter := '';
 end;
 
 procedure TfrmCodeFilterDialog.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-  if Key = VK_ESCAPE then
-  begin
-    ModalResult := mrCancel;
-    Close;
-  end
-  else
-    inherited;
+    if Key = VK_ESCAPE then
+    begin
+      ModalResult := mrCancel;
+      Close;
+    end
+    else
+      inherited;
 end;
 
 procedure TfrmCodeFilterDialog.FormShow(Sender: TObject);
 begin
-  edtFilter.SetFocus;
+    edtFilter.SetFocus;
 end;
 
 function TfrmCodeFilterDialog.FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
-  ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
-  TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
+    ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
+    TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
 var
-  L      : TLine;
-  S      : string;
-  Line   : string;
-  P      : TPoint;
-  A      : TSynHighlighterAttributes;
-  R      : TRect;
-  I      : Integer;
-  Offset : Integer;
-  Match  : string;
+    L      : TLine;
+    S      : string;
+    Line   : string;
+    P      : TPoint;
+    A      : TSynHighlighterAttributes;
+    R      : TRect;
+    I      : Integer;
+    Offset : Integer;
+    Match  : string;
 begin
-  Offset := 0;
-  Match  := '';
-  Result := True;
-  if DrawMode = dmAfterCellPaint then
-  begin
-    L := TLine(Item);
-    if ColumnDefinition.Name = 'Index' then
+    Offset := 0;
+    Match  := '';
+    Result := True;
+    if DrawMode = dmAfterCellPaint then
     begin
-      S := IntToStr(L.Index + 1);
-      R := CellRect;
-      TargetCanvas.FillRect(R);
-      FTextStyle.Alignment := taRightJustify;
-      TargetCanvas.Font.Color := clGray;
-      TargetCanvas.Font.Name := 'Consolas';
-      R.Right := R.Right - 8;
-      TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
-    end
-    else
-    begin
-      FTextStyle.Alignment := taLeftJustify;
-      P.Y := L.Index + 1;
-      R := CellRect;
-      TargetCanvas.FillRect(R);
-      Line := StringReplace(L.Text, #9, ' ', [rfReplaceAll]);
-      if IsMatch(L.Text, Match, Offset) then
+      L := TLine(Item);
+      if ColumnDefinition.Name = 'Index' then
       begin
-        R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
-        R.Right := R.Left + TargetCanvas.TextWidth(Match);
-        // todo retrieve from settings
-        TargetCanvas.Pen.Color := $004683FF;
-        TargetCanvas.Pen.Width := 1;
-        TargetCanvas.Brush.Color := $0064B1FF;
-        TargetCanvas.Rectangle(R);
+        S := IntToStr(L.Index + 1);
         R := CellRect;
-      end;
-      I := 0;
-      while I <= Length(Line) do
+        TargetCanvas.FillRect(R);
+        FTextStyle.Alignment := taRightJustify;
+        TargetCanvas.Font.Color := clGray;
+        TargetCanvas.Font.Name := 'Consolas';
+        R.Right := R.Right - 8;
+        TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
+      end
+      else
       begin
-        P.X := I;
-        if View.Editor.GetHighlighterAttriAtRowCol(P, S, A) then
+        FTextStyle.Alignment := taLeftJustify;
+        P.Y := L.Index + 1;
+        R := CellRect;
+        TargetCanvas.FillRect(R);
+        Line := StringReplace(L.Text, #9, ' ', [rfReplaceAll]);
+        if IsMatch(L.Text, Match, Offset) then
         begin
-          TargetCanvas.Brush.Color := A.Background;
-          if A.Foreground <> clNone then // clNone will be painted as white
-            TargetCanvas.Font.Color := A.Foreground
-          else
-            TargetCanvas.Font.Color := clBlack;
-          TargetCanvas.Font.Style := A.Style;
+          R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
+          R.Right := R.Left + TargetCanvas.TextWidth(Match);
+          // todo retrieve from settings
+          TargetCanvas.Pen.Color := $004683FF;
+          TargetCanvas.Pen.Width := 1;
+          TargetCanvas.Brush.Color := $0064B1FF;
+          TargetCanvas.Rectangle(R);
+          R := CellRect;
         end;
-        if S = '' then
-          I := I + 1
-        else
+        I := 0;
+        while I <= Length(Line) do
         begin
-          S := StringReplace(S, #9, ' ', [rfReplaceAll]);
-          TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
-          R.Left := R.Left + TargetCanvas.TextWidth(S);
-          I := I + Length(S);
+          P.X := I;
+          if View.Editor.GetHighlighterAttriAtRowCol(P, S, A) then
+          begin
+            TargetCanvas.Brush.Color := A.Background;
+            if A.Foreground <> clNone then // clNone will be painted as white
+              TargetCanvas.Font.Color := A.Foreground
+            else
+              TargetCanvas.Font.Color := clBlack;
+            TargetCanvas.Font.Style := A.Style;
+          end;
+          if S = '' then
+            I := I + 1
+          else
+          begin
+            S := StringReplace(S, #9, ' ', [rfReplaceAll]);
+            TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
+            R.Left := R.Left + TargetCanvas.TextWidth(S);
+            I := I + Length(S);
+          end;
         end;
       end;
     end;
-  end;
 end;
 
 procedure TfrmCodeFilterDialog.FTVPFilter(Item: TObject; var Accepted: Boolean);
 var
-  L: TLine;
+    L: TLine;
 begin
-  L := TLine(Item);
-  Accepted := IsMatch(L.Text);
+    L := TLine(Item);
+    Accepted := IsMatch(L.Text);
 end;
 
 procedure TfrmCodeFilterDialog.FTVPSelectionChanged(Sender: TObject);
 begin
-  FUpdateView := True;
+    FUpdateView := True;
 end;
 
 procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: char);
 begin
-  if Ord(Key) = VK_RETURN then
-  begin
-    Close;
-  end
-  else if Ord(Key) = VK_ESCAPE then
-  begin
-    ModalResult := mrCancel;
-    Close;
-  end
-  else if not edtFilter.Focused then
-  begin
-    edtFilter.SetFocus;
-    PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
-    edtFilter.SelStart := Length(Filter);
-    // required to prevent the invocation of accelerator keys!
-    Key := #0;
-  end;
+    if Ord(Key) = VK_RETURN then
+    begin
+      Close;
+    end
+    else if Ord(Key) = VK_ESCAPE then
+    begin
+      ModalResult := mrCancel;
+      Close;
+    end
+    else if not edtFilter.Focused then
+    begin
+      edtFilter.SetFocus;
+      PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
+      edtFilter.SelStart := Length(Filter);
+      // required to prevent the invocation of accelerator keys!
+      Key := #0;
+    end;
 end;
 
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'private methods' /fold}
 //*****************************************************************************
 // private methods                                                       BEGIN
 //*****************************************************************************
-
-procedure TfrmCodeFilterDialog.Modified;
-begin
-  FUpdate := True;
-end;
 
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
@@ -700,10 +679,42 @@ end;
 //*****************************************************************************
 // private methods                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
+
+procedure TfrmCodeFilterDialog.Cut;
+begin
+  PostMessage(GetFocus, WM_CUT, 0, 0);
+end;
+
+procedure TfrmCodeFilterDialog.Copy;
+begin
+  PostMessage(GetFocus, WM_COPY, 0, 0);
+end;
+
+procedure TfrmCodeFilterDialog.Paste;
+begin
+  PostMessage(GetFocus, WM_PASTE, 0, 0);
+end;
+
+procedure TfrmCodeFilterDialog.Undo;
+begin
+  PostMessage(GetFocus, WM_UNDO, 0, 0);
+end;
+
+procedure TfrmCodeFilterDialog.Redo;
+begin
+  PostMessage(GetFocus, WM_UNDO, 1, 0);
+end;
+
+procedure TfrmCodeFilterDialog.Modified;
+begin
+  FUpdate := True;
+end;
 
 procedure TfrmCodeFilterDialog.UpdateActions;
 var
@@ -758,10 +769,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
-
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
+{$endregion}
 
 end.
 

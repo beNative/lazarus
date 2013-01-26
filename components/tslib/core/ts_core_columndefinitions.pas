@@ -70,13 +70,21 @@ type
   TGetTextEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
     Item: TObject): string of object;
 
+  TColumnType = (ctText, ctCheckBox, ctProgressBar, ctImage);
+  TSortingDirection = (sdNone, sdAscending, sdDescending);
+  TToggleMode = (tmNone, tmClick, tmDoubleClick);
+
   TColumnDefinition = class(TCollectionItem)
   private
     FAlignment: TAlignment;
+    FAllowEdit: Boolean;
+    FAutoSize: Boolean;
     FCaption: string;
-    FCheckBox: Boolean;
+    FColumnType: TColumnType;
     FDataType: TDataType;
     FFixed: Boolean;
+    FToggleMode: TToggleMode;
+    FSortingDirection: TSortingDirection;
     FMaxWidth: Integer;
     FMinWidth: Integer;
     FName: string;
@@ -85,15 +93,23 @@ type
     FSpacing: Integer;
     FWidth: Integer;
 
+    procedure SetAutoSize(AValue: Boolean);
     procedure SetCaption(const Value: string);
     procedure SetMinWidth(AValue: Integer);
+    procedure SetSortingDirection(AValue: TSortingDirection);
 
   public
     constructor Create(ACollection: TCollection); override;
 
   published
+    property AllowEdit: Boolean
+      read FAllowEdit write FAllowEdit;
+    property Alignment: TAlignment
+      read FAlignment write FAlignment;
+    property AutoSize: Boolean read FAutoSize write SetAutoSize default False;
     property Caption: string
       read FCaption write SetCaption;
+      property ColumnType: TColumnType read FColumnType write FColumnType default ctText;
     property OnCustomDraw: TCustomDrawEvent
       read FOnCustomDraw write FOnCustomDraw;
     property OnGetText: TGetTextEvent
@@ -104,10 +120,6 @@ type
       read FMinWidth write FMinWidth default CDefaultMinWidth;
     property MaxWidth: Integer
       read FMaxWidth write FMaxWidth default CDefaultMaxWidth;
-    property CheckBox: Boolean
-      read FCheckBox write FCheckBox;
-    property Alignment: TAlignment
-      read FAlignment write FAlignment;
     property Spacing: Integer
       read FSpacing write FSpacing default CDefaultSpacing;
     property DataType: TDataType
@@ -116,10 +128,15 @@ type
       read FName write FName;
     property Fixed: Boolean
       read FFixed write FFixed;
+    property SortingDirection: TSortingDirection read FSortingDirection write SetSortingDirection default sdNone;
+    property ToggleMode: TToggleMode read FToggleMode write FToggleMode default tmNone;
+
   end;
 
   TColumnDefinitions = class(TOwnedCollection)
   private
+    FMainColumnIndex: Integer;
+    MainColumnIndex: Integer;
     function GetItem(Index: Integer): TColumnDefinition;
     procedure SetItem(Index: Integer; AValue: TColumnDefinition);
   public
@@ -140,6 +157,9 @@ type
     ): TColumnDefinition; overload;
     property Items[Index: Integer]: TColumnDefinition
       read GetItem write SetItem; default;
+
+    property MainColumnIndex: Integer
+      read FMainColumnIndex write FMainColumnIndex;
 
   end;
 
@@ -162,10 +182,22 @@ begin
   FCaption := Value;
 end;
 
+procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
+begin
+  if FAutoSize = AValue then Exit;
+  FAutoSize := AValue;
+end;
+
 procedure TColumnDefinition.SetMinWidth(AValue: Integer);
 begin
   if FMinWidth = AValue then exit;
   FMinWidth := AValue;
+end;
+
+procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);
+begin
+  if FSortingDirection = AValue then Exit;
+  FSortingDirection := AValue;
 end;
 
 { TColumnDefinitions }
@@ -208,7 +240,7 @@ begin
   end;
   if (AMinWidth = -1) and (AMaxWidth = -1) then
   begin
-    Result.Fixed := True;
+    //Result.Fixed := True;
   end;
 end;
 
@@ -238,7 +270,7 @@ begin
     end;
     if (AMinWidth = -1) and (AMaxWidth = -1) then
     begin
-      Result.Fixed := True;
+      //Result.Fixed := True;
     end;
   end;
 end;

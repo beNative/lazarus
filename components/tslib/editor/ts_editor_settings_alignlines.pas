@@ -36,20 +36,17 @@ type
     FKeepSpaceAfterToken  : Boolean;
     FKeepSpaceBeforeToken : Boolean;
     FRemoveWhiteSpace     : Boolean;
-    FTokenList            : TStringList;
+    FTokens               : TStringList;
 
-    function GetTokenList: TStrings;
-    function GetTokens: string;
-    procedure SetTokens(AValue: string);
+    function GetTokens: TStrings;
+    procedure SetTokens(AValue: TStrings);
+
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
-
-    property TokenList: TStrings
-      read GetTokenList;
 
   published
     property AlignInParagraphs: Boolean
@@ -64,7 +61,7 @@ type
     property KeepSpaceAfterToken: Boolean
       read FKeepSpaceAfterToken write FKeepSpaceAfterToken;
 
-    property Tokens: string
+    property Tokens: TStrings
       read GetTokens write SetTokens;
   end;
 
@@ -79,15 +76,16 @@ implementation
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FTokenList := TStringList.Create;
-  FTokenList.Duplicates := dupIgnore;
-  FTokenList.Delimiter := ',';
-  FTokenList.Sorted := True;
+
+  FTokens := TStringList.Create;
+  FTokens.Duplicates := dupIgnore;
+  FTokens.Delimiter := ',';
+  FTokens.Sorted := True;
 end;
 
 procedure TAlignLinesSettings.BeforeDestruction;
 begin
-  FTokenList.Free;
+  FTokens.Free;
   inherited BeforeDestruction;
 end;
 
@@ -99,19 +97,14 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-function TAlignLinesSettings.GetTokens: string;
+function TAlignLinesSettings.GetTokens: TStrings;
 begin
-  Result := FTokenList.CommaText;
+  Result := FTokens;
 end;
 
-function TAlignLinesSettings.GetTokenList: TStrings;
+procedure TAlignLinesSettings.SetTokens(AValue: TStrings);
 begin
-  Result := FTokenList;
-end;
-
-procedure TAlignLinesSettings.SetTokens(AValue: string);
-begin
-  FTokenList.CommaText := AValue;
+  FTokens.Assign(AValue);
 end;
 
 //*****************************************************************************

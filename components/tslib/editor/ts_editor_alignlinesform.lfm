@@ -1,63 +1,46 @@
 object frmAlignLines: TfrmAlignLines
-  Left = 3401
-  Height = 382
-  Top = 620
-  Width = 170
+  Left = 803
+  Height = 613
+  Top = 122
+  Width = 313
   Caption = 'Align selection'
-  ClientHeight = 382
-  ClientWidth = 170
+  ClientHeight = 613
+  ClientWidth = 313
   Constraints.MinWidth = 170
   OnShow = FormShow
   LCLVersion = '1.1'
-  object lstTokens: TListBox
-    Left = 0
-    Height = 84
-    Top = 24
-    Width = 168
-    Anchors = [akTop, akLeft, akRight]
-    Font.CharSet = ANSI_CHARSET
-    Font.Color = clBlack
-    Font.Height = -16
-    Font.Name = 'Consolas'
-    Font.Pitch = fpFixed
-    Font.Quality = fqDraft
-    Font.Style = [fsBold]
-    ItemHeight = 0
-    ParentFont = False
-    TabOrder = 0
-  end
   object btnOK: TButton
-    Left = 0
+    Left = 143
     Height = 25
-    Top = 357
+    Top = 588
     Width = 80
     Action = actExecute
     Anchors = [akRight, akBottom]
     Default = True
     ModalResult = 1
-    TabOrder = 1
+    TabOrder = 0
   end
   object btnCancel: TButton
-    Left = 90
+    Left = 233
     Height = 25
-    Top = 357
+    Top = 588
     Width = 80
     Anchors = [akRight, akBottom]
     Cancel = True
     Caption = 'Cancel'
     ModalResult = 2
-    TabOrder = 2
+    TabOrder = 1
   end
   object gbxInsertSpace: TGroupBox
     Left = 0
-    Height = 66
-    Top = 200
-    Width = 170
+    Height = 42
+    Top = 80
+    Width = 313
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Keep at least one space'
-    ClientHeight = 48
-    ClientWidth = 166
-    TabOrder = 3
+    ClientHeight = 24
+    ClientWidth = 309
+    TabOrder = 2
     object chkBeforeToken: TCheckBox
       Left = 11
       Height = 17
@@ -70,9 +53,9 @@ object frmAlignLines: TfrmAlignLines
       TabOrder = 0
     end
     object chkAfterToken: TCheckBox
-      Left = 11
+      Left = 118
       Height = 17
-      Top = 26
+      Top = 3
       Width = 75
       Caption = '&After token'
       Checked = True
@@ -81,21 +64,11 @@ object frmAlignLines: TfrmAlignLines
       TabOrder = 1
     end
   end
-  object lblTokens: TLabel
-    Left = 0
-    Height = 13
-    Top = 7
-    Width = 69
-    Alignment = taCenter
-    Caption = 'Tokens found:'
-    ParentColor = False
-    ParentFont = False
-  end
   object rgpAlignAt: TRadioGroup
     Left = 0
-    Height = 74
-    Top = 272
-    Width = 168
+    Height = 42
+    Top = 128
+    Width = 311
     Anchors = [akTop, akLeft, akRight]
     AutoFill = True
     Caption = 'Align at:'
@@ -106,26 +79,27 @@ object frmAlignLines: TfrmAlignLines
     ChildSizing.ShrinkHorizontal = crsScaleChilds
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 1
-    ClientHeight = 56
-    ClientWidth = 164
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 24
+    ClientWidth = 307
+    Columns = 2
     ItemIndex = 0
     Items.Strings = (
       'Rightmost token'
       'Leftmost token'
     )
-    TabOrder = 4
+    TabOrder = 3
   end
   object gbxOptions: TGroupBox
     Left = 0
-    Height = 81
-    Top = 112
-    Width = 170
+    Height = 73
+    Top = 0
+    Width = 313
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Options'
-    ClientHeight = 63
-    ClientWidth = 166
-    TabOrder = 5
+    ClientHeight = 55
+    ClientWidth = 309
+    TabOrder = 4
     object chkRemoveWhitespace: TCheckBox
       Left = 9
       Height = 17
@@ -140,7 +114,7 @@ object frmAlignLines: TfrmAlignLines
     object chkAlignInParagraphs: TCheckBox
       Left = 9
       Height = 17
-      Top = 40
+      Top = 32
       Width = 112
       Caption = 'Align in paragraphs'
       Checked = True
@@ -152,7 +126,7 @@ object frmAlignLines: TfrmAlignLines
       Left = 30
       Height = 32
       Top = 1
-      Width = 135
+      Width = 278
       Anchors = [akTop, akLeft, akRight]
       AutoSize = False
       Caption = 'Remove whitespace from text before aligning'
@@ -162,6 +136,26 @@ object frmAlignLines: TfrmAlignLines
       ParentFont = False
       WordWrap = True
     end
+  end
+  object lblTokens: TLabel
+    Left = 0
+    Height = 13
+    Top = 176
+    Width = 69
+    Alignment = taCenter
+    Caption = 'Tokens found:'
+    ParentColor = False
+    ParentFont = False
+  end
+  object pnlVST: TPanel
+    Left = 0
+    Height = 392
+    Top = 192
+    Width = 313
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = True
+    BevelOuter = bvNone
+    TabOrder = 5
   end
   object aclMain: TActionList
     left = 24

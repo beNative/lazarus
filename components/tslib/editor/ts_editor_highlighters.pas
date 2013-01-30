@@ -447,8 +447,8 @@ procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   const ABlockCommentEndTag: string; const ACodeFormatter: ICodeFormatter;
   const ADescription: string; const ALayoutFileName: string);
 var
-  HI: THighlighterItem;
-  S : string;
+  HI : THighlighterItem;
+  S  : string;
 begin
   S := ExtractFilePath(Application.ExeName);
   HI := Find(AName);
@@ -612,7 +612,7 @@ end;
 
 procedure THighlighterItem.InitSynHighlighter(ASynHighlighter: TSynCustomHighlighter);
 begin
-  if not Assigned(SynHighlighter) then
+  if not Assigned(SynHighlighter) and Assigned(SynHighlighterClass) then
   begin
     FSynHighlighter := SynHighlighterClass.Create(nil);
     // We need to call SetSubComponent to indicate that this component is a

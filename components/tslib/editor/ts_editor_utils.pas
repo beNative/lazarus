@@ -216,6 +216,20 @@ function MatchRegExpr(
         ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
+function MatchRegExpr2(
+  const AString        : string;
+  const ARegExpr       : string;
+        ACaseSensitive : Boolean = True
+): Boolean; overload;
+
+function MatchRegExpr2(
+  const AString        : string;
+  const ARegExpr       : string;
+    var AMatch         : string;
+    var AMatchPos      : Integer;
+        ACaseSensitive : Boolean = True
+): Boolean; overload;
+
 // Find SubString in S; do not consider case;
 // this works exactly the same as the Pos function,
 // except for case-INsensitivity.
@@ -253,7 +267,7 @@ uses
   LazFileUtils,
 
   //RegExpr,
-  SynRegExpr,
+  SynRegExpr, BRRE, BRREUnicode,
 
   DOM, XMLRead, XMLWrite,
 
@@ -1305,6 +1319,7 @@ var
 begin
   RE := TRegExpr.Create;
   try
+
     RE.ModifierI := not ACaseSensitive;
     RE.Expression := ARegExpr;
     Result := RE.Exec(AString);
@@ -1312,6 +1327,57 @@ begin
     begin
       AMatch := RE.Match[0];
       AMatchPos := RE.MatchPos[0];
+    end;
+  finally
+    RE.Free;
+  end;
+end;
+
+function MatchRegExpr2(const AString: string; const ARegExpr: string; ACaseSensitive: Boolean): Boolean;
+var
+  RE: TBRRERegExp;
+begin
+  RE := TBRRERegExp.Create(ARegExpr);
+  try
+    RE.Flags := RE.Flags or brrefUTF8;
+    if not ACaseSensitive then
+      RE.Flags := RE.Flags or brrefIGNORECASE;
+    if RE.Test(AString) then
+    begin
+      Result := True;
+    end
+    else
+    begin
+      Result := False;
+    end;
+  finally
+    RE.Free;
+  end;
+end;
+
+function MatchRegExpr2(const AString: string; const ARegExpr: string; var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
+var
+  RE: TBRRERegExp;
+  R : TBRRERegExpCapture;
+  C : TBRRERegExpCaptures;
+begin
+  RE := TBRRERegExp.Create(ARegExpr);
+  try
+    RE.Flags := RE.Flags or brrefUTF8;
+    if not ACaseSensitive then
+      RE.Flags := RE.Flags or brrefIGNORECASE;
+    if RE.Match(AString, 1, 1, C) then
+    begin
+      Result := True;
+      for R in C do
+      begin
+        AMatch := Copy(AString, R.StartCodeUnit, R.EndCodeUnit);
+        AMatchPos := R.StartCodePoint;
+      end;
+    end
+    else
+    begin
+      Result := False;
     end;
   finally
     RE.Free;

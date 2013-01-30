@@ -1267,7 +1267,7 @@ begin
   with FEditor.Gutter.CodeFoldPart do
   begin
     MarkupInfo.Background := clNone;
-    MarkupInfo.Foreground := clGray;
+    MarkupInfo.Foreground := clMedGray;
   end;
   // TODO: Bookmarks
   with FEditor.Gutter.MarksPart do

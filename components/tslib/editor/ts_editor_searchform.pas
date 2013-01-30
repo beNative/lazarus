@@ -180,6 +180,8 @@ uses
 //*****************************************************************************
 
 procedure TfrmSearchForm.AfterConstruction;
+var
+  CD: TColumnDefinition;
 begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlResultList);
@@ -187,10 +189,11 @@ begin
   //FTVP := CreateTVP();   // TODO
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 40, 20, 60);
+  CD := FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 50, 50, 80);
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160, 120, 400);
   FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60, 60, 80);
   FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);
+  FVST.Header.MainColumn := 1;
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
@@ -469,9 +472,10 @@ begin
   begin
     FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
   end;
-  btnReplace.Visible         := chkReplaceWith.Checked;
-  btnReplaceAll.Visible      := chkReplaceWith.Checked;
-  cbxReplaceWith.Enabled     := chkReplaceWith.Checked;
+  B := (SearchEngine.ItemList.Count > 0) and chkReplaceWith.Checked;
+  btnReplace.Visible         := B;
+  btnReplaceAll.Visible      := B;
+  cbxReplaceWith.Enabled     := B;
   B := not chkSearchAllViews.Checked;
   grpOrigin.Enabled    := B;
   grpScope.Enabled     := B;
@@ -481,9 +485,21 @@ begin
   grpDirection.Visible := B;
   if FUpdate then
   begin
-    SearchEngine.Options := Options;
-    SearchEngine.SearchText := SearchText;
     SearchEngine.ReplaceText := ReplaceText;
+    if (SearchEngine.SearchText <> SearchText)
+      or (SearchEngine.Options <> Options) then
+    begin
+      Manager.ClearHighlightSearch;
+      SearchEngine.Options := Options;
+      SearchEngine.SearchText := SearchText;
+      // BEGIN workaround
+      SearchEngine.ItemList.Clear;
+      FTVP.Refresh;
+      FVST.Header.AutoFitColumns(False);
+      // END workaround
+
+    end;
+    FUpdate := False;
   end;
 end;
 

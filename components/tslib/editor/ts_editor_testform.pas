@@ -28,6 +28,8 @@ uses
   Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, Forms, Controls,
   Graphics, Dialogs, StdCtrls, ExtCtrls,
 
+//  CodeToolManager, CodeCache, CustomCodeTool,
+
   //XMLTree,
 
   ts_Editor_Interfaces;
@@ -39,6 +41,7 @@ type
     btnExecute : TButton;
     edtInput   : TEdit;
     pnlXML     : TPanel;
+    procedure btnExecuteClick(Sender: TObject);
 
   private
     //FXMLTree: TXMLTree;
@@ -79,6 +82,38 @@ type
 implementation
 
 {$R *.lfm}
+
+//uses
+//  IdentCompletionTool,
+//
+//  Clipbrd;
+
+procedure TfrmTest.btnExecuteClick(Sender: TObject);
+//var
+//  CB : TCodeBuffer;
+//  S  : string;
+//  CC : TCodeContextInfo;
+begin
+   //CC := TCodeContextInfo.Create;
+  //CB := CodeToolBoss.LoadFile(View.FileName, True, False);
+  //if not Assigned(CB) then
+  //  raise Exception.Create('failed loading ' + View.FileName);
+  //
+  ////S := CodeToolBoss.ExtractCodeWithoutComments(CB);
+  //S := CodeToolBoss.FindSmartHint(CB, View.CaretX, View.CaretY);
+  //edtInput.Text := S;
+  //Clipboard.AsText := S;
+  //if CodeToolBoss.FindCodeContext(CB, View.CaretX, View.CaretY, CC) then
+  //begin
+  //  Clipboard.AsText := CC.ProcName;
+  //  edtInput.Text := CC.ProcName;
+  //end;
+  //
+  // CC.Free;
+
+  //if CodeToolBoss.JumpToMethod(CodeBuf,X,Y,NewCode,NewX,NewY,NewTopLine,
+  //                             RevertableJump)
+end;
 
 function TfrmTest.GetForm: TForm;
 begin
@@ -122,6 +157,9 @@ procedure TfrmTest.AfterConstruction;
 begin
   inherited AfterConstruction;
   //FXMLTree := CreateXMLTree(Self, pnlXML);
+  //CodeToolBoss.L;
+
+
 end;
 
 end.

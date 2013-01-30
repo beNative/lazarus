@@ -14,13 +14,6 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   PopupMode = pmAuto
   Position = poMainFormCenter
   LCLVersion = '1.1'
-  object sbrMain: TStatusBar
-    Left = 0
-    Height = 20
-    Top = 552
-    Width = 612
-    Panels = <>
-  end
   object pnlVST: TPanel
     Left = 0
     Height = 526
@@ -105,6 +98,13 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Default = True
       TabOrder = 3
     end
+  end
+  object sbrMain: TStatusBar
+    Left = 0
+    Height = 20
+    Top = 552
+    Width = 612
+    Panels = <>
   end
   object aclMain: TActionList
     Images = imlMain

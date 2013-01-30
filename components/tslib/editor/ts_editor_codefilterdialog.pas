@@ -30,7 +30,7 @@ uses
 
   FileUtil, LResources, LCLType,
 
-  VirtualTrees, SynEdit,
+  VirtualTrees, SynEdit, SynRegExpr,
 
   ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
@@ -90,13 +90,14 @@ type
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
 
   private
-    FTVP        : TTreeViewPresenter;
-    FVST        : TVirtualStringTree;
-    FLines      : TObjectList;
-    FUpdate     : Boolean;
-    FUpdateView : Boolean;
-    FVKPressed  : Boolean;
-    FTextStyle  : TTextStyle;
+    FTVP              : TTreeViewPresenter;
+    FVST              : TVirtualStringTree;
+    FLines            : TObjectList;
+    FUpdate           : Boolean;
+    FUpdateEditorView : Boolean;
+    FVKPressed        : Boolean;
+    FTextStyle        : TTextStyle;
+    FRegExpr          : TRegExpr;
 
     FOnFilteredLineChange : TOnFilteredLineChangeEvent;
 
@@ -204,7 +205,7 @@ uses
 
   SynEditHighlighter,
 
-  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers;
+  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers, ts_Core_Utils;
 
 type
   TVKSet = set of Byte;
@@ -220,7 +221,9 @@ var
     VK_SHIFT,
     VK_CONTROL,
     VK_SPACE,
-    VK_0..VK_Z
+    VK_0..VK_Z,
+    VK_OEM_1..VK_OEM_102,
+    VK_MULTIPLY..VK_DIVIDE
   ];
 
   VK_CTRL_EDIT_KEYS : TVKSet = [
@@ -229,7 +232,11 @@ var
     VK_LEFT,
     VK_RIGHT,
     VK_HOME,
-    VK_END
+    VK_END,
+    VK_C,
+    VK_X,
+    VK_V,
+    VK_Z
   ];
 
   VK_SHIFT_EDIT_KEYS : TVKSet = [
@@ -259,7 +266,6 @@ begin
   FTextStyle.SingleLine := True;
   FTextStyle.Opaque := False;
   FTextStyle.ExpandTabs := False;
-  FTextStyle.EndEllipsis := True;
   FTextStyle.Wordbreak := False;
   FTextStyle.ShowPrefix := True;
   FTextStyle.Clipping := False;
@@ -272,17 +278,16 @@ begin
   FVST.Colors.FocusedSelectionColor := clSilver;
   FVST.Colors.FocusedSelectionBorderColor := clSilver;
   FVST.Colors.SelectionRectangleBorderColor := clSilver;
-  FVST.TreeOptions.MiscOptions := FVST.TreeOptions.MiscOptions + [toGridExtensions];
+  FVST.Colors.SelectionRectangleBlendColor := clSilver;
   FVST.OnKeyPress := FVSTKeyPress;
   FVST.Header.MainColumn := 1;
   FVST.DefaultNodeHeight := 16;
-  FVST.Header.Options := FVST.Header.Options + [hoAutoSpring, hoAutoResize];
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.MultiLine := False;
   FTVP.ItemTemplate := TColumnDefinitionsDataTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.ColumnDefinitions.AddColumn('Index', 'Line', dtNumeric, 50);
-  FTVP.ColumnDefinitions.AddColumn('Text');
+  FTVP.ColumnDefinitions.AddColumn('Text', 'Text', dtString, 600, 500, 4000);
   FTVP.ColumnDefinitions.Items[0].Fixed := True;
   FTVP.ColumnDefinitions.Items[0].MaxWidth := 50;
   FTVP.ColumnDefinitions.Items[0].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
@@ -292,14 +297,15 @@ begin
   FTVP.ItemsSource := FLines;
   FTVP.OnFilter := FTVPFilter;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
+  FRegExpr := TRegExpr.Create;
 end;
 
 procedure TfrmCodeFilterDialog.BeforeDestruction;
 begin
   FLines.Free;
-
   FTVP.TreeView := nil;
   FVST.Free;
+  FRegExpr.Free;
   inherited BeforeDestruction;
 end;
 
@@ -525,6 +531,7 @@ var
     I      : Integer;
     Offset : Integer;
     Match  : string;
+    C      : TColor;
 begin
     Offset := 0;
     Match  := '';
@@ -557,7 +564,14 @@ begin
           // todo retrieve from settings
           TargetCanvas.Pen.Color := $004683FF;
           TargetCanvas.Pen.Width := 1;
-          TargetCanvas.Brush.Color := $0064B1FF;
+          C := ColorToRGB(TargetCanvas.Brush.Color);
+          if C <> clWhite then
+          begin
+            C := MixColors(C, $0064B1FF, 128)
+          end
+          else
+            C := $0064B1FF;
+          TargetCanvas.Brush.Color := C;
           TargetCanvas.Rectangle(R);
           R := CellRect;
         end;
@@ -598,28 +612,28 @@ end;
 
 procedure TfrmCodeFilterDialog.FTVPSelectionChanged(Sender: TObject);
 begin
-    FUpdateView := True;
+  FUpdateEditorView := True;
 end;
 
 procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: char);
 begin
-    if Ord(Key) = VK_RETURN then
-    begin
-      Close;
-    end
-    else if Ord(Key) = VK_ESCAPE then
-    begin
-      ModalResult := mrCancel;
-      Close;
-    end
-    else if not edtFilter.Focused then
-    begin
-      edtFilter.SetFocus;
-      PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
-      edtFilter.SelStart := Length(Filter);
-      // required to prevent the invocation of accelerator keys!
-      Key := #0;
-    end;
+  if Ord(Key) = VK_RETURN then
+  begin
+    Close;
+  end
+  else if Ord(Key) = VK_ESCAPE then
+  begin
+    ModalResult := mrCancel;
+    Close;
+  end
+  else if not edtFilter.Focused then
+  begin
+    edtFilter.SetFocus;
+    PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
+    edtFilter.SelStart := Length(Filter);
+    // required to prevent the invocation of accelerator keys!
+    Key := #0;
+  end;
 end;
 
 //*****************************************************************************
@@ -650,7 +664,12 @@ begin
   begin
     if RegEx then
     begin
-      Result := MatchRegExpr(AString, Filter, AMatch, APos, MatchCase);
+      Result := FRegExpr.Exec(AString);
+      if Result then
+      begin
+        AMatch := FRegExpr.Match[0];
+        APos := FRegExpr.MatchPos[0];
+      end;
     end
     else
     begin
@@ -667,7 +686,7 @@ begin
   begin
     if RegEx then
     begin
-      Result := MatchRegExpr(AString, Filter, MatchCase);
+      Result := FRegExpr.Exec(AString);
     end
     else
     begin
@@ -724,24 +743,38 @@ begin
   btnApplyFilter.Visible := RegEx;
   if FUpdate then
   begin
-    FTVP.ApplyFilter;
-
+    { TODO: FVST.VisibleCount does not return the correct value. This
+      workaround resets our treeview if the filter is emptied. }
+    {BEGIN workaround}
+    if Filter = '' then
+      UpdateView
+    else
+    {END workaround}
+      ApplyFilter;
     Logger.Send('FVST.VisibleCount', FVST.VisibleCount);
     FUpdate := False;
   end;
-  if FUpdateView then
+  if FUpdateEditorView then // update position in the editorview
   begin
     L := TLine(FTVP.SelectedItem);
     if Assigned(L) then
       DoFilteredLineChange(L.Index, L.Text, Filter);
-    FUpdateView := False;
+    FUpdateEditorView := False;
   end;
-  // TODO:  FVST.VisibleCount does not return the correct value
-  //sbrMain.SimpleText := Format('%d lines with match found.', [FVST.VisibleCount]);
+  if FVST.VisibleCount = 1 then
+    sbrMain.SimpleText := '1 line with match found.'
+  else
+    sbrMain.SimpleText := Format('%d lines with match found.', [FVST.VisibleCount]);
 end;
 
 procedure TfrmCodeFilterDialog.ApplyFilter;
 begin
+  if RegEx and (Filter <> '') then
+  begin
+    FRegExpr.Expression := Filter;
+    FRegExpr.ModifierI := not MatchCase;
+    FRegExpr.Compile;
+  end;
   FTVP.ApplyFilter;
 end;
 
@@ -781,6 +814,7 @@ rproc1 = "(?<!\w)procedure\s+[\w\s.]+;"
 rproc2 = "(?<!\w)procedure\s+[\w\s.]+\([\w\s,.=':;$/*()]*?\)\s*;"
 
 rfunc1 = "(?<!\w)function\s+[\w\s.]+:\s*\w+\s*;"
+^function\s+[\w\s.]+:\s*\w+\s*;
 rfunc2 = "(?<!\w)function\s+[\w\s.]+\([\w\s,.=':;$/*()]*?\)\s*:\s*\w+\s*;"
 
 

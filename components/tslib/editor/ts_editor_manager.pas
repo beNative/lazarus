@@ -141,8 +141,6 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  SynHighlighterAny,
-
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
   ts_Editor_View, ts_Editor_ExportRTF;
 
@@ -387,7 +385,6 @@ type
     ppmFold                       : TPopupMenu;
     ppmHighLighters               : TPopupMenu;
     ppmLineBreakStyle             : TPopupMenu;
-    SynAnySyn                     : TSynAnySyn;
     SynExporterHTML               : TSynExporterHTML;
     SynMacroRecorder              : TSynMacroRecorder;
     {$endregion}
@@ -802,7 +799,8 @@ uses
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
   ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_Editor_UniHighlighter,
 
-  ts_Editor_CodeFormatters, ts_Editor_SearchEngine;
+  ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
+  ts_Editor_SearchEngine;
 
 var
   dmEditorManager: TdmEditorManager;
@@ -930,11 +928,14 @@ begin
   begin
     for HAI in Settings.HighlighterAttributes do
     begin
-      for I := 0 to HL.SynHighlighter.AttrCount - 1 do
+      if Assigned(HL.SynHighlighter) then
       begin
-        A := HL.SynHighlighter.Attribute[I];
-        if A.Name = HAI.Name then
-          A.Assign(HAI.Attributes);
+        for I := 0 to HL.SynHighlighter.AttrCount - 1 do
+        begin
+          A := HL.SynHighlighter.Attribute[I];
+          if A.Name = HAI.Name then
+            A.Assign(HAI.Attributes);
+        end;
       end;
     end;
   end;
@@ -2044,7 +2045,7 @@ end;
 {$endregion}
 
 {$region 'Registration' /fold}
-{ TODO: create the instances dynamically. }
+
 procedure TdmEditorManager.RegisterHighlighters;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
@@ -2070,8 +2071,8 @@ procedure TdmEditorManager.RegisterHighlighters;
 
 begin
   Highlighters.Clear;
-  Reg(TSynAnySyn, SynAnySyn, 'None');
-  Reg(TSynAnySyn, SynAnySyn, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
+  Reg(nil, nil, 'None');
+  Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
   Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
   Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
   Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
@@ -2087,7 +2088,6 @@ begin
   Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
 
-
   if FileExists(LAYOUT_LOG) then
     Reg(TSynUniSyn, nil, HL_LOG, 'log', SLOGDescription, '', '', '', nil, LAYOUT_LOG);
   if FileExists(LAYOUT_INI) then
@@ -2100,6 +2100,8 @@ begin
     Reg(TSynUniSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, LAYOUT_CS);
   ApplyHighlighterAttributes;
 end;
+
+{ TODO -oTS : Make this more elegant }
 
 procedure TdmEditorManager.RegisterToolViews;
 begin

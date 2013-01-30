@@ -5551,32 +5551,6 @@ object dmEditorManager: TdmEditorManager
       Action = actCloseOthers
     end
   end
-  object SynAnySyn: TSynAnySyn
-    DefaultFilter = 'Txt files|*.txt'
-    Enabled = False
-    CommentAttri.FrameEdges = sfeAround
-    Comments = []
-    DetectPreprocessor = False
-    IdentifierAttri.FrameEdges = sfeAround
-    IdentifierChars = '!"#$%&''()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~€‚ƒ„…†’™šž ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÂÃÅÆâ'
-    KeyAttri.FrameEdges = sfeAround
-    ConstantAttri.FrameEdges = sfeAround
-    ObjectAttri.FrameEdges = sfeAround
-    EntityAttri.FrameEdges = sfeAround
-    VariableAttri.FrameEdges = sfeAround
-    DotAttri.FrameEdges = sfeAround
-    NumberAttri.FrameEdges = sfeAround
-    PreprocessorAttri.FrameEdges = sfeAround
-    SpaceAttri.FrameEdges = sfeAround
-    StringAttri.FrameEdges = sfeAround
-    SymbolAttri.FrameEdges = sfeAround
-    Markup = False
-    Entity = False
-    DollarVariables = False
-    ActiveDot = False
-    left = 344
-    top = 24
-  end
   object ppmExport: TPopupMenu
     Images = imlMain
     left = 24
@@ -6142,8 +6116,8 @@ object dmEditorManager: TdmEditorManager
     HTMLFontSize = fs03
     Title = 'Untitled'
     UseBackground = False
-    left = 120
-    top = 80
+    left = 104
+    top = 16
   end
   object ppmEncoding: TPopupMenu
     left = 27

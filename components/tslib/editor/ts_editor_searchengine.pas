@@ -78,11 +78,11 @@ type
 
   TSearchEngine = class(TComponent, IEditorSearchEngine)
   private
-    FSearchText     : string;
-    FReplaceText    : string;
-    FItemList       : TObjectList;
-    FCurrentIndex   : Integer;
-    FSESearch       : TSynEditSearch;
+    FSearchText   : string;
+    FReplaceText  : string;
+    FItemList     : TObjectList;
+    FCurrentIndex : Integer;
+    FSESearch     : TSynEditSearch;
 
     function GetCurrentIndex: Integer;
     function GetItemList: TObjectList;
@@ -434,6 +434,7 @@ begin
       begin
         V := Manager.Views[I];
         V.BeginUpdate; // handle all replacements as one operation that we can undo
+        Options := Options + [ssoEntireScope];
         V.Editor.SearchReplace(SearchText, ReplaceText, Options);
         V.EndUpdate;
       end;

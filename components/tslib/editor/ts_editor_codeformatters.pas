@@ -53,11 +53,6 @@ type
     function Format(const AString: string): string; virtual;
   end;
 
-  TSQLFormatter = class(TInterfacedObject, ICodeFormatter)
-  strict protected
-    function Format(const AString: string): string; virtual;
-  end;
-
   TXMLFormatter = class(TInterfacedObject, ICodeFormatter)
   strict protected
     function Format(const AString: string): string; virtual;
@@ -189,15 +184,15 @@ end;
   SqlFormatter test*.sql /o:resultfile.sql
 }
 
-function TSQLFormatter.Format(const AString: string): string;
-begin
-  Result := RunFormatterProcess(
-    'SQLFormatter.exe',
-    '%s /is:"  " /st:2 /mw:80 /tc /uk-',
-    AString,
-    'Formatter.sql'
-  );
-end;
+//function TSQLFormatter.Format(const AString: string): string;
+//begin
+//  Result := RunFormatterProcess(
+//    'SQLFormatter.exe',
+//    '%s /is:"  " /st:2 /mw:80 /tc /uk-',
+//    AString,
+//    'Formatter.sql'
+//  );
+//end;
 
 function TXMLFormatter.Format(const AString: string): string;
 begin

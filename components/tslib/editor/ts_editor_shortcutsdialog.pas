@@ -140,8 +140,6 @@ begin
   finally
     FreeAndNil(SL);
   end;
-
-
   RichText := FText;
 end;
 

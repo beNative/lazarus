@@ -1,5 +1,5 @@
 object frmTest: TfrmTest
-  Left = 490
+  Left = 751
   Height = 735
   Top = 243
   Width = 529
@@ -11,15 +11,16 @@ object frmTest: TfrmTest
     Left = 8
     Height = 21
     Top = 6
-    Width = 80
+    Width = 184
     TabOrder = 0
   end
   object btnExecute: TButton
-    Left = 96
+    Left = 432
     Height = 25
     Top = 6
     Width = 75
     Caption = 'Execute'
+    OnClick = btnExecuteClick
     TabOrder = 1
   end
   object pnlXML: TPanel

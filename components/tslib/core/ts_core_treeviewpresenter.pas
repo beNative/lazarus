@@ -1793,7 +1793,7 @@ begin
           if CD.Fixed then
           begin
             Options := Options + [coFixed];
-            Options := Options - [coResizable, coSmartResize, coAutoSpring];
+            Options := Options - [coSmartResize, coAutoSpring];
           end;
           if CheckBox then
           begin
@@ -1911,7 +1911,7 @@ begin
         FTreeView.TreeOptions.PaintOptions + [toShowRoot, toShowTreeLines];
     end;
     // TSI
-    FTreeView.Hint := ' '; // otherwise no tooltips are shown!
+    //FTreeView.Hint := ' '; // otherwise no tooltips are shown!
 
     FTreeView.TreeOptions.AutoOptions :=
       FTreeView.TreeOptions.AutoOptions - [toAutoDeleteMovedNodes] + [toAutoSort];

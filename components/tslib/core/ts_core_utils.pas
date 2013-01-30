@@ -221,7 +221,9 @@ function IsFormCovered(AForm: TForm): Boolean;
 implementation
 
 uses
-  ActiveX, Variants, TypInfo, ShlObj, ComObj, Registry;
+  ActiveX, Variants, TypInfo, ShlObj, ComObj, Registry,
+
+  GraphUtil;
 
 //=============================================================================
 
@@ -1225,6 +1227,8 @@ end;
 function MixColors(FG, BG: TColor; T: Byte): TColor;
 var
   R, G, B : Byte;
+  RFG     : TColor;
+  RBG     : TColor;
 
   function MixBytes(FG, BG, T: Byte): Byte;
   asm
@@ -1252,13 +1256,13 @@ var
   end;
 
 begin
-  R := MixBytes(FG and 255, BG and 255, T);
-  G := MixBytes((FG shr 8) and 255,(BG shr 8) and 255, T);
-  B := MixBytes((FG shr 16) and 255,(BG shr 16) and 255, T);
+  RFG := ColorToRGB(FG);
+  RBG := ColorToRGB(BG);
+  R := MixBytes(RFG and 255, RBG and 255, T);
+  G := MixBytes((RFG shr 8) and 255,(RBG shr 8) and 255, T);
+  B := MixBytes((RFG shr 16) and 255,(RBG shr 16) and 255, T);
   Result := R + G * 256 + B * 65536;
 end; // MixColors
-
-
 
 procedure Delay(Milliseconds: Integer);
 var

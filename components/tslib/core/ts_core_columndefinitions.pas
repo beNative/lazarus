@@ -238,10 +238,6 @@ begin
       Result.MaxWidth := AMaxWidth;
     end;
   end;
-  if (AMinWidth = -1) and (AMaxWidth = -1) then
-  begin
-    //Result.Fixed := True;
-  end;
 end;
 
 function TColumnDefinitions.AddColumn(const AName: string; const ACaption: string; const ADataType: TDataType; AWidth: Integer; AMinWidth: Integer; AMaxWidth: Integer): TColumnDefinition;
@@ -267,10 +263,6 @@ begin
     else
     begin
       Result.MaxWidth := AMaxWidth;
-    end;
-    if (AMinWidth = -1) and (AMaxWidth = -1) then
-    begin
-      //Result.Fixed := True;
     end;
   end;
 end;

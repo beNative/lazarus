@@ -65,18 +65,69 @@ uses
 {$region 'default VST options' /fold}
 const
   DEFAULT_VST_SELECTIONOPTIONS = [
+    { Prevent user from selecting with the selection rectangle in multiselect
+      mode. }
+//    toDisableDrawSelection,
+    {  Entries other than in the main column can be selected, edited etc. }
     toExtendedFocus
+    { Hit test as well as selection highlight are not constrained to the text
+      of a node. }
+//    toFullRowSelect,
+    { Constrain selection to the same level as the selection anchor. }
+//    toLevelSelectConstraint,
+    { Allow selection, dragging etc. with the middle mouse button. This and
+      toWheelPanning are mutual exclusive. }
+//    toMiddleClickSelect,
+    { Allow more than one node to be selected. }
+//    toMultiSelect,
+    {  Allow selection, dragging etc. with the right mouse button. }
+//    toRightClickSelect,
+    { Constrain selection to nodes with same parent. }
+//    toSiblingSelectConstraint,
+    { Center nodes vertically in the client area when scrolling into view. }
+//    toCenterScrollIntoView
+    { Simplifies draw selection, so a node's caption does not need to intersect
+      with the selection rectangle. }
+//    toSimpleDrawSelection
   ];
   DEFAULT_VST_MISCOPTIONS = [
+    { Register tree as OLE accepting drop target }
 //    toAcceptOLEDrop,
+    { Show checkboxes/radio buttons. }
+//    toCheckSupport,
+    { Node captions can be edited. }
 //    toEditable,
-//    toEditOnClick,
-    //toFullRepaintOnResize,
-//    toEditOnDblClick,
+    { Fully invalidate the tree when its window is resized
+      (CS_HREDRAW/CS_VREDRAW). }
+    toFullRepaintOnResize,
+    { Use some special enhancements to simulate and support grid behavior. }
+    toGridExtensions,
+    { Initialize nodes when saving a tree to a stream. }
     toInitOnSave,
+    { Tree behaves like TListView in report mode. }
+//    toReportMode,
+    { Toggle node expansion state when it is double clicked. }
     toToggleOnDblClick,
-    toVariableNodeHeight,
-    toWheelPanning
+    { Support for mouse panning (wheel mice only). This option and
+      toMiddleClickSelect are mutal exclusive, where panning has precedence. }
+    toWheelPanning,
+    { The tree does not allow to be modified in any way. No action is executed
+      and node editing is not possible. }
+//    toReadOnly,
+    { When set then GetNodeHeight will trigger OnMeasureItem to allow variable
+      node heights. }
+    toVariableNodeHeight
+    { Start node dragging by clicking anywhere in it instead only on the
+      caption or image. Must be used together with toDisableDrawSelection. }
+//    toFullRowDrag,
+    { Allows changing a node's height via mouse. }
+//    toNodeHeightResize,
+    { Allows to reset a node's height to FDefaultNodeHeight via a double click. }
+//    toNodeHeightDblClickResize,
+    { Editing mode can be entered with a single click }
+//    toEditOnClick,
+    { Editing mode can be entered with a double click }
+//    toEditOnDblClick
   ];
   DEFAULT_VST_PAINTOPTIONS = [
     { Avoid drawing the dotted rectangle around the currently focused node. }
@@ -112,20 +163,20 @@ const
   DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
       owner control. }
-    //hoAutoResize,
+    hoAutoResize,
     { Resizing columns with the mouse is allowed. }
     hoColumnResize,
     { Allows a column to resize itself to its largest entry. }
     hoDblClickResize,
     { Dragging columns is allowed. }
-    //hoDrag,
+//    hoDrag,
     { Header captions are highlighted when mouse is over a particular column. }
-    //hoHotTrack,
+//    hoHotTrack,
     { Header items with the owner draw style can be drawn by the application
       via event. }
-    //hoOwnerDraw,
+//    hoOwnerDraw,
     { Header can only be dragged horizontally. }
-    //hoRestrictDrag,
+    hoRestrictDrag,
     { Show application defined header hint. }
     hoShowHint,
     { Show header images. }
@@ -138,30 +189,32 @@ const
     hoAutoSpring,
     { Fully invalidate the header (instead of subsequent columns only) when a
       column is resized. }
-    //hoFullRepaintOnResize,
+//    hoFullRepaintOnResize,
     { Disable animated resize for all columns. }
     hoDisableAnimatedResize,
     { Allow resizing header height via mouse. }
-    //hoHeightResize,
+//    hoHeightResize,
     { Allow the header to resize itself to its default height. }
-    //hoHeightDblClickResize
+//    hoHeightDblClickResize
     { Header is visible. }
     hoVisible
   ];
   DEFAULT_VST_STRINGOPTIONS = [
     { If set then the caption is automatically saved with the tree node,
       regardless of what is saved in the user data. }
-    //toSaveCaptions,
+//    toSaveCaptions,
     { Show static text in a caption which can be differently formatted than the
       caption but cannot be edited. }
-    //toShowStaticText,
+//    toShowStaticText,
     { Automatically accept changes during edit if the user finishes editing
       other then VK_RETURN or ESC. If not set then changes are cancelled. }
     toAutoAcceptEditChange
   ];
   DEFAULT_VST_ANIMATIONOPTIONS = [
-    toAnimatedToggle,          // Expanding and collapsing a node is animated (quick window scroll).
-    toAdvancedAnimatedToggle   // Do some advanced animation effects when toggling a node.
+    { Expanding and collapsing a node is animated (quick window scroll). }
+    toAnimatedToggle,
+    { Do some advanced animation effects when toggling a node. }
+    toAdvancedAnimatedToggle
   ];
   DEFAULT_VST_AUTOOPTIONS = [
     { Expand node if it is the drop target for more than a certain time. }
@@ -177,22 +230,22 @@ const
     toAutoSort,
     { Large entries continue into next column(s) if there's no text in them
       (no clipping). }
-    //toAutoSpanColumns,
+//    toAutoSpanColumns,
     { Checkstates are automatically propagated for tri state check boxes. }
     toAutoTristateTracking,
     { Node buttons are hidden when there are child nodes, but all are invisible.}
-    //toAutoHideButtons,
+//    toAutoHideButtons,
     { Delete nodes which where moved in a drag operation (if not directed
       otherwise). }
     toAutoDeleteMovedNodes,
     { Disable scrolling a node or column into view if it gets focused. }
-    //toDisableAutoscrollOnFocus,
+//    toDisableAutoscrollOnFocus,
     { Change default node height automatically if the system's font scale is
       set to big fonts. }
     toAutoChangeScale,
     { Frees any child node after a node has been collapsed (HasChildren flag
       stays there). }
-    //toAutoFreeOnCollapse,
+//    toAutoFreeOnCollapse,
     { Do not center a node horizontally when it is edited. }
     toDisableAutoscrollOnEdit,
     { When set then columns (if any exist) will be reordered from lowest index
@@ -231,6 +284,7 @@ begin
   VST.Parent   := AParent;
   VST.HintMode := hmTooltip;
   VST.Align    := alClient;
+  VST.DrawSelectionMode := smBlendedRectangle;
   VST.Header.Height := 18;
   VST.Header.Options               := DEFAULT_VST_HEADEROPTIONS;
   VST.TreeOptions.SelectionOptions := DEFAULT_VST_SELECTIONOPTIONS;

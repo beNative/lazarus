@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="79">
+    <Files Count="77">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -98,273 +98,265 @@
         <UnitName Value="ts_Editor_Interfaces"/>
       </Item12>
       <Item13>
-        <Filename Value="editor\ts_editor_resources2.pas"/>
-        <UnitName Value="ts_editor_resources2"/>
-      </Item13>
-      <Item14>
         <Filename Value="editor\ts_editor_settings.pas"/>
         <UnitName Value="ts_Editor_Settings"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="editor\ts_editor_utils.pas"/>
         <UnitName Value="ts_Editor_Utils"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="editor\ts_editor_view.pas"/>
         <UnitName Value="ts_Editor_View"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="editor\ts_editor_highlighterattributes.pas"/>
         <UnitName Value="ts_Editor_HighlighterAttributes"/>
-      </Item17>
-      <Item18>
+      </Item16>
+      <Item17>
         <Filename Value="editor\ts_editor_highlighters.pas"/>
         <UnitName Value="ts_Editor_Highlighters"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <Filename Value="core\ts_core_datatemplates.pas"/>
         <UnitName Value="ts_Core_DataTemplates"/>
-      </Item19>
-      <Item20>
+      </Item18>
+      <Item19>
         <Filename Value="core\ts_core_treeviewpresenter.pas"/>
         <UnitName Value="ts_Core_TreeViewPresenter"/>
-      </Item20>
-      <Item21>
+      </Item19>
+      <Item20>
         <Filename Value="richeditor\ts_richeditor_manager.pas"/>
         <UnitName Value="ts_RichEditor_Manager"/>
-      </Item21>
-      <Item22>
+      </Item20>
+      <Item21>
         <Filename Value="richeditor\ts_richeditor_view.pas"/>
         <UnitName Value="ts_RichEditor_View"/>
-      </Item22>
-      <Item23>
+      </Item21>
+      <Item22>
         <Filename Value="docking\ts_docking.pas"/>
         <UnitName Value="ts_Docking"/>
-      </Item23>
-      <Item24>
+      </Item22>
+      <Item23>
         <Filename Value="docking\ts_docking_optionsdialog.pas"/>
         <UnitName Value="ts_Docking_OptionsDialog"/>
-      </Item24>
-      <Item25>
+      </Item23>
+      <Item24>
         <Filename Value="docking\ts_docking_storage.pas"/>
         <UnitName Value="ts_Docking_Storage"/>
-      </Item25>
-      <Item26>
+      </Item24>
+      <Item25>
         <Filename Value="docking\ts_docking_resources.pas"/>
         <UnitName Value="ts_Docking_Resources"/>
-      </Item26>
-      <Item27>
+      </Item25>
+      <Item26>
         <Filename Value="editor\ts_editor_previewform.pas"/>
         <UnitName Value="ts_Editor_PreviewForm"/>
-      </Item27>
-      <Item28>
+      </Item26>
+      <Item27>
         <Filename Value="core\ts_core_xmlutils.pas"/>
         <UnitName Value="ts_Core_XMLUtils"/>
-      </Item28>
-      <Item29>
+      </Item27>
+      <Item28>
         <Filename Value="core\ts_core_columndefinitions.pas"/>
         <UnitName Value="ts_Core_ColumnDefinitions"/>
-      </Item29>
-      <Item30>
+      </Item28>
+      <Item29>
         <Filename Value="core\ts_core_columndefinitionsdatatemplate.pas"/>
         <UnitName Value="ts_Core_ColumnDefinitionsDataTemplate"/>
-      </Item30>
-      <Item31>
+      </Item29>
+      <Item30>
         <Filename Value="core\ts_core_dbutils.pas"/>
         <UnitName Value="ts_Core_DBUtils"/>
-      </Item31>
-      <Item32>
+      </Item30>
+      <Item31>
         <Filename Value="core\ts_core_directorywatch.pas"/>
         <UnitName Value="ts_Core_DirectoryWatch"/>
-      </Item32>
-      <Item33>
+      </Item31>
+      <Item32>
         <Filename Value="core\ts_core_formsettings.pas"/>
         <UnitName Value="ts_Core_FormSettings"/>
-      </Item33>
-      <Item34>
+      </Item32>
+      <Item33>
         <Filename Value="core\ts_core_keyvalues.pas"/>
         <UnitName Value="ts_Core_KeyValues"/>
-      </Item34>
-      <Item35>
+      </Item33>
+      <Item34>
         <Filename Value="core\ts_core_utils.pas"/>
         <UnitName Value="ts_Core_Utils"/>
-      </Item35>
-      <Item36>
+      </Item34>
+      <Item35>
         <Filename Value="core\ts_core_versioninfo.pas"/>
         <UnitName Value="ts_Core_VersionInfo"/>
-      </Item36>
-      <Item37>
+      </Item35>
+      <Item36>
         <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
         <Type Value="LFM"/>
-      </Item37>
-      <Item38>
+      </Item36>
+      <Item37>
         <Filename Value="editor\ts_editor_actionlistviewdialog.lrs"/>
         <Type Value="LRS"/>
+      </Item37>
+      <Item38>
+        <Filename Value="editor\ts_editor_charactermapdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item38>
       <Item39>
-        <Filename Value="editor\ts_editor_charactermapdialog.lfm"/>
+        <Filename Value="editor\ts_editor_codefilterdialog.lfm"/>
         <Type Value="LFM"/>
       </Item39>
       <Item40>
-        <Filename Value="editor\ts_editor_codefilterdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item40>
-      <Item41>
         <Filename Value="editor\ts_editor_codefilterdialog.lrs"/>
         <Type Value="LRS"/>
+      </Item40>
+      <Item41>
+        <Filename Value="editor\ts_editor_codeshaperform.lfm"/>
+        <Type Value="LFM"/>
       </Item41>
       <Item42>
-        <Filename Value="editor\ts_editor_codeshaperform.lfm"/>
+        <Filename Value="editor\ts_editor_settingsdialog.lfm"/>
         <Type Value="LFM"/>
       </Item42>
       <Item43>
-        <Filename Value="editor\ts_editor_settingsdialog.lfm"/>
+        <Filename Value="editor\ts_editor_shortcutsdialog.lfm"/>
         <Type Value="LFM"/>
       </Item43>
       <Item44>
-        <Filename Value="editor\ts_editor_shortcutsdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item44>
-      <Item45>
         <Filename Value="editor\ts_editor_shortcutsdialog.lrs"/>
         <Type Value="LRS"/>
-      </Item45>
-      <Item46>
+      </Item44>
+      <Item45>
         <Filename Value="richeditor\ts_richeditor_helpers.pas"/>
         <UnitName Value="ts_RichEditor_Helpers"/>
-      </Item46>
-      <Item47>
+      </Item45>
+      <Item46>
         <Filename Value="editor\ts_editor_view.lfm"/>
         <Type Value="LFM"/>
-      </Item47>
-      <Item48>
+      </Item46>
+      <Item47>
         <Filename Value="richeditor\ts_richeditor_interfaces.pas"/>
         <UnitName Value="ts_RichEditor_Interfaces"/>
-      </Item48>
-      <Item49>
+      </Item47>
+      <Item48>
         <Filename Value="richeditor\ts_richeditor_textattributes.pas"/>
         <UnitName Value="ts_RichEditor_TextAttributes"/>
-      </Item49>
-      <Item50>
+      </Item48>
+      <Item49>
         <Filename Value="richeditor\ts_richeditor_view.lfm"/>
         <Type Value="LFM"/>
-      </Item50>
-      <Item51>
+      </Item49>
+      <Item50>
         <Filename Value="editor\ts_editor_searchengine.pas"/>
         <UnitName Value="ts_Editor_SearchEngine"/>
-      </Item51>
-      <Item52>
+      </Item50>
+      <Item51>
         <Filename Value="core\ts_core_stringutils.pas"/>
         <UnitName Value="ts_Core_StringUtils"/>
-      </Item52>
-      <Item53>
+      </Item51>
+      <Item52>
         <Filename Value="core\ts_core_sqltree.pas"/>
         <UnitName Value="ts_Core_SQLTree"/>
-      </Item53>
-      <Item54>
+      </Item52>
+      <Item53>
         <Filename Value="core\ts_core_sqlparser.pas"/>
         <UnitName Value="ts_Core_SQLParser"/>
-      </Item54>
-      <Item55>
+      </Item53>
+      <Item54>
         <Filename Value="core\ts_core_sqlscanner.pas"/>
         <UnitName Value="ts_Core_SQLScanner"/>
-      </Item55>
-      <Item56>
+      </Item54>
+      <Item55>
         <Filename Value="editor\ts_editor_testform.lfm"/>
         <Type Value="LFM"/>
-      </Item56>
-      <Item57>
+      </Item55>
+      <Item56>
         <Filename Value="editor\ts_editor_testform.pas"/>
         <UnitName Value="ts_Editor_Testform"/>
-      </Item57>
-      <Item58>
+      </Item56>
+      <Item57>
         <Filename Value="core\ts_core_componentinspector.lfm"/>
         <Type Value="LFM"/>
-      </Item58>
-      <Item59>
+      </Item57>
+      <Item58>
         <Filename Value="core\ts_core_componentinspector.pas"/>
         <UnitName Value="ts_Core_ComponentInspector"/>
-      </Item59>
-      <Item60>
+      </Item58>
+      <Item59>
         <Filename Value="editor\ts_editor_codeformatters.pas"/>
         <UnitName Value="ts_Editor_CodeFormatters"/>
-      </Item60>
-      <Item61>
+      </Item59>
+      <Item60>
         <Filename Value="editor\ts_editor_alignlinesform.pas"/>
         <UnitName Value="ts_Editor_AlignLinesForm"/>
-      </Item61>
-      <Item62>
+      </Item60>
+      <Item61>
         <Filename Value="core\ts_core_helpers.pas"/>
         <UnitName Value="ts_Core_Helpers"/>
-      </Item62>
-      <Item63>
+      </Item61>
+      <Item62>
         <Filename Value="editor\ts_editor_commentstripper.pas"/>
         <UnitName Value="ts_editor_commentstripper"/>
-      </Item63>
-      <Item64>
+      </Item62>
+      <Item63>
         <Filename Value="editor\ts_editor_settings_codeshaper.pas"/>
         <UnitName Value="ts_Editor_Settings_CodeShaper"/>
-      </Item64>
-      <Item65>
+      </Item63>
+      <Item64>
         <Filename Value="editor\ts_editor_settings_alignlines.pas"/>
         <UnitName Value="ts_Editor_Settings_AlignLines"/>
-      </Item65>
-      <Item66>
+      </Item64>
+      <Item65>
         <Filename Value="editor\ts_editor_settings_searchengine.pas"/>
         <UnitName Value="ts_Editor_Settings_SearchEngine"/>
-      </Item66>
-      <Item67>
+      </Item65>
+      <Item66>
         <Filename Value="editor\ts_editor_types.pas"/>
         <UnitName Value="ts_Editor_Types"/>
+      </Item66>
+      <Item67>
+        <Filename Value="components\ts_components_unihighlighter.pas"/>
+        <UnitName Value="ts_components_unihighlighter"/>
       </Item67>
       <Item68>
-        <Filename Value="editor\ts_editor_unihighlighter.pas"/>
-        <UnitName Value="ts_Editor_UniHighlighter"/>
-      </Item68>
-      <Item69>
-        <Filename Value="editor\ts_editor_exportrtf.pas"/>
-        <UnitName Value="ts_Editor_ExportRTF"/>
-      </Item69>
-      <Item70>
         <Filename Value="core\ts_core_collections.pas"/>
         <UnitName Value="ts_Core_Collections"/>
-      </Item70>
-      <Item71>
+      </Item68>
+      <Item69>
         <Filename Value="editor\ts_editor_codeformatters_sql.pas"/>
         <UnitName Value="ts_Editor_CodeFormatters_SQL"/>
-      </Item71>
-      <Item72>
+      </Item69>
+      <Item70>
         <Filename Value="core\BRRE.pas"/>
         <UnitName Value="BRRE"/>
-      </Item72>
-      <Item73>
+      </Item70>
+      <Item71>
         <Filename Value="core\BRREUnicode.pas"/>
         <UnitName Value="BRREUnicode"/>
-      </Item73>
-      <Item74>
+      </Item71>
+      <Item72>
         <Filename Value="editor\ts_editor_xmltreeform.pas"/>
         <UnitName Value="ts_Editor_XmlTreeForm"/>
-      </Item74>
-      <Item75>
+      </Item72>
+      <Item73>
         <Filename Value="components\ts_components_xmltree.pas"/>
         <UnitName Value="ts_Components_XMLTree"/>
-      </Item75>
-      <Item76>
+      </Item73>
+      <Item74>
         <Filename Value="components\ts_components_xmltree_nodeattributes.pas"/>
         <UnitName Value="ts_Components_XMLTree_NodeAttributes"/>
-      </Item76>
-      <Item77>
+      </Item74>
+      <Item75>
         <Filename Value="components\ts_components_xmltree_editors.pas"/>
         <UnitName Value="ts_Components_XMLTree_Editors"/>
-      </Item77>
-      <Item78>
+      </Item75>
+      <Item76>
         <Filename Value="..\..\images\laz_images.lrs"/>
         <Type Value="LRS"/>
-      </Item78>
-      <Item79>
+      </Item76>
+      <Item77>
         <Filename Value="editor\ts_editor_resources.pas"/>
-        <UnitName Value="ts_editor_resources"/>
-      </Item79>
+        <UnitName Value="ts_Editor_Resources"/>
+      </Item77>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

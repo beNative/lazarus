@@ -800,7 +800,7 @@ uses
   ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
   ts_Editor_XmlTreeForm,
-  ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_Editor_UniHighlighter,
+  ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_components_unihighlighter,
 
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
   ts_Editor_SearchEngine;

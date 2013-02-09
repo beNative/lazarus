@@ -205,7 +205,7 @@ implementation
 uses
   Forms, StrUtils, Dialogs,
 
-  ts_Editor_UniHighlighter;
+  ts_Components_UniHighlighter;
 
 {$region 'THighlighterEnumerator' /fold}
 function THighlighters.THighlighterEnumerator.GetCurrent: THighlighterItem;

@@ -156,6 +156,7 @@ uses
 
   ts_Editor_Utils;
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -177,7 +178,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -276,7 +279,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -336,123 +341,124 @@ begin
       if (I < APos) and (AString[I] in [#10, #13])
         and (AString[I] <> AString[I - 1]) then
         Inc(I);
-    end
-    else
-    begin
-      Inc(Result.X);
-      Inc(I);
+      end
+      else
+      begin
+        Inc(Result.X);
+        Inc(I);
+      end;
     end;
-  end;
 end;
 
 { Get matching position of FSearchText in the AText, starting from postion APos.
-  When no match is found -1 is returned.
+    When no match is found -1 is returned.
 
-  TODO:
-    ssoSelectedOnly
-    FBlockSelection.ActiveSelectionMode = smLine/smColumn
+    TODO:
+      ssoSelectedOnly
+      FBlockSelection.ActiveSelectionMode = smLine/smColumn
 }
 
 procedure TSearchEngine.Execute;
 var
-  V: IEditorView;
-  I: Integer;
+    V: IEditorView;
+    I: Integer;
 begin
-  FItemList.Clear;
-  if SearchAllViews then
-  begin
-    for I := 0 to Views.Count - 1 do
+    FItemList.Clear;
+    if SearchAllViews then
     begin
-      V := Views[I];
-      AddResultsForView(V);
-    end;
-  end
-  else
-    AddResultsForView(View);
+      for I := 0 to Views.Count - 1 do
+      begin
+        V := Views[I];
+        AddResultsForView(V);
+      end;
+    end
+    else
+      AddResultsForView(View);
 end;
 
 procedure TSearchEngine.FindNext;
 var
-  SR: TSearchResult;
+    SR: TSearchResult;
 begin
-  if CurrentIndex < ItemList.Count - 1 then
-  begin
-    Inc(FCurrentIndex);
-    SR := ItemList[CurrentIndex] as TSearchResult;
-    Manager.ActivateView(SR.ViewName);
-    Manager.ActiveView.SelStart := SR.StartPos;
-    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
-  end;
+    if CurrentIndex < ItemList.Count - 1 then
+    begin
+      Inc(FCurrentIndex);
+      SR := ItemList[CurrentIndex] as TSearchResult;
+      Manager.ActivateView(SR.ViewName);
+      Manager.ActiveView.SelStart := SR.StartPos;
+      Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
+    end;
 end;
 
 procedure TSearchEngine.FindPrevious;
 var
-  SR: TSearchResult;
+    SR: TSearchResult;
 begin
-  if CurrentIndex > 0 then
-  begin
-    Dec(FCurrentIndex);
-    SR := ItemList[CurrentIndex] as TSearchResult;
-    Manager.ActivateView(SR.ViewName);
-    Manager.ActiveView.SelStart := SR.StartPos;
-    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
-  end;
+    if CurrentIndex > 0 then
+    begin
+      Dec(FCurrentIndex);
+      SR := ItemList[CurrentIndex] as TSearchResult;
+      Manager.ActivateView(SR.ViewName);
+      Manager.ActiveView.SelStart := SR.StartPos;
+      Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
+    end;
 end;
 
 procedure TSearchEngine.Replace;
 var
-  SR : TSearchResult;
+    SR : TSearchResult;
 begin
-  if CurrentIndex >= 0 then
-  begin
-    SR := ItemList[CurrentIndex] as TSearchResult;
-    Logger.Send('SR.Index', SR.Index);
-    Logger.Watch('SearchText', SearchText);
-    Logger.Watch('ReplaceText', ReplaceText);
-    Options := Options + [ssoReplace];
-    Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
-    Options := Options - [ssoReplace];
-  end;
+    if CurrentIndex >= 0 then
+    begin
+      SR := ItemList[CurrentIndex] as TSearchResult;
+      Logger.Send('SR.Index', SR.Index);
+      Logger.Watch('SearchText', SearchText);
+      Logger.Watch('ReplaceText', ReplaceText);
+      Options := Options + [ssoReplace];
+      Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
+      Options := Options - [ssoReplace];
+    end;
 end;
 
 procedure TSearchEngine.ReplaceAll;
 var
-  SR : TSearchResult;
-  V  : IEditorView;
-  I  : Integer;
+    SR : TSearchResult;
+    V  : IEditorView;
+    I  : Integer;
 begin
-  if CurrentIndex >= 0 then
-  begin
-    SR := ItemList[CurrentIndex] as TSearchResult;
-    Logger.Send('SR.Index', SR.Index);
-    Logger.Watch('SearchText', SearchText);
-    Logger.Watch('ReplaceText', ReplaceText);
-    Options := Options + [ssoReplaceAll];
-    if SearchAllViews then
+    if CurrentIndex >= 0 then
     begin
-      for I := 0 to Manager.Views.Count - 1 do
+      SR := ItemList[CurrentIndex] as TSearchResult;
+      Logger.Send('SR.Index', SR.Index);
+      Logger.Watch('SearchText', SearchText);
+      Logger.Watch('ReplaceText', ReplaceText);
+      Options := Options + [ssoReplaceAll];
+      if SearchAllViews then
       begin
-        V := Manager.Views[I];
+        for I := 0 to Manager.Views.Count - 1 do
+        begin
+          V := Manager.Views[I];
+          V.BeginUpdate; // handle all replacements as one operation that we can undo
+          Options := Options + [ssoEntireScope];
+          V.Editor.SearchReplace(SearchText, ReplaceText, Options);
+          V.EndUpdate;
+        end;
+      end
+      else
+      begin
+        V := Manager.ActiveView;
         V.BeginUpdate; // handle all replacements as one operation that we can undo
-        Options := Options + [ssoEntireScope];
-        V.Editor.SearchReplace(SearchText, ReplaceText, Options);
+        V.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
         V.EndUpdate;
       end;
-    end
-    else
-    begin
-      V := Manager.ActiveView;
-      V.BeginUpdate; // handle all replacements as one operation that we can undo
-      V.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
-      V.EndUpdate;
+      Options := Options - [ssoReplaceAll];
     end;
-    Options := Options - [ssoReplaceAll];
-  end;
 end;
 
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

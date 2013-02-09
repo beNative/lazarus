@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, Grids, ActnList,
+  ExtCtrls, Buttons, Grids, ActnList, Contnrs,
 
   VirtualTrees,
 
@@ -37,13 +37,29 @@ uses
   sharedloggerlcl;
 
 const
-  DEFAULT_TOKENS: array[0..12] of string = (
+  DEFAULT_TOKENS: array[0..28] of string = (
     ':=',
     '=',
     '//',
     '{',
     '(*',
     ':',
+    ',',
+    ';',
+    '@',
+    '*',
+    '|',
+    '--',
+    '<<',
+    '>>',
+    '*)',
+    '}',
+    '-',
+    '.',
+    '%',
+    '''',
+    '"',
+    '#',
     '+',
     'read',
     'write',
@@ -55,20 +71,21 @@ const
 
 type
   TfrmAlignLines = class(TForm, IEditorToolView)
-    aclMain: TActionList;
-    actExecute: TAction;
-    btnCancel: TButton;
-    btnOK: TButton;
-    chkAlignInParagraphs: TCheckBox;
-    chkBeforeToken: TCheckBox;
-    chkAfterToken: TCheckBox;
-    chkRemoveWhitespace: TCheckBox;
-    gbxInsertSpace: TGroupBox;
-    gbxOptions: TGroupBox;
-    lblRemoveWhiteSpace: TLabel;
-    lblTokens: TLabel;
-    pnlVST: TPanel;
-    rgpAlignAt: TRadioGroup;
+    aclMain              : TActionList;
+    actExecute           : TAction;
+    btnCancel            : TButton;
+    btnOK                : TButton;
+    chkAlignInParagraphs : TCheckBox;
+    chkBeforeToken       : TCheckBox;
+    chkAfterToken        : TCheckBox;
+    chkRemoveWhitespace  : TCheckBox;
+    gbxInsertSpace       : TGroupBox;
+    gbxOptions           : TGroupBox;
+    lblRemoveWhiteSpace  : TLabel;
+    lblTokens            : TLabel;
+    pnlVST               : TPanel;
+    rgpAlignAt           : TRadioGroup;
+
     procedure actExecuteExecute(Sender: TObject);
     procedure chkAfterTokenClick(Sender: TObject);
     procedure chkAlignInParagraphsClick(Sender: TObject);
@@ -77,9 +94,11 @@ type
     procedure FormShow(Sender: TObject);
 
   strict private
-    FTokens : TStringList;
     FTVP    : TTreeViewPresenter;
     FVST    : TVirtualStringTree;
+    FTokens : TObjectList;
+
+    procedure UpdateTokenList;
 
   protected
     function GetSettings: TAlignLinesSettings;
@@ -87,7 +106,6 @@ type
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean); reintroduce;
 
     { Lets the view respond to changes. }
     procedure UpdateView;
@@ -126,6 +144,28 @@ uses
 
   ts_Editor_Utils;
 
+{$region 'TToken' /fold}
+type
+  TToken = class(TPersistent)
+  private
+    FToken: string;
+
+  public
+    constructor Create(const AToken: string);
+
+  published
+    property Token: string
+      read FToken write FToken;
+  end;
+
+constructor TToken.Create(const AToken: string);
+begin
+  inherited Create;
+  FToken := AToken;
+end;
+{$endregion}
+
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -134,30 +174,39 @@ procedure TfrmAlignLines.AfterConstruction;
 var
   I  : Integer;
   SL : TStringList;
+  S  : string;
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
+
+  FTokens := TObjectList.Create;
   FVST := CreateVST(Self, pnlVST);
-  FTVP := CreateTVP(Self, FVST);
+  FTVP := TTreeViewPresenter.Create(Self);
+  with FTVP.ColumnDefinitions.AddColumn('Token') do
+  begin
+    Alignment := taCenter;
+  end;
   SL := TStringList.Create;
-  for I := Low(DEFAULT_TOKENS) to High(DEFAULT_TOKENS) do
-    SL.Add(DEFAULT_TOKENS[I]);
-  FTokens := TStringList.Create;
+  for S in DEFAULT_TOKENS do
+    SL.Add(S);
+  FTVP.ItemsSource := FTokens;
+  FTVP.TreeView := FVST;
   Settings.Tokens := SL;
-  FTVP.ItemsSource;
   SL.Free;
 end;
 
 procedure TfrmAlignLines.BeforeDestruction;
 begin
-  FTokens.Free;
-  inherited BeforeDestruction;
+    FTokens.Free;
+    inherited BeforeDestruction;
 end;
 
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -165,6 +214,22 @@ end;
 procedure TfrmAlignLines.actExecuteExecute(Sender: TObject);
 begin
   Execute;
+end;
+
+//*****************************************************************************
+// action handlers                                                         END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
+procedure TfrmAlignLines.FormShow(Sender: TObject);
+begin
+  UpdateTokenList;
+  FVST.SetFocus;
 end;
 
 procedure TfrmAlignLines.chkAfterTokenClick(Sender: TObject);
@@ -188,27 +253,11 @@ begin
 end;
 
 //*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
-
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
-
-procedure TfrmAlignLines.FormShow(Sender: TObject);
-begin
-  AddStringsPresentInString(
-    Settings.Tokens,
-    FTokens,
-    Manager.ActiveView.SelText
-  );
-  FVST.SetFocus;
-end;
-
-//*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -233,19 +282,6 @@ begin
   Result := inherited Visible;
 end;
 
-procedure TfrmAlignLines.SetVisible(AValue: Boolean);
-begin
-  if AValue then
-    AddStringsPresentInString(
-      Settings.Tokens,
-      FTokens,
-      Manager.ActiveView.SelText
-    )
-  else
-    FTokens.Clear;
-  inherited SetVisible(AValue);
-end;
-
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
   Result := (Manager as IEditorSettings).AlignLinesSettings;
@@ -254,29 +290,41 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
-// private methods                                                       BEGIN
+// protected methods                                                     BEGIN
 //*****************************************************************************
+
+procedure TfrmAlignLines.UpdateTokenList;
+var
+  I: Integer;
+  S: string;
+begin
+  FTVP.BeginUpdate;
+  FTokens.Clear;
+  for S in Settings.Tokens do
+  begin
+    if StrContains(S, Manager.ActiveView.SelText) then
+      FTokens.Add(TToken.Create(S));
+  end;
+  FTVP.EndUpdate;
+  FTVP.Refresh;
+end;
 
 procedure TfrmAlignLines.UpdateView;
 begin
-  AddStringsPresentInString(
-    Settings.Tokens,
-    FTokens,
-    Manager.ActiveView.SelText
-  );
-//  if FTokens.Count > 0 then
-//    lstTokens.ItemIndex := 0;
+  UpdateTokenList;
 end;
 
 procedure TfrmAlignLines.Execute;
 var
   T : string;
 begin
-  //if lstTokens.ItemIndex >= 0 then
+  if Assigned(FTVP.CurrentItem) then
   begin
-//    T := lstTokens.Items[lstTokens.ItemIndex];
+    T := TToken(FTVP.CurrentItem).Token;
     Manager.ActiveView.AlignSelection(
       T,
       chkRemoveWhitespace.Checked,
@@ -298,8 +346,9 @@ begin
 end;
 
 //*****************************************************************************
-// private methods                                                         END
+// protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

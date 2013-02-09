@@ -327,7 +327,6 @@ type
     property ParentItem[const Level: Integer]: TObject read GetParentItem;
     property ItemsSource: TObjectList read GetItemsSource write SetItemsSource;
     property ItemTemplate: IDataTemplate read GetItemTemplate write SetItemTemplate;
-    //property StringsSource: TStrings read GetStringsSource write SetStringsSource;
     property SelectedItem: TObject read GetSelectedItem write SetSelectedItem;
     property SelectedItems: TObjectList read GetSelectedItems write SetSelectedItems;
   published

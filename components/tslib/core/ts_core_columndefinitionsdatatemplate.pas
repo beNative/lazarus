@@ -103,14 +103,17 @@ begin
     and (ColumnIndex < FColumnDefinitions.Count) and (ColumnIndex > -1) then
   begin
     CD := TColumnDefinition(FColumnDefinitions[ColumnIndex]);
-    if Assigned(CD.OnGetText) then
+    if Assigned(CD) then
     begin
-      Result := CD.OnGetText(
-        FColumnDefinitions.Owner, FColumnDefinitions[ColumnIndex], Item);
-    end
-    else
-    begin
-      Result := VarToStrDef(GetValueForProperty(Item, CD.Name), '');
+      if Assigned(CD.OnGetText) then
+      begin
+        Result := CD.OnGetText(
+          FColumnDefinitions.Owner, FColumnDefinitions[ColumnIndex], Item);
+      end
+      else
+      begin
+        Result := VarToStrDef(GetValueForProperty(Item, CD.Name), '');
+      end;
     end;
   end
   else

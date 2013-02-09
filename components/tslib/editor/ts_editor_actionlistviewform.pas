@@ -105,6 +105,7 @@ uses
   ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate,
   ts_Core_Helpers;
 
+{$region 'TActionListTemplate' /fold}
 type
   TActionListTemplate = class(TColumnDefinitionsDataTemplate)
     function GetImageIndex(
@@ -116,24 +117,6 @@ type
       const APropertyName : string
     ): Variant; override;
   end;
-
-  TKeyStrokeTemplate = class(TColumnDefinitionsDataTemplate)
-    function GetValueForProperty(
-      const Item          : TObject;
-      const APropertyName : string
-    ): Variant; override;
-  end;
-
-  TMouseActionTemplate = class(TColumnDefinitionsDataTemplate)
-    function GetValueForProperty(
-      const Item          : TObject;
-      const APropertyName : string
-    ): Variant; override;
-  end;
-
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 function TActionListTemplate.GetImageIndex(const Item: TObject;
   const ColumnIndex: Integer): Integer;
@@ -164,6 +147,16 @@ begin
     Result := ShortCutToText(Result);
   end;
 end;
+{$endregion}
+
+{$region 'TKeyStrokeTemplate' /fold}
+type
+  TKeyStrokeTemplate = class(TColumnDefinitionsDataTemplate)
+    function GetValueForProperty(
+      const Item          : TObject;
+      const APropertyName : string
+    ): Variant; override;
+  end;
 
 function TKeyStrokeTemplate.GetValueForProperty(const Item: TObject;
   const APropertyName: string): Variant;
@@ -189,6 +182,16 @@ begin
     Result := ShortCutToText(Result);
   end;
 end;
+{$endregion}
+
+{$region 'TMouseActionTemplate' /fold}
+type
+  TMouseActionTemplate = class(TColumnDefinitionsDataTemplate)
+    function GetValueForProperty(
+      const Item          : TObject;
+      const APropertyName : string
+    ): Variant; override;
+  end;
 
 function TMouseActionTemplate.GetValueForProperty(const Item: TObject;
   const APropertyName: string): Variant;
@@ -202,11 +205,9 @@ begin
     Result := MouseCommandName(C);
   end;
 end;
+{$endregion}
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
-
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -284,7 +285,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -317,7 +320,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event handlers' /fold}
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
@@ -330,14 +335,18 @@ end;
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
 
 procedure TfrmActionListView.UpdateView;
 begin
-  //
+  FVSTActions.Invalidate;
+  FVSTCommands.Invalidate;
+  FVSTMouseActions.Invalidate;
 end;
 
 procedure TfrmActionListView.UpdateLists;
@@ -362,6 +371,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

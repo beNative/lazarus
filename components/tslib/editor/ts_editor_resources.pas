@@ -364,6 +364,7 @@ var
 type
   TResourcesDataModule = class(TDataModule)
     imlFunctionKeys: TImageList;
+    imlMain: TImageList;
   private
   public
   end;

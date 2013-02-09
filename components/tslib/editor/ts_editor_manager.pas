@@ -1214,10 +1214,20 @@ begin
     FOnCaretPositionChange(Self, ActiveView.CaretX, ActiveView.CaretY);
 
   { TODO -oTS : Needs to be refactored }
-  if actShowPreview.Checked then
+  if ToolViews['frmPreview'].Visible then
     ToolViews['frmPreview'].UpdateView;
   if ToolViews['frmTest'].Visible then
     ToolViews['frmTest'].UpdateView;
+  if ToolViews['frmAlignLines'].Visible then
+    ToolViews['frmAlignLines'].UpdateView;
+  if ToolViews['frmActionListView'].Visible then
+    ToolViews['frmActionListView'].UpdateView;
+  if ToolViews['frmViewList'].Visible then
+    ToolViews['frmViewList'].UpdateView;
+
+
+
+
 end;
 
 procedure TdmEditorManager.DoMacroStateChange(AState: TSynMacroState);
@@ -2572,7 +2582,7 @@ begin
   begin
     B := V.SelAvail and not Settings.ReadOnly;
     actAlignAndSortSelection.Enabled    := B;
-    actAlignSelection.Enabled           := B;
+//    actAlignSelection.Enabled           := B;
     actDequoteSelection.Enabled         := B;
     actLowerCaseSelection.Enabled       := B;
     actToggleBlockCommentSelection.Enabled    := B;
@@ -2616,6 +2626,7 @@ begin
     actFind.Checked           := ToolViews['frmSearchForm'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
+    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
 
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;

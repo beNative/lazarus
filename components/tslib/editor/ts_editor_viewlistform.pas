@@ -38,49 +38,16 @@ uses
 //=============================================================================
 
 type
-  TEditorViewInfo = class
-  private
-    FView: TComponent; // TSI: no interface reference here!
-
-    function GetFileName: string;
-    function GetHighlighter: string;
-    function GetModified: Boolean;
-    function GetPath: string;
-    function GetView: IEditorView;
-
-  public
-    constructor Create(AView: IEditorView);
-    procedure BeforeDestruction; override;
-
-    property View: IEditorView
-      read GetView;
-
-  published
-    property FileName: string
-      read GetFileName;
-
-    property Path: string
-      read GetPath;
-
-    property Highlighter: string
-      read GetHighlighter;
-
-    property Modified: Boolean
-      read GetModified;
-  end;
-
-//=============================================================================
-
   TfrmViewList = class(TForm, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
+    MenuItem1  : TMenuItem;
+    MenuItem2  : TMenuItem;
     mniClose   : TMenuItem;
     pnlButtons : TButtonPanel;
     pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
-    ppmHL: TPopupMenu;
+    ppmHL      : TPopupMenu;
 
     procedure actCloseExecute(Sender: TObject);
 
@@ -133,9 +100,41 @@ implementation
 uses
   ts_Core_ColumnDefinitions, ts_Core_Utils, ts_Core_Helpers;
 
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
+
+{ TODO -oTS : Use Column Data templates }
+
+{$region 'TEditorViewInfo' /fold}
+type
+  TEditorViewInfo = class
+  private
+    FView: TComponent; // TSI: no interface reference here!
+
+    function GetFileName: string;
+    function GetHighlighter: string;
+    function GetModified: Boolean;
+    function GetPath: string;
+    function GetView: IEditorView;
+
+  public
+    constructor Create(AView: IEditorView);
+    procedure BeforeDestruction; override;
+
+    property View: IEditorView
+      read GetView;
+
+  published
+    property FileName: string
+      read GetFileName;
+
+    property Path: string
+      read GetPath;
+
+    property Highlighter: string
+      read GetHighlighter;
+
+    property Modified: Boolean
+      read GetModified;
+  end;
 
 constructor TEditorViewInfo.Create(AView: IEditorView);
 begin
@@ -147,14 +146,6 @@ begin
   FView := nil;
   inherited BeforeDestruction;
 end;
-
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
-
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TEditorViewInfo.GetFileName: string;
 begin
@@ -180,11 +171,9 @@ function TEditorViewInfo.GetView: IEditorView;
 begin
   Result := FView as IEditorView;
 end;
+{$endregion}
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
-
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -201,11 +190,10 @@ begin
   FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
   with FTVP.ColumnDefinitions.AddColumn('Highlighter', dtString, 80) do
   begin
-    Fixed := True;
+
   end;
   with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 80) do
   begin
-    Fixed := True;
     ColumnType := TColumnType.ctCheckBox;
   end;
   FItemList := TObjectList.Create;
@@ -214,7 +202,6 @@ begin
   FTVP.PopupMenu := ppmMain;
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged  := FTVPSelectionChanged;
-  FVST.Header.AutoFitColumns;
 
   for I := 0 to Manager.Menus.HighlighterPopupMenu.Items.Count - 1 do
     ppmHL.Items.Add(CloneMenuItem(Manager.Menus.HighlighterPopupMenu.Items[I]));
@@ -233,7 +220,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -271,7 +260,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -292,7 +283,9 @@ end;
 //*****************************************************************************
 // action handlers                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event handlers' /fold}
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
@@ -311,13 +304,16 @@ end;
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
 
 procedure TfrmViewList.UpdateView;
 begin
+  FVST.Invalidate;
 end;
 
 procedure TfrmViewList.UpdateActions;
@@ -337,12 +333,12 @@ begin
     FItemList.Add(TEditorViewInfo.Create(Views[I]));
   end;
   FTVP.Refresh;
-  FVST.Header.AutoFitColumns;
 end;
 
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

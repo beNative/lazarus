@@ -48,6 +48,8 @@ type
     function GetView: IEditorView;
 
   protected
+    procedure UpdateView;
+
     property Settings: IEditorSettings
       read GetSettings;
 
@@ -68,7 +70,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure UpdateView;
+
   end;
 
 //*****************************************************************************
@@ -77,6 +79,7 @@ implementation
 
 {$R *.lfm}
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -90,7 +93,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -128,9 +133,11 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
-// public methods                                                        BEGIN
+// protected methods                                                     BEGIN
 //*****************************************************************************
 
 procedure TfrmPreview.UpdateView;
@@ -177,7 +184,8 @@ begin
 end;
 
 //*****************************************************************************
-// public methods                                                          END
+// protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.

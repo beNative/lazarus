@@ -263,7 +263,7 @@ uses
 
   DOM, XMLRead, XMLWrite,
 
-  ts_editor_resources2, ts_Editor_CommentStripper;
+  ts_Editor_Resources, ts_Editor_CommentStripper;
 
 { Will remove all spaces from the given string, but preserves one space
   between words. Spaces used to indent the given string will not be removed

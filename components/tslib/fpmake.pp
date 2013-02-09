@@ -147,6 +147,7 @@ begin
     t.Dependencies.AddUnit('ts_components_xmltree_nodeattributes');
     t.Dependencies.AddUnit('ts_components_xmltree_editors');
     t.Dependencies.AddUnit('ts_editor_resources');
+    t.Dependencies.AddUnit('ts_components_exportrtf');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -211,6 +212,7 @@ begin
     T:=P.Targets.AddUnit('components\ts_components_xmltree_nodeattributes.pas');
     T:=P.Targets.AddUnit('components\ts_components_xmltree_editors.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_resources.pas');
+    T:=P.Targets.AddUnit('components\ts_components_exportrtf.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

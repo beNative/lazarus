@@ -141,8 +141,10 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  ts_Editor_Interfaces, ts_editor_resources2, ts_Editor_Highlighters,
-  ts_Editor_View, ts_Editor_ExportRTF;
+  ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
+  ts_Editor_View,
+
+  ts_Components_ExportRTF;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,

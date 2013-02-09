@@ -29,7 +29,9 @@ uses
 
   RichMemo,
 
-  ts_Editor_Interfaces, ts_Editor_ExportRTF;
+  ts_Editor_Interfaces,
+
+  ts_Components_ExportRTF;
 
 type
   TfrmPreview = class(TForm, IEditorToolView)

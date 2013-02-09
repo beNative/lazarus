@@ -191,7 +191,7 @@ uses
 
   SynEditHighlighter, SynEditStrConst,
 
-  ts_editor_resources2;
+  ts_Editor_Resources;
 
 {$region 'public methods' /fold}
 //*****************************************************************************

@@ -16,7 +16,7 @@ object frmSearchForm: TfrmSearchForm
   LCLVersion = '1.1'
   object pnlOperations: TPanel
     Left = 0
-    Height = 394
+    Height = 406
     Top = 0
     Width = 333
     Align = alTop
@@ -33,7 +33,7 @@ object frmSearchForm: TfrmSearchForm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 394
+    ClientHeight = 406
     ClientWidth = 333
     TabOrder = 0
     object grpSearchText: TGroupBox
@@ -177,7 +177,7 @@ object frmSearchForm: TfrmSearchForm
     end
     object grpOptions: TGroupBox
       Left = 0
-      Height = 96
+      Height = 108
       Top = 102
       Width = 333
       Caption = 'Options'
@@ -188,12 +188,12 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 78
+      ClientHeight = 90
       ClientWidth = 329
       TabOrder = 2
       object chkWholeWordsOnly: TSpeedButton
         Left = 2
-        Height = 20
+        Height = 24
         Top = 6
         Width = 168
         Action = actWholeWordsOnly
@@ -243,8 +243,8 @@ object frmSearchForm: TfrmSearchForm
       end
       object chkRegularExpressions1: TSpeedButton
         Left = 2
-        Height = 20
-        Top = 32
+        Height = 24
+        Top = 36
         Width = 168
         Action = actRegularExpressions
         AllowAllUp = True
@@ -293,8 +293,8 @@ object frmSearchForm: TfrmSearchForm
       end
       object chkMultiLine: TSpeedButton
         Left = 2
-        Height = 20
-        Top = 58
+        Height = 24
+        Top = 66
         Width = 168
         Action = actMultiline
         AllowAllUp = True
@@ -343,7 +343,7 @@ object frmSearchForm: TfrmSearchForm
       end
       object chkSearchAllViews1: TSpeedButton
         Left = 170
-        Height = 20
+        Height = 24
         Top = 6
         Width = 157
         Action = actSearchInAllViews
@@ -393,8 +393,8 @@ object frmSearchForm: TfrmSearchForm
       end
       object chkCaseSensitive: TSpeedButton
         Left = 170
-        Height = 20
-        Top = 32
+        Height = 24
+        Top = 36
         Width = 157
         Action = actCaseSensitive
         AllowAllUp = True
@@ -445,7 +445,7 @@ object frmSearchForm: TfrmSearchForm
     object grpOrigin: TGroupBox
       Left = 0
       Height = 52
-      Top = 202
+      Top = 214
       Width = 333
       Caption = 'Origin'
       ChildSizing.LeftRightSpacing = 2
@@ -541,7 +541,7 @@ object frmSearchForm: TfrmSearchForm
     object grpScope: TGroupBox
       Left = 0
       Height = 52
-      Top = 258
+      Top = 270
       Width = 333
       Caption = 'Scope'
       ChildSizing.LeftRightSpacing = 2
@@ -636,7 +636,7 @@ object frmSearchForm: TfrmSearchForm
     object grpDirection: TGroupBox
       Left = 0
       Height = 52
-      Top = 314
+      Top = 326
       Width = 333
       Caption = 'Direction'
       ChildSizing.LeftRightSpacing = 2
@@ -730,7 +730,7 @@ object frmSearchForm: TfrmSearchForm
     object pnlButtons: TPanel
       Left = 0
       Height = 24
-      Top = 370
+      Top = 382
       Width = 333
       AutoSize = True
       BevelOuter = bvSpace
@@ -801,8 +801,8 @@ object frmSearchForm: TfrmSearchForm
   end
   object pnlResultList: TPanel
     Left = 0
-    Height = 494
-    Top = 398
+    Height = 482
+    Top = 410
     Width = 333
     Align = alClient
     BorderSpacing.Top = 4
@@ -812,7 +812,6 @@ object frmSearchForm: TfrmSearchForm
     TabOrder = 2
   end
   object aclMain: TActionList
-    Images = ResourcesDataModule.imlFunctionKeys
     left = 144
     top = 400
     object actFocusSearchText: TAction

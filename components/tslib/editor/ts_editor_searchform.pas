@@ -24,7 +24,9 @@ unit ts_Editor_SearchForm;
 
 
 {
-  TODO: copy all matches to a stringlist when regular expressions are used
+  TODO:
+    - only show function keys when focused.
+    - copy all matches to a stringlist when regular expressions are used
 }
 
 {$mode delphi}
@@ -54,42 +56,62 @@ uses
 type
   TfrmSearchForm = class(TForm, IEditorToolView, IClipboardCommands)
     {$region 'designer controls' /fold}
+    aclMain                         : TActionList;
+    actBackward                     : TAction;
+    actCaseSensitive                : TAction;
+    actEntireScope                  : TAction;
+    actFocusSearchText              : TAction;
+    actForward                      : TAction;
+    actFromCursor                   : TAction;
+    actGlobal                       : TAction;
+    actMultiline                    : TAction;
+    actRegularExpressions           : TAction;
+    actReplace                      : TAction;
+    actReplaceAll                   : TAction;
+    actReplaceWith                  : TAction;
+    actSearch                       : TAction;
+    actSearchInAllViews             : TAction;
+    actSelected                     : TAction;
+    actToggleDirection              : TAction;
+    actToggleOrigin                 : TAction;
+    actToggleScope                  : TAction;
+    actWholeWordsOnly               : TAction;
     btnFind                         : TBitBtn;
     btnReplace                      : TBitBtn;
     btnReplaceAll                   : TBitBtn;
+    cbxReplaceWith                  : TComboBox;
     cbxSearchText                   : TComboBox;
     chkCaseSensitive                : TSpeedButton;
     chkMultiLine                    : TSpeedButton;
     chkRegularExpressions1          : TSpeedButton;
+    chkReplaceStringsCaseSensitive  : TCheckBox;
+    chkReplaceStringsWholeWordsOnly : TCheckBox;
     chkReplaceWith                  : TSpeedButton;
     chkSearchAllViews1              : TSpeedButton;
     chkWholeWordsOnly               : TSpeedButton;
+    DirectionGroupBox               : TGroupBox;
+    grdReplaceStrings               : TStringGrid;
+    grpDirection                    : TGroupBox;
+    grpMisc                         : TGroupBox;
+    grpOptions                      : TGroupBox;
+    grpOrigin                       : TGroupBox;
+    grpReplaceWith                  : TGroupBox;
+    grpScope                        : TGroupBox;
+    grpSearchText                   : TGroupBox;
     Image1                          : TImage;
     Image2                          : TImage;
     Image3                          : TImage;
     Image4                          : TImage;
+    lblSearchText                   : TLabel;
     pnlButtons                      : TPanel;
     pnlDirection                    : TPanel;
+    pnlDirectionShortcut            : TPanel;
+    pnlOperations                   : TPanel;
     pnlOrigin                       : TPanel;
     pnlOriginShortcut               : TPanel;
+    pnlResultList                   : TPanel;
     pnlScope                        : TPanel;
     pnlScopeShortcut                : TPanel;
-    pnlDirectionShortcut            : TPanel;
-    pnlResultList                   : TPanel;
-    chkReplaceStringsCaseSensitive  : TCheckBox;
-    chkReplaceStringsWholeWordsOnly : TCheckBox;
-    DirectionGroupBox               : TGroupBox;
-    grdReplaceStrings               : TStringGrid;
-    grpOrigin                       : TGroupBox;
-    grpDirection                    : TGroupBox;
-    grpSearchText                   : TGroupBox;
-    grpMisc                         : TGroupBox;
-    grpScope                        : TGroupBox;
-    grpReplaceWith                  : TGroupBox;
-    grpOptions                      : TGroupBox;
-    pnlOperations                   : TPanel;
-    cbxReplaceWith                  : TComboBox;
-    lblSearchText                   : TLabel;
     rbtBackward                     : TSpeedButton;
     rbtEntireScope                  : TSpeedButton;
     rbtForward                      : TSpeedButton;
@@ -97,26 +119,6 @@ type
     rbtGlobal                       : TSpeedButton;
     rbtSelected                     : TSpeedButton;
     sbrMain                         : TStatusBar;
-    aclMain                         : TActionList;
-    actFocusSearchText              : TAction;
-    actEntireScope                  : TAction;
-    actBackward                     : TAction;
-    actForward                      : TAction;
-    actToggleOrigin                 : TAction;
-    actToggleScope                  : TAction;
-    actToggleDirection              : TAction;
-    actReplaceAll                   : TAction;
-    actReplace                      : TAction;
-    actSearch                       : TAction;
-    actReplaceWith                  : TAction;
-    actSelected                     : TAction;
-    actGlobal                       : TAction;
-    actWholeWordsOnly               : TAction;
-    actRegularExpressions           : TAction;
-    actMultiline                    : TAction;
-    actSearchInAllViews             : TAction;
-    actCaseSensitive                : TAction;
-    actFromCursor                   : TAction;
     {$endregion}
 
     procedure actCaseSensitiveExecute(Sender: TObject);
@@ -474,7 +476,7 @@ begin
   SearchEngine.SearchText := cbxSearchText.Text;
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
   SearchEngine.Options := Options;
-  //SearchEngine.SearchAllViews := chkSearchAllViews.Checked;
+  SearchEngine.SearchAllViews := actSearchInAllViews.Checked;
   Modified;
   // TODO: For some bizarre reason columms are not resized correctly when there
   // were records in the list for the last execution.
@@ -527,7 +529,12 @@ end;
 
 procedure TfrmSearchForm.UpdateView;
 begin
-  //
+  if actSearchInAllViews.Checked then
+  begin
+    Manager.ActiveView.BeginUpdate;
+    Manager.ActiveView.SetHighlightSearch(SearchEngine.SearchText, SearchEngine.Options);
+    Manager.ActiveView.EndUpdate;
+  end;
 end;
 
 { Updates activeview and selects SearchText }
@@ -586,6 +593,10 @@ begin
     end;
     FUpdate := False;
   end;
+
+  //B := Assigned(Screen.ActiveControl) and (Screen.ActiveControl.Owner = Self);
+  //Image4.Visible := B;
+
 end;
 
 //*****************************************************************************

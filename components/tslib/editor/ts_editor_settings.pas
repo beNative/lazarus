@@ -46,8 +46,8 @@ type
 
   TEditorSettings = class(TComponent, IEditorSettings)
   private
-    FChangedEventList         : TEditorSettingsChangedEventList;
     FAutoFormatXML            : Boolean;
+    FChangedEventList         : TEditorSettingsChangedEventList;
     FReadOnly                 : Boolean;
     FPreviewVisible           : Boolean;
     FHighlighterType          : string;
@@ -109,9 +109,9 @@ type
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
+    procedure Apply; // to manually force a notification
     procedure Load;
     procedure Save;
-    procedure Apply; // to manually force a notification
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);

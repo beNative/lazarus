@@ -2697,9 +2697,6 @@ procedure TdmEditorManager.UpdateSearchMatches;
 begin
   if ToolViews['frmSearchForm'].Visible then
   begin
-    ActiveView.BeginUpdate;
-    ActiveView.SetHighlightSearch(SearchEngine.SearchText, SearchEngine.Options);
-    ActiveView.EndUpdate;
     ToolViews['frmSearchForm'].UpdateView;
   end;
 end;

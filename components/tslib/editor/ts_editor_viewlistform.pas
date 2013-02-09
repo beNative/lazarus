@@ -100,7 +100,6 @@ implementation
 uses
   ts_Core_ColumnDefinitions, ts_Core_Utils, ts_Core_Helpers;
 
-
 { TODO -oTS : Use Column Data templates }
 
 {$region 'TEditorViewInfo' /fold}

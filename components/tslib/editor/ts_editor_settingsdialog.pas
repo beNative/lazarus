@@ -43,6 +43,7 @@ uses
 {
   TODO:
     - Associate file extensions
+    - this can be implemented as a toolform with IEditorToolView support
 }
 
 type
@@ -117,6 +118,7 @@ uses
 var
   FForm: TfrmEditorSettings;
 
+{$region 'TSynAttributesDataTemplate' /fold}
 type
   TSynAttributesDataTemplate = class(TDataTemplate)
   public
@@ -129,6 +131,7 @@ function TSynAttributesDataTemplate.GetText(const Item: TObject;
 begin
   Result := (Item as THighlighterAttributesItem).Name;
 end;
+{$endregion}
 
 {$region 'interfaced methods' /fold}
 //*****************************************************************************
@@ -163,7 +166,7 @@ begin
   FHAPI := CreatePI(Self, pnlHARight);
   FHAVST := CreateVST(Self, pnlHALeft);
 
-  FXMLTree := CreateXMLTree(Self, pnlXML);
+  //FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;

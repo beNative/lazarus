@@ -53,48 +53,28 @@ uses
 
 type
   TfrmSearchForm = class(TForm, IEditorToolView, IClipboardCommands)
-    aclMain: TActionList;
-    actFocusSearchText: TAction;
-    actEntireScope: TAction;
-    actBackward: TAction;
-    actForward: TAction;
-    actToggleOrigin: TAction;
-    actToggleScope: TAction;
-    actToggleDirection: TAction;
-    actReplaceAll: TAction;
-    actReplace: TAction;
-    actSearch: TAction;
-    actReplaceWith: TAction;
-    actSelected: TAction;
-    actGlobal: TAction;
-    actWholeWordsOnly: TAction;
-    actRegularExpressions: TAction;
-    actMultiline: TAction;
-    actSearchInAllViews: TAction;
-    actCaseSensitive: TAction;
-    actFromCursor: TAction;
     {$region 'designer controls' /fold}
     btnFind                         : TBitBtn;
     btnReplace                      : TBitBtn;
     btnReplaceAll                   : TBitBtn;
-    cbxSearchText: TComboBox;
-    chkCaseSensitive: TSpeedButton;
-    chkMultiLine: TSpeedButton;
-    chkRegularExpressions1: TSpeedButton;
-    chkReplaceWith: TSpeedButton;
-    chkSearchAllViews1: TSpeedButton;
-    chkWholeWordsOnly: TSpeedButton;
-    Image1: TImage;
-    Image2: TImage;
-    Image3: TImage;
-    Image4: TImage;
+    cbxSearchText                   : TComboBox;
+    chkCaseSensitive                : TSpeedButton;
+    chkMultiLine                    : TSpeedButton;
+    chkRegularExpressions1          : TSpeedButton;
+    chkReplaceWith                  : TSpeedButton;
+    chkSearchAllViews1              : TSpeedButton;
+    chkWholeWordsOnly               : TSpeedButton;
+    Image1                          : TImage;
+    Image2                          : TImage;
+    Image3                          : TImage;
+    Image4                          : TImage;
     pnlButtons                      : TPanel;
-    pnlDirection: TPanel;
-    pnlOrigin: TPanel;
-    pnlOriginShortcut: TPanel;
-    pnlScope: TPanel;
-    pnlScopeShortcut: TPanel;
-    pnlDirectionShortcut: TPanel;
+    pnlDirection                    : TPanel;
+    pnlOrigin                       : TPanel;
+    pnlOriginShortcut               : TPanel;
+    pnlScope                        : TPanel;
+    pnlScopeShortcut                : TPanel;
+    pnlDirectionShortcut            : TPanel;
     pnlResultList                   : TPanel;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
@@ -110,13 +90,33 @@ type
     pnlOperations                   : TPanel;
     cbxReplaceWith                  : TComboBox;
     lblSearchText                   : TLabel;
-    rbtBackward: TSpeedButton;
-    rbtEntireScope: TSpeedButton;
-    rbtForward: TSpeedButton;
-    rbtFromCursor1: TSpeedButton;
-    rbtGlobal: TSpeedButton;
-    rbtSelected: TSpeedButton;
+    rbtBackward                     : TSpeedButton;
+    rbtEntireScope                  : TSpeedButton;
+    rbtForward                      : TSpeedButton;
+    rbtFromCursor1                  : TSpeedButton;
+    rbtGlobal                       : TSpeedButton;
+    rbtSelected                     : TSpeedButton;
     sbrMain                         : TStatusBar;
+    aclMain                         : TActionList;
+    actFocusSearchText              : TAction;
+    actEntireScope                  : TAction;
+    actBackward                     : TAction;
+    actForward                      : TAction;
+    actToggleOrigin                 : TAction;
+    actToggleScope                  : TAction;
+    actToggleDirection              : TAction;
+    actReplaceAll                   : TAction;
+    actReplace                      : TAction;
+    actSearch                       : TAction;
+    actReplaceWith                  : TAction;
+    actSelected                     : TAction;
+    actGlobal                       : TAction;
+    actWholeWordsOnly               : TAction;
+    actRegularExpressions           : TAction;
+    actMultiline                    : TAction;
+    actSearchInAllViews             : TAction;
+    actCaseSensitive                : TAction;
+    actFromCursor                   : TAction;
     {$endregion}
 
     procedure actCaseSensitiveExecute(Sender: TObject);
@@ -135,6 +135,7 @@ type
     procedure cbxSearchTextChange(Sender: TObject);
     procedure DoOnSelectionChanged(Sender: TObject);
     procedure FormHide(Sender: TObject);
+
   private
     FTVP      : TTreeViewPresenter;
     FVST      : TVirtualStringTree;
@@ -596,6 +597,3 @@ initialization
   {$I ts_editor_searchform.lrs}
 
 end.
-
-
-

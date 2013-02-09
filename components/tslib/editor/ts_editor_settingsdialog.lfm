@@ -93,6 +93,7 @@ object frmEditorSettings: TfrmEditorSettings
         ClientHeight = 506
         ClientWidth = 478
         OnEnter = tsXMLEnter
+        TabVisible = False
         object pnlXML: TPanel
           Left = 3
           Height = 500

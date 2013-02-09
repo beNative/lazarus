@@ -160,7 +160,6 @@ type
                                         IEditorSearchEngine)
     {$region 'designer controls' /fold}
     aclActions                    : TActionList;
-    actAlignAndSortSelection      : TAction;
     actAlignSelection             : TAction;
     actAutoFormatXML              : TAction;
     actDequoteSelection           : TAction;
@@ -291,7 +290,6 @@ type
     MenuItem33                    : TMenuItem;
     MenuItem34                    : TMenuItem;
     MenuItem35                    : TMenuItem;
-    MenuItem36                    : TMenuItem;
     MenuItem37                    : TMenuItem;
     MenuItem38                    : TMenuItem;
     MenuItem39                    : TMenuItem;
@@ -663,6 +661,7 @@ type
     procedure UpdateHighLighterActions;
     procedure UpdateFileActions;
     procedure UpdateSearchMatches;
+    procedure UpdateCodeFilter;
 
     procedure ClearHighlightSearch;
 
@@ -796,14 +795,14 @@ uses
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 
+  ts_Components_UniHighlighter,
+
   ts_Editor_Settings, ts_Editor_HighlighterAttributes,
   ts_Editor_ViewListForm, ts_Editor_CodeShaperForm , ts_Editor_PreviewForm,
   ts_Editor_Testform, ts_Editor_SearchForm, ts_Editor_ShortcutsDialog,
   ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
-  ts_Editor_XmlTreeForm,
-  ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_components_unihighlighter,
-
+  ts_Editor_XmlTreeForm, ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
   ts_Editor_SearchEngine;
 
@@ -1224,10 +1223,6 @@ begin
     ToolViews['frmActionListView'].UpdateView;
   if ToolViews['frmViewList'].Visible then
     ToolViews['frmViewList'].UpdateView;
-
-
-
-
 end;
 
 procedure TdmEditorManager.DoMacroStateChange(AState: TSynMacroState);
@@ -2173,6 +2168,7 @@ begin
   UpdateLineBreakStyleActions;
   UpdateFileActions;
   UpdateSearchMatches;
+  UpdateCodeFilter;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2581,7 +2577,6 @@ begin
   if Assigned(V) and Assigned(Settings) {and V.Focused and FChanged} then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
-    actAlignAndSortSelection.Enabled    := B;
 //    actAlignSelection.Enabled           := B;
     actDequoteSelection.Enabled         := B;
     actLowerCaseSelection.Enabled       := B;
@@ -2603,7 +2598,6 @@ begin
 
     B := not Settings.ReadOnly;
     actAlignSelection.Visible          := B;
-    actAlignAndSortSelection.Visible   := B;
     actCut.Visible                     := B;
     actDelete.Visible                  := B;
     actDequoteLines.Visible            := B;
@@ -2706,6 +2700,30 @@ begin
     ActiveView.BeginUpdate;
     ActiveView.SetHighlightSearch(SearchEngine.SearchText, SearchEngine.Options);
     ActiveView.EndUpdate;
+    ToolViews['frmSearchForm'].UpdateView;
+  end;
+end;
+
+procedure TdmEditorManager.UpdateCodeFilter;
+begin
+  if ToolViews['frmCodeFilterDialog'].Visible then
+  begin
+    ToolViews['frmCodeFilterDialog'].UpdateView;
+  end;
+end;
+
+procedure TdmEditorManager.UpdateHighLighterActions;
+var
+  S: string;
+  A: TCustomAction;
+begin
+  S := '';
+  if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem) then
+  begin
+    S := 'actHighlighter' + ActiveView.HighlighterItem.Name;
+    A := Items[S];
+    if Assigned(A) then
+      A.Checked := True;
   end;
 end;
 
@@ -2735,21 +2753,6 @@ begin
       Result := FToolViewList[I] as IEditorToolView;
       Logger.Send(Result.Name);
     end;
-  end;
-end;
-
-procedure TdmEditorManager.UpdateHighLighterActions;
-var
-  S: string;
-  A: TCustomAction;
-begin
-  S := '';
-  if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem) then
-  begin
-    S := 'actHighlighter' + ActiveView.HighlighterItem.Name;
-    A := Items[S];
-    if Assigned(A) then
-      A.Checked := True;
   end;
 end;
 {$endregion}

@@ -34,7 +34,7 @@ object frmAlignLines: TfrmAlignLines
   object gbxInsertSpace: TGroupBox
     Left = 0
     Height = 42
-    Top = 80
+    Top = 96
     Width = 313
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Keep at least one space'
@@ -67,7 +67,7 @@ object frmAlignLines: TfrmAlignLines
   object rgpAlignAt: TRadioGroup
     Left = 0
     Height = 42
-    Top = 128
+    Top = 144
     Width = 311
     Anchors = [akTop, akLeft, akRight]
     AutoFill = True
@@ -92,12 +92,12 @@ object frmAlignLines: TfrmAlignLines
   end
   object gbxOptions: TGroupBox
     Left = 0
-    Height = 73
+    Height = 89
     Top = 0
     Width = 313
     Anchors = [akTop, akLeft, akRight]
     Caption = 'Options'
-    ClientHeight = 55
+    ClientHeight = 71
     ClientWidth = 309
     TabOrder = 4
     object chkRemoveWhitespace: TCheckBox
@@ -136,11 +136,23 @@ object frmAlignLines: TfrmAlignLines
       ParentFont = False
       WordWrap = True
     end
+    object chkSortAfterAlign: TCheckBox
+      Left = 9
+      Height = 17
+      Top = 52
+      Width = 92
+      Caption = 'Sort after align'
+      Checked = True
+      Enabled = False
+      OnClick = chkAlignInParagraphsClick
+      State = cbChecked
+      TabOrder = 2
+    end
   end
   object lblTokens: TLabel
     Left = 0
     Height = 13
-    Top = 176
+    Top = 192
     Width = 69
     Alignment = taCenter
     Caption = 'Tokens found:'
@@ -149,8 +161,8 @@ object frmAlignLines: TfrmAlignLines
   end
   object pnlVST: TPanel
     Left = 0
-    Height = 392
-    Top = 192
+    Height = 376
+    Top = 208
     Width = 313
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
@@ -158,8 +170,8 @@ object frmAlignLines: TfrmAlignLines
     TabOrder = 5
   end
   object aclMain: TActionList
-    left = 24
-    top = 40
+    left = 16
+    top = 336
     object actExecute: TAction
       Caption = 'Execute'
       OnExecute = actExecuteExecute

@@ -76,6 +76,7 @@ type
     btnCancel            : TButton;
     btnOK                : TButton;
     chkAlignInParagraphs : TCheckBox;
+    chkSortAfterAlign: TCheckBox;
     chkBeforeToken       : TCheckBox;
     chkAfterToken        : TCheckBox;
     chkRemoveWhitespace  : TCheckBox;
@@ -197,8 +198,8 @@ end;
 
 procedure TfrmAlignLines.BeforeDestruction;
 begin
-    FTokens.Free;
-    inherited BeforeDestruction;
+  FTokens.Free;
+  inherited BeforeDestruction;
 end;
 
 //*****************************************************************************

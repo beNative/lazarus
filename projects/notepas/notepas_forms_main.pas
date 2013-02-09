@@ -187,7 +187,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, Windows,
+  StrUtils, Windows, FileUtil,
 
   SynEditTypes,
 
@@ -212,11 +212,9 @@ begin
   AddDockingMenuItems;
   AddStandardEditorToolbarButtons(tlbMain);
   AddStandardEditorMenus(mnuMain);
-
   if Settings.DebugMode then
   begin
     // for debugging
-    //Logger.Channels.Add(TIPCChannel.Create);
     Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
     AddEditorDebugMenu(mnuMain);
   end;
@@ -350,7 +348,9 @@ begin
   else if S = 'actTestForm' then
     DisplayToolForm(A, 'frmTest')
   else if S = 'actAlignSelection' then
-    DisplayToolForm(A, 'frmAlignLines');
+    DisplayToolForm(A, 'frmAlignLines')
+  else if S = 'actXMLTree' then
+    DisplayToolForm(A, 'frmXmlTree');
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {
@@ -438,8 +438,9 @@ end;
 procedure TfrmMain.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 var
-  I: Integer;
-  V: IEditorView;
+  S : string;
+  V : IEditorView;
+  I : Integer;
 begin
   if Assigned(Editor) then
     V := Editor;
@@ -447,10 +448,11 @@ begin
   try
     for I := Low(FileNames) to High(FileNames) do
     begin
+      S := FileNames[I];
       if I = Low(FileNames) then
-        V := AddEditor(FileNames[I])
+        V := AddEditor(S)
       else
-        AddEditor(FileNames[I])
+        AddEditor(S)
     end;
   finally
     EnableAutoSizing;

@@ -15,9 +15,11 @@ uses
 
   PropEdits,
 
-  VirtualTrees, XMLTree,
+  VirtualTrees,
 
-  ts_Core_TreeViewPresenter, ts_Core_DataTemplates;
+  ts_Core_TreeViewPresenter, ts_Core_DataTemplates,
+
+  ts_Components_XMLTree;
 
 { Create a TVirtualStringTree with the most common settings. }
 
@@ -99,7 +101,7 @@ const
 //    toEditable,
     { Fully invalidate the tree when its window is resized
       (CS_HREDRAW/CS_VREDRAW). }
-    toFullRepaintOnResize,
+//    toFullRepaintOnResize,
     { Use some special enhancements to simulate and support grid behavior. }
     toGridExtensions,
     { Initialize nodes when saving a tree to a stream. }
@@ -153,7 +155,7 @@ const
     toShowVertGridLines,
     { Draw UI elements (header, tree buttons etc.) according to the current
       theme if enabled (Windows XP+ only, application must be themed). }
-    toThemeAware,
+//    toThemeAware,
     { Enable alpha blending for ghosted nodes or those which are being
       cut/copied. }
     toUseBlendedImages,
@@ -212,9 +214,9 @@ const
   ];
   DEFAULT_VST_ANIMATIONOPTIONS = [
     { Expanding and collapsing a node is animated (quick window scroll). }
-    toAnimatedToggle,
+//    toAnimatedToggle,
     { Do some advanced animation effects when toggling a node. }
-    toAdvancedAnimatedToggle
+//    toAdvancedAnimatedToggle
   ];
   DEFAULT_VST_AUTOOPTIONS = [
     { Expand node if it is the drop target for more than a certain time. }

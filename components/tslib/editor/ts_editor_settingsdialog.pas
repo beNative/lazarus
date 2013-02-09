@@ -30,9 +30,11 @@ uses
 
   RTTIGrids,
 
-  VirtualTrees, XMLTree,
+  VirtualTrees,
 
   ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions,
+
+  ts_Components_XMLTree,
 
   ts_Editor_Interfaces;
 

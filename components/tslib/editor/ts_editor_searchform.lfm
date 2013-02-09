@@ -1,13 +1,12 @@
 object frmSearchForm: TfrmSearchForm
-  Left = 3143
+  Left = -540
   Height = 916
-  Top = 26
-  Width = 302
-  ActiveControl = cbxSearchText
+  Top = 0
+  Width = 333
   BorderIcons = [biSystemMenu]
   Caption = 'Find'
   ClientHeight = 916
-  ClientWidth = 302
+  ClientWidth = 333
   Constraints.MinHeight = 312
   Constraints.MinWidth = 300
   KeyPreview = True
@@ -17,9 +16,9 @@ object frmSearchForm: TfrmSearchForm
   LCLVersion = '1.1'
   object pnlOperations: TPanel
     Left = 0
-    Height = 368
+    Height = 394
     Top = 0
-    Width = 302
+    Width = 333
     Align = alTop
     AutoSize = True
     BorderSpacing.Bottom = 4
@@ -34,82 +33,83 @@ object frmSearchForm: TfrmSearchForm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 368
-    ClientWidth = 302
+    ClientHeight = 394
+    ClientWidth = 333
     TabOrder = 0
     object grpSearchText: TGroupBox
       Left = 0
       Height = 47
       Top = 0
-      Width = 302
+      Width = 333
       Caption = 'Text to find:'
-      ChildSizing.LeftRightSpacing = 2
+      ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ClientHeight = 29
-      ClientWidth = 298
+      ClientWidth = 329
       TabOrder = 0
-      object edtSearchText: TEdit
-        Left = 76
-        Height = 21
-        Top = 0
-        Width = 192
-        AutoSelect = False
-        ParentShowHint = False
-        TabStop = False
-        TabOrder = 0
-      end
       object lblSearchText: TLabel
         AnchorSideTop.Side = asrCenter
-        Left = 12
+        Left = 36
         Height = 13
-        Top = 5
+        Top = 7
         Width = 57
         Alignment = taRightJustify
         BorderSpacing.Left = 6
         Caption = '&Searchtext:'
         ParentColor = False
       end
+      object Image1: TImage
+        Left = 8
+        Height = 19
+        Top = 5
+        Width = 16
+        Align = alLeft
+        AutoSize = True
+        BorderSpacing.Around = 5
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B47726170686963F601000089504E47
+          0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+          BD4944415438CB9591CF4E534118C57F77FEB421480DA62E2D0F6174A7BE8031
+          BE842E1BC70DC6DB261244A4A6CCBE4417BE81313E8690285B2AECED0613696F
+          67BE7171E9A59018E0AC2693EF9CEF3BE7645FBE7E7B2622039104242E4746A6
+          3254963D7FFAE4F18E09210CEEDFBB4B63698994E4727AA638FE73CCEEDE8F01
+          B06344848383218F1E3EE0AAF8BEBBC78DC545008C88B0B05007A0DD6EA3B526
+          A5C4743A25EF740921E0B7FB00BC702F5969DDA156B3FC3D199702310AC6D400
+          D05AB3BEFE96A22848291142E0C3769FD5D557006C6DBDC77B8F311691939940
+          C45A5B9DA78D4689224C034A2B5EE73900B79BCD6AC6184312995988D44E0594
+          5274F29CC964C2BBCD4D420800DC5A5EC63947A7DB05A0662D51E2BC050D408C
+          91BEF74CC663420868ADB9D968E09CE3CDDA1A2995355BAB296BBF60A1280A62
+          0888084A29009C7378EFCFB5506620672D586B00A8D7EB2082D1FA1CC13957BD
+          BDF7186B91CA8208C69417F47ABD32C839F2EC6F1ED618D2CC82CC59D01736FF
+          0FD65A6294B30CC8B2AA852B09D46C15A84929A154C6CFFD7D20BB023DD16AB5
+          188D46A5C0AFE170E3E3A7CF39D7C4D1E1E106A72B9BC00AD7C711F0FB1FBB59
+          C9C6DCCF55690000000049454E44AE426082
+        }
+      end
       object cbxSearchText: TComboBox
-        AnchorSideLeft.Control = lblSearchText
-        AnchorSideLeft.Side = asrBottom
-        Left = 77
+        Left = 97
         Height = 21
-        Top = 0
-        Width = 217
+        Top = 3
+        Width = 228
         Anchors = [akTop, akLeft, akRight]
-        AutoCompleteText = [cbactEndOfLineComplete]
-        AutoSelect = False
-        BorderSpacing.Left = 6
-        BorderSpacing.Around = 2
         Font.Style = [fsBold]
         ItemHeight = 13
         OnChange = cbxSearchTextChange
         ParentFont = False
-        TabOrder = 1
+        TabOrder = 0
       end
     end
     object grpReplaceWith: TGroupBox
       Left = 0
       Height = 47
       Top = 51
-      Width = 302
+      Width = 333
       Caption = 'Replace with'
       ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ClientHeight = 29
-      ClientWidth = 298
+      ClientWidth = 329
       TabOrder = 1
-      object chkReplaceWith: TCheckBox
-        AnchorSideTop.Side = asrCenter
-        Left = 11
-        Height = 17
-        Top = 6
-        Width = 85
-        BorderSpacing.Left = 6
-        Caption = '&Replace with:'
-        OnChange = chkReplaceWithChange
-        TabOrder = 0
-      end
       object cbxReplaceWith: TComboBox
         AnchorSideLeft.Side = asrBottom
         AnchorSideTop.Side = asrBottom
@@ -117,231 +117,621 @@ object frmSearchForm: TfrmSearchForm
         Left = 97
         Height = 21
         Top = 4
-        Width = 197
+        Width = 228
         Anchors = [akTop, akLeft, akRight]
         AutoComplete = True
         AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
         BorderSpacing.Left = 6
         BorderSpacing.Around = 2
         ItemHeight = 13
-        TabOrder = 1
+        TabOrder = 0
+      end
+      object chkReplaceWith: TSpeedButton
+        AnchorSideTop.Side = asrCenter
+        Left = 8
+        Height = 21
+        Top = 4
+        Width = 85
+        Action = actReplaceWith
+        AllowAllUp = True
+        BorderSpacing.Left = 6
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FFF7F7F7FF7070
+          70FF707070FFF6F6F6FFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFF4F4F3FF707070FFFFFF
+          FFFFFFFFFFFF707070FFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFF1F1F0FFF1F1F0FFF1F1
+          F0FFF1F1F0FF707070FFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFEEEEEDFFEEEEEDFFEEEE
+          EDFF707070FFEDEDECFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFEBEBEAFFEBEBEAFFEBEB
+          EAFFEBEBEAFF707070FFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFE9E8E8FF707070FFE8E7
+          E7FFE8E7E7FF707070FFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FFE3E2E1FF7070
+          70FF707070FFE2E1E0FFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 9
       end
     end
     object grpOptions: TGroupBox
       Left = 0
-      Height = 97
+      Height = 96
       Top = 102
-      Width = 302
+      Width = 333
       Caption = 'Options'
-      ChildSizing.LeftRightSpacing = 8
-      ChildSizing.TopBottomSpacing = 4
-      ChildSizing.HorizontalSpacing = 8
+      ChildSizing.LeftRightSpacing = 2
       ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
       ChildSizing.EnlargeVertical = crsHomogenousChildResize
       ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 79
-      ClientWidth = 298
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 3
+      ClientHeight = 78
+      ClientWidth = 329
       TabOrder = 2
-      object chkWholeWordsOnly: TCheckBox
-        Left = 8
-        Height = 17
-        Top = 8
-        Width = 142
+      object chkWholeWordsOnly: TSpeedButton
+        Left = 2
+        Height = 20
+        Top = 6
+        Width = 168
+        Action = actWholeWordsOnly
+        AllowAllUp = True
         BorderSpacing.Top = 6
-        BorderSpacing.Around = 2
-        Caption = '&Whole words only'
-        OnClick = chkWholeWordsOnlyClick
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FFF7F7F7FFF7F7
+          F7FF707070FFFFFFFFFFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFF4F4F3FFF4F4F3FFF4F4
+          F3FF707070FFFFFFFFFFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FF707070FF707070FF7070
+          70FF707070FFFFFFFFFFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FF707070FFE7E6E5FFE7E6
+          E5FF707070FFFFFFFFFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFE7E6E5FF707070FFEBEB
+          EAFF707070FFFFFFFFFFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFE9E8E8FFE7E6E5FF7070
+          70FF707070FFFFFFFFFFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FFE3E2E1FFE7E6
+          E5FF707070FFFFFFFFFFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 1
+        Margin = 4
+        Spacing = 8
         ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
       end
-      object chkSearchAllViews: TCheckBox
-        Left = 158
-        Height = 17
-        Hint = 'Search in all opened editors.'
-        Top = 8
-        Width = 132
+      object chkRegularExpressions1: TSpeedButton
+        Left = 2
+        Height = 20
+        Top = 32
+        Width = 168
+        Action = actRegularExpressions
+        AllowAllUp = True
         BorderSpacing.Top = 6
-        BorderSpacing.Around = 2
-        Caption = 'Search in &all views'
-        Checked = True
-        OnChange = chkSearchAllViewsChange
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FF707070FF7070
+          70FF707070FFFFFFFFFFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFF4F4F3FFF4F4F3FFF4F4
+          F3FFE7E6E5FF707070FFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFE7E6E5FFE7E6E5FFE7E6
+          E5FFE7E6E5FF707070FFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFE7E6E5FF707070FF7070
+          70FF707070FFFFFFFFFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFE7E6E5FF707070FFEBEB
+          EAFFE7E6E5FFFFFFFFFFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFE9E8E8FF707070FFE7E6
+          E5FFE7E6E5FFFFFFFFFFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FF707070FF7070
+          70FF707070FF707070FFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 2
+        Margin = 4
+        Spacing = 8
         ParentShowHint = False
-        ShowHint = True
-        State = cbChecked
-        TabOrder = 1
       end
-      object chkRegularExpressions: TCheckBox
-        Left = 8
-        Height = 17
-        Top = 33
-        Width = 142
-        BorderSpacing.Top = 6
-        BorderSpacing.Around = 2
-        Caption = 'Regular e&xpressions'
-        OnChange = chkRegularExpressionsChange
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 2
-      end
-      object chkCaseSensitive: TCheckBox
-        Left = 158
-        Height = 17
-        Top = 33
-        Width = 132
-        BorderSpacing.Top = 6
-        BorderSpacing.Around = 2
-        Caption = '&Case sensitive'
-        OnClick = chkCaseSensitiveClick
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 3
-      end
-      object chkMultiLine: TCheckBox
-        Left = 8
-        Height = 17
+      object chkMultiLine: TSpeedButton
+        Left = 2
+        Height = 20
         Top = 58
-        Width = 142
+        Width = 168
+        Action = actMultiline
+        AllowAllUp = True
         BorderSpacing.Top = 6
-        BorderSpacing.Around = 2
-        Caption = '&MultiLine'
-        OnClick = chkMultiLineClick
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FFECECEBFF7070
+          70FF707070FFECECEBFFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFECECEBFF707070FFECEC
+          EBFFECECEBFF707070FFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFECECEBFF707070FFE7E6
+          E5FFECECEBFF707070FFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFECECEBFF707070FF7070
+          70FF707070FFECECEBFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFECECEBFF707070FFEBEB
+          EAFFE7E6E5FFECECEBFFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFECECEBFF707070FFE7E6
+          E5FFE7E6E5FFECECEBFFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FFECECEBFF7070
+          70FF707070FFECECEBFFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 3
+        Margin = 4
+        Spacing = 8
         ParentShowHint = False
-        ShowHint = True
-        TabOrder = 4
+      end
+      object chkSearchAllViews1: TSpeedButton
+        Left = 170
+        Height = 20
+        Top = 6
+        Width = 157
+        Action = actSearchInAllViews
+        AllowAllUp = True
+        BorderSpacing.Top = 6
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FF707070FFECEC
+          EBFFECECEBFFECECEBFFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFECECEBFF707070FFECEC
+          EBFFECECEBFFECECEBFFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFECECEBFFECECEBFF7070
+          70FFECECEBFFECECEBFFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFECECEBFFECECEBFFECEC
+          EBFF707070FFECECEBFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFECECEBFFECECEBFFEBEB
+          EAFFECECEBFF707070FFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFECECEBFFECECEBFFE7E6
+          E5FFECECEBFF707070FFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FF707070FF7070
+          70FF707070FF707070FFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 4
+        Margin = 4
+        Spacing = 8
+        ParentShowHint = False
+      end
+      object chkCaseSensitive: TSpeedButton
+        Left = 170
+        Height = 20
+        Top = 32
+        Width = 157
+        Action = actCaseSensitive
+        AllowAllUp = True
+        BorderSpacing.Top = 6
+        Flat = True
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0033000000330000003300000033000000330000003300000033000000330000
+          003300000033000000330000003300000033000000000000000073706F849390
+          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
+          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
+          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
+          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
+          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
+          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
+          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
+          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
+          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
+          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FFECECEBFF7070
+          70FF707070FFECECEBFFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
+          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFECECEBFF707070FFECEC
+          EBFFECECEBFF707070FFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
+          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFECECEBFF707070FFECEC
+          EBFFECECEBFF707070FFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
+          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFECECEBFFECECEBFF7070
+          70FF707070FFECECEBFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
+          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFECECEBFF707070FFEBEB
+          EAFFECECEBFF707070FFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
+          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFECECEBFF707070FFE7E6
+          E5FFECECEBFF707070FFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
+          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FFECECEBFF7070
+          70FF707070FFECECEBFFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
+          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
+          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
+          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
+          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
+          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        }
+        GroupIndex = 5
+        Margin = 4
+        Spacing = 8
+        ParentShowHint = False
       end
     end
     object grpOrigin: TGroupBox
       Left = 0
-      Height = 43
-      Top = 203
-      Width = 302
+      Height = 52
+      Top = 202
+      Width = 333
       Caption = 'Origin'
-      ChildSizing.LeftRightSpacing = 8
+      ChildSizing.LeftRightSpacing = 2
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousSpaceResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 25
-      ClientWidth = 298
+      ChildSizing.ControlsPerLine = 3
+      ClientHeight = 34
+      ClientWidth = 329
       TabOrder = 3
-      object rbtFromCursor: TRadioButton
-        Left = 8
-        Height = 17
+      object pnlOriginShortcut: TPanel
+        Left = 2
+        Height = 26
         Top = 4
-        Width = 136
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&From cursor'
-        Checked = True
+        Width = 26
+        Align = alLeft
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 26
+        ClientWidth = 26
         TabOrder = 0
-        TabStop = True
+        object Image2: TImage
+          Left = 5
+          Height = 16
+          Top = 5
+          Width = 16
+          Align = alClient
+          BorderSpacing.Around = 5
+          Picture.Data = {
+            1754506F727461626C654E6574776F726B47726170686963D601000089504E47
+            0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+            9D4944415438CB9592BD6E13511085BFFBB756E48426A9CD4320E88017408897
+            80D21D206B972A6B225942DB3B8282374088C72091206D4CD2C74D9088BDDE3B
+            43B1DE650342714E79A53973BE33D77CFAFCE5B9884C4514506E96C1588335E6
+            C5B3A74F0E7D5555D307F7EF7167670755B979DC582E7F5E7274FC6D0A1C7A11
+            E1F474C6E3470FD9545F8F8ED9EEF701F022C2D6560F80E17088730E5565B55A
+            91666F4892C038CF0148B38CBDDD5D9224F0EB6A511BC428789F00E09C637F3F
+            A72C4B54154519E7392F5FBD6E8D8AA2C0FB80C8150036C64808A18DE7BCC37A
+            8B760A0DC15F43F0DEA3220D4224591B586BC9D294E572C9DB8303CAB224CDB2
+            6B0800490844895D0407408C917745C172B1A0AAAA766333D82084E0A8CFFE17
+            425996C4AA4244B0D6FEF70A7507F2E70A0D63AFD70311BCAB136DF7FB8C46A3
+            7F92F81090164104EFEB0493C9A42EB2B3AD79EB2A788FAE11BC74109C731B7D
+            A41002314A53620463DA2B6C64900454D70954156B0DDF4F4E00B3C1B832180C
+            98CFE7B5C18FD96CFCFEC3C7945BEAFCEC6CCC7AE51E7097DBEB1CB8F80D7783
+            BF35DA101E280000000049454E44AE426082
+          }
+          Proportional = True
+        end
       end
-      object rbtEntireScope: TRadioButton
-        Left = 152
-        Height = 17
+      object pnlOrigin: TPanel
+        Left = 36
+        Height = 26
         Top = 4
-        Width = 138
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&Entire scope'
+        Width = 291
+        Align = alClient
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 26
+        ClientWidth = 291
         TabOrder = 1
+        object rbtFromCursor1: TSpeedButton
+          Left = 0
+          Height = 26
+          Top = 0
+          Width = 145
+          Action = actFromCursor
+          AllowAllUp = True
+          Flat = True
+          GroupIndex = 6
+          Spacing = 0
+        end
+        object rbtEntireScope: TSpeedButton
+          Left = 145
+          Height = 26
+          Top = 0
+          Width = 146
+          Action = actEntireScope
+          AllowAllUp = True
+          Down = True
+          Flat = True
+          GroupIndex = 6
+          Spacing = 0
+        end
       end
     end
     object grpScope: TGroupBox
       Left = 0
-      Height = 43
-      Top = 250
-      Width = 302
+      Height = 52
+      Top = 258
+      Width = 333
       Caption = 'Scope'
-      ChildSizing.LeftRightSpacing = 8
+      ChildSizing.LeftRightSpacing = 2
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-      ChildSizing.ShrinkVertical = crsHomogenousChildResize
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 25
-      ClientWidth = 298
+      ChildSizing.ControlsPerLine = 3
+      ClientHeight = 34
+      ClientWidth = 329
       TabOrder = 4
-      object rbtSelected: TRadioButton
-        Left = 8
-        Height = 17
+      object pnlScopeShortcut: TPanel
+        Left = 2
+        Height = 26
         Top = 4
-        Width = 143
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&Selected'
+        Width = 26
+        Align = alLeft
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 26
+        ClientWidth = 26
         TabOrder = 0
+        object Image3: TImage
+          Left = 5
+          Height = 16
+          Top = 5
+          Width = 16
+          Align = alLeft
+          AutoSize = True
+          BorderSpacing.Around = 5
+          Picture.Data = {
+            1754506F727461626C654E6574776F726B47726170686963F601000089504E47
+            0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+            BD4944415438CB9591BD6E13411485BF99DDB11585D0240550988740D0012D42
+            11E225A0347161BBD86D48ECC2B6503A241CA0A00711215E83F0933626912C40
+            56DC841F25C3CEBD149B1827563039D214A3B9F79C39E798F5376FEF89485744
+            01653A0CC61AAC31F7EFDE595C8BB32CEB5EBB7A85F37373A8CAF47563D9FBBE
+            C7BB8D8F5D602D1611B6B67ADCBC71FDD4A52F5FBF71E9E285D1FDC7CF5F9C9B
+            9D0520161166668A94CB65A228425531C650ADD501E8B45B546B757687439A8D
+            0600D55A9D202127084188E3025114B1B2D2C07B8FAA72E03D9D766BA4DA6C34
+            48D29485F9792A950AB76E2F0260430838E70088E2081B5B14A5D36E91A42900
+            CEC513B654E4C842A0E01CD65AD224414478B8BC3CB290076726084E58880821
+            F068759583FD7DB22C3B36ECFDEF0982BCF6310BDE7B42962122586B8F0D170A
+            6E8248FE5A109C8B29168B20421C45A3A1A3AA0092341DB5F06069898DF71FF2
+            87C74F9EEA6030505555EFFDD4A3AADAEFF7F5E5ABD79AFF60BC8531F57FC139
+            470872146280C3944F7A3F95A0E050CD438C55156B0D9F363701F31FEB4AA954
+            62381CE6049F7BBDE6B3E72F12CE889DEDED2687920BC065CE8E1D60F70FC72A
+            F2062C7E01FF0000000049454E44AE426082
+          }
+          Proportional = True
+        end
       end
-      object rbtGlobal: TRadioButton
-        Left = 159
-        Height = 17
+      object pnlScope: TPanel
+        Left = 36
+        Height = 26
         Top = 4
-        Width = 131
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&Global'
-        Checked = True
+        Width = 291
+        Align = alClient
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 26
+        ClientWidth = 291
         TabOrder = 1
-        TabStop = True
+        object rbtSelected: TSpeedButton
+          Left = 0
+          Height = 26
+          Top = 0
+          Width = 152
+          Action = actSelected
+          AllowAllUp = True
+          Flat = True
+          GroupIndex = 7
+          Spacing = 0
+        end
+        object rbtGlobal: TSpeedButton
+          Left = 152
+          Height = 26
+          Top = 0
+          Width = 139
+          Action = actGlobal
+          AllowAllUp = True
+          Down = True
+          Flat = True
+          GroupIndex = 7
+          Spacing = 0
+        end
       end
     end
     object grpDirection: TGroupBox
       Left = 0
-      Height = 43
-      Top = 297
-      Width = 302
+      Height = 52
+      Top = 314
+      Width = 333
       Caption = 'Direction'
-      ChildSizing.LeftRightSpacing = 8
+      ChildSizing.LeftRightSpacing = 2
       ChildSizing.TopBottomSpacing = 4
       ChildSizing.HorizontalSpacing = 8
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsHomogenousChildResize
-      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-      ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 25
-      ClientWidth = 298
+      ChildSizing.ControlsPerLine = 3
+      ClientHeight = 34
+      ClientWidth = 329
       TabOrder = 5
-      object rbtBackward: TRadioButton
-        Left = 8
-        Height = 17
+      object pnlDirectionShortcut: TPanel
+        Left = 2
+        Height = 26
         Top = 4
-        Width = 140
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&Backward'
+        Width = 26
+        Align = alLeft
+        AutoSize = True
+        BevelOuter = bvNone
+        ClientHeight = 26
+        ClientWidth = 26
         TabOrder = 0
+        object Image4: TImage
+          Left = 5
+          Height = 16
+          Top = 5
+          Width = 16
+          Align = alClient
+          BorderSpacing.Around = 5
+          Picture.Data = {
+            1754506F727461626C654E6574776F726B47726170686963DE01000089504E47
+            0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+            A54944415438CB9591CD6A53511485BFF37743A975E4401DC487109DA92F20E2
+            4BE830B3B68364626B074990CE045375E05C51C4D750B09D36B6106C09BD93FA
+            43737ACFDE0E6E72691A4AEC8233D8B0D7DA7CEB984F9FBF3C11919E8802CA7C
+            198C3558639E3E7EF470CB1745D1BB7BE7365797965095F9766339FE75CCD76F
+            DF7BC09617117677FB3CB87FEF42D3CF83436EDEB85ECDBFFFFCE5CAE222005E
+            445858A8D1683470CEA1AA1863585E5905A0DB69B3BCB2CA519E13E369352749
+            65404A82F719CE39D6D79F1363445519C548B7D3AEAE4ECC13959D814D291142
+            00C07987F51645E976DA345B2D0042F05333808A4C10125908586B69359B8808
+            CFD6D62A84B238333503E7111C29255E6C6E323A39A1288AA9E5184F678A9D41
+            8831928A0211C15A3BB59C65612648C608564408C153ABD54004EF1CDE3980EA
+            ABCE86944123648CC0CB57AF75381CAAAA6A8C71EE53551D0C06FAFEC3472D4B
+            3CFB0BE3CBF314422025999498C09892E71CFB85015940B52CD1AB2AD61AB677
+            7600F31F76A55EAF93E77919F0A3DFDF78F3F65D934B6A7F6F6F83F1C96BC02D
+            2EAF7DE0E81F2DA8FAD6AD6BF5EF0000000049454E44AE426082
+          }
+          Proportional = True
+        end
       end
-      object rbtForward: TRadioButton
-        Left = 156
-        Height = 17
+      object pnlDirection: TPanel
+        Left = 36
+        Height = 26
         Top = 4
-        Width = 134
-        AutoSize = False
-        BorderSpacing.Around = 2
-        Caption = '&Forward'
-        Checked = True
+        Width = 291
+        Align = alClient
+        BevelOuter = bvNone
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsScaleChilds
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 26
+        ClientWidth = 291
         TabOrder = 1
-        TabStop = True
+        object rbtBackward: TSpeedButton
+          Left = 0
+          Height = 26
+          Top = 0
+          Width = 149
+          Action = actBackward
+          AllowAllUp = True
+          Flat = True
+          GroupIndex = 8
+          Spacing = 0
+        end
+        object rbtForward: TSpeedButton
+          Left = 149
+          Height = 26
+          Top = 0
+          Width = 142
+          Action = actForward
+          AllowAllUp = True
+          Down = True
+          Flat = True
+          GroupIndex = 8
+          Spacing = 0
+        end
       end
     end
     object pnlButtons: TPanel
       Left = 0
       Height = 24
-      Top = 344
-      Width = 302
+      Top = 370
+      Width = 333
       AutoSize = True
       BevelOuter = bvSpace
       ChildSizing.LeftRightSpacing = 2
@@ -353,78 +743,47 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 5
       ClientHeight = 24
-      ClientWidth = 302
+      ClientWidth = 333
       TabOrder = 6
-      object btnPrevious: TBitBtn
+      object btnFind: TBitBtn
         Left = 2
         Height = 24
         Top = 0
-        Width = 38
+        Width = 89
+        Action = actSearch
         AutoSize = True
-        Caption = '<'
+        Default = True
         Font.Style = [fsBold]
         Margin = 0
         ParentFont = False
         Spacing = 0
         TabOrder = 0
       end
-      object btnFind: TBitBtn
-        Left = 42
+      object btnReplace: TBitBtn
+        Left = 93
         Height = 24
         Top = 0
-        Width = 52
+        Width = 111
+        Action = actReplace
         AutoSize = True
-        Caption = 'Find'
-        Default = True
         Font.Style = [fsBold]
         Margin = 0
-        OnClick = btnFindClick
         ParentFont = False
         Spacing = 0
         TabOrder = 1
       end
-      object btnReplace: TBitBtn
-        Left = 96
+      object btnReplaceAll: TBitBtn
+        Left = 206
         Height = 24
         Top = 0
-        Width = 74
+        Width = 125
+        Action = actReplaceAll
         AutoSize = True
-        Caption = 'Replace'
         Font.Style = [fsBold]
         Margin = 0
-        OnClick = btnReplaceClick
         ParentFont = False
         Spacing = 0
         TabOrder = 2
-        Visible = False
-      end
-      object btnReplaceAll: TBitBtn
-        Left = 172
-        Height = 24
-        Top = 0
-        Width = 91
-        AutoSize = True
-        Caption = 'Replace All'
-        Font.Style = [fsBold]
-        Margin = 0
-        OnClick = btnReplaceAllClick
-        ParentFont = False
-        Spacing = 0
-        TabOrder = 3
-        Visible = False
-      end
-      object btnNext: TBitBtn
-        Left = 265
-        Height = 24
-        Top = 0
-        Width = 35
-        AutoSize = True
-        Caption = '>'
-        Font.Style = [fsBold]
-        Margin = 0
-        ParentFont = False
-        Spacing = 0
-        TabOrder = 4
       end
     end
   end
@@ -432,7 +791,7 @@ object frmSearchForm: TfrmSearchForm
     Left = 0
     Height = 20
     Top = 896
-    Width = 302
+    Width = 333
     Panels = <    
       item
         Alignment = taCenter
@@ -442,14 +801,143 @@ object frmSearchForm: TfrmSearchForm
   end
   object pnlResultList: TPanel
     Left = 0
-    Height = 520
-    Top = 372
-    Width = 302
+    Height = 494
+    Top = 398
+    Width = 333
     Align = alClient
     BorderSpacing.Top = 4
     BorderSpacing.Bottom = 4
     BevelOuter = bvNone
     ChildSizing.LeftRightSpacing = 2
     TabOrder = 2
+  end
+  object aclMain: TActionList
+    Images = ResourcesDataModule.imlFunctionKeys
+    left = 144
+    top = 400
+    object actFocusSearchText: TAction
+      Caption = 'actFocusSearchText'
+      ImageIndex = 1
+      OnExecute = actFocusSearchTextExecute
+      ShortCut = 113
+    end
+    object actWholeWordsOnly: TAction
+      AutoCheck = True
+      Caption = 'Whole words only'
+      DisableIfNoHandler = False
+      GroupIndex = 1
+      ImageIndex = 3
+      OnExecute = actWholeWordsOnlyExecute
+      ShortCut = 115
+    end
+    object actRegularExpressions: TAction
+      AutoCheck = True
+      Caption = 'Regular expressions'
+      DisableIfNoHandler = False
+      GroupIndex = 2
+      ImageIndex = 4
+      OnExecute = actRegularExpressionsExecute
+      ShortCut = 116
+    end
+    object actMultiline: TAction
+      AutoCheck = True
+      Caption = 'Multiline'
+      GroupIndex = 3
+      ImageIndex = 5
+      OnExecute = actMultilineExecute
+      ShortCut = 117
+    end
+    object actSearchInAllViews: TAction
+      AutoCheck = True
+      Caption = 'Search in all views'
+      DisableIfNoHandler = False
+      GroupIndex = 4
+      ImageIndex = 6
+      OnExecute = actSearchInAllViewsExecute
+      ShortCut = 118
+    end
+    object actCaseSensitive: TAction
+      AutoCheck = True
+      Caption = 'Case sensitive'
+      DisableIfNoHandler = False
+      GroupIndex = 5
+      ImageIndex = 7
+      OnExecute = actCaseSensitiveExecute
+      ShortCut = 119
+    end
+    object actFromCursor: TAction
+      AutoCheck = True
+      Caption = '&From cursor'
+      DisableIfNoHandler = False
+      GroupIndex = 6
+    end
+    object actEntireScope: TAction
+      AutoCheck = True
+      Caption = '&Entire scope'
+      Checked = True
+      DisableIfNoHandler = False
+      GroupIndex = 6
+    end
+    object actSelected: TAction
+      AutoCheck = True
+      Caption = '&Selected'
+      DisableIfNoHandler = False
+      GroupIndex = 7
+    end
+    object actGlobal: TAction
+      AutoCheck = True
+      Caption = '&Global'
+      DisableIfNoHandler = False
+      GroupIndex = 7
+    end
+    object actBackward: TAction
+      AutoCheck = True
+      Caption = 'Backward'
+      DisableIfNoHandler = False
+      GroupIndex = 8
+    end
+    object actForward: TAction
+      AutoCheck = True
+      Caption = 'Forward'
+      Checked = True
+      DisableIfNoHandler = False
+      GroupIndex = 8
+    end
+    object actReplaceWith: TAction
+      AutoCheck = True
+      Caption = '&Replace with:'
+      DisableIfNoHandler = False
+      GroupIndex = 9
+      ImageIndex = 2
+      OnExecute = actReplaceWithExecute
+      ShortCut = 114
+    end
+    object actSearch: TAction
+      Caption = 'Find'
+      OnExecute = actSearchExecute
+    end
+    object actReplace: TAction
+      Caption = 'Replace'
+      OnExecute = actReplaceExecute
+    end
+    object actReplaceAll: TAction
+      Caption = 'Replace all'
+      OnExecute = actReplaceAllExecute
+    end
+    object actToggleOrigin: TAction
+      Caption = 'Toggle origin'
+      OnExecute = actToggleOriginExecute
+      ShortCut = 120
+    end
+    object actToggleScope: TAction
+      Caption = 'Toggle scope'
+      OnExecute = actToggleScopeExecute
+      ShortCut = 121
+    end
+    object actToggleDirection: TAction
+      Caption = 'Toggle direction'
+      OnExecute = actToggleDirectionExecute
+      ShortCut = 122
+    end
   end
 end

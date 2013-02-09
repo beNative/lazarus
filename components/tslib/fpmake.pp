@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 26/01/2013
+   This file was generated on 9/02/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,7 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('kascomp');
     P.Dependencies.Add('tsbundle');
     P.Dependencies.Add('zcomponent');
     P.Dependencies.Add('lazrichedit');
@@ -57,10 +58,12 @@ begin
     P.Options.Add('-dLCL$(LCL_PLATFORM)');
     P.IncludePath.Add('core');
     P.IncludePath.Add('editor');
+    P.IncludePath.Add('../../images');
     P.Options.Add('-Fueditor');
     P.Options.Add('-Fucore');
     P.Options.Add('-Furicheditor');
     P.Options.Add('-Fudocking');
+    P.Options.Add('-Fucomponents');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -74,6 +77,7 @@ begin
     P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -92,7 +96,7 @@ begin
     t.Dependencies.AddUnit('ts_editor_manager');
     t.Dependencies.AddUnit('ts_editor_helpers');
     t.Dependencies.AddUnit('ts_editor_interfaces');
-    t.Dependencies.AddUnit('ts_editor_resources');
+    t.Dependencies.AddUnit('ts_editor_resources2');
     t.Dependencies.AddUnit('ts_editor_settings');
     t.Dependencies.AddUnit('ts_editor_utils');
     t.Dependencies.AddUnit('ts_editor_view');
@@ -137,7 +141,14 @@ begin
     t.Dependencies.AddUnit('ts_editor_unihighlighter');
     t.Dependencies.AddUnit('ts_editor_exportrtf');
     t.Dependencies.AddUnit('ts_core_collections');
-    t.Dependencies.AddUnit('hecontnrs');
+    t.Dependencies.AddUnit('ts_editor_codeformatters_sql');
+    t.Dependencies.AddUnit('BRRE');
+    t.Dependencies.AddUnit('BRREUnicode');
+    t.Dependencies.AddUnit('ts_editor_xmltreeform');
+    t.Dependencies.AddUnit('ts_components_xmltree');
+    t.Dependencies.AddUnit('ts_components_xmltree_nodeattributes');
+    t.Dependencies.AddUnit('ts_components_xmltree_editors');
+    t.Dependencies.AddUnit('ts_editor_resources');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -151,7 +162,7 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_manager.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_helpers.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_interfaces.pas');
-    T:=P.Targets.AddUnit('editor\ts_editor_resources.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_resources2.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_settings.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_utils.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_view.pas');
@@ -196,7 +207,14 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_unihighlighter.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_exportrtf.pas');
     T:=P.Targets.AddUnit('core\ts_core_collections.pas');
-    T:=P.Targets.AddUnit('core\hecontnrs.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_codeformatters_sql.pas');
+    T:=P.Targets.AddUnit('core\BRRE.pas');
+    T:=P.Targets.AddUnit('core\BRREUnicode.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_xmltreeform.pas');
+    T:=P.Targets.AddUnit('components\ts_components_xmltree.pas');
+    T:=P.Targets.AddUnit('components\ts_components_xmltree_nodeattributes.pas');
+    T:=P.Targets.AddUnit('components\ts_components_xmltree_editors.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_resources.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

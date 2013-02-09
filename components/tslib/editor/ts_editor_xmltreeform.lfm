@@ -1,0 +1,19 @@
+object frmXmlTree: TfrmXmlTree
+  Left = 688
+  Height = 718
+  Top = 239
+  Width = 381
+  Caption = 'Structure viewer'
+  ClientHeight = 718
+  ClientWidth = 381
+  LCLVersion = '1.1'
+  object pnlXmlTree: TPanel
+    Left = 0
+    Height = 718
+    Top = 0
+    Width = 381
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 0
+  end
+end

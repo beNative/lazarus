@@ -141,7 +141,7 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
+  ts_Editor_Interfaces, ts_editor_resources2, ts_Editor_Highlighters,
   ts_Editor_View, ts_Editor_ExportRTF;
 
 type
@@ -176,6 +176,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actXMLTree: TAction;
     actToggleBlockCommentSelection: TAction;
     actShowTest                   : TAction;
     actSelectAll                  : TAction;
@@ -484,6 +485,7 @@ type
     procedure actUpperCaseSelectionExecute(Sender: TObject);
     procedure actEncodingExecute(Sender: TObject);
     procedure actLineBreakStyleExecute(Sender: TObject);
+    procedure actXMLTreeExecute(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -797,6 +799,7 @@ uses
   ts_Editor_Testform, ts_Editor_SearchForm, ts_Editor_ShortcutsDialog,
   ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
+  ts_Editor_XmlTreeForm,
   ts_Editor_AlignLinesForm, ts_Editor_AboutDialog, ts_Editor_UniHighlighter,
 
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
@@ -1483,8 +1486,10 @@ end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
-  //InspectComponent((ActiveView.Editor as IInterfaceComponentReference).GetComponent);
-  InspectComponent((Settings as IInterfaceComponentReference).GetComponent);
+  InspectComponents([
+    (Settings as IInterfaceComponentReference).GetComponent,
+    ActiveView.Editor
+  ]);
 end;
 
 procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);
@@ -1833,6 +1838,12 @@ begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
 end;
 
+procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
+begin
+  //ToolViews['frmXmlTree'].Visible := True;
+  //ToolViews['frmXmlTree'].UpdateView;
+end;
+
 //*****************************************************************************
 // action handlers                                                         END
 //*****************************************************************************
@@ -2047,6 +2058,9 @@ end;
 {$region 'Registration' /fold}
 
 procedure TdmEditorManager.RegisterHighlighters;
+var
+  S: string;
+  F: string;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
@@ -2088,16 +2102,24 @@ begin
   Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
 
-  if FileExists(LAYOUT_LOG) then
-    Reg(TSynUniSyn, nil, HL_LOG, 'log', SLOGDescription, '', '', '', nil, LAYOUT_LOG);
-  if FileExists(LAYOUT_INI) then
-    Reg(TSynUniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, LAYOUT_INI);
-  if FileExists(LAYOUT_RTF) then
-    Reg(TSynUniSyn, nil, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, LAYOUT_RTF);
-  if FileExists(LAYOUT_RES) then
-    Reg(TSynUniSyn, nil, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, LAYOUT_RES);
-  if FileExists(LAYOUT_CS) then
-    Reg(TSynUniSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, LAYOUT_CS);
+
+
+  S := ExtractFilePath(Application.ExeName);
+  F := S + LAYOUT_LOG;
+  if FileExists(F) then
+    Reg(TSynUniSyn, nil, HL_LOG, 'log', SLOGDescription, '', '', '', nil, F);
+  F := S + LAYOUT_INI;
+  if FileExists(F) then
+    Reg(TSynUniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
+  F := S + LAYOUT_RTF;
+  if FileExists(F) then
+    Reg(TSynUniSyn, nil, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
+  F := S + LAYOUT_RES;
+  if FileExists(F) then
+    Reg(TSynUniSyn, nil, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
+  F := S + LAYOUT_CS;
+  if FileExists(F) then
+    Reg(TSynUniSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
   ApplyHighlighterAttributes;
 end;
 
@@ -2113,6 +2135,7 @@ begin
   AddToolView(TfrmTest.Create(Self));
   AddToolView(TfrmAlignLines.Create(Self));
   AddToolView(TfrmCodeFilterDialog.Create(Self));
+//  AddToolView(TfrmXmlTree.Create(Self));
 
   (ToolViews['frmCodeFilterDialog'] as IEditorCodeFilter).OnFilteredLineChange :=
     CodeFilterFilteredLineChange;

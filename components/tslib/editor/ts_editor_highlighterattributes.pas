@@ -164,7 +164,8 @@ begin
   Result := FHighlighterAttributes[FPosition];
 end;
 
-constructor THighlighterAttributes.THighlighterAttributesEnumerator.Create(AHighlighterAttributes: THighlighterAttributes);
+constructor THighlighterAttributes.THighlighterAttributesEnumerator.Create(
+  AHighlighterAttributes: THighlighterAttributes);
 begin
   FHighlighterAttributes := AHighlighterAttributes;
   FPosition := -1;
@@ -232,7 +233,6 @@ begin
   begin
     Item := Add;
     Item.Name := AName;
-    //Item.Attributes. := AName;
     Item.Attributes.StoredName := AName;
   end;
 end;
@@ -315,7 +315,8 @@ begin
     Result := nil;
 end;
 
-function THighlighterAttributes.RegisterItem(const AName: string; AAliasNames: array of string): Boolean;
+function THighlighterAttributes.RegisterItem(const AName: string;
+  AAliasNames: array of string): Boolean;
 var
   Item: THighlighterAttributesItem;
   S   : string;

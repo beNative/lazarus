@@ -11,7 +11,7 @@ uses
   ts_Editor_CodeFilterDialog, ts_Editor_SettingsDialog, 
   ts_Editor_CodeShaperForm, ts_Editor_AboutDialog, ts_Editor_SearchForm, 
   ts_Editor_ShortcutsDialog, ts_Editor_ViewListForm, ts_Editor_Manager, 
-  ts_Editor_Helpers, ts_Editor_Interfaces, ts_Editor_Resources, 
+  ts_Editor_Helpers, ts_Editor_Interfaces, ts_editor_resources2, 
   ts_Editor_Settings, ts_Editor_Utils, ts_Editor_View, 
   ts_Editor_HighlighterAttributes, ts_Editor_Highlighters, 
   ts_Core_DataTemplates, ts_Core_TreeViewPresenter, ts_RichEditor_Manager, 
@@ -28,7 +28,10 @@ uses
   ts_Editor_AlignLinesForm, ts_Core_Helpers, ts_editor_commentstripper, 
   ts_Editor_Settings_CodeShaper, ts_Editor_Settings_AlignLines, 
   ts_Editor_Settings_SearchEngine, ts_Editor_Types, ts_Editor_UniHighlighter, 
-  ts_Editor_ExportRTF, ts_Core_Collections, heContnrs;
+  ts_Editor_ExportRTF, ts_Core_Collections, ts_Editor_CodeFormatters_SQL, 
+  BRRE, BRREUnicode, ts_Editor_XmlTreeForm, ts_Components_XMLTree, 
+  ts_Components_XMLTree_NodeAttributes, ts_Components_XMLTree_Editors, 
+  ts_Editor_Resources;
 
 implementation
 

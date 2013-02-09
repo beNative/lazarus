@@ -50,32 +50,38 @@ type
     actCopy          : TAction;
     actCopyToNewView : TAction;
     actFocusSearchFilter: TAction;
+    actMatchCase: TAction;
+    actRegularExpression: TAction;
     actSelectAll     : TAction;
-    btnApplyFilter   : TButton;
-    chkMatchCase     : TCheckBox;
-    chkRegEx         : TCheckBox;
-    edtFilter        : TEdit;
+    btnMatchCase: TSpeedButton;
+    btnRegularExpression: TSpeedButton;
+    btnApply: TSpeedButton;
+    edtFilter: TEdit;
     grpOutput        : TGroupBox;
+    Image1: TImage;
     imlMain          : TImageList;
-    lblSearch        : TLabel;
+    lblSearch: TLabel;
     MenuItem1        : TMenuItem;
     MenuItem2        : TMenuItem;
     MenuItem3        : TMenuItem;
     mniCopy: TMenuItem;
     mniCopyToNewView: TMenuItem;
     mniSelectAll: TMenuItem;
-    pnlTop           : TPanel;
     pnlVST           : TPanel;
     ppmMain          : TPopupMenu;
     sbrMain          : TStatusBar;
+    tlbMain: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
     {$endregion}
 
     procedure actApplyFilterExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyToNewViewExecute(Sender: TObject);
     procedure actFocusSearchFilterExecute(Sender: TObject);
+    procedure actMatchCaseExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
-    procedure chkMatchCaseClick(Sender: TObject);
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -88,7 +94,6 @@ type
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
-
   private
     FTVP              : TTreeViewPresenter;
     FVST              : TVirtualStringTree;
@@ -98,6 +103,7 @@ type
     FVKPressed        : Boolean;
     FTextStyle        : TTextStyle;
     FRegExpr          : TRegExpr;
+    FIsCompiled       : Boolean;
 
     FOnFilteredLineChange : TOnFilteredLineChangeEvent;
 
@@ -125,6 +131,7 @@ type
     { IEditorToolView }
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean); override;
+    procedure UpdateStatusDisplay;
     procedure UpdateView;
 
     property Visible: Boolean
@@ -346,12 +353,12 @@ end;
 
 function TfrmCodeFilterDialog.GetMatchCase: Boolean;
 begin
-  Result := chkMatchCase.Checked;
+  Result := actMatchCase.Checked;
 end;
 
 function TfrmCodeFilterDialog.GetRegEx: Boolean;
 begin
-  Result := chkRegEx.Checked;
+  Result := actRegularExpression.Checked;
 end;
 
 procedure TfrmCodeFilterDialog.SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
@@ -441,6 +448,11 @@ begin
   edtFilter.SetFocus;
 end;
 
+procedure TfrmCodeFilterDialog.actMatchCaseExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
 procedure TfrmCodeFilterDialog.actSelectAllExecute(Sender: TObject);
 begin
   FTVP.SelectAll;
@@ -456,14 +468,9 @@ end;
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-procedure TfrmCodeFilterDialog.chkMatchCaseClick(Sender: TObject);
-begin
-  FUpdate := True;
-end;
-
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
-  if not RegEx and (FLines.Count < 100000) then
+  if {(Filter <> '') and} not RegEx and (FLines.Count < 100000) then
     Modified;
 end;
 
@@ -474,7 +481,6 @@ var
   C : Boolean;
   D : Boolean;
 begin
-  Logger.Send('Key', Key);
   A := (ssAlt in Shift) or (ssShift in Shift);
   B := (Key in VK_EDIT_KEYS) and (Shift = []);
   C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
@@ -493,92 +499,94 @@ begin
     PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
-    end;
-    FVKPressed := False;
+  end;
+  FVKPressed := False;
 end;
 
 procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-    Filter := '';
+  Filter := '';
 end;
 
 procedure TfrmCodeFilterDialog.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
-    if Key = VK_ESCAPE then
-    begin
-      ModalResult := mrCancel;
-      Close;
-    end
-    else
-      inherited;
+  if Key = VK_ESCAPE then
+  begin
+    ModalResult := mrCancel;
+    Close;
+  end
+  else
+    inherited;
 end;
 
 procedure TfrmCodeFilterDialog.FormShow(Sender: TObject);
 begin
-    edtFilter.SetFocus;
+  edtFilter.SetFocus;
 end;
 
 function TfrmCodeFilterDialog.FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
     ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
     TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
 var
-    L      : TLine;
-    S      : string;
-    Line   : string;
-    P      : TPoint;
-    A      : TSynHighlighterAttributes;
-    R      : TRect;
-    I      : Integer;
-    Offset : Integer;
-    Match  : string;
-    C      : TColor;
+  L      : TLine;
+  S      : string;
+  Line   : string;
+  P      : TPoint;
+  A      : TSynHighlighterAttributes;
+  R      : TRect;
+  I      : Integer;
+  Offset : Integer;
+  Match  : string;
+  C      : TColor;
 begin
-    Offset := 0;
-    Match  := '';
-    Result := True;
-    if DrawMode = dmAfterCellPaint then
+  Offset := 0;
+  Match  := '';
+  Result := True;
+  if DrawMode = dmAfterCellPaint then
+  begin
+    L := TLine(Item);
+    if ColumnDefinition.Name = 'Index' then
     begin
-      L := TLine(Item);
-      if ColumnDefinition.Name = 'Index' then
+      S := IntToStr(L.Index + 1);
+      R := CellRect;
+      TargetCanvas.FillRect(R);
+      FTextStyle.Alignment := taRightJustify;
+      TargetCanvas.Font.Color := clGray;
+      TargetCanvas.Font.Name := 'Consolas';
+      R.Right := R.Right - 8;
+      TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
+    end
+    else
+    begin
+      FTextStyle.Alignment := taLeftJustify;
+      P.Y := L.Index + 1;
+      R := CellRect;
+      TargetCanvas.FillRect(R);
+      Line := StringReplace(L.Text, #9, ' ', [rfReplaceAll]);
+      if IsMatch(L.Text, Match, Offset) then
       begin
-        S := IntToStr(L.Index + 1);
+        R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
+        R.Right := R.Left + TargetCanvas.TextWidth(Match);
+        // todo retrieve from settings
+        TargetCanvas.Pen.Color := $004683FF;
+        TargetCanvas.Pen.Width := 1;
+        C := ColorToRGB(TargetCanvas.Brush.Color);
+        if C <> clWhite then
+        begin
+          C := MixColors(C, $0064B1FF, 128)
+        end
+        else
+          C := $0064B1FF;
+        TargetCanvas.Brush.Color := C;
+        TargetCanvas.Rectangle(R);
         R := CellRect;
-        TargetCanvas.FillRect(R);
-        FTextStyle.Alignment := taRightJustify;
-        TargetCanvas.Font.Color := clGray;
-        TargetCanvas.Font.Name := 'Consolas';
-        R.Right := R.Right - 8;
-        TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
-      end
-      else
+      end;
+      I := 0;
+      while I <= Length(Line) do
       begin
-        FTextStyle.Alignment := taLeftJustify;
-        P.Y := L.Index + 1;
-        R := CellRect;
-        TargetCanvas.FillRect(R);
-        Line := StringReplace(L.Text, #9, ' ', [rfReplaceAll]);
-        if IsMatch(L.Text, Match, Offset) then
+        P.X := I;
+        if Assigned(View.HighlighterItem.SynHighlighter) then
         begin
-          R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
-          R.Right := R.Left + TargetCanvas.TextWidth(Match);
-          // todo retrieve from settings
-          TargetCanvas.Pen.Color := $004683FF;
-          TargetCanvas.Pen.Width := 1;
-          C := ColorToRGB(TargetCanvas.Brush.Color);
-          if C <> clWhite then
-          begin
-            C := MixColors(C, $0064B1FF, 128)
-          end
-          else
-            C := $0064B1FF;
-          TargetCanvas.Brush.Color := C;
-          TargetCanvas.Rectangle(R);
-          R := CellRect;
-        end;
-        I := 0;
-        while I <= Length(Line) do
-        begin
-          P.X := I;
           if View.Editor.GetHighlighterAttriAtRowCol(P, S, A) then
           begin
             TargetCanvas.Brush.Color := A.Background;
@@ -587,26 +595,38 @@ begin
             else
               TargetCanvas.Font.Color := clBlack;
             TargetCanvas.Font.Style := A.Style;
-          end;
-          if S = '' then
-            I := I + 1
-          else
-          begin
-            S := StringReplace(S, #9, ' ', [rfReplaceAll]);
-            TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
-            R.Left := R.Left + TargetCanvas.TextWidth(S);
-            I := I + Length(S);
-          end;
+          end
+        end
+        else  // A is not assigned => no highlighter
+        begin
+          S := Line;
+          TargetCanvas.Brush.Color := clBlack;
+          TargetCanvas.Font.Color  := clBlack;
+          TargetCanvas.Font.Style := [];
+          I := I + Length(S);
+        end;
+        if S = '' then
+          I := I + 1
+        else
+        begin
+          S := StringReplace(S, #9, ' ', [rfReplaceAll]);
+          TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
+          R.Left := R.Left + TargetCanvas.TextWidth(S);
+          I := I + Length(S);
         end;
       end;
     end;
+  end;
 end;
 
 procedure TfrmCodeFilterDialog.FTVPFilter(Item: TObject; var Accepted: Boolean);
 var
-    L: TLine;
+  L: TLine;
 begin
-    L := TLine(Item);
+  L := TLine(Item);
+  //if FVST. > 100 then
+  //  Accepted := False
+  //else
     Accepted := IsMatch(L.Text);
 end;
 
@@ -662,7 +682,7 @@ function TfrmCodeFilterDialog.IsMatch(const AString: string; var AMatch: string;
 begin
   if Filter <> '' then
   begin
-    if RegEx then
+    if RegEx and FIsCompiled then
     begin
       Result := FRegExpr.Exec(AString);
       if Result then
@@ -675,6 +695,7 @@ begin
     begin
       APos := StrPos(Filter, AString, MatchCase);
       AMatch := System.Copy(AString, APos, Length(Filter));
+
       Result := APos > 0;
     end;
   end;
@@ -684,7 +705,7 @@ function TfrmCodeFilterDialog.IsMatch(const AString: string): Boolean;
 begin
   if Filter <> '' then
   begin
-    if RegEx then
+    if RegEx and FIsCompiled then
     begin
       Result := FRegExpr.Exec(AString);
     end
@@ -733,6 +754,7 @@ end;
 procedure TfrmCodeFilterDialog.Modified;
 begin
   FUpdate := True;
+  FIsCompiled := False;
 end;
 
 procedure TfrmCodeFilterDialog.UpdateActions;
@@ -740,7 +762,7 @@ var
   L: TLine;
 begin
   inherited UpdateActions;
-  btnApplyFilter.Visible := RegEx;
+  actApplyFilter.Enabled := RegEx;
   if FUpdate then
   begin
     { TODO: FVST.VisibleCount does not return the correct value. This
@@ -751,7 +773,6 @@ begin
     else
     {END workaround}
       ApplyFilter;
-    Logger.Send('FVST.VisibleCount', FVST.VisibleCount);
     FUpdate := False;
   end;
   if FUpdateEditorView then // update position in the editorview
@@ -761,6 +782,10 @@ begin
       DoFilteredLineChange(L.Index, L.Text, Filter);
     FUpdateEditorView := False;
   end;
+end;
+
+procedure TfrmCodeFilterDialog.UpdateStatusDisplay;
+begin
   if FVST.VisibleCount = 1 then
     sbrMain.SimpleText := '1 line with match found.'
   else
@@ -768,14 +793,29 @@ begin
 end;
 
 procedure TfrmCodeFilterDialog.ApplyFilter;
+var
+  B: Boolean;
 begin
+  B := True;
   if RegEx and (Filter <> '') then
   begin
-    FRegExpr.Expression := Filter;
-    FRegExpr.ModifierI := not MatchCase;
-    FRegExpr.Compile;
+    try
+      FRegExpr.Expression := Filter;
+      FRegExpr.ModifierI := not MatchCase;
+      FRegExpr.Compile;
+      FIsCompiled := True;
+    except
+      B := False;
+      sbrMain.SimpleText := FRegExpr.ErrorMsg(FRegExpr.LastError);
+    end;
   end;
-  FTVP.ApplyFilter;
+  if B then
+  begin
+    sbrMain.SimpleText := '';
+    FTVP.ApplyFilter;
+    UpdateStatusDisplay;
+  end;
+  Logger.ResetCounter('FTVPColumnDefinitionsItemsCustomDraw');
 end;
 
 procedure TfrmCodeFilterDialog.DoFilteredLineChange(AIndex: Integer;
@@ -794,6 +834,7 @@ begin
     SL.Text := View.Text;
     FillList(SL);
     FTVP.Refresh;
+    UpdateStatusDisplay;
   finally
     SL.Free;
   end;

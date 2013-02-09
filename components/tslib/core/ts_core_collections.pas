@@ -1,8 +1,28 @@
+{
+  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 unit ts_Core_Collections;
 
-interface
-
 {$mode delphi}
+
+//*****************************************************************************
+
+interface
 
 { Note: Generic constraint syntax not supported in FPC in Delphi compatible
   mode.
@@ -38,16 +58,16 @@ uses
   Classes;
 
 type
+  TBaseCollection = TCollection;
+  TBaseCollectionEnumerator = TCollectionEnumerator;
+
   TCollectionNotifyEvent<T> = procedure(
           Sender : TObject;
     const Item   : T;
           Action : TCollectionNotification
   ) of object;
 
-  TGenericCollectionEnumerator = class(TCollectionEnumerator);
-  TGenericCollection = class(TCollection);
-
-  TCollectionEnumerator<T> = class(TGenericCollectionEnumerator)
+  TCollectionEnumerator<T> = class(TBaseCollectionEnumerator)
   public
     function GetCurrent: T; inline;
 
@@ -55,33 +75,33 @@ type
       read GetCurrent;
   end;
 
-  TCollection<T> = class(TGenericCollection)
+  TCollection<T> = class(TBaseCollection)
   private
-  type
-    TSpecializedCollectionEnumerator  = TCollectionEnumerator<T>;
-    TSpecializedCollectionNotifyEvent = TCollectionNotifyEvent<T>;
-  var
-    FOnNotify: TSpecializedCollectionNotifyEvent;
+  //type
+  //  TSpecializedCollectionEnumerator  = TCollectionEnumerator<T>;
+  //  TSpecializedCollectionNotifyEvent = TCollectionNotifyEvent<T>;
+  //var
+    //FOnNotify: TSpecializedCollectionNotifyEvent;
 
   protected
     function GetCount: Integer;
     function GetItem(Index: Integer): T;
     procedure SetItem(Index: Integer; Value: T);
 
-    procedure Notify(Item: T; Action: TCollectionNotification); override;
+    //procedure Notify(Item: T; Action: TCollectionNotification); override;
 
   public
     constructor Create;
 
     function Add: T;
-    function GetEnumerator: TSpecializedCollectionEnumerator;
+  //  function GetEnumerator: TSpecializedCollectionEnumerator;
     function Insert(Index: Integer): T;
 
     property Items[Index: Integer]: T
       read GetItem write SetItem; default;
 
-    property OnNotify: TSpecializedCollectionNotifyEvent
-      read FOnNotify;
+    //property OnNotify: TSpecializedCollectionNotifyEvent
+    //  read FOnNotify;
   end;
 
   TOwnedCollection<T> = class(TCollection<T>)
@@ -106,7 +126,6 @@ begin
 end;
 {$endregion}
 
-
 {$region 'TCollection<T>' /fold}
 function TCollection<T>.Add: T;
 begin
@@ -123,10 +142,10 @@ begin
   Result := inherited Count;
 end;
 
-function TCollection<T>.GetEnumerator: TSpecializedCollectionEnumerator;
-begin
-  Result := TSpecializedCollectionEnumerator.Create(Self);
-end;
+//function TCollection<T>.GetEnumerator: TSpecializedCollectionEnumerator;
+//begin
+//  Result := TSpecializedCollectionEnumerator.Create(Self);
+//end;
 
 function TCollection<T>.GetItem(Index: Integer): T;
 begin
@@ -138,12 +157,12 @@ begin
   Result := T(inherited Insert(Index));
 end;
 
-procedure TCollection<T>.Notify(Item: T;
-  Action: TCollectionNotification);
-begin
-  inherited;
-  FOnNotify.Invoke(Self, Item, Action);
-end;
+//procedure TCollection<T>.Notify(Item: T;
+//  Action: TCollectionNotification);
+//begin
+//  inherited;
+//  FOnNotify.Invoke(Self, Item, Action);
+//end;
 
 procedure TCollection<T>.SetItem(Index: Integer; Value: T);
 begin
@@ -151,9 +170,7 @@ begin
 end;
 {$endregion}
 
-
-{ TOwnedCollection<T> }
-
+{$region 'TOwnedCollection<T>' /fold}
 constructor TOwnedCollection<T>.Create(AOwner: TPersistent);
 begin
   FOwner := AOwner;
@@ -164,6 +181,7 @@ function TOwnedCollection<T>.GetOwner: TPersistent;
 begin
   Result := FOwner;
 end;
+{$endregion}
 
 end.
 

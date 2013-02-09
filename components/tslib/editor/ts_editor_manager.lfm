@@ -3748,6 +3748,13 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actToggleBlockCommentSelectionExecute
       ShortCut = 24767
     end
+    object actXMLTree: TAction
+      Category = 'Tools'
+      AutoCheck = True
+      Caption = 'XML treeview'
+      OnExecute = actXMLTreeExecute
+      ShortCut = 49240
+    end
   end
   object ppmEditor: TPopupMenu
     Images = imlMain

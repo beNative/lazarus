@@ -105,7 +105,7 @@ uses
 
   ts_Core_DirectoryWatch,
 
-  ts_Editor_Resources, ts_Editor_Highlighters, ts_Editor_Interfaces,
+  ts_editor_resources2, ts_Editor_Highlighters, ts_Editor_Interfaces,
 
   // logging
   sharedloggerlcl;
@@ -324,6 +324,11 @@ type
     // public methods
     function GetWordAtPosition(APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
+    function GetHighlighterAttriAtRowCol(
+          APosition : TPoint;
+      out AToken    : string;
+      out AAttri    : TSynHighlighterAttributes
+    ): Boolean;
     procedure InsertTextAtCaret(const AText: string);
     procedure LoadFromFile(const AFileName: string);
     procedure LoadFromStream(AStream: TStream);
@@ -1416,6 +1421,8 @@ begin
 
   }
   ActiveControl := Editor;
+
+
 end;
 
 procedure TEditorView.OnSettingsChanged(ASender: TObject);
@@ -2030,7 +2037,8 @@ begin
     S := System.Copy(S, 2, Length(S));
     Logger.Send('Extension', S);
     try
-      AssignHighlighterForFileType(S);
+      if FileIsText(FileName) then
+        AssignHighlighterForFileType(S);
     except
       { TODO -oTS : dirty: need to fix this }
       // for an unknown reason an EAbort is raised
@@ -2104,6 +2112,12 @@ end;
 function TEditorView.GetWordFromCaret(const ACaretPos: TPoint): string;
 begin
   Result := Editor.GetWordAtRowCol(ACaretPos);
+end;
+
+function TEditorView.GetHighlighterAttriAtRowCol(APosition: TPoint;
+  out AToken: string; out AAttri: TSynHighlighterAttributes): Boolean;
+begin
+  Result := Editor.GetHighlighterAttriAtRowCol(APosition, AToken, AAttri);
 end;
 
 //*****************************************************************************

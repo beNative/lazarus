@@ -29,7 +29,7 @@ uses
 
   LCLType,
 
-  SynEdit, SynEditTypes, SynMacroRecorder,
+  SynEdit, SynEditTypes, SynMacroRecorder, SynEditHighlighter,
 
   ts_Core_FormSettings,
 
@@ -180,6 +180,11 @@ type
     function Focused: Boolean;
     function GetWordAtPosition(APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
+    function GetHighlighterAttriAtRowCol(
+          APosition : TPoint;
+      out AToken    : string;
+      out AAttri    : TSynHighlighterAttributes
+    ): Boolean;
 
     procedure BeginUpdate;
     procedure EndUpdate;
@@ -631,7 +636,7 @@ type
   IEditorToolView = interface
   ['{F6BEE8F6-BA4D-4B38-8FB0-79088B615DF5}']
     function GetForm: TForm;
-    function GetName: string;
+    function GetName:string;
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
     { Lets the view respond to changes. }

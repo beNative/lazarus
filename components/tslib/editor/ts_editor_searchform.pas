@@ -43,6 +43,8 @@ uses
 
   VirtualTrees,
 
+  sharedloggerlcl,
+
   ts_Core_TreeViewPresenter,
 
   ts_Editor_Interfaces;
@@ -51,27 +53,52 @@ uses
 
 type
   TfrmSearchForm = class(TForm, IEditorToolView, IClipboardCommands)
+    aclMain: TActionList;
+    actFocusSearchText: TAction;
+    actEntireScope: TAction;
+    actBackward: TAction;
+    actForward: TAction;
+    actToggleOrigin: TAction;
+    actToggleScope: TAction;
+    actToggleDirection: TAction;
+    actReplaceAll: TAction;
+    actReplace: TAction;
+    actSearch: TAction;
+    actReplaceWith: TAction;
+    actSelected: TAction;
+    actGlobal: TAction;
+    actWholeWordsOnly: TAction;
+    actRegularExpressions: TAction;
+    actMultiline: TAction;
+    actSearchInAllViews: TAction;
+    actCaseSensitive: TAction;
+    actFromCursor: TAction;
     {$region 'designer controls' /fold}
-    btnNext                         : TBitBtn;
-    btnPrevious                     : TBitBtn;
     btnFind                         : TBitBtn;
     btnReplace                      : TBitBtn;
     btnReplaceAll                   : TBitBtn;
-    chkCaseSensitive                : TCheckBox;
-    chkMultiLine                    : TCheckBox;
-    chkRegularExpressions           : TCheckBox;
-    chkSearchAllViews               : TCheckBox;
-    edtSearchText                   : TEdit;
+    cbxSearchText: TComboBox;
+    chkCaseSensitive: TSpeedButton;
+    chkMultiLine: TSpeedButton;
+    chkRegularExpressions1: TSpeedButton;
+    chkReplaceWith: TSpeedButton;
+    chkSearchAllViews1: TSpeedButton;
+    chkWholeWordsOnly: TSpeedButton;
+    Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
+    Image4: TImage;
     pnlButtons                      : TPanel;
+    pnlDirection: TPanel;
+    pnlOrigin: TPanel;
+    pnlOriginShortcut: TPanel;
+    pnlScope: TPanel;
+    pnlScopeShortcut: TPanel;
+    pnlDirectionShortcut: TPanel;
     pnlResultList                   : TPanel;
-    rbtBackward                     : TRadioButton;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
     DirectionGroupBox               : TGroupBox;
-    rbtEntireScope                  : TRadioButton;
-    rbtForward                      : TRadioButton;
-    rbtFromCursor                   : TRadioButton;
-    rbtGlobal                       : TRadioButton;
     grdReplaceStrings               : TStringGrid;
     grpOrigin                       : TGroupBox;
     grpDirection                    : TGroupBox;
@@ -81,28 +108,33 @@ type
     grpReplaceWith                  : TGroupBox;
     grpOptions                      : TGroupBox;
     pnlOperations                   : TPanel;
-    rbtSelected                     : TRadioButton;
     cbxReplaceWith                  : TComboBox;
-    chkReplaceWith                  : TCheckBox;
-    cbxSearchText                   : TComboBox;
     lblSearchText                   : TLabel;
-    chkWholeWordsOnly               : TCheckBox;
+    rbtBackward: TSpeedButton;
+    rbtEntireScope: TSpeedButton;
+    rbtForward: TSpeedButton;
+    rbtFromCursor1: TSpeedButton;
+    rbtGlobal: TSpeedButton;
+    rbtSelected: TSpeedButton;
     sbrMain                         : TStatusBar;
     {$endregion}
 
-    procedure btnFindClick(Sender: TObject);
-    procedure btnReplaceAllClick(Sender: TObject);
-    procedure btnReplaceClick(Sender: TObject);
+    procedure actCaseSensitiveExecute(Sender: TObject);
+    procedure actFocusSearchTextExecute(Sender: TObject);
+    procedure actMultilineExecute(Sender: TObject);
+    procedure actRegularExpressionsExecute(Sender: TObject);
+    procedure actReplaceAllExecute(Sender: TObject);
+    procedure actReplaceExecute(Sender: TObject);
+    procedure actReplaceWithExecute(Sender: TObject);
+    procedure actSearchExecute(Sender: TObject);
+    procedure actSearchInAllViewsExecute(Sender: TObject);
+    procedure actToggleDirectionExecute(Sender: TObject);
+    procedure actToggleOriginExecute(Sender: TObject);
+    procedure actToggleScopeExecute(Sender: TObject);
+    procedure actWholeWordsOnlyExecute(Sender: TObject);
     procedure cbxSearchTextChange(Sender: TObject);
-    procedure chkCaseSensitiveClick(Sender: TObject);
-    procedure chkMultiLineClick(Sender: TObject);
-    procedure chkRegularExpressionsChange(Sender: TObject);
-    procedure chkReplaceWithChange(Sender: TObject);
-    procedure chkSearchAllViewsChange(Sender: TObject);
-    procedure chkWholeWordsOnlyClick(Sender: TObject);
     procedure DoOnSelectionChanged(Sender: TObject);
     procedure FormHide(Sender: TObject);
-
   private
     FTVP      : TTreeViewPresenter;
     FVST      : TVirtualStringTree;
@@ -175,6 +207,7 @@ uses
 
   ts_Editor_SearchEngine, ts_Editor_Utils;
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -197,10 +230,6 @@ begin
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
-  btnNext.Action      := Manager.Actions['actFindNext'];
-  btnPrevious.Action  := Manager.Actions['actFindPrevious'];
-  btnNext.Caption     := '';
-  btnPrevious.Caption := '';
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
   Modified;
@@ -209,7 +238,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -231,23 +262,23 @@ end;
 
 procedure TfrmSearchForm.SetOptions(AValue: TSynSearchOptions);
 begin
-  chkCaseSensitive.Checked      := ssoMatchCase in AValue;
-  chkWholeWordsOnly.Checked     := ssoWholeWord in AValue;
-  chkRegularExpressions.Checked := ssoRegExpr in AValue;
-  chkMultiLine.Checked          := ssoRegExprMultiLine in AValue;
+  actCaseSensitive.Checked      := ssoMatchCase in AValue;
+  actWholeWordsOnly.Checked     := ssoWholeWord in AValue;
+  actRegularExpressions.Checked := ssoRegExpr in AValue;
+  actMultiLine.Checked          := ssoRegExprMultiLine in AValue;
 
   if ssoEntireScope in AValue then
-    rbtEntireScope.Checked := True
+    actEntireScope.Checked := True
   else
-    rbtFromCursor.Checked  := True;
+    actFromCursor.Checked  := True;
   if ssoSelectedOnly in AValue then
-    rbtSelected.Checked := True
+    actSelected.Checked := True
   else
-    rbtGlobal.Checked   := True;
+    actGlobal.Checked   := True;
   if ssoBackwards in AValue then
-    rbtBackward.Checked := True
+    actBackward.Checked := True
   else
-    rbtForward.Checked  := True;
+    actForward.Checked  := True;
 
   Modified;
 end;
@@ -255,19 +286,19 @@ end;
 function TfrmSearchForm.GetOptions: TSynSearchOptions;
 begin
   Result := [];
-  if chkCaseSensitive.Checked then
+  if actCaseSensitive.Checked then
     Include(Result, ssoMatchCase);
-  if chkWholeWordsOnly.Checked then
+  if actWholeWordsOnly.Checked then
     Include(Result, ssoWholeWord);
-  if chkRegularExpressions.Checked then
+  if actRegularExpressions.Checked then
     Include(Result, ssoRegExpr);
-  if chkMultiLine.Checked then
+  if actMultiLine.Checked then
     Include(Result, ssoRegExprMultiLine);
-  if rbtEntireScope.Checked then
+  if actEntireScope.Checked then
     Include(Result, ssoEntireScope);
-  if rbtSelected.Checked then
+  if actSelected.Checked then
     Include(Result, ssoSelectedOnly);
-  if rbtBackward.Checked then
+  if actBackward.Checked then
     Include(Result, ssoBackwards);
 end;
 
@@ -310,61 +341,111 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
-// event handlers                                                        BEGIN
+// action handlers                                                       BEGIN
 //*****************************************************************************
 
-procedure TfrmSearchForm.btnFindClick(Sender: TObject);
+procedure TfrmSearchForm.actFocusSearchTextExecute(Sender: TObject);
 begin
-  Execute;
+  cbxSearchText.SetFocus;
 end;
 
-procedure TfrmSearchForm.btnReplaceAllClick(Sender: TObject);
+procedure TfrmSearchForm.actCaseSensitiveExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
+procedure TfrmSearchForm.actMultilineExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
+procedure TfrmSearchForm.actRegularExpressionsExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
+procedure TfrmSearchForm.actReplaceAllExecute(Sender: TObject);
 begin
   SearchEngine.ReplaceAll;
   Execute;
 end;
 
-procedure TfrmSearchForm.btnReplaceClick(Sender: TObject);
+procedure TfrmSearchForm.actReplaceExecute(Sender: TObject);
 begin
   SearchEngine.Replace;
   Execute;
 end;
 
+procedure TfrmSearchForm.actReplaceWithExecute(Sender: TObject);
+begin
+  if not actReplaceWith.Checked then
+    cbxReplaceWith.Text := ''
+  else
+  begin
+    cbxReplaceWith.Enabled := True;
+    cbxReplaceWith.SetFocus;
+  end;
+  Modified;
+end;
+
+procedure TfrmSearchForm.actSearchExecute(Sender: TObject);
+begin
+  Execute;
+end;
+
+procedure TfrmSearchForm.actSearchInAllViewsExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
+procedure TfrmSearchForm.actToggleDirectionExecute(Sender: TObject);
+begin
+  if actForward.Checked then
+    actBackward.Execute
+  else
+    actForward.Execute;
+end;
+
+procedure TfrmSearchForm.actToggleOriginExecute(Sender: TObject);
+begin
+  if actFromCursor.Checked then
+  begin
+    actEntireScope.Execute;
+  end
+  else
+  begin
+    actFromCursor.Execute;
+  end;
+end;
+
+procedure TfrmSearchForm.actToggleScopeExecute(Sender: TObject);
+begin
+  if actSelected.Checked then
+    actGlobal.Execute
+  else
+    actSelected.Execute;
+end;
+
+procedure TfrmSearchForm.actWholeWordsOnlyExecute(Sender: TObject);
+begin
+  Modified;
+end;
+
+//*****************************************************************************
+// action handlers                                                         END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
 procedure TfrmSearchForm.cbxSearchTextChange(Sender: TObject);
-begin
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkCaseSensitiveClick(Sender: TObject);
-begin
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkMultiLineClick(Sender: TObject);
-begin
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkRegularExpressionsChange(Sender: TObject);
-begin
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkReplaceWithChange(Sender: TObject);
-begin
-  if not chkReplaceWith.Checked then
-    cbxReplaceWith.Text := '';
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkSearchAllViewsChange(Sender: TObject);
-begin
-  Modified;
-end;
-
-procedure TfrmSearchForm.chkWholeWordsOnlyClick(Sender: TObject);
 begin
   Modified;
 end;
@@ -377,7 +458,9 @@ end;
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -390,7 +473,7 @@ begin
   SearchEngine.SearchText := cbxSearchText.Text;
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
   SearchEngine.Options := Options;
-  SearchEngine.SearchAllViews := chkSearchAllViews.Checked;
+  //SearchEngine.SearchAllViews := chkSearchAllViews.Checked;
   Modified;
   // TODO: For some bizarre reason columms are not resized correctly when there
   // were records in the list for the last execution.
@@ -408,6 +491,7 @@ begin
     S := '%d search matches found.';
   sbrMain.Panels[0].Text := Format(S, [FTVP.ItemsSource.Count]);
   Manager.ActiveView.SetHighlightSearch(SearchText, Options);
+  FVST.SetFocus;
 end;
 
 procedure TfrmSearchForm.Modified;
@@ -472,11 +556,11 @@ begin
   begin
     FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
   end;
-  B := (SearchEngine.ItemList.Count > 0) and chkReplaceWith.Checked;
+  B := (SearchEngine.ItemList.Count > 0) and actReplaceWith.Checked;
   btnReplace.Visible         := B;
   btnReplaceAll.Visible      := B;
   cbxReplaceWith.Enabled     := B;
-  B := not chkSearchAllViews.Checked;
+  B := not actSearchInAllViews.Checked;
   grpOrigin.Enabled    := B;
   grpScope.Enabled     := B;
   grpDirection.Enabled := B;
@@ -495,9 +579,9 @@ begin
       // BEGIN workaround
       SearchEngine.ItemList.Clear;
       FTVP.Refresh;
+      sbrMain.Panels[0].Text := '';
       FVST.Header.AutoFitColumns(False);
       // END workaround
-
     end;
     FUpdate := False;
   end;
@@ -506,6 +590,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 initialization
   {$I ts_editor_searchform.lrs}

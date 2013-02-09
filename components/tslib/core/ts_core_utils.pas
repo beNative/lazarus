@@ -31,6 +31,7 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, Windows, ExtCtrls, Forms, Menus,
+  TypInfo, StdCtrls,
 
   DB;
 
@@ -216,12 +217,22 @@ function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
 
 function IsFormCovered(AForm: TForm): Boolean;
 
+procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
+
+function SetToString(
+        ATypeInfo    : PTypeInfo;
+  const AValue;
+        AQuoteValues : Boolean = True;
+        ABrackets    : Boolean = True;
+        ATrimChars   : Integer = -1
+): string;
+
 //*****************************************************************************
 
 implementation
 
 uses
-  ActiveX, Variants, TypInfo, ShlObj, ComObj, Registry,
+  ActiveX, Variants, ShlObj, ComObj, Registry, ActnList,
 
   GraphUtil;
 
@@ -2301,6 +2312,102 @@ begin
   SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
 end;
 
+function SetToString(ATypeInfo: PTypeInfo; const AValue;
+  AQuoteValues: Boolean = True; ABrackets: Boolean = True;
+  ATrimChars: Integer = -1): string;
+var
+  S    : TIntegerSet;
+  I    : Integer;
+  N    : Integer;
+  Name : string;
+
+  function GetOrdValue(Info: PTypeInfo; const SetParam): Integer;
+  begin
+    Result := 0;
+
+    case GetTypeData(Info)^.OrdType of
+      otSByte, otUByte:
+        Result := Byte(SetParam);
+      otSWord, otUWord:
+        Result := Word(SetParam);
+      otSLong, otULong:
+        Result := Integer(SetParam);
+    end;
+  end;
+
+  function GetPrefixLength(const AString: string): Integer;
+  var
+    C: Char;
+    N: Integer;
+  begin
+    N := 0;
+    if Length(AString) > 0 then
+    begin
+      C := AString[1];
+      while (N < Length(AString)) and IsCharLower(C) do
+      begin
+        Inc(N);
+        C := AString[N + 1];
+      end;
+    end;
+    Result := N;
+  end;
+
+begin
+  Result := '';
+  Integer(S) := GetOrdValue(ATypeInfo, AValue);
+  ATypeInfo := GetTypeData(ATypeInfo)^.CompType;
+  for I := 0 to SizeOf(Integer) * 8 - 1 do
+  begin
+    if I in S then
+    begin
+      if Result <> '' then
+        Result := Result + ',';
+      Name := GetEnumName(ATypeInfo, I);
+
+      if ATrimChars >= 0 then
+        N := ATrimChars
+      else
+        N := GetPrefixLength(Name);
+
+      if N > 0 then
+        Name := Copy(Name, N + 1, Length(Name) - N + 1);
+
+      if AQuoteValues then
+        Name := QuotedStr(Name);
+
+      Result := Result + Name;
+    end;
+  end;
+  if ABrackets and (Result <> '') then
+    Result := '(' + Result + ')';
+end;
+
+{ Sets the Checked property of a TCheckbox without firing the OnClick event.
+  If the checkbox is linked to an action, be sure to enable the AutoCheck
+  property. }
+
+ procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
+ var
+   EH : TNotifyEvent;
+   AH : TNotifyEvent;
+ begin
+   EH := ACheckBox.OnClick;
+
+   if Assigned(ACheckBox.Action) then
+   begin
+     AH := ACheckBox.Action.OnExecute;
+     ACheckBox.Action.OnExecute := nil;
+   end;
+   ACheckBox.OnClick := nil;
+   ACheckBox.Checked := ACheck;
+   if Assigned(ACheckBox.Action) then
+   begin
+     (ACheckBox.Action as TAction).Checked := ACheckBox.Checked;
+     ACheckBox.Action.OnExecute := AH;
+   end;
+   ACheckBox.OnClick := EH;
+ end;
 
 {
 

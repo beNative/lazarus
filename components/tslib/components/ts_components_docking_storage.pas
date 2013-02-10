@@ -27,7 +27,7 @@
   along with this library; if not, write to the Free Software Foundation,
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
-Unit ts_Docking_Storage;
+Unit ts_Components_Docking_Storage;
 
 {$mode delphi}
 
@@ -39,7 +39,7 @@ uses
 
   LazConfigStorage,
 
-  ts_Docking_Resources;
+  ts_Components_Docking_Resources;
 
 const
   AnchorDockSplitterName = 'AnchorDockSplitter';

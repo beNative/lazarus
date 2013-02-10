@@ -27,6 +27,8 @@
   POSSIBILITY OF SUCH DAMAGE.
 *)
 
+{ Added by Tim Sinaeve: GetValueForProperty }
+
 unit ts_Core_ColumnDefinitionsDataTemplate;
 
 {$mode delphi}

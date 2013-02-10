@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts_components_unihighlighter;
+unit ts_Components_UniHighlighter;
 
 { This unit is based on the Synedit Universal Highlighter by Kirill Burtsev,
   Vitaly Nevzorov and Flávio Etrusco.

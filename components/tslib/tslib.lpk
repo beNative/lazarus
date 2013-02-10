@@ -134,20 +134,20 @@
         <UnitName Value="ts_RichEditor_View"/>
       </Item21>
       <Item22>
-        <Filename Value="docking\ts_docking.pas"/>
-        <UnitName Value="ts_Docking"/>
+        <Filename Value="components\ts_components_docking.pas"/>
+        <UnitName Value="ts_components_docking"/>
       </Item22>
       <Item23>
-        <Filename Value="docking\ts_docking_optionsdialog.pas"/>
-        <UnitName Value="ts_Docking_OptionsDialog"/>
+        <Filename Value="components\ts_components_docking_optionsdialog.pas"/>
+        <UnitName Value="ts_components_docking_optionsdialog"/>
       </Item23>
       <Item24>
-        <Filename Value="docking\ts_docking_storage.pas"/>
-        <UnitName Value="ts_Docking_Storage"/>
+        <Filename Value="components\ts_components_docking_storage.pas"/>
+        <UnitName Value="ts_components_docking_storage"/>
       </Item24>
       <Item25>
-        <Filename Value="docking\ts_docking_resources.pas"/>
-        <UnitName Value="ts_Docking_Resources"/>
+        <Filename Value="components\ts_components_docking_resources.pas"/>
+        <UnitName Value="ts_components_docking_resources"/>
       </Item25>
       <Item26>
         <Filename Value="editor\ts_editor_previewform.pas"/>

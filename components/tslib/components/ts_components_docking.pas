@@ -80,7 +80,7 @@
 
 { This version is only slightly modified by Tim Sinaeve. }
 
-unit ts_Docking;
+unit ts_Components_Docking;
 
 {$mode delphi}
 
@@ -92,7 +92,7 @@ uses
 
   LazConfigStorage, LazFileCache,
 
-  ts_Docking_Resources, ts_Docking_Storage,
+  ts_Components_Docking_Resources, ts_Components_Docking_Storage,
 
   sharedloggerlcl;
 

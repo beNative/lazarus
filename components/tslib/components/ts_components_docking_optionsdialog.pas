@@ -30,7 +30,7 @@
 
 { Slightly modified by Tim Sinaeve }
 
-unit ts_Docking_OptionsDialog;
+unit ts_Components_Docking_OptionsDialog;
 
 {$mode delphi}
 
@@ -40,7 +40,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ButtonPanel,
   StdCtrls, ComCtrls,
 
-  ts_Docking, ts_Docking_Resources;
+  ts_Components_Docking, ts_Components_Docking_Resources;
 
 type
 

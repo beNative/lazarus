@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 9/02/2013
+   This file was generated on 10/02/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -105,10 +105,10 @@ begin
     t.Dependencies.AddUnit('ts_core_treeviewpresenter');
     t.Dependencies.AddUnit('ts_richeditor_manager');
     t.Dependencies.AddUnit('ts_richeditor_view');
-    t.Dependencies.AddUnit('ts_docking');
-    t.Dependencies.AddUnit('ts_docking_optionsdialog');
-    t.Dependencies.AddUnit('ts_docking_storage');
-    t.Dependencies.AddUnit('ts_docking_resources');
+    t.Dependencies.AddUnit('ts_components_docking');
+    t.Dependencies.AddUnit('ts_components_docking_optionsdialog');
+    t.Dependencies.AddUnit('ts_components_docking_storage');
+    t.Dependencies.AddUnit('ts_components_docking_resources');
     t.Dependencies.AddUnit('ts_editor_previewform');
     t.Dependencies.AddUnit('ts_core_xmlutils');
     t.Dependencies.AddUnit('ts_core_columndefinitions');
@@ -170,10 +170,10 @@ begin
     T:=P.Targets.AddUnit('core\ts_core_treeviewpresenter.pas');
     T:=P.Targets.AddUnit('richeditor\ts_richeditor_manager.pas');
     T:=P.Targets.AddUnit('richeditor\ts_richeditor_view.pas');
-    T:=P.Targets.AddUnit('docking\ts_docking.pas');
-    T:=P.Targets.AddUnit('docking\ts_docking_optionsdialog.pas');
-    T:=P.Targets.AddUnit('docking\ts_docking_storage.pas');
-    T:=P.Targets.AddUnit('docking\ts_docking_resources.pas');
+    T:=P.Targets.AddUnit('components\ts_components_docking.pas');
+    T:=P.Targets.AddUnit('components\ts_components_docking_optionsdialog.pas');
+    T:=P.Targets.AddUnit('components\ts_components_docking_storage.pas');
+    T:=P.Targets.AddUnit('components\ts_components_docking_resources.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_previewform.pas');
     T:=P.Targets.AddUnit('core\ts_core_xmlutils.pas');
     T:=P.Targets.AddUnit('core\ts_core_columndefinitions.pas');

@@ -30,7 +30,7 @@ uses
 
   LResources,
 
-  ts_Docking, ts_Docking_Storage,
+  ts_components_docking, ts_components_docking_storage,
   // for debugging
   sharedloggerlcl, ipcchannel,
 
@@ -95,7 +95,7 @@ type
     pnlEditMode           : TPanel;
     pnlStatusBar          : TPanel;
     Shape1                : TShape;
-    btnCloseToolView          : TSpeedButton;
+    btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
     {$endregion}

@@ -1080,9 +1080,6 @@ begin
   end;
 end;
 
-{ Removes the first and/or last character for each line of the given text which
-  is not included in the AIgnoreChars set. }
-
 function StrToLineBreakStyle(const AString: string): TTextLineBreakStyle;
 begin
   if SameText(AString, 'CR') then
@@ -1092,6 +1089,9 @@ begin
   else
     Result := tlbsCRLF;
 end;
+
+{ Removes the first and/or last character for each line of the given text which
+  is not included in the AIgnoreChars set. }
 
 function StripChars(const AString: string; AFirst: Boolean; ALast: Boolean;
   AIgnoreChars: TSysCharSet): string;
@@ -1171,7 +1171,6 @@ begin
     try
       for S in SL1 do
         SL2.Add(S);
-      //SL2.AddStrings(SL1);
       Result := SL2.Text;
     finally
       FreeAndNil(SL2);

@@ -22,11 +22,6 @@ unit ts_Editor_Helpers;
 
 { handy functions to build a simple editor. }
 
-{
-  TODO: main menu builder
-
-}
-
 //*****************************************************************************
 
 interface
@@ -175,7 +170,6 @@ begin
   AddButton('actRedo');
   AddButton('');
   AddButton('actFind');
-//  AddButton('actReplace');
   AddButton('');
   AddButton('actAlignSelection');
   AddButton('actSortSelection');
@@ -354,28 +348,16 @@ end;
 
 procedure AddEditorHighlightersMenu(AMainMenu: TMainMenu);
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
+  M  : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := '&Highlighters';
   AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(MI, 'actHighlighterPAS');
-  AddEditorMenuItem(MI, 'actHighlighterLFM');
-  AddEditorMenuItem(MI, 'actHighlighterSQL');
-  AddEditorMenuItem(MI, 'actHighlighterCPP');
-  AddEditorMenuItem(MI, 'actHighlighterJAVA');
-  AddEditorMenuItem(MI, 'actHighlighterPHP');
-  AddEditorMenuItem(MI, 'actHighlighterPERL');
-  AddEditorMenuItem(MI, 'actHighlighterPY');
-  AddEditorMenuItem(MI, 'actHighlighterHTML');
-  AddEditorMenuItem(MI, 'actHighlighterLog');
-  AddEditorMenuItem(MI, 'actHighlighterTXT');
-  AddEditorMenuItem(MI, 'actHighlighterBAT');
-  AddEditorMenuItem(MI, 'actHighlighterINI');
-  AddEditorMenuItem(MI, 'actHighlighterRES');
-  AddEditorMenuItem(MI, 'actHighlighterRTF');
-  AddEditorMenuItem(MI, 'actHighlighterXML');
-  AddEditorMenuItem(MI, 'actHighlighterUNI');
+  for M in EditorManager.Menus.HighlighterPopupMenu.Items do
+  begin
+    AddEditorMenuItem(MI, M.Action.Name);
+  end;
 end;
 
 procedure AddEditorHelpMenu(AMainMenu: TMainMenu);

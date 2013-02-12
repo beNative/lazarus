@@ -211,6 +211,8 @@ function GetPIMTOffset(const I : IInterface): Integer;
 
 procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
 
+function TaskBarHeight: Integer;
+
 function GetCommonPath(ASL: TStrings): string;
 
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string): Integer;
@@ -2408,6 +2410,21 @@ end;
    end;
    ACheckBox.OnClick := EH;
  end;
+
+function TaskBarHeight: Integer;
+var
+  hTB    : HWND; // taskbar handle
+  TBRect : TRect; // taskbar rectangle
+begin
+  hTB:= FindWindow('Shell_TrayWnd', '');
+  if hTB = 0 then
+    Result := 0
+  else
+  begin
+    GetWindowRect(hTB, TBRect);
+    Result := TBRect.Bottom - TBRect.Top;
+  end;
+end;
 
 {
 

@@ -1,7 +1,7 @@
 object ComponentInspectorForm: TComponentInspectorForm
-  Left = 577
+  Left = 729
   Height = 749
-  Top = 75
+  Top = 201
   Width = 340
   BorderStyle = bsSizeToolWin
   ClientHeight = 749

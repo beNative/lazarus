@@ -144,7 +144,7 @@ uses
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
   ts_Editor_View,
 
-  ts_Components_ExportRTF;
+  ts_Components_UniHighlighter, ts_Components_ExportRTF;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,
@@ -495,6 +495,7 @@ type
   private
     FPersistSettings   : Boolean;
     FSynExporterRTF    : TSynExporterRTF;
+    FSynUni            : TSynUniSyn;
 
     FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
@@ -795,7 +796,7 @@ uses
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 
-  ts_Components_UniHighlighter,
+  //ts_Components_UniHighlighter,
 
   ts_Editor_Settings, ts_Editor_HighlighterAttributes,
   ts_Editor_ViewListForm, ts_Editor_CodeShaperForm , ts_Editor_PreviewForm,
@@ -841,6 +842,7 @@ begin
   FToolViewList     := TEditorToolViewList.Create;
   FSearchEngine     := TSearchEngine.Create(Self);
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
+  FSynUni           := TSynUniSyn.Create(Self);
 
   RegisterHighlighters;
   InitializeFoldHighlighters;
@@ -919,30 +921,6 @@ end;
 function TdmEditorManager.GetActionList: TActionList;
 begin
   Result := aclActions;
-end;
-
-procedure TdmEditorManager.ApplyHighlighterAttributes;
-var
-  I   : Integer;
-  HL  : THighlighterItem;
-  HAI : THighlighterAttributesItem;
-  A   : TSynHighlighterAttributes;
-begin
-  for HL in Settings.Highlighters do
-  begin
-    for HAI in Settings.HighlighterAttributes do
-    begin
-      if Assigned(HL.SynHighlighter) then
-      begin
-        for I := 0 to HL.SynHighlighter.AttrCount - 1 do
-        begin
-          A := HL.SynHighlighter.Attribute[I];
-          if A.Name = HAI.Name then
-            A.Assign(HAI.Attributes);
-        end;
-      end;
-    end;
-  end;
 end;
 
 function TdmEditorManager.GetActions: IEditorActions;
@@ -1494,8 +1472,9 @@ end;
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
   InspectComponents([
-    (Settings as IInterfaceComponentReference).GetComponent,
-    ActiveView.Editor
+    Settings as TComponent,
+    ActiveView.Editor,
+    ActiveView.Editor.Highlighter
   ]);
 end;
 
@@ -2014,10 +1993,10 @@ end;
 
 procedure TdmEditorManager.InitializeActions;
 var
-  A : TAction;
-  SL: TStringList;
-  S : string;
-  HI: THighlighterItem;
+  A  : TAction;
+  SL : TStringList;
+  S  : string;
+  HI : THighlighterItem;
 begin
   SL := TStringList.Create;
   try
@@ -2060,6 +2039,30 @@ begin
     FreeAndNil(SL);
   end;
 end;
+
+procedure TdmEditorManager.ApplyHighlighterAttributes;
+var
+  I   : Integer;
+  HL  : THighlighterItem;
+  HAI : THighlighterAttributesItem;
+  A   : TSynHighlighterAttributes;
+begin
+  for HL in Settings.Highlighters do
+  begin
+    for HAI in Settings.HighlighterAttributes do
+    begin
+      if Assigned(HL.SynHighlighter) then
+      begin
+        for I := 0 to HL.SynHighlighter.AttrCount - 1 do
+        begin
+          A := HL.SynHighlighter.Attribute[I];
+          if A.Name = HAI.Name then
+            A.Assign(HAI.Attributes);
+        end;
+      end;
+    end;
+  end;
+end;
 {$endregion}
 
 {$region 'Registration' /fold}
@@ -2088,6 +2091,7 @@ var
       ADescription,
       ALayoutFileName
     );
+    Logger.Send('Registered:', AName);
   end;
 
 begin
@@ -2108,26 +2112,25 @@ begin
   Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
   Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
-
-
+  ApplyHighlighterAttributes;
 
   S := ExtractFilePath(Application.ExeName);
+
   F := S + LAYOUT_LOG;
-  if FileExists(F) then
-    Reg(TSynUniSyn, nil, HL_LOG, 'log', SLOGDescription, '', '', '', nil, F);
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
   F := S + LAYOUT_INI;
-  if FileExists(F) then
-    Reg(TSynUniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
   F := S + LAYOUT_RTF;
-  if FileExists(F) then
-    Reg(TSynUniSyn, nil, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
   F := S + LAYOUT_RES;
-  if FileExists(F) then
-    Reg(TSynUniSyn, nil, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
   F := S + LAYOUT_CS;
-  if FileExists(F) then
-    Reg(TSynUniSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
-  ApplyHighlighterAttributes;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
 end;
 
 { TODO -oTS : Make this more elegant }
@@ -2577,7 +2580,6 @@ begin
   if Assigned(V) and Assigned(Settings) {and V.Focused and FChanged} then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
-//    actAlignSelection.Enabled           := B;
     actDequoteSelection.Enabled         := B;
     actLowerCaseSelection.Enabled       := B;
     actToggleBlockCommentSelection.Enabled    := B;

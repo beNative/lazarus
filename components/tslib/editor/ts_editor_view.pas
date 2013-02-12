@@ -561,6 +561,7 @@ end;
 
 procedure TEditorView.BeforeDestruction;
 begin
+  FHighlighter := nil;
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
   DisableAutoSizing;

@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 10/02/2013
+   This file was generated on 12/02/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,7 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('richmemopackage');
     P.Dependencies.Add('kascomp');
     P.Dependencies.Add('tsbundle');
     P.Dependencies.Add('zcomponent');
@@ -39,7 +40,6 @@ begin
     P.Dependencies.Add('luicomponents');
     P.Dependencies.Add('multiloglaz');
     P.Dependencies.Add('lcl');
-    P.Dependencies.Add('richmemopackage');
     P.Dependencies.Add('synedit');
     P.Dependencies.Add('runtimetypeinfocontrols');
     P.Dependencies.Add('fcl');
@@ -64,9 +64,9 @@ begin
     P.Options.Add('-Furicheditor');
     P.Options.Add('-Fudocking');
     P.Options.Add('-Fucomponents');
+    P.Options.Add('-Fu../synunihighlighter');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -78,6 +78,7 @@ begin
     P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');

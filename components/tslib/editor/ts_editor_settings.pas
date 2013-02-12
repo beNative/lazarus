@@ -572,6 +572,9 @@ end;
 
 { TODO -oTS : Refactor this }
 
+{ Registers common highlighter attributes to share settings for multiple
+  highlighters. }
+
 procedure TEditorSettings.InitializeHighlighterAttributes;
 begin
   with FHighlighterAttributes do
@@ -703,11 +706,6 @@ end;
 // public methods                                                          END
 //*****************************************************************************
 {$endregion}
-
-//*****************************************************************************
-
-initialization
-  RegisterClass(TEditorSettings);
 
 end.
 

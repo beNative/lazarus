@@ -2,7 +2,7 @@
 #
 #   Makefile.fpc for tslib 2.0
 #
-#   This file was generated on 7/02/2013
+#   This file was generated on 12/02/2013
 
 [package]
 name=tslib
@@ -10,7 +10,7 @@ version=2.0
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
-unitdir=editor core richeditor docking components ../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET) ../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET) ../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET) ../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) ../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET) ../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET) ../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) ../../packager/units/$(CPU_TARGET)-$(OS_TARGET) .
+unitdir=editor core richeditor docking components ../synunihighlighter ../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET) ../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET) ../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) ../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET) ../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET) ../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET) ../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) ../../packager/units/$(CPU_TARGET)-$(OS_TARGET) .
 includedir=core editor ../../images
 options= -MObjFPC -Scghi -CX -Cirot -O2 -gs -gl -gh -vewnhid -l -vm5024 -dLCL -dLCL$(LCL_PLATFORM)
 

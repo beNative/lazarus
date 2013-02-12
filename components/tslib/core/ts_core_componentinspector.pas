@@ -119,6 +119,9 @@ implementation
 
 {$R *.lfm}
 
+uses
+  ts_Core_Utils;
+
 const
   COMBOBOX_FORMAT = '%s %s';
 
@@ -232,8 +235,8 @@ begin
   FInspector.Parent := pnlMain;
   FInspector.Align := alClient;
   FInspector.DefaultItemHeight := 17;
-  FInspector.PreferredSplitterX := 120;
-  FInspector.SplitterX := 120;
+  FInspector.PreferredSplitterX := 150;
+  FInspector.SplitterX := 150;
   FInspector.DoubleBuffered := True;
   FInspector.Filter := [
     tkInteger,
@@ -273,10 +276,10 @@ begin
 
   DoubleBuffered := True;
 
-  M := Screen.MonitorFromWindow(Application.MainFormHandle);
+  M      := Screen.MonitorFromWindow(Application.MainFormHandle);
   Top    := 0;
   Left   := M.Left;
-  Height := Screen.DesktopHeight;
+  Height := Screen.WorkAreaHeight - TaskbarHeight;
 end;
 
 //*****************************************************************************

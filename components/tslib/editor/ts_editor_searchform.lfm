@@ -520,6 +520,7 @@ object frmSearchForm: TfrmSearchForm
           Width = 145
           Action = actFromCursor
           AllowAllUp = True
+          Color = clDefault
           Flat = True
           GroupIndex = 6
           Spacing = 0
@@ -712,6 +713,7 @@ object frmSearchForm: TfrmSearchForm
           Flat = True
           GroupIndex = 8
           Spacing = 0
+          Transparent = False
         end
         object rbtForward: TSpeedButton
           Left = 149
@@ -720,6 +722,7 @@ object frmSearchForm: TfrmSearchForm
           Width = 142
           Action = actForward
           AllowAllUp = True
+          Color = clGradientActiveCaption
           Down = True
           Flat = True
           GroupIndex = 8

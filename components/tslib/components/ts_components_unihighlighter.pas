@@ -339,6 +339,22 @@ type
     property TermSymbols: TSymbolsSet
       read FTermSymbols write FTermSymbols;
 
+    property Ranges[Index: Integer]: TSynRange
+      read GetSynRange;
+
+    property Symbols[Index: Integer]: TSynSymbol
+      read GetSynSymbol;
+
+    property SymbolGroups[Index: Integer]: TSynSymbolGroup
+      read GetSynSymbolGroup;
+
+    property SymbolList: TAbstractSymbolList
+      read FSymbolList;
+
+    property ClosingSymbol: TClosingSymbolSet
+      read FClosingSymbol;
+
+  published
     property OpenSymbol : TSynSymbol
       read FOpenSymbol;
 
@@ -351,20 +367,11 @@ type
     property CloseOnEol : Boolean
       read FCloseOnEol write FCloseOnEol;
 
-    property Ranges[Index: Integer]: TSynRange
-      read GetSynRange;
-
     property RangeCount : Integer
       read GetRangeCount;
 
-    property Symbols[Index: Integer]: TSynSymbol
-      read GetSynSymbol;
-
     property SymbolCount: Integer
       read GetSymbolCount;
-
-    property SymbolGroups[Index: Integer]: TSynSymbolGroup
-      read GetSynSymbolGroup;
 
     property SymbolGroupCount: Integer
       read GetSymbolGroupCount;
@@ -387,14 +394,8 @@ type
     property Name: string
       read FName write FName;
 
-    property SymbolList: TAbstractSymbolList
-      read FSymbolList;
-
     property DefaultSynSymbol: TSynSymbol
       read FDefaultSynSymbol;
-
-    property ClosingSymbol: TClosingSymbolSet
-      read FClosingSymbol;
   end;
 
   TSynUniSyn = class(TSynCustomHighlighter)
@@ -403,7 +404,7 @@ type
     FEol       : Boolean;
     FPrEol     : Boolean;
     FTrueLine  : PChar;
-    FUpLine    : AnsiString;
+    FUpLine    : string;
     FLine      : PChar;
     FLineNumber: Integer;
     FRun       : Integer;
@@ -476,14 +477,15 @@ type
     procedure SaveToFile(const AFileName: string);
 
   public
-    property MainRules: TSynRange
-      read FMainRules;
-
     property Info: TInfo
       read FInfo;
 
     property SymbolList: TAbstractSymbolList
       read FSymbolList;
+
+  published
+    property MainRules: TSynRange
+      read FMainRules;
 
   end;
 
@@ -601,7 +603,7 @@ var
   i: Integer;
 begin
   Result := [];
-  for i := 1 to length(AString) do
+  for i := 1 to Length(AString) do
     Result := Result + [AString[i]];
 end;
 
@@ -756,6 +758,7 @@ destructor TSynRange.Destroy;
 begin
   FOpenSymbol.Free;
   FCloseSymbol.Free;
+
   FreeAndNil(FDefaultAttributes);
   FreeAndNil(FNumberAttributes);
   FreeList(FSymbolGroups);
@@ -909,19 +912,19 @@ begin
   for I := 0 to FSynSymbols.Count - 1 do
   begin
     SynSymbol := TSynSymbol(FSynSymbols[I]);
-    if length(SynSymbol.Symbol) < 1 then
+    if Length(SynSymbol.Symbol) < 1 then
       continue;
     S := SynSymbol.Symbol;
     FirstChar := S[1];
     if SynSymbol.BrakeType <> btUnspecified then
       BrakeType := SynSymbol.BrakeType
-    else if S[length(S)] in FTermSymbols then
+    else if S[Length(S)] in FTermSymbols then
       BrakeType := btAny
     else
       BrakeType := btTerm;
     if FSymbolList[CaseFunct(FirstChar)] = nil then
     begin
-      if length(S) = 1 then
+      if Length(S) = 1 then
         FSymbolList[CaseFunct(FirstChar)] :=
           TSymbols.Create(FirstChar, SynSymbol, BrakeType)
       else
@@ -929,15 +932,15 @@ begin
         FSymbolList[CaseFunct(FirstChar)] :=
           TSymbols.Create(FirstChar, FDefaultSynSymbol, BrakeType);
         TSymbols(FSymbolList[CaseFunct(FirstChar)]).AddSymbol(
-          StringCaseFunct(copy(S, 2, length(S) - 1)), SynSymbol, BrakeType);
+          StringCaseFunct(copy(S, 2, Length(S) - 1)), SynSymbol, BrakeType);
       end;
     end
     else
     begin
-      if length(S) = 1 then
+      if Length(S) = 1 then
       else
         TSymbols(FSymbolList[CaseFunct(FirstChar)]).AddSymbol(
-          StringCaseFunct(copy(S, 2, length(S) - 1)), SynSymbol, BrakeType);
+          StringCaseFunct(copy(S, 2, Length(S) - 1)), SynSymbol, BrakeType);
     end;
   end;
 
@@ -1683,7 +1686,7 @@ begin
   if Assigned(FHeadNode) then
   begin
     Node := FHeadNode;
-    N := length(AString);
+    N := Length(AString);
     for I := 1 to N do
     begin
       LastNode := Node.NextSymbols.FindSymbol(AString[I]);
@@ -1868,7 +1871,7 @@ begin
   if not FCurrentRule.Prepared then
     Prepare;
   FTrueLine := PChar(NewValue);
-  L := length(NewValue);
+  L := Length(NewValue);
   if FLine <> nil then
     FreeMem(FLine);
   GetMem(FLine, L + 1);

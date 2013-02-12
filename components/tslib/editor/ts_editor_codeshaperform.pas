@@ -199,10 +199,12 @@ type
     procedure UpdateReplaceStringsControls;
 
     procedure ReplaceStrings;
-    function ReplaceString(const ASource  : string;
-                           const AStrFrom : string;
-                           const AStrTo   : string;
-                                 AOptions : TSynSearchOptions): string;
+    function ReplaceString(
+      const ASource  : string;
+      const AStrFrom : string;
+      const AStrTo   : string;
+            AOptions : TSynSearchOptions
+    ): string;
     procedure UpdateQuoteLinesControls;
     procedure UpdateActions; override;
 

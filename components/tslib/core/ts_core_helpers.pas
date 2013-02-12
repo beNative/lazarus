@@ -155,7 +155,7 @@ const
     toShowVertGridLines,
     { Draw UI elements (header, tree buttons etc.) according to the current
       theme if enabled (Windows XP+ only, application must be themed). }
-//    toThemeAware,
+    toThemeAware,
     { Enable alpha blending for ghosted nodes or those which are being
       cut/copied. }
     toUseBlendedImages,

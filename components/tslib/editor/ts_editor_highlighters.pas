@@ -203,7 +203,7 @@ type
 implementation
 
 uses
-  Forms, StrUtils, Dialogs,
+  Forms, StrUtils, Dialogs, FileUtil,
 
   ts_Components_UniHighlighter;
 
@@ -448,9 +448,9 @@ procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   const ADescription: string; const ALayoutFileName: string);
 var
   HI : THighlighterItem;
-  S  : string;
 begin
-  S := ExtractFilePath(Application.ExeName);
+  Logger.Send('RegisterHighlighter', AName);
+  Logger.Send('Layout', ALayoutFileName);
   HI := Find(AName);
   if not Assigned(HI) then
   begin
@@ -466,14 +466,14 @@ begin
   HI.BlockCommentEndTag   := ABlockCommentEndTag;
   HI.LayoutFileName       := ALayoutFileName;
   HI.FileExtensions       := AFileExtensions;
-
   HI.InitSynHighlighter(ASynHighlighter);
-
-  if FileExists(S + ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
+  if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
   begin
-    if Assigned(ASynHighlighter) then
-      TSynUniSyn(ASynHighlighter).LoadFromFile(S + ALayoutFileName);
+    if Assigned(HI.SynHighlighter) then
+
+      TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
   end;
+
 end;
 
 //*****************************************************************************

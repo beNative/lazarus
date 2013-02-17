@@ -34,7 +34,7 @@ unit ts_Components_UniHighlighter;
 interface
 
 uses
-  SysUtils, Graphics, Registry, Classes, FileUtil, SynEditTypes, GraphType,
+  SysUtils, Graphics, Classes, FileUtil, SynEditTypes, GraphType, Contnrs,
 
   SynEditHighlighter;
 
@@ -175,7 +175,7 @@ type
 
   TSymbolList = class
   strict private
-    FSymbolList: TList;
+    FSymbolList: TObjectList;
 
   public
     function FindSymbol(AChar: Char): TSymbolNode;
@@ -196,24 +196,24 @@ type
 
   TSynUniSyn = class;
 
-  TAbstractSymbol = class
+  TAbstractSymbols = class
+  public
     function GetToken(AParser: TSynUniSyn;
       var ASynSymbol: TSynSymbol): Boolean; virtual; abstract;
   end;
 
-  TSymbols = class(TAbstractSymbol)
+  TSymbols = class(TAbstractSymbols)
   strict private
     FHeadNode: TSymbolNode;
-
-    function GetToken(AParser: TSynUniSyn;
-      var ASynSymbol: TSynSymbol): Boolean;
-      override;
 
   public
     constructor Create(c: Char; ASynSymbol: TSynSymbol;
       ABreakType: TSymbolBreakType);
       reintroduce; virtual;
     destructor Destroy; override;
+
+    function GetToken(AParser: TSynUniSyn;
+      var ASynSymbol: TSynSymbol): Boolean; override;
 
     procedure AddSymbol(const AString: string; ASynSymbol: TSynSymbol;
       ABreakType: TSymbolBreakType);
@@ -223,7 +223,7 @@ type
       read FHeadNode;
   end;
 
-  TDefaultSymbols = class(TAbstractSymbol)
+  TDefaultSymbols = class(TAbstractSymbols)
   strict private
     FSynSymbol: TSynSymbol;
 
@@ -234,7 +234,7 @@ type
     function GetToken(AParser: TSynUniSyn; var ASynSymbol: TSynSymbol): Boolean; override;
   end;
 
-  TDefaultTermSymbols = class(TAbstractSymbol)
+  TDefaultTermSymbols = class(TAbstractSymbols)
   strict private
     FSynSymbol: TSynSymbol;
   public
@@ -244,7 +244,7 @@ type
     destructor Destroy; override;
   end;
 
-  TNumberSymbols = class(TAbstractSymbol)
+  TNumberSymbols = class(TAbstractSymbols)
   strict private
     FSynSymbol: TSynSymbol;
 
@@ -262,7 +262,7 @@ type
 
   PClosingSymbolSet = ^TClosingSymbolSet;
 
-  TAbstractSymbolList = array [Char] of TAbstractSymbol;
+  TAbstractSymbolList = array [Char] of TAbstractSymbols;
 
   TSynRange = class
   strict private
@@ -274,9 +274,9 @@ type
     FOwner        : TSynRange;
     FClosingSymbol: TClosingSymbolSet;
 
-    FSynSymbols  : TList;
-    FSynRanges   : TList;
-    FSymbolGroups: TList;
+    FSynSymbols  : TObjectList;
+    FSynRanges   : TObjectList;
+    FSymbolGroups: TObjectList;
 
     FDefaultSynSymbol : TSynSymbol;
     FNumberSymbol     : TNumberSymbols;
@@ -285,7 +285,7 @@ type
 
     FDefaultAttributes: TSynHighlighterAttributes;
     FNumberAttributes : TSynHighlighterAttributes;
-    FAttributes       : TList;
+    FAttributes       : TObjectList;
 
     FTermSymbols : TSymbolsSet;
     FSymbolList  : TAbstractSymbolList;
@@ -408,7 +408,6 @@ type
     FLine      : PChar;
     FLineNumber: Integer;
     FRun       : Integer;
-    FStringLen : Integer;
     FTokenPos  : Integer;
     FInfo      : TInfo;
     FCurrToken : TSynSymbol;
@@ -424,12 +423,13 @@ type
 
     procedure SpaceProc;
     procedure NullProc;
+
+  protected
     function GetIdentChars: TSynIdentChars; override;
     procedure DefineProperties(Filer: TFiler); override;
     function GetSampleSource: string; override;
     procedure SetSampleSource(Value: string); override;
 
-  protected
     property Line: PChar
       read FLine;
 
@@ -553,13 +553,7 @@ begin
 end;
 
 const
-  ////TL: Duplicate members: #32=' '... FPC is right... why did Delphi allow it?
-  //////////////AbsoluteTermSymbols:TSymbolsSet=[' ',#13,#0,#10,#32];
   AbsoluteTermSymbols: TSymbolsSet = [' ', #13, #0, #10];
-
-  tkNoRange       = 1;
-  tkNoRangeChange = 0;
-  //  srNoRangeChange:TSymbRangeSet=(RangeValue:tkNoRangeChange;IncludeSymbols:true;);
 
   xitAnyTerm        = 0;
   xitAttri          = 1;
@@ -600,11 +594,11 @@ const
 
 function String2Set(AString: string): TSymbolsSet;
 var
-  i: Integer;
+  I: Integer;
 begin
   Result := [];
-  for i := 1 to Length(AString) do
-    Result := Result + [AString[i]];
+  for I := 1 to Length(AString) do
+    Result := Result + [AString[I]];
 end;
 
 function Set2String(ASymbolsSet: TSymbolsSet): string;
@@ -641,31 +635,6 @@ begin
     Result := Result + 'U';
   if fsStrikeOut in AStyle then
     Result := Result + 'S';
-end;
-
-procedure FreeList(var List: TList);
-var
-  I: Integer;
-begin
-  if List = nil then
-    exit;
-
-  for I := 0 to List.Count - 1 do
-    TObject(List[I]).Free;
-  List.Free;
-  List := nil;
-end;
-
-procedure ClearList(List: TList);
-var
-  I: Integer;
-begin
-  if List = nil then
-    exit;
-
-  for I := 0 to List.Count - 1 do
-    TObject(List[I]).Free;
-  List.Clear;
 end;
 
 function CaseNone(c: Char): Char;
@@ -739,7 +708,6 @@ begin
   FNumberAttributes := TSynHighlighterAttributes.Create(SYNS_AttrNumber);
 
   FillChar(FSymbolList, sizeof(FSymbolList), 0);
-  ////TL Added @ prefix
   CaseFunct := @CaseNone;
   StringCaseFunct := @StringCaseNone;
 
@@ -747,10 +715,10 @@ begin
   FCloseOnTerm := False;
   FCloseOnEol := False;
 
-  FAttributes := TList.Create;
-  FSymbolGroups := TList.Create;
-  FSynSymbols := TList.Create;
-  FSynRanges := TList.Create;
+  FAttributes := TObjectList.Create;
+  FSymbolGroups := TObjectList.Create;
+  FSynSymbols := TObjectList.Create;
+  FSynRanges := TObjectList.Create;
   FTermSymbols := DefaultTermSymbols;
 end;
 
@@ -761,37 +729,38 @@ begin
 
   FreeAndNil(FDefaultAttributes);
   FreeAndNil(FNumberAttributes);
-  FreeList(FSymbolGroups);
-  FreeList(FSynSymbols);
-  FreeList(FSynRanges);
-  FreeList(FAttributes);
+  FSymbolGroups.Free;
+  FSynSymbols.Free;
+  FSynRanges.Free;
+  FAttributes.Free;
   inherited;
 end;
 
 function TSynRange.FindSymbol(const AString: string): TSynSymbol;
 var
-  i: Integer;
+  I: Integer;
 begin
   Result := nil;
-  for i := 0 to FSynSymbols.Count - 1 do
-    if TSynSymbol(FSynSymbols.Items[i]).Symbol = AString then
+  for I := 0 to FSynSymbols.Count - 1 do
+    if TSynSymbol(FSynSymbols.Items[I]).Symbol = AString then
     begin
-      Result := TSynSymbol(FSynSymbols.Items[i]);
-      exit;
+      Result := TSynSymbol(FSynSymbols.Items[I]);
+      Exit;
     end;
 end;
 
 function TSynRange.FindSymbolOwner(ASymbol: TSynSymbol): TSynSymbolGroup;
 var
-  i, j: Integer;
+  I: Integer;
+  J: Integer;
 begin
   Result := nil;
-  for i := 0 to FSymbolGroups.Count - 1 do
-    if TSynSymbolGroup(FSymbolGroups[i]).FKeywords.Find(
-      ASymbol.Symbol, j) then
+  for I := 0 to FSymbolGroups.Count - 1 do
+    if TSynSymbolGroup(FSymbolGroups[I]).FKeywords.Find(
+      ASymbol.Symbol, J) then
     begin
-      Result := TSynSymbolGroup(FSymbolGroups[i]);
-      exit;
+      Result := TSynSymbolGroup(FSymbolGroups[I]);
+      Exit;
     end;
 end;
 
@@ -838,7 +807,7 @@ var
   FirstChar: Char;
   BrakeType: TSymbolBreakType;
 
-  procedure SortSymbolList(AList: TList);
+  procedure SortSymbolList(AList: TObjectList);
   var
     I    : Integer;
     Last : Boolean;
@@ -967,9 +936,8 @@ end;
 procedure TSynRange.SetCaseSensitive(const Value: Boolean);
 begin
   FCaseSensitive:=Value;
-  if Value then // DiBo33 Removed not so correct function is set
+  if Value then
   begin
-    ////TL Added @ prefix
     CaseFunct := @UpCase;
     StringCaseFunct := @UpperCase;
   end
@@ -1000,7 +968,7 @@ begin
     if TSynHighlighterAttributes(FAttributes[I]).Name = AName then
     begin
       Result := TSynHighlighterAttributes(FAttributes[I]);
-      exit;
+      Exit;
     end;
 end;
 
@@ -1024,7 +992,7 @@ var
   I: Integer;
 begin
   if not FPrepared then
-    exit;
+    Exit;
   FDefaultSynSymbol.Free;
   FDefaultTermSymbol.Free;
   FDefaultSymbols.Free;
@@ -1036,7 +1004,7 @@ begin
   for I := 0 to FSynRanges.Count - 1 do
     TSynRange(FSynRanges[I]).Reset;
 
-  ClearList(FSynSymbols);
+  FSynSymbols.Clear;
 
   FPrepared := False;
 end;
@@ -1049,10 +1017,10 @@ begin
   for I := 0 to FSynRanges.Count - 1 do
     TSynRange(FSynRanges[I]).Clear;
 
-  ClearList(FSynRanges);
-  ClearList(FSynSymbols);
-  ClearList(FSymbolGroups);
-  ClearList(FAttributes);
+  FSynRanges.Clear;
+  FSynSymbols.Clear;
+  FSymbolGroups.Clear;
+  FAttributes.Clear;
 end;
 
 procedure TSynRange.LoadFromStream(AStream: TStream);
@@ -1064,9 +1032,6 @@ var
   Param      : string;
   SL         : TStringList;
 
-  ////TL Guess FPC doesn't support optional parameters. Never used this in Delphi or Kylix.
-  ////TL I'm going to remove them and explicitly state the parms in each call.
-  ////TL function GetNextTag(var Idx:Integer; var TagParam:string; IgnoreUnknown:boolean=false):boolean;
   function GetNextTag(var AIndex: Integer; var ATagParam: string;
     AIgnoreUnknown: Boolean): Boolean;
   var
@@ -1079,7 +1044,7 @@ var
     while Buf^ <> '<' do
     begin
       if Buf^ = #0 then
-        exit;
+        Exit;
       if Buf^ = #13 then
         Inc(LineNumber);
       Inc(Buf);
@@ -1115,7 +1080,7 @@ var
       begin
         AIndex := -1;
         Result := True;
-        exit;
+        Exit;
       end;
 
     while Buf^ <> '>' do
@@ -1131,7 +1096,7 @@ var
           if Buf^ = #0 then
           begin
             Result := False;
-            exit;
+            Exit;
           end
           else
             Inc(Buf);
@@ -1210,6 +1175,7 @@ var
     sPos : PChar;
     I    : Integer;
   begin
+    I := 0;
     Result := '';
     sPos := Buf;
     while Buf^ <> '<' do
@@ -1230,7 +1196,6 @@ var
     SetLength(S, Cardinal(Buf) - Cardinal(sPos));
     move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
     Result := Result + S;
-    ////TL added the third parameter
     if (GetNextTag(I, S, False)) or (I <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[I] +
         ' is not found. Line ' + IntToStr(LineNumber));
@@ -1239,7 +1204,6 @@ var
   procedure ReadInfo;
     procedure ReadGeneral;
     begin
-      ////TL added the third parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -1272,7 +1236,6 @@ var
       end;
 
     begin
-      ////TL added the third parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -1297,7 +1260,6 @@ var
 
     procedure ReadAuthor;
     begin
-      ////TL added the third parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -1326,7 +1288,6 @@ var
 
     procedure ReadHistroy;
     begin
-      ////TL added the third parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -1527,9 +1488,7 @@ var
           end;
         xitRange:
           begin
-          ////TL added two empty string parameters to explicitly match the
-          ////TL modified declaration.
-            NewRange := TSynRange.Create('', '');
+            NewRange := TSynRange.Create;
             NewRange.Name := Param;
             CurRange.AddRange(NewRange);
             ReadRange(NewRange);
@@ -1599,12 +1558,12 @@ end;
 
 constructor TSymbolList.Create;
 begin
-  FSymbolList := TList.Create;
+  FSymbolList := TObjectList.Create;
 end;
 
 destructor TSymbolList.Destroy;
 begin
-  FreeList(FSymbolList);
+  FSymbolList.Free;
   inherited;
 end;
 
@@ -1718,7 +1677,7 @@ begin
   end;
 
   if Node.SynSymbol = nil then
-    exit;
+    Exit;
 
   if (NextNode = nil) and (Node.NextSymbols.Count > 0) then
     AParser.Run := AParser.Run - 1;
@@ -1730,7 +1689,7 @@ begin
   begin
     Result := True;
     ASynSymbol := Node.SynSymbol;
-    exit;
+    Exit;
   end;
 
   if AParser.Line[AParser.Run] in AParser.CurrentRule.TermSymbols then
@@ -1842,10 +1801,8 @@ begin
   FInfo.History := TStringList.Create;
   FInfo.Sample := TStringList.Create;
   FPrepared := False;
-  ////TL added two empty string parameters to match the
-  ////TL modified declaration.
   FSymbols := TSymbols.Create(' ', nil, btAny);
-  FMainRules := TSynRange.Create('', '');
+  FMainRules := TSynRange.Create;
   FMainRules.Name := _Root;
   FEol := False;
   FPrEol := False;
@@ -1854,7 +1811,7 @@ end;
 
 destructor TSynUniSyn.Destroy;
 begin
-  FreeAndNil(FSymbols);
+  FSymbols.Free;
   FMainRules.Free;
   FInfo.History.Free;
   FInfo.Sample.Free;
@@ -1905,7 +1862,7 @@ begin
     if (FCurrentRule.CloseOnEol) or (FCurrentRule.CloseOnTerm) then
       FCurrentRule := FCurrentRule.Owner;
     FEol := True;
-    exit;
+    Exit;
   end;
 
   FTokenPos := FRun;
@@ -2029,7 +1986,7 @@ begin
     MainRules.NumberAttributes.Background := clWhite;
     MainRules.CaseSensitive := False;
 
-    SR := TSynRange.Create('''', '''');
+    SR := TSynRange.Create;
     SR.Name := 'Strings ''..''';
     SR.DefaultAttributes.Foreground := clRed;
     SR.DefaultAttributes.Background := clWhite;
@@ -2336,12 +2293,11 @@ var
     else
       Inc(Buf);
   end;
-  ////TL Removed optional default parameter assignment... fixed in the calls
-  ////TL function GetNextTag(var Idx:Integer; var TagParam:string; IgnoreUnknown:boolean=false):boolean;
+
   function GetNextTag(var AIndex: Integer; var ATagParam: string;
-    AIgnoreUnknown: Boolean): Boolean;
+    AIgnoreUnknown: Boolean = False): Boolean;
   var
-    s, stmp: string;
+    S, T: string;
     sPos   : PChar;
   begin
     AIndex := -1;
@@ -2350,7 +2306,7 @@ var
     while Buf^ <> '<' do
     begin
       if Buf^ = #0 then
-        exit;
+        Exit;
       if Buf^ = #13 then
         Inc(LineNumber);
       Inc(Buf);
@@ -2375,18 +2331,18 @@ var
           IntToStr(LineNumber))
       else
         Inc(Buf);
-    SetLength(s, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(s)^, Cardinal(Buf) - Cardinal(sPos));
+    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
+    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
 
-    if (not SL.Find(s, AIndex)) then
+    if (not SL.Find(S, AIndex)) then
       if (not AIgnoreUnknown) then
-        raise Exception.Create('Tag "' + s + '" is unknown (line ' +
+        raise Exception.Create('Tag "' + S + '" is unknown (line ' +
           IntToStr(LineNumber) + ')')
       else
       begin
         AIndex := -1;
         Result := True;
-        exit;
+        Exit;
       end;
 
     while Buf^ <> '>' do
@@ -2398,25 +2354,25 @@ var
       begin
         Inc(Buf);
         sPos := Buf;
-        stmp := '';
+        T := '';
         while (Buf^ <> '"') do
           if Buf^ = #0 then
           begin
             Result := False;
-            exit;
+            Exit;
           end
           else if Buf^ = '&' then
           begin
-            SetLength(s, Cardinal(Buf) - Cardinal(sPos));
-            move(sPos^, Pointer(s)^, Cardinal(Buf) - Cardinal(sPos));
-            stmp := stmp + s + GetReplacement;
+            SetLength(S, Cardinal(Buf) - Cardinal(sPos));
+            move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+            T := T + S + GetReplacement;
             sPos := Buf;
           end
           else
             Inc(Buf);
-        SetLength(s, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(s)^, Cardinal(Buf) - Cardinal(sPos));
-        ATagParam := stmp + s;
+        SetLength(S, Cardinal(Buf) - Cardinal(sPos));
+        move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        ATagParam := T + S;
       end;
       Inc(Buf);
     end;
@@ -2425,19 +2381,20 @@ var
 
   function GetData(ATagIndex: Integer): string;
   var
-    s   : string;
+    S   : string;
     sPos: PChar;
     Idx : Integer;
   begin
+    Idx := 0;
     Result := '';
     sPos := Buf;
     while Buf^ <> '<' do
     begin
       if Buf^ = '&' then
       begin
-        SetLength(s, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(s)^, Cardinal(Buf) - Cardinal(sPos));
-        Result := Result + s + GetReplacement;
+        SetLength(S, Cardinal(Buf) - Cardinal(sPos));
+        move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        Result := Result + S + GetReplacement;
         sPos := Buf;
       end
       else if (Buf^ = #0) or (Buf^ = #13) then
@@ -2446,11 +2403,10 @@ var
       else
         Inc(Buf);
     end;
-    SetLength(s, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(s)^, Cardinal(Buf) - Cardinal(sPos));
-    Result := Result + s;
-    ////TL Added 3rd parameter
-    if (GetNextTag(Idx, s, False)) or (Idx <> CurTagIndex) then
+    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
+    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    Result := Result + S;
+    if (GetNextTag(Idx, S)) or (Idx <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[Idx] +
         ' is not found. Line ' + IntToStr(LineNumber));
   end;
@@ -2459,7 +2415,6 @@ var
 
     procedure ReadGeneral;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2517,7 +2472,6 @@ var
 
     procedure ReadAuthor;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2546,7 +2500,6 @@ var
 
     procedure ReadHistroy;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2566,7 +2519,6 @@ var
     procedure ReadSample;
     begin
       FInfo.Sample.Clear;
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2584,7 +2536,6 @@ var
     end;
 
   begin
-    ////TL Added 3rd parameter
     while GetNextTag(CurTagIndex, Param, False) do
     begin
       case CurTagIndex of
@@ -2613,7 +2564,6 @@ var
 
     procedure ReadAttri;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2635,7 +2585,6 @@ var
     end;
 
   begin
-    ////TL Added 3rd parameter
     while GetNextTag(CurTagIndex, Param, False) do
     begin
       case CurTagIndex of
@@ -2661,7 +2610,6 @@ var
 
     procedure ReadDef;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2686,7 +2634,6 @@ var
 
     procedure ReadNum;
     begin
-      ////TL Added 3rd parameter
       while GetNextTag(CurTagIndex, Param, False) do
       begin
         case CurTagIndex of
@@ -2710,7 +2657,6 @@ var
     end;
 
   begin
-    ////TL Added 3rd parameter
     while GetNextTag(CurTagIndex, Param, False) do
     begin
       case CurTagIndex of
@@ -2748,8 +2694,7 @@ var
           end;
         xitRange:
           begin
-          ////TL added two default null string parameters
-            NewRange := TSynRange.Create('', '');
+            NewRange := TSynRange.Create;
             NewRange.Name := Param;
             CurRange.AddRange(NewRange);
             ReadRange(NewRange);
@@ -2782,7 +2727,6 @@ begin
   SL := TStringList.Create;
   try
     BuildXMLIndexes(SL);
-    ////TL Added 3rd parameter
     if (not GetNextTag(CurTagIndex, Param, False)) or
       (CurTagIndex <> xitUniHighlighter) then
       raise Exception.Create(

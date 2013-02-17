@@ -25,9 +25,9 @@ unit ts_Editor_ViewListForm;
 interface
 
 uses
-  Classes, SysUtils, Forms, ActnList, Menus, Contnrs,
+  Classes, SysUtils, Forms, ActnList, Menus, Contnrs, ExtCtrls,
 
-  ButtonPanel, ExtCtrls,
+  ButtonPanel,
 
   VirtualTrees,
 

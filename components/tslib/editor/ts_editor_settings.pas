@@ -29,7 +29,9 @@ uses
 
   LazMethodList,
 
-  NativeXML, NativeXmlObjectStorage, sharedloggerlcl,
+  NativeXML, NativeXmlObjectStorage,
+
+  sharedloggerlcl,
 
   ts_Core_FormSettings,
 

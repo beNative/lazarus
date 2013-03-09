@@ -3753,7 +3753,7 @@ object dmEditorManager: TdmEditorManager
     left = 24
     top = 16
     object mniCut: TMenuItem
-      Caption = 'Cu&t'
+      Action = actCut
       Bitmap.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -3791,9 +3791,6 @@ object dmEditorManager: TdmEditorManager
         1805FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       GlyphShowMode = gsmAlways
-      Hint = 'Cut'
-      ImageIndex = 0
-      ShortCut = 16472
     end
     object mniCopy: TMenuItem
       Action = actCopy
@@ -3837,7 +3834,7 @@ object dmEditorManager: TdmEditorManager
       OnClick = actCopyExecute
     end
     object mniPaste: TMenuItem
-      Caption = '&Paste'
+      Action = actPaste
       Bitmap.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
@@ -3875,15 +3872,12 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       GlyphShowMode = gsmAlways
-      Hint = 'Paste'
-      ImageIndex = 2
-      ShortCut = 16470
     end
     object MenuItem14: TMenuItem
       Caption = '-'
     end
     object mniSelectAll: TMenuItem
-      Caption = 'Select &All'
+      Action = actSelectAll
       Bitmap.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000FFFFFF00898E
@@ -3920,15 +3914,12 @@ object dmEditorManager: TdmEditorManager
         8B94858A88FF858A88FF858A88FF858A88FF858A88FF858A88FF858A88FF858A
         88FF858A88FF858A88FF858A88FF858A88FF898E8C94FFFFFF00
       }
-      Hint = 'Select All'
-      ImageIndex = 23
-      ShortCut = 16449
     end
     object mniSeperator1: TMenuItem
       Caption = '-'
     end
     object mniUndo: TMenuItem
-      Caption = '&Undo'
+      Action = actUndo
       Bitmap.Data = {
         36040000424D3604000000000000360000002800000010000000100000000100
         2000000000000004000064000000640000000000000000000000C2657400C265
@@ -3965,9 +3956,6 @@ object dmEditorManager: TdmEditorManager
         7400C2657400C2657400C2657400C2657400C2657400C2657400C2657400C265
         7400C2657400C2657400C2657400C2657400C2657400C2657400
       }
-      Hint = 'Undo'
-      ImageIndex = 38
-      ShortCut = 16474
     end
     object MenuItem102: TMenuItem
       Action = actRedo
@@ -4464,6 +4452,18 @@ object dmEditorManager: TdmEditorManager
         OnClick = actLowerCaseSelectionExecute
       end
       object MenuItem55: TMenuItem
+        Caption = '-'
+      end
+      object MenuItem36: TMenuItem
+        Action = actStripFirstChar
+      end
+      object MenuItem65: TMenuItem
+        Action = actStripLastChar
+      end
+      object MenuItem68: TMenuItem
+        Action = actStripMarkup
+      end
+      object MenuItem67: TMenuItem
         Caption = '-'
       end
       object MenuItem13: TMenuItem
@@ -6089,5 +6089,15 @@ object dmEditorManager: TdmEditorManager
   object ppmLineBreakStyle: TPopupMenu
     left = 129
     top = 304
+    object MenuItem69: TMenuItem
+      Caption = 'New Item1'
+    end
+  end
+  object ppmSelectionMode: TPopupMenu
+    left = 248
+    top = 280
+    object MenuItem70: TMenuItem
+      Caption = 'New Item1'
+    end
   end
 end

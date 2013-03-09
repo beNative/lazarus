@@ -116,6 +116,7 @@ type
     function GetFoldState: string;
     function GetForm: TCustomForm;
     function GetHighlighterItem: THighlighterItem;
+    function GetInsertMode: Boolean;
     function GetLineBreakStyle: string;
     function GetLines: TStrings;
     function GetLinesInWindow: Integer;
@@ -134,11 +135,13 @@ type
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
     function GetSelAvail: Boolean;
+    function GetSelectionMode: TSynSelectionMode;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
+    function GetStoredBlockText: string;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -154,6 +157,7 @@ type
     procedure SetFoldLevel(const AValue: Integer);
     procedure SetFoldState(const AValue: string);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
+    procedure SetInsertMode(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
     procedure SetLines(const AValue: TStrings);
     procedure SetLineText(const AValue: string);
@@ -168,10 +172,12 @@ type
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const AValue: string);
+    procedure SetSelectionMode(AValue: TSynSelectionMode);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
+    procedure SetStoredBlockText(AValue: string);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
@@ -186,11 +192,18 @@ type
       out AAttri    : TSynHighlighterAttributes
     ): Boolean;
 
+    // lock updates
     procedure BeginUpdate;
     procedure EndUpdate;
-    procedure StoreBlock;
+
+    // block info store/restore
+    procedure StoreBlock(
+      ALockUpdates           : Boolean = True; // implicit BeginUpdate/EndUpdate
+      AAutoExcludeEmptyLines : Boolean = False
+    );
     procedure RestoreBlock;
 
+    // make current view the active one if more than one view is managed.
     procedure Activate;
 
     // configuration
@@ -286,11 +299,21 @@ type
     property SelEnd: Integer
       read GetSelEnd write SetSelEnd;
 
+    property InsertMode: Boolean
+      read GetInsertMode write SetInsertMode;
+
+    { Sets the current (default) selection mode.  }
+    property SelectionMode: TSynSelectionMode
+      read GetSelectionMode write SetSelectionMode;
+
     property SelAvail: Boolean
       read GetSelAvail;
 
     property SearchText: string
       read GetSearchText write SetSearchText;
+
+    property StoredBlockText: string
+      read GetStoredBlockText write SetStoredBlockText;
 
     property SearchOptions: TSynSearchOptions
       read GetSearchOptions write SetSearchOptions;
@@ -470,7 +493,10 @@ type
     procedure DoModified;
     procedure DoSaveFile;
     procedure DoOpenFile;
-    procedure DoNewFile(const AFileName: string = ''; const AText: string = '');
+    procedure DoNewFile(
+      const AFileName : string = '';
+      const AText     : string = ''
+    );
 
     // events
     { triggered when caret position changes }
@@ -705,12 +731,16 @@ type
 
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
+    {$region 'property access methods' /fold}
     function GetEditorPopupMenu: TPopupMenu;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetExportPopupMenu: TPopupMenu;
     function GetFoldPopupMenu: TPopupMenu;
     function GetHighlighterPopupMenu: TPopupMenu;
     function GetLineBreakStylePopupMenu: TPopupMenu;
+    function GetSelectionModePopupMenu: TPopupMenu;
+    {$endregion}
+
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
 
@@ -722,6 +752,9 @@ type
 
     property ExportPopupMenu: TPopupMenu
       read GetExportPopupMenu;
+
+    property SelectionModePopupMenu: TPopupMenu
+      read GetSelectionModePopupMenu;
 
     property EncodingPopupMenu: TPopupMenu
       read GetEncodingPopupMenu;
@@ -749,6 +782,7 @@ type
 
   IEditorManager = interface
   ['{631A126F-1693-4E25-B691-CD2487BCB820}']
+    {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetCommands: IEditorCommands;
     function GetEvents: IEditorEvents;
@@ -764,6 +798,7 @@ type
     procedure SetOnActiveViewChange(const AValue: TNotifyEvent);
     function GetOnActiveViewChange: TNotifyEvent;
     function GetHighlighters: THighlighters;
+    {$endregion}
 
     function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
@@ -811,6 +846,7 @@ type
   ['{CF1E061E-89FD-47F0-91DF-C26CC457BC08}']
     function GetOnFilteredLineChange: TOnFilteredLineChangeEvent;
     procedure SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
+
     property OnFilteredLineChange: TOnFilteredLineChangeEvent
       read GetOnFilteredLineChange write SetOnFilteredLineChange;
   end;

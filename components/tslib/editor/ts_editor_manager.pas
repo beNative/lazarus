@@ -177,7 +177,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
-    actXMLTree: TAction;
+    actXMLTree                    : TAction;
     actToggleBlockCommentSelection: TAction;
     actShowTest                   : TAction;
     actSelectAll                  : TAction;
@@ -290,6 +290,7 @@ type
     MenuItem33                    : TMenuItem;
     MenuItem34                    : TMenuItem;
     MenuItem35                    : TMenuItem;
+    MenuItem36                    : TMenuItem;
     MenuItem37                    : TMenuItem;
     MenuItem38                    : TMenuItem;
     MenuItem39                    : TMenuItem;
@@ -323,6 +324,9 @@ type
     MenuItem64                    : TMenuItem;
     MenuItem65                    : TMenuItem;
     MenuItem66                    : TMenuItem;
+    MenuItem67                    : TMenuItem;
+    MenuItem68                    : TMenuItem;
+    MenuItem69                    : TMenuItem;
     MenuItem7                     : TMenuItem;
     MenuItem70                    : TMenuItem;
     MenuItem71                    : TMenuItem;
@@ -386,6 +390,7 @@ type
     ppmFold                       : TPopupMenu;
     ppmHighLighters               : TPopupMenu;
     ppmLineBreakStyle             : TPopupMenu;
+    ppmSelectionMode              : TPopupMenu;
     SynExporterHTML               : TSynExporterHTML;
     SynMacroRecorder              : TSynMacroRecorder;
     {$endregion}
@@ -396,6 +401,7 @@ type
     procedure actAlignSelectionExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actSelectionModeExecute(Sender: TObject);
     procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
@@ -543,6 +549,7 @@ type
     function GetOnStatusChange: TStatusChangeEvent;
     function GetPersistSettings: Boolean;
     function GetSearchEngine: IEditorSearchEngine;
+    function GetSelectionModePopupMenu: TPopupMenu;
     function GetSettings: IEditorSettings;
     function GetActiveView: IEditorView;
     function GetHighlighters: THighlighters;
@@ -654,11 +661,15 @@ type
     procedure DoModified; virtual;
     procedure DoSaveFile;
     procedure DoOpenFile;
-    procedure DoNewFile(const AFileName: string = ''; const AText: string = '');
+    procedure DoNewFile(
+      const AFileName : string = '';
+      const AText     : string = ''
+    );
 
     procedure UpdateActions;
     procedure UpdateEncodingActions;
     procedure UpdateLineBreakStyleActions;
+    procedure UpdateSelectionModeActions;
     procedure UpdateHighLighterActions;
     procedure UpdateFileActions;
     procedure UpdateSearchMatches;
@@ -697,6 +708,9 @@ type
 
     property HighlighterPopupMenu: TPopupMenu
       read GetHighlighterPopupMenu;
+
+    property SelectionModePopupMenu: TPopupMenu
+      read GetSelectionModePopupMenu;
 
     property Highlighters: THighlighters
       read GetHighlighters;
@@ -782,7 +796,7 @@ implementation
 {$R *.lfm}
 
 uses
-  FileUtil, Clipbrd, StrUtils, Math, ShlObj, Windows, Graphics,
+  FileUtil, Clipbrd, StrUtils, Math, ShlObj, Windows, Graphics, TypInfo,
 
   LConvEncoding, Base64,
 
@@ -1003,6 +1017,11 @@ begin
   Result := FSearchEngine;
 end;
 
+function TdmEditorManager.GetSelectionModePopupMenu: TPopupMenu;
+begin
+  Result := ppmSelectionMode;
+end;
+
 procedure TdmEditorManager.SetPersistSettings(const AValue: Boolean);
 begin
   if AValue <> PersistSettings then
@@ -1189,6 +1208,8 @@ procedure TdmEditorManager.DoCaretPositionChange;
 begin
   if Assigned(FOnCaretPositionChange) then
     FOnCaretPositionChange(Self, ActiveView.CaretX, ActiveView.CaretY);
+
+  UpdateSelectionModeActions;
 
   { TODO -oTS : Needs to be refactored }
   if ToolViews['frmPreview'].Visible then
@@ -1403,22 +1424,14 @@ begin
   ExportLines('WIKI');
 end;
 
-procedure TdmEditorManager.actCreateDesktopLinkExecute(Sender: TObject);
-begin
-  CreateDesktopLink;
-end;
-
-procedure TdmEditorManager.actCutExecute(Sender: TObject);
-begin
-  if ActiveView.Focused then
-    ActiveView.Cut
-  else if Assigned(ActiveToolView) then
-    (ActiveToolView as IClipboardCommands).Cut;
-end;
-
 procedure TdmEditorManager.actCopyRTFToClipboardExecute(Sender: TObject);
 begin
   ExportLines(HL_RTF);
+end;
+
+procedure TdmEditorManager.actCreateDesktopLinkExecute(Sender: TObject);
+begin
+  CreateDesktopLink;
 end;
 
 procedure TdmEditorManager.actCopyRTFTextToClipboardExecute(Sender: TObject);
@@ -1439,6 +1452,14 @@ end;
 procedure TdmEditorManager.actCopyToClipboardExecute(Sender: TObject);
 begin
   CopyToClipboard;
+end;
+
+procedure TdmEditorManager.actCutExecute(Sender: TObject);
+begin
+  if ActiveView.Focused then
+    ActiveView.Cut
+  else if Assigned(ActiveToolView) then
+    (ActiveToolView as IClipboardCommands).Cut;
 end;
 
 procedure TdmEditorManager.actFilterCodeExecute(Sender: TObject);
@@ -1498,18 +1519,10 @@ begin
 end;
 
 procedure TdmEditorManager.actOpenSelectionInNewEditorExecute(Sender: TObject);
-var
-  S : string;
-  T : string;
 begin
-  S := '';
   if Assigned(FOnNewFile) then
   begin
-    if ActiveView.Focused then
-    begin
-      T := ActiveView.SelText;
-    end;
-    DoNewFile(S, T);
+    DoNewFile('', ActiveView.SelText);
   end;
 end;
 
@@ -1621,7 +1634,7 @@ end;
 procedure TdmEditorManager.actFormatExecute(Sender: TObject);
 begin
   try
-   FormatCode;
+    FormatCode;
   except
     // do nothing
   end;
@@ -1635,7 +1648,6 @@ end;
 procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
 begin
   { TODO -oTS : Will be implemented as a toolview. }
-  ShowMessage('TODO');
 end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
@@ -1713,6 +1725,11 @@ end;
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
 begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+end;
+
+procedure TdmEditorManager.actSelectionModeExecute(Sender: TObject);
+begin
+  ActiveView.SelectionMode := TSynSelectionMode((Sender as TCustomAction).Tag);
 end;
 
 procedure TdmEditorManager.actToggleBlockCommentSelectionExecute(Sender: TObject);
@@ -1924,6 +1941,7 @@ var
   MI : TMenuItem;
   HI : THighlighterItem;
   A  : TCustomAction;
+  SM : TSynSelectionMode;
 begin
   HighlighterPopupMenu.Items.Caption := 'Highlighters';
   HighlighterPopupMenu.Items.Action := actToggleHighlighter;
@@ -1989,6 +2007,26 @@ begin
     end;
     HighlighterPopupMenu.Items.Add(MI);
   end;
+
+  SelectionModePopupMenu.Items.Clear;
+  for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
+  begin
+    MI := TMenuItem.Create(SelectionModePopupMenu);
+    S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
+    S := System.Copy(S, 3, Length(S));
+    S := 'actSelectionMode' + S;
+    A := Items[S];
+    if Assigned(A) then
+    begin
+      MI.Action     := A;
+      MI.Hint       := HI.Description;
+      MI.Caption    := A.Caption;
+      MI.AutoCheck  := A.AutoCheck;
+      MI.RadioItem  := True;
+      MI.GroupIndex := A.GroupIndex;
+    end;
+    SelectionModePopupMenu.Items.Add(MI);
+  end;
 end;
 
 procedure TdmEditorManager.InitializeActions;
@@ -1997,6 +2035,7 @@ var
   SL : TStringList;
   S  : string;
   HI : THighlighterItem;
+  SM : TSynSelectionMode;
 begin
   SL := TStringList.Create;
   try
@@ -2033,7 +2072,21 @@ begin
       A.AutoCheck := True;
       A.GroupIndex := 5;
       A.Category := 'Highlighter';
-      A.OnExecute   := actHighlighterExecute;
+      A.OnExecute := actHighlighterExecute;
+    end;
+    for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
+    begin
+      A := TAction.Create(ActionList);
+      A.ActionList := ActionList;
+      A.Tag := Ord(SM);
+      S := GetEnumName(TypeInfo(TSynSelectionMode), A.Tag);
+      S := System.Copy(S, 3, Length(S));
+      A.Caption := S;
+      A.Name := 'actSelectionMode' + S;
+      A.AutoCheck := True;
+      A.GroupIndex := 6;
+      A.Category := 'SelectionMode';
+      A.OnExecute := actSelectionModeExecute;
     end;
   finally
     FreeAndNil(SL);
@@ -2580,23 +2633,23 @@ begin
   if Assigned(V) and Assigned(Settings) {and V.Focused and FChanged} then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
-    actDequoteSelection.Enabled         := B;
-    actLowerCaseSelection.Enabled       := B;
-    actToggleBlockCommentSelection.Enabled    := B;
-    actOpenSelectionInNewEditor.Enabled := B;
-    actPascalStringOfSelection.Enabled  := B;
-    actStripMarkup.Enabled              := B;
-    actQuoteSelection.Enabled           := B;
-    actQuoteLinesAndDelimit.Enabled     := B;
-    actSortSelection.Enabled            := B;
-    actUpperCaseSelection.Enabled       := B;
-    actStripFirstChar.Enabled           := B;
-    actStripLastChar.Enabled            := B;
-    actQuoteLines.Enabled               := B;
-    actDequoteLines.Enabled             := B;
-    actEncodeBase64.Enabled             := B;
-    actDecodeBase64.Enabled             := B;
-    actSyncEdit.Enabled                 := B;
+    actDequoteSelection.Enabled            := B;
+    actLowerCaseSelection.Enabled          := B;
+    actToggleBlockCommentSelection.Enabled := B;
+    actOpenSelectionInNewEditor.Enabled    := B;
+    actPascalStringOfSelection.Enabled     := B;
+    actStripMarkup.Enabled                 := B;
+    actQuoteSelection.Enabled              := B;
+    actQuoteLinesAndDelimit.Enabled        := B;
+    actSortSelection.Enabled               := B;
+    actUpperCaseSelection.Enabled          := B;
+    actStripFirstChar.Enabled              := B;
+    actStripLastChar.Enabled               := B;
+    actQuoteLines.Enabled                  := B;
+    actDequoteLines.Enabled                := B;
+    actEncodeBase64.Enabled                := B;
+    actDecodeBase64.Enabled                := B;
+    actSyncEdit.Enabled                    := B;
 
     B := not Settings.ReadOnly;
     actAlignSelection.Visible          := B;
@@ -2675,6 +2728,23 @@ begin
   if Assigned(ActiveView) then
   begin
     S := 'actLineBreakStyle' + ActiveView.LineBreakStyle;
+    A := Items[S];
+    if Assigned(A) then
+      A.Checked := True;
+  end;
+end;
+
+procedure TdmEditorManager.UpdateSelectionModeActions;
+var
+  S: string;
+  A: TCustomAction;
+begin
+  S := '';
+  if Assigned(ActiveView) then
+  begin
+    S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(ActiveView.SelectionMode));
+    S := System.Copy(S, 3, Length(S));
+    S := 'actSelectionMode' + S;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;

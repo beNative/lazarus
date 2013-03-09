@@ -300,7 +300,6 @@ end;
 
 procedure TfrmAlignLines.UpdateTokenList;
 var
-  I: Integer;
   S: string;
 begin
   FTVP.BeginUpdate;
@@ -317,6 +316,8 @@ end;
 procedure TfrmAlignLines.UpdateView;
 begin
   UpdateTokenList;
+  if FTokens.Count > 0 then
+    FTVP.CurrentItem := FTokens[0];
 end;
 
 procedure TfrmAlignLines.Execute;

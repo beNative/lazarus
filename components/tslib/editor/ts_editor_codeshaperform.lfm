@@ -1,5 +1,5 @@
 object frmCodeShaper: TfrmCodeShaper
-  Left = 3056
+  Left = 0
   Height = 695
   Top = 45
   Width = 402
@@ -619,17 +619,6 @@ object frmCodeShaper: TfrmCodeShaper
           TabOrder = 6
         end
       end
-      object btnRevert: TButton
-        Left = 0
-        Height = 23
-        Top = 664
-        Width = 402
-        Action = actRevert
-        Anchors = [akTop, akLeft, akRight]
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 8
-      end
     end
   end
   object aclMain: TActionList
@@ -673,9 +662,6 @@ object frmCodeShaper: TfrmCodeShaper
       Category = 'Quote'
       Caption = 'Quote'
       OnExecute = actQuoteLinesExecute
-    end
-    object actRevert: TAction
-      Caption = 'Restore original code'
     end
     object actAlignInsertSpaceAfterToken: TAction
       Category = 'Align'

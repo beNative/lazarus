@@ -92,7 +92,6 @@ TODO:
 //*****************************************************************************
 
 interface
-
 uses
   Classes, Controls, Forms, Graphics, Menus, SysUtils, Windows, Dialogs,
   StdCtrls, Types,
@@ -100,8 +99,8 @@ uses
   LMessages,
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
-  SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
-  SynEditMarkupBracket, SynEditMarkupSelection, SynEditHighlighterFoldBase,
+  SynEditMarkupHighAll, SynEditTypes, SynBeautifier, SynEditMarkupBracket,
+  SynEditHighlighterFoldBase,
 
   ts_Core_DirectoryWatch,
 
@@ -118,7 +117,7 @@ type
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
-  private
+  strict private
     // SynEdit event handlers
     procedure EditorChange(Sender: TObject);
     procedure EditorClickLink(Sender: TObject; Button: TMouseButton;
@@ -133,7 +132,7 @@ type
 
     function IsActive: Boolean;
 
-  private
+  strict private
     FUpdate               : Boolean;
     FDirectoryWatch       : TDirectoryWatch;
     FEncoding             : string;
@@ -145,12 +144,7 @@ type
     FSyncronizedEdit      : TSynPluginSyncroEdit;
     FTemplateEdit         : TSynPluginTemplateEdit;
     FHighlighterItem      : THighlighterItem;
-    FCodeCompletionFormat : string;
-    FCompletionInsertList : TStrings;
-    FCompletionItemList   : TStrings;
     FMHAC                 : TSynEditMarkupHighlightAllCaret;
-    //FMHA                  : TSynEditMarkupHighlightAll;
-    //FMS                   : TSynEditMarkupSelection;
     FFileName             : string;
     FFoldLevel            : Integer;
     FBeautifier           : TSynBeautifier;
@@ -158,12 +152,15 @@ type
     FOnStatusChange       : TStatusChangeEvent;
     FOnChange             : TNotifyEvent;
 
-    FStoredBlockBegin     : TPoint;
-    FStoredBlockEnd       : TPoint;
-    FStoredSelectionMode  : TSynSelectionMode;
+    // StoreBlock / RestoreBlock
+    FStoredBlockBegin       : TPoint;
+    FStoredBlockEnd         : TPoint;
+    FStoredBlockLines       : TStringList;
+    FStoredStripLastLine    : Boolean;
+    FStoredBlockLockUpdates : Boolean;
+    FStoredSelectionMode    : TSynSelectionMode;
 
     { search settings }
-    FFileFilterList : TStringList;
     FSearchText     : string;
     FSearchOptions  : TSynSearchOptions;
 
@@ -181,6 +178,7 @@ type
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
     function GetEditorFont: TFont;
+    function GetInsertMode: Boolean;
     function GetManager: IEditorManager;
     function GetEncoding: string;
     function GetEvents: IEditorEvents;
@@ -208,11 +206,13 @@ type
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
     function GetSelAvail: Boolean;
+    function GetSelectionMode: TSynSelectionMode;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
+    function GetStoredBlockText: string;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -222,9 +222,6 @@ type
     procedure SetCaretX(const Value: Integer); virtual;
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const Value: Integer); virtual;
-    procedure SetCodeCompletionFormat(const Value: string); virtual;
-    procedure SetCompletionInsertList(const Value: TStrings); virtual;
-    procedure SetCompletionItemList(const Value: TStrings); virtual;
     procedure SetEditorFont(AValue: TFont);
     procedure SetEncoding(const AValue: string);
     procedure SetFileName(const AValue: string);
@@ -232,6 +229,7 @@ type
     procedure SetFoldState(const AValue: string);
     procedure SetHighlighter(const AValue: TSynCustomHighlighter);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
+    procedure SetInsertMode(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
     procedure SetLines(const Value: TStrings); virtual;
     procedure SetLineText(const AValue: string);
@@ -246,10 +244,12 @@ type
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const Value: string); virtual;
+    procedure SetSelectionMode(AValue: TSynSelectionMode);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
+    procedure SetStoredBlockText(AValue: string);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
@@ -257,10 +257,13 @@ type
     procedure InitializeEditor;
     procedure OnSettingsChanged(ASender: TObject);
 
-  protected
+  strict protected
     procedure BeginUpdate;
     procedure EndUpdate;
-    procedure StoreBlock;
+    procedure StoreBlock(
+      ALockUpdates           : Boolean = True; // implicit BeginUpdate/EndUpdate
+      AAutoExcludeEmptyLines : Boolean = False
+    );
     procedure RestoreBlock;
 
     procedure CopyToClipboard;
@@ -271,6 +274,8 @@ type
     procedure Redo;
 
     procedure Activate; override;
+    function EditorViewFocused: Boolean;
+    function IEditorView.Focused = EditorViewFocused;
 
     procedure AssignHighlighterForFileType(const AFileExt: string);
     procedure SmartSelect;
@@ -353,7 +358,7 @@ type
     property LogicalCaretXY: TPoint
       read GetLogicalCaretXY write SetLogicalCaretXY;
 
-  published
+  published // for the moment published only for easy debugging
     { current X-coordinate of the caret. }
     property CaretX: Integer
       read GetCaretX write SetCaretX;
@@ -386,8 +391,17 @@ type
     property SelEnd: Integer
       read GetSelEnd write SetSelEnd;
 
+    property InsertMode: Boolean
+      read GetInsertMode write SetInsertMode;
+
+    property SelectionMode: TSynSelectionMode
+      read GetSelectionMode write SetSelectionMode;
+
     property ShowSpecialChars: Boolean
       read GetShowSpecialChars write SetShowSpecialChars;
+
+    property StoredBlockText: string
+      read GetStoredBlockText write SetStoredBlockText;
 
     property Modified: Boolean
       read GetModified write SetModified;
@@ -395,6 +409,7 @@ type
     property Name: string
       read GetName write SetName;
 
+    { Amount of visible lines (not including folds). }
     property LinesInWindow: Integer
       read GetLinesInWindow;
 
@@ -404,13 +419,14 @@ type
     property Form: TCustomForm
       read GetForm;
 
-    { string identifying the foldstate of current instance }
     property FoldState: string
       read GetFoldState write SetFoldState;
 
     property LineText: string
       read GetLineText write SetLineText;
 
+    { Text to pass if the preview is shown (this is LineText when nothing is
+      selected and the selected text otherwise). }
     property PreviewText: string
       read GetPreviewText;
 
@@ -450,6 +466,7 @@ type
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;
 
+    { TODO: this does not belong here. }
     property SupportsFolding: Boolean
       read GetSupportsFolding;
 
@@ -466,24 +483,10 @@ type
     property TopLine: Integer
       read GetTopLine write SetTopLine;
 
-    { Stringlist containing (formatted) items to include in the displayed
-      completion-item list of the editor. }
-    property CompletionItemList: TStrings
-      read FCompletionItemList write SetCompletionItemList;
-
-    { Stringlist of strings referenced by the items in the CompletionItemList.
-      These are the bare strings that will be inserted in the code editor when
-      an item from the completionlist is selected. }
-    property CompletionInsertList: TStrings
-      read FCompletionInsertList write SetCompletionInsertList;
-
-    { Readonly stringlist containing filters for all supported highlighters. }
-    property FileFilterList: TStringList
-      read FFileFilterList;
-
     property SearchText: string
       read GetSearchText write SetSearchText;
 
+    { These options are used for highlighting the active word. }
     property SearchOptions: TSynSearchOptions
       read GetSearchOptions write SetSearchOptions;
 
@@ -547,9 +550,7 @@ begin
   FReplaceHistory := TStringList.Create;
   FReplaceHistory.Sorted := True;
   FReplaceHistory.Duplicates := dupIgnore;
-  FFileFilterList := TStringList.Create;
-  FFileFilterList.Duplicates := dupIgnore;
-  FFileFilterList.Sorted := True;
+  FStoredBlockLines := TStringList.Create;
   FEncoding := EncodingUTF8;
   FLineBreakStyle := ALineBreakStyles[Lines.TextLineBreakStyle];
   Doublebuffered := True;
@@ -565,13 +566,13 @@ begin
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
   DisableAutoSizing;
+  FreeAndNil(FStoredBlockLines);
   FreeAndNil(FDirectoryWatch);
   FreeAndNil(FReplaceHistory);
   FreeAndNil(FFindHistory);
   FreeAndNil(FBeautifier);
   FreeAndNil(FSyncronizedEdit);
   FreeAndNil(FTemplateEdit);
-  FreeAndNil(FFileFilterList);
   inherited BeforeDestruction;
 end;
 
@@ -690,16 +691,6 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-procedure TEditorView.SetSelEnd(const AValue: Integer);
-begin
-  Editor.SelEnd := AValue;
-end;
-
-procedure TEditorView.SetSelStart(const AValue: Integer);
-begin
-  Editor.SelStart := AValue;
-end;
-
 function TEditorView.GetSelText: string;
 begin
   Result := Editor.SelText;
@@ -758,83 +749,24 @@ begin
   Result := Editor.CaretY;
 end;
 
-function TEditorView.GetCommands: IEditorCommands;
-begin
-  Result := Owner as IEditorCommands;
-end;
-
 procedure TEditorView.SetCaretY(const Value: Integer);
 begin
   Editor.CaretY := Value;
 end;
 
-procedure TEditorView.SetLogicalCaretXY(const AValue: TPoint);
-begin
-  Editor.LogicalCaretXY := AValue;
-end;
-
-procedure TEditorView.SetModified(const AValue: Boolean);
-begin
-  Editor.Modified := AValue;
-end;
-
-procedure TEditorView.SetMonitorChanges(const AValue: Boolean);
-begin
-  if AValue <> MonitorChanges then
-  begin
-    if AValue then
-    begin
-      if FileExists(FileName) then
-      begin
-        FDirectoryWatch.Directory := ExtractFileDir(FileName);
-        FDirectoryWatch.Start;
-      end;
-    end
-    else
-      FDirectoryWatch.Stop;
-  end;
-end;
-
-procedure TEditorView.SetName(AValue: string);
-begin
-  inherited Name := AValue;
-end;
-
-procedure TEditorView.SetOnChange(const AValue: TNotifyEvent);
-begin
-  FOnChange := AValue;
-end;
-
-procedure TEditorView.SetOnDropFiles(const AValue: TDropFilesEvent);
-begin
-  FOnDropFiles := AValue;
-end;
-
-procedure TEditorView.SetParent(const AValue: TWinControl);
-begin
-  inherited Parent := AValue;
-  if Assigned(Parent) then
-    Visible := True;
-end;
-
-procedure TEditorView.SetPopupMenu(const AValue: TPopupMenu);
-begin
-  Editor.PopupMenu := AValue;
-end;
-
-procedure TEditorView.SetSearchOptions(AValue: TSynSearchOptions);
-begin
-  FSearchOptions := AValue;
-end;
-
-function TEditorView.GetEditor: TSynEdit;
-begin
-  Result := FEditor;
-end;
-
 function TEditorView.GetEditorFont: TFont;
 begin
   Result := Editor.Font;
+end;
+
+function TEditorView.GetInsertMode: Boolean;
+begin
+  Result := Editor.InsertMode;
+end;
+
+procedure TEditorView.SetInsertMode(AValue: Boolean);
+begin
+  Editor.InsertMode := AValue;
 end;
 
 procedure TEditorView.SetEditorFont(AValue: TFont);
@@ -843,11 +775,6 @@ begin
   begin
     Editor.Font.Assign(AValue);
   end;
-end;
-
-function TEditorView.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
 end;
 
 function TEditorView.GetLines: TStrings;
@@ -860,22 +787,6 @@ begin
   Editor.Lines := Value;
 end;
 
-procedure TEditorView.SetCodeCompletionFormat(const Value: string);
-begin
-  FCodeCompletionFormat := Value;
-end;
-
-procedure TEditorView.SetCompletionInsertList(const Value: TStrings);
-begin
-  //SynCompletionProposal.InsertList.Clear;
-  //SynCompletionProposal.InsertList.AddStrings(Value);
-end;
-
-procedure TEditorView.SetCompletionItemList(const Value: TStrings);
-begin
-  //SynCompletionProposal.ItemList.Clear;
-  //SynCompletionProposal.ItemList.AddStrings(Value);
-end;
 
 function TEditorView.GetSearchText: string;
 begin
@@ -889,19 +800,6 @@ begin
     FSearchText := Value;
     Editor.SetHighlightSearch(Value, SearchOptions);
   end;
-end;
-
-procedure TEditorView.SetLineText(const AValue: string);
-begin
-  Editor.LineText := AValue;
-end;
-
-function TEditorView.GetCurrentWord: string;
-var
-  P: TPoint;
-begin
-  P := Editor.LogicalCaretXY;
-  Result := Editor.GetWordAtRowCol(P);
 end;
 
 procedure TEditorView.SetHighlighter(const AValue: TSynCustomHighlighter);
@@ -947,24 +845,19 @@ begin
   Result := FEncoding;
 end;
 
-function TEditorView.GetCanPaste: Boolean;
+procedure TEditorView.SetEncoding(const AValue: string);
 begin
-  Result := Editor.CanPaste;
+  if AValue <> Encoding then
+  begin
+    FEncoding := AValue;
+    if FileExists(FFileName) then
+      SaveToFile(FFileName);
+  end;
 end;
 
-function TEditorView.GetCanRedo: Boolean;
+function TEditorView.GetLineBreakStyle: string;
 begin
-  Result := Editor.CanRedo;
-end;
-
-function TEditorView.GetCanUndo: Boolean;
-begin
-  Result := Editor.CanUndo;
-end;
-
-function TEditorView.GetForm: TCustomForm;
-begin
-  Result := Self;
+  Result := FLineBreakStyle;
 end;
 
 procedure TEditorView.SetLineBreakStyle(const AValue: string);
@@ -977,14 +870,14 @@ begin
   end;
 end;
 
-function TEditorView.GetLineBreakStyle: string;
-begin
-  Result := FLineBreakStyle;
-end;
-
 function TEditorView.GetLineText: string;
 begin
   Result := Editor.LineText;
+end;
+
+procedure TEditorView.SetLineText(const AValue: string);
+begin
+  Editor.LineText := AValue;
 end;
 
 function TEditorView.GetMonitorChanges: Boolean;
@@ -992,9 +885,31 @@ begin
   Result := FDirectoryWatch.Running;
 end;
 
+procedure TEditorView.SetMonitorChanges(const AValue: Boolean);
+begin
+  if AValue <> MonitorChanges then
+  begin
+    if AValue then
+    begin
+      if FileExists(FileName) then
+      begin
+        FDirectoryWatch.Directory := ExtractFileDir(FileName);
+        FDirectoryWatch.Start;
+      end;
+    end
+    else
+      FDirectoryWatch.Stop;
+  end;
+end;
+
 function TEditorView.GetName: string;
 begin
   Result := inherited Name;
+end;
+
+procedure TEditorView.SetName(AValue: string);
+begin
+  inherited Name := AValue;
 end;
 
 function TEditorView.GetOnChange: TNotifyEvent;
@@ -1002,9 +917,19 @@ begin
   Result := FOnChange;
 end;
 
+procedure TEditorView.SetOnChange(const AValue: TNotifyEvent);
+begin
+  FOnChange := AValue;
+end;
+
 function TEditorView.GetOnDropFiles: TDropFilesEvent;
 begin
   Result := FOnDropFiles;
+end;
+
+procedure TEditorView.SetOnDropFiles(const AValue: TDropFilesEvent);
+begin
+  FOnDropFiles := AValue;
 end;
 
 function TEditorView.GetOnStatusChange: TStatusChangeEvent;
@@ -1022,22 +947,111 @@ begin
   Result := inherited Parent;
 end;
 
+procedure TEditorView.SetParent(const AValue: TWinControl);
+begin
+  inherited Parent := AValue;
+  if Assigned(Parent) then
+    Visible := True;
+end;
+
 function TEditorView.GetPopupMenu: TPopupMenu;
 begin
   Result := Editor.PopupMenu;
 end;
 
-function TEditorView.GetPreviewText: string;
+procedure TEditorView.SetPopupMenu(const AValue: TPopupMenu);
 begin
-  if SelAvail then
-    Result := SelText
-  else
-    Result := LineText;
+  Editor.PopupMenu := AValue;
 end;
 
-function TEditorView.GetSelAvail: Boolean;
+function TEditorView.GetFoldState: string;
 begin
-  Result := Editor.SelAvail;
+  Result := Editor.FoldState;
+end;
+
+procedure TEditorView.SetFoldState(const AValue: string);
+begin
+  Editor.FoldState := AValue;
+end;
+
+function TEditorView.GetLogicalCaretXY: TPoint;
+begin
+  Result := Editor.LogicalCaretXY;
+end;
+
+procedure TEditorView.SetLogicalCaretXY(const AValue: TPoint);
+begin
+  Editor.LogicalCaretXY := AValue;
+end;
+
+function TEditorView.GetModified: Boolean;
+begin
+  Result := Editor.Modified;
+end;
+
+procedure TEditorView.SetModified(const AValue: Boolean);
+begin
+  Editor.Modified := AValue;
+end;
+
+function TEditorView.GetSearchOptions: TSynSearchOptions;
+begin
+  Result := FSearchOptions;
+end;
+
+procedure TEditorView.SetSearchOptions(AValue: TSynSearchOptions);
+begin
+  FSearchOptions := AValue;
+end;
+
+function TEditorView.GetSelEnd: Integer;
+begin
+  Result := Editor.SelEnd;
+end;
+
+procedure TEditorView.SetSelEnd(const AValue: Integer);
+begin
+  Editor.SelEnd := AValue;
+end;
+
+function TEditorView.GetSelStart: Integer;
+begin
+  Result := Editor.SelStart;
+end;
+
+procedure TEditorView.SetSelStart(const AValue: Integer);
+begin
+  Editor.SelStart := AValue;
+end;
+
+function TEditorView.GetSettings: IEditorSettings;
+begin
+  Result := Owner as IEditorSettings;
+end;
+
+function TEditorView.GetActions: IEditorActions;
+begin
+  Result := Owner as IEditorActions;
+end;
+
+function TEditorView.GetCaretXY: TPoint;
+begin
+  Result := Editor.CaretXY;
+end;
+
+procedure TEditorView.SetCaretXY(const AValue: TPoint);
+begin
+  Editor.CaretXY := AValue;
+end;
+
+function TEditorView.GetFindHistory: TStrings;
+begin
+  Result := FFindHistory;
+end;
+
+function TEditorView.GetHighlighterItem: THighlighterItem;
+begin
+  Result := FHighlighterItem;
 end;
 
 procedure TEditorView.SetHighlighterItem(const AValue: THighlighterItem);
@@ -1056,111 +1070,19 @@ begin
   end;
 end;
 
-function TEditorView.GetFoldState: string;
-begin
-  Result := Editor.FoldState;
-end;
-
-function TEditorView.GetLinesInWindow: Integer;
-begin
-  Result := Editor.LinesInWindow;
-end;
-
-function TEditorView.GetLogicalCaretXY: TPoint;
-begin
-  Result := Editor.LogicalCaretXY;
-end;
-
-function TEditorView.GetModified: Boolean;
-begin
-  Result := Editor.Modified;
-end;
-
-function TEditorView.GetReplaceHistory: TStrings;
-begin
-  Result := FReplaceHistory;
-end;
-
-function TEditorView.GetSearchOptions: TSynSearchOptions;
-begin
-  Result := FSearchOptions;
-end;
-
-function TEditorView.GetSelEnd: Integer;
-begin
-  Result := Editor.SelEnd;
-end;
-
-function TEditorView.GetSelStart: Integer;
-begin
-  Result := Editor.SelStart;
-end;
-
-function TEditorView.GetSettings: IEditorSettings;
-begin
-  Result := Owner as IEditorSettings;
-end;
-
-procedure TEditorView.SetFoldState(const AValue: string);
-begin
-  Editor.FoldState := AValue;
-end;
-
-function TEditorView.GetActions: IEditorActions;
-begin
-  Result := Owner as IEditorActions;
-end;
-
-function TEditorView.GetCaretXY: TPoint;
-begin
-  Result := Editor.CaretXY;
-end;
-
-procedure TEditorView.SetCaretXY(const AValue: TPoint);
-begin
-  Editor.CaretXY := AValue;
-end;
-
-function TEditorView.GetEvents: IEditorEvents;
-begin
-  Result := Owner as IEditorEvents;
-end;
-
-function TEditorView.GetFindHistory: TStrings;
-begin
-  Result := FFindHistory;
-end;
-
-function TEditorView.GetHighlighterItem: THighlighterItem;
-begin
-  Result := FHighlighterItem;
-end;
-
 function TEditorView.GetShowSpecialChars: Boolean;
 begin
   Result := eoShowSpecialChars in Editor.Options;
 end;
 
-function TEditorView.GetSupportsFolding: Boolean;
+function TEditorView.GetStoredBlockText: string;
 begin
-  Result := Assigned(HighlighterItem)
-    and Assigned(HighlighterItem.SynHighlighter)
-    and (HighlighterItem.SynHighlighter is TSynCustomFoldHighlighter);
+  Result := FStoredBlockLines.Text;
 end;
 
-function TEditorView.GetTextSize: Integer;
+procedure TEditorView.SetStoredBlockText(AValue: string);
 begin
-  Result := Length(Text);
-end;
-
-procedure TEditorView.SetEncoding(const AValue: string);
-begin
-  if AValue <> Encoding then
-  begin
-    FEncoding := AValue;
-    if FileExists(FFileName) then
-      SaveToFile(FFileName);
-  end;
+  FStoredBlockLines.Text := AValue;
 end;
 
 procedure TEditorView.SetShowSpecialChars(const AValue: Boolean);
@@ -1191,6 +1113,100 @@ begin
   Editor.BlockEnd := AValue;
 end;
 
+function TEditorView.GetTextSize: Integer;
+begin
+  Result := Length(Text);
+end;
+
+function TEditorView.GetEvents: IEditorEvents;
+begin
+  Result := Owner as IEditorEvents;
+end;
+
+function TEditorView.GetSupportsFolding: Boolean;
+begin
+  Result := Assigned(HighlighterItem)
+    and Assigned(HighlighterItem.SynHighlighter)
+    and (HighlighterItem.SynHighlighter is TSynCustomFoldHighlighter);
+end;
+
+function TEditorView.GetLinesInWindow: Integer;
+begin
+  Result := Editor.LinesInWindow;
+end;
+
+function TEditorView.GetReplaceHistory: TStrings;
+begin
+  Result := FReplaceHistory;
+end;
+
+function TEditorView.GetPreviewText: string;
+begin
+  if SelAvail then
+    Result := SelText
+  else
+    Result := LineText;
+end;
+
+function TEditorView.GetSelAvail: Boolean;
+begin
+  Result := Editor.SelAvail;
+end;
+
+function TEditorView.GetSelectionMode: TSynSelectionMode;
+begin
+  Result := Editor.SelectionMode;
+end;
+
+procedure TEditorView.SetSelectionMode(AValue: TSynSelectionMode);
+begin
+  Editor.DefaultSelectionMode := AValue;
+  Editor.SelectionMode := AValue;
+end;
+
+function TEditorView.GetCanPaste: Boolean;
+begin
+  Result := Editor.CanPaste;
+end;
+
+function TEditorView.GetCanRedo: Boolean;
+begin
+  Result := Editor.CanRedo;
+end;
+
+function TEditorView.GetCanUndo: Boolean;
+begin
+  Result := Editor.CanUndo;
+end;
+
+function TEditorView.GetForm: TCustomForm;
+begin
+  Result := Self;
+end;
+
+function TEditorView.GetCurrentWord: string;
+var
+  P: TPoint;
+begin
+  P := Editor.LogicalCaretXY;
+  Result := Editor.GetWordAtRowCol(P);
+end;
+
+function TEditorView.GetCommands: IEditorCommands;
+begin
+  Result := Owner as IEditorCommands;
+end;
+
+function TEditorView.GetEditor: TSynEdit;
+begin
+  Result := FEditor;
+end;
+
+function TEditorView.GetManager: IEditorManager;
+begin
+  Result := Owner as IEditorManager;
+end;
+
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
@@ -1218,14 +1234,52 @@ begin
   Result := Manager.ActiveView = (Self as IEditorView)
 end;
 
-procedure TEditorView.StoreBlock;
+{
+  Saves information about the selected block to be able to maintain the
+  selection if some modification happens on the selected text.
+
+  ALockUpdates
+    Determines if BeginUpdate/EndUpdate should be called in combination with
+    StoreBlock/RestoreBlock
+
+  AAutoExcludeEmptyLines
+    Determines if the last line in a multiline selection should be included if
+    it is empty.
+}
+
+procedure TEditorView.StoreBlock(ALockUpdates: Boolean; AAutoExcludeEmptyLines: Boolean);
 begin
   Logger.EnterMethod(Self, 'StoreBlock');
-  FStoredBlockBegin    := BlockBegin;
+
+  FStoredBlockLockUpdates := ALockUpdates;
+  if FStoredBlockLockUpdates then
+    BeginUpdate;
+
+  FStoredBlockBegin      := BlockBegin;
+  FStoredBlockLines.Text := SelText;
+  FStoredSelectionMode   := Editor.SelectionMode;
+  FStoredBlockEnd        := BlockEnd;
+
   Logger.Send('FBlockBegin', FStoredBlockBegin);
-  FStoredBlockEnd      := BlockEnd;
+
+  if AAutoExcludeEmptyLines then
+  begin
+    // Are multiple lines selected and is the last line in selection empty?
+    // => adjust selected block to excluded this line
+    if (FStoredBlockEnd.X = 1)
+      and (FStoredBlockEnd.Y > FStoredBlockBegin.Y)
+      and (FStoredSelectionMode <> smLine) then
+    begin
+      Dec(FStoredBlockEnd.Y);
+      FStoredStripLastLine := False;
+    end
+    else
+      FStoredStripLastLine := True;
+  end
+  else
+    FStoredStripLastLine := False;
+
   Logger.Send('FBlockEnd', FStoredBlockEnd);
-  FStoredSelectionMode := Editor.SelectionMode;
   Logger.ExitMethod(Self, 'StoreBlock');
 end;
 
@@ -1234,10 +1288,22 @@ begin
   Logger.EnterMethod(Self, 'RestoreBlock');
   Logger.Send('FBlockBegin', FStoredBlockBegin);
   Logger.Send('FBlockEnd', FStoredBlockEnd);
+
+  if FStoredStripLastLine then
+  begin
+    SelText := StripLastLineEnding(FStoredBlockLines.Text);
+    FStoredBlockEnd.X := Length(FStoredBlockLines[FStoredBlockLines.Count - 1]) + 1;
+  end;
+  //else
+  //  SelText := FStoredBlockLines.Text;
+
   BlockBegin           := FStoredBlockBegin;
   BlockEnd             := FStoredBlockEnd;
   Editor.SelectionMode := FStoredSelectionMode;
   Logger.ExitMethod(Self, 'RestoreBlock');
+
+  if FStoredBlockLockUpdates then
+    EndUpdate;
 end;
 
 procedure TEditorView.InitializeEditor;
@@ -1422,8 +1488,6 @@ begin
 
   }
   ActiveControl := Editor;
-
-
 end;
 
 procedure TEditorView.OnSettingsChanged(ASender: TObject);
@@ -1511,6 +1575,11 @@ procedure TEditorView.Activate;
 begin
   inherited;
   Manager.ActiveView := Self as IEditorView;
+end;
+
+function TEditorView.EditorViewFocused: Boolean;
+begin
+  Result := Focused or Editor.Focused;
 end;
 
 { Selects block of code around cursor between AStartTag and AEndTag. Used by
@@ -1752,7 +1821,6 @@ var
 begin
   if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
   begin
-    BeginUpdate;
     StoreBlock;
     N1 := Length(HighlighterItem.BlockCommentStartTag);
     N2 := Length(HighlighterItem.BlockCommentEndTag);
@@ -1788,76 +1856,48 @@ begin
     RestoreBlock;
     Logger.Send('BlockBegin', BlockBegin);
     Logger.Send('BlockEnd', BlockEnd);
-    EndUpdate;
     Modified := True;
   end;
 end;
 
+{ TODO -oTS : Not working! }
+
 procedure TEditorView.StripMarkupFromSelection;
 begin
-  BeginUpdate;
-  SelText := StripMarkup(SelText);
-  EndUpdate;
+  StoreBlock;
+  StoredBlockText := StripMarkup(SelText);
+  RestoreBlock;
 end;
+
+{ REMARK:
+    Whitespace is ignored. This routine strips the first/last non-space char
+    from each line in the selection.
+}
 
 procedure TEditorView.StripCharsFromSelection(AFirst: Boolean; ALast: Boolean);
 begin
-  BeginUpdate;
-  SelText := StripChars(SelText, AFirst, ALast);
-  EndUpdate;
+  StoreBlock(True, True);
+  StoredBlockText := StripChars(StoredBlockText, AFirst, ALast);
+  RestoreBlock;
 end;
+
+{ TODO -oTS : Align in paragraphs does not work! }
 
 procedure TEditorView.AlignSelection(const AToken: string; ACompressWS: Boolean;
   AInsertSpaceBeforeToken: Boolean; AInsertSpaceAfterToken: Boolean;
   AAlignInParagraphs: Boolean);
-var
-  SL : TStringList;
-  B  : Boolean;
-  S : string;
 begin
-  SL := TStringList.Create;
-  try
-    SL.Text := SelText;
-
-    BeginUpdate;
-    StoreBlock;
-
-  //  BlockBeginLine := FStoredBlockBegin.Y;
-  //BlockEndLine   := FStoredBlockEnd.Y;
-
-  if (FStoredBlockEnd.X = 1) and (FStoredBlockEnd.Y > FStoredBlockBegin.Y)
-    and (Editor.SelectionMode <> smLine) then
+  if SelAvail then
   begin
-    Dec(FStoredBlockEnd.Y);
-    B := False;
-  end
-  else
-    B := True;
-  AlignLines(
-    SL,
-    AToken,
-    ACompressWS,
-    AInsertSpaceBeforeToken,
-    AInsertSpaceAfterToken
-    //,     AAlignInParagraphs
-  );
-  FStoredBlockEnd.X := Length(SL[SL.Count - 1]) + 1;
-  if B then
-  begin
-    S := SL.Text;
-    Logger.Send('SL.Text before', S);
-    S := StripLastLineEnding(S);
-    Logger.Send('SL.Text after', S);
-    SelText := S;
-
-  end
-  else
-    SelText := SL.Text;
-  //  CaretXY       := OldCaretPos;
+    StoreBlock(True, True);
+    AlignLines(
+      FStoredBlockLines,
+      AToken,
+      ACompressWS,
+      AInsertSpaceBeforeToken,
+      AInsertSpaceAfterToken
+    );
     RestoreBlock;
-    EndUpdate;
-  finally
-    SL.Free;
   end;
 end;
 
@@ -1866,10 +1906,8 @@ begin
   if SelAvail then
   begin
     StoreBlock;
-    BeginUpdate;
-    SelText := UpperCase(SelText);
+    StoredBlockText := UpperCase(SelText);
     RestoreBlock;
-    EndUpdate;
     Modified := True;
   end;
 end;
@@ -1879,10 +1917,8 @@ begin
   if SelAvail then
   begin
     StoreBlock;
-    BeginUpdate;
     SelText := LowerCase(SelText);
     RestoreBlock;
-    EndUpdate;
     Modified := True;
   end;
 end;

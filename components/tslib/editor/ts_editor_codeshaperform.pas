@@ -70,7 +70,6 @@ type
     actToggleAlignInsertSpace       : TAction;
     actBreakBeforeToken             : TAction;
     actBreakAfterToken              : TAction;
-    actRevert                       : TAction;
     actQuoteLines                   : TAction;
     actReplace                      : TAction;
     actTrim                         : TAction;
@@ -87,7 +86,6 @@ type
     btnInsertBreaks                 : TBitBtn;
     btnPascalString                 : TButton;
     btnRemoveBreaks                 : TBitBtn;
-    btnRevert                       : TButton;
     btnStripFirstChar               : TButton;
     btnStripLastChar                : TButton;
     btnStripLastChar1               : TButton;
@@ -566,21 +564,21 @@ end;
 
 procedure TfrmCodeShaper.AssignText(const AText: string;
   ALockUpdates: Boolean);
-var
-  N: Integer;
+//var
+//  N: Integer;
 begin
   if ALockUpdates then
     BeginUpdate;
   if View.Editor.SelAvail then
-    View.Editor.TextBetweenPointsEx[View.BlockBegin, View.BlockEnd, scamEnd]
-      := AText
+    //View.Editor.TextBetweenPointsEx[View.BlockBegin, View.BlockEnd, scamEnd]
+    View.StoredBlockText := AText
   else
     View.Text := AText;
 
-  N := View.Lines.Count - 1;
+  //N := View.Lines.Count - 1;
   // delete last empty line if added by TextBetweenPointsEx
-  if View.Lines[N] = '' then
-    View.Lines.Delete(N);
+  //if View.Lines[N] = '' then
+  //  View.Lines.Delete(N);
   if ALockUpdates then
     EndUpdate;
 end;
@@ -704,12 +702,12 @@ end;
 
 procedure TfrmCodeShaper.BeginUpdate;
 begin
-  View.BeginUpdate;
+  View.StoreBlock(True, True);
 end;
 
 procedure TfrmCodeShaper.EndUpdate;
 begin
-  View.EndUpdate;
+  View.RestoreBlock;
 end;
 
 procedure TfrmCodeShaper.UpdateView;

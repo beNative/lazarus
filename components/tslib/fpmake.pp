@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 17/02/2013
+   This file was generated on 9/03/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -65,24 +65,24 @@ begin
     P.Options.Add('-Fudocking');
     P.Options.Add('-Fucomponents');
     P.Options.Add('-Fu../synunihighlighter');
-    P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu.');
     T:=P.Targets.AddUnit('tslib.pas');
     t.Dependencies.AddUnit('ts_editor_actionlistviewform');

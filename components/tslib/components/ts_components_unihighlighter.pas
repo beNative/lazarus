@@ -158,7 +158,7 @@ type
     constructor Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
       ABrakeType: TSymbolBreakType); overload; virtual;
     constructor Create(ASymbolChar: Char); overload;
-    destructor Destroy; override;
+    procedure BeforeDestruction; override;
 
     property SymbolChar: Char
       read FSymbolChar;
@@ -210,7 +210,8 @@ type
     constructor Create(c: Char; ASynSymbol: TSynSymbol;
       ABreakType: TSymbolBreakType);
       reintroduce; virtual;
-    destructor Destroy; override;
+    procedure BeforeDestruction; override;
+
 
     function GetToken(AParser: TSynUniSyn;
       var ASynSymbol: TSynSymbol): Boolean; override;
@@ -726,7 +727,9 @@ destructor TSynRange.Destroy;
 begin
   FOpenSymbol.Free;
   FCloseSymbol.Free;
-
+  FreeAndNil(FDefaultSymbols);
+  FreeAndNil(FDefaultSynSymbol);
+  FreeAndNil(FDefaultTermSymbol);
   FreeAndNil(FDefaultAttributes);
   FreeAndNil(FNumberAttributes);
   FSymbolGroups.Free;
@@ -1005,8 +1008,6 @@ begin
     TSynRange(FSynRanges[I]).Reset;
 
   FSynSymbols.Clear;
-
-  FPrepared := False;
 end;
 
 procedure TSynRange.Clear;
@@ -1629,7 +1630,7 @@ begin
   FHeadNode := TSymbolNode.Create(c, ASynSymbol, ABreakType);
 end;
 
-destructor TSymbols.Destroy;
+procedure TSymbols.BeforeDestruction;
 begin
   FHeadNode.Free;
   inherited;
@@ -1717,8 +1718,9 @@ begin
   FSynSymbol := nil;
 end;
 
-destructor TSymbolNode.Destroy;
+procedure TSymbolNode.BeforeDestruction;
 begin
+  FSynSymbol := nil;
   FNextSymbols.Free;
   inherited;
 end;

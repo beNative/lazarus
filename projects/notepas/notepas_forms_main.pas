@@ -79,9 +79,11 @@ type
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
+    btnSelectionMode      : TSpeedButton;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     mnuMain               : TMainMenu;
+    pnlSelectionMode      : TPanel;
     pnlTop                : TPanel;
     pnlTool               : TPanel;
     pnlLineBreakStyle     : TPanel;
@@ -92,7 +94,7 @@ type
     pnlViewerCount        : TPanel;
     pnlSize               : TPanel;
     pnlPosition           : TPanel;
-    pnlEditMode           : TPanel;
+    pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
     Shape1                : TShape;
     btnCloseToolView      : TSpeedButton;
@@ -113,6 +115,7 @@ type
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
+    procedure btnSelectionModeClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShow(Sender: TObject);
@@ -187,7 +190,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, Windows, FileUtil,
+  StrUtils, Windows, FileUtil, TypInfo,
 
   SynEditTypes,
 
@@ -244,6 +247,7 @@ begin
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
+  btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
   Manager.Actions.ActionList.OnExecute  := ActionListExecute;
 
   SetWindowSizeGrip(pnlStatusBar.Handle, True);
@@ -430,6 +434,11 @@ begin
   btnLineBreakStyle.PopupMenu.PopUp;
 end;
 
+procedure TfrmMain.btnSelectionModeClick(Sender: TObject);
+begin
+  btnSelectionMode.PopupMenu.PopUp;
+end;
+
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose := Actions['actExit'].Execute;
@@ -550,9 +559,9 @@ begin
   InitDebugAction('actPrint');
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
-  InitDebugAction('actExportToWiki');
-  InitDebugAction('actExportToHTML');
-  InitDebugAction('actExportToRTF');
+  //InitDebugAction('actExportToWiki');
+  //InitDebugAction('actExportToHTML');
+  //InitDebugAction('actExportToRTF');
   InitDebugAction('actInsertCharacterFromMap');
 
   //InitDebugAction('actCopyHTMLToClipboard');
@@ -564,6 +573,8 @@ begin
 end;
 
 procedure TfrmMain.UpdateStatusBar;
+var
+  S: string;
 begin
   pnlPosition.Caption :=
     Format('%1d:%1d / %1d | %1d', [
@@ -578,22 +589,27 @@ begin
 
   if Assigned(Editor.HighlighterItem) then
     pnlHighlighter.Caption := Editor.HighlighterItem.Description;
-  if Editor.Editor.InsertMode then
-    pnlEditMode.Caption := 'INS'
+  if Editor.InsertMode then
+    pnlInsertMode.Caption := 'INS'
   else
-    pnlEditMode.Caption := 'OVR';
+    pnlInsertMode.Caption := 'OVR';
+//  pnlSelectionMode.Caption := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
   btnFileName.Caption := Editor.FileName;
   btnFileName.Hint := Editor.FileName;
   pnlFileName.Caption := Editor.FileName;
   pnlEncoding.Caption := UpperCase(Editor.Encoding);
   pnlLineBreakStyle.Caption := Editor.LineBreakStyle;
+  S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
+  S := System.Copy(S, 3, Length(S));
+  pnlSelectionMode.Caption := S;
   pnlModified.Caption := IfThen(Editor.Modified, 'Modified', '');
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
   OptimizeWidth(pnlHighlighter);
   OptimizeWidth(pnlEncoding);
-  OptimizeWidth(pnlEditMode);
+  OptimizeWidth(pnlInsertMode);
+  OptimizeWidth(pnlSelectionMode);
   OptimizeWidth(pnlFileName);
   OptimizeWidth(pnlLineBreakStyle);
   OptimizeWidth(pnlModified);

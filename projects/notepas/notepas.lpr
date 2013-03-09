@@ -3,6 +3,7 @@ program Notepas;
 {$mode objfpc}{$H+}
 
 uses
+  SysUtils,
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}

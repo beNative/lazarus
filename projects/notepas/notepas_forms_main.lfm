@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 331
+  Left = -1232
   Height = 618
-  Top = 211
+  Top = 73
   Width = 1066
   Anchors = []
   Caption = 'Notepas'
@@ -52,10 +52,10 @@ object frmMain: TfrmMain
       BevelOuter = bvLowered
       TabOrder = 0
     end
-    object pnlEditMode: TPanel
+    object pnlInsertMode: TPanel
       Left = 362
       Height = 18
-      Hint = 'Edit mode'
+      Hint = 'Insert mode'
       Top = 0
       Width = 38
       Align = alLeft
@@ -67,7 +67,7 @@ object frmMain: TfrmMain
       TabOrder = 1
     end
     object pnlFileName: TPanel
-      Left = 712
+      Left = 752
       Height = 18
       Top = 0
       Width = 320
@@ -93,7 +93,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlHighlighter: TPanel
-      Left = 494
+      Left = 534
       Height = 18
       Hint = 'Current highlighter'
       Top = 0
@@ -118,7 +118,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlEncoding: TPanel
-      Left = 402
+      Left = 442
       Height = 18
       Hint = 'Current encoding'
       Top = 0
@@ -142,7 +142,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlLineBreakStyle: TPanel
-      Left = 448
+      Left = 488
       Height = 18
       Hint = 'Current line break style'
       Top = 0
@@ -194,7 +194,7 @@ object frmMain: TfrmMain
       TabOrder = 7
     end
     object pnlModified: TPanel
-      Left = 560
+      Left = 600
       Height = 18
       Top = 0
       Width = 150
@@ -205,6 +205,32 @@ object frmMain: TfrmMain
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvLowered
       TabOrder = 8
+    end
+    object pnlSelectionMode: TPanel
+      Left = 402
+      Height = 18
+      Hint = 'Selection mode'
+      Top = 0
+      Width = 38
+      Align = alLeft
+      BorderSpacing.Left = 2
+      BorderSpacing.Right = 2
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelOuter = bvLowered
+      Caption = 'Normal'
+      ClientHeight = 18
+      ClientWidth = 38
+      TabOrder = 9
+      object btnSelectionMode: TSpeedButton
+        Left = 1
+        Height = 16
+        Hint = 'Selection mode'
+        Top = 1
+        Width = 36
+        Align = alClient
+        Flat = True
+        OnClick = btnSelectionModeClick
+      end
     end
   end
   object Shape1: TShape

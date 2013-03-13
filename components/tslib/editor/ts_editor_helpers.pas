@@ -51,7 +51,14 @@ function CreateEditorView(
    const AName         : string = '';
    const AFileName     : string = '';
    const AHighlighter  : string = 'TXT'
-): IEditorView;
+): IEditorView; overload;
+
+function CreateEditorView(
+         AParent       : THandle;
+   const AName         : string = '';
+   const AFileName     : string = '';
+   const AHighlighter  : string = 'TXT'
+): IEditorView; overload;
 
 function EditorViewByName(const AName: string): IEditorView;
 
@@ -405,6 +412,21 @@ begin
   V.Form.BorderStyle := bsNone;
   V.Form.Align := alClient;
   V.Form.Parent := AParent;
+  V.PopupMenu := (EditorManager as IEditorMenus).EditorPopupMenu;
+  V.Form.Visible := True;
+  V.Form.EnableAutoSizing;
+  Result := V;
+end;
+
+function CreateEditorView(AParent: THandle; const AName: string; const AFileName: string; const AHighlighter: string): IEditorView;
+var
+  V: IEditorView;
+begin
+  V := (EditorManager as IEditorViews).Add(AName, AFileName, AHighlighter);
+  V.Form.DisableAutoSizing;
+  V.Form.BorderStyle := bsNone;
+  V.Form.Align := alClient;
+  V.Form.ParentWindow := AParent;
   V.PopupMenu := (EditorManager as IEditorMenus).EditorPopupMenu;
   V.Form.Visible := True;
   V.Form.EnableAutoSizing;

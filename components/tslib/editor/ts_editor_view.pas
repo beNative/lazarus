@@ -273,7 +273,6 @@ type
     procedure Undo;
     procedure Redo;
 
-    procedure Activate; override;
     function EditorViewFocused: Boolean;
     function IEditorView.Focused = EditorViewFocused;
 
@@ -292,7 +291,6 @@ type
 
     procedure Clear;
     procedure SelectAll;
-    procedure UpdateActions; override;
     function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
@@ -316,6 +314,11 @@ type
     procedure LowerCaseSelection;
 
     procedure DoChange; dynamic;
+
+  protected
+    // TCustomForm overrides
+    procedure Activate; override;
+    procedure UpdateActions; override;
     procedure DoClose(var CloseAction: TCloseAction); override;
 
   public

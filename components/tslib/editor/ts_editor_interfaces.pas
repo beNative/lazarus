@@ -92,9 +92,31 @@ type
   IEditorSettings = interface;
   TEditorViewListEnumerator = class;
 
+  IControl = interface
+  ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']
+    function GetName: string;
+    function GetParent: TWinControl;
+    function GetPopupMenu: TPopupMenu;
+    procedure SetName(AValue: string);
+    procedure SetParent(AValue: TWinControl);
+    procedure SetPopupMenu(AValue: TPopupMenu);
+
+    function Focused: Boolean;
+    procedure SetFocus;
+
+    property Parent: TWinControl
+      read GetParent write SetParent;
+
+    property PopupMenu: TPopupMenu
+      read GetPopupMenu write SetPopupMenu;
+
+    property Name: string
+      read GetName write SetName;
+  end;
+
   { Handles display view of the editor. }
 
-  IEditorView = interface
+  IEditorView = interface(IControl)
   ['{94689213-B046-45F6-922B-FAE91C02A3FF}']
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -124,12 +146,9 @@ type
     function GetLogicalCaretXY: TPoint;
     function GetModified: Boolean;
     function GetMonitorChanges: Boolean;
-    function GetName: string;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnStatusChange: TStatusChangeEvent;
-    function GetParent: TWinControl;
-    function GetPopupMenu: TPopupMenu;
     function GetPreviewText: string;
     function GetReplaceHistory: TStrings;
     function GetSearchOptions: TSynSearchOptions;
@@ -164,12 +183,9 @@ type
     procedure SetLogicalCaretXY(const AValue: TPoint);
     procedure SetModified(const AValue: Boolean);
     procedure SetMonitorChanges(const AValue: Boolean);
-    procedure SetName(const AValue: string);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
-    procedure SetParent(const AValue: TWinControl);
-    procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const AValue: string);
     procedure SetSelectionMode(AValue: TSynSelectionMode);
@@ -183,7 +199,6 @@ type
     {$endregion}
 
     // information retrieval
-    function Focused: Boolean;
     function GetWordAtPosition(APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     function GetHighlighterAttriAtRowCol(
@@ -217,7 +232,6 @@ type
     // commands
     procedure Clear;
     procedure AdjustFontSize(AOffset: Integer);
-    procedure SetFocus;
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
     procedure ToggleBlockCommentSelection;
     procedure InsertTextAtCaret(const AText: string);
@@ -380,13 +394,12 @@ type
     property LineText: string
       read GetLineText write SetLineText;
 
-    property Parent: TWinControl
-      read GetParent write SetParent;
+    //---| Properties |--------------------------------------------------------
+
 
     property PreviewText: string
       read GetPreviewText;
 
-    //---| Properties |--------------------------------------------------------
     property MonitorChanges: Boolean
       read GetMonitorChanges write SetMonitorChanges;
 
@@ -404,12 +417,6 @@ type
 
     property LineBreakStyle: string
       read GetLineBreakStyle write SetLineBreakStyle;
-
-    property Name: string
-      read GetName write SetName;
-
-    property PopupMenu: TPopupMenu
-      read GetPopupMenu write SetPopupMenu;
 
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;

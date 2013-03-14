@@ -121,7 +121,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure frmMainActiveViewChange(Sender: TObject);
     procedure btnCloseToolViewClick(Sender: TObject);
-    procedure TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
+    procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
     {$endregion}
   private
     {$region 'property access methods' /fold}
@@ -144,8 +144,9 @@ type
     procedure AddDockingMenuItems;
     procedure AssignEvents;
     procedure ConfigureAvailableActions;
-    procedure UpdateStatusBar;
     procedure UpdateCaptions;
+    procedure UpdateStatusBar;
+    procedure UpdateEditorViewCaptions;
 
     procedure DisplayToolForm(
             AAction   : TAction;
@@ -196,7 +197,14 @@ uses
 
   ts_Core_Utils, ts_Core_VersionInfo, ts_Core_Helpers,
 
-  ts_Editor_Manager, ts_Editor_AboutDialog, ts_Editor_Helpers;
+  ts_Editor_Manager, ts_Editor_Resources, ts_Editor_AboutDialog,
+  ts_Editor_Helpers;
+
+//=============================================================================
+
+resourcestring
+  SModified              = 'Modified';
+  SToolformDoesNotExist  = 'Toolform with name %s does not exist!';
 
 //*****************************************************************************
 // construction and destruction                                          BEGIN
@@ -235,7 +243,7 @@ begin
   end
   else
   begin
-    V := AddEditor('<new>');
+    V := AddEditor(SNewEditorViewFileName);
   end;
   EV := Manager.Events;
   Manager.OnActiveViewChange  := frmMainActiveViewChange;
@@ -345,7 +353,9 @@ begin
   S := A.Name;
   if S = 'actShapeCode' then
     DisplayToolForm(A, 'frmCodeShaper')
-  else if S = 'actFind' then
+  else if S = 'actSearch' then
+    DisplayToolForm(A, 'frmSearchForm', True)
+  else if S = 'actSearchReplace' then
     DisplayToolForm(A, 'frmSearchForm', True)
   else if S = 'actShowPreview' then
     DisplayToolForm(A, 'frmPreview')
@@ -401,7 +411,7 @@ begin
   end
   else
   begin
-    AddEditor('<new>').Text := AText;
+    AddEditor(SNewEditorViewFileName).Text := AText;
     Editor.SetFocus;
   end;
 end;
@@ -484,7 +494,7 @@ end;
 
 procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
 var
-  I: Integer;
+  I : Integer;
 begin
   pnlTool.Visible := False;
   splVertical.Visible := False;
@@ -494,7 +504,8 @@ begin
   end;
 end;
 
-procedure TfrmMain.TAnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
+procedure TfrmMain.AnchorDockPageControlChanging(Sender: TObject;
+  var AllowChange: Boolean);
 begin
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
 end;
@@ -523,8 +534,8 @@ end;
 
 procedure TfrmMain.AddDockingMenuItems;
 var
-  MI: TMenuItem;
-  PPM: TPopupMenu;
+  MI  : TMenuItem;
+  PPM : TPopupMenu;
 begin
   PPM := DockMaster.GetPopupMenu;
   MI := TMenuItem.Create(PPM);
@@ -541,7 +552,7 @@ begin
   begin
     C := DockMaster.Components[I];
     if C is TAnchorDockPageControl then
-      TAnchorDockPageControl(C).OnChanging := TAnchorDockPageControlChanging;
+      TAnchorDockPageControl(C).OnChanging := AnchorDockPageControlChanging;
   end;
 end;
 
@@ -572,9 +583,21 @@ begin
   //InitDebugAction('actCopyRTFTextToClipboard');
 end;
 
+procedure TfrmMain.UpdateCaptions;
+var
+  S : string;
+begin
+  S := ExtractFileNameOnly(Application.ExeName);
+  if FileExists(Editor.FileName) then
+    Caption := Format('%s - %s',  [Editor.FileName, S])
+  else
+    Caption := S;
+  Application.Title := Caption;
+end;
+
 procedure TfrmMain.UpdateStatusBar;
 var
-  S: string;
+  S : string;
 begin
   pnlPosition.Caption :=
     Format('%1d:%1d / %1d | %1d', [
@@ -593,7 +616,6 @@ begin
     pnlInsertMode.Caption := 'INS'
   else
     pnlInsertMode.Caption := 'OVR';
-//  pnlSelectionMode.Caption := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
   btnFileName.Caption := Editor.FileName;
   btnFileName.Hint := Editor.FileName;
   pnlFileName.Caption := Editor.FileName;
@@ -602,7 +624,7 @@ begin
   S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
   S := System.Copy(S, 3, Length(S));
   pnlSelectionMode.Caption := S;
-  pnlModified.Caption := IfThen(Editor.Modified, 'Modified', '');
+  pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
@@ -615,10 +637,10 @@ begin
   OptimizeWidth(pnlModified);
 end;
 
-procedure TfrmMain.UpdateCaptions;
+procedure TfrmMain.UpdateEditorViewCaptions;
 var
-  V: IEditorView;
-  I: Integer;
+  V : IEditorView;
+  I : Integer;
 begin
   for I := 0 to Views.Count - 1 do
   begin
@@ -646,7 +668,7 @@ begin
       TV.Form.SetFocus;
   end
   else
-    raise Exception.CreateFmt('Toolform with name %s does not exist!', [AFormName]);
+    raise Exception.CreateFmt(SToolformDoesNotExist, [AFormName]);
 end;
 
 procedure TfrmMain.UpdateActions;
@@ -654,6 +676,8 @@ begin
   inherited UpdateActions;
   if Assigned(Editor) then
   begin
+    UpdateCaptions;
+
     UpdateStatusBar;
   end;
 end;
@@ -662,8 +686,8 @@ end;
 
 function TfrmMain.AddEditor(const AFileName: string): IEditorView;
 var
-  V: IEditorView;
-  AHS: TAnchorDockHostSite;
+  V   : IEditorView;
+  AHS : TAnchorDockHostSite;
 begin
   DisableAutoSizing;
   try
@@ -682,7 +706,7 @@ begin
       end;
       V.OnDropFiles := FormDropFiles;
       V.Editor.PopupMenu := Menus.EditorPopupMenu;
-      UpdateCaptions;
+      UpdateEditorViewCaptions;
     finally
       V.Form.EnableAutoSizing;
     end;
@@ -698,7 +722,6 @@ end;
 
 initialization
 {$I notepas_forms_main.lrs}
-
   Logger.Channels.Add(TIPCChannel.Create);
 
 end.

@@ -45,6 +45,10 @@ msgstr ""
 msgid "Log"
 msgstr ""
 
+#: ts_editor_resources.sneweditorviewfilename
+msgid "<new>"
+msgstr ""
+
 #: ts_editor_resources.spasdescription
 msgid "Object Pascal"
 msgstr ""

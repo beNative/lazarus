@@ -229,7 +229,7 @@ type
             AOptions : TSynSearchOptions
     );
 
-    // commands
+    // commands   (IEditorCommands)
     procedure Clear;
     procedure AdjustFontSize(AOffset: Integer);
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
@@ -395,7 +395,6 @@ type
       read GetLineText write SetLineText;
 
     //---| Properties |--------------------------------------------------------
-
 
     property PreviewText: string
       read GetPreviewText;

@@ -111,6 +111,8 @@ resourcestring
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 
+  SNewEditorViewFileName = '<new>';
+
 const
   DEFAULT_BLEND_FACTOR = 128;
 

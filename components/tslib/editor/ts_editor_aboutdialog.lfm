@@ -1,9 +1,10 @@
 object frmAbout: TfrmAbout
-  Left = 640
+  Left = 295
   Height = 267
-  Top = 378
+  Top = 323
   Width = 552
   BorderIcons = [biSystemMenu]
+  BorderStyle = bsDialog
   Caption = 'About'
   ClientHeight = 267
   ClientWidth = 552
@@ -724,14 +725,15 @@ object frmAbout: TfrmAbout
     Transparent = True
   end
   object pnlName: TPanel
-    Left = 2
-    Height = 31
-    Top = 104
-    Width = 209
-    BevelInner = bvRaised
-    BevelOuter = bvLowered
+    Left = 4
+    Height = 40
+    Top = 96
+    Width = 206
+    BevelOuter = bvNone
+    Color = clWhite
     Font.Height = -21
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
     TabOrder = 2
   end
@@ -760,7 +762,7 @@ object frmAbout: TfrmAbout
     Left = 8
     Height = 33
     Top = 180
-    Width = 200
+    Width = 202
     Alignment = taCenter
     AutoSize = False
     Caption = 'URL'

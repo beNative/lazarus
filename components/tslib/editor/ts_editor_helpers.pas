@@ -176,7 +176,8 @@ begin
   AddButton('actUndo');
   AddButton('actRedo');
   AddButton('');
-  AddButton('actFind');
+  AddButton('actSearch');
+  AddButton('actSearchReplace');
   AddButton('');
   AddButton('actAlignSelection');
   AddButton('actSortSelection');
@@ -294,8 +295,8 @@ begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := '&Search';
   AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(MI, 'actFind');
-  AddEditorMenuItem(MI, 'actReplace');
+  AddEditorMenuItem(MI, 'actSearch');
+  AddEditorMenuItem(MI, 'actSearchReplace');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actFindNext');
   AddEditorMenuItem(MI, 'actFindPrevious');

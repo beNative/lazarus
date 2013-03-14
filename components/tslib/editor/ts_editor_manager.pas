@@ -75,8 +75,8 @@ unit ts_Editor_Manager;
       actDelete
       actSelectAll
 
-      actFind
-      actReplace
+      actSearch
+      actSearchReplace
       actFindNext
       actFindPrevious
       actFindNextWordOccurence
@@ -209,7 +209,7 @@ type
     actExportToRTF                : TAction;
     actExportToWiki               : TAction;
     actFilterCode                 : TAction;
-    actFind                       : TAction;
+    actSearch                       : TAction;
     actFindNext                   : TAction;
     actFindNextWord               : TAction;
     actFindPrevious               : TAction;
@@ -245,7 +245,7 @@ type
     actQuoteLines                 : TAction;
     actQuoteLinesAndDelimit       : TAction;
     actReload                     : TAction;
-    actReplace                    : TAction;
+    actSearchReplace                    : TAction;
     actSave                       : TAction;
     actSaveAs                     : TAction;
     actSettings                   : TAction;
@@ -1377,11 +1377,15 @@ end;
 procedure TdmEditorManager.actSearchExecute(Sender: TObject);
 begin
   // handled by owner
+  if not actSearch.Checked then
+    actSearchReplace.Checked := False;
 end;
 
 procedure TdmEditorManager.actSearchReplaceExecute(Sender: TObject);
 begin
   // handled by owner
+  if not actSearch.Checked then
+    actSearch.Checked := True;
 end;
 
 procedure TdmEditorManager.actShapeCodeExecute(Sender: TObject);
@@ -1515,7 +1519,7 @@ var
 begin
   if Assigned(ActiveView) then
     S := ActiveView.SelText;
-  DoNewFile('<new>', S);
+  DoNewFile(SNewEditorViewFileName, S);
 end;
 
 procedure TdmEditorManager.actOpenSelectionInNewEditorExecute(Sender: TObject);
@@ -2672,7 +2676,7 @@ begin
     actLowerCaseSelection.Visible      := B;
     actSyncEdit.Visible                := B;
 
-    actFind.Checked           := ToolViews['frmSearchForm'].Visible;
+    actSearch.Checked           := ToolViews['frmSearchForm'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
     actShowPreview.Checked    := ToolViews['frmPreview'].Visible;

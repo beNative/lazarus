@@ -54,7 +54,8 @@ uses
 //=============================================================================
 
 type
-  TfrmSearchForm = class(TForm, IEditorToolView, IClipboardCommands)
+  TfrmSearchForm = class(TForm, IEditorToolView,
+                                IClipboardCommands)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actBackward                     : TAction;
@@ -121,6 +122,7 @@ type
     sbrMain                         : TStatusBar;
     {$endregion}
 
+    {$region 'action handlers' /fold}
     procedure actCaseSensitiveExecute(Sender: TObject);
     procedure actFocusSearchTextExecute(Sender: TObject);
     procedure actMultilineExecute(Sender: TObject);
@@ -134,6 +136,8 @@ type
     procedure actToggleOriginExecute(Sender: TObject);
     procedure actToggleScopeExecute(Sender: TObject);
     procedure actWholeWordsOnlyExecute(Sender: TObject);
+    {$endregion}
+
     procedure cbxSearchTextChange(Sender: TObject);
     procedure DoOnSelectionChanged(Sender: TObject);
     procedure FormHide(Sender: TObject);
@@ -385,6 +389,7 @@ end;
 
 procedure TfrmSearchForm.actReplaceWithExecute(Sender: TObject);
 begin
+  Manager.Actions['actSearchReplace'].Checked := actReplaceWith.Checked;
   if not actReplaceWith.Checked then
     cbxReplaceWith.Text := ''
   else
@@ -535,6 +540,7 @@ begin
     Manager.ActiveView.SetHighlightSearch(SearchEngine.SearchText, SearchEngine.Options);
     Manager.ActiveView.EndUpdate;
   end;
+  actReplaceWith.Checked := Manager.Actions['actSearchReplace'].Checked;
 end;
 
 { Updates activeview and selects SearchText }

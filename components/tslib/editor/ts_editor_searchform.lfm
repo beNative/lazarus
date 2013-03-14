@@ -49,9 +49,9 @@ object frmSearchForm: TfrmSearchForm
       TabOrder = 0
       object lblSearchText: TLabel
         AnchorSideTop.Side = asrCenter
-        Left = 36
+        Left = 27
         Height = 13
-        Top = 7
+        Top = 9
         Width = 57
         Alignment = taRightJustify
         BorderSpacing.Left = 6
@@ -59,11 +59,10 @@ object frmSearchForm: TfrmSearchForm
         ParentColor = False
       end
       object Image1: TImage
-        Left = 8
-        Height = 19
-        Top = 5
+        Left = 5
+        Height = 16
+        Top = 7
         Width = 16
-        Align = alLeft
         AutoSize = True
         BorderSpacing.Around = 5
         Picture.Data = {
@@ -89,7 +88,7 @@ object frmSearchForm: TfrmSearchForm
       object cbxSearchText: TComboBox
         Left = 97
         Height = 21
-        Top = 3
+        Top = 4
         Width = 228
         Anchors = [akTop, akLeft, akRight]
         Font.Style = [fsBold]
@@ -128,10 +127,10 @@ object frmSearchForm: TfrmSearchForm
       end
       object chkReplaceWith: TSpeedButton
         AnchorSideTop.Side = asrCenter
-        Left = 8
+        Left = 1
         Height = 21
         Top = 4
-        Width = 85
+        Width = 94
         Action = actReplaceWith
         AllowAllUp = True
         BorderSpacing.Left = 6

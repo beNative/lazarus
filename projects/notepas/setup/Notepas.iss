@@ -31,6 +31,11 @@ WizardSmallImageFile=E:\lazarus\projects\notepas\resources\Notepad-icon48.bmp
 WizardImageBackColor=clWhite
 WizardImageStretch=False
 AppCopyright=(c) 2013 Tim Sinaeve
+ChangesAssociations=True
+UninstallLogMode=new
+UninstallDisplayName=Notepas
+UninstallDisplayIcon={app}\Notepas.exe
+InternalCompressLevel=max
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -62,3 +67,10 @@ Root: HKCR; SubKey: ".pas"; ValueType: string; ValueData: "Delphi source file"; 
 Root: HKCR; SubKey: "Delphi source file"; ValueType: string; ValueData: "Delphi source file"; Flags: uninsdeletekey
 Root: HKCR; SubKey: "Delphi source file\Shell\Open\Command"; ValueType: string; ValueData: """{app}\Notepas.exe"" ""%1"""; Flags: uninsdeletekey
 Root: HKCR; Subkey: "Delphi source file\DefaultIcon"; ValueType: string; ValueData: "{app}\Notepas.exe,0"; Flags: uninsdeletevalue
+Root: HKCR; SubKey: ".txt"; ValueType: string; ValueData: "Text file"; Flags: uninsdeletekey
+Root: HKCR; SubKey: "Text file"; ValueType: string; ValueData: "Text file"; Flags: uninsdeletekey
+Root: HKCR; SubKey: "Text file\Shell\Open\Command"; ValueType: string; ValueData: """{app}\Notepas.exe"" ""%1"""; Flags: uninsdeletekey
+Root: HKCR; Subkey: "Text file\DefaultIcon"; ValueType: string; ValueData: "{app}\Notepas.exe,0"; Flags: uninsdeletevalue
+
+[Messages]
+BeveledLabel={#MyAppName}

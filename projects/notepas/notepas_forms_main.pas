@@ -41,17 +41,9 @@ uses
 {
   KNOWN PROBLEMS
     - Close all but current tab does not work in all cases
-    - The highlighter of the selected view does not show correctly in the
-      popup menu
-    - idem for the folding level
-    - Fold level does not work for XML
     - encoding support needs to be implemented
     - support for alternative line endings needs to be implemented
-    - auto guess highlighter (make it a setting)
-    - comment selection should use comment style of the currently selected
-      highlighter
     - saving loading in different encodings
-    - memory management in combination with the anchor docking
 
   TODO
     - Dequote lines in code shaper
@@ -206,15 +198,16 @@ resourcestring
   SModified              = 'Modified';
   SToolformDoesNotExist  = 'Toolform with name %s does not exist!';
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
 
 procedure TfrmMain.AfterConstruction;
 var
-  I : Integer;
-  EV: IEditorEvents;
-  V : IEditorView;
+  I  : Integer;
+  EV : IEditorEvents;
+  V  : IEditorView;
 begin
   inherited AfterConstruction;
   Manager.PersistSettings := True;
@@ -272,7 +265,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -310,7 +305,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -337,7 +334,9 @@ end;
 //*****************************************************************************
 // action handlers                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'event handlers' /fold}
 //*****************************************************************************
 // event handlers                                                        BEGIN
 //*****************************************************************************
@@ -361,6 +360,8 @@ begin
     DisplayToolForm(A, 'frmPreview')
   else if S = 'actTestForm' then
     DisplayToolForm(A, 'frmTest')
+  else if S = 'actSelectionInfo' then
+    DisplayToolForm(A, 'frmSelectionInfo')
   else if S = 'actAlignSelection' then
     DisplayToolForm(A, 'frmAlignLines')
   else if S = 'actXMLTree' then
@@ -513,7 +514,9 @@ end;
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
+{$endregion}
 
+{$region 'private methods' /fold}
 //*****************************************************************************
 // private methods                                                       BEGIN
 //*****************************************************************************
@@ -527,7 +530,9 @@ end;
 //*****************************************************************************
 // private methods                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -719,6 +724,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 initialization
 {$I notepas_forms_main.lrs}

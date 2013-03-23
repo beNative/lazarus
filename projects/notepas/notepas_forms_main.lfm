@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -1232
+  Left = -1419
   Height = 618
-  Top = 73
+  Top = 279
   Width = 1066
   Anchors = []
   Caption = 'Notepas'

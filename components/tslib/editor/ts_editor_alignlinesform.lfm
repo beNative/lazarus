@@ -1,7 +1,7 @@
 object frmAlignLines: TfrmAlignLines
-  Left = -558
+  Left = -860
   Height = 613
-  Top = 131
+  Top = 201
   Width = 313
   Caption = 'Align selection'
   ClientHeight = 613
@@ -114,7 +114,7 @@ object frmAlignLines: TfrmAlignLines
     object chkAlignInParagraphs: TCheckBox
       Left = 9
       Height = 17
-      Top = 32
+      Top = 30
       Width = 112
       Caption = 'Align in paragraphs'
       Checked = True

@@ -30,7 +30,8 @@ uses
   ts_Components_UniHighlighter, ts_Core_Collections, 
   ts_Editor_CodeFormatters_SQL, BRRE, BRREUnicode, ts_Editor_XmlTreeForm, 
   ts_Components_XMLTree, ts_Components_XMLTree_NodeAttributes, 
-  ts_Components_XMLTree_Editors, ts_Editor_Resources, ts_Components_ExportRTF;
+  ts_Components_XMLTree_Editors, ts_Editor_Resources, ts_Components_ExportRTF, 
+  ts_Editor_SelectionInfoForm, ts_Editor_SelectionInfo;
 
 implementation
 

@@ -33,6 +33,8 @@ uses
 
   ts_Core_FormSettings,
 
+  ts_Editor_SelectionInfo,
+
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
 
@@ -154,13 +156,13 @@ type
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
     function GetSelAvail: Boolean;
+    function GetSelectionInfo: TSelectionInfo;
     function GetSelectionMode: TSynSelectionMode;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
-    function GetStoredBlockText: string;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -193,7 +195,6 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
-    procedure SetStoredBlockText(AValue: string);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
@@ -316,6 +317,9 @@ type
     property InsertMode: Boolean
       read GetInsertMode write SetInsertMode;
 
+    property SelectionInfo: TSelectionInfo
+      read GetSelectionInfo;
+
     { Sets the current (default) selection mode.  }
     property SelectionMode: TSynSelectionMode
       read GetSelectionMode write SetSelectionMode;
@@ -325,9 +329,6 @@ type
 
     property SearchText: string
       read GetSearchText write SetSearchText;
-
-    property StoredBlockText: string
-      read GetStoredBlockText write SetStoredBlockText;
 
     property SearchOptions: TSynSearchOptions
       read GetSearchOptions write SetSearchOptions;

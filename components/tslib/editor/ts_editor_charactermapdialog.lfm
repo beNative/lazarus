@@ -11,7 +11,7 @@ object CharacterMapDialog: TCharacterMapDialog
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.31'
+  LCLVersion = '1.1'
   object ButtonPanel: TButtonPanel
     Left = 6
     Height = 26

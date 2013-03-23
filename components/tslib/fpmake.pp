@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 14/03/2013
+   This file was generated on 23/03/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -149,6 +149,8 @@ begin
     t.Dependencies.AddUnit('ts_components_xmltree_editors');
     t.Dependencies.AddUnit('ts_editor_resources');
     t.Dependencies.AddUnit('ts_components_exportrtf');
+    t.Dependencies.AddUnit('ts_editor_selectioninfoform');
+    t.Dependencies.AddUnit('ts_editor_selectioninfo');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -214,6 +216,8 @@ begin
     T:=P.Targets.AddUnit('components\ts_components_xmltree_editors.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_resources.pas');
     T:=P.Targets.AddUnit('components\ts_components_exportrtf.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_selectioninfoform.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_selectioninfo.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

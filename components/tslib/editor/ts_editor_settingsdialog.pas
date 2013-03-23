@@ -171,6 +171,7 @@ end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
 begin
+  FEditorSettings := nil;
   FreeAndNil(FList);
   inherited BeforeDestruction;
 end;
@@ -220,7 +221,7 @@ end;
 
 procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
 begin
-    Apply;
+  Apply;
 end;
 
 procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);

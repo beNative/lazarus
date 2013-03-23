@@ -177,6 +177,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actSelectionInfo: TAction;
     actXMLTree                    : TAction;
     actToggleBlockCommentSelection: TAction;
     actShowTest                   : TAction;
@@ -401,6 +402,7 @@ type
     procedure actAlignSelectionExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actSelectionInfoExecute(Sender: TObject);
     procedure actSelectionModeExecute(Sender: TObject);
     procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
@@ -819,7 +821,7 @@ uses
   ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
   ts_Editor_XmlTreeForm, ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
-  ts_Editor_SearchEngine;
+  ts_Editor_SearchEngine, ts_Editor_SelectionInfoForm;
 
 var
   dmEditorManager: TdmEditorManager;
@@ -1563,6 +1565,7 @@ end;
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
 // TODO
+
 end;
 
 procedure TdmEditorManager.actToggleFoldLevelExecute(Sender: TObject);
@@ -1672,7 +1675,7 @@ end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
 begin
-  ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
+  //ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
 end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
@@ -1729,6 +1732,11 @@ end;
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
 begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+end;
+
+procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
+begin
+  //
 end;
 
 procedure TdmEditorManager.actSelectionModeExecute(Sender: TObject);
@@ -1791,7 +1799,9 @@ end;
 
 procedure TdmEditorManager.actEncodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.SelText := EncodeStringBase64(ActiveView.SelText);
+  ActiveView.StoreBlock(True, True);
+  ActiveView.SelectionInfo.Text := EncodeStringBase64(ActiveView.SelectionInfo.Text);
+  ActiveView.RestoreBlock;
   DoModified;
 end;
 
@@ -1825,7 +1835,9 @@ end;
 
 procedure TdmEditorManager.actDecodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.SelText := DecodeStringBase64(ActiveView.SelText);
+  ActiveView.StoreBlock(True, True);
+  ActiveView.SelectionInfo.Text := DecodeStringBase64(ActiveView.SelectionInfo.Text);
+  ActiveView.RestoreBlock;
   DoModified;
 end;
 
@@ -1878,6 +1890,7 @@ begin
   begin
     actShowPreview.Execute;
   end;
+  ApplyHighlighterAttributes;
 end;
 
 //*****************************************************************************
@@ -1900,7 +1913,6 @@ var
   N  : Integer;
   FH : TSynCustomFoldHighlighter;
 begin
-
   FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['PAS'].SynHighlighter);
   FH.AddSpecialAttribute(''); // not sure why this is needed...
   for I := Low(EditorOptionsDividerInfoPas) to High(EditorOptionsDividerInfoPas) do
@@ -1914,7 +1926,6 @@ begin
     if N >= 0 then
       FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
   end;
-
   FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['XML'].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoXML) to High(EditorOptionsFoldInfoXML) do
   begin
@@ -2202,6 +2213,7 @@ begin
   AddToolView(TfrmTest.Create(Self));
   AddToolView(TfrmAlignLines.Create(Self));
   AddToolView(TfrmCodeFilterDialog.Create(Self));
+  AddToolView(TfrmSelectionInfo.Create(Self));
 //  AddToolView(TfrmXmlTree.Create(Self));
 
   (ToolViews['frmCodeFilterDialog'] as IEditorCodeFilter).OnFilteredLineChange :=
@@ -2676,7 +2688,7 @@ begin
     actLowerCaseSelection.Visible      := B;
     actSyncEdit.Visible                := B;
 
-    actSearch.Checked           := ToolViews['frmSearchForm'].Visible;
+    actSearch.Checked         := ToolViews['frmSearchForm'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
     actShowPreview.Checked    := ToolViews['frmPreview'].Visible;

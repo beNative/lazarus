@@ -105,6 +105,7 @@ uses
   ts_Core_DirectoryWatch,
 
   ts_Editor_Resources, ts_Editor_Highlighters, ts_Editor_Interfaces,
+  ts_Editor_SelectionInfo,
 
   // logging
   sharedloggerlcl;
@@ -145,20 +146,14 @@ type
     FTemplateEdit         : TSynPluginTemplateEdit;
     FHighlighterItem      : THighlighterItem;
     FMHAC                 : TSynEditMarkupHighlightAllCaret;
+    FSelectionInfo        : TSelectionInfo;
     FFileName             : string;
     FFoldLevel            : Integer;
     FBeautifier           : TSynBeautifier;
+
     FOnDropFiles          : TDropFilesEvent;
     FOnStatusChange       : TStatusChangeEvent;
     FOnChange             : TNotifyEvent;
-
-    // StoreBlock / RestoreBlock
-    FStoredBlockBegin       : TPoint;
-    FStoredBlockEnd         : TPoint;
-    FStoredBlockLines       : TStringList;
-    FStoredStripLastLine    : Boolean;
-    FStoredBlockLockUpdates : Boolean;
-    FStoredSelectionMode    : TSynSelectionMode;
 
     { search settings }
     FSearchText     : string;
@@ -206,13 +201,13 @@ type
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
     function GetSelAvail: Boolean;
+    function GetSelectionInfo: TSelectionInfo;
     function GetSelectionMode: TSynSelectionMode;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
-    function GetStoredBlockText: string;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -249,7 +244,6 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
-    procedure SetStoredBlockText(AValue: string);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
@@ -403,9 +397,6 @@ type
     property ShowSpecialChars: Boolean
       read GetShowSpecialChars write SetShowSpecialChars;
 
-    property StoredBlockText: string
-      read GetStoredBlockText write SetStoredBlockText;
-
     property Modified: Boolean
       read GetModified write SetModified;
 
@@ -468,6 +459,9 @@ type
 
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;
+
+    property SelectionInfo: TSelectionInfo
+      read GetSelectionInfo;
 
     { TODO: this does not belong here. }
     property SupportsFolding: Boolean
@@ -553,7 +547,6 @@ begin
   FReplaceHistory := TStringList.Create;
   FReplaceHistory.Sorted := True;
   FReplaceHistory.Duplicates := dupIgnore;
-  FStoredBlockLines := TStringList.Create;
   FEncoding := EncodingUTF8;
   FLineBreakStyle := ALineBreakStyles[Lines.TextLineBreakStyle];
   Doublebuffered := True;
@@ -561,6 +554,7 @@ begin
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
   Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
+  FSelectionInfo := TSelectionInfo.Create(FEditor);
 end;
 
 procedure TEditorView.BeforeDestruction;
@@ -569,13 +563,13 @@ begin
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
   DisableAutoSizing;
-  FreeAndNil(FStoredBlockLines);
   FreeAndNil(FDirectoryWatch);
   FreeAndNil(FReplaceHistory);
   FreeAndNil(FFindHistory);
   FreeAndNil(FBeautifier);
   FreeAndNil(FSyncronizedEdit);
   FreeAndNil(FTemplateEdit);
+  FreeAndNil(FSelectionInfo);
   inherited BeforeDestruction;
 end;
 
@@ -805,6 +799,16 @@ begin
   end;
 end;
 
+function TEditorView.GetTopLine: Integer;
+begin
+  Result := Editor.TopLine;
+end;
+
+procedure TEditorView.SetTopLine(const AValue: Integer);
+begin
+  Editor.TopLine := AValue;
+end;
+
 procedure TEditorView.SetHighlighter(const AValue: TSynCustomHighlighter);
 begin
   if AValue <> Highlighter then
@@ -817,16 +821,6 @@ begin
       Events.DoChange;
     end;
   end;
-end;
-
-function TEditorView.GetTopLine: Integer;
-begin
-  Result := Editor.TopLine;
-end;
-
-procedure TEditorView.SetTopLine(const AValue: Integer);
-begin
-  Editor.TopLine := AValue;
 end;
 
 function TEditorView.GetFileName: string;
@@ -1078,16 +1072,6 @@ begin
   Result := eoShowSpecialChars in Editor.Options;
 end;
 
-function TEditorView.GetStoredBlockText: string;
-begin
-  Result := FStoredBlockLines.Text;
-end;
-
-procedure TEditorView.SetStoredBlockText(AValue: string);
-begin
-  FStoredBlockLines.Text := AValue;
-end;
-
 procedure TEditorView.SetShowSpecialChars(const AValue: Boolean);
 begin
   if AValue then
@@ -1154,6 +1138,11 @@ end;
 function TEditorView.GetSelAvail: Boolean;
 begin
   Result := Editor.SelAvail;
+end;
+
+function TEditorView.GetSelectionInfo: TSelectionInfo;
+begin
+  Result := FSelectionInfo;
 end;
 
 function TEditorView.GetSelectionMode: TSynSelectionMode;
@@ -1253,60 +1242,41 @@ end;
 procedure TEditorView.StoreBlock(ALockUpdates: Boolean; AAutoExcludeEmptyLines: Boolean);
 begin
   Logger.EnterMethod(Self, 'StoreBlock');
+  FSelectionInfo.Store(
+    CaretXY,
+    BlockBegin,
+    BlockEnd,
+    SelText,
+    Editor.SelectionMode,
+    ALockUpdates,
+    AAutoExcludeEmptyLines
+  );
+  Application.ProcessMessages;
+  ShowMessage('StoreBlock');
 
-  FStoredBlockLockUpdates := ALockUpdates;
-  if FStoredBlockLockUpdates then
-    BeginUpdate;
-
-  FStoredBlockBegin      := BlockBegin;
-  FStoredBlockLines.Text := SelText;
-  FStoredSelectionMode   := Editor.SelectionMode;
-  FStoredBlockEnd        := BlockEnd;
-
-  Logger.Send('FBlockBegin', FStoredBlockBegin);
-
-  if AAutoExcludeEmptyLines then
-  begin
-    // Are multiple lines selected and is the last line in selection empty?
-    // => adjust selected block to excluded this line
-    if (FStoredBlockEnd.X = 1)
-      and (FStoredBlockEnd.Y > FStoredBlockBegin.Y)
-      and (FStoredSelectionMode <> smLine) then
-    begin
-      Dec(FStoredBlockEnd.Y);
-      FStoredStripLastLine := False;
-    end
-    else
-      FStoredStripLastLine := True;
-  end
-  else
-    FStoredStripLastLine := False;
-
-  Logger.Send('FBlockEnd', FStoredBlockEnd);
   Logger.ExitMethod(Self, 'StoreBlock');
 end;
+
+{
+
+  FStoredBlockBegin is always left untouched.
+
+Depending on the selectionmode RestoreBlock will select code as follows:
+
+   smNormal
+     FStoredBlockEnd.X => charcount of the last line in FStoredBlockLines
+     FStoredBlockEnd.Y => FStoredBlockBegin.Y + FStoredBlockLines.Count
+
+   smColumn
+     FStoredBlockEnd.X => FStoredBlockBegin.X + charcount of longest line in FStoredBlockLines
+     FStoredBlockEnd.Y => StoredBlockBegin.Y + FStoredBlockLines.Count
+}
 
 procedure TEditorView.RestoreBlock;
 begin
   Logger.EnterMethod(Self, 'RestoreBlock');
-  Logger.Send('FBlockBegin', FStoredBlockBegin);
-  Logger.Send('FBlockEnd', FStoredBlockEnd);
-
-  if FStoredStripLastLine then
-  begin
-    SelText := StripLastLineEnding(FStoredBlockLines.Text);
-    FStoredBlockEnd.X := Length(FStoredBlockLines[FStoredBlockLines.Count - 1]) + 1;
-  end;
-  //else
-  //  SelText := FStoredBlockLines.Text;
-
-  BlockBegin           := FStoredBlockBegin;
-  BlockEnd             := FStoredBlockEnd;
-  Editor.SelectionMode := FStoredSelectionMode;
+  FSelectionInfo.Restore;
   Logger.ExitMethod(Self, 'RestoreBlock');
-
-  if FStoredBlockLockUpdates then
-    EndUpdate;
 end;
 
 procedure TEditorView.InitializeEditor;
@@ -1666,6 +1636,8 @@ end;
 { Comments or uncomments selected code lines based on the line comment tag of
   the active highlighter. }
 
+// TS TODO: use SelectionInfo
+
 procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 var
   OldCaretPos    : TPoint;
@@ -1708,18 +1680,19 @@ var
     if not WasSelAvail then
       Result := MinCommonIndent
     else
-      case FStoredSelectionMode of
+      Result := 1;
+      case FSelectionInfo.SelectionMode of
         smColumn: // CommonIndent is not used otherwise
         begin
           if CommonIndent = 0 then
-            CommonIndent := Min(Editor.LogicalToPhysicalPos(FStoredBlockBegin).X,
-              Editor.LogicalToPhysicalPos(FStoredBlockEnd).X);
+            CommonIndent := Min(Editor.LogicalToPhysicalPos(FSelectionInfo.BlockBegin).X,
+              Editor.LogicalToPhysicalPos(FSelectionInfo.BlockEnd).X);
           Result := Editor.PhysicalToLogicalPos(Point(CommonIndent, ALine)).X;
         end;
         smNormal:
         begin
-          if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
-            Result := FStoredBlockBegin.X
+          if FSelectionInfo.BlockBegin.Y = FSelectionInfo.BlockEnd.Y then
+            Result := FSelectionInfo.BlockBegin.X
           else
             Result := MinCommonIndent;
         end;
@@ -1737,7 +1710,7 @@ var
     S := Lines[ALine - 1];
     N := Length(S);
     Result := FirstNonBlankPos(S, InsertPos(ALine));
-    if (FStoredSelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
+    if (FSelectionInfo.SelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
       Result := N - 1;
     Result := Max(1, Result);
     T := System.Copy(S, Result, PrefixLength);
@@ -1748,6 +1721,8 @@ var
 var
   I             : Integer;
   NonBlankStart : Integer;
+  BB            : TPoint;
+  BE            : TPoint;
 begin
   if Settings.ReadOnly then
     Exit;
@@ -1760,9 +1735,9 @@ begin
   WasSelAvail := SelAvail;
   CommonIndent := 0;
 
-  BlockBeginLine := FStoredBlockBegin.Y;
-  BlockEndLine   := FStoredBlockEnd.Y;
-  if (FStoredBlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
+  BlockBeginLine := FSelectionInfo.BlockBegin.Y;
+  BlockEndLine   := FSelectionInfo.BlockEnd.Y;
+  if (FSelectionInfo.BlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
     and (Editor.SelectionMode <> smLine) then
     Dec(BlockEndLine);
 
@@ -1780,16 +1755,18 @@ begin
   BeginUpdate;
   Editor.SelectionMode := smNormal;
 
+  BB := FSelectionInfo.BlockBegin;
+  BE := FSelectionInfo.BlockEnd;
   if ACommentOn then
   begin
     for I := BlockEndLine downto BlockBeginLine do
       Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
     if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
       OldCaretPos.X := OldCaretPos.X + PrefixLength;
-    if FStoredBlockBegin.X > InsertPos(FStoredBlockBegin.Y) then
-      FStoredBlockBegin.X := FStoredBlockBegin.X + PrefixLength;
-    if FStoredBlockEnd.X > InsertPos(FStoredBlockEnd.Y) then
-      FStoredBlockEnd.X := FStoredBlockEnd.X + PrefixLength;
+    if BB.X > InsertPos(BB.Y) then
+     BB.X := BB.X + PrefixLength;
+    if BE.X > InsertPos(BE.Y) then
+      BE.X := BE.X + PrefixLength;
   end
   else
   begin
@@ -1802,17 +1779,23 @@ begin
         Point(NonBlankStart + PrefixLength, I)] := '';
       if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
         OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
-      if (FStoredBlockBegin.Y = I) and (FStoredBlockBegin.X > NonBlankStart) then
-        FStoredBlockBegin.X := Max(FStoredBlockBegin.X - PrefixLength, NonBlankStart);
-      if (FStoredBlockEnd.Y = I) and (FStoredBlockEnd.X > NonBlankStart) then
-        FStoredBlockEnd.X := Max(FStoredBlockEnd.X - PrefixLength, NonBlankStart);
+      if (BB.Y = I) and (BB.X > NonBlankStart) then
+        BB.X := Max(BB.X - PrefixLength, NonBlankStart);
+      if (BE.Y = I) and (BE.X > NonBlankStart) then
+        BE.X := Max(BE.X - PrefixLength, NonBlankStart);
     end;
   end;
-
+  FSelectionInfo.BlockBegin := BB;
+  FSelectionInfo.BlockEnd   := BE;
   EndUpdate;
+  FSelectionInfo.Text := Seltext;
   CaretXY       := OldCaretPos;
-  RestoreBlock;
+  FSelectionInfo.Ignore;
+  FSelectionInfo.Clear;
 end;
+
+{ Comments/uncomments the selected block with the block comment tags for the
+  current highlighter. }
 
 procedure TEditorView.ToggleBlockCommentSelection;
 var
@@ -1827,38 +1810,20 @@ begin
     StoreBlock;
     N1 := Length(HighlighterItem.BlockCommentStartTag);
     N2 := Length(HighlighterItem.BlockCommentEndTag);
-    S := Trim(SelText);
+    S := Trim(SelectionInfo.Text);
     S1 := System.Copy(S, 1, N1);
     S2 := System.Copy(S, Length(S) - N2 + 1, Length(S));
-    Logger.Send('S1', S1);
-    Logger.Send('S2', S2);
-    if (S1 = HighlighterItem.BlockCommentStartTag) and
-      (S2 = HighlighterItem.BlockCommentEndTag)
-    then
+    if (S1 = HighlighterItem.BlockCommentStartTag)
+      and (S2 = HighlighterItem.BlockCommentEndTag) then
     begin
-      SelText := System.Copy(S, N1 + 1, Length(S) - N2 - N1);
-      if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
-        Dec(FStoredBlockEnd.X, N1 + N2)
-      else
-        Dec(FStoredBlockEnd.X, N2)
+      SelectionInfo.Text := System.Copy(S, N1 + 1, Length(S) - N2 - N1);
     end
     else
     begin
-      SelText := HighlighterItem.BlockCommentStartTag + SelText
+      SelectionInfo.Text := HighlighterItem.BlockCommentStartTag + SelectionInfo.Text
         + HighlighterItem.BlockCommentEndTag;
-      if FStoredBlockBegin.Y = FStoredBlockEnd.Y then
-        Inc(FStoredBlockEnd.X, N1 + N2)
-      else
-        Inc(FStoredBlockEnd.X, N2);
     end;
-    Logger.Send('BlockBegin', BlockBegin);
-    Logger.Send('BlockEnd', BlockEnd);
-
-    Logger.Send('BlockBegin', BlockBegin);
-    Logger.Send('BlockEnd', BlockEnd);
     RestoreBlock;
-    Logger.Send('BlockBegin', BlockBegin);
-    Logger.Send('BlockEnd', BlockEnd);
     Modified := True;
   end;
 end;
@@ -1868,7 +1833,7 @@ end;
 procedure TEditorView.StripMarkupFromSelection;
 begin
   StoreBlock;
-  StoredBlockText := StripMarkup(SelText);
+  SelectionInfo.Text := StripMarkup(SelectionInfo.Text);
   RestoreBlock;
 end;
 
@@ -1880,7 +1845,7 @@ end;
 procedure TEditorView.StripCharsFromSelection(AFirst: Boolean; ALast: Boolean);
 begin
   StoreBlock(True, True);
-  StoredBlockText := StripChars(StoredBlockText, AFirst, ALast);
+  SelectionInfo.Text := StripChars(SelectionInfo.Text, AFirst, ALast);
   RestoreBlock;
 end;
 
@@ -1894,7 +1859,7 @@ begin
   begin
     StoreBlock(True, True);
     AlignLines(
-      FStoredBlockLines,
+      FSelectionInfo.Lines,
       AToken,
       ACompressWS,
       AInsertSpaceBeforeToken,
@@ -1909,7 +1874,7 @@ begin
   if SelAvail then
   begin
     StoreBlock;
-    StoredBlockText := UpperCase(SelText);
+    SelectionInfo.Text := UpperCase(SelectionInfo.Text);
     RestoreBlock;
     Modified := True;
   end;

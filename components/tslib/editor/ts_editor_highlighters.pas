@@ -226,16 +226,8 @@ begin
 end;
 {$endregion}
 
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                             THighlighters
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{$region 'THighlighters' /fold}
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -248,7 +240,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -282,7 +276,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -291,7 +287,7 @@ end;
   items in the collection change. This method is called automatically when an
   update is issued.
   Item = Item that changed. If the Item parameter is nil, then the change
-         affects more than one item in the collection }
+    affects more than one item in the collection }
 
 procedure THighlighters.Update(AItem: TCollectionItem);
 begin
@@ -315,7 +311,9 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
@@ -401,8 +399,8 @@ begin
 end;
 
 { The FindItemID method returns the item in the collection whose ID property
-  is passed to it as a parameter. If no item has the specified ID, FindItemID
-  returns nil. }
+    is passed to it as a parameter. If no item has the specified ID, FindItemID
+    returns nil. }
 
 function THighlighters.FindItemID(ID: Integer): THighlighterItem;
 begin
@@ -436,8 +434,8 @@ begin
         begin
           Result := Items[I];
         end;
+      end;
     end;
-  end;
 end;
 
 procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
@@ -470,26 +468,17 @@ begin
   if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(HI.SynHighlighter) then
-
       TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
-  end;
-
+    end;
 end;
 
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
+{$endregion}
 
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                              THighlighterItem
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{$region 'THighlighterItem' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -642,6 +631,7 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
 
 //*****************************************************************************
 

@@ -21,7 +21,7 @@ unit ts_Editor_Utils;
 {
   Author: Tim Sinaeve
 
-  Some handy editor tools.
+  Some editor tools.
 }
 
 {$mode delphi}
@@ -1239,40 +1239,43 @@ end;
 
 function StripPASComments(const AString: string): string;
 var
-  InStream, OutStream: TStringStream;
-  CS: TPasCommentStripper;
-  C: Char;
+  SSIn  : TStringStream;
+  SSOut : TStringStream;
+  CS    : TPasCommentStripper;
+  C     : Char;
 begin
+  CS := TPasCommentStripper.Create(nil);
   try
-    CS := TPasCommentStripper.Create(nil);
-    InStream := TStringStream.Create('');
-    InStream.WriteString(AString);
-
-    C := #0;
-    InStream.Write(C, 1);
-    ShowMessage(IntToStr(InStream.Size));
-    InStream.Position := 0;
-    OutStream := TStringStream.Create('');
-
-    CS.InStream := InStream;
-    CS.OutStream := OutStream;
-    CS.Parse;
-    ShowMessage(IntToStr(OutStream.Size));
-    OutStream.Position := 0;
-    Result := OutStream.ReadString(OutStream.Size);
-
+    SSIn := TStringStream.Create('');
+    try
+      SSIn.WriteString(AString);
+      C := #0;
+      SSIn.Write(C, 1);
+      ShowMessage(IntToStr(SSIn.Size));
+      SSIn.Position := 0;
+      SSOut := TStringStream.Create('');
+      try
+        CS.InStream  := SSIn;
+        CS.OutStream := SSOut;
+        CS.Parse;
+        SSOut.Position := 0;
+        Result := SSOut.ReadString(SSOut.Size);
+      finally
+        SSOut.Free;
+      end;
+    finally
+      SSIn.Free;
+    end;
   finally
-    InStream.Free;
-    OutStream.Free;
     CS.Free;
   end;
 end;
 
 function StripLastLineEnding(const AString: string): string;
 var
-  S: string;
-  N1: Integer;
-  N2: Integer;
+  S  : string;
+  N1 : Integer;
+  N2 : Integer;
 begin
   N1 := Length(LineEnding);
   N2 := Length(AString);
@@ -1306,11 +1309,10 @@ end;
 function MatchRegExpr(const AString: string; const ARegExpr: string;
   var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
 var
-  RE: TRegExpr;
+  RE : TRegExpr;
 begin
   RE := TRegExpr.Create;
   try
-
     RE.ModifierI := not ACaseSensitive;
     RE.Expression := ARegExpr;
     Result := RE.Exec(AString);
@@ -1346,7 +1348,8 @@ begin
   end;
 end;
 
-function MatchRegExpr2(const AString: string; const ARegExpr: string; var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
+function MatchRegExpr2(const AString: string; const ARegExpr: string;
+  var AMatch: string; var AMatchPos: Integer; ACaseSensitive: Boolean): Boolean;
 var
   RE: TBRRERegExp;
   R : TBRRERegExpCapture;

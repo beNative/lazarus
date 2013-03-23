@@ -26,10 +26,10 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 532
       Top = 2
       Width = 486
-      ActivePage = tsSettings
+      ActivePage = tsHighlighters
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Inspector'

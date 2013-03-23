@@ -76,7 +76,7 @@ type
     btnCancel            : TButton;
     btnOK                : TButton;
     chkAlignInParagraphs : TCheckBox;
-    chkSortAfterAlign: TCheckBox;
+    chkSortAfterAlign    : TCheckBox;
     chkBeforeToken       : TCheckBox;
     chkAfterToken        : TCheckBox;
     chkRemoveWhitespace  : TCheckBox;

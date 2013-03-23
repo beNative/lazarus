@@ -571,9 +571,9 @@ begin
     BeginUpdate;
   if View.Editor.SelAvail then
     //View.Editor.TextBetweenPointsEx[View.BlockBegin, View.BlockEnd, scamEnd]
-    View.StoredBlockText := AText
+    View.SelectionInfo.Text := AText
   else
-    View.Text := AText;
+    View.SelectionInfo.Text := AText;
 
   //N := View.Lines.Count - 1;
   // delete last empty line if added by TextBetweenPointsEx

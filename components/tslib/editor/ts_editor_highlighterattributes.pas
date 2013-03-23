@@ -159,6 +159,9 @@ implementation
 uses
   Graphics;
 
+{$region 'THighlighterAttributes' /fold}
+
+{$region 'THighlighterAttributes.THighlighterAttributesEnumerator' /fold}
 function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent: THighlighterAttributesItem;
 begin
   Result := FHighlighterAttributes[FPosition];
@@ -176,17 +179,9 @@ begin
   Inc(FPosition);
   Result := FPosition < FHighlighterAttributes.Count;
 end;
+{$endregion}
 
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                     THighlighterAttributes
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -199,7 +194,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -240,7 +237,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
@@ -249,7 +248,7 @@ end;
   items in the collection change. This method is called automatically when an
   update is issued.
   Item = Item that changed. If the Item parameter is nil, then the change
-         affects more than one item in the collection }
+    affects more than one item in the collection }
 
 procedure THighlighterAttributes.Update(AItem: TCollectionItem);
 begin
@@ -272,7 +271,9 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
@@ -350,12 +351,12 @@ begin
   for Result := 0 to Pred(Count) do
     if AnsiCompareText((Items[Result]).Name, AName) = 0 then
       Exit;
-  Result := -1;
+    Result := -1;
 end;
 
 { The FindItemID method returns the item in the collection whose ID property
-  is passed to it as a parameter. If no item has the specified ID, FindItemID
-  returns nil. }
+    is passed to it as a parameter. If no item has the specified ID, FindItemID
+    returns nil. }
 
 function THighlighterAttributes.FindItemID(ID: Integer): THighlighterAttributesItem;
 begin
@@ -376,17 +377,11 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
+{$endregion}
 
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                          THighlighterAttributesItem
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{$region 'THighlighterAttributesItem' /fold}
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -410,7 +405,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -460,7 +457,6 @@ begin
     (Collection is THighlighterAttributes) and
     (THighlighterAttributes(Collection).IndexOf(Value) >= 0) then
     raise Exception.CreateFmt('Duplicate name [%s]!', [Value]);
-  //FAttributes.StoredName := Value;
   FName := Value;
   inherited;
 end;
@@ -468,7 +464,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
@@ -497,6 +495,8 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
+{$endregion}
+{$endregion}
 
 //*****************************************************************************
 

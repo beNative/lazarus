@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="78">
+    <Files Count="80">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -361,6 +361,14 @@
         <Filename Value="components\ts_components_exportrtf.pas"/>
         <UnitName Value="ts_Components_ExportRTF"/>
       </Item78>
+      <Item79>
+        <Filename Value="editor\ts_editor_selectioninfoform.pas"/>
+        <UnitName Value="ts_Editor_SelectionInfoForm"/>
+      </Item79>
+      <Item80>
+        <Filename Value="editor\ts_editor_selectioninfo.pas"/>
+        <UnitName Value="ts_editor_selectioninfo"/>
+      </Item80>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

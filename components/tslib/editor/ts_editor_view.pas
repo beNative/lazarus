@@ -288,6 +288,7 @@ type
     function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
+
     // operations on selections
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
     procedure ToggleBlockCommentSelection;
@@ -306,6 +307,10 @@ type
 
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
+    procedure PascalStringFromSelection;
+    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
+    procedure DequoteLinesInSelection;
+    procedure Base64FromSelection(ADecode: Boolean = False);
 
     procedure DoChange; dynamic;
 
@@ -526,7 +531,7 @@ implementation
 uses
   GraphUtil,
 
-  LConvEncoding, LCLProc,
+  LConvEncoding, LCLProc, Base64,
 
   SynEditMouseCmds,
 
@@ -1871,24 +1876,56 @@ end;
 
 procedure TEditorView.UpperCaseSelection;
 begin
-  if SelAvail then
-  begin
-    StoreBlock;
-    SelectionInfo.Text := UpperCase(SelectionInfo.Text);
-    RestoreBlock;
-    Modified := True;
-  end;
+  StoreBlock;
+  SelectionInfo.Text := UpperCase(SelectionInfo.Text);
+  RestoreBlock;
+  Modified := True;
 end;
 
 procedure TEditorView.LowerCaseSelection;
 begin
-  if SelAvail then
-  begin
-    StoreBlock;
-    SelText := LowerCase(SelText);
-    RestoreBlock;
-    Modified := True;
-  end;
+  StoreBlock;
+  SelText := LowerCase(SelText);
+  RestoreBlock;
+  Modified := True;
+end;
+
+procedure TEditorView.PascalStringFromSelection;
+begin
+  StoreBlock;
+  SelectionInfo.Text := PascalStringOf(SelectionInfo.Text);
+  RestoreBlock;
+  Modified := True;
+end;
+
+procedure TEditorView.QuoteLinesInSelection(ADelimit: Boolean);
+begin
+  StoreBlock;
+  if ADelimit then
+    SelectionInfo.Text := QuoteLinesAndDelimit(SelectionInfo.Text)
+  else
+    SelectionInfo.Text := QuoteLines(SelectionInfo.Text);
+  RestoreBlock;
+  Modified := True;
+end;
+
+procedure TEditorView.DequoteLinesInSelection;
+begin
+  StoreBlock;
+  SelectionInfo.Text := DequoteLines(SelectionInfo.Text);
+  RestoreBlock;
+  Modified := True;
+end;
+
+procedure TEditorView.Base64FromSelection(ADecode: Boolean);
+begin
+  StoreBlock(True, True);
+  if ADecode then
+    SelectionInfo.Text := DecodeStringBase64(SelectionInfo.Text)
+  else
+    SelectionInfo.Text := EncodeStringBase64(SelectionInfo.Text);
+  RestoreBlock;
+  Modified := True;
 end;
 
 procedure TEditorView.SearchAndSelectLine(ALineIndex: Integer; const ALine: string);

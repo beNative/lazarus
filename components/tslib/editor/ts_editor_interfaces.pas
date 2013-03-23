@@ -249,6 +249,10 @@ type
       AFirst : Boolean;
       ALast  : Boolean
     );
+    procedure PascalStringFromSelection;
+    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
+    procedure DequoteLinesInSelection;
+    procedure Base64FromSelection(ADecode: Boolean = False);
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);

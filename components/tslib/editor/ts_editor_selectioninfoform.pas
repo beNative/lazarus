@@ -39,7 +39,6 @@ type
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
     { Lets the view respond to changes. }
     procedure UpdateView;
 
@@ -94,11 +93,6 @@ end;
 function TfrmSelectionInfo.GetVisible: Boolean;
 begin
   Result := Visible;
-end;
-
-procedure TfrmSelectionInfo.SetVisible(AValue: Boolean);
-begin
-  inherited Visible := AValue;
 end;
 
 procedure TfrmSelectionInfo.UpdateView;

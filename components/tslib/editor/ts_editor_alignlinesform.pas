@@ -173,7 +173,6 @@ end;
 
 procedure TfrmAlignLines.AfterConstruction;
 var
-  I  : Integer;
   SL : TStringList;
   S  : string;
 begin

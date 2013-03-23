@@ -800,7 +800,7 @@ implementation
 uses
   FileUtil, Clipbrd, StrUtils, Math, ShlObj, Windows, Graphics, TypInfo,
 
-  LConvEncoding, Base64,
+  LConvEncoding,
 
   SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
 
@@ -1342,8 +1342,7 @@ end;
 
 procedure TdmEditorManager.actPascalStringOfSelectionExecute(Sender: TObject);
 begin
-  ActiveView.SelText := PascalStringOf(ActiveView.SelText);
-  DoModified;
+  ActiveView.PascalStringFromSelection;
 end;
 
 procedure TdmEditorManager.actPasteExecute(Sender: TObject);
@@ -1356,14 +1355,12 @@ end;
 
 procedure TdmEditorManager.actQuoteLinesAndDelimitExecute(Sender: TObject);
 begin
-  ActiveView.SelText := QuoteLinesAndDelimit(ActiveView.SelText);
-  DoModified;
+  ActiveView.QuoteLinesInSelection(True);
 end;
 
 procedure TdmEditorManager.actQuoteLinesExecute(Sender: TObject);
 begin
-  ActiveView.SelText := QuoteLines(ActiveView.SelText);
-  DoModified;
+  ActiveView.QuoteLinesInSelection;
 end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
@@ -1725,8 +1722,7 @@ end;
 
 procedure TdmEditorManager.actDequoteLinesExecute(Sender: TObject);
 begin
-  ActiveView.SelText := DequoteLines(ActiveView.SelText);
-  DoModified;
+  ActiveView.DequoteLinesInSelection;
 end;
 
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
@@ -1799,10 +1795,7 @@ end;
 
 procedure TdmEditorManager.actEncodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.StoreBlock(True, True);
-  ActiveView.SelectionInfo.Text := EncodeStringBase64(ActiveView.SelectionInfo.Text);
-  ActiveView.RestoreBlock;
-  DoModified;
+  ActiveView.Base64FromSelection;
 end;
 
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
@@ -1835,10 +1828,7 @@ end;
 
 procedure TdmEditorManager.actDecodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.StoreBlock(True, True);
-  ActiveView.SelectionInfo.Text := DecodeStringBase64(ActiveView.SelectionInfo.Text);
-  ActiveView.RestoreBlock;
-  DoModified;
+  ActiveView.Base64FromSelection(True);
 end;
 
 procedure TdmEditorManager.actShowControlCharactersExecute(Sender: TObject);

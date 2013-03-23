@@ -1,0 +1,167 @@
+object frmSelectionInfo: TfrmSelectionInfo
+  Left = -628
+  Height = 615
+  Top = 115
+  Width = 358
+  Caption = 'frmSelectionInfo'
+  ClientHeight = 615
+  ClientWidth = 358
+  LCLVersion = '1.1'
+  object lblStoredBlockBegin: TLabel
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 86
+    Caption = 'StoredBlockBegin:'
+    ParentColor = False
+  end
+  object lblStoredBlockEnd: TLabel
+    Left = 8
+    Height = 13
+    Top = 36
+    Width = 78
+    Caption = 'StoredBlockEnd:'
+    ParentColor = False
+  end
+  object lblStoredBlockBeginValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 8
+    Width = 118
+    Caption = 'lblStoredBlockBeginValue'
+    ParentColor = False
+  end
+  object lblStoredBlockEndValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 36
+    Width = 110
+    Caption = 'lblStoredBlockEndValue'
+    ParentColor = False
+  end
+  object lblStoredBlockLines: TLabel
+    Left = 0
+    Height = 13
+    Top = 232
+    Width = 114
+    Caption = 'lblStoredBlockLines'
+    Color = clWhite
+    Font.Height = -11
+    Font.Name = 'Consolas'
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+  end
+  object lblStoredBlockSelectionMode: TLabel
+    Left = 8
+    Height = 13
+    Top = 80
+    Width = 129
+    Caption = 'StoredBlockSelectionMode:'
+    ParentColor = False
+  end
+  object lblStoredBlockSelectionModeValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 80
+    Width = 161
+    Caption = 'lblStoredBlockSelectionModeValue'
+    ParentColor = False
+  end
+  object lblBlockBegin: TLabel
+    Left = 8
+    Height = 13
+    Top = 104
+    Width = 54
+    Caption = 'BlockBegin:'
+    ParentColor = False
+  end
+  object lblBlockEnd: TLabel
+    Left = 8
+    Height = 13
+    Top = 132
+    Width = 46
+    Caption = 'BlockEnd:'
+    ParentColor = False
+  end
+  object lblBlockBeginValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 104
+    Width = 86
+    Caption = 'lblBlockBeginValue'
+    ParentColor = False
+  end
+  object lblBlockEndValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 132
+    Width = 78
+    Caption = 'lblBlockEndValue'
+    ParentColor = False
+  end
+  object lblCaretXY: TLabel
+    Left = 10
+    Height = 13
+    Top = 160
+    Width = 43
+    Caption = 'CaretXY:'
+    ParentColor = False
+  end
+  object lblCaretXYValue: TLabel
+    Left = 158
+    Height = 13
+    Top = 160
+    Width = 75
+    Caption = 'lblCaretXYValue'
+    ParentColor = False
+  end
+  object lblLogicalCaretXY: TLabel
+    Left = 10
+    Height = 13
+    Top = 184
+    Width = 75
+    Caption = 'LogicalCaretXY:'
+    ParentColor = False
+  end
+  object lblLogicalCaretXYValue: TLabel
+    Left = 158
+    Height = 13
+    Top = 184
+    Width = 107
+    Caption = 'lblLogicalCaretXYValue'
+    ParentColor = False
+  end
+  object lblStoredCaretXY: TLabel
+    Left = 8
+    Height = 13
+    Top = 56
+    Width = 75
+    Caption = 'StoredCaretXY:'
+    ParentColor = False
+  end
+  object lblStoredCaretXYValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 56
+    Width = 107
+    Caption = 'lblStoredCaretXYValue'
+    ParentColor = False
+  end
+  object lblLineCount: TLabel
+    Left = 10
+    Height = 13
+    Top = 208
+    Width = 52
+    Caption = 'LineCount:'
+    ParentColor = False
+  end
+  object lblLineCountValue: TLabel
+    Left = 156
+    Height = 13
+    Top = 208
+    Width = 84
+    Caption = 'lblLineCountValue'
+    ParentColor = False
+  end
+end

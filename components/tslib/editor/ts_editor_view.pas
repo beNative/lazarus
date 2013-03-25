@@ -1256,9 +1256,6 @@ begin
     ALockUpdates,
     AAutoExcludeEmptyLines
   );
-  Application.ProcessMessages;
-  ShowMessage('StoreBlock');
-
   Logger.ExitMethod(Self, 'StoreBlock');
 end;
 

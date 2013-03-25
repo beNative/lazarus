@@ -109,6 +109,14 @@ begin
   FillCharMap;
 end;
 
+//function RoundUp(Value, Divi:integer):integer;
+//begin
+//  if Value mod Divi=0 then
+//   Result:=Value div Divi else
+//   Result:=(Value div Divi)+1;
+//end;
+
+
 procedure TCharacterMapDialog.lbxCategoriesSelect(Sender: TObject);
 var
   cnt, x, y: Integer;
@@ -127,6 +135,7 @@ begin
         StringGrid2.Cells[x, y] := UnicodeToUTF8(S + Cnt);
       Inc(cnt);
     end;
+  StringGrid2.AutoSizeColumns;
 end;
 
 procedure TCharacterMapDialog.FormShow(Sender: TObject);
@@ -136,6 +145,7 @@ begin
   StringGrid1.Font.Size := 12;
   StringGrid2.Font.Size := 12;
 
+  StringGrid1.AutoSizeColumns;
   lbxCategories.Items.Clear;
   for i := 0 to MaxUnicodeBlocks do
   begin

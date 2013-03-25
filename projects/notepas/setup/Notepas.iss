@@ -45,13 +45,14 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\Notepas.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\Notepas.exe"; DestDir: "{app}"; Flags: ignoreversion 32bit replacesameversion; Tasks: desktopicon quicklaunchicon
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"; Flags: ignoreversion
 Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\license.txt"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
@@ -60,7 +61,7 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 Name: "{group}\{cm:UninstallProgram, {#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent 32bit; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 
 [Registry]
 Root: HKCR; SubKey: ".pas"; ValueType: string; ValueData: "Delphi source file"; Flags: uninsdeletekey

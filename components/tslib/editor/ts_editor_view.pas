@@ -1882,7 +1882,7 @@ end;
 procedure TEditorView.LowerCaseSelection;
 begin
   StoreBlock;
-  SelText := LowerCase(SelText);
+  SelectionInfo.Text := LowerCase(SelectionInfo.Text);
   RestoreBlock;
   Modified := True;
 end;

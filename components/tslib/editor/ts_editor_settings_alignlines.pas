@@ -42,7 +42,7 @@ type
     FKeepSpaceBeforeToken : Boolean;
     FRemoveWhiteSpace     : Boolean;
     FSortAfterAlign       : Boolean;
-    FSortDirection: TSortDirection;
+    FSortDirection        : TSortDirection;
     FTokens               : TStringList;
 
     function GetTokens: TStrings;
@@ -62,6 +62,9 @@ type
     property SortAfterAlign: Boolean
       read FSortAfterAlign write FSortAfterAlign;
 
+    property SortDirection: TSortDirection
+      read FSortDirection write FSortDirection;
+
     property RemoveWhiteSpace: Boolean
       read FRemoveWhiteSpace write FRemoveWhiteSpace;
 
@@ -70,9 +73,6 @@ type
 
     property KeepSpaceAfterToken: Boolean
       read FKeepSpaceAfterToken write FKeepSpaceAfterToken;
-
-    property SortDirection: TSortDirection
-      read FSortDirection write FSortDirection;
 
     property Tokens: TStrings
       read GetTokens write SetTokens;

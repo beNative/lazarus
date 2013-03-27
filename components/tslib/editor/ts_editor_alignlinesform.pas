@@ -71,33 +71,33 @@ const
 
 type
   TfrmAlignLines = class(TForm, IEditorToolView)
-    aclMain              : TActionList;
-    actExecute           : TAction;
-    btnCancel            : TButton;
-    btnOK                : TButton;
-    chkAlignInParagraphs : TCheckBox;
-    chkSortAfterAlign    : TCheckBox;
-    chkBeforeToken       : TCheckBox;
-    chkAfterToken        : TCheckBox;
-    chkRemoveWhitespace  : TCheckBox;
-    gbxInsertSpace       : TGroupBox;
-    gbxOptions           : TGroupBox;
-    lblRemoveWhiteSpace  : TLabel;
-    lblTokens            : TLabel;
-    pnlVST               : TPanel;
-    rgpAlignAt           : TRadioGroup;
+    aclMain        : TActionList;
+    actExecute     : TAction;
+    btnCancel      : TButton;
+    btnOK          : TButton;
+    gbxOptions     : TCheckGroup;
+    gbxInsertSpace : TCheckGroup;
+    gbxTokenList   : TGroupBox;
+    gbxTokensFound : TGroupBox;
+    mmoTokens      : TMemo;
+    pnlTokens      : TPanel;
+    pnlVST         : TPanel;
+    rgpAlignAt     : TRadioGroup;
+    rgpSortDirection: TRadioGroup;
+    splVertical    : TSplitter;
 
     procedure actExecuteExecute(Sender: TObject);
-    procedure chkAfterTokenClick(Sender: TObject);
-    procedure chkAlignInParagraphsClick(Sender: TObject);
-    procedure chkRemoveWhitespaceClick(Sender: TObject);
-    procedure chkBeforeTokenClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
 
+    procedure FormShow(Sender: TObject);
+    procedure gbxInsertSpaceItemClick(Sender: TObject; Index: integer);
+    procedure gbxOptionsItemClick(Sender: TObject; Index: integer);
+    procedure mmoTokensExit(Sender: TObject);
+    procedure pnlTokensResize(Sender: TObject);
+    procedure rgpSortDirectionClick(Sender: TObject);
   strict private
     FTVP    : TTreeViewPresenter;
     FVST    : TVirtualStringTree;
-    FTokens : TObjectList;
+    FTokens : TObjectList; // list of alignment tokens found in selection
 
     procedure UpdateTokenList;
 
@@ -178,9 +178,9 @@ var
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
-
   FTokens := TObjectList.Create;
   FVST := CreateVST(Self, pnlVST);
+  FVST.Font.Name := Manager.Settings.EditorFont.Name;
   FTVP := TTreeViewPresenter.Create(Self);
   with FTVP.ColumnDefinitions.AddColumn('Token') do
   begin
@@ -190,8 +190,11 @@ begin
   for S in DEFAULT_TOKENS do
     SL.Add(S);
   FTVP.ItemsSource := FTokens;
-  FTVP.TreeView := FVST;
-  Settings.Tokens := SL;
+  FTVP.TreeView    := FVST;
+  FTVP.ShowHeader  := False;
+  //Settings.Tokens  := SL;
+  mmoTokens.Font.Name := Manager.Settings.EditorFont.Name;
+  mmoTokens.Lines.Assign(Settings.Tokens);
   SL.Free;
 end;
 
@@ -228,28 +231,47 @@ end;
 
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
+  mmoTokens.Lines.Assign(Settings.Tokens);
   UpdateTokenList;
   FVST.SetFocus;
 end;
 
-procedure TfrmAlignLines.chkAfterTokenClick(Sender: TObject);
+procedure TfrmAlignLines.gbxInsertSpaceItemClick(Sender: TObject; Index: integer);
+var
+  B : Boolean;
 begin
-  Settings.KeepSpaceAfterToken := (Sender as TCheckBox).Checked;
+  B := (Sender as TCheckGroup).Checked[Index];
+  case Index of
+    0: Settings.KeepSpaceBeforeToken := B;
+    1: Settings.KeepSpaceAfterToken  := B;
+  end;
 end;
 
-procedure TfrmAlignLines.chkAlignInParagraphsClick(Sender: TObject);
+procedure TfrmAlignLines.gbxOptionsItemClick(Sender: TObject; Index: integer);
+var
+  B : Boolean;
 begin
-  Settings.AlignInParagraphs := (Sender as TCheckBox).Checked;
+  B := (Sender as TCheckGroup).Checked[Index];
+  case Index of
+    0: Settings.RemoveWhiteSpace  := B;
+    1: Settings.AlignInParagraphs := B;
+    2: Settings.SortAfterAlign    := B;
+  end;
 end;
 
-procedure TfrmAlignLines.chkRemoveWhitespaceClick(Sender: TObject);
+procedure TfrmAlignLines.mmoTokensExit(Sender: TObject);
 begin
-  Settings.RemoveWhiteSpace := (Sender as TCheckBox).Checked;
+  Settings.Tokens := mmoTokens.Lines;
 end;
 
-procedure TfrmAlignLines.chkBeforeTokenClick(Sender: TObject);
+procedure TfrmAlignLines.pnlTokensResize(Sender: TObject);
 begin
-  Settings.KeepSpaceBeforeToken := (Sender as TCheckBox).Checked;
+  gbxTokenList.Width := (pnlTokens.ClientWidth + 4) div 2;
+end;
+
+procedure TfrmAlignLines.rgpSortDirectionClick(Sender: TObject);
+begin
+  Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
 
 //*****************************************************************************
@@ -299,7 +321,7 @@ end;
 
 procedure TfrmAlignLines.UpdateTokenList;
 var
-  S: string;
+  S : string;
 begin
   FTVP.BeginUpdate;
   FTokens.Clear;
@@ -328,10 +350,10 @@ begin
     T := TToken(FTVP.CurrentItem).Token;
     Manager.ActiveView.AlignSelection(
       T,
-      chkRemoveWhitespace.Checked,
-      chkBeforeToken.Checked,
-      chkAfterToken.Checked,
-      chkAlignInParagraphs.Checked
+      gbxOptions.Checked[0],          // Remove whitespace
+      gbxInsertSpace.Checked[0],      // Before token
+      gbxInsertSpace.Checked[1],      // After token
+      gbxOptions.Checked[1]           // Align in paragraphs
     );
   end;
   CloseQuery;
@@ -340,10 +362,12 @@ end;
 procedure TfrmAlignLines.UpdateActions;
 begin
   inherited UpdateActions;
-  chkAlignInParagraphs.Checked := Settings.AlignInParagraphs;
-  chkAfterToken.Checked        := Settings.KeepSpaceAfterToken;
-  chkBeforeToken.Checked       := Settings.KeepSpaceBeforeToken;
-  chkRemoveWhitespace.Checked  := Settings.RemoveWhiteSpace;
+  gbxOptions.Checked[0]     := Settings.RemoveWhiteSpace;
+  gbxOptions.Checked[1]     := Settings.AlignInParagraphs;
+  gbxOptions.Checked[2]     := Settings.SortAfterAlign;
+  gbxInsertSpace.Checked[0] := Settings.KeepSpaceBeforeToken;
+  gbxInsertSpace.Checked[1] := Settings.KeepSpaceAfterToken;
+  rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
 end;
 
 //*****************************************************************************

@@ -30,12 +30,19 @@ uses
 //=============================================================================
 
 type
+  TSortDirection = (
+    sdAscending,
+    sdDescending
+  );
+
   TAlignLinesSettings = class(TPersistent)
   strict private
     FAlignInParagraphs    : Boolean;
     FKeepSpaceAfterToken  : Boolean;
     FKeepSpaceBeforeToken : Boolean;
     FRemoveWhiteSpace     : Boolean;
+    FSortAfterAlign       : Boolean;
+    FSortDirection: TSortDirection;
     FTokens               : TStringList;
 
     function GetTokens: TStrings;
@@ -52,6 +59,9 @@ type
     property AlignInParagraphs: Boolean
       read FAlignInParagraphs write FAlignInParagraphs;
 
+    property SortAfterAlign: Boolean
+      read FSortAfterAlign write FSortAfterAlign;
+
     property RemoveWhiteSpace: Boolean
       read FRemoveWhiteSpace write FRemoveWhiteSpace;
 
@@ -60,6 +70,9 @@ type
 
     property KeepSpaceAfterToken: Boolean
       read FKeepSpaceAfterToken write FKeepSpaceAfterToken;
+
+    property SortDirection: TSortDirection
+      read FSortDirection write FSortDirection;
 
     property Tokens: TStrings
       read GetTokens write SetTokens;

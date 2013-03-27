@@ -36,7 +36,7 @@ unit ts_Core_TreeViewPresenter;
     - ImageList: TCustomImageList instead of TImageList
     - Header options added in InitColumns
     - Added DoMeasureItem for row height calculation
-
+    - Fixed ShowHeader property
     - Added TStringlist support
 }
 
@@ -1868,6 +1868,15 @@ procedure TTreeViewPresenter.InitProperties;
 begin
   if Assigned(FTreeView) and not (csDesigning in ComponentState) then
   begin
+    if FShowHeader then
+    begin
+      FTreeView.Header.Options := FTreeView.Header.Options + [hoVisible];
+    end
+    else
+    begin
+      FTreeView.Header.Options := FTreeView.Header.Options - [hoVisible];
+    end;
+
     if FAllowMove then
     begin
       FTreeView.DragMode := dmAutomatic;

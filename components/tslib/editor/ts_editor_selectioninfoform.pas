@@ -45,7 +45,6 @@ type
     property View: IEditorView
       read GetView;
 
-
     procedure UpdateDisplay;
     //procedure Refresh; TODO: refresh all items
     procedure UpdateActions; override;

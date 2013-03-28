@@ -27,7 +27,7 @@ unit ts_Editor_Helpers;
 interface
 
 uses
-  Classes, SysUtils, ComCtrls, Menus, Controls,
+  Classes, SysUtils, ComCtrls, Menus, Controls, ActnList,
 
   ts_Editor_Interfaces;
 
@@ -72,14 +72,16 @@ procedure AddEditorSettingsMenu(AMainMenu : TMainMenu);
 procedure AddEditorHighlightersMenu(AMainMenu: TMainMenu);
 procedure AddEditorHelpMenu(AMainMenu : TMainMenu);
 procedure AddEditorDebugMenu(AMainMenu : TMainMenu);
+procedure AddApplicationMenu(
+  AMainMenu : TMainMenu;
+  AActions  : TActionList
+);
 
 //*****************************************************************************
 
 implementation
 
 uses
-  ActnList,
-
   ts_Editor_Manager;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction);
@@ -401,6 +403,18 @@ begin
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actInspect');
   AddEditorMenuItem(MI, 'actShowActions');
+end;
+
+procedure AddApplicationMenu(AMainMenu: TMainMenu; AActions: TActionList);
+var
+  MI : TMenuItem;
+begin
+  MI := TMenuItem.Create(AMainMenu.Owner);
+  MI.Caption := '&Application';
+  AMainMenu.Items.Add(MI);
+  AddActionMenuItem(MI, AActions.ActionByName('actStayOnTop'));
+  AddActionMenuItem(MI, AActions.ActionByName('actToggleMaximized'));
+  AddActionMenuItem(MI, AActions.ActionByName('actSingleInstance'));
 end;
 
 function CreateEditorView(AParent: TWinControl; const AName: string;

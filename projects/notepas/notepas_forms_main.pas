@@ -66,6 +66,8 @@ type
     actAbout              : TAction;
     actCloseAllOtherPages : TAction;
     actInspect            : TAction;
+    actSingleInstance: TAction;
+    actStayOnTop: TAction;
     actToggleMaximized    : TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
@@ -74,6 +76,7 @@ type
     btnSelectionMode      : TSpeedButton;
     imlMain               : TImageList;
     lblHeader             : TLabel;
+    MenuItem1: TMenuItem;
     mnuMain               : TMainMenu;
     pnlSelectionMode      : TPanel;
     pnlTop                : TPanel;
@@ -97,6 +100,8 @@ type
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
+    procedure actSingleInstanceExecute(Sender: TObject);
+    procedure actStayOnTopExecute(Sender: TObject);
     procedure actToggleMaximizedExecute(Sender: TObject);
     {$endregion}
 
@@ -134,6 +139,8 @@ type
 
   protected
     procedure AddDockingMenuItems;
+    procedure AddApplicationMenuItems;
+    procedure AddMainMenus;
     procedure AssignEvents;
     procedure ConfigureAvailableActions;
     procedure UpdateCaptions;
@@ -215,7 +222,8 @@ begin
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
   AddStandardEditorToolbarButtons(tlbMain);
-  AddStandardEditorMenus(mnuMain);
+  AddMainMenus;
+  Settings.FormSettings.AssignTo(Self);
   if Settings.DebugMode then
   begin
     // for debugging
@@ -326,9 +334,26 @@ begin
     Close;
 end;
 
+procedure TfrmMain.actSingleInstanceExecute(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfrmMain.actStayOnTopExecute(Sender: TObject);
+var
+  A : TAction;
+begin
+  A := Sender as TAction;
+  if A.Checked then
+    Settings.FormSettings.FormStyle := fsSystemStayOnTop
+  else
+    Settings.FormSettings.FormStyle := fsNormal;
+  FormStyle :=  Settings.FormSettings.FormStyle;
+end;
+
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
-  ShowAboutDialog;
+  ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
 end;
 
 //*****************************************************************************
@@ -548,6 +573,26 @@ begin
   PPM.Items.Add(MI);
 end;
 
+procedure TfrmMain.AddApplicationMenuItems;
+begin
+  //
+end;
+
+procedure TfrmMain.AddMainMenus;
+begin
+  mnuMain.Images := EditorManager.Actions.ActionList.Images;
+  AddEditorFileMenu(mnuMain);
+  AddEditorEditMenu(mnuMain);
+  AddEditorSelectionMenu(mnuMain);
+  AddEditorSearchMenu(mnuMain);
+  AddEditorViewMenu(mnuMain);
+  AddEditorToolsMenu(mnuMain);
+  AddEditorSettingsMenu(mnuMain);
+  AddEditorHighlightersMenu(mnuMain);
+  AddApplicationMenu(mnuMain, aclMain);
+  AddEditorHelpMenu(mnuMain);
+end;
+
 procedure TfrmMain.AssignEvents;
 var
   C: TComponent;
@@ -682,9 +727,9 @@ begin
   if Assigned(Editor) then
   begin
     UpdateCaptions;
-
     UpdateStatusBar;
   end;
+  actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
 end;
 
 { Creates a new IEditorView instance for the given file. }

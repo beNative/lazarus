@@ -1,11 +1,11 @@
 object frmMain: TfrmMain
-  Left = -1419
+  Left = -1321
   Height = 618
-  Top = 279
+  Top = 361
   Width = 1066
   Anchors = []
   Caption = 'Notepas'
-  ClientHeight = 618
+  ClientHeight = 599
   ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
@@ -30,7 +30,7 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 600
+    Top = 581
     Width = 1066
     Align = alBottom
     BorderSpacing.Top = 2
@@ -235,7 +235,7 @@ object frmMain: TfrmMain
   end
   object Shape1: TShape
     Left = 424
-    Height = 572
+    Height = 553
     Top = 26
     Width = 642
     Align = alClient
@@ -248,12 +248,12 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 572
+    Height = 553
     Top = 26
     Width = 417
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 572
+    ClientHeight = 553
     ClientWidth = 417
     TabOrder = 2
     Visible = False
@@ -304,7 +304,7 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 417
-    Height = 572
+    Height = 553
     Top = 26
     Width = 7
     Visible = False
@@ -314,8 +314,9 @@ object frmMain: TfrmMain
     left = 72
     top = 96
     object actToggleMaximized: TAction
-      Caption = 'actToggleMaximized'
-      ImageIndex = 4
+      AutoCheck = True
+      Caption = 'Toggle maximized'
+      ImageIndex = 97
       OnExecute = actToggleMaximizedExecute
       ShortCut = 122
     end
@@ -336,6 +337,21 @@ object frmMain: TfrmMain
     object actInspect: TAction
       Caption = 'Inspect'
       ShortCut = 16496
+    end
+    object actStayOnTop: TAction
+      Category = 'Application'
+      AutoCheck = True
+      Caption = '&Stay on top'
+      Hint = 'Keeps the application on top of all other windows.'
+      ImageIndex = 96
+      OnExecute = actStayOnTopExecute
+    end
+    object actSingleInstance: TAction
+      Category = 'Application'
+      AutoCheck = True
+      Caption = 'Single instance.'
+      Hint = 'Allow only a single instance of the application.'
+      OnExecute = actSingleInstanceExecute
     end
   end
   object imlMain: TImageList
@@ -508,5 +524,7 @@ object frmMain: TfrmMain
   object mnuMain: TMainMenu
     left = 120
     top = 96
+    object MenuItem1: TMenuItem
+    end
   end
 end

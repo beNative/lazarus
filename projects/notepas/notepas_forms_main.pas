@@ -25,8 +25,8 @@ unit Notepas_Forms_Main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls, Menus,
-  Buttons, StdCtrls,
+  Classes, SysUtils, simpleipc, Forms, Controls, ComCtrls, ActnList, ExtCtrls,
+  Menus, Buttons, StdCtrls,
 
   LResources,
 
@@ -34,7 +34,7 @@ uses
   // for debugging
   sharedloggerlcl, ipcchannel,
 
-  SynEdit,
+  SynEdit, UniqueInstance,
 
   ts_Editor_Interfaces;
 
@@ -95,6 +95,7 @@ type
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
+    UniqueInstance: TUniqueInstance;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -115,10 +116,10 @@ type
     procedure btnSelectionModeClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
-    procedure FormShow(Sender: TObject);
     procedure frmMainActiveViewChange(Sender: TObject);
     procedure btnCloseToolViewClick(Sender: TObject);
     procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
+    procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer; Parameters: array of String);
     {$endregion}
   private
     {$region 'property access methods' /fold}
@@ -139,7 +140,6 @@ type
 
   protected
     procedure AddDockingMenuItems;
-    procedure AddApplicationMenuItems;
     procedure AddMainMenus;
     procedure AssignEvents;
     procedure ConfigureAvailableActions;
@@ -217,6 +217,7 @@ var
   V  : IEditorView;
 begin
   inherited AfterConstruction;
+  //UniqueInstance.Enabled := True;
   Manager.PersistSettings := True;
   ConfigureAvailableActions;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
@@ -262,6 +263,13 @@ begin
   SetWindowSizeGrip(pnlStatusBar.Handle, True);
   Manager.ActiveView := V;
   DoubleBuffered := True;
+  Settings.FormSettings.AssignTo(Self);
+
+  //for I := 1 to 100 do
+  //begin
+  //  Application.ProcessMessages; // handle other instances
+  //  Sleep(10);
+  //end;
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -336,7 +344,7 @@ end;
 
 procedure TfrmMain.actSingleInstanceExecute(Sender: TObject);
 begin
-  //
+  UniqueInstance.Enabled := not UniqueInstance.Enabled;
 end;
 
 procedure TfrmMain.actStayOnTopExecute(Sender: TObject);
@@ -505,13 +513,6 @@ begin
   V.Activate;
 end;
 
-procedure TfrmMain.FormShow(Sender: TObject);
-begin
-  BeginAutoSizing;
-  Settings.FormSettings.AssignTo(Self);
-  EndAutoSizing;
-end;
-
 procedure TfrmMain.frmMainActiveViewChange(Sender: TObject);
 begin
   if Assigned(Editor) then
@@ -534,6 +535,26 @@ procedure TfrmMain.AnchorDockPageControlChanging(Sender: TObject;
   var AllowChange: Boolean);
 begin
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
+end;
+
+procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer; Parameters: array of String);
+var
+  I : Integer;
+  S : string;
+  V : IEditorView;
+begin
+  if ParamCount > 0 then
+  begin
+    for I := Low(Parameters) to High(Parameters) do
+    begin
+      S := Parameters[I];
+      if I = 1 then
+        V := AddEditor(S)
+      else
+        AddEditor(S);
+    end;
+ //   V.Activate;
+  end;
 end;
 
 //*****************************************************************************
@@ -571,11 +592,6 @@ begin
   MI := TMenuItem.Create(PPM);
   MI.Action := Actions['actCloseOthers'];
   PPM.Items.Add(MI);
-end;
-
-procedure TfrmMain.AddApplicationMenuItems;
-begin
-  //
 end;
 
 procedure TfrmMain.AddMainMenus;

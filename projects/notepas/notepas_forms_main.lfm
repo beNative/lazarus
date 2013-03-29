@@ -1,9 +1,10 @@
 object frmMain: TfrmMain
-  Left = -1321
+  Left = -1312
   Height = 618
-  Top = 361
+  Top = 80
   Width = 1066
   Anchors = []
+  BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
   ClientHeight = 599
   ClientWidth = 1066
@@ -12,7 +13,6 @@ object frmMain: TfrmMain
   DefaultMonitor = dmPrimary
   Menu = mnuMain
   OnCloseQuery = FormCloseQuery
-  OnShow = FormShow
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
@@ -526,5 +526,12 @@ object frmMain: TfrmMain
     top = 96
     object MenuItem1: TMenuItem
     end
+  end
+  object UniqueInstance: TUniqueInstance
+    Enabled = True
+    UpdateInterval = 10
+    OnOtherInstance = UniqueInstanceOtherInstance
+    left = 192
+    top = 96
   end
 end

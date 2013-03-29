@@ -1,6 +1,10 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
+#: ts_editor_resources.sapplicationmenucaption
+msgid "&Application"
+msgstr ""
+
 #: ts_editor_resources.sasksavechanges
 msgid "File %s is modified. Do you want to save changes?"
 msgstr ""
@@ -19,6 +23,22 @@ msgstr ""
 
 #: ts_editor_resources.scssdescription
 msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts_editor_resources.sdebugmenucaption
+msgid "&Debug"
+msgstr ""
+
+#: ts_editor_resources.sfilemenucaption
+msgid "&File"
+msgstr ""
+
+#: ts_editor_resources.shelpmenucaption
+msgid "&Help"
+msgstr ""
+
+#: ts_editor_resources.shighlightersmenucaption
+msgid "&Highlighters"
 msgstr ""
 
 #: ts_editor_resources.shtmldescription
@@ -81,6 +101,18 @@ msgstr ""
 msgid "Searching..."
 msgstr ""
 
+#: ts_editor_resources.ssearchmenucaption
+msgid "&Search"
+msgstr ""
+
+#: ts_editor_resources.sselectionmenucaption
+msgid "Se&lection"
+msgstr ""
+
+#: ts_editor_resources.ssettingsmenucaption
+msgid "&Settings"
+msgstr ""
+
 #: ts_editor_resources.ssqldescription
 msgid "SQL"
 msgstr ""
@@ -89,8 +121,16 @@ msgstr ""
 msgid "Text not found"
 msgstr ""
 
+#: ts_editor_resources.stoolsmenucaption
+msgid "&Tools"
+msgstr ""
+
 #: ts_editor_resources.stxtdescription
 msgid "Text document"
+msgstr ""
+
+#: ts_editor_resources.sviewmenucaption
+msgid "&View"
 msgstr ""
 
 #: ts_editor_resources.sxmldescription

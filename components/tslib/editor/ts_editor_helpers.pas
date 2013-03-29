@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, ComCtrls, Menus, Controls, ActnList,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_Resources;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction = nil);
 
@@ -223,7 +223,7 @@ var
   MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&File';
+  MI.Caption := SFileMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actNew');
   AddEditorMenuItem(MI, 'actOpen');
@@ -262,7 +262,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := 'Se&lection';
+  MI.Caption := SSeLectionMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actAlignSelection');
   AddEditorMenuItem(MI, 'actSortSelection');
@@ -295,7 +295,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Search';
+  MI.Caption := SSearchMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSearch');
   AddEditorMenuItem(MI, 'actSearchReplace');
@@ -312,7 +312,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&View';
+  MI.Caption := SViewMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actShowViews');
   AddEditorMenuItem(MI);
@@ -330,7 +330,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Tools';
+  MI.Caption := SToolsMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actInsertCharacterFromMap');
   AddEditorMenuItem(MI, 'actInsertColorValue');
@@ -351,7 +351,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Settings';
+  MI.Caption := SSettingsMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSettings');
 end;
@@ -362,7 +362,7 @@ var
   M  : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Highlighters';
+  MI.Caption := SHighlightersMenuCaption;
   AMainMenu.Items.Add(MI);
   for M in EditorManager.Menus.HighlighterPopupMenu.Items do
   begin
@@ -375,7 +375,7 @@ var
   MI: TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Help';
+  MI.Caption := SHelpMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actAbout');
 end;
@@ -399,7 +399,7 @@ var
   MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Debug';
+  MI.Caption := SDebugMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actInspect');
   AddEditorMenuItem(MI, 'actShowActions');
@@ -410,7 +410,7 @@ var
   MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := '&Application';
+  MI.Caption := SApplicationMenuCaption;
   AMainMenu.Items.Add(MI);
   AddActionMenuItem(MI, AActions.ActionByName('actStayOnTop'));
   AddActionMenuItem(MI, AActions.ActionByName('actToggleMaximized'));

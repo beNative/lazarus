@@ -81,7 +81,6 @@ const
   FILE_EXTENSIONS_CSS  = 'css';
   FILE_EXTENSIONS_CS   = 'cs';
 
-
 //-----------------------------------------------------------------------------
 
 resourcestring
@@ -111,7 +110,17 @@ resourcestring
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 
-  SNewEditorViewFileName = '<new>';
+  SNewEditorViewFileName   = '<new>';
+  SFileMenuCaption         = '&File';
+  SSeLectionMenuCaption    = 'Se&lection';
+  SSearchMenuCaption       = '&Search';
+  SViewMenuCaption         = '&View';
+  SToolsMenuCaption        = '&Tools';
+  SSettingsMenuCaption     = '&Settings';
+  SHighlightersMenuCaption = '&Highlighters';
+  SHelpMenuCaption         = '&Help';
+  SDebugMenuCaption        = '&Debug';
+  SApplicationMenuCaption  = '&Application';
 
 const
   DEFAULT_BLEND_FACTOR = 128;
@@ -256,7 +265,6 @@ const
 
     (Name:  dlgFoldPasNestedComment; Xml:     'NestedComment';
      Index: Ord(cfbtNestedComment);Enabled: True)
-
   );
 
   EditorOptionsFoldInfoLFM: array [0..2] of TEditorOptionsFoldInfo = (
@@ -304,8 +312,7 @@ const
       Enabled: True
     )
   );
-  EditorOptionsFoldInfoHTML: array [0..2] of TEditorOptionsFoldInfo
-  = (
+  EditorOptionsFoldInfoHTML: array [0..2] of TEditorOptionsFoldInfo = (
       ( Name:    dlgFoldHtmlNode;
         Xml:    'Node';
         Index:   Ord(cfbtHtmlNode);
@@ -321,10 +328,9 @@ const
         Index:   Ord(cfbtHtmlAsp);
         Enabled: True
       )
-    );
+  );
 
-  EditorOptionsFoldInfoDiff: array [0..2] of TEditorOptionsFoldInfo
-  = (
+  EditorOptionsFoldInfoDiff: array [0..2] of TEditorOptionsFoldInfo = (
       ( Name:    dlgFoldDiffFile;
         Xml:    'File';
         Index:   Ord(cfbtDiffFile);
@@ -340,7 +346,7 @@ const
         Index:   Ord(cfbtDiffChunkSect);
         Enabled: True
       )
-    );
+  );
 
 type
   TEditorOptionsDividerInfoList = array [0..999] of TEditorOptionsDividerInfo;
@@ -363,6 +369,7 @@ var
     (Name: dlgDivPasBeginEndName;     Xml: 'Begin';   BoolOpt: False; MaxLevel: 0),
     (Name: dlgDivPasTryName;          Xml: 'Try';     BoolOpt: False; MaxLevel: 0)
   );
+
 type
   TResourcesDataModule = class(TDataModule)
     imlFunctionKeys: TImageList;
@@ -371,8 +378,7 @@ type
   public
   end;
 
-//var
-//  ResourcesDataModule: TResourcesDataModule;
+//*****************************************************************************
 
 implementation
 

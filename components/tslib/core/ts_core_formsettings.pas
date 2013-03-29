@@ -32,11 +32,13 @@ uses
 type
   TFormSettings = class(TPersistent)
   private
-    FWidth     : Integer;
-    FHeight    : Integer;
-    FLeft      : Integer;
-    FTop       : Integer;
-    FFormStyle : TFormStyle;
+    FWidth       : Integer;
+    FHeight      : Integer;
+    FLeft        : Integer;
+    FTop         : Integer;
+    FFormStyle   : TFormStyle;
+    FWindowState : TWindowState;
+    procedure SetWindowState(AValue: TWindowState);
 
   public
     procedure AfterConstruction; override;
@@ -58,12 +60,16 @@ type
 
     property FormStyle: TFormStyle
       read FFormStyle write FFormStyle;
+
+    property WindowState: TWindowState
+      read FWindowState write SetWindowState;
   end;
 
 //*****************************************************************************
 
 implementation
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -78,23 +84,44 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
+//*****************************************************************************
+// property access methods                                               BEGIN
+//*****************************************************************************
+
+procedure TFormSettings.SetWindowState(AValue: TWindowState);
+begin
+  if (AValue <> WindowState) and (AValue <> wsMinimized) then
+  begin
+    FWindowState := AValue;
+  end;
+end;
+
+//*****************************************************************************
+// property access methods                                                 END
+//*****************************************************************************
+{$endregion}
+
+{$region 'public methods' /fold}
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
 
 procedure TFormSettings.Assign(Source: TPersistent);
 var
-  Form : TForm;
+  F : TForm;
 begin
   if Source is TForm then
   begin
-    Form      := TForm(Source);
-    Left      := Form.Left;
-    Top       := Form.Top;
-    Width     := Form.Width;
-    Height    := Form.Height;
-    FormStyle := Form.FormStyle;
+    F           := TForm(Source);
+    Left        := F.Left;
+    Top         := F.Top;
+    Width       := F.Width;
+    Height      := F.Height;
+    FormStyle   := F.FormStyle;
+    WindowState := F.WindowState;
   end
   else
     inherited;
@@ -102,16 +129,17 @@ end;
 
 procedure TFormSettings.AssignTo(Dest: TPersistent);
 var
-  Form : TForm;
+  F : TForm;
 begin
   if Dest is TForm then
   begin
-    Form           := TForm(Dest);
-    Form.Left      := Left;
-    Form.Top       := Top;
-    Form.Width     := Width;
-    Form.Height    := Height;
-    Form.FormStyle := FormStyle;
+    F             := TForm(Dest);
+    F.Left        := Left;
+    F.Top         := Top;
+    F.Width       := Width;
+    F.Height      := Height;
+    F.FormStyle   := FormStyle;
+    F.WindowState := WindowState;
   end
   else
     inherited;
@@ -120,8 +148,6 @@ end;
 //*****************************************************************************
 // public methods                                                          END
 //*****************************************************************************
-//
-//initialization
-//  RegisterClass(TFormSettings);
-//
+{$endregion}
+
 end.

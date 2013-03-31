@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="3"/>
-      <BuildNr Value="9"/>
+      <BuildNr Value="12"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="6">
@@ -131,6 +131,7 @@
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
+              <CompileReasons Compile="False" Run="False"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>

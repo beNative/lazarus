@@ -107,19 +107,16 @@ type
     {$region 'event handlers' /fold}
     procedure ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure AHSActivateSite(Sender: TObject);
+    procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure btnEncodingClick(Sender: TObject);
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
-    procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
+    procedure btnCloseToolViewClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
-    procedure frmMainActiveViewChange(Sender: TObject);
-    procedure btnCloseToolViewClick(Sender: TObject);
-    procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
-    procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer; Parameters: array of String);
-    {$endregion}
+        {$endregion}
   private
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -133,9 +130,10 @@ type
     procedure InitDebugAction(const AActionName: string);
 
     // event handlers
-    procedure ENewFile(Sender: TObject; var AFileName: string;
-      const AText: string);
-    procedure EStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+    procedure EVActiveViewChange(Sender: TObject);
+    procedure EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
+    procedure EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+    procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
 
   protected
     procedure AddDockingMenuItems;
@@ -157,8 +155,6 @@ type
     procedure BeforeDestruction; override;
 
     procedure UpdateActions; override;
-
-    function AddEditor(const AFileName: string): IEditorView;
 
     property Manager: IEditorManager
       read GetManager;
@@ -214,6 +210,7 @@ var
   I  : Integer;
   EV : IEditorEvents;
   V  : IEditorView;
+  S: String;
 begin
   inherited AfterConstruction;
   Manager.PersistSettings := True;
@@ -231,26 +228,29 @@ begin
   end;
   pnlViewerCount.Visible := Settings.DebugMode;
 
+  EV := Manager.Events;
+  EV.OnActiveViewChange  := EVActiveViewChange;
+  EV.OnStatusChange      := EVStatusChange;
+  EV.OnOpenOtherInstance := EVOpenOtherInstance;
+  EV.OnAddEditorView     := EVAddEditorView;
+
   if ParamCount > 0 then
   begin
+
     for I := 1 to Paramcount do
     begin
+      S := ParamStr(I);
       if I = 1 then
-        V := AddEditor(ParamStr(I))
+        V := Manager.OpenFile(S)
       else
-        AddEditor(ParamStr(I));
+        Manager.OpenFile(S);
     end;
   end
   else
   begin
-    V := AddEditor(SNewEditorViewFileName);
+    V := Manager.NewFile(SNewEditorViewFileName);
   end;
-  EV := Manager.Events;
 
-  Manager.OnActiveViewChange  := frmMainActiveViewChange;
-  EV.OnStatusChange := EStatusChange;
-  EV.OnNewFile := ENewFile;
-  EV.OnOpenOtherInstance := EVOpenOtherInstance;
   tlbMain.Parent := Self;
   pnlStatusBar.Parent := Self;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
@@ -259,17 +259,9 @@ begin
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
   Manager.Actions.ActionList.OnExecute  := ActionListExecute;
-
   SetWindowSizeGrip(pnlStatusBar.Handle, True);
   Manager.ActiveView := V;
   DoubleBuffered := True;
-  Settings.FormSettings.AssignTo(Self);
-
-  //for I := 1 to 100 do
-  //begin
-  //  Application.ProcessMessages; // handle other instances
-  //  Sleep(10);
-  //end;
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -431,21 +423,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.ENewFile(Sender: TObject; var AFileName: string;
-  const AText: string);
-begin
-  if FileExists(AFileName) then
-  begin
-    AddEditor(AFileName);
-  end
-  else
-  begin
-    AddEditor(SNewEditorViewFileName).Text := AText;
-    Editor.SetFocus;
-  end;
-end;
-
-procedure TfrmMain.EStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+procedure TfrmMain.EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
 begin
   if scModified in Changes then
   begin
@@ -478,6 +456,12 @@ begin
   btnSelectionMode.PopupMenu.PopUp;
 end;
 
+procedure TfrmMain.EVActiveViewChange(Sender: TObject);
+begin
+  if Assigned(Editor) then
+    DockMaster.MakeVisible(Editor.Form, True);
+end;
+
 procedure TfrmMain.EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
 var
   I : Integer;
@@ -488,10 +472,11 @@ begin
   begin
     S := AParams[I];
     if I = Low(AParams) then
-      V := AddEditor(S)
+      V := Manager.OpenFile(S)
     else
-      AddEditor(S);
+      Manager.OpenFile(S);
   end;
+  V.Activate;
 end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -514,20 +499,14 @@ begin
     begin
       S := FileNames[I];
       if I = Low(FileNames) then
-        V := AddEditor(S)
+        V := Manager.OpenFile(S)
       else
-        AddEditor(S)
+        Manager.OpenFile(S)
     end;
   finally
     EnableAutoSizing;
   end;
   V.Activate;
-end;
-
-procedure TfrmMain.frmMainActiveViewChange(Sender: TObject);
-begin
-  if Assigned(Editor) then
-    DockMaster.MakeVisible(Editor.Form, True);
 end;
 
 procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
@@ -542,30 +521,37 @@ begin
   end;
 end;
 
+procedure TfrmMain.EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
+var
+  V   : IEditorView;
+  AHS : TAnchorDockHostSite;
+begin
+  DisableAutoSizing;
+  try
+    V := AEditorView;
+    V.Form.DisableAutoSizing;
+    try
+      DockMaster.MakeDockable(V.Form);
+      AHS := DockMaster.GetAnchorSite(V.Form);
+      DockMaster.ManualDock(AHS, Self, alClient);
+      AHS.Header.Visible := Views.Count > 1;
+      AHS.Header.HeaderPosition := adlhpTop;
+      AHS.OnActivateSite := AHSActivateSite;
+      V.OnDropFiles := FormDropFiles;
+      V.Editor.PopupMenu := Menus.EditorPopupMenu;
+      UpdateEditorViewCaptions;
+    finally
+      V.Form.EnableAutoSizing;
+    end;
+  finally
+    EnableAutoSizing;
+  end;
+end;
+
 procedure TfrmMain.AnchorDockPageControlChanging(Sender: TObject;
   var AllowChange: Boolean);
 begin
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
-end;
-
-procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer; Parameters: array of String);
-var
-  I : Integer;
-  S : string;
-  V : IEditorView;
-begin
-  if ParamCount > 0 then
-  begin
-    for I := Low(Parameters) to High(Parameters) do
-    begin
-      S := Parameters[I];
-      if I = 1 then
-        V := AddEditor(S)
-      else
-        AddEditor(S);
-    end;
- //   V.Activate;
-  end;
 end;
 
 //*****************************************************************************
@@ -758,41 +744,6 @@ begin
   end;
   actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
   actSingleInstance.Checked := Settings.SingleInstance;
-  //FUniqueInstance.Enabled := Settings.SingleInstance;
-end;
-
-{ Creates a new IEditorView instance for the given file. }
-
-function TfrmMain.AddEditor(const AFileName: string): IEditorView;
-var
-  V   : IEditorView;
-  AHS : TAnchorDockHostSite;
-begin
-  DisableAutoSizing;
-  try
-    V := Views.Add('', AFileName);
-    V.Form.DisableAutoSizing;
-    try
-      DockMaster.MakeDockable(V.Form);
-      AHS := DockMaster.GetAnchorSite(V.Form);
-      DockMaster.ManualDock(AHS, Self, alClient);
-      AHS.Header.Visible := Views.Count > 1;
-      AHS.Header.HeaderPosition := adlhpTop;
-      AHS.OnActivateSite := AHSActivateSite;
-      if FileExists(AFileName) then
-      begin
-        V.LoadFromFile(AFileName);
-      end;
-      V.OnDropFiles := FormDropFiles;
-      V.Editor.PopupMenu := Menus.EditorPopupMenu;
-      UpdateEditorViewCaptions;
-    finally
-      V.Form.EnableAutoSizing;
-    end;
-  finally
-    EnableAutoSizing;
-  end;
-  Result := V;
 end;
 
 //*****************************************************************************
@@ -805,6 +756,3 @@ initialization
   Logger.Channels.Add(TIPCChannel.Create);
 
 end.
-
-
-

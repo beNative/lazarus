@@ -57,6 +57,7 @@ type
     FShowControlCharacters    : Boolean;
     FCloseWithEsc             : Boolean;
     FDebugMode                : Boolean;
+    FSingleInstance           : Boolean;
     FFileName                 : string;
     FFoldLevel                : Integer;
     FHighlighters             : THighLighters;
@@ -87,6 +88,7 @@ type
     function GetReadOnly: Boolean;
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetShowControlCharacters: Boolean;
+    function GetSingleInstance: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
@@ -105,6 +107,7 @@ type
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetShowControlCharacters(const AValue: Boolean);
+    procedure SetSingleInstance(AValue: Boolean);
     {$endregion}
 
   public
@@ -179,6 +182,9 @@ type
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
+
+    property SingleInstance: Boolean
+      read GetSingleInstance write SetSingleInstance;
   end;
 
 const
@@ -199,6 +205,8 @@ uses
 //*****************************************************************************
 // public methods                                                        BEGIN
 //*****************************************************************************
+
+{ Observer pattern implemented as multicast events. }
 
 procedure TEditorSettingsChangedEventList.CallEditorSettingsChangedHandlers(Sender: TObject);
 var
@@ -474,6 +482,23 @@ begin
   if AValue <> ShowControlCharacters then
   begin
     FShowControlCharacters := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetSingleInstance: Boolean;
+begin
+  Result := FSingleInstance;
+end;
+
+procedure TEditorSettings.SetSingleInstance(AValue: Boolean);
+begin
+  if AValue <> SingleInstance then
+  begin
+    FSingleInstance := AValue;
+    // we need to save here to make sure that any other instance runs with the
+    // same configuration.
+    Save;
     Changed;
   end;
 end;

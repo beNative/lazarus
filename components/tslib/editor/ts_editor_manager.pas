@@ -144,7 +144,8 @@ uses
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
   ts_Editor_View,
 
-  ts_Components_UniHighlighter, ts_Components_ExportRTF;
+  ts_Components_UniHighlighter, ts_Components_ExportRTF,
+  ts_Components_UniqueInstance;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,
@@ -498,12 +499,15 @@ type
 
     {$region 'event handlers' /fold}
     procedure SynMacroRecorderStateChange(Sender: TObject);
+    procedure UniqueInstanceOtherInstance(Sender: TObject;
+      ParamCount: Integer; Parameters: array of String);
     {$endregion}
 
   private
     FPersistSettings   : Boolean;
     FSynExporterRTF    : TSynExporterRTF;
     FSynUni            : TSynUniSyn;
+    FUniqueInstance    : TUniqueInstance;
 
     FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
@@ -514,6 +518,7 @@ type
     FOnStatusMessage       : TStatusMessageEvent;
     FOnStatusChange        : TStatusChangeEvent;
     FOnActiveViewChange    : TNotifyEvent;
+    FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
     FSearchEngine          : IEditorSearchEngine;
 
     FChanged      : Boolean;
@@ -547,6 +552,7 @@ type
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnNewFile: TNewFileEvent;
     function GetOnOpenFile: TFileEvent;
+    function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
     function GetOnSaveFile: TFileEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     function GetPersistSettings: Boolean;
@@ -576,6 +582,7 @@ type
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
     procedure SetOnOpenFile(const AValue: TFileEvent);
+    procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSaveFile(const AValue: TFileEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     procedure SetPersistSettings(const AValue: Boolean);
@@ -657,6 +664,7 @@ type
     procedure DoActiveViewChange; virtual;
     procedure DoCaretPositionChange; virtual;
     procedure DoMacroStateChange(AState : TSynMacroState); virtual;
+    procedure DoOpenOtherInstance(const AParams: array of string); virtual;
     procedure DoStatusMessage(AText: string); virtual;
     procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
     procedure DoChange; virtual;
@@ -765,6 +773,9 @@ type
     property OnActiveViewChange: TNotifyEvent
       read GetOnActiveViewChange write SetOnActiveViewChange;
 
+    property OnOpenOtherInstance: TOpenOtherInstanceEvent
+      read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
+
     { IEditorManager }
     property Settings: IEditorSettings
       read GetSettings implements IEditorSettings;
@@ -859,7 +870,9 @@ begin
   FSearchEngine     := TSearchEngine.Create(Self);
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
   FSynUni           := TSynUniSyn.Create(Self);
-
+  FUniqueInstance   := TUniqueInstance.Create(Self);
+  FUniqueInstance.Identifier := 'Me';
+  FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
   RegisterHighlighters;
   InitializeFoldHighlighters;
 
@@ -999,6 +1012,16 @@ begin
   Result := FOnOpenFile;
 end;
 
+function TdmEditorManager.GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
+begin
+  Result := FOnOpenOtherInstance;
+end;
+
+procedure TdmEditorManager.SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
+begin
+  FOnOpenOtherInstance := AValue;
+end;
+
 function TdmEditorManager.GetOnSaveFile: TFileEvent;
 begin
   Result := FOnSaveFile;
@@ -1014,6 +1037,22 @@ begin
   Result := FPersistSettings;
 end;
 
+procedure TdmEditorManager.SetPersistSettings(const AValue: Boolean);
+begin
+  if AValue <> PersistSettings then
+  begin
+    if AValue then
+    begin
+      Settings.Load;
+      FUniqueInstance.Enabled := Settings.SingleInstance;
+      // TSI voorlopig
+      RegisterHighlighters;
+      InitializeFoldHighlighters;
+    end;
+    FPersistSettings := AValue;
+  end;
+end;
+
 function TdmEditorManager.GetSearchEngine: IEditorSearchEngine;
 begin
   Result := FSearchEngine;
@@ -1022,21 +1061,6 @@ end;
 function TdmEditorManager.GetSelectionModePopupMenu: TPopupMenu;
 begin
   Result := ppmSelectionMode;
-end;
-
-procedure TdmEditorManager.SetPersistSettings(const AValue: Boolean);
-begin
-  if AValue <> PersistSettings then
-  begin
-    if AValue then
-    begin
-      Settings.Load;
-      // TSI voorlopig
-      RegisterHighlighters;
-      InitializeFoldHighlighters;
-    end;
-    FPersistSettings := AValue;
-  end;
 end;
 
 procedure TdmEditorManager.SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
@@ -1230,6 +1254,12 @@ procedure TdmEditorManager.DoMacroStateChange(AState: TSynMacroState);
 begin
   if Assigned(FOnMacroStateChange) then
     FOnMacroStateChange(Self, AState);
+end;
+
+procedure TdmEditorManager.DoOpenOtherInstance(const AParams: array of string);
+begin
+  if Assigned(FOnOpenOtherInstance) then
+    FOnOpenOtherInstance(Self, AParams);
 end;
 
 procedure TdmEditorManager.DoStatusMessage(AText: string);
@@ -1868,6 +1898,12 @@ begin
   DoMacroStateChange(SynMacroRecorder.State);
 end;
 
+procedure TdmEditorManager.UniqueInstanceOtherInstance(Sender: TObject;
+   ParamCount: Integer; Parameters: array of String);
+begin
+  DoOpenOtherInstance(Parameters);
+end;
+
 procedure TdmEditorManager.CodeFilterFilteredLineChange(Sender: TObject;
   AIndex: Integer; const ALine: string; const AFilter: string);
 begin
@@ -1880,6 +1916,7 @@ begin
   begin
     actShowPreview.Execute;
   end;
+  FUniqueInstance.Enabled := Settings.SingleInstance;
   ApplyHighlighterAttributes;
 end;
 

@@ -78,11 +78,16 @@ type
     const AText     : string
   ) of object;
 
-  TOnFilteredLineChangeEvent = procedure(
+  TFilteredLineChangeEvent = procedure(
           Sender  : TObject;
           AIndex  : Integer;
     const ALine   : string;
     const AFilter : string
+  ) of object;
+
+  TOpenOtherInstanceEvent = procedure(
+          Sender  : TObject;
+    const AParams : array of string
   ) of object;
 
 type
@@ -479,6 +484,7 @@ type
 
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
+  function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
     // property access methods
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
@@ -492,6 +498,7 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
     procedure SetOnOpenFile(const AValue: TFileEvent);
+    procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSaveFile(const AValue: TFileEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
 
@@ -531,6 +538,9 @@ type
 
     property OnSaveFile: TFileEvent
       read GetOnSaveFile write SetOnSaveFile;
+
+    property OnOpenOtherInstance: TOpenOtherInstanceEvent
+      read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
   end;
 
   { Settings we should store if we would like to restore the editor to its
@@ -556,6 +566,7 @@ type
     function GetReadOnly: Boolean;
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetShowControlCharacters: Boolean;
+    function GetSingleInstance: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
@@ -581,6 +592,7 @@ type
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+    procedure SetSingleInstance(AValue: Boolean);
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -632,6 +644,9 @@ type
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
+
+    property SingleInstance: Boolean
+      read GetSingleInstance write SetSingleInstance;
 
     property XML: string
       read GetXML;
@@ -855,10 +870,10 @@ type
 
   IEditorCodeFilter = interface
   ['{CF1E061E-89FD-47F0-91DF-C26CC457BC08}']
-    function GetOnFilteredLineChange: TOnFilteredLineChangeEvent;
-    procedure SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
+    function GetOnFilteredLineChange: TFilteredLineChangeEvent;
+    procedure SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
 
-    property OnFilteredLineChange: TOnFilteredLineChangeEvent
+    property OnFilteredLineChange: TFilteredLineChangeEvent
       read GetOnFilteredLineChange write SetOnFilteredLineChange;
   end;
 

@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="80">
+    <Files Count="81">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -367,54 +367,61 @@
       </Item79>
       <Item80>
         <Filename Value="editor\ts_editor_selectioninfo.pas"/>
-        <UnitName Value="ts_editor_selectioninfo"/>
+        <UnitName Value="ts_Editor_SelectionInfo"/>
       </Item80>
+      <Item81>
+        <Filename Value="components\ts_components_uniqueinstance.pas"/>
+        <UnitName Value="ts_components_uniqueinstance"/>
+      </Item81>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="13">
+    <RequiredPkgs Count="14">
       <Item1>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="uniqueinstance_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="KASComp"/>
+        <PackageName Value="richmemopackage"/>
       </Item2>
       <Item3>
-        <PackageName Value="tsBundle"/>
+        <PackageName Value="KASComp"/>
       </Item3>
       <Item4>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="tsBundle"/>
       </Item4>
       <Item5>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="zcomponent"/>
       </Item5>
       <Item6>
-        <PackageName Value="luicontrols"/>
+        <PackageName Value="LazRichEdit"/>
       </Item6>
       <Item7>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="luicontrols"/>
       </Item7>
       <Item8>
-        <PackageName Value="luicomponents"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item8>
       <Item9>
-        <PackageName Value="multiloglaz"/>
+        <PackageName Value="luicomponents"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCL"/>
+        <PackageName Value="multiloglaz"/>
       </Item10>
       <Item11>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LCL"/>
       </Item11>
       <Item12>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="SynEdit"/>
       </Item12>
       <Item13>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item13>
+      <Item14>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item13>
+      </Item14>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

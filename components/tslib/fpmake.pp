@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 29/03/2013
+   This file was generated on 31/03/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,7 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('uniqueinstance_package');
     P.Dependencies.Add('richmemopackage');
     P.Dependencies.Add('kascomp');
     P.Dependencies.Add('tsbundle');
@@ -78,6 +79,7 @@ begin
     P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
     P.Options.Add('-Fu../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
@@ -151,6 +153,7 @@ begin
     t.Dependencies.AddUnit('ts_components_exportrtf');
     t.Dependencies.AddUnit('ts_editor_selectioninfoform');
     t.Dependencies.AddUnit('ts_editor_selectioninfo');
+    t.Dependencies.AddUnit('ts_components_uniqueinstance');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -218,6 +221,7 @@ begin
     T:=P.Targets.AddUnit('components\ts_components_exportrtf.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_selectioninfoform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_selectioninfo.pas');
+    T:=P.Targets.AddUnit('components\ts_components_uniqueinstance.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

@@ -44,15 +44,15 @@ object CharacterMapDialog: TCharacterMapDialog
     Height = 383
     Top = 6
     Width = 422
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 6
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object TabSheet1: TTabSheet
       Caption = 'ANSI'
-      ClientHeight = 358
-      ClientWidth = 383
+      ClientHeight = 357
+      ClientWidth = 414
       object CharInfoLabel: TLabel
         AnchorSideLeft.Control = TabSheet1
         AnchorSideTop.Side = asrBottom
@@ -62,8 +62,8 @@ object CharacterMapDialog: TCharacterMapDialog
         AnchorSideBottom.Side = asrBottom
         Left = 6
         Height = 13
-        Top = 339
-        Width = 371
+        Top = 338
+        Width = 402
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 6
         Caption = 'CharInfoLabel'
@@ -76,17 +76,15 @@ object CharacterMapDialog: TCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = CharInfoLabel
         Left = 0
-        Height = 333
+        Height = 332
         Top = 0
-        Width = 383
+        Width = 414
         Anchors = [akTop, akLeft, akRight, akBottom]
         ColCount = 17
         DefaultColWidth = 16
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
         RowCount = 15
         TabOrder = 0
-        OnKeyPress = StringGridKeyPress
-        OnMouseDown = StringGridMouseDown
         OnMouseMove = StringGrid1MouseMove
       end
     end
@@ -124,8 +122,6 @@ object CharacterMapDialog: TCharacterMapDialog
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
         RowCount = 15
         TabOrder = 0
-        OnKeyPress = StringGridKeyPress
-        OnMouseDown = StringGridMouseDown
         OnMouseMove = StringGrid2MouseMove
       end
       object cbUniRange: TComboBox
@@ -140,7 +136,6 @@ object CharacterMapDialog: TCharacterMapDialog
         Anchors = [akRight, akBottom]
         BorderSpacing.Around = 6
         ItemHeight = 13
-        OnSelect = cbUniRangeSelect
         Style = csDropDownList
         TabOrder = 1
       end

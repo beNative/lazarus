@@ -105,15 +105,15 @@ type
     FRegExpr          : TRegExpr;
     FIsCompiled       : Boolean;
 
-    FOnFilteredLineChange : TOnFilteredLineChangeEvent;
+    FOnFilteredLineChange : TFilteredLineChangeEvent;
 
     function GetManager: IEditorManager;
     function GetFilter: string;
     procedure SetFilter(AValue: string);
     function GetMatchCase: Boolean;
-    function GetOnFilteredLineChange: TOnFilteredLineChangeEvent;
+    function GetOnFilteredLineChange: TFilteredLineChangeEvent;
     function GetRegEx: Boolean;
-    procedure SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
+    procedure SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
     function GetView: IEditorView;
     function GetForm: TForm;
     function GetName: string;
@@ -175,7 +175,7 @@ type
       const AFilter : string
     ); dynamic;
 
-    property OnFilteredLineChange: TOnFilteredLineChangeEvent
+    property OnFilteredLineChange: TFilteredLineChangeEvent
       read GetOnFilteredLineChange write SetOnFilteredLineChange;
 
   public
@@ -346,7 +346,7 @@ begin
   Result := inherited Name;
 end;
 
-function TfrmCodeFilterDialog.GetOnFilteredLineChange: TOnFilteredLineChangeEvent;
+function TfrmCodeFilterDialog.GetOnFilteredLineChange: TFilteredLineChangeEvent;
 begin
   Result := FOnFilteredLineChange;
 end;
@@ -361,7 +361,7 @@ begin
   Result := actRegularExpression.Checked;
 end;
 
-procedure TfrmCodeFilterDialog.SetOnFilteredLineChange(AValue: TOnFilteredLineChangeEvent);
+procedure TfrmCodeFilterDialog.SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
 begin
   FOnFilteredLineChange := AValue;
 end;

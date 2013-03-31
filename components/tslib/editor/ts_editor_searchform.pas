@@ -220,16 +220,12 @@ uses
 //*****************************************************************************
 
 procedure TfrmSearchForm.AfterConstruction;
-var
-  CD: TColumnDefinition;
 begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlResultList);
-
-  //FTVP := CreateTVP();   // TODO
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  CD := FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 50, 50, 80);
+  FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 50, 50, 80);
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160, 120, 400);
   FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60, 60, 80);
   FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);

@@ -61,7 +61,6 @@ implementation
 procedure TSQLFormatter.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FSQLStream  := TStringStream.Create(FSQL);
   FLineReader := TStreamLineReader.Create(FSQLStream);
   FSQLScanner := TSQLScanner.Create(FLineReader);
   FSQLParser  := TSQLParser.Create(FSQLScanner);

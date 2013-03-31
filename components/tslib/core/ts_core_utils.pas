@@ -234,9 +234,7 @@ function SetToString(
 implementation
 
 uses
-  ActiveX, Variants, ShlObj, ComObj, Registry, ActnList,
-
-  GraphUtil;
+  ActiveX, Variants, ShlObj, ComObj, Registry, ActnList;
 
 //=============================================================================
 
@@ -663,11 +661,11 @@ begin
         Result := Integer(I)
       else
       begin
-        if DecimalSeparator <> '.' then
+        if FormatSettings.DecimalSeparator <> '.' then
         begin
           iPos := Pos('.', AString);
           if iPos > 0 then
-            AString[iPos] := DecimalSeparator;
+            AString[iPos] := FormatSettings.DecimalSeparator;
         end;
         Result := StrToFloat(AString);
       end;

@@ -62,7 +62,7 @@ type
 
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
     procedure TextAttributesUpdate(Sender: TObject);
-    procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
+    procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char); reintroduce;
 
   private
     FEditor         : TlzRichEdit;
@@ -88,7 +88,6 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnEditingDone: TNotifyEvent;
-    function GetPopupMenu: TPopupMenu; override;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
@@ -111,6 +110,8 @@ type
     procedure SetWordWrap(const AValue: Boolean);
 
   protected
+    function GetPopupMenu: TPopupMenu; override;
+
     procedure UpdateActions; override;
 
     procedure DoEditingDone; dynamic;

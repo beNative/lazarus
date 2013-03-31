@@ -38,8 +38,8 @@ type
     FTop         : Integer;
     FFormStyle   : TFormStyle;
     FWindowState : TWindowState;
-    procedure SetWindowState(AValue: TWindowState);
 
+    procedure SetWindowState(AValue: TWindowState);
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;

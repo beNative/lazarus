@@ -178,7 +178,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
-    actSelectionInfo: TAction;
+    actSelectionInfo              : TAction;
     actXMLTree                    : TAction;
     actToggleBlockCommentSelection: TAction;
     actShowTest                   : TAction;
@@ -211,7 +211,7 @@ type
     actExportToRTF                : TAction;
     actExportToWiki               : TAction;
     actFilterCode                 : TAction;
-    actSearch                       : TAction;
+    actSearch                     : TAction;
     actFindNext                   : TAction;
     actFindNextWord               : TAction;
     actFindPrevious               : TAction;
@@ -247,7 +247,7 @@ type
     actQuoteLines                 : TAction;
     actQuoteLinesAndDelimit       : TAction;
     actReload                     : TAction;
-    actSearchReplace                    : TAction;
+    actSearchReplace              : TAction;
     actSave                       : TAction;
     actSaveAs                     : TAction;
     actSettings                   : TAction;
@@ -509,16 +509,17 @@ type
     FSynUni            : TSynUniSyn;
     FUniqueInstance    : TUniqueInstance;
 
+    FOnActiveViewChange    : TNotifyEvent;
+    FOnAddEditorView       : TAddEditorViewEvent;
+    FOnCaretPositionChange : TCaretPositionEvent;
     FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
     FOnNewFile             : TNewFileEvent;
     FOnOpenFile            : TFileEvent;
-    FOnSaveFile            : TFileEvent;
-    FOnCaretPositionChange : TCaretPositionEvent;
-    FOnStatusMessage       : TStatusMessageEvent;
-    FOnStatusChange        : TStatusChangeEvent;
-    FOnActiveViewChange    : TNotifyEvent;
     FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
+    FOnSaveFile            : TFileEvent;
+    FOnStatusChange        : TStatusChangeEvent;
+    FOnStatusMessage       : TStatusMessageEvent;
     FSearchEngine          : IEditorSearchEngine;
 
     FChanged      : Boolean;
@@ -547,6 +548,7 @@ type
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetMenus: IEditorMenus;
     function GetOnActiveViewChange: TNotifyEvent;
+    function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnCaretPositionChange: TCaretPositionEvent;
     function GetOnChange: TNotifyEvent;
     function GetOnMacroStateChange: TMacroStateChangeEvent;
@@ -576,7 +578,8 @@ type
     function IEditorToolViews.GetViewByName = GetToolViewByName;
     function GetToolViewByName(AName: string): IEditorToolView;
     procedure SetActiveView(AValue: IEditorView);
-    procedure SetOnActiveViewChange(const AValue: TNotifyEvent);
+    procedure SetOnActiveViewChange(AValue: TNotifyEvent);
+    procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
@@ -620,8 +623,6 @@ type
     function IEditorViews.Clear = ClearViews;
     function IEditorViews.GetEnumerator = GetViewsEnumerator;
 
-    function GetViewsEnumerator: TEditorViewListEnumerator;
-
     function AddView(
       const AName        : string = '';
       const AFileName    : string = '';
@@ -631,6 +632,7 @@ type
     function DeleteView(AView: IEditorView): Boolean; overload;
     function DeleteView(const AName: string): Boolean; overload;
     procedure ClearViews(AExceptActive: Boolean = False);
+    function GetViewsEnumerator: TEditorViewListEnumerator;
 
     { IEditorToolViews }
     procedure IEditorToolViews.Add = AddToolView;
@@ -646,13 +648,9 @@ type
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     procedure CreateDesktopLink;
-    //procedure SortSelection;
     procedure InsertCharacter(const C: TUTF8Char);
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
-
-    procedure Notification(AComponent: TComponent; Operation: TOperation);
-      override;
 
     procedure FindNext;
     procedure FindNextWordOccurrence(DirectionForward: Boolean);
@@ -660,8 +658,15 @@ type
 
     function ActivateView(const AName: string): Boolean;
 
+    // TComponent overrides
+    procedure Notification(
+      AComponent : TComponent;
+      Operation  : TOperation
+    ); override;
+
     // event dispatch methods
     procedure DoActiveViewChange; virtual;
+    procedure DoAddEditorView(AEditorView: IEditorView); virtual;
     procedure DoCaretPositionChange; virtual;
     procedure DoMacroStateChange(AState : TSynMacroState); virtual;
     procedure DoOpenOtherInstance(const AParams: array of string); virtual;
@@ -670,7 +675,7 @@ type
     procedure DoChange; virtual;
     procedure DoModified; virtual;
     procedure DoSaveFile;
-    procedure DoOpenFile;
+    procedure DoOpenFile(const AFileName: string);
     procedure DoNewFile(
       const AFileName : string = '';
       const AText     : string = ''
@@ -686,6 +691,13 @@ type
     procedure UpdateCodeFilter;
 
     procedure ClearHighlightSearch;
+
+    { IEditorManager }
+    function OpenFile(const AFileName: string): IEditorView;
+    function NewFile(
+      const AFileName  : string;
+      const AText      : string = ''
+    ): IEditorView;
 
     // TS temp
     function ActiveToolView: IEditorToolView;
@@ -775,6 +787,9 @@ type
 
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
+
+    property OnAddEditorView: TAddEditorViewEvent
+      read GetOnAddEditorView write SetOnAddEditorView;
 
     { IEditorManager }
     property Settings: IEditorSettings
@@ -987,6 +1002,21 @@ begin
   Result := FOnActiveViewChange;
 end;
 
+procedure TdmEditorManager.SetOnActiveViewChange(AValue: TNotifyEvent);
+begin
+  FOnActiveViewChange := AValue;
+end;
+
+function TdmEditorManager.GetOnAddEditorView: TAddEditorViewEvent;
+begin
+  Result := FOnAddEditorView;
+end;
+
+procedure TdmEditorManager.SetOnAddEditorView(AValue: TAddEditorViewEvent);
+begin
+  FOnAddEditorView := AValue;
+end;
+
 function TdmEditorManager.GetOnCaretPositionChange: TCaretPositionEvent;
 begin
   Result := FOnCaretPositionChange;
@@ -1110,17 +1140,12 @@ end;
 
 procedure TdmEditorManager.SetActiveView(AValue: IEditorView);
 begin
-  if AValue <> FActiveView then
+  if Assigned(AValue) and (AValue <> FActiveView) then
   begin
     FActiveView := AValue;
     DoActiveViewChange;
     ActiveViewChanged;
   end;
-end;
-
-procedure TdmEditorManager.SetOnActiveViewChange(const AValue: TNotifyEvent);
-begin
-  FOnActiveViewChange := AValue;
 end;
 
 function TdmEditorManager.GetHighlighters: THighlighters;
@@ -1230,6 +1255,12 @@ begin
     FOnActiveViewChange(Self);
 end;
 
+procedure TdmEditorManager.DoAddEditorView(AEditorView: IEditorView);
+begin
+  if Assigned(FOnAddEditorView) then
+    FOnAddEditorView(Self, AEditorView);
+end;
+
 procedure TdmEditorManager.DoCaretPositionChange;
 begin
   if Assigned(FOnCaretPositionChange) then
@@ -1299,16 +1330,13 @@ begin
   end;
 end;
 
-procedure TdmEditorManager.DoOpenFile;
+procedure TdmEditorManager.DoOpenFile(const AFileName: string);
 var
-  S: string;
+  S : string;
 begin
+  S  := AFileName;
   if Assigned(FOnOpenFile) then
-  begin
-    S := ActiveView.FileName;
     FOnOpenFile(Self, S);
-    ActiveView.FileName := S;
-  end;
 end;
 
 procedure TdmEditorManager.DoNewFile(const AFileName: string; const AText: string);
@@ -1318,8 +1346,6 @@ begin
   S  := AFileName;
   if Assigned(FOnNewFile) then
     FOnNewFile(Self, S, AText);
-  if S <> '' then
-    ActiveView.FileName := S;
 end;
 
 //*****************************************************************************
@@ -1548,7 +1574,7 @@ var
 begin
   if Assigned(ActiveView) then
     S := ActiveView.SelText;
-  DoNewFile(SNewEditorViewFileName, S);
+  NewFile(SNewEditorViewFileName, S);
 end;
 
 procedure TdmEditorManager.actOpenSelectionInNewEditorExecute(Sender: TObject);
@@ -1592,7 +1618,6 @@ end;
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
 // TODO
-
 end;
 
 procedure TdmEditorManager.actToggleFoldLevelExecute(Sender: TObject);
@@ -1734,7 +1759,7 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
-  ExecuteSettingsDialog(FSettings);
+  ExecuteSettingsDialog(Self);
 end;
 
 procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
@@ -2303,6 +2328,7 @@ begin
   V.AssignHighlighter(AHighlighter);
   V.Form.Caption := '';
   ViewList.Add(V);
+  DoAddEditorView(V);
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
   Logger.ExitMethod(Self, 'AddView');
@@ -2433,9 +2459,11 @@ begin
     Result := DeleteToolView(TV);
 end;
 
+{ TODO -oTS : Not correct! }
+
 procedure TdmEditorManager.LoadFile;
 begin
-  DoOpenFile;
+  DoOpenFile(ActiveView.FileName);
   // reload file from disk
 end;
 {$endregion}
@@ -2847,6 +2875,29 @@ begin
   begin
     (V as IEditorView).ClearHighlightSearch;
   end;
+end;
+
+function TdmEditorManager.OpenFile(const AFileName: string): IEditorView;
+var
+  V : IEditorView;
+begin
+  DoOpenFile(AFileName);
+  if FileExists(AFileName) then
+  begin
+    V := AddView('', AFileName);
+    V.LoadFromFile(AFileName);
+  end;
+  Result := V;
+end;
+
+function TdmEditorManager.NewFile(const AFileName: string; const AText: string): IEditorView;
+var
+  V : IEditorView;
+begin
+  DoNewFile(AFileName, AText);
+  V := AddView('', AFileName);
+  V.Text := AText;
+  Result := V;
 end;
 
 ///////////////////////////////////TEMP////////////////////////////////////////

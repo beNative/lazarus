@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
-  ExtCtrls, ComCtrls, ButtonPanel, Contnrs,
+  ExtCtrls, ComCtrls, ButtonPanel, StdCtrls, Contnrs,
 
   RTTIGrids,
 
@@ -50,6 +50,11 @@ type
   TfrmEditorSettings = class(TForm)
     {$region 'designer controls' /fold}
     aclMain                     : TActionList;
+    actApplySettings: TAction;
+    actReloadSettings: TAction;
+    actOpenSettingsFile: TAction;
+    btnOpenSettingsFile: TButton;
+    btnReloadSettings: TButton;
     pnlButtons                  : TButtonPanel;
     imlMain                     : TImageList;
     pcMain                      : TPageControl;
@@ -61,17 +66,19 @@ type
     pnlTop                      : TPanel;
     pnlXML: TPanel;
     splHAVertical               : TSplitter;
+    tsDebug: TTabSheet;
     tsXML: TTabSheet;
     tsHighlighters              : TTabSheet;
     tsSettings                  : TTabSheet;
     {$endregion}
 
+    procedure actOpenSettingsFileExecute(Sender: TObject);
+    procedure actReloadSettingsExecute(Sender: TObject);
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure tsXMLEnter(Sender: TObject);
 
   private
-    FEditorSettings : IEditorSettings;
     FTVP            : TTreeViewPresenter;
     FList           : TObjectList;
     FPI             : TTIPropertyGrid;
@@ -79,8 +86,8 @@ type
     FHAVST          : TVirtualStringTree;
     FXMLTree        : TXMLTree;
 
-    function GetEditorSettings: IEditorSettings;
-    procedure SetEditorSettings(const AValue: IEditorSettings);
+    function GetSettings: IEditorSettings;
+    function GetManager: IEditorManager;
 
   protected
     procedure UpdateData;
@@ -92,14 +99,17 @@ type
     function Execute: Boolean;
     procedure Apply;
 
-    property EditorSettings: IEditorSettings
-      read GetEditorSettings write SetEditorSettings;
+    property Manager: IEditorManager
+      read GetManager;
+
+    property Settings: IEditorSettings
+      read GetSettings;
   end;
 
 //=============================================================================
 
 procedure ExecuteSettingsDialog(
-  AEditorSettings : IEditorSettings
+  AOwner: TComponent
 );
 
 //*****************************************************************************
@@ -138,11 +148,10 @@ end;
 // interfaced routines                                                   BEGIN
 //*****************************************************************************
 
-procedure ExecuteSettingsDialog(AEditorSettings: IEditorSettings);
+procedure ExecuteSettingsDialog(AOwner: TComponent);
 begin
   if not Assigned(FForm) then
-    FForm := TfrmEditorSettings.Create(Application);
-  FForm.EditorSettings := AEditorSettings;
+    FForm := TfrmEditorSettings.Create(AOwner);
   FForm.Execute;
 end;
 
@@ -165,13 +174,15 @@ begin
   FPI := CreatePI(Self, pnlPI);
   FHAPI := CreatePI(Self, pnlHARight);
   FHAVST := CreateVST(Self, pnlHALeft);
+  UpdateData;
+
+  tsDebug.TabVisible := Settings.DebugMode;
 
   //FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
 begin
-  FEditorSettings := nil;
   FreeAndNil(FList);
   inherited BeforeDestruction;
 end;
@@ -186,19 +197,14 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-function TfrmEditorSettings.GetEditorSettings: IEditorSettings;
+function TfrmEditorSettings.GetSettings: IEditorSettings;
 begin
-  Result := FEditorSettings;
+  Result := Manager.Settings;
 end;
 
-procedure TfrmEditorSettings.SetEditorSettings(const AValue: IEditorSettings);
+function TfrmEditorSettings.GetManager: IEditorManager;
 begin
-  if AValue <> EditorSettings then
-  begin
-    FEditorSettings  := AValue;
-    FPI.TIObject := (FEditorSettings as IInterfaceComponentReference).GetComponent;
-    UpdateData;
-  end;
+  Result := Owner as IEditorManager;
 end;
 
 //*****************************************************************************
@@ -219,6 +225,20 @@ begin
   FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
 end;
 
+procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
+var
+  S: String;
+begin
+  S := ExtractFilePath(Application.ExeName) + Settings.FileName;
+  Manager.OpenFile(S);
+end;
+
+procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
+begin
+  Settings.Load;
+  Apply;
+end;
+
 procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
 begin
   Apply;
@@ -226,7 +246,7 @@ end;
 
 procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
 begin
-  FXMLTree.XML := EditorSettings.XML;
+  //FXMLTree.XML := Settings.XML;
 end;
 
 //*****************************************************************************
@@ -243,12 +263,13 @@ procedure TfrmEditorSettings.UpdateData;
 var
   I: Integer;
 begin
+  FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
   FList.Clear;
-  for I := 0 to EditorSettings.HighlighterAttributes.Count - 1 do
+  for I := 0 to Settings.HighlighterAttributes.Count - 1 do
   begin
-    FList.Add(EditorSettings.HighlighterAttributes[I]);
+    FList.Add(Settings.HighlighterAttributes[I]);
   end;
   FTVP.ItemsSource := FList;
   FTVP.TreeView := FHAVST;
@@ -273,7 +294,7 @@ end;
 
 procedure TfrmEditorSettings.Apply;
 begin
-  FEditorSettings.Apply;
+  Settings.Apply;
 end;
 
 //*****************************************************************************

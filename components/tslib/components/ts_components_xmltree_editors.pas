@@ -189,8 +189,6 @@ end;
 
 function TXMLEditLink.PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode;
   Column: TColumnIndex): Boolean; stdcall;
-var
-  Data: PPropertyData;
 begin
   Result := True;
   FTree := Tree as TCustomVirtualStringTree;

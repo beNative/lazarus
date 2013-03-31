@@ -1322,10 +1322,6 @@ begin
 end;
 
 function TSQLParser.ParseIfStatement(APArent : TSQLElement) : TSQLIFStatement;
-
-var
-  Pt : TSQLToken;
-
 begin
   // On Entry, we're on the if token
   Consume(tsqlIf);
@@ -1338,7 +1334,6 @@ begin
     Result.TrueBranch := ParseProcedureStatement(Result);
     if (CurrentToken = tsqlSemicolon) and (PeekNextToken = tsqlElse) then
     begin
-      Pt := CurrentToken;
       GetNextToken;
     end
     else if (CurrentToken = tsqlElse) then
@@ -1957,24 +1952,19 @@ var
   TN       : string;
   AD       : integer;
   DT       : TSQLDataType;
-  AA       : Boolean; // Allow array
   GN       : Boolean; // Do GetNextToken ?
-  NN       : Boolean; // Not Null ?
   sc, prec : integer;
   bt       : integer;
   D        : TSQLTypeDefinition;
   cs       : TSQLStringType;
   Coll     : TSQLCollation;
   C        : TSQLFieldConstraint;
-
 begin
  // We are positioned on the token prior to the type definition.
-  AA := True;
   GN := True;
   prec := 0;
   sc := 0;
   bt := 0;
-  NN := True;
   Coll := nil;
   case GetNextToken of
     tsqlIdentifier :

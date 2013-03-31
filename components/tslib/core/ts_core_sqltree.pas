@@ -2250,9 +2250,6 @@ Var
     NewLinePending := UseNewLine;
   end;
 
-Var
-  Ind : Boolean;
-
 begin
   Result := SQLKeyWord('SELECT', Options);
   If Distinct then

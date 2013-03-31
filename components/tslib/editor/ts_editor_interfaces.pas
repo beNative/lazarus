@@ -52,6 +52,13 @@ uses
 //=============================================================================
 
 type
+  // forward declarations
+  IEditorView               = interface;
+  IEditorActions            = interface;
+  IEditorSettings           = interface;
+  TEditorViewListEnumerator = class;
+
+  // event types
   TCaretPositionEvent = procedure(
     Sender : TObject;
     X, Y   : Integer
@@ -78,6 +85,11 @@ type
     const AText     : string
   ) of object;
 
+  TAddEditorViewEvent = procedure(
+          Sender      : TObject;
+          AEditorView : IEditorView
+  ) of object;
+
   TFilteredLineChangeEvent = procedure(
           Sender  : TObject;
           AIndex  : Integer;
@@ -90,14 +102,9 @@ type
     const AParams : array of string
   ) of object;
 
-type
+// type aliases
   TEditorViewList     = TInterfaceList;
   TEditorToolViewList = TInterfaceList;
-
-type
-  IEditorActions = interface;
-  IEditorSettings = interface;
-  TEditorViewListEnumerator = class;
 
   IControl = interface
   ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']
@@ -484,8 +491,12 @@ type
 
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
-  function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
-    // property access methods
+    {$region 'property access methods' /fold}
+    function GetOnActiveViewChange: TNotifyEvent;
+    function GetOnAddEditorView: TAddEditorViewEvent;
+    function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
+    procedure SetOnActiveViewChange(AValue: TNotifyEvent);
+    procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnCaretPositionChange: TCaretPositionEvent;
@@ -501,6 +512,7 @@ type
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSaveFile(const AValue: TFileEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
+    {$endregion}
 
     // event dispatch methods
     procedure DoCaretPositionChange;
@@ -510,13 +522,19 @@ type
     procedure DoChange;
     procedure DoModified;
     procedure DoSaveFile;
-    procedure DoOpenFile;
+    procedure DoOpenFile(const AFileName: string);
     procedure DoNewFile(
       const AFileName : string = '';
       const AText     : string = ''
     );
 
     // events
+    property OnActiveViewChange: TNotifyEvent
+      read GetOnActiveViewChange write SetOnActiveViewChange;
+
+    property OnAddEditorView: TAddEditorViewEvent
+      read GetOnAddEditorView write SetOnAddEditorView;
+
     { triggered when caret position changes }
     property OnCaretPositionChange: TCaretPositionEvent
       read GetOnCaretPositionChange write SetOnCaretPositionChange;
@@ -652,7 +670,6 @@ type
       read GetXML;
   end;
 
-  // todo enumerator support
   IEditorViews = interface
   ['{FBFB8DC6-7663-4EA4-935D-5B9F3CD7C753}']
     function GetView(AIndex: Integer): IEditorView;
@@ -804,6 +821,9 @@ type
 
     property ActionList: TActionList
       read GetActionList;
+
+    { TODO -oTS : Declare all actions as properties }
+
   end;
 
   IEditorManager = interface
@@ -821,13 +841,16 @@ type
     procedure SetPersistSettings(const AValue: Boolean);
     function GetActiveView: IEditorView;
     procedure SetActiveView(AValue: IEditorView);
-    procedure SetOnActiveViewChange(const AValue: TNotifyEvent);
-    function GetOnActiveViewChange: TNotifyEvent;
     function GetHighlighters: THighlighters;
     {$endregion}
 
     function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
+    function OpenFile(const AFileName: string): IEditorView;
+    function NewFile(
+      const AFileName  : string;
+      const AText      : string = ''
+    ): IEditorView;
 
     property PersistSettings: Boolean
       read GetPersistSettings write SetPersistSettings;
@@ -837,9 +860,6 @@ type
 
     property ActiveView: IEditorView
       read GetActiveView write SetActiveView;
-
-    property OnActiveViewChange: TNotifyEvent
-      read GetOnActiveViewChange write SetOnActiveViewChange;
 
     property Events: IEditorEvents
       read GetEvents;

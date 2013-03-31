@@ -710,6 +710,7 @@ var
   N  : Integer;
   S  : string;
 begin
+  Result := '';
   N := WordCount(AKeyNames, [',']);
   for I := 0 to N - 1 do
   begin
@@ -730,6 +731,7 @@ var
   I  : Integer;
   S  : string;
 begin
+  Result := '';
   for I := 0 to Count - 1 do
   begin
     S := VarToStrDef(Items[I].Value, '');
@@ -749,6 +751,7 @@ var
   N  : Integer;
   S  : string;
 begin
+  Result := '';
   N := WordCount(AKeyNames, [',']);
   for I := 0 to N - 1 do
   begin
@@ -770,6 +773,7 @@ var
   I  : Integer;
   S  : string;
 begin
+  Result := '';
   for I := 0 to Count - 1 do
   begin
     S := VarToStrDef(Items[I].Value, '');

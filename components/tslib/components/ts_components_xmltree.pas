@@ -84,7 +84,6 @@ const
   DEFAULT_BGCOLOR_ATTRIBUTE = $00E8E8FF; // ATTRIBUTE_NODE red
   DEFAULT_BGCOLOR_ELEMENT   = $00ECFFEC; // ELEMENT_NODE without ChildNodes green
   DEFAULT_BGCOLOR_NODE      = $00FFD7D7; // ELEMENT_NODE without ChildNodes green
-    //$00FFF3E8;  // ELEMENT_NODE with ChildNodes    blue
 
 {$region 'default VST options' /fold}
 const
@@ -361,7 +360,7 @@ type
     function AddChild(
       ANode       : PVirtualNode;
       ANewXMLNode : TXmlNode
-    ): Boolean;
+    ): Boolean; reintroduce;
 
     procedure IterateCallback(
           ASender : TBaseVirtualTree;
@@ -749,8 +748,6 @@ const
 //*****************************************************************************
 
 procedure TXMLTree.AfterConstruction;
-var
-  NAI : TNodeAttributesItem;
 begin
   inherited;
   FXMLDocument                    := TNativeXml.Create(Self);
@@ -981,7 +978,6 @@ procedure TXMLTree.DoGetText(ANode: PVirtualNode; Column: TColumnIndex;
 var
   S  : UTF8String;
   ND : PNodeData;
-  N  : PVirtualNode;
 begin
   //Logger.EnterMethod(Self, 'DoGetText');
   //Logger.Send('States', SetToString(TypeInfo(ANode.States), ANode.States));

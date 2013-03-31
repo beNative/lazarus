@@ -237,8 +237,6 @@ begin
 end;
 
 procedure TSelectionInfo.Restore;
-var
-  N : Integer;
 begin
   if StripLastLine then // adjust block selection bounds
   begin

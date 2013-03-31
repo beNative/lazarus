@@ -4000,7 +4000,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       GlyphShowMode = gsmAlways
-      OnClick = actCopyExecute
     end
     object mniPaste: TMenuItem
       Action = actPaste
@@ -4411,7 +4410,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
-      OnClick = actSearchExecute
     end
     object mniFindNext: TMenuItem
       Action = actFindNextWord
@@ -4533,7 +4531,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
       GroupIndex = 1
-      OnClick = actSearchReplaceExecute
     end
     object mniSeperator4: TMenuItem
       Caption = '-'
@@ -4579,7 +4576,6 @@ object dmEditorManager: TdmEditorManager
           4755E49445DDE39344FFE69A52FFE28E43FFDF843188FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = actUpperCaseSelectionExecute
       end
       object MenuItem8: TMenuItem
         Action = actLowerCaseSelection
@@ -4619,7 +4615,6 @@ object dmEditorManager: TdmEditorManager
           FF00FFFFFF00FFFFFF00E0A773FFE2A66EFFE09F6AFFD89865EAFFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = actLowerCaseSelectionExecute
       end
       object MenuItem55: TMenuItem
         Caption = '-'
@@ -5173,7 +5168,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
       }
-      OnClick = actFilterCodeExecute
     end
     object MenuItem32: TMenuItem
       Action = actShapeCode
@@ -5214,7 +5208,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F7AB7509F7AB7571F7AB75AFF7AB
         75DDF7AB75CFF7AB75ADF7AB754EFFFFFF00FFFFFF00FFFFFF00
       }
-      OnClick = actShapeCodeExecute
     end
     object MenuItem42: TMenuItem
       Action = actFormat
@@ -5295,7 +5288,6 @@ object dmEditorManager: TdmEditorManager
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
           FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00
         }
-        OnClick = actInsertCharacterFromMapExecute
       end
       object MenuItem39: TMenuItem
         Action = actInsertColorValue
@@ -5342,15 +5334,12 @@ object dmEditorManager: TdmEditorManager
       GroupIndex = 1
       object mniExportToTeX: TMenuItem
         Action = actExportToWiki
-        OnClick = actExportToWikiExecute
       end
       object mniExportToHTML: TMenuItem
         Action = actExportToHTML
-        OnClick = actExportToHTMLExecute
       end
       object mniExportToRTF: TMenuItem
         Action = actExportToRTF
-        OnClick = actExportToRTFExecute
       end
     end
     object mniCopyToClipboard: TMenuItem
@@ -5462,7 +5451,6 @@ object dmEditorManager: TdmEditorManager
         E1FFA9374A0000FFFCFF0099E1FFA9374A0000FFFCFFA9374A00A9374A00A937
         4A00A9374A00A9374A00A9374A00A9374A00A9374A00A9374A00
       }
-      OnClick = actNewExecute
     end
     object MenuItem1: TMenuItem
       Action = actOpen
@@ -5502,7 +5490,6 @@ object dmEditorManager: TdmEditorManager
         FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00EAC39DFFE6BF96FFE4BB92FFE4BB
         92FFD1A06CF5D09E6DF6CC965FDAC479427EB2673C09FFFFFF00
       }
-      OnClick = actOpenExecute
     end
     object MenuItem30: TMenuItem
       Action = actSave
@@ -5582,7 +5569,6 @@ object dmEditorManager: TdmEditorManager
         8DFFC9895EFFC07543FFBD6E3AFFBB6C37FFBB6B36FFBB6A36FFBB6A36FFBC6C
         39FFBD6E3BFFBB6D3AFFBF7444FFC98D65FFE7CEBCFF00000000
       }
-      OnClick = actSaveAsExecute
     end
     object MenuItem35: TMenuItem
       Caption = '-'

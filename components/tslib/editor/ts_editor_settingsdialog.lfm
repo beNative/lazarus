@@ -105,6 +105,27 @@ object frmEditorSettings: TfrmEditorSettings
           TabOrder = 0
         end
       end
+      object tsDebug: TTabSheet
+        Caption = 'Debug'
+        ClientHeight = 506
+        ClientWidth = 478
+        object btnOpenSettingsFile: TButton
+          Left = 10
+          Height = 25
+          Top = 8
+          Width = 123
+          Action = actOpenSettingsFile
+          TabOrder = 0
+        end
+        object btnReloadSettings: TButton
+          Left = 10
+          Height = 25
+          Top = 40
+          Width = 123
+          Action = actReloadSettings
+          TabOrder = 1
+        end
+      end
     end
   end
   object pnlBottom: TPanel
@@ -140,6 +161,17 @@ object frmEditorSettings: TfrmEditorSettings
     Images = imlMain
     left = 256
     top = 488
+    object actOpenSettingsFile: TAction
+      Caption = 'Open settings file'
+      OnExecute = actOpenSettingsFileExecute
+    end
+    object actApplySettings: TAction
+      Caption = 'Apply'
+    end
+    object actReloadSettings: TAction
+      Caption = 'Reload settings'
+      OnExecute = actReloadSettingsExecute
+    end
   end
   object imlMain: TImageList
     left = 304

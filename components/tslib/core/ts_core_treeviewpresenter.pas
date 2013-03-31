@@ -47,8 +47,6 @@ interface
 uses
   ActiveX, Classes, Controls, Menus, SysUtils, Types, Contnrs, ComCtrls,
 
-  fgl,
-
   ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
   VirtualTrees;
@@ -377,9 +375,6 @@ type
     Items: TObjectList;
     ItemsAsObject: TObject;
   end;
-
-type
-  PObject = ^TObject;
 
 var
   CheckBoxSize: Byte;
@@ -824,7 +819,6 @@ procedure TTreeViewPresenter.DoDragOver(Sender: TBaseVirtualTree;
 var
   LItem: TObject;
   LNode: PVirtualNode;
-  LItemNode: PVirtualNode;
 begin
   if Pt.Y > -1 then
   begin
@@ -1444,7 +1438,7 @@ procedure TTreeViewPresenter.DrawCheckBox(TargetCanvas: TCanvas;
 var
   LThemedButton: TThemedButton;
   LCheckBoxRect: TRect;
-  LDetails: TThemedElementDetails;
+//  LDetails: TThemedElementDetails;
   LState: Cardinal;
 begin
   LCheckBoxRect := CalcCheckBoxRect(CellRect);
@@ -1510,8 +1504,8 @@ end;
 
 procedure TTreeViewPresenter.DrawProgressBar(TargetCanvas: TCanvas;
   Node: PVirtualNode; Column: TColumnIndex; CellRect: TRect; Value: Integer);
-var
-  LDetails: TThemedElementDetails;
+//var
+//  LDetails: TThemedElementDetails;
 begin
   //if StyleServices.Enabled and
   //  (toThemeAware in FTreeView.TreeOptions.PaintOptions) then

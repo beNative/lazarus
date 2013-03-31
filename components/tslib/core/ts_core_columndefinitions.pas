@@ -136,7 +136,7 @@ type
   TColumnDefinitions = class(TOwnedCollection)
   private
     FMainColumnIndex: Integer;
-    MainColumnIndex: Integer;
+
     function GetItem(Index: Integer): TColumnDefinition;
     procedure SetItem(Index: Integer; AValue: TColumnDefinition);
   public

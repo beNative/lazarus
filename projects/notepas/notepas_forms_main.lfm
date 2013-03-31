@@ -349,9 +349,9 @@ object frmMain: TfrmMain
     object actSingleInstance: TAction
       Category = 'Application'
       AutoCheck = True
-      Caption = 'Single instance.'
-      Hint = 'Allow only a single instance of the application.'
-      OnExecute = actSingleInstanceExecute
+      Caption = 'Maintain single instance'
+      Hint = 'Maintain a single instance of the application.'
+      ImageIndex = 98
     end
   end
   object imlMain: TImageList
@@ -526,12 +526,5 @@ object frmMain: TfrmMain
     top = 96
     object MenuItem1: TMenuItem
     end
-  end
-  object UniqueInstance: TUniqueInstance
-    Enabled = True
-    UpdateInterval = 10
-    OnOtherInstance = UniqueInstanceOtherInstance
-    left = 192
-    top = 96
   end
 end

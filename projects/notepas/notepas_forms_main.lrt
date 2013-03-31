@@ -23,5 +23,5 @@ TFRMMAIN.ACTCLOSEALLOTHERPAGES.CAPTION=Close all other pages
 TFRMMAIN.ACTINSPECT.CAPTION=Inspect
 TFRMMAIN.ACTSTAYONTOP.CAPTION=&Stay on top
 TFRMMAIN.ACTSTAYONTOP.HINT=Keeps the application on top of all other windows.
-TFRMMAIN.ACTSINGLEINSTANCE.CAPTION=Single instance.
-TFRMMAIN.ACTSINGLEINSTANCE.HINT=Allow only a single instance of the application.
+TFRMMAIN.ACTSINGLEINSTANCE.CAPTION=Maintain single instance
+TFRMMAIN.ACTSINGLEINSTANCE.HINT=Maintain a single instance of the application.

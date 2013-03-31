@@ -34,7 +34,7 @@ uses
   // for debugging
   sharedloggerlcl, ipcchannel,
 
-  SynEdit, UniqueInstance,
+  SynEdit,
 
   ts_Editor_Interfaces;
 
@@ -95,13 +95,11 @@ type
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
-    UniqueInstance: TUniqueInstance;
     {$endregion}
 
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
-    procedure actSingleInstanceExecute(Sender: TObject);
     procedure actStayOnTopExecute(Sender: TObject);
     procedure actToggleMaximizedExecute(Sender: TObject);
     {$endregion}
@@ -114,6 +112,7 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
+    procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure frmMainActiveViewChange(Sender: TObject);
@@ -217,7 +216,6 @@ var
   V  : IEditorView;
 begin
   inherited AfterConstruction;
-  //UniqueInstance.Enabled := True;
   Manager.PersistSettings := True;
   ConfigureAvailableActions;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
@@ -248,9 +246,11 @@ begin
     V := AddEditor(SNewEditorViewFileName);
   end;
   EV := Manager.Events;
+
   Manager.OnActiveViewChange  := frmMainActiveViewChange;
   EV.OnStatusChange := EStatusChange;
   EV.OnNewFile := ENewFile;
+  EV.OnOpenOtherInstance := EVOpenOtherInstance;
   tlbMain.Parent := Self;
   pnlStatusBar.Parent := Self;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
@@ -340,11 +340,6 @@ procedure TfrmMain.actCloseExecute(Sender: TObject);
 begin
   if Settings.CloseWithESC then
     Close;
-end;
-
-procedure TfrmMain.actSingleInstanceExecute(Sender: TObject);
-begin
-  UniqueInstance.Enabled := not UniqueInstance.Enabled;
 end;
 
 procedure TfrmMain.actStayOnTopExecute(Sender: TObject);
@@ -481,6 +476,22 @@ end;
 procedure TfrmMain.btnSelectionModeClick(Sender: TObject);
 begin
   btnSelectionMode.PopupMenu.PopUp;
+end;
+
+procedure TfrmMain.EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
+var
+  I : Integer;
+  S : string;
+  V : IEditorView;
+begin
+  for I := Low(AParams) to High(AParams) do
+  begin
+    S := AParams[I];
+    if I = Low(AParams) then
+      V := AddEditor(S)
+    else
+      AddEditor(S);
+  end;
 end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -746,6 +757,8 @@ begin
     UpdateStatusBar;
   end;
   actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
+  actSingleInstance.Checked := Settings.SingleInstance;
+  //FUniqueInstance.Enabled := Settings.SingleInstance;
 end;
 
 { Creates a new IEditorView instance for the given file. }

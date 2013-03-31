@@ -323,6 +323,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
+        <HostApplicationFilename Value="E:\lazarus\projects\notepas\Notepas.exe"/>
         <CommandLineParams Value="&quot;C:\Documents and Settings\Tim Sinaeve\Desktop\EasyGrid.pas&quot;"/>
       </local>
     </RunParams>

@@ -17,19 +17,14 @@
 }
 
 {
-  Extended components library
+  The Original Code is part of 'Extended components library, Version 1.3.16'.
+  The Initial Developer of the Original Code (Ex_Grid.pas) is Roman M. Mochalov
+  (roman@tersy.ru). Portions created by the Initial Developer are Copyright
+  (C) 1997-2007. All Rights Reserved. You may obtain a copy of the original code
+  at http://www.tersy.ru/~roman/download/
 
-  Data-aware descendant from TGridView
-
-  Version 1.3.16
-  (c) Roman M. Mochalov, 1997-2007
-  E-mail: roman@tersy.ru
-}
-
-{  Changed by Tim Sinaeve
-
+  Changes by Tim Sinaeve:
      - Comments were translated from Russian to English using machine translation
-       (Babelfish).
      - if the column does not have a fieldname associated, then don't make the
         column ReadOnly (changed <IsReadOnlyField>). This enables us to use
         such columns as editable non-databound columns.

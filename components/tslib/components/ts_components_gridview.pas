@@ -17,17 +17,13 @@
 }
 
 {
-  Extended components library
+  The Original Code is part of 'Extended components library, Version 1.3.16'.
+  The Initial Developer of the Original Code (Ex_Grid.pas) is Roman M. Mochalov
+  (roman@tersy.ru). Portions created by the Initial Developer are Copyright
+  (C) 1997-2007. All Rights Reserved. You may obtain a copy of the original code
+  at http://www.tersy.ru/~roman/download/
 
-  Main GridView component unit.
-
-  Version 1.3.16
-  (c) Roman M. Mochalov, 1997-2007
-  E-mail: roman@tersy.ru
-  http://www.tersy.ru/~roman/download/
-}
-{
-  Changed by Tim Sinaeve:
+  Changes by Tim Sinaeve:
     - If <RETURN> is used to navigate through cells, it does not force the cell
       in Edit mode anymore before we can go to the next cell. So we only have
       to press <RETURN> once to go to the next cell.
@@ -11310,8 +11306,8 @@ end;
 
 procedure TCustomGridView.UpdateColors;
 begin
-  Header.GridColorChanged(Color);
-  Fixed.GridColorChanged(Color);
+  //Header.GridColorChanged(Color);
+  //Fixed.GridColorChanged(Color);
 end;
   
 procedure TCustomGridView.UpdateEdit(Activate: Boolean);

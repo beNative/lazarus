@@ -32,7 +32,8 @@ uses
   ts_Components_XMLTree, ts_Components_XMLTree_NodeAttributes, 
   ts_Components_XMLTree_Editors, ts_Editor_Resources, ts_Components_ExportRTF, 
   ts_Editor_SelectionInfoForm, ts_Editor_SelectionInfo, 
-  ts_Components_UniqueInstance;
+  ts_Components_UniqueInstance, ts_Components_Inspector, 
+  ts_Components_DBGridView, ts_Components_GridView;
 
 implementation
 

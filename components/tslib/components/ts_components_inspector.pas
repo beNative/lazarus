@@ -17,14 +17,13 @@
 }
 
 {
-  Extended components library
+  The Original Code is part of 'Extended components library, Version 1.3.16'.
+  The Initial Developer of the Original Code (Ex_Grid.pas) is Roman M. Mochalov
+  (roman@tersy.ru). Portions created by the Initial Developer are Copyright
+  (C) 1997-2007. All Rights Reserved. You may obtain a copy of the original code
+  at http://www.tersy.ru/~roman/download/
 
-  Property Inspector (table of properties)
-
-  © Roman M. Mochalov, 1997-2001
-  E-mail: roman@sar.nnov.ru
-
-  BUGFIXES by Tim Sinaeve
+  Changes by Tim Sinaeve:
    - OnGetCellColors was not triggered anymore
 }
 

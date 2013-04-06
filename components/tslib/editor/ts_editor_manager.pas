@@ -1826,6 +1826,7 @@ end;
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
   ClearViews;
+  Application.Terminate;
 end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);
@@ -2739,13 +2740,14 @@ begin
 
     actClose.Visible       := ViewCount > 1;
     actCloseOthers.Visible := ViewCount > 1;
+
+    actToggleMaximized.Checked :=
+      Settings.FormSettings.WindowState = wsMaximized;
+    actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
+    actSingleInstance.Checked := Settings.SingleInstance;
+
     FChanged := False;
   end;
-
-  actToggleMaximized.Checked := Settings.FormSettings.WindowState = wsMaximized;
-  actStayOnTop.Checked       := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
-  actSingleInstance.Checked  := Settings.SingleInstance;
-
   actFilterCode.Checked := ToolViews['frmCodeFilterDialog'].Visible;
 end;
 

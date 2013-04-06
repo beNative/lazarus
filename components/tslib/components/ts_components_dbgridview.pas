@@ -55,12 +55,12 @@
          MultiSelect and RowSelect is True.
 
   KNOWN ISSUES:
-     -  AutoSizeCols(True, False) should size the columns for all records in the
-        DataSet. For the moment only the visible rows are considered because
-        Rows.Count equals FDataLink.RecordCount (= recordcount in the record
-        buffer). The real recordcount is FDataLink.DataSet.RecordCount but we
-        can't assign this to Rows.Count because that would increase the record
-        buffer too.
+     - AutoSizeCols(True, False) should size the columns for all records in the
+       DataSet. For the moment only the visible rows are considered because
+       Rows.Count equals FDataLink.RecordCount (= recordcount in the record
+       buffer). The real recordcount is FDataLink.DataSet.RecordCount but we
+       can't assign this to Rows.Count because that would increase the record
+       buffer too.
      - FindText works only to search all VISIBLE cells.
      - the Row value seems to be the offset from the first VISIBLE row in the
        grid. Maybe this holds true for TGridView as well.

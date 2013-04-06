@@ -42,6 +42,7 @@ unit ts_Editor_Manager;
 
    - xml/HTML treeview?
    - binary editor view
+   - viewports
    - settings dialog (store settings in xml)
 
    - goto line
@@ -49,7 +50,6 @@ unit ts_Editor_Manager;
 
   BUGS:
    - createdesktoplink has problems with spaces in paths
-   - Actions cannot be executed on toolforms!
    - fix codeshaper undo
 
    - copy to clipboard
@@ -61,8 +61,8 @@ unit ts_Editor_Manager;
     - the OnExecute should be handled in this unit
     - if the action alters application settings, the Settings instance should
       be adjusted in the action handler. When Settings change, a (multicast)
-      notification will be sent which can be handled by any module that needs to
-      be notified (observer pattern).
+      notification will be dispatched which can be handled by any module that
+      needs to be notified (observer pattern).
 
 }
 {$endregion}
@@ -586,7 +586,10 @@ type
     function DeleteToolView(const AName: string): Boolean; overload;
 
     { IEditorCommands } { TODO -oTS : Move to dedicated class or TEditorView }
-    function SaveFile(const AFileName: string = ''): Boolean;
+    function SaveFile(
+      const AFileName   : string = '';
+            AShowDialog : Boolean = False
+    ): Boolean;
     procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
@@ -1380,7 +1383,7 @@ end;
 
 procedure TdmEditorManager.actSaveAsExecute(Sender: TObject);
 begin
-  SaveFile;
+  SaveFile(ActiveView.FileName, True);
 end;
 
 procedure TdmEditorManager.actSearchExecute(Sender: TObject);
@@ -2536,16 +2539,11 @@ end;
   given filename does not exist or is empty, the user is prompted to enter a
   name with the save file dialog. }
 
-function TdmEditorManager.SaveFile(const AFileName: string): Boolean;
+function TdmEditorManager.SaveFile(const AFileName: string;
+AShowDialog: Boolean): Boolean;
 begin
   DoSaveFile;
-  if FileExists(AFileName) then
-  begin
-    ActiveView.FileName := AFileName;
-    ActiveView.SaveToFile(AFileName);
-    Result := True;
-  end
-  else
+  if AShowDialog or not FileExists(AFileName) then
   begin
     if Assigned(ActiveView.Editor.Highlighter) then
       dlgSave.Filter := ActiveView.Editor.Highlighter.DefaultFilter;
@@ -2558,7 +2556,13 @@ begin
     end
     else
       Result := False;
-  end;
+  end
+  else
+  begin
+    ActiveView.FileName := AFileName;
+    ActiveView.SaveToFile(AFileName);
+    Result := True;
+  end
 end;
 
 function TdmEditorManager.ActivateView(const AName: string): Boolean;

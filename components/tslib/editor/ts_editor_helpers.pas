@@ -20,7 +20,7 @@ unit ts_Editor_Helpers;
 
 {$mode delphi}
 
-{ handy functions to build a simple editor. }
+{ Some helper routines to build a simple editor. }
 
 //*****************************************************************************
 
@@ -420,7 +420,8 @@ begin
   Result := V;
 end;
 
-function CreateEditorView(AParent: THandle; const AName: string; const AFileName: string; const AHighlighter: string): IEditorView;
+function CreateEditorView(AParent: THandle; const AName: string;
+  const AFileName: string; const AHighlighter: string): IEditorView;
 var
   V: IEditorView;
 begin

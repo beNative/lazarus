@@ -376,10 +376,6 @@ type
 
     property Text: string
       read GetText write SetText;
-    //------------------------------------------
-
-    // TODO: Append? (for logging)
-
 
     //---| Cursor properties |-------------------------------------------------
     { current X-coordinate of the caret. }
@@ -752,7 +748,10 @@ type
 
   IEditorCommands = interface
   ['{5CB77731-425D-44FD-93BA-2137875F76B5}']
-    function SaveFile(const AFileName: string = ''): Boolean;
+    function SaveFile(
+      const AFileName   : string = '';
+            AShowDialog : Boolean = False
+    ): Boolean;
     procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;

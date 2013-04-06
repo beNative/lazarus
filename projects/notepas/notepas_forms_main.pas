@@ -66,9 +66,6 @@ type
     actAbout              : TAction;
     actCloseAllOtherPages : TAction;
     actInspect            : TAction;
-    actSingleInstance: TAction;
-    actStayOnTop: TAction;
-    actToggleMaximized    : TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
@@ -100,8 +97,6 @@ type
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
-    procedure actStayOnTopExecute(Sender: TObject);
-    procedure actToggleMaximizedExecute(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -210,7 +205,7 @@ var
   I  : Integer;
   EV : IEditorEvents;
   V  : IEditorView;
-  S: String;
+  S  : string;
 begin
   inherited AfterConstruction;
   Manager.PersistSettings := True;
@@ -236,7 +231,6 @@ begin
 
   if ParamCount > 0 then
   begin
-
     for I := 1 to Paramcount do
     begin
       S := ParamStr(I);
@@ -320,30 +314,10 @@ end;
 // action handlers                                                       BEGIN
 //*****************************************************************************
 
-procedure TfrmMain.actToggleMaximizedExecute(Sender: TObject);
-begin
-  if WindowState = wsMaximized then
-    WindowState := wsNormal
-  else
-    WindowState := wsMaximized;
-end;
-
 procedure TfrmMain.actCloseExecute(Sender: TObject);
 begin
   if Settings.CloseWithESC then
     Close;
-end;
-
-procedure TfrmMain.actStayOnTopExecute(Sender: TObject);
-var
-  A : TAction;
-begin
-  A := Sender as TAction;
-  if A.Checked then
-    Settings.FormSettings.FormStyle := fsSystemStayOnTop
-  else
-    Settings.FormSettings.FormStyle := fsNormal;
-  FormStyle :=  Settings.FormSettings.FormStyle;
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
@@ -602,7 +576,6 @@ begin
   AddEditorToolsMenu(mnuMain);
   AddEditorSettingsMenu(mnuMain);
   AddEditorHighlightersMenu(mnuMain);
-  AddApplicationMenu(mnuMain, aclMain);
   AddEditorHelpMenu(mnuMain);
 end;
 
@@ -742,8 +715,11 @@ begin
     UpdateCaptions;
     UpdateStatusBar;
   end;
-  actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
-  actSingleInstance.Checked := Settings.SingleInstance;
+  FormStyle := Settings.FormSettings.FormStyle;
+  WindowState := Settings.FormSettings.WindowState;
+  //Actions['actStayOnTop'].Checked := FormStyle = fsSystemStayOnTop;
+  //Actions['actSingleInstance'].Checked := Settings.SingleInstance;
+  //Actions['actToggleMaximized'].Checked := WindowState = wsMaximized;
 end;
 
 //*****************************************************************************

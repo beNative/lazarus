@@ -313,13 +313,6 @@ object frmMain: TfrmMain
     Images = imlMain
     left = 72
     top = 96
-    object actToggleMaximized: TAction
-      AutoCheck = True
-      Caption = 'Toggle maximized'
-      ImageIndex = 97
-      OnExecute = actToggleMaximizedExecute
-      ShortCut = 122
-    end
     object actClose: TAction
       Caption = 'Close'
       ImageIndex = 3
@@ -337,21 +330,6 @@ object frmMain: TfrmMain
     object actInspect: TAction
       Caption = 'Inspect'
       ShortCut = 16496
-    end
-    object actStayOnTop: TAction
-      Category = 'Application'
-      AutoCheck = True
-      Caption = '&Stay on top'
-      Hint = 'Keeps the application on top of all other windows.'
-      ImageIndex = 96
-      OnExecute = actStayOnTopExecute
-    end
-    object actSingleInstance: TAction
-      Category = 'Application'
-      AutoCheck = True
-      Caption = 'Maintain single instance'
-      Hint = 'Maintain a single instance of the application.'
-      ImageIndex = 98
     end
   end
   object imlMain: TImageList

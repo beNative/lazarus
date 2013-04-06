@@ -313,12 +313,6 @@ object frmMain: TfrmMain
     Images = imlMain
     left = 72
     top = 96
-    object actClose: TAction
-      Caption = 'Close'
-      ImageIndex = 3
-      OnExecute = actCloseExecute
-      ShortCut = 27
-    end
     object actAbout: TAction
       Caption = 'About'
       ImageIndex = 2

@@ -23,10 +23,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Notepas_Forms_Main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="677"/>
-        <CursorPos X="46" Y="722"/>
+        <TopLine Value="674"/>
+        <CursorPos X="1" Y="704"/>
         <UsageCount Value="260"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -112,11 +113,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts_Editor_Manager"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1859"/>
-        <CursorPos X="62" Y="2252"/>
+        <TopLine Value="1800"/>
+        <CursorPos X="24" Y="1829"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -772,124 +772,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="757" Column="67" TopLine="717"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="2802" Column="3" TopLine="2758"/>
       </Position1>
       <Position2>
         <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="238" Column="35" TopLine="207"/>
+        <Caret Line="704" Column="62" TopLine="686"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_helpers.pas"/>
-        <Caret Line="348" Column="55" TopLine="331"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="318" Column="1" TopLine="292"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_helpers.pas"/>
-        <Caret Line="395" Column="47" TopLine="385"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="130" Column="1" TopLine="130"/>
       </Position4>
       <Position5>
         <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="582" Column="63" TopLine="562"/>
+        <Caret Line="320" Column="1" TopLine="290"/>
       </Position5>
       <Position6>
         <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="757" Column="44" TopLine="716"/>
+        <Caret Line="213" Column="103" TopLine="212"/>
       </Position6>
       <Position7>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="673" Column="32" TopLine="642"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1391" Column="51" TopLine="1363"/>
       </Position7>
       <Position8>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="755" Column="68" TopLine="717"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1392" Column="45" TopLine="1364"/>
       </Position8>
       <Position9>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="335" Column="1" TopLine="309"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="36" Column="1" TopLine="23"/>
       </Position9>
       <Position10>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="650" Column="28" TopLine="646"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1006" Column="34" TopLine="997"/>
       </Position10>
       <Position11>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="143" Column="5" TopLine="117"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1005" Column="34" TopLine="995"/>
       </Position11>
       <Position12>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="333" Column="1" TopLine="298"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1004" Column="34" TopLine="993"/>
       </Position12>
       <Position13>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="632" Column="1" TopLine="606"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1009" Column="74" TopLine="991"/>
       </Position13>
       <Position14>
         <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="100" Column="1" TopLine="62"/>
+        <Caret Line="691" Column="77" TopLine="677"/>
       </Position14>
       <Position15>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="247" Column="24" TopLine="208"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1871" Column="79" TopLine="1859"/>
       </Position15>
       <Position16>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="738" Column="5" TopLine="686"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1791" Column="1" TopLine="1763"/>
       </Position16>
       <Position17>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1815" Column="67" TopLine="1794"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="718" Column="1" TopLine="677"/>
       </Position17>
       <Position18>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="2802" Column="3" TopLine="2758"/>
+        <Caret Line="1066" Column="108" TopLine="1055"/>
       </Position18>
       <Position19>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="704" Column="62" TopLine="686"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="2748" Column="59" TopLine="2717"/>
       </Position19>
       <Position20>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="318" Column="1" TopLine="292"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1081" Column="1" TopLine="1054"/>
       </Position20>
       <Position21>
         <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="130" Column="1" TopLine="130"/>
+        <Caret Line="713" Column="39" TopLine="677"/>
       </Position21>
       <Position22>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="320" Column="1" TopLine="290"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1087" Column="27" TopLine="1054"/>
       </Position22>
       <Position23>
-        <Filename Value="notepas_forms_main.pas"/>
-        <Caret Line="213" Column="103" TopLine="212"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="2748" Column="7" TopLine="2717"/>
       </Position23>
       <Position24>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1391" Column="51" TopLine="1363"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="722" Column="41" TopLine="677"/>
       </Position24>
       <Position25>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1392" Column="45" TopLine="1364"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="320" Column="24" TopLine="317"/>
       </Position25>
       <Position26>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="36" Column="1" TopLine="23"/>
+        <Caret Line="816" Column="99" TopLine="784"/>
       </Position26>
       <Position27>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1006" Column="34" TopLine="997"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="338" Column="72" TopLine="317"/>
       </Position27>
       <Position28>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1005" Column="34" TopLine="995"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="337" Column="72" TopLine="315"/>
       </Position28>
       <Position29>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1004" Column="34" TopLine="993"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="315" Column="1" TopLine="313"/>
       </Position29>
       <Position30>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="1009" Column="74" TopLine="991"/>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="98" Column="1" TopLine="62"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">
@@ -898,6 +898,15 @@
     </CustomSessionData>
   </ProjectSession>
   <Debugging>
+    <BreakPoints Count="1">
+      <Item1>
+        <Kind Value="bpkSource"/>
+        <WatchScope Value="wpsLocal"/>
+        <WatchKind Value="wpkWrite"/>
+        <Source Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Line Value="1791"/>
+      </Item1>
+    </BreakPoints>
     <Watches Count="4">
       <Item1 ClassAutoCast="True">
         <Expression Value="pnlTool.Visible"/>

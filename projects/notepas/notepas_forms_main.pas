@@ -62,7 +62,6 @@ type
   TfrmMain = class(TForm)
     {$region 'designer controls' /fold}
     aclMain               : TActionList;
-    actClose              : TAction;
     actAbout              : TAction;
     actCloseAllOtherPages : TAction;
     actInspect            : TAction;
@@ -96,7 +95,6 @@ type
 
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
-    procedure actCloseExecute(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -313,12 +311,6 @@ end;
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
-
-procedure TfrmMain.actCloseExecute(Sender: TObject);
-begin
-  if Settings.CloseWithESC then
-    Close;
-end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
@@ -710,16 +702,16 @@ end;
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
-  if Assigned(Editor) then
+  if Assigned(Manager.ActiveView) then
   begin
     UpdateCaptions;
     UpdateStatusBar;
   end;
-  FormStyle := Settings.FormSettings.FormStyle;
-  WindowState := Settings.FormSettings.WindowState;
-  //Actions['actStayOnTop'].Checked := FormStyle = fsSystemStayOnTop;
-  //Actions['actSingleInstance'].Checked := Settings.SingleInstance;
-  //Actions['actToggleMaximized'].Checked := WindowState = wsMaximized;
+  if Assigned(Settings) then
+  begin
+    FormStyle := Settings.FormSettings.FormStyle;
+    WindowState := Settings.FormSettings.WindowState;
+  end;
 end;
 
 //*****************************************************************************

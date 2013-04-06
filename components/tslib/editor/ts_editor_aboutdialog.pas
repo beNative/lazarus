@@ -68,6 +68,7 @@ type
     btnClose: TButton;
     {$region 'designer controls' /fold}
     grpLine           : TGroupBox;
+    Image1: TImage;
     imgMain: TImage;
     lbBuildDate: TLabel;
     lbLCLVersion: TLabel;

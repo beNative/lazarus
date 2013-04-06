@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 384
-  HorizontalOffset = 1053
-  VerticalOffset = 81
+  HorizontalOffset = 569
+  VerticalOffset = 299
   Width = 511
   object imlMain: TImageList
     AllocBy = 1
@@ -3566,7 +3566,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Toggle folding level.'
       ImageIndex = 69
       OnExecute = actToggleFoldLevelExecute
-      ShortCut = 116
+      ShortCut = 118
     end
     object actToggleHighlighter: TAction
       Category = 'Highlighter'
@@ -3614,7 +3614,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Reload file from disk'
       ImageIndex = 14
       OnExecute = actReloadExecute
-      ShortCut = 118
+      ShortCut = 116
     end
     object actNew: TAction
       Category = 'File'
@@ -3915,6 +3915,28 @@ object dmEditorManager: TdmEditorManager
       Caption = 'SelectionInfo'
       OnExecute = actSelectionInfoExecute
       ShortCut = 24651
+    end
+    object actStayOnTop: TAction
+      Category = 'Settings'
+      AutoCheck = True
+      Caption = 'Stay on top'
+      ImageIndex = 96
+      OnExecute = actStayOnTopExecute
+    end
+    object actToggleMaximized: TAction
+      Category = 'Settings'
+      AutoCheck = True
+      Caption = 'Toggle maximized'
+      ImageIndex = 97
+      OnExecute = actToggleMaximizedExecute
+      ShortCut = 122
+    end
+    object actSingleInstance: TAction
+      Category = 'Settings'
+      AutoCheck = True
+      Caption = 'Single instance'
+      ImageIndex = 98
+      OnExecute = actSingleInstanceExecute
     end
   end
   object ppmEditor: TPopupMenu

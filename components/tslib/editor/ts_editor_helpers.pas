@@ -72,10 +72,6 @@ procedure AddEditorSettingsMenu(AMainMenu : TMainMenu);
 procedure AddEditorHighlightersMenu(AMainMenu: TMainMenu);
 procedure AddEditorHelpMenu(AMainMenu : TMainMenu);
 procedure AddEditorDebugMenu(AMainMenu : TMainMenu);
-procedure AddApplicationMenu(
-  AMainMenu : TMainMenu;
-  AActions  : TActionList
-);
 
 //*****************************************************************************
 
@@ -354,6 +350,9 @@ begin
   MI.Caption := SSettingsMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSettings');
+  AddEditorMenuItem(MI, 'actStayOnTop');
+  AddEditorMenuItem(MI, 'actToggleMaximized');
+  AddEditorMenuItem(MI, 'actSingleInstance');
 end;
 
 procedure AddEditorHighlightersMenu(AMainMenu: TMainMenu);
@@ -403,18 +402,6 @@ begin
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actInspect');
   AddEditorMenuItem(MI, 'actShowActions');
-end;
-
-procedure AddApplicationMenu(AMainMenu: TMainMenu; AActions: TActionList);
-var
-  MI : TMenuItem;
-begin
-  MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := SApplicationMenuCaption;
-  AMainMenu.Items.Add(MI);
-  AddActionMenuItem(MI, AActions.ActionByName('actStayOnTop'));
-  AddActionMenuItem(MI, AActions.ActionByName('actToggleMaximized'));
-  AddActionMenuItem(MI, AActions.ActionByName('actSingleInstance'));
 end;
 
 function CreateEditorView(AParent: TWinControl; const AName: string;

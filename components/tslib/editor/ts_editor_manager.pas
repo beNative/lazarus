@@ -34,9 +34,6 @@ unit ts_Editor_Manager;
 
    - customizable shortcuts for actions.
 
-   - no highlighter components here. They should be managed by the editor
-     settings once the persistence mechanism is ready.
-
    - show a hintwindow of the selection with the proposed operation!
    - list of all supported actions, category, shortcut, description (treeview)
 
@@ -59,71 +56,14 @@ unit ts_Editor_Manager;
       - as HTML object has a incomplete HTML closing tag
       - as RTF object does the same as copy as RTF text
 
-  list of supported actions:
+  Adding actions:
+    - if checkable then AutoCheck should be set to True
+    - the OnExecute should be handled in this unit
+    - if the action alters application settings, the Settings instance should
+      be adjusted in the action handler. When Settings change, a (multicast)
+      notification will be sent which can be handled by any module that needs to
+      be notified (observer pattern).
 
-      actNew
-      actOpen
-      actSave
-      actSaveAs
-      actOpenSelectionInNewEditor
-
-      actCut
-      actCopy
-      actPaste
-
-      actUndo
-      actDelete
-      actSelectAll
-
-      actSearch
-      actSearchReplace
-      actFindNext
-      actFindPrevious
-      actFindNextWordOccurence
-      actFindPrevWordOccurence
-
-      actIncFontSize
-      actDecFontSize
-
-      actAlignSelection
-
-      actLowerCaseSelection
-      actUpperCaseSelection
-
-      actToggleComment
-      actToggleHighlighter
-
-      actToggleFoldLevel
-
-      actSortSelection
-      actSmartSelect
-      actFormat
-
-      actToggleHighlighter
-
-      actShapeCode
-      actFilterCode
-
-      actInsertCharacterFromMap
-      actInsertColorValue
-
-      actShowControlCharacters
-
-      actQuoteSelection
-      actDeQuoteSelection
-      actQuoteLines
-      actQuoteLinesAndDelimit
-      actPascalStringOfSelection
-
-      actStoreFoldState
-      actRestoreFoldState
-
-      actShowPreview
-      actInspect
-      actAutoGuessHighlighter
-
-      actClose
-      actCloseOthers
 }
 {$endregion}
 
@@ -178,6 +118,9 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actSingleInstance: TAction;
+    actToggleMaximized: TAction;
+    actStayOnTop: TAction;
     actSelectionInfo              : TAction;
     actXMLTree                    : TAction;
     actToggleBlockCommentSelection: TAction;
@@ -331,9 +274,6 @@ type
     MenuItem69                    : TMenuItem;
     MenuItem7                     : TMenuItem;
     MenuItem70                    : TMenuItem;
-    MenuItem71                    : TMenuItem;
-    MenuItem72                    : TMenuItem;
-    MenuItem73                    : TMenuItem;
     MenuItem74                    : TMenuItem;
     MenuItem75                    : TMenuItem;
     MenuItem76                    : TMenuItem;
@@ -405,6 +345,8 @@ type
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
     procedure actSelectionInfoExecute(Sender: TObject);
     procedure actSelectionModeExecute(Sender: TObject);
+    procedure actSingleInstanceExecute(Sender: TObject);
+    procedure actStayOnTopExecute(Sender: TObject);
     procedure actToggleBlockCommentSelectionExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
@@ -490,6 +432,7 @@ type
     procedure actToggleCommentExecute(Sender: TObject);
     procedure actToggleFoldLevelExecute(Sender: TObject);
     procedure actToggleHighlighterExecute(Sender: TObject);
+    procedure actToggleMaximizedExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     procedure actUpperCaseSelectionExecute(Sender: TObject);
     procedure actEncodingExecute(Sender: TObject);
@@ -1374,6 +1317,17 @@ begin
   ToggleHighlighter;
 end;
 
+procedure TdmEditorManager.actToggleMaximizedExecute(Sender: TObject);
+var
+  A : TAction;
+begin
+  A := Sender as TAction;
+  if A.Checked then
+    Settings.FormSettings.WindowState := wsMaximized
+  else
+    Settings.FormSettings.WindowState := wsNormal;
+end;
+
 procedure TdmEditorManager.actUndoExecute(Sender: TObject);
 begin
   ActiveView.Undo;
@@ -1795,6 +1749,22 @@ begin
   ActiveView.SelectionMode := TSynSelectionMode((Sender as TCustomAction).Tag);
 end;
 
+procedure TdmEditorManager.actSingleInstanceExecute(Sender: TObject);
+begin
+  Settings.SingleInstance := not Settings.SingleInstance;
+end;
+
+procedure TdmEditorManager.actStayOnTopExecute(Sender: TObject);
+var
+  A : TAction;
+begin
+  A := Sender as TAction;
+  if A.Checked then
+    Settings.FormSettings.FormStyle := fsSystemStayOnTop
+  else
+    Settings.FormSettings.FormStyle := fsNormal;
+end;
+
 procedure TdmEditorManager.actToggleBlockCommentSelectionExecute(Sender: TObject);
 begin
   ActiveView.ToggleBlockCommentSelection;
@@ -1888,7 +1858,6 @@ end;
 
 procedure TdmEditorManager.actShowControlCharactersExecute(Sender: TObject);
 begin
-  (Sender as TAction).Checked := not (Sender as TAction).Checked;
   Settings.ShowControlCharacters := (Sender as TAction).Checked;
 end;
 
@@ -2772,6 +2741,11 @@ begin
     actCloseOthers.Visible := ViewCount > 1;
     FChanged := False;
   end;
+
+  actToggleMaximized.Checked := Settings.FormSettings.WindowState = wsMaximized;
+  actStayOnTop.Checked       := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
+  actSingleInstance.Checked  := Settings.SingleInstance;
+
   actFilterCode.Checked := ToolViews['frmCodeFilterDialog'].Visible;
 end;
 

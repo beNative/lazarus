@@ -12,7 +12,7 @@ uses
   { you can add units after this }
   DefaultTranslator,
 
-  richmemopackage, uniqueinstance_package;
+  richmemopackage;
 
 {$R *.res}
 

@@ -109,6 +109,7 @@ type
     procedure btnCloseToolViewClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
+    procedure FormWindowStateChange(Sender: TObject);
         {$endregion}
   private
     {$region 'property access methods' /fold}
@@ -127,6 +128,8 @@ type
     procedure EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
     procedure EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
+
+    procedure EditorSettingsChangedHandler(Sender: TObject);
 
   protected
     procedure AddDockingMenuItems;
@@ -219,6 +222,7 @@ begin
     Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
     AddEditorDebugMenu(mnuMain);
   end;
+  Manager.Actions['actNewSharedView'].Visible := Settings.DebugMode;
   pnlViewerCount.Visible := Settings.DebugMode;
 
   EV := Manager.Events;
@@ -226,6 +230,10 @@ begin
   EV.OnStatusChange      := EVStatusChange;
   EV.OnOpenOtherInstance := EVOpenOtherInstance;
   EV.OnAddEditorView     := EVAddEditorView;
+
+  Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
+
+
 
   if ParamCount > 0 then
   begin
@@ -445,6 +453,12 @@ begin
   V.Activate;
 end;
 
+procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
+begin
+  WindowState := Settings.FormSettings.WindowState;
+  FormStyle := Settings.FormSettings.FormStyle;
+end;
+
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose := Actions['actExit'].Execute;
@@ -475,6 +489,11 @@ begin
   V.Activate;
 end;
 
+procedure TfrmMain.FormWindowStateChange(Sender: TObject);
+begin
+  Settings.FormSettings.WindowState := WindowState;
+end;
+
 procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
 var
   I : Integer;
@@ -499,9 +518,20 @@ begin
     try
       DockMaster.MakeDockable(V.Form);
       AHS := DockMaster.GetAnchorSite(V.Form);
-      DockMaster.ManualDock(AHS, Self, alClient);
-      AHS.Header.Visible := Views.Count > 1;
-      AHS.Header.HeaderPosition := adlhpTop;
+      if Assigned(AEditorView.MasterView) then
+      begin
+        V.Form.Width := Self.Width div 2;
+        DockMaster.ManualDock(AHS, DockMaster.GetAnchorSite(V.MasterView.Form), alRight, AEditorView.MasterView.Form);
+        AEditorView.MasterView.Form.Width := Self.Width div 2;
+        //DockMaster.GetAnchorSite(V.MasterView.Form).Header.Visible := False;
+        //AHS.Header.Visible := False;
+      end
+      else
+      begin
+        DockMaster.ManualDock(AHS, Self, alClient);
+        AHS.Header.Visible := Views.Count > 1;
+        AHS.Header.HeaderPosition := adlhpTop;
+      end;
       AHS.OnActivateSite := AHSActivateSite;
       V.OnDropFiles := FormDropFiles;
       V.Editor.PopupMenu := Menus.EditorPopupMenu;
@@ -709,8 +739,7 @@ begin
   end;
   if Assigned(Settings) then
   begin
-    FormStyle := Settings.FormSettings.FormStyle;
-    WindowState := Settings.FormSettings.WindowState;
+
   end;
 end;
 

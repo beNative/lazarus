@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -1312
+  Left = -1074
   Height = 618
-  Top = 80
+  Top = 97
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -13,6 +13,7 @@ object frmMain: TfrmMain
   DefaultMonitor = dmPrimary
   Menu = mnuMain
   OnCloseQuery = FormCloseQuery
+  OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True

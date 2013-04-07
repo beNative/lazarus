@@ -328,19 +328,16 @@
         <CommandLineParams Value="&quot;C:\Documents and Settings\Tim Sinaeve\Desktop\EasyGrid.pas&quot;"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
         <PackageName Value="FCL"/>
       </Item1>
       <Item2>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="tslib"/>
       </Item2>
       <Item3>
-        <PackageName Value="tslib"/>
-      </Item3>
-      <Item4>
         <PackageName Value="LCL"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

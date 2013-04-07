@@ -133,27 +133,31 @@ type
 
     function IsActive: Boolean;
 
-  strict private
-    FUpdate               : Boolean;
-    FDirectoryWatch       : TDirectoryWatch;
-    FEncoding             : string;
-    FLineBreakStyle       : string;
-    FEditor               : TSynEdit;
-    FFindHistory          : TStringList;
-    FHighlighter          : TSynCustomHighlighter;
-    FReplaceHistory       : TStringList;
-    FSyncronizedEdit      : TSynPluginSyncroEdit;
-    FTemplateEdit         : TSynPluginTemplateEdit;
-    FHighlighterItem      : THighlighterItem;
-    FMHAC                 : TSynEditMarkupHighlightAllCaret;
-    FSelectionInfo        : TSelectionInfo;
-    FFileName             : string;
-    FFoldLevel            : Integer;
-    FBeautifier           : TSynBeautifier;
+    procedure UpdateSharedViews;
 
-    FOnDropFiles          : TDropFilesEvent;
-    FOnStatusChange       : TStatusChangeEvent;
-    FOnChange             : TNotifyEvent;
+  strict private
+    FUpdate          : Boolean;
+    FDirectoryWatch  : TDirectoryWatch;
+    FEncoding        : string;
+    FLineBreakStyle  : string;
+    FEditor          : TSynEdit;
+    FFindHistory     : TStringList;
+    FHighlighter     : TSynCustomHighlighter;
+    FReplaceHistory  : TStringList;
+    FSyncronizedEdit : TSynPluginSyncroEdit;
+    FTemplateEdit    : TSynPluginTemplateEdit;
+    FHighlighterItem : THighlighterItem;
+    FMHAC            : TSynEditMarkupHighlightAllCaret;
+    FSelectionInfo   : TSelectionInfo;
+    FFileName        : string;
+    FFoldLevel       : Integer;
+    FBeautifier      : TSynBeautifier;
+    FMasterView      : IEditorView;
+    FSlaveView       : IEditorView;
+
+    FOnDropFiles     : TDropFilesEvent;
+    FOnStatusChange  : TStatusChangeEvent;
+    FOnChange        : TNotifyEvent;
 
     { search settings }
     FSearchText     : string;
@@ -188,6 +192,7 @@ type
     function GetLinesInWindow: Integer;
     function GetLineText: string;
     function GetLogicalCaretXY: TPoint;
+    function GetMasterView: IEditorView;
     function GetModified: Boolean;
     function GetMonitorChanges: Boolean;
     function GetName: string;
@@ -208,6 +213,7 @@ type
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
+    function GetSlaveView: IEditorView;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -229,6 +235,7 @@ type
     procedure SetLines(const Value: TStrings); virtual;
     procedure SetLineText(const AValue: string);
     procedure SetLogicalCaretXY(const AValue: TPoint);
+    procedure SetMasterView(AValue: IEditorView);
     procedure SetModified(const AValue: Boolean);
     procedure SetMonitorChanges(const AValue: Boolean);
     procedure SetName(AValue: string); reintroduce;
@@ -244,11 +251,12 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
+    procedure SetSlaveView(AValue: IEditorView);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
 
-    procedure InitializeEditor;
+    procedure InitializeEditor(AEditor: TSynEdit);
     procedure OnSettingsChanged(ASender: TObject);
 
   strict protected
@@ -343,6 +351,14 @@ type
     procedure SaveToFile(const AFileName: string);
 
     procedure AssignHighlighter(const AHighlighter: string = 'TXT');
+
+    { Master view from which the text buffer is shared. }
+    property MasterView: IEditorView
+      read GetMasterView write SetMasterView;
+
+    { Slave view which shares the text buffer. }
+    property SlaveView: IEditorView
+      read GetSlaveView write SetSlaveView;
 
     // public properties
     { Column and line of the start of the selected block. }
@@ -555,7 +571,7 @@ begin
   FEncoding := EncodingUTF8;
   FLineBreakStyle := ALineBreakStyles[Lines.TextLineBreakStyle];
   Doublebuffered := True;
-  InitializeEditor;
+  InitializeEditor(FEditor);
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
   Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
@@ -564,6 +580,11 @@ end;
 
 procedure TEditorView.BeforeDestruction;
 begin
+  if Assigned(MasterView) then
+  begin
+    MasterView.SlaveView := nil;
+  end;
+  FMasterView := nil;
   FHighlighter := nil;
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
@@ -649,8 +670,11 @@ begin
   begin
     // we use this event to ensure that the view is activated because the OnEnter
     // event is not triggered when the form is undocked!
-    if not IsActive then
-		  Activate;
+
+    // but side-effects when it is docked !
+    //if not IsActive then
+		  //Activate;
+
     if Assigned(FOnStatusChange) then
       FOnStatusChange(Self, Changes);
     Events.DoStatusChange(Changes);
@@ -981,6 +1005,21 @@ begin
   Result := Editor.LogicalCaretXY;
 end;
 
+function TEditorView.GetMasterView: IEditorView;
+begin
+  Result := FMasterView;
+end;
+
+procedure TEditorView.SetMasterView(AValue: IEditorView);
+begin
+  if AValue <> MasterView then
+  begin
+    FMasterView := AValue;
+    FEditor.ShareTextBufferFrom(FMasterView.Editor);
+    FMasterView.SlaveView := Self;
+  end;
+end;
+
 procedure TEditorView.SetLogicalCaretXY(const AValue: TPoint);
 begin
   Editor.LogicalCaretXY := AValue;
@@ -1075,6 +1114,19 @@ end;
 function TEditorView.GetShowSpecialChars: Boolean;
 begin
   Result := eoShowSpecialChars in Editor.Options;
+end;
+
+function TEditorView.GetSlaveView: IEditorView;
+begin
+  Result := FSlaveView;
+end;
+
+procedure TEditorView.SetSlaveView(AValue: IEditorView);
+begin
+  if AValue <> SlaveView then
+  begin
+    FSlaveView := AValue;
+  end;
 end;
 
 procedure TEditorView.SetShowSpecialChars(const AValue: Boolean);
@@ -1228,7 +1280,19 @@ end;
 
 function TEditorView.IsActive: Boolean;
 begin
-  Result := Manager.ActiveView = (Self as IEditorView)
+  Result := Manager.ActiveView = (Self as IEditorView);
+end;
+
+procedure TEditorView.UpdateSharedViews;
+begin
+  if Assigned(MasterView) then
+  begin
+    MasterView.TopLine := TopLine - LinesInWindow;
+  end;
+  if Assigned(SlaveView) then
+  begin
+    SlaveView.TopLine := TopLine + LinesInWindow;
+  end;
 end;
 
 {
@@ -1281,20 +1345,20 @@ begin
   Logger.ExitMethod(Self, 'RestoreBlock');
 end;
 
-procedure TEditorView.InitializeEditor;
+procedure TEditorView.InitializeEditor(AEditor: TSynEdit);
 var
   N: Integer;
 begin
-  FEditor.Parent := Self;
-  FEditor.Align := alClient;
-  FEditor.Font.Assign(Settings.EditorFont);
-  FEditor.BorderStyle := bsNone;
-  FEditor.DoubleBuffered := True;
-  FEditor.BookMarkOptions.BookmarkImages := imlBookmarkImages;
-  FEditor.Gutter.Color := 15329769; // light gray
-  FEditor.Gutter.Width := 29;
-  FEditor.Gutter.SeparatorPart.Visible := False;
-  with FEditor.Gutter.LineNumberPart do
+  AEditor.Parent := Self;
+  AEditor.Align := alClient;
+  AEditor.Font.Assign(Settings.EditorFont);
+  AEditor.BorderStyle := bsNone;
+  AEditor.DoubleBuffered := True;
+  AEditor.BookMarkOptions.BookmarkImages := imlBookmarkImages;
+  AEditor.Gutter.Color := 15329769; // light gray
+  AEditor.Gutter.Width := 29;
+  AEditor.Gutter.SeparatorPart.Visible := False;
+  with AEditor.Gutter.LineNumberPart do
   begin
     Width := 15;
     MarkupInfo.Background := clNone;
@@ -1305,25 +1369,25 @@ begin
     ZeroStart := False;
     LeadingZeros := False;
   end;
-  with FEditor.Gutter.ChangesPart do
+  with AEditor.Gutter.ChangesPart do
   begin
     Width := 4;
     ModifiedColor := 59900;
     SavedColor := clGreen;
   end;
-  with FEditor.Gutter.CodeFoldPart do
+  with AEditor.Gutter.CodeFoldPart do
   begin
     MarkupInfo.Background := clNone;
     MarkupInfo.Foreground := clMedGray;
   end;
   // TODO: Bookmarks
-  with FEditor.Gutter.MarksPart do
+  with AEditor.Gutter.MarksPart do
   begin
     Width := 1;
     Visible := False;
   end;
 
-  FEditor.Options := [
+  AEditor.Options := [
     eoAltSetsColumnMode,
     eoAutoIndent,
     eoAutoIndentOnPaste,
@@ -1341,48 +1405,48 @@ begin
 //    eoPersistentCaret,     // don't use! bug in TSynEdit
     eoShowScrollHint
   ];
-  FEditor.Options2 := [
+  AEditor.Options2 := [
     eoEnhanceEndKey,
     eoFoldedCopyPaste,
     eoOverwriteBlock
   ];
-  FEditor.MouseOptions := [
+  AEditor.MouseOptions := [
     emAltSetsColumnMode,
     emDragDropEditing,
     emCtrlWheelZoom,
     emShowCtrlMouseLinks
   ];
-  FEditor.ScrollBars := ssAutoBoth;
+  AEditor.ScrollBars := ssAutoBoth;
 
-  FEditor.BracketHighlightStyle := sbhsRightOfCursor;
-  FEditor.TabWidth := 2;
-  FEditor.WantTabs := True;
+  AEditor.BracketHighlightStyle := sbhsRightOfCursor;
+  AEditor.TabWidth := 2;
+  AEditor.WantTabs := True;
 
-  FEditor.SelectedColor.Background := clGray;
-  FEditor.SelectedColor.MergeFinalStyle := True;
+  AEditor.SelectedColor.Background := clGray;
+  AEditor.SelectedColor.MergeFinalStyle := True;
 
-  FEditor.BracketMatchColor.Background := clAqua;
-  FEditor.BracketMatchColor.FrameColor := clGray;
+  AEditor.BracketMatchColor.Background := clAqua;
+  AEditor.BracketMatchColor.FrameColor := clGray;
 
-  FEditor.HighlightAllColor.Background := $0064B1FF;  // light orange
-  FEditor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
-  FEditor.HighlightAllColor.FrameStyle := slsSolid;
-  FEditor.HighlightAllColor.FrameEdges := sfeAround;
-  FEditor.HighlightAllColor.Foreground := clNone;
-  FEditor.HighlightAllColor.MergeFinalStyle := True;
+  AEditor.HighlightAllColor.Background := $0064B1FF;  // light orange
+  AEditor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
+  AEditor.HighlightAllColor.FrameStyle := slsSolid;
+  AEditor.HighlightAllColor.FrameEdges := sfeAround;
+  AEditor.HighlightAllColor.Foreground := clNone;
+  AEditor.HighlightAllColor.MergeFinalStyle := True;
 
-  FEditor.LineHighlightColor.Background := $009FFFFF; // yellow
-  FEditor.LineHighlightColor.FrameEdges := sfeAround;
-  FEditor.LineHighlightColor.FrameStyle := slsWaved;
-  FEditor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
-  FEditor.LineHighlightColor.MergeFinalStyle := True;
+  AEditor.LineHighlightColor.Background := $009FFFFF; // yellow
+  AEditor.LineHighlightColor.FrameEdges := sfeAround;
+  AEditor.LineHighlightColor.FrameStyle := slsWaved;
+  AEditor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
+  AEditor.LineHighlightColor.MergeFinalStyle := True;
 
-  FEditor.OnStatusChange := EditorStatusChange;
-  FEditor.OnChange       := EditorChange;
-  FEditor.OnClickLink    := EditorClickLink;
-  FEditor.OnPaste        := EditorPaste;
+  AEditor.OnStatusChange := EditorStatusChange;
+  AEditor.OnChange       := EditorChange;
+  AEditor.OnClickLink    := EditorClickLink;
+  AEditor.OnPaste        := EditorPaste;
 
-  FEditor.Visible := True;
+  AEditor.Visible := True;
 
   FSyncronizedEdit := TSynPluginSyncroEdit.Create(nil);
   FSyncronizedEdit.Editor := Editor;
@@ -1394,17 +1458,17 @@ begin
 
   FBeautifier := TSynBeautifier.Create(nil);
   FBeautifier.AutoIndent := True;
-  FEditor.Beautifier := FBeautifier;
+  AEditor.Beautifier := FBeautifier;
 
   // TEMP CODE TSI
-  N := FEditor.Keystrokes.FindShortcut(TextToShortCut('Shift+Ctrl+N'));
-  FEditor.Keystrokes.Delete(N);
-  N := FEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+N'));
-  FEditor.Keystrokes.Delete(N);
-  //N := FEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+S'));
-  //FEditor.Keystrokes.Delete(N);
-  //N := FEditor.Keystrokes.FindShortcut(TextToShortCut('F1'));
-  //FEditor.Keystrokes.Delete(N);
+  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Shift+Ctrl+N'));
+  AEditor.Keystrokes.Delete(N);
+  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+N'));
+  AEditor.Keystrokes.Delete(N);
+  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+S'));
+  //AEditor.Keystrokes.Delete(N);
+  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('F1'));
+  //AEditor.Keystrokes.Delete(N);
 
   //FCompletionProposal := TSynCompletionProposal.Create(Self);
   //FCompletionProposal.Editor := Editor;
@@ -1414,7 +1478,7 @@ begin
   //FCompletionProposal.ItemList.Add('IOn');
   //FCompletionProposal.Columns.Add;
   //FCompletionProposal.Resizeable := True;
-  //FEditor.MouseActions.FindCommand();
+  //AEditor.MouseActions.FindCommand();
   // delete the quickpaste command with middle mouse button
 
   // highlights all words that are the same as the one surrounding the caret position
@@ -1997,9 +2061,10 @@ begin
     Activate;
   end;
 
-  if Manager.ActiveView = (Self as IEditorView) then
+  if IsActive then
   begin
     Editor.Color := clWhite;
+    UpdateSharedViews;
   end
   else
   begin

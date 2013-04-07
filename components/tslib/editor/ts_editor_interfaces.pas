@@ -40,15 +40,6 @@ uses
 
   ts_Editor_Highlighters, ts_Editor_HighlighterAttributes;
 
-{
-  TODO:
-    - Highlighter assignment (EditorView or EditorActions?)
-    - non working shortcuts
-         - F3 : find next
-         - CTRL-'+' and CTRL-'-' to increase/decrease font size
-    - Active highlighter visible in menus
-}
-
 //=============================================================================
 
 type
@@ -158,6 +149,7 @@ type
     function GetLinesInWindow: Integer;
     function GetLineText: string;
     function GetLogicalCaretXY: TPoint;
+    function GetMasterView: IEditorView;
     function GetModified: Boolean;
     function GetMonitorChanges: Boolean;
     function GetOnChange: TNotifyEvent;
@@ -175,6 +167,7 @@ type
     function GetSelText: string;
     function GetSettings: IEditorSettings;
     function GetShowSpecialChars: Boolean;
+    function GetSlaveView: IEditorView;
     function GetSupportsFolding: Boolean;
     function GetText: string;
     function GetTextSize: Integer;
@@ -195,6 +188,7 @@ type
     procedure SetLines(const AValue: TStrings);
     procedure SetLineText(const AValue: string);
     procedure SetLogicalCaretXY(const AValue: TPoint);
+    procedure SetMasterView(AValue: IEditorView);
     procedure SetModified(const AValue: Boolean);
     procedure SetMonitorChanges(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
@@ -207,6 +201,7 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(const AValue: Boolean);
+    procedure SetSlaveView(AValue: IEditorView);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
     {$endregion}
@@ -305,6 +300,16 @@ type
 
     property Form: TCustomForm
       read GetForm;
+
+//-----------<TEMP>-------------------------------------------------------BEGIN
+    { Master view from which the text buffer is shared. }
+    property MasterView: IEditorView
+      read GetMasterView write SetMasterView;
+
+    { Slave view which shares the text buffer. }
+    property SlaveView: IEditorView
+      read GetSlaveView write SetSlaveView;
+//-----------<TEMP>---------------------------------------------------------END
 
     { Settings shared by all edit instances managed by IEditorActions instance. }
     property Settings: IEditorSettings
@@ -669,6 +674,7 @@ type
   IEditorViews = interface
   ['{FBFB8DC6-7663-4EA4-935D-5B9F3CD7C753}']
     function GetView(AIndex: Integer): IEditorView;
+    function GetViewByFileName(AFileName: string): IEditorView;
     function GetViewByName(AName: string): IEditorView;
     function GetCount: Integer;
     function GetViewList: TEditorViewList;
@@ -678,6 +684,11 @@ type
       const AFileName    : string = '';
       const AHighlighter : string = ''
     ): IEditorView;
+    function AddSharedView(
+            AEditorView : IEditorView;
+      const AName       : string = ''
+    ): IEditorView;
+
     function Delete(AIndex: Integer): Boolean; overload;
     function Delete(AView: IEditorView): Boolean; overload;
     function Delete(const AName: string): Boolean; overload;
@@ -690,6 +701,9 @@ type
 
     property ViewByName[AName: string]: IEditorView
       read GetViewByName;
+
+    property ViewByFileName[AFileName: string]: IEditorView
+      read GetViewByFileName;
 
     property ViewList: TEditorViewList
       read GetViewList;

@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="84">
+    <Files Count="85">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -385,6 +385,10 @@
         <Filename Value="components\ts_components_gridview.pas"/>
         <UnitName Value="ts_Components_GridView"/>
       </Item84>
+      <Item85>
+        <Filename Value="components\ts_components_fileassociation.pas"/>
+        <UnitName Value="ts_Components_FileAssociation"/>
+      </Item85>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

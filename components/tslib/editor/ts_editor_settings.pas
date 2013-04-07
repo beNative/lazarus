@@ -47,6 +47,7 @@ type
   end;
 
   TEditorSettings = class(TComponent, IEditorSettings)
+    procedure FFormSettingsChanged(Sender: TObject);
   private
     FAutoFormatXML            : Boolean;
     FChangedEventList         : TEditorSettingsChangedEventList;
@@ -233,6 +234,7 @@ begin
   Name := 'Settings';
   FChangedEventList := TEditorSettingsChangedEventList.Create;
   FFormSettings := TFormSettings.Create;
+  FFormSettings.OnChanged := FFormSettingsChanged;
   FAlignLinesSettings := TAlignLinesSettings.Create;
   FSearchEngineSettings := TSearchEngineSettings.Create;
   FCodeShaperSettings := TCodeShaperSettings.Create;
@@ -264,6 +266,21 @@ end;
 
 //*****************************************************************************
 // construction and destruction                                            END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
+procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
+begin
+  Changed;
+end;
+
+//*****************************************************************************
+// event handlers                                                          END
 //*****************************************************************************
 {$endregion}
 

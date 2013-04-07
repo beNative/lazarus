@@ -53,6 +53,8 @@ function CreateEditorView(
    const AHighlighter  : string = 'TXT'
 ): IEditorView; overload;
 
+{ TS: created to test embedding IEditorViews in DLL's. }
+
 function CreateEditorView(
          AParent       : THandle;
    const AName         : string = '';
@@ -157,7 +159,7 @@ var
   end;
 
 begin
-  Menus := EditorManager as IEditorMenus;
+  Menus := EditorManager.Menus;
   AToolBar.DoubleBuffered := True;
   AToolBar.Images := EditorManager.Actions.ActionList.Images;
   AddButton('actNew');
@@ -180,7 +182,6 @@ begin
   AddButton('actAlignSelection');
   AddButton('actSortSelection');
   AddButton('actAlignAndSortSelection');
-  AddButton('actOpenSelectionInNewEditor');
   AddButton('');
   AddButton('actIncFontSize');
   AddButton('actDecFontSize');
@@ -212,6 +213,7 @@ begin
   AddButton('actShowViews');
   AddButton('');
   AddButton('actCreateDesktopLink');
+  AddButton('actNewSharedView');
 end;
 
 procedure AddEditorFileMenu(AMainMenu: TMainMenu);
@@ -265,8 +267,6 @@ begin
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actLowerCaseSelection');
   AddEditorMenuItem(MI, 'actUpperCaseSelection');
-  AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actOpenSelectionInNewEditor');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actQuoteSelection');
   AddEditorMenuItem(MI, 'actDeQuoteSelection');
@@ -409,12 +409,12 @@ function CreateEditorView(AParent: TWinControl; const AName: string;
 var
   V: IEditorView;
 begin
-  V := (EditorManager as IEditorViews).Add(AName, AFileName, AHighlighter);
+  V := EditorManager.Views.Add(AName, AFileName, AHighlighter);
   V.Form.DisableAutoSizing;
   V.Form.BorderStyle := bsNone;
   V.Form.Align := alClient;
   V.Form.Parent := AParent;
-  V.PopupMenu := (EditorManager as IEditorMenus).EditorPopupMenu;
+  V.PopupMenu := EditorManager.Menus.EditorPopupMenu;
   V.Form.Visible := True;
   V.Form.EnableAutoSizing;
   Result := V;
@@ -425,12 +425,12 @@ function CreateEditorView(AParent: THandle; const AName: string;
 var
   V: IEditorView;
 begin
-  V := (EditorManager as IEditorViews).Add(AName, AFileName, AHighlighter);
+  V := EditorManager.Views.Add(AName, AFileName, AHighlighter);
   V.Form.DisableAutoSizing;
   V.Form.BorderStyle := bsNone;
   V.Form.Align := alClient;
   V.Form.ParentWindow := AParent;
-  V.PopupMenu := (EditorManager as IEditorMenus).EditorPopupMenu;
+  V.PopupMenu := EditorManager.Menus.EditorPopupMenu;
   V.Form.Visible := True;
   V.Form.EnableAutoSizing;
   Result := V;
@@ -438,7 +438,7 @@ end;
 
 function EditorViewByName(const AName: string): IEditorView;
 begin
-  Result := (EditorManager as IEditorViews).ViewByName[AName];
+  Result := EditorManager.Views.ViewByName[AName];
 end;
 
 end.

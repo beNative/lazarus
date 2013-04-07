@@ -51,10 +51,12 @@ type
     {$region 'designer controls' /fold}
     aclMain                     : TActionList;
     actApplySettings: TAction;
+    actAssociate: TAction;
     actReloadSettings: TAction;
     actOpenSettingsFile: TAction;
     btnOpenSettingsFile: TButton;
     btnReloadSettings: TButton;
+    btnAssociate: TButton;
     pnlButtons                  : TButtonPanel;
     imlMain                     : TImageList;
     pcMain                      : TPageControl;
@@ -72,6 +74,7 @@ type
     tsSettings                  : TTabSheet;
     {$endregion}
 
+    procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
     procedure FTVPSelectionChanged(Sender: TObject);
@@ -122,6 +125,8 @@ uses
   SynEditHighlighter, PropEdits,
 
   ts_Core_DataTemplates, ts_Core_Helpers,
+
+  ts_Components_FileAssociation,
 
   ts_Editor_HighlighterAttributes;
 
@@ -231,6 +236,49 @@ var
 begin
   S := ExtractFilePath(Application.ExeName) + Settings.FileName;
   Manager.OpenFile(S);
+end;
+
+procedure TfrmEditorSettings.actAssociateExecute(Sender: TObject);
+var
+  AR : TAppReg;
+
+{
+    AppName,        // 'Lazarus IDE'
+    AppDescription, // 'Open Source IDE for Free Pascal'
+    AppNameNoSpaces,// 'LazarusIDE'
+    ExtData,        // '.lpr'
+    ExtIcon,        // 'C:\FPC\Lazarus\images\lazaruspackage.ico'
+    ExtName,        // 'Lazarus package source file'
+    ExtNameNoSpaces,// 'LazarusPackageSourceFile'
+    CmdData,        // '"C:\FPC\Lazarus\lazarus.exe" "%1"'
+    CmdIcon,        // 'C:\FPC\Lazarus\lazarus.exe,0'
+    CmdName,        // 'Open Project'
+    CmdNameNoSpaces // 'Open'
+    : string;                      }
+begin
+  AR.AppName        := 'Notepas';
+  AR.AppDescription := 'Notepas text editor' ;
+  AR.AppNameNoSpaces := 'Notepas';
+  AR.ExtData         := '.pas .inc';
+  AR.ExtIcon         := Application.ExeName + ',0';
+  AR.ExtName         := 'Pascal source file';
+  AR.ExtNameNoSpaces := 'PascalSourceFile';
+  AR.CmdData         := Format('"%s"', [Application.ExeName]) + '"%1"';
+  AR.CmdIcon         := Format('%s', [ExtractFilePath(Application.ExeName) + 'Notepas.ico']);
+
+
+
+  AR.CmdName         := 'Edit with Notepas';
+  AR.CmdNameNoSpaces :=  'Open';
+
+  CreateFileAssociation(
+    AR,
+    True,
+    True,
+    True,
+    True
+  );
+  ClearIconCache;
 end;
 
 procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);

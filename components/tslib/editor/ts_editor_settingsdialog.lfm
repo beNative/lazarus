@@ -26,10 +26,10 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 532
       Top = 2
       Width = 486
-      ActivePage = tsSettings
+      ActivePage = tsDebug
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 0
+      TabIndex = 3
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Inspector'
@@ -125,6 +125,14 @@ object frmEditorSettings: TfrmEditorSettings
           Action = actReloadSettings
           TabOrder = 1
         end
+        object btnAssociate: TButton
+          Left = 10
+          Height = 25
+          Top = 80
+          Width = 123
+          Action = actAssociate
+          TabOrder = 2
+        end
       end
     end
   end
@@ -171,6 +179,10 @@ object frmEditorSettings: TfrmEditorSettings
     object actReloadSettings: TAction
       Caption = 'Reload settings'
       OnExecute = actReloadSettingsExecute
+    end
+    object actAssociate: TAction
+      Caption = 'Associate'
+      OnExecute = actAssociateExecute
     end
   end
   object imlMain: TImageList

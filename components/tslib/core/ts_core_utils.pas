@@ -1609,8 +1609,6 @@ begin
     Result := False;
 end;
 
-
-
 function GetParentDir(sPath : string) : string;
 var
   I : Integer;

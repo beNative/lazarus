@@ -64,6 +64,27 @@ unit ts_Editor_Manager;
       notification will be dispatched which can be handled by any module that
       needs to be notified (observer pattern).
 
+  Use a IEditorManager instance to create IEditorView instances. In most cases
+  you only need a single manager so you can use the EditorManager singleton
+  declared in this unit.
+    - EditorManager.OpenFile(<<filename>>)
+    - EditorManager.NewFile(<<filename>>)
+
+    - When a new view is added to the list of editorviews, the OnAddEditorView
+      event is dispatched. The application can handle this event for example to
+      dock the view.
+    - A view can also be added directly to the list using:
+      EditorManager.Views.Add(..)
+
+
+
+      EditorManager.Actions   : IEditorActions
+                   .Commands  : IEditorCommands
+                   .Events    : IEditorEvents
+                   .Menus     : IEditorMenus
+                   .Settings  : IEditorSettings
+                   .ToolViews : IEditorToolViews
+                   .Views     : IEditorViews
 }
 {$endregion}
 
@@ -90,7 +111,7 @@ uses
 type
   TdmEditorManager = class(TDataModule, IEditorManager,
                                         IEditorActions,
-                                        IEditorView, // active view
+                                        IEditorView,   // active view
                                         IEditorViews,
                                         //IEditorToolView,  // needed?
                                         IEditorToolViews,
@@ -118,6 +139,7 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actNewSharedView: TAction;
     actSingleInstance: TAction;
     actToggleMaximized: TAction;
     actStayOnTop: TAction;
@@ -181,7 +203,6 @@ type
     actNew                        : TAction;
     actOpen                       : TAction;
     actOpenFileAtCursor           : TAction;
-    actOpenSelectionInNewEditor   : TAction;
     actPageSetup                  : TAction;
     actPascalStringOfSelection    : TAction;
     actShowPreview                : TAction;
@@ -265,10 +286,8 @@ type
     MenuItem60                    : TMenuItem;
     MenuItem61                    : TMenuItem;
     MenuItem62                    : TMenuItem;
-    MenuItem63                    : TMenuItem;
     MenuItem64                    : TMenuItem;
     MenuItem65                    : TMenuItem;
-    MenuItem66                    : TMenuItem;
     MenuItem67                    : TMenuItem;
     MenuItem68                    : TMenuItem;
     MenuItem69                    : TMenuItem;
@@ -343,6 +362,7 @@ type
     procedure actAlignSelectionExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actNewSharedViewExecute(Sender: TObject);
     procedure actSelectionInfoExecute(Sender: TObject);
     procedure actSelectionModeExecute(Sender: TObject);
     procedure actSingleInstanceExecute(Sender: TObject);
@@ -402,7 +422,6 @@ type
     procedure actNewExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actOpenFileAtCursorExecute(Sender: TObject);
-    procedure actOpenSelectionInNewEditorExecute(Sender: TObject);
     procedure actPascalStringOfSelectionExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actQuoteLinesAndDelimitExecute(Sender: TObject);
@@ -511,6 +530,7 @@ type
     function GetToolViewList: TEditorToolViewList;
     function GetToolViews: IEditorToolViews;
     function GetView(AIndex: Integer): IEditorView;
+    function GetViewByFileName(AFileName: string): IEditorView;
     function GetViewByName(AName: string): IEditorView;
     function IEditorViews.GetCount = GetViewCount;
     function GetViewCount: Integer;
@@ -571,6 +591,11 @@ type
       const AFileName    : string = '';
       const AHighlighter : string = ''
     ): IEditorView;
+    function AddSharedView(
+            AEditorView : IEditorView;
+      const AName       : string = ''
+    ): IEditorView;
+
     function DeleteView(AIndex: Integer): Boolean; overload;
     function DeleteView(AView: IEditorView): Boolean; overload;
     function DeleteView(const AName: string): Boolean; overload;
@@ -694,6 +719,9 @@ type
 
     property ViewByName[AName: string]: IEditorView
       read GetViewByName;
+
+    property ViewByFileName[AFileName: string]: IEditorView
+      read GetViewByFileName;
 
     property ViewList: TEditorViewList
       read GetViewList;
@@ -1127,6 +1155,25 @@ begin
     Result := nil;
 end;
 
+function TdmEditorManager.GetViewByFileName(AFileName: string): IEditorView;
+var
+  I: Integer;
+  B: Boolean;
+begin
+  I := 0;
+  B := False;
+  while (I < FViewList.Count) and not B do
+  begin
+    B := SameFileName(Views[I].FileName, AFileName);
+    if not B then
+      Inc(I);
+  end;
+  if B then
+    Result := FViewList[I] as IEditorView
+  else
+    Result := nil;
+end;
+
 { If the view is not found the active view is returned. }
 
 function TdmEditorManager.GetViewByName(AName: string): IEditorView;
@@ -1534,14 +1581,6 @@ begin
   NewFile(SNewEditorViewFileName, S);
 end;
 
-procedure TdmEditorManager.actOpenSelectionInNewEditorExecute(Sender: TObject);
-begin
-  if Assigned(FOnNewFile) then
-  begin
-    DoNewFile('', ActiveView.SelText);
-  end;
-end;
-
 procedure TdmEditorManager.actReloadExecute(Sender: TObject);
 begin
   ActiveView.LoadFromFile(ActiveView.FileName);
@@ -1740,6 +1779,11 @@ end;
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
 begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+end;
+
+procedure TdmEditorManager.actNewSharedViewExecute(Sender: TObject);
+begin
+  AddSharedView(ActiveView);
 end;
 
 procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
@@ -2156,6 +2200,7 @@ begin
     end;
   end;
 end;
+
 {$endregion}
 
 {$region 'Registration' /fold}
@@ -2305,6 +2350,25 @@ begin
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
   Logger.ExitMethod(Self, 'AddView');
+end;
+
+function TdmEditorManager.AddSharedView(AEditorView: IEditorView;
+  const AName: string): IEditorView;
+var
+  V : IEditorView;
+begin
+  if not Assigned(ActiveView.SlaveView) then
+  begin
+    V := TEditorView.Create(Self);
+    V.MasterView := ActiveView;
+    V.AssignHighlighter(AEditorView.HighlighterItem.Name);
+    V.Form.Caption := AEditorView.Form.Caption;
+    ViewList.Add(V);
+    DoAddEditorView(V);
+    Result := V;
+  end
+  else
+    Result := ActiveView;
 end;
 
 function TdmEditorManager.DeleteView(AIndex: Integer): Boolean;
@@ -2681,7 +2745,6 @@ begin
     actDequoteSelection.Enabled            := B;
     actLowerCaseSelection.Enabled          := B;
     actToggleBlockCommentSelection.Enabled := B;
-    actOpenSelectionInNewEditor.Enabled    := B;
     actPascalStringOfSelection.Enabled     := B;
     actStripMarkup.Enabled                 := B;
     actQuoteSelection.Enabled              := B;
@@ -2862,12 +2925,19 @@ var
   V : IEditorView;
 begin
   DoOpenFile(AFileName);
-  if FileExists(AFileName) then
+  { Check if the file is already opened in a view. }
+  V := ViewByFileName[AFileName];
+  if Assigned(V) then
+    Result := V
+  else
   begin
-    V := AddView('', AFileName);
-    V.LoadFromFile(AFileName);
+    if FileExists(AFileName) then
+    begin
+      V := AddView('', AFileName);
+      V.LoadFromFile(AFileName);
+    end;
+    Result := V;
   end;
-  Result := V;
 end;
 
 function TdmEditorManager.NewFile(const AFileName: string; const AText: string): IEditorView;

@@ -32,6 +32,7 @@ uses
 type
   TFormSettings = class(TPersistent)
   private
+    FOnChanged: TNotifyEvent;
     FWidth       : Integer;
     FHeight      : Integer;
     FLeft        : Integer;
@@ -39,27 +40,39 @@ type
     FFormStyle   : TFormStyle;
     FWindowState : TWindowState;
 
+    procedure SetFormStyle(AValue: TFormStyle);
+    procedure SetHeight(AValue: Integer);
+    procedure SetLeft(AValue: Integer);
+    procedure SetTop(AValue: Integer);
+    procedure SetWidth(AValue: Integer);
     procedure SetWindowState(AValue: TWindowState);
+
+  protected
+    procedure Changed;
+
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
 
+    property OnChanged: TNotifyEvent
+      read FOnChanged write FOnChanged;
+
   published
     property Left: Integer
-      read FLeft write FLeft;
+      read FLeft write SetLeft;
 
     property Top: Integer
-      read FTop write FTop;
+      read FTop write SetTop;
 
     property Width: Integer
-      read FWidth write FWidth;
+      read FWidth write SetWidth;
 
     property Height: Integer
-      read FHeight write FHeight;
+      read FHeight write SetHeight;
 
     property FormStyle: TFormStyle
-      read FFormStyle write FFormStyle;
+      read FFormStyle write SetFormStyle;
 
     property WindowState: TWindowState
       read FWindowState write SetWindowState;
@@ -96,11 +109,63 @@ begin
   if (AValue <> WindowState) and (AValue <> wsMinimized) then
   begin
     FWindowState := AValue;
+    Changed;
   end;
+end;
+
+procedure TFormSettings.SetFormStyle(AValue: TFormStyle);
+begin
+  if FFormStyle = AValue then Exit;
+  FFormStyle := AValue;
+  Changed;
+end;
+
+procedure TFormSettings.SetHeight(AValue: Integer);
+begin
+  if FHeight = AValue then Exit;
+  FHeight := AValue;
+  Changed;
+end;
+
+procedure TFormSettings.SetLeft(AValue: Integer);
+begin
+  if FLeft = AValue then Exit;
+  FLeft := AValue;
+  Changed;
+end;
+
+procedure TFormSettings.SetTop(AValue: Integer);
+begin
+  if FTop = AValue then Exit;
+  FTop := AValue;
+  Changed;
+end;
+
+procedure TFormSettings.SetWidth(AValue: Integer);
+begin
+  if FWidth = AValue then Exit;
+  FWidth := AValue;
+  Changed;
 end;
 
 //*****************************************************************************
 // property access methods                                                 END
+//*****************************************************************************
+{$endregion}
+
+{$region 'protected methods' /fold}
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
+
+procedure TFormSettings.Changed;
+begin
+  if Assigned(FOnChanged) then
+    FOnChanged(Self);
+end;
+
+//*****************************************************************************
+// protected methods                                                       END
 //*****************************************************************************
 {$endregion}
 

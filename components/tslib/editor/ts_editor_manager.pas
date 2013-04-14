@@ -139,10 +139,10 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
-    actNewSharedView: TAction;
-    actSingleInstance: TAction;
-    actToggleMaximized: TAction;
-    actStayOnTop: TAction;
+    actNewSharedView              : TAction;
+    actSingleInstance             : TAction;
+    actToggleMaximized            : TAction;
+    actStayOnTop                  : TAction;
     actSelectionInfo              : TAction;
     actXMLTree                    : TAction;
     actToggleBlockCommentSelection: TAction;
@@ -568,6 +568,14 @@ type
     procedure InitializeActions;
     procedure RegisterHighlighters;
     procedure RegisterToolViews;
+
+    procedure BuildEncodingPopupMenu;
+    procedure BuildLineBreakStylePopupMenu;
+    procedure BuildHighlighterPopupMenu;
+    procedure BuildSelectionModePopupMenu;
+    procedure BuildFoldPopupMenu;
+    procedure BuildEditorPopupMenu;
+    procedure BuildExportPopupMenu;
 
     procedure ApplyHighlighterAttributes;
 
@@ -2019,98 +2027,13 @@ begin
 end;
 
 procedure TdmEditorManager.InitializePopupMenus;
-var
-  SL : TStringList;
-  S  : string;
-  MI : TMenuItem;
-  HI : THighlighterItem;
-  A  : TCustomAction;
-  SM : TSynSelectionMode;
 begin
-  HighlighterPopupMenu.Items.Caption := 'Highlighters';
-  HighlighterPopupMenu.Items.Action := actToggleHighlighter;
-  FoldPopupMenu.Items.Caption := 'Folding';
-  FoldPopupMenu.Items.Action := actToggleFoldLevel;
-  EditorPopupMenu.Items.Insert(15, HighlighterPopupMenu.Items);
-  EditorPopupMenu.Items.Insert(16, FoldPopupMenu.Items);
-
-  SL := TStringList.Create;
-  try
-    EncodingPopupMenu.Items.Clear;
-    GetSupportedEncodings(SL);
-    for S in SL do
-    begin
-      MI := TMenuItem.Create(EncodingPopupMenu);
-      MI.Caption := S;
-      S := 'actEncoding' + DelChars(S, '-');
-      A := Items[S];
-      if Assigned(A) then
-      begin
-        MI.Action     := A;
-        MI.AutoCheck  := A.AutoCheck;
-        MI.RadioItem  := True;
-        MI.GroupIndex := A.GroupIndex;
-      end;
-      EncodingPopupMenu.Items.Add(MI);
-    end;
-  finally
-    FreeAndNil(SL);
-  end;
-
-  LineBreakStylePopupMenu.Items.Clear;
-  for S in ALineBreakStyles do
-  begin
-    MI := TMenuItem.Create(LineBreakStylePopupMenu);
-    S := 'actLineBreakStyle' +  S;
-    A := Items[S];
-    if Assigned(A) then
-    begin
-      MI.Action     := A;
-      MI.Caption    := A.Caption;
-      MI.AutoCheck  := A.AutoCheck;
-      MI.RadioItem  := True;
-      MI.GroupIndex := A.GroupIndex;
-    end;
-    LineBreakStylePopupMenu.Items.Add(MI);
-  end;
-
-  HighlighterPopupMenu.Items.Clear;
-  for HI in Highlighters do
-  begin
-    MI := TMenuItem.Create(HighlighterPopupMenu);
-    S := 'actHighlighter' + HI.Name;
-    A := Items[S];
-    if Assigned(A) then
-    begin
-      MI.Action     := A;
-      MI.Hint       := HI.Description;
-      MI.Caption    := A.Caption;
-      MI.AutoCheck  := A.AutoCheck;
-      MI.RadioItem  := True;
-      MI.GroupIndex := A.GroupIndex;
-    end;
-    HighlighterPopupMenu.Items.Add(MI);
-  end;
-
-  SelectionModePopupMenu.Items.Clear;
-  for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
-  begin
-    MI := TMenuItem.Create(SelectionModePopupMenu);
-    S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
-    S := System.Copy(S, 3, Length(S));
-    S := 'actSelectionMode' + S;
-    A := Items[S];
-    if Assigned(A) then
-    begin
-      MI.Action     := A;
-      MI.Hint       := HI.Description;
-      MI.Caption    := A.Caption;
-      MI.AutoCheck  := A.AutoCheck;
-      MI.RadioItem  := True;
-      MI.GroupIndex := A.GroupIndex;
-    end;
-    SelectionModePopupMenu.Items.Add(MI);
-  end;
+  BuildEncodingPopupMenu;
+  BuildLineBreakStylePopupMenu;
+  BuildHighlighterPopupMenu;
+  BuildSelectionModePopupMenu;
+  BuildFoldPopupMenu;
+  BuildEditorPopupMenu;
 end;
 
 procedure TdmEditorManager.InitializeActions;
@@ -2284,13 +2207,142 @@ begin
   AddToolView(TfrmAlignLines.Create(Self));
   AddToolView(TfrmCodeFilterDialog.Create(Self));
   AddToolView(TfrmSelectionInfo.Create(Self));
-//  AddToolView(TfrmXmlTree.Create(Self));
+  AddToolView(TfrmXmlTree.Create(Self));
 
   (ToolViews['frmCodeFilterDialog'] as IEditorCodeFilter).OnFilteredLineChange :=
     CodeFilterFilteredLineChange;
 
   FFormsCreated := True;
 end;
+
+procedure TdmEditorManager.BuildEncodingPopupMenu;
+var
+  SL : TStringList;
+  S  : string;
+  A  : TCustomAction;
+  MI : TMenuItem;
+begin
+  SL := TStringList.Create;
+  try
+    EncodingPopupMenu.Items.Clear;
+    GetSupportedEncodings(SL);
+    for S in SL do
+    begin
+      MI := TMenuItem.Create(EncodingPopupMenu);
+      MI.Caption := S;
+      S := 'actEncoding' + DelChars(S, '-');
+      A := Items[S];
+      if Assigned(A) then
+      begin
+        MI.Action     := A;
+        MI.AutoCheck  := A.AutoCheck;
+        MI.RadioItem  := True;
+        MI.GroupIndex := A.GroupIndex;
+      end;
+      EncodingPopupMenu.Items.Add(MI);
+    end;
+  finally
+    FreeAndNil(SL);
+  end;
+end;
+
+procedure TdmEditorManager.BuildLineBreakStylePopupMenu;
+var
+  MI : TMenuItem;
+  S  : string;
+  A  : TCustomAction;
+begin
+  LineBreakStylePopupMenu.Items.Clear;
+  for S in ALineBreakStyles do
+  begin
+    MI := TMenuItem.Create(LineBreakStylePopupMenu);
+    S := 'actLineBreakStyle' +  S;
+    A := Items[S];
+    if Assigned(A) then
+    begin
+      MI.Action     := A;
+      MI.Caption    := A.Caption;
+      MI.AutoCheck  := A.AutoCheck;
+      MI.RadioItem  := True;
+      MI.GroupIndex := A.GroupIndex;
+    end;
+    LineBreakStylePopupMenu.Items.Add(MI);
+  end;
+end;
+
+procedure TdmEditorManager.BuildHighlighterPopupMenu;
+var
+  MI : TMenuItem;
+  S  : string;
+  HI : THighlighterItem;
+  A  : TCustomAction;
+begin
+  HighlighterPopupMenu.Items.Caption := 'Highlighters';
+  HighlighterPopupMenu.Items.Action := actToggleHighlighter;
+  HighlighterPopupMenu.Items.Clear;
+  for HI in Highlighters do
+  begin
+    MI := TMenuItem.Create(HighlighterPopupMenu);
+    S := 'actHighlighter' + HI.Name;
+    A := Items[S];
+    if Assigned(A) then
+    begin
+      MI.Action     := A;
+      MI.Hint       := HI.Description;
+      MI.Caption    := A.Caption;
+      MI.AutoCheck  := A.AutoCheck;
+      MI.RadioItem  := True;
+      MI.GroupIndex := A.GroupIndex;
+    end;
+    HighlighterPopupMenu.Items.Add(MI);
+  end;
+end;
+
+procedure TdmEditorManager.BuildSelectionModePopupMenu;
+var
+  SM : TSynSelectionMode;
+  MI : TMenuItem;
+  S  : string;
+  A  : TCustomAction;
+begin
+  SelectionModePopupMenu.Items.Clear;
+  for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
+  begin
+    MI := TMenuItem.Create(SelectionModePopupMenu);
+    S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
+    S := System.Copy(S, 3, Length(S));
+    S := 'actSelectionMode' + S;
+    A := Items[S];
+    if Assigned(A) then
+    begin
+      MI.Action     := A;
+      MI.Hint       := A.Hint;
+      MI.Caption    := A.Caption;
+      MI.AutoCheck  := A.AutoCheck;
+      MI.RadioItem  := True;
+      MI.GroupIndex := A.GroupIndex;
+    end;
+    SelectionModePopupMenu.Items.Add(MI);
+  end;
+end;
+
+procedure TdmEditorManager.BuildFoldPopupMenu;
+begin
+  FoldPopupMenu.Items.Caption := 'Folding';
+  FoldPopupMenu.Items.Action := actToggleFoldLevel;
+end;
+
+procedure TdmEditorManager.BuildEditorPopupMenu;
+begin
+  EditorPopupMenu.Items.Insert(15, HighlighterPopupMenu.Items);
+  EditorPopupMenu.Items.Insert(16, FoldPopupMenu.Items);
+end;
+
+procedure TdmEditorManager.BuildExportPopupMenu;
+begin
+  //
+end;
+
 {$endregion}
 
 //*****************************************************************************

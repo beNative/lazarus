@@ -118,6 +118,10 @@ begin
     MI.Action := AAction;
     if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
       MI.RadioItem := True;
+    if (AAction is TAction) and (TAction(AAction).AutoCheck) then
+    begin
+      MI.ShowAlwaysCheckable := True;
+    end;
     AParent.Add(MI);
   end;
 end;
@@ -350,8 +354,10 @@ begin
   MI.Caption := SSettingsMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSettings');
+  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actStayOnTop');
   AddEditorMenuItem(MI, 'actToggleMaximized');
+  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actSingleInstance');
 end;
 

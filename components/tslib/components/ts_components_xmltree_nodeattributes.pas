@@ -18,7 +18,9 @@
 
 unit ts_Components_XMLTree_NodeAttributes;
 
+{$ifdef FPC}
 {$mode delphi}
+{$endif}
 
 //*****************************************************************************
 
@@ -41,7 +43,6 @@ type
   );
 
 type
-
   TNodeAttributesItem = class(TCollectionItem)
   private
     FBackGroundColor : TColor;

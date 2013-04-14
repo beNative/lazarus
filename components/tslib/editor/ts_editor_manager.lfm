@@ -3913,6 +3913,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Settings'
       AutoCheck = True
       Caption = 'Stay on top'
+      GroupIndex = 5
       ImageIndex = 96
       OnExecute = actStayOnTopExecute
     end

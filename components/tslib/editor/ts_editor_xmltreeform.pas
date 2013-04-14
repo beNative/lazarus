@@ -24,6 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls,
 
   ts_Components_XMLTree,
 
@@ -33,7 +34,10 @@ uses
 
 type
   TfrmXmlTree = class(TForm, IEditorToolView)
+    btnInspect: TButton;
+    pnlHeader: TPanel;
     pnlXmlTree: TPanel;
+    procedure btnInspectClick(Sender: TObject);
 
   strict private
     FXMLTree: TXMLTree;
@@ -60,7 +64,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts_Core_Helpers;
+  ts_Core_Helpers, ts_Core_ComponentInspector;
 
 {$region 'construction and destruction' /fold}
 //*****************************************************************************
@@ -82,6 +86,11 @@ end;
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
+
+procedure TfrmXmlTree.btnInspectClick(Sender: TObject);
+begin
+  InspectComponent(FXMLTree);
+end;
 
 function TfrmXmlTree.GetForm: TForm;
 begin

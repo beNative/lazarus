@@ -183,7 +183,7 @@ begin
 
   tsDebug.TabVisible := Settings.DebugMode;
 
-  //FXMLTree := CreateXMLTree(Self, pnlXML);
+  FXMLTree := CreateXMLTree(Self, pnlXML);
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
@@ -241,23 +241,9 @@ end;
 procedure TfrmEditorSettings.actAssociateExecute(Sender: TObject);
 var
   AR : TAppReg;
-
-{
-    AppName,        // 'Lazarus IDE'
-    AppDescription, // 'Open Source IDE for Free Pascal'
-    AppNameNoSpaces,// 'LazarusIDE'
-    ExtData,        // '.lpr'
-    ExtIcon,        // 'C:\FPC\Lazarus\images\lazaruspackage.ico'
-    ExtName,        // 'Lazarus package source file'
-    ExtNameNoSpaces,// 'LazarusPackageSourceFile'
-    CmdData,        // '"C:\FPC\Lazarus\lazarus.exe" "%1"'
-    CmdIcon,        // 'C:\FPC\Lazarus\lazarus.exe,0'
-    CmdName,        // 'Open Project'
-    CmdNameNoSpaces // 'Open'
-    : string;                      }
 begin
-  AR.AppName        := 'Notepas';
-  AR.AppDescription := 'Notepas text editor' ;
+  AR.AppName         := 'Notepas';
+  AR.AppDescription  := 'Notepas text editor' ;
   AR.AppNameNoSpaces := 'Notepas';
   AR.ExtData         := '.pas .inc';
   AR.ExtIcon         := Application.ExeName + ',0';
@@ -265,9 +251,6 @@ begin
   AR.ExtNameNoSpaces := 'PascalSourceFile';
   AR.CmdData         := Format('"%s"', [Application.ExeName]) + '"%1"';
   AR.CmdIcon         := Format('%s', [ExtractFilePath(Application.ExeName) + 'Notepas.ico']);
-
-
-
   AR.CmdName         := 'Edit with Notepas';
   AR.CmdNameNoSpaces :=  'Open';
 
@@ -294,7 +277,7 @@ end;
 
 procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
 begin
-  //FXMLTree.XML := Settings.XML;
+  FXMLTree.XML := Settings.XML;
 end;
 
 //*****************************************************************************

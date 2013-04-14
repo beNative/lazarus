@@ -6,7 +6,7 @@
   the Free Software Foundation; either version 2 of the License, or (at your
   option) any later version.
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
+  This library is distributed in the hope that it will be useful, but WITHOUT
   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
   FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
   for more details.
@@ -16,41 +16,27 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+{
+  The Original Code is xmltree.pas, Version 0.0.27 '. The Initial Developer of
+  the Original Code is Moritz Franckenstein (maf-soft@gmx.net). Portions created
+  by the Initial Developer are Copyright (C) 2001. All Rights Reserved.
+  The original code is available at Yahoo! groups at
+  http://de.groups.yahoo.com/group/VirtualTreeview_de/files/
+
+  This component has been rewritten almost completely in order to support the
+  later Delphis and FPC/Lazarus. Some of the major modifications include:
+  - Unicode support in Delphi 2009 and later
+  - Compatibility with FPC 2.6.x and above
+  - Support for VirtualTree version 5.0.x and above
+  - Uses NativeXML to parse the XML. This is many times faster than using
+  MSXML.
+  - Customizable node paint options
+  - many bugfixes
+}
+
 unit ts_Components_XMLTree;
 
-{$region 'original' /fold}
-// The contents of this file are subject to the Mozilla Public License
-// Version 1.1 (the "License"); you may not use this file except in
-// compliance with the License. You may obtain a copy of the License
-// at http://www.mozilla.org/MPL/
-//
-// Software distributed under the License is distributed on an "AS IS"
-// basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See
-// the License for the specific language governing rights and limitations
-// under the License.
-//
-// Copyright (c) 2001 by Moritz Franckenstein, AMADEE AG
-// http://www.amadee.de/
-//
-// Version 0.0.27 - 16.10.2001
-// Tested with VirtualTree 2.5.40
-{$endregion}
 
-{
-  Changes by Tim Sinaeve
-   - Updated for Unicode support in Delphi 2009 and later
-   - compatibility with FPC
-   - uses NativeXML as internal document
-   - Adapted changes in VirtualTree version 5.0.x
-   - Many fixes
-   - Rewritten almost completely
-
-    - Painting code based on implementation of Moritz Franckenstein
-
-   TODO:
-     - Use a faster DOM parser (NativeXML or OmniXML)
-     - CorrectNamespaces needed?
-}
 
 interface
 
@@ -62,15 +48,22 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   ImgList, ActiveX,
 
-  LMessages,
-
-  NativeXML, NativeXmlXPath,
+{$ifdef FPC}
+  Editors, LMessages,
+{$endif}
+  NativeXML,
 
   VirtualTrees,
 
   sharedloggerlcl,
 
   ts_Components_XMLTree_Editors, ts_Components_XMLTree_NodeAttributes;
+
+{$ifdef FPC}
+type
+  TMessage   = TLMessage;
+  NativeUint = PtrInt;
+{$endif}
 
 const
   // Helper message to decouple node change handling from edit handling.
@@ -297,7 +290,7 @@ type
   TGetBackColorEvent = procedure(
         ASender     : TXMLTree;
         AParentNode : PVirtualNode;
-        AXmlNode    : TXmlNode;
+        AXMLNode    : TXmlNode;
         ANodeType   : TNodeType;
     var ABackColor  : TColor
   ) of object;
@@ -355,7 +348,7 @@ type
 
     function AddChildren(
       ANode    : PVirtualNode;
-      AXmlNode : TXmlNode
+      AXMLNode : TXmlNode
     ): Cardinal;
     function AddChild(
       ANode       : PVirtualNode;
@@ -411,10 +404,10 @@ type
       var ANewNodeType: TNodeType; var AAdd: Boolean); virtual;
     procedure DoGetBackColor(ANode: PVirtualNode; var ABackColor: TColor); virtual;
 
-    procedure WMStartEditing(var Message: TLMessage); message WM_STARTEDITING;
-
     procedure InitializeNodeAttributes;
     procedure InitializeHeader;
+    // message handlers
+    procedure WMStartEditing(var AMessage: TMessage); message WM_STARTEDITING;
 
   public
     procedure AfterConstruction; override;
@@ -456,7 +449,7 @@ type
       AName        : string = '';
       ABefore      : Boolean = False;
       AAddBreak    : Boolean = False;
-      AXmlNode     : TXmlNode = nil
+      AXMLNode     : TXmlNode = nil
     );
     procedure DeleteNode(Node: PVirtualNode; Reindex: Boolean = True);
 
@@ -695,33 +688,37 @@ type
 implementation
 
 uses
-  TypInfo, ts_Core_Utils;
+  TypInfo, 
+  
+  ts_Core_Utils;
 
-//    xeElement,     //  0 normal element <name {attr}>[value][sub-elements]</name>
-//    xeAttribute,   //  1 attribute ( name='value' or name="value")
-//    xeCharData,    //  2 character data in a node
-//    xeComment,     //  3 comment <!--{comment}-->
-//    xeCData,       //  4 literal data <![CDATA[{data}]]>
-//    xeCondSection, //  5 conditional section <![ IGNORE / INCLUDE [ markup ]]>
-//    xeDeclaration, //  6 xml declaration <?xml{declaration}?>
-//    xeStylesheet,  //  7 stylesheet <?xml-stylesheet{stylesheet}?>
-//    xeDocType,     //  8 doctype dtd declaration <!DOCTYPE{spec}>
-//    xeDtdElement,  //  9 dtd element <!ELEMENT >
-//    xeDtdAttList,  // 10 dtd attlist <!ATTLIST >
-//    xeDtdEntity,   // 11 dtd entity <!ENTITY >
-//    xeDtdNotation, // 12 dtd notation <!NOTATION >
-//    xeInstruction, // 13 processing instruction <?...?>
-//    xeWhiteSpace,  // 14 chardata with only whitespace
-//    xeQuotedText,  // 15 quoted text: "bla" or 'bla'
-//    xeEndTag,      // 16 </...> and signal function in binary xml
-//    xeError        // 17 some error or unknown
+{$REGION 'documentation'}
+// xeElement,     //  0 normal element <name {attr}>[value][sub-elements]</name>
+// xeAttribute,   //  1 attribute ( name='value' or name="value")
+// xeCharData,    //  2 character data in a node
+// xeComment,     //  3 comment <!--{comment}-->
+// xeCData,       //  4 literal data <![CDATA[{data}]]>
+// xeCondSection, //  5 conditional section <![ IGNORE / INCLUDE [ markup ]]>
+// xeDeclaration, //  6 xml declaration <?xml{declaration}?>
+// xeStylesheet,  //  7 stylesheet <?xml-stylesheet{stylesheet}?>
+// xeDocType,     //  8 doctype dtd declaration <!DOCTYPE{spec}>
+// xeDtdElement,  //  9 dtd element <!ELEMENT >
+// xeDtdAttList,  // 10 dtd attlist <!ATTLIST >
+// xeDtdEntity,   // 11 dtd entity <!ENTITY >
+// xeDtdNotation, // 12 dtd notation <!NOTATION >
+// xeInstruction, // 13 processing instruction <?...?>
+// xeWhiteSpace,  // 14 chardata with only whitespace
+// xeQuotedText,  // 15 quoted text: "bla" or 'bla'
+// xeEndTag,      // 16 </...> and signal function in binary xml
+// xeError        // 17 some error or unknown
+{$ENDREGION}
 
 type
   TVKSet = set of Byte;
 
 var
   VK_EDIT_KEYS : TVKSet = [
-    VK_0..VK_Z,
+    Ord('0')..Ord('Z'),
     VK_OEM_1..VK_OEM_102,
     VK_MULTIPLY..VK_DIVIDE
   ];
@@ -741,6 +738,153 @@ const
     xeQuotedText,
     xeEndTag
   ];
+
+{$region 'TXmlNodeHelper' /fold}
+
+type
+  TXmlNodeHelper = class helper for TXmlNode
+  private
+    function ProcessXPath(const StartNode: TXmlNode; XPath: string;
+      const ResultNodes: TList; const StopWhenFound: Boolean): Integer;
+
+  public
+    function SelectNode(const XPath: string): TXmlNode;
+    function SelectNodes(XPath: string; const Nodes: TList): Integer;
+  end;
+
+function TXmlNodeHelper.ProcessXPath(const StartNode: TXmlNode; XPath: string;
+  const ResultNodes: TList; const StopWhenFound: Boolean): Integer;
+var
+  Recursive    : Boolean;
+  SlashPos     : Integer;
+  NodeName     : string;
+  I            : Integer;
+  Child        : TXmlNode;
+  NodesToSearch: TList;
+label
+  FindFirstSlash;
+begin
+  Result := 0;
+  if not Assigned(ResultNodes) then
+    Exit;
+  Recursive := False;
+FindFirstSlash:
+  SlashPos := Pos('/', XPath);
+  case SlashPos of
+    0:
+      begin // no slash present
+        NodeName := XPath;
+        XPath    := '';
+      end;
+    1:
+      begin // starting with a slash; this was '//'
+        Recursive := True;
+        XPath     := Copy(XPath, 2, Length(XPath));
+        goto FindFirstSlash;
+      end;
+  else
+    begin
+      NodeName := Copy(XPath, 1, SlashPos - 1);
+      XPath    := Copy(XPath, SlashPos + 1, Length(XPath));
+    end;
+  end;
+
+  if (NodeName = '') and (XPath = '') then
+  begin
+    ResultNodes.Add(StartNode);
+    Result := 1;
+    Exit;
+  end
+  else if NodeName = '.' then
+  begin
+    Assert(not Recursive, 'The expression "//." is not supported.');
+    Result := Result + ProcessXPath(StartNode, XPath, ResultNodes,
+      StopWhenFound);
+    if StopWhenFound and (Result > 0) then
+      Exit;
+  end
+  else if NodeName = '..' then
+  begin
+    Assert(not Recursive, 'The expression "//.." is not supported.');
+    Result := Result + ProcessXPath(StartNode, XPath, ResultNodes,
+      StopWhenFound);
+    if StopWhenFound and (Result > 0) then
+      Exit;
+  end
+  else if NodeName = '*' then
+  begin
+    Assert(not Recursive, 'The expression "//*" is not supported.');
+    NodeName := '';
+  end;
+
+  if Recursive then
+  begin
+    NodesToSearch := TList.Create;
+    try
+      StartNode.FindNodes(UTF8String(NodeName), NodesToSearch);
+      for I := 0 to NodesToSearch.Count - 1 do
+      begin
+        Child  := NodesToSearch[I];
+        Result := Result + ProcessXPath(Child, XPath, ResultNodes,
+          StopWhenFound);
+        if StopWhenFound and (Result > 0) then
+          Exit;
+      end;
+    finally
+      NodesToSearch.Free;
+    end;
+  end
+  else
+  begin
+    for I := 0 to StartNode.NodeCount - 1 do
+    begin
+      Child := StartNode.Nodes[I];
+      if (NodeName = '') or (string(Child.Name) = NodeName) then
+      begin
+        Result := Result + ProcessXPath(Child, XPath, ResultNodes,
+          StopWhenFound);
+        if StopWhenFound and (Result > 0) then
+          Exit;
+      end;
+    end;
+  end;
+end;
+
+function TXmlNodeHelper.SelectNode(const XPath: string): TXmlNode;
+var
+  Nodes: TList;
+begin
+  Nodes := TList.Create;
+  try
+    if Copy(XPath, 1, 1) = '/' then
+    begin
+      ProcessXPath(Self.Document.Root, Copy(XPath, 2, 2), Nodes, True);
+    end
+    else
+    begin
+      ProcessXPath(Self, XPath, Nodes, True);
+    end;
+    if Nodes.Count > 0 then
+      Result := TXmlNode(Nodes[0])
+    else
+      Result := nil;
+  finally
+    Nodes.Free;
+  end;
+end;
+
+function TXmlNodeHelper.SelectNodes(XPath: string; const Nodes: TList): Integer;
+begin
+  if Copy(XPath, 1, 1) = '/' then
+  begin
+    Result := ProcessXPath(Self.Document.Root, Copy(XPath, 2, 2), Nodes, False);
+  end
+  else
+  begin
+    Result := ProcessXPath(Self, XPath, Nodes, False);
+  end;
+end;
+{$endregion}
 
 {$region 'construction and destruction' /fold}
 //*****************************************************************************
@@ -789,6 +933,7 @@ end;
 
 procedure TXMLTree.BeforeDestruction;
 begin
+  FNodeAttributes.Free;
   FExpandedState.Free;
   inherited;
 end;
@@ -900,11 +1045,11 @@ end;
   is necessary to avoid interferences between nodes editors potentially created
   for an old edit action and the new one we start here. }
 
-procedure TXMLTree.WMStartEditing(var Message: TLMessage);
+procedure TXMLTree.WMStartEditing(var AMessage: TMessage);
 var
   Node: PVirtualNode;
 begin
-  Node := Pointer(Message.WParam);
+  Node := Pointer(AMessage.WParam);
   { Note: the test whether a node can really be edited is done in the
     OnEditing event. }
   EditNode(Node, 1);
@@ -946,7 +1091,7 @@ end;
 procedure TXMLTree.DoMeasureItem(TargetCanvas: TCanvas; Node: PVirtualNode;
   var NodeHeight: Integer);
 var
-  N: Integer;
+  N: Cardinal;
 begin
   inherited;
   Logger.EnterMethod('DoMeasureItem');
@@ -978,6 +1123,7 @@ procedure TXMLTree.DoGetText(ANode: PVirtualNode; Column: TColumnIndex;
 var
   S  : UTF8String;
   ND : PNodeData;
+  N  : PVirtualNode;
 begin
   //Logger.EnterMethod(Self, 'DoGetText');
   //Logger.Send('States', SetToString(TypeInfo(ANode.States), ANode.States));
@@ -1040,13 +1186,14 @@ begin
   //Logger.ExitMethod(Self, 'DoGetText');
 end;
 
-function TXMLTree.DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex): IVTEditLink;
+function TXMLTree.DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex)
+  : IVTEditLink;
 begin
   Result := TXMLEditLink.Create;
 end;
 
 function TXMLTree.DoGetNodeHint(ANode: PVirtualNode; Column: TColumnIndex;
-        var LineBreakStyle: TVTTooltipLineBreakStyle): string;
+  var LineBreakStyle: TVTTooltipLineBreakStyle): string;
 begin
   if Column = Header.MainColumn then
     Result := GetData(ANode).XMLPath
@@ -1066,7 +1213,7 @@ begin
 end;
 
 procedure TXMLTree.DoPaintText(ANode: PVirtualNode; const Canvas: TCanvas;
-        Column: TColumnIndex; TextType: TVSTTextType);
+  Column: TColumnIndex; TextType: TVSTTextType);
 var
   NAI : TNodeAttributesItem;
 begin
@@ -1090,7 +1237,7 @@ begin
 end;
 
 procedure TXMLTree.DoBeforeItemErase(Canvas: TCanvas; ANode: PVirtualNode;
-  {$IFDEF FPC}const{$ENDIF} ItemRect: TRect; var Color: TColor;
+{$IFDEF FPC}const {$ENDIF} ItemRect: TRect; var Color: TColor;
   var EraseAction: TItemEraseAction);
 var
   C : TColor;
@@ -1101,7 +1248,7 @@ begin
     DoGetBackColor(ANode, C);
     if C <> Self.Color then
     begin
-      Color := C;
+      Color       := C;
       EraseAction := eaColor;
     end;
   end;
@@ -1110,12 +1257,12 @@ end;
 
 procedure TXMLTree.KeyDown(var Key: Word; Shift: TShiftState);
 var
-  M : TLMessage;
+  M : TMessage;
 begin
   inherited KeyDown(Key, Shift);
   if not (tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS) then
   begin
-    SendMessage(Self.Handle, WM_STARTEDITING, PtrInt(FocusedNode), 0);
+    SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
     M.Result := 0;
     M.msg := WM_KEYDOWN;
     M.wParam := Key;
@@ -1176,7 +1323,7 @@ begin
 end;
 
 procedure TXMLTree.DoCanEdit(ANode: PVirtualNode; Column: TColumnIndex;
-        var Allowed: Boolean);
+  var Allowed: Boolean);
 begin
   if Allowed and (Column in [FValueColumn, Header.MainColumn]) then
   begin
@@ -1193,7 +1340,7 @@ begin
 end;
 
 procedure TXMLTree.DoNewText(ANode: PVirtualNode; Column: TColumnIndex;
-  {$IFDEF FPC}const{$ENDIF} Text: string);
+  {$ifdef FPC}const{$endif} Text: string);
 var
   ND : PNodeData;
 begin
@@ -1312,32 +1459,32 @@ begin
   //Logger.ExitMethod(Self, 'AddChild');
 end;
 
-function TXMLTree.AddChildren(ANode: PVirtualNode; AXmlNode: TXmlNode)
-    : Cardinal;
+function TXMLTree.AddChildren(ANode: PVirtualNode; AXMLNode: TXmlNode)
+  : Cardinal;
 var
   ParentPath : string;
   I          : Integer;
 begin
   Logger.EnterMethod(Self, 'AddChildren');
   Result := 0;
-  if AXmlNode.ElementType in [xeElement, xeAttribute] then
+  if AXMLNode.ElementType in [xeElement, xeAttribute] then
   begin
     try
       BeginUpdate;
       if not Assigned(ANode) then
       begin
-        ANode := RootNode;
+        ANode      := RootNode;
         ParentPath := '';
       end
       else
         ParentPath := GetData(ANode).XMLPath + '/';
       Logger.Watch('ParentPath', ParentPath);
-      if AXmlNode.NodeCount > 0 then
+      if AXMLNode.NodeCount > 0 then
       begin
-        for I := 0 to AXmlNode.NodeCount - 1 do
-          if AddChild(ANode, AXmlNode.Nodes[I]) then
+        for I := 0 to AXMLNode.NodeCount - 1 do
+          if AddChild(ANode, AXMLNode.Nodes[I]) then
             Inc(Result);
-          end;
+      end;
     finally
       EndUpdate;
     end;
@@ -1465,7 +1612,7 @@ begin
       FocPath := GetData(FocusedNode).XMLPath;
     IterateSubtree(nil, IterateCallback, List,
       [vsInitialized, vsHasChildren, vsVisible]);
-    end;
+  end;
 end;
 
 { Sets the expanded state of all nodes to the previously saved state. The nodes
@@ -1477,7 +1624,7 @@ procedure TXMLTree.ExpandedStateRestore;
   procedure Recurse(ANode: PVirtualNode);
   begin
     Expanded[ANode] := True;
-    ANode := ANode.FirstChild;
+    ANode           := ANode.FirstChild;
     while Assigned(ANode) do
     begin
       ValidateNode(ANode, False);
@@ -1502,8 +1649,8 @@ begin
       Exit;
     List.Sorted := True;
     Recurse(RootNode);
-    TopNode := TopFound;
-    FocusedNode := FocFound;
+    TopNode            := TopFound;
+    FocusedNode        := FocFound;
     Selected[FocFound] := True;
     ExpandedStateClear;
   end;
@@ -1608,8 +1755,8 @@ begin
   case ANewNodeType of
     ntAttribute:
     begin
-      (AXmlNode as TsdAttribute).Name := AName;
-      (AXmlNode as TsdAttribute).Value := AValue;
+      (AXMLNode as TsdAttribute).Name  := UTF8String(AName);
+      (AXMLNode as TsdAttribute).Value := UTF8String(AValue);
     end;
     ntElement:
     begin
@@ -1695,7 +1842,7 @@ begin
         N := nil;
     end;
     if Count > 0 then
-      S := S + '[' + Utf8String(IntToStr(Count)) + ']';
+      S := S + '[' + UTF8String(IntToStr(Count)) + ']';
     if R = '' then
       R := S
     else

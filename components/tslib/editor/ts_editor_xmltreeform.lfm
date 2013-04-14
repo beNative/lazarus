@@ -9,11 +9,30 @@ object frmXmlTree: TfrmXmlTree
   LCLVersion = '1.1'
   object pnlXmlTree: TPanel
     Left = 0
-    Height = 718
-    Top = 0
+    Height = 686
+    Top = 32
     Width = 381
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+  end
+  object pnlHeader: TPanel
+    Left = 0
+    Height = 32
+    Top = 0
+    Width = 381
+    Align = alTop
+    ClientHeight = 32
+    ClientWidth = 381
+    TabOrder = 1
+    object btnInspect: TButton
+      Left = 0
+      Height = 25
+      Top = 4
+      Width = 75
+      Caption = 'Inspect'
+      OnClick = btnInspectClick
+      TabOrder = 0
+    end
   end
 end

@@ -632,6 +632,7 @@ begin
   //InitDebugAction('actExportToHTML');
   //InitDebugAction('actExportToRTF');
   InitDebugAction('actInsertCharacterFromMap');
+  InitDebugAction('actNewSharedView');
 
   //InitDebugAction('actCopyHTMLToClipboard');
   //InitDebugAction('actCopyWikiToClipboard');

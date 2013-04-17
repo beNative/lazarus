@@ -788,6 +788,7 @@ type
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
     {$region 'property access methods' /fold}
+    function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetExportPopupMenu: TPopupMenu;
@@ -795,28 +796,35 @@ type
     function GetHighlighterPopupMenu: TPopupMenu;
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetSelectionModePopupMenu: TPopupMenu;
+    function GetSelectionPopupMenu: TPopupMenu;
     {$endregion}
+
+    property ClipboardPopupMenu: TPopupMenu
+      read GetClipboardPopupMenu;
 
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
 
-    property HighlighterPopupMenu: TPopupMenu
-      read GetHighlighterPopupMenu;
-
-    property FoldPopupMenu: TPopupMenu
-      read GetFoldPopupMenu;
+    property EncodingPopupMenu: TPopupMenu
+      read GetEncodingPopupMenu;
 
     property ExportPopupMenu: TPopupMenu
       read GetExportPopupMenu;
 
-    property SelectionModePopupMenu: TPopupMenu
-      read GetSelectionModePopupMenu;
+    property FoldPopupMenu: TPopupMenu
+      read GetFoldPopupMenu;
 
-    property EncodingPopupMenu: TPopupMenu
-      read GetEncodingPopupMenu;
+    property HighlighterPopupMenu: TPopupMenu
+      read GetHighlighterPopupMenu;
 
     property LineBreakStylePopupMenu: TPopupMenu
       read GetLineBreakStylePopupMenu;
+
+    property SelectionPopupMenu: TPopupMenu
+      read GetSelectionPopupMenu;
+
+    property SelectionModePopupMenu: TPopupMenu
+      read GetSelectionModePopupMenu;
   end;
 
   { All supported actions by the editor views. }

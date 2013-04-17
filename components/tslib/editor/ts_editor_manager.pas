@@ -139,6 +139,13 @@ type
     actExit                       : TAction;
     actCut                        : TAction;
     actDelete                     : TAction;
+    actHighlighter                : TAction;
+    actEncoding                   : TAction;
+    actExport                     : TAction;
+    actClipboard                  : TAction;
+    actLineBreakStyle             : TAction;
+    actSelectionMode              : TAction;
+    actSelection                  : TAction;
     actNewSharedView              : TAction;
     actSingleInstance             : TAction;
     actToggleMaximized            : TAction;
@@ -225,45 +232,6 @@ type
     dlgOpen                       : TOpenDialog;
     dlgSave                       : TSaveDialog;
     imlMain                       : TImageList;
-    MenuItem1                     : TMenuItem;
-    MenuItem10                    : TMenuItem;
-    MenuItem102                   : TMenuItem;
-    MenuItem103                   : TMenuItem;
-    MenuItem11                    : TMenuItem;
-    MenuItem12                    : TMenuItem;
-    MenuItem13                    : TMenuItem;
-    MenuItem14                    : TMenuItem;
-    MenuItem15                    : TMenuItem;
-    MenuItem16                    : TMenuItem;
-    MenuItem17                    : TMenuItem;
-    MenuItem18                    : TMenuItem;
-    MenuItem19                    : TMenuItem;
-    MenuItem2                     : TMenuItem;
-    MenuItem20                    : TMenuItem;
-    MenuItem21                    : TMenuItem;
-    MenuItem22                    : TMenuItem;
-    MenuItem23                    : TMenuItem;
-    MenuItem24                    : TMenuItem;
-    MenuItem25                    : TMenuItem;
-    MenuItem26                    : TMenuItem;
-    MenuItem27                    : TMenuItem;
-    MenuItem28                    : TMenuItem;
-    MenuItem29                    : TMenuItem;
-    MenuItem3                     : TMenuItem;
-    MenuItem30                    : TMenuItem;
-    MenuItem31                    : TMenuItem;
-    MenuItem32                    : TMenuItem;
-    MenuItem33                    : TMenuItem;
-    MenuItem34                    : TMenuItem;
-    MenuItem35                    : TMenuItem;
-    MenuItem36                    : TMenuItem;
-    MenuItem37                    : TMenuItem;
-    MenuItem38                    : TMenuItem;
-    MenuItem39                    : TMenuItem;
-    MenuItem4                     : TMenuItem;
-    MenuItem40                    : TMenuItem;
-    MenuItem41                    : TMenuItem;
-    MenuItem42                    : TMenuItem;
     MenuItem43                    : TMenuItem;
     MenuItem44                    : TMenuItem;
     MenuItem45                    : TMenuItem;
@@ -271,79 +239,9 @@ type
     MenuItem47                    : TMenuItem;
     MenuItem48                    : TMenuItem;
     MenuItem49                    : TMenuItem;
-    MenuItem5                     : TMenuItem;
     MenuItem50                    : TMenuItem;
     MenuItem51                    : TMenuItem;
     MenuItem52                    : TMenuItem;
-    MenuItem53                    : TMenuItem;
-    MenuItem54                    : TMenuItem;
-    MenuItem55                    : TMenuItem;
-    MenuItem56                    : TMenuItem;
-    MenuItem57                    : TMenuItem;
-    MenuItem58                    : TMenuItem;
-    MenuItem59                    : TMenuItem;
-    MenuItem6                     : TMenuItem;
-    MenuItem60                    : TMenuItem;
-    MenuItem61                    : TMenuItem;
-    MenuItem62                    : TMenuItem;
-    MenuItem64                    : TMenuItem;
-    MenuItem65                    : TMenuItem;
-    MenuItem67                    : TMenuItem;
-    MenuItem68                    : TMenuItem;
-    MenuItem69                    : TMenuItem;
-    MenuItem7                     : TMenuItem;
-    MenuItem70                    : TMenuItem;
-    MenuItem74                    : TMenuItem;
-    MenuItem75                    : TMenuItem;
-    MenuItem76                    : TMenuItem;
-    MenuItem77                    : TMenuItem;
-    MenuItem78                    : TMenuItem;
-    MenuItem79                    : TMenuItem;
-    MenuItem8                     : TMenuItem;
-    MenuItem80                    : TMenuItem;
-    MenuItem81                    : TMenuItem;
-    MenuItem82                    : TMenuItem;
-    MenuItem83                    : TMenuItem;
-    MenuItem84                    : TMenuItem;
-    MenuItem85                    : TMenuItem;
-    MenuItem86                    : TMenuItem;
-    MenuItem87                    : TMenuItem;
-    MenuItem88                    : TMenuItem;
-    MenuItem89                    : TMenuItem;
-    MenuItem9                     : TMenuItem;
-    MenuItem90                    : TMenuItem;
-    MenuItem91                    : TMenuItem;
-    MenuItem92                    : TMenuItem;
-    MenuItem93                    : TMenuItem;
-    mniCopy                       : TMenuItem;
-    mniCopyToClipboard            : TMenuItem;
-    mniCopyToClipboardAsASCIIText : TMenuItem;
-    mniCopyToClipboardAsHTMLObject: TMenuItem;
-    mniCopyToClipboardAsHTMLText  : TMenuItem;
-    mniCopyToClipboardAsRTFObject : TMenuItem;
-    mniCopyToClipboardAsRTFText   : TMenuItem;
-    mniCopyToClipboardAsTeXObject : TMenuItem;
-    mniCopyToClipboardAsTeXText   : TMenuItem;
-    mniCut                        : TMenuItem;
-    mniExport                     : TMenuItem;
-    mniExportToHTML               : TMenuItem;
-    mniExportToRTF                : TMenuItem;
-    mniExportToTeX                : TMenuItem;
-    mniFindNext                   : TMenuItem;
-    mniFindPrevious               : TMenuItem;
-    mniPageSetup                  : TMenuItem;
-    mniPaste                      : TMenuItem;
-    mniPrint                      : TMenuItem;
-    mniPrintPreview               : TMenuItem;
-    mniReplace                    : TMenuItem;
-    mniSelectAll                  : TMenuItem;
-    mniSeperator1                 : TMenuItem;
-    mniSeperator2                 : TMenuItem;
-    mniSeperator3                 : TMenuItem;
-    mniSeperator4                 : TMenuItem;
-    mniSettings                   : TMenuItem;
-    mnitSaveToFile                : TMenuItem;
-    mniUndo                       : TMenuItem;
     ppmClipboard                  : TPopupMenu;
     ppmEditor                     : TPopupMenu;
     ppmEncoding                   : TPopupMenu;
@@ -351,6 +249,7 @@ type
     ppmFold                       : TPopupMenu;
     ppmHighLighters               : TPopupMenu;
     ppmLineBreakStyle             : TPopupMenu;
+    ppmSelection                  : TPopupMenu;
     ppmSelectionMode              : TPopupMenu;
     SynExporterHTML               : TSynExporterHTML;
     SynMacroRecorder              : TSynMacroRecorder;
@@ -496,6 +395,7 @@ type
     {$region 'property access methods' /fold}
     function GetActionList: TActionList;
     function GetActions: IEditorActions;
+    function GetClipboardPopupMenu: TPopupMenu;
     function GetCommands: IEditorCommands;
     function GetCurrent: IEditorView;
     function GetEditor: TSynEdit;
@@ -522,6 +422,7 @@ type
     function GetPersistSettings: Boolean;
     function GetSearchEngine: IEditorSearchEngine;
     function GetSelectionModePopupMenu: TPopupMenu;
+    function GetSelectionPopupMenu: TPopupMenu;
     function GetSettings: IEditorSettings;
     function GetActiveView: IEditorView;
     function GetHighlighters: THighlighters;
@@ -554,6 +455,15 @@ type
     procedure SetPersistSettings(const AValue: Boolean);
     {$endregion}
 
+    procedure AddMenuItem(
+      AParent : TMenuItem;
+      AAction : TBasicAction = nil
+    ); overload;
+    procedure AddMenuItem(
+      AParent : TMenuItem;
+      AMenu   : TMenu
+    ); overload;
+
     // event handlers
     procedure CodeFilterFilteredLineChange(
             Sender  : TObject;
@@ -569,9 +479,11 @@ type
     procedure RegisterHighlighters;
     procedure RegisterToolViews;
 
+    procedure BuildClipboardPopupMenu;
     procedure BuildEncodingPopupMenu;
     procedure BuildLineBreakStylePopupMenu;
     procedure BuildHighlighterPopupMenu;
+    procedure BuildSelectionPopupMenu;
     procedure BuildSelectionModePopupMenu;
     procedure BuildFoldPopupMenu;
     procedure BuildEditorPopupMenu;
@@ -692,6 +604,9 @@ type
     property ActiveView: IEditorView
       read GetActiveView write SetActiveView {implements IEditorView};
 
+    property ClipboardPopupMenu: TPopupMenu
+      read GetClipboardPopupMenu;
+
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
 
@@ -709,6 +624,9 @@ type
 
     property HighlighterPopupMenu: TPopupMenu
       read GetHighlighterPopupMenu;
+
+    property SelectionPopupMenu: TPopupMenu
+      read GetSelectionPopupMenu;
 
     property SelectionModePopupMenu: TPopupMenu
       read GetSelectionModePopupMenu;
@@ -819,8 +737,6 @@ uses
   synhighlighterunixshellscript,
 
   ts_Core_Utils, ts_Core_ComponentInspector,
-
-  //ts_Components_UniHighlighter,
 
   ts_Editor_Settings, ts_Editor_HighlighterAttributes,
   ts_Editor_ViewListForm, ts_Editor_CodeShaperForm , ts_Editor_PreviewForm,
@@ -954,6 +870,11 @@ begin
   Result := Self as IEditorActions;
 end;
 
+function TdmEditorManager.GetClipboardPopupMenu: TPopupMenu;
+begin
+  Result := ppmClipboard;
+end;
+
 function TdmEditorManager.GetCommands: IEditorCommands;
 begin
   Result := Self as IEditorCommands;
@@ -1073,6 +994,11 @@ end;
 function TdmEditorManager.GetSelectionModePopupMenu: TPopupMenu;
 begin
   Result := ppmSelectionMode;
+end;
+
+function TdmEditorManager.GetSelectionPopupMenu: TPopupMenu;
+begin
+  Result := ppmSelection;
 end;
 
 procedure TdmEditorManager.SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
@@ -1980,6 +1906,43 @@ end;
 // private methods                                                       BEGIN
 //*****************************************************************************
 
+{$region 'Helpers' /fold}
+procedure TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction);
+var
+  MI: TMenuItem;
+begin
+  if not Assigned(AAction) then
+    AParent.AddSeparator
+  else
+  begin
+    MI := TMenuItem.Create(AParent.Owner);
+    MI.Action := AAction;
+    if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
+      MI.RadioItem := True;
+    if (AAction is TAction) and (TAction(AAction).AutoCheck) then
+    begin
+      MI.ShowAlwaysCheckable := True;
+    end;
+    AParent.Add(MI);
+  end;
+end;
+
+procedure TdmEditorManager.AddMenuItem(AParent: TMenuItem; AMenu: TMenu);
+var
+  MI : TMenuItem;
+  M  : TMenuItem;
+begin
+  MI := TMenuItem.Create(AParent.Owner);
+  MI.Action := AMenu.Items.Action;
+  AParent.Add(MI);
+  for M in AMenu.Items do
+  begin
+    AddMenuItem(MI, M.Action);
+  end;
+end;
+
+{$endregion}
+
 {$region 'Initialization' /fold}
 { Initializes extra information related to the built-in highlighters like
   folding configuration and devider info. }
@@ -2031,8 +1994,11 @@ begin
   BuildEncodingPopupMenu;
   BuildLineBreakStylePopupMenu;
   BuildHighlighterPopupMenu;
+  BuildSelectionPopupMenu;
+  BuildExportPopupMenu;
   BuildSelectionModePopupMenu;
   BuildFoldPopupMenu;
+  BuildClipboardPopupMenu;
   BuildEditorPopupMenu;
 end;
 
@@ -2052,10 +2018,10 @@ begin
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := 'actEncoding' + DelChars(S, '-');
+      A.Name    := actEncoding.Name + DelChars(S, '-');
       A.AutoCheck := True;
       A.GroupIndex := 3;
-      A.Category := 'Encoding';
+      A.Category := actEncoding.Category;
       A.OnExecute  := actEncodingExecute;
     end;
     for S in ALineBreakStyles do
@@ -2063,10 +2029,10 @@ begin
       A := TAction.Create(aclActions);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := 'actLineBreakStyle' + S;
+      A.Name    := actLineBreakStyle.Name + S;
       A.AutoCheck := True;
       A.GroupIndex := 4;
-      A.Category := 'LineBreakStyle';
+      A.Category := actLineBreakStyle.Category;
       A.OnExecute  := actLineBreakStyleExecute;
     end;
     for HI in Highlighters do
@@ -2075,10 +2041,10 @@ begin
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
       A.Caption := HI.Name;
-      A.Name := 'actHighlighter' + HI.Name;
+      A.Name := actHighlighter.Name + HI.Name;
       A.AutoCheck := True;
       A.GroupIndex := 5;
-      A.Category := 'Highlighter';
+      A.Category := actHighlighter.Category;
       A.OnExecute := actHighlighterExecute;
     end;
     for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
@@ -2089,10 +2055,10 @@ begin
       S := GetEnumName(TypeInfo(TSynSelectionMode), A.Tag);
       S := System.Copy(S, 3, Length(S));
       A.Caption := S;
-      A.Name := 'actSelectionMode' + S;
+      A.Name := actSelectionMode.Name + S;
       A.AutoCheck := True;
       A.GroupIndex := 6;
-      A.Category := 'SelectionMode';
+      A.Category := actSelectionMode.Category;
       A.OnExecute := actSelectionModeExecute;
     end;
   finally
@@ -2215,6 +2181,26 @@ begin
   FFormsCreated := True;
 end;
 
+procedure TdmEditorManager.BuildClipboardPopupMenu;
+var
+  MI: TMenuItem;
+begin
+  MI := ClipboardPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actClipboard;
+  AddMenuItem(MI, actCopyHTMLTextToClipboard);
+  AddMenuItem(MI, actCopyRTFTextToClipboard);
+  AddMenuItem(MI, actCopyWikiTextToClipboard);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actCopytHTMLToClipboard);
+  AddMenuItem(MI, actCopyRTFToClipboard);
+  AddMenuItem(MI, actCopyWikiToClipboard);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actCopyFileName);
+  AddMenuItem(MI, actCopyFilePath);
+  AddMenuItem(MI, actCopyFullPath);
+end;
+
 procedure TdmEditorManager.BuildEncodingPopupMenu;
 var
   SL : TStringList;
@@ -2225,12 +2211,13 @@ begin
   SL := TStringList.Create;
   try
     EncodingPopupMenu.Items.Clear;
+    EncodingPopupMenu.Items.Action := actEncoding;
     GetSupportedEncodings(SL);
     for S in SL do
     begin
       MI := TMenuItem.Create(EncodingPopupMenu);
       MI.Caption := S;
-      S := 'actEncoding' + DelChars(S, '-');
+      S := EncodingPopupMenu.Items.Action.Name + DelChars(S, '-');
       A := Items[S];
       if Assigned(A) then
       begin
@@ -2253,10 +2240,11 @@ var
   A  : TCustomAction;
 begin
   LineBreakStylePopupMenu.Items.Clear;
+  LineBreakStylePopupMenu.Items.Action := actLineBreakStyle;
   for S in ALineBreakStyles do
   begin
     MI := TMenuItem.Create(LineBreakStylePopupMenu);
-    S := 'actLineBreakStyle' +  S;
+    S := LineBreakStylePopupMenu.Items.Action.Name +  S;
     A := Items[S];
     if Assigned(A) then
     begin
@@ -2277,13 +2265,12 @@ var
   HI : THighlighterItem;
   A  : TCustomAction;
 begin
-  HighlighterPopupMenu.Items.Caption := 'Highlighters';
   HighlighterPopupMenu.Items.Action := actToggleHighlighter;
   HighlighterPopupMenu.Items.Clear;
   for HI in Highlighters do
   begin
     MI := TMenuItem.Create(HighlighterPopupMenu);
-    S := 'actHighlighter' + HI.Name;
+    S := actHighlighter.Name + HI.Name;
     A := Items[S];
     if Assigned(A) then
     begin
@@ -2298,6 +2285,39 @@ begin
   end;
 end;
 
+procedure TdmEditorManager.BuildSelectionPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SelectionPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSelection;
+  AddMenuItem(MI, actUpperCaseSelection);
+  AddMenuItem(MI, actLowerCaseSelection);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actStripFirstChar);
+  AddMenuItem(MI, actStripLastChar);
+  AddMenuItem(MI, actStripMarkup);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actToggleComment);
+  AddMenuItem(MI, actToggleBlockCommentSelection);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actQuoteSelection);
+  AddMenuItem(MI, actDequoteSelection);
+  AddMenuItem(MI, actQuoteLinesAndDelimit);
+  AddMenuItem(MI, actQuoteLines);
+  AddMenuItem(MI, actDequoteLines);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actEncodeBase64);
+  AddMenuItem(MI, actDecodeBase64);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actAlignSelection);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actPascalStringOfSelection);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSmartSelect);
+end;
+
 procedure TdmEditorManager.BuildSelectionModePopupMenu;
 var
   SM : TSynSelectionMode;
@@ -2306,12 +2326,13 @@ var
   A  : TCustomAction;
 begin
   SelectionModePopupMenu.Items.Clear;
+  SelectionModePopupMenu.Items.Action := actSelectionMode;
   for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
   begin
     MI := TMenuItem.Create(SelectionModePopupMenu);
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
     S := System.Copy(S, 3, Length(S));
-    S := 'actSelectionMode' + S;
+    S := SelectionModePopupMenu.Items.Name + S;
     A := Items[S];
     if Assigned(A) then
     begin
@@ -2328,19 +2349,65 @@ end;
 
 procedure TdmEditorManager.BuildFoldPopupMenu;
 begin
-  FoldPopupMenu.Items.Caption := 'Folding';
   FoldPopupMenu.Items.Action := actToggleFoldLevel;
 end;
 
 procedure TdmEditorManager.BuildEditorPopupMenu;
+var
+  MI : TMenuItem;
 begin
-  EditorPopupMenu.Items.Insert(15, HighlighterPopupMenu.Items);
-  EditorPopupMenu.Items.Insert(16, FoldPopupMenu.Items);
+  MI := EditorPopupMenu.Items;
+  MI.Clear;
+  AddMenuItem(MI, actCut);
+  AddMenuItem(MI, actCopy);
+  AddMenuItem(MI, actPaste);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSelectAll);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actUndo);
+  AddMenuItem(MI, actRedo);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSettings);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSearch);
+  AddMenuItem(MI, actFindNextWord);
+  AddMenuItem(MI, actFindPrevWord);
+  AddMenuItem(MI, actSearchReplace);
+  AddMenuItem(MI);
+  AddMenuItem(MI, HighlighterPopupMenu);
+  AddMenuItem(MI, FoldPopupMenu);
+  AddMenuItem(MI, SelectionPopupMenu);
+  AddMenuItem(MI, ClipboardPopupMenu);
+  AddMenuItem(MI, ExportPopupMenu);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actFilterCode);
+  AddMenuItem(MI, actShapeCode);
+  AddMenuItem(MI, actFormat);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actNew);
+  AddMenuItem(MI, actOpen);
+  AddMenuItem(MI, actSave);
+  AddMenuItem(MI, actSaveAs);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actReload);
+  AddMenuItem(MI, actPageSetup);
+  AddMenuItem(MI, actPrintPreview);
+  AddMenuItem(MI, actPrint);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actClose);
+  AddMenuItem(MI, actCloseOthers);
 end;
 
 procedure TdmEditorManager.BuildExportPopupMenu;
+var
+  MI : TMenuItem;
 begin
-  //
+  MI := ExportPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actExport;
+  AddMenuItem(MI, actExportToHTML);
+  AddMenuItem(MI, actExportToRTF);
+  AddMenuItem(MI, actExportToWiki);
 end;
 
 {$endregion}

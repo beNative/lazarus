@@ -182,6 +182,7 @@ begin
   UpdateData;
 
   tsDebug.TabVisible := Settings.DebugMode;
+  tsXML.TabVisible := Settings.DebugMode;
 
   FXMLTree := CreateXMLTree(Self, pnlXML);
 end;

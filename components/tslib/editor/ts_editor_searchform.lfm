@@ -1,7 +1,7 @@
 object frmSearchForm: TfrmSearchForm
-  Left = -540
+  Left = -1067
   Height = 916
-  Top = 0
+  Top = 73
   Width = 333
   BorderIcons = [biSystemMenu]
   Caption = 'Find'

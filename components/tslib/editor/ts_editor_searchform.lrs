@@ -1,11 +1,11 @@
 { This is an automatically generated lazarus resource file }
 
 LazarusResources.Add('TfrmSearchForm','FORMDATA',[
-  'TPF0'#14'TfrmSearchForm'#13'frmSearchForm'#4'Left'#3#228#253#6'Height'#3#148
-  +#3#3'Top'#2#0#5'Width'#3'M'#1#11'BorderIcons'#11#12'biSystemMenu'#0#7'Captio'
-  +'n'#6#4'Find'#12'ClientHeight'#3#148#3#11'ClientWidth'#3'M'#1#21'Constraints'
-  +'.MinHeight'#3'8'#1#20'Constraints.MinWidth'#3','#1#10'KeyPreview'#9#6'OnHid'
-  +'e'#7#8'FormHide'#9'PopupMode'#7#6'pmAuto'#8'ShowHint'#9#10'LCLVersion'#6#3
+  'TPF0'#14'TfrmSearchForm'#13'frmSearchForm'#4'Left'#3#213#251#6'Height'#3#148
+  +#3#3'Top'#2'I'#5'Width'#3'M'#1#11'BorderIcons'#11#12'biSystemMenu'#0#7'Capti'
+  +'on'#6#4'Find'#12'ClientHeight'#3#148#3#11'ClientWidth'#3'M'#1#21'Constraint'
+  +'s.MinHeight'#3'8'#1#20'Constraints.MinWidth'#3','#1#10'KeyPreview'#9#6'OnHi'
+  +'de'#7#8'FormHide'#9'PopupMode'#7#6'pmAuto'#8'ShowHint'#9#10'LCLVersion'#6#3
   +'1.1'#0#6'TPanel'#13'pnlOperations'#4'Left'#2#0#6'Height'#3#150#1#3'Top'#2#0
   +#5'Width'#3'M'#1#5'Align'#7#5'alTop'#8'AutoSize'#9#20'BorderSpacing.Bottom'#2
   +#4'!BorderSpacing.CellAlignHorizontal'#7#9'ccaCenter'#31'BorderSpacing.CellA'

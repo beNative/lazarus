@@ -48,9 +48,6 @@ object frmViewList: TfrmViewList
     object mniClose: TMenuItem
       Action = actClose
     end
-    object MenuItem1: TMenuItem
-      Caption = 'New Item2'
-    end
   end
   object ppmHL: TPopupMenu
     left = 168

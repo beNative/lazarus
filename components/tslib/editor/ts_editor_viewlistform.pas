@@ -41,7 +41,6 @@ type
   TfrmViewList = class(TForm, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
-    MenuItem1  : TMenuItem;
     MenuItem2  : TMenuItem;
     mniClose   : TMenuItem;
     pnlButtons : TButtonPanel;
@@ -99,8 +98,6 @@ implementation
 
 uses
   ts_Core_ColumnDefinitions, ts_Core_Utils, ts_Core_Helpers;
-
-{ TODO -oTS : Use Column Data templates }
 
 {$region 'TEditorViewInfo' /fold}
 type
@@ -202,11 +199,12 @@ begin
   FTVP.TreeView := FVST;
   FTVP.OnSelectionChanged  := FTVPSelectionChanged;
 
+  ppmHL.Items.Clear;
   for I := 0 to Manager.Menus.HighlighterPopupMenu.Items.Count - 1 do
     ppmHL.Items.Add(CloneMenuItem(Manager.Menus.HighlighterPopupMenu.Items[I]));
 
   //ppmHL.Items.Assign(Manager.Menus.HighlighterPopupMenu.Items);
-  ppmMain.Items.Insert(1, ppmHL.Items);
+//  ppmMain.Items.Insert(1, ppmHL.Items);
   //ppmEditor.Items.Insert(15, ppmHighLighters.Items);
 end;
 

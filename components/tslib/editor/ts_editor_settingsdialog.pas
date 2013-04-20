@@ -82,12 +82,12 @@ type
     procedure tsXMLEnter(Sender: TObject);
 
   private
-    FTVP            : TTreeViewPresenter;
-    FList           : TObjectList;
-    FPI             : TTIPropertyGrid;
-    FHAPI           : TTIPropertyGrid;
-    FHAVST          : TVirtualStringTree;
-    FXMLTree        : TXMLTree;
+    FTVP     : TTreeViewPresenter;
+    FList    : TObjectList;
+    FPI      : TTIPropertyGrid;
+    FHAPI    : TTIPropertyGrid;
+    FHAVST   : TVirtualStringTree;
+    FXMLTree : TXMLTree;
 
     function GetSettings: IEditorSettings;
     function GetManager: IEditorManager;
@@ -173,18 +173,17 @@ end;
 procedure TfrmEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FList := TObjectList.Create(False);
-  FTVP := TTreeViewPresenter.Create(Self);
+  FList             := TObjectList.Create(False);
+  FTVP              := TTreeViewPresenter.Create(Self);
   FTVP.ItemTemplate := TSynAttributesDataTemplate.Create;
-  FPI := CreatePI(Self, pnlPI);
-  FHAPI := CreatePI(Self, pnlHARight);
-  FHAVST := CreateVST(Self, pnlHALeft);
+  FPI               := CreatePI(Self, pnlPI);
+  FHAPI             := CreatePI(Self, pnlHARight);
+  FHAVST            := CreateVST(Self, pnlHALeft);
+  FXMLTree          := CreateXMLTree(Self, pnlXML);
+
   UpdateData;
-
   tsDebug.TabVisible := Settings.DebugMode;
-  tsXML.TabVisible := Settings.DebugMode;
-
-  FXMLTree := CreateXMLTree(Self, pnlXML);
+  tsXML.TabVisible   := Settings.DebugMode;
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;

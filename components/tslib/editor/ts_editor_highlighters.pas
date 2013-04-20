@@ -364,7 +364,7 @@ begin
   S := '';
   for I :=  0 to Count - 1 do
   begin
-    S := S + #13#10 + Items[I].AsString;
+    S := S + LineEnding + Items[I].AsString;
   end;
   Result := S;
 end;

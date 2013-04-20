@@ -31,6 +31,88 @@ unit ts_Components_UniHighlighter;
   - removed useless code
 }
 
+{$region 'documentation'}
+{
+(info taken from http://wiki.lazarus.freepascal.org/SynEdit_Highlighter)
+
+General remarks on SynEdit and how it relates to highlighter instances.
+-------------------------------------------------------------------------------
+
+SynEdit <-> Highlighter have a n to 1 relationship.
+  - 1 (instance of a) Highlighter can serve n (many) (instances of) SynEdits
+  - Each SynEdit only has one Highlighter
+  - But: one text (text-buffer) can have many highlighters, if shared by several
+    SynEdit (each SynEdit will have one HL, but all HL will work on the same
+    document)
+
+As a result of this:
+ - no Highlighter Instance has a (fixed) reference to the SynEdit.
+   (Highlighters however keep a list of SynEditTextBuffers to which they are
+   attached)
+ - All data for the Highlighter is (and must be) stored on the SynEdit (actually
+   on the TextBuffer of SynEdit (referred to as "Lines").
+
+However SynEdit ensures before each call to the Highlighter that
+Highlighter.CurrentLines is set to the current SynEdits Lines. This way the
+highlighter can access the data whenever needed. The Format of the data-storage
+is determined by the highlighter (TSynCustomHighlighter.AttachToLines)
+
+Scanning and Returning Highlight attributes
+-------------------------------------------------------------------------------
+
+The Highlighter is expected to work on a per Line base.
+If any text was modified, SynEdit will call (TSynCustomHighlighter.ScanFrom /
+Currently called from TSynEdit.ScanFrom) with the line range. The Highlighter
+should know the state of the previous line.
+
+If Highlight attributes are required SynEdit will request them per Line too.
+SynEdit will loop through individual tokens on a line. This currently happens
+from nested proc PaintLines in SynEdit.PaintTextLines. It calls
+TSynCustomHighlighter.StartAtLineIndex, followed by
+HL.GetTokenEx/HL.GetTokenAttribute for as long as HL.GetEol is false.
+
+Also the BaseClass for the Highlighter's data (see AttachToLines) is based on
+per line storage, and SynEdit's TextBuffer (Lines) do maintenance on this data
+to keep it synchronized. That is when ever lines of text are inserted or
+removed, so are entries inserted or removed from the highlighters data (hence
+it must have one entry per line).
+
+Usually Highlighters store the end-of-line-status in this field. So if the
+highlighter is going to work on a line, it will continue with the state-entry
+from the previous line.
+
+Folding
+-------------------------------------------------------------------------------
+
+SynEdit's folding is handled by unit SynEditFoldedView and SynGutterCodeFolding.
+Highlighters that implement folding are to be based on TSynCustomFoldHighlighter.
+
+The basic information for communication between SynEditFoldedView and the HL
+requires 2 values stored for each line. (Of course the highlighter itself can
+store more information):
+
+  - FoldLevel at the end of line
+  - Minimum FoldLevel encountered anywhere on the line
+
+The Foldlevel indicates how many (nested) folds exist. It goes up whenever a
+fold begins, and down when a fold ends.
+
+example:
+
+                           EndLvl   MinLvl
+ procedure a;               1 -      0
+ Begin                      2 --     1 -
+   b:= 1;                   2 --     2 --
+   if c > b then begin      3 ---    2 --
+     c:=b;                  3 ---    3 ---
+   end else begin           3 ---    2 --
+     b:=c;                  3 ---    3 ---
+   end;                     2 --     2 --
+ end;                       0        0  // The end closes both: begin and procedure fold
+
+}
+{$endregion}
+
 interface
 
 uses
@@ -497,10 +579,6 @@ type
     ntNone
   );
 
-function String2Set(AString: string): TSymbolsSet;
-function Set2String(ASymbolsSet: TSymbolsSet): string;
-procedure BuildXMLIndexes(AStrings: TStringList);
-
 const
   DefaultTermSymbols: TSymbolsSet =
     ['*', '/', '+', '-', '=', '\', '|', '&', '(', ')',
@@ -512,46 +590,6 @@ implementation
 
 uses
   SynEditStrConst;
-
-procedure BuildXMLIndexes(AStrings: TStringList);
-begin
-  AStrings.Add('AnyTerm');
-  AStrings.Add('Attri');
-  AStrings.Add('Author');
-  AStrings.Add('Back');
-  AStrings.Add('CaseSensitive');
-  AStrings.Add('CloseOnEol');
-  AStrings.Add('CloseOnTerm');
-  AStrings.Add('CloseSymbol');
-  AStrings.Add('Company');
-  AStrings.Add('Copyright');
-  AStrings.Add('Date');
-  AStrings.Add('Def');
-  AStrings.Add('DelimiterChars');
-  AStrings.Add('Email');
-  AStrings.Add('FileTypeName');
-  AStrings.Add('Fore');
-  AStrings.Add('General');
-  AStrings.Add('H');
-  AStrings.Add('History');
-  AStrings.Add('Info');
-  AStrings.Add('KW');
-  AStrings.Add('Layout');
-  AStrings.Add('Name');
-  AStrings.Add('Num');
-  AStrings.Add('OpenSymbol');
-  AStrings.Add('Range');
-  AStrings.Add('Remark');
-  AStrings.Add('Revision');
-  AStrings.Add('S');
-  AStrings.Add('Sample');
-  AStrings.Add('Style');
-  AStrings.Add('Type');
-  AStrings.Add('UniHighlighter');
-  AStrings.Add('Version');
-  AStrings.Add('W');
-  AStrings.Add('Web');
-end;
 
 const
   AbsoluteTermSymbols: TSymbolsSet = [' ', #13, #0, #10];
@@ -592,6 +630,46 @@ const
   xitVersion        = 33;
   xitW              = 34;
   xitWeb            = 35;
+
+procedure BuildXMLIndexes(AStrings: TStringList);
+begin
+  AStrings.Add('AnyTerm');
+  AStrings.Add('Attri');
+  AStrings.Add('Author');
+  AStrings.Add('Back');
+  AStrings.Add('CaseSensitive');
+  AStrings.Add('CloseOnEol');
+  AStrings.Add('CloseOnTerm');
+  AStrings.Add('CloseSymbol');
+  AStrings.Add('Company');
+  AStrings.Add('Copyright');
+  AStrings.Add('Date');
+  AStrings.Add('Def');
+  AStrings.Add('DelimiterChars');
+  AStrings.Add('Email');
+  AStrings.Add('FileTypeName');
+  AStrings.Add('Fore');
+  AStrings.Add('General');
+  AStrings.Add('H');
+  AStrings.Add('History');
+  AStrings.Add('Info');
+  AStrings.Add('KW');
+  AStrings.Add('Layout');
+  AStrings.Add('Name');
+  AStrings.Add('Num');
+  AStrings.Add('OpenSymbol');
+  AStrings.Add('Range');
+  AStrings.Add('Remark');
+  AStrings.Add('Revision');
+  AStrings.Add('S');
+  AStrings.Add('Sample');
+  AStrings.Add('Style');
+  AStrings.Add('Type');
+  AStrings.Add('UniHighlighter');
+  AStrings.Add('Version');
+  AStrings.Add('W');
+  AStrings.Add('Web');
+end;
 
 function String2Set(AString: string): TSymbolsSet;
 var
@@ -648,8 +726,7 @@ begin
   Result := s;
 end;
 
-{ TSynSymbolGroup }
-
+{$region 'TSynSymbolGroup' /fold}
 constructor TSynSymbolGroup.Create(const AKeywords: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes          := AAttributes;
@@ -664,9 +741,9 @@ begin
   FKeywords.Free;
   inherited;
 end;
+{$endregion}
 
-{ TSynSymbol }
-
+{$region 'TSynSymbol' /fold}
 constructor TSynSymbol.Create(const ASymbol: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes := AAttributes;
@@ -674,9 +751,9 @@ begin
   FOpenRule   := nil;
   FBrakeType  := btUnspecified;
 end;
+{$endregion}
 
-{ TSynRange }
-
+{$region 'TSynRange' /fold}
 procedure TSynRange.AddRange(ARange: TSynRange);
 begin
   FSynRanges.Add(ARange);
@@ -1549,9 +1626,9 @@ begin
     SL.Free;
   end;
 end;
+{$endregion}
 
-{ TSymbolList }
-
+{$region 'TSymbolList' /fold}
 procedure TSymbolList.AddSymbol(ASymbolNode: TSymbolNode);
 begin
   FSymbolList.Add(ASymbolNode);
@@ -1597,9 +1674,9 @@ begin
     TSymbolNode(FSymbolList[AIndex]).Free;
   FSymbolList[AIndex] := AValue;
 end;
+{$endregion}
 
-{ TSymbols }
-
+{$region 'TSymbols' /fold}
 procedure TSymbols.AddSymbol(const AString: string; ASynSymbol: TSynSymbol; ABreakType: TSymbolBreakType);
 var
   I  : Integer;
@@ -1699,9 +1776,9 @@ begin
     ASynSymbol := Node.SynSymbol;
   end;
 end;
+{$endregion}
 
-{ TSymbolNode }
-
+{$region 'TSymbolNode' /fold}
 constructor TSymbolNode.Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
   ABrakeType: TSymbolBreakType);
 begin
@@ -1724,9 +1801,9 @@ begin
   FNextSymbols.Free;
   inherited;
 end;
+{$endregion}
 
-{ TDefaultSymbols }
-
+{$region 'TDefaultSymbols' /fold}
 constructor TDefaultSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   FSynSymbol := ASynSymbol;
@@ -1744,9 +1821,9 @@ begin
   AParser.Run := AParser.Run + 1;
   Result := False;
 end;
+{$endregion}
 
-{ TNumberSymbols }
-
+{$region 'TNumberSymbols' /fold}
 constructor TNumberSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   FSynSymbol := ASynSymbol;
@@ -1772,9 +1849,9 @@ begin
   else
     Result := False;
 end;
+{$endregion}
 
-{ TDefaultTermSymbols }
-
+{$region 'TDefaultTermSymbols' /fold}
 constructor TDefaultTermSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   FSynSymbol := ASynSymbol;
@@ -1794,9 +1871,9 @@ begin
   ASynSymbol := FSynSymbol;
   Result := True;
 end;
+{$endregion}
 
-{ TSynUniSyn }
-
+{$region 'TSynUniSyn' /fold}
 constructor TSynUniSyn.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -2866,5 +2943,6 @@ procedure TSynUniSyn.SetSampleSource(Value: string);
 begin
   FInfo.Sample.Text := Value;
 end;
+{$endregion}
 
 end.

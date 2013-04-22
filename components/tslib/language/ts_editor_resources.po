@@ -49,6 +49,10 @@ msgstr ""
 msgid "INI"
 msgstr ""
 
+#: ts_editor_resources.sinsertmenucaption
+msgid "&Insert"
+msgstr ""
+
 #: ts_editor_resources.sjavadescription
 msgid "Java"
 msgstr ""

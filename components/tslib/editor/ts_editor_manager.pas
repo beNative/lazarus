@@ -143,6 +143,8 @@ type
     actEncoding                   : TAction;
     actExport                     : TAction;
     actClipboard                  : TAction;
+    actInsertGUID                 : TAction;
+    actInsert                     : TAction;
     actLineBreakStyle             : TAction;
     actSelectionMode              : TAction;
     actSelection                  : TAction;
@@ -232,6 +234,10 @@ type
     dlgOpen                       : TOpenDialog;
     dlgSave                       : TSaveDialog;
     imlMain                       : TImageList;
+    MenuItem1                     : TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     MenuItem43                    : TMenuItem;
     MenuItem44                    : TMenuItem;
     MenuItem45                    : TMenuItem;
@@ -239,15 +245,19 @@ type
     MenuItem47                    : TMenuItem;
     MenuItem48                    : TMenuItem;
     MenuItem49                    : TMenuItem;
+    MenuItem5: TMenuItem;
     MenuItem50                    : TMenuItem;
     MenuItem51                    : TMenuItem;
     MenuItem52                    : TMenuItem;
+    MenuItem6: TMenuItem;
+    MenuItem7: TMenuItem;
     ppmClipboard                  : TPopupMenu;
     ppmEditor                     : TPopupMenu;
     ppmEncoding                   : TPopupMenu;
     ppmExport                     : TPopupMenu;
     ppmFold                       : TPopupMenu;
     ppmHighLighters               : TPopupMenu;
+    ppmInsert                     : TPopupMenu;
     ppmLineBreakStyle             : TPopupMenu;
     ppmSelection                  : TPopupMenu;
     ppmSelectionMode              : TPopupMenu;
@@ -261,6 +271,7 @@ type
     procedure actAlignSelectionExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actInsertGUIDExecute(Sender: TObject);
     procedure actNewSharedViewExecute(Sender: TObject);
     procedure actSelectionInfoExecute(Sender: TObject);
     procedure actSelectionModeExecute(Sender: TObject);
@@ -406,6 +417,7 @@ type
     function GetExportPopupMenu: TPopupMenu;
     function GetFoldPopupMenu: TPopupMenu;
     function GetHighlighterPopupMenu: TPopupMenu;
+    function GetInsertPopupMenu: TPopupMenu;
     function GetItem(AName: string): TCustomAction;
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetMenus: IEditorMenus;
@@ -484,6 +496,7 @@ type
     procedure BuildLineBreakStylePopupMenu;
     procedure BuildHighlighterPopupMenu;
     procedure BuildSelectionPopupMenu;
+    procedure BuildInsertPopupMenu;
     procedure BuildSelectionModePopupMenu;
     procedure BuildFoldPopupMenu;
     procedure BuildEditorPopupMenu;
@@ -624,6 +637,9 @@ type
 
     property HighlighterPopupMenu: TPopupMenu
       read GetHighlighterPopupMenu;
+
+    property InsertPopupMenu: TPopupMenu
+      read GetInsertPopupMenu;
 
     property SelectionPopupMenu: TPopupMenu
       read GetSelectionPopupMenu;
@@ -858,6 +874,11 @@ end;
 function TdmEditorManager.GetHighlighterPopupMenu: TPopupMenu;
 begin
   Result := ppmHighLighters;
+end;
+
+function TdmEditorManager.GetInsertPopupMenu: TPopupMenu;
+begin
+  Result := ppmInsert;
 end;
 
 function TdmEditorManager.GetActionList: TActionList;
@@ -1715,6 +1736,14 @@ begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
 end;
 
+procedure TdmEditorManager.actInsertGUIDExecute(Sender: TObject);
+var
+  GUID: TGUID;
+begin
+  CreateGUID(GUID);
+  ActiveView.InsertTextAtCaret(GUIDToString(GUID));
+end;
+
 procedure TdmEditorManager.actNewSharedViewExecute(Sender: TObject);
 begin
   AddSharedView(ActiveView);
@@ -1995,6 +2024,7 @@ begin
   BuildLineBreakStylePopupMenu;
   BuildHighlighterPopupMenu;
   BuildSelectionPopupMenu;
+  BuildInsertPopupMenu;
   BuildExportPopupMenu;
   BuildSelectionModePopupMenu;
   BuildFoldPopupMenu;
@@ -2318,6 +2348,18 @@ begin
   AddMenuItem(MI, actSmartSelect);
 end;
 
+procedure TdmEditorManager.BuildInsertPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := InsertPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actInsert;
+  AddMenuItem(MI, actInsertCharacterFromMap);
+  AddMenuItem(MI, actInsertColorValue);
+  AddMenuItem(MI, actInsertGUID);
+end;
+
 procedure TdmEditorManager.BuildSelectionModePopupMenu;
 var
   SM : TSynSelectionMode;
@@ -2377,6 +2419,7 @@ begin
   AddMenuItem(MI, HighlighterPopupMenu);
   AddMenuItem(MI, FoldPopupMenu);
   AddMenuItem(MI, SelectionPopupMenu);
+  AddMenuItem(MI, InsertPopupMenu);
   AddMenuItem(MI, ClipboardPopupMenu);
   AddMenuItem(MI, ExportPopupMenu);
   AddMenuItem(MI);

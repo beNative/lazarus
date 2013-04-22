@@ -67,6 +67,7 @@ function EditorViewByName(const AName: string): IEditorView;
 procedure AddEditorFileMenu(AMainMenu: TMainMenu);
 procedure AddEditorEditMenu(AMainMenu: TMainMenu);
 procedure AddEditorSelectionMenu(AMainMenu: TMainMenu);
+procedure AddEditorInsertMenu(AMainMenu: TMainMenu);
 procedure AddEditorSearchMenu(AMainMenu: TMainMenu);
 procedure AddEditorViewMenu(AMainMenu : TMainMenu);
 procedure AddEditorToolsMenu(AMainMenu: TMainMenu);
@@ -290,6 +291,18 @@ begin
   AddEditorMenuItem(MI, 'actDecodeBase64');
 end;
 
+procedure AddEditorInsertMenu(AMainMenu: TMainMenu);
+var
+  MI: TMenuItem;
+begin
+  MI := TMenuItem.Create(AMainMenu.Owner);
+  MI.Caption := SInsertMenuCaption;
+  AMainMenu.Items.Add(MI);
+  AddEditorMenuItem(MI, 'actInsertCharacterFromMap');
+  AddEditorMenuItem(MI, 'actInsertColorValue');
+  AddEditorMenuItem(MI, 'actInsertGUID');
+end;
+
 procedure AddEditorSearchMenu(AMainMenu: TMainMenu);
 var
   MI: TMenuItem;
@@ -332,18 +345,15 @@ begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := SToolsMenuCaption;
   AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(MI, 'actInsertCharacterFromMap');
-  AddEditorMenuItem(MI, 'actInsertColorValue');
-  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actShapeCode');
   AddEditorMenuItem(MI, 'actFilterCode');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actSmartSelect');
+  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actFormat');
   AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actMonitorChanges');
-  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actCreateDesktopLink');
+  AddEditorMenuItem(MI, 'actMonitorChanges');
 end;
 
 procedure AddEditorSettingsMenu(AMainMenu: TMainMenu);

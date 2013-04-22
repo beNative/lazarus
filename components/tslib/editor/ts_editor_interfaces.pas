@@ -794,6 +794,7 @@ type
     function GetExportPopupMenu: TPopupMenu;
     function GetFoldPopupMenu: TPopupMenu;
     function GetHighlighterPopupMenu: TPopupMenu;
+    function GetInsertPopupMenu: TPopupMenu;
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetSelectionModePopupMenu: TPopupMenu;
     function GetSelectionPopupMenu: TPopupMenu;
@@ -816,6 +817,9 @@ type
 
     property HighlighterPopupMenu: TPopupMenu
       read GetHighlighterPopupMenu;
+
+    property InsertPopupMenu: TPopupMenu
+      read GetInsertPopupMenu;
 
     property LineBreakStylePopupMenu: TPopupMenu
       read GetLineBreakStylePopupMenu;

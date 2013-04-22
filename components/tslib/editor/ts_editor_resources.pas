@@ -114,6 +114,7 @@ resourcestring
   SFileMenuCaption         = '&File';
   SSeLectionMenuCaption    = 'Se&lection';
   SSearchMenuCaption       = '&Search';
+  SInsertMenuCaption       = '&Insert';
   SViewMenuCaption         = '&View';
   SToolsMenuCaption        = '&Tools';
   SSettingsMenuCaption     = '&Settings';

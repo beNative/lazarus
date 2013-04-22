@@ -225,7 +225,7 @@ begin
   FTVPActions.ItemTemplate := TActionListTemplate.Create(FTVPActions.ColumnDefinitions);
   FTVPActions.ColumnDefinitions.AddColumn('Name', dtString, 150, 150, 200);
   FTVPActions.ColumnDefinitions.AddColumn('', dtString, 24);
-  FTVPActions.ColumnDefinitions.AddColumn('Category', dtString, 80);
+  FTVPActions.ColumnDefinitions.AddColumn('Category', dtString, 100);
   FTVPActions.ColumnDefinitions.AddColumn('Caption', dtString, 120, 100, 200);
   FTVPActions.ColumnDefinitions.AddColumn('Shortcut', dtString, 100);
   FTVPActions.ColumnDefinitions.AddColumn('Hint', dtString, 200, 200, 400);

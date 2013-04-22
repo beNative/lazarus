@@ -1,13 +1,13 @@
 object frmMain: TfrmMain
-  Left = -1526
+  Left = 619
   Height = 618
-  Top = 109
+  Top = 162
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 599
+  ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary

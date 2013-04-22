@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, simpleipc, Forms, Controls, ComCtrls, ActnList, ExtCtrls,
   Menus, Buttons, StdCtrls,
 
-  LResources,
+  LResources, EditBtn,
 
   ts_components_docking, ts_components_docking_storage,
   // for debugging
@@ -436,7 +436,8 @@ begin
     DockMaster.MakeVisible(Editor.Form, True);
 end;
 
-procedure TfrmMain.EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
+procedure TfrmMain.EVOpenOtherInstance(Sender: TObject;
+  const AParams: array of string);
 var
   I : Integer;
   S : string;
@@ -521,10 +522,13 @@ begin
       if Assigned(AEditorView.MasterView) then
       begin
         V.Form.Width := Self.Width div 2;
-        DockMaster.ManualDock(AHS, DockMaster.GetAnchorSite(V.MasterView.Form), alRight, AEditorView.MasterView.Form);
+        DockMaster.ManualDock(
+          AHS,
+          DockMaster.GetAnchorSite(V.MasterView.Form),
+          alRight,
+          AEditorView.MasterView.Form
+        );
         AEditorView.MasterView.Form.Width := Self.Width div 2;
-        //DockMaster.GetAnchorSite(V.MasterView.Form).Header.Visible := False;
-        //AHS.Header.Visible := False;
       end
       else
       begin
@@ -593,6 +597,7 @@ begin
   AddEditorFileMenu(mnuMain);
   AddEditorEditMenu(mnuMain);
   AddEditorSelectionMenu(mnuMain);
+  AddEditorInsertMenu(mnuMain);
   AddEditorSearchMenu(mnuMain);
   AddEditorViewMenu(mnuMain);
   AddEditorToolsMenu(mnuMain);
@@ -628,18 +633,8 @@ begin
   InitDebugAction('actPrint');
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
-  //InitDebugAction('actExportToWiki');
-  //InitDebugAction('actExportToHTML');
-  //InitDebugAction('actExportToRTF');
   InitDebugAction('actInsertCharacterFromMap');
   InitDebugAction('actNewSharedView');
-
-  //InitDebugAction('actCopyHTMLToClipboard');
-  //InitDebugAction('actCopyWikiToClipboard');
-  //InitDebugAction('actCopyRTFToClipboard');
-  //InitDebugAction('actCopyHTMLTextToClipboard');
-  //InitDebugAction('actCopyWikiTextToClipboard');
-  //InitDebugAction('actCopyRTFTextToClipboard');
 end;
 
 procedure TfrmMain.UpdateCaptions;

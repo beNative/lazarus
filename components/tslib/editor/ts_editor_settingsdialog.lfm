@@ -1,7 +1,7 @@
 object frmEditorSettings: TfrmEditorSettings
-  Left = 613
+  Left = -711
   Height = 579
-  Top = 98
+  Top = 220
   Width = 490
   BorderIcons = [biSystemMenu]
   Caption = 'Editor settings'

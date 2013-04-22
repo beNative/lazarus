@@ -249,6 +249,8 @@ function PointToPos(AStrings: TStrings; APoint: TPoint): Integer;
 
 function FileIsText(const AFilename: string): Boolean;
 
+function WrapText(const ASource: string; AMaxCol: Integer): string;
+
 //*****************************************************************************
 
 implementation
@@ -1424,6 +1426,36 @@ end;
 function FileIsText(const AFilename: string): Boolean;
 begin
   Result := LazFileUtils.FileIsText(AFilename);
+end;
+
+function WrapText(const ASource: string; AMaxCol: Integer): string;
+var
+  L : Integer;
+  P : Integer;
+  S : Integer;
+  E : Integer;
+begin
+  if AMaxCol <= 0 then
+    Result := ASource
+  else
+  begin
+    L:= Length(ASource);
+    Result:= '';
+    P:= 1;
+    while P <= L do begin
+      S  := P;
+      while (S <= L) and (ASource[S] = ' ') do Inc(S);
+      E:= Min(S + AMaxCol - 1, L);
+      if (E < L) and (ASource[E+1] <> ' ') then
+        while (E > S) and (ASource[E] <> ' ') do Dec(E);
+      if (E = S) then
+        E:= Min(S + AMaxCol - 1, L)
+      else
+        while (E > S) and (ASource[E] = ' ') do Dec(E);
+      Result:= Result + System.copy(ASource, S, E - S + 1) + LineEnding;
+      P:= E + 1;
+    end;
+  end;
 end;
 
 end.

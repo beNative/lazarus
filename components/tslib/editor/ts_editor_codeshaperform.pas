@@ -164,8 +164,6 @@ type
     procedure actUndoExecute(Sender: TObject);
     procedure actURLDecodeExecute(Sender: TObject);
     procedure actURLEncodeExecute(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
     {$endregion}
 
   private
@@ -187,7 +185,7 @@ type
     procedure Undo;
     procedure Redo;
 
-    procedure AssignText(const AText: string; ALockUpdates: Boolean = True);
+    procedure AssignText(const AText: string);
     procedure InitializeControls;
     procedure InitializeAlignLinesControls;
     procedure InitializeBreakLinesControls;
@@ -246,6 +244,7 @@ uses
 
   ts_Editor_Utils;
 
+{$region 'construction and destruction' /fold}
 //*****************************************************************************
 // construction and destruction                                          BEGIN
 //*****************************************************************************
@@ -263,7 +262,9 @@ end;
 //*****************************************************************************
 // construction and destruction                                            END
 //*****************************************************************************
+{$endregion}
 
+{$region 'property access mehods' /fold}
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
@@ -304,15 +305,9 @@ end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
+{$endregion}
 
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
-
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
-
+{$region 'action handlers' /fold}
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -329,7 +324,7 @@ begin
   S := Text;
   S := JoinLines(S);
   if chkUnBreakLinesWrap.Checked then
-    S := WrapText(S, edtUnBreakLinesWrapPosition.Value);
+    S := ts_Editor_Utils.WrapText(S, edtUnBreakLinesWrapPosition.Value);
   AssignText(S);
 end;
 
@@ -420,7 +415,7 @@ begin
   S := Text;
   W := View.GetWordAtPosition(View.LogicalCaretXY);
   S := ReplaceString(S, W, W, [ssoWholeWord, ssoEntireScope, ssoReplaceAll]);
-  AssignText(S, False);
+  AssignText(S);
 end;
 
 procedure TfrmCodeShaper.actBreakAfterTokenExecute(Sender: TObject);
@@ -464,6 +459,7 @@ end;
 procedure TfrmCodeShaper.actInsertBreaksExecute(Sender: TObject);
 var
   S: string;
+
 begin
   S := Text;
   if chkBreakLines.Checked then
@@ -478,7 +474,7 @@ begin
   end;
   if chkBreakLinesWrap.Checked then
   begin
-    S := WrapText(S, edtBreakLinesWrapPosition.Value);
+    S := ts_Editor_Utils.WrapText(S, edtBreakLinesWrapPosition.Value);
   end;
   AssignText(S);
 end;
@@ -542,45 +538,26 @@ begin
   AssignText(S);
 end;
 
-procedure TfrmCodeShaper.Button1Click(Sender: TObject);
-begin
-  BeginUpdate;
-end;
-
-procedure TfrmCodeShaper.Button2Click(Sender: TObject);
-begin
-  EndUpdate;
-end;
-
 //*****************************************************************************
 // action handlers                                                         END
 //*****************************************************************************
+{$endregion}
 
+{$region 'protected methods' /fold}
 //*****************************************************************************
 // protected methods                                                     BEGIN
 //*****************************************************************************
 
 { Updates the editor with the given text with undo/redo support. }
 
-procedure TfrmCodeShaper.AssignText(const AText: string;
-  ALockUpdates: Boolean);
-//var
-//  N: Integer;
+procedure TfrmCodeShaper.AssignText(const AText: string);
 begin
-  if ALockUpdates then
-    BeginUpdate;
+  BeginUpdate;
   if View.Editor.SelAvail then
-    //View.Editor.TextBetweenPointsEx[View.BlockBegin, View.BlockEnd, scamEnd]
     View.SelectionInfo.Text := AText
   else
     View.SelectionInfo.Text := AText;
-
-  //N := View.Lines.Count - 1;
-  // delete last empty line if added by TextBetweenPointsEx
-  //if View.Lines[N] = '' then
-  //  View.Lines.Delete(N);
-  if ALockUpdates then
-    EndUpdate;
+  EndUpdate;
 end;
 
 procedure TfrmCodeShaper.InitializeAlignLinesControls;
@@ -777,6 +754,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

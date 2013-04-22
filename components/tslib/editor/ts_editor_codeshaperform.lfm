@@ -1,7 +1,7 @@
 object frmCodeShaper: TfrmCodeShaper
-  Left = 0
+  Left = 368
   Height = 695
-  Top = 45
+  Top = 270
   Width = 402
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False

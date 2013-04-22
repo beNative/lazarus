@@ -286,15 +286,16 @@ type
             AOptions : TSynSearchOptions
     );
 
-    procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
+    procedure SearchAndSelectLine(
+            ALineIndex : Integer;
+      const ALine      : string
+    );
     procedure SearchAndSelectText(const AText: string);
     procedure SelectWord;
     procedure ClearHighlightSearch;
 
     procedure Clear;
     procedure SelectAll;
-    function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-      AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
 
     // operations on selections
@@ -312,6 +313,12 @@ type
             AInsertSpaceAfterToken  : Boolean;
             AAlignInParagraphs      : Boolean
     );
+    function SelectBlockAroundCursor(
+      const AStartTag        : string;
+      const AEndTag          : string;
+            AIncludeStartTag : Boolean;
+            AIncludeEndTag   : Boolean
+    ): Boolean;
 
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
@@ -352,6 +359,7 @@ type
 
     procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
+    // public properties
     { Master view from which the text buffer is shared. }
     property MasterView: IEditorView
       read GetMasterView write SetMasterView;
@@ -360,7 +368,6 @@ type
     property SlaveView: IEditorView
       read GetSlaveView write SetSlaveView;
 
-    // public properties
     { Column and line of the start of the selected block. }
     property BlockBegin: TPoint
       read GetBlockBegin write SetBlockBegin;
@@ -1628,8 +1635,9 @@ end;
     - support for nested AStartTag and AEndTag (ignore sublevels)
 }
 
-function TEditorView.SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-  AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
+function TEditorView.SelectBlockAroundCursor(const AStartTag: string;
+  const AEndTag: string; AIncludeStartTag: Boolean; AIncludeEndTag: Boolean)
+  : Boolean;
 var
   Pos : Integer;
   S   : string;
@@ -1811,11 +1819,13 @@ begin
   begin
     ACommentOn := False;
     for I := BlockBeginLine to BlockEndLine do
+    begin
       if DeletePos(I) < 0 then
       begin
         ACommentOn := True;
         Break;
       end;
+    end;
   end;
 
   BeginUpdate;
@@ -1886,8 +1896,8 @@ begin
     end
     else
     begin
-      SelectionInfo.Text := HighlighterItem.BlockCommentStartTag + SelectionInfo.Text
-        + HighlighterItem.BlockCommentEndTag;
+      SelectionInfo.Text := HighlighterItem.BlockCommentStartTag
+        + SelectionInfo.Text + HighlighterItem.BlockCommentEndTag;
     end;
     RestoreBlock;
     Modified := True;

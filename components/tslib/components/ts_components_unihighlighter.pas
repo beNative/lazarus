@@ -579,6 +579,7 @@ type
     ntNone
   );
 
+
 const
   DefaultTermSymbols: TSymbolsSet =
     ['*', '/', '+', '-', '=', '\', '|', '&', '(', ')',

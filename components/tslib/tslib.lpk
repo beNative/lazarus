@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="85">
+    <Files Count="84">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -310,85 +310,81 @@
         <UnitName Value="ts_Editor_Settings_SearchEngine"/>
       </Item65>
       <Item66>
-        <Filename Value="editor\ts_editor_types.pas"/>
-        <UnitName Value="ts_Editor_Types"/>
-      </Item66>
-      <Item67>
         <Filename Value="components\ts_components_unihighlighter.pas"/>
         <UnitName Value="ts_Components_UniHighlighter"/>
-      </Item67>
-      <Item68>
+      </Item66>
+      <Item67>
         <Filename Value="core\ts_core_collections.pas"/>
         <UnitName Value="ts_Core_Collections"/>
-      </Item68>
-      <Item69>
+      </Item67>
+      <Item68>
         <Filename Value="editor\ts_editor_codeformatters_sql.pas"/>
         <UnitName Value="ts_Editor_CodeFormatters_SQL"/>
-      </Item69>
-      <Item70>
+      </Item68>
+      <Item69>
         <Filename Value="core\BRRE.pas"/>
         <UnitName Value="BRRE"/>
-      </Item70>
-      <Item71>
+      </Item69>
+      <Item70>
         <Filename Value="core\BRREUnicode.pas"/>
         <UnitName Value="BRREUnicode"/>
-      </Item71>
-      <Item72>
+      </Item70>
+      <Item71>
         <Filename Value="editor\ts_editor_xmltreeform.pas"/>
         <UnitName Value="ts_Editor_XmlTreeForm"/>
-      </Item72>
-      <Item73>
+      </Item71>
+      <Item72>
         <Filename Value="components\ts_components_xmltree.pas"/>
         <UnitName Value="ts_Components_XMLTree"/>
-      </Item73>
-      <Item74>
+      </Item72>
+      <Item73>
         <Filename Value="components\ts_components_xmltree_nodeattributes.pas"/>
         <UnitName Value="ts_Components_XMLTree_NodeAttributes"/>
-      </Item74>
-      <Item75>
+      </Item73>
+      <Item74>
         <Filename Value="components\ts_components_xmltree_editors.pas"/>
         <UnitName Value="ts_Components_XMLTree_Editors"/>
-      </Item75>
-      <Item76>
+      </Item74>
+      <Item75>
         <Filename Value="..\..\images\laz_images.lrs"/>
         <Type Value="LRS"/>
-      </Item76>
-      <Item77>
+      </Item75>
+      <Item76>
         <Filename Value="editor\ts_editor_resources.pas"/>
         <UnitName Value="ts_Editor_Resources"/>
-      </Item77>
-      <Item78>
+      </Item76>
+      <Item77>
         <Filename Value="components\ts_components_exportrtf.pas"/>
         <UnitName Value="ts_Components_ExportRTF"/>
-      </Item78>
-      <Item79>
+      </Item77>
+      <Item78>
         <Filename Value="editor\ts_editor_selectioninfoform.pas"/>
         <UnitName Value="ts_Editor_SelectionInfoForm"/>
-      </Item79>
-      <Item80>
+      </Item78>
+      <Item79>
         <Filename Value="editor\ts_editor_selectioninfo.pas"/>
         <UnitName Value="ts_Editor_SelectionInfo"/>
-      </Item80>
-      <Item81>
+      </Item79>
+      <Item80>
         <Filename Value="components\ts_components_uniqueinstance.pas"/>
         <UnitName Value="ts_Components_UniqueInstance"/>
-      </Item81>
-      <Item82>
+      </Item80>
+      <Item81>
         <Filename Value="components\ts_components_inspector.pas"/>
         <UnitName Value="ts_Components_Inspector"/>
-      </Item82>
-      <Item83>
+      </Item81>
+      <Item82>
         <Filename Value="components\ts_components_dbgridview.pas"/>
         <UnitName Value="ts_Components_DBGridView"/>
-      </Item83>
-      <Item84>
+      </Item82>
+      <Item83>
         <Filename Value="components\ts_components_gridview.pas"/>
         <UnitName Value="ts_Components_GridView"/>
-      </Item84>
-      <Item85>
+      </Item83>
+      <Item84>
         <Filename Value="components\ts_components_fileassociation.pas"/>
         <UnitName Value="ts_Components_FileAssociation"/>
-      </Item85>
+      </Item84>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

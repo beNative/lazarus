@@ -57,22 +57,22 @@ type
 
   published
     property AlignInParagraphs: Boolean
-      read FAlignInParagraphs write FAlignInParagraphs;
+      read FAlignInParagraphs write FAlignInParagraphs default False;
 
     property SortAfterAlign: Boolean
-      read FSortAfterAlign write FSortAfterAlign;
+      read FSortAfterAlign write FSortAfterAlign default False;
 
     property SortDirection: TSortDirection
-      read FSortDirection write FSortDirection;
+      read FSortDirection write FSortDirection default sdAscending;
 
     property RemoveWhiteSpace: Boolean
-      read FRemoveWhiteSpace write FRemoveWhiteSpace;
+      read FRemoveWhiteSpace write FRemoveWhiteSpace default False;
 
     property KeepSpaceBeforeToken: Boolean
-      read FKeepSpaceBeforeToken write FKeepSpaceBeforeToken;
+      read FKeepSpaceBeforeToken write FKeepSpaceBeforeToken default False;
 
     property KeepSpaceAfterToken: Boolean
-      read FKeepSpaceAfterToken write FKeepSpaceAfterToken;
+      read FKeepSpaceAfterToken write FKeepSpaceAfterToken default False;
 
     property Tokens: TStrings
       read GetTokens write SetTokens;
@@ -90,7 +90,7 @@ implementation
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-
+  FSortDirection := sdAscending;
   FTokens := TStringList.Create;
   FTokens.Duplicates := dupIgnore;
   FTokens.Sorted     := True;

@@ -118,7 +118,7 @@ var
   I : Integer;
 begin
   inherited AfterConstruction;
-  Caption               := SCharacterMap;
+  Caption := SCharacterMap;
   lblCharInfo.Caption := '-';
   lblUnicodeCharInfo.Caption := '-';
   grdANSI.Font.Assign(Manager.Settings.EditorFont);

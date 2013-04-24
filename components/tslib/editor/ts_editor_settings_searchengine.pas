@@ -47,7 +47,7 @@ type
       read FOptions write FOptions;
 
     property SearchAllViews: Boolean
-      read FSearchAllViews write FSearchAllViews;
+      read FSearchAllViews write FSearchAllViews default False;
 
   end;
 

@@ -26,14 +26,13 @@ uses
   ts_Core_ComponentInspector, ts_Editor_CodeFormatters, 
   ts_Editor_AlignLinesForm, ts_Core_Helpers, ts_editor_commentstripper, 
   ts_Editor_Settings_CodeShaper, ts_Editor_Settings_AlignLines, 
-  ts_Editor_Settings_SearchEngine, ts_Editor_Types, 
-  ts_Components_UniHighlighter, ts_Core_Collections, 
-  ts_Editor_CodeFormatters_SQL, BRRE, BRREUnicode, ts_Editor_XmlTreeForm, 
-  ts_Components_XMLTree, ts_Components_XMLTree_NodeAttributes, 
-  ts_Components_XMLTree_Editors, ts_Editor_Resources, ts_Components_ExportRTF, 
-  ts_Editor_SelectionInfoForm, ts_Editor_SelectionInfo, 
-  ts_Components_UniqueInstance, ts_Components_Inspector, 
-  ts_Components_DBGridView, ts_Components_GridView, 
+  ts_Editor_Settings_SearchEngine, ts_Components_UniHighlighter, 
+  ts_Core_Collections, ts_Editor_CodeFormatters_SQL, BRRE, BRREUnicode, 
+  ts_Editor_XmlTreeForm, ts_Components_XMLTree, 
+  ts_Components_XMLTree_NodeAttributes, ts_Components_XMLTree_Editors, 
+  ts_Editor_Resources, ts_Components_ExportRTF, ts_Editor_SelectionInfoForm, 
+  ts_Editor_SelectionInfo, ts_Components_UniqueInstance, 
+  ts_Components_Inspector, ts_Components_DBGridView, ts_Components_GridView, 
   ts_Components_FileAssociation;
 
 implementation

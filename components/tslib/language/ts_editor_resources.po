@@ -65,12 +65,20 @@ msgstr ""
 msgid "Object Pascal form definition"
 msgstr ""
 
+#: ts_editor_resources.slineswithmatchfound
+msgid "%d lines with match found."
+msgstr ""
+
 #: ts_editor_resources.slogdescription
 msgid "Log"
 msgstr ""
 
 #: ts_editor_resources.sneweditorviewfilename
 msgid "<new>"
+msgstr ""
+
+#: ts_editor_resources.sonelinewithmatchfound
+msgid "1 line with match found."
 msgstr ""
 
 #: ts_editor_resources.spasdescription

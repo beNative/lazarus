@@ -134,6 +134,7 @@ type
     function IsActive: Boolean;
 
     procedure UpdateSharedViews;
+    procedure ApplySettings;
 
   strict private
     FUpdate          : Boolean;
@@ -583,6 +584,7 @@ begin
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
   Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
   FSelectionInfo := TSelectionInfo.Create(FEditor);
+  ApplySettings;
 end;
 
 procedure TEditorView.BeforeDestruction;
@@ -1302,6 +1304,49 @@ begin
   end;
 end;
 
+procedure TEditorView.ApplySettings;
+begin
+  ShowSpecialChars := Settings.ShowControlCharacters;
+  EditorFont       := Settings.EditorFont;
+
+  Editor.ExtraLineSpacing      := Settings.ExtraLineSpacing;
+  Editor.ExtraCharSpacing      := Settings.ExtraCharSpacing;
+  Editor.BracketHighlightStyle := Settings.BracketHighlightStyle;
+  Editor.BracketMatchColor     := Settings.BracketMatchColor;
+  Editor.BlockTabIndent        := Settings.BlockTabIndent;
+  Editor.BlockIndent           := Settings.BlockIndent;
+  Editor.FoldedCodeColor       := Settings.FoldedCodeColor;
+  Editor.HighlightAllColor     := Settings.HighlightAllColor;
+  Editor.SelectedColor         := Settings.SelectedColor;
+  Editor.IncrementColor        := Settings.IncrementColor;
+  Editor.RightEdge             := Settings.RightEdge;
+  Editor.RightEdgeColor        := Settings.RightEdgeColor;
+  Editor.TabWidth              := Settings.TabWidth;
+  Editor.WantTabs              := Settings.WantTabs;
+  Editor.MouseLinkColor        := Settings.MouseLinkColor;
+  Editor.LineHighlightColor    := Settings.LineHighlightColor;
+  Editor.UseIncrementalColor := True;
+
+  Editor.SelectedColor.Background := clGray;
+  Editor.SelectedColor.MergeFinalStyle := True;
+
+  Editor.BracketMatchColor.Background := clAqua;
+  Editor.BracketMatchColor.FrameColor := clGray;
+
+  Editor.HighlightAllColor.Background := $0064B1FF;  // light orange
+  Editor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
+  Editor.HighlightAllColor.FrameStyle := slsSolid;
+  Editor.HighlightAllColor.FrameEdges := sfeAround;
+  Editor.HighlightAllColor.Foreground := clNone;
+  Editor.HighlightAllColor.MergeFinalStyle := True;
+
+  Editor.LineHighlightColor.Background := $009FFFFF; // yellow
+  Editor.LineHighlightColor.FrameEdges := sfeAround;
+  Editor.LineHighlightColor.FrameStyle := slsWaved;
+  Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
+  Editor.LineHighlightColor.MergeFinalStyle := True;
+end;
+
 {
   Saves information about the selected block to be able to maintain the
   selection if some modification happens on the selected text.
@@ -1424,29 +1469,6 @@ begin
     emShowCtrlMouseLinks
   ];
   AEditor.ScrollBars := ssAutoBoth;
-
-  AEditor.BracketHighlightStyle := sbhsRightOfCursor;
-  AEditor.TabWidth := 2;
-  AEditor.WantTabs := True;
-
-  AEditor.SelectedColor.Background := clGray;
-  AEditor.SelectedColor.MergeFinalStyle := True;
-
-  AEditor.BracketMatchColor.Background := clAqua;
-  AEditor.BracketMatchColor.FrameColor := clGray;
-
-  AEditor.HighlightAllColor.Background := $0064B1FF;  // light orange
-  AEditor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
-  AEditor.HighlightAllColor.FrameStyle := slsSolid;
-  AEditor.HighlightAllColor.FrameEdges := sfeAround;
-  AEditor.HighlightAllColor.Foreground := clNone;
-  AEditor.HighlightAllColor.MergeFinalStyle := True;
-
-  AEditor.LineHighlightColor.Background := $009FFFFF; // yellow
-  AEditor.LineHighlightColor.FrameEdges := sfeAround;
-  AEditor.LineHighlightColor.FrameStyle := slsWaved;
-  AEditor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
-  AEditor.LineHighlightColor.MergeFinalStyle := True;
 
   AEditor.OnStatusChange := EditorStatusChange;
   AEditor.OnChange       := EditorChange;
@@ -2087,8 +2109,7 @@ begin
 
   if FUpdate then
   begin
-    ShowSpecialChars := Settings.ShowControlCharacters;
-    EditorFont := Settings.EditorFont;
+    ApplySettings;
     FUpdate := False;
   end;
 end;

@@ -30,6 +30,7 @@ uses
   LCLType,
 
   SynEdit, SynEditTypes, SynMacroRecorder, SynEditHighlighter,
+  SynEditMiscClasses, SynEditMarkupBracket,
 
   ts_Core_FormSettings,
 
@@ -564,38 +565,71 @@ type
     function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
+    function GetBlockIndent: Integer;
+    function GetBlockTabIndent: Integer;
+    function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
+    function GetBracketMatchColor: TSynSelectedColor;
     function GetCloseWithESC: Boolean;
     function GetCodeShaperSettings: TCodeShaperSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
+    function GetExtraCharSpacing: Integer;
+    function GetExtraLineSpacing: Integer;
     function GetFileName: string;
+    function GetFoldedCodeColor: TSynSelectedColor;
     function GetFormSettings: TFormSettings;
+    function GetHighlightAllColor: TSynSelectedColor;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
+    function GetIncrementColor: TSynSelectedColor;
+    function GetLineHighlightColor: TSynSelectedColor;
+    function GetMouseLinkColor: TSynSelectedColor;
     function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
+    function GetRightEdge: Integer;
+    function GetRightEdgeColor: TColor;
     function GetSearchEngineSettings: TSearchEngineSettings;
+    function GetSelectedColor: TSynSelectedColor;
     function GetShowControlCharacters: Boolean;
     function GetSingleInstance: Boolean;
+    function GetTabWidth: Integer;
+    function GetWantTabs: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
+    procedure SetBlockIndent(AValue: Integer);
+    procedure SetBlockTabIndent(AValue: Integer);
+    procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
+    procedure SetBracketMatchColor(AValue: TSynSelectedColor);
     procedure SetCloseWithESC(const AValue: Boolean);
     procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
+    procedure SetExtraCharSpacing(AValue: Integer);
+    procedure SetExtraLineSpacing(AValue: Integer);
     procedure SetFileName(const AValue: string);
+    procedure SetFoldedCodeColor(AValue: TSynSelectedColor);
     procedure SetFormSettings(const AValue: TFormSettings);
+    procedure SetHighlightAllColor(AValue: TSynSelectedColor);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
+    procedure SetIncrementColor(AValue: TSynSelectedColor);
+    procedure SetLineHighlightColor(AValue: TSynSelectedColor);
+    procedure SetMouseLinkColor(AValue: TSynSelectedColor);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
+    procedure SetRightEdge(AValue: Integer);
+    procedure SetRightEdgeColor(AValue: TColor);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
+    procedure SetSelectedColor(AValue: TSynSelectedColor);
     procedure SetShowControlCharacters(const AValue: Boolean);
+    procedure SetSingleInstance(AValue: Boolean);
+    procedure SetTabWidth(AValue: Integer);
+    procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
     procedure Load;
@@ -604,7 +638,6 @@ type
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
-    procedure SetSingleInstance(AValue: Boolean);
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -662,6 +695,55 @@ type
 
     property XML: string
       read GetXML;
+
+    // Colors
+    property IncrementColor: TSynSelectedColor
+      read GetIncrementColor write SetIncrementColor;
+
+    property HighlightAllColor: TSynSelectedColor
+      read GetHighlightAllColor write SetHighlightAllColor;
+
+    property BracketMatchColor: TSynSelectedColor
+      read GetBracketMatchColor write SetBracketMatchColor;
+
+    property MouseLinkColor: TSynSelectedColor
+      read GetMouseLinkColor write SetMouseLinkColor;
+
+    property LineHighlightColor: TSynSelectedColor
+      read GetLineHighlightColor write SetLineHighlightColor;
+
+    property FoldedCodeColor: TSynSelectedColor
+      read GetFoldedCodeColor write SetFoldedCodeColor;
+
+    property RightEdgeColor: TColor
+      read GetRightEdgeColor write SetRightEdgeColor;
+
+    property RightEdge: Integer
+      read GetRightEdge write SetRightEdge;
+
+    property BracketHighlightStyle: TSynEditBracketHighlightStyle
+      read GetBracketHighlightStyle write SetBracketHighlightStyle;
+
+    property SelectedColor: TSynSelectedColor
+      read GetSelectedColor write SetSelectedColor;
+
+    property TabWidth: Integer
+      read GetTabWidth write SetTabWidth;
+
+    property WantTabs: Boolean
+      read GetWantTabs write SetWantTabs;
+
+    property BlockIndent: Integer
+      read GetBlockIndent write SetBlockIndent;
+
+    property BlockTabIndent: Integer
+      read GetBlockTabIndent write SetBlockTabIndent;
+
+    property ExtraCharSpacing: Integer
+      read GetExtraCharSpacing write SetExtraCharSpacing;
+
+    property ExtraLineSpacing: Integer
+      read GetExtraLineSpacing write SetExtraLineSpacing;
   end;
 
   IEditorViews = interface

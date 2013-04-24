@@ -29,6 +29,8 @@ uses
 
   LazMethodList,
 
+  SynEditMiscClasses, SynEditMarkupBracket,
+
   NativeXML, NativeXmlObjectStorage,
 
   sharedloggerlcl,
@@ -70,45 +72,95 @@ type
     FSearchEngineSettings     : TSearchEngineSettings;
     FCodeShaperSettings       : TCodeShaperSettings;
 
+    FRightEdge             : Integer;
+    FRightEdgeColor        : TColor;
+    FBracketHighlightStyle : TSynEditBracketHighlightStyle;
+    FWantTabs              : Boolean;
+    FTabWidth              : Integer;
+    FBlockIndent           : Integer;
+    FBlockTabIndent        : Integer;
+    FExtraCharSpacing      : Integer;
+    FExtraLineSpacing      : Integer;
+
+    FIncrementColor     : TSynSelectedColor;
+    FHighlightAllColor  : TSynSelectedColor;
+    FBracketMatchColor  : TSynSelectedColor;
+    FMouseLinkColor     : TSynSelectedColor;
+    FLineHighlightColor : TSynSelectedColor;
+    FFoldedCodeColor    : TSynSelectedColor;
+    FSelectedColor      : TSynSelectedColor;
+
     {$region 'property access methods' /fold}
     function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
+    function GetBlockIndent: Integer;
+    function GetBlockTabIndent: Integer;
+    function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
+    function GetBracketMatchColor: TSynSelectedColor;
     function GetCloseWithESC: Boolean;
     function GetCodeShaperSettings: TCodeShaperSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
+    function GetExtraCharSpacing: Integer;
+    function GetExtraLineSpacing: Integer;
     function GetFileName: string;
+    function GetFoldedCodeColor: TSynSelectedColor;
     function GetFoldLevel: Integer;
     function GetFormSettings: TFormSettings;
+    function GetHighlightAllColor: TSynSelectedColor;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
+    function GetIncrementColor: TSynSelectedColor;
+    function GetLineHighlightColor: TSynSelectedColor;
+    function GetMouseLinkColor: TSynSelectedColor;
     function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
+    function GetRightEdge: Integer;
+    function GetRightEdgeColor: TColor;
     function GetSearchEngineSettings: TSearchEngineSettings;
+    function GetSelectedColor: TSynSelectedColor;
     function GetShowControlCharacters: Boolean;
     function GetSingleInstance: Boolean;
+    function GetTabWidth: Integer;
+    function GetWantTabs: Boolean;
     function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
+    procedure SetBlockIndent(AValue: Integer);
+    procedure SetBlockTabIndent(AValue: Integer);
+    procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
+    procedure SetBracketMatchColor(AValue: TSynSelectedColor);
     procedure SetCloseWithESC(const AValue: Boolean);
     procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
+    procedure SetExtraCharSpacing(AValue: Integer);
+    procedure SetExtraLineSpacing(AValue: Integer);
     procedure SetFileName(const AValue: string);
+    procedure SetFoldedCodeColor(AValue: TSynSelectedColor);
     procedure SetFormSettings(const AValue: TFormSettings);
+    procedure SetHighlightAllColor(AValue: TSynSelectedColor);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighters(const AValue: THighlighters);
     procedure SetHighlighterType(const AValue: string);
+    procedure SetIncrementColor(AValue: TSynSelectedColor);
+    procedure SetLineHighlightColor(AValue: TSynSelectedColor);
+    procedure SetMouseLinkColor(AValue: TSynSelectedColor);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
+    procedure SetRightEdge(AValue: Integer);
+    procedure SetRightEdgeColor(AValue: TColor);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
+    procedure SetSelectedColor(AValue: TSynSelectedColor);
     procedure SetShowControlCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
+    procedure SetTabWidth(AValue: Integer);
+    procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
   public
@@ -145,26 +197,26 @@ type
       read GetHighlighterType write SetHighlighterType;
 
     property ReadOnly: Boolean
-      read GetReadOnly write SetReadOnly;
+      read GetReadOnly write SetReadOnly default False;
 
     property PreviewVisible: Boolean
-      read GetPreviewVisible write SetPreviewVisible;
+      read GetPreviewVisible write SetPreviewVisible default False;
 
     property DimInactiveView: Boolean
       read GetDimInactiveView write SetDimInactiveView;
 
     property AutoFormatXML: Boolean
-      read GetAutoFormatXML write SetAutoFormatXML;
+      read GetAutoFormatXML write SetAutoFormatXML default True;
 
     property AutoGuessHighlighterType: Boolean
-      read GetAutoGuessHighlighterType write SetAutoGuessHighlighterType;
+      read GetAutoGuessHighlighterType write SetAutoGuessHighlighterType default True;
 
     property ShowControlCharacters: Boolean
-      read GetShowControlCharacters write SetShowControlCharacters;
+      read GetShowControlCharacters write SetShowControlCharacters default False;
 
     { Determines if the application can be closed with the ESCAPE key. }
     property CloseWithESC: Boolean
-      read GetCloseWithESC write SetCloseWithESC;
+      read GetCloseWithESC write SetCloseWithESC default False;
 
     property FormSettings: TFormSettings
       read GetFormSettings write SetFormSettings;
@@ -182,10 +234,60 @@ type
       read GetEditorFont write SetEditorFont;
 
     property DebugMode: Boolean
-      read GetDebugMode write SetDebugMode;
+      read GetDebugMode write SetDebugMode default False;
 
     property SingleInstance: Boolean
-      read GetSingleInstance write SetSingleInstance;
+      read GetSingleInstance write SetSingleInstance default False;
+
+    // Colors
+    property IncrementColor: TSynSelectedColor
+      read GetIncrementColor write SetIncrementColor;
+
+    property HighlightAllColor: TSynSelectedColor
+      read GetHighlightAllColor write SetHighlightAllColor;
+
+    property BracketMatchColor: TSynSelectedColor
+      read GetBracketMatchColor write SetBracketMatchColor;
+
+    property MouseLinkColor: TSynSelectedColor
+      read GetMouseLinkColor write SetMouseLinkColor;
+
+    property LineHighlightColor: TSynSelectedColor
+      read GetLineHighlightColor write SetLineHighlightColor;
+
+    property FoldedCodeColor: TSynSelectedColor
+      read GetFoldedCodeColor write SetFoldedCodeColor;
+
+    property SelectedColor: TSynSelectedColor
+      read GetSelectedColor write SetSelectedColor;
+
+    property RightEdgeColor: TColor
+      read GetRightEdgeColor write SetRightEdgeColor default clSilver;
+
+    property RightEdge: Integer
+      read GetRightEdge write SetRightEdge default 80;
+
+    property BracketHighlightStyle: TSynEditBracketHighlightStyle
+      read GetBracketHighlightStyle write SetBracketHighlightStyle;
+
+    property TabWidth: Integer
+      read GetTabWidth write SetTabWidth default 8;
+
+    property WantTabs: Boolean
+      read GetWantTabs write SetWantTabs default True;
+
+    property BlockIndent: Integer
+      read GetBlockIndent write SetBlockIndent default 2;
+
+    property BlockTabIndent: Integer
+      read GetBlockTabIndent write SetBlockTabIndent default 0;
+
+    property ExtraCharSpacing: Integer
+      read GetExtraCharSpacing write SetExtraCharSpacing default 0;
+
+    property ExtraLineSpacing: Integer
+      read GetExtraLineSpacing write SetExtraLineSpacing default 0;
+
   end;
 
 const
@@ -249,10 +351,32 @@ begin
   FEditorFont := TFont.Create;
   FEditorFont.Name := 'Consolas';
   FEditorFont.Size := 10;
+
+  FBlockIndent := 2;
+  FTabWidth := 8;
+  FWantTabs := True;
+  FRightEdge := 80;
+  FRightEdgeColor := clSilver;
+
+  RegisterClass(TSynSelectedColor);
+  FIncrementColor     := TSynSelectedColor.Create;
+  FHighlightAllColor  := TSynSelectedColor.Create;
+  FBracketMatchColor  := TSynSelectedColor.Create;
+  FMouseLinkColor     := TSynSelectedColor.Create;
+  FLineHighlightColor := TSynSelectedColor.Create;
+  FFoldedCodeColor    := TSynSelectedColor.Create;
+  FSelectedColor      := TSynSelectedColor.Create;
 end;
 
 procedure TEditorSettings.BeforeDestruction;
 begin
+  FSelectedColor.Free;
+  FIncrementColor.Free;
+  FHighlightAllColor.Free;
+  FBracketMatchColor.Free;
+  FMouseLinkColor.Free;
+  FLineHighlightColor.Free;
+  FFoldedCodeColor.Free;
   FreeAndNil(FFormSettings);
   FreeAndNil(FHighlighters);
   FreeAndNil(FEditorFont);
@@ -317,12 +441,65 @@ begin
   Result := FAutoGuessHighlighterType;
 end;
 
+function TEditorSettings.GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
+begin
+  Result := FBracketHighlightStyle;
+end;
+
+procedure TEditorSettings.SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
+begin
+  if AValue <> BracketHighlightStyle then
+  begin
+    FBracketHighlightStyle := AValue;
+    Changed;
+  end;
+end;
+
 procedure TEditorSettings.SetAutoGuessHighlighterType(const AValue: Boolean);
 begin
   if AValue <> AutoGuessHighlighterType then
   begin
     FAutoGuessHighlighterType := AValue;
   end;
+end;
+
+function TEditorSettings.GetBlockIndent: Integer;
+begin
+  Result := FBlockIndent;
+end;
+
+procedure TEditorSettings.SetBlockIndent(AValue: Integer);
+begin
+  if AValue <> BlockIndent then
+  begin
+    FBlockIndent := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetBlockTabIndent: Integer;
+begin
+  Result := FBlockTabIndent;
+end;
+
+procedure TEditorSettings.SetBlockTabIndent(AValue: Integer);
+begin
+  if AValue <> BlockTabIndent then
+  begin
+    FBlockTabIndent := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetBracketMatchColor: TSynSelectedColor;
+begin
+  Result := FBracketMatchColor;
+end;
+
+procedure TEditorSettings.SetBracketMatchColor(AValue: TSynSelectedColor);
+begin
+  FBracketMatchColor.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetCloseWithESC: Boolean;
@@ -389,9 +566,42 @@ begin
   end;
 end;
 
+function TEditorSettings.GetExtraCharSpacing: Integer;
+begin
+  Result := FExtraCharSpacing;
+end;
+
+procedure TEditorSettings.SetExtraCharSpacing(AValue: Integer);
+begin
+  if AValue <> ExtraCharSpacing then
+  begin
+    FExtraCharSpacing := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetExtraLineSpacing: Integer;
+begin
+  Result := FExtraLineSpacing;
+end;
+
+procedure TEditorSettings.SetExtraLineSpacing(AValue: Integer);
+begin
+  if AValue <> ExtraLineSpacing then
+  begin
+    FExtraLineSpacing := AValue;
+    Changed;
+  end;
+end;
+
 function TEditorSettings.GetFileName: string;
 begin
   Result := FFileName;
+end;
+
+function TEditorSettings.GetFoldedCodeColor: TSynSelectedColor;
+begin
+  Result := FFoldedCodeColor;
 end;
 
 procedure TEditorSettings.SetFileName(const AValue: string);
@@ -400,6 +610,12 @@ begin
   begin
     FFileName := AValue;
   end;
+end;
+
+procedure TEditorSettings.SetFoldedCodeColor(AValue: TSynSelectedColor);
+begin
+  FFoldedCodeColor.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetFoldLevel: Integer;
@@ -415,6 +631,17 @@ end;
 procedure TEditorSettings.SetFormSettings(const AValue: TFormSettings);
 begin
   FFormSettings.Assign(AValue);
+end;
+
+function TEditorSettings.GetHighlightAllColor: TSynSelectedColor;
+begin
+  Result := FHighlightAllColor;
+end;
+
+procedure TEditorSettings.SetHighlightAllColor(AValue: TSynSelectedColor);
+begin
+  FHighlightAllColor.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetHighlighterAttributes: THighlighterAttributes;
@@ -451,6 +678,39 @@ begin
   end;
 end;
 
+function TEditorSettings.GetIncrementColor: TSynSelectedColor;
+begin
+  Result := FIncrementColor;
+end;
+
+procedure TEditorSettings.SetIncrementColor(AValue: TSynSelectedColor);
+begin
+  FIncrementColor.Assign(AValue);
+  Changed;
+end;
+
+function TEditorSettings.GetLineHighlightColor: TSynSelectedColor;
+begin
+  Result := FLineHighlightColor;
+end;
+
+procedure TEditorSettings.SetLineHighlightColor(AValue: TSynSelectedColor);
+begin
+  FLineHighlightColor.Assign(AValue);
+  Changed;
+end;
+
+function TEditorSettings.GetMouseLinkColor: TSynSelectedColor;
+begin
+  Result := FMouseLinkColor;
+end;
+
+procedure TEditorSettings.SetMouseLinkColor(AValue: TSynSelectedColor);
+begin
+  FMouseLinkColor.Assign(AValue);
+  Changed;
+end;
+
 function TEditorSettings.GetPreviewVisible: Boolean;
 begin
   Result := FPreviewVisible;
@@ -470,6 +730,34 @@ begin
   Result := FReadOnly;
 end;
 
+function TEditorSettings.GetRightEdge: Integer;
+begin
+  Result := FRightEdge;
+end;
+
+procedure TEditorSettings.SetRightEdge(AValue: Integer);
+begin
+  if AValue <> RightEdge then
+  begin
+    FRightEdge := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetRightEdgeColor: TColor;
+begin
+  Result := FRightEdgeColor;
+end;
+
+procedure TEditorSettings.SetRightEdgeColor(AValue: TColor);
+begin
+  if AValue <> RightEdgeColor then
+  begin
+    FRightEdgeColor := AValue;
+    Changed;
+  end;
+end;
+
 procedure TEditorSettings.SetReadOnly(const AValue: Boolean);
 begin
   if AValue <> ReadOnly then
@@ -482,6 +770,17 @@ end;
 function TEditorSettings.GetSearchEngineSettings: TSearchEngineSettings;
 begin
   Result := FSearchEngineSettings;
+end;
+
+function TEditorSettings.GetSelectedColor: TSynSelectedColor;
+begin
+  Result := FSelectedColor;
+end;
+
+procedure TEditorSettings.SetSelectedColor(AValue: TSynSelectedColor);
+begin
+  FSelectedColor.Assign(AValue);
+  Changed;
 end;
 
 procedure TEditorSettings.SetSearchEngineSettings(AValue: TSearchEngineSettings);
@@ -516,6 +815,34 @@ begin
     // we need to save here to make sure that any other instance runs with the
     // same configuration.
     Save;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetTabWidth: Integer;
+begin
+  Result := FTabWidth;
+end;
+
+procedure TEditorSettings.SetTabWidth(AValue: Integer);
+begin
+  if AValue <> TabWidth then
+  begin
+    FTabWidth := AValue;
+    Changed;
+  end;
+end;
+
+function TEditorSettings.GetWantTabs: Boolean;
+begin
+  Result := FWantTabs;
+end;
+
+procedure TEditorSettings.SetWantTabs(AValue: Boolean);
+begin
+  if AValue <> WantTabs then
+  begin
+    FWantTabs := AValue;
     Changed;
   end;
 end;

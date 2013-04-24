@@ -139,7 +139,6 @@ begin
     t.Dependencies.AddUnit('ts_editor_settings_codeshaper');
     t.Dependencies.AddUnit('ts_editor_settings_alignlines');
     t.Dependencies.AddUnit('ts_editor_settings_searchengine');
-    t.Dependencies.AddUnit('ts_editor_types');
     t.Dependencies.AddUnit('ts_components_unihighlighter');
     t.Dependencies.AddUnit('ts_core_collections');
     t.Dependencies.AddUnit('ts_editor_codeformatters_sql');
@@ -211,7 +210,6 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_settings_codeshaper.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_settings_alignlines.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_settings_searchengine.pas');
-    T:=P.Targets.AddUnit('editor\ts_editor_types.pas');
     T:=P.Targets.AddUnit('components\ts_components_unihighlighter.pas');
     T:=P.Targets.AddUnit('core\ts_core_collections.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_codeformatters_sql.pas');

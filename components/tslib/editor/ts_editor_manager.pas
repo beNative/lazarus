@@ -477,12 +477,6 @@ type
     ); overload;
 
     // event handlers
-    procedure CodeFilterFilteredLineChange(
-            Sender  : TObject;
-            AIndex  : Integer;
-      const ALine   : string;
-      const AFilter : string
-    );
     procedure EditorSettingsChanged(ASender: TObject);
 
     procedure InitializeFoldHighlighters;
@@ -510,8 +504,6 @@ type
     procedure ExportLines(AFormat: string; AToClipBoard: Boolean = True;
       ANativeFormat: Boolean = True);
     procedure FormatCode;
-
-    procedure InsertCharacterFromMap;
 
     { IEditorViews }
     function IEditorViews.Add = AddView;
@@ -1657,7 +1649,7 @@ end;
 
 procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
 begin
-  { TODO -oTS : Will be implemented as a toolview. }
+  ToolViews['frmCharacterMapDialog'].Visible := True;
 end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
@@ -1909,12 +1901,6 @@ begin
   DoOpenOtherInstance(Parameters);
 end;
 
-procedure TdmEditorManager.CodeFilterFilteredLineChange(Sender: TObject;
-  AIndex: Integer; const ALine: string; const AFilter: string);
-begin
-  ActiveView.SearchAndSelectLine(AIndex, ALine);
-end;
-
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
   if actShowPreview.Checked <> Settings.PreviewVisible then
@@ -2123,7 +2109,6 @@ end;
 {$endregion}
 
 {$region 'Registration' /fold}
-
 procedure TdmEditorManager.RegisterHighlighters;
 var
   S: string;
@@ -2204,9 +2189,7 @@ begin
   AddToolView(TfrmCodeFilterDialog.Create(Self));
   AddToolView(TfrmSelectionInfo.Create(Self));
   AddToolView(TfrmXmlTree.Create(Self));
-
-  (ToolViews['frmCodeFilterDialog'] as IEditorCodeFilter).OnFilteredLineChange :=
-    CodeFilterFilteredLineChange;
+  AddToolView(TfrmCharacterMapDialog.Create(Self));
 
   FFormsCreated := True;
 end;
@@ -2452,7 +2435,6 @@ begin
   AddMenuItem(MI, actExportToRTF);
   AddMenuItem(MI, actExportToWiki);
 end;
-
 {$endregion}
 
 //*****************************************************************************
@@ -2844,13 +2826,6 @@ begin
   end
   else
     raise Exception.Create('No codeformatter for current highlighter');
-end;
-
-{ TODO -oTSI : Charmap needs to be a tool window }
-
-procedure TdmEditorManager.InsertCharacterFromMap;
-begin
-  ShowCharacterMap(InsertCharacter);
 end;
 
 procedure TdmEditorManager.OpenFileAtCursor;

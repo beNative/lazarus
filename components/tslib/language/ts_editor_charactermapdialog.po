@@ -1,7 +1,8 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: ts_editor_charactermapdialog.lischaractermap
+#: ts_editor_charactermapdialog.scharactermap
+msgctxt "ts_editor_charactermapdialog.scharactermap"
 msgid "Character Map"
 msgstr ""
 

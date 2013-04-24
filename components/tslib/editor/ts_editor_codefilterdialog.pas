@@ -42,7 +42,6 @@ uses
 
 type
   TfrmCodeFilterDialog = class(TForm, IEditorToolView,
-                                      IEditorCodeFilter,
                                       IClipboardCommands)
     {$region 'designer controls' /fold}
     aclMain          : TActionList;
@@ -105,15 +104,11 @@ type
     FRegExpr          : TRegExpr;
     FIsCompiled       : Boolean;
 
-    FOnFilteredLineChange : TFilteredLineChangeEvent;
-
     function GetManager: IEditorManager;
     function GetFilter: string;
     procedure SetFilter(AValue: string);
     function GetMatchCase: Boolean;
-    function GetOnFilteredLineChange: TFilteredLineChangeEvent;
     function GetRegEx: Boolean;
-    procedure SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
     function GetView: IEditorView;
     function GetForm: TForm;
     function GetName: string;
@@ -174,9 +169,6 @@ type
       const ALine   : string;
       const AFilter : string
     ); dynamic;
-
-    property OnFilteredLineChange: TFilteredLineChangeEvent
-      read GetOnFilteredLineChange write SetOnFilteredLineChange;
 
   public
      procedure AfterConstruction; override;
@@ -346,11 +338,6 @@ begin
   Result := inherited Name;
 end;
 
-function TfrmCodeFilterDialog.GetOnFilteredLineChange: TFilteredLineChangeEvent;
-begin
-  Result := FOnFilteredLineChange;
-end;
-
 function TfrmCodeFilterDialog.GetMatchCase: Boolean;
 begin
   Result := actMatchCase.Checked;
@@ -359,11 +346,6 @@ end;
 function TfrmCodeFilterDialog.GetRegEx: Boolean;
 begin
   Result := actRegularExpression.Checked;
-end;
-
-procedure TfrmCodeFilterDialog.SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
-begin
-  FOnFilteredLineChange := AValue;
 end;
 
 function TfrmCodeFilterDialog.GetFilter: string;
@@ -779,7 +761,7 @@ begin
   begin
     L := TLine(FTVP.SelectedItem);
     if Assigned(L) then
-      DoFilteredLineChange(L.Index, L.Text, Filter);
+      View.SearchAndSelectLine(L.Index, L.Text);
     FUpdateEditorView := False;
   end;
 end;
@@ -821,8 +803,7 @@ end;
 procedure TfrmCodeFilterDialog.DoFilteredLineChange(AIndex: Integer;
   const ALine: string; const AFilter : string);
 begin
-  if Assigned(FOnFilteredLineChange) then
-    FOnFilteredLineChange(Self, AIndex, ALine, AFilter);
+
 end;
 
 procedure TfrmCodeFilterDialog.UpdateView;

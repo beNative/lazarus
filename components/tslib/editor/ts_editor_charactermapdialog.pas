@@ -26,70 +26,78 @@ interface
 
 uses
   Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
-  StdCtrls, Grids, ButtonPanel, ComCtrls,
+  StdCtrls, Grids, ComCtrls,
 
-  LCLType, LCLProc, LCLUnicodeData,
+  LCLType, LCLProc, LCLUnicodeData, ButtonPanel,
 
-  GraphType;
+  GraphType,
+
+  ts_Editor_Interfaces;
 
 type
-  TOnInsertCharacterEvent = procedure(const C: TUTF8Char) of object;
 
-  { TCharacterMapDialog }
+  TfrmCharacterMapDialog = class(TForm, IEditorToolView)
+    cbxUnicodeRange    : TComboBox;
+    pnlButtons         : TButtonPanel;
+    lblCharInfo        : TLabel;
+    pcMain             : TPageControl;
+    grdANSI            : TStringGrid;
+    grdUnicode         : TStringGrid;
+    tsANSI             : TTabSheet;
+    tsUnicode          : TTabSheet;
+    lblUnicodeCharInfo : TLabel;
 
-  TCharacterMapDialog = class(TForm)
-    ButtonPanel: TButtonPanel;
-    CharInfoLabel: TLabel;
-    lbxCategories: TListBox;
-    PageControl1: TPageControl;
-    StringGrid1: TStringGrid;
-    StringGrid2: TStringGrid;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
-    UnicodeCharInfoLabel: TLabel;
-
-    procedure lbxCategoriesSelect(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure StringGrid1MouseDown(Sender: TObject; Button: TMouseButton;
+    procedure cbxUnicodeRangeSelect(Sender: TObject);
+    procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure StringGrid1MouseMove(Sender: TObject; Shift: TShiftState; X,
+    procedure grdUnicodeMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure grdANSIMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure StringGrid2MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure StringGrid2MouseMove(Sender: TObject; Shift: TShiftState; X,
+    procedure grdUnicodeMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
 
   private
-    FOnInsertCharacter: TOnInsertCharacterEvent;
     procedure FillCharMap;
+    function GetManager: IEditorManager;
+    function GetView: IEditorView;
+
+  protected
+    function GetForm: TForm;
+    function GetName:string;
+    function GetVisible: Boolean;
+    procedure SetVisible(AValue: Boolean);
+
+    procedure UpdateView;
+
+    property Visible: Boolean
+      read GetVisible write SetVisible;
+
+    property Name: string
+      read GetName;
+
+    property Form: TForm
+      read GetForm;
+
+    property Manager: IEditorManager
+      read GetManager;
+
+    property View: IEditorView
+      read GetView;
 
   public
-    property OnInsertCharacter: TOnInsertCharacterEvent
-      read FOnInsertCharacter write FOnInsertCharacter;
+    procedure AfterConstruction; override;
+
   end;
 
-procedure ShowCharacterMap(AOnInsertChar: TOnInsertCharacterEvent);
+//*****************************************************************************
 
 implementation
 
 {$R *.lfm}
 
 resourcestring
-  // character map
-  lisCharacterMap = 'Character Map';
-
-var
-  CharacterMapDialog: TCharacterMapDialog;
-
-procedure ShowCharacterMap(AOnInsertChar: TOnInsertCharacterEvent);
-begin
-  if CharacterMapDialog = nil then
-    Application.CreateForm(TCharacterMapDialog, CharacterMapDialog);
-
-  CharacterMapDialog.OnInsertCharacter := AOnInsertChar;
-  CharacterMapDialog.Show;
-end;
+  SCharacterMap = 'Character Map';
 
 function RoundUp(Value, Divi: Integer): Integer;
 begin
@@ -99,164 +107,246 @@ begin
     Result := (Value div Divi) + 1;
 end;
 
-{ TCharacterMapDialog }
+{$region 'construction and destruction' /fold}
+//*****************************************************************************
+// construction and destruction                                          BEGIN
+//*****************************************************************************
 
-procedure TCharacterMapDialog.FormCreate(Sender: TObject);
+procedure TfrmCharacterMapDialog.AfterConstruction;
+var
+  I : Integer;
 begin
-  Caption               := lisCharacterMap;
-  CharInfoLabel.Caption := '-';
-  UnicodeCharInfoLabel.Caption := '-';
+  inherited AfterConstruction;
+  Caption               := SCharacterMap;
+  lblCharInfo.Caption := '-';
+  lblUnicodeCharInfo.Caption := '-';
+  grdANSI.Font.Assign(Manager.Settings.EditorFont);
+  grdUnicode.Font.Assign(Manager.Settings.EditorFont);
   FillCharMap;
-end;
-
-//function RoundUp(Value, Divi:integer):integer;
-//begin
-//  if Value mod Divi=0 then
-//   Result:=Value div Divi else
-//   Result:=(Value div Divi)+1;
-//end;
-
-
-procedure TCharacterMapDialog.lbxCategoriesSelect(Sender: TObject);
-var
-  cnt, x, y: Integer;
-  S, E: Integer;
-begin
-  S := UnicodeBlocks[lbxCategories.ItemIndex].S;
-  E := UnicodeBlocks[lbxCategories.ItemIndex].E;
-  StringGrid2.Clear;
-  StringGrid2.ColCount := 16;
-  StringGrid2.RowCount := RoundUp(E - S, 16);
-  cnt                  := 0;
-  for y := 0 to StringGrid2.RowCount - 1 do
-    for x := 0 to StringGrid2.ColCount - 1 do
-    begin
-      if S + Cnt <= E then
-        StringGrid2.Cells[x, y] := UnicodeToUTF8(S + Cnt);
-      Inc(cnt);
-    end;
-  StringGrid2.AutoSizeColumns;
-end;
-
-procedure TCharacterMapDialog.FormShow(Sender: TObject);
-var
-  i: Integer;
-begin
-  StringGrid1.Font.Size := 12;
-  StringGrid2.Font.Size := 12;
-
-  StringGrid1.AutoSizeColumns;
-  lbxCategories.Items.Clear;
-  for i := 0 to MaxUnicodeBlocks do
+  grdANSI.AutoSizeColumns;
+  cbxUnicodeRange.Items.Clear;
+  for I := 0 to MaxUnicodeBlocks do
   begin
-    lbxCategories.Items.Add(UnicodeBlocks[i].PG);
-    lbxCategories.Items.Add(UnicodeBlocks[i].PG);
+    cbxUnicodeRange.Items.Add(UnicodeBlocks[I].PG);
   end;
-  lbxCategories.ItemIndex := 0;
-  lbxCategoriesSelect(nil);
+  cbxUnicodeRange.ItemIndex := 0;
+  cbxUnicodeRangeSelect(nil);
 end;
 
-procedure TCharacterMapDialog.StringGrid1MouseDown(Sender: TObject;
+//*****************************************************************************
+// construction and destruction                                            END
+//*****************************************************************************
+{$endregion}
+
+{$region 'property access mehods' /fold}
+//*****************************************************************************
+// property access methods                                               BEGIN
+//*****************************************************************************
+
+function TfrmCharacterMapDialog.GetForm: TForm;
+begin
+  Result := Self;
+end;
+
+function TfrmCharacterMapDialog.GetName: string;
+begin
+  Result := inherited Name;
+end;
+
+function TfrmCharacterMapDialog.GetVisible: Boolean;
+begin
+  Result := inherited Visible;
+end;
+
+procedure TfrmCharacterMapDialog.SetVisible(AValue: Boolean);
+begin
+  inherited Visible := AValue;
+end;
+
+function TfrmCharacterMapDialog.GetManager: IEditorManager;
+begin
+  Result := Owner as IEditorManager;
+end;
+
+function TfrmCharacterMapDialog.GetView: IEditorView;
+begin
+  Result := Owner as IEditorView;
+end;
+
+//*****************************************************************************
+// property access methods                                                 END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
+procedure TfrmCharacterMapDialog.cbxUnicodeRangeSelect(Sender: TObject);
+var
+  N : Integer;
+  X : Integer;
+  Y : Integer;
+  S : Integer;
+  E : Integer;
+begin
+  S := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S;
+  E := UnicodeBlocks[cbxUnicodeRange.ItemIndex].E;
+  grdUnicode.Clear;
+  grdUnicode.ColCount := 16;
+  grdUnicode.RowCount := RoundUp(E - S, 16);
+  N                  := 0;
+  for Y := 0 to grdUnicode.RowCount - 1 do
+    for X := 0 to grdUnicode.ColCount - 1 do
+    begin
+      if S + N <= E then
+        grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N);
+      Inc(N);
+    end;
+  grdUnicode.AutoSizeColumns;
+end;
+
+procedure TfrmCharacterMapDialog.grdANSIMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
-  Row, Col: Integer;
+  R : Integer;
+  C : Integer;
 begin
-  Row := 0;
-  Col := 0;
-  if (Button = mbLeft) and (StringGrid1.MouseToGridZone(X, Y) = gzNormal) then
+  R := 0;
+  C := 0;
+  if (Button = mbLeft) and (grdANSI.MouseToGridZone(X, Y) = gzNormal) then
   begin
-    StringGrid1.MouseToCell(X, Y, Col, Row);
-    if (StringGrid1.Cells[Col, Row] <> '') and
-      (Assigned(OnInsertCharacter)) then
-      OnInsertCharacter(StringGrid1.Cells[Col, Row]);
+    grdANSI.MouseToCell(X, Y, C, R);
+    if grdANSI.Cells[C, R] <> '' then
+      View.InsertTextAtCaret(grdANSI.Cells[C, R])
   end;
 end;
 
-procedure TCharacterMapDialog.StringGrid1MouseMove(Sender: TObject;
+procedure TfrmCharacterMapDialog.grdUnicodeMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+var
+  R : Integer;
+  C : Integer;
+begin
+  R := 0;
+  C := 0;
+  if (Button = mbLeft) and (grdUnicode.MouseToGridZone(X, Y) = gzNormal) then
+  begin
+    grdUnicode.MouseToCell(X, Y, C, R);
+    View.InsertTextAtCaret(grdUnicode.Cells[C, R])
+  end;
+end;
+
+procedure TfrmCharacterMapDialog.grdANSIMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  CharOrd: Byte;
-  Row, Col: Integer;
+  B : Byte;
+  R : Integer;
+  C : Integer;
 begin
-  Row := 0;
-  Col := 0;
-  if StringGrid1.MouseToGridZone(X, Y) = gzNormal then
+  R := 0;
+  C := 0;
+  if grdANSI.MouseToGridZone(X, Y) = gzNormal then
   begin
-    StringGrid1.MouseToCell(X, Y, Col, Row);
-
-    if StringGrid1.Cells[Col, Row] <> '' then
+    grdANSI.MouseToCell(X, Y, C, R);
+    if grdANSI.Cells[C, R] <> '' then
     begin
-      CharOrd               := Ord(UTF8ToAnsi(StringGrid1.Cells[Col, Row])[1]);
-      CharInfoLabel.Caption := 'Decimal = ' + IntToStr(CharOrd) +
-        ', Hex = $' + HexStr(CharOrd, 2);
+      B               := Ord(UTF8ToAnsi(grdANSI.Cells[C, R])[1]);
+      lblCharInfo.Caption := 'Decimal = ' + IntToStr(B) +
+        ', Hex = $' + HexStr(B, 2);
     end
     else
-      CharInfoLabel.Caption := '-';
+      lblCharInfo.Caption := '-';
   end
   else
   begin
-    CharInfoLabel.Caption := '-';
+    lblCharInfo.Caption := '-';
   end;
 end;
 
-procedure TCharacterMapDialog.StringGrid2MouseDown(Sender: TObject;
-  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  Row, Col: Integer;
-begin
-  Row := 0;
-  Col := 0;
-  if (Button = mbLeft) and (StringGrid2.MouseToGridZone(X, Y) = gzNormal) then
-  begin
-    StringGrid2.MouseToCell(X, Y, Col, Row);
-    if Assigned(OnInsertCharacter) then
-      OnInsertCharacter(StringGrid2.Cells[Col, Row]);
-  end;
-end;
-
-procedure TCharacterMapDialog.StringGrid2MouseMove(Sender: TObject;
+procedure TfrmCharacterMapDialog.grdUnicodeMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  Row, Col, i: Integer;
-  S: Cardinal;
-  tmp, tmp2: string;
+  R  : Integer;
+  C  : Integer;
+  I  : Integer;
+  S  : Cardinal;
+  T1 : string;
+  T2 : string;
 begin
-  Row := 0;
-  Col := 0;
-  if StringGrid2.MouseToGridZone(X, Y) = gzNormal then
+  R := 0;
+  C := 0;
+  if grdUnicode.MouseToGridZone(X, Y) = gzNormal then
   begin
-    StringGrid2.MouseToCell(X, Y, Col, Row);
-    S    := UnicodeBlocks[lbxCategories.ItemIndex].S + (Col) + (Row * 16);
-    tmp  := UnicodeToUTF8(S);
-    tmp2 := '';
-    for i := 1 to Length(tmp) do
-      tmp2 := tmp2 + '$' + IntToHex(Ord(tmp[i]), 2);
-    UnicodeCharInfoLabel.Caption :=
-      'U+' + inttohex(S, 4) + ', UTF-8 = ' + tmp2;
+    grdUnicode.MouseToCell(X, Y, C, R);
+    S    := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + (C) + (R * 16);
+    T1  := UnicodeToUTF8(S);
+    T2 := '';
+    for I := 1 to Length(T1) do
+      T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
+    lblUnicodeCharInfo.Caption := 'U+' + IntToHex(S, 4) + ', UTF-8 = ' + T2;
   end
   else
   begin
-    CharInfoLabel.Caption := '-';
+    lblCharInfo.Caption := '-';
   end;
 end;
 
-procedure TCharacterMapDialog.FillCharMap;
+//*****************************************************************************
+// event handlers                                                          END
+//*****************************************************************************
+{$endregion}
+
+{$region 'private methods' /fold}
+//*****************************************************************************
+// private methods                                                       BEGIN
+//*****************************************************************************
+
+procedure TfrmCharacterMapDialog.FillCharMap;
 var
-  R, C: Integer;
+  R : Integer;
+  C : Integer;
 begin
-  for R := 0 to Pred(StringGrid1.RowCount) do
+  for R := 0 to Pred(grdANSI.RowCount) do
   begin
     if R <> 0 then
-      StringGrid1.Cells[0, R] := Format('%.3d +', [Succ(R) * 16]);
-    for C := 1 to Pred(StringGrid1.ColCount) do
+      grdANSI.Cells[0, R] := Format('%.3d +', [Succ(R) * 16]);
+    for C := 1 to Pred(grdANSI.ColCount) do
     begin
       if R = 0 then
-        StringGrid1.Cells[C, R] := Format('%.2d', [Pred(C)])
+        grdANSI.Cells[C, R] := Format('%.2d', [Pred(C)])
       else
-        StringGrid1.Cells[C, R] := AnsiToUTF8(Chr(Succ(R) * 16 + Pred(C)));
+        grdANSI.Cells[C, R] := AnsiToUTF8(Chr(Succ(R) * 16 + Pred(C)));
     end;
   end;
 end;
+
+//*****************************************************************************
+// private methods                                                         END
+//*****************************************************************************
+{$endregion}
+
+
+{$region 'protected methods' /fold}
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
+
+procedure TfrmCharacterMapDialog.UpdateView;
+begin
+//
+end;
+
+//function TfrmCharacterMapDialog.Focused: Boolean;
+//begin
+//  Result := Focused;
+//end;
+
+//*****************************************************************************
+// protected methods                                                       END
+//*****************************************************************************
+{$endregion}
 
 end.
 

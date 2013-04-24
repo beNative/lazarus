@@ -81,13 +81,6 @@ type
           AEditorView : IEditorView
   ) of object;
 
-  TFilteredLineChangeEvent = procedure(
-          Sender  : TObject;
-          AIndex  : Integer;
-    const ALine   : string;
-    const AFilter : string
-  ) of object;
-
   TOpenOtherInstanceEvent = procedure(
           Sender  : TObject;
     const AParams : array of string
@@ -912,15 +905,6 @@ type
   end;
 
 //-----------------------------------------------------------------------------
-
-  IEditorCodeFilter = interface
-  ['{CF1E061E-89FD-47F0-91DF-C26CC457BC08}']
-    function GetOnFilteredLineChange: TFilteredLineChangeEvent;
-    procedure SetOnFilteredLineChange(AValue: TFilteredLineChangeEvent);
-
-    property OnFilteredLineChange: TFilteredLineChangeEvent
-      read GetOnFilteredLineChange write SetOnFilteredLineChange;
-  end;
 
   TEditorViewListEnumerator = class
   strict private

@@ -202,12 +202,12 @@
         <Type Value="LFM"/>
       </Item38>
       <Item39>
-        <Filename Value="editor\ts_editor_codefilterdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item39>
-      <Item40>
         <Filename Value="editor\ts_editor_codefilterdialog.lrs"/>
         <Type Value="LRS"/>
+      </Item39>
+      <Item40>
+        <Filename Value="editor\ts_editor_codefilterdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item40>
       <Item41>
         <Filename Value="editor\ts_editor_codeshaperform.lfm"/>

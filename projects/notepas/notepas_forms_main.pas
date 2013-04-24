@@ -628,12 +628,10 @@ begin
   InitDebugAction('actShowActions');
   InitDebugAction('actLoadHighlighterFromFile');
   InitDebugAction('actInspect');
-  InitDebugAction('actShapeCode');
   InitDebugAction('actSortSelection');
   InitDebugAction('actPrint');
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
-  InitDebugAction('actInsertCharacterFromMap');
   InitDebugAction('actNewSharedView');
 end;
 

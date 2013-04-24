@@ -34,9 +34,7 @@ uses
 
   ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
-  ts_Editor_Interfaces, ts_Editor_Utils,
-
-  sharedloggerlcl;
+  ts_Editor_Interfaces, ts_Editor_Utils;
 
 //=============================================================================
 
@@ -81,6 +79,7 @@ type
     procedure actFocusSearchFilterExecute(Sender: TObject);
     procedure actMatchCaseExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
+    procedure EditorSettingsChanged(Sender: TObject);
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -164,12 +163,6 @@ type
 
     function IsMatch(const AString : string): Boolean; overload; inline;
 
-    procedure DoFilteredLineChange(
-            AIndex  : Integer;
-      const ALine   : string;
-      const AFilter : string
-    ); dynamic;
-
   public
      procedure AfterConstruction; override;
      procedure BeforeDestruction; override;
@@ -204,7 +197,9 @@ uses
 
   SynEditHighlighter,
 
-  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers, ts_Core_Utils;
+  ts_Core_ColumnDefinitionsDataTemplate, ts_Core_Helpers, ts_Core_Utils,
+
+  ts_Editor_Resources;
 
 type
   TVKSet = set of Byte;
@@ -262,6 +257,7 @@ end;
 procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
+  Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FTextStyle.SingleLine := True;
   FTextStyle.Opaque := False;
   FTextStyle.ExpandTabs := False;
@@ -272,7 +268,7 @@ begin
   FTextStyle.Alignment := taLeftJustify;
   FTextStyle.Layout := tlCenter;
   FVST := CreateVST(Self, pnlVST);
-  FVST.Font.Name := Manager.Settings.EditorFont.Name;
+  FVST.Font.Assign(Manager.Settings.EditorFont);
   FVST.Font.Size := 8;
   FVST.Colors.FocusedSelectionColor := clSilver;
   FVST.Colors.FocusedSelectionBorderColor := clSilver;
@@ -373,6 +369,22 @@ end;
 
 //*****************************************************************************
 // property access methods                                                 END
+//*****************************************************************************
+{$endregion}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
+
+procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
+begin
+  FVST.Font.Assign(Manager.Settings.EditorFont);
+  FVST.Font.Size := 8;
+end;
+
+//*****************************************************************************
+// event handlers                                                          END
 //*****************************************************************************
 {$endregion}
 
@@ -534,7 +546,7 @@ begin
       TargetCanvas.FillRect(R);
       FTextStyle.Alignment := taRightJustify;
       TargetCanvas.Font.Color := clGray;
-      TargetCanvas.Font.Name := 'Consolas';
+      TargetCanvas.Font.Name := Manager.Settings.EditorFont.Name;
       R.Right := R.Right - 8;
       TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
     end
@@ -606,10 +618,7 @@ var
   L: TLine;
 begin
   L := TLine(Item);
-  //if FVST. > 100 then
-  //  Accepted := False
-  //else
-    Accepted := IsMatch(L.Text);
+  Accepted := IsMatch(L.Text);
 end;
 
 procedure TfrmCodeFilterDialog.FTVPSelectionChanged(Sender: TObject);
@@ -617,7 +626,7 @@ begin
   FUpdateEditorView := True;
 end;
 
-procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: char);
+procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: Char);
 begin
   if Ord(Key) = VK_RETURN then
   begin
@@ -769,9 +778,9 @@ end;
 procedure TfrmCodeFilterDialog.UpdateStatusDisplay;
 begin
   if FVST.VisibleCount = 1 then
-    sbrMain.SimpleText := '1 line with match found.'
+    sbrMain.SimpleText :=  SOneLineWithMatchFound
   else
-    sbrMain.SimpleText := Format('%d lines with match found.', [FVST.VisibleCount]);
+    sbrMain.SimpleText := Format(SLinesWithMatchFound, [FVST.VisibleCount]);
 end;
 
 procedure TfrmCodeFilterDialog.ApplyFilter;
@@ -797,13 +806,6 @@ begin
     FTVP.ApplyFilter;
     UpdateStatusDisplay;
   end;
-  Logger.ResetCounter('FTVPColumnDefinitionsItemsCustomDraw');
-end;
-
-procedure TfrmCodeFilterDialog.DoFilteredLineChange(AIndex: Integer;
-  const ALine: string; const AFilter : string);
-begin
-
 end;
 
 procedure TfrmCodeFilterDialog.UpdateView;

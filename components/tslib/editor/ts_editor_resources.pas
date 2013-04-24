@@ -123,6 +123,10 @@ resourcestring
   SDebugMenuCaption        = '&Debug';
   SApplicationMenuCaption  = '&Application';
 
+  // CodeFilterDialog
+  SOneLineWithMatchFound =  '1 line with match found.';
+  SLinesWithMatchFound   = '%d lines with match found.';
+
 const
   DEFAULT_BLEND_FACTOR = 128;
 

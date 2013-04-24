@@ -35,7 +35,6 @@ uses
   ts_Editor_Interfaces;
 
 type
-
   TfrmCharacterMapDialog = class(TForm, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
     pnlButtons         : TButtonPanel;
@@ -48,6 +47,7 @@ type
     lblUnicodeCharInfo : TLabel;
 
     procedure cbxUnicodeRangeSelect(Sender: TObject);
+    procedure EditorSettingsChanged(Sender: TObject);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure grdUnicodeMouseDown(Sender: TObject; Button: TMouseButton;
@@ -87,6 +87,7 @@ type
 
   public
     procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
 
   end;
 
@@ -131,6 +132,12 @@ begin
   end;
   cbxUnicodeRange.ItemIndex := 0;
   cbxUnicodeRangeSelect(nil);
+  Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
+end;
+
+procedure TfrmCharacterMapDialog.BeforeDestruction;
+begin
+  inherited BeforeDestruction;
 end;
 
 //*****************************************************************************
@@ -205,6 +212,12 @@ begin
       Inc(N);
     end;
   grdUnicode.AutoSizeColumns;
+end;
+
+procedure TfrmCharacterMapDialog.EditorSettingsChanged(Sender: TObject);
+begin
+  grdANSI.Font.Assign(Manager.Settings.EditorFont);
+  grdUnicode.Font.Assign(Manager.Settings.EditorFont);
 end;
 
 procedure TfrmCharacterMapDialog.grdANSIMouseDown(Sender: TObject;

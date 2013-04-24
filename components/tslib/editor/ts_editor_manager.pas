@@ -803,7 +803,6 @@ end;
 
 procedure TdmEditorManager.BeforeDestruction;
 begin
-  Logger.EnterMethod(Self, 'BeforeDestruction');
   FActiveView := nil; // !!!!!!!!! after a long search this was a long lasting bug
   if PersistSettings then
     FSettings.Save;
@@ -812,7 +811,6 @@ begin
   FreeAndNil(FToolViewList);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
-  Logger.ExitMethod(Self, 'BeforeDestruction');
 end;
 
 //*****************************************************************************

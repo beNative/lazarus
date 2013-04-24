@@ -38,7 +38,7 @@
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
-            <UnitOutputDirectory Value="lib\"/>
+            <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <CodeGeneration>
             <Checks>

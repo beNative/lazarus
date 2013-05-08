@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 24/04/2013
+   This file was generated on 5/05/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,16 +30,11 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
-    P.Dependencies.Add('uniqueinstance_package');
+    P.Dependencies.Add('pl_luicontrols');
+    P.Dependencies.Add('pl_zeosdbocomp');
     P.Dependencies.Add('richmemopackage');
-    P.Dependencies.Add('kascomp');
     P.Dependencies.Add('tsbundle');
-    P.Dependencies.Add('zcomponent');
     P.Dependencies.Add('lazrichedit');
-    P.Dependencies.Add('luicontrols');
-    P.Dependencies.Add('virtualtreeview_package');
-    P.Dependencies.Add('luicomponents');
-    P.Dependencies.Add('multiloglaz');
     P.Dependencies.Add('lcl');
     P.Dependencies.Add('synedit');
     P.Dependencies.Add('runtimetypeinfocontrols');
@@ -59,30 +54,27 @@ begin
     P.Options.Add('-dLCL$(LCL_PLATFORM)');
     P.IncludePath.Add('core');
     P.IncludePath.Add('editor');
-    P.IncludePath.Add('../../images');
+    P.IncludePath.Add('E:/lazarus/images');
+    P.IncludePath.Add('../tsBundle/NativeXml/nativexml');
     P.Options.Add('-Fueditor');
     P.Options.Add('-Fucore');
     P.Options.Add('-Furicheditor');
     P.Options.Add('-Fudocking');
     P.Options.Add('-Fucomponents');
-    P.Options.Add('-Fu../synunihighlighter');
+    P.Options.Add('-FuE:/lazarus/components/synunihighlighter');
     P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
-    P.Options.Add('-Fu../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../pl_lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_VirtualTrees/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu.');

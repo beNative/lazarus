@@ -31,7 +31,7 @@ uses
 
   ts_Editor_Interfaces, ts_Editor_Settings_SearchEngine,
 
-  sharedloggerlcl;
+  sharedlogger;
 
 type
   TSearchResult = class

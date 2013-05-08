@@ -108,7 +108,7 @@ uses
   ts_Editor_SelectionInfo,
 
   // logging
-  sharedloggerlcl;
+  sharedlogger;
 
 type
   TEditorView = class(TForm, IEditorView)

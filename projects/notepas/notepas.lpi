@@ -16,45 +16,51 @@
     </General>
     <i18n>
       <EnableI18N Value="True"/>
-      <OutDir Value="language"/>
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="4"/>
-      <BuildNr Value="23"/>
+      <BuildNr Value="26"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
-    <BuildModes Count="6">
+    <BuildModes Count="7">
       <Item1 Name="Default" Default="True"/>
-      <Item2 Name="Debug">
+      <Item2 Name="Release Win32">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="NotePas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
-            <UnitOutputDirectory Value="lib"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
             <Checks>
               <IOChecks Value="True"/>
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
-              <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
+            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <UseHeaptrc Value="True"/>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+              <StripSymbols Value="True"/>
             </Debugging>
+            <LinkSmart Value="True"/>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
@@ -72,125 +78,14 @@
               <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
+              <CompileReasons Build="False" Run="False"/>
+            </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item2>
-      <Item3 Name="Release Win32">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <Checks>
-              <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
-            </Checks>
-            <SmallerCode Value="True"/>
-            <TargetCPU Value="i386"/>
-            <TargetOS Value="win32"/>
-            <Optimizations>
-              <VariablesInRegisters Value="True"/>
-              <OptimizationLevel Value="2"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <UseLineInfoUnit Value="False"/>
-              <StripSymbols Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-          <Other>
-            <Verbosity>
-              <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
-              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
-            </Verbosity>
-            <CompilerMessages>
-              <IgnoredMessages idx5024="True"/>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-            <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
-            </ExecuteAfter>
-          </Other>
-        </CompilerOptions>
-      </Item3>
-      <Item4 Name="Release Win64">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <Checks>
-              <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
-            </Checks>
-            <SmallerCode Value="True"/>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
-            <Optimizations>
-              <VariablesInRegisters Value="True"/>
-              <OptimizationLevel Value="2"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <UseLineInfoUnit Value="False"/>
-              <StripSymbols Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-          <Other>
-            <Verbosity>
-              <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
-              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
-            </Verbosity>
-            <CompilerMessages>
-              <IgnoredMessages idx5024="True"/>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)\Release Win64"/>
-            <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
-            </ExecuteAfter>
-          </Other>
-        </CompilerOptions>
-      </Item4>
-      <Item5 Name="Release GTK2">
+      <Item3 Name="Release GTK2">
         <MacroValues Count="2">
           <Macro1 Name="LCLWidgetType" Value="gtk2"/>
           <Macro2 Name="fpGUIPlatform"/>
@@ -252,8 +147,8 @@
           </Other>
           <LCLWidgetType Value="gtk2"/>
         </CompilerOptions>
-      </Item5>
-      <Item6 Name="Release QT">
+      </Item3>
+      <Item4 Name="Release QT">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -313,7 +208,181 @@
           </Other>
           <LCLWidgetType Value="qt"/>
         </CompilerOptions>
+      </Item4>
+      <Item5 Name="Release Win64">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <SmallerCode Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+              <OptimizationLevel Value="2"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <Command Value="D:\codetyphon\fpc\bin\x86_64-win64\upx.exe C:\codetyphon\lazarus\projects\notepas\bin\x86_64-win64-win32\Notepas.exe"/>
+              <CompileReasons Build="False" Run="False"/>
+            </ExecuteAfter>
+          </Other>
+          <LCLWidgetType Value="win32"/>
+        </CompilerOptions>
+      </Item5>
+      <Item6 Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="NotePas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib"/>
+            <UnitOutputDirectory Value="lib"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <VerifyObjMethodCallValidity Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteAfter>
+          </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
+        </CompilerOptions>
       </Item6>
+      <Item7 Name="Release Linux 32">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\fpgui-0.7\src\corelib;..\..\components\fpgui-0.7\src\gui"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <SmallerCode Value="True"/>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="linux"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+          <LCLWidgetType Value="gtk2"/>
+        </CompilerOptions>
+      </Item7>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -323,8 +392,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <HostApplicationFilename Value="E:\lazarus\projects\notepas\Notepas.exe"/>
-        <CommandLineParams Value="&quot;C:\Documents and Settings\Tim Sinaeve\Desktop\EasyGrid.pas&quot;"/>
+        <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">

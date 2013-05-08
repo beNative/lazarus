@@ -33,7 +33,7 @@ uses
 
   NativeXML, NativeXmlObjectStorage,
 
-  sharedloggerlcl,
+  sharedlogger,
 
   ts_Core_FormSettings,
 

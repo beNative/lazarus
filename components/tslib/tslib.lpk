@@ -390,50 +390,35 @@
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="14">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="uniqueinstance_package"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item2>
       <Item3>
-        <PackageName Value="KASComp"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
         <PackageName Value="tsBundle"/>
       </Item4>
       <Item5>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="LazRichEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="LCL"/>
       </Item6>
       <Item7>
-        <PackageName Value="luicontrols"/>
+        <PackageName Value="SynEdit"/>
       </Item7>
       <Item8>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item8>
       <Item9>
-        <PackageName Value="luicomponents"/>
-      </Item9>
-      <Item10>
-        <PackageName Value="multiloglaz"/>
-      </Item10>
-      <Item11>
-        <PackageName Value="LCL"/>
-      </Item11>
-      <Item12>
-        <PackageName Value="SynEdit"/>
-      </Item12>
-      <Item13>
-        <PackageName Value="RunTimeTypeInfoControls"/>
-      </Item13>
-      <Item14>
         <PackageName Value="FCL"/>
         <MinVersion Major="1" Valid="True"/>
-      </Item14>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

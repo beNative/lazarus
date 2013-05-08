@@ -6,7 +6,7 @@ object frmMain: TfrmMain
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 599
+  ClientHeight = 598
   ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
@@ -31,7 +31,7 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 581
+    Top = 580
     Width = 1066
     Align = alBottom
     BorderSpacing.Top = 2
@@ -236,7 +236,7 @@ object frmMain: TfrmMain
   end
   object Shape1: TShape
     Left = 424
-    Height = 553
+    Height = 552
     Top = 26
     Width = 642
     Align = alClient
@@ -249,12 +249,12 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 553
+    Height = 552
     Top = 26
     Width = 417
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 553
+    ClientHeight = 552
     ClientWidth = 417
     TabOrder = 2
     Visible = False
@@ -305,7 +305,7 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 417
-    Height = 553
+    Height = 552
     Top = 26
     Width = 7
     Visible = False

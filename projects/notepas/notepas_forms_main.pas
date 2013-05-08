@@ -32,7 +32,7 @@ uses
 
   ts_components_docking, ts_components_docking_storage,
   // for debugging
-  sharedloggerlcl, ipcchannel,
+  sharedlogger, ipcchannel,
 
   SynEdit,
 
@@ -210,6 +210,7 @@ var
 begin
   inherited AfterConstruction;
   Manager.PersistSettings := True;
+  mnuMain.Items.Clear;
   ConfigureAvailableActions;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;

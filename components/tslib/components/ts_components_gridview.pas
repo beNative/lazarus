@@ -5438,12 +5438,15 @@ procedure TCustomGridEdit.WndProc(var Message: TMessage);
     end;
   end;
 
+var
+  WMKey : TWMKey absolute Message;
+  WMButtonDown : TWMLButtonDown absolute Message;
 begin
   case Message.Msg of
     WM_KEYDOWN,
       WM_SYSKEYDOWN,
       WM_CHAR:
-      with TWMKey(Message) do
+      with WMKey do
       begin
         {the discovery list}
         if EditStyle in [gePickList, geDataList] then
@@ -5474,7 +5477,7 @@ begin
       end;
     WM_LBUTTONDOWN:
       {the dual pressure of mouse}
-      with TWMLButtonDown(Message) do
+      with WMButtonDown do
       begin
         //{to the pressure on the button we do not react}
         if (EditStyle = geSimple) or

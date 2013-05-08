@@ -100,8 +100,8 @@ function URLEncode(const AString: string): string;
 
 function URLDecode(const AString: string): string;
 
-function Pack(I: string):string;
-function UnPack(I: string): string;
+//function Pack(I: string):string;
+//function UnPack(I: string): string;
 
 // string formatting routines
 
@@ -176,7 +176,7 @@ function ValueNeedsConversion(const AVarType   : Integer;
 
 function StringToVariant(AString : string): Variant;
 
-function MixColors(FG, BG: TColor; T: Byte): TColor;
+function MixColors(C1, C2: TColor; W1: Integer): TColor;
 
 procedure Delay(Milliseconds: Integer);
 
@@ -338,8 +338,8 @@ begin
 
       WM_NCHITTEST:
       begin
-        pt.x := TSmallPoint(lParam).x;
-        pt.y := TSmallPoint(lParam).y;
+        pt.x := TSmallPoint(Integer(lParam)).x;
+        pt.y := TSmallPoint(Integer(lParam)).y;
         ScreenToClient(hWnd, pt);
         if PtInRect(Info^.GripRect, pt) then
           Result := HTBOTTOMRIGHT
@@ -1233,47 +1233,27 @@ end;
 
 
 
-{ Mixes two colors for a given transparancy level (Author: Yurii Zhukow). }
+{ Mixes two colors for a given transparancy level  }
 
-function MixColors(FG, BG: TColor; T: Byte): TColor;
+function MixColors(C1, C2: TColor; W1: Integer): TColor;
 var
-  R, G, B : Byte;
-  RFG     : TColor;
-  RBG     : TColor;
-
-  function MixBytes(FG, BG, T: Byte): Byte;
-  asm
-    push bx
-    push cx
-    push dx
-    mov DH,T
-    mov BL,FG
-    mov AL,DH
-    mov CL,BG
-    xor AH,AH
-    xor BH,BH
-    xor CH,CH
-    mul BL
-    mov BX,AX
-    xor AH,AH
-    mov AL,DH
-    xor AL,$FF
-    mul CL
-    add AX,BX
-    shr AX,8
-    pop dx
-    pop cx
-    pop bx
-  end;
-
+  W2: Cardinal;
 begin
-  RFG := ColorToRGB(FG);
-  RBG := ColorToRGB(BG);
-  R := MixBytes(RFG and 255, RBG and 255, T);
-  G := MixBytes((RFG shr 8) and 255,(RBG shr 8) and 255, T);
-  B := MixBytes((RFG shr 16) and 255,(RBG shr 16) and 255, T);
-  Result := R + G * 256 + B * 65536;
-end; // MixColors
+  Assert(W1 in [0..255]);
+  W2 := W1 xor 255;
+{$IFDEF Windows}
+  if Integer(C1) < 0 then C1 := GetSysColor(C1 and $000000FF);
+  if Integer(C2) < 0 then C2 := GetSysColor(C2 and $000000FF);
+{$ELSE}
+  C1 := ColorToRGB(C1);
+  C2 := ColorToRGB(C2);
+{$ENDIF}
+  Result := Integer(
+    ((Cardinal(C1) and $FF00FF) * Cardinal(W1) +
+    (Cardinal(C2) and $FF00FF) * W2) and $FF00FF00 +
+    ((Cardinal(C1) and $00FF00) * Cardinal(W1) +
+    (Cardinal(C2) and $00FF00) * W2) and $00FF0000) shr 8;
+end;
 
 procedure Delay(Milliseconds: Integer);
 var
@@ -1809,58 +1789,58 @@ end;
 
 
 //  DwordToStr()  : Converts a DWORD to a 4 byte string
-function DwordToStr(Value: dword): string;
-var
-  ResultPtr: PChar;
-begin
-  SetLength(Result, 4);
-  ResultPtr := @Result[1];
-  asm
-    MOV EAX, [ResultPtr]
-    MOV EBX, Value
-    MOV [EAX], EBX
-  end;
-end;
+//function DwordToStr(Value: dword): string;
+//var
+//  ResultPtr: PChar;
+//begin
+//  SetLength(Result, 4);
+//  ResultPtr := @Result[1];
+//  asm
+//    MOV EAX, [ResultPtr]
+//    MOV EBX, Value
+//    MOV [EAX], EBX
+//  end;
+//end;
 
 //  StrToDWord()  : Converts a 4 byte string to a DWORD
-function StrToDword(Value: string): dword;
-var
-  ValuePtr: PChar;
-begin
-  ValuePtr := @Value[1];
-  asm
-    MOV EAX, [ValuePtr]
-    MOV EAX, [EAX]
-    MOV Result, EAX
-  end;
-end;
+//function StrToDword(Value: string): dword;
+//var
+//  ValuePtr: PChar;
+//begin
+//  ValuePtr := @Value[1];
+//  asm
+//    MOV EAX, [ValuePtr]
+//    MOV EAX, [EAX]
+//    MOV Result, EAX
+//  end;
+//end;
 
 //  WordToStr()   : Converts a WORD to a 2 byte string
-function WordToStr(Value: word): string;
-var
-  ResultPtr: PChar;
-begin
-  SetLength(Result, 2);
-  ResultPtr := @Result[1];
-  asm
-    MOV EAX, [ResultPtr]
-    MOV BX, Value
-    MOV [EAX], BX
-  end;
-end;
+//function WordToStr(Value: word): string;
+//var
+//  ResultPtr: PChar;
+//begin
+//  SetLength(Result, 2);
+//  ResultPtr := @Result[1];
+//  asm
+//    MOV EAX, [ResultPtr]
+//    MOV BX, Value
+//    MOV [EAX], BX
+//  end;
+//end;
 
 //  StrToWord()   : Converts a 2 byte string to a WORD
-function StrToWord(Value: string): word;
-var
-  ValuePtr: PChar;
-begin
-  ValuePtr := @Value[1];
-  asm
-    MOV EAX, [ValuePtr]
-    MOV AX, [EAX]
-    MOV Result, AX
-  end;
-end;
+//function StrToWord(Value: string): word;
+//var
+//  ValuePtr: PChar;
+//begin
+//  ValuePtr := @Value[1];
+//  asm
+//    MOV EAX, [ValuePtr]
+//    MOV AX, [EAX]
+//    MOV Result, AX
+//  end;
+//end;
 
 //  SetBit()      : Sets a single BIT in a string to true or false
 procedure SetBit(var Str: string; BitNr: dword; Value: boolean);
@@ -1930,90 +1910,90 @@ begin
 end;
 
 { Pack()        : Compresses a string to a hopefully smaller string }
-function Pack(I: string):string;
-var
-  Header : string;
-  Tag    : string;
-  Buffer : string;
-
-  History: string;
-  FindStr: string;
-  P      : integer;
-  FP, FL : integer;
-begin
-  SetLength(Tag, (Length(I) div 8) + 1); // Create TAG string
-  Header := DwordToStr(Length(I)); // Create Header string (length of original)
-
-   // Pack the string
-  P := 1;
-  while P <= Length(I) do
-  begin
-    FindStr := Copy(I, P, 10);
-    FindBest(History, FindStr, FL, FP);
-    if FL > 2 then
-    begin // if match found in history and length>2
-      Buffer := Buffer + WordToStr((FP shl 3) + (FL - 3));
-      History := History + Copy(History, FP, FL);
-      SetBit(Tag, P - 1, true);
-      P := P + (FL - 1);
-    end
-    else
-    begin // if no match found in history
-      Buffer := Buffer + I[P];
-      History := History + I[P];
-      SetBit(Tag, P - 1, false);
-    end;
-    if Length(History) > 8100 then
-      History := Copy(History, 1024, 8100);
-    Inc(P);
-  end;
-
-  Result := Header + Tag + Buffer;
-end;
+//function Pack(I: string):string;
+//var
+//  Header : string;
+//  Tag    : string;
+//  Buffer : string;
+//
+//  History: string;
+//  FindStr: string;
+//  P      : integer;
+//  FP, FL : integer;
+//begin
+//  SetLength(Tag, (Length(I) div 8) + 1); // Create TAG string
+//  Header := DwordToStr(Length(I)); // Create Header string (length of original)
+//
+//   // Pack the string
+//  P := 1;
+//  while P <= Length(I) do
+//  begin
+//    FindStr := Copy(I, P, 10);
+//    FindBest(History, FindStr, FL, FP);
+//    if FL > 2 then
+//    begin // if match found in history and length>2
+//      Buffer := Buffer + WordToStr((FP shl 3) + (FL - 3));
+//      History := History + Copy(History, FP, FL);
+//      SetBit(Tag, P - 1, true);
+//      P := P + (FL - 1);
+//    end
+//    else
+//    begin // if no match found in history
+//      Buffer := Buffer + I[P];
+//      History := History + I[P];
+//      SetBit(Tag, P - 1, false);
+//    end;
+//    if Length(History) > 8100 then
+//      History := Copy(History, 1024, 8100);
+//    Inc(P);
+//  end;
+//
+//  Result := Header + Tag + Buffer;
+//end;
 
 {  UnPack()      : DeCompresses a string compressed with Pack() }
-function UnPack(I: string): string;
-var
-  Tag   : string;
-  Buffer: string;
-  TmpWrd : string;
-  History: string;
-  P, OL  : integer;
-  FP, FL : integer;
-begin
-   // Split I in Tag and Buffer
-  OL := StrToDword(I);
-  SetLength(Buffer, OL);
-  SetLength(Tag, (OL div 8) + 1);
-  P := 5;
-  Tag := Copy(I, P, Length(Tag));
-  P := P + Length(Tag);
-  Buffer := Copy(I, P, Length(Buffer));
-  Result := '';
-
-   // begin unpacking
-  P := 1;
-  while Length(Result) < OL do
-  begin
-    if GetBit(Tag, Length(Result)) = true then
-    begin // if is packed
-      TmpWrd := Buffer[P] + Buffer[P + 1];
-      FL := (StrToWord(TmpWrd) and 7) + 3;
-      FP := (StrToWord(TmpWrd) shr 3) and 8191;
-      Result := Result + Copy(History, FP, FL);
-      History := History + Copy(History, FP, FL);
-      P := P + 1;
-    end
-    else
-    begin // if is not packed
-      Result := Result + Buffer[P];
-      History := History + Buffer[P];
-    end;
-    if Length(History) > 8100 then
-      History := Copy(History, 1024, 8100);
-    Inc(P);
-  end;
-end;
+//function UnPack(I: string): string;
+//var
+//  Tag   : string;
+//  Buffer: string;
+//  TmpWrd : string;
+//  History: string;
+//  P, OL  : integer;
+//  FP, FL : integer;
+//begin
+//   // Split I in Tag and Buffer
+//  OL := StrToDword(I);
+//  SetLength(Buffer, OL);
+//  SetLength(Tag, (OL div 8) + 1);
+//  P := 5;
+//  Tag := Copy(I, P, Length(Tag));
+//  P := P + Length(Tag);
+//  Buffer := Copy(I, P, Length(Buffer));
+//  Result := '';
+//
+//   // begin unpacking
+//  P := 1;
+//  while Length(Result) < OL do
+//  begin
+//    if GetBit(Tag, Length(Result)) = true then
+//    begin // if is packed
+//      TmpWrd := Buffer[P] + Buffer[P + 1];
+//      FL := (StrToWord(TmpWrd) and 7) + 3;
+//      FP := (StrToWord(TmpWrd) shr 3) and 8191;
+//      Result := Result + Copy(History, FP, FL);
+//      History := History + Copy(History, FP, FL);
+//      P := P + 1;
+//    end
+//    else
+//    begin // if is not packed
+//      Result := Result + Buffer[P];
+//      History := History + Buffer[P];
+//    end;
+//    if Length(History) > 8100 then
+//      History := Copy(History, 1024, 8100);
+//    Inc(P);
+//  end;
+//end;
 
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;
 (*DrawHTML - Draws text on a canvas using tags based on a simple subset of HTML/CSS

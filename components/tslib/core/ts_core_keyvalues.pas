@@ -264,8 +264,8 @@ end;
 function VarDataRecordCreate(AKeyValues: TtsKeyValues): Variant;
 begin
   VarClear(Result);
-  TVarDataRecordData(Result).VType     := VarDataRecord;
-  TVarDataRecordData(Result).KeyValues := AKeyValues;
+//  TVarDataRecordData(Result).VType     := VarDataRecord;
+//  TVarDataRecordData(Result).KeyValues := AKeyValues;
 end;
 
 //*****************************************************************************
@@ -316,7 +316,7 @@ function TVarDataRecordType.GetProperty(var Dest: TVarData; const V: TVarData;
   const Name: string): Boolean;
 begin
   Result := True;
-  Variant(Dest) := TVarDataRecordData(V).KeyValues[Name];
+//  Variant(Dest) := TVarDataRecordData(V).KeyValues[Name];
 end;
 
 //-----------------------------------------------------------------------------
@@ -325,7 +325,7 @@ function TVarDataRecordType.SetProperty(const V: TVarData; const Name: string;
   const Value: TVarData): Boolean;
 begin
   Result := True;
-  TVarDataRecordData(V).KeyValues[Name] := Variant(Value);
+  //TVarDataRecordData(V).KeyValues[Name] := Variant(Value);
 end;
 
 //*****************************************************************************

@@ -2,7 +2,7 @@
 #
 #   Makefile.fpc for tslib 2.0
 #
-#   This file was generated on 30/03/2013
+#   This file was generated on 4/05/2013
 
 [package]
 name=tslib
@@ -10,8 +10,8 @@ version=2.0
 
 [compiler]
 unittargetdir=lib/$(CPU_TARGET)-$(OS_TARGET)
-unitdir=editor core richeditor docking components ../synunihighlighter ../../packager/units/$(CPU_TARGET)-$(OS_TARGET) ../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) ../luipack/luicomponents/lib/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../KASToolBar/lib/$(CPU_TARGET)-$(OS_TARGET) ../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lzRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET) ../luipack/lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../luipack/luicontrols/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../multilog/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET) ../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../uniqueinstance/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../zeosdbo/packages/lazarus/lib/$(CPU_TARGET)-$(OS_TARGET) ../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../virtualtreeview/lib/$(CPU_TARGET)-$(OS_TARGET)-$(LCL_PLATFORM) ../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET) .
-includedir=core editor ../../images
+unitdir=editor core richeditor docking components E:/lazarus/components/synunihighlighter ../../packager/units/$(CPU_TARGET)-$(OS_TARGET) ../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET) ../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET) ../pl_lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET) ../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../pl_VirtualTrees/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM) ../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET) .
+includedir=core editor E:/lazarus/images ../tsBundle/NativeXml/nativexml
 options= -MObjFPC -Scghi -CX -Cirot -O2 -gs -gl -gh -vewnhid -l -vm5024 -dLCL -dLCL$(LCL_PLATFORM)
 
 [target]

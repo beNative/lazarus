@@ -36,8 +36,6 @@
 
 unit ts_Components_XMLTree;
 
-
-
 interface
 
 {$ifdef FPC}
@@ -49,19 +47,19 @@ uses
   ImgList, ActiveX,
 
 {$ifdef FPC}
-  Editors, LMessages,
+  Editors, //LMessages,
 {$endif}
   NativeXML,
 
   VirtualTrees,
 
-  sharedloggerlcl,
+  sharedlogger,
 
   ts_Components_XMLTree_Editors, ts_Components_XMLTree_NodeAttributes;
 
 {$ifdef FPC}
 type
-  TMessage   = TLMessage;
+//  TMessage   = TLMessage;
   NativeUint = PtrInt;
 {$endif}
 
@@ -688,7 +686,7 @@ type
 implementation
 
 uses
-  TypInfo, 
+  TypInfo, LMessages,
   
   ts_Core_Utils;
 
@@ -1397,7 +1395,7 @@ begin
         and not Assigned(EditLink) then
       if Assigned(FocusedNode) and EditNode(FocusedNode, FocusedColumn) and Assigned(EditLink) then
       begin
-        EditLink.ProcessMessage(TMessage(Message));
+//        EditLink.ProcessMessage(TMessage(Message));
         Message.CharCode := 0;
       end;
   inherited;

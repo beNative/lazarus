@@ -94,7 +94,7 @@ uses
 
   ts_Components_Docking_Resources, ts_Components_Docking_Storage,
 
-  sharedloggerlcl;
+  sharedlogger;
 
 type
   TAnchorDockHostSite = class;

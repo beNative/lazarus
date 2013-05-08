@@ -140,8 +140,8 @@ begin
   FTargetOS := LowerCase({$I %FPCTARGETOS%});
   FBuildDate := {$I %DATE%};
   FFileVersionInfo := TFileVersionInfo.Create(Self);
-  FFileVersionInfo.AddExtraVersionString('URL');
   FFileVersionInfo.FileName := ParamStr(0);
+  FFileVersionInfo.ReadFileInfo;
   FLCLVersion := lcl_version;
 end;
 
@@ -155,7 +155,7 @@ end;
 
 function TVersionInfo.GetFileVersion: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('FileVersion');
+  Result := FFileVersionInfo.VersionStrings.Values['FileVersion'];
 end;
 
 function TVersionInfo.GetIcon: TIcon;
@@ -165,47 +165,47 @@ end;
 
 function TVersionInfo.GetInternalName: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('InternalName');
+  Result := FFileVersionInfo.VersionStrings.Values['InternalName'];
 end;
 
 function TVersionInfo.GetLegalCopyright: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('LegalCopyright');
+  Result := FFileVersionInfo.VersionStrings.Values['LegalCopyright'];
 end;
 
 function TVersionInfo.GetOriginalFilename: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('OriginalFilename');
+  Result := FFileVersionInfo.VersionStrings.Values['OriginalFilename'];
 end;
 
 function TVersionInfo.GetProductName: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('ProductName');
+  Result := FFileVersionInfo.VersionStrings.Values['ProductName'];
 end;
 
 function TVersionInfo.GetProductVersion: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('ProductVersion');
+  Result := FFileVersionInfo.VersionStrings.Values['ProductVersion'];
 end;
 
 function TVersionInfo.GetURL: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('URL');
+  Result := FFileVersionInfo.VersionStrings.Values['URL'];
 end;
 
 function TVersionInfo.GetFileName: string;
 begin
-  Result := FFileVersionInfo.FileName;
+Result := FFileVersionInfo.FileName;
 end;
 
 function TVersionInfo.GetFileDescription: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('FileDescription');
+  Result := FFileVersionInfo.VersionStrings.Values['FileDescription'];
 end;
 
 function TVersionInfo.GetCompanyName: string;
 begin
-  Result := FFileVersionInfo.GetVersionSetting('CompanyName');
+  Result := FFileVersionInfo.VersionStrings.Values['CompanyName'];
 end;
 
 function TVersionInfo.GetWidgetSet: string;

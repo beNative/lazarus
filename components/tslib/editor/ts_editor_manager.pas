@@ -96,7 +96,7 @@ uses
   Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
 
   // logging
-  sharedloggerlcl,
+  sharedlogger,
 
   LCLType,
 

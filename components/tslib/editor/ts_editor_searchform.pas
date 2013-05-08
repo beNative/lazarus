@@ -45,7 +45,7 @@ uses
 
   VirtualTrees,
 
-  sharedloggerlcl,
+  sharedlogger,
 
   ts_Core_TreeViewPresenter,
 

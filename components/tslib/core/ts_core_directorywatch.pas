@@ -219,7 +219,9 @@ begin
 
           // send the message about the filename information and advance to the next entry
           PostMessage(FWndHandle, WM_DIRWATCH_NOTIFY, NotifyData^.Action, LParam(FileName));
-          Inc(DWORD(NotifyData), NextEntry);
+
+        //  TODO: TS: 64 bit!!!
+//          Inc(DWORD(NotifyData), NextEntry);
         until (NextEntry = 0);
       end;
     end;

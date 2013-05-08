@@ -16,7 +16,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   LCLVersion = '1.1'
   object pnlVST: TPanel
     Left = 0
-    Height = 524
+    Height = 521
     Top = 28
     Width = 740
     Align = alClient
@@ -25,8 +25,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   end
   object sbrMain: TStatusBar
     Left = 0
-    Height = 20
-    Top = 552
+    Height = 23
+    Top = 549
     Width = 740
     Panels = <>
   end

@@ -1845,7 +1845,7 @@ begin
     FTreeView.OnGetHint := DoGetHint;
     FTreeView.OnGetImageIndex := DoGetImageIndex;
     FTreeView.OnGetText := DoGetText;
-    FTreeView.OnHeaderClick := DoHeaderClick;
+//    FTreeView.OnHeaderClick := DoHeaderClick;
     FTreeView.OnIncrementalSearch := DoIncrementalSearch;
     FTreeView.OnInitNode := DoInitNode;
     FTreeView.OnKeyDown := DoKeyDown;

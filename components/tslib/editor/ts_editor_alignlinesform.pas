@@ -34,7 +34,7 @@ uses
 
   ts_Core_TreeViewPresenter,
 
-  sharedloggerlcl;
+  sharedlogger;
 
 const
   DEFAULT_TOKENS: array[0..28] of string = (

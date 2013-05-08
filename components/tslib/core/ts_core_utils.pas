@@ -30,9 +30,13 @@ unit ts_Core_Utils;
 interface
 
 uses
-  Graphics, SysUtils, Classes, Controls, Windows, ExtCtrls, Forms, Menus,
-  TypInfo, StdCtrls,
+  Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
+  StdCtrls, Character,
 
+  LCLType,
+{$ifdef windows}
+  Windows,
+{$endif}
   DB;
 
 //=============================================================================
@@ -100,9 +104,6 @@ function URLEncode(const AString: string): string;
 
 function URLDecode(const AString: string): string;
 
-//function Pack(I: string):string;
-//function UnPack(I: string): string;
-
 // string formatting routines
 
 function FormatElapsedTime(ASeconds: Extended): string;
@@ -114,14 +115,14 @@ function CreateUniqueID: string;
 
 // windows utilities
 
-function GetLocalUserName: string;
-function GetLocalComputerName: string;
+//function GetLocalUserName: string;
+//function GetLocalComputerName: string;
 
-function ExploreFile(const AFileName: string): Boolean;
+//function ExploreFile(const AFileName: string): Boolean;
 
 function GetParentDir(sPath : string) : string;
 
-procedure CreateShellLink(ShellLink: TShellLink);
+//procedure CreateShellLink(ShellLink: TShellLink);
 
 // FCL utilities
 
@@ -178,28 +179,9 @@ function StringToVariant(AString : string): Variant;
 
 function MixColors(C1, C2: TColor; W1: Integer): TColor;
 
-procedure Delay(Milliseconds: Integer);
-
 function StringReplaceMultiple(const Source: AnsiString;
   const OldPatterns, NewPatterns: array of AnsiString;
   CaseSensitive: Boolean = True): AnsiString;
-
-// Dialog boxes
-
-procedure ShowInfo(const AInfoString : string;
-                   const AArguments  : array of const); overload;
-
-procedure ShowInfo(const AInfoString : string); overload;
-
-procedure ShowError(const AErrorString : string;
-                    const AArguments   : array of const); overload;
-
-procedure ShowError(const AErrorString : string); overload;
-
-procedure ShowWarning(const AWarningString : string); overload;
-
-procedure ShowWarning(const AWarningString : string;
-                      const AArguments     : array of const); overload;
 
 // Interface utility routines
 
@@ -207,6 +189,7 @@ function GetPIMTOffset(const I : IInterface): Integer;
 
 // UI windows utils
 
+{$ifdef windows}
 { Displays a size grip on a window. This only works for WIN32/WIN64 widget set.}
 
 procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
@@ -215,11 +198,13 @@ function TaskBarHeight: Integer;
 
 function GetCommonPath(ASL: TStrings): string;
 
+function IsFormCovered(AForm: TForm): Boolean;
+{$endif}
+
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string): Integer;
 
-function IsFormCovered(AForm: TForm): Boolean;
-
 procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
+
 
 function SetToString(
         ATypeInfo    : PTypeInfo;
@@ -360,6 +345,7 @@ begin
   end;
 end;
 
+{$ifdef windows}
 { Note that SetWindowSizeGrip(..., false) does not really remove the hook -
   it just sets "Enabled" to false. The hook plus all data is removed when
   the window is destroyed.
@@ -397,6 +383,7 @@ begin
           InvalidateRect(hWnd, @GripRect, true);
       end;
 end;
+{$endif}
 
 function GetCommonPath(ASL: TStrings): string;
 var
@@ -1231,8 +1218,6 @@ begin
   end;
 end;
 
-
-
 { Mixes two colors for a given transparancy level  }
 
 function MixColors(C1, C2: TColor; W1: Integer): TColor;
@@ -1241,13 +1226,13 @@ var
 begin
   Assert(W1 in [0..255]);
   W2 := W1 xor 255;
-{$IFDEF Windows}
+{$ifdef windows}
   if Integer(C1) < 0 then C1 := GetSysColor(C1 and $000000FF);
   if Integer(C2) < 0 then C2 := GetSysColor(C2 and $000000FF);
-{$ELSE}
+{$else}
   C1 := ColorToRGB(C1);
   C2 := ColorToRGB(C2);
-{$ENDIF}
+{$endif}
   Result := Integer(
     ((Cardinal(C1) and $FF00FF) * Cardinal(W1) +
     (Cardinal(C2) and $FF00FF) * W2) and $FF00FF00 +
@@ -1275,10 +1260,6 @@ begin
     CloseHandle(Event);
   end;
 end;
-
-
-
-{ TODO: original author? }
 
 function StringReplaceMultiple(const Source: AnsiString;
   const OldPatterns, NewPatterns: array of AnsiString;
@@ -1457,68 +1438,6 @@ begin
     Finalize(Patterns);
   end;
 end;
-
-
-
-procedure ShowInfo(const AInfoString : string);
-begin
-  MessageBox(
-    Application.MainForm.Handle,
-    PChar(AInfoString),
-    PChar(Application.Title),
-    MB_ICONINFORMATION or MB_OK or MB_SETFOREGROUND or MB_TOPMOST or MB_APPLMODAL
-  );
-end;
-
-
-
-procedure ShowInfo(const AInfoString : string;
-  const AArguments : array of const);
-begin
-  ShowInfo(Format(AInfoString, AArguments));
-end;
-
-
-
-procedure ShowError(const AErrorString: string);
-begin
-  MessageBox(
-    Application.MainForm.Handle,
-    PChar(AErrorString),
-    PChar(Application.Title),
-    MB_ICONERROR or MB_OK or MB_SETFOREGROUND or MB_TOPMOST or MB_APPLMODAL
-  );
-end;
-
-
-
-procedure ShowError(const AErrorString: string;
-  const AArguments: array of const);
-begin
-  ShowError(Format(AErrorString, AArguments));
-end;
-
-
-
-procedure ShowWarning(const AWarningString : string);
-begin
-  MessageBox(
-    Application.MainForm.Handle,
-    PChar(AWarningString),
-    PChar(Application.Title),
-    MB_ICONWARNING or MB_OK or MB_SETFOREGROUND or MB_TOPMOST or MB_APPLMODAL
-  );
-end;
-
-
-
-procedure ShowWarning(const AWarningString : string;
-  const AArguments: array of const);
-begin
-  ShowWarning(Format(AWarningString, AArguments));
-end;
-
-
 
 { Returns the offset to the Pointer to the Interface Method Table.
 
@@ -1787,61 +1706,6 @@ begin
   SetLength(Result, pred(J));
 end;
 
-
-//  DwordToStr()  : Converts a DWORD to a 4 byte string
-//function DwordToStr(Value: dword): string;
-//var
-//  ResultPtr: PChar;
-//begin
-//  SetLength(Result, 4);
-//  ResultPtr := @Result[1];
-//  asm
-//    MOV EAX, [ResultPtr]
-//    MOV EBX, Value
-//    MOV [EAX], EBX
-//  end;
-//end;
-
-//  StrToDWord()  : Converts a 4 byte string to a DWORD
-//function StrToDword(Value: string): dword;
-//var
-//  ValuePtr: PChar;
-//begin
-//  ValuePtr := @Value[1];
-//  asm
-//    MOV EAX, [ValuePtr]
-//    MOV EAX, [EAX]
-//    MOV Result, EAX
-//  end;
-//end;
-
-//  WordToStr()   : Converts a WORD to a 2 byte string
-//function WordToStr(Value: word): string;
-//var
-//  ResultPtr: PChar;
-//begin
-//  SetLength(Result, 2);
-//  ResultPtr := @Result[1];
-//  asm
-//    MOV EAX, [ResultPtr]
-//    MOV BX, Value
-//    MOV [EAX], BX
-//  end;
-//end;
-
-//  StrToWord()   : Converts a 2 byte string to a WORD
-//function StrToWord(Value: string): word;
-//var
-//  ValuePtr: PChar;
-//begin
-//  ValuePtr := @Value[1];
-//  asm
-//    MOV EAX, [ValuePtr]
-//    MOV AX, [EAX]
-//    MOV Result, AX
-//  end;
-//end;
-
 //  SetBit()      : Sets a single BIT in a string to true or false
 procedure SetBit(var Str: string; BitNr: dword; Value: boolean);
 var
@@ -1908,92 +1772,6 @@ begin
     end;
   end;
 end;
-
-{ Pack()        : Compresses a string to a hopefully smaller string }
-//function Pack(I: string):string;
-//var
-//  Header : string;
-//  Tag    : string;
-//  Buffer : string;
-//
-//  History: string;
-//  FindStr: string;
-//  P      : integer;
-//  FP, FL : integer;
-//begin
-//  SetLength(Tag, (Length(I) div 8) + 1); // Create TAG string
-//  Header := DwordToStr(Length(I)); // Create Header string (length of original)
-//
-//   // Pack the string
-//  P := 1;
-//  while P <= Length(I) do
-//  begin
-//    FindStr := Copy(I, P, 10);
-//    FindBest(History, FindStr, FL, FP);
-//    if FL > 2 then
-//    begin // if match found in history and length>2
-//      Buffer := Buffer + WordToStr((FP shl 3) + (FL - 3));
-//      History := History + Copy(History, FP, FL);
-//      SetBit(Tag, P - 1, true);
-//      P := P + (FL - 1);
-//    end
-//    else
-//    begin // if no match found in history
-//      Buffer := Buffer + I[P];
-//      History := History + I[P];
-//      SetBit(Tag, P - 1, false);
-//    end;
-//    if Length(History) > 8100 then
-//      History := Copy(History, 1024, 8100);
-//    Inc(P);
-//  end;
-//
-//  Result := Header + Tag + Buffer;
-//end;
-
-{  UnPack()      : DeCompresses a string compressed with Pack() }
-//function UnPack(I: string): string;
-//var
-//  Tag   : string;
-//  Buffer: string;
-//  TmpWrd : string;
-//  History: string;
-//  P, OL  : integer;
-//  FP, FL : integer;
-//begin
-//   // Split I in Tag and Buffer
-//  OL := StrToDword(I);
-//  SetLength(Buffer, OL);
-//  SetLength(Tag, (OL div 8) + 1);
-//  P := 5;
-//  Tag := Copy(I, P, Length(Tag));
-//  P := P + Length(Tag);
-//  Buffer := Copy(I, P, Length(Buffer));
-//  Result := '';
-//
-//   // begin unpacking
-//  P := 1;
-//  while Length(Result) < OL do
-//  begin
-//    if GetBit(Tag, Length(Result)) = true then
-//    begin // if is packed
-//      TmpWrd := Buffer[P] + Buffer[P + 1];
-//      FL := (StrToWord(TmpWrd) and 7) + 3;
-//      FP := (StrToWord(TmpWrd) shr 3) and 8191;
-//      Result := Result + Copy(History, FP, FL);
-//      History := History + Copy(History, FP, FL);
-//      P := P + 1;
-//    end
-//    else
-//    begin // if is not packed
-//      Result := Result + Buffer[P];
-//      History := History + Buffer[P];
-//    end;
-//    if Length(History) > 8100 then
-//      History := Copy(History, 1024, 8100);
-//    Inc(P);
-//  end;
-//end;
 
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;
 (*DrawHTML - Draws text on a canvas using tags based on a simple subset of HTML/CSS
@@ -2225,6 +2003,7 @@ begin
   Result := x;
 end;
 
+{$ifdef windows}
 { From stackoverflow:
   I was looking for a way to determine if a Form is actually visible (even only
   partially) to the user. In particular when it was supposed to be visible and
@@ -2289,6 +2068,7 @@ begin
   end;
   SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
 end;
+{$endif}
 
 function SetToString(ATypeInfo: PTypeInfo; const AValue;
   AQuoteValues: Boolean = True; ABrackets: Boolean = True;
@@ -2322,7 +2102,7 @@ var
     if Length(AString) > 0 then
     begin
       C := AString[1];
-      while (N < Length(AString)) and IsCharLower(C) do
+      while (N < Length(AString)) and TCharacter.IsLower(C) do
       begin
         Inc(N);
         C := AString[N + 1];

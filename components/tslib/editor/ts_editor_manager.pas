@@ -2849,7 +2849,7 @@ begin
   SL.WorkingDir := ExtractFilePath(SL.Filename);
   SL.ShortcutTo := Application.ExeName;
   SL.Parameters := ActiveView.FileName;
-  CreateShellLink(SL);
+//  CreateShellLink(SL);
 end;
 
 procedure TdmEditorManager.ToggleHighlighter;

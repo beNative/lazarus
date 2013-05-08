@@ -42,35 +42,35 @@ type
   TfrmCodeFilterDialog = class(TForm, IEditorToolView,
                                       IClipboardCommands)
     {$region 'designer controls' /fold}
-    aclMain          : TActionList;
-    actApplyFilter   : TAction;
-    actCopy          : TAction;
-    actCopyToNewView : TAction;
-    actFocusSearchFilter: TAction;
-    actMatchCase: TAction;
-    actRegularExpression: TAction;
-    actSelectAll     : TAction;
-    btnMatchCase: TSpeedButton;
-    btnRegularExpression: TSpeedButton;
-    btnApply: TSpeedButton;
-    edtFilter: TEdit;
-    grpOutput        : TGroupBox;
-    Image1: TImage;
-    imlMain          : TImageList;
-    lblSearch: TLabel;
-    MenuItem1        : TMenuItem;
-    MenuItem2        : TMenuItem;
-    MenuItem3        : TMenuItem;
-    mniCopy: TMenuItem;
-    mniCopyToNewView: TMenuItem;
-    mniSelectAll: TMenuItem;
-    pnlVST           : TPanel;
-    ppmMain          : TPopupMenu;
-    sbrMain          : TStatusBar;
-    tlbMain: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
+    aclMain              : TActionList;
+    actApplyFilter       : TAction;
+    actCopy              : TAction;
+    actCopyToNewView     : TAction;
+    actFocusSearchFilter : TAction;
+    actMatchCase         : TAction;
+    actRegularExpression : TAction;
+    actSelectAll         : TAction;
+    btnMatchCase         : TSpeedButton;
+    btnRegularExpression : TSpeedButton;
+    btnApply             : TSpeedButton;
+    edtFilter            : TEdit;
+    grpOutput            : TGroupBox;
+    Image1               : TImage;
+    imlMain              : TImageList;
+    lblSearch            : TLabel;
+    MenuItem1            : TMenuItem;
+    MenuItem2            : TMenuItem;
+    MenuItem3            : TMenuItem;
+    mniCopy              : TMenuItem;
+    mniCopyToNewView     : TMenuItem;
+    mniSelectAll         : TMenuItem;
+    pnlVST               : TPanel;
+    ppmMain              : TPopupMenu;
+    sbrMain              : TStatusBar;
+    tlbMain              : TToolBar;
+    ToolButton1          : TToolButton;
+    ToolButton3          : TToolButton;
+    ToolButton4          : TToolButton;
     {$endregion}
 
     procedure actApplyFilterExecute(Sender: TObject);
@@ -270,6 +270,7 @@ begin
   FVST := CreateVST(Self, pnlVST);
   FVST.Font.Assign(Manager.Settings.EditorFont);
   FVST.Font.Size := 8;
+  FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions - [toShowHorzGridLines];
   FVST.Colors.FocusedSelectionColor := clSilver;
   FVST.Colors.FocusedSelectionBorderColor := clSilver;
   FVST.Colors.SelectionRectangleBorderColor := clSilver;

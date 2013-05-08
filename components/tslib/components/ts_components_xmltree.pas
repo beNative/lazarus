@@ -43,11 +43,12 @@ interface
 {$endif}
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  ImgList, ActiveX,
-
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList, Messages,
 {$ifdef FPC}
-  Editors, //LMessages,
+  LMessages,
+{$endif}
+{$ifdef Windows}
+  Windows,
 {$endif}
   NativeXML,
 
@@ -59,8 +60,8 @@ uses
 
 {$ifdef FPC}
 type
-//  TMessage   = TLMessage;
   NativeUint = PtrInt;
+  TWMChar    = TLMChar;
 {$endif}
 
 const
@@ -686,8 +687,10 @@ type
 implementation
 
 uses
-  TypInfo, LMessages,
-  
+  TypInfo,
+{$ifdef FPC}
+  LCLType,
+{$endif}
   ts_Core_Utils;
 
 {$REGION 'documentation'}
@@ -1260,7 +1263,9 @@ begin
   inherited KeyDown(Key, Shift);
   if not (tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS) then
   begin
+    {$ifdef Windows}
     SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
+    {$endif}
     M.Result := 0;
     M.msg := WM_KEYDOWN;
     M.wParam := Key;

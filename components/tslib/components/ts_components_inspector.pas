@@ -34,9 +34,13 @@ unit ts_Components_Inspector;
 interface
 
 uses
-  Classes, Controls, Graphics, Forms, Math, Windows,
+  Classes, Controls, Graphics, Forms, Math,
 
-  LCLIntf,
+  {$ifdef Windows}
+  Windows,
+  {$endif}
+
+  LCLIntf, LCLType,
 
   ts_Components_GridView;
 
@@ -87,7 +91,9 @@ type
     procedure SetCategoryFont(Value: TFont);
     procedure SetNameFont(Value: TFont);
     procedure SetValueFont(Value: TFont);
+    {$ifdef Windows}
     procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
+    {$endif}
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
   protected
     procedure ChangeColumns; override;
@@ -327,11 +333,13 @@ begin
   FValueFont.Assign(Value);
 end;
 
+{$ifdef Windows}
 procedure TCustomInspector.WMNCHitTest(var Message: TWMNCHitTest);
 begin
   inherited;
   FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
 end;
+{$endif}
 
 procedure TCustomInspector.WMSetCursor(var Message: TWMSetCursor);
 begin

@@ -45,8 +45,10 @@ unit ts_Core_TreeViewPresenter;
 interface
 
 uses
-  ActiveX, Classes, Controls, Menus, SysUtils, Types, Contnrs, ComCtrls,
-
+  Classes, Controls, Menus, SysUtils, Types, Contnrs, ComCtrls,
+{$ifdef windows}
+  ActiveX,
+{$endif}
   ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
   VirtualTrees;
@@ -176,9 +178,11 @@ type
       PropertyName: string; UpdateTrigger: TUpdateTrigger = utPropertyChanged);
     procedure DoDragAllowed(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var Allowed: Boolean);
+    {$ifdef windows}
     procedure DoDragDrop(Sender: TBaseVirtualTree; Source: TObject;
       DataObject: IDataObject; Formats: TFormatArray; Shift: TShiftState;
       const Pt: TPoint; var Effect: LongWord; Mode: TDropMode);
+    {$endif}
     procedure DoDragOver(Sender: TBaseVirtualTree; Source: TObject;
       Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode: TDropMode;
       var Effect: LongWord; var Accept: Boolean);
@@ -361,7 +365,13 @@ type
 implementation
 
 uses
-  Themes, Windows, Math, Forms,
+  Themes, Math, Forms,
+
+{$ifdef windows}
+  Windows,
+{$endif}
+
+  LCLType,
 
   ts_Core_ColumnDefinitionsDataTemplate;
 
@@ -756,6 +766,7 @@ begin
   end;
 end;
 
+{$ifdef windows}
 procedure TTreeViewPresenter.DoDragDrop(Sender: TBaseVirtualTree;
   Source: TObject; DataObject: IDataObject; Formats: TFormatArray;
   Shift: TShiftState; const Pt: TPoint; var Effect: LongWord; Mode: TDropMode);
@@ -812,6 +823,7 @@ begin
     end;
   end;
 end;
+{$endif}
 
 procedure TTreeViewPresenter.DoDragOver(Sender: TBaseVirtualTree;
   Source: TObject; Shift: TShiftState; State: TDragState; const Pt: TPoint;
@@ -1242,6 +1254,7 @@ procedure TTreeViewPresenter.DoMouseMove(Sender: TObject; Shift: TShiftState;
 var
   LHitInfo: THitInfo;
 begin
+{$ifdef windows}
   if GetAsyncKeyState(VK_LBUTTON) = 0 then
   begin
     FTreeView.GetHitTestInfoAt(X, Y, True, LHitInfo);
@@ -1264,6 +1277,7 @@ begin
     if IsMouseInToggleIcon(LHitInfo) then
       FHitInfo.HitPositions := [hiOnItem, hiOnNormalIcon];
   end;
+{$endif}
 end;
 
 procedure TTreeViewPresenter.DoMouseUp(Sender: TObject; Button: TMouseButton;

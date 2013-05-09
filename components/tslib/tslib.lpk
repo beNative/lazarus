@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="core;editor;E:\lazarus\images\"/>
-        <OtherUnitFiles Value="editor;core;richeditor;docking;components;E:\lazarus\components\synunihighlighter\"/>
+        <OtherUnitFiles Value="editor;core;richeditor;components"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <CodeGeneration>

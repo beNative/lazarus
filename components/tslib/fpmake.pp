@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 8/05/2013
+   This file was generated on 9/05/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,15 +30,12 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
-    P.Dependencies.Add('pl_luicontrols');
     P.Dependencies.Add('pl_zeosdbocomp');
     P.Dependencies.Add('richmemopackage');
     P.Dependencies.Add('tsbundle');
     P.Dependencies.Add('lazrichedit');
-    P.Dependencies.Add('lcl');
     P.Dependencies.Add('synedit');
     P.Dependencies.Add('runtimetypeinfocontrols');
-    P.Dependencies.Add('fcl');
     P.Options.Add('-MObjFPC');
     P.Options.Add('-Scghi');
     P.Options.Add('-CX');

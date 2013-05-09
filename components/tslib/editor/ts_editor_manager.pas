@@ -543,7 +543,9 @@ type
     procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
+    {$ifdef windows}
     procedure CreateDesktopLink;
+    {$endif}
     procedure InsertCharacter(const C: TUTF8Char);
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
@@ -2836,6 +2838,7 @@ begin
     DoNewFile(FN);
 end;
 
+{$ifdef windows}
 procedure TdmEditorManager.CreateDesktopLink;
 var
   PIDL     : LPItemIDList;
@@ -2849,8 +2852,9 @@ begin
   SL.WorkingDir := ExtractFilePath(SL.Filename);
   SL.ShortcutTo := Application.ExeName;
   SL.Parameters := ActiveView.FileName;
-//  CreateShellLink(SL);
+  CreateShellLink(SL);
 end;
+{$endif}
 
 procedure TdmEditorManager.ToggleHighlighter;
 var

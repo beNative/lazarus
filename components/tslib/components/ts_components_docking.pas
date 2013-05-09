@@ -1981,21 +1981,13 @@ var
   OrigBitmap: TCustomBitmap;
 begin
   if fCloseBtnBitmap<>nil then exit;
-
-  if ThemeServices.GetStockImage(idButtonCancel,BitmapHandle,MaskHandle) then begin
-    OrigBitmap:=TBitmap.Create;
-    OrigBitmap.Handle:=BitmapHandle;
-    if MaskHandle<>0 then
-      OrigBitmap.MaskHandle:=MaskHandle;
-  end
-  else
-    OrigBitmap := GetDefaultButtonIcon(idButtonCancel);
+  OrigBitmap := CreateBitmapFromLazarusResource('cross-10_black-ns');
   DockMaster.fCloseBtnBitmap:=TBitmap.Create;
   with DockMaster.fCloseBtnBitmap do begin
     SetSize(HeaderButtonSize,HeaderButtonSize);
     Canvas.Brush.Color:=clWhite;
     Canvas.FillRect(Rect(0,0,Width,Height));
-    Canvas.StretchDraw(Rect(0,0,Width,Height),OrigBitmap);
+    Canvas.Draw(0,0,OrigBitmap);
     Transparent:=true;
     TransparentColor:=clWhite;
   end;
@@ -4772,21 +4764,21 @@ constructor TAnchorDockHeader.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
   FHeaderPosition := adlhpTop;
-  FCloseButton := TSpeedButton.Create(Self);
-  FCloseButton.Font.Name := 'Marlett';
-  FCloseButton.Font.Size := 8;
-  FCloseButton.Caption := 'r';
-  BevelOuter:=bvLowered;
+  FCloseButton := TAnchorDockCloseButton.Create(Self);
+  BevelOuter := bvLowered;
   BevelInner := bvRaised;
   BevelWidth := 1;
   with FCloseButton do begin
-    Name:='CloseButton';
-    Parent:=Self;
-    Flat:=true;
+    Name := 'CloseButton';
+    Parent :=Self;
+    Flat := True;
+    ShowCaption := False;
+    Layout := blGlyphLeft;
     ShowHint:=true;
     Hint:=adrsClose;
     OnClick:=CloseButtonClick;
-    Width := 12;
+    Width := 14;
+    Glyph:=DockMaster.fCloseBtnBitmap;
   end;
   Align:=alTop;
   AutoSize:=true;
@@ -5656,7 +5648,7 @@ end;
 
 initialization
   DockMaster:=TAnchorDockMaster.Create(nil);
-
+  {$I ts_components_docking.lrs}
 finalization
   FreeAndNil(DockMaster);
 

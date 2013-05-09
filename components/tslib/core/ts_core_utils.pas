@@ -118,11 +118,12 @@ function CreateUniqueID: string;
 //function GetLocalUserName: string;
 //function GetLocalComputerName: string;
 
-//function ExploreFile(const AFileName: string): Boolean;
-
 function GetParentDir(sPath : string) : string;
 
-//procedure CreateShellLink(ShellLink: TShellLink);
+{$ifdef windows}
+procedure CreateShellLink(ShellLink: TShellLink);
+function ExploreFile(const AFileName: string): Boolean;
+{$endif}
 
 // FCL utilities
 
@@ -1485,6 +1486,7 @@ begin
     end;
 end;
 
+{$ifdef windows}
 function ExploreFile(const AFileName: string): Boolean;
 const
   PARAM = '/e,/select,"%s"';
@@ -1507,6 +1509,7 @@ begin
   else
     Result := False;
 end;
+{$endif}
 
 function GetParentDir(sPath : string) : string;
 var
@@ -1523,6 +1526,7 @@ begin
     end;
 end;
 
+{$ifdef windows}
 procedure CreateShellLink(ShellLink: TShellLink);
 const
   IID_IPersistFile: TGUID = (D1:$0000010B;D2:$0000;D3:$0000;D4:($C0,$00,$00,$00,$00,$00,$00,$46));
@@ -1553,6 +1557,7 @@ begin
     // just ignore the creation
   end;
 end;
+{$endif}
 
 function WordCount(const AString: string; const AWordDelims: TSysCharSet)
   : Integer;

@@ -390,35 +390,25 @@
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="richmemopackage"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="tsBundle"/>
       </Item3>
       <Item4>
-        <PackageName Value="tsBundle"/>
+        <PackageName Value="LazRichEdit"/>
       </Item4>
       <Item5>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
-      </Item6>
-      <Item7>
-        <PackageName Value="SynEdit"/>
-      </Item7>
-      <Item8>
         <PackageName Value="RunTimeTypeInfoControls"/>
-      </Item8>
-      <Item9>
-        <PackageName Value="FCL"/>
-        <MinVersion Major="1" Valid="True"/>
-      </Item9>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

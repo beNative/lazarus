@@ -25,14 +25,21 @@ unit Notepas_Forms_Main;
 interface
 
 uses
-  Classes, SysUtils, simpleipc, Forms, Controls, ComCtrls, ActnList, ExtCtrls,
-  Menus, Buttons, StdCtrls,
+  Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls,  Menus,
+  Buttons, StdCtrls,
 
-  LResources, EditBtn,
+  LResources,
+
+  EditBtn,
+
+  simpleipc,
 
   ts_components_docking, ts_components_docking_storage,
   // for debugging
-  sharedlogger, ipcchannel,
+  sharedlogger,
+  {$ifdef windows}
+  ipcchannel,
+  {$endif}
 
   SynEdit,
 
@@ -59,6 +66,9 @@ uses
 //=============================================================================
 
 type
+
+  { TfrmMain }
+
   TfrmMain = class(TForm)
     {$region 'designer controls' /fold}
     aclMain               : TActionList;
@@ -87,7 +97,6 @@ type
     pnlPosition           : TPanel;
     pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
-    Shape1                : TShape;
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
     tlbMain               : TToolBar;
@@ -110,7 +119,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
-        {$endregion}
+    {$endregion}
   private
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -181,7 +190,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, Windows, FileUtil, TypInfo,
+  StrUtils, FileUtil, TypInfo,
 
   SynEditTypes,
 
@@ -231,11 +240,7 @@ begin
   EV.OnStatusChange      := EVStatusChange;
   EV.OnOpenOtherInstance := EVOpenOtherInstance;
   EV.OnAddEditorView     := EVAddEditorView;
-
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
-
-
-
   if ParamCount > 0 then
   begin
     for I := 1 to Paramcount do
@@ -251,16 +256,12 @@ begin
   begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
-
-  tlbMain.Parent := Self;
-  pnlStatusBar.Parent := Self;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
   Manager.Actions.ActionList.OnExecute  := ActionListExecute;
-  SetWindowSizeGrip(pnlStatusBar.Handle, True);
   Manager.ActiveView := V;
   DoubleBuffered := True;
 end;
@@ -666,30 +667,33 @@ begin
   pnlSize.Caption := FormatByteText(Editor.TextSize);
 
   if Assigned(Editor.HighlighterItem) then
-    pnlHighlighter.Caption := Editor.HighlighterItem.Description;
+    btnHighlighter.Caption := Editor.HighlighterItem.Description;
   if Editor.InsertMode then
     pnlInsertMode.Caption := 'INS'
   else
     pnlInsertMode.Caption := 'OVR';
   btnFileName.Caption := Editor.FileName;
   btnFileName.Hint := Editor.FileName;
-  pnlFileName.Caption := Editor.FileName;
-  pnlEncoding.Caption := UpperCase(Editor.Encoding);
-  pnlLineBreakStyle.Caption := Editor.LineBreakStyle;
+  btnEncoding.Caption := UpperCase(Editor.Encoding);
+  btnLineBreakStyle.Caption := Editor.LineBreakStyle;
   S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
   S := System.Copy(S, 3, Length(S));
-  pnlSelectionMode.Caption := S;
+  btnSelectionMode.Caption := S;
   pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
-  OptimizeWidth(pnlHighlighter);
-  OptimizeWidth(pnlEncoding);
   OptimizeWidth(pnlInsertMode);
-  OptimizeWidth(pnlSelectionMode);
-  OptimizeWidth(pnlFileName);
-  OptimizeWidth(pnlLineBreakStyle);
   OptimizeWidth(pnlModified);
+
+  pnlHighlighter.Width :=
+    GetTextWidth(btnHighlighter.Caption, btnHighlighter.Font) + 10;
+  pnlEncoding.Width := GetTextWidth(btnEncoding.Caption, btnEncoding.Font) + 10;
+  pnlSelectionMode.Width :=
+    GetTextWidth(btnSelectionMode.Caption, btnSelectionMode.Font) + 10;
+  pnlFileName.Width := GetTextWidth(btnFileName.Caption, btnFileName.Font) + 10;
+  pnlLineBreakStyle.Width :=
+    GetTextWidth(btnLineBreakStyle.Caption, btnLineBreakStyle.Font) + 10;
 end;
 
 procedure TfrmMain.UpdateEditorViewCaptions;
@@ -747,6 +751,8 @@ end;
 
 initialization
 {$I notepas_forms_main.lrs}
+{$ifdef windows}
   Logger.Channels.Add(TIPCChannel.Create);
+{$endif}
 
 end.

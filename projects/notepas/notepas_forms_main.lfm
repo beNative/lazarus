@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 619
+  Left = 361
   Height = 618
-  Top = 162
+  Top = 121
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -19,14 +19,18 @@ object frmMain: TfrmMain
   ShowHint = True
   LCLVersion = '1.1'
   object tlbMain: TToolBar
-    Left = 0
+    Left = 2
     Height = 26
-    Top = 0
-    Width = 1066
+    Top = 2
+    Width = 1062
     AutoSize = True
+    BorderSpacing.Around = 2
     Caption = 'tlbMain'
     EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
+    EdgeInner = esNone
+    EdgeOuter = esNone
     TabOrder = 0
+    Transparent = True
   end
   object pnlStatusBar: TPanel
     Left = 0
@@ -50,7 +54,7 @@ object frmMain: TfrmMain
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       TabOrder = 0
     end
     object pnlInsertMode: TPanel
@@ -63,7 +67,7 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       Caption = 'INS'
       TabOrder = 1
     end
@@ -76,21 +80,22 @@ object frmMain: TfrmMain
       Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 320
       TabOrder = 2
       object btnFileName: TSpeedButton
-        Left = 1
-        Height = 16
-        Top = 1
-        Width = 318
+        Left = 0
+        Height = 18
+        Top = 0
+        Width = 320
         Align = alClient
-        Caption = 'TEST'
+        Color = clDefault
         Flat = True
+        Font.Color = clBlack
         Margin = 4
-        Transparent = False
         OnClick = btnFileNameClick
+        ParentFont = False
       end
     end
     object pnlHighlighter: TPanel
@@ -102,20 +107,23 @@ object frmMain: TfrmMain
       Align = alLeft
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 64
       ParentColor = False
       TabOrder = 3
       object btnHighlighter: TSpeedButton
-        Left = 1
-        Height = 16
+        Left = 0
+        Height = 18
         Hint = 'Highlighter'
-        Top = 1
-        Width = 62
+        Top = 0
+        Width = 64
         Align = alClient
+        Color = clDefault
         Flat = True
+        Font.Color = clBlack
         OnClick = btnHighlighterClick
+        ParentFont = False
       end
     end
     object pnlEncoding: TPanel
@@ -127,19 +135,22 @@ object frmMain: TfrmMain
       Align = alLeft
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 44
       TabOrder = 4
       object btnEncoding: TSpeedButton
-        Left = 1
-        Height = 16
+        Left = 0
+        Height = 18
         Hint = 'Encoding'
-        Top = 1
-        Width = 42
+        Top = 0
+        Width = 44
         Align = alClient
+        Color = clDefault
         Flat = True
+        Font.Color = clBlack
         OnClick = btnEncodingClick
+        ParentFont = False
       end
     end
     object pnlLineBreakStyle: TPanel
@@ -151,19 +162,22 @@ object frmMain: TfrmMain
       Align = alLeft
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 44
       TabOrder = 5
       object btnLineBreakStyle: TSpeedButton
-        Left = 1
-        Height = 16
+        Left = 0
+        Height = 18
         Hint = 'Line break style'
-        Top = 1
-        Width = 42
+        Top = 0
+        Width = 44
         Align = alClient
+        Color = clDefault
         Flat = True
+        Font.Color = clBlack
         OnClick = btnLineBreakStyleClick
+        ParentFont = False
       end
     end
     object pnlSize: TPanel
@@ -177,7 +191,7 @@ object frmMain: TfrmMain
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       TabOrder = 6
     end
     object pnlViewerCount: TPanel
@@ -191,7 +205,7 @@ object frmMain: TfrmMain
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       TabOrder = 7
     end
     object pnlModified: TPanel
@@ -204,7 +218,7 @@ object frmMain: TfrmMain
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       TabOrder = 8
     end
     object pnlSelectionMode: TPanel
@@ -217,44 +231,32 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvLowered
-      Caption = 'Normal'
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 38
+      ParentFont = False
       TabOrder = 9
       object btnSelectionMode: TSpeedButton
-        Left = 1
-        Height = 16
+        Left = 0
+        Height = 18
         Hint = 'Selection mode'
-        Top = 1
-        Width = 36
+        Top = 0
+        Width = 38
         Align = alClient
+        Color = clDefault
         Flat = True
         OnClick = btnSelectionModeClick
       end
     end
   end
-  object Shape1: TShape
-    Left = 424
-    Height = 552
-    Top = 26
-    Width = 642
-    Align = alClient
-    Brush.Style = bsDiagCross
-    Pen.Color = clGray
-    Pen.EndCap = pecSquare
-    Pen.JoinStyle = pjsBevel
-    Pen.Mode = pmMerge
-    Pen.Style = psinsideFrame
-  end
   object pnlTool: TPanel
     Left = 0
-    Height = 552
-    Top = 26
+    Height = 548
+    Top = 30
     Width = 417
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 552
+    ClientHeight = 548
     ClientWidth = 417
     TabOrder = 2
     Visible = False
@@ -264,15 +266,14 @@ object frmMain: TfrmMain
       Top = 0
       Width = 417
       Align = alTop
-      BevelInner = bvRaised
-      BevelOuter = bvLowered
+      BevelOuter = bvNone
       ClientHeight = 18
       ClientWidth = 417
       TabOrder = 0
       object btnCloseToolView: TSpeedButton
-        Left = 401
-        Height = 14
-        Top = 2
+        Left = 403
+        Height = 18
+        Top = 0
         Width = 14
         Align = alRight
         Anchors = [akTop, akRight]
@@ -306,13 +307,14 @@ object frmMain: TfrmMain
         ParentFont = False
       end
       object lblHeader: TLabel
-        Left = 2
-        Height = 14
-        Top = 2
-        Width = 391
+        Left = 0
+        Height = 18
+        Top = 0
+        Width = 393
         Align = alLeft
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight, akBottom]
+        Font.Style = [fsBold]
         Layout = tlCenter
         ParentColor = False
         ParentFont = False
@@ -321,8 +323,8 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 417
-    Height = 552
-    Top = 26
+    Height = 548
+    Top = 30
     Width = 7
     Visible = False
   end

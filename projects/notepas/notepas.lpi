@@ -27,7 +27,7 @@
     </VersionInfo>
     <BuildModes Count="7">
       <Item1 Name="Default" Default="True"/>
-      <Item2 Name="Release Win32">
+      <Item2 Name="Release win32 win32">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -85,7 +85,7 @@
           </Other>
         </CompilerOptions>
       </Item2>
-      <Item3 Name="Release GTK2">
+      <Item3 Name="Release win32 gtk2">
         <MacroValues Count="2">
           <Macro1 Name="LCLWidgetType" Value="gtk2"/>
           <Macro2 Name="fpGUIPlatform"/>
@@ -148,7 +148,7 @@
           <LCLWidgetType Value="gtk2"/>
         </CompilerOptions>
       </Item3>
-      <Item4 Name="Release QT">
+      <Item4 Name="Release win32 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -209,7 +209,7 @@
           <LCLWidgetType Value="qt"/>
         </CompilerOptions>
       </Item4>
-      <Item5 Name="Release Win64">
+      <Item5 Name="Release win64 win32">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="win32"/>
         </MacroValues>
@@ -320,14 +320,10 @@
             <ExecuteBefore>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteBefore>
-            <ExecuteAfter>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
-            </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item6>
-      <Item7 Name="Release Linux 32">
+      <Item7 Name="Release linux32 gtk2">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>

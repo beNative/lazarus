@@ -413,7 +413,9 @@ end;
 
 procedure TfrmMain.btnFileNameClick(Sender: TObject);
 begin
+{$ifdef windows}
   ExploreFile(Editor.FileName);
+{$endif}
 end;
 
 procedure TfrmMain.btnHighlighterClick(Sender: TObject);

@@ -30,9 +30,10 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('pl_luicontrols');
+    P.Dependencies.Add('pl_virtualtrees');
     P.Dependencies.Add('pl_zeosdbocomp');
     P.Dependencies.Add('richmemopackage');
-    P.Dependencies.Add('tsbundle');
     P.Dependencies.Add('lazrichedit');
     P.Dependencies.Add('synedit');
     P.Dependencies.Add('runtimetypeinfocontrols');
@@ -51,14 +52,10 @@ begin
     P.Options.Add('-dLCL$(LCL_PLATFORM)');
     P.IncludePath.Add('core');
     P.IncludePath.Add('editor');
-    P.IncludePath.Add('E:/lazarus/images');
-    P.IncludePath.Add('../tsBundle/NativeXml/nativexml');
     P.Options.Add('-Fueditor');
     P.Options.Add('-Fucore');
     P.Options.Add('-Furicheditor');
-    P.Options.Add('-Fudocking');
     P.Options.Add('-Fucomponents');
-    P.Options.Add('-FuE:/lazarus/components/synunihighlighter');
     P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
@@ -73,7 +70,6 @@ begin
     P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../tsBundle/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu.');
     T:=P.Targets.AddUnit('tslib.pas');
     t.Dependencies.AddUnit('ts_editor_actionlistviewform');
@@ -146,6 +142,15 @@ begin
     t.Dependencies.AddUnit('ts_components_dbgridview');
     t.Dependencies.AddUnit('ts_components_gridview');
     t.Dependencies.AddUnit('ts_components_fileassociation');
+    t.Dependencies.AddUnit('CodecUtilsWin32');
+    t.Dependencies.AddUnit('EncodingUtils');
+    t.Dependencies.AddUnit('NativeXml');
+    t.Dependencies.AddUnit('NativeXmlObjectStorage');
+    t.Dependencies.AddUnit('NativeXmlWin32Compat');
+    t.Dependencies.AddUnit('NativeXmlXPath');
+    t.Dependencies.AddUnit('sdDebug');
+    t.Dependencies.AddUnit('sdStreams');
+    t.Dependencies.AddUnit('sdStringTable');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -217,6 +222,15 @@ begin
     T:=P.Targets.AddUnit('components\ts_components_dbgridview.pas');
     T:=P.Targets.AddUnit('components\ts_components_gridview.pas');
     T:=P.Targets.AddUnit('components\ts_components_fileassociation.pas');
+    T:=P.Targets.AddUnit('core\CodecUtilsWin32.pas');
+    T:=P.Targets.AddUnit('core\EncodingUtils.pas');
+    T:=P.Targets.AddUnit('core\NativeXml.pas');
+    T:=P.Targets.AddUnit('core\NativeXmlObjectStorage.pas');
+    T:=P.Targets.AddUnit('core\NativeXmlWin32Compat.pas');
+    T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
+    T:=P.Targets.AddUnit('core\sdDebug.pas');
+    T:=P.Targets.AddUnit('core\sdStreams.pas');
+    T:=P.Targets.AddUnit('core\sdStringTable.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

@@ -844,11 +844,9 @@ type
     procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
-    procedure CreateDesktopLink;
     procedure InsertCharacter(const C: TUTF8Char);
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
-    //procedure SortSelection;
   end;
 
   IClipboardCommands = interface

@@ -56,17 +56,17 @@ uses
 
   VirtualTrees,
 
-  ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions;
+  ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions, types, Controls;
 
 //=============================================================================
 
 type
   TfrmAbout = class(TForm)
+    {$region 'designer controls' /fold}
     aclMain: TActionList;
     actClose: TAction;
     actURL: TAction;
     btnClose: TButton;
-    {$region 'designer controls' /fold}
     grpLine           : TGroupBox;
     Image1: TImage;
     imgMain: TImage;
@@ -88,14 +88,20 @@ type
     pnlTargetCPU: TPanel;
     pnlTargetOS: TPanel;
     pnlWidgetSet: TPanel;
+    Shape1: TShape;
+    Shape2: TShape;
+    Shape3: TShape;
+    Shape4: TShape;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
     vstCredits: TVirtualStringTree;
+    {$endregion}
+
     procedure actCloseExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
-    {$endregion}
+
   private
     FVersionInfo : TVersionInfo;
     FTVP         : TTreeViewPresenter;

@@ -32,8 +32,8 @@ unit ts_Core_ComponentInspector;
 interface
 
 uses
-  Windows, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
-  ExtCtrls, Contnrs, TypInfo,
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls,
+  Contnrs, TypInfo,
 
   LCLIntf, LMessages, LResources,
 
@@ -120,6 +120,8 @@ implementation
 {$R *.lfm}
 
 uses
+  LCLType,
+
   ts_Core_Utils;
 
 const
@@ -279,7 +281,9 @@ begin
   M      := Screen.MonitorFromWindow(Application.MainFormHandle);
   Top    := 0;
   Left   := M.Left;
+{$ifdef windows}
   Height := Screen.WorkAreaHeight - TaskbarHeight;
+{$endif}
 end;
 
 //*****************************************************************************

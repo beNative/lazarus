@@ -729,7 +729,6 @@ type
     property EndEllipsis;
     property Fixed;
     property FlatBorder;
-    property FlatScrollBars;
     property FocusOnScroll;
     property Font;
     property GridLines;

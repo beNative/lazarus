@@ -151,7 +151,6 @@ type
     property Enabled;
     property EndEllipsis default False;
     property FlatBorder;
-    property FlatScrollBars;
     property Font;
     property NameFont;
     property ParentColor default False;

@@ -92,12 +92,28 @@ unit ts_Components_GridView;
 interface
 
 uses
-  Windows, Messages, SysUtils, CommCtrl, Classes, Controls, Graphics, Forms,
-  Dialogs, StdCtrls, Math, ctypes, MaskEdit, ImgList,
+  {$ifdef windows}
+  Windows,
+  {$endif}
+  Messages, SysUtils, Classes, Controls, Graphics, Forms, Dialogs, StdCtrls,
+  Math, MaskEdit, ImgList, Themes,
 
-  Themes,
+  ctypes,
 
   LCLIntf, LCLType, LMessages;
+
+const
+  WM_CLEAR        = LM_CLEAR;
+  WM_CONTEXTMENU  = LM_CONTEXTMENU;
+  CS_SAVEBITS     = $800;
+  LB_SELECTSTRING = 396;
+  EM_SETRECTNP    = 180;
+  EM_SCROLLCARET  = 183;
+  EM_SETSEL       = 177;
+
+type
+  TWMLButtonDown   = TLMLButtonDown;
+  TWMLButtonDblClk = TLMLButtonDblClk;
 
 type
   TGridHeaderSections = class;
@@ -1073,8 +1089,10 @@ type
     procedure WMPaste(var Message); message WM_PASTE;
     procedure WMCut(var Message); message WM_CUT;
     procedure WMClear(var Message); message WM_CLEAR;
+    {$ifdef windows}
     procedure WMUndo(var Message); message WM_UNDO;
     procedure WMCancelMode(var Message: TMessage); message WM_CANCELMODE;
+    {$endif}
     procedure WMKillFocus(var Message: TMessage); message WM_KILLFOCUS;
     procedure WMWindowPosChanged(var Message: TWMWindowPosChanged); message WM_WINDOWPOSCHANGED;
     procedure LMPaint(var Message: TLMPaint); message LM_PAINT;
@@ -2038,7 +2056,6 @@ type
     procedure SetEditing(Value: Boolean);
     procedure SetEndEllipsis(Value: Boolean);
     procedure SetFlatBorder(Value: Boolean);
-    procedure SetFlatScrollBars(Value: Boolean);
     procedure SetFixed(Value: TGridFixed);
     procedure SetGridColor(Value: TColor);
     procedure SetGridLines(Value: Boolean);
@@ -2082,7 +2099,9 @@ type
     procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
     procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
+    {$ifdef windows}
     procedure WMCancelMode(var Message: TWMCancelMode); message WM_CANCELMODE;
+    {$endif}
     procedure CMEnabledChanged(var Message: TMessage); message CM_ENABLEDCHANGED;
     procedure CMFontChanged(var Message: TMessage); message CM_FONTCHANGED;
     procedure CMColorChanged(var Message: TMessage); message CM_COLORCHANGED;
@@ -2379,7 +2398,6 @@ type
     property Fixed: TGridFixed read GetFixed write SetFixed;
     property FitColsToClient: Boolean read FFitColsToClient write SetFitColsToClient;
     property FlatBorder: Boolean read FFlatBorder write SetFlatBorder default False;
-    property FlatScrollBars: Boolean read FFlatScrollBars write SetFlatScrollBars default False;
     property FocusOnScroll: Boolean read FFocusOnScroll write FFocusOnScroll default False;
     property GridColor: TColor read FGridColor write SetGridColor default clSilver;
     property GridLines: Boolean read FGridLines write SetGridLines default True;
@@ -2502,7 +2520,6 @@ type
     property FitColsToClient;
     property Fixed;
     property FlatBorder;
-    property FlatScrollBars;
     property FocusOnScroll;
     property Font;
     property GridColor;
@@ -2669,12 +2686,15 @@ procedure PaintResizeRectDC(DC: HDC; Rect: TRect);
 var
   NewBrush, OldBrush: HBRUSH;
 begin
+  {$ifdef windows}
   NewBrush := CreatePatternBrush(PatternBitmap.Handle);
   UnrealizeObject(NewBrush);
   SetBrushOrgEx(DC, 0, 0, nil);
   OldBrush := SelectObject(DC, NewBrush);
-  with Rect do PatBlt(DC, Left, Top, Right - Left, Bottom - Top, PATINVERT);
+  with Rect do
+    PatBlt(DC, Left, Top, Right - Left, Bottom - Top, PATINVERT);
   DeleteObject(SelectObject(DC, OldBrush));
+ {$endif}
 end;
 
 function CasePos(Substr: string; S: string; MatchCase: Boolean): Integer;
@@ -2759,10 +2779,12 @@ begin
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
   DX := (Rect.Right - Rect.Left) mod 2 - 1;
+  {$ifdef windows}
   PatBlt(DC, Rect.Left + Flags - 2 + DX, Rect.Top + Flags - 1, 7, 1, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 1 + DX, Rect.Top + Flags + 0, 5, 1, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 0 + DX, Rect.Top + Flags + 1, 3, 1, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 1 + DX, Rect.Top + Flags + 2, 1, 1, BLACKNESS);
+  {$endif}
 end;
 
 procedure PaintBtnEllipsis(DC: HDC; Rect: TRect; Pressed: Boolean);
@@ -2773,9 +2795,11 @@ begin
   if Pressed then Flags := BF_FLAT;
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
+  {$ifdef windows}
   PatBlt(DC, Rect.Left + Flags, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
+  {$endif}
 end;
 
 function GetTextLineCount(const S: string): Integer;
@@ -4630,7 +4654,7 @@ end;
 procedure TGridListBox.CreateWnd;
 begin
   inherited CreateWnd;
-  Windows.SetParent(Handle, 0);
+  Parent := nil;
   CallWindowProc(DefWndProc, Handle, WM_SETFOCUS, 0, 0);
 end;
   
@@ -4760,12 +4784,14 @@ begin
       Result := Result or DLGC_WANTTAB;
   end;
 end;
-  
+
+{$ifdef windows}
 procedure TCustomGridEdit.WMCancelMode(var Message: TMessage);
 begin
   StopButtonTracking;
   inherited;
 end;
+{$endif}
   
 procedure TCustomGridEdit.WMKillFocus(var Message: TMessage);
 begin
@@ -4821,13 +4847,11 @@ var
   P: TPoint;
 begin
   LCLIntf.GetCursorPos(P);
-  {did not fall mouse on button}
   if (FEditStyle <> geSimple) and PtInRect(GetButtonRect, ScreenToClient(P)) then
   begin
-    Windows.SetCursor(LoadCursor(0, IDC_ARROW));
+    Cursor := crArrow;
     Exit;
   end;
-  {working on silence}
   inherited;
 end;
 
@@ -4849,11 +4873,13 @@ begin
     inherited;
 end;
 
+{$ifdef windows}
 procedure TCustomGridEdit.WMUndo(var Message);
 begin
   if (Grid = nil) or Grid.EditCanUndo(Grid.EditCell) then
     inherited;
 end;
+{$endif}
 
 //procedure TCustomGridEdit.CMCancelMode(var Message: TCMCancelMode);
 //begin
@@ -5536,8 +5562,7 @@ begin
         FActiveList.Top, 0, 0, Flags);
       FDropListVisible := True;
       Invalidate;
-      { establish on it focus}
-      Windows.SetFocus(Handle);
+      SetFocus;
     end;
   end;
 end;
@@ -5553,7 +5578,7 @@ begin
   end;
   ValidateRect(Handle, nil);
   InvalidateRect(Handle, nil, True);
-  Windows.GetClientRect(Handle, Cur);
+  LCLIntf.GetClientRect(Handle, Cur);
   MapWindowPoints(Handle, Grid.Handle, @Cur, 2);
   ValidateRect(Grid.Handle, @Cur);
   InvalidateRect(Grid.Handle, @Cur, False);
@@ -5565,17 +5590,14 @@ const
 begin
   if (Grid <> nil) and HandleAllocated and Visible then
   begin
-    { discard the flag of editing}
     Grid.FEditing := False;
-    { hide the line of introduction}
     Invalidate;
     SetWindowPos(Handle, 0, 0, 0, 0, 0, Flags);
-    { move away focus}
     if Focused then
     begin
       FDefocusing := True;
       try
-        Windows.SetFocus(Grid.Handle);
+        Grid.SetFocus;
       finally
         FDefocusing := False;
       end;
@@ -5610,8 +5632,8 @@ end;
   
 procedure TCustomGridEdit.SetFocus;
 begin
-  if IsWindowVisible(Handle) then
-    Windows.SetFocus(Handle);
+  if Visible then
+    SetFocus;
 end;
   
 procedure TCustomGridEdit.Show;
@@ -5621,17 +5643,14 @@ begin
   if Grid <> nil then
   begin
     ScrollCaret := not Grid.FEditing;
-    { raise the flag of editing}
     Grid.FEditing := True;
     Grid.FCellSelected := True;
     { correct colors (one should make before the installation of boundaries, since
       they are advanced depending on the size of type)}
     UpdateColors;
-    { obtain sizes}
     UpdateBounds(ScrollCaret);
-    { establish focus}
     if Grid.Focused then
-      Windows.SetFocus(Handle);
+      SetFocus;
   end;
 end;
 
@@ -5709,9 +5728,7 @@ function TGridTipsWindow.CalcHintRect(MaxWidth: Integer; const AHint: string;
 var
   R: TRect;
 begin
-  {reference to the table}
   FGrid := AData;
-  {there is whether table}
   if FGrid = nil then
   begin
     Result := inherited CalcHintRect(MaxWidth, AHint, AData);
@@ -5752,7 +5769,6 @@ begin
   FImagesLink             := TChangeLink.Create;
   FImagesLink.OnChange := ImagesChange;
   FImageHighlight := True;
-//  FBorderStyle := bsSingle;
   FShowHeader             := True;
   FGridLines              := True;
   FGridLineWidth          := 1; { <- do not change !!! }
@@ -5804,7 +5820,6 @@ begin
   FreeandNil(FCheckBitmapRB);
   FreeandNil(FCheckBitmapCB);
   FreeandNil(FImagesLink);
-  // TSI::   inherited Destroy;
   FreeandNil(FFixed);
   FreeandNil(FRows);
   FreeandNil(FColumns);
@@ -5899,10 +5914,8 @@ procedure TCustomGridView.ColumnsChange(Sender: TObject);
 begin
   if [csReading, csLoading] * ComponentState = [] then
   begin
-    { correct those fixed and title}
     UpdateFixed;
     UpdateHeader;
-    { discard the flag of the synchronization of title}
     if not Header.AutoSynchronize then
       Header.Synchronized := False;
   end;
@@ -6154,23 +6167,6 @@ begin
   end;
 end;
   
-procedure TCustomGridView.SetFlatScrollBars(Value: Boolean);
-begin
-  if FFlatScrollBars <> Value then
-  begin
-    if not HandleAllocated then
-    begin
-      FFlatScrollBars := Value;
-      Exit;
-    end;
-    if not Value then
-      UninitializeFlatSB(Handle)
-    else if not InitializeFlatSB(Handle) then
-      Value := False;
-    FFlatScrollBars := Value;
-  end;
-end;
-
 procedure TCustomGridView.SetFitColsToClient(const Value: Boolean);
 begin
   FFitColsToClient := Value;
@@ -6582,18 +6578,16 @@ begin
   with Message, FHitTest do
     if not (csDesigning in ComponentState) then
     begin
-      {does occur a change in the size of column}
       if FColResizing then
       begin
-        Windows.SetCursor(Screen.Cursors[crHSplit]);
+        LCLIntf.SetCursor(Screen.Cursors[crHSplit]);
         Exit;
       end;
-      { check entry against the rezdelitel'nuyu line of title}
       if (HitTest = HTCLIENT) and ShowHeader then
         if PtInRect(GetHeaderRect, FHitTest) and
           (GetResizeSectionAt(X, Y) <> nil) then
         begin
-          Windows.SetCursor(Screen.Cursors[crHSplit]);
+          LCLIntf.SetCursor(Screen.Cursors[crHSplit]);
           Exit;
         end;
     end;
@@ -6604,26 +6598,21 @@ procedure TCustomGridView.WMEraseBkgnd(var Message: TWMEraseBkgnd);
 begin
   Message.Result := 1;
 end;
-  
+
+{$ifdef windows}
 procedure TCustomGridView.WMCancelMode(var Message: TWMCancelMode);
 begin
   if FEdit <> nil then
     FEdit.WndProc(TMessage(Message));
   inherited;
 end;
+{$endif}
   
 procedure TCustomGridView.CMEnabledChanged(var Message: TMessage);
 begin
   inherited;
   Invalidate;
 end;
-
-//procedure TCustomGridView.CMCtl3DChanged(var Message: TMessage);
-//begin
-//  if NewStyleControls and (FBorderStyle = bsSingle) then
-//    RecreateWnd;
-//  inherited;
-//end;
 
 procedure TCustomGridView.CMFontChanged(var Message: TMessage);
 begin
@@ -6788,7 +6777,7 @@ var
 begin
   if ShowCellTips then
   begin
-    Windows.GetCursorPos(P);
+    LCLIntf.GetCursorPos(P);
     HintControl := GetHintControl(FindDragTarget(P, False));
     if HintControl = Self then
       Application.CancelHint;
@@ -6989,9 +6978,6 @@ end;
 procedure TCustomGridView.CreateWnd;
 begin
   inherited;
-  {flat scrollers}
-  if FFlatScrollBars and not InitializeFlatSB(Handle) then
-    FFlatScrollBars := False;
   FHorzScrollBar.Update;
   FVertScrollBar.Update;
 end;
@@ -10047,8 +10033,9 @@ begin
       BLC := GetRGBColor(Images.BlendColor);
       { draw picture}
       Canvas.FillRect(R);
-      ImageList_DrawEx(Images.Handle, I, Canvas.Handle, X, Y, W, H, BKC,
-        BLC, IDS);
+      Images.Draw(Canvas, X, Y, I);
+      //ImageList_DrawEx(Images.Handle, I, Canvas.Handle, X, Y, W, H, BKC,
+      //  BLC, IDS);
       { displace the left edge of initial rectangle}
       Rect.Left := R.Right;
     end;
@@ -10120,8 +10107,9 @@ begin
         BKC := GetRGBColor(Header.Images.BkColor);
         BLC := GetRGBColor(Header.Images.BlendColor);
         { draw picture}
-        ImageList_DrawEx(Header.Images.Handle, I, Canvas.Handle, X, Y, W, H,
-          BKC, BLC, ILD_NORMAL);
+        // TS!!!
+        //ImageList_DrawEx(Header.Images.Handle, I, Canvas.Handle, X, Y, W, H,
+        //  BKC, BLC, ILD_NORMAL);
       end;
       { displace the left edge of initial rectangle}
       Rect.Left := R.Right;
@@ -11012,7 +11000,7 @@ end;
 procedure TCustomGridView.InvalidateRect(Rect: TRect);
 begin
   if (FUpdateLock = 0) and HandleAllocated and Visible then
-    Windows.InvalidateRect(Handle, @Rect, False);
+    InvalidateRect(Rect);
 end;
 
 procedure TCustomGridView.InvalidateRow(Row: Integer);
@@ -11423,11 +11411,9 @@ procedure TCustomGridView.UpdateFocus;
 begin
   if csDesigning in ComponentState then
     Exit;
-  {if table is already active, then we place focus on it again by force,
-    t.k. otherwise can be Glucks with MDI forms}
   if IsActiveControl then
   begin
-    Windows.SetFocus(Handle);
+    SetFocus;
     if GetFocus = Handle then
       Perform(CM_UIACTIVATE, 0, 0);
   end

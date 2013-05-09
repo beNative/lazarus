@@ -31,7 +31,7 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
-  StdCtrls, Character,
+  StdCtrls, Character, Math,
 
   LCLType,
 {$ifdef windows}
@@ -69,7 +69,9 @@ procedure SetDoubleBuffered(AOwner: TComponent; AEnable: Boolean = True);
 
 procedure CloneComponent(AFrom: TComponent; ATo: TComponent);
 
+{$ifdef windows}
 function VirtualKeyToChar(AKey : Word) : string;
+{$endif}
 
 function GetFullName(AComponent: TComponent) : string;
 
@@ -110,13 +112,13 @@ function FormatElapsedTime(ASeconds: Extended): string;
 
 function FormatByteText(ABytes: Integer): string;
 
+// windows utilities
+{$ifdef windows}
 function CreateGUIDString: string;
 function CreateUniqueID: string;
-
-// windows utilities
-
-//function GetLocalUserName: string;
-//function GetLocalComputerName: string;
+function GetLocalUserName: string;
+function GetLocalComputerName: string;
+{$endif}
 
 function GetParentDir(sPath : string) : string;
 
@@ -220,7 +222,10 @@ function SetToString(
 implementation
 
 uses
-  ActiveX, Variants, ShlObj, ComObj, Registry, ActnList;
+{$ifdef windows}
+  ActiveX, ShlObj, ComObj, Registry,
+{$endif}
+  Variants, ActnList;
 
 //=============================================================================
 
@@ -228,7 +233,7 @@ resourcestring
   SNoCorrespondingFieldType = 'No corresponding fieldtype found for Variant ' +
                               'with value %s';
 
-
+{$ifdef windows}
 // code used by SetWindowSizeGrip
 
 const
@@ -346,7 +351,6 @@ begin
   end;
 end;
 
-{$ifdef windows}
 { Note that SetWindowSizeGrip(..., false) does not really remove the hook -
   it just sets "Enabled" to false. The hook plus all data is removed when
   the window is destroyed.
@@ -518,6 +522,7 @@ begin
   end;
 end;
 
+{$ifdef windows}
 function GetLocalComputerName: string;
 var
   Count : DWORD;
@@ -546,6 +551,7 @@ begin
     S := '';
   Result := S;
 end;
+{$endif}
 
 function GetTextHeight(const AText: string; AFont: TFont): Integer;
 var
@@ -660,6 +666,7 @@ begin
     end;
 end;
 
+{$ifdef windows}
 function VirtualKeyToChar(AKey : Word) : string;
 var
   KS : TKeyboardState;
@@ -676,6 +683,7 @@ begin
       Result := '';
   end;
 end;
+{$endif}
 
 procedure StrToStrings(const AString: string; AList: TStrings; ASeparator: Char);
 var
@@ -1134,8 +1142,7 @@ begin
   end;
 end;
 
-
-
+{$ifdef windows}
 function CreateGUIDString: string;
 var
   ClassID : TCLSID;
@@ -1146,8 +1153,6 @@ begin
   Result := P;
   CoTaskMemFree(P);
 end;
-
-
 
 function CreateUniqueID: String;
 var
@@ -1161,8 +1166,7 @@ begin
   Result := Copy(Result, 2, 36);
   Result := StringReplace(Result, '-', '', [rfReplaceAll]);
 end;
-
-
+{$endif}
 
 { Formats the given time amount (in seconds) to the form:
   <Hours>:<Minutes>:<Seconds>.<Hundreds> }
@@ -1239,27 +1243,6 @@ begin
     (Cardinal(C2) and $FF00FF) * W2) and $FF00FF00 +
     ((Cardinal(C1) and $00FF00) * Cardinal(W1) +
     (Cardinal(C2) and $00FF00) * W2) and $00FF0000) shr 8;
-end;
-
-procedure Delay(Milliseconds: Integer);
-var
-  Tick  : DWord;
-  Event : THandle;
-begin
-  Event := CreateEvent(nil, False, False, nil);
-  try
-    Tick := GetTickCount + DWord(Milliseconds);
-    while (Milliseconds > 0) and
-          (MsgWaitForMultipleObjects(1, Event, False, Milliseconds, QS_ALLINPUT)
-          <> WAIT_TIMEOUT) do
-    begin
-      Application.ProcessMessages;
-      if Application.Terminated then Exit;
-      Milliseconds := Tick - GetTickcount;
-    end;
-  finally
-    CloseHandle(Event);
-  end;
 end;
 
 function StringReplaceMultiple(const Source: AnsiString;
@@ -2172,6 +2155,7 @@ end;
    ACheckBox.OnClick := EH;
  end;
 
+ {$ifdef windows}
 function TaskBarHeight: Integer;
 var
   hTB    : HWND; // taskbar handle
@@ -2186,6 +2170,7 @@ begin
     Result := TBRect.Bottom - TBRect.Top;
   end;
 end;
+{$endif}
 
 {
 

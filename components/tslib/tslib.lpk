@@ -8,7 +8,7 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="core;editor;E:\lazarus\images\"/>
+        <IncludeFiles Value="core;editor"/>
         <OtherUnitFiles Value="editor;core;richeditor;components"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="84">
+    <Files Count="94">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -385,30 +385,73 @@
         <Filename Value="components\ts_components_fileassociation.pas"/>
         <UnitName Value="ts_Components_FileAssociation"/>
       </Item84>
+      <Item85>
+        <Filename Value="core\CodecUtilsWin32.pas"/>
+        <UnitName Value="CodecUtilsWin32"/>
+      </Item85>
+      <Item86>
+        <Filename Value="core\EncodingUtils.pas"/>
+        <UnitName Value="EncodingUtils"/>
+      </Item86>
+      <Item87>
+        <Filename Value="core\NativeXml.pas"/>
+        <UnitName Value="NativeXml"/>
+      </Item87>
+      <Item88>
+        <Filename Value="core\NativeXmlObjectStorage.pas"/>
+        <UnitName Value="NativeXmlObjectStorage"/>
+      </Item88>
+      <Item89>
+        <Filename Value="core\NativeXmlWin32Compat.pas"/>
+        <UnitName Value="NativeXmlWin32Compat"/>
+      </Item89>
+      <Item90>
+        <Filename Value="core\NativeXmlXPath.pas"/>
+        <UnitName Value="NativeXmlXPath"/>
+      </Item90>
+      <Item91>
+        <Filename Value="core\sdDebug.pas"/>
+        <UnitName Value="sdDebug"/>
+      </Item91>
+      <Item92>
+        <Filename Value="core\sdStreams.pas"/>
+        <UnitName Value="sdStreams"/>
+      </Item92>
+      <Item93>
+        <Filename Value="core\sdStringTable.pas"/>
+        <UnitName Value="sdStringTable"/>
+      </Item93>
+      <Item94>
+        <Filename Value="core\simdesign.inc"/>
+        <Type Value="Include"/>
+      </Item94>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="6">
+    <RequiredPkgs Count="7">
       <Item1>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item1>
       <Item2>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item2>
       <Item3>
-        <PackageName Value="tsBundle"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LazRichEdit"/>
       </Item5>
       <Item6>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="SynEdit"/>
       </Item6>
+      <Item7>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item7>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

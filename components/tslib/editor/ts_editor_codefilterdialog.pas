@@ -193,7 +193,10 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, Windows, Clipbrd,
+{$ifdef windows}
+  Windows,
+{$endif}
+  Variants, Clipbrd,   LCLIntf,
 
   SynEditHighlighter,
 
@@ -491,7 +494,9 @@ procedure TfrmCodeFilterDialog.edtFilterKeyUp(Sender: TObject; var Key: Word; Sh
 begin
   if FVKPressed and FVST.Enabled then
   begin
+{$ifdef windows}
     PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
+{$endif}
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;

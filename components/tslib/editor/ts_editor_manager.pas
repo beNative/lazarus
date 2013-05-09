@@ -734,7 +734,11 @@ implementation
 {$R *.lfm}
 
 uses
-  FileUtil, Clipbrd, StrUtils, Math, ShlObj, Windows, Graphics, TypInfo,
+{$ifdef windows}
+  ShlObj, Windows,
+{$endif}
+
+  FileUtil, Clipbrd, StrUtils, Math, Graphics, TypInfo,
 
   LConvEncoding,
 
@@ -1441,7 +1445,9 @@ end;
 
 procedure TdmEditorManager.actCreateDesktopLinkExecute(Sender: TObject);
 begin
+  {$ifdef windows}
   CreateDesktopLink;
+  {$endif}
 end;
 
 procedure TdmEditorManager.actCopyRTFTextToClipboardExecute(Sender: TObject);

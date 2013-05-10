@@ -801,7 +801,6 @@ begin
   FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
   RegisterHighlighters;
   InitializeFoldHighlighters;
-
   InitializeActions;
   InitializePopupMenus;
 end;
@@ -2362,7 +2361,7 @@ begin
     MI := TMenuItem.Create(SelectionModePopupMenu);
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
     S := System.Copy(S, 3, Length(S));
-    S := SelectionModePopupMenu.Items.Name + S;
+    S := SelectionModePopupMenu.Items.Action.Name + S;
     A := Items[S];
     if Assigned(A) then
     begin

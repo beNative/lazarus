@@ -1,0 +1,7 @@
+https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux32_about.png
+
+https://notepas.googlecode.com/svn/wiki/images/notepas_qt_win32_about.png
+
+https://notepas.googlecode.com/svn/wiki/images/notepas_win_win32_about.png
+
+https://notepas.googlecode.com/svn/wiki/images/notepas_win_win64_about.png

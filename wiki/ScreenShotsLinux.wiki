@@ -1,2 +1,2 @@
 #labels Linux
-#Some screenshots of Notepas on Linux.
+Some screenshots of Notepas on Linux.

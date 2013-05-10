@@ -26,7 +26,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, ExtCtrls, StdCtrls,
-  ActnList, Buttons, Contnrs, Menus, ComCtrls, LCLType,
+  ActnList, Buttons, Contnrs, Menus, ComCtrls,
+
+  LCLType,
 
   VirtualTrees, SynRegExpr,
 
@@ -191,10 +193,11 @@ implementation
 {$R *.lfm}
 
 uses
+  Clipbrd,
 {$ifdef windows}
-  Windows, Clipbrd,
+  Windows,
 {$endif}
-  LCLIntf,
+  LCLIntf, LMessages,
 
   SynEditHighlighter,
 
@@ -644,7 +647,7 @@ begin
   else if not edtFilter.Focused then
   begin
     edtFilter.SetFocus;
-    PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
+    PostMessage(edtFilter.Handle, LM_CHAR, Ord(Key), 0);
     edtFilter.SelStart := Length(Filter);
     // required to prevent the invocation of accelerator keys!
     Key := #0;
@@ -723,27 +726,31 @@ end;
 
 procedure TfrmCodeFilterDialog.Cut;
 begin
-  PostMessage(GetFocus, WM_CUT, 0, 0);
+  PostMessage(GetFocus, LM_CUT, 0, 0);
 end;
 
 procedure TfrmCodeFilterDialog.Copy;
 begin
-  PostMessage(GetFocus, WM_COPY, 0, 0);
+  PostMessage(GetFocus, LM_COPY, 0, 0);
 end;
 
 procedure TfrmCodeFilterDialog.Paste;
 begin
-  PostMessage(GetFocus, WM_PASTE, 0, 0);
+  PostMessage(GetFocus, LM_PASTE, 0, 0);
 end;
 
 procedure TfrmCodeFilterDialog.Undo;
 begin
+{$ifdef windows}
   PostMessage(GetFocus, WM_UNDO, 0, 0);
+{$endif}
 end;
 
 procedure TfrmCodeFilterDialog.Redo;
 begin
+{$ifdef windows}
   PostMessage(GetFocus, WM_UNDO, 1, 0);
+{$endif}
 end;
 
 procedure TfrmCodeFilterDialog.Modified;

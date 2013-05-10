@@ -54,10 +54,14 @@ unit ts_Core_DirectoryWatch;
 interface
 
 uses
-   Windows, SysUtils, Classes, Messages,
+{$ifdef windows}
+  Windows, jwawinbase,
+{$endif}
+  SysUtils, Classes, Messages,
 
-   jwawinbase, lclintf;
+  LCLType, LCLIntf;
 
+{$ifdef windows}
 const
   FILE_NOTIFY_CHANGE_FILE_NAME   = $00000001;
   FILE_NOTIFY_CHANGE_DIR_NAME    = $00000002;
@@ -126,8 +130,13 @@ type
     property OnNotify: TFileChangeNotifyEvent read FOnNotify write FOnNotify;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
+{$endif}
 
 implementation
+
+{$ifdef windows}
+uses
+  LMessages;
 
 type
   PFILE_NOTIFY_INFORMATION = ^TFILE_NOTIFY_INFORMATION;
@@ -139,6 +148,7 @@ type
   end;
 
 const
+  WM_USER              = LM_USER;
   WM_DIRWATCH_ERROR    = WM_USER + 137;
   WM_DIRWATCH_NOTIFY   = WM_USER + 138;
 
@@ -175,6 +185,7 @@ type
   end;
 
 procedure TDirWatchThread.Execute;
+{$ifdef windows}
 var
   NotifyData: PFILE_NOTIFY_INFORMATION;
   Events: array[0..1] of THandle;
@@ -184,7 +195,9 @@ var
   FileName: PWideChar;
   Overlap: TOverlapped;
   ResSize: Cardinal;
+{$endif}
 begin
+{$ifdef windows}
   FillChar(Overlap, SizeOf(TOverlapped), 0);
   Overlap.hEvent := FChangeEvent;
 
@@ -204,7 +217,7 @@ begin
         Terminate;
         Exit;
       end;
-      
+
       if WaitResult = WAIT_OBJECT_0 then
       begin
         NotifyData := FIOResult;
@@ -234,6 +247,7 @@ begin
       PostMessage(FWndHandle, WM_DIRWATCH_ERROR, GetLastError, LPARAM(ErrorMsg));
     end;
   end;
+{$endif}
 end;
 
 constructor TDirWatchThread.Create(const Directory: string;
@@ -472,7 +486,6 @@ begin
   end;
 end;
 
-
 procedure TDirectoryWatch.Start;
 begin
   if FDirectory = '' then
@@ -519,6 +532,6 @@ begin
     if TWatchAction(Action - 1) in FWatchActions then
       FOnNotify(Self, TWatchAction(Action - 1), FileName);
 end;
-
+{$endif}
 end.
 

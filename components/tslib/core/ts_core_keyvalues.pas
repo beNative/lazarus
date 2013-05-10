@@ -198,7 +198,7 @@ type
 implementation
 
 uses
-  Variants, Windows,
+  Variants,
 
   ts_Core_Utils;
 

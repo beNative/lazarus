@@ -87,6 +87,8 @@ type
 implementation
 
 uses
+  ExtCtrls,
+
   StrUtils, SimpleIPCWrapper;
 
 const

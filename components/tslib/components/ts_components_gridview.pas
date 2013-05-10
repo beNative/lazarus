@@ -2697,6 +2697,35 @@ begin
  {$endif}
 end;
 
+{$ifndef windows}
+function GetWindowDC(hWnd:THandle): HDC;
+begin
+  Result := LCLIntf.GetDC(hWnd);
+end;
+
+function MapWindowPoints(hWndFrom, hWndTo: HWND; var lpPoints; cPoints: UINT): Integer;
+var
+  i: Integer;
+  XOffset, YOffset: SmallInt;
+  FromPoint, ToPoint: TPoint;
+begin
+  FromPoint := Point(0, 0);
+  ToPoint := Point(0, 0);
+  if hWndFrom <> 0 then
+    ClientToScreen(hWndFrom, FromPoint);
+  if hWndTo <> 0 then
+    ClientToScreen(hWndTo, ToPoint);
+  XOffset := (FromPoint.X - ToPoint.X);
+  YOffset := (FromPoint.Y - ToPoint.Y);
+  for i := 0 to cPoints - 1 do
+  begin
+    PPoint(@lpPoints)[i].x := XOffset + PPoint(@lpPoints)[i].x;
+    PPoint(@lpPoints)[i].y := YOffset + PPoint(@lpPoints)[i].y;
+  end;
+  Result := MakeLong(XOffset, YOffset);
+end;
+{$endif}
+
 function CasePos(Substr: string; S: string; MatchCase: Boolean): Integer;
 begin
   if not MatchCase then
@@ -5040,7 +5069,6 @@ begin
     if (Key in [#32..#255]) and not Grid.EditCanAcceptKey(Grid.EditCell, Key) then
     begin
       Key := #0;
-      MessageBeep(0);
     end;
     { investigate symbol}
     case Key of
@@ -5413,12 +5441,16 @@ end;
 }
 
 procedure KillMessage(Wnd: HWND; Msg: Integer);
+{$ifdef windows}
 var
   M: TMsg;
+{$endif}
 begin
+{$ifdef windows}
   M.Message := 0;
   if PeekMessage(M, Wnd, Msg, Msg, PM_REMOVE) and (M.Message = WM_QUIT) then
     PostQuitMessage(M.wParam);
+{$endif}
 end;
 
 procedure TCustomGridEdit.WndProc(var Message: TMessage);
@@ -5506,12 +5538,12 @@ begin
       with WMButtonDown do
       begin
         //{to the pressure on the button we do not react}
+{$ifdef windows}
         if (EditStyle = geSimple) or
           (not PtInRect(ButtonRect, Point(XPos, YPos))) then
-        //  { look the time of repeated flick}
           if UINT(GetMessageTime - FClickTime) < GetDoubleClickTime then
-        //    { change communication by the dual flick}
             Message.Msg := WM_LBUTTONDBLCLK;
+{$endif}
         FClickTime := 0;
       end;
   end;
@@ -5576,11 +5608,15 @@ begin
     inherited Invalidate;
     Exit;
   end;
+{$ifdef windows}
   ValidateRect(Handle, nil);
+{$endif}
   InvalidateRect(Handle, nil, True);
   LCLIntf.GetClientRect(Handle, Cur);
-  MapWindowPoints(Handle, Grid.Handle, @Cur, 2);
+  MapWindowPoints(Handle, Grid.Handle, Cur, 2);
+{$ifdef windows}
   ValidateRect(Grid.Handle, @Cur);
+{$endif}
   InvalidateRect(Grid.Handle, @Cur, False);
 end;
 
@@ -6529,8 +6565,10 @@ end;
 procedure TCustomGridView.WMLButtonDown(var Message: TMessage);
 begin
   inherited;
+{$ifdef windows}
   if FEdit <> nil then
     FEdit.FClickTime := GetMessageTime;
+{$endif}
 end;
   
 procedure TCustomGridView.WMChar(var Msg: TLMChar);
@@ -7929,11 +7967,14 @@ end;
 function TCustomGridView.GetTextRect(Canvas: TCanvas; Rect: TRect;
   LeftIndent, TopIndent: Integer; Alignment: TAlignment;
   WantReturns, WordWrap: Boolean; const Text: string): TRect;
+{$ifdef windows}
 var
   R: TRect;
   P: TDrawTextParams;
   F, W, H, I: Integer;
+{$endif}
 begin
+{$ifdef windows}
   { check how the text is derived: with the aid of DrawTextEx or TextOut}
   if WantReturns or WordWrap or EndEllipsis then
   begin
@@ -7952,54 +7993,55 @@ begin
         F := F or DT_CENTER;
       taRightJustify:
         F := F or DT_RIGHT;
-    end;
-    {vertical levelling off}
-    if not (WantReturns or WordWrap) then
-    begin
-      {the automatic flare function}
-      F := F or DT_SINGLELINE or DT_VCENTER;
-      {dots at the end we do not consider}
-    end;
-    {the transfer of words}
-    if WordWrap then
-      F := F or DT_WORDBREAK;
-    {the rectangle of text}
-    R := Rect;
-    { draw text}
-    DrawTextEx(Canvas.Handle, PChar(Text), Length(Text), R,
-      F or DT_CALCRECT, @P);
-    {the dimensions of text}
-    W := MaxIntValue([Rect.Right - Rect.Left, R.Right - R.Left]);
-    H := MaxIntValue([Rect.Bottom - Rect.Top, R.Bottom - R.Top]);
-  end
-  else
-  begin
-    {the displacement of text to the left}
-    I := LeftIndent;
-    {height and the width of text}
-    W := MaxIntValue([Rect.Right - Rect.Left, I + Canvas.TextWidth(Text) +
-      TextRightIndent]);
-    H := MaxIntValue([Rect.Bottom - Rect.Top, Canvas.TextHeight(Text)]);
-  end;
-  { form rectangle}
-  case Alignment of
-    taCenter:
+      end;
+      {vertical levelling off}
+      if not (WantReturns or WordWrap) then
       begin
-        R.Left := Rect.Left - (W - (Rect.Right - Rect.Left)) div 2;
+        {the automatic flare function}
+        F := F or DT_SINGLELINE or DT_VCENTER;
+        {dots at the end we do not consider}
+      end;
+      {the transfer of words}
+      if WordWrap then
+        F := F or DT_WORDBREAK;
+      {the rectangle of text}
+      R := Rect;
+      { draw text}
+      DrawTextEx(Canvas.Handle, PChar(Text), Length(Text), R,
+        F or DT_CALCRECT, @P);
+      {the dimensions of text}
+      W := MaxIntValue([Rect.Right - Rect.Left, R.Right - R.Left]);
+      H := MaxIntValue([Rect.Bottom - Rect.Top, R.Bottom - R.Top]);
+    end
+    else
+    begin
+      {the displacement of text to the left}
+      I := LeftIndent;
+      {height and the width of text}
+      W := MaxIntValue([Rect.Right - Rect.Left, I + Canvas.TextWidth(Text) +
+        TextRightIndent]);
+      H := MaxIntValue([Rect.Bottom - Rect.Top, Canvas.TextHeight(Text)]);
+    end;
+    { form rectangle}
+    case Alignment of
+      taCenter:
+        begin
+          R.Left := Rect.Left - (W - (Rect.Right - Rect.Left)) div 2;
+          R.Right := R.Left + W;
+        end;
+      taRightJustify:
+        begin
+          R.Right := Rect.Right;
+          R.Left := R.Right - W;
+        end;
+      else
+        R.Left := Rect.Left;
         R.Right := R.Left + W;
       end;
-    taRightJustify:
-      begin
-        R.Right := Rect.Right;
-        R.Left := R.Right - W;
-      end;
-  else
-    R.Left := Rect.Left;
-    R.Right := R.Left + W;
-  end;
-  R.Top := Rect.Top;
-  R.Bottom := R.Top + H;
-  Result := R;
+      R.Top := Rect.Top;
+      R.Bottom := R.Top + H;
+      Result := R;
+{$endif}
 end;
   
 function TCustomGridView.GetTipsRect(Cell: TGridCell): TRect;
@@ -8909,7 +8951,7 @@ begin
           begin
             Pen.Color := GetGridLineColor(Color);
             Pen.Width := FGridLineWidth;
-            PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
+//            PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
           end
           else
             PaintDotGridLines(Points, PointCount);
@@ -8921,12 +8963,12 @@ begin
           {dark lines}
           Pen.Color := clBtnShadow;
           Pen.Width := 1;
-          PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
+          //PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
           { shift lines}
           ShiftGridPoints(1, 1);
           {bright lines}
           Pen.Color := clBtnHighlight;
-          PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
+          //PolyPolyLine(Handle, Points^, StrokeList^, StrokeCount);
         end;
       { free memory}
       FreeMem(Points);
@@ -9135,7 +9177,7 @@ begin
     begin
       Canvas.Pen.Color := GetGridLineColor(Color);
       Canvas.Pen.Width := FGridLineWidth;
-      PolyPolyLine(Canvas.Handle, Points^, StrokeList^, StrokeCount);
+      //PolyPolyLine(Canvas.Handle, Points^, StrokeList^, StrokeCount);
     end
     else
       PaintDotGridLines(Points, PointCount);
@@ -9288,11 +9330,14 @@ end;
 procedure TCustomGridView.PaintText(Canvas: TCanvas; Rect: TRect;
   LeftIndent, TopIndent: Integer; Alignment: TAlignment;
   WantReturns, WordWrap: Boolean; const Text: string);
+{$ifdef windows}
 var
   P: TDrawTextParams;
   F, DX: Integer;
   A: UINT;
+{$endif}
 begin
+{$ifdef windows}
   {is concluded text}
   if WantReturns or WordWrap or EndEllipsis then
   begin
@@ -9311,56 +9356,57 @@ begin
         F := F or DT_CENTER;
       taRightJustify:
         F := F or DT_RIGHT;
-    end;
-    { vertical offset }
-    if not (WantReturns or WordWrap) then
-    begin
-      {the automatic flare function}
-      F := F or DT_SINGLELINE;
-      {dots at the end}
-      if Alignment = taLeftJustify then
-        F := F or DT_END_ELLIPSIS
-    end;
-    {the transfer of words}
-    if WordWrap then
-      F := F or DT_WORDBREAK;
-    {the displacement of text from above}
-    Inc(Rect.Top, TopIndent);
-    {is concluded text}
-    with Canvas do
-    begin
-      SetBkMode(Handle, TRANSPARENT);
-      DrawTextEx(Handle, PChar(Text), Length(Text), Rect, F, @P);
-    end;
-  end
-  else
-  begin
-    {displacement along horizontal}
-    case Alignment of
-      taCenter:
-        begin
-          DX := LeftIndent + (Rect.Right - Rect.Left) div 2;
-          A := TA_CENTER;
+      end;
+      { vertical offset }
+      if not (WantReturns or WordWrap) then
+      begin
+        {the automatic flare function}
+        F := F or DT_SINGLELINE;
+        {dots at the end}
+        if Alignment = taLeftJustify then
+          F := F or DT_END_ELLIPSIS
         end;
-      taRightJustify:
+        {the transfer of words}
+        if WordWrap then
+          F := F or DT_WORDBREAK;
+        {the displacement of text from above}
+        Inc(Rect.Top, TopIndent);
+        {is concluded text}
+        with Canvas do
         begin
-          DX := (Rect.Right - Rect.Left) - TextRightIndent;
-          A := TA_RIGHT;
+          SetBkMode(Handle, TRANSPARENT);
+          DrawTextEx(Handle, PChar(Text), Length(Text), Rect, F, @P);
         end;
-    else
-      DX := LeftIndent;
-      A := TA_LEFT;
-    end;
-    {the standard conclusion of text}
-    with Canvas do
-    begin
-      SetBkMode(Handle, TRANSPARENT);
-      SetTextAlign(Handle, A);
-      ExtTextOut(Handle, Rect.Left + DX, Rect.Top + TopIndent, ETO_CLIPPED,
-        @Rect, PChar(Text), Length(Text), nil);
-      SetTextAlign(Handle, TA_LEFT);
-    end;
-  end;
+      end
+      else
+      begin
+        {displacement along horizontal}
+        case Alignment of
+          taCenter:
+            begin
+              DX := LeftIndent + (Rect.Right - Rect.Left) div 2;
+              A := TA_CENTER;
+            end;
+          taRightJustify:
+            begin
+              DX := (Rect.Right - Rect.Left) - TextRightIndent;
+              A := TA_RIGHT;
+            end;
+          else
+            DX := LeftIndent;
+            A := TA_LEFT;
+          end;
+          {the standard conclusion of text}
+          with Canvas do
+          begin
+            SetBkMode(Handle, TRANSPARENT);
+            SetTextAlign(Handle, A);
+            ExtTextOut(Handle, Rect.Left + DX, Rect.Top + TopIndent, ETO_CLIPPED,
+              @Rect, PChar(Text), Length(Text), nil);
+            SetTextAlign(Handle, TA_LEFT);
+          end;
+        end;
+{$endif}
 end;
 
 procedure TCustomGridView.PreparePatternBitmap(Canvas: TCanvas;
@@ -9905,6 +9951,7 @@ begin
 end;
 
 procedure TCustomGridView.DefaultDrawCell(Cell: TGridCell; Rect: TRect);
+{$ifdef windows}
 const
   DS: array[Boolean] of Integer = (ILD_NORMAL, ILD_SELECTED);
 var
@@ -9922,7 +9969,9 @@ var
   WR, WW         : Boolean;
   T              : string;
   I: cint;
+{$endif}
 begin
+{$ifdef windows}
   { memorize the rectangle of painting}
   DefRect := Rect;
   { displace edge in order not to flood the line of grid}
@@ -9932,133 +9981,135 @@ begin
       Dec(Rect.Right, FGridLineWidth);
     if gsHorzLine in GridStyle then
       Dec(Rect.Bottom, FGridLineWidth);
-  end;
-  { obtain the type of flag and the number of picture}
-  CK := GetCheckKind(Cell);
-  CI := GetCellImage(Cell);
-  { determine the sign of the illumination of the picture: picture is not illuminated,
-    if cell is first chosen, the flag of the illumination is not advanced
-    and the color of the background of cell is a color of that isolated}
-  RH := RowSelect and (Cell.Col = Fixed.Count) and (Cell.Row = CellFocused.Row);
-  CH := (not RowSelect) and IsCellEqual(Cell, CellFocused);
-  SH := (Canvas.Brush.Color = clHighlight) or
-    (Canvas.Brush.Color = clBtnFace); {?}
-  IH := (not ImageHighlight) and (RH or CH) and SH;
-  { draw checkbox }
-  if CK <> gcNone then
-  begin
-    { for the illuminated flag we restore the color of background}
-    if IH then
-      Canvas.Brush.Color := Color;
-    { obtain the rectangle of flag}
-    R := Rect;
-    R.Right := MinIntValue([R.Left + CheckWidth + GetCheckIndent(Cell).X,
-      Rect.Right]);
-    {but is visible flag}
-    if R.Left < DefRect.Right then
+    end;
+    { obtain the type of flag and the number of picture}
+    CK := GetCheckKind(Cell);
+    CI := GetCellImage(Cell);
+    { determine the sign of the illumination of the picture: picture is not illuminated,
+      if cell is first chosen, the flag of the illumination is not advanced
+      and the color of the background of cell is a color of that isolated}
+    RH := RowSelect and (Cell.Col = Fixed.Count) and (Cell.Row = CellFocused.Row);
+    CH := (not RowSelect) and IsCellEqual(Cell, CellFocused);
+    SH := (Canvas.Brush.Color = clHighlight) or
+      (Canvas.Brush.Color = clBtnFace); {?}
+    IH := (not ImageHighlight) and (RH or CH) and SH;
+    { draw checkbox }
+    if CK <> gcNone then
     begin
-      { draw}
-      with Canvas do
+      { for the illuminated flag we restore the color of background}
+      if IH then
+        Canvas.Brush.Color := Color;
+      { obtain the rectangle of flag}
+      R := Rect;
+      R.Right := MinIntValue([R.Left + CheckWidth + GetCheckIndent(Cell).X,
+        Rect.Right]);
+      {but is visible flag}
+      if R.Left < DefRect.Right then
       begin
-        {the position of flag}
-        X := R.Left + GetCheckIndent(Cell).X;
-        Y := R.Top + GetCheckIndent(Cell).Y;
-        {the size of the flag (necessarily for the cutting off of the flags of narrow columns)}
-        W := CheckWidth;
-        if X + W > R.Right then
-          W := R.Right - X;
-        H := CheckHeight;
-        if Y + H > R.Bottom then
-          H := R.Bottom - Y;
-        { define the type of flag}
-        if CK <> gcUserDefine then
+        { draw}
+        with Canvas do
         begin
-          { determine a series of pictures according to the type of flag}
-          CB := FCheckBitmapCB;
-          if CK = gcRadioButton then
-            CB := FCheckBitmapRB;
-          { determine the picture of flag}
-          CR := Bounds(CheckWidth * Ord(GetCheckState(Cell)), 0, W, H);
-          OffsetRect(CR, CheckWidth * 4 * Ord(CheckStyle), 0);
-          { draw vlazhok}
-          FillRect(R);
-          //BrushCopy(Bounds(X, Y, W, H), CB, CR, CB.TransparentColor);
-        end
-        else
-        begin
-          CB := FCheckBuffer;
-          CB.Width := CheckWidth;
-          CB.Height := CheckHeight;
-          GetCheckImage(Cell, CB);
-          { pour background}
-          FillRect(R);
-          { draw}
-          if not (CB.Empty or (CB.Width < 1) or (CB.Height < 1)) then
+          {the position of flag}
+          X := R.Left + GetCheckIndent(Cell).X;
+          Y := R.Top + GetCheckIndent(Cell).Y;
+          {the size of the flag (necessarily for the cutting off of the flags of narrow columns)}
+          W := CheckWidth;
+          if X + W > R.Right then
+            W := R.Right - X;
+          H := CheckHeight;
+          if Y + H > R.Bottom then
+            H := R.Bottom - Y;
+          { define the type of flag}
+          if CK <> gcUserDefine then
           begin
-            CR := Bounds(0, 0, W, H);
+            { determine a series of pictures according to the type of flag}
+            CB := FCheckBitmapCB;
+            if CK = gcRadioButton then
+              CB := FCheckBitmapRB;
+            { determine the picture of flag}
+            CR := Bounds(CheckWidth * Ord(GetCheckState(Cell)), 0, W, H);
+            OffsetRect(CR, CheckWidth * 4 * Ord(CheckStyle), 0);
+            { draw vlazhok}
+            FillRect(R);
             //BrushCopy(Bounds(X, Y, W, H), CB, CR, CB.TransparentColor);
+          end
+          else
+          begin
+            CB := FCheckBuffer;
+            CB.Width := CheckWidth;
+            CB.Height := CheckHeight;
+            GetCheckImage(Cell, CB);
+            { pour background}
+            FillRect(R);
+            { draw}
+            if not (CB.Empty or (CB.Width < 1) or (CB.Height < 1)) then
+            begin
+              CR := Bounds(0, 0, W, H);
+              //BrushCopy(Bounds(X, Y, W, H), CB, CR, CB.TransparentColor);
+            end;
           end;
         end;
+        { displace the left edge of initial rectangle}
+        Rect.Left := R.Right;
       end;
-      { displace the left edge of initial rectangle}
-      Rect.Left := R.Right;
     end;
-  end;
-  { draw picture}
-  if CI <> -1 then
-  begin
-    {for the illuminated picture we restore the color of background}
-    if IH then
-      Canvas.Brush.Color := Color;
-    { obtain the rectangle of picture}
-    R := Rect;
-    R.Right := MinIntValue([R.Left + Images.Width + GetCellImageIndent(Cell).X,
-      Rect.Right]);
-    {but is visible picture}
-    if R.Left < DefRect.Right then
+    { draw picture}
+    if CI <> -1 then
     begin
-      {the position of picture}
-      X := R.Left + GetCellImageIndent(Cell).X;
-      Y := R.Top + GetCellImageIndent(Cell).Y;
-      {the size of the picture (necessarily for the cutting off of the pictures of narrow columns)}
-      W := Images.Width;
-      if X + W > R.Right then
-        W := R.Right - X;
-      H := Images.Height;
-      if Y + H > R.Bottom then
-        H := R.Bottom - Y;
-      {style and the background colors of picture}
-      IDS := DS[IsCellHighlighted(Cell) and Focused and IH];
-      BKC := GetRGBColor(Images.BkColor);
-      BLC := GetRGBColor(Images.BlendColor);
-      { draw picture}
-      Canvas.FillRect(R);
-      Images.Draw(Canvas, X, Y, I);
-      //ImageList_DrawEx(Images.Handle, I, Canvas.Handle, X, Y, W, H, BKC,
-      //  BLC, IDS);
-      { displace the left edge of initial rectangle}
-      Rect.Left := R.Right;
+      {for the illuminated picture we restore the color of background}
+      if IH then
+        Canvas.Brush.Color := Color;
+      { obtain the rectangle of picture}
+      R := Rect;
+      R.Right := MinIntValue([R.Left + Images.Width + GetCellImageIndent(Cell).X,
+        Rect.Right]);
+      {but is visible picture}
+      if R.Left < DefRect.Right then
+      begin
+        {the position of picture}
+        X := R.Left + GetCellImageIndent(Cell).X;
+        Y := R.Top + GetCellImageIndent(Cell).Y;
+        {the size of the picture (necessarily for the cutting off of the pictures of narrow columns)}
+        W := Images.Width;
+        if X + W > R.Right then
+          W := R.Right - X;
+        H := Images.Height;
+        if Y + H > R.Bottom then
+          H := R.Bottom - Y;
+        {style and the background colors of picture}
+        IDS := DS[IsCellHighlighted(Cell) and Focused and IH];
+        BKC := GetRGBColor(Images.BkColor);
+        BLC := GetRGBColor(Images.BlendColor);
+        { draw picture}
+        Canvas.FillRect(R);
+        Images.Draw(Canvas, X, Y, I);
+        //ImageList_DrawEx(Images.Handle, I, Canvas.Handle, X, Y, W, H, BKC,
+        //  BLC, IDS);
+        { displace the left edge of initial rectangle}
+        Rect.Left := R.Right;
+      end;
     end;
-  end;
-  { restore the color of background}
-  { draw text, if is not visible the line of introduction}
-  if not (IsCellEqual(Cell, FEditCell) and (not IsFocusAllowed)) and
-    (Rect.Left < DefRect.Right) then
-  begin
-    // TS TEST (nodig?) => wordt 2 x aangeroepen.
-    GetCellColors(Cell, Canvas);
-    Canvas.FillRect(Rect);
-    TI := GetCellTextIndent(Cell);
-    A := Columns[Cell.Col].Alignment;
-    WR := Columns[Cell.Col].WantReturns;
-    WW := Columns[Cell.Col].WordWrap;
-    T := GetCellText(Cell);
-    PaintText(Canvas, Rect, TI.X, TI.Y, A, WR, WW, T);
-  end;
+    { restore the color of background}
+    { draw text, if is not visible the line of introduction}
+    if not (IsCellEqual(Cell, FEditCell) and (not IsFocusAllowed)) and
+      (Rect.Left < DefRect.Right) then
+    begin
+      // TS TEST (nodig?) => wordt 2 x aangeroepen.
+      GetCellColors(Cell, Canvas);
+      Canvas.FillRect(Rect);
+      TI := GetCellTextIndent(Cell);
+      A := Columns[Cell.Col].Alignment;
+      WR := Columns[Cell.Col].WantReturns;
+      WW := Columns[Cell.Col].WordWrap;
+      T := GetCellText(Cell);
+      PaintText(Canvas, Rect, TI.X, TI.Y, A, WR, WW, T);
+    end;
+{$endif}
 end;
 
 procedure TCustomGridView.DefaultDrawHeader(Section: TGridHeaderSection;
   Rect: TRect);
+{$ifdef windows}
 var
   DefRect       : TRect;
   I, X, Y, W, H : Integer;
@@ -10072,7 +10123,9 @@ var
   SB            : Graphics.TBitmap;
   SR            : TRect;
   IsPressed     : Boolean;
+{$endif}
 begin
+{$ifdef windows}
   { memorize the rectangle of painting}
   DefRect := Rect;
   Canvas.FillRect(Rect);
@@ -10142,124 +10195,125 @@ begin
           F := F or DT_RIGHT;
         taCenter:
           F := F or DT_CENTER;
-      end;
-      {the transfer of words}
-      if Section.WordWrap then
-        F := F or DT_WORDBREAK;
-      {if there is a picture of sorting - we draw first it}
-      if SD <> gsNone then
-      begin
-        SB := FSortBuffer;
-        { assign picture on silence}
-        case SD of
-          gsAscending:
-            SB.Assign(FSortBitmapA);
-          gsDescending:
-            SB.Assign(FSortBitmapD);
         end;
-        {if there is a picture of user - we take it}
-        GetSortImage(Section, SB);
-        {the size of picture}
-        W := SB.Width;
-        H := SB.Height;
-        { determine the width of text}
-        R := Rect;
-        if TL > 0 then
+        {the transfer of words}
+        if Section.WordWrap then
+          F := F or DT_WORDBREAK;
+        {if there is a picture of sorting - we draw first it}
+        if SD <> gsNone then
         begin
-          DrawTextEx(Handle, PChar(T), Length(T), R, F or DT_CALCRECT, @P);
-          R.Top := Rect.Top +
-            ((Rect.Bottom - Rect.Top) - (R.Bottom - R.Top)) div 2;
-        end
-        else
-        begin
-          R.Right := R.Left;
-          R.Top := Rect.Top + 2 * Ord(not Header.Flat);
-        end;
-        { calculate rectangle}
-        SR.Left := MinIntValue([Rect.Right - W - 6, R.Right + SortLeftIndent]);
-        SR.Left := MaxIntValue([Rect.Left + P.iLeftMargin, SR.Left]);
-        SR.Right := MinIntValue([Rect.Right - 6, SR.Left + W]);
-        SR.Top := R.Top + SortTopIndent;
-        SR.Bottom := MinIntValue([Rect.Bottom, SR.Top + H]);
-        { determine the novuye dimensions of picture}
-        W := SR.Right - SR.Left;
-        H := SR.Bottom - SR.Top;
-        { draw picture}
-        // TS
-        //BrushCopy(SR, SB, Bounds(0, 0, W, H), clSilver);
-        { correct the rectangle of text}
-        Rect.Right := SR.Left - SortLeftIndent;
-      end;
-      { draw text}
-      if (TL > 0) and (Rect.Left < Rect.Right) then
-      begin
-        { again determine the rectangle of text}
-        R := Rect;
-        DrawTextEx(Handle, PChar(T), Length(T), R, F or DT_CALCRECT, @P);
-        {for the sections without the pictures we equalize text on the vertical line}
-        if I = -1 then
-          OffsetRect(R, 0,
-            ((Rect.Bottom - Rect.Top) - (R.Bottom - R.Top)) div 2)
-        else
-          OffsetRect(R, 0, 2 + 2 * Ord(not Header.Flat));
-        { correct leftist and right of edge}
-        R.Right := Rect.Right;
-        R.Left := Rect.Left;
-        {is concluded text}
-        SetBkMode(Handle, TRANSPARENT);
-        DrawTextEx(Handle, PChar(T), Length(T), R, F, @P);
-      end;
-    end;
-  end;
-  { draw separator}
-  with Canvas do
-  begin
-    Rect := DefRect;
-    { determine what to draw - button or strip}
-    if Header.Flat then
-    begin
-      {if the color of title and table coincides - it drawes single line}
-      if Header.GridColor then
-      begin
-        Pen.Color := GetGridLineColor(Color);
-        Pen.Width := FGridLineWidth;
-        {strip from below}
-        MoveTo(Rect.Left, Rect.Bottom - 1);
-        LineTo(Rect.Right - 1, Rect.Bottom - 1);
-        {strip to the right}
-        MoveTo(Rect.Right - 1, Rect.Top);
-        LineTo(Rect.Right - 1, Rect.Bottom);
-      end
-      else
-      begin
-        Pen.Width := 1;
-        {strip from below}
-        Pen.Color := clBtnShadow;
-        MoveTo(Rect.Left, Rect.Bottom - 2);
-        LineTo(Rect.Right - 1, Rect.Bottom - 2);
-        Pen.Color := clBtnHighlight;
-        MoveTo(Rect.Left, Rect.Bottom - 1);
-        LineTo(Rect.Right - 1, Rect.Bottom - 1);
-        {strip to the right}
-        Pen.Color := clBtnShadow;
-        MoveTo(Rect.Right - 2, Rect.Top);
-        LineTo(Rect.Right - 2, Rect.Bottom - 1);
-        Pen.Color := clBtnHighlight;
-        MoveTo(Rect.Right - 1, Rect.Top);
-        LineTo(Rect.Right - 1, Rect.Bottom);
-      end;
-    end
-    else
-    begin
-      { draw the framework of button}
-      if IsHeaderPressed(Section) then
-        DrawEdge(Handle, Rect, BDR_SUNKENOUTER, BF_RECT or BF_FLAT)
-      else
-        Paint3DFrame(Rect, BF_RECT);
-      { correct the rectangle of section}
-      InflateRect(Rect, -2, -2);
-    end;
-  end;
+          SB := FSortBuffer;
+          { assign picture on silence}
+          case SD of
+            gsAscending:
+              SB.Assign(FSortBitmapA);
+            gsDescending:
+              SB.Assign(FSortBitmapD);
+            end;
+            {if there is a picture of user - we take it}
+            GetSortImage(Section, SB);
+            {the size of picture}
+            W := SB.Width;
+            H := SB.Height;
+            { determine the width of text}
+            R := Rect;
+            if TL > 0 then
+            begin
+              DrawTextEx(Handle, PChar(T), Length(T), R, F or DT_CALCRECT, @P);
+              R.Top := Rect.Top +
+                ((Rect.Bottom - Rect.Top) - (R.Bottom - R.Top)) div 2;
+              end
+              else
+              begin
+                R.Right := R.Left;
+                R.Top := Rect.Top + 2 * Ord(not Header.Flat);
+              end;
+              { calculate rectangle}
+              SR.Left := MinIntValue([Rect.Right - W - 6, R.Right + SortLeftIndent]);
+              SR.Left := MaxIntValue([Rect.Left + P.iLeftMargin, SR.Left]);
+              SR.Right := MinIntValue([Rect.Right - 6, SR.Left + W]);
+              SR.Top := R.Top + SortTopIndent;
+              SR.Bottom := MinIntValue([Rect.Bottom, SR.Top + H]);
+              { determine the novuye dimensions of picture}
+              W := SR.Right - SR.Left;
+              H := SR.Bottom - SR.Top;
+              { draw picture}
+              // TS
+              //BrushCopy(SR, SB, Bounds(0, 0, W, H), clSilver);
+              { correct the rectangle of text}
+              Rect.Right := SR.Left - SortLeftIndent;
+            end;
+            { draw text}
+            if (TL > 0) and (Rect.Left < Rect.Right) then
+            begin
+              { again determine the rectangle of text}
+              R := Rect;
+              DrawTextEx(Handle, PChar(T), Length(T), R, F or DT_CALCRECT, @P);
+              {for the sections without the pictures we equalize text on the vertical line}
+              if I = -1 then
+                OffsetRect(R, 0,
+                  ((Rect.Bottom - Rect.Top) - (R.Bottom - R.Top)) div 2)
+                else
+                  OffsetRect(R, 0, 2 + 2 * Ord(not Header.Flat));
+                { correct leftist and right of edge}
+                R.Right := Rect.Right;
+                R.Left := Rect.Left;
+                {is concluded text}
+                SetBkMode(Handle, TRANSPARENT);
+                DrawTextEx(Handle, PChar(T), Length(T), R, F, @P);
+              end;
+            end;
+          end;
+          { draw separator}
+          with Canvas do
+          begin
+            Rect := DefRect;
+            { determine what to draw - button or strip}
+            if Header.Flat then
+            begin
+              {if the color of title and table coincides - it drawes single line}
+              if Header.GridColor then
+              begin
+                Pen.Color := GetGridLineColor(Color);
+                Pen.Width := FGridLineWidth;
+                {strip from below}
+                MoveTo(Rect.Left, Rect.Bottom - 1);
+                LineTo(Rect.Right - 1, Rect.Bottom - 1);
+                {strip to the right}
+                MoveTo(Rect.Right - 1, Rect.Top);
+                LineTo(Rect.Right - 1, Rect.Bottom);
+              end
+              else
+              begin
+                Pen.Width := 1;
+                {strip from below}
+                Pen.Color := clBtnShadow;
+                MoveTo(Rect.Left, Rect.Bottom - 2);
+                LineTo(Rect.Right - 1, Rect.Bottom - 2);
+                Pen.Color := clBtnHighlight;
+                MoveTo(Rect.Left, Rect.Bottom - 1);
+                LineTo(Rect.Right - 1, Rect.Bottom - 1);
+                {strip to the right}
+                Pen.Color := clBtnShadow;
+                MoveTo(Rect.Right - 2, Rect.Top);
+                LineTo(Rect.Right - 2, Rect.Bottom - 1);
+                Pen.Color := clBtnHighlight;
+                MoveTo(Rect.Right - 1, Rect.Top);
+                LineTo(Rect.Right - 1, Rect.Bottom);
+              end;
+            end
+            else
+            begin
+              { draw the framework of button}
+              if IsHeaderPressed(Section) then
+                DrawEdge(Handle, Rect, BDR_SUNKENOUTER, BF_RECT or BF_FLAT)
+              else
+                Paint3DFrame(Rect, BF_RECT);
+              { correct the rectangle of section}
+              InflateRect(Rect, -2, -2);
+            end;
+          end;
+{$endif}
 end;
   
 procedure TCustomGridView.DefaultDrawHeaders(DrawFixed: Boolean);
@@ -11265,8 +11319,10 @@ end;
 
 procedure TCustomGridView.UndoEdit;
 begin
+{$ifdef windows}
   if (FEdit <> nil) and EditCanUndo(EditCell) then
     FEdit.Perform(WM_UNDO, 0, 0);
+{$endif}
 end;
 
 procedure TCustomGridView.UnLockUpdate(Redraw: Boolean);

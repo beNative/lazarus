@@ -117,6 +117,8 @@ interface
 
 uses
   SysUtils, Graphics, Classes, FileUtil, SynEditTypes, Contnrs,
+  // needed?
+  GraphType,
 
   SynEditHighlighter;
 

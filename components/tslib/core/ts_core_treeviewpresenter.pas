@@ -1473,7 +1473,9 @@ begin
 
   if (FHitInfo.HitNode = Node) and (FHitInfo.HitColumn = Column)
     and (hiOnItemCheckbox in FHitInfo.HitPositions)
+{$ifdef windows}
     and (GetAsyncKeyState(VK_LBUTTON) <> 0)
+{$endif}
     and ColumnDefinitions[FHitInfo.HitColumn].AllowEdit then
   begin
     if Value then
@@ -1499,8 +1501,9 @@ begin
     begin
       LState := LState or DFCS_CHECKED;
     end;
-
+{$ifdef windows}
     DrawFrameControl(TargetCanvas.Handle, LCheckBoxRect, DFC_BUTTON, LState);
+{$endif}
   end;
 end;
 
@@ -1849,7 +1852,9 @@ begin
     FTreeView.OnCompareNodes := DoCompareNodes;
     FTreeView.OnDblClick := DoDblClick;
     FTreeView.OnDragAllowed := DoDragAllowed;
+{$ifdef windows}
     FTreeView.OnDragDrop := DoDragDrop;
+{$endif}
     FTreeView.OnDragOver := DoDragOver;
     FTreeView.OnEdited := DoEdited;
     FTreeView.OnEditing := DoEditing;
@@ -2452,6 +2457,9 @@ begin
 end;
 
 initialization
+{$ifdef windows}
   CheckBoxSize := GetSystemMetrics(SM_CYMENUCHECK);
+{$endif}
+
 
 end.

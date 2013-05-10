@@ -93,8 +93,8 @@ type
     procedure SetValueFont(Value: TFont);
     {$ifdef Windows}
     procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
-    {$endif}
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
+    {$endif}
   protected
     procedure ChangeColumns; override;
     function ColResizeAllowed(X, Y: Integer): Boolean;
@@ -332,13 +332,12 @@ begin
   FValueFont.Assign(Value);
 end;
 
-{$ifdef Windows}
+{$ifdef windows}
 procedure TCustomInspector.WMNCHitTest(var Message: TWMNCHitTest);
 begin
   inherited;
   FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
 end;
-{$endif}
 
 procedure TCustomInspector.WMSetCursor(var Message: TWMSetCursor);
 begin
@@ -351,6 +350,7 @@ begin
       end;
   inherited;
 end;
+{$endif}
 
 procedure TCustomInspector.ChangeColumns;
 begin

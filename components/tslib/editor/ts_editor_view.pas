@@ -127,8 +127,10 @@ type
       var AnAction: TSynCopyPasteAction);
     procedure EditorStatusChange(Sender: TObject; Changes: TSynStatusChanges);
 
-    procedure DirectoryWatchNotify(const Sender: TObject;
-      const AAction: TWatchAction; const FileName: string);
+{$ifdef windows}
+  procedure DirectoryWatchNotify(const Sender: TObject;
+    const AAction: TWatchAction; const FileName: string);
+{$endif}
 
     function IsActive: Boolean;
 
@@ -137,7 +139,9 @@ type
 
   strict private
     FUpdate          : Boolean;
+{$ifdef windows}
     FDirectoryWatch  : TDirectoryWatch;
+{$endif}
     FEncoding        : string;
     FLineBreakStyle  : string;
     FEditor          : TSynEdit;
@@ -579,8 +583,10 @@ begin
   FLineBreakStyle := ALineBreakStyles[Lines.TextLineBreakStyle];
   Doublebuffered := True;
   InitializeEditor(FEditor);
+{$ifdef windows}
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
+{$endif}
   Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
   FSelectionInfo := TSelectionInfo.Create(FEditor);
   ApplySettings;
@@ -597,7 +603,9 @@ begin
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
   DisableAutoSizing;
+{$ifdef windows}
   FreeAndNil(FDirectoryWatch);
+{$endif}
   FreeAndNil(FReplaceHistory);
   FreeAndNil(FFindHistory);
   FreeAndNil(FBeautifier);
@@ -632,6 +640,7 @@ begin
   Handled := Actions.ActionList.IsShortCut(Msg);
 end;
 
+{$ifdef windows}
 { Event triggered when MonitorChanges is True }
 
 procedure TEditorView.DirectoryWatchNotify(const Sender: TObject;
@@ -647,6 +656,7 @@ begin
     end;
   end;
 end;
+{$endif}
 
 procedure TEditorView.EditorClickLink(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
@@ -916,11 +926,16 @@ end;
 
 function TEditorView.GetMonitorChanges: Boolean;
 begin
+{$ifdef windows}
   Result := FDirectoryWatch.Running;
+{$else}
+  Result := False;
+{$endif}
 end;
 
 procedure TEditorView.SetMonitorChanges(const AValue: Boolean);
 begin
+{$ifdef windows}
   if AValue <> MonitorChanges then
   begin
     if AValue then
@@ -933,7 +948,8 @@ begin
     end
     else
       FDirectoryWatch.Stop;
-  end;
+    end;
+{$endif}
 end;
 
 function TEditorView.GetName: string;

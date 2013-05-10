@@ -9,7 +9,10 @@ unit ts_Components_FileAssociation;
 interface
 
 uses
-  Classes, SysUtils, Registry, ShlObj;
+{$ifdef windows}
+  ShlObj
+{$endif}
+  Classes, SysUtils, Registry;
 
 const
   HKCR = HKEY_CLASSES_ROOT;
@@ -278,7 +281,9 @@ end;
 
 procedure ClearIconCache;
 begin
+{$ifdef windows}
   SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
+{$endif}
 end;
 
 { TFileAssociation }

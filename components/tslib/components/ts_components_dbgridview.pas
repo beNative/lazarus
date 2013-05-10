@@ -91,8 +91,8 @@ unit ts_Components_DBGridView;
 interface
 
 uses
-  Messages, SysUtils, CommCtrl, Classes, Controls, Graphics, Forms,
-  Math, ImgList, DB, DBCtrls,
+//  CommCtrl,
+  Messages, SysUtils, Classes, Controls, Graphics, Forms, Math, ImgList, DB, DBCtrls,
 
   LCLIntf, LMessages, LCLType,
 
@@ -2905,8 +2905,10 @@ begin
     H := Rect.Bottom - Y;
   BKC := ColorToRGB(IL.BkColor);
   BLC := ColorToRGB(IL.BlendColor);
+{$ifdef windows}
   ImageList_DrawEx(IL.Handle, i, Canvas.Handle, X, Y, W, H, BKC, BLC,
     ILD_TRANSPARENT);
+{$endif}
 end;
 
 procedure TCustomDBGridView.ChangeEditText(const S: string);

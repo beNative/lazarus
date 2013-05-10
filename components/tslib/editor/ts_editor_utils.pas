@@ -31,9 +31,15 @@ unit ts_Editor_Utils;
 interface
 
 uses
-  Classes, SysUtils, Windows, TypInfo,
+{$ifdef windows}
+  Windows,
+{$endif}
+  Classes, SysUtils, TypInfo,
 
   sharedlogger;
+
+const
+  LineEnding: string = System.LineEnding;
 
 type
   // comments
@@ -256,7 +262,7 @@ function WrapText(const ASource: string; AMaxCol: Integer): string;
 implementation
 
 uses
-  StrUtils, Dialogs,
+  StrUtils, Dialogs, Math,
 
   LazFileUtils,
 

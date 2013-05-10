@@ -208,6 +208,7 @@ uses
 {$ifdef windows}
   Windows,
 {$endif}
+  LCLIntf, LMessages,
 
   ts_Core_ColumnDefinitions, ts_Core_Helpers,
 
@@ -504,27 +505,31 @@ end;
 
 procedure TfrmSearchForm.Cut;
 begin
-  PostMessage(GetFocus, WM_CUT, 0, 0);
+  PostMessage(GetFocus, LM_CUT, 0, 0);
 end;
 
 procedure TfrmSearchForm.Copy;
 begin
-  PostMessage(GetFocus, WM_COPY, 0, 0);
+  PostMessage(GetFocus, LM_COPY, 0, 0);
 end;
 
 procedure TfrmSearchForm.Paste;
 begin
-  PostMessage(GetFocus, WM_PASTE, 0, 0);
+  PostMessage(GetFocus, LM_PASTE, 0, 0);
 end;
 
 procedure TfrmSearchForm.Undo;
 begin
+{$ifdef windows}
   PostMessage(GetFocus, WM_UNDO, 0, 0);
+{$endif}
 end;
 
 procedure TfrmSearchForm.Redo;
 begin
+{$ifdef windows}
   PostMessage(GetFocus, WM_UNDO, 1, 0);
+{$endif}
 end;
 
 procedure TfrmSearchForm.UpdateView;

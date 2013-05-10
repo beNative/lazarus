@@ -202,12 +202,11 @@ function TaskBarHeight: Integer;
 function GetCommonPath(ASL: TStrings): string;
 
 function IsFormCovered(AForm: TForm): Boolean;
-{$endif}
 
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string): Integer;
+{$endif}
 
 procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
-
 
 function SetToString(
         ATypeInfo    : PTypeInfo;
@@ -1761,6 +1760,7 @@ begin
   end;
 end;
 
+{$ifdef windows}
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;
 (*DrawHTML - Draws text on a canvas using tags based on a simple subset of HTML/CSS
 
@@ -1991,7 +1991,7 @@ begin
   Result := x;
 end;
 
-{$ifdef windows}
+
 { From stackoverflow:
   I was looking for a way to determine if a Form is actually visible (even only
   partially) to the user. In particular when it was supposed to be visible and

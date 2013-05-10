@@ -4,18 +4,8 @@
 #define MyAppPublisher "Tim Sinaeve"
 #define MyAppURL "http://code.google.com/p/notepas/"
 #define MyAppExeName "Notepas.exe"
-#define MyAppVersion "0.9.4.25"
+#define MyAppVersion "0.9.4.27"
 ;GetFileVersion('Notepas.exe')
-
-[Files]
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\Notepas.exe"; DestDir: "{app}"; Flags: ignoreversion 32bit replacesameversion; Tasks: desktopicon quicklaunchicon
-; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\license.txt"; DestDir: "{app}"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -24,7 +14,6 @@ Source: "E:\lazarus\projects\notepas\bin\i386-win32-win32\license.txt"; DestDir:
 AppId={{FFDE2A69-1E8E-4703-A670-B07B3DC1EC64}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
-;AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
@@ -32,12 +21,12 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-OutputDir=E:\lazarus\projects\notepas\bin\setup
+OutputDir=..\bin\setup
 OutputBaseFilename=setup_preview
 Compression=lzma
 SolidCompression=yes
-WizardImageFile=E:\lazarus\projects\notepas\resources\Notepad-icon.bmp
-WizardSmallImageFile=E:\lazarus\projects\notepas\resources\Notepad-icon48.bmp
+WizardImageFile=..\resources\Notepad-icon.bmp
+WizardSmallImageFile=..\resources\Notepad-icon48.bmp
 WizardImageBackColor=clWhite
 WizardImageStretch=False
 AppCopyright=(c) 2013 Tim Sinaeve
@@ -46,7 +35,23 @@ UninstallLogMode=new
 UninstallDisplayName=Notepas
 UninstallDisplayIcon={app}\Notepas.exe
 InternalCompressLevel=max
-LicenseFile=E:\lazarus\projects\notepas\bin\i386-win32-win32\license.txt
+LicenseFile=..\bin\i386-win32-win32\license.txt
+; "ArchitecturesInstallIn64BitMode=x64" requests that the install be
+; done in "64-bit mode" on x64, meaning it should use the native
+; 64-bit Program Files directory and the 64-bit view of the registry.
+; On all other architectures it will install in "32-bit mode".
+ArchitecturesInstallIn64BitMode=x64
+
+[Files]
+Source: "..\bin\i386-win32-win32\Notepas-i386.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: not Is64BitInstallMode
+Source: "..\bin\x86_64-win64-win32\Notepas-x86_64.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: Is64BitInstallMode
+; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+Source: "..\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\license.txt"; DestDir: "{app}"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -76,3 +81,6 @@ Root: HKCR; Subkey: "Text file\DefaultIcon"; ValueType: string; ValueData: "{app
 
 [Messages]
 BeveledLabel={#MyAppName}
+
+[ThirdParty]
+UseRelativePaths=True

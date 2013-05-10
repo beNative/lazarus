@@ -22,7 +22,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="4"/>
-      <BuildNr Value="27"/>
+      <BuildNr Value="28"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="7">
@@ -32,7 +32,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas-$(TargetCPU)"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -80,7 +80,7 @@
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
-              <CompileReasons Build="False" Run="False"/>
+              <CompileReasons Run="False"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
@@ -217,7 +217,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas-$(TargetCPU)"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -266,8 +266,11 @@
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteBefore>
             <ExecuteAfter>
-              <Command Value="D:\codetyphon\fpc\bin\x86_64-win64\upx.exe C:\codetyphon\lazarus\projects\notepas\bin\x86_64-win64-win32\Notepas.exe"/>
-              <CompileReasons Build="False" Run="False"/>
+              <Command Value="C:\codetyphon\fpc\bin\x86_64-win64\upx.exe $(TargetFile)"/>
+              <ScanForFPCMsgs Value="True"/>
+              <ScanForMakeMsgs Value="True"/>
+              <ShowAllMessages Value="True"/>
+              <CompileReasons Run="False"/>
             </ExecuteAfter>
           </Other>
           <LCLWidgetType Value="win32"/>

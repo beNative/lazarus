@@ -30,11 +30,9 @@ uses
 
   LResources,
 
-  EditBtn,
-
   simpleipc,
 
-  ts_components_docking, ts_components_docking_storage,
+  ts_Components_Docking, ts_Components_Docking_Storage,
   // for debugging
   sharedlogger,
   {$ifdef windows}
@@ -663,7 +661,6 @@ begin
       Editor.SelStart
     ]);
 
-
   pnlViewerCount.Caption := IntToStr(Views.Count);
   pnlSize.Caption := FormatByteText(Editor.TextSize);
 
@@ -752,6 +749,7 @@ end;
 
 initialization
 {$I notepas_forms_main.lrs}
+
 {$ifdef windows}
   Logger.Channels.Add(TIPCChannel.Create);
 {$endif}

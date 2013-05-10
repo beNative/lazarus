@@ -1,6 +1,6 @@
-||||Native||QT||GTK2||
+|| ||Native||QT||GTK2||
 ||Target OS||
-||Target OS||
+||Target CPU||
 
 
 =1. Linux=

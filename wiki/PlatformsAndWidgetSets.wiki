@@ -1,3 +1,8 @@
+||||Native||QT||GTK2||
+||Target OS||
+||Target OS||
+
+
 =1. Linux=
 
 ==1.1 Linux Mint 32 bit==

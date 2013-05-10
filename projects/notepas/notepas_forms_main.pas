@@ -30,8 +30,6 @@ uses
 
   LResources,
 
-  simpleipc,
-
   ts_Components_Docking, ts_Components_Docking_Storage,
   // for debugging
   sharedlogger,
@@ -192,7 +190,7 @@ uses
 
   SynEditTypes,
 
-  ts_Core_Utils, ts_Core_VersionInfo, ts_Core_Helpers,
+  ts_Core_Utils, ts_Core_Helpers,
 
   ts_Editor_Manager, ts_Editor_Resources, ts_Editor_AboutDialog,
   ts_Editor_Helpers;

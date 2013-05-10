@@ -663,6 +663,7 @@ begin
       Editor.SelStart
     ]);
 
+
   pnlViewerCount.Caption := IntToStr(Views.Count);
   pnlSize.Caption := FormatByteText(Editor.TextSize);
 

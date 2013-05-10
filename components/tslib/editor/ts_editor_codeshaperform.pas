@@ -238,7 +238,8 @@ implementation
 {$R *.lfm}
 
 uses
-  Windows,
+  //Windows,
+  LCLIntf, LMessages,
 
   ts_Core_Utils,
 
@@ -728,27 +729,27 @@ end;
 
 procedure TfrmCodeShaper.Cut;
 begin
-  PostMessage(GetFocus, WM_CUT, 0, 0);
+  PostMessage(GetFocus, LM_CUT, 0, 0);
 end;
 
 procedure TfrmCodeShaper.Copy;
 begin
-  PostMessage(GetFocus, WM_COPY, 0, 0);
+  PostMessage(GetFocus, LM_COPY, 0, 0);
 end;
 
 procedure TfrmCodeShaper.Paste;
 begin
-  PostMessage(GetFocus, WM_PASTE, 0, 0);
+  PostMessage(GetFocus, LM_PASTE, 0, 0);
 end;
 
 procedure TfrmCodeShaper.Undo;
 begin
-  PostMessage(GetFocus, WM_UNDO, 0, 0);
+//  PostMessage(GetFocus, WM_UNDO, 0, 0);
 end;
 
 procedure TfrmCodeShaper.Redo;
 begin
-  PostMessage(GetFocus, WM_UNDO, 1, 0);
+//  PostMessage(GetFocus, WM_UNDO, 1, 0);
 end;
 
 //*****************************************************************************

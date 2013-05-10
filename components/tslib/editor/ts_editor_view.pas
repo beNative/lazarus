@@ -93,8 +93,7 @@ TODO:
 
 interface
 uses
-  Classes, Controls, Forms, Graphics, Menus, SysUtils, Windows, Dialogs,
-  StdCtrls, Types,
+  Classes, Controls, Forms, Graphics, Menus, SysUtils, Dialogs, StdCtrls, Types,
 
   LMessages,
 
@@ -553,7 +552,7 @@ implementation
 {$R *.lfm}
 
 uses
-  GraphUtil,
+  GraphUtil, Math,
 
   LConvEncoding, LCLProc, Base64,
 

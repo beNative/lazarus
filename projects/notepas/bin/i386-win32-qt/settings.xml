@@ -265,14 +265,14 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<PreviewVisible>true</PreviewVisible>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>269</Left>
-		<Top>85</Top>
-		<Width>1327</Width>
-		<Height>648</Height>
+		<Left>396</Left>
+		<Top>87</Top>
+		<Width>1156</Width>
+		<Height>729</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>

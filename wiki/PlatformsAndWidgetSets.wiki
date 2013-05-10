@@ -1,5 +1,9 @@
 =1. Linux=
 
+==1.1 Linux Mint 32 bits==
+
+==1.1.1 QT widgetset==
+
 https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux32_about.png
 
 =2. Windows=

@@ -269,10 +269,10 @@
 	<PreviewVisible>true</PreviewVisible>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>225</Left>
-		<Top>225</Top>
-		<Width>1424</Width>
-		<Height>819</Height>
+		<Left>269</Left>
+		<Top>85</Top>
+		<Width>1327</Width>
+		<Height>648</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -298,12 +298,43 @@
 		<Name>Consolas</Name>
 	</EditorFont>
 	<SingleInstance>true</SingleInstance>
-	<IncrementColor>(TSynSelectedColor)</IncrementColor>
-	<HighlightAllColor>(TSynSelectedColor)</HighlightAllColor>
-	<BracketMatchColor>(TSynSelectedColor)</BracketMatchColor>
-	<MouseLinkColor>(TSynSelectedColor)</MouseLinkColor>
-	<LineHighlightColor>(TSynSelectedColor)</LineHighlightColor>
-	<FoldedCodeColor>(TSynSelectedColor)</FoldedCodeColor>
-	<SelectedColor>(TSynSelectedColor)</SelectedColor>
+	<IncrementColor>(TSynSelectedColor)
+		<Background>clSilver</Background>
+		<Foreground>clNone</Foreground>
+	</IncrementColor>
+	<HighlightAllColor>(TSynSelectedColor)
+		<Background>13487565</Background>
+		<Foreground>clDefault</Foreground>
+	</HighlightAllColor>
+	<BracketMatchColor>(TSynSelectedColor)
+		<Background>clAqua</Background>
+		<Foreground>clNone</Foreground>
+		<FrameColor>clSilver</FrameColor>
+		<Style>[fsBold]</Style>
+	</BracketMatchColor>
+	<MouseLinkColor>(TSynSelectedColor)
+		<Background>clNone</Background>
+		<Foreground>clNone</Foreground>
+		<FrameColor>clBlue</FrameColor>
+		<FrameEdges>sfeBottom</FrameEdges>
+	</MouseLinkColor>
+	<LineHighlightColor>(TSynSelectedColor)
+		<Background>clYellow</Background>
+		<Foreground>clNone</Foreground>
+		<FrameColor>clOlive</FrameColor>
+		<FrameStyle>slsWaved</FrameStyle>
+	</LineHighlightColor>
+	<FoldedCodeColor>(TSynSelectedColor)
+		<Background>clNone</Background>
+		<Foreground>clSilver</Foreground>
+		<FrameColor>clSilver</FrameColor>
+	</FoldedCodeColor>
+	<SelectedColor>(TSynSelectedColor)
+		<Background>clSilver</Background>
+		<Foreground>clDefault</Foreground>
+	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	<TabWidth>0</TabWidth>
+	<WantTabs>false</WantTabs>
+	<BlockTabIndent>2</BlockTabIndent>
 </TEditorSettings>

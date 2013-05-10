@@ -8,7 +8,7 @@ https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux32_about.png
 
 ===1.1.2 GTK2 widget set====
 
-https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux32_about.png
+https://notepas.googlecode.com/svn/wiki/images/notepas_gtk2_linux32_about.png
 
 =2. Windows=
 

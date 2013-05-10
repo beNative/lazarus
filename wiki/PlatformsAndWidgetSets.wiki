@@ -2,7 +2,7 @@
 
 ==1.1 Linux Mint 32 bit==
 
-=1.1.1 QT widgetset=
+===1.1.1 QT widgetset====
 
 https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux32_about.png
 

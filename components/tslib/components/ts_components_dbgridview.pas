@@ -91,8 +91,8 @@ unit ts_Components_DBGridView;
 interface
 
 uses
-  Messages, SysUtils, CommCtrl, Classes, Controls, Graphics, Forms, StdCtrls,
-  Math, ImgList, Dialogs, DB, DBCtrls,
+  Messages, SysUtils, CommCtrl, Classes, Controls, Graphics, Forms,
+  Math, ImgList, DB, DBCtrls,
 
   LCLIntf, LMessages, LCLType,
 

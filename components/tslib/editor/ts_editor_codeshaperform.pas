@@ -31,12 +31,10 @@ unit ts_Editor_CodeShaperForm;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  Spin, ActnList, Grids, Buttons, Menus,
+  SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Spin, ActnList, Grids, Buttons,
+  Menus,
 
-  LCLType, FileUtil, LResources,
-
-  SynEdit, SynEditTypes,
+  SynEditTypes,
 
   MenuButton,
 
@@ -238,7 +236,6 @@ implementation
 {$R *.lfm}
 
 uses
-  //Windows,
   LCLIntf, LMessages,
 
   ts_Core_Utils,
@@ -460,7 +457,6 @@ end;
 procedure TfrmCodeShaper.actInsertBreaksExecute(Sender: TObject);
 var
   S: string;
-
 begin
   S := Text;
   if chkBreakLines.Checked then

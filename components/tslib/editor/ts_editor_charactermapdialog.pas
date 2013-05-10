@@ -25,12 +25,9 @@ unit ts_Editor_CharacterMapDialog;
 interface
 
 uses
-  Classes, SysUtils, LResources, Forms, Controls, Graphics, Dialogs, Buttons,
-  StdCtrls, Grids, ComCtrls,
+  Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls,
 
-  LCLType, LCLProc, LCLUnicodeData, ButtonPanel,
-
-  GraphType,
+  LCLProc, LCLUnicodeData, ButtonPanel,
 
   ts_Editor_Interfaces;
 

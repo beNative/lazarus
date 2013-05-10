@@ -116,7 +116,7 @@ example:
 interface
 
 uses
-  SysUtils, Graphics, Classes, FileUtil, SynEditTypes, GraphType, Contnrs,
+  SysUtils, Graphics, Classes, FileUtil, SynEditTypes, Contnrs,
 
   SynEditHighlighter;
 

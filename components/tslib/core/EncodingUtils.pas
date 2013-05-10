@@ -45,7 +45,7 @@ unit EncodingUtils;
 interface
 
 uses
-  SysUtils, Classes;
+  SysUtils;
 
 type
   TEncodingInfo = class

@@ -41,10 +41,11 @@ unit ts_Components_UniqueInstance;
 interface
 
 uses
-  Forms, Classes, SysUtils, simpleipc, ExtCtrls;
+  Forms, Classes, SysUtils,
+
+  simpleipc;
 
 type
-
   TOnOtherInstance = procedure (Sender : TObject; ParamCount: Integer; Parameters: array of String) of object;
 
   { TUniqueInstance }

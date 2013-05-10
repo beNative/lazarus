@@ -50,13 +50,11 @@ unit ts_Editor_AboutDialog;
 interface
 
 uses
-  SysUtils, Forms, StdCtrls, ExtCtrls, Buttons, Classes, Contnrs,
-
-  LResources, ComCtrls, Grids, ActnList,
+  SysUtils, Forms, StdCtrls, ExtCtrls, Classes, Contnrs, ComCtrls, ActnList,
 
   VirtualTrees,
 
-  ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions, types, Controls;
+  ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions;
 
 //=============================================================================
 

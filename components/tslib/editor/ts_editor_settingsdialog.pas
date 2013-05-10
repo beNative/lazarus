@@ -25,10 +25,10 @@ unit ts_Editor_SettingsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
-  ExtCtrls, ComCtrls, ButtonPanel, StdCtrls, Contnrs,
+  Classes, SysUtils, Forms, Controls, ActnList, ExtCtrls, ComCtrls, StdCtrls,
+  Contnrs,
 
-  RTTIGrids,
+  RTTIGrids, ButtonPanel,
 
   VirtualTrees,
 
@@ -122,8 +122,6 @@ implementation
 {$R *.lfm}
 
 uses
-  SynEditHighlighter, PropEdits,
-
   ts_Core_DataTemplates, ts_Core_Helpers,
 
   ts_Components_FileAssociation,

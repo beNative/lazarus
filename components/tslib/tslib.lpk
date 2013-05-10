@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="94">
+    <Files Count="91">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -410,21 +410,9 @@
         <UnitName Value="NativeXmlXPath"/>
       </Item90>
       <Item91>
-        <Filename Value="core\sdDebug.pas"/>
-        <UnitName Value="sdDebug"/>
-      </Item91>
-      <Item92>
-        <Filename Value="core\sdStreams.pas"/>
-        <UnitName Value="sdStreams"/>
-      </Item92>
-      <Item93>
-        <Filename Value="core\sdStringTable.pas"/>
-        <UnitName Value="sdStringTable"/>
-      </Item93>
-      <Item94>
         <Filename Value="core\simdesign.inc"/>
         <Type Value="Include"/>
-      </Item94>
+      </Item91>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

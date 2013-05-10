@@ -223,7 +223,7 @@ implementation
 
 uses
 {$ifdef windows}
-  ActiveX, ShlObj, ComObj, Registry,
+  ActiveX, ShlObj, Registry,
 {$endif}
   Variants, ActnList;
 

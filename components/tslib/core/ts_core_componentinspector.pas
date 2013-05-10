@@ -32,16 +32,11 @@ unit ts_Core_ComponentInspector;
 interface
 
 uses
-  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ExtCtrls,
-  Contnrs, TypInfo,
+  SysUtils, Classes, Controls, Forms, StdCtrls, ExtCtrls, Contnrs, TypInfo,
 
-  LCLIntf, LMessages, LResources,
+  LCLIntf, LMessages,
 
-  RTTIGrids, RTTICtrls,
-
-  PropEdits,
-
-  sharedlogger;
+  RTTIGrids, PropEdits;
 
 //=============================================================================
 
@@ -341,7 +336,6 @@ end;
 
 procedure TComponentInspectorForm.OnSetSelection(const ASelection: TPersistentSelectionList);
 begin
-  Logger.Send('OnSetSelection', ASelection);
   if ASelection.Count > 0 then
   begin
     AddComponentToInspector(ASelection.Items[0]);
@@ -376,12 +370,12 @@ end;
 
 procedure TComponentInspectorForm.OnPersistentDeleting(APersistent: TPersistent);
 begin
-  Logger.Send('OnPersistentDeleting', APersistent);
+
 end;
 
 procedure TComponentInspectorForm.OnDeletePersistent(var APersistent: TPersistent);
 begin
-  Logger.Send('OnDeletePersistent', APersistent);
+
 end;
 
 procedure TComponentInspectorForm.cbxInspectorChange(Sender: TObject);

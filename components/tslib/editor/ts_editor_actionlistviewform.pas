@@ -25,10 +25,9 @@ unit ts_Editor_ActionListViewForm;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, ActnList,
-  ComCtrls, Contnrs,
+  Classes, SysUtils, Forms, Controls, ExtCtrls, ActnList, ComCtrls, Contnrs,
 
-  FileUtil, LResources, ButtonPanel,
+  ButtonPanel,
 
   VirtualTrees,
 

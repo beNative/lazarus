@@ -148,9 +148,6 @@ begin
     t.Dependencies.AddUnit('NativeXmlObjectStorage');
     t.Dependencies.AddUnit('NativeXmlWin32Compat');
     t.Dependencies.AddUnit('NativeXmlXPath');
-    t.Dependencies.AddUnit('sdDebug');
-    t.Dependencies.AddUnit('sdStreams');
-    t.Dependencies.AddUnit('sdStringTable');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -228,9 +225,6 @@ begin
     T:=P.Targets.AddUnit('core\NativeXmlObjectStorage.pas');
     T:=P.Targets.AddUnit('core\NativeXmlWin32Compat.pas');
     T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
-    T:=P.Targets.AddUnit('core\sdDebug.pas');
-    T:=P.Targets.AddUnit('core\sdStreams.pas');
-    T:=P.Targets.AddUnit('core\sdStringTable.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

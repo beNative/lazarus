@@ -52,7 +52,7 @@ implementation
 
 uses
   // code from philo.de
-  CodecUtilsWin32, EncodingUtils,
+  CodecUtilsWin32,
   SysUtils, NativeXml;
 
 type

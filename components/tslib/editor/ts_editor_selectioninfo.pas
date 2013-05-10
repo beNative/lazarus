@@ -7,7 +7,7 @@ unit ts_Editor_SelectionInfo;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes,
 
   SynEdit, SynEditTypes;
 

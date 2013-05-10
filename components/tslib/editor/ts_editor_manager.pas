@@ -738,7 +738,7 @@ uses
   ShlObj, Windows,
 {$endif}
 
-  FileUtil, Clipbrd, StrUtils, Math, Graphics, TypInfo,
+  FileUtil, Clipbrd, StrUtils, Math, TypInfo,
 
   LConvEncoding,
 
@@ -746,9 +746,8 @@ uses
 
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
-  SynHighlighterPerl, SynHighlighterPython, SynHighlighterPo,
+  SynHighlighterPerl, SynHighlighterPython,
   SynHighlighterPHP, SynHighlighterCss, SynHighlighterJScript,
-  synhighlighterunixshellscript,
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 

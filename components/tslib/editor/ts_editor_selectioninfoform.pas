@@ -7,7 +7,7 @@ unit ts_Editor_SelectionInfoForm;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  SysUtils, Forms, StdCtrls,
 
   ts_Editor_Interfaces;
 

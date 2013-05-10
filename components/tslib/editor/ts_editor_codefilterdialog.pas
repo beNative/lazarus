@@ -25,12 +25,10 @@ unit ts_Editor_CodeFilterDialog;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
-  ActnList, Buttons, Contnrs, Menus, ComCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, ExtCtrls, StdCtrls,
+  ActnList, Buttons, Contnrs, Menus, ComCtrls, LCLType,
 
-  FileUtil, LResources, LCLType,
-
-  VirtualTrees, SynEdit, SynRegExpr,
+  VirtualTrees, SynRegExpr,
 
   ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
@@ -194,9 +192,9 @@ implementation
 
 uses
 {$ifdef windows}
-  Windows,
+  Windows, Clipbrd,
 {$endif}
-  Variants, Clipbrd,   LCLIntf,
+  LCLIntf,
 
   SynEditHighlighter,
 

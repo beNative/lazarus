@@ -6,6 +6,7 @@ interface
 
 uses
   Classes,
+
   NativeXml;
 
 type
@@ -18,12 +19,7 @@ type
     function SelectNodes(XPath: string; const Nodes: TList): Integer;
   end;
 
-
-
 implementation
-
-uses
-  SysUtils;
 
 { ================================================================================================ }
 { TXmlNodeHelper }

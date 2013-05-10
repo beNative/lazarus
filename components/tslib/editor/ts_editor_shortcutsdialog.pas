@@ -23,8 +23,7 @@ unit ts_Editor_ShortcutsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls,
+  Classes, SysUtils, Forms, Controls, ExtCtrls,
 
   RichMemo;
 

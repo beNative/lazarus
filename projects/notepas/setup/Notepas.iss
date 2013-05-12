@@ -4,7 +4,7 @@
 #define MyAppPublisher "Tim Sinaeve"
 #define MyAppURL "http://code.google.com/p/notepas/"
 #define MyAppExeName "Notepas.exe"
-#define MyAppVersion "0.9.4.28"
+#define MyAppVersion "0.9.4.29"
 ;GetFileVersion('Notepas.exe')
 
 [Setup]

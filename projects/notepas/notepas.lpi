@@ -22,7 +22,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="4"/>
-      <BuildNr Value="28"/>
+      <BuildNr Value="29"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">

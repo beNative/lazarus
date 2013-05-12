@@ -2926,7 +2926,7 @@ begin
     actSearch.Checked         := ToolViews['frmSearchForm'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
-    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
+//    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
 
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;

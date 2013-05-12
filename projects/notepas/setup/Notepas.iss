@@ -46,11 +46,11 @@ ArchitecturesInstallIn64BitMode=x64
 Source: "..\bin\i386-win32-win32\Notepas-i386.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: not Is64BitInstallMode
 Source: "..\bin\x86_64-win64-win32\Notepas-x86_64.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: Is64BitInstallMode
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "..\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"
 Source: "..\bin\i386-win32-win32\license.txt"; DestDir: "{app}"
 
 [Languages]

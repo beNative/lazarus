@@ -253,25 +253,25 @@ object frmMain: TfrmMain
     Left = 0
     Height = 548
     Top = 30
-    Width = 417
+    Width = 428
     Align = alLeft
     BevelOuter = bvNone
     ClientHeight = 548
-    ClientWidth = 417
+    ClientWidth = 428
     TabOrder = 2
     Visible = False
     object pnlTop: TPanel
       Left = 0
       Height = 18
       Top = 0
-      Width = 417
+      Width = 428
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 18
-      ClientWidth = 417
+      ClientWidth = 428
       TabOrder = 0
       object btnCloseToolView: TSpeedButton
-        Left = 403
+        Left = 414
         Height = 18
         Top = 0
         Width = 14
@@ -310,7 +310,7 @@ object frmMain: TfrmMain
         Left = 0
         Height = 18
         Top = 0
-        Width = 393
+        Width = 404
         Align = alLeft
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -322,7 +322,7 @@ object frmMain: TfrmMain
     end
   end
   object splVertical: TSplitter
-    Left = 417
+    Left = 428
     Height = 548
     Top = 30
     Width = 7

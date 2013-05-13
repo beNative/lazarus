@@ -7,6 +7,7 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <Title Value="Notepas"/>
+      <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
       <XPManifest>
@@ -21,9 +22,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="4"/>
-      <BuildNr Value="29"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="5"/>
+      <BuildNr Value="41"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" ProductName="Notepas" ProductVersion="0.9.5" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">
       <Item1 Name="Default" Default="True"/>
@@ -46,7 +47,6 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <VerifyObjMethodCallValidity Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
           </CodeGeneration>
@@ -96,7 +96,6 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
             <Optimizations>
@@ -130,15 +129,12 @@
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
-              <CompileReasons Run="False"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release win64 win32">
-        <MacroValues Count="1">
-          <Macro1 Name="LCLWidgetType" Value="win32"/>
-        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -157,7 +153,6 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="win64"/>
             <Optimizations>
@@ -193,13 +188,9 @@
             </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="C:\codetyphon\fpc\bin\x86_64-win64\upx.exe $(TargetFile)"/>
-              <ScanForFPCMsgs Value="True"/>
-              <ScanForMakeMsgs Value="True"/>
-              <ShowAllMessages Value="True"/>
-              <CompileReasons Run="False"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <LCLWidgetType Value="win32"/>
         </CompilerOptions>
       </Item4>
       <Item5 Name="Release win32 qt">
@@ -450,16 +441,19 @@
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item1>
       <Item2>
-        <PackageName Value="tslib"/>
+        <PackageName Value="FCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCL"/>
+        <PackageName Value="tslib"/>
       </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>

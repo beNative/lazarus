@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 384
-  HorizontalOffset = 589
-  VerticalOffset = 178
+  HorizontalOffset = 1359
+  VerticalOffset = 432
   Width = 511
   object imlMain: TImageList
     AllocBy = 1
@@ -3946,6 +3946,7 @@ object dmEditorManager: TdmEditorManager
       AutoCheck = True
       Caption = 'Stay on top'
       GroupIndex = 5
+      Hint = 'Lets the application window stay on top of all other opened windows.'
       ImageIndex = 96
       OnExecute = actStayOnTopExecute
     end
@@ -3953,6 +3954,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Settings'
       AutoCheck = True
       Caption = 'Toggle maximized'
+      Hint = 'Toggles between maximized and restored mode.'
       ImageIndex = 97
       OnExecute = actToggleMaximizedExecute
       ShortCut = 122
@@ -3961,6 +3963,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Settings'
       AutoCheck = True
       Caption = 'Single instance'
+      Hint = 'Allow only one active instance of the application.'
       ImageIndex = 98
       OnExecute = actSingleInstanceExecute
     end

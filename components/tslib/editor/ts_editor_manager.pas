@@ -746,8 +746,8 @@ uses
 
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
-  SynHighlighterPerl, SynHighlighterPython,
-  SynHighlighterPHP, SynHighlighterCss, SynHighlighterJScript,
+  SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
+  SynHighlighterJScript,
 
   ts_Core_Utils, ts_Core_ComponentInspector,
 
@@ -1507,10 +1507,15 @@ end;
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
   InspectComponents([
-    Settings as TComponent,
-    ActiveView.Editor,
-    ActiveView.Editor.Highlighter
+
+    ActiveView.Editor
+
   ]);
+  //InspectComponents([
+  //  Settings as TComponent,
+  //  ActiveView.Editor,
+  //  ActiveView.Editor.Highlighter
+  //]);
 end;
 
 procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);

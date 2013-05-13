@@ -213,12 +213,14 @@ begin
   AddButton('actInspect');
   AddButton('actSettings');
   AddButton('');
-  AddButton('actAbout');
   AddButton('actMonitorChanges');
   AddButton('actShowViews');
+  AddButton('actStayOnTop');
+  AddButton('actSingleInstance');
   AddButton('');
   AddButton('actCreateDesktopLink');
   AddButton('actNewSharedView');
+  AddButton('actAbout');
 end;
 
 procedure AddEditorFileMenu(AMainMenu: TMainMenu);

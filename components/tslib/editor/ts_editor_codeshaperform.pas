@@ -24,6 +24,9 @@ unit ts_Editor_CodeShaperForm;
   TODO:
     - Work in progress...
     - CodeShaper profiles (collection to save with settings)
+
+    - Hint of each button should describe the operation reflecting the choosen
+      settings.
 }
 
 //*****************************************************************************

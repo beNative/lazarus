@@ -1,210 +1,256 @@
 object frmAlignLines: TfrmAlignLines
-  Left = -1208
-  Height = 552
-  Top = 253
-  Width = 334
+  Left = 2325
+  Height = 729
+  Top = 191
+  Width = 403
   Caption = 'Align selection'
-  ClientHeight = 552
-  ClientWidth = 334
+  ChildSizing.TopBottomSpacing = 4
+  ChildSizing.HorizontalSpacing = 4
+  ChildSizing.VerticalSpacing = 4
+  ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+  ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+  ChildSizing.Layout = cclLeftToRightThenTopToBottom
+  ChildSizing.ControlsPerLine = 1
+  ClientHeight = 729
+  ClientWidth = 403
   Constraints.MinWidth = 170
   OnShow = FormShow
   LCLVersion = '1.1'
-  object btnOK: TButton
-    Left = 164
-    Height = 25
-    Top = 527
-    Width = 80
-    Action = actExecute
-    Anchors = [akRight, akBottom]
-    Default = True
-    ModalResult = 1
-    TabOrder = 0
-  end
-  object btnCancel: TButton
-    Left = 254
-    Height = 25
-    Top = 527
-    Width = 80
-    Anchors = [akRight, akBottom]
-    Cancel = True
-    Caption = 'Cancel'
-    ModalResult = 2
-    TabOrder = 1
-  end
-  object rgpAlignAt: TRadioGroup
-    Left = 1
-    Height = 42
-    Top = 183
-    Width = 333
-    Anchors = [akTop, akLeft, akRight]
-    AutoFill = True
-    Caption = 'Align at:'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
+  object sbrMain: TScrollBox
+    Left = 0
+    Height = 692
+    Top = 4
+    Width = 403
+    HorzScrollBar.Page = 403
+    VertScrollBar.Page = 692
+    Align = alClient
+    BorderSpacing.Bottom = 4
+    BorderSpacing.CellAlignHorizontal = ccaCenter
+    BorderSpacing.CellAlignVertical = ccaCenter
+    BorderStyle = bsNone
+    ChildSizing.TopBottomSpacing = 4
+    ChildSizing.HorizontalSpacing = 4
+    ChildSizing.VerticalSpacing = 4
     ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
     ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 2
-    ClientHeight = 24
-    ClientWidth = 329
-    Columns = 2
-    ItemIndex = 0
-    Items.Strings = (
-      'Rightmost token'
-      'Leftmost token'
-    )
-    TabOrder = 2
-  end
-  object gbxInsertSpace: TCheckGroup
-    Left = 1
-    Height = 49
-    Top = 134
-    Width = 333
-    Anchors = [akTop, akLeft, akRight]
-    AutoFill = True
-    Caption = 'Keep at least one space'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 2
-    ClientHeight = 31
-    ClientWidth = 329
-    Columns = 2
-    Items.Strings = (
-      'Before token'
-      'After token'
-    )
-    OnItemClick = gbxInsertSpaceItemClick
-    TabOrder = 3
-    Data = {
-      020000000202
-    }
-  end
-  object gbxOptions: TCheckGroup
-    Left = 1
-    Height = 89
-    Top = 0
-    Width = 332
-    Anchors = [akTop, akLeft, akRight]
-    AutoFill = True
-    Caption = 'Options'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+    ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 71
-    ClientWidth = 328
-    Items.Strings = (
-      'Remove whitespace from text before aligning'
-      'Align in paragraphs'
-      'Sort after aligning'
-    )
-    OnItemClick = gbxOptionsItemClick
-    TabOrder = 4
-    Data = {
-      03000000020202
-    }
-  end
-  object pnlTokens: TPanel
-    Left = 1
-    Height = 287
-    Top = 232
-    Width = 333
-    Anchors = [akTop, akLeft, akRight, akBottom]
-    BevelOuter = bvNone
-    ChildSizing.HorizontalSpacing = 4
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 2
-    ClientHeight = 287
-    ClientWidth = 333
-    TabOrder = 5
-    OnResize = pnlTokensResize
-    object gbxTokensFound: TGroupBox
-      Left = 167
-      Height = 287
-      Top = 0
-      Width = 166
-      Align = alClient
-      Anchors = [akLeft, akRight]
-      Caption = 'Tokens found in selection:'
-      ChildSizing.ControlsPerLine = 2
-      ClientHeight = 269
-      ClientWidth = 162
-      TabOrder = 0
-      object pnlVST: TPanel
-        Left = 4
-        Height = 261
-        Top = 4
-        Width = 154
-        Align = alClient
-        BorderSpacing.Around = 4
-        BevelOuter = bvNone
-        ChildSizing.ControlsPerLine = 2
-        TabOrder = 0
-      end
-    end
-    object gbxTokenList: TGroupBox
+    ClientHeight = 692
+    ClientWidth = 403
+    TabOrder = 0
+    object gbxOptions: TCheckGroup
       Left = 0
-      Height = 287
-      Top = 0
-      Width = 163
-      Align = alLeft
-      Anchors = [akLeft]
-      Caption = 'Tokens to align to:'
-      ClientHeight = 269
-      ClientWidth = 159
+      Height = 101
+      Top = 4
+      Width = 403
+      AutoFill = True
+      Caption = 'Options'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 1
+      ClientHeight = 83
+      ClientWidth = 399
+      Items.Strings = (
+        'Remove whitespace from text before aligning'
+        'Align in paragraphs'
+        'Sort after aligning'
+      )
+      OnItemClick = gbxOptionsItemClick
+      TabOrder = 0
+      Data = {
+        03000000020202
+      }
+    end
+    object rgpSortDirection: TRadioGroup
+      Left = 0
+      Height = 55
+      Top = 109
+      Width = 403
+      AutoFill = True
+      Caption = 'Sort direction:'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 37
+      ClientWidth = 399
+      Columns = 2
+      ItemIndex = 0
+      Items.Strings = (
+        'Ascending'
+        'Descending'
+      )
+      OnClick = rgpSortDirectionClick
       TabOrder = 1
-      object mmoTokens: TMemo
-        Left = 4
-        Height = 261
-        Top = 4
-        Width = 151
+    end
+    object gbxInsertSpace: TCheckGroup
+      Left = 0
+      Height = 55
+      Top = 168
+      Width = 403
+      AutoFill = True
+      Caption = 'Keep at least one space'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 37
+      ClientWidth = 399
+      Columns = 2
+      Items.Strings = (
+        'Before token'
+        'After token'
+      )
+      OnItemClick = gbxInsertSpaceItemClick
+      TabOrder = 2
+      Data = {
+        020000000202
+      }
+    end
+    object rgpAlignAt: TRadioGroup
+      Left = 0
+      Height = 55
+      Top = 227
+      Width = 403
+      AutoFill = True
+      Caption = 'Align at:'
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 6
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsScaleChilds
+      ChildSizing.ShrinkVertical = crsScaleChilds
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 37
+      ClientWidth = 399
+      Columns = 2
+      ItemIndex = 0
+      Items.Strings = (
+        'Rightmost token'
+        'Leftmost token'
+      )
+      TabOrder = 3
+    end
+    object pnlTokens: TOMultiPanel
+      Left = 0
+      Height = 402
+      Top = 286
+      Width = 403
+      PanelCollection = <      
+        item
+          Control = gbxTokenList
+          Position = 0.5
+          Visible = True
+          Index = 0
+        end      
+        item
+          Control = gbxTokensFound
+          Position = 1
+          Visible = True
+          Index = 1
+        end>
+      MinPosition = 0.02
+      Constraints.MinHeight = 400
+      TabOrder = 4
+      object gbxTokenList: TGroupBox
+        Left = 0
+        Height = 402
+        Top = 0
+        Width = 202
         Align = alClient
-        BorderSpacing.Around = 4
-        Font.Name = 'Consolas'
-        OnExit = mmoTokensExit
-        ParentFont = False
-        ScrollBars = ssAutoBoth
+        Caption = 'Tokens to align to:'
+        ClientHeight = 384
+        ClientWidth = 198
         TabOrder = 0
+        object mmoTokens: TMemo
+          Left = 4
+          Height = 376
+          Top = 4
+          Width = 190
+          Align = alClient
+          BorderSpacing.Around = 4
+          Font.Name = 'Consolas'
+          OnExit = mmoTokensExit
+          ParentFont = False
+          ScrollBars = ssAutoBoth
+          TabOrder = 0
+        end
+      end
+      object gbxTokensFound: TGroupBox
+        Left = 205
+        Height = 402
+        Top = 0
+        Width = 198
+        Align = alClient
+        Caption = 'Tokens found in selection:'
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 384
+        ClientWidth = 194
+        TabOrder = 1
+        object pnlVST: TPanel
+          Left = 4
+          Height = 376
+          Top = 4
+          Width = 186
+          Align = alClient
+          BorderSpacing.Around = 4
+          BevelOuter = bvNone
+          ChildSizing.ControlsPerLine = 2
+          TabOrder = 0
+        end
       end
     end
   end
-  object rgpSortDirection: TRadioGroup
-    Left = 1
-    Height = 42
-    Top = 89
-    Width = 333
-    Anchors = [akTop, akLeft, akRight]
-    AutoFill = True
-    Caption = 'Sort direction:'
-    ChildSizing.LeftRightSpacing = 6
-    ChildSizing.TopBottomSpacing = 6
-    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-    ChildSizing.EnlargeVertical = crsHomogenousChildResize
-    ChildSizing.ShrinkHorizontal = crsScaleChilds
-    ChildSizing.ShrinkVertical = crsScaleChilds
-    ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ChildSizing.ControlsPerLine = 2
-    ClientHeight = 24
-    ClientWidth = 329
-    Columns = 2
-    ItemIndex = 0
-    Items.Strings = (
-      'Ascending'
-      'Descending'
-    )
-    OnClick = rgpSortDirectionClick
-    TabOrder = 6
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 25
+    Top = 700
+    Width = 403
+    Align = alBottom
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 25
+    ClientWidth = 403
+    TabOrder = 1
+    object btnOK: TButton
+      Left = 223
+      Height = 25
+      Top = 0
+      Width = 80
+      Action = actExecute
+      Anchors = [akRight, akBottom]
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+    end
+    object btnCancel: TButton
+      Left = 311
+      Height = 25
+      Top = 0
+      Width = 80
+      Anchors = [akRight, akBottom]
+      Cancel = True
+      Caption = 'Cancel'
+      ModalResult = 2
+      TabOrder = 1
+    end
   end
   object aclMain: TActionList
     left = 152

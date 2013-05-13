@@ -25,8 +25,8 @@ unit ts_Editor_AlignLinesForm;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, Buttons, Grids, ActnList, Contnrs,
+  Classes, SysUtils, FileUtil, OMultiPanel, LSControls, Forms, Controls,
+  Graphics, Dialogs, StdCtrls, ExtCtrls, Buttons, Grids, ActnList, Contnrs,
 
   VirtualTrees,
 
@@ -70,20 +70,25 @@ const
   );
 
 type
+
+  { TfrmAlignLines }
+
   TfrmAlignLines = class(TForm, IEditorToolView)
     aclMain        : TActionList;
     actExecute     : TAction;
     btnCancel      : TButton;
     btnOK          : TButton;
-    gbxOptions     : TCheckGroup;
-    gbxInsertSpace : TCheckGroup;
-    gbxTokenList   : TGroupBox;
-    gbxTokensFound : TGroupBox;
-    mmoTokens      : TMemo;
-    pnlTokens      : TPanel;
-    pnlVST         : TPanel;
-    rgpAlignAt     : TRadioGroup;
+    gbxInsertSpace: TCheckGroup;
+    gbxOptions: TCheckGroup;
+    gbxTokenList: TGroupBox;
+    gbxTokensFound: TGroupBox;
+    mmoTokens: TMemo;
+    pnlTokens: TOMultiPanel;
+    pnlBottom: TPanel;
+    pnlVST: TPanel;
+    rgpAlignAt: TRadioGroup;
     rgpSortDirection: TRadioGroup;
+    sbrMain: TScrollBox;
     splVertical    : TSplitter;
 
     procedure actExecuteExecute(Sender: TObject);

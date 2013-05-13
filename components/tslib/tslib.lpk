@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="91">
+    <Files Count="92">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -413,33 +413,43 @@
         <Filename Value="core\simdesign.inc"/>
         <Type Value="Include"/>
       </Item91>
+      <Item92>
+        <Filename Value="ts_editor_customtoolview.pas"/>
+        <UnitName Value="ts_Editor_CustomToolView"/>
+      </Item92>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="7">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item3>
       <Item4>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item4>
       <Item5>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item5>
       <Item6>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item7>
+      <Item8>
+        <PackageName Value="SynEdit"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

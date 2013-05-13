@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 12/05/2013
+   This file was generated on 13/05/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,8 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('omultipanel_design');
+    P.Dependencies.Add('pl_lazsolutions');
     P.Dependencies.Add('pl_luicontrols');
     P.Dependencies.Add('pl_virtualtrees');
     P.Dependencies.Add('pl_zeosdbocomp');
@@ -58,10 +60,12 @@ begin
     P.Options.Add('-Fucomponents');
     P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../pl_Synapse/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../omultipanel/package/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../pl_lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
@@ -70,6 +74,8 @@ begin
     P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../synedit/design/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_LazSolutions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu.');
     T:=P.Targets.AddUnit('tslib.pas');
     t.Dependencies.AddUnit('ts_editor_actionlistviewform');
@@ -148,6 +154,7 @@ begin
     t.Dependencies.AddUnit('NativeXmlObjectStorage');
     t.Dependencies.AddUnit('NativeXmlWin32Compat');
     t.Dependencies.AddUnit('NativeXmlXPath');
+    t.Dependencies.AddUnit('ts_editor_customtoolview');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -225,6 +232,7 @@ begin
     T:=P.Targets.AddUnit('core\NativeXmlObjectStorage.pas');
     T:=P.Targets.AddUnit('core\NativeXmlWin32Compat.pas');
     T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
+    T:=P.Targets.AddUnit('ts_editor_customtoolview.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

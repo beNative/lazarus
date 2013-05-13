@@ -1340,14 +1340,21 @@ begin
   Editor.WantTabs              := Settings.WantTabs;
   Editor.MouseLinkColor        := Settings.MouseLinkColor;
   Editor.LineHighlightColor    := Settings.LineHighlightColor;
-  Editor.UseIncrementalColor := True;
 
-  Editor.SelectedColor.Background := clGray;
+  // block selection color
+  Editor.SelectedColor.Background      := clLtGray;
+  Editor.SelectedColor.Foreground      := clNone;
   Editor.SelectedColor.MergeFinalStyle := True;
 
   Editor.BracketMatchColor.Background := clAqua;
   Editor.BracketMatchColor.FrameColor := clGray;
 
+  // alternative block selection color?
+  Editor.UseIncrementalColor := False;
+  Editor.IncrementColor.Background := clLtGray;
+  Editor.IncrementColor.Foreground := clNone;
+
+  // highlight all search matches after search operation
   Editor.HighlightAllColor.Background := $0064B1FF;  // light orange
   Editor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
   Editor.HighlightAllColor.FrameStyle := slsSolid;
@@ -1355,8 +1362,10 @@ begin
   Editor.HighlightAllColor.Foreground := clNone;
   Editor.HighlightAllColor.MergeFinalStyle := True;
 
+  // highlight current line
   Editor.LineHighlightColor.Background := $009FFFFF; // yellow
   Editor.LineHighlightColor.FrameEdges := sfeAround;
+  Editor.LineHighlightColor.Foreground := clNone;
   Editor.LineHighlightColor.FrameStyle := slsWaved;
   Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
   Editor.LineHighlightColor.MergeFinalStyle := True;

@@ -790,7 +790,7 @@ type
   IEditorToolView = interface
   ['{F6BEE8F6-BA4D-4B38-8FB0-79088B615DF5}']
     function GetForm: TForm;
-    function GetName:string;
+    function GetName: string;
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
     { Lets the view respond to changes. }
@@ -988,8 +988,8 @@ type
 
   TEditorViewListEnumerator = class
   strict private
-    FIndex: Integer;
-    FList : TEditorViewList;
+    FIndex : Integer;
+    FList  : TEditorViewList;
 
   public
     constructor Create(AList: TEditorViewList);

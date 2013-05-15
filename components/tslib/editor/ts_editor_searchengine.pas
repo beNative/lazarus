@@ -219,11 +219,6 @@ begin
   end;
 end;
 
-function TSearchEngine.GetSearchAllViews: Boolean;
-begin
-  Result := Settings.SearchAllViews;
-end;
-
 function TSearchEngine.GetSearchText: string;
 begin
   Result := FSearchText;
@@ -269,6 +264,11 @@ begin
     FSESearch.RegExprMultiLine   := ssoRegExprMultiLine in Options;
     FSESearch.Backwards          := ssoBackwards in Options;
   end;
+end;
+
+function TSearchEngine.GetSearchAllViews: Boolean;
+begin
+  Result := Settings.SearchAllViews;
 end;
 
 procedure TSearchEngine.SetSearchAllViews(AValue: Boolean);

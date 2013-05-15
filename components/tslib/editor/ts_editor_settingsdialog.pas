@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, Forms, Controls, ActnList, ExtCtrls, ComCtrls, StdCtrls,
   Contnrs,
 
-  RTTIGrids, ButtonPanel,
+  RTTIGrids, ELDsgxObjectInsp, ButtonPanel,
 
   VirtualTrees,
 
@@ -47,6 +47,9 @@ uses
 }
 
 type
+
+  { TfrmEditorSettings }
+
   TfrmEditorSettings = class(TForm)
     {$region 'designer controls' /fold}
     aclMain                     : TActionList;
@@ -62,31 +65,41 @@ type
     pcMain                      : TPageControl;
     pnlBottom                   : TPanel;
     pnlHALeft                   : TPanel;
+    pnlHLLeft: TPanel;
     pnlHARight                  : TPanel;
+    pnlHLRight: TPanel;
     pnlHighlighterAttributes    : TPanel;
+    pnlHighlighters: TPanel;
     pnlPI                       : TPanel;
     pnlTop                      : TPanel;
     pnlXML: TPanel;
     splHAVertical               : TSplitter;
+    splHLVertical: TSplitter;
+    tsHighlighters: TTabSheet;
     tsDebug: TTabSheet;
     tsXML: TTabSheet;
-    tsHighlighters              : TTabSheet;
+    tsHighlighterAttributes              : TTabSheet;
     tsSettings                  : TTabSheet;
     {$endregion}
 
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
-    procedure FTVPSelectionChanged(Sender: TObject);
+    procedure FHATVPSelectionChanged(Sender: TObject);
+    procedure FHLTVPSelectionChanged(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
-    procedure tsXMLEnter(Sender: TObject);
-
+    procedure plObjectInspector1AddAvailPersistent(APersistent: TPersistent;
+      var Allowed: boolean);
   private
-    FTVP     : TTreeViewPresenter;
-    FList    : TObjectList;
+    FHATVP   : TTreeViewPresenter;
+    FHLTVP   : TTreeViewPresenter;
+    FHAList  : TObjectList;
+    FHLList  : TObjectList;
     FPI      : TTIPropertyGrid;
     FHAPI    : TTIPropertyGrid;
+    FHLPI    : TTIPropertyGrid;
     FHAVST   : TVirtualStringTree;
+    FHLVST   : TVirtualStringTree;
     FXMLTree : TXMLTree;
 
     function GetSettings: IEditorSettings;
@@ -126,7 +139,7 @@ uses
 
   ts_Components_FileAssociation,
 
-  ts_Editor_HighlighterAttributes;
+  ts_Editor_HighlighterAttributes, ts_Editor_Highlighters;
 
 var
   FForm: TfrmEditorSettings;
@@ -143,6 +156,21 @@ function TSynAttributesDataTemplate.GetText(const Item: TObject;
   const ColumnIndex: Integer): string;
 begin
   Result := (Item as THighlighterAttributesItem).Name;
+end;
+{$endregion}
+
+{$region 'THighlightersDataTemplate' /fold}
+type
+  THighlightersDataTemplate = class(TDataTemplate)
+  public
+    function GetText(const Item: TObject;
+      const ColumnIndex: Integer): string; override;
+  end;
+
+function THighlightersDataTemplate.GetText(const Item: TObject;
+  const ColumnIndex: Integer): string;
+begin
+  Result := (Item as THighlighterItem).Name;
 end;
 {$endregion}
 
@@ -171,22 +199,30 @@ end;
 procedure TfrmEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FList             := TObjectList.Create(False);
-  FTVP              := TTreeViewPresenter.Create(Self);
-  FTVP.ItemTemplate := TSynAttributesDataTemplate.Create;
-  FPI               := CreatePI(Self, pnlPI);
-  FHAPI             := CreatePI(Self, pnlHARight);
-  FHAVST            := CreateVST(Self, pnlHALeft);
-  FXMLTree          := CreateXMLTree(Self, pnlXML);
-
+  FHAList             := TObjectList.Create(False);
+  FHATVP              := TTreeViewPresenter.Create(Self);
+  FHATVP.ItemTemplate := TSynAttributesDataTemplate.Create;
+  FHLList             := TObjectList.Create(False);
+  FHLTVP              := TTreeViewPresenter.Create(Self);
+  FHLTVP.ItemTemplate := THighlightersDataTemplate.Create;
+  FPI               	:= CreatePI(Self, pnlPI);
+  FHAPI             	:= CreatePI(Self, pnlHARight);
+  FHLPI             	:= CreatePI(Self, pnlHLRight);
+  FHAVST              := CreateVST(Self, pnlHALeft);
+  FHLVST              := CreateVST(Self, pnlHLLeft);
+  FXMLTree            := CreateXMLTree(Self, pnlXML);
   UpdateData;
-  tsDebug.TabVisible := Settings.DebugMode;
-  tsXML.TabVisible   := Settings.DebugMode;
+  tsDebug.TabVisible        := Settings.DebugMode;
+  tsXML.TabVisible          := Settings.DebugMode;
+  tsHighlighters.TabVisible := Settings.DebugMode;
+  if Settings.DebugMode then
+    FXMLTree.XML := Settings.XML;
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
 begin
-  FreeAndNil(FList);
+  FreeAndNil(FHAList);
+  FreeAndNil(FHLList);
   inherited BeforeDestruction;
 end;
 
@@ -220,12 +256,17 @@ end;
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-procedure TfrmEditorSettings.FTVPSelectionChanged(Sender: TObject);
+procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
 begin
   FHAPI.ExpandedProperties.Add('Attributes');
   FHAPI.ExpandedProperties.Add('Attributes.Style');
   FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
-  FHAPI.TIObject := FTVP.CurrentItem as TPersistent;
+  FHAPI.TIObject := FHATVP.CurrentItem as TPersistent;
+end;
+
+procedure TfrmEditorSettings.FHLTVPSelectionChanged(Sender: TObject);
+begin
+  FHLPI.TIObject := FHLTVP.CurrentItem as TPersistent;
 end;
 
 procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
@@ -273,9 +314,10 @@ begin
   Apply;
 end;
 
-procedure TfrmEditorSettings.tsXMLEnter(Sender: TObject);
+procedure TfrmEditorSettings.plObjectInspector1AddAvailPersistent(
+  APersistent: TPersistent; var Allowed: boolean);
 begin
-  FXMLTree.XML := Settings.XML;
+  Allowed := True;
 end;
 
 //*****************************************************************************
@@ -293,16 +335,27 @@ var
   I: Integer;
 begin
   FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
-  FTVP.MultiSelect := True;
-  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
-  FList.Clear;
+  FHATVP.MultiSelect := True;
+  FHATVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
+  FHAList.Clear;
   for I := 0 to Settings.HighlighterAttributes.Count - 1 do
   begin
-    FList.Add(Settings.HighlighterAttributes[I]);
+    FHAList.Add(Settings.HighlighterAttributes[I]);
   end;
-  FTVP.ItemsSource := FList;
-  FTVP.TreeView := FHAVST;
-  FTVP.OnSelectionChanged   := FTVPSelectionChanged;
+  FHATVP.ItemsSource := FHAList;
+  FHATVP.TreeView := FHAVST;
+  FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
+
+  FHLTVP.MultiSelect := True;
+  FHLTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
+  FHLList.Clear;
+  for I := 0 to Settings.Highlighters.Count - 1 do
+  begin
+    FHLList.Add(Settings.Highlighters[I]);
+  end;
+  FHLTVP.ItemsSource := FHLList;
+  FHLTVP.TreeView := FHLVST;
+  FHLTVP.OnSelectionChanged := FHLTVPSelectionChanged;
 end;
 
 //*****************************************************************************

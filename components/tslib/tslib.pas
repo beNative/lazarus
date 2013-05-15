@@ -35,7 +35,7 @@ uses
   ts_Components_Inspector, ts_Components_DBGridView, ts_Components_GridView, 
   ts_Components_FileAssociation, CodecUtilsWin32, EncodingUtils, NativeXml, 
   NativeXmlObjectStorage, NativeXmlWin32Compat, NativeXmlXPath, 
-  ts_Editor_CustomToolView;
+  ts_Editor_CustomToolView, ts_Editor_CodeTags;
 
 implementation
 

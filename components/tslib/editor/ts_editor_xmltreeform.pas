@@ -28,33 +28,29 @@ uses
 
   ts_Components_XMLTree,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 //=============================================================================
 
 type
-  TfrmXmlTree = class(TForm, IEditorToolView)
-    btnInspect: TButton;
+  TfrmXmlTree = class(TCustomEditorToolView, IEditorToolView)
+    btnInspect : TButton;
+    btnExpand: TButton;
+    btnCollapse: TButton;
     pnlHeader: TPanel;
     pnlXmlTree: TPanel;
+
+    procedure btnCollapseClick(Sender: TObject);
+    procedure btnExpandClick(Sender: TObject);
     procedure btnInspectClick(Sender: TObject);
 
   strict private
     FXMLTree: TXMLTree;
 
-    function GetForm: TForm;
-    function GetName: string;
-    function GetView: IEditorView;
-    function GetVisible: Boolean;
   public
-    { Lets the view respond to changes. }
-    procedure UpdateView;
+    procedure UpdateView; override;
 
     procedure AfterConstruction; override;
-
-    property View: IEditorView
-      read GetView;
-
   end;
 
 //*****************************************************************************
@@ -87,35 +83,40 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
+//*****************************************************************************
+// property access methods                                                 END
+//*****************************************************************************
+{$endregion}
+
+{$region 'action handlers' /fold}
+//*****************************************************************************
+// action handlers                                                       BEGIN
+//*****************************************************************************
+
 procedure TfrmXmlTree.btnInspectClick(Sender: TObject);
 begin
   InspectComponent(FXMLTree);
 end;
 
-function TfrmXmlTree.GetForm: TForm;
+procedure TfrmXmlTree.btnExpandClick(Sender: TObject);
 begin
-  Result := Self;
+  FXMLTree.FullExpand;
 end;
 
-function TfrmXmlTree.GetName: string;
+procedure TfrmXmlTree.btnCollapseClick(Sender: TObject);
 begin
-  Result := inherited Name;
-end;
-
-function TfrmXmlTree.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
-end;
-
-function TfrmXmlTree.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
+  FXMLTree.FullCollapse;
 end;
 
 //*****************************************************************************
-// property access methods                                                 END
+// action handlers                                                         END
 //*****************************************************************************
 {$endregion}
+
+{$region 'protected methods' /fold}
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
 
 procedure TfrmXmlTree.UpdateView;
 begin
@@ -124,6 +125,11 @@ begin
   except
   end;
 end;
+
+//*****************************************************************************
+// protected methods                                                       END
+//*****************************************************************************
+{$endregion}
 
 end.
 

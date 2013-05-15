@@ -41,7 +41,7 @@ uses
 
   MenuButton,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 type
   TTokenSide = (
@@ -54,7 +54,8 @@ type
 
   { TfrmCodeShaper }
 
-  TfrmCodeShaper = class(TForm, IEditorToolView, IClipboardCommands)
+  TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView,
+                                                IClipboardCommands)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;
@@ -174,21 +175,8 @@ type
     FAlignTokenSide : TTokenSide;
     FBreakTokenSide : TTokenSide;
 
-    function GetForm: TForm;
-    function GetName: string;
     function GetText: string;
-    function GetView: IEditorView;
-    function GetVisible: Boolean;
-
   protected
-    procedure SetVisible(AValue: Boolean); override;
-    { IClipboardCommands }
-    procedure Cut;
-    procedure Copy;
-    procedure Paste;
-    procedure Undo;
-    procedure Redo;
-
     procedure AssignText(const AText: string);
     procedure InitializeControls;
     procedure InitializeAlignLinesControls;
@@ -207,24 +195,10 @@ type
     ): string;
     procedure UpdateQuoteLinesControls;
     procedure UpdateActions; override;
-
-    { IEditorToolView }
-    procedure UpdateView;
+    procedure UpdateView; override;
 
     procedure BeginUpdate;
     procedure EndUpdate;
-
-    property View: IEditorView
-      read GetView;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
 
     property Text: string
       read GetText;
@@ -273,37 +247,12 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-function TfrmCodeShaper.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
-
-procedure TfrmCodeShaper.SetVisible(AValue: Boolean);
-begin
-  inherited SetVisible(AValue);
-end;
-
-function TfrmCodeShaper.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
 function TfrmCodeShaper.GetText: string;
 begin
   if View.SelAvail then
     Result := View.SelText
   else
     Result := View.Text;
-end;
-
-function TfrmCodeShaper.GetForm: TForm;
-begin
-  Result := Self;
-end;
-
-function TfrmCodeShaper.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
 end;
 
 //*****************************************************************************
@@ -727,31 +676,6 @@ begin
   end;
   A.Checked := True;
   actToggleBreakSide.Caption := A.Caption;
-end;
-
-procedure TfrmCodeShaper.Cut;
-begin
-  PostMessage(GetFocus, LM_CUT, 0, 0);
-end;
-
-procedure TfrmCodeShaper.Copy;
-begin
-  PostMessage(GetFocus, LM_COPY, 0, 0);
-end;
-
-procedure TfrmCodeShaper.Paste;
-begin
-  PostMessage(GetFocus, LM_PASTE, 0, 0);
-end;
-
-procedure TfrmCodeShaper.Undo;
-begin
-//  PostMessage(GetFocus, WM_UNDO, 0, 0);
-end;
-
-procedure TfrmCodeShaper.Redo;
-begin
-//  PostMessage(GetFocus, WM_UNDO, 1, 0);
 end;
 
 //*****************************************************************************

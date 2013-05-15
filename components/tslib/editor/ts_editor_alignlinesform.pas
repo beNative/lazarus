@@ -30,9 +30,9 @@ uses
 
   VirtualTrees,
 
-  ts_Editor_Interfaces, ts_Editor_Settings_AlignLines,
-
   ts_Core_TreeViewPresenter,
+
+  ts_Editor_Interfaces, ts_Editor_Settings_AlignLines, ts_Editor_CustomToolView,
 
   sharedlogger;
 
@@ -70,26 +70,23 @@ const
   );
 
 type
-
-  { TfrmAlignLines }
-
-  TfrmAlignLines = class(TForm, IEditorToolView)
-    aclMain        : TActionList;
-    actExecute     : TAction;
-    btnCancel      : TButton;
-    btnOK          : TButton;
-    gbxInsertSpace: TCheckGroup;
-    gbxOptions: TCheckGroup;
-    gbxTokenList: TGroupBox;
-    gbxTokensFound: TGroupBox;
-    mmoTokens: TMemo;
-    pnlTokens: TOMultiPanel;
-    pnlBottom: TPanel;
-    pnlVST: TPanel;
-    rgpAlignAt: TRadioGroup;
-    rgpSortDirection: TRadioGroup;
-    sbrMain: TScrollBox;
-    splVertical    : TSplitter;
+  TfrmAlignLines = class(TCustomEditorToolView, IEditorToolView)
+    aclMain          : TActionList;
+    actExecute       : TAction;
+    btnCancel        : TButton;
+    btnOK            : TButton;
+    gbxInsertSpace   : TCheckGroup;
+    gbxOptions       : TCheckGroup;
+    gbxTokenList     : TGroupBox;
+    gbxTokensFound   : TGroupBox;
+    mmoTokens        : TMemo;
+    pnlTokens        : TOMultiPanel;
+    pnlBottom        : TPanel;
+    pnlVST           : TPanel;
+    rgpAlignAt       : TRadioGroup;
+    rgpSortDirection : TRadioGroup;
+    sbrMain          : TScrollBox;
+    splVertical      : TSplitter;
 
     procedure actExecuteExecute(Sender: TObject);
 
@@ -99,6 +96,7 @@ type
     procedure mmoTokensExit(Sender: TObject);
     procedure pnlTokensResize(Sender: TObject);
     procedure rgpSortDirectionClick(Sender: TObject);
+
   strict private
     FTVP    : TTreeViewPresenter;
     FVST    : TVirtualStringTree;
@@ -106,29 +104,13 @@ type
 
     procedure UpdateTokenList;
 
-  protected
+  strict protected
     function GetSettings: TAlignLinesSettings;
-    function GetManager: IEditorManager;
-    function GetForm: TForm;
-    function GetName: string;
-    function GetVisible: Boolean;
 
     { Lets the view respond to changes. }
-    procedure UpdateView;
+    procedure UpdateView; override;
     procedure Execute;
     procedure UpdateActions; override;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
-
-    property Manager: IEditorManager
-      read GetManager;
 
     property Settings: TAlignLinesSettings
       read GetSettings;
@@ -288,26 +270,6 @@ end;
 //*****************************************************************************
 // property access methods                                               BEGIN
 //*****************************************************************************
-
-function TfrmAlignLines.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
-end;
-
-function TfrmAlignLines.GetForm: TForm;
-begin
-  Result := Self;
-end;
-
-function TfrmAlignLines.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
-function TfrmAlignLines.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
 
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin

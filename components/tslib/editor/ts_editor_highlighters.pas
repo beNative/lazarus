@@ -33,7 +33,7 @@ uses
 
   sharedlogger,
 
-  ts_Editor_Utils, ts_Editor_CodeFormatters;
+  ts_Editor_Utils, ts_Editor_CodeFormatters, ts_Editor_CodeTags;
 
 //=============================================================================
 
@@ -41,6 +41,8 @@ type
   TSynHighlighterClass = class of TSynCustomHighlighter;
 
   THighlighters = class;
+
+  { THighlighterItem }
 
   THighlighterItem = class(TCollectionItem)
   private
@@ -52,6 +54,7 @@ type
     FLayoutFileName       : string;
     FLineCommentTag       : string;
     FName                 : string;
+    FSmartSelectionTags   : TCodeTags;
     FSynHighlighter       : TSynCustomHighlighter;
     FSynHighlighterClass  : TSynHighlighterClass;
     FFileExtensions       : TStringList;
@@ -62,8 +65,12 @@ type
     function GetCollection: THighlighters;
     procedure SetFileExtensions(AValue: string);
     procedure SetFormatterSupport(const AValue: Boolean);
+    procedure SetSmartSelectionTags(AValue: TCodeTags);
     procedure SetSynHighlighter(AValue: TSynCustomHighlighter);
     procedure SetSynHighlighterClass(AValue: TSynHighlighterClass);
+
+  protected
+    function GetDisplayName: string; override;
 
   public
     // constructors and destructors
@@ -117,6 +124,10 @@ type
 
     property SynHighlighter: TSynCustomHighlighter
       read FSynHighlighter write SetSynHighlighter;
+
+    property SmartSelectionTags: TCodeTags
+      read FSmartSelectionTags write SetSmartSelectionTags;
+
   end;
 
   THighlighterItemClass = class of THighlighterItem;
@@ -489,6 +500,7 @@ begin
   FFileExtensions := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
+  FSmartSelectionTags := TCodeTags.Create(Self);
 end;
 
 procedure THighlighterItem.BeforeDestruction;
@@ -496,6 +508,7 @@ begin
   if Assigned(FSynHighlighter) then
     FreeAndNil(FSynHighlighter);
   FreeAndNil(FFileExtensions);
+  FreeAndNil(FSmartSelectionTags);
   inherited BeforeDestruction;
 end;
 
@@ -538,6 +551,11 @@ begin
   end;
 end;
 
+procedure THighlighterItem.SetSmartSelectionTags(AValue: TCodeTags);
+begin
+  FSmartSelectionTags.Assign(AValue);
+end;
+
 procedure THighlighterItem.SetSynHighlighter(AValue: TSynCustomHighlighter);
 begin
   FSynHighlighter.Assign(AValue);
@@ -550,6 +568,11 @@ begin
   begin
     FSynHighlighterClass := AValue;
   end;
+end;
+
+function THighlighterItem.GetDisplayName: string;
+begin
+  Result := Name;
 end;
 
 //*****************************************************************************
@@ -579,6 +602,7 @@ begin
       BlockCommentStartTag := HLI.BlockCommentStartTag;
       LineCommentTag       := HLI.LineCommentTag;
       FileExtensions       := HLI.FileExtensions;
+      SmartSelectionTags   := HLI.SmartSelectionTags;
     finally
       if Assigned(Collection) then
         Collection.EndUpdate;

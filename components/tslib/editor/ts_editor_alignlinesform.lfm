@@ -17,14 +17,15 @@ object frmAlignLines: TfrmAlignLines
   OnShow = FormShow
   LCLVersion = '1.1'
   object sbrMain: TScrollBox
-    Left = 0
-    Height = 692
+    Left = 4
+    Height = 688
     Top = 4
-    Width = 359
-    HorzScrollBar.Page = 359
-    VertScrollBar.Page = 692
+    Width = 351
+    HorzScrollBar.Page = 351
+    VertScrollBar.Page = 688
     Align = alClient
     BorderSpacing.Bottom = 4
+    BorderSpacing.Around = 4
     BorderSpacing.CellAlignHorizontal = ccaCenter
     BorderSpacing.CellAlignVertical = ccaCenter
     BorderStyle = bsNone
@@ -37,14 +38,14 @@ object frmAlignLines: TfrmAlignLines
     ChildSizing.ShrinkVertical = crsHomogenousChildResize
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 692
-    ClientWidth = 359
+    ClientHeight = 688
+    ClientWidth = 351
     TabOrder = 0
     object gbxOptions: TCheckGroup
       Left = 0
-      Height = 101
+      Height = 100
       Top = 4
-      Width = 359
+      Width = 351
       AutoFill = True
       Caption = 'Options'
       ChildSizing.LeftRightSpacing = 20
@@ -56,8 +57,8 @@ object frmAlignLines: TfrmAlignLines
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
-      ClientHeight = 83
-      ClientWidth = 355
+      ClientHeight = 82
+      ClientWidth = 347
       Items.Strings = (
         'Remove whitespace from text before aligning'
         'Align in paragraphs'
@@ -71,9 +72,9 @@ object frmAlignLines: TfrmAlignLines
     end
     object rgpSortDirection: TRadioGroup
       Left = 0
-      Height = 55
-      Top = 109
-      Width = 359
+      Height = 54
+      Top = 108
+      Width = 351
       AutoFill = True
       Caption = 'Sort direction:'
       ChildSizing.LeftRightSpacing = 20
@@ -84,8 +85,8 @@ object frmAlignLines: TfrmAlignLines
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 37
-      ClientWidth = 355
+      ClientHeight = 36
+      ClientWidth = 347
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
@@ -97,9 +98,9 @@ object frmAlignLines: TfrmAlignLines
     end
     object gbxInsertSpace: TCheckGroup
       Left = 0
-      Height = 55
-      Top = 168
-      Width = 359
+      Height = 54
+      Top = 166
+      Width = 351
       AutoFill = True
       Caption = 'Keep at least one space'
       ChildSizing.LeftRightSpacing = 20
@@ -110,8 +111,8 @@ object frmAlignLines: TfrmAlignLines
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 37
-      ClientWidth = 355
+      ClientHeight = 36
+      ClientWidth = 347
       Columns = 2
       Items.Strings = (
         'Before token'
@@ -125,9 +126,9 @@ object frmAlignLines: TfrmAlignLines
     end
     object rgpAlignAt: TRadioGroup
       Left = 0
-      Height = 55
-      Top = 227
-      Width = 359
+      Height = 54
+      Top = 224
+      Width = 351
       AutoFill = True
       Caption = 'Align at:'
       ChildSizing.LeftRightSpacing = 20
@@ -138,8 +139,8 @@ object frmAlignLines: TfrmAlignLines
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 37
-      ClientWidth = 355
+      ClientHeight = 36
+      ClientWidth = 347
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
@@ -151,8 +152,8 @@ object frmAlignLines: TfrmAlignLines
     object pnlTokens: TOMultiPanel
       Left = 0
       Height = 402
-      Top = 286
-      Width = 359
+      Top = 282
+      Width = 351
       PanelCollection = <      
         item
           Control = gbxTokenList
@@ -173,17 +174,17 @@ object frmAlignLines: TfrmAlignLines
         Left = 0
         Height = 402
         Top = 0
-        Width = 180
+        Width = 176
         Align = alClient
         Caption = 'Tokens to align to:'
         ClientHeight = 384
-        ClientWidth = 176
+        ClientWidth = 172
         TabOrder = 0
         object mmoTokens: TMemo
           Left = 4
           Height = 376
           Top = 4
-          Width = 168
+          Width = 164
           Align = alClient
           BorderSpacing.Around = 4
           Font.Name = 'Consolas'
@@ -194,21 +195,21 @@ object frmAlignLines: TfrmAlignLines
         end
       end
       object gbxTokensFound: TGroupBox
-        Left = 183
+        Left = 179
         Height = 402
         Top = 0
-        Width = 176
+        Width = 172
         Align = alClient
         Caption = 'Tokens found in selection:'
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 384
-        ClientWidth = 172
+        ClientWidth = 168
         TabOrder = 1
         object pnlVST: TPanel
           Left = 4
           Height = 376
           Top = 4
-          Width = 164
+          Width = 160
           Align = alClient
           BorderSpacing.Around = 4
           BevelOuter = bvNone

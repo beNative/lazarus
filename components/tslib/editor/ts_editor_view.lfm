@@ -1,7 +1,7 @@
 object EditorView: TEditorView
-  Left = -741
+  Left = -1034
   Height = 421
-  Top = 172
+  Top = 687
   Width = 630
   AllowDropFiles = True
   BorderIcons = []

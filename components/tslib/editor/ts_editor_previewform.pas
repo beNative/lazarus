@@ -29,44 +29,22 @@ uses
 
   RichMemo,
 
-  ts_Editor_Interfaces,
+  ts_Editor_Interfaces, ts_Editor_CustomToolView,
 
   ts_Components_ExportRTF;
 
 type
-  TfrmPreview = class(TForm, IEditorToolView)
+  TfrmPreview = class(TCustomEditorToolView, IEditorToolView)
     mniSelectAll                : TMenuItem;
     mniOpenSelectionInNewEditor : TMenuItem;
     mmoPreview                  : TRichMemo;
     ppmPreview                  : TPopupMenu;
-    SynExporterRTF              : TSynExporterRTF;
 
-  private
-    function GetForm: TForm;
-    function GetName: string;
-    function GetSettings: IEditorSettings;
-    function GetView: IEditorView;
+  strict private
+     FSynExporterRTF: TSynExporterRTF;
 
-  protected
-    procedure UpdateView;
-
-    property Settings: IEditorSettings
-      read GetSettings;
-
-    property View: IEditorView
-      read GetView;
-
-    function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean); override;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
+  strict protected
+    procedure UpdateView; override;
 
   public
     procedure AfterConstruction; override;
@@ -87,6 +65,7 @@ implementation
 procedure TfrmPreview.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FSynExporterRTF := TSynExporterRTF.Create(Self);
   mmoPreview.DoubleBuffered := True;
 end;
 
@@ -100,35 +79,7 @@ end;
 // property access methods                                               BEGIN
 //*****************************************************************************
 
-function TfrmPreview.GetForm: TForm;
-begin
-  Result := Self;
-end;
 
-function TfrmPreview.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
-function TfrmPreview.GetSettings: IEditorSettings;
-begin
-  Result := Owner as IEditorSettings;
-end;
-
-function TfrmPreview.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
-end;
-
-function TfrmPreview.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
-
-procedure TfrmPreview.SetVisible(AValue: Boolean);
-begin
-  inherited SetVisible(AValue);
-end;
 
 //*****************************************************************************
 // property access methods                                                 END
@@ -161,12 +112,12 @@ begin
           SS := TStringStream.Create(S);
           try
             SL.BeginUpdate;
-            SynExporterRTF.UseBackground := True;
-            SynExporterRTF.Font := View.Editor.Font;
-            SynExporterRTF.Highlighter := View.Editor.Highlighter;
-            SynExporterRTF.ExportAsText := True;
-            SynExporterRTF.ExportAll(SL);
-            SynExporterRTF.SaveToStream(SS);
+            FSynExporterRTF.UseBackground := True;
+            FSynExporterRTF.Font := View.Editor.Font;
+            FSynExporterRTF.Highlighter := View.Editor.Highlighter;
+            FSynExporterRTF.ExportAsText := True;
+            FSynExporterRTF.ExportAll(SL);
+            FSynExporterRTF.SaveToStream(SS);
             SS.Position := 0;
             mmoPreview.LoadRichText(SS);
           finally

@@ -30,6 +30,11 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('pl_synapsepkgvs');
+    P.Dependencies.Add('pl_exsystem');
+    P.Dependencies.Add('pl_kcontrols');
+    P.Dependencies.Add('turbopoweripro');
+    P.Dependencies.Add('pl_exdesign');
     P.Dependencies.Add('pl_aggpasvs');
     P.Dependencies.Add('pl_fzcontrols');
     P.Dependencies.Add('omultipanel_design');
@@ -65,6 +70,7 @@ begin
     P.Options.Add('-Fu../pl_Synapse/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../cairocanvas/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../omultipanel/package/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -74,12 +80,19 @@ begin
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_VirtualTrees/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../tdbf/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_AGGPasVS/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_ExDesign/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_ExSystem/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_FZControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_SynapseVS/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../synedit/design/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../turbopower_ipro/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_KControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_LazSolutions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu.');
     T:=P.Targets.AddUnit('tslib.pas');
@@ -160,6 +173,7 @@ begin
     t.Dependencies.AddUnit('NativeXmlWin32Compat');
     t.Dependencies.AddUnit('NativeXmlXPath');
     t.Dependencies.AddUnit('ts_editor_customtoolview');
+    t.Dependencies.AddUnit('ts_editor_codetags');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -238,6 +252,7 @@ begin
     T:=P.Targets.AddUnit('core\NativeXmlWin32Compat.pas');
     T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
     T:=P.Targets.AddUnit('ts_editor_customtoolview.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_codetags.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

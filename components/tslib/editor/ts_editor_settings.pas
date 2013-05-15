@@ -185,8 +185,7 @@ type
     procedure Changed;
 
   public
-    property Highlighters: THighlighters
-      read GetHighlighters write SetHighlighters;
+
 
   published
     property HighlighterAttributes: THighlighterAttributes
@@ -287,6 +286,9 @@ type
 
     property ExtraLineSpacing: Integer
       read GetExtraLineSpacing write SetExtraLineSpacing default 0;
+
+    property Highlighters: THighlighters
+      read GetHighlighters write SetHighlighters;
 
   end;
 

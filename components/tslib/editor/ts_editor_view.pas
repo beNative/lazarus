@@ -261,7 +261,7 @@ type
     {$endregion}
 
     procedure InitializeEditor(AEditor: TSynEdit);
-    procedure OnSettingsChanged(ASender: TObject);
+    procedure EditorSettingsChanged(ASender: TObject);
 
   strict protected
     procedure BeginUpdate;
@@ -587,7 +587,7 @@ begin
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
 {$endif}
-  Settings.AddEditorSettingsChangedHandler(OnSettingsChanged);
+  Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FSelectionInfo := TSelectionInfo.Create(FEditor);
   ApplySettings;
 end;
@@ -601,7 +601,7 @@ begin
   FMasterView := nil;
   FHighlighter := nil;
   if Assigned(Settings) then
-    Settings.RemoveEditorSettingsChangedHandler(OnSettingsChanged);
+    Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
   DisableAutoSizing;
 {$ifdef windows}
   FreeAndNil(FDirectoryWatch);
@@ -1582,7 +1582,7 @@ begin
   ActiveControl := Editor;
 end;
 
-procedure TEditorView.OnSettingsChanged(ASender: TObject);
+procedure TEditorView.EditorSettingsChanged(ASender: TObject);
 begin
   FUpdate := True;
 end;

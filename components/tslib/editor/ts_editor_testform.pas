@@ -32,46 +32,29 @@ uses
 
   //XMLTree,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_CustomToolView, IpHtml, vsVisualSynapse,
+  FZCommon, FZDB, TplResStoreUnit, TplMemStreamUnit, vd_system, TplMemINIUnit,
+  TplFileSearchUnit, uCmdBox, ATBinHex, KHexEditor;
 
 //=============================================================================
 
 type
-  TfrmTest = class(TForm, IEditorToolView)
+  TfrmTest = class(TCustomEditorToolView, IEditorToolView)
+    ATBinHex1: TATBinHex;
     btnExecute : TButton;
+    CmdBox1: TCmdBox;
     edtInput   : TEdit;
-    pnlXML     : TPanel;
+    FZSQLQuery1: TFZSQLQuery;
+    KHexEditor1: TKHexEditor;
+    plFileSearch1: TplFileSearch;
+    plMemIni1: TplMemIni;
+    plMemStream1: TplMemStream;
+    plResStore1: TplResStore;
+    pnlTest     : TPanel;
+    vsSystem1: TvsSystem;
     procedure btnExecuteClick(Sender: TObject);
-
-  private
-    //FXMLTree: TXMLTree;
-
-    function GetForm: TForm;
-    function GetManager: IEditorManager;
-    function GetName: string;
-    function GetView: IEditorView;
-
   protected
-
-    procedure UpdateView;
-
-    property Manager: IEditorManager
-      read GetManager;
-
-    function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean); override;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
-
-    property View: IEditorView
-      read GetView;
+    procedure UpdateView; override;
 
   public
     procedure AfterConstruction; override;
@@ -82,6 +65,9 @@ type
 implementation
 
 {$R *.lfm}
+
+uses
+  ts_Core_ComponentInspector;
 
 //uses
 //  IdentCompletionTool,
@@ -113,50 +99,29 @@ begin
 
   //if CodeToolBoss.JumpToMethod(CodeBuf,X,Y,NewCode,NewX,NewY,NewTopLine,
   //                             RevertableJump)
-end;
-
-function TfrmTest.GetForm: TForm;
-begin
-  Result := Self;
-end;
-
-function TfrmTest.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
-end;
-
-function TfrmTest.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
-function TfrmTest.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
+  InspectComponents([ATBinHex1, KHexEditor1]);
 end;
 
 procedure TfrmTest.UpdateView;
+var
+  S: TStream;
 begin
+  S := TMemoryStream.Create;
   try
-//    FXMLTree.XML := View.Text;
-  except
+    View.SaveToStream(S);
+    S.Position := 0;
+    KHexEditor1.LoadFromStream(S);
+    S.Position := 0;
+    ATBinHex1.OpenStream(S);
+  finally
+    S.Free;
   end;
-end;
-
-function TfrmTest.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
-
-procedure TfrmTest.SetVisible(AValue: Boolean);
-begin
-  inherited SetVisible(AValue);
 end;
 
 procedure TfrmTest.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FXMLTree := CreateXMLTree(Self, pnlXML);
+  //FXMLTree := CreateXMLTree(Self, pnlTest);
   //CodeToolBoss.L;
 
 

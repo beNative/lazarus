@@ -8,22 +8,25 @@ object frmXmlTree: TfrmXmlTree
   ClientWidth = 381
   LCLVersion = '1.1'
   object pnlXmlTree: TPanel
-    Left = 0
-    Height = 686
-    Top = 32
-    Width = 381
+    Left = 4
+    Height = 678
+    Top = 36
+    Width = 373
     Align = alClient
+    BorderSpacing.Around = 4
     BevelOuter = bvNone
     TabOrder = 0
   end
   object pnlHeader: TPanel
-    Left = 0
-    Height = 32
-    Top = 0
-    Width = 381
+    Left = 4
+    Height = 28
+    Top = 4
+    Width = 373
     Align = alTop
-    ClientHeight = 32
-    ClientWidth = 381
+    BorderSpacing.Around = 4
+    BevelOuter = bvNone
+    ClientHeight = 28
+    ClientWidth = 373
     TabOrder = 1
     object btnInspect: TButton
       Left = 0
@@ -33,6 +36,24 @@ object frmXmlTree: TfrmXmlTree
       Caption = 'Inspect'
       OnClick = btnInspectClick
       TabOrder = 0
+    end
+    object btnExpand: TButton
+      Left = 76
+      Height = 25
+      Top = 4
+      Width = 75
+      Caption = 'Expand'
+      OnClick = btnExpandClick
+      TabOrder = 1
+    end
+    object btnCollapse: TButton
+      Left = 156
+      Height = 25
+      Top = 4
+      Width = 75
+      Caption = 'Collapse'
+      OnClick = btnCollapseClick
+      TabOrder = 2
     end
   end
 end

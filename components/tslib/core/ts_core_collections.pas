@@ -174,7 +174,7 @@ end;
 constructor TOwnedCollection<T>.Create(AOwner: TPersistent);
 begin
   FOwner := AOwner;
-  inherited Create();
+  inherited Create;
 end;
 
 function TOwnedCollection<T>.GetOwner: TPersistent;

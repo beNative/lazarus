@@ -1,13 +1,12 @@
-object frmPreview: TfrmPreview
-  Left = 2337
+inherited frmPreview: TfrmPreview
+  Left = 2610
   Height = 517
-  Top = 94
+  Top = 399
   Width = 673
   Caption = 'Preview'
   ClientHeight = 517
   ClientWidth = 673
-  LCLVersion = '1.1'
-  object mmoPreview: TRichMemo
+  object mmoPreview: TRichMemo[0]
     Left = 0
     Height = 517
     Top = 0
@@ -18,18 +17,7 @@ object frmPreview: TfrmPreview
     HideSelection = False
     TabOrder = 0
   end
-  object SynExporterRTF: TSynExporterRTF
-    Color = clWindow
-    DefaultFilter = 'Rich Text Format (*.rtf)|*.rtf'
-    Font.Color = clBlack
-    Font.Height = -13
-    Font.Name = 'Courier New'
-    Title = 'Untitled'
-    UseBackground = False
-    left = 52
-    top = 44
-  end
-  object ppmPreview: TPopupMenu
+  object ppmPreview: TPopupMenu[1]
     left = 52
     top = 116
     object mniSelectAll: TMenuItem

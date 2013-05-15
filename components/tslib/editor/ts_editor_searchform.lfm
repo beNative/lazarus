@@ -1,27 +1,29 @@
 object frmSearchForm: TfrmSearchForm
-  Left = -1067
+  Left = -894
   Height = 916
-  Top = 150
-  Width = 363
+  Top = 174
+  Width = 510
   BorderIcons = [biSystemMenu]
   Caption = 'Find'
   ClientHeight = 916
-  ClientWidth = 363
+  ClientWidth = 510
   Constraints.MinHeight = 312
   Constraints.MinWidth = 300
   KeyPreview = True
   OnHide = FormHide
+  OnShow = FormShow
   PopupMode = pmAuto
   ShowHint = True
   LCLVersion = '1.1'
   object pnlOperations: TPanel
-    Left = 0
-    Height = 411
-    Top = 0
-    Width = 363
+    Left = 4
+    Height = 410
+    Top = 4
+    Width = 502
     Align = alTop
     AutoSize = True
     BorderSpacing.Bottom = 4
+    BorderSpacing.Around = 4
     BorderSpacing.CellAlignHorizontal = ccaCenter
     BorderSpacing.CellAlignVertical = ccaCenter
     BevelOuter = bvNone
@@ -33,25 +35,25 @@ object frmSearchForm: TfrmSearchForm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 411
-    ClientWidth = 363
+    ClientHeight = 410
+    ClientWidth = 502
     TabOrder = 0
     object grpSearchText: TGroupBox
       Left = 0
-      Height = 50
+      Height = 49
       Top = 0
-      Width = 363
+      Width = 502
       Caption = 'Text to find:'
       ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
-      ClientHeight = 32
-      ClientWidth = 359
+      ClientHeight = 31
+      ClientWidth = 498
       TabOrder = 0
       object cbxSearchText: TComboBox
         Left = 20
         Height = 23
         Top = 4
-        Width = 296
+        Width = 435
         Anchors = [akTop, akLeft, akRight]
         Font.Style = [fsBold]
         ItemHeight = 15
@@ -60,10 +62,11 @@ object frmSearchForm: TfrmSearchForm
         TabOrder = 0
       end
       object Image1: TImage
-        Left = 328
+        Left = 475
         Height = 16
-        Top = 11
+        Top = 8
         Width = 16
+        Anchors = [akTop, akRight]
         AutoSize = True
         BorderSpacing.Around = 5
         BorderSpacing.InnerBorder = 1
@@ -94,13 +97,13 @@ object frmSearchForm: TfrmSearchForm
     object grpReplaceWith: TGroupBox
       Left = 0
       Height = 49
-      Top = 54
-      Width = 363
+      Top = 53
+      Width = 502
       Caption = 'Replace with:'
       ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
       ClientHeight = 31
-      ClientWidth = 359
+      ClientWidth = 498
       TabOrder = 1
       object cbxReplaceWith: TComboBox
         AnchorSideLeft.Side = asrBottom
@@ -109,7 +112,7 @@ object frmSearchForm: TfrmSearchForm
         Left = 20
         Height = 23
         Top = 4
-        Width = 296
+        Width = 435
         Anchors = [akTop, akLeft, akRight]
         AutoComplete = True
         AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
@@ -118,61 +121,44 @@ object frmSearchForm: TfrmSearchForm
         ItemHeight = 15
         TabOrder = 0
       end
-      object chkReplaceWith: TSpeedButton
-        AnchorSideTop.Side = asrCenter
-        Left = 328
-        Height = 20
-        Top = 7
-        Width = 20
-        Action = actReplaceWith
-        AllowAllUp = True
+      object Image2: TImage
+        Left = 475
+        Height = 16
+        Top = 8
+        Width = 16
+        Anchors = [akTop, akRight]
         AutoSize = True
-        BorderSpacing.Left = 6
-        Flat = True
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000000000000000
-          0033000000330000003300000033000000330000003300000033000000330000
-          003300000033000000330000003300000033000000000000000073706F849390
-          8EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF93908EFF9390
-          8EFF93908EFF93908EFF93908EFF93908EFF73706F8400000000959290FFF1F2
-          F1FFD3D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3D2FFD4D3
-          D2FFD4D3D2FFD4D3D2FFD3D3D2FFF1F1F0FF9A9796FF00000000969391FFF0F0
-          EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFEEEFEEFFADAAA9FF00000000999694FFEFEF
-          EFFFFFFFFFFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFDFDFFFDFD
-          FDFFFDFDFDFFFDFDFDFFFFFFFFFFE9E9E9FFAEABAAFF000000009C9996FFEAEA
-          EAFFFFFFFFFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFAFAFFFAFA
-          FAFFFAFAFAFFFAFAFAFFFFFFFFFFE4E4E4FFB0AEADFF000000009E9B99FFE5E6
-          E6FFFFFFFFFF707070FFF8F8F9FFF7F7F7FFF7F7F7FFF7F7F7FFF7F7F7FF7070
-          70FF707070FFF6F6F6FFFFFFFFFFE0E0DFFFB1B0AEFF00000000A09D9BFFE1E1
-          E1FFFFFFFFFF696969FFFAFAF9FFF4F4F3FFF4F4F3FFF4F4F3FF707070FFFFFF
-          FFFFFFFFFFFF707070FFFFFFFFFFDBDBDBFFB4B2B0FF00000000A3A09EFFDCDC
-          DCFFFFFFFFFF6F6F6FFFFEFEFCFFF6F6F5FFF2F2F1FFF1F1F0FFF1F1F0FFF1F1
-          F0FFF1F1F0FF707070FFFFFFFFFFD6D7D7FFB6B4B2FF00000000A5A3A1FFD9D8
-          D8FFFFFFFFFF727272FF727272FF6B6B6BFFF2F2F1FFEEEEEDFFEEEEEDFFEEEE
-          EDFF707070FFEDEDECFFFFFFFFFFD3D2D2FFB7B6B4FF00000000A8A5A3FFD4D3
-          D2FFFFFFFFFF707070FFF7F7F6FFF0F1EFFFECECEBFFEBEBEAFFEBEBEAFFEBEB
-          EAFFEBEBEAFF707070FFFFFFFFFFCECDCCFFBAB8B7FF00000000ABA8A6FFCFCE
-          CDFFFFFFFFFF707070FFF4F3F3FFEEEDEDFFEDECECFFE9E8E8FF707070FFE8E7
-          E7FFE8E7E7FF707070FFFFFFFFFFCAC9C8FFBCBAB8FF00000000ADABA9FFC9CA
-          C9FFFFFFFFFF6D6D6DFF707070FF6F6F6FFF6A6A6AFFE7E6E5FFE3E2E1FF7070
-          70FF707070FFE2E1E0FFFFFFFFFFC5C5C4FFBDBCBAFF00000000AFADABFFC2C1
-          C0FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-          FFFFFFFFFFFFFFFFFFFFFFFFFFFFC0BFBEFFC0BEBDFF00000000B1AFADFFE4E4
-          E3FFF1F1F1FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0F0FFEFF0
-          F0FFEFF0F0FFEFF0F0FFF1F1F1FFE3E4E3FFB5B3B1FF00000000B5B3B165B3B1
-          AFFFB2AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AF
-          ADFFB1AFADFFB1AFADFFB2AFADFFB3B1AEFFB4B2B06500000000
+        BorderSpacing.Around = 5
+        BorderSpacing.InnerBorder = 1
+        Center = True
+        Picture.Data = {
+          1754506F727461626C654E6574776F726B47726170686963F601000089504E47
+          0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
+          BD4944415438CB9592CF4E534118C57FF3EF3604291BB7968730BA535FC0185F
+          42978D7583F1B641B8D04A0B745FA20BDFC0181E4348942D15F6768389D8DB99
+          6F5CDCDED2E8827292D94CE69C39BFF9467DFE72F4424406221188DC2C85D20A
+          ADD4CBE7CF9E1E5AEFFDE0E183FB54575688516EB62BCDE5AF4B8E4FBE0D8043
+          2B229C9D0D79F2F8118BEAEBF10977969701B022C2D25205807ABD8E31861823
+          93C984B4D9C27B4FFF601F80578DD7ACD5EE91248EDF577F8A8010046B13008C
+          3164D936799E1363C47B4FEF609FF5F53700ECEEBEA7DFEF63AD43E4AA0C0838
+          E766F58C3568D1F889471BCDDB34FD0FC15A4B14291102C934406B4D334D198F
+          C7B43B1DBCF73353B6B545B3D50220718E20A1F0140806801002DDBD3DBABDDE
+          0CA95CEF3637D9CE32009C331463073D8F90E739C17B4404AD7561DCD860B55A
+          65B55A9D4370C83582E09C05A052A98008D698D9E14EA743A3D100A0DD6E1726
+          E79029820D22585B34E876BB45F57F1EADDC2FE5AC254E11ACCC21186316FA48
+          CE394290EB31A2D46C0A0B05248E18A70D628C68ADF87E7A0AA805EC915AADC6
+          68342A027E0C873B1F3E7E4AB9A52ECECF77985E791758E3F6BA007EFE05EA6B
+          C2B7345E606E0000000049454E44AE426082
         }
-        GroupIndex = 9
+        Stretch = True
+        Transparent = True
       end
     end
     object grpOptions: TGroupBox
       Left = 0
       Height = 103
-      Top = 107
-      Width = 363
+      Top = 106
+      Width = 502
       Caption = 'Options'
       ChildSizing.LeftRightSpacing = 20
       ChildSizing.TopBottomSpacing = 8
@@ -183,16 +169,17 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 3
       ClientHeight = 85
-      ClientWidth = 359
+      ClientWidth = 498
       TabOrder = 2
       object chkWholeWordsOnly: TCheckBox
         Left = 20
         Height = 19
         Top = 8
-        Width = 160
-        Action = actWholeWordsOnly
+        Width = 229
         BorderSpacing.Top = 6
+        Caption = 'Whole words only'
         Constraints.MinWidth = 160
+        OnClick = chkClick
         ParentShowHint = False
         TabOrder = 0
       end
@@ -200,43 +187,47 @@ object frmSearchForm: TfrmSearchForm
         Left = 20
         Height = 19
         Top = 33
-        Width = 160
-        Action = actCaseSensitive
+        Width = 229
         BorderSpacing.Top = 6
+        Caption = 'Case sensitive'
         Constraints.MinWidth = 160
+        OnClick = chkClick
         ParentShowHint = False
         TabOrder = 1
       end
-      object chkRegularExpressions1: TCheckBox
+      object chkRegularExpressions: TCheckBox
         Left = 20
         Height = 19
         Top = 58
-        Width = 160
-        Action = actRegularExpressions
+        Width = 229
         BorderSpacing.Top = 6
+        Caption = 'Regular expressions'
         Constraints.MinWidth = 160
+        OnClick = chkClick
         ParentShowHint = False
         TabOrder = 2
       end
-      object chkMultiLine: TCheckBox
-        Left = 180
+      object chkSearchInAllViews: TCheckBox
+        Left = 249
         Height = 19
         Top = 8
-        Width = 160
-        Action = actMultiline
+        Width = 229
         BorderSpacing.Top = 6
+        Caption = 'Search in all views'
         Constraints.MinWidth = 160
+        OnClick = chkClick
         ParentShowHint = False
         TabOrder = 3
       end
-      object chkSearchAllViews1: TCheckBox
-        Left = 180
+      object chkMultiLine: TCheckBox
+        Left = 249
         Height = 19
         Top = 33
-        Width = 160
-        Action = actSearchInAllViews
+        Width = 229
         BorderSpacing.Top = 6
+        Caption = 'Multiline'
         Constraints.MinWidth = 160
+        OnClick = chkClick
         ParentShowHint = False
         TabOrder = 4
       end
@@ -244,8 +235,8 @@ object frmSearchForm: TfrmSearchForm
     object grpOrigin: TGroupBox
       Left = 0
       Height = 53
-      Top = 214
-      Width = 363
+      Top = 213
+      Width = 502
       Caption = 'Origin'
       ChildSizing.LeftRightSpacing = 20
       ChildSizing.TopBottomSpacing = 8
@@ -257,34 +248,38 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 35
-      ClientWidth = 359
+      ClientWidth = 498
       TabOrder = 3
       object rbFromCursor: TRadioButton
         Left = 20
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = '&From cursor'
         Constraints.MinWidth = 160
+        OnClick = rbFromCursorClick
         TabOrder = 0
       end
       object rbEntireScope: TRadioButton
-        Left = 180
+        Left = 249
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = '&Entire scope'
+        Checked = True
         Constraints.MinWidth = 160
+        OnClick = rbEntireScopeClick
         TabOrder = 1
+        TabStop = True
       end
     end
     object grpScope: TGroupBox
       Left = 0
       Height = 53
-      Top = 271
-      Width = 363
+      Top = 270
+      Width = 502
       Caption = 'Scope'
       ChildSizing.LeftRightSpacing = 20
       ChildSizing.TopBottomSpacing = 8
@@ -296,34 +291,38 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 35
-      ClientWidth = 359
+      ClientWidth = 498
       TabOrder = 4
       object rbSelected: TRadioButton
         Left = 20
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = '&Selected'
         Constraints.MinWidth = 160
+        OnClick = rbSelectedClick
         TabOrder = 0
       end
       object rbGlobal: TRadioButton
-        Left = 180
+        Left = 249
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = '&Global'
+        Checked = True
         Constraints.MinWidth = 160
+        OnClick = rbGlobalClick
         TabOrder = 1
+        TabStop = True
       end
     end
     object grpDirection: TGroupBox
       Left = 0
       Height = 53
-      Top = 328
-      Width = 363
+      Top = 327
+      Width = 502
       Caption = 'Direction'
       ChildSizing.LeftRightSpacing = 20
       ChildSizing.TopBottomSpacing = 8
@@ -335,27 +334,29 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 35
-      ClientWidth = 359
+      ClientWidth = 498
       TabOrder = 5
       object rbBackward: TRadioButton
         Left = 20
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = 'Backward'
         Constraints.MinWidth = 160
+        OnChange = rbBackwardChange
         TabOrder = 0
       end
       object rbForward: TRadioButton
-        Left = 180
+        Left = 249
         Height = 19
         Top = 8
-        Width = 160
+        Width = 229
         AutoSize = False
         Caption = 'Forward'
         Checked = True
         Constraints.MinWidth = 160
+        OnClick = rbForwardClick
         TabOrder = 1
         TabStop = True
       end
@@ -363,8 +364,8 @@ object frmSearchForm: TfrmSearchForm
     object pnlButtons: TPanel
       Left = 0
       Height = 26
-      Top = 385
-      Width = 363
+      Top = 384
+      Width = 502
       AutoSize = True
       BevelOuter = bvSpace
       ChildSizing.LeftRightSpacing = 2
@@ -376,14 +377,14 @@ object frmSearchForm: TfrmSearchForm
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 5
       ClientHeight = 26
-      ClientWidth = 363
+      ClientWidth = 502
       TabOrder = 6
       object btnFind: TBitBtn
         Left = 2
         Height = 26
         Top = 0
-        Width = 100
-        Action = actSearch
+        Width = 146
+        Action = actFind
         AutoSize = True
         Default = True
         Font.Style = [fsBold]
@@ -393,10 +394,10 @@ object frmSearchForm: TfrmSearchForm
         TabOrder = 0
       end
       object btnReplace: TBitBtn
-        Left = 104
+        Left = 150
         Height = 26
         Top = 0
-        Width = 121
+        Width = 167
         Action = actReplace
         AutoSize = True
         Font.Style = [fsBold]
@@ -406,10 +407,10 @@ object frmSearchForm: TfrmSearchForm
         TabOrder = 1
       end
       object btnReplaceAll: TBitBtn
-        Left = 227
+        Left = 319
         Height = 26
         Top = 0
-        Width = 134
+        Width = 181
         Action = actReplaceAll
         AutoSize = True
         Font.Style = [fsBold]
@@ -420,120 +421,36 @@ object frmSearchForm: TfrmSearchForm
       end
     end
   end
-  object sbrMain: TStatusBar
-    Left = 0
-    Height = 23
-    Top = 893
-    Width = 363
-    Panels = <    
-      item
-        Alignment = taCenter
-        Width = 50
-      end>
-    SimplePanel = False
-  end
   object pnlResultList: TPanel
-    Left = 0
-    Height = 474
-    Top = 415
-    Width = 363
+    Left = 4
+    Height = 463
+    Top = 422
+    Width = 502
     Align = alClient
     BorderSpacing.Top = 4
     BorderSpacing.Bottom = 4
+    BorderSpacing.Around = 4
     BevelOuter = bvNone
     ChildSizing.LeftRightSpacing = 2
+    TabOrder = 1
+  end
+  object pnlStatus: TPanel
+    Left = 0
+    Height = 23
+    Top = 893
+    Width = 510
+    Align = alBottom
+    BevelOuter = bvNone
     TabOrder = 2
   end
   object aclMain: TActionList
-    left = 312
-    top = 664
+    left = 16
+    top = 424
     object actFocusSearchText: TAction
       Caption = 'actFocusSearchText'
       ImageIndex = 1
       OnExecute = actFocusSearchTextExecute
       ShortCut = 113
-    end
-    object actWholeWordsOnly: TAction
-      AutoCheck = True
-      Caption = 'Whole words only'
-      DisableIfNoHandler = False
-      GroupIndex = 1
-      ImageIndex = 3
-      OnExecute = actWholeWordsOnlyExecute
-      ShortCut = 115
-    end
-    object actRegularExpressions: TAction
-      AutoCheck = True
-      Caption = 'Regular expressions'
-      DisableIfNoHandler = False
-      GroupIndex = 2
-      ImageIndex = 4
-      OnExecute = actRegularExpressionsExecute
-      ShortCut = 116
-    end
-    object actMultiline: TAction
-      AutoCheck = True
-      Caption = 'Multiline'
-      GroupIndex = 3
-      ImageIndex = 5
-      OnExecute = actMultilineExecute
-      ShortCut = 117
-    end
-    object actSearchInAllViews: TAction
-      AutoCheck = True
-      Caption = 'Search in all views'
-      DisableIfNoHandler = False
-      GroupIndex = 4
-      ImageIndex = 6
-      OnExecute = actSearchInAllViewsExecute
-      ShortCut = 118
-    end
-    object actCaseSensitive: TAction
-      AutoCheck = True
-      Caption = 'Case sensitive'
-      DisableIfNoHandler = False
-      GroupIndex = 5
-      ImageIndex = 7
-      OnExecute = actCaseSensitiveExecute
-      ShortCut = 119
-    end
-    object actFromCursor: TAction
-      AutoCheck = True
-      Caption = '&From cursor'
-      DisableIfNoHandler = False
-      GroupIndex = 6
-    end
-    object actEntireScope: TAction
-      AutoCheck = True
-      Caption = '&Entire scope'
-      Checked = True
-      DisableIfNoHandler = False
-      GroupIndex = 6
-    end
-    object actSelected: TAction
-      AutoCheck = True
-      Caption = '&Selected'
-      DisableIfNoHandler = False
-      GroupIndex = 7
-    end
-    object actGlobal: TAction
-      AutoCheck = True
-      Caption = '&Global'
-      DisableIfNoHandler = False
-      GroupIndex = 7
-    end
-    object actBackward: TAction
-      AutoCheck = True
-      Caption = 'Backward'
-      DisableIfNoHandler = False
-      GroupIndex = 8
-    end
-    object actForward: TAction
-      AutoCheck = True
-      Caption = 'Forward'
-      Checked = True
-      DisableIfNoHandler = False
-      GroupIndex = 8
     end
     object actReplaceWith: TAction
       AutoCheck = True
@@ -544,9 +461,9 @@ object frmSearchForm: TfrmSearchForm
       OnExecute = actReplaceWithExecute
       ShortCut = 114
     end
-    object actSearch: TAction
+    object actFind: TAction
       Caption = 'Find'
-      OnExecute = actSearchExecute
+      OnExecute = actFindExecute
     end
     object actReplace: TAction
       Caption = 'Replace'
@@ -555,21 +472,6 @@ object frmSearchForm: TfrmSearchForm
     object actReplaceAll: TAction
       Caption = 'Replace all'
       OnExecute = actReplaceAllExecute
-    end
-    object actToggleOrigin: TAction
-      Caption = 'Toggle origin'
-      OnExecute = actToggleOriginExecute
-      ShortCut = 120
-    end
-    object actToggleScope: TAction
-      Caption = 'Toggle scope'
-      OnExecute = actToggleScopeExecute
-      ShortCut = 121
-    end
-    object actToggleDirection: TAction
-      Caption = 'Toggle direction'
-      OnExecute = actToggleDirectionExecute
-      ShortCut = 122
     end
   end
 end

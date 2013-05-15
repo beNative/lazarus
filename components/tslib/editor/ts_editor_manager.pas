@@ -1506,11 +1506,13 @@ end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
-  InspectComponents([
+  //InspectComponents([
+  //
+  //  ActiveView.Settings.Highlighters
+  //
+  //]);
+  InspectComponent(Settings as TComponent);
 
-    ActiveView.Editor
-
-  ]);
   //InspectComponents([
   //  Settings as TComponent,
   //  ActiveView.Editor,
@@ -1679,7 +1681,7 @@ end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
 begin
-  //ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
+  ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
 end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
@@ -1885,8 +1887,8 @@ end;
 
 procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
 begin
-  //ToolViews['frmXmlTree'].Visible := True;
-  //ToolViews['frmXmlTree'].UpdateView;
+  ToolViews['frmXmlTree'].Visible := True;
+  ToolViews['frmXmlTree'].UpdateView;
 end;
 
 //*****************************************************************************

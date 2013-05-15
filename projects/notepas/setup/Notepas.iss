@@ -4,7 +4,7 @@
 #define MyAppPublisher "Tim Sinaeve"
 #define MyAppURL "http://code.google.com/p/notepas/"
 #define MyAppExeName "Notepas.exe"
-#define MyAppVersion "0.9.4.29"
+#define MyAppVersion "0.9.5"
 ;GetFileVersion('Notepas.exe')
 
 [Setup]
@@ -43,8 +43,8 @@ LicenseFile=..\bin\i386-win32-win32\license.txt
 ArchitecturesInstallIn64BitMode=x64
 
 [Files]
-Source: "..\bin\i386-win32-win32\Notepas-i386.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: not Is64BitInstallMode
-Source: "..\bin\x86_64-win64-win32\Notepas-x86_64.exe"; DestDir: "{app}"; DestName: {#MyAppExeName}; Check: Is64BitInstallMode
+Source: "..\bin\i386-win32-win32\Notepas-i386.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Check: not Is64BitInstallMode
+Source: "..\bin\x86_64-win64-win32\Notepas-x86_64.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Check: Is64BitInstallMode
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\bin\i386-win32-win32\settings.xml"; DestDir: "{app}"
 Source: "..\bin\i386-win32-win32\INI.hgl"; DestDir: "{app}"
@@ -52,6 +52,8 @@ Source: "..\bin\i386-win32-win32\log.hgl"; DestDir: "{app}"
 Source: "..\bin\i386-win32-win32\Resource.hgl"; DestDir: "{app}"
 Source: "..\bin\i386-win32-win32\RTF.hgl"; DestDir: "{app}"
 Source: "..\bin\i386-win32-win32\license.txt"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\Batch & Command.hgl"; DestDir: "{app}"
+Source: "..\bin\i386-win32-win32\C#.hgl"; DestDir: "{app}"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -67,7 +69,7 @@ Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Fil
 Name: "{group}\{cm:UninstallProgram, {#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent 32bit; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
+Filename: "{app}\{#MyAppExeName}"; Flags: skipifsilent 32bit runascurrentuser; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"
 
 [Registry]
 Root: HKCR; SubKey: ".pas"; ValueType: string; ValueData: "Delphi source file"; Flags: uninsdeletekey

@@ -1,0 +1,17 @@
+# A short overview of features I am currently working on
+
+= A short overview of features I am currently working on =
+
+ * muli-caret editing
+ * structure viewer
+ * more customization
+ * scripting
+ * user-definable shortcuts
+ * quick action lookup 
+ * a user-friendly settings dialog
+ * an about dialog that displays version 1.0....
+ ** on Windows 32/64 (Win/GTK+/Qt)
+ ** on Linux 32/64 (GTK+/Qt)
+ ** on FreeBSD 32/64 (carbon) 
+ ** on Mac OS X (Qt)
+ 

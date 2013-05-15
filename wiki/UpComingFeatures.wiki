@@ -1,8 +1,7 @@
-# A short overview of features I am currently working on
+#labels Phase-Design
+== A short overview of features I am currently working on ==
 
-= A short overview of features I am currently working on =
-
- * muli-caret editing
+ * multi-caret editing
  * structure viewer
  * more customization
  * scripting

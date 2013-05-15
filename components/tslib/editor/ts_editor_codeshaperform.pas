@@ -51,6 +51,9 @@ type
   );
 
 type
+
+  { TfrmCodeShaper }
+
   TfrmCodeShaper = class(TForm, IEditorToolView, IClipboardCommands)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;

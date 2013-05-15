@@ -51,6 +51,9 @@ uses
 //=============================================================================
 
 type
+
+  { TfrmSearchForm }
+
   TfrmSearchForm = class(TForm, IEditorToolView,
                                 IClipboardCommands)
     {$region 'designer controls' /fold}
@@ -74,48 +77,38 @@ type
     actToggleOrigin                 : TAction;
     actToggleScope                  : TAction;
     actWholeWordsOnly               : TAction;
-    btnFind                         : TBitBtn;
-    btnReplace                      : TBitBtn;
-    btnReplaceAll                   : TBitBtn;
+    btnFind: TBitBtn;
+    btnReplace: TBitBtn;
+    btnReplaceAll: TBitBtn;
     cbxReplaceWith                  : TComboBox;
     cbxSearchText                   : TComboBox;
-    chkCaseSensitive                : TSpeedButton;
-    chkMultiLine                    : TSpeedButton;
-    chkRegularExpressions1          : TSpeedButton;
+    chkCaseSensitive: TCheckBox;
+    chkMultiLine: TCheckBox;
+    chkRegularExpressions1: TCheckBox;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
     chkReplaceWith                  : TSpeedButton;
-    chkSearchAllViews1              : TSpeedButton;
-    chkWholeWordsOnly               : TSpeedButton;
+    chkSearchAllViews1: TCheckBox;
+    chkWholeWordsOnly: TCheckBox;
     DirectionGroupBox               : TGroupBox;
     grdReplaceStrings               : TStringGrid;
-    grpDirection                    : TGroupBox;
+    grpDirection: TGroupBox;
     grpMisc                         : TGroupBox;
     grpOptions                      : TGroupBox;
-    grpOrigin                       : TGroupBox;
+    grpOrigin: TGroupBox;
+    grpScope: TGroupBox;
     grpReplaceWith                  : TGroupBox;
-    grpScope                        : TGroupBox;
     grpSearchText                   : TGroupBox;
     Image1                          : TImage;
-    Image2                          : TImage;
-    Image3                          : TImage;
-    Image4                          : TImage;
-    lblSearchText                   : TLabel;
-    pnlButtons                      : TPanel;
-    pnlDirection                    : TPanel;
-    pnlDirectionShortcut            : TPanel;
+    pnlButtons: TPanel;
     pnlOperations                   : TPanel;
-    pnlOrigin                       : TPanel;
-    pnlOriginShortcut               : TPanel;
     pnlResultList                   : TPanel;
-    pnlScope                        : TPanel;
-    pnlScopeShortcut                : TPanel;
-    rbtBackward                     : TSpeedButton;
-    rbtEntireScope                  : TSpeedButton;
-    rbtForward                      : TSpeedButton;
-    rbtFromCursor1                  : TSpeedButton;
-    rbtGlobal                       : TSpeedButton;
-    rbtSelected                     : TSpeedButton;
+    rbBackward: TRadioButton;
+    rbEntireScope: TRadioButton;
+    rbForward: TRadioButton;
+    rbFromCursor: TRadioButton;
+    rbGlobal: TRadioButton;
+    rbSelected: TRadioButton;
     sbrMain                         : TStatusBar;
     {$endregion}
 

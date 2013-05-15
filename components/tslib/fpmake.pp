@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 13/05/2013
+   This file was generated on 15/05/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,8 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('pl_aggpasvs');
+    P.Dependencies.Add('pl_fzcontrols');
     P.Dependencies.Add('omultipanel_design');
     P.Dependencies.Add('pl_lazsolutions');
     P.Dependencies.Add('pl_luicontrols');
@@ -66,11 +68,14 @@ begin
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../omultipanel/package/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../pl_AGGPas/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_VirtualTrees/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_AGGPasVS/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../pl_FZControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');

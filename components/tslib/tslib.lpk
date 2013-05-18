@@ -414,7 +414,7 @@
         <Type Value="Include"/>
       </Item91>
       <Item92>
-        <Filename Value="ts_editor_customtoolview.pas"/>
+        <Filename Value="editor\ts_editor_customtoolview.pas"/>
         <UnitName Value="ts_Editor_CustomToolView"/>
       </Item92>
       <Item93>

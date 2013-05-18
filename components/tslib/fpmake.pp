@@ -251,7 +251,7 @@ begin
     T:=P.Targets.AddUnit('core\NativeXmlObjectStorage.pas');
     T:=P.Targets.AddUnit('core\NativeXmlWin32Compat.pas');
     T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
-    T:=P.Targets.AddUnit('ts_editor_customtoolview.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_customtoolview.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_codetags.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled

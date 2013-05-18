@@ -66,31 +66,46 @@ type
 
   TCustomDrawEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
     Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
-    ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean of object;
+    ImageList: TCustomImageList; DrawMode: TDrawMode; Selected: Boolean): Boolean of object;
+  TGetHintEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
+    Item: TObject): string of object;
+  TGetImageIndexEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
+    Item: TObject): Integer of object;
   TGetTextEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
     Item: TObject): string of object;
+  TSetTextEvent = procedure(Sender: TObject; ColumnDefinition: TColumnDefinition;
+    Item: TObject; const Value: string) of object;
 
+  TColumnOption = (coResizable, coSortable, coDraggable);
+  TColumnOptions = set of TColumnOption;
   TColumnType = (ctText, ctCheckBox, ctProgressBar, ctImage);
   TSortingDirection = (sdNone, sdAscending, sdDescending);
   TToggleMode = (tmNone, tmClick, tmDoubleClick);
 
   TColumnDefinition = class(TCollectionItem)
   private
-    FAlignment: TAlignment;
     FAllowEdit: Boolean;
+    FAlignment: TAlignment;
     FAutoSize: Boolean;
     FCaption: string;
+    FColumnOptions: TColumnOptions;
     FColumnType: TColumnType;
     FDataType: TDataType;
     FFixed: Boolean;
-    FToggleMode: TToggleMode;
-    FSortingDirection: TSortingDirection;
+
     FMaxWidth: Integer;
     FMinWidth: Integer;
     FName: string;
     FOnCustomDraw: TCustomDrawEvent;
+    FOnGetHint: TGetHintEvent;
+    FOnGetImageIndex: TGetImageIndexEvent;
     FOnGetText: TGetTextEvent;
+    FOnSetText: TSetTextEvent;
+    FSortingDirection: TSortingDirection;
+	FToggleMode: TToggleMode;
+
     FSpacing: Integer;
+    FVisible: Boolean;
     FWidth: Integer;
 
     procedure SetAutoSize(AValue: Boolean);
@@ -100,7 +115,7 @@ type
 
   public
     constructor Create(ACollection: TCollection); override;
-
+    procedure Assign(Source: TPersistent); override;
   published
     property AllowEdit: Boolean
       read FAllowEdit write FAllowEdit;
@@ -109,13 +124,19 @@ type
     property AutoSize: Boolean read FAutoSize write SetAutoSize default False;
     property Caption: string
       read FCaption write SetCaption;
-      property ColumnType: TColumnType read FColumnType write FColumnType default ctText;
+   property ColumnOptions: TColumnOptions read FColumnOptions write FColumnOptions default [coResizable, coSortable, coDraggable];
+   property ColumnType: TColumnType read FColumnType write FColumnType default ctText;
     property OnCustomDraw: TCustomDrawEvent
       read FOnCustomDraw write FOnCustomDraw;
+
+    property OnGetHint: TGetHintEvent read FOnGetHint write FOnGetHint;
+    property OnGetImageIndex: TGetImageIndexEvent read FOnGetImageIndex write FOnGetImageIndex;
+
     property OnGetText: TGetTextEvent
       read FOnGetText write FOnGetText;
-    property Width: Integer
-      read FWidth write FWidth default CDefaultWidth;
+	  
+    property OnSetText: TSetTextEvent read FOnSetText write FOnSetText;	  
+
     property MinWidth: Integer
       read FMinWidth write FMinWidth default CDefaultMinWidth;
     property MaxWidth: Integer
@@ -131,6 +152,9 @@ type
     property SortingDirection: TSortingDirection read FSortingDirection write SetSortingDirection default sdNone;
     property ToggleMode: TToggleMode read FToggleMode write FToggleMode default tmNone;
 
+    property Visible: Boolean read FVisible write FVisible default True;
+    property Width: Integer
+      read FWidth write FWidth default CDefaultWidth;
   end;
 
   TColumnDefinitions = class(TOwnedCollection)
@@ -170,11 +194,13 @@ implementation
 constructor TColumnDefinition.Create(ACollection: TCollection);
 begin
   inherited;
+  FColumnOptions := [coResizable, coSortable, coDraggable];
   FDataType := CDefaultDataType;
-  FWidth := CDefaultWidth;
   FSpacing := CDefaultSpacing;
+  FVisible := True;
   FMinWidth := CDefaultMinWidth;
   FMaxWidth := CDefaultMaxWidth;
+  FWidth := CDefaultWidth;
 end;
 
 procedure TColumnDefinition.SetCaption(const Value: string);
@@ -192,6 +218,37 @@ procedure TColumnDefinition.SetMinWidth(AValue: Integer);
 begin
   if FMinWidth = AValue then exit;
   FMinWidth := AValue;
+end;
+
+procedure TColumnDefinition.Assign(Source: TPersistent);
+var
+  LSource: TColumnDefinition;
+begin
+  if Source is TColumnDefinition then
+  begin
+    LSource := TColumnDefinition(Source);
+    AutoSize := LSource.AutoSize;
+    Alignment := LSource.Alignment;
+    Caption := LSource.Caption;
+    ColumnOptions := LSource.ColumnOptions;
+    ColumnType := LSource.ColumnType;
+    CustomFilter := LSource.CustomFilter;
+    HintPropertyName := LSource.HintPropertyName;
+    ImageIndexOffset := LSource.ImageIndexOffset;
+    ImageIndexPropertyName := LSource.ImageIndexPropertyName;
+    MinWidth := LSource.MinWidth;
+    OnCustomDraw := LSource.OnCustomDraw;
+    OnGetText := LSource.OnGetText;
+    SortingDirection := LSource.SortingDirection;
+    ToggleMode := LSource.ToggleMode;
+    ValuePropertyName := LSource.ValuePropertyName;
+    Visible := LSource.Visible;
+    Width := LSource.Width;
+  end
+  else
+  begin
+    inherited;
+  end;
 end;
 
 procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);

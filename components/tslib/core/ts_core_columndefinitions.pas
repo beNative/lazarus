@@ -209,9 +209,22 @@ begin
 end;
 
 procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
+var
+  i: Integer;
 begin
-  if FAutoSize = AValue then Exit;
-  FAutoSize := AValue;
+  FAutoSize := Value;
+
+  if FAutoSize then
+  begin
+    for i := 0 to Collection.Count - 1 do
+    begin
+      if Collection[i].AutoSize and (Collection[i] <> Self) then
+      begin
+        Collection[i].AutoSize := False;
+      end;
+    end;
+  end;
+
 end;
 
 procedure TColumnDefinition.SetMinWidth(AValue: Integer);
@@ -251,9 +264,22 @@ begin
 end;
 
 procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);
+var
+  i: Integer;
 begin
-  if FSortingDirection = AValue then Exit;
-  FSortingDirection := AValue;
+  FSortingDirection := Value;
+
+  if FSortingDirection <> sdNone then
+  begin
+    for i := 0 to Collection.Count - 1 do
+    begin
+      if (Collection[i].SortingDirection <> sdNone) and (Collection[i] <> Self) then
+      begin
+        Collection[i].SortingDirection := sdNone;
+      end;
+    end;
+  end;
+
 end;
 
 { TColumnDefinitions }

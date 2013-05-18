@@ -61,6 +61,8 @@ type
     var AllowDrop: Boolean) of object;
   TDragDropEvent = procedure(Sender: TObject; TargetItem: TObject;
     DragOperation: TDragOperation) of object;
+  TSelectionChangingEvent = procedure(Sender: TObject; TargetItem: TObject;
+      var AllowChange: Boolean) of object;
   TUpdateTrigger = (utPropertyChanged, utLostFocus, utExplicit);
   TCollectionChangedAction = (caAdd, caRemove, caReplace, caMove, caReset);
   TCollectionChangedEvent = procedure(Sender: TObject; Item: TObject;
@@ -212,6 +214,7 @@ type
 
     procedure DoHeaderClick(Sender: TVTHeader; Column: TColumnIndex;
       Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure DoHeaderDblClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
     procedure DoIncrementalSearch(Sender: TBaseVirtualTree;
       Node: PVirtualNode; const SearchText: string; var Result: Integer);
     procedure DoInitNode(Sender: TBaseVirtualTree; ParentNode,
@@ -233,8 +236,6 @@ type
       Column: TColumnIndex; CellRect: TRect; Value: Integer);
     procedure DrawImage(TargetCanvas: TCanvas; Node: PVirtualNode;
       Column: TColumnIndex; CellRect: TRect; Value: Integer);
-    procedure DoSourceCollectionChanged(Sender: TObject; Item: TObject;
-      Action: TCollectionChangedAction);
 
     procedure ExpandNode(Node: PVirtualNode);
     function GetCheckedItem: TObject;
@@ -298,14 +299,14 @@ type
     procedure DefineProperties(Filer: TFiler); override;
     procedure DoCheckedItemsChanged(Sender: TObject; const Item: TObject;
       Action: TCollectionChangedAction);
-    procedure DoDblClick(Sender: TObject); override;
+    procedure DoDblClick(Sender: TObject);
     procedure DoExpandedItemsChanged(Sender: TObject; const Item: TObject;
       Action: TCollectionChangedAction);
     procedure DoFreeNode(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoSelectedItemsChanged(Sender: TObject; const Item: TObject;
       Action: TCollectionChangedAction);
-    procedure DoSourceCollectionChanged(Sender: TObject; const Item: TObject;
-      Action: TCollectionChangedAction); override;
+    procedure DoSourceCollectionChanged(Sender: TObject; Item: TObject;
+      Action: TCollectionChangedAction);
 
     function GetCanMoveCurrentToNext: Boolean;
     function GetCanMoveCurrentToPrevious: Boolean;
@@ -1385,8 +1386,8 @@ begin
         if IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn)
           and FChecking and LColumnDefinition.AllowEdit then
         begin
-          LItemTemplate.SetValue(LItem, LHitInfo.HitColumn,
-            not LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsBoolean);
+          //LItemTemplate.SetValue(LItem, LHitInfo.HitColumn,
+          //  not LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsBoolean);
         end;
 
         if (hiOnNormalIcon in FHitInfo.HitPositions)
@@ -1471,6 +1472,41 @@ begin
   begin
     FOnPropertyChanged(Self, APropertyName, AUpdateTrigger);
   end;
+end;
+
+procedure TTreeViewPresenter.DoSelectedItemsChanged(Sender: TObject;
+  const Item: TObject; Action: TCollectionChangedAction);
+var
+  LNode: PVirtualNode;
+begin
+  if Assigned(FTreeView) and not (csDestroying in ComponentState)
+    and (FSelectionMode <> smNone) then
+  begin
+    if FCollectionChanging = 0 then
+    begin
+      LNode := FTreeView.GetFirst();
+      while Assigned(LNode) do
+      begin
+        if GetNodeItem(FTreeView, LNode) = Item then
+        begin
+          case Action of
+            caAdd: FTreeView.Selected[LNode] := True;
+            caRemove: FTreeView.Selected[LNode] := False;
+          end;
+        end;
+        LNode := FTreeView.GetNext(LNode);
+      end;
+    end;
+
+    if FSyncMode and not FSyncing then
+    try
+      FSyncing := True;
+      SetCheckedItems(FSelectedItems);
+    finally
+      FSyncing := False;
+    end;
+  end;
+
 end;
 
 procedure TTreeViewPresenter.DoSourceCollectionChanged(Sender: TObject;
@@ -2076,7 +2112,7 @@ begin
     FTreeView.TreeOptions.MiscOptions :=
       FTreeView.TreeOptions.MiscOptions - [toToggleOnDblClick] + [toFullRowDrag];
     FTreeView.TreeOptions.PaintOptions :=
-      FTreeView.TreeOptions.PaintOptions + [toHotTrack, toUseExplorerTheme, toHideTreeLinesIfThemed];
+      FTreeView.TreeOptions.PaintOptions + [{toHotTrack,} toUseExplorerTheme, toHideTreeLinesIfThemed];
     FTreeView.TreeOptions.SelectionOptions :=
       FTreeView.TreeOptions.SelectionOptions + [toExtendedFocus, toFullRowSelect, toRightClickSelect, toSimpleDrawSelection];
   end;
@@ -2512,8 +2548,8 @@ begin
     if Assigned(LItemTemplate) and LColumnDefinition.AllowEdit
       and (LColumnDefinition.ColumnType = TColumnType.ctCheckBox) then
     begin
-      LItemTemplate.SetValue(LItem, FTreeView.FocusedColumn,
-        not LItemTemplate.GetValue(LItem, FTreeView.FocusedColumn).AsBoolean);
+      //LItemTemplate.SetValue(LItem, FTreeView.FocusedColumn,
+      //  not LItemTemplate.GetValue(LItem, FTreeView.FocusedColumn).AsBoolean);
       Result := True;
     end;
   end;

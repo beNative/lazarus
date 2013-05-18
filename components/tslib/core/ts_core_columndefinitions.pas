@@ -230,18 +230,17 @@ begin
     AutoSize := LSource.AutoSize;
     Alignment := LSource.Alignment;
     Caption := LSource.Caption;
+    DataType := LSource.DataType;
+    AllowEdit := LSource.AllowEdit;
     ColumnOptions := LSource.ColumnOptions;
     ColumnType := LSource.ColumnType;
-    CustomFilter := LSource.CustomFilter;
-    HintPropertyName := LSource.HintPropertyName;
-    ImageIndexOffset := LSource.ImageIndexOffset;
-    ImageIndexPropertyName := LSource.ImageIndexPropertyName;
     MinWidth := LSource.MinWidth;
+    MaxWidth := LSource.MaxWidth;
+    Fixed := LSource.Fixed;
     OnCustomDraw := LSource.OnCustomDraw;
     OnGetText := LSource.OnGetText;
     SortingDirection := LSource.SortingDirection;
     ToggleMode := LSource.ToggleMode;
-    ValuePropertyName := LSource.ValuePropertyName;
     Visible := LSource.Visible;
     Width := LSource.Width;
   end

@@ -318,6 +318,7 @@ begin
   TVP              := TTreeViewPresenter.Create(AOwner);
   TVP.ListMode     := True;
   TVP.MultiSelect  := False;
+  TVP.AllowMove    := False;
   TVP.ItemTemplate := AItemTemplate;
   TVP.ItemsSource  := AItemsSource;
   Result := TVP;

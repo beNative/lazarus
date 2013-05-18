@@ -83,7 +83,7 @@ begin
     if Assigned(CD.OnCustomDraw) then
     begin
       Result := CD.OnCustomDraw(FColumnDefinitions.Owner, CD, Item,
-        TargetCanvas, CellRect, ImageList, DrawMode);
+        TargetCanvas, CellRect, ImageList, DrawMode, True);
     end
     else
     begin

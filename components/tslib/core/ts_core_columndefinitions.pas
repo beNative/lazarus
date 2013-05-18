@@ -92,7 +92,6 @@ type
     FColumnType: TColumnType;
     FDataType: TDataType;
     FFixed: Boolean;
-
     FMaxWidth: Integer;
     FMinWidth: Integer;
     FName: string;
@@ -102,8 +101,7 @@ type
     FOnGetText: TGetTextEvent;
     FOnSetText: TSetTextEvent;
     FSortingDirection: TSortingDirection;
-	FToggleMode: TToggleMode;
-
+  	FToggleMode: TToggleMode;
     FSpacing: Integer;
     FVisible: Boolean;
     FWidth: Integer;
@@ -116,43 +114,68 @@ type
   public
     constructor Create(ACollection: TCollection); override;
     procedure Assign(Source: TPersistent); override;
+
   published
     property AllowEdit: Boolean
       read FAllowEdit write FAllowEdit;
+
     property Alignment: TAlignment
       read FAlignment write FAlignment;
-    property AutoSize: Boolean read FAutoSize write SetAutoSize default False;
+
+    property AutoSize: Boolean
+      read FAutoSize write SetAutoSize default False;
+
     property Caption: string
       read FCaption write SetCaption;
-   property ColumnOptions: TColumnOptions read FColumnOptions write FColumnOptions default [coResizable, coSortable, coDraggable];
-   property ColumnType: TColumnType read FColumnType write FColumnType default ctText;
+
+   property ColumnOptions: TColumnOptions
+     read FColumnOptions write FColumnOptions default [coResizable, coSortable, coDraggable];
+
+    property ColumnType: TColumnType
+      read FColumnType write FColumnType default ctText;
+
     property OnCustomDraw: TCustomDrawEvent
       read FOnCustomDraw write FOnCustomDraw;
 
-    property OnGetHint: TGetHintEvent read FOnGetHint write FOnGetHint;
-    property OnGetImageIndex: TGetImageIndexEvent read FOnGetImageIndex write FOnGetImageIndex;
+    property OnGetHint: TGetHintEvent
+      read FOnGetHint write FOnGetHint;
+
+    property OnGetImageIndex: TGetImageIndexEvent
+      read FOnGetImageIndex write FOnGetImageIndex;
 
     property OnGetText: TGetTextEvent
       read FOnGetText write FOnGetText;
 	  
-    property OnSetText: TSetTextEvent read FOnSetText write FOnSetText;	  
+    property OnSetText: TSetTextEvent
+      read FOnSetText write FOnSetText;
 
     property MinWidth: Integer
       read FMinWidth write FMinWidth default CDefaultMinWidth;
+
     property MaxWidth: Integer
       read FMaxWidth write FMaxWidth default CDefaultMaxWidth;
+
     property Spacing: Integer
       read FSpacing write FSpacing default CDefaultSpacing;
+
     property DataType: TDataType
       read FDataType write FDataType default CDefaultDataType;
+
     property Name: string
       read FName write FName;
+
     property Fixed: Boolean
       read FFixed write FFixed;
-    property SortingDirection: TSortingDirection read FSortingDirection write SetSortingDirection default sdNone;
-    property ToggleMode: TToggleMode read FToggleMode write FToggleMode default tmNone;
 
-    property Visible: Boolean read FVisible write FVisible default True;
+    property SortingDirection: TSortingDirection
+      read FSortingDirection write SetSortingDirection default sdNone;
+
+    property ToggleMode: TToggleMode
+      read FToggleMode write FToggleMode default tmNone;
+
+    property Visible: Boolean
+      read FVisible write FVisible default True;
+
     property Width: Integer
       read FWidth write FWidth default CDefaultWidth;
   end;
@@ -212,15 +235,15 @@ procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
 var
   i: Integer;
 begin
-  FAutoSize := Value;
+  FAutoSize := AValue;
 
   if FAutoSize then
   begin
     for i := 0 to Collection.Count - 1 do
     begin
-      if Collection[i].AutoSize and (Collection[i] <> Self) then
+      if TColumnDefinition(Collection.Items[i]).AutoSize and (Collection.Items[i] <> Self) then
       begin
-        Collection[i].AutoSize := False;
+        TColumnDefinition(Collection.Items[i]).AutoSize := False;
       end;
     end;
   end;
@@ -267,19 +290,18 @@ procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);
 var
   i: Integer;
 begin
-  FSortingDirection := Value;
-
+  FSortingDirection := AValue;
   if FSortingDirection <> sdNone then
   begin
     for i := 0 to Collection.Count - 1 do
     begin
-      if (Collection[i].SortingDirection <> sdNone) and (Collection[i] <> Self) then
+      if (TColumnDefinition(Collection.Items[i]).SortingDirection <> sdNone)
+        and (Collection.Items[i] <> Self) then
       begin
-        Collection[i].SortingDirection := sdNone;
+        TColumnDefinition(Collection.Items[i]).SortingDirection := sdNone;
       end;
     end;
   end;
-
 end;
 
 { TColumnDefinitions }
@@ -294,7 +316,9 @@ begin
   inherited Items[Index] := AValue;
 end;
 
-function TColumnDefinitions.AddColumn(const AName: string; const ADataType: TDataType; AWidth: Integer; AMinWidth: Integer; AMaxWidth: Integer): TColumnDefinition;
+function TColumnDefinitions.AddColumn(const AName: string;
+  const ADataType: TDataType; AWidth: Integer; AMinWidth: Integer;
+  AMaxWidth: Integer): TColumnDefinition;
 begin
   Result := TColumnDefinition.Create(Self);
   Result.DataType := ADataType;
@@ -322,7 +346,9 @@ begin
   end;
 end;
 
-function TColumnDefinitions.AddColumn(const AName: string; const ACaption: string; const ADataType: TDataType; AWidth: Integer; AMinWidth: Integer; AMaxWidth: Integer): TColumnDefinition;
+function TColumnDefinitions.AddColumn(const AName: string;
+  const ACaption: string; const ADataType: TDataType; AWidth: Integer;
+  AMinWidth: Integer; AMaxWidth: Integer): TColumnDefinition;
 begin
   Result := TColumnDefinition.Create(Self);
   Result.DataType := ADataType;
@@ -348,6 +374,5 @@ begin
     end;
   end;
 end;
-
 
 end.

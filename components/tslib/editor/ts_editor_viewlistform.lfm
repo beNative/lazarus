@@ -1,7 +1,7 @@
 object frmViewList: TfrmViewList
   Left = -1194
   Height = 501
-  Top = 121
+  Top = 400
   Width = 800
   Align = alClient
   ClientHeight = 501

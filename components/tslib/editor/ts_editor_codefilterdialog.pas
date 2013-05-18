@@ -88,7 +88,8 @@ type
     procedure FormShow(Sender: TObject);
     function FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
       ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
-      TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
+      TCanvas; CellRect: TRect; ImageList: TCustomImageList;
+      DrawMode: TDrawMode; Selected: Boolean): Boolean;
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
@@ -525,9 +526,10 @@ begin
   edtFilter.SetFocus;
 end;
 
-function TfrmCodeFilterDialog.FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
-    ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
-    TCanvas; CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
+function TfrmCodeFilterDialog.FTVPColumnDefinitionsItemsCustomDraw(
+  Sender: TObject; ColumnDefinition: TColumnDefinition; Item: TObject;
+  TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
+  DrawMode: TDrawMode; Selected: Boolean): Boolean;
 var
   L      : TLine;
   S      : string;

@@ -211,9 +211,7 @@ type
     procedure DoGetText(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: string);
-
-    procedure DoHeaderClick(Sender: TVTHeader; Column: TColumnIndex;
-      Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure DoHeaderClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
     procedure DoHeaderDblClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
     procedure DoIncrementalSearch(Sender: TBaseVirtualTree;
       Node: PVirtualNode; const SearchText: string; var Result: Integer);
@@ -352,7 +350,7 @@ type
       read FAction write FAction;
     property AllowClearSelection: Boolean
       read FAllowClearSelection write FAllowClearSelection default True;
-    property AllowMove: Boolean read FAllowMove write FAllowMove default True;
+    property AllowMove: Boolean read FAllowMove write FAllowMove default False;
     property CheckSupport: TCheckSupport read FCheckSupport write SetCheckSupport default csNone;
     property ColumnDefinitions: TColumnDefinitions
       read FColumnDefinitions write SetColumnDefinitions;
@@ -447,13 +445,12 @@ constructor TTreeViewPresenter.Create(AOwner: TComponent);
 begin
   inherited;
   FAllowClearSelection := True;
-  FAllowMove := True;
   FShowHeader := True;
   FSorting := True;
   FProgressBar := TProgressBar.Create(Self);
   FProgressBar.Smooth := True;
   FProgressBar.Visible := False;
-  FAllowMove := True;
+  FAllowMove := False;
   FListMode := True;
   FMultiLine := True;
   FCheckedItems := TObjectList.Create(False);
@@ -1075,18 +1072,18 @@ begin
 end;
 
 procedure TTreeViewPresenter.DoHeaderClick(Sender: TVTHeader;
-  Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+  HitInfo: TVTHeaderHitInfo);
 var
   LCursor: TCursor;
 begin
-  if FSorting and (Button = mbLeft) and (Column > -1) then
+  if FSorting and (HitInfo.Button = mbLeft) and (HitInfo.Column > -1) then
   begin
     LCursor := Screen.Cursor;
     Screen.Cursor := crHourGlass;
     try
-      if Sender.SortColumn <> Column then
+      if Sender.SortColumn <> HitInfo.Column then
       begin
-        Sender.SortColumn := Column;
+        Sender.SortColumn := HitInfo.Column;
       end
       else
       begin
@@ -1981,7 +1978,7 @@ begin
     FTreeView.OnGetHint := DoGetHint;
     FTreeView.OnGetImageIndex := DoGetImageIndex;
     FTreeView.OnGetText := DoGetText;
-//    FTreeView.OnHeaderClick := DoHeaderClick;
+    FTreeView.OnHeaderClick := DoHeaderClick;
     FTreeView.OnHeaderDblClick := DoHeaderDblClick;
     FTreeView.OnIncrementalSearch := DoIncrementalSearch;
     FTreeView.OnInitNode := DoInitNode;

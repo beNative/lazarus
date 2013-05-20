@@ -127,6 +127,7 @@ begin
   begin
     cbxUnicodeRange.Items.Add(UnicodeBlocks[I].PG);
   end;
+  pcMain.ActivePageIndex := 0;
   cbxUnicodeRange.ItemIndex := 0;
   cbxUnicodeRangeSelect(nil);
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
@@ -336,7 +337,6 @@ end;
 // private methods                                                         END
 //*****************************************************************************
 {$endregion}
-
 
 {$region 'protected methods' /fold}
 //*****************************************************************************

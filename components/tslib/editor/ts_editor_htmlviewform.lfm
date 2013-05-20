@@ -1,0 +1,30 @@
+object frmHTMLView: TfrmHTMLView
+  Left = 713
+  Height = 553
+  Top = 397
+  Width = 579
+  Caption = 'frmHTMLView'
+  ClientHeight = 553
+  ClientWidth = 579
+  LCLVersion = '1.1'
+  object FrameViewer1: TFrameViewer
+    Left = 0
+    Height = 553
+    Top = 0
+    Width = 579
+    DefFontName = 'Times New Roman'
+    DefPreFontName = 'Courier New'
+    fvOptions = [fvMetaRefresh, fvNoBorder, fvPrintMonochromeBlack, fvPrintTableBackground]
+    HistoryIndex = 0
+    HistoryMaxCount = 0
+    NoSelect = False
+    PrintMarginBottom = 2
+    PrintMarginLeft = 2
+    PrintMarginRight = 2
+    PrintMarginTop = 2
+    PrintScale = 1
+    Align = alClient
+    TabOrder = 0
+    OnFileRequest = FrameViewer1FileRequest
+  end
+end

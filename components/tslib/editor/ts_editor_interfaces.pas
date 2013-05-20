@@ -865,12 +865,16 @@ type
     function GetEditorPopupMenu: TPopupMenu;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetExportPopupMenu: TPopupMenu;
+    function GetFilePopupMenu: TPopupMenu;
     function GetFoldPopupMenu: TPopupMenu;
     function GetHighlighterPopupMenu: TPopupMenu;
     function GetInsertPopupMenu: TPopupMenu;
     function GetLineBreakStylePopupMenu: TPopupMenu;
+    function GetSearchPopupMenu: TPopupMenu;
     function GetSelectionModePopupMenu: TPopupMenu;
     function GetSelectionPopupMenu: TPopupMenu;
+    function GetSelectPopupMenu: TPopupMenu;
+    function GetSettingsPopupMenu: TPopupMenu;
     {$endregion}
 
     property ClipboardPopupMenu: TPopupMenu
@@ -885,6 +889,9 @@ type
     property ExportPopupMenu: TPopupMenu
       read GetExportPopupMenu;
 
+    property FilePopupMenu: TPopupMenu
+      read GetFilePopupMenu;
+
     property FoldPopupMenu: TPopupMenu
       read GetFoldPopupMenu;
 
@@ -897,11 +904,20 @@ type
     property LineBreakStylePopupMenu: TPopupMenu
       read GetLineBreakStylePopupMenu;
 
+    property SearchPopupMenu: TPopupMenu
+      read GetSearchPopupMenu;
+
+    property SelectPopupMenu: TPopupMenu
+      read GetSelectPopupMenu;
+
     property SelectionPopupMenu: TPopupMenu
       read GetSelectionPopupMenu;
 
     property SelectionModePopupMenu: TPopupMenu
       read GetSelectionModePopupMenu;
+
+    property SettingsPopupMenu: TPopupMenu
+      read GetSettingsPopupMenu;
   end;
 
   { All supported actions by the editor views. }

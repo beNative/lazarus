@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 18/05/2013
+   This file was generated on 20/05/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -30,6 +30,7 @@ begin
     // P.Directory:='put here the relative path';
 {$endif ALLPACKAGES}
 
+    P.Dependencies.Add('frameviewer09');
     P.Dependencies.Add('pl_synapsepkgvs');
     P.Dependencies.Add('pl_exsystem');
     P.Dependencies.Add('pl_kcontrols');
@@ -71,6 +72,7 @@ begin
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../../lcl/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../cairocanvas/lib/$(CPU_TARGET)-$(OS_TARGET)');
+    P.Options.Add('-Fu../thtmlviewer/package/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazcontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../lazRichEdit/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../omultipanel/package/lib/$(CPU_TARGET)-$(OS_TARGET)');
@@ -174,6 +176,8 @@ begin
     t.Dependencies.AddUnit('NativeXmlXPath');
     t.Dependencies.AddUnit('ts_editor_customtoolview');
     t.Dependencies.AddUnit('ts_editor_codetags');
+    t.Dependencies.AddUnit('ts_editor_htmlviewform');
+    t.Dependencies.AddUnit('ts_editor_hexeditorform');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -253,6 +257,8 @@ begin
     T:=P.Targets.AddUnit('core\NativeXmlXPath.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_customtoolview.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_codetags.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_htmlviewform.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_hexeditorform.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

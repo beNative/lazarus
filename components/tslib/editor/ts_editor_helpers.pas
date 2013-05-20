@@ -118,9 +118,19 @@ begin
     MI := TMenuItem.Create(AParent.Owner);
     MI.Action := AAction;
     if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
+    begin
+      // Onn Windows 7 or above with themes enabled, the menu item will not
+      // be drawn as checked when it has a glyph assigned to it.
+      // Qt does not have this problem.
+      MI.GlyphShowMode := gsmNever;
       MI.RadioItem := True;
+    end;
     if (AAction is TAction) and (TAction(AAction).AutoCheck) then
     begin
+      // Onn Windows 7 or above with themes enabled, the menu item will not
+      // be drawn as checked when it has a glyph assigned to it.
+      // Qt does not have this problem.
+      MI.GlyphShowMode := gsmNever;
       MI.ShowAlwaysCheckable := True;
     end;
     AParent.Add(MI);
@@ -186,17 +196,12 @@ begin
   AddButton('');
   AddButton('actAlignSelection');
   AddButton('actSortSelection');
-  AddButton('actAlignAndSortSelection');
-  AddButton('');
-  AddButton('actIncFontSize');
-  AddButton('actDecFontSize');
   AddButton('');
   AddDropDownButton('actToggleFoldLevel', Menus.FoldPopupMenu);
   AddButton('');
   AddButton('actFormat');
   AddButton('actSyncEdit');
   AddButton('');
-  AddButton('actToggleBlockCommentSelection');
   AddButton('actQuoteLines');
   AddButton('actDeQuoteLines');
   AddButton('actQuoteSelection');
@@ -206,13 +211,14 @@ begin
   AddButton('');
   AddButton('actShapeCode');
   AddButton('actFilterCode');
-  AddButton('');
   AddButton('actShowPreview');
+  AddButton('');
   AddButton('actAutoGuessHighlighter');
   AddButton('actSmartSelect');
   AddButton('actInspect');
   AddButton('actSettings');
   AddButton('');
+  AddButton('actShowControlCharacters');
   AddButton('actMonitorChanges');
   AddButton('actShowViews');
   AddButton('actStayOnTop');
@@ -271,6 +277,7 @@ begin
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actAlignSelection');
   AddEditorMenuItem(MI, 'actSortSelection');
+  AddEditorMenuItem(MI, 'actSyncEdit');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actLowerCaseSelection');
   AddEditorMenuItem(MI, 'actUpperCaseSelection');
@@ -330,14 +337,9 @@ begin
   MI.Caption := SViewMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actShowViews');
-  AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actIncFontSize');
-  AddEditorMenuItem(MI, 'actDecFontSize');
-  AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actShowControlCharacters');
+  AddEditorMenuItem(MI, 'actShowActions');
   AddEditorMenuItem(MI, 'actShowPreview');
   AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actAutoGuessHighlighter');
 end;
 
 procedure AddEditorToolsMenu(AMainMenu: TMainMenu);
@@ -351,8 +353,8 @@ begin
   AddEditorMenuItem(MI, 'actFilterCode');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actSmartSelect');
-  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actFormat');
+  AddEditorMenuItem(MI, 'actAutoGuessHighlighter');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actCreateDesktopLink');
   AddEditorMenuItem(MI, 'actMonitorChanges');
@@ -366,6 +368,10 @@ begin
   MI.Caption := SSettingsMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSettings');
+  AddEditorMenuItem(MI);
+  AddEditorMenuItem(MI, 'actShowControlCharacters');
+  AddEditorMenuItem(MI, 'actIncFontSize');
+  AddEditorMenuItem(MI, 'actDecFontSize');
   AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actStayOnTop');
   AddEditorMenuItem(MI, 'actToggleMaximized');
@@ -419,7 +425,6 @@ begin
   MI.Caption := SDebugMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actInspect');
-  AddEditorMenuItem(MI, 'actShowActions');
 end;
 
 function CreateEditorView(AParent: TWinControl; const AName: string;

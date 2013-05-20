@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="93">
+    <Files Count="95">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -421,60 +421,71 @@
         <Filename Value="editor\ts_editor_codetags.pas"/>
         <UnitName Value="ts_Editor_CodeTags"/>
       </Item93>
+      <Item94>
+        <Filename Value="editor\ts_editor_htmlviewform.pas"/>
+        <UnitName Value="ts_Editor_HTMLViewForm"/>
+      </Item94>
+      <Item95>
+        <Filename Value="editor\ts_editor_hexeditorform.pas"/>
+        <UnitName Value="ts_editor_hexeditorform"/>
+      </Item95>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="16">
+    <RequiredPkgs Count="17">
       <Item1>
-        <PackageName Value="pl_synapsepkgvs"/>
+        <PackageName Value="FrameViewer09"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="pl_synapsepkgvs"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="pl_exsystem"/>
       </Item3>
       <Item4>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pl_KControls"/>
       </Item4>
       <Item5>
-        <PackageName Value="pl_exdesign"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_aggpasvs"/>
+        <PackageName Value="pl_exdesign"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="pl_aggpasvs"/>
       </Item7>
       <Item8>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item9>
       <Item10>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item12>
       <Item13>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item13>
       <Item14>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item14>
       <Item15>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LazRichEdit"/>
       </Item15>
       <Item16>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="SynEdit"/>
       </Item16>
+      <Item17>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item17>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

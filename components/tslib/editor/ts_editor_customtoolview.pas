@@ -32,6 +32,7 @@ uses
 type
   TCustomEditorToolView = class(TForm, IEditorToolView, IClipboardCommands)
   strict private
+    // this flag is set when there are pending updates.
     FUpdate: Boolean;
 
     function GetManager: IEditorManager;
@@ -238,6 +239,7 @@ end;
 //*****************************************************************************
 // protected methods                                                       END
 //*****************************************************************************
+{$endregion}
 
 end.
 

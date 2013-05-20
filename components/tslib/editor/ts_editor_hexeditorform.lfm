@@ -1,0 +1,24 @@
+object frmHexEditor: TfrmHexEditor
+  Left = 578
+  Height = 932
+  Top = 93
+  Width = 670
+  Caption = 'Hex editor'
+  ClientHeight = 932
+  ClientWidth = 670
+  LCLVersion = '1.1'
+  object HexEditor: TKHexEditor
+    Left = 0
+    Height = 932
+    Top = 0
+    Width = 670
+    Align = alClient
+    BorderStyle = bsNone
+    DisabledDrawStyle = eddNormal
+    Font.Height = -13
+    Font.Name = 'Consolas'
+    Font.Pitch = fpFixed
+    TabOrder = 0
+    OnChange = HexEditorChange
+  end
+end

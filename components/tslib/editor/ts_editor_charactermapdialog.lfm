@@ -42,14 +42,14 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
     Height = 389
     Top = 6
     Width = 434
-    ActivePage = tsUnicode
+    ActivePage = tsANSI
     Anchors = [akTop, akLeft, akRight, akBottom]
     BorderSpacing.Around = 6
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     object tsANSI: TTabSheet
       Caption = 'ANSI'
-      ClientHeight = 363
+      ClientHeight = 361
       ClientWidth = 426
       object lblCharInfo: TLabel
         AnchorSideLeft.Control = tsANSI
@@ -59,8 +59,8 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideBottom.Control = tsANSI
         AnchorSideBottom.Side = asrBottom
         Left = 6
-        Height = 13
-        Top = 344
+        Height = 15
+        Top = 340
         Width = 414
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 6
@@ -74,7 +74,7 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = lblCharInfo
         Left = 0
-        Height = 338
+        Height = 334
         Top = 0
         Width = 426
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -89,16 +89,16 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
     end
     object tsUnicode: TTabSheet
       Caption = 'Unicode'
-      ClientHeight = 363
+      ClientHeight = 361
       ClientWidth = 426
       object lblUnicodeCharInfo: TLabel
         AnchorSideLeft.Control = Owner
         AnchorSideTop.Control = cbxUnicodeRange
         AnchorSideTop.Side = asrCenter
         Left = 6
-        Height = 13
-        Top = 340
-        Width = 91
+        Height = 15
+        Top = 336
+        Width = 103
         BorderSpacing.Around = 6
         Caption = 'lblUnicodeCharInfo'
         ParentColor = False
@@ -110,7 +110,7 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = cbxUnicodeRange
         Left = 0
-        Height = 330
+        Height = 326
         Top = 0
         Width = 426
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -130,13 +130,13 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideBottom.Control = tsUnicode
         AnchorSideBottom.Side = asrBottom
         Left = 208
-        Height = 21
-        Top = 336
+        Height = 23
+        Top = 332
         Width = 212
         Anchors = [akRight, akBottom]
         BorderSpacing.Around = 6
         DropDownCount = 30
-        ItemHeight = 13
+        ItemHeight = 15
         OnSelect = cbxUnicodeRangeSelect
         Style = csDropDownList
         TabOrder = 1

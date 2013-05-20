@@ -23,17 +23,21 @@ unit ts_Editor_HTMLViewForm;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, FramView, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-  ts_Editor_Interfaces, ts_Editor_CustomToolView, HTMLSubs, HtmlGlobals;
+  {$ifdef windows}
+  FramView, HTMLSubs, HtmlGlobals,
+  {$endif}
+
+  ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 type
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
-    FrameViewer1: TFrameViewer;
-    procedure FrameViewer1FileRequest(Sender: TObject; const SRC: ThtString;
-      var NewName: ThtString);
   private
-    //FHTMLViewer: TFrameViewer;
+    {$ifdef windows}
+    FHTMLViewer: TFrameViewer;
+    {$endif}
+
   public
     procedure AfterConstruction; override;
 
@@ -46,30 +50,27 @@ implementation
 
 {$R *.lfm}
 
-procedure TfrmHTMLView.FrameViewer1FileRequest(Sender: TObject;
-  const SRC: ThtString; var NewName: ThtString);
-begin
-  //Manager.OpenFile(NewName);
-end;
-
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FHTMLViewer := TFrameViewer.Create(Self);
-  //FHTMLViewer.Parent := Self;
-  //FHTMLViewer.Align := alClient;
-  //FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
+{$ifdef windows}
+  FHTMLViewer := TFrameViewer.Create(Self);
+  FHTMLViewer.Parent := Self;
+  FHTMLViewer.Align := alClient;
+  FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
+{$endif}
 end;
 
 procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
-  //FHTMLViewer.Load(View.Text);
-  //FrameViewer1.LoadFromString(View.Text);
+
+{$ifdef windows}
   if FileExistsUTF8(View.FileName) then
-    FrameViewer1.LoadFromFile(View.FileName)
+    FHTMLViewer.LoadFromFile(View.FileName)
   else
-    FrameViewer1.LoadFromString(View.Text);
+    FHTMLViewer.LoadFromString(View.Text);
+{$endif}
 
 end;
 

@@ -31,7 +31,6 @@ begin
 {$endif ALLPACKAGES}
 
     P.Dependencies.Add('frameviewer09');
-    P.Dependencies.Add('pl_synapsepkgvs');
     P.Dependencies.Add('pl_exsystem');
     P.Dependencies.Add('pl_kcontrols');
     P.Dependencies.Add('turbopoweripro');
@@ -89,7 +88,6 @@ begin
     P.Options.Add('-Fu../pl_ExSystem/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_FZControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_LuiControls/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../pl_SynapseVS/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_ZeosDBO/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../rtticontrols/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../synedit/design/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');

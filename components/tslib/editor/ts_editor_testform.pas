@@ -32,7 +32,7 @@ uses
 
   //XMLTree,
 
-  ts_Editor_Interfaces, ts_Editor_CustomToolView, IpHtml, vsVisualSynapse,
+  ts_Editor_Interfaces, ts_Editor_CustomToolView, IpHtml,
   FZCommon, FZDB, TplResStoreUnit, TplMemStreamUnit, vd_system, TplMemINIUnit,
   TplFileSearchUnit, uCmdBox, ATBinHex, KHexEditor;
 

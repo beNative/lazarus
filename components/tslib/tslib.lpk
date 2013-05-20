@@ -295,7 +295,7 @@
       </Item61>
       <Item62>
         <Filename Value="editor\ts_editor_commentstripper.pas"/>
-        <UnitName Value="ts_editor_commentstripper"/>
+        <UnitName Value="ts_Editor_CommentStripper"/>
       </Item62>
       <Item63>
         <Filename Value="editor\ts_editor_settings_codeshaper.pas"/>
@@ -430,58 +430,55 @@
       <EnableI18N Value="True"/>
       <OutDir Value="language"/>
     </i18n>
-    <RequiredPkgs Count="17">
+    <RequiredPkgs Count="16">
       <Item1>
         <PackageName Value="FrameViewer09"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_synapsepkgvs"/>
+        <PackageName Value="pl_exsystem"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="pl_KControls"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="TurboPowerIPro"/>
       </Item4>
       <Item5>
-        <PackageName Value="TurboPowerIPro"/>
+        <PackageName Value="pl_exdesign"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_exdesign"/>
+        <PackageName Value="pl_aggpasvs"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_aggpasvs"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item8>
       <Item9>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item9>
       <Item10>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item12>
       <Item13>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="richmemopackage"/>
       </Item13>
       <Item14>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LazRichEdit"/>
       </Item14>
       <Item15>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item15>
       <Item16>
-        <PackageName Value="SynEdit"/>
-      </Item16>
-      <Item17>
         <PackageName Value="RunTimeTypeInfoControls"/>
-      </Item17>
+      </Item16>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

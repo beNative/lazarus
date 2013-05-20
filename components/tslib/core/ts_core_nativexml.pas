@@ -116,7 +116,7 @@ uses
   WinInet,
 {$else MSWINDOWS}
   // linux: win32-compatible functions
-  NativeXmlWin32Compat,
+  ts_Core_NativeXmlWin32Compat,
 {$endif MSWINDOWS}
 
   // units from simlib.general

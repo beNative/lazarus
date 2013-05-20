@@ -24,7 +24,7 @@ uses
   ts_RichEditor_TextAttributes, ts_Editor_SearchEngine, ts_Core_StringUtils, 
   ts_Core_SQLTree, ts_Core_SQLParser, ts_Core_SQLScanner, ts_Editor_Testform, 
   ts_Core_ComponentInspector, ts_Editor_CodeFormatters, 
-  ts_Editor_AlignLinesForm, ts_Core_Helpers, ts_editor_commentstripper, 
+  ts_Editor_AlignLinesForm, ts_Core_Helpers, ts_Editor_CommentStripper, 
   ts_Editor_Settings_CodeShaper, ts_Editor_Settings_AlignLines, 
   ts_Editor_Settings_SearchEngine, ts_Components_UniHighlighter, 
   ts_Core_Collections, ts_Editor_CodeFormatters_SQL, BRRE, BRREUnicode, 
@@ -35,9 +35,8 @@ uses
   ts_Components_Inspector, ts_Components_DBGridView, ts_Components_GridView, 
   ts_Components_FileAssociation, ts_Core_CodecUtilsWin32, 
   ts_Core_EncodingUtils, ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage, 
-  ts_Core_NativeXmlWin32Compat, 
-  ts_Editor_CustomToolView, ts_Editor_CodeTags, ts_Editor_HTMLViewForm, 
-  ts_Editor_HexEditorForm;
+  ts_Core_NativeXmlWin32Compat, ts_Editor_CustomToolView, ts_Editor_CodeTags, 
+  ts_Editor_HTMLViewForm, ts_Editor_HexEditorForm;
 
 implementation
 

@@ -12,15 +12,23 @@ uses
   { you can add units after this }
   DefaultTranslator,
 
+  sharedlogger,
+  {$ifdef windows}
+  ipcchannel,
+  {$endif}
   richmemopackage;
 
 {$R *.res}
 
 begin
+  //{$ifdef windows}
+  //  Logger.Channels.Add(TIPCChannel.Create);
+  //{$endif}
+
   Application.Title := 'Notepas';
-  //if FileExists('NotePas.trc') then
-  //  DeleteFile('NotePas.trc');
-  //SetHeapTraceOutput('NotePas.trc');
+  //if FileExists('Notepas.trc') then
+  //  DeleteFile('Notepas.trc');
+  //SetHeapTraceOutput('Notepas.trc');
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

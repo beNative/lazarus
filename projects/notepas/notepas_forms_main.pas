@@ -33,9 +33,7 @@ uses
   ts_Components_Docking, ts_Components_Docking_Storage,
   // for debugging
   sharedlogger,
-  {$ifdef windows}
-  ipcchannel,
-  {$endif}
+
 
   SynEdit,
 
@@ -357,7 +355,11 @@ begin
   else if S = 'actAlignSelection' then
     DisplayToolForm(A, 'frmAlignLines')
   else if S = 'actXMLTree' then
-    DisplayToolForm(A, 'frmXmlTree');
+    DisplayToolForm(A, 'frmXmlTree')
+  else if S = 'actShowHTMLViewer' then
+    DisplayToolForm(A, 'frmHTMLView')
+  else if S = 'actShowHexEditor' then
+    DisplayToolForm(A, 'frmHexEditor');
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {
@@ -747,9 +749,5 @@ end;
 
 initialization
 {$I notepas_forms_main.lrs}
-
-{$ifdef windows}
-  Logger.Channels.Add(TIPCChannel.Create);
-{$endif}
 
 end.

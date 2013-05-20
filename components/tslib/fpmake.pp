@@ -173,7 +173,6 @@ begin
     t.Dependencies.AddUnit('ts_core_nativexml');
     t.Dependencies.AddUnit('ts_core_nativexmlobjectstorage');
     t.Dependencies.AddUnit('ts_core_nativexmlwin32compat');
-    t.Dependencies.AddUnit('ts_core_nativexmlxpath');
     t.Dependencies.AddUnit('ts_editor_customtoolview');
     t.Dependencies.AddUnit('ts_editor_codetags');
     t.Dependencies.AddUnit('ts_editor_htmlviewform');
@@ -254,7 +253,6 @@ begin
     T:=P.Targets.AddUnit('core\ts_core_nativexml.pas');
     T:=P.Targets.AddUnit('core\ts_core_nativexmlobjectstorage.pas');
     T:=P.Targets.AddUnit('core\ts_core_nativexmlwin32compat.pas');
-    T:=P.Targets.AddUnit('core\ts_core_nativexmlxpath.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_customtoolview.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_codetags.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_htmlviewform.pas');

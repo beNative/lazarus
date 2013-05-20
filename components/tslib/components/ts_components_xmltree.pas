@@ -50,11 +50,11 @@ uses
 {$ifdef Windows}
   Windows,
 {$endif}
-  ts_core_nativexml,
-
   VirtualTrees,
 
   sharedlogger,
+
+  ts_Core_NativeXml,
 
   ts_Components_XMLTree_Editors, ts_Components_XMLTree_NodeAttributes;
 

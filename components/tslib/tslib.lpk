@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="95">
+    <Files Count="94">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -399,36 +399,32 @@
       </Item87>
       <Item88>
         <Filename Value="core\ts_core_nativexmlobjectstorage.pas"/>
-        <UnitName Value="ts_core_nativexmlobjectstorage"/>
+        <UnitName Value="ts_Core_NativeXmlObjectStorage"/>
       </Item88>
       <Item89>
         <Filename Value="core\ts_core_nativexmlwin32compat.pas"/>
         <UnitName Value="ts_Core_NativeXmlWin32Compat"/>
       </Item89>
       <Item90>
-        <Filename Value="core\ts_core_nativexmlxpath.pas"/>
-        <UnitName Value="ts_core_nativexmlxpath"/>
-      </Item90>
-      <Item91>
         <Filename Value="core\simdesign.inc"/>
         <Type Value="Include"/>
-      </Item91>
-      <Item92>
+      </Item90>
+      <Item91>
         <Filename Value="editor\ts_editor_customtoolview.pas"/>
         <UnitName Value="ts_Editor_CustomToolView"/>
-      </Item92>
-      <Item93>
+      </Item91>
+      <Item92>
         <Filename Value="editor\ts_editor_codetags.pas"/>
         <UnitName Value="ts_Editor_CodeTags"/>
-      </Item93>
-      <Item94>
+      </Item92>
+      <Item93>
         <Filename Value="editor\ts_editor_htmlviewform.pas"/>
         <UnitName Value="ts_Editor_HTMLViewForm"/>
-      </Item94>
-      <Item95>
+      </Item93>
+      <Item94>
         <Filename Value="editor\ts_editor_hexeditorform.pas"/>
         <UnitName Value="ts_Editor_HexEditorForm"/>
-      </Item95>
+      </Item94>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

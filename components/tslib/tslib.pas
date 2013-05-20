@@ -35,7 +35,7 @@ uses
   ts_Components_Inspector, ts_Components_DBGridView, ts_Components_GridView, 
   ts_Components_FileAssociation, ts_Core_CodecUtilsWin32, 
   ts_Core_EncodingUtils, ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage, 
-  ts_Core_NativeXmlWin32Compat, ts_Core_NativeXmlXPath, 
+  ts_Core_NativeXmlWin32Compat, 
   ts_Editor_CustomToolView, ts_Editor_CodeTags, ts_Editor_HTMLViewForm, 
   ts_Editor_HexEditorForm;
 

@@ -34,7 +34,6 @@ uses
   // for debugging
   sharedlogger,
 
-
   SynEdit,
 
   ts_Editor_Interfaces;
@@ -60,9 +59,6 @@ uses
 //=============================================================================
 
 type
-
-  { TfrmMain }
-
   TfrmMain = class(TForm)
     {$region 'designer controls' /fold}
     aclMain               : TActionList;
@@ -101,7 +97,6 @@ type
     {$endregion}
 
     {$region 'event handlers' /fold}
-    procedure ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure AHSActivateSite(Sender: TObject);
     procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure btnEncodingClick(Sender: TObject);
@@ -110,6 +105,8 @@ type
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
     procedure btnCloseToolViewClick(Sender: TObject);
+    procedure EVHideEditorToolView(Sender: TObject;
+      AEditorToolView: IEditorToolView);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
@@ -127,11 +124,11 @@ type
     procedure InitDebugAction(const AActionName: string);
 
     // event handlers
+    procedure EVShowEditorToolView(Sender: TObject; AToolView: IEditorToolView);
     procedure EVActiveViewChange(Sender: TObject);
     procedure EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
     procedure EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
     procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
-
     procedure EditorSettingsChangedHandler(Sender: TObject);
 
   protected
@@ -142,12 +139,6 @@ type
     procedure UpdateCaptions;
     procedure UpdateStatusBar;
     procedure UpdateEditorViewCaptions;
-
-    procedure DisplayToolForm(
-            AAction   : TAction;
-      const AFormName : string;
-            ASetFocus : Boolean = False
-    );
 
   public
     procedure AfterConstruction; override;
@@ -197,7 +188,6 @@ uses
 
 resourcestring
   SModified              = 'Modified';
-  SToolformDoesNotExist  = 'Toolform with name %s does not exist!';
 
 {$region 'construction and destruction' /fold}
 //*****************************************************************************
@@ -226,14 +216,17 @@ begin
     Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
     AddEditorDebugMenu(mnuMain);
   end;
-  Manager.Actions['actNewSharedView'].Visible := Settings.DebugMode;
+
   pnlViewerCount.Visible := Settings.DebugMode;
 
   EV := Manager.Events;
-  EV.OnActiveViewChange  := EVActiveViewChange;
-  EV.OnStatusChange      := EVStatusChange;
-  EV.OnOpenOtherInstance := EVOpenOtherInstance;
-  EV.OnAddEditorView     := EVAddEditorView;
+  EV.OnActiveViewChange   := EVActiveViewChange;
+  EV.OnStatusChange       := EVStatusChange;
+  EV.OnOpenOtherInstance  := EVOpenOtherInstance;
+  EV.OnAddEditorView      := EVAddEditorView;
+  EV.OnShowEditorToolView := EVShowEditorToolView;
+  EV.OnHideEditorToolView := EVHideEditorToolView;
+;
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
   if ParamCount > 0 then
   begin
@@ -255,7 +248,6 @@ begin
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
-  Manager.Actions.ActionList.OnExecute  := ActionListExecute;
   Manager.ActiveView := V;
   DoubleBuffered := True;
 end;
@@ -331,35 +323,6 @@ end;
 // event handlers                                                        BEGIN
 //*****************************************************************************
 
-{ TODO: needs to be refactored. }
-
-procedure TfrmMain.ActionListExecute(AAction: TBasicAction; var Handled: Boolean);
-var
-  A : TAction;
-  S : string;
-begin
-  A := TAction(AAction);
-  S := A.Name;
-  if S = 'actShapeCode' then
-    DisplayToolForm(A, 'frmCodeShaper')
-  else if S = 'actSearch' then
-    DisplayToolForm(A, 'frmSearchForm', True)
-  else if S = 'actSearchReplace' then
-    DisplayToolForm(A, 'frmSearchForm', True)
-  else if S = 'actShowPreview' then
-    DisplayToolForm(A, 'frmPreview')
-  else if S = 'actTestForm' then
-    DisplayToolForm(A, 'frmTest')
-  else if S = 'actSelectionInfo' then
-    DisplayToolForm(A, 'frmSelectionInfo')
-  else if S = 'actAlignSelection' then
-    DisplayToolForm(A, 'frmAlignLines')
-  else if S = 'actXMLTree' then
-    DisplayToolForm(A, 'frmXmlTree')
-  else if S = 'actShowHTMLViewer' then
-    DisplayToolForm(A, 'frmHTMLView')
-  else if S = 'actShowHexEditor' then
-    DisplayToolForm(A, 'frmHexEditor');
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {
@@ -381,7 +344,6 @@ begin
   DockMaster.EndUpdate;
 }
 {$endregion}
-end;
 
 procedure TfrmMain.AHSActivateSite(Sender: TObject);
 var
@@ -499,14 +461,28 @@ end;
 
 procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
 var
-  I : Integer;
+  TV: IEditorToolView;
 begin
   pnlTool.Visible := False;
   splVertical.Visible := False;
-  for I := 0 to Manager.ToolViews.Count - 1 do
-  begin
-    Manager.ToolViews.Views[I].Visible := False;
-  end;
+  for TV in Manager.ToolViews do
+    TV.Visible := False;
+end;
+
+procedure TfrmMain.EVHideEditorToolView(Sender: TObject;
+  AEditorToolView: IEditorToolView);
+begin
+  pnlTool.Visible := False;
+end;
+
+procedure TfrmMain.EVShowEditorToolView(Sender: TObject;
+  AToolView: IEditorToolView);
+begin
+  pnlTool.Visible := False;
+  lblHeader.Caption := AToolView.Form.Caption;
+  splVertical.Visible := True;
+  AssignFormParent(AToolView.Form, pnlTool);
+  pnlTool.Visible := True;
 end;
 
 procedure TfrmMain.EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
@@ -635,6 +611,10 @@ begin
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
   InitDebugAction('actNewSharedView');
+  InitDebugAction('actShowHTMLViewer');
+  InitDebugAction('actXMLTree');
+  InitDebugAction('actShowHexEditor');
+  InitDebugAction('actFindAllOccurences');
 end;
 
 procedure TfrmMain.UpdateCaptions;
@@ -706,28 +686,6 @@ begin
   end;
 end;
 
-procedure TfrmMain.DisplayToolForm(AAction: TAction; const AFormName: string;
-  ASetFocus: Boolean);
-var
-  TV : IEditorToolView;
-begin
-  TV := EditorManager.ToolViews[AFormName];
-  if Assigned(TV) then
-  begin
-    lblHeader.Caption := TV.Form.Caption;
-    AssignFormParent(TV.Form, pnlTool);
-    TV.Visible := AAction.Checked;
-    pnlTool.Visible := AAction.Checked;
-    splVertical.Visible := AAction.Checked;
-    if TV.Visible then
-      TV.UpdateView;
-    if ASetFocus and TV.Form.CanFocus then
-      TV.Form.SetFocus;
-  end
-  else
-    raise Exception.CreateFmt(SToolformDoesNotExist, [AFormName]);
-end;
-
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
@@ -735,10 +693,6 @@ begin
   begin
     UpdateCaptions;
     UpdateStatusBar;
-  end;
-  if Assigned(Settings) then
-  begin
-
   end;
 end;
 

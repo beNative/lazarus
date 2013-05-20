@@ -13,18 +13,12 @@ uses
   DefaultTranslator,
 
   sharedlogger,
-  {$ifdef windows}
-  ipcchannel,
-  {$endif}
+
   richmemopackage;
 
 {$R *.res}
 
 begin
-  //{$ifdef windows}
-  //  Logger.Channels.Add(TIPCChannel.Create);
-  //{$endif}
-
   Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');

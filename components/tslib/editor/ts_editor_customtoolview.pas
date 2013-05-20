@@ -49,7 +49,6 @@ type
     function GetVisible: Boolean;
 
     procedure Modified; virtual;
-    procedure Updated; virtual;
     procedure UpdateView; virtual;
     procedure SettingsChanged; virtual;
 
@@ -193,11 +192,6 @@ end;
 procedure TCustomEditorToolView.Modified;
 begin
   FUpdate := True;
-end;
-
-procedure TCustomEditorToolView.Updated;
-begin
-  FUpdate := False;
 end;
 
 { Responds to changes in the global settings. }

@@ -31,11 +31,7 @@ type
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)
     HexEditor: TKHexEditor;
     procedure HexEditorChange(Sender: TObject);
-  private
-    { private declarations }
   public
-    procedure AfterConstruction; override;
-
     procedure UpdateView; override;
   end;
 
@@ -60,12 +56,6 @@ begin
       S.Free;
     end;
   end;
-end;
-
-procedure TfrmHexEditor.AfterConstruction;
-begin
-  inherited AfterConstruction;
-  //
 end;
 
 procedure TfrmHexEditor.UpdateView;

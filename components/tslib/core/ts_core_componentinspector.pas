@@ -269,7 +269,7 @@ begin
   PropertyEditorHook.AddHandlerAddDependency(OnAddDependency);
   PropertyEditorHook.AddHandlerComponentRenamed(OnComponentRenamed);
   PropertyEditorHook.AddHandlerPersistentDeleting(OnPersistentDeleting);
-  PropertyEditorHook.AddHandlerRevert(OnRevert);
+  //PropertyEditorHook.AddHandlerRevert(OnRevert);
 
   DoubleBuffered := True;
 

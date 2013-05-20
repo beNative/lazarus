@@ -2202,10 +2202,10 @@ Var
   Var
     S, Pref, Sep : TSQLStringType;
     I, Ind       : Integer;
-
   begin
+    S := '';
     if Not Assigned(List) or (List.Count = 0) then
-      exit;
+      Exit;
     If (AKeyWord <> '') then
       If NewLinePending then
         Result := Result + SlineBreak + SQLKeyWord(AKeyWord, Options)
@@ -2307,6 +2307,7 @@ Var
   UseNewLine   : Boolean;
 
 begin
+  S := '';
   Result := SQLKeyWord('INSERT INTO ', Options);
   If Assigned(FTableName) then
     Result := Result + TableName.GetAsSQL(Options, AIndent);

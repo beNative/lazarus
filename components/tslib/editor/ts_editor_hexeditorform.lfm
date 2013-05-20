@@ -1,4 +1,4 @@
-object frmHexEditor: TfrmHexEditor
+inherited frmHexEditor: TfrmHexEditor
   Left = 578
   Height = 932
   Top = 93
@@ -6,8 +6,7 @@ object frmHexEditor: TfrmHexEditor
   Caption = 'Hex editor'
   ClientHeight = 932
   ClientWidth = 670
-  LCLVersion = '1.1'
-  object HexEditor: TKHexEditor
+  object HexEditor: TKHexEditor[0]
     Left = 0
     Height = 932
     Top = 0
@@ -18,6 +17,7 @@ object frmHexEditor: TfrmHexEditor
     Font.Height = -13
     Font.Name = 'Consolas'
     Font.Pitch = fpFixed
+    Font.Style = [fsBold]
     TabOrder = 0
     OnChange = HexEditorChange
   end

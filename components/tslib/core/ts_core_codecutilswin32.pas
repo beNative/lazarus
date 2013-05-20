@@ -17,10 +17,10 @@
 // The Original Code is "dkCodecUtilsWin32.pas".
 //
 // The Initial Developers of the Original Code are David J Butler (Pretoria,
-// South Africa, "http://fundementals.sourceforge.net/") and Dieter Köhler
+// South Africa, "http://fundementals.sourceforge.net/") and Dieter KÃ¶hler
 // (Heidelberg, Germany, "http://www.philo.de/"). Portions created by the
 // Initial Developers are Copyright (C) 2003-2010 David J Butler and Dieter
-// Köhler. All Rights Reserved.
+// KÃ¶hler. All Rights Reserved.
 //
 // Alternatively, the contents of this file may be used under the terms of the
 // GNU General Public License Version 2 or later (the "GPL"), in which case the
@@ -39,8 +39,8 @@
 //                  Thanks to Yooichi Tagawa for providing the workarounds and
 //                  fixes.
 // 2009-02-23 1.0.0 First release of CodecUtilsWin32 maintained by Dieter
-//                  Köhler that is based on the cUnicodeCodecs.pas unit from
-//                  David J Butler and Dieter Köhler.
+//                  KÃ¶hler that is based on the cUnicodeCodecs.pas unit from
+//                  David J Butler and Dieter KÃ¶hler.
 
 {$IFDEF VER140}
   {$DEFINE VER140+}
@@ -76,7 +76,7 @@
   {$DEFINE VER140+}
 {$ENDIF}
 
-unit CodecUtilsWin32;
+unit ts_Core_CodecUtilsWin32;
 
 interface
 
@@ -84,7 +84,7 @@ uses
 {$IFDEF UNICODE}
   AnsiStrings,
 {$ENDIF}
-  EncodingUtils, SysUtils, Classes;
+  ts_Core_Encodingutils, SysUtils, Classes;
 
 {                                                                              }
 { UCS-4 and TBytes definitions                                                 }

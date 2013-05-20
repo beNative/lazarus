@@ -9,7 +9,7 @@
 
   copyright (c) 2011 Nils Haeck (www.simdesign.nl)
 }
-unit NativeXmlWin32Compat;
+unit ts_Core_NativeXmlWin32Compat;
 
 {$define LINUX}
 
@@ -51,12 +51,11 @@ const
 implementation
 
 uses
+  SysUtils,
   // code from philo.de
-  CodecUtilsWin32,
-  SysUtils, NativeXml;
+  ts_Core_CodecUtilsWin32, ts_Core_NativeXml;
 
 type
-
   TUnicodeCodecClass = class of TUnicodeCodec;
   TCodepageToEncodingInfo = packed record
     Name: AnsiString;

@@ -41,7 +41,7 @@
 
   Please visit http://www.simdesign.nl/xml.html for more information.
 }
-unit NativeXmlObjectStorage;
+unit ts_Core_NativeXmlObjectStorage;
 
 {$i simdesign.inc}
 
@@ -55,7 +55,9 @@ uses
 {$ifdef useForms}
   Forms, Controls,
 {$endif}
-  TypInfo, Variants, NativeXml, sdDebug;
+  TypInfo, Variants,
+
+  ts_Core_NativeXml, sdDebug;
 
 type
 
@@ -681,6 +683,7 @@ var
     BaseType: PTypeInfo;
     S, Enum: string;
   begin
+    S := '';
     {$ifdef FPC}
     BaseType := GetTypeData(PropType)^.CompType;
     {$else}
@@ -984,7 +987,6 @@ var
   PropInfo: PPropInfo;
   PropList: PPropList;
   S: TStringStream;
-  MS: TMemoryStream;
   AReader: TReader;
   AChildNode: TXmlNode;
   AComponentNode: TXmlNode;

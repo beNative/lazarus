@@ -1977,7 +1977,6 @@ end;
 
 procedure TAnchorDockMaster.CreateCloseButtonBitmap;
 var
-  BitmapHandle,MaskHandle: HBITMAP;
   OrigBitmap: TCustomBitmap;
 begin
   if fCloseBtnBitmap<>nil then exit;

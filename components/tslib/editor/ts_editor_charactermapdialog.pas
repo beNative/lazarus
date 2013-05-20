@@ -63,7 +63,6 @@ type
     function GetForm: TForm;
     function GetName:string;
     function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean);
 
     procedure UpdateView;
 
@@ -161,11 +160,6 @@ end;
 function TfrmCharacterMapDialog.GetVisible: Boolean;
 begin
   Result := inherited Visible;
-end;
-
-procedure TfrmCharacterMapDialog.SetVisible(AValue: Boolean);
-begin
-  inherited Visible := AValue;
 end;
 
 function TfrmCharacterMapDialog.GetManager: IEditorManager;

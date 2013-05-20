@@ -50,7 +50,7 @@ uses
 {$ifdef Windows}
   Windows,
 {$endif}
-  NativeXML,
+  ts_core_nativexml,
 
   VirtualTrees,
 
@@ -1124,7 +1124,7 @@ procedure TXMLTree.DoGetText(ANode: PVirtualNode; Column: TColumnIndex;
 var
   S  : UTF8String;
   ND : PNodeData;
-  N  : PVirtualNode;
+  //N  : PVirtualNode;
 begin
   //Logger.EnterMethod(Self, 'DoGetText');
   //Logger.Send('States', SetToString(TypeInfo(ANode.States), ANode.States));

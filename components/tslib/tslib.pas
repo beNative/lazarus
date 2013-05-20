@@ -33,8 +33,9 @@ uses
   ts_Editor_Resources, ts_Components_ExportRTF, ts_Editor_SelectionInfoForm, 
   ts_Editor_SelectionInfo, ts_Components_UniqueInstance, 
   ts_Components_Inspector, ts_Components_DBGridView, ts_Components_GridView, 
-  ts_Components_FileAssociation, CodecUtilsWin32, EncodingUtils, NativeXml, 
-  NativeXmlObjectStorage, NativeXmlWin32Compat, NativeXmlXPath, 
+  ts_Components_FileAssociation, ts_Core_CodecUtilsWin32, 
+  ts_Core_EncodingUtils, ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage, 
+  ts_Core_NativeXmlWin32Compat, ts_Core_NativeXmlXPath, 
   ts_Editor_CustomToolView, ts_Editor_CodeTags, ts_Editor_HTMLViewForm, 
   ts_Editor_HexEditorForm;
 

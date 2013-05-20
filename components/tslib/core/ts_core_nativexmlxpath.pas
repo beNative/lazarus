@@ -1,4 +1,4 @@
-unit NativeXmlXPath;
+unit ts_Core_NativeXmlXPath;
 
 interface
 
@@ -7,7 +7,7 @@ interface
 uses
   Classes,
 
-  NativeXml;
+  ts_core_nativexml;
 
 type
   TXmlNodeHelper = class helper for TXmlNode

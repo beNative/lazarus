@@ -110,10 +110,12 @@ type
     { Lets the view respond to changes. }
     procedure UpdateView; override;
     procedure Execute;
-    procedure UpdateActions; override;
 
     property Settings: TAlignLinesSettings
       read GetSettings;
+
+  protected
+    procedure UpdateActions; override;
 
   public
     procedure AfterConstruction; override;

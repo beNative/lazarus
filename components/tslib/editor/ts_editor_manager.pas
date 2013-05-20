@@ -787,11 +787,9 @@ implementation
 uses
 {$ifdef windows}
   ShlObj, Windows,
-{$endif}
-{$ifdef windows}
+
   ipcchannel,
 {$endif}
-
   FileUtil, Clipbrd, StrUtils, Math, TypInfo,
 
   LConvEncoding,
@@ -1305,10 +1303,9 @@ begin
   if ToolViews['frmViewList'].Visible then
     ToolViews['frmViewList'].UpdateView;
   if ToolViews['frmHTMLView'].Visible then
-      ToolViews['frmHTMLView'].UpdateView;
+    ToolViews['frmHTMLView'].UpdateView;
   if ToolViews['frmHexEditor'].Visible then
-      ToolViews['frmHexEditor'].UpdateView;
-
+    ToolViews['frmHexEditor'].UpdateView;
   end;
 end;
 
@@ -2099,9 +2096,9 @@ end;
 function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AMenu: TMenu
   ): TMenuItem;
 var
-  MI : TMenuItem;
-  M  : TMenuItem;
-  SM : TMenuItem;
+  MI  : TMenuItem;
+  M   : TMenuItem;
+  SM  : TMenuItem;
   SMI : TMenuItem;
   I   : Integer;
 begin
@@ -2111,6 +2108,7 @@ begin
   for M in AMenu.Items do
   begin
     SMI := AddMenuItem(MI, M.Action);
+    // add submenu(s)
     if M.Count > 0 then
     begin
       for I := 0 to M.Count - 1 do
@@ -3392,10 +3390,9 @@ end;
 {$endregion}
 
 initialization
-  {$ifdef windows}
-    Logger.Channels.Add(TIPCChannel.Create);
-  {$endif}
-
+{$ifdef windows}
+  Logger.Channels.Add(TIPCChannel.Create);
+{$endif}
   dmEditorManager := TdmEditorManager.Create(Application);
 
 end.

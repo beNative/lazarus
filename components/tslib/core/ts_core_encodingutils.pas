@@ -1,4 +1,4 @@
-unit EncodingUtils;
+unit ts_Core_EncodingUtils;
 
 // EncodingUtils 4.0.6
 // Delphi 4 to 2009 and Kylix 3 Implementation
@@ -18,9 +18,9 @@ unit EncodingUtils;
 //
 // The Original Code is "dkEncodingUtils.pas".
 //
-// The Initial Developer of the Original Code is Dieter Köhler (Heidelberg,
+// The Initial Developer of the Original Code is Dieter KÃ¶hler (Heidelberg,
 // Germany, "http://www.philo.de/"). Portions created by the Initial Developer
-// are Copyright (C) 2003-2009 Dieter Köhler. All Rights Reserved.
+// are Copyright (C) 2003-2009 Dieter KÃ¶hler. All Rights Reserved.
 //
 // Alternatively, the contents of this file may be used under the terms of the
 // GNU General Public License Version 2 or later (the "GPL"), in which case the
@@ -3666,14 +3666,14 @@ begin
   Result := 33;
 end;
 
-class function TEncodingInfoNATSDANO.Name: string;
+class function TEncodingInfoNATSDANO.PreferredMIMEName: string;
 begin
   Result := '';
 end;
 
-class function TEncodingInfoNATSDANO.PreferredMIMEName: string;
+class function TEncodingInfoNATSDANO.Name: string;
 begin
-
+  Result := '';
 end;
 
 { TEncodingInfoNATSDANOADD }

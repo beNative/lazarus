@@ -63,7 +63,7 @@
 
   Copyright (c) 2003 - 2011 Simdesign B.V. (www.simdesign.nl)
 }
-unit NativeXml;
+unit ts_Core_NativeXml;
 
 interface
 
@@ -7005,7 +7005,7 @@ end;
 class function TNativeXml.DecodeBase64(const Source: Utf8String; OnDebug: TsdDebugEvent): RawByteString;
 begin
   try
-    Result := NativeXml.DecodeBase64(Source);
+    Result := ts_Core_NativeXml.DecodeBase64(Source);
   except
     on EFilerError do
       OnDebug(nil, wsFail, sErrorCalcStreamLength);
@@ -7014,7 +7014,7 @@ end;
 
 class function TNativeXml.EncodeBase64(const Source: RawByteString; const ControlChars: Utf8String): Utf8String;
 begin
-  Result := sdAddControlChars(NativeXml.EncodeBase64(Source), ControlChars);
+  Result := sdAddControlChars(ts_Core_NativeXml.EncodeBase64(Source), ControlChars);
 end;
 
 procedure TNativeXml.SetExternalEncoding(const Value: TsdStringEncoding);

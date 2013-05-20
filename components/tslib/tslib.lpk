@@ -386,28 +386,28 @@
         <UnitName Value="ts_Components_FileAssociation"/>
       </Item84>
       <Item85>
-        <Filename Value="core\CodecUtilsWin32.pas"/>
-        <UnitName Value="CodecUtilsWin32"/>
+        <Filename Value="core\ts_core_codecutilswin32.pas"/>
+        <UnitName Value="ts_Core_CodecUtilsWin32"/>
       </Item85>
       <Item86>
-        <Filename Value="core\EncodingUtils.pas"/>
-        <UnitName Value="EncodingUtils"/>
+        <Filename Value="core\ts_core_encodingutils.pas"/>
+        <UnitName Value="ts_Core_EncodingUtils"/>
       </Item86>
       <Item87>
-        <Filename Value="core\NativeXml.pas"/>
-        <UnitName Value="NativeXml"/>
+        <Filename Value="core\ts_core_nativexml.pas"/>
+        <UnitName Value="ts_Core_NativeXml"/>
       </Item87>
       <Item88>
-        <Filename Value="core\NativeXmlObjectStorage.pas"/>
-        <UnitName Value="NativeXmlObjectStorage"/>
+        <Filename Value="core\ts_core_nativexmlobjectstorage.pas"/>
+        <UnitName Value="ts_core_nativexmlobjectstorage"/>
       </Item88>
       <Item89>
-        <Filename Value="core\NativeXmlWin32Compat.pas"/>
-        <UnitName Value="NativeXmlWin32Compat"/>
+        <Filename Value="core\ts_core_nativexmlwin32compat.pas"/>
+        <UnitName Value="ts_Core_NativeXmlWin32Compat"/>
       </Item89>
       <Item90>
-        <Filename Value="core\NativeXmlXPath.pas"/>
-        <UnitName Value="NativeXmlXPath"/>
+        <Filename Value="core\ts_core_nativexmlxpath.pas"/>
+        <UnitName Value="ts_core_nativexmlxpath"/>
       </Item90>
       <Item91>
         <Filename Value="core\simdesign.inc"/>
@@ -427,7 +427,7 @@
       </Item94>
       <Item95>
         <Filename Value="editor\ts_editor_hexeditorform.pas"/>
-        <UnitName Value="ts_editor_hexeditorform"/>
+        <UnitName Value="ts_Editor_HexEditorForm"/>
       </Item95>
     </Files>
     <i18n>

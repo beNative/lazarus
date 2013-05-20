@@ -2334,7 +2334,7 @@ type
     function IsRowVisible(Row: Integer): Boolean;
     procedure LockUpdate;
     procedure MakeCellVisible(Cell: TGridCell; PartialOK: Boolean); virtual;
-    procedure SetCursor(Cell: TGridCell; Selected, Visible: Boolean); virtual;
+    procedure SetCursor(Cell: TGridCell; Selected, Visible: Boolean); overload; virtual;
     procedure UndoEdit; virtual;
     procedure UnLockUpdate(Redraw: Boolean);
     procedure UpdateCursor; virtual;
@@ -7926,8 +7926,6 @@ begin
 end;
 
 function TCustomGridView.GetGridLineColor(BkColor: TColor): TColor;
-const
-  LineColors: array[Boolean] of TColor = (clSilver, clGray);
 begin
   Result := FGridColor;
   if ColorToRGB(Result) = ColorToRGB(BkColor) then

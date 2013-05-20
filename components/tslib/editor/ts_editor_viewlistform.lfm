@@ -1,40 +1,23 @@
-object frmViewList: TfrmViewList
+inherited frmViewList: TfrmViewList
   Left = -1194
   Height = 501
   Top = 400
   Width = 800
   Align = alClient
+  Caption = 'Editor views'
   ClientHeight = 501
   ClientWidth = 800
   Position = poOwnerFormCenter
-  LCLVersion = '1.1'
-  object pnlButtons: TButtonPanel
-    Left = 6
-    Height = 34
-    Top = 461
-    Width = 788
-    OKButton.Name = 'OKButton'
-    OKButton.DefaultCaption = True
-    HelpButton.Name = 'HelpButton'
-    HelpButton.DefaultCaption = True
-    CloseButton.Name = 'CloseButton'
-    CloseButton.DefaultCaption = True
-    CancelButton.Name = 'CancelButton'
-    CancelButton.DefaultCaption = True
-    TabOrder = 0
-    DefaultButton = pbClose
-    ShowButtons = [pbClose]
-  end
-  object pnlVST: TPanel
+  object pnlVST: TPanel[0]
     Left = 0
-    Height = 455
+    Height = 501
     Top = 0
     Width = 800
     Align = alClient
     BevelOuter = bvNone
-    TabOrder = 1
+    TabOrder = 0
   end
-  object aclMain: TActionList
+  object aclMain: TActionList[1]
     left = 256
     top = 129
     object actClose: TAction
@@ -42,14 +25,14 @@ object frmViewList: TfrmViewList
       OnExecute = actCloseExecute
     end
   end
-  object ppmMain: TPopupMenu
+  object ppmMain: TPopupMenu[2]
     left = 180
     top = 129
     object mniClose: TMenuItem
       Action = actClose
     end
   end
-  object ppmHL: TPopupMenu
+  object ppmHL: TPopupMenu[3]
     left = 168
     top = 240
     object MenuItem2: TMenuItem

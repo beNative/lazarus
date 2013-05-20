@@ -1,7 +1,7 @@
-object frmAlignLines: TfrmAlignLines
-  Left = 2128
+inherited frmAlignLines: TfrmAlignLines
+  Left = 2802
   Height = 729
-  Top = 191
+  Top = 247
   Width = 359
   Caption = 'Align selection'
   ChildSizing.TopBottomSpacing = 4
@@ -15,8 +15,7 @@ object frmAlignLines: TfrmAlignLines
   ClientWidth = 359
   Constraints.MinWidth = 170
   OnShow = FormShow
-  LCLVersion = '1.1'
-  object sbrMain: TScrollBox
+  object sbrMain: TScrollBox[0]
     Left = 4
     Height = 688
     Top = 4
@@ -219,7 +218,7 @@ object frmAlignLines: TfrmAlignLines
       end
     end
   end
-  object pnlBottom: TPanel
+  object pnlBottom: TPanel[1]
     Left = 0
     Height = 25
     Top = 700
@@ -253,7 +252,7 @@ object frmAlignLines: TfrmAlignLines
       TabOrder = 1
     end
   end
-  object aclMain: TActionList
+  object aclMain: TActionList[2]
     left = 152
     top = 472
     object actExecute: TAction

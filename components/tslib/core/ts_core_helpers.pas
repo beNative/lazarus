@@ -371,7 +371,6 @@ begin
     AForm.Parent := AParent;
     AForm.BorderStyle := bsNone;
     AForm.Align := alClient;
-    AForm.Visible := True;
     AForm.EndUpdateBounds;
     AParent.EndUpdateBounds;
   end;

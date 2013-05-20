@@ -40,7 +40,6 @@ uses
 type
   TfrmActionListView = class(TForm, IEditorToolView)
     pgcMain         : TPageControl;
-    pnlButtons      : TButtonPanel;
     pnlEditorList   : TPanel;
     tsMouseActions  : TTabSheet;
     tsCommands      : TTabSheet;

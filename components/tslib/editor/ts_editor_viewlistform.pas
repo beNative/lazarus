@@ -33,17 +33,16 @@ uses
 
   ts_Core_TreeViewPresenter,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 //=============================================================================
 
 type
-  TfrmViewList = class(TForm, IEditorToolView)
+  TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
     MenuItem2  : TMenuItem;
     mniClose   : TMenuItem;
-    pnlButtons : TButtonPanel;
     pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
     ppmHL      : TPopupMenu;
@@ -57,33 +56,10 @@ type
 
     procedure FTVPSelectionChanged(Sender: TObject);
 
-    function GetForm: TForm;
-    function GetManager: IEditorManager;
-    function GetName: string;
-    function GetViews: IEditorViews;
-
   protected
     procedure UpdateView;
     procedure UpdateActions; override;
     procedure Refresh;
-
-    property Views: IEditorViews
-      read GetViews;
-
-    property Manager: IEditorManager
-      read GetManager;
-
-    function GetVisible: Boolean;
-    procedure SetVisible(AValue: Boolean); override;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
 
   public
     procedure AfterConstruction; override;
@@ -103,7 +79,7 @@ uses
 type
   TEditorViewInfo = class
   private
-    FView: TComponent; // TSI: no interface reference here!
+    FView: TComponent; // TS: no interface reference here!
 
     function GetFileName: string;
     function GetHighlighter: string;
@@ -183,7 +159,6 @@ begin
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 150);
-  FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
   with FTVP.ColumnDefinitions.AddColumn('Highlighter', dtString, 80) do
   begin
 
@@ -192,14 +167,14 @@ begin
   begin
     ColumnType := TColumnType.ctCheckBox;
     AllowEdit := True;
-
   end;
+  FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
   FItemList := TObjectList.Create;
   Refresh;
-  FTVP.ItemsSource := FItemList;
-  FTVP.PopupMenu := ppmMain;
-  FTVP.TreeView := FVST;
-  FTVP.OnSelectionChanged  := FTVPSelectionChanged;
+  FTVP.ItemsSource        := FItemList;
+  FTVP.PopupMenu          := ppmMain;
+  FTVP.TreeView           := FVST;
+  FTVP.OnSelectionChanged := FTVPSelectionChanged;
 
   ppmHL.Items.Clear;
   for I := 0 to Manager.Menus.HighlighterPopupMenu.Items.Count - 1 do
@@ -218,46 +193,6 @@ end;
 
 //*****************************************************************************
 // construction and destruction                                            END
-//*****************************************************************************
-{$endregion}
-
-{$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
-
-function TfrmViewList.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
-
-procedure TfrmViewList.SetVisible(AValue: Boolean);
-begin
-  inherited SetVisible(AValue);
-end;
-
-function TfrmViewList.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
-end;
-
-function TfrmViewList.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
-function TfrmViewList.GetViews: IEditorViews;
-begin
-  Result := Owner as IEditorViews;
-end;
-
-function TfrmViewList.GetForm: TForm;
-begin
-  Result := Self;
-end;
-
-//*****************************************************************************
-// property access methods                                                 END
 //*****************************************************************************
 {$endregion}
 

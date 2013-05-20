@@ -3900,6 +3900,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actInsertCharacterFromMap: TAction
       Category = 'Insert'
+      AutoCheck = True
       Caption = 'Insert character from map'
       Hint = 'Insert character from map'
       ImageIndex = 43
@@ -3990,6 +3991,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowActions: TAction
       Category = 'Debug'
+      AutoCheck = True
       Caption = 'Show editor actions'
       Hint = 'Show the list of all available actions.'
       OnExecute = actShowActionsExecute
@@ -4026,6 +4028,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowViews: TAction
       Category = 'Dialogs'
+      AutoCheck = True
       Caption = 'Show views'
       Hint = 'Show list of all editor views.'
       ImageIndex = 91

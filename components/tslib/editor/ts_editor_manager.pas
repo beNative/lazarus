@@ -76,8 +76,6 @@ unit ts_Editor_Manager;
     - A view can also be added directly to the list using:
       EditorManager.Views.Add(..)
 
-
-
       EditorManager.Actions   : IEditorActions
                    .Commands  : IEditorCommands
                    .Events    : IEditorEvents
@@ -85,6 +83,16 @@ unit ts_Editor_Manager;
                    .Settings  : IEditorSettings
                    .ToolViews : IEditorToolViews
                    .Views     : IEditorViews
+
+    TODO:
+      - let toolviews be started in two modes:
+         - modal
+         - docked (or handled by owner form)
+
+      ShowEditorToolView
+         AShowModal: Boolean
+         ASetFocus: Boolean
+
 }
 {$endregion}
 
@@ -414,6 +422,8 @@ type
 
     FOnActiveViewChange    : TNotifyEvent;
     FOnAddEditorView       : TAddEditorViewEvent;
+    FOnShowEditorToolView  : TEditorToolViewEvent;
+    FOnHideEditorToolView  : TEditorToolViewEvent;
     FOnCaretPositionChange : TCaretPositionEvent;
     FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
@@ -457,11 +467,13 @@ type
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnCaretPositionChange: TCaretPositionEvent;
     function GetOnChange: TNotifyEvent;
+    function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnNewFile: TNewFileEvent;
     function GetOnOpenFile: TFileEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
     function GetOnSaveFile: TFileEvent;
+    function GetOnShowEditorToolView: TEditorToolViewEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     function GetPersistSettings: Boolean;
     function GetSearchEngine: IEditorSearchEngine;
@@ -493,11 +505,13 @@ type
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
+    procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
     procedure SetOnOpenFile(const AValue: TFileEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSaveFile(const AValue: TFileEvent);
+    procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     procedure SetPersistSettings(const AValue: Boolean);
     {$endregion}
@@ -560,6 +574,13 @@ type
       const AName       : string = ''
     ): IEditorView;
 
+    procedure ShowToolView(
+       AToolView  : IEditorToolView;
+       AVisible   : Boolean;
+       AShowModal : Boolean;
+       ASetFocus  : Boolean
+    );
+
     function DeleteView(AIndex: Integer): Boolean; overload;
     function DeleteView(AView: IEditorView): Boolean; overload;
     function DeleteView(const AName: string): Boolean; overload;
@@ -569,6 +590,8 @@ type
     { IEditorToolViews }
     procedure IEditorToolViews.Add = AddToolView;
     function IEditorToolViews.Delete = DeleteToolView;
+    function IEditorToolViews.GetEnumerator = GetToolViewsEnumerator;
+    function GetToolViewsEnumerator: TEditorToolViewListEnumerator;
     procedure AddToolView(AToolView: IEditorToolView);
     function DeleteToolView(AIndex: Integer): Boolean; overload;
     function DeleteToolView(AView: IEditorToolView): Boolean; overload;
@@ -590,6 +613,7 @@ type
     procedure CopyToClipboard;
 
     procedure FindNext;
+    // TODO: move to editor
     procedure FindNextWordOccurrence(DirectionForward: Boolean);
     procedure FindPrevious;
 
@@ -604,6 +628,8 @@ type
     // event dispatch methods
     procedure DoActiveViewChange; virtual;
     procedure DoAddEditorView(AEditorView: IEditorView); virtual;
+    procedure DoShowToolView(AToolView: IEditorToolView); virtual;
+    procedure DoHideToolView(AToolView: IEditorToolView); virtual;
     procedure DoCaretPositionChange; virtual;
     procedure DoMacroStateChange(AState : TSynMacroState); virtual;
     procedure DoOpenOtherInstance(const AParams: array of string); virtual;
@@ -627,6 +653,8 @@ type
     procedure UpdateSearchMatches;
     procedure UpdateCodeFilter;
 
+    procedure HideToolViews;
+
     procedure ClearHighlightSearch;
 
     { IEditorManager }
@@ -638,6 +666,7 @@ type
 
     // TS temp
     function ActiveToolView: IEditorToolView;
+    procedure UpdateToolViews;
 
     // properties
     property ActionList: TActionList
@@ -751,6 +780,12 @@ type
 
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
+
+    property OnShowEditorToolView: TEditorToolViewEvent
+      read GetOnShowEditorToolView write SetOnShowEditorToolView;
+
+    property OnHideEditorToolView: TEditorToolViewEvent
+      read GetOnHideEditorToolView write SetOnHideEditorToolView;
 
     { IEditorManager }
     property Settings: IEditorSettings
@@ -1009,6 +1044,16 @@ begin
   Result := FOnChange;
 end;
 
+function TdmEditorManager.GetOnHideEditorToolView: TEditorToolViewEvent;
+begin
+  Result := FOnHideEditorToolView;
+end;
+
+procedure TdmEditorManager.SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
+begin
+  FOnHideEditorToolView := AValue;
+end;
+
 function TdmEditorManager.GetOnMacroStateChange: TMacroStateChangeEvent;
 begin
   Result := FOnMacroStateChange;
@@ -1037,6 +1082,17 @@ end;
 function TdmEditorManager.GetOnSaveFile: TFileEvent;
 begin
   Result := FOnSaveFile;
+end;
+
+function TdmEditorManager.GetOnShowEditorToolView: TEditorToolViewEvent;
+begin
+  Result := FOnShowEditorToolView;
+end;
+
+procedure TdmEditorManager.SetOnShowEditorToolView(
+  AValue: TEditorToolViewEvent);
+begin
+  FOnShowEditorToolView := AValue;
 end;
 
 function TdmEditorManager.GetOnStatusChange: TStatusChangeEvent;
@@ -1282,6 +1338,18 @@ begin
     FOnAddEditorView(Self, AEditorView);
 end;
 
+procedure TdmEditorManager.DoShowToolView(AToolView: IEditorToolView);
+begin
+  if Assigned(FOnShowEditorToolView) then
+    FOnShowEditorToolView(Self, AToolView);
+end;
+
+procedure TdmEditorManager.DoHideToolView(AToolView: IEditorToolView);
+begin
+  if Assigned(FOnHideEditorToolView) then
+    FOnHideEditorToolView(Self, AToolView);
+end;
+
 procedure TdmEditorManager.DoCaretPositionChange;
 begin
   if Assigned(FOnCaretPositionChange) then
@@ -1292,20 +1360,9 @@ begin
   { TODO -oTS : Needs to be refactored }
   if View.Focused then
   begin
-  if ToolViews['frmPreview'].Visible then
-    ToolViews['frmPreview'].UpdateView;
-  if ToolViews['frmTest'].Visible then
-    ToolViews['frmTest'].UpdateView;
-  if ToolViews['frmAlignLines'].Visible then
-    ToolViews['frmAlignLines'].UpdateView;
-  if ToolViews['frmActionListView'].Visible then
-    ToolViews['frmActionListView'].UpdateView;
-  if ToolViews['frmViewList'].Visible then
-    ToolViews['frmViewList'].UpdateView;
-  if ToolViews['frmHTMLView'].Visible then
-    ToolViews['frmHTMLView'].UpdateView;
-  if ToolViews['frmHexEditor'].Visible then
-    ToolViews['frmHexEditor'].UpdateView;
+
+
+    UpdateToolViews;
   end;
 end;
 
@@ -1470,21 +1527,66 @@ end;
 
 procedure TdmEditorManager.actSearchExecute(Sender: TObject);
 begin
-  // handled by owner
-  if not actSearch.Checked then
-    actSearchReplace.Checked := False;
+  ShowToolView(ToolViews['frmSearchForm'], (Sender as TAction).Checked, False, True);
 end;
 
 procedure TdmEditorManager.actSearchReplaceExecute(Sender: TObject);
 begin
-  // handled by owner
-  if not actSearch.Checked then
-    actSearch.Checked := True;
+  ShowToolView(ToolViews['frmSearchForm'], (Sender as TAction).Checked, False, True);
 end;
 
 procedure TdmEditorManager.actShapeCodeExecute(Sender: TObject);
 begin
-  // handled by owner
+  ShowToolView(ToolViews['frmCodeShaper'], (Sender as TAction).Checked, False, True);
+end;
+
+procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmCharacterMapDialog'], (Sender as TAction).Checked, False, False);
+end;
+
+procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmAlignLines'], (Sender as TAction).Checked, False, True);
+end;
+
+procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ShowToolView(ToolViews['frmPreview'], (Sender as TAction).Checked, False, False);
+    Settings.PreviewVisible := (Sender as TAction).Checked;
+  end;
+end;
+
+procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmTest'], (Sender as TAction).Checked, False, False);
+end;
+
+procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmViewList'], (Sender as TAction).Checked, False, False);
+end;
+
+procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmActionListView'], (Sender as TAction).Checked, True, True);
+end;
+
+procedure TdmEditorManager.actShowHexEditorExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmHexEditor'], (Sender as TAction).Checked, False, True);
+end;
+
+procedure TdmEditorManager.actShowHTMLViewerExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmHTMLView'], (Sender as TAction).Checked, False, False);
+end;
+
+procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmXmlTree'], (Sender as TAction).Checked, False, False);
 end;
 
 procedure TdmEditorManager.actSelectAllExecute(Sender: TObject);
@@ -1658,6 +1760,7 @@ end;
 
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
+  HideToolViews;
 // TODO
 end;
 
@@ -1745,35 +1848,10 @@ begin
   ActiveView.AdjustFontSize(1);
 end;
 
-procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
-begin
-  ToolViews['frmCharacterMapDialog'].Visible := True;
-end;
-
-procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
-begin
-// TOOLVIEW
-end;
-
 procedure TdmEditorManager.actAutoFormatXMLExecute(Sender: TObject);
 begin
   (Sender as TAction).Checked := not (Sender as TAction).Checked;
   Settings.AutoFormatXML := (Sender as TAction).Checked;
-end;
-
-procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
-begin
-  Settings.PreviewVisible := (Sender as TAction).Checked;
-end;
-
-procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
-begin
-  ToolViews['frmTest'].Visible := not ToolViews['frmTest'].Visible;
-end;
-
-procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
-begin
-  ToolViews['frmViewList'].Visible := True;
 end;
 
 procedure TdmEditorManager.actMonitorChangesExecute(Sender: TObject);
@@ -1801,11 +1879,6 @@ end;
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
   ExecuteSettingsDialog(Self);
-end;
-
-procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
-begin
-  ToolViews['frmActionListView'].Visible := True;
 end;
 
 procedure TdmEditorManager.actHighlighterExecute(Sender: TObject);
@@ -1841,16 +1914,6 @@ begin
   ShowMessage('Not implemented yet');
 end;
 
-procedure TdmEditorManager.actShowHexEditorExecute(Sender: TObject);
-begin
-  ToolViews['frmHexEditor'].Visible := True;
-end;
-
-procedure TdmEditorManager.actShowHTMLViewerExecute(Sender: TObject);
-begin
-  ToolViews['frmHTMLView'].Visible := True;
-end;
-
 procedure TdmEditorManager.actUnindentExecute(Sender: TObject);
 begin
   ActiveView.Editor.CommandProcessor(ecBlockUnindent, '', nil);
@@ -1858,10 +1921,9 @@ end;
 
 procedure TdmEditorManager.actFindAllOccurencesExecute(Sender: TObject);
 begin
+  // TODO
   SearchEngine.SearchText := ActiveView.CurrentWord;
   SearchEngine.Execute;
-  //ToolViews['
-  // TODO
 end;
 
 procedure TdmEditorManager.actIndentExecute(Sender: TObject);
@@ -2013,12 +2075,6 @@ end;
 procedure TdmEditorManager.actLineBreakStyleExecute(Sender: TObject);
 begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
-end;
-
-procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
-begin
-  ToolViews['frmXmlTree'].Visible := True;
-  ToolViews['frmXmlTree'].UpdateView;
 end;
 
 //*****************************************************************************
@@ -2370,6 +2426,10 @@ begin
   MI := ClipboardPopupMenu.Items;
   MI.Clear;
   MI.Action := actClipboard;
+  AddMenuItem(MI, actCopyFileName);
+  AddMenuItem(MI, actCopyFilePath);
+  AddMenuItem(MI, actCopyFullPath);
+  AddMenuItem(MI);
   AddMenuItem(MI, actCopyHTMLTextToClipboard);
   AddMenuItem(MI, actCopyRTFTextToClipboard);
   AddMenuItem(MI, actCopyWikiTextToClipboard);
@@ -2377,10 +2437,6 @@ begin
   AddMenuItem(MI, actCopytHTMLToClipboard);
   AddMenuItem(MI, actCopyRTFToClipboard);
   AddMenuItem(MI, actCopyWikiToClipboard);
-  AddMenuItem(MI);
-  AddMenuItem(MI, actCopyFileName);
-  AddMenuItem(MI, actCopyFilePath);
-  AddMenuItem(MI, actCopyFullPath);
 end;
 
 procedure TdmEditorManager.BuildEncodingPopupMenu;
@@ -2398,19 +2454,12 @@ begin
     GetSupportedEncodings(SL);
     for S in SL do
     begin
-      //MI := TMenuItem.Create(EncodingPopupMenu);
-      //MI.Caption := S;
       S := MI.Action.Name + DelChars(S, '-');
       A := Items[S];
       if Assigned(A) then
       begin
         AddMenuItem(MI, A);
-        //MI.Action     := A;
-        //MI.AutoCheck  := A.AutoCheck;
-        //MI.RadioItem  := True;
-        //MI.GroupIndex := A.GroupIndex;
       end;
-      //EncodingPopupMenu.Items.Add(MI);
     end;
   finally
     FreeAndNil(SL);
@@ -2699,6 +2748,11 @@ begin
   Result := TEditorViewListEnumerator.Create(FViewList);
 end;
 
+function TdmEditorManager.GetToolViewsEnumerator: TEditorToolViewListEnumerator;
+begin
+  Result := TEditorToolViewListEnumerator.Create(FToolViewList);
+end;
+
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
 begin
   if Supports(AComponent, IEditorView) and (Operation = opRemove) then
@@ -2842,6 +2896,23 @@ begin
     ViewList.Add(ActiveView);
   Logger.ExitMethod(Self, 'AExceptActive');
 end;
+{$endregion}
+
+procedure TdmEditorManager.ShowToolView(AToolView: IEditorToolView;
+  AVisible: Boolean; AShowModal: Boolean; ASetFocus: Boolean);
+begin
+  HideToolViews;
+  if AVisible then
+  begin
+    DoShowToolView(AToolView);
+    AToolView.Visible := True;
+    AToolView.UpdateView;
+    if ASetFocus then
+      AToolView.SetFocus;
+  end
+  else
+    DoHideToolView(AToolView);
+end;
 
 procedure TdmEditorManager.AddToolView(AToolView: IEditorToolView);
 begin
@@ -2877,6 +2948,16 @@ begin
     Result := DeleteToolView(TV);
 end;
 
+procedure TdmEditorManager.HideToolViews;
+var
+  TV: IEditorToolView;
+begin
+  for TV in ToolViews do
+  begin
+    TV.Visible := False;
+  end;
+end;
+
 { TODO -oTS : Not correct! }
 
 procedure TdmEditorManager.LoadFile;
@@ -2884,7 +2965,6 @@ begin
   DoOpenFile(ActiveView.FileName);
   // reload file from disk
 end;
-{$endregion}
 
 {$region 'IEditorCommands' /fold}
 procedure TdmEditorManager.AssignHighlighter(const AName: string);
@@ -3159,7 +3239,11 @@ begin
     actSearch.Checked         := ToolViews['frmSearchForm'].Visible;
     actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
     actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
-//    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
+    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
+    actFilterCode.Checked     := ToolViews['frmCodeFilterDialog'].Visible;
+    actShowViews.Checked      := ToolViews['frmViewList'].Visible;
+    actShowActions.Checked    := ToolViews['frmActionListView'].Visible;
+    actInsertCharacterFromMap.Checked := ToolViews['frmCharacterMapDialog'].Visible;
 
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
@@ -3191,7 +3275,6 @@ begin
 
     FChanged := False;
   end;
-  actFilterCode.Checked := ToolViews['frmCodeFilterDialog'].Visible;
 end;
 
 procedure TdmEditorManager.UpdateEncodingActions;
@@ -3344,6 +3427,18 @@ begin
     end;
   end;
 end;
+
+procedure TdmEditorManager.UpdateToolViews;
+var
+  TV: IEditorToolView;
+begin
+  for TV in ToolViews do
+  begin
+    if TV.Visible then
+      TV.UpdateView;
+  end;
+end;
+
 {$endregion}
 
 {$region 'Find' /fold}

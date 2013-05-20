@@ -1,111 +1,111 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: nativexml.sbeginendmismatch
+#: ts_core_nativexml.sbeginendmismatch
 msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: nativexml.scannotaddattribute
+#: ts_core_nativexml.scannotaddattribute
 msgid "cannot add attribute"
 msgstr ""
 
-#: nativexml.scannotaddnode
+#: ts_core_nativexml.scannotaddnode
 msgid "cannot add node to this type of element"
 msgstr ""
 
-#: nativexml.scannotmanipulate
+#: ts_core_nativexml.scannotmanipulate
 msgid "cannot manipulate nodes in this type of element"
 msgstr ""
 
-#: nativexml.scannotsetname
+#: ts_core_nativexml.scannotsetname
 msgid "cannot set name on this type of element"
 msgstr ""
 
-#: nativexml.scannotsetvalue
+#: ts_core_nativexml.scannotsetvalue
 msgid "cannot set value on this type of element"
 msgstr ""
 
-#: nativexml.scopyfromonlywithxmlnode
+#: ts_core_nativexml.scopyfromonlywithxmlnode
 msgid "CopyFrom can only be used with TXmlNode descendants"
 msgstr ""
 
-#: nativexml.sdefaultcharused
+#: ts_core_nativexml.sdefaultcharused
 msgid "default char used for codepage substitution"
 msgstr ""
 
-#: nativexml.serrorcalcstreamlength
+#: ts_core_nativexml.serrorcalcstreamlength
 msgid "error while calculating streamlength"
 msgstr ""
 
-#: nativexml.sillegalendtag
+#: ts_core_nativexml.sillegalendtag
 msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
 msgstr ""
 
-#: nativexml.sillegaltag
+#: ts_core_nativexml.sillegaltag
 msgid "illegal tag (\"%s\") at pos %d"
 msgstr ""
 
-#: nativexml.sinvalidstream
+#: ts_core_nativexml.sinvalidstream
 msgid "invalid stream"
 msgstr ""
 
-#: nativexml.slevelmismatch
+#: ts_core_nativexml.slevelmismatch
 msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: nativexml.smissingdatainbinarystream
+#: ts_core_nativexml.smissingdatainbinarystream
 msgid "missing data in binary stream"
 msgstr ""
 
-#: nativexml.snondefaultchardata
+#: ts_core_nativexml.snondefaultchardata
 msgid "non-default chardata at line %d (pos %d)"
 msgstr ""
 
-#: nativexml.snotsupported
+#: ts_core_nativexml.snotsupported
 msgid "feature is not supported yet"
 msgstr ""
 
-#: nativexml.sprematureend
+#: ts_core_nativexml.sprematureend
 msgid "stream terminated prematurely at pos %d"
 msgstr ""
 
-#: nativexml.squotecharexpected
+#: ts_core_nativexml.squotecharexpected
 msgid "quote char expected at pos %d"
 msgstr ""
 
-#: nativexml.srootelementnotdefined
+#: ts_core_nativexml.srootelementnotdefined
 msgid "XML root element not defined."
 msgstr ""
 
-#: nativexml.ssignificantdigitsoutofrange
+#: ts_core_nativexml.ssignificantdigitsoutofrange
 msgid "significant digits out of range"
 msgstr ""
 
-#: nativexml.sunknownbinaryencodingbinhex
+#: ts_core_nativexml.sunknownbinaryencodingbinhex
 msgid "unknown encoding: xbeBinHex (deprecated)"
 msgstr ""
 
-#: nativexml.sunknownencoding
+#: ts_core_nativexml.sunknownencoding
 msgid "unknown encoding"
 msgstr ""
 
-#: nativexml.sunsupportedencoding
+#: ts_core_nativexml.sunsupportedencoding
 msgid "unsupported encoding (%s)"
 msgstr ""
 
-#: nativexml.sunsupportedtag
+#: ts_core_nativexml.sunsupportedtag
 msgid "unsupported tag (\"%s\") at pos %d"
 msgstr ""
 
-#: nativexml.sxmlnodenotassigned
+#: ts_core_nativexml.sxmlnodenotassigned
 msgid "XML node is not assigned"
 msgstr ""
 
-#: nativexml.sxmlownernotassigned
+#: ts_core_nativexml.sxmlownernotassigned
 msgid "XML owner is not assigned"
 msgstr ""
 
-#: nativexml.sxmlparentnotassigned
+#: ts_core_nativexml.sxmlparentnotassigned
 msgid "XML parent is not assigned"
 msgstr ""
 

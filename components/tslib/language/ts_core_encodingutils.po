@@ -1,7 +1,7 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: encodingutils.sindexoutofrange
+#: ts_core_encodingutils.sindexoutofrange
 msgid "Index out of range"
 msgstr ""
 

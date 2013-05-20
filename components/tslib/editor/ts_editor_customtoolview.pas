@@ -39,6 +39,7 @@ type
     function GetSettings: IEditorSettings;
     function GetUpdate: Boolean;
     function GetView: IEditorView;
+    function GetViews: IEditorViews;
     procedure SetUpdate(AValue: Boolean);
 
     procedure EditorSettingsChanged(Sender: TObject);
@@ -70,6 +71,9 @@ type
 
     property View: IEditorView
       read GetView;
+
+    property Views: IEditorViews
+      read GetViews;
 
   public
     procedure AfterConstruction; override;
@@ -121,17 +125,22 @@ begin
   Result := FUpdate;
 end;
 
-function TCustomEditorToolView.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
-end;
-
 procedure TCustomEditorToolView.SetUpdate(AValue: Boolean);
 begin
   if AValue <> Update then
   begin
     FUpdate := AValue;
   end;
+end;
+
+function TCustomEditorToolView.GetView: IEditorView;
+begin
+  Result := Owner as IEditorView;
+end;
+
+function TCustomEditorToolView.GetViews: IEditorViews;
+begin
+  Result := Owner as IEditorViews;
 end;
 
 function TCustomEditorToolView.GetForm: TForm;

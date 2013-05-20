@@ -45,10 +45,12 @@ uses
 
 type
   // forward declarations
-  IEditorView               = interface;
-  IEditorActions            = interface;
-  IEditorSettings           = interface;
-  TEditorViewListEnumerator = class;
+  IEditorView                   = interface;
+  IEditorToolView               = interface;
+  IEditorActions                = interface;
+  IEditorSettings               = interface;
+  TEditorViewListEnumerator     = class;
+  TEditorToolViewListEnumerator = class;
 
   // event types
   TCaretPositionEvent = procedure(
@@ -78,8 +80,13 @@ type
   ) of object;
 
   TAddEditorViewEvent = procedure(
-          Sender      : TObject;
-          AEditorView : IEditorView
+    Sender      : TObject;
+    AEditorView : IEditorView
+  ) of object;
+
+  TEditorToolViewEvent = procedure(
+    Sender          : TObject;
+    AEditorToolView : IEditorToolView
   ) of object;
 
   TOpenOtherInstanceEvent = procedure(
@@ -489,9 +496,12 @@ type
     {$region 'property access methods' /fold}
     function GetOnActiveViewChange: TNotifyEvent;
     function GetOnAddEditorView: TAddEditorViewEvent;
+    function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
+    function GetOnShowEditorToolView: TEditorToolViewEvent;
     procedure SetOnActiveViewChange(AValue: TNotifyEvent);
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
+    procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnCaretPositionChange: TCaretPositionEvent;
@@ -506,6 +516,7 @@ type
     procedure SetOnOpenFile(const AValue: TFileEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSaveFile(const AValue: TFileEvent);
+    procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     {$endregion}
 
@@ -529,6 +540,12 @@ type
 
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
+
+    property OnShowEditorToolView: TEditorToolViewEvent
+      read GetOnShowEditorToolView write SetOnShowEditorToolView;
+
+    property OnHideEditorToolView: TEditorToolViewEvent
+      read GetOnHideEditorToolView write SetOnHideEditorToolView;
 
     { triggered when caret position changes }
     property OnCaretPositionChange: TCaretPositionEvent
@@ -822,6 +839,8 @@ type
     function Delete(AView: IEditorToolView): Boolean; overload;
     function Delete(const AName: string): Boolean; overload;
 
+    function GetEnumerator: TEditorToolViewListEnumerator;
+
     property Views[AIndex: Integer]: IEditorToolView
       read GetView;
 
@@ -1015,6 +1034,19 @@ type
       read GetCurrent;
   end;
 
+  TEditorToolViewListEnumerator = class
+    strict private
+    FIndex : Integer;
+    FList  : TEditorToolViewList;
+
+  public
+    constructor Create(AList: TEditorToolViewList);
+    function GetCurrent: IEditorToolView;
+    function MoveNext: Boolean;
+    property Current: IEditorToolView
+      read GetCurrent;
+  end;
+
 //*****************************************************************************
 
 implementation
@@ -1032,6 +1064,26 @@ begin
 end;
 
 function TEditorViewListEnumerator.MoveNext: Boolean;
+begin
+  Result := FIndex < (FList.Count - 1);
+  if Result then
+    Inc(FIndex);
+end;
+{$endregion}
+
+{$region 'TEditorToolViewListEnumerator' /fold}
+constructor TEditorToolViewListEnumerator.Create(AList: TEditorToolViewList);
+begin
+  FList := AList;
+  FIndex := -1;
+end;
+
+function TEditorToolViewListEnumerator.GetCurrent: IEditorToolView;
+begin
+  Result := FList[FIndex] as IEditorToolView;
+end;
+
+function TEditorToolViewListEnumerator.MoveNext: Boolean;
 begin
   Result := FIndex < (FList.Count - 1);
   if Result then

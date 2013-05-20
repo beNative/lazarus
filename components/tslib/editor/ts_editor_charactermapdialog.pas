@@ -27,14 +27,13 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls,
 
-  LCLProc, LCLUnicodeData, ButtonPanel,
+  LCLProc, LCLUnicodeData,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 type
-  TfrmCharacterMapDialog = class(TForm, IEditorToolView)
+  TfrmCharacterMapDialog = class(TCustomEditorToolView, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
-    pnlButtons         : TButtonPanel;
     lblCharInfo        : TLabel;
     pcMain             : TPageControl;
     grdANSI            : TStringGrid;
@@ -54,36 +53,14 @@ type
     procedure grdUnicodeMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
 
-  private
+  strict private
     procedure FillCharMap;
-    function GetManager: IEditorManager;
-    function GetView: IEditorView;
 
-  protected
-    function GetForm: TForm;
-    function GetName:string;
-    function GetVisible: Boolean;
-
+  strict protected
     procedure UpdateView;
-
-    property Visible: Boolean
-      read GetVisible write SetVisible;
-
-    property Name: string
-      read GetName;
-
-    property Form: TForm
-      read GetForm;
-
-    property Manager: IEditorManager
-      read GetManager;
-
-    property View: IEditorView
-      read GetView;
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
   end;
 
@@ -132,48 +109,8 @@ begin
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 end;
 
-procedure TfrmCharacterMapDialog.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
-
 //*****************************************************************************
 // construction and destruction                                            END
-//*****************************************************************************
-{$endregion}
-
-{$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
-
-function TfrmCharacterMapDialog.GetForm: TForm;
-begin
-  Result := Self;
-end;
-
-function TfrmCharacterMapDialog.GetName: string;
-begin
-  Result := inherited Name;
-end;
-
-function TfrmCharacterMapDialog.GetVisible: Boolean;
-begin
-  Result := inherited Visible;
-end;
-
-function TfrmCharacterMapDialog.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
-end;
-
-function TfrmCharacterMapDialog.GetView: IEditorView;
-begin
-  Result := Owner as IEditorView;
-end;
-
-//*****************************************************************************
-// property access methods                                                 END
 //*****************************************************************************
 {$endregion}
 

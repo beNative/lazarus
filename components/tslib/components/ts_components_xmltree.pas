@@ -69,14 +69,23 @@ const
   WM_STARTEDITING = 1000 + 778;
 
 const
-  DEFAULT_BGCOLOR_UNKNOWN   = clRed;
-  DEFAULT_BGCOLOR_ROOT      = $00E8E8E8; // DOCUMENT_NODE light grey
-  DEFAULT_BGCOLOR_COMMENT   = $00C1FFFF; // COMMENT_NODE   yellow
-  DEFAULT_BGCOLOR_TEXT      = $00FFD7D7; // TEXT_NODE, CDATA_SECTION_NODE light blue navy
-  DEFAULT_BGCOLOR_ATTRIBUTE = $00E8E8FF; // ATTRIBUTE_NODE red
-  DEFAULT_BGCOLOR_ELEMENT   = $00ECFFEC; // ELEMENT_NODE without ChildNodes green
-  DEFAULT_BGCOLOR_NODE      = $00FFD7D7; // ELEMENT_NODE without ChildNodes green
+  DEFAULT_BGCOLOR_UNKNOWN = clRed;
+  DEFAULT_BGCOLOR_ROOT    = $00E8E8E8; // DOCUMENT_NODE light grey
+  DEFAULT_BGCOLOR_COMMENT = $00C1FFFF; // COMMENT_NODE   yellow
+  DEFAULT_BGCOLOR_TEXT    = $00FFD7D7;
+  // TEXT_NODE, CDATA_SECTION_NODE light blue navy
+  DEFAULT_BGCOLOR_ATTRIBUTE = $00FFE8E8; // ATTRIBUTE_NODE white
+  DEFAULT_BGCOLOR_ELEMENT = $00ECFFEC; // ELEMENT_NODE without ChildNodes green
+  DEFAULT_BGCOLOR_NODE    = $00E5E5E5;
+  // ELEMENT_NODE without ChildNodes light gray
 
+  DEFAULT_FGCOLOR_UNKNOWN   = clBlack;
+  DEFAULT_FGCOLOR_ROOT      = clBlack;
+  DEFAULT_FGCOLOR_COMMENT   = clGray;
+  DEFAULT_FGCOLOR_TEXT      = clBlack;
+  DEFAULT_FGCOLOR_ATTRIBUTE = clBlack;
+  DEFAULT_FGCOLOR_ELEMENT   = clBlack;
+  DEFAULT_FGCOLOR_NODE      = clBlack;
 {$region 'default VST options' /fold}
 const
   DEFAULT_VST_SELECTIONOPTIONS = [
@@ -147,7 +156,7 @@ const
     { Avoid drawing the dotted rectangle around the currently focused node. }
     toHideFocusRect,
     { Paint tree as would it always have the focus }
-//    toPopupMode,
+    toPopupMode,
     { Display collapse/expand buttons left to a node. }
     toShowButtons,
     { Show the dropmark during drag'n drop operations. }
@@ -177,7 +186,7 @@ const
   DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
       owner control. }
-//    hoAutoResize,
+    hoAutoResize,
     { Resizing columns with the mouse is allowed. }
     hoColumnResize,
     { Allows a column to resize itself to its largest entry. }
@@ -212,6 +221,9 @@ const
 //    hoHeightDblClickResize
     { Header is visible. }
     hoVisible
+    { Clicks on the header will make the clicked column the SortColumn or toggle
+      sort direction if it already was the sort column }
+    // hoHeaderClickAutoSort
   ];
   DEFAULT_VST_STRINGOPTIONS = [
     { If set then the caption is automatically saved with the tree node,
@@ -371,7 +383,8 @@ type
     procedure DoFreeNode(ANode: PVirtualNode); override;
     procedure DoGetText(ANode: PVirtualNode; Column: TColumnIndex;
       TextType: TVSTTextType; var Text: string); override;
-    function DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex): IVTEditLink; override;
+    function DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex)
+      : IVTEditLink; override;
     function DoGetImageIndex(ANode: PVirtualNode; Kind: TVTImageKind;
       Column: TColumnIndex; var Ghosted: Boolean;
       var Index: Integer): TCustomImageList; override;
@@ -379,34 +392,64 @@ type
       Column: TColumnIndex; TextType: TVSTTextType); override;
     procedure DoBeforeItemErase(
       Canvas: TCanvas;
-      ANode: PVirtualNode;
-      {$IFDEF FPC}const{$ENDIF} ItemRect: TRect;
-      var Color: TColor;
-      var EraseAction: TItemEraseAction); override;
+      ANode : PVirtualNode;
+      {$ifdef FPC}const {$endif} ItemRect: TRect;
+      var Color      : TColor;
+      var EraseAction: TItemEraseAction
+    ); override;
 
     procedure KeyDown(var Key: Word; Shift: TShiftState); override;
-    procedure DoBeforeCellPaint(Canvas: TCanvas; ANode: PVirtualNode;
-      Column: TColumnIndex;
-      CellPaintMode: TVTCellPaintMode; CellRect: TRect;
-      var ContentRect: TRect); override;
+    procedure DoBeforeCellPaint(
+          Canvas        : TCanvas;
+          ANode         : PVirtualNode;
+          Column        : TColumnIndex;
+          CellPaintMode : TVTCellPaintMode;
+          CellRect      : TRect;
+      var ContentRect   : TRect
+    ); override;
     procedure DoCanEdit(ANode: PVirtualNode; Column: TColumnIndex;
       var Allowed: Boolean); override;
     procedure DoNewText(ANode: PVirtualNode; Column: TColumnIndex;
-      {$IFDEF FPC}const{$ENDIF} Text: string); override;
+    {$ifdef FPC}const {$endif} Text: string); override;
     function DoGetNodeHint(ANode: PVirtualNode; Column: TColumnIndex;
       var LineBreakStyle: TVTTooltipLineBreakStyle): string; override;
     procedure DoMeasureItem(TargetCanvas: TCanvas; Node: PVirtualNode;
       var NodeHeight: Integer); override;
+    procedure DoTextDrawing(var PaintInfo: TVTPaintInfo; Text: string;
+      CellRect: TRect; DrawFormat: Cardinal); override;
+    function DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
+      ItemRect: TRect): Boolean; override;
+      procedure DoAfterCellPaint(Canvas: TCanvas; Node: PVirtualNode;
+      Column: TColumnIndex; CellRect: TRect); override;
+    procedure DoAfterItemErase(Canvas: TCanvas; Node: PVirtualNode;
+      ItemRect: TRect); override;
+    procedure DoAfterItemPaint(Canvas: TCanvas; Node: PVirtualNode;
+      ItemRect: TRect); override;
+    procedure DoAfterPaint(Canvas: TCanvas); override;
+
+
     {$endregion}
 
     procedure DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
       var ANewNodeType: TNodeType; var AAdd: Boolean); virtual;
-    procedure DoGetBackColor(ANode: PVirtualNode; var ABackColor: TColor); virtual;
+
+    procedure DoGetBackColor(
+          ANode      : PVirtualNode;
+          AColumn    : TColumnIndex;
+      var ABackColor : TColor
+    ); virtual;
 
     procedure InitializeNodeAttributes;
     procedure InitializeHeader;
     // message handlers
     procedure WMStartEditing(var AMessage: TMessage); message WM_STARTEDITING;
+
+
+
+
+
+    // hidden properties
+    property LineMode;
 
   public
     procedure AfterConstruction; override;
@@ -521,7 +564,6 @@ type
     property IncrementalSearchStart;
     property IncrementalSearchTimeout;
     property Indent;
-    property LineMode;
     property LineStyle;
     property Margin;
     property NodeAlignment;
@@ -543,7 +585,6 @@ type
     property TextMargin;
     property Visible;
     property WantTabs;
-
     {$ifndef FPC}
     property BevelEdges;
     property BevelInner;
@@ -554,7 +595,6 @@ type
     property HintAnimation;
     property ParentCtl3D;
     {$endif}
-
     property OnAdvancedHeaderDraw;
     property OnAfterAutoFitColumn;
     property OnAfterAutoFitColumns;
@@ -690,10 +730,21 @@ uses
   TypInfo,
 {$ifdef FPC}
   LCLType,
-{$endif}
+procedure PaintBtnEllipsis(DC: HDC; Rect: TRect; Pressed: Boolean);
+var
+  Flags: Integer;
+begin
+  Flags := 0;
+  if Pressed then Flags := BF_FLAT;
+  DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
+  Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
+  PatBlt(DC, Rect.Left + Flags, Rect.Top + Flags, 2, 2, BLACKNESS);
+  PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
+  PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
+end;
   ts_Core_Utils;
 
-{$REGION 'documentation'}
+{$region 'documentation'}
 // xeElement,     //  0 normal element <name {attr}>[value][sub-elements]</name>
 // xeAttribute,   //  1 attribute ( name='value' or name="value")
 // xeCharData,    //  2 character data in a node
@@ -712,7 +763,7 @@ uses
 // xeQuotedText,  // 15 quoted text: "bla" or 'bla'
 // xeEndTag,      // 16 </...> and signal function in binary xml
 // xeError        // 17 some error or unknown
-{$ENDREGION}
+{$endregion}
 
 type
   TVKSet = set of Byte;
@@ -914,7 +965,9 @@ begin
   Font.Name                    := 'Consolas';
   EditDelay                    := 0;
   IncrementalSearch            := isNone;
-  Colors.GridLineColor         := clGray;
+  Colors.GridLineColor := clMedGray;
+  Colors.FocusedSelectionColor := clGray;
+  //SelectionBlendFactor         := 100;
 
   Header.Options               := DEFAULT_VST_HEADEROPTIONS;
   TreeOptions.SelectionOptions := DEFAULT_VST_SELECTIONOPTIONS;
@@ -1022,8 +1075,8 @@ begin
   finally
     if not WasCleared then
       ExpandedStateClear;
-    end;
-    EndUpdate;
+  end;
+  EndUpdate;
 end;
 
 function TXMLTree.GetXMLDocument: TNativeXml;
@@ -1092,17 +1145,22 @@ end;
 procedure TXMLTree.DoMeasureItem(TargetCanvas: TCanvas; Node: PVirtualNode;
   var NodeHeight: Integer);
 var
-  N: Cardinal;
+  N : Cardinal;
+  I : Integer;
+  H : Integer;
 begin
   inherited;
-  Logger.EnterMethod('DoMeasureItem');
-  N := ComputeNodeHeight(TargetCanvas, Node, 0);
-  if N > (DefaultNodeHeight + 5) then
+  TargetCanvas.Font := Font;
+  NodeHeight        := DefaultNodeHeight;
+  for I             := 0 to Header.Columns.Count - 1 do
   begin
-    NodeHeight := N;
+    H := ComputeNodeHeight(TargetCanvas, Node, I);
+    if H > NodeHeight then
+      NodeHeight := H;
   end;
-  Logger.Watch('NodeHeight', NodeHeight);
-  Logger.ExitMethod('DoMeasureItem');
+  // needed to avoid multiline text drawing issues
+  if NodeHeight > DefaultNodeHeight then
+    NodeHeight := NodeHeight + 4;
 end;
 
 procedure TXMLTree.DoFreeNode(ANode: PVirtualNode);
@@ -1187,143 +1245,7 @@ begin
   //Logger.ExitMethod(Self, 'DoGetText');
 end;
 
-function TXMLTree.DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex)
-  : IVTEditLink;
-begin
-  Result := TXMLEditLink.Create;
-end;
 
-function TXMLTree.DoGetNodeHint(ANode: PVirtualNode; Column: TColumnIndex;
-  var LineBreakStyle: TVTTooltipLineBreakStyle): string;
-begin
-  if Column = Header.MainColumn then
-    Result := GetData(ANode).XMLPath
-  else
-    Result := string(GetData(ANode).XMLNode.ElementTypeName);
-  if Assigned(OnGetHint) then
-    OnGetHint(Self, ANode, Column, LineBreakStyle, Result);
-end;
-
-function TXMLTree.DoGetImageIndex(ANode: PVirtualNode; Kind: TVTImageKind;
-  Column: TColumnIndex; var Ghosted: Boolean; var Index: Integer)
-  : TCustomImageList;
-begin
-  if (Column = Header.MainColumn) and (Kind in [ikNormal, ikSelected]) then
-    Index := Ord(GetData(ANode).NodeType);
-  Result := inherited DoGetImageIndex(ANode, Kind, Column, Ghosted, Index);
-end;
-
-procedure TXMLTree.DoPaintText(ANode: PVirtualNode; const Canvas: TCanvas;
-  Column: TColumnIndex; TextType: TVSTTextType);
-var
-  NAI : TNodeAttributesItem;
-begin
-  NAI := FNodeAttributes.ItemByType[GetNodeType(ANode)];
-  if Assigned(NAI) then
-    Canvas.Font.Assign(NAI.Font);
-  inherited;
-end;
-
-procedure TXMLTree.DoGetBackColor(ANode: PVirtualNode; var ABackColor: TColor);
-var
-  ND  : PNodeData;
-  NAI : TNodeAttributesItem;
-begin
-  ND := GetData(ANode);
-  NAI := FNodeAttributes.ItemByType[ND.NodeType];
-  if Assigned(NAI) then
-    ABackColor := NAI.BackGroundColor;
-  if Assigned(FOnGetBackColor) then
-    FOnGetBackColor(Self, ANode, ND.XMLNode, ND.NodeType, ABackColor);
-end;
-
-procedure TXMLTree.DoBeforeItemErase(Canvas: TCanvas; ANode: PVirtualNode;
-{$IFDEF FPC}const {$ENDIF} ItemRect: TRect; var Color: TColor;
-  var EraseAction: TItemEraseAction);
-var
-  C : TColor;
-begin
-  C := clNone;
-  if LineMode <> lmBands then
-  begin
-    DoGetBackColor(ANode, C);
-    if C <> Self.Color then
-    begin
-      Color       := C;
-      EraseAction := eaColor;
-    end;
-  end;
-  inherited DoBeforeItemErase(Canvas, ANode, ItemRect, Color, EraseAction);
-end;
-
-procedure TXMLTree.KeyDown(var Key: Word; Shift: TShiftState);
-var
-  M : TMessage;
-begin
-  inherited KeyDown(Key, Shift);
-  if not (tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS) then
-  begin
-    {$ifdef Windows}
-    SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
-    {$endif}
-    M.Result := 0;
-    M.msg := WM_KEYDOWN;
-    M.wParam := Key;
-    M.lParam := 0;
-    EditLink.ProcessMessage(M);
-  end;
-end;
-
-procedure TXMLTree.DoBeforeCellPaint(Canvas: TCanvas; ANode: PVirtualNode;
-  Column: TColumnIndex; CellPaintMode: TVTCellPaintMode; CellRect: TRect;
-  var ContentRect: TRect);
-var
-  C   : TColor;
-  Ind : Integer;
-begin
-  if LineMode = lmBands then
-  begin
-    if Column = Header.MainColumn then
-    begin
-      Ind := GetNodeLevel(ANode) * Indent;
-      Inc(CellRect.Left, Ind);
-      Ind := -Integer(Indent);
-    end
-    else
-    begin
-      Ind := 0;
-    end;
-
-    DoGetBackColor(ANode, C);
-    if C <> Color then
-    begin // fill cell
-      Canvas.Brush.Color := C;
-      Canvas.FillRect(CellRect);
-    end;
-
-    if Column = Header.MainColumn then
-    begin
-      CellRect.Right := CellRect.Left + Integer(Indent);
-      Inc(CellRect.Bottom);
-      repeat
-        if C <> Color then
-        begin // fill vertical band
-          Canvas.Brush.Color := C;
-          Canvas.FillRect(CellRect);
-        end;
-
-        ANode := ANode.Parent;
-        if not Assigned(ANode) or (ANode = RootNode) then
-          Break;
-
-        Inc(CellRect.Left, Ind);
-        Inc(CellRect.Right, Ind);
-        DoGetBackColor(ANode, C);
-      until False;
-    end;
-  end;
-  inherited;
-end;
 
 procedure TXMLTree.DoCanEdit(ANode: PVirtualNode; Column: TColumnIndex;
   var Allowed: Boolean);
@@ -1380,6 +1302,276 @@ begin
 //        end;
 //            end;
 end;
+function TXMLTree.DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex)
+  : IVTEditLink;
+begin
+  Result := TXMLEditLink.Create;
+end;
+
+function TXMLTree.DoGetNodeHint(ANode: PVirtualNode; Column: TColumnIndex;
+  var LineBreakStyle: TVTTooltipLineBreakStyle): string;
+begin
+  if Column = Header.MainColumn then
+    Result := GetData(ANode).XMLPath
+  else
+    Result := string(GetData(ANode).XMLNode.ElementTypeName);
+  if Assigned(OnGetHint) then
+    OnGetHint(Self, ANode, Column, LineBreakStyle, Result);
+end;
+
+function TXMLTree.DoGetImageIndex(ANode: PVirtualNode; Kind: TVTImageKind;
+  Column: TColumnIndex; var Ghosted: Boolean; var Index: Integer)
+  : TCustomImageList;
+begin
+  if (Column = Header.MainColumn) and (Kind in [ikNormal, ikSelected]) then
+    Index := Ord(GetData(ANode).NodeType);
+  Result := inherited DoGetImageIndex(ANode, Kind, Column, Ghosted, Index);
+end;
+
+procedure TXMLTree.KeyDown(var Key: Word; Shift: TShiftState);
+var
+  M : TMessage;
+begin
+  inherited KeyDown(Key, Shift);
+  if not(tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS)
+  then
+  begin
+    SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
+    M.Result := 0;
+    M.msg    := WM_KEYDOWN;
+    M.WParam := Key;
+    M.lParam := 0;
+    EditLink.ProcessMessage(M);
+  end;
+end;
+
+{$region 'Painting overrides' /autofold}
+{ Some information taken from the Virtual Treeview manual:
+
+  Usually the following paint stages are executed during a paint cycle:
+  1.  before paint      (DoBeforePaint)
+  2.  before item paint (DoBeforeItemPaint)
+  3.  before item erase (DoBeforeItemErase)
+  4.  after item erase  (DoAfterItemErase)
+  5.  before cell draw  (DoBeforeCellPaint)
+  6.  on paint text     (DoPaintText)
+  7   text drawing      (DoTextDrawing)
+  8.  after cell draw   (DoAfterCellPaint)
+  9.  after item paint  (DoAfterItemPaint)
+  10. after paint       (DoAfterPaint)
+}
+
+{$region 'documentation'}
+{ This stage is entered once per node to be drawn and allows directly to control
+  the path which is the taken to paint the node. (2)
+
+  In the event for this stage you can tell the tree whether you want to paint
+  the node entirely on your own or let the tree paint it. As this happens on a
+  per node basis it is the perfect place to maintain a special layout without
+  doing everything in the paint cycle. Note: setting the CustomDraw parameter
+  in the event to True will skip the node entirely, without painting anything
+  of the standard things like tree lines, button, images or erasing the
+  background. Hence to display any useful information for the node do it in the
+  OnBeforeItemPaint event.
+  This is the first stage which gets the double buffer canvas which is used to
+  draw a node so if you want to set special properties this is a good
+  opportunity. Keep in mind though that in particular the colors are set by the
+  tree according to specific rules (focus, selection etc.).
+}
+{$endregion}
+
+function TXMLTree.DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
+  ItemRect: TRect): Boolean;
+begin
+  inherited;
+end;
+
+{$region 'documentation'}
+{ This stage is also entered only once per node and allows to customize the
+  node's background. (3)
+
+  This stage and its associated event is usually used to give the node a
+  different background color or erase the background with a special pattern
+  which is different to what the tree would draw.
+}
+{$endregion}
+
+procedure TXMLTree.DoBeforeItemErase(Canvas: TCanvas; ANode: PVirtualNode;
+{$ifdef FPC}const{$endif} ItemRect: TRect; var Color: TColor;
+  var EraseAction: TItemEraseAction);
+begin
+  inherited DoBeforeItemErase(Canvas, ANode, ItemRect, Color, EraseAction);
+end;
+
+procedure TXMLTree.DoAfterItemErase(Canvas: TCanvas; Node: PVirtualNode;
+  ItemRect: TRect);
+begin
+  inherited;
+
+end;
+
+{$region 'documentation'}
+{ This paint stage is the first of the cell specific stages used to customize
+  a single cell of a node and is called several times per node,depending on the
+  number of columns. If no columns are used then it is called once.
+
+  While internally a full setup for this node happened before the stage is
+  entered (if it is the first run) the only noticeable effect for the
+  application which has changed compared to after item erase is that the
+  painting is limited to the current column. There are still no lines or images
+  painted yet.
+}
+{$endregion}
+
+procedure TXMLTree.DoBeforeCellPaint(Canvas: TCanvas; ANode: PVirtualNode;
+  Column: TColumnIndex; CellPaintMode: TVTCellPaintMode; CellRect: TRect;
+  var ContentRect: TRect);
+var
+  C   : TColor;
+  Ind : Integer;
+begin
+  if Column = Header.MainColumn then
+  begin
+    Ind := GetNodeLevel(ANode) * Indent;
+    Inc(CellRect.Left, Ind);
+    Ind := -Integer(Indent);
+  end
+  else
+  begin
+    Ind := 0;
+  end;
+  DoGetBackColor(ANode, Column, C);
+  if C <> Color then
+  begin // fill cell
+    Canvas.Brush.Color := C;
+    Canvas.FillRect(CellRect);
+  end;
+
+  if Column = Header.MainColumn then
+  begin
+    CellRect.Right := CellRect.Left + Integer(Indent);
+    Inc(CellRect.Bottom);
+    repeat
+      if C <> Color then
+      begin // fill vertical band
+        Canvas.Brush.Color := C;
+        Canvas.FillRect(CellRect);
+      end;
+      ANode := ANode.Parent;
+      if not Assigned(ANode) or (ANode = RootNode) then
+        Break;
+      Inc(CellRect.Left, Ind);
+      Inc(CellRect.Right, Ind);
+      DoGetBackColor(ANode, Column, C);
+    until False;
+  end;
+
+
+  inherited;
+end;
+
+{$region 'documentation'}
+{ After default stuff like lines and images have been painted the paint node/
+  paint text stage is entered.
+
+  Because Virtual Treeview does not know how to draw the content of a node it
+  delegates this drawing to a virtual method called DoPaintNode. Descendants
+  override this method and do whatever is appropriate. For instance
+  TVirtualDrawTree simply triggers its OnDrawNode event while the
+  TVirtualStringTree prepares the target canvas and allows the application to
+  override some or all canvas settings (font etc.) by triggering OnPaintText.
+  After this event returned the text/caption of the node is drawn. Changed font
+  properties are taken into account when aligning and painting the text.
+  Note: The string tree triggers the OnGetText event two times if
+  toShowStaticText is enabled in the TreeOptions.StringOptions property. Once
+  for the normal text and once for the static text. Use the event's parameter to
+  find out what is required.
+}
+{$endregion}
+
+procedure TXMLTree.DoPaintText(ANode: PVirtualNode; const Canvas: TCanvas;
+  Column: TColumnIndex; TextType: TVSTTextType);
+var
+  NAI : TNodeAttributesItem;
+begin
+
+  NAI := FNodeAttributes.ItemByType[GetNodeType(ANode)];
+  if Assigned(NAI) then
+  begin
+    if Column = 0 then
+      Canvas.Font.Assign(NAI.Font)
+    else
+      Canvas.Font.Assign(NAI.ValueFont);
+  end;
+  inherited;
+end;
+
+procedure TXMLTree.DoTextDrawing(var PaintInfo: TVTPaintInfo; Text: string;
+  CellRect: TRect; DrawFormat: Cardinal);
+// var
+// r: TRect;
+begin
+  inherited;
+  // r := PaintInfo.CellRect;
+  // r.Width := ClientWidth;
+  //
+  // PaintInfo.PaintOptions := PaintInfo.PaintOptions + [poMainOnly];
+  // PaintInfo.PaintOptions := PaintInfo.PaintOptions - [poGridLines];
+  // Windows.DrawTextW(PaintInfo.Canvas.Handle, PWideChar(Text), Length(Text), r, DT_CENTER or DT_VCENTER);
+  // DefaultDraw := False;
+
+
+
+
+end;
+
+
+
+procedure TXMLTree.DoAfterCellPaint(Canvas: TCanvas; Node: PVirtualNode;
+  Column: TColumnIndex; CellRect: TRect);
+begin
+  if (Node = FocusedNode) and (Column = FocusedColumn)  then
+  begin
+    Canvas.Brush.Color := clBlack;
+    Canvas.FrameRect(CellRect);
+    Canvas.Font.Color := clWhite;
+  end;
+  inherited;
+end;
+
+procedure TXMLTree.DoAfterItemPaint(Canvas: TCanvas; Node: PVirtualNode;
+  ItemRect: TRect);
+begin
+  inherited;
+
+end;
+
+procedure TXMLTree.DoAfterPaint(Canvas: TCanvas);
+begin
+  inherited;
+
+end;
+
+procedure TXMLTree.DoGetBackColor(ANode: PVirtualNode; AColumn: TColumnIndex;
+  var ABackColor: TColor);
+var
+  ND  : PNodeData;
+  NAI : TNodeAttributesItem;
+begin
+  ND  := GetData(ANode);
+  NAI := FNodeAttributes.ItemByType[ND.NodeType];
+  if Assigned(NAI) then
+  begin
+    if AColumn = 0 then
+      ABackColor := NAI.BackGroundColor
+    else
+      ABackColor := NAI.ValueBackGroundColor;
+  end;
+  if Assigned(FOnGetBackColor) then
+    FOnGetBackColor(Self, ANode, ND.XMLNode, ND.NodeType, ABackColor);
+end;
+
+{$endregion}
 
 //*****************************************************************************
 // event dispatch methods                                                  END
@@ -1414,21 +1606,21 @@ begin
 end;
 
 {
-Explanation of the CheckNode event:
+  Explanation of the CheckNode event:
 
-This event is called for every Xml node in the document including text and
-other special node types.
-The Add parameter defines if the node will be displayed in the tree. It
-defaults to true on normal nodes, attributes and comments.
+  This event is called for every Xml node in the document including text and
+  other special node types.
+  The Add parameter defines if the node will be displayed in the tree. It
+  defaults to true on normal nodes, attributes and comments.
 
-You can set NewXmlNode to another node to display it instead. In this
-case you can also change NewNodeType accordingly. Or you set it to -1, then
-the NewNodeType and the Add flag is determined again and the event is also
-called again with the changed node.
+  You can set NewXmlNode to another node to display it instead. In this
+  case you can also change NewNodeType accordingly. Or you set it to -1, then
+  the NewNodeType and the Add flag is determined again and the event is also
+  called again with the changed node.
 
-Note: Since the new tree node is not created in this state you cannot access
-it or set any user data. Use the InitNode event instead, it is called after
-the internal node initialization.
+  Note: Since the new tree node is not created in this state you cannot access
+  it or set any user data. Use the InitNode event instead, it is called after
+  the internal node initialization.
 }
 
 function TXMLTree.AddChild(ANode: PVirtualNode; ANewXMLNode: TXmlNode): Boolean;
@@ -1436,7 +1628,6 @@ var
   B  : Boolean;
   NT : TNodeType;
 begin
-//  Logger.EnterMethod(Self, 'AddChild');
   Result := False;
   repeat
     B := ANewXMLNode.ElementType in [xeElement, xeAttribute, xeComment];
@@ -1509,42 +1700,56 @@ procedure TXMLTree.InitializeNodeAttributes;
 var
   NAI: TNodeAttributesItem;
 begin
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntAttribute;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Attribute';
+  NAI.NodeType        := ntAttribute;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_ATTRIBUTE;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Color      := DEFAULT_FGCOLOR_ATTRIBUTE;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntComment;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Comment';
+  NAI.NodeType        := ntComment;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_COMMENT;
-  NAI.Font.Name  := 'Consolas';
-  NAI.Font.Style := [fsItalic];
-  NAI.Font.Color := clMedGray;
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Style      := [fsItalic];
+  NAI.Font.Color      := DEFAULT_FGCOLOR_COMMENT;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntElement;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Element';
+  NAI.NodeType        := ntElement;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_ELEMENT;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Color      := DEFAULT_FGCOLOR_ELEMENT;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntUnknown;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Unknown';
+  NAI.NodeType        := ntUnknown;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_UNKNOWN;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Color      := DEFAULT_FGCOLOR_UNKNOWN;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntRoot;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Root';
+  NAI.NodeType        := ntRoot;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_ROOT;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Color      := DEFAULT_FGCOLOR_ROOT;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntText;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Text';
+  NAI.NodeType        := ntText;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_TEXT;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Color      := DEFAULT_FGCOLOR_TEXT;
 
-  NAI := FNodeAttributes.Add;
-  NAI.NodeType := ntNode;
+  NAI                 := FNodeAttributes.Add;
+  NAI.Name            := 'Node';
+  NAI.NodeType        := ntNode;
   NAI.BackGroundColor := DEFAULT_BGCOLOR_NODE;
-  NAI.Font.Name := 'Consolas';
+  NAI.Font.Name       := 'Consolas';
+  NAI.Font.Style      := NAI.Font.Style + [fsBold];
+  NAI.Font.Color      := DEFAULT_FGCOLOR_NODE;
 end;
 
 procedure TXMLTree.InitializeHeader;
@@ -1553,17 +1758,17 @@ begin
   begin
     with Header.Columns.Add do
     begin
-      Text := 'Node';
-      Width := 400;
+      Text    := 'Node';
+      Width   := 400;
       Options := Options + [coResizable, coSmartResize];
     end;
     with Header.Columns.Add do
     begin
-      Text := 'Value';
-      Width := 150;
+      Text     := 'Value';
+      Width    := 150;
       MaxWidth := 800;
       MinWidth := 50;
-      Options := Options + [coResizable, coSmartResize];
+      Options  := Options + [coResizable, coSmartResize];
     end;
     Header.AutoSizeIndex := 0;
   end;
@@ -1619,8 +1824,8 @@ begin
 end;
 
 { Sets the expanded state of all nodes to the previously saved state. The nodes
-    are searched by their XmlPath so that it works after a complete reload of the
-    Xml. All new nodes are automatically expanded. }
+  are searched by their XmlPath so that it works after a complete reload of the
+  Xml. All new nodes are automatically expanded. }
 
 procedure TXMLTree.ExpandedStateRestore;
 
@@ -1716,7 +1921,6 @@ end;
 procedure TXMLTree.RefreshNode(ANode: PVirtualNode; AParent: Boolean = False);
 begin
   ExpandedStateSave;
-  //FocusedNode := nil; // not sure if this should be done or not
   if AParent and Assigned(ANode.Parent) and (ANode.Parent <> RootNode) then
     ANode := ANode.Parent;
   BeginUpdate;
@@ -1919,8 +2123,8 @@ begin
         end
         else
           Result := Result.NextSibling;
-        end;
       end;
+    end;
   finally
     if ADoExpand then
       EndUpdate;
@@ -1947,4 +2151,3 @@ end;
 {$endregion}
 
 end.
-

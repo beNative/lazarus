@@ -45,14 +45,21 @@ type
 type
   TNodeAttributesItem = class(TCollectionItem)
   private
-    FBackGroundColor : TColor;
-    FFont            : TFont;
-    FName            : string;
-    FNodeType        : TNodeType;
+    FBackGroundColor      : TColor;
+    FFont                 : TFont;
+    FName                 : string;
+    FNodeType             : TNodeType;
+    FValueFont            : TFont;
+    FValueBackGroundColor : TColor;
 
     procedure SetBackGroundColor(AValue: TColor);
     procedure SetFont(AValue: TFont);
     procedure SetNodeType(AValue: TNodeType);
+    procedure SetValueFont(const Value: TFont);
+    procedure SetValueBackGroundColor(const Value: TColor);
+
+  protected
+    function GetDisplayName: string; override;
 
   public
     constructor Create(ACollection: Classes.TCollection); override;
@@ -71,6 +78,11 @@ type
     property Font: TFont
       read FFont write SetFont;
 
+    property ValueFont: TFont
+      read FValueFont write SetValueFont;
+
+    property ValueBackGroundColor: TColor
+      read FValueBackGroundColor write SetValueBackGroundColor;
   end;
 
 type
@@ -98,11 +110,21 @@ begin
   inherited Create(ACollection);
   FFont := TFont.Create;
   FFont.Size := 8;
+  FValueFont := TFont.Create;
+  FValueFont.Size := 8;
+  FBackGroundColor := clWhite;
+  FValueBackGroundColor := clWhite;
+end;
+
+function TNodeAttributesItem.GetDisplayName: string;
+begin
+  Result := FName;
 end;
 
 procedure TNodeAttributesItem.BeforeDestruction;
 begin
   FFont.Free;
+  FValueFont.Free;
   inherited BeforeDestruction;
 end;
 
@@ -121,7 +143,7 @@ begin
   if AValue <> BackGroundColor then
   begin
     FBackGroundColor := AValue;
-    Changed(False);
+    Changed(True);
   end;
 end;
 
@@ -143,6 +165,17 @@ begin
   end;
 end;
 
+procedure TNodeAttributesItem.SetValueBackGroundColor(const Value: TColor);
+begin
+  FValueBackGroundColor := Value;
+  Changed(False);
+end;
+
+procedure TNodeAttributesItem.SetValueFont(const Value: TFont);
+begin
+  FValueFont.Assign(Value);
+  Changed(False);
+end;
 //*****************************************************************************
 // property access methods                                                 END
 //*****************************************************************************
@@ -178,6 +211,25 @@ end;
 // property access methods                                                 END
 //*****************************************************************************
 {$endregion}
+
+{$REGION 'protected methods'}
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
+
+procedure TNodeAttributes.Update(Item: TCollectionItem);
+begin
+  (Owner as TXMLTree).Invalidate;
+end;
+
+//*****************************************************************************
+// protected methods                                                       END
+//*****************************************************************************
+{$ENDREGION}
+
 {$endregion}
+
+
+
 end.
 

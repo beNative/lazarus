@@ -1,34 +1,29 @@
-object frmCharacterMapDialog: TfrmCharacterMapDialog
+inherited frmCharacterMapDialog: TfrmCharacterMapDialog
   Left = 684
-  Height = 433
+  Height = 570
   Top = 260
   Width = 446
   ActiveControl = pcMain
   BorderStyle = bsSingle
   Caption = 'frmCharacterMapDialog'
-  ClientHeight = 433
+  ClientHeight = 570
   ClientWidth = 446
   KeyPreview = True
   PopupMode = pmAuto
   Position = poDefault
-  LCLVersion = '1.1'
-  object pcMain: TPageControl
-    AnchorSideLeft.Control = Owner
-    AnchorSideTop.Control = Owner
-    AnchorSideRight.Control = Owner
-    AnchorSideRight.Side = asrBottom
+  object pcMain: TPageControl[0]
     Left = 6
-    Height = 389
+    Height = 420
     Top = 6
     Width = 434
     ActivePage = tsANSI
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Align = alClient
     BorderSpacing.Around = 6
     TabIndex = 0
     TabOrder = 0
     object tsANSI: TTabSheet
       Caption = 'ANSI'
-      ClientHeight = 361
+      ClientHeight = 392
       ClientWidth = 426
       object lblCharInfo: TLabel
         AnchorSideLeft.Control = tsANSI
@@ -39,7 +34,7 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideBottom.Side = asrBottom
         Left = 6
         Height = 15
-        Top = 340
+        Top = 371
         Width = 414
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 6
@@ -53,15 +48,16 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = lblCharInfo
         Left = 0
-        Height = 334
+        Height = 365
         Top = 0
         Width = 426
         Anchors = [akTop, akLeft, akRight, akBottom]
         ColCount = 17
         DefaultColWidth = 16
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
         RowCount = 15
         TabOrder = 0
+        TitleStyle = tsNative
         OnMouseDown = grdANSIMouseDown
         OnMouseMove = grdANSIMouseMove
       end
@@ -97,9 +93,10 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         DefaultColWidth = 16
         FixedCols = 0
         FixedRows = 0
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goSmoothScroll]
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
         RowCount = 15
         TabOrder = 0
+        TitleStyle = tsNative
         OnMouseDown = grdUnicodeMouseDown
         OnMouseMove = grdUnicodeMouseMove
       end
@@ -120,6 +117,26 @@ object frmCharacterMapDialog: TfrmCharacterMapDialog
         Style = csDropDownList
         TabOrder = 1
       end
+    end
+  end
+  object pnlChar: TPanel[1]
+    Left = 0
+    Height = 138
+    Top = 432
+    Width = 446
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 138
+    ClientWidth = 446
+    TabOrder = 1
+    object imgChar: TImage
+      Left = 0
+      Height = 138
+      Top = 0
+      Width = 446
+      AntialiasingMode = amOn
+      Align = alClient
+      Center = True
     end
   end
 end

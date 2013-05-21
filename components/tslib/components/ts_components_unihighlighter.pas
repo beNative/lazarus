@@ -992,7 +992,7 @@ begin
       if Length(S) = 1 then
       else
         TSymbols(FSymbolList[CaseFunct(FirstChar)]).AddSymbol(
-          StringCaseFunct(copy(S, 2, Length(S) - 1)), SynSymbol, BrakeType);
+          StringCaseFunct(Copy(S, 2, Length(S) - 1)), SynSymbol, BrakeType);
     end;
   end;
 
@@ -1632,11 +1632,6 @@ end;
 {$endregion}
 
 {$region 'TSymbolList' /fold}
-procedure TSymbolList.AddSymbol(ASymbolNode: TSymbolNode);
-begin
-  FSymbolList.Add(ASymbolNode);
-end;
-
 constructor TSymbolList.Create;
 begin
   FSymbolList := TObjectList.Create;
@@ -1648,6 +1643,11 @@ begin
   inherited;
 end;
 
+procedure TSymbolList.AddSymbol(ASymbolNode: TSymbolNode);
+begin
+  FSymbolList.Add(ASymbolNode);
+end;
+
 function TSymbolList.FindSymbol(AChar: Char): TSymbolNode;
 var
   I: Integer;
@@ -1657,7 +1657,7 @@ begin
     if TSymbolNode(FSymbolList[I]).SymbolChar = AChar then
     begin
       Result := TSymbolNode(FSymbolList[I]);
-      break;
+      Break;
     end;
 end;
 
@@ -1753,7 +1753,7 @@ begin
     AParser.Run := AParser.Run + 1;
     NextNode := Node.NextSymbols.FindSymbol(AParser.Line[AParser.Run]);
     if NextNode = nil then
-      break;
+      Break;
     Node := NextNode;
   end;
 

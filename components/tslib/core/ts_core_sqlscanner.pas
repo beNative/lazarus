@@ -202,7 +202,7 @@ Type
     FKeyWords        : TFPHashList;
     FExclude         : TStringList;
     function CommentDiv: TSQLToken;
-    function DoIdentifier : TSQLToken;
+    function DoIdentifier: TSQLToken;
     function DoMultiLineComment: TSQLToken;
     function DoNumericLiteral: TSQLToken;
     function DoSingleLineComment: TSQLToken;

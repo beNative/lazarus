@@ -27,17 +27,19 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls,
 
-  LCLProc, LCLUnicodeData,
+  LCLProc, LCLUnicodeData, ExtCtrls,
 
   ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
 type
   TfrmCharacterMapDialog = class(TCustomEditorToolView, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
+    imgChar            : TImage;
     lblCharInfo        : TLabel;
     pcMain             : TPageControl;
     grdANSI            : TStringGrid;
     grdUnicode         : TStringGrid;
+    pnlChar            : TPanel;
     tsANSI             : TTabSheet;
     tsUnicode          : TTabSheet;
     lblUnicodeCharInfo : TLabel;
@@ -56,9 +58,6 @@ type
   strict private
     procedure FillCharMap;
 
-  strict protected
-    procedure UpdateView;
-
   public
     procedure AfterConstruction; override;
 
@@ -67,6 +66,11 @@ type
 //*****************************************************************************
 
 implementation
+
+{$ifdef windows}
+uses
+  Windows, Graphics;
+{$endif}
 
 {$R *.lfm}
 
@@ -80,6 +84,49 @@ begin
   else
     Result := (Value div Divi) + 1;
 end;
+
+{$ifdef windows}
+function GetUnicodeBitmap(const UnicodeFont: string; const w: WideChar;
+  const BitmapSize: Integer; var Size: TSize): TBitmap;
+var
+  MaxLogPalette: TMaxLogPalette;
+begin
+  MaxLogPalette.palVersion := $300;
+  MaxLogPalette.palNumEntries := 2;
+  with MaxLogPalette.palPalEntry[0] do
+  begin
+    peRed   := 0;
+    peGreen := 0;
+    peBlue  := 0;
+    peFlags := 0
+  end;
+
+  with MaxLogPalette.palPalEntry[1] do
+  begin
+    peRed   := 255;
+    peGreen := 255;
+    peBlue  := 255;
+    peFlags := 0
+  end;
+
+  Result := TBitmap.Create;
+
+  Result.Height := BitmapSize;
+  Result.Width  := BitmapSize;
+
+  Result.Palette := CreatePalette(pLogPalette(@MaxLogPalette)^);
+
+  Result.Canvas.Brush.Color := clWhite;
+  Result.Canvas.FillRect(Result.Canvas.ClipRect);
+
+  Result.Canvas.Font.Name := UnicodeFont;
+  Result.Canvas.Font.Height := BitmapSize;
+
+  GetTextExtentPoint32W(RESULT.Canvas.Handle, @w, 1, Size);
+
+  TextOutW(Result.Canvas.Handle, (Result.Width - size.cx) DIV 2, 0, @w, 1)
+end;
+{$endif}
 
 {$region 'construction and destruction' /fold}
 //*****************************************************************************
@@ -186,6 +233,9 @@ var
   B : Byte;
   R : Integer;
   C : Integer;
+  WC: Char;
+  S: TSize;
+  Bmp: TBitmap;
 begin
   R := 0;
   C := 0;
@@ -194,9 +244,16 @@ begin
     grdANSI.MouseToCell(X, Y, C, R);
     if grdANSI.Cells[C, R] <> '' then
     begin
-      B               := Ord(UTF8ToAnsi(grdANSI.Cells[C, R])[1]);
+      WC := UTF8ToAnsi(grdANSI.Cells[C, R])[1];
+      B  := Ord(WC);
       lblCharInfo.Caption := 'Decimal = ' + IntToStr(B) +
         ', Hex = $' + HexStr(B, 2);
+      Bmp:= GetUnicodeBitmap(grdAnsi.Font.Name, WC, imgChar.Height, S);
+        try
+          imgChar.Picture.Graphic := Bmp
+        finally
+          Bmp.Free
+        end;
     end
     else
       lblCharInfo.Caption := '-';
@@ -216,18 +273,29 @@ var
   S  : Cardinal;
   T1 : string;
   T2 : string;
+  WC: WideChar;
+  Size: TSize;
+  Bmp: TBitmap;
 begin
   R := 0;
   C := 0;
   if grdUnicode.MouseToGridZone(X, Y) = gzNormal then
   begin
     grdUnicode.MouseToCell(X, Y, C, R);
-    S    := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + (C) + (R * 16);
-    T1  := UnicodeToUTF8(S);
+    S  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + (C) + (R * 16);
+    T1 := UnicodeToUTF8(S);
     T2 := '';
     for I := 1 to Length(T1) do
       T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
     lblUnicodeCharInfo.Caption := 'U+' + IntToHex(S, 4) + ', UTF-8 = ' + T2;
+
+    WC := WideChar(S);
+    Bmp:= GetUnicodeBitmap(grdUnicode.Font.Name, WC, imgChar.Height, Size);
+      try
+        imgChar.Picture.Graphic := Bmp
+      finally
+        Bmp.Free
+      end;
   end
   else
   begin
@@ -266,26 +334,6 @@ end;
 
 //*****************************************************************************
 // private methods                                                         END
-//*****************************************************************************
-{$endregion}
-
-{$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
-
-procedure TfrmCharacterMapDialog.UpdateView;
-begin
-//
-end;
-
-//function TfrmCharacterMapDialog.Focused: Boolean;
-//begin
-//  Result := Focused;
-//end;
-
-//*****************************************************************************
-// protected methods                                                       END
 //*****************************************************************************
 {$endregion}
 

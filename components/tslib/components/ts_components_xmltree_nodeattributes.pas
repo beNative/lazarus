@@ -217,10 +217,10 @@ end;
 // protected methods                                                     BEGIN
 //*****************************************************************************
 
-procedure TNodeAttributes.Update(Item: TCollectionItem);
-begin
-  (Owner as TXMLTree).Invalidate;
-end;
+//procedure TNodeAttributes.Update(Item: TCollectionItem);
+//begin
+//  (Owner as TXMLTree).Invalidate;
+//end;
 
 //*****************************************************************************
 // protected methods                                                       END

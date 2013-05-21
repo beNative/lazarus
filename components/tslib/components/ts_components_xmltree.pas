@@ -29,7 +29,7 @@
   - Compatibility with FPC 2.6.x and above
   - Support for VirtualTree version 5.0.x and above
   - Uses NativeXML to parse the XML. This is many times faster than using
-  MSXML.
+    MSXML and makes this component compile for multiple platforms.
   - Customizable node paint options
   - many bugfixes
 }
@@ -415,19 +415,18 @@ type
       var LineBreakStyle: TVTTooltipLineBreakStyle): string; override;
     procedure DoMeasureItem(TargetCanvas: TCanvas; Node: PVirtualNode;
       var NodeHeight: Integer); override;
-    procedure DoTextDrawing(var PaintInfo: TVTPaintInfo; Text: string;
+    procedure DoTextDrawing(var PaintInfo: TVTPaintInfo; {$ifdef FPC}const {$endif}
+      Text: string;
       CellRect: TRect; DrawFormat: Cardinal); override;
     function DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
-      ItemRect: TRect): Boolean; override;
-      procedure DoAfterCellPaint(Canvas: TCanvas; Node: PVirtualNode;
-      Column: TColumnIndex; CellRect: TRect); override;
+      {$ifdef FPC}const {$endif} ItemRect: TRect): Boolean; override;
+    procedure DoAfterCellPaint(Canvas: TCanvas; Node: PVirtualNode;
+      Column: TColumnIndex; {$ifdef FPC}const {$endif} CellRect: TRect); override;
     procedure DoAfterItemErase(Canvas: TCanvas; Node: PVirtualNode;
-      ItemRect: TRect); override;
+      {$ifdef FPC}const {$endif} ItemRect: TRect); override;
     procedure DoAfterItemPaint(Canvas: TCanvas; Node: PVirtualNode;
-      ItemRect: TRect); override;
+      {$ifdef FPC}const {$endif} ItemRect: TRect); override;
     procedure DoAfterPaint(Canvas: TCanvas); override;
-
-
     {$endregion}
 
     procedure DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
@@ -443,10 +442,6 @@ type
     procedure InitializeHeader;
     // message handlers
     procedure WMStartEditing(var AMessage: TMessage); message WM_STARTEDITING;
-
-
-
-
 
     // hidden properties
     property LineMode;
@@ -730,6 +725,9 @@ uses
   TypInfo,
 {$ifdef FPC}
   LCLType,
+{$endif}
+  ts_Core_Utils;
+
 procedure PaintBtnEllipsis(DC: HDC; Rect: TRect; Pressed: Boolean);
 var
   Flags: Integer;
@@ -742,7 +740,6 @@ begin
   PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
 end;
-  ts_Core_Utils;
 
 {$region 'documentation'}
 // xeElement,     //  0 normal element <name {attr}>[value][sub-elements]</name>
@@ -1182,7 +1179,6 @@ procedure TXMLTree.DoGetText(ANode: PVirtualNode; Column: TColumnIndex;
 var
   S  : UTF8String;
   ND : PNodeData;
-  //N  : PVirtualNode;
 begin
   //Logger.EnterMethod(Self, 'DoGetText');
   //Logger.Send('States', SetToString(TypeInfo(ANode.States), ANode.States));
@@ -1302,6 +1298,7 @@ begin
 //        end;
 //            end;
 end;
+
 function TXMLTree.DoCreateEditor(Node: PVirtualNode; Column: TColumnIndex)
   : IVTEditLink;
 begin
@@ -1381,7 +1378,7 @@ end;
 {$endregion}
 
 function TXMLTree.DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
-  ItemRect: TRect): Boolean;
+  {$ifdef FPC}const {$endif} ItemRect: TRect): Boolean;
 begin
   inherited;
 end;
@@ -1404,7 +1401,7 @@ begin
 end;
 
 procedure TXMLTree.DoAfterItemErase(Canvas: TCanvas; Node: PVirtualNode;
-  ItemRect: TRect);
+  {$ifdef FPC}const {$endif}ItemRect: TRect);
 begin
   inherited;
 
@@ -1506,7 +1503,7 @@ begin
   inherited;
 end;
 
-procedure TXMLTree.DoTextDrawing(var PaintInfo: TVTPaintInfo; Text: string;
+procedure TXMLTree.DoTextDrawing(var PaintInfo: TVTPaintInfo; {$ifdef FPC}const {$endif}Text: string;
   CellRect: TRect; DrawFormat: Cardinal);
 // var
 // r: TRect;
@@ -1519,16 +1516,10 @@ begin
   // PaintInfo.PaintOptions := PaintInfo.PaintOptions - [poGridLines];
   // Windows.DrawTextW(PaintInfo.Canvas.Handle, PWideChar(Text), Length(Text), r, DT_CENTER or DT_VCENTER);
   // DefaultDraw := False;
-
-
-
-
 end;
 
-
-
 procedure TXMLTree.DoAfterCellPaint(Canvas: TCanvas; Node: PVirtualNode;
-  Column: TColumnIndex; CellRect: TRect);
+  Column: TColumnIndex; {$ifdef FPC}const {$endif}CellRect: TRect);
 begin
   if (Node = FocusedNode) and (Column = FocusedColumn)  then
   begin
@@ -1540,16 +1531,14 @@ begin
 end;
 
 procedure TXMLTree.DoAfterItemPaint(Canvas: TCanvas; Node: PVirtualNode;
-  ItemRect: TRect);
+  {$ifdef FPC}const {$endif}ItemRect: TRect);
 begin
   inherited;
-
 end;
 
 procedure TXMLTree.DoAfterPaint(Canvas: TCanvas);
 begin
   inherited;
-
 end;
 
 procedure TXMLTree.DoGetBackColor(ANode: PVirtualNode; AColumn: TColumnIndex;

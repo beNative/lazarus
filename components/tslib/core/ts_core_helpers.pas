@@ -62,7 +62,11 @@ procedure AssignFormParent(
 implementation
 
 uses
-  TypInfo, ObjectInspector;
+  Graphics, TypInfo, GraphUtil,
+
+  ObjectInspector,
+
+  ts_Components_XMLTree_NodeAttributes;
 
 {$region 'default VST options' /fold}
 const
@@ -296,7 +300,7 @@ begin
   VST.TreeOptions.AnimationOptions := DEFAULT_VST_ANIMATIONOPTIONS;
   VST.TreeOptions.AutoOptions      := DEFAULT_VST_AUTOOPTIONS;
 
-  VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
+  //VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
   Result := VST;
 end;
 
@@ -307,6 +311,8 @@ begin
   XT := TXMLTree.Create(AOwner);
   XT.Parent := AParent;
   XT.Align := alClient;
+  XT.NodeAttributes.ItemByType[ntNode].BackGroundColor :=
+    clCream;
   Result := XT;
 end;
 

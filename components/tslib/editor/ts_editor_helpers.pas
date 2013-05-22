@@ -211,6 +211,7 @@ begin
   AddButton('');
   AddButton('actShapeCode');
   AddButton('actFilterCode');
+  AddButton('actInsertCharacterFromMap');
   AddButton('actShowPreview');
   AddButton('');
   AddButton('actAutoGuessHighlighter');

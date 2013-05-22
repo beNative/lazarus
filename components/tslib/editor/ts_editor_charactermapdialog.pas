@@ -25,9 +25,9 @@ unit ts_Editor_CharacterMapDialog;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls,
+  Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls, ExtCtrls,
 
-  LCLProc, LCLUnicodeData, ExtCtrls,
+  LCLProc, LCLUnicodeData,
 
   ts_Editor_Interfaces, ts_Editor_CustomToolView;
 
@@ -40,42 +40,58 @@ type
     grdANSI            : TStringGrid;
     grdUnicode         : TStringGrid;
     pnlChar            : TPanel;
+    shpChar            : TShape;
     tsANSI             : TTabSheet;
     tsUnicode          : TTabSheet;
     lblUnicodeCharInfo : TLabel;
 
     procedure cbxUnicodeRangeSelect(Sender: TObject);
-    procedure EditorSettingsChanged(Sender: TObject);
+    procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure grdANSISelectCell(Sender: TObject; aCol, aRow: Integer;
+      var CanSelect: Boolean);
+    procedure grdUnicodeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
+      );
     procedure grdUnicodeMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure grdANSIMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
     procedure grdUnicodeMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
+    procedure grdUnicodeSelectCell(Sender: TObject; aCol, aRow: Integer;
+      var CanSelect: Boolean);
 
   strict private
+    procedure EditorSettingsChanged(Sender: TObject);
+
     procedure FillCharMap;
+    procedure UpdateCharacterBitmap(const ACharacter: string);
+    procedure UpdateUnicodeDisplay(ACol, ARow: Integer);
+    procedure UpdateANSIDisplay(ACol, ARow: Integer);
 
   public
     procedure AfterConstruction; override;
-
   end;
 
 //*****************************************************************************
 
 implementation
 
-{$ifdef windows}
 uses
-  Windows, Graphics;
-{$endif}
+  Graphics, Dialogs,
+
+  LCLType, LCLIntf;
 
 {$R *.lfm}
 
 resourcestring
   SCharacterMap = 'Character Map';
+
+{$region 'non-interfaced routines' /fold}
+//*****************************************************************************
+// non-interfaced routines                                               BEGIN
+//*****************************************************************************
 
 function RoundUp(Value, Divi: Integer): Integer;
 begin
@@ -85,48 +101,30 @@ begin
     Result := (Value div Divi) + 1;
 end;
 
-{$ifdef windows}
-function GetUnicodeBitmap(const UnicodeFont: string; const w: WideChar;
-  const BitmapSize: Integer; var Size: TSize): TBitmap;
-var
-  MaxLogPalette: TMaxLogPalette;
+function CreateCharacterBitmap(
+  const AFontName     : string;
+  const ACharacter    : string;
+  const ABitmapHeight : Integer
+): TBitmap;
 begin
-  MaxLogPalette.palVersion := $300;
-  MaxLogPalette.palNumEntries := 2;
-  with MaxLogPalette.palPalEntry[0] do
-  begin
-    peRed   := 0;
-    peGreen := 0;
-    peBlue  := 0;
-    peFlags := 0
-  end;
-
-  with MaxLogPalette.palPalEntry[1] do
-  begin
-    peRed   := 255;
-    peGreen := 255;
-    peBlue  := 255;
-    peFlags := 0
-  end;
-
   Result := TBitmap.Create;
-
-  Result.Height := BitmapSize;
-  Result.Width  := BitmapSize;
-
-  Result.Palette := CreatePalette(pLogPalette(@MaxLogPalette)^);
-
+  Result.Height := ABitmapHeight;
+  Result.Width  := ABitmapHeight;
   Result.Canvas.Brush.Color := clWhite;
   Result.Canvas.FillRect(Result.Canvas.ClipRect);
-
-  Result.Canvas.Font.Name := UnicodeFont;
-  Result.Canvas.Font.Height := BitmapSize;
-
-  GetTextExtentPoint32W(RESULT.Canvas.Handle, @w, 1, Size);
-
-  TextOutW(Result.Canvas.Handle, (Result.Width - size.cx) DIV 2, 0, @w, 1)
+  Result.Canvas.Font.Name := AFontName;
+  Result.Canvas.Font.Height := ABitmapHeight;
+  Result.Canvas.TextOut(
+    (Result.Width - Result.Canvas.GetTextWidth(ACharacter)) div 2,
+    0,
+    ACharacter
+  );
 end;
-{$endif}
+
+//*****************************************************************************
+// non-interfaced routines                                                 END
+//*****************************************************************************
+{$endregion}
 
 {$region 'construction and destruction' /fold}
 //*****************************************************************************
@@ -179,7 +177,7 @@ begin
   grdUnicode.Clear;
   grdUnicode.ColCount := 16;
   grdUnicode.RowCount := RoundUp(E - S, 16);
-  N                  := 0;
+  N                   := 0;
   for Y := 0 to grdUnicode.RowCount - 1 do
     for X := 0 to grdUnicode.ColCount - 1 do
     begin
@@ -188,6 +186,13 @@ begin
       Inc(N);
     end;
   grdUnicode.AutoSizeColumns;
+end;
+
+procedure TfrmCharacterMapDialog.grdANSIKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    View.InsertTextAtCaret(grdANSI.Cells[grdANSI.Col, grdANSI.Row]);
 end;
 
 procedure TfrmCharacterMapDialog.EditorSettingsChanged(Sender: TObject);
@@ -212,6 +217,19 @@ begin
   end;
 end;
 
+procedure TfrmCharacterMapDialog.grdANSISelectCell(Sender: TObject; aCol,
+  aRow: Integer; var CanSelect: Boolean);
+begin
+  UpdateANSIDisplay(aCol, aRow);
+end;
+
+procedure TfrmCharacterMapDialog.grdUnicodeKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if Key = VK_RETURN then
+    View.InsertTextAtCaret(grdUnicode.Cells[grdUnicode.Col, grdUnicode.Row]);
+end;
+
 procedure TfrmCharacterMapDialog.grdUnicodeMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
@@ -230,33 +248,16 @@ end;
 procedure TfrmCharacterMapDialog.grdANSIMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  B : Byte;
-  R : Integer;
-  C : Integer;
-  WC: Char;
-  S: TSize;
-  Bmp: TBitmap;
+  B   : Byte;
+  Row : Integer;
+  Col : Integer;
 begin
-  R := 0;
-  C := 0;
+  Row := 0;
+  Col := 0;
   if grdANSI.MouseToGridZone(X, Y) = gzNormal then
   begin
-    grdANSI.MouseToCell(X, Y, C, R);
-    if grdANSI.Cells[C, R] <> '' then
-    begin
-      WC := UTF8ToAnsi(grdANSI.Cells[C, R])[1];
-      B  := Ord(WC);
-      lblCharInfo.Caption := 'Decimal = ' + IntToStr(B) +
-        ', Hex = $' + HexStr(B, 2);
-      Bmp:= GetUnicodeBitmap(grdAnsi.Font.Name, WC, imgChar.Height, S);
-        try
-          imgChar.Picture.Graphic := Bmp
-        finally
-          Bmp.Free
-        end;
-    end
-    else
-      lblCharInfo.Caption := '-';
+    grdANSI.MouseToCell(X, Y, Col, Row);
+    UpdateANSIDisplay(Col, Row);
   end
   else
   begin
@@ -267,40 +268,26 @@ end;
 procedure TfrmCharacterMapDialog.grdUnicodeMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  R  : Integer;
-  C  : Integer;
-  I  : Integer;
-  S  : Cardinal;
-  T1 : string;
-  T2 : string;
-  WC: WideChar;
-  Size: TSize;
-  Bmp: TBitmap;
+  Row   : Integer;
+  Col   : Integer;
 begin
-  R := 0;
-  C := 0;
+  Row := 0;
+  Col := 0;
   if grdUnicode.MouseToGridZone(X, Y) = gzNormal then
   begin
-    grdUnicode.MouseToCell(X, Y, C, R);
-    S  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + (C) + (R * 16);
-    T1 := UnicodeToUTF8(S);
-    T2 := '';
-    for I := 1 to Length(T1) do
-      T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
-    lblUnicodeCharInfo.Caption := 'U+' + IntToHex(S, 4) + ', UTF-8 = ' + T2;
-
-    WC := WideChar(S);
-    Bmp:= GetUnicodeBitmap(grdUnicode.Font.Name, WC, imgChar.Height, Size);
-      try
-        imgChar.Picture.Graphic := Bmp
-      finally
-        Bmp.Free
-      end;
+    grdUnicode.MouseToCell(X, Y, Col, Row);
+    UpdateUnicodeDisplay(Col, Row);
   end
   else
   begin
     lblCharInfo.Caption := '-';
   end;
+end;
+
+procedure TfrmCharacterMapDialog.grdUnicodeSelectCell(Sender: TObject; aCol,
+  aRow: Integer; var CanSelect: Boolean);
+begin
+  UpdateUnicodeDisplay(aCol, aRow);
 end;
 
 //*****************************************************************************
@@ -330,6 +317,53 @@ begin
         grdANSI.Cells[C, R] := AnsiToUTF8(Chr(Succ(R) * 16 + Pred(C)));
     end;
   end;
+end;
+
+procedure TfrmCharacterMapDialog.UpdateCharacterBitmap(const ACharacter: string);
+var
+  Bmp: TBitmap;
+begin
+  Bmp:= CreateCharacterBitmap(
+    Manager.Settings.EditorFont.Name,
+    ACharacter,
+    imgChar.Height
+  );
+  try
+    imgChar.Picture.Graphic := Bmp
+  finally
+    Bmp.Free;
+  end;
+end;
+
+procedure TfrmCharacterMapDialog.UpdateUnicodeDisplay(ACol, ARow: Integer);
+var
+  I     : Integer;
+  Start : Cardinal;
+  T1    : string;
+  T2    : string;
+begin
+  Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
+  T1 := UnicodeToUTF8(Start);
+  T2 := '';
+  for I := 1 to Length(T1) do
+    T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
+  lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
+  UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
+end;
+
+procedure TfrmCharacterMapDialog.UpdateANSIDisplay(ACol, ARow: Integer);
+var
+  B: Byte;
+begin
+  if grdANSI.Cells[ACol, ARow] <> '' then
+  begin
+    B  := Ord(grdANSI.Cells[ACol, ARow][1]);
+    lblCharInfo.Caption := 'Decimal = ' + IntToStr(B) +
+      ', Hex = $' + HexStr(B, 2);
+    UpdateCharacterBitmap(grdANSI.Cells[ACol, ARow]);
+  end
+  else
+    lblCharInfo.Caption := '-';
 end;
 
 //*****************************************************************************

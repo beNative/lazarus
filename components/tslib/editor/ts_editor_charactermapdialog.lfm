@@ -5,26 +5,25 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
   Width = 446
   ActiveControl = pcMain
   BorderStyle = bsSingle
-  Caption = 'frmCharacterMapDialog'
   ClientHeight = 570
   ClientWidth = 446
   KeyPreview = True
   PopupMode = pmAuto
   Position = poDefault
   object pcMain: TPageControl[0]
-    Left = 6
-    Height = 420
-    Top = 6
-    Width = 434
-    ActivePage = tsANSI
+    Left = 2
+    Height = 422
+    Top = 2
+    Width = 442
+    ActivePage = tsUnicode
     Align = alClient
-    BorderSpacing.Around = 6
-    TabIndex = 0
+    BorderSpacing.Around = 2
+    TabIndex = 1
     TabOrder = 0
     object tsANSI: TTabSheet
       Caption = 'ANSI'
-      ClientHeight = 392
-      ClientWidth = 426
+      ClientHeight = 394
+      ClientWidth = 434
       object lblCharInfo: TLabel
         AnchorSideLeft.Control = tsANSI
         AnchorSideTop.Side = asrBottom
@@ -34,8 +33,8 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideBottom.Side = asrBottom
         Left = 6
         Height = 15
-        Top = 371
-        Width = 414
+        Top = 373
+        Width = 422
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 6
         Caption = 'lblCharInfo'
@@ -48,9 +47,9 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = lblCharInfo
         Left = 0
-        Height = 365
+        Height = 367
         Top = 0
-        Width = 426
+        Width = 434
         Anchors = [akTop, akLeft, akRight, akBottom]
         ColCount = 17
         DefaultColWidth = 16
@@ -58,21 +57,42 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
         RowCount = 15
         TabOrder = 0
         TitleStyle = tsNative
+        OnKeyUp = grdANSIKeyUp
         OnMouseDown = grdANSIMouseDown
         OnMouseMove = grdANSIMouseMove
+        OnSelectCell = grdANSISelectCell
+        ColWidths = (
+          16
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          39
+        )
       end
     end
     object tsUnicode: TTabSheet
       Caption = 'Unicode'
-      ClientHeight = 361
-      ClientWidth = 426
+      ClientHeight = 394
+      ClientWidth = 434
       object lblUnicodeCharInfo: TLabel
         AnchorSideLeft.Control = Owner
         AnchorSideTop.Control = cbxUnicodeRange
         AnchorSideTop.Side = asrCenter
         Left = 6
         Height = 15
-        Top = 336
+        Top = 369
         Width = 103
         BorderSpacing.Around = 6
         Caption = 'lblUnicodeCharInfo'
@@ -85,9 +105,9 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = cbxUnicodeRange
         Left = 0
-        Height = 326
+        Height = 359
         Top = 0
-        Width = 426
+        Width = 434
         Anchors = [akTop, akLeft, akRight, akBottom]
         ColCount = 16
         DefaultColWidth = 16
@@ -97,17 +117,19 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
         RowCount = 15
         TabOrder = 0
         TitleStyle = tsNative
+        OnKeyUp = grdUnicodeKeyUp
         OnMouseDown = grdUnicodeMouseDown
         OnMouseMove = grdUnicodeMouseMove
+        OnSelectCell = grdUnicodeSelectCell
       end
       object cbxUnicodeRange: TComboBox
         AnchorSideRight.Control = tsUnicode
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = tsUnicode
         AnchorSideBottom.Side = asrBottom
-        Left = 208
+        Left = 216
         Height = 23
-        Top = 332
+        Top = 365
         Width = 212
         Anchors = [akRight, akBottom]
         BorderSpacing.Around = 6
@@ -120,23 +142,39 @@ inherited frmCharacterMapDialog: TfrmCharacterMapDialog
     end
   end
   object pnlChar: TPanel[1]
-    Left = 0
+    Left = 4
     Height = 138
-    Top = 432
-    Width = 446
+    Top = 428
+    Width = 438
     Align = alBottom
-    BevelOuter = bvNone
+    BorderSpacing.Around = 4
+    BevelInner = bvSpace
+    BevelOuter = bvSpace
     ClientHeight = 138
-    ClientWidth = 446
+    ClientWidth = 438
+    Color = clWhite
+    ParentColor = False
     TabOrder = 1
+    object shpChar: TShape
+      Left = 2
+      Height = 134
+      Top = 2
+      Width = 434
+      Align = alClient
+      Brush.Style = bsClear
+      Pen.Color = clSilver
+      Pen.Width = 2
+    end
     object imgChar: TImage
-      Left = 0
-      Height = 138
-      Top = 0
-      Width = 446
+      Left = 6
+      Height = 126
+      Top = 6
+      Width = 426
       AntialiasingMode = amOn
       Align = alClient
+      BorderSpacing.Around = 4
       Center = True
+      Transparent = True
     end
   end
 end

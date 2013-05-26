@@ -62,7 +62,12 @@ const
   CDefaultDataType = dtString;
 
 type
+  TCanvas = Graphics.TCanvas;
+  TCustomImageList = ImgList.TCustomImageList;
+  TRect = Types.TRect;
+  TDrawMode = (dmBeforeCellPaint, dmAfterCellPaint, dmPaintText);
   TColumnDefinition = class;
+  TColumnDefinitions = class;
 
   TCustomDrawEvent = function(Sender: TObject; ColumnDefinition: TColumnDefinition;
     Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
@@ -105,12 +110,15 @@ type
     FSpacing: Integer;
     FVisible: Boolean;
     FWidth: Integer;
-
+    function GetCollection: TColumnDefinitions;
     procedure SetAutoSize(AValue: Boolean);
+    procedure SetCollection(const Value: TColumnDefinitions); reintroduce;
     procedure SetCaption(const Value: string);
     procedure SetMinWidth(AValue: Integer);
     procedure SetSortingDirection(AValue: TSortingDirection);
 
+    function GetDisplayName: string; override;
+    property Collection: TColumnDefinitions read GetCollection write SetCollection;
   public
     constructor Create(ACollection: TCollection); override;
     procedure Assign(Source: TPersistent); override;
@@ -231,23 +239,16 @@ begin
   FCaption := Value;
 end;
 
-procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
-var
-  i: Integer;
+
+
+function TColumnDefinition.GetCollection: TColumnDefinitions;
 begin
-  FAutoSize := AValue;
+  Result := TColumnDefinitions(inherited Collection);
+end;
 
-  if FAutoSize then
-  begin
-    for i := 0 to Collection.Count - 1 do
-    begin
-      if TColumnDefinition(Collection.Items[i]).AutoSize and (Collection.Items[i] <> Self) then
-      begin
-        TColumnDefinition(Collection.Items[i]).AutoSize := False;
-      end;
-    end;
-  end;
-
+function TColumnDefinition.GetDisplayName: string;
+begin
+  Result := FCaption;
 end;
 
 procedure TColumnDefinition.SetMinWidth(AValue: Integer);
@@ -284,6 +285,29 @@ begin
   begin
     inherited;
   end;
+end;
+
+procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
+var
+  i: Integer;
+begin
+  FAutoSize := AValue;
+
+  if FAutoSize then
+  begin
+    for i := 0 to Collection.Count - 1 do
+    begin
+      if Collection[i].AutoSize and (Collection[i] <> Self) then
+      begin
+        Collection[i].AutoSize := False;
+      end;
+    end;
+  end;
+end;
+
+procedure TColumnDefinition.SetCollection(const Value: TColumnDefinitions);
+begin
+  inherited Collection := Value;
 end;
 
 procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);

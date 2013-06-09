@@ -31,6 +31,8 @@ uses
   LResources,
 
   ts_Components_Docking, ts_Components_Docking_Storage,
+
+  ts_Core_Value,
   // for debugging
   sharedlogger,
 
@@ -200,8 +202,18 @@ var
   EV : IEditorEvents;
   V  : IEditorView;
   S  : string;
+
+
+  TV: TValue;
 begin
   inherited AfterConstruction;
+
+  //TV.AsString := 'Test';
+  //I := 33;
+  //TV.AsVariant := I;
+  //S := TV.AsString;
+  //Logger.Send(S);
+
   Manager.PersistSettings := True;
   mnuMain.Items.Clear;
   ConfigureAvailableActions;
@@ -615,6 +627,7 @@ begin
   InitDebugAction('actXMLTree');
   InitDebugAction('actShowHexEditor');
   InitDebugAction('actFindAllOccurences');
+  InitDebugAction('actShowPreview');
 end;
 
 procedure TfrmMain.UpdateCaptions;

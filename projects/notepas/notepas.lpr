@@ -20,9 +20,9 @@ uses
 
 begin
   Application.Title := 'Notepas';
-  //if FileExists('Notepas.trc') then
-  //  DeleteFile('Notepas.trc');
-  //SetHeapTraceOutput('Notepas.trc');
+  if FileExists('Notepas.trc') then
+    DeleteFile('Notepas.trc');
+  SetHeapTraceOutput('Notepas.trc');
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

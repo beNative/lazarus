@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="core;editor"/>
-        <OtherUnitFiles Value="editor;core;richeditor;components"/>
+        <OtherUnitFiles Value="editor;core;richeditor;components;..\pl_LuiControls\source\multilog"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <CodeGeneration>
@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="94">
+    <Files Count="96">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -425,6 +425,14 @@
         <Filename Value="editor\ts_editor_hexeditorform.pas"/>
         <UnitName Value="ts_Editor_HexEditorForm"/>
       </Item94>
+      <Item95>
+        <Filename Value="core\ts_core_value.pas"/>
+        <UnitName Value="ts_Core_Value"/>
+      </Item95>
+      <Item96>
+        <Filename Value="..\pl_LuiControls\source\multilog\ipcchannel.pas"/>
+        <UnitName Value="ipcchannel"/>
+      </Item96>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

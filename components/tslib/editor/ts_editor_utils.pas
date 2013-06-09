@@ -957,10 +957,12 @@ const
   MATCH_DELETE = 'delete (.|\n)*from (.|\n)*';
   MATCH_INSERT = 'insert (.|\n)*values[\s\n]+([\w,]+)';
 begin
-  Result := MatchRegExpr(AString, MATCH_SELECT, False)
-   or MatchRegExpr(AString, MATCH_UPDATE, False)
-   or MatchRegExpr(AString, MATCH_INSERT, False)
-   or MatchRegExpr(AString, MATCH_DELETE, False);
+  // TODO: optimize expressions
+  Result := False;
+  //Result := MatchRegExpr(AString, MATCH_SELECT, False);
+   //or MatchRegExpr(AString, MATCH_UPDATE, False)
+   //or MatchRegExpr(AString, MATCH_INSERT, False)
+   //or MatchRegExpr(AString, MATCH_DELETE, False);
 end;
 
 function IsLOG(const AString: string): Boolean;

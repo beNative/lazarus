@@ -609,7 +609,7 @@ type
     function GetRightEdgeColor: TColor;
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetSelectedColor: TSynSelectedColor;
-    function GetShowControlCharacters: Boolean;
+    function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
     function GetTabWidth: Integer;
     function GetWantTabs: Boolean;
@@ -643,7 +643,7 @@ type
     procedure SetRightEdgeColor(AValue: TColor);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetSelectedColor(AValue: TSynSelectedColor);
-    procedure SetShowControlCharacters(const AValue: Boolean);
+    procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetTabWidth(AValue: Integer);
     procedure SetWantTabs(AValue: Boolean);
@@ -674,8 +674,8 @@ type
     property PreviewVisible: Boolean
       read GetPreviewVisible write SetPreviewVisible;
 
-    property ShowControlCharacters: Boolean
-      read GetShowControlCharacters write SetShowControlCharacters;
+    property ShowSpecialCharacters: Boolean
+      read GetShowSpecialCharacters write SetShowSpecialCharacters;
 
     property AutoFormatXML: Boolean
       read GetAutoFormatXML write SetAutoFormatXML;

@@ -27,8 +27,6 @@ interface
 uses
   Classes, SysUtils, Forms, ActnList, Menus, Contnrs, ExtCtrls,
 
-  ButtonPanel,
-
   VirtualTrees,
 
   ts_Core_TreeViewPresenter,
@@ -57,7 +55,7 @@ type
     procedure FTVPSelectionChanged(Sender: TObject);
 
   protected
-    procedure UpdateView;
+    procedure UpdateView; override;
     procedure UpdateActions; override;
     procedure Refresh;
 

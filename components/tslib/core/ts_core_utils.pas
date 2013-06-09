@@ -149,8 +149,10 @@ function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
 
  // Variants and TVarRec conversions
 
+function VariantToTypedVarRec(const Item: Variant; VarType: TVarType): TVarRec;
 procedure VariantToVarRec(    AVariant     : Variant;
                           var AVarRecArray : TVarRecArray);
+function VariantToVarRec(const Item: Variant): TVarRec;
 procedure ClearVarRec(var AVarRecArray : TVarRecArray);
 
 function VarRecToVariant(const AVarRec : TVarRec): Variant;
@@ -167,7 +169,7 @@ function VarAsTypeDef(const AValue    : Variant;
 procedure OleVarFromVariant(var   AOleVariant : OleVariant;
                             const AVariant    : Variant);
 
-function GetVariantTypeName(const AVariant : Variant): string;
+function GetVariantTypeName(const AVariant: Variant): string;
 
 function VariantCompare(AVariant1, AVariant2 : Variant) : Boolean;
 
@@ -224,6 +226,7 @@ uses
 {$ifdef windows}
   ActiveX, ShlObj, Registry,
 {$endif}
+  //sharedlogger,
   Variants, ActnList;
 
 //=============================================================================
@@ -604,22 +607,29 @@ end;
 function GetVariantTypeName(const AVariant: Variant): string;
 begin
   case VarType(AVariant) and varTypeMask of
-   varEmpty:    Result := 'varEmpty';
-   varNull:     Result := 'varNull';
-   varSmallint: Result := 'varSmallint';
-   varInteger:  Result := 'varInteger';
-   varSingle:   Result := 'varSingle';
-   varDouble:   Result := 'varDouble';
-   varCurrency: Result := 'varCurrency';
-   varDate:     Result := 'varDate';
-   varOleStr:   Result := 'varOleStr';
-   varDispatch: Result := 'varDispatch';
-   varError:    Result := 'varError';
-   varBoolean:  Result := 'varBoolean';
-   varVariant:  Result := 'varVariant';
-   varUnknown:  Result := 'varUnknown';
-   varByte:     Result := 'varByte';
-   varString:   Result := 'varString';
+    varEmpty:    Result := 'varEmpty';
+    varNull:     Result := 'varNull';
+    varSmallint: Result := 'varSmallint';
+    varInteger:  Result := 'varInteger';
+    varSingle:   Result := 'varSingle';
+    varDouble:   Result := 'varDouble';
+    varCurrency: Result := 'varCurrency';
+    varDate:     Result := 'varDate';
+    varOleStr:   Result := 'varOleStr';
+    varDispatch: Result := 'varDispatch';
+    varError:    Result := 'varError';
+    varBoolean:  Result := 'varBoolean';
+    varVariant:  Result := 'varVariant';
+    varUnknown:  Result := 'varUnknown';
+    varByte:     Result := 'varByte';
+    varString:   Result := 'varString';
+    varDecimal:  Result := 'varDecimal';
+    varShortInt: Result := 'varShortInt';
+    varWord:     Result := 'varWord';
+    varLongWord: Result := 'varLongWord';
+    varInt64:    Result := 'varInt64';
+    varQWord:    Result := 'varQWord';
+    varRecord:   Result := 'varRecord';
    else
      Result := 'Unkown Variant Type';
   end;
@@ -645,8 +655,8 @@ var
 begin
   Result := Null;
   if AString <> '' then
-    if AString[1] = '''' then
-      Result := Copy(AString, 2, Length(AString) - 2)
+    if IsCharAlpha(AString[1]) then
+      Result := AString
     else
     begin
       Val(AString, I, K);
@@ -764,6 +774,78 @@ begin
     Result := VarAsType(AValue, AVarType)
   else
     Result := ADefValue;
+end;
+
+function VariantToVarRec(const Item: Variant): TVarRec;
+begin
+  Result:=VariantToTypedVarRec(Item, TVarData(Item).VType);
+end;
+
+function VariantToTypedVarRec(const Item: Variant; VarType: TVarType): TVarRec;
+var
+  W: WideString;
+begin
+  case VarType of
+    varInteger, varSmallint, varShortInt, varByte, varWord, varLongWord:
+      begin
+        Result.VType:=vtInteger;
+        Result.VInteger:=Item;
+      end;
+    varNull, varUnknown, varEmpty:
+      begin
+        Result.VType:=vtInteger;
+        Result.VInteger:=0;
+      end;
+    varBoolean:
+      begin
+        Result.VType:=vtBoolean;
+        Result.VBoolean:=Item;
+      end;
+    varDouble, varSingle:
+      begin
+        Result.VType:=vtExtended;
+        New(Result.VExtended);
+        Result.VExtended^ := Item;
+      end;
+    varString:
+      begin
+        Result.VType:=vtString;
+        New(Result.VString);
+        Result.VString^ := ShortString(Item);
+      end;
+    varCurrency:
+      begin
+        Result.VType:=vtCurrency;
+        New(Result.VCurrency);
+        Result.VCurrency^ := Item;
+      end;
+    varVariant:
+      begin
+        Result.VType:=vtVariant;
+        New(Result.VVariant);
+        Result.VVariant^ := Item;
+      end;
+    varOleStr:
+      begin
+        Result.VType:=vtWideString;
+        Result.VWideString := nil;
+        WideString(Result.VWideString) := WideString(Item);
+      end;
+    varInt64:
+      begin
+        Result.VType:=vtInt64;
+        New(Result.VInt64);
+        Result.VInt64^ := Item;
+      end;
+    {$IFDEF UNICODE}
+    varUString:
+      begin
+        Result.VType:=vtUnicodeString;
+        Result.VUnicodeString:=nil;
+        UnicodeString(Result.VUnicodeString) := UnicodeString(Item);
+      end;
+    {$ENDIF}
+  end;
 end;
 
 procedure VariantToVarRec(AVariant: Variant; var AVarRecArray: TVarRecArray);
@@ -896,17 +978,16 @@ begin
   Result := S;
 end;
 
-
-
 function VarRecToVariant(const AVarRec: TVarRec): Variant;
 begin
   with AVarRec do
     case VType of
       vtInteger,
       vtObject     : Result := VInteger;
+      vtInt64      : Result := VInt64^;
       vtBoolean    : Result := VBoolean;
-      vtExtended,
-      vtCurrency   : Result := VExtended^;
+      vtExtended   : Result := VExtended^;
+      vtCurrency   : Result := VCurrency^;
       vtChar       : Result := VChar;
       vtString     : Result := VString^;
       vtAnsiString : Result := string(VAnsiString);
@@ -916,8 +997,6 @@ begin
     end;
 end;
 
-
-
 procedure ChangeOwner(AComponent, ANewOwner: TComponent);
 begin
   if Assigned(AComponent) and Assigned(ANewOwner) then
@@ -926,8 +1005,6 @@ begin
     ANewOwner.InsertComponent(AComponent);
   end;
 end;
-
-
 
 function Unformat(const ASource, APattern: string; const AArgs: array of const)
   : Integer;

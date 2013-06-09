@@ -122,7 +122,7 @@ type
     function GetRightEdgeColor: TColor;
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetSelectedColor: TSynSelectedColor;
-    function GetShowControlCharacters: Boolean;
+    function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
     function GetTabWidth: Integer;
     function GetWantTabs: Boolean;
@@ -157,7 +157,7 @@ type
     procedure SetRightEdgeColor(AValue: TColor);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetSelectedColor(AValue: TSynSelectedColor);
-    procedure SetShowControlCharacters(const AValue: Boolean);
+    procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetTabWidth(AValue: Integer);
     procedure SetWantTabs(AValue: Boolean);
@@ -210,8 +210,8 @@ type
     property AutoGuessHighlighterType: Boolean
       read GetAutoGuessHighlighterType write SetAutoGuessHighlighterType default True;
 
-    property ShowControlCharacters: Boolean
-      read GetShowControlCharacters write SetShowControlCharacters default False;
+    property ShowSpecialCharacters: Boolean
+      read GetShowSpecialCharacters write SetShowSpecialCharacters default False;
 
     { Determines if the application can be closed with the ESCAPE key. }
     property CloseWithESC: Boolean
@@ -790,14 +790,14 @@ begin
   FSearchEngineSettings := AValue;
 end;
 
-function TEditorSettings.GetShowControlCharacters: Boolean;
+function TEditorSettings.GetShowSpecialCharacters: Boolean;
 begin
   Result := FShowControlCharacters;
 end;
 
-procedure TEditorSettings.SetShowControlCharacters(const AValue: Boolean);
+procedure TEditorSettings.SetShowSpecialCharacters(const AValue: Boolean);
 begin
-  if AValue <> ShowControlCharacters then
+  if AValue <> ShowSpecialCharacters then
   begin
     FShowControlCharacters := AValue;
     Changed;
@@ -894,7 +894,7 @@ begin
       Reader := TsdXmlObjectReader.Create;
       try
         Reader.ReadComponent(Doc.Root, Self, nil);
-        Logger.Send('Settings LOAD', ObjectSaveToXmlString(Self));
+        //Logger.Send('Settings LOAD', ObjectSaveToXmlString(Self));
       finally
         FreeAndNil(Reader);
       end;
@@ -916,7 +916,7 @@ begin
   try
     Writer := TsdXmlObjectWriter.Create;
     try
-      Logger.Send('Settings SAVE', ObjectSaveToXmlString(Self));
+      //Logger.Send('Settings SAVE', ObjectSaveToXmlString(Self));
       Doc.XmlFormat := xfReadable;
       Writer.WriteComponent(Doc.Root, Self);
       Doc.SaveToFile(S);

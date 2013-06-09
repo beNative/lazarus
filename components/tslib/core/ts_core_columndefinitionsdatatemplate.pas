@@ -27,7 +27,7 @@
   POSSIBILITY OF SUCH DAMAGE.
 *)
 
-{ Added by Tim Sinaeve: GetValueForProperty }
+{ Added by Tim Sinaeve: GetValueForProperty and SetValueForProperty}
 
 unit ts_Core_ColumnDefinitionsDataTemplate;
 
@@ -36,7 +36,7 @@ unit ts_Core_ColumnDefinitionsDataTemplate;
 interface
 
 uses
-  ts_Core_DataTemplates, ts_Core_ColumnDefinitions;
+  ts_Core_Value, ts_Core_DataTemplates, ts_Core_ColumnDefinitions;
 
 type
   TColumnDefinitionsDataTemplate = class(TDataTemplate)
@@ -47,10 +47,18 @@ type
 
     function CustomDraw(const Item: TObject; const ColumnIndex: Integer;
       TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
-      DrawMode: TDrawMode): Boolean; override;
+      DrawMode: TDrawMode; IsSelected: Boolean): Boolean; override;
 
     function GetText(const Item: TObject; const ColumnIndex: Integer): string; override;
-    function GetValueForProperty(const Item: TObject; const APropertyName: string): Variant; virtual;
+    function GetValue(const Item: TObject; const ColumnIndex: Integer
+       ): TValue; override;
+    procedure SetText(const Item: TObject; const ColumnIndex: Integer;
+       const Value: string); override;
+    procedure SetValue(const Item: TObject; const ColumnIndex: Integer;
+       const Value: TValue); override;
+    function GetValueForProperty(const Item: TObject; const APropertyName: string): TValue; virtual;
+    procedure SetValueForProperty(const Item: TObject; const APropertyName: string;
+      const AValue: TValue); virtual;
 
     property ColumnDefinitions: TColumnDefinitions
       read FColumnDefinitions;
@@ -59,7 +67,11 @@ type
 implementation
 
 uses
-  TypInfo, Variants;
+  TypInfo, Variants,
+
+  sharedlogger,
+
+  ts_Core_Utils;
 
 { TColumnDefinitionsDataTemplate }
 
@@ -72,7 +84,8 @@ end;
 
 function TColumnDefinitionsDataTemplate.CustomDraw(const Item: TObject;
   const ColumnIndex: Integer; TargetCanvas: TCanvas; CellRect: TRect;
-  ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
+  ImageList: TCustomImageList; DrawMode: TDrawMode; IsSelected: Boolean
+  ): Boolean;
 var
   CD: TColumnDefinition;
 begin
@@ -83,7 +96,7 @@ begin
     if Assigned(CD.OnCustomDraw) then
     begin
       Result := CD.OnCustomDraw(FColumnDefinitions.Owner, CD, Item,
-        TargetCanvas, CellRect, ImageList, DrawMode, True);
+        TargetCanvas, CellRect, ImageList, DrawMode, IsSelected);
     end
     else
     begin
@@ -98,6 +111,20 @@ end;
 
 function TColumnDefinitionsDataTemplate.GetText(const Item: TObject;
   const ColumnIndex: Integer): string;
+begin
+  if Assigned(Item) and Assigned(FColumnDefinitions)
+    and (ColumnIndex < FColumnDefinitions.Count) and (ColumnIndex > -1) then
+  begin
+    Result := GetValue(Item, ColumnIndex);
+  end
+  else
+  begin
+    Result := inherited;
+  end;
+end;
+
+function TColumnDefinitionsDataTemplate.GetValue(const Item: TObject;
+  const ColumnIndex: Integer): TValue;
 var
   CD: TColumnDefinition;
 begin
@@ -114,7 +141,10 @@ begin
       end
       else
       begin
-        Result := VarToStrDef(GetValueForProperty(Item, CD.Name), '');
+        //Logger.Send(CD.Name);
+        //Logger.Send(GetValueForProperty(Item, CD.Name).AsString);
+        Result := GetValueForProperty(Item, CD.Name);
+        Logger.Send(GetValueForProperty(Item, CD.Name).AsString);
       end;
     end;
   end
@@ -124,13 +154,74 @@ begin
   end;
 end;
 
-function TColumnDefinitionsDataTemplate.GetValueForProperty(const Item: TObject;
-  const APropertyName: string): Variant;
+procedure TColumnDefinitionsDataTemplate.SetText(const Item: TObject;
+  const ColumnIndex: Integer; const Value: string);
+var
+  CD: TColumnDefinition;
+begin
+  if Assigned(Item) and Assigned(FColumnDefinitions)
+    and (ColumnIndex < FColumnDefinitions.Count) and (ColumnIndex > -1) then
+  begin
+    CD := TColumnDefinition(FColumnDefinitions[ColumnIndex]);
+    if Assigned(CD) then
+    begin
+      if Assigned(CD.OnSetText) then
+      begin
+        CD.OnSetText(FColumnDefinitions.Owner, CD, Item, Value);
+      end
+      else
+      begin
+        //SetValueForProperty(Item, CD.Name, Value);
+      end;
+    end;
+  end
+  else
+    inherited SetText(Item, ColumnIndex, Value);
+end;
+
+procedure TColumnDefinitionsDataTemplate.SetValue(const Item: TObject;
+  const ColumnIndex: Integer; const Value: TValue);
+var
+  CD: TColumnDefinition;
+begin
+  if Assigned(Item) and Assigned(FColumnDefinitions)
+    and (ColumnIndex < FColumnDefinitions.Count) and (ColumnIndex > -1) then
+  begin
+    CD := TColumnDefinition(FColumnDefinitions[ColumnIndex]);
+    if Assigned(CD) then
+    begin
+      if Assigned(CD.OnSetText) then
+      begin
+        CD.OnSetText(FColumnDefinitions.Owner, CD, Item, Value.AsString);
+      end
+      else
+      begin
+        SetValueForProperty(Item, CD.Name, Value);
+      end;
+    end;
+  end
+  else
+    inherited SetValue(Item, ColumnIndex, Value);
+end;
+
+function TColumnDefinitionsDataTemplate.GetValueForProperty(
+  const Item: TObject; const APropertyName: string): TValue;
 begin
   if Assigned(Item) and IsPublishedProp(Item, APropertyName) then
-    Result := GetPropValue(Item, APropertyName, True)
+  begin
+    //Logger.Send(APropertyName, VarToStrDef(GetPropValue(Item, APropertyName, False), ''));
+    Result := GetPropValue(Item, APropertyName, False);
+    Logger.Send(APropertyName, Result.ToString);
+  end
   else
-    Result := '';
+    Result := TValue.Null;
+end;
+
+procedure TColumnDefinitionsDataTemplate.SetValueForProperty(
+  const Item: TObject; const APropertyName: string; const AValue: TValue);
+begin
+  if Assigned(Item) and IsPublishedProp(Item, APropertyName) then
+    SetPropValue(Item, APropertyName, AValue);
 end;
 
 end.

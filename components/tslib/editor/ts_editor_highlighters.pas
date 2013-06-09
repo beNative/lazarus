@@ -458,8 +458,8 @@ procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
 var
   HI : THighlighterItem;
 begin
-  Logger.Send('RegisterHighlighter', AName);
-  Logger.Send('Layout', ALayoutFileName);
+  //Logger.Send('RegisterHighlighter', AName);
+  //Logger.Send('Layout', ALayoutFileName);
   HI := Find(AName);
   if not Assigned(HI) then
   begin

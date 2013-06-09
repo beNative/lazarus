@@ -36,8 +36,7 @@ unit ts_Editor_SearchForm;
 interface
 
 uses
-  SysUtils, StdCtrls, Forms, Buttons, ExtCtrls, Grids, ComCtrls, ActnList,
-  Classes,
+  SysUtils, StdCtrls, Forms, Buttons, ExtCtrls, Grids, ActnList, Classes,
 
   LResources,
 
@@ -160,10 +159,7 @@ type
 implementation
 
 uses
-{$ifdef windows}
-  Windows,
-{$endif}
-  LCLIntf, LMessages,
+  LCLIntf,
 
   ts_Core_ColumnDefinitions, ts_Core_Helpers,
 

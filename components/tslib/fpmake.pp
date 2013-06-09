@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 22/05/2013
+   This file was generated on 9/06/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -65,6 +65,7 @@ begin
     P.Options.Add('-Fucore');
     P.Options.Add('-Furicheditor');
     P.Options.Add('-Fucomponents');
+    P.Options.Add('-Fu../pl_LuiControls/source/multilog');
     P.Options.Add('-Fu../../packager/units/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../lazutils/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../pl_Synapse/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
@@ -79,7 +80,7 @@ begin
     P.Options.Add('-Fu../pl_lclextensions/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../richmemo/lib/$(CPU_TARGET)-$(OS_TARGET)');
     P.Options.Add('-Fu../synedit/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
-    P.Options.Add('-Fu../../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
+    P.Options.Add('-Fu../ideintf/units/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../pl_VirtualTrees/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../printers/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
     P.Options.Add('-Fu../tdbf/lib/$(CPU_TARGET)-$(OS_TARGET)/$(LCL_PLATFORM)');
@@ -175,6 +176,8 @@ begin
     t.Dependencies.AddUnit('ts_editor_codetags');
     t.Dependencies.AddUnit('ts_editor_htmlviewform');
     t.Dependencies.AddUnit('ts_editor_hexeditorform');
+    t.Dependencies.AddUnit('ts_core_value');
+    t.Dependencies.AddUnit('ipcchannel');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -255,6 +258,8 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_codetags.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_htmlviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_hexeditorform.pas');
+    T:=P.Targets.AddUnit('core\ts_core_value.pas');
+    T:=P.Targets.AddUnit('..\pl_LuiControls\source\multilog\ipcchannel.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

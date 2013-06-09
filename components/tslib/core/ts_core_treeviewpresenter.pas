@@ -49,7 +49,7 @@ uses
 {$ifdef windows}
   ActiveX,
 {$endif}
-  ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
+  ts_Core_Value, ts_Core_ColumnDefinitions, ts_Core_DataTemplates,
 
   VirtualTrees;
 
@@ -224,7 +224,7 @@ type
     procedure DoMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure DoNewText(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; NewText: string);
+      Column: TColumnIndex; const NewText: string);
     procedure DoNodeMoved(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure DoPaintText(Sender: TBaseVirtualTree; const TargetCanvas: TCanvas;
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType);
@@ -574,42 +574,41 @@ procedure TTreeViewPresenter.DoAfterCellPaint(Sender: TBaseVirtualTree;
 var
   LItem: TObject;
   LDataTemplate: IDataTemplate;
-  LControlTemplate: IControlTemplate;
+//  LControlTemplate: IControlTemplate;
   B: Boolean;
 begin
   LItem := GetNodeItem(Sender, Node);
   LDataTemplate := GetItemTemplate(LItem);
-  if Supports(LDataTemplate, IControlTemplate, LControlTemplate) then
+  //if Supports(LDataTemplate, IControlTemplate, LControlTemplate) then
+  //begin
+  //  LControlTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, ImageList,
+  //    dmAfterCellPaint, Sender.Selected[Node]);
+  //end;
+  if ColumnDefinitions[Column].ColumnType = TColumnType.ctCheckBox then
   begin
-    LControlTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, ImageList,
+    B := LDataTemplate.GetText(LItem, Column) = '1';
+    DrawCheckBox(TargetCanvas, Node, Column, CellRect, B);
+  end
+  else
+  begin
+    LDataTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, FImageList,
       dmAfterCellPaint, Sender.Selected[Node]);
-  end;
-    if ColumnDefinitions[Column].ColumnType = TColumnType.ctCheckBox then
-    begin
-      B := LItemTemplate.GetText(LItem, Column) = '1';
-      DrawCheckBox(TargetCanvas, Node, Column, CellRect, B);
-    end
-    else
-    begin
-      LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, FImageList,
-        dmAfterCellPaint);
-    end;
   end;
 end;
 
 procedure TTreeViewPresenter.DoBeforeCellPaint(Sender: TBaseVirtualTree;
   TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
   CellPaintMode: TVTCellPaintMode; CellRect: TRect; var ContentRect: TRect);
-var
-  LItem: TObject;
-  LItemTemplate: IControlTemplate;
+//var
+//  LItem: TObject;
+//  LItemTemplate: IControlTemplate;
 begin
-  LItem := GetNodeItem(Sender, Node);
-  if Supports(GetItemTemplate(LItem), IControlTemplate, LItemTemplate) then
-  begin
-    LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, ImageList,
-      dmBeforeCellPaint, Sender.Selected[Node]);
-  end;
+  //LItem := GetNodeItem(Sender, Node);
+  //if Supports(GetItemTemplate(LItem), IControlTemplate, LItemTemplate) then
+  //begin
+  //  LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, ImageList,
+  //    dmBeforeCellPaint, Sender.Selected[Node]);
+  //end;
 end;
 
 procedure TTreeViewPresenter.DoChange(Sender: TBaseVirtualTree;
@@ -945,7 +944,7 @@ end;
 procedure TTreeViewPresenter.DoFilterNode(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
-  i: Integer;
+  //i: Integer;
   LItem: TObject;
   LAccepted: Boolean;
 
@@ -954,27 +953,27 @@ var
     Result := Node.ChildCount = 0;
   end;
 
-  function IsNodeWithNonFilteredChildren(Node: PVirtualNode): Boolean;
-  begin
-    Result := False;
-    Node := Sender.GetFirstChild(Node);
-    while Assigned(Node) do
-    begin
-      if not (vsFiltered in Node.States) then
-      begin
-        Result := True;
-        Break;
-      end;
-      Node := Sender.GetNextSibling(Node);
-    end;
-  end;
+  //function IsNodeWithNonFilteredChildren(Node: PVirtualNode): Boolean;
+  //begin
+  //  Result := False;
+  //  Node := Sender.GetFirstChild(Node);
+  //  while Assigned(Node) do
+  //  begin
+  //    if not (vsFiltered in Node.States) then
+  //    begin
+  //      Result := True;
+  //      Break;
+  //    end;
+  //    Node := Sender.GetNextSibling(Node);
+  //  end;
+  //end;
 
 begin
   LItem := GetNodeItem(Sender, Node);
-  case FFilterDirection of
-    fdRootToLeafs: LAccepted := True;
-    fdLeafsToRoot: LAccepted := IsLeaf(Node) or IsNodeWithNonFilteredChildren(Node);
-  end;
+  //case FFilterDirection of
+  //  fdRootToLeafs: LAccepted := True;
+  //  fdLeafsToRoot: LAccepted := IsLeaf(Node) or IsNodeWithNonFilteredChildren(Node);
+  //end;
 
   if Assigned(FOnFilter) then
     FOnFilter(LItem, LAccepted);
@@ -1417,8 +1416,8 @@ begin
         if IsMouseInCheckBox(LHitInfo.HitNode, LHitInfo.HitColumn)
           and FChecking and LColumnDefinition.AllowEdit then
         begin
-          //LItemTemplate.SetValue(LItem, LHitInfo.HitColumn,
-          //  not LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsBoolean);
+          LItemTemplate.SetValue(LItem, LHitInfo.HitColumn,
+            not LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsBoolean);
         end;
 
         if (hiOnNormalIcon in FHitInfo.HitPositions)
@@ -1439,7 +1438,7 @@ begin
 end;
 
 procedure TTreeViewPresenter.DoNewText(Sender: TBaseVirtualTree;
-  Node: PVirtualNode; Column: TColumnIndex; NewText: string);
+  Node: PVirtualNode; Column: TColumnIndex; const NewText: string);
 var
   LItem: TObject;
   LItemTemplate: IDataTemplate;
@@ -1492,7 +1491,7 @@ begin
   if Assigned(LItemTemplate) then
   begin
     LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CDefaultCellRect,
-      FImageList, dmPaintText);
+      FImageList, dmPaintText, Sender.Selected[Node]);
   end;
 end;
 
@@ -2051,7 +2050,7 @@ begin
     FTreeView.OnMouseDown := DoMouseDown;
     FTreeView.OnMouseMove := DoMouseMove;
     FTreeView.OnMouseUp := DoMouseUp;
-    //FTreeView.OnNewText := DoNewText;
+    FTreeView.OnNewText := DoNewText;
     FTreeView.OnNodeMoved := DoNodeMoved;
     FTreeView.OnPaintText := DoPaintText;
   end;
@@ -2610,8 +2609,8 @@ begin
     if Assigned(LItemTemplate) and LColumnDefinition.AllowEdit
       and (LColumnDefinition.ColumnType = TColumnType.ctCheckBox) then
     begin
-      //LItemTemplate.SetValue(LItem, FTreeView.FocusedColumn,
-      //  not LItemTemplate.GetValue(LItem, FTreeView.FocusedColumn).AsBoolean);
+      LItemTemplate.SetValue(LItem, FTreeView.FocusedColumn,
+        not LItemTemplate.GetValue(LItem, FTreeView.FocusedColumn).AsBoolean);
       Result := True;
     end;
   end;
@@ -2625,17 +2624,17 @@ var
   LColumnDefinition: TColumnDefinition;
   //LValue: TValue;
 
-  //procedure ToggleValue;
-  //begin
-  //  if LValue.AsOrdinal < LValue.TypeData.MaxValue then
-  //  begin
-  //    TValue.Make(LValue.AsOrdinal + 1, LValue.TypeInfo, LValue);
-  //  end
-  //  else
-  //  begin
-  //    TValue.Make(LValue.TypeData.MinValue, LValue.TypeInfo, LValue);
-  //  end;
-  //end;
+  procedure ToggleValue;
+  begin
+    //if LValue.AsOrdinal < LValue.TypeData.MaxValue then
+    //begin
+    //  TValue.Make(LValue.AsOrdinal + 1, LValue.TypeInfo, LValue);
+    //end
+    //else
+    //begin
+    //  TValue.Make(LValue.TypeData.MinValue, LValue.TypeInfo, LValue);
+    //end;
+  end;
 
 begin
   LItem := GetNodeItem(FTreeView, Node);

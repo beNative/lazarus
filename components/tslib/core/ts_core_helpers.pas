@@ -62,7 +62,7 @@ procedure AssignFormParent(
 implementation
 
 uses
-  Graphics, TypInfo, GraphUtil,
+  Graphics, TypInfo,
 
   ObjectInspector,
 
@@ -162,9 +162,9 @@ const
     toThemeAware,
     { Enable alpha blending for ghosted nodes or those which are being
       cut/copied. }
-    toUseBlendedImages,
+    toUseBlendedImages//,
     { Enable alpha blending for node selections. }
-    toUseBlendedSelection
+//    toUseBlendedSelection
   ];
   DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
@@ -299,6 +299,7 @@ begin
   VST.TreeOptions.StringOptions    := DEFAULT_VST_STRINGOPTIONS;
   VST.TreeOptions.AnimationOptions := DEFAULT_VST_ANIMATIONOPTIONS;
   VST.TreeOptions.AutoOptions      := DEFAULT_VST_AUTOOPTIONS;
+  //VST.Colors.;
 
   //VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
   Result := VST;

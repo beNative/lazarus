@@ -27,8 +27,6 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ExtCtrls, ActnList, ComCtrls, Contnrs,
 
-  ButtonPanel,
-
   VirtualTrees,
 
   ts_Core_TreeViewPresenter,
@@ -100,7 +98,9 @@ uses
 
   LCLProc,
 
-  ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate,
+  sharedlogger,
+
+  ts_Core_Value, ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate,
   ts_Core_Helpers;
 
 {$region 'TActionListTemplate' /fold}
@@ -113,7 +113,7 @@ type
     function GetValueForProperty(
       const Item          : TObject;
       const APropertyName : string
-    ): Variant; override;
+    ): TValue; override;
   end;
 
 function TActionListTemplate.GetImageIndex(const Item: TObject;
@@ -137,12 +137,15 @@ begin
 end;
 
 function TActionListTemplate.GetValueForProperty(const Item: TObject;
-  const APropertyName: string): Variant;
+  const APropertyName: string): TValue;
 begin
   Result := inherited GetValueForProperty(Item, APropertyName);
   if SameText(APropertyName, 'Shortcut') then
   begin
-    Result := ShortCutToText(Result);
+    //if not Result.IsEmpty then
+    //begin
+    //  Result := ShortCutToText(TShortCut(Result.AsInteger));
+    //end;
   end;
 end;
 {$endregion}
@@ -153,11 +156,11 @@ type
     function GetValueForProperty(
       const Item          : TObject;
       const APropertyName : string
-    ): Variant; override;
+    ): TValue; override;
   end;
 
 function TKeyStrokeTemplate.GetValueForProperty(const Item: TObject;
-  const APropertyName: string): Variant;
+  const APropertyName: string): TValue;
 var
   C: TSynEditorCommand;
   S : string;
@@ -177,7 +180,7 @@ begin
   end
   else if AnsiMatchText(APropertyName, ['Shortcut', 'Shortcut2']) then
   begin
-    Result := ShortCutToText(Result);
+    Result := ShortCutToText(TShortCut(Result.AsInteger));
   end;
 end;
 {$endregion}
@@ -188,11 +191,11 @@ type
     function GetValueForProperty(
       const Item          : TObject;
       const APropertyName : string
-    ): Variant; override;
+    ): TValue; override;
   end;
 
 function TMouseActionTemplate.GetValueForProperty(const Item: TObject;
-  const APropertyName: string): Variant;
+  const APropertyName: string): TValue;
 var
   C: TSynEditorMouseCommand;
 begin
@@ -226,14 +229,19 @@ begin
   FTVPActions.ColumnDefinitions.AddColumn('Category', dtString, 100);
   FTVPActions.ColumnDefinitions.AddColumn('Caption', dtString, 120, 100, 200);
   FTVPActions.ColumnDefinitions.AddColumn('Shortcut', dtString, 100);
-  FTVPActions.ColumnDefinitions.AddColumn('Hint', dtString, 200, 200, 400);
+  with FTVPActions.ColumnDefinitions.AddColumn('Hint', dtString, 200, 200, 400) do
+  begin
+    AllowEdit := True;
+  end;
   with FTVPActions.ColumnDefinitions.AddColumn('Visible', dtString, 50) do
   begin
     ColumnType := TColumnType.ctCheckBox;
+    AllowEdit := True;
   end;
-  with FTVPActions.ColumnDefinitions.AddColumn('Enabled', dtString, 50) do
+  with FTVPActions.ColumnDefinitions.AddColumn('Enabled', dtString, 55) do
   begin
     ColumnType := TColumnType.ctCheckBox;
+    AllowEdit := True;
   end;
 
   FTVPCommands := TTreeViewPresenter.Create(Self);

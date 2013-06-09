@@ -1321,7 +1321,7 @@ end;
 
 procedure TEditorView.ApplySettings;
 begin
-  ShowSpecialChars := Settings.ShowControlCharacters;
+  ShowSpecialChars := Settings.ShowSpecialCharacters;
   EditorFont       := Settings.EditorFont;
 
   Editor.ExtraLineSpacing      := Settings.ExtraLineSpacing;
@@ -1344,7 +1344,7 @@ begin
   // block selection color
   Editor.SelectedColor.Background      := clLtGray;
   Editor.SelectedColor.Foreground      := clNone;
-  Editor.SelectedColor.MergeFinalStyle := True;
+//  Editor.SelectedColor.MergeFinalStyle := True;
 
   Editor.BracketMatchColor.Background := clAqua;
   Editor.BracketMatchColor.FrameColor := clGray;
@@ -1360,7 +1360,7 @@ begin
   Editor.HighlightAllColor.FrameStyle := slsSolid;
   Editor.HighlightAllColor.FrameEdges := sfeAround;
   Editor.HighlightAllColor.Foreground := clNone;
-  Editor.HighlightAllColor.MergeFinalStyle := True;
+//  Editor.HighlightAllColor.MergeFinalStyle := True;
 
   // highlight current line
   Editor.LineHighlightColor.Background := $009FFFFF; // yellow
@@ -1368,7 +1368,7 @@ begin
   Editor.LineHighlightColor.Foreground := clNone;
   Editor.LineHighlightColor.FrameStyle := slsWaved;
   Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
-  Editor.LineHighlightColor.MergeFinalStyle := True;
+//  Editor.LineHighlightColor.MergeFinalStyle := True;
 end;
 
 {
@@ -2194,7 +2194,7 @@ begin
     LineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];
     S := ExtractFileExt(AFileName);
     S := System.Copy(S, 2, Length(S));
-    Logger.Send('Extension', S);
+    //Logger.Send('Extension', S);
     try
       if FileIsText(FileName) then
         AssignHighlighterForFileType(S);

@@ -27,6 +27,11 @@
   POSSIBILITY OF SUCH DAMAGE.
 *)
 
+{
+  Modifications by Tim Sinaeve
+  - Added CustomDraw
+}
+
 unit ts_Core_DataTemplates;
 
 {$mode delphi}
@@ -34,7 +39,9 @@ unit ts_Core_DataTemplates;
 interface
 
 uses
-  Graphics, ImgList, Types, Contnrs;
+  Graphics, ImgList, Types, Contnrs,
+
+  ts_Core_Value;
 
 type
   TCanvas          = Graphics.TCanvas;
@@ -49,9 +56,10 @@ type
   IDataTemplate = interface
     // methods to display items
     function CustomDraw(const Item: TObject; const ColumnIndex: Integer;
-      TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
-      DrawMode: TDrawMode): Boolean;
+              TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
+              DrawMode: TDrawMode; IsSelected: Boolean): Boolean;
     function GetImageIndex(const Item: TObject; const ColumnIndex: Integer): Integer;
+    function GetHint(const Item: TObject; const ColumnIndex: Integer): string;
     function GetText(const Item: TObject; const ColumnIndex: Integer): string;
     function GetValue(const Item: TObject; const ColumnIndex: Integer): TValue;
 
@@ -84,8 +92,10 @@ type
     destructor Destroy; override;
 
     function CustomDraw(const Item: TObject; const ColumnIndex: Integer;
-      TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
-      DrawMode: TDrawMode): Boolean; virtual;
+          TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
+          DrawMode: TDrawMode; IsSelected: Boolean): Boolean; virtual;
+    function GetHint(const Item: TObject;
+      const ColumnIndex: Integer): string; virtual;
     function GetImageIndex(const Item: TObject;
       const ColumnIndex: Integer): Integer; virtual;
     function GetText(const Item: TObject;
@@ -110,46 +120,6 @@ type
     procedure RegisterDataTemplate(const DataTemplate: IDataTemplate);
   end;
 
-  TDataTemplate<T: class> = class(TDataTemplate)
-  public
-    function GetHint(const Item: TObject;
-      const ColumnIndex: Integer): string; overload; override; final;
-    function GetHint(const Item: T;
-      const ColumnIndex: Integer): string; reintroduce; overload; virtual;
-
-    function GetImageIndex(const Item: TObject;
-      const ColumnIndex: Integer): Integer; overload; override; final;
-    function GetImageIndex(const Item: T;
-      const ColumnIndex: Integer): Integer; reintroduce; overload; virtual;
-
-    procedure SetText(const Item: TObject; const ColumnIndex: Integer;
-      const Value: string); overload; override; final;
-    procedure SetText(const Item: T; const ColumnIndex: Integer;
-      const Value: string); reintroduce; overload; virtual;
-    procedure SetValue(const Item: TObject; const ColumnIndex: Integer;
-      const Value: TValue); overload; override; final;
-    procedure SetValue(const Item: T; const ColumnIndex: Integer;
-      const Value: TValue); reintroduce; overload; virtual;
-
-    function GetText(const Item: TObject;
-      const ColumnIndex: Integer): string; overload; override; final;
-    function GetText(const Item: T;
-      const ColumnIndex: Integer): string; reintroduce; overload; virtual;
-    function GetValue(const Item: TObject;
-      const ColumnIndex: Integer): TValue; overload; override; final;
-    function GetValue(const Item: T;
-      const ColumnIndex: Integer): TValue; reintroduce; overload; virtual;
-    function GetItem(const Item: TObject;
-      const Index: Integer): TObject; overload; override; final;
-    function GetItem(const Item: T;
-      const Index: Integer): TObject; reintroduce; overload; virtual;
-    function GetItemCount(const Item: TObject): Integer; overload; override; final;
-    function GetItemCount(const Item: T): Integer; reintroduce; overload; virtual;
-    function GetItems(const Item: TObject): IList; overload; override; final;
-    function GetItems(const Item: T): IList; reintroduce; overload; virtual;
-
-    function GetTemplateDataClass: TClass; override; final;
-  end;
 implementation
 
 
@@ -168,7 +138,7 @@ begin
     begin
       if Item2.InheritsFrom(GetTemplateDataClass) then
       begin
-        Result := CompareValue(GetValue(Item1, ColumnIndex), GetValue(Item2, ColumnIndex));
+        //Result := CompareValue(GetValue(Item1, ColumnIndex), GetValue(Item2, ColumnIndex));
       end else
       begin
         Result := -1;
@@ -185,8 +155,8 @@ begin
 
         if Assigned(LItemTemplate1) and Assigned(LItemTemplate2) then
         begin
-          Result := CompareValue(LItemTemplate1.GetValue(Item1, ColumnIndex),
-            LItemTemplate2.GetValue(Item2, ColumnIndex));
+          //Result := CompareValue(LItemTemplate1.GetValue(Item1, ColumnIndex),
+          //  LItemTemplate2.GetValue(Item2, ColumnIndex));
         end;
       end;
     end;
@@ -205,9 +175,16 @@ end;
 
 function TDataTemplate.CustomDraw(const Item: TObject;
   const ColumnIndex: Integer; TargetCanvas: TCanvas; CellRect: TRect;
-  ImageList: TCustomImageList; DrawMode: TDrawMode): Boolean;
+  ImageList: TCustomImageList; DrawMode: TDrawMode; IsSelected: Boolean
+  ): Boolean;
 begin
   Result := False;
+end;
+
+function TDataTemplate.GetHint(const Item: TObject; const ColumnIndex: Integer
+  ): string;
+begin
+  Result := '';
 end;
 
 function TDataTemplate.GetImageIndex(const Item: TObject;
@@ -278,14 +255,14 @@ begin
   end
   else
   begin
-    Result := TValue.ToString(LValue);
+    Result := LValue.AsString;
   end;
 end;
 
 function TDataTemplate.GetValue(const Item: TObject;
   const ColumnIndex: Integer): TValue;
 begin
-  Result := TValue.Empty;
+  Result := TValue.Null;
 end;
 
 procedure TDataTemplate.RegisterDataTemplate(const DataTemplate: IDataTemplate);
@@ -305,113 +282,4 @@ begin
   // implemented in descendants
 end;
 
-{ TDataTemplate<T> }
-
-function TDataTemplate<T>.GetImageIndex(const Item: TObject;
-  const ColumnIndex: Integer): Integer;
-begin
-  Result := GetImageIndex(T(Item), ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetHint(const Item: T;
-  const ColumnIndex: Integer): string;
-begin
-  Result := inherited GetHint(Item, ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetHint(const Item: TObject;
-  const ColumnIndex: Integer): string;
-begin
-  Result := GetHint(T(Item), ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetImageIndex(const Item: T;
-  const ColumnIndex: Integer): Integer;
-begin
-  Result := inherited GetImageIndex(Item, ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetItem(const Item: TObject;
-  const Index: Integer): TObject;
-begin
-  Result := GetItem(T(Item), Index);
-end;
-
-function TDataTemplate<T>.GetItem(const Item: T; const Index: Integer): TObject;
-begin
-  Result := inherited GetItem(Item, Index);
-end;
-
-function TDataTemplate<T>.GetItemCount(const Item: TObject): Integer;
-begin
-  Result := GetItemCount(T(Item));
-end;
-
-function TDataTemplate<T>.GetItemCount(const Item: T): Integer;
-begin
-  Result := inherited GetItemCount(Item);
-end;
-
-function TDataTemplate<T>.GetItems(const Item: TObject): IList;
-begin
-  Result := GetItems(T(Item));
-end;
-
-function TDataTemplate<T>.GetItems(const Item: T): IList;
-begin
-  Result := inherited GetItems(Item);
-end;
-
-function TDataTemplate<T>.GetTemplateDataClass: TClass;
-begin
-  Result := T;
-end;
-
-function TDataTemplate<T>.GetText(const Item: TObject;
-  const ColumnIndex: Integer): string;
-begin
-  Result := GetText(T(Item), ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetText(const Item: T;
-  const ColumnIndex: Integer): string;
-begin
-  Result := inherited GetText(Item, ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetValue(const Item: TObject;
-  const ColumnIndex: Integer): TValue;
-begin
-  Result := GetValue(T(Item), ColumnIndex);
-end;
-
-function TDataTemplate<T>.GetValue(const Item: T;
-  const ColumnIndex: Integer): TValue;
-begin
-  Result := inherited GetValue(Item, ColumnIndex);
-end;
-
-procedure TDataTemplate<T>.SetText(const Item: TObject;
-  const ColumnIndex: Integer; const Value: string);
-begin
-  SetText(T(Item), ColumnIndex, Value);
-end;
-
-procedure TDataTemplate<T>.SetText(const Item: T; const ColumnIndex: Integer;
-  const Value: string);
-begin
-  inherited SetText(Item, ColumnIndex, Value);
-end;
-
-procedure TDataTemplate<T>.SetValue(const Item: TObject;
-  const ColumnIndex: Integer; const Value: TValue);
-begin
-  SetValue(T(Item), ColumnIndex, Value);
-end;
-
-procedure TDataTemplate<T>.SetValue(const Item: T; const ColumnIndex: Integer;
-  const Value: TValue);
-begin
-  inherited SetValue(Item, ColumnIndex, Value);
-end;
 end.

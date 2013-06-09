@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 384
-  HorizontalOffset = 579
-  VerticalOffset = 265
+  HorizontalOffset = 113
+  VerticalOffset = 58
   Width = 511
   object imlMain: TImageList
     AllocBy = 1
@@ -3555,13 +3555,13 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 1
       OnExecute = actCopyToClipboardExecute
     end
-    object actShowControlCharacters: TAction
+    object actShowSpecialCharacters: TAction
       Category = 'Settings'
       AutoCheck = True
-      Caption = 'Show controlcharacters'
-      Hint = 'Show controlcharacters'
+      Caption = 'Show special characters'
+      Hint = 'Show special characters (like tabs and spaces).'
       ImageIndex = 84
-      OnExecute = actShowControlCharactersExecute
+      OnExecute = actShowSpecialCharactersExecute
       ShortCut = 24643
     end
     object actUpperCaseSelection: TAction

@@ -36,6 +36,7 @@
     - removed customfilter (no binding support)
     - column options added
     - MinWidth and MaxWidth
+    - Fixed
 }
 
 unit ts_Core_ColumnDefinitions;
@@ -52,7 +53,7 @@ uses
   ts_Core_DataTemplates;
 
 type
-  TDataType = (dtNumeric, dtDateTime, dtString);
+  TDataType = (dtNumeric, dtDateTime, dtString, dtBoolean);
 
 const
   CDefaultWidth = 100;
@@ -63,9 +64,7 @@ const
 
 type
   TCanvas = Graphics.TCanvas;
-  TCustomImageList = ImgList.TCustomImageList;
-  TRect = Types.TRect;
-  TDrawMode = (dmBeforeCellPaint, dmAfterCellPaint, dmPaintText);
+
   TColumnDefinition = class;
   TColumnDefinitions = class;
 
@@ -110,6 +109,7 @@ type
     FSpacing: Integer;
     FVisible: Boolean;
     FWidth: Integer;
+
     function GetCollection: TColumnDefinitions;
     procedure SetAutoSize(AValue: Boolean);
     procedure SetCollection(const Value: TColumnDefinitions); reintroduce;
@@ -117,8 +117,12 @@ type
     procedure SetMinWidth(AValue: Integer);
     procedure SetSortingDirection(AValue: TSortingDirection);
 
+  protected
     function GetDisplayName: string; override;
-    property Collection: TColumnDefinitions read GetCollection write SetCollection;
+
+    property Collection: TColumnDefinitions
+      read GetCollection write SetCollection;
+
   public
     constructor Create(ACollection: TCollection); override;
     procedure Assign(Source: TPersistent); override;
@@ -238,8 +242,6 @@ procedure TColumnDefinition.SetCaption(const Value: string);
 begin
   FCaption := Value;
 end;
-
-
 
 function TColumnDefinition.GetCollection: TColumnDefinitions;
 begin

@@ -97,40 +97,37 @@ var
   S  : string;
   SL : TStringList;
 begin
-  if Settings.PreviewVisible then
-  begin
-    BeginFormUpdate;
-    try
-      mmoPreview.Clear;
-      S := View.PreviewText;
-      if (S <> '') and (View.Editor.Highlighter <> nil) then
-      begin
-        SL := TStringList.Create;
+  BeginFormUpdate;
+  try
+    mmoPreview.Clear;
+    S := View.PreviewText;
+    if (S <> '') and (View.Editor.Highlighter <> nil) then
+    begin
+      SL := TStringList.Create;
+      try
+        SL.Text := S;
+        S := '';
+        SS := TStringStream.Create(S);
         try
-          SL.Text := S;
-          S := '';
-          SS := TStringStream.Create(S);
-          try
-            SL.BeginUpdate;
-            FSynExporterRTF.UseBackground := True;
-            FSynExporterRTF.Font := View.Editor.Font;
-            FSynExporterRTF.Highlighter := View.Editor.Highlighter;
-            FSynExporterRTF.ExportAsText := True;
-            FSynExporterRTF.ExportAll(SL);
-            FSynExporterRTF.SaveToStream(SS);
-            SS.Position := 0;
-            mmoPreview.LoadRichText(SS);
-          finally
-            SL.EndUpdate;
-            FreeAndNil(SS);
-          end;
+          SL.BeginUpdate;
+          FSynExporterRTF.UseBackground := True;
+          FSynExporterRTF.Font := View.Editor.Font;
+          FSynExporterRTF.Highlighter := View.Editor.Highlighter;
+          FSynExporterRTF.ExportAsText := True;
+          FSynExporterRTF.ExportAll(SL);
+          FSynExporterRTF.SaveToStream(SS);
+          SS.Position := 0;
+          mmoPreview.LoadRichText(SS);
         finally
-          FreeAndNil(SL);
+          SL.EndUpdate;
+          FreeAndNil(SS);
         end;
+      finally
+        FreeAndNil(SL);
       end;
-    finally
-      EndFormUpdate;
     end;
+  finally
+    EndFormUpdate;
   end;
 end;
 

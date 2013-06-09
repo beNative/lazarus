@@ -219,7 +219,7 @@ begin
   AddButton('actInspect');
   AddButton('actSettings');
   AddButton('');
-  AddButton('actShowControlCharacters');
+  AddButton('actShowSpecialCharacters');
   AddButton('actMonitorChanges');
   AddButton('actShowViews');
   AddButton('actStayOnTop');
@@ -370,7 +370,7 @@ begin
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(MI, 'actSettings');
   AddEditorMenuItem(MI);
-  AddEditorMenuItem(MI, 'actShowControlCharacters');
+  AddEditorMenuItem(MI, 'actShowSpecialCharacters');
   AddEditorMenuItem(MI, 'actIncFontSize');
   AddEditorMenuItem(MI, 'actDecFontSize');
   AddEditorMenuItem(MI);

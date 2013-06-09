@@ -411,9 +411,6 @@ begin
     if CurrentIndex >= 0 then
     begin
       SR := ItemList[CurrentIndex] as TSearchResult;
-      Logger.Send('SR.Index', SR.Index);
-      Logger.Watch('SearchText', SearchText);
-      Logger.Watch('ReplaceText', ReplaceText);
       Options := Options + [ssoReplace];
       Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
       Options := Options - [ssoReplace];

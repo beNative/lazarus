@@ -186,7 +186,7 @@ type
     actStripLastChar              : TAction;
     actSmartSelect                : TAction;
     actQuoteSelection             : TAction;
-    actShowControlCharacters      : TAction;
+    actShowSpecialCharacters      : TAction;
     actCopy                       : TAction;
     actCopyHTMLTextToClipboard    : TAction;
     actCopyRTFTextToClipboard     : TAction;
@@ -386,7 +386,7 @@ type
     procedure actSettingsExecute(Sender: TObject);
     procedure actShapeCodeExecute(Sender: TObject);
     procedure actShowActionsExecute(Sender: TObject);
-    procedure actShowControlCharactersExecute(Sender: TObject);
+    procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actShowPreviewExecute(Sender: TObject);
     procedure actShowTestExecute(Sender: TObject);
     procedure actShowViewsExecute(Sender: TObject);
@@ -2062,9 +2062,9 @@ begin
   ActiveView.Base64FromSelection(True);
 end;
 
-procedure TdmEditorManager.actShowControlCharactersExecute(Sender: TObject);
+procedure TdmEditorManager.actShowSpecialCharactersExecute(Sender: TObject);
 begin
-  Settings.ShowControlCharacters := (Sender as TAction).Checked;
+  Settings.ShowSpecialCharacters := (Sender as TAction).Checked;
 end;
 
 procedure TdmEditorManager.actEncodingExecute(Sender: TObject);
@@ -2144,7 +2144,6 @@ begin
       MI.ShowAlwaysCheckable := True;
     end;
     AParent.Add(MI);
-    Logger.Send('AParent', AParent);
     Result := MI;
   end;
 end;
@@ -2356,7 +2355,7 @@ var
       ADescription,
       ALayoutFileName
     );
-    Logger.Send('Registered:', AName);
+    //Logger.Send('Registered:', AName);
   end;
 
 begin
@@ -2661,7 +2660,7 @@ begin
   MI.Action := actSettings;
   AddMenuItem(MI, actSettings);
   AddMenuItem(MI);
-  AddMenuItem(MI, actShowControlCharacters);
+  AddMenuItem(MI, actShowSpecialCharacters);
   AddMenuItem(MI);
   AddMenuItem(MI, actIncFontSize);
   AddMenuItem(MI, actDecFontSize);
@@ -2814,9 +2813,9 @@ begin
   Logger.EnterMethod(Self, 'DeleteView(AIndex)');
   if (AIndex > -1) and (AIndex < ViewCount) {and (ViewCount > 1)} then
   begin
-    Logger.Watch('AIndex', AIndex);
+    //Logger.Watch('AIndex', AIndex);
     I := ViewList.IndexOf(ActiveView);
-    Logger.Send('ViewList.IndexOf(ActiveView)', I);
+    //Logger.Send('ViewList.IndexOf(ActiveView)', I);
     if I = AIndex then // select a new active view
     begin
       V := Views[I];
@@ -3263,7 +3262,7 @@ begin
     actFoldLevel10.Enabled     := B;
 
     actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
-    actShowControlCharacters.Checked := Settings.ShowControlCharacters;
+    actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
 
     actClose.Visible       := ViewCount > 1;
     actCloseOthers.Visible := ViewCount > 1;
@@ -3423,7 +3422,6 @@ begin
     then
     begin
       Result := FToolViewList[I] as IEditorToolView;
-      Logger.Send(Result.Name);
     end;
   end;
 end;

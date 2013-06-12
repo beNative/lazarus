@@ -1,6 +1,9 @@
 #labels Phase-Design
 == A short overview of features I am currently working on ==
 
+ * Minimap
+ * Hex Editor
+ * HTML viewer
  * multi-caret editing
  * structure viewer
  * more customization

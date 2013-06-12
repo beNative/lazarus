@@ -202,18 +202,8 @@ var
   EV : IEditorEvents;
   V  : IEditorView;
   S  : string;
-
-
-  TV: TValue;
 begin
   inherited AfterConstruction;
-
-  //TV.AsString := 'Test';
-  //I := 33;
-  //TV.AsVariant := I;
-  //S := TV.AsString;
-  //Logger.Send(S);
-
   Manager.PersistSettings := True;
   mnuMain.Items.Clear;
   ConfigureAvailableActions;
@@ -623,11 +613,12 @@ begin
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
   InitDebugAction('actNewSharedView');
+  InitDebugAction('actFindAllOccurences');
+  InitDebugAction('actShowPreview');
   InitDebugAction('actShowHTMLViewer');
   InitDebugAction('actXMLTree');
   InitDebugAction('actShowHexEditor');
-  InitDebugAction('actFindAllOccurences');
-  InitDebugAction('actShowPreview');
+  InitDebugAction('actShowMiniMap');
 end;
 
 procedure TfrmMain.UpdateCaptions;

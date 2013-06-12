@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 384
-  HorizontalOffset = 113
-  VerticalOffset = 58
+  HorizontalOffset = 561
+  VerticalOffset = 211
   Width = 511
   object imlMain: TImageList
     AllocBy = 1
@@ -3807,7 +3807,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Debug'
       Caption = 'Inspect'
       Hint = 'Show inspector'
-      ImageIndex = 40
+      ImageIndex = 52
       OnExecute = actInspectExecute
       ShortCut = 16496
     end
@@ -3837,15 +3837,15 @@ object dmEditorManager: TdmEditorManager
     end
     object actReload: TAction
       Category = 'File'
-      Caption = 'Reload file'
-      Hint = 'Reload file from disk'
+      Caption = 'Reload'
+      Hint = 'Reload content.'
       ImageIndex = 14
       OnExecute = actReloadExecute
       ShortCut = 116
     end
     object actNew: TAction
       Category = 'File'
-      Caption = 'New file'
+      Caption = 'New'
       Hint = 'Create a new editor view.'
       ImageIndex = 39
       OnExecute = actNewExecute
@@ -4114,6 +4114,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowTest: TAction
       Category = 'Tools'
+      AutoCheck = True
       Caption = 'Show testform'
       OnExecute = actShowTestExecute
       ShortCut = 49220
@@ -4261,14 +4262,24 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 103
     end
     object actShowHTMLViewer: TAction
+      Category = 'Tools'
       AutoCheck = True
       Caption = 'Show HTML viewer'
       OnExecute = actShowHTMLViewerExecute
     end
     object actShowHexEditor: TAction
+      Category = 'Tools'
       AutoCheck = True
       Caption = 'Show Hex editor'
       OnExecute = actShowHexEditorExecute
+    end
+    object actShowMiniMap: TAction
+      Category = 'Tools'
+      AutoCheck = True
+      Caption = 'Show minimap'
+      Hint = 'Show minimap.'
+      OnExecute = actShowMiniMapExecute
+      ShortCut = 49229
     end
   end
   object ppmExport: TPopupMenu

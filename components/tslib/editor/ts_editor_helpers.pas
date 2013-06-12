@@ -340,7 +340,10 @@ begin
   AddEditorMenuItem(MI, 'actShowViews');
   AddEditorMenuItem(MI, 'actShowActions');
   AddEditorMenuItem(MI, 'actShowPreview');
-  AddEditorMenuItem(MI);
+  AddEditorMenuItem(MI, 'actShowMiniMap');
+  AddEditorMenuItem(MI, 'actShowHTMLViewer');
+  AddEditorMenuItem(MI, 'actXMLTree');
+  AddEditorMenuItem(MI, 'actShowHexEditor');
 end;
 
 procedure AddEditorToolsMenu(AMainMenu: TMainMenu);

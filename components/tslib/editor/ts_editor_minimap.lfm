@@ -1,0 +1,5 @@
+inherited frmMiniMap: TfrmMiniMap
+  Left = 398
+  Top = 90
+  Caption = 'Minimap'
+end

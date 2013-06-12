@@ -48,7 +48,7 @@
     </CompilerOptions>
     <Description Value="Common library units"/>
     <Version Major="2"/>
-    <Files Count="96">
+    <Files Count="98">
       <Item1>
         <Filename Value="editor\ts_editor_actionlistviewform.pas"/>
         <UnitName Value="ts_Editor_ActionListViewForm"/>
@@ -433,6 +433,14 @@
         <Filename Value="..\pl_LuiControls\source\multilog\ipcchannel.pas"/>
         <UnitName Value="ipcchannel"/>
       </Item96>
+      <Item97>
+        <Filename Value="components\ts_components_synminimap.pas"/>
+        <UnitName Value="ts_Components_SynMiniMap"/>
+      </Item97>
+      <Item98>
+        <Filename Value="editor\ts_editor_minimap.pas"/>
+        <UnitName Value="ts_editor_minimap"/>
+      </Item98>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>

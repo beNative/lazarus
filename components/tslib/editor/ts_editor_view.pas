@@ -1339,7 +1339,7 @@ begin
   Editor.TabWidth              := Settings.TabWidth;
   Editor.WantTabs              := Settings.WantTabs;
   Editor.MouseLinkColor        := Settings.MouseLinkColor;
-  Editor.LineHighlightColor    := Settings.LineHighlightColor;
+  //Editor.LineHighlightColor    := Settings.LineHighlightColor;
 
   // block selection color
   Editor.SelectedColor.Background      := clLtGray;
@@ -1368,6 +1368,7 @@ begin
   Editor.LineHighlightColor.Foreground := clNone;
   Editor.LineHighlightColor.FrameStyle := slsWaved;
   Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
+
 //  Editor.LineHighlightColor.MergeFinalStyle := True;
 end;
 

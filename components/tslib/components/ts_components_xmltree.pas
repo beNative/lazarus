@@ -1650,7 +1650,7 @@ var
 begin
   Logger.EnterMethod(Self, 'AddChildren');
   Result := 0;
-  if AXMLNode.ElementType in [xeElement, xeAttribute] then
+  if Assigned(AXMLNode) and (AXMLNode.ElementType in [xeElement, xeAttribute]) then
   begin
     try
       BeginUpdate;

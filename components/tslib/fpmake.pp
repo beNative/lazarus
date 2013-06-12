@@ -3,7 +3,7 @@
 
    fpmake.pp for tslib 2.0
 
-   This file was generated on 9/06/2013
+   This file was generated on 12/06/2013
 }
 
 {$ifndef ALLPACKAGES} 
@@ -178,6 +178,8 @@ begin
     t.Dependencies.AddUnit('ts_editor_hexeditorform');
     t.Dependencies.AddUnit('ts_core_value');
     t.Dependencies.AddUnit('ipcchannel');
+    t.Dependencies.AddUnit('ts_components_synminimap');
+    t.Dependencies.AddUnit('ts_editor_minimap');
 
     T:=P.Targets.AddUnit('editor\ts_editor_actionlistviewform.pas');
     T:=P.Targets.AddUnit('editor\ts_editor_charactermapdialog.pas');
@@ -260,6 +262,8 @@ begin
     T:=P.Targets.AddUnit('editor\ts_editor_hexeditorform.pas');
     T:=P.Targets.AddUnit('core\ts_core_value.pas');
     T:=P.Targets.AddUnit('..\pl_LuiControls\source\multilog\ipcchannel.pas');
+    T:=P.Targets.AddUnit('components\ts_components_synminimap.pas');
+    T:=P.Targets.AddUnit('editor\ts_editor_minimap.pas');
 
     // copy the compiled file, so the IDE knows how the package was compiled
     P.InstallFiles.Add('tslib.compiled',AllOSes,'$(unitinstalldir)');

@@ -156,6 +156,7 @@ type
     actFindAllOccurences          : TAction;
     actIndent                     : TAction;
     actFile                       : TAction;
+    actShowMiniMap: TAction;
     actShowHexEditor: TAction;
     actShowHTMLViewer: TAction;
     actUnindent                   : TAction;
@@ -307,6 +308,7 @@ type
     procedure actPrintPreviewExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
     procedure actShowHTMLViewerExecute(Sender: TObject);
+    procedure actShowMiniMapExecute(Sender: TObject);
     procedure actUnindentExecute(Sender: TObject);
     procedure actFindAllOccurencesExecute(Sender: TObject);
     procedure actIndentExecute(Sender: TObject);
@@ -650,8 +652,6 @@ type
     procedure UpdateSelectionModeActions;
     procedure UpdateHighLighterActions;
     procedure UpdateFileActions;
-    procedure UpdateSearchMatches;
-    procedure UpdateCodeFilter;
 
     procedure HideToolViews;
 
@@ -846,7 +846,7 @@ uses
   ts_Editor_XmlTreeForm, ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
   ts_Editor_HTMLViewForm, ts_Editor_HexEditorForm,
-  ts_Editor_SearchEngine, ts_Editor_SelectionInfoForm;
+  ts_Editor_SearchEngine, ts_Editor_SelectionInfoForm, ts_Editor_Minimap;
 
 var
   dmEditorManager: TdmEditorManager;
@@ -1360,8 +1360,6 @@ begin
   { TODO -oTS : Needs to be refactored }
   if View.Focused then
   begin
-
-
     UpdateToolViews;
   end;
 end;
@@ -1584,6 +1582,11 @@ begin
   ShowToolView(ToolViews['frmHTMLView'], (Sender as TAction).Checked, False, False);
 end;
 
+procedure TdmEditorManager.actShowMiniMapExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['frmMiniMap'], (Sender as TAction).Checked, False, False);
+end;
+
 procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
 begin
   ShowToolView(ToolViews['frmXmlTree'], (Sender as TAction).Checked, False, False);
@@ -1633,6 +1636,8 @@ procedure TdmEditorManager.actCreateDesktopLinkExecute(Sender: TObject);
 begin
   {$ifdef windows}
   CreateDesktopLink;
+  {$else}
+  ShowMessage('This feature is not available yet for current platform');
   {$endif}
 end;
 
@@ -1699,8 +1704,9 @@ begin
   //  ActiveView.Settings.Highlighters
   //
   //]);
-  InspectComponent(Settings as TComponent);
+//  InspectComponent(Settings as TComponent);
 
+  InspectComponent(ActiveView.Editor);
 
   //InspectComponents([
   //  Settings as TComponent,
@@ -2414,6 +2420,7 @@ begin
   AddToolView(TfrmCharacterMapDialog.Create(Self));
   AddToolView(TfrmHTMLView.Create(Self));
   AddToolView(TfrmHexEditor.Create(Self));
+  AddToolView(TfrmMiniMap.Create(Self));
 
   FFormsCreated := True;
 end;
@@ -2738,8 +2745,9 @@ begin
   UpdateEncodingActions;
   UpdateLineBreakStyleActions;
   UpdateFileActions;
-  UpdateSearchMatches;
-  UpdateCodeFilter;
+  UpdateToolViews;
+  //UpdateSearchMatches;
+  //UpdateCodeFilter;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2844,7 +2852,7 @@ begin
   if Assigned(AView) and Assigned(ViewList) then
   begin
     I := ViewList.IndexOf(AView);
-    if I > -1 then
+    if (ViewCount > 1) and (I > -1) then
     begin
       if AView = ActiveView then
       begin
@@ -2860,7 +2868,9 @@ begin
       end;
     end
     else
+    begin
       Result := False;
+    end;
   end
   else
     Result := False;
@@ -3243,6 +3253,9 @@ begin
     actShowViews.Checked      := ToolViews['frmViewList'].Visible;
     actShowActions.Checked    := ToolViews['frmActionListView'].Visible;
     actInsertCharacterFromMap.Checked := ToolViews['frmCharacterMapDialog'].Visible;
+    actShowHexEditor.Checked := ToolViews['frmHexEditor'].Visible;
+    actShowMiniMap.Checked   := ToolViews['frmMiniMap'].Visible;
+    actShowHTMLViewer.Checked := ToolViews['frmHTMLView'].Visible;;
 
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
@@ -3335,22 +3348,6 @@ begin
   actReload.Enabled         := B;
   actMonitorChanges.Enabled := B;
   actMonitorChanges.Checked := B and ActiveView.MonitorChanges;
-end;
-
-procedure TdmEditorManager.UpdateSearchMatches;
-begin
-  if ToolViews['frmSearchForm'].Visible then
-  begin
-    ToolViews['frmSearchForm'].UpdateView;
-  end;
-end;
-
-procedure TdmEditorManager.UpdateCodeFilter;
-begin
-  if ToolViews['frmCodeFilterDialog'].Visible then
-  begin
-    ToolViews['frmCodeFilterDialog'].UpdateView;
-  end;
 end;
 
 procedure TdmEditorManager.UpdateHighLighterActions;

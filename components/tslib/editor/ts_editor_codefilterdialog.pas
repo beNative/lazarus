@@ -194,7 +194,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Clipbrd,
+  Clipbrd, strutils,
 {$ifdef windows}
   Windows,
 {$endif}
@@ -285,6 +285,7 @@ begin
   FVST.DefaultNodeHeight := 16;
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
+  FTVP.SelectionMode := smMulti;
   FTVP.MultiLine := False;
   FTVP.ItemTemplate := TColumnDefinitionsDataTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.ColumnDefinitions.AddColumn('Index', 'Line', dtNumeric, 50);
@@ -541,6 +542,7 @@ var
   Offset : Integer;
   Match  : string;
   C      : TColor;
+  TS     : string;
 begin
   Offset := 0;
   Match  := '';
@@ -565,21 +567,23 @@ begin
       P.Y := L.Index + 1;
       R := CellRect;
       TargetCanvas.FillRect(R);
-      Line := StringReplace(L.Text, #9, ' ', [rfReplaceAll]);
+      // TODO: does not have any effect as tabs are reduced
+      TS := '';
+      TS := AddChar(' ', TS, Manager.Settings.TabWidth);
+      Line := StringReplace(L.Text, #9, TS, [rfReplaceAll]);
       if IsMatch(L.Text, Match, Offset) then
       begin
         R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
         R.Right := R.Left + TargetCanvas.TextWidth(Match);
-        // todo retrieve from settings
-        TargetCanvas.Pen.Color := $004683FF;
+        TargetCanvas.Pen.Color := Manager.Settings.HighlightAllColor.FrameColor;
         TargetCanvas.Pen.Width := 1;
         C := ColorToRGB(TargetCanvas.Brush.Color);
         if C <> clWhite then
         begin
-          C := MixColors(C, $0064B1FF, 128)
+          C := MixColors(C, Manager.Settings.HighlightAllColor.Background, 128)
         end
         else
-          C := $0064B1FF;
+          C := Manager.Settings.HighlightAllColor.Background;
         TargetCanvas.Brush.Color := C;
         TargetCanvas.Rectangle(R);
         R := CellRect;
@@ -612,7 +616,9 @@ begin
           I := I + 1
         else
         begin
-          S := StringReplace(S, #9, ' ', [rfReplaceAll]);
+          //TS := AddChar(' ', TS, Manager.Settings.TabWidth);
+          TS := ' ';
+          S := StringReplace(S, #9, TS, [rfReplaceAll]);
           TargetCanvas.TextRect(R, R.Left, R.Top, S, FTextStyle);
           R.Left := R.Left + TargetCanvas.TextWidth(S);
           I := I + Length(S);

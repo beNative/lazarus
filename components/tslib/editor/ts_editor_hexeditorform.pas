@@ -30,8 +30,10 @@ uses
 type
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)
     HexEditor: TKHexEditor;
+
     procedure HexEditorChange(Sender: TObject);
-  public
+
+  strict protected
     procedure UpdateView; override;
   end;
 
@@ -40,6 +42,11 @@ type
 implementation
 
 {$R *.lfm}
+
+{$region 'event handlers' /fold}
+//*****************************************************************************
+// event handlers                                                        BEGIN
+//*****************************************************************************
 
 procedure TfrmHexEditor.HexEditorChange(Sender: TObject);
 var
@@ -58,6 +65,16 @@ begin
   end;
 end;
 
+//*****************************************************************************
+// event handlers                                                          END
+//*****************************************************************************
+{$endregion}
+
+{$region 'protected methods' /fold}
+//*****************************************************************************
+// protected methods                                                     BEGIN
+//*****************************************************************************
+
 procedure TfrmHexEditor.UpdateView;
 var
   S: TStream;
@@ -71,6 +88,11 @@ begin
     S.Free;
   end;
 end;
+
+//*****************************************************************************
+// protected methods                                                       END
+//*****************************************************************************
+{$endregion}
 
 end.
 

@@ -1,7 +1,7 @@
-object frmSearchForm: TfrmSearchForm
-  Left = -894
+inherited frmSearchForm: TfrmSearchForm
+  Left = -1621
   Height = 916
-  Top = 174
+  Top = 194
   Width = 510
   BorderIcons = [biSystemMenu]
   Caption = 'Find'
@@ -14,8 +14,7 @@ object frmSearchForm: TfrmSearchForm
   OnShow = FormShow
   PopupMode = pmAuto
   ShowHint = True
-  LCLVersion = '1.1'
-  object pnlOperations: TPanel
+  object pnlOperations: TPanel[0]
     Left = 4
     Height = 410
     Top = 4
@@ -421,7 +420,7 @@ object frmSearchForm: TfrmSearchForm
       end
     end
   end
-  object pnlResultList: TPanel
+  object pnlResultList: TPanel[1]
     Left = 4
     Height = 463
     Top = 422
@@ -434,7 +433,7 @@ object frmSearchForm: TfrmSearchForm
     ChildSizing.LeftRightSpacing = 2
     TabOrder = 1
   end
-  object pnlStatus: TPanel
+  object pnlStatus: TPanel[2]
     Left = 0
     Height = 23
     Top = 893
@@ -443,7 +442,7 @@ object frmSearchForm: TfrmSearchForm
     BevelOuter = bvNone
     TabOrder = 2
   end
-  object aclMain: TActionList
+  object aclMain: TActionList[3]
     left = 16
     top = 424
     object actFocusSearchText: TAction

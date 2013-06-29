@@ -142,10 +142,10 @@ begin
   Result := inherited GetValueForProperty(Item, APropertyName);
   if SameText(APropertyName, 'Shortcut') then
   begin
-    //if not Result.IsEmpty then
-    //begin
-    //  Result := ShortCutToText(TShortCut(Result.AsInteger));
-    //end;
+    if not Result.IsEmpty then
+    begin
+      Result := ShortCutToText(TShortCut(Result.AsInteger));
+    end;
   end;
 end;
 {$endregion}

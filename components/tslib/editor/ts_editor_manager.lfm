@@ -3415,6 +3415,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Editor settings'
       ImageIndex = 7
       OnExecute = actSettingsExecute
+      ShortCut = 24659
     end
     object actSearch: TAction
       Category = 'Find'

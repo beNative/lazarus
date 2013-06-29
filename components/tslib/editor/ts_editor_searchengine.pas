@@ -262,7 +262,8 @@ begin
     FSESearch.Whole              := ssoWholeWord in Options;
     FSESearch.RegularExpressions := ssoRegExpr in Options;
     FSESearch.RegExprMultiLine   := ssoRegExprMultiLine in Options;
-    FSESearch.Backwards          := ssoBackwards in Options;
+    FSESearch.Backwards          :=
+      (ssoBackwards in Options) and not FSESearch.RegExprMultiLine
   end;
 end;
 
@@ -294,19 +295,24 @@ var
   ptFoundStart : TPoint;
   ptFoundEnd   : TPoint;
   N            : Integer;
+  B            : Boolean;
 begin
   N := 0;
   ptStart := Point(1, 1);
   ptEnd.Y := AView.Lines.Count;
   ptEnd.X := Length(AView.Lines[ptEnd.Y - 1]) + 1;
-  while FSESearch.FindNextOne(
-    AView.Lines,
-    ptStart,
-    ptEnd,
-    ptFoundStart,
-    ptFoundEnd,
-    True           // Support unicode case
-  ) and (N < 10000) do
+  try
+    B :=  FSESearch.FindNextOne(
+      AView.Lines,
+      ptStart,
+      ptEnd,
+      ptFoundStart,
+      ptFoundEnd,
+      True           // Support unicode case
+    );
+  except
+  end;
+  while B and (N < 10000) do
   begin
     Inc(N);
     SR := TSearchResult.Create;
@@ -321,6 +327,17 @@ begin
     SR.Index      := ItemList.Count + 1;
     ItemList.Add(SR);
     ptStart := ptFoundEnd;
+    try
+      B :=  FSESearch.FindNextOne(
+        AView.Lines,
+        ptStart,
+        ptEnd,
+        ptFoundStart,
+        ptFoundEnd,
+        True           // Support unicode case
+      );
+    except
+    end;
   end;
 end;
 
@@ -360,96 +377,96 @@ end;
 
 procedure TSearchEngine.Execute;
 var
-    V: IEditorView;
-    I: Integer;
+  V: IEditorView;
+  I: Integer;
 begin
-    FItemList.Clear;
-    if SearchAllViews then
+  FItemList.Clear;
+  if SearchAllViews then
+  begin
+    for I := 0 to Views.Count - 1 do
     begin
-      for I := 0 to Views.Count - 1 do
-      begin
-        V := Views[I];
-        AddResultsForView(V);
-      end;
-    end
-    else
-      AddResultsForView(View);
+      V := Views[I];
+      AddResultsForView(V);
+    end;
+  end
+  else
+    AddResultsForView(View);
 end;
 
 procedure TSearchEngine.FindNext;
 var
-    SR: TSearchResult;
+  SR: TSearchResult;
 begin
-    if CurrentIndex < ItemList.Count - 1 then
-    begin
-      Inc(FCurrentIndex);
-      SR := ItemList[CurrentIndex] as TSearchResult;
-      Manager.ActivateView(SR.ViewName);
-      Manager.ActiveView.SelStart := SR.StartPos;
-      Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
-    end;
+  if CurrentIndex < ItemList.Count - 1 then
+  begin
+    Inc(FCurrentIndex);
+    SR := ItemList[CurrentIndex] as TSearchResult;
+    Manager.ActivateView(SR.ViewName);
+    Manager.ActiveView.SelStart := SR.StartPos;
+    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
+  end;
 end;
 
 procedure TSearchEngine.FindPrevious;
 var
-    SR: TSearchResult;
+  SR: TSearchResult;
 begin
-    if CurrentIndex > 0 then
-    begin
-      Dec(FCurrentIndex);
-      SR := ItemList[CurrentIndex] as TSearchResult;
-      Manager.ActivateView(SR.ViewName);
-      Manager.ActiveView.SelStart := SR.StartPos;
-      Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
-    end;
+  if CurrentIndex > 0 then
+  begin
+    Dec(FCurrentIndex);
+    SR := ItemList[CurrentIndex] as TSearchResult;
+    Manager.ActivateView(SR.ViewName);
+    Manager.ActiveView.SelStart := SR.StartPos;
+    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
+  end;
 end;
 
 procedure TSearchEngine.Replace;
 var
-    SR : TSearchResult;
+  SR : TSearchResult;
 begin
-    if CurrentIndex >= 0 then
-    begin
-      SR := ItemList[CurrentIndex] as TSearchResult;
-      Options := Options + [ssoReplace];
-      Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
-      Options := Options - [ssoReplace];
-    end;
+  if CurrentIndex >= 0 then
+  begin
+    SR := ItemList[CurrentIndex] as TSearchResult;
+    Options := Options + [ssoReplace];
+    Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
+    Options := Options - [ssoReplace];
+  end;
 end;
 
 procedure TSearchEngine.ReplaceAll;
 var
-    SR : TSearchResult;
-    V  : IEditorView;
-    I  : Integer;
+  SR : TSearchResult;
+  V  : IEditorView;
+  I  : Integer;
 begin
-    if CurrentIndex >= 0 then
+  if CurrentIndex >= 0 then
+  begin
+    SR := ItemList[CurrentIndex] as TSearchResult;
+    Logger.Send('SR.Index', SR.Index);
+    Logger.Watch('SearchText', SearchText);
+    Logger.Watch('ReplaceText', ReplaceText);
+    Options := Options + [ssoReplaceAll];
+    if SearchAllViews then
     begin
-      SR := ItemList[CurrentIndex] as TSearchResult;
-      Logger.Send('SR.Index', SR.Index);
-      Logger.Watch('SearchText', SearchText);
-      Logger.Watch('ReplaceText', ReplaceText);
-      Options := Options + [ssoReplaceAll];
-      if SearchAllViews then
+      for I := 0 to Manager.Views.Count - 1 do
       begin
-        for I := 0 to Manager.Views.Count - 1 do
-        begin
-          V := Manager.Views[I];
-          V.BeginUpdate; // handle all replacements as one operation that we can undo
-          Options := Options + [ssoEntireScope];
-          V.Editor.SearchReplace(SearchText, ReplaceText, Options);
-          V.EndUpdate;
-        end;
-      end
-      else
-      begin
-        V := Manager.ActiveView;
+        V := Manager.Views[I];
         V.BeginUpdate; // handle all replacements as one operation that we can undo
-        V.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
+        Options := Options + [ssoEntireScope];
+        V.Editor.SearchReplace(SearchText, ReplaceText, Options);
         V.EndUpdate;
       end;
-      Options := Options - [ssoReplaceAll];
+    end
+    else
+    begin
+      V := Manager.ActiveView;
+      V.BeginUpdate; // handle all replacements as one operation that we can undo
+      V.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
+      V.EndUpdate;
     end;
+    Options := Options - [ssoReplaceAll];
+  end;
 end;
 
 //*****************************************************************************

@@ -95,11 +95,11 @@ interface
 uses
   Classes, Controls, Forms, Graphics, Menus, SysUtils, Dialogs, StdCtrls, Types,
 
-  LMessages,
+  LMessages, LCLType,
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditMarkupHighAll, SynEditTypes, SynBeautifier, SynEditMarkupBracket,
-  SynEditHighlighterFoldBase,
+  SynEditHighlighterFoldBase, SynEditKeyCmds,
 
   ts_Core_DirectoryWatch,
 
@@ -126,6 +126,9 @@ type
       var AMode: TSynSelectionMode; ALogStartPos: TPoint;
       var AnAction: TSynCopyPasteAction);
     procedure EditorStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+    procedure EditorProcessCommand(Sender: TObject;
+       var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
+
 
 {$ifdef windows}
   procedure DirectoryWatchNotify(const Sender: TObject;
@@ -703,6 +706,12 @@ begin
   end;
 end;
 
+procedure TEditorView.EditorProcessCommand(Sender: TObject;
+  var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
+begin
+  // TODO: dispatch events to manager (cfr. bookmarks)
+end;
+
 //*****************************************************************************
 // event handlers                                                          END
 //*****************************************************************************
@@ -842,7 +851,7 @@ begin
   if Value <> SearchText then
   begin
     FSearchText := Value;
-    Editor.SetHighlightSearch(Value, SearchOptions);
+    SetHighlightSearch(Value, SearchOptions);
   end;
 end;
 
@@ -1339,35 +1348,38 @@ begin
   Editor.TabWidth              := Settings.TabWidth;
   Editor.WantTabs              := Settings.WantTabs;
   Editor.MouseLinkColor        := Settings.MouseLinkColor;
-  //Editor.LineHighlightColor    := Settings.LineHighlightColor;
+  Editor.LineHighlightColor    := Settings.LineHighlightColor;
 
   // block selection color
-  Editor.SelectedColor.Background      := clLtGray;
-  Editor.SelectedColor.Foreground      := clNone;
+  //Editor.SelectedColor.Background      := clLtGray;
+  //Editor.SelectedColor.Foreground      := clNone;
 //  Editor.SelectedColor.MergeFinalStyle := True;
 
-  Editor.BracketMatchColor.Background := clAqua;
-  Editor.BracketMatchColor.FrameColor := clGray;
+  //Editor.BracketMatchColor.Background := clAqua;
+  //Editor.BracketMatchColor.FrameColor := clGray;
 
   // alternative block selection color?
-  Editor.UseIncrementalColor := False;
-  Editor.IncrementColor.Background := clLtGray;
-  Editor.IncrementColor.Foreground := clNone;
+  //Editor.UseIncrementalColor := False;
+  //Editor.IncrementColor.Background := clLtGray;
+  //Editor.IncrementColor.Foreground := clNone;
 
   // highlight all search matches after search operation
-  Editor.HighlightAllColor.Background := $0064B1FF;  // light orange
-  Editor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
-  Editor.HighlightAllColor.FrameStyle := slsSolid;
-  Editor.HighlightAllColor.FrameEdges := sfeAround;
-  Editor.HighlightAllColor.Foreground := clNone;
+  //Editor.HighlightAllColor.Background := $0064B1FF;  // light orange
+  //Editor.HighlightAllColor.FrameColor := $0064B1FF;
+  ////Editor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
+  //Editor.HighlightAllColor.FrameStyle := slsSolid;
+
+  //Editor.HighlightAllColor.FrameEdges := sfeAround;
+  //Editor.HighlightAllColor.FrameEdges := sfeNone;
+  //Editor.HighlightAllColor.Foreground := clNone;
 //  Editor.HighlightAllColor.MergeFinalStyle := True;
 
   // highlight current line
-  Editor.LineHighlightColor.Background := $009FFFFF; // yellow
-  Editor.LineHighlightColor.FrameEdges := sfeAround;
-  Editor.LineHighlightColor.Foreground := clNone;
-  Editor.LineHighlightColor.FrameStyle := slsWaved;
-  Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
+  //Editor.LineHighlightColor.Background := $009FFFFF; // yellow
+  //Editor.LineHighlightColor.FrameEdges := sfeAround;
+  //Editor.LineHighlightColor.Foreground := clNone;
+  //Editor.LineHighlightColor.FrameStyle := slsWaved;
+  //Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
 
 //  Editor.LineHighlightColor.MergeFinalStyle := True;
 end;
@@ -1431,10 +1443,17 @@ begin
   AEditor.Font.Assign(Settings.EditorFont);
   AEditor.BorderStyle := bsNone;
   AEditor.DoubleBuffered := True;
+
+  AEditor.BookMarkOptions.EnableKeys := True;
+  AEditor.BookMarkOptions.GlyphsVisible := True;
+  AEditor.BookMarkOptions.DrawBookmarksFirst := True;
+  AEditor.BookMarkOptions.LeftMargin := -1;
   AEditor.BookMarkOptions.BookmarkImages := imlBookmarkImages;
+
   AEditor.Gutter.Color := 15329769; // light gray
   AEditor.Gutter.Width := 29;
   AEditor.Gutter.SeparatorPart.Visible := False;
+
   with AEditor.Gutter.LineNumberPart do
   begin
     Width := 15;
@@ -1457,11 +1476,10 @@ begin
     MarkupInfo.Background := clNone;
     MarkupInfo.Foreground := clMedGray;
   end;
-  // TODO: Bookmarks
   with AEditor.Gutter.MarksPart do
   begin
     Width := 1;
-    Visible := False;
+    Visible := True;
   end;
 
   AEditor.Options := [
@@ -1495,10 +1513,11 @@ begin
   ];
   AEditor.ScrollBars := ssAutoBoth;
 
-  AEditor.OnStatusChange := EditorStatusChange;
-  AEditor.OnChange       := EditorChange;
-  AEditor.OnClickLink    := EditorClickLink;
-  AEditor.OnPaste        := EditorPaste;
+  AEditor.OnStatusChange   := EditorStatusChange;
+  AEditor.OnChange         := EditorChange;
+  AEditor.OnClickLink      := EditorClickLink;
+  AEditor.OnPaste          := EditorPaste;
+  AEditor.OnProcessCommand := EditorProcessCommand;
 
   AEditor.Visible := True;
 
@@ -1602,8 +1621,8 @@ end;
 procedure TEditorView.BeginUpdate;
 begin
   Logger.EnterMethod(Self, 'BeginUpdate');
-//  Editor.BeginUpdate;
-//  Editor.BeginUpdateBounds; // TODO investigate this
+  Editor.BeginUpdate;
+  Editor.BeginUpdateBounds; // TODO investigate this
   Editor.BeginUndoBlock;
   Logger.ExitMethod(Self, 'BeginUpdate');
 end;
@@ -1612,8 +1631,8 @@ procedure TEditorView.EndUpdate;
 begin
   Logger.EnterMethod(Self, 'EndUpdate');
   Editor.EndUndoBlock;
-//  Editor.EndUpdateBounds; // TODO investigate this
-//  Editor.EndUpdate;
+  Editor.EndUpdateBounds; // TODO investigate this
+  Editor.EndUpdate;
   Logger.ExitMethod(Self, 'EndUpdate');
 end;
 
@@ -1668,6 +1687,8 @@ procedure TEditorView.Activate;
 begin
   inherited;
   Manager.ActiveView := Self as IEditorView;
+  if Editor.CanFocus then
+    Editor.SetFocus;
 end;
 
 function TEditorView.EditorViewFocused: Boolean;
@@ -2048,12 +2069,18 @@ end;
 
 procedure TEditorView.SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
 begin
-  Editor.SearchReplaceEx(ALine, '', [ssoWholeWord], Point(0, ALineIndex));
+  try
+    Editor.SearchReplaceEx(ALine, '', [ssoWholeWord], Point(0, ALineIndex));
+  except
+  end;
 end;
 
 procedure TEditorView.SearchAndSelectText(const AText: string);
 begin
-  Editor.SearchReplaceEx(AText, '', [], Point(0, 0));
+  try
+    Editor.SearchReplaceEx(AText, '', [], Point(0, 0));
+  except
+  end;
 end;
 
 procedure TEditorView.SelectWord;
@@ -2065,7 +2092,7 @@ end;
 
 procedure TEditorView.ClearHighlightSearch;
 begin
-  Editor.SetHighlightSearch('', []);
+  SetHighlightSearch('', []);
 end;
 
 procedure TEditorView.Clear;
@@ -2098,7 +2125,11 @@ end;
 
 procedure TEditorView.SetHighlightSearch(const ASearch: string; AOptions: TSynSearchOptions);
 begin
-  Editor.SetHighlightSearch(ASearch, AOptions);
+  try
+    Editor.SetHighlightSearch(ASearch, AOptions);
+  except
+    // TO TEST
+  end;
 end;
 
 procedure TEditorView.UpdateActions;

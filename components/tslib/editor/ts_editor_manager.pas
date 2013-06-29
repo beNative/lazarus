@@ -156,9 +156,9 @@ type
     actFindAllOccurences          : TAction;
     actIndent                     : TAction;
     actFile                       : TAction;
-    actShowMiniMap: TAction;
-    actShowHexEditor: TAction;
-    actShowHTMLViewer: TAction;
+    actShowMiniMap                : TAction;
+    actShowHexEditor              : TAction;
+    actShowHTMLViewer             : TAction;
     actUnindent                   : TAction;
     actSelect                     : TAction;
     actSearchMenu                 : TAction;
@@ -256,11 +256,11 @@ type
     MenuItem11                    : TMenuItem;
     MenuItem12                    : TMenuItem;
     MenuItem13                    : TMenuItem;
-    MenuItem14: TMenuItem;
-    MenuItem15: TMenuItem;
-    MenuItem16: TMenuItem;
-    MenuItem17: TMenuItem;
-    MenuItem18: TMenuItem;
+    MenuItem14                    : TMenuItem;
+    MenuItem15                    : TMenuItem;
+    MenuItem16                    : TMenuItem;
+    MenuItem17                    : TMenuItem;
+    MenuItem18                    : TMenuItem;
     MenuItem2                     : TMenuItem;
     MenuItem3                     : TMenuItem;
     MenuItem4                     : TMenuItem;
@@ -560,7 +560,7 @@ type
       ANativeFormat: Boolean = True);
     procedure FormatCode;
 
-    { IEditorViews }
+    {$region 'IEditorViews'}
     function IEditorViews.Add = AddView;
     function IEditorViews.Delete = DeleteView;
     function IEditorViews.Clear = ClearViews;
@@ -576,20 +576,14 @@ type
       const AName       : string = ''
     ): IEditorView;
 
-    procedure ShowToolView(
-       AToolView  : IEditorToolView;
-       AVisible   : Boolean;
-       AShowModal : Boolean;
-       ASetFocus  : Boolean
-    );
-
     function DeleteView(AIndex: Integer): Boolean; overload;
     function DeleteView(AView: IEditorView): Boolean; overload;
     function DeleteView(const AName: string): Boolean; overload;
     procedure ClearViews(AExceptActive: Boolean = False);
     function GetViewsEnumerator: TEditorViewListEnumerator;
+    {$endregion}
 
-    { IEditorToolViews }
+    {$region 'IEditorToolViews'}
     procedure IEditorToolViews.Add = AddToolView;
     function IEditorToolViews.Delete = DeleteToolView;
     function IEditorToolViews.GetEnumerator = GetToolViewsEnumerator;
@@ -598,6 +592,13 @@ type
     function DeleteToolView(AIndex: Integer): Boolean; overload;
     function DeleteToolView(AView: IEditorToolView): Boolean; overload;
     function DeleteToolView(const AName: string): Boolean; overload;
+    procedure ShowToolView(
+       AToolView  : IEditorToolView;
+       AVisible   : Boolean;
+       AShowModal : Boolean;
+       ASetFocus  : Boolean
+    );
+    {$endregion}
 
     { IEditorCommands } { TODO -oTS : Move to dedicated class or TEditorView }
     function SaveFile(
@@ -618,8 +619,6 @@ type
     // TODO: move to editor
     procedure FindNextWordOccurrence(DirectionForward: Boolean);
     procedure FindPrevious;
-
-    function ActivateView(const AName: string): Boolean;
 
     // TComponent overrides
     procedure Notification(
@@ -655,14 +654,15 @@ type
 
     procedure HideToolViews;
 
+    {$region 'IEditorManager'}
+    function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
-
-    { IEditorManager }
     function OpenFile(const AFileName: string): IEditorView;
     function NewFile(
       const AFileName  : string;
       const AText      : string = ''
     ): IEditorView;
+    {$endregion}
 
     // TS temp
     function ActiveToolView: IEditorToolView;
@@ -675,10 +675,7 @@ type
     property Items[AName: string]: TCustomAction
       read GetItem; default;
 
-    { Set/get the reference to the active view. }
-    property ActiveView: IEditorView
-      read GetActiveView write SetActiveView {implements IEditorView};
-
+    {$region 'IEditorMenus'}
     property ClipboardPopupMenu: TPopupMenu
       read GetClipboardPopupMenu;
 
@@ -720,18 +717,47 @@ type
 
     property SettingsPopupMenu: TPopupMenu
       read GetSettingsPopupMenu;
+    {$endregion}
+
+    {$region 'IEditorManager'}
+    property PersistSettings: Boolean
+      read GetPersistSettings write SetPersistSettings;
 
     property Highlighters: THighlighters
       read GetHighlighters;
 
-    property PersistSettings: Boolean
-      read GetPersistSettings write SetPersistSettings;
+    { Set/get the reference to the active view. }
+    property ActiveView: IEditorView
+      read GetActiveView write SetActiveView;
 
-    property Views[AIndex: Integer]: IEditorView
-      read GetView;
+    property Events: IEditorEvents
+      read GetEvents;
 
     property ToolViews: IEditorToolViews
       read GetToolViews;
+
+    property Menus: IEditorMenus
+      read GetMenus;
+
+    property Actions: IEditorActions
+      read GetActions;
+
+    property Commands: IEditorCommands
+      read GetCommands;
+
+    property Settings: IEditorSettings
+      read GetSettings implements IEditorSettings;
+
+    property SearchEngine: IEditorSearchEngine
+      read GetSearchEngine implements IEditorSearchEngine;
+    {$endregion}
+
+    property View: IEditorView
+      read GetActiveView implements IEditorView;
+
+    {$region 'IEditorViews'}
+    property Views[AIndex: Integer]: IEditorView
+      read GetView;
 
     property ViewByName[AName: string]: IEditorView
       read GetViewByName;
@@ -744,12 +770,28 @@ type
 
     property ViewCount: Integer
       read GetViewCount;
+    {$endregion}
 
+    {$region 'IEditorToolViews'}
     property ToolViewList: TEditorToolViewList
       read GetToolViewList;
 
     property ToolViewCount: Integer
       read GetToolViewCount;
+    {$endregion}
+
+    {$region 'IEditorEvents'}
+    property OnActiveViewChange: TNotifyEvent
+      read GetOnActiveViewChange write SetOnActiveViewChange;
+
+    property OnAddEditorView: TAddEditorViewEvent
+      read GetOnAddEditorView write SetOnAddEditorView;
+
+    property OnShowEditorToolView: TEditorToolViewEvent
+      read GetOnShowEditorToolView write SetOnShowEditorToolView;
+
+    property OnHideEditorToolView: TEditorToolViewEvent
+      read GetOnHideEditorToolView write SetOnHideEditorToolView;
 
     property OnCaretPositionChange: TCaretPositionEvent
       read GetOnCaretPositionChange write SetOnCaretPositionChange;
@@ -772,39 +814,9 @@ type
     property OnSaveFile: TFileEvent
       read GetOnSaveFile write SetOnSaveFile;
 
-    property OnActiveViewChange: TNotifyEvent
-      read GetOnActiveViewChange write SetOnActiveViewChange;
-
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
-
-    property OnAddEditorView: TAddEditorViewEvent
-      read GetOnAddEditorView write SetOnAddEditorView;
-
-    property OnShowEditorToolView: TEditorToolViewEvent
-      read GetOnShowEditorToolView write SetOnShowEditorToolView;
-
-    property OnHideEditorToolView: TEditorToolViewEvent
-      read GetOnHideEditorToolView write SetOnHideEditorToolView;
-
-    { IEditorManager }
-    property Settings: IEditorSettings
-      read GetSettings implements IEditorSettings;
-
-    property Events: IEditorEvents
-      read GetEvents;
-
-    property Menus: IEditorMenus
-      read GetMenus;
-
-    property Commands: IEditorCommands
-      read GetCommands;
-
-    property View: IEditorView
-      read GetActiveView implements IEditorView;
-
-    property SearchEngine: IEditorSearchEngine
-      read GetSearchEngine implements IEditorSearchEngine;
+   {$endregion}
 
   public
     procedure AfterConstruction; override;
@@ -2361,7 +2373,6 @@ var
       ADescription,
       ALayoutFileName
     );
-    //Logger.Send('Registered:', AName);
   end;
 
 begin
@@ -2681,6 +2692,18 @@ begin
   FoldPopupMenu.Items.Action := actToggleFoldLevel;
 end;
 
+procedure TdmEditorManager.BuildExportPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := ExportPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actExport;
+  AddMenuItem(MI, actExportToHTML);
+  AddMenuItem(MI, actExportToRTF);
+  AddMenuItem(MI, actExportToWiki);
+end;
+
 procedure TdmEditorManager.BuildEditorPopupMenu;
 var
   MI : TMenuItem;
@@ -2716,17 +2739,6 @@ begin
   AddMenuItem(MI, actShowHexEditor);
 end;
 
-procedure TdmEditorManager.BuildExportPopupMenu;
-var
-  MI : TMenuItem;
-begin
-  MI := ExportPopupMenu.Items;
-  MI.Clear;
-  MI.Action := actExport;
-  AddMenuItem(MI, actExportToHTML);
-  AddMenuItem(MI, actExportToRTF);
-  AddMenuItem(MI, actExportToWiki);
-end;
 {$endregion}
 
 //*****************************************************************************
@@ -2789,6 +2801,7 @@ begin
   V.Form.Caption := '';
   ViewList.Add(V);
   DoAddEditorView(V);
+  V.Activate;
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
   Logger.ExitMethod(Self, 'AddView');
@@ -2821,9 +2834,7 @@ begin
   Logger.EnterMethod(Self, 'DeleteView(AIndex)');
   if (AIndex > -1) and (AIndex < ViewCount) {and (ViewCount > 1)} then
   begin
-    //Logger.Watch('AIndex', AIndex);
     I := ViewList.IndexOf(ActiveView);
-    //Logger.Send('ViewList.IndexOf(ActiveView)', I);
     if I = AIndex then // select a new active view
     begin
       V := Views[I];

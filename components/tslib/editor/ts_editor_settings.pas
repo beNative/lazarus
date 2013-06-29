@@ -31,7 +31,7 @@ uses
 
   SynEditMiscClasses, SynEditMarkupBracket,
 
-  ts_Core_NativeXml, ts_core_nativexmlobjectstorage,
+  ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage,
 
   sharedlogger,
 

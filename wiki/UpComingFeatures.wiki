@@ -4,9 +4,11 @@
  * Minimap
  * Hex Editor
  * HTML viewer
+ * Localization
+ * Bookmarks
+ * Macro recorder
  * multi-caret editing
  * structure viewer
- * more customization
  * scripting
  * user-definable shortcuts
  * quick action lookup 

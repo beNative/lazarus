@@ -19,3 +19,5 @@
   ** on FreeBSD 32/64 (carbon) 
   ** on Mac OS X (Qt)
  
+As google will not allow downloads anymore upcoming versions will most probably be hosted on sourceforge.
+See http://sourceforge.net/blog/google-code-projects-downloads-are-welcome/ for more details.

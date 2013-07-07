@@ -2905,6 +2905,112 @@ begin
   Filer.DefineProperty('Syntax', @ReadSyntax, @WriteSyntax, B);
 end;
 
+(*
+//### Code Folding ###
+procedure TSynUniSyn.ReadCodeFolding(xml: TXMLParser;
+	ParentFold: TFoldRegionItem);
+var
+	AddCloseKeyWord, AllowNoSubFolds, WholeWords: Boolean;
+  FoldRegionType: TFoldRegionType;
+  OpenKeyWord, CloseKeyWord, OpenRegExp, CloseRegExp: String;
+  OpenUseRegExp, CloseUseRegExp: Boolean;
+  FoldRegion: TFoldRegionItem;
+
+  function Entities2Chars(S: String): String;
+  var
+    i: Integer;
+  const
+    sEntities: array[0..3] of String = ('&quot;', '&lt;', '&gt;', '&apos;');
+    sChars: array[0..3] of String = ('"', '<', '>', '''');
+  begin
+    Result := S;
+
+    for i := 0 to 3 do
+      Result := StringReplace(Result, sEntities[i], sChars[i], [rfReplaceAll]);
+  end;
+begin
+	// Stuff to shut up the compiler
+  AddCloseKeyWord := False;
+  AllowNoSubFolds := False;
+  WholeWords := False;
+  FoldRegionType := rtChar;
+
+	while xml.Scan do
+  begin
+  	if xml.CurPartType = ptStartTag then
+    begin
+    	if Verify('FoldRegion',xml) then
+      begin
+      	AddCloseKeyWord := StrToBool( xml.CurAttr.Value('AddCloseKeyword') );
+        AllowNoSubFolds := StrToBool( xml.CurAttr.Value('AllowNoSubFolds') );
+        FoldRegionType := TFoldRegionType( StrToInt( xml.CurAttr.Value('Type') ) );
+        WholeWords := StrToBool(xml.CurAttr.Value('WholeWords') );
+      end
+      else if Verify('SkipRegions',xml) then
+      	// Iterate through skip regions
+      	while xml.Scan do
+        begin
+        	if (xml.CurPartType = ptEmptyTag) then
+          begin
+            if (Verify('String',xml)) then
+          	  FoldRegions.SkipRegions.Add(
+                Entities2Chars(xml.CurAttr.Value('Open')),
+          		  Entities2Chars(xml.CurAttr.Value('Close')),
+                Entities2Chars(xml.CurAttr.Value('Escape')),
+                itString)
+            else if (Verify('MultiLineComment',xml)) then
+          	  FoldRegions.SkipRegions.Add(
+                Entities2Chars(xml.CurAttr.Value('Open')),
+          		  Entities2Chars(xml.CurAttr.Value('Close')),
+                '',
+                itMultiLineComment)
+            else if (Verify('SingleLineComment',xml)) then
+          	  FoldRegions.SkipRegions.Add(
+                Entities2Chars(xml.CurAttr.Value('Open')),
+          		  '',
+                '',
+                itSingleLineComment);
+          end
+          else if (xml.CurPartType = ptEndTag) and (Verify('SkipRegions',xml)) then
+            Break;
+        end
+      else if Verify('SubFoldRegions',xml) then
+      begin
+      	if ParentFold = nil then
+        	FoldRegion := FoldRegions.Add(FoldRegionType, AddCloseKeyWord,
+          	AllowNoSubFolds, WholeWords, PChar(OpenKeyWord), PChar(CloseKeyWord),
+            ParentFold)
+        else
+        	FoldRegion := ParentFold.SubFoldRegions.Add(FoldRegionType,
+          	AddCloseKeyWord, AllowNoSubFolds, WholeWords, PChar(OpenKeyWord),
+          	PChar(CloseKeyWord), ParentFold);
+
+        ReadCodeFolding(xml, FoldRegion);
+      end;
+    end
+    else if xml.CurPartType = ptEmptyTag then
+    begin
+    	if Verify('Open',xml) then
+      begin
+      	OpenKeyWord := xml.CurAttr.Value('Keyword');
+        OpenRegExp := xml.CurAttr.Value('RegExp');
+        OpenUseRegExp := StrToBool( xml.CurAttr.Value('UseRegExp') );
+      end
+      else if Verify('Close',xml) then
+      begin
+      	CloseKeyWord := xml.CurAttr.Value('Keyword');
+        CloseRegExp := xml.CurAttr.Value('RegExp');
+        CloseUseRegExp := StrToBool( xml.CurAttr.Value('UseRegExp') );
+      end;
+    end
+    else if (xml.CurPartType = ptEndTag)
+    and ((xml.CurName = 'SubFoldRegions') or (xml.CurName = 'CodeFolding')) then
+    	Exit;
+  end;
+end;
+//### End Code Folding ###
+*)
+
 procedure TSynUniSyn.ReadSyntax(Reader: TReader);
 var
   SS: TStringStream;

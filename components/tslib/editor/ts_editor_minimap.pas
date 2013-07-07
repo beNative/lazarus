@@ -33,6 +33,7 @@ uses
 
 type
   TfrmMiniMap = class(TCustomEditorToolView)
+    procedure FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData);
   private
     FMiniMap : TSynMiniMap;
 
@@ -48,6 +49,13 @@ implementation
 
 {$R *.lfm}
 
+procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
+  );
+begin
+
+  //
+end;
+
 procedure TfrmMiniMap.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -55,6 +63,12 @@ begin
   FMiniMap.Parent := Self;
   FMiniMap.Align := alClient;
   FMiniMap.Options.AllowScroll := True;
+  FMiniMap.FontFactor := 3;
+  FMiniMap.Options.TabWidth := Manager.Settings.TabWidth;
+  FMiniMap.Options.TabWidthOverride := False;
+
+  FMiniMap.OnClick := FMiniMapClick;
+
 end;
 
 procedure TfrmMiniMap.UpdateView;

@@ -53,15 +53,6 @@ type
     procedure Restore;
     procedure Ignore;
 
-    {
-    FStoredBlockBegin       : TPoint;
-    FStoredBlockEnd         : TPoint;
-    FStoredBlockLines       : TStringList;
-    FStoredStripLastLine    : Boolean;
-    FStoredBlockLockUpdates : Boolean;
-    FStoredSelectionMode    : TSynSelectionMode;
-    }
-
     property BlockBegin: TPoint
       read GetBlockBegin write SetBlockBegin;
 

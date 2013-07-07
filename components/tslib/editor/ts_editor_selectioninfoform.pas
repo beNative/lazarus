@@ -9,10 +9,14 @@ interface
 uses
   SysUtils, Forms, StdCtrls,
 
-  ts_Editor_Interfaces;
+  ts_Editor_Interfaces, Classes;
 
 type
   TfrmSelectionInfo = class(TForm, IEditorToolView)
+    btnStoreBlock: TButton;
+    btnRestoreBlock: TButton;
+    chkLockUpdates: TCheckBox;
+    chkExcludeEmptyLines: TCheckBox;
     lblCaretXY: TLabel;
     lblLineCount: TLabel;
     lblLineCountValue: TLabel;
@@ -26,12 +30,16 @@ type
     lblBlockEnd: TLabel;
     lblBlockEndValue: TLabel;
     lblStoredCaretXY: TLabel;
-    lblStoredCaretXYValue: TLabel;
+    lblStoredCaretXYValue            : TLabel;
     lblStoredBlockSelectionMode      : TLabel;
     lblStoredBlockEndValue           : TLabel;
     lblStoredBlockEnd                : TLabel;
     lblStoredBlockLines              : TLabel;
     lblStoredBlockSelectionModeValue : TLabel;
+    mmoBlock: TMemo;
+    procedure btnRestoreBlockClick(Sender: TObject);
+    procedure btnStoreBlockClick(Sender: TObject);
+    procedure mmoBlockChange(Sender: TObject);
   private
     function GetView: IEditorView;
 
@@ -63,15 +71,11 @@ uses
   SynEditTypes,
 
   ts_Editor_SelectionInfo;
-
-
 {
-
   StoredBlockBegin X Y
   StoredBlockEnd   X Y
   StoredBlockSelectionMode
   StoredBlockLines
-
 }
 
 function TfrmSelectionInfo.GetView: IEditorView;
@@ -92,6 +96,21 @@ end;
 function TfrmSelectionInfo.GetVisible: Boolean;
 begin
   Result := Visible;
+end;
+
+procedure TfrmSelectionInfo.btnStoreBlockClick(Sender: TObject);
+begin
+  View.StoreBlock(chkLockUpdates.Checked, chkExcludeEmptyLines.Checked);
+end;
+
+procedure TfrmSelectionInfo.mmoBlockChange(Sender: TObject);
+begin
+  View.SelectionInfo.Text := mmoBlock.Text;
+end;
+
+procedure TfrmSelectionInfo.btnRestoreBlockClick(Sender: TObject);
+begin
+  View.RestoreBlock;
 end;
 
 procedure TfrmSelectionInfo.UpdateView;
@@ -133,6 +152,7 @@ begin
 
   lblLineCountValue.Caption := IntToStr(SI.Lines.Count);
   lblStoredBlockLines.Caption := SI.Text;
+  mmoBlock.Lines.Text         := SI.Text;
 end;
 
 procedure TfrmSelectionInfo.UpdateActions;

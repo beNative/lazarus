@@ -1964,7 +1964,7 @@ end;
 
 procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
 begin
-  //
+  ShowToolView(ToolViews['frmSelectionInfo'], (Sender as TAction).Checked, False, False);
 end;
 
 procedure TdmEditorManager.actSelectionModeExecute(Sender: TObject);

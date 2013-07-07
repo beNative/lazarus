@@ -58,6 +58,7 @@ uses
    SysUtils
   ,Windows
   ,Classes
+  , StdCtrls, Forms
   ,Controls
   ,Graphics
 
@@ -65,11 +66,11 @@ uses
   ;
 
 const
-  SYNMINIMAP_DEFAULT_HEIGHT = 400;
+  SYNMINIMAP_DEFAULT_HEIGHT = 4000;
   SYNMINIMAP_DEFAULT_WIDTH = 200;
-  SYNMINIMAP_DEFAULT_FONTFACTOR = 3;
-  SYNMINIMAP_FONTFACTOR_MIN = 2;
-  SYNMINIMAP_FONTFACTOR_MAX = 4;
+  SYNMINIMAP_DEFAULT_FONTFACTOR = 5;
+  SYNMINIMAP_FONTFACTOR_MIN = 1; //2
+  SYNMINIMAP_FONTFACTOR_MAX = 10; //4
   SYNMINIMAP_DEFAULT_OPTIONS_TABWIDTH = 4;
 
 type
@@ -205,6 +206,7 @@ type
     FScrolling: Boolean;
   private
     FOnClick: TSynMiniMapEvent;
+    FScrollBar: TScrollBar;
   private
     FColors: TSynMiniMapColors;
     FMiniMapPlugin: TSynMiniMapEditorPlugin;
@@ -330,14 +332,14 @@ begin
   ///
   if FSynMiniMap.PreviousLineIndex >= LLineIndex then
   begin
-    Inc(FSynMiniMap.FPreviousLineIndex, ACount );
+    Inc(FSynMiniMap.FPreviousLineIndex, ACount);
     FSynMiniMap.Render;
   end;
 end;
 
 procedure TSynMiniMapEditorPlugin.EditorDecPaintLock(Sender: TObject);
 begin
-   FSynMiniMap.Render;
+  FSynMiniMap.Render;
 end;
 
 constructor TSynMiniMapEditorPlugin.Create(ASynMiniMap: TSynMiniMap);
@@ -371,6 +373,11 @@ begin
   FPreviousLineIndex := -1;
   FFontFactor := SYNMINIMAP_DEFAULT_FONTFACTOR;
   FScrolling := False;
+  FScrollBar := TScrollBar.Create(Self);
+  FScrollBar.Parent := Self;
+  FScrollBar.Kind := sbVertical;
+  FScrollBar.Align := alRight;
+  FScrollBar.Visible := False;
 end;
 
 destructor TSynMiniMap.Destroy;
@@ -394,7 +401,8 @@ begin
     ///
     ///  save previous line index for drawing in Render
     ///
-    FPreviousLineIndex := FEditor.CaretY -1;
+    FPreviousLineIndex := FEditor.TopLine - 1;
+    //FEditor.CaretY -1;
     ///
     ///  reset event data record
     ///
@@ -441,7 +449,7 @@ procedure TSynMiniMap.MouseDown(Button: TMouseButton; Shift: TShiftState;
   X: Integer; Y: Integer);
 begin
   inherited;
-  FScrolling := ( mbLeft = Button ) and Options.AllowScroll;
+  FScrolling := (mbLeft = Button) and Options.AllowScroll;
   FMouseDownPoint.X := X;
   FMouseDownPoint.Y := Y;
 end;
@@ -452,7 +460,7 @@ var
   LScrollDown: Boolean;
 begin
   inherited;
-  if NOT Options.AllowScroll then
+  if not Options.AllowScroll then
     Exit;
   if Scrolling and Assigned(Editor) then begin
     LDelta := FMouseDownPoint.Y - Y;
@@ -460,14 +468,25 @@ begin
     LDelta := Abs(LDelta);
 
     LScrollDown := (Y > FMouseDownPoint.Y);
-    if Options.ReverseScroll then
-      LScrollDown := NOT LScrollDown;
+    if Options.ReverseScroll then // swipe movements
+      LScrollDown := not LScrollDown;
+
+
+
 
     if LScrollDown then
-    //if Y > FMouseDownPoint.Y then
-      Editor.CaretY := Editor.CaretY + LDelta
+      Editor.TopLine := Editor.TopLine + LDelta
     else
-      Editor.CaretY := Editor.CaretY - LDelta;
+      Editor.TopLine := Editor.TopLine - LDelta;
+    Render;
+
+
+
+
+    //if Y > FMouseDownPoint.Y then
+    //  Editor.CaretY := Editor.CaretY + LDelta
+    //else
+    //  Editor.CaretY := Editor.CaretY - LDelta;
   end;
 end;
 
@@ -480,7 +499,7 @@ begin
   FScrolling := False;
   FMouseUpPoint.X := X;
   FMouseUpPoint.Y := Y;
-  LIsClick := ( NOT Options.AllowScroll )
+  LIsClick := ( not Options.AllowScroll )
     or (( FMouseDownPoint.X = FMouseUpPoint.X)
     and (FMouseDownPoint.Y = FMouseUpPoint.Y ));
   if LIsClick then
@@ -532,6 +551,9 @@ begin
   if (not Assigned(Editor)) or (csDestroying in ComponentState) then
     Exit;
 
+  //FScrollBar.Min := 1;
+  //FScrollBar.Max := Editor.Lines.Count - Editor.LinesInWindow;
+
   ///
   ///  this is where the magic happens
   ///  what it does:
@@ -578,7 +600,7 @@ begin
   ///
   LMaxLineCount := Self.Height div FLineHeightInPixels;
   ///
-  ///  calculate the smalles value of lines we will display
+  ///  calculate the smallest value of lines we will display
   ///  if the lines in editor are more than we can display
   ///  then we display the maximum possible, otherwise display as many
   ///  as there are in the editor
@@ -597,7 +619,8 @@ begin
   ///  calculate the first and last lines that we will grab from editor
   ///  and display in the MiniMap
   ///
-  FFirstLine := LTopLineIndex - ( LMaxLineCount div 2 ) + (Editor.LinesInWindow div 2);
+  FFirstLine := LTopLineIndex - LMaxLineCount + Editor.LinesInWindow;
+  //-( LMaxLineCount div 2 ) + (Editor.LinesInWindow div 2);
   FFirstLine := Max(FFirstLine, 0);
   FLastLine := Min(FFirstLine + LLineCount, Editor.Lines.Count -1);
   ///
@@ -709,7 +732,7 @@ end;
 
 procedure TSynMiniMap.ResetInternals;
 begin
-  if NOT Assigned(Editor) then
+  if not Assigned(Editor) then
     Exit;
   FEditorHeight := Editor.Height;
   FEditorWidth := Editor.Width;

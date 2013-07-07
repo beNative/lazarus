@@ -1778,7 +1778,7 @@ end;
 { Comments or uncomments selected code lines based on the line comment tag of
   the active highlighter. }
 
-// TS TODO: use SelectionInfo
+// TS TODO: use SelectionInfo, and keep selection after updating selected block
 
 procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 var
@@ -1951,10 +1951,11 @@ var
 begin
   if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
   begin
-    StoreBlock;
+    StoreBlock(True, True);
     N1 := Length(HighlighterItem.BlockCommentStartTag);
     N2 := Length(HighlighterItem.BlockCommentEndTag);
-    S := Trim(SelectionInfo.Text);
+    //S := Trim(SelectionInfo.Text);
+    S := SelectionInfo.Text;
     S1 := System.Copy(S, 1, N1);
     S2 := System.Copy(S, Length(S) - N2 + 1, Length(S));
     if (S1 = HighlighterItem.BlockCommentStartTag)

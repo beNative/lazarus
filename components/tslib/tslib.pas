@@ -10,11 +10,11 @@ uses
   ts_Editor_ActionListViewForm, ts_Editor_CharacterMapDialog, 
   ts_Editor_CodeFilterDialog, ts_Editor_SettingsDialog, 
   ts_Editor_CodeShaperForm, ts_Editor_AboutDialog, ts_Editor_SearchForm, 
-  ts_Editor_ShortcutsDialog, ts_Editor_ViewListForm, ts_Editor_Manager, 
-  ts_Editor_Helpers, ts_Editor_Interfaces, ts_Editor_Settings, 
-  ts_Editor_Utils, ts_Editor_View, ts_Editor_HighlighterAttributes, 
-  ts_Editor_Highlighters, ts_Core_DataTemplates, ts_Core_TreeViewPresenter, 
-  ts_RichEditor_Manager, ts_RichEditor_View, ts_Components_Docking, 
+  ts_Editor_ShortcutsDialog, ts_Editor_ViewListForm, ts_Editor_Helpers, 
+  ts_Editor_Interfaces, ts_Editor_Settings, ts_Editor_Utils, ts_Editor_View, 
+  ts_Editor_HighlighterAttributes, ts_Editor_Highlighters, 
+  ts_Core_DataTemplates, ts_Core_TreeViewPresenter, ts_RichEditor_Manager, 
+  ts_RichEditor_View, ts_Components_Docking, 
   ts_Components_Docking_OptionsDialog, ts_Components_Docking_Storage, 
   ts_Components_Docking_Resources, ts_Editor_PreviewForm, ts_Core_XMLUtils, 
   ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate, 
@@ -36,8 +36,9 @@ uses
   ts_Components_FileAssociation, ts_Core_CodecUtilsWin32, 
   ts_Core_EncodingUtils, ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage, 
   ts_Core_NativeXmlWin32Compat, ts_Editor_CustomToolView, ts_Editor_CodeTags, 
-  ts_Editor_HTMLViewForm, ts_Editor_HexEditorForm, ts_Core_Value, ipcchannel, 
-  ts_Components_SynMiniMap, ts_Editor_Minimap;
+  ts_Editor_HTMLViewForm, ts_Editor_HexEditorForm, ts_Core_Value, 
+  ts_Components_SynMiniMap, ts_Editor_Minimap, OMultiPanel, 
+  ts_Editor_Commands, ts_Editor_Manager, ipcchannel;
 
 implementation
 

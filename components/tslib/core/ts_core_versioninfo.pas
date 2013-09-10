@@ -10,6 +10,9 @@ uses
   Classes, SysUtils, FileInfo, Graphics;
 
 type
+
+  { TVersionInfo }
+
   TVersionInfo = class(TComponent)
   private
     FBuildDate       : string;

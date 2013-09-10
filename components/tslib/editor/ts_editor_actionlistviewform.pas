@@ -170,7 +170,8 @@ begin
   begin
     C := TSynEditorCommand(Integer(Result));
     S := EditorCommandToCodeString(C);
-    S[1] := LowerCase(S[1]);
+    if Length(S) > 0 then
+      S[1] := LowerCase(S[1]);
     Result := S;
   end
   else if SameText(APropertyName, 'Hint') then

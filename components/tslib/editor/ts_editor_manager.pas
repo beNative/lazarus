@@ -1718,7 +1718,7 @@ begin
   //]);
 //  InspectComponent(Settings as TComponent);
 
-  InspectComponent(ActiveView.Editor);
+  InspectComponent(ActiveView.Editor.Highlighter);
 
   //InspectComponents([
   //  Settings as TComponent,

@@ -2281,10 +2281,8 @@ end;
 procedure TEditorView.SaveToFile(const AFileName: string);
 var
   FS : TFileStream;
-  FN : string;
 begin
-  FN := Utf8ToAnsi(AFileName);
-  FS := TFileStream.Create(FN, fmCreate);
+  FS := TFileStream.Create(AFileName, fmCreate);
   try
     SaveToStream(FS);
   finally

@@ -111,16 +111,12 @@
 
 unit ts_Core_Value;
 
-{$mode delphi}
-//{$mode delphiunicode}
-//{$define UNICODE}
+{$MODE delphiunicode}
 
 interface
 
 uses
   SysUtils, Classes, TypInfo, Variants,
-
-  sharedlogger,
 
   LCLIntf, LCLType,
 
@@ -482,7 +478,6 @@ end;
 
 function TValueObject.GetAsString: string;
 begin
-  Logger.Send('GetAsString', GetEnumName(TypeInfo(TValueType), Integer(ValueType)));
   case FValueType of
     vtNull:       Result := '';
     vtBoolean:    Result := BoolToStr(AsBoolean, True);
@@ -853,7 +848,6 @@ end;
 
 function TValue.GetAsInteger: Integer;
 begin
-  Logger.Send('GetAsInteger', GetEnumName(TypeInfo(TValueType), Integer(ValueType)));
   if ValueType = vtInteger then
     Result := FData.AsInteger
   else

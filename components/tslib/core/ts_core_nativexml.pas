@@ -3146,7 +3146,6 @@ procedure TXmlNode.WriteString(const AName, AValue, ADefault: Utf8String);
 begin
   if WriteOnDefault or (AValue <> ADefault) then
     WriteValue(AName, AValue);
-  //Logger.Send(AName, AValue);
 end;
 
 procedure TXmlNode.WriteUnicodeString(const AName: Utf8String; const AValue, ADefault: UnicodeString);
@@ -3887,8 +3886,6 @@ end;
 
 procedure TsdCharData.SetCoreValue(const Value: Utf8String);
 begin
-  // TSI
-  //Logger.Send('SetCoreValue', Value);
   FValueID := AddString(Value);
 end;
 
@@ -3903,7 +3900,6 @@ procedure TsdCharData.WriteStream(S: TStream);
 begin
   // write the chardata: the platform value is the 
   sdWriteToStream(S, GetPlatformValue);
-//  sdWriteToStream(S, GetCoreValue);
 end;
 
 procedure TsdCharData.SetName(const Value: Utf8String);
@@ -8179,10 +8175,8 @@ var
   HasEscapes: boolean;
   ScratchMem: TsdFastMemStream;
 begin
-  //Logger.Send('sdEscapeString.AValue', AValue);
   Result := '';
   Len := Length(AValue);
-  //Logger.Send('Length', Len);
   if Len = 0 then
     Exit;
 
@@ -8190,7 +8184,6 @@ begin
   P := PAnsiChar(AValue);
   for i := 0 to Len - 1 do
   begin
-   // Logger.Send('P', P^);
     case P^ of
     '"'  : HasEscapes := True;
     '''' : HasEscapes := True;
@@ -8224,7 +8217,6 @@ begin
       Inc(P);
     end;
     SetString(Result, PAnsiChar(ScratchMem.Memory), ScratchMem.Position);
-//    Logger.Send('sdEscapeString.Result', Result);
   finally
     ScratchMem.Free;
   end;

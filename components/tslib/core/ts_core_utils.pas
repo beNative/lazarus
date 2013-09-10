@@ -154,6 +154,7 @@ procedure VariantToVarRec(    AVariant     : Variant;
                           var AVarRecArray : TVarRecArray);
 function VariantToVarRec(const Item: Variant): TVarRec;
 procedure ClearVarRec(var AVarRecArray : TVarRecArray);
+procedure FinalizeVarRec(var Item: TVarRec);
 
 function VarRecToVariant(const AVarRec : TVarRec): Variant;
 function VarRecToString(const AVarRec : TVarRec): string;
@@ -226,7 +227,7 @@ uses
 {$ifdef windows}
   ActiveX, ShlObj, Registry,
 {$endif}
-  //sharedlogger,
+
   Variants, ActnList;
 
 //=============================================================================
@@ -477,6 +478,26 @@ begin
     if AVarRecArray[I].VType in [vtExtended, vtString, vtVariant, vtInt64] then
       Dispose(AVarRecArray[I].VExtended);
   Finalize(AVarRecArray);
+end;
+
+procedure FinalizeVarRec(var Item: TVarRec);
+begin
+  case Item.VType of
+    vtExtended: Dispose(Item.VExtended);
+    vtString: Dispose(Item.VString);
+    vtPChar: StrDispose(Item.VPChar);
+    vtPWideChar: FreeMem(Item.VPWideChar);
+    vtAnsiString: AnsiString(Item.VAnsiString) := '';
+    vtCurrency: Dispose(Item.VCurrency);
+    vtVariant: Dispose(Item.VVariant);
+    vtInterface: IInterface(Item.VInterface) := nil;
+    vtWideString: WideString(Item.VWideString) := '';
+    vtInt64: Dispose(Item.VInt64);
+    {$IFDEF UNICODE}
+    vtUnicodeString: UnicodeString(Item.VUnicodeString) := '';
+    {$ENDIF}
+  end;
+  Item.VInteger := 0;
 end;
 
 function ConvertValueToFieldType(const AVariant: Variant;
@@ -778,47 +799,48 @@ end;
 
 function VariantToVarRec(const Item: Variant): TVarRec;
 begin
-  Result:=VariantToTypedVarRec(Item, TVarData(Item).VType);
+  Result := VariantToTypedVarRec(Item, TVarData(Item).VType);
 end;
 
-function VariantToTypedVarRec(const Item: Variant; VarType: TVarType): TVarRec;
+function VariantToTypedVarRec
+  (const Item: Variant; VarType: TVarType): TVarRec;
 var
-  W: WideString;
+  S: AnsiString;
 begin
   case VarType of
     varInteger, varSmallint, varShortInt, varByte, varWord, varLongWord:
-      begin
-        Result.VType:=vtInteger;
-        Result.VInteger:=Item;
-      end;
+    begin
+      Result.VType    :=vtInteger;
+      Result.VInteger :=Item;
+    end;
     varNull, varUnknown, varEmpty:
-      begin
-        Result.VType:=vtInteger;
-        Result.VInteger:=0;
-      end;
+    begin
+      Result.VType    :=vtInteger;
+      Result.VInteger :=0;
+    end;
     varBoolean:
-      begin
-        Result.VType:=vtBoolean;
-        Result.VBoolean:=Item;
-      end;
+    begin
+      Result.VType:=vtBoolean;
+      Result.VBoolean:=Item;
+    end;
     varDouble, varSingle:
-      begin
-        Result.VType:=vtExtended;
-        New(Result.VExtended);
-        Result.VExtended^ := Item;
-      end;
+    begin
+      Result.VType:=vtExtended;
+      New(Result.VExtended);
+      Result.VExtended^ := Item;
+    end;
     varString:
-      begin
-        Result.VType:=vtString;
-        New(Result.VString);
-        Result.VString^ := ShortString(Item);
-      end;
+    begin
+      Result.VType:=vtString;
+      New(Result.VString);
+      Result.VString^ := ShortString(Item);
+    end;
     varCurrency:
-      begin
-        Result.VType:=vtCurrency;
-        New(Result.VCurrency);
-        Result.VCurrency^ := Item;
-      end;
+    begin
+      Result.VType:=vtCurrency;
+      New(Result.VCurrency);
+      Result.VCurrency^ := Item;
+    end;
     varVariant:
       begin
         Result.VType:=vtVariant;

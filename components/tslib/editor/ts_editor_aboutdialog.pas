@@ -20,6 +20,9 @@ unit ts_Editor_AboutDialog;
 
 {$mode delphi}
 
+//https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tim%2esinaeve%40gmail%2ecom&lc=BE&item_name=notepas&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
+
+
 {
   TODO: use TVirtualTreeviewers
 
@@ -51,6 +54,7 @@ interface
 
 uses
   SysUtils, Forms, StdCtrls, ExtCtrls, Classes, Contnrs, ComCtrls, ActnList,
+  Buttons,
 
   VirtualTrees,
 
@@ -63,6 +67,8 @@ type
     {$region 'designer controls' /fold}
     aclMain: TActionList;
     actClose: TAction;
+    actDonate: TAction;
+    actReportDefect: TAction;
     actURL: TAction;
     btnClose: TButton;
     grpLine           : TGroupBox;
@@ -90,12 +96,16 @@ type
     Shape2: TShape;
     Shape3: TShape;
     Shape4: TShape;
+    btnDonate: TSpeedButton;
+    btnReportIssue: TSpeedButton;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
     vstCredits: TVirtualStringTree;
     {$endregion}
 
     procedure actCloseExecute(Sender: TObject);
+    procedure actDonateExecute(Sender: TObject);
+    procedure actReportDefectExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
@@ -145,6 +155,13 @@ implementation
 uses
   LCLIntf;
 
+const
+  URL_DONATE =
+    'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tim%2esin' +
+    'aeve%40gmail%2ecom&lc=BE&item_name=notepas&currency_code=USD&bn=PP%2dDo' +
+    'nationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
+  URL_REPORT_ISSUE = 'http://code.google.com/p/notepas/issues/entry';
+
 procedure ShowAboutDialog;
 var
   F : TfrmAbout;
@@ -173,7 +190,7 @@ begin
   pnlWidgetSet.Caption      := FVersionInfo.WidgetSet;
   pnlFileVersion.Caption    := FVersionInfo.FileVersion;
   pnlName.Caption           := FVersionInfo.ProductName + ' '
-    + FVersionInfo.ProductVersion;;
+    + FVersionInfo.ProductVersion;
   lblURL.Caption            := FVersionInfo.URL;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
@@ -226,6 +243,16 @@ end;
 // property access methods                                                 END
 //*****************************************************************************
 
+procedure TfrmAbout.lblURLClick(Sender: TObject);
+begin
+  actURL.Execute;
+end;
+
+procedure TfrmAbout.lblURLDblClick(Sender: TObject);
+begin
+  actURL.Execute;
+end;
+
 //*****************************************************************************
 // action handlers                                                       BEGIN
 //*****************************************************************************
@@ -235,19 +262,19 @@ begin
   Close;
 end;
 
+procedure TfrmAbout.actDonateExecute(Sender: TObject);
+begin
+  OpenURL(URL_DONATE);
+end;
+
+procedure TfrmAbout.actReportDefectExecute(Sender: TObject);
+begin
+  OpenURL(URL_REPORT_ISSUE);
+end;
+
 procedure TfrmAbout.actURLExecute(Sender: TObject);
 begin
   OpenURL(FVersionInfo.URL);
-end;
-
-procedure TfrmAbout.lblURLClick(Sender: TObject);
-begin
-  actURL.Execute;
-end;
-
-procedure TfrmAbout.lblURLDblClick(Sender: TObject);
-begin
-  actURL.Execute;
 end;
 
 //*****************************************************************************

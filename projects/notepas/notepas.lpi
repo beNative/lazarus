@@ -23,7 +23,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="7"/>
-      <BuildNr Value="48"/>
+      <BuildNr Value="49"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.7" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">
@@ -250,13 +250,12 @@
               <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
             </ExecuteAfter>
           </Other>
-          <LCLWidgetType Value="qt"/>
         </CompilerOptions>
       </Item5>
       <Item6 Name="Release win32 gtk2">
         <MacroValues Count="2">
-          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
-          <Macro2 Name="fpGUIPlatform"/>
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+          <Macro3 Name="fpGUIPlatform"/>
         </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
@@ -313,7 +312,6 @@
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <LCLWidgetType Value="gtk2"/>
         </CompilerOptions>
       </Item6>
       <Item7 Name="Release linux32 qt">
@@ -369,12 +367,11 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
-          <LCLWidgetType Value="qt"/>
         </CompilerOptions>
       </Item7>
       <Item8 Name="Release linux32 gtk2">
         <MacroValues Count="1">
-          <Macro1 Name="LCLWidgetType" Value="gtk2"/>
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
@@ -425,9 +422,13 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
-          <LCLWidgetType Value="gtk2"/>
         </CompilerOptions>
       </Item8>
+      <SharedMatrixOptions Count="3">
+        <Item1 ID="468994090888" Modes="Release win32 qt,Release linux32 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
+        <Item2 ID="440664449299" Modes="Release win32 gtk2,Release linux32 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item3 ID="154453790704" Modes="Release win32 gtk2" Type="IDEMacro" MacroName="fpGUIPlatform"/>
+      </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -522,7 +523,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="9">
+    <Exceptions Count="10">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -550,6 +551,9 @@
       <Item9>
         <Name Value="EVariantBadVarTypeError"/>
       </Item9>
+      <Item10>
+        <Name Value="ERangeError"/>
+      </Item10>
     </Exceptions>
   </Debugging>
 </CONFIG>

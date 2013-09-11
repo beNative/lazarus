@@ -166,9 +166,6 @@ uses
   ts_Editor_SearchEngine, ts_Editor_Utils;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmSearchForm.AfterConstruction;
 begin
@@ -193,15 +190,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TfrmSearchForm.GetSearchEngine: IEditorSearchEngine;
 begin
@@ -269,15 +260,9 @@ begin
   cbxReplaceWith.Text := AValue;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmSearchForm.actFocusSearchTextExecute(Sender: TObject);
 begin
@@ -314,15 +299,9 @@ begin
   Execute;
 end;
 
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmSearchForm.cbxSearchTextChange(Sender: TObject);
 begin
@@ -380,15 +359,9 @@ begin
 
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TfrmSearchForm.Execute;
 var
@@ -499,9 +472,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 initialization

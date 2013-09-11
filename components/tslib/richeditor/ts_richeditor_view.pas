@@ -20,7 +20,7 @@ unit ts_RichEditor_View;
 
 {$mode delphi}
 
-{ A rich editor view based on lzRichEdit.
+{ A richtext editor view based on lzRichEdit.
 
 - lzRichEdit is aimed at Windows
 - RichMemo is platform independent (maybe implement RichMemo version as well)
@@ -230,10 +230,6 @@ implementation
 uses
   StdCtrls, Clipbrd;
 
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
-
 procedure TRichEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -260,14 +256,6 @@ begin
   FreeAndNil(FTextAttributes);
   inherited BeforeDestruction;
 end;
-
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
-
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TRichEditorView.TextAttributesUpdate(Sender: TObject);
 begin
@@ -303,14 +291,6 @@ procedure TRichEditorView.FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 begin
   Handled := Actions.Actions.IsShortCut(Msg);
 end;
-
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
-
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TRichEditorView.GetEditor: TlzRichEdit;
 begin
@@ -498,13 +478,7 @@ begin
   Editor.WordWrap := AValue;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TRichEditorView.UpdateActions;
 begin
@@ -529,13 +503,7 @@ begin
   //  OnChange(Self);
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 function TRichEditorView.Focused: Boolean;
 begin
@@ -662,9 +630,6 @@ begin
   Editor.EndUpdateBounds;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 
 end.
 

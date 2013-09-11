@@ -52,9 +52,6 @@ uses
 
   ts_RichEditor_Manager;
 
-//*****************************************************************************
-// interfaced routines                                                   BEGIN
-//*****************************************************************************
 
 function CreateRichEditorView(AParent: TWinControl; const AName: string): IRichEditorView;
 var
@@ -312,9 +309,6 @@ begin
 //  mniN2.Name := 'mniN2';
 end;
 
-//*****************************************************************************
-// interfaced routines                                                     END
-//*****************************************************************************
 
 end.
 

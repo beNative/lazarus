@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, Forms, Controls, ActnList, ExtCtrls, ComCtrls, StdCtrls,
   Contnrs,
 
-  RTTIGrids, ELDsgxObjectInsp, ButtonPanel,
+  RTTIGrids, ButtonPanel,
 
   VirtualTrees,
 
@@ -175,9 +175,6 @@ end;
 {$endregion}
 
 {$region 'interfaced methods' /fold}
-//*****************************************************************************
-// interfaced routines                                                   BEGIN
-//*****************************************************************************
 
 procedure ExecuteSettingsDialog(AOwner: TComponent);
 begin
@@ -186,15 +183,9 @@ begin
   FForm.Execute;
 end;
 
-//*****************************************************************************
-// interfaced routines                                                     END
-//*****************************************************************************
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmEditorSettings.AfterConstruction;
 begin
@@ -226,15 +217,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TfrmEditorSettings.GetSettings: IEditorSettings;
 begin
@@ -246,15 +231,9 @@ begin
   Result := Owner as IEditorManager;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
 begin
@@ -320,15 +299,9 @@ begin
   Allowed := True;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TfrmEditorSettings.UpdateData;
 var
@@ -358,15 +331,9 @@ begin
   FHLTVP.OnSelectionChanged := FHLTVPSelectionChanged;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 function TfrmEditorSettings.Execute: Boolean;
 begin
@@ -379,9 +346,6 @@ begin
   Settings.Apply;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 end.

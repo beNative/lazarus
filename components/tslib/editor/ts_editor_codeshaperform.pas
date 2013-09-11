@@ -223,9 +223,6 @@ uses
   ts_Editor_Utils;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeShaper.AfterConstruction;
 begin
@@ -237,15 +234,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TfrmCodeShaper.GetText: string;
 begin
@@ -255,15 +246,9 @@ begin
     Result := View.Text;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeShaper.actRedoExecute(Sender: TObject);
 begin
@@ -490,15 +475,9 @@ begin
   AssignText(S);
 end;
 
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 { Updates the editor with the given text with undo/redo support. }
 
@@ -678,9 +657,6 @@ begin
   actToggleBreakSide.Caption := A.Caption;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 end.

@@ -93,9 +93,6 @@ uses
   LCLIntf, LMessages;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TCustomEditorToolView.AfterConstruction;
 begin
@@ -110,15 +107,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TCustomEditorToolView.GetUpdate: Boolean;
 begin
@@ -168,30 +159,18 @@ begin
   Result := Owner as IEditorSettings;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TCustomEditorToolView.EditorSettingsChanged(Sender: TObject);
 begin
   SettingsChanged;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TCustomEditorToolView.UpdateView;
 begin
@@ -239,9 +218,6 @@ begin
 {$endif}
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 end.

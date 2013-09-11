@@ -1,5 +1,5 @@
 object frmEditorSettings: TfrmEditorSettings
-  Left = -711
+  Left = -737
   Height = 579
   Top = 220
   Width = 490

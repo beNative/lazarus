@@ -864,9 +864,6 @@ var
   dmEditorManager: TdmEditorManager;
 
 {$region 'interfaced methods' /fold}
-//*****************************************************************************
-// interfaced methods                                                    BEGIN
-//*****************************************************************************
 
 function EditorManager : IEditorManager;
 begin
@@ -875,15 +872,9 @@ begin
   Result := dmEditorManager;
 end;
 
-//*****************************************************************************
-// interfaced methods                                                      END
-//*****************************************************************************
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TdmEditorManager.AfterConstruction;
 begin
@@ -917,15 +908,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access methods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TdmEditorManager.GetEditor: TSynEdit;
 begin
@@ -1328,15 +1313,9 @@ begin
     Exception.CreateFmt('Toolview (%s) does not exist!', [AName]);
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event dispatch methods' /fold}
-//*****************************************************************************
-// event dispatch methods                                                BEGIN
-//*****************************************************************************
 
 procedure TdmEditorManager.DoActiveViewChange;
 begin
@@ -1443,15 +1422,9 @@ begin
     FOnNewFile(Self, S, AText);
 end;
 
-//*****************************************************************************
-// event dispatch methods                                                  END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
 
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
@@ -2095,15 +2068,9 @@ begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
 end;
 
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
@@ -2126,15 +2093,9 @@ begin
   ApplyHighlighterAttributes;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
 
 {$region 'Helpers' /fold}
 function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction
@@ -2741,15 +2702,9 @@ end;
 
 {$endregion}
 
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TdmEditorManager.ActiveViewChanged;
 begin
@@ -3485,9 +3440,6 @@ begin
 end;
 {$endregion}
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 initialization

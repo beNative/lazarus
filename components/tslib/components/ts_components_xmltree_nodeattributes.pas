@@ -101,9 +101,6 @@ implementation
 
 {$region 'TNodeAttributesItem' /fold}
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 constructor TNodeAttributesItem.Create(ACollection: Classes.TCollection);
 begin
@@ -128,15 +125,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 procedure TNodeAttributesItem.SetBackGroundColor(AValue: TColor);
 begin
@@ -176,17 +167,11 @@ begin
   FValueFont.Assign(Value);
   Changed(False);
 end;
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 {$endregion}
 
 {$region 'TNodeAttributes' /fold}
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TNodeAttributes.GetItemByType(Index: TNodeType): T;
 var
@@ -207,24 +192,15 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$REGION 'protected methods'}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 //procedure TNodeAttributes.Update(Item: TCollectionItem);
 //begin
 //  (Owner as TXMLTree).Invalidate;
 //end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$ENDREGION}
 
 {$endregion}

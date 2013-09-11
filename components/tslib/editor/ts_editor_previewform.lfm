@@ -1,7 +1,7 @@
 inherited frmPreview: TfrmPreview
-  Left = 2610
+  Left = 2584
   Height = 517
-  Top = 399
+  Top = 403
   Width = 673
   Caption = 'Preview'
   ClientHeight = 517

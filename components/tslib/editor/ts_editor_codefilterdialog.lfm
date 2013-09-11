@@ -1,7 +1,7 @@
 object frmCodeFilterDialog: TfrmCodeFilterDialog
-  Left = 580
+  Left = 458
   Height = 572
-  Top = 107
+  Top = 128
   Width = 740
   Caption = 'Code filter'
   ClientHeight = 572

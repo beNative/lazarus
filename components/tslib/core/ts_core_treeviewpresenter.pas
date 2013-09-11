@@ -2012,6 +2012,7 @@ begin
     end;
   end;
 end;
+
 procedure TTreeViewPresenter.MoveCurrentToLast;
 var
   LNode: PVirtualNode;
@@ -2029,6 +2030,7 @@ begin
     end;
   end;
 end;
+
 procedure TTreeViewPresenter.MoveCurrentToNext;
 var
   LNode: PVirtualNode;
@@ -2047,6 +2049,7 @@ begin
     end;
   end;
 end;
+
 procedure TTreeViewPresenter.MoveCurrentToPrevious;
 var
   LNode: PVirtualNode;
@@ -2225,6 +2228,7 @@ begin
     LNodeData.Item := Item;
   end;
 end;
+
 
 procedure TTreeViewPresenter.SetPopupMenu(const Value: TPopupMenu);
 begin

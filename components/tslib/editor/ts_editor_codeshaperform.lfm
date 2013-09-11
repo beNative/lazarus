@@ -1,7 +1,7 @@
 inherited frmCodeShaper: TfrmCodeShaper
-  Left = 2949
+  Left = 2845
   Height = 872
-  Top = 242
+  Top = 230
   Width = 392
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False

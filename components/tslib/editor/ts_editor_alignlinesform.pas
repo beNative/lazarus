@@ -25,8 +25,8 @@ unit ts_Editor_AlignLinesForm;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, OMultiPanel, LSControls, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ExtCtrls, Buttons, Grids, ActnList, Contnrs,
+  Classes, SysUtils, FileUtil, OMultiPanel, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls, Buttons, Grids, ActnList, Contnrs,
 
   VirtualTrees,
 
@@ -156,9 +156,6 @@ end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmAlignLines.AfterConstruction;
 var
@@ -193,30 +190,18 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmAlignLines.actExecuteExecute(Sender: TObject);
 begin
   Execute;
 end;
 
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
@@ -263,30 +248,18 @@ begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
   Result := (Manager as IEditorSettings).AlignLinesSettings;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TfrmAlignLines.UpdateTokenList;
 var
@@ -339,9 +312,6 @@ begin
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 end.

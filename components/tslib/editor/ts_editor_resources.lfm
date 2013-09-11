@@ -1,8 +1,8 @@
 object ResourcesDataModule: TResourcesDataModule
   OldCreateOrder = False
   Height = 396
-  HorizontalOffset = 552
-  VerticalOffset = 279
+  HorizontalOffset = 571
+  VerticalOffset = 283
   Width = 438
   object imlFunctionKeys: TImageList
     left = 64

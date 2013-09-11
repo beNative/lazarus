@@ -157,9 +157,6 @@ uses
   ts_Editor_Utils;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TSearchEngine.AfterConstruction;
 begin
@@ -175,15 +172,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TSearchEngine.GetItemList: TObjectList;
 begin
@@ -277,15 +268,9 @@ begin
   Settings.SearchAllViews := AValue;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TSearchEngine.AddResultsForView(AView: IEditorView);
 var
@@ -469,9 +454,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 end.

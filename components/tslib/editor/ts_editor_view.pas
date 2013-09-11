@@ -568,9 +568,6 @@ uses
   ts_Editor_Utils;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TEditorView.AfterConstruction;
 begin
@@ -618,15 +615,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TEditorView.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
@@ -712,15 +703,9 @@ begin
   // TODO: dispatch events to manager (cfr. bookmarks)
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event dispatch methods' /fold}
-//*****************************************************************************
-// event dispatch methods                                                BEGIN
-//*****************************************************************************
 
 procedure TEditorView.DoChange;
 begin
@@ -734,15 +719,9 @@ begin
   inherited DoClose(CloseAction);
 end;
 
-//*****************************************************************************
-// event dispatch methods                                                  END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access methods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TEditorView.GetSelText: string;
 begin
@@ -1289,15 +1268,9 @@ begin
   Result := Owner as IEditorManager;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
 
 procedure TEditorView.AssignHighlighter(const AHighlighter: string);
 begin
@@ -1607,15 +1580,9 @@ begin
   FUpdate := True;
 end;
 
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 { TODO: store caret pos? }
 
 procedure TEditorView.BeginUpdate;
@@ -1687,7 +1654,7 @@ procedure TEditorView.Activate;
 begin
   inherited;
   Manager.ActiveView := Self as IEditorView;
-  if Editor.CanFocus then
+  if CanFocus and Editor.CanFocus then
     Editor.SetFocus;
 end;
 
@@ -2171,15 +2138,9 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 function TEditorView.CloseQuery: Boolean;
 var
@@ -2310,9 +2271,6 @@ begin
   Result := Editor.GetHighlighterAttriAtRowCol(APosition, AToken, AAttri);
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 //*****************************************************************************

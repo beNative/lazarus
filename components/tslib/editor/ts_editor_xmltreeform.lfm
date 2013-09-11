@@ -1,13 +1,12 @@
-object frmXmlTree: TfrmXmlTree
-  Left = 688
+inherited frmXmlTree: TfrmXmlTree
+  Left = 646
   Height = 718
-  Top = 239
+  Top = 237
   Width = 381
   Caption = 'Structure viewer'
   ClientHeight = 718
   ClientWidth = 381
-  LCLVersion = '1.1'
-  object pnlXmlTree: TPanel
+  object pnlXmlTree: TPanel[0]
     Left = 4
     Height = 678
     Top = 36
@@ -17,7 +16,7 @@ object frmXmlTree: TfrmXmlTree
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object pnlHeader: TPanel
+  object pnlHeader: TPanel[1]
     Left = 4
     Height = 28
     Top = 4

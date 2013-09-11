@@ -1,7 +1,7 @@
 object frmActionListView: TfrmActionListView
-  Left = -1283
+  Left = -1191
   Height = 526
-  Top = 299
+  Top = 298
   Width = 800
   Caption = 'Actions'
   ClientHeight = 526

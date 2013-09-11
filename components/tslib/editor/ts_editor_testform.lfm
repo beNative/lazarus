@@ -1,7 +1,7 @@
 inherited frmTest: TfrmTest
-  Left = 751
+  Left = 686
   Height = 750
-  Top = 228
+  Top = 231
   Width = 529
   Caption = 'Testform'
   ClientHeight = 750

@@ -936,9 +936,6 @@ end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TXMLTree.AfterConstruction;
 begin
@@ -989,15 +986,9 @@ begin
   inherited;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TXMLTree.GetNodeXML(ANode: PVirtualNode): string;
 begin
@@ -1081,15 +1072,9 @@ begin
   Result := FXMLDocument;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'message handlers' /fold}
-//*****************************************************************************
-// message handlers                                                      BEGIN
-//*****************************************************************************
 
 { This message was posted by ourselves from the node change handler above to
   decouple that change event and our intention to start editing a node. This
@@ -1106,15 +1091,9 @@ begin
   EditNode(Node, 1);
 end;
 
-//*****************************************************************************
-// message handlers                                                        END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event dispatch methods' /fold}
-//*****************************************************************************
-// event dispatch methods                                                BEGIN
-//*****************************************************************************
 
 procedure TXMLTree.DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
   var ANewNodeType: TNodeType; var AAdd: Boolean);
@@ -1562,15 +1541,9 @@ end;
 
 {$endregion}
 
-//*****************************************************************************
-// event dispatch methods                                                  END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
 
 procedure TXMLTree.WMChar(var Message: TWMChar);
 begin
@@ -1675,15 +1648,9 @@ begin
   Logger.ExitMethod(Self, 'AddChildren');
 end;
 
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TXMLTree.InitializeNodeAttributes;
 var
@@ -1764,15 +1731,9 @@ begin
   FValueColumn := 1;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 procedure TXMLTree.Clear;
 begin
@@ -2120,9 +2081,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'TExpandedState' /fold}

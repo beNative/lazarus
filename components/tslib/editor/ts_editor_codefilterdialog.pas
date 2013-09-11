@@ -255,9 +255,6 @@ begin
 end;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
@@ -311,15 +308,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TfrmCodeFilterDialog.GetVisible: Boolean;
 begin
@@ -374,15 +365,9 @@ begin
   Result := Owner as IEditorManager;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
 begin
@@ -390,15 +375,9 @@ begin
   FVST.Font.Size := 8;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.actApplyFilterExecute(Sender: TObject);
 begin
@@ -459,15 +438,9 @@ begin
   FTVP.SelectAll;
 end;
 
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
@@ -662,15 +635,9 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
@@ -722,15 +689,9 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TfrmCodeFilterDialog.Cut;
 begin
@@ -842,9 +803,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 end.

@@ -87,9 +87,6 @@ uses
   ts_Editor_Utils;
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 constructor TSelectionInfo.Create(ASynEdit: TSynEdit);
 begin
@@ -109,15 +106,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TSelectionInfo.GetBlockBegin: TPoint;
 begin
@@ -176,15 +167,9 @@ begin
   FSelectionMode := AValue;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 procedure TSelectionInfo.Clear;
 begin
@@ -268,9 +253,6 @@ begin
   Clear;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 end.

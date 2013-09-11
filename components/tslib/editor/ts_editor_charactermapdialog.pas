@@ -89,9 +89,6 @@ resourcestring
   SCharacterMap = 'Character Map';
 
 {$region 'non-interfaced routines' /fold}
-//*****************************************************************************
-// non-interfaced routines                                               BEGIN
-//*****************************************************************************
 
 function RoundUp(Value, Divi: Integer): Integer;
 begin
@@ -121,15 +118,9 @@ begin
   );
 end;
 
-//*****************************************************************************
-// non-interfaced routines                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TfrmCharacterMapDialog.AfterConstruction;
 var
@@ -154,15 +145,9 @@ begin
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TfrmCharacterMapDialog.cbxUnicodeRangeSelect(Sender: TObject);
 var
@@ -290,15 +275,9 @@ begin
   UpdateUnicodeDisplay(aCol, aRow);
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
 
 procedure TfrmCharacterMapDialog.FillCharMap;
 var
@@ -366,9 +345,6 @@ begin
     lblCharInfo.Caption := '-';
 end;
 
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 end.

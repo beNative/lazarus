@@ -307,9 +307,6 @@ uses
   ts_Editor_Resources;
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 { Observer pattern implemented as multicast events. }
 
@@ -322,15 +319,9 @@ begin
     TNotifyEvent(Items[i])(Sender);
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TEditorSettings.AfterConstruction;
 begin
@@ -390,30 +381,18 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
 
 procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
 begin
   Changed;
 end;
 
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access methods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TEditorSettings.GetAutoFormatXML: Boolean;
 begin
@@ -854,30 +833,18 @@ begin
   Result := ReadFileToString(FileName);
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods'}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 procedure TEditorSettings.Changed;
 begin
   FChangedEventList.CallEditorSettingsChangedHandlers(Self);
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 procedure TEditorSettings.Load;
 var
@@ -1075,9 +1042,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 end.

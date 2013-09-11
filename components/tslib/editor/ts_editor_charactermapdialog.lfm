@@ -1,7 +1,7 @@
 inherited frmCharacterMapDialog: TfrmCharacterMapDialog
-  Left = 684
+  Left = 642
   Height = 570
-  Top = 260
+  Top = 269
   Width = 446
   ActiveControl = pcMain
   BorderStyle = bsSingle

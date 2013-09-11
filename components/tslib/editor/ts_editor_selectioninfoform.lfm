@@ -1,7 +1,7 @@
 object frmSelectionInfo: TfrmSelectionInfo
-  Left = -628
+  Left = -652
   Height = 615
-  Top = 200
+  Top = 203
   Width = 358
   ClientHeight = 615
   ClientWidth = 358

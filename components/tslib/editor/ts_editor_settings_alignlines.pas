@@ -83,9 +83,6 @@ type
 implementation
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 procedure TAlignLinesSettings.AfterConstruction;
 begin
@@ -102,15 +99,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function TAlignLinesSettings.GetTokens: TStrings;
 begin
@@ -122,15 +113,9 @@ begin
   FTokens.Assign(AValue);
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 procedure TAlignLinesSettings.AssignTo(Dest: TPersistent);
 var
@@ -166,9 +151,6 @@ begin
     inherited Assign(Source);
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 
 end.

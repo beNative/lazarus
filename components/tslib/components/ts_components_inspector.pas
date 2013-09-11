@@ -87,7 +87,7 @@ type
     FHitTest: TPoint;
     FColUpdate: Integer;
     FOnGetCategoryRow: TInspectorCategoryRowEvent;
-    procedure FontChanged(Sender: TObject);
+    procedure FontChanged(Sender: TObject); override;
     procedure SetCategoryFont(Value: TFont);
     procedure SetNameFont(Value: TFont);
     procedure SetValueFont(Value: TFont);
@@ -314,6 +314,7 @@ end;
 
 procedure TCustomInspector.FontChanged(Sender: TObject);
 begin
+  inherited;
   InvalidateGrid;
 end;
 

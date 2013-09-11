@@ -239,24 +239,15 @@ end;
 
 {$region 'THighlighters' /fold}
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 constructor THighlighters.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner, THighlighterItem);
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
@@ -284,15 +275,9 @@ begin
     Item.Assign(AValue);
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
 
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
@@ -319,15 +304,9 @@ begin
   //                    then freed
 end;
 
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 { Adds a new THighlighterItem instance to the THighlighters
   collection. }
@@ -483,18 +462,12 @@ begin
     end;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 {$endregion}
 
 {$region 'THighlighterItem' /fold}
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
 
 constructor THighlighterItem.Create(ACollection: TCollection);
 begin
@@ -514,15 +487,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
 
 function THighlighterItem.GetCollection: THighlighters;
 begin
@@ -579,15 +546,9 @@ begin
   Result := Name;
 end;
 
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'public methods' /fold}
-//*****************************************************************************
-// public methods                                                        BEGIN
-//*****************************************************************************
 
 procedure THighlighterItem.Assign(Source: TPersistent);
 var
@@ -658,9 +619,6 @@ begin
   end;
 end;
 
-//*****************************************************************************
-// public methods                                                          END
-//*****************************************************************************
 {$endregion}
 {$endregion}
 

@@ -1,0 +1,75 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts_core_fileassociations.sallmenu
+msgid "*"
+msgstr ""
+
+#: ts_core_fileassociations.sallusers
+msgid "AssociateForAllUsers"
+msgstr ""
+
+#: ts_core_fileassociations.sassockey
+msgid "\\Associate"
+msgstr ""
+
+#: ts_core_fileassociations.sbackup
+msgid "Backup"
+msgstr ""
+
+#: ts_core_fileassociations.sclasseskey
+msgid "Software\\Classes\\"
+msgstr ""
+
+#: ts_core_fileassociations.scommand
+msgid "Command"
+msgstr ""
+
+#: ts_core_fileassociations.sdeficon
+msgid "DefaultIcon"
+msgstr ""
+
+#: ts_core_fileassociations.sdeficonindex
+msgid "1"
+msgstr ""
+
+#: ts_core_fileassociations.sextdescrformat
+msgid "%s file"
+msgstr ""
+
+#: ts_core_fileassociations.shkcr
+msgid "HKEY_CLASSES_ROOT"
+msgstr ""
+
+#: ts_core_fileassociations.shkcu
+msgid "HKEY_CURRENT_USER"
+msgstr ""
+
+#: ts_core_fileassociations.shklm
+msgid "HKEY_LOCAL_MACHINE"
+msgstr ""
+
+#: ts_core_fileassociations.smenucaption
+msgid "MenuCaption"
+msgstr ""
+
+#: ts_core_fileassociations.sopen
+msgid "Open"
+msgstr ""
+
+#: ts_core_fileassociations.sopencaption
+msgid "OpenWith"
+msgstr ""
+
+#: ts_core_fileassociations.sotherassockey
+msgid "\\OtherAssociate"
+msgstr ""
+
+#: ts_core_fileassociations.sshell
+msgid "Shell"
+msgstr ""
+
+#: ts_core_fileassociations.sunknown
+msgid "Unknown"
+msgstr ""
+

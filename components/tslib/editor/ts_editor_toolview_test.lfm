@@ -1,0 +1,27 @@
+inherited frmTest: TfrmTest
+  Left = 686
+  Height = 750
+  Top = 231
+  Width = 529
+  Caption = 'Testform'
+  ClientHeight = 750
+  ClientWidth = 529
+  object btnExecute: TButton[0]
+    Left = 432
+    Height = 25
+    Top = 6
+    Width = 75
+    Caption = 'Execute'
+    TabOrder = 0
+  end
+  object pnlTest: TPanel[1]
+    Left = 0
+    Height = 718
+    Top = 32
+    Width = 529
+    Align = alBottom
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+end

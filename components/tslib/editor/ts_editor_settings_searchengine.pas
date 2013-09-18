@@ -20,16 +20,12 @@ unit ts_Editor_Settings_SearchEngine;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
   Classes, Forms, Controls,
 
   SynEditTypes;
-
-//=============================================================================
 
 type
   TSearchEngineSettings = class(TPersistent)
@@ -38,7 +34,6 @@ type
     FSearchAllViews : Boolean;
 
   public
-    procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
 
@@ -51,17 +46,7 @@ type
 
   end;
 
-//*****************************************************************************
-
 implementation
-
-
-procedure TSearchEngineSettings.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
-
 
 procedure TSearchEngineSettings.AssignTo(Dest: TPersistent);
 var
@@ -90,7 +75,6 @@ begin
   else
     inherited Assign(Source);
 end;
-
 
 end.
 

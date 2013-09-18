@@ -20,14 +20,10 @@ unit ts_Editor_Settings_CodeShaper;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
   Classes, Forms, Controls;
-
-//=============================================================================
 
 type
   TCodeShaperSettings = class(TPersistent)
@@ -37,17 +33,12 @@ type
     procedure Assign(Source: TPersistent); override;
   end;
 
-//*****************************************************************************
-
 implementation
-
 
 procedure TCodeShaperSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
 end;
-
-
 
 procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
 begin
@@ -58,7 +49,6 @@ procedure TCodeShaperSettings.Assign(Source: TPersistent);
 begin
   inherited Assign(Source);
 end;
-
 
 end.
 

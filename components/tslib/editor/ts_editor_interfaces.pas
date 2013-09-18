@@ -20,8 +20,6 @@ unit ts_Editor_Interfaces;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -33,8 +31,6 @@ uses
   SynEditMiscClasses, SynEditMarkupBracket,
 
   ts_Core_FormSettings,
-
-  ts_Editor_SelectionInfo,
 
   ts_Editor_Settings_AlignLines, ts_Editor_Settings_SearchEngine,
   ts_Editor_Settings_CodeShaper,
@@ -49,6 +45,7 @@ type
   IEditorToolView               = interface;
   IEditorActions                = interface;
   IEditorSettings               = interface;
+  IEditorSelection              = interface;
   TEditorViewListEnumerator     = class;
   TEditorToolViewListEnumerator = class;
 
@@ -161,7 +158,7 @@ type
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
     function GetSelAvail: Boolean;
-    function GetSelectionInfo: TSelectionInfo;
+    function GetSelection: IEditorSelection;
     function GetSelectionMode: TSynSelectionMode;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
@@ -220,13 +217,6 @@ type
     procedure BeginUpdate;
     procedure EndUpdate;
 
-    // block info store/restore
-    procedure StoreBlock(
-      ALockUpdates           : Boolean = True; // implicit BeginUpdate/EndUpdate
-      AAutoExcludeEmptyLines : Boolean = False
-    );
-    procedure RestoreBlock;
-
     // make current view the active one if more than one view is managed.
     procedure Activate;
 
@@ -261,6 +251,7 @@ type
     procedure QuoteLinesInSelection(ADelimit : Boolean = False);
     procedure DequoteLinesInSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
+    procedure ConvertTabsToSpacesInSelection;
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
@@ -339,8 +330,8 @@ type
     property InsertMode: Boolean
       read GetInsertMode write SetInsertMode;
 
-    property SelectionInfo: TSelectionInfo
-      read GetSelectionInfo;
+    property Selection: IEditorSelection
+      read GetSelection;
 
     { Sets the current (default) selection mode.  }
     property SelectionMode: TSynSelectionMode
@@ -451,6 +442,50 @@ type
 
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
+  end;
+
+  { IEditorSelection }
+
+  IEditorSelection = interface
+  ['{DEBBB1D5-A04A-4264-96E9-0693E20C2A0D}']
+    function GetBlockBegin: TPoint;
+    function GetBlockEnd: TPoint;
+    function GetCaretXY: TPoint;
+    function GetLines: TStrings;
+    function GetSelectionMode: TSynSelectionMode;
+    function GetText: string;
+    procedure SetBlockBegin(AValue: TPoint);
+    procedure SetBlockEnd(AValue: TPoint);
+    procedure SetCaretXY(AValue: TPoint);
+    procedure SetSelectionMode(AValue: TSynSelectionMode);
+    procedure SetText(AValue: string);
+
+    procedure Clear;
+
+    procedure Store(
+      ALockUpdates           : Boolean = True;
+      AAutoExcludeEmptyLines : Boolean = False
+    );
+    procedure Restore;
+    procedure Ignore;
+
+    property BlockBegin: TPoint
+      read GetBlockBegin write SetBlockBegin;
+
+    property BlockEnd: TPoint
+      read GetBlockEnd write SetBlockEnd;
+
+    property CaretXY: TPoint
+      read GetCaretXY write SetCaretXY;
+
+    property SelectionMode: TSynSelectionMode
+      read GetSelectionMode write SetSelectionMode;
+
+    property Lines: TStrings
+      read GetLines;
+
+    property Text: string
+      read GetText write SetText;
   end;
 
   IEditorSearchEngine = interface
@@ -959,6 +994,8 @@ type
 
   end;
 
+  { IEditorManager }
+
   IEditorManager = interface
   ['{631A126F-1693-4E25-B691-CD2487BCB820}']
     {$region 'property access methods' /fold}
@@ -967,6 +1004,7 @@ type
     function GetEvents: IEditorEvents;
     function GetMenus: IEditorMenus;
     function GetSearchEngine: IEditorSearchEngine;
+    function GetSelection: IEditorSelection;
     function GetSettings: IEditorSettings;
     function GetToolViews: IEditorToolViews;
     function GetViews: IEditorViews;
@@ -1012,6 +1050,9 @@ type
     property Commands: IEditorCommands
       read GetCommands;
 
+    property Selection: IEditorSelection
+      read GetSelection;
+
     property Settings: IEditorSettings
       read GetSettings;
 
@@ -1046,8 +1087,6 @@ type
     property Current: IEditorToolView
       read GetCurrent;
   end;
-
-//*****************************************************************************
 
 implementation
 

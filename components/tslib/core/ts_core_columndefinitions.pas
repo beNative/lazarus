@@ -105,7 +105,7 @@ type
     FOnGetText: TGetTextEvent;
     FOnSetText: TSetTextEvent;
     FSortingDirection: TSortingDirection;
-  	FToggleMode: TToggleMode;
+    FToggleMode: TToggleMode;
     FSpacing: Integer;
     FVisible: Boolean;
     FWidth: Integer;

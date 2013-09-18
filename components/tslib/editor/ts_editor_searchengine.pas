@@ -20,8 +20,6 @@ unit ts_Editor_SearchEngine;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -146,8 +144,6 @@ type
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
   end;
-
-//*****************************************************************************
 
 implementation
 

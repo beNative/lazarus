@@ -19,11 +19,10 @@
 unit ts_Editor_HighlighterAttributes;
 
 { Collection class which wraps TSynHighlighterAttributes. This collection is
-  intended to support persistence to XML. }
+  intended to support persistence to XML and enables us to embed extra
+  settings. }
 
 {$mode delphi}
-
-//*****************************************************************************
 
 interface
 
@@ -31,8 +30,6 @@ uses
   Classes, SysUtils,
 
   SynEditHighlighter;
-
-//=============================================================================
 
 type
   THighlighterAttributes = class;
@@ -85,8 +82,6 @@ type
   end;
 
   TSynHighlighterAttributesItemClass = class of THighlighterAttributesItem;
-
-//=============================================================================
 
   { THighlighterAttributes inherits from TOwnedCollection to show
     the items in the Object Treeview at designtime. }
@@ -151,8 +146,6 @@ type
     property ItemsByName[const AName: string]: THighlighterAttributesItem
       read GetItemByName write SetItemByName;
   end;
-
-//*****************************************************************************
 
 implementation
 
@@ -455,7 +448,5 @@ end;
 
 {$endregion}
 {$endregion}
-
-//*****************************************************************************
 
 end.

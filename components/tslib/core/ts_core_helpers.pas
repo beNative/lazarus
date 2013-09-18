@@ -339,7 +339,7 @@ begin
   PI.DoubleBuffered     := True;
   PI.Parent             := AParent;
   PI.Align              := alClient;
-  PI.DefaultItemHeight  := 17;
+  PI.DefaultItemHeight  := 23;
   PI.PreferredSplitterX := 160;
   PI.SplitterX          := 160;
   PI.Filter             := [

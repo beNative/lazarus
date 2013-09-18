@@ -20,8 +20,6 @@ unit ts_Editor_Settings;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -31,9 +29,9 @@ uses
 
   SynEditMiscClasses, SynEditMarkupBracket,
 
-  ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage,
-
   sharedlogger,
+
+  ts_Core_NativeXml, ts_Core_NativeXmlObjectStorage,
 
   ts_Core_FormSettings,
 
@@ -49,7 +47,6 @@ type
   end;
 
   TEditorSettings = class(TComponent, IEditorSettings)
-    procedure FFormSettingsChanged(Sender: TObject);
   private
     FAutoFormatXML            : Boolean;
     FChangedEventList         : TEditorSettingsChangedEventList;
@@ -89,6 +86,8 @@ type
     FLineHighlightColor : TSynSelectedColor;
     FFoldedCodeColor    : TSynSelectedColor;
     FSelectedColor      : TSynSelectedColor;
+
+    procedure FFormSettingsChanged(Sender: TObject);
 
     {$region 'property access methods' /fold}
     function GetAlignLinesSettings: TAlignLinesSettings;
@@ -163,6 +162,10 @@ type
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
+  protected
+    procedure InitializeHighlighterAttributes;
+    procedure Changed;
+
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
@@ -179,13 +182,6 @@ type
 
     property XML: string
       read GetXML;
-
-  protected
-    procedure InitializeHighlighterAttributes;
-    procedure Changed;
-
-  public
-
 
   published
     property HighlighterAttributes: THighlighterAttributes
@@ -293,9 +289,7 @@ type
   end;
 
 const
-  SETTINGS_FILE = 'settings.xml';
-
-//*****************************************************************************
+  DEFAULT_SETTINGS_FILE = 'settings.xml';
 
 implementation
 
@@ -307,7 +301,6 @@ uses
   ts_Editor_Resources;
 
 {$region 'public methods' /fold}
-
 { Observer pattern implemented as multicast events. }
 
 procedure TEditorSettingsChangedEventList.CallEditorSettingsChangedHandlers(Sender: TObject);
@@ -318,11 +311,9 @@ begin
   while NextDownIndex(I) do
     TNotifyEvent(Items[i])(Sender);
 end;
-
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -336,7 +327,7 @@ begin
   FHighlighters := THighLighters.Create(Self);
   FHighlighterAttributes := THighlighterAttributes.Create(nil);
 
-  FFileName := SETTINGS_FILE;
+  FFileName := DEFAULT_SETTINGS_FILE;
   HighlighterType := HL_TXT;
   AutoFormatXML := True;
   AutoGuessHighlighterType := True;
@@ -380,20 +371,16 @@ begin
   FreeAndNil(FChangedEventList);
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
 begin
   Changed;
 end;
-
 {$endregion}
 
 {$region 'property access methods' /fold}
-
 function TEditorSettings.GetAutoFormatXML: Boolean;
 begin
   Result := FAutoFormatXML;
@@ -1041,7 +1028,6 @@ begin
     );
   end;
 end;
-
 {$endregion}
 
 end.

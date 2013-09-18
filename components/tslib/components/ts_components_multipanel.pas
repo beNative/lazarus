@@ -1,4 +1,6 @@
-unit OMultiPanel;
+unit ts_Components_MultiPanel;
+
+// original name: OMultipanel
 
 {$MODE Delphi}
 

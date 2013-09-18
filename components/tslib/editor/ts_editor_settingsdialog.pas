@@ -20,332 +20,83 @@ unit ts_Editor_SettingsDialog;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ActnList, ExtCtrls, ComCtrls, StdCtrls,
-  Contnrs,
+  Classes, SysUtils, FileUtil, LSControls, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, StdCtrls,
 
-  RTTIGrids, ButtonPanel,
-
-  VirtualTrees,
-
-  ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions,
-
-  ts_Components_XMLTree,
-
-  ts_Editor_Interfaces;
-
-//=============================================================================
-
-{
-  TODO:
-    - Associate file extensions
-    - this can be implemented as a toolform with IEditorToolView support
-}
+  VirtualPages;
 
 type
 
-  { TfrmEditorSettings }
+  { TEditorSettingsDialog }
 
-  TfrmEditorSettings = class(TForm)
-    {$region 'designer controls' /fold}
-    aclMain                     : TActionList;
-    actApplySettings: TAction;
-    actAssociate: TAction;
-    actReloadSettings: TAction;
-    actOpenSettingsFile: TAction;
-    btnOpenSettingsFile: TButton;
-    btnReloadSettings: TButton;
-    btnAssociate: TButton;
-    pnlButtons                  : TButtonPanel;
-    imlMain                     : TImageList;
-    pcMain                      : TPageControl;
-    pnlBottom                   : TPanel;
-    pnlHALeft                   : TPanel;
-    pnlHLLeft: TPanel;
-    pnlHARight                  : TPanel;
-    pnlHLRight: TPanel;
-    pnlHighlighterAttributes    : TPanel;
-    pnlHighlighters: TPanel;
-    pnlPI                       : TPanel;
-    pnlTop                      : TPanel;
-    pnlXML: TPanel;
-    splHAVertical               : TSplitter;
-    splHLVertical: TSplitter;
-    tsHighlighters: TTabSheet;
-    tsDebug: TTabSheet;
-    tsXML: TTabSheet;
-    tsHighlighterAttributes              : TTabSheet;
-    tsSettings                  : TTabSheet;
-    {$endregion}
+  TEditorSettingsDialog = class(TForm)
+    lbxPages    : TListBox;
+    pnlLeft     : TPanel;
+    pnlRight    : TPanel;
+    splVertical : TSplitter;
 
-    procedure actAssociateExecute(Sender: TObject);
-    procedure actOpenSettingsFileExecute(Sender: TObject);
-    procedure actReloadSettingsExecute(Sender: TObject);
-    procedure FHATVPSelectionChanged(Sender: TObject);
-    procedure FHLTVPSelectionChanged(Sender: TObject);
-    procedure OKButtonClick(Sender: TObject);
-    procedure plObjectInspector1AddAvailPersistent(APersistent: TPersistent;
-      var Allowed: boolean);
+    procedure lbxPagesClick(Sender: TObject);
+
   private
-    FHATVP   : TTreeViewPresenter;
-    FHLTVP   : TTreeViewPresenter;
-    FHAList  : TObjectList;
-    FHLList  : TObjectList;
-    FPI      : TTIPropertyGrid;
-    FHAPI    : TTIPropertyGrid;
-    FHLPI    : TTIPropertyGrid;
-    FHAVST   : TVirtualStringTree;
-    FHLVST   : TVirtualStringTree;
-    FXMLTree : TXMLTree;
-
-    function GetSettings: IEditorSettings;
-    function GetManager: IEditorManager;
-
-  protected
-    procedure UpdateData;
+    FVPM : TVirtualPageManager;
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
-
-    function Execute: Boolean;
-    procedure Apply;
-
-    property Manager: IEditorManager
-      read GetManager;
-
-    property Settings: IEditorSettings
-      read GetSettings;
   end;
-
-//=============================================================================
-
-procedure ExecuteSettingsDialog(
-  AOwner: TComponent
-);
-
-//*****************************************************************************
 
 implementation
 
 {$R *.lfm}
 
 uses
-  ts_Core_DataTemplates, ts_Core_Helpers,
-
-  ts_Components_FileAssociation,
-
-  ts_Editor_HighlighterAttributes, ts_Editor_Highlighters;
-
-var
-  FForm: TfrmEditorSettings;
-
-{$region 'TSynAttributesDataTemplate' /fold}
-type
-  TSynAttributesDataTemplate = class(TDataTemplate)
-  public
-    function GetText(const Item: TObject;
-      const ColumnIndex: Integer): string; override;
-  end;
-
-function TSynAttributesDataTemplate.GetText(const Item: TObject;
-  const ColumnIndex: Integer): string;
-begin
-  Result := (Item as THighlighterAttributesItem).Name;
-end;
-{$endregion}
-
-{$region 'THighlightersDataTemplate' /fold}
-type
-  THighlightersDataTemplate = class(TDataTemplate)
-  public
-    function GetText(const Item: TObject;
-      const ColumnIndex: Integer): string; override;
-  end;
-
-function THighlightersDataTemplate.GetText(const Item: TObject;
-  const ColumnIndex: Integer): string;
-begin
-  Result := (Item as THighlighterItem).Name;
-end;
-{$endregion}
-
-{$region 'interfaced methods' /fold}
-
-procedure ExecuteSettingsDialog(AOwner: TComponent);
-begin
-  if not Assigned(FForm) then
-    FForm := TfrmEditorSettings.Create(AOwner);
-  FForm.Execute;
-end;
-
-{$endregion}
+  ts_Editor_SettingsDialog_FileAssociations,
+  ts_Editor_SettingsDialog_FileTypes,
+  ts_Editor_SettingsDialog_KeyMappings,
+  ts_Editor_SettingsDialog_Highlighters;
 
 {$region 'construction and destruction' /fold}
-
-procedure TfrmEditorSettings.AfterConstruction;
+procedure TEditorSettingsDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FHAList             := TObjectList.Create(False);
-  FHATVP              := TTreeViewPresenter.Create(Self);
-  FHATVP.ItemTemplate := TSynAttributesDataTemplate.Create;
-  FHLList             := TObjectList.Create(False);
-  FHLTVP              := TTreeViewPresenter.Create(Self);
-  FHLTVP.ItemTemplate := THighlightersDataTemplate.Create;
-  FPI               	:= CreatePI(Self, pnlPI);
-  FHAPI             	:= CreatePI(Self, pnlHARight);
-  FHLPI             	:= CreatePI(Self, pnlHLRight);
-  FHAVST              := CreateVST(Self, pnlHALeft);
-  FHLVST              := CreateVST(Self, pnlHLLeft);
-  FXMLTree            := CreateXMLTree(Self, pnlXML);
-  UpdateData;
-  tsDebug.TabVisible        := Settings.DebugMode;
-  tsXML.TabVisible          := Settings.DebugMode;
-  tsHighlighters.TabVisible := Settings.DebugMode;
-  if Settings.DebugMode then
-    FXMLTree.XML := Settings.XML;
+  FVPM := TVirtualPageManager.Create(Self);
+  FVPM.DisplayOptions.Parent := pnlRight;
+  FVPM.Pages.Add(
+    'FileAssociations',
+    'File associations',
+    TfrmOptionsAssociate,
+    []
+  );
+  FVPM.Pages.Add(
+    'FileTypes',
+    'File types',
+    TfrmFileTypeSettings,
+    []
+  );
+  FVPM.Pages.Add(
+    'KeyMappings',
+    'Key mappings',
+    TfrmKeyMappings,
+    []
+  );
+  FVPM.Pages.Add(
+    'Highlighters',
+    'Highlighters',
+    TfrmOptionsThemes,
+    []
+  );
+  //TfrmOptionsThemes
+  FVPM.Pages.AssignTo(lbxPages.Items);
 end;
-
-procedure TfrmEditorSettings.BeforeDestruction;
-begin
-  FreeAndNil(FHAList);
-  FreeAndNil(FHLList);
-  inherited BeforeDestruction;
-end;
-
-{$endregion}
-
-{$region 'property access mehods' /fold}
-
-function TfrmEditorSettings.GetSettings: IEditorSettings;
-begin
-  Result := Manager.Settings;
-end;
-
-function TfrmEditorSettings.GetManager: IEditorManager;
-begin
-  Result := Owner as IEditorManager;
-end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
-procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
+procedure TEditorSettingsDialog.lbxPagesClick(Sender: TObject);
 begin
-  FHAPI.ExpandedProperties.Add('Attributes');
-  FHAPI.ExpandedProperties.Add('Attributes.Style');
-  FHAPI.ExpandedProperties.Add('Attributes.StyleMask');
-  FHAPI.TIObject := FHATVP.CurrentItem as TPersistent;
+  FVPM.PageIndex := lbxPages.ItemIndex;
 end;
-
-procedure TfrmEditorSettings.FHLTVPSelectionChanged(Sender: TObject);
-begin
-  FHLPI.TIObject := FHLTVP.CurrentItem as TPersistent;
-end;
-
-procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
-var
-  S: String;
-begin
-  S := ExtractFilePath(Application.ExeName) + Settings.FileName;
-  Manager.OpenFile(S);
-end;
-
-procedure TfrmEditorSettings.actAssociateExecute(Sender: TObject);
-var
-  AR : TAppReg;
-begin
-  AR.AppName         := 'Notepas';
-  AR.AppDescription  := 'Notepas text editor' ;
-  AR.AppNameNoSpaces := 'Notepas';
-  AR.ExtData         := '.pas .inc';
-  AR.ExtIcon         := Application.ExeName + ',0';
-  AR.ExtName         := 'Pascal source file';
-  AR.ExtNameNoSpaces := 'PascalSourceFile';
-  AR.CmdData         := Format('"%s"', [Application.ExeName]) + '"%1"';
-  AR.CmdIcon         := Format('%s', [ExtractFilePath(Application.ExeName) + 'Notepas.ico']);
-  AR.CmdName         := 'Edit with Notepas';
-  AR.CmdNameNoSpaces :=  'Open';
-
-  CreateFileAssociation(
-    AR,
-    True,
-    True,
-    True,
-    True
-  );
-  ClearIconCache;
-end;
-
-procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
-begin
-  Settings.Load;
-  Apply;
-end;
-
-procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
-begin
-  Apply;
-end;
-
-procedure TfrmEditorSettings.plObjectInspector1AddAvailPersistent(
-  APersistent: TPersistent; var Allowed: boolean);
-begin
-  Allowed := True;
-end;
-
-{$endregion}
-
-{$region 'protected methods' /fold}
-
-procedure TfrmEditorSettings.UpdateData;
-var
-  I: Integer;
-begin
-  FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
-  FHATVP.MultiSelect := True;
-  FHATVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
-  FHAList.Clear;
-  for I := 0 to Settings.HighlighterAttributes.Count - 1 do
-  begin
-    FHAList.Add(Settings.HighlighterAttributes[I]);
-  end;
-  FHATVP.ItemsSource := FHAList;
-  FHATVP.TreeView := FHAVST;
-  FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
-
-  FHLTVP.MultiSelect := True;
-  FHLTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
-  FHLList.Clear;
-  for I := 0 to Settings.Highlighters.Count - 1 do
-  begin
-    FHLList.Add(Settings.Highlighters[I]);
-  end;
-  FHLTVP.ItemsSource := FHLList;
-  FHLTVP.TreeView := FHLVST;
-  FHLTVP.OnSelectionChanged := FHLTVPSelectionChanged;
-end;
-
-{$endregion}
-
-{$region 'public methods' /fold}
-
-function TfrmEditorSettings.Execute: Boolean;
-begin
-  ShowModal;
-  Result := True;
-end;
-
-procedure TfrmEditorSettings.Apply;
-begin
-  Settings.Apply;
-end;
-
 {$endregion}
 
 end.

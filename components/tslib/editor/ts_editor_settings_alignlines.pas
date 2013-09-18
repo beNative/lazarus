@@ -20,14 +20,10 @@ unit ts_Editor_Settings_AlignLines;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
   Classes, Forms, Controls;
-
-//=============================================================================
 
 type
   TSortDirection = (
@@ -77,8 +73,6 @@ type
     property Tokens: TStrings
       read GetTokens write SetTokens;
   end;
-
-//*****************************************************************************
 
 implementation
 

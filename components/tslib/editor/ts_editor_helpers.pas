@@ -22,8 +22,6 @@ unit ts_Editor_Helpers;
 
 { Some helper routines to build a simple editor. }
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -43,11 +41,27 @@ procedure AddStandardEditorToolbarButtons(AToolBar: TToolbar);
 
 procedure AddStandardEditorMenus(AMainMenu : TMainMenu);
 
+function CreateEditorManager(
+         AOwner           : TComponent = nil;
+        APersistSettings  : Boolean = False;
+  const ASettingsFileName : string = ''
+): IEditorManager;
+
 { TODO: set highlightertype }
 { TODO: add list with available highlighterttypes }
+{ REMARK : Uses the EditorManager singleton }
 
 function CreateEditorView(
          AParent       : TWinControl;
+   const AName         : string = '';
+   const AFileName     : string = '';
+   const AHighlighter  : string = 'TXT'
+): IEditorView; overload;
+
+{ REMARK : Uses a custom EditorManager instance }
+function CreateEditorView(
+         AParent       : TWinControl;
+         AManager      : IEditorManager;
    const AName         : string = '';
    const AFileName     : string = '';
    const AHighlighter  : string = 'TXT'
@@ -76,11 +90,11 @@ procedure AddEditorHighlightersMenu(AMainMenu: TMainMenu);
 procedure AddEditorHelpMenu(AMainMenu : TMainMenu);
 procedure AddEditorDebugMenu(AMainMenu : TMainMenu);
 
-//*****************************************************************************
-
 implementation
 
 uses
+  Forms,
+
   ts_Editor_Manager;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction);
@@ -283,6 +297,8 @@ begin
   AddEditorMenuItem(MI, 'actLowerCaseSelection');
   AddEditorMenuItem(MI, 'actUpperCaseSelection');
   AddEditorMenuItem(MI);
+  AddEditorMenuItem(MI, 'actConvertTabsToSpacesInSelection');
+  AddEditorMenuItem(MI);
   AddEditorMenuItem(MI, 'actQuoteSelection');
   AddEditorMenuItem(MI, 'actDeQuoteSelection');
   AddEditorMenuItem(MI, 'actQuoteLines');
@@ -342,8 +358,9 @@ begin
   AddEditorMenuItem(MI, 'actShowPreview');
   AddEditorMenuItem(MI, 'actShowMiniMap');
   AddEditorMenuItem(MI, 'actShowHTMLViewer');
-  AddEditorMenuItem(MI, 'actXMLTree');
+  AddEditorMenuItem(MI, 'actShowStructureViewer');
   AddEditorMenuItem(MI, 'actShowHexEditor');
+  AddEditorMenuItem(MI, 'actShowScriptEditor');
 end;
 
 procedure AddEditorToolsMenu(AMainMenu: TMainMenu);
@@ -421,6 +438,28 @@ begin
   AddEditorHelpMenu(AMainMenu);
 end;
 
+function CreateEditorManager(AOwner: TComponent; APersistSettings: Boolean;
+  const ASettingsFileName: string): IEditorManager;
+var
+  O : TComponent;
+  S : string;
+begin
+  if not Assigned(AOwner) then
+    O := Application
+  else
+    O := AOwner;
+  Result := TdmEditorManager.Create(O);
+  Result.PersistSettings := APersistSettings;
+  if APersistSettings then
+  begin
+    if ASettingsFileName = '' then
+      S := ApplicationName + '.xml'
+    else
+      S := ASettingsFileName;
+    Result.Settings.FileName := S;
+  end;
+end;
+
 procedure AddEditorDebugMenu(AMainMenu: TMainMenu);
 var
   MI : TMenuItem;
@@ -442,6 +481,23 @@ begin
   V.Form.Align := alClient;
   V.Form.Parent := AParent;
   V.PopupMenu := EditorManager.Menus.EditorPopupMenu;
+  V.Form.Visible := True;
+  V.Form.EnableAutoSizing;
+  Result := V;
+end;
+
+function CreateEditorView(AParent: TWinControl; AManager: IEditorManager;
+  const AName: string; const AFileName: string; const AHighlighter: string
+  ): IEditorView;
+var
+  V: IEditorView;
+begin
+  V := AManager.Views.Add(AName, AFileName, AHighlighter);
+  V.Form.DisableAutoSizing;
+  V.Form.BorderStyle := bsNone;
+  V.Form.Align := alClient;
+  V.Form.Parent := AParent;
+  V.PopupMenu := AManager.Menus.EditorPopupMenu;
   V.Form.Visible := True;
   V.Form.EnableAutoSizing;
   Result := V;

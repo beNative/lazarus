@@ -96,8 +96,6 @@ unit ts_Editor_Manager;
 }
 {$endregion}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -110,6 +108,8 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
+  dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
+
   ts_Editor_Interfaces, ts_Editor_Resources, ts_Editor_Highlighters,
   ts_Editor_View,
 
@@ -117,6 +117,9 @@ uses
   ts_Components_UniqueInstance;
 
 type
+
+  { TdmEditorManager }
+
   TdmEditorManager = class(TDataModule, IEditorManager,
                                         IEditorActions,
                                         IEditorView,   // active view
@@ -129,186 +132,200 @@ type
                                         IEditorSettings,
                                         IEditorSearchEngine)
     {$region 'designer controls' /fold}
-    aclActions                    : TActionList;
-    actAlignSelection             : TAction;
-    actAutoFormatXML              : TAction;
-    actDequoteSelection           : TAction;
-    actAutoGuessHighlighter       : TAction;
-    actClose                      : TAction;
-    actCloseOthers                : TAction;
-    actAbout                      : TAction;
-    actCopyFullPath               : TAction;
-    actCopyFileName               : TAction;
-    actCopyFilePath               : TAction;
-    actEncodeBase64               : TAction;
-    actDecodeBase64               : TAction;
-    actClear                      : TAction;
-    actCreateDesktopLink          : TAction;
-    actExit                       : TAction;
-    actCut                        : TAction;
-    actDelete                     : TAction;
-    actHighlighter                : TAction;
-    actEncoding                   : TAction;
-    actExport                     : TAction;
-    actClipboard                  : TAction;
-    actInsertGUID                 : TAction;
-    actInsert                     : TAction;
-    actFindAllOccurences          : TAction;
-    actIndent                     : TAction;
-    actFile                       : TAction;
-    actShowMiniMap                : TAction;
-    actShowHexEditor              : TAction;
-    actShowHTMLViewer             : TAction;
-    actUnindent                   : TAction;
-    actSelect                     : TAction;
-    actSearchMenu                 : TAction;
-    actLineBreakStyle             : TAction;
-    actSelectionMode              : TAction;
-    actSelection                  : TAction;
-    actNewSharedView              : TAction;
-    actSingleInstance             : TAction;
-    actToggleMaximized            : TAction;
-    actStayOnTop                  : TAction;
-    actSelectionInfo              : TAction;
-    actXMLTree                    : TAction;
-    actToggleBlockCommentSelection: TAction;
-    actShowTest                   : TAction;
-    actSelectAll                  : TAction;
-    actUndo                       : TAction;
-    actPaste                      : TAction;
-    actStripMarkup                : TAction;
-    actTestForm                   : TAction;
-    actSyncEdit                   : TAction;
-    actShowViews                  : TAction;
-    actShowActions                : TAction;
-    actMonitorChanges             : TAction;
-    actRedo                       : TAction;
-    actStripFirstChar             : TAction;
-    actStripLastChar              : TAction;
-    actSmartSelect                : TAction;
-    actQuoteSelection             : TAction;
-    actShowSpecialCharacters      : TAction;
-    actCopy                       : TAction;
-    actCopyHTMLTextToClipboard    : TAction;
-    actCopyRTFTextToClipboard     : TAction;
-    actCopyRTFToClipboard         : TAction;
-    actCopytHTMLToClipboard       : TAction;
-    actCopyToClipboard            : TAction;
-    actCopyWikiTextToClipboard    : TAction;
-    actCopyWikiToClipboard        : TAction;
-    actDecFontSize                : TAction;
-    actDequoteLines               : TAction;
-    actExportToHTML               : TAction;
-    actExportToRTF                : TAction;
-    actExportToWiki               : TAction;
-    actFilterCode                 : TAction;
-    actSearch                     : TAction;
-    actFindNext                   : TAction;
-    actFindNextWord               : TAction;
-    actFindPrevious               : TAction;
-    actFindPrevWord               : TAction;
-    actFoldLevel0                 : TAction;
-    actFoldLevel1                 : TAction;
-    actFoldLevel10                : TAction;
-    actFoldLevel2                 : TAction;
-    actFoldLevel3                 : TAction;
-    actFoldLevel4                 : TAction;
-    actFoldLevel5                 : TAction;
-    actFoldLevel6                 : TAction;
-    actFoldLevel7                 : TAction;
-    actFoldLevel8                 : TAction;
-    actFoldLevel9                 : TAction;
-    actFormat                     : TAction;
-    actHelp                       : TAction;
-    actIncFontSize                : TAction;
-    actInsertCharacterFromMap     : TAction;
-    actInsertColorValue           : TAction;
-    actInspect                    : TAction;
-    actLoadHighlighterFromFile    : TAction;
-    actLowerCaseSelection         : TAction;
-    actNew                        : TAction;
-    actOpen                       : TAction;
-    actOpenFileAtCursor           : TAction;
-    actPageSetup                  : TAction;
-    actPascalStringOfSelection    : TAction;
-    actShowPreview                : TAction;
-    actPrint                      : TAction;
-    actPrintPreview               : TAction;
-    actQuoteLines                 : TAction;
-    actQuoteLinesAndDelimit       : TAction;
-    actReload                     : TAction;
-    actSearchReplace              : TAction;
-    actSave                       : TAction;
-    actSaveAs                     : TAction;
-    actSettings                   : TAction;
-    actShapeCode                  : TAction;
-    actSortSelection              : TAction;
-    actToggleComment              : TAction;
-    actToggleFoldLevel            : TAction;
-    actToggleHighlighter          : TAction;
-    actUpperCaseSelection         : TAction;
-    dlgColor                      : TColorDialog;
-    dlgOpen                       : TOpenDialog;
-    dlgSave                       : TSaveDialog;
-    imlMain                       : TImageList;
-    MenuItem1                     : TMenuItem;
-    MenuItem10                    : TMenuItem;
-    MenuItem11                    : TMenuItem;
-    MenuItem12                    : TMenuItem;
-    MenuItem13                    : TMenuItem;
-    MenuItem14                    : TMenuItem;
-    MenuItem15                    : TMenuItem;
-    MenuItem16                    : TMenuItem;
-    MenuItem17                    : TMenuItem;
-    MenuItem18                    : TMenuItem;
-    MenuItem2                     : TMenuItem;
-    MenuItem3                     : TMenuItem;
-    MenuItem4                     : TMenuItem;
-    MenuItem43                    : TMenuItem;
-    MenuItem44                    : TMenuItem;
-    MenuItem45                    : TMenuItem;
-    MenuItem46                    : TMenuItem;
-    MenuItem47                    : TMenuItem;
-    MenuItem48                    : TMenuItem;
-    MenuItem49                    : TMenuItem;
-    MenuItem5                     : TMenuItem;
-    MenuItem50                    : TMenuItem;
-    MenuItem51                    : TMenuItem;
-    MenuItem52                    : TMenuItem;
-    MenuItem6                     : TMenuItem;
-    MenuItem7                     : TMenuItem;
-    MenuItem8                     : TMenuItem;
-    MenuItem9                     : TMenuItem;
-    ppmClipboard                  : TPopupMenu;
-    ppmEditor                     : TPopupMenu;
-    ppmEncoding                   : TPopupMenu;
-    ppmExport                     : TPopupMenu;
-    ppmFold                       : TPopupMenu;
-    ppmHighLighters               : TPopupMenu;
-    ppmInsert                     : TPopupMenu;
-    ppmFile                       : TPopupMenu;
-    ppmSearch                     : TPopupMenu;
-    ppmLineBreakStyle             : TPopupMenu;
-    ppmSelect                     : TPopupMenu;
-    ppmSettings                   : TPopupMenu;
-    ppmSelection                  : TPopupMenu;
-    ppmSelectionMode              : TPopupMenu;
-    SynExporterHTML               : TSynExporterHTML;
-    SynMacroRecorder              : TSynMacroRecorder;
+    aclActions                        : TActionList;
+    actAlignSelection                 : TAction;
+    actAutoFormatXML                  : TAction;
+    actDequoteSelection               : TAction;
+    actAutoGuessHighlighter           : TAction;
+    actClose                          : TAction;
+    actCloseOthers                    : TAction;
+    actAbout                          : TAction;
+    actCopyFullPath                   : TAction;
+    actCopyFileName                   : TAction;
+    actCopyFilePath                   : TAction;
+    actEncodeBase64                   : TAction;
+    actDecodeBase64                   : TAction;
+    actClear                          : TAction;
+    actCreateDesktopLink              : TAction;
+    actExit                           : TAction;
+    actCut                            : TAction;
+    actDelete                         : TAction;
+    actHighlighter                    : TAction;
+    actEncoding                       : TAction;
+    actExport                         : TAction;
+    actClipboard                      : TAction;
+    actInsertGUID                     : TAction;
+    actInsert                         : TAction;
+    actFindAllOccurences              : TAction;
+    actIndent                         : TAction;
+    actFile                           : TAction;
+    actConvertTabsToSpacesInSelection : TAction;
+    actExecuteScriptOnSelection       : TAction;
+    actShowScriptEditor               : TAction;
+    actShowMiniMap                    : TAction;
+    actShowHexEditor                  : TAction;
+    actShowHTMLViewer                 : TAction;
+    actUnindent                       : TAction;
+    actSelect                         : TAction;
+    actSearchMenu                     : TAction;
+    actLineBreakStyle                 : TAction;
+    actSelectionMode                  : TAction;
+    actSelection                      : TAction;
+    actNewSharedView                  : TAction;
+    actSingleInstance                 : TAction;
+    actToggleMaximized                : TAction;
+    actStayOnTop                      : TAction;
+    actSelectionInfo                  : TAction;
+    actShowStructureViewer            : TAction;
+    actToggleBlockCommentSelection    : TAction;
+    actShowTest                       : TAction;
+    actSelectAll                      : TAction;
+    actUndo                           : TAction;
+    actPaste                          : TAction;
+    actStripMarkup                    : TAction;
+    actTestForm                       : TAction;
+    actSyncEdit                       : TAction;
+    actShowViews                      : TAction;
+    actShowActions                    : TAction;
+    actMonitorChanges                 : TAction;
+    actRedo                           : TAction;
+    actStripFirstChar                 : TAction;
+    actStripLastChar                  : TAction;
+    actSmartSelect                    : TAction;
+    actQuoteSelection                 : TAction;
+    actShowSpecialCharacters          : TAction;
+    actCopy                           : TAction;
+    actCopyHTMLTextToClipboard        : TAction;
+    actCopyRTFTextToClipboard         : TAction;
+    actCopyRTFToClipboard             : TAction;
+    actCopytHTMLToClipboard           : TAction;
+    actCopyToClipboard                : TAction;
+    actCopyWikiTextToClipboard        : TAction;
+    actCopyWikiToClipboard            : TAction;
+    actDecFontSize                    : TAction;
+    actDequoteLines                   : TAction;
+    actExportToHTML                   : TAction;
+    actExportToRTF                    : TAction;
+    actExportToWiki                   : TAction;
+    actFilterCode                     : TAction;
+    actSearch                         : TAction;
+    actFindNext                       : TAction;
+    actFindNextWord                   : TAction;
+    actFindPrevious                   : TAction;
+    actFindPrevWord                   : TAction;
+    actFoldLevel0                     : TAction;
+    actFoldLevel1                     : TAction;
+    actFoldLevel10                    : TAction;
+    actFoldLevel2                     : TAction;
+    actFoldLevel3                     : TAction;
+    actFoldLevel4                     : TAction;
+    actFoldLevel5                     : TAction;
+    actFoldLevel6                     : TAction;
+    actFoldLevel7                     : TAction;
+    actFoldLevel8                     : TAction;
+    actFoldLevel9                     : TAction;
+    actFormat                         : TAction;
+    actHelp                           : TAction;
+    actIncFontSize                    : TAction;
+    actInsertCharacterFromMap         : TAction;
+    actInsertColorValue               : TAction;
+    actInspect                        : TAction;
+    actLoadHighlighterFromFile        : TAction;
+    actLowerCaseSelection             : TAction;
+    actNew                            : TAction;
+    actOpen                           : TAction;
+    actOpenFileAtCursor               : TAction;
+    actPageSetup                      : TAction;
+    actPascalStringOfSelection        : TAction;
+    actShowPreview                    : TAction;
+    actPrint                          : TAction;
+    actPrintPreview                   : TAction;
+    actQuoteLines                     : TAction;
+    actQuoteLinesAndDelimit           : TAction;
+    actReload                         : TAction;
+    actSearchReplace                  : TAction;
+    actSave                           : TAction;
+    actSaveAs                         : TAction;
+    actSettings                       : TAction;
+    actShapeCode                      : TAction;
+    actSortSelection                  : TAction;
+    actToggleComment                  : TAction;
+    actToggleFoldLevel                : TAction;
+    actToggleHighlighter              : TAction;
+    actUpperCaseSelection             : TAction;
+    DelphiWebScript                   : TDelphiWebScript;
+    dlgColor                          : TColorDialog;
+    dlgOpen                           : TOpenDialog;
+    dlgSave                           : TSaveDialog;
+    dwsGlobalVarsFunctions            : TdwsGlobalVarsFunctions;
+    dwsGUIFunctions                   : TdwsGUIFunctions;
+    dwsSimpleDebugger                 : TdwsSimpleDebugger;
+    imlMain                           : TImageList;
+    MenuItem1                         : TMenuItem;
+    MenuItem10                        : TMenuItem;
+    MenuItem11                        : TMenuItem;
+    MenuItem12                        : TMenuItem;
+    MenuItem13                        : TMenuItem;
+    MenuItem14                        : TMenuItem;
+    MenuItem15                        : TMenuItem;
+    MenuItem16                        : TMenuItem;
+    MenuItem17                        : TMenuItem;
+    MenuItem18                        : TMenuItem;
+    MenuItem19                        : TMenuItem;
+    MenuItem2                         : TMenuItem;
+    MenuItem20                        : TMenuItem;
+    MenuItem3                         : TMenuItem;
+    MenuItem4                         : TMenuItem;
+    MenuItem43                        : TMenuItem;
+    MenuItem44                        : TMenuItem;
+    MenuItem45                        : TMenuItem;
+    MenuItem46                        : TMenuItem;
+    MenuItem47                        : TMenuItem;
+    MenuItem48                        : TMenuItem;
+    MenuItem49                        : TMenuItem;
+    MenuItem5                         : TMenuItem;
+    MenuItem50                        : TMenuItem;
+    MenuItem51                        : TMenuItem;
+    MenuItem52                        : TMenuItem;
+    MenuItem6                         : TMenuItem;
+    MenuItem7                         : TMenuItem;
+    MenuItem8                         : TMenuItem;
+    MenuItem9                         : TMenuItem;
+    ppmExecuteScriptOnSelection       : TPopupMenu;
+    ppmClipboard                      : TPopupMenu;
+    ppmEditor                         : TPopupMenu;
+    ppmEncoding                       : TPopupMenu;
+    ppmExport                         : TPopupMenu;
+    ppmFold                           : TPopupMenu;
+    ppmHighLighters                   : TPopupMenu;
+    ppmInsert                         : TPopupMenu;
+    ppmFile                           : TPopupMenu;
+    ppmSearch                         : TPopupMenu;
+    ppmLineBreakStyle                 : TPopupMenu;
+    ppmSelect                         : TPopupMenu;
+    ppmSettings                       : TPopupMenu;
+    ppmSelection                      : TPopupMenu;
+    ppmSelectionMode                  : TPopupMenu;
+    SynExporterHTML                   : TSynExporterHTML;
+    SynMacroRecorder                  : TSynMacroRecorder;
     {$endregion}
 
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
+    procedure actAssociateFilesExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
+    procedure actConvertTabsToSpacesInSelectionExecute(Sender: TObject);
+    procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
     procedure actPageSetupExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
     procedure actPrintPreviewExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
     procedure actShowHTMLViewerExecute(Sender: TObject);
     procedure actShowMiniMapExecute(Sender: TObject);
+    procedure actShowScriptEditorExecute(Sender: TObject);
     procedure actUnindentExecute(Sender: TObject);
     procedure actFindAllOccurencesExecute(Sender: TObject);
     procedure actIndentExecute(Sender: TObject);
@@ -407,7 +424,7 @@ type
     procedure actUpperCaseSelectionExecute(Sender: TObject);
     procedure actEncodingExecute(Sender: TObject);
     procedure actLineBreakStyleExecute(Sender: TObject);
-    procedure actXMLTreeExecute(Sender: TObject);
+    procedure actShowStructureViewerExecute(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -417,10 +434,13 @@ type
     {$endregion}
 
   private
-    FPersistSettings   : Boolean;
-    FSynExporterRTF    : TSynExporterRTF;
-    FSynUni            : TSynUniSyn;
-    FUniqueInstance    : TUniqueInstance;
+    FPersistSettings : Boolean;
+    FSynExporterRTF  : TSynExporterRTF;
+    FSynUni          : TSynUniSyn;
+    FUniqueInstance  : TUniqueInstance;
+
+    FdwsProgramExecution : IdwsProgramExecution;
+    FScriptFunctions     : TStringList;
 
     FOnActiveViewChange    : TNotifyEvent;
     FOnAddEditorView       : TAddEditorViewEvent;
@@ -457,6 +477,7 @@ type
     function GetEditorViews: IEditorViews;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetEvents: IEditorEvents;
+    function GetExecuteScriptOnSelectionPopupMenu: TPopupMenu;
     function GetExportPopupMenu: TPopupMenu;
     function GetFilePopupMenu: TPopupMenu;
     function GetFoldPopupMenu: TPopupMenu;
@@ -480,6 +501,7 @@ type
     function GetPersistSettings: Boolean;
     function GetSearchEngine: IEditorSearchEngine;
     function GetSearchPopupMenu: TPopupMenu;
+    function GetSelection: IEditorSelection;
     function GetSelectionModePopupMenu: TPopupMenu;
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
@@ -544,6 +566,7 @@ type
     procedure BuildInsertPopupMenu;
     procedure BuildSearchPopupMenu;
     procedure BuildSelectPopupMenu;
+    procedure BuildExecuteScriptOnSelectionPopupMenu;
     procedure BuildSelectionPopupMenu;
     procedure BuildSelectionModePopupMenu;
     procedure BuildSettingsPopupMenu;
@@ -551,13 +574,18 @@ type
     procedure BuildEditorPopupMenu;
     procedure BuildExportPopupMenu;
 
+    procedure LoadScriptFiles;
+
     procedure ApplyHighlighterAttributes;
 
   protected
     procedure ActiveViewChanged;
 
-    procedure ExportLines(AFormat: string; AToClipBoard: Boolean = True;
-      ANativeFormat: Boolean = True);
+    procedure ExportLines(
+      AFormat       : string;
+      AToClipBoard  : Boolean = True;
+      ANativeFormat : Boolean = True
+    );
     procedure FormatCode;
 
     {$region 'IEditorViews'}
@@ -712,6 +740,9 @@ type
     property SelectionPopupMenu: TPopupMenu
       read GetSelectionPopupMenu;
 
+    property ExecuteScriptOnSelectionPopupMenu: TPopupMenu
+      read GetExecuteScriptOnSelectionPopupMenu;
+
     property SelectionModePopupMenu: TPopupMenu
       read GetSelectionModePopupMenu;
 
@@ -744,6 +775,9 @@ type
 
     property Commands: IEditorCommands
       read GetCommands;
+
+    property Selection: IEditorSelection
+      read GetSelection;
 
     property Settings: IEditorSettings
       read GetSettings implements IEditorSettings;
@@ -851,31 +885,33 @@ uses
   ts_Core_Utils, ts_Core_ComponentInspector,
 
   ts_Editor_Settings, ts_Editor_HighlighterAttributes,
-  ts_Editor_ViewListForm, ts_Editor_CodeShaperForm , ts_Editor_PreviewForm,
-  ts_Editor_Testform, ts_Editor_SearchForm, ts_Editor_ShortcutsDialog,
-  ts_Editor_ActionListViewForm, ts_Editor_SettingsDialog, ts_Editor_Utils,
-  ts_Editor_CodeFilterDialog, ts_Editor_CharacterMapDialog,
-  ts_Editor_XmlTreeForm, ts_Editor_AlignLinesForm, ts_Editor_AboutDialog,
+  ts_Editor_ToolView_ViewList, ts_Editor_ToolView_CodeShaper , ts_Editor_ToolView_Preview,
+  ts_Editor_ToolView_Test, ts_Editor_ToolView_Search, ts_Editor_ToolView_Shortcuts,
+  ts_Editor_ToolView_ActionList, ts_Editor_SettingsDialog_Old, ts_Editor_Utils,
+  ts_editor_toolview_codefilter, ts_Editor_ToolView_CharacterMap,
+  ts_Editor_ToolView_Structure, ts_editor_toolview_alignlines, ts_Editor_AboutDialog,
   ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
-  ts_Editor_HTMLViewForm, ts_Editor_HexEditorForm,
-  ts_Editor_SearchEngine, ts_Editor_SelectionInfoForm, ts_Editor_Minimap;
+  ts_editor_toolview_htmlview, ts_editor_toolview_hexeditor,
+  ts_Editor_SearchEngine, ts_Editor_ToolView_SelectionInfo,
+  ts_Editor_Toolview_Minimap, ts_Editor_ToolView_ScriptEditor,
+
+  ts_Editor_SettingsDialog,
+
+  ts_Editor_SettingsDialog_FileAssociations;
 
 var
   dmEditorManager: TdmEditorManager;
 
 {$region 'interfaced methods' /fold}
-
 function EditorManager : IEditorManager;
 begin
   if not dmEditorManager.FFormsCreated then
     dmEditorManager.RegisterToolViews;
   Result := dmEditorManager;
 end;
-
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -888,8 +924,10 @@ begin
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
   FSynUni           := TSynUniSyn.Create(Self);
   FUniqueInstance   := TUniqueInstance.Create(Self);
-  FUniqueInstance.Identifier := 'Me';
+  FUniqueInstance.Identifier := ApplicationName;
   FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
+  FScriptFunctions := TStringList.Create;
+  LoadScriptFiles;
   RegisterHighlighters;
   InitializeFoldHighlighters;
   InitializeActions;
@@ -903,15 +941,15 @@ begin
     FSettings.Save;
   FSearchEngine := nil;
   FSettings := nil;
+  FdwsProgramExecution := nil;
+  FreeAndNil(FScriptFunctions);
   FreeAndNil(FToolViewList);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access methods' /fold}
-
 function TdmEditorManager.GetEditor: TSynEdit;
 begin
   if Assigned(ActiveView) then
@@ -938,6 +976,11 @@ end;
 function TdmEditorManager.GetEvents: IEditorEvents;
 begin
   Result := Self as IEditorEvents;
+end;
+
+function TdmEditorManager.GetExecuteScriptOnSelectionPopupMenu: TPopupMenu;
+begin
+  Result := ppmExecuteScriptOnSelection;
 end;
 
 function TdmEditorManager.GetExportPopupMenu: TPopupMenu;
@@ -1110,7 +1153,7 @@ begin
     begin
       Settings.Load;
       FUniqueInstance.Enabled := Settings.SingleInstance;
-      // TSI voorlopig
+      // TSI temp
       RegisterHighlighters;
       InitializeFoldHighlighters;
     end;
@@ -1126,6 +1169,11 @@ end;
 function TdmEditorManager.GetSearchPopupMenu: TPopupMenu;
 begin
   Result := ppmSearch;
+end;
+
+function TdmEditorManager.GetSelection: IEditorSelection;
+begin
+  Result := ActiveView.Selection;
 end;
 
 function TdmEditorManager.GetSelectionModePopupMenu: TPopupMenu;
@@ -1533,6 +1581,20 @@ begin
   ShowToolView(ToolViews['frmAlignLines'], (Sender as TAction).Checked, False, True);
 end;
 
+procedure TdmEditorManager.actAssociateFilesExecute(Sender: TObject);
+var
+  F : TForm;
+begin
+  F := TfrmOptionsAssociate.Create(Self);
+  try
+    F.ShowModal;
+
+  finally
+    F.Free;
+  end;
+
+end;
+
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -1572,9 +1634,14 @@ begin
   ShowToolView(ToolViews['frmMiniMap'], (Sender as TAction).Checked, False, False);
 end;
 
-procedure TdmEditorManager.actXMLTreeExecute(Sender: TObject);
+procedure TdmEditorManager.actShowScriptEditorExecute(Sender: TObject);
 begin
-  ShowToolView(ToolViews['frmXmlTree'], (Sender as TAction).Checked, False, False);
+  ShowToolView(ToolViews['frmScriptEditor'], (Sender as TAction).Checked, False, False);
+end;
+
+procedure TdmEditorManager.actShowStructureViewerExecute(Sender: TObject);
+begin
+  ShowToolView(ToolViews['TfrmStructure'], (Sender as TAction).Checked, False, False);
 end;
 
 procedure TdmEditorManager.actSelectAllExecute(Sender: TObject);
@@ -1691,7 +1758,7 @@ begin
   //]);
 //  InspectComponent(Settings as TComponent);
 
-  InspectComponent(ActiveView.Editor.Highlighter);
+  InspectComponent(ActiveView.Editor);
 
   //InspectComponents([
   //  Settings as TComponent,
@@ -1888,6 +1955,39 @@ end;
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
 begin
   AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+end;
+
+procedure TdmEditorManager.actConvertTabsToSpacesInSelectionExecute(
+  Sender: TObject);
+begin
+  ActiveView.ConvertTabsToSpacesInSelection;
+end;
+
+procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
+var
+  A  : TAction;
+  FI : IInfo;
+begin
+  Selection.Store;
+  try
+    A := Sender as TAction;
+    if Assigned(FdwsProgramExecution) then
+    begin
+      FI := FdwsProgramExecution.Info.Func[A.Caption];
+      if Assigned(FI) then
+      begin
+        Selection.Text := FI.Call(
+          [Selection.Text]
+        ).GetValueAsString;
+      end
+      else
+        raise Exception.Create('Script function not found');
+    end
+    else
+      raise Exception.Create('No script file was found');
+  finally
+    Selection.Restore;
+  end;
 end;
 
 procedure TdmEditorManager.actPageSetupExecute(Sender: TObject);
@@ -2213,6 +2313,7 @@ begin
   BuildLineBreakStylePopupMenu;
   BuildSearchPopupMenu;
   BuildSelectionModePopupMenu;
+  BuildExecuteScriptOnSelectionPopupMenu;
   BuildSelectionPopupMenu;
   BuildSelectPopupMenu;
   BuildSettingsPopupMenu;
@@ -2375,7 +2476,7 @@ begin
     Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
 end;
 
-{ TODO -oTS : Make this more elegant }
+{ TODO -oTS : Make this more elegant using factory for construction on demand.}
 
 procedure TdmEditorManager.RegisterToolViews;
 begin
@@ -2388,11 +2489,12 @@ begin
   AddToolView(TfrmAlignLines.Create(Self));
   AddToolView(TfrmCodeFilterDialog.Create(Self));
   AddToolView(TfrmSelectionInfo.Create(Self));
-  AddToolView(TfrmXmlTree.Create(Self));
-  AddToolView(TfrmCharacterMapDialog.Create(Self));
+  AddToolView(TfrmStructure.Create(Self));
+  AddToolView(TfrmCharacterMap.Create(Self));
   AddToolView(TfrmHTMLView.Create(Self));
   AddToolView(TfrmHexEditor.Create(Self));
   AddToolView(TfrmMiniMap.Create(Self));
+  AddToolView(TfrmScriptEditor.Create(Self));
 
   FFormsCreated := True;
 end;
@@ -2553,6 +2655,32 @@ begin
   AddMenuItem(MI, actSmartSelect);
 end;
 
+procedure TdmEditorManager.BuildExecuteScriptOnSelectionPopupMenu;
+var
+  MI : TMenuItem;
+  S  : string;
+  A  : TCustomAction;
+begin
+  MI := ExecuteScriptOnSelectionPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actExecuteScriptOnSelection;
+  for S in FScriptFunctions do
+  begin
+    MI := TMenuItem.Create(ExecuteScriptOnSelectionPopupMenu);
+    A := Items[actExecuteScriptOnSelection.Name + S];
+    if Assigned(A) then
+    begin
+      MI.Action     := A;
+      MI.Hint       := A.Hint;
+      MI.Caption    := A.Caption;
+      MI.AutoCheck  := A.AutoCheck;
+      MI.RadioItem  := False;
+      MI.GroupIndex := A.GroupIndex;
+    end;
+    ExecuteScriptOnSelectionPopupMenu.Items.Add(MI);
+  end;
+end;
+
 procedure TdmEditorManager.BuildSelectionPopupMenu;
 var
   MI : TMenuItem;
@@ -2586,7 +2714,10 @@ begin
   AddMenuItem(MI, actEncodeBase64);
   AddMenuItem(MI, actDecodeBase64);
   AddMenuItem(MI);
+  AddMenuItem(MI, actConvertTabsToSpacesInSelection);
+  AddMenuItem(MI);
   AddMenuItem(MI, actPascalStringOfSelection);
+  AddMenuItem(MI, ExecuteScriptOnSelectionPopupMenu);
 end;
 
 procedure TdmEditorManager.BuildInsertPopupMenu;
@@ -2665,6 +2796,48 @@ begin
   AddMenuItem(MI, actExportToWiki);
 end;
 
+procedure TdmEditorManager.LoadScriptFiles;
+var
+  A : TAction;
+  S : string;
+  P : IdwsProgram;
+  E : IdwsProgramExecution;
+  PS : TSymbol;
+begin
+  actExecuteScriptOnSelection.Enabled := False;
+  if FileExists('notepas.dws') then
+  begin
+    S := ReadFileToString('notepas.dws');
+    P := DelphiWebScript.Compile(S);
+    if P.Msgs.Count = 0 then
+    begin
+      FdwsProgramExecution := P.Execute;
+      for PS in  P.Table do
+      begin
+        if PS is TFuncSymbol then
+        begin
+          actExecuteScriptOnSelection.Enabled := True;
+          FScriptFunctions.Add(PS.Name);
+          A := TAction.Create(ActionList);
+          A.Hint       := (PS as TFuncSymbol).Description;
+          A.ActionList := ActionList;
+          A.Caption    := PS.Name;
+          A.Name       := actExecuteScriptOnSelection.Name + PS.Name;
+          A.Category   := actExecuteScriptOnSelection.Category;
+          A.OnExecute  := actExecuteScriptOnSelectionExecute;
+        end;
+      end;
+    end
+    else
+    begin
+      raise Exception.CreateFmt(
+        'Compilation failed with:'#13#10,
+        [P.Msgs.AsInfo]
+      );
+    end;
+  end;
+end;
+
 procedure TdmEditorManager.BuildEditorPopupMenu;
 var
   MI : TMenuItem;
@@ -2699,9 +2872,7 @@ begin
   AddMenuItem(MI, actShowHTMLViewer);
   AddMenuItem(MI, actShowHexEditor);
 end;
-
 {$endregion}
-
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -3173,22 +3344,23 @@ begin
   if Assigned(V) and Assigned(Settings) {and V.Focused and FChanged} then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
-    actDequoteSelection.Enabled            := B;
-    actLowerCaseSelection.Enabled          := B;
-    actToggleBlockCommentSelection.Enabled := B;
-    actPascalStringOfSelection.Enabled     := B;
-    actStripMarkup.Enabled                 := B;
-    actQuoteSelection.Enabled              := B;
-    actQuoteLinesAndDelimit.Enabled        := B;
-    actSortSelection.Enabled               := B;
-    actUpperCaseSelection.Enabled          := B;
-    actStripFirstChar.Enabled              := B;
-    actStripLastChar.Enabled               := B;
-    actQuoteLines.Enabled                  := B;
-    actDequoteLines.Enabled                := B;
-    actEncodeBase64.Enabled                := B;
-    actDecodeBase64.Enabled                := B;
-    actSyncEdit.Enabled                    := B;
+    actDequoteSelection.Enabled               := B;
+    actLowerCaseSelection.Enabled             := B;
+    actToggleBlockCommentSelection.Enabled    := B;
+    actPascalStringOfSelection.Enabled        := B;
+    actStripMarkup.Enabled                    := B;
+    actQuoteSelection.Enabled                 := B;
+    actQuoteLinesAndDelimit.Enabled           := B;
+    actSortSelection.Enabled                  := B;
+    actUpperCaseSelection.Enabled             := B;
+    actStripFirstChar.Enabled                 := B;
+    actStripLastChar.Enabled                  := B;
+    actQuoteLines.Enabled                     := B;
+    actDequoteLines.Enabled                   := B;
+    actEncodeBase64.Enabled                   := B;
+    actDecodeBase64.Enabled                   := B;
+    actConvertTabsToSpacesInSelection.Enabled := B;
+    actSyncEdit.Enabled                       := B;
 
     B := not Settings.ReadOnly;
     actAlignSelection.Visible          := B;
@@ -3211,20 +3383,23 @@ begin
     actLowerCaseSelection.Visible      := B;
     actSyncEdit.Visible                := B;
 
-    actSearch.Checked         := ToolViews['frmSearchForm'].Visible;
-    actShapeCode.Checked      := ToolViews['frmCodeShaper'].Visible;
-    actAlignSelection.Checked := ToolViews['frmAlignLines'].Visible;
-    actShowPreview.Checked    := ToolViews['frmPreview'].Visible;
-    actFilterCode.Checked     := ToolViews['frmCodeFilterDialog'].Visible;
-    actShowViews.Checked      := ToolViews['frmViewList'].Visible;
-    actShowActions.Checked    := ToolViews['frmActionListView'].Visible;
-    actInsertCharacterFromMap.Checked := ToolViews['frmCharacterMapDialog'].Visible;
-    actShowHexEditor.Checked := ToolViews['frmHexEditor'].Visible;
-    actShowMiniMap.Checked   := ToolViews['frmMiniMap'].Visible;
-    actShowHTMLViewer.Checked := ToolViews['frmHTMLView'].Visible;;
-
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
+
+    if FFormsCreated then
+    begin
+      actInsertCharacterFromMap.Checked := ToolViews['frmCharacterMap'].Visible;
+      actSearch.Checked                 := ToolViews['frmSearchForm'].Visible;
+      actShapeCode.Checked              := ToolViews['frmCodeShaper'].Visible;
+      actAlignSelection.Checked         := ToolViews['frmAlignLines'].Visible;
+      actShowPreview.Checked            := ToolViews['frmPreview'].Visible;
+      actFilterCode.Checked             := ToolViews['frmCodeFilterDialog'].Visible;
+      actShowViews.Checked              := ToolViews['frmViewList'].Visible;
+      actShowActions.Checked            := ToolViews['frmActionListView'].Visible;
+      actShowHexEditor.Checked          := ToolViews['frmHexEditor'].Visible;
+      actShowMiniMap.Checked            := ToolViews['frmMiniMap'].Visible;
+      actShowHTMLViewer.Checked         := ToolViews['frmHTMLView'].Visible;
+    end;
 
     B := V.SupportsFolding;
     actToggleFoldLevel.Enabled := B;

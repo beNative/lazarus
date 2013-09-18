@@ -1,9 +1,9 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
-  Height = 384
+  Height = 580
   HorizontalOffset = 527
   VerticalOffset = 211
-  Width = 511
+  Width = 675
   object imlMain: TImageList
     AllocBy = 1
     DrawingStyle = dsTransparent
@@ -4128,11 +4128,11 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actToggleBlockCommentSelectionExecute
       ShortCut = 24767
     end
-    object actXMLTree: TAction
+    object actShowStructureViewer: TAction
       Category = 'Tools'
       AutoCheck = True
       Caption = 'XML treeview'
-      OnExecute = actXMLTreeExecute
+      OnExecute = actShowStructureViewerExecute
       ShortCut = 49240
     end
     object actSelectionInfo: TAction
@@ -4281,6 +4281,22 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Show minimap.'
       OnExecute = actShowMiniMapExecute
       ShortCut = 49229
+    end
+    object actConvertTabsToSpacesInSelection: TAction
+      Category = 'Selection'
+      Caption = 'Convert tabs to spaces in selection'
+      OnExecute = actConvertTabsToSpacesInSelectionExecute
+    end
+    object actExecuteScriptOnSelection: TAction
+      Category = 'Selection'
+      Caption = 'Execute script on selection'
+      OnExecute = actExecuteScriptOnSelectionExecute
+    end
+    object actShowScriptEditor: TAction
+      Category = 'Tools'
+      AutoCheck = True
+      Caption = 'Show script editor'
+      OnExecute = actShowScriptEditorExecute
     end
   end
   object ppmExport: TPopupMenu
@@ -4821,6 +4837,9 @@ object dmEditorManager: TdmEditorManager
   object ppmEncoding: TPopupMenu
     left = 40
     top = 315
+    object MenuItem19: TMenuItem
+      Caption = 'New Item1'
+    end
   end
   object ppmLineBreakStyle: TPopupMenu
     left = 117
@@ -4902,6 +4921,30 @@ object dmEditorManager: TdmEditorManager
       object MenuItem14: TMenuItem
         Caption = 'New Item3'
       end
+    end
+  end
+  object DelphiWebScript: TDelphiWebScript
+    Config.CompilerOptions = [coOptimize, coAssertions, coAllowClosures]
+    left = 504
+    top = 40
+  end
+  object dwsGUIFunctions: TdwsGUIFunctions
+    left = 504
+    top = 96
+  end
+  object dwsGlobalVarsFunctions: TdwsGlobalVarsFunctions
+    left = 504
+    top = 160
+  end
+  object dwsSimpleDebugger: TdwsSimpleDebugger
+    left = 504
+    top = 232
+  end
+  object ppmExecuteScriptOnSelection: TPopupMenu
+    left = 175
+    top = 366
+    object MenuItem20: TMenuItem
+      Caption = 'New Item1'
     end
   end
 end

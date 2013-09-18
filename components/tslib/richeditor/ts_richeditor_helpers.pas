@@ -20,8 +20,6 @@ unit ts_RichEditor_Helpers;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -43,15 +41,12 @@ procedure BuildStandardRichEditorToolbar(AToolBar: TToolbar);
 
 procedure BuildStandardRichEditorMainMenu(AMainMenu : TMainMenu);
 
-//*****************************************************************************
-
 implementation
 
 uses
   ActnList,
 
   ts_RichEditor_Manager;
-
 
 function CreateRichEditorView(AParent: TWinControl; const AName: string): IRichEditorView;
 var
@@ -308,7 +303,6 @@ begin
 //  mniItem21.Name := 'mniItem21';
 //  mniN2.Name := 'mniN2';
 end;
-
 
 end.
 

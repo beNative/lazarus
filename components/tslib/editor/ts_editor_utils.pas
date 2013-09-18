@@ -257,6 +257,11 @@ function FileIsText(const AFilename: string): Boolean;
 
 function WrapText(const ASource: string; AMaxCol: Integer): string;
 
+function TabsToSpaces(
+  const ASource   : string;
+        ATabWidth : Integer
+): string;
+
 //*****************************************************************************
 
 implementation
@@ -264,9 +269,8 @@ implementation
 uses
   StrUtils, Dialogs, Math,
 
-  LazFileUtils,
+  LazFileUtils, LazUTF8,
 
-  //RegExpr,
   SynRegExpr, BRRE, BRREUnicode,
 
   DOM, XMLRead, XMLWrite,
@@ -1464,6 +1468,18 @@ begin
       P:= E + 1;
     end;
   end;
+end;
+
+{ Convert all tabs to TabWidth number of spaces. }
+
+function TabsToSpaces(const ASource: string; ATabWidth: Integer): string;
+begin
+  Result := StringReplace(
+    ASource,
+    #9,
+    StringOfChar(#32, ATabWidth),
+    [rfReplaceAll]
+  );
 end;
 
 end.

@@ -15,9 +15,10 @@ uses
   lazrichedit,
 
   sharedlogger, ipcchannel, pl_luicontrols, runtimetypeinfocontrols,
-  pl_kcontrols, pl_zeosdbocomp,
+  pl_kcontrols, pl_zeosdbocomp, pl_zmsql,
 
-  richmemopackage, OMultiPanel, ts_Components_DBGridView, ts_Components_Docking,
+  richmemopackage,
+ts_components_multipanel, ts_Components_DBGridView, ts_Components_Docking,
   ts_components_docking_optionsdialog, ts_components_docking_resources,
   ts_components_docking_storage, ts_Components_ExportRTF,
   ts_Components_FileAssociation, ts_Components_GridView,
@@ -33,22 +34,26 @@ uses
   ts_Core_NativeXmlObjectStorage, ts_Core_NativeXmlWin32Compat,
   ts_core_sqlparser, ts_Core_SQLScanner, ts_core_sqltree, ts_Core_StringUtils,
   ts_Core_TreeViewPresenter, ts_Core_Utils, ts_Core_Value, ts_Core_VersionInfo,
-  ts_core_xmlutils, ts_editor_aboutdialog, ts_Editor_ActionListViewForm,
-  ts_Editor_AlignLinesForm, ts_Editor_CharacterMapDialog,
-  ts_Editor_CodeFilterDialog, ts_Editor_CodeFormatters,
-  ts_Editor_CodeFormatters_SQL, ts_Editor_CodeShaperForm, ts_editor_codetags,
-  ts_editor_commands, ts_editor_commentstripper, ts_Editor_CustomToolView,
-  ts_Editor_Helpers, ts_Editor_HexEditorForm, ts_Editor_HighlighterAttributes,
-  ts_Editor_Highlighters, ts_Editor_HTMLViewForm, ts_Editor_Interfaces,
-  ts_Editor_Manager, ts_Editor_Minimap, ts_Editor_PreviewForm,
-  ts_Editor_Resources, ts_Editor_SearchEngine, ts_Editor_SearchForm,
-  ts_Editor_SelectionInfo, ts_Editor_SelectionInfoForm, ts_Editor_Settings,
-  ts_Editor_SettingsDialog, ts_Editor_Settings_AlignLines,
+  ts_core_xmlutils, ts_Core_FileAssociations, ts_editor_aboutdialog,
+  ts_Editor_ToolView_ActionList, ts_editor_toolview_alignlines,
+  ts_Editor_ToolView_CharacterMap, ts_editor_toolview_codefilter,
+  ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
+  ts_editor_toolview_codeshaper, ts_editor_codetags, ts_editor_commands,
+  ts_editor_commentstripper, ts_Editor_ToolView_Base, ts_Editor_Helpers,
+  ts_editor_toolview_hexeditor, ts_Editor_HighlighterAttributes,
+  ts_Editor_Highlighters, ts_editor_toolview_htmlview, ts_Editor_Interfaces,
+  ts_Editor_Manager, ts_editor_toolview_minimap, ts_editor_toolview_preview,
+  ts_Editor_Resources, ts_Editor_SearchEngine, ts_editor_toolview_search,
+  ts_editor_selection, ts_Editor_ToolView_SelectionInfo, ts_Editor_Settings,
+  ts_Editor_SettingsDialog_Old, ts_Editor_Settings_AlignLines,
   ts_editor_settings_codeshaper, ts_Editor_Settings_SearchEngine,
-  ts_editor_shortcutsdialog, ts_Editor_Testform, ts_Editor_Utils,
-  ts_Editor_View, ts_Editor_ViewListForm, ts_Editor_XmlTreeForm,
-  ts_richeditor_helpers, ts_richeditor_interfaces, ts_richeditor_manager,
-  ts_richeditor_textattributes, ts_richeditor_view;
+  ts_editor_toolview_shortcuts, ts_editor_toolview_test, ts_Editor_Utils,
+  ts_Editor_View, ts_Editor_ToolView_ViewList, ts_Editor_ToolView_Structure,
+  ts_Editor_SettingsDialog_FileAssociations, ts_Editor_SettingsDialog_FileTypes,
+  SetupFiltersDialog, ts_RichEditor_Helpers, ts_RichEditor_Interfaces,
+  ts_richeditor_manager, ts_RichEditor_TextAttributes, ts_RichEditor_View,
+  ts_Editor_SettingsDialog, ts_Editor_SettingsDialog_KeyMappings,
+  ts_editor_settingsdialog_highlighters, ts_Editor_ToolView_ScriptEditor;
 
 {$R *.res}
 
@@ -60,7 +65,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
-  SetDefaultLang('nl');
+  //SetDefaultLang('nl');
   Application.Run;
 end.
 

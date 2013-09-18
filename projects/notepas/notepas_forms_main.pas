@@ -20,13 +20,13 @@ unit Notepas_Forms_Main;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls,  Menus,
   Buttons, StdCtrls,
+
+  DefaultTranslator,
 
   LResources,
 
@@ -44,12 +44,14 @@ uses
   KNOWN PROBLEMS
     - Close all but current tab does not work in all cases
     - encoding support needs to be implemented
-    - support for alternative line endings needs to be implemented
     - saving loading in different encodings
 
   TODO
-    - Dequote lines in code shaper
+    - Dequote lines in CodeShaper
     - cheat panel with shortcut/button overview for all supported actions
+    - DWS script support
+    - settings dialog
+    - UNI highlighter designer tool
 
   IDEAS
     - surround with function for selected block (as in Notepad2)
@@ -107,8 +109,7 @@ type
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
     procedure btnCloseToolViewClick(Sender: TObject);
-    procedure EVHideEditorToolView(Sender: TObject;
-      AEditorToolView: IEditorToolView);
+    procedure EVHideEditorToolView(Sender: TObject; AEditorToolView: IEditorToolView);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
@@ -186,16 +187,10 @@ uses
   ts_Editor_Manager, ts_Editor_Resources, ts_Editor_AboutDialog,
   ts_Editor_Helpers;
 
-//=============================================================================
-
 resourcestring
   SModified              = 'Modified';
 
 {$region 'construction and destruction' /fold}
-//*****************************************************************************
-// construction and destruction                                          BEGIN
-//*****************************************************************************
-
 procedure TfrmMain.AfterConstruction;
 var
   I  : Integer;
@@ -259,17 +254,9 @@ begin
   Settings.FormSettings.Assign(Self);
   inherited BeforeDestruction;
 end;
-
-//*****************************************************************************
-// construction and destruction                                            END
-//*****************************************************************************
 {$endregion}
 
 {$region 'property access mehods' /fold}
-//*****************************************************************************
-// property access methods                                               BEGIN
-//*****************************************************************************
-
 function TfrmMain.GetManager: IEditorManager;
 begin
   Result := EditorManager;
@@ -299,32 +286,16 @@ function TfrmMain.GetViews: IEditorViews;
 begin
   Result := Manager.Views;
 end;
-
-//*****************************************************************************
-// property access methods                                                 END
-//*****************************************************************************
 {$endregion}
 
 {$region 'action handlers' /fold}
-//*****************************************************************************
-// action handlers                                                       BEGIN
-//*****************************************************************************
-
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
 end;
-
-//*****************************************************************************
-// action handlers                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'event handlers' /fold}
-//*****************************************************************************
-// event handlers                                                        BEGIN
-//*****************************************************************************
-
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {
@@ -346,7 +317,6 @@ end;
   DockMaster.EndUpdate;
 }
 {$endregion}
-
 procedure TfrmMain.AHSActivateSite(Sender: TObject);
 var
   AHS : TAnchorDockHostSite;
@@ -533,33 +503,17 @@ procedure TfrmMain.AnchorDockPageControlChanging(Sender: TObject;
 begin
   (Sender as TAnchorDockPageControl).GetActiveSite.Show;
 end;
-
-//*****************************************************************************
-// event handlers                                                          END
-//*****************************************************************************
 {$endregion}
 
 {$region 'private methods' /fold}
-//*****************************************************************************
-// private methods                                                       BEGIN
-//*****************************************************************************
-
 procedure TfrmMain.InitDebugAction(const AActionName: string);
 begin
   Actions[AActionName].Enabled := Settings.DebugMode;
   Actions[AActionName].Visible := Settings.DebugMode;
 end;
-
-//*****************************************************************************
-// private methods                                                         END
-//*****************************************************************************
 {$endregion}
 
 {$region 'protected methods' /fold}
-//*****************************************************************************
-// protected methods                                                     BEGIN
-//*****************************************************************************
-
 procedure TfrmMain.AddDockingMenuItems;
 var
   MI  : TMenuItem;
@@ -616,9 +570,10 @@ begin
   InitDebugAction('actFindAllOccurences');
   InitDebugAction('actShowPreview');
   InitDebugAction('actShowHTMLViewer');
-  InitDebugAction('actXMLTree');
+  InitDebugAction('actShowStructureViewer');
   InitDebugAction('actShowHexEditor');
   InitDebugAction('actShowMiniMap');
+  InitDebugAction('actShowScriptEditor');
 end;
 
 procedure TfrmMain.UpdateCaptions;
@@ -699,10 +654,6 @@ begin
     UpdateStatusBar;
   end;
 end;
-
-//*****************************************************************************
-// protected methods                                                       END
-//*****************************************************************************
 {$endregion}
 
 initialization

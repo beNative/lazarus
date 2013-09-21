@@ -12,12 +12,10 @@ uses
   notepas_forms_main,
   { you can add units after this }
   DefaultTranslator, pl_exsystem, pl_virtualtrees, FrameViewer09,
-  lazrichedit,
+  lazrichedit, richmemopackage,
 
   sharedlogger, ipcchannel, pl_luicontrols, runtimetypeinfocontrols,
-  pl_kcontrols, pl_zeosdbocomp, pl_zmsql,
-
-  richmemopackage,
+  pl_kcontrols, pl_zeosdbocomp, pl_zmsql, pl_richview,
 ts_components_multipanel, ts_Components_DBGridView, ts_Components_Docking,
   ts_components_docking_optionsdialog, ts_components_docking_resources,
   ts_components_docking_storage, ts_Components_ExportRTF,

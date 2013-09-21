@@ -443,55 +443,58 @@
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="16">
+    <RequiredPackages Count="17">
       <Item1>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="richmemopackage"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_zmsql"/>
+        <PackageName Value="pl_richview"/>
       </Item2>
       <Item3>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="pl_dwscript"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="pl_zmsql"/>
       </Item4>
       <Item5>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="SynEdit"/>
       </Item7>
       <Item8>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item8>
       <Item9>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item12>
       <Item13>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item13>
       <Item14>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="pl_exsystem"/>
       </Item14>
       <Item15>
-        <PackageName Value="FCL"/>
+        <PackageName Value="FrameViewer09"/>
       </Item15>
       <Item16>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item16>
+      <Item17>
+        <PackageName Value="LCL"/>
+      </Item17>
     </RequiredPackages>
     <Units Count="103">
       <Unit0>

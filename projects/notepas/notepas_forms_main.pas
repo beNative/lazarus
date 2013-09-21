@@ -574,6 +574,7 @@ begin
   InitDebugAction('actShowHexEditor');
   InitDebugAction('actShowMiniMap');
   InitDebugAction('actShowScriptEditor');
+  InitDebugAction('actExecuteScriptOnSelection');
 end;
 
 procedure TfrmMain.UpdateCaptions;

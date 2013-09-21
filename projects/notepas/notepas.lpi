@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -101,8 +101,8 @@
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
             <Optimizations>
-              <VariablesInRegisters Value="True"/>
               <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
             </Optimizations>
           </CodeGeneration>
           <Linking>
@@ -157,8 +157,8 @@
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="win64"/>
             <Optimizations>
-              <VariablesInRegisters Value="True"/>
               <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
             </Optimizations>
           </CodeGeneration>
           <Linking>
@@ -216,13 +216,13 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
             <Optimizations>
-              <VariablesInRegisters Value="True"/>
               <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -277,13 +277,13 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="win32"/>
             <Optimizations>
-              <VariablesInRegisters Value="True"/>
               <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -338,12 +338,12 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="linux"/>
             <Optimizations>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -393,12 +393,12 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <SmallerCode Value="True"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="linux"/>
             <Optimizations>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
+            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -880,17 +880,17 @@
       <Unit64>
         <Filename Value="..\..\components\tslib\components\ts_components_docking_resources.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_components_docking_resources"/>
+        <UnitName Value="ts_Components_Docking_Resources"/>
       </Unit64>
       <Unit65>
         <Filename Value="..\..\components\tslib\components\ts_components_docking_storage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_components_docking_storage"/>
+        <UnitName Value="ts_Components_Docking_Storage"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\components\tslib\components\ts_components_uniqueinstance.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_components_uniqueinstance"/>
+        <UnitName Value="ts_Components_UniqueInstance"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\core\BRRE.pas"/>
@@ -924,7 +924,7 @@
       <Unit73>
         <Filename Value="..\..\components\tslib\core\ts_core_codecutilswin32.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_core_codecutilswin32"/>
+        <UnitName Value="ts_Core_CodecUtilsWin32"/>
       </Unit73>
       <Unit74>
         <Filename Value="..\..\components\tslib\core\ts_core_dbutils.pas"/>
@@ -934,17 +934,17 @@
       <Unit75>
         <Filename Value="..\..\components\tslib\core\ts_core_hashstrings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_core_hashstrings"/>
+        <UnitName Value="ts_Core_HashStrings"/>
       </Unit75>
       <Unit76>
         <Filename Value="..\..\components\tslib\core\ts_core_keyvalues.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_core_keyvalues"/>
+        <UnitName Value="ts_Core_KeyValues"/>
       </Unit76>
       <Unit77>
         <Filename Value="..\..\components\tslib\core\ts_core_nativexml.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_core_nativexml"/>
+        <UnitName Value="ts_Core_NativeXml"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\core\ts_core_sqlparser.pas"/>
@@ -959,7 +959,7 @@
       <Unit80>
         <Filename Value="..\..\components\tslib\core\ts_core_xmlutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts_core_xmlutils"/>
+        <UnitName Value="ts_Core_XMLUtils"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\components\tslib\editor\ts_editor_aboutdialog.pas"/>
@@ -1120,12 +1120,12 @@
         <RangeChecks Value="True"/>
         <OverflowChecks Value="True"/>
       </Checks>
-      <SmallerCode Value="True"/>
       <TargetCPU Value="i386"/>
       <TargetOS Value="win32"/>
       <Optimizations>
         <VariablesInRegisters Value="True"/>
       </Optimizations>
+      <SmallerCode Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>

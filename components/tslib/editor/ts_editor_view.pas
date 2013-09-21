@@ -97,7 +97,7 @@ uses
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditMarkupHighAll, SynEditTypes, SynBeautifier, SynEditMarkupBracket,
-  SynEditHighlighterFoldBase, SynEditKeyCmds,
+  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarkupSpecialLine, SynEditMarkupCtrlMouseLink,
 
   ts_Core_DirectoryWatch,
 
@@ -115,6 +115,8 @@ type
   published
     imlBookmarkImages: TImageList;
 
+    procedure EditorSpecialLineColors(Sender: TObject; Line: integer;
+      var Special: boolean; var FG, BG: TColor);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
@@ -612,13 +614,19 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TEditorView.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 begin
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, FileNames);
   Events.DoChange;
+end;
+
+procedure TEditorView.EditorSpecialLineColors(Sender: TObject; Line: integer;
+  var Special: boolean; var FG, BG: TColor);
+begin
+  // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
+  // 21/09/2013
 end;
 
 { Makes actionlist shortcuts work on the form }
@@ -1339,14 +1347,13 @@ begin
   //Editor.HighlightAllColor.Foreground := clNone;
 //  Editor.HighlightAllColor.MergeFinalStyle := True;
 
-  // highlight current line
+//   highlight current line
   //Editor.LineHighlightColor.Background := $009FFFFF; // yellow
   //Editor.LineHighlightColor.FrameEdges := sfeAround;
   //Editor.LineHighlightColor.Foreground := clNone;
   //Editor.LineHighlightColor.FrameStyle := slsWaved;
   //Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
 
-//  Editor.LineHighlightColor.MergeFinalStyle := True;
 end;
 
 procedure TEditorView.InitializeEditor(AEditor: TSynEdit);
@@ -1434,6 +1441,11 @@ begin
   AEditor.OnPaste          := EditorPaste;
   AEditor.OnProcessCommand := EditorProcessCommand;
 
+  // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
+  // 21/09/2013
+  AEditor.OnSpecialLineColors := EditorSpecialLineColors;
+
+
   AEditor.Visible := True;
 
   FSyncronizedEdit := TSynPluginSyncroEdit.Create(nil);
@@ -1500,8 +1512,15 @@ begin
   //FMHA.SearchOptions := [ssoMatchCase, ssoWholeWord];
   //FMHA.Enabled := True;
 
+  //AEditor.MarkupByClass[TSynEditMarkupSpecialLine].Enabled:=True;
+  //   AEditor.MarkupByClass[TSynEditMarkupSpecialLine].MarkupInfo.Background := clRed;
+  //
+  //                                                           AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].Enabled:= True;
+  //        AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].MarkupInfo.FrameEdges:= sfeBottom;
+  //        AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].MarkupInfo.FrameColor:= clBlue;
 
-  {
+
+          {
    FROM SYNEDIT SOURCES
     // needed before setting color
   fMarkupHighCaret := TSynEditMarkupHighlightAllCaret.Create(self);

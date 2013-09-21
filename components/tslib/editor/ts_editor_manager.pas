@@ -885,15 +885,27 @@ uses
   ts_Core_Utils, ts_Core_ComponentInspector,
 
   ts_Editor_Settings, ts_Editor_HighlighterAttributes,
-  ts_Editor_ToolView_ViewList, ts_Editor_ToolView_CodeShaper , ts_Editor_ToolView_Preview,
-  ts_Editor_ToolView_Test, ts_Editor_ToolView_Search, ts_Editor_ToolView_Shortcuts,
-  ts_Editor_ToolView_ActionList, ts_Editor_SettingsDialog_Old, ts_Editor_Utils,
-  ts_editor_toolview_codefilter, ts_Editor_ToolView_CharacterMap,
-  ts_Editor_ToolView_Structure, ts_editor_toolview_alignlines, ts_Editor_AboutDialog,
-  ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
-  ts_editor_toolview_htmlview, ts_editor_toolview_hexeditor,
+  ts_Editor_SettingsDialog_Old, ts_Editor_Utils,
+
+  ts_Editor_ToolView_ViewList,
+  ts_Editor_ToolView_CodeShaper ,
+  ts_Editor_ToolView_Preview,
+  ts_Editor_ToolView_Test,
+  ts_Editor_ToolView_Search,
+  ts_Editor_ToolView_Shortcuts,
+  ts_Editor_ToolView_ActionList,
+  ts_Editor_ToolView_CodeFilter,
+  ts_Editor_ToolView_CharacterMap,
+  ts_Editor_ToolView_Structure,
+  ts_Editor_ToolView_AlignLines,
+  ts_Editor_ToolView_HTMLView,
+  ts_Editor_ToolView_HexEditor,
+  ts_Editor_Toolview_Minimap,
+  ts_Editor_ToolView_ScriptEditor,
+
+  ts_Editor_AboutDialog, ts_Editor_CodeFormatters, ts_Editor_CodeFormatters_SQL,
+
   ts_Editor_SearchEngine, ts_Editor_ToolView_SelectionInfo,
-  ts_Editor_Toolview_Minimap, ts_Editor_ToolView_ScriptEditor,
 
   ts_Editor_SettingsDialog,
 

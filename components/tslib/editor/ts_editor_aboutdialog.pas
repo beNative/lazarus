@@ -42,13 +42,12 @@ unit ts_Editor_AboutDialog;
     luicomponents Luiz Américo Pereira Câmara
     MultiLog Luiz Américo Pereira Câmara
     SynUniHighlighter Kirill Burtsev and Vitaly Nevzorov, ported to FPC by Tom Lisjac and Tim Sinaeve
+    CodeTyphon - PilotLogic http://www.pilotlogic.com/
     Silk Icons
     other icons
     GetText translation powered
 
 }
-
-//*****************************************************************************
 
 interface
 
@@ -59,8 +58,6 @@ uses
   VirtualTrees,
 
   ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions;
-
-//=============================================================================
 
 type
   TfrmAbout = class(TForm)
@@ -210,8 +207,6 @@ begin
   inherited BeforeDestruction;
 end;
 
-
-
 procedure TCredit.SetName(AValue: string);
 begin
   if FName = AValue then Exit;
@@ -262,8 +257,6 @@ begin
   OpenURL(FVersionInfo.URL);
 end;
 
-
-
 procedure TfrmAbout.FillCredits;
 
   procedure AddCredit(const AName: string; const AAuthor: string; const AURL: string);
@@ -290,12 +283,12 @@ begin
   );
   AddCredit(
     'Virtual TreeView',
-    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with modifications by Tim Sinaeve',
+    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with slught modifications by Tim Sinaeve',
     'http://www.soft-gems.net/'
   );
   AddCredit(
     'Anchor Docking',
-    'Mattias Gaertner, with modifications by Tim Sinaeve',
+    'Mattias Gaertner, with slight modifications by Tim Sinaeve',
     ''
   );
   AddCredit(
@@ -331,6 +324,11 @@ begin
     'http://code.google.com/p/dwscript/'
   );
   AddCredit(
+    'CodeTyphon',
+    'PylotLogic',
+    'http://www.pilotlogic.com'
+  );
+  AddCredit(
     'Silk Icons',
     'Mark James',
     'http://www.famfamfam.com/lab/icons/silk/'
@@ -343,7 +341,6 @@ begin
   vstCredits.Header.MainColumn := 1;
   vstCredits.Header.Options := vstCredits.Header.Options + [hoAutoSpring, hoAutoResize];
 end;
-
 
 end.
 

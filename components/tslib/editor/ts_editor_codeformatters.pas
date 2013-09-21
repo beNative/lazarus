@@ -20,8 +20,6 @@ unit ts_Editor_CodeFormatters;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -63,8 +61,6 @@ type
     function Format(const AString: string): string; virtual;
   end;
 
-//*****************************************************************************
-
 implementation
 
 uses
@@ -73,7 +69,6 @@ uses
   Process,
 
   ts_Editor_Utils;
-
 
 function RunFormatterProcess(const AExeName: string; const AParams: string;
   const AString: string; const ATempFile: string): string;

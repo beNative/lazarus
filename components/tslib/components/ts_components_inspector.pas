@@ -24,6 +24,7 @@
   at http://www.tersy.ru/~roman/download/
 
   Changes by Tim Sinaeve:
+   - Ported to FPC/Lazarus
    - OnGetCellColors was not triggered anymore
 }
 
@@ -77,7 +78,11 @@ type
     CategoryFont  - type of text in the cells of category.
   }
 
-  TInspectorCategoryRowEvent = procedure(Sender: TObject; Row: Longint; var Category: Boolean) of object;
+  TInspectorCategoryRowEvent = procedure(
+        Sender  : TObject;
+        Row     : Longint;
+    var Category: Boolean
+  ) of object;
 
   TCustomInspector = class(TCustomGridView)
   private
@@ -126,10 +131,18 @@ type
     function IsCategoryRow(Row: Integer): Boolean; virtual;
     procedure UpdateColumnsSize; virtual;
     procedure UpdateScrollBars; override;
-    property CategoryFont: TFont read FCategoryFont write SetCategoryFont;
-    property NameFont: TFont read FNameFont write SetNameFont;
-    property ValueFont: TFont read FValueFont write SetValueFont;
-    property OnGetCategoryRow: TInspectorCategoryRowEvent read FOnGetCategoryRow write FOnGetCategoryRow;
+
+    property CategoryFont: TFont
+      read FCategoryFont write SetCategoryFont;
+
+    property NameFont: TFont
+      read FNameFont write SetNameFont;
+
+    property ValueFont: TFont
+      read FValueFont write SetValueFont;
+
+    property OnGetCategoryRow: TInspectorCategoryRowEvent
+      read FOnGetCategoryRow write FOnGetCategoryRow;
   end;
 
 { TInspector }

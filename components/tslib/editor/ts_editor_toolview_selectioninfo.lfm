@@ -108,7 +108,7 @@ object frmSelectionInfo: TfrmSelectionInfo
     ParentColor = False
   end
   object lblCaretXYValue: TLabel
-    Left = 158
+    Left = 156
     Height = 15
     Top = 160
     Width = 84
@@ -124,7 +124,7 @@ object frmSelectionInfo: TfrmSelectionInfo
     ParentColor = False
   end
   object lblLogicalCaretXYValue: TLabel
-    Left = 158
+    Left = 156
     Height = 15
     Top = 184
     Width = 122
@@ -163,22 +163,22 @@ object frmSelectionInfo: TfrmSelectionInfo
     Caption = 'lblLineCountValue'
     ParentColor = False
   end
-  object btnStoreBlock: TButton
+  object btnStore: TButton
     Left = 8
     Height = 25
     Top = 232
     Width = 100
-    Caption = 'StoreBlock'
-    OnClick = btnStoreBlockClick
+    Caption = 'Store'
+    OnClick = btnStoreClick
     TabOrder = 0
   end
-  object btnRestoreBlock: TButton
+  object btnRestore: TButton
     Left = 8
     Height = 25
     Top = 264
     Width = 100
-    Caption = 'RestoreBlock'
-    OnClick = btnRestoreBlockClick
+    Caption = 'Restore'
+    OnClick = btnRestoreClick
     TabOrder = 1
   end
   object chkLockUpdates: TCheckBox

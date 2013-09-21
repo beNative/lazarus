@@ -29,10 +29,10 @@ object EditorSettingsDialog: TEditorSettingsDialog
     end
   end
   object pnlRight: TPanel
-    Left = 264
+    Left = 256
     Height = 633
     Top = 0
-    Width = 571
+    Width = 579
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
@@ -41,6 +41,6 @@ object EditorSettingsDialog: TEditorSettingsDialog
     Left = 250
     Height = 633
     Top = 0
-    Width = 14
+    Width = 6
   end
 end

@@ -22,8 +22,6 @@ unit ts_Editor_Highlighters;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -34,8 +32,6 @@ uses
   sharedlogger,
 
   ts_Editor_Utils, ts_Editor_CodeFormatters, ts_Editor_CodeTags;
-
-//=============================================================================
 
 type
   TSynHighlighterClass = class of TSynCustomHighlighter;
@@ -132,8 +128,6 @@ type
 
   THighlighterItemClass = class of THighlighterItem;
 
-//=============================================================================
-
   { THighlighters inherits from TOwnedCollection to show the items in
     the Object Treeview of the IDE at designtime. }
 
@@ -208,8 +202,6 @@ type
     property ItemsByName[const AName: string]: THighlighterItem
       read GetItemByName write SetItemByName;
   end;
-
-//*****************************************************************************
 
 implementation
 
@@ -621,8 +613,6 @@ end;
 
 {$endregion}
 {$endregion}
-
-//*****************************************************************************
 
 end.
 

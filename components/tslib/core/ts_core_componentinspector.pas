@@ -24,8 +24,6 @@ unit ts_Core_ComponentInspector;
   Lazarus version with native RTTI grid
 }
 
-//*****************************************************************************
-
 // TODO :
 //  - store every component inspector form that is created in a component list.
 
@@ -37,8 +35,6 @@ uses
   LCLIntf, LMessages,
 
   RTTIGrids, PropEdits;
-
-//=============================================================================
 
 type
   TComponentInspectorForm = class(TForm)
@@ -96,8 +92,6 @@ type
       read GetPropertyEditorHook;
   end;
 
-//=============================================================================
-
 procedure InspectComponent(AComponent : TComponent);
 
 procedure InspectComponents(AComponent : TComponent); overload;
@@ -107,8 +101,6 @@ procedure InspectApplicationComponents;
 procedure InspectComponents(AComponents : array of TComponent); overload;
 
 procedure InspectComponents(AComponents : TComponentList); overload;
-
-//*****************************************************************************
 
 implementation
 

@@ -20,14 +20,10 @@ unit ts_Core_FormSettings;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
   Classes, Forms, Controls;
-
-//=============================================================================
 
 type
   TFormSettings = class(TPersistent)
@@ -77,8 +73,6 @@ type
     property WindowState: TWindowState
       read FWindowState write SetWindowState;
   end;
-
-//*****************************************************************************
 
 implementation
 

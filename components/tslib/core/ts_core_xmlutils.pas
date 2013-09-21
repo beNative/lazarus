@@ -22,8 +22,6 @@ unit ts_Core_XMLUtils;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -34,8 +32,6 @@ uses
 function XMLDocumentString(ADoc: TXMLDocument): string;
 
 procedure XMLDocument(const AString: string; ADoc: TXMLDocument);
-
-//*****************************************************************************
 
 implementation
 

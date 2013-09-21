@@ -20,8 +20,6 @@ unit ts_Components_XMLTree_Editors;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses

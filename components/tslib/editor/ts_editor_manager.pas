@@ -859,8 +859,6 @@ type
 
 function EditorManager : IEditorManager;
 
-//*****************************************************************************
-
 implementation
 
 {$R *.lfm}
@@ -1376,7 +1374,6 @@ end;
 {$endregion}
 
 {$region 'event dispatch methods' /fold}
-
 procedure TdmEditorManager.DoActiveViewChange;
 begin
   if Assigned(FOnActiveViewChange) then
@@ -1485,7 +1482,6 @@ end;
 {$endregion}
 
 {$region 'action handlers' /fold}
-
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
   { TODO -oTS : implement a new toolform for this }
@@ -2183,7 +2179,6 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
   DoMacroStateChange(SynMacroRecorder.State);
@@ -2208,7 +2203,6 @@ end;
 {$endregion}
 
 {$region 'private methods' /fold}
-
 {$region 'Helpers' /fold}
 function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction
   ): TMenuItem;
@@ -2813,7 +2807,6 @@ var
   A : TAction;
   S : string;
   P : IdwsProgram;
-  E : IdwsProgramExecution;
   PS : TSymbol;
 begin
   actExecuteScriptOnSelection.Enabled := False;
@@ -2888,7 +2881,6 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TdmEditorManager.ActiveViewChanged;
 begin
   UpdateHighLighterActions;
@@ -3626,7 +3618,6 @@ begin
   SearchEngine.FindNext;
 end;
 {$endregion}
-
 {$endregion}
 
 initialization

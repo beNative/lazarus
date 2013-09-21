@@ -22,8 +22,6 @@ unit ts_Components_XMLTree_NodeAttributes;
 {$mode delphi}
 {$endif}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -94,8 +92,6 @@ type
     property ItemByType[Index: TNodeType]: T
       read GetItemByType;
   end;
-
-//*****************************************************************************
 
 implementation
 
@@ -204,8 +200,6 @@ end;
 {$ENDREGION}
 
 {$endregion}
-
-
 
 end.
 

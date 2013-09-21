@@ -30,8 +30,6 @@ unit ts_Core_DBUtils;
   - QueryLookup with TtsKeyValues
 }
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -43,12 +41,8 @@ uses
 
   ts_Core_KeyValues;
 
-//=============================================================================
-
 type
   EQueryLookup = class(Exception);
-
-//=============================================================================
 
 function IsNumericFieldType(ADataType: TFieldType): Boolean;
 
@@ -63,8 +57,6 @@ function IsUnicodeStringFieldType(ADataType: TFieldType): Boolean;
 function IsStringFieldType(ADataType: TFieldType): Boolean;
 
 function IsObjectFieldType(ADataType: TFieldType): Boolean;
-
-//=============================================================================
 
 procedure AutoSizeDisplayWidths(ADataSet : TDataSet;
                                 ACount   : Integer = 100;
@@ -1255,7 +1247,5 @@ begin
     ADataSet.EnableControls;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 end.

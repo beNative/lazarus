@@ -20,12 +20,7 @@ unit ts_Editor_AboutDialog;
 
 {$mode delphi}
 
-//https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tim%2esinaeve%40gmail%2ecom&lc=BE&item_name=notepas&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted
-
-
 {
-  TODO: use TVirtualTreeviewers
-
   Credits:
 
     Lazarus - FPC Free Pascal development team
@@ -143,8 +138,6 @@ type
 
 procedure ShowAboutDialog;
 
-//*****************************************************************************
-
 implementation
 
 {$R *.lfm}
@@ -225,7 +218,6 @@ begin
   FAuthor := AValue;
 end;
 
-
 procedure TfrmAbout.lblURLClick(Sender: TObject);
 begin
   actURL.Execute;
@@ -235,7 +227,6 @@ procedure TfrmAbout.lblURLDblClick(Sender: TObject);
 begin
   actURL.Execute;
 end;
-
 
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin

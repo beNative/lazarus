@@ -20,8 +20,6 @@ unit ts_Core_Collections;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 { Note: Generic constraint syntax not supported in FPC in Delphi compatible

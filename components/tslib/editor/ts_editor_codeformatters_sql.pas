@@ -20,8 +20,6 @@ unit ts_Editor_CodeFormatters_SQL;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses
@@ -48,8 +46,6 @@ type
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
   end;
-
-//*****************************************************************************
 
 implementation
 

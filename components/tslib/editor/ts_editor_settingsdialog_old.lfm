@@ -1,7 +1,7 @@
 object frmEditorSettings: TfrmEditorSettings
-  Left = -737
+  Left = -629
   Height = 579
-  Top = 220
+  Top = 503
   Width = 490
   BorderIcons = [biSystemMenu]
   Caption = 'Editor settings'
@@ -10,7 +10,7 @@ object frmEditorSettings: TfrmEditorSettings
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object pnlTop: TPanel
     Left = 0
     Height = 536

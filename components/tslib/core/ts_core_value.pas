@@ -111,7 +111,7 @@
 
 unit ts_Core_Value;
 
-{$MODE delphiunicode}
+{$MODE delphi}
 
 interface
 

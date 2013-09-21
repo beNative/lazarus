@@ -112,8 +112,8 @@ type
     procedure rbSelectedClick(Sender: TObject);
 
   private
-    FTVP      : TTreeViewPresenter;
-    FVST      : TVirtualStringTree;
+    FTVP : TTreeViewPresenter;
+    FVST : TVirtualStringTree;
 
     procedure EditorSettingsChanged(Sender: TObject);
 
@@ -126,7 +126,6 @@ type
     procedure SetReplaceText(const AValue: string);
 
   strict protected
-
     procedure SettingsChanged; override;
     procedure Execute;
 
@@ -135,7 +134,6 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
     procedure UpdateActions; override;
     procedure UpdateView; override;
@@ -150,8 +148,6 @@ type
       read GetReplaceText write SetReplaceText;
   end;
 
-//*****************************************************************************
-
 implementation
 
 uses
@@ -161,18 +157,25 @@ uses
 
   ts_Editor_SearchEngine, ts_Editor_Utils;
 
-{$region 'construction and destruction' /fold}
+resourcestring
+  SIndex        = '#';
+  SFileName     = 'FileName';
+  SColumn       = 'Column';
+  SLine         = 'Line';
+  SMatchFound   = '%d search match found.';
+  SMatchesFound = '%d search matches found.';
 
+{$region 'construction and destruction' /fold}
 procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
   FVST := CreateVST(Self, pnlResultList);
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  FTVP.ColumnDefinitions.AddColumn('Index', '#', dtNumeric, 50, 50, 80);
-  FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 160, 120, 400);
-  FTVP.ColumnDefinitions.AddColumn('Column', dtNumeric, 60, 60, 80);
-  FTVP.ColumnDefinitions.AddColumn('Line', dtNumeric, 40, 40, 80);
+  FTVP.ColumnDefinitions.AddColumn('Index', SIndex, dtNumeric, 50, 50, 80);
+  FTVP.ColumnDefinitions.AddColumn('FileName', SFileName, dtString, 160, 120, 400);
+  FTVP.ColumnDefinitions.AddColumn('Column', SColumn, dtNumeric, 60, 60, 80);
+  FTVP.ColumnDefinitions.AddColumn('Line', SLine, dtNumeric, 40, 40, 80);
   FVST.Header.MainColumn := 1;
   FTVP.ItemsSource := SearchEngine.ItemList;
   FTVP.TreeView := FVST;
@@ -180,16 +183,9 @@ begin
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
 end;
-
-procedure TfrmSearchForm.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TfrmSearchForm.GetSearchEngine: IEditorSearchEngine;
 begin
   Result := Owner as IEditorSearchEngine;
@@ -255,11 +251,9 @@ procedure TfrmSearchForm.SetReplaceText(const AValue: string);
 begin
   cbxReplaceWith.Text := AValue;
 end;
-
 {$endregion}
 
 {$region 'action handlers' /fold}
-
 procedure TfrmSearchForm.actFocusSearchTextExecute(Sender: TObject);
 begin
   cbxSearchText.SetFocus;
@@ -294,11 +288,9 @@ procedure TfrmSearchForm.actFindExecute(Sender: TObject);
 begin
   Execute;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmSearchForm.cbxSearchTextChange(Sender: TObject);
 begin
   Modified;
@@ -354,11 +346,9 @@ procedure TfrmSearchForm.EditorSettingsChanged(Sender: TObject);
 begin
 
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmSearchForm.Execute;
 var
   S : string;
@@ -380,9 +370,9 @@ begin
   FTVP.Refresh;
   FVST.Header.AutoFitColumns(False, smaAllColumns, 0);
   if FTVP.ItemsSource.Count = 1 then
-    S := '%d search match found.'
+    S := SMatchFound
   else
-    S := '%d search matches found.';
+    S := SMatchesFound;
   pnlStatus.Caption := Format(S, [FTVP.ItemsSource.Count]);
   Manager.ActiveView.SetHighlightSearch(SearchText, Options);
   FVST.SetFocus;
@@ -467,7 +457,6 @@ begin
     Updated;
   end;
 end;
-
 {$endregion}
 
 initialization

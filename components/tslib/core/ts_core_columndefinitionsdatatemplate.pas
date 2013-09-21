@@ -222,7 +222,7 @@ begin
   if Assigned(Item) and IsPublishedProp(Item, APropertyName) then
   begin
     V := GetPropValue(Item, APropertyName, False);
-    S := VarToStrDef(V, '');
+//    S := VarToStrDef(V, '');
     Result := S;
   end
   else

@@ -13,7 +13,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   PopupMenu = ppmMain
   PopupMode = pmAuto
   Position = poMainFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object pnlVST: TPanel
     Left = 0
     Height = 521
@@ -463,5 +463,12 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     object mniCopyToNewView: TMenuItem
       Action = actCopyToNewView
     end
+  end
+  object tmrUpdate: TTimer
+    Enabled = False
+    Interval = 300
+    OnTimer = tmrUpdateTimer
+    left = 248
+    top = 152
   end
 end

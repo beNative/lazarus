@@ -55,6 +55,9 @@ uses
   ts_Core_VersionInfo, ts_Core_TreeViewPresenter, ts_Core_ColumnDefinitions;
 
 type
+
+  { TfrmAbout }
+
   TfrmAbout = class(TForm)
     {$region 'designer controls' /fold}
     aclMain: TActionList;
@@ -99,6 +102,7 @@ type
     procedure actDonateExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
 
@@ -143,6 +147,8 @@ implementation
 {$R *.lfm}
 
 uses
+  Controls,
+
   LCLIntf;
 
 const
@@ -164,10 +170,10 @@ begin
   end;
 end;
 
-
 procedure TfrmAbout.AfterConstruction;
 begin
   inherited AfterConstruction;
+  Screen.Cursor := crHourGlass;
   FVersionInfo := TVersionInfo.Create(Self);
   pnlFPCVersion.Caption     := FVersionInfo.FPCVersion;
   pnlLCLVersion.Caption     := FVersionInfo.LCLVersion;
@@ -331,6 +337,11 @@ begin
   );
   vstCredits.Header.MainColumn := 1;
   vstCredits.Header.Options := vstCredits.Header.Options + [hoAutoSpring, hoAutoResize];
+end;
+
+procedure TfrmAbout.FormShow(Sender: TObject);
+begin
+  Screen.Cursor := crDefault;
 end;
 
 end.

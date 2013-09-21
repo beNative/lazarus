@@ -20,8 +20,6 @@ unit ts_Editor_CommentStripper;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses

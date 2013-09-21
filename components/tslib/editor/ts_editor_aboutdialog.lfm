@@ -8,10 +8,11 @@ object frmAbout: TfrmAbout
   Caption = 'About'
   ClientHeight = 267
   ClientWidth = 552
+  OnShow = FormShow
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object grpLine: TGroupBox
     Left = 4
     Height = 2

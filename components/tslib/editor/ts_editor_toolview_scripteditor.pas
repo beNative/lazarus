@@ -38,12 +38,7 @@ uses
 
 { TfrmScriptEditor }
 
-procedure TfrmScriptEditor.FormShow(Sender: TObject);
-begin
-  if not Assigned(FEditor) then
-    FEditor := CreateEditorView(pnlLeft, FManager, 'ScriptEditor', '', 'PAS');
-end;
-
+{$region 'construction and destruction' /fold}
 procedure TfrmScriptEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -56,6 +51,16 @@ begin
   FEditor := nil;
   FManager := nil;
   inherited BeforeDestruction;
+end;
+{$endregion}
+
+procedure TfrmScriptEditor.FormShow(Sender: TObject);
+begin
+  if not Assigned(FEditor) then
+    FEditor := CreateEditorView(pnlLeft, FManager, 'ScriptEditor', '', 'PAS');
+
+  if FileExists('notepas.dws') then
+    FEditor.LoadFromFile('notepas.dws');
 end;
 
 end.

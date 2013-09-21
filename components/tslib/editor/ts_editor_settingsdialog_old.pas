@@ -118,13 +118,9 @@ type
       read GetSettings;
   end;
 
-//=============================================================================
-
 procedure ExecuteSettingsDialog(
   AOwner: TComponent
 );
-
-//*****************************************************************************
 
 implementation
 

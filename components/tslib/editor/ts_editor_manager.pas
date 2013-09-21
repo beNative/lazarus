@@ -440,6 +440,7 @@ type
     FUniqueInstance  : TUniqueInstance;
 
     FdwsProgramExecution : IdwsProgramExecution;
+    FdwsProgram          : IdwsProgram;
     FScriptFunctions     : TStringList;
 
     FOnActiveViewChange    : TNotifyEvent;
@@ -952,6 +953,7 @@ begin
   FSearchEngine := nil;
   FSettings := nil;
   FdwsProgramExecution := nil;
+  FdwsProgram := nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FToolViewList);
   FreeAndNil(FViewList);
@@ -1581,7 +1583,7 @@ end;
 
 procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
 begin
-  ShowToolView(ToolViews['frmCharacterMapDialog'], (Sender as TAction).Checked, False, False);
+  ShowToolView(ToolViews['frmCharacterMap'], (Sender as TAction).Checked, False, False);
 end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
@@ -1945,6 +1947,10 @@ end;
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
   ExecuteSettingsDialog(Self);
+  //with TEditorSettingsDialog.Create(Self) do
+  //begin
+  //  ShowModal;
+  //end;
 end;
 
 procedure TdmEditorManager.actHighlighterExecute(Sender: TObject);
@@ -1981,15 +1987,20 @@ begin
     A := Sender as TAction;
     if Assigned(FdwsProgramExecution) then
     begin
-      FI := FdwsProgramExecution.Info.Func[A.Caption];
-      if Assigned(FI) then
-      begin
-        Selection.Text := FI.Call(
-          [Selection.Text]
-        ).GetValueAsString;
-      end
-      else
-        raise Exception.Create('Script function not found');
+      FdwsProgramExecution.BeginProgram;
+      try
+        FI := FdwsProgramExecution.Info.Func[A.Caption];
+        if Assigned(FI) then
+        begin
+          Selection.Text := FI.Call(
+            [Selection.Text]
+          ).GetValueAsString;
+        end
+        else
+          raise Exception.Create('Script function not found');
+      finally
+        FdwsProgramExecution.EndProgram;
+      end;
     end
     else
       raise Exception.Create('No script file was found');
@@ -2175,7 +2186,6 @@ procedure TdmEditorManager.actLineBreakStyleExecute(Sender: TObject);
 begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -2806,18 +2816,17 @@ procedure TdmEditorManager.LoadScriptFiles;
 var
   A : TAction;
   S : string;
-  P : IdwsProgram;
   PS : TSymbol;
 begin
   actExecuteScriptOnSelection.Enabled := False;
   if FileExists('notepas.dws') then
   begin
     S := ReadFileToString('notepas.dws');
-    P := DelphiWebScript.Compile(S);
-    if P.Msgs.Count = 0 then
+    FdwsProgram := DelphiWebScript.Compile(S);
+    if FdwsProgram.Msgs.Count = 0 then
     begin
-      FdwsProgramExecution := P.Execute;
-      for PS in  P.Table do
+      FdwsProgramExecution := FdwsProgram.Execute;
+      for PS in  FdwsProgram.Table do
       begin
         if PS is TFuncSymbol then
         begin
@@ -2837,7 +2846,7 @@ begin
     begin
       raise Exception.CreateFmt(
         'Compilation failed with:'#13#10,
-        [P.Msgs.AsInfo]
+        [FdwsProgram.Msgs.AsInfo]
       );
     end;
   end;

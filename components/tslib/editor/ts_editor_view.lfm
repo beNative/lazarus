@@ -15,7 +15,7 @@ object EditorView: TEditorView
   ShowHint = True
   ShowInTaskBar = stNever
   UseDockManager = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object imlBookmarkImages: TImageList
     left = 157
     top = 75

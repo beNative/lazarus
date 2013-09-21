@@ -35,6 +35,9 @@ uses
   ts_Editor_Interfaces, ts_Editor_Utils;
 
 type
+
+  { TfrmCodeFilterDialog }
+
   TfrmCodeFilterDialog = class(TForm, IEditorToolView,
                                       IClipboardCommands)
     {$region 'designer controls' /fold}
@@ -63,6 +66,7 @@ type
     pnlVST               : TPanel;
     ppmMain              : TPopupMenu;
     sbrMain              : TStatusBar;
+    tmrUpdate: TTimer;
     tlbMain              : TToolBar;
     ToolButton1          : TToolButton;
     ToolButton3          : TToolButton;
@@ -89,6 +93,7 @@ type
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
+    procedure tmrUpdateTimer(Sender: TObject);
   private
     FTVP              : TTreeViewPresenter;
     FVST              : TVirtualStringTree;
@@ -241,6 +246,11 @@ var
     VK_END
   ];
 
+resourcestring
+  SFilteredCode = '<Filtered code>';
+  SLineIndex    = 'Line';
+  SLineText     = 'Text';
+
 constructor TLine.Create(const AIndex: Integer; const AText: string);
 begin
   inherited Create;
@@ -266,7 +276,7 @@ begin
   FVST := CreateVST(Self, pnlVST);
   FVST.Font.Assign(Manager.Settings.EditorFont);
   FVST.Font.Size := 8;
-  FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions - [toShowHorzGridLines];
+  FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions - [toShowHorzGridLines, toShowVertGridLines];
   FVST.Colors.FocusedSelectionColor := clSilver;
   FVST.Colors.FocusedSelectionBorderColor := clSilver;
   FVST.Colors.SelectionRectangleBorderColor := clSilver;
@@ -279,9 +289,9 @@ begin
   FTVP.SelectionMode := smMulti;
   FTVP.MultiLine := False;
   FTVP.ItemTemplate := TColumnDefinitionsDataTemplate.Create(FTVP.ColumnDefinitions);
-  FTVP.ColumnDefinitions.AddColumn('Index', 'Line', dtNumeric, 50);
-  FTVP.ColumnDefinitions.AddColumn('Text', 'Text', dtString, 600, 500, 4000);
-  FTVP.ColumnDefinitions.Items[0].Fixed := True;
+  FTVP.ColumnDefinitions.AddColumn('Index', SLineIndex, dtNumeric, 50);
+  FTVP.ColumnDefinitions.AddColumn('Text', SLineText, dtString, 600, 500, 4000);
+  FTVP.ColumnDefinitions.Items[0].Fixed := False;
   FTVP.ColumnDefinitions.Items[0].MaxWidth := 50;
   FTVP.ColumnDefinitions.Items[0].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
   FTVP.ColumnDefinitions.Items[1].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
@@ -372,7 +382,6 @@ end;
 {$endregion}
 
 {$region 'action handlers' /fold}
-
 procedure TfrmCodeFilterDialog.actApplyFilterExecute(Sender: TObject);
 begin
   Modified;
@@ -398,23 +407,27 @@ begin
 end;
 
 procedure TfrmCodeFilterDialog.actCopyToNewViewExecute(Sender: TObject);
-//var
-//  I  : Integer;
-//  SL : TStringList;
-//  L  : TLine;
+var
+  I  : Integer;
+  SL : TStringList;
+  L  : TLine;
 begin
-  //SL := TStringList.Create;
-  //try
-  //  for I := 0 to FTVP.SelectedItems.Count - 1 do
-  //  begin
-  //    L := TLine(FTVP.SelectedItems[I]);
-  //    SL.Add(L.Text);
-  //  end;
-  //  Manager.Views.Add.Text := SL.Text;
-  //  //Clipboard.AsText := SL.Text;
-  //finally
-  //  SL.Free;
-  //end;
+  SL := TStringList.Create;
+  try
+    for I := 0 to FTVP.SelectedItems.Count - 1 do
+    begin
+      L := TLine(FTVP.SelectedItems[I]);
+      SL.Add(L.Text);
+    end;
+    with Manager.Views.Add do
+    begin
+      FileName := SFilteredCode;
+      Text := SL.Text;
+    end;
+    //Clipboard.AsText := SL.Text;
+  finally
+    SL.Free;
+  end;
 end;
 
 procedure TfrmCodeFilterDialog.actFocusSearchFilterExecute(Sender: TObject);
@@ -431,7 +444,6 @@ procedure TfrmCodeFilterDialog.actSelectAllExecute(Sender: TObject);
 begin
   FTVP.SelectAll;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -483,7 +495,6 @@ begin
   if Key = VK_ESCAPE then
   begin
     ModalResult := mrCancel;
-    Close;
   end
   else
     inherited;
@@ -605,7 +616,8 @@ end;
 
 procedure TfrmCodeFilterDialog.FTVPSelectionChanged(Sender: TObject);
 begin
-  FUpdateEditorView := True;
+  Application.ProcessMessages;
+  tmrUpdate.Enabled := True;
 end;
 
 procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: Char);
@@ -629,10 +641,14 @@ begin
   end;
 end;
 
+procedure TfrmCodeFilterDialog.tmrUpdateTimer(Sender: TObject);
+begin
+  FUpdateEditorView := True;
+  tmrUpdate.Enabled := False;
+end;
 {$endregion}
 
 {$region 'private methods' /fold}
-
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
   I: Integer;
@@ -682,11 +698,9 @@ begin
     end;
   end;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmCodeFilterDialog.Cut;
 begin
   PostMessage(GetFocus, LM_CUT, 0, 0);
@@ -767,6 +781,7 @@ begin
     try
       FRegExpr.Expression := Filter;
       FRegExpr.ModifierI := not MatchCase;
+      FRegExpr.ModifierM := True;
       FRegExpr.Compile;
       FIsCompiled := True;
     except
@@ -796,7 +811,6 @@ begin
     SL.Free;
   end;
 end;
-
 {$endregion}
 
 end.

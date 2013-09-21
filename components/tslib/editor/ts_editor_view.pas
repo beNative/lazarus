@@ -1309,27 +1309,21 @@ begin
   Editor.ExtraLineSpacing      := Settings.ExtraLineSpacing;
   Editor.ExtraCharSpacing      := Settings.ExtraCharSpacing;
   Editor.BracketHighlightStyle := Settings.BracketHighlightStyle;
-  Editor.BracketMatchColor     := Settings.BracketMatchColor;
+
   Editor.BlockTabIndent        := Settings.BlockTabIndent;
   Editor.BlockIndent           := Settings.BlockIndent;
-  Editor.FoldedCodeColor       := Settings.FoldedCodeColor;
-  Editor.HighlightAllColor     := Settings.HighlightAllColor;
-  Editor.SelectedColor         := Settings.SelectedColor;
-  Editor.IncrementColor        := Settings.IncrementColor;
   Editor.RightEdge             := Settings.RightEdge;
   Editor.RightEdgeColor        := Settings.RightEdgeColor;
   Editor.TabWidth              := Settings.TabWidth;
   Editor.WantTabs              := Settings.WantTabs;
+
   Editor.MouseLinkColor        := Settings.MouseLinkColor;
+  Editor.BracketMatchColor     := Settings.BracketMatchColor;
   Editor.LineHighlightColor    := Settings.LineHighlightColor;
-
-  // block selection color
-  //Editor.SelectedColor.Background      := clLtGray;
-  //Editor.SelectedColor.Foreground      := clNone;
-//  Editor.SelectedColor.MergeFinalStyle := True;
-
-  //Editor.BracketMatchColor.Background := clAqua;
-  //Editor.BracketMatchColor.FrameColor := clGray;
+  Editor.FoldedCodeColor       := Settings.FoldedCodeColor;
+  Editor.HighlightAllColor     := Settings.HighlightAllColor;
+  Editor.SelectedColor         := Settings.SelectedColor;
+  Editor.IncrementColor        := Settings.IncrementColor;
 
   // alternative block selection color?
   //Editor.UseIncrementalColor := False;
@@ -1341,19 +1335,6 @@ begin
   //Editor.HighlightAllColor.FrameColor := $0064B1FF;
   ////Editor.HighlightAllColor.FrameColor := $004683FF;  // dark orange
   //Editor.HighlightAllColor.FrameStyle := slsSolid;
-
-  //Editor.HighlightAllColor.FrameEdges := sfeAround;
-  //Editor.HighlightAllColor.FrameEdges := sfeNone;
-  //Editor.HighlightAllColor.Foreground := clNone;
-//  Editor.HighlightAllColor.MergeFinalStyle := True;
-
-//   highlight current line
-  //Editor.LineHighlightColor.Background := $009FFFFF; // yellow
-  //Editor.LineHighlightColor.FrameEdges := sfeAround;
-  //Editor.LineHighlightColor.Foreground := clNone;
-  //Editor.LineHighlightColor.FrameStyle := slsWaved;
-  //Editor.LineHighlightColor.FrameColor := $0000C4C4; // darker shade of yellow
-
 end;
 
 procedure TEditorView.InitializeEditor(AEditor: TSynEdit);
@@ -1445,7 +1426,6 @@ begin
   // 21/09/2013
   AEditor.OnSpecialLineColors := EditorSpecialLineColors;
 
-
   AEditor.Visible := True;
 
   FSyncronizedEdit := TSynPluginSyncroEdit.Create(nil);
@@ -1512,14 +1492,6 @@ begin
   //FMHA.SearchOptions := [ssoMatchCase, ssoWholeWord];
   //FMHA.Enabled := True;
 
-  //AEditor.MarkupByClass[TSynEditMarkupSpecialLine].Enabled:=True;
-  //   AEditor.MarkupByClass[TSynEditMarkupSpecialLine].MarkupInfo.Background := clRed;
-  //
-  //                                                           AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].Enabled:= True;
-  //        AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].MarkupInfo.FrameEdges:= sfeBottom;
-  //        AEditor.MarkupByClass[TSynEditMarkupCtrlMouseLink].MarkupInfo.FrameColor:= clBlue;
-
-
           {
    FROM SYNEDIT SOURCES
     // needed before setting color
@@ -1541,7 +1513,6 @@ procedure TEditorView.EditorSettingsChanged(ASender: TObject);
 begin
   FUpdate := True;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -1707,7 +1678,7 @@ end;
 { Comments or uncomments selected code lines based on the line comment tag of
   the active highlighter. }
 
-// TS TODO: use SelectionInfo, and keep selection after updating selected block
+// TS TODO: use Selection, and keep selection after updating selected block
 
 procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
 var

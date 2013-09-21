@@ -46,6 +46,8 @@ type
     procedure CallEditorSettingsChangedHandlers(Sender: TObject);
   end;
 
+  { TEditorSettings }
+
   TEditorSettings = class(TComponent, IEditorSettings)
   private
     FAutoFormatXML            : Boolean;
@@ -163,6 +165,7 @@ type
     {$endregion}
 
   protected
+    procedure AssignDefaultColors;
     procedure InitializeHighlighterAttributes;
     procedure Changed;
 
@@ -296,7 +299,7 @@ implementation
 uses
   Dialogs, Forms,
 
-  SynEditHighlighter, SynEditStrConst,
+  SynEditHighlighter, SynEditStrConst, SynEditTypes,
 
   ts_Editor_Resources;
 
@@ -333,7 +336,7 @@ begin
   AutoGuessHighlighterType := True;
   PreviewVisible := False;
   FEditorFont := TFont.Create;
-  FEditorFont.Name := 'Consolas';
+  FEditorFont.Name := 'Courier New';
   FEditorFont.Size := 10;
 
   FBlockIndent := 2;
@@ -350,6 +353,7 @@ begin
   FLineHighlightColor := TSynSelectedColor.Create;
   FFoldedCodeColor    := TSynSelectedColor.Create;
   FSelectedColor      := TSynSelectedColor.Create;
+  AssignDefaultColors;
 end;
 
 procedure TEditorSettings.BeforeDestruction;
@@ -819,16 +823,45 @@ function TEditorSettings.GetXML: string;
 begin
   Result := ReadFileToString(FileName);
 end;
-
 {$endregion}
 
 {$region 'protected methods'}
+procedure TEditorSettings.AssignDefaultColors;
+begin
+  BracketMatchColor.Background := clAqua;
+  BracketMatchColor.Foreground := clNone;
+  BracketMatchColor.FrameColor := clBlue;
+
+  SelectedColor.Background := clMedGray;
+  SelectedColor.BackAlpha  := 128;
+  SelectedColor.Foreground := clNone;
+
+  IncrementColor.Background := clMedGray;
+  IncrementColor.BackAlpha  := 128;
+  IncrementColor.Foreground := clNone;
+
+  HighlightAllColor.Background := $000080FF; // orange
+  HighlightAllColor.BackAlpha  := 128;
+  HighlightAllColor.Foreground := clNone;
+  HighlightAllColor.FrameColor := $00006BD7; // dark orange
+
+  LineHighlightColor.Background := clYellow;
+  LineHighlightColor.BackAlpha  := 128;
+  LineHighlightColor.Foreground := clNone;
+  LineHighlightColor.FrameColor := clOlive;
+  LineHighlightColor.FrameAlpha := 64;
+  LineHighlightColor.FrameStyle := slsDashed;
+
+  FoldedCodeColor.Background := clSilver;
+  FoldedCodeColor.BackAlpha  := 50;
+  FoldedCodeColor.Foreground := clMedGray;
+  FoldedCodeColor.FrameColor := clMedGray;
+end;
 
 procedure TEditorSettings.Changed;
 begin
   FChangedEventList.CallEditorSettingsChangedHandlers(Self);
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}

@@ -1091,7 +1091,6 @@
       <Unit101>
         <Filename Value="notepas.dws"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="notepas.dws"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\components\tslib\editor\ts_editor_toolview_scripteditor.pas"/>

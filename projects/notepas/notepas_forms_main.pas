@@ -32,7 +32,6 @@ uses
 
   ts_Components_Docking, ts_Components_Docking_Storage,
 
-  ts_Core_Value,
   // for debugging
   sharedlogger,
 

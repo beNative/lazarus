@@ -17,7 +17,7 @@ object frmMain: TfrmMain
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object tlbMain: TToolBar
     Left = 2
     Height = 26

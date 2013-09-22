@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
   {$ifdef windows}
-  FramView, HTMLSubs, HtmlGlobals,
+  FramView, HtmlGlobals,
   {$endif}
 
   ts_Editor_Interfaces, ts_Editor_ToolView_Base;
@@ -65,9 +65,9 @@ begin
 
 {$ifdef windows}
   if FileExistsUTF8(View.FileName) then
-    FHTMLViewer.LoadFromFile(View.FileName)
+    FHTMLViewer.LoadFromFile(WideString(View.FileName))
   else
-    FHTMLViewer.LoadFromString(View.Text);
+    FHTMLViewer.LoadFromString(WideString(View.Text));
 {$endif}
 
 end;

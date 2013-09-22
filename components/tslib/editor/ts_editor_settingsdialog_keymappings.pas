@@ -124,9 +124,9 @@ uses
 {$R *.lfm}
 
 procedure TfrmKeyMappings.FormCreate(Sender: TObject);
-var
-  i, j: integer;
-  S: string;
+//var
+//  i, j: integer;
+//  S: string;
 begin
   //for i := 0 to frmMain.alMain.ActionCount - 1 do
   //  with TAction.Create(Self) do
@@ -223,8 +223,8 @@ begin
 end;
 
 procedure TfrmKeyMappings.SelectAction;
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   //lbSC.Clear;
   //with FCurrentAction do
@@ -241,9 +241,9 @@ begin
 end;
 
 procedure TfrmKeyMappings.acAddExecute(Sender: TObject);
-var
-  j: integer;
-  A: TAction;
+//var
+//  j: integer;
+//  A: TAction;
 begin
   //A := GetActionByShortCut(alTmp, hkSC.HotKey);
   //if Assigned(A) then
@@ -299,8 +299,8 @@ end;
 
 procedure TfrmKeyMappings.FormClose(Sender: TObject;
   var Action: TCloseAction);
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   if ModalResult <> mrOK then
     Exit;

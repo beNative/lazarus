@@ -20,8 +20,6 @@ unit ts_Editor_ToolView_ActionList;
 
 {$mode delphi}
 
-//*****************************************************************************
-
 interface
 
 uses

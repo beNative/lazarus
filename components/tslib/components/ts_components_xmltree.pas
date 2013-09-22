@@ -43,7 +43,7 @@ interface
 {$endif}
 
 uses
-  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList, Messages,
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList,
 {$ifdef FPC}
   LMessages,
 {$endif}
@@ -722,11 +722,10 @@ type
 implementation
 
 uses
-  TypInfo,
 {$ifdef FPC}
   LCLType,
 {$endif}
-  ts_Core_Utils;
+  TypInfo;
 
 procedure PaintBtnEllipsis(DC: HDC; Rect: TRect; Pressed: Boolean);
 var
@@ -1121,13 +1120,12 @@ end;
 procedure TXMLTree.DoMeasureItem(TargetCanvas: TCanvas; Node: PVirtualNode;
   var NodeHeight: Integer);
 var
-  N : Cardinal;
   I : Integer;
   H : Integer;
 begin
   inherited;
   TargetCanvas.Font := Font;
-  NodeHeight        := DefaultNodeHeight;
+  NodeHeight        := Integer(DefaultNodeHeight);
   for I             := 0 to Header.Columns.Count - 1 do
   begin
     H := ComputeNodeHeight(TargetCanvas, Node, I);
@@ -1135,7 +1133,7 @@ begin
       NodeHeight := H;
   end;
   // needed to avoid multiline text drawing issues
-  if NodeHeight > DefaultNodeHeight then
+  if NodeHeight > Integer(DefaultNodeHeight) then
     NodeHeight := NodeHeight + 4;
 end;
 
@@ -1359,7 +1357,7 @@ end;
 function TXMLTree.DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
   {$ifdef FPC}const {$endif} ItemRect: TRect): Boolean;
 begin
-  inherited;
+  Result := inherited DoBeforeItemPaint(Canvas, Node, ItemRect);
 end;
 
 {$region 'documentation'}
@@ -1406,6 +1404,7 @@ var
   C   : TColor;
   Ind : Integer;
 begin
+  C := clNone;
   if Column = Header.MainColumn then
   begin
     Ind := GetNodeLevel(ANode) * Indent;

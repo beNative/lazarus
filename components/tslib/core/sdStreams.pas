@@ -268,6 +268,7 @@ end;
 
 function TsdBufferWriter.Read(var Buffer; Count: Integer): Longint;
 begin
+  Result := 0;
   // not implemented
   raise Exception.Create('not implemented');
 end;

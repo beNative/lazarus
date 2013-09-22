@@ -80,8 +80,7 @@ uses
   ,Controls
   ,Graphics
 
-  ,SynEdit, SynEditTypes, LazSynEditText
-  ;
+  ,SynEdit, LazSynEditText;
 
 const
   SYNMINIMAP_DEFAULT_HEIGHT = 4000;
@@ -182,7 +181,7 @@ type
   private
     FSynMiniMap: TSynMiniMap;
   public
-    constructor Create(ASynMiniMap: TSynMiniMap);
+    constructor Create(ASynMiniMap: TSynMiniMap); reintroduce; virtual;
   end;
 
   ///
@@ -340,19 +339,19 @@ end;
 
 procedure TSynMiniMapEditorPlugin.LineCountChanged(Sender: TSynEditStrings;
   AIndex, ACount: Integer);
-var
-  LLineIndex: Integer;
+//var
+//  LLineIndex: Integer;
 begin
   ///
   ///  check if we need to decrement the previous line index
   ///  if current line index is 10 and the user deleted a few lines
   ///  before that, we need to adjust FPreviousLineIndex
   ///
-  if FSynMiniMap.PreviousLineIndex >= LLineIndex then
-  begin
-    Inc(FSynMiniMap.FPreviousLineIndex, ACount);
-    FSynMiniMap.Render;
-  end;
+  //if FSynMiniMap.PreviousLineIndex >= LLineIndex then
+  //begin
+  //  Inc(FSynMiniMap.FPreviousLineIndex, ACount);
+  //  FSynMiniMap.Render;
+  //end;
 end;
 
 procedure TSynMiniMapEditorPlugin.EditorDecPaintLock(Sender: TObject);
@@ -361,8 +360,6 @@ begin
 end;
 
 constructor TSynMiniMapEditorPlugin.Create(ASynMiniMap: TSynMiniMap);
-var
-  DecPaintLock: TStringListLineCountEvent;
 begin
   inherited Create(ASynMiniMap.Editor);
   FSynMiniMap := ASynMiniMap;

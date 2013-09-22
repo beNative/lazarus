@@ -1191,7 +1191,7 @@ end;
 
 procedure TDBGridEdit.UpdateListValue(Accept: Boolean);
 var
-  ListValue: Variant;
+//  ListValue: Variant;
   MasterField: TField;
 begin
   if (ActiveList <> nil) and Accept and (Grid <> nil) then

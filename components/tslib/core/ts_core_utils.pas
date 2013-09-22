@@ -31,7 +31,7 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
-  StdCtrls, Character, Math,
+  StdCtrls, Character,
 
   LCLType,
 {$ifdef windows}
@@ -804,8 +804,6 @@ end;
 
 function VariantToTypedVarRec
   (const Item: Variant; VarType: TVarType): TVarRec;
-var
-  S: AnsiString;
 begin
   case VarType of
     varInteger, varSmallint, varShortInt, varByte, varWord, varLongWord:

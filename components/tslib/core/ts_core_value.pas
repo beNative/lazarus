@@ -111,7 +111,7 @@
 
 unit ts_Core_Value;
 
-{$MODE delphi}
+{$MODE Delphi}
 
 interface
 
@@ -433,7 +433,7 @@ end;
 
 function TValueObject.GetAsCardinal: Cardinal;
 begin
-  //Result := FValue.AsCardinal;
+  Result := FValue.VInteger;
 end;
 
 function TValueObject.GetAsDateTime: TDateTime;
@@ -483,13 +483,13 @@ begin
     vtBoolean:    Result := BoolToStr(AsBoolean, True);
     vtInteger:    Result := IntToStr(AsInteger);
     vtFloat:      Result := FloatToStr(AsFloat);
-    vtWideString: Result := AsWideString;
+    vtWideString: Result := string(AsWideString);
     vtString:
       begin
         {$IFDEF UNICODE}
           Result := FValue.VPWideChar;
         {$ELSE}
-          Result := FValue.VPChar;
+          Result := string(FValue.VPChar);
         {$ENDIF}
       end
     else
@@ -506,11 +506,11 @@ function TValueObject.GetAsWideString: WideString;
 begin
   case FValueType of
     vtNull:       Result := '';
-    vtBoolean:    Result := BoolToStr(AsBoolean, True);
-    vtInteger:    Result := IntToStr(AsInteger);
-    vtFloat:      Result := FloatToStr(AsFloat);
+    vtBoolean:    Result := WideString(BoolToStr(AsBoolean, True));
+    vtInteger:    Result := WideString(IntToStr(AsInteger));
+    vtFloat:      Result := WideString(FloatToStr(AsFloat));
     vtWideString: Result := FValue.VPWideChar;
-    vtString:     Result := AsString;
+    vtString:     Result := WideString(AsString);
     else raise Exception.CreateFmt(
       'Value of type <%s> cannot be converted to WideString',
       [GetEnumName(TypeInfo(TValueType), Integer(ValueType))]
@@ -865,9 +865,9 @@ begin
     vtObject: Result := Integer(AsObject);
     vtPointer: Result := Integer(AsPointer);
     vtWideString: Result := StrToInt(string(GetAsWideString));
- {$IFDEF UNICODE}
+{$IFDEF UNICODE}
     vtAnsiString: Result := StrToInt(string(GetAsAnsiString));
-  {$ENDIF}
+{$ENDIF}
     else
       raise Exception.CreateFmt(
         'Value of type <%s> cannot be converted to Integer',

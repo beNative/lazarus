@@ -212,7 +212,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, LMessages,
+  LCLIntf,
 
   ts_Core_Utils,
 

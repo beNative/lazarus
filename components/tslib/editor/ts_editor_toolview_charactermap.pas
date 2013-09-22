@@ -229,7 +229,6 @@ end;
 procedure TfrmCharacterMap.grdANSIMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  B   : Byte;
   Row : Integer;
   Col : Integer;
 begin

@@ -242,8 +242,8 @@ begin
 end;
 
 procedure TfrmOptionsThemes.LoadOptions;
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   //FOldTheme := dmCom.TH.ThemeName;
 

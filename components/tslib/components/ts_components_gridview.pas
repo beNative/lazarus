@@ -1916,7 +1916,6 @@ type
     FEndEllipsis          : Boolean;
     FFixed                : TCustomGridFixed;
     FFlatBorder           : Boolean;
-    FFlatScrollBars       : Boolean;
     FFocusOnScroll        : Boolean;
     FGridColor            : TColor;
     FGridLines            : Boolean;
@@ -2888,9 +2887,9 @@ end;
 
 function GetFontWidth(Font: TFont; TextLength: Integer): Integer;
 var
-  DC: HDC;
-  Canvas: TCanvas;
-  TM: TTextMetric;
+  DC     : HDC;
+  Canvas : TCanvas;
+  TM     : TTextMetric;
 begin
   DC := GetDC(0);
   try
@@ -2907,8 +2906,6 @@ begin
     ReleaseDC(0, DC);
   end;
 end;
-
-
 
 { Utility routines }
 
@@ -10075,8 +10072,8 @@ begin
         if Y + H > R.Bottom then
           H := R.Bottom - Y;
         {style and the background colors of picture}
-        IDS := DS[IsCellHighlighted(Cell) and Focused and IH];
-        BKC := GetRGBColor(Images.BkColor);
+        // := DS[IsCellHighlighted(Cell) and Focused and IH];
+//        BKC := GetRGBColor(Images.BkColor);
         BLC := GetRGBColor(Images.BlendColor);
         { draw picture}
         Canvas.FillRect(R);

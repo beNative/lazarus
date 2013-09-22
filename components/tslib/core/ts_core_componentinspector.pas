@@ -203,12 +203,9 @@ begin
   end;
 end;
 
-
-
 procedure TComponentInspectorForm.AfterConstruction;
 var
-  OnRevert: TPropHookRevert;
-  M       : TMonitor;
+  M : TMonitor;
 begin
   inherited AfterConstruction;
   FInspector := TTIPropertyGrid.Create(Self);
@@ -252,7 +249,6 @@ begin
   PropertyEditorHook.AddHandlerAddDependency(OnAddDependency);
   PropertyEditorHook.AddHandlerComponentRenamed(OnComponentRenamed);
   PropertyEditorHook.AddHandlerPersistentDeleting(OnPersistentDeleting);
-  //PropertyEditorHook.AddHandlerRevert(OnRevert);
 
   DoubleBuffered := True;
 

@@ -189,8 +189,8 @@ uses
 {$R *.lfm}
 
 procedure TfrmFileTypeSettings.LoadOptions;
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   //AC := TSynAutoComplete.Create(Self);
 
@@ -300,8 +300,8 @@ begin
 end;
 
 procedure TfrmFileTypeSettings.DoEditAutocomplete;
-var
-  FN: string;
+//var
+//  FN: string;
 begin
   //with TdlgEditAutocomplete.Create(Self) do
   //try
@@ -349,8 +349,8 @@ begin
 end;
 
 procedure TfrmFileTypeSettings.UpdateFilterCombo;
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   cbFT.Clear;
   //for i := 0 to tmpFT.Items.Count - 1 do
@@ -376,8 +376,8 @@ begin
 end;
 
 procedure TfrmFileTypeSettings.bnRunDirBrowseClick(Sender: TObject);
-var
-  S: string;
+//var
+//  S: string;
 begin
   //S := ExtractFileDir(ProcessTags(cbRunDir.Text));
   //if SelectDirectory(GetLangStr('SDirToFind'), '', S) then
@@ -424,8 +424,8 @@ begin
 end;
 
 procedure TfrmFileTypeSettings.acAddExecute(Sender: TObject);
-var
-  S: string;
+//var
+//  S: string;
 begin
   //with TdlgInput.Create(Self) do
   //try
@@ -457,8 +457,8 @@ begin
 end;
 
 procedure TfrmFileTypeSettings.acDelExecute(Sender: TObject);
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   //i := CurrentType;
   //tmpFT.Items.Delete(CurrentType);

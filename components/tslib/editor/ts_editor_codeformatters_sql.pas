@@ -32,12 +32,10 @@ uses
 type
   TSQLFormatter = class(TInterfacedObject, ICodeFormatter)
   strict private
-    FSQL        : string;
     FLineReader : TStreamLineReader;
     FSQLParser  : TSQLParser;
     FSQLScanner : TSQLScanner;
     FSQLStream  : TStringStream;
-    FSQLElement : TSQLElement;
 
   strict protected
     function Format(const AString: string): string; virtual;

@@ -200,7 +200,7 @@ begin
   //chkAllUsers.Checked := FA.AllUsers;
   //
   //FMod := False;
-  //DoLoadAssoc;
+ DoLoadAssoc;
 end;
 
 procedure TfrmOptionsAssociate.SaveOptions;

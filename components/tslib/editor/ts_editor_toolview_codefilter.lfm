@@ -46,13 +46,14 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     TabOrder = 2
     Transparent = True
     object lblSearch: TLabel
-      Left = 23
+      Left = 27
       Height = 18
       Top = 3
-      Width = 55
+      Width = 38
       Align = alLeft
       Alignment = taCenter
-      AutoSize = False
+      BorderSpacing.Left = 4
+      BorderSpacing.Right = 4
       BorderSpacing.Around = 3
       Caption = 'Search:'
       Layout = tlCenter
@@ -87,7 +88,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Proportional = True
     end
     object ToolButton1: TToolButton
-      Left = 385
+      Left = 20
       Top = 0
       Width = 5
       AutoSize = True
@@ -95,12 +96,15 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Style = tbsDivider
     end
     object btnMatchCase: TSpeedButton
-      Left = 390
-      Height = 22
+      Left = 385
+      Height = 24
       Top = 0
-      Width = 99
+      Width = 88
       Action = actMatchCase
       AllowAllUp = True
+      AutoSize = True
+      BorderSpacing.Left = 4
+      BorderSpacing.Right = 4
       BorderSpacing.InnerBorder = 2
       Flat = True
       Glyph.Data = {
@@ -143,12 +147,15 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Margin = 4
     end
     object btnRegularExpression: TSpeedButton
-      Left = 494
-      Height = 22
+      Left = 478
+      Height = 24
       Top = 0
-      Width = 131
+      Width = 126
       Action = actRegularExpression
       AllowAllUp = True
+      AutoSize = True
+      BorderSpacing.Left = 4
+      BorderSpacing.Right = 4
       BorderSpacing.InnerBorder = 2
       Flat = True
       Glyph.Data = {
@@ -191,11 +198,14 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Margin = 4
     end
     object btnApply: TSpeedButton
-      Left = 630
-      Height = 22
+      Left = 609
+      Height = 24
       Top = 0
-      Width = 94
+      Width = 86
       Action = actApplyFilter
+      AutoSize = True
+      BorderSpacing.Left = 4
+      BorderSpacing.Right = 4
       BorderSpacing.InnerBorder = 2
       Flat = True
       Glyph.Data = {
@@ -237,24 +247,24 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Margin = 4
     end
     object ToolButton3: TToolButton
-      Left = 625
+      Left = 604
       Top = 0
       Width = 5
       Caption = 'ToolButton3'
       Style = tbsDivider
     end
     object ToolButton4: TToolButton
-      Left = 489
+      Left = 473
       Top = 0
       Width = 5
       Caption = 'ToolButton4'
       Style = tbsDivider
     end
     object edtFilter: TEdit
-      Left = 81
+      Left = 72
       Height = 20
       Top = 2
-      Width = 304
+      Width = 313
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 2

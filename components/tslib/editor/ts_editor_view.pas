@@ -1587,8 +1587,6 @@ procedure TEditorView.Activate;
 begin
   inherited;
   Manager.ActiveView := Self as IEditorView;
-  if CanFocus and Editor.CanFocus then
-    Editor.SetFocus;
 end;
 
 function TEditorView.EditorViewFocused: Boolean;

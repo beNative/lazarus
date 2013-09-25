@@ -67,6 +67,7 @@ type
 
     property DisplayName: string
       read GetDisplayName write SetDisplayName;
+
   published
     // published properties
     { The name displayed in the collection editor at design time. }

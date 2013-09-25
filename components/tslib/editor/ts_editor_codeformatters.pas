@@ -66,7 +66,7 @@ implementation
 uses
   Forms,
 
-  Process,
+  Process, FileUtil,
 
   ts_Editor_Utils;
 
@@ -80,7 +80,7 @@ var
 begin
   S := ExtractFilePath(Application.ExeName) + AExeName;
   T := ExtractFilePath(Application.ExeName) + ATempFile;
-  if FileExists(S) then
+  if FileExistsUTF8(S) then
   begin
     SL := TStringList.Create;
     try
@@ -103,8 +103,8 @@ begin
     finally
       FreeAndNil(SL);
     end;
-    if FileExists(T) then
-      DeleteFile(T);
+    if FileExistsUTF8(T) then
+      DeleteFileUTF8(T);
   end
   else
     raise Exception.CreateFmt('%s not found!', [S]);

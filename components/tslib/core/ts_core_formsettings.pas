@@ -28,7 +28,7 @@ uses
 type
   TFormSettings = class(TPersistent)
   private
-    FOnChanged: TNotifyEvent;
+    FOnChanged   : TNotifyEvent;
     FWidth       : Integer;
     FHeight      : Integer;
     FLeft        : Integer;

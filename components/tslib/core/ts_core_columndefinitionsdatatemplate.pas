@@ -36,6 +36,8 @@ unit ts_Core_ColumnDefinitionsDataTemplate;
 interface
 
 uses
+  Graphics,
+
   ts_Core_Value, ts_Core_DataTemplates, ts_Core_ColumnDefinitions;
 
 type
@@ -233,7 +235,7 @@ procedure TColumnDefinitionsDataTemplate.SetValueForProperty(
   const Item: TObject; const APropertyName: string; const AValue: TValue);
 begin
   if Assigned(Item) and IsPublishedProp(Item, APropertyName) then
-    SetPropValue(Item, APropertyName, AValue);
+    SetPropValue(Item, APropertyName, AValue.AsString);
 end;
 
 end.

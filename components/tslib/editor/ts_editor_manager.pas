@@ -2819,7 +2819,7 @@ var
   PS : TSymbol;
 begin
   actExecuteScriptOnSelection.Enabled := False;
-  if FileExists('notepas.dws') then
+  if FileExistsUTF8('notepas.dws') then
   begin
     S := ReadFileToString('notepas.dws');
     FdwsProgram := DelphiWebScript.Compile(S);
@@ -3227,7 +3227,7 @@ function TdmEditorManager.SaveFile(const AFileName: string;
 AShowDialog: Boolean): Boolean;
 begin
   DoSaveFile;
-  if AShowDialog or not FileExists(AFileName) then
+  if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
     if Assigned(ActiveView.Editor.Highlighter) then
       dlgSave.Filter := ActiveView.Editor.Highlighter.DefaultFilter;
@@ -3310,7 +3310,7 @@ var
 begin
   FN := ExtractFilePath(ActiveView.FileName)
     + ActiveView.CurrentWord + ExtractFileExt(ActiveView.FileName);
-  if FileExists(FN) then
+  if FileExistsUTF8(FN) then
     DoNewFile(FN);
 end;
 
@@ -3494,7 +3494,7 @@ procedure TdmEditorManager.UpdateFileActions;
 var
   B: Boolean;
 begin
-  B := FileExists(ActiveView.FileName);
+  B := FileExistsUTF8(ActiveView.FileName);
   actCreateDesktopLink.Enabled := B;
   actCopyFileName.Enabled   := B;
   actCopyFilePath.Enabled   := B;
@@ -3540,7 +3540,7 @@ begin
     Result := V
   else
   begin
-    if FileExists(AFileName) then
+    if FileExistsUTF8(AFileName) then
     begin
       V := AddView('', AFileName);
       V.LoadFromFile(AFileName);

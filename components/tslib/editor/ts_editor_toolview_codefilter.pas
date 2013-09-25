@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, ExtCtrls, StdCtrls,
   ActnList, Buttons, Contnrs, Menus, ComCtrls,
 
-  LCLType,
+  LCLType, GraphUtil,
 
   VirtualTrees, SynRegExpr,
 
@@ -558,10 +558,20 @@ begin
         C := ColorToRGB(TargetCanvas.Brush.Color);
         if C <> clWhite then
         begin
-          C := MixColors(C, Manager.Settings.HighlightAllColor.Background, 128)
+          C := MixColors(
+            C,
+            Manager.Settings.HighlightAllColor.Background,
+            Manager.Settings.HighlightAllColor.BackAlpha
+          )
         end
         else
-          C := Manager.Settings.HighlightAllColor.Background;
+        begin
+          C := ColorAdjustLuma(
+            Manager.Settings.HighlightAllColor.Background,
+            50,
+            False
+          );
+        end;
         TargetCanvas.Brush.Color := C;
         TargetCanvas.Rectangle(R);
         R := CellRect;

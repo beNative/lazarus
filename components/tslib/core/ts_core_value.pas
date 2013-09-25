@@ -695,6 +695,7 @@ function TValue.GetAsBooleanWithCast: Boolean;
 begin
   case ValueType of
     vtNull: Result := False;
+    vtString: Result := StrToIntDef(AsString, 0) = 1;
     vtVariant: Result := GetAsVariant;
     else
       raise Exception.CreateFmt(

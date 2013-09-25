@@ -89,17 +89,20 @@ implementation
 {$R *.lfm}
 
 uses
-  TypInfo, StrUtils, Variants,
+  TypInfo, StrUtils, Variants, ImgList, Graphics,
 
   SynEditKeyCmds, SynEditMouseCmds,
 
   LCLProc,
 
   ts_Core_Value, ts_Core_ColumnDefinitions, ts_Core_ColumnDefinitionsDataTemplate,
-  ts_Core_Helpers;
+  ts_Core_Helpers, ts_Core_DataTemplates;
 
 {$region 'TActionListTemplate' /fold}
 type
+
+  { TActionListTemplate }
+
   TActionListTemplate = class(TColumnDefinitionsDataTemplate)
     function GetImageIndex(
       const Item        : TObject;
@@ -109,6 +112,17 @@ type
       const Item          : TObject;
       const APropertyName : string
     ): TValue; override;
+    procedure SetValueForProperty(
+      const Item: TObject;
+      const APropertyName: string;
+      const AValue: TValue
+    ); override;
+    procedure SetValue(const Item: TObject; const ColumnIndex: Integer;
+      const Value: TValue); override;
+
+    function CustomDraw(const Item: TObject; const ColumnIndex: Integer;
+      TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
+      DrawMode: TDrawMode; IsSelected: Boolean): Boolean; override;
   end;
 
 function TActionListTemplate.GetImageIndex(const Item: TObject;
@@ -143,6 +157,29 @@ begin
     end;
   end;
 end;
+
+procedure TActionListTemplate.SetValueForProperty(const Item: TObject;
+  const APropertyName: string; const AValue: TValue);
+begin
+  inherited SetValueForProperty(Item, APropertyName, AValue);
+end;
+
+procedure TActionListTemplate.SetValue(const Item: TObject;
+  const ColumnIndex: Integer; const Value: TValue);
+begin
+  inherited SetValue(Item, ColumnIndex, Value);
+end;
+
+function TActionListTemplate.CustomDraw(const Item: TObject;
+  const ColumnIndex: Integer; TargetCanvas: TCanvas; CellRect: TRect;
+  ImageList: TCustomImageList; DrawMode: TDrawMode; IsSelected: Boolean
+  ): Boolean;
+begin
+  TargetCanvas.Font.Color := clBlack;
+  Result := inherited CustomDraw(Item, ColumnIndex, TargetCanvas, CellRect,
+    ImageList, DrawMode, IsSelected);
+end;
+
 {$endregion}
 
 {$region 'TKeyStrokeTemplate' /fold}
@@ -204,8 +241,8 @@ begin
 end;
 {$endregion}
 
+{$region 'TfrmActionListView' /fold}
 {$region 'construction and destruction' /fold}
-
 procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -215,13 +252,19 @@ begin
 
   FTVPActions := TTreeViewPresenter.Create(Self);
   FTVPActions.ListMode := True;
+  FTVPActions.AllowMove := False;
+  FTVPActions.SyncMode := True;
+
   FTVPActions.ImageList := Manager.Actions.ActionList.Images as TImageList;
   FTVPActions.ItemTemplate := TActionListTemplate.Create(FTVPActions.ColumnDefinitions);
   FTVPActions.ColumnDefinitions.AddColumn('Name', dtString, 150, 150, 200);
   FTVPActions.ColumnDefinitions.AddColumn('', dtString, 24);
   FTVPActions.ColumnDefinitions.AddColumn('Category', dtString, 100);
   FTVPActions.ColumnDefinitions.AddColumn('Caption', dtString, 120, 100, 200);
-  FTVPActions.ColumnDefinitions.AddColumn('Shortcut', dtString, 100);
+  with FTVPActions.ColumnDefinitions.AddColumn('Shortcut', dtString, 100) do
+  begin
+    AllowEdit := False;
+  end;
   with FTVPActions.ColumnDefinitions.AddColumn('Hint', dtString, 200, 200, 400) do
   begin
     AllowEdit := True;
@@ -284,7 +327,6 @@ end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TfrmActionListView.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
@@ -309,20 +351,16 @@ procedure TfrmActionListView.SetVisible(AValue: Boolean);
 begin
   inherited SetVisible(AValue);
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmActionListView.FormShow(Sender: TObject);
 begin
   UpdateLists;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmActionListView.UpdateView;
 begin
   FVSTActions.Invalidate;
@@ -348,8 +386,7 @@ begin
   FTVPCommands.Refresh;
   FTVPMouseActions.Refresh;
 end;
-
 {$endregion}
-
+{$endregion}
 end.
 

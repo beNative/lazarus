@@ -1,13 +1,13 @@
 object frmOptionsAssociate: TfrmOptionsAssociate
-  Left = 453
+  Left = 1398
   Height = 442
-  Top = 119
+  Top = 297
   Width = 453
   BorderIcons = []
   BorderStyle = bsNone
   ClientHeight = 442
   ClientWidth = 453
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object lblExt: TLabel
     Left = 8
     Height = 15

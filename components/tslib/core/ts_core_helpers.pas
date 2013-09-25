@@ -73,8 +73,6 @@ procedure AssignFormParent(
   AParent : TCustomControl
 );
 
-//*****************************************************************************
-
 implementation
 
 uses
@@ -138,7 +136,7 @@ const
 //    toReadOnly,
     { When set then GetNodeHeight will trigger OnMeasureItem to allow variable
       node heights. }
-    toVariableNodeHeight
+    toVariableNodeHeight,
     { Start node dragging by clicking anywhere in it instead only on the
       caption or image. Must be used together with toDisableDrawSelection. }
 //    toFullRowDrag,
@@ -149,7 +147,7 @@ const
     { Editing mode can be entered with a single click }
 //    toEditOnClick,
     { Editing mode can be entered with a double click }
-//    toEditOnDblClick
+    toEditOnDblClick
   ];
   DEFAULT_VST_PAINTOPTIONS = [
     { Avoid drawing the dotted rectangle around the currently focused node. }
@@ -161,7 +159,7 @@ const
     { Show the dropmark during drag'n drop operations. }
     toShowDropmark,
     { Display horizontal lines to simulate a grid. }
-    toShowHorzGridLines,
+//    toShowHorzGridLines,
     { Use the background image if there's one. }
     toShowBackground,
     { Show static background instead of a tiled one. }
@@ -172,15 +170,15 @@ const
     { Display tree lines to show hierarchy of nodes. }
     toShowTreeLines,
     { Display vertical lines (depending on columns) to simulate a grid. }
-    toShowVertGridLines,
+//    toShowVertGridLines,
     { Draw UI elements (header, tree buttons etc.) according to the current
       theme if enabled (Windows XP+ only, application must be themed). }
     toThemeAware,
     { Enable alpha blending for ghosted nodes or those which are being
       cut/copied. }
-    toUseBlendedImages//,
+    toUseBlendedImages,
     { Enable alpha blending for node selections. }
-//    toUseBlendedSelection
+    toUseBlendedSelection
   ];
   DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
@@ -315,8 +313,6 @@ begin
   VST.TreeOptions.StringOptions    := DEFAULT_VST_STRINGOPTIONS;
   VST.TreeOptions.AnimationOptions := DEFAULT_VST_ANIMATIONOPTIONS;
   VST.TreeOptions.AutoOptions      := DEFAULT_VST_AUTOOPTIONS;
-  //VST.Colors.;
-
   //VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
   Result := VST;
 end;

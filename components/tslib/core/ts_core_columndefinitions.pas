@@ -53,7 +53,12 @@ uses
   ts_Core_DataTemplates;
 
 type
-  TDataType = (dtNumeric, dtDateTime, dtString, dtBoolean);
+  TDataType = (
+    dtNumeric,
+    dtDateTime,
+    dtString,
+    dtBoolean
+  );
 
 const
   CDefaultWidth = 100;

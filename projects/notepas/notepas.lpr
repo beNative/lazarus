@@ -51,7 +51,8 @@ ts_components_multipanel, ts_Components_DBGridView, ts_Components_Docking,
   SetupFiltersDialog, ts_RichEditor_Helpers, ts_RichEditor_Interfaces,
   ts_richeditor_manager, ts_RichEditor_TextAttributes, ts_RichEditor_View,
   ts_Editor_SettingsDialog, ts_Editor_SettingsDialog_KeyMappings,
-  ts_editor_settingsdialog_highlighters, ts_Editor_ToolView_ScriptEditor;
+  ts_editor_settingsdialog_highlighters, ts_Editor_ToolView_ScriptEditor, 
+ts_Editor_SettingsDialog_Colors;
 
 {$R *.res}
 
@@ -63,7 +64,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
-  //SetDefaultLang('nl');
+  SetDefaultLang('nl');
   Application.Run;
 end.
 

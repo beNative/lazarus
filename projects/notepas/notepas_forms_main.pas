@@ -35,7 +35,7 @@ uses
   // for debugging
   sharedlogger,
 
-  SynEdit,
+  SynEdit, mbColorPalette, mbOfficeColorDialog, HexaColorPicker, mbColorList,
 
   ts_Editor_Interfaces;
 
@@ -62,6 +62,9 @@ uses
 //=============================================================================
 
 type
+
+  { TfrmMain }
+
   TfrmMain = class(TForm)
     {$region 'designer controls' /fold}
     aclMain               : TActionList;

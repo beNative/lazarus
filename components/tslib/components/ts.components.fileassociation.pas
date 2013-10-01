@@ -22,7 +22,7 @@
 
 unit ts.Components.FileAssociation;
 
-{$MODE objfpc}{$H+}
+{$MODE Delphi}
 
 interface
 
@@ -59,12 +59,24 @@ type
 
   TFileAssociation = class(TComponent)
   private
-    FAppName, FAppDescription, FAppNameNoSpaces, FExtData, FExtIcon,
-    FExtName, FExtNameNoSpaces, FCmdData, FCmdIcon, FCmdName, FCmdNameNoSpaces: string;
-    FRegisterAssociation, FRegisterForAllUsers, FAddAppToDefaultPrograms,
-    FAddExtToDefaultPrograms: boolean;
-    procedure SetFAddAppToDefaultProgams(AValue: boolean);
-    procedure SetFAddExtToDefaultProgams(AValue: boolean);
+    FAppName                 : string;
+    FAppDescription          : string;
+    FAppNameNoSpaces         : string;
+    FExtData                 : string;
+    FExtIcon                 : string;
+    FExtName                 : string;
+    FExtNameNoSpaces         : string;
+    FCmdData                 : string;
+    FCmdIcon                 : string;
+    FCmdName                 : string;
+    FCmdNameNoSpaces         : string;
+    FRegisterAssociation     : Boolean;
+    FRegisterForAllUsers     : Boolean;
+    FAddAppToDefaultPrograms : Boolean;
+    FAddExtToDefaultPrograms : Boolean;
+
+    procedure SetFAddAppToDefaultProgams(AValue: Boolean);
+    procedure SetFAddExtToDefaultProgams(AValue: Boolean);
     procedure SetFAppDescription(AValue: string);
     procedure SetFAppName(AValue: string);
     procedure SetFAppNameNoSpaces(AValue: string);
@@ -76,72 +88,105 @@ type
     procedure SetFExtIcon(AValue: string);
     procedure SetFExtName(AValue: string);
     procedure SetFExtNameNoSpaces(AValue: string);
-    procedure SetFRegisterAssociation(AValue: boolean);
-    procedure SetFRegisterForAllUsers(AValue: boolean);
+    procedure SetFRegisterAssociation(AValue: Boolean);
+    procedure SetFRegisterForAllUsers(AValue: Boolean);
+
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    function Execute: boolean;
+    function Execute: Boolean;
     procedure ClearIconCache;
+
   published
-    property AppName: string read FAppName write SetFAppName;
-    property AppDescription: string read FAppDescription write SetFAppDescription;
-    property AppNameNoSpaces: string read FAppNameNoSpaces write SetFAppNameNoSpaces;
-    property ExtData: string read FExtData write SetFExtData;
-    property ExtIcon: string read FExtIcon write SetFExtIcon;
-    property ExtName: string read FExtName write SetFExtName;
-    property ExtNameNoSpaces: string read FExtNameNoSpaces write SetFExtNameNoSpaces;
-    property CmdData: string read FCmdData write SetFCmdData;
-    property CmdIcon: string read FCmdIcon write SetFCmdIcon;
-    property CmdName: string read FCmdName write SetFCmdName;
-    property CmdNameNoSpaces: string read FCmdNameNoSpaces write SetFCmdNameNoSpaces;
-    property RegisterAssociation: boolean read FRegisterAssociation
-      write SetFRegisterAssociation;
-    property RegisterForAllUsers: boolean read FRegisterForAllUsers
-      write SetFRegisterForAllUsers;
-    property AddAppToDefaultPrograms: boolean
+    property AppName: string
+      read FAppName write SetFAppName;
+
+    property AppDescription: string
+      read FAppDescription write SetFAppDescription;
+
+    property AppNameNoSpaces: string
+      read FAppNameNoSpaces write SetFAppNameNoSpaces;
+
+    property ExtData: string
+      read FExtData write SetFExtData;
+
+    property ExtIcon: string
+      read FExtIcon write SetFExtIcon;
+
+    property ExtName: string
+      read FExtName write SetFExtName;
+
+    property ExtNameNoSpaces: string
+      read FExtNameNoSpaces write SetFExtNameNoSpaces;
+
+    property CmdData: string
+      read FCmdData write SetFCmdData;
+
+    property CmdIcon: string
+      read FCmdIcon write SetFCmdIcon;
+
+    property CmdName: string
+      read FCmdName write SetFCmdName;
+
+    property CmdNameNoSpaces: string
+      read FCmdNameNoSpaces write SetFCmdNameNoSpaces;
+
+    property RegisterAssociation: Boolean
+      read FRegisterAssociation write SetFRegisterAssociation;
+
+    property RegisterForAllUsers: Boolean
+      read FRegisterForAllUsers write SetFRegisterForAllUsers;
+
+    property AddAppToDefaultPrograms: Boolean
       read FAddAppToDefaultPrograms write SetFAddAppToDefaultProgams;
-    property AddExtToDefaultPrograms: boolean
+
+    property AddExtToDefaultPrograms: Boolean
       read FAddExtToDefaultPrograms write SetFAddExtToDefaultProgams;
   end;
 
 { Write a string to Root\SubKey\ ValueName=ValueData }
 function WriteString(Root: HKEY; SubKey: string; ValueName: string;
-  ValueData: string): boolean;
+  ValueData: string): Boolean;
 
 { Registry 'Class' containing the icon }
 function WriteFileAssociationClass(Root: HKEY;
-  AppNameNoSpaces, ExtIcon, ExtName, ExtNameNoSpaces: string): boolean;
-function WriteFileAssociationClass(Root: HKEY; app: TAppReg): boolean;
+  AppNameNoSpaces, ExtIcon, ExtName, ExtNameNoSpaces: string): Boolean; overload;
+function WriteFileAssociationClass(Root: HKEY; app: TAppReg): Boolean; overload;
 
 { Add a command like 'Open', 'Edit', 'Print' or other }
 function WriteFileAssociationClassCommand(Root: HKEY;
   AppNameNoSpaces, ExtNameNoSpaces, CmdName, CmdNameNoSpaces, CmdIcon,
-  CmdData: string): boolean;
-function WriteFileAssociationClassCommand(Root: HKEY; app: TAppReg): boolean;
+  CmdData: string): Boolean; overload;
+function WriteFileAssociationClassCommand(Root: HKEY; app: TAppReg): Boolean;
+overload;
 
 { Associate the 'Class' with the file extension }
 function WriteFileAssociation(Root: HKEY;
-  AppNameNoSpaces, ExtNameNoSpaces, ExtData: string): boolean;
-function WriteFileAssociation(Root: HKEY; app: TAppReg): boolean;
+  AppNameNoSpaces, ExtNameNoSpaces, ExtData: string): Boolean; overload;
+function WriteFileAssociation(Root: HKEY; app: TAppReg): Boolean; overload;
 
 { Add our application to Default Programs (Vista+) }
-function WriteDefaultPrograms(AppNameNoSpaces, AppName, AppDescription: string): boolean;
-function WriteDefaultPrograms(app: TAppReg): boolean;
+function WriteDefaultPrograms(AppNameNoSpaces, AppName, AppDescription: string): Boolean;
+  overload;
+function WriteDefaultPrograms(app: TAppReg): Boolean; overload;
 
 { Add extension to our application Default Programs page }
 function WriteDefaultProgramsAddExt(AppNameNoSpaces, ExtData,
-  ExtNameNoSpaces: string): boolean;
-function WriteDefaultProgramsAddExt(app: TAppReg): boolean;
+  ExtNameNoSpaces: string): Boolean; overload;
+function WriteDefaultProgramsAddExt(app: TAppReg): Boolean; overload;
 
 { Create a File Association with all the previous functions together }
 { RegisterAssociation = True = this do the real association; = False = only the 'Class' will be created }
 { RegisterForAllUsers = True = this uses HKLM; = False uses HKCU and does not AddToDefaultPrograms}
 { AddAppToDefaultPrograms = True = add app to default programs in control panel, it only need to be called one time}
 { AddExtToDefaultPrograms = True = add ext to default programs in control panel, it needs AddAppToDefaultPrograms at least one time}
-function CreateFileAssociation(app: TAppReg;
-  RegisterAssociation, RegisterForAllUsers, AddAppToDefaultPrograms,
-  AddExtToDefaultPrograms: boolean): boolean;
+function CreateFileAssociation(
+  App: TAppReg;
+  RegisterAssociation,
+  RegisterForAllUsers,
+  AddAppToDefaultPrograms,
+  AddExtToDefaultPrograms: Boolean
+): Boolean;
 
 { Update icons }
 procedure ClearIconCache;
@@ -149,7 +194,7 @@ procedure ClearIconCache;
 implementation
 
 function WriteString(Root: HKEY; SubKey: string; ValueName: string;
-  ValueData: string): boolean;
+  ValueData: string): Boolean;
 var
   reg: TRegistry;
 begin
@@ -168,9 +213,9 @@ begin
 end;
 
 function WriteFileAssociationClass(Root: HKEY;
-  AppNameNoSpaces, ExtIcon, ExtName, ExtNameNoSpaces: string): boolean;
+  AppNameNoSpaces, ExtIcon, ExtName, ExtNameNoSpaces: string): Boolean;
 var
-  r1, r2: boolean;
+  r1, r2: Boolean;
 begin
   r1 := WriteString(Root, concat('Software\Classes\', AppNameNoSpaces,
     '.AssocFile.', ExtNameNoSpaces), '', ExtName);
@@ -183,7 +228,7 @@ begin
     Result := True;
 end;
 
-function WriteFileAssociationClass(Root: HKEY; app: TAppReg): boolean;
+function WriteFileAssociationClass(Root: HKEY; app: TAppReg): Boolean;
 begin
   Result := WriteFileAssociationClass(Root, app.AppNameNoSpaces,
     app.ExtIcon, app.ExtName, app.ExtNameNoSpaces);
@@ -191,9 +236,9 @@ end;
 
 function WriteFileAssociationClassCommand(Root: HKEY;
   AppNameNoSpaces, ExtNameNoSpaces, CmdName, CmdNameNoSpaces, CmdIcon,
-  CmdData: string): boolean;
+  CmdData: string): Boolean;
 var
-  r1, r2, r3: boolean;
+  r1, r2, r3: Boolean;
 begin
   r1 := WriteString(Root, concat('Software\Classes\', AppNameNoSpaces,
     '.AssocFile.', ExtNameNoSpaces, '\Shell\', CmdNameNoSpaces), '', CmdName);
@@ -209,28 +254,28 @@ begin
     Result := True;
 end;
 
-function WriteFileAssociationClassCommand(Root: HKEY; app: TAppReg): boolean;
+function WriteFileAssociationClassCommand(Root: HKEY; app: TAppReg): Boolean;
 begin
   Result := WriteFileAssociationClassCommand(Root, app.AppNameNoSpaces,
     app.ExtNameNoSpaces, app.CmdName, app.CmdNameNoSpaces, app.CmdIcon, app.CmdData);
 end;
 
 function WriteFileAssociation(Root: HKEY;
-  AppNameNoSpaces, ExtNameNoSpaces, ExtData: string): boolean;
+  AppNameNoSpaces, ExtNameNoSpaces, ExtData: string): Boolean;
 begin
   Result := WriteString(Root, concat('Software\Classes\', ExtData),
     '', concat(AppNameNoSpaces, '.AssocFile.', ExtNameNoSpaces));
 end;
 
-function WriteFileAssociation(Root: HKEY; app: TAppReg): boolean;
+function WriteFileAssociation(Root: HKEY; app: TAppReg): Boolean;
 begin
   Result := WriteFileAssociation(Root, app.AppNameNoSpaces, app.ExtNameNoSpaces,
     app.ExtData);
 end;
 
-function WriteDefaultPrograms(AppNameNoSpaces, AppName, AppDescription: string): boolean;
+function WriteDefaultPrograms(AppNameNoSpaces, AppName, AppDescription: string): Boolean;
 var
-  r1, r2, r3, r4: boolean;
+  r1, r2, r3, r4: Boolean;
 begin
   r1 := WriteString(HKLM, concat('Software\', AppNameNoSpaces,
     '\Capabilities'), '', '');
@@ -246,30 +291,30 @@ begin
     Result := True;
 end;
 
-function WriteDefaultPrograms(app: TAppReg): boolean;
+function WriteDefaultPrograms(app: TAppReg): Boolean;
 begin
   Result := WriteDefaultPrograms(app.AppNameNoSpaces, app.AppName, app.AppDescription);
 end;
 
 function WriteDefaultProgramsAddExt(AppNameNoSpaces, ExtData,
-  ExtNameNoSpaces: string): boolean;
+  ExtNameNoSpaces: string): Boolean;
 begin
   Result := WriteString(HKLM, concat('Software\', AppNameNoSpaces,
     '\Capabilities\FileAssociations'), ExtData,
     concat(AppNameNoSpaces, '.AssocFile.', ExtNameNoSpaces));
 end;
 
-function WriteDefaultProgramsAddExt(app: TAppReg): boolean;
+function WriteDefaultProgramsAddExt(app: TAppReg): Boolean;
 begin
   Result := WriteDefaultProgramsAddExt(app.AppNameNoSpaces, app.ExtData,
     app.ExtNameNoSpaces);
 end;
 
-function CreateFileAssociation(app: TAppReg;
+function CreateFileAssociation(App: TAppReg;
   RegisterAssociation, RegisterForAllUsers, AddAppToDefaultPrograms,
-  AddExtToDefaultPrograms: boolean): boolean;
+  AddExtToDefaultPrograms: Boolean): Boolean;
 var
-  r1, r2, r3, r4, r5: boolean;
+  r1, r2, r3, r4, r5: Boolean;
   Root: HKEY;
 begin
   if RegisterForAllUsers then
@@ -277,18 +322,18 @@ begin
   else
     Root := HKCU;
 
-  r1 := WriteFileAssociationClass(Root, app);
-  r2 := WriteFileAssociationClassCommand(Root, app);
+  r1 := WriteFileAssociationClass(Root, App);
+  r2 := WriteFileAssociationClassCommand(Root, App);
 
   if RegisterAssociation then
-    r3 := WriteFileAssociation(Root, app);
+    r3 := WriteFileAssociation(Root, App);
 
   if Root <> HKCU then
   begin
     if AddAppToDefaultPrograms then
-      r4 := WriteDefaultPrograms(app);
+      r4 := WriteDefaultPrograms(App);
     if AddExtToDefaultPrograms then
-      r5 := WriteDefaultProgramsAddExt(app);
+      r5 := WriteDefaultProgramsAddExt(App);
   end;
 
   if (r1 = False) or (r2 = False) or (r3 = False) or (r4 = False) or (r5 = False) then
@@ -313,14 +358,14 @@ begin
   FAppDescription := AValue;
 end;
 
-procedure TFileAssociation.SetFAddAppToDefaultProgams(AValue: boolean);
+procedure TFileAssociation.SetFAddAppToDefaultProgams(AValue: Boolean);
 begin
   if FAddAppToDefaultPrograms = AValue then
     Exit;
   FAddAppToDefaultPrograms := AValue;
 end;
 
-procedure TFileAssociation.SetFAddExtToDefaultProgams(AValue: boolean);
+procedure TFileAssociation.SetFAddExtToDefaultProgams(AValue: Boolean);
 begin
   if FAddExtToDefaultPrograms = AValue then
     Exit;
@@ -397,14 +442,14 @@ begin
   FExtNameNoSpaces := AValue;
 end;
 
-procedure TFileAssociation.SetFRegisterAssociation(AValue: boolean);
+procedure TFileAssociation.SetFRegisterAssociation(AValue: Boolean);
 begin
   if FRegisterAssociation = AValue then
     Exit;
   FRegisterAssociation := AValue;
 end;
 
-procedure TFileAssociation.SetFRegisterForAllUsers(AValue: boolean);
+procedure TFileAssociation.SetFRegisterForAllUsers(AValue: Boolean);
 begin
   if FRegisterForAllUsers = AValue then
     Exit;
@@ -425,9 +470,9 @@ begin
   inherited Destroy;
 end;
 
-function TFileAssociation.Execute: boolean;
+function TFileAssociation.Execute: Boolean;
 var
-  r1, r2, r3, r4, r5: boolean;
+  r1, r2, r3, r4, r5: Boolean;
   Root: HKEY;
 begin
   if RegisterForAllUsers then

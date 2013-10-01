@@ -537,9 +537,9 @@ end;
 
 procedure TfrmOptionsThemes.SEMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
+//var
   //B: TBufferCoord;
-  S: string;
+//  S: string;
   //A: TSynHighlighterAttributes;
 begin
   //B := SE.DisplayToBufferPos(SE.PixelsToRowColumn(X, Y));
@@ -549,8 +549,8 @@ begin
 end;
 
 procedure TfrmOptionsThemes.FormDestroy(Sender: TObject);
-var
-  i: integer;
+//var
+//  i: integer;
 begin
   //for i := 0 to cbTheme.Items.Count - 1 do
   //  DeleteFileUTF8(GetTmpThemeFilename(cbTheme.Items[i])); { *Converted from DeleteFile* }
@@ -571,8 +571,8 @@ end;
 
 procedure TfrmOptionsThemes.DoAddThemeCheck(Sender: TForm;
   var AError: boolean; var AErrorStr: string);
-var
-  S: string;
+//var
+//  S: string;
 begin
   //AError := True;
   //with Sender as TdlgInput do begin

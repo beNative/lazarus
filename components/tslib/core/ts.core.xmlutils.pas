@@ -18,8 +18,6 @@
 
 unit ts.Core.XMLUtils;
 
-{ Author: Tim Sinaeve 8/05/2010 }
-
 {$MODE Delphi}
 
 interface

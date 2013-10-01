@@ -39,6 +39,7 @@ type
     FManager   : IEditorManager;
 
     function GetInstance: IEditorToolView;
+    function GetVisible: Boolean;
 
   public
     constructor Create(AManager: IEditorManager);
@@ -52,6 +53,9 @@ type
 
     property Instance: IEditorToolView
       read GetInstance;
+
+    property Visible: Boolean
+      read GetVisible;
   end;
 
   { TToolViewManager }
@@ -88,13 +92,7 @@ uses
 
 { TToolView }
 
-function TToolView.GetInstance: IEditorToolView;
-begin
-  if not Assigned(FInstance) then
-    FInstance := FFormClass.Create((FManager as IInterfaceComponentReference).GetComponent) as IEditorToolView;
-  Result := FInstance;
-end;
-
+{$region 'construction and destruction' /fold}
 constructor TToolView.Create(AManager: IEditorManager);
 begin
   inherited Create;
@@ -106,6 +104,21 @@ begin
   FInstance := nil;
   FManager := nil;
   inherited BeforeDestruction;
+end;
+{$endregion}
+
+function TToolView.GetInstance: IEditorToolView;
+begin
+  if not Assigned(FInstance) then
+    FInstance := FFormClass.Create(
+      (FManager as IInterfaceComponentReference).GetComponent
+    ) as IEditorToolView;
+  Result := FInstance;
+end;
+
+function TToolView.GetVisible: Boolean;
+begin
+  Result := Assigned(FInstance) and FInstance.Visible;
 end;
 
 { TToolViewManager }

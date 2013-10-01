@@ -23,8 +23,8 @@ unit ts.Editor.SettingsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LSControls, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls,
 
   VirtualPages;
 

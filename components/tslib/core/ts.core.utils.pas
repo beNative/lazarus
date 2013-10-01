@@ -20,13 +20,6 @@ unit ts.Core.Utils;
 
 {$MODE Delphi}
 
-//*****************************************************************************
-
-{
-  TODO:
-    - Make a test application or test unit to test each routine.
-}
-
 interface
 
 uses
@@ -38,8 +31,6 @@ uses
   Windows,
 {$ENDIF}
   DB;
-
-//=============================================================================
 
 type
   TVarRecArray = array of TVarRec;
@@ -59,8 +50,6 @@ type
     ShowCommand : TWindowState;
     HotKey      : Integer;
   end;
-
-//=============================================================================
 
 { Sets DoubleBuffered property for all TWinControl instances owned by the given
   component. }
@@ -2268,47 +2257,5 @@ begin
   end;
 end;
 {$ENDIF}
-
-{
-
-procedure AssociateFileExtension(const IconPath, ProgramName, Path, Extension: string);
-begin
-  with TRegistry.Create do
-  begin
-    RootKey := HKEY_CLASSES_ROOT;
-    OpenKey(ProgramName, True);
-    WriteString('', ProgramName);
-    if IconPath <> '' then
-    begin
-      OpenKey(RC_DefaultIcon, True);
-      WriteString('', IconPath);
-    end;
-    CloseKey;
-    OpenKey(ProgramName, True);
-    OpenKey('shell', True);
-    OpenKey('open', True);
-    OpenKey('command', True);
-    WriteString('', '"' + Path + '" "%1"');
-    Free;
-  end;
-  with TRegistry.Create do
-  begin
-    RootKey := HKEY_CLASSES_ROOT;
-    OpenKey('.' + Extension, True);
-    WriteString('', ProgramName);
-    Free;
-  end;
-  RebuildIconCache;
-end;
-
-procedure AssociateExtension(const IconPath, ProgramName, Path, Extension: string);
-begin
-  AssociateFileExtension(IconPath, ProgramName, Path, Extension);
-end;
-
-}
-
-
-//*****************************************************************************
 
 end.

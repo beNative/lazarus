@@ -57,24 +57,12 @@ type
     procedure SetActiveItem(const AValue: TPersistent);
 
     procedure OnSetSelection(const ASelection: TPersistentSelectionList);
-    procedure OnModified(Sender: TObject);
-    procedure OnAddDependency(
-      const AClass: TClass;
-      const AnUnitName: shortstring
-    );
 
     function OnBeforeAddPersistent(
       Sender           : TObject;
       APersistentClass : TPersistentClass;
       Parent           : TPersistent
     ): Boolean;
-    procedure OnComponentRenamed(AComponent: TComponent);
-    procedure OnPersistentAdded(
-      APersistent : TPersistent;
-      Select      : Boolean
-    );
-    procedure OnPersistentDeleting(APersistent: TPersistent);
-    procedure OnDeletePersistent(var APersistent: TPersistent);
 
   protected
     procedure UpdateActions; override;
@@ -242,13 +230,7 @@ begin
   GlobalDesignHook := PropertyEditorHook;
 
   PropertyEditorHook.AddHandlerSetSelection(OnSetSelection);
-  PropertyEditorHook.AddHandlerModified(OnModified);
   PropertyEditorHook.AddHandlerBeforeAddPersistent(OnBeforeAddPersistent);
-  PropertyEditorHook.AddHandlerPersistentAdded(OnPersistentAdded);
-  PropertyEditorHook.AddHandlerDeletePersistent(OnDeletePersistent);
-  PropertyEditorHook.AddHandlerAddDependency(OnAddDependency);
-  PropertyEditorHook.AddHandlerComponentRenamed(OnComponentRenamed);
-  PropertyEditorHook.AddHandlerPersistentDeleting(OnPersistentDeleting);
 
   DoubleBuffered := True;
 
@@ -259,8 +241,6 @@ begin
   Height := Screen.WorkAreaHeight - TaskbarHeight;
 {$ENDIF}
 end;
-
-
 
 function TComponentInspectorForm.GetActiveItem: TPersistent;
 begin
@@ -280,8 +260,6 @@ begin
   Result := FInspector.PropertyEditorHook;
 end;
 
-
-
 procedure TComponentInspectorForm.CMDialogKey(var Msg: TCMDialogKey);
 begin
   if Msg.CharCode = VK_ESCAPE then
@@ -293,8 +271,6 @@ begin
     inherited;
 end;
 
-
-
 procedure TComponentInspectorForm.OnSetSelection(const ASelection: TPersistentSelectionList);
 begin
   if ASelection.Count > 0 then
@@ -304,39 +280,9 @@ begin
   end;
 end;
 
-procedure TComponentInspectorForm.OnModified(Sender: TObject);
-begin
-
-end;
-
-procedure TComponentInspectorForm.OnAddDependency(const AClass: TClass; const AnUnitName: shortstring);
-begin
-
-end;
-
 function TComponentInspectorForm.OnBeforeAddPersistent(Sender: TObject; APersistentClass: TPersistentClass; Parent: TPersistent): boolean;
 begin
   Result := False;
-end;
-
-procedure TComponentInspectorForm.OnComponentRenamed(AComponent: TComponent);
-begin
-
-end;
-
-procedure TComponentInspectorForm.OnPersistentAdded(APersistent: TPersistent; Select: boolean);
-begin
-
-end;
-
-procedure TComponentInspectorForm.OnPersistentDeleting(APersistent: TPersistent);
-begin
-
-end;
-
-procedure TComponentInspectorForm.OnDeletePersistent(var APersistent: TPersistent);
-begin
-
 end;
 
 procedure TComponentInspectorForm.cbxInspectorChange(Sender: TObject);
@@ -366,8 +312,6 @@ begin
   end;
 end;
 
-
-
 procedure TComponentInspectorForm.UpdateActions;
 begin
   if not Focused and not Active then
@@ -376,8 +320,6 @@ begin
   end;
   inherited UpdateActions;
 end;
-
-
 
 procedure TComponentInspectorForm.AddComponentToInspector(
   AComponent: TPersistent);
@@ -415,8 +357,5 @@ begin
     FreeAndNil(PSL);
   end;
 end;
-
-
-//*****************************************************************************
 
 end.

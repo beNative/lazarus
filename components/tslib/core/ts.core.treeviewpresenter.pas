@@ -30,7 +30,7 @@
 unit ts.Core.TreeViewPresenter;
 
 {
-  Changes by TS:
+  Changes by Tim Sinaeve:
 
     - Ported to Lazarus
     - ImageList: TCustomImageList instead of TImageList

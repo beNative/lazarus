@@ -465,8 +465,6 @@ type
     FSettings     : IEditorSettings;
     FActiveView   : IEditorView;
     FViewList     : TEditorViewList;
-    FToolViewList : TEditorToolViewList;
-    FFormsCreated : Boolean;
 
     FCurrentViewIndex: Integer;
 
@@ -515,7 +513,6 @@ type
     function IEditorToolViews.GetCount = GetToolViewCount;
     function GetSettingsPopupMenu: TPopupMenu;
     function GetToolViewCount: Integer;
-    function GetToolViewList: TEditorToolViewList;
     function GetToolViews: IEditorToolViews;
     function GetView(AIndex: Integer): IEditorView;
     function GetViewByFileName(AFileName: string): IEditorView;
@@ -616,14 +613,6 @@ type
     {$endregion}
 
     {$region 'IEditorToolViews'}
-    procedure IEditorToolViews.Add = AddToolView;
-    function IEditorToolViews.Delete = DeleteToolView;
-    function IEditorToolViews.GetEnumerator = GetToolViewsEnumerator;
-    function GetToolViewsEnumerator: TEditorToolViewListEnumerator;
-    procedure AddToolView(AToolView: IEditorToolView);
-    function DeleteToolView(AIndex: Integer): Boolean; overload;
-    function DeleteToolView(AView: IEditorToolView): Boolean; overload;
-    function DeleteToolView(const AName: string): Boolean; overload;
     procedure ShowToolView(
        const AName      : string;
              AVisible   : Boolean;
@@ -811,9 +800,6 @@ type
     {$endregion}
 
     {$region 'IEditorToolViews'}
-    property ToolViewList: TEditorToolViewList
-      read GetToolViewList;
-
     property ToolViewCount: Integer
       read GetToolViewCount;
     {$endregion}
@@ -920,7 +906,6 @@ begin
   FSettings         := TEditorSettings.Create(Self);
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FViewList         := TEditorViewList.Create;
-  FToolViewList     := TEditorToolViewList.Create;
   FSearchEngine     := TSearchEngine.Create(Self);
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
   FSynUni           := TSynUniSyn.Create(Self);
@@ -946,7 +931,7 @@ begin
   FdwsProgramExecution := nil;
   FdwsProgram := nil;
   FreeAndNil(FScriptFunctions);
-  FreeAndNil(FToolViewList);
+//  FreeAndNil(FToolViewList);
   FreeAndNil(FViewList);
   FreeAndNil(FToolViewManager);
   inherited BeforeDestruction;
@@ -1262,15 +1247,7 @@ end;
 
 function TdmEditorManager.GetToolViewCount: Integer;
 begin
-  if Assigned(FToolViewList) then
-    Result := FToolViewList.Count
-  else
-    Result := 0;
-end;
-
-function TdmEditorManager.GetToolViewList: TEditorToolViewList;
-begin
-  Result := FToolViewList;
+  Result := FToolViewManager.Count;
 end;
 
 function TdmEditorManager.GetToolViews: IEditorToolViews;
@@ -1348,21 +1325,13 @@ end;
 
 function TdmEditorManager.GetToolView(AIndex: Integer): IEditorToolView;
 begin
-  Result := FToolViewList[AIndex] as IEditorToolView;
+//  Result := FToolViewList[AIndex] as IEditorToolView;
+//  Result := FToolViewManager.Items[AIndex] as IEditorToolView;
 end;
 
 function TdmEditorManager.GetToolViewByName(AName: string): IEditorToolView;
-var
-  I : Integer;
 begin
-  Result := nil;
-  for I := 0 to FToolViewList.Count - 1 do
-  begin
-    if (FToolViewList[I] as IEditorToolView).Name = AName then
-      Result := FToolViewList[I] as IEditorToolView;
-  end;
-  if not Assigned(Result) then
-    Exception.CreateFmt('Toolview (%s) does not exist!', [AName]);
+  Result := FToolViewManager.FindByName(AName);
 end;
 
 {$endregion}
@@ -1479,7 +1448,7 @@ end;
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
   { TODO -oTS : implement a new toolform for this }
-  ShowMessage('TODO');
+  ShowMessage('This feature is not implemented yet.');
 end;
 
 procedure TdmEditorManager.actToggleCommentExecute(Sender: TObject);
@@ -1590,11 +1559,9 @@ begin
   F := TfrmOptionsAssociate.Create(Self);
   try
     F.ShowModal;
-
   finally
     F.Free;
   end;
-
 end;
 
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
@@ -1691,7 +1658,7 @@ begin
   {$IFDEF Windows}
   CreateDesktopLink;
   {$ELSE}
-  ShowMessage('This feature is not available yet for current platform');
+  ShowMessage('This feature is not available yet for this platform');
   {$ENDIF}
 end;
 
@@ -2091,6 +2058,7 @@ procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);
 begin
   { TODO -oTS : Implement as a shortcut which takes default settings from the
   dedicated toolview. }
+  ShowMessage('Not implemented yet');
 end;
 
 procedure TdmEditorManager.actCloseExecute(Sender: TObject);
@@ -2484,8 +2452,6 @@ begin
     Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
 end;
 
-{ TODO -oTS : Make this more elegant using factory for construction on demand.}
-
 procedure TdmEditorManager.RegisterToolViews;
 begin
   FToolViewManager.Register(TfrmCodeShaper, 'CodeShaper');
@@ -2503,23 +2469,6 @@ begin
   FToolViewManager.Register(TfrmHexEditor, 'HexEditor');
   FToolViewManager.Register(TfrmMiniMap, 'MiniMap');
   FToolViewManager.Register(TfrmScriptEditor, 'ScriptEditor');
-  //AddToolView(TfrmCodeShaper.Create(Self));
-  //AddToolView(TfrmSearchForm.Create(Self));
-  //AddToolView(TfrmViewList.Create(Self));
-  //AddToolView(TfrmPreview.Create(Self));
-  //AddToolView(TfrmActionListView.Create(Self));
-  //AddToolView(TfrmTest.Create(Self));
-  //AddToolView(TfrmAlignLines.Create(Self));
-  //AddToolView(TfrmCodeFilterDialog.Create(Self));
-  //AddToolView(TfrmSelectionInfo.Create(Self));
-  //AddToolView(TfrmStructure.Create(Self));
-  //AddToolView(TfrmCharacterMap.Create(Self));
-  //AddToolView(TfrmHTMLView.Create(Self));
-  //AddToolView(TfrmHexEditor.Create(Self));
-  //AddToolView(TfrmMiniMap.Create(Self));
-  //AddToolView(TfrmScriptEditor.Create(Self));
-
-//  FFormsCreated := True;
 end;
 
 procedure TdmEditorManager.BuildClipboardPopupMenu;
@@ -2913,10 +2862,10 @@ begin
   Result := TEditorViewListEnumerator.Create(FViewList);
 end;
 
-function TdmEditorManager.GetToolViewsEnumerator: TEditorToolViewListEnumerator;
-begin
-  Result := TEditorToolViewListEnumerator.Create(FToolViewList);
-end;
+//function TdmEditorManager.GetToolViewsEnumerator: TEditorToolViewListEnumerator;
+//begin
+//  Result := TEditorToolViewListEnumerator.Create(FToolViewList);
+//end;
 
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
 begin
@@ -3083,48 +3032,14 @@ begin
     DoHideToolView(ETV);
 end;
 
-procedure TdmEditorManager.AddToolView(AToolView: IEditorToolView);
-begin
-  AToolView.Visible := False;
-  FToolViewList.Add(AToolView);
-end;
-
-function TdmEditorManager.DeleteToolView(AIndex: Integer): Boolean;
-begin
-  if AIndex <> -1 then
-  begin
-    FToolViewList.Delete(AIndex);
-  end
-  else
-    Result := False;
-end;
-
-function TdmEditorManager.DeleteToolView(AView: IEditorToolView): Boolean;
-var
-  I : Integer;
-begin
-  I := FToolViewList.IndexOf(AView);
-  Result := DeleteToolView(I);
-end;
-
-function TdmEditorManager.DeleteToolView(const AName: string): Boolean;
-var
-  TV: IEditorToolView;
-begin
-  TV := GetToolViewByName(AName);
-  Result := False;
-  if Assigned(TV) then
-    Result := DeleteToolView(TV);
-end;
-
 procedure TdmEditorManager.HideToolViews;
-var
-  TV: IEditorToolView;
+//var
+//  TV: IEditorToolView;
 begin
-  for TV in ToolViews do
-  begin
-    TV.Visible := False;
-  end;
+  //for TV in ToolViews do
+  //begin
+  //  TV.Visible := False;
+  //end;
 end;
 
 { TODO -oTS : Not correct! }
@@ -3409,20 +3324,19 @@ begin
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
 
-    //if FFormsCreated then
-    //begin
-    //  actInsertCharacterFromMap.Checked := ToolViews['frmCharacterMap'].Visible;
-    //  actSearch.Checked                 := ToolViews['frmSearchForm'].Visible;
-    //  actShapeCode.Checked              := ToolViews['frmCodeShaper'].Visible;
-    //  actAlignSelection.Checked         := ToolViews['frmAlignLines'].Visible;
-    //  actShowPreview.Checked            := ToolViews['frmPreview'].Visible;
-    //  actFilterCode.Checked             := ToolViews['frmCodeFilterDialog'].Visible;
-    //  actShowViews.Checked              := ToolViews['frmViewList'].Visible;
-    //  actShowActions.Checked            := ToolViews['frmActionListView'].Visible;
-    //  actShowHexEditor.Checked          := ToolViews['frmHexEditor'].Visible;
-    //  actShowMiniMap.Checked            := ToolViews['frmMiniMap'].Visible;
-    //  actShowHTMLViewer.Checked         := ToolViews['frmHTMLView'].Visible;
-    //end;
+
+      //actInsertCharacterFromMap.Checked := ToolViews['CharacterMap'].Visible;
+      //actSearch.Checked                 := ToolViews['Search'].Visible;
+      //actShapeCode.Checked              := ToolViews['CodeShaper'].Visible;
+      //actAlignSelection.Checked         := ToolViews['AlignLines'].Visible;
+      //actShowPreview.Checked            := ToolViews['Preview'].Visible;
+      //actFilterCode.Checked             := ToolViews['CodeFilter'].Visible;
+      //actShowViews.Checked              := ToolViews['ViewList'].Visible;
+      //actShowActions.Checked            := ToolViews['ActionListView'].Visible;
+      //actShowHexEditor.Checked          := ToolViews['HexEditor'].Visible;
+      //actShowMiniMap.Checked            := ToolViews['MiniMap'].Visible;
+      //actShowHTMLViewer.Checked         := ToolViews['HTMLView'].Visible;
+
 
     B := V.SupportsFolding;
     actToggleFoldLevel.Enabled := B;
@@ -3461,7 +3375,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := 'actEncoding' + DelChars(ActiveView.Encoding, '-');
+    S := actEncoding.Name + DelChars(ActiveView.Encoding, '-');
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3476,7 +3390,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := 'actLineBreakStyle' + ActiveView.LineBreakStyle;
+    S := actLineBreakStyle.Name + ActiveView.LineBreakStyle;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3493,7 +3407,7 @@ begin
   begin
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(ActiveView.SelectionMode));
     S := System.Copy(S, 3, Length(S));
-    S := 'actSelectionMode' + S;
+    S := actSelectionMode.Name + S;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3522,7 +3436,7 @@ begin
   S := '';
   if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem) then
   begin
-    S := 'actHighlighter' + ActiveView.HighlighterItem.Name;
+    S := actHighlighter.Name + ActiveView.HighlighterItem.Name;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3576,26 +3490,26 @@ var
   I: Integer;
 begin
   Result := nil;
-  for I := 0 to FToolViewList.Count -1 do
-  begin
-    if (FToolViewList[I] as IEditorToolView).Visible and
-      Supports(FToolViewList[I], IClipboardCommands)
-    then
-    begin
-      Result := FToolViewList[I] as IEditorToolView;
-    end;
-  end;
+  //for I := 0 to FToolViewList.Count -1 do
+  //begin
+  //  if (FToolViewList[I] as IEditorToolView).Visible and
+  //    Supports(FToolViewList[I], IClipboardCommands)
+  //  then
+  //  begin
+  //    Result := FToolViewList[I] as IEditorToolView;
+  //  end;
+  //end;
 end;
 
 procedure TdmEditorManager.UpdateToolViews;
-var
-  TV: IEditorToolView;
+//var
+//  TV: IEditorToolView;
 begin
-  for TV in ToolViews do
-  begin
-    if TV.Visible then
-      TV.UpdateView;
-  end;
+  //for TV in ToolViews do
+  //begin
+  //  if TV.Visible then
+  //    TV.UpdateView;
+  //end;
 end;
 
 {$endregion}

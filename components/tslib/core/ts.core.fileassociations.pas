@@ -58,7 +58,7 @@ uses
 
 {$IFDEF Windows}
   Windows,
-{$ENDIF WINDOWS}
+{$ENDIF Windows}
 
   LCLIntf, LCLType, LMessages;
 
@@ -148,7 +148,8 @@ type
     function GetItemByExt(const AExt: string): TAssociateItem;
 
   published
-    property Items: TAssociatesList read FItems write FItems;
+    property Items: TAssociatesList
+      read FItems write FItems;
 
     property IsAssociateToUnknown: Boolean
       read GetIsAssociateToUnknown write SetIsAssociateToUnknown;
@@ -199,12 +200,12 @@ resourcestring
 
 type
   TRegKeyInfo = record
-    NumSubKeys: Integer;
-    MaxSubKeyLen: Integer;
-    NumValues: Integer;
-    MaxValueLen: Integer;
-    MaxDataLen: Integer;
-    FileTime: TFileTime;
+    NumSubKeys   : Integer;
+    MaxSubKeyLen : Integer;
+    NumValues    : Integer;
+    MaxValueLen  : Integer;
+    MaxDataLen   : Integer;
+    FileTime     : TFileTime;
   end;
 
 const
@@ -213,51 +214,32 @@ const
   HKCR                  = HKEY_CLASSES_ROOT;
 
 resourcestring
-  //SSoft                 = 'Software';
-  //SRun                  = 'Software\Microsoft\Windows\CurrentVersion\Run';
-  //SRunOnce              = 'Software\Microsoft\Windows\CurrentVersion\RunOnce';
-  //SShell                = 'Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders';
-  //SUnknownShell         = 'Unknown\Shell';
-  //SDefShell             = '*\Shell';
   SHKCR                 = 'HKEY_CLASSES_ROOT';
   SHKCU                 = 'HKEY_CURRENT_USER';
   SHKLM                 = 'HKEY_LOCAL_MACHINE';
 
 // Registry
-function ADRegReadString(const ARoot: HKEY; const ASubKey, AName, ADefault: string): string;
-function ADRegReadInteger(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: integer): integer;
-function ADRegReadBoolean(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: boolean): boolean;
+function RegReadString(const ARoot: HKEY; const ASubKey, AName, ADefault: string): string;
+function RegReadInteger(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: integer): Integer;
+function RegReadBoolean(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: Boolean): Boolean;
 
-function ADRegWriteString(const ARoot: HKEY; const ASubKey, AName, AValue: string): integer;
-function ADRegWriteInteger(const ARoot: HKEY; const ASubKey, AName: string; const AValue: integer): integer;
-function ADRegWriteBoolean(const ARoot: HKEY; const ASubKey, AName: string; const AValue: boolean): integer;
+function RegWriteString(const ARoot: HKEY; const ASubKey, AName, AValue: string): Integer;
+function RegWriteInteger(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Integer): Integer;
+function RegWriteBoolean(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Boolean): Integer;
 
-function ADRegWriteStringEx(const ARoot: HKEY; const ASubKey, AName, AValue: string): integer;
-function ADRegWriteIntegerEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: integer): integer;
-function ADRegWriteBooleanEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: boolean): integer;
+function RegWriteStringEx(const ARoot: HKEY; const ASubKey, AName, AValue: string): Integer;
+function RegWriteIntegerEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Integer): Integer;
+function RegWriteBooleanEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Boolean): Integer;
 
-function ADRegCreateKey(const ARoot: HKEY; const ASubKey: string): boolean;
-function ADRegDeleteKey(const ARoot: HKEY; const ASubKey: string): boolean;
-function ADRegDeleteValue(const ARoot: HKEY; const ASubKey, AName: string): integer;
-function ADGetKeyInfo(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): boolean;
-function ADGetKeyInfoEx(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): boolean;
-function ADRegKeyExist(const ARoot: HKEY; const ASubKey: string): boolean;
-function ADRegValueExist(const ARoot: HKEY; const ASubKey, AName: string): boolean;
-function ADRegCheckKey(const ARoot: HKEY; const ASubKey: string): boolean;
-function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): boolean;
-
-// INI
-function ADINIReadString(const AFilename, ASection, AKey, ADefault: string): string;
-function ADINIReadInteger(const AFilename, ASection, AKey: string; const ADefault: integer): integer;
-function ADINIReadBoolean(const AFilename, ASection, AKey: string; const ADefault: boolean): boolean;
-
-function ADINIWriteString(const AFilename, ASection, AKey, AValue: string): boolean;
-function ADINIWriteInteger(const AFilename, ASection, AKey: string; const AValue: integer): boolean;
-function ADINIWriteBoolean(const AFilename, ASection, AKey: string; const AValue: boolean): boolean;
-
-function ADINIDeleteKey(const AFilename, ASection, AKey: string): boolean;
-function ADINIDeleteSection(const AFilename, ASection: string): boolean;
-
+function ADRegCreateKey(const ARoot: HKEY; const ASubKey: string): Boolean;
+function ADRegDeleteKey(const ARoot: HKEY; const ASubKey: string): Boolean;
+function ADRegDeleteValue(const ARoot: HKEY; const ASubKey, AName: string): Integer;
+function ADGetKeyInfo(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): Boolean;
+function ADGetKeyInfoEx(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): Boolean;
+function ADRegKeyExist(const ARoot: HKEY; const ASubKey: string): Boolean;
+function ADRegValueExist(const ARoot: HKEY; const ASubKey, AName: string): Boolean;
+function ADRegCheckKey(const ARoot: HKEY; const ASubKey: string): Boolean;
+function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
 
 implementation
 
@@ -265,9 +247,7 @@ uses
   SysUtils;
 
 {$region 'interfaced methods' /fold}
-// Registry
-
-function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): boolean;
+function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
 var
   HK: HKEY;
 begin
@@ -279,7 +259,7 @@ begin
   end;
 end;
 
-function ADRegCreateKey(const ARoot: HKEY; const ASubKey: string): boolean;
+function ADRegCreateKey(const ARoot: HKEY; const ASubKey: string): Boolean;
 var
   HK: HKEY;
 begin
@@ -287,12 +267,12 @@ begin
     KEY_ALL_ACCESS, nil, HK, nil) = ERROR_SUCCESS;
 end;
 
-function ADRegDeleteKey(const ARoot: HKEY; const ASubKey: string): boolean;
+function ADRegDeleteKey(const ARoot: HKEY; const ASubKey: string): Boolean;
 begin
   Result := RegDeleteKey(ARoot, PChar(ASubKey)) =  ERROR_SUCCESS;
 end;
 
-function ADGetKeyInfo(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): boolean;
+function ADGetKeyInfo(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): Boolean;
 begin
   FillChar(Value, SizeOf(TRegKeyInfo), 0);
   Result := RegQueryInfoKey(ARoot, nil, nil, nil, @Value.NumSubKeys,
@@ -300,7 +280,7 @@ begin
     @Value.MaxDataLen, nil, @Value.FileTime) = ERROR_SUCCESS;
 end;
 
-function ADGetKeyInfoEx(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): boolean;
+function ADGetKeyInfoEx(const ARoot: HKEY; const AKey: string; var Value: TRegKeyInfo): Boolean;
 var
   HK: HKEY;
 begin
@@ -313,7 +293,7 @@ begin
   end;
 end;
 
-function ADRegKeyExist(const ARoot: HKEY; const ASubKey: string): boolean;
+function ADRegKeyExist(const ARoot: HKEY; const ASubKey: string): Boolean;
 var
   HK: HKEY;
 begin
@@ -322,9 +302,9 @@ begin
     Result := RegCloseKey(HK) = ERROR_SUCCESS;
 end;
 
-function ADRegValueExist(const ARoot: HKEY; const ASubKey, AName: string): boolean;
+function ADRegValueExist(const ARoot: HKEY; const ASubKey, AName: string): Boolean;
 var
-  Flag: integer;
+  Flag: Integer;
   HK: HKEY;
 begin
   Result := False;
@@ -336,7 +316,7 @@ begin
   end;
 end;
 
-function ADRegDeleteValue(const ARoot: HKEY; const ASubKey, AName: string): integer;
+function ADRegDeleteValue(const ARoot: HKEY; const ASubKey, AName: string): Integer;
 var
   HK: HKEY;
 begin
@@ -348,7 +328,7 @@ begin
   end
 end;
 
-function ADRegWriteString(const ARoot: HKEY; const ASubKey, AName, AValue: string): integer;
+function RegWriteString(const ARoot: HKEY; const ASubKey, AName, AValue: string): Integer;
 var
   HK: HKEY;
 begin
@@ -360,10 +340,10 @@ begin
   end;
 end;
 
-function ADRegReadString(const ARoot: HKEY; const ASubKey, AName, ADefault: string): string;
+function RegReadString(const ARoot: HKEY; const ASubKey, AName, ADefault: string): string;
 var
   Buffer: pointer;
-  MaxData, Flag: integer;
+  MaxData, Flag: Integer;
   HK: HKEY;
 begin
   Result := ADefault;
@@ -383,9 +363,9 @@ begin
   end;
 end;
 
-function ADRegReadInteger(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: integer): integer;
+function RegReadInteger(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: Integer): Integer;
 var
-  R, Flag, DSize: integer;
+  R, Flag, DSize: Integer;
   HK: HKEY;
 begin
   Result := ADefault;
@@ -398,12 +378,12 @@ begin
   end;
 end;
 
-function ADRegReadBoolean(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: boolean): boolean;
+function RegReadBoolean(const ARoot: HKEY; const ASubKey, AName: string; const ADefault: Boolean): Boolean;
 begin
-  Result := boolean(ADRegReadInteger(ARoot, ASubKey, AName, integer(ADefault)));
+  Result := Boolean(RegReadInteger(ARoot, ASubKey, AName, Integer(ADefault)));
 end;
 
-function ADRegWriteInteger(const ARoot: HKEY; const ASubKey, AName: string; const AValue: integer): integer;
+function RegWriteInteger(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Integer): Integer;
 var
   HK: HKEY;
 begin
@@ -415,12 +395,12 @@ begin
   end;
 end;
 
-function ADRegWriteBoolean(const ARoot: HKEY; const ASubKey, AName: string; const AValue: boolean): integer;
+function RegWriteBoolean(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Boolean): Integer;
 begin
-  Result := ADRegWriteInteger(ARoot, ASubKey, AName, integer(AValue));
+  Result := RegWriteInteger(ARoot, ASubKey, AName, Integer(AValue));
 end;
 
-function ADRegCheckKey(const ARoot: HKEY; const ASubKey: string): boolean;
+function ADRegCheckKey(const ARoot: HKEY; const ASubKey: string): Boolean;
 begin
   if ADRegKeyExist(ARoot, ASubKey) then
     Result := True
@@ -428,84 +408,29 @@ begin
     Result := ADRegCreateKey(ARoot, ASubKey);
 end;
 
-function ADRegWriteStringEx(const ARoot: HKEY; const ASubKey, AName, AValue: string): integer;
+function RegWriteStringEx(const ARoot: HKEY; const ASubKey, AName, AValue: string): Integer;
 begin
   Result := -1;
   if ADRegCheckKey(ARoot, ASubKey) then
-    Result := ADRegWriteString(ARoot, ASubKey, AName, AValue);
+    Result := RegWriteString(ARoot, ASubKey, AName, AValue);
 end;
 
-function ADRegWriteIntegerEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: integer): integer;
+function RegWriteIntegerEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Integer): Integer;
 begin
   Result := -1;
   if ADRegCheckKey(ARoot, ASubKey) then
-    Result := ADRegWriteInteger(ARoot, ASubKey, AName, AValue);
+    Result := RegWriteInteger(ARoot, ASubKey, AName, AValue);
 end;
 
-function ADRegWriteBooleanEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: boolean): integer;
+function RegWriteBooleanEx(const ARoot: HKEY; const ASubKey, AName: string; const AValue: Boolean): Integer;
 begin
   Result := -1;
   if ADRegCheckKey(ARoot, ASubKey) then
-    Result := ADRegWriteBoolean(ARoot, ASubKey, AName, AValue);
-end;
-
-// INI
-
-function ADINIReadString(const AFilename, ASection, AKey, ADefault: string): string;
-var
- Buffer: array[0..2047] of Char;
-begin
-  SetString(Result, Buffer, GetPrivateProfileString(PChar(ASection), PChar(AKey),
-    PChar(ADefault), Buffer, SizeOf(Buffer), PChar(AFilename)));
-end;
-
-function ADINIWriteString(const AFilename, ASection, AKey, AValue: string): boolean;
-begin
-  Result := WritePrivateProfileString(PChar(ASection), PChar(AKey), PChar(AValue),
-    PChar(AFilename));
-end;
-
-function ADINIDeleteKey(const AFilename, ASection, AKey: string): boolean;
-begin
-  Result := WritePrivateProfileString(PChar(ASection), PChar(AKey), nil, PChar(AFilename));
-end;
-
-function ADINIDeleteSection(const AFilename, ASection: string): boolean;
-begin
-  Result := WritePrivateProfileSection(PChar(ASection), nil, PChar(AFilename));
-end;
-
-function ADINIReadInteger(const AFilename, ASection, AKey: string; const ADefault: integer): integer;
-var
-  S: string;
-  Code: integer;
-begin
-  Str(ADefault, S);
-  S := ADINIReadString(AFilename, ASection, AKey, S);
-  Val(S, Result, Code);
-end;
-
-function ADINIWriteInteger(const AFilename, ASection, AKey: string; const AValue: integer): boolean;
-var
-  S: string;
-begin
-  Str(AValue, S);
-  Result := ADINIWriteString(AFilename, ASection, AKey, S);
-end;
-
-function ADINIReadBoolean(const AFilename, ASection, AKey: string; const ADefault: boolean): boolean;
-begin
-  Result := boolean(ADINIReadInteger(AFilename, ASection, AKey, integer(ADefault)));
-end;
-
-function ADINIWriteBoolean(const AFilename, ASection, AKey: string; const AValue: boolean): boolean;
-begin
-  Result := ADINIWriteInteger(AFilename, ASection, AKey, integer(AValue));
+    Result := RegWriteBoolean(ARoot, ASubKey, AName, AValue);
 end;
 {$endregion}
 
-{ TAssociatesList }
-
+{$region 'TAssociatesList' /fold}
 function TAssociatesList.Add: TAssociateItem;
 begin
   Result := TAssociateItem(inherited Add);
@@ -521,9 +446,9 @@ procedure TAssociatesList.SetAssociateItem(Index: Integer;
 begin
   Items[Index].Assign(Value);
 end;
+{$endregion}
 
-{ TFileAssociate }
-
+{$region 'TFileAssociate' /fold}
 function TFileAssociate.AddItem(const AExt: string): TAssociateItem;
 var
   Item: TAssociateItem;
@@ -560,7 +485,7 @@ begin
   AllUsers := False;
 end;
 
-procedure TFileAssociate.DeleteItem(const AIndex: integer);
+procedure TFileAssociate.DeleteItem(const AIndex: Integer);
 begin
   FItems[AIndex].IsAssociate := False;
   AssociateExt(AIndex, True);
@@ -588,10 +513,10 @@ function TFileAssociate.GetDescr(const AExt: string): string;
 var
   S: string;
 begin
-  Result := ADRegReadString(FClassesRoot, FClasses + AExt, '', '');
+  Result := RegReadString(FClassesRoot, FClasses + AExt, '', '');
   if Result = '' then
   begin
-    Result := ADRegReadString(HKCR, AExt, '', '');
+    Result := RegReadString(HKCR, AExt, '', '');
     if Result = '' then
     begin
       if (AExt <> SAllMenu) and (AExt <> SUnknown) then
@@ -601,13 +526,13 @@ begin
       end;
     end else
     begin
-      S := ADRegReadString(HKCR, Result, '', '');
+      S := RegReadString(HKCR, Result, '', '');
       if S <> '' then
         Result := S;
     end;
   end else
   begin
-    S := ADRegReadString(FClassesRoot, FClasses + Result, '', '');
+    S := RegReadString(FClassesRoot, FClasses + Result, '', '');
     if S <> '' then
       Result := S;
   end;
@@ -617,13 +542,13 @@ function TFileAssociate.GetIcon(const AExt: string): string;
 var
   S: string;
 begin
-  S := ADRegReadString(FClassesRoot, FClasses + AExt, '', '');
+  S := RegReadString(FClassesRoot, FClasses + AExt, '', '');
   if S = '' then
-    S := ADRegReadString(HKCR, AExt, '', '');
-  Result := ADRegReadString(FClassesRoot, FClasses + S + '\' + SDefIcon, '', '');
+    S := RegReadString(HKCR, AExt, '', '');
+  Result := RegReadString(FClassesRoot, FClasses + S + '\' + SDefIcon, '', '');
   if Result = '' then
   begin
-    Result := ADRegReadString(HKCR, S + '\' + SDefIcon, '', '');
+    Result := RegReadString(HKCR, S + '\' + SDefIcon, '', '');
     if Result = '' then
       Result := ParamStr(0) + ',' + SDefIconIndex;
   end;
@@ -631,29 +556,29 @@ end;
 
 function TFileAssociate.GetBackup(const AExt: string): string;
 begin
-  Result := ADRegReadString(FClassesRoot, FClasses + AExt + '\' + SBackup, '', '');
+  Result := RegReadString(FClassesRoot, FClasses + AExt + '\' + SBackup, '', '');
   if Result = GetAssociateNameByExt(AExt) then
     Result := '';
 end;
 
 function TFileAssociate.GetIsAssociateToContext: Boolean;
 begin
-  Result := ADRegReadString(FClassesRoot, FClasses + SAllMenu + '\' + SShell, '', '') = FAppShellCaption;
+  Result := RegReadString(FClassesRoot, FClasses + SAllMenu + '\' + SShell, '', '') = FAppShellCaption;
 end;
 
 function TFileAssociate.GetIsAssociateToUnknown: Boolean;
 begin
-  Result := ADRegReadString(FClassesRoot, FClasses + SUnknown + '\' + SShell, '', '') = FAppShellCaption;
+  Result := RegReadString(FClassesRoot, FClasses + SUnknown + '\' + SShell, '', '') = FAppShellCaption;
 end;
 
 function TFileAssociate.GetMenuCaption: string;
 begin
-  Result := ADRegReadString(FRootKey, FAppKey, SMenuCaption, {GetLangStr('SDefMenuCaption')}'');
+  Result := RegReadString(FRootKey, FAppKey, SMenuCaption, {GetLangStr('SDefMenuCaption')}'');
 end;
 
 procedure TFileAssociate.LoadAssociates;
 var
-  I: integer;
+  I: Integer;
   Len: DWORD;
   Info: TRegKeyInfo;
   Key: string;
@@ -697,12 +622,12 @@ end;
 
 procedure TFileAssociate.SetMenuCaption(const Value: string);
 begin
-  ADRegWriteStringEx(FRootKey, FAppKey, SMenuCaption, Value);
+  RegWriteStringEx(FRootKey, FAppKey, SMenuCaption, Value);
 end;
 
-function TFileAssociate.IndexOf(const AExt: string): integer;
+function TFileAssociate.IndexOf(const AExt: string): Integer;
 var
-  I: integer;
+  I: Integer;
 begin
   Result := -1;
   for I := 0 to FItems.Count - 1 do
@@ -726,16 +651,16 @@ begin
       ADRegCreateKey(FClassesRoot, FClasses + S + '\' + SShell);
       ADRegCreateKey(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen);
       ADRegCreateKey(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen + '\' + SCommand);
-      ADRegWriteString(FClassesRoot, FClasses + S, '', Descr);
-      ADRegWriteString(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen, '', MenuCaption);
-      ADRegWriteString(FClassesRoot, FClasses + S + '\' + SDefIcon, '', Icon);
-      ADRegWriteString(FClassesRoot, FClasses + S + '\' + SBackup, '', Backup);
-      ADRegWriteString(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen + '\' + SCommand, '', FCommandLine);
+      RegWriteString(FClassesRoot, FClasses + S, '', Descr);
+      RegWriteString(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen, '', MenuCaption);
+      RegWriteString(FClassesRoot, FClasses + S + '\' + SDefIcon, '', Icon);
+      RegWriteString(FClassesRoot, FClasses + S + '\' + SBackup, '', Backup);
+      RegWriteString(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen + '\' + SCommand, '', FCommandLine);
       ADRegCreateKey(FClassesRoot, FClasses + Ext);
-      ADRegWriteString(FClassesRoot, FClasses + Ext, '', S);
+      RegWriteString(FClassesRoot, FClasses + Ext, '', S);
 
       ADRegCreateKey(FRootKey, FAppKey + SAssocKey);
-      ADRegWriteString(FRootKey, FAppKey + SAssocKey, Ext, Backup);
+      RegWriteString(FRootKey, FAppKey + SAssocKey, Ext, Backup);
     end else
     begin
       ADRegDeleteKey(FClassesRoot, FClasses + S + '\' + SShell + '\' + SOpen + '\' + SCommand);
@@ -746,7 +671,7 @@ begin
       ADRegDeleteKey(FClassesRoot, FClasses + S);
 
       if Backup <> '' then
-        ADRegWriteString(FClassesRoot, FClasses + Ext, '', Backup)
+        RegWriteString(FClassesRoot, FClasses + Ext, '', Backup)
       else
         ADRegDeleteKey(FClassesRoot, FClasses + Ext);
     end;
@@ -759,14 +684,14 @@ begin
   end;
 end;
 
-procedure TFileAssociate.AssociateExt(const AIndex: integer; const ADelete: Boolean);
+procedure TFileAssociate.AssociateExt(const AIndex: Integer; const ADelete: Boolean);
 begin
   AssociateItem(Items[AIndex], ADelete);
 end;
 
 procedure TFileAssociate.SaveAssociates;
 var
-  I: integer;
+  I: Integer;
 begin
   for I := 0 to FItems.Count - 1 do
     AssociateExt(I);
@@ -780,7 +705,7 @@ var
 begin
   if AEnable then
   begin
-    Backup := ADRegReadString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', '');
+    Backup := RegReadString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', '');
     if Backup = FAppShellCaption then
       Backup := '';
     ADRegCreateKey(FClassesRoot, FClasses + ARoot);
@@ -788,17 +713,17 @@ begin
     ADRegCreateKey(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption);
     ADRegCreateKey(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption + '\' + SCommand);
 
-    ADRegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', FAppShellCaption);
-    ADRegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption, '', MenuCaption);
-    ADRegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption + '\' + SCommand, '', FCommandLine);
+    RegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', FAppShellCaption);
+    RegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption, '', MenuCaption);
+    RegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption + '\' + SCommand, '', FCommandLine);
 
     ADRegCreateKey(FRootKey, FAppKey + SAssocKey + SOtherAssocKey);
-    ADRegWriteString(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot, Backup);
+    RegWriteString(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot, Backup);
   end else
   begin
     CanBackup := ADRegValueExist(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot);
     if CanBackup then
-      Backup := ADRegReadString(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot, '');
+      Backup := RegReadString(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot, '');
     ADRegDeleteKey(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption + '\' + SBackup);
     ADRegDeleteKey(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption + '\' + SCommand);
     ADRegDeleteKey(FClassesRoot, FClasses + ARoot + '\' + SShell + '\' + FAppShellCaption);
@@ -806,7 +731,7 @@ begin
     ADRegDeleteKey(FClassesRoot, FClasses + ARoot);
     if CanBackup then
     begin
-      ADRegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', Backup);
+      RegWriteString(FClassesRoot, FClasses + ARoot + '\' + SShell, '', Backup);
       ADRegDeleteValue(FRootKey, FAppKey + SAssocKey + SOtherAssocKey, ARoot);
     end;
     ADRegDeleteKey(FRootKey, FAppKey + SAssocKey + SOtherAssocKey);
@@ -822,7 +747,7 @@ var
   IsAssociate: Boolean;
 begin
   IsAssociate := False;
-  DescrStr := ADRegReadString(FClassesRoot, FClasses + AExt, '', '');
+  DescrStr := RegReadString(FClassesRoot, FClasses + AExt, '', '');
   S := GetAssociateNameByExt(AExt);
 
   Item := TAssociateItem.Create(nil);
@@ -862,7 +787,7 @@ end;
 
 function TFileAssociate.GetAllUsers: Boolean;
 begin
-  Result := ADRegReadBoolean(FRootKey, FAppKey, SAllUsers, False);
+  Result := RegReadBoolean(FRootKey, FAppKey, SAllUsers, False);
 end;
 
 procedure TFileAssociate.SetAllUsers(const Value: Boolean);
@@ -872,15 +797,16 @@ begin
     FRootKey := HKLM;
     FClassesRoot := HKLM;
     FClasses := SClassesKey;
-    ADRegWriteBooleanEx(FRootKey, FAppKey, SAllUsers, True)
+    RegWriteBooleanEx(FRootKey, FAppKey, SAllUsers, True)
   end
   else
   begin
     FRootKey := HKCU;
     FClassesRoot := HKCU;
     FClasses := SClassesKey;
-    ADRegWriteBooleanEx(FRootKey, FAppKey, SAllUsers, False);
+    RegWriteBooleanEx(FRootKey, FAppKey, SAllUsers, False);
   end;
 end;
+{$endregion}
 
 end.

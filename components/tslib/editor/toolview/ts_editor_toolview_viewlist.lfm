@@ -1,0 +1,42 @@
+inherited frmViewList: TfrmViewList
+  Left = -1453
+  Height = 501
+  Top = 338
+  Width = 800
+  Align = alClient
+  Caption = 'Editor views'
+  ClientHeight = 501
+  ClientWidth = 800
+  Position = poOwnerFormCenter
+  object pnlVST: TPanel[0]
+    Left = 0
+    Height = 501
+    Top = 0
+    Width = 800
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 0
+  end
+  object aclMain: TActionList[1]
+    left = 256
+    top = 129
+    object actClose: TAction
+      Caption = 'Close'
+      OnExecute = actCloseExecute
+    end
+  end
+  object ppmMain: TPopupMenu[2]
+    left = 180
+    top = 129
+    object mniClose: TMenuItem
+      Action = actClose
+    end
+  end
+  object ppmHL: TPopupMenu[3]
+    left = 168
+    top = 240
+    object MenuItem2: TMenuItem
+      Caption = 'New Item3'
+    end
+  end
+end

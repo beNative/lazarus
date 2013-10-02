@@ -1,0 +1,180 @@
+inherited frmCharacterMap: TfrmCharacterMap
+  Left = 642
+  Height = 570
+  Top = 269
+  Width = 446
+  ActiveControl = pcMain
+  BorderStyle = bsSingle
+  ClientHeight = 570
+  ClientWidth = 446
+  KeyPreview = True
+  PopupMode = pmAuto
+  Position = poDefault
+  object pcMain: TPageControl[0]
+    Left = 2
+    Height = 422
+    Top = 2
+    Width = 442
+    ActivePage = tsUnicode
+    Align = alClient
+    BorderSpacing.Around = 2
+    TabIndex = 1
+    TabOrder = 0
+    object tsANSI: TTabSheet
+      Caption = 'ANSI'
+      ClientHeight = 394
+      ClientWidth = 434
+      object lblCharInfo: TLabel
+        AnchorSideLeft.Control = tsANSI
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = tsANSI
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tsANSI
+        AnchorSideBottom.Side = asrBottom
+        Left = 6
+        Height = 15
+        Top = 373
+        Width = 422
+        Anchors = [akLeft, akRight, akBottom]
+        BorderSpacing.Around = 6
+        Caption = 'lblCharInfo'
+        ParentColor = False
+      end
+      object grdANSI: TStringGrid
+        AnchorSideLeft.Control = tsANSI
+        AnchorSideTop.Control = tsANSI
+        AnchorSideRight.Control = tsANSI
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = lblCharInfo
+        Left = 0
+        Height = 367
+        Top = 0
+        Width = 434
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ColCount = 17
+        DefaultColWidth = 16
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
+        RowCount = 15
+        TabOrder = 0
+        TitleStyle = tsNative
+        OnKeyUp = grdANSIKeyUp
+        OnMouseDown = grdANSIMouseDown
+        OnMouseMove = grdANSIMouseMove
+        OnSelectCell = grdANSISelectCell
+        ColWidths = (
+          16
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          25
+          39
+        )
+      end
+    end
+    object tsUnicode: TTabSheet
+      Caption = 'Unicode'
+      ClientHeight = 394
+      ClientWidth = 434
+      object lblUnicodeCharInfo: TLabel
+        AnchorSideLeft.Control = Owner
+        AnchorSideTop.Control = cbxUnicodeRange
+        AnchorSideTop.Side = asrCenter
+        Left = 6
+        Height = 15
+        Top = 369
+        Width = 103
+        BorderSpacing.Around = 6
+        Caption = 'lblUnicodeCharInfo'
+        ParentColor = False
+      end
+      object grdUnicode: TStringGrid
+        AnchorSideLeft.Control = tsUnicode
+        AnchorSideTop.Control = tsUnicode
+        AnchorSideRight.Control = tsUnicode
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = cbxUnicodeRange
+        Left = 0
+        Height = 359
+        Top = 0
+        Width = 434
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        ColCount = 16
+        DefaultColWidth = 16
+        FixedCols = 0
+        FixedRows = 0
+        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
+        RowCount = 15
+        TabOrder = 0
+        TitleStyle = tsNative
+        OnKeyUp = grdUnicodeKeyUp
+        OnMouseDown = grdUnicodeMouseDown
+        OnMouseMove = grdUnicodeMouseMove
+        OnSelectCell = grdUnicodeSelectCell
+      end
+      object cbxUnicodeRange: TComboBox
+        AnchorSideRight.Control = tsUnicode
+        AnchorSideRight.Side = asrBottom
+        AnchorSideBottom.Control = tsUnicode
+        AnchorSideBottom.Side = asrBottom
+        Left = 216
+        Height = 23
+        Top = 365
+        Width = 212
+        Anchors = [akRight, akBottom]
+        BorderSpacing.Around = 6
+        DropDownCount = 30
+        ItemHeight = 15
+        OnSelect = cbxUnicodeRangeSelect
+        Style = csDropDownList
+        TabOrder = 1
+      end
+    end
+  end
+  object pnlChar: TPanel[1]
+    Left = 4
+    Height = 138
+    Top = 428
+    Width = 438
+    Align = alBottom
+    BorderSpacing.Around = 4
+    BevelInner = bvSpace
+    BevelOuter = bvSpace
+    ClientHeight = 138
+    ClientWidth = 438
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 1
+    object shpChar: TShape
+      Left = 2
+      Height = 134
+      Top = 2
+      Width = 434
+      Align = alClient
+      Brush.Style = bsClear
+      Pen.Color = clSilver
+      Pen.Width = 2
+    end
+    object imgChar: TImage
+      Left = 6
+      Height = 126
+      Top = 6
+      Width = 426
+      AntialiasingMode = amOn
+      Align = alClient
+      BorderSpacing.Around = 4
+      Center = True
+      Transparent = True
+    end
+  end
+end

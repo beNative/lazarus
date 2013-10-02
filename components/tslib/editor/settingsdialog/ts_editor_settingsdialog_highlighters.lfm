@@ -1,0 +1,768 @@
+object frmOptionsThemes: TfrmOptionsThemes
+  Left = 560
+  Height = 446
+  Top = 161
+  Width = 541
+  BorderStyle = bsNone
+  ClientHeight = 446
+  ClientWidth = 541
+  LCLVersion = '1.1'
+  object lbTheme: TLabel
+    Left = 8
+    Height = 15
+    Top = 8
+    Width = 40
+    Caption = '&Theme:'
+    FocusControl = cbTheme
+    ParentColor = False
+  end
+  object pcTheme: TPageControl
+    Left = 8
+    Height = 345
+    Top = 56
+    Width = 433
+    ActivePage = tsThemeMain
+    TabIndex = 0
+    TabOrder = 3
+    object tsThemeMain: TTabSheet
+      Caption = '&Main'
+      ClientHeight = 317
+      ClientWidth = 425
+      object gbDColors: TGroupBox
+        Left = 8
+        Height = 81
+        Top = 136
+        Width = 201
+        Caption = '&Color:'
+        ClientHeight = 63
+        ClientWidth = 197
+        TabOrder = 1
+        object lbDFG: TLabel
+          Left = 14
+          Height = 13
+          Top = 10
+          Width = 105
+          AutoSize = False
+          Caption = '&Foreground:'
+          ParentColor = False
+        end
+        object lbDBG: TLabel
+          Left = 14
+          Height = 13
+          Top = 34
+          Width = 105
+          AutoSize = False
+          Caption = '&Background:'
+          ParentColor = False
+        end
+      end
+      object gbDSelColors: TGroupBox
+        Left = 216
+        Height = 81
+        Top = 136
+        Width = 201
+        Caption = '&Selected Color:'
+        ClientHeight = 63
+        ClientWidth = 197
+        TabOrder = 2
+        object lbDSelFG: TLabel
+          Left = 14
+          Height = 13
+          Top = 10
+          Width = 105
+          AutoSize = False
+          Caption = '&Foreground:'
+          ParentColor = False
+        end
+        object lbDSelBG: TLabel
+          Left = 14
+          Height = 13
+          Top = 34
+          Width = 105
+          AutoSize = False
+          Caption = '&Background:'
+          ParentColor = False
+        end
+      end
+      object gbDFont: TGroupBox
+        Left = 8
+        Height = 121
+        Top = 8
+        Width = 409
+        Caption = '&Font'
+        ClientHeight = 103
+        ClientWidth = 405
+        TabOrder = 0
+        object pnDFont: TPanel
+          Left = 14
+          Height = 57
+          Top = 10
+          Width = 377
+          BevelOuter = bvLowered
+          Caption = 'AaBbАаБб'
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          ParentFont = False
+          TabOrder = 0
+        end
+        object bnChangeFont: TButton
+          Left = 14
+          Height = 25
+          Top = 74
+          Width = 377
+          Caption = 'Change Font...'
+          OnClick = bnChangeFontClick
+          TabOrder = 1
+        end
+      end
+      object gbCaret: TGroupBox
+        Left = 8
+        Height = 81
+        Top = 224
+        Width = 201
+        Caption = 'Ca&rets:'
+        ClientHeight = 63
+        ClientWidth = 197
+        TabOrder = 3
+        object Label1: TLabel
+          Left = 14
+          Height = 13
+          Top = 10
+          Width = 73
+          AutoSize = False
+          Caption = '&Insert:'
+          ParentColor = False
+        end
+        object Label2: TLabel
+          Left = 14
+          Height = 13
+          Top = 34
+          Width = 73
+          AutoSize = False
+          Caption = '&Overwrite:'
+          ParentColor = False
+        end
+        object cbInsCaret: TComboBox
+          Left = 94
+          Height = 23
+          Top = 10
+          Width = 97
+          ItemHeight = 15
+          Items.Strings = (
+            'Vertical Line'
+            'Horizontal Line'
+            'HalfBlock'
+            'Block'
+          )
+          Style = csDropDownList
+          TabOrder = 0
+        end
+        object cbOverCaret: TComboBox
+          Left = 94
+          Height = 23
+          Top = 34
+          Width = 97
+          ItemHeight = 15
+          Style = csDropDownList
+          TabOrder = 1
+        end
+      end
+      object pnAccess: TPanel
+        Left = 0
+        Height = 17
+        Top = 300
+        Width = 425
+        Caption = 'This theme is read-only.'
+        TabOrder = 4
+        Visible = False
+      end
+    end
+    object tsThemeHighlight: TTabSheet
+      Caption = '&Highlight'
+      ClientHeight = 317
+      ClientWidth = 425
+      ImageIndex = 3
+      object lblHighlight: TLabel
+        Left = 8
+        Height = 15
+        Top = 8
+        Width = 53
+        Caption = '&Highlight:'
+        FocusControl = cbHighlighter
+        ParentColor = False
+      end
+      object cbHighlighter: TComboBox
+        Left = 8
+        Height = 23
+        Top = 24
+        Width = 409
+        DropDownCount = 16
+        ItemHeight = 15
+        OnSelect = cbHighlighterSelect
+        Style = csDropDownList
+        TabOrder = 0
+      end
+      object gbHiAttrs: TGroupBox
+        Left = 8
+        Height = 145
+        Top = 48
+        Width = 241
+        Caption = '&Attributes:'
+        ClientHeight = 127
+        ClientWidth = 237
+        TabOrder = 1
+        object lbHiAttrs: TListBox
+          Left = 6
+          Height = 121
+          Top = 2
+          Width = 225
+          ItemHeight = 0
+          OnClick = lbHiAttrsClick
+          TabOrder = 0
+        end
+      end
+      object tbHiStyle: TGroupBox
+        Left = 256
+        Height = 73
+        Top = 48
+        Width = 161
+        Caption = '&Style:'
+        ClientHeight = 55
+        ClientWidth = 157
+        TabOrder = 2
+        object chkHiStyleBold: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 2
+          Width = 44
+          Caption = '&Bold'
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          OnClick = chkHiStyleBoldClick
+          ParentFont = False
+          TabOrder = 0
+        end
+        object chkHiStyleItalic: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 18
+          Width = 43
+          Caption = '&Italic'
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsItalic]
+          OnClick = chkHiStyleItalicClick
+          ParentFont = False
+          TabOrder = 1
+        end
+        object chkHiStyleUnderline: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 34
+          Width = 65
+          Caption = '&Underline'
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsUnderline]
+          OnClick = chkHiStyleUnderlineClick
+          ParentFont = False
+          TabOrder = 2
+        end
+      end
+      object gbHiColor: TGroupBox
+        Left = 256
+        Height = 65
+        Top = 128
+        Width = 161
+        Caption = '&Color:'
+        ClientHeight = 47
+        ClientWidth = 157
+        TabOrder = 3
+        object lblHiFGColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 2
+          Width = 73
+          AutoSize = False
+          Caption = '&Foreground:'
+          ParentColor = False
+        end
+        object lblHiBGColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 26
+          Width = 73
+          AutoSize = False
+          Caption = '&Background:'
+          ParentColor = False
+        end
+      end
+    end
+    object tsThemeGutter: TTabSheet
+      Caption = '&Gutter'
+      ClientHeight = 317
+      ClientWidth = 425
+      ImageIndex = 1
+      object lblGColor: TLabel
+        Left = 16
+        Height = 13
+        Top = 56
+        Width = 105
+        AutoSize = False
+        Caption = '&Foreground:'
+        ParentColor = False
+      end
+      object lblGWidth: TLabel
+        Left = 16
+        Height = 13
+        Top = 104
+        Width = 105
+        AutoSize = False
+        Caption = 'Width:'
+        ParentColor = False
+      end
+      object lblGFontColor: TLabel
+        Left = 16
+        Height = 15
+        Top = 32
+        Width = 27
+        Caption = '&Font:'
+        ParentColor = False
+      end
+      object lblBorder: TLabel
+        Left = 16
+        Height = 15
+        Top = 80
+        Width = 70
+        Caption = 'Border Color:'
+        ParentColor = False
+      end
+      object chkGVisible: TCheckBox
+        Left = 8
+        Height = 19
+        Top = 8
+        Width = 85
+        Caption = '&Show Gutter'
+        OnClick = chkGVisibleClick
+        TabOrder = 0
+      end
+      object spnGWidth: TSpinEdit
+        Left = 128
+        Height = 23
+        Top = 104
+        Width = 57
+        MaxValue = 0
+        OnChange = spnGWidthChange
+        TabOrder = 1
+      end
+      object gbGShowNumbers: TGroupBox
+        Left = 8
+        Height = 121
+        Top = 136
+        Width = 201
+        Caption = '&Linenumbers:'
+        ClientHeight = 103
+        ClientWidth = 197
+        TabOrder = 2
+        object lblGDigitsCount: TLabel
+          Left = 6
+          Height = 13
+          Top = 78
+          Width = 97
+          AutoSize = False
+          Caption = '&Digitcount:'
+          FocusControl = spnGDigitsCount
+          ParentColor = False
+        end
+        object chkGShowNumbers: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 2
+          Width = 121
+          Caption = '&Show Linenumbers'
+          OnClick = chkGShowNumbersClick
+          TabOrder = 0
+        end
+        object chkGAutosize: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 26
+          Width = 69
+          Caption = '&Auto Size'
+          OnClick = chkGAutosizeClick
+          TabOrder = 1
+        end
+        object chkGLeadingZeros: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 42
+          Width = 94
+          Caption = '&Leading Zeros'
+          OnClick = chkGLeadingZerosClick
+          TabOrder = 2
+        end
+        object chkGZeroStart: TCheckBox
+          Left = 14
+          Height = 19
+          Top = 58
+          Width = 71
+          Caption = '&Zero Start'
+          OnClick = chkGZeroStartClick
+          TabOrder = 3
+        end
+        object spnGDigitsCount: TSpinEdit
+          Left = 134
+          Height = 23
+          Top = 74
+          Width = 57
+          MaxValue = 0
+          OnChange = spnGDigitsCountChange
+          TabOrder = 4
+        end
+      end
+      object gbGGrad: TGroupBox
+        Left = 216
+        Height = 121
+        Top = 136
+        Width = 201
+        Caption = '&Gradient:'
+        ClientHeight = 103
+        ClientWidth = 197
+        TabOrder = 3
+        object lblGStartColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 26
+          Width = 113
+          AutoSize = False
+          Caption = 'S&tart Color:'
+          ParentColor = False
+        end
+        object lblGEndColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 50
+          Width = 113
+          AutoSize = False
+          Caption = '&End Color:'
+          ParentColor = False
+        end
+        object lblGSteps: TLabel
+          Left = 6
+          Height = 13
+          Top = 74
+          Width = 113
+          AutoSize = False
+          Caption = 'Ste&ps:'
+          ParentColor = False
+        end
+        object chkGUseGrad: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 2
+          Width = 97
+          Caption = '&Show Gradient'
+          OnClick = chkGUseGradClick
+          TabOrder = 0
+        end
+        object spnGSteps: TSpinEdit
+          Left = 126
+          Height = 23
+          Top = 74
+          Width = 57
+          MaxValue = 0
+          OnChange = spnGStepsChange
+          TabOrder = 1
+        end
+      end
+    end
+    object tsThemeReadMode: TTabSheet
+      Caption = '&ReadMode'
+      ClientHeight = 317
+      ClientWidth = 425
+      ImageIndex = 4
+      object gbRMSize: TGroupBox
+        Left = 8
+        Height = 57
+        Top = 112
+        Width = 409
+        Caption = 'Font Size for &ReadMode:'
+        ClientHeight = 39
+        ClientWidth = 405
+        TabOrder = 0
+        object spnRMFontSize: TSpinEdit
+          Left = 6
+          Height = 23
+          Top = 10
+          Width = 393
+          MaxValue = 0
+          OnChange = spnRMFontSizeChange
+          TabOrder = 0
+        end
+      end
+      object gbRMFont: TGroupBox
+        Left = 8
+        Height = 97
+        Top = 8
+        Width = 409
+        Caption = '&Font:'
+        ClientHeight = 79
+        ClientWidth = 405
+        TabOrder = 1
+        object pnRMFont: TPanel
+          Left = 14
+          Height = 57
+          Top = 10
+          Width = 377
+          BevelOuter = bvLowered
+          Caption = 'AaBbАаБб'
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          ParentFont = False
+          TabOrder = 0
+        end
+      end
+    end
+    object tsThemeOther: TTabSheet
+      Caption = '&Others'
+      ClientHeight = 317
+      ClientWidth = 425
+      ImageIndex = 2
+      object gbDOther: TGroupBox
+        Left = 8
+        Height = 125
+        Top = 4
+        Width = 201
+        Caption = '&Others:'
+        ClientHeight = 107
+        ClientWidth = 197
+        TabOrder = 0
+        object lblHCLColor: TLabel
+          Left = 14
+          Height = 13
+          Top = 34
+          Width = 105
+          AutoSize = False
+          Caption = 'Color:'
+          ParentColor = False
+        end
+        object lblHBColor: TLabel
+          Left = 14
+          Height = 13
+          Top = 82
+          Width = 105
+          AutoSize = False
+          Caption = 'Color:'
+          ParentColor = False
+        end
+        object chkHighlightCurrentLine: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 10
+          Width = 136
+          Caption = 'Highlight &current line:'
+          OnClick = chkHighlightCurrentLineClick
+          TabOrder = 0
+        end
+        object chkHighlightBrackets: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 58
+          Width = 174
+          Caption = 'Highlight matching &brackets:'
+          OnClick = chkHighlightBracketsClick
+          TabOrder = 1
+        end
+      end
+      object gbREdge: TGroupBox
+        Left = 216
+        Height = 89
+        Top = 4
+        Width = 201
+        Caption = '&Right Edge:'
+        ClientHeight = 71
+        ClientWidth = 197
+        TabOrder = 1
+        object lblREdgeAt: TLabel
+          Left = 6
+          Height = 13
+          Top = 10
+          Width = 113
+          AutoSize = False
+          Caption = '&Width:'
+          ParentColor = False
+        end
+        object lbREdgeColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 42
+          Width = 113
+          AutoSize = False
+          Caption = 'Color:'
+          ParentColor = False
+        end
+        object spnREdgeAt: TSpinEdit
+          Left = 126
+          Height = 23
+          Top = 10
+          Width = 57
+          MaxValue = 0
+          OnChange = spnREdgeAtChange
+          TabOrder = 0
+        end
+      end
+      object gbURL: TGroupBox
+        Left = 8
+        Height = 165
+        Top = 140
+        Width = 201
+        Caption = '&Hyperlinks:'
+        ClientHeight = 147
+        ClientWidth = 197
+        TabOrder = 2
+        object lblURLColor: TLabel
+          Left = 6
+          Height = 13
+          Top = 42
+          Width = 113
+          AutoSize = False
+          Caption = 'Color:'
+          ParentColor = False
+        end
+        object chkURL: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 2
+          Width = 129
+          Caption = '&Highlight Hyperlinks'
+          OnClick = chkURLClick
+          TabOrder = 0
+        end
+        object gbURLStyle: TGroupBox
+          Left = 6
+          Height = 73
+          Top = 66
+          Width = 185
+          Caption = '&Style:'
+          ClientHeight = 55
+          ClientWidth = 181
+          TabOrder = 1
+          object chkURLBold: TCheckBox
+            Left = 14
+            Height = 19
+            Top = 2
+            Width = 44
+            Caption = '&Bold'
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsBold]
+            OnClick = chkURLBoldClick
+            ParentFont = False
+            TabOrder = 0
+          end
+          object chkURLItalic: TCheckBox
+            Left = 14
+            Height = 19
+            Top = 18
+            Width = 43
+            Caption = '&Italic'
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsItalic]
+            OnClick = chkURLItalicClick
+            ParentFont = False
+            TabOrder = 1
+          end
+          object chkURLUnderline: TCheckBox
+            Left = 14
+            Height = 19
+            Top = 34
+            Width = 65
+            Caption = '&Underline'
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = [fsUnderline]
+            OnClick = chkURLUnderlineClick
+            ParentFont = False
+            TabOrder = 2
+          end
+        end
+        object chkAlwaysShowURL: TCheckBox
+          Left = 6
+          Height = 19
+          Top = 18
+          Width = 172
+          Caption = 'Permanently Highlight URL''s'
+          TabOrder = 2
+        end
+      end
+    end
+  end
+  object cbTheme: TComboBox
+    Left = 8
+    Height = 23
+    Top = 24
+    Width = 265
+    DropDownCount = 16
+    ItemHeight = 15
+    OnSelect = cbThemeSelect
+    Style = csDropDownList
+    TabOrder = 0
+  end
+  object bnThemeAdd: TButton
+    Left = 280
+    Height = 21
+    Top = 24
+    Width = 75
+    Caption = '&Add'
+    OnClick = bnThemeAddClick
+    TabOrder = 1
+  end
+  object bnThemeDel: TButton
+    Left = 360
+    Height = 21
+    Top = 24
+    Width = 75
+    Caption = '&Delete'
+    OnClick = bnThemeDelClick
+    TabOrder = 2
+  end
+  object dlgFont: TFontDialog
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    MinFontSize = 0
+    MaxFontSize = 0
+    Options = [fdEffects, fdFixedPitchOnly, fdLimitSize]
+    left = 112
+    top = 8
+  end
+  object dlgGFont: TFontDialog
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    MinFontSize = 0
+    MaxFontSize = 0
+    Options = [fdEffects, fdFixedPitchOnly, fdLimitSize]
+    left = 144
+    top = 8
+  end
+  object dlgTWFont: TFontDialog
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    MinFontSize = 0
+    MaxFontSize = 0
+    left = 240
+    top = 8
+  end
+end

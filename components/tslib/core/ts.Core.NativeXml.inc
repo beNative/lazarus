@@ -1,4 +1,6 @@
-{ simdesign.inc
+{ ts.Core.NativeXml.inc
+
+  Original name: simdesign.inc
 
   include file for many simdesign projects
   default path: \simlib\general

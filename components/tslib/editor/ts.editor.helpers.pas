@@ -123,7 +123,7 @@ implementation
 uses
   Forms,
 
-  ts.Editor.Manager;
+  ts_Editor_Manager;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction);
 var

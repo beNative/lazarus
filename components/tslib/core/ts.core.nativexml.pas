@@ -134,7 +134,7 @@ uses
   WinInet,
 {$else MSWINDOWS}
   // linux: win32-compatible functions
-  ts_Core_NativeXmlWin32Compat,
+  ts.Core.NativeXmlWin32Compat,
 {$ENDIF MSWINDOWS}
 
   // units from simlib.general

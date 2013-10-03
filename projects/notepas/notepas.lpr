@@ -15,8 +15,8 @@ uses
   lazrichedit, richmemopackage,
 
   sharedlogger, ipcchannel, pl_luicontrols, runtimetypeinfocontrols,
-  pl_kcontrols, pl_zeosdbocomp, pl_zmsql, pl_richview, ts.Components.MultiPanel,
-  ts.Components.DBGridView, ts.Components.Docking,
+  pl_kcontrols, pl_zeosdbocomp, pl_zmsql, pl_richview, lazcontrols,
+  ts.Components.MultiPanel, ts.Components.DBGridView, ts.Components.Docking,
   ts.Components.Docking.OptionsDialog, ts.Components.Docking.Resources,
   ts.Components.Docking.Storage, ts.Components.ExportRTF,
   ts.Components.FileAssociation, ts.Components.GridView,
@@ -27,17 +27,16 @@ uses
   ts.Core.BRRE, ts.Core.BRREUnicode, ts.Core.NativeXml.Debug,
   ts.Core.NativeXml.Streams, ts.Core.NativeXml.StringTable,
   ts.Core.CodecUtilsWin32, ts.Core.Collections, ts.Core.ColumnDefinitions,
-  ts.Core.ColumnDefinitionsDataTemplate,
-  ts.Core.DataTemplates, ts.Core.DBUtils, ts.Core.DirectoryWatch,
-  ts.Core.EncodingUtils, ts.Core.FormSettings, ts.Core.HashStrings,
-  ts.Core.Helpers, ts.Core.KeyValues, ts.Core.NativeXml,
+  ts.Core.ColumnDefinitionsDataTemplate, ts.Core.DataTemplates, ts.Core.DBUtils,
+  ts.Core.DirectoryWatch, ts.Core.EncodingUtils, ts.Core.FormSettings,
+  ts.Core.HashStrings, ts.Core.Helpers, ts.Core.KeyValues, ts.Core.NativeXml,
   ts.Core.NativeXml.ObjectStorage, ts.core.nativexml.win32compat,
   ts.Core.SQLParser, ts.Core.SQLScanner, ts.Core.SQLTree, ts.Core.StringUtils,
   ts.Core.TreeViewPresenter, ts.Core.Utils, ts.Core.Value, ts.Core.VersionInfo,
   ts.Core.XMLUtils, ts.Core.FileAssociations, ts.Editor.CodeFormatters,
   ts.Editor.CodeFormatters.SQL, ts.Editor.CodeTags, ts.Editor.Commands,
   ts.Editor.CommentStripper, ts.Editor.Helpers, ts.Editor.HighlighterAttributes,
-  ts.Editor.Highlighters, ts.Editor.Interfaces, ts.Editor.Resources,
+  ts.Editor.Highlighters, ts.Editor.Interfaces, ts_Editor_Resources,
   ts.editor.searchengine, ts.Editor.Selection, ts.editor.settings,
   ts.Editor.Settings.AlignLines, ts.Editor.Settings.CodeShaper,
   ts.editor.settings.searchengine, ts.Editor.Utils, SetupFiltersDialog,
@@ -52,12 +51,13 @@ uses
   ts_editor_toolview_viewlist, ts.RichEditor.Helpers, ts.RichEditor.Interfaces,
   ts.RichEditor.Manager, ts.RichEditor.TextAttributes, ts.RichEditor.View,
 
-  ts.editor.toolview.manager, ts_editor_manager, ts_Editor_AboutDialog,
-  ts_editor_settingsdialog_old, ts_editor_settingsdialog;
+  ts.Editor.Toolview.Manager, ts_Editor_Manager, ts_Editor_AboutDialog,
+  ts_Editor_View, ts_Editor_SettingsDialog_Old, ts_Editor_SettingsDialog;
 
 {$R *.res}
 
 begin
+  SetDefaultLang('en');
   Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
@@ -65,7 +65,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
-//  SetDefaultLang('nl');
+
   Application.Run;
 end.
 

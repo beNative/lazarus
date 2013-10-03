@@ -27,7 +27,7 @@ interface
 uses
   Classes, SysUtils, ComCtrls, Menus, Controls, ActnList,
 
-  ts.Editor.Interfaces, ts.Editor.Resources;
+  ts.Editor.Interfaces, ts_Editor_Resources;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction = nil);
 

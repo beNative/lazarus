@@ -45,7 +45,7 @@ type
   IEditorSettings               = interface;
   IEditorSelection              = interface;
   TEditorViewListEnumerator     = class;
-//  TEditorToolViewListEnumerator = class;
+  TEditorToolViewListEnumerator = class;
 
   // event types
   TCaretPositionEvent = procedure(
@@ -865,23 +865,20 @@ type
     function GetView(AIndex: Integer): IEditorToolView;
     function GetViewByName(AName: string): IEditorToolView;
     function GetCount: Integer;
-//    function GetViewList: TEditorToolViewList;
 
-    //procedure Add(AToolView: IEditorToolView);
-    //function Delete(AIndex: Integer): Boolean; overload;
-    //function Delete(AView: IEditorToolView): Boolean; overload;
-    //function Delete(const AName: string): Boolean; overload;
+    function GetEnumerator: TEditorToolViewListEnumerator;
 
-//    function GetEnumerator: TEditorToolViewListEnumerator;
+    function Register(
+            AFormClass : TComponentClass;
+      const AName      : string = ''
+    ): Boolean;
+    procedure Hide;
 
     property Views[AIndex: Integer]: IEditorToolView
       read GetView;
 
     property ViewByName[AName: string]: IEditorToolView
       read GetViewByName; default;
-
-    //property ViewList: TEditorToolViewList
-    //  read GetViewList;
 
     property Count: Integer
       read GetCount;
@@ -1073,18 +1070,21 @@ type
       read GetCurrent;
   end;
 
-  //TEditorToolViewListEnumerator = class
-  //  strict private
-  //  FIndex : Integer;
-  //  FList  : TEditorToolViewList;
-  //
-  //public
-  //  constructor Create(AList: TEditorToolViewList);
-  //  function GetCurrent: IEditorToolView;
-  //  function MoveNext: Boolean;
-  //  property Current: IEditorToolView
-  //    read GetCurrent;
-  //end;
+  { TEditorToolViewListEnumerator }
+
+  TEditorToolViewListEnumerator = class
+  strict private
+    FIndex : Integer;
+    FList  : IEditorToolViews;
+
+  public
+    constructor Create(AList: IEditorToolViews);
+    procedure BeforeDestruction; override;
+    function GetCurrent: IEditorToolView;
+    function MoveNext: Boolean;
+    property Current: IEditorToolView
+      read GetCurrent;
+  end;
 
 implementation
 
@@ -1109,23 +1109,29 @@ end;
 {$endregion}
 
 {$region 'TEditorToolViewListEnumerator' /fold}
-//constructor TEditorToolViewListEnumerator.Create(AList: TEditorToolViewList);
-//begin
-//  FList := AList;
-//  FIndex := -1;
-//end;
-//
-//function TEditorToolViewListEnumerator.GetCurrent: IEditorToolView;
-//begin
-//  Result := FList[FIndex] as IEditorToolView;
-//end;
-//
-//function TEditorToolViewListEnumerator.MoveNext: Boolean;
-//begin
-//  Result := FIndex < (FList.Count - 1);
-//  if Result then
-//    Inc(FIndex);
-//end;
+constructor TEditorToolViewListEnumerator.Create(AList: IEditorToolViews);
+begin
+  FList := AList;
+  FIndex := -1;
+end;
+
+procedure TEditorToolViewListEnumerator.BeforeDestruction;
+begin
+  FList := nil;
+  inherited BeforeDestruction;
+end;
+
+function TEditorToolViewListEnumerator.GetCurrent: IEditorToolView;
+begin
+  Result := FList.Views[FIndex] as IEditorToolView;
+end;
+
+function TEditorToolViewListEnumerator.MoveNext: Boolean;
+begin
+  Result := FIndex < (FList.Count - 1);
+  if Result then
+    Inc(FIndex);
+end;
 {$endregion}
 
 end.

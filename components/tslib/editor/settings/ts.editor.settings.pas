@@ -301,7 +301,7 @@ uses
 
   SynEditHighlighter, SynEditStrConst, SynEditTypes,
 
-  ts.Editor.Resources;
+  ts_Editor_Resources;
 
 {$region 'public methods' /fold}
 { Observer pattern implemented as multicast events. }
@@ -881,7 +881,6 @@ begin
       Reader := TsdXmlObjectReader.Create;
       try
         Reader.ReadComponent(Doc.Root, Self, nil);
-        //Logger.Send('Settings LOAD', ObjectSaveToXmlString(Self));
       finally
         FreeAndNil(Reader);
       end;

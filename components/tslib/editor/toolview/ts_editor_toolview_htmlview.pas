@@ -18,14 +18,14 @@
 
 unit ts_Editor_ToolView_HTMLView;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-  {$ifdef windows}
+  {$IFDEF windows}
   FramView, HtmlGlobals,
   {$endif}
 
@@ -34,7 +34,7 @@ uses
 type
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
   private
-    {$ifdef windows}
+    {$IFDEF windows}
     FHTMLViewer: TFrameViewer;
     {$endif}
 
@@ -51,7 +51,7 @@ implementation
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
-{$ifdef windows}
+{$IFDEF windows}
   FHTMLViewer := TFrameViewer.Create(Self);
   FHTMLViewer.Parent := Self;
   FHTMLViewer.Align := alClient;
@@ -63,7 +63,7 @@ procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
 
-{$ifdef windows}
+{$IFDEF windows}
   if FileExistsUTF8(View.FileName) then
     FHTMLViewer.LoadFromFile(WideString(View.FileName))
   else

@@ -123,8 +123,8 @@ implementation
 
 {$R *.lfm}
 
-uses
-  ADRegINI;
+//uses
+//  ADRegINI;
 
   {Utilits,
   , ADUtils}

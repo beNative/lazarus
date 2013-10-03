@@ -16,13 +16,11 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.Resources;
+unit ts_Editor_Resources;
 
 {$MODE Delphi}
 
 { Common resources }
-
-//*****************************************************************************
 
 interface
 
@@ -54,11 +52,11 @@ const
   HL_JS   = 'JS';
   HL_CS   = 'CS';
 
-  LAYOUT_INI = 'Ini.hgl';
-  LAYOUT_RTF = 'RTF.hgl';
-  LAYOUT_RES = 'Resource.hgl';
-  LAYOUT_LOG = 'Log.hgl';
-  LAYOUT_CS  = 'C#.hgl';
+  LAYOUT_INI = 'notepas.highlighter.ini.xml';
+  LAYOUT_RTF = 'notepas.highlighter.rtf.xml';
+  LAYOUT_RES = 'notepas.highlighter.res.xml';
+  LAYOUT_LOG = 'notepas.highlighter.log.xml';
+  LAYOUT_CS  = 'notepas.highlighter.cs.xml';
 
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';

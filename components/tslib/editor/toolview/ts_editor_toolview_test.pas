@@ -18,20 +18,27 @@
 
 unit ts_Editor_ToolView_Test;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, Forms, Controls,
-  Graphics, Dialogs, StdCtrls, ExtCtrls,
+  Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, ShortPathEdit,
+  LvlGraphCtrl, TreeFilterEdit, CodyCtrls, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls,
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts_Editor_ToolView_Base;
 
 type
-  TfrmTest = class(TCustomEditorToolView, IEditorToolView)
+
+  { TfrmTest }
+
+  TfrmTest = class(TCustomEditorToolView)
     btnExecute : TButton;
+    CodyTreeView1: TCodyTreeView;
     pnlTest    : TPanel;
+    ShortPathEdit1: TShortPathEdit;
+    TreeFilterEdit1: TTreeFilterEdit;
   end;
 
 implementation

@@ -1,6 +1,6 @@
 unit ts_Editor_ToolView_ScriptEditor;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

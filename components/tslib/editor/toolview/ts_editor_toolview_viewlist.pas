@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_ViewList;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

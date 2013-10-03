@@ -29,7 +29,7 @@ unit ts_Editor_ToolView_Search;
     - copy all matches to a stringlist when regular expressions are used
 }
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

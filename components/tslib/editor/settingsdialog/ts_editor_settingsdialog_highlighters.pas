@@ -537,9 +537,9 @@ end;
 
 procedure TfrmOptionsThemes.SEMouseDown(Sender: TObject;
   Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
+//var
   //B: TBufferCoord;
-  S: string;
+//  S: string;
   //A: TSynHighlighterAttributes;
 begin
   //B := SE.DisplayToBufferPos(SE.PixelsToRowColumn(X, Y));

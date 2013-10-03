@@ -108,7 +108,7 @@ type
 
     property FormatterSupport: Boolean
       read FFormatterSupport write SetFormatterSupport;
-
+    { comma seperated list of file extensions }
     property FileExtensions: string
       read GetFileExtensions write SetFileExtensions;
 

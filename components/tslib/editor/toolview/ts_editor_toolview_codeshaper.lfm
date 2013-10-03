@@ -135,7 +135,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Width = 57
           Options = [dboShowIndicator]
           Action = actToggleBreakSide
-          Caption = 'after'
+          Caption = 'before'
           Flat = True
           Font.Color = clBlue
           Font.Style = [fsUnderline]

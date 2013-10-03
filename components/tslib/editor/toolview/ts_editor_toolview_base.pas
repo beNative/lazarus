@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_Base;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
@@ -28,7 +28,7 @@ uses
   ts.Editor.Interfaces;
 
 type
-  TCustomEditorToolView = class(TForm, IEditorToolView, IClipboardCommands)
+  TCustomEditorToolView = class(TForm, IClipboardCommands)
   strict private
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
@@ -83,13 +83,12 @@ implementation
 {$R *.lfm}
 
 uses
-{$ifdef windows}
+{$IFDEF windows}
   Windows,
 {$endif}
   LCLIntf, LMessages;
 
 {$region 'construction and destruction' /fold}
-
 procedure TCustomEditorToolView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -102,11 +101,9 @@ begin
     Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TCustomEditorToolView.GetUpdate: Boolean;
 begin
   Result := FUpdate;
@@ -154,7 +151,6 @@ function TCustomEditorToolView.GetSettings: IEditorSettings;
 begin
   Result := Owner as IEditorSettings;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -202,14 +198,14 @@ end;
 
 procedure TCustomEditorToolView.Undo;
 begin
-{$ifdef windows}
+{$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 0, 0);
 {$endif}
 end;
 
 procedure TCustomEditorToolView.Redo;
 begin
-{$ifdef windows}
+{$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 1, 0);
 {$endif}
 end;

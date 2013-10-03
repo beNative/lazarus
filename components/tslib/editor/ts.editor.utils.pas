@@ -273,7 +273,7 @@ uses
 
   ts.Core.BRRE, ts.Core.BRREUnicode,
 
-  ts.Editor.Resources, ts.Editor.CommentStripper;
+  ts_Editor_Resources, ts.Editor.CommentStripper;
 
 { Will remove all spaces from the given string, but preserves one space
   between words. Spaces used to indent the given string will not be removed

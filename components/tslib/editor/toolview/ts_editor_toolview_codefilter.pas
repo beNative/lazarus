@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_CodeFilter;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
@@ -194,7 +194,7 @@ implementation
 
 uses
   Clipbrd, StrUtils,
-{$ifdef windows}
+{$IFDEF windows}
   Windows,
 {$endif}
   LCLIntf, LMessages,
@@ -203,7 +203,7 @@ uses
 
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Helpers, ts.Core.Utils,
 
-  ts.Editor.Resources;
+  ts_Editor_Resources;
 
 type
   TVKSet = set of Byte;
@@ -476,7 +476,7 @@ procedure TfrmCodeFilterDialog.edtFilterKeyUp(Sender: TObject; var Key: Word; Sh
 begin
   if FVKPressed and FVST.Enabled then
   begin
-{$ifdef windows}
+{$IFDEF windows}
     PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
 {$endif}
     if Visible and FVST.CanFocus then
@@ -728,14 +728,14 @@ end;
 
 procedure TfrmCodeFilterDialog.Undo;
 begin
-{$ifdef windows}
+{$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 0, 0);
 {$endif}
 end;
 
 procedure TfrmCodeFilterDialog.Redo;
 begin
-{$ifdef windows}
+{$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 1, 0);
 {$endif}
 end;

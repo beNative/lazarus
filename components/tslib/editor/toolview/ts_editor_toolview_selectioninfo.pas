@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_SelectionInfo;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

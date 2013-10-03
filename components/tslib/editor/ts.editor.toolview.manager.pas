@@ -16,14 +16,16 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.Toolview.Manager;
+unit ts.Editor.ToolView.Manager;
 
 {$MODE Delphi}
 
 interface
 
+{ TToolViewManager allows for lazy instantiation of toolviews. }
+
 uses
-  Classes, SysUtils, Contnrs,
+  Classes, SysUtils, Contnrs, Forms,
 
   ts.Editor.Interfaces;
 
@@ -31,107 +33,175 @@ type
 
   { TToolView }
 
-  TToolView = class
+  TToolView = class(TInterfacedObject, IEditorToolView)
   strict private
     FName      : string;
     FFormClass : TComponentClass;
-    FInstance  : IEditorToolView;
+    FForm      : TForm;
     FManager   : IEditorManager;
 
-    function GetInstance: IEditorToolView;
+  strict protected
+    function GetForm: TForm;
     function GetVisible: Boolean;
+    procedure SetVisible(AValue: Boolean);
+    procedure SetFocus;
+    function Focused: Boolean;
+    function GetName: string;
 
   public
-    constructor Create(AManager: IEditorManager);
+    constructor Create(
+            AManager   : IEditorManager;
+            AFormClass : TComponentClass;
+      const AName      : string
+    );
     procedure BeforeDestruction; override;
 
     property Name: string
-      read FName write FName;
+      read GetName;
+
+    { Lets the view respond to changes. }
+    procedure UpdateView;
+
+    //procedure Refresh; TODO: refresh all items
+
+    property Form: TForm
+      read GetForm;
 
     property FormClass: TComponentClass
       read FFormClass write FFormClass;
 
-    property Instance: IEditorToolView
-      read GetInstance;
-
     property Visible: Boolean
-      read GetVisible;
+      read GetVisible write SetVisible;
   end;
 
-  { TToolViewManager }
+  { TToolViews }
 
-  TToolViewManager = class
+  TToolViews = class(TInterfacedObject, IEditorToolViews)
   strict private
-    FItems   : TObjectList;
+    FItems   : TInterfaceList;
     FManager : IEditorManager;
+
+  strict protected
+    function GetView(AIndex: Integer): IEditorToolView;
+    function GetViewByName(AName: string): IEditorToolView;
     function GetCount: Integer;
 
-  public
+    function GetEnumerator: TEditorToolViewListEnumerator;
+
     function Register(
             AFormClass : TComponentClass;
       const AName      : string = ''
     ): Boolean;
 
-    constructor Create(AEditorManager: IEditorManager);
+    procedure Hide;
 
-    procedure BeforeDestruction; override;
+    property Views[AIndex: Integer]: IEditorToolView
+      read GetView;
 
-    function FindByName(const AName: string): IEditorToolView;
-
-    property Items: TObjectList
-      read FItems;
+    property ViewByName[AName: string]: IEditorToolView
+      read GetViewByName; default;
 
     property Count: Integer
       read GetCount;
+
+  public
+    constructor Create(AEditorManager: IEditorManager);
+    procedure BeforeDestruction; override;
+
   end;
 
 implementation
 
 uses
-  StrUtils, Forms;
+  StrUtils,
+
+  sharedlogger;
 
 { TToolView }
 
 {$region 'construction and destruction' /fold}
-constructor TToolView.Create(AManager: IEditorManager);
+constructor TToolView.Create(AManager: IEditorManager;
+  AFormClass: TComponentClass; const AName: string);
 begin
   inherited Create;
-  FManager := AManager;
+  FManager   := AManager;
+  FFormClass := AFormClass;
+  FName      := AName;
 end;
 
 procedure TToolView.BeforeDestruction;
 begin
-  FInstance := nil;
   FManager := nil;
   inherited BeforeDestruction;
 end;
 {$endregion}
 
-function TToolView.GetInstance: IEditorToolView;
+{$region 'property access mehods' /fold}
+function TToolView.GetForm: TForm;
 begin
-  if not Assigned(FInstance) then
-    FInstance := FFormClass.Create(
+  if not Assigned(FForm) then
+  begin
+    FForm := FFormClass.Create(
       (FManager as IInterfaceComponentReference).GetComponent
-    ) as IEditorToolView;
-  Result := FInstance;
+    ) as TForm;
+    Logger.Send('Created ' + FForm.Name);
+  end;
+  Result := FForm;
 end;
 
 function TToolView.GetVisible: Boolean;
 begin
-  Result := Assigned(FInstance) and FInstance.Visible;
+  Result := Assigned(FForm) and FForm.Visible;
 end;
 
-{ TToolViewManager }
+procedure TToolView.SetVisible(AValue: Boolean);
+begin
+  if AValue <> Visible then
+  begin
+    if not AValue and Assigned(FForm) then
+    begin
+      FForm.Visible := False
+    end
+    else
+      Form.Visible := AValue;
+  end;
+end;
+
+procedure TToolView.SetFocus;
+begin
+  if Assigned(FForm) and FForm.CanFocus then
+    FForm.SetFocus;
+end;
+
+function TToolView.GetName: string;
+begin
+  Result := FName;
+end;
+{$endregion}
+
+{$region 'protected methods' /fold}
+procedure TToolView.UpdateView;
+begin
+  //Instance.UpdateView;
+end;
+
+function TToolView.Focused: Boolean;
+begin
+  Result := Assigned(FForm) and FForm.Focused;
+end;
+{$endregion}
+
+{ TToolViews }
 
 {$region 'construction and destruction' /fold}
-constructor TToolViewManager.Create(AEditorManager: IEditorManager);
+constructor TToolViews.Create(AEditorManager: IEditorManager);
 begin
   inherited Create;
   FManager := AEditorManager;
-  FItems    := TObjectList.Create(True);
+  FItems   := TInterfaceList.Create;
 end;
 
-procedure TToolViewManager.BeforeDestruction;
+procedure TToolViews.BeforeDestruction;
 begin
   FManager := nil;
   FItems.Free;
@@ -139,38 +209,59 @@ begin
 end;
 {$endregion}
 
-function TToolViewManager.FindByName(const AName: string): IEditorToolView;
+function TToolViews.GetView(AIndex: Integer): IEditorToolView;
+begin
+  Result := FItems[AIndex] as IEditorToolView;
+end;
+
+function TToolViews.GetViewByName(AName: string): IEditorToolView;
 var
-  TV : TToolView;
+  TV : IEditorToolView;
   I  : Integer;
 begin
   I := 0;
+  Result := nil;
   while (I < FItems.Count) and not Assigned(Result) do
   begin
-    TV := TToolView(FItems[I]);
+    TV := Views[I];
     if TV.Name = AName then
-      Result := TV.Instance;
+      Result := TV;
     Inc(I);
   end;
+  if not Assigned(Result) then
+    raise Exception.CreateFmt('ToolView (%s) not found!', [AName]);
 end;
 
-function TToolViewManager.GetCount: Integer;
+function TToolViews.GetCount: Integer;
 begin
-  Result := Items.Count;
+  Result := FItems.Count;
 end;
 
-function TToolViewManager.Register(AFormClass: TComponentClass;
+function TToolViews.GetEnumerator: TEditorToolViewListEnumerator;
+begin
+  Result := TEditorToolViewListEnumerator.Create(Self);
+end;
+
+function TToolViews.Register(AFormClass: TComponentClass;
   const AName: string): Boolean;
 var
-  S : string;
-  C : TToolView;
+  S  : string;
+  TV : IEditorToolView;
 begin
-  S := IfThen(AName = '', AFormClass.ClassName, AName);
-  C := TToolView.Create(FManager);
-  C.Name := S;
-  C.FormClass := AFormClass;
-  FItems.Add(C);
+  S  := IfThen(AName = '', AFormClass.ClassName, AName);
+  TV := TToolView.Create(FManager, AFormClass, S);
+  FItems.Add(TV);
   Result := True;
+end;
+
+procedure TToolViews.Hide;
+var
+  TV: IEditorToolView;
+begin
+  for TV in (Self as IEditorToolViews) do
+  begin
+    TV.Visible := False;
+  end;
 end;
 
 end.

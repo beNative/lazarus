@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_Shortcuts;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

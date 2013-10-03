@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_Structure;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
@@ -32,11 +32,11 @@ uses
 
 type
   TfrmStructure = class(TCustomEditorToolView, IEditorToolView)
-    btnInspect : TButton;
-    btnExpand: TButton;
-    btnCollapse: TButton;
-    pnlHeader: TPanel;
-    pnlXmlTree: TPanel;
+    btnInspect  : TButton;
+    btnExpand   : TButton;
+    btnCollapse : TButton;
+    pnlHeader   : TPanel;
+    pnlXmlTree  : TPanel;
 
     procedure btnCollapseClick(Sender: TObject);
     procedure btnExpandClick(Sender: TObject);

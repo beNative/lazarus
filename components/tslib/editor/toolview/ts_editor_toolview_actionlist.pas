@@ -18,7 +18,7 @@
 
 unit ts_Editor_ToolView_ActionList;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 
@@ -89,7 +89,7 @@ implementation
 {$R *.lfm}
 
 uses
-  TypInfo, StrUtils, Variants, ImgList, Graphics,
+  TypInfo, StrUtils, Variants, Graphics,
 
   SynEditKeyCmds, SynEditMouseCmds,
 

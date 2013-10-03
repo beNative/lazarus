@@ -18,7 +18,7 @@
 
 unit ts_Core_ComponentInspector;
 
-{$mode delphi}
+{$MODE Delphi}
 
 { Author: Tim Sinaeve
   Lazarus version with native RTTI grid
@@ -255,7 +255,7 @@ begin
   M      := Screen.MonitorFromWindow(Application.MainFormHandle);
   Top    := 0;
   Left   := M.Left;
-{$ifdef windows}
+{$IFDEF windows}
   Height := Screen.WorkAreaHeight - TaskbarHeight;
 {$endif}
 end;

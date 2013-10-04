@@ -11,23 +11,36 @@ uses
 
   ts.Editor.Interfaces;
 
+//TCaretPositionEvent = procedure(
+//  Sender : TObject;
+//  X, Y   : Integer
+//) of object;
+
+type
+
+  { TCaretPositionEvents }
+
+  TCaretPositionEvents = class(TMethodList)
+    procedure CallEvents(Sender: TObject; X, Y: Integer);
+  end;
+
+
 type
 
   { TEditorEvents }
 
   TEditorEvents = class(TInterfacedObject, IEditorEvents)
-  private
+  strict private
     FManager                : IEditorManager;
     FChangeEvents           : TMethodList;
     FModifiedEvents         : TMethodList;
     FActiveViewChangeEvents : TMethodList;
+    FCaretPositionEvents    : TCaretPositionEvents;
 
-    //FOnActiveViewChange    : TNotifyEvent;
     FOnAddEditorView       : TAddEditorViewEvent;
     FOnShowEditorToolView  : TEditorToolViewEvent;
     FOnHideEditorToolView  : TEditorToolViewEvent;
     FOnCaretPositionChange : TCaretPositionEvent;
-    //FOnChange              : TNotifyEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
     FOnNewFile             : TNewFileEvent;
     FOnOpenFile            : TFileEvent;
@@ -35,11 +48,10 @@ type
     FOnSaveFile            : TFileEvent;
     FOnStatusChange        : TStatusChangeEvent;
     FOnStatusMessage       : TStatusMessageEvent;
-    function GetView: IEditorView;
 
   strict protected
+    function GetView: IEditorView;
     function GetOnAddEditorView: TAddEditorViewEvent;
-    function GetOnCaretPositionChange: TCaretPositionEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnNewFile: TNewFileEvent;
@@ -49,7 +61,6 @@ type
     function GetOnShowEditorToolView: TEditorToolViewEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
-    procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
@@ -60,10 +71,9 @@ type
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
 
     { will get called by owner to trigger the events }
-    procedure DoChange;
-    procedure DoModified;
-    procedure DoActiveViewChange;
-
+    procedure DoChange; virtual;
+    procedure DoModified; virtual;
+    procedure DoActiveViewChange; virtual;
     procedure DoAddEditorView(AEditorView: IEditorView); virtual;
     procedure DoShowToolView(AToolView: IEditorToolView); virtual;
     procedure DoHideToolView(AToolView: IEditorToolView); virtual;
@@ -82,10 +92,12 @@ type
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
@@ -95,10 +107,6 @@ type
 
     property OnHideEditorToolView: TEditorToolViewEvent
       read GetOnHideEditorToolView write SetOnHideEditorToolView;
-
-    { triggered when caret position changes }
-    property OnCaretPositionChange: TCaretPositionEvent
-      read GetOnCaretPositionChange write SetOnCaretPositionChange;
 
     property OnStatusChange: TStatusChangeEvent
       read GetOnStatusChange write SetOnStatusChange;
@@ -130,6 +138,17 @@ type
 
 implementation
 
+{ TCaretPositionEvents }
+
+procedure TCaretPositionEvents.CallEvents(Sender: TObject; X, Y: Integer);
+var
+  I: Integer;
+begin
+  I := Count;
+  while NextDownIndex(I) do
+    TCaretPositionEvent(Items[I])(Sender, X, Y);
+end;
+
 { TEditorEvents }
 
 function TEditorEvents.GetView: IEditorView;
@@ -140,11 +159,6 @@ end;
 function TEditorEvents.GetOnAddEditorView: TAddEditorViewEvent;
 begin
   Result := FOnAddEditorView;
-end;
-
-function TEditorEvents.GetOnCaretPositionChange: TCaretPositionEvent;
-begin
-  Result := FOnCaretPositionChange;
 end;
 
 function TEditorEvents.GetOnHideEditorToolView: TEditorToolViewEvent;
@@ -190,12 +204,6 @@ end;
 procedure TEditorEvents.SetOnAddEditorView(AValue: TAddEditorViewEvent);
 begin
   FOnAddEditorView := AValue;
-end;
-
-procedure TEditorEvents.SetOnCaretPositionChange(
-  const AValue: TCaretPositionEvent);
-begin
-  FOnCaretPositionChange := AValue;
 end;
 
 procedure TEditorEvents.SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
@@ -274,8 +282,7 @@ end;
 
 procedure TEditorEvents.DoCaretPositionChange;
 begin
-  if Assigned(FOnCaretPositionChange) then
-    FOnCaretPositionChange(Self, View.CaretX, View.CaretY);
+  FCaretPositionEvents.CallEvents(Self, View.CaretX, View.CaretY);
 end;
 
 procedure TEditorEvents.DoMacroStateChange(AState: TSynMacroState);
@@ -347,6 +354,11 @@ begin
   FActiveViewChangeEvents.Add(TMethod(AEvent));
 end;
 
+procedure TEditorEvents.AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+begin
+  FCaretPositionEvents.Add(TMethod(AEvent));
+end;
+
 procedure TEditorEvents.RemoveOnChangeHandler(AEvent: TNotifyEvent);
 begin
   FChangeEvents.Remove(TMethod(AEvent));
@@ -362,6 +374,11 @@ begin
   FActiveViewChangeEvents.Remove(TMethod(AEvent));
 end;
 
+procedure TEditorEvents.RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+begin
+  FCaretPositionEvents.Remove(TMethod(AEvent));
+end;
+
 constructor TEditorEvents.Create(AManager: IEditorManager);
 begin
   inherited Create;
@@ -374,6 +391,7 @@ begin
   FChangeEvents           := TMethodList.Create;
   FModifiedEvents         := TMethodList.Create;
   FActiveViewChangeEvents := TMethodList.Create;
+  FCaretPositionEvents    := TCaretPositionEvents.Create;
 end;
 
 procedure TEditorEvents.BeforeDestruction;
@@ -382,6 +400,7 @@ begin
   FChangeEvents.Free;
   FModifiedEvents.Free;
   FActiveViewChangeEvents.Free;
+  FCaretPositionEvents.Free;
   inherited BeforeDestruction;
 end;
 

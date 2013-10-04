@@ -535,12 +535,10 @@ type
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
-    function GetOnCaretPositionChange: TCaretPositionEvent;
     function GetOnNewFile: TNewFileEvent;
     function GetOnOpenFile: TFileEvent;
     function GetOnSaveFile: TFileEvent;
     function GetOnStatusChange: TStatusChangeEvent;
-    procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
     procedure SetOnOpenFile(const AValue: TFileEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
@@ -571,15 +569,14 @@ type
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 
     // events
-    //property OnActiveViewChange: TNotifyEvent
-    //  read GetOnActiveViewChange write SetOnActiveViewChange;
-
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
 
@@ -589,15 +586,8 @@ type
     property OnHideEditorToolView: TEditorToolViewEvent
       read GetOnHideEditorToolView write SetOnHideEditorToolView;
 
-    { triggered when caret position changes }
-    property OnCaretPositionChange: TCaretPositionEvent
-      read GetOnCaretPositionChange write SetOnCaretPositionChange;
-
     property OnStatusChange: TStatusChangeEvent
       read GetOnStatusChange write SetOnStatusChange;
-
-    //property OnChange: TNotifyEvent
-    //  read GetOnChange write SetOnChange;
 
     property OnMacroStateChange: TMacroStateChangeEvent
       read GetOnMacroStateChange write SetOnMacroStateChange;

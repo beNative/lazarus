@@ -23,11 +23,14 @@ unit ts_Editor_ToolView_Base;
 interface
 
 uses
-  Forms,
+  Forms, Classes,
 
   ts.Editor.Interfaces;
 
 type
+
+  { TCustomEditorToolView }
+
   TCustomEditorToolView = class(TForm, IClipboardCommands)
   strict private
     // this flag is set when there are pending updates.
@@ -41,6 +44,9 @@ type
     procedure SetUpdate(AValue: Boolean);
 
     procedure EditorSettingsChanged(Sender: TObject);
+    procedure EditorActiveViewChanged(Sender: TObject);
+    procedure EditorModified(Sender: TObject);
+    procedure EditorChange(Sender: TObject);
 
   strict protected
     function GetForm: TForm;
@@ -93,12 +99,13 @@ procedure TCustomEditorToolView.AfterConstruction;
 begin
   inherited AfterConstruction;
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
+  Manager.Events.AddOnActiveViewChangeHandler(EditorActiveViewChanged);
+  Manager.Events.AddOnChangeHandler(EditorChange);
+  Manager.Events.AddOnModifiedHandler(EditorModified);
 end;
 
 procedure TCustomEditorToolView.BeforeDestruction;
 begin
-  if Assigned(Settings) then
-    Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
   inherited BeforeDestruction;
 end;
 {$endregion}
@@ -158,6 +165,21 @@ end;
 procedure TCustomEditorToolView.EditorSettingsChanged(Sender: TObject);
 begin
   SettingsChanged;
+end;
+
+procedure TCustomEditorToolView.EditorActiveViewChanged(Sender: TObject);
+begin
+  UpdateView;
+end;
+
+procedure TCustomEditorToolView.EditorModified(Sender: TObject);
+begin
+  UpdateView;
+end;
+
+procedure TCustomEditorToolView.EditorChange(Sender: TObject);
+begin
+  UpdateView;
 end;
 
 {$endregion}

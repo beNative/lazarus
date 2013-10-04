@@ -34,6 +34,9 @@ uses
   ts_Editor_ToolView_Base;
 
 type
+
+  { TfrmPreview }
+
   TfrmPreview = class(TCustomEditorToolView, IEditorToolView)
     mniSelectAll                : TMenuItem;
     mniOpenSelectionInNewEditor : TMenuItem;
@@ -42,6 +45,8 @@ type
 
   strict private
      FSynExporterRTF: TSynExporterRTF;
+
+    procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
 
   strict protected
     procedure UpdateView; override;
@@ -62,6 +67,7 @@ begin
   inherited AfterConstruction;
   FSynExporterRTF := TSynExporterRTF.Create(Self);
   mmoPreview.DoubleBuffered := True;
+  Manager.Events.AddOnCaretPositionEvent(EditorCaretPositionChange);
 end;
 
 {$endregion}
@@ -73,6 +79,11 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
+
+procedure TfrmPreview.EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
+begin
+  UpdateView;
+end;
 
 procedure TfrmPreview.UpdateView;
 var

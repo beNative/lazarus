@@ -38,8 +38,7 @@ type
 
   { TfrmCodeFilterDialog }
 
-  TfrmCodeFilterDialog = class(TForm, IEditorToolView,
-                                      IClipboardCommands)
+  TfrmCodeFilterDialog = class(TForm, IClipboardCommands)
     {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
@@ -80,6 +79,8 @@ type
     procedure actMatchCaseExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
     procedure EditorSettingsChanged(Sender: TObject);
+    procedure EditorActiveViewChanged(Sender: TObject);
+    procedure EditorChange(Sender: TObject);
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -264,6 +265,8 @@ procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
+  Manager.Events.AddOnActiveViewChangeHandler(EditorActiveViewChanged);
+  Manager.Events.AddOnChangeHandler(EditorChange);
   FTextStyle.SingleLine := True;
   FTextStyle.Opaque := False;
   FTextStyle.ExpandTabs := False;
@@ -311,7 +314,6 @@ begin
   FRegExpr.Free;
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
@@ -379,6 +381,17 @@ begin
   FVST.Font.Size := 8;
 end;
 
+procedure TfrmCodeFilterDialog.EditorActiveViewChanged(Sender: TObject);
+begin
+  Modified;
+  UpdateView;
+end;
+
+procedure TfrmCodeFilterDialog.EditorChange(Sender: TObject);
+begin
+  Modified;
+  UpdateView;
+end;
 {$endregion}
 
 {$region 'action handlers' /fold}
@@ -760,8 +773,11 @@ begin
     if Filter = '' then
       UpdateView
     else
+    begin
     {END workaround}
+      UpdateView;
       ApplyFilter;
+    end;
     FUpdate := False;
   end;
   if FUpdateEditorView then // update position in the editorview

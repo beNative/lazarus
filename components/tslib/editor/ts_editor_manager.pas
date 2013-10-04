@@ -600,25 +600,6 @@ type
       Operation  : TOperation
     ); override;
 
-    // event dispatch methods
-    //procedure DoActiveViewChange; virtual;
-    //procedure DoAddEditorView(AEditorView: IEditorView); virtual;
-    //procedure DoShowToolView(AToolView: IEditorToolView); virtual;
-    //procedure DoHideToolView(AToolView: IEditorToolView); virtual;
-    //procedure DoCaretPositionChange; virtual;
-    //procedure DoMacroStateChange(AState : TSynMacroState); virtual;
-    //procedure DoOpenOtherInstance(const AParams: array of string); virtual;
-    //procedure DoStatusMessage(AText: string); virtual;
-    //procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
-    //procedure DoChange; virtual;
-    //procedure DoModified; virtual;
-    //procedure DoSaveFile;
-    //procedure DoOpenFile(const AFileName: string);
-    //procedure DoNewFile(
-    //  const AFileName : string = '';
-    //  const AText     : string = ''
-    //);
-
     procedure UpdateActions;
     procedure UpdateEncodingActions;
     procedure UpdateLineBreakStyleActions;
@@ -745,44 +726,6 @@ type
     property ViewCount: Integer
       read GetViewCount;
     {$endregion}
-
-    {$region 'IEditorEvents'}
-    //property OnActiveViewChange: TNotifyEvent
-    //  read GetOnActiveViewChange write SetOnActiveViewChange;
-    //
-    //property OnAddEditorView: TAddEditorViewEvent
-    //  read GetOnAddEditorView write SetOnAddEditorView;
-    //
-    //property OnShowEditorToolView: TEditorToolViewEvent
-    //  read GetOnShowEditorToolView write SetOnShowEditorToolView;
-    //
-    //property OnHideEditorToolView: TEditorToolViewEvent
-    //  read GetOnHideEditorToolView write SetOnHideEditorToolView;
-    //
-    //property OnCaretPositionChange: TCaretPositionEvent
-    //  read GetOnCaretPositionChange write SetOnCaretPositionChange;
-    //
-    //property OnStatusChange: TStatusChangeEvent
-    //  read GetOnStatusChange write SetOnStatusChange;
-    //
-    //property OnChange: TNotifyEvent
-    //  read GetOnChange write SetOnChange;
-    //
-    //property OnMacroStateChange: TMacroStateChangeEvent
-    //  read GetOnMacroStateChange write SetOnMacroStateChange;
-    //
-    //property OnOpenFile: TFileEvent
-    //  read GetOnOpenFile write SetOnOpenFile;
-    //
-    //property OnNewFile: TNewFileEvent
-    //  read GetOnNewFile write SetOnNewFile;
-    //
-    //property OnSaveFile: TFileEvent
-    //  read GetOnSaveFile write SetOnSaveFile;
-    //
-    //property OnOpenOtherInstance: TOpenOtherInstanceEvent
-    //  read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
-   {$endregion}
 
   public
     procedure AfterConstruction; override;
@@ -1858,10 +1801,10 @@ end;
 
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
-  if actShowPreview.Checked <> Settings.PreviewVisible then
-  begin
-    actShowPreview.Execute;
-  end;
+  //if actShowPreview.Checked <> Settings.PreviewVisible then
+  //begin
+  //  actShowPreview.Execute;
+  //end;
   FUniqueInstance.Enabled := Settings.SingleInstance;
   ApplyHighlighterAttributes;
 end;
@@ -2553,9 +2496,7 @@ begin
   UpdateEncodingActions;
   UpdateLineBreakStyleActions;
   UpdateFileActions;
-//  UpdateToolViews;
-  //UpdateSearchMatches;
-  //UpdateCodeFilter;
+//  Events.DoActiveViewChange;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2731,8 +2672,11 @@ end;
 { TODO -oTS : Not correct! }
 
 procedure TdmEditorManager.LoadFile;
+var
+  S: string;
 begin
-  //Events.DoOpenFile(ActiveView.FileName);
+  S := ActiveView.FileName;
+  Events.DoOpenFile(S);
   // reload file from disk
 end;
 
@@ -3017,21 +2961,25 @@ begin
     actRedo.Enabled := B and V.CanRedo;
     actUndo.Enabled := B and V.CanUndo;
 
+    B := ActiveView.Focused;
+    actCut.Enabled   := actCut.Visible and B;
+    actCopy.Enabled  := actCopy.Visible and B;
+    actPaste.Enabled := actPaste.Visible and ActiveView.CanPaste and B;
 
-    //if ToolViews.Count > 0 then
-    //begin
-    //  actInsertCharacterFromMap.Checked := ToolViews['CharacterMap'].Visible;
-    //  actSearch.Checked                 := ToolViews['Search'].Visible;
-    //  actShapeCode.Checked              := ToolViews['CodeShaper'].Visible;
-    //  actAlignSelection.Checked         := ToolViews['AlignLines'].Visible;
-    //  actShowPreview.Checked            := ToolViews['Preview'].Visible;
-    //  actFilterCode.Checked             := ToolViews['CodeFilter'].Visible;
-    //  actShowViews.Checked              := ToolViews['ViewList'].Visible;
-    //  actShowActions.Checked            := ToolViews['ActionListView'].Visible;
-    //  actShowHexEditor.Checked          := ToolViews['HexEditor'].Visible;
-    //  actShowMiniMap.Checked            := ToolViews['MiniMap'].Visible;
-    //  actShowHTMLViewer.Checked         := ToolViews['HTMLView'].Visible;
-    //end;
+    if ToolViews.Count > 0 then
+    begin
+      actInsertCharacterFromMap.Checked := ToolViews['CharacterMap'].Visible;
+      actSearch.Checked                 := ToolViews['Search'].Visible;
+      actShapeCode.Checked              := ToolViews['CodeShaper'].Visible;
+      actAlignSelection.Checked         := ToolViews['AlignLines'].Visible;
+      actShowPreview.Checked            := ToolViews['Preview'].Visible;
+      actFilterCode.Checked             := ToolViews['CodeFilter'].Visible;
+      actShowViews.Checked              := ToolViews['ViewList'].Visible;
+      actShowActions.Checked            := ToolViews['ActionListView'].Visible;
+      actShowHexEditor.Checked          := ToolViews['HexEditor'].Visible;
+      actShowMiniMap.Checked            := ToolViews['MiniMap'].Visible;
+      actShowHTMLViewer.Checked         := ToolViews['HTMLView'].Visible;
+    end;
 
 
     B := V.SupportsFolding;

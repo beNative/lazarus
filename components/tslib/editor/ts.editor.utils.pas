@@ -990,18 +990,18 @@ end;
 function GuessHighlighterType(const AText: string): string;
 begin
   Result := '';
-  if IsLOG(AText) then
-    Result := HL_LOG
-  else if IsPAS(AText) then
-    Result := HL_PAS
-  else if IsLFM(AText) then
-    Result := HL_LFM
-  else if IsHTML(AText) then
-    Result := HL_HTML
-  else if IsXML(AText) then
-    Result := HL_XML
-  else if IsSQL(AText) then
-    Result := HL_SQL;
+  //if IsLOG(AText) then
+  //  Result := HL_LOG
+  //else if IsPAS(AText) then
+  //  Result := HL_PAS
+  //else if IsLFM(AText) then
+  //  Result := HL_LFM
+  //else if IsHTML(AText) then
+  //  Result := HL_HTML
+  //else if IsXML(AText) then
+  //  Result := HL_XML
+  //else if IsSQL(AText) then
+  //  Result := HL_SQL;
 end;
 
 function ChangeLineBreakStyle(const AString: string;

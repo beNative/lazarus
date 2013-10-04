@@ -561,6 +561,8 @@ uses
 
   SynEditMouseCmds,
 
+  ts.Core.Utils,
+
   ts.Editor.Utils;
 
 {$region 'construction and destruction' /fold}
@@ -671,6 +673,7 @@ end;
 
 procedure TEditorView.EditorChange(Sender: TObject);
 begin
+  Logger.Send('EditorChange');
   DoChange;
   Events.DoChange;
 end;
@@ -680,6 +683,8 @@ procedure TEditorView.EditorStatusChange(Sender: TObject;
 begin
   if not (csDestroying in ComponentState) then
   begin
+    Logger.Send('StatusChange: ', SetToString(TypeInfo(TSynStatusChanges), Changes));
+
     // we use this event to ensure that the view is activated because the OnEnter
     // event is not triggered when the form is undocked!
 
@@ -693,6 +698,10 @@ begin
     if (scCaretX in Changes) or (scCaretY in Changes) then
     begin
       Events.DoCaretPositionChange;
+    end;
+    if scModified in Changes then
+    begin
+      Events.DoModified;
     end;
   end;
 end;

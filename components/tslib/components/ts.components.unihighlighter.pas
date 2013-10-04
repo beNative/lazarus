@@ -568,6 +568,9 @@ type
     property MainRules: TSynRange
       read FMainRules write FMainRules;
 
+  published
+    property Enabled default False;
+
   end;
 
   TNodeType = (
@@ -2888,17 +2891,17 @@ begin
 end;
 
 procedure TSynUniSyn.DefineProperties(Filer: TFiler);
-var
-  B: Boolean;
+//var
+//  B: Boolean;
 begin
   inherited;
-  if Filer.Ancestor <> nil then
-  begin
-    B := True;
-  end
-  else
-    B := MainRules.RangeCount > 0;
-  Filer.DefineProperty('Syntax', @ReadSyntax, @WriteSyntax, B);
+  //if Filer.Ancestor <> nil then
+  //begin
+  //  B := True;
+  //end
+  //else
+  //  B := MainRules.RangeCount > 0;
+  //Filer.DefineProperty('Syntax', @ReadSyntax, @WriteSyntax, B);
 end;
 
 (*

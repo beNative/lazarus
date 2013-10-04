@@ -3897,7 +3897,6 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Copy selection'
       ImageIndex = 1
       OnExecute = actCopyExecute
-      ShortCut = 16451
     end
     object actInsertCharacterFromMap: TAction
       Category = 'Insert'

@@ -26,6 +26,8 @@ uses
   Classes, SysUtils, Forms, Controls, ActnList, ExtCtrls, ComCtrls, StdCtrls,
   Contnrs,
 
+  PropEdits,
+
   RTTIGrids, ButtonPanel,
 
   VirtualTrees,
@@ -56,6 +58,7 @@ type
     btnOpenSettingsFile: TButton;
     btnReloadSettings: TButton;
     btnAssociate: TButton;
+    pnlHLRightTop: TPanel;
     pnlButtons                  : TButtonPanel;
     imlMain                     : TImageList;
     pcMain                      : TPageControl;
@@ -66,6 +69,7 @@ type
     pnlHLRight: TPanel;
     pnlHighlighterAttributes    : TPanel;
     pnlHighlighters: TPanel;
+    pnlHLRightBottom: TPanel;
     pnlPI                       : TPanel;
     pnlTop                      : TPanel;
     pnlXML: TPanel;
@@ -81,7 +85,11 @@ type
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
+    procedure FHAPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
+      var aShow: boolean);
     procedure FHATVPSelectionChanged(Sender: TObject);
+    procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
+      var aShow: boolean);
     procedure FHLTVPSelectionChanged(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure plObjectInspector1AddAvailPersistent(APersistent: TPersistent;
@@ -94,6 +102,7 @@ type
     FPI      : TTIPropertyGrid;
     FHAPI    : TTIPropertyGrid;
     FHLPI    : TTIPropertyGrid;
+    FSHLPI   : TTIPropertyGrid;
     FHAVST   : TVirtualStringTree;
     FHLVST   : TVirtualStringTree;
     FXMLTree : TXMLTree;
@@ -131,7 +140,9 @@ uses
 
   ts.Components.FileAssociation,
 
-  ts.Editor.HighlighterAttributes, ts.Editor.Highlighters;
+  ts.Editor.HighlighterAttributes, ts.Editor.Highlighters,
+
+  sharedlogger;
 
 var
   FForm: TfrmEditorSettings;
@@ -190,7 +201,8 @@ begin
   FHLTVP.ItemTemplate := THighlightersDataTemplate.Create;
   FPI                 := CreatePI(Self, pnlPI);
   FHAPI               := CreatePI(Self, pnlHARight);
-  FHLPI               := CreatePI(Self, pnlHLRight);
+  FHLPI               := CreatePI(Self, pnlHLRightTop);
+  FSHLPI              := CreatePI(Self, pnlHLRightBottom);
   FHAVST              := CreateVST(Self, pnlHALeft);
   FHLVST              := CreateVST(Self, pnlHLLeft);
   FXMLTree            := CreateXMLTree(Self, pnlXML);
@@ -200,6 +212,7 @@ begin
   tsHighlighters.TabVisible := Settings.DebugMode;
   if Settings.DebugMode then
     FXMLTree.XML := Settings.XML;
+  FHLPI.OnEditorFilter := FHLPIEditorFilter;
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
@@ -231,9 +244,26 @@ begin
   FHAPI.TIObject := FHATVP.CurrentItem as TPersistent;
 end;
 
+procedure TfrmEditorSettings.FHLPIEditorFilter(Sender: TObject;
+  aEditor: TPropertyEditor; var aShow: boolean);
+begin
+  Logger.Send(aEditor.GetName);
+  if aEditor.GetName = 'SynHighlighter' then
+    aShow := False;
+end;
+
 procedure TfrmEditorSettings.FHLTVPSelectionChanged(Sender: TObject);
 begin
   FHLPI.TIObject := FHLTVP.CurrentItem as TPersistent;
+  if Assigned(FHLTVP.CurrentItem) then
+  begin
+    Logger.Send ('CurrentItem:', FHLTVP.CurrentItem.ClassName);
+    if FHLTVP.CurrentItem is THighlighterItem then
+      FSHLPI.TIObject := (FHLTVP.CurrentItem as THighlighterItem).SynHighlighter
+    else
+      Logger.SendError('WTF');
+
+  end;
 end;
 
 procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
@@ -274,6 +304,12 @@ procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
 begin
   Settings.Load;
   Apply;
+end;
+
+procedure TfrmEditorSettings.FHAPIEditorFilter(Sender: TObject;
+  aEditor: TPropertyEditor; var aShow: boolean);
+begin
+
 end;
 
 procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);

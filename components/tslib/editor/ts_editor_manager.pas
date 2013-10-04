@@ -111,7 +111,7 @@ uses
   dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
 
   ts.Editor.Interfaces, ts_Editor_Resources, ts.Editor.Highlighters,
-  ts_Editor_View,
+  ts_Editor_View, ts.Editor.Events,
 
   ts.Components.UniHighlighter, ts.Components.ExportRTF,
   ts.Components.UniqueInstance;
@@ -124,8 +124,6 @@ type
                                         IEditorActions,
                                         IEditorView,   // active view
                                         IEditorViews,
-                                        //IEditorToolView,  // needed?
-                                        //IEditorToolViews,
                                         IEditorEvents,
                                         IEditorCommands,
                                         IEditorMenus,
@@ -439,24 +437,12 @@ type
     FSynUni          : TSynUniSyn;
     FUniqueInstance  : TUniqueInstance;
     FToolViews       : IEditorToolViews;
+    FEvents          : IEditorEvents;
 
     FdwsProgramExecution : IdwsProgramExecution;
     FdwsProgram          : IdwsProgram;
     FScriptFunctions     : TStringList;
 
-    FOnActiveViewChange    : TNotifyEvent;
-    FOnAddEditorView       : TAddEditorViewEvent;
-    FOnShowEditorToolView  : TEditorToolViewEvent;
-    FOnHideEditorToolView  : TEditorToolViewEvent;
-    FOnCaretPositionChange : TCaretPositionEvent;
-    FOnChange              : TNotifyEvent;
-    FOnMacroStateChange    : TMacroStateChangeEvent;
-    FOnNewFile             : TNewFileEvent;
-    FOnOpenFile            : TFileEvent;
-    FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
-    FOnSaveFile            : TFileEvent;
-    FOnStatusChange        : TStatusChangeEvent;
-    FOnStatusMessage       : TStatusMessageEvent;
     FSearchEngine          : IEditorSearchEngine;
 
     FChanged      : Boolean;
@@ -486,18 +472,6 @@ type
     function GetItem(AName: string): TCustomAction;
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetMenus: IEditorMenus;
-    function GetOnActiveViewChange: TNotifyEvent;
-    function GetOnAddEditorView: TAddEditorViewEvent;
-    function GetOnCaretPositionChange: TCaretPositionEvent;
-    function GetOnChange: TNotifyEvent;
-    function GetOnHideEditorToolView: TEditorToolViewEvent;
-    function GetOnMacroStateChange: TMacroStateChangeEvent;
-    function GetOnNewFile: TNewFileEvent;
-    function GetOnOpenFile: TFileEvent;
-    function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
-    function GetOnSaveFile: TFileEvent;
-    function GetOnShowEditorToolView: TEditorToolViewEvent;
-    function GetOnStatusChange: TStatusChangeEvent;
     function GetPersistSettings: Boolean;
     function GetSearchEngine: IEditorSearchEngine;
     function GetSearchPopupMenu: TPopupMenu;
@@ -518,18 +492,6 @@ type
     function GetViewList: TEditorViewList;
     function GetViews: IEditorViews;
     procedure SetActiveView(AValue: IEditorView);
-    procedure SetOnActiveViewChange(AValue: TNotifyEvent);
-    procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
-    procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
-    procedure SetOnChange(const AValue: TNotifyEvent);
-    procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
-    procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
-    procedure SetOnNewFile(const AValue: TNewFileEvent);
-    procedure SetOnOpenFile(const AValue: TFileEvent);
-    procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
-    procedure SetOnSaveFile(const AValue: TFileEvent);
-    procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
-    procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     procedure SetPersistSettings(const AValue: Boolean);
     {$endregion}
 
@@ -639,23 +601,23 @@ type
     ); override;
 
     // event dispatch methods
-    procedure DoActiveViewChange; virtual;
-    procedure DoAddEditorView(AEditorView: IEditorView); virtual;
-    procedure DoShowToolView(AToolView: IEditorToolView); virtual;
-    procedure DoHideToolView(AToolView: IEditorToolView); virtual;
-    procedure DoCaretPositionChange; virtual;
-    procedure DoMacroStateChange(AState : TSynMacroState); virtual;
-    procedure DoOpenOtherInstance(const AParams: array of string); virtual;
-    procedure DoStatusMessage(AText: string); virtual;
-    procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
-    procedure DoChange; virtual;
-    procedure DoModified; virtual;
-    procedure DoSaveFile;
-    procedure DoOpenFile(const AFileName: string);
-    procedure DoNewFile(
-      const AFileName : string = '';
-      const AText     : string = ''
-    );
+    //procedure DoActiveViewChange; virtual;
+    //procedure DoAddEditorView(AEditorView: IEditorView); virtual;
+    //procedure DoShowToolView(AToolView: IEditorToolView); virtual;
+    //procedure DoHideToolView(AToolView: IEditorToolView); virtual;
+    //procedure DoCaretPositionChange; virtual;
+    //procedure DoMacroStateChange(AState : TSynMacroState); virtual;
+    //procedure DoOpenOtherInstance(const AParams: array of string); virtual;
+    //procedure DoStatusMessage(AText: string); virtual;
+    //procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
+    //procedure DoChange; virtual;
+    //procedure DoModified; virtual;
+    //procedure DoSaveFile;
+    //procedure DoOpenFile(const AFileName: string);
+    //procedure DoNewFile(
+    //  const AFileName : string = '';
+    //  const AText     : string = ''
+    //);
 
     procedure UpdateActions;
     procedure UpdateEncodingActions;
@@ -673,9 +635,6 @@ type
       const AText      : string = ''
     ): IEditorView;
     {$endregion}
-
-    // TS temp
-    procedure UpdateToolViews;
 
     // properties
     property ActionList: TActionList
@@ -743,7 +702,7 @@ type
       read GetActiveView write SetActiveView;
 
     property Events: IEditorEvents
-      read GetEvents;
+      read GetEvents implements IEditorEvents;
 
     property ToolViews: IEditorToolViews
       read GetToolViews;
@@ -788,41 +747,41 @@ type
     {$endregion}
 
     {$region 'IEditorEvents'}
-    property OnActiveViewChange: TNotifyEvent
-      read GetOnActiveViewChange write SetOnActiveViewChange;
-
-    property OnAddEditorView: TAddEditorViewEvent
-      read GetOnAddEditorView write SetOnAddEditorView;
-
-    property OnShowEditorToolView: TEditorToolViewEvent
-      read GetOnShowEditorToolView write SetOnShowEditorToolView;
-
-    property OnHideEditorToolView: TEditorToolViewEvent
-      read GetOnHideEditorToolView write SetOnHideEditorToolView;
-
-    property OnCaretPositionChange: TCaretPositionEvent
-      read GetOnCaretPositionChange write SetOnCaretPositionChange;
-
-    property OnStatusChange: TStatusChangeEvent
-      read GetOnStatusChange write SetOnStatusChange;
-
-    property OnChange: TNotifyEvent
-      read GetOnChange write SetOnChange;
-
-    property OnMacroStateChange: TMacroStateChangeEvent
-      read GetOnMacroStateChange write SetOnMacroStateChange;
-
-    property OnOpenFile: TFileEvent
-      read GetOnOpenFile write SetOnOpenFile;
-
-    property OnNewFile: TNewFileEvent
-      read GetOnNewFile write SetOnNewFile;
-
-    property OnSaveFile: TFileEvent
-      read GetOnSaveFile write SetOnSaveFile;
-
-    property OnOpenOtherInstance: TOpenOtherInstanceEvent
-      read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
+    //property OnActiveViewChange: TNotifyEvent
+    //  read GetOnActiveViewChange write SetOnActiveViewChange;
+    //
+    //property OnAddEditorView: TAddEditorViewEvent
+    //  read GetOnAddEditorView write SetOnAddEditorView;
+    //
+    //property OnShowEditorToolView: TEditorToolViewEvent
+    //  read GetOnShowEditorToolView write SetOnShowEditorToolView;
+    //
+    //property OnHideEditorToolView: TEditorToolViewEvent
+    //  read GetOnHideEditorToolView write SetOnHideEditorToolView;
+    //
+    //property OnCaretPositionChange: TCaretPositionEvent
+    //  read GetOnCaretPositionChange write SetOnCaretPositionChange;
+    //
+    //property OnStatusChange: TStatusChangeEvent
+    //  read GetOnStatusChange write SetOnStatusChange;
+    //
+    //property OnChange: TNotifyEvent
+    //  read GetOnChange write SetOnChange;
+    //
+    //property OnMacroStateChange: TMacroStateChangeEvent
+    //  read GetOnMacroStateChange write SetOnMacroStateChange;
+    //
+    //property OnOpenFile: TFileEvent
+    //  read GetOnOpenFile write SetOnOpenFile;
+    //
+    //property OnNewFile: TNewFileEvent
+    //  read GetOnNewFile write SetOnNewFile;
+    //
+    //property OnSaveFile: TFileEvent
+    //  read GetOnSaveFile write SetOnSaveFile;
+    //
+    //property OnOpenOtherInstance: TOpenOtherInstanceEvent
+    //  read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
    {$endregion}
 
   public
@@ -889,6 +848,7 @@ procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
   FToolViews := TToolViews.Create(Self);
+  FEvents    := TEditorEvents.Create(Self);
   FPersistSettings  := False;
   FSettings         := TEditorSettings.Create(Self);
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
@@ -915,6 +875,7 @@ begin
     FSettings.Save;
   FSearchEngine := nil;
   FSettings := nil;
+  FEvents   := nil;
   FToolViews := nil;
   FdwsProgramExecution := nil;
   FdwsProgram := nil;
@@ -950,7 +911,7 @@ end;
 
 function TdmEditorManager.GetEvents: IEditorEvents;
 begin
-  Result := Self as IEditorEvents;
+  Result := FEvents;
 end;
 
 function TdmEditorManager.GetExecuteScriptOnSelectionPopupMenu: TPopupMenu;
@@ -1029,92 +990,6 @@ begin
   Result := Self as IEditorMenus;
 end;
 
-function TdmEditorManager.GetOnActiveViewChange: TNotifyEvent;
-begin
-  Result := FOnActiveViewChange;
-end;
-
-procedure TdmEditorManager.SetOnActiveViewChange(AValue: TNotifyEvent);
-begin
-  FOnActiveViewChange := AValue;
-end;
-
-function TdmEditorManager.GetOnAddEditorView: TAddEditorViewEvent;
-begin
-  Result := FOnAddEditorView;
-end;
-
-procedure TdmEditorManager.SetOnAddEditorView(AValue: TAddEditorViewEvent);
-begin
-  FOnAddEditorView := AValue;
-end;
-
-function TdmEditorManager.GetOnCaretPositionChange: TCaretPositionEvent;
-begin
-  Result := FOnCaretPositionChange;
-end;
-
-function TdmEditorManager.GetOnChange: TNotifyEvent;
-begin
-  Result := FOnChange;
-end;
-
-function TdmEditorManager.GetOnHideEditorToolView: TEditorToolViewEvent;
-begin
-  Result := FOnHideEditorToolView;
-end;
-
-procedure TdmEditorManager.SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
-begin
-  FOnHideEditorToolView := AValue;
-end;
-
-function TdmEditorManager.GetOnMacroStateChange: TMacroStateChangeEvent;
-begin
-  Result := FOnMacroStateChange;
-end;
-
-function TdmEditorManager.GetOnNewFile: TNewFileEvent;
-begin
-  Result := FOnNewFile;
-end;
-
-function TdmEditorManager.GetOnOpenFile: TFileEvent;
-begin
-  Result := FOnOpenFile;
-end;
-
-function TdmEditorManager.GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
-begin
-  Result := FOnOpenOtherInstance;
-end;
-
-procedure TdmEditorManager.SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
-begin
-  FOnOpenOtherInstance := AValue;
-end;
-
-function TdmEditorManager.GetOnSaveFile: TFileEvent;
-begin
-  Result := FOnSaveFile;
-end;
-
-function TdmEditorManager.GetOnShowEditorToolView: TEditorToolViewEvent;
-begin
-  Result := FOnShowEditorToolView;
-end;
-
-procedure TdmEditorManager.SetOnShowEditorToolView(
-  AValue: TEditorToolViewEvent);
-begin
-  FOnShowEditorToolView := AValue;
-end;
-
-function TdmEditorManager.GetOnStatusChange: TStatusChangeEvent;
-begin
-  Result := FOnStatusChange;
-end;
-
 function TdmEditorManager.GetPersistSettings: Boolean;
 begin
   Result := FPersistSettings;
@@ -1166,41 +1041,6 @@ begin
   Result := ppmSelect;
 end;
 
-procedure TdmEditorManager.SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
-begin
-  FOnCaretPositionChange := AValue;
-end;
-
-procedure TdmEditorManager.SetOnChange(const AValue: TNotifyEvent);
-begin
-  FOnChange := AValue;
-end;
-
-procedure TdmEditorManager.SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
-begin
-  FOnMacroStateChange := AValue;
-end;
-
-procedure TdmEditorManager.SetOnNewFile(const AValue: TNewFileEvent);
-begin
-  FOnNewFile := AValue;
-end;
-
-procedure TdmEditorManager.SetOnOpenFile(const AValue: TFileEvent);
-begin
-  FOnOpenFile := AValue;
-end;
-
-procedure TdmEditorManager.SetOnSaveFile(const AValue: TFileEvent);
-begin
-  FOnSaveFile := AValue;
-end;
-
-procedure TdmEditorManager.SetOnStatusChange(const AValue: TStatusChangeEvent);
-begin
-  FOnStatusChange := AValue;
-end;
-
 function TdmEditorManager.GetSettings: IEditorSettings;
 begin
   Result := FSettings;
@@ -1216,7 +1056,7 @@ begin
   if Assigned(AValue) and (AValue <> FActiveView) then
   begin
     FActiveView := AValue;
-    DoActiveViewChange;
+    Events.DoActiveViewChange;
     ActiveViewChanged;
   end;
 end;
@@ -1303,114 +1143,6 @@ function TdmEditorManager.GetViews: IEditorViews;
 begin
   Result := Self as IEditorViews;
 end;
-{$endregion}
-
-{$region 'event dispatch methods' /fold}
-procedure TdmEditorManager.DoActiveViewChange;
-begin
-  if Assigned(FOnActiveViewChange) then
-    FOnActiveViewChange(Self);
-end;
-
-procedure TdmEditorManager.DoAddEditorView(AEditorView: IEditorView);
-begin
-  if Assigned(FOnAddEditorView) then
-    FOnAddEditorView(Self, AEditorView);
-end;
-
-procedure TdmEditorManager.DoShowToolView(AToolView: IEditorToolView);
-begin
-  if Assigned(FOnShowEditorToolView) then
-    FOnShowEditorToolView(Self, AToolView);
-end;
-
-procedure TdmEditorManager.DoHideToolView(AToolView: IEditorToolView);
-begin
-  if Assigned(FOnHideEditorToolView) then
-    FOnHideEditorToolView(Self, AToolView);
-end;
-
-procedure TdmEditorManager.DoCaretPositionChange;
-begin
-  if Assigned(FOnCaretPositionChange) then
-    FOnCaretPositionChange(Self, ActiveView.CaretX, ActiveView.CaretY);
-
-  UpdateSelectionModeActions;
-
-  { TODO -oTS : Needs to be refactored }
-  if View.Focused then
-  begin
-    UpdateToolViews;
-  end;
-end;
-
-procedure TdmEditorManager.DoMacroStateChange(AState: TSynMacroState);
-begin
-  if Assigned(FOnMacroStateChange) then
-    FOnMacroStateChange(Self, AState);
-end;
-
-procedure TdmEditorManager.DoOpenOtherInstance(const AParams: array of string);
-begin
-  if Assigned(FOnOpenOtherInstance) then
-    FOnOpenOtherInstance(Self, AParams);
-end;
-
-procedure TdmEditorManager.DoStatusMessage(AText: string);
-begin
-  if Assigned(FOnStatusMessage) then
-    FOnStatusMessage(Self, AText);
-end;
-
-procedure TdmEditorManager.DoStatusChange(AChanges: TSynStatusChanges);
-begin
-  if Assigned(FOnStatusChange) then
-    FOnStatusChange(Self, AChanges);
-end;
-
-procedure TdmEditorManager.DoChange;
-begin
-  if Assigned(FOnChange) then
-    FOnChange(Self);
-  FChanged := True;
-end;
-
-procedure TdmEditorManager.DoModified;
-begin
-  if not ActiveView.Modified then
-    ActiveView.Modified := True;
-end;
-
-procedure TdmEditorManager.DoSaveFile;
-var
-  S: string;
-begin
-  if Assigned(FOnSaveFile) then
-  begin
-    S := ActiveView.FileName;
-    FOnSaveFile(Self, S);
-    ActiveView.FileName := S;
-  end;
-end;
-
-procedure TdmEditorManager.DoOpenFile(const AFileName: string);
-var
-  S : string;
-begin
-  S  := AFileName;
-  if Assigned(FOnOpenFile) then
-    FOnOpenFile(Self, S);
-end;
-
-procedure TdmEditorManager.DoNewFile(const AFileName: string; const AText: string);
-var
-  S : string;
-begin
-  S  := AFileName;
-  if Assigned(FOnNewFile) then
-    FOnNewFile(Self, S, AText);
-end;
-
 {$endregion}
 
 {$region 'action handlers' /fold}
@@ -1859,7 +1591,7 @@ end;
 procedure TdmEditorManager.actQuoteSelectionExecute(Sender: TObject);
 begin
   ActiveView.SelText := QuotedStr(ActiveView.SelText);
-  DoModified;
+  Events.DoModified;
 end;
 
 procedure TdmEditorManager.actRedoExecute(Sender: TObject);
@@ -2056,7 +1788,7 @@ end;
 procedure TdmEditorManager.actDequoteSelectionExecute(Sender: TObject);
 begin
   ActiveView.SelText := AnsiDequotedStr(ActiveView.SelText, '''');
-  DoModified;
+  Events.DoModified;
 end;
 
 procedure TdmEditorManager.actEncodeBase64Execute(Sender: TObject);
@@ -2115,13 +1847,13 @@ end;
 {$region 'event handlers' /fold}
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
-  DoMacroStateChange(SynMacroRecorder.State);
+  Events.DoMacroStateChange(SynMacroRecorder.State);
 end;
 
 procedure TdmEditorManager.UniqueInstanceOtherInstance(Sender: TObject;
    ParamCount: Integer; Parameters: array of String);
 begin
-  DoOpenOtherInstance(Parameters);
+  Events.DoOpenOtherInstance(Parameters);
 end;
 
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
@@ -2396,7 +2128,7 @@ begin
   Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
   // apply common highlighter attributes
-  ApplyHighlighterAttributes;
+
 
 //  S := ExtractFilePath(Application.ExeName);
   S := '';
@@ -2416,6 +2148,8 @@ begin
   F := S + LAYOUT_CS;
   if FileExistsUTF8(F) then
     Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
+
+    ApplyHighlighterAttributes;
 end;
 
 procedure TdmEditorManager.RegisterToolViews;
@@ -2812,13 +2546,14 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
+{ Called when the active view is set to another view in the list. }
 procedure TdmEditorManager.ActiveViewChanged;
 begin
   UpdateHighLighterActions;
   UpdateEncodingActions;
   UpdateLineBreakStyleActions;
   UpdateFileActions;
-  UpdateToolViews;
+//  UpdateToolViews;
   //UpdateSearchMatches;
   //UpdateCodeFilter;
 end;
@@ -2856,7 +2591,7 @@ begin
 //  V.AssignHighlighter(AHighlighter);
   V.Form.Caption := '';
   ViewList.Add(V);
-  DoAddEditorView(V);
+  Events.DoAddEditorView(V);
   V.Activate;
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
@@ -2875,7 +2610,7 @@ begin
     V.AssignHighlighter(AEditorView.HighlighterItem.Name);
     V.Form.Caption := AEditorView.Form.Caption;
     ViewList.Add(V);
-    DoAddEditorView(V);
+    Events.DoAddEditorView(V);
     Result := V;
   end
   else
@@ -2983,21 +2718,21 @@ begin
   if AVisible then
   begin
     ETV := ToolViews[AName];
-    DoShowToolView(ETV);
+    Events.DoShowToolView(ETV);
     ETV.Visible := True;
     ETV.UpdateView;
     if ASetFocus then
       ETV.SetFocus;
   end
   else
-    DoHideToolView(ETV);
+    Events.DoHideToolView(ETV);
 end;
 
 { TODO -oTS : Not correct! }
 
 procedure TdmEditorManager.LoadFile;
 begin
-  DoOpenFile(ActiveView.FileName);
+  //Events.DoOpenFile(ActiveView.FileName);
   // reload file from disk
 end;
 
@@ -3109,7 +2844,7 @@ end;
 function TdmEditorManager.SaveFile(const AFileName: string;
 AShowDialog: Boolean): Boolean;
 begin
-  DoSaveFile;
+  Events.DoSaveFile(AFileName);
   if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
     if Assigned(ActiveView.Editor.Highlighter) then
@@ -3194,7 +2929,7 @@ begin
   FN := ExtractFilePath(ActiveView.FileName)
     + ActiveView.CurrentWord + ExtractFileExt(ActiveView.FileName);
   if FileExistsUTF8(FN) then
-    DoNewFile(FN);
+    Events.DoNewFile(FN);
 end;
 
 {$IFDEF Windows}
@@ -3422,7 +3157,7 @@ function TdmEditorManager.OpenFile(const AFileName: string): IEditorView;
 var
   V : IEditorView;
 begin
-  DoOpenFile(AFileName);
+  Events.DoOpenFile(AFileName);
   { Check if the file is already opened in a view. }
   V := ViewByFileName[AFileName];
   if Assigned(V) then
@@ -3443,23 +3178,10 @@ function TdmEditorManager.NewFile(const AFileName: string;
 var
   V : IEditorView;
 begin
-  DoNewFile(AFileName, AText);
+  Events.DoNewFile(AFileName, AText);
   V := AddView('', AFileName);
   V.Text := AText;
   Result := V;
-end;
-
-///////////////////////////////////TEMP////////////////////////////////////////
-
-procedure TdmEditorManager.UpdateToolViews;
-//var
-//  TV: IEditorToolView;
-begin
-  //for TV in ToolViews do
-  //begin
-  //  if TV.Visible then
-  //    TV.UpdateView;
-  //end;
 end;
 {$endregion}
 

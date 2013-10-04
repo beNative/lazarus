@@ -54,9 +54,15 @@ type
 { Sets DoubleBuffered property for all TWinControl instances owned by the given
   component. }
 
-procedure SetDoubleBuffered(AOwner: TComponent; AEnable: Boolean = True);
+procedure SetDoubleBuffered(
+  AOwner  : TComponent;
+  AEnable : Boolean = True
+);
 
-procedure CloneComponent(AFrom: TComponent; ATo: TComponent);
+procedure CloneComponent(
+  AFrom : TComponent;
+  ATo   : TComponent
+);
 
 {$IFDEF Windows}
 function VirtualKeyToChar(AKey : Word) : string;
@@ -66,34 +72,51 @@ function GetFullName(AComponent: TComponent) : string;
 
 // string manipulation routines
 
-procedure StrToStrings(const AString    : string;
-                             AList      : TStrings;
-                             ASeparator : Char);
+procedure StrToStrings(
+  const AString    : string;
+  AList      : TStrings;
+  ASeparator : Char
+);
 
-function Unformat(const ASource,
-                        APattern : string;
-                  const AArgs    : array of const): Integer;
+function Unformat(
+  const ASource,
+        APattern : string;
+  const AArgs    : array of const
+): Integer;
 
-function Like(const ASource, ATemplate: string): Boolean;
+function Like(
+  const ASource   : string;
+  const ATemplate : string
+): Boolean;
 
 { original author: Vladimir Gaitanoff }
 { Returns a number of words delimited with AWordDelims }
-function WordCount(const AString     : string;
-                   const AWordDelims : TSysCharSet = AnsiWhiteSpace) : Integer;
+function WordCount(
+  const AString     : string;
+  const AWordDelims : TSysCharSet = AnsiWhiteSpace
+) : Integer;
 
 { Returns a position of word number AIndex in the string AString }
-function WordPosition(const AIndex      : Integer;
-                      const AString     : string;
-                      const AWordDelims : TSysCharSet = AnsiWhiteSpace) : Integer;
+function WordPosition(
+  const AIndex      : Integer;
+  const AString     : string;
+  const AWordDelims : TSysCharSet = AnsiWhiteSpace
+) : Integer;
 
 { Returns a word number AIndex in the string AString }
-function ExtractWord(const AIndex      : Integer;
-                     const AString     : string;
-                     const AWordDelims : TSysCharSet = AnsiWhiteSpace): string;
+function ExtractWord(
+  const AIndex      : Integer;
+  const AString     : string;
+  const AWordDelims : TSysCharSet = AnsiWhiteSpace
+): string;
 
 function URLEncode(const AString: string): string;
 
 function URLDecode(const AString: string): string;
+
+function XMLEncode(const ASource: string): string;
+
+function XMLDecode(const ASource: string): string;
 
 // string formatting routines
 
@@ -109,7 +132,7 @@ function GetLocalUserName: string;
 function GetLocalComputerName: string;
 {$ENDIF}
 
-function GetParentDir(sPath : string) : string;
+function GetParentDir(APath: string) : string;
 
 {$IFDEF Windows}
 procedure CreateShellLink(ShellLink: TShellLink);
@@ -118,18 +141,27 @@ function ExploreFile(const AFileName: string): Boolean;
 
 // FCL utilities
 
-procedure ChangeOwner(AComponent, ANewOwner : TComponent);
+procedure ChangeOwner(
+  AComponent,
+  ANewOwner : TComponent
+);
 
-procedure EnableControls(AControlContainer : TWinControl;
-                         AEnabled          : Boolean = True);
+procedure EnableControls(
+  AControlContainer : TWinControl;
+  AEnabled          : Boolean = True
+);
 
 procedure DisableControls(AControlContainer : TWinControl);
 
-function GetTextWidth(const AText : string;
-                            AFont : TFont): Integer;
+function GetTextWidth(
+  const AText : string;
+        AFont : TFont
+): Integer;
 
-function GetTextHeight(const AText : string;
-                             AFont : TFont): Integer;
+function GetTextHeight(
+  const AText : string;
+  AFont : TFont
+): Integer;
 
 procedure OptimizeWidth(APanel: TPanel);
 
@@ -195,7 +227,11 @@ function GetCommonPath(ASL: TStrings): string;
 
 function IsFormCovered(AForm: TForm): Boolean;
 
-function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string): Integer;
+function DrawHTML(
+  const ARect   : TRect;
+  const ACanvas : TCanvas;
+  const Text    : string
+): Integer;
 {$ENDIF}
 
 procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
@@ -208,8 +244,6 @@ function SetToString(
         ATrimChars   : Integer = -1
 ): string;
 
-//*****************************************************************************
-
 implementation
 
 uses
@@ -218,8 +252,6 @@ uses
 {$ENDIF}
 
   Variants, ActnList;
-
-//=============================================================================
 
 resourcestring
   SNoCorrespondingFieldType = 'No corresponding fieldtype found for Variant ' +
@@ -347,7 +379,7 @@ end;
   it just sets "Enabled" to false. The hook plus all data is removed when
   the window is destroyed.
 }
-procedure SetWindowSizeGrip(hWnd: hWnd; Enable: boolean);
+procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
 var
   Info: PGripInfo;
 begin
@@ -1167,7 +1199,7 @@ end;
 
 { 'Like' code is written by Wladimir Perepletchick }
 
-function Like(const ASource, ATemplate: string): Boolean;
+function Like(const ASource: string; const ATemplate: string): Boolean;
 const
   SpecialChars: TSysCharSet = ['%', '*', '?', '_'];
 var
@@ -1239,7 +1271,7 @@ begin
   CoTaskMemFree(P);
 end;
 
-function CreateUniqueID: String;
+function CreateUniqueID: string;
 var
   AGUID       : TGUID;
   AGUIDString : Widestring;
@@ -1579,17 +1611,17 @@ begin
 end;
 {$ENDIF}
 
-function GetParentDir(sPath : string) : string;
+function GetParentDir(APath : string) : string;
 var
   I : Integer;
 begin
   Result := '';
-  sPath := ExcludeTrailingPathDelimiter(sPath);
+  APath := ExcludeTrailingPathDelimiter(APath);
   // Start from one character before last.
-  for I := length(sPath) - 1 downto 1 do
-    if sPath[I] = DirectorySeparator then
+  for I := length(APath) - 1 downto 1 do
+    if APath[I] = DirectorySeparator then
     begin
-      Result := Copy(sPath, 1, I);
+      Result := Copy(APath, 1, I);
       Break;
     end;
 end;
@@ -1779,6 +1811,24 @@ begin
   SetLength(Result, pred(J));
 end;
 
+function XMLEncode(const ASource: string): string;
+begin
+  Result := StringReplace(ASource, '&',  '&amp;',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '<',  '&lt;',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '>',  '&gt;',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '"',  '&quot;',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '''', '&apos;',[rfReplaceAll]); {do not localize}
+end;
+
+function XMLDecode(const ASource: String): string;
+begin
+  Result := StringReplace(ASource, '&apos;', '''',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '&quot;', '"',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '&gt;',   '>',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '&lt;',   '<',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(Result,  '&amp;',  '&',[rfReplaceAll]); {do not localize}
+end;
+
 //  SetBit()      : Sets a single BIT in a string to true or false
 procedure SetBit(var Str: string; BitNr: dword; Value: boolean);
 var
@@ -1847,7 +1897,8 @@ begin
 end;
 
 {$IFDEF Windows}
-function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: String): Integer;
+function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
+  ): Integer;
 (*DrawHTML - Draws text on a canvas using tags based on a simple subset of HTML/CSS
 
   <B> - Bold e.g. <B>This is bold</B>

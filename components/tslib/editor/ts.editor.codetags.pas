@@ -63,5 +63,9 @@ begin
 end;
 {$endregion}
 
+initialization
+  RegisterClass(TCodeTags);
+  RegisterClass(TCodeTagItem);
+
 end.
 

@@ -1,7 +1,7 @@
 object frmEditorSettings: TfrmEditorSettings
-  Left = -629
+  Left = 1101
   Height = 579
-  Top = 503
+  Top = 218
   Width = 490
   BorderIcons = [biSystemMenu]
   Caption = 'Editor settings'
@@ -26,10 +26,10 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 532
       Top = 2
       Width = 486
-      ActivePage = tsSettings
+      ActivePage = tsHighlighters
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 0
+      TabIndex = 2
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Inspector'
@@ -120,7 +120,27 @@ object frmEditorSettings: TfrmEditorSettings
             Align = alClient
             BorderSpacing.Around = 2
             BevelOuter = bvNone
+            ClientHeight = 500
+            ClientWidth = 340
             TabOrder = 1
+            object pnlHLRightTop: TPanel
+              Left = 0
+              Height = 188
+              Top = 0
+              Width = 340
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+            end
+            object pnlHLRightBottom: TPanel
+              Left = 0
+              Height = 312
+              Top = 188
+              Width = 340
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 1
+            end
           end
           object splHLVertical: TSplitter
             Left = 126

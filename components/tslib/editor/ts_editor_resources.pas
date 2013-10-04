@@ -66,7 +66,7 @@ const
   FILE_EXTENSIONS_SQL  = 'sql';
   FILE_EXTENSIONS_XML  = 'xml,hgl,lpi,dproj,groupproj';
   FILE_EXTENSIONS_LFM  = 'dfm,lfm';
-  FILE_EXTENSIONS_INI  = 'ini,fpd,reg';
+  FILE_EXTENSIONS_INI  = 'ini,fpd,reg,prop,properties';
   FILE_EXTENSIONS_BAT  = 'bat,cmd';
   FILE_EXTENSIONS_RTF  = 'rtf';
   FILE_EXTENSIONS_RES  = 'res';

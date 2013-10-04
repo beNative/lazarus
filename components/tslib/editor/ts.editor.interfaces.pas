@@ -527,24 +527,20 @@ type
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
     {$region 'property access methods' /fold}
-    function GetOnActiveViewChange: TNotifyEvent;
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
     function GetOnShowEditorToolView: TEditorToolViewEvent;
-    procedure SetOnActiveViewChange(AValue: TNotifyEvent);
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
     function GetOnCaretPositionChange: TCaretPositionEvent;
-    function GetOnChange: TNotifyEvent;
     function GetOnNewFile: TNewFileEvent;
     function GetOnOpenFile: TFileEvent;
     function GetOnSaveFile: TFileEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     procedure SetOnCaretPositionChange(const AValue: TCaretPositionEvent);
-    procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnNewFile(const AValue: TNewFileEvent);
     procedure SetOnOpenFile(const AValue: TFileEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
@@ -555,21 +551,34 @@ type
 
     // event dispatch methods
     procedure DoCaretPositionChange;
+    procedure DoActiveViewChange;
     procedure DoMacroStateChange(AState : TSynMacroState);
+    procedure DoOpenOtherInstance(const AParams: array of string);
+    procedure DoAddEditorView(AEditorView: IEditorView);
     procedure DoStatusMessage(AText: string);
     procedure DoStatusChange(AChanges: TSynStatusChanges);
+    procedure DoShowToolView(AToolView: IEditorToolView);
+    procedure DoHideToolView(AToolView: IEditorToolView);
     procedure DoChange;
     procedure DoModified;
-    procedure DoSaveFile;
+    procedure DoSaveFile(const AFileName: string);
     procedure DoOpenFile(const AFileName: string);
     procedure DoNewFile(
       const AFileName : string = '';
       const AText     : string = ''
     );
 
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
+
     // events
-    property OnActiveViewChange: TNotifyEvent
-      read GetOnActiveViewChange write SetOnActiveViewChange;
+    //property OnActiveViewChange: TNotifyEvent
+    //  read GetOnActiveViewChange write SetOnActiveViewChange;
 
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
@@ -587,8 +596,8 @@ type
     property OnStatusChange: TStatusChangeEvent
       read GetOnStatusChange write SetOnStatusChange;
 
-    property OnChange: TNotifyEvent
-      read GetOnChange write SetOnChange;
+    //property OnChange: TNotifyEvent
+    //  read GetOnChange write SetOnChange;
 
     property OnMacroStateChange: TMacroStateChangeEvent
       read GetOnMacroStateChange write SetOnMacroStateChange;

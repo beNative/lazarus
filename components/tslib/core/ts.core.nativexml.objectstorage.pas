@@ -47,6 +47,7 @@
   - TCollection items
   Tim Sinaeve
   - FPC version of RTTI
+  - Encode/decode string properties
   Rob Kits (RSK)
   - fixed attribute handling in some places (denoted by RSK)
 
@@ -75,7 +76,7 @@ uses
 {$ENDIF}
   TypInfo, Variants,
 
-  ts.Core.NativeXml, ts.Core.NativeXml.Debug;
+  ts.Core.NativeXml, ts.Core.NativeXml.Debug, ts.Core.Utils;
 
 type
 
@@ -309,7 +310,7 @@ var
   AReader: TsdXmlObjectReader;
 begin
   Result := nil;
-  if not assigned(ANode) then
+  if not Assigned(ANode) then
     exit;
   // Create reader
   AReader := TsdXmlObjectReader.Create;
@@ -327,7 +328,7 @@ var
   ADoc: TNativeXml;
 begin
   Result := nil;
-  if not assigned(S) then
+  if not Assigned(S) then
     exit;
   // Create XML document
   ADoc := TNativeXml.Create(nil);
@@ -374,7 +375,7 @@ var
   ADoc: TNativeXml;
 begin
   Result := nil;
-  if not assigned(S) then
+  if not Assigned(S) then
     exit;
   // Create XML document
   ADoc := TNativeXml.Create(nil);
@@ -420,7 +421,7 @@ procedure ObjectLoadFromXmlNode(AObject: TObject; ANode: TXmlNode; AParent: TCom
 var
   AReader: TsdXmlObjectReader;
 begin
-  if not assigned(AObject) or not assigned(ANode) then
+  if not Assigned(AObject) or not Assigned(ANode) then
     exit;
   // Create writer
   AReader := TsdXmlObjectReader.Create;
@@ -439,7 +440,7 @@ procedure ObjectLoadFromXmlStream(AObject: TObject; S: TStream; AParent: TCompon
 var
   ADoc: TNativeXml;
 begin
-  if not assigned(S) then
+  if not Assigned(S) then
     exit;
   // Create XML document
   ADoc := TNativeXml.Create(nil);
@@ -482,7 +483,7 @@ procedure ObjectSaveToXmlNode(AObject: TObject; ANode: TXmlNode; AParent: TCompo
 var
   AWriter: TsdXmlObjectWriter;
 begin
-  if not assigned(AObject) or not assigned(ANode) then
+  if not Assigned(AObject) or not Assigned(ANode) then
     exit;
   // Create writer
   AWriter := TsdXmlObjectWriter.Create;
@@ -504,7 +505,7 @@ procedure ObjectSaveToXmlStream(AObject: TObject; S: TStream; AParent: TComponen
 var
   ADoc: TNativeXml;
 begin
-  if not assigned(S) then
+  if not Assigned(S) then
     exit;
   // Create XML document
   ADoc := TNativeXml.Create(nil);
@@ -577,10 +578,10 @@ end;
 procedure TsdXmlObjectWriter.WriteComponent(ANode: TXmlNode; AComponent,
   AParent: TComponent);
 begin
-  if not assigned(ANode) or not assigned(AComponent) then
+  if not Assigned(ANode) or not Assigned(AComponent) then
     exit;
   ANode.Name := UTF8String(AComponent.ClassName);
-  if length(AComponent.Name) > 0 then
+  if Length(AComponent.Name) > 0 then
     ANode.AttributeAdd('Name', UTF8String(AComponent.Name));
   WriteObject(ANode, AComponent, AParent);
 end;
@@ -597,7 +598,7 @@ var
   AComponentNode: TXmlNode;
   C: TComponent;
 begin
-  if not assigned(ANode) or not assigned(AObject) then
+  if not Assigned(ANode) or not Assigned(AObject) then
     exit;
 
   // If this is a component, store child components
@@ -610,7 +611,7 @@ begin
       for i := 0 to C.ComponentCount - 1 do
       begin
         AComponentNode := AChildNode.NodeNew(UTF8String(C.Components[i].ClassName));
-        if length(C.Components[i].Name) > 0 then
+        if Length(C.Components[i].Name) > 0 then
           AComponentNode.AttributeAdd('name', UTF8String(C.Components[i].Name));
         WriteObject(AComponentNode, C.Components[i], TComponent(AObject));
       end;
@@ -735,9 +736,9 @@ var
   //local
   procedure WriteCollectionProp(Collection: TCollection);
   var
-    i: integer;
+    i: Integer;
   begin
-    if assigned(Collection) then
+    if Assigned(Collection) then
     begin
       for i := 0 to Collection.Count - 1 do
       begin
@@ -793,7 +794,7 @@ var
     Value: Utf8String;
   begin
     Value := Utf8String(GetStrProp(AObject, PropInfo));
-    if not (length(Value) = 0) then
+    if not (Length(Value) = 0) then
       ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
   end;
   //local
@@ -802,7 +803,7 @@ var
     Value: Utf8String;
   begin
     Value := Utf8String(GetWideStrProp(AObject, PropInfo));
-    if not (length(Value) = 0) then
+    if not (Length(Value) = 0) then
       ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
   end;
   {$IFDEF UNICODE}
@@ -812,7 +813,7 @@ var
     Value: UnicodeString;
   begin
     Value := GetUnicodeStrProp(AObject, PropInfo);
-    if not (length(Value) = 0) then
+    if not (Length(Value) = 0) then
       ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
   end;
   {$ENDIF UNICODE}
@@ -827,22 +828,22 @@ var
         Result := Component.Name
       else if Component = AParent then
         Result := 'owner'
-      else if assigned(Component.Owner) and (length(Component.Owner.Name) > 0) and (length(Component.Name) > 0) then
+      else if Assigned(Component.Owner) and (Length(Component.Owner.Name) > 0) and (Length(Component.Name) > 0) then
         Result := Component.Owner.Name + '.' + Component.Name
-      else if length(Component.Name) > 0 then
+      else if Length(Component.Name) > 0 then
         Result := Component.Name + '.owner'
       else
         Result := '';
     end;
   begin
     Value := TObject(GetOrdProp(AObject, PropInfo));
-    if not assigned(Value) then
+    if not Assigned(Value) then
       exit;
     WritePropName;
     if (Value is TComponent) and not (csSubComponent in TComponent(Value).ComponentStyle) then
     begin
       ComponentName := GetComponentName(TComponent(Value));
-      if length(ComponentName) > 0 then
+      if Length(ComponentName) > 0 then
         WriteString(ComponentName);
     end
     else
@@ -869,16 +870,16 @@ var
     function IsDefaultValue: Boolean;
     begin
       Result := (Value.Code = nil) or
-        ((Value.Code <> nil) and assigned(AParent) and (AParent.MethodName(Value.Code) = ''));
+        ((Value.Code <> nil) and Assigned(AParent) and (AParent.MethodName(Value.Code) = ''));
     end;
   begin
     Value := GetMethodProp(AObject, PropInfo);
     if not IsDefaultValue then
     begin
-      if assigned(Value.Code) then
+      if Assigned(Value.Code) then
       begin
         WritePropName;
-        if assigned(AParent) then
+        if Assigned(AParent) then
           WriteString(AParent.MethodName(Value.Code))
         else
           AChildNode.Value := '???';
@@ -976,18 +977,18 @@ var
   AClass: TComponentClass;
 begin
   AClass := TComponentClass(GetClass(string(ANode.Name)));
-  if not assigned(AClass) then
+  if not Assigned(AClass) then
   begin
     DoDebugOut(Self, wsFail, Format(sUnregisteredClassType, [ANode.Name]));
     Result := nil;
     Exit;
   end;
   Result := AClass.Create(AOwner);
-  if length(AName) = 0 then
+  if Length(AName) = 0 then
     Result.Name := ANode.AttributeValueByName['name'] // RSK
   else
     Result.Name := AName;
-  if not assigned(AParent) then
+  if not Assigned(AParent) then
     AParent := Result;
   ReadComponent(ANode, Result, AParent);
 end;
@@ -1015,7 +1016,7 @@ var
   Coll: TCollection;
 begin
   Result := True;
-  if not assigned(ANode) or not assigned(AObject) then
+  if not Assigned(ANode) or not Assigned(AObject) then
     exit;
 
   // Start loading
@@ -1032,16 +1033,16 @@ begin
     begin
       C := TComponent(AObject);
       AChildNode := ANode.NodeByName('Components');
-      if assigned(AChildNode) then
+      if Assigned(AChildNode) then
       begin
         for i := 0 to AChildNode.ContainerCount - 1 do // RSK
         begin
           AComponentNode := AChildNode.Containers[i]; // RSK
           AComponent := C.FindComponent(AComponentNode.AttributeValueByName['name']); // RSK
-          if not assigned(AComponent) then
+          if not Assigned(AComponent) then
           begin
             AClass := TComponentClass(GetClass(string(AComponentNode.Name)));
-            if not assigned(AClass) then
+            if not Assigned(AClass) then
             begin
               DoDebugOut(Self, wsFail, sUnregisteredClassType);
               Result := False;
@@ -1100,7 +1101,7 @@ begin
     if AObject is TPersistent then
     begin
       AChildNode := ANode.NodeByName('DefinedProperties');
-      if assigned(AChildNode) then
+      if Assigned(AChildNode) then
       begin
         S := TStringStream.Create(string(AChildNode.BinaryString));
         S.Position := 0;
@@ -1141,16 +1142,16 @@ var
   function SetSetProp(const AValue: string): boolean;
   var
     S: string;
-    P: integer;
-    ASet: integer;
+    P: Integer;
+    ASet: Integer;
     EnumType: PTypeInfo;
     // local local
     function AddToEnum(const EnumName: string): boolean;
     var
-      V: integer;
+      V: Integer;
     begin
       Result := True;
-      if length(EnumName) = 0 then
+      if Length(EnumName) = 0 then
         exit;
       V := GetEnumValue(EnumType, EnumName);
       if V = -1 then
@@ -1169,18 +1170,18 @@ var
     {$ELSE}
     EnumType := GetTypeData(PropType)^.CompType^;
     {$ENDIF}
-    S := copy(AValue, 2, length(AValue) - 2);
+    S := copy(AValue, 2, Length(AValue) - 2);
     repeat
       P := Pos(',', S);
       if P > 0 then
       begin
         AddToEnum(copy(S, 1, P - 1));
-        S := copy(S, P + 1, length(S));
+        S := copy(S, P + 1, Length(S));
       end
       else
       begin
         Result := AddToEnum(S);
-        break;
+        Break;
       end;
     until False;
     SetOrdProp(AObject, PropInfo, ASet);
@@ -1201,7 +1202,7 @@ var
   function SetCharProp(const AValue: string): boolean;
   begin
     Result := True;
-    if length(AValue) <> 1 then
+    if Length(AValue) <> 1 then
     begin
       DoDebugOut(Self, wsFail, sInvalidPropertyValue);
       Result := False;
@@ -1212,7 +1213,7 @@ var
 
   function SetEnumProp(const AValue: string): boolean;
   var
-    V: integer;
+    V: Integer;
   begin
     Result := True;
     V := GetEnumValue(PropType, AValue);
@@ -1227,7 +1228,7 @@ var
 
   function SetBoolProp(const AValue: boolean): boolean;
   var
-    V: integer;
+    V: Integer;
   begin
     Result := True;
     if AValue then
@@ -1239,7 +1240,7 @@ var
 
   procedure ReadCollectionProp(ACollection: TCollection);
   var
-    i: integer;
+    i: Integer;
     Item: TPersistent;
   begin
     ACollection.BeginUpdate;
@@ -1262,14 +1263,14 @@ var
     Reference: TComponent;
   begin
     Result := True;
-    if length(AValue) = 0 then
+    if Length(AValue) = 0 then
       exit;
     if AValue[1] = '(' then
     begin
       // Persistent class
-      AClassName := Copy(AValue, 2, length(AValue) - 2);
+      AClassName := Copy(AValue, 2, Length(AValue) - 2);
       PropObject := TObject(GetOrdProp(AObject, PropInfo));
-      if assigned(PropObject) and (PropObject.ClassName = AClassName) then
+      if Assigned(PropObject) and (PropObject.ClassName = AClassName) then
       begin
         if PropObject is TCollection then
           ReadCollectionProp(TCollection(PropObject))
@@ -1291,7 +1292,7 @@ var
     else
     begin
       // Component reference
-      if assigned(AParent) then
+      if Assigned(AParent) then
       begin
         Reference := FindNestedComponent(AParent, AValue);
         SetOrdProp(AObject, PropInfo, Longint(Reference));
@@ -1305,10 +1306,10 @@ var
   begin
     Result := True;
     // to do: add OnFindMethod
-    if not assigned(AParent) then
+    if not Assigned(AParent) then
       exit;
     Method.Code := AParent.MethodAddress(AValue);
-    if not assigned(Method.Code) then
+    if not Assigned(Method.Code) then
     begin
       DoDebugOut(Self, wsFail, sInvalidMethodName);
       Result := False;
@@ -1320,7 +1321,7 @@ var
 
   function SetVariantProp(const AValue: string): boolean;
   var
-    VType: integer;
+    VType: Integer;
     Value: Variant;
     ACurrency: Currency;
   begin
@@ -1368,7 +1369,7 @@ begin
     PropType := PPropInfo(PropInfo)^.PropType^;
     {$ENDIF}
     AChildNode := ANode.NodeByName(PPropInfo(PropInfo)^.Name);
-    if assigned(AChildNode) then
+    if Assigned(AChildNode) then
     begin
       // Non-default values from XML
       case PropType^.Kind of
@@ -1440,7 +1441,7 @@ end;
 
 procedure TComponentAccess.SetComponentState(const AState: TComponentState);
 type
-  PInteger = ^integer;
+  PInteger = ^Integer;
 var
   PSet: PInteger;
   AInfo: PPropInfo;
@@ -1449,7 +1450,7 @@ begin
   // also using RTTI
   PSet := PInteger(@AState);
   AInfo := GetPropInfo(TComponentAccess, 'ComponentState');
-  if assigned(AInfo.GetProc) then
+  if Assigned(AInfo.GetProc) then
     PInteger(Integer(Self) + Integer(AInfo.GetProc) and $00FFFFFF)^ := PSet^;
 end;
 

@@ -41,17 +41,12 @@ uses
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
 type
-  TEditorSettingsChangedEventList = class(TMethodList)
-  public
-    procedure CallEditorSettingsChangedHandlers(Sender: TObject);
-  end;
-
   { TEditorSettings }
 
   TEditorSettings = class(TComponent, IEditorSettings)
   private
     FAutoFormatXML            : Boolean;
-    FChangedEventList         : TEditorSettingsChangedEventList;
+    FChangedEventList         : TMethodList;
     FReadOnly                 : Boolean;
     FPreviewVisible           : Boolean;
     FHighlighterType          : string;
@@ -303,25 +298,12 @@ uses
 
   ts_Editor_Resources;
 
-{$region 'public methods' /fold}
-{ Observer pattern implemented as multicast events. }
-
-procedure TEditorSettingsChangedEventList.CallEditorSettingsChangedHandlers(Sender: TObject);
-var
-  I: Integer;
-begin
-  I := Count;
-  while NextDownIndex(I) do
-    TNotifyEvent(Items[i])(Sender);
-end;
-{$endregion}
-
 {$region 'construction and destruction' /fold}
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   Name := 'Settings';
-  FChangedEventList := TEditorSettingsChangedEventList.Create;
+  FChangedEventList := TMethodList.Create;
   FFormSettings := TFormSettings.Create;
   FFormSettings.OnChanged := FFormSettingsChanged;
   FAlignLinesSettings := TAlignLinesSettings.Create;
@@ -860,7 +842,7 @@ end;
 
 procedure TEditorSettings.Changed;
 begin
-  FChangedEventList.CallEditorSettingsChangedHandlers(Self);
+  FChangedEventList.CallNotifyEvents(Self);
 end;
 {$endregion}
 

@@ -117,8 +117,6 @@ interface
 
 uses
   SysUtils, Graphics, Classes, FileUtil, SynEditTypes, Contnrs,
-  // needed?
-  GraphType,
 
   SynEditHighlighter;
 
@@ -171,7 +169,7 @@ type
     btTerm
   );
 
-  TSynSymbol = class
+  TSynSymbol = class(TPersistent)
   strict private
     FAttributes : TSynHighlighterAttributes;
     FOpenRule   : TSynRange;
@@ -197,7 +195,7 @@ type
       read FAttributes write FAttributes;
   end;
 
-  TSynSymbolGroup = class
+  TSynSymbolGroup = class(TPersistent)
   private
     FAttributes : TSynHighlighterAttributes;
     FKeywords   : TStringList;
@@ -349,7 +347,7 @@ type
 
   TAbstractSymbolList = array [Char] of TAbstractSymbols;
 
-  TSynRange = class
+  TSynRange = class(TPersistent)
   strict private
     FCloseSymbol  : TSynSymbol;
     FOpenSymbol   : TSynSymbol;
@@ -424,9 +422,6 @@ type
     property TermSymbols: TSymbolsSet
       read FTermSymbols write FTermSymbols;
 
-    property Ranges[Index: Integer]: TSynRange
-      read GetSynRange;
-
     property Symbols[Index: Integer]: TSynSymbol
       read GetSynSymbol;
 
@@ -436,10 +431,12 @@ type
     property SymbolList: TAbstractSymbolList
       read FSymbolList;
 
+    property Ranges[Index: Integer]: TSynRange
+      read GetSynRange;
+
     property ClosingSymbol: TClosingSymbolSet
       read FClosingSymbol;
 
-  published
     property OpenSymbol : TSynSymbol
       read FOpenSymbol;
 
@@ -568,9 +565,8 @@ type
     property SymbolList: TAbstractSymbolList
       read FSymbolList;
 
-  published
     property MainRules: TSynRange
-      read FMainRules;
+      read FMainRules write FMainRules;
 
   end;
 

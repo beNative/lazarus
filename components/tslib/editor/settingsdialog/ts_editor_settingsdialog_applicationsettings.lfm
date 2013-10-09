@@ -1,0 +1,46 @@
+inherited frmApplicationSettings: TfrmApplicationSettings
+  Left = 630
+  Height = 544
+  Top = 408
+  Width = 707
+  BorderStyle = bsNone
+  Caption = 'frmApplicationSettings'
+  ClientHeight = 544
+  ClientWidth = 707
+  object chkSingleInstance: TTICheckBox[0]
+    Left = 10
+    Height = 23
+    Top = 8
+    Width = 264
+    Caption = 'Allow only one instance of the application'
+    PropertyNameAsCaption = False
+    TabOrder = 0
+  end
+  object chkCloseWithESC: TTICheckBox[1]
+    Left = 10
+    Height = 23
+    Top = 40
+    Width = 234
+    Caption = 'Close the application with the ESC key'
+    PropertyNameAsCaption = False
+    TabOrder = 1
+  end
+  object chkDebugMode: TTICheckBox[2]
+    Left = 10
+    Height = 23
+    Top = 72
+    Width = 166
+    Caption = 'chkDebugMode'
+    PropertyNameAsCaption = True
+    TabOrder = 2
+  end
+  object chkDimInactiveView: TTICheckBox[3]
+    Left = 10
+    Height = 23
+    Top = 104
+    Width = 158
+    Caption = 'chkDimInactiveView'
+    PropertyNameAsCaption = True
+    TabOrder = 3
+  end
+end

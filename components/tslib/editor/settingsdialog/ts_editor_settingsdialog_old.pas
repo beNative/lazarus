@@ -28,7 +28,7 @@ uses
 
   PropEdits,
 
-  RTTIGrids, ButtonPanel,
+  RTTIGrids, RTTICtrls, ButtonPanel,
 
   VirtualTrees,
 
@@ -58,6 +58,8 @@ type
     btnOpenSettingsFile: TButton;
     btnReloadSettings: TButton;
     btnAssociate: TButton;
+    pnlHARightTop: TPanel;
+    pnlHARightBottom: TPanel;
     pnlHLRightTop: TPanel;
     pnlButtons                  : TButtonPanel;
     imlMain                     : TImageList;
@@ -75,6 +77,7 @@ type
     pnlXML: TPanel;
     splHAVertical               : TSplitter;
     splHLVertical: TSplitter;
+    mmoAliasNames: TTIMemo;
     tsHighlighters: TTabSheet;
     tsDebug: TTabSheet;
     tsXML: TTabSheet;
@@ -200,7 +203,7 @@ begin
   FHLTVP              := TTreeViewPresenter.Create(Self);
   FHLTVP.ItemTemplate := THighlightersDataTemplate.Create;
   FPI                 := CreatePI(Self, pnlPI);
-  FHAPI               := CreatePI(Self, pnlHARight);
+  FHAPI               := CreatePI(Self, pnlHARightBottom);
   FHLPI               := CreatePI(Self, pnlHLRightTop);
   FSHLPI              := CreatePI(Self, pnlHLRightBottom);
   FHAVST              := CreateVST(Self, pnlHALeft);
@@ -238,6 +241,8 @@ end;
 {$region 'event handlers' /fold}
 procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
 begin
+  mmoAliasNames.Link.TIObject := FHATVP.CurrentItem as TPersistent;
+  mmoAliasNames.Link.TIPropertyName := 'AliasNames';
   FHAPI.ExpandedProperties.Add('Attributes');
   FHAPI.ExpandedProperties.Add('Attributes.Style');
   FHAPI.ExpandedProperties.Add('Attributes.StyleMask');

@@ -751,7 +751,8 @@ uses
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
   SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
-  SynHighlighterJScript,
+  SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
+  synhighlighterunixshellscript,
 
   ts.Core.Utils, ts_Core_ComponentInspector,
 
@@ -1544,11 +1545,12 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
+
+  with TEditorSettingsDialog.Create(Self) do
+  begin
+    ShowModal;
+  end;
   ExecuteSettingsDialog(Self);
-  //with TEditorSettingsDialog.Create(Self) do
-  //begin
-  //  ShowModal;
-  //end;
 end;
 
 procedure TdmEditorManager.actHighlighterExecute(Sender: TObject);
@@ -1806,7 +1808,7 @@ begin
   //  actShowPreview.Execute;
   //end;
   FUniqueInstance.Enabled := Settings.SingleInstance;
-  ApplyHighlighterAttributes;
+  //ApplyHighlighterAttributes;
 end;
 
 {$endregion}
@@ -2000,6 +2002,7 @@ begin
   end;
 end;
 
+{ Applies common highlighter attributes }
 procedure TdmEditorManager.ApplyHighlighterAttributes;
 var
   I   : Integer;
@@ -2016,8 +2019,10 @@ begin
         for I := 0 to HL.SynHighlighter.AttrCount - 1 do
         begin
           A := HL.SynHighlighter.Attribute[I];
-          if A.Name = HAI.Name then
+          if (A.Name = HAI.Name) or (HAI.AliasNames.IndexOf(A.Name) >=0) then
+          begin
             A.Assign(HAI.Attributes);
+          end;
         end;
       end;
     end;
@@ -2061,7 +2066,7 @@ begin
   Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
   Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
   Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
-  Reg(TSynUniSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
   Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
   Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
   Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
@@ -2070,6 +2075,9 @@ begin
   Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
   Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
+  Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
+  Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
+  Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
   // apply common highlighter attributes
 
 
@@ -2091,8 +2099,14 @@ begin
   F := S + LAYOUT_CS;
   if FileExistsUTF8(F) then
     Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
+  F := S + LAYOUT_RUBY;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
+  F := S + LAYOUT_LUA;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
 
-    ApplyHighlighterAttributes;
+  ApplyHighlighterAttributes;
 end;
 
 procedure TdmEditorManager.RegisterToolViews;

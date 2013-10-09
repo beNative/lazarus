@@ -1260,6 +1260,7 @@ begin
 end;
 
 {$IFDEF Windows}
+
 function CreateGUIDString: string;
 var
   ClassID : TCLSID;
@@ -1304,8 +1305,6 @@ begin
 
   Result := Format('%2.2d:%2.2d:%2.2d.%2.2d', [H, M, S, HS]);
 end;
-
-
 
 { Author: Michael Haller }
 

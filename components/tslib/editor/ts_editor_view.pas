@@ -183,6 +183,7 @@ type
     function GetCaretXY: TPoint;
     function GetCaretY: Integer; virtual;
     function GetCommands: IEditorCommands;
+    function GetCurrentChar: WideChar;
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
     function GetEditorFont: TFont;
@@ -396,6 +397,9 @@ type
     { current Y-coordinate of the caret. }
     property CaretY: Integer
       read GetCaretY write SetCaretY;
+
+    property CurrentChar: WideChar
+      read GetCurrentChar;
 
     property CurrentWord: string
       read GetCurrentWord;
@@ -1261,6 +1265,14 @@ end;
 function TEditorView.GetCommands: IEditorCommands;
 begin
   Result := Owner as IEditorCommands;
+end;
+
+function TEditorView.GetCurrentChar: WideChar;
+begin
+  if SelStart < Length(Text) then
+    Result := Text[SelStart]
+  else
+    Result := #0;
 end;
 
 function TEditorView.GetEditor: TSynEdit;
@@ -2150,10 +2162,12 @@ var
 begin
   SL := TStringList.Create;
   try
-    SL.LoadFromStream(AStream);
+    SL.LoadFromStream(AStream);    ;
     FEncoding := GuessEncoding(SL.Text);
     if FEncoding <> EncodingUTF8 then
-      Text := ConvertEncoding(SL.Text, FEncoding, EncodingUTF8)
+    begin
+      Text := ConvertEncoding(SL.Text, FEncoding, EncodingUTF8);
+    end
     else
       Text := SL.Text;
     FLineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];

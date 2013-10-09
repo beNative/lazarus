@@ -23,16 +23,18 @@ unit ts_Editor_SettingsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LSControls, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, StdCtrls,
+  Classes, SysUtils, FileUtil, RTTICtrls, LSControls, Forms, Controls, Graphics,
+  Dialogs, ExtCtrls, StdCtrls,
 
-  VirtualPages;
+  VirtualPages,
+
+  ts.Editor.Interfaces;
 
 type
 
   { TEditorSettingsDialog }
 
-  TEditorSettingsDialog = class(TForm)
+  TEditorSettingsDialog = class(TForm, IEditorManager)
     lbxPages    : TListBox;
     pnlLeft     : TPanel;
     pnlRight    : TPanel;
@@ -42,9 +44,13 @@ type
 
   private
     FVPM : TVirtualPageManager;
+    function GetManager: IEditorManager;
 
   public
     procedure AfterConstruction; override;
+
+    property Manager: IEditorManager
+      read GetManager implements IEditorManager;
   end;
 
 implementation
@@ -55,7 +61,9 @@ uses
   ts_Editor_SettingsDialog_FileAssociations,
   ts_Editor_SettingsDialog_FileTypes,
   ts_Editor_SettingsDialog_KeyMappings,
-  ts_Editor_SettingsDialog_Highlighters;
+  ts_Editor_SettingsDialog_Highlighters,
+  ts_Editor_SettingsDialog_ApplicationSettings,
+  ts_Editor_SettingsDialog_EditorSettings;
 
 {$region 'construction and destruction' /fold}
 procedure TEditorSettingsDialog.AfterConstruction;
@@ -63,6 +71,18 @@ begin
   inherited AfterConstruction;
   FVPM := TVirtualPageManager.Create(Self);
   FVPM.DisplayOptions.Parent := pnlRight;
+  FVPM.Pages.Add(
+    'ApplicationSettings',
+    'Application settings',
+    TfrmApplicationSettings,
+    []
+  );
+  FVPM.Pages.Add(
+    'EditorSettings',
+    'Editor settings',
+    TfrmEditorSettingsDialog,
+    []
+    );
   FVPM.Pages.Add(
     'FileAssociations',
     'File associations',
@@ -97,6 +117,12 @@ procedure TEditorSettingsDialog.lbxPagesClick(Sender: TObject);
 begin
   FVPM.PageIndex := lbxPages.ItemIndex;
 end;
+
+function TEditorSettingsDialog.GetManager: IEditorManager;
+begin
+  Result := Owner as IEditorManager;
+end;
+
 {$endregion}
 
 end.

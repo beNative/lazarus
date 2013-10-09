@@ -240,7 +240,6 @@ end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
   Result := inherited Items[Index] as THighlighterItem;
@@ -266,11 +265,9 @@ begin
   if Assigned(Item) then
     Item.Assign(AValue);
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
   update is issued.
@@ -295,11 +292,9 @@ begin
   //   - cnDeleting   : an item is about to be removed from the collection and
   //                    then freed
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
-
 { Adds a new THighlighterItem instance to the THighlighters
   collection. }
 
@@ -453,7 +448,6 @@ begin
       TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
     end;
 end;
-
 {$endregion}
 {$endregion}
 

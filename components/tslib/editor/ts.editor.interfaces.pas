@@ -117,6 +117,8 @@ type
 
   { Handles display view of the editor. }
 
+  { IEditorView }
+
   IEditorView = interface(IControl)
   ['{94689213-B046-45F6-922B-FAE91C02A3FF}']
     {$region 'property access methods' /fold}
@@ -129,6 +131,7 @@ type
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
     function GetCaretY: Integer;
+    function GetCurrentChar: WideChar;
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
     function GetEditorFont: TFont;
@@ -362,6 +365,9 @@ type
 
     property SupportsFolding: Boolean
       read GetSupportsFolding;
+
+    property CurrentChar: WideChar
+      read GetCurrentChar;
 
     property CurrentWord: string
       read GetCurrentWord;

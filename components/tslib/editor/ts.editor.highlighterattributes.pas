@@ -348,11 +348,10 @@ begin
 end;
 
 {$endregion}
-{$endregion}
 
 {$region 'THighlighterAttributesItem' /fold}
-{$region 'construction and destruction' /fold}
 
+{$region 'construction and destruction' /fold}
 constructor THighlighterAttributesItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
@@ -368,11 +367,9 @@ begin
   FreeAndNil(FAliasNames);
   inherited;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function THighlighterAttributesItem.GetCollection: THighlighterAttributes;
 begin
   Result := inherited Collection as THighlighterAttributes;
@@ -421,7 +418,6 @@ begin
   FName := Value;
   inherited;
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
@@ -447,7 +443,6 @@ begin
    inherited Assign(Source);
 end;
 
-{$endregion}
 {$endregion}
 
 end.

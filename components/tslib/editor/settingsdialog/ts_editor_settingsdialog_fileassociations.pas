@@ -59,9 +59,12 @@ uses
 
   LCLIntf, LCLType, LMessages,
 
-  ts.Core.FileAssociations;
+  ts.Core.FileAssociations, ts_Editor_SettingsDialog_Extensions;
 
 type
+
+  { TfrmOptionsAssociate }
+
   TfrmOptionsAssociate = class(TForm)
     lblExt: TLabel;
     lvExt: TListView;
@@ -91,7 +94,6 @@ type
     procedure actSelectAllExecute(Sender: TObject);
     procedure actDeselectAllExecute(Sender: TObject);
     procedure actDeleteUpdate(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
     procedure lvExtDblClick(Sender: TObject);
     procedure actAddExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
@@ -103,8 +105,9 @@ type
     procedure lnkBackupClick(Sender: TObject);
 
   private
-    FMod: Boolean;
+    FModified: Boolean;
     FA: TFileAssociate;
+
     function GetCurrentItem: TAssociateItem;
     procedure SetCurrentItem(const Value: TAssociateItem);
 
@@ -115,6 +118,7 @@ type
       read GetCurrentItem write SetCurrentItem;
 
   public
+    procedure AfterConstruction; override;
     procedure LoadOptions;
     procedure SaveOptions;
   end;
@@ -135,6 +139,17 @@ var
 const
   SAppKey = 'Software\';
 
+procedure TfrmOptionsAssociate.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  FA := TFileAssociate.Create(Self);
+  FA.RootKey := gbAppHK;
+  FA.AppKey := SAppKey + Application.Name;
+  FA.AppDescription := Application.Name;
+  FA.ListView := lvExt;
+end;
+
+{$region 'action handlers' /fold}
 procedure TfrmOptionsAssociate.actAddExecute(Sender: TObject);
 begin
   AddEditExt(False);
@@ -182,6 +197,53 @@ begin
   for I := 0 to lvExt.Items.Count - 1 do
     lvExt.Items[I].Checked := False;
 end;
+{$endregion}
+
+{$region 'event handlers' /fold}
+procedure TfrmOptionsAssociate.lvExtChange(Sender: TObject;
+  Item: TListItem; Change: TItemChange);
+begin
+  DoChange(Self);
+end;
+
+procedure TfrmOptionsAssociate.lnkBackupClick(Sender: TObject);
+var
+  Param: string;
+  Res: integer;
+begin
+  with TSaveDialog.Create(Self) do
+  begin
+    try
+      DefaultExt := 'reg';
+      //Filter := GetLangStr('SRegFilter');
+      if Execute then
+      begin
+        //if FA.AllUsers then
+        //  Param := Format(SBackupRegTemp, [Filename, SHKCR])
+        //else
+        //  Param := Format(SBackupRegTemp, [Filename, SHKCU + '\' + SClassesKey]);
+        //Res :=  OpenDocument(PChar(SRegEdit)); { *Converted from ShellExecute* }
+        //if Res <= 32 then
+        //  Application.MessageBox(PChar(GetErrorStr(Res)), PChar(SAppName), MBOK);
+      end;
+    finally
+      Free;
+    end;
+  end;
+end;
+
+procedure TfrmOptionsAssociate.lvExtDblClick(Sender: TObject);
+begin
+  if Assigned(lvExt.Selected) then
+    actEdit.Execute;
+end;
+
+procedure TfrmOptionsAssociate.chkAllUsersClick(Sender: TObject);
+begin
+  DoLoadAssoc;
+end;
+{$endregion}
+
 
 procedure TfrmOptionsAssociate.LoadOptions;
 begin
@@ -199,7 +261,7 @@ begin
   //FA.AllUsers := ADRegKeyExist(  HKLM, SAppKey{, KEY_READ or KEY_WRITE or KEY_CREATE_SUB_KEY});
   //chkAllUsers.Checked := FA.AllUsers;
   //
-  //FMod := False;
+  //FModified := False;
  DoLoadAssoc;
 end;
 
@@ -217,15 +279,6 @@ begin
   //FA.SaveAssociates;
 end;
 
-procedure TfrmOptionsAssociate.FormCreate(Sender: TObject);
-begin
-  FA := TFileAssociate.Create(Self);
-  FA.RootKey := gbAppHK;
-  FA.AppKey := SAppKey + Application.Name;
-  FA.AppDescription := Application.Name;
-  FA.ListView := lvExt;
-end;
-
 function TfrmOptionsAssociate.GetCurrentItem: TAssociateItem;
 begin
   Result := FA.Items[lvExt.ItemIndex];
@@ -236,59 +289,52 @@ begin
   lvExt.ItemIndex := Value.Index;
 end;
 
-procedure TfrmOptionsAssociate.lvExtDblClick(Sender: TObject);
-begin
-  if Assigned(lvExt.Selected) then
-    actEdit.Execute;
-end;
+
 
 procedure TfrmOptionsAssociate.AddEditExt(const AEdit: Boolean);
 begin
-  //with TdlgExt.Create(Self) do
-  //try
-  //  Associate := FA;
-  //  EditMode := AEdit;
-  //  if AEdit then
-  //  begin
-  //    Ext := CurrentItem.Ext;
-  //    IconName := CurrentItem.Icon;
-  //    Description := CurrentItem.Descr;
-  //  end else
-  //  begin
-  //    Ext := '';
-  //    IconName := '';
-  //    Description := '';
-  //  end;
-  //  if ShowModal = mrOK then
-  //  begin
-  //    if AEdit then
-  //    begin
-  //      CurrentItem.Ext := Ext;
-  //      CurrentItem.Icon := IconName;
-  //      CurrentItem.Descr := Description;
-  //    end else
-  //    begin
-  //      lvExt.ClearSelection;
-  //      lvExt.Selected := lvExt.Items[lvExt.Items.Count - 1];
-  //      lvExt.Selected.Checked := True;
-  //      CurrentItem.Ext := Ext;
-  //      CurrentItem.Icon := IconName;
-  //      CurrentItem.Descr := Description;
-  //    end;
-  //  end;
-  //finally
-  //  Free;
-  //end;
+  with TdlgExt.Create(Self) do
+  try
+    Associate := FA;
+    EditMode := AEdit;
+    if AEdit then
+    begin
+      Ext := CurrentItem.Ext;
+      IconName := CurrentItem.Icon;
+      Description := CurrentItem.Descr;
+    end else
+    begin
+      Ext := '';
+      IconName := '';
+      Description := '';
+    end;
+    if ShowModal = mrOK then
+    begin
+      if AEdit then
+      begin
+        CurrentItem.Ext := Ext;
+        CurrentItem.Icon := IconName;
+        CurrentItem.Descr := Description;
+      end else
+      begin
+        //lvExt.ClearSelection;
+        lvExt.Selected := lvExt.Items[lvExt.Items.Count - 1];
+        lvExt.Selected.Checked := True;
+        CurrentItem.Ext := Ext;
+        CurrentItem.Icon := IconName;
+        CurrentItem.Descr := Description;
+      end;
+    end;
+  finally
+    Free;
+  end;
 end;
 
-procedure TfrmOptionsAssociate.chkAllUsersClick(Sender: TObject);
-begin
-  DoLoadAssoc;
-end;
+
 
 procedure TfrmOptionsAssociate.DoLoadAssoc;
 begin
-  //if FMod then
+  //if FModified then
   //  if MessageBox(Handle, PChar(GetLangStr('SSaveAssocQuery')), PChar(SAppName), MBStdQuery) = IDYES then
   //    SaveOptions;
   lvExt.Clear;
@@ -304,42 +350,12 @@ begin
 //    lblExt.Caption := Format(GetLangStr('SAssocUser'), [GetLangStr('SAllUsers')])
 //  else
 //    lblExt.Caption := Format(GetLangStr('SAssocUser'), [GetLangStr('SCurrentUser')]);
-//  FMod := False;
+//  FModified := False;
 end;
 
 procedure TfrmOptionsAssociate.DoChange(Sender: TObject);
 begin
-  FMod := True;
-end;
-
-procedure TfrmOptionsAssociate.lvExtChange(Sender: TObject;
-  Item: TListItem; Change: TItemChange);
-begin
-  DoChange(Self);
-end;
-
-procedure TfrmOptionsAssociate.lnkBackupClick(Sender: TObject);
-var
-  Param: string;
-  Res: integer;
-begin
-  with TSaveDialog.Create(Self) do
-    try
-      DefaultExt := 'reg';
-      //Filter := GetLangStr('SRegFilter');
-      if Execute then
-      begin
-        //if FA.AllUsers then
-        //  Param := Format(SBackupRegTemp, [Filename, SHKCR])
-        //else
-        //  Param := Format(SBackupRegTemp, [Filename, SHKCU + '\' + SClassesKey]);
-        //Res :=  OpenDocument(PChar(SRegEdit)); { *Converted from ShellExecute* }
-        //if Res <= 32 then
-        //  Application.MessageBox(PChar(GetErrorStr(Res)), PChar(SAppName), MBOK);
-      end;
-    finally
-      Free;
-    end;
+  FModified := True;
 end;
 
 end.

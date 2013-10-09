@@ -26,10 +26,10 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 532
       Top = 2
       Width = 486
-      ActivePage = tsHighlighters
+      ActivePage = tsHighlighterAttributes
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 2
+      TabIndex = 1
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Inspector'
@@ -78,7 +78,35 @@ object frmEditorSettings: TfrmEditorSettings
             Align = alClient
             BorderSpacing.Around = 2
             BevelOuter = bvNone
+            ClientHeight = 500
+            ClientWidth = 340
             TabOrder = 1
+            object pnlHARightTop: TPanel
+              Left = 0
+              Height = 92
+              Top = 0
+              Width = 340
+              Align = alTop
+              BevelOuter = bvNone
+              ClientHeight = 92
+              ClientWidth = 340
+              TabOrder = 0
+              object mmoAliasNames: TTIMemo
+                Left = 0
+                Height = 92
+                Top = 0
+                Width = 340
+                Align = alClient
+              end
+            end
+            object pnlHARightBottom: TPanel
+              Left = 0
+              Height = 408
+              Top = 92
+              Width = 340
+              Align = alClient
+              TabOrder = 1
+            end
           end
           object splHAVertical: TSplitter
             Left = 126

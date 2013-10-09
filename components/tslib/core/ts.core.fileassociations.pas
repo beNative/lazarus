@@ -65,11 +65,11 @@ uses
 type
   TAssociateItem = class(TCollectionItem)
   private
-    FExt: string;
-    FDescr: string;
-    FIcon: string;
-    FBackup: string;
-    FIsAssociate: Boolean;
+    FIsAssociate : Boolean;
+    FExt         : string;
+    FDescr       : string;
+    FIcon        : string;
+    FBackup      : string;
 
   public
     property Ext: string

@@ -51,12 +51,19 @@ const
   HL_CSS  = 'CSS';
   HL_JS   = 'JS';
   HL_CS   = 'CS';
+  HL_DIFF = 'DIFF';
+  HL_SH   = 'SH';
+  HL_TEX  = 'TEX';
+  HL_RUBY = 'RUBY';
+  HL_LUA  = 'LUA';
 
-  LAYOUT_INI = 'notepas.highlighter.ini.xml';
-  LAYOUT_RTF = 'notepas.highlighter.rtf.xml';
-  LAYOUT_RES = 'notepas.highlighter.res.xml';
-  LAYOUT_LOG = 'notepas.highlighter.log.xml';
-  LAYOUT_CS  = 'notepas.highlighter.cs.xml';
+  LAYOUT_INI   = 'notepas.highlighter.ini.xml';
+  LAYOUT_RTF   = 'notepas.highlighter.rtf.xml';
+  LAYOUT_RES   = 'notepas.highlighter.res.xml';
+  LAYOUT_LOG   = 'notepas.highlighter.log.xml';
+  LAYOUT_CS    = 'notepas.highlighter.cs.xml';
+  LAYOUT_RUBY  = 'notepas.highlighter.ruby.xml';
+  LAYOUT_LUA   = 'notepas.highlighter.lua.xml';
 
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
@@ -85,6 +92,11 @@ const
   FILE_EXTENSIONS_JS   = 'js';
   FILE_EXTENSIONS_CSS  = 'css';
   FILE_EXTENSIONS_CS   = 'cs';
+  FILE_EXTENSIONS_DIFF = 'diff';
+  FILE_EXTENSIONS_TEX  = 'tex';
+  FILE_EXTENSIONS_SH   = 'sh';
+  FILE_EXTENSIONS_RUBY = 'rb,rbw';
+  FILE_EXTENSIONS_LUA  = 'lua';
 
 //-----------------------------------------------------------------------------
 
@@ -112,6 +124,11 @@ resourcestring
   SCSSDescription  = 'Cascading Style Sheet';
   SJSDescription   = 'JavaScript';
   SCSDescription   = 'C#';
+  SDIFFDescription = 'Diff';
+  STEXDescription  = 'TeX';
+  SSHDescription   = 'Shell script';
+  SRUBYDescription = 'Ruby';
+  SLUADescription  = 'Lua';
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 

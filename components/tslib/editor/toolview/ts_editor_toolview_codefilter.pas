@@ -38,7 +38,7 @@ type
 
   { TfrmCodeFilterDialog }
 
-  TfrmCodeFilterDialog = class(TForm, IClipboardCommands)
+  TfrmCodeFilterDialog = class(TForm)
     {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
@@ -117,13 +117,6 @@ type
 
   protected
     procedure Modified;
-
-    { IClipboardCommands }
-    procedure Cut;
-    procedure Copy;
-    procedure Paste;
-    procedure Undo;
-    procedure Redo;
 
     { IEditorToolView }
     function GetVisible: Boolean;
@@ -724,34 +717,6 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
-procedure TfrmCodeFilterDialog.Cut;
-begin
-  PostMessage(GetFocus, LM_CUT, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Copy;
-begin
-  PostMessage(GetFocus, LM_COPY, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Paste;
-begin
-  PostMessage(GetFocus, LM_PASTE, 0, 0);
-end;
-
-procedure TfrmCodeFilterDialog.Undo;
-begin
-{$IFDEF windows}
-  PostMessage(GetFocus, WM_UNDO, 0, 0);
-{$endif}
-end;
-
-procedure TfrmCodeFilterDialog.Redo;
-begin
-{$IFDEF windows}
-  PostMessage(GetFocus, WM_UNDO, 1, 0);
-{$endif}
-end;
 
 procedure TfrmCodeFilterDialog.Modified;
 begin

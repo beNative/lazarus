@@ -30,18 +30,38 @@ uses
   ts.Editor.Interfaces, ts.Editor.Settings.HexEditor, ts_Editor_ToolView_Base;
 
 type
+
+  { TfrmHexEditor }
+
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)
     HexEditor: TKHexEditor;
 
+    procedure FormResize(Sender: TObject);
     procedure HexEditorChange(Sender: TObject);
 
+  private
+    function GetSettings: THexEditorSettings;
   strict protected
     procedure UpdateView; override;
+
+    property Settings: THexEditorSettings
+      read GetSettings;
+
+  public
+    procedure AfterConstruction; override;
   end;
 
 implementation
 
 {$R *.lfm}
+
+{$region 'construction and destruction' /fold}
+procedure TfrmHexEditor.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  Width := Settings.Width;
+end;
+{$endregion}
 
 {$region 'event handlers' /fold}
 procedure TfrmHexEditor.HexEditorChange(Sender: TObject);
@@ -59,6 +79,18 @@ begin
       S.Free;
     end;
   end;
+end;
+
+procedure TfrmHexEditor.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
+end;
+{$endregion}
+
+{$region 'property access mehods' /fold}
+function TfrmHexEditor.GetSettings: THexEditorSettings;
+begin
+  Result := inherited Settings.HexEditorSettings;
 end;
 {$endregion}
 

@@ -1,28 +1,28 @@
 inherited frmCharacterMap: TfrmCharacterMap
   Left = -750
-  Height = 570
+  Height = 649
   Top = 249
   Width = 369
   ActiveControl = pcMain
   BorderStyle = bsSingle
-  ClientHeight = 570
+  ClientHeight = 649
   ClientWidth = 369
   KeyPreview = True
   PopupMode = pmAuto
   Position = poDefault
   object pcMain: TPageControl[0]
     Left = 2
-    Height = 422
+    Height = 394
     Top = 2
     Width = 365
-    ActivePage = tsANSI
+    ActivePage = tsUnicode
     Align = alClient
     BorderSpacing.Around = 2
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object tsANSI: TTabSheet
       Caption = 'ANSI'
-      ClientHeight = 394
+      ClientHeight = 366
       ClientWidth = 357
       object lblCharInfo: TLabel
         AnchorSideLeft.Control = tsANSI
@@ -33,7 +33,7 @@ inherited frmCharacterMap: TfrmCharacterMap
         AnchorSideBottom.Side = asrBottom
         Left = 6
         Height = 15
-        Top = 373
+        Top = 345
         Width = 345
         Anchors = [akLeft, akRight, akBottom]
         BorderSpacing.Around = 6
@@ -47,177 +47,56 @@ inherited frmCharacterMap: TfrmCharacterMap
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = lblCharInfo
         Left = 0
-        Height = 367
+        Height = 339
         Top = 0
         Width = 357
         AlternateColor = clNone
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False
         AutoFillColumns = True
-        ColCount = 15
-        Columns = <        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 24
-          end        
-          item
-            Font.Height = -16
-            Font.Name = 'Tahoma'
-            Title.Caption = 'Title'
-            Title.Font.CharSet = ANSI_CHARSET
-            Title.Font.Height = -11
-            Title.Font.Name = 'Tahoma'
-            Width = 28
-          end>
+        BorderStyle = bsNone
+        ColCount = 17
         DefaultColWidth = 25
         ExtendedSelect = False
         Flat = True
         Font.Height = -15
+        MouseWheelOption = mwGrid
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
         ParentFont = False
         RowCount = 15
         ScrollBars = ssAutoVertical
         TabOrder = 0
         TitleFont.Height = -15
+        TitleStyle = tsNative
         OnKeyUp = grdANSIKeyUp
         OnMouseDown = grdANSIMouseDown
         OnMouseMove = grdANSIMouseMove
+        OnPrepareCanvas = grdANSIPrepareCanvas
         OnSelectCell = grdANSISelectCell
         ColWidths = (
           16
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          24
-          28
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          26
         )
       end
     end
     object tsUnicode: TTabSheet
       Caption = 'Unicode'
-      ClientHeight = 394
+      ClientHeight = 366
       ClientWidth = 357
       object lblUnicodeCharInfo: TLabel
         AnchorSideLeft.Control = Owner
@@ -225,7 +104,7 @@ inherited frmCharacterMap: TfrmCharacterMap
         AnchorSideTop.Side = asrCenter
         Left = 6
         Height = 15
-        Top = 369
+        Top = 342
         Width = 103
         BorderSpacing.Around = 6
         Caption = 'lblUnicodeCharInfo'
@@ -238,7 +117,7 @@ inherited frmCharacterMap: TfrmCharacterMap
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = cbxUnicodeRange
         Left = 0
-        Height = 359
+        Height = 332
         Top = 0
         Width = 357
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -249,6 +128,7 @@ inherited frmCharacterMap: TfrmCharacterMap
         FixedRows = 0
         Flat = True
         Font.Height = -15
+        MouseWheelOption = mwGrid
         Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goThumbTracking, goSmoothScroll]
         ParentFont = False
         RowCount = 15
@@ -283,11 +163,11 @@ inherited frmCharacterMap: TfrmCharacterMap
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = tsUnicode
         AnchorSideBottom.Side = asrBottom
-        Left = 139
+        Left = 162
         Height = 23
-        Top = 365
-        Width = 212
-        Anchors = [akRight, akBottom]
+        Top = 338
+        Width = 189
+        Anchors = [akRight]
         BorderSpacing.Around = 6
         DropDownCount = 30
         ItemHeight = 15
@@ -299,21 +179,21 @@ inherited frmCharacterMap: TfrmCharacterMap
   end
   object pnlChar: TPanel[1]
     Left = 4
-    Height = 138
-    Top = 428
+    Height = 245
+    Top = 400
     Width = 361
     Align = alBottom
     BorderSpacing.Around = 4
     BevelInner = bvSpace
     BevelOuter = bvSpace
-    ClientHeight = 138
+    ClientHeight = 245
     ClientWidth = 361
     Color = clWhite
     ParentColor = False
     TabOrder = 1
     object shpChar: TShape
       Left = 2
-      Height = 134
+      Height = 241
       Top = 2
       Width = 357
       Align = alClient
@@ -323,11 +203,12 @@ inherited frmCharacterMap: TfrmCharacterMap
     end
     object imgChar: TImage
       Left = 6
-      Height = 126
+      Height = 233
       Top = 6
       Width = 349
       AntialiasingMode = amOn
       Align = alClient
+      AutoSize = True
       BorderSpacing.Around = 4
       Center = True
       Transparent = True

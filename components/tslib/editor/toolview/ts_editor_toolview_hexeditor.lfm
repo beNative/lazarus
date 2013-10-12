@@ -1,16 +1,17 @@
 inherited frmHexEditor: TfrmHexEditor
-  Left = 536
-  Height = 932
-  Top = 94
-  Width = 670
+  Left = 2058
+  Height = 565
+  Top = 423
+  Width = 919
   Caption = 'Hex editor'
-  ClientHeight = 932
-  ClientWidth = 670
+  ClientHeight = 565
+  ClientWidth = 919
+  OnResize = FormResize
   object HexEditor: TKHexEditor[0]
     Left = 0
-    Height = 932
+    Height = 565
     Top = 0
-    Width = 670
+    Width = 919
     Align = alClient
     BorderStyle = bsNone
     DisabledDrawStyle = eddNormal

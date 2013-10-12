@@ -30,6 +30,9 @@ uses
   ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
+
+  { TfrmCharacterMap }
+
   TfrmCharacterMap = class(TCustomEditorToolView, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
     imgChar            : TImage;
@@ -47,6 +50,8 @@ type
     procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure grdANSIPrepareCanvas(sender: TObject; aCol, aRow: Integer;
+      aState: TGridDrawState);
     procedure grdANSISelectCell(Sender: TObject; aCol, aRow: Integer;
       var CanSelect: Boolean);
     procedure grdUnicodeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -105,7 +110,7 @@ begin
   Result.Canvas.Brush.Color := clWhite;
   Result.Canvas.FillRect(Result.Canvas.ClipRect);
   Result.Canvas.Font.Name := AFontName;
-  Result.Canvas.Font.Height := ABitmapHeight;
+  Result.Canvas.Font.Height := ABitmapHeight - 10;
   Result.Canvas.TextOut(
     (Result.Width - Result.Canvas.GetTextWidth(ACharacter)) div 2,
     0,
@@ -195,6 +200,16 @@ begin
   end;
 end;
 
+procedure TfrmCharacterMap.grdANSIPrepareCanvas(sender: TObject; aCol,
+  aRow: Integer; aState: TGridDrawState);
+begin
+  if gdFixed in aState then
+  begin
+    grdANSI.Canvas.Font.Assign(Font);
+    grdANSI.Canvas.Font.Size := 8;
+  end
+end;
+
 procedure TfrmCharacterMap.grdANSISelectCell(Sender: TObject; aCol,
   aRow: Integer; var CanSelect: Boolean);
 begin
@@ -226,15 +241,15 @@ end;
 procedure TfrmCharacterMap.grdANSIMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  Row : Integer;
-  Col : Integer;
+  R : Integer;
+  C : Integer;
 begin
-  Row := 0;
-  Col := 0;
+  R := 0;
+  C := 0;
   if grdANSI.MouseToGridZone(X, Y) = gzNormal then
   begin
-    grdANSI.MouseToCell(X, Y, Col, Row);
-    UpdateANSIDisplay(Col, Row);
+    grdANSI.MouseToCell(X, Y, C, R);
+    UpdateANSIDisplay(C, R);
   end
   else
   begin

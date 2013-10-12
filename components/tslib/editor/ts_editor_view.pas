@@ -1455,7 +1455,7 @@ begin
   FBeautifier.AutoIndent := True;
   AEditor.Beautifier := FBeautifier;
 
-  // TEMP CODE TSI
+  // TEMP CODE TS
   N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Shift+Ctrl+N'));
   AEditor.Keystrokes.Delete(N);
   N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+N'));

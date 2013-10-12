@@ -25,52 +25,79 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-  {$IFDEF windows}
+  {$IFDEF Windows}
   FramView, HtmlGlobals,
-  {$endif}
+  {$ENDIF}
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts.Editor.Interfaces, ts_Editor_ToolView_Base, ts.Editor.Settings.HTMLView;
 
 type
+
+  { TfrmHTMLView }
+
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
+    procedure FormResize(Sender: TObject);
   private
-    {$IFDEF windows}
+    {$IFDEF Windows}
     FHTMLViewer: TFrameViewer;
-    {$endif}
+    function GetSettings: THTMLViewSettings;
+    {$ENDIF}
+
+  strict protected
+    procedure UpdateView; override;
+
+    property Settings: THTMLViewSettings
+      read GetSettings;
 
   public
     procedure AfterConstruction; override;
 
-    procedure UpdateView; override;
   end;
 
 implementation
 
 {$R *.lfm}
 
+{$region 'construction and destruction' /fold}
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
-{$IFDEF windows}
+{$IFDEF Windows}
   FHTMLViewer := TFrameViewer.Create(Self);
   FHTMLViewer.Parent := Self;
   FHTMLViewer.Align := alClient;
   FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
-{$endif}
+{$ENDIF}
+  Width := Settings.Width;
 end;
+{$endregion}
 
+{$region 'property access mehods' /fold}
+function TfrmHTMLView.GetSettings: THTMLViewSettings;
+begin
+  Result := inherited Settings.HTMLViewSettings;
+end;
+{$endregion}
+
+{$region 'event handlers' /fold}
+procedure TfrmHTMLView.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
+end;
+{$endregion}
+
+{$region 'protected methods' /fold}
 procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
-
-{$IFDEF windows}
+{$IFDEF Windows}
   if FileExistsUTF8(View.FileName) then
     FHTMLViewer.LoadFromFile(WideString(View.FileName))
   else
     FHTMLViewer.LoadFromString(WideString(View.Text));
-{$endif}
-
+{$ENDIF}
 end;
+{$endregion}
 
 end.
 

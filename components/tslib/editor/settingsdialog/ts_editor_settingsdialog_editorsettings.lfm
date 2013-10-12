@@ -6,16 +6,16 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
   ClientHeight = 578
   ClientWidth = 615
   object edtExtraLineSpacing: TTISpinEdit[0]
-    Left = 112
+    Left = 184
     Height = 23
-    Top = 16
+    Top = 25
     Width = 50
     TabOrder = 0
   end
   object edtExtraCharSpacing: TTISpinEdit[1]
-    Left = 112
+    Left = 184
     Height = 23
-    Top = 56
+    Top = 49
     Width = 50
     TabOrder = 1
   end
@@ -34,16 +34,17 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     TabOrder = 3
   end
   object chkReadOnly: TTICheckBox[4]
-    Left = 80
-    Height = 23
-    Top = 184
-    Width = 90
-    Caption = 'chkReadOnly'
+    Left = 8
+    Height = 19
+    Top = 312
+    Width = 106
+    AutoSize = True
+    Caption = 'Read only mode'
     PropertyNameAsCaption = True
     TabOrder = 4
   end
   object edtRightEdge: TTISpinEdit[5]
-    Left = 112
+    Left = 144
     Height = 23
     Top = 224
     Width = 50
@@ -59,11 +60,12 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     ButtonColor = clBlack
   end
   object chkWantTabs: TTICheckBox[7]
-    Left = 80
-    Height = 23
-    Top = 360
-    Width = 90
-    Caption = 'chkWantTabs'
+    Left = 10
+    Height = 19
+    Top = 336
+    Width = 142
+    AutoSize = True
+    Caption = 'Accept TAB characters:'
     PropertyNameAsCaption = True
     TabOrder = 6
   end
@@ -81,13 +83,14 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     Width = 136
     Position = 0
     ScalePos = trBottom
+    ShowSelRange = False
     TabOrder = 8
     UseRTTIMinMax = False
   end
   object trbExtraLineSpacing: TTITrackBar[10]
-    Left = 176
+    Left = 256
     Height = 24
-    Top = 16
+    Top = 24
     Width = 136
     Position = 0
     ScalePos = trBottom
@@ -96,9 +99,9 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     UseRTTIMinMax = False
   end
   object trbExtraCharSpacing: TTITrackBar[11]
-    Left = 176
+    Left = 256
     Height = 24
-    Top = 55
+    Top = 48
     Width = 136
     Position = 0
     ScalePos = trBottom
@@ -113,6 +116,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     Width = 136
     Position = 0
     ScalePos = trBottom
+    ShowSelRange = False
     TabOrder = 11
     UseRTTIMinMax = False
   end
@@ -123,6 +127,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     Width = 136
     Position = 0
     ScalePos = trBottom
+    ShowSelRange = False
     TabOrder = 12
     UseRTTIMinMax = False
   end
@@ -135,55 +140,62 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     Max = 200
     Position = 0
     ScalePos = trBottom
+    ShowSelRange = False
     TabOrder = 13
     UseRTTIMinMax = False
   end
   object lblExtraLineSpacing: TLabel[15]
-    Left = 24
+    Left = 20
     Height = 15
-    Top = 24
-    Width = 102
-    Caption = 'lblExtraLineSpacing'
+    Top = 25
+    Width = 94
+    Caption = 'Extra line spacing:'
+    FocusControl = edtExtraLineSpacing
     ParentColor = False
   end
   object lblExtraCharSpacing: TLabel[16]
-    Left = 16
+    Left = 28
     Height = 15
-    Top = 64
-    Width = 105
-    Caption = 'lblExtraCharSpacing'
+    Top = 56
+    Width = 124
+    Caption = 'Extra character spacing:'
+    FocusControl = edtExtraCharSpacing
     ParentColor = False
   end
   object lblBlockIndent: TLabel[17]
     Left = 24
     Height = 15
     Top = 104
-    Width = 76
-    Caption = 'lblBlockIndent'
+    Width = 107
+    Caption = 'Block indent spaces:'
+    FocusControl = edtBlockIndent
     ParentColor = False
   end
   object lblBlockTabIndent: TLabel[18]
     Left = 24
     Height = 15
     Top = 144
-    Width = 96
-    Caption = 'lblBlockTabIndent'
+    Width = 94
+    Caption = 'Block indent tabs:'
+    FocusControl = edtBlockTabIndent
     ParentColor = False
   end
   object lblRightEdge: TLabel[19]
     Left = 16
     Height = 15
     Top = 232
-    Width = 67
-    Caption = 'lblRightEdge'
+    Width = 106
+    Caption = 'Right edge position:'
+    FocusControl = edtRightEdge
     ParentColor = False
   end
   object lblTabWidth: TLabel[20]
     Left = 32
     Height = 15
     Top = 424
-    Width = 65
-    Caption = 'lblTabWidth'
+    Width = 58
+    Caption = 'TAB width:'
+    FocusControl = edtTabWidth
     ParentColor = False
   end
 end

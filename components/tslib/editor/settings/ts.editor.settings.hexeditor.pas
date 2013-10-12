@@ -16,23 +16,23 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.Settings.CodeShaper;
+unit ts.Editor.Settings.HexEditor;
 
 {$MODE Delphi}
 
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes, SysUtils;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
 
-  { TCodeShaperSettings }
+  { THexEditorSettings }
 
-  TCodeShaperSettings = class(TPersistent)
+  THexEditorSettings = class(TPersistent)
   private
     FWidth: Integer;
   public
@@ -48,7 +48,7 @@ type
 implementation
 
 {$region 'construction and destruction' /fold}
-procedure TCodeShaperSettings.AfterConstruction;
+procedure THexEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth := DEFAULT_WIDTH;
@@ -56,26 +56,26 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
+procedure THexEditorSettings.AssignTo(Dest: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: THexEditorSettings;
 begin
-  if Dest is TCodeShaperSettings then
+  if Dest is THexEditorSettings then
   begin
-    S := TCodeShaperSettings(Dest);
+    S := THexEditorSettings(Dest);
     S.Width := Width;
   end
   else
     inherited AssignTo(Dest);
 end;
 
-procedure TCodeShaperSettings.Assign(Source: TPersistent);
+procedure THexEditorSettings.Assign(Source: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: THexEditorSettings;
 begin
-  if Source is TCodeShaperSettings then
+  if Source is THexEditorSettings then
   begin
-    S := TCodeShaperSettings(Source);
+    S := THexEditorSettings(Source);
     Width := S.Width;
   end
   else
@@ -84,4 +84,5 @@ end;
 {$endregion}
 
 end.
+
 

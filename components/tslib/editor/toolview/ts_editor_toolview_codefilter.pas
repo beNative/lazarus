@@ -32,7 +32,7 @@ uses
 
   ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions, ts.Core.DataTemplates,
 
-  ts.Editor.Interfaces, ts.Editor.Utils;
+  ts.Editor.Interfaces, ts.Editor.Utils, ts.Editor.Settings.CodeFilter;
 
 type
 
@@ -108,6 +108,7 @@ type
 
     function GetManager: IEditorManager;
     function GetFilter: string;
+    function GetSettings: TCodeFilterSettings;
     procedure SetFilter(AValue: string);
     function GetMatchCase: Boolean;
     function GetRegEx: Boolean;
@@ -148,6 +149,10 @@ type
     property MatchCase: Boolean
       read GetMatchCase;
 
+
+    property Settings : TCodeFilterSettings
+      read GetSettings;
+
     procedure UpdateActions; override;
     procedure ApplyFilter;
     procedure FillList(AStrings: TStrings);
@@ -178,6 +183,7 @@ type
   published
     property Index: Integer
       read FIndex write FIndex;
+
     property Text: string
       read FText write FText;
   end;
@@ -190,7 +196,7 @@ uses
   Clipbrd, StrUtils,
 {$IFDEF windows}
   Windows,
-{$endif}
+{$ENDIF}
   LCLIntf, LMessages,
 
   SynEditHighlighter,
@@ -354,6 +360,11 @@ begin
   end;
 end;
 
+function TfrmCodeFilterDialog.GetSettings: TCodeFilterSettings;
+begin
+  Result := (Manager as IEditorSettings).CodeFilterSettings;
+end;
+
 function TfrmCodeFilterDialog.GetView: IEditorView;
 begin
   Result := Owner as IEditorView;
@@ -363,7 +374,6 @@ function TfrmCodeFilterDialog.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -484,7 +494,7 @@ begin
   begin
 {$IFDEF windows}
     PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
-{$endif}
+{$ENDIF}
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;

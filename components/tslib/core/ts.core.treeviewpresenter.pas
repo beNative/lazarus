@@ -2011,10 +2011,10 @@ begin
     FTreeView.NodeDataSize := SizeOf(TNodeData);
     FTreeView.PopupMenu := PopupMenu;
 
-    InitColumns();
-    InitProperties();
-    InitEvents();
-    ResetRootNodeCount();
+    InitColumns;
+    InitProperties;
+    InitEvents;
+    ResetRootNodeCount;
   end;
 end;
 

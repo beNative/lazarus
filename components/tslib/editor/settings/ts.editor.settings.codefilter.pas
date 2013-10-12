@@ -16,25 +16,26 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.Settings.CodeShaper;
+unit ts.Editor.Settings.CodeFilter;
 
 {$MODE Delphi}
 
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes, SysUtils;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
 
-  { TCodeShaperSettings }
+  { TCodeFilterSettings }
 
-  TCodeShaperSettings = class(TPersistent)
+  TCodeFilterSettings = class(TPersistent)
   private
     FWidth: Integer;
+
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
@@ -48,34 +49,33 @@ type
 implementation
 
 {$region 'construction and destruction' /fold}
-procedure TCodeShaperSettings.AfterConstruction;
+procedure TCodeFilterSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FWidth := DEFAULT_WIDTH;
 end;
 {$endregion}
 
 {$region 'public methods' /fold}
-procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
+procedure TCodeFilterSettings.AssignTo(Dest: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: TCodeFilterSettings;
 begin
-  if Dest is TCodeShaperSettings then
+  if Dest is TCodeFilterSettings then
   begin
-    S := TCodeShaperSettings(Dest);
+    S := TCodeFilterSettings(Dest);
     S.Width := Width;
   end
   else
     inherited AssignTo(Dest);
 end;
 
-procedure TCodeShaperSettings.Assign(Source: TPersistent);
+procedure TCodeFilterSettings.Assign(Source: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: TCodeFilterSettings;
 begin
-  if Source is TCodeShaperSettings then
+  if Source is TCodeFilterSettings then
   begin
-    S := TCodeShaperSettings(Source);
+    S := TCodeFilterSettings(Source);
     Width := S.Width;
   end
   else
@@ -84,4 +84,5 @@ end;
 {$endregion}
 
 end.
+
 

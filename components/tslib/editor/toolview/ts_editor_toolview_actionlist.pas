@@ -23,7 +23,8 @@ unit ts_Editor_ToolView_ActionList;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ExtCtrls, ActnList, ComCtrls, Contnrs,
+  Classes, SysUtils, Forms, Controls, ExtCtrls, ActnList, ComCtrls, StdCtrls,
+  Contnrs,
 
   VirtualTrees,
 
@@ -36,13 +37,22 @@ type
   { TfrmActionListView }
 
   TfrmActionListView = class(TForm, IEditorToolView)
-    pgcMain         : TPageControl;
-    pnlEditorList   : TPanel;
-    tsMouseActions  : TTabSheet;
-    tsCommands      : TTabSheet;
-    tsActions       : TTabSheet;
+    edtFilterActions : TEdit;
+    pnlActions       : TPanel;
+    pgcMain          : TPageControl;
+    pnlEditorList    : TPanel;
+    tsMouseActions   : TTabSheet;
+    tsCommands       : TTabSheet;
+    tsActions        : TTabSheet;
 
+    procedure edtFilterActionsChange(Sender: TObject);
+    procedure edtFilterActionsKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtFilterActionsKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure FTVPActionsFilter(Item: TObject; var Accepted: Boolean);
+    procedure FVSTActionsKeyPress(Sender: TObject; var Key: char);
 
   private
     FVSTActions      : TVirtualStringTree;
@@ -54,15 +64,20 @@ type
     FActionItems     : TObjectList;
     FKeyStrokeItems  : TObjectList;
     FMouseItems      : TObjectList;
+    FVKPressed       : Boolean;
 
+    function GetFilter: string;
     function GetForm: TForm;
     function GetManager: IEditorManager;
     function GetName: string;
+    procedure SetFilter(AValue: string);
 
   protected
     procedure UpdateLists;
     property Manager: IEditorManager
       read GetManager;
+
+    function IsMatch(const AString : string): Boolean; overload; inline;
 
     { IEditorToolView }
     function GetVisible: Boolean;
@@ -77,6 +92,9 @@ type
 
     property Form: TForm
       read GetForm;
+
+    property Filter: string
+      read GetFilter write SetFilter;
 
   public
     procedure AfterConstruction; override;
@@ -93,10 +111,55 @@ uses
 
   SynEditKeyCmds, SynEditMouseCmds,
 
-  LCLProc,
+  Windows,
+
+  LCLProc, LCLIntf, LMessages,
 
   ts.Core.Value, ts.Core.ColumnDefinitions, ts.Core.ColumnDefinitionsDataTemplate,
-  ts.Core.Helpers, ts.Core.DataTemplates;
+  ts.Core.Helpers, ts.Core.DataTemplates,
+
+  ts.Editor.Utils;
+
+type
+  TVKSet = set of Byte;
+
+var
+  VK_EDIT_KEYS : TVKSet = [
+    VK_DELETE,
+    VK_BACK,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END,
+    VK_SHIFT,
+    VK_CONTROL,
+    VK_SPACE,
+    VK_0..VK_Z,
+    VK_OEM_1..VK_OEM_102,
+    VK_MULTIPLY..VK_DIVIDE
+  ];
+
+  VK_CTRL_EDIT_KEYS : TVKSet = [
+    VK_INSERT,
+    VK_DELETE,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END,
+    VK_C,
+    VK_X,
+    VK_V,
+    VK_Z
+  ];
+
+  VK_SHIFT_EDIT_KEYS : TVKSet = [
+    VK_INSERT,
+    VK_DELETE,
+    VK_LEFT,
+    VK_RIGHT,
+    VK_HOME,
+    VK_END
+  ];
 
 {$region 'TActionListTemplate' /fold}
 type
@@ -246,7 +309,9 @@ end;
 procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FVSTActions := CreateVST(Self, tsActions);
+  FVSTActions := CreateVST(Self, pnlActions);
+  FVSTActions.OnKeyPress := FVSTActionsKeyPress;
+
   FVSTCommands := CreateVST(Self, tsCommands);
   FVSTMouseActions := CreateVST(Self, tsMouseActions);
 
@@ -279,6 +344,7 @@ begin
     ColumnType := TColumnType.ctCheckBox;
     AllowEdit := True;
   end;
+  FTVPActions.OnFilter := FTVPActionsFilter;
 
   FTVPCommands := TTreeViewPresenter.Create(Self);
   FTVPCommands.ListMode := True;
@@ -337,9 +403,22 @@ begin
   Result := Self;
 end;
 
+function TfrmActionListView.GetFilter: string;
+begin
+  Result := edtFilterActions.Text;
+end;
+
 function TfrmActionListView.GetName: string;
 begin
   Result := inherited Name;
+end;
+
+procedure TfrmActionListView.SetFilter(AValue: string);
+begin
+  if AValue <> Filter then
+  begin
+    edtFilterActions.Text := AValue;
+  end;
 end;
 
 function TfrmActionListView.GetVisible: Boolean;
@@ -358,6 +437,78 @@ procedure TfrmActionListView.FormShow(Sender: TObject);
 begin
   UpdateLists;
 end;
+
+procedure TfrmActionListView.FTVPActionsFilter(Item: TObject;
+  var Accepted: Boolean);
+var
+  A: TContainedAction;
+begin
+  A := TContainedAction(Item);
+  Accepted := IsMatch(A.Name) or {IsMatch(A.Hint) or} IsMatch(A.Category);
+end;
+
+procedure TfrmActionListView.edtFilterActionsChange(Sender: TObject);
+begin
+  //if {(Filter <> '') and} not (FLines.Count < 100000) then
+//    Modified;
+  FTVPActions.ApplyFilter;
+end;
+
+procedure TfrmActionListView.edtFilterActionsKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+var
+  A : Boolean;
+  B : Boolean;
+  C : Boolean;
+  D : Boolean;
+begin
+  A := (ssAlt in Shift) or (ssShift in Shift);
+  B := (Key in VK_EDIT_KEYS) and (Shift = []);
+  C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
+  if not (A or B or C or D) then
+  begin
+    FVKPressed := True;
+    Key := 0;
+  end;
+end;
+
+procedure TfrmActionListView.edtFilterActionsKeyUp(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if FVKPressed and FVSTActions.Enabled then
+  begin
+{$IFDEF windows}
+    PostMessage(FVSTActions.Handle, WM_KEYDOWN, Key, 0);
+{$ENDIF}
+    if Visible and FVSTActions.CanFocus then
+      FVSTActions.SetFocus;
+  end;
+  FVKPressed := False;
+end;
+
+procedure TfrmActionListView.FVSTActionsKeyPress(Sender: TObject; var Key: char
+  );
+begin
+  if Ord(Key) = VK_RETURN then
+  begin
+    Close;
+  end
+  else if Ord(Key) = VK_ESCAPE then
+  begin
+    ModalResult := mrCancel;
+    Close;
+  end
+  else if not edtFilterActions.Focused then
+  begin
+    edtFilterActions.SetFocus;
+    PostMessage(edtFilterActions.Handle, LM_CHAR, Ord(Key), 0);
+    edtFilterActions.SelStart := Length(Filter);
+    // required to prevent the invocation of accelerator keys!
+    Key := #0;
+  end;
+end;
+
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -386,6 +537,15 @@ begin
   FTVPCommands.Refresh;
   FTVPMouseActions.Refresh;
 end;
+
+function TfrmActionListView.IsMatch(const AString: string): Boolean;
+begin
+  if AString = '' then
+    Result := True
+  else
+    Result := StrPos(Filter, AString, False) > 0;
+end;
+
 {$endregion}
 {$endregion}
 end.

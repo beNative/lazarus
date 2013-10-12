@@ -8,7 +8,7 @@ object frmActionListView: TfrmActionListView
   ClientWidth = 800
   OnShow = FormShow
   Position = poOwnerFormCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.3'
   object pnlEditorList: TPanel
     Left = 0
     Height = 526
@@ -30,6 +30,28 @@ object frmActionListView: TfrmActionListView
       TabOrder = 0
       object tsActions: TTabSheet
         Caption = 'Actions'
+        ClientHeight = 496
+        ClientWidth = 790
+        object pnlActions: TPanel
+          Left = 0
+          Height = 473
+          Top = 23
+          Width = 790
+          Align = alClient
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+        object edtFilterActions: TEdit
+          Left = 0
+          Height = 23
+          Top = 0
+          Width = 790
+          Align = alTop
+          OnChange = edtFilterActionsChange
+          OnKeyDown = edtFilterActionsKeyDown
+          OnKeyUp = edtFilterActionsKeyUp
+          TabOrder = 1
+        end
       end
       object tsCommands: TTabSheet
         Caption = 'Editor key commands'

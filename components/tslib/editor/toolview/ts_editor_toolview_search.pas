@@ -150,6 +150,8 @@ type
 
 implementation
 
+{$R *.lfm}
+
 uses
   LCLIntf,
 
@@ -458,8 +460,5 @@ begin
   end;
 end;
 {$endregion}
-
-initialization
-  {$I ts_editor_toolview_search.lrs}
 
 end.

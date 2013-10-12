@@ -85,7 +85,6 @@ resourcestring
   SCharacterMap = 'Character Map';
 
 {$region 'non-interfaced routines' /fold}
-
 function RoundUp(Value, Divi: Integer): Integer;
 begin
   if Value mod Divi = 0 then
@@ -113,11 +112,9 @@ begin
     ACharacter
   );
 end;
-
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmCharacterMap.AfterConstruction;
 var
   I : Integer;
@@ -127,7 +124,9 @@ begin
   lblCharInfo.Caption := '-';
   lblUnicodeCharInfo.Caption := '-';
   grdANSI.Font.Assign(Manager.Settings.EditorFont);
+  grdANSI.Font.Size := 12;
   grdUnicode.Font.Assign(Manager.Settings.EditorFont);
+  grdUnicode.Font.Size := 12;
   FillCharMap;
   grdANSI.AutoSizeColumns;
   cbxUnicodeRange.Items.Clear;
@@ -140,11 +139,9 @@ begin
   cbxUnicodeRangeSelect(nil);
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmCharacterMap.cbxUnicodeRangeSelect(Sender: TObject);
 var
   N : Integer;
@@ -269,11 +266,9 @@ procedure TfrmCharacterMap.grdUnicodeSelectCell(Sender: TObject; aCol,
 begin
   UpdateUnicodeDisplay(aCol, aRow);
 end;
-
 {$endregion}
 
 {$region 'private methods' /fold}
-
 procedure TfrmCharacterMap.FillCharMap;
 var
   R : Integer;
@@ -339,7 +334,6 @@ begin
   else
     lblCharInfo.Caption := '-';
 end;
-
 {$endregion}
 
 end.

@@ -25,11 +25,16 @@ interface
 uses
   Classes, Forms, Controls;
 
+const
+  DEFAULT_WIDTH = 360;
+
 type
   TSortDirection = (
     sdAscending,
     sdDescending
   );
+
+  { TAlignLinesSettings }
 
   TAlignLinesSettings = class(TPersistent)
   strict private
@@ -40,6 +45,7 @@ type
     FSortAfterAlign       : Boolean;
     FSortDirection        : TSortDirection;
     FTokens               : TStringList;
+    FWidth                : Integer;
 
     function GetTokens: TStrings;
     procedure SetTokens(AValue: TStrings);
@@ -72,16 +78,19 @@ type
 
     property Tokens: TStrings
       read GetTokens write SetTokens;
+
+    property Width: Integer
+      read FWidth write FWidth default DEFAULT_WIDTH;
   end;
 
 implementation
 
 {$region 'construction and destruction' /fold}
-
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FSortDirection := sdAscending;
+  FWidth         := DEFAULT_WIDTH;
   FTokens := TStringList.Create;
   FTokens.Duplicates := dupIgnore;
   FTokens.Sorted     := True;
@@ -92,11 +101,9 @@ begin
   FTokens.Free;
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TAlignLinesSettings.GetTokens: TStrings;
 begin
   Result := FTokens;
@@ -106,11 +113,9 @@ procedure TAlignLinesSettings.SetTokens(AValue: TStrings);
 begin
   FTokens.Assign(AValue);
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
-
 procedure TAlignLinesSettings.AssignTo(Dest: TPersistent);
 var
   ALS: TAlignLinesSettings;
@@ -123,6 +128,7 @@ begin
     ALS.AlignInParagraphs    := AlignInParagraphs;
     ALS.RemoveWhiteSpace     := RemoveWhiteSpace;
     ALS.Tokens               := Tokens;
+    ALS.Width                := Width;
   end
   else
     inherited AssignTo(Dest);
@@ -140,11 +146,11 @@ begin
     AlignInParagraphs    := ALS.AlignInParagraphs;
     RemoveWhiteSpace     := ALS.RemoveWhiteSpace;
     Tokens               := ALS.Tokens;
+    Width                := ALS.Width;
   end
   else
     inherited Assign(Source);
 end;
-
 {$endregion}
 
 end.

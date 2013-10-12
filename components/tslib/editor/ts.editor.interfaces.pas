@@ -33,7 +33,9 @@ uses
   ts.Core.FormSettings,
 
   ts.Editor.Settings.AlignLines, ts.Editor.Settings.SearchEngine,
-  ts.Editor.Settings.CodeShaper,
+  ts.Editor.Settings.CodeShaper, ts.Editor.Settings.CodeFilter,
+  ts.Editor.Settings.HTMLView, ts.Editor.Settings.MiniMap,
+  ts.Editor.Settings.HexEditor,
 
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
@@ -614,6 +616,8 @@ type
   { Settings we should store if we would like to restore the editor to its
     current state }
 
+  { IEditorSettings }
+
   IEditorSettings = interface
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
     {$region 'property access methods' /fold}
@@ -625,6 +629,7 @@ type
     function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
     function GetBracketMatchColor: TSynSelectedColor;
     function GetCloseWithESC: Boolean;
+    function GetCodeFilterSettings: TCodeFilterSettings;
     function GetCodeShaperSettings: TCodeShaperSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
@@ -634,12 +639,15 @@ type
     function GetFileName: string;
     function GetFoldedCodeColor: TSynSelectedColor;
     function GetFormSettings: TFormSettings;
+    function GetHexEditorSettings: THexEditorSettings;
     function GetHighlightAllColor: TSynSelectedColor;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
+    function GetHTMLViewSettings: THTMLViewSettings;
     function GetIncrementColor: TSynSelectedColor;
     function GetLineHighlightColor: TSynSelectedColor;
+    function GetMiniMapSettings: TMiniMapSettings;
     function GetMouseLinkColor: TSynSelectedColor;
     function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
@@ -660,6 +668,7 @@ type
     procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
     procedure SetBracketMatchColor(AValue: TSynSelectedColor);
     procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCodeFilterSettings(AValue: TCodeFilterSettings);
     procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
@@ -669,11 +678,14 @@ type
     procedure SetFileName(const AValue: string);
     procedure SetFoldedCodeColor(AValue: TSynSelectedColor);
     procedure SetFormSettings(const AValue: TFormSettings);
+    procedure SetHexEditorSettings(AValue: THexEditorSettings);
     procedure SetHighlightAllColor(AValue: TSynSelectedColor);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
+    procedure SetHTMLViewSettings(AValue: THTMLViewSettings);
     procedure SetIncrementColor(AValue: TSynSelectedColor);
     procedure SetLineHighlightColor(AValue: TSynSelectedColor);
+    procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetMouseLinkColor(AValue: TSynSelectedColor);
     procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
@@ -741,6 +753,18 @@ type
 
     property CodeShaperSettings: TCodeShaperSettings
       read GetCodeShaperSettings write SetCodeShaperSettings;
+
+    property CodeFilterSettings: TCodeFilterSettings
+      read GetCodeFilterSettings write SetCodeFilterSettings;
+
+    property HexEditorSettings: THexEditorSettings
+      read GetHexEditorSettings write SetHexEditorSettings;
+
+    property HTMLViewSettings: THTMLViewSettings
+      read GetHTMLViewSettings write SetHTMLViewSettings;
+
+    property MiniMapSettings: TMiniMapSettings
+      read GetMiniMapSettings write SetMiniMapSettings;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;

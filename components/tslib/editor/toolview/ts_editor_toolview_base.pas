@@ -91,7 +91,7 @@ implementation
 uses
 {$IFDEF windows}
   Windows,
-{$endif}
+{$ENDIF}
   LCLIntf, LMessages;
 
 {$region 'construction and destruction' /fold}
@@ -222,16 +222,15 @@ procedure TCustomEditorToolView.Undo;
 begin
 {$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 0, 0);
-{$endif}
+{$ENDIF}
 end;
 
 procedure TCustomEditorToolView.Redo;
 begin
 {$IFDEF windows}
   PostMessage(GetFocus, WM_UNDO, 1, 0);
-{$endif}
+{$ENDIF}
 end;
-
 {$endregion}
 
 end.

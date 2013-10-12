@@ -2,7 +2,7 @@ inherited frmAlignLines: TfrmAlignLines
   Left = 2802
   Height = 729
   Top = 247
-  Width = 359
+  Width = 360
   Caption = 'Align selection'
   ChildSizing.TopBottomSpacing = 4
   ChildSizing.HorizontalSpacing = 4
@@ -12,15 +12,16 @@ inherited frmAlignLines: TfrmAlignLines
   ChildSizing.Layout = cclLeftToRightThenTopToBottom
   ChildSizing.ControlsPerLine = 1
   ClientHeight = 729
-  ClientWidth = 359
+  ClientWidth = 360
   Constraints.MinWidth = 170
+  OnResize = FormResize
   OnShow = FormShow
   object sbrMain: TScrollBox[0]
     Left = 4
     Height = 688
     Top = 4
-    Width = 351
-    HorzScrollBar.Page = 351
+    Width = 352
+    HorzScrollBar.Page = 352
     VertScrollBar.Page = 688
     Align = alClient
     BorderSpacing.Bottom = 4
@@ -38,13 +39,13 @@ inherited frmAlignLines: TfrmAlignLines
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
     ClientHeight = 688
-    ClientWidth = 351
+    ClientWidth = 352
     TabOrder = 0
     object gbxOptions: TCheckGroup
       Left = 0
       Height = 100
       Top = 4
-      Width = 351
+      Width = 352
       AutoFill = True
       Caption = 'Options'
       ChildSizing.LeftRightSpacing = 20
@@ -57,7 +58,7 @@ inherited frmAlignLines: TfrmAlignLines
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
       ClientHeight = 82
-      ClientWidth = 347
+      ClientWidth = 348
       Items.Strings = (
         'Remove whitespace from text before aligning'
         'Align in paragraphs'
@@ -73,7 +74,7 @@ inherited frmAlignLines: TfrmAlignLines
       Left = 0
       Height = 54
       Top = 108
-      Width = 351
+      Width = 352
       AutoFill = True
       Caption = 'Sort direction:'
       ChildSizing.LeftRightSpacing = 20
@@ -85,7 +86,7 @@ inherited frmAlignLines: TfrmAlignLines
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 36
-      ClientWidth = 347
+      ClientWidth = 348
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
@@ -99,7 +100,7 @@ inherited frmAlignLines: TfrmAlignLines
       Left = 0
       Height = 54
       Top = 166
-      Width = 351
+      Width = 352
       AutoFill = True
       Caption = 'Keep at least one space'
       ChildSizing.LeftRightSpacing = 20
@@ -111,7 +112,7 @@ inherited frmAlignLines: TfrmAlignLines
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 36
-      ClientWidth = 347
+      ClientWidth = 348
       Columns = 2
       Items.Strings = (
         'Before token'
@@ -127,7 +128,7 @@ inherited frmAlignLines: TfrmAlignLines
       Left = 0
       Height = 54
       Top = 224
-      Width = 351
+      Width = 352
       AutoFill = True
       Caption = 'Align at:'
       ChildSizing.LeftRightSpacing = 20
@@ -139,7 +140,7 @@ inherited frmAlignLines: TfrmAlignLines
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 36
-      ClientWidth = 347
+      ClientWidth = 348
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
@@ -152,7 +153,7 @@ inherited frmAlignLines: TfrmAlignLines
       Left = 0
       Height = 402
       Top = 282
-      Width = 351
+      Width = 352
       PanelCollection = <      
         item
           Control = gbxTokenList
@@ -197,18 +198,18 @@ inherited frmAlignLines: TfrmAlignLines
         Left = 179
         Height = 402
         Top = 0
-        Width = 172
+        Width = 173
         Align = alClient
         Caption = 'Tokens found in selection:'
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 384
-        ClientWidth = 168
+        ClientWidth = 169
         TabOrder = 1
         object pnlVST: TPanel
           Left = 4
           Height = 376
           Top = 4
-          Width = 160
+          Width = 161
           Align = alClient
           BorderSpacing.Around = 4
           BevelOuter = bvNone
@@ -222,15 +223,15 @@ inherited frmAlignLines: TfrmAlignLines
     Left = 0
     Height = 25
     Top = 700
-    Width = 359
+    Width = 360
     Align = alBottom
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 25
-    ClientWidth = 359
+    ClientWidth = 360
     TabOrder = 1
     object btnOK: TButton
-      Left = 179
+      Left = 180
       Height = 25
       Top = 0
       Width = 80
@@ -241,7 +242,7 @@ inherited frmAlignLines: TfrmAlignLines
       TabOrder = 0
     end
     object btnCancel: TButton
-      Left = 267
+      Left = 268
       Height = 25
       Top = 0
       Width = 80

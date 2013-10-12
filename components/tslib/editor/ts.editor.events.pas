@@ -1,3 +1,21 @@
+{
+  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 unit ts.Editor.Events;
 
 {$MODE Delphi}
@@ -11,11 +29,6 @@ uses
 
   ts.Editor.Interfaces;
 
-//TCaretPositionEvent = procedure(
-//  Sender : TObject;
-//  X, Y   : Integer
-//) of object;
-
 type
 
   { TCaretPositionEvents }
@@ -23,7 +36,6 @@ type
   TCaretPositionEvents = class(TMethodList)
     procedure CallEvents(Sender: TObject; X, Y: Integer);
   end;
-
 
 type
 
@@ -138,8 +150,8 @@ type
 
 implementation
 
-{ TCaretPositionEvents }
-
+{$region 'TCaretPositionEvents' /fold}
+{$region 'public methods' /fold}
 procedure TCaretPositionEvents.CallEvents(Sender: TObject; X, Y: Integer);
 var
   I: Integer;
@@ -148,9 +160,38 @@ begin
   while NextDownIndex(I) do
     TCaretPositionEvent(Items[I])(Sender, X, Y);
 end;
+{$endregion}
+{$endregion}
 
-{ TEditorEvents }
+{$region 'TEditorEvents' /fold}
+{$region 'construction and destruction' /fold}
+constructor TEditorEvents.Create(AManager: IEditorManager);
+begin
+  inherited Create;
+  FManager := AManager;
+end;
 
+procedure TEditorEvents.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  FChangeEvents           := TMethodList.Create;
+  FModifiedEvents         := TMethodList.Create;
+  FActiveViewChangeEvents := TMethodList.Create;
+  FCaretPositionEvents    := TCaretPositionEvents.Create;
+end;
+
+procedure TEditorEvents.BeforeDestruction;
+begin
+  FManager := nil;
+  FChangeEvents.Free;
+  FModifiedEvents.Free;
+  FActiveViewChangeEvents.Free;
+  FCaretPositionEvents.Free;
+  inherited BeforeDestruction;
+end;
+{$endregion}
+
+{$region 'property access mehods' /fold}
 function TEditorEvents.GetView: IEditorView;
 begin
   Result := FManager as IEditorView;
@@ -246,7 +287,9 @@ procedure TEditorEvents.SetOnStatusChange(const AValue: TStatusChangeEvent);
 begin
   FOnStatusChange := AValue;
 end;
+{$endregion}
 
+{$region 'event dispatch methods' /fold}
 procedure TEditorEvents.DoChange;
 begin
   FChangeEvents.CallNotifyEvents(Self);
@@ -338,7 +381,9 @@ begin
   if Assigned(FOnNewFile) then
     FOnNewFile(Self, S, AText);
 end;
+{$endregion}
 
+{$region 'protected methods' /fold}
 procedure TEditorEvents.AddOnChangeHandler(AEvent: TNotifyEvent);
 begin
   FChangeEvents.Add(TMethod(AEvent));
@@ -378,31 +423,8 @@ procedure TEditorEvents.RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 begin
   FCaretPositionEvents.Remove(TMethod(AEvent));
 end;
-
-constructor TEditorEvents.Create(AManager: IEditorManager);
-begin
-  inherited Create;
-  FManager := AManager;
-end;
-
-procedure TEditorEvents.AfterConstruction;
-begin
-  inherited AfterConstruction;
-  FChangeEvents           := TMethodList.Create;
-  FModifiedEvents         := TMethodList.Create;
-  FActiveViewChangeEvents := TMethodList.Create;
-  FCaretPositionEvents    := TCaretPositionEvents.Create;
-end;
-
-procedure TEditorEvents.BeforeDestruction;
-begin
-  FManager := nil;
-  FChangeEvents.Free;
-  FModifiedEvents.Free;
-  FActiveViewChangeEvents.Free;
-  FCaretPositionEvents.Free;
-  inherited BeforeDestruction;
-end;
+{$endregion}
+{$endregion}
 
 end.
 

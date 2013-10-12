@@ -33,13 +33,13 @@ interface
 
 uses
   SysUtils, Forms, Controls, ExtCtrls, StdCtrls, Spin, ActnList, Grids, Buttons,
-  Menus,
+  Menus, Classes,
 
   SynEditTypes,
 
   MenuButton,
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts.Editor.Interfaces, ts.Editor.Settings.CodeShaper, ts_Editor_ToolView_Base;
 
 type
   TTokenSide = (
@@ -167,14 +167,17 @@ type
     procedure actUndoExecute(Sender: TObject);
     procedure actURLDecodeExecute(Sender: TObject);
     procedure actURLEncodeExecute(Sender: TObject);
+    procedure FormResize(Sender: TObject);
     {$endregion}
 
-  private
+  strict private
     FAlignTokenSide : TTokenSide;
     FBreakTokenSide : TTokenSide;
 
+    function GetSettings: TCodeShaperSettings;
     function GetText: string;
-  protected
+
+  strict protected
     procedure AssignText(const AText: string);
     procedure InitializeControls;
     procedure InitializeAlignLinesControls;
@@ -201,6 +204,9 @@ type
     property Text: string
       read GetText;
 
+    property Settings: TCodeShaperSettings
+      read GetSettings;
+
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
@@ -219,21 +225,19 @@ uses
   ts.Editor.Utils;
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmCodeShaper.AfterConstruction;
 begin
   inherited AfterConstruction;
+  Width := Settings.Width;
 end;
 
 procedure TfrmCodeShaper.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TfrmCodeShaper.GetText: string;
 begin
   if View.SelAvail then
@@ -242,10 +246,20 @@ begin
     Result := View.Text;
 end;
 
+function TfrmCodeShaper.GetSettings: TCodeShaperSettings;
+begin
+  Result :=  inherited Settings.CodeShaperSettings;
+end;
+{$endregion}
+
+{$region 'event handlers' /fold}
+procedure TfrmCodeShaper.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
+end;
 {$endregion}
 
 {$region 'action handlers' /fold}
-
 procedure TfrmCodeShaper.actRedoExecute(Sender: TObject);
 begin
   View.Redo;
@@ -470,7 +484,6 @@ begin
   S := URLEncode(Text);
   AssignText(S);
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}

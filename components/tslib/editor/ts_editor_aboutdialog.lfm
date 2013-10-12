@@ -1,13 +1,13 @@
 object frmAbout: TfrmAbout
-  Left = 727
-  Height = 267
-  Top = 390
-  Width = 552
+  Left = -948
+  Height = 254
+  Top = 227
+  Width = 641
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 267
-  ClientWidth = 552
+  ClientHeight = 254
+  ClientWidth = 641
   OnShow = FormShow
   PopupMode = pmAuto
   Position = poMainFormCenter
@@ -16,24 +16,24 @@ object frmAbout: TfrmAbout
   object grpLine: TGroupBox
     Left = 4
     Height = 2
-    Top = 228
-    Width = 546
+    Top = 215
+    Width = 635
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 0
   end
   object pgcMain: TPageControl
     Left = 240
-    Height = 217
+    Height = 204
     Top = 4
-    Width = 310
+    Width = 399
     ActivePage = tsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
     TabOrder = 1
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 189
-      ClientWidth = 302
+      ClientHeight = 176
+      ClientWidth = 391
       object lblFPCVersion: TLabel
         Left = 8
         Height = 15
@@ -188,13 +188,13 @@ object frmAbout: TfrmAbout
     end
     object tsCredits: TTabSheet
       Caption = 'Credits'
-      ClientHeight = 189
-      ClientWidth = 302
+      ClientHeight = 191
+      ClientWidth = 429
       object vstCredits: TVirtualStringTree
         Left = 4
-        Height = 175
+        Height = 177
         Top = 6
-        Width = 293
+        Width = 420
         Anchors = [akTop, akLeft, akRight, akBottom]
         Colors.GridLineColor = clSilver
         DefaultNodeHeight = 17
@@ -780,9 +780,9 @@ object frmAbout: TfrmAbout
     ParentColor = False
   end
   object btnClose: TButton
-    Left = 472
+    Left = 561
     Height = 25
-    Top = 238
+    Top = 225
     Width = 75
     Action = actClose
     Anchors = [akRight, akBottom]
@@ -1281,9 +1281,10 @@ object frmAbout: TfrmAbout
   object btnDonate: TSpeedButton
     Left = 4
     Height = 24
-    Top = 240
+    Top = 228
     Width = 24
     Action = actDonate
+    Anchors = [akLeft, akBottom]
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000000000000000000000000000000000000000000000000000000
@@ -1325,9 +1326,10 @@ object frmAbout: TfrmAbout
   object btnReportIssue: TSpeedButton
     Left = 32
     Height = 24
-    Top = 240
+    Top = 228
     Width = 24
     Action = actReportDefect
+    Anchors = [akLeft, akBottom]
     Glyph.Data = {
       36040000424D3604000000000000360000002800000010000000100000000100
       2000000000000004000064000000640000000000000000000000000000000000

@@ -33,7 +33,6 @@ type
 
   TCustomSettingsDialog = class(TForm)
   strict private
-    FManager: IEditorManager;
     function GetManager: IEditorManager;
     function GetSettings: IEditorSettings;
 
@@ -133,8 +132,6 @@ begin
       LinkProperty(AInstance, GetObjectProp(C, 'Link') as TPropertyLink);
   end;
 end;
-
-
 
 end.
 

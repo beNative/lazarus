@@ -71,6 +71,9 @@ const
   );
 
 type
+
+  { TfrmAlignLines }
+
   TfrmAlignLines = class(TCustomEditorToolView, IEditorToolView)
     aclMain          : TActionList;
     actExecute       : TAction;
@@ -90,6 +93,7 @@ type
     splVertical      : TSplitter;
 
     procedure actExecuteExecute(Sender: TObject);
+    procedure FormResize(Sender: TObject);
 
     procedure FormShow(Sender: TObject);
     procedure gbxInsertSpaceItemClick(Sender: TObject; Index: integer);
@@ -103,10 +107,11 @@ type
     FVST    : TVirtualStringTree;
     FTokens : TObjectList; // list of alignment tokens found in selection
 
-    procedure UpdateTokenList;
-
   strict protected
     function GetSettings: TAlignLinesSettings;
+
+    procedure AssignDefaultTokens;
+    procedure UpdateTokenList;
 
     { Lets the view respond to changes. }
     procedure UpdateView; override;
@@ -133,6 +138,9 @@ uses
 
   ts.Editor.Utils;
 
+resourcestring
+  SToken = 'Token';
+
 {$region 'TToken' /fold}
 type
   TToken = class(TPersistent)
@@ -155,11 +163,7 @@ end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmAlignLines.AfterConstruction;
-var
-  SL : TStringList;
-  S  : string;
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
@@ -167,20 +171,18 @@ begin
   FVST := CreateVST(Self, pnlVST);
   FVST.Font.Name := Manager.Settings.EditorFont.Name;
   FTVP := TTreeViewPresenter.Create(Self);
-  with FTVP.ColumnDefinitions.AddColumn('Token') do
+  with FTVP.ColumnDefinitions.AddColumn(SToken) do
   begin
     Alignment := taCenter;
   end;
-  SL := TStringList.Create;
-  for S in DEFAULT_TOKENS do
-    SL.Add(S);
+  if Settings.Tokens.Count = 0 then
+    AssignDefaultTokens;
   FTVP.ItemsSource := FTokens;
   FTVP.TreeView    := FVST;
   FTVP.ShowHeader  := False;
-  //Settings.Tokens  := SL;
   mmoTokens.Font.Name := Manager.Settings.EditorFont.Name;
   mmoTokens.Lines.Assign(Settings.Tokens);
-  SL.Free;
+  Width := Settings.Width;
 end;
 
 procedure TfrmAlignLines.BeforeDestruction;
@@ -188,25 +190,26 @@ begin
   FTokens.Free;
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'action handlers' /fold}
-
 procedure TfrmAlignLines.actExecuteExecute(Sender: TObject);
 begin
   Execute;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
   mmoTokens.Lines.Assign(Settings.Tokens);
   UpdateTokenList;
   FVST.SetFocus;
+end;
+
+procedure TfrmAlignLines.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
 end;
 
 procedure TfrmAlignLines.gbxInsertSpaceItemClick(Sender: TObject; Index: integer);
@@ -246,20 +249,16 @@ procedure TfrmAlignLines.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
   Result := (Manager as IEditorSettings).AlignLinesSettings;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmAlignLines.UpdateTokenList;
 var
   S : string;
@@ -273,6 +272,21 @@ begin
   end;
   FTVP.EndUpdate;
   FTVP.Refresh;
+end;
+
+procedure TfrmAlignLines.AssignDefaultTokens;
+var
+  S  : string;
+  SL : TStringList;
+begin
+  SL := TStringList.Create;
+  try
+    for S in DEFAULT_TOKENS do
+      SL.Add(S);
+    Settings.Tokens  := SL;
+  finally
+    SL.Free;
+  end;
 end;
 
 procedure TfrmAlignLines.UpdateView;
@@ -303,14 +317,13 @@ end;
 procedure TfrmAlignLines.UpdateActions;
 begin
   inherited UpdateActions;
-  gbxOptions.Checked[0]     := Settings.RemoveWhiteSpace;
-  gbxOptions.Checked[1]     := Settings.AlignInParagraphs;
-  gbxOptions.Checked[2]     := Settings.SortAfterAlign;
-  gbxInsertSpace.Checked[0] := Settings.KeepSpaceBeforeToken;
-  gbxInsertSpace.Checked[1] := Settings.KeepSpaceAfterToken;
+  gbxOptions.Checked[0]      := Settings.RemoveWhiteSpace;
+  gbxOptions.Checked[1]      := Settings.AlignInParagraphs;
+  gbxOptions.Checked[2]      := Settings.SortAfterAlign;
+  gbxInsertSpace.Checked[0]  := Settings.KeepSpaceBeforeToken;
+  gbxInsertSpace.Checked[1]  := Settings.KeepSpaceAfterToken;
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
 end;
-
 {$endregion}
 
 end.

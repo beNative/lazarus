@@ -257,7 +257,7 @@ begin
   Left   := M.Left;
 {$IFDEF windows}
   Height := Screen.WorkAreaHeight - TaskbarHeight;
-{$endif}
+{$ENDIF}
 end;
 
 

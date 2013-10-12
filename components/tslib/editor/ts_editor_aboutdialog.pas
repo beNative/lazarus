@@ -52,7 +52,8 @@ uses
 
   VirtualTrees,
 
-  ts.Core.VersionInfo, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions;
+  ts.Core.VersionInfo, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
+  RichMemo;
 
 type
 
@@ -103,6 +104,7 @@ type
     procedure actReportDefectExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FTVPDoubleClick(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
 
@@ -190,8 +192,9 @@ begin
   FCredits := TObjectList.Create(True);
   FillCredits;
   FTVP := TTreeViewPresenter.Create(Self);
-  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
+  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 150);
   FTVP.ColumnDefinitions.AddColumn('Author', dtString, 200, 100, 300);
+  FTVP.OnDoubleClick := FTVPDoubleClick;
   FTVP.ListMode := True;
   FTVP.ItemsSource := FCredits;
   FTVP.TreeView := vstCredits;
@@ -321,6 +324,21 @@ begin
     'http://code.google.com/p/dwscript/'
   );
   AddCredit(
+    'OMultiPanel',
+    'Ondřej Pokorný',
+    'http://www.kluug.net/omultipanel.php'
+  );
+  AddCredit(
+    'fpc-generics-collections',
+    'Maciej Izak',
+    'https://code.google.com/p/fpc-generics-collections/'
+  );
+  AddCredit(
+    'KControls',
+    'Tomas Krysl',
+    'http://www.tkweb.eu/en/delphicomp/kcontrols.html'
+  );
+  AddCredit(
     'CodeTyphon',
     'PylotLogic',
     'http://www.pilotlogic.com'
@@ -342,6 +360,11 @@ end;
 procedure TfrmAbout.FormShow(Sender: TObject);
 begin
   Screen.Cursor := crDefault;
+end;
+
+procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
+begin
+  OpenURL((FTVP.SelectedItem as TCredit).URL);
 end;
 
 end.

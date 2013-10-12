@@ -16,23 +16,20 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.Settings.CodeShaper;
+unit ts.Editor.Settings.HTMLView;
 
 {$MODE Delphi}
 
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes, SysUtils;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
-
-  { TCodeShaperSettings }
-
-  TCodeShaperSettings = class(TPersistent)
+  THTMLViewSettings = class(TPersistent)
   private
     FWidth: Integer;
   public
@@ -48,7 +45,7 @@ type
 implementation
 
 {$region 'construction and destruction' /fold}
-procedure TCodeShaperSettings.AfterConstruction;
+procedure THTMLViewSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth := DEFAULT_WIDTH;
@@ -56,26 +53,26 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
+procedure THTMLViewSettings.AssignTo(Dest: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: THTMLViewSettings;
 begin
-  if Dest is TCodeShaperSettings then
+  if Dest is THTMLViewSettings then
   begin
-    S := TCodeShaperSettings(Dest);
+    S := THTMLViewSettings(Dest);
     S.Width := Width;
   end
   else
     inherited AssignTo(Dest);
 end;
 
-procedure TCodeShaperSettings.Assign(Source: TPersistent);
+procedure THTMLViewSettings.Assign(Source: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S: THTMLViewSettings;
 begin
-  if Source is TCodeShaperSettings then
+  if Source is THTMLViewSettings then
   begin
-    S := TCodeShaperSettings(Source);
+    S := THTMLViewSettings(Source);
     Width := S.Width;
   end
   else
@@ -84,4 +81,5 @@ end;
 {$endregion}
 
 end.
+
 

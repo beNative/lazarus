@@ -27,7 +27,7 @@ uses
 
   KHexEditor,
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts.Editor.Interfaces, ts.Editor.Settings.HexEditor, ts_Editor_ToolView_Base;
 
 type
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)

@@ -52,6 +52,8 @@ function ShortCuts: TForm;
 
 implementation
 
+{$R *.lfm}
+
 var
   FShortcuts  : TfrmShortcuts;
   FForm       : TForm;

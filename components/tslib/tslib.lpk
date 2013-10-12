@@ -1,41 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <ProjectOptions>
-    <Version Value="9"/>
-    <General>
-      <Flags>
-        <MainUnitHasCreateFormStatements Value="False"/>
-        <MainUnitHasTitleStatement Value="False"/>
-        <UseDefaultCompilerOptions Value="True"/>
-      </Flags>
-      <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="-1"/>
-      <UseAppBundle Value="False"/>
-      <ResourceType Value="res"/>
-    </General>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
-    <BuildModes Count="1">
-      <Item1 Name="default" Default="True"/>
-    </BuildModes>
+  <Package Version="4">
+    <Name Value="tslib"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <Libraries Value="components"/>
+        <OtherUnitFiles Value="components"/>
+      </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <MsgFileName Value=""/>
+        </CompilerMessages>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="4">
+      <Item1>
+        <Filename Value="components/ts.components.multipanel.pas"/>
+        <UnitName Value="ts.Components.MultiPanel"/>
+      </Item1>
+      <Item2>
+        <Filename Value="tslib.registration.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="tsLib.Registration"/>
+      </Item2>
+      <Item3>
+        <Filename Value="components/ts.components.gridview.res"/>
+        <Type Value="Binary"/>
+      </Item3>
+      <Item4>
+        <Filename Value="components/ts.components.gridview.pas"/>
+        <UnitName Value="ts.Components.GridView"/>
+      </Item4>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="1">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+    </RequiredPkgs>
     <PublishOptions>
       <Version Value="2"/>
     </PublishOptions>
-    <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
-    </RunParams>
-  </ProjectOptions>
-  <CompilerOptions>
-    <Version Value="11"/>
-    <PathDelim Value="\"/>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
-  </CompilerOptions>
+  </Package>
 </CONFIG>

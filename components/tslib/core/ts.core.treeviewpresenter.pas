@@ -765,7 +765,18 @@ begin
       begin
         if FTreeView.FocusedNode = LHitInfo.HitNode then
         begin
-          inherited;
+          if Assigned(FOnDoubleClick) and Assigned(FAction) then
+          begin
+            FOnDoubleClick(Self);
+          end
+          else if not (csDesigning in ComponentState) and Assigned(FAction) then
+          begin
+            FAction.Execute();
+          end
+          else if Assigned(FOnDoubleClick) then
+          begin
+            FOnDoubleClick(Self);
+          end;
         end;
       end;
     end;

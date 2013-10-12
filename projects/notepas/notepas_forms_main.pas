@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit notepas_forms_main;
+unit Notepas_Forms_Main;
 
 {$MODE Delphi}
 
@@ -25,6 +25,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls,  Menus,
   Buttons, StdCtrls,
+
+  LazUTF8,
 
   DefaultTranslator,
 
@@ -74,11 +76,13 @@ type
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
+    btnCurrentChar: TSpeedButton;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     MenuItem1: TMenuItem;
     mnuMain               : TMainMenu;
     pnlSelectionMode      : TPanel;
+    pnlCurrentChar: TPanel;
     pnlTop                : TPanel;
     pnlTool               : TPanel;
     pnlLineBreakStyle     : TPanel;
@@ -222,7 +226,7 @@ begin
   pnlViewerCount.Visible := Settings.DebugMode;
 
   EV := Manager.Events;
-  EV.OnActiveViewChange   := EVActiveViewChange;
+  EV.AddOnActiveViewChangeHandler(EVActiveViewChange);
   EV.OnStatusChange       := EVStatusChange;
   EV.OnOpenOtherInstance  := EVOpenOtherInstance;
   EV.OnAddEditorView      := EVAddEditorView;
@@ -459,6 +463,7 @@ procedure TfrmMain.EVShowEditorToolView(Sender: TObject;
 begin
   pnlTool.Visible := False;
   lblHeader.Caption := AToolView.Form.Caption;
+  pnlTool.Width := AToolView.Form.Width;
   splVertical.Visible := True;
   AssignFormParent(AToolView.Form, pnlTool);
   pnlTool.Visible := True;
@@ -624,13 +629,18 @@ begin
   S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
   S := System.Copy(S, 3, Length(S));
   btnSelectionMode.Caption := S;
+  btnCurrentChar.Caption := HexDisplayPrefix + IntToHex(Ord(Editor.CurrentChar), 4);
+  pnlCurrentChar.Caption := btnCurrentChar.Caption;
   pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
+  OptimizeWidth(pnlCurrentChar);
   OptimizeWidth(pnlInsertMode);
   OptimizeWidth(pnlModified);
 
+  pnlCurrentChar.Width :=
+   GetTextWidth(btnCurrentChar.Caption, btnCurrentChar.Font) + 10;
   pnlHighlighter.Width :=
     GetTextWidth(btnHighlighter.Caption, btnHighlighter.Font) + 10;
   pnlEncoding.Width := GetTextWidth(btnEncoding.Caption, btnEncoding.Font) + 10;

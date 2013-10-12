@@ -52,7 +52,14 @@ uses
   ts.RichEditor.Manager, ts.RichEditor.TextAttributes, ts.RichEditor.View,
 
   ts.Editor.Toolview.Manager, ts_Editor_Manager, ts_Editor_AboutDialog,
-  ts_Editor_View, ts_Editor_SettingsDialog_Old, ts_Editor_SettingsDialog;
+  ts_Editor_View, ts_Editor_SettingsDialog_Old, ts_Editor_SettingsDialog,
+  ts_Editor_SettingsDialog_FileAssociations, ts_editor_settingsdialog_filetypes,
+  ts_Editor_SettingsDialog_Highlighters, ts_editor_settingsdialog_keymappings,
+  ts_editor_settingsdialog_extensions, ts.Editor.Events, ts.Core.Events,
+  ts_Editor_SettingsDialog_ApplicationSettings, ts_Editor_SettingsDialog_Base,
+  ts_Editor_SettingsDialog_EditorSettings, ts.Editor.Settings.MiniMap,
+ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
+ts.Editor.Settings.CodeFilter;
 
 {$R *.res}
 
@@ -65,7 +72,6 @@ begin
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
-
   Application.Run;
 end.
 

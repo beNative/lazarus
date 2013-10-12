@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 31
+  Left = 384
   Height = 618
-  Top = 121
+  Top = 171
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -72,7 +72,7 @@ object frmMain: TfrmMain
       TabOrder = 1
     end
     object pnlFileName: TPanel
-      Left = 752
+      Left = 792
       Height = 18
       Top = 0
       Width = 320
@@ -99,7 +99,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlHighlighter: TPanel
-      Left = 534
+      Left = 574
       Height = 18
       Hint = 'Current highlighter'
       Top = 0
@@ -127,7 +127,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlEncoding: TPanel
-      Left = 442
+      Left = 482
       Height = 18
       Hint = 'Current encoding'
       Top = 0
@@ -154,7 +154,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlLineBreakStyle: TPanel
-      Left = 488
+      Left = 528
       Height = 18
       Hint = 'Current line break style'
       Top = 0
@@ -209,7 +209,7 @@ object frmMain: TfrmMain
       TabOrder = 7
     end
     object pnlModified: TPanel
-      Left = 600
+      Left = 640
       Height = 18
       Top = 0
       Width = 150
@@ -240,6 +240,33 @@ object frmMain: TfrmMain
         Left = 0
         Height = 18
         Hint = 'Selection mode'
+        Top = 0
+        Width = 38
+        Align = alClient
+        Color = clDefault
+        Flat = True
+        OnClick = btnSelectionModeClick
+      end
+    end
+    object pnlCurrentChar: TPanel
+      Left = 442
+      Height = 18
+      Hint = 'Character code of character at cursor position'
+      Top = 0
+      Width = 38
+      Align = alLeft
+      BorderSpacing.Left = 2
+      BorderSpacing.Right = 2
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelOuter = bvNone
+      ClientHeight = 18
+      ClientWidth = 38
+      ParentFont = False
+      TabOrder = 10
+      object btnCurrentChar: TSpeedButton
+        Left = 0
+        Height = 18
+        Hint = 'Character code of character at cursor position'
         Top = 0
         Width = 38
         Align = alClient

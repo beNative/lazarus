@@ -73,7 +73,7 @@
   </Num>
   <OpenSymbol>[</OpenSymbol>
   <CloseSymbol>]</CloseSymbol>
-  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`qt{|}~</DelimiterChars>
+  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`&quott;{|}~</DelimiterChars>
   <AnyTerm>True</AnyTerm>
   <CloseOnTerm>False</CloseOnTerm>
   <CloseOnEol>False</CloseOnEol>
@@ -92,13 +92,13 @@
   </Num>
   <OpenSymbol>=</OpenSymbol>
   <CloseSymbol></CloseSymbol>
-  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`qt{|}~</DelimiterChars>
+  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`&quot;{|}~</DelimiterChars>
   <AnyTerm>True</AnyTerm>
   <CloseOnTerm>False</CloseOnTerm>
   <CloseOnEol>True</CloseOnEol>
   <CaseSensitive>False</CaseSensitive>
   </Range>
-  <Range Name="Remark ;">
+  <Range Name="Comment">
   <Def>
    <Back>16777215</Back>
    <Fore>8388608</Fore>
@@ -117,7 +117,7 @@
   <CloseOnEol>True</CloseOnEol>
   <CaseSensitive>False</CaseSensitive>
   </Range>
-  <Range Name="Remark #">
+  <Range Name="Comment">
   <Def>
    <Back>16777215</Back>
    <Fore>8388608</Fore>

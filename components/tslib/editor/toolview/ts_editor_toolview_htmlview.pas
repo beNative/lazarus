@@ -29,28 +29,21 @@ uses
   FramView, HtmlGlobals,
   {$ENDIF}
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base, ts.Editor.Settings.HTMLView;
+  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
-
-  { TfrmHTMLView }
-
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
-    procedure FormResize(Sender: TObject);
   private
     {$IFDEF Windows}
     FHTMLViewer: TFrameViewer;
-    function GetSettings: THTMLViewSettings;
     {$ENDIF}
 
   strict protected
     procedure UpdateView; override;
 
-    property Settings: THTMLViewSettings
-      read GetSettings;
-
   public
     procedure AfterConstruction; override;
+
 
   end;
 
@@ -68,21 +61,6 @@ begin
   FHTMLViewer.Align := alClient;
   FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
 {$ENDIF}
-  Width := Settings.Width;
-end;
-{$endregion}
-
-{$region 'property access mehods' /fold}
-function TfrmHTMLView.GetSettings: THTMLViewSettings;
-begin
-  Result := inherited Settings.HTMLViewSettings;
-end;
-{$endregion}
-
-{$region 'event handlers' /fold}
-procedure TfrmHTMLView.FormResize(Sender: TObject);
-begin
-  Settings.Width := Width;
 end;
 {$endregion}
 

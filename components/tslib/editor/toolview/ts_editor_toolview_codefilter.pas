@@ -95,7 +95,8 @@ type
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
     procedure tmrUpdateTimer(Sender: TObject);
-  private
+
+  strict private
     FTVP              : TTreeViewPresenter;
     FVST              : TVirtualStringTree;
     FLines            : TObjectList;
@@ -116,7 +117,7 @@ type
     function GetForm: TForm;
     function GetName: string;
 
-  protected
+  strict protected
     procedure Modified;
 
     { IEditorToolView }
@@ -161,31 +162,12 @@ type
         var AMatch  : string;
         var APos    : Integer
     ): Boolean; overload; inline;
-
     function IsMatch(const AString : string): Boolean; overload; inline;
 
   public
      procedure AfterConstruction; override;
      procedure BeforeDestruction; override;
 
-  end;
-
-  TLine = class(TPersistent)
-  strict private
-    FIndex : Integer;
-    FText  : string;
-  public
-    constructor Create(
-      const AIndex : Integer;
-      const AText  : string
-    );
-
-  published
-    property Index: Integer
-      read FIndex write FIndex;
-
-    property Text: string
-      read FText write FText;
   end;
 
 implementation
@@ -250,6 +232,25 @@ resourcestring
   SFilteredCode = '<Filtered code>';
   SLineIndex    = 'Line';
   SLineText     = 'Text';
+
+type
+  TLine = class(TPersistent)
+  strict private
+    FIndex : Integer;
+    FText  : string;
+  public
+    constructor Create(
+      const AIndex : Integer;
+      const AText  : string
+    );
+
+  published
+    property Index: Integer
+      read FIndex write FIndex;
+
+    property Text: string
+      read FText write FText;
+  end;
 
 constructor TLine.Create(const AIndex: Integer; const AText: string);
 begin
@@ -727,7 +728,6 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmCodeFilterDialog.Modified;
 begin
   FUpdate := True;

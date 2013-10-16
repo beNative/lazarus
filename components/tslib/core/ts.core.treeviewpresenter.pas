@@ -37,6 +37,7 @@ unit ts.Core.TreeViewPresenter;
     - Header options added in InitColumns
     - Added DoMeasureItem for row height calculation
     - Fixed ShowHeader property
+    - Fixed passing Selected parameter in custom draw events
     - Added TStringlist support
 }
 
@@ -593,7 +594,7 @@ begin
     else
     begin
       LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, FImageList,
-        dmAfterCellPaint, False);
+        dmAfterCellPaint, vsSelected in Node.States);
     end;
   end;
 end;
@@ -610,7 +611,7 @@ begin
   if Assigned(LItemTemplate) then
   begin
     LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, FImageList,
-      dmBeforeCellPaint,  Sender.Selected[Node]);
+      dmBeforeCellPaint, vsSelected in Node.States);
   end;
 end;
 
@@ -619,10 +620,10 @@ procedure TTreeViewPresenter.DoChange(Sender: TBaseVirtualTree;
 begin
   if FSelectionMode <> smNone then
   begin
-  UpdateSelectedItems;
-  if Assigned(FOnSelectionChanged) then
-  begin
-    FOnSelectionChanged(Self);
+    UpdateSelectedItems;
+    if Assigned(FOnSelectionChanged) then
+    begin
+      FOnSelectionChanged(Self);
     end;
   end;
 end;

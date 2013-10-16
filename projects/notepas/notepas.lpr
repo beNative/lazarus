@@ -58,8 +58,8 @@ uses
   ts_editor_settingsdialog_extensions, ts.Editor.Events, ts.Core.Events,
   ts_Editor_SettingsDialog_ApplicationSettings, ts_Editor_SettingsDialog_Base,
   ts_Editor_SettingsDialog_EditorSettings, ts.Editor.Settings.MiniMap,
-ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
-ts.Editor.Settings.CodeFilter;
+  ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
+  ts.Editor.Settings.CodeFilter;
 
 {$R *.res}
 

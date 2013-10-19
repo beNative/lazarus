@@ -657,6 +657,7 @@ begin
   end;
   A.Checked := True;
   actToggleAlignInsertSpace.Caption := A.Caption;
+  btnAlignInsertSpace1.Caption := A.Caption;
 
   case FBreakTokenSide of
     tsBefore: A := actBreakBeforeToken;
@@ -664,6 +665,7 @@ begin
   end;
   A.Checked := True;
   actToggleBreakSide.Caption := A.Caption;
+  btnBreakAfterBefore.Caption := A.Caption;
 end;
 
 {$endregion}

@@ -1545,11 +1545,10 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
-
-  with TEditorSettingsDialog.Create(Self) do
-  begin
-    ShowModal;
-  end;
+  //with TEditorSettingsDialog.Create(Self) do
+  //begin
+  //  ShowModal;
+  //end;
   ExecuteSettingsDialog(Self);
 end;
 
@@ -2673,7 +2672,11 @@ begin
   if AVisible then
   begin
     ETV := ToolViews[AName];
-    Events.DoShowToolView(ETV);
+    if not AShowModal then
+    begin
+      {  Allow owner to dock the toolview in the main application workspace. }
+      Events.DoShowToolView(ETV);
+    end;
     ETV.Visible := True;
     ETV.UpdateView;
     if ASetFocus then
@@ -2994,7 +2997,6 @@ begin
       actShowMiniMap.Checked            := ToolViews['MiniMap'].Visible;
       actShowHTMLViewer.Checked         := ToolViews['HTMLView'].Visible;
     end;
-
 
     B := V.SupportsFolding;
     actToggleFoldLevel.Enabled := B;

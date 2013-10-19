@@ -92,8 +92,6 @@ type
       read GetUnderline write SetUnderline;
   end;
 
-//*****************************************************************************
-
 implementation
 
 
@@ -114,8 +112,6 @@ begin
   //FreeAndNil(FFont);
   inherited BeforeDestruction;
 end;
-
-
 
 function TTextAttributes.GetBold: Boolean;
 begin
@@ -216,8 +212,6 @@ begin
   Result := FTextParams;
 end;
 
-
-
 procedure TTextAttributes.Changed;
 begin
   if FUpdateLock = 0 then
@@ -237,14 +231,10 @@ begin
     OnUpdate(Self);
 end;
 
-
-
 function TTextAttributes.PositionChanged: Boolean;
 begin
   Result := (FEditor.SelStart <> FSelStart) or (FEditor.SelLength <> FSelLength);
 end;
-
-
 
 procedure TTextAttributes.BeginUpdate;
 begin
@@ -275,7 +265,6 @@ begin
     FSelLength := FEditor.SelLength;
   end;
 end;
-
 
 end.
 

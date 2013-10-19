@@ -171,7 +171,7 @@ resourcestring
 procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FVST := CreateVST(Self, pnlResultList);
+  FVST := VST.Create(Self, pnlResultList);
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
   FTVP.ColumnDefinitions.AddColumn('Index', SIndex, dtNumeric, 50, 50, 80);

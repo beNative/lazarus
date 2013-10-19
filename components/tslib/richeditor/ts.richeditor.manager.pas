@@ -58,7 +58,7 @@ type
     dlgOpen       : TOpenDialog;
     dlgSave       : TSaveDialog;
     imlMain       : TImageList;
-    N1: TMenuItem;
+    N1            : TMenuItem;
     mniBold       : TMenuItem;
     mniItalic     : TMenuItem;
     mniUnderline  : TMenuItem;
@@ -136,8 +136,6 @@ type
   end;
 
 function RichEditorActions : IRichEditorActions;
-
-//*****************************************************************************
 
 implementation
 
@@ -237,8 +235,6 @@ function TdmRichEditorActions.GetViewCount: Integer;
 begin
   Result := FViews.Count;
 end;
-
-
 
 // File
 
@@ -359,8 +355,6 @@ begin
   ActiveView.WordWrap := actWordWrap.Checked;
 end;
 
-
-
 procedure TdmRichEditorActions.UpdateActions;
 begin
   //if Assigned(ActiveView) then
@@ -411,7 +405,6 @@ procedure TdmRichEditorActions.ClearViews;
 begin
   FViews.Clear;
 end;
-
 
 initialization
   dmRichEditorActions := TdmRichEditorActions.Create(Application);

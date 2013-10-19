@@ -117,7 +117,7 @@ type
     function GetForm: TForm;
     function GetName: string;
 
-  strict protected
+  protected
     procedure Modified;
 
     { IEditorToolView }
@@ -276,7 +276,7 @@ begin
   FTextStyle.SystemFont := False;
   FTextStyle.Alignment := taLeftJustify;
   FTextStyle.Layout := tlCenter;
-  FVST := CreateVST(Self, pnlVST);
+  FVST := VST.Create(Self, pnlVST);
   FVST.Font.Assign(Manager.Settings.EditorFont);
   FVST.Font.Size := 8;
   FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions - [toShowHorzGridLines, toShowVertGridLines];

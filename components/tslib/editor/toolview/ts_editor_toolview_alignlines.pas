@@ -168,7 +168,7 @@ begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
   FTokens := TObjectList.Create;
-  FVST := CreateVST(Self, pnlVST);
+  FVST := VST.Create(Self, pnlVST);
   FVST.Font.Name := Manager.Settings.EditorFont.Name;
   FTVP := TTreeViewPresenter.Create(Self);
   with FTVP.ColumnDefinitions.AddColumn(SToken) do

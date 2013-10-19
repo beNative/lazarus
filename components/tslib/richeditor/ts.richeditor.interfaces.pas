@@ -255,7 +255,6 @@ type
     //  read GetOnSaveFile write SetOnSaveFile;
   end;
 
-
   IRichEditorActions = interface
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
     function GetActions: TActionList;

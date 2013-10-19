@@ -97,7 +97,8 @@ uses
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditMarkupHighAll, SynEditTypes, SynBeautifier, SynEditMarkupBracket,
-  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarkupSpecialLine, SynEditMarkupCtrlMouseLink,
+  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarkupSpecialLine,
+  SynEditMarkupCtrlMouseLink,
 
   ts.Core.DirectoryWatch,
 
@@ -677,7 +678,7 @@ end;
 
 procedure TEditorView.EditorChange(Sender: TObject);
 begin
-  Logger.Send('EditorChange');
+  //Logger.Send('EditorChange');
   DoChange;
   Events.DoChange;
 end;
@@ -687,7 +688,7 @@ procedure TEditorView.EditorStatusChange(Sender: TObject;
 begin
   if not (csDestroying in ComponentState) then
   begin
-    Logger.Send('StatusChange: ', SetToString(TypeInfo(TSynStatusChanges), Changes));
+    //Logger.Send('StatusChange: ', SetToString(TypeInfo(TSynStatusChanges), Changes));
 
     // we use this event to ensure that the view is activated because the OnEnter
     // event is not triggered when the form is undocked!
@@ -1535,20 +1536,20 @@ end;
 
 procedure TEditorView.BeginUpdate;
 begin
-  Logger.EnterMethod(Self, 'BeginUpdate');
+  //Logger.EnterMethod(Self, 'BeginUpdate');
   Editor.BeginUpdate;
   Editor.BeginUpdateBounds; // TODO investigate this
   Editor.BeginUndoBlock;
-  Logger.ExitMethod(Self, 'BeginUpdate');
+  //Logger.ExitMethod(Self, 'BeginUpdate');
 end;
 
 procedure TEditorView.EndUpdate;
 begin
-  Logger.EnterMethod(Self, 'EndUpdate');
+  //Logger.EnterMethod(Self, 'EndUpdate');
   Editor.EndUndoBlock;
   Editor.EndUpdateBounds; // TODO investigate this
   Editor.EndUpdate;
-  Logger.ExitMethod(Self, 'EndUpdate');
+  //Logger.ExitMethod(Self, 'EndUpdate');
 end;
 
 procedure TEditorView.CopyToClipboard;
@@ -2141,7 +2142,6 @@ begin
     LineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];
     S := ExtractFileExt(AFileName);
     S := System.Copy(S, 2, Length(S));
-    //Logger.Send('Extension', S);
     try
       if FileIsText(FileName) then
         AssignHighlighterForFileType(S);
@@ -2225,7 +2225,6 @@ function TEditorView.GetHighlighterAttriAtRowCol(APosition: TPoint;
 begin
   Result := Editor.GetHighlighterAttriAtRowCol(APosition, AToken, AAttri);
 end;
-
 {$endregion}
 
 end.

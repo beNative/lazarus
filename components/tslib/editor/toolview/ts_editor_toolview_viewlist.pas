@@ -146,7 +146,7 @@ var
   I: Integer;
 begin
   inherited AfterConstruction;
-  FVST := CreateVST(Self, pnlVST);
+  FVST := VST.Create(Self, pnlVST);
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 150);

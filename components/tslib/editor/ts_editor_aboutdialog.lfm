@@ -1,13 +1,13 @@
 object frmAbout: TfrmAbout
-  Left = -948
+  Left = 455
   Height = 254
-  Top = 227
-  Width = 641
+  Top = 317
+  Width = 636
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
   ClientHeight = 254
-  ClientWidth = 641
+  ClientWidth = 636
   OnShow = FormShow
   PopupMode = pmAuto
   Position = poMainFormCenter
@@ -17,7 +17,7 @@ object frmAbout: TfrmAbout
     Left = 4
     Height = 2
     Top = 215
-    Width = 635
+    Width = 630
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 0
   end
@@ -25,15 +25,15 @@ object frmAbout: TfrmAbout
     Left = 240
     Height = 204
     Top = 4
-    Width = 399
-    ActivePage = tsAbout
+    Width = 394
+    ActivePage = tsCredits
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tsAbout: TTabSheet
       Caption = 'Version'
       ClientHeight = 176
-      ClientWidth = 391
+      ClientWidth = 386
       object lblFPCVersion: TLabel
         Left = 8
         Height = 15
@@ -43,7 +43,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlFPCVersion: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 9
         Width = 105
@@ -68,7 +68,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlTargetOS: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 58
         Width = 105
@@ -77,7 +77,7 @@ object frmAbout: TfrmAbout
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 78
         Width = 105
@@ -94,7 +94,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlBuildDate: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 133
         Width = 105
@@ -111,7 +111,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlWidgetSet: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 105
         Width = 105
@@ -128,7 +128,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlLCLVersion: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 29
         Width = 105
@@ -145,7 +145,7 @@ object frmAbout: TfrmAbout
         ParentColor = False
       end
       object pnlFileVersion: TPanel
-        Left = 170
+        Left = 165
         Height = 18
         Top = 151
         Width = 105
@@ -188,21 +188,27 @@ object frmAbout: TfrmAbout
     end
     object tsCredits: TTabSheet
       Caption = 'Credits'
-      ClientHeight = 191
-      ClientWidth = 429
+      ClientHeight = 176
+      ClientWidth = 386
       object vstCredits: TVirtualStringTree
         Left = 4
-        Height = 177
+        Height = 162
         Top = 6
-        Width = 420
+        Width = 377
         Anchors = [akTop, akLeft, akRight, akBottom]
+        Colors.FocusedSelectionColor = clSilver
+        Colors.FocusedSelectionBorderColor = clSilver
         Colors.GridLineColor = clSilver
+        Colors.SelectionRectangleBlendColor = clSilver
+        Colors.SelectionRectangleBorderColor = clGray
         DefaultNodeHeight = 17
         DefaultText = 'Node'
         DragType = dtVCL
+        DrawSelectionMode = smBlendedRectangle
         Header.AutoSizeIndex = 0
         Header.Columns = <>
         Header.DefaultHeight = 17
+        Header.Height = 20
         Header.MainColumn = -1
         Header.Options = [hoColumnResize, hoDrag, hoShowHint, hoShowSortGlyphs]
         HintMode = hmHint
@@ -780,7 +786,7 @@ object frmAbout: TfrmAbout
     ParentColor = False
   end
   object btnClose: TButton
-    Left = 561
+    Left = 556
     Height = 25
     Top = 225
     Width = 75

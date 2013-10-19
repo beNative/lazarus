@@ -624,6 +624,5 @@ begin
   Editor.EndUpdateBounds;
 end;
 
-
 end.
 

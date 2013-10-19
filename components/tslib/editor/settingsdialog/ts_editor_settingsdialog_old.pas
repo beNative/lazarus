@@ -58,6 +58,8 @@ type
     btnOpenSettingsFile: TButton;
     btnReloadSettings: TButton;
     btnAssociate: TButton;
+    Label1: TLabel;
+    lblAttributeAliases: TLabel;
     pnlHARightTop: TPanel;
     pnlHARightBottom: TPanel;
     pnlHLRightTop: TPanel;
@@ -88,12 +90,12 @@ type
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
-    procedure FHAPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
-      var aShow: boolean);
     procedure FHATVPSelectionChanged(Sender: TObject);
     procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
       var aShow: boolean);
     procedure FHLTVPSelectionChanged(Sender: TObject);
+    procedure FPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
+      var aShow: boolean);
     procedure OKButtonClick(Sender: TObject);
     procedure plObjectInspector1AddAvailPersistent(APersistent: TPersistent;
       var Allowed: boolean);
@@ -139,6 +141,8 @@ implementation
 {$R *.lfm}
 
 uses
+  StrUtils,
+
   ts.Core.DataTemplates, ts.Core.Helpers,
 
   ts.Components.FileAssociation,
@@ -146,6 +150,9 @@ uses
   ts.Editor.HighlighterAttributes, ts.Editor.Highlighters,
 
   sharedlogger;
+
+resourcestring
+  SAttributeName = 'Attribute name';
 
 var
   FForm: TfrmEditorSettings;
@@ -192,7 +199,6 @@ end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -206,8 +212,8 @@ begin
   FHAPI               := CreatePI(Self, pnlHARightBottom);
   FHLPI               := CreatePI(Self, pnlHLRightTop);
   FSHLPI              := CreatePI(Self, pnlHLRightBottom);
-  FHAVST              := CreateVST(Self, pnlHALeft);
-  FHLVST              := CreateVST(Self, pnlHLLeft);
+  FHAVST              := VST.Create(Self, pnlHALeft);
+  FHLVST              := VST.Create(Self, pnlHLLeft);
   FXMLTree            := CreateXMLTree(Self, pnlXML);
   UpdateData;
   tsDebug.TabVisible        := Settings.DebugMode;
@@ -216,6 +222,10 @@ begin
   if Settings.DebugMode then
     FXMLTree.XML := Settings.XML;
   FHLPI.OnEditorFilter := FHLPIEditorFilter;
+  FPI.OnEditorFilter := FPIEditorFilter;
+  FHAPI.OnEditorFilter := FPIEditorFilter;
+  FSHLPI.OnEditorFilter := FPIEditorFilter;
+  pcMain.ActivePageIndex := 0;
 end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
@@ -252,7 +262,7 @@ end;
 procedure TfrmEditorSettings.FHLPIEditorFilter(Sender: TObject;
   aEditor: TPropertyEditor; var aShow: boolean);
 begin
-  Logger.Send(aEditor.GetName);
+//  Logger.Send(aEditor.GetName);
   if aEditor.GetName = 'SynHighlighter' then
     aShow := False;
 end;
@@ -265,10 +275,14 @@ begin
     Logger.Send ('CurrentItem:', FHLTVP.CurrentItem.ClassName);
     if FHLTVP.CurrentItem is THighlighterItem then
       FSHLPI.TIObject := (FHLTVP.CurrentItem as THighlighterItem).SynHighlighter
-    else
-      Logger.SendError('WTF');
-
   end;
+end;
+
+procedure TfrmEditorSettings.FPIEditorFilter(Sender: TObject;
+  aEditor: TPropertyEditor; var aShow: boolean);
+begin
+  if AnsiMatchText(aEditor.GetName, ['Tag', 'Name']) then
+    aShow := False;
 end;
 
 procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
@@ -278,6 +292,8 @@ begin
   S := ExtractFilePath(Application.ExeName) + Settings.FileName;
   Manager.OpenFile(S);
 end;
+
+{ TEMP: just a test! }
 
 procedure TfrmEditorSettings.actAssociateExecute(Sender: TObject);
 var
@@ -311,12 +327,6 @@ begin
   Apply;
 end;
 
-procedure TfrmEditorSettings.FHAPIEditorFilter(Sender: TObject;
-  aEditor: TPropertyEditor; var aShow: boolean);
-begin
-
-end;
-
 procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
 begin
   Apply;
@@ -336,7 +346,7 @@ var
 begin
   FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
   FHATVP.MultiSelect := True;
-  FHATVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
+  FHATVP.ColumnDefinitions.AddColumn('Name', SAttributeName, dtString, 100);
   FHAList.Clear;
   for I := 0 to Settings.HighlighterAttributes.Count - 1 do
   begin
@@ -347,7 +357,7 @@ begin
   FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
 
   FHLTVP.MultiSelect := True;
-  FHLTVP.ColumnDefinitions.AddColumn('Name', dtString, 100);
+  FHLTVP.ColumnDefinitions.AddColumn('Name', SAttributeName, dtString, 100);
   FHLList.Clear;
   for I := 0 to Settings.Highlighters.Count - 1 do
   begin

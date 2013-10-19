@@ -92,7 +92,6 @@ type
     FHitTest: TPoint;
     FColUpdate: Integer;
     FOnGetCategoryRow: TInspectorCategoryRowEvent;
-    procedure FontChanged(Sender: TObject); override;
     procedure SetCategoryFont(Value: TFont);
     procedure SetNameFont(Value: TFont);
     procedure SetValueFont(Value: TFont);
@@ -101,6 +100,7 @@ type
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
     {$ENDIF}
   protected
+    procedure FontChanged(Sender: TObject); override;
     procedure ChangeColumns; override;
     function ColResizeAllowed(X, Y: Integer): Boolean;
     procedure ColumnResizing(Column: Integer; var Width: Integer); override;

@@ -1,0 +1,59 @@
+inherited frmFilter: TfrmFilter
+  Left = 579
+  Height = 455
+  Top = 257
+  Width = 530
+  ClientHeight = 455
+  ClientWidth = 530
+  object pnlMain: TPanel[0]
+    Left = 0
+    Height = 432
+    Top = 0
+    Width = 530
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 432
+    ClientWidth = 530
+    TabOrder = 0
+    object pnlHeader: TPanel
+      Left = 0
+      Height = 29
+      Top = 0
+      Width = 530
+      Align = alTop
+      AutoSize = True
+      BevelOuter = bvNone
+      ClientHeight = 29
+      ClientWidth = 530
+      TabOrder = 0
+      object edtFilter: TEdit
+        Left = 3
+        Height = 23
+        Top = 3
+        Width = 524
+        Align = alTop
+        BorderSpacing.Around = 3
+        OnChange = edtFilterChange
+        OnKeyDown = edtFilterKeyDown
+        OnKeyUp = edtFilterKeyUp
+        TabOrder = 0
+      end
+    end
+    object pnlView: TPanel
+      Left = 0
+      Height = 403
+      Top = 29
+      Width = 530
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 1
+    end
+  end
+  object sbrMain: TStatusBar[1]
+    Left = 0
+    Height = 23
+    Top = 432
+    Width = 530
+    Panels = <>
+  end
+end

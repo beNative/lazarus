@@ -2222,6 +2222,9 @@ Var
     I, Ind       : Integer;
   begin
     S := '';
+    Sep := '';
+    Pref := '';
+    Ind := 0;
     if Not Assigned(List) or (List.Count = 0) then
       Exit;
     If (AKeyWord <> '') then
@@ -2251,6 +2254,10 @@ Var
     Ind          : Integer;
 
   begin
+    Pref := '';
+    Sep := '';
+    S := '';
+    Ind := 0;
     If Not Assigned(AExpression) then
       exit;
     If NewLinePending then
@@ -2326,6 +2333,9 @@ Var
 
 begin
   S := '';
+  Pref := '';
+  Sep := '';
+  Ind := 0;
   Result := SQLKeyWord('INSERT INTO ', Options);
   If Assigned(FTableName) then
     Result := Result + TableName.GetAsSQL(Options, AIndent);
@@ -2615,6 +2625,7 @@ Var
   Sep : String;
 
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   If Assigned(FArguments) and (FArguments.Count > 0) then
     For I := 0 to FArguments.Count - 1 do
@@ -2796,6 +2807,11 @@ Var
   S         : String;
 
 begin
+  Result := '';
+  Sep := '';
+  Pref := '';
+  Ind := 0;
+  S := '';
   GetSepPrefixIndent(sfoOneFieldPerLine in Options, sfoIndentFields in Options,
     Sep, Pref, Ind);
   For I := 0 to FieldDefs.Count - 1 do
@@ -2911,6 +2927,7 @@ Var
   I   : Integer;
 
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to FieldList.Count - 1 do
   begin
@@ -3037,6 +3054,10 @@ Var
   Sep, Pref : TSQLStringType;
 
 begin
+  Result := '';
+  Ind := 0;
+  Pref := '';
+  Sep := '';
   GetSepPrefixIndent(sfoOneFieldPerLine in Options, sfoIndentFields in Options,
     Sep, Pref, Ind);
   For I := 0 to Operations.Count - 1 do
@@ -3246,6 +3267,11 @@ Var
   UseNewLine   : Boolean;
 
 begin
+  Result := '';
+  S := '';
+  Sep := '';
+  Pref := '';
+  Ind := 0;
   SQLListSeparator(Options);
   UseNewLine := sfoOneFieldPerLine in Options;
   GetSepPrefixIndent(UseNewLine, sfoIndentFields in Options, Sep, Pref, Ind);
@@ -3320,6 +3346,7 @@ Var
   I : Integer;
 
 begin
+  Result := '';
   If Assigned(FParams) and (FParams.Count > 0) then
   begin
     For I := 0 to FParams.Count - 1 do
@@ -3358,6 +3385,9 @@ Var
   Ind                  : Integer;
 
 begin
+  Sep := '';
+  Prefix := '';
+  Ind := 0;
   GetSepPrefixIndent(sfoOneTablePerLine in Options, sfoIndentTables in Options,
     Sep, Prefix, Ind);
   Delete(Sep, 1, 1); // remove comma
@@ -3509,6 +3539,7 @@ Var
   I   : Integer;
   Sep : TSQLStringType;
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to FIndexes.Count - 1 do
   begin
@@ -3577,6 +3608,7 @@ Var
   I   : Integer;
   Sep : String;
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to FItems.Count - 1 do
   begin
@@ -3625,6 +3657,7 @@ Var
   Sep : String;
 
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to List.Count - 1 do
   begin
@@ -3681,6 +3714,7 @@ Var
   I      : Integer;
 
 begin
+  S := '';
   Result := SQLKeyWord('EXECUTE PROCEDURE', Options);
   If Assigned(FTN) then
     Result := Result + ' ' + TransactionName.GetAsSQL(Options, AIndent);
@@ -3878,6 +3912,7 @@ Var
   I      : Integer;
 
 begin
+  S := '';
   If Self is TSQLAlterProcedureStatement then
     Result := SQLKeyWord('ALTER ', Options)
   else
@@ -3965,9 +4000,10 @@ function TSQLStatementBlock.GetAsSQL(Options: TSQLFormatOptions;
   AIndent: Integer): TSQLStringType;
 
 Var
-  I, J : Integer;
+  I    : Integer;
   S    : String;
 begin
+  S := '';
   Result := SQLKeyWord('BEGIN', Options) + SlineBreak;
   For I := 0 to Statements.Count - 1 do
   begin
@@ -4034,6 +4070,10 @@ Var
   DoNewLine      : Boolean;
 
 begin
+  S := '';
+  Sep := '';
+  Prefix := '';
+  Ind := 0;
   Result := SQLKeyWord('FOR ', Options);
   If Assigned(FSelect) then
     Result := Result + Select.GetAsSQL(Options, AIndent) + SlineBreak;
@@ -4211,6 +4251,7 @@ Var
   S : TSQLStringType;
 
 begin
+  Result := '';
   For I := 0 to LocalVariables.Count - 1 do
   begin
     Result := Result + SQLKeyWord('DECLARE VARIABLE ', Options);
@@ -4247,8 +4288,7 @@ Const
 
 Var
   A      : Boolean;
-  S, Sep : TSQLStringType;
-  I      : Integer;
+  S      : TSQLStringType;
   O      : TTriggerOperation;
 
 begin
@@ -4888,6 +4928,7 @@ Var
   I : Integer;
 
 begin
+  Result := '';
   For I := 0 to List.Count - 1 do
   begin
     If (Result <> '') then
@@ -4911,6 +4952,7 @@ Var
   Sep : TSQLStringType;
   I   : Integer;
 begin
+  Result := '';
   If Assigned(FColumns) then
   begin
     Sep := SQLListSeparator(Options);
@@ -4935,6 +4977,7 @@ Var
   I   : Integer;
 
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to Grantees.Count - 1 do
   begin
@@ -4983,6 +5026,7 @@ Var
   I   : Integer;
 
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to Privileges.Count - 1 do
   begin
@@ -5037,6 +5081,7 @@ Var
   Sep : TSQLStringType;
   I   : Integer;
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to Roles.Count - 1 do
   begin
@@ -5191,6 +5236,7 @@ Var
   Sep : TSQLStringType;
   I   : Integer;
 begin
+  Result := '';
   Sep := SQLListSeparator(Options);
   For I := 0 to Roles.Count - 1 do
   begin

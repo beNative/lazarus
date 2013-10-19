@@ -3,6 +3,7 @@ object frmActionListView: TfrmActionListView
   Height = 526
   Top = 298
   Width = 800
+  ActiveControl = edtFilterActions
   Caption = 'Actions'
   ClientHeight = 526
   ClientWidth = 800
@@ -33,20 +34,22 @@ object frmActionListView: TfrmActionListView
         ClientHeight = 496
         ClientWidth = 790
         object pnlActions: TPanel
-          Left = 0
-          Height = 473
-          Top = 23
-          Width = 790
+          Left = 3
+          Height = 464
+          Top = 29
+          Width = 784
           Align = alClient
+          BorderSpacing.Around = 3
           BevelOuter = bvNone
           TabOrder = 0
         end
         object edtFilterActions: TEdit
-          Left = 0
+          Left = 3
           Height = 23
-          Top = 0
-          Width = 790
+          Top = 3
+          Width = 784
           Align = alTop
+          BorderSpacing.Around = 3
           OnChange = edtFilterActionsChange
           OnKeyDown = edtFilterActionsKeyDown
           OnKeyUp = edtFilterActionsKeyUp

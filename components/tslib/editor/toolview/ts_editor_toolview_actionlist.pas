@@ -327,9 +327,9 @@ procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
 
-  FActionItems := TObjectList.Create(False);
+  FActionItems    := TObjectList.Create(False);
   FKeyStrokeItems := TObjectList.Create(False);
-  FMouseItems := TObjectList.Create(False);
+  FMouseItems     := TObjectList.Create(False);
   CreateActionsView;
   CreateCommandsView;
   CreateMouseActionsView;
@@ -352,7 +352,6 @@ begin
   FreeAndNil(FMouseItems);
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
@@ -540,7 +539,7 @@ procedure TfrmActionListView.CreateActionsView;
 var
   CD : TColumnDefinitions;
 begin
-  FVSTActions := CreateVST(Self, pnlActions);
+  FVSTActions := VST.Create(Self, pnlActions);
   FVSTActions.OnKeyPress := FVSTActionsKeyPress;
 
   FTVPActions := TTreeViewPresenter.Create(Self);
@@ -588,7 +587,7 @@ procedure TfrmActionListView.CreateCommandsView;
 var
   CD : TColumnDefinitions;
 begin
-  FVSTCommands := CreateVST(Self, tsCommands);
+  FVSTCommands := VST.Create(Self, tsCommands);
   FTVPCommands := TTreeViewPresenter.Create(Self);
   FTVPCommands.ListMode := True;
   CD := FTVPCommands.ColumnDefinitions;
@@ -605,7 +604,7 @@ procedure TfrmActionListView.CreateMouseActionsView;
 var
   CD: TColumnDefinitions;
 begin
-  FVSTMouseActions := CreateVST(Self, tsMouseActions);
+  FVSTMouseActions := VST.Create(Self, tsMouseActions);
   FTVPMouseActions := TTreeViewPresenter.Create(Self);
   FTVPMouseActions.ListMode := True;
   CD := FTVPMouseActions.ColumnDefinitions;

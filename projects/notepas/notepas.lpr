@@ -1,6 +1,24 @@
+{
+  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 program Notepas;
 
-{$MODE objfpc}{$H+}
+{$MODE Delphi}
 
 uses
   SysUtils,
@@ -14,7 +32,7 @@ uses
   DefaultTranslator, pl_exsystem, pl_virtualtrees, FrameViewer09,
   lazrichedit, richmemopackage,
 
-  sharedlogger, ipcchannel, pl_luicontrols, runtimetypeinfocontrols,
+  sharedlogger, runtimetypeinfocontrols,
   pl_kcontrols, pl_zeosdbocomp, pl_zmsql, pl_richview, lazcontrols,
   ts.Components.MultiPanel, ts.Components.DBGridView, ts.Components.Docking,
   ts.Components.Docking.OptionsDialog, ts.Components.Docking.Resources,
@@ -59,7 +77,7 @@ uses
   ts_Editor_SettingsDialog_ApplicationSettings, ts_Editor_SettingsDialog_Base,
   ts_Editor_SettingsDialog_EditorSettings, ts.Editor.Settings.MiniMap,
   ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
-  ts.Editor.Settings.CodeFilter;
+  ts.Editor.Settings.CodeFilter, ts_Editor_ToolView_Filter;
 
 {$R *.res}
 

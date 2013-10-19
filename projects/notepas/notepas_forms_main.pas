@@ -81,6 +81,7 @@ type
     lblHeader             : TLabel;
     MenuItem1: TMenuItem;
     mnuMain               : TMainMenu;
+    pnlToolClient: TPanel;
     pnlSelectionMode      : TPanel;
     pnlCurrentChar: TPanel;
     pnlTop                : TPanel;
@@ -465,7 +466,7 @@ begin
   lblHeader.Caption := AToolView.Form.Caption;
   pnlTool.Width := AToolView.Form.Width;
   splVertical.Visible := True;
-  AssignFormParent(AToolView.Form, pnlTool);
+  AssignFormParent(AToolView.Form, pnlToolClient);
   pnlTool.Visible := True;
 end;
 

@@ -347,6 +347,15 @@ object frmMain: TfrmMain
         ParentFont = False
       end
     end
+    object pnlToolClient: TPanel
+      Left = 0
+      Height = 530
+      Top = 18
+      Width = 428
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 1
+    end
   end
   object splVertical: TSplitter
     Left = 428

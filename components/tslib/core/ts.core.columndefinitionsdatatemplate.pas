@@ -27,7 +27,10 @@
   POSSIBILITY OF SUCH DAMAGE.
 *)
 
-{ Added by Tim Sinaeve: GetValueForProperty and SetValueForProperty}
+{ Added by Tim Sinaeve:
+  - GetValueForProperty and SetValueForProperty
+  - cleanup accelerator chars.
+}
 
 unit ts.Core.ColumnDefinitionsDataTemplate;
 
@@ -73,7 +76,7 @@ type
 implementation
 
 uses
-  TypInfo, Variants,
+  TypInfo, Variants, SysUtils,
 
   ts.Core.Utils;
 
@@ -225,6 +228,8 @@ begin
   begin
     V := GetPropValue(Item, APropertyName, False);
     S := VarToStrDef(V, '');
+    if APropertyName = 'Caption' then // cleanup accelerator tokens
+      S := StringReplace(S, '&', '', [rfReplaceAll]);
     Result := S;
   end
   else

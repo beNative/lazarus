@@ -37,6 +37,7 @@ unit ts.Core.TreeViewPresenter;
     - Header options added in InitColumns
     - Added DoMeasureItem for row height calculation
     - Fixed ShowHeader property
+    - Support for column Margin property
     - Fixed passing Selected parameter in custom draw events
     - Added TStringlist support
 }
@@ -1974,6 +1975,7 @@ begin
           CheckBox  := CD.ColumnType = TColumnType.ctCheckBox;
           Alignment := CD.Alignment;
           Spacing   := CD.Spacing;
+          Margin    := CD.Margin;
           Options := Options + [
             coWrapCaption,  // Caption could be wrapped across several header lines to fit columns width.
             coSmartResize,  // Column is resized to its largest entry which is in view (instead of its largest visible entry).

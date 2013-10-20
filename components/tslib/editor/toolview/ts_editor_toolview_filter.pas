@@ -62,6 +62,10 @@ type
     pnlMain: TPanel;
     sbrMain: TStatusBar;
 
+    function CCustomDraw(Sender: TObject; ColumnDefinition: TColumnDefinition;
+      Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
+      ImageList: TCustomImageList; DrawMode: TDrawMode;
+      Selected: Boolean): Boolean;
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -82,15 +86,27 @@ type
     function GetItemsSource: TObjectList;
     function GetItemTemplate: IDataTemplate;
     procedure SetFilter(AValue: string);
+    procedure SetItemsSource(AValue: TObjectList);
+    procedure SetItemTemplate(AValue: IDataTemplate);
 
     function IsMatch(const AString : string): Boolean; overload; inline;
     function IsMatch(
-      const AString : string;
-        var AMatch  : string;
-        var APos    : Integer
+      const AString : string; // Search string
+        var AMatch  : string; // Matching string
+        var APos    : Integer // Character position where the match starts
     ): Boolean; overload; inline;
-    procedure SetItemsSource(AValue: TObjectList);
-    procedure SetItemTemplate(AValue: IDataTemplate);
+    procedure CalcMatchRect(
+      const ASource           : string;   // String to search for a match
+      const AMatch            : string;   // The found match
+      const AOffset           : Integer;  // Character offset in Source to Match
+            ACanvas           : TCanvas;
+            AColumnDefinition : TColumnDefinition;
+        var ARect             : TRect
+    ); inline;
+    procedure DrawMatchRect(
+            ACanvas : TCanvas;
+      const ARect   : TRect
+    ); inline;
 
     procedure InitializeComponents;
 
@@ -100,9 +116,6 @@ type
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
-
-
-
 
     property Filter: string
       read GetFilter write SetFilter;
@@ -128,10 +141,11 @@ implementation
 uses
   Variants,
 
-  LMessages,
+  LMessages, GraphUtil,
 
   Windows,
 
+  ts.Core.Utils,
   ts.Editor.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate;
 
 type
@@ -208,6 +222,28 @@ begin
   FTVP.ApplyFilter;
 end;
 
+function TfrmFilter.CCustomDraw(Sender: TObject;
+  ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas: TCanvas;
+  CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode;
+  Selected: Boolean): Boolean;
+var
+  Match  : string;
+  Offset : Integer;
+  R      : TRect;
+  S      : string;
+begin
+  if DrawMode = dmBeforeCellPaint then
+  begin
+    S := ItemTemplate.GetText(Item, ColumnDefinition.Index);
+    if IsMatch(S, Match, Offset) then
+    begin
+      R := CellRect;
+      CalcMatchRect(S, Match, Offset, TargetCanvas, ColumnDefinition, R);
+      DrawMatchRect(TargetCanvas, R);
+    end;
+  end;
+end;
+
 procedure TfrmFilter.edtFilterKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
@@ -278,7 +314,6 @@ begin
     Key := #0;
   end;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
@@ -292,9 +327,19 @@ begin
   Result := FTVP.ItemsSource;
 end;
 
+procedure TfrmFilter.SetItemsSource(AValue: TObjectList);
+begin
+  FTVP.ItemsSource := AValue;
+end;
+
 function TfrmFilter.GetItemTemplate: IDataTemplate;
 begin
   Result := FTVP.ItemTemplate;
+end;
+
+procedure TfrmFilter.SetItemTemplate(AValue: IDataTemplate);
+begin
+  FTVP.ItemTemplate := AValue;
 end;
 
 procedure TfrmFilter.SetFilter(AValue: string);
@@ -309,6 +354,18 @@ function TfrmFilter.GetColumnDefinitions: TColumnDefinitions;
 begin
   Result := FTVP.ColumnDefinitions;
 end;
+
+procedure TfrmFilter.SetVisible(Value: boolean);
+begin
+  if Value then
+  begin
+    // check properties
+    if ItemsSource = nil then
+      Exception.Create('ItemSource property not assigned');
+    InitializeComponents;
+  end;
+  inherited SetVisible(Value);
+end;
 {$endregion}
 
 {$region 'private methods' /fold}
@@ -322,52 +379,89 @@ end;
 
 function TfrmFilter.IsMatch(const AString: string; var AMatch: string;
   var APos: Integer): Boolean;
-var
-  S : string;
 begin
-  APos   := 0;
+  APos   := -1;
   AMatch := '';
   Result := False;
   if Filter <> '' then
   begin
-    // remove accelerator token
-    S := StringReplace(AString, '&', '', [rfReplaceAll]);
-    APos   := StrPos(Filter, S, False);
-    AMatch := System.Copy(S, APos, Length(Filter));
+    APos   := StrPos(Filter, AString, False);
+    AMatch := System.Copy(AString, APos, Length(Filter));
     Result := APos > 0;
   end;
 end;
 
-procedure TfrmFilter.SetItemsSource(AValue: TObjectList);
-begin
-  FTVP.ItemsSource := AValue;
-end;
-
-procedure TfrmFilter.SetItemTemplate(AValue: IDataTemplate);
-begin
-  FTVP.ItemTemplate := AValue;
-end;
-
 procedure TfrmFilter.InitializeComponents;
+var
+  C : TColumnDefinition;
+  I : Integer;
 begin
-  //if not Assigned(ItemTemplate) then
-  //  ItemTemplate := TColumnDefinitionsDataTemplate.Create(ColumnDefinitions);
+  // connect custom draw events
+  for I := 0 to ColumnDefinitions.Count - 1 do
+  begin
+    C := ColumnDefinitions[I];
+    C.OnCustomDraw := CCustomDraw;
+  end;
+
   FTVP.OnFilter := FTVPFilter;
   FTVP.TreeView := FVST;
 end;
 
-procedure TfrmFilter.SetVisible(Value: boolean);
+procedure TfrmFilter.CalcMatchRect(const ASource: string; const AMatch: string;
+  const AOffset: Integer; ACanvas: TCanvas;
+  AColumnDefinition: TColumnDefinition; var ARect: TRect);
+var
+  Margin: Integer;
 begin
-  if Value then
-  begin
-    // check properties
-    if ItemsSource = nil then
-      Exception.Create('ItemSource property not assigned');
-    InitializeComponents;
-  end;
-  inherited SetVisible(Value);
+  // calculate the rectangle to draw around the matching text
+  Margin := AColumnDefinition.Margin + AColumnDefinition.Spacing;
+  ARect.Left := ARect.Left + Margin +
+    ACanvas.TextWidth(System.Copy(ASource, 1, AOffset - 1));
+  ARect.Right := ARect.Left + ACanvas.TextWidth(AMatch);
 end;
 
+procedure TfrmFilter.DrawMatchRect(ACanvas: TCanvas; const ARect: TRect);
+var
+  C : TColor;
+  B : TBrush;
+  P : TPen;
+begin
+  B := TBrush.Create;
+  try
+    B.Assign(ACanvas.Brush); // copy original brush
+    P := TPen.Create;
+    try
+      P.Assign(ACanvas.Pen); // copy original pen
+      C := ColorToRGB(ACanvas.Brush.Color);
+      if C <> clWhite then
+      begin
+        C := MixColors(
+          C,
+          Manager.Settings.HighlightAllColor.Background,
+          Manager.Settings.HighlightAllColor.BackAlpha
+        )
+      end
+      else
+      begin
+        C := ColorAdjustLuma(
+          Manager.Settings.HighlightAllColor.Background,
+          70,
+          False
+        );
+      end;
+      ACanvas.Pen.Color := Manager.Settings.HighlightAllColor.FrameColor;
+      ACanvas.Pen.Width := 1;
+      ACanvas.Brush.Color := C;
+      ACanvas.Rectangle(ARect);
+      ACanvas.Pen.Assign(P); // restore original pen
+      ACanvas.Brush.Assign(B); // restore original brush
+    finally
+      P.Free;
+    end;
+  finally
+    B.Free;
+  end;
+end;
 {$endregion}
 
 end.

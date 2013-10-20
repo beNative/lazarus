@@ -36,6 +36,7 @@
     - removed customfilter (no binding support)
     - column options added
     - MinWidth and MaxWidth
+    - Added Margin
     - Fixed
 }
 
@@ -63,6 +64,7 @@ type
 const
   CDefaultWidth = 100;
   CDefaultSpacing = 4;
+  CDefaultMargin  = 4;
   CDefaultMinWidth = 0;
   CDefaultMaxWidth = 1000;
   CDefaultDataType = dtString;
@@ -112,6 +114,7 @@ type
     FSortingDirection: TSortingDirection;
     FToggleMode: TToggleMode;
     FSpacing: Integer;
+    FMargin: Integer;
     FVisible: Boolean;
     FWidth: Integer;
 
@@ -175,6 +178,9 @@ type
     property Spacing: Integer
       read FSpacing write FSpacing default CDefaultSpacing;
 
+    property Margin: Integer
+      read FMargin write FMargin default CDefaultMargin;
+
     property DataType: TDataType
       read FDataType write FDataType default CDefaultDataType;
 
@@ -237,6 +243,7 @@ begin
   FColumnOptions := [coResizable, coSortable, coDraggable];
   FDataType := CDefaultDataType;
   FSpacing := CDefaultSpacing;
+  FMargin := CDefaultMargin;
   FVisible := True;
   FMinWidth := CDefaultMinWidth;
   FMaxWidth := CDefaultMaxWidth;
@@ -271,6 +278,7 @@ begin
   if Source is TColumnDefinition then
   begin
     LSource := TColumnDefinition(Source);
+
     AutoSize := LSource.AutoSize;
     Alignment := LSource.Alignment;
     Caption := LSource.Caption;
@@ -280,6 +288,8 @@ begin
     ColumnType := LSource.ColumnType;
     MinWidth := LSource.MinWidth;
     MaxWidth := LSource.MaxWidth;
+    Spacing := LSource.Spacing;
+    Margin := LSource.Margin;
     Fixed := LSource.Fixed;
     OnCustomDraw := LSource.OnCustomDraw;
     OnGetText := LSource.OnGetText;

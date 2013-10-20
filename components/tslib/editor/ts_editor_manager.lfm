@@ -4297,6 +4297,11 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Show script editor'
       OnExecute = actShowScriptEditorExecute
     end
+    object actShowFilterTest: TAction
+      Caption = 'Show filter test dialog'
+      OnExecute = actShowFilterTestExecute
+      ShortCut = 57460
+    end
   end
   object ppmExport: TPopupMenu
     Images = imlMain

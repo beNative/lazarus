@@ -1,7 +1,7 @@
 object frmActionListView: TfrmActionListView
-  Left = -1191
+  Left = -883
   Height = 526
-  Top = 298
+  Top = 359
   Width = 800
   ActiveControl = edtFilterActions
   Caption = 'Actions'

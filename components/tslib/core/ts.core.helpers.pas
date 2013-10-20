@@ -398,7 +398,10 @@ begin
   TVP.ListMode     := True;
   TVP.MultiSelect  := False;
   TVP.AllowMove    := False;
-  TVP.ItemTemplate := AItemTemplate;
+  // if not assigned it will be autocreated and map the values to the published
+  // properties of the objects in the ItemsSource list.
+  if Assigned(AItemTemplate) then
+    TVP.ItemTemplate := AItemTemplate;
   TVP.ItemsSource  := AItemsSource;
   Result := TVP;
 end;

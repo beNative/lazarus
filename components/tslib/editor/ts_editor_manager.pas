@@ -25,6 +25,8 @@ unit ts_Editor_Manager;
   Datamodule holding common actions, menu's to manage one or more IEditorView
   instances.
 
+  CTRL-ALT-SHIFT keycombinations are used for experimental features
+
   TODO:
    - apply consistent casing for word under cursor/all words ? => dangerous for strings
 
@@ -89,10 +91,6 @@ unit ts_Editor_Manager;
          - modal
          - docked (or handled by owner form)
 
-      ShowEditorToolView
-         AShowModal: Boolean
-         ASetFocus: Boolean
-
 }
 {$endregion}
 
@@ -104,7 +102,7 @@ uses
   // logging
   sharedlogger,
 
-  LCLType,
+  LCLType, PopupNotifier,
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
@@ -159,6 +157,7 @@ type
     actFile                           : TAction;
     actConvertTabsToSpacesInSelection : TAction;
     actExecuteScriptOnSelection       : TAction;
+    actShowFilterTest: TAction;
     actShowScriptEditor               : TAction;
     actShowMiniMap                    : TAction;
     actShowHexEditor                  : TAction;
@@ -320,6 +319,7 @@ type
     procedure actPageSetupExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
     procedure actPrintPreviewExecute(Sender: TObject);
+    procedure actShowFilterTestExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
     procedure actShowHTMLViewerExecute(Sender: TObject);
     procedure actShowMiniMapExecute(Sender: TObject);
@@ -742,7 +742,7 @@ uses
 
   ipcchannel,
 {$ENDIF}
-  FileUtil, Clipbrd, StrUtils, Math, TypInfo,
+  FileUtil, Clipbrd, StrUtils, Math, TypInfo, Contnrs,
 
   LConvEncoding,
 
@@ -776,6 +776,7 @@ uses
   ts_Editor_Toolview_Minimap,
   ts_Editor_ToolView_ScriptEditor,
   ts_Editor_ToolView_SelectionInfo,
+  ts_Editor_ToolView_Filter,
 
   ts_Editor_AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -1625,6 +1626,31 @@ begin
   ShowMessage('Not implemented yet');
 end;
 
+procedure TdmEditorManager.actShowFilterTestExecute(Sender: TObject);
+var
+  F : TfrmFilter;
+  OL : TObjectList;
+  A: TContainedAction;
+begin
+  OL := TObjectList.create(False);
+  try
+    for A in ActionList do
+      OL.Add(A);
+
+    F := (ToolViews['Filter'].Form as TfrmFilter);
+    F.ColumnDefinitions.AddColumn('Name', 'Name');
+    F.ColumnDefinitions.AddColumn('Caption', 'Caption');
+    F.ItemsSource := OL;
+    ShowToolView('Filter', True, True, True);
+  finally
+    OL.Free;
+  end;
+
+  // CTRL-ALT-SHIFT-F5
+
+
+end;
+
 procedure TdmEditorManager.actUnindentExecute(Sender: TObject);
 begin
   ActiveView.Editor.CommandProcessor(ecBlockUnindent, '', nil);
@@ -2125,6 +2151,7 @@ begin
   ToolViews.Register(TfrmHexEditor, 'HexEditor');
   ToolViews.Register(TfrmMiniMap, 'MiniMap');
   ToolViews.Register(TfrmScriptEditor, 'ScriptEditor');
+  ToolViews.Register(TfrmFilter, 'Filter');
 end;
 
 procedure TdmEditorManager.BuildClipboardPopupMenu;

@@ -177,7 +177,7 @@ type
     function GetSettings: TCodeShaperSettings;
     function GetText: string;
 
-  strict protected
+  protected
     procedure AssignText(const AText: string);
     procedure InitializeControls;
     procedure InitializeAlignLinesControls;

@@ -38,12 +38,11 @@ unit ts_Editor_ToolView_Filter;
 
   }
 
-
 interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ComCtrls, StdCtrls, Contnrs,
+  ComCtrls, StdCtrls, ActnList, Contnrs,
 
   VirtualTrees,
 
@@ -56,12 +55,15 @@ type
   { TfrmFilter }
 
   TfrmFilter = class(TCustomEditorToolView)
+    aclMain: TActionList;
+    actFocusFilterText: TAction;
     edtFilter: TEdit;
     pnlView: TPanel;
     pnlHeader: TPanel;
     pnlMain: TPanel;
     sbrMain: TStatusBar;
 
+    procedure actFocusFilterTextExecute(Sender: TObject);
     function CCustomDraw(Sender: TObject; ColumnDefinition: TColumnDefinition;
       Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
       ImageList: TCustomImageList; DrawMode: TDrawMode;
@@ -73,6 +75,7 @@ type
       Shift: TShiftState);
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FVSTKeyPress(Sender: TObject; var Key: char);
+    procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   strict private
     FVST : TVirtualStringTree;
@@ -113,6 +116,8 @@ type
   protected
     procedure SetVisible(Value: boolean); override;
 
+    procedure UpdateActions; override;
+
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
@@ -139,14 +144,17 @@ implementation
 {$R *.lfm}
 
 uses
+  sharedlogger,
+
   Variants,
 
   LMessages, GraphUtil,
 
   Windows,
 
-  ts.Core.Utils,
-  ts.Editor.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate;
+  ts.Core.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate,
+
+  ts.Editor.Utils;
 
 type
   TVKSet = set of Byte;
@@ -159,8 +167,8 @@ var
     VK_RIGHT,
     VK_HOME,
     VK_END,
-    VK_SHIFT,
-    VK_CONTROL,
+    //VK_SHIFT,
+    //VK_CONTROL,
     VK_SPACE,
     VK_0..VK_Z,
     VK_OEM_1..VK_OEM_102,
@@ -181,6 +189,8 @@ var
   ];
 
   VK_SHIFT_EDIT_KEYS : TVKSet = [
+    VK_CONTROL,
+    VK_SHIFT,
     VK_INSERT,
     VK_DELETE,
     VK_LEFT,
@@ -197,6 +207,7 @@ begin
   inherited AfterConstruction;
   FVST := VST.Create(Self, pnlView);
   FVST.OnKeyPress := FVSTKeyPress;
+  FVST.OnKeyUp := FVSTKeyUp;
   FTVP := CreateTVP(Self, FVST);
 
   FTextStyle.SingleLine := True;
@@ -244,6 +255,12 @@ begin
   end;
 end;
 
+procedure TfrmFilter.actFocusFilterTextExecute(Sender: TObject);
+begin
+  edtFilter.SetFocus;
+  edtFilter.SelectAll;
+end;
+
 procedure TfrmFilter.edtFilterKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
@@ -251,14 +268,44 @@ var
   B : Boolean;
   C : Boolean;
   D : Boolean;
+  E : Boolean;
+  F : Boolean;
+  G : Boolean;
 begin
+  Logger.Send('KeyDown ActiveControl:', ActiveControl.ClassName);
+  // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
+  Logger.Watch('A', A);
+  { Single keys that need to be handled by the edit control like all displayable
+    characters but also HOME and END }
   B := (Key in VK_EDIT_KEYS) and (Shift = []);
+  Logger.Watch('B', B);
+  { CTRL-keycombinations that need to be handled by the edit control like
+    CTRL-C for clipboard copy. }
   C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  Logger.Watch('C', C);
+  { SHIFT-keycombinations that need to be handled by the edit control for
+    uppercase characters but also eg. SHIFT-HOME for selections. }
   D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
-  if not (A or B or C or D) then
+  Logger.Watch('D', D);
+  { Only CTRL key is pressed. }
+  E := (Key = VK_CONTROL) and (Shift = [ssCtrl]);
+  Logger.Watch('E', E);
+  { Only SHIFT key is pressed. }
+  F := (Key = VK_SHIFT) and (Shift = [ssShift]);
+  Logger.Watch('F', F);
+  { Only (left) ALT key is pressed. }
+  G := (Key = VK_MENU) and (Shift = [ssAlt]);
+  Logger.Watch('G', G);
+  if not (A or B or C or D or E or F or G) then
   begin
     FVKPressed := True;
+    Key := 0;
+  end
+  { Prevents jumping to the application's main menu which happens by default
+    if ALT is pressed. }
+  else if G then
+  begin
     Key := 0;
   end;
 end;
@@ -266,11 +313,10 @@ end;
 procedure TfrmFilter.edtFilterKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+//  Logger.Send('KeyUp ActiveControl:', ActiveControl.ClassName);
   if FVKPressed and FVST.Enabled then
   begin
-{$IFDEF Windows}
-    PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
-{$ENDIF}
+    FVST.Perform(WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
@@ -296,6 +342,7 @@ end;
 
 procedure TfrmFilter.FVSTKeyPress(Sender: TObject; var Key: char);
 begin
+//  Logger.Send('KeyPress ActiveControl:', ActiveControl.ClassName);
   if Ord(Key) = VK_RETURN then
   begin
     Close;
@@ -314,6 +361,17 @@ begin
     Key := #0;
   end;
 end;
+
+procedure TfrmFilter.FVSTKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+//  Logger.Send('KeyUp ActiveControl:', ActiveControl.ClassName);
+  if (Key = VK_MENU) and (Shift = []) then // only ALT pressed
+  begin
+    Key := 0;
+  end;
+end;
+
 {$endregion}
 
 {$region 'property access mehods' /fold}
@@ -464,5 +522,13 @@ begin
 end;
 {$endregion}
 
+{$region 'protected methods' /fold}
+procedure TfrmFilter.UpdateActions;
+begin
+  inherited UpdateActions;
+  if Assigned(ActiveControl) then
+    sbrMain.SimpleText := ActiveControl.ClassName;
+end;
+{$endregion}
 end.
 

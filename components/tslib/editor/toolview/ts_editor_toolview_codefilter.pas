@@ -150,7 +150,6 @@ type
     property MatchCase: Boolean
       read GetMatchCase;
 
-
     property Settings : TCodeFilterSettings
       read GetSettings;
 

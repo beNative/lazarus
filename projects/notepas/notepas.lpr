@@ -32,9 +32,10 @@ uses
   DefaultTranslator, pl_exsystem, pl_virtualtrees, FrameViewer09,
   lazrichedit, richmemopackage,
 
-  sharedlogger, runtimetypeinfocontrols,
-  pl_kcontrols, pl_zeosdbocomp, pl_zmsql, pl_richview, lazcontrols,
-  ts.Components.MultiPanel, ts.Components.DBGridView, ts.Components.Docking,
+  sharedlogger, ipcchannel, filechannel, fpccompat, logtreeview, multilog,
+  multiloglcl, runtimetypeinfocontrols, pl_kcontrols, pl_zeosdbocomp, pl_zmsql,
+  pl_richview, lazcontrols, pl_bgrabitmap, ts.Components.MultiPanel,
+  ts.Components.DBGridView, ts.Components.Docking,
   ts.Components.Docking.OptionsDialog, ts.Components.Docking.Resources,
   ts.Components.Docking.Storage, ts.Components.ExportRTF,
   ts.Components.FileAssociation, ts.Components.GridView,

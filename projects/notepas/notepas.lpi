@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="9"/>
-      <BuildNr Value="60"/>
+      <BuildNr Value="62"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.9" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">
@@ -38,7 +38,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -448,69 +448,72 @@
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="20">
+    <RequiredPackages Count="21">
       <Item1>
-        <PackageName Value="Cody"/>
+        <PackageName Value="pl_bgrabitmap"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="Cody"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LazControls"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_colorlib"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="pl_colorlib"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="pl_richview"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_zmsql"/>
+        <PackageName Value="pl_dwscript"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="pl_zmsql"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item9>
       <Item10>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="SynEdit"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item12>
       <Item13>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item13>
       <Item14>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item14>
       <Item15>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item15>
       <Item16>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item16>
       <Item17>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item17>
       <Item18>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="pl_exsystem"/>
       </Item18>
       <Item19>
-        <PackageName Value="FCL"/>
+        <PackageName Value="FrameViewer09"/>
       </Item19>
       <Item20>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item20>
+      <Item21>
+        <PackageName Value="LCL"/>
+      </Item21>
     </RequiredPackages>
-    <Units Count="118">
+    <Units Count="126">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -531,10 +534,12 @@
       <Unit3>
         <Filename Value="..\..\components\tslib\core\ts.core.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Helpers"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -543,6 +548,7 @@
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -621,7 +627,6 @@
       <Unit24>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.GridView"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
@@ -638,11 +643,11 @@
       <Unit28>
         <Filename Value="..\..\components\tslib\core\ts.core.versioninfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.VersionInfo"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\components\tslib\components\ts.components.inspector.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.Inspector"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\components\tslib\core\ts.core.stringutils.pas"/>
@@ -1019,7 +1024,6 @@
       <Unit101>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Generics.Collections"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.defaults.pas"/>
@@ -1032,7 +1036,6 @@
       <Unit104>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.helpers.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Generics.Helpers"/>
       </Unit104>
       <Unit105>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
@@ -1118,6 +1121,45 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_ToolView_Filter"/>
       </Unit117>
+      <Unit118>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\ipcchannel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ipcchannel"/>
+      </Unit118>
+      <Unit119>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\sharedlogger.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="sharedlogger"/>
+      </Unit119>
+      <Unit120>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\logtreeview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="logtreeview"/>
+      </Unit120>
+      <Unit121>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\filechannel.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="filechannel"/>
+      </Unit121>
+      <Unit122>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\fpccompat.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="fpccompat"/>
+      </Unit122>
+      <Unit123>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\logimages.lrs"/>
+        <IsPartOfProject Value="True"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\multilog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MultiLog"/>
+      </Unit124>
+      <Unit125>
+        <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\multiloglcl.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="multiloglcl"/>
+      </Unit125>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

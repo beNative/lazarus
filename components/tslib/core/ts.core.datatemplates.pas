@@ -54,6 +54,7 @@ type
   );
 
   IDataTemplate = interface
+  ['{3EB7EFFE-AF52-430C-B5C1-184ED0182B44}']
     // methods to display items
     function CustomDraw(const Item: TObject; const ColumnIndex: Integer;
               TargetCanvas: TCanvas; CellRect: TRect; ImageList: TCustomImageList;
@@ -122,6 +123,9 @@ type
 
 implementation
 
+uses
+  sharedlogger;
+
 
 { TDataTemplate }
 
@@ -164,12 +168,12 @@ begin
 end;
 constructor TDataTemplate.Create;
 begin
-  FTemplates := TObjectList.Create();
+  FTemplates := TObjectList.Create;
 end;
 
 destructor TDataTemplate.Destroy;
 begin
-  FTemplates.Free();
+  FTemplates.Free;
   inherited;
 end;
 
@@ -196,6 +200,8 @@ end;
 function TDataTemplate.GetItem(const Item: TObject;
   const Index: Integer): TObject;
 begin
+  Logger.EnterMethod(Self, 'GetItem');
+  Logger.Send(Self.ClassName);
   Result := nil;
   if Item is TObjectList then
   begin;
@@ -204,16 +210,21 @@ begin
       Result := TObjectList(Item).Items[Index];
     end;
   end;
+  Logger.ExitMethod(Self, 'GetItem');
 end;
 
 function TDataTemplate.GetItemCount(const Item: TObject): Integer;
 begin
+  Logger.EnterMethod(Self, 'GetItemCount');
+  Logger.Send(Self.ClassName);
   Result := 0;
 
   if Assigned(Item) then
   begin
     Result := TObjectList(Item).Count;
   end;
+  Logger.Watch('ItemCount', Result);
+  Logger.ExitMethod(Self, 'GetItemCount');
 end;
 
 function TDataTemplate.GetItems(const Item: TObject): TObjectList;
@@ -223,19 +234,29 @@ end;
 
 function TDataTemplate.GetItemTemplate(const Item: TObject): IDataTemplate;
 var
-  I: Integer;
   LTemplate: IDataTemplate;
 begin
-  Result := Self;
-  for I := 0 to FTemplates.Count - 1 do
+  Logger.EnterMethod(Self, 'GetItemTemplate');
+  Result := nil;
+
+  if Assigned(FTemplates) then
   begin
-    LTemplate := IDataTemplate(TDataTemplate(FTemplates[I]));
-    if Assigned(Item) and (Item.InheritsFrom(LTemplate.GetTemplateDataClass)) then
+    for LTemplate in FTemplates do
     begin
       Result := LTemplate.GetItemTemplate(Item);
-      Break;
+      if Assigned(Result) then
+      begin
+        Break;
+      end;
     end;
   end;
+
+  if not Assigned(Result) and Assigned(Item) {and (Item.InheritsFrom(GetTemplateDataClass))}
+    {or IsClassCovariantTo(Item.ClassType, GetTemplateDataClass)) }then
+  begin
+    Result := Self;
+  end;
+  Logger.ExitMethod(Self, 'GetItemTemplate');
 end;
 
 function TDataTemplate.GetTemplateDataClass: TClass;
@@ -268,6 +289,7 @@ end;
 procedure TDataTemplate.RegisterDataTemplate(const DataTemplate: IDataTemplate);
 begin
   FTemplates.Add(TDataTemplate(DataTemplate));
+  Logger.Send('Registered datatemplate of type (%s)', [TDataTemplate(DataTemplate).ClassName]);
 end;
 
 procedure TDataTemplate.SetText(const Item: TObject; const ColumnIndex: Integer;

@@ -73,6 +73,8 @@ type
       Shift: TShiftState);
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure FormShow(Sender: TObject);
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FVSTKeyPress(Sender: TObject; var Key: char);
     procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -167,8 +169,6 @@ var
     VK_RIGHT,
     VK_HOME,
     VK_END,
-    //VK_SHIFT,
-    //VK_CONTROL,
     VK_SPACE,
     VK_0..VK_Z,
     VK_OEM_1..VK_OEM_102,
@@ -209,6 +209,7 @@ begin
   FVST.OnKeyPress := FVSTKeyPress;
   FVST.OnKeyUp := FVSTKeyUp;
   FTVP := CreateTVP(Self, FVST);
+  FTVP.MultiLine := False;
 
   FTextStyle.SingleLine := True;
   FTextStyle.Opaque     := False;
@@ -313,7 +314,6 @@ end;
 procedure TfrmFilter.edtFilterKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-//  Logger.Send('KeyUp ActiveControl:', ActiveControl.ClassName);
   if FVKPressed and FVST.Enabled then
   begin
     FVST.Perform(WM_KEYDOWN, Key, 0);
@@ -321,6 +321,16 @@ begin
       FVST.SetFocus;
   end;
   FVKPressed := False;
+end;
+
+procedure TfrmFilter.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  Filter := '';
+end;
+
+procedure TfrmFilter.FormShow(Sender: TObject);
+begin
+  FTVP.ApplyFilter;
 end;
 
 procedure TfrmFilter.FTVPFilter(Item: TObject; var Accepted: Boolean);
@@ -365,13 +375,11 @@ end;
 procedure TfrmFilter.FVSTKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-//  Logger.Send('KeyUp ActiveControl:', ActiveControl.ClassName);
   if (Key = VK_MENU) and (Shift = []) then // only ALT pressed
   begin
     Key := 0;
   end;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
@@ -526,8 +534,6 @@ end;
 procedure TfrmFilter.UpdateActions;
 begin
   inherited UpdateActions;
-  if Assigned(ActiveControl) then
-    sbrMain.SimpleText := ActiveControl.ClassName;
 end;
 {$endregion}
 end.

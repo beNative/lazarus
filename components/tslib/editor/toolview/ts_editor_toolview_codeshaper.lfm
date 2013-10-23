@@ -1,13 +1,11 @@
 inherited frmCodeShaper: TfrmCodeShaper
-  Left = 2845
+  Left = 713
   Height = 771
-  Top = 230
+  Top = 181
   Width = 400
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
-  Align = alClient
   BorderIcons = []
-  BorderStyle = bsNone
   Caption = 'Code shaper'
   ClientHeight = 771
   ClientWidth = 400
@@ -134,7 +132,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 122
           Height = 19
           Top = 4
-          Width = 50
+          Width = 44
           Options = [dboShowIndicator]
           Action = actToggleBreakSide
           Caption = 'before'

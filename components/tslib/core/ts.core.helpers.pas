@@ -20,7 +20,7 @@ unit ts.Core.Helpers;
 
 {$MODE Delphi}
 
-{ Some helpers to create controls with commonly used settings. }
+{ Collection of factory types to create components with some common settings. }
 
 interface
 
@@ -276,6 +276,17 @@ type
     ): TVirtualStringTree; static;
   end;
 
+
+  { PI }
+
+  PI = record
+  public
+    class function Create(
+      AOwner  : TComponent;
+      AParent : TWinControl
+    ): TTIPropertyGrid; static;
+  end;
+
 function CreateXMLTree(
   AOwner  : TComponent;
   AParent : TWinControl
@@ -327,6 +338,53 @@ type
       read FInspector write FInspector;
   end;
 
+{ PI }
+
+class function PI.Create(AOwner: TComponent;
+  AParent: TWinControl): TTIPropertyGrid;
+var
+  PI: TTIPropertyGrid;
+begin
+  PI := TTIPropertyGrid.Create(AOwner);
+  PI.DoubleBuffered     := True;
+  PI.BackgroundColor    := clWindow;
+  PI.Color              := clForm;
+  PI.DrawHorzGridLines  := False;
+  PI.HighlightColor     := clGray;
+  PI.GutterColor        := clForm;
+  PI.GutterEdgeColor    := clSilver;
+  PI.Parent             := AParent;
+  PI.Align              := alClient;
+  PI.DefaultItemHeight  := 23;
+  PI.PreferredSplitterX := 200;
+  PI.SplitterX          := 200;
+  PI.Filter             := [
+    tkInteger,
+    tkChar,
+    tkEnumeration,
+    tkFloat,
+    tkSet,
+    tkSString,
+    tkLString,
+    tkAString,
+    tkWString,
+    tkVariant,
+    tkArray,
+    tkWChar,
+    tkBool,
+    tkInt64,
+    tkQWord,
+    tkDynArray,
+    tkUString,
+    tkUChar
+  ];
+  GlobalDesignHook      := PI.PropertyEditorHook;
+  TLocalClass.Inspector := PI;
+  PI.PropertyEditorHook.AddHandlerSetSelection(TLocalClass.OnSetSelection);
+  PI.Layout := oilHorizontal;
+  Result := PI;
+end;
+
 class procedure TLocalClass.OnSetSelection(const ASelection: TPersistentSelectionList);
 begin
   if ASelection.Count > 0 then
@@ -339,6 +397,8 @@ end;
 { VST }
 
 {$region 'VST' /fold}
+{ Class constructor sets default values for our factories' properties. }
+
 class constructor VST.Create;
 begin
   FHeaderOptions    := DEFAULT_VST_HEADEROPTIONS;
@@ -349,6 +409,8 @@ begin
   FPaintOptions     := DEFAULT_VST_PAINTOPTIONS;
   FAnimationOptions := DEFAULT_VST_ANIMATIONOPTIONS;
 end;
+
+{ Factory method to create a TVirtualStringTree instance. }
 
 class function VST.Create(AOwner: TComponent;
   AParent: TWinControl): TVirtualStringTree;

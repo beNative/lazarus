@@ -171,11 +171,11 @@ begin
 end;
 
 procedure TdlgExt.LoadIcon(const AName: string);
-var
-  FPath: string;
-  Index: Word;
-const
-  SExtDel = [','];
+//var
+//  FPath: string;
+//  Index: Word;
+//const
+//  SExtDel = [','];
 begin
   //IconName := AName;
   //FPath := AnsiDequotedStr(ExtractWord(0, AName, SExtDel), '"');
@@ -195,13 +195,13 @@ begin
 end;
 
 procedure TdlgExt.SetIconName(const Value: string);
-var
-  ShortName: string;
+//var
+//  ShortName: string;
 begin
   edIcon.Hint := Value;
   imIcon.Hint := Value;
   //ShortName := MinName(edIcon, Value);
-  edIcon.Text := ShortName;
+  //edIcon.Text := ShortName;
 end;
 
 procedure TdlgExt.SetDescription(const Value: string);

@@ -42,7 +42,6 @@ type
     {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
-    actCopy              : TAction;
     actCopyToNewView     : TAction;
     actFocusSearchFilter : TAction;
     actMatchCase         : TAction;
@@ -94,6 +93,7 @@ type
     procedure FTVPFilter(Item: TObject; var Accepted: Boolean);
     procedure FTVPSelectionChanged(Sender: TObject);
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
+    procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure tmrUpdateTimer(Sender: TObject);
 
   strict private
@@ -197,8 +197,6 @@ var
     VK_RIGHT,
     VK_HOME,
     VK_END,
-    VK_SHIFT,
-    VK_CONTROL,
     VK_SPACE,
     VK_0..VK_Z,
     VK_OEM_1..VK_OEM_102,
@@ -219,6 +217,8 @@ var
   ];
 
   VK_SHIFT_EDIT_KEYS : TVKSet = [
+    VK_CONTROL,
+    VK_SHIFT,
     VK_INSERT,
     VK_DELETE,
     VK_LEFT,
@@ -259,7 +259,6 @@ begin
 end;
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -284,6 +283,7 @@ begin
   FVST.Colors.SelectionRectangleBorderColor := clSilver;
   FVST.Colors.SelectionRectangleBlendColor := clSilver;
   FVST.OnKeyPress := FVSTKeyPress;
+  FVST.OnKeyUp := FVSTKeyUp;
   FVST.Header.MainColumn := 1;
   FVST.DefaultNodeHeight := 16;
   FTVP := TTreeViewPresenter.Create(Self);
@@ -316,7 +316,6 @@ end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TfrmCodeFilterDialog.GetVisible: Boolean;
 begin
   Result := inherited Visible;
@@ -377,7 +376,6 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
 begin
   FVST.Font.Assign(Manager.Settings.EditorFont);
@@ -463,7 +461,6 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
   if {(Filter <> '') and} not RegEx and (FLines.Count < 100000) then
@@ -476,14 +473,36 @@ var
   B : Boolean;
   C : Boolean;
   D : Boolean;
+  E : Boolean;
+  F : Boolean;
+  G : Boolean;
 begin
+  // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
+  { Single keys that need to be handled by the edit control like all displayable
+    characters but also HOME and END }
   B := (Key in VK_EDIT_KEYS) and (Shift = []);
+  { CTRL-keycombinations that need to be handled by the edit control like
+    CTRL-C for clipboard copy. }
   C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  { SHIFT-keycombinations that need to be handled by the edit control for
+    uppercase characters but also eg. SHIFT-HOME for selections. }
   D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
-  if not (A or B or C or D) then
+  { Only CTRL key is pressed. }
+  E := (Key = VK_CONTROL) and (Shift = [ssCtrl]);
+  { Only SHIFT key is pressed. }
+  F := (Key = VK_SHIFT) and (Shift = [ssShift]);
+  { Only (left) ALT key is pressed. }
+  G := (Key = VK_MENU) and (Shift = [ssAlt]);
+  if not (A or B or C or D or E or F or G) then
   begin
     FVKPressed := True;
+    Key := 0;
+  end
+  { Prevents jumping to the application's main menu which happens by default
+    if ALT is pressed. }
+  else if G then
+  begin
     Key := 0;
   end;
 end;
@@ -492,9 +511,7 @@ procedure TfrmCodeFilterDialog.edtFilterKeyUp(Sender: TObject; var Key: Word; Sh
 begin
   if FVKPressed and FVST.Enabled then
   begin
-{$IFDEF windows}
-    PostMessage(FVST.Handle, WM_KEYDOWN, Key, 0);
-{$ENDIF}
+    FVST.Perform(WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
@@ -664,6 +681,15 @@ begin
     edtFilter.SelStart := Length(Filter);
     // required to prevent the invocation of accelerator keys!
     Key := #0;
+  end;
+end;
+
+procedure TfrmCodeFilterDialog.FVSTKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_MENU) and (Shift = []) then // only ALT pressed
+  begin
+    Key := 0;
   end;
 end;
 

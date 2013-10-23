@@ -23,7 +23,7 @@ unit ts_Editor_SettingsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RTTICtrls, LSControls, Forms, Controls, Graphics,
+  Classes, SysUtils, FileUtil, RTTICtrls, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls,
 
   VirtualPages,

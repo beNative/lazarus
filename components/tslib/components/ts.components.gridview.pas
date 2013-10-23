@@ -9951,10 +9951,10 @@ const
   DS: array[Boolean] of Integer = (ILD_NORMAL, ILD_SELECTED);
 var
   DefRect        : TRect;
-  CK: TGridCheckKind;
+  CK             : TGridCheckKind;
   CB             : Graphics.TBitmap;
   CR             : TRect;
-  CI, X, Y, W, H: Integer;
+  CI, X, Y, W, H : Integer;
   IDS            : Integer;
   BKC, BLC       : DWORD;
   R              : TRect;

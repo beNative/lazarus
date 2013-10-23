@@ -31,7 +31,7 @@ type
 
   { TCustomEditorToolView }
 
-  TCustomEditorToolView = class(TForm, IClipboardCommands)
+  TCustomEditorToolView = class(TForm{, IClipboardCommands})
   strict private
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
@@ -58,11 +58,11 @@ type
     procedure SettingsChanged; virtual;
 
     { IClipboardCommands }
-    procedure Cut;
-    procedure Copy;
-    procedure Paste;
-    procedure Undo;
-    procedure Redo;
+    //procedure Cut;
+    //procedure Copy;
+    //procedure Paste;
+    //procedure Undo;
+    //procedure Redo;
 
     property Update: Boolean
       read GetUpdate write SetUpdate;
@@ -203,34 +203,34 @@ begin
   // to be overridden
 end;
 
-procedure TCustomEditorToolView.Cut;
-begin
-  PostMessage(GetFocus, LM_CUT, 0, 0);
-end;
-
-procedure TCustomEditorToolView.Copy;
-begin
-  PostMessage(GetFocus, LM_COPY, 0, 0);
-end;
-
-procedure TCustomEditorToolView.Paste;
-begin
-  PostMessage(GetFocus, LM_PASTE, 0, 0);
-end;
-
-procedure TCustomEditorToolView.Undo;
-begin
-{$IFDEF windows}
-  PostMessage(GetFocus, WM_UNDO, 0, 0);
-{$ENDIF}
-end;
-
-procedure TCustomEditorToolView.Redo;
-begin
-{$IFDEF windows}
-  PostMessage(GetFocus, WM_UNDO, 1, 0);
-{$ENDIF}
-end;
+//procedure TCustomEditorToolView.Cut;
+//begin
+//  PostMessage(GetFocus, LM_CUT, 0, 0);
+//end;
+//
+//procedure TCustomEditorToolView.Copy;
+//begin
+//  PostMessage(GetFocus, LM_COPY, 0, 0);
+//end;
+//
+//procedure TCustomEditorToolView.Paste;
+//begin
+//  PostMessage(GetFocus, LM_PASTE, 0, 0);
+//end;
+//
+//procedure TCustomEditorToolView.Undo;
+//begin
+//{$IFDEF windows}
+//  PostMessage(GetFocus, WM_UNDO, 0, 0);
+//{$ENDIF}
+//end;
+//
+//procedure TCustomEditorToolView.Redo;
+//begin
+//{$IFDEF windows}
+//  PostMessage(GetFocus, WM_UNDO, 1, 0);
+//{$ENDIF}
+//end;
 {$endregion}
 
 end.

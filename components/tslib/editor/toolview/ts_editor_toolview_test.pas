@@ -24,8 +24,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, ShortPathEdit,
-  LvlGraphCtrl, TreeFilterEdit, CodyCtrls, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls,
+  LvlGraphCtrl, TreeFilterEdit, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ExtCtrls,
 
   ts_Editor_ToolView_Base;
 
@@ -35,7 +35,6 @@ type
 
   TfrmTest = class(TCustomEditorToolView)
     btnExecute : TButton;
-    CodyTreeView1: TCodyTreeView;
     pnlTest    : TPanel;
     ShortPathEdit1: TShortPathEdit;
     TreeFilterEdit1: TTreeFilterEdit;

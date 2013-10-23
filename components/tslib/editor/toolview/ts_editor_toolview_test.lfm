@@ -36,22 +36,6 @@ inherited frmTest: TfrmTest
       MaxLength = 0
       TabOrder = 0
     end
-    object CodyTreeView1: TCodyTreeView
-      Left = 72
-      Height = 457
-      Top = 96
-      Width = 261
-      DefaultItemHeight = 18
-      TabOrder = 1
-      Items.Data = {
-        F9FFFFFF020001000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF030000000000
-        000001050000004974656D30FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000
-        0000000000050000004974656D31FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
-        00000000000000050000004974656D32FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        010000000000000001050000004974656D33FFFFFFFFFFFFFFFFFFFFFFFFFFFF
-        FFFF000000000000000000050000004974656D34
-      }
-    end
     object TreeFilterEdit1: TTreeFilterEdit
       Left = 72
       Height = 23
@@ -60,8 +44,7 @@ inherited frmTest: TfrmTest
       ButtonWidth = 23
       NumGlyphs = 1
       MaxLength = 0
-      TabOrder = 2
-      FilteredTreeview = CodyTreeView1
+      TabOrder = 1
     end
   end
 end

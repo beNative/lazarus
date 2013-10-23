@@ -50,7 +50,6 @@ implementation
 procedure TEditorCommands.AfterConstruction;
 begin
   inherited AfterConstruction;
-
 end;
 {$endregion}
 

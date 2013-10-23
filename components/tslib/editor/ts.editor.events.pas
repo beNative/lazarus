@@ -52,7 +52,6 @@ type
     FOnAddEditorView       : TAddEditorViewEvent;
     FOnShowEditorToolView  : TEditorToolViewEvent;
     FOnHideEditorToolView  : TEditorToolViewEvent;
-    FOnCaretPositionChange : TCaretPositionEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
     FOnNewFile             : TNewFileEvent;
     FOnOpenFile            : TFileEvent;

@@ -52,8 +52,8 @@ type
 
   { TfrmCodeShaper }
 
-  TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView,
-                                                IClipboardCommands)
+  TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView{
+                                                {IClipboardCommands})
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;

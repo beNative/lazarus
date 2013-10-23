@@ -113,8 +113,6 @@ type
     constructor Create(AOwner: TPersistent); virtual;
   end;
 
-//*****************************************************************************
-
 implementation
 
 {$region 'TCollectionEnumerator<T>' /fold}

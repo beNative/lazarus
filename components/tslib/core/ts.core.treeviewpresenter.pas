@@ -83,12 +83,16 @@ type
     var Accepted : Boolean
   ) of object;
 
-  TSelectionChangingEvent = procedure(Sender: TObject; TargetItem: TObject;
-    var AllowChange: Boolean) of object;
+  TSelectionChangingEvent = procedure(
+        Sender      : TObject;
+        TargetItem  : TObject;
+    var AllowChange : Boolean
+  ) of object;
 
   INotifyPropertyChanged = interface
     ['{6627279B-8112-4A92-BBD3-795185A41966}']
     function GetOnPropertyChanged: TPropertyChangedEvent;
+
     property OnPropertyChanged: TPropertyChangedEvent
       read GetOnPropertyChanged;
   end;
@@ -96,6 +100,7 @@ type
   INotifyCollectionChanged = interface
     ['{FE0D3160-6BCE-46B6-B01D-1B3C23EA76F3}']
     function GetOnCollectionChanged: TCollectionChangedEvent;
+
     property OnCollectionChanged: TCollectionChangedEvent
       read GetOnCollectionChanged;
   end;
@@ -109,9 +114,14 @@ type
     function GetItemTemplate: IDataTemplate;
     procedure SetItemTemplate(const Value: IDataTemplate);
 
-    property CurrentItem: TObject read GetCurrentItem write SetCurrentItem;
-    property ItemsSource: TObjectList read GetItemsSource write SetItemsSource;
-    property ItemTemplate: IDataTemplate read GetItemTemplate write SetItemTemplate;
+    property CurrentItem: TObject
+      read GetCurrentItem write SetCurrentItem;
+
+    property ItemsSource: TObjectList
+      read GetItemsSource write SetItemsSource;
+
+    property ItemTemplate: IDataTemplate
+      read GetItemTemplate write SetItemTemplate;
   end;
 
   TCheckSupport = (
@@ -408,30 +418,6 @@ type
 var
   CheckBoxSize: Byte;
 
-procedure Synchronize(Target, Source: TObjectList);
-var
-  i: Integer;
-begin
-  i := 0;
-  while i < Target.Count do
-  begin
-    if Source.IndexOf(Target[i]) <> -1 then
-    begin
-      Inc(i);
-    end
-    else
-    begin
-      Target.Delete(i);
-    end;
-  end;
-  for i := 0 to Pred(Source.Count) do
-  begin
-    if Target.IndexOf(Source[i]) = -1 then
-    begin
-      Target.Add(Source[i]);
-    end;
-  end;
-end;
 { TTreeViewPresenter }
 
 function RectWidth(const Rect: TRect): Integer;
@@ -671,7 +657,7 @@ end;
 procedure TTreeViewPresenter.DoCollapsed(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
-  UpdateExpandedItems();
+  UpdateExpandedItems;
 
   DoPropertyChanged('ExpandedItems');
 end;
@@ -929,7 +915,7 @@ end;
 procedure TTreeViewPresenter.DoExpanded(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
-  UpdateExpandedItems();
+  UpdateExpandedItems;
 
   DoPropertyChanged('ExpandedItems');
 end;

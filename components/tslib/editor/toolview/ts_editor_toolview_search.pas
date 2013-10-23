@@ -47,8 +47,8 @@ uses
   ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
-  TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView,
-                                                IClipboardCommands)
+  TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView{,
+                                                IClipboardCommands})
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actFocusSearchText              : TAction;

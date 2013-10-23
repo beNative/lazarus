@@ -786,7 +786,9 @@ uses
 
   ts_Editor_SettingsDialog_Old,
   ts_Editor_SettingsDialog,
-  ts_Editor_SettingsDialog_FileAssociations;
+  ts_Editor_SettingsDialog_FileAssociations,
+
+  ts.Editor.Templates;
 
 {$region 'construction and destruction' /fold}
 procedure TdmEditorManager.AfterConstruction;
@@ -1640,6 +1642,7 @@ begin
     F := (ToolViews['Filter'].Form as TfrmFilter);
     F.ColumnDefinitions.AddColumn('Name', 'Name');
     F.ColumnDefinitions.AddColumn('Caption', 'Caption');
+    //F.ItemTemplate  := TActionCategoryTemplate.Create(F.ColumnDefinitions);
     F.ItemsSource := OL;
     ShowToolView('Filter', True, True, True);
   finally

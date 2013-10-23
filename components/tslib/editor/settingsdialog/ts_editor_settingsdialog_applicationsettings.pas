@@ -23,7 +23,7 @@ unit ts_Editor_SettingsDialog_ApplicationSettings;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RTTICtrls, mbOfficeColorDialog, mbColorPreview,
+  Classes, SysUtils, FileUtil, RTTICtrls,
   Forms, Controls, Graphics, Dialogs, StdCtrls,
 
   ts_Editor_SettingsDialog_Base;

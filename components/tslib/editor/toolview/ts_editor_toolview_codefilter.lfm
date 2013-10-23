@@ -6,9 +6,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   Caption = 'Code filter'
   ClientHeight = 572
   ClientWidth = 740
-  KeyPreview = True
   OnCloseQuery = FormCloseQuery
-  OnKeyUp = FormKeyUp
   OnShow = FormShow
   PopupMenu = ppmMain
   PopupMode = pmAuto
@@ -293,11 +291,6 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       OnExecute = actSelectAllExecute
       ShortCut = 16449
     end
-    object actCopy: TAction
-      Caption = 'Copy'
-      OnExecute = actCopyExecute
-      ShortCut = 16451
-    end
     object actCopyToNewView: TAction
       Caption = 'Copy to new view'
       Hint = 'Copy selected lines to new view'
@@ -469,7 +462,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Action = actSelectAll
     end
     object mniCopy: TMenuItem
-      Action = actCopy
+      Caption = 'Copy'
+      ShortCut = 16451
     end
     object mniCopyToNewView: TMenuItem
       Action = actCopyToNewView

@@ -138,8 +138,8 @@ var
   Col: Integer;
 begin
   Col := ColorToRGB(AColor);
-  Result := Format('\red%d\green%d\blue%d;', [GetRValue(Col), GetGValue(Col),
-    GetBValue(Col)]);
+  Result := UnicodeString(Format('\red%d\green%d\blue%d;', [GetRValue(Col), GetGValue(Col),
+    GetBValue(Col)]));
 end;
 
 procedure TSynExporterRTF.FormatAfterLastAttribute;
@@ -160,7 +160,7 @@ begin
     if AStyle in FontStylesChanged then
     begin
       FAttributesChanged := True;
-      AddData(FontTags[AStyle]);
+      AddData(AnsiString(FontTags[AStyle]));
     end;
   end;
 end;
@@ -188,7 +188,7 @@ begin
   for AStyle := Low(TFontStyle) to High(TFontStyle) do
     if AStyle in FontStylesChanged then
     begin
-      AddData(FontTags[AStyle]);
+      AddData(AnsiString(FontTags[AStyle]));
       FAttributesChanged := True;
     end;
   if FAttributesChanged then

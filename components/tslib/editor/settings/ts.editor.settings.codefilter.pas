@@ -23,7 +23,9 @@ unit ts.Editor.Settings.CodeFilter;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils,
+
+  ts.Core.FormSettings;
 
 const
   DEFAULT_WIDTH = 400;
@@ -34,16 +36,18 @@ type
 
   TCodeFilterSettings = class(TPersistent)
   private
-    FWidth: Integer;
+    FFormSettings: TFormSettings;
+    procedure SetFormSettings(AValue: TFormSettings);
 
   public
     procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
 
   published
-    property Width: Integer
-      read FWidth write FWidth default DEFAULT_WIDTH;
+    property FormSettings: TFormSettings
+      read FFormSettings write SetFormSettings;
   end;
 
 implementation
@@ -52,6 +56,21 @@ implementation
 procedure TCodeFilterSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FFormSettings := TFormSettings.Create;
+end;
+
+procedure TCodeFilterSettings.BeforeDestruction;
+begin
+  FFormSettings.Free;
+  inherited BeforeDestruction;
+end;
+{$endregion}
+
+{$region 'property access mehods' /fold}
+procedure TCodeFilterSettings.SetFormSettings(AValue: TFormSettings);
+begin
+  if FormSettings <> AValue then
+    FFormSettings.Assign(AValue);
 end;
 {$endregion}
 
@@ -63,7 +82,7 @@ begin
   if Dest is TCodeFilterSettings then
   begin
     S := TCodeFilterSettings(Dest);
-    S.Width := Width;
+    S.AssignTo(Dest);
   end
   else
     inherited AssignTo(Dest);
@@ -76,7 +95,7 @@ begin
   if Source is TCodeFilterSettings then
   begin
     S := TCodeFilterSettings(Source);
-    Width := S.Width;
+    S.Assign(Source);
   end
   else
     inherited Assign(Source);

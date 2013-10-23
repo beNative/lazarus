@@ -40,6 +40,18 @@ const
   LineEnding: string = System.LineEnding;
 
 type
+  TSearchOptions = set of (
+    soMatchCase,
+    soWholeWord,
+    soBackwards
+  );
+
+const
+  AllChars = [Low(Char) .. High(Char)];
+  DefaultWordBorders = AllChars - ['a'..'z', 'A'..'Z', '0'..'9', '_'];
+  WhiteSpaces = [' ', #9, #10, #13];
+
+type
   // comments
   TCommentType = (
     ctDefault,     // decide automatically
@@ -68,6 +80,13 @@ function CompressSpace(
   const AString         : string;
         APreserveIndent : Boolean = True
 ): string;
+
+{ Replace any number of consecutive whitespace (including newlines)
+  with a single whitespace. This is nice when you have a string
+  (possibly multiline) supplied by user, and you want to use this
+  for some UI item (like window's caption or menu item) --- this
+  "sanitizes" whitespace inside such string. }
+function CompressWhiteSpace(const AString: string): string;
 
 procedure AlignLines(
         AStrings                : TStrings;
@@ -140,9 +159,15 @@ function DequoteLines(
         ATrimSpace : Boolean = False
 ): string;
 
-function CommentText(const AString: string; ACommentType: TCommentType): string;
+function CommentText(
+  const AString      : string;
+        ACommentType : TCommentType
+): string;
 
-function UnCommentText(const AString: string; ACommentType: TCommentType): string;
+function UnCommentText(
+  const AString      : string;
+        ACommentType : TCommentType
+): string;
 
 function FormatXML(const AXMLString: string): string;
 
@@ -259,6 +284,97 @@ function TabsToSpaces(
   const ASource   : string;
         ATabWidth : Integer
 ): string;
+
+{ Find substring SubText within Text. Returns 0 if not found.
+  Similar to a standard Pos function, with some improvements.
+
+  @param(StartPosition Starts searching for SubText starting from this position.
+    Note that the resulting position is still returned with respect
+    to the string beginning. Just like standard PosEx.)
+
+  @param(Count Looks only at Count characters from Text.
+    You can say that the search is done only within Copy(Text, StartPosition, Count).)
+
+  @param(Options Various searching options:
+
+    @unorderedList(
+      @item(soMatchCase: makes searching case-sensitive (by default,
+        case is ignored, taking locale into account).)
+
+      @item(soWholeWord: looks only for SubText occurrences surrounded
+        by characters from WordBorders (or the beginning/end of Text).
+
+        Note that, while the beginning/end of Text is always treated like a word border,
+        but the mere beginning/end of the searching range (StartPosition, Count)
+        is not a word border.
+        For example FindPos('cat', 'foocat dog', 4, MaxInt, [soWholeWord])
+        will answer 0 (not found), because the only 'cat' occurrence is not
+        surrounded by default word borders.)
+
+      @item(soBackwards: search from the end, that is return rightmost
+        found occurrence.)
+    )
+  ) }
+function FindPos(const SubText, Text: string; StartPosition, Count: integer;
+  Options: TSearchOptions;
+  const WordBorders: TSysCharSet = DefaultWordBorders): integer;
+
+function IsPrefix(
+  const Prefix     : string;
+  const S          : string;
+        IgnoreCase : Boolean = True
+): Boolean;
+
+function IsSuffix(
+  const Suffix     : string;
+  const S          : string;
+        IgnoreCase : Boolean = True
+): Boolean;
+
+{ Removes the prefix, if it is present. More precisely, if
+  IsPrefix(Prefix, S, IgnoreCase) then returns S with this prefix
+  removed. Else returns S. }
+function PrefixRemove(const Prefix, S: string; IgnoreCase: boolean): string;
+
+{ Like PrefixRemove, but checks for and removes Suffix. }
+function SuffixRemove(const Suffix, S: string; IgnoreCase: boolean): string;
+
+{ Extract file extensions from a file filter usually specified
+  a TOpenDialog.Filter value.
+
+  More precisely: expects FileFilter to be in the form of
+  @code('xxxx|name1.ext1;name2.ext2'). Where "xxxx" is just about anything
+  (it is ignored), and in fact whole "xxxx|" (with bar) may be omitted.
+  The rest (after "|") is treated as a filename list, separated by semicolon ";".
+
+  As Extensions contents, we set an array of all extensions extracted from these
+  filenames. For example above, we would set Extensions to array
+  with two items: @code(['.ext1', '.ext2']). }
+procedure GetFileFilterExts(const FileFilter: string; Extensions: TStringList);
+
+{ Extract file filter name, from a file filter usually specified
+  a TOpenDialog.Filter value.
+
+  More precisely: if we do not see bar "|" character, then this is
+  the filter name. Otherwise, everything on the right of "|" is "extensions"
+  and everything on the left is "filter name".
+
+  Additionally, if filter name ends with extensions value in parenthesis,
+  they are removed. In other words, for 'Pascal files (*.pas)|*.pas',
+  this will return just 'Pascal files'. The '(*.pas)' was removed
+  from the filter name, because we detected this just repeats the extensions
+  on the right of "|". Extensions on the right of "|" must be separated by
+  semicolons, extensions within parenthesis on the left of "|" may
+  be separated by semicolons ";" or colons ",". }
+function GetFileFilterName(const FileFilter: string): string;
+
+{ Search in FileFilter for the bar character "|", and return everything
+  after it. This is a simple basis for GetFileFilterExts.
+
+  If no "|" found, we return an empty string (in other words,
+  file filter without "|" is treated as just a filter name, without
+  any extensions). }
+function GetFileFilterExtsStr(const FileFilter: string): string;
 
 implementation
 
@@ -1478,6 +1594,285 @@ begin
     StringOfChar(#32, ATabWidth),
     [rfReplaceAll]
   );
+end;
+
+function FindPos(const SubText, Text: string; StartPosition, Count: integer;
+  Options: TSearchOptions; const WordBorders: TSysCharSet): integer;
+
+var S, SubS: string;
+     i: integer;
+function MatchingPos(i: integer): boolean;
+
+
+  { sprawdz czy i jest dobra Position wystapienia SubS w S.
+    Uwzglednij przy tym czy soWholeWord in Options, zachowuj sie zawsze
+    jakby bylo soMatchCase in Options. }
+  var realI: integer;
+  begin
+   result := false;
+   if Copy(S, i, Length(SubS)) = SubS then
+   begin
+    if soWholeWord in Options then
+    begin
+     realI := i+StartPosition-1;
+     if ( (realI = 1) or (Text[realI-1] in wordBorders) ) and
+        ( (realI+length(subS)-1 = length(Text)) or (Text[realI+length(subS)] in WordBorders) )
+     then result := true
+    end else result := true;
+   end;
+  end;
+
+
+
+
+  begin
+   S := copy(Text, StartPosition, Count);
+   SubS := SubText;
+   if not (soMatchCase in Options) then
+   begin
+    S := AnsiUpperCase(S);
+    SubS := AnsiUpperCase(SubS);
+   end;
+   result := 0;
+   if soBackwards in Options then
+   begin
+    for i := Count-Length(SubS)+1 downto 1 do
+     if MatchingPos(i) then begin result := i; break end;
+   end else
+   begin
+    for i := 1 to Count-Length(SubS)+1 do
+     if MatchingPos(i) then begin result := i; break end;
+   end;
+   if result > 0 then result := result+StartPosition-1;
+end;
+
+function CharPos(c: char; const s: string; Offset: Integer = 1): integer;
+var i: integer;
+begin
+for i := Offset to length(s) do
+if s[i] = c then begin result := i; exit end;
+result := 0;
+end;
+
+function SEnding(const S: string; P: integer): string;
+begin
+ result := Copy(S, P, MaxInt)
+end;
+
+function SRight(const s: string; const rpart: integer): string;
+begin
+ if Length(s) < rpart then
+  result := s else
+  result := Copy(s, Length(s)-rpart+1, rpart);
+end;
+
+function IsPrefix(const Prefix, S: string; IgnoreCase: boolean): boolean;
+begin
+ if IgnoreCase then
+  result := AnsiCompareText(Copy(S, 1, Length(Prefix)), Prefix) = 0 else
+  result := AnsiCompareStr(Copy(S, 1, Length(Prefix)), Prefix) = 0;
+end;
+
+function IsSuffix(const Suffix, S: string; IgnoreCase: boolean): boolean;
+begin
+ if IgnoreCase then
+  result := AnsiCompareText(SRight(S, Length(Suffix)), Suffix) = 0 else
+  result := AnsiCompareStr(SRight(S, Length(Suffix)), Suffix) = 0;
+end;
+
+function PrefixRemove(const Prefix, S: string; IgnoreCase: boolean): string;
+
+function SEnding(const S: string; P: integer): string;
+begin
+ result := Copy(S, P, MaxInt)
+end;
+
+begin
+ if IsPrefix(Prefix, S, IgnoreCase) then
+  Result := SEnding(S, Length(Prefix) + 1) else
+  Result := S;
+end;
+
+
+
+function SuffixRemove(const Suffix, S: string; IgnoreCase: boolean): string;
+begin
+ Result := S;
+ if IsSuffix(Suffix, S, IgnoreCase) then
+ begin
+  { doing assignment and SetLength should be a little faster
+    than doing Result := Copy(S, 1, ...) }
+  SetLength(Result, Length(s) - Length(Suffix));
+ end;
+end;
+
+procedure GetFileFilterExts(const FileFilter: string; Extensions: TStringList);
+var p, SeekPos: integer;
+    ExtsStr, filemask: string;
+
+    function NextToken(const S: string; var SeekPos: Integer;
+      const TokenDelims: TSysCharSet): string;
+    var
+      TokStart: Integer;
+    begin
+      repeat
+        if SeekPos > Length(s) then begin Result := ''; Exit end;
+        if S[SeekPos] in TokenDelims then Inc(SeekPos) else Break;
+      until false;
+      TokStart := SeekPos; { TokStart := first character not in TokenDelims }
+
+      while (SeekPos <= Length(s)) and not(S[SeekPos] in TokenDelims) do Inc(SeekPos);
+
+      { Calculate result := s[TokStart, ... , SeekPos-1] }
+      result := Copy(s, TokStart, SeekPos-TokStart);
+
+      { We don't have to do Inc(seekPos) below. But it's obvious that searching
+        for next token can skip SeekPos, since we know S[SeekPos] is TokenDelim. }
+      Inc(SeekPos);
+    end;
+
+begin
+ Extensions.Clear;
+ ExtsStr := GetFileFilterExtsStr(FileFilter);
+ SeekPos := 1;
+ repeat
+  filemask := NextToken(ExtsStr, SeekPos,[';']);
+  if filemask = '' then break;
+  p := CharPos('.', filemask);
+  if p > 0 then
+   Delete(filemask, 1, p-1) else { delete name from filemask }
+   filemask := '.'+filemask; { it means there was no name and dot in filemask. So prepend dot. }
+  Extensions.Add(filemask);
+ until false;
+end;
+
+function GetFileFilterName(const FileFilter: string): string;
+var ffLeft, ffRight: string;
+    p, len: integer;
+
+
+
+    function SReplaceChars(const s: string; FromChar, ToChar: char): string;
+var i: Integer;
+begin
+ Result := S;
+ for i := 1 to Length(Result) do
+  if Result[i] = FromChar then Result[i] := ToChar;
+end;
+
+begin
+ p := CharPos('|', FileFilter);
+ if p = 0 then result := Trim(FileFilter) else
+ begin
+  ffLeft := Trim(Copy(FileFilter, 1, p-1));
+  ffRight := Trim(SEnding(FileFilter, p+1));
+  if ffRight = '' then
+  begin
+   result := ffLeft;
+   { if FileFilter = 'xxx()|' then it matches to pattern 'xxx(exts)|exts'
+     so we should return 'xxx', not 'xxx()'.
+     This is often really useful when FileFilter was constructed in an
+     automatic way (e.g. as in mine edytorek). }
+   if IsSuffix('()', Result) then
+   begin
+    SetLength(Result, Length(Result)-2);
+    { trim once again to delete rightmost whitespace (as in 'xxx ()|') }
+    Result := TrimRight(Result);
+   end;
+  end else
+  begin
+   p := FindPos(ffRight, ffLeft, 1, Length(ffLeft), [soBackwards]);
+   if p = 0 then
+    p := FindPos(SReplaceChars(ffRight, ';', ','), ffLeft, 1, Length(ffLeft), [soBackwards]);
+   if p = 0 then result := ffLeft else
+   begin
+    len := Length(ffRight);
+    {zwieksz len tak zeby objelo biale znaki az do ')'}
+    while p+len <= Length(ffLeft) do
+    begin
+     if ffLeft[p+len] = ')' then
+      begin Inc(len); break end else
+     if ffLeft[p+len] in WhiteSpaces then
+      Inc(len) else
+      break;
+    end;
+    {zmniejsz p tak zeby objelo biale znaki az do '('}
+    while p-1 >= 1 do
+    begin
+     if ffLeft[p-1] = '(' then
+      begin Dec(p); Inc(len); break end else
+     if ffLeft[p-1] in WhiteSpaces then
+      begin Dec(p); Inc(len) end else
+      break;
+    end;
+    {koniec; wypieprz p, len}
+    Delete(ffLeft, p, len);
+    result := Trim(ffLeft);
+   end;
+  end;
+ end;
+end;
+
+function GetFileFilterExtsStr(const FileFilter: string): string;
+var p: integer;
+begin
+ p := CharPos('|', FileFilter);
+ if p > 0 then
+  result := SEnding(FileFilter, p+1) else
+  result := '';
+end;
+
+function CompressWhiteSpace(const AString: string): string;
+
+function SCharIs(const s: string; index: integer; const chars: TSysCharSet): boolean;
+begin result:=(index <= Length(s)) and (s[index] in chars) end;
+
+var
+  ResultPos: Integer; { this is always next free result position }
+  SPos: Integer; { this is always next unhandled AString position }
+  NextSPos: Integer;
+begin
+  ResultPos := 1;
+  SPos := 1;
+  SetLength(Result, Length(AString)); { resulting string is at most as long as AString }
+
+  if SCharIs(AString, 1, WhiteSpaces) then
+  begin
+    Result[1] := ' ';
+    Inc(ResultPos);
+    while SCharIs(AString, SPos, WhiteSpaces) do Inc(SPos);
+  end;
+
+  while SPos <= Length(AString) do
+  begin
+    Assert(not (AString[SPos] in WhiteSpaces));
+
+    { read next non-white-space chunk }
+
+    NextSPos := SPos + 1;
+    while (NextSPos <= Length(AString)) and
+          not (AString[NextSPos] in WhiteSpaces) do
+      Inc(NextSPos);
+
+    Move(AString[SPos], Result[ResultPos], NextSPos - SPos);
+
+    ResultPos += NextSPos - SPos;
+    SPos := NextSPos;
+
+    { omit next white-space chunk }
+
+    if SCharIs(AString, SPos, WhiteSpaces) then
+    begin
+      Result[ResultPos] := ' ';
+      Inc(ResultPos);
+      while SCharIs(AString, SPos, WhiteSpaces) do Inc(SPos);
+    end;
+  end;
+
+  { assert we didn't do buffer overflow just now }
+  Assert(ResultPos - 1 <= Length(Result));
+
+  SetLength(Result, ResultPos - 1);
 end;
 
 end.

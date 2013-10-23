@@ -2,13 +2,13 @@ inherited frmCodeShaper: TfrmCodeShaper
   Left = 713
   Height = 771
   Top = 181
-  Width = 400
+  Width = 470
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
   BorderIcons = []
   Caption = 'Code shaper'
   ClientHeight = 771
-  ClientWidth = 400
+  ClientWidth = 470
   Constraints.MinWidth = 400
   OnResize = FormResize
   Position = poDefault
@@ -17,9 +17,9 @@ inherited frmCodeShaper: TfrmCodeShaper
     Left = 0
     Height = 771
     Top = 0
-    Width = 400
+    Width = 470
     HorzScrollBar.Increment = 39
-    HorzScrollBar.Page = 400
+    HorzScrollBar.Page = 470
     VertScrollBar.Increment = 77
     VertScrollBar.Page = 771
     VertScrollBar.Smooth = True
@@ -28,13 +28,13 @@ inherited frmCodeShaper: TfrmCodeShaper
     AutoSize = True
     BorderStyle = bsNone
     ClientHeight = 771
-    ClientWidth = 400
+    ClientWidth = 470
     TabOrder = 0
     object pnlOperations: TPanel
       Left = 4
       Height = 759
       Top = 4
-      Width = 392
+      Width = 462
       Align = alClient
       BorderSpacing.Bottom = 4
       BorderSpacing.Around = 4
@@ -51,17 +51,17 @@ inherited frmCodeShaper: TfrmCodeShaper
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 1
       ClientHeight = 759
-      ClientWidth = 392
+      ClientWidth = 462
       TabOrder = 0
       object grpInsertBreaks: TGroupBox
         Left = 0
         Height = 72
         Top = 7
-        Width = 392
+        Width = 462
         Caption = 'Insert breaks'
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 54
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 0
         object edtBreakLinesToken: TLabeledEdit
           Left = 230
@@ -122,7 +122,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 46
           Top = 3
-          Width = 105
+          Width = 175
           Action = actInsertBreaks
           Anchors = [akTop, akLeft, akRight, akBottom]
           Layout = blGlyphTop
@@ -131,7 +131,7 @@ inherited frmCodeShaper: TfrmCodeShaper
         object btnBreakAfterBefore: TMenuButton
           Left = 122
           Height = 19
-          Top = 4
+          Top = 5
           Width = 44
           Options = [dboShowIndicator]
           Action = actToggleBreakSide
@@ -139,6 +139,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Flat = True
           Font.Color = clBlue
           Font.Style = [fsUnderline]
+          GroupIndex = 2
           Margin = 2
           ParentFont = False
           Menu = ppmAfterBefore
@@ -149,12 +150,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 74
         Top = 86
-        Width = 392
+        Width = 462
         Caption = 'Remove breaks'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 56
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 1
         object chkUnBreakLinesWrap: TCheckBox
           Left = 20
@@ -193,7 +194,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 48
           Top = 4
-          Width = 105
+          Width = 175
           Action = actRemoveBreaks
           Anchors = [akTop, akLeft, akRight, akBottom]
           Layout = blGlyphTop
@@ -204,12 +205,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 92
         Top = 167
-        Width = 392
+        Width = 462
         Caption = 'Trim'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 74
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 2
         object chkTrimLinesLeft: TCheckBox
           Left = 20
@@ -231,7 +232,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 66
           Top = 3
-          Width = 105
+          Width = 175
           Action = actTrim
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 2
@@ -267,12 +268,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 92
         Top = 266
-        Width = 392
+        Width = 462
         Caption = 'Align'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 74
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 3
         object edtAlignLinesToken: TLabeledEdit
           Left = 230
@@ -322,12 +323,12 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 66
           Top = 2
-          Width = 105
+          Width = 175
           Action = actAlignLines
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 4
         end
-        object btnAlignInsertSpace1: TMenuButton
+        object btnAlignInsertSpace: TMenuButton
           Left = 122
           Height = 19
           Top = 27
@@ -338,6 +339,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Flat = True
           Font.Color = clBlue
           Font.Style = [fsUnderline]
+          GroupIndex = 1
           Margin = 2
           ParentFont = False
           Menu = ppmSpaces
@@ -347,12 +349,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 92
         Top = 365
-        Width = 392
+        Width = 462
         Caption = 'Quote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 74
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 4
         object edtQuoteLinesQuoteChar: TLabeledEdit
           Left = 110
@@ -417,7 +419,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 66
           Top = 2
-          Width = 105
+          Width = 175
           Action = actQuoteLines
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 4
@@ -427,12 +429,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 68
         Top = 464
-        Width = 392
+        Width = 462
         Caption = 'Dequote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 50
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 5
         object edtDequoteLinesQuoteChar: TLabeledEdit
           Left = 110
@@ -469,7 +471,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 286
           Height = 42
           Top = 4
-          Width = 105
+          Width = 175
           Action = actDequoteLines
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 2
@@ -479,12 +481,12 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 107
         Top = 539
-        Width = 392
+        Width = 462
         Caption = 'Replace strings'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 89
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 6
         object chkReplaceStringsCaseSensitive: TCheckBox
           Left = 20
@@ -538,7 +540,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 325
           Height = 81
           Top = 4
-          Width = 66
+          Width = 136
           Action = actReplace
           Anchors = [akTop, akLeft, akRight, akBottom]
           Margin = 0
@@ -549,7 +551,7 @@ inherited frmCodeShaper: TfrmCodeShaper
         Left = 0
         Height = 101
         Top = 653
-        Width = 392
+        Width = 462
         Caption = 'Miscellanious operations'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
@@ -560,29 +562,29 @@ inherited frmCodeShaper: TfrmCodeShaper
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
         ClientHeight = 83
-        ClientWidth = 388
+        ClientWidth = 458
         TabOrder = 7
         object btnPascalString: TButton
           Left = 2
           Height = 25
           Top = 4
-          Width = 136
+          Width = 159
           Action = actMakePascalString
           TabOrder = 0
         end
         object btnStripFirstChar: TButton
-          Left = 138
+          Left = 161
           Height = 25
           Top = 4
-          Width = 130
+          Width = 153
           Action = actStripFirstChar
           TabOrder = 1
         end
         object btnStripLastChar: TButton
-          Left = 268
+          Left = 314
           Height = 25
           Top = 4
-          Width = 118
+          Width = 142
           Action = actStripLastChar
           TabOrder = 2
         end
@@ -590,23 +592,23 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 2
           Height = 25
           Top = 29
-          Width = 136
+          Width = 159
           Action = actRemoveDoubles
           TabOrder = 3
         end
         object btnStripLastChar2: TButton
-          Left = 138
+          Left = 161
           Height = 25
           Top = 29
-          Width = 130
+          Width = 153
           Action = actApplyConsistentCase
           TabOrder = 4
         end
         object btnURLEncode: TButton
-          Left = 268
+          Left = 314
           Height = 25
           Top = 29
-          Width = 118
+          Width = 142
           Action = actURLEncode
           TabOrder = 5
         end
@@ -614,7 +616,7 @@ inherited frmCodeShaper: TfrmCodeShaper
           Left = 2
           Height = 25
           Top = 54
-          Width = 136
+          Width = 159
           Action = actURLDecode
           TabOrder = 6
         end
@@ -789,14 +791,14 @@ inherited frmCodeShaper: TfrmCodeShaper
   object ppmAfterBefore: TPopupMenu[3]
     left = 336
     top = 384
-    object MenuItem1: TMenuItem
+    object mniBreakAfterToken: TMenuItem
       Action = actBreakAfterToken
       AutoCheck = True
       Caption = 'after'
       GroupIndex = 2
       RadioItem = True
     end
-    object MenuItem2: TMenuItem
+    object mniBreakBeforeToken: TMenuItem
       Action = actBreakBeforeToken
       AutoCheck = True
       Caption = 'before'

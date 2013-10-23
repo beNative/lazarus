@@ -52,8 +52,7 @@ uses
 
   VirtualTrees,
 
-  ts.Core.VersionInfo, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
-  RichMemo;
+  ts.Core.VersionInfo, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions;
 
 type
 
@@ -283,7 +282,7 @@ begin
   );
   AddCredit(
     'Virtual TreeView',
-    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with slught modifications by Tim Sinaeve',
+    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with slight modifications by Tim Sinaeve',
     'http://www.soft-gems.net/'
   );
   AddCredit(

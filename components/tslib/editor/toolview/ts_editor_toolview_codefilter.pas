@@ -38,7 +38,7 @@ type
 
   { TfrmCodeFilterDialog }
 
-  TfrmCodeFilterDialog = class(TForm)
+  TfrmCodeFilterDialog = class(TForm, IEditorToolView)
     {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
@@ -85,6 +85,7 @@ type
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
       ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
@@ -303,6 +304,7 @@ begin
   FTVP.OnFilter := FTVPFilter;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
   FRegExpr := TRegExpr.Create;
+  Settings.FormSettings.AssignTo(Self);
 end;
 
 procedure TfrmCodeFilterDialog.BeforeDestruction;
@@ -512,6 +514,7 @@ begin
   if FVKPressed and FVST.Enabled then
   begin
     FVST.Perform(WM_KEYDOWN, Key, 0);
+    //PostMessage(edtFilter.Handle, WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
@@ -531,6 +534,11 @@ begin
   end
   else
     inherited;
+end;
+
+procedure TfrmCodeFilterDialog.FormResize(Sender: TObject);
+begin
+  Settings.FormSettings.Assign(Self);
 end;
 
 procedure TfrmCodeFilterDialog.FormShow(Sender: TObject);

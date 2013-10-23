@@ -236,7 +236,7 @@ function TDataTemplate.GetItemTemplate(const Item: TObject): IDataTemplate;
 var
   LTemplate: IDataTemplate;
 begin
-  Logger.EnterMethod(Self, 'GetItemTemplate');
+//  Logger.EnterMethod(Self, 'GetItemTemplate');
   Result := nil;
 
   if Assigned(FTemplates) then
@@ -256,7 +256,7 @@ begin
   begin
     Result := Self;
   end;
-  Logger.ExitMethod(Self, 'GetItemTemplate');
+//  Logger.ExitMethod(Self, 'GetItemTemplate');
 end;
 
 function TDataTemplate.GetTemplateDataClass: TClass;

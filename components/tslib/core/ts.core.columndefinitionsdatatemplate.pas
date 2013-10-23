@@ -78,6 +78,8 @@ implementation
 uses
   TypInfo, Variants, SysUtils,
 
+  LCLProc,
+
   ts.Core.Utils;
 
 { TColumnDefinitionsDataTemplate }
@@ -229,7 +231,7 @@ begin
     V := GetPropValue(Item, APropertyName, False);
     S := VarToStrDef(V, '');
     if APropertyName = 'Caption' then // cleanup accelerator tokens
-      S := StringReplace(S, '&', '', [rfReplaceAll]);
+      DeleteAmpersands(S);
     Result := S;
   end
   else

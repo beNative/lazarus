@@ -52,8 +52,7 @@ type
 
   { TfrmCodeShaper }
 
-  TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView{
-                                                {IClipboardCommands})
+  TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;
@@ -84,7 +83,6 @@ type
     btnAlign2                       : TBitBtn;
     btnAlign3                       : TBitBtn;
     btnAlignInsertSpace             : TMenuButton;
-    btnAlignInsertSpace1            : TMenuButton;
     btnBreakAfterBefore             : TMenuButton;
     btnInsertBreaks                 : TBitBtn;
     btnPascalString                 : TButton;
@@ -132,8 +130,8 @@ type
     lblTrimLinesIndent              : TLabel;
     lblWrapLinesPosition            : TLabel;
     lblWrapLinesPosition1           : TLabel;
-    MenuItem1                       : TMenuItem;
-    MenuItem2                       : TMenuItem;
+    mniBreakAfterToken                       : TMenuItem;
+    mniBreakBeforeToken                       : TMenuItem;
     mniAlignInsertSpaceAfterToken   : TMenuItem;
     mniAlignInsertSpaceBeforeToken  : TMenuItem;
     mniAlignInsertSpaceOnBothSides  : TMenuItem;
@@ -642,6 +640,7 @@ end;
 procedure TfrmCodeShaper.UpdateActions;
 var
   A : TAction;
+  M : TMenuItem;
 begin
   inherited UpdateActions;
   actUndo.Enabled := View.CanUndo;
@@ -651,23 +650,23 @@ begin
     chkTrimLinesRight.Checked or chkTrimLinesLeft.Checked;
 
   case FAlignTokenSide of
-    tsBoth: A := actAlignInsertSpaceOnBothSides;
-    tsBefore: A := actAlignInsertSpaceBeforeToken;
-    tsAfter: A := actAlignInsertSpaceAfterToken;
+    tsBoth: M := mniAlignInsertSpaceOnBothSides;
+    tsBefore: M := mniAlignInsertSpaceBeforeToken;
+    tsAfter: M := mniAlignInsertSpaceAfterToken;
   end;
+  A := M.Action as TAction;
   A.Checked := True;
   actToggleAlignInsertSpace.Caption := A.Caption;
-  btnAlignInsertSpace1.Caption := A.Caption;
+  btnAlignInsertSpace.Caption := M.Caption;
 
   case FBreakTokenSide of
-    tsBefore: A := actBreakBeforeToken;
-    tsAfter:  A := actBreakAfterToken;
+    tsBefore: M := mniBreakBeforeToken;
+    tsAfter:  M := mniBreakAfterToken;
   end;
+  A := M.Action as TAction;
   A.Checked := True;
-  actToggleBreakSide.Caption := A.Caption;
-  btnBreakAfterBefore.Caption := A.Caption;
+  btnBreakAfterBefore.Caption := M.Caption;
 end;
-
 {$endregion}
 
 end.

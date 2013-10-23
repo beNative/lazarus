@@ -7,6 +7,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   ClientHeight = 572
   ClientWidth = 740
   OnCloseQuery = FormCloseQuery
+  OnResize = FormResize
   OnShow = FormShow
   PopupMenu = ppmMain
   PopupMode = pmAuto

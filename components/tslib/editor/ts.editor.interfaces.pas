@@ -927,15 +927,6 @@ type
     procedure CopyToClipboard;
   end;
 
-  IClipboardCommands = interface
-  ['{E8E71973-7048-4238-93DD-CB6307CD1BA8}']
-    procedure Cut;
-    procedure Copy;
-    procedure Paste;
-    procedure Undo;
-    procedure Redo;
-  end;
-
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
     {$region 'property access methods' /fold}
@@ -1014,7 +1005,7 @@ type
     property ActionList: TActionList
       read GetActionList;
 
-    { TODO -oTS : Declare all actions as properties }
+    { TODO -oTS : Declare all actions as properties? }
 
   end;
 

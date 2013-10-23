@@ -114,7 +114,6 @@ uses
 const
   COMBOBOX_FORMAT = '%s %s';
 
-
 procedure InspectComponent(AComponent : TComponent);
 var
   F : TComponentInspectorForm;

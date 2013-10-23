@@ -146,13 +146,17 @@ implementation
 {$R *.lfm}
 
 uses
+{$IFDEF Windows}
+  Windows,
+{$ENDIF}
+
   sharedlogger,
+
+  LCLProc, LCLType,
 
   Variants,
 
   LMessages, GraphUtil,
-
-  Windows,
 
   ts.Core.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate,
 
@@ -274,6 +278,7 @@ var
   G : Boolean;
 begin
   Logger.Send('KeyDown ActiveControl:', ActiveControl.ClassName);
+  Logger.Send('Keys : %s', [KeyAndShiftStateToKeyString(Key, Shift)]);
   // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
   Logger.Watch('A', A);
@@ -300,6 +305,7 @@ begin
   Logger.Watch('G', G);
   if not (A or B or C or D or E or F or G) then
   begin
+
     FVKPressed := True;
     Key := 0;
   end
@@ -316,7 +322,7 @@ procedure TfrmFilter.edtFilterKeyUp(Sender: TObject; var Key: Word;
 begin
   if FVKPressed and FVST.Enabled then
   begin
-    FVST.Perform(WM_KEYDOWN, Key, 0);
+    FVST.Perform(LM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
@@ -365,7 +371,9 @@ begin
   else if not edtFilter.Focused then
   begin
     edtFilter.SetFocus;
+{$IFDEF Windows}
     PostMessage(edtFilter.Handle, LM_CHAR, Ord(Key), 0);
+{$ENDIF}
     edtFilter.SelStart := Length(Filter);
     // required to prevent the invocation of accelerator keys!
     Key := #0;

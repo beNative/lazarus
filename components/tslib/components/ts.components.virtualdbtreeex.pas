@@ -16,6 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+{$region 'comments' /fold}
 { Lazarus port by Tim Sinaeve (28/04/2010) }
 
 {——————————————————————————————————————————————————————————————————————————————-
@@ -97,10 +98,13 @@
     - A demo. A demo is badly needed. I hope someone does come along and do it,
       as I am simply hopeless with those things.
  ——————————————————————————————————————————————————————————————————————————————}
+{$endregion}
 
 unit ts.Components.VirtualDBTreeEx;
 
 {$MODE Delphi}
+
+{ A TCustomVirtualStringTree descendant for displaying a DB table as a tree. }
 
 interface
 
@@ -1208,7 +1212,8 @@ begin
   Data := GetNodeData(Node);
   if (Data.Status = dbnsDelete) then
   begin
-    if FDataLink.DataSet.Locate(FKeyFieldName, Data.ID, []) then
+    if Assigned(FDataLink)
+      and FDataLink.DataSet.Locate(FKeyFieldName, Data.ID, []) then
       FDataLink.DataSet.Delete;
   end;
   inherited;

@@ -53,10 +53,10 @@ type
     FOnShowEditorToolView  : TEditorToolViewEvent;
     FOnHideEditorToolView  : TEditorToolViewEvent;
     FOnMacroStateChange    : TMacroStateChangeEvent;
-    FOnNewFile             : TNewFileEvent;
-    FOnOpenFile            : TFileEvent;
+    FOnNew                 : TNewEvent;
+    FOnLoad                : TStorageEvent;
+    FOnSave                : TStorageEvent;
     FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
-    FOnSaveFile            : TFileEvent;
     FOnStatusChange        : TStatusChangeEvent;
     FOnStatusMessage       : TStatusMessageEvent;
 
@@ -65,19 +65,19 @@ type
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnMacroStateChange: TMacroStateChangeEvent;
-    function GetOnNewFile: TNewFileEvent;
-    function GetOnOpenFile: TFileEvent;
+    function GetOnNew: TNewEvent;
+    function GetOnLoad: TStorageEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
-    function GetOnSaveFile: TFileEvent;
+    function GetOnSave: TStorageEvent;
     function GetOnShowEditorToolView: TEditorToolViewEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
-    procedure SetOnNewFile(const AValue: TNewFileEvent);
-    procedure SetOnOpenFile(const AValue: TFileEvent);
+    procedure SetOnNew(const AValue: TNewEvent);
+    procedure SetOnLoad(const AValue: TStorageEvent);
+    procedure SetOnSave(const AValue: TStorageEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
-    procedure SetOnSaveFile(const AValue: TFileEvent);
     procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
 
@@ -93,11 +93,11 @@ type
     procedure DoOpenOtherInstance(const AParams: array of string); virtual;
     procedure DoStatusMessage(AText: string); virtual;
     procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
-    procedure DoSaveFile(const AFileName: string);
-    procedure DoOpenFile(const AFileName: string);
-    procedure DoNewFile(
-      const AFileName : string = '';
-      const AText     : string = ''
+    procedure DoSave(const AName: string);
+    procedure DoLoad(const AName: string);
+    procedure DoNew(
+      const AStorageName : string = '';
+      const AText        : string = ''
     );
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
@@ -125,14 +125,16 @@ type
     property OnMacroStateChange: TMacroStateChangeEvent
       read GetOnMacroStateChange write SetOnMacroStateChange;
 
-    property OnOpenFile: TFileEvent
-      read GetOnOpenFile write SetOnOpenFile;
+    { Called when content is loaded into the editor's buffer. }
+    property OnLoad: TStorageEvent
+      read GetOnLoad write SetOnLoad;
 
-    property OnNewFile: TNewFileEvent
-      read GetOnNewFile write SetOnNewFile;
+    property OnNew: TNewEvent
+      read GetOnNew write SetOnNew;
 
-    property OnSaveFile: TFileEvent
-      read GetOnSaveFile write SetOnSaveFile;
+    { Called when the editor's content is about to be saved. }
+    property OnSave: TStorageEvent
+      read GetOnSave write SetOnSave;
 
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
@@ -211,14 +213,9 @@ begin
   Result := FOnMacroStateChange;
 end;
 
-function TEditorEvents.GetOnNewFile: TNewFileEvent;
+function TEditorEvents.GetOnNew: TNewEvent;
 begin
-  Result := FOnNewFile;
-end;
-
-function TEditorEvents.GetOnOpenFile: TFileEvent;
-begin
-  Result := FOnOpenFile;
+  Result := FOnNew;
 end;
 
 function TEditorEvents.GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
@@ -226,9 +223,24 @@ begin
   Result := FOnOpenOtherInstance;
 end;
 
-function TEditorEvents.GetOnSaveFile: TFileEvent;
+function TEditorEvents.GetOnSave: TStorageEvent;
 begin
-  Result := FOnSaveFile;
+  Result := FOnSave;
+end;
+
+procedure TEditorEvents.SetOnSave(const AValue: TStorageEvent);
+begin
+  FOnSave :=  AValue;
+end;
+
+function TEditorEvents.GetOnLoad: TStorageEvent;
+begin
+  Result := FOnLoad;
+end;
+
+procedure TEditorEvents.SetOnLoad(const AValue: TStorageEvent);
+begin
+  FOnLoad := AValue;
 end;
 
 function TEditorEvents.GetOnShowEditorToolView: TEditorToolViewEvent;
@@ -257,24 +269,14 @@ begin
   FOnMacroStateChange := AValue;
 end;
 
-procedure TEditorEvents.SetOnNewFile(const AValue: TNewFileEvent);
+procedure TEditorEvents.SetOnNew(const AValue: TNewEvent);
 begin
-  FOnNewFile := AValue;
-end;
-
-procedure TEditorEvents.SetOnOpenFile(const AValue: TFileEvent);
-begin
-  FOnOpenFile := AValue;
+  FOnNew := AValue;
 end;
 
 procedure TEditorEvents.SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
 begin
   FOnOpenOtherInstance := AValue;
-end;
-
-procedure TEditorEvents.SetOnSaveFile(const AValue: TFileEvent);
-begin
-  FOnSaveFile := AValue;
 end;
 
 procedure TEditorEvents.SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
@@ -351,34 +353,35 @@ begin
     FOnStatusChange(Self, AChanges);
 end;
 
-procedure TEditorEvents.DoSaveFile(const AFileName: string);
+procedure TEditorEvents.DoSave(const AName: string);
 var
   S: string;
 begin
-  if Assigned(FOnSaveFile) then
+  if Assigned(FOnSave) then
   begin
     S := View.FileName;
-    FOnSaveFile(Self, S);
-    View.FileName := S;
+    FOnSave(Self, S);
+    if View.IsFile then
+      View.FileName := S;
   end;
 end;
 
-procedure TEditorEvents.DoOpenFile(const AFileName: string);
+procedure TEditorEvents.DoLoad(const AName: string);
 var
   S : string;
 begin
-  S  := AFileName;
-  if Assigned(FOnOpenFile) then
-    FOnOpenFile(Self, S);
+  S  := AName;
+  if Assigned(FOnLoad) then
+    FOnLoad(Self, S);
 end;
 
-procedure TEditorEvents.DoNewFile(const AFileName: string; const AText: string);
+procedure TEditorEvents.DoNew(const AStorageName: string; const AText: string);
 var
   S : string;
 begin
-  S  := AFileName;
-  if Assigned(FOnNewFile) then
-    FOnNewFile(Self, S, AText);
+  S  := AStorageName;
+  if Assigned(FOnNew) then
+    FOnNew(Self, S, AText);
 end;
 {$endregion}
 

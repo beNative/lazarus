@@ -454,7 +454,6 @@ end;
 {$region 'THighlighterItem' /fold}
 
 {$region 'construction and destruction' /fold}
-
 constructor THighlighterItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
@@ -466,13 +465,13 @@ end;
 
 procedure THighlighterItem.BeforeDestruction;
 begin
+  FCodeFormatter := nil;
   if Assigned(FSynHighlighter) then
     FreeAndNil(FSynHighlighter);
   FreeAndNil(FFileExtensions);
   FreeAndNil(FSmartSelectionTags);
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}

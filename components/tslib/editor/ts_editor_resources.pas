@@ -104,7 +104,7 @@ resourcestring
   STextNotFound = 'Text not found';
   SSearching    = 'Searching...';
 
-  SINIDescription  = 'INI';
+  SINIDescription  = 'Settings file';
   SBATDescription  = 'Windows batch script';
   SPODescription   = 'Gettext translation strings';
   SRTFDescription  = 'Rich Text Format document';

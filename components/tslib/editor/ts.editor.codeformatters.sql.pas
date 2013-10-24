@@ -48,7 +48,6 @@ type
 implementation
 
 {$region 'construction and destruction' /fold}
-
 procedure TSQLFormatter.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -65,11 +64,9 @@ begin
   FSQLParser.Free;
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 function TSQLFormatter.Format(const AString: string): string;
 var
   SS: TStringStream;
@@ -126,7 +123,6 @@ begin
   S.Free;
   E.Free;
 end;
-
 {$endregion}
 
 end.

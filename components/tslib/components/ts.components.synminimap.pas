@@ -20,6 +20,7 @@ unit ts.Components.SynMiniMap;
 
 {$MODE Delphi}
 
+{$region 'comments' /fold}
 {
   Changes by Tim Sinaeve for Lazarus port:
   - Changed TBufferCoord to TPoint
@@ -27,7 +28,6 @@ unit ts.Components.SynMiniMap;
   - replaced virtual functions in TSynMiniMapEditorPlugin
 
 }
-
 (*******************************************************************************
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /    Contributors(alphabetical order):    /
@@ -70,6 +70,8 @@ unit ts.Components.SynMiniMap;
     -	initial release
 
 *******************************************************************************)
+{$endregion}
+
 interface
 
 uses

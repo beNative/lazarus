@@ -60,7 +60,7 @@ begin
     FEditor := CreateEditorView(pnlLeft, FManager, 'ScriptEditor', '', 'PAS');
 
   if FileExists('notepas.dws') then
-    FEditor.LoadFromFile('notepas.dws');
+    FEditor.Load('notepas.dws');
 end;
 
 end.

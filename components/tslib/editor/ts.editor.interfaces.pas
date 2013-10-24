@@ -65,15 +65,15 @@ type
     AState: TSynMacroState
   ) of object;
 
-  TFileEvent = procedure(
-        Sender    : TObject;
-    var AFileName : string
+  TStorageEvent = procedure(
+        Sender       : TObject;
+    var AStorageName : string
   ) of object;
 
-  TNewFileEvent = procedure(
-          Sender    : TObject;
-    var   AFileName : string;
-    const AText     : string
+  TNewEvent = procedure(
+          Sender       : TObject;
+    var   AStorageName : string;
+    const AText        : string
   ) of object;
 
   TAddEditorViewEvent = procedure(
@@ -145,6 +145,7 @@ type
     function GetForm: TCustomForm;
     function GetHighlighterItem: THighlighterItem;
     function GetInsertMode: Boolean;
+    function GetIsFile: Boolean;
     function GetLineBreakStyle: string;
     function GetLines: TStrings;
     function GetLinesInWindow: Integer;
@@ -185,6 +186,7 @@ type
     procedure SetFoldState(const AValue: string);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
     procedure SetInsertMode(AValue: Boolean);
+    procedure SetIsFile(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
     procedure SetLines(const AValue: TStrings);
     procedure SetLineText(const AValue: string);
@@ -262,10 +264,10 @@ type
     procedure ClearHighlightSearch;
 
     // load and save
-    procedure LoadFromFile(const AFileName: string);
+    procedure Load(const AStorageName: string = '');
+    procedure Save(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
-    procedure SaveToFile(const AFileName: string);
 
     // selection
     procedure SelectAll;
@@ -310,7 +312,7 @@ type
     property Settings: IEditorSettings
       read GetSettings;
 
-    { Reference to the main 'manager' instance }
+    { Reference to the main 'Actions' instance .}
     property Actions: IEditorActions
       read GetActions;
 
@@ -406,6 +408,12 @@ type
 
     property FileName: string
       read GetFileName write SetFileName;
+
+    { Determines if the view content is stored in a file. If True the content
+      will be laoded and saved to a file using the FileName property. If False
+      this is delegated to the owning instance. }
+    property IsFile: Boolean
+      read GetIsFile write SetIsFile;
 
     property LineText: string
       read GetLineText write SetLineText;
@@ -532,25 +540,27 @@ type
       read GetItemList;
   end;
 
+  { IEditorEvents }
+
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
     {$region 'property access methods' /fold}
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
+    function GetOnLoad: TStorageEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
+    function GetOnSave: TStorageEvent;
     function GetOnShowEditorToolView: TEditorToolViewEvent;
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
+    procedure SetOnLoad(const AValue: TStorageEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
     function GetOnMacroStateChange: TMacroStateChangeEvent;
-    function GetOnNewFile: TNewFileEvent;
-    function GetOnOpenFile: TFileEvent;
-    function GetOnSaveFile: TFileEvent;
+    function GetOnNew: TNewEvent;
     function GetOnStatusChange: TStatusChangeEvent;
-    procedure SetOnNewFile(const AValue: TNewFileEvent);
-    procedure SetOnOpenFile(const AValue: TFileEvent);
+    procedure SetOnNew(const AValue: TNewEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
-    procedure SetOnSaveFile(const AValue: TFileEvent);
+    procedure SetOnSave(const AValue: TStorageEvent);
     procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     {$endregion}
@@ -567,9 +577,9 @@ type
     procedure DoHideToolView(AToolView: IEditorToolView);
     procedure DoChange;
     procedure DoModified;
-    procedure DoSaveFile(const AFileName: string);
-    procedure DoOpenFile(const AFileName: string);
-    procedure DoNewFile(
+    procedure DoSave(const AName: string);
+    procedure DoLoad(const AName: string);
+    procedure DoNew(
       const AFileName : string = '';
       const AText     : string = ''
     );
@@ -600,14 +610,14 @@ type
     property OnMacroStateChange: TMacroStateChangeEvent
       read GetOnMacroStateChange write SetOnMacroStateChange;
 
-    property OnOpenFile: TFileEvent
-      read GetOnOpenFile write SetOnOpenFile;
+    property OnLoad: TStorageEvent
+      read GetOnLoad write SetOnLoad;
 
-    property OnNewFile: TNewFileEvent
-      read GetOnNewFile write SetOnNewFile;
+    property OnNewFile: TNewEvent
+      read GetOnNew write SetOnNew;
 
-    property OnSaveFile: TFileEvent
-      read GetOnSaveFile write SetOnSaveFile;
+    property OnSave: TStorageEvent
+      read GetOnSave write SetOnSave;
 
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
@@ -806,6 +816,7 @@ type
     property SelectedColor: TSynSelectedColor
       read GetSelectedColor write SetSelectedColor;
 
+    // Editor settings
     property TabWidth: Integer
       read GetTabWidth write SetTabWidth;
 
@@ -919,7 +930,6 @@ type
       const AFileName   : string = '';
             AShowDialog : Boolean = False
     ): Boolean;
-    procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     procedure InsertCharacter(const C: TUTF8Char);

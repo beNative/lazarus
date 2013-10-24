@@ -38,7 +38,7 @@ type
 
   { TfrmCodeFilterDialog }
 
-  TfrmCodeFilterDialog = class(TForm, IEditorToolView)
+  TfrmCodeFilterDialog = class(TForm)
     {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
@@ -85,7 +85,6 @@ type
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
       ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
@@ -304,7 +303,6 @@ begin
   FTVP.OnFilter := FTVPFilter;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
   FRegExpr := TRegExpr.Create;
-  Settings.FormSettings.AssignTo(Self);
 end;
 
 procedure TfrmCodeFilterDialog.BeforeDestruction;
@@ -499,7 +497,7 @@ begin
   if not (A or B or C or D or E or F or G) then
   begin
     FVKPressed := True;
-    Key := 0;
+//    Key := 0;
   end
   { Prevents jumping to the application's main menu which happens by default
     if ALT is pressed. }
@@ -534,11 +532,6 @@ begin
   end
   else
     inherited;
-end;
-
-procedure TfrmCodeFilterDialog.FormResize(Sender: TObject);
-begin
-  Settings.FormSettings.Assign(Self);
 end;
 
 procedure TfrmCodeFilterDialog.FormShow(Sender: TObject);

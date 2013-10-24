@@ -23,7 +23,7 @@ unit ts.Editor.Settings;
 interface
 
 uses
-  Classes, SysUtils, Graphics, FileUtil,
+  Classes, SysUtils, Graphics, FileUtil, ActnList,
 
   LazMethodList,
 
@@ -310,7 +310,6 @@ type
 
     property Highlighters: THighlighters
       read GetHighlighters write SetHighlighters;
-
   end;
 
 const
@@ -880,6 +879,7 @@ function TEditorSettings.GetXML: string;
 begin
   Result := ReadFileToString(FileName);
 end;
+
 {$endregion}
 
 {$region 'protected methods'}

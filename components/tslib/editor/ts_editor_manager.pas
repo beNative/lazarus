@@ -579,7 +579,6 @@ type
       const AFileName   : string = '';
             AShowDialog : Boolean = False
     ): Boolean;
-    procedure LoadFile;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     {$IFDEF Windows}
@@ -752,7 +751,7 @@ uses
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
   SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
-  synhighlighterunixshellscript,
+  SynhighlighterUnixShellScript, SynHighlighterIni,
 
   ts.Core.Utils, ts_Core_ComponentInspector,
 
@@ -817,7 +816,7 @@ end;
 
 procedure TdmEditorManager.BeforeDestruction;
 begin
-  FActiveView := nil; // !!!!!!!!! after a long search this was a long lasting bug
+  FActiveView := nil;
   if PersistSettings then
     FSettings.Save;
   FSearchEngine := nil;
@@ -1165,7 +1164,7 @@ end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
 begin
-  SaveFile(ActiveView.FileName);
+  ActiveView.Save;
 end;
 
 procedure TdmEditorManager.actSaveAsExecute(Sender: TObject);
@@ -1401,7 +1400,7 @@ end;
 
 procedure TdmEditorManager.actReloadExecute(Sender: TObject);
 begin
-  ActiveView.LoadFromFile(ActiveView.FileName);
+  ActiveView.Load;
 end;
 
 procedure TdmEditorManager.actSmartSelectExecute(Sender: TObject);
@@ -2106,7 +2105,8 @@ begin
   Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
   Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
-  // apply common highlighter attributes
+  //Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, '#');
+    // apply common highlighter attributes
 
 
 //  S := ExtractFilePath(Application.ExeName);
@@ -2716,17 +2716,6 @@ begin
     Events.DoHideToolView(ETV);
 end;
 
-{ TODO -oTS : Not correct! }
-
-procedure TdmEditorManager.LoadFile;
-var
-  S: string;
-begin
-  S := ActiveView.FileName;
-  Events.DoOpenFile(S);
-  // reload file from disk
-end;
-
 {$region 'IEditorCommands' /fold}
 procedure TdmEditorManager.AssignHighlighter(const AName: string);
 var
@@ -2835,7 +2824,7 @@ end;
 function TdmEditorManager.SaveFile(const AFileName: string;
 AShowDialog: Boolean): Boolean;
 begin
-  Events.DoSaveFile(AFileName);
+  Events.DoSave(AFileName);
   if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
     if Assigned(ActiveView.Editor.Highlighter) then
@@ -2844,7 +2833,7 @@ begin
     if dlgSave.Execute then
     begin
       ActiveView.FileName := dlgSave.FileName;
-      ActiveView.SaveToFile(dlgSave.FileName);
+      ActiveView.Save(dlgSave.FileName);
       Result := True;
     end
     else
@@ -2853,7 +2842,7 @@ begin
   else
   begin
     ActiveView.FileName := AFileName;
-    ActiveView.SaveToFile(AFileName);
+    ActiveView.Save(AFileName);
     Result := True;
   end
 end;
@@ -2920,7 +2909,7 @@ begin
   FN := ExtractFilePath(ActiveView.FileName)
     + ActiveView.CurrentWord + ExtractFileExt(ActiveView.FileName);
   if FileExistsUTF8(FN) then
-    Events.DoNewFile(FN);
+    Events.DoNew(FN);
 end;
 
 {$IFDEF Windows}
@@ -3045,6 +3034,8 @@ begin
     actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
     actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
 
+    actSave.Enabled := ActiveView.Modified;
+
     actClose.Visible       := ViewCount > 1;
     actCloseOthers.Visible := ViewCount > 1;
 
@@ -3151,7 +3142,7 @@ function TdmEditorManager.OpenFile(const AFileName: string): IEditorView;
 var
   V : IEditorView;
 begin
-  Events.DoOpenFile(AFileName);
+  Events.DoLoad(AFileName);
   { Check if the file is already opened in a view. }
   V := ViewByFileName[AFileName];
   if Assigned(V) then
@@ -3161,7 +3152,7 @@ begin
     if FileExistsUTF8(AFileName) then
     begin
       V := AddView('', AFileName);
-      V.LoadFromFile(AFileName);
+      V.Load(AFileName);
     end;
     Result := V;
   end;
@@ -3172,7 +3163,7 @@ function TdmEditorManager.NewFile(const AFileName: string;
 var
   V : IEditorView;
 begin
-  Events.DoNewFile(AFileName, AText);
+  Events.DoNew(AFileName, AText);
   V := AddView('', AFileName);
   V.Text := AText;
   Result := V;

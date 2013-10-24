@@ -1,7 +1,7 @@
 inherited frmFilter: TfrmFilter
-  Left = -907
+  Left = 579
   Height = 455
-  Top = 223
+  Top = 257
   Width = 530
   ClientHeight = 455
   ClientWidth = 530

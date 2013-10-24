@@ -20,14 +20,14 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     TabOrder = 1
   end
   object edtBlockIndent: TTISpinEdit[2]
-    Left = 112
+    Left = 184
     Height = 23
     Top = 96
     Width = 50
     TabOrder = 2
   end
   object edtBlockTabIndent: TTISpinEdit[3]
-    Left = 112
+    Left = 184
     Height = 23
     Top = 136
     Width = 50
@@ -110,9 +110,9 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     UseRTTIMinMax = False
   end
   object trbBlockIndent: TTITrackBar[12]
-    Left = 176
+    Left = 256
     Height = 23
-    Top = 104
+    Top = 96
     Width = 136
     Position = 0
     ScalePos = trBottom
@@ -121,7 +121,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     UseRTTIMinMax = False
   end
   object trbBlockTabIndent: TTITrackBar[13]
-    Left = 176
+    Left = 256
     Height = 23
     Top = 136
     Width = 136
@@ -145,7 +145,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     UseRTTIMinMax = False
   end
   object lblExtraLineSpacing: TLabel[15]
-    Left = 20
+    Left = 24
     Height = 15
     Top = 25
     Width = 94
@@ -163,7 +163,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     ParentColor = False
   end
   object lblBlockIndent: TLabel[17]
-    Left = 24
+    Left = 32
     Height = 15
     Top = 104
     Width = 107
@@ -172,9 +172,9 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
     ParentColor = False
   end
   object lblBlockTabIndent: TLabel[18]
-    Left = 24
+    Left = 32
     Height = 15
-    Top = 144
+    Top = 136
     Width = 94
     Caption = 'Block indent tabs:'
     FocusControl = edtBlockTabIndent

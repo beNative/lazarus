@@ -164,6 +164,7 @@ type
     FBeautifier      : TSynBeautifier;
     FMasterView      : IEditorView;
     FSlaveView       : IEditorView;
+    FIsFile          : Boolean;
 
     FOnDropFiles     : TDropFilesEvent;
     FOnStatusChange  : TStatusChangeEvent;
@@ -189,6 +190,7 @@ type
     function GetEditor: TSynEdit;
     function GetEditorFont: TFont;
     function GetInsertMode: Boolean;
+    function GetIsFile: Boolean;
     function GetManager: IEditorManager;
     function GetEncoding: string;
     function GetEvents: IEditorEvents;
@@ -242,6 +244,7 @@ type
     procedure SetHighlighter(const AValue: TSynCustomHighlighter);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
     procedure SetInsertMode(AValue: Boolean);
+    procedure SetIsFile(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
     procedure SetLines(const Value: TStrings); virtual;
     procedure SetLineText(const AValue: string);
@@ -359,10 +362,10 @@ type
       out AAttri    : TSynHighlighterAttributes
     ): Boolean;
     procedure InsertTextAtCaret(const AText: string);
-    procedure LoadFromFile(const AFileName: string);
+    procedure Load(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
-    procedure SaveToFile(const AFileName: string);
+    procedure Save(const AStorageName: string = '');
 
     procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
@@ -440,6 +443,9 @@ type
 
     property Name: string
       read GetName write SetName;
+
+    property IsFile: Boolean
+      read GetIsFile write SetIsFile;
 
     { Amount of visible lines (not including folds). }
     property LinesInWindow: Integer
@@ -575,6 +581,7 @@ procedure TEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
   FEditor := TSynEdit.Create(Self);
+  FIsFile := True;
   FFindHistory := TStringList.Create;
   FFindHistory.Sorted := True;
   FFindHistory.Duplicates := dupIgnore;
@@ -649,7 +656,7 @@ procedure TEditorView.DirectoryWatchNotify(const Sender: TObject;
 begin
   if SameText(FileName, ExtractFileName(Self.FileName)) and (AAction = waModified) then
   begin
-    LoadFromFile(Self.FileName);
+    Load(Self.FileName);
     if CanFocus then
     begin
       Editor.CaretY := Editor.Lines.Count;
@@ -811,6 +818,16 @@ begin
   Editor.InsertMode := AValue;
 end;
 
+function TEditorView.GetIsFile: Boolean;
+begin
+  Result := FIsFile;
+end;
+
+procedure TEditorView.SetIsFile(AValue: Boolean);
+begin
+  FIsFile := AValue;
+end;
+
 procedure TEditorView.SetEditorFont(AValue: TFont);
 begin
   if not Editor.Font.IsEqual(AValue) then
@@ -893,7 +910,7 @@ begin
   begin
     FEncoding := AValue;
     if FileExists(FFileName) then
-      SaveToFile(FFileName);
+      Save(FFileName);
   end;
 end;
 
@@ -908,7 +925,7 @@ begin
   begin
     FLineBreakStyle := AValue;
     if FileExists(FFileName) then
-      SaveToFile(FFileName);
+      Save(FFileName);
   end;
 end;
 
@@ -1054,7 +1071,12 @@ end;
 
 procedure TEditorView.SetModified(const AValue: Boolean);
 begin
-  Editor.Modified := AValue;
+  if AValue <> Modified then
+  begin
+    if not AValue then
+      Editor.MarkTextAsSaved;
+    Editor.Modified := AValue;
+  end;
 end;
 
 function TEditorView.GetSearchOptions: TSynSearchOptions;
@@ -1129,6 +1151,7 @@ begin
       Highlighter := AValue.SynHighlighter;
       // Update editor actions!!!
       Actions.UpdateHighLighterActions;
+      Events.DoChange;
     end;
   end;
 end;
@@ -2125,22 +2148,23 @@ begin
   Editor.InsertTextAtCaret(AText); // has implicit undoblock
 end;
 
-procedure TEditorView.LoadFromFile(const AFileName: string);
+procedure TEditorView.Load(const AStorageName: string);
 var
   S  : string;
   FS : TFileStream;
 begin
-  if FileExists(AFileName) then
+  Events.DoLoad(AStorageName);
+  if IsFile and FileExists(AStorageName) then
   begin
-    FileName := AFileName;
-    FS := TFileStream.Create(AFileName, fmOpenRead + fmShareDenyNone);
+    FileName := AStorageName;
+    FS := TFileStream.Create(AStorageName, fmOpenRead + fmShareDenyNone);
     try
       LoadFromStream(FS);
     finally
       FreeAndNil(FS);
     end;
     LineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];
-    S := ExtractFileExt(AFileName);
+    S := ExtractFileExt(AStorageName);
     S := System.Copy(S, 2, Length(S));
     try
       if FileIsText(FileName) then
@@ -2190,20 +2214,23 @@ begin
     S := ConvertEncoding(Text, EncodingUTF8, FEncoding);
     AStream.Write(S[1], Length(S));
   end;
-  Modified := False;
-  Editor.MarkTextAsSaved;
 end;
 
-procedure TEditorView.SaveToFile(const AFileName: string);
+procedure TEditorView.Save(const AStorageName: string);
 var
   FS : TFileStream;
 begin
-  FS := TFileStream.Create(AFileName, fmCreate);
-  try
-    SaveToStream(FS);
-  finally
-    FreeAndNil(FS);
+  Events.DoSave(AStorageName);
+  if IsFile then
+  begin
+    FS := TFileStream.Create(AStorageName, fmCreate);
+    try
+      SaveToStream(FS);
+    finally
+      FreeAndNil(FS);
+    end;
   end;
+  Modified := False;
 end;
 
 function TEditorView.GetWordAtPosition(APosition: TPoint): string;

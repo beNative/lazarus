@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = -1229
-  VerticalOffset = 350
+  HorizontalOffset = 527
+  VerticalOffset = 211
   Width = 675
   object imlMain: TImageList
     AllocBy = 1

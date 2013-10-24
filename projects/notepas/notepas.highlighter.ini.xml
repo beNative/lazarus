@@ -1,5 +1,4 @@
 <UniHighlighter>
- <ImportantInfo></ImportantInfo>
  <Info>
   <General>
    <Name>INI</Name>
@@ -8,20 +7,14 @@
   </General>
   <Author>
    <Name>Tim Sinaeve</Name>
-   <Email></Email>
-   <Web></Web>
    <Copyright>Copyright (c) 2013 Tim Sinaeve</Copyright>
    <Company>Tim Sinaeve</Company>
-   <Remark></Remark>
   </Author>
   <Version>
    <Version>1</Version>
    <Revision>0</Revision>
    <Date>41371,6979035648</Date>
-   <Type>Internal Test</Type>
   </Version>
-  <History>
-  </History>
   <Sample>
    <S>[Window]</S>
    <S>ASCII SOMChar=0x10</S>
@@ -111,7 +104,7 @@
   </Num>
   <OpenSymbol>;</OpenSymbol>
   <CloseSymbol></CloseSymbol>
-  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`qt{|}~</DelimiterChars>
+  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`&quot;{|}~</DelimiterChars>
   <AnyTerm>True</AnyTerm>
   <CloseOnTerm>False</CloseOnTerm>
   <CloseOnEol>True</CloseOnEol>
@@ -130,7 +123,7 @@
   </Num>
   <OpenSymbol>#</OpenSymbol>
   <CloseSymbol></CloseSymbol>
-  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`qt{|}~</DelimiterChars>
+  <DelimiterChars>!#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^`&quott;{|}~</DelimiterChars>
   <AnyTerm>True</AnyTerm>
   <CloseOnTerm>False</CloseOnTerm>
   <CloseOnEol>True</CloseOnEol>

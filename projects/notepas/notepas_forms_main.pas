@@ -478,6 +478,7 @@ begin
   DisableAutoSizing;
   try
     V := AEditorView;
+    V.IsFile := True;
     V.Form.DisableAutoSizing;
     try
       DockMaster.MakeDockable(V.Form);

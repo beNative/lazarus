@@ -1,13 +1,7 @@
-<UniHighlighter>
- <ImportantInfo>
-  ******* Please read carefully *************************
-  * Please, make any changes in this file very carefuly!*
-  * It is much more convinient to use native designer!  *
-  *******************************************************
- </ImportantInfo>
+<UniHighlighter> 
  <Info>
   <General>
-   <Name>Loggings Balta</Name>
+   <Name>Logging</Name>
    <FileTypeName>TXT</FileTypeName>
    <Layout>Standard</Layout>
   </General>
@@ -23,7 +17,6 @@
    <Version>1</Version>
    <Revision>0</Revision>
    <Date>41371,6969804745</Date>
-   <Type>Internal Test</Type>
   </Version>
   <History>
   </History>
@@ -162,6 +155,5 @@
   <CaseSensitive>True</CaseSensitive>
   </Range>
  </Range>
- <CopyRight>Rule file for UniHighlighter Delphi component (Copyright(C) Fantasist(walking_in_the_sky@yahoo.com), Vit(nevzorov@yahoo.com), 2002)</CopyRight>
 </UniHighlighter>
 >

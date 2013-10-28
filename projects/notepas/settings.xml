@@ -265,11 +265,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>PAS</HighlighterType>
+	<HighlighterType>None</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>50</Left>
-		<Top>50</Top>
+		<Left>150</Left>
+		<Top>150</Top>
 		<Width>1369</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -311,6 +311,7 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<IncrementColor>(TSynSelectedColor)
 		<Background>clSilver</Background>
 		<Foreground>clNone</Foreground>
@@ -360,7 +361,7 @@
 		<BackAlpha>128</BackAlpha>
 	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
-	<TabWidth>0</TabWidth>
+	<TabWidth>2</TabWidth>
 	<WantTabs>false</WantTabs>
 	<BlockTabIndent>2</BlockTabIndent>
 	<Highlighters>(THighlighters)

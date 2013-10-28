@@ -402,7 +402,7 @@ uses
 
   sharedlogger,
 
-  ts.Core.ColumnDefinitionsDataTemplate;
+  ts.Core.Value,ts.Core.ColumnDefinitionsDataTemplate;
 
 const
   CDefaultCellRect: TRect = (Left: 0; Top: 0; Right: 0; Bottom: 0);
@@ -469,18 +469,18 @@ var
 begin
   if Assigned(FTreeView) and not (csDestroying in ComponentState) then
   begin
-  BeginUpdate;
-  try
-    //Refresh;
-    LNode := FTreeView.GetFirst;
-    while Assigned(LNode) do
-    begin
-      DoFilterNode(FTreeView, LNode);
-      LNode := FTreeView.GetNext(LNode);
+    BeginUpdate;
+    try
+      Refresh;
+      LNode := FTreeView.GetFirst;
+      while Assigned(LNode) do
+      begin
+        DoFilterNode(FTreeView, LNode);
+        LNode := FTreeView.GetNext(LNode);
+      end;
+    finally
+      EndUpdate;
     end;
-  finally
-    EndUpdate;
-  end;
   end;
 end;
 
@@ -597,8 +597,8 @@ begin
   LItemTemplate := GetItemTemplate(LItem);
   if Assigned(LItemTemplate) then
   begin
-    LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, FImageList,
-      dmBeforeCellPaint, vsSelected in Node.States);
+    LItemTemplate.CustomDraw(LItem, Column, TargetCanvas, CellRect, ImageList,
+      dmBeforeCellPaint, Sender.Selected[Node]);
   end;
 end;
 
@@ -916,8 +916,6 @@ procedure TTreeViewPresenter.DoExpanded(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
   UpdateExpandedItems;
-
-  DoPropertyChanged('ExpandedItems');
 end;
 
 procedure TTreeViewPresenter.DoExpandedItemsChanged(Sender: TObject;
@@ -1025,8 +1023,6 @@ var
   LItemTemplate: IDataTemplate;
 begin
   FCurrentNode := Node;
-  DoPropertyChanged('ParentItem');
-
   LItem := GetNodeItem(Sender, Node);
   LItemTemplate := GetItemTemplate(LItem);
   if Assigned(LItemTemplate) then
@@ -1061,8 +1057,6 @@ var
   LItemTemplate: IDataTemplate;
 begin
   FCurrentNode := Node;
-  DoPropertyChanged('ParentItem');
-
   LItem := GetNodeItem(Sender, Node);
   LItemTemplate := GetItemTemplate(LItem);
   if Assigned(LItemTemplate) then
@@ -1149,7 +1143,6 @@ var
   LItemTemplate: IDataTemplate;
 begin
   FCurrentNode := Node;
-  DoPropertyChanged('ParentItem');
 
   LItem := GetNodeItem(Sender, Node);
   LItemTemplate := GetItemTemplate(LItem);
@@ -1170,11 +1163,13 @@ procedure TTreeViewPresenter.DoInitNode(Sender: TBaseVirtualTree; ParentNode,
   Node: PVirtualNode; var InitialStates: TVirtualNodeInitStates);
 var
   LItem: TObject;
+  LItems: TObjectList;
   LItemTemplate: IDataTemplate;
   LParentItem: TObject;
+  LParentItems: TObject;
 begin
+  FCurrentNode := Node;
   Include(InitialStates, ivsMultiline);
-  DoPropertyChanged('ParentItem');
   case FCheckSupport of
     csTriState: Node.CheckType := ctTriStateCheckBox;
     csRadio: Node.CheckType := ctRadioButton;
@@ -1184,29 +1179,51 @@ begin
 
   if Assigned(ParentNode) then
   begin
-    LParentItem := GetNodeItem(Sender, ParentNode);
-    LItemTemplate := GetItemTemplate(LParentItem);
-    LItem := LItemTemplate.GetItem(LParentItem, Node.Index);
+    LParentItems := GetNodeItemsAsObject(Sender, ParentNode);
+    if Assigned(LParentItems) then
+    begin
+      LItem := TObjectList(LParentItems).Items[Node.Index];
+    end
+    else
+    begin
+      LParentItem := GetNodeItem(Sender, ParentNode);
+      LItemTemplate := GetItemTemplate(LParentItem);
+      LItem := LItemTemplate.GetItem(LParentItem, Node.Index);
+    end;
   end
   else
   begin
-    LItem := FItemsSource[Node.Index];
+   // LItem := FItemsSource[Node.Index];
+       LItem := ItemTemplate.GetItem(ItemsSource, Node.Index);
   end;
 
   SetNodeItem(Sender, Node, LItem);
 
-  //LItemTemplate := GetItemTemplate(LItem);
-  //if Assigned(Sender) then
-  //begin
-  //  if Assigned(LItemTemplate) then
-  //  begin
-  //    Sender.ChildCount[Node] := LItemTemplate.GetItemCount(LItem);
-  //  end
-  //  else
-  //  begin
-  //    Sender.ChildCount[Node] := 0;
-  //  end;
-  //end;
+  // building tree from ItemTemplate
+  LItemTemplate := GetItemTemplate(LItem);
+  if Assigned(LItemTemplate) then
+  begin
+    LItems := LItemTemplate.GetItems(LItem);
+    SetNodeItems(Sender, Node, LItems);
+    if Assigned(LItems) then
+    begin
+      Sender.ChildCount[Node] := LItems.Count;
+    end
+    else
+    begin
+      Sender.ChildCount[Node] := LItemTemplate.GetItemCount(LItem);
+    end;
+  end
+  else
+  begin
+    Sender.ChildCount[Node] := 0;
+  end;
+
+  while Assigned(Node) do
+  begin
+    DoFilterNode(Sender, Node);
+    Node := Sender.NodeParent[Node];
+  end;
 end;
 
 procedure TTreeViewPresenter.DoKeyDown(Sender: TObject; var Key: Word;
@@ -2381,7 +2398,6 @@ begin
   begin
     FItemsSource := Value;
     ResetRootNodeCount;
-    DoPropertyChanged('ItemsSource');
   end;
 end;
 
@@ -2429,22 +2445,14 @@ end;
 procedure TTreeViewPresenter.SetNodeItems(Tree: TBaseVirtualTree; Node: PVirtualNode; Items: TObjectList);
 var
   LNodeData: PNodeData;
-  //LCollectionChanged: IEvent<TCollectionChangedEvent>;
 begin
   LNodeData := PNodeData(Tree.GetNodeData(Node));
   if Assigned(LNodeData) then
   begin
-    if Assigned(LNodeData.Items) then
-    begin
-      //LCollectionChanged := IEvent<TCollectionChangedEvent>(LNodeData.Items.OnCollectionChanged);
-      //LCollectionChanged.Remove(DoSourceCollectionChanged);
-    end;
     LNodeData.Items := Items;
     if Assigned(LNodeData.Items) then
     begin
       LNodeData.ItemsAsObject := Items;
-      //LCollectionChanged := IEvent<TCollectionChangedEvent>(LNodeData.Items.OnCollectionChanged);
-      //LCollectionChanged.Add(DoSourceCollectionChanged);
     end;
   end;
 end;
@@ -2600,8 +2608,8 @@ begin
       //LValue := LItemTemplate.GetValue(LItem, Column);
       //if LValue.IsOrdinal then
       //begin
-      //  ToggleValue;
-      //  LItemTemplate.SetValue(LItem, Column, LValue);
+        //ToggleValue;
+        //LItemTemplate.SetValue(LItem, Column, LValue);
       //end;
     end;
   end
@@ -2669,9 +2677,6 @@ begin
       FSelectedItems.Add(LItem);
     end;
   end;
-  DoPropertyChanged('CurrentItem');
-  DoPropertyChanged('SelectedItem');
-  DoPropertyChanged('SelectedItems');
 end;
 
 initialization

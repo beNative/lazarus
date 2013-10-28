@@ -232,6 +232,7 @@ resourcestring
   SLineIndex    = 'Line';
   SLineText     = 'Text';
 
+{$region 'TLine' /fold}
 type
   TLine = class(TPersistent)
   strict private
@@ -257,6 +258,7 @@ begin
   FIndex := AIndex;
   FText  := AText;
 end;
+{$endregion}
 
 {$region 'construction and destruction' /fold}
 procedure TfrmCodeFilterDialog.AfterConstruction;

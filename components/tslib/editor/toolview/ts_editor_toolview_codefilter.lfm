@@ -7,7 +7,6 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   ClientHeight = 572
   ClientWidth = 740
   OnCloseQuery = FormCloseQuery
-  OnResize = FormResize
   OnShow = FormShow
   PopupMenu = ppmMain
   PopupMode = pmAuto
@@ -278,8 +277,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 112
-    top = 136
+    left = 328
+    top = 80
     object actApplyFilter: TAction
       AutoCheck = True
       Caption = 'Apply filter'
@@ -322,8 +321,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     end
   end
   object imlMain: TImageList
-    left = 8
-    top = 136
+    left = 200
+    top = 80
     Bitmap = {
       4C69040000001000000010000000B5B3B165B3B1AFFFB2AFADFFB1AFADFFB1AF
       ADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB2AF
@@ -457,8 +456,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     }
   end
   object ppmMain: TPopupMenu
-    left = 56
-    top = 136
+    left = 264
+    top = 80
     object mniSelectAll: TMenuItem
       Action = actSelectAll
     end
@@ -474,7 +473,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Enabled = False
     Interval = 300
     OnTimer = tmrUpdateTimer
-    left = 248
-    top = 152
+    left = 384
+    top = 80
   end
 end

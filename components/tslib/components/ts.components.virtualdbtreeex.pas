@@ -17,7 +17,7 @@
 }
 
 {$region 'comments' /fold}
-{ Lazarus port by Tim Sinaeve (28/04/2010) }
+{ Lazarus port with many modifications by Tim Sinaeve (28/04/2010) }
 
 {——————————————————————————————————————————————————————————————————————————————-
  02-JAN-2002 C.S. Phua
@@ -181,23 +181,43 @@ type
   TBaseVirtualDBTreeEx = class;
   TVirtualDBTreeExDataLink = class;
 
-  TVTDBOpenQueryEvent = procedure(Sender: TBaseVirtualDBTreeEx; var Allow:
-    Boolean) of object;
-  TVTDBWriteQueryEvent = procedure(Sender: TBaseVirtualDBTreeEx; Node:
-    PVirtualNode; Column: TColumnIndex; ChangeMode: TDBVTChangeMode; var Allow:
-    Boolean) of object;
-  TVTNodeDataChangedEvent = procedure(Sender: TBaseVirtualDBTreeEx; Node:
-    PVirtualNode; Field: TField; var UpdateNode: Boolean) of object;
-  TVTNodeFromDBEvent = procedure(Sender: TBaseVirtualDBTreeEx; Node:
-    PVirtualNode) of object;
-  TVTPathToDBEvent = procedure(Sender: TBaseVirtualDBTreeEx; var Path: string)
-    of object;
+  TVTDBOpenQueryEvent = procedure(
+        Sender : TBaseVirtualDBTreeEx;
+    var Allow  : Boolean
+  ) of object;
+
+  TVTDBWriteQueryEvent = procedure(
+        Sender     : TBaseVirtualDBTreeEx;
+        Node       : PVirtualNode;
+        Column     : TColumnIndex;
+        ChangeMode : TDBVTChangeMode;
+    var Allow      : Boolean
+  ) of object;
+
+  TVTNodeDataChangedEvent = procedure(
+        Sender     : TBaseVirtualDBTreeEx;
+        Node       :   PVirtualNode;
+        Field      : TField;
+    var UpdateNode : Boolean
+  ) of object;
+
+  TVTNodeFromDBEvent = procedure(
+    Sender : TBaseVirtualDBTreeEx;
+    Node   : PVirtualNode
+  ) of object;
+
+  TVTPathToDBEvent = procedure(
+        Sender : TBaseVirtualDBTreeEx;
+    var Path   : string
+  ) of object;
 
   TVirtualDBTreeExDataLink = class(TDataLink)
   private
     FVirtualDBTreeEx: TBaseVirtualDBTreeEx;
+
   public
     constructor Create(ATree: TBaseVirtualDBTreeEx); virtual;
+
   protected
     procedure ActiveChanged; override;
     procedure DataSetChanged; override;
@@ -343,11 +363,7 @@ type
       read FImgIdxField;
     property Canvas;
 
-  published { Since all these properties are published for all descendants,
-              we might as well publish them here and save whitespace}
-{$IFDEF COMPILER_5p}
-    property OnContextPopup;
-{$ENDIF COMPILER_5p}
+  published
     property Action;
     property Align;
     property Alignment;
@@ -425,9 +441,7 @@ type
     property OnColumnDblClick;
     property OnColumnResize;
     property OnCompareNodes;
-{$IFDEF COMPILER_5_UP}
     property OnContextPopup;
-{$ENDIF COMPILER_5_UP}
     property OnCreateDataObject;
     property OnCreateDragManager;
     property OnCreateEditor;
@@ -640,13 +654,14 @@ type
       SetNodeText;
   end;
 
-procedure Register;
+//procedure Register;
 
 type
   TDBNodeData = record
     Text: UnicodeString;
     ImgIdx: Integer;
   end;
+
   PDBNodeData = ^TDBNodeData;
 
 implementation
@@ -654,16 +669,16 @@ implementation
 uses
   SysUtils, Math;
 
-procedure Register;
-begin
-  RegisterComponents('Virtual Controls', [TVirtualDBTreeEx,
-    TDBCheckVirtualDBTreeEx, TCheckVirtualDBTreeEx]);
-end;
+//procedure Register;
+//begin
+//  RegisterComponents(
+//    'Virtual Controls',
+//    [TVirtualDBTreeEx, TDBCheckVirtualDBTreeEx, TCheckVirtualDBTreeEx]
+//  );
+//end;
 
 type
   THackedTreeOptions = class(TStringTreeOptions);
-
-{------------------------------------------------------------------------------}
 
 constructor TVirtualDBTreeExDataLink.Create(ATree: TBaseVirtualDBTreeEx);
 begin
@@ -695,8 +710,6 @@ procedure TVirtualDBTreeExDataLink.EditingChanged;
 begin
   FVirtualDBTreeEx.DataLinkEditingChanged;
 end;
-
-{------------------------------------------------------------------------------}
 
 constructor TBaseVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
@@ -1448,10 +1461,10 @@ end;
 
 procedure TBaseVirtualDBTreeEx.RefreshNodes;
 var
-  Data: PDBVTData;
-  Node: PVirtualNode;
-  Temp: PVirtualNode;
-  I: Integer;
+  Data : PDBVTData;
+  Node : PVirtualNode;
+  Temp : PVirtualNode;
+  I    : Integer;
 begin
   if not (dbtsDataChanging in FDBStatus) and CanOpenDataSet then
   begin
@@ -2337,11 +2350,10 @@ end;
 function TBaseVirtualDBTreeEx.DoGetImageIndex(Node: PVirtualNode; Kind:
   TVTImageKind; Column: TColumnIndex;
   var Ghosted: Boolean; var Index: Integer): TCustomImageList;
-
 begin
   Result := inherited DoGetImageIndex(Node, Kind, Column, Ghosted, Index);
 
-  if (Column = Header.MainColumn) then
+  if Column = Header.MainColumn then
   begin
     if (Kind = ikNormal) or (Kind = ikSelected) then
       Index := PDBNodeData(GetDBNodeData(Node)).ImgIdx;
@@ -2350,8 +2362,6 @@ begin
   if Assigned(OnGetImageIndex) then
     OnGetImageIndex(Self, Node, Kind, Column, Ghosted, Index);
 end;
-
-{------------------------------------------------------------------------------}
 
 constructor TVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
@@ -2369,7 +2379,6 @@ begin
     Data.ImgIdx := ImgIdxField.AsInteger
   else
     Data.ImgIdx := -1;
-
 end;
 
 procedure TVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field: TField;
@@ -2388,7 +2397,6 @@ begin
     Data.ImgIdx := Field.AsInteger;
     UpdateNode := True;
   end;
-
 end;
 
 procedure TVirtualDBTreeEx.DoGetText(Node: PVirtualNode; Column: TColumnIndex;
@@ -2452,8 +2460,6 @@ begin
   if Assigned(Node) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text;
 end;
-
-{------------------------------------------------------------------------------}
 
 constructor TCustomDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
@@ -2565,8 +2571,6 @@ begin
     CheckState[Node] := csUncheckedNormal;
 end;
 
-{------------------------------------------------------------------------------}
-
 constructor TDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2656,7 +2660,6 @@ begin
         Result := -1;
     end;
   end;
-
 end;
 
 procedure TDBCheckVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
@@ -2671,8 +2674,6 @@ begin
   if Assigned(Node) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text;
 end;
-
-{------------------------------------------------------------------------------}
 
 constructor TCustomCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
@@ -2735,8 +2736,6 @@ begin
     CheckState[Node] := csUncheckedNormal;
 end;
 
-{------------------------------------------------------------------------------}
-
 constructor TCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2753,7 +2752,6 @@ begin
     Data.ImgIdx := ImgIdxField.AsInteger
   else
     Data.ImgIdx := -1;
-
 
   inherited;
 end;

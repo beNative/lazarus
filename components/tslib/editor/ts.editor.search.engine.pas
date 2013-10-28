@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.SearchEngine;
+unit ts.Editor.Search.Engine;
 
 {$MODE Delphi}
 
@@ -28,61 +28,25 @@ uses
   SynEditTypes, SynEditSearch,
 
   ts.Editor.Interfaces, ts.Editor.Settings.SearchEngine,
+  ts.Editor.Search.Data,
 
   sharedlogger;
 
 type
-  TSearchResult = class
-  private
-    FIndex      : Integer;
-    FLine       : Integer;
-    FColumn     : Integer;
-    FBlockBegin : TPoint;
-    FBlockEnd   : TPoint;
-    FFileName   : string;
-    FStartPos   : Integer;
-    FEndPos     : Integer;
-    FViewName   : string;
 
-  public
-    property BlockBegin : TPoint
-      read FBlockBegin write FBlockBegin;
-
-    property BlockEnd : TPoint
-      read FBlockEnd write FBlockEnd;
-
-    property ViewName: string
-      read FViewName write FViewName;
-
-  published
-    property Index: Integer
-      read FIndex write FIndex;
-
-    property FileName : string
-      read FFileName write FFileName;
-
-    property Line : Integer
-      read FLine write FLine;
-
-    property Column : Integer
-      read FColumn write FColumn;
-
-    property StartPos: Integer
-      read FStartPos write FStartPos;
-
-    property EndPos: Integer
-      read FEndPos write FEndPos;
-  end;
+  { TSearchEngine }
 
   TSearchEngine = class(TComponent, IEditorSearchEngine)
   private
     FSearchText   : string;
     FReplaceText  : string;
+    FItemGroups   : TObjectList;
     FItemList     : TObjectList;
     FCurrentIndex : Integer;
     FSESearch     : TSynEditSearch;
 
     function GetCurrentIndex: Integer;
+    function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
     function GetManager: IEditorManager;
     function GetOptions: TSynSearchOptions;
@@ -137,6 +101,9 @@ type
     property Settings: TSearchEngineSettings
       read GetSettings;
 
+    property ItemGroups: TObjectList
+      read GetItemGroups;
+
     property ItemList: TObjectList
       read GetItemList;
 
@@ -153,25 +120,24 @@ uses
   ts.Editor.Utils;
 
 {$region 'construction and destruction' /fold}
-
 procedure TSearchEngine.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FItemList := TObjectList.Create(True);
+  FItemGroups := TObjectList.Create(True);
+  FItemList := TObjectList.Create(False);
   FSESearch := TSynEditSearch.Create;
 end;
 
 procedure TSearchEngine.BeforeDestruction;
 begin
   FItemList.Free;
+  FItemGroups.Free;
   FSESearch.Free;
   inherited BeforeDestruction;
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TSearchEngine.GetItemList: TObjectList;
 begin
   Result := FItemList;
@@ -185,6 +151,11 @@ end;
 function TSearchEngine.GetCurrentIndex: Integer;
 begin
   Result := FCurrentIndex;
+end;
+
+function TSearchEngine.GetItemGroups: TObjectList;
+begin
+  Result := FItemGroups;
 end;
 
 function TSearchEngine.GetOptions: TSynSearchOptions;
@@ -263,18 +234,19 @@ procedure TSearchEngine.SetSearchAllViews(AValue: Boolean);
 begin
   Settings.SearchAllViews := AValue;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TSearchEngine.AddResultsForView(AView: IEditorView);
 var
+  SRG          : TSearchResultGroup;
+  SRL          : TSearchResultLine;
   SR           : TSearchResult;
   ptStart      : TPoint;
   ptEnd        : TPoint;
   ptFoundStart : TPoint;
   ptFoundEnd   : TPoint;
+  Line         : Integer;
   N            : Integer;
   B            : Boolean;
 begin
@@ -293,32 +265,47 @@ begin
     );
   except
   end;
-  while B and (N < 10000) do
+  if B then
   begin
-    Inc(N);
-    SR := TSearchResult.Create;
-    SR.FileName   := ExtractFileName(AView.FileName);
-    SR.ViewName   := AView.Name;
-    SR.BlockBegin := ptFoundStart;
-    SR.BlockEnd   := ptFoundEnd;
-    SR.StartPos   := PointToPos(AView.Lines, ptFoundStart);
-    SR.EndPos     := PointToPos(AView.Lines, ptFoundEnd);
-    SR.Column     := ptFoundStart.X;
-    SR.Line       := ptFoundStart.Y;
-    SR.Index      := ItemList.Count + 1;
-    ItemList.Add(SR);
-    ptStart := ptFoundEnd;
-    try
-      B :=  FSESearch.FindNextOne(
-        AView.Lines,
-        ptStart,
-        ptEnd,
-        ptFoundStart,
-        ptFoundEnd,
-        True           // Support unicode case
-      );
-    except
+    SRG := TSearchResultGroup.Create;
+    while B and (N < 10000) do
+    begin
+      SRL := TSearchResultLine.Create;
+      Line := ptFoundStart.y;
+      while B and (ptFoundStart.Y = Line) do
+      begin
+        Inc(N);
+        SR := TSearchResult.Create;
+        SR.FileName   := ExtractFileName(AView.FileName);
+        SR.ViewName   := AView.Name;
+        SR.BlockBegin := ptFoundStart;
+        SR.BlockEnd   := ptFoundEnd;
+        SR.StartPos   := PointToPos(AView.Lines, ptFoundStart);
+        SR.EndPos     := PointToPos(AView.Lines, ptFoundEnd);
+        SR.Column     := ptFoundStart.X;
+        SR.Line       := ptFoundStart.Y;
+        SR.Index      := N;
+        SRL.List.Add(SR);
+        FItemList.Add(SRG);
+        ptStart := ptFoundEnd;
+        try
+          B :=  FSESearch.FindNextOne(
+            AView.Lines,
+            ptStart,
+            ptEnd,
+            ptFoundStart,
+            ptFoundEnd,
+            True           // Support unicode case
+          );
+        except
+        end;
+      end;
+      SRL.Line := Line;
+      SRG.Lines.Add(SRL);
     end;
+    SRG.FileName := ExtractFileName(AView.FileName) + ' ' + IntToStr(SRG.Lines.Count);
+    SRG.ViewName := AView.Name;
+    ItemGroups.Add(SRG);
   end;
 end;
 

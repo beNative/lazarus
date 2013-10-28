@@ -31,7 +31,7 @@ type
 
   { TCustomEditorToolView }
 
-  TCustomEditorToolView = class(TForm{, IClipboardCommands})
+  TCustomEditorToolView = class(TForm)
   strict private
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
@@ -56,13 +56,6 @@ type
     procedure Modified; virtual;
     procedure UpdateView; virtual;
     procedure SettingsChanged; virtual;
-
-    { IClipboardCommands }
-    //procedure Cut;
-    //procedure Copy;
-    //procedure Paste;
-    //procedure Undo;
-    //procedure Redo;
 
     property Update: Boolean
       read GetUpdate write SetUpdate;

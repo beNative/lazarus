@@ -18,11 +18,7 @@
 
 unit ts.Editor.Utils;
 
-{
-  Author: Tim Sinaeve
-
-  Some editor tools.
-}
+{ Some static editor helper routines. }
 
 {$MODE Delphi}
 

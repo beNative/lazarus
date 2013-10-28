@@ -215,7 +215,7 @@ type
       { Expand node if it is the drop target for more than a certain time. }
       toAutoDropExpand,
       { Nodes are expanded (collapsed) when getting (losing) the focus. }
-      toAutoExpand,
+  //    toAutoExpand,
       { Scroll if mouse is near the border while dragging or selecting. }
       toAutoScroll,
       { Scroll as many child nodes in view as possible after expanding a node. }

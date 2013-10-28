@@ -35,6 +35,7 @@ interface
 
 uses
   SysUtils, StdCtrls, Forms, Buttons, ExtCtrls, Grids, ActnList, Classes,
+  Contnrs,
 
   LResources,
 
@@ -42,13 +43,14 @@ uses
 
   VirtualTrees,
 
-  ts.Core.TreeViewPresenter,
+  ts.Core.Value,
+  ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions, ts.Core.DataTemplates,
+  ts.Core.ColumnDefinitionsDataTemplate,
 
   ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
-  TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView{,
-                                                IClipboardCommands})
+  TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actFocusSearchText              : TAction;
@@ -155,9 +157,11 @@ implementation
 uses
   LCLIntf,
 
-  ts.Core.ColumnDefinitions, ts.Core.Helpers,
+  ts.Core.Helpers,
 
-  ts.Editor.SearchEngine, ts.Editor.Utils;
+  ts.Editor.Utils,
+
+  ts.Editor.Search.Engine, ts.Editor.Search.Data, ts.Editor.Search.Templates;
 
 resourcestring
   SIndex        = '#';
@@ -172,15 +176,19 @@ procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
   FVST := VST.Create(Self, pnlResultList);
+  FVST.TreeOptions.AutoOptions :=
+    FVST.TreeOptions.AutoOptions + [toAutoSpanColumns];
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  FTVP.ColumnDefinitions.AddColumn('Index', SIndex, dtNumeric, 50, 50, 80);
-  FTVP.ColumnDefinitions.AddColumn('FileName', SFileName, dtString, 160, 120, 400);
-  FTVP.ColumnDefinitions.AddColumn('Column', SColumn, dtNumeric, 60, 60, 80);
-  FTVP.ColumnDefinitions.AddColumn('Line', SLine, dtNumeric, 40, 40, 80);
+  FTVP.ListMode := False;
+  FTVP.ColumnDefinitions.AddColumn('Text', SFileName, dtString, 70, 60, 400);
+  //FTVP.ColumnDefinitions.AddColumn('Index', SIndex, dtNumeric, 50, 50, 80);
+  //FTVP.ColumnDefinitions.AddColumn('Column', SColumn, dtNumeric, 60, 60, 80);
+  //FTVP.ColumnDefinitions.AddColumn('Line', SLine, dtNumeric, 40, 40, 80);
   FVST.Header.MainColumn := 1;
-  FTVP.ItemsSource := SearchEngine.ItemList;
+  FTVP.ItemsSource := SearchEngine.ItemGroups;
   FTVP.TreeView := FVST;
+  FTVP.ItemTemplate := TSearchResultGroupTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
@@ -360,13 +368,15 @@ begin
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
   SearchEngine.Options := Options;
   SearchEngine.SearchAllViews := chkSearchInAllViews.Checked;
-  Modified;
+  //Modified;
   // TODO: For some bizarre reason columms are not resized correctly when there
   // were records in the list for the last execution.
   // BEGIN workaround
-  SearchEngine.ItemList.Clear;
+  //SearchEngine.ItemList.Clear;
+  SearchEngine.ItemGroups.Clear;
+
   FTVP.Refresh;
-  FVST.Header.AutoFitColumns(False);
+  //FVST.Header.AutoFitColumns(False);
   // END workaround
   SearchEngine.Execute;
   FTVP.Refresh;
@@ -405,12 +415,35 @@ end;
 
 procedure TfrmSearchForm.DoOnSelectionChanged(Sender: TObject);
 var
-  SR : TSearchResult;
+  SR  : TSearchResult;
+  SRL : TSearchResultLine;
+  SRG : TSearchResultGroup;
 begin
-  SR := (FTVP.CurrentItem as TSearchResult);
-  if Assigned(SR) then
+  if FTVP.CurrentItem is TSearchResult then
   begin
+    SR := (FTVP.CurrentItem as TSearchResult);
     Manager.ActivateView(SR.ViewName);
+    Manager.ActiveView.SelStart := SR.StartPos;
+    Manager.ActiveView.SelEnd := PointToPos(Manager.ActiveView.Lines, SR.BlockEnd);
+    Modified;
+    SearchEngine.CurrentIndex := SR.Index - 1;
+  end
+  else if FTVP.CurrentItem is TSearchResultLine then
+  begin
+    SRL := (FTVP.CurrentItem as TSearchResultLine);
+    SR := SRL.List[0] as TSearchResult;
+    Manager.ActivateView(SR.ViewName);
+    Manager.ActiveView.SelStart := SR.StartPos;
+    Manager.ActiveView.SelEnd := PointToPos(Manager.ActiveView.Lines, SR.BlockEnd);
+    Modified;
+    SearchEngine.CurrentIndex := SR.Index - 1;
+  end
+  else if FTVP.CurrentItem is TSearchResultGroup then
+  begin
+    SRG := (FTVP.CurrentItem as TSearchResultGroup);
+    SRL := SRG.Lines[0] as TSearchResultLine;
+    SR  := SRL.List[0] as TSearchResult;
+    Manager.ActivateView(SRG.ViewName);
     Manager.ActiveView.SelStart := SR.StartPos;
     Manager.ActiveView.SelEnd := PointToPos(Manager.ActiveView.Lines, SR.BlockEnd);
     Modified;
@@ -423,13 +456,13 @@ var
   B: Boolean;
 begin
   inherited UpdateActions;
-  if Assigned(FTVP.CurrentItem)
-    and (TSearchResult(FTVP.CurrentItem).Index
-      <> SearchEngine.CurrentIndex + 1) then
-  begin
-    FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
-  end;
-  B := (SearchEngine.ItemList.Count > 0) and actReplaceWith.Checked;
+  //if Assigned(FTVP.CurrentItem)
+  //  and (TSearchResult(FTVP.CurrentItem).Index
+  //    <> SearchEngine.CurrentIndex + 1) then
+  //begin
+  //  FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
+  //end;
+  //B := (SearchEngine.ItemList.Count > 0) and actReplaceWith.Checked;
   btnReplace.Visible     := B;
   btnReplaceAll.Visible  := B;
   cbxReplaceWith.Enabled := B;
@@ -442,20 +475,23 @@ begin
   grpDirection.Visible := B;
   if Update then
   begin
-    SearchEngine.ReplaceText := ReplaceText;
-    if (SearchEngine.SearchText <> SearchText)
-      or (SearchEngine.Options <> Options) then
-    begin
-      SearchEngine.Options := Options;
-      SearchEngine.SearchText := SearchText;
-      pnlStatus.Caption := '';
-      Manager.ClearHighlightSearch;
-      // BEGIN workaround
-      SearchEngine.ItemList.Clear;
-      FTVP.Refresh;
-      FVST.Header.AutoFitColumns(False);
-      // END workaround
-    end;
+    //SearchEngine.ReplaceText := ReplaceText;
+    //if (SearchEngine.SearchText <> SearchText)
+    //  or (SearchEngine.Options <> Options) then
+    //begin
+    //  SearchEngine.Options := Options;
+    //  SearchEngine.SearchText := SearchText;
+    //  pnlStatus.Caption := '';
+    //  Manager.ClearHighlightSearch;
+    //  // BEGIN workaround
+    //
+    //  SearchEngine.ItemGroups.Clear;
+    //  SearchEngine.ItemList.Clear;
+    //  FTVP.Refresh;
+    //
+    //  FVST.Header.AutoFitColumns(False);
+    //  // END workaround
+    //end;
     Updated;
   end;
 end;

@@ -779,7 +779,7 @@ uses
 
   ts_Editor_AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
-  ts.Editor.SearchEngine,
+  ts.Editor.Search.Engine,
 
   ts.Editor.Toolview.Manager,
 

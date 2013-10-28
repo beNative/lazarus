@@ -880,8 +880,8 @@ begin
     if Editor.Focused and not Editor.Modified then
     begin
       Events.DoModified;
-      Events.DoChange;
     end;
+    Events.DoChange;
   end;
 end;
 
@@ -909,8 +909,9 @@ begin
   if AValue <> Encoding then
   begin
     FEncoding := AValue;
-    if FileExists(FFileName) then
-      Save(FFileName);
+    Modified := True;
+    //if FileExists(FFileName) then
+    //  Save(FFileName);
   end;
 end;
 
@@ -924,8 +925,9 @@ begin
   if AValue <> LineBreakStyle then
   begin
     FLineBreakStyle := AValue;
-    if FileExists(FFileName) then
-      Save(FFileName);
+    Modified := True;
+    //if FileExists(FFileName) then
+    //  Save(FFileName);
   end;
 end;
 
@@ -1151,7 +1153,6 @@ begin
       Highlighter := AValue.SynHighlighter;
       // Update editor actions!!!
       Actions.UpdateHighLighterActions;
-      Events.DoChange;
     end;
   end;
 end;

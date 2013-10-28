@@ -502,9 +502,12 @@ type
       read GetText write SetText;
   end;
 
+  { IEditorSearchEngine }
+
   IEditorSearchEngine = interface
   ['{5403336C-3E81-4A1B-B2BB-170CF0EF0B84}']
     function GetCurrentIndex: Integer;
+    function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
     function GetOptions: TSynSearchOptions;
     function GetReplaceText: string;
@@ -538,6 +541,9 @@ type
 
     property ItemList: TObjectList
       read GetItemList;
+
+    property ItemGroups: TObjectList
+      read GetItemGroups;
   end;
 
   { IEditorEvents }

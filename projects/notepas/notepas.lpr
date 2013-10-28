@@ -56,7 +56,7 @@ uses
   ts.Editor.CodeFormatters.SQL, ts.Editor.CodeTags, ts.Editor.Commands,
   ts.Editor.CommentStripper, ts.Editor.Helpers, ts.Editor.HighlighterAttributes,
   ts.Editor.Highlighters, ts.Editor.Interfaces, ts_Editor_Resources,
-  ts.Editor.searchengine, ts.Editor.Selection, ts.editor.settings,
+  ts.editor.search.Engine, ts.Editor.Selection, ts.editor.settings,
   ts.Editor.Settings.AlignLines, ts.Editor.Settings.CodeShaper,
   ts.editor.settings.searchengine, ts.Editor.Utils, SetupFiltersDialog,
   ts_Editor_toolview_actionlist, ts_editor_toolview_alignlines,
@@ -78,7 +78,8 @@ uses
   ts_Editor_SettingsDialog_ApplicationSettings, ts_Editor_SettingsDialog_Base,
   ts_Editor_SettingsDialog_EditorSettings, ts.Editor.Settings.MiniMap,
   ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
-  ts.Editor.Settings.CodeFilter, ts_Editor_ToolView_Filter, ts.Editor.Templates;
+  ts.Editor.Settings.CodeFilter, ts_Editor_ToolView_Filter, ts.Editor.Templates,
+  ts.Editor.Search.Data, ts.Editor.Search.Templates, ts.collections;
 
 {$R *.res}
 

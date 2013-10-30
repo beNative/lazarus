@@ -29,7 +29,11 @@ uses
   Forms,
   notepas_forms_main,
   { you can add units after this }
-  DefaultTranslator, pl_exsystem, pl_virtualtrees, FrameViewer09,
+  DefaultTranslator, pl_exsystem, pl_virtualtrees,
+  {$IFDEF Windows}
+  FrameViewer09,
+  {$ENDIF}
+
   lazrichedit, richmemopackage,
 
   sharedlogger, ipcchannel, filechannel, fpccompat, logtreeview, multilog,
@@ -57,17 +61,17 @@ uses
   ts.Editor.CommentStripper, ts.Editor.Helpers, ts.Editor.HighlighterAttributes,
   ts.Editor.Highlighters, ts.Editor.Interfaces, ts_Editor_Resources,
   ts.editor.search.Engine, ts.Editor.Selection, ts.editor.settings,
-  ts.Editor.Settings.AlignLines, ts.Editor.Settings.CodeShaper,
-  ts.editor.settings.searchengine, ts.Editor.Utils, SetupFiltersDialog,
-  ts_Editor_toolview_actionlist, ts_editor_toolview_alignlines,
-  ts_editor_toolview_base, ts_editor_toolview_charactermap,
-  ts_editor_toolview_codefilter, ts_editor_toolview_codeshaper,
-  ts_editor_toolview_hexeditor, ts_editor_toolview_htmlview,
-  ts_editor_toolview_minimap, ts_editor_toolview_preview,
-  ts_editor_toolview_scripteditor, ts_editor_toolview_search,
-  ts_editor_toolview_selectioninfo, ts_editor_toolview_shortcuts,
-  ts_editor_toolview_structure, ts_editor_toolview_test,
-  ts_editor_toolview_viewlist, ts.RichEditor.Helpers, ts.RichEditor.Interfaces,
+  ts.editor.alignlines.settings, ts.editor.codeshaper.settings,
+  ts.editor.search.engine.settings, ts.Editor.Utils, SetupFiltersDialog,
+  ts_editor_actionlist_toolview, ts_editor_alignlines_toolview,
+  ts_editor_toolview_base, ts_editor_charactermap_toolview,
+  ts_editor_codefilter_toolview, ts_editor_codeshaper_toolview,
+  ts_editor_hexeditor_toolview, ts_editor_htmlview_toolview,
+  ts_editor_minimap_toolview, ts_editor_preview_toolview,
+  ts_editor_scripteditor_toolview,
+  ts_editor_selectioninfo_toolview, ts_editor_shortcuts_toolview,
+  ts_editor_structure_toolview, ts_editor_test_toolview, ts.RichEditor.Helpers,
+  ts.RichEditor.Interfaces,
   ts.RichEditor.Manager, ts.RichEditor.TextAttributes, ts.RichEditor.View,
 
   ts.Editor.Toolview.Manager, ts_Editor_Manager, ts_Editor_AboutDialog,
@@ -76,10 +80,12 @@ uses
   ts_Editor_SettingsDialog_Highlighters, ts_editor_settingsdialog_keymappings,
   ts_editor_settingsdialog_extensions, ts.Editor.Events, ts.Core.Events,
   ts_Editor_SettingsDialog_ApplicationSettings, ts_Editor_SettingsDialog_Base,
-  ts_Editor_SettingsDialog_EditorSettings, ts.Editor.Settings.MiniMap,
-  ts.Editor.Settings.HTMLView, ts.Editor.Settings.HexEditor,
-  ts.Editor.Settings.CodeFilter, ts_Editor_ToolView_Filter, ts.Editor.Templates,
-  ts.Editor.Search.Data, ts.Editor.Search.Templates, ts.collections;
+  ts_Editor_SettingsDialog_EditorSettings, ts.editor.minimap.settings,
+  ts.editor.htmlview.settings, ts.editor.hexeditor.settings,
+  ts.editor.codefilter.settings, ts_editor_filter_toolview,
+  ts_editor_viewlist_toolview,
+ts.editor.ActionList.templates, ts.Editor.Search.Data,
+  ts.Editor.Search.Templates, ts_editor_search_toolview, ts.collections;
 
 {$R *.res}
 

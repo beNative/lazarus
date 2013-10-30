@@ -265,12 +265,12 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>150</Left>
-		<Top>150</Top>
-		<Width>1369</Width>
+		<Left>175</Left>
+		<Top>175</Top>
+		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -290,6 +290,7 @@
 	</AlignLinesSettings>
 	<SearchEngineSettings>(TSearchEngineSettings)
 		<Options>[,ssoEntireScope]</Options>
+		<SearchAllViews>true</SearchAllViews>
 	</SearchEngineSettings>
 	<CodeShaperSettings>(TCodeShaperSettings)</CodeShaperSettings>
 	<CodeFilterSettings>(TCodeFilterSettings)
@@ -515,8 +516,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>d7¾ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--x7¾ </BlockCommentEndTag>
+			<BlockCommentStartTag>d¾ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--x¾ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lps,template,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -928,8 +929,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>d7¾ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--x7¾ </BlockCommentEndTag>
+			<BlockCommentStartTag>d¾ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--x¾ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

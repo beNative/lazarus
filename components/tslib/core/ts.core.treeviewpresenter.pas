@@ -544,20 +544,23 @@ var
   I  : Integer;
   H  : Integer;
 begin
-  if MultiLine and Sender.MultiLine[Node] then
+  if Sender.TotalCount > 0  then
   begin
-    VST := Sender as TVirtualStringTree;
-    TargetCanvas.Font := Sender.Font;
-    H := 0;
-    NodeHeight := VST.DefaultNodeHeight;
-    for I := 0 to VST.Header.Columns.Count - 1 do
+    if MultiLine and Sender.MultiLine[Node] then
     begin
-      H := VST.ComputeNodeHeight(TargetCanvas, Node, I);
-      if H > NodeHeight then
-        NodeHeight := H;
+      VST := Sender as TVirtualStringTree;
+      TargetCanvas.Font := Sender.Font;
+      H := 0;
+      NodeHeight := VST.DefaultNodeHeight;
+      for I := 0 to VST.Header.Columns.Count - 1 do
+      begin
+        H := VST.ComputeNodeHeight(TargetCanvas, Node, I);
+        if H > NodeHeight then
+          NodeHeight := H;
+      end;
+      if NodeHeight > Integer(VST.DefaultNodeHeight) then
+        NodeHeight := NodeHeight + 4; // needed to avoid multiline text drawing issues
     end;
-    if NodeHeight > Integer(VST.DefaultNodeHeight) then
-      NodeHeight := NodeHeight + 4; // needed to avoid multiline text drawing issues
   end;
 end;
 

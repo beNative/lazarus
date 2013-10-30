@@ -1,0 +1,43 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.core.codecutilswin32.scannotconvert
+msgid "Unicode code point $%x has no equivalent in %s"
+msgstr ""
+
+#: ts.core.codecutilswin32.scannotconvertucs4
+msgid "Cannot convert $%8.8X to %s"
+msgstr ""
+
+#: ts.core.codecutilswin32.sencodingoutofrange
+msgid "%s encoding out of range"
+msgstr ""
+
+#: ts.core.codecutilswin32.shighsurrogatenotfound
+msgid "High surrogate not found"
+msgstr ""
+
+#: ts.core.codecutilswin32.sindexoutofrange
+msgid "Index out of range"
+msgstr ""
+
+#: ts.core.codecutilswin32.sinvalidcodepoint
+msgid "$%x is not a valid %s code point"
+msgstr ""
+
+#: ts.core.codecutilswin32.sinvalidencoding
+msgid "Invalid %s encoding"
+msgstr ""
+
+#: ts.core.codecutilswin32.slowsurrogatenotfound
+msgid "Low surrogate not found"
+msgstr ""
+
+#: ts.core.codecutilswin32.ssurrogatenotallowed
+msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
+msgstr ""
+
+#: ts.core.codecutilswin32.sutf8error
+msgid "UTF-8 error %d"
+msgstr ""
+

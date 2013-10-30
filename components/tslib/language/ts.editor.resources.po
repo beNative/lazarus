@@ -1,0 +1,151 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.editor.resources.sapplicationmenucaption
+msgid "&Application"
+msgstr ""
+
+#: ts.editor.resources.sasksavechanges
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts.editor.resources.sbatdescription
+msgid "Windows batch script"
+msgstr ""
+
+#: ts.editor.resources.scppdescription
+msgid "C++"
+msgstr ""
+
+#: ts.editor.resources.scsdescription
+msgid "C#"
+msgstr ""
+
+#: ts.editor.resources.scssdescription
+msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts.editor.resources.sdebugmenucaption
+msgid "&Debug"
+msgstr ""
+
+#: ts.editor.resources.sfilemenucaption
+msgid "&File"
+msgstr ""
+
+#: ts.editor.resources.shelpmenucaption
+msgid "&Help"
+msgstr ""
+
+#: ts.editor.resources.shighlightersmenucaption
+msgid "&Highlighters"
+msgstr ""
+
+#: ts.editor.resources.shtmldescription
+msgid "HTML document"
+msgstr ""
+
+#: ts.editor.resources.sinidescription
+msgid "INI"
+msgstr ""
+
+#: ts.editor.resources.sinsertmenucaption
+msgid "&Insert"
+msgstr ""
+
+#: ts.editor.resources.sjavadescription
+msgid "Java"
+msgstr ""
+
+#: ts.editor.resources.sjsdescription
+msgid "JavaScript"
+msgstr ""
+
+#: ts.editor.resources.slfmdescription
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts.editor.resources.slineswithmatchfound
+msgid "%d lines with match found."
+msgstr ""
+
+#: ts.editor.resources.slogdescription
+msgid "Log"
+msgstr ""
+
+#: ts.editor.resources.sneweditorviewfilename
+msgid "<new>"
+msgstr ""
+
+#: ts.editor.resources.sonelinewithmatchfound
+msgid "1 line with match found."
+msgstr ""
+
+#: ts.editor.resources.spasdescription
+msgid "Object Pascal"
+msgstr ""
+
+#: ts.editor.resources.sperldescription
+msgid "Perl"
+msgstr ""
+
+#: ts.editor.resources.sphpdescription
+msgid "PHP"
+msgstr ""
+
+#: ts.editor.resources.spodescription
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts.editor.resources.spydescription
+msgid "Python"
+msgstr ""
+
+#: ts.editor.resources.sresdescription
+msgid "Windows resources"
+msgstr ""
+
+#: ts.editor.resources.srtfdescription
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts.editor.resources.ssearching
+msgid "Searching..."
+msgstr ""
+
+#: ts.editor.resources.ssearchmenucaption
+msgid "&Search"
+msgstr ""
+
+#: ts.editor.resources.sselectionmenucaption
+msgid "Se&lection"
+msgstr ""
+
+#: ts.editor.resources.ssettingsmenucaption
+msgid "&Settings"
+msgstr ""
+
+#: ts.editor.resources.ssqldescription
+msgid "SQL"
+msgstr ""
+
+#: ts.editor.resources.stextnotfound
+msgid "Text not found"
+msgstr ""
+
+#: ts.editor.resources.stoolsmenucaption
+msgid "&Tools"
+msgstr ""
+
+#: ts.editor.resources.stxtdescription
+msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.sviewmenucaption
+msgid "&View"
+msgstr ""
+
+#: ts.editor.resources.sxmldescription
+msgid "XML document"
+msgstr ""
+

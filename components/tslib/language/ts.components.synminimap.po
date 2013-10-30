@@ -1,0 +1,7 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.components.synminimap.sfontfactorminmax
+msgid "Font factor cannot be smaller than %.d or greater than %.d."
+msgstr ""
+

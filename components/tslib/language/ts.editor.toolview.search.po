@@ -1,0 +1,27 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.editor.toolview.search.scolumn
+msgid "Column"
+msgstr ""
+
+#: ts.editor.toolview.search.sfilename
+msgid "FileName"
+msgstr ""
+
+#: ts.editor.toolview.search.sindex
+msgid "#"
+msgstr ""
+
+#: ts.editor.toolview.search.sline
+msgid "Line"
+msgstr ""
+
+#: ts.editor.toolview.search.smatchesfound
+msgid "%d search matches found."
+msgstr ""
+
+#: ts.editor.toolview.search.smatchfound
+msgid "%d search match found."
+msgstr ""
+

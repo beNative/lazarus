@@ -1,0 +1,7 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.editor.toolview.charactermap.scharactermap
+msgid "Character Map"
+msgstr ""
+

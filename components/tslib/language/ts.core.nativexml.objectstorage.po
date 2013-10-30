@@ -1,0 +1,19 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.core.nativexml.objectstorage.sillegalvartype
+msgid "illegal variant type"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidmethodname
+msgid "invalid method name"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidpropertyvalue
+msgid "invalid property value"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sunregisteredclasstype
+msgid "unregistered classtype encountered in "
+msgstr ""
+

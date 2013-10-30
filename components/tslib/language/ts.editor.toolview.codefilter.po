@@ -1,0 +1,15 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.editor.toolview.codefilter.sfilteredcode
+msgid "<Filtered code>"
+msgstr ""
+
+#: ts.editor.toolview.codefilter.slineindex
+msgid "Line"
+msgstr ""
+
+#: ts.editor.toolview.codefilter.slinetext
+msgid "Text"
+msgstr ""
+

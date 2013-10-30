@@ -1,0 +1,19 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ts.core.dbutils.snofieldtypeforvariantvalue
+msgid "No fieldtype for Variant value %s"
+msgstr ""
+
+#: ts.core.dbutils.sparameternotassigned
+msgid "Parameter <%s> parameter not assigned"
+msgstr ""
+
+#: ts.core.dbutils.squerylookuperrorrunningquery
+msgid "Error running query [%s]"
+msgstr ""
+
+#: ts.core.dbutils.squerylookuptoomanyrecords
+msgid "The query [%s] returned too many records"
+msgstr ""
+

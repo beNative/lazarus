@@ -1,0 +1,13 @@
+function ManipString(AString: string): string;
+begin
+  Result := Trim(AString);
+end;
+
+function FuckupStringCompletely(AString: string): string;
+begin
+  Result := Trim(AString);
+  ShowMessage('I fucked up your string.');
+end;
+
+
+

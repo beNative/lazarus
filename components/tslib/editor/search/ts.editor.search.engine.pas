@@ -29,7 +29,7 @@ uses
 
   SynEditTypes, SynEditSearch,
 
-  ts.Editor.Interfaces, ts.Editor.Search.Engine.Settings,
+  ts.Editor.Interfaces, ts.Editor.Settings.SearchEngine,
   ts.Editor.Search.Data,
 
   sharedlogger;

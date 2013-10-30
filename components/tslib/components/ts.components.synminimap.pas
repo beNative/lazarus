@@ -76,11 +76,15 @@ interface
 
 uses
    SysUtils
+   {$IFDEF Windows}
   ,Windows
+   {$ENDIF}
   ,Classes
   , StdCtrls, Forms
   ,Controls
   ,Graphics
+
+   ,GraphMath
 
   ,SynEdit, LazSynEditText;
 
@@ -285,6 +289,8 @@ begin
   ///  helper function for stretch draw of full size bitmap on to
   ///  a smaller one
   ///
+
+  {
   SetStretchBltMode(Self.Handle, HALFTONE);
   StretchBlt(
     Self.Handle,
@@ -295,6 +301,8 @@ begin
     ASrcWidth, ASrcHeight,
     SRCCOPY
   );
+
+  }
 end;
 
 procedure TSynMiniMapCanvasHelper.StretchDrawHalftone(const APoint: TPoint;
@@ -449,7 +457,7 @@ begin
   ///
   ///  grab the cursor coordonates
   ///
-  Windows.GetCursorPos(LPoint);
+  //Windows.GetCursorPos(LPoint);
   LPoint := Self.ScreenToClient(LPoint);
   Result := TranslatePoint(@LPoint);
 end;

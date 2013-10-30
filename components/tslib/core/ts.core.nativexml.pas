@@ -132,9 +132,9 @@ uses
   Windows,
   // unit WinInet for method LoadFromURL
   WinInet,
-{$else MSWINDOWS}
+{$ELSE MSWINDOWS}
   // linux: win32-compatible functions
-  ts.Core.NativeXmlWin32Compat,
+  ts.Core.NativeXml.Win32Compat,
 {$ENDIF MSWINDOWS}
 
   // units from simlib.general

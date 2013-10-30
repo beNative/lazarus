@@ -43,7 +43,7 @@ interface
 {$ENDIF}
 
 uses
-  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList,
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList, Messages,
 {$IFDEF FPC}
   LMessages,
 {$ENDIF}
@@ -355,7 +355,7 @@ type
     function GetNodeXML(ANode: PVirtualNode): string;
     procedure SetNodeXML(ANode: PVirtualNode; const Value: string);
 
-    procedure WMChar(var Message: TWMChar); message WM_CHAR;
+    procedure WMChar(var Message: TWMChar); message LM_CHAR;
 
     function AddChildren(
       ANode    : PVirtualNode;
@@ -732,12 +732,14 @@ var
   Flags: Integer;
 begin
   Flags := 0;
+  {$IFDEF Windows}
   if Pressed then Flags := BF_FLAT;
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
   PatBlt(DC, Rect.Left + Flags, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
+  {$ENDIF}
 end;
 
 {$region 'documentation'}
@@ -1310,7 +1312,9 @@ begin
   if not(tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS)
   then
   begin
+    {$IFDEF Windows}
     SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
+    {$ENDIF}
     M.Result := 0;
     M.msg    := WM_KEYDOWN;
     M.WParam := Key;

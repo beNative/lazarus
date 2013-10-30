@@ -106,16 +106,16 @@ type
 
   private
     FModified: Boolean;
-    FA: TFileAssociate;
+    //FA: TFileAssociate;
 
-    function GetCurrentItem: TAssociateItem;
-    procedure SetCurrentItem(const Value: TAssociateItem);
+    //function GetCurrentItem: TAssociateItem;
+    //procedure SetCurrentItem(const Value: TAssociateItem);
 
     procedure DoLoadAssoc;
     procedure AddEditExt(const AEdit: Boolean);
 
-    property CurrentItem: TAssociateItem
-      read GetCurrentItem write SetCurrentItem;
+    //property CurrentItem: TAssociateItem
+    //  read GetCurrentItem write SetCurrentItem;
 
   public
     procedure AfterConstruction; override;
@@ -142,11 +142,11 @@ const
 procedure TfrmOptionsAssociate.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FA := TFileAssociate.Create(Self);
-  FA.RootKey := gbAppHK;
-  FA.AppKey := SAppKey + Application.Name;
-  FA.AppDescription := Application.Name;
-  FA.ListView := lvExt;
+  //FA := TFileAssociate.Create(Self);
+  //FA.RootKey := gbAppHK;
+  //FA.AppKey := SAppKey + Application.Name;
+  //FA.AppDescription := Application.Name;
+  //FA.ListView := lvExt;
 end;
 
 {$region 'action handlers' /fold}
@@ -169,12 +169,12 @@ procedure TfrmOptionsAssociate.actDeleteExecute(Sender: TObject);
 var
   I: integer;
 begin
-  I := 0;
-  while I <= lvExt.Items.Count - 1 do
-    if lvExt.Items[I].Selected then
-      FA.DeleteItem(I)
-    else
-      Inc(I);
+  //I := 0;
+  //while I <= lvExt.Items.Count - 1 do
+  //  if lvExt.Items[I].Selected then
+  //    FA.DeleteItem(I)
+  //  else
+  //    Inc(I);
 end;
 
 procedure TfrmOptionsAssociate.actDeleteUpdate(Sender: TObject);
@@ -279,55 +279,55 @@ begin
   //FA.SaveAssociates;
 end;
 
-function TfrmOptionsAssociate.GetCurrentItem: TAssociateItem;
-begin
-  Result := FA.Items[lvExt.ItemIndex];
-end;
-
-procedure TfrmOptionsAssociate.SetCurrentItem(const Value: TAssociateItem);
-begin
-  lvExt.ItemIndex := Value.Index;
-end;
+//function TfrmOptionsAssociate.GetCurrentItem: TAssociateItem;
+//begin
+//  Result := FA.Items[lvExt.ItemIndex];
+//end;
+//
+//procedure TfrmOptionsAssociate.SetCurrentItem(const Value: TAssociateItem);
+//begin
+//  lvExt.ItemIndex := Value.Index;
+//end;
 
 
 
 procedure TfrmOptionsAssociate.AddEditExt(const AEdit: Boolean);
 begin
-  with TdlgExt.Create(Self) do
-  try
-    Associate := FA;
-    EditMode := AEdit;
-    if AEdit then
-    begin
-      Ext := CurrentItem.Ext;
-      IconName := CurrentItem.Icon;
-      Description := CurrentItem.Descr;
-    end else
-    begin
-      Ext := '';
-      IconName := '';
-      Description := '';
-    end;
-    if ShowModal = mrOK then
-    begin
-      if AEdit then
-      begin
-        CurrentItem.Ext := Ext;
-        CurrentItem.Icon := IconName;
-        CurrentItem.Descr := Description;
-      end else
-      begin
-        //lvExt.ClearSelection;
-        lvExt.Selected := lvExt.Items[lvExt.Items.Count - 1];
-        lvExt.Selected.Checked := True;
-        CurrentItem.Ext := Ext;
-        CurrentItem.Icon := IconName;
-        CurrentItem.Descr := Description;
-      end;
-    end;
-  finally
-    Free;
-  end;
+  //with TdlgExt.Create(Self) do
+  //try
+  //  Associate := FA;
+  //  EditMode := AEdit;
+  //  if AEdit then
+  //  begin
+  //    Ext := CurrentItem.Ext;
+  //    IconName := CurrentItem.Icon;
+  //    Description := CurrentItem.Descr;
+  //  end else
+  //  begin
+  //    Ext := '';
+  //    IconName := '';
+  //    Description := '';
+  //  end;
+  //  if ShowModal = mrOK then
+  //  begin
+  //    if AEdit then
+  //    begin
+  //      CurrentItem.Ext := Ext;
+  //      CurrentItem.Icon := IconName;
+  //      CurrentItem.Descr := Description;
+  //    end else
+  //    begin
+  //      //lvExt.ClearSelection;
+  //      lvExt.Selected := lvExt.Items[lvExt.Items.Count - 1];
+  //      lvExt.Selected.Checked := True;
+  //      CurrentItem.Ext := Ext;
+  //      CurrentItem.Icon := IconName;
+  //      CurrentItem.Descr := Description;
+  //    end;
+  //  end;
+  //finally
+  //  Free;
+  //end;
 end;
 
 
@@ -338,13 +338,13 @@ begin
   //  if MessageBox(Handle, PChar(GetLangStr('SSaveAssocQuery')), PChar(SAppName), MBStdQuery) = IDYES then
   //    SaveOptions;
   lvExt.Clear;
-  FA.AllUsers := chkAllUsers.Checked;
+  //FA.AllUsers := chkAllUsers.Checked;
   //if FA.AllUsers <> chkAllUsers.Checked then
   //  MessageBox(Handle, PChar(pnlAccess.Caption), PChar(SAppName), MBOK);
-  chkAllUsers.Checked := FA.AllUsers;
-  FA.LoadAssociates;
-  chkAddToMenu.Checked := FA.IsAssociateToContext;
-  chkAssocToUnknown.Checked := FA.IsAssociateToUnknown;
+  //chkAllUsers.Checked := FA.AllUsers;
+  //FA.LoadAssociates;
+  //chkAddToMenu.Checked := FA.IsAssociateToContext;
+  //chkAssocToUnknown.Checked := FA.IsAssociateToUnknown;
   //edMenuText.Text := FA.MenuCaption;
 //  if FA.AllUsers then
 //    lblExt.Caption := Format(GetLangStr('SAssocUser'), [GetLangStr('SAllUsers')])

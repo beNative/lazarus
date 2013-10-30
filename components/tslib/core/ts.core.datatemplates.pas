@@ -164,6 +164,7 @@ type
 
     function GetTemplateDataClass: TClass; override; final;
   end;
+
 implementation
 
 uses
@@ -218,6 +219,8 @@ end;
 
 destructor TDataTemplate.Destroy;
 begin
+  FTemplates.Clear;
+  FTemplates := nil;
   inherited;
 end;
 

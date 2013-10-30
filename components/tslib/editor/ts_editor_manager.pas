@@ -759,23 +759,23 @@ uses
 
   ts.Editor.Settings, ts.Editor.Utils,
 
-  ts_Editor_ToolView_ViewList,
-  ts_Editor_ToolView_CodeShaper,
-  ts_Editor_ToolView_Preview,
-  ts_Editor_ToolView_Test,
-  ts_Editor_ToolView_Search,
-  ts_Editor_ToolView_Shortcuts,
-  ts_Editor_ToolView_ActionList,
-  ts_Editor_ToolView_CodeFilter,
-  ts_Editor_ToolView_CharacterMap,
-  ts_Editor_ToolView_Structure,
-  ts_Editor_ToolView_AlignLines,
-  ts_Editor_ToolView_HTMLView,
-  ts_Editor_ToolView_HexEditor,
-  ts_Editor_Toolview_Minimap,
-  ts_Editor_ToolView_ScriptEditor,
-  ts_Editor_ToolView_SelectionInfo,
-  ts_Editor_ToolView_Filter,
+  ts_Editor_ViewList_ToolView,
+  ts_Editor_CodeShaper_ToolView,
+  ts_Editor_Preview_ToolView,
+  ts_Editor_Test_ToolView,
+  ts_Editor_Search_ToolView,
+  ts_Editor_Shortcuts_ToolView,
+  ts_Editor_ActionList_ToolView,
+  ts_Editor_CodeFilter_ToolView,
+  ts_Editor_CharacterMap_ToolView,
+  ts_Editor_Structure_ToolView,
+  ts_Editor_AlignLines_ToolView,
+  ts_Editor_HTMLView_ToolView,
+  ts_Editor_HexEditor_ToolView,
+  ts_Editor_Minimap_Toolview,
+  ts_Editor_ScriptEditor_ToolView,
+  ts_Editor_SelectionInfo_ToolView,
+  ts_Editor_Filter_ToolView,
 
   ts_Editor_AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -787,7 +787,7 @@ uses
   ts_Editor_SettingsDialog,
   ts_Editor_SettingsDialog_FileAssociations,
 
-  ts.Editor.Templates;
+  ts.Editor.ActionList.Templates;
 
 {$region 'construction and destruction' /fold}
 procedure TdmEditorManager.AfterConstruction;

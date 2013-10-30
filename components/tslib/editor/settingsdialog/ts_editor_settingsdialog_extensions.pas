@@ -53,11 +53,9 @@ interface
 
 uses
   LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ExtCtrls, FileUtil,
+  Dialogs, StdCtrls, ExtCtrls, FileUtil;
 
-  ts.Core.FileAssociations;
-
-  //ADToolTipManager, DKLangADCombosMRU, ;
+//  ts.Core.FileAssociations;
 
 type
   TdlgExt = class(TForm)
@@ -80,7 +78,7 @@ type
 
   private
     FEditMode: boolean;
-    FAssociate: TFileAssociate;
+    //FAssociate: TFileAssociate;
     function GetIconName: string;
     function GetDescription: string;
     procedure SetDescription(const Value: string);
@@ -105,22 +103,22 @@ type
     property EditMode: boolean
       read FEditMode write SetEditMode;
 
-    property Associate: TFileAssociate
-      read FAssociate write FAssociate;
+    //property Associate: TFileAssociate
+    //  read FAssociate write FAssociate;
   end;
 
 implementation
 
-//uses
-//  Utilits, ConstUnit, StrConsts,
-//  ADUtils;
 uses
+  {$IFDEF Windows}
   Windows, ShellApi,
+  {$ENDIF}
 
   ts.Core.Utils;
 
 {$R *.lfm}
 
+{$IFDEF Windows}
 function ExecuteIconDlg(const AParent: HWND; var AFilename: string; var AIconIndex: integer): boolean;
 const
   cMaxPath = 255;
@@ -154,6 +152,7 @@ begin
       AFilename := Buffer;
   end;
 end;
+{$ENDIF}
 
 procedure TdlgExt.imIconClick(Sender: TObject);
 var
@@ -165,8 +164,8 @@ begin
   //if not FileExistsUTF8(FN)  then
     FN := ParamStr(0);
     Index := 1;
-  if ExecuteIconDlg(Handle, FN, Index) then
-  ;
+  //if ExecuteIconDlg(Handle, FN, Index) then
+  //;
     //LoadIcon(FN + SExtDel + IntToStr(Index));
 end;
 
@@ -242,23 +241,23 @@ begin
 end;
 
 procedure TdlgExt.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-var
-  Item: TAssociateItem;
+//var
+//  Item: TAssociateItem;
 begin
-  if (ModalResult = mrOK) and (not FEditMode) then
-  begin
-    Item := Associate.AddItem(Ext);
-    if Assigned(Item) then
-    begin
-      CanClose := True;
-      Item.Descr := Description;
-      Item.Icon := IconName;
-    end
-    else begin
-      CanClose := False;
-      cbExtChange(Self);
-    end;
-  end;
+  //if (ModalResult = mrOK) and (not FEditMode) then
+  //begin
+  //  Item := Associate.AddItem(Ext);
+  //  if Assigned(Item) then
+  //  begin
+  //    CanClose := True;
+  //    Item.Descr := Description;
+  //    Item.Icon := IconName;
+  //  end
+  //  else begin
+  //    CanClose := False;
+  //    cbExtChange(Self);
+  //  end;
+  //end;
 end;
 
 procedure TdlgExt.cbExtChange(Sender: TObject);
@@ -267,8 +266,8 @@ begin
   //  TT.Items[TT.Items.IndexOf(cbExt)].Text :=
   //    Format(GetLangStr('SExtAlreadyExist'), [Ext]);
   //  TT.ShowToolTip(cbExt, Associate.IndexOf(Ext) <> -1);
-    cbDescr.Text := Associate.GetDescr(Ext);
-    LoadIcon(Associate.GetIcon(Ext));
+    //cbDescr.Text := Associate.GetDescr(Ext);
+    //LoadIcon(Associate.GetIcon(Ext));
   //end;
 end;
 

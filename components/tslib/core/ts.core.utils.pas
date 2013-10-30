@@ -24,7 +24,7 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
-  StdCtrls, Character,
+  StdCtrls, Character, StrUtils,
 
   LCLType,
 {$IFDEF Windows}
@@ -77,12 +77,6 @@ procedure StrToStrings(
   AList      : TStrings;
   ASeparator : Char
 );
-
-function Unformat(
-  const ASource,
-        APattern : string;
-  const AArgs    : array of const
-): Integer;
 
 function Like(
   const ASource   : string;
@@ -697,7 +691,7 @@ var
 begin
   Result := Null;
   if AString <> '' then
-    if IsCharAlpha(AString[1]) then
+    if IsLetter(AString[1]) then
       Result := AString
     else
     begin
@@ -1046,147 +1040,6 @@ begin
     ANewOwner.InsertComponent(AComponent);
   end;
 end;
-
-function Unformat(const ASource, APattern: string; const AArgs: array of const)
-  : Integer;
-
-{ The opposite of Format, Unformat splits up a formatted source string into
-  substrings and Integers.  It is an alternative to parsing when the format is
-  known to be fixed. The pattern parameter contains the format string, which is
-  a combination of plain characters and format specifiers.
-
-  Note: only short strings (fixed length strings) can be passed as a parameter
-        to this function.
-
-  The following specifiers are supported:
-
-  %s   indicates that a string value is required
-  %d   indicates that an integer value is required
-  %S   indicates that a string value should be ignored
-  %D   indicates that an integer value should be ignored
-
-  Unformat compares the source with the pattern, and plain characters
-  that do not match will raise an EConvertError.  When a format specifier
-  is encountered in the pattern, an argument is fetched and used to
-  store the result that is obtained from the source.  Then the comparison
-  continues.
-
-  For each %s, the args list must contain a pointer to a string variable,
-  followed by an integer specifying the maximum length of the string.
-  For each %d, the args list must contain a pointer to an integer variable.
-
-  When the end of the source string is reached, the function returns
-  without modifying the remaining arguments, so you might wish to initialize
-  your variables to "default" values before the function call.
-
-  Unformat returns the number of values it has extracted.
-
-  Examples:
-
-  var
-    s1, s2: string[31];
-    i: Integer;
-
-  Unformat('[abc]123(def)', '[%s]%d(%s)', [@s1, 31, @i, @s2, 31]);
-    (* s1 = 'abc', i = 123, s2 = 'def' *)
-
-  Unformat('Hello, Universe!!!', '%s, %s%d', [@s1, 31, @s2, 31, @i]);
-    (* s1 = 'Hello', s2 = 'Universe!!!', i is untouched *)
-
-  Unformat('How much wood could a woodchuck chuck...',
-           '%S %S %s could a %S %s...', [@s1, 31, @s2, 31]);
-    (* s1 = 'wood', s2 = 'chuck' *) }
-
-const
-  Digits = ['0'..'9'];
-
-var
-  I, J      : Integer;
-  iArgIndex : Integer;
-  iStart    : Integer;
-  iEnd      : Integer;
-  iMaxLen   : Integer;
-  C         : Char;
-begin
-  Result := 0;
-  iArgIndex := 0;
-  I := 1;
-  J := 1;
-  while (I < Length(APattern)) and (J <= Length(ASource)) do
-  begin
-    if APattern[I] = '%' then
-      case APattern[I+1] of
-        'D': begin
-               Inc(I, 2);
-               while (J <= Length(ASource)) and
-                 ((ASource[J] in Digits) or (ASource[J] = '-')) do Inc(J);
-               Inc(Result);
-             end;
-        'S': begin
-               Inc(I, 2);
-               if I > Length(APattern) then break
-               else
-               begin
-                 c := APattern[I];
-                 while (J <= Length(ASource)) and (ASource[J] <> c) do
-                   Inc(J);
-               end;
-               Inc(Result);
-             end;
-        'd': begin
-               if iArgIndex > High(AArgs) then
-                 raise EConvertError.Create('Not enough arguments');
-               Inc(I, 2);
-               iStart := J;
-               while (J <= Length(ASource)) and
-                 ((ASource[J] in Digits) or (ASource[J] = '-')) do Inc(J);
-               iEnd := J;
-               if iEnd > iStart then
-                 PInteger(AArgs[iArgIndex].VPointer)^ :=
-                   StrToInt(Copy(ASource, iStart, iEnd - iStart));
-               Inc(iArgIndex);
-               Inc(Result);
-             end;
-        's': begin
-               if iArgIndex > High(AArgs) - 1 then
-                 raise EConvertError.Create('Not enough arguments');
-               if AArgs[iArgIndex + 1].VType <> vtInteger then
-                 raise EConvertError.Create('No string size specified');
-               iMaxLen := AArgs[iArgIndex+1].VInteger;
-               Inc(I, 2);
-               if I > Length(APattern) then
-               begin
-                 AArgs[iArgIndex].VString^ :=
-                   Copy(ASource, J, Min(Length(ASource) + 1 - J, iMaxLen));
-                 break;
-               end
-               else
-               begin
-                 c := APattern[I];
-                 iStart := J;
-                 while (J <= Length(ASource)) and (ASource[J] <> c) do
-                   Inc(J);
-                 iEnd := J;
-                 AArgs[iArgIndex].VString^ :=
-                   Copy(ASource, iStart, Min(iEnd - iStart, iMaxLen));
-                 Inc(iArgIndex, 2);
-               end;
-               Inc(Result);
-             end;
-      else Inc(I);
-      end
-    else
-      {if APattern[I] <> ASource[J] then
-        raise EConvertError.Create('Pattern mismatch')
-      else}
-      begin
-        Inc(I);
-        Inc(J);
-      end;
-  end;
-end;
-
-
 
 function VariantCompare(AVariant1, AVariant2 : Variant) : Boolean;
 begin

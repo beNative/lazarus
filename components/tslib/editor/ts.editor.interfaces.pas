@@ -32,10 +32,10 @@ uses
 
   ts.Core.FormSettings,
 
-  ts.Editor.Settings.AlignLines, ts.Editor.Settings.SearchEngine,
-  ts.Editor.Settings.CodeShaper, ts.Editor.Settings.CodeFilter,
-  ts.Editor.Settings.HTMLView, ts.Editor.Settings.MiniMap,
-  ts.Editor.Settings.HexEditor,
+  ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
+  ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
+  ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
+  ts.Editor.HexEditor.Settings,
 
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 

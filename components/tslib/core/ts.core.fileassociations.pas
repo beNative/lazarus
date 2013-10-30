@@ -53,12 +53,12 @@ unit ts.Core.FileAssociations;
 
 interface
 
+{$IFDEF Windows}
 uses
   Classes, ComCtrls,
 
-{$IFDEF Windows}
+
   Windows,
-{$ENDIF Windows}
 
   LCLIntf, LCLType, LMessages;
 
@@ -240,11 +240,14 @@ function ADRegKeyExist(const ARoot: HKEY; const ASubKey: string): Boolean;
 function ADRegValueExist(const ARoot: HKEY; const ASubKey, AName: string): Boolean;
 function ADRegCheckKey(const ARoot: HKEY; const ASubKey: string): Boolean;
 function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
+{$ENDIF Windows}
 
 implementation
 
 uses
   SysUtils;
+
+{$IFDEF Windows}
 
 {$region 'interfaced methods' /fold}
 function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
@@ -808,5 +811,6 @@ begin
   end;
 end;
 {$endregion}
+{$ENDIF Windows}
 
 end.

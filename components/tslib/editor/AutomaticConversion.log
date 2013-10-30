@@ -1,0 +1,292 @@
+* Converting file D:\codetyphon\ts\components\tslib\editor\CustomizeDialog.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\CustomizeDialog.lfm *
+Removed property "Top".
+Removed property "Left".
+Removed property "ExplicitHeight".
+Removed property "ExplicitWidth".
+Removed property "ExplicitTop".
+Removed property "ExplicitLeft".
+Removed property "DesignSize".
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TButton from "56" to "42" inside TGroupBox.
+Changed Left coord of TButton from "376" to "374" inside TGroupBox.
+Changed Top coord of TButton from "56" to "42" inside TGroupBox.
+Changed Left coord of TButton from "232" to "230" inside TGroupBox.
+Changed Top coord of TListBox from "32" to "18" inside TGroupBox.
+Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+Changed Top coord of THotKey from "30" to "16" inside TGroupBox.
+Changed Left coord of THotKey from "232" to "230" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "232" to "230" inside TGroupBox.
+Changed Top coord of TListView from "32" to "18" inside TGroupBox.
+Changed Left coord of TListView from "168" to "166" inside TGroupBox.
+Changed Top coord of TListBox from "32" to "18" inside TGroupBox.
+Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "168" to "166" inside TGroupBox.
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\CustomizeDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\EditAutocompleteDialog.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+Replaced call FileExists(AFilename)
+                  with FileExistsUTF8(AFilename) { *Converted from FileExists* }
+Added unit FileUtil to uses section
+Replaced call FileExists(AFilename)
+                  with FileExistsUTF8(AFilename) { *Converted from FileExists* }
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\EditAutocompleteDialog.lfm *
+Removed property "Gutter.ShowLineNumbers".
+Removed property "Gutter.Font.Style".
+Removed property "Gutter.Font.Name".
+Removed property "Gutter.Font.Height".
+Removed property "Gutter.Font.Color".
+Removed property "Gutter.Font.Charset".
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\EditAutocompleteDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\EditEncodingsDialog.pas *
+Fixed character case of unit "uCodepage" to "uCodePage".
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\EditEncodingsDialog.lfm *
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\EditEncodingsDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\EncodingDialog.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\EncodingDialog.lfm *
+Removed property "WordWrap".
+Removed property "Gutter.Font.Style".
+Removed property "Gutter.Font.Name".
+Removed property "Gutter.Font.Height".
+Removed property "Gutter.Font.Color".
+Removed property "Gutter.Font.Charset".
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\EncodingDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\EncryptDialog.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\EncryptDialog.lfm *
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+Changed Top coord of TEdit from "80" to "66" inside TGroupBox.
+Changed Left coord of TEdit from "12" to "10" inside TGroupBox.
+Changed Top coord of TEdit from "40" to "26" inside TGroupBox.
+Changed Left coord of TEdit from "12" to "10" inside TGroupBox.
+Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+Changed Top coord of TCheckBox from "64" to "50" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TComboBox from "40" to "26" inside TGroupBox.
+Changed Left coord of TComboBox from "12" to "10" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "12" to "10" inside TGroupBox.
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\EncryptDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\ExtDialog.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+Removed unit "ShellApi" in uses section.
+Replaced call FileExists(FN)
+                  with FileExistsUTF8(FN) { *Converted from FileExists* }
+Added unit FileUtil to uses section
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\ExtDialog.lfm *
+Removed property "Top".
+Removed property "Left".
+Removed property "TextHeight".
+Removed property "OldCreateOrder".
+Changed Top coord of TADComboBoxMRU from "80" to "66" inside TGroupBox.
+Changed Left coord of TADComboBoxMRU from "16" to "14" inside TGroupBox.
+Changed Top coord of TEdit from "40" to "26" inside TGroupBox.
+Changed Left coord of TEdit from "16" to "14" inside TGroupBox.
+Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TImage from "24" to "10" inside TGroupBox.
+Changed Left coord of TImage from "272" to "270" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TBevel from "24" to "10" inside TGroupBox.
+Changed Left coord of TBevel from "272" to "270" inside TGroupBox.
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\ExtDialog.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\OptionsAutocorrectForm.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\OptionsAutocorrectForm.lfm *
+Removed property "TextHeight".
+Removed property "PixelsPerInch".
+Removed property "OldCreateOrder".
+Removed property "Font.Style".
+Removed property "Font.Name".
+Removed property "Font.Height".
+Removed property "Font.Color".
+Removed property "Font.Charset".
+Removed property "Color".
+Removed property "ClientWidth".
+Removed property "ClientHeight".
+Removed property "Caption".
+Removed property "Top".
+Removed property "Left".
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\OptionsAutocorrectForm.pas *
+
+* Converting file D:\codetyphon\ts\components\tslib\editor\OptionsThemesForm.pas *
+Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
+Replaced call DeleteFile(GetThemeFilename(S));
+                  with DeleteFileUTF8(GetThemeFilename(S)); { *Converted from DeleteFile* }
+Added unit FileUtil to uses section
+Replaced call DeleteFile(GetTmpThemeFilename(S));
+                  with DeleteFileUTF8(GetTmpThemeFilename(S)); { *Converted from DeleteFile* }
+Replaced call DeleteFile(GetTmpThemeFilename(cbTheme.Items[i]));
+                  with DeleteFileUTF8(GetTmpThemeFilename(cbTheme.Items[i])); { *Converted from DeleteFile* }
+Replaced call FileIsReadOnly(TH.Filename)
+                  with FileIsReadOnlyUTF8(TH.Filename) { *Converted from FileIsReadOnly* }
+* Repairing form file D:\codetyphon\ts\components\tslib\editor\OptionsThemesForm.lfm *
+Removed property "TextHeight".
+Removed property "PixelsPerInch".
+Removed property "OnDestroy".
+Removed property "OnCreate".
+Removed property "OldCreateOrder".
+Removed property "Font.Style".
+Removed property "Font.Name".
+Removed property "Font.Height".
+Removed property "Font.Color".
+Removed property "Font.Charset".
+Removed property "Color".
+Removed property "ClientWidth".
+Removed property "ClientHeight".
+Removed property "Caption".
+Removed property "Top".
+Removed property "Left".
+Changed Top coord of TADColorButton from "40" to "26" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "40" to "26" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TADColorButton from "16" to "2" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TButton from "88" to "74" inside TGroupBox.
+Changed Left coord of TButton from "16" to "14" inside TGroupBox.
+Changed Top coord of TPanel from "24" to "10" inside TGroupBox.
+Changed Left coord of TPanel from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "32" to "18" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TCheckBox from "48" to "34" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "32" to "18" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TGroupBox from "80" to "66" inside TGroupBox.
+Changed Left coord of TGroupBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "56" to "42" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TADColorButton from "56" to "42" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TSpinEdit from "24" to "10" inside TGroupBox.
+Changed Left coord of TSpinEdit from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "56" to "42" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TADColorButton from "56" to "42" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TCheckBox from "72" to "58" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TCheckBox from "24" to "10" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "96" to "82" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TADColorButton from "96" to "82" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TADColorButton from "48" to "34" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TPanel from "24" to "10" inside TGroupBox.
+Changed Left coord of TPanel from "16" to "14" inside TGroupBox.
+Changed Top coord of TSpinEdit from "24" to "10" inside TGroupBox.
+Changed Left coord of TSpinEdit from "8" to "6" inside TGroupBox.
+Changed Top coord of TSpinEdit from "88" to "74" inside TGroupBox.
+Changed Left coord of TSpinEdit from "128" to "126" inside TGroupBox.
+Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TADColorButton from "64" to "50" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TADColorButton from "40" to "26" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "88" to "74" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "64" to "50" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "40" to "26" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TSpinEdit from "88" to "74" inside TGroupBox.
+Changed Left coord of TSpinEdit from "136" to "134" inside TGroupBox.
+Changed Top coord of TCheckBox from "72" to "58" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "56" to "42" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "40" to "26" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TCheckBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "92" to "78" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TADColorButton from "38" to "24" inside TGroupBox.
+Changed Left coord of TADColorButton from "88" to "86" inside TGroupBox.
+Changed Top coord of TADColorButton from "12" to "0" inside TGroupBox.
+Changed Left coord of TADColorButton from "88" to "86" inside TGroupBox.
+Changed Top coord of TLabel from "40" to "26" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TLabel from "16" to "2" inside TGroupBox.
+Changed Left coord of TLabel from "8" to "6" inside TGroupBox.
+Changed Top coord of TCheckBox from "48" to "34" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "32" to "18" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TCheckBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TCheckBox from "16" to "14" inside TGroupBox.
+Changed Top coord of TListBox from "16" to "2" inside TGroupBox.
+Changed Left coord of TListBox from "8" to "6" inside TGroupBox.
+Changed Top coord of TComboBox from "48" to "34" inside TGroupBox.
+Changed Left coord of TComboBox from "96" to "94" inside TGroupBox.
+Changed Top coord of TComboBox from "24" to "10" inside TGroupBox.
+Changed Left coord of TComboBox from "96" to "94" inside TGroupBox.
+Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TButton from "88" to "74" inside TGroupBox.
+Changed Left coord of TButton from "16" to "14" inside TGroupBox.
+Changed Top coord of TPanel from "24" to "10" inside TGroupBox.
+Changed Left coord of TPanel from "16" to "14" inside TGroupBox.
+Changed Top coord of TADColorButton from "48" to "34" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TADColorButton from "24" to "10" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TADColorButton from "48" to "34" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TADColorButton from "24" to "10" inside TGroupBox.
+Changed Left coord of TADColorButton from "128" to "126" inside TGroupBox.
+Changed Top coord of TLabel from "48" to "34" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+Changed Top coord of TLabel from "24" to "10" inside TGroupBox.
+Changed Left coord of TLabel from "16" to "14" inside TGroupBox.
+* Fixing used units for file D:\codetyphon\ts\components\tslib\editor\OptionsThemesForm.pas *
+Conversion Ready.

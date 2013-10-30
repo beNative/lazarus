@@ -18,6 +18,8 @@
 
 unit ts.Editor.Selection;
 
+{ Class used to store information about selected text. }
+
 {$MODE Delphi}
 
 interface

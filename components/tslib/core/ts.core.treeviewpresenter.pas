@@ -1831,7 +1831,7 @@ end;
 function TTreeViewPresenter.GetItemTemplate(const Item: TObject): IDataTemplate;
 begin
   Result := nil;
-  if Assigned(FItemTemplate) then
+  if Assigned(FItemTemplate) and Assigned(Item) then
   begin
     Result := FItemTemplate.GetItemTemplate(Item);
   end;

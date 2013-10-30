@@ -93,7 +93,6 @@ type
 
 // type aliases
   TEditorViewList     = TInterfaceList;
-  //TEditorToolViewList = TInterfaceList;
 
   IControl = interface
   ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']

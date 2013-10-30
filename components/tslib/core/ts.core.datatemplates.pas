@@ -170,9 +170,7 @@ implementation
 uses
   sharedlogger;
 
-
-{ TDataTemplate }
-
+{$region 'TDataTemplate' /fold}
 function TDataTemplate.CompareItems(const Item1, Item2: TObject;
   const ColumnIndex: Integer): Integer;
 var
@@ -247,8 +245,8 @@ end;
 function TDataTemplate.GetItem(const Item: TObject;
   const Index: Integer): TObject;
 begin
-  Logger.EnterMethod(Self, 'GetItem');
-  Logger.Send(Self.ClassName);
+  //Logger.EnterMethod(Self, 'GetItem');
+  //Logger.Send(Self.ClassName);
   Result := nil;
   if Item is TObjectList then
   begin;
@@ -257,19 +255,19 @@ begin
       Result := TObjectList(Item).Items[Index];
     end;
   end;
-  Logger.ExitMethod(Self, 'GetItem');
+  //Logger.ExitMethod(Self, 'GetItem');
 end;
 
 function TDataTemplate.GetItemCount(const Item: TObject): Integer;
 begin
-  Logger.EnterMethod(Self, 'GetItemCount');
+//  Logger.EnterMethod(Self, 'GetItemCount');
   Result := 0;
   if Assigned(Item) and (Item is TObjectList) then
   begin
     Result := TObjectList(Item).Count;
   end;
-  Logger.Watch('ItemCount', Result);
-  Logger.ExitMethod(Self, 'GetItemCount');
+  //Logger.Watch('ItemCount', Result);
+  //Logger.ExitMethod(Self, 'GetItemCount');
 end;
 
 function TDataTemplate.GetItems(const Item: TObject): TObjectList;
@@ -286,7 +284,6 @@ begin
 
   if Assigned(FTemplates) then
   begin
-    //for LTemplate in FTemplates do
     for I := 0 to FTemplates.Count - 1 do
     begin
       LTemplate := FTemplates[I] as IDataTemplate;
@@ -298,8 +295,10 @@ begin
     end;
   end;
 
-  if not Assigned(Result) and Assigned(Item) //and (Item is GetTemplateDataClass)
-    {or IsClassCovariantTo(Item.ClassType, GetTemplateDataClass)) }then
+  if not Assigned(Result) and Assigned(Item)
+    {and (Item is GetTemplateDataClass)}
+    {or IsClassCovariantTo(Item.ClassType, GetTemplateDataClass)) }
+  then
   begin
     Result := Self;
   end;
@@ -348,9 +347,9 @@ procedure TDataTemplate.SetValue(const Item: TObject;
 begin
   // implemented in descendants
 end;
+{$endregion}
 
-{ TDataTemplate<T> }
-
+{$region 'TDataTemplate<T>' /fold}
 function TDataTemplate<T>.GetImageIndex(const Item: TObject;
   const ColumnIndex: Integer): Integer;
 begin
@@ -458,4 +457,6 @@ procedure TDataTemplate<T>.SetValue(const Item: T; const ColumnIndex: Integer;
 begin
   inherited SetValue(Item, ColumnIndex, Value);
 end;
+{$endregion}
+
 end.

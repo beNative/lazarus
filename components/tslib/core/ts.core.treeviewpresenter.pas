@@ -392,7 +392,7 @@ type
 implementation
 
 uses
-  Themes, Math, Forms, Graphics,
+  Themes, Math, Forms, Graphics, TypInfo,
 
 {$IFDEF Windows}
   Windows,
@@ -402,7 +402,7 @@ uses
 
   sharedlogger,
 
-  ts.Core.Value,ts.Core.ColumnDefinitionsDataTemplate;
+  ts.Core.Value, ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Utils;
 
 const
   CDefaultCellRect: TRect = (Left: 0; Top: 0; Right: 0; Bottom: 0);
@@ -453,6 +453,7 @@ end;
 
 destructor TTreeViewPresenter.Destroy;
 begin
+  FItemTemplate := nil;
   if Assigned(FColumnDefinitions) and (FColumnDefinitions.Owner = Self) then
   begin
     FColumnDefinitions.Free;
@@ -544,7 +545,7 @@ var
   I  : Integer;
   H  : Integer;
 begin
-  if Sender.TotalCount > 0  then
+  if not (vsDeleting in Node.States) then
   begin
     if MultiLine and Sender.MultiLine[Node] then
     begin
@@ -661,8 +662,6 @@ procedure TTreeViewPresenter.DoCollapsed(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 begin
   UpdateExpandedItems;
-
-  DoPropertyChanged('ExpandedItems');
 end;
 
 procedure TTreeViewPresenter.DoCompareNodes(Sender: TBaseVirtualTree; Node1,
@@ -2003,7 +2002,6 @@ begin
       end;
     end;
     FTreeView.Header.Options := FTreeView.Header.Options + [
-      hoVisible,         // Header is visible.
       hoColumnResize,    // Resizing columns with the mouse is allowed.
       hoDblClickResize,  // Allows a column to resize itself to its largest entry.
       hoShowImages,      // Show header images.
@@ -2297,10 +2295,10 @@ procedure TTreeViewPresenter.ResetRootNodeCount;
 begin
   if Assigned(FTreeView) then
   begin
-    if Assigned({View.}ItemsSource) and Assigned({View.}ItemTemplate) then
+    if Assigned(ItemsSource) and Assigned(ItemTemplate) then
     begin
       FTreeView.Clear;
-      FTreeView.RootNodeCount := {View.}ItemTemplate.GetItemCount({View.}ItemsSource{.AsObject});
+      FTreeView.RootNodeCount := ItemTemplate.GetItemCount(ItemsSource);
     end
     else
     begin
@@ -2517,7 +2515,7 @@ end;
 procedure TTreeViewPresenter.SetShowHeader(const Value: Boolean);
 begin
   FShowHeader := Value;
-  InitProperties();
+  InitProperties;
 end;
 
 procedure TTreeViewPresenter.SetSorting(const Value: Boolean);
@@ -2526,9 +2524,9 @@ begin
   if Assigned(FTreeView) and not FSorting then
   begin
     FTreeView.Header.SortColumn := -1;
-    Refresh();
+    Refresh;
   end;
-  InitProperties();
+  InitProperties;
 end;
 
 procedure TTreeViewPresenter.SetTreeView(const Value: TVirtualStringTree);

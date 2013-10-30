@@ -309,6 +309,7 @@ end;
 function TfrmOptionsThemes.GetTmpThemeFilename(
   const AName: string): string;
 begin
+  Result := '';
   //Result := ChangeFileExt(GetThemeFilename(AName), SBackExt);
 end;
 

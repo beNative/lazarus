@@ -18,7 +18,7 @@
 
 unit ts.Editor.Search.Templates;
 
-{ Data templates used to display the search results. }
+{ Data templates used to display the search results hierarchically. }
 
 {$MODE Delphi}
 
@@ -75,8 +75,7 @@ implementation
 uses
   ts.Editor.Search.Data;
 
-{ TSearchResultTemplate }
-
+{$region 'TSearchResultTemplate' /fold}
 function TSearchResultTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
 begin
@@ -90,8 +89,14 @@ function TSearchResultTemplate.GetTemplateDataClass: TClass;
 begin
   Result := TSearchResult;
 end;
+{$endregion}
 
-{ TSearchResultLineTemplate }
+{$region 'TSearchResultLineTemplate' /fold}
+procedure TSearchResultLineTemplate.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  RegisterDataTemplate(TSearchResultTemplate.Create(FColumnDefinitions));
+end;
 
 function TSearchResultLineTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
@@ -131,15 +136,9 @@ begin
   else
     Result := inherited GetItem(Item, Index);
 end;
+{$endregion}
 
-procedure TSearchResultLineTemplate.AfterConstruction;
-begin
-  inherited AfterConstruction;
-  RegisterDataTemplate(TSearchResultTemplate.Create(FColumnDefinitions));
-end;
-
-{ TSearchResultGroupTemplate }
-
+{$region 'TSearchResultGroupTemplate' /fold}
 function TSearchResultGroupTemplate.GetItemCount(const Item: TObject): Integer;
 begin
   if Item is TSearchResultGroup then
@@ -189,6 +188,7 @@ procedure TSearchResultGroupTemplate.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
+{$endregion}
 
 end.
 

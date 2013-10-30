@@ -1190,9 +1190,9 @@ begin
 end;
 
 procedure TDBGridEdit.UpdateListValue(Accept: Boolean);
-var
+//var
 //  ListValue: Variant;
-  MasterField: TField;
+  //MasterField: TField;
 begin
   if (ActiveList <> nil) and Accept and (Grid <> nil) then
   begin
@@ -1599,8 +1599,8 @@ begin
 end;
 
 procedure TCustomDBGridView.DoSelection(Select: Boolean; Direction: Integer);
-var
-  DoSelect : Boolean;
+//var
+//  DoSelect : Boolean;
 begin
   //if MultiSelect and FDatalink.Active and Select then
   //begin
@@ -2047,7 +2047,6 @@ const
   Flags = MB_ICONQUESTION or MB_YESNO;
 var
   AllowDelete: Boolean;
-  Msg: string;
 begin
   if (not FDatalink.Active) or (FDataLink.DataSet = nil) then
     Exit;
@@ -2959,6 +2958,7 @@ end;
 
 function TCustomDBGridView.IsRowMultiSelected: Boolean;
 begin
+  Result := False;
   //Result := MultiSelect and DataLink.Active and
   //  FBookmarks.GetCurrentRowSelected;
 end;

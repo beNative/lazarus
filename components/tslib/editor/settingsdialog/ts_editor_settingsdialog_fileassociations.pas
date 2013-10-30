@@ -209,7 +209,7 @@ end;
 procedure TfrmOptionsAssociate.lnkBackupClick(Sender: TObject);
 var
   Param: string;
-  Res: integer;
+ // Res: integer;
 begin
   with TSaveDialog.Create(Self) do
   begin

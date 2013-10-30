@@ -43,8 +43,6 @@ type
 
   public
     procedure AfterConstruction; override;
-
-
   end;
 
 implementation

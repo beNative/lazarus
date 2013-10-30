@@ -119,9 +119,6 @@ begin
 end;
 
 function TActionCategoryTemplate.GetItems(const Item: TObject): TObjectList;
-var
-  AL : TActionList;
-  A  : TContainedAction;
 begin
   if Item is TObjectList then
   begin

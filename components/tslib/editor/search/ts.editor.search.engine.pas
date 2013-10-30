@@ -305,7 +305,7 @@ begin
       SRL.Line := Line;
       SRG.Lines.Add(SRL);
     end;
-    SRG.FileName := ExtractFileName(AView.FileName) + ' ' + IntToStr(SRG.Lines.Count);
+    SRG.FileName := ExtractFileName(AView.FileName);
     SRG.ViewName := AView.Name;
     ItemGroups.Add(SRG);
   end;

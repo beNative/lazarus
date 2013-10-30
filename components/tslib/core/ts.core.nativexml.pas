@@ -4336,7 +4336,7 @@ function TsdContainerNode.ParseElementList(P: TsdXmlParser; const SupportedTags:
 // parse the element list, the result (endnode) should be this element
 var
   B: AnsiChar;
-  BeginTagName, EndTagName: Utf8String;
+  EndTagName: Utf8String;
   Tag: TsdElementType;
   NodeClass: TsdNodeClass;
   SubNode, EndNode: TXmlNode;
@@ -4382,8 +4382,6 @@ begin
         // Check if begin and end tags match
         if GetName <> EndTagName then
         begin
-          BeginTagName := GetName;
-
           // usually a user error with omitted direct end tag
           DoDebugOut(Self, wsWarn, Format(sBeginEndMismatch,
             [GetName, EndTagName, P.LineNumber, P.Position]));

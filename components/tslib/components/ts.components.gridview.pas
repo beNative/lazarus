@@ -10108,7 +10108,7 @@ procedure TCustomGridView.DefaultDrawHeader(Section: TGridHeaderSection;
 var
   DefRect       : TRect;
   I, X, Y, W, H : Integer;
-  BKC, BLC      : DWORD;
+  //BKC, BLC      : DWORD;
   P             : TDrawTextParams;
   F             : Integer;
   T             : string;
@@ -10124,6 +10124,7 @@ begin
   { memorize the rectangle of painting}
   DefRect := Rect;
   Canvas.FillRect(Rect);
+
   {if section is pressed - we displace picture and text}
   if IsPressed then
     OffsetRect(Rect, 1, 1);
@@ -10152,8 +10153,8 @@ begin
         if Y + H > R.Bottom then
           H := R.Bottom - Y;
         {the background colors of picture}
-        BKC := GetRGBColor(Header.Images.BkColor);
-        BLC := GetRGBColor(Header.Images.BlendColor);
+        //BKC := GetRGBColor(Header.Images.BkColor);
+        //BLC := GetRGBColor(Header.Images.BlendColor);
         { draw picture}
         // TS!!!
         //ImageList_DrawEx(Header.Images.Handle, I, Canvas.Handle, X, Y, W, H,
@@ -10512,10 +10513,10 @@ begin
   RR := GetRowRect(Cell1.Row);
   if Cell2.Row > Cell1.Row then
     RR.Bottom := GetRowRect(Cell2.Row).Bottom;
-  Result.Left := CR.Left;
-  Result.Right := CR.Right;
-  Result.Top := CR.Top;
-  Result.Bottom := CR.Bottom;
+  Result.Left := RR.Left;
+  Result.Right := RR.Right;
+  Result.Top := RR.Top;
+  Result.Bottom := RR.Bottom;
 end;
   
 function TCustomGridView.GetColumnAt(X, Y: Integer): Integer;

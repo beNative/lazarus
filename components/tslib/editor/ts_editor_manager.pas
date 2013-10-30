@@ -1636,7 +1636,11 @@ begin
   OL := TObjectList.create(False);
   try
     for A in ActionList do
+    begin
       OL.Add(A);
+      if OL.Count = 5  then
+        Break;
+    end;
 
     F := (ToolViews['Filter'].Form as TfrmFilter);
     F.ColumnDefinitions.AddColumn('Name', 'Name');
@@ -2706,8 +2710,13 @@ begin
     begin
       {  Allow owner to dock the toolview in the main application workspace. }
       Events.DoShowToolView(ETV);
+      ETV.Visible := True;
+    end
+    else
+    begin
+      ETV.Form.ShowModal;
     end;
-    ETV.Visible := True;
+
     ETV.UpdateView;
     if ASetFocus then
       ETV.SetFocus;

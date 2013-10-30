@@ -22,7 +22,6 @@ unit ts_Editor_Search_Toolview;
   provides search/replace functionality for the active view or all views that
   are managed by the EditorManager. }
 
-
 {
   TODO:
     - only show function keys when focused.
@@ -180,11 +179,9 @@ begin
     FVST.TreeOptions.AutoOptions + [toAutoSpanColumns];
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
+  FTVP.ShowHeader := False;
   FTVP.ListMode := False;
   FTVP.ColumnDefinitions.AddColumn('Text', SFileName, dtString, 70, 60, 400);
-  //FTVP.ColumnDefinitions.AddColumn('Index', SIndex, dtNumeric, 50, 50, 80);
-  //FTVP.ColumnDefinitions.AddColumn('Column', SColumn, dtNumeric, 60, 60, 80);
-  //FTVP.ColumnDefinitions.AddColumn('Line', SLine, dtNumeric, 40, 40, 80);
   FVST.Header.MainColumn := 1;
   FTVP.ItemsSource := SearchEngine.ItemGroups;
   FTVP.TreeView := FVST;

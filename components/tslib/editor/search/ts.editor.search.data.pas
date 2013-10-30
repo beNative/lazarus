@@ -18,7 +18,7 @@
 
 unit ts.Editor.Search.Data;
 
-{ Data structures used to display the search results. }
+{ Data structures used to display the search results hierarchically. }
 
 {$MODE Delphi}
 
@@ -132,20 +132,19 @@ type
 
 implementation
 
-{ TSearchResult }
+resourcestring
+  SPosition = 'Position: (%d, %d)';
+  SLine     = 'Line: %d';
+  SGroup    = '%s (%d matching lines)';
 
+{$region 'TSearchResult' /fold}
 function TSearchResult.GetText: string;
 begin
-  Result := Format('(%d, %d)', [Column, Line]);
+  Result := Format(SPosition, [Column, Line]);
 end;
+{$endregion}
 
-{ TSearchResultLine }
-
-function TSearchResultLine.GetText: string;
-begin
-  Result := IntToStr(Line);
-end;
-
+{$region 'TSearchResultLine' /fold}
 procedure TSearchResultLine.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -158,11 +157,16 @@ begin
   inherited BeforeDestruction;
 end;
 
-{ TSearchResultGroup }
+function TSearchResultLine.GetText: string;
+begin
+  Result := Format(SLine, [Line]);
+end;
+{$endregion}
 
+{$region 'TSearchResultGroup' /fold}
 function TSearchResultGroup.GetText: string;
 begin
-  Result := Format('%s (%d matching lines)', [FFileName, FLines.Count]);
+  Result := Format(SGroup, [FFileName, FLines.Count]);
 end;
 
 procedure TSearchResultGroup.AfterConstruction;
@@ -176,6 +180,7 @@ begin
   FLines.Free;
   inherited BeforeDestruction;
 end;
+{$endregion}
 
 end.
 

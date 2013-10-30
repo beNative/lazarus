@@ -47,7 +47,7 @@ type
 
   { TColumnDefinitionsDataTemplate }
 
-  TColumnDefinitionsDataTemplate = class(TDataTemplate)
+  TColumnDefinitionsDataTemplate = class(TDataTemplate, IDataTemplate)
   protected
     FColumnDefinitions: TColumnDefinitions;
   public

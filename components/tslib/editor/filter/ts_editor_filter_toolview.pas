@@ -63,11 +63,13 @@ type
     pnlMain: TPanel;
     sbrMain: TStatusBar;
 
-    procedure actFocusFilterTextExecute(Sender: TObject);
     function CCustomDraw(Sender: TObject; ColumnDefinition: TColumnDefinition;
       Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
       ImageList: TCustomImageList; DrawMode: TDrawMode;
       Selected: Boolean): Boolean;
+
+    procedure actFocusFilterTextExecute(Sender: TObject);
+
     procedure edtFilterChange(Sender: TObject);
     procedure edtFilterKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -157,8 +159,6 @@ uses
   Variants,
 
   LMessages, GraphUtil,
-
-  //Windows,
 
   ts.Core.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate,
 
@@ -324,7 +324,7 @@ procedure TfrmFilter.edtFilterKeyUp(Sender: TObject; var Key: Word;
 begin
   if FVKPressed and FVST.Enabled then
   begin
-    FVST.Perform(LM_KEYDOWN, Key, 0);
+    FVST.Perform(WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
@@ -374,7 +374,7 @@ begin
   begin
     edtFilter.SetFocus;
 {$IFDEF Windows}
-    PostMessage(edtFilter.Handle, LM_CHAR, Ord(Key), 0);
+    PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
 {$ENDIF}
     edtFilter.SelStart := Length(Filter);
     // required to prevent the invocation of accelerator keys!
@@ -398,6 +398,14 @@ begin
   Result := edtFilter.Text;
 end;
 
+procedure TfrmFilter.SetFilter(AValue: string);
+begin
+  if AValue <> Filter then
+  begin
+    edtFilter.Text := AValue;
+  end;
+end;
+
 function TfrmFilter.GetItemsSource: TObjectList;
 begin
   Result := FTVP.ItemsSource;
@@ -416,14 +424,6 @@ end;
 procedure TfrmFilter.SetItemTemplate(AValue: IDataTemplate);
 begin
   FTVP.ItemTemplate := AValue;
-end;
-
-procedure TfrmFilter.SetFilter(AValue: string);
-begin
-  if AValue <> Filter then
-  begin
-    edtFilter.Text := AValue;
-  end;
 end;
 
 function TfrmFilter.GetColumnDefinitions: TColumnDefinitions;

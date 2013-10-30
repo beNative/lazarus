@@ -184,7 +184,9 @@ uses
 
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Helpers, ts.Core.Utils,
 
-  ts_Editor_Resources;
+  ts_Editor_Resources,
+
+  ts.Editor.CodeFilter.Data;
 
 type
   TVKSet = set of Byte;
@@ -227,38 +229,13 @@ var
     VK_END
   ];
 
+const
+  MAX_LINES = 100000; // max. amount of lines for automatic filtering
+
 resourcestring
   SFilteredCode = '<Filtered code>';
   SLineIndex    = 'Line';
   SLineText     = 'Text';
-
-{$region 'TLine' /fold}
-type
-  TLine = class(TPersistent)
-  strict private
-    FIndex : Integer;
-    FText  : string;
-  public
-    constructor Create(
-      const AIndex : Integer;
-      const AText  : string
-    );
-
-  published
-    property Index: Integer
-      read FIndex write FIndex;
-
-    property Text: string
-      read FText write FText;
-  end;
-
-constructor TLine.Create(const AIndex: Integer; const AText: string);
-begin
-  inherited Create;
-  FIndex := AIndex;
-  FText  := AText;
-end;
-{$endregion}
 
 {$region 'construction and destruction' /fold}
 procedure TfrmCodeFilterDialog.AfterConstruction;
@@ -440,7 +417,6 @@ begin
       FileName := SFilteredCode;
       Text := SL.Text;
     end;
-    //Clipboard.AsText := SL.Text;
   finally
     SL.Free;
   end;
@@ -465,7 +441,7 @@ end;
 {$region 'event handlers' /fold}
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
-  if {(Filter <> '') and} not RegEx and (FLines.Count < 100000) then
+  if not RegEx and (FLines.Count < MAX_LINES) then
     Modified;
 end;
 
@@ -499,7 +475,7 @@ begin
   if not (A or B or C or D or E or F or G) then
   begin
     FVKPressed := True;
-//    Key := 0;
+    Key := 0;
   end
   { Prevents jumping to the application's main menu which happens by default
     if ALT is pressed. }

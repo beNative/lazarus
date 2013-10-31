@@ -1,9 +1,5 @@
 <UniHighlighter>
  <ImportantInfo>
-  ******* Please read carefully *************************
-  * Please, make any changes in this file very carefuly!*
-  * It is much more convinient to use native designer!  *
-  *******************************************************
  </ImportantInfo>
  <Info>
   <General>
@@ -212,5 +208,4 @@
   <CaseSensitive>False</CaseSensitive>
   </Range>
  </Range>
- <CopyRight>Rule file for UniHighlighter Delphi component (Copyright(C) Fantasist(walking_in_the_sky@yahoo.com), Vit(nevzorov@yahoo.com), 2002)</CopyRight>
 </UniHighlighter>

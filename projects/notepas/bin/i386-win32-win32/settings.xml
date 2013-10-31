@@ -265,12 +265,12 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>225</Left>
-		<Top>225</Top>
-		<Width>1424</Width>
+		<Left>75</Left>
+		<Top>75</Top>
+		<Width>1417</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -384,7 +384,7 @@
 			<BlockCommentEndTag>}</BlockCommentEndTag>
 			<LineCommentTag>//</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>dpk,dpr,inc,lpk,lpr,pas,pp</FileExtensions>
+			<FileExtensions>dpk,dpr,inc,lpr,pas,pp</FileExtensions>
 			<Description>Object Pascal</Description>
 			<SynHighlighter>(TSynPasSyn)
 				<Enabled>false</Enabled>
@@ -519,7 +519,7 @@
 			<BlockCommentStartTag>ô2½ !--</BlockCommentStartTag>
 			<BlockCommentEndTag>--3½ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lps,template,xml</FileExtensions>
+			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
 			<Description>XML document</Description>
 			<SynHighlighter>(TSynXMLSyn)
 				<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
@@ -1282,7 +1282,7 @@
 			<Name>INI</Name>
 			<LineCommentTag>;</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>fpd,ini,prop,properties,reg</FileExtensions>
+			<FileExtensions>desktop,fpd,ini,lrt,msg,prop,properties,reg</FileExtensions>
 			<Description>Settings file</Description>
 			<LayoutFileName>notepas.highlighter.ini.xml</LayoutFileName>
 			<SynHighlighter>(TSynUniSyn)</SynHighlighter>

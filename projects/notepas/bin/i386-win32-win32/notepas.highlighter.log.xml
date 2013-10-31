@@ -1,13 +1,9 @@
 <UniHighlighter>
  <ImportantInfo>
-  ******* Please read carefully *************************
-  * Please, make any changes in this file very carefuly!*
-  * It is much more convinient to use native designer!  *
-  *******************************************************
  </ImportantInfo>
  <Info>
   <General>
-   <Name>Loggings Balta</Name>
+   <Name>Log files</Name>
    <FileTypeName>TXT</FileTypeName>
    <Layout>Standard</Layout>
   </General>
@@ -15,7 +11,7 @@
    <Name>Tim Sinaeve</Name>
    <Email>tim.sinaeve@gmail.com</Email>
    <Web></Web>
-   <Copyright>Copyright (c) 2010 Tim Sinaeve</Copyright>
+   <Copyright>Copyright (c) 2013 Tim Sinaeve</Copyright>
    <Company></Company>
    <Remark></Remark>
   </Author>
@@ -162,6 +158,4 @@
   <CaseSensitive>True</CaseSensitive>
   </Range>
  </Range>
- <CopyRight>Rule file for UniHighlighter Delphi component (Copyright(C) Fantasist(walking_in_the_sky@yahoo.com), Vit(nevzorov@yahoo.com), 2002)</CopyRight>
 </UniHighlighter>
->

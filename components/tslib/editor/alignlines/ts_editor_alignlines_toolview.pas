@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts_editor_alignlines_toolview;
+unit ts_Editor_AlignLines_ToolView;
 
 {$MODE Delphi}
 
@@ -28,12 +28,9 @@ uses
 
   VirtualTrees,
 
-  ts.Components.Multipanel,
-  ts.Core.TreeViewPresenter,
+  ts.Components.Multipanel, ts.Core.TreeViewPresenter,
 
-  ts_Editor_ToolView_Base,
-
-  ts.Editor.Interfaces, ts.Editor.AlignLines.Settings,
+  ts_Editor_ToolView_Base, ts.Editor.Interfaces, ts.Editor.AlignLines.Settings,
 
   sharedlogger;
 

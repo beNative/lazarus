@@ -197,6 +197,7 @@ begin
   FTVP.ListMode := True;
   FTVP.ItemsSource := FCredits;
   FTVP.TreeView := vstCredits;
+  pgcMain.ActivePageIndex := 0;
 end;
 
 procedure TfrmAbout.BeforeDestruction;

@@ -9,7 +9,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   PopupMenu = ppmMain
-  PopupMode = pmAuto
+  PopupMode = pmExplicit
+  PopupParent = frmMain.Owner
   Position = poMainFormCenter
   LCLVersion = '1.3'
   object pnlVST: TPanel

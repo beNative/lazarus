@@ -18,9 +18,9 @@
 
 unit ts_Editor_Resources;
 
-{$MODE Delphi}
+{ Shared resources. }
 
-{ Common resources }
+{$MODE Delphi}
 
 interface
 
@@ -67,12 +67,12 @@ const
 
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
-  FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk,lpk';
+  FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk';
   FILE_EXTENSIONS_CPP  = 'cpp,h,hpp';
   FILE_EXTENSIONS_JAVA = 'java';
   FILE_EXTENSIONS_SQL  = 'sql';
   FILE_EXTENSIONS_XML  = 'xml,hgl,' +
-                         'lpi,lps,' +            // Lazarus
+                         'lpi,lps,lpk,' +            // Lazarus
                          'fpc,compiled' +        // FPC Make
                          'dproj,groupproj,' +    // Delphi
                          'template';             // Java templates
@@ -80,7 +80,10 @@ const
   FILE_EXTENSIONS_INI  = 'ini,' +
                          'fpd,' +                // FastReport definition
                          'reg,' +                // Windows registry file
-                         'prop,properties';
+                         'lrt,' +
+                         'msg,' +
+                         'prop,properties,' +
+                         'desktop';
   FILE_EXTENSIONS_BAT  = 'bat,cmd';
   FILE_EXTENSIONS_RTF  = 'rtf';
   FILE_EXTENSIONS_RES  = 'res';
@@ -97,8 +100,6 @@ const
   FILE_EXTENSIONS_SH   = 'sh';
   FILE_EXTENSIONS_RUBY = 'rb,rbw';
   FILE_EXTENSIONS_LUA  = 'lua';
-
-//-----------------------------------------------------------------------------
 
 resourcestring
   STextNotFound = 'Text not found';

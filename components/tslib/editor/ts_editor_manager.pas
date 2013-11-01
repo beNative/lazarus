@@ -1164,7 +1164,7 @@ end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
 begin
-  ActiveView.Save;
+  SaveFile(ActiveView.FileName);
 end;
 
 procedure TdmEditorManager.actSaveAsExecute(Sender: TObject);

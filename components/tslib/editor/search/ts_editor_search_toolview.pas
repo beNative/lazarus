@@ -369,20 +369,17 @@ begin
   // TODO: For some bizarre reason columms are not resized correctly when there
   // were records in the list for the last execution.
   // BEGIN workaround
-  //SearchEngine.ItemList.Clear;
+  SearchEngine.ItemList.Clear;
   SearchEngine.ItemGroups.Clear;
-
   FTVP.Refresh;
-  //FVST.Header.AutoFitColumns(False);
-  // END workaround
   SearchEngine.Execute;
   FTVP.Refresh;
   FVST.Header.AutoFitColumns(False, smaAllColumns, 0);
-  if FTVP.ItemsSource.Count = 1 then
+  if SearchEngine.ItemList.Count = 1 then
     S := SMatchFound
   else
     S := SMatchesFound;
-  pnlStatus.Caption := Format(S, [FTVP.ItemsSource.Count]);
+  pnlStatus.Caption := Format(S, [SearchEngine.ItemList.Count]);
   Manager.ActiveView.SetHighlightSearch(SearchText, Options);
   FVST.SetFocus;
 end;

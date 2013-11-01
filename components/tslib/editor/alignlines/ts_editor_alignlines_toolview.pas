@@ -75,7 +75,6 @@ type
   TfrmAlignLines = class(TCustomEditorToolView, IEditorToolView)
     aclMain          : TActionList;
     actExecute       : TAction;
-    btnCancel        : TButton;
     btnOK            : TButton;
     gbxInsertSpace   : TCheckGroup;
     gbxOptions       : TCheckGroup;
@@ -94,9 +93,10 @@ type
     procedure FormResize(Sender: TObject);
 
     procedure FormShow(Sender: TObject);
+    procedure FTVPDoubleClick(Sender: TObject);
     procedure gbxInsertSpaceItemClick(Sender: TObject; Index: integer);
     procedure gbxOptionsItemClick(Sender: TObject; Index: integer);
-    procedure mmoTokensExit(Sender: TObject);
+    procedure mmoTokensChange(Sender: TObject);
     procedure pnlTokensResize(Sender: TObject);
     procedure rgpSortDirectionClick(Sender: TObject);
 
@@ -179,8 +179,10 @@ begin
   FTVP.ItemsSource := FTokens;
   FTVP.TreeView    := FVST;
   FTVP.ShowHeader  := False;
+  FTVP.OnDoubleClick := FTVPDoubleClick;
   mmoTokens.Font.Name := Manager.Settings.EditorFont.Name;
   mmoTokens.Lines.Assign(Settings.Tokens);
+  ActiveControl := FVST;
   Width := Settings.Width;
 end;
 
@@ -203,7 +205,17 @@ procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
   mmoTokens.Lines.Assign(Settings.Tokens);
   UpdateTokenList;
-  FVST.SetFocus;
+  if View.SelAvail and (FTokens.Count > 0) then
+  begin
+    FVST.SetFocus;
+    FTVP.SelectedItem := FTokens[0];
+    //FVST.Selected[FVST.GetFirst] := True;
+  end;
+end;
+
+procedure TfrmAlignLines.FTVPDoubleClick(Sender: TObject);
+begin
+  actExecute.Execute;
 end;
 
 procedure TfrmAlignLines.FormResize(Sender: TObject);
@@ -234,9 +246,10 @@ begin
   end;
 end;
 
-procedure TfrmAlignLines.mmoTokensExit(Sender: TObject);
+procedure TfrmAlignLines.mmoTokensChange(Sender: TObject);
 begin
   Settings.Tokens := mmoTokens.Lines;
+  UpdateView;
 end;
 
 procedure TfrmAlignLines.pnlTokensResize(Sender: TObject);
@@ -282,7 +295,7 @@ begin
   try
     for S in DEFAULT_TOKENS do
       SL.Add(S);
-    Settings.Tokens  := SL;
+    Settings.Tokens := SL;
   finally
     SL.Free;
   end;

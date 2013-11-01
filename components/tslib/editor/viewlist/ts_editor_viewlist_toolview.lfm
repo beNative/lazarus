@@ -9,15 +9,38 @@ inherited frmViewList: TfrmViewList
   ClientWidth = 800
   Position = poOwnerFormCenter
   object pnlVST: TPanel[0]
-    Left = 0
-    Height = 501
-    Top = 0
-    Width = 800
+    Left = 3
+    Height = 458
+    Top = 3
+    Width = 794
     Align = alClient
+    BorderSpacing.Around = 3
     BevelOuter = bvNone
     TabOrder = 0
   end
-  object aclMain: TActionList[1]
+  object pnlBottom: TPanel[1]
+    Left = 0
+    Height = 37
+    Top = 464
+    Width = 800
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 37
+    ClientWidth = 800
+    TabOrder = 1
+    object Button1: TButton
+      Left = 672
+      Height = 25
+      Top = 4
+      Width = 120
+      Anchors = [akTop, akLeft, akRight, akBottom]
+      Caption = 'Close'
+      Default = True
+      ModalResult = 11
+      TabOrder = 0
+    end
+  end
+  object aclMain: TActionList[2]
     left = 256
     top = 129
     object actClose: TAction
@@ -25,14 +48,14 @@ inherited frmViewList: TfrmViewList
       OnExecute = actCloseExecute
     end
   end
-  object ppmMain: TPopupMenu[2]
+  object ppmMain: TPopupMenu[3]
     left = 180
     top = 129
     object mniClose: TMenuItem
       Action = actClose
     end
   end
-  object ppmHL: TPopupMenu[3]
+  object ppmHL: TPopupMenu[4]
     left = 168
     top = 240
     object MenuItem2: TMenuItem

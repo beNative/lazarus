@@ -55,15 +55,17 @@ type
     actAssociate: TAction;
     actReloadSettings: TAction;
     actOpenSettingsFile: TAction;
+    btnApply: TButton;
     btnOpenSettingsFile: TButton;
     btnReloadSettings: TButton;
     btnAssociate: TButton;
+    btnClose: TButton;
+    btnOK: TButton;
     Label1: TLabel;
     lblAttributeAliases: TLabel;
     pnlHARightTop: TPanel;
     pnlHARightBottom: TPanel;
     pnlHLRightTop: TPanel;
-    pnlButtons                  : TButtonPanel;
     imlMain                     : TImageList;
     pcMain                      : TPageControl;
     pnlBottom                   : TPanel;
@@ -90,6 +92,7 @@ type
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
+    procedure btnApplyClick(Sender: TObject);
     procedure FHATVPSelectionChanged(Sender: TObject);
     procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
       var aShow: boolean);
@@ -324,6 +327,11 @@ end;
 procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
 begin
   Settings.Load;
+  Apply;
+end;
+
+procedure TfrmEditorSettings.btnApplyClick(Sender: TObject);
+begin
   Apply;
 end;
 

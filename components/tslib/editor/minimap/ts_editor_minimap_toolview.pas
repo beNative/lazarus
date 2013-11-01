@@ -48,7 +48,6 @@ implementation
 procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
   );
 begin
-
   //
 end;
 

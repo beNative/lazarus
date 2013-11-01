@@ -1,31 +1,31 @@
 object frmEditorSettings: TfrmEditorSettings
   Left = 695
-  Height = 579
+  Height = 588
   Top = 185
-  Width = 551
+  Width = 549
   BorderIcons = [biSystemMenu]
   Caption = 'Editor settings'
-  ClientHeight = 579
-  ClientWidth = 551
+  ClientHeight = 588
+  ClientWidth = 549
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '1.3'
   object pnlTop: TPanel
     Left = 0
-    Height = 536
+    Height = 553
     Top = 0
-    Width = 551
+    Width = 549
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 536
-    ClientWidth = 551
+    ClientHeight = 553
+    ClientWidth = 549
     TabOrder = 0
     object pcMain: TPageControl
       Left = 2
-      Height = 532
+      Height = 549
       Top = 2
-      Width = 547
+      Width = 545
       ActivePage = tsHighlighterAttributes
       Align = alClient
       BorderSpacing.Around = 2
@@ -48,22 +48,22 @@ object frmEditorSettings: TfrmEditorSettings
       end
       object tsHighlighterAttributes: TTabSheet
         Caption = 'Common highlighter attributes'
-        ClientHeight = 504
-        ClientWidth = 539
+        ClientHeight = 521
+        ClientWidth = 537
         object pnlHighlighterAttributes: TPanel
           Left = 3
-          Height = 498
+          Height = 515
           Top = 3
-          Width = 533
+          Width = 531
           Align = alClient
           BorderSpacing.Around = 3
           BevelOuter = bvNone
-          ClientHeight = 498
-          ClientWidth = 533
+          ClientHeight = 515
+          ClientWidth = 531
           TabOrder = 0
           object pnlHALeft: TPanel
             Left = 2
-            Height = 494
+            Height = 511
             Top = 2
             Width = 122
             Align = alLeft
@@ -73,30 +73,30 @@ object frmEditorSettings: TfrmEditorSettings
           end
           object pnlHARight: TPanel
             Left = 136
-            Height = 494
+            Height = 511
             Top = 2
-            Width = 395
+            Width = 393
             Align = alClient
             BorderSpacing.Around = 2
             BevelOuter = bvNone
-            ClientHeight = 494
-            ClientWidth = 395
+            ClientHeight = 511
+            ClientWidth = 393
             TabOrder = 1
             object pnlHARightTop: TPanel
               Left = 0
               Height = 92
               Top = 0
-              Width = 395
+              Width = 393
               Align = alTop
               BevelOuter = bvNone
               ClientHeight = 92
-              ClientWidth = 395
+              ClientWidth = 393
               TabOrder = 0
               object mmoAliasNames: TTIMemo
                 Left = 0
                 Height = 68
                 Top = 24
-                Width = 395
+                Width = 393
                 Align = alBottom
               end
               object lblAttributeAliases: TLabel
@@ -119,9 +119,9 @@ object frmEditorSettings: TfrmEditorSettings
             end
             object pnlHARightBottom: TPanel
               Left = 0
-              Height = 402
+              Height = 419
               Top = 92
-              Width = 395
+              Width = 393
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 1
@@ -129,7 +129,7 @@ object frmEditorSettings: TfrmEditorSettings
           end
           object splHAVertical: TSplitter
             Left = 126
-            Height = 498
+            Height = 515
             Top = 0
             Width = 8
           end
@@ -246,30 +246,43 @@ object frmEditorSettings: TfrmEditorSettings
   end
   object pnlBottom: TPanel
     Left = 0
-    Height = 43
-    Top = 536
-    Width = 551
+    Height = 35
+    Top = 553
+    Width = 549
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 43
-    ClientWidth = 551
+    ClientHeight = 35
+    ClientWidth = 549
     TabOrder = 1
-    object pnlButtons: TButtonPanel
-      Left = 6
-      Height = 34
+    object btnClose: TButton
+      Left = 423
+      Height = 25
       Top = 3
-      Width = 539
-      OKButton.Name = 'OKButton'
-      OKButton.DefaultCaption = True
-      OKButton.OnClick = OKButtonClick
-      HelpButton.Name = 'HelpButton'
-      HelpButton.DefaultCaption = True
-      CloseButton.Name = 'CloseButton'
-      CloseButton.DefaultCaption = True
-      CancelButton.Name = 'CancelButton'
-      CancelButton.DefaultCaption = True
+      Width = 120
+      Anchors = [akRight, akBottom]
+      Caption = '&Close'
+      ModalResult = 11
       TabOrder = 0
-      ShowButtons = [pbOK, pbClose]
+    end
+    object btnOK: TButton
+      Left = 297
+      Height = 25
+      Top = 3
+      Width = 120
+      Anchors = [akRight, akBottom]
+      Caption = '&OK'
+      ModalResult = 1
+      TabOrder = 1
+    end
+    object btnApply: TButton
+      Left = 170
+      Height = 25
+      Top = 3
+      Width = 120
+      Anchors = [akRight, akBottom]
+      Caption = '&Apply'
+      OnClick = btnApplyClick
+      TabOrder = 2
     end
   end
   object aclMain: TActionList

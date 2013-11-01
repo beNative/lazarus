@@ -1,7 +1,7 @@
 inherited frmAlignLines: TfrmAlignLines
-  Left = 2802
+  Left = 447
   Height = 729
-  Top = 247
+  Top = 126
   Width = 360
   Caption = 'Align selection'
   ChildSizing.TopBottomSpacing = 4
@@ -188,7 +188,7 @@ inherited frmAlignLines: TfrmAlignLines
           Align = alClient
           BorderSpacing.Around = 4
           Font.Name = 'Consolas'
-          OnExit = mmoTokensExit
+          OnChange = mmoTokensChange
           ParentFont = False
           ScrollBars = ssAutoBoth
           TabOrder = 0
@@ -231,26 +231,15 @@ inherited frmAlignLines: TfrmAlignLines
     ClientWidth = 360
     TabOrder = 1
     object btnOK: TButton
-      Left = 180
+      Left = 233
       Height = 25
-      Top = 0
-      Width = 80
+      Top = -1
+      Width = 120
       Action = actExecute
       Anchors = [akRight, akBottom]
       Default = True
       ModalResult = 1
       TabOrder = 0
-    end
-    object btnCancel: TButton
-      Left = 268
-      Height = 25
-      Top = 0
-      Width = 80
-      Anchors = [akRight, akBottom]
-      Cancel = True
-      Caption = 'Cancel'
-      ModalResult = 2
-      TabOrder = 1
     end
   end
   object aclMain: TActionList[2]

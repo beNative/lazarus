@@ -456,7 +456,7 @@ begin
   //begin
   //  FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
   //end;
-  //B := (SearchEngine.ItemList.Count > 0) and actReplaceWith.Checked;
+  B := (SearchEngine.ItemList.Count > 0) and actReplaceWith.Checked;
   btnReplace.Visible     := B;
   btnReplaceAll.Visible  := B;
   cbxReplaceWith.Enabled := B;

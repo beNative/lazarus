@@ -23,7 +23,7 @@ unit ts_Editor_ViewList_ToolView;
 interface
 
 uses
-  Classes, SysUtils, Forms, ActnList, Menus, Contnrs, ExtCtrls,
+  Classes, SysUtils, Forms, ActnList, Menus, Contnrs, ExtCtrls, StdCtrls,
 
   VirtualTrees,
 
@@ -32,11 +32,16 @@ uses
   ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
+
+  { TfrmViewList }
+
   TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
+    Button1: TButton;
     MenuItem2  : TMenuItem;
     mniClose   : TMenuItem;
+    pnlBottom: TPanel;
     pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
     ppmHL      : TPopupMenu;

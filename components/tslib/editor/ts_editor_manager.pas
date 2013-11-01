@@ -1257,7 +1257,7 @@ end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
 begin
-  ShowToolView('ViewList', (Sender as TAction).Checked, False, False);
+  ShowToolView('ViewList', (Sender as TAction).Checked, True, True);
 end;
 
 procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);

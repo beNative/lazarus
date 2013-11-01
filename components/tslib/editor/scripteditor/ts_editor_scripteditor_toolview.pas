@@ -33,10 +33,10 @@ type
   { TfrmScriptEditor }
 
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
-    pnlLeft: TPanel;
-    pnlRight: TPanel;
-    pnlBottom: TPanel;
-    pnlMain: TPanel;
+    pnlLeft   : TPanel;
+    pnlRight  : TPanel;
+    pnlBottom : TPanel;
+    pnlMain   : TPanel;
     procedure FormShow(Sender: TObject);
   private
     { private declarations }

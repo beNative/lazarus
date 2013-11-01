@@ -21,18 +21,24 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Notepas_Forms_Main"/>
+        <EditorIndex Value="66"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="444"/>
-        <CursorPos X="21" Y="481"/>
+        <TopLine Value="613"/>
+        <CursorPos X="28" Y="636"/>
         <UsageCount Value="260"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
         <Filename Value="Changes.txt"/>
         <IsPartOfProject Value="True"/>
+        <EditorIndex Value="44"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="33" Y="2"/>
+        <CursorPos X="43" Y="3"/>
         <UsageCount Value="209"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit2>
       <Unit3>
@@ -47,11 +53,10 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Interfaces"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="36"/>
+        <EditorIndex Value="48"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="73" Y="42"/>
+        <TopLine Value="253"/>
+        <CursorPos X="15" Y="267"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -60,6 +65,7 @@
         </ExtraEditor1>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -73,12 +79,13 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeFormatters"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="30"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="87"/>
+        <TopLine Value="1"/>
         <CursorPos X="17" Y="92"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -93,12 +100,14 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Utils"/>
-        <EditorIndex Value="24"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="35"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1490"/>
-        <CursorPos X="1" Y="1507"/>
+        <TopLine Value="1472"/>
+        <CursorPos X="66" Y="1495"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -112,23 +121,25 @@
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Utils"/>
-        <EditorIndex Value="30"/>
+        <EditorIndex Value="41"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2033"/>
         <CursorPos X="1" Y="2050"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.TreeViewPresenter"/>
-        <EditorIndex Value="23"/>
+        <EditorIndex Value="34"/>
         <WindowIndex Value="0"/>
         <TopLine Value="593"/>
         <CursorPos X="67" Y="617"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
@@ -150,12 +161,13 @@
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.ColumnDefinitions"/>
-        <EditorIndex Value="29"/>
+        <EditorIndex Value="40"/>
         <WindowIndex Value="0"/>
         <TopLine Value="335"/>
         <CursorPos X="1" Y="352"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.pas"/>
@@ -197,23 +209,25 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts_Editor_Resources"/>
-        <EditorIndex Value="27"/>
+        <EditorIndex Value="38"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="382"/>
-        <CursorPos X="55" Y="396"/>
+        <TopLine Value="1"/>
+        <CursorPos X="22" Y="21"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitionsdatatemplate.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.ColumnDefinitionsDataTemplate"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="33"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="3" Y="45"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
@@ -245,23 +259,25 @@
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Components.GridView"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="26"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9954"/>
         <CursorPos X="8" Y="9959"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Components.DBGridView"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="25"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2955"/>
         <CursorPos X="19" Y="2961"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
@@ -307,21 +323,26 @@
       <Unit31>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="78"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="126"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="21"/>
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="54" Y="230"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\components\tslib\core\ts.core.encodingutils.pas"/>
@@ -343,12 +364,13 @@
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.DataTemplates"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="18"/>
         <WindowIndex Value="0"/>
         <TopLine Value="302"/>
         <CursorPos X="54" Y="319"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
@@ -397,10 +419,14 @@
       <Unit41>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.resources.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking.Resources"/>
+        <EditorIndex Value="43"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="2" Y="17"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.storage.pas"/>
@@ -455,12 +481,13 @@
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.stringtable.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.NativeXml.StringTable"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="19"/>
         <WindowIndex Value="0"/>
         <TopLine Value="721"/>
         <CursorPos X="14" Y="727"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\components\tslib\core\ts.Core.NativeXml.inc"/>
@@ -509,12 +536,13 @@
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.NativeXml"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="32"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9112"/>
         <CursorPos X="10" Y="9118"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
@@ -544,10 +572,14 @@
       <Unit58>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="20"/>
-        <CursorPos X="71" Y="42"/>
+        <TopLine Value="28"/>
+        <CursorPos X="66" Y="18"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
@@ -561,12 +593,13 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CommentStripper"/>
-        <EditorIndex Value="28"/>
+        <EditorIndex Value="39"/>
         <WindowIndex Value="0"/>
         <TopLine Value="332"/>
         <CursorPos X="50" Y="336"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -627,10 +660,12 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SetupFiltersDialog"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
         <TopLine Value="73"/>
         <CursorPos X="86" Y="93"/>
         <UsageCount Value="202"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit67>
       <Unit68>
@@ -639,7 +674,7 @@
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="31" Y="3"/>
+        <CursorPos X="39" Y="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -651,21 +686,25 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_ToolView_Base"/>
+        <EditorIndex Value="31"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="61"/>
+        <TopLine Value="1"/>
         <CursorPos X="41" Y="107"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Settings"/>
-        <EditorIndex Value="37"/>
+        <EditorIndex Value="49"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
-        <CursorPos X="32" Y="39"/>
+        <CursorPos X="52" Y="36"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -676,10 +715,11 @@
         <UnitName Value="ts_Editor_Manager"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1624"/>
-        <CursorPos X="28" Y="1643"/>
+        <TopLine Value="2821"/>
+        <CursorPos X="42" Y="2844"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit71>
       <Unit72>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_old.pas"/>
@@ -688,10 +728,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog_Old"/>
+        <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="330"/>
+        <TopLine Value="146"/>
         <CursorPos X="71" Y="200"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit72>
       <Unit73>
         <Filename Value="..\..\components\tslib\editor\ts_editor_aboutdialog.pas"/>
@@ -700,10 +743,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_AboutDialog"/>
+        <EditorIndex Value="67"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="179"/>
-        <CursorPos X="5" Y="113"/>
+        <TopLine Value="178"/>
+        <CursorPos X="29" Y="188"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit73>
       <Unit74>
@@ -713,10 +759,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog"/>
+        <EditorIndex Value="14"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="69" Y="85"/>
         <UsageCount Value="201"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit74>
       <Unit75>
         <Filename Value="..\..\components\tslib\core\ts_core_componentinspector.pas"/>
@@ -735,21 +784,25 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_View"/>
+        <EditorIndex Value="52"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2022"/>
+        <TopLine Value="1"/>
         <CursorPos X="1" Y="2040"/>
         <UsageCount Value="200"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit76>
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.ToolView.Manager"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="1" Y="146"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
@@ -764,12 +817,13 @@
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Generics.Collections"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="24"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3538"/>
         <CursorPos X="23" Y="3545"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.defaults.pas"/>
@@ -805,24 +859,26 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog_FileAssociations"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="29"/>
         <WindowIndex Value="0"/>
         <TopLine Value="205"/>
         <CursorPos X="4" Y="212"/>
-        <UsageCount Value="193"/>
+        <UsageCount Value="199"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_SettingsDialog_Highlighters"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="28"/>
         <WindowIndex Value="0"/>
         <TopLine Value="302"/>
         <CursorPos X="16" Y="312"/>
-        <UsageCount Value="193"/>
+        <UsageCount Value="199"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit84>
       <Unit85>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_filetypes.pas"/>
@@ -834,14 +890,20 @@
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="73" Y="73"/>
-        <UsageCount Value="193"/>
+        <UsageCount Value="199"/>
       </Unit85>
       <Unit86>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_keymappings.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-        <UnitName Value="ts_editor_settingsdialog_keymappings"/>
-        <UsageCount Value="193"/>
+        <UnitName Value="ts_Editor_SettingsDialog_KeyMappings"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="64"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="199"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit86>
       <Unit87>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_extensions.pas"/>
@@ -853,7 +915,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="11" Y="115"/>
-        <UsageCount Value="193"/>
+        <UsageCount Value="199"/>
       </Unit87>
       <Unit88>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.pas"/>
@@ -865,7 +927,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="51" Y="59"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="193"/>
       </Unit88>
       <Unit89>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_base.pas"/>
@@ -877,7 +939,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="3" Y="93"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="193"/>
       </Unit89>
       <Unit90>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_editorsettings.pas"/>
@@ -886,10 +948,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog_EditorSettings"/>
+        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="37" Y="57"/>
-        <UsageCount Value="182"/>
+        <UsageCount Value="188"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit90>
       <Unit91>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\ipcchannel.pas"/>
@@ -907,7 +972,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
       </Unit92>
       <Unit93>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\logtreeview.pas"/>
@@ -916,94 +981,99 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\filechannel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="filechannel"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\fpccompat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="fpccompat"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit95>
       <Unit96>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\logimages.lrs"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit96>
       <Unit97>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\multilog.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MultiLog"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="20"/>
         <WindowIndex Value="0"/>
         <TopLine Value="439"/>
         <CursorPos X="4" Y="445"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\multilog\multiloglcl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="multiloglcl"/>
-        <UsageCount Value="124"/>
+        <UsageCount Value="130"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit98>
       <Unit99>
         <Filename Value="..\..\components\tslib\core\ts.collections.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Collections"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="22"/>
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="14" Y="96"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit99>
       <Unit100>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Search.Data"/>
-        <EditorIndex Value="33"/>
+        <EditorIndex Value="45"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="40" Y="138"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit100>
       <Unit101>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Search.Engine"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="292"/>
         <CursorPos X="53" Y="308"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="43"/>
       </Unit102>
       <Unit103>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Search.Templates"/>
-        <EditorIndex Value="32"/>
+        <EditorIndex Value="42"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="143"/>
-        <CursorPos X="1" Y="161"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="1"/>
+        <CursorPos X="70" Y="13"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit103>
       <Unit104>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1012,24 +1082,26 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Search_Toolview"/>
-        <EditorIndex Value="25"/>
+        <EditorIndex Value="36"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="162"/>
-        <CursorPos X="3" Y="173"/>
-        <UsageCount Value="37"/>
+        <TopLine Value="358"/>
+        <CursorPos X="29" Y="378"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit104>
       <Unit105>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.ActionList.Templates"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="27"/>
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="1" Y="122"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit105>
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
@@ -1040,54 +1112,59 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit106>
       <Unit107>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.AlignLines.Settings"/>
-        <EditorIndex Value="48"/>
+        <EditorIndex Value="61"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="70" Y="9"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit107>
       <Unit108>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-        <UnitName Value="ts_editor_alignlines_toolview"/>
-        <EditorIndex Value="52"/>
+        <UnitName Value="ts_Editor_AlignLines_ToolView"/>
+        <EditorIndex Value="65"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="18"/>
-        <CursorPos X="54" Y="36"/>
-        <UsageCount Value="36"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit108>
       <Unit109>
         <Filename Value="..\..\components\tslib\editor\charactermap\ts_editor_charactermap_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_CharacterMap_Toolview"/>
-        <EditorIndex Value="53"/>
+        <EditorIndex Value="68"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="19"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit109>
       <Unit110>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeFilter.Settings"/>
-        <EditorIndex Value="42"/>
+        <EditorIndex Value="55"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="19"/>
-        <UsageCount Value="36"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit110>
       <Unit111>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_codefilter_toolview.pas"/>
@@ -1096,47 +1173,51 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_CodeFilter_Toolview"/>
-        <EditorIndex Value="50"/>
+        <EditorIndex Value="63"/>
         <WindowIndex Value="0"/>
         <TopLine Value="773"/>
-        <CursorPos X="75" Y="773"/>
-        <UsageCount Value="36"/>
+        <CursorPos X="57" Y="789"/>
+        <UsageCount Value="42"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeShaper.Settings"/>
-        <EditorIndex Value="49"/>
+        <EditorIndex Value="62"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit112>
       <Unit113>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_CodeShaper_ToolView"/>
-        <EditorIndex Value="47"/>
+        <EditorIndex Value="60"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="24"/>
-        <CursorPos X="54" Y="42"/>
-        <UsageCount Value="35"/>
+        <TopLine Value="45"/>
+        <CursorPos X="38" Y="43"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit113>
       <Unit114>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts.editor.htmlview.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.HTMLView.Settings"/>
-        <EditorIndex Value="46"/>
+        <EditorIndex Value="59"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="34" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit114>
       <Unit115>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
@@ -1145,117 +1226,128 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_HTMLView_ToolView"/>
-        <EditorIndex Value="44"/>
+        <EditorIndex Value="57"/>
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="27" Y="70"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit115>
       <Unit116>
         <Filename Value="..\..\components\tslib\editor\preview\ts_editor_preview_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_Preview_ToolView"/>
-        <EditorIndex Value="41"/>
+        <EditorIndex Value="54"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="33" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit116>
       <Unit117>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.HexEditor.Settings"/>
-        <EditorIndex Value="43"/>
+        <EditorIndex Value="56"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_HexEditor_ToolView"/>
-        <EditorIndex Value="45"/>
+        <EditorIndex Value="58"/>
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="53" Y="30"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit118>
       <Unit119>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.MiniMap.Settings"/>
-        <EditorIndex Value="40"/>
+        <EditorIndex Value="53"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\..\components\tslib\editor\minimap\ts_editor_minimap_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_MiniMap_ToolView"/>
-        <EditorIndex Value="38"/>
+        <EditorIndex Value="50"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="29" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit120>
       <Unit121>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts_editor_viewlist_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_ViewList_ToolView"/>
-        <EditorIndex Value="39"/>
+        <EditorIndex Value="51"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
+        <TopLine Value="1"/>
         <CursorPos X="83" Y="64"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit121>
       <Unit122>
         <Filename Value="..\..\components\tslib\editor\test\ts_editor_test_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_Test_ToolView"/>
-        <EditorIndex Value="35"/>
+        <EditorIndex Value="47"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
+        <TopLine Value="1"/>
         <CursorPos X="30" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\components\tslib\editor\structure\ts_editor_structure_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_Structure_ToolView"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit123>
       <Unit124>
         <Filename Value="..\..\components\tslib\editor\shortcuts\ts_editor_shortcuts_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_Shortcuts_ToolView"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="19"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit124>
       <Unit125>
@@ -1263,12 +1355,13 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts_Editor_ScriptEditor_ToolView"/>
-        <EditorIndex Value="34"/>
+        <EditorIndex Value="46"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="34" Y="20"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\selectioninfo\ts_editor_selectioninfo_toolview.pas"/>
@@ -1277,13 +1370,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SelectionInfo_ToolView"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
         <TopLine Value="70"/>
         <CursorPos X="34" Y="90"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\filter\ts_editor_filter_toolview.pas"/>
@@ -1292,50 +1386,62 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Filter_ToolView"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="337"/>
         <CursorPos X="50" Y="349"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="40"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.lfm"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="29"/>
+        <EditorIndex Value="16"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit128>
       <Unit129>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.lrt"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="29"/>
+        <EditorIndex Value="15"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit129>
       <Unit130>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeFilter.Data"/>
-        <EditorIndex Value="51"/>
+        <EditorIndex Value="64"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="77" Y="50"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit130>
       <Unit131>
         <Filename Value="..\..\components\tslib\editor\ts.editor.search.engine.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="58" Y="32"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit131>
       <Unit132>
         <Filename Value="notepas.dws"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="14" Y="1"/>
-        <UsageCount Value="201"/>
+        <UsageCount Value="200"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit132>
       <Unit133>
@@ -1347,7 +1453,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="171"/>
         <CursorPos X="1" Y="682"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_alignlines.pas"/>
@@ -1358,7 +1464,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
         <CursorPos X="15" Y="171"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit134>
       <Unit135>
@@ -1370,7 +1476,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="89"/>
         <CursorPos X="24" Y="108"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_codefilter.pas"/>
@@ -1381,7 +1487,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="823"/>
         <CursorPos X="1" Y="842"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit136>
       <Unit137>
@@ -1393,7 +1499,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="65" Y="55"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit137>
       <Unit138>
@@ -1405,7 +1511,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="55" Y="30"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit138>
       <Unit139>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_htmlview.pas"/>
@@ -1416,7 +1522,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="11" Y="30"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit139>
       <Unit140>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_minimap.pas"/>
@@ -1425,7 +1531,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="78" Y="49"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit140>
       <Unit141>
@@ -1435,7 +1541,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="75"/>
         <CursorPos X="14" Y="85"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit141>
       <Unit142>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_scripteditor.pas"/>
@@ -1444,7 +1550,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="15" Y="3"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
       </Unit142>
       <Unit143>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_selectioninfo.pas"/>
@@ -1453,7 +1559,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="13" Y="91"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit143>
       <Unit144>
@@ -1463,7 +1569,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="21"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
       </Unit144>
       <Unit145>
         <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_structure.pas"/>
@@ -1474,7 +1580,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="15" Y="21"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit145>
       <Unit146>
@@ -1486,7 +1592,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="15" Y="21"/>
-        <UsageCount Value="199"/>
+        <UsageCount Value="198"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit146>
       <Unit147>
@@ -1496,7 +1602,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="21" Y="149"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit147>
       <Unit148>
@@ -1504,7 +1610,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="120"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit148>
       <Unit149>
@@ -1512,14 +1618,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="30" Y="82"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
       </Unit149>
       <Unit150>
         <Filename Value="..\..\components\tslib\editor\ts.editor.search.engine.settings.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="19"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="197"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit150>
       <Unit151>
@@ -1527,28 +1633,28 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="2" Y="84"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="147"/>
       </Unit151>
       <Unit152>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.htmlview.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="5" Y="31"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="147"/>
       </Unit152>
       <Unit153>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.hexeditor.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="35" Y="19"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="147"/>
       </Unit153>
       <Unit154>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.codefilter.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="34" Y="25"/>
-        <UsageCount Value="148"/>
+        <UsageCount Value="147"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit154>
       <Unit155>
@@ -1560,14 +1666,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="84"/>
         <CursorPos X="35" Y="99"/>
-        <UsageCount Value="115"/>
+        <UsageCount Value="114"/>
       </Unit155>
       <Unit156>
         <Filename Value="..\..\components\tslib\editor\ts.editor.actionlist.templates.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="162"/>
-        <UsageCount Value="82"/>
+        <UsageCount Value="81"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit156>
       <Unit157>
@@ -1575,24 +1681,25 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="56" Y="21"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="39"/>
       </Unit157>
       <Unit158>
         <Filename Value="..\..\components\tslib\editor\ts.editor.search.templates.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="52" Y="8"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="39"/>
       </Unit158>
       <Unit159>
         <Filename Value="..\..\components\tslib\core\ts.core.events.pas"/>
         <UnitName Value="ts.Core.Events"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="23"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="32" Y="10"/>
         <UsageCount Value="132"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit159>
       <Unit160>
         <Filename Value="unit1.pas"/>
@@ -1603,7 +1710,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="43" Y="15"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit160>
       <Unit161>
         <Filename Value="unit2.pas"/>
@@ -1614,11 +1721,11 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="63" Y="24"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="16"/>
       </Unit161>
       <Unit162>
         <Filename Value="..\..\components\tslib\editor\ts.editor.resources.lfm"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="25"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit162>
       <Unit163>
@@ -1626,7 +1733,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="41" Y="63"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit163>
       <Unit164>
@@ -1637,7 +1744,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit164>
       <Unit165>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.alignlines.pas"/>
@@ -1647,7 +1754,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="258"/>
         <CursorPos X="3" Y="291"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit165>
       <Unit166>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.actionlist.pas"/>
@@ -1657,7 +1764,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit166>
       <Unit167>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.codefilter.pas"/>
@@ -1667,14 +1774,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="171"/>
         <CursorPos X="1" Y="195"/>
-        <UsageCount Value="181"/>
+        <UsageCount Value="180"/>
       </Unit167>
       <Unit168>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settings.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit168>
       <Unit169>
         <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
@@ -1684,7 +1791,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="848"/>
         <CursorPos X="3" Y="874"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="63"/>
       </Unit169>
       <Unit170>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.search.pas"/>
@@ -1694,7 +1801,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="7" Y="32"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit170>
       <Unit171>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.viewlist.pas"/>
@@ -1704,7 +1811,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit171>
       <Unit172>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.test.pas"/>
@@ -1714,7 +1821,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit172>
       <Unit173>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
@@ -1724,14 +1831,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="557"/>
         <CursorPos X="67" Y="2399"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="65"/>
       </Unit173>
       <Unit174>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settings.alignlines.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="66" Y="50"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="165"/>
       </Unit174>
       <Unit175>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.codeshaper.pas"/>
@@ -1741,7 +1848,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="48" Y="42"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit175>
       <Unit176>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.structure.pas"/>
@@ -1751,14 +1858,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="17"/>
         <CursorPos X="48" Y="31"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit176>
       <Unit177>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settings.searchengine.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="180"/>
+        <UsageCount Value="179"/>
       </Unit177>
       <Unit178>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.selectioninfo.pas"/>
@@ -1768,7 +1875,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="13" Y="91"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit178>
       <Unit179>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.charactermap.pas"/>
@@ -1778,7 +1885,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="179"/>
+        <UsageCount Value="178"/>
       </Unit179>
       <Unit180>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.preview.pas"/>
@@ -1788,7 +1895,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="69" Y="34"/>
-        <UsageCount Value="128"/>
+        <UsageCount Value="127"/>
       </Unit180>
       <Unit181>
         <Filename Value="..\..\components\tslib\core\ts.core.componentinspector.pas"/>
@@ -1796,7 +1903,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="210"/>
         <CursorPos X="80" Y="227"/>
-        <UsageCount Value="129"/>
+        <UsageCount Value="128"/>
       </Unit181>
       <Unit182>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.base.pas"/>
@@ -1806,7 +1913,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="74" Y="64"/>
-        <UsageCount Value="158"/>
+        <UsageCount Value="157"/>
       </Unit182>
       <Unit183>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.htmlview.pas"/>
@@ -1816,7 +1923,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="84" Y="44"/>
-        <UsageCount Value="143"/>
+        <UsageCount Value="142"/>
       </Unit183>
       <Unit184>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.minimap.pas"/>
@@ -1826,7 +1933,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="26" Y="30"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit184>
       <Unit185>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.hexeditor.pas"/>
@@ -1836,7 +1943,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit185>
       <Unit186>
         <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.pas"/>
@@ -1846,14 +1953,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="160"/>
         <CursorPos X="57" Y="172"/>
-        <UsageCount Value="70"/>
+        <UsageCount Value="69"/>
       </Unit186>
       <Unit187>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settings.codeshaper.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit187>
       <Unit188>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.shortcuts.pas"/>
@@ -1863,7 +1970,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="21"/>
-        <UsageCount Value="126"/>
+        <UsageCount Value="125"/>
       </Unit188>
       <Unit189>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.fileassociations.pas"/>
@@ -1873,7 +1980,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="87"/>
         <CursorPos X="45" Y="105"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="93"/>
       </Unit189>
       <Unit190>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.filetypes.pas"/>
@@ -1883,7 +1990,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="157"/>
         <CursorPos X="84" Y="181"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="93"/>
       </Unit190>
       <Unit191>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.pas"/>
@@ -1893,7 +2000,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="58" Y="45"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="92"/>
       </Unit191>
       <Unit192>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.keymappings.pas"/>
@@ -1903,7 +2010,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="1" Y="55"/>
-        <UsageCount Value="91"/>
+        <UsageCount Value="90"/>
       </Unit192>
       <Unit193>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.highlighters.pas"/>
@@ -1913,7 +2020,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="210"/>
         <CursorPos X="59" Y="204"/>
-        <UsageCount Value="90"/>
+        <UsageCount Value="89"/>
       </Unit193>
       <Unit194>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.scripteditor.pas"/>
@@ -1923,7 +2030,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="26" Y="10"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="70"/>
       </Unit194>
       <Unit195>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.colors.pas"/>
@@ -1933,14 +2040,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="58" Y="28"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="41"/>
       </Unit195>
       <Unit196>
         <Filename Value="..\..\components\tslib\editor\ts.editor.manager.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit196>
       <Unit197>
@@ -1948,7 +2055,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="91"/>
         <CursorPos X="89" Y="93"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit197>
       <Unit198>
@@ -1956,7 +2063,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="71" Y="19"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit198>
       <Unit199>
@@ -1964,7 +2071,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="57" Y="18"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit199>
       <Unit200>
@@ -1972,7 +2079,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="91" Y="7"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit200>
       <Unit201>
@@ -1983,42 +2090,42 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit201>
       <Unit202>
         <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit202>
       <Unit203>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.fileassociations.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit203>
       <Unit204>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.filetypes.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit204>
       <Unit205>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.highlighters.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit205>
       <Unit206>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.keymappings.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit206>
       <Unit207>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit207>
       <Unit208>
         <Filename Value="..\..\components\tslib\editor\ts.editor.settingsdialog.old.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit208>
       <Unit209>
@@ -2026,72 +2133,72 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit209>
       <Unit210>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.base.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit210>
       <Unit211>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.charactermap.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit211>
       <Unit212>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.codefilter.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit212>
       <Unit213>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.hexeditor.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit213>
       <Unit214>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.minimap.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit214>
       <Unit215>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.preview.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit215>
       <Unit216>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.scripteditor.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit216>
       <Unit217>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.search.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit217>
       <Unit218>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.selectioninfo.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit218>
       <Unit219>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.shortcuts.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit219>
       <Unit220>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.structure.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit220>
       <Unit221>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.test.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit221>
       <Unit222>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.viewlist.lfm"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit222>
       <Unit223>
@@ -2099,7 +2206,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="109"/>
+        <UsageCount Value="108"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit223>
       <Unit224>
@@ -2107,7 +2214,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="24" Y="17"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit224>
       <Unit225>
@@ -2115,7 +2222,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="334"/>
         <CursorPos X="1" Y="355"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit225>
       <Unit226>
@@ -2127,14 +2234,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="343"/>
         <CursorPos X="5" Y="377"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit226>
       <Unit227>
         <Filename Value="..\..\components\tslib\editor\FindInFilesDialog.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="135"/>
         <CursorPos X="1" Y="161"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit227>
       <Unit228>
@@ -2142,7 +2249,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="226"/>
         <CursorPos X="1" Y="234"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit228>
       <Unit229>
         <Filename Value="..\..\components\virtualtreeview\VirtualTrees.pas"/>
@@ -2150,7 +2257,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1373"/>
         <CursorPos X="14" Y="1392"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="20"/>
       </Unit229>
       <Unit230>
         <Filename Value="..\..\components\synedit\synedit.pp"/>
@@ -2158,7 +2265,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="178"/>
         <CursorPos X="3" Y="175"/>
-        <UsageCount Value="81"/>
+        <UsageCount Value="80"/>
       </Unit230>
       <Unit231>
         <Filename Value="..\..\components\tslib\tslib.pas"/>
@@ -2166,7 +2273,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="67" Y="40"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit231>
       <Unit232>
         <Filename Value="..\..\ide\sourceeditor.pp"/>
@@ -2177,7 +2284,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4432"/>
         <CursorPos X="30" Y="4477"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="23"/>
       </Unit232>
       <Unit233>
         <Filename Value="..\..\components\synedit\synedittypes.pp"/>
@@ -2185,7 +2292,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="87"/>
         <CursorPos X="5" Y="105"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit233>
       <Unit234>
         <Filename Value="..\..\components\synedit\syneditkeycmds.pp"/>
@@ -2193,7 +2300,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="20" Y="38"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit234>
       <Unit235>
         <Filename Value="..\..\lcl\lclproc.pas"/>
@@ -2201,21 +2308,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="1" Y="20"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit235>
       <Unit236>
         <Filename Value="..\..\lcl\include\menu.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="129"/>
         <CursorPos X="1" Y="157"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit236>
       <Unit237>
         <Filename Value="..\..\lcl\include\popupmenu.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="21" Y="39"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit237>
       <Unit238>
         <Filename Value="..\..\lcl\menus.pp"/>
@@ -2223,14 +2330,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="215"/>
         <CursorPos X="44" Y="227"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit238>
       <Unit239>
         <Filename Value="..\..\lcl\include\menuitem.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="405"/>
         <CursorPos X="3" Y="414"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit239>
       <Unit240>
         <Filename Value="..\..\components\tsBundle\NativeXml\nativexml\NativeXml.pas"/>
@@ -2238,7 +2345,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="30" Y="110"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit240>
       <Unit241>
         <Filename Value="..\..\components\lazRichEdit\widgetset\wsrichbox.pas"/>
@@ -2246,7 +2353,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="26" Y="96"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit241>
       <Unit242>
         <Filename Value="..\..\components\lazRichEdit\widgetset\wsrichboxfactory.pas"/>
@@ -2254,7 +2361,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="10" Y="36"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit242>
       <Unit243>
         <Filename Value="..\..\lcl\graphics.pp"/>
@@ -2262,7 +2369,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="223"/>
         <CursorPos X="3" Y="243"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit243>
       <Unit244>
         <Filename Value="..\..\lcl\graphutil.pp"/>
@@ -2270,7 +2377,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="384"/>
         <CursorPos X="3" Y="384"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit244>
       <Unit245>
         <Filename Value="..\..\lcl\lclunicodedata.pas"/>
@@ -2278,7 +2385,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="187"/>
         <CursorPos X="27" Y="231"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit245>
       <Unit246>
         <Filename Value="..\..\components\tslib\core\ts_core_anyvalue.pas"/>
@@ -2286,21 +2393,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="59"/>
         <CursorPos X="25" Y="77"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit246>
       <Unit247>
         <Filename Value="..\..\..\fpcsrc\rtl\inc\objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="157"/>
         <CursorPos X="8" Y="183"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit247>
       <Unit248>
         <Filename Value="..\..\..\fpcsrc\rtl\inc\objpas.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit248>
       <Unit249>
         <Filename Value="..\..\components\synedit\syneditmiscclasses.pp"/>
@@ -2308,7 +2415,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="982"/>
         <CursorPos X="48" Y="1009"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit249>
       <Unit250>
         <Filename Value="..\..\components\synedit\syneditsearch.pp"/>
@@ -2316,7 +2423,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="701"/>
         <CursorPos X="116" Y="714"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit250>
       <Unit251>
         <Filename Value="..\..\components\synedit\syneditpointclasses.pas"/>
@@ -2324,7 +2431,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2044"/>
         <CursorPos X="3" Y="1857"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit251>
       <Unit252>
         <Filename Value="..\..\lcl\lcltype.pp"/>
@@ -2332,7 +2439,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="3" Y="67"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit252>
       <Unit253>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\strutils.pp"/>
@@ -2340,7 +2447,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit253>
       <Unit254>
         <Filename Value="..\..\components\tslib\editor\ts_editor_searchform.pas"/>
@@ -2351,7 +2458,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="41"/>
         <CursorPos X="71" Y="113"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit254>
       <Unit255>
         <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\VirtualTrees.pas"/>
@@ -2359,7 +2466,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1225"/>
         <CursorPos X="14" Y="1246"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="28"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit255>
       <Unit256>
@@ -2367,7 +2474,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="201"/>
         <CursorPos X="3" Y="223"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit256>
       <Unit257>
         <Filename Value="..\..\components\tslib\fpmake.pp"/>
@@ -2375,7 +2482,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="11"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit257>
       <Unit258>
         <Filename Value="..\..\..\typhon\lcl\defaulttranslator.pas"/>
@@ -2383,7 +2490,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="417"/>
         <CursorPos X="3" Y="426"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit258>
       <Unit259>
         <Filename Value="..\..\..\typhon\components\lazutils\lazutf8.pas"/>
@@ -2391,7 +2498,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="61" Y="151"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit259>
       <Unit260>
         <Filename Value="..\..\..\typhon\components\rtticontrols\rttigrids.pas"/>
@@ -2399,7 +2506,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="14" Y="61"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit260>
       <Unit261>
         <Filename Value="..\..\..\typhon\components\synedit\synedit.pp"/>
@@ -2407,7 +2514,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1838"/>
         <CursorPos X="59" Y="1882"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit261>
       <Unit262>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmiscclasses.pp"/>
@@ -2415,7 +2522,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="700"/>
         <CursorPos X="38" Y="754"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit262>
       <Unit263>
@@ -2424,7 +2531,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="275"/>
         <CursorPos X="14" Y="235"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit263>
       <Unit264>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\luicontrols\virtualpages.pas"/>
@@ -2432,14 +2539,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="232"/>
         <CursorPos X="28" Y="258"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit264>
       <Unit265>
         <Filename Value="..\..\..\typhon\components\pl_DWScript\source\dwsSymbols.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1621"/>
         <CursorPos X="4" Y="1637"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit265>
       <Unit266>
@@ -2447,7 +2554,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="575"/>
         <CursorPos X="15" Y="597"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit266>
       <Unit267>
@@ -2456,14 +2563,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="116"/>
         <CursorPos X="36" Y="163"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit267>
       <Unit268>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\sysutils\sysstrh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="10" Y="110"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit268>
       <Unit269>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmarkupspecialline.pp"/>
@@ -2471,7 +2578,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="22"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit269>
       <Unit270>
         <Filename Value="..\..\..\typhon\components\synedit\synedittypes.pp"/>
@@ -2479,21 +2586,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="29" Y="93"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit270>
       <Unit271>
         <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\include\olemethods.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="9" Y="19"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit271>
       <Unit272>
         <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\include\vtvdragmanager.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="19"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit272>
       <Unit273>
         <Filename Value="..\..\..\typhon\lcl\forms.pp"/>
@@ -2501,14 +2608,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="519"/>
         <CursorPos X="52" Y="541"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit273>
       <Unit274>
         <Filename Value="..\..\..\typhon\lcl\include\customform.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="470"/>
         <CursorPos X="3" Y="475"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit274>
       <Unit275>
         <Filename Value="..\..\..\typhon\lcl\controls.pp"/>
@@ -2516,7 +2623,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2094"/>
         <CursorPos X="40" Y="2114"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit275>
       <Unit276>
         <Filename Value="..\..\components\richmemo\richmemo.pas"/>
@@ -2524,7 +2631,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="212"/>
         <CursorPos X="41" Y="222"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit276>
       <Unit277>
         <Filename Value="..\..\components\thtmlviewer\source\HtmlGlobals.pas"/>
@@ -2532,7 +2639,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
         <CursorPos X="2" Y="110"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit277>
       <Unit278>
@@ -2541,7 +2648,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="323"/>
         <CursorPos X="10" Y="345"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit278>
       <Unit279>
@@ -2550,7 +2657,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1021"/>
         <CursorPos X="3" Y="1043"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit279>
       <Unit280>
@@ -2559,7 +2666,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="14" Y="36"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit280>
       <Unit281>
@@ -2568,7 +2675,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="209"/>
         <CursorPos X="3" Y="231"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit281>
       <Unit282>
@@ -2577,7 +2684,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="63" Y="132"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit282>
       <Unit283>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-extra\src\win\ServiceManager.pas"/>
@@ -2585,7 +2692,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit283>
       <Unit284>
         <Filename Value="..\..\..\fpcsrc\packages\fpgtk\src\fpglib.pp"/>
@@ -2593,7 +2700,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit284>
       <Unit285>
         <Filename Value="..\..\..\fpcsrc\compiler\jvm\njvmadd.pas"/>
@@ -2601,7 +2708,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="36" Y="280"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit285>
       <Unit286>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-db\src\sql\fpsqlparser.pas"/>
@@ -2609,7 +2716,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="293"/>
         <CursorPos X="3" Y="296"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit286>
       <Unit287>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-sdo\src\base\sdo.pas"/>
@@ -2617,14 +2724,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="590"/>
         <CursorPos X="34" Y="608"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit287>
       <Unit288>
         <Filename Value="..\..\..\fpcsrc\packages\ptc\src\x11\x11consoled.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="44" Y="44"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit288>
       <Unit289>
         <Filename Value="..\..\..\fpcsrc\packages\winunits-base\src\comobj.pp"/>
@@ -2632,7 +2739,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1455"/>
         <CursorPos X="39" Y="1473"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit289>
       <Unit290>
         <Filename Value="..\..\..\fpcsrc\packages\winunits-base\tests\OOHelper.pp"/>
@@ -2640,7 +2747,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="136"/>
         <CursorPos X="59" Y="153"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit290>
       <Unit291>
         <Filename Value="..\..\..\fpcsrc\tests\webtbs\tw24953.pp"/>
@@ -2648,7 +2755,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="65" Y="24"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit291>
       <Unit292>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-base\src\contnrs.pp"/>
@@ -2656,7 +2763,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit292>
       <Unit293>
         <Filename Value="..\..\components\tslib\components\ts_core_componentinspector.pas"/>
@@ -2664,7 +2771,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="373"/>
         <CursorPos X="40" Y="401"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit293>
       <Unit294>
         <Filename Value="..\..\..\typhon\lcl\translations.pas"/>
@@ -2672,7 +2779,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit294>
       <Unit295>
         <Filename Value="..\..\..\typhon\components\synedit\synhighlighterpas.pp"/>
@@ -2680,7 +2787,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4097"/>
         <CursorPos X="3" Y="4100"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit295>
       <Unit296>
         <Filename Value="..\..\..\typhon\lcl\actnlist.pas"/>
@@ -2688,14 +2795,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="3" Y="77"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit296>
       <Unit297>
         <Filename Value="..\..\..\Android\sdk\add-ons\addon-google_apis-google-18\images\armeabi-v7a\build.prop"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit297>
       <Unit298>
@@ -2704,7 +2811,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="40"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit298>
       <Unit299>
         <Filename Value="..\..\..\typhon\components\synedit\synhighlighterperl.pas"/>
@@ -2712,7 +2819,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="50"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit299>
       <Unit300>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\fgl.pp"/>
@@ -2720,7 +2827,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="104"/>
         <CursorPos X="11" Y="110"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit300>
       <Unit301>
         <Filename Value="..\..\..\typhon\components\synedit\synregexpr.pas"/>
@@ -2728,7 +2835,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="140"/>
         <CursorPos X="2" Y="166"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit301>
       <Unit302>
         <Filename Value="..\..\components\tslib\foxit units\ADUtils.pas"/>
@@ -2736,7 +2843,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="306"/>
         <CursorPos X="61" Y="333"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="4"/>
       </Unit302>
       <Unit303>
         <Filename Value="..\..\..\typhon\components\lazutils\lazutf8sysutils.pas"/>
@@ -2744,7 +2851,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
       </Unit303>
       <Unit304>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\luicomponents\luirttiutils.pas"/>
@@ -2752,7 +2859,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="106"/>
         <CursorPos X="36" Y="139"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit304>
       <Unit305>
         <Filename Value="..\..\..\typhon\components\pl_ColorLib\source\mbOfficeColorDialog.pas"/>
@@ -2760,14 +2867,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="35"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit305>
       <Unit306>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit306>
       <Unit307>
@@ -2776,7 +2883,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="3" Y="159"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit307>
       <Unit308>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\typinfo.pp"/>
@@ -2784,7 +2891,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="315"/>
         <CursorPos X="10" Y="337"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit308>
       <Unit309>
@@ -2792,14 +2899,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4754"/>
         <CursorPos X="6" Y="4777"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit309>
       <Unit310>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\sysutils\sysunih.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="10" Y="57"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit310>
       <Unit311>
         <Filename Value="..\..\..\typhon\components\pl_KControls\source\khexeditor.pas"/>
@@ -2807,7 +2914,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="2"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit311>
       <Unit312>
         <Filename Value="..\..\..\typhon\ide\editoroptions.pp"/>
@@ -2815,7 +2922,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="375"/>
         <CursorPos X="42" Y="394"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit312>
       <Unit313>
         <Filename Value="..\..\..\typhon\components\ideintf\objectinspector.pp"/>
@@ -2823,7 +2930,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="409"/>
         <CursorPos X="14" Y="431"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit313>
       <Unit314>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\pl_luicontrols.pas"/>
@@ -2831,7 +2938,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="10"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit314>
       <Unit315>
         <Filename Value="..\..\..\typhon\components\pl_LuiControls\source\allluicontrolsregister.pas"/>
@@ -2839,7 +2946,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="40" Y="46"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit315>
       <Unit316>
         <Filename Value="..\..\components\richmemo\win32\win32richmemoproc.pas"/>
@@ -2847,7 +2954,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="362"/>
         <CursorPos X="15" Y="392"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit316>
       <Unit317>
         <Filename Value="..\..\..\typhon\lcl\popupnotifier.pas"/>
@@ -2855,7 +2962,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="70"/>
         <CursorPos X="5" Y="86"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
       </Unit317>
       <Unit318>
         <Filename Value="..\..\..\typhon\components\synedit\lazsyntextarea.pp"/>
@@ -2863,7 +2970,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="439"/>
         <CursorPos X="13" Y="461"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit318>
       <Unit319>
@@ -2872,7 +2979,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="95"/>
         <CursorPos X="53" Y="115"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit319>
       <Unit320>
@@ -2881,7 +2988,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="3" Y="69"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit320>
       <Unit321>
@@ -2890,7 +2997,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="3"/>
         <CursorPos X="28" Y="18"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit321>
       <Unit322>
@@ -2899,7 +3006,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="441"/>
         <CursorPos X="14" Y="465"/>
-        <UsageCount Value="2"/>
+        <UsageCount Value="1"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit322>
       <Unit323>
@@ -2908,7 +3015,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit323>
       <Unit324>
@@ -2917,7 +3024,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="127"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit324>
       <Unit325>
@@ -2925,7 +3032,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4911"/>
         <CursorPos X="6" Y="4892"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
       </Unit325>
       <Unit326>
         <Filename Value="C:\codetyphon\typhon\lcl\controls.pp"/>
@@ -2933,7 +3040,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1504"/>
         <CursorPos X="15" Y="1528"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit326>
       <Unit327>
         <Filename Value="C:\codetyphon\typhon\components\synedit\syneditexport.pas"/>
@@ -2941,7 +3048,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="65"/>
         <CursorPos X="15" Y="91"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit327>
       <Unit328>
         <Filename Value="C:\codetyphon\typhon\components\pl_VirtualTrees\source\VirtualTrees.pas"/>
@@ -2949,7 +3056,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29422"/>
         <CursorPos X="104" Y="29440"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="37"/>
       </Unit328>
       <Unit329>
         <Filename Value="C:\codetyphon\typhon\components\ideintf\propedits.pp"/>
@@ -2957,7 +3064,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="6030"/>
         <CursorPos X="9" Y="6191"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="32"/>
       </Unit329>
       <Unit330>
         <Filename Value="C:\codetyphon\typhon\lcl\lclproc.pas"/>
@@ -2965,7 +3072,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="81"/>
         <CursorPos X="50" Y="88"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="32"/>
       </Unit330>
       <Unit331>
         <Filename Value="C:\codetyphon\typhon\components\mouseandkeyinput\xkeyinput.pas"/>
@@ -2973,7 +3080,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="42" Y="47"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit331>
       <Unit332>
         <Filename Value="C:\codetyphon\typhon\components\mouseandkeyinput\keyinputintf.pas"/>
@@ -2981,7 +3088,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit332>
       <Unit333>
         <Filename Value="C:\codetyphon\typhon\components\pl_AsphyreSphinx\source\Windows\AsphyreKeyboard.pas"/>
@@ -2989,7 +3096,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="291"/>
         <CursorPos X="14" Y="317"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit333>
       <Unit334>
         <Filename Value="C:\codetyphon\typhon\components\pl_AsphyreSphinx\source\Windows\WinKeyb.pas"/>
@@ -2997,14 +3104,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="109"/>
         <CursorPos X="16" Y="127"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit334>
       <Unit335>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\window\windows\castlewindow_winapi.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="98"/>
         <CursorPos X="7" Y="124"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit335>
       <Unit336>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\ui\castlekeysmouse.pas"/>
@@ -3012,7 +3119,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="3" Y="48"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit336>
       <Unit337>
         <Filename Value="C:\codetyphon\typhon\components\pl_ExDesign\source\ELDsgxResources.pas"/>
@@ -3020,7 +3127,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2185"/>
         <CursorPos X="9" Y="2211"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit337>
       <Unit338>
@@ -3029,7 +3136,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="201"/>
         <CursorPos X="4" Y="227"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit338>
       <Unit339>
@@ -3038,7 +3145,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="18" Y="7525"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit339>
       <Unit340>
         <Filename Value="C:\codetyphon\typhon\components\pl_PascalSCADA\sources\crosskeyevents.pas"/>
@@ -3046,7 +3153,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="38"/>
         <CursorPos X="42" Y="47"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit340>
       <Unit341>
@@ -3055,7 +3162,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="640"/>
         <CursorPos X="18" Y="439"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit341>
       <Unit342>
         <Filename Value="C:\codetyphon\typhon\lcl\lcltype.pp"/>
@@ -3063,7 +3170,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="235"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit342>
       <Unit343>
         <Filename Value="C:\codetyphon\typhon\lcl\lmessages.pp"/>
@@ -3071,7 +3178,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="16" Y="29"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
       </Unit343>
       <Unit344>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\base\castlestringutils.pas"/>
@@ -3079,7 +3186,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1153"/>
         <CursorPos X="1" Y="1153"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit344>
       <Unit345>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\base\castleutils.pas"/>
@@ -3087,7 +3194,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="136"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="31"/>
       </Unit345>
       <Unit346>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\base\castlefilesutils.pas"/>
@@ -3095,7 +3202,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="36" Y="120"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit346>
       <Unit347>
         <Filename Value="C:\codetyphon\typhon\components\pl_Castle\sources\ui\pk3dconnexion.pas"/>
@@ -3103,7 +3210,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="840"/>
         <CursorPos X="62" Y="91"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit347>
       <Unit348>
         <Filename Value="C:\codetyphon\typhon\components\pl_ASIOVST\source\VST\DAV_VSTEffect.pas"/>
@@ -3111,7 +3218,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="7" Y="839"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="14"/>
       </Unit348>
       <Unit349>
         <Filename Value="C:\codetyphon\typhon\components\mouseandkeyinput\carbonkeyinput.pas"/>
@@ -3119,7 +3226,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="29"/>
         <CursorPos X="29" Y="64"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit349>
       <Unit350>
         <Filename Value="C:\codetyphon\typhon\components\synedit\synhighlighterhtml.pp"/>
@@ -3127,7 +3234,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit350>
       <Unit351>
         <Filename Value="C:\codetyphon\typhon\components\synedit\synhighlighterini.pas"/>
@@ -3135,7 +3242,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit351>
       <Unit352>
         <Filename Value="C:\codetyphon\typhon\components\rtticontrols\rttictrls.pas"/>
@@ -3143,14 +3250,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="172"/>
         <CursorPos X="3" Y="197"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="21"/>
       </Unit352>
       <Unit353>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\objpas.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="13"/>
       </Unit353>
       <Unit354>
         <Filename Value="C:\codetyphon\fpcsrc\packages\fcl-base\src\contnrs.pp"/>
@@ -3158,21 +3265,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="7"/>
+        <UsageCount Value="6"/>
       </Unit354>
       <Unit355>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="10"/>
         <CursorPos X="4" Y="27"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="12"/>
       </Unit355>
       <Unit356>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\inc\systemh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="364"/>
         <CursorPos X="3" Y="382"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit356>
       <Unit357>
         <Filename Value="C:\codetyphon\typhon\packager\registration\fcllaz.pas"/>
@@ -3180,7 +3287,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit357>
       <Unit358>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\strutils.pp"/>
@@ -3188,7 +3295,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="210"/>
         <CursorPos X="1" Y="210"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit358>
       <Unit359>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\objpas\character.pas"/>
@@ -3196,7 +3303,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="93"/>
         <CursorPos X="32" Y="94"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit359>
       <Unit360>
         <Filename Value="C:\codetyphon\typhon\lcl\lclintf.pas"/>
@@ -3204,7 +3311,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="206"/>
         <CursorPos X="1" Y="243"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="7"/>
       </Unit360>
       <Unit361>
         <Filename Value="C:\codetyphon\typhon\lcl\nonwin32\messages.pp"/>
@@ -3212,7 +3319,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="56"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit361>
       <Unit362>
         <Filename Value="C:\codetyphon\typhon\components\cairocanvas\cairocanvas.pas"/>
@@ -3220,7 +3327,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="88"/>
         <CursorPos X="44" Y="104"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit362>
       <Unit363>
         <Filename Value="C:\codetyphon\typhon\lcl\graphmath.pp"/>
@@ -3228,21 +3335,21 @@
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
         <CursorPos X="15" Y="25"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit363>
       <Unit364>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\wininc\struct.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3031"/>
         <CursorPos X="6" Y="453"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit364>
       <Unit365>
         <Filename Value="C:\codetyphon\typhon\components\lazutils\winlazfileutils.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="236"/>
         <CursorPos X="35" Y="254"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit365>
       <Unit366>
         <Filename Value="C:\codetyphon\typhon\components\pl_Abbrevia\source\AbGzTyp.pas"/>
@@ -3250,7 +3357,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="919"/>
         <CursorPos X="11" Y="936"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit366>
       <Unit367>
         <Filename Value="C:\codetyphon\typhon\components\pl_DWScript\source\dwsXPlatform.pas"/>
@@ -3258,7 +3365,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="135"/>
         <CursorPos X="15" Y="153"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit367>
       <Unit368>
@@ -3267,7 +3374,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="288"/>
         <CursorPos X="21" Y="306"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit368>
       <Unit369>
@@ -3276,7 +3383,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="373"/>
         <CursorPos X="12" Y="4251"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit369>
       <Unit370>
         <Filename Value="C:\codetyphon\typhon\components\pl_PascalSCADA\sources\psOPCHDA.pas"/>
@@ -3284,7 +3391,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="160"/>
         <CursorPos X="44" Y="619"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit370>
       <Unit371>
@@ -3293,7 +3400,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="14"/>
         <CursorPos X="3" Y="45"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit371>
       <Unit372>
@@ -3302,7 +3409,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="174"/>
         <CursorPos X="27" Y="194"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit372>
       <Unit373>
@@ -3311,7 +3418,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="850"/>
         <CursorPos X="21" Y="868"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit373>
       <Unit374>
@@ -3320,7 +3427,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="16" Y="141"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit374>
       <Unit375>
         <Filename Value="C:\codetyphon\ts\components\thtmlviewer\source\HtmlGlobals.pas"/>
@@ -3328,7 +3435,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="28" Y="614"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit375>
       <Unit376>
@@ -3337,150 +3444,148 @@
         <WindowIndex Value="0"/>
         <TopLine Value="83"/>
         <CursorPos X="3" Y="100"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="8"/>
       </Unit376>
       <Unit377>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_toolview_search.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit377>
       <Unit378>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_toolview_search.lrs"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
       </Unit378>
       <Unit379>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_toolview_search.lrt"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit379>
       <Unit380>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_toolview_actionlist.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit380>
       <Unit381>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_toolview_actionlist.lfm.bak"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit381>
       <Unit382>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_toolview_actionlist.lrt"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="19"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit382>
       <Unit383>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_toolview_alignlines.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit383>
       <Unit384>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_toolview_alignlines.lrt"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit384>
       <Unit385>
         <Filename Value="..\..\components\tslib\editor\charactermap\ts_editor_toolview_charactermap.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit385>
       <Unit386>
         <Filename Value="..\..\components\tslib\editor\charactermap\ts_editor_toolview_charactermap.lrt"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit386>
       <Unit387>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_toolview_codefilter.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit387>
       <Unit388>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_toolview_codefilter.lrt"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit388>
       <Unit389>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_toolview_codeshaper.lfm"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit389>
       <Unit390>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_toolview_codeshaper.lrt"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit390>
       <Unit391>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_toolview_htmlview.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit391>
       <Unit392>
         <Filename Value="..\..\components\tslib\editor\preview\ts_editor_toolview_preview.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit392>
       <Unit393>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts_editor_toolview_hexeditor.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit393>
       <Unit394>
         <Filename Value="..\..\components\tslib\editor\minimap\ts_editor_toolview_minimap.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit394>
       <Unit395>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts_editor_toolview_viewlist.lfm"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="17"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit395>
       <Unit396>
         <Filename Value="..\..\components\tslib\editor\test\ts_editor_toolview_test.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit396>
       <Unit397>
         <Filename Value="..\..\components\tslib\editor\structure\ts_editor_toolview_structure.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit397>
       <Unit398>
         <Filename Value="..\..\components\tslib\editor\shortcuts\ts_editor_toolview_shortcuts.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit398>
       <Unit399>
         <Filename Value="..\..\components\tslib\editor\scripteditor\ts_editor_toolview_scripteditor.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit399>
       <Unit400>
         <Filename Value="..\..\components\tslib\editor\selectioninfo\ts_editor_toolview_selectioninfo.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit400>
       <Unit401>
         <Filename Value="..\..\components\tslib\editor\filter\ts_editor_toolview_filter.lfm"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="18"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit401>
       <Unit402>
         <Filename Value="C:\codetyphon\typhon\components\pl_RX\source\rxtoolbar.pas"/>
         <UnitName Value="rxtoolbar"/>
-        <EditorIndex Value="31"/>
         <WindowIndex Value="0"/>
         <TopLine Value="955"/>
         <CursorPos X="102" Y="972"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit402>
       <Unit403>
         <Filename Value="C:\codetyphon\typhon\components\ideintf\collectionpropeditform.pas"/>
         <UnitName Value="CollectionPropEditForm"/>
-        <EditorIndex Value="26"/>
+        <EditorIndex Value="37"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit403>
       <Unit404>
@@ -3489,7 +3594,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="456"/>
         <CursorPos X="12" Y="473"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit404>
       <Unit405>
         <Filename Value="..\..\..\typhon\components\editortoolbar\edttbconfigfrm.pas"/>
@@ -3500,7 +3605,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="190"/>
         <CursorPos X="31" Y="73"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit405>
     </Units>
     <General>
@@ -3508,124 +3613,124 @@
     </General>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="2963" Column="3" TopLine="2953"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
+        <Caret Line="347" Column="58" TopLine="322"/>
       </Position1>
       <Position2>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="2913" Column="23" TopLine="2907"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
+        <Caret Line="675" Column="17" TopLine="663"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="2050" Column="1" TopLine="2044"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
+        <Caret Line="4339" Column="3" TopLine="4337"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="1602" Column="1" TopLine="1596"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
+        <Caret Line="8398" Column="10" TopLine="8392"/>
       </Position4>
       <Position5>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="1195" Column="5" TopLine="1188"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
+        <Caret Line="9118" Column="23" TopLine="9112"/>
       </Position5>
       <Position6>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="1158" Column="69" TopLine="1151"/>
+        <Caret Line="1115" Column="13" TopLine="1108"/>
       </Position6>
       <Position7>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="9960" Column="18" TopLine="1085"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="10518" Column="21" TopLine="10508"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="10111" Column="5" TopLine="10105"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="10156" Column="56" TopLine="10147"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="10111" Column="3" TopLine="10105"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
-        <Caret Line="10127" Column="12" TopLine="10118"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
-        <Caret Line="123" Column="3" TopLine="116"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
-        <Caret Line="309" Column="28" TopLine="283"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
-        <Caret Line="347" Column="58" TopLine="322"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
-        <Caret Line="675" Column="17" TopLine="663"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
-        <Caret Line="4339" Column="3" TopLine="4337"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
-        <Caret Line="8398" Column="10" TopLine="8392"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
-        <Caret Line="9118" Column="23" TopLine="9112"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
-        <Caret Line="1115" Column="13" TopLine="1108"/>
-      </Position21>
-      <Position22>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <Caret Line="1193" Column="3" TopLine="1189"/>
-      </Position22>
-      <Position23>
+      </Position7>
+      <Position8>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <Caret Line="2961" Column="19" TopLine="2955"/>
-      </Position23>
-      <Position24>
+      </Position8>
+      <Position9>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="55" Column="34" TopLine="37"/>
-      </Position24>
-      <Position25>
+      </Position9>
+      <Position10>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="32" Column="23" TopLine="16"/>
-      </Position25>
-      <Position26>
+      </Position10>
+      <Position11>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="46" Column="18" TopLine="31"/>
-      </Position26>
-      <Position27>
+      </Position11>
+      <Position12>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="34" Column="57" TopLine="16"/>
-      </Position27>
-      <Position28>
+      </Position12>
+      <Position13>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="45" Column="20" TopLine="26"/>
-      </Position28>
-      <Position29>
+      </Position13>
+      <Position14>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <Caret Line="32" Column="23" TopLine="16"/>
-      </Position29>
-      <Position30>
+      </Position14>
+      <Position15>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <Caret Line="37" Column="32" TopLine="19"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
+        <Caret Line="594" Column="1" TopLine="581"/>
+      </Position16>
+      <Position17>
+        <Filename Value="Changes.txt"/>
+        <Caret Line="2" Column="10" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
+        <Caret Line="284" Column="59" TopLine="277"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
+        <Caret Line="33" Column="27" TopLine="17"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
+        <Caret Line="279" Column="1" TopLine="141"/>
+      </Position20>
+      <Position21>
+        <Filename Value="notepas_forms_main.pas"/>
+        <Caret Line="468" Column="49" TopLine="444"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1643" Column="28" TopLine="1624"/>
+      </Position22>
+      <Position23>
+        <Filename Value="Changes.txt"/>
+        <Caret Line="14" Column="45" TopLine="1"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_resources.pas"/>
+        <Caret Line="136" Column="1" TopLine="129"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_resources.pas"/>
+        <Caret Line="417" Column="1" TopLine="386"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_resources.pas"/>
+        <Caret Line="33" Column="1" TopLine="33"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="2712" Column="35" TopLine="2706"/>
+      </Position27>
+      <Position28>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="2834" Column="27" TopLine="2824"/>
+      </Position28>
+      <Position29>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="1167" Column="33" TopLine="1155"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <Caret Line="1507" Column="1" TopLine="1490"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

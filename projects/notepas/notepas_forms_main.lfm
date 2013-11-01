@@ -243,7 +243,7 @@ object frmMain: TfrmMain
         Top = 0
         Width = 38
         Align = alClient
-        Color = clDefault
+        Color = clForm
         Flat = True
         OnClick = btnSelectionModeClick
       end
@@ -270,9 +270,9 @@ object frmMain: TfrmMain
         Top = 0
         Width = 38
         Align = alClient
-        Color = clDefault
+        Color = clForm
         Flat = True
-        OnClick = btnSelectionModeClick
+        Transparent = False
       end
     end
   end

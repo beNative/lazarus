@@ -265,11 +265,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>PAS</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>125</Left>
-		<Top>125</Top>
+		<Left>200</Left>
+		<Top>200</Top>
 		<Width>1417</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

@@ -29,14 +29,13 @@ uses
 
   SynEditHighlighter,
 
-  sharedlogger,
+  ts.Editor.Utils, ts.Editor.CodeFormatters, ts.Editor.CodeTags,
 
-  ts.Editor.Utils, ts.Editor.CodeFormatters, ts.Editor.CodeTags;
+  sharedlogger;
 
 type
   TSynHighlighterClass = class of TSynCustomHighlighter;
-
-  THighlighters = class;
+  THighlighters        = class;
 
   { THighlighterItem }
 

@@ -27,7 +27,7 @@ uses
 
   LCLType,
 
-  SynEdit, SynEditTypes, SynMacroRecorder, SynEditHighlighter,
+  SynEdit, SynEditTypes, SynEditHighlighter, SynMacroRecorder,
   SynEditMiscClasses, SynEditMarkupBracket,
 
   ts.Core.FormSettings,
@@ -37,7 +37,7 @@ uses
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings,
 
-  ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
+  ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
 type
   // forward declarations
@@ -49,33 +49,6 @@ type
   TEditorViewListEnumerator     = class;
   TEditorToolViewListEnumerator = class;
 
-  // event types
-  TCaretPositionEvent = procedure(
-    Sender : TObject;
-    X, Y   : Integer
-  ) of object;
-
-  TStatusMessageEvent = procedure(
-    Sender : TObject;
-    Text   : string
-  ) of object;
-
-  TMacroStateChangeEvent = procedure(
-    Sender: TObject;
-    AState: TSynMacroState
-  ) of object;
-
-  TStorageEvent = procedure(
-        Sender       : TObject;
-    var AStorageName : string
-  ) of object;
-
-  TNewEvent = procedure(
-          Sender       : TObject;
-    var   AStorageName : string;
-    const AText        : string
-  ) of object;
-
   TAddEditorViewEvent = procedure(
     Sender      : TObject;
     AEditorView : IEditorView
@@ -85,14 +58,6 @@ type
     Sender          : TObject;
     AEditorToolView : IEditorToolView
   ) of object;
-
-  TOpenOtherInstanceEvent = procedure(
-          Sender  : TObject;
-    const AParams : array of string
-  ) of object;
-
-// type aliases
-  TEditorViewList     = TInterfaceList;
 
   IControl = interface
   ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']
@@ -431,6 +396,7 @@ type
     property TopLine: Integer
       read GetTopLine write SetTopLine;
 
+    { Set when content has changed since the initial load. }
     property Modified: Boolean
       read GetModified write SetModified;
 
@@ -618,7 +584,7 @@ type
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
 
-    property OnNewFile: TNewEvent
+    property OnNew: TNewEvent
       read GetOnNew write SetOnNew;
 
     property OnSave: TStorageEvent

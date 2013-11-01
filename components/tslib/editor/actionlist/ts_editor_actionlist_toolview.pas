@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts_editor_actionlist_toolview;
+unit ts_Editor_ActionList_ToolView;
 
 {$MODE Delphi}
 

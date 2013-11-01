@@ -18,6 +18,9 @@
 
 unit ts_Editor_ToolView_Base;
 
+{ Base toolview form that can be used to create descendants that implement
+  IEditorToolView }
+
 {$MODE Delphi}
 
 interface
@@ -31,7 +34,7 @@ type
 
   { TCustomEditorToolView }
 
-  TCustomEditorToolView = class(TForm)
+  TCustomEditorToolView = class(TForm, IEditorToolView)
   strict private
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
@@ -43,15 +46,20 @@ type
     function GetViews: IEditorViews;
     procedure SetUpdate(AValue: Boolean);
 
-    procedure EditorSettingsChanged(Sender: TObject);
-    procedure EditorActiveViewChanged(Sender: TObject);
-    procedure EditorModified(Sender: TObject);
-    procedure EditorChange(Sender: TObject);
-
   strict protected
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
+
+    // virtual event handlers
+    procedure EditorCaretPositionChange(
+      Sender : TObject;
+      X, Y   : Integer
+    ); virtual;
+    procedure EditorSettingsChanged(Sender: TObject); virtual;
+    procedure EditorActiveViewChanged(Sender: TObject); virtual;
+    procedure EditorModified(Sender: TObject); virtual;
+    procedure EditorChange(Sender: TObject); virtual;
 
     procedure Modified; virtual;
     procedure UpdateView; virtual;
@@ -92,6 +100,7 @@ procedure TCustomEditorToolView.AfterConstruction;
 begin
   inherited AfterConstruction;
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
+  Manager.Events.AddOnCaretPositionEvent(EditorCaretPositionChange);
   Manager.Events.AddOnActiveViewChangeHandler(EditorActiveViewChanged);
   Manager.Events.AddOnChangeHandler(EditorChange);
   Manager.Events.AddOnModifiedHandler(EditorModified);
@@ -154,6 +163,12 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
+
+procedure TCustomEditorToolView.EditorCaretPositionChange(Sender: TObject; X,
+  Y: Integer);
+begin
+  UpdateView;
+end;
 
 procedure TCustomEditorToolView.EditorSettingsChanged(Sender: TObject);
 begin

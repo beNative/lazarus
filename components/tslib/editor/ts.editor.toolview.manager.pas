@@ -209,6 +209,7 @@ begin
 end;
 {$endregion}
 
+{$region 'property access mehods' /fold}
 function TToolViews.GetView(AIndex: Integer): IEditorToolView;
 begin
   Result := FItems[AIndex] as IEditorToolView;
@@ -241,7 +242,9 @@ function TToolViews.GetEnumerator: TEditorToolViewListEnumerator;
 begin
   Result := TEditorToolViewListEnumerator.Create(Self);
 end;
+{$endregion}
 
+{$region 'protected methods' /fold}
 function TToolViews.Register(AFormClass: TComponentClass;
   const AName: string): Boolean;
 var
@@ -263,6 +266,7 @@ begin
     TV.Visible := False;
   end;
 end;
+{$endregion}
 
 end.
 

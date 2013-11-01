@@ -30,7 +30,8 @@ uses
 
   ts.Components.Multipanel, ts.Core.TreeViewPresenter,
 
-  ts_Editor_ToolView_Base, ts.Editor.Interfaces, ts.Editor.AlignLines.Settings,
+  ts_Editor_ToolView_Base, ts.Editor.Interfaces, ts.Editor.Types,
+  ts.Editor.AlignLines.Settings,
 
   sharedlogger;
 
@@ -164,6 +165,7 @@ procedure TfrmAlignLines.AfterConstruction;
 begin
   inherited AfterConstruction;
   SetDoubleBuffered(Self);
+
   FTokens := TObjectList.Create;
   FVST := VST.Create(Self, pnlVST);
   FVST.Font.Name := Manager.Settings.EditorFont.Name;

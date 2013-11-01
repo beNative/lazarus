@@ -22,6 +22,8 @@ unit ts.Editor.Helpers;
 
 { Some helper routines to build a simple editor. }
 
+{ TODO: make factories to create instances. }
+
 interface
 
 uses

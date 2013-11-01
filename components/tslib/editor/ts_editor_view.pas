@@ -685,7 +685,7 @@ end;
 
 procedure TEditorView.EditorChange(Sender: TObject);
 begin
-  //Logger.Send('EditorChange');
+  Logger.Send('EditorChange');
   DoChange;
   Events.DoChange;
 end;
@@ -695,7 +695,7 @@ procedure TEditorView.EditorStatusChange(Sender: TObject;
 begin
   if not (csDestroying in ComponentState) then
   begin
-    //Logger.Send('StatusChange: ', SetToString(TypeInfo(TSynStatusChanges), Changes));
+    Logger.Send('StatusChange: ', SetToString(TypeInfo(TSynStatusChanges), Changes));
 
     // we use this event to ensure that the view is activated because the OnEnter
     // event is not triggered when the form is undocked!
@@ -877,11 +877,12 @@ begin
   begin
     FHighlighter := AValue;
     Editor.Highlighter := AValue;
-    if Editor.Focused and not Editor.Modified then
-    begin
-      Events.DoModified;
-    end;
-    Events.DoChange;
+    { TODO -oTS : Should we trigger these events? }
+    //if Editor.Focused and not Editor.Modified then
+    //begin
+    //  Events.DoModified;
+    //end;
+    //Events.DoChange;
   end;
 end;
 

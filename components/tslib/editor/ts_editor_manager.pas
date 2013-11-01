@@ -108,14 +108,13 @@ uses
 
   dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
 
-  ts.Editor.Interfaces, ts_Editor_Resources, ts.Editor.Highlighters,
-  ts_Editor_View, ts.Editor.Events,
-
   ts.Components.UniHighlighter, ts.Components.ExportRTF,
-  ts.Components.UniqueInstance;
+  ts.Components.UniqueInstance,
+
+  ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
+  ts.Editor.Highlighters, ts_Editor_View, ts.Editor.Events;
 
 type
-
   { TdmEditorManager }
 
   TdmEditorManager = class(TDataModule, IEditorManager,
@@ -432,25 +431,24 @@ type
     {$endregion}
 
   private
-    FPersistSettings : Boolean;
-    FSynExporterRTF  : TSynExporterRTF;
-    FSynUni          : TSynUniSyn;
-    FUniqueInstance  : TUniqueInstance;
-    FToolViews       : IEditorToolViews;
-    FEvents          : IEditorEvents;
+    FChanged          : Boolean;
+    FCurrentViewIndex : Integer;
+    FPersistSettings  : Boolean;
+    FSynExporterRTF   : TSynExporterRTF;
+    FSynUni           : TSynUniSyn;
+    FUniqueInstance   : TUniqueInstance;
 
     FdwsProgramExecution : IdwsProgramExecution;
     FdwsProgram          : IdwsProgram;
     FScriptFunctions     : TStringList;
 
-    FSearchEngine          : IEditorSearchEngine;
-
-    FChanged      : Boolean;
+    FToolViews    : IEditorToolViews;
+    FEvents       : IEditorEvents;
+    FEditorTools  : TEditorTools;
     FSettings     : IEditorSettings;
     FActiveView   : IEditorView;
     FViewList     : TEditorViewList;
-
-    FCurrentViewIndex: Integer;
+    FSearchEngine : IEditorSearchEngine;
 
     {$region 'property access methods' /fold}
     function GetActionList: TActionList;
@@ -460,6 +458,7 @@ type
     function GetCurrent: IEditorView;
     function GetEditor: TSynEdit;
     function GetEditorPopupMenu: TPopupMenu;
+    function GetEditorTools: TEditorTools;
     function GetEditorViews: IEditorViews;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetEvents: IEditorEvents;
@@ -492,6 +491,7 @@ type
     function GetViewList: TEditorViewList;
     function GetViews: IEditorViews;
     procedure SetActiveView(AValue: IEditorView);
+    procedure SetEditorTools(AValue: TEditorTools);
     procedure SetPersistSettings(const AValue: Boolean);
     {$endregion}
 
@@ -566,7 +566,6 @@ type
     function GetViewsEnumerator: TEditorViewListEnumerator;
     {$endregion}
 
-
     procedure ShowToolView(
        const AName      : string;
              AVisible   : Boolean;
@@ -622,6 +621,9 @@ type
 
     property Items[AName: string]: TCustomAction
       read GetItem; default;
+
+    property EditorTools: TEditorTools
+      read GetEditorTools write SetEditorTools;
 
     {$region 'IEditorMenus'}
     property ClipboardPopupMenu: TPopupMenu
@@ -806,9 +808,23 @@ begin
   FUniqueInstance.Identifier := ApplicationName;
   FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
   FScriptFunctions := TStringList.Create;
+  FEditorTools := [
+    etActionList,
+    etAlignLines,
+    etCodeFilter,
+    etCodeShaper,
+    etHTMLView,
+    etPreview,
+    etSearch,
+    etHexEditor,
+    etViewList
+  ];
+
+  // TODO: these steps should be configurable
   LoadScriptFiles;
   RegisterToolViews;
   RegisterHighlighters;
+
   InitializeFoldHighlighters;
   InitializeActions;
   InitializePopupMenus;
@@ -843,6 +859,16 @@ end;
 function TdmEditorManager.GetEditorPopupMenu: TPopupMenu;
 begin
   Result := ppmEditor;
+end;
+
+function TdmEditorManager.GetEditorTools: TEditorTools;
+begin
+  Result := FEditorTools;
+end;
+
+procedure TdmEditorManager.SetEditorTools(AValue: TEditorTools);
+begin
+  FEditorTools := AValue;
 end;
 
 function TdmEditorManager.GetEditorViews: IEditorViews;
@@ -1164,7 +1190,13 @@ end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
 begin
-  SaveFile(ActiveView.FileName);
+  if ActiveView.IsFile then
+    SaveFile(ActiveView.FileName)
+  else
+  begin
+    Events.DoSave(ActiveView.FileName);
+    ActiveView.Save;
+  end;
 end;
 
 procedure TdmEditorManager.actSaveAsExecute(Sender: TObject);
@@ -2543,7 +2575,6 @@ begin
   UpdateEncodingActions;
   UpdateLineBreakStyleActions;
   UpdateFileActions;
-//  Events.DoActiveViewChange;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2831,7 +2862,7 @@ end;
   name with the save file dialog. }
 
 function TdmEditorManager.SaveFile(const AFileName: string;
-AShowDialog: Boolean): Boolean;
+  AShowDialog: Boolean): Boolean;
 begin
   Events.DoSave(AFileName);
   if AShowDialog or not FileExistsUTF8(AFileName) then

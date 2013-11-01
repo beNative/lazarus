@@ -29,8 +29,6 @@ uses
 
   SynEditMiscClasses, SynEditMarkupBracket,
 
-  sharedlogger,
-
   ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage,
 
   ts.Core.FormSettings,
@@ -40,7 +38,9 @@ uses
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings,
 
-  ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
+  ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
+
+  sharedlogger;
 
 type
   { TEditorSettings }
@@ -71,7 +71,6 @@ type
     FMiniMapSettings          : TMiniMapSettings;
     FHTMLViewSettings         : THTMLViewSettings;
     FHexEditorSettings        : THexEditorSettings;
-
 
     FRightEdge             : Integer;
     FRightEdgeColor        : TColor;
@@ -879,7 +878,6 @@ function TEditorSettings.GetXML: string;
 begin
   Result := ReadFileToString(FileName);
 end;
-
 {$endregion}
 
 {$region 'protected methods'}

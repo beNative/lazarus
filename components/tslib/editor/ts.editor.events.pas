@@ -27,7 +27,7 @@ uses
 
   SynEditTypes, SynMacroRecorder,
 
-  ts.Editor.Interfaces;
+  ts.Editor.Types, ts.Editor.Interfaces;
 
 type
 

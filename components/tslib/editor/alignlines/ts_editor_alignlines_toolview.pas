@@ -18,6 +18,8 @@
 
 unit ts_Editor_AlignLines_ToolView;
 
+{ Tool for aligning selected lines to a common specified token. }
+
 {$MODE Delphi}
 
 interface
@@ -209,7 +211,6 @@ begin
   begin
     FVST.SetFocus;
     FTVP.SelectedItem := FTokens[0];
-    //FVST.Selected[FVST.GetFirst] := True;
   end;
 end;
 

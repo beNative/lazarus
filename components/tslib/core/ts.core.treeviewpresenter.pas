@@ -2113,14 +2113,20 @@ begin
     begin
       FTreeView.TreeOptions.PaintOptions :=
         FTreeView.TreeOptions.PaintOptions - [toShowRoot, toShowTreeLines];
+      // use arrow keys to navigate between horizontal cells
+      FTreeView.TreeOptions.MiscOptions :=
+        FTreeView.TreeOptions.MiscOptions + [toGridExtensions];
     end
     else
     begin
       FTreeView.TreeOptions.PaintOptions :=
         FTreeView.TreeOptions.PaintOptions + [toShowRoot, toShowTreeLines];
+      // use arrow keys to expand/collapse nodes
+      FTreeView.TreeOptions.MiscOptions :=
+        FTreeView.TreeOptions.MiscOptions - [toGridExtensions];
     end;
     // TSI
-    //FTreeView.Hint := ' '; // otherwise no tooltips are shown!
+    FTreeView.Hint := ' '; // otherwise no tooltips are shown!
 
     FTreeView.TreeOptions.AutoOptions :=
       FTreeView.TreeOptions.AutoOptions - [toAutoDeleteMovedNodes] + [toAutoSort];

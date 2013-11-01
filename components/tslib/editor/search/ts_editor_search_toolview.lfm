@@ -374,7 +374,7 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 5
+      ChildSizing.ControlsPerLine = 3
       ClientHeight = 26
       ClientWidth = 301
       TabOrder = 6
@@ -382,9 +382,10 @@ inherited frmSearchForm: TfrmSearchForm
         Left = 2
         Height = 26
         Top = 0
-        Width = 79
+        Width = 98
         Action = actFind
         AutoSize = True
+        Constraints.MinWidth = 90
         Default = True
         Font.Style = [fsBold]
         Margin = 0
@@ -393,12 +394,13 @@ inherited frmSearchForm: TfrmSearchForm
         TabOrder = 0
       end
       object btnReplace: TBitBtn
-        Left = 83
+        Left = 102
         Height = 26
         Top = 0
-        Width = 100
+        Width = 98
         Action = actReplace
         AutoSize = True
+        Constraints.MinWidth = 90
         Font.Style = [fsBold]
         Margin = 0
         ParentFont = False
@@ -406,12 +408,13 @@ inherited frmSearchForm: TfrmSearchForm
         TabOrder = 1
       end
       object btnReplaceAll: TBitBtn
-        Left = 185
+        Left = 202
         Height = 26
         Top = 0
-        Width = 114
+        Width = 97
         Action = actReplaceAll
         AutoSize = True
+        Constraints.MinWidth = 90
         Font.Style = [fsBold]
         Margin = 0
         ParentFont = False

@@ -121,6 +121,9 @@ uses
 
   ts.Editor.Utils;
 
+const
+  MAX_RESULTS = 10000;
+
 {$region 'construction and destruction' /fold}
 procedure TSearchEngine.AfterConstruction;
 begin
@@ -153,6 +156,11 @@ end;
 function TSearchEngine.GetCurrentIndex: Integer;
 begin
   Result := FCurrentIndex;
+end;
+
+procedure TSearchEngine.SetCurrentIndex(AValue: Integer);
+begin
+  FCurrentIndex := AValue;
 end;
 
 function TSearchEngine.GetItemGroups: TObjectList;
@@ -206,11 +214,6 @@ end;
 function TSearchEngine.GetViews: IEditorViews;
 begin
   Result := Owner as IEditorViews;
-end;
-
-procedure TSearchEngine.SetCurrentIndex(AValue: Integer);
-begin
-  FCurrentIndex := AValue;
 end;
 
 procedure TSearchEngine.SetOptions(AValue: TSynSearchOptions);
@@ -270,7 +273,7 @@ begin
   if B then
   begin
     SRG := TSearchResultGroup.Create;
-    while B and (N < 10000) do
+    while B and (N < MAX_RESULTS) do
     begin
       SRL := TSearchResultLine.Create;
       Line := ptFoundStart.y;
@@ -288,7 +291,7 @@ begin
         SR.Line       := ptFoundStart.Y;
         SR.Index      := N;
         SRL.List.Add(SR);
-        FItemList.Add(SRG);
+        FItemList.Add(SR);
         ptStart := ptFoundEnd;
         try
           B :=  FSESearch.FindNextOne(
@@ -372,8 +375,8 @@ begin
     Inc(FCurrentIndex);
     SR := ItemList[CurrentIndex] as TSearchResult;
     Manager.ActivateView(SR.ViewName);
-    Manager.ActiveView.SelStart := SR.StartPos;
-    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
+    View.SelStart := SR.StartPos;
+    View.SelEnd := SR.StartPos + Length(SearchText);
   end;
 end;
 
@@ -399,7 +402,12 @@ begin
   begin
     SR := ItemList[CurrentIndex] as TSearchResult;
     Options := Options + [ssoReplace];
-    Manager.ActiveView.Editor.SearchReplaceEx(SearchText, ReplaceText, Options, SR.BlockBegin);
+    Manager.ActiveView.Editor.SearchReplaceEx(
+      SearchText,
+      ReplaceText,
+      Options,
+      SR.BlockBegin
+    );
     Options := Options - [ssoReplace];
   end;
 end;
@@ -438,7 +446,6 @@ begin
     Options := Options - [ssoReplaceAll];
   end;
 end;
-
 {$endregion}
 
 end.

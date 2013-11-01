@@ -134,7 +134,7 @@ type
       { Fully invalidate the tree when its window is resized
         (CS_HREDRAW/CS_VREDRAW). }
   //    toFullRepaintOnResize,
-      { Use some special enhancements to simulate and support grid behavior. }
+      { Use some special enhancements to simulate and support grid behaviour. }
       toGridExtensions,
       { Initialize nodes when saving a tree to a stream. }
       toInitOnSave,
@@ -147,7 +147,7 @@ type
       toWheelPanning,
       { The tree does not allow to be modified in any way. No action is executed
         and node editing is not possible. }
-  //    toReadOnly,
+      //toReadOnly,
       { When set then GetNodeHeight will trigger OnMeasureItem to allow variable
         node heights. }
       toVariableNodeHeight,
@@ -207,9 +207,9 @@ type
     ];
     DEFAULT_VST_ANIMATIONOPTIONS = [
       { Expanding and collapsing a node is animated (quick window scroll). }
-  //    toAnimatedToggle,
+      toAnimatedToggle,
       { Do some advanced animation effects when toggling a node. }
-  //    toAdvancedAnimatedToggle
+      toAdvancedAnimatedToggle
     ];
     DEFAULT_VST_AUTOOPTIONS = [
       { Expand node if it is the drop target for more than a certain time. }
@@ -423,6 +423,7 @@ begin
   VST.Align    := alClient;
   VST.DrawSelectionMode := smBlendedRectangle;
   VST.Header.Height := 20;
+  VST.SelectionBlendFactor := 64;
   VST.Colors.FocusedSelectionColor := clGray;
   VST.Colors.FocusedSelectionBorderColor := clDkGray;
   VST.Colors.SelectionRectangleBorderColor := clDkGray;
@@ -434,7 +435,8 @@ begin
   VST.TreeOptions.StringOptions    := FStringOptions;
   VST.TreeOptions.AnimationOptions := FAnimationOptions;
   VST.TreeOptions.AutoOptions      := FAutoOptions;
-  //VST.DragType := dtVCL; // dtOLE does not work yet in LCL ported version
+  VST.ButtonStyle := bsTriangle;
+  VST.ButtonFillMode := fmTransparent;
   Result := VST;
 end;
 {$endregion}

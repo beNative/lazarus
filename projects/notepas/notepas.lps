@@ -13,7 +13,7 @@
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="64"/>
-        <CursorPos X="3" Y="80"/>
+        <CursorPos X="66" Y="77"/>
         <UsageCount Value="260"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -880,7 +880,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="90"/>
         <CursorPos X="14" Y="96"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit91>
       <Unit92>
@@ -889,7 +889,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="40" Y="138"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit92>
       <Unit93>
@@ -898,13 +898,13 @@
         <WindowIndex Value="0"/>
         <TopLine Value="199"/>
         <CursorPos X="17" Y="217"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
@@ -912,7 +912,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="70" Y="13"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit95>
       <Unit96>
@@ -925,7 +925,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="462"/>
         <CursorPos X="42" Y="461"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit96>
       <Unit97>
@@ -934,7 +934,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="1" Y="122"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit97>
       <Unit98>
@@ -945,7 +945,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit98>
       <Unit99>
@@ -956,7 +956,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="42" Y="26"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -970,7 +970,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="55"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit100>
@@ -982,7 +982,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="53"/>
         <CursorPos X="15" Y="69"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="55"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit101>
       <Unit102>
@@ -991,7 +991,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="19"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="55"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit102>
       <Unit103>
@@ -1004,7 +1004,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="773"/>
         <CursorPos X="57" Y="789"/>
-        <UsageCount Value="54"/>
+        <UsageCount Value="55"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit103>
       <Unit104>
@@ -1013,7 +1013,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit104>
       <Unit105>
@@ -1024,7 +1024,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="38" Y="43"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit105>
       <Unit106>
@@ -1033,7 +1033,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="34" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit106>
       <Unit107>
@@ -1046,7 +1046,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="27" Y="70"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit107>
       <Unit108>
@@ -1057,7 +1057,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="33" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit108>
       <Unit109>
@@ -1068,7 +1068,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="27" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <Loaded Value="True"/>
       </Unit109>
       <Unit110>
@@ -1079,7 +1079,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="12"/>
         <CursorPos X="53" Y="30"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit110>
       <Unit111>
@@ -1088,7 +1088,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit111>
       <Unit112>
@@ -1101,7 +1101,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit112>
       <Unit113>
@@ -1114,7 +1114,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="76" Y="106"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit113>
       <Unit114>
@@ -1125,7 +1125,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="30" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit114>
       <Unit115>
@@ -1136,7 +1136,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit115>
       <Unit116>
@@ -1147,7 +1147,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="19"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit116>
       <Unit117>
@@ -1158,7 +1158,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="72" Y="47"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit117>
       <Unit118>
@@ -1171,7 +1171,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="70"/>
         <CursorPos X="87" Y="86"/>
-        <UsageCount Value="53"/>
+        <UsageCount Value="54"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit118>
       <Unit119>
@@ -1185,7 +1185,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="310"/>
         <CursorPos X="19" Y="327"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="53"/>
         <Loaded Value="True"/>
       </Unit119>
       <Unit120>
@@ -1194,7 +1194,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit120>
       <Unit121>
@@ -1203,7 +1203,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="23"/>
-        <UsageCount Value="47"/>
+        <UsageCount Value="48"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit121>
       <Unit122>
@@ -1212,50 +1212,50 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="77" Y="50"/>
-        <UsageCount Value="40"/>
+        <UsageCount Value="41"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\components\tslib\components\filechannel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="filechannel"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit123>
       <Unit124>
         <Filename Value="..\..\components\tslib\components\fpccompat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="fpccompat"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit124>
       <Unit125>
         <Filename Value="..\..\components\tslib\components\ipcchannel.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ipcchannel"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\components\tslib\components\multilog.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="multilog"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\components\multiloglcl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="multiloglcl"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\components\sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sharedlogger"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit128>
       <Unit129>
         <Filename Value="..\..\components\tslib\components\sharedloggerlcl.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="sharedloggerlcl"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit129>
       <Unit130>
         <Filename Value="..\..\components\tslib\editor\colors\ts_editor_colors_toolview.pas"/>
@@ -1267,7 +1267,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="27" Y="30"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit130>
       <Unit131>

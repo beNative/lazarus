@@ -324,7 +324,7 @@ procedure TfrmFilter.edtFilterKeyUp(Sender: TObject; var Key: Word;
 begin
   if FVKPressed and FVST.Enabled then
   begin
-    FVST.Perform(WM_KEYDOWN, Key, 0);
+    FVST.Perform(LM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;

@@ -270,7 +270,7 @@
 	<FormSettings>(TFormSettings)
 		<Left>275</Left>
 		<Top>275</Top>
-		<Width>1417</Width>
+		<Width>1369</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -362,8 +362,7 @@
 		<BackAlpha>128</BackAlpha>
 	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
-	<TabWidth>0</TabWidth>
-	<WantTabs>false</WantTabs>
+	<TabWidth>2</TabWidth>
 	<BlockTabIndent>2</BlockTabIndent>
 	<Highlighters>(THighlighters)
 		<THighlighterItem>
@@ -516,8 +515,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>D¼ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--X¼ </BlockCommentEndTag>
+			<BlockCommentStartTag>d¼ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--x¼ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -929,8 +928,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>D¼ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--X¼ </BlockCommentEndTag>
+			<BlockCommentStartTag>d¼ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--x¼ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

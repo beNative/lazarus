@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="11"/>
-      <BuildNr Value="66"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.11" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="12"/>
+      <BuildNr Value="68"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.12" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">
       <Item1 Name="Default" Default="True"/>
@@ -383,7 +383,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -511,7 +511,7 @@
         <PackageName Value="LCL"/>
       </Item22>
     </RequiredPackages>
-    <Units Count="131">
+    <Units Count="132">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -536,6 +536,7 @@
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -608,6 +609,7 @@
       <Unit21>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Selection"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
@@ -691,6 +693,7 @@
       <Unit41>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.resources.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking.Resources"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.storage.pas"/>
@@ -869,6 +872,7 @@
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
@@ -1149,7 +1153,7 @@
       <Unit126>
         <Filename Value="..\..\components\tslib\components\multilog.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="multilog"/>
+        <UnitName Value="MultiLog"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\components\multiloglcl.pas"/>
@@ -1159,7 +1163,7 @@
       <Unit128>
         <Filename Value="..\..\components\tslib\components\sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="sharedlogger"/>
+        <UnitName Value="SharedLogger"/>
       </Unit128>
       <Unit129>
         <Filename Value="..\..\components\tslib\components\sharedloggerlcl.pas"/>
@@ -1174,6 +1178,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Colors_ToolView"/>
       </Unit130>
+      <Unit131>
+        <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ViewList.Data"/>
+      </Unit131>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -84,7 +84,7 @@ uses
   ts.editor.codefilter.settings, ts_editor_filter_toolview,
   ts_editor_viewlist_toolview, ts.editor.ActionList.templates,
   ts.Editor.Search.Data, ts.Editor.Search.Templates, ts_editor_search_toolview,
-  ts.collections, ts.editor.codefilter.data;
+  ts.collections, ts.editor.codefilter.data, ts.Editor.ViewList.Data;
 
 {$R *.res}
 

@@ -264,6 +264,7 @@ begin
   for TV in (Self as IEditorToolViews) do
   begin
     TV.Visible := False;
+    FManager.Events.DoHideToolView(TV);
   end;
 end;
 {$endregion}

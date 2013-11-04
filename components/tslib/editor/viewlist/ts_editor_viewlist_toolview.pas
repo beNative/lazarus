@@ -70,80 +70,9 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers;
+  ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers,
 
-{$region 'TEditorViewInfo' /fold}
-type
-  TEditorViewInfo = class
-  private
-    FView: TComponent; // TS: no interface reference here!
-
-    function GetFileName: string;
-    function GetHighlighter: string;
-    function GetModified: Boolean;
-    function GetPath: string;
-    function GetView: IEditorView;
-
-  public
-    constructor Create(AView: IEditorView);
-    procedure BeforeDestruction; override;
-
-    property View: IEditorView
-      read GetView;
-
-  published
-    property FileName: string
-      read GetFileName;
-
-    property Path: string
-      read GetPath;
-
-    property Highlighter: string
-      read GetHighlighter;
-
-    property Modified: Boolean
-      read GetModified;
-  end;
-
-{$region 'construction and destruction' /fold}
-constructor TEditorViewInfo.Create(AView: IEditorView);
-begin
-  FView := AView.Form;
-end;
-
-procedure TEditorViewInfo.BeforeDestruction;
-begin
-  FView := nil;
-  inherited BeforeDestruction;
-end;
-{$endregion}
-
-{$region 'property access mehods' /fold}
-function TEditorViewInfo.GetFileName: string;
-begin
-  Result := View.Form.Caption;
-end;
-
-function TEditorViewInfo.GetHighlighter: string;
-begin
-  Result := View.HighlighterItem.Name;
-end;
-
-function TEditorViewInfo.GetModified: Boolean;
-begin
-  Result := View.Modified;
-end;
-
-function TEditorViewInfo.GetPath: string;
-begin
-  Result := View.FileName;
-end;
-
-function TEditorViewInfo.GetView: IEditorView;
-begin
-  Result := FView as IEditorView;
-end;
-{$endregion}
+  ts.Editor.ViewList.Data;
 
 {$region 'construction and destruction' /fold}
 procedure TfrmViewList.AfterConstruction;

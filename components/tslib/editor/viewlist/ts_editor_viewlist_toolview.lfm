@@ -3,10 +3,11 @@ inherited frmViewList: TfrmViewList
   Height = 501
   Top = 338
   Width = 800
-  Align = alClient
   Caption = 'Editor views'
   ClientHeight = 501
   ClientWidth = 800
+  PopupMode = pmExplicit
+  PopupParent = frmMain.Owner
   Position = poOwnerFormCenter
   object pnlVST: TPanel[0]
     Left = 3

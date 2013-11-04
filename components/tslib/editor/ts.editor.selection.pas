@@ -18,7 +18,7 @@
 
 unit ts.Editor.Selection;
 
-{ Class used to store information about selected text. }
+{ Class used to store information about a selected block of text. }
 
 {$MODE Delphi}
 
@@ -101,7 +101,9 @@ type
 implementation
 
 uses
-  ts.Editor.Utils;
+  ts.Editor.Utils,
+
+  sharedlogger;
 
 {$region 'construction and destruction' /fold}
 constructor TEditorSelection.Create(AEditorView: IEditorView);
@@ -236,9 +238,6 @@ begin
 end;
 
 {
-
-  FStoredBlockBegin is always left untouched.
-
 Depending on the selectionmode RestoreBlock will select code as follows:
 
    smNormal
@@ -246,24 +245,30 @@ Depending on the selectionmode RestoreBlock will select code as follows:
      FStoredBlockEnd.Y => FStoredBlockBegin.Y + FStoredBlockLines.Count
 
    smColumn
-     FStoredBlockEnd.X => FStoredBlockBegin.X + charcount of longest line in FStoredBlockLines
+     FStoredBlockEnd.X => FStoredBlockBegin.X
+       + charcount of longest line in FStoredBlockLines
      FStoredBlockEnd.Y => StoredBlockBegin.Y + FStoredBlockLines.Count
-}
 
+  FStoredBlockBegin is always left untouched.
+}
 
 procedure TEditorSelection.Restore;
 begin
+  Logger.Send('Restore Start BlockBegin', FBlockBegin);
+  Logger.Send('Restore Start BlockEnd', FBlockEnd);
+  Logger.Send('Text', Text);
+  Logger.Send('Lines.Count', FLines.Count);
   if StripLastLine then // adjust block selection bounds
   begin
     case SelectionMode of
     smNormal:
       begin
-        FBlockEnd.X := Length(FLines[FLines.Count - 1]) + 2;
+        FBlockEnd.X := FBlockBegin.X + Length(FLines[FLines.Count - 1]);
         FBlockEnd.Y := FBlockBegin.Y + FLines.Count - 1;
       end;
     smColumn:
       begin
-        FBlockEnd.X := Length(FLines[FLines.Count - 1]) + 2;
+        FBlockEnd.X := FBlockBegin.X + Length(FLines[FLines.Count - 1]) + 2;
         FBlockEnd.Y := FBlockBegin.Y + FLines.Count - 1;
       end;
     smLine:
@@ -272,6 +277,9 @@ begin
       end;
     end;
   end;
+  Logger.Send('Restore End BlockBegin', FBlockBegin);
+  Logger.Send('Restore End BlockEnd', FBlockEnd);
+  Logger.Send(Text);
   FEditorView.Editor.SetTextBetweenPoints(
     BlockBegin,
     BlockEnd,

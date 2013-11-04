@@ -2733,13 +2733,14 @@ procedure TdmEditorManager.ShowToolView(const AName: string; AVisible: Boolean;
 var
   ETV : IEditorToolView;
 begin
-  ToolViews.Hide;
+  if not AShowModal then
+    ToolViews.Hide;
   if AVisible then
   begin
     ETV := ToolViews[AName];
     if not AShowModal then
     begin
-      {  Allow owner to dock the toolview in the main application workspace. }
+      { Allow owner to dock the toolview in the main application workspace. }
       Events.DoShowToolView(ETV);
       ETV.Visible := True;
     end
@@ -2747,7 +2748,6 @@ begin
     begin
       ETV.Form.ShowModal;
     end;
-
     ETV.UpdateView;
     if ASetFocus then
       ETV.SetFocus;

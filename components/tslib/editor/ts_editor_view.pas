@@ -2126,7 +2126,7 @@ var
   MR: TModalResult;
   S : string;
 begin
-  Result := True;
+  Result := inherited CloseQuery;
   if Modified then
   begin
     Activate;
@@ -2141,7 +2141,11 @@ begin
       Result := True;
     end
     else
+    begin
+      // TODO: Why can't we prevent closing by setting Result to False?
       Result := False;
+      Abort;
+    end;
   end;
 end;
 

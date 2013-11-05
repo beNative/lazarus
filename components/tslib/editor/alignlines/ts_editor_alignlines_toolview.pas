@@ -35,7 +35,7 @@ uses
   ts_Editor_ToolView_Base, ts.Editor.Interfaces, ts.Editor.Types,
   ts.Editor.AlignLines.Settings,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 const
   DEFAULT_TOKENS: array[0..28] of string = (

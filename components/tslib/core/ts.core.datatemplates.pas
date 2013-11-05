@@ -168,7 +168,7 @@ type
 implementation
 
 uses
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 {$region 'TDataTemplate' /fold}
 function TDataTemplate.CompareItems(const Item1, Item2: TObject;

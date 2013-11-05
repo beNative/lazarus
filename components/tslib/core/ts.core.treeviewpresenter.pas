@@ -400,9 +400,9 @@ uses
 
   LCLType,
 
-  sharedlogger,
+  ts.Core.Value, ts.Core.ColumnDefinitionsDataTemplate,
 
-  ts.Core.Value, ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Utils;
+  ts.Core.SharedLogger;
 
 const
   CDefaultCellRect: TRect = (Left: 0; Top: 0; Right: 0; Bottom: 0);

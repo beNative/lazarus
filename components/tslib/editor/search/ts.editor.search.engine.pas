@@ -32,7 +32,7 @@ uses
   ts.Editor.Interfaces, ts.Editor.Search.Engine.Settings,
   ts.Editor.Search.Data,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 type
 

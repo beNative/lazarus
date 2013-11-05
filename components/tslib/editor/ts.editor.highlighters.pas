@@ -31,7 +31,7 @@ uses
 
   ts.Editor.Utils, ts.Editor.CodeFormatters, ts.Editor.CodeTags,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 type
   TSynHighlighterClass = class of TSynCustomHighlighter;

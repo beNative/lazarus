@@ -30,7 +30,7 @@ uses
 {$ENDIF}
   Classes, SysUtils, TypInfo,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 const
   LineEnding: string = System.LineEnding;

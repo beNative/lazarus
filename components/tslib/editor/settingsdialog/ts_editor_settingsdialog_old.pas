@@ -152,7 +152,7 @@ uses
 
   ts.Editor.HighlighterAttributes, ts.Editor.Highlighters,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 resourcestring
   SAttributeName = 'Attribute name';

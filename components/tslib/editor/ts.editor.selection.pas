@@ -103,7 +103,7 @@ implementation
 uses
   ts.Editor.Utils,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 {$region 'construction and destruction' /fold}
 constructor TEditorSelection.Create(AEditorView: IEditorView);

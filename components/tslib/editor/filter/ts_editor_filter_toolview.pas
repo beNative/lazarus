@@ -152,7 +152,7 @@ uses
   Windows,
 {$ENDIF}
 
-  sharedlogger,
+  ts.Core.SharedLogger,
 
   LCLProc, LCLType,
 

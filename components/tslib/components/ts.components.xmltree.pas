@@ -52,7 +52,7 @@ uses
 {$ENDIF}
   VirtualTrees,
 
-  sharedlogger,
+  ts.Core.SharedLogger,
 
   ts.Core.NativeXml,
 

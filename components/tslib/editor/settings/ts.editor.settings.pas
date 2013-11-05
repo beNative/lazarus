@@ -40,7 +40,7 @@ uses
 
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
 
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 type
   { TEditorSettings }

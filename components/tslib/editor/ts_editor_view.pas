@@ -106,7 +106,7 @@ uses
   ts.Editor.Selection,
 
   // logging
-  sharedlogger;
+  ts.Core.SharedLogger;
 
 type
 

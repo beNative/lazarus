@@ -100,9 +100,9 @@ uses
   Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
 
   // logging
-  sharedlogger,
+  ts.Core.SharedLogger,
 
-  LCLType, PopupNotifier,
+  LCLType,
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
@@ -741,7 +741,7 @@ uses
 {$IFDEF Windows}
   ShlObj, Windows,
 
-  ipcchannel,
+  ts.Core.Logger.Channel.IPC,
 {$ENDIF}
   FileUtil, Clipbrd, StrUtils, Math, TypInfo, Contnrs,
 

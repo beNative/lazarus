@@ -324,7 +324,7 @@ begin
       gbxOptions.Checked[1]           // Align in paragraphs
     );
   end;
-  CloseQuery;
+  View.Activate;
 end;
 
 procedure TfrmAlignLines.UpdateActions;

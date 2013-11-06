@@ -78,12 +78,15 @@ type
     procedure Restore;
     procedure Ignore;
 
+    { Byte position of the first selected character in the selected block. }
     property BlockBegin: TPoint
       read GetBlockBegin write SetBlockBegin;
 
+    { Byte position of the last selected character in the selected block. }
     property BlockEnd: TPoint
       read GetBlockEnd write SetBlockEnd;
 
+    { Screen position of the caret. }
     property CaretXY: TPoint
       read GetCaretXY write SetCaretXY;
 
@@ -95,7 +98,6 @@ type
 
     property Text: string
       read GetText write SetText;
-
   end;
 
 implementation
@@ -234,22 +236,22 @@ begin
       FStripLastLine := False;
   end
   else
-    FStripLastLine := True;
+    FStripLastLine := False;
 end;
 
 {
 Depending on the selectionmode RestoreBlock will select code as follows:
 
    smNormal
-     FStoredBlockEnd.X => charcount of the last line in FStoredBlockLines
-     FStoredBlockEnd.Y => FStoredBlockBegin.Y + FStoredBlockLines.Count
+     FBlockEnd.X => charcount of the last line in FLines
+     FBlockEnd.Y => FBlockBegin.Y + FLines.Count
 
    smColumn
-     FStoredBlockEnd.X => FStoredBlockBegin.X
-       + charcount of longest line in FStoredBlockLines
-     FStoredBlockEnd.Y => StoredBlockBegin.Y + FStoredBlockLines.Count
+     FBlockEnd.X => FBlockBegin.X
+       + charcount of longest line in FLines
+     FBlockEnd.Y => FBlockBegin.Y + FLines.Count
 
-  FStoredBlockBegin is always left untouched.
+  FBlockBegin is always left untouched.
 }
 
 procedure TEditorSelection.Restore;
@@ -258,6 +260,7 @@ begin
   Logger.Send('Restore Start BlockEnd', FBlockEnd);
   Logger.Send('Text', Text);
   Logger.Send('Lines.Count', FLines.Count);
+  Logger.Send('StripLastLine', StripLastLine);
   if StripLastLine then // adjust block selection bounds
   begin
     case SelectionMode of

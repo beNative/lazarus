@@ -96,9 +96,9 @@ uses
   LMessages, LCLType,
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
-  SynEditMarkupHighAll, SynEditTypes, SynBeautifier, SynEditMarkupBracket,
-  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarkupSpecialLine,
-  SynEditMarkupCtrlMouseLink,
+  SynEditPointClasses, SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
+  SynEditMarkupBracket, SynEditHighlighterFoldBase, SynEditKeyCmds,
+  SynEditMarkupSpecialLine, SynEditMarkupCtrlMouseLink,
 
   ts.Core.DirectoryWatch,
 
@@ -165,6 +165,7 @@ type
     FMasterView      : IEditorView;
     FSlaveView       : IEditorView;
     FIsFile          : Boolean;
+    FSynSelection    : TSynEditSelection;
 
     FOnDropFiles     : TDropFilesEvent;
     FOnStatusChange  : TStatusChangeEvent;
@@ -228,6 +229,7 @@ type
     function GetShowSpecialChars: Boolean;
     function GetSlaveView: IEditorView;
     function GetSupportsFolding: Boolean;
+    function GetSynSelection: TSynEditSelection;
     function GetText: string;
     function GetTextSize: Integer;
     function GetTopLine: Integer;
@@ -290,11 +292,11 @@ type
     procedure AssignHighlighterForFileType(const AFileExt: string);
     procedure SmartSelect;
 
+    procedure FindNextWordOccurrence(ADirectionForward: Boolean);
     procedure SetHighlightSearch(
       const ASearch  : string;
             AOptions : TSynSearchOptions
     );
-
     procedure SearchAndSelectLine(
             ALineIndex : Integer;
       const ALine      : string
@@ -334,8 +336,14 @@ type
     procedure PascalStringFromSelection;
     procedure QuoteLinesInSelection(ADelimit : Boolean = False);
     procedure DequoteLinesInSelection;
+    procedure QuoteSelection;
+    procedure DequoteSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
+    procedure SyncEditSelection;
+
+    procedure Indent;
+    procedure UnIndent;
 
     procedure DoChange; dynamic;
 
@@ -386,19 +394,21 @@ type
     property BlockEnd: TPoint
       read GetBlockEnd write SetBlockEnd;
 
-    { Current coordinate of the caret. }
+    { Current position of the caret on the screen. Expanded TABs make this
+      position different from LogicalCaretXY. }
     property CaretXY: TPoint
       read GetCaretXY write SetCaretXY;
 
+    { Current position of the caret in the data buffer. }
     property LogicalCaretXY: TPoint
       read GetLogicalCaretXY write SetLogicalCaretXY;
 
   published // for the moment published only for easy debugging
-    { current X-coordinate of the caret. }
+    { current X-coordinate of the caret on the screen. }
     property CaretX: Integer
       read GetCaretX write SetCaretX;
 
-    { current Y-coordinate of the caret. }
+    { current Y-coordinate of the caret on the screen. }
     property CaretY: Integer
       read GetCaretY write SetCaretY;
 
@@ -507,6 +517,9 @@ type
     property Selection: IEditorSelection
       read GetSelection;
 
+    property SynSelection: TSynEditSelection
+      read GetSynSelection;
+
     { TODO: this does not belong here. }
     property SupportsFolding: Boolean
       read GetSupportsFolding;
@@ -576,11 +589,40 @@ uses
 
   ts.Editor.Utils;
 
+type
+
+  { TSynEditAccess }
+
+  TSynEditAccess = class(TSynEdit)
+  private
+    function GetCaret: TSynEditCaret;
+
+  public
+
+     // As viewed internally (with uncommited spaces / TODO: expanded tabs, folds). This may change, use with care
+    property ViewedTextBuffer;
+    // (TSynEditStringList) No uncommited (trailing/trimmable) spaces
+    property TextBuffer;
+    property WordBreaker; // TSynWordBreaker
+    property Caret: TSynEditCaret
+      read GetCaret;
+
+  end;
+
+{ TSynEditAccess }
+
+function TSynEditAccess.GetCaret: TSynEditCaret;
+begin
+  Result := GetCaretObj;
+end;
+
 {$region 'construction and destruction' /fold}
 procedure TEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FEditor := TSynEdit.Create(Self);
+  FEditor := TSynEditAccess.Create(Self);
+  FSynSelection := TSynEditSelection.Create(TSynEditAccess(FEditor).ViewedTextBuffer, True);
+  FSynSelection.Caret := TSynEditAccess(FEditor).Caret;
   FIsFile := True;
   FFindHistory := TStringList.Create;
   FFindHistory.Sorted := True;
@@ -616,6 +658,7 @@ begin
 {$IFDEF Windows}
   FreeAndNil(FDirectoryWatch);
 {$ENDIF}
+  FreeAndNil(FSynSelection);
   FreeAndNil(FReplaceHistory);
   FreeAndNil(FFindHistory);
   FreeAndNil(FBeautifier);
@@ -716,6 +759,14 @@ begin
       Events.DoModified;
     end;
   end;
+  //Logger.Send('FirstLineBytePos', SynSelection.FirstLineBytePos);
+  //Logger.Send('EndLineBytePos', SynSelection.EndLineBytePos);
+  //Logger.Send('StartLinePos', SynSelection.StartLinePos);
+  //Logger.Send('EndLinePos', SynSelection.EndLinePos);
+  //Logger.Send('StartBytePos', SynSelection.StartBytePos);
+  //Logger.Send('EndBytePos', SynSelection.EndBytePos);
+  //Logger.Send('LastLineBytePos', SynSelection.LastLineBytePos);
+
 end;
 
 procedure TEditorView.EditorProcessCommand(Sender: TObject;
@@ -1219,6 +1270,11 @@ begin
   Result := Assigned(HighlighterItem)
     and Assigned(HighlighterItem.SynHighlighter)
     and (HighlighterItem.SynHighlighter is TSynCustomFoldHighlighter);
+end;
+
+function TEditorView.GetSynSelection: TSynEditSelection;
+begin
+  Result := FSynSelection;
 end;
 
 function TEditorView.GetLinesInWindow: Integer;
@@ -1811,70 +1867,75 @@ begin
   Prefix := HighlighterItem.LineCommentTag;
   PrefixLength := Length(Prefix);
 
-  OldCaretPos := CaretXY;
-  Selection.Store;
-  WasSelAvail := SelAvail;
-  CommonIndent := 0;
-
-  BlockBeginLine := FSelection.BlockBegin.Y;
-  BlockEndLine   := FSelection.BlockEnd.Y;
-  if (FSelection.BlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
-    and (Editor.SelectionMode <> smLine) then
-    Dec(BlockEndLine);
-
-  if AToggle then
-  begin
-    ACommentOn := False;
-    for I := BlockBeginLine to BlockEndLine do
-    begin
-      if DeletePos(I) < 0 then
-      begin
-        ACommentOn := True;
-        Break;
-      end;
-    end;
-  end;
-
-  BeginUpdate;
-  Editor.SelectionMode := smNormal;
-
-  BB := FSelection.BlockBegin;
-  BE := FSelection.BlockEnd;
-  if ACommentOn then
-  begin
-    for I := BlockEndLine downto BlockBeginLine do
-      Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
-    if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
-      OldCaretPos.X := OldCaretPos.X + PrefixLength;
-    if BB.X > InsertPos(BB.Y) then
-     BB.X := BB.X + PrefixLength;
-    if BE.X > InsertPos(BE.Y) then
-      BE.X := BE.X + PrefixLength;
-  end
+  if PrefixLength = 0 then
+    ToggleBlockCommentSelection
   else
   begin
-    for I := BlockEndLine downto BlockBeginLine do
+    OldCaretPos := CaretXY;
+    Selection.Store;
+    WasSelAvail := SelAvail;
+    CommonIndent := 0;
+
+    BlockBeginLine := FSelection.BlockBegin.Y;
+    BlockEndLine   := FSelection.BlockEnd.Y;
+    if (FSelection.BlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
+      and (Editor.SelectionMode <> smLine) then
+      Dec(BlockEndLine);
+
+    if AToggle then
     begin
-      NonBlankStart := DeletePos(I);
-      if NonBlankStart < 1 then
-        continue;
-      Editor.TextBetweenPoints[Point(NonBlankStart, I),
-        Point(NonBlankStart + PrefixLength, I)] := '';
-      if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
-        OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
-      if (BB.Y = I) and (BB.X > NonBlankStart) then
-        BB.X := Max(BB.X - PrefixLength, NonBlankStart);
-      if (BE.Y = I) and (BE.X > NonBlankStart) then
-        BE.X := Max(BE.X - PrefixLength, NonBlankStart);
+      ACommentOn := False;
+      for I := BlockBeginLine to BlockEndLine do
+      begin
+        if DeletePos(I) < 0 then
+        begin
+          ACommentOn := True;
+          Break;
+        end;
+      end;
     end;
+
+    BeginUpdate;
+    Editor.SelectionMode := smNormal;
+
+    BB := FSelection.BlockBegin;
+    BE := FSelection.BlockEnd;
+    if ACommentOn then
+    begin
+      for I := BlockEndLine downto BlockBeginLine do
+        Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
+      if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
+        OldCaretPos.X := OldCaretPos.X + PrefixLength;
+      if BB.X > InsertPos(BB.Y) then
+       BB.X := BB.X + PrefixLength;
+      if BE.X > InsertPos(BE.Y) then
+        BE.X := BE.X + PrefixLength;
+    end
+    else
+    begin
+      for I := BlockEndLine downto BlockBeginLine do
+      begin
+        NonBlankStart := DeletePos(I);
+        if NonBlankStart < 1 then
+          continue;
+        Editor.TextBetweenPoints[Point(NonBlankStart, I),
+          Point(NonBlankStart + PrefixLength, I)] := '';
+        if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
+          OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
+        if (BB.Y = I) and (BB.X > NonBlankStart) then
+          BB.X := Max(BB.X - PrefixLength, NonBlankStart);
+        if (BE.Y = I) and (BE.X > NonBlankStart) then
+          BE.X := Max(BE.X - PrefixLength, NonBlankStart);
+      end;
+    end;
+    FSelection.BlockBegin := BB;
+    FSelection.BlockEnd   := BE;
+    EndUpdate;
+    FSelection.Text := Seltext;
+    CaretXY       := OldCaretPos;
+    FSelection.Ignore;
+    FSelection.Clear;
   end;
-  FSelection.BlockBegin := BB;
-  FSelection.BlockEnd   := BE;
-  EndUpdate;
-  FSelection.Text := Seltext;
-  CaretXY       := OldCaretPos;
-  FSelection.Ignore;
-  FSelection.Clear;
 end;
 
 { Comments/uncomments the selected block with the block comment tags for the
@@ -1932,7 +1993,9 @@ begin
   Selection.Restore;
 end;
 
-{ TODO -oTS : Align in paragraphs does not work! }
+{ TODO -oTS : Align in paragraphs does not work!
+  TODO -oTS : Align to leftmost/rightmost token not implemented!
+}
 
 procedure TEditorView.AlignSelection(const AToken: string; ACompressWS: Boolean;
   AInsertSpaceBeforeToken: Boolean; AInsertSpaceAfterToken: Boolean;
@@ -1995,6 +2058,22 @@ begin
   Modified := True;
 end;
 
+procedure TEditorView.QuoteSelection;
+begin
+  Selection.Store;
+  Selection.Text := AnsiQuotedStr(Selection.Text, '''');
+  Selection.Restore;
+  Modified := True;
+end;
+
+procedure TEditorView.DequoteSelection;
+begin
+  Selection.Store;
+  Selection.Text := AnsiDequotedStr(Selection.Text, '''');
+  Selection.Restore;
+  Modified := True;
+end;
+
 procedure TEditorView.Base64FromSelection(ADecode: Boolean);
 begin
   Selection.Store(True, True);
@@ -2014,11 +2093,27 @@ begin
   Modified := True;
 end;
 
+procedure TEditorView.SyncEditSelection;
+begin
+  Editor.CommandProcessor(ecSynPSyncroEdStart, '', nil);
+end;
+
+procedure TEditorView.Indent;
+begin
+  Editor.CommandProcessor(ecBlockIndent, '', nil);
+end;
+
+procedure TEditorView.UnIndent;
+begin
+  Editor.CommandProcessor(ecBlockUnindent, '', nil);
+end;
+
 procedure TEditorView.SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
 begin
   try
     Editor.SearchReplaceEx(ALine, '', [ssoWholeWord], Point(0, ALineIndex));
   except
+    // don't handle exceptions
   end;
 end;
 
@@ -2027,6 +2122,7 @@ begin
   try
     Editor.SearchReplaceEx(AText, '', [], Point(0, 0));
   except
+    // don't handle exceptions
   end;
 end;
 
@@ -2068,6 +2164,32 @@ begin
     else if HighlighterItem.Name = 'LOG' then
       SelectBlockAroundCursor('<XMLRoot>', '</XMLRoot>', True, True);
   end;
+end;
+
+procedure TEditorView.FindNextWordOccurrence(ADirectionForward: Boolean);
+var
+  StartX, EndX: Integer;
+  Flags: TSynSearchOptions;
+  LogCaret: TPoint;
+begin
+  StartX := 0;
+  EndX   := Editor.MaxLeftChar;
+  LogCaret := LogicalCaretXY;
+  Editor.GetWordBoundsAtRowCol(LogCaret, StartX, EndX);
+  if EndX <= StartX then
+    Exit;
+  Flags := [ssoWholeWord];
+  if ADirectionForward then
+  begin
+    LogCaret.X := EndX;
+  end
+  else
+  begin
+    LogCaret.X := StartX;
+    Include(Flags, ssoBackwards);
+  end;
+  LogicalCaretXY := LogCaret;
+  Editor.SearchReplace(Editor.GetWordAtRowCol(LogCaret), '', Flags);
 end;
 
 procedure TEditorView.SetHighlightSearch(const ASearch: string; AOptions: TSynSearchOptions);

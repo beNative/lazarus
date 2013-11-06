@@ -23,8 +23,9 @@ unit ts_Editor_SettingsDialog_ApplicationSettings;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RTTICtrls,
-  Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+
+  FileUtil, RTTICtrls,
 
   ts_Editor_SettingsDialog_Base;
 
@@ -33,14 +34,12 @@ type
   { TfrmApplicationSettings }
 
   TfrmApplicationSettings = class(TCustomSettingsDialog)
-    chkDimInactiveView: TTICheckBox;
-    chkSingleInstance: TTICheckBox;
-    chkCloseWithESC: TTICheckBox;
-    chkDebugMode: TTICheckBox;
-  private
-    { private declarations }
+    chkDimInactiveView : TTICheckBox;
+    chkSingleInstance  : TTICheckBox;
+    chkCloseWithESC    : TTICheckBox;
+    chkDebugMode       : TTICheckBox;
+
   public
-    { public declarations }
     procedure AfterConstruction; override;
   end;
 
@@ -48,8 +47,7 @@ implementation
 
 {$R *.lfm}
 
-{ TfrmApplicationSettings }
-
+{$region 'construction and destruction' /fold}
 procedure TfrmApplicationSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -58,6 +56,7 @@ begin
   LinkProperty(Settings, chkCloseWithESC.Link);
   LinkProperty(Settings, chkDimInactiveView.Link);
 end;
+{$endregion}
 
 end.
 

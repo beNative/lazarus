@@ -148,6 +148,7 @@ inherited frmAlignLines: TfrmAlignLines
         'Leftmost token'
       )
       TabOrder = 3
+      Visible = False
     end
     object pnlTokens: TOMultiPanel
       Left = 0

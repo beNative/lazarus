@@ -22,29 +22,6 @@ inherited frmTest: TfrmTest
     Align = alBottom
     Anchors = [akTop, akLeft, akRight, akBottom]
     BevelOuter = bvNone
-    ClientHeight = 718
-    ClientWidth = 529
     TabOrder = 1
-    object ShortPathEdit1: TShortPathEdit
-      Left = 72
-      Height = 23
-      Top = 0
-      Width = 144
-      ShowHidden = False
-      ButtonWidth = 23
-      NumGlyphs = 1
-      MaxLength = 0
-      TabOrder = 0
-    end
-    object TreeFilterEdit1: TTreeFilterEdit
-      Left = 72
-      Height = 23
-      Top = 64
-      Width = 240
-      ButtonWidth = 23
-      NumGlyphs = 1
-      MaxLength = 0
-      TabOrder = 1
-    end
   end
 end

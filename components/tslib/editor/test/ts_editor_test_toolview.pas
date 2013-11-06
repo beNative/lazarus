@@ -23,9 +23,8 @@ unit ts_Editor_Test_ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, RTTICtrls, RTTIGrids, ShortPathEdit,
-  LvlGraphCtrl, TreeFilterEdit, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls,
+  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
+  StdCtrls, ExtCtrls,
 
   ts_Editor_ToolView_Base;
 
@@ -34,10 +33,8 @@ type
   { TfrmTest }
 
   TfrmTest = class(TCustomEditorToolView)
-    btnExecute : TButton;
-    pnlTest    : TPanel;
-    ShortPathEdit1: TShortPathEdit;
-    TreeFilterEdit1: TTreeFilterEdit;
+    btnExecute      : TButton;
+    pnlTest         : TPanel;
   end;
 
 implementation

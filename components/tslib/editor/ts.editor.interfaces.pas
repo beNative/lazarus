@@ -28,7 +28,7 @@ uses
   LCLType,
 
   SynEdit, SynEditTypes, SynEditHighlighter, SynMacroRecorder,
-  SynEditMiscClasses, SynEditMarkupBracket,
+  SynEditMiscClasses, SynEditMarkupBracket, SynEditPointClasses,
 
   ts.Core.FormSettings,
 
@@ -135,6 +135,7 @@ type
     function GetShowSpecialChars: Boolean;
     function GetSlaveView: IEditorView;
     function GetSupportsFolding: Boolean;
+    function GetSynSelection: TSynEditSelection;
     function GetText: string;
     function GetTextSize: Integer;
     function GetTopLine: Integer;
@@ -216,15 +217,11 @@ type
       AFirst : Boolean;
       ALast  : Boolean
     );
-    procedure PascalStringFromSelection;
-    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
-    procedure DequoteLinesInSelection;
-    procedure Base64FromSelection(ADecode: Boolean = False);
-    procedure ConvertTabsToSpacesInSelection;
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
     procedure SearchAndSelectText(const AText: string);
+    procedure FindNextWordOccurrence(DirectionForward: Boolean);
     procedure ClearHighlightSearch;
 
     // load and save
@@ -239,8 +236,20 @@ type
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
     procedure SmartSelect;
+    procedure PascalStringFromSelection;
+    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
+    procedure DequoteLinesInSelection;
+    procedure QuoteSelection;
+    procedure DequoteSelection;
+    procedure Base64FromSelection(ADecode: Boolean = False);
+    procedure ConvertTabsToSpacesInSelection;
+    procedure SyncEditSelection;
     function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
       AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
+
+    // other commands
+    procedure Indent;
+    procedure UnIndent;
 
     // clipboard commands
     procedure Cut;
@@ -301,6 +310,9 @@ type
 
     property Selection: IEditorSelection
       read GetSelection;
+
+    property SynSelection: TSynEditSelection
+      read GetSynSelection;
 
     { Sets the current (default) selection mode.  }
     property SelectionMode: TSynSelectionMode

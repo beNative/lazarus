@@ -588,8 +588,6 @@ type
     procedure CopyToClipboard;
 
     procedure FindNext;
-    // TODO: move to editor
-    procedure FindNextWordOccurrence(DirectionForward: Boolean);
     procedure FindPrevious;
 
     // TComponent overrides
@@ -1161,9 +1159,7 @@ begin
     dlgOpen.Filter := ActiveView.Editor.Highlighter.DefaultFilter;
   if dlgOpen.Execute then
   begin
-    ActiveView.Lines.LoadFromFile(dlgOpen.FileName);
-    ActiveView.FileName := dlgOpen.FileName;
-    AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+    OpenFile(dlgOpen.FileName);
   end;
 end;
 
@@ -1395,20 +1391,13 @@ end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
-  //InspectComponents([
-  //
-  //  ActiveView.Settings.Highlighters
-  //
-  //]);
-//  InspectComponent(Settings as TComponent);
-
-  InspectComponent(ActiveView.Editor);
-
-  //InspectComponents([
-  //  Settings as TComponent,
-  //  ActiveView.Editor,
-  //  ActiveView.Editor.Highlighter
-  //]);
+  InspectComponents([
+    ActiveView.Editor,
+    ActiveView.Editor.Gutter.ChangesPart,
+    ActiveView.Editor.Gutter.LineNumberPart,
+    ActiveView.Editor.Gutter.CodeFoldPart,
+    ActiveView.Editor.Gutter.SeparatorPart
+  ]);
 end;
 
 procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);
@@ -1457,7 +1446,7 @@ end;
 
 procedure TdmEditorManager.actSyncEditExecute(Sender: TObject);
 begin
-  ActiveView.Editor.CommandProcessor(ecSynPSyncroEdStart, '', nil);
+  ActiveView.SyncEditSelection;
 end;
 
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
@@ -1568,8 +1557,7 @@ end;
 
 procedure TdmEditorManager.actQuoteSelectionExecute(Sender: TObject);
 begin
-  ActiveView.SelText := QuotedStr(ActiveView.SelText);
-  Events.DoModified;
+  ActiveView.QuoteSelection;
 end;
 
 procedure TdmEditorManager.actRedoExecute(Sender: TObject);
@@ -1590,10 +1578,8 @@ procedure TdmEditorManager.actHighlighterExecute(Sender: TObject);
 var
   A: TAction;
 begin
-  Logger.EnterMethod('actHighlighterExecute');
   A := Sender as TAction;
   AssignHighlighter(A.Caption);
-  Logger.ExitMethod('actHighlighterExecute');
 end;
 
 procedure TdmEditorManager.actDequoteLinesExecute(Sender: TObject);
@@ -1685,13 +1671,11 @@ begin
   end;
 
   // CTRL-ALT-SHIFT-F5
-
-
 end;
 
 procedure TdmEditorManager.actUnindentExecute(Sender: TObject);
 begin
-  ActiveView.Editor.CommandProcessor(ecBlockUnindent, '', nil);
+  ActiveView.Unindent;
 end;
 
 procedure TdmEditorManager.actFindAllOccurencesExecute(Sender: TObject);
@@ -1703,7 +1687,7 @@ end;
 
 procedure TdmEditorManager.actIndentExecute(Sender: TObject);
 begin
-  ActiveView.Editor.CommandProcessor(ecBlockIndent, '', nil);
+  ActiveView.Indent;
 end;
 
 procedure TdmEditorManager.actInsertGUIDExecute(Sender: TObject);
@@ -1795,8 +1779,7 @@ end;
 
 procedure TdmEditorManager.actDequoteSelectionExecute(Sender: TObject);
 begin
-  ActiveView.SelText := AnsiDequotedStr(ActiveView.SelText, '''');
-  Events.DoModified;
+  ActiveView.DequoteSelection;
 end;
 
 procedure TdmEditorManager.actEncodeBase64Execute(Sender: TObject);
@@ -1812,12 +1795,12 @@ end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);
 begin
-  FindNextWordOccurrence(True);
+  ActiveView.FindNextWordOccurrence(True);
 end;
 
 procedure TdmEditorManager.actFindPrevWordExecute(Sender: TObject);
 begin
-  FindNextWordOccurrence(False);
+  ActiveView.FindNextWordOccurrence(False);
 end;
 
 procedure TdmEditorManager.actCopyExecute(Sender: TObject);
@@ -3211,32 +3194,6 @@ end;
 {$endregion}
 
 {$region 'Find' /fold}
-procedure TdmEditorManager.FindNextWordOccurrence(DirectionForward: Boolean);
-var
-  StartX, EndX: Integer;
-  Flags: TSynSearchOptions;
-  LogCaret: TPoint;
-begin
-  StartX := 0;
-  EndX   := ActiveView.Editor.MaxLeftChar;
-  LogCaret := ActiveView.LogicalCaretXY;
-  ActiveView.Editor.GetWordBoundsAtRowCol(LogCaret, StartX, EndX);
-  if EndX <= StartX then
-    Exit;
-  Flags := [ssoWholeWord];
-  if DirectionForward then
-  begin
-    LogCaret.X := EndX;
-  end
-  else
-  begin
-    LogCaret.X := StartX;
-    Include(Flags, ssoBackwards);
-  end;
-  ActiveView.LogicalCaretXY := LogCaret;
-  ActiveView.Editor.SearchReplace(ActiveView.Editor.GetWordAtRowCol(LogCaret), '', Flags);
-end;
-
 procedure TdmEditorManager.FindPrevious;
 begin
   SearchEngine.FindPrevious;

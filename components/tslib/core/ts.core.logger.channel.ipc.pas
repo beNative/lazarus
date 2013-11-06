@@ -41,7 +41,9 @@ unit ts.Core.Logger.Channel.IPC;
 interface
 
 uses
-  Classes, SysUtils, {$IFDEF FPC}simpleipc{$ELSE}winipc{$ENDIF},
+  Classes, SysUtils,
+
+  simpleipc,
 
   ts.Core.Logger;
 
@@ -84,11 +86,7 @@ begin
     //Those are already nil
   end;
   FBuffer:=TMemoryStream.Create;
-  {$IFDEF FPC}
   FClient := TSimpleIPCClient.Create(nil);
-  {$ELSE}
-  FClient := TWinIPCClient.Create(nil);
-  {$ENDIF}
   with FClient do
   begin
     ServerID:='ipc_log_server';

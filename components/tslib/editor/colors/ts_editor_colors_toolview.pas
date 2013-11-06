@@ -5,7 +5,7 @@ unit ts_Editor_Colors_ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, cyColorGrid, mbColorTree, SColorPicker,
+  Classes, SysUtils, FileUtil, mbColorTree, SColorPicker,
   HSVColorPicker, HexaColorPicker, mbColorPalette, HSLColorPicker, HColorPicker,
   HSLRingPicker, mbColorList, Forms, Controls, Graphics, Dialogs, ColorBox,
 

@@ -266,12 +266,11 @@
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
 	<HighlighterType>None</HighlighterType>
-	<PreviewVisible>true</PreviewVisible>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>173</Left>
-		<Top>148</Top>
-		<Width>1369</Width>
+		<Left>225</Left>
+		<Top>225</Top>
+		<Width>1417</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -362,7 +361,7 @@
 		<BackAlpha>128</BackAlpha>
 	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
-	<TabWidth>2</TabWidth>
+	<TabWidth>4</TabWidth>
 	<Highlighters>(THighlighters)
 		<THighlighterItem>
 			<Name>None</Name>
@@ -514,8 +513,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>äÉ¾ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--øÉ¾ </BlockCommentEndTag>
+			<BlockCommentStartTag>„i¸ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--˜i¸ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -927,8 +926,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>äÉ¾ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--øÉ¾ </BlockCommentEndTag>
+			<BlockCommentStartTag>„i¸ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--˜i¸ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

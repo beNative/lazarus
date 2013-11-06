@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="12"/>
-      <BuildNr Value="68"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.12" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="13"/>
+      <BuildNr Value="69"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.13" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="8">
       <Item1 Name="Default" Default="True"/>
@@ -443,75 +443,69 @@
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="22">
+    <RequiredPackages Count="20">
       <Item1>
-        <PackageName Value="pl_cindy"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item1>
       <Item2>
-        <PackageName Value="pl_bgrabitmap"/>
+        <PackageName Value="LazControls"/>
       </Item2>
       <Item3>
-        <PackageName Value="Cody"/>
+        <PackageName Value="richmemopackage"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="pl_colorlib"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_richview"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_colorlib"/>
+        <PackageName Value="pl_dwscript"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="pl_zmsql"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_zmsql"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item9>
       <Item10>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="SynEdit"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item11>
       <Item12>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item12>
       <Item13>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="LazRichEdit"/>
       </Item13>
       <Item14>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item14>
       <Item15>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item15>
       <Item16>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item16>
       <Item17>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="pl_exsystem"/>
       </Item17>
       <Item18>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="FrameViewer09"/>
       </Item18>
       <Item19>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="FCL"/>
       </Item19>
       <Item20>
-        <PackageName Value="FrameViewer09"/>
-      </Item20>
-      <Item21>
-        <PackageName Value="FCL"/>
-      </Item21>
-      <Item22>
         <PackageName Value="LCL"/>
-      </Item22>
+      </Item20>
     </RequiredPackages>
-    <Units Count="132">
+    <Units Count="129">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -532,6 +526,7 @@
       <Unit3>
         <Filename Value="..\..\components\tslib\core\ts.core.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Helpers"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
@@ -545,11 +540,11 @@
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -631,6 +626,7 @@
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -667,6 +663,7 @@
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
@@ -679,6 +676,7 @@
       <Unit38>
         <Filename Value="..\..\components\tslib\components\ts.components.synminimap.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.SynMiniMap"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\components\tslib\components\ts.components.multipanel.pas"/>
@@ -694,7 +692,6 @@
       <Unit41>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.resources.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.Docking.Resources"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.storage.pas"/>
@@ -743,6 +740,7 @@
       <Unit53>
         <Filename Value="..\..\components\tslib\core\ts.core.keyvalues.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.KeyValues"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
@@ -759,6 +757,7 @@
       <Unit57>
         <Filename Value="..\..\components\tslib\core\ts.core.xmlutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.XMLUtils"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
@@ -784,6 +783,7 @@
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+        <UnitName Value="ts.RichEditor.Manager"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
@@ -823,6 +823,7 @@
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -920,7 +921,9 @@
       <Unit86>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_keymappings.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmKeyMappings"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog_KeyMappings"/>
       </Unit86>
       <Unit87>
@@ -967,6 +970,7 @@
       <Unit93>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
@@ -997,7 +1001,6 @@
       <Unit99>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.AlignLines.Settings"/>
       </Unit99>
       <Unit100>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
@@ -1087,7 +1090,9 @@
       <Unit114>
         <Filename Value="..\..\components\tslib\editor\test\ts_editor_test_toolview.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmTest"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Test_ToolView"/>
       </Unit114>
       <Unit115>
@@ -1135,55 +1140,39 @@
       <Unit122>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFilter.Data"/>
       </Unit122>
       <Unit123>
-        <Filename Value="..\..\components\tslib\components\filechannel.pas"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="filechannel"/>
+        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
       </Unit123>
       <Unit124>
-        <Filename Value="..\..\components\tslib\components\fpccompat.pas"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="fpccompat"/>
+        <UnitName Value="ts.Core.Logger"/>
       </Unit124>
       <Unit125>
-        <Filename Value="..\..\components\tslib\components\ipcchannel.pas"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ipcchannel"/>
       </Unit125>
       <Unit126>
-        <Filename Value="..\..\components\tslib\components\multilog.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MultiLog"/>
-      </Unit126>
-      <Unit127>
-        <Filename Value="..\..\components\tslib\components\multiloglcl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="multiloglcl"/>
-      </Unit127>
-      <Unit128>
-        <Filename Value="..\..\components\tslib\components\sharedlogger.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="SharedLogger"/>
-      </Unit128>
-      <Unit129>
-        <Filename Value="..\..\components\tslib\components\sharedloggerlcl.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="sharedloggerlcl"/>
-      </Unit129>
-      <Unit130>
         <Filename Value="..\..\components\tslib\editor\colors\ts_editor_colors_toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmColors"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Colors_ToolView"/>
-      </Unit130>
-      <Unit131>
+      </Unit126>
+      <Unit127>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ViewList.Data"/>
-      </Unit131>
+      </Unit127>
+      <Unit128>
+        <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+      </Unit128>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

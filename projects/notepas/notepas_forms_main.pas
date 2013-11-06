@@ -35,7 +35,7 @@ uses
   ts.Components.Docking, ts.Components.Docking.Storage,
 
   // for debugging
-  sharedlogger,
+  ts.Core.SharedLogger,
 
   SynEdit,
 

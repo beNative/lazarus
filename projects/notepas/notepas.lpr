@@ -35,7 +35,7 @@ uses
   {$ENDIF}
 
   lazrichedit, richmemopackage, runtimetypeinfocontrols, pl_kcontrols,
-  pl_zeosdbocomp, pl_zmsql, pl_richview, lazcontrols, pl_bgrabitmap,
+  pl_zeosdbocomp, pl_zmsql, pl_richview, lazcontrols,
   ts.Components.MultiPanel, ts.Components.DBGridView, ts.Components.Docking,
   ts.Components.Docking.OptionsDialog, ts.Components.Docking.Resources,
   ts.Components.Docking.Storage, ts.Components.ExportRTF,
@@ -43,8 +43,9 @@ uses
   ts.Components.Inspector, ts.Components.SynMiniMap,
   ts.Components.UNIHighlighter, ts.Components.UniqueInstance,
   ts.Components.XMLTree, ts.Components.XMLTree.Editors,
-  ts.Components.XMLTree.NodeAttributes, filechannel, fpccompat, ipcchannel,
-  multilog, multiloglcl, sharedlogger, sharedloggerlcl,
+  ts.Components.XMLTree.NodeAttributes,
+ts.core.logger.channel.logfile, ts.Core.Logger.Channel.IPC,
+  ts.Core.Logger, ts.Core.SharedLogger,
   ts_core_componentinspector, ts.Core.BRRE, ts.Core.BRREUnicode,
   ts.Core.NativeXml.Debug, ts.Core.NativeXml.Streams,
   ts.Core.NativeXml.StringTable, ts.Core.CodecUtilsWin32, ts.Core.Collections,

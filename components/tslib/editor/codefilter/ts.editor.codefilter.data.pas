@@ -22,6 +22,8 @@
 
 interface
 
+{ Data structure used to feed the CodeFilter view. }
+
 uses
   Classes, SysUtils;
 

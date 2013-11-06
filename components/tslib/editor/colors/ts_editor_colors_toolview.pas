@@ -5,9 +5,10 @@ unit ts_Editor_Colors_ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, mbColorTree, SColorPicker,
-  HSVColorPicker, HexaColorPicker, mbColorPalette, HSLColorPicker, HColorPicker,
-  HSLRingPicker, mbColorList, Forms, Controls, Graphics, Dialogs, ColorBox,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+
+  SColorPicker, HSVColorPicker, HexaColorPicker, HSLColorPicker, HColorPicker,
+  HSLRingPicker, ColorBox,
 
   ts_Editor_ToolView_Base;
 
@@ -16,13 +17,9 @@ type
   { TfrmColors }
 
   TfrmColors = class(TForm)
-    ColorListBox1: TColorListBox;
-    HexaColorPicker1: THexaColorPicker;
-  //TCustomEditorToolView)
-  private
-    { private declarations }
-  public
-    { public declarations }
+    ColorListBox1    : TColorListBox;
+    HexaColorPicker1 : THexaColorPicker;
+
   end;
 
 implementation

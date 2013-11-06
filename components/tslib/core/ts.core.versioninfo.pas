@@ -143,14 +143,14 @@ end;
 procedure TVersionInfo.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FFPCVersion := {$I %FPCVERSION%};
-  FTargetCPU := LowerCase({$I %FPCTARGETCPU%});
-  FTargetOS := LowerCase({$I %FPCTARGETOS%});
-  FBuildDate := {$I %DATE%};
-  FFileVersionInfo := TFileVersionInfo.Create(Self);
+  FFPCVersion               := {$I%FPCVERSION%};
+  FTargetCPU                := LowerCase({$I%FPCTARGETCPU%});
+  FTargetOS                 := LowerCase({$I%FPCTARGETOS%});
+  FBuildDate                := {$I%DATE%};
+  FLCLVersion               := lcl_version;
+  FFileVersionInfo          := TFileVersionInfo.Create(Self);
   FFileVersionInfo.FileName := ParamStr(0);
   FFileVersionInfo.ReadFileInfo;
-  FLCLVersion := lcl_version;
 end;
 
 function TVersionInfo.GetFileVersion: string;

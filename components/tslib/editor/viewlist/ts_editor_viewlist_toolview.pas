@@ -38,13 +38,11 @@ type
   TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
-    Button1: TButton;
-    MenuItem2  : TMenuItem;
+    btnClose   : TButton;
     mniClose   : TMenuItem;
-    pnlBottom: TPanel;
+    pnlBottom  : TPanel;
     pnlVST     : TPanel;
     ppmMain    : TPopupMenu;
-    ppmHL      : TPopupMenu;
 
     procedure actCloseExecute(Sender: TObject);
 
@@ -100,14 +98,6 @@ begin
   FTVP.PopupMenu          := ppmMain;
   FTVP.TreeView           := FVST;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
-
-  ppmHL.Items.Clear;
-  for I := 0 to Manager.Menus.HighlighterPopupMenu.Items.Count - 1 do
-    ppmHL.Items.Add(CloneMenuItem(Manager.Menus.HighlighterPopupMenu.Items[I]));
-
-  //ppmHL.Items.Assign(Manager.Menus.HighlighterPopupMenu.Items);
-//  ppmMain.Items.Insert(1, ppmHL.Items);
-  //ppmEditor.Items.Insert(15, ppmHighLighters.Items);
 end;
 
 procedure TfrmViewList.BeforeDestruction;

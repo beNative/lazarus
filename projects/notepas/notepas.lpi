@@ -536,10 +536,12 @@
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Helpers"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -553,6 +555,7 @@
       <Unit9>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.HighlighterAttributes"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
@@ -605,11 +608,11 @@
       <Unit21>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Selection"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DirectoryWatch"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\components\tslib\core\ts.core.formsettings.pas"/>
@@ -626,7 +629,6 @@
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.Docking"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -635,6 +637,7 @@
       <Unit28>
         <Filename Value="..\..\components\tslib\core\ts.core.versioninfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.VersionInfo"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\components\tslib\components\ts.components.inspector.pas"/>
@@ -647,6 +650,7 @@
       <Unit31>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -659,11 +663,11 @@
       <Unit34>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.DataTemplates"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
@@ -712,6 +716,7 @@
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.debug.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.NativeXml.Debug"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.streams.pas"/>
@@ -728,6 +733,7 @@
       <Unit50>
         <Filename Value="..\..\components\tslib\core\ts.core.codecutilswin32.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.CodecUtilsWin32"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.dbutils.pas"/>
@@ -762,14 +768,17 @@
       <Unit58>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Commands"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -783,7 +792,6 @@
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-        <UnitName Value="ts.RichEditor.Manager"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
@@ -795,10 +803,12 @@
         <ComponentName Value="RichEditorView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.RichEditor.View"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\components\tslib\core\ts.core.fileassociations.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.FileAssociations"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.pas"/>
@@ -874,11 +884,11 @@
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Events"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -887,6 +897,7 @@
       <Unit80>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.defaults.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Generics.Defaults"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.hashes.pas"/>
@@ -979,6 +990,7 @@
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
       </Unit95>
       <Unit96>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1019,6 +1031,7 @@
       <Unit102>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
       </Unit102>
       <Unit103>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_codefilter_toolview.pas"/>
@@ -1031,6 +1044,7 @@
       <Unit104>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
       </Unit104>
       <Unit105>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
@@ -1167,6 +1181,7 @@
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ViewList.Data"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>

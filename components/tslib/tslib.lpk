@@ -725,10 +725,43 @@
       </Item176>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="1">
+    <RequiredPkgs Count="12">
       <Item1>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pl_kcontrols"/>
       </Item1>
+      <Item2>
+        <PackageName Value="FrameViewer09"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="richmemopackage"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pl_dwscript"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="pl_zeosdbocomp"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="pl_luicontrols"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="pl_virtualtrees"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="pl_colorlib"/>
+      </Item9>
+      <Item10>
+        <PackageName Value="SynEdit"/>
+      </Item10>
+      <Item11>
+        <PackageName Value="LCL"/>
+      </Item11>
+      <Item12>
+        <PackageName Value="FCL"/>
+      </Item12>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

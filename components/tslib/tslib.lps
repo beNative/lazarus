@@ -3,104 +3,166 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <Units Count="11">
+    <Units Count="8">
       <Unit0>
-        <Filename Value="editor\ts.editor.manager.pas"/>
+        <Filename Value="components\ts.components.dbgridview.pas"/>
+        <UnitName Value="ts.Components.DBGridView"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="32" Y="94"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="components\ts.components.exportrtf.pas"/>
+        <UnitName Value="ts.Components.ExportRTF"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="3" Y="68"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="core\ts.core.dbutils.pas"/>
+        <UnitName Value="ts.Core.DBUtils"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="3" Y="38"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="core\ts.core.helpers.pas"/>
+        <UnitName Value="ts.Core.Helpers"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="8"/>
+        <CursorPos X="3" Y="30"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="editor\ts_editor_manager.pas"/>
         <ComponentName Value="dmEditorManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="ts.Editor.Manager"/>
+        <UnitName Value="ts_Editor_Manager"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="23"/>
-        <CursorPos X="3" Y="111"/>
+        <CursorPos X="3" Y="109"/>
         <UsageCount Value="10"/>
-      </Unit0>
-      <Unit1>
-        <Filename Value="components\ts.components.docking.optionsdialog.pas"/>
-        <UnitName Value="ts.Components.Docking.OptionsDialog"/>
-        <IsVisibleTab Value="True"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="92" Y="14"/>
-        <UsageCount Value="10"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="components\ts.components.synminimap.pas"/>
-        <UnitName Value="ts.Components.SynMiniMap"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="editor\ts.editor.settingsdialog.filetypes.pas"/>
-        <UnitName Value="ts.Editor.SettingsDialog.FileTypes"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="76" Y="17"/>
-        <UsageCount Value="10"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="editor\ts.editor.settingsdialog.filetypes.lfm"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="editor\ts.editor.toolview.manager.pas"/>
-        <UnitName Value="ts.Editor.Toolview.Manager"/>
+        <Filename Value="editor\preview\ts_editor_preview_toolview.pas"/>
+        <ComponentName Value="frmPreview"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_Preview_ToolView"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="28"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit5>
       <Unit6>
-        <Filename Value="editor\ts.editor.manager.lfm"/>
+        <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.pas"/>
+        <ComponentName Value="frmHTMLView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_HTMLView_ToolView"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="7"/>
+        <CursorPos X="3" Y="29"/>
         <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="LFM"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit6>
       <Unit7>
-        <Filename Value="editor\ts.editor.toolview.hexeditor.pas"/>
-        <UnitName Value="ts.Editor.ToolView.HexEditor"/>
+        <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
+        <UnitName Value="ts_Editor_HexEditor_ToolView"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="28"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit7>
-      <Unit8>
-        <Filename Value="editor\ts.editor.toolview.htmlview.pas"/>
-        <UnitName Value="ts.Editor.ToolView.HTMLView"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit8>
-      <Unit9>
-        <Filename Value="editor\ts.editor.toolview.search.pas"/>
-        <UnitName Value="ts.Editor.ToolView.Search"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="130"/>
-        <CursorPos X="107" Y="140"/>
-        <UsageCount Value="10"/>
-      </Unit9>
-      <Unit10>
-        <Filename Value="editor\ts_editor_settingsdialog_filetypes.lrt"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="None"/>
-      </Unit10>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="15" HistoryIndex="14">
+      <Position1>
+        <Filename Value="components\ts.components.dbgridview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="components\ts.components.dbgridview.pas"/>
+        <Caret Line="83" Column="85" TopLine="72"/>
+      </Position2>
+      <Position3>
+        <Filename Value="components\ts.components.exportrtf.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="components\ts.components.exportrtf.pas"/>
+        <Caret Line="68" Column="3" TopLine="46"/>
+      </Position4>
+      <Position5>
+        <Filename Value="core\ts.core.dbutils.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position5>
+      <Position6>
+        <Filename Value="core\ts.core.dbutils.pas"/>
+        <Caret Line="38" Column="3" TopLine="16"/>
+      </Position6>
+      <Position7>
+        <Filename Value="core\ts.core.helpers.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position7>
+      <Position8>
+        <Filename Value="core\ts.core.helpers.pas"/>
+        <Caret Line="30" Column="3" TopLine="8"/>
+      </Position8>
+      <Position9>
+        <Filename Value="editor\ts_editor_manager.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position9>
+      <Position10>
+        <Filename Value="editor\ts_editor_manager.pas"/>
+        <Caret Line="109" Column="3" TopLine="23"/>
+      </Position10>
+      <Position11>
+        <Filename Value="editor\preview\ts_editor_preview_toolview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position11>
+      <Position12>
+        <Filename Value="editor\preview\ts_editor_preview_toolview.pas"/>
+        <Caret Line="28" Column="3" TopLine="6"/>
+      </Position12>
+      <Position13>
+        <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position13>
+      <Position14>
+        <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.pas"/>
+        <Caret Line="29" Column="3" TopLine="7"/>
+      </Position14>
+      <Position15>
+        <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position15>
+    </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
 </CONFIG>

@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="4">
+    <PathDelim Value="\"/>
     <Name Value="tslib"/>
-    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <Libraries Value="components"/>
-        <OtherUnitFiles Value="components"/>
+        <IncludeFiles Value="components;core"/>
+        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
         <CompilerMessages>
@@ -17,31 +18,721 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="4">
+    <Files Count="176">
       <Item1>
-        <Filename Value="components/ts.components.multipanel.pas"/>
-        <UnitName Value="ts.Components.MultiPanel"/>
+        <Filename Value="components\ts.components.dbgridview.pas"/>
+        <UnitName Value="ts.Components.DBGridView"/>
       </Item1>
       <Item2>
-        <Filename Value="tslib.registration.pas"/>
-        <HasRegisterProc Value="True"/>
-        <UnitName Value="tsLib.Registration"/>
+        <Filename Value="components\ts.components.docking.optionsdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item2>
       <Item3>
-        <Filename Value="components/ts.components.gridview.res"/>
-        <Type Value="Binary"/>
+        <Filename Value="components\ts.components.docking.optionsdialog.pas"/>
+        <UnitName Value="ts.Components.Docking.OptionsDialog"/>
       </Item3>
       <Item4>
-        <Filename Value="components/ts.components.gridview.pas"/>
-        <UnitName Value="ts.Components.GridView"/>
+        <Filename Value="components\ts.components.docking.lrs"/>
+        <Type Value="LRS"/>
       </Item4>
+      <Item5>
+        <Filename Value="components\ts.components.docking.pas"/>
+        <UnitName Value="ts.Components.Docking"/>
+      </Item5>
+      <Item6>
+        <Filename Value="components\ts.components.docking.resources.pas"/>
+        <UnitName Value="ts.Components.Docking.Resources"/>
+      </Item6>
+      <Item7>
+        <Filename Value="components\ts.components.docking.storage.pas"/>
+        <UnitName Value="ts.Components.Docking.Storage"/>
+      </Item7>
+      <Item8>
+        <Filename Value="components\ts.components.exportrtf.pas"/>
+        <UnitName Value="ts.Components.ExportRTF"/>
+      </Item8>
+      <Item9>
+        <Filename Value="components\ts.components.fileassociation.pas"/>
+        <UnitName Value="ts.Components.FileAssociation"/>
+      </Item9>
+      <Item10>
+        <Filename Value="components\ts.components.gridview.pas"/>
+        <UnitName Value="ts.Components.GridView"/>
+      </Item10>
+      <Item11>
+        <Filename Value="components\ts.components.inspector.pas"/>
+        <UnitName Value="ts.Components.Inspector"/>
+      </Item11>
+      <Item12>
+        <Filename Value="components\ts.components.multipanel.pas"/>
+        <UnitName Value="ts.Components.MultiPanel"/>
+      </Item12>
+      <Item13>
+        <Filename Value="components\ts.components.synminimap.pas"/>
+        <UnitName Value="ts.Components.SynMiniMap"/>
+      </Item13>
+      <Item14>
+        <Filename Value="components\ts.components.unihighlighter.pas"/>
+        <UnitName Value="ts.Components.UNIHighlighter"/>
+      </Item14>
+      <Item15>
+        <Filename Value="components\ts.components.uniqueinstance.pas"/>
+        <UnitName Value="ts.Components.UniqueInstance"/>
+      </Item15>
+      <Item16>
+        <Filename Value="components\ts.components.virtualdbtreeex.pas"/>
+        <UnitName Value="ts.Components.VirtualDBTreeEx"/>
+      </Item16>
+      <Item17>
+        <Filename Value="components\ts.components.xmltree.editors.pas"/>
+        <UnitName Value="ts.Components.XMLTree.Editors"/>
+      </Item17>
+      <Item18>
+        <Filename Value="components\ts.components.xmltree.nodeattributes.pas"/>
+        <UnitName Value="ts.Components.XMLTree.NodeAttributes"/>
+      </Item18>
+      <Item19>
+        <Filename Value="components\ts.components.xmltree.pas"/>
+        <UnitName Value="ts.Components.XMLTree"/>
+      </Item19>
+      <Item20>
+        <Filename Value="components\ts.components.docking.optionsdialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item20>
+      <Item21>
+        <Filename Value="core\ts.collections.pas"/>
+        <UnitName Value="ts.Collections"/>
+      </Item21>
+      <Item22>
+        <Filename Value="core\ts.core.brre.pas"/>
+        <UnitName Value="ts.Core.BRRE"/>
+      </Item22>
+      <Item23>
+        <Filename Value="core\ts.core.brreunicode.pas"/>
+        <UnitName Value="ts.Core.BRREUnicode"/>
+      </Item23>
+      <Item24>
+        <Filename Value="core\ts.core.codecutilswin32.pas"/>
+        <UnitName Value="ts.Core.CodecUtilsWin32"/>
+      </Item24>
+      <Item25>
+        <Filename Value="core\ts.core.collections.pas"/>
+        <UnitName Value="ts.Core.Collections"/>
+      </Item25>
+      <Item26>
+        <Filename Value="core\ts.core.columndefinitions.pas"/>
+        <UnitName Value="ts.Core.ColumnDefinitions"/>
+      </Item26>
+      <Item27>
+        <Filename Value="core\ts.core.columndefinitionsdatatemplate.pas"/>
+        <UnitName Value="ts.Core.ColumnDefinitionsDataTemplate"/>
+      </Item27>
+      <Item28>
+        <Filename Value="core\ts.core.datatemplates.pas"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
+      </Item28>
+      <Item29>
+        <Filename Value="core\ts.core.dbutils.pas"/>
+        <UnitName Value="ts.Core.DBUtils"/>
+      </Item29>
+      <Item30>
+        <Filename Value="core\ts.core.directorywatch.pas"/>
+        <UnitName Value="ts.Core.DirectoryWatch"/>
+      </Item30>
+      <Item31>
+        <Filename Value="core\ts.core.encodingutils.pas"/>
+        <UnitName Value="ts.Core.EncodingUtils"/>
+      </Item31>
+      <Item32>
+        <Filename Value="core\ts.core.events.pas"/>
+        <UnitName Value="ts.Core.Events"/>
+      </Item32>
+      <Item33>
+        <Filename Value="core\ts.core.fileassociations.pas"/>
+        <UnitName Value="ts.Core.FileAssociations"/>
+      </Item33>
+      <Item34>
+        <Filename Value="core\ts.core.formsettings.pas"/>
+        <UnitName Value="ts.Core.FormSettings"/>
+      </Item34>
+      <Item35>
+        <Filename Value="core\ts.core.generics.collections.pas"/>
+        <UnitName Value="ts.Core.Generics.Collections"/>
+      </Item35>
+      <Item36>
+        <Filename Value="core\ts.core.generics.defaults.pas"/>
+        <UnitName Value="ts.Core.Generics.Defaults"/>
+      </Item36>
+      <Item37>
+        <Filename Value="core\ts.core.generics.hashes.pas"/>
+        <UnitName Value="ts.Core.Generics.Hashes"/>
+      </Item37>
+      <Item38>
+        <Filename Value="core\ts.core.generics.helpers.pas"/>
+        <UnitName Value="ts.Core.Generics.Helpers"/>
+      </Item38>
+      <Item39>
+        <Filename Value="core\ts.core.hashstrings.pas"/>
+        <UnitName Value="ts.Core.HashStrings"/>
+      </Item39>
+      <Item40>
+        <Filename Value="core\ts.core.helpers.pas"/>
+        <UnitName Value="ts.Core.Helpers"/>
+      </Item40>
+      <Item41>
+        <Filename Value="core\ts.core.keyvalues.pas"/>
+        <UnitName Value="ts.Core.KeyValues"/>
+      </Item41>
+      <Item42>
+        <Filename Value="core\ts.core.logger.channel.ipc.pas"/>
+        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+      </Item42>
+      <Item43>
+        <Filename Value="core\ts.core.logger.channel.logfile.pas"/>
+        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
+      </Item43>
+      <Item44>
+        <Filename Value="core\ts.core.logger.pas"/>
+        <UnitName Value="ts.Core.Logger"/>
+      </Item44>
+      <Item45>
+        <Filename Value="core\ts.core.nativexml.debug.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Debug"/>
+      </Item45>
+      <Item46>
+        <Filename Value="core\ts.Core.NativeXml.inc"/>
+        <Type Value="Include"/>
+      </Item46>
+      <Item47>
+        <Filename Value="core\ts.core.nativexml.objectstorage.pas"/>
+        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
+      </Item47>
+      <Item48>
+        <Filename Value="core\ts.core.nativexml.pas"/>
+        <UnitName Value="ts.Core.NativeXml"/>
+      </Item48>
+      <Item49>
+        <Filename Value="core\ts.core.nativexml.streams.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Streams"/>
+      </Item49>
+      <Item50>
+        <Filename Value="core\ts.core.nativexml.stringtable.pas"/>
+        <UnitName Value="ts.Core.NativeXml.StringTable"/>
+      </Item50>
+      <Item51>
+        <Filename Value="core\ts.core.nativexml.win32compat.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
+      </Item51>
+      <Item52>
+        <Filename Value="core\ts.core.sharedlogger.pas"/>
+        <UnitName Value="ts.Core.SharedLogger"/>
+      </Item52>
+      <Item53>
+        <Filename Value="core\ts.core.sqlparser.pas"/>
+        <UnitName Value="ts.Core.SQLParser"/>
+      </Item53>
+      <Item54>
+        <Filename Value="core\ts.core.sqlscanner.pas"/>
+        <UnitName Value="ts.Core.SQLScanner"/>
+      </Item54>
+      <Item55>
+        <Filename Value="core\ts.core.sqltree.pas"/>
+        <UnitName Value="ts.Core.SQLTree"/>
+      </Item55>
+      <Item56>
+        <Filename Value="core\ts.core.stringutils.pas"/>
+        <UnitName Value="ts.Core.StringUtils"/>
+      </Item56>
+      <Item57>
+        <Filename Value="core\ts.core.treeviewpresenter.pas"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
+      </Item57>
+      <Item58>
+        <Filename Value="core\ts.core.utils.pas"/>
+        <UnitName Value="ts.Core.Utils"/>
+      </Item58>
+      <Item59>
+        <Filename Value="core\ts.core.value.pas"/>
+        <UnitName Value="ts.Core.Value"/>
+      </Item59>
+      <Item60>
+        <Filename Value="core\ts.core.versioninfo.pas"/>
+        <UnitName Value="ts.Core.VersionInfo"/>
+      </Item60>
+      <Item61>
+        <Filename Value="core\ts.core.xmlutils.pas"/>
+        <UnitName Value="ts.Core.XMLUtils"/>
+      </Item61>
+      <Item62>
+        <Filename Value="core\ts_core_componentinspector.lfm"/>
+        <Type Value="LFM"/>
+      </Item62>
+      <Item63>
+        <Filename Value="core\ts_core_componentinspector.pas"/>
+        <UnitName Value="ts_Core_ComponentInspector"/>
+      </Item63>
+      <Item64>
+        <Filename Value="editor\SetupFiltersDialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item64>
+      <Item65>
+        <Filename Value="editor\SetupFiltersDialog.pas"/>
+        <UnitName Value="SetupFiltersDialog"/>
+      </Item65>
+      <Item66>
+        <Filename Value="editor\ts.editor.codeformatters.pas"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
+      </Item66>
+      <Item67>
+        <Filename Value="editor\ts.editor.codeformatters.sql.pas"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
+      </Item67>
+      <Item68>
+        <Filename Value="editor\ts.editor.codetags.pas"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
+      </Item68>
+      <Item69>
+        <Filename Value="editor\ts.editor.commands.pas"/>
+        <UnitName Value="ts.Editor.Commands"/>
+      </Item69>
+      <Item70>
+        <Filename Value="editor\ts.editor.commentstripper.pas"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
+      </Item70>
+      <Item71>
+        <Filename Value="editor\ts.editor.events.pas"/>
+        <UnitName Value="ts.Editor.Events"/>
+      </Item71>
+      <Item72>
+        <Filename Value="editor\ts.editor.helpers.pas"/>
+        <UnitName Value="ts.Editor.Helpers"/>
+      </Item72>
+      <Item73>
+        <Filename Value="editor\ts.editor.highlighterattributes.pas"/>
+        <UnitName Value="ts.Editor.HighlighterAttributes"/>
+      </Item73>
+      <Item74>
+        <Filename Value="editor\ts.editor.highlighters.pas"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
+      </Item74>
+      <Item75>
+        <Filename Value="editor\ts.editor.interfaces.pas"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
+      </Item75>
+      <Item76>
+        <Filename Value="editor\ts.editor.selection.pas"/>
+        <UnitName Value="ts.Editor.Selection"/>
+      </Item76>
+      <Item77>
+        <Filename Value="editor\ts.editor.toolview.manager.pas"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
+      </Item77>
+      <Item78>
+        <Filename Value="editor\ts.editor.types.pas"/>
+        <UnitName Value="ts.Editor.Types"/>
+      </Item78>
+      <Item79>
+        <Filename Value="editor\ts.editor.utils.pas"/>
+        <UnitName Value="ts.Editor.Utils"/>
+      </Item79>
+      <Item80>
+        <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item80>
+      <Item81>
+        <Filename Value="editor\ts_editor_aboutdialog.pas"/>
+        <UnitName Value="ts_Editor_AboutDialog"/>
+      </Item81>
+      <Item82>
+        <Filename Value="editor\ts_editor_manager.lfm"/>
+        <Type Value="LFM"/>
+      </Item82>
+      <Item83>
+        <Filename Value="editor\ts_editor_manager.pas"/>
+        <UnitName Value="ts_Editor_Manager"/>
+      </Item83>
+      <Item84>
+        <Filename Value="editor\ts_editor_resources.lfm"/>
+        <Type Value="LFM"/>
+      </Item84>
+      <Item85>
+        <Filename Value="editor\ts_editor_resources.pas"/>
+        <UnitName Value="ts_Editor_Resources"/>
+      </Item85>
+      <Item86>
+        <Filename Value="editor\ts_editor_view.lfm"/>
+        <Type Value="LFM"/>
+      </Item86>
+      <Item87>
+        <Filename Value="editor\ts_editor_view.pas"/>
+        <UnitName Value="ts_Editor_View"/>
+      </Item87>
+      <Item88>
+        <Filename Value="editor\SetupFiltersDialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item88>
+      <Item89>
+        <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item89>
+      <Item90>
+        <Filename Value="editor\ts_editor_manager.lfm"/>
+        <Type Value="LFM"/>
+      </Item90>
+      <Item91>
+        <Filename Value="editor\ts_editor_resources.lfm"/>
+        <Type Value="LFM"/>
+      </Item91>
+      <Item92>
+        <Filename Value="editor\ts_editor_view.lfm"/>
+        <Type Value="LFM"/>
+      </Item92>
+      <Item93>
+        <Filename Value="editor\actionlist\ts.editor.actionlist.templates.pas"/>
+        <UnitName Value="ts.Editor.ActionList.Templates"/>
+      </Item93>
+      <Item94>
+        <Filename Value="editor\actionlist\ts_editor_actionlist_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item94>
+      <Item95>
+        <Filename Value="editor\actionlist\ts_editor_actionlist_toolview.pas"/>
+        <UnitName Value="ts_Editor_ActionList_ToolView"/>
+      </Item95>
+      <Item96>
+        <Filename Value="editor\alignlines\ts.editor.alignlines.settings.pas"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
+      </Item96>
+      <Item97>
+        <Filename Value="editor\alignlines\ts_editor_alignlines_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item97>
+      <Item98>
+        <Filename Value="editor\alignlines\ts_editor_alignlines_toolview.pas"/>
+        <UnitName Value="ts_Editor_AlignLines_ToolView"/>
+      </Item98>
+      <Item99>
+        <Filename Value="editor\charactermap\ts_editor_charactermap_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item99>
+      <Item100>
+        <Filename Value="editor\charactermap\ts_editor_charactermap_toolview.pas"/>
+        <UnitName Value="ts_Editor_CharacterMap_Toolview"/>
+      </Item100>
+      <Item101>
+        <Filename Value="editor\codefilter\ts.editor.codefilter.data.pas"/>
+        <UnitName Value="ts.Editor.CodeFilter.Data"/>
+      </Item101>
+      <Item102>
+        <Filename Value="editor\codefilter\ts.editor.codefilter.settings.pas"/>
+        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
+      </Item102>
+      <Item103>
+        <Filename Value="editor\codefilter\ts_editor_codefilter_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item103>
+      <Item104>
+        <Filename Value="editor\codefilter\ts_editor_codefilter_toolview.pas"/>
+        <UnitName Value="ts_Editor_CodeFilter_Toolview"/>
+      </Item104>
+      <Item105>
+        <Filename Value="editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
+        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
+      </Item105>
+      <Item106>
+        <Filename Value="editor\codeshaper\ts_editor_codeshaper_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item106>
+      <Item107>
+        <Filename Value="editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
+        <UnitName Value="ts_Editor_CodeShaper_ToolView"/>
+      </Item107>
+      <Item108>
+        <Filename Value="editor\colors\ts_editor_colors_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item108>
+      <Item109>
+        <Filename Value="editor\colors\ts_editor_colors_toolview.pas"/>
+        <UnitName Value="ts_Editor_Colors_ToolView"/>
+      </Item109>
+      <Item110>
+        <Filename Value="editor\filter\ts_editor_filter_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item110>
+      <Item111>
+        <Filename Value="editor\filter\ts_editor_filter_toolview.pas"/>
+        <UnitName Value="ts_Editor_Filter_ToolView"/>
+      </Item111>
+      <Item112>
+        <Filename Value="editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
+        <UnitName Value="ts.Editor.HexEditor.Settings"/>
+      </Item112>
+      <Item113>
+        <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item113>
+      <Item114>
+        <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
+        <UnitName Value="ts_Editor_HexEditor_ToolView"/>
+      </Item114>
+      <Item115>
+        <Filename Value="editor\htmlview\ts.editor.htmlview.settings.pas"/>
+        <UnitName Value="ts.Editor.HTMLView.Settings"/>
+      </Item115>
+      <Item116>
+        <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item116>
+      <Item117>
+        <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.pas"/>
+        <UnitName Value="ts_Editor_HTMLView_ToolView"/>
+      </Item117>
+      <Item118>
+        <Filename Value="editor\minimap\ts.editor.minimap.settings.pas"/>
+        <UnitName Value="ts.Editor.MiniMap.Settings"/>
+      </Item118>
+      <Item119>
+        <Filename Value="editor\minimap\ts_editor_minimap_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item119>
+      <Item120>
+        <Filename Value="editor\minimap\ts_editor_minimap_toolview.pas"/>
+        <UnitName Value="ts_Editor_MiniMap_ToolView"/>
+      </Item120>
+      <Item121>
+        <Filename Value="editor\preview\ts_editor_preview_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item121>
+      <Item122>
+        <Filename Value="editor\preview\ts_editor_preview_toolview.pas"/>
+        <UnitName Value="ts_Editor_Preview_ToolView"/>
+      </Item122>
+      <Item123>
+        <Filename Value="editor\scripteditor\ts_editor_scripteditor_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item123>
+      <Item124>
+        <Filename Value="editor\scripteditor\ts_editor_scripteditor_toolview.pas"/>
+        <UnitName Value="ts_Editor_ScriptEditor_ToolView"/>
+      </Item124>
+      <Item125>
+        <Filename Value="editor\search\ts.editor.search.data.pas"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
+      </Item125>
+      <Item126>
+        <Filename Value="editor\search\ts.editor.search.engine.pas"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
+      </Item126>
+      <Item127>
+        <Filename Value="editor\search\ts.editor.search.engine.settings.pas"/>
+        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
+      </Item127>
+      <Item128>
+        <Filename Value="editor\search\ts.editor.search.templates.pas"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
+      </Item128>
+      <Item129>
+        <Filename Value="editor\search\ts_editor_search_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item129>
+      <Item130>
+        <Filename Value="editor\search\ts_editor_search_toolview.pas"/>
+        <UnitName Value="ts_Editor_Search_Toolview"/>
+      </Item130>
+      <Item131>
+        <Filename Value="editor\selectioninfo\ts_editor_selectioninfo_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item131>
+      <Item132>
+        <Filename Value="editor\selectioninfo\ts_editor_selectioninfo_toolview.pas"/>
+        <UnitName Value="ts_Editor_SelectionInfo_ToolView"/>
+      </Item132>
+      <Item133>
+        <Filename Value="editor\settings\ts.editor.settings.pas"/>
+        <UnitName Value="ts.Editor.Settings"/>
+      </Item133>
+      <Item134>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item134>
+      <Item135>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog"/>
+      </Item135>
+      <Item136>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
+        <Type Value="LFM"/>
+      </Item136>
+      <Item137>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_ApplicationSettings"/>
+      </Item137>
+      <Item138>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.lfm"/>
+        <Type Value="LFM"/>
+      </Item138>
+      <Item139>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_Base"/>
+      </Item139>
+      <Item140>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.lfm"/>
+        <Type Value="LFM"/>
+      </Item140>
+      <Item141>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_EditorSettings"/>
+      </Item141>
+      <Item142>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.lfm"/>
+        <Type Value="LFM"/>
+      </Item142>
+      <Item143>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_Extensions"/>
+      </Item143>
+      <Item144>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.lfm"/>
+        <Type Value="LFM"/>
+      </Item144>
+      <Item145>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_FileAssociations"/>
+      </Item145>
+      <Item146>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.lfm"/>
+        <Type Value="LFM"/>
+      </Item146>
+      <Item147>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_FileTypes"/>
+      </Item147>
+      <Item148>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.lfm"/>
+        <Type Value="LFM"/>
+      </Item148>
+      <Item149>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_Highlighters"/>
+      </Item149>
+      <Item150>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.lfm"/>
+        <Type Value="LFM"/>
+      </Item150>
+      <Item151>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_KeyMappings"/>
+      </Item151>
+      <Item152>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.lfm"/>
+        <Type Value="LFM"/>
+      </Item152>
+      <Item153>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.pas"/>
+        <UnitName Value="ts_Editor_SettingsDialog_Old"/>
+      </Item153>
+      <Item154>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
+        <Type Value="LFM"/>
+      </Item154>
+      <Item155>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
+        <Type Value="LFM"/>
+      </Item155>
+      <Item156>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.lfm"/>
+        <Type Value="LFM"/>
+      </Item156>
+      <Item157>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.lfm"/>
+        <Type Value="LFM"/>
+      </Item157>
+      <Item158>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.lfm"/>
+        <Type Value="LFM"/>
+      </Item158>
+      <Item159>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.lfm"/>
+        <Type Value="LFM"/>
+      </Item159>
+      <Item160>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.lfm"/>
+        <Type Value="LFM"/>
+      </Item160>
+      <Item161>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.lfm"/>
+        <Type Value="LFM"/>
+      </Item161>
+      <Item162>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.lfm"/>
+        <Type Value="LFM"/>
+      </Item162>
+      <Item163>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.lfm"/>
+        <Type Value="LFM"/>
+      </Item163>
+      <Item164>
+        <Filename Value="editor\shortcuts\ts_editor_shortcuts_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item164>
+      <Item165>
+        <Filename Value="editor\shortcuts\ts_editor_shortcuts_toolview.pas"/>
+        <UnitName Value="ts_Editor_Shortcuts_ToolView"/>
+      </Item165>
+      <Item166>
+        <Filename Value="editor\structure\ts_editor_structure_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item166>
+      <Item167>
+        <Filename Value="editor\structure\ts_editor_structure_toolview.pas"/>
+        <UnitName Value="ts_Editor_Structure_ToolView"/>
+      </Item167>
+      <Item168>
+        <Filename Value="editor\test\ts_editor_test_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item168>
+      <Item169>
+        <Filename Value="editor\test\ts_editor_test_toolview.pas"/>
+        <UnitName Value="ts_Editor_Test_ToolView"/>
+      </Item169>
+      <Item170>
+        <Filename Value="editor\toolview\ts_editor_toolview_base.lfm"/>
+        <Type Value="LFM"/>
+      </Item170>
+      <Item171>
+        <Filename Value="editor\toolview\ts_editor_toolview_base.pas"/>
+        <UnitName Value="ts_Editor_ToolView_Base"/>
+      </Item171>
+      <Item172>
+        <Filename Value="editor\toolview\ts_editor_toolview_base.lfm"/>
+        <Type Value="LFM"/>
+      </Item172>
+      <Item173>
+        <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
+        <UnitName Value="ts.Editor.ViewList.Data"/>
+      </Item173>
+      <Item174>
+        <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.lfm"/>
+        <Type Value="LFM"/>
+      </Item174>
+      <Item175>
+        <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.lrt"/>
+        <Type Value="Text"/>
+      </Item175>
+      <Item176>
+        <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.pas"/>
+        <UnitName Value="ts_Editor_ViewList_ToolView"/>
+      </Item176>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="1">
       <Item1>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item1>
     </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
     <PublishOptions>
       <Version Value="2"/>
     </PublishOptions>

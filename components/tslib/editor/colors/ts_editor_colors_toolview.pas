@@ -1,6 +1,6 @@
 unit ts_Editor_Colors_ToolView;
 
-{$mode delphi}
+{$MODE Delphi}
 
 interface
 

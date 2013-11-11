@@ -888,10 +888,7 @@ type
      }
 implementation
 
-//uses
-  //ExtSystem, ExtSysUtils, ExtGraphics, ExtStrUtils, Ext_Graphics;
-
-{$R *.RES}
+{$R *.res}
 
 { TDBGridHeader }
 
@@ -3430,4 +3427,4 @@ begin
 //end;
 
 end.
-
+

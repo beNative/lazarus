@@ -60,6 +60,10 @@
 
   Please visit http://www.simdesign.nl/xml.html for more information.
 }
+
+{
+  TS: Fixed pointer operations on Integer to NativeInt for 64bit compilers.
+}
 unit ts.Core.NativeXml.ObjectStorage;
 
 {$I ts.Core.NativeXml.inc}
@@ -1451,8 +1455,8 @@ begin
   PSet := PInteger(@AState);
   AInfo := GetPropInfo(TComponentAccess, 'ComponentState');
   if Assigned(AInfo.GetProc) then
-    PInteger(Integer(Self) + Integer(AInfo.GetProc) and $00FFFFFF)^ := PSet^;
+    PInteger(NativeInt(Self) + NativeInt(AInfo.GetProc) and $00FFFFFF)^ := PSet^;
 end;
 
 end.
-
+

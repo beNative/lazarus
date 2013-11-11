@@ -23,13 +23,16 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="13"/>
-      <BuildNr Value="69"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.13" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="14"/>
+      <BuildNr Value="71"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.14" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
-    <BuildModes Count="10">
+    <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="qt"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -54,8 +57,8 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <TargetCPU Value="i386"/>
-            <TargetOS Value="win32"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="linux"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -256,9 +259,8 @@
         </CompilerOptions>
       </Item5>
       <Item6 Name="Release win32 gtk2">
-        <MacroValues Count="2">
+        <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
-          <Macro3 Name="fpGUIPlatform"/>
         </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
@@ -427,6 +429,9 @@
         </CompilerOptions>
       </Item8>
       <Item9 Name="Release linux64 qt">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="qt"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -445,7 +450,7 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <TargetCPU Value="i386"/>
+            <TargetCPU Value="x86_64"/>
             <TargetOS Value="linux"/>
             <Optimizations>
               <VariablesInRegisters Value="True"/>
@@ -478,6 +483,9 @@
         </CompilerOptions>
       </Item9>
       <Item10 Name="Release linux64 gtk2">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -496,7 +504,7 @@
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <TargetCPU Value="i386"/>
+            <TargetCPU Value="x86_64"/>
             <TargetOS Value="linux"/>
             <Optimizations>
               <VariablesInRegisters Value="True"/>
@@ -528,10 +536,116 @@
           </Other>
         </CompilerOptions>
       </Item10>
+      <Item11 Name="Release FreeBSD64 gtk2">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="freebsd"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item11>
+      <Item12 Name="Release Solaris64 gtk2">
+        <MacroValues Count="1">
+          <Macro2 Name="LCLWidgetType" Value="gtk2"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="solaris"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+          </Other>
+        </CompilerOptions>
+      </Item12>
       <SharedMatrixOptions Count="3">
-        <Item1 ID="468994090888" Modes="Release win32 qt,Release linux32 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
-        <Item2 ID="440664449299" Modes="Release win32 gtk2,Release linux32 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item3 ID="154453790704" Modes="Release win32 gtk2" Type="IDEMacro" MacroName="fpGUIPlatform"/>
+        <Item1 ID="468994090888" Modes="Release win32 qt,Release linux32 qt,Release linux64 qt,Debug" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
+        <Item2 ID="440664449299" Modes="Release win32 gtk2,Release linux32 gtk2,Release linux64 gtk2,Release FreeBSD64 gtk2,Release Solaris64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item3 ID="154453790704" Type="IDEMacro" MacroName="fpGUIPlatform"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
@@ -547,58 +661,58 @@
     </RunParams>
     <RequiredPackages Count="20">
       <Item1>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="FrameViewer09"/>
       </Item1>
       <Item2>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LazControls"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_colorlib"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="pl_colorlib"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="pl_richview"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_zmsql"/>
+        <PackageName Value="pl_dwscript"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_lazsolutions"/>
+        <PackageName Value="pl_zmsql"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_fzcontrols"/>
+        <PackageName Value="pl_lazsolutions"/>
       </Item9>
       <Item10>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_fzcontrols"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="SynEdit"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="pl_zeosdbocomp"/>
       </Item12>
       <Item13>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item13>
       <Item14>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item14>
       <Item15>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item15>
       <Item16>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="pl_luicontrols"/>
       </Item16>
       <Item17>
-        <PackageName Value="pl_exsystem"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item17>
       <Item18>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="pl_exsystem"/>
       </Item18>
       <Item19>
         <PackageName Value="FCL"/>
@@ -633,7 +747,6 @@
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -643,12 +756,10 @@
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -657,11 +768,11 @@
       <Unit9>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.HighlighterAttributes"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Utils"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
@@ -670,10 +781,12 @@
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.ExportRTF"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
@@ -714,7 +827,6 @@
       <Unit22>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.DirectoryWatch"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\components\tslib\core\ts.core.formsettings.pas"/>
@@ -723,10 +835,12 @@
       <Unit24>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.GridView"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.DBGridView"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
@@ -739,7 +853,6 @@
       <Unit28>
         <Filename Value="..\..\components\tslib\core\ts.core.versioninfo.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.VersionInfo"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\components\tslib\components\ts.components.inspector.pas"/>
@@ -752,7 +865,6 @@
       <Unit31>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -782,7 +894,6 @@
       <Unit38>
         <Filename Value="..\..\components\tslib\components\ts.components.synminimap.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.SynMiniMap"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\components\tslib\components\ts.components.multipanel.pas"/>
@@ -818,11 +929,11 @@
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.debug.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Debug"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.streams.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.NativeXml.Streams"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.stringtable.pas"/>
@@ -835,7 +946,6 @@
       <Unit50>
         <Filename Value="..\..\components\tslib\core\ts.core.codecutilswin32.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.CodecUtilsWin32"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.dbutils.pas"/>
@@ -848,7 +958,6 @@
       <Unit53>
         <Filename Value="..\..\components\tslib\core\ts.core.keyvalues.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.KeyValues"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
@@ -865,22 +974,18 @@
       <Unit57>
         <Filename Value="..\..\components\tslib\core\ts.core.xmlutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.XMLUtils"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeTags"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Commands"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CommentStripper"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -905,12 +1010,10 @@
         <ComponentName Value="RichEditorView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts.RichEditor.View"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\components\tslib\core\ts.core.fileassociations.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.FileAssociations"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.pas"/>
@@ -990,7 +1093,6 @@
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Events"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -999,7 +1101,6 @@
       <Unit80>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.defaults.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Generics.Defaults"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.hashes.pas"/>
@@ -1074,7 +1175,6 @@
       <Unit91>
         <Filename Value="..\..\components\tslib\core\ts.collections.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Collections"/>
       </Unit91>
       <Unit92>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
@@ -1083,7 +1183,6 @@
       <Unit93>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Search.Engine"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
@@ -1092,7 +1191,6 @@
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Search.Templates"/>
       </Unit95>
       <Unit96>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1133,7 +1231,6 @@
       <Unit102>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
       </Unit102>
       <Unit103>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_codefilter_toolview.pas"/>
@@ -1146,7 +1243,6 @@
       <Unit104>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
       </Unit104>
       <Unit105>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
@@ -1175,7 +1271,6 @@
       <Unit109>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.HexEditor.Settings"/>
       </Unit109>
       <Unit110>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
@@ -1256,17 +1351,14 @@
       <Unit122>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFilter.Data"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
       </Unit123>
       <Unit124>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Logger"/>
       </Unit124>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
@@ -1283,12 +1375,10 @@
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ViewList.Data"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
       </Unit128>
     </Units>
   </ProjectOptions>
@@ -1376,4 +1466,4 @@
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

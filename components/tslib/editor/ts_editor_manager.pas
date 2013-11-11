@@ -1790,7 +1790,7 @@ end;
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
   ClearViews;
-  Application.Terminate;
+  //Application.Terminate;
 end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);
@@ -3211,4 +3211,4 @@ initialization
   Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
-end.
+end.

@@ -2648,7 +2648,7 @@ implementation
 uses
   Types;
 
-{$R *.RES}
+{$R *.res}
 
 // non interfaced routines
 
@@ -11650,4 +11650,4 @@ initialization
 finalization
   FreeAndNil(FPatternBitmap);
 
-end.
+end.

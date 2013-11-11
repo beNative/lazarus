@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="14"/>
-      <BuildNr Value="71"/>
+      <BuildNr Value="76"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.14" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
@@ -139,7 +139,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
@@ -192,8 +192,7 @@
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteBefore>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
@@ -253,7 +252,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
@@ -313,7 +312,7 @@
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\upx.exe $(TargetFile)"/>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
@@ -331,8 +330,8 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\fpc\units\i386-linux;..\..\..\fpc\units\i386-linux\x11;..\..\..\Libraries\i386-linux"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -370,6 +369,9 @@
               <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
+            </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item7>
@@ -385,7 +387,8 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS);$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType)"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -425,6 +428,9 @@
               <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
+            </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item8>
@@ -440,28 +446,27 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\fpc\units\i386-linux;..\..\..\fpc\units\i386-linux\x11;..\..\..\Libraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
             <Checks>
               <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
             </Checks>
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="linux"/>
             <Optimizations>
+              <OptimizationLevel Value="2"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
-            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
               <UseLineInfoUnit Value="False"/>
             </Debugging>
+            <LinkSmart Value="True"/>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
@@ -479,6 +484,9 @@
               <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
+            </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item9>
@@ -494,28 +502,27 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\fpc\units\i386-linux;..\..\..\fpc\units\i386-linux\x11;..\..\..\Libraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
             <Checks>
               <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
             </Checks>
             <TargetCPU Value="x86_64"/>
             <TargetOS Value="linux"/>
             <Optimizations>
+              <OptimizationLevel Value="2"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
-            <SmallerCode Value="True"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
               <UseLineInfoUnit Value="False"/>
             </Debugging>
+            <LinkSmart Value="True"/>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
@@ -533,6 +540,9 @@
               <UseMsgFile Value="True"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
+            </ExecuteAfter>
           </Other>
         </CompilerOptions>
       </Item10>
@@ -548,6 +558,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\..\fpc\units\x86_64-freebsd;..\..\..\fpc\units\x86_64-freebsd\x11;..\..\..\fpc\units\x86_64-freebsd\rtl"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -877,7 +888,6 @@
       <Unit34>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>

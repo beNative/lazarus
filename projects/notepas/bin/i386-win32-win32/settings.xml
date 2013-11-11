@@ -268,8 +268,8 @@
 	<HighlighterType>None</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>275</Left>
-		<Top>275</Top>
+		<Left>200</Left>
+		<Top>200</Top>
 		<Width>1369</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -515,8 +515,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>d¼ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--x¼ </BlockCommentEndTag>
+			<BlockCommentStartTag>Õµ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--(Õµ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -928,8 +928,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>d¼ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--x¼ </BlockCommentEndTag>
+			<BlockCommentStartTag>Õµ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--(Õµ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

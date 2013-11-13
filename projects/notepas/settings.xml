@@ -223,10 +223,10 @@
 	<HighlighterType>None</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>347</Left>
-		<Top>132</Top>
-		<Width>1482</Width>
-		<Height>962</Height>
+		<Left>261</Left>
+		<Top>96</Top>
+		<Width>1330</Width>
+		<Height>880</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -242,7 +242,7 @@
 		<Options>[,ssoEntireScope]</Options>
 	</SearchEngineSettings>
 	<CodeShaperSettings>(TCodeShaperSettings)
-		<Width>438</Width>
+		<Width>421</Width>
 	</CodeShaperSettings>
 	<CodeFilterSettings>(TCodeFilterSettings)
 		<FormSettings>(TFormSettings)
@@ -316,6 +316,7 @@
 	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	<TabWidth>2</TabWidth>
+	<WantTabs>false</WantTabs>
 	<BlockTabIndent>2</BlockTabIndent>
 	<Highlighters>(THighlighters)
 		<THighlighterItem>
@@ -468,8 +469,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>`Rÿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--€Rÿ </BlockCommentEndTag>
+			<BlockCommentStartTag>à<ú !--</BlockCommentStartTag>
+			<BlockCommentEndTag>-- =ú </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -881,8 +882,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>`Rÿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--€Rÿ </BlockCommentEndTag>
+			<BlockCommentStartTag>à<ú !--</BlockCommentStartTag>
+			<BlockCommentEndTag>-- =ú </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

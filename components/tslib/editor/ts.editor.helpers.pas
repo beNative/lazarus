@@ -167,10 +167,10 @@ begin
       // be drawn as checked when it has a glyph assigned to it.
       // Qt does not have this problem.
       MI.GlyphShowMode := gsmNever;
+      MI.RadioItem := True;
       {$IFDEF LCLGTK2}
       MI.RadioItem  := False;
       {$ENDIF}
-      //MI.RadioItem := True;
     end;
     if (AAction is TAction) and (TAction(AAction).AutoCheck) then
     begin

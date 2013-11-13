@@ -512,7 +512,7 @@ type
 
     procedure InitializeFoldHighlighters;
     procedure InitializePopupMenus;
-    procedure InitializeActions;
+    procedure CreateActions;
     procedure RegisterHighlighters;
     procedure RegisterToolViews;
 
@@ -827,7 +827,7 @@ begin
   RegisterHighlighters;
 
   InitializeFoldHighlighters;
-  InitializeActions;
+  CreateActions;
   InitializePopupMenus;
 end;
 
@@ -1395,6 +1395,9 @@ end;
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
 begin
   InspectComponents([
+    HighlighterPopupMenu.Items,
+    HighlighterPopupMenu.Items[0],
+    HighlighterPopupMenu.Items[1],
     ActiveView.Editor,
     ActiveView.Editor.Gutter.ChangesPart,
     ActiveView.Editor.Gutter.LineNumberPart,
@@ -1882,6 +1885,9 @@ begin
     begin
       MI.GlyphShowMode := gsmNever;
       MI.RadioItem := True;
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
     end;
     if (AAction is TAction) and (TAction(AAction).AutoCheck) then
     begin
@@ -1987,7 +1993,7 @@ begin
   BuildEditorPopupMenu;
 end;
 
-procedure TdmEditorManager.InitializeActions;
+procedure TdmEditorManager.CreateActions;
 var
   A  : TAction;
   SL : TStringList;
@@ -2022,15 +2028,15 @@ begin
     end;
     for HI in Highlighters do
     begin
-      A.Tag := HI.Index;
       A := TAction.Create(ActionList);
+      A.Tag := HI.Index;
       A.ActionList := ActionList;
       A.Caption := HI.Name;
       A.Name := actHighlighter.Name + HI.Name;
       A.AutoCheck := True;
-      A.GroupIndex := 5;
       A.Category := actHighlighter.Category;
       A.OnExecute := actHighlighterExecute;
+      A.GroupIndex := 5;
     end;
     for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
     begin
@@ -2246,6 +2252,9 @@ begin
       MI.Caption    := A.Caption;
       MI.AutoCheck  := A.AutoCheck;
       MI.RadioItem  := True;
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
       MI.GroupIndex := A.GroupIndex;
     end;
     LineBreakStylePopupMenu.Items.Add(MI);
@@ -2296,8 +2305,10 @@ begin
       MI.Hint       := HI.Description;
       MI.Caption    := A.Caption;
       MI.AutoCheck  := A.AutoCheck;
-      MI.RadioItem  := True;
-      MI.GroupIndex := A.GroupIndex;
+      // RadioItem True causes all items in the group to be checked on gtk2
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
     end;
     HighlighterPopupMenu.Items.Add(MI);
   end;
@@ -2435,6 +2446,9 @@ begin
       MI.Caption    := A.Caption;
       MI.AutoCheck  := A.AutoCheck;
       MI.RadioItem  := True;
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
       MI.GroupIndex := A.GroupIndex;
     end;
     SelectionModePopupMenu.Items.Add(MI);
@@ -2461,7 +2475,7 @@ end;
 
 procedure TdmEditorManager.BuildFoldPopupMenu;
 begin
-  FoldPopupMenu.Items.Action := actToggleFoldLevel;
+  FoldPopupMenu.Items.Action := actFoldMenu;
 end;
 
 procedure TdmEditorManager.BuildExportPopupMenu;
@@ -3127,12 +3141,12 @@ var
 begin
   B := FileExistsUTF8(ActiveView.FileName);
   actCreateDesktopLink.Enabled := B;
-  actCopyFileName.Enabled   := B;
-  actCopyFilePath.Enabled   := B;
-  actCopyFullPath.Enabled   := B;
-  actReload.Enabled         := B;
-  actMonitorChanges.Enabled := B;
-  actMonitorChanges.Checked := B and ActiveView.MonitorChanges;
+  actCopyFileName.Enabled      := B;
+  actCopyFilePath.Enabled      := B;
+  actCopyFullPath.Enabled      := B;
+  actReload.Enabled            := B;
+  actMonitorChanges.Enabled    := B;
+  actMonitorChanges.Checked    := B and ActiveView.MonitorChanges;
 end;
 
 { TODO: causes problems for an unknown reason when no highlighters are
@@ -3149,8 +3163,8 @@ begin
   begin
     S := actHighlighter.Name + ActiveView.HighlighterItem.Name;
     A := Items[S];
-    if Assigned(A) then
-      A.Checked := True;
+    //if Assigned(A) then
+    //  A.Checked := True;
   end;
 end;
 

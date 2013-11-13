@@ -163,11 +163,14 @@ begin
     MI.Action := AAction;
     if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
     begin
-      // Onn Windows 7 or above with themes enabled, the menu item will not
+      // On Windows 7 or above with themes enabled, the menu item will not
       // be drawn as checked when it has a glyph assigned to it.
       // Qt does not have this problem.
       MI.GlyphShowMode := gsmNever;
-      MI.RadioItem := True;
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
+      //MI.RadioItem := True;
     end;
     if (AAction is TAction) and (TAction(AAction).AutoCheck) then
     begin
@@ -524,4 +527,4 @@ begin
 end;
 
 end.
-
+

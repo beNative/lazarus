@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 527
-  VerticalOffset = 211
+  HorizontalOffset = 544
+  VerticalOffset = 234
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
@@ -4313,6 +4313,7 @@ object dmEditorManager: TdmEditorManager
       Category = 'Fold'
       Caption = 'Fold'
       DisableIfNoHandler = False
+      ImageIndex = 69
     end
     object actSettingsMenu: TAction
       Category = 'Settings'
@@ -4359,7 +4360,7 @@ object dmEditorManager: TdmEditorManager
     RecordShortCut = 24658
     PlaybackShortCut = 24656
     OnStateChange = SynMacroRecorderStateChange
-    left = 357
+    left = 384
     top = 32
   end
   object ppmFold: TPopupMenu
@@ -4853,7 +4854,7 @@ object dmEditorManager: TdmEditorManager
     HTMLFontSize = fs03
     Title = 'Untitled'
     UseBackground = False
-    left = 357
+    left = 384
     top = 96
   end
   object ppmEncoding: TPopupMenu

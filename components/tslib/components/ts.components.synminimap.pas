@@ -496,17 +496,11 @@ begin
     if Options.ReverseScroll then // swipe movements
       LScrollDown := not LScrollDown;
 
-
-
-
     if LScrollDown then
       Editor.TopLine := Editor.TopLine + LDelta
     else
       Editor.TopLine := Editor.TopLine - LDelta;
     Render;
-
-
-
 
     //if Y > FMouseDownPoint.Y then
     //  Editor.CaretY := Editor.CaretY + LDelta
@@ -859,4 +853,4 @@ begin
   Result.Y := FFirstLine + APoint.Y div FLineHeightInPixels +1;
 end;
 
-end.
+end.

@@ -465,10 +465,10 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>ð+c!--</BlockCommentStartTag>
-			<BlockCommentEndTag>--,c</BlockCommentEndTag>
+			<BlockCommentStartTag>à+c!--</BlockCommentStartTag>
+			<BlockCommentEndTag>--ô+c</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
+			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
 			<SynHighlighter>(TSynXMLSyn)
 				<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
@@ -878,8 +878,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>ð+c!--</BlockCommentStartTag>
-			<BlockCommentEndTag>--,c</BlockCommentEndTag>
+			<BlockCommentStartTag>à+c!--</BlockCommentStartTag>
+			<BlockCommentEndTag>--ô+c</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

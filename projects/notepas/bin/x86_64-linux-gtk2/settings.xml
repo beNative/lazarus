@@ -467,8 +467,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>∞Õ¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--–Õ¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>pÕ¿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--êÕ¿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -880,8 +880,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>∞Õ¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--–Õ¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>pÕ¿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--êÕ¿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

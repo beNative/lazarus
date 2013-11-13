@@ -49,9 +49,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 0
       end
       object lblTargetOS: TLabel
@@ -77,9 +75,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
@@ -89,9 +85,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 2
       end
       object lbBuildDate: TLabel
@@ -109,9 +103,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 3
       end
       object lblWidgetSet: TLabel
@@ -129,9 +121,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 4
       end
       object lbLCLVersion: TLabel
@@ -149,9 +139,7 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
         FullRepaint = False
-        ParentColor = False
         TabOrder = 5
       end
       object lblFileVersion: TLabel
@@ -169,8 +157,6 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
-        Color = clAppWorkspace
-        ParentColor = False
         TabOrder = 6
       end
       object Shape1: TShape

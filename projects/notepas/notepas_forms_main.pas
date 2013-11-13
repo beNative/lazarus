@@ -636,7 +636,7 @@ begin
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
-  OptimizeWidth(pnlCurrentChar);
+//  OptimizeWidth(pnlCurrentChar);
   OptimizeWidth(pnlInsertMode);
   OptimizeWidth(pnlModified);
 

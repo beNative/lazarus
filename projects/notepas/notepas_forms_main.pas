@@ -636,10 +636,8 @@ begin
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
-//  OptimizeWidth(pnlCurrentChar);
   OptimizeWidth(pnlInsertMode);
   OptimizeWidth(pnlModified);
-
   pnlCurrentChar.Width :=
    GetTextWidth(btnCurrentChar.Caption, btnCurrentChar.Font) + 10;
   pnlHighlighter.Width :=

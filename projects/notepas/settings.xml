@@ -4,16 +4,28 @@
 		<THighlighterAttributesItem>
 			<Name>Comment</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clMedGray</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
+			<Name>Identifier</Name>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlack</Foreground>
+				<FrameEdges>sfeAround</FrameEdges>
+			</Attributes>
+			<AliasNames>(TStringList)</AliasNames>
+		</THighlighterAttributesItem>
+		<THighlighterAttributesItem>
 			<Name>String</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clGreen</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -22,7 +34,9 @@
 		<THighlighterAttributesItem>
 			<Name>Symbol</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clRed</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -31,7 +45,9 @@
 		<THighlighterAttributesItem>
 			<Name>Number</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clRed</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -40,7 +56,9 @@
 		<THighlighterAttributesItem>
 			<Name>Key</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlue</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -49,7 +67,9 @@
 		<THighlighterAttributesItem>
 			<Name>Float</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clFuchsia</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -58,7 +78,9 @@
 		<THighlighterAttributesItem>
 			<Name>Hexadecimal</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clTeal</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<StyleMask>[fsBold,fsItalic]</StyleMask>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -67,7 +89,9 @@
 		<THighlighterAttributesItem>
 			<Name>Reserved word</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlue</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -76,7 +100,9 @@
 		<THighlighterAttributesItem>
 			<Name>Directive</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clOlive</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -85,7 +111,9 @@
 		<THighlighterAttributesItem>
 			<Name>Character</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clPurple</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -94,7 +122,9 @@
 		<THighlighterAttributesItem>
 			<Name>Variable</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clMaroon</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -103,7 +133,9 @@
 		<THighlighterAttributesItem>
 			<Name>Null</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clGray</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -112,7 +144,9 @@
 		<THighlighterAttributesItem>
 			<Name>Operator</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlue</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -121,7 +155,9 @@
 		<THighlighterAttributesItem>
 			<Name>Attribute Name</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clMaroon</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -130,7 +166,9 @@
 		<THighlighterAttributesItem>
 			<Name>Attribute Value</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clGreen</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -139,7 +177,9 @@
 		<THighlighterAttributesItem>
 			<Name>Macro</Name>
 			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clTeal</Foreground>
 				<FrameEdges>sfeAround</FrameEdges>
+				<StyleMask>[fsBold]</StyleMask>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
@@ -153,6 +193,13 @@
 			<AliasNames>(TStringList)
 				<DefinedProperties></DefinedProperties>
 			</AliasNames>
+		</THighlighterAttributesItem>
+		<THighlighterAttributesItem>
+			<Name>Value</Name>
+			<Attributes>(TSynHighlighterAttributes)
+				<FrameEdges>sfeAround</FrameEdges>
+			</Attributes>
+			<AliasNames>(TStringList)</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Section</Name>
@@ -174,22 +221,29 @@
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
 	<HighlighterType>None</HighlighterType>
-	<DimInactiveView>false</DimInactiveView>
+	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>478</Left>
-		<Top>269</Top>
-		<Width>927</Width>
-		<Height>600</Height>
+		<Left>347</Left>
+		<Top>132</Top>
+		<Width>1482</Width>
+		<Height>962</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<AlignLinesSettings>(TAlignLinesSettings)
+		<AlignInParagraphs>true</AlignInParagraphs>
+		<SortAfterAlign>true</SortAfterAlign>
+		<RemoveWhiteSpace>true</RemoveWhiteSpace>
+		<KeepSpaceBeforeToken>true</KeepSpaceBeforeToken>
+		<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
 		<Tokens>(TStringList)</Tokens>
 	</AlignLinesSettings>
 	<SearchEngineSettings>(TSearchEngineSettings)
-		<Options>[]</Options>
+		<Options>[,ssoEntireScope]</Options>
 	</SearchEngineSettings>
-	<CodeShaperSettings>(TCodeShaperSettings)</CodeShaperSettings>
+	<CodeShaperSettings>(TCodeShaperSettings)
+		<Width>438</Width>
+	</CodeShaperSettings>
 	<CodeFilterSettings>(TCodeFilterSettings)
 		<FormSettings>(TFormSettings)
 			<Left>0</Left>
@@ -206,18 +260,19 @@
 		<Width>0</Width>
 	</MiniMapSettings>
 	<EditorFont>(TFont)
-		<Height>-13</Height>
-		<Name>Courier New</Name>
+		<Height>-15</Height>
+		<Name>Ubuntu Mono</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<IncrementColor>(TSynSelectedColor)
-		<Background>clMedGray</Background>
+		<Background>clSilver</Background>
 		<Foreground>clNone</Foreground>
 		<FrameEdges>sfeAround</FrameEdges>
 		<BackAlpha>128</BackAlpha>
 	</IncrementColor>
 	<HighlightAllColor>(TSynSelectedColor)
-		<Background>33023</Background>
-		<Foreground>clNone</Foreground>
+		<Background>7446527</Background>
+		<Foreground>clDefault</Foreground>
 		<FrameColor>27607</FrameColor>
 		<FrameEdges>sfeAround</FrameEdges>
 		<BackAlpha>128</BackAlpha>
@@ -225,10 +280,15 @@
 	<BracketMatchColor>(TSynSelectedColor)
 		<Background>clAqua</Background>
 		<Foreground>clNone</Foreground>
-		<FrameColor>clBlue</FrameColor>
+		<FrameColor>clSilver</FrameColor>
 		<FrameEdges>sfeAround</FrameEdges>
+		<Style>[fsBold]</Style>
+		<BackAlpha>128</BackAlpha>
 	</BracketMatchColor>
 	<MouseLinkColor>(TSynSelectedColor)
+		<Background>clNone</Background>
+		<Foreground>clNone</Foreground>
+		<FrameColor>clBlue</FrameColor>
 		<FrameEdges>sfeAround</FrameEdges>
 	</MouseLinkColor>
 	<LineHighlightColor>(TSynSelectedColor)
@@ -238,22 +298,25 @@
 		<FrameStyle>slsDashed</FrameStyle>
 		<FrameEdges>sfeAround</FrameEdges>
 		<BackAlpha>128</BackAlpha>
+		<ForeAlpha>64</ForeAlpha>
 		<FrameAlpha>64</FrameAlpha>
 	</LineHighlightColor>
 	<FoldedCodeColor>(TSynSelectedColor)
-		<Background>clSilver</Background>
-		<Foreground>clMedGray</Foreground>
-		<FrameColor>clMedGray</FrameColor>
+		<Background>clNone</Background>
+		<Foreground>clSilver</Foreground>
+		<FrameColor>clSilver</FrameColor>
 		<FrameEdges>sfeAround</FrameEdges>
 		<BackAlpha>50</BackAlpha>
 	</FoldedCodeColor>
 	<SelectedColor>(TSynSelectedColor)
-		<Background>clMedGray</Background>
+		<Background>clSilver</Background>
 		<Foreground>clNone</Foreground>
 		<FrameEdges>sfeAround</FrameEdges>
 		<BackAlpha>128</BackAlpha>
 	</SelectedColor>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	<TabWidth>2</TabWidth>
+	<BlockTabIndent>2</BlockTabIndent>
 	<Highlighters>(THighlighters)
 		<THighlighterItem>
 			<Name>None</Name>
@@ -281,37 +344,47 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</AsmAttri>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IDEDirectiveAttri>(TSynHighlighterAttributesModifier)
+					<Foreground>clOlive</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</IDEDirectiveAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<CaseLabelAttri>(TSynHighlighterAttributesModifier)
 					<FrameEdges>sfeAround</FrameEdges>
 				</CaseLabelAttri>
 				<DirectiveAttri>(TSynHighlighterAttributes)
+					<Foreground>clOlive</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
+					<Style>[fsBold]</Style>
 				</DirectiveAttri>
 				<CompilerMode>pcmDelphi</CompilerMode>
 				<NestedComments>false</NestedComments>
@@ -330,8 +403,8 @@
 				<DefaultFilter>SQL Files (*.sql)|*.sql</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<DataTypeAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -347,38 +420,47 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</FunctionAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<PLSQLAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</PLSQLAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<SQLPlusAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</SQLPlusAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<TableNameAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</TableNameAttri>
 				<TableNames>(TStringList)</TableNames>
 				<VariableAttri>(TSynHighlighterAttributes)
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</VariableAttri>
 				<SQLDialect>sqlSybase</SQLDialect>
 			</SynHighlighter>
@@ -386,36 +468,35 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>à<ú !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- =ú </BlockCommentEndTag>
+			<BlockCommentStartTag>`Rÿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--€Rÿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
+			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
 			<SynHighlighter>(TSynXMLSyn)
 				<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
 				<Enabled>false</Enabled>
 				<ElementAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</ElementAttri>
 				<AttributeAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</AttributeAttri>
 				<NamespaceAttributeAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</NamespaceAttributeAttri>
 				<AttributeValueAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
+					<Style>[fsBold,fsItalic]</Style>
 				</AttributeValueAttri>
 				<NamespaceAttributeValueAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
+					<Style>[fsBold,fsItalic]</Style>
 				</NamespaceAttributeValueAttri>
 				<TextAttri>(TSynHighlighterAttributes)
 					<Foreground>clNone</Foreground>
@@ -431,14 +512,15 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</EntityRefAttri>
 				<ProcessingInstructionAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clOlive</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</ProcessingInstructionAttri>
 				<CommentAttri>(TSynHighlighterAttributes)
 					<Background>clNone</Background>
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
+					<Style>[,fsItalic]</Style>
 				</CommentAttri>
 				<DocTypeAttri>(TSynHighlighterAttributes)
 					<Foreground>clNone</Foreground>
@@ -449,8 +531,9 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<WantBracesParsed>false</WantBracesParsed>
 			</SynHighlighter>
@@ -465,24 +548,29 @@
 				<DefaultFilter>Lazarus Form Files (*.lfm)|*.lfm</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -497,27 +585,29 @@
 				<DefaultFilter>MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<VariableAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</VariableAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -532,17 +622,14 @@
 				<DefaultFilter>Po Files (*.po)|*.po</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<TextAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</TextAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -565,33 +652,42 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</AsmAttri>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<DirecAttri>(TSynHighlighterAttributes)
+					<Foreground>clOlive</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</DirecAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<InvalidAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</InvalidAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -611,34 +707,41 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</AnnotationAttri>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<DocumentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</DocumentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<InvalidAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</InvalidAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -655,41 +758,52 @@
 				<DefaultFilter>Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<InvalidAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</InvalidAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<OperatorAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</OperatorAttri>
 				<PragmaAttri>(TSynHighlighterAttributes)
+					<Foreground>clTeal</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 					<Style>[]</Style>
+					<StyleMask>[fsBold]</StyleMask>
 				</PragmaAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<VariableAttri>(TSynHighlighterAttributes)
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</VariableAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -706,16 +820,16 @@
 				<DefaultFilter>Python Files (*.py)|*.py</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NonKeyAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -724,33 +838,40 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</SystemAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<HexAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clTeal</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<StyleMask>[fsBold,fsItalic]</StyleMask>
 				</HexAttri>
 				<OctalAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</OctalAttri>
 				<FloatAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clFuchsia</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</FloatAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<DocStringAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[,fsItalic]</Style>
 				</DocStringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<ErrorAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -760,8 +881,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>à<ú !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- =ú </BlockCommentEndTag>
+			<BlockCommentStartTag>`Rÿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--€Rÿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>
@@ -777,33 +898,35 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</ASPAttri>
 				<CDATAAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</CDATAAttri>
 				<DOCTYPEAttri>(TSynHighlighterAttributes)
 					<Background>clNone</Background>
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
+					<Style>[fsBold,fsItalic]</Style>
 				</DOCTYPEAttri>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[,fsItalic]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 					<Style>[]</Style>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</SymbolAttri>
 				<TextAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -812,8 +935,9 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</UndefKeyAttri>
 				<ValueAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</ValueAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -826,15 +950,16 @@
 			<SynHighlighter>(TSynJScriptSyn)
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NonReservedKeyAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -843,16 +968,22 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</EventAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -866,33 +997,42 @@
 				<DefaultFilter>PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<InvalidSymbolAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</InvalidSymbolAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<VariableAttri>(TSynHighlighterAttributes)
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</VariableAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -906,27 +1046,34 @@
 				<DefaultFilter>Cascading Stylesheets (*.css)|*.css</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<NumberAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -986,8 +1133,9 @@
 				<DefaultFilter>TeX Files (*.tex)|*.tex</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[,fsItalic]</Style>
 				</CommentAttri>
 				<TextAttri>(TSynHighlighterAttributes)
 					<Foreground>clNone</Foreground>
@@ -995,9 +1143,7 @@
 				</TextAttri>
 				<ControlSequenceAttri>(TSynHighlighterAttributes)
 					<Background>clNone</Background>
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</ControlSequenceAttri>
 				<MathmodeAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
@@ -1006,13 +1152,12 @@
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<BraceAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</BraceAttri>
 				<BracketAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</BracketAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
@@ -1026,41 +1171,47 @@
 				<DefaultFilter>UNIX Shell Scripts (*.sh)|*.sh</DefaultFilter>
 				<Enabled>false</Enabled>
 				<CommentAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMedGray</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[,fsItalic]</Style>
 				</CommentAttri>
 				<IdentifierAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlack</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</IdentifierAttri>
 				<KeyAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</KeyAttri>
 				<SecondKeyAttri>(TSynHighlighterAttributes)
+					<Foreground>clBlue</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SecondKeyAttri>
 				<SecondKeyWords>(TStringList)
 					<DefinedProperties></DefinedProperties>
 				</SecondKeyWords>
 				<NumberAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clRed</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</NumberAttri>
 				<SpaceAttri>(TSynHighlighterAttributes)
 					<FrameEdges>sfeAround</FrameEdges>
 				</SpaceAttri>
 				<StringAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clGreen</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold,fsItalic]</Style>
 				</StringAttri>
 				<SymbolAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</SymbolAttri>
 				<VarAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
+					<Foreground>clMaroon</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
+					<Style>[fsBold]</Style>
 				</VarAttri>
 			</SynHighlighter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>

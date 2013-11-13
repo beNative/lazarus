@@ -220,13 +220,13 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>424</Left>
-		<Top>197</Top>
-		<Width>1369</Width>
-		<Height>819</Height>
+		<Left>553</Left>
+		<Top>71</Top>
+		<Width>1102</Width>
+		<Height>784</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -236,12 +236,17 @@
 		<RemoveWhiteSpace>true</RemoveWhiteSpace>
 		<KeepSpaceBeforeToken>true</KeepSpaceBeforeToken>
 		<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
-		<Tokens>(TStringList)</Tokens>
+		<Tokens>(TStringList)
+			<DefinedProperties></DefinedProperties>
+		</Tokens>
 	</AlignLinesSettings>
 	<SearchEngineSettings>(TSearchEngineSettings)
 		<Options>[,ssoEntireScope]</Options>
+		<SearchAllViews>true</SearchAllViews>
 	</SearchEngineSettings>
-	<CodeShaperSettings>(TCodeShaperSettings)</CodeShaperSettings>
+	<CodeShaperSettings>(TCodeShaperSettings)
+		<Width>451</Width>
+	</CodeShaperSettings>
 	<CodeFilterSettings>(TCodeFilterSettings)
 		<FormSettings>(TFormSettings)
 			<Left>0</Left>

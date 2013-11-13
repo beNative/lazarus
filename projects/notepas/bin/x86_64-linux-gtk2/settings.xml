@@ -223,10 +223,10 @@
 	<HighlighterType>None</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>84</Left>
-		<Top>116</Top>
-		<Width>1369</Width>
-		<Height>819</Height>
+		<Left>440</Left>
+		<Top>123</Top>
+		<Width>1393</Width>
+		<Height>866</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -241,7 +241,9 @@
 	<SearchEngineSettings>(TSearchEngineSettings)
 		<Options>[,ssoEntireScope]</Options>
 	</SearchEngineSettings>
-	<CodeShaperSettings>(TCodeShaperSettings)</CodeShaperSettings>
+	<CodeShaperSettings>(TCodeShaperSettings)
+		<Width>412</Width>
+	</CodeShaperSettings>
 	<CodeFilterSettings>(TCodeFilterSettings)
 		<FormSettings>(TFormSettings)
 			<Left>0</Left>
@@ -465,10 +467,10 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>ÄÕ¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--†Õ¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>∞Õ¿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--–Õ¿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
-			<FileExtensions>compileddproj,fpc,groupproj,hgl,lpi,lpk,lps,template,xml</FileExtensions>
+			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
 			<SynHighlighter>(TSynXMLSyn)
 				<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
@@ -878,8 +880,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>ÄÕ¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--†Õ¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>∞Õ¿ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--–Õ¿ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

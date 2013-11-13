@@ -76,14 +76,14 @@ type
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
-    btnCurrentChar: TSpeedButton;
+    btnCurrentChar        : TSpeedButton;
     imlMain               : TImageList;
     lblHeader             : TLabel;
-    MenuItem1: TMenuItem;
+    MenuItem1             : TMenuItem;
     mnuMain               : TMainMenu;
-    pnlToolClient: TPanel;
+    pnlToolClient         : TPanel;
     pnlSelectionMode      : TPanel;
-    pnlCurrentChar: TPanel;
+    pnlCurrentChar        : TPanel;
     pnlTop                : TPanel;
     pnlTool               : TPanel;
     pnlLineBreakStyle     : TPanel;
@@ -193,7 +193,7 @@ uses
   ts_Editor_Resources, ts.Editor.Helpers;
 
 resourcestring
-  SModified              = 'Modified';
+  SModified = 'Modified';
 
 {$region 'construction and destruction' /fold}
 procedure TfrmMain.AfterConstruction;
@@ -404,7 +404,7 @@ end;
 procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
 begin
   WindowState := Settings.FormSettings.WindowState;
-  FormStyle := Settings.FormSettings.FormStyle;
+  FormStyle   := Settings.FormSettings.FormStyle;
 end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -446,7 +446,7 @@ procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
 var
   TV: IEditorToolView;
 begin
-  pnlTool.Visible := False;
+  pnlTool.Visible     := False;
   splVertical.Visible := False;
   for TV in Manager.ToolViews do
     TV.Visible := False;
@@ -455,16 +455,16 @@ end;
 procedure TfrmMain.EVHideEditorToolView(Sender: TObject;
   AEditorToolView: IEditorToolView);
 begin
-  pnlTool.Visible := False;
+  pnlTool.Visible     := False;
   splVertical.Visible := False;
 end;
 
 procedure TfrmMain.EVShowEditorToolView(Sender: TObject;
   AToolView: IEditorToolView);
 begin
-  pnlTool.Visible := False;
-  lblHeader.Caption := AToolView.Form.Caption;
-  pnlTool.Width := AToolView.Form.Width;
+  pnlTool.Visible     := False;
+  lblHeader.Caption   := AToolView.Form.Caption;
+  pnlTool.Width       := AToolView.Form.Width;
   splVertical.Visible := True;
   AssignFormParent(AToolView.Form, pnlToolClient);
   pnlTool.Visible := True;
@@ -632,7 +632,6 @@ begin
   S := System.Copy(S, 3, Length(S));
   btnSelectionMode.Caption := S;
   btnCurrentChar.Caption := HexDisplayPrefix + IntToHex(Ord(Editor.CurrentChar), 4);
-  pnlCurrentChar.Caption := btnCurrentChar.Caption;
   pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
   OptimizeWidth(pnlViewerCount);
   OptimizeWidth(pnlPosition);

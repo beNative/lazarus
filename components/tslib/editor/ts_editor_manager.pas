@@ -146,27 +146,30 @@ type
     actCut                            : TAction;
     actDelete                         : TAction;
     actHighlighter                    : TAction;
-    actEncoding                       : TAction;
-    actExport                         : TAction;
-    actClipboard                      : TAction;
+    actEncodingMenu                       : TAction;
+    actExportMenu                         : TAction;
+    actClipboardMenu                      : TAction;
     actInsertGUID                     : TAction;
-    actInsert                         : TAction;
+    actInsertMenu                         : TAction;
     actFindAllOccurences              : TAction;
     actIndent                         : TAction;
-    actFile                           : TAction;
+    actFileMenu                           : TAction;
     actConvertTabsToSpacesInSelection : TAction;
     actExecuteScriptOnSelection       : TAction;
+    actHighlighterMenu: TAction;
+    actFoldMenu: TAction;
+    actSettingsMenu: TAction;
     actShowFilterTest: TAction;
     actShowScriptEditor               : TAction;
     actShowMiniMap                    : TAction;
     actShowHexEditor                  : TAction;
     actShowHTMLViewer                 : TAction;
     actUnindent                       : TAction;
-    actSelect                         : TAction;
+    actSelectMenu                         : TAction;
     actSearchMenu                     : TAction;
-    actLineBreakStyle                 : TAction;
-    actSelectionMode                  : TAction;
-    actSelection                      : TAction;
+    actLineBreakStyleMenu                 : TAction;
+    actSelectionModeMenu                  : TAction;
+    actSelectionMenu                      : TAction;
     actNewSharedView                  : TAction;
     actSingleInstance                 : TAction;
     actToggleMaximized                : TAction;
@@ -2000,10 +2003,10 @@ begin
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := actEncoding.Name + DelChars(S, '-');
+      A.Name    := actEncodingMenu.Name + DelChars(S, '-');
       A.AutoCheck := True;
       A.GroupIndex := 3;
-      A.Category := actEncoding.Category;
+      A.Category := actEncodingMenu.Category;
       A.OnExecute  := actEncodingExecute;
     end;
     for S in ALineBreakStyles do
@@ -2011,10 +2014,10 @@ begin
       A := TAction.Create(aclActions);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := actLineBreakStyle.Name + S;
+      A.Name    := actLineBreakStyleMenu.Name + S;
       A.AutoCheck := True;
       A.GroupIndex := 4;
-      A.Category := actLineBreakStyle.Category;
+      A.Category := actLineBreakStyleMenu.Category;
       A.OnExecute  := actLineBreakStyleExecute;
     end;
     for HI in Highlighters do
@@ -2037,10 +2040,10 @@ begin
       S := GetEnumName(TypeInfo(TSynSelectionMode), A.Tag);
       S := System.Copy(S, 3, Length(S));
       A.Caption := S;
-      A.Name := actSelectionMode.Name + S;
+      A.Name := actSelectionModeMenu.Name + S;
       A.AutoCheck := True;
       A.GroupIndex := 6;
-      A.Category := actSelectionMode.Category;
+      A.Category := actSelectionModeMenu.Category;
       A.OnExecute := actSelectionModeExecute;
     end;
   finally
@@ -2182,7 +2185,7 @@ var
 begin
   MI := ClipboardPopupMenu.Items;
   MI.Clear;
-  MI.Action := actClipboard;
+  MI.Action := actClipboardMenu;
   AddMenuItem(MI, actCopyFileName);
   AddMenuItem(MI, actCopyFilePath);
   AddMenuItem(MI, actCopyFullPath);
@@ -2207,7 +2210,7 @@ begin
   try
     MI := EncodingPopupMenu.Items;
     MI.Clear;
-    MI.Action := actEncoding;
+    MI.Action := actEncodingMenu;
     GetSupportedEncodings(SL);
     for S in SL do
     begin
@@ -2231,7 +2234,7 @@ var
 begin
   MI := LineBreakStylePopupMenu.Items;
   MI.Clear;
-  MI.Action := actLineBreakStyle;
+  MI.Action := actLineBreakStyleMenu;
   for S in ALineBreakStyles do
   begin
     MI := TMenuItem.Create(LineBreakStylePopupMenu);
@@ -2255,7 +2258,7 @@ var
 begin
   MI := FilePopupMenu.Items;
   MI.Clear;
-  MI.Action := actFile;
+  MI.Action := actFileMenu;
   AddMenuItem(MI, actNew);
   AddMenuItem(MI, actOpen);
   AddMenuItem(MI, actSave);
@@ -2280,7 +2283,7 @@ var
   HI : THighlighterItem;
   A  : TCustomAction;
 begin
-  HighlighterPopupMenu.Items.Action := actToggleHighlighter;
+  HighlighterPopupMenu.Items.Action := actHighlighterMenu;
   HighlighterPopupMenu.Items.Clear;
   for HI in Highlighters do
   begin
@@ -2324,7 +2327,7 @@ var
 begin
   MI := SelectPopupMenu.Items;
   MI.Clear;
-  MI.Action := actSelect;
+  MI.Action := actSelectMenu;
   AddMenuItem(MI, actSelectAll);
   AddMenuItem(MI);
   AddMenuItem(MI, actClear);
@@ -2364,7 +2367,7 @@ var
 begin
   MI := SelectionPopupMenu.Items;
   MI.Clear;
-  MI.Action := actSelection;
+  MI.Action := actSelectionMenu;
   AddMenuItem(MI, actSyncEdit);
   AddMenuItem(MI, actAlignSelection);
   AddMenuItem(MI, actSortSelection);
@@ -2403,7 +2406,7 @@ var
 begin
   MI := InsertPopupMenu.Items;
   MI.Clear;
-  MI.Action := actInsert;
+  MI.Action := actInsertMenu;
   AddMenuItem(MI, actInsertCharacterFromMap);
   AddMenuItem(MI, actInsertColorValue);
   AddMenuItem(MI, actInsertGUID);
@@ -2417,7 +2420,7 @@ var
   A  : TCustomAction;
 begin
   SelectionModePopupMenu.Items.Clear;
-  SelectionModePopupMenu.Items.Action := actSelectionMode;
+  SelectionModePopupMenu.Items.Action := actSelectionModeMenu;
   for SM := Low(TSynSelectionMode) to High(TSynSelectionMode) do
   begin
     MI := TMenuItem.Create(SelectionModePopupMenu);
@@ -2443,13 +2446,8 @@ var
   MI : TMenuItem;
 begin
   MI := SettingsPopupMenu.Items;
-  //MI.Clear;
-  //MI.Action := actSettings;
-  MI.ImageIndex := actSettings.ImageIndex;
-  MI.Caption    := actSettings.Caption;
-  MI.Hint       := actSettings.Hint;
-  MI.ShortCut   := actSettings.ShortCut;
-  MI.Default := True;
+  MI.Clear;
+  MI.Action := actSettingsMenu;
   AddMenuItem(MI, actSettings);
   AddMenuItem(MI);
   AddMenuItem(MI, actShowSpecialCharacters);
@@ -2472,7 +2470,7 @@ var
 begin
   MI := ExportPopupMenu.Items;
   MI.Clear;
-  MI.Action := actExport;
+  MI.Action := actExportMenu;
   AddMenuItem(MI, actExportToHTML);
   AddMenuItem(MI, actExportToRTF);
   AddMenuItem(MI, actExportToWiki);
@@ -2980,7 +2978,7 @@ var
   V: IEditorView;
 begin
   V := ActiveView;
-  if Assigned(V) and Assigned(Settings) and V.Focused and FChanged then
+  if Assigned(V) and Assigned(Settings) and V.Focused {and FChanged} then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
     actDequoteSelection.Enabled               := B;
@@ -3084,7 +3082,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := actEncoding.Name + DelChars(ActiveView.Encoding, '-');
+    S := actEncodingMenu.Name + DelChars(ActiveView.Encoding, '-');
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3099,7 +3097,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := actLineBreakStyle.Name + ActiveView.LineBreakStyle;
+    S := actLineBreakStyleMenu.Name + ActiveView.LineBreakStyle;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3116,7 +3114,7 @@ begin
   begin
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(ActiveView.SelectionMode));
     S := System.Copy(S, 3, Length(S));
-    S := actSelectionMode.Name + S;
+    S := actSelectionModeMenu.Name + S;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;

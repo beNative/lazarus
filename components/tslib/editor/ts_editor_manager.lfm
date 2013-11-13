@@ -3407,10 +3407,10 @@ object dmEditorManager: TdmEditorManager
   end
   object aclActions: TActionList
     Images = imlMain
-    left = 213
+    left = 216
     top = 88
     object actSettings: TAction
-      Category = 'Edit'
+      Category = 'Settings'
       Caption = 'Settings'
       Hint = 'Editor settings'
       ImageIndex = 7
@@ -4170,38 +4170,39 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 80
       OnExecute = actNewSharedViewExecute
     end
-    object actSelection: TAction
+    object actSelectionMenu: TAction
       Category = 'Selection'
       Caption = 'Selection'
       DisableIfNoHandler = False
       ImageIndex = 41
     end
-    object actSelectionMode: TAction
+    object actSelectionModeMenu: TAction
       Category = 'SelectionMode'
       Caption = 'Selectionmode'
+      DisableIfNoHandler = False
     end
     object actHighlighter: TAction
       Category = 'Highlighter'
       Caption = 'Highlighter'
       DisableIfNoHandler = False
     end
-    object actLineBreakStyle: TAction
+    object actLineBreakStyleMenu: TAction
       Category = 'Linebreakstyle'
       Caption = 'Linebreakstyle'
       DisableIfNoHandler = False
     end
-    object actEncoding: TAction
+    object actEncodingMenu: TAction
       Category = 'Encoding'
       Caption = 'Encoding'
       DisableIfNoHandler = False
     end
-    object actExport: TAction
+    object actExportMenu: TAction
       Category = 'Export'
       Caption = 'Export'
       DisableIfNoHandler = False
       ImageIndex = 80
     end
-    object actClipboard: TAction
+    object actClipboardMenu: TAction
       Category = 'Clipboard'
       Caption = 'Clipboard'
       DisableIfNoHandler = False
@@ -4215,7 +4216,7 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actInsertGUIDExecute
       ShortCut = 24647
     end
-    object actInsert: TAction
+    object actInsertMenu: TAction
       Category = 'Insert'
       Caption = 'Insert'
       DisableIfNoHandler = False
@@ -4249,13 +4250,13 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actUnindentExecute
       ShortCut = 24661
     end
-    object actSelect: TAction
+    object actSelectMenu: TAction
       Category = 'Select'
       Caption = 'Select'
       DisableIfNoHandler = False
       ImageIndex = 101
     end
-    object actFile: TAction
+    object actFileMenu: TAction
       Category = 'File'
       Caption = 'File'
       DisableIfNoHandler = False
@@ -4301,6 +4302,23 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Show filter test dialog'
       OnExecute = actShowFilterTestExecute
       ShortCut = 57460
+    end
+    object actHighlighterMenu: TAction
+      Category = 'Highlighter'
+      Caption = 'Highlighter'
+      DisableIfNoHandler = False
+      ImageIndex = 75
+    end
+    object actFoldMenu: TAction
+      Category = 'Fold'
+      Caption = 'Fold'
+      DisableIfNoHandler = False
+    end
+    object actSettingsMenu: TAction
+      Category = 'Settings'
+      Caption = 'Settings'
+      DisableIfNoHandler = False
+      ImageIndex = 7
     end
   end
   object ppmExport: TPopupMenu
@@ -4951,4 +4969,4 @@ object dmEditorManager: TdmEditorManager
       Caption = 'New Item1'
     end
   end
-end
+end

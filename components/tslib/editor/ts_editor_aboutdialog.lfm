@@ -16,7 +16,7 @@ object frmAbout: TfrmAbout
   object grpLine: TGroupBox
     Left = 4
     Height = 2
-    Top = 215
+    Top = 216
     Width = 630
     Anchors = [akLeft, akRight, akBottom]
     TabOrder = 0
@@ -32,13 +32,13 @@ object frmAbout: TfrmAbout
     TabOrder = 1
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 179
+      ClientHeight = 178
       ClientWidth = 390
       object lblFPCVersion: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 9
-        Width = 75
+        Width = 73
         Caption = 'FPC version:'
         ParentColor = False
       end
@@ -49,11 +49,14 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 0
       end
       object lblTargetOS: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 58
         Width = 63
         Caption = 'Target OS:'
@@ -61,9 +64,9 @@ object frmAbout: TfrmAbout
       end
       object lblTargetCPU: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 78
-        Width = 70
+        Width = 71
         Caption = 'Target CPU:'
         ParentColor = False
       end
@@ -74,6 +77,9 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
@@ -83,11 +89,14 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 2
       end
       object lbBuildDate: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 133
         Width = 65
         Caption = 'Build date:'
@@ -100,13 +109,16 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 3
       end
       object lblWidgetSet: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 105
-        Width = 69
+        Width = 66
         Caption = 'Widget set:'
         ParentColor = False
       end
@@ -117,13 +129,16 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 4
       end
       object lbLCLVersion: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 29
-        Width = 74
+        Width = 72
         Caption = 'LCL version:'
         ParentColor = False
       end
@@ -134,11 +149,14 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        FullRepaint = False
+        ParentColor = False
         TabOrder = 5
       end
       object lblFileVersion: TLabel
         Left = 8
-        Height = 15
+        Height = 16
         Top = 151
         Width = 49
         Caption = 'Version:'
@@ -151,6 +169,8 @@ object frmAbout: TfrmAbout
         Width = 105
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
+        Color = clAppWorkspace
+        ParentColor = False
         TabOrder = 6
       end
       object Shape1: TShape
@@ -188,13 +208,13 @@ object frmAbout: TfrmAbout
     end
     object tsCredits: TTabSheet
       Caption = 'Credits'
-      ClientHeight = 176
-      ClientWidth = 386
+      ClientHeight = 178
+      ClientWidth = 390
       object vstCredits: TVirtualStringTree
         Left = 4
-        Height = 162
+        Height = 164
         Top = 6
-        Width = 377
+        Width = 381
         Anchors = [akTop, akLeft, akRight, akBottom]
         Colors.FocusedSelectionColor = clSilver
         Colors.FocusedSelectionBorderColor = clSilver
@@ -769,26 +789,28 @@ object frmAbout: TfrmAbout
     Top = 91
     Width = 236
     BevelOuter = bvNone
+    Color = clForm
     Font.Height = -19
     Font.Style = [fsBold]
+    ParentColor = False
     ParentFont = False
     TabOrder = 2
   end
   object lblLegalCopyright: TLabel
-    Left = 40
+    Left = 8
     Height = 14
-    Top = 144
-    Width = 136
+    Top = 128
+    Width = 224
     Alignment = taCenter
     AutoSize = False
     Layout = tlCenter
     ParentColor = False
   end
   object btnClose: TButton
-    Left = 556
+    Left = 522
     Height = 25
-    Top = 225
-    Width = 75
+    Top = 224
+    Width = 110
     Action = actClose
     Anchors = [akRight, akBottom]
     ModalResult = 11
@@ -796,10 +818,10 @@ object frmAbout: TfrmAbout
   end
   object lblURL: TLabel
     Cursor = crHandPoint
-    Left = 8
+    Left = 4
     Height = 24
-    Top = 160
-    Width = 232
+    Top = 144
+    Width = 236
     Alignment = taCenter
     AutoSize = False
     Caption = 'URL'
@@ -813,9 +835,9 @@ object frmAbout: TfrmAbout
     OnDblClick = lblURLDblClick
   end
   object Image1: TImage
-    Left = 79
+    Left = 77
     Height = 38
-    Top = 184
+    Top = 174
     Width = 96
     AutoSize = True
     Picture.Data = {

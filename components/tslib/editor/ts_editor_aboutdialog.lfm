@@ -32,13 +32,13 @@ object frmAbout: TfrmAbout
     TabOrder = 1
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 178
+      ClientHeight = 179
       ClientWidth = 390
       object lblFPCVersion: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 9
-        Width = 73
+        Width = 75
         Caption = 'FPC version:'
         ParentColor = False
       end
@@ -56,7 +56,7 @@ object frmAbout: TfrmAbout
       end
       object lblTargetOS: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 58
         Width = 63
         Caption = 'Target OS:'
@@ -64,9 +64,9 @@ object frmAbout: TfrmAbout
       end
       object lblTargetCPU: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 78
-        Width = 71
+        Width = 70
         Caption = 'Target CPU:'
         ParentColor = False
       end
@@ -96,7 +96,7 @@ object frmAbout: TfrmAbout
       end
       object lbBuildDate: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 133
         Width = 65
         Caption = 'Build date:'
@@ -116,9 +116,9 @@ object frmAbout: TfrmAbout
       end
       object lblWidgetSet: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 105
-        Width = 66
+        Width = 69
         Caption = 'Widget set:'
         ParentColor = False
       end
@@ -136,9 +136,9 @@ object frmAbout: TfrmAbout
       end
       object lbLCLVersion: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 29
-        Width = 72
+        Width = 74
         Caption = 'LCL version:'
         ParentColor = False
       end
@@ -156,7 +156,7 @@ object frmAbout: TfrmAbout
       end
       object lblFileVersion: TLabel
         Left = 8
-        Height = 16
+        Height = 15
         Top = 151
         Width = 49
         Caption = 'Version:'
@@ -786,7 +786,7 @@ object frmAbout: TfrmAbout
   object pnlName: TPanel
     Left = 4
     Height = 40
-    Top = 91
+    Top = 85
     Width = 236
     BevelOuter = bvNone
     Color = clForm
@@ -820,7 +820,7 @@ object frmAbout: TfrmAbout
     Cursor = crHandPoint
     Left = 4
     Height = 24
-    Top = 144
+    Top = 146
     Width = 236
     Alignment = taCenter
     AutoSize = False

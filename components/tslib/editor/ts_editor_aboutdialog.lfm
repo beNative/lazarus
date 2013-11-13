@@ -769,7 +769,7 @@ object frmAbout: TfrmAbout
     Top = 91
     Width = 236
     BevelOuter = bvNone
-    Font.Height = -21
+    Font.Height = -19
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
@@ -804,6 +804,7 @@ object frmAbout: TfrmAbout
     AutoSize = False
     Caption = 'URL'
     Font.Color = clBlue
+    Font.Height = -11
     Font.Style = [fsUnderline]
     Layout = tlCenter
     ParentColor = False

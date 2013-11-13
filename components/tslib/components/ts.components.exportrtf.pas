@@ -220,6 +220,7 @@ function TSynExporterRTF.GetFooter: string;
 begin
   Result := '}';
 end;
+
 function TSynExporterRTF.GetFormatName: string;
 begin
   Result := SYNS_ExporterFormatRTF;
@@ -252,4 +253,4 @@ end;
 
 end.
 
-
+

@@ -72,10 +72,34 @@ const
   FILE_EXTENSIONS_JAVA = 'java';
   FILE_EXTENSIONS_SQL  = 'sql';
   FILE_EXTENSIONS_XML  = 'xml,hgl,' +
-                         'lpi,lps,lpk,' +            // Lazarus
+                         'lpi,lps,lpk,' +        // Lazarus
                          'fpc,compiled' +        // FPC Make
                          'dproj,groupproj,' +    // Delphi
-                         'template';             // Java templates
+                         'template,' +           // Java templates
+                         'svg,' +                // Scalable Vector Graphics
+                         'docx,' +               // Open XML document
+                         'docm,' +               // Word Macro-Enabled Document
+                         'dotx,' +               // Word Template
+                         'dotm,' +               // Word Macro-Enabled Template
+                         'xlsx,' +               // Open XML Spreadsheet
+                         'xlsm,' +               // Excel Macro-Enabled Workbook
+                         'xltx,' +               // Excel Template
+                         'xltm,' +               // Excel Macro-Enabled Template
+                         'xlam,' +               // Excel Add-In
+                         'pptx,' +               //  Open XML Presentation
+                         'pptm,' +               // PowerPoint Macro-Enabled Presentation
+                         'potx,'  +              // PowerPoint Template
+                         'potm,'  +              // PowerPoint Macro-Enabled Template
+                         'ppam,'  +              // PowerPoint Add-In
+                         'ppsx,'  +              // PowerPoint Show
+                         'ppsm,' +               // PowerPoint Macro-Enabled Show
+                         'vsdx,' +               // Visio Drawing
+                         'vsdm,' +               // Visio Macro-Enabled Drawing
+                         'vssx,' +               // Visio Stencil
+                         'vssm,' +               // Visio Macro-Enabled Stencil
+                         'vstx,' +               // Visio Template
+                         'vstm,' +               // Visio Macro-Enabled Template
+                         'sgml';                 // Standard Generalized Markup Language
   FILE_EXTENSIONS_LFM  = 'dfm,lfm';
   FILE_EXTENSIONS_INI  = 'ini,' +
                          'fpd,' +                // FastReport definition
@@ -414,4 +438,4 @@ implementation
 {$R *.lfm}
 
 end.
-
+

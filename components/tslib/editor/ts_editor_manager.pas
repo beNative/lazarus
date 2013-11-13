@@ -2443,8 +2443,13 @@ var
   MI : TMenuItem;
 begin
   MI := SettingsPopupMenu.Items;
-  MI.Clear;
-  MI.Action := actSettings;
+  //MI.Clear;
+  //MI.Action := actSettings;
+  MI.ImageIndex := actSettings.ImageIndex;
+  MI.Caption    := actSettings.Caption;
+  MI.Hint       := actSettings.Hint;
+  MI.ShortCut   := actSettings.ShortCut;
+  MI.Default := True;
   AddMenuItem(MI, actSettings);
   AddMenuItem(MI);
   AddMenuItem(MI, actShowSpecialCharacters);
@@ -2975,7 +2980,7 @@ var
   V: IEditorView;
 begin
   V := ActiveView;
-  if Assigned(V) and Assigned(Settings) {and V.Focused and FChanged} then
+  if Assigned(V) and Assigned(Settings) and V.Focused and FChanged then
   begin
     B := V.SelAvail and not Settings.ReadOnly;
     actDequoteSelection.Enabled               := B;

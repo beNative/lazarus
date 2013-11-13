@@ -80,13 +80,13 @@ type
     actUndo                         : TAction;
     btnAlign                        : TBitBtn;
     btnAlign1                       : TBitBtn;
-    btnAlign2                       : TBitBtn;
-    btnAlign3                       : TBitBtn;
+    btnDequote                       : TBitBtn;
     btnAlignInsertSpace             : TMenuButton;
     btnBreakAfterBefore             : TMenuButton;
     btnInsertBreaks                 : TBitBtn;
     btnPascalString                 : TButton;
     btnRemoveBreaks                 : TBitBtn;
+    btnReplace: TBitBtn;
     btnStripFirstChar               : TButton;
     btnStripLastChar                : TButton;
     btnStripLastChar1               : TButton;

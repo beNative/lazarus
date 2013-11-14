@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release win32 qt"/>
+    <BuildModes Active="Default"/>
     <Units Count="287">
       <Unit0>
         <Filename Value="notepas.lpr"/>
@@ -76,8 +76,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="193"/>
-        <CursorPos X="51" Y="192"/>
+        <TopLine Value="191"/>
+        <CursorPos X="37" Y="213"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>

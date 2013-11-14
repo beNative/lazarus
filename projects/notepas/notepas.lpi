@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="15"/>
-      <BuildNr Value="86"/>
+      <BuildNr Value="87"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.15" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
@@ -104,11 +104,11 @@
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -179,11 +179,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -253,11 +253,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -331,11 +331,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -409,12 +409,11 @@ end;"/>
 //  UnitPath += ';win';
 //  IncPath += ';win';
 //end;
-
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -485,11 +484,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -559,11 +558,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -633,11 +632,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>

@@ -15,6 +15,7 @@
         <CursorPos X="10" Y="165"/>
         <UsageCount Value="260"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
       <Unit1>
         <Filename Value="notepas_forms_main.pas"/>

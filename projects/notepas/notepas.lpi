@@ -54,8 +54,6 @@
               <OverflowChecks Value="True"/>
               <StackChecks Value="True"/>
             </Checks>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="linux"/>
           </CodeGeneration>
           <Linking>
             <Debugging>
@@ -1462,4 +1460,4 @@
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

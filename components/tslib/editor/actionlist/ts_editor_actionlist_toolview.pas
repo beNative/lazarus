@@ -138,21 +138,21 @@ uses
   ts.Editor.Utils;
 
 resourcestring
-  SName = 'Name';
-  SCategory = 'Category';
-  SCaption = 'Caption';
-  SShortcut = 'Shortcut';
-  SShortcut2 = 'Shortcut2';
-  SHint = 'Hint';
-  SVisible = 'Visible';
-  SEnabled = 'Enabled';
-  SCommand = 'Command';
-  SButton = 'Button';
-  SShift = 'Shift';
-  SShiftMask = 'ShiftMask';
+  SName       = 'Name';
+  SCategory   = 'Category';
+  SCaption    = 'Caption';
+  SShortcut   = 'Shortcut';
+  SShortcut2  = 'Shortcut2';
+  SHint       = 'Hint';
+  SVisible    = 'Visible';
+  SEnabled    = 'Enabled';
+  SCommand    = 'Command';
+  SButton     = 'Button';
+  SShift      = 'Shift';
+  SShiftMask  = 'ShiftMask';
   SClickCount = 'ClickCount';
-  SClickDir = 'ClickDir';
-  SMoveCaret = 'MoveCaret';
+  SClickDir   = 'ClickDir';
+  SMoveCaret  = 'MoveCaret';
 
 type
   TVKSet = set of Byte;
@@ -170,7 +170,7 @@ var
     VK_SPACE,
     VK_0..VK_Z,
     VK_OEM_1..VK_OEM_102,
-    VK_MULTIPLY..VK_DIVIDE
+    VK_NUMPAD0..VK_DIVIDE
   ];
 
   VK_CTRL_EDIT_KEYS : TVKSet = [

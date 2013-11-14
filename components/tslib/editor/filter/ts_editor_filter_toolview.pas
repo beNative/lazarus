@@ -178,7 +178,7 @@ var
     VK_SPACE,
     VK_0..VK_Z,
     VK_OEM_1..VK_OEM_102,
-    VK_MULTIPLY..VK_DIVIDE
+    VK_NUMPAD0..VK_DIVIDE
   ];
 
   VK_CTRL_EDIT_KEYS : TVKSet = [

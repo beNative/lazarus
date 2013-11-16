@@ -17,14 +17,14 @@
     </General>
     <i18n>
       <EnableI18N Value="True"/>
-      <OutDir Value="language"/>
+      <OutDir Value="locale"/>
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="15"/>
-      <BuildNr Value="87"/>
+      <BuildNr Value="90"/>
       <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.15" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
@@ -104,11 +104,11 @@
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -179,11 +179,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -253,11 +253,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -331,11 +331,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -409,11 +409,12 @@ end;"/>
 //  UnitPath += ';win';
 //  IncPath += ';win';
 //end;
-if GetIDEValue('OS') = 'linux' then
+
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -484,11 +485,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -558,11 +559,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -632,11 +633,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if SrcOS = 'linux' then
 begin
   upx := 'upx'
 end
-else if GetIDEValue('OS') = 'win' then
+else if SrcOS = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -892,6 +893,7 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -1176,6 +1178,7 @@ end;"/>
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -1344,7 +1347,9 @@ end;"/>
       <Unit98>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmActionListView"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_ActionList_ToolView"/>
       </Unit98>
       <Unit99>
@@ -1534,11 +1539,15 @@ end;"/>
       <SmartLinkUnit Value="True"/>
       <Checks>
         <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
       </Checks>
+      <TargetCPU Value="i386"/>
+      <TargetOS Value="win32"/>
       <Optimizations>
-        <OptimizationLevel Value="2"/>
         <VariablesInRegisters Value="True"/>
       </Optimizations>
+      <SmallerCode Value="True"/>
     </CodeGeneration>
     <Linking>
       <Debugging>
@@ -1599,4 +1608,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

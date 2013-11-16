@@ -120,7 +120,8 @@ type
     procedure FormWindowStateChange(Sender: TObject);
     {$endregion}
   private
-    FManager : IEditorManager;
+    FSettings : IEditorSettings;
+    FManager  : IEditorManager;
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;
@@ -188,7 +189,7 @@ uses
 
   ts.Core.Utils, ts.Core.Helpers,
 
-  ts_Editor_Manager, ts_Editor_AboutDialog,
+  ts.Editor.Settings, ts_Editor_Manager, ts_Editor_AboutDialog,
 
   ts_Editor_Resources, ts.Editor.Helpers;
 
@@ -204,12 +205,15 @@ var
   S  : string;
 begin
   inherited AfterConstruction;
+  FSettings := TEditorSettings.Create(Self);
+  FSettings.FileName := 'settings.xml';
+  FSettings.Load;
+  SetDefaultLang(FSettings.LanguageCode);
   FManager := CreateEditorManager(
     Self,
-    True,
-    'settings.xml'
+    FSettings
   );
-//  Manager.PersistSettings := True;
+  FManager.PersistSettings := True;
   mnuMain.Items.Clear;
   ConfigureAvailableActions;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
@@ -262,7 +266,8 @@ end;
 procedure TfrmMain.BeforeDestruction;
 begin
   Settings.FormSettings.Assign(Self);
-  FManager := nil;
+  FSettings := nil;
+  FManager  := nil;
   inherited BeforeDestruction;
 end;
 {$endregion}
@@ -673,4 +678,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

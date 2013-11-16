@@ -22,29 +22,27 @@ program Notepas;
 
 uses
   SysUtils,
-
-  {$DEFINE UseCThreads} // Required when running on Linux!!
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX} // Required for Linux
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms,
   Notepas_Forms_Main,
   { you can add units after this }
   DefaultTranslator,
+
   {$IFDEF Windows}
   FrameViewer09,
   {$ENDIF}
   lazrichedit,
   lazcontrols,
   richmemopackage,
-  runtimetypeinfocontrols,
 
+  runtimetypeinfocontrols,
   pl_kcontrols,
   pl_exsystem,
   pl_virtualtrees,
   pl_zeosdbocomp,
-  pl_zmsql,
   pl_richview,
 
   ts.Components.MultiPanel,
@@ -172,7 +170,6 @@ uses
 {$R *.res}
 
 begin
-  SetDefaultLang('en');
   Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');

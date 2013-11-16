@@ -1,0 +1,4 @@
+OMULTIPANEL VERSION INFORMATION
+===============================
+
+1.2 (2013/04/16)

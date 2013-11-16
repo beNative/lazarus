@@ -158,6 +158,10 @@ type
     actExecuteScriptOnSelection       : TAction;
     actHighlighterMenu                : TAction;
     actFoldMenu                       : TAction;
+    actEncodeURL: TAction;
+    actDecodeURL: TAction;
+    actSelectionEncodeMenu: TAction;
+    actSelectionDecodeMenu: TAction;
     actSettingsMenu                   : TAction;
     actShowFilterTest                 : TAction;
     actShowScriptEditor               : TAction;
@@ -273,6 +277,8 @@ type
     MenuItem19                        : TMenuItem;
     MenuItem2                         : TMenuItem;
     MenuItem20                        : TMenuItem;
+    MenuItem21: TMenuItem;
+    MenuItem22: TMenuItem;
     MenuItem3                         : TMenuItem;
     MenuItem4                         : TMenuItem;
     MenuItem43                        : TMenuItem;
@@ -302,6 +308,8 @@ type
     ppmSearch                         : TPopupMenu;
     ppmLineBreakStyle                 : TPopupMenu;
     ppmSelect                         : TPopupMenu;
+    ppmSelectionEncode: TPopupMenu;
+    ppmSelectionDecode: TPopupMenu;
     ppmSettings                       : TPopupMenu;
     ppmSelection                      : TPopupMenu;
     ppmSelectionMode                  : TPopupMenu;
@@ -317,6 +325,8 @@ type
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
     procedure actConvertTabsToSpacesInSelectionExecute(Sender: TObject);
+    procedure actDecodeURLExecute(Sender: TObject);
+    procedure actEncodeURLExecute(Sender: TObject);
     procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
     procedure actPageSetupExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
@@ -478,6 +488,8 @@ type
     function GetSearchEngine: IEditorSearchEngine;
     function GetSearchPopupMenu: TPopupMenu;
     function GetSelection: IEditorSelection;
+    function GetSelectionDecodePopupMenu: TPopupMenu;
+    function GetSelectionEncodePopupMenu: TPopupMenu;
     function GetSelectionModePopupMenu: TPopupMenu;
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
@@ -526,6 +538,8 @@ type
     procedure BuildSelectPopupMenu;
     procedure BuildExecuteScriptOnSelectionPopupMenu;
     procedure BuildSelectionPopupMenu;
+    procedure BuildSelectionEncodePopupMenu;
+    procedure BuildSelectionDecodePopupMenu;
     procedure BuildSelectionModePopupMenu;
     procedure BuildSettingsPopupMenu;
     procedure BuildFoldPopupMenu;
@@ -659,6 +673,12 @@ type
 
     property SelectPopupMenu: TPopupMenu
       read GetSelectPopupMenu;
+
+    property SelectionEncodePopupMenu: TPopupMenu
+      read GetSelectionEncodePopupMenu;
+
+    property SelectionDecodePopupMenu: TPopupMenu
+      read GetSelectionDecodePopupMenu;
 
     property SelectionPopupMenu: TPopupMenu
       read GetSelectionPopupMenu;
@@ -1010,6 +1030,16 @@ end;
 function TdmEditorManager.GetSelection: IEditorSelection;
 begin
   Result := ActiveView.Selection;
+end;
+
+function TdmEditorManager.GetSelectionDecodePopupMenu: TPopupMenu;
+begin
+  Result := ppmSelectionDecode;
+end;
+
+function TdmEditorManager.GetSelectionEncodePopupMenu: TPopupMenu;
+begin
+  Result := ppmSelectionEncode;
 end;
 
 function TdmEditorManager.GetSelectionModePopupMenu: TPopupMenu;
@@ -1617,6 +1647,16 @@ begin
   ActiveView.ConvertTabsToSpacesInSelection;
 end;
 
+procedure TdmEditorManager.actDecodeURLExecute(Sender: TObject);
+begin
+  ActiveView.URLFromSelection(True);
+end;
+
+procedure TdmEditorManager.actEncodeURLExecute(Sender: TObject);
+begin
+  ActiveView.URLFromSelection;
+end;
+
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
 var
   A  : TAction;
@@ -1809,7 +1849,6 @@ end;
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
   ClearViews;
-  //Application.Terminate;
 end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);
@@ -1999,6 +2038,8 @@ begin
   BuildSearchPopupMenu;
   BuildSelectionModePopupMenu;
   BuildExecuteScriptOnSelectionPopupMenu;
+  BuildSelectionEncodePopupMenu;
+  BuildSelectionDecodePopupMenu;
   BuildSelectionPopupMenu;
   BuildSelectPopupMenu;
   BuildSettingsPopupMenu;
@@ -2415,13 +2456,35 @@ begin
   AddMenuItem(MI, actQuoteLines);
   AddMenuItem(MI, actDequoteLines);
   AddMenuItem(MI);
-  AddMenuItem(MI, actEncodeBase64);
-  AddMenuItem(MI, actDecodeBase64);
+  AddMenuItem(MI, SelectionEncodePopupMenu);
+  AddMenuItem(MI, SelectionDecodePopupMenu);
   AddMenuItem(MI);
   AddMenuItem(MI, actConvertTabsToSpacesInSelection);
   AddMenuItem(MI);
   AddMenuItem(MI, actPascalStringOfSelection);
   AddMenuItem(MI, ExecuteScriptOnSelectionPopupMenu);
+end;
+
+procedure TdmEditorManager.BuildSelectionEncodePopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SelectionEncodePopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSelectionEncodeMenu;
+  AddMenuItem(MI, actEncodeBase64);
+  AddMenuItem(MI, actEncodeURL);
+end;
+
+procedure TdmEditorManager.BuildSelectionDecodePopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SelectionDecodePopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSelectionDecodeMenu;
+  AddMenuItem(MI, actDecodeBase64);
+  AddMenuItem(MI, actDecodeURL);
 end;
 
 procedure TdmEditorManager.BuildInsertPopupMenu;
@@ -3021,9 +3084,14 @@ begin
     actStripLastChar.Enabled                  := B;
     actQuoteLines.Enabled                     := B;
     actDequoteLines.Enabled                   := B;
+    actSelectionEncodeMenu.Enabled            := B;
+    actSelectionDecodeMenu.Enabled            := B;
     actEncodeBase64.Enabled                   := B;
     actDecodeBase64.Enabled                   := B;
+    actEncodeURL.Enabled                      := B;
+    actDecodeURL.Enabled                      := B;
     actConvertTabsToSpacesInSelection.Enabled := B;
+    actExecuteScriptOnSelection.Enabled       := B;
     actSyncEdit.Enabled                       := B;
 
     B := not Settings.ReadOnly;

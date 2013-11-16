@@ -339,6 +339,7 @@ type
     procedure QuoteSelection;
     procedure DequoteSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
+    procedure URLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SyncEditSelection;
 
@@ -2081,6 +2082,17 @@ begin
     Selection.Text := DecodeStringBase64(Selection.Text)
   else
     Selection.Text := EncodeStringBase64(Selection.Text);
+  Selection.Restore;
+  Modified := True;
+end;
+
+procedure TEditorView.URLFromSelection(ADecode: Boolean);
+begin
+  Selection.Store(True, True);
+  if ADecode then
+    Selection.Text := URLDecode(Selection.Text)
+  else
+    Selection.Text := URLEncode(Selection.Text);
   Selection.Restore;
   Modified := True;
 end;

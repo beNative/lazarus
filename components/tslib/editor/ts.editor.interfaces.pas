@@ -242,6 +242,7 @@ type
     procedure QuoteSelection;
     procedure DequoteSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
+    procedure URLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SyncEditSelection;
     function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
@@ -926,6 +927,8 @@ type
     procedure CopyToClipboard;
   end;
 
+  { IEditorMenus }
+
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
     {$region 'property access methods' /fold}
@@ -939,6 +942,8 @@ type
     function GetInsertPopupMenu: TPopupMenu;
     function GetLineBreakStylePopupMenu: TPopupMenu;
     function GetSearchPopupMenu: TPopupMenu;
+    function GetSelectionDecodePopupMenu: TPopupMenu;
+    function GetSelectionEncodePopupMenu: TPopupMenu;
     function GetSelectionModePopupMenu: TPopupMenu;
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
@@ -980,6 +985,12 @@ type
 
     property SelectionPopupMenu: TPopupMenu
       read GetSelectionPopupMenu;
+
+    property SelectionEncodePopupMenu: TPopupMenu
+      read GetSelectionEncodePopupMenu;
+
+    property SelectionDecodePopupMenu: TPopupMenu
+      read GetSelectionDecodePopupMenu;
 
     property SelectionModePopupMenu: TPopupMenu
       read GetSelectionModePopupMenu;

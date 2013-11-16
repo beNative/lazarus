@@ -31,15 +31,21 @@ uses
 
   ts.Editor.Interfaces, ts.Editor.Settings, ts_Editor_Resources;
 
-procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction = nil);
+procedure AddActionButton(
+  AParent : TToolBar;
+  AAction : TBasicAction = nil
+);
 
-procedure AddActionMenuItem(AParent: TMenuItem; AAction: TBasicAction = nil);
+function AddActionMenuItem(
+  AParent : TMenuItem;
+  AAction:  TBasicAction = nil
+): TMenuItem;
 
-procedure AddEditorMenuItem(
+function AddEditorMenuItem(
         AManager    : IEditorManager;
         AParent     : TMenuItem;
   const AActionName : string = ''
-);
+): TMenuItem;
 
 procedure AddEditorButton(
         AManager    : IEditorManager;
@@ -162,12 +168,17 @@ begin
   TB.Action := AAction;
 end;
 
-procedure AddActionMenuItem(AParent: TMenuItem; AAction: TBasicAction);
+function AddActionMenuItem(AParent: TMenuItem;
+  AAction: TBasicAction): TMenuItem;
 var
   MI: TMenuItem;
 begin
   if not Assigned(AAction) then
-    AParent.AddSeparator
+  begin
+    MI := TMenuItem.Create(AParent.Owner);
+    MI.Caption := cLineCaption;
+    AParent.Add(MI);
+  end
   else
   begin
     MI := TMenuItem.Create(AParent.Owner);
@@ -193,15 +204,16 @@ begin
     end;
     AParent.Add(MI);
   end;
+  Result := MI;
 end;
 
-procedure AddEditorMenuItem(AManager: IEditorManager; AParent: TMenuItem;
-  const AActionName: string);
+function AddEditorMenuItem(AManager: IEditorManager; AParent: TMenuItem;
+  const AActionName: string): TMenuItem;
 begin
   if AActionName = '' then
-    AddActionMenuItem(AParent, nil)
+    Result := AddActionMenuItem(AParent, nil)
   else
-    AddActionMenuItem(AParent, AManager.Actions[AActionName]);
+    Result := AddActionMenuItem(AParent, AManager.Actions[AActionName]);
 end;
 
 procedure AddEditorButton(AManager: IEditorManager; AParent: TToolBar;
@@ -333,7 +345,8 @@ end;
 procedure AddEditorSelectionMenu(AManager: IEditorManager; AMainMenu: TMainMenu
   );
 var
-  MI: TMenuItem;
+  MI  : TMenuItem;
+  SMI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := SSeLectionMenuCaption;
@@ -361,8 +374,24 @@ begin
   AddEditorMenuItem(AManager, MI);
   AddEditorMenuItem(AManager, MI, 'actStripMarkup');
   AddEditorMenuItem(AManager, MI);
-  AddEditorMenuItem(AManager, MI, 'actEncodeBase64');
-  AddEditorMenuItem(AManager, MI, 'actDecodeBase64');
+  SMI := AddEditorMenuItem(AManager, MI, 'actSelectionEncodeMenu');
+  AddEditorMenuItem(AManager, SMI, 'actEncodeBase64');
+  AddEditorMenuItem(AManager, SMI, 'actEncodeURL');
+  SMI := AddEditorMenuItem(AManager, MI, 'actSelectionDecodeMenu');
+  AddEditorMenuItem(AManager, SMI, 'actDecodeBase64');
+  AddEditorMenuItem(AManager, SMI, 'actDecodeURL');
+
+
+  //TMenuItem.Create(AMainMenu.Owner);
+  //SMI.Assign(AManager.Menus.SelectionEncodePopupMenu.Items);
+  //MI.Add(SMI);
+  //MI.Add(AManager.Menus.SelectionEncodePopupMenu.Items);
+  //MI.Add(AManager.Menus.SelectionDecodePopupMenu.Items);
+    //AddEditorMenuItem(AManager, SMI, );
+  //AddEditorMenuItem(AManager, AManager.Menus.SelectionDecodePopupMenu.Items);
+
+  //AddEditorMenuItem(AManager, MI, 'actEncodeBase64');
+  //AddEditorMenuItem(AManager, MI, 'actDecodeBase64');
 end;
 
 procedure AddEditorInsertMenu(AManager: IEditorManager; AMainMenu: TMainMenu);

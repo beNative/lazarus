@@ -146,30 +146,30 @@ type
     actCut                            : TAction;
     actDelete                         : TAction;
     actHighlighter                    : TAction;
-    actEncodingMenu                       : TAction;
-    actExportMenu                         : TAction;
-    actClipboardMenu                      : TAction;
+    actEncodingMenu                   : TAction;
+    actExportMenu                     : TAction;
+    actClipboardMenu                  : TAction;
     actInsertGUID                     : TAction;
-    actInsertMenu                         : TAction;
+    actInsertMenu                     : TAction;
     actFindAllOccurences              : TAction;
     actIndent                         : TAction;
-    actFileMenu                           : TAction;
+    actFileMenu                       : TAction;
     actConvertTabsToSpacesInSelection : TAction;
     actExecuteScriptOnSelection       : TAction;
-    actHighlighterMenu: TAction;
-    actFoldMenu: TAction;
-    actSettingsMenu: TAction;
-    actShowFilterTest: TAction;
+    actHighlighterMenu                : TAction;
+    actFoldMenu                       : TAction;
+    actSettingsMenu                   : TAction;
+    actShowFilterTest                 : TAction;
     actShowScriptEditor               : TAction;
     actShowMiniMap                    : TAction;
     actShowHexEditor                  : TAction;
     actShowHTMLViewer                 : TAction;
     actUnindent                       : TAction;
-    actSelectMenu                         : TAction;
+    actSelectMenu                     : TAction;
     actSearchMenu                     : TAction;
-    actLineBreakStyleMenu                 : TAction;
-    actSelectionModeMenu                  : TAction;
-    actSelectionMenu                      : TAction;
+    actLineBreakStyleMenu             : TAction;
+    actSelectionModeMenu              : TAction;
+    actSelectionMenu                  : TAction;
     actNewSharedView                  : TAction;
     actSingleInstance                 : TAction;
     actToggleMaximized                : TAction;
@@ -730,6 +730,11 @@ type
     {$endregion}
 
   public
+    constructor Create(
+      AOwner    : TComponent;
+      ASettings : IEditorSettings
+    ); reintroduce; virtual;
+
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
   end;
@@ -793,13 +798,21 @@ uses
   ts.Editor.ActionList.Templates;
 
 {$region 'construction and destruction' /fold}
+constructor TdmEditorManager.Create(AOwner: TComponent;
+  ASettings: IEditorSettings);
+begin
+  inherited Create(AOwner);
+  FSettings := ASettings;
+  if not Assigned(FSettings) then
+    FSettings := TEditorSettings.Create(Self);
+end;
+
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
   FToolViews := TToolViews.Create(Self);
   FEvents    := TEditorEvents.Create(Self);
   FPersistSettings  := False;
-  FSettings         := TEditorSettings.Create(Self);
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FViewList         := TEditorViewList.Create;
   FSearchEngine     := TSearchEngine.Create(Self);
@@ -822,7 +835,7 @@ begin
   ];
 
   // TODO: these steps should be configurable
-  LoadScriptFiles;
+  //LoadScriptFiles;
   RegisterToolViews;
   RegisterHighlighters;
 
@@ -3228,4 +3241,4 @@ initialization
   Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
-end.
+end.

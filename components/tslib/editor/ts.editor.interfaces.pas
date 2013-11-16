@@ -639,6 +639,7 @@ type
     function GetHighlighterType: string;
     function GetHTMLViewSettings: THTMLViewSettings;
     function GetIncrementColor: TSynSelectedColor;
+    function GetLanguageCode: string;
     function GetLineHighlightColor: TSynSelectedColor;
     function GetMiniMapSettings: TMiniMapSettings;
     function GetMouseLinkColor: TSynSelectedColor;
@@ -677,6 +678,7 @@ type
     procedure SetHighlighterType(const AValue: string);
     procedure SetHTMLViewSettings(AValue: THTMLViewSettings);
     procedure SetIncrementColor(AValue: TSynSelectedColor);
+    procedure SetLanguageCode(AValue: string);
     procedure SetLineHighlightColor(AValue: TSynSelectedColor);
     procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetMouseLinkColor(AValue: TSynSelectedColor);
@@ -710,6 +712,10 @@ type
 
     property HighlighterType: string
       read GetHighlighterType write SetHighlighterType;
+
+    { Locale to be used by the application }
+    property LanguageCode: string
+      read GetLanguageCode write SetLanguageCode;
 
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;

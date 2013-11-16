@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, ComCtrls, Menus, Controls, ActnList,
 
-  ts.Editor.Interfaces, ts_Editor_Resources;
+  ts.Editor.Interfaces, ts.Editor.Settings, ts_Editor_Resources;
 
 procedure AddActionButton(AParent: TToolBar; AAction: TBasicAction = nil);
 
@@ -57,11 +57,22 @@ procedure AddStandardEditorMenus(
   AMainMenu : TMainMenu
 );
 
+function CreateEditorSettings(
+  AOwner : TComponent = nil
+): IEditorSettings;
+
 function CreateEditorManager(
-         AOwner           : TComponent = nil;
+        AOwner            : TComponent = nil;
         APersistSettings  : Boolean = False;
   const ASettingsFileName : string = ''
-): IEditorManager;
+): IEditorManager; overload;
+
+
+{ TS: new version }
+function CreateEditorManager(
+  AOwner    : TComponent;
+  ASettings : IEditorSettings
+): IEditorManager; overload;
 
 { TODO: set highlightertype }
 { TODO: add list with available highlighterttypes }
@@ -477,6 +488,11 @@ begin
   AddEditorHelpMenu(AManager, AMainMenu);
 end;
 
+function CreateEditorSettings(AOwner : TComponent): IEditorSettings;
+begin
+  Result := TEditorSettings.Create(AOwner);
+end;
+
 function CreateEditorManager(AOwner: TComponent; APersistSettings: Boolean;
   const ASettingsFileName: string): IEditorManager;
 var
@@ -487,7 +503,7 @@ begin
     O := Application
   else
     O := AOwner;
-  Result := TdmEditorManager.Create(O);
+  Result := TdmEditorManager.Create(AOwner, nil);
   Result.PersistSettings := APersistSettings;
   if APersistSettings then
   begin
@@ -497,6 +513,12 @@ begin
       S := ASettingsFileName;
     Result.Settings.FileName := S;
   end;
+end;
+
+function CreateEditorManager(AOwner: TComponent;
+  ASettings: IEditorSettings): IEditorManager;
+begin
+  Result := TdmEditorManager.Create(AOwner, ASettings);
 end;
 
 procedure AddEditorDebugMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
@@ -527,4 +549,4 @@ begin
 end;
 
 end.
-
+

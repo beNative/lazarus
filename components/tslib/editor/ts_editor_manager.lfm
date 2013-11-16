@@ -4970,4 +4970,4 @@ object dmEditorManager: TdmEditorManager
       Caption = 'New Item1'
     end
   end
-end
+end

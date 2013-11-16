@@ -325,7 +325,6 @@ procedure TfrmSearchForm.FormShow(Sender: TObject);
 begin
   Options := SearchEngine.Options;
   chkSearchInAllViews.Checked := SearchEngine.SearchAllViews;
-  //InspectComponent(FVST);
 end;
 
 procedure TfrmSearchForm.rbBackwardChange(Sender: TObject);
@@ -458,9 +457,12 @@ var
   B: Boolean;
 begin
   inherited UpdateActions;
+  { Focus the corresponding search result in the list when we do find next/
+    find previous from the editor view. }
   if Assigned(FTVP.CurrentItem)
-    and (TSearchResult(FTVP.CurrentItem).Index
-      <> SearchEngine.CurrentIndex + 1) then
+    and (TSearchResult(FTVP.CurrentItem).Index <> SearchEngine.CurrentIndex + 1)
+    and View.Focused
+    then
   begin
     FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
   end;

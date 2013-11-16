@@ -3,16 +3,17 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release win64 win32"/>
     <Units Count="295">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Notepas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="139"/>
-        <CursorPos X="1" Y="179"/>
+        <CursorPos X="1" Y="181"/>
         <UsageCount Value="260"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -35,11 +36,10 @@
       <Unit2>
         <Filename Value="Changes.txt"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="51" Y="6"/>
+        <CursorPos X="44" Y="29"/>
         <ExtraEditorCount Value="1"/>
         <ExtraEditor1>
           <WindowIndex Value="0"/>
@@ -935,8 +935,8 @@
         <UnitName Value="ts_Editor_Search_Toolview"/>
         <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="434"/>
-        <CursorPos X="51" Y="461"/>
+        <TopLine Value="455"/>
+        <CursorPos X="51" Y="472"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -1219,7 +1219,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="8"/>
         <CursorPos X="53" Y="25"/>
-        <UsageCount Value="198"/>
+        <UsageCount Value="201"/>
       </Unit122>
       <Unit123>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
@@ -1227,7 +1227,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="37" Y="19"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="193"/>
       </Unit123>
       <Unit124>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
@@ -1235,7 +1235,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="103"/>
         <CursorPos X="14" Y="132"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="193"/>
       </Unit124>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
@@ -1243,7 +1243,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="19"/>
         <CursorPos X="7" Y="47"/>
-        <UsageCount Value="190"/>
+        <UsageCount Value="193"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit125>
       <Unit126>
@@ -1256,7 +1256,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="63" Y="15"/>
-        <UsageCount Value="187"/>
+        <UsageCount Value="190"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
@@ -1264,7 +1264,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="35"/>
         <CursorPos X="54" Y="18"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="175"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
@@ -1272,7 +1272,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="166"/>
+        <UsageCount Value="169"/>
       </Unit128>
       <Unit129>
         <Filename Value="..\..\components\tslib\components\fpccompat.pas"/>
@@ -2562,7 +2562,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="13"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="16"/>
         <Loaded Value="True"/>
       </Unit288>
       <Unit289>
@@ -2595,7 +2595,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1171"/>
         <CursorPos X="32" Y="1186"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit292>
       <Unit293>
@@ -2622,123 +2622,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="845" Column="49" TopLine="827"/>
+        <Caret Line="846" Column="47" TopLine="827"/>
       </Position1>
       <Position2>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="846" Column="47" TopLine="827"/>
+        <Caret Line="847" Column="47" TopLine="827"/>
       </Position2>
       <Position3>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="847" Column="47" TopLine="827"/>
+        <Caret Line="848" Column="46" TopLine="827"/>
       </Position3>
       <Position4>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="848" Column="46" TopLine="827"/>
+        <Caret Line="856" Column="47" TopLine="827"/>
       </Position4>
       <Position5>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="856" Column="47" TopLine="827"/>
+        <Caret Line="857" Column="59" TopLine="827"/>
       </Position5>
       <Position6>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="857" Column="59" TopLine="827"/>
+        <Caret Line="858" Column="58" TopLine="827"/>
       </Position6>
       <Position7>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="858" Column="58" TopLine="827"/>
+        <Caret Line="860" Column="51" TopLine="827"/>
       </Position7>
       <Position8>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="860" Column="51" TopLine="827"/>
+        <Caret Line="861" Column="50" TopLine="827"/>
       </Position8>
       <Position9>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="861" Column="50" TopLine="827"/>
+        <Caret Line="862" Column="61" TopLine="827"/>
       </Position9>
       <Position10>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="862" Column="61" TopLine="827"/>
+        <Caret Line="863" Column="49" TopLine="828"/>
       </Position10>
       <Position11>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="863" Column="49" TopLine="828"/>
+        <Caret Line="869" Column="42" TopLine="833"/>
       </Position11>
       <Position12>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="869" Column="42" TopLine="833"/>
+        <Caret Line="877" Column="22" TopLine="841"/>
       </Position12>
       <Position13>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="877" Column="22" TopLine="841"/>
+        <Caret Line="881" Column="18" TopLine="845"/>
       </Position13>
       <Position14>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="881" Column="18" TopLine="845"/>
+        <Caret Line="884" Column="12" TopLine="848"/>
       </Position14>
       <Position15>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="884" Column="12" TopLine="848"/>
+        <Caret Line="885" Column="12" TopLine="849"/>
       </Position15>
       <Position16>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="885" Column="12" TopLine="849"/>
+        <Caret Line="886" Column="12" TopLine="850"/>
       </Position16>
       <Position17>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="886" Column="12" TopLine="850"/>
+        <Caret Line="887" Column="12" TopLine="851"/>
       </Position17>
       <Position18>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="887" Column="12" TopLine="851"/>
+        <Caret Line="888" Column="12" TopLine="852"/>
       </Position18>
       <Position19>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="888" Column="12" TopLine="852"/>
+        <Caret Line="889" Column="48" TopLine="853"/>
       </Position19>
       <Position20>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="889" Column="48" TopLine="853"/>
+        <Caret Line="891" Column="43" TopLine="855"/>
       </Position20>
       <Position21>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="891" Column="43" TopLine="855"/>
+        <Caret Line="892" Column="25" TopLine="856"/>
       </Position21>
       <Position22>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="892" Column="25" TopLine="856"/>
+        <Caret Line="894" Column="15" TopLine="858"/>
       </Position22>
       <Position23>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="894" Column="15" TopLine="858"/>
+        <Caret Line="899" Column="53" TopLine="863"/>
       </Position23>
       <Position24>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="899" Column="53" TopLine="863"/>
+        <Caret Line="902" Column="55" TopLine="866"/>
       </Position24>
       <Position25>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="902" Column="55" TopLine="866"/>
+        <Caret Line="908" Column="20" TopLine="894"/>
       </Position25>
       <Position26>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="908" Column="20" TopLine="894"/>
+        <Caret Line="909" Column="20" TopLine="894"/>
       </Position26>
       <Position27>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="909" Column="20" TopLine="894"/>
+        <Caret Line="915" Column="15" TopLine="894"/>
       </Position27>
       <Position28>
         <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="915" Column="15" TopLine="894"/>
+        <Caret Line="1186" Column="32" TopLine="1171"/>
       </Position28>
       <Position29>
-        <Filename Value="C:\codetyphon\fpcsrc\rtl\win\sysutils.pp"/>
-        <Caret Line="1186" Column="32" TopLine="1171"/>
-      </Position29>
-      <Position30>
         <Filename Value="notepas_forms_main.pas"/>
         <Caret Line="181" Column="42" TopLine="12"/>
+      </Position29>
+      <Position30>
+        <Filename Value="notepas.lpr"/>
+        <Caret Line="179" Column="1" TopLine="139"/>
       </Position30>
     </JumpHistory>
     <CustomSessionData Count="2">

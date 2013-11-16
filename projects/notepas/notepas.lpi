@@ -104,11 +104,11 @@
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -179,11 +179,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -253,11 +253,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -331,11 +331,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -410,11 +410,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -485,11 +485,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -559,11 +559,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -633,11 +633,11 @@ end;"/>
 //  IncPath += ';win';
 //end;
 
-if SrcOS = 'linux' then
+if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if SrcOS = 'win' then
+else if GetIDEValue('OS') = 'win' then
 begin
   upx := 'upx.exe'
 end;"/>
@@ -1229,7 +1229,6 @@ end;"/>
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
@@ -1609,4 +1608,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

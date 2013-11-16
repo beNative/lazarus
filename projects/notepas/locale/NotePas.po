@@ -280,6 +280,10 @@ msgstr ""
 msgid "Decode selected text from base64."
 msgstr ""
 
+#: tdmeditormanager.actdecodeurl.caption
+msgid "Decode URL"
+msgstr ""
+
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
 msgid "Delete"
@@ -314,6 +318,10 @@ msgstr ""
 
 #: tdmeditormanager.actencodebase64.hint
 msgid "Encode selected text to base64."
+msgstr ""
+
+#: tdmeditormanager.actencodeurl.caption
+msgid "Encode URL"
 msgstr ""
 
 #: tdmeditormanager.actencodingmenu.caption
@@ -801,6 +809,14 @@ msgstr ""
 msgid "Select all."
 msgstr ""
 
+#: tdmeditormanager.actselectiondecodemenu.caption
+msgid "Decode"
+msgstr ""
+
+#: tdmeditormanager.actselectionencodemenu.caption
+msgid "Encode"
+msgstr ""
+
 #: tdmeditormanager.actselectioninfo.caption
 msgid "SelectionInfo"
 msgstr ""
@@ -1091,6 +1107,16 @@ msgstr ""
 
 #: tdmeditormanager.menuitem20.caption
 msgctxt "TDMEDITORMANAGER.MENUITEM20.CAPTION"
+msgid "New Item1"
+msgstr ""
+
+#: tdmeditormanager.menuitem21.caption
+msgctxt "TDMEDITORMANAGER.MENUITEM21.CAPTION"
+msgid "New Item1"
+msgstr ""
+
+#: tdmeditormanager.menuitem22.caption
+msgctxt "TDMEDITORMANAGER.MENUITEM22.CAPTION"
 msgid "New Item1"
 msgstr ""
 

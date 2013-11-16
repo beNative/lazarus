@@ -1229,6 +1229,7 @@ end;"/>
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>

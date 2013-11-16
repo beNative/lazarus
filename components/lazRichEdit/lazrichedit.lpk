@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <PathDelim Value="\"/>
+    <Name Value="LazRichEdit"/>
+    <Author Value="Elson Junio <elsonjunio@yahoo.com.br>"/>
+    <CompilerOptions>
+      <Version Value="9"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="widgetset;interfaces\win32;interfaces\gtk2"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="Controle para trabalhar com Textos formatados e Imagens, e salvar arquivos no Formato Rich Text."/>
+    <License Value="LGPL"/>
+    <Version Minor="1" Release="5"/>
+    <Files Count="11">
+      <Item1>
+        <Filename Value="richbox.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="RichBox"/>
+      </Item1>
+      <Item2>
+        <Filename Value="tcustomrichbox.inc"/>
+        <Type Value="Binary"/>
+      </Item2>
+      <Item3>
+        <Filename Value="widgetset\wsrichboxfactory.pas"/>
+        <UnitName Value="WSRichBoxFactory"/>
+      </Item3>
+      <Item4>
+        <Filename Value="widgetset\wsrichbox.pas"/>
+        <UnitName Value="WSRichBox"/>
+      </Item4>
+      <Item5>
+        <Filename Value="interfaces\win32\win32wsrichbox.pas"/>
+        <UnitName Value="Win32WSRichBox"/>
+      </Item5>
+      <Item6>
+        <Filename Value="interfaces\win32\win32wsrichboxfactory.pas"/>
+        <UnitName Value="Win32WSRichBoxFactory"/>
+      </Item6>
+      <Item7>
+        <Filename Value="ttextattributes.inc"/>
+        <Type Value="Binary"/>
+      </Item7>
+      <Item8>
+        <Filename Value="tparaattributes.inc"/>
+        <Type Value="Binary"/>
+      </Item8>
+      <Item9>
+        <Filename Value="interfaces\gtk2\gtk2wsrichbox.pas"/>
+        <UnitName Value="Gtk2WSRichBox"/>
+      </Item9>
+      <Item10>
+        <Filename Value="interfaces\gtk2\gtk2wsrichboxfactory.pas"/>
+        <UnitName Value="Gtk2WSRichBoxFactory"/>
+      </Item10>
+      <Item11>
+        <Filename Value="interfaces\gtk2\gtk2rtftool.pas"/>
+        <UnitName Value="Gtk2RTFTool"/>
+      </Item11>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

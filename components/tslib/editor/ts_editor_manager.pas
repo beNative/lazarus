@@ -268,12 +268,6 @@ type
     MenuItem10                        : TMenuItem;
     MenuItem11                        : TMenuItem;
     MenuItem12                        : TMenuItem;
-    MenuItem13                        : TMenuItem;
-    MenuItem14                        : TMenuItem;
-    MenuItem15                        : TMenuItem;
-    MenuItem16                        : TMenuItem;
-    MenuItem17                        : TMenuItem;
-    MenuItem18                        : TMenuItem;
     MenuItem19                        : TMenuItem;
     MenuItem2                         : TMenuItem;
     MenuItem20                        : TMenuItem;

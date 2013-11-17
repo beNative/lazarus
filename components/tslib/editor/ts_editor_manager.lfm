@@ -4413,7 +4413,6 @@ object dmEditorManager: TdmEditorManager
     left = 40
     top = 248
     object MenuItem1: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmHighLighters: TPopupMenu
@@ -4421,7 +4420,6 @@ object dmEditorManager: TdmEditorManager
     left = 40
     top = 200
     object MenuItem7: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmClipboard: TPopupMenu
@@ -4429,7 +4427,6 @@ object dmEditorManager: TdmEditorManager
     left = 40
     top = 144
     object MenuItem4: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object dlgSave: TSaveDialog
@@ -4947,21 +4944,18 @@ object dmEditorManager: TdmEditorManager
     left = 40
     top = 315
     object MenuItem19: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmLineBreakStyle: TPopupMenu
     left = 117
     top = 88
     object MenuItem6: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSelectionMode: TPopupMenu
     left = 117
     top = 32
     object MenuItem3: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSelection: TPopupMenu
@@ -4969,7 +4963,6 @@ object dmEditorManager: TdmEditorManager
     left = 117
     top = 144
     object MenuItem5: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmEditor: TPopupMenu
@@ -4977,7 +4970,6 @@ object dmEditorManager: TdmEditorManager
     left = 40
     top = 32
     object MenuItem2: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmInsert: TPopupMenu
@@ -4991,46 +4983,24 @@ object dmEditorManager: TdmEditorManager
     left = 117
     top = 280
     object MenuItem9: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSettings: TPopupMenu
     left = 200
     top = 280
     object MenuItem10: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSelect: TPopupMenu
     left = 200
     top = 215
     object MenuItem11: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmFile: TPopupMenu
     left = 280
     top = 224
     object MenuItem12: TMenuItem
-      Caption = 'New Item1'
-      object MenuItem13: TMenuItem
-        Caption = 'New Item2'
-        object MenuItem16: TMenuItem
-          Caption = 'New Item5'
-        end
-        object MenuItem17: TMenuItem
-          Caption = 'New Item6'
-        end
-        object MenuItem18: TMenuItem
-          Caption = 'New Item7'
-        end
-      end
-      object MenuItem15: TMenuItem
-        Caption = 'New Item4'
-      end
-      object MenuItem14: TMenuItem
-        Caption = 'New Item3'
-      end
     end
   end
   object DelphiWebScript: TDelphiWebScript
@@ -5054,7 +5024,6 @@ object dmEditorManager: TdmEditorManager
     left = 175
     top = 366
     object MenuItem20: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSelectionEncode: TPopupMenu

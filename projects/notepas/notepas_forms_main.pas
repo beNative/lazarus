@@ -576,7 +576,7 @@ end;
 
 procedure TfrmMain.ConfigureAvailableActions;
 begin
-  // TODO: maintain a list with Available actions in the manager instance !!!
+  // TODO: maintain a list with Available actions in the manager instance !
   InitDebugAction('actMonitorChanges');
   InitDebugAction('actShowActions');
   InitDebugAction('actLoadHighlighterFromFile');

@@ -24,8 +24,8 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="16"/>
-      <BuildNr Value="92"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="Notepas text editor" InternalName="Notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="Notepas.exe" ProductName="Notepas" ProductVersion="0.9.16" URL="http://code.google.com/p/notepas/"/>
+      <BuildNr Value="93"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.16" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
@@ -34,7 +34,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="Notepas"/>
+            <Filename Value="notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core"/>
@@ -87,7 +87,7 @@
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -162,7 +162,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -236,7 +236,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -314,7 +314,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -392,7 +392,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -467,7 +467,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -542,7 +542,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -616,7 +616,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -690,7 +690,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -744,7 +744,7 @@ end;"/>
           <Version Value="11"/>
           <PathDelim Value="\"/>
           <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\Notepas"/>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
@@ -872,7 +872,7 @@ end;"/>
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Notepas"/>
+        <UnitName Value="notepas"/>
       </Unit0>
       <Unit1>
         <Filename Value="notepas_forms_main.pas"/>
@@ -1528,7 +1528,7 @@ end;"/>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="Notepas"/>
+      <Filename Value="notepas"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

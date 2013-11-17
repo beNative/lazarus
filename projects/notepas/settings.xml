@@ -221,12 +221,13 @@
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
 	<HighlighterType>None</HighlighterType>
+	<LanguageCode>nl</LanguageCode>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>261</Left>
-		<Top>96</Top>
-		<Width>1330</Width>
-		<Height>880</Height>
+		<Left>410</Left>
+		<Top>114</Top>
+		<Width>1074</Width>
+		<Height>701</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -328,7 +329,7 @@
 			<Name>TXT</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>me,nfo,txt</FileExtensions>
-			<Description>Text document</Description>
+			<Description>Tekst document</Description>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
 		</THighlighterItem>
 		<THighlighterItem>
@@ -469,8 +470,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>а<ъ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- =ъ </BlockCommentEndTag>
+			<BlockCommentStartTag>ау !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--8ау </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -500,9 +501,7 @@
 					<Style>[fsBold,fsItalic]</Style>
 				</NamespaceAttributeValueAttri>
 				<TextAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
-					<Style>[]</Style>
 				</TextAttri>
 				<CDATAAttri>(TSynHighlighterAttributes)
 					<Foreground>clNone</Foreground>
@@ -544,7 +543,7 @@
 			<Name>LFM</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>dfm,lfm</FileExtensions>
-			<Description>Object Pascal form definition</Description>
+			<Description>Object Pascal form definitie</Description>
 			<SynHighlighter>(TSynLFMSyn)
 				<DefaultFilter>Lazarus Form Files (*.lfm)|*.lfm</DefaultFilter>
 				<Enabled>false</Enabled>
@@ -882,8 +881,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>а<ъ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- =ъ </BlockCommentEndTag>
+			<BlockCommentStartTag>ау !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--8ау </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>
@@ -1083,7 +1082,7 @@
 			<Name>DIFF</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>diff</FileExtensions>
-			<Description>Diff</Description>
+			<Description>Verschil</Description>
 			<SynHighlighter>(TSynDiffSyn)
 				<Enabled>false</Enabled>
 				<UnknownAttri>(TSynHighlighterAttributes)
@@ -1139,7 +1138,6 @@
 					<Style>[,fsItalic]</Style>
 				</CommentAttri>
 				<TextAttri>(TSynHighlighterAttributes)
-					<Foreground>clNone</Foreground>
 					<FrameEdges>sfeAround</FrameEdges>
 				</TextAttri>
 				<ControlSequenceAttri>(TSynHighlighterAttributes)

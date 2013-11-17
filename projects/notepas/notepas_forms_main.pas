@@ -600,7 +600,7 @@ procedure TfrmMain.UpdateCaptions;
 var
   S : string;
 begin
-  S := ExtractFileNameOnly(Application.ExeName);
+  S := Application.Title;
   if FileExists(Editor.FileName) then
     Caption := Format('%s - %s',  [Editor.FileName, S])
   else

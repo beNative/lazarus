@@ -4457,8 +4457,13 @@ end;
 procedure TAnchorDockHostSite.ChangeBounds(ALeft, ATop, AWidth,
   AHeight: integer; KeepBase: boolean);
 begin
-  inherited ChangeBounds(ALeft, ATop, AWidth, AHeight, KeepBase);
-  if Header<>nil then UpdateHeaderAlign;
+  try
+    inherited ChangeBounds(ALeft, ATop, AWidth, AHeight, KeepBase);
+  except
+    //TODO: checkloop raises error on gtk2 and qt
+  end;
+  if Header <> nil then
+    UpdateHeaderAlign;
 end;
 
 procedure TAnchorDockHostSite.UpdateHeaderAlign;
@@ -5670,4 +5675,4 @@ finalization
   FreeAndNil(DockMaster);
 
 end.
-
+

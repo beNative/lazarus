@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release win64 win32"/>
+    <BuildModes Active="Debug"/>
     <Units Count="283">
       <Unit0>
         <Filename Value="notepas.lpr"/>

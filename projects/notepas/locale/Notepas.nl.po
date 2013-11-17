@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: Notepas\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Tim Sinaeve <tim.sinaeve@gmail.com>\n"
 "Language-Team: Tim Sinaeve\n"
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -49,47 +49,50 @@ msgstr ""
 #: tdlgext.bncancel.caption
 msgctxt "tdlgext.bncancel.caption"
 msgid "&Cancel"
-msgstr ""
+msgstr "&Annuleren"
 
 #: tdlgext.bnok.caption
 msgctxt "tdlgext.bnok.caption"
 msgid "&OK"
-msgstr ""
+msgstr "&OK"
 
 #: tdlgext.caption
+#, fuzzy
 msgid "Extension Options"
-msgstr ""
+msgstr "Algemene opties"
 
 #: tdlgext.gbext.caption
 msgctxt "tdlgext.gbext.caption"
 msgid "&Options:"
-msgstr ""
+msgstr "&Opties"
 
 #: tdlgext.lbldescr.caption
 msgid "&Description:"
-msgstr ""
+msgstr "&Omschrijving:"
 
 #: tdlgext.lblext.caption
 msgid "&Extension:"
-msgstr ""
+msgstr "&Extentie:"
 
 #: tdlgext.lblicon.caption
 msgid "&Icon:"
-msgstr ""
+msgstr "&Icoon:"
 
 #: tdlgsetupfilters.bncancel.caption
 msgctxt "tdlgsetupfilters.bncancel.caption"
 msgid "&Cancel"
-msgstr ""
+msgstr "&Annuleren"
 
 #: tdlgsetupfilters.bnok.caption
+#, fuzzy
 msgctxt "tdlgsetupfilters.bnok.caption"
 msgid "&OK"
-msgstr ""
+msgstr "OK"
 
 #: tdlgsetupfilters.caption
+#, fuzzy
 msgid "Filters Setup"
-msgstr ""
+msgstr "Pagina instellingen"
 
 #: tdmeditormanager.actabout.caption
 msgctxt "TDMEDITORMANAGER.ACTABOUT.CAPTION"
@@ -155,8 +158,9 @@ msgid "Close all other editors"
 msgstr "Alle andere editors afsluiten"
 
 #: tdmeditormanager.actconverttabstospacesinselection.caption
+#, fuzzy
 msgid "Convert tabs to spaces in selection"
-msgstr ""
+msgstr "Converteer tabs naar spaties in selectie"
 
 #: tdmeditormanager.actcopy.caption
 msgid "&Copy"
@@ -271,8 +275,9 @@ msgid "Decrease font size"
 msgstr "Font verkleinen"
 
 #: tdmeditormanager.actdecfontsize.hint
+#, fuzzy
 msgid "Decrease editor font size"
-msgstr ""
+msgstr "Vergroot editor font"
 
 #: tdmeditormanager.actdecodebase64.caption
 msgid "Decode base64"
@@ -283,8 +288,9 @@ msgid "Decode selected text from base64."
 msgstr ""
 
 #: tdmeditormanager.actdecodeurl.caption
+#, fuzzy
 msgid "Decode URL"
-msgstr ""
+msgstr "Bezoek URL"
 
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
@@ -306,13 +312,15 @@ msgid "Dequote each line in the selection."
 msgstr ""
 
 #: tdmeditormanager.actdequoteselection.caption
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTDEQUOTESELECTION.CAPTION"
 msgid "Dequote"
-msgstr ""
+msgstr "Dequote lijnen"
 
 #: tdmeditormanager.actdequoteselection.hint
+#, fuzzy
 msgid "Dequote selection"
-msgstr ""
+msgstr "Kopiëer selectie"
 
 #: tdmeditormanager.actencodebase64.caption
 msgid "Encode base64"
@@ -323,8 +331,9 @@ msgid "Encode selected text to base64."
 msgstr ""
 
 #: tdmeditormanager.actencodeurl.caption
+#, fuzzy
 msgid "Encode URL"
-msgstr ""
+msgstr "Bezoek URL"
 
 #: tdmeditormanager.actencodingmenu.caption
 msgctxt "tdmeditormanager.actencodingmenu.caption"
@@ -344,39 +353,46 @@ msgid "Exit application"
 msgstr "Applicatie afsluiten"
 
 #: tdmeditormanager.actexportmenu.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actexportmenu.caption"
 msgid "Export"
-msgstr ""
+msgstr "Exporteer ..."
 
 #: tdmeditormanager.actexporttohtml.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actexporttohtml.caption"
 msgid "Save as HTML file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actexporttohtml.hint
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTEXPORTTOHTML.HINT"
 msgid "Save as HTML file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actexporttortf.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actexporttortf.caption"
 msgid "Save as RTF file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actexporttortf.hint
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTEXPORTTORTF.HINT"
 msgid "Save as RTF file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actexporttowiki.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actexporttowiki.caption"
 msgid "Save as Wiki file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actexporttowiki.hint
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTEXPORTTOWIKI.HINT"
 msgid "Save as Wiki file"
-msgstr ""
+msgstr "Open als XML bestand"
 
 #: tdmeditormanager.actfilemenu.caption
 msgctxt "tdmeditormanager.actfilemenu.caption"
@@ -384,14 +400,16 @@ msgid "File"
 msgstr "Bestand"
 
 #: tdmeditormanager.actfiltercode.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actfiltercode.caption"
 msgid "Filter code"
-msgstr ""
+msgstr "Codecreatie"
 
 #: tdmeditormanager.actfiltercode.hint
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTFILTERCODE.HINT"
 msgid "Filter code"
-msgstr ""
+msgstr "Codecreatie"
 
 #: tdmeditormanager.actfindalloccurences.caption
 msgid "Find all occurences"
@@ -454,8 +472,9 @@ msgid "Sets the fold level to 1"
 msgstr ""
 
 #: tdmeditormanager.actfoldlevel10.caption
+#, fuzzy
 msgid "Fold level max"
-msgstr ""
+msgstr "Max regellengte"
 
 #: tdmeditormanager.actfoldlevel10.hint
 msgid "Sets the fold level to 10"
@@ -549,7 +568,7 @@ msgstr "Help dialog tonen."
 #: tdmeditormanager.acthighlighter.caption
 msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTER.CAPTION"
 msgid "Highlighter"
-msgstr ""
+msgstr "Highlighter"
 
 #: tdmeditormanager.acthighlightermenu.caption
 msgctxt "tdmeditormanager.acthighlightermenu.caption"
@@ -558,11 +577,11 @@ msgstr "Highlighter"
 
 #: tdmeditormanager.actincfontsize.caption
 msgid "Increase fontsize"
-msgstr ""
+msgstr "Vergroot font"
 
 #: tdmeditormanager.actincfontsize.hint
 msgid "Increase editor font size"
-msgstr ""
+msgstr "Vergroot editor font"
 
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
@@ -571,20 +590,20 @@ msgstr "Tussenvoegen"
 #: tdmeditormanager.actinsertcharacterfrommap.caption
 msgctxt "tdmeditormanager.actinsertcharacterfrommap.caption"
 msgid "Insert character from map"
-msgstr ""
+msgstr "Voeg karakter toe"
 
 #: tdmeditormanager.actinsertcharacterfrommap.hint
 msgctxt "TDMEDITORMANAGER.ACTINSERTCHARACTERFROMMAP.HINT"
 msgid "Insert character from map"
-msgstr ""
+msgstr "Voeg karakter toe"
 
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
-msgstr ""
+msgstr "Voeg kleurwaarde toe"
 
 #: tdmeditormanager.actinsertcolorvalue.hint
 msgid "Insert numeric color value"
-msgstr ""
+msgstr "Voeg numerieke kleurwaarde toe"
 
 #: tdmeditormanager.actinsertguid.caption
 msgid "Insert GUID"
@@ -592,7 +611,7 @@ msgstr "GUID invoegen"
 
 #: tdmeditormanager.actinsertguid.hint
 msgid "Inserts a new GUID value."
-msgstr ""
+msgstr "Voeg een GUID waarde toe"
 
 #: tdmeditormanager.actinsertmenu.caption
 msgctxt "tdmeditormanager.actinsertmenu.caption"
@@ -602,7 +621,7 @@ msgstr "Tussenvoegen"
 #: tdmeditormanager.actinspect.caption
 msgctxt "TDMEDITORMANAGER.ACTINSPECT.CAPTION"
 msgid "Inspect"
-msgstr ""
+msgstr "Inspecteer"
 
 #: tdmeditormanager.actinspect.hint
 msgid "Show inspector"
@@ -618,12 +637,14 @@ msgid "Load highlighter from file"
 msgstr "Highlighterdefinitie laden uit bestand"
 
 #: tdmeditormanager.actloadhighlighterfromfile.hint
+#, fuzzy
 msgid "Load highlighter settings from file."
-msgstr ""
+msgstr "Laad desktop instelling van een bestand"
 
 #: tdmeditormanager.actlowercaseselection.caption
+#, fuzzy
 msgid "Lowercase"
-msgstr ""
+msgstr "Kleine letters"
 
 #: tdmeditormanager.actlowercaseselection.hint
 msgid "Lower case selection"
@@ -642,8 +663,9 @@ msgid "New"
 msgstr "Nieuw"
 
 #: tdmeditormanager.actnew.hint
+#, fuzzy
 msgid "Create a new editor view."
-msgstr ""
+msgstr "Maak een nieuw editor-bestand.%sKies een type."
 
 #: tdmeditormanager.actnewsharedview.caption
 msgid "New shared view"
@@ -735,13 +757,15 @@ msgid "Quote each line in the selection and delimit with comma"
 msgstr ""
 
 #: tdmeditormanager.actquoteselection.caption
+#, fuzzy
 msgctxt "TDMEDITORMANAGER.ACTQUOTESELECTION.CAPTION"
 msgid "Quote"
-msgstr ""
+msgstr "Quote lijnen"
 
 #: tdmeditormanager.actquoteselection.hint
+#, fuzzy
 msgid "Quote selection"
-msgstr ""
+msgstr "Kopiëer selectie"
 
 #: tdmeditormanager.actredo.caption
 msgctxt "TDMEDITORMANAGER.ACTREDO.CAPTION"
@@ -758,8 +782,9 @@ msgid "Reload"
 msgstr "Herladen"
 
 #: tdmeditormanager.actreload.hint
+#, fuzzy
 msgid "Reload content."
-msgstr ""
+msgstr "Herlaad instellingen"
 
 #: tdmeditormanager.actsave.caption
 msgctxt "tdmeditormanager.actsave.caption"
@@ -853,8 +878,9 @@ msgid "Settings"
 msgstr "Instellingen"
 
 #: tdmeditormanager.actshapecode.caption
+#, fuzzy
 msgid "Shape code"
-msgstr ""
+msgstr "Codecreatie"
 
 #: tdmeditormanager.actshapecode.hint
 msgid "Apply custom code formatting to selection"
@@ -865,8 +891,9 @@ msgid "Show editor actions"
 msgstr "Editor actions tonen"
 
 #: tdmeditormanager.actshowactions.hint
+#, fuzzy
 msgid "Show the list of all available actions."
-msgstr ""
+msgstr "Toon lijst van alle editor views."
 
 #: tdmeditormanager.actshowfiltertest.caption
 msgid "Show filter test dialog"
@@ -897,8 +924,9 @@ msgid "Show text preview."
 msgstr "Voorbeeldweergave voor tekst tonen"
 
 #: tdmeditormanager.actshowscripteditor.caption
+#, fuzzy
 msgid "Show script editor"
-msgstr ""
+msgstr "Editor actions tonen"
 
 #: tdmeditormanager.actshowspecialcharacters.caption
 msgid "Show special characters"
@@ -926,8 +954,9 @@ msgid "Show list of all editor views."
 msgstr "Toon lijst van alle editor views."
 
 #: tdmeditormanager.actsingleinstance.caption
+#, fuzzy
 msgid "Single instance"
-msgstr ""
+msgstr "Huidige editor afsluiten"
 
 #: tdmeditormanager.actsingleinstance.hint
 msgid "Allow only one active instance of the application."
@@ -938,8 +967,9 @@ msgid "Smartselect"
 msgstr "Slimme selectie"
 
 #: tdmeditormanager.actsmartselect.hint
+#, fuzzy
 msgid "Make a smart selection"
-msgstr ""
+msgstr "Selectie omzetten naar kleine letters"
 
 #: tdmeditormanager.actsortselection.caption
 msgid "Sort"
@@ -974,8 +1004,9 @@ msgid "Strip last character from every line in the selection."
 msgstr ""
 
 #: tdmeditormanager.actstripmarkup.caption
+#, fuzzy
 msgid "Strip markup"
-msgstr ""
+msgstr "Verwijder eerste karakter"
 
 #: tdmeditormanager.actstripmarkup.hint
 msgid "Strip markup tags from XML/HTML."
@@ -1006,24 +1037,29 @@ msgid "Toggle comment for current line or each selected line."
 msgstr ""
 
 #: tdmeditormanager.acttogglefoldlevel.caption
+#, fuzzy
 msgid "Toggle fold level"
-msgstr ""
+msgstr "Schakel tussen Form/Unit"
 
 #: tdmeditormanager.acttogglefoldlevel.hint
+#, fuzzy
 msgid "Toggle folding level."
-msgstr ""
+msgstr "Schakel tussen Form/Unit"
 
 #: tdmeditormanager.acttogglehighlighter.caption
+#, fuzzy
 msgid "Toggle highlighter"
-msgstr ""
+msgstr "Huidige highlighter"
 
 #: tdmeditormanager.acttogglehighlighter.hint
+#, fuzzy
 msgid "Toggle highlighter."
-msgstr ""
+msgstr "Huidige highlighter"
 
 #: tdmeditormanager.acttogglemaximized.caption
+#, fuzzy
 msgid "Toggle maximized"
-msgstr ""
+msgstr "(uit)commentariëren"
 
 #: tdmeditormanager.acttogglemaximized.hint
 msgid "Toggles between maximized and restored mode."
@@ -1040,8 +1076,9 @@ msgid "Undo"
 msgstr "Ongedaan maken"
 
 #: tdmeditormanager.actunindent.caption
+#, fuzzy
 msgid "Unindent"
-msgstr ""
+msgstr "Unindent Blok"
 
 #: tdmeditormanager.actuppercaseselection.caption
 msgid "Uppercase"
@@ -1050,133 +1087,6 @@ msgstr "Hoofdletters"
 #: tdmeditormanager.actuppercaseselection.hint
 msgid "Upper case selection"
 msgstr "Selectiie omzetten naar hoofdletters"
-
-#: tdmeditormanager.menuitem1.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem1.caption"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem10.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM10.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem11.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM11.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem12.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM12.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem13.caption
-#, fuzzy
-msgid "New Item2"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem14.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem14.caption"
-msgid "New Item3"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem15.caption
-#, fuzzy
-msgid "New Item4"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem16.caption
-#, fuzzy
-msgid "New Item5"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem17.caption
-#, fuzzy
-msgid "New Item6"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem18.caption
-#, fuzzy
-msgid "New Item7"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem19.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem19.caption"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem2.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM2.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem20.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem20.caption"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem21.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem21.caption"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem22.caption
-#, fuzzy
-msgctxt "tdmeditormanager.menuitem22.caption"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem3.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM3.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem4.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM4.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem5.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM5.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem6.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM6.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem7.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM7.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem8.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM8.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
-
-#: tdmeditormanager.menuitem9.caption
-#, fuzzy
-msgctxt "TDMEDITORMANAGER.MENUITEM9.CAPTION"
-msgid "New Item1"
-msgstr "&Nieuwe zoekopdracht"
 
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
@@ -1280,8 +1190,9 @@ msgid "Execute"
 msgstr "Uitvoeren"
 
 #: tfrmalignlines.caption
+#, fuzzy
 msgid "Align selection"
-msgstr ""
+msgstr "Kopiëer selectie"
 
 #: tfrmalignlines.gbxinsertspace.caption
 msgid "Keep at least one space"
@@ -1293,20 +1204,24 @@ msgid "Options"
 msgstr "Opties"
 
 #: tfrmalignlines.gbxtokenlist.caption
+#, fuzzy
 msgid "Tokens to align to:"
-msgstr ""
+msgstr "Alligneer geselecteerde lijnen"
 
 #: tfrmalignlines.gbxtokensfound.caption
+#, fuzzy
 msgid "Tokens found in selection:"
-msgstr ""
+msgstr "Open selectie in niewe editor"
 
 #: tfrmalignlines.rgpalignat.caption
+#, fuzzy
 msgid "Align at:"
-msgstr ""
+msgstr "Begin op"
 
 #: tfrmalignlines.rgpsortdirection.caption
+#, fuzzy
 msgid "Sort direction:"
-msgstr ""
+msgstr "Sorteer Selectie"
 
 #: tfrmapplicationsettings.caption
 msgid "frmApplicationSettings"
@@ -1381,8 +1296,9 @@ msgid "Copy selected lines to new view"
 msgstr ""
 
 #: tfrmcodefilterdialog.actfocussearchfilter.caption
+#, fuzzy
 msgid "Set focus to searchfilter"
-msgstr ""
+msgstr "Geef element standaardwaarde"
 
 #: tfrmcodefilterdialog.actmatchcase.caption
 msgid "Match &case"
@@ -1397,8 +1313,9 @@ msgid "Select all"
 msgstr "Selecteer &Alle"
 
 #: tfrmcodefilterdialog.caption
+#, fuzzy
 msgid "Code filter"
-msgstr ""
+msgstr "Filter toepassen"
 
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
@@ -1427,14 +1344,16 @@ msgid "ToolButton4"
 msgstr ""
 
 #: tfrmcodeshaper.actaligninsertspaceaftertoken.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.actaligninsertspaceaftertoken.caption"
 msgid "after token"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: tfrmcodeshaper.actaligninsertspacebeforetoken.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.actaligninsertspacebeforetoken.caption"
 msgid "before token"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: tfrmcodeshaper.actaligninsertspaceonbothsides.caption
 msgid "on both sides"
@@ -1453,32 +1372,36 @@ msgid "Every word gets the same casing as the first occurence."
 msgstr ""
 
 #: tfrmcodeshaper.actbreakaftertoken.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTBREAKAFTERTOKEN.CAPTION"
 msgid "after token"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: tfrmcodeshaper.actbreakaftertoken.hint
 msgid "Insert breaks after each occurence of the given token."
 msgstr ""
 
 #: tfrmcodeshaper.actbreakbeforetoken.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTBREAKBEFORETOKEN.CAPTION"
 msgid "before token"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: tfrmcodeshaper.actbreakbeforetoken.hint
 msgid "Insert breaks before each occurence of the given token."
 msgstr ""
 
 #: tfrmcodeshaper.actdequotelines.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.actdequotelines.caption"
 msgid "Dequote"
-msgstr ""
+msgstr "Dequote lijnen"
 
 #: tfrmcodeshaper.actinsertbreaks.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
 msgid "Insert breaks"
-msgstr ""
+msgstr "Verwijder lijneindes"
 
 #: tfrmcodeshaper.actmakepascalstring.caption
 msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
@@ -1486,9 +1409,10 @@ msgid "Pascal string"
 msgstr "Pascal string"
 
 #: tfrmcodeshaper.actquotelines.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.actquotelines.caption"
 msgid "Quote"
-msgstr ""
+msgstr "Quote lijnen"
 
 #: tfrmcodeshaper.actredo.caption
 msgctxt "tfrmcodeshaper.actredo.caption"
@@ -1510,22 +1434,25 @@ msgid "Replace"
 msgstr "Vervang"
 
 #: tfrmcodeshaper.actstripfirstchar.caption
+#, fuzzy
 msgid "Strip first char"
-msgstr ""
+msgstr "Verwijder laatste teken"
 
 #: tfrmcodeshaper.actstriplastchar.caption
 msgid "Strip last char"
 msgstr "Verwijder laatste teken"
 
 #: tfrmcodeshaper.acttogglebreakside.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTTOGGLEBREAKSIDE.CAPTION"
 msgid "after token"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: tfrmcodeshaper.acttrim.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTTRIM.CAPTION"
 msgid "Trim"
-msgstr ""
+msgstr "Trim"
 
 #: tfrmcodeshaper.actundo.caption
 msgctxt "tfrmcodeshaper.actundo.caption"
@@ -1533,12 +1460,14 @@ msgid "Undo"
 msgstr "Ongedaan maken"
 
 #: tfrmcodeshaper.acturldecode.caption
+#, fuzzy
 msgid "URL decode"
-msgstr ""
+msgstr "Bezoek URL"
 
 #: tfrmcodeshaper.acturlencode.caption
+#, fuzzy
 msgid "URL encode"
-msgstr ""
+msgstr "Bezoek URL"
 
 #: tfrmcodeshaper.btnaligninsertspace.caption
 msgctxt "tfrmcodeshaper.btnaligninsertspace.caption"
@@ -1551,16 +1480,18 @@ msgid "before"
 msgstr "vóór"
 
 #: tfrmcodeshaper.caption
+#, fuzzy
 msgid "Code shaper"
-msgstr ""
+msgstr "Codecreatie"
 
 #: tfrmcodeshaper.chkalignlinesinparagraphs.caption
 msgid "Align in paragraphs"
 msgstr "Alligneer in paragrafen"
 
 #: tfrmcodeshaper.chkalignlinesinsertspace.caption
+#, fuzzy
 msgid "Insert space"
-msgstr ""
+msgstr "Spatie achter invoegen"
 
 #: tfrmcodeshaper.chkalignlinesremovewhitespace.caption
 msgid "Remove whitespace"
@@ -1571,9 +1502,10 @@ msgid "Break lines"
 msgstr "Lijnen afbreken"
 
 #: tfrmcodeshaper.chkbreaklinestrimspace.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.chkbreaklinestrimspace.caption"
 msgid "Trim space"
-msgstr ""
+msgstr "Negeer Space"
 
 #: tfrmcodeshaper.chkbreaklineswrap.caption
 msgctxt "tfrmcodeshaper.chkbreaklineswrap.caption"
@@ -1581,18 +1513,20 @@ msgid "Wrap lines"
 msgstr "Lijnen over meerdere regels herschikken"
 
 #: tfrmcodeshaper.chkdequotelinestrimspace.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.CHKDEQUOTELINESTRIMSPACE.CAPTION"
 msgid "Trim space"
-msgstr ""
+msgstr "Negeer Space"
 
 #: tfrmcodeshaper.chkquotelinesdelimitlines.caption
 msgid "Delimit lines"
 msgstr "Afbakenen lijngrenzen"
 
 #: tfrmcodeshaper.chkquotelinestrimspace.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.CHKQUOTELINESTRIMSPACE.CAPTION"
 msgid "Trim space"
-msgstr ""
+msgstr "Negeer Space"
 
 #: tfrmcodeshaper.chkreplacestringscasesensitive.caption
 msgctxt "tfrmcodeshaper.chkreplacestringscasesensitive.caption"
@@ -1605,8 +1539,9 @@ msgid "Whole words only"
 msgstr "Alleen volledige woorden"
 
 #: tfrmcodeshaper.chktrimcompressspace.caption
+#, fuzzy
 msgid "Compress space"
-msgstr ""
+msgstr "Negeer Space"
 
 #: tfrmcodeshaper.chktrimlinesleft.caption
 msgid "Trim left"
@@ -1622,14 +1557,16 @@ msgid "Wrap lines"
 msgstr "Lijnen afbreken"
 
 #: tfrmcodeshaper.edtalignlinestoken.editlabel.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.EDTALIGNLINESTOKEN.EDITLABEL.CAPTION"
 msgid "Token:"
-msgstr ""
+msgstr "Teken:"
 
 #: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
 msgid "Token:"
-msgstr ""
+msgstr "Teken:"
 
 #: tfrmcodeshaper.edtbreaklinestoken.text
 msgid ","
@@ -1682,9 +1619,10 @@ msgid "Dequote lines"
 msgstr "Dequote lijnen"
 
 #: tfrmcodeshaper.grpinsertbreaks.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.grpinsertbreaks.caption"
 msgid "Insert breaks"
-msgstr ""
+msgstr "Verwijder lijneindes"
 
 #: tfrmcodeshaper.grpmisc.caption
 msgid "Miscellanious operations"
@@ -1768,8 +1706,9 @@ msgid "Reload settings"
 msgstr "Herlaad instellingen"
 
 #: tfrmeditorsettings.btnapply.caption
+#, fuzzy
 msgid "&Apply"
-msgstr ""
+msgstr "Toepassen"
 
 #: tfrmeditorsettings.btnclose.caption
 msgctxt "tfrmeditorsettings.btnclose.caption"
@@ -1777,9 +1716,10 @@ msgid "&Close"
 msgstr "&Afsluiten"
 
 #: tfrmeditorsettings.btnok.caption
+#, fuzzy
 msgctxt "tfrmeditorsettings.btnok.caption"
 msgid "&OK"
-msgstr ""
+msgstr "OK"
 
 #: tfrmeditorsettings.caption
 msgctxt "tfrmeditorsettings.caption"
@@ -1791,8 +1731,9 @@ msgid "Label1"
 msgstr ""
 
 #: tfrmeditorsettings.lblattributealiases.caption
+#, fuzzy
 msgid "Highlighter attribute aliases:"
-msgstr ""
+msgstr "attribuut kan niet worden toegevoegd"
 
 #: tfrmeditorsettings.tsdebug.caption
 msgid "Debug"
@@ -1807,136 +1748,154 @@ msgid "Highlighters"
 msgstr "Highlighters"
 
 #: tfrmeditorsettings.tssettings.caption
-#, fuzzy
 #| msgid "Inspector"
 msgid "Main settings"
-msgstr "Inspecteur"
+msgstr "Instellingen"
 
 #: tfrmeditorsettings.tsxml.caption
 msgid "XML"
 msgstr "XML"
 
 #: tfrmeditorsettingsdialog.chkreadonly.caption
+#, fuzzy
 msgid "Read only mode"
-msgstr ""
+msgstr "Paden (Niet wijzigbaar)"
 
 #: tfrmeditorsettingsdialog.chkwanttabs.caption
+#, fuzzy
 msgid "Accept TAB characters:"
-msgstr ""
+msgstr "Speciale karakters tonen"
 
 #: tfrmeditorsettingsdialog.lblblockindent.caption
+#, fuzzy
 msgid "Block indent spaces:"
-msgstr ""
+msgstr "Tabs naar spaties"
 
 #: tfrmeditorsettingsdialog.lblblocktabindent.caption
+#, fuzzy
 msgid "Block indent tabs:"
-msgstr ""
+msgstr "Toon folder tabs"
 
 #: tfrmeditorsettingsdialog.lblextracharspacing.caption
+#, fuzzy
 msgid "Extra character spacing:"
-msgstr ""
+msgstr "Extra regel afstand"
 
 #: tfrmeditorsettingsdialog.lblextralinespacing.caption
+#, fuzzy
 msgid "Extra line spacing:"
-msgstr ""
+msgstr "Extra regel afstand"
 
 #: tfrmeditorsettingsdialog.lblrightedge.caption
+#, fuzzy
 msgid "Right edge position:"
-msgstr ""
+msgstr "Verplaats pagina naar rechts"
 
 #: tfrmeditorsettingsdialog.lbltabwidth.caption
+#, fuzzy
 msgid "TAB width:"
-msgstr ""
+msgstr "Goot breedte"
 
 #: tfrmfiletypesettings.acadd.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.acadd.caption"
 msgid "&Add..."
-msgstr ""
+msgstr "Toevoegen"
 
 #: tfrmfiletypesettings.acdel.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.acdel.caption"
 msgid "&Delete..."
-msgstr ""
+msgstr "Verwijderen"
 
 #: tfrmfiletypesettings.bnac.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.bnac.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmfiletypesettings.bnacedit.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.bnacedit.caption"
 msgid "&Edit..."
-msgstr ""
+msgstr "Bewerk"
 
 #: tfrmfiletypesettings.bnhelp.caption
 msgctxt "tfrmfiletypesettings.bnhelp.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmfiletypesettings.bnruncmd.caption
 msgctxt "tfrmfiletypesettings.bnruncmd.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmfiletypesettings.bnrundirbrowse.caption
 msgctxt "tfrmfiletypesettings.bnrundirbrowse.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmfiletypesettings.bnrundirtags.caption
 msgctxt "tfrmfiletypesettings.bnrundirtags.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmfiletypesettings.bnrunoutputexp.caption
 msgctxt "tfrmfiletypesettings.bnrunoutputexp.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmfiletypesettings.bnrunoutputl.caption
 msgctxt "tfrmfiletypesettings.bnrunoutputl.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmfiletypesettings.bnrunparam.caption
 msgctxt "tfrmfiletypesettings.bnrunparam.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmfiletypesettings.chkautoi.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.chkautoi.caption"
 msgid "&Auto Indent"
-msgstr ""
+msgstr "Blok Inspringen"
 
 #: tfrmfiletypesettings.chksmarttab.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.chksmarttab.caption"
 msgid "&Smart Tab"
-msgstr ""
+msgstr "Tab positie"
 
 #: tfrmfiletypesettings.chkusetab.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.chkusetab.caption"
 msgid "&Uset Tab"
-msgstr ""
+msgstr "Tab positie"
 
 #: tfrmfiletypesettings.gboptions.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.gboptions.caption"
 msgid "&Options:"
-msgstr ""
+msgstr "Opties"
 
 #: tfrmfiletypesettings.lbfilter.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lbfilter.caption"
 msgid "&Filter:"
-msgstr ""
+msgstr "Filter toepassen"
 
 #: tfrmfiletypesettings.lbft.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lbft.caption"
 msgid "File &Type:"
-msgstr ""
+msgstr "Alleen type:"
 
 #: tfrmfiletypesettings.lblcomment.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblcomment.caption"
 msgid "&Comment Char:"
-msgstr ""
+msgstr "(uit)commentariëren"
 
 #: tfrmfiletypesettings.lblftautocomplete.caption
 msgctxt "tfrmfiletypesettings.lblftautocomplete.caption"
@@ -1944,44 +1903,52 @@ msgid "&Autocomplete:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblhelp.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblhelp.caption"
 msgid "Help file:"
-msgstr ""
+msgstr "Open bestand"
 
 #: tfrmfiletypesettings.lblhighlighter.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblhighlighter.caption"
 msgid "&Highlight:"
-msgstr ""
+msgstr "Syntax kleuring"
 
 #: tfrmfiletypesettings.lblruncmd.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblruncmd.caption"
 msgid "&Command Line:"
-msgstr ""
+msgstr "Focus commandoregel"
 
 #: tfrmfiletypesettings.lblrundir.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblrundir.caption"
 msgid "Work &Directory:"
-msgstr ""
+msgstr "Map Hotlist"
 
 #: tfrmfiletypesettings.lblrunoutput.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblrunoutput.caption"
 msgid "&Output Expression:"
-msgstr ""
+msgstr "&Reguliere expressie"
 
 #: tfrmfiletypesettings.lblrunparam.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lblrunparam.caption"
 msgid "&Parameters:"
-msgstr ""
+msgstr "&Parameters:"
 
 #: tfrmfiletypesettings.lbltabwidth.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lbltabwidth.caption"
 msgid "Tab &Width:"
-msgstr ""
+msgstr "Goot breedte"
 
 #: tfrmfiletypesettings.lnkfilters.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.lnkfilters.caption"
 msgid "Setup Filters..."
-msgstr ""
+msgstr "Pagina instellingen"
 
 #: tfrmfiletypesettings.tsftac.caption
 msgctxt "tfrmfiletypesettings.tsftac.caption"
@@ -1994,14 +1961,16 @@ msgid "&Help"
 msgstr "&Help"
 
 #: tfrmfiletypesettings.tsftmain.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.tsftmain.caption"
 msgid "&Main"
-msgstr ""
+msgstr "Instellingen"
 
 #: tfrmfiletypesettings.tsftrun.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.tsftrun.caption"
 msgid "&Run"
-msgstr ""
+msgstr "&Starten"
 
 #: tfrmfilter.actfocusfiltertext.caption
 msgid "Set focus to filter text"
@@ -2020,9 +1989,10 @@ msgid "&Assign"
 msgstr ""
 
 #: tfrmkeymappings.acdel.caption
+#, fuzzy
 msgctxt "tfrmkeymappings.acdel.caption"
 msgid "&Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: tfrmkeymappings.bncancel.caption
 msgctxt "tfrmkeymappings.bncancel.caption"
@@ -2031,55 +2001,66 @@ msgstr "Sluit"
 
 #: tfrmkeymappings.bnok.caption
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: tfrmkeymappings.caption
+#, fuzzy
 msgid "Customize"
-msgstr ""
+msgstr "Kolom aanpassen:"
 
 #: tfrmkeymappings.chklargeicons.caption
+#, fuzzy
 msgid "Show Large Icons"
-msgstr ""
+msgstr "Help dialog tonen."
 
 #: tfrmkeymappings.chkshowhint.caption
+#, fuzzy
 msgid "Show Hints"
-msgstr ""
+msgstr "Toon hints in Object Inspecteur"
 
 #: tfrmkeymappings.gbactions.caption
+#, fuzzy
 msgid "Select Action:"
-msgstr ""
+msgstr "Selecteer &Alles"
 
 #: tfrmkeymappings.gbdescr.caption
+#, fuzzy
 msgid "Description:"
-msgstr ""
+msgstr "Omschrijving:"
 
 #: tfrmkeymappings.gbsc.caption
+#, fuzzy
 msgid "Select ShortCut:"
-msgstr ""
+msgstr "Selecteer &Alles"
 
 #: tfrmkeymappings.lblactions.caption
+#, fuzzy
 msgid "Actions:"
-msgstr ""
+msgstr "Acties"
 
 #: tfrmkeymappings.lblcategory.caption
+#, fuzzy
 msgid "Category:"
-msgstr ""
+msgstr "Categorie"
 
 #: tfrmkeymappings.lblcurvalue.caption
+#, fuzzy
 msgid "Current ShortCut:"
-msgstr ""
+msgstr "Huidige encoding"
 
 #: tfrmkeymappings.lblnewsc.caption
+#, fuzzy
 msgid "New ShortCur:"
-msgstr ""
+msgstr "&Nieuwe zoekopdracht"
 
 #: tfrmkeymappings.tskeyboard.caption
 msgid "Shortcuts"
 msgstr ""
 
 #: tfrmkeymappings.tsoptions.caption
+#, fuzzy
 msgid "Other"
-msgstr ""
+msgstr "Ander"
 
 #: tfrmkeymappings.tstoolbars.caption
 msgid "Toolbars"
@@ -2149,8 +2130,9 @@ msgid "Insert mode"
 msgstr "Insert mode"
 
 #: tfrmmain.pnllinebreakstyle.hint
+#, fuzzy
 msgid "Current line break style"
-msgstr ""
+msgstr "Breek lijn, verlaat cursor"
 
 #: tfrmmain.pnlposition.hint
 msgid "Cursor position"
@@ -2179,161 +2161,187 @@ msgid "Minimap"
 msgstr "Bestandskaartweergave"
 
 #: tfrmoptionsassociate.actadd.caption
+#, fuzzy
 msgctxt "tfrmoptionsassociate.actadd.caption"
 msgid "&Add..."
-msgstr ""
+msgstr "Toevoegen"
 
 #: tfrmoptionsassociate.actdelete.caption
+#, fuzzy
 msgctxt "tfrmoptionsassociate.actdelete.caption"
 msgid "&Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: tfrmoptionsassociate.actdeselectall.caption
+#, fuzzy
 msgid "&Hide Selection"
-msgstr ""
+msgstr "Kopiëer selectie"
 
 #: tfrmoptionsassociate.actedit.caption
+#, fuzzy
 msgctxt "tfrmoptionsassociate.actedit.caption"
 msgid "&Edit..."
-msgstr ""
+msgstr "Bewerk"
 
 #: tfrmoptionsassociate.actselectall.caption
+#, fuzzy
 msgid "Se&lect All"
-msgstr ""
+msgstr "Zoek alle instanties"
 
 #: tfrmoptionsassociate.btndeselectall.caption
+#, fuzzy
 msgid "&Deselect all"
-msgstr ""
+msgstr "Selecteer &Alles"
 
 #: tfrmoptionsassociate.chkaddtomenu.caption
+#, fuzzy
 msgid "Add to &Context Menu"
-msgstr ""
+msgstr "Paden aan pakketten en projecten toevoegen"
 
 #: tfrmoptionsassociate.chkallusers.caption
+#, fuzzy
 msgid "Associate for all users"
-msgstr ""
+msgstr "Typhon directory (standaard voor alle projecten)"
 
 #: tfrmoptionsassociate.chkassoctounknown.caption
+#, fuzzy
 msgid "Associate to &Unknown"
-msgstr ""
+msgstr "Onbekende boolean operatie"
 
 #: tfrmoptionsassociate.gbxoptions.caption
+#, fuzzy
 msgid "&Options"
-msgstr ""
+msgstr "Opties"
 
 #: tfrmoptionsassociate.gbxother.caption
+#, fuzzy
 msgid "Other:"
-msgstr ""
+msgstr "Ander"
 
 #: tfrmoptionsassociate.lblbackup.caption
+#, fuzzy
 msgid "Make Backup..."
-msgstr ""
+msgstr "Make pad"
 
 #: tfrmoptionsassociate.lblext.caption
+#, fuzzy
 msgid "File associations"
-msgstr ""
+msgstr "Bestand verwantschappen"
 
 #: tfrmoptionsassociate.lblmenucaption.caption
+#, fuzzy
 msgid "Menu &Caption:"
-msgstr ""
+msgstr "Menu F9"
 
 #: tfrmoptionsassociate.lvext.columns[0].caption
+#, fuzzy
 msgid "Ext:"
-msgstr ""
+msgstr "Ext"
 
 #: tfrmoptionsassociate.pnlaccess.caption
 msgid "You have not permission for associate extensions."
 msgstr ""
 
 #: tfrmoptionsfiletype.acadd.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.acadd.caption"
 msgid "&Add..."
-msgstr ""
+msgstr "Toevoegen"
 
 #: tfrmoptionsfiletype.acdel.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.acdel.caption"
 msgid "&Delete..."
-msgstr ""
+msgstr "Verwijderen"
 
 #: tfrmoptionsfiletype.bnac.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.bnac.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmoptionsfiletype.bnacedit.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.bnacedit.caption"
 msgid "&Edit..."
-msgstr ""
+msgstr "Bewerk"
 
 #: tfrmoptionsfiletype.bnhelp.caption
 msgctxt "tfrmoptionsfiletype.bnhelp.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmoptionsfiletype.bnruncmd.caption
 msgctxt "tfrmoptionsfiletype.bnruncmd.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmoptionsfiletype.bnrundirbrowse.caption
 msgctxt "tfrmoptionsfiletype.bnrundirbrowse.caption"
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #: tfrmoptionsfiletype.bnrundirtags.caption
 msgctxt "tfrmoptionsfiletype.bnrundirtags.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmoptionsfiletype.bnrunoutputexp.caption
 msgctxt "tfrmoptionsfiletype.bnrunoutputexp.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmoptionsfiletype.bnrunoutputl.caption
 msgctxt "tfrmoptionsfiletype.bnrunoutputl.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmoptionsfiletype.bnrunparam.caption
 msgctxt "tfrmoptionsfiletype.bnrunparam.caption"
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: tfrmoptionsfiletype.chkautoi.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.chkautoi.caption"
 msgid "&Auto Indent"
-msgstr ""
+msgstr "Blok Inspringen"
 
 #: tfrmoptionsfiletype.chksmarttab.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.chksmarttab.caption"
 msgid "&Smart Tab"
-msgstr ""
+msgstr "Tab positie"
 
 #: tfrmoptionsfiletype.chkusetab.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.chkusetab.caption"
 msgid "&Uset Tab"
-msgstr ""
+msgstr "Tab positie"
 
 #: tfrmoptionsfiletype.gboptions.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.gboptions.caption"
 msgid "&Options:"
-msgstr ""
+msgstr "Opties"
 
 #: tfrmoptionsfiletype.lbfilter.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lbfilter.caption"
 msgid "&Filter:"
-msgstr ""
+msgstr "Filter toepassen"
 
 #: tfrmoptionsfiletype.lbft.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lbft.caption"
 msgid "File &Type:"
-msgstr ""
+msgstr "Alleen type:"
 
 #: tfrmoptionsfiletype.lblcomment.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblcomment.caption"
 msgid "&Comment Char:"
-msgstr ""
+msgstr "(uit)commentariëren"
 
 #: tfrmoptionsfiletype.lblftautocomplete.caption
 msgctxt "tfrmoptionsfiletype.lblftautocomplete.caption"
@@ -2341,44 +2349,52 @@ msgid "&Autocomplete:"
 msgstr ""
 
 #: tfrmoptionsfiletype.lblhelp.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblhelp.caption"
 msgid "Help file:"
-msgstr ""
+msgstr "Open bestand"
 
 #: tfrmoptionsfiletype.lblhighlighter.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblhighlighter.caption"
 msgid "&Highlight:"
-msgstr ""
+msgstr "Syntax kleuring"
 
 #: tfrmoptionsfiletype.lblruncmd.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblruncmd.caption"
 msgid "&Command Line:"
-msgstr ""
+msgstr "Focus commandoregel"
 
 #: tfrmoptionsfiletype.lblrundir.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblrundir.caption"
 msgid "Work &Directory:"
-msgstr ""
+msgstr "Map Hotlist"
 
 #: tfrmoptionsfiletype.lblrunoutput.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblrunoutput.caption"
 msgid "&Output Expression:"
-msgstr ""
+msgstr "&Reguliere expressie"
 
 #: tfrmoptionsfiletype.lblrunparam.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lblrunparam.caption"
 msgid "&Parameters:"
-msgstr ""
+msgstr "&Parameters:"
 
 #: tfrmoptionsfiletype.lbltabwidth.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lbltabwidth.caption"
 msgid "Tab &Width:"
-msgstr ""
+msgstr "Goot breedte"
 
 #: tfrmoptionsfiletype.lnkfilters.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.lnkfilters.caption"
 msgid "Setup Filters..."
-msgstr ""
+msgstr "Pagina instellingen"
 
 #: tfrmoptionsfiletype.tsftac.caption
 msgctxt "tfrmoptionsfiletype.tsftac.caption"
@@ -2391,118 +2407,141 @@ msgid "&Help"
 msgstr "&Help"
 
 #: tfrmoptionsfiletype.tsftmain.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.tsftmain.caption"
 msgid "&Main"
-msgstr ""
+msgstr "Instellingen"
 
 #: tfrmoptionsfiletype.tsftrun.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.tsftrun.caption"
 msgid "&Run"
-msgstr ""
+msgstr "&Starten"
 
 #: tfrmoptionsthemes.bnchangefont.caption
+#, fuzzy
 msgid "Change Font..."
-msgstr ""
+msgstr "Editor lettertype"
 
 #: tfrmoptionsthemes.bnthemeadd.caption
+#, fuzzy
 msgid "&Add"
-msgstr ""
+msgstr "&Toevoegen"
 
 #: tfrmoptionsthemes.bnthemedel.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.bnthemedel.caption"
 msgid "&Delete"
-msgstr ""
+msgstr "Verwijder"
 
 #: tfrmoptionsthemes.chkalwaysshowurl.caption
+#, fuzzy
 msgid "Permanently Highlight URL's"
-msgstr ""
+msgstr "Gebruik syntax highlighting"
 
 #: tfrmoptionsthemes.chkgautosize.caption
+#, fuzzy
 msgid "&Auto Size"
-msgstr ""
+msgstr "Oorspronkelijke grootte:"
 
 #: tfrmoptionsthemes.chkgleadingzeros.caption
 msgid "&Leading Zeros"
 msgstr ""
 
 #: tfrmoptionsthemes.chkgshownumbers.caption
+#, fuzzy
 msgid "&Show Linenumbers"
-msgstr ""
+msgstr "Inspecteur tonen"
 
 #: tfrmoptionsthemes.chkgusegrad.caption
+#, fuzzy
 msgid "&Show Gradient"
-msgstr ""
+msgstr "Inspecteur tonen"
 
 #: tfrmoptionsthemes.chkgvisible.caption
+#, fuzzy
 msgid "&Show Gutter"
-msgstr ""
+msgstr "Toon goot hints"
 
 #: tfrmoptionsthemes.chkgzerostart.caption
+#, fuzzy
 msgid "&Zero Start"
-msgstr ""
+msgstr "&Start pad:"
 
 #: tfrmoptionsthemes.chkhighlightbrackets.caption
+#, fuzzy
 msgid "Highlight matching &brackets:"
-msgstr ""
+msgstr "Gebruik syntax highlighting"
 
 #: tfrmoptionsthemes.chkhighlightcurrentline.caption
+#, fuzzy
 msgid "Highlight &current line:"
-msgstr ""
+msgstr "Verwijder huidige regel"
 
 #: tfrmoptionsthemes.chkhistylebold.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkhistylebold.caption"
 msgid "&Bold"
-msgstr ""
+msgstr "Vet"
 
 #: tfrmoptionsthemes.chkhistyleitalic.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkhistyleitalic.caption"
 msgid "&Italic"
-msgstr ""
+msgstr "Schuin"
 
 #: tfrmoptionsthemes.chkhistyleunderline.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkhistyleunderline.caption"
 msgid "&Underline"
-msgstr ""
+msgstr "Onderstreept"
 
 #: tfrmoptionsthemes.chkurl.caption
+#, fuzzy
 msgid "&Highlight Hyperlinks"
-msgstr ""
+msgstr "Syntax kleuring"
 
 #: tfrmoptionsthemes.chkurlbold.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkurlbold.caption"
 msgid "&Bold"
-msgstr ""
+msgstr "Vet"
 
 #: tfrmoptionsthemes.chkurlitalic.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkurlitalic.caption"
 msgid "&Italic"
-msgstr ""
+msgstr "Schuin"
 
 #: tfrmoptionsthemes.chkurlunderline.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.chkurlunderline.caption"
 msgid "&Underline"
-msgstr ""
+msgstr "Onderstreept"
 
 #: tfrmoptionsthemes.gbcaret.caption
 msgid "Ca&rets:"
 msgstr ""
 
 #: tfrmoptionsthemes.gbdcolors.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.gbdcolors.caption"
 msgid "&Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.gbdfont.caption
+#, fuzzy
 msgid "&Font"
-msgstr ""
+msgstr "Lettertype:"
 
 #: tfrmoptionsthemes.gbdother.caption
 msgid "&Others:"
 msgstr ""
 
 #: tfrmoptionsthemes.gbdselcolors.caption
+#, fuzzy
 msgid "&Selected Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.gbggrad.caption
 msgid "&Gradient:"
@@ -2513,136 +2552,161 @@ msgid "&Linenumbers:"
 msgstr ""
 
 #: tfrmoptionsthemes.gbhiattrs.caption
+#, fuzzy
 msgid "&Attributes:"
-msgstr ""
+msgstr "Attributen"
 
 #: tfrmoptionsthemes.gbhicolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.gbhicolor.caption"
 msgid "&Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.gbredge.caption
+#, fuzzy
 msgid "&Right Edge:"
-msgstr ""
+msgstr "Trim rechts"
 
 #: tfrmoptionsthemes.gbrmfont.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.gbrmfont.caption"
 msgid "&Font:"
-msgstr ""
+msgstr "Lettertype:"
 
 #: tfrmoptionsthemes.gbrmsize.caption
+#, fuzzy
 msgid "Font Size for &ReadMode:"
-msgstr ""
+msgstr "&Buffergrootte voor bestanden:"
 
 #: tfrmoptionsthemes.gburl.caption
 msgid "&Hyperlinks:"
 msgstr ""
 
 #: tfrmoptionsthemes.gburlstyle.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.gburlstyle.caption"
 msgid "&Style:"
-msgstr ""
+msgstr "Lijn einde stijl"
 
 #: tfrmoptionsthemes.label1.caption
+#, fuzzy
 msgid "&Insert:"
-msgstr ""
+msgstr "Tussenvoegen"
 
 #: tfrmoptionsthemes.label2.caption
+#, fuzzy
 msgid "&Overwrite:"
-msgstr ""
+msgstr "Overschrijven"
 
 #: tfrmoptionsthemes.lbdbg.caption
 msgctxt "tfrmoptionsthemes.lbdbg.caption"
 msgid "&Background:"
-msgstr ""
+msgstr "&Achtergrond:"
 
 #: tfrmoptionsthemes.lbdfg.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lbdfg.caption"
 msgid "&Foreground:"
-msgstr ""
+msgstr "Voorgrond kleur"
 
 #: tfrmoptionsthemes.lbdselbg.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lbdselbg.caption"
 msgid "&Background:"
-msgstr ""
+msgstr "Achtergrond:"
 
 #: tfrmoptionsthemes.lbdselfg.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lbdselfg.caption"
 msgid "&Foreground:"
-msgstr ""
+msgstr "Voorgrond kleur"
 
 #: tfrmoptionsthemes.lblborder.caption
+#, fuzzy
 msgid "Border Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lblgcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblgcolor.caption"
 msgid "&Foreground:"
-msgstr ""
+msgstr "Voorgrond kleur"
 
 #: tfrmoptionsthemes.lblgdigitscount.caption
 msgid "&Digitcount:"
 msgstr ""
 
 #: tfrmoptionsthemes.lblgendcolor.caption
+#, fuzzy
 msgid "&End Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lblgfontcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblgfontcolor.caption"
 msgid "&Font:"
-msgstr ""
+msgstr "Lettertype:"
 
 #: tfrmoptionsthemes.lblgstartcolor.caption
+#, fuzzy
 msgid "S&tart Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lblgsteps.caption
 msgid "Ste&ps:"
 msgstr ""
 
 #: tfrmoptionsthemes.lblgwidth.caption
+#, fuzzy
 msgid "Width:"
-msgstr ""
+msgstr "Breedte:"
 
 #: tfrmoptionsthemes.lblhbcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblhbcolor.caption"
 msgid "Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lblhclcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblhclcolor.caption"
 msgid "Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lblhibgcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblhibgcolor.caption"
 msgid "&Background:"
-msgstr ""
+msgstr "Achtergrond:"
 
 #: tfrmoptionsthemes.lblhifgcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblhifgcolor.caption"
 msgid "&Foreground:"
-msgstr ""
+msgstr "Voorgrond kleur"
 
 #: tfrmoptionsthemes.lblhighlight.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblhighlight.caption"
 msgid "&Highlight:"
-msgstr ""
+msgstr "Syntax kleuring"
 
 #: tfrmoptionsthemes.lblredgeat.caption
+#, fuzzy
 msgid "&Width:"
-msgstr ""
+msgstr "breedte"
 
 #: tfrmoptionsthemes.lblurlcolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lblurlcolor.caption"
 msgid "Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lbredgecolor.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.lbredgecolor.caption"
 msgid "Color:"
-msgstr ""
+msgstr "Tekst kleur:"
 
 #: tfrmoptionsthemes.lbtheme.caption
 msgid "&Theme:"
@@ -2663,22 +2727,26 @@ msgid "AaBbАаБб"
 msgstr ""
 
 #: tfrmoptionsthemes.tbhistyle.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.tbhistyle.caption"
 msgid "&Style:"
-msgstr ""
+msgstr "Lijn einde stijl"
 
 #: tfrmoptionsthemes.tsthemegutter.caption
+#, fuzzy
 msgid "&Gutter"
-msgstr ""
+msgstr "Goot kleur"
 
 #: tfrmoptionsthemes.tsthemehighlight.caption
+#, fuzzy
 msgid "&Highlight"
-msgstr ""
+msgstr "Syntax kleuring"
 
 #: tfrmoptionsthemes.tsthememain.caption
+#, fuzzy
 msgctxt "tfrmoptionsthemes.tsthememain.caption"
 msgid "&Main"
-msgstr ""
+msgstr "Instellingen"
 
 #: tfrmoptionsthemes.tsthemeother.caption
 msgid "&Others"
@@ -2808,8 +2876,9 @@ msgid "&Selected"
 msgstr "&Selectie"
 
 #: tfrmselectioninfo.btnrestore.caption
+#, fuzzy
 msgid "Restore"
-msgstr ""
+msgstr "Herstel normale layout"
 
 #: tfrmselectioninfo.btnstore.caption
 msgid "Store"
@@ -2973,9 +3042,10 @@ msgid "Unicode code point $%x has no equivalent in %s"
 msgstr ""
 
 #: ts.core.codecutilswin32.scannotconvertucs4
+#, fuzzy
 msgctxt "ts.core.codecutilswin32.scannotconvertucs4"
 msgid "Cannot convert $%8.8X to %s"
-msgstr ""
+msgstr "Converteer Delphi pakket naar Typhon pakket"
 
 #: ts.core.codecutilswin32.sencodingoutofrange
 msgctxt "ts.core.codecutilswin32.sencodingoutofrange"
@@ -2983,9 +3053,10 @@ msgid "%s encoding out of range"
 msgstr ""
 
 #: ts.core.codecutilswin32.shighsurrogatenotfound
+#, fuzzy
 msgctxt "ts.core.codecutilswin32.shighsurrogatenotfound"
 msgid "High surrogate not found"
-msgstr ""
+msgstr "Test directory \"%s\" niet gevonden."
 
 #: ts.core.codecutilswin32.sindexoutofrange
 msgctxt "ts.core.codecutilswin32.sindexoutofrange"
@@ -2993,9 +3064,10 @@ msgid "Index out of range"
 msgstr ""
 
 #: ts.core.codecutilswin32.sinvalidcodepoint
+#, fuzzy
 msgctxt "ts.core.codecutilswin32.sinvalidcodepoint"
 msgid "$%x is not a valid %s code point"
-msgstr ""
+msgstr "%s%s%s is geen geldige unit naam."
 
 #: ts.core.codecutilswin32.sinvalidencoding
 msgctxt "ts.core.codecutilswin32.sinvalidencoding"
@@ -3003,9 +3075,10 @@ msgid "Invalid %s encoding"
 msgstr "Ongeldige %s encodering"
 
 #: ts.core.codecutilswin32.slowsurrogatenotfound
+#, fuzzy
 msgctxt "ts.core.codecutilswin32.slowsurrogatenotfound"
 msgid "Low surrogate not found"
-msgstr ""
+msgstr "Test directory \"%s\" niet gevonden."
 
 #: ts.core.codecutilswin32.ssurrogatenotallowed
 msgctxt "ts.core.codecutilswin32.ssurrogatenotallowed"
@@ -3043,9 +3116,10 @@ msgid "Index out of range"
 msgstr ""
 
 #: ts.core.fileassociations.sallmenu
+#, fuzzy
 msgctxt "ts.core.fileassociations.sallmenu"
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ts.core.fileassociations.sallusers
 msgctxt "ts.core.fileassociations.sallusers"
@@ -3053,14 +3127,16 @@ msgid "AssociateForAllUsers"
 msgstr ""
 
 #: ts.core.fileassociations.sassockey
+#, fuzzy
 msgctxt "ts.core.fileassociations.sassockey"
 msgid "\\Associate"
-msgstr ""
+msgstr "Associeer"
 
 #: ts.core.fileassociations.sbackup
+#, fuzzy
 msgctxt "ts.core.fileassociations.sbackup"
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 #: ts.core.fileassociations.sclasseskey
 msgctxt "ts.core.fileassociations.sclasseskey"
@@ -3068,9 +3144,10 @@ msgid "Software\\Classes\\"
 msgstr ""
 
 #: ts.core.fileassociations.scommand
+#, fuzzy
 msgctxt "ts.core.fileassociations.scommand"
 msgid "Command"
-msgstr ""
+msgstr "Commando"
 
 #: ts.core.fileassociations.sdeficon
 msgctxt "ts.core.fileassociations.sdeficon"
@@ -3078,29 +3155,34 @@ msgid "DefaultIcon"
 msgstr ""
 
 #: ts.core.fileassociations.sdeficonindex
+#, fuzzy
 msgctxt "ts.core.fileassociations.sdeficonindex"
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ts.core.fileassociations.sextdescrformat
+#, fuzzy
 msgctxt "ts.core.fileassociations.sextdescrformat"
 msgid "%s file"
-msgstr ""
+msgstr "Bestand"
 
 #: ts.core.fileassociations.shkcr
+#, fuzzy
 msgctxt "ts.core.fileassociations.shkcr"
 msgid "HKEY_CLASSES_ROOT"
-msgstr ""
+msgstr "XML root element is niet gedefiniëerd"
 
 #: ts.core.fileassociations.shkcu
+#, fuzzy
 msgctxt "ts.core.fileassociations.shkcu"
 msgid "HKEY_CURRENT_USER"
-msgstr ""
+msgstr "Gebruikers home map"
 
 #: ts.core.fileassociations.shklm
+#, fuzzy
 msgctxt "ts.core.fileassociations.shklm"
 msgid "HKEY_LOCAL_MACHINE"
-msgstr ""
+msgstr "Toon lokale variabelen"
 
 #: ts.core.fileassociations.smenucaption
 msgctxt "ts.core.fileassociations.smenucaption"
@@ -3128,25 +3210,28 @@ msgid "Shell"
 msgstr ""
 
 #: ts.core.fileassociations.sunknown
+#, fuzzy
 msgctxt "ts.core.fileassociations.sunknown"
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekende encodering"
 
 #: ts.core.generics.collections.sargumentoutofrange
 msgid "Argument out of range"
 msgstr ""
 
 #: ts.core.generics.collections.sdictionarykeydoesnotexist
+#, fuzzy
 msgid "Dictionary key does not exist"
-msgstr ""
+msgstr "Bron directory %s%s%s bestaat niet"
 
 #: ts.core.generics.collections.sduplicatesnotallowed
 msgid "Duplicates not allowed in dictionary"
 msgstr ""
 
 #: ts.core.generics.collections.sitemnotfound
+#, fuzzy
 msgid "Item not found"
-msgstr ""
+msgstr "Tekst niet gevonden"
 
 #: ts.core.nativexml.objectstorage.sillegalvartype
 msgctxt "ts.core.nativexml.objectstorage.sillegalvartype"
@@ -3209,9 +3294,10 @@ msgid "default char used for codepage substitution"
 msgstr ""
 
 #: ts.core.nativexml.serrorcalcstreamlength
+#, fuzzy
 msgctxt "ts.core.nativexml.serrorcalcstreamlength"
 msgid "error while calculating streamlength"
-msgstr ""
+msgstr "Fout tijdens het schrijven project info file %s%s%s%s%s"
 
 #: ts.core.nativexml.sillegalendtag
 msgctxt "ts.core.nativexml.sillegalendtag"
@@ -3224,9 +3310,10 @@ msgid "illegal tag (\"%s\") at pos %d"
 msgstr ""
 
 #: ts.core.nativexml.sinvalidstream
+#, fuzzy
 msgctxt "ts.core.nativexml.sinvalidstream"
 msgid "invalid stream"
-msgstr ""
+msgstr "Ongeldige %s encodering"
 
 #: ts.core.nativexml.slevelmismatch
 msgctxt "ts.core.nativexml.slevelmismatch"
@@ -3279,9 +3366,10 @@ msgid "unknown encoding"
 msgstr "Onbekende encodering"
 
 #: ts.core.nativexml.sunsupportedencoding
+#, fuzzy
 msgctxt "ts.core.nativexml.sunsupportedencoding"
 msgid "unsupported encoding (%s)"
-msgstr ""
+msgstr "Huidige encoding"
 
 #: ts.core.nativexml.sunsupportedtag
 msgctxt "ts.core.nativexml.sunsupportedtag"
@@ -3329,9 +3417,10 @@ msgid "HAVING without GROUP BY clause not allowed"
 msgstr ""
 
 #: ts.core.sqlparser.serrintegerexpected
+#, fuzzy
 msgctxt "ts.core.sqlparser.serrintegerexpected"
 msgid "Integer expression expected"
-msgstr ""
+msgstr "Tooltip expressie evaluatie"
 
 #: ts.core.sqlparser.serrinvalidextract
 msgctxt "ts.core.sqlparser.serrinvalidextract"
@@ -3339,9 +3428,10 @@ msgid "Invalid element for extract: %s"
 msgstr ""
 
 #: ts.core.sqlparser.serrinvalidliteral
+#, fuzzy
 msgctxt "ts.core.sqlparser.serrinvalidliteral"
 msgid "Invalid literal: \"%s\""
-msgstr ""
+msgstr "Ongeldige %s encodering"
 
 #: ts.core.sqlparser.serrinvaliduseofcollate
 msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
@@ -3359,14 +3449,16 @@ msgid "* not allowed in singleton select"
 msgstr ""
 
 #: ts.core.sqlparser.serrtokenmismatch
+#, fuzzy
 msgctxt "ts.core.sqlparser.serrtokenmismatch"
 msgid "Unexpected token: '%s', expected: '%s'"
-msgstr ""
+msgstr " Het teken %s%s%s bestaat al !"
 
 #: ts.core.sqlparser.serrunexpectedtoken
+#, fuzzy
 msgctxt "ts.core.sqlparser.serrunexpectedtoken"
 msgid "Unexpected token: %s"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: ts.core.sqlparser.serrunexpectedtokenof
 msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
@@ -3389,9 +3481,10 @@ msgid "unknown Comparison operation"
 msgstr "onbekende vergelijkingsoperatie"
 
 #: ts.core.sqlparser.serrunmatchedbrace
+#, fuzzy
 msgctxt "ts.core.sqlparser.serrunmatchedbrace"
 msgid "Expected )."
-msgstr ""
+msgstr "| karakter verwacht"
 
 #: ts.core.sqlparser.serrupperoneargument
 msgctxt "ts.core.sqlparser.serrupperoneargument"
@@ -3424,9 +3517,10 @@ msgid "Invalid character'%s'"
 msgstr "Ongeldig karakter'%s'"
 
 #: ts.core.sqlscanner.serrinvalidnonequal
+#, fuzzy
 msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
 msgid "SyntaxError:!=or!==expected"
-msgstr ""
+msgstr "Verkort of verleng bestandsnaam"
 
 #: ts.core.sqlscanner.serrinvalidppelse
 msgctxt "ts.core.sqlscanner.serrinvalidppelse"
@@ -3439,9 +3533,10 @@ msgid "$ENDIF without matching$IFxxx"
 msgstr ""
 
 #: ts.core.sqlscanner.serropenstring
+#, fuzzy
 msgctxt "ts.core.sqlscanner.serropenstring"
 msgid "string exceeds end of line"
-msgstr ""
+msgstr "Verwijder tot het eind van de regel"
 
 #: ts.core.sqlscanner.serrunknowntoken
 msgctxt "ts.core.sqlscanner.serrunknowntoken"
@@ -3459,16 +3554,18 @@ msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
 #: ts.editor.search.data.sgroup
+#, fuzzy
 msgid "%s (%d matching lines)"
-msgstr ""
+msgstr "Dequote lijnen"
 
 #: ts.editor.search.data.sline
 msgid "Line: %d"
-msgstr ""
+msgstr "Lijn"
 
 #: ts.editor.search.data.sposition
+#, fuzzy
 msgid "Position: (%d, %d)"
-msgstr ""
+msgstr "maximum positie:"
 
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
@@ -3487,8 +3584,9 @@ msgid "Amount of pixel the mouse has to drag before drag starts"
 msgstr ""
 
 #: ts_components_docking_resources.adrsanchordockinglayout
+#, fuzzy
 msgid "Anchor Docking Layout"
-msgstr ""
+msgstr "Herstel normale layout"
 
 #: ts_components_docking_resources.adrsanchorisnotsplitternodeanchors
 msgid "Anchor is not splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
@@ -3511,8 +3609,9 @@ msgid "Automatically"
 msgstr "Automatisch"
 
 #: ts_components_docking_resources.adrsbottom
+#, fuzzy
 msgid "bottom"
-msgstr ""
+msgstr "Bodem ankering"
 
 #: ts_components_docking_resources.adrsclose
 msgctxt "ts_components_docking_resources.adrsclose"
@@ -3520,8 +3619,9 @@ msgid "Close"
 msgstr "Sluit"
 
 #: ts_components_docking_resources.adrscontrolisalreadyadocksite
+#, fuzzy
 msgid "control is already a docksite"
-msgstr ""
+msgstr "%s is al deel van het project."
 
 #: ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite
 msgid "Custom dock site %s%s%s can have only one site."
@@ -3536,8 +3636,9 @@ msgid "Docking enabled (Requires a restart of the IDE)"
 msgstr ""
 
 #: ts_components_docking_resources.adrsdockingoptions
+#, fuzzy
 msgid "Docking options"
-msgstr ""
+msgstr "Algemene opties"
 
 #: ts_components_docking_resources.adrsdraganddockc
 msgid "Use the mouse to drag and dock window \"%c\""
@@ -3576,24 +3677,28 @@ msgid "Error loading window layout from file \"%s\"%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrserrorwritingwindowlayouttofile
+#, fuzzy
 msgid "Error writing window layout to file \"%s\"%s%s"
-msgstr ""
+msgstr "Error bij schrijven pakketlijst naar bestand%s%s%s%s"
 
 #: ts_components_docking_resources.adrsgeneraldockingoptions
+#, fuzzy
 msgid "General docking options"
-msgstr ""
+msgstr "Algemene debugger opties"
 
 #: ts_components_docking_resources.adrsheaderalignleft
 msgid "Header align left"
 msgstr "Hoofding links alligneren"
 
 #: ts_components_docking_resources.adrsheaderaligntop
+#, fuzzy
 msgid "Header align top"
-msgstr ""
+msgstr "Hoofding links alligneren"
 
 #: ts_components_docking_resources.adrsheaderposition
+#, fuzzy
 msgid "Header position"
-msgstr ""
+msgstr "maximum positie:"
 
 #: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
 msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
@@ -3604,8 +3709,9 @@ msgid "left"
 msgstr "links"
 
 #: ts_components_docking_resources.adrsloadwindowlayoutfromfile
+#, fuzzy
 msgid "Load window layout from file ..."
-msgstr ""
+msgstr "Laad desktop instelling van een bestand"
 
 #: ts_components_docking_resources.adrsloadwindowlayoutfromfilexml
 msgid "Load window layout from file (*.xml)"
@@ -3620,8 +3726,9 @@ msgid "Merge"
 msgstr "Samenvoegen"
 
 #: ts_components_docking_resources.adrsmissingcontrolname
+#, fuzzy
 msgid "missing control name"
-msgstr ""
+msgstr "ongeldige method naam"
 
 #: ts_components_docking_resources.adrsmodalformscannotbemadedockable
 msgid "modal forms can not be made dockable"
@@ -3660,8 +3767,9 @@ msgid "No children allowed for Node=%s%s%s Type=%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsnotsupportedhasparent
+#, fuzzy
 msgid "Not supported: %s has parent %s"
-msgstr ""
+msgstr "XML parent is niet toegekend"
 
 #: ts_components_docking_resources.adrsquit
 msgid "Quit %s"
@@ -3684,8 +3792,9 @@ msgid "Save window layout as default"
 msgstr ""
 
 #: ts_components_docking_resources.adrssavewindowlayouttofile
+#, fuzzy
 msgid "Save window layout to file ..."
-msgstr ""
+msgstr "Desktop instelling opslaan in een bestand"
 
 #: ts_components_docking_resources.adrssavewindowlayouttofilexml
 msgid "Save window layout to file (*.xml)"
@@ -3716,8 +3825,9 @@ msgid "Splitter thickness"
 msgstr ""
 
 #: ts_components_docking_resources.adrssplitterwidth
+#, fuzzy
 msgid "Splitter width"
-msgstr ""
+msgstr "Goot breedte"
 
 #: ts_components_docking_resources.adrstabposition
 msgid "Tab position"
@@ -3750,9 +3860,10 @@ msgid "Unicode code point $%x has no equivalent in %s"
 msgstr ""
 
 #: ts_core_codecutilswin32.scannotconvertucs4
+#, fuzzy
 msgctxt "ts_core_codecutilswin32.scannotconvertucs4"
 msgid "Cannot convert $%8.8X to %s"
-msgstr ""
+msgstr "Converteer Delphi pakket naar Typhon pakket"
 
 #: ts_core_codecutilswin32.sencodingoutofrange
 msgctxt "ts_core_codecutilswin32.sencodingoutofrange"
@@ -3760,9 +3871,10 @@ msgid "%s encoding out of range"
 msgstr ""
 
 #: ts_core_codecutilswin32.shighsurrogatenotfound
+#, fuzzy
 msgctxt "ts_core_codecutilswin32.shighsurrogatenotfound"
 msgid "High surrogate not found"
-msgstr ""
+msgstr "Test directory \"%s\" niet gevonden."
 
 #: ts_core_codecutilswin32.sindexoutofrange
 msgctxt "ts_core_codecutilswin32.sindexoutofrange"
@@ -3770,9 +3882,10 @@ msgid "Index out of range"
 msgstr ""
 
 #: ts_core_codecutilswin32.sinvalidcodepoint
+#, fuzzy
 msgctxt "ts_core_codecutilswin32.sinvalidcodepoint"
 msgid "$%x is not a valid %s code point"
-msgstr ""
+msgstr "%s%s%s is geen geldige unit naam."
 
 #: ts_core_codecutilswin32.sinvalidencoding
 msgctxt "ts_core_codecutilswin32.sinvalidencoding"
@@ -3780,9 +3893,10 @@ msgid "Invalid %s encoding"
 msgstr "Ongeldige %s encodering"
 
 #: ts_core_codecutilswin32.slowsurrogatenotfound
+#, fuzzy
 msgctxt "ts_core_codecutilswin32.slowsurrogatenotfound"
 msgid "Low surrogate not found"
-msgstr ""
+msgstr "Test directory \"%s\" niet gevonden."
 
 #: ts_core_codecutilswin32.ssurrogatenotallowed
 msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
@@ -3820,9 +3934,10 @@ msgid "Index out of range"
 msgstr ""
 
 #: ts_core_fileassociations.sallmenu
+#, fuzzy
 msgctxt "ts_core_fileassociations.sallmenu"
 msgid "*"
-msgstr ""
+msgstr "*"
 
 #: ts_core_fileassociations.sallusers
 msgctxt "ts_core_fileassociations.sallusers"
@@ -3830,14 +3945,16 @@ msgid "AssociateForAllUsers"
 msgstr ""
 
 #: ts_core_fileassociations.sassockey
+#, fuzzy
 msgctxt "ts_core_fileassociations.sassockey"
 msgid "\\Associate"
-msgstr ""
+msgstr "Associeer"
 
 #: ts_core_fileassociations.sbackup
+#, fuzzy
 msgctxt "ts_core_fileassociations.sbackup"
 msgid "Backup"
-msgstr ""
+msgstr "Backup"
 
 #: ts_core_fileassociations.sclasseskey
 msgctxt "ts_core_fileassociations.sclasseskey"
@@ -3845,9 +3962,10 @@ msgid "Software\\Classes\\"
 msgstr ""
 
 #: ts_core_fileassociations.scommand
+#, fuzzy
 msgctxt "ts_core_fileassociations.scommand"
 msgid "Command"
-msgstr ""
+msgstr "Commando"
 
 #: ts_core_fileassociations.sdeficon
 msgctxt "ts_core_fileassociations.sdeficon"
@@ -3857,27 +3975,31 @@ msgstr ""
 #: ts_core_fileassociations.sdeficonindex
 msgctxt "ts_core_fileassociations.sdeficonindex"
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ts_core_fileassociations.sextdescrformat
+#, fuzzy
 msgctxt "ts_core_fileassociations.sextdescrformat"
 msgid "%s file"
-msgstr ""
+msgstr "Bestand"
 
 #: ts_core_fileassociations.shkcr
+#, fuzzy
 msgctxt "ts_core_fileassociations.shkcr"
 msgid "HKEY_CLASSES_ROOT"
-msgstr ""
+msgstr "XML root element is niet gedefiniëerd"
 
 #: ts_core_fileassociations.shkcu
+#, fuzzy
 msgctxt "ts_core_fileassociations.shkcu"
 msgid "HKEY_CURRENT_USER"
-msgstr ""
+msgstr "Gebruikers home map"
 
 #: ts_core_fileassociations.shklm
+#, fuzzy
 msgctxt "ts_core_fileassociations.shklm"
 msgid "HKEY_LOCAL_MACHINE"
-msgstr ""
+msgstr "Toon lokale variabelen"
 
 #: ts_core_fileassociations.smenucaption
 msgctxt "ts_core_fileassociations.smenucaption"
@@ -3905,9 +4027,10 @@ msgid "Shell"
 msgstr ""
 
 #: ts_core_fileassociations.sunknown
+#, fuzzy
 msgctxt "ts_core_fileassociations.sunknown"
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekende encodering"
 
 #: ts_core_nativexml.sbeginendmismatch
 msgctxt "ts_core_nativexml.sbeginendmismatch"
@@ -3950,9 +4073,10 @@ msgid "default char used for codepage substitution"
 msgstr ""
 
 #: ts_core_nativexml.serrorcalcstreamlength
+#, fuzzy
 msgctxt "ts_core_nativexml.serrorcalcstreamlength"
 msgid "error while calculating streamlength"
-msgstr ""
+msgstr "Fout tijdens het schrijven project info file %s%s%s%s%s"
 
 #: ts_core_nativexml.sillegalendtag
 msgctxt "ts_core_nativexml.sillegalendtag"
@@ -3965,9 +4089,10 @@ msgid "illegal tag (\"%s\") at pos %d"
 msgstr ""
 
 #: ts_core_nativexml.sinvalidstream
+#, fuzzy
 msgctxt "ts_core_nativexml.sinvalidstream"
 msgid "invalid stream"
-msgstr ""
+msgstr "Ongeldige %s encodering"
 
 #: ts_core_nativexml.slevelmismatch
 msgctxt "ts_core_nativexml.slevelmismatch"
@@ -4020,9 +4145,10 @@ msgid "unknown encoding"
 msgstr "Onbekende encodering"
 
 #: ts_core_nativexml.sunsupportedencoding
+#, fuzzy
 msgctxt "ts_core_nativexml.sunsupportedencoding"
 msgid "unsupported encoding (%s)"
-msgstr ""
+msgstr "Huidige encoding"
 
 #: ts_core_nativexml.sunsupportedtag
 msgctxt "ts_core_nativexml.sunsupportedtag"
@@ -4090,9 +4216,10 @@ msgid "HAVING without GROUP BY clause not allowed"
 msgstr ""
 
 #: ts_core_sqlparser.serrintegerexpected
+#, fuzzy
 msgctxt "ts_core_sqlparser.serrintegerexpected"
 msgid "Integer expression expected"
-msgstr ""
+msgstr "Tooltip expressie evaluatie"
 
 #: ts_core_sqlparser.serrinvalidextract
 msgctxt "ts_core_sqlparser.serrinvalidextract"
@@ -4100,9 +4227,10 @@ msgid "Invalid element for extract: %s"
 msgstr ""
 
 #: ts_core_sqlparser.serrinvalidliteral
+#, fuzzy
 msgctxt "ts_core_sqlparser.serrinvalidliteral"
 msgid "Invalid literal: \"%s\""
-msgstr ""
+msgstr "Ongeldige %s encodering"
 
 #: ts_core_sqlparser.serrinvaliduseofcollate
 msgctxt "ts_core_sqlparser.serrinvaliduseofcollate"
@@ -4120,14 +4248,16 @@ msgid "* not allowed in singleton select"
 msgstr ""
 
 #: ts_core_sqlparser.serrtokenmismatch
+#, fuzzy
 msgctxt "ts_core_sqlparser.serrtokenmismatch"
 msgid "Unexpected token: '%s', expected: '%s'"
-msgstr ""
+msgstr " Het teken %s%s%s bestaat al !"
 
 #: ts_core_sqlparser.serrunexpectedtoken
+#, fuzzy
 msgctxt "ts_core_sqlparser.serrunexpectedtoken"
 msgid "Unexpected token: %s"
-msgstr ""
+msgstr "Onbekend token: %s"
 
 #: ts_core_sqlparser.serrunexpectedtokenof
 msgctxt "ts_core_sqlparser.serrunexpectedtokenof"
@@ -4150,9 +4280,10 @@ msgid "unknown Comparison operation"
 msgstr "onbekende vergelijkingsoperatie"
 
 #: ts_core_sqlparser.serrunmatchedbrace
+#, fuzzy
 msgctxt "ts_core_sqlparser.serrunmatchedbrace"
 msgid "Expected )."
-msgstr ""
+msgstr "| karakter verwacht"
 
 #: ts_core_sqlparser.serrupperoneargument
 msgctxt "ts_core_sqlparser.serrupperoneargument"
@@ -4185,9 +4316,10 @@ msgid "Invalid character'%s'"
 msgstr "Ongeldig karakter'%s'"
 
 #: ts_core_sqlscanner.serrinvalidnonequal
+#, fuzzy
 msgctxt "ts_core_sqlscanner.serrinvalidnonequal"
 msgid "SyntaxError:!=or!==expected"
-msgstr ""
+msgstr "Verkort of verleng bestandsnaam"
 
 #: ts_core_sqlscanner.serrinvalidppelse
 msgctxt "ts_core_sqlscanner.serrinvalidppelse"
@@ -4200,9 +4332,10 @@ msgid "$ENDIF without matching$IFxxx"
 msgstr ""
 
 #: ts_core_sqlscanner.serropenstring
+#, fuzzy
 msgctxt "ts_core_sqlscanner.serropenstring"
 msgid "string exceeds end of line"
-msgstr ""
+msgstr "Verwijder tot het eind van de regel"
 
 #: ts_core_sqlscanner.serrunknowntoken
 msgctxt "ts_core_sqlscanner.serrunknowntoken"
@@ -4222,17 +4355,17 @@ msgstr ""
 #: ts_editor_actionlist_toolview.sbutton
 msgctxt "ts_editor_actionlist_toolview.sbutton"
 msgid "Button"
-msgstr ""
+msgstr "Knop"
 
 #: ts_editor_actionlist_toolview.scaption
 msgctxt "ts_editor_actionlist_toolview.scaption"
 msgid "Caption"
-msgstr ""
+msgstr "Caption"
 
 #: ts_editor_actionlist_toolview.scategory
 msgctxt "ts_editor_actionlist_toolview.scategory"
 msgid "Category"
-msgstr ""
+msgstr "Categorie"
 
 #: ts_editor_actionlist_toolview.sclickcount
 msgctxt "ts_editor_actionlist_toolview.sclickcount"
@@ -4247,17 +4380,17 @@ msgstr ""
 #: ts_editor_actionlist_toolview.scommand
 msgctxt "ts_editor_actionlist_toolview.scommand"
 msgid "Command"
-msgstr ""
+msgstr "Commando"
 
 #: ts_editor_actionlist_toolview.senabled
 msgctxt "ts_editor_actionlist_toolview.senabled"
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: ts_editor_actionlist_toolview.shint
 msgctxt "ts_editor_actionlist_toolview.shint"
 msgid "Hint"
-msgstr ""
+msgstr "Hint"
 
 #: ts_editor_actionlist_toolview.smovecaret
 msgctxt "ts_editor_actionlist_toolview.smovecaret"
@@ -4267,12 +4400,12 @@ msgstr ""
 #: ts_editor_actionlist_toolview.sname
 msgctxt "ts_editor_actionlist_toolview.sname"
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: ts_editor_actionlist_toolview.sshift
 msgctxt "ts_editor_actionlist_toolview.sshift"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: ts_editor_actionlist_toolview.sshiftmask
 msgctxt "ts_editor_actionlist_toolview.sshiftmask"
@@ -4292,12 +4425,12 @@ msgstr ""
 #: ts_editor_actionlist_toolview.svisible
 msgctxt "ts_editor_actionlist_toolview.svisible"
 msgid "Visible"
-msgstr ""
+msgstr "Zichtbaar"
 
 #: ts_editor_alignlines_toolview.stoken
 msgctxt "ts_editor_alignlines_toolview.stoken"
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
 #: ts_editor_charactermapdialog.scharactermap
 msgctxt "ts_editor_charactermapdialog.scharactermap"
@@ -4310,19 +4443,20 @@ msgid "Character Map"
 msgstr "Karakter matrix"
 
 #: ts_editor_codefilter_toolview.sfilteredcode
+#, fuzzy
 msgctxt "ts_editor_codefilter_toolview.sfilteredcode"
 msgid "<Filtered code>"
-msgstr ""
+msgstr "Codecreatie"
 
 #: ts_editor_codefilter_toolview.slineindex
 msgctxt "ts_editor_codefilter_toolview.slineindex"
 msgid "Line"
-msgstr ""
+msgstr "Lijn"
 
 #: ts_editor_codefilter_toolview.slinetext
 msgctxt "ts_editor_codefilter_toolview.slinetext"
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ts_editor_resources.sapplicationmenucaption
 msgid "&Application"
@@ -4354,7 +4488,7 @@ msgstr "&Debug"
 
 #: ts_editor_resources.sdiffdescription
 msgid "Diff"
-msgstr ""
+msgstr "Verschil"
 
 #: ts_editor_resources.sfilemenucaption
 msgid "&File"
@@ -4374,10 +4508,9 @@ msgid "HTML document"
 msgstr "HTML document"
 
 #: ts_editor_resources.sinidescription
-#, fuzzy
 #| msgid "INI"
 msgid "Settings file"
-msgstr "INI"
+msgstr "Settings file"
 
 #: ts_editor_resources.sinsertmenucaption
 msgid "&Insert"
@@ -4465,7 +4598,7 @@ msgstr "&Settings"
 
 #: ts_editor_resources.sshdescription
 msgid "Shell script"
-msgstr ""
+msgstr "Shell script"
 
 #: ts_editor_resources.ssqldescription
 msgid "SQL"
@@ -4496,38 +4629,41 @@ msgid "XML document"
 msgstr "XML document"
 
 #: ts_editor_search_toolview.sfilename
+#, fuzzy
 msgctxt "ts_editor_search_toolview.sfilename"
 msgid "FileName"
-msgstr ""
+msgstr "Bestandsnaam"
 
 #: ts_editor_search_toolview.smatchesfound
+#, fuzzy
 msgctxt "ts_editor_search_toolview.smatchesfound"
 msgid "%d search matches found."
-msgstr ""
+msgstr "%d zoektermen gevonden."
 
 #: ts_editor_search_toolview.smatchfound
+#, fuzzy
 msgctxt "ts_editor_search_toolview.smatchfound"
 msgid "%d search match found."
-msgstr ""
+msgstr "%d zoekterm gevonden."
 
 #: ts_editor_settingsdialog_old.sattributename
 msgid "Attribute name"
-msgstr ""
+msgstr "Attribuut naam"
 
 #: ts_editor_toolview_actionlist.sbutton
 msgctxt "ts_editor_toolview_actionlist.sbutton"
 msgid "Button"
-msgstr ""
+msgstr "Knop"
 
 #: ts_editor_toolview_actionlist.scaption
 msgctxt "ts_editor_toolview_actionlist.scaption"
 msgid "Caption"
-msgstr ""
+msgstr "Caption"
 
 #: ts_editor_toolview_actionlist.scategory
 msgctxt "ts_editor_toolview_actionlist.scategory"
 msgid "Category"
-msgstr ""
+msgstr "Categorie"
 
 #: ts_editor_toolview_actionlist.sclickcount
 msgctxt "ts_editor_toolview_actionlist.sclickcount"
@@ -4542,17 +4678,17 @@ msgstr ""
 #: ts_editor_toolview_actionlist.scommand
 msgctxt "ts_editor_toolview_actionlist.scommand"
 msgid "Command"
-msgstr ""
+msgstr "Commando"
 
 #: ts_editor_toolview_actionlist.senabled
 msgctxt "ts_editor_toolview_actionlist.senabled"
 msgid "Enabled"
-msgstr ""
+msgstr "Ingeschakeld"
 
 #: ts_editor_toolview_actionlist.shint
 msgctxt "ts_editor_toolview_actionlist.shint"
 msgid "Hint"
-msgstr ""
+msgstr "Hint"
 
 #: ts_editor_toolview_actionlist.smovecaret
 msgctxt "ts_editor_toolview_actionlist.smovecaret"
@@ -4562,12 +4698,12 @@ msgstr ""
 #: ts_editor_toolview_actionlist.sname
 msgctxt "ts_editor_toolview_actionlist.sname"
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: ts_editor_toolview_actionlist.sshift
 msgctxt "ts_editor_toolview_actionlist.sshift"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: ts_editor_toolview_actionlist.sshiftmask
 msgctxt "ts_editor_toolview_actionlist.sshiftmask"
@@ -4587,12 +4723,12 @@ msgstr ""
 #: ts_editor_toolview_actionlist.svisible
 msgctxt "ts_editor_toolview_actionlist.svisible"
 msgid "Visible"
-msgstr ""
+msgstr "Zichtbaar"
 
 #: ts_editor_toolview_alignlines.stoken
 msgctxt "ts_editor_toolview_alignlines.stoken"
 msgid "Token"
-msgstr ""
+msgstr "Token"
 
 #: ts_editor_toolview_charactermap.scharactermap
 msgctxt "ts_editor_toolview_charactermap.scharactermap"
@@ -4600,45 +4736,46 @@ msgid "Character Map"
 msgstr "Karakter matrix"
 
 #: ts_editor_toolview_codefilter.sfilteredcode
+#, fuzzy
 msgctxt "ts_editor_toolview_codefilter.sfilteredcode"
 msgid "<Filtered code>"
-msgstr ""
+msgstr "Codecreatie"
 
 #: ts_editor_toolview_codefilter.slineindex
 msgctxt "ts_editor_toolview_codefilter.slineindex"
 msgid "Line"
-msgstr ""
+msgstr "Lijn"
 
 #: ts_editor_toolview_codefilter.slinetext
 msgctxt "ts_editor_toolview_codefilter.slinetext"
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: ts_editor_toolview_search.scolumn
 msgid "Column"
-msgstr ""
+msgstr "Kolom"
 
 #: ts_editor_toolview_search.sfilename
 msgctxt "ts_editor_toolview_search.sfilename"
 msgid "FileName"
-msgstr ""
+msgstr "Bestandsnaam"
 
 #: ts_editor_toolview_search.sindex
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ts_editor_toolview_search.sline
 msgctxt "ts_editor_toolview_search.sline"
 msgid "Line"
-msgstr ""
+msgstr "Lijn"
 
 #: ts_editor_toolview_search.smatchesfound
 msgctxt "ts_editor_toolview_search.smatchesfound"
 msgid "%d search matches found."
-msgstr ""
+msgstr "%d zoektermen gevonden."
 
 #: ts_editor_toolview_search.smatchfound
 msgctxt "ts_editor_toolview_search.smatchfound"
 msgid "%d search match found."
-msgstr ""
+msgstr "%d zoekterm gevonden."
 

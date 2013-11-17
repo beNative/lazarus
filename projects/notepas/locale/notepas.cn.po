@@ -2977,6 +2977,96 @@ msgctxt "ts.core.encodingutils.sindexoutofrange"
 msgid "Index out of range"
 msgstr ""
 
+#: ts.core.fileassociations.sallmenu
+msgctxt "ts.core.fileassociations.sallmenu"
+msgid "*"
+msgstr ""
+
+#: ts.core.fileassociations.sallusers
+msgctxt "ts.core.fileassociations.sallusers"
+msgid "AssociateForAllUsers"
+msgstr ""
+
+#: ts.core.fileassociations.sassockey
+msgctxt "ts.core.fileassociations.sassockey"
+msgid "\\Associate"
+msgstr ""
+
+#: ts.core.fileassociations.sbackup
+msgctxt "ts.core.fileassociations.sbackup"
+msgid "Backup"
+msgstr ""
+
+#: ts.core.fileassociations.sclasseskey
+msgctxt "ts.core.fileassociations.sclasseskey"
+msgid "Software\\Classes\\"
+msgstr ""
+
+#: ts.core.fileassociations.scommand
+msgctxt "ts.core.fileassociations.scommand"
+msgid "Command"
+msgstr ""
+
+#: ts.core.fileassociations.sdeficon
+msgctxt "ts.core.fileassociations.sdeficon"
+msgid "DefaultIcon"
+msgstr ""
+
+#: ts.core.fileassociations.sdeficonindex
+msgctxt "ts.core.fileassociations.sdeficonindex"
+msgid "1"
+msgstr ""
+
+#: ts.core.fileassociations.sextdescrformat
+msgctxt "ts.core.fileassociations.sextdescrformat"
+msgid "%s file"
+msgstr ""
+
+#: ts.core.fileassociations.shkcr
+msgctxt "ts.core.fileassociations.shkcr"
+msgid "HKEY_CLASSES_ROOT"
+msgstr ""
+
+#: ts.core.fileassociations.shkcu
+msgctxt "ts.core.fileassociations.shkcu"
+msgid "HKEY_CURRENT_USER"
+msgstr ""
+
+#: ts.core.fileassociations.shklm
+msgctxt "ts.core.fileassociations.shklm"
+msgid "HKEY_LOCAL_MACHINE"
+msgstr ""
+
+#: ts.core.fileassociations.smenucaption
+msgctxt "ts.core.fileassociations.smenucaption"
+msgid "MenuCaption"
+msgstr ""
+
+#: ts.core.fileassociations.sopen
+msgctxt "ts.core.fileassociations.sopen"
+msgid "Open"
+msgstr "打开"
+
+#: ts.core.fileassociations.sopencaption
+msgctxt "ts.core.fileassociations.sopencaption"
+msgid "OpenWith"
+msgstr ""
+
+#: ts.core.fileassociations.sotherassockey
+msgctxt "ts.core.fileassociations.sotherassockey"
+msgid "\\OtherAssociate"
+msgstr ""
+
+#: ts.core.fileassociations.sshell
+msgctxt "ts.core.fileassociations.sshell"
+msgid "Shell"
+msgstr ""
+
+#: ts.core.fileassociations.sunknown
+msgctxt "ts.core.fileassociations.sunknown"
+msgid "Unknown"
+msgstr ""
+
 #: ts.core.generics.collections.sargumentoutofrange
 msgid "Argument out of range"
 msgstr ""

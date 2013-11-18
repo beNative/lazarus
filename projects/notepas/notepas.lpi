@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="16"/>
-      <BuildNr Value="96"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.16" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="17"/>
+      <BuildNr Value="99"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.17" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
@@ -868,7 +868,7 @@ end;"/>
         <PackageName Value="LCL"/>
       </Item20>
     </RequiredPackages>
-    <Units Count="129">
+    <Units Count="130">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -883,7 +883,7 @@ end;"/>
         <UnitName Value="Notepas_Forms_Main"/>
       </Unit1>
       <Unit2>
-        <Filename Value="Changes.txt"/>
+        <Filename Value="changelog.txt"/>
         <IsPartOfProject Value="True"/>
       </Unit2>
       <Unit3>
@@ -927,6 +927,7 @@ end;"/>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
@@ -987,6 +988,7 @@ end;"/>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -1522,6 +1524,10 @@ end;"/>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit128>
+      <Unit129>
+        <Filename Value="build.sh"/>
+        <IsPartOfProject Value="True"/>
+      </Unit129>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -1608,4 +1614,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

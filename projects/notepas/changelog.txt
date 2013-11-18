@@ -1,0 +1,140 @@
+2013.11.18 (0.9.17)
+* Added temporary work-around for layout related exceptions when displaying
+  toolviews
+* Fixed casing of some project files
+
+2013.11.16 (0.9.16)
+* Added Encode/Decode submenu's for selections
+* Added actEncodeURL/actDecodeURL
+
+2013.11.13 (0.9.15)
+* Fixed menu issues in gtk2 builds
+* Fixed popup menu behaviour in Linux builds
+* Many esthetic changes for consistent looks in all supported widget sets
+* Added new filetype-highlighter mappings
+
+2013.11.11 (0.9.14)
+* First multi-platform release of portable builds for 32/64 Windows and Linux
+
+2013.11.06 (0.9.13)
+* Improved selection behaviour
+* Automatically use block comment tags when no line comment tags are available
+* Fixed Align at left/rightmost token
+* Fixed automatic highlighter selection on 'Open File'
+* Fixed odd behaviour when browsing search results
+
+2013.11.04 (0.9.12)
+* Fixed viewlist Z-order when mainform is set on top
+* Fixed behaviour when closing with Cancel button pressed
+* Fixed some operations on selections
+
+2013.11.01 (0.9.11)
+* Fixed update issue in AlignLines tool
+* Editor views is now a dialog
+* Fixed find/replace issues
+* Optimized search result display
+
+2013.10.31 (0.9.10)
+* Fixed search result match count
+* Fixed popup parent for CodeFilter window
+* Added experimental translation support
+* Fixed issue with actSave
+
+2013.10.30 (0.9.9)
+* Built first portable release
+
+2013.10.27
+* Improved search result display
+
+2013.09.28
+* Renamed all filenames to dotted equivalents as supported by FPC 2.7.1
+  except for forms and datamodules as the current IDE does not handle these
+  files well yet. These files use now underscores instead of dots until this
+  issue is addressed.
+* Added ToolViewManager which allows for lazy instantiation of toolviews
+* Fixed docking issues with toolviews
+* Fixed some CodeShaper issues
+* Optimized persistence of highlighters
+* Added new highlighters : po translation/ruby/DIFF/TeX and shellscript
+
+2013.09.23
+* Added support for alpha channel in color settings
+* Added some CodeFilter enhancements
+* Libraries updated to current versions
+* Many bugfixes and speed optimizations
+* Added basic script support (using the embedded DWS engine)
+* Added actConvertTabsToSpacesInSelection action
+* Widths for toolforms are now stored
+* Fixed some CodeFilter issues
+
+2013.09.21
+* Added support for alpha channel in color settings
+* Libraries updated to current versions
+* Added some CodeFilter enhancements
+* Many bugfixes and speed optimizations
+
+2013.09.18
+* Added basic script support (using the embedded DWS engine)
+
+2013.09.11
+* Added actConvertTabsToSpacesInSelection action
+
+2013.06.09
+* Updated all used libraries to most recent versions
+* Reorganized popup menus
+* Improved ANSI/UNICODE character tool
+* Many bugfixes
+
+2013.05.25
+* Fixed preview toolview form
+
+2013.05.21
+* Improved ANSI/UNICODE character tool
+
+2013.05.20
+* Added experimental Hex editor
+* Added experimental HTML viewer
+* Reorganized popup menus
+* Many bug fixes
+* Improved housekeeping for toolforms
+
+2013.05.18
+* Added 'Select' popupmenu
+* Added 'Settings' popupmenu
+* Added 'Search' popupmenu
+
+2013.05.13
+* Fixed setup does not require to be run as administrator anymore
+* Fixed application manifest settings
+* Fixed layout issues in tool windows
+* Added C# highlighter layout file
+
+2013.05.12
+* Fixed annoying bug when dropping files into the editor causing the editor to
+  hang on certain files.
+
+2013.05.10
+* Adjusted setup script for conditional win32/win64 installation
+* Fixed bug in creation of SelectionModePopupMenu
+* Some minor cosmetic changes
+
+2013.05.09
+* Updated layout for consistent look on GTK2 and QT widget sets
+* Build for Linux 32 QT
+
+2013.05.08
+* Removed WinAPI dependencies where possible
+* Updated layout for consistent look on GTK2 and QT widget sets
+
+2013.05.04
+* Ported sources to compile with FPC 2.7.1
+* Ported sources to compile for Win64
+* Migrated the project build environment to CodeTyphon for easy cross-platform builds
+
+2013.04.24
+* Refactorings and bugfixes in CodeFilter
+* Added new CharacterMapDialog toolview
+
+2013.04.22
+* Added 'Insert' popupmenu
+* Added 'Insert GUID' action

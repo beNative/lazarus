@@ -329,7 +329,7 @@ msgstr "Bezoek URL"
 #: tdmeditormanager.actencodingmenu.caption
 msgctxt "tdmeditormanager.actencodingmenu.caption"
 msgid "Encoding"
-msgstr "Encoding"
+msgstr "Codering"
 
 #: tdmeditormanager.actexecutescriptonselection.caption
 msgid "Execute script on selection"
@@ -569,7 +569,7 @@ msgstr "Vergroot editor font"
 
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
-msgstr "Tussenvoegen"
+msgstr "Inspringen"
 
 #: tdmeditormanager.actinsertcharacterfrommap.caption
 msgctxt "tdmeditormanager.actinsertcharacterfrommap.caption"
@@ -1083,7 +1083,7 @@ msgstr "New Item1"
 
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
-msgstr ""
+msgstr "EditorSettingsDialog"
 
 #: tform1.caption
 msgid "Form1"
@@ -1108,7 +1108,7 @@ msgstr ""
 
 #: tfrmabout.actreportdefect.hint
 msgid "Report an issue."
-msgstr ""
+msgstr "Rapporteer een probleem."
 
 #: tfrmabout.acturl.caption
 msgid "Visit URL"
@@ -1157,7 +1157,7 @@ msgstr "Versie"
 
 #: tfrmabout.tscredits.caption
 msgid "Credits"
-msgstr ""
+msgstr "Credits"
 
 #: tfrmactionlistview.caption
 msgctxt "tfrmactionlistview.caption"
@@ -1188,7 +1188,7 @@ msgstr "Aligneer selectie"
 
 #: tfrmalignlines.gbxinsertspace.caption
 msgid "Keep at least one space"
-msgstr ""
+msgstr "Behoud ten minste één spatie"
 
 #: tfrmalignlines.gbxoptions.caption
 msgctxt "tfrmalignlines.gbxoptions.caption"
@@ -1215,7 +1215,7 @@ msgstr "Sorteervolgorde:"
 
 #: tfrmapplicationsettings.caption
 msgid "frmApplicationSettings"
-msgstr ""
+msgstr "frmApplicationSettings"
 
 #: tfrmapplicationsettings.chkclosewithesc.caption
 msgid "Close the application with the ESC key"
@@ -1321,15 +1321,15 @@ msgstr ""
 
 #: tfrmcodefilterdialog.toolbutton1.caption
 msgid "ToolButton1"
-msgstr ""
+msgstr "ToolButton1"
 
 #: tfrmcodefilterdialog.toolbutton3.caption
 msgid "ToolButton3"
-msgstr ""
+msgstr "ToolButton3"
 
 #: tfrmcodefilterdialog.toolbutton4.caption
 msgid "ToolButton4"
-msgstr ""
+msgstr "ToolButton4"
 
 #: tfrmcodeshaper.actaligninsertspaceaftertoken.caption
 #, fuzzy
@@ -1554,7 +1554,7 @@ msgstr "'"
 
 #: tfrmcodeshaper.edtquotedlinesdelimiter.editlabel.caption
 msgid "Delimiter:"
-msgstr ""
+msgstr "Scheidingsteken:"
 
 #: tfrmcodeshaper.edtquotedlinesdelimiter.text
 msgid ", "
@@ -1695,7 +1695,7 @@ msgstr "Editor instellingen"
 
 #: tfrmeditorsettings.label1.caption
 msgid "Label1"
-msgstr ""
+msgstr "Label1"
 
 #: tfrmeditorsettings.lblattributealiases.caption
 #, fuzzy
@@ -1763,12 +1763,12 @@ msgstr "TAB breedte:"
 #: tfrmfiletypesettings.acadd.caption
 msgctxt "tfrmfiletypesettings.acadd.caption"
 msgid "&Add..."
-msgstr "&Toevoegen"
+msgstr "&Toevoegen..."
 
 #: tfrmfiletypesettings.acdel.caption
 msgctxt "tfrmfiletypesettings.acdel.caption"
 msgid "&Delete..."
-msgstr "&Verwijderen"
+msgstr "&Verwijderen..."
 
 #: tfrmfiletypesettings.bnac.caption
 msgctxt "tfrmfiletypesettings.bnac.caption"
@@ -1942,10 +1942,9 @@ msgid "&Assign"
 msgstr "&Toekennen"
 
 #: tfrmkeymappings.acdel.caption
-#, fuzzy
 msgctxt "tfrmkeymappings.acdel.caption"
 msgid "&Delete"
-msgstr "Verwijder"
+msgstr "&Verwijderen"
 
 #: tfrmkeymappings.bncancel.caption
 msgctxt "tfrmkeymappings.bncancel.caption"
@@ -2031,7 +2030,7 @@ msgstr ""
 #: tfrmmain.btnencoding.hint
 msgctxt "tfrmmain.btnencoding.hint"
 msgid "Encoding"
-msgstr "Encoding"
+msgstr "Codering"
 
 #: tfrmmain.btnhighlighter.hint
 msgctxt "tfrmmain.btnhighlighter.hint"
@@ -2058,7 +2057,7 @@ msgstr ""
 
 #: tfrmmain.pnlencoding.hint
 msgid "Current encoding"
-msgstr "Huidige encoding"
+msgstr "Huidige codering"
 
 #: tfrmmain.pnlhighlighter.hint
 msgid "Current highlighter"
@@ -2070,7 +2069,7 @@ msgstr "INS"
 
 #: tfrmmain.pnlinsertmode.hint
 msgid "Insert mode"
-msgstr "Invoegen"
+msgstr "Invoegmodus"
 
 #: tfrmmain.pnllinebreakstyle.hint
 #, fuzzy
@@ -2097,7 +2096,7 @@ msgstr ""
 #: tfrmmain.tlbmain.caption
 msgctxt "tfrmmain.tlbmain.caption"
 msgid "tlbMain"
-msgstr ""
+msgstr "tlbMain"
 
 #: tfrmminimap.caption
 msgid "Minimap"
@@ -2167,7 +2166,7 @@ msgstr "Menu &Caption"
 
 #: tfrmoptionsassociate.lvext.columns[0].caption
 msgid "Ext:"
-msgstr "Ext"
+msgstr "Ext:"
 
 #: tfrmoptionsassociate.pnlaccess.caption
 msgid "You have not permission for associate extensions."
@@ -2256,10 +2255,9 @@ msgid "&Filter:"
 msgstr "&Filter:"
 
 #: tfrmoptionsfiletype.lbft.caption
-#, fuzzy
 msgctxt "tfrmoptionsfiletype.lbft.caption"
 msgid "File &Type:"
-msgstr "Alleen type:"
+msgstr "Bestands&type:"
 
 #: tfrmoptionsfiletype.lblcomment.caption
 #, fuzzy
@@ -2270,7 +2268,7 @@ msgstr "(uit)commentariëren"
 #: tfrmoptionsfiletype.lblftautocomplete.caption
 msgctxt "tfrmoptionsfiletype.lblftautocomplete.caption"
 msgid "&Autocomplete:"
-msgstr ""
+msgstr "&Automatisch aanvullen"
 
 #: tfrmoptionsfiletype.lblhelp.caption
 #, fuzzy
@@ -2322,7 +2320,7 @@ msgstr "Pagina instellingen"
 #: tfrmoptionsfiletype.tsftac.caption
 msgctxt "tfrmoptionsfiletype.tsftac.caption"
 msgid "&Autocomplete"
-msgstr ""
+msgstr "&Automatisch aanvullen"
 
 #: tfrmoptionsfiletype.tsfthelp.caption
 msgctxt "tfrmoptionsfiletype.tsfthelp.caption"
@@ -2365,7 +2363,7 @@ msgstr "Oorspronkelijke grootte:"
 
 #: tfrmoptionsthemes.chkgleadingzeros.caption
 msgid "&Leading Zeros"
-msgstr ""
+msgstr "&Voorloopnullen"
 
 #: tfrmoptionsthemes.chkgshownumbers.caption
 #, fuzzy
@@ -2433,7 +2431,7 @@ msgstr "&Onderlijnd"
 
 #: tfrmoptionsthemes.gbcaret.caption
 msgid "Ca&rets:"
-msgstr ""
+msgstr "Ca&rets:"
 
 #: tfrmoptionsthemes.gbdcolors.caption
 msgctxt "tfrmoptionsthemes.gbdcolors.caption"
@@ -2446,7 +2444,7 @@ msgstr "&Lettertype"
 
 #: tfrmoptionsthemes.gbdother.caption
 msgid "&Others:"
-msgstr ""
+msgstr "&Andere:"
 
 #: tfrmoptionsthemes.gbdselcolors.caption
 msgid "&Selected Color:"
@@ -2458,7 +2456,7 @@ msgstr ""
 
 #: tfrmoptionsthemes.gbgshownumbers.caption
 msgid "&Linenumbers:"
-msgstr ""
+msgstr "&Lijnnummers:"
 
 #: tfrmoptionsthemes.gbhiattrs.caption
 msgid "&Attributes:"
@@ -2485,7 +2483,7 @@ msgstr "&Buffergrootte voor bestanden:"
 
 #: tfrmoptionsthemes.gburl.caption
 msgid "&Hyperlinks:"
-msgstr ""
+msgstr "&Hyperlinks:"
 
 #: tfrmoptionsthemes.gburlstyle.caption
 msgctxt "tfrmoptionsthemes.gburlstyle.caption"
@@ -2531,7 +2529,7 @@ msgstr "&Voorgrond:"
 
 #: tfrmoptionsthemes.lblgdigitscount.caption
 msgid "&Digitcount:"
-msgstr ""
+msgstr "&Aantal cijfers:"
 
 #: tfrmoptionsthemes.lblgendcolor.caption
 msgid "&End Color:"
@@ -2548,7 +2546,7 @@ msgstr "&Start kleur:"
 
 #: tfrmoptionsthemes.lblgsteps.caption
 msgid "Ste&ps:"
-msgstr ""
+msgstr "&Stappen:"
 
 #: tfrmoptionsthemes.lblgwidth.caption
 msgid "Width:"
@@ -2595,21 +2593,21 @@ msgstr "&Kleur:"
 
 #: tfrmoptionsthemes.lbtheme.caption
 msgid "&Theme:"
-msgstr ""
+msgstr "&Thema:"
 
 #: tfrmoptionsthemes.pnaccess.caption
 msgid "This theme is read-only."
-msgstr ""
+msgstr "Dit thema is niet wijzigbaar."
 
 #: tfrmoptionsthemes.pndfont.caption
 msgctxt "tfrmoptionsthemes.pndfont.caption"
 msgid "AaBbАаБб"
-msgstr ""
+msgstr "AaBbАаБб"
 
 #: tfrmoptionsthemes.pnrmfont.caption
 msgctxt "tfrmoptionsthemes.pnrmfont.caption"
 msgid "AaBbАаБб"
-msgstr ""
+msgstr "AaBbАаБб"
 
 #: tfrmoptionsthemes.tbhistyle.caption
 msgctxt "tfrmoptionsthemes.tbhistyle.caption"
@@ -2666,7 +2664,7 @@ msgstr "Zoek"
 
 #: tfrmsearchform.actfocussearchtext.caption
 msgid "actFocusSearchText"
-msgstr ""
+msgstr "actFocusSearchText"
 
 #: tfrmsearchform.actreplace.caption
 msgctxt "TFRMSEARCHFORM.ACTREPLACE.CAPTION"
@@ -2953,7 +2951,7 @@ msgstr "%s%s%s is geen geldige unit naam."
 #: ts.core.codecutilswin32.sinvalidencoding
 msgctxt "ts.core.codecutilswin32.sinvalidencoding"
 msgid "Invalid %s encoding"
-msgstr "Ongeldige %s encodering"
+msgstr "Ongeldige %s codering"
 
 #: ts.core.codecutilswin32.slowsurrogatenotfound
 #, fuzzy
@@ -3236,13 +3234,12 @@ msgstr ""
 #: ts.core.nativexml.sunknownencoding
 msgctxt "ts.core.nativexml.sunknownencoding"
 msgid "unknown encoding"
-msgstr "Onbekende encodering"
+msgstr "Onbekende codering"
 
 #: ts.core.nativexml.sunsupportedencoding
-#, fuzzy
 msgctxt "ts.core.nativexml.sunsupportedencoding"
 msgid "unsupported encoding (%s)"
-msgstr "Huidige encoding"
+msgstr "niet ondersteunde codering (%s)"
 
 #: ts.core.nativexml.sunsupportedtag
 msgctxt "ts.core.nativexml.sunsupportedtag"
@@ -3534,7 +3531,7 @@ msgstr "Lege naam:"
 
 #: ts_components_docking_resources.adrsenlarge
 msgid "Enlarge"
-msgstr "Vergroten"
+msgstr "Vergroot"
 
 #: ts_components_docking_resources.adrsenlargeside
 msgid "Enlarge %s side"
@@ -3597,7 +3594,7 @@ msgstr "Samenvoegen"
 
 #: ts_components_docking_resources.adrsmissingcontrolname
 msgid "missing control name"
-msgstr "ontbrekende control naam"
+msgstr "ontbrekende naam voor control"
 
 #: ts_components_docking_resources.adrsmodalformscannotbemadedockable
 msgid "modal forms can not be made dockable"
@@ -3761,7 +3758,7 @@ msgstr "%s%s%s is geen geldige unit naam."
 #: ts_core_codecutilswin32.sinvalidencoding
 msgctxt "ts_core_codecutilswin32.sinvalidencoding"
 msgid "Invalid %s encoding"
-msgstr "Ongeldige %s encodering"
+msgstr "Ongeldige %s codering"
 
 #: ts_core_codecutilswin32.slowsurrogatenotfound
 #, fuzzy
@@ -4012,13 +4009,12 @@ msgstr ""
 #: ts_core_nativexml.sunknownencoding
 msgctxt "ts_core_nativexml.sunknownencoding"
 msgid "unknown encoding"
-msgstr "Onbekende encodering"
+msgstr "onbekende codering"
 
 #: ts_core_nativexml.sunsupportedencoding
-#, fuzzy
 msgctxt "ts_core_nativexml.sunsupportedencoding"
 msgid "unsupported encoding (%s)"
-msgstr "Huidige encoding"
+msgstr "niet ondersteunde codering (%s)"
 
 #: ts_core_nativexml.sunsupportedtag
 msgctxt "ts_core_nativexml.sunsupportedtag"

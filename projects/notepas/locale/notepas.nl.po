@@ -24,27 +24,27 @@ msgstr "Gewijzigd"
 
 #: tcustomsettingsdialog1.lblalpha.caption
 msgid "lblAlpha"
-msgstr ""
+msgstr "lblAlpha"
 
 #: tcustomsettingsdialog1.lblbackground.caption
 msgid "lblBackground"
-msgstr ""
+msgstr "lblBackground"
 
 #: tcustomsettingsdialog1.lblforeground.caption
 msgid "lblForeground"
-msgstr ""
+msgstr "lblForeground"
 
 #: tcustomsettingsdialog1.lblframe.caption
 msgid "lblFrame"
-msgstr ""
+msgstr "lblFrame"
 
 #: tcustomsettingsdialog1.lblframecolor.caption
 msgid "lblFrameColor"
-msgstr ""
+msgstr "lblFrameColor"
 
 #: tcustomsettingsdialog1.lblpriority.caption
 msgid "lblPriority"
-msgstr ""
+msgstr "lblPriority"
 
 #: tdlgext.bncancel.caption
 msgctxt "tdlgext.bncancel.caption"
@@ -574,20 +574,20 @@ msgstr "Tussenvoegen"
 #: tdmeditormanager.actinsertcharacterfrommap.caption
 msgctxt "tdmeditormanager.actinsertcharacterfrommap.caption"
 msgid "Insert character from map"
-msgstr "Voeg karakter toe"
+msgstr "Voeg speciaal teken in"
 
 #: tdmeditormanager.actinsertcharacterfrommap.hint
 msgctxt "TDMEDITORMANAGER.ACTINSERTCHARACTERFROMMAP.HINT"
 msgid "Insert character from map"
-msgstr "Voeg karakter toe"
+msgstr "Voeg speciaal teken in"
 
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
-msgstr "Voeg kleurwaarde toe"
+msgstr "Invoegen kleurwaarde"
 
 #: tdmeditormanager.actinsertcolorvalue.hint
 msgid "Insert numeric color value"
-msgstr "Voeg numerieke kleurwaarde toe"
+msgstr "Invoegen numerieke kleurwaarde"
 
 #: tdmeditormanager.actinsertguid.caption
 msgid "Insert GUID"
@@ -595,12 +595,12 @@ msgstr "GUID invoegen"
 
 #: tdmeditormanager.actinsertguid.hint
 msgid "Inserts a new GUID value."
-msgstr "Voeg een GUID waarde toe"
+msgstr "Invoegen GUID waarde."
 
 #: tdmeditormanager.actinsertmenu.caption
 msgctxt "tdmeditormanager.actinsertmenu.caption"
 msgid "Insert"
-msgstr "Tussenvoegen"
+msgstr "Invoegen"
 
 #: tdmeditormanager.actinspect.caption
 msgctxt "TDMEDITORMANAGER.ACTINSPECT.CAPTION"
@@ -1069,17 +1069,17 @@ msgstr "Selectiie omzetten naar hoofdletters"
 #: tdmeditormanager.menuitem21.caption
 msgctxt "tdmeditormanager.menuitem21.caption"
 msgid "New Item1"
-msgstr ""
+msgstr "New Item1"
 
 #: tdmeditormanager.menuitem22.caption
 msgctxt "tdmeditormanager.menuitem22.caption"
 msgid "New Item1"
-msgstr ""
+msgstr "New Item1"
 
 #: tdmeditormanager.menuitem8.caption
 msgctxt "tdmeditormanager.menuitem8.caption"
 msgid "New Item1"
-msgstr ""
+msgstr "New Item1"
 
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
@@ -1087,7 +1087,7 @@ msgstr ""
 
 #: tform1.caption
 msgid "Form1"
-msgstr ""
+msgstr "Form1"
 
 #: tfrmabout.actclose.caption
 msgctxt "tfrmabout.actclose.caption"
@@ -1385,7 +1385,7 @@ msgstr "Dequote"
 #: tfrmcodeshaper.actinsertbreaks.caption
 msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
 msgid "Insert breaks"
-msgstr "Lijneindes tussenvoegen"
+msgstr "Lijneindes invoegen"
 
 #: tfrmcodeshaper.actmakepascalstring.caption
 msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
@@ -1591,7 +1591,7 @@ msgstr "Dequote lijnen"
 #: tfrmcodeshaper.grpinsertbreaks.caption
 msgctxt "tfrmcodeshaper.grpinsertbreaks.caption"
 msgid "Insert breaks"
-msgstr "Lijneindes tussenvoegen"
+msgstr "Lijneindes invoegen"
 
 #: tfrmcodeshaper.grpmisc.caption
 msgid "Miscellanious operations"
@@ -2070,7 +2070,7 @@ msgstr "INS"
 
 #: tfrmmain.pnlinsertmode.hint
 msgid "Insert mode"
-msgstr "Insert mode"
+msgstr "Invoegen"
 
 #: tfrmmain.pnllinebreakstyle.hint
 #, fuzzy
@@ -2494,7 +2494,7 @@ msgstr "&Stijl:"
 
 #: tfrmoptionsthemes.label1.caption
 msgid "&Insert:"
-msgstr "&Tussenvoegen:"
+msgstr "&Invoegen:"
 
 #: tfrmoptionsthemes.label2.caption
 msgid "&Overwrite:"
@@ -4304,12 +4304,12 @@ msgstr "Token"
 #: ts_editor_charactermapdialog.scharactermap
 msgctxt "ts_editor_charactermapdialog.scharactermap"
 msgid "Character Map"
-msgstr "Karakter matrix"
+msgstr "Speciale tekens"
 
 #: ts_editor_charactermap_toolview.scharactermap
 msgctxt "ts_editor_charactermap_toolview.scharactermap"
 msgid "Character Map"
-msgstr "Karakter matrix"
+msgstr "Speciale tekens"
 
 #: ts_editor_codefilter_toolview.sfilteredcode
 msgctxt "ts_editor_codefilter_toolview.sfilteredcode"
@@ -4382,7 +4382,7 @@ msgstr "Settings file"
 
 #: ts_editor_resources.sinsertmenucaption
 msgid "&Insert"
-msgstr "&Tussenvoegen"
+msgstr "&Invoegen"
 
 #: ts_editor_resources.sjavadescription
 msgid "Java"

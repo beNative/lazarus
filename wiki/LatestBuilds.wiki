@@ -1,6 +1,4 @@
 #labels Featured
-#Links to latest binaries
-
 = Latest Builds =
 
 You can download the latest binaries directly from svn for your platform.
@@ -17,11 +15,3 @@ Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for ever
 
 [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-
 qt/notepas notepas_linux64_qt]
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages

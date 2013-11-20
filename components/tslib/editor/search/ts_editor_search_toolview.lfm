@@ -16,7 +16,7 @@ inherited frmSearchForm: TfrmSearchForm
   ShowHint = True
   object pnlOperations: TPanel[0]
     Left = 4
-    Height = 446
+    Height = 410
     Top = 4
     Width = 301
     Align = alTop
@@ -34,28 +34,28 @@ inherited frmSearchForm: TfrmSearchForm
     ChildSizing.ShrinkVertical = crsScaleChilds
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
     ChildSizing.ControlsPerLine = 1
-    ClientHeight = 446
+    ClientHeight = 410
     ClientWidth = 301
     TabOrder = 0
     object grpSearchText: TGroupBox
       Left = 0
-      Height = 57
+      Height = 49
       Top = 0
       Width = 301
       Caption = 'Text to find:'
       ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
-      ClientHeight = 38
+      ClientHeight = 31
       ClientWidth = 297
       TabOrder = 0
       object cbxSearchText: TComboBox
         Left = 20
-        Height = 25
+        Height = 23
         Top = 4
         Width = 234
         Anchors = [akTop, akLeft, akRight]
         Font.Style = [fsBold]
-        ItemHeight = 0
+        ItemHeight = 15
         OnChange = cbxSearchTextChange
         ParentFont = False
         TabOrder = 0
@@ -95,13 +95,13 @@ inherited frmSearchForm: TfrmSearchForm
     end
     object grpReplaceWith: TGroupBox
       Left = 0
-      Height = 57
-      Top = 61
+      Height = 49
+      Top = 53
       Width = 301
       Caption = 'Replace with:'
       ChildSizing.LeftRightSpacing = 8
       ChildSizing.TopBottomSpacing = 4
-      ClientHeight = 38
+      ClientHeight = 31
       ClientWidth = 297
       TabOrder = 1
       object cbxReplaceWith: TComboBox
@@ -109,7 +109,7 @@ inherited frmSearchForm: TfrmSearchForm
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Side = asrBottom
         Left = 20
-        Height = 25
+        Height = 23
         Top = 4
         Width = 234
         Anchors = [akTop, akLeft, akRight]
@@ -117,46 +117,14 @@ inherited frmSearchForm: TfrmSearchForm
         AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
         BorderSpacing.Left = 6
         BorderSpacing.Around = 2
-        ItemHeight = 0
+        ItemHeight = 15
         TabOrder = 0
-      end
-      object Image2: TImage
-        Left = 274
-        Height = 16
-        Top = 8
-        Width = 16
-        Anchors = [akTop, akRight]
-        AutoSize = True
-        BorderSpacing.Around = 5
-        BorderSpacing.InnerBorder = 1
-        Center = True
-        Picture.Data = {
-          1754506F727461626C654E6574776F726B47726170686963F601000089504E47
-          0D0A1A0A0000000D49484452000000100000001008060000001FF3FF61000001
-          BD4944415438CB9592CF4E534118C57FF3EF3604291BB7968730BA535FC0185F
-          42978D7583F1B641B8D04A0B745FA20BDFC0181E4348942D15F6768389D8DB99
-          6F5CDCDED2E8827292D94CE69C39BFF9467DFE72F4424406221188DC2C85D20A
-          ADD4CBE7CF9E1E5AEFFDE0E183FB54575688516EB62BCDE5AF4B8E4FBE0D8043
-          2B229C9D0D79F2F8118BEAEBF10977969701B022C2D25205807ABD8E31861823
-          93C984B4D9C27B4FFF601F80578DD7ACD5EE91248EDF577F8A8010046B13008C
-          3164D936799E1363C47B4FEF609FF5F53700ECEEBEA7DFEF63AD43E4AA0C0838
-          E766F58C3568D1F889471BCDDB34FD0FC15A4B14291102C934406B4D334D198F
-          C7B43B1DBCF73353B6B545B3D50220718E20A1F0140806801002DDBD3DBABDDE
-          0CA95CEF3637D9CE32009C331463073D8F90E739C17B4404AD7561DCD860B55A
-          65B55A9D4370C83582E09C05A052A98008D698D9E14EA743A3D100A0DD6E1726
-          E79029820D22585B34E876BB45F57F1EADDC2FE5AC254E11ACCC21186316FA48
-          CE394290EB31A2D46C0A0B05248E18A70D628C68ADF87E7A0AA805EC915AADC6
-          68342A027E0C873B1F3E7E4AB9A52ECECF77985E791758E3F6BA007EFE05EA6B
-          C2B7345E606E0000000049454E44AE426082
-        }
-        Stretch = True
-        Transparent = True
       end
     end
     object grpOptions: TGroupBox
       Left = 0
-      Height = 110
-      Top = 122
+      Height = 103
+      Top = 106
       Width = 301
       Caption = 'Options'
       ChildSizing.LeftRightSpacing = 20
@@ -167,12 +135,12 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 91
+      ClientHeight = 85
       ClientWidth = 297
       TabOrder = 2
       object chkWholeWordsOnly: TCheckBox
         Left = 20
-        Height = 21
+        Height = 19
         Top = 8
         Width = 160
         BorderSpacing.Top = 6
@@ -184,8 +152,8 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object chkCaseSensitive: TCheckBox
         Left = 20
-        Height = 21
-        Top = 35
+        Height = 19
+        Top = 33
         Width = 160
         BorderSpacing.Top = 6
         Caption = 'Case sensitive'
@@ -196,8 +164,8 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object chkRegularExpressions: TCheckBox
         Left = 20
-        Height = 21
-        Top = 62
+        Height = 19
+        Top = 58
         Width = 160
         BorderSpacing.Top = 6
         Caption = 'Regular expressions'
@@ -208,7 +176,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object chkSearchInAllViews: TCheckBox
         Left = 180
-        Height = 21
+        Height = 19
         Top = 8
         Width = 160
         BorderSpacing.Top = 6
@@ -220,8 +188,8 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object chkMultiLine: TCheckBox
         Left = 180
-        Height = 21
-        Top = 35
+        Height = 19
+        Top = 33
         Width = 160
         BorderSpacing.Top = 6
         Caption = 'Multiline'
@@ -233,8 +201,8 @@ inherited frmSearchForm: TfrmSearchForm
     end
     object grpOrigin: TGroupBox
       Left = 0
-      Height = 57
-      Top = 236
+      Height = 53
+      Top = 213
       Width = 301
       Caption = 'Origin'
       ChildSizing.LeftRightSpacing = 20
@@ -246,12 +214,12 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 38
+      ClientHeight = 35
       ClientWidth = 297
       TabOrder = 3
       object rbFromCursor: TRadioButton
         Left = 20
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -262,7 +230,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object rbEntireScope: TRadioButton
         Left = 180
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -276,8 +244,8 @@ inherited frmSearchForm: TfrmSearchForm
     end
     object grpScope: TGroupBox
       Left = 0
-      Height = 57
-      Top = 297
+      Height = 53
+      Top = 270
       Width = 301
       Caption = 'Scope'
       ChildSizing.LeftRightSpacing = 20
@@ -289,12 +257,12 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 38
+      ClientHeight = 35
       ClientWidth = 297
       TabOrder = 4
       object rbSelected: TRadioButton
         Left = 20
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -305,7 +273,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object rbGlobal: TRadioButton
         Left = 180
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -319,8 +287,8 @@ inherited frmSearchForm: TfrmSearchForm
     end
     object grpDirection: TGroupBox
       Left = 0
-      Height = 57
-      Top = 358
+      Height = 53
+      Top = 327
       Width = 301
       Caption = 'Direction'
       ChildSizing.LeftRightSpacing = 20
@@ -332,12 +300,12 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsHomogenousChildResize
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
-      ClientHeight = 38
+      ClientHeight = 35
       ClientWidth = 297
       TabOrder = 5
       object rbBackward: TRadioButton
         Left = 20
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -348,7 +316,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object rbForward: TRadioButton
         Left = 180
-        Height = 22
+        Height = 19
         Top = 8
         Width = 160
         AutoSize = False
@@ -362,8 +330,8 @@ inherited frmSearchForm: TfrmSearchForm
     end
     object pnlButtons: TPanel
       Left = 0
-      Height = 27
-      Top = 419
+      Height = 26
+      Top = 384
       Width = 301
       AutoSize = True
       BevelOuter = bvSpace
@@ -375,12 +343,12 @@ inherited frmSearchForm: TfrmSearchForm
       ChildSizing.ShrinkVertical = crsScaleChilds
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 3
-      ClientHeight = 27
+      ClientHeight = 26
       ClientWidth = 301
       TabOrder = 6
       object btnFind: TBitBtn
         Left = 2
-        Height = 27
+        Height = 26
         Top = 0
         Width = 98
         Action = actFind
@@ -394,7 +362,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object btnReplace: TBitBtn
         Left = 102
-        Height = 27
+        Height = 26
         Top = 0
         Width = 98
         Action = actReplace
@@ -407,7 +375,7 @@ inherited frmSearchForm: TfrmSearchForm
       end
       object btnReplaceAll: TBitBtn
         Left = 202
-        Height = 27
+        Height = 26
         Top = 0
         Width = 97
         Action = actReplaceAll
@@ -422,8 +390,8 @@ inherited frmSearchForm: TfrmSearchForm
   end
   object pnlResultList: TPanel[1]
     Left = 4
-    Height = 427
-    Top = 458
+    Height = 463
+    Top = 422
     Width = 301
     Align = alClient
     BorderSpacing.Top = 4
@@ -451,15 +419,6 @@ inherited frmSearchForm: TfrmSearchForm
       OnExecute = actFocusSearchTextExecute
       ShortCut = 113
     end
-    object actReplaceWith: TAction
-      AutoCheck = True
-      Caption = '&Replace with:'
-      DisableIfNoHandler = False
-      GroupIndex = 9
-      ImageIndex = 2
-      OnExecute = actReplaceWithExecute
-      ShortCut = 114
-    end
     object actFind: TAction
       Caption = 'Find'
       OnExecute = actFindExecute
@@ -473,4 +432,4 @@ inherited frmSearchForm: TfrmSearchForm
       OnExecute = actReplaceAllExecute
     end
   end
-end
+end

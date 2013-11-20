@@ -20,6 +20,8 @@ unit ts.Editor.Events;
 
 {$MODE Delphi}
 
+{ Events dispatched by the IEditorManager and active IEditorView instance. }
+
 interface
 
 uses

@@ -18,14 +18,35 @@
 
 unit ts.Editor.Search.Engine;
 
-{ Search logic to find text in one or all editor views. }
+{ Search logic to find text in one or all managed editor views. }
 
 {$MODE Delphi}
+
+{
+  Refactoring notes (20/11/2013, TS)
+
+  - no more core search functionality in the toolview. All operations should be
+    handled by the engine and any seach form who handles the multicast events
+    dispatched by the engine should be able to interact with the user.
+  - typical MVC configuration
+
+  Search
+    invoke the search dialog or form to enter search input
+
+  Find
+    Execute the searchengine to find matched
+
+  Replace
+    replace search matches
+
+}
 
 interface
 
 uses
   Classes, SysUtils, Contnrs,
+
+  LazMethodList,
 
   SynEditTypes, SynEditSearch,
 
@@ -40,13 +61,17 @@ type
 
   TSearchEngine = class(TComponent, IEditorSearchEngine)
   private
-    FSearchText   : string;
-    FReplaceText  : string;
-    FItemGroups   : TObjectList;
-    FItemList     : TObjectList;
-    FCurrentIndex : Integer;
-    FSESearch     : TSynEditSearch;
+    FSearchText    : string;
+    FReplaceText   : string;
+    FOptions       : TSynSearchOptions;
+    FItemGroups    : TObjectList;
+    FItemList      : TObjectList;
+    FCurrentIndex  : Integer;
+    FSESearch      : TSynEditSearch;
+    FExecuteEvents : TMethodList;
+    FChangeEvents  : TMethodList;
 
+    {$region 'property access mehods' /fold}
     function GetCurrentIndex: Integer;
     function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
@@ -63,11 +88,18 @@ type
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
     procedure SetSearchText(AValue: string);
+    {$endregion}
+
+    procedure DoExecute;
+    procedure DoChange;
 
   protected
     procedure AddResultsForView(AView: IEditorView);
-    function PosToLineCol(const AString: string;
-      const AOffset: TPoint; APos: Integer): TPoint;
+    function PosToLineCol(
+      const AString : string;
+      const AOffset : TPoint;
+            APos    : Integer
+    ): TPoint;
 
     { IEditorSearchEngine }
     procedure Execute;
@@ -76,10 +108,16 @@ type
     procedure Replace;
     procedure ReplaceAll;
 
+    procedure AddOnExecuteHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnExecuteHandler(AEvent: TNotifyEvent);
+    { Responds to changes in one of the properties of the searchengine. }
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+
     property Manager: IEditorManager
       read GetManager;
 
-   property CurrentIndex: Integer
+    property CurrentIndex: Integer
       read GetCurrentIndex write SetCurrentIndex;
 
     property Views: IEditorViews
@@ -117,8 +155,6 @@ type
 implementation
 
 uses
-  FileUtil,
-
   ts.Editor.Utils;
 
 const
@@ -129,8 +165,11 @@ procedure TSearchEngine.AfterConstruction;
 begin
   inherited AfterConstruction;
   FItemGroups := TObjectList.Create(True);
-  FItemList := TObjectList.Create(False);
-  FSESearch := TSynEditSearch.Create;
+  FItemList   := TObjectList.Create(False);
+  FSESearch   := TSynEditSearch.Create;
+  FExecuteEvents := TMethodList.Create;
+  FChangeEvents  := TMethodList.Create;
+  Options        := Settings.Options;
 end;
 
 procedure TSearchEngine.BeforeDestruction;
@@ -138,6 +177,8 @@ begin
   FItemList.Free;
   FItemGroups.Free;
   FSESearch.Free;
+  FChangeEvents.Free;
+  FExecuteEvents.Free;
   inherited BeforeDestruction;
 end;
 {$endregion}
@@ -168,11 +209,6 @@ begin
   Result := FItemGroups;
 end;
 
-function TSearchEngine.GetOptions: TSynSearchOptions;
-begin
-  Result := Settings.Options;
-end;
-
 function TSearchEngine.GetReplaceText: string;
 begin
   Result := FReplaceText;
@@ -184,6 +220,7 @@ begin
   begin
     FReplaceText := AValue;
     FSESearch.Replacement := AValue;
+    DoChange;
   end;
 end;
 
@@ -203,6 +240,7 @@ begin
   begin
     FSearchText := AValue;
     FSESearch.Pattern := AValue;
+    DoChange;
   end;
 end;
 
@@ -216,17 +254,24 @@ begin
   Result := Owner as IEditorViews;
 end;
 
+function TSearchEngine.GetOptions: TSynSearchOptions;
+begin
+  Result := FOptions;
+end;
+
 procedure TSearchEngine.SetOptions(AValue: TSynSearchOptions);
 begin
-  if AValue <> Settings.Options then
+  if AValue <> Options then
   begin
+    FOptions := AValue;
     Settings.Options := AValue;
     FSESearch.Sensitive          := ssoMatchCase in Options;
     FSESearch.Whole              := ssoWholeWord in Options;
     FSESearch.RegularExpressions := ssoRegExpr in Options;
     FSESearch.RegExprMultiLine   := ssoRegExprMultiLine in Options;
     FSESearch.Backwards          :=
-      (ssoBackwards in Options) and not FSESearch.RegExprMultiLine
+      (ssoBackwards in Options) and not FSESearch.RegExprMultiLine;
+    DoChange;
   end;
 end;
 
@@ -241,7 +286,39 @@ begin
 end;
 {$endregion}
 
+{$region 'event dispatch methods' /fold}
+procedure TSearchEngine.DoExecute;
+begin
+  FExecuteEvents.CallNotifyEvents(Self);
+end;
+
+procedure TSearchEngine.DoChange;
+begin
+  FChangeEvents.CallNotifyEvents(Self);
+end;
+{$endregion}
+
 {$region 'protected methods' /fold}
+procedure TSearchEngine.AddOnExecuteHandler(AEvent: TNotifyEvent);
+begin
+  FExecuteEvents.Add(TMethod(AEvent));
+end;
+
+procedure TSearchEngine.RemoveOnExecuteHandler(AEvent: TNotifyEvent);
+begin
+  FExecuteEvents.Remove(TMethod(AEvent));
+end;
+
+procedure TSearchEngine.AddOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Add(TMethod(AEvent));
+end;
+
+procedure TSearchEngine.RemoveOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Remove(TMethod(AEvent));
+end;
+
 procedure TSearchEngine.AddResultsForView(AView: IEditorView);
 var
   SRG          : TSearchResultGroup;
@@ -353,7 +430,9 @@ var
   V: IEditorView;
   I: Integer;
 begin
+  FItemGroups.Clear;
   FItemList.Clear;
+  Manager.ClearHighlightSearch;
   if SearchAllViews then
   begin
     for I := 0 to Views.Count - 1 do
@@ -364,34 +443,49 @@ begin
   end
   else
     AddResultsForView(View);
+  DoExecute;
+  View.BeginUpdate;
+  View.SetHighlightSearch(
+    SearchText,
+    Options
+  );
+  View.EndUpdate;
 end;
 
 procedure TSearchEngine.FindNext;
 var
   SR: TSearchResult;
 begin
-  if CurrentIndex < ItemList.Count - 1 then
+  Inc(FCurrentIndex);
+  if CurrentIndex < ItemList.Count then
   begin
-    Inc(FCurrentIndex);
     SR := ItemList[CurrentIndex] as TSearchResult;
     Manager.ActivateView(SR.ViewName);
     View.SelStart := SR.StartPos;
-    View.SelEnd := SR.StartPos + Length(SearchText);
-  end;
+    View.SelEnd   := SR.StartPos + Length(SearchText);
+    DoChange;
+  end
+  else
+    Dec(FCurrentIndex);
+  Logger.Send('CurrentIndex', CurrentIndex);
 end;
 
 procedure TSearchEngine.FindPrevious;
 var
   SR: TSearchResult;
 begin
-  if CurrentIndex > 0 then
+  Dec(FCurrentIndex);
+  if CurrentIndex >= 0 then
   begin
-    Dec(FCurrentIndex);
     SR := ItemList[CurrentIndex] as TSearchResult;
     Manager.ActivateView(SR.ViewName);
     Manager.ActiveView.SelStart := SR.StartPos;
-    Manager.ActiveView.SelEnd := SR.StartPos + Length(SearchText);
-  end;
+    Manager.ActiveView.SelEnd   := SR.StartPos + Length(SearchText);
+    DoChange;
+  end
+  else
+    FCurrentIndex := 0;
+  Logger.Send('CurrentIndex', CurrentIndex);
 end;
 
 procedure TSearchEngine.Replace;

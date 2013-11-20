@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 544
-  VerticalOffset = 234
+  HorizontalOffset = 2461
+  VerticalOffset = 444
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
@@ -3483,7 +3483,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actSearch: TAction
       Category = 'Find'
-      AutoCheck = True
       Caption = '&Find...'
       Hint = 'Find'
       ImageIndex = 9
@@ -3508,7 +3507,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actSearchReplace: TAction
       Category = 'Find'
-      AutoCheck = True
       Caption = '&Replace...'
       Hint = 'Replace'
       ImageIndex = 10
@@ -3655,7 +3653,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actAlignSelection: TAction
       Category = 'Selection'
-      AutoCheck = True
       Caption = 'Align'
       Hint = 'Align selected lines'
       ImageIndex = 29
@@ -3730,7 +3727,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actShapeCode: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Shape code'
       Hint = 'Apply custom code formatting to selection'
       ImageIndex = 79
@@ -3878,7 +3874,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actFilterCode: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Filter code'
       Hint = 'Filter code'
       ImageIndex = 70
@@ -3918,7 +3913,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowPreview: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Show preview'
       Hint = 'Show text preview.'
       ImageIndex = 71
@@ -3964,7 +3958,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actInsertCharacterFromMap: TAction
       Category = 'Insert'
-      AutoCheck = True
       Caption = 'Insert character from map'
       Hint = 'Insert character from map'
       ImageIndex = 43
@@ -4055,7 +4048,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowActions: TAction
       Category = 'Debug'
-      AutoCheck = True
       Caption = 'Show editor actions'
       Hint = 'Show the list of all available actions.'
       OnExecute = actShowActionsExecute
@@ -4092,7 +4084,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowViews: TAction
       Category = 'Dialogs'
-      AutoCheck = True
       Caption = 'Show views'
       Hint = 'Show list of all editor views.'
       ImageIndex = 91
@@ -4193,13 +4184,11 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowStructureViewer: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'XML treeview'
       OnExecute = actShowStructureViewerExecute
       ShortCut = 49240
     end
     object actSelectionInfo: TAction
-      AutoCheck = True
       Caption = 'SelectionInfo'
       OnExecute = actSelectionInfoExecute
       ShortCut = 24651
@@ -4292,7 +4281,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Finds all occurences of the selected text or the current word at the caret position.'
       ImageIndex = 27
       OnExecute = actFindAllOccurencesExecute
-      ShortCut = 8306
+      ShortCut = 24646
     end
     object actSearchMenu: TAction
       Category = 'Find'
@@ -4328,19 +4317,16 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowHTMLViewer: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Show HTML viewer'
       OnExecute = actShowHTMLViewerExecute
     end
     object actShowHexEditor: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Show Hex editor'
       OnExecute = actShowHexEditorExecute
     end
     object actShowMiniMap: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Show minimap'
       Hint = 'Show minimap.'
       OnExecute = actShowMiniMapExecute
@@ -4358,7 +4344,6 @@ object dmEditorManager: TdmEditorManager
     end
     object actShowScriptEditor: TAction
       Category = 'Tools'
-      AutoCheck = True
       Caption = 'Show script editor'
       OnExecute = actShowScriptEditorExecute
     end

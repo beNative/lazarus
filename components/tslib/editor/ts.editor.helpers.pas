@@ -414,6 +414,7 @@ begin
   MI.Caption := SSearchMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(AManager, MI, 'actSearch');
+  AddEditorMenuItem(AManager, MI, 'actFindAllOccurences');
   AddEditorMenuItem(AManager, MI, 'actSearchReplace');
   AddEditorMenuItem(AManager, MI);
   AddEditorMenuItem(AManager, MI, 'actFindNext');

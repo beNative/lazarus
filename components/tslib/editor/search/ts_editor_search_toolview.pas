@@ -45,16 +45,20 @@ uses
   ts.Core.Value, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
   ts.Core.DataTemplates, ts.Core.ColumnDefinitionsDataTemplate,
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts.Editor.Interfaces, ts_Editor_ToolView_Base,
+
+  ts.Core.SharedLogger, ts.Core.Utils;
 
 type
+
+  { TfrmSearchForm }
+
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actFocusSearchText              : TAction;
     actReplace                      : TAction;
     actReplaceAll                   : TAction;
-    actReplaceWith                  : TAction;
     actFind                         : TAction;
     btnFind                         : TBitBtn;
     btnReplace                      : TBitBtn;
@@ -78,7 +82,6 @@ type
     grpReplaceWith                  : TGroupBox;
     grpSearchText                   : TGroupBox;
     Image1                          : TImage;
-    Image2                          : TImage;
     pnlButtons                      : TPanel;
     pnlOperations                   : TPanel;
     pnlResultList                   : TPanel;
@@ -95,7 +98,6 @@ type
     procedure actFocusSearchTextExecute(Sender: TObject);
     procedure actReplaceAllExecute(Sender: TObject);
     procedure actReplaceExecute(Sender: TObject);
-    procedure actReplaceWithExecute(Sender: TObject);
     procedure actFindExecute(Sender: TObject);
     {$endregion}
 
@@ -116,6 +118,8 @@ type
     FVST : TVirtualStringTree;
 
     procedure EditorSettingsChanged(Sender: TObject);
+    procedure SearchEngineExecute(Sender: TObject);
+    procedure SearchEngineChange(Sender: TObject);
 
     function GetSearchEngine: IEditorSearchEngine;
     function GetOptions: TSynSearchOptions;
@@ -175,18 +179,23 @@ begin
   FVST := VST.Create(Self, pnlResultList);
   FVST.TreeOptions.AutoOptions :=
     FVST.TreeOptions.AutoOptions + [toAutoSpanColumns];
+  FVST.Header.MainColumn := 1;
+
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
-  FTVP.ShowHeader := False;
-  FTVP.ListMode := False;
+  FTVP.ShowHeader  := False;
+  FTVP.ListMode    := False;
   FTVP.ColumnDefinitions.AddColumn('Text', SFileName, dtString, 70, 60, 400);
-  FVST.Header.MainColumn := 1;
   FTVP.ItemsSource := SearchEngine.ItemGroups;
-  FTVP.TreeView := FVST;
+  FTVP.TreeView    := FVST;
   FTVP.ItemTemplate := TSearchResultGroupTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
+
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
+
+  SearchEngine.AddOnExecuteHandler(SearchEngineExecute);
+  SearchEngine.AddOnChangeHandler(SearchEngineChange);
 end;
 {$endregion}
 
@@ -243,8 +252,10 @@ end;
 
 procedure TfrmSearchForm.SetSearchText(const AValue: string);
 begin
-  cbxSearchText.Text := AValue;
-  cbxSearchText.SelectAll;
+  if AValue <> SearchText then
+  begin
+    cbxSearchText.Text := AValue;
+  end;
 end;
 
 function TfrmSearchForm.GetReplaceText: string;
@@ -254,7 +265,10 @@ end;
 
 procedure TfrmSearchForm.SetReplaceText(const AValue: string);
 begin
-  cbxReplaceWith.Text := AValue;
+  if AValue <> ReplaceText then
+  begin
+    cbxReplaceWith.Text := AValue;
+  end;
 end;
 {$endregion}
 
@@ -281,19 +295,6 @@ begin
   Execute;
 end;
 
-procedure TfrmSearchForm.actReplaceWithExecute(Sender: TObject);
-begin
-  Manager.Actions['actSearchReplace'].Checked := actReplaceWith.Checked;
-  if not actReplaceWith.Checked then
-    cbxReplaceWith.Text := ''
-  else
-  begin
-    cbxReplaceWith.Enabled := True;
-    cbxReplaceWith.SetFocus;
-  end;
-  Modified;
-end;
-
 procedure TfrmSearchForm.actFindExecute(Sender: TObject);
 begin
   Screen.Cursor := crHourGlass;
@@ -318,6 +319,11 @@ end;
 
 procedure TfrmSearchForm.FormHide(Sender: TObject);
 begin
+  SearchEngine.ItemList.Clear;
+  SearchEngine.ItemGroups.Clear;
+  FTVP.Refresh;
+  SearchEngine.SearchText := '';
+  SearchEngine.ReplaceText := '';
   Manager.ClearHighlightSearch;
 end;
 
@@ -325,6 +331,8 @@ procedure TfrmSearchForm.FormShow(Sender: TObject);
 begin
   Options := SearchEngine.Options;
   chkSearchInAllViews.Checked := SearchEngine.SearchAllViews;
+  cbxSearchText.Text          := SearchEngine.SearchText;
+  cbxReplaceWith.Text         := SearchEngine.ReplaceText;
 end;
 
 procedure TfrmSearchForm.rbBackwardChange(Sender: TObject);
@@ -361,23 +369,11 @@ procedure TfrmSearchForm.EditorSettingsChanged(Sender: TObject);
 begin
   Modified;
 end;
-{$endregion}
 
-{$region 'protected methods' /fold}
-procedure TfrmSearchForm.Execute;
+procedure TfrmSearchForm.SearchEngineExecute(Sender: TObject);
 var
   S : string;
 begin
-  Manager.ClearHighlightSearch;
-  SearchEngine.SearchText := cbxSearchText.Text;
-  cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
-  SearchEngine.Options := Options;
-  SearchEngine.SearchAllViews := chkSearchInAllViews.Checked;
-  Modified;
-  SearchEngine.ItemList.Clear;
-  SearchEngine.ItemGroups.Clear;
-  FTVP.Refresh;
-  SearchEngine.Execute;
   FTVP.Refresh;
   FVST.Header.AutoFitColumns(False, smaAllColumns, 0);
   if SearchEngine.ItemList.Count = 1 then
@@ -385,10 +381,45 @@ begin
   else
     S := SMatchesFound;
   pnlStatus.Caption := Format(S, [SearchEngine.ItemList.Count]);
-  View.SetHighlightSearch(SearchText, Options);
-  FVST.SetFocus;
-  if SearchEngine.ItemList.Count > 0 then
-    FTVP.SelectedItem := FTVP.ItemsSource[0];
+  if Visible then
+  begin
+    if SearchEngine.ItemList.Count > 0 then
+    begin
+      FVST.SetFocus;
+      FTVP.SelectedItem := FTVP.ItemsSource[0];
+    end
+    else
+    begin
+      cbxSearchText.SetFocus;
+      cbxSearchText.SelectAll;
+    end;
+  end;
+end;
+
+procedure TfrmSearchForm.SearchEngineChange(Sender: TObject);
+begin
+  SearchText  := SearchEngine.SearchText;
+  ReplaceText := SearchEngine.ReplaceText;
+  if Assigned(FTVP.CurrentItem)
+    and (TSearchResult(FTVP.CurrentItem).Index <> SearchEngine.CurrentIndex + 1)
+    then
+  begin
+    FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
+  end;
+end;
+{$endregion}
+
+{$region 'protected methods' /fold}
+procedure TfrmSearchForm.Execute;
+var
+  S : string;
+begin
+  SearchEngine.SearchText := cbxSearchText.Text;
+  cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
+  SearchEngine.SearchAllViews := chkSearchInAllViews.Checked;
+  SearchEngine.Options        := Options;
+  Logger.Send('SearchOptions', SetToString(TypeInfo(TSynSearchOptions), SearchEngine.Options));
+  SearchEngine.Execute;
 end;
 
 procedure TfrmSearchForm.UpdateView;
@@ -402,17 +433,16 @@ begin
     );
     View.EndUpdate;
   end;
-  actReplaceWith.Checked := Manager.Actions['actSearchReplace'].Checked;
 end;
 
 procedure TfrmSearchForm.SettingsChanged;
 begin
   inherited SettingsChanged;
-  Options := SearchEngine.Options;
+  Options                     := SearchEngine.Options;
   chkSearchInAllViews.Checked := SearchEngine.SearchAllViews;
 end;
 
-{ Updates activeview and selects SearchText }
+{ Updates the active editorview and selects SearchText }
 
 procedure TfrmSearchForm.DoOnSelectionChanged(Sender: TObject);
 var
@@ -425,19 +455,19 @@ begin
     SR := FTVP.CurrentItem as TSearchResult;
     Manager.ActivateView(SR.ViewName);
     View.SelStart := SR.StartPos;
-    View.SelEnd := PointToPos(View.Lines, SR.BlockEnd);
+    View.SelEnd   := PointToPos(View.Lines, SR.BlockEnd);
     Modified;
-    SearchEngine.CurrentIndex := SR.Index - 1;
+    SearchEngine.CurrentIndex := SearchEngine.ItemList.IndexOf(SR);
   end
   else if FTVP.CurrentItem is TSearchResultLine then
   begin
     SRL := FTVP.CurrentItem as TSearchResultLine;
-    SR := SRL.List[0] as TSearchResult;
+    SR  := SRL.List[0] as TSearchResult;
     Manager.ActivateView(SR.ViewName);
     View.SelStart := SR.StartPos;
-    View.SelEnd := PointToPos(View.Lines, SR.BlockEnd);
+    View.SelEnd   := PointToPos(View.Lines, SR.BlockEnd);
     Modified;
-    SearchEngine.CurrentIndex := SR.Index - 1;
+    SearchEngine.CurrentIndex := SearchEngine.ItemList.IndexOf(SR);
   end
   else if FTVP.CurrentItem is TSearchResultGroup then
   begin
@@ -446,10 +476,11 @@ begin
     SR  := SRL.List[0] as TSearchResult;
     Manager.ActivateView(SRG.ViewName);
     View.SelStart := SR.StartPos;
-    View.SelEnd := PointToPos(View.Lines, SR.BlockEnd);
+    View.SelEnd   := PointToPos(View.Lines, SR.BlockEnd);
     Modified;
-    SearchEngine.CurrentIndex := SR.Index - 1;
+    SearchEngine.CurrentIndex := SearchEngine.ItemList.IndexOf(SR);
   end;
+  Logger.Send('SR.Index', SR.Index);
 end;
 
 procedure TfrmSearchForm.UpdateActions;
@@ -459,13 +490,6 @@ begin
   inherited UpdateActions;
   { Focus the corresponding search result in the list when we do find next/
     find previous from the editor view. }
-  if Assigned(FTVP.CurrentItem)
-    and (TSearchResult(FTVP.CurrentItem).Index <> SearchEngine.CurrentIndex + 1)
-    and View.Focused
-    then
-  begin
-    FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
-  end;
   B := (SearchEngine.ItemList.Count > 0) and (ReplaceText <> '');
   btnReplace.Visible     := B;
   btnReplaceAll.Visible  := B;
@@ -482,16 +506,16 @@ begin
     if (SearchEngine.SearchText <> SearchText)
       or (SearchEngine.Options <> Options) then
     begin
-      SearchEngine.Options := Options;
+      SearchEngine.Options    := Options;
       SearchEngine.SearchText := SearchText;
-      pnlStatus.Caption := '';
+      pnlStatus.Caption       := '';
       Manager.ClearHighlightSearch;
       SearchEngine.ItemGroups.Clear;
       SearchEngine.ItemList.Clear;
       FTVP.Refresh;
     end;
     Updated;
-  end;
+  end
 end;
 {$endregion}
 

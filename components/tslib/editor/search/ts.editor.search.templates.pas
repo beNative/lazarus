@@ -18,7 +18,8 @@
 
 unit ts.Editor.Search.Templates;
 
-{ Data templates used to display the search results hierarchically. }
+{ Data templates used to display the search results hierarchically in a
+  TVirtualStringTree using a TTreeViewPresenter. }
 
 {$MODE Delphi}
 

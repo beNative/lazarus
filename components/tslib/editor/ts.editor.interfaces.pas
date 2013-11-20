@@ -496,11 +496,17 @@ type
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
     procedure SetSearchText(AValue: string);
+
     procedure Execute;
     procedure Replace;
     procedure ReplaceAll;
     procedure FindNext;
     procedure FindPrevious;
+
+    procedure AddOnExecuteHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnExecuteHandler(AEvent: TNotifyEvent);
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
 
     property CurrentIndex: Integer
       read GetCurrentIndex write SetCurrentIndex;

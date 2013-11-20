@@ -89,7 +89,6 @@ begin
   with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 80) do
   begin
     ColumnType := TColumnType.ctCheckBox;
-    AllowEdit := True;
   end;
   FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
   FItemList := TObjectList.Create;

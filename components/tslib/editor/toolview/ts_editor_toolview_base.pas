@@ -19,7 +19,9 @@
 unit ts_Editor_ToolView_Base;
 
 { Base toolview form that can be used to create descendants that implement
-  IEditorToolView }
+  IEditorToolView.
+  It reacts to changes in the common settings (IEditorSettings) which are
+  associated with the manager (IEditorManager) instance.  }
 
 {$MODE Delphi}
 
@@ -90,7 +92,7 @@ implementation
 {$R *.lfm}
 
 uses
-{$IFDEF windows}
+{$IFDEF Windows}
   Windows,
 {$ENDIF}
   LCLIntf, LMessages;

@@ -579,7 +579,6 @@ type
 
     procedure ShowToolView(
        const AName      : string;
-             AVisible   : Boolean;
              AShowModal : Boolean;
              ASetFocus  : Boolean
     );
@@ -1242,27 +1241,31 @@ end;
 
 procedure TdmEditorManager.actSearchExecute(Sender: TObject);
 begin
-  ShowToolView('Search', (Sender as TAction).Checked, False, True);
+  if ActiveView.SelAvail then
+    SearchEngine.SearchText := ActiveView.SelText;
+  ShowToolView('Search', False, True);
 end;
 
 procedure TdmEditorManager.actSearchReplaceExecute(Sender: TObject);
 begin
-  ShowToolView('Search', (Sender as TAction).Checked, False, True);
+  if ActiveView.SelAvail then
+    SearchEngine.SearchText := ActiveView.SelText;
+  ShowToolView('Search', False, True);
 end;
 
 procedure TdmEditorManager.actShapeCodeExecute(Sender: TObject);
 begin
-  ShowToolView('CodeShaper', (Sender as TAction).Checked, False, True);
+  ShowToolView('CodeShaper', False, True);
 end;
 
 procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
 begin
-  ShowToolView('CharacterMap', (Sender as TAction).Checked, False, False);
+  ShowToolView('CharacterMap', False, False);
 end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
 begin
-  ShowToolView('AlignLines', (Sender as TAction).Checked, False, True);
+  ShowToolView('AlignLines', False, True);
 end;
 
 procedure TdmEditorManager.actAssociateFilesExecute(Sender: TObject);
@@ -1281,49 +1284,49 @@ procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    ShowToolView('Preview', (Sender as TAction).Checked, False, False);
-    Settings.PreviewVisible := (Sender as TAction).Checked;
+    ShowToolView('Preview', False, False);
+    Settings.PreviewVisible := True;
   end;
 end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
 begin
-  ShowToolView('Test', (Sender as TAction).Checked, False, False);
+  ShowToolView('Test', False, False);
 end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
 begin
-  ShowToolView('ViewList', (Sender as TAction).Checked, True, True);
+  ShowToolView('ViewList', True, True);
 end;
 
 procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
 begin
-  ShowToolView('ActionListView', (Sender as TAction).Checked, True, True);
+  ShowToolView('ActionListView', True, True);
 end;
 
 procedure TdmEditorManager.actShowHexEditorExecute(Sender: TObject);
 begin
-  ShowToolView('HexEditor', (Sender as TAction).Checked, False, True);
+  ShowToolView('HexEditor', False, True);
 end;
 
 procedure TdmEditorManager.actShowHTMLViewerExecute(Sender: TObject);
 begin
-  ShowToolView('HTMLView', (Sender as TAction).Checked, False, False);
+  ShowToolView('HTMLView', False, False);
 end;
 
 procedure TdmEditorManager.actShowMiniMapExecute(Sender: TObject);
 begin
-  ShowToolView('MiniMap', (Sender as TAction).Checked, False, False);
+  ShowToolView('MiniMap', False, False);
 end;
 
 procedure TdmEditorManager.actShowScriptEditorExecute(Sender: TObject);
 begin
-  ShowToolView('ScriptEditor', (Sender as TAction).Checked, False, False);
+  ShowToolView('ScriptEditor', False, False);
 end;
 
 procedure TdmEditorManager.actShowStructureViewerExecute(Sender: TObject);
 begin
-  ShowToolView('Structure', (Sender as TAction).Checked, False, False);
+  ShowToolView('Structure', False, False);
 end;
 
 procedure TdmEditorManager.actSelectAllExecute(Sender: TObject);
@@ -1718,7 +1721,7 @@ begin
     F.ColumnDefinitions.AddColumn('Caption', 'Caption');
     //F.ItemTemplate  := TActionCategoryTemplate.Create(F.ColumnDefinitions);
     F.ItemsSource := OL;
-    ShowToolView('Filter', True, True, True);
+    ShowToolView('Filter', True, True);
   finally
     OL.Free;
   end;
@@ -1736,6 +1739,8 @@ begin
   // TODO
   SearchEngine.SearchText := ActiveView.CurrentWord;
   SearchEngine.Execute;
+  //ShowToolView('Search', False, True);
+
 end;
 
 procedure TdmEditorManager.actIndentExecute(Sender: TObject);
@@ -1758,7 +1763,7 @@ end;
 
 procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
 begin
-  ShowToolView('SelectionInfo', (Sender as TAction).Checked, False, False);
+  ShowToolView('SelectionInfo', False, False);
 end;
 
 procedure TdmEditorManager.actSelectionModeExecute(Sender: TObject);
@@ -2798,32 +2803,32 @@ begin
 end;
 {$endregion}
 
-procedure TdmEditorManager.ShowToolView(const AName: string; AVisible: Boolean;
+procedure TdmEditorManager.ShowToolView(const AName: string;
   AShowModal: Boolean; ASetFocus: Boolean);
 var
   ETV : IEditorToolView;
 begin
-  if not AShowModal then
-    ToolViews.Hide;
-  if AVisible then
-  begin
-    ETV := ToolViews[AName];
-    if not AShowModal then
-    begin
-      { Allow owner to dock the toolview in the main application workspace. }
-      Events.DoShowToolView(ETV);
-      ETV.Visible := True;
-    end
-    else
-    begin
-      ETV.Form.ShowModal;
-    end;
-    ETV.UpdateView;
-    if ASetFocus then
-      ETV.SetFocus;
-  end
-  else
-    Events.DoHideToolView(ETV);
+    //if not AShowModal then
+    //  ToolViews.Hide;
+    //if AVisible then
+    //begin
+      ETV := ToolViews[AName];
+      if not AShowModal then
+      begin
+        { Allow owner to dock the toolview in the main application workspace. }
+        Events.DoShowToolView(ETV);
+        ETV.Visible := True;
+      end
+      else
+      begin
+        ETV.Form.ShowModal;
+      end;
+      ETV.UpdateView;
+      if ASetFocus then
+        ETV.SetFocus;
+    //end
+    //else
+    //  Events.DoHideToolView(ETV);
 end;
 
 {$region 'IEditorCommands' /fold}
@@ -3058,8 +3063,8 @@ end;
 {$region 'UpdateActions' /fold}
 procedure TdmEditorManager.UpdateActions;
 var
-  B: Boolean;
-  V: IEditorView;
+  B : Boolean;
+  V : IEditorView;
 begin
   V := ActiveView;
   if Assigned(V) and Assigned(Settings) and V.Focused {and FChanged} then
@@ -3116,21 +3121,6 @@ begin
     actCut.Enabled   := actCut.Visible and B;
     actCopy.Enabled  := actCopy.Visible and B;
     actPaste.Enabled := actPaste.Visible and ActiveView.CanPaste and B;
-
-    if ToolViews.Count > 0 then
-    begin
-      actInsertCharacterFromMap.Checked := ToolViews['CharacterMap'].Visible;
-      actSearch.Checked                 := ToolViews['Search'].Visible;
-      actShapeCode.Checked              := ToolViews['CodeShaper'].Visible;
-      actAlignSelection.Checked         := ToolViews['AlignLines'].Visible;
-      actShowPreview.Checked            := ToolViews['Preview'].Visible;
-      actFilterCode.Checked             := ToolViews['CodeFilter'].Visible;
-      actShowViews.Checked              := ToolViews['ViewList'].Visible;
-      actShowActions.Checked            := ToolViews['ActionListView'].Visible;
-      actShowHexEditor.Checked          := ToolViews['HexEditor'].Visible;
-      actShowMiniMap.Checked            := ToolViews['MiniMap'].Visible;
-      actShowHTMLViewer.Checked         := ToolViews['HTMLView'].Visible;
-    end;
 
     B := V.SupportsFolding;
     actToggleFoldLevel.Enabled := B;
@@ -3238,8 +3228,9 @@ begin
   begin
     S := actHighlighter.Name + ActiveView.HighlighterItem.Name;
     A := Items[S];
-    //if Assigned(A) then
-    //  A.Checked := True;
+    // TS TODO!!!
+    if Assigned(A) then
+      A.Checked := True;
   end;
 end;
 

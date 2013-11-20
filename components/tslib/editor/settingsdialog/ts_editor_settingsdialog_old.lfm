@@ -26,20 +26,20 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 549
       Top = 2
       Width = 545
-      ActivePage = tsHighlighterAttributes
+      ActivePage = tsSettings
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Main settings'
-        ClientHeight = 504
-        ClientWidth = 539
+        ClientHeight = 521
+        ClientWidth = 537
         object pnlPI: TPanel
           Left = 3
-          Height = 498
+          Height = 515
           Top = 3
-          Width = 533
+          Width = 531
           Align = alClient
           BorderSpacing.Around = 3
           BevelOuter = bvNone

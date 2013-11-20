@@ -1,6 +1,6 @@
 #labels Featured
 You can download the latest binaries directly from svn for your platform.
-Go to Source->Browsse->Projects->Notepas->Bin and find the latest builds for every supported platform.
+Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for every supported platform.
 
 =1. Linux=
 

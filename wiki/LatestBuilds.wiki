@@ -4,8 +4,8 @@
 You can download the latest binaries directly from svn for your platform.
 Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for every supported platform or use the links below if you just need the executable.
 
-* [http://notepas.googlecode.com/svn/projects/notepas/bin/i386-win32-win32/notepas.exe notepas_win32_win32]
-* [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-win64-win32/notepas.exe notepas_win64_win32]
-* [http://notepas.googlecode.com/svn/projects/notepas/bin/i386-linux-gtk2/notepas notepas_linux32_gtk2]
-* [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-gtk2/notepas notepas_linux64_gtk2]
-* [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-qt/notepas notepas_linux64_qt]
+ * [http://notepas.googlecode.com/svn/projects/notepas/bin/i386-win32-win32/notepas.exe notepas_win32_win32]
+ * [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-win64-win32/notepas.exe notepas_win64_win32]
+ * [http://notepas.googlecode.com/svn/projects/notepas/bin/i386-linux-gtk2/notepas notepas_linux32_gtk2]
+ * [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-gtk2/notepas notepas_linux64_gtk2]
+ * [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-qt/notepas notepas_linux64_qt]

@@ -2,9 +2,9 @@
 You can download the latest binaries directly from svn for your platform.
 Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for every supported platform.
 
-[notepas_win32|http://code.google.com/p/notepas/source/browse/projects/notepas/bin/i386-win32-win32/notepas.exe]
+[http://code.google.com/p/notepas/source/browse/projects/notepas/bin/i386-win32-win32/notepas.exe notepas_win32]
 [notepas_win64|http://code.google.com/p/notepas/source/browse/projects/notepas/bin/x86_64-win64-win32/notepas.exe]
-[notepas_linux64_qt|http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-qt/notepas]
+[http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-qt/notepas notepas_linux64_qt]
 
 
 =1. Linux=

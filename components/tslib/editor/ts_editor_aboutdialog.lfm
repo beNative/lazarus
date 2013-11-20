@@ -13,14 +13,6 @@ object frmAbout: TfrmAbout
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '1.3'
-  object grpLine: TGroupBox
-    Left = 4
-    Height = 2
-    Top = 216
-    Width = 630
-    Anchors = [akLeft, akRight, akBottom]
-    TabOrder = 0
-  end
   object pgcMain: TPageControl
     Left = 240
     Height = 204
@@ -29,21 +21,21 @@ object frmAbout: TfrmAbout
     ActivePage = tsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
-    TabOrder = 1
+    TabOrder = 0
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 179
-      ClientWidth = 390
+      ClientHeight = 176
+      ClientWidth = 386
       object lblFPCVersion: TLabel
         Left = 8
         Height = 15
         Top = 9
-        Width = 75
+        Width = 65
         Caption = 'FPC version:'
         ParentColor = False
       end
       object pnlFPCVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 9
         Width = 105
@@ -56,7 +48,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 58
-        Width = 63
+        Width = 55
         Caption = 'Target OS:'
         ParentColor = False
       end
@@ -64,12 +56,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 78
-        Width = 70
+        Width = 63
         Caption = 'Target CPU:'
         ParentColor = False
       end
       object pnlTargetOS: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 58
         Width = 105
@@ -79,7 +71,7 @@ object frmAbout: TfrmAbout
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 78
         Width = 105
@@ -92,12 +84,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 133
-        Width = 65
+        Width = 56
         Caption = 'Build date:'
         ParentColor = False
       end
       object pnlBuildDate: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 133
         Width = 105
@@ -110,12 +102,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 105
-        Width = 69
+        Width = 59
         Caption = 'Widget set:'
         ParentColor = False
       end
       object pnlWidgetSet: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 105
         Width = 105
@@ -128,12 +120,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 29
-        Width = 74
+        Width = 64
         Caption = 'LCL version:'
         ParentColor = False
       end
       object pnlLCLVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 29
         Width = 105
@@ -146,12 +138,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 151
-        Width = 49
+        Width = 42
         Caption = 'Version:'
         ParentColor = False
       end
       object pnlFileVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 151
         Width = 105
@@ -194,13 +186,13 @@ object frmAbout: TfrmAbout
     end
     object tsCredits: TTabSheet
       Caption = 'Credits'
-      ClientHeight = 178
-      ClientWidth = 390
+      ClientHeight = 176
+      ClientWidth = 386
       object vstCredits: TVirtualStringTree
         Left = 4
-        Height = 164
+        Height = 162
         Top = 6
-        Width = 381
+        Width = 377
         Anchors = [akTop, akLeft, akRight, akBottom]
         Colors.FocusedSelectionColor = clSilver
         Colors.FocusedSelectionBorderColor = clSilver
@@ -780,7 +772,7 @@ object frmAbout: TfrmAbout
     Font.Style = [fsBold]
     ParentColor = False
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object lblLegalCopyright: TLabel
     Left = 8
@@ -793,14 +785,14 @@ object frmAbout: TfrmAbout
     ParentColor = False
   end
   object btnClose: TButton
-    Left = 522
+    Left = 512
     Height = 25
     Top = 224
-    Width = 110
+    Width = 120
     Action = actClose
     Anchors = [akRight, akBottom]
     ModalResult = 11
-    TabOrder = 3
+    TabOrder = 2
   end
   object lblURL: TLabel
     Cursor = crHandPoint
@@ -1383,26 +1375,30 @@ object frmAbout: TfrmAbout
     ShowCaption = False
   end
   object aclMain: TActionList
-    left = 88
-    top = 232
+    left = 200
+    top = 192
     object actClose: TAction
+      Category = 'About'
       Caption = '&Close'
       OnExecute = actCloseExecute
       ShortCut = 27
     end
     object actURL: TAction
+      Category = 'About'
       Caption = 'Visit URL'
       OnExecute = actURLExecute
     end
     object actDonate: TAction
-      Caption = 'actDonate'
+      Category = 'About'
+      Caption = 'Donate'
       Hint = 'If you like this project, you can support development with a donation.'
       OnExecute = actDonateExecute
     end
     object actReportDefect: TAction
-      Caption = 'actReportIssue'
+      Category = 'About'
+      Caption = 'Report a defect.'
       Hint = 'Report an issue.'
       OnExecute = actReportDefectExecute
     end
   end
-end
+end

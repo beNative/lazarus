@@ -4976,7 +4976,6 @@ object dmEditorManager: TdmEditorManager
     left = 121
     top = 215
     object MenuItem8: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSearch: TPopupMenu
@@ -5031,7 +5030,6 @@ object dmEditorManager: TdmEditorManager
     left = 88
     top = 464
     object MenuItem21: TMenuItem
-      Caption = 'New Item1'
     end
   end
   object ppmSelectionDecode: TPopupMenu
@@ -5039,7 +5037,6 @@ object dmEditorManager: TdmEditorManager
     left = 184
     top = 464
     object MenuItem22: TMenuItem
-      Caption = 'New Item1'
     end
   end
 end

@@ -158,10 +158,10 @@ type
     actExecuteScriptOnSelection       : TAction;
     actHighlighterMenu                : TAction;
     actFoldMenu                       : TAction;
-    actEncodeURL: TAction;
-    actDecodeURL: TAction;
-    actSelectionEncodeMenu: TAction;
-    actSelectionDecodeMenu: TAction;
+    actEncodeURL                      : TAction;
+    actDecodeURL                      : TAction;
+    actSelectionEncodeMenu            : TAction;
+    actSelectionDecodeMenu            : TAction;
     actSettingsMenu                   : TAction;
     actShowFilterTest                 : TAction;
     actShowScriptEditor               : TAction;
@@ -271,8 +271,8 @@ type
     MenuItem19                        : TMenuItem;
     MenuItem2                         : TMenuItem;
     MenuItem20                        : TMenuItem;
-    MenuItem21: TMenuItem;
-    MenuItem22: TMenuItem;
+    MenuItem21                        : TMenuItem;
+    MenuItem22                        : TMenuItem;
     MenuItem3                         : TMenuItem;
     MenuItem4                         : TMenuItem;
     MenuItem43                        : TMenuItem;
@@ -302,8 +302,8 @@ type
     ppmSearch                         : TPopupMenu;
     ppmLineBreakStyle                 : TPopupMenu;
     ppmSelect                         : TPopupMenu;
-    ppmSelectionEncode: TPopupMenu;
-    ppmSelectionDecode: TPopupMenu;
+    ppmSelectionEncode                : TPopupMenu;
+    ppmSelectionDecode                : TPopupMenu;
     ppmSettings                       : TPopupMenu;
     ppmSelection                      : TPopupMenu;
     ppmSelectionMode                  : TPopupMenu;

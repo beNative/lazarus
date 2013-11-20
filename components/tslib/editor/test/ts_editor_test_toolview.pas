@@ -33,8 +33,6 @@ type
   { TfrmTest }
 
   TfrmTest = class(TCustomEditorToolView)
-    btnExecute : TButton;
-    pnlTest    : TPanel;
   end;
 
 implementation

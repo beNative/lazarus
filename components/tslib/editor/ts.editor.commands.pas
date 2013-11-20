@@ -20,8 +20,9 @@ unit ts.Editor.Commands;
 
 {$MODE Delphi}
 
-{ Commands that can be executed on the ActiveView }
-{ Intended to implement IEditorCommands in the future. }
+{ Implements IEditorCommands which represents all commands that can be executed
+  on the active editor view. }
+{ TODO: Intended to implement IEditorCommands in the future. }
 
 interface
 
@@ -34,13 +35,13 @@ type
   TEditorCommands = class(TComponent)
   private
     function GetManager: IEditorManager;
+
   protected
     property Manager: IEditorManager
       read GetManager;
+
   public
     procedure AfterConstruction; override;
-
-    { IEditorCommands }
 
   end;
 

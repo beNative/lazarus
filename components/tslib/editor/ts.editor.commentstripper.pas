@@ -20,6 +20,8 @@ unit ts.Editor.CommentStripper;
 
 {$MODE Delphi}
 
+{ TODO: Needs to be integrated . }
+
 interface
 
 uses

@@ -66,7 +66,6 @@ type
     actReportDefect: TAction;
     actURL: TAction;
     btnClose: TButton;
-    grpLine           : TGroupBox;
     Image1: TImage;
     imgMain: TImage;
     lbBuildDate: TLabel;

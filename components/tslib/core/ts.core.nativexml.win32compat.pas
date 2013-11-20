@@ -27,6 +27,7 @@
 
   copyright (c) 2011 Nils Haeck (www.simdesign.nl)
 }
+
 unit ts.Core.NativeXml.Win32Compat;
 
 {$DEFINE LINUX}

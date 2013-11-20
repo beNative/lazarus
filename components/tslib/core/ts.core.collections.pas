@@ -28,7 +28,7 @@ interface
   Anthony Walter explained in FPC issue 23158 how the implementation of generics
   in FPC differs from the one in Delphi:
 
-    Constraints would be nice, but the way FPC handles generics in some ways is
+    "Constraints would be nice, but the way FPC handles generics in some ways is
     much superior to the current Delphi implementation or even the C#
     implementation, in my opinion.
 
@@ -49,7 +49,7 @@ interface
     constraints and this is a good thing.
 
     As such, the only reason I see to add constraints is to make FPC code more
-    compatible with Delphi.
+    compatible with Delphi."
 }
 
 uses

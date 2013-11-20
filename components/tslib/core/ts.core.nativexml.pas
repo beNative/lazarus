@@ -81,6 +81,12 @@
 
   Copyright (c) 2003 - 2011 Simdesign B.V. (www.simdesign.nl)
 }
+
+{
+  Modifications by Tim Sinaeve:
+    - Some minor adjustments for 64bit support.
+}
+
 unit ts.Core.NativeXml;
 
 interface

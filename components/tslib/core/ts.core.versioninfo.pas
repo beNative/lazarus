@@ -118,18 +118,17 @@ uses
   LCLVersion, InterfaceBase;
 
 const
-  sGTKWidgetSet      = 'GTK';
-  sGTK2WidgetSet     = 'GTK 2';
-  sWin32_64WidgetSet = 'Win32/Win64';
-  sWinCEWidgetSet    = 'WinCE';
-  sCarbonWidgetSet   = 'Carbon';
-  sQTWidgetSet       = 'QT';
-  sFpGUIWidgetSet    = 'FpGUI';
-  sOtherGUIWidgetSet = 'Other gui';
+  GTK_WIDGETSET       = 'GTK';
+  GTK2_WIDGETSET      = 'GTK 2';
+  WIN32_WIDGETSET     = 'Win32/Win64';
+  WINCE_WIDGETSET     = 'WinCE';
+  CARBON_WIDGETSET    = 'Carbon';
+  QT_WIDGETSET        = 'QT';
+  FP_GUI_WIDGETSET    = 'FpGUI';
+  OTHER_GUI_WIDGETSET = 'Other gui';
 
 var
   FVersionInfo: TVersionInfo;
-
 
 function VersionInfo: TVersionInfo;
 begin
@@ -137,8 +136,6 @@ begin
     FVersionInfo := TVersionInfo.Create(Application);
   Result := FVersionInfo;
 end;
-
-
 
 procedure TVersionInfo.AfterConstruction;
 begin
@@ -212,21 +209,21 @@ function TVersionInfo.GetWidgetSet: string;
 begin
   case InterfaceBase.WidgetSet.LCLPlatform of
     lpGtk:
-      Result := sGTKWidgetSet;
+      Result := GTK_WIDGETSET;
     lpGtk2:
-      Result := sGTK2WidgetSet;
+      Result := GTK2_WIDGETSET;
     lpWin32:
-      Result := sWin32_64WidgetSet;
+      Result := WIN32_WIDGETSET;
     lpWinCE:
-      Result := sWinCEWidgetSet;
+      Result := WINCE_WIDGETSET;
     lpCarbon:
-      Result := sCarbonWidgetSet;
+      Result := CARBON_WIDGETSET;
     lpQT:
-      Result := sQTWidgetSet;
+      Result := QT_WIDGETSET;
     lpfpGUI:
-      Result := sFpGUIWidgetSet;
+      Result := FP_GUI_WIDGETSET;
   else
-    Result := sOtherGUIWidgetSet;
+    Result := OTHER_GUI_WIDGETSET;
   end;
 end;
 

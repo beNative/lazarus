@@ -1,4 +1,7 @@
 #labels Featured
+You can download the latest binaries directly from svn for your platform.
+
+
 =1. Linux=
 
 ==1.1 Linux Mint 32 bit==

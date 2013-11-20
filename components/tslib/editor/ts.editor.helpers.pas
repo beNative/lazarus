@@ -380,18 +380,6 @@ begin
   SMI := AddEditorMenuItem(AManager, MI, 'actSelectionDecodeMenu');
   AddEditorMenuItem(AManager, SMI, 'actDecodeBase64');
   AddEditorMenuItem(AManager, SMI, 'actDecodeURL');
-
-
-  //TMenuItem.Create(AMainMenu.Owner);
-  //SMI.Assign(AManager.Menus.SelectionEncodePopupMenu.Items);
-  //MI.Add(SMI);
-  //MI.Add(AManager.Menus.SelectionEncodePopupMenu.Items);
-  //MI.Add(AManager.Menus.SelectionDecodePopupMenu.Items);
-    //AddEditorMenuItem(AManager, SMI, );
-  //AddEditorMenuItem(AManager, AManager.Menus.SelectionDecodePopupMenu.Items);
-
-  //AddEditorMenuItem(AManager, MI, 'actEncodeBase64');
-  //AddEditorMenuItem(AManager, MI, 'actDecodeBase64');
 end;
 
 procedure AddEditorInsertMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
@@ -579,4 +567,4 @@ begin
 end;
 
 end.
-
+

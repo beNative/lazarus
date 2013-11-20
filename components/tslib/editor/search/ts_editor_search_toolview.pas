@@ -480,7 +480,6 @@ begin
     Modified;
     SearchEngine.CurrentIndex := SearchEngine.ItemList.IndexOf(SR);
   end;
-  Logger.Send('SR.Index', SR.Index);
 end;
 
 procedure TfrmSearchForm.UpdateActions;
@@ -519,4 +518,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

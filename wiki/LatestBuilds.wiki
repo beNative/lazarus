@@ -13,5 +13,4 @@ Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for ever
 
 [http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-gtk2/notepas notepas_linux64_gtk2]
 
-[http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-
-qt/notepas notepas_linux64_qt]
+[http://notepas.googlecode.com/svn/projects/notepas/bin/x86_64-linux-qt/notepas notepas_linux64_qt]

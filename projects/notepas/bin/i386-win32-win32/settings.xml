@@ -269,10 +269,10 @@
 	<LanguageCode>cn</LanguageCode>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>25</Left>
-		<Top>25</Top>
-		<Width>1417</Width>
-		<Height>819</Height>
+		<Left>241</Left>
+		<Top>91</Top>
+		<Width>1432</Width>
+		<Height>813</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -284,8 +284,8 @@
 		<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
 		<Tokens>(TStringList)
 			<DefinedProperties>
-			B1N0cmluZ3MBBgEnBgEtBgItLQYBIgYBIwYBJQYCKCoGASoGAiopBgEsBgIvLwYBOgYCOj0GAUAG
-			AXsGAXwGASsGAjw8BgE9BgI+PgYDYW5kBgJhcwYCaW4GAm9yBgRyZWFkBgV3cml0ZQA=
+			B1N0cmluZ3MBBgEtBgItLQYBJwYBLAYBOgYCOj0GASIGAigqBgF7BgFABgEqBgIqKQYCLy8GASMG
+			ASUGASsGAjw8BgE9BgI+PgYBfAYDYW5kBgJhcwYCaW4GAm9yBgRyZWFkBgV3cml0ZQA=
 			</DefinedProperties>
 		</Tokens>
 	</AlignLinesSettings>
@@ -516,8 +516,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>‘D≥ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--ËD≥ </BlockCommentEndTag>
+			<BlockCommentStartTag>‘4≥ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--Ë4≥ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -929,8 +929,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>‘D≥ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--ËD≥ </BlockCommentEndTag>
+			<BlockCommentStartTag>‘4≥ !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--Ë4≥ </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

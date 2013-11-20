@@ -595,7 +595,6 @@ begin
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
   InitDebugAction('actNewSharedView');
-  InitDebugAction('actFindAllOccurences');
   InitDebugAction('actShowPreview');
   InitDebugAction('actShowHTMLViewer');
   InitDebugAction('actShowStructureViewer');
@@ -686,4 +685,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

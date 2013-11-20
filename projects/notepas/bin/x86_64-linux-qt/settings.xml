@@ -220,7 +220,7 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>None</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
 		<Left>553</Left>
@@ -468,8 +468,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>XML</Name>
-			<BlockCommentStartTag>à.¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- /¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>(¸» !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--H¸» </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -881,8 +881,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>HTML</Name>
-			<BlockCommentStartTag>à.¿ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- /¿ </BlockCommentEndTag>
+			<BlockCommentStartTag>(¸» !--</BlockCommentStartTag>
+			<BlockCommentEndTag>--H¸» </BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

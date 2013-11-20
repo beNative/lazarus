@@ -1,4 +1,3 @@
-#labels Linux,Featured
 == Some screenshots of Notepas on Linux ==
 
 https://notepas.googlecode.com/svn/wiki/images/notepas_qt_linux.png

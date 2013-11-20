@@ -2,6 +2,11 @@
 You can download the latest binaries directly from svn for your platform.
 Go to Source->Browse->Projects->Notepas->Bin and find the latest builds for every supported platform.
 
+[notepas_win32|http://code.google.com/p/notepas/source/browse/projects/notepas/bin/i386-win32-win32/notepas.exe]
+[notepas_win64|http://code.google.com/p/notepas/source/browse/projects/notepas/bin/x86_64-win64-win32/notepas.exe]
+[notepas_linux64_qt|http://code.google.com/p/notepas/source/browse/projects/notepas/bin/x86_64-linux-qt/notepas]
+
+
 =1. Linux=
 
 ==1.1 Linux Mint 32 bit==

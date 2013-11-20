@@ -1081,21 +1081,6 @@ msgstr "转为大写"
 msgid "Upper case selection"
 msgstr ""
 
-#: tdmeditormanager.menuitem21.caption
-msgctxt "tdmeditormanager.menuitem21.caption"
-msgid "New Item1"
-msgstr ""
-
-#: tdmeditormanager.menuitem22.caption
-msgctxt "tdmeditormanager.menuitem22.caption"
-msgid "New Item1"
-msgstr ""
-
-#: tdmeditormanager.menuitem8.caption
-msgctxt "tdmeditormanager.menuitem8.caption"
-msgid "New Item1"
-msgstr ""
-
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
 msgstr ""
@@ -1110,7 +1095,7 @@ msgid "&Close"
 msgstr "关闭(&C)"
 
 #: tfrmabout.actdonate.caption
-msgid "actDonate"
+msgid "Donate"
 msgstr ""
 
 #: tfrmabout.actdonate.hint
@@ -1118,7 +1103,7 @@ msgid "If you like this project, you can support development with a donation."
 msgstr ""
 
 #: tfrmabout.actreportdefect.caption
-msgid "actReportIssue"
+msgid "Report a defect."
 msgstr ""
 
 #: tfrmabout.actreportdefect.hint
@@ -2021,6 +2006,10 @@ msgstr "关于"
 msgid "Close all other pages"
 msgstr ""
 
+#: tfrmmain.actclosetoolview.caption
+msgid "Close toolview"
+msgstr ""
+
 #: tfrmmain.actinspect.caption
 msgctxt "tfrmmain.actinspect.caption"
 msgid "Inspect"
@@ -2659,10 +2648,6 @@ msgstr "替换"
 msgid "Replace all"
 msgstr "全部替换"
 
-#: tfrmsearchform.actreplacewith.caption
-msgid "&Replace with:"
-msgstr ""
-
 #: tfrmsearchform.caption
 msgctxt "TFRMSEARCHFORM.CAPTION"
 msgid "Find"
@@ -2896,87 +2881,6 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.components.synminimap.sfontfactorminmax
-msgctxt "ts.components.synminimap.sfontfactorminmax"
-msgid "Font factor cannot be smaller than %.d or greater than %.d."
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvert
-msgctxt "ts.core.codecutilswin32.scannotconvert"
-msgid "Unicode code point $%x has no equivalent in %s"
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvertucs4
-#, qt-format
-msgctxt "ts.core.codecutilswin32.scannotconvertucs4"
-msgid "Cannot convert $%8.8X to %s"
-msgstr ""
-
-#: ts.core.codecutilswin32.sencodingoutofrange
-msgctxt "ts.core.codecutilswin32.sencodingoutofrange"
-msgid "%s encoding out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.shighsurrogatenotfound
-msgctxt "ts.core.codecutilswin32.shighsurrogatenotfound"
-msgid "High surrogate not found"
-msgstr ""
-
-#: ts.core.codecutilswin32.sindexoutofrange
-msgctxt "ts.core.codecutilswin32.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.sinvalidcodepoint
-msgctxt "ts.core.codecutilswin32.sinvalidcodepoint"
-msgid "$%x is not a valid %s code point"
-msgstr ""
-
-#: ts.core.codecutilswin32.sinvalidencoding
-msgctxt "ts.core.codecutilswin32.sinvalidencoding"
-msgid "Invalid %s encoding"
-msgstr ""
-
-#: ts.core.codecutilswin32.slowsurrogatenotfound
-msgctxt "ts.core.codecutilswin32.slowsurrogatenotfound"
-msgid "Low surrogate not found"
-msgstr ""
-
-#: ts.core.codecutilswin32.ssurrogatenotallowed
-msgctxt "ts.core.codecutilswin32.ssurrogatenotallowed"
-msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
-msgstr ""
-
-#: ts.core.codecutilswin32.sutf8error
-msgctxt "ts.core.codecutilswin32.sutf8error"
-msgid "UTF-8 error %d"
-msgstr ""
-
-#: ts.core.dbutils.snofieldtypeforvariantvalue
-msgctxt "ts.core.dbutils.snofieldtypeforvariantvalue"
-msgid "No fieldtype for Variant value %s"
-msgstr ""
-
-#: ts.core.dbutils.sparameternotassigned
-msgctxt "ts.core.dbutils.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr ""
-
-#: ts.core.dbutils.squerylookuperrorrunningquery
-msgctxt "ts.core.dbutils.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr ""
-
-#: ts.core.dbutils.squerylookuptoomanyrecords
-msgctxt "ts.core.dbutils.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: ts.core.encodingutils.sindexoutofrange
-msgctxt "ts.core.encodingutils.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
 #: ts.core.generics.collections.sargumentoutofrange
 msgid "Argument out of range"
 msgstr ""
@@ -3146,173 +3050,6 @@ msgstr ""
 #: ts.core.nativexml.sxmlparentnotassigned
 msgctxt "ts.core.nativexml.sxmlparentnotassigned"
 msgid "XML parent is not assigned"
-msgstr ""
-
-#: ts.core.sqlparser.serrasteriskonlyincount
-msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
-msgid "* allowed only in COUNT aggregate"
-msgstr ""
-
-#: ts.core.sqlparser.serrcannotaltergenerator
-msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
-msgid "Alter generator statement unknown"
-msgstr ""
-
-#: ts.core.sqlparser.serrdomainnotallowed
-msgctxt "ts.core.sqlparser.serrdomainnotallowed"
-msgid "Domain name not allowed in typ definition."
-msgstr ""
-
-#: ts.core.sqlparser.serrexpecteddbobject
-msgctxt "ts.core.sqlparser.serrexpecteddbobject"
-msgid "Expected database object type. Got: '%s'"
-msgstr ""
-
-#: ts.core.sqlparser.serrhavingwithoutgroupby
-msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
-msgid "HAVING without GROUP BY clause not allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrintegerexpected
-msgctxt "ts.core.sqlparser.serrintegerexpected"
-msgid "Integer expression expected"
-msgstr ""
-
-#: ts.core.sqlparser.serrinvalidextract
-msgctxt "ts.core.sqlparser.serrinvalidextract"
-msgid "Invalid element for extract: %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrinvalidliteral
-msgctxt "ts.core.sqlparser.serrinvalidliteral"
-msgid "Invalid literal: \"%s\""
-msgstr ""
-
-#: ts.core.sqlparser.serrinvaliduseofcollate
-msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
-msgid "Invalid use of COLLATE"
-msgstr ""
-
-#: ts.core.sqlparser.serrnoaggregateallowed
-msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
-msgid "Aggregate function not allowed."
-msgstr ""
-
-#: ts.core.sqlparser.serrnoasteriskinsingleton
-msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
-msgid "* not allowed in singleton select"
-msgstr ""
-
-#: ts.core.sqlparser.serrtokenmismatch
-msgctxt "ts.core.sqlparser.serrtokenmismatch"
-msgid "Unexpected token: '%s', expected: '%s'"
-msgstr ""
-
-#: ts.core.sqlparser.serrunexpectedtoken
-msgctxt "ts.core.sqlparser.serrunexpectedtoken"
-msgid "Unexpected token: %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrunexpectedtokenof
-msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
-msgid "Unexpected token: %s, expected one of %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrunionfieldcountmatch
-msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
-msgid "Field count mismatch in select union : %d <> %d"
-msgstr ""
-
-#: ts.core.sqlparser.serrunknownbooleanop
-msgctxt "ts.core.sqlparser.serrunknownbooleanop"
-msgid "Unknown boolean operation"
-msgstr ""
-
-#: ts.core.sqlparser.serrunknowncomparison
-msgctxt "ts.core.sqlparser.serrunknowncomparison"
-msgid "unknown Comparison operation"
-msgstr ""
-
-#: ts.core.sqlparser.serrunmatchedbrace
-msgctxt "ts.core.sqlparser.serrunmatchedbrace"
-msgid "Expected )."
-msgstr ""
-
-#: ts.core.sqlparser.serrupperoneargument
-msgctxt "ts.core.sqlparser.serrupperoneargument"
-msgid "Only one argument for UPPER allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrvaryingnotallowed
-msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
-msgid "VARYING not allowed at this point."
-msgstr ""
-
-#: ts.core.sqlscanner.sbarexpected
-msgctxt "ts.core.sqlscanner.sbarexpected"
-msgid "|character expected"
-msgstr ""
-
-#: ts.core.sqlscanner.serrifxxxnestinglimitreached
-msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
-msgid "Nesting of$IFxxx too deep"
-msgstr ""
-
-#: ts.core.sqlscanner.serrincludefilenotfound
-msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
-msgid "Could not find include file'%s'"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidcharacter
-msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
-msgid "Invalid character'%s'"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidnonequal
-msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
-msgid "SyntaxError:!=or!==expected"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidppelse
-msgctxt "ts.core.sqlscanner.serrinvalidppelse"
-msgid "$ELSE without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidppendif
-msgctxt "ts.core.sqlscanner.serrinvalidppendif"
-msgid "$ENDIF without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serropenstring
-msgctxt "ts.core.sqlscanner.serropenstring"
-msgid "string exceeds end of line"
-msgstr ""
-
-#: ts.core.sqlscanner.serrunknowntoken
-msgctxt "ts.core.sqlscanner.serrunknowntoken"
-msgid "Unknown token: %s"
-msgstr ""
-
-#: ts.core.sqlscanner.sinvalidhexadecimalnumber
-msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
-msgid "Invalid decimal number"
-msgstr ""
-
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
-#: ts.editor.search.data.sgroup
-msgid "%s (%d matching lines)"
-msgstr ""
-
-#: ts.editor.search.data.sline
-msgid "Line: %d"
-msgstr ""
-
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

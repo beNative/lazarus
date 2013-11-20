@@ -398,9 +398,7 @@ msgid "Find all occurences"
 msgstr "Zoek alle instanties"
 
 #: tdmeditormanager.actfindalloccurences.hint
-msgid ""
-"Finds all occurences of the selected text or the current word at the caret "
-"position."
+msgid "Finds all occurences of the selected text or the current word at the caret position."
 msgstr ""
 
 #: tdmeditormanager.actfindnext.caption
@@ -1002,8 +1000,7 @@ msgid "Toggle block comment selection"
 msgstr ""
 
 #: tdmeditormanager.acttoggleblockcommentselection.hint
-msgid ""
-"Comment/uncomment the selection with the highlighter's block comment tags."
+msgid "Comment/uncomment the selection with the highlighter's block comment tags."
 msgstr ""
 
 #: tdmeditormanager.acttogglecomment.caption
@@ -1066,21 +1063,6 @@ msgstr "Hoofdletters"
 msgid "Upper case selection"
 msgstr "Selectiie omzetten naar hoofdletters"
 
-#: tdmeditormanager.menuitem21.caption
-msgctxt "tdmeditormanager.menuitem21.caption"
-msgid "New Item1"
-msgstr "New Item1"
-
-#: tdmeditormanager.menuitem22.caption
-msgctxt "tdmeditormanager.menuitem22.caption"
-msgid "New Item1"
-msgstr "New Item1"
-
-#: tdmeditormanager.menuitem8.caption
-msgctxt "tdmeditormanager.menuitem8.caption"
-msgid "New Item1"
-msgstr "New Item1"
-
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
 msgstr "EditorSettingsDialog"
@@ -1095,7 +1077,7 @@ msgid "&Close"
 msgstr "&Afsluiten"
 
 #: tfrmabout.actdonate.caption
-msgid "actDonate"
+msgid "Donate"
 msgstr ""
 
 #: tfrmabout.actdonate.hint
@@ -1103,7 +1085,7 @@ msgid "If you like this project, you can support development with a donation."
 msgstr ""
 
 #: tfrmabout.actreportdefect.caption
-msgid "actReportIssue"
+msgid "Report a defect."
 msgstr ""
 
 #: tfrmabout.actreportdefect.hint
@@ -2017,6 +1999,10 @@ msgstr "Info over"
 msgid "Close all other pages"
 msgstr "Sluit alle andere pagina's"
 
+#: tfrmmain.actclosetoolview.caption
+msgid "Close toolview"
+msgstr ""
+
 #: tfrmmain.actinspect.caption
 msgctxt "tfrmmain.actinspect.caption"
 msgid "Inspect"
@@ -2675,10 +2661,6 @@ msgstr "Vervang"
 msgid "Replace all"
 msgstr "Vervang alle"
 
-#: tfrmsearchform.actreplacewith.caption
-msgid "&Replace with:"
-msgstr "&Vervang door:"
-
 #: tfrmsearchform.caption
 msgctxt "TFRMSEARCHFORM.CAPTION"
 msgid "Find"
@@ -2910,183 +2892,6 @@ msgstr "Structuuroverzicht"
 msgid "RichEditorView"
 msgstr "RichEditorView"
 
-#: ts.components.synminimap.sfontfactorminmax
-msgctxt "ts.components.synminimap.sfontfactorminmax"
-msgid "Font factor cannot be smaller than %.d or greater than %.d."
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvert
-msgctxt "ts.core.codecutilswin32.scannotconvert"
-msgid "Unicode code point $%x has no equivalent in %s"
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvertucs4
-#, fuzzy
-msgctxt "ts.core.codecutilswin32.scannotconvertucs4"
-msgid "Cannot convert $%8.8X to %s"
-msgstr "Converteer Delphi pakket naar Typhon pakket"
-
-#: ts.core.codecutilswin32.sencodingoutofrange
-msgctxt "ts.core.codecutilswin32.sencodingoutofrange"
-msgid "%s encoding out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.shighsurrogatenotfound
-#, fuzzy
-msgctxt "ts.core.codecutilswin32.shighsurrogatenotfound"
-msgid "High surrogate not found"
-msgstr "Test directory \"%s\" niet gevonden."
-
-#: ts.core.codecutilswin32.sindexoutofrange
-msgctxt "ts.core.codecutilswin32.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.sinvalidcodepoint
-#, fuzzy
-msgctxt "ts.core.codecutilswin32.sinvalidcodepoint"
-msgid "$%x is not a valid %s code point"
-msgstr "%s%s%s is geen geldige unit naam."
-
-#: ts.core.codecutilswin32.sinvalidencoding
-msgctxt "ts.core.codecutilswin32.sinvalidencoding"
-msgid "Invalid %s encoding"
-msgstr "Ongeldige %s codering"
-
-#: ts.core.codecutilswin32.slowsurrogatenotfound
-#, fuzzy
-msgctxt "ts.core.codecutilswin32.slowsurrogatenotfound"
-msgid "Low surrogate not found"
-msgstr "Test directory \"%s\" niet gevonden."
-
-#: ts.core.codecutilswin32.ssurrogatenotallowed
-msgctxt "ts.core.codecutilswin32.ssurrogatenotallowed"
-msgid ""
-"Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved "
-"for use with UTF-16"
-msgstr ""
-
-#: ts.core.codecutilswin32.sutf8error
-msgctxt "ts.core.codecutilswin32.sutf8error"
-msgid "UTF-8 error %d"
-msgstr "UTF-8 fout %d"
-
-#: ts.core.dbutils.snofieldtypeforvariantvalue
-msgctxt "ts.core.dbutils.snofieldtypeforvariantvalue"
-msgid "No fieldtype for Variant value %s"
-msgstr ""
-
-#: ts.core.dbutils.sparameternotassigned
-msgctxt "ts.core.dbutils.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr "Parameter <%s> is niet toegekend"
-
-#: ts.core.dbutils.squerylookuperrorrunningquery
-msgctxt "ts.core.dbutils.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr "Fout bij uitvoeren query [%s]"
-
-#: ts.core.dbutils.squerylookuptoomanyrecords
-msgctxt "ts.core.dbutils.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: ts.core.encodingutils.sindexoutofrange
-msgctxt "ts.core.encodingutils.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts.core.fileassociations.sallmenu
-#, fuzzy
-msgctxt "ts.core.fileassociations.sallmenu"
-msgid "*"
-msgstr "*"
-
-#: ts.core.fileassociations.sallusers
-msgctxt "ts.core.fileassociations.sallusers"
-msgid "AssociateForAllUsers"
-msgstr ""
-
-#: ts.core.fileassociations.sassockey
-msgctxt "ts.core.fileassociations.sassockey"
-msgid "\\Associate"
-msgstr "\\Associeer"
-
-#: ts.core.fileassociations.sbackup
-msgctxt "ts.core.fileassociations.sbackup"
-msgid "Backup"
-msgstr "Backup"
-
-#: ts.core.fileassociations.sclasseskey
-msgctxt "ts.core.fileassociations.sclasseskey"
-msgid "Software\\Classes\\"
-msgstr "Software\\Classes\\"
-
-#: ts.core.fileassociations.scommand
-msgctxt "ts.core.fileassociations.scommand"
-msgid "Command"
-msgstr "Commando"
-
-#: ts.core.fileassociations.sdeficon
-msgctxt "ts.core.fileassociations.sdeficon"
-msgid "DefaultIcon"
-msgstr ""
-
-#: ts.core.fileassociations.sdeficonindex
-msgctxt "ts.core.fileassociations.sdeficonindex"
-msgid "1"
-msgstr "1"
-
-#: ts.core.fileassociations.sextdescrformat
-msgctxt "ts.core.fileassociations.sextdescrformat"
-msgid "%s file"
-msgstr "%s bestand"
-
-#: ts.core.fileassociations.shkcr
-msgctxt "ts.core.fileassociations.shkcr"
-msgid "HKEY_CLASSES_ROOT"
-msgstr "HKEY_CLASSES_ROOT"
-
-#: ts.core.fileassociations.shkcu
-msgctxt "ts.core.fileassociations.shkcu"
-msgid "HKEY_CURRENT_USER"
-msgstr "HKEY_CURRENT_USER"
-
-#: ts.core.fileassociations.shklm
-msgctxt "ts.core.fileassociations.shklm"
-msgid "HKEY_LOCAL_MACHINE"
-msgstr "HKEY_LOCAL_MACHINE"
-
-#: ts.core.fileassociations.smenucaption
-msgctxt "ts.core.fileassociations.smenucaption"
-msgid "MenuCaption"
-msgstr ""
-
-#: ts.core.fileassociations.sopen
-msgctxt "ts.core.fileassociations.sopen"
-msgid "Open"
-msgstr "Open"
-
-#: ts.core.fileassociations.sopencaption
-msgctxt "ts.core.fileassociations.sopencaption"
-msgid "OpenWith"
-msgstr ""
-
-#: ts.core.fileassociations.sotherassockey
-msgctxt "ts.core.fileassociations.sotherassockey"
-msgid "\\OtherAssociate"
-msgstr "\\OtherAssociate"
-
-#: ts.core.fileassociations.sshell
-msgctxt "ts.core.fileassociations.sshell"
-msgid "Shell"
-msgstr "Shell"
-
-#: ts.core.fileassociations.sunknown
-msgctxt "ts.core.fileassociations.sunknown"
-msgid "Unknown"
-msgstr "Onbekend"
-
 #: ts.core.generics.collections.sargumentoutofrange
 msgid "Argument out of range"
 msgstr ""
@@ -3187,8 +2992,7 @@ msgstr "Ongeldige %s encodering"
 
 #: ts.core.nativexml.slevelmismatch
 msgctxt "ts.core.nativexml.slevelmismatch"
-msgid ""
-"level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
 #: ts.core.nativexml.smissingdatainbinarystream
@@ -3261,187 +3065,12 @@ msgctxt "ts.core.nativexml.sxmlparentnotassigned"
 msgid "XML parent is not assigned"
 msgstr "XML parent is niet toegekend"
 
-#: ts.core.sqlparser.serrasteriskonlyincount
-msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
-msgid "* allowed only in COUNT aggregate"
-msgstr ""
-
-#: ts.core.sqlparser.serrcannotaltergenerator
-msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
-msgid "Alter generator statement unknown"
-msgstr ""
-
-#: ts.core.sqlparser.serrdomainnotallowed
-msgctxt "ts.core.sqlparser.serrdomainnotallowed"
-msgid "Domain name not allowed in typ definition."
-msgstr ""
-
-#: ts.core.sqlparser.serrexpecteddbobject
-msgctxt "ts.core.sqlparser.serrexpecteddbobject"
-msgid "Expected database object type. Got: '%s'"
-msgstr ""
-
-#: ts.core.sqlparser.serrhavingwithoutgroupby
-msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
-msgid "HAVING without GROUP BY clause not allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrintegerexpected
-#, fuzzy
-msgctxt "ts.core.sqlparser.serrintegerexpected"
-msgid "Integer expression expected"
-msgstr "Tooltip expressie evaluatie"
-
-#: ts.core.sqlparser.serrinvalidextract
-msgctxt "ts.core.sqlparser.serrinvalidextract"
-msgid "Invalid element for extract: %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrinvalidliteral
-#, fuzzy
-msgctxt "ts.core.sqlparser.serrinvalidliteral"
-msgid "Invalid literal: \"%s\""
-msgstr "Ongeldige %s encodering"
-
-#: ts.core.sqlparser.serrinvaliduseofcollate
-msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
-msgid "Invalid use of COLLATE"
-msgstr "Ongeldig gebruik van COLLATE"
-
-#: ts.core.sqlparser.serrnoaggregateallowed
-msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
-msgid "Aggregate function not allowed."
-msgstr ""
-
-#: ts.core.sqlparser.serrnoasteriskinsingleton
-msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
-msgid "* not allowed in singleton select"
-msgstr ""
-
-#: ts.core.sqlparser.serrtokenmismatch
-#, fuzzy
-msgctxt "ts.core.sqlparser.serrtokenmismatch"
-msgid "Unexpected token: '%s', expected: '%s'"
-msgstr " Het teken %s%s%s bestaat al !"
-
-#: ts.core.sqlparser.serrunexpectedtoken
-#, fuzzy
-msgctxt "ts.core.sqlparser.serrunexpectedtoken"
-msgid "Unexpected token: %s"
-msgstr "Onbekend token: %s"
-
-#: ts.core.sqlparser.serrunexpectedtokenof
-msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
-msgid "Unexpected token: %s, expected one of %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrunionfieldcountmatch
-msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
-msgid "Field count mismatch in select union : %d <> %d"
-msgstr ""
-
-#: ts.core.sqlparser.serrunknownbooleanop
-msgctxt "ts.core.sqlparser.serrunknownbooleanop"
-msgid "Unknown boolean operation"
-msgstr "Onbekende boolean operatie"
-
-#: ts.core.sqlparser.serrunknowncomparison
-msgctxt "ts.core.sqlparser.serrunknowncomparison"
-msgid "unknown Comparison operation"
-msgstr "onbekende vergelijkingsoperatie"
-
-#: ts.core.sqlparser.serrunmatchedbrace
-#, fuzzy
-msgctxt "ts.core.sqlparser.serrunmatchedbrace"
-msgid "Expected )."
-msgstr "| karakter verwacht"
-
-#: ts.core.sqlparser.serrupperoneargument
-msgctxt "ts.core.sqlparser.serrupperoneargument"
-msgid "Only one argument for UPPER allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrvaryingnotallowed
-msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
-msgid "VARYING not allowed at this point."
-msgstr ""
-
-#: ts.core.sqlscanner.sbarexpected
-msgctxt "ts.core.sqlscanner.sbarexpected"
-msgid "|character expected"
-msgstr "| karakter verwacht"
-
-#: ts.core.sqlscanner.serrifxxxnestinglimitreached
-msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
-msgid "Nesting of$IFxxx too deep"
-msgstr ""
-
-#: ts.core.sqlscanner.serrincludefilenotfound
-msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
-msgid "Could not find include file'%s'"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidcharacter
-msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
-msgid "Invalid character'%s'"
-msgstr "Ongeldig karakter'%s'"
-
-#: ts.core.sqlscanner.serrinvalidnonequal
-#, fuzzy
-msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
-msgid "SyntaxError:!=or!==expected"
-msgstr "Verkort of verleng bestandsnaam"
-
-#: ts.core.sqlscanner.serrinvalidppelse
-msgctxt "ts.core.sqlscanner.serrinvalidppelse"
-msgid "$ELSE without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidppendif
-msgctxt "ts.core.sqlscanner.serrinvalidppendif"
-msgid "$ENDIF without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serropenstring
-msgctxt "ts.core.sqlscanner.serropenstring"
-msgid "string exceeds end of line"
-msgstr "string overschrijdt lijneinde"
-
-#: ts.core.sqlscanner.serrunknowntoken
-msgctxt "ts.core.sqlscanner.serrunknowntoken"
-msgid "Unknown token: %s"
-msgstr "Onbekend token: %s"
-
-#: ts.core.sqlscanner.sinvalidhexadecimalnumber
-msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
-msgid "Invalid decimal number"
-msgstr "Ongeldig decimaal nummer"
-
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
-#: ts.editor.search.data.sgroup
-msgid "%s (%d matching lines)"
-msgstr "%s (%d lijnen met overeenkomst)"
-
-#: ts.editor.search.data.sline
-msgid "Line: %d"
-msgstr "Lijn"
-
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
-msgstr "Positie: (%d, %d)"
-
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
 msgstr ""
 
 #: ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
-msgid ""
-"A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors"
-"[%s]=%s%s%s"
+msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsallfiles
@@ -3469,9 +3098,7 @@ msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
-msgid ""
-"A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]="
-"%s%s%s"
+msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsautomatically
@@ -3520,9 +3147,7 @@ msgid "Duplicate name: "
 msgstr "Dubbele naam:"
 
 #: ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
-msgid ""
-"Each docked window has a header that allows dragging, has a context menu "
-"with extra layout functions and shows the caption of the docked window"
+msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
 msgstr ""
 
 #: ts_components_docking_resources.adrsemptyname
@@ -3567,9 +3192,7 @@ msgid "Header position"
 msgstr "Hoofding positie"
 
 #: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
-msgid ""
-"Hide header captions for sites with only one docked control, as that is "
-"already shown in the normal window title"
+msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
 msgstr ""
 
 #: ts_components_docking_resources.adrsleft
@@ -3699,10 +3322,7 @@ msgid "Tab position"
 msgstr "Tab positie"
 
 #: ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
-msgid ""
-"There is another dock master installed. Only one docking package can be "
-"installed at a time. Please uninstall the other dock master %s and restart "
-"the IDE"
+msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
 msgstr ""
 
 #: ts_components_docking_resources.adrstop
@@ -3768,9 +3388,7 @@ msgstr "Test directory \"%s\" niet gevonden."
 
 #: ts_core_codecutilswin32.ssurrogatenotallowed
 msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
-msgid ""
-"Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved "
-"for use with UTF-16"
+msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
 msgstr ""
 
 #: ts_core_codecutilswin32.sutf8error
@@ -3827,7 +3445,7 @@ msgstr "Backup"
 #: ts_core_fileassociations.sclasseskey
 msgctxt "ts_core_fileassociations.sclasseskey"
 msgid "Software\\Classes\\"
-msgstr ""
+msgstr "Software\\Classes\\"
 
 #: ts_core_fileassociations.scommand
 msgctxt "ts_core_fileassociations.scommand"
@@ -3885,7 +3503,7 @@ msgstr ""
 #: ts_core_fileassociations.sotherassockey
 msgctxt "ts_core_fileassociations.sotherassockey"
 msgid "\\OtherAssociate"
-msgstr ""
+msgstr "\\OtherAssociate"
 
 #: ts_core_fileassociations.sshell
 msgctxt "ts_core_fileassociations.sshell"
@@ -3962,8 +3580,7 @@ msgstr "Ongeldige %s encodering"
 
 #: ts_core_nativexml.slevelmismatch
 msgctxt "ts_core_nativexml.slevelmismatch"
-msgid ""
-"level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
 #: ts_core_nativexml.smissingdatainbinarystream
@@ -4639,3 +4256,4 @@ msgstr "%d zoektermen gevonden."
 msgctxt "ts_editor_toolview_search.smatchfound"
 msgid "%d search match found."
 msgstr "%d zoekterm gevonden."
+

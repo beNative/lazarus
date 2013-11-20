@@ -71,6 +71,7 @@ type
     actAbout              : TAction;
     actCloseAllOtherPages : TAction;
     actInspect            : TAction;
+    actCloseToolview: TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
@@ -103,6 +104,7 @@ type
 
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
+    procedure actCloseToolviewExecute(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -113,7 +115,6 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
-    procedure btnCloseToolViewClick(Sender: TObject);
     procedure EVHideEditorToolView(Sender: TObject; AEditorToolView: IEditorToolView);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -224,7 +225,9 @@ begin
   if Settings.DebugMode then
   begin
     // for debugging
-    Logger.MaxStackCount := 5; // more than 5 give problems when exception is raised when stackinfo is not available
+    // more than 5 results in problems when exception is raised and stackinfo is
+    // not available
+    Logger.MaxStackCount := 5;
     AddEditorDebugMenu(Manager, mnuMain);
   end;
 
@@ -309,6 +312,18 @@ procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
 end;
+
+procedure TfrmMain.actCloseToolviewExecute(Sender: TObject);
+var
+  TV: IEditorToolView;
+begin
+  pnlTool.Visible     := False;
+  splVertical.Visible := False;
+  for TV in Manager.ToolViews do
+    TV.Visible := False;
+  Manager.ActiveView.SetFocus;
+end;
+
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -337,13 +352,17 @@ procedure TfrmMain.AHSActivateSite(Sender: TObject);
 var
   AHS : TAnchorDockHostSite;
   C   : TControl;
+  EV  : IEditorView;
 begin
   AHS := TAnchorDockHostSite(Sender);
   if AHS.SiteType = adhstOneControl then
   begin
     C := DockMaster.GetControl(AHS);
     if C is IEditorView then
-      (C as IEditorView).Activate;
+    begin
+      EV := C as IEditorView;
+      EV.Activate;
+    end;
   end;
 end;
 
@@ -445,16 +464,6 @@ end;
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);
 begin
   Settings.FormSettings.WindowState := WindowState;
-end;
-
-procedure TfrmMain.btnCloseToolViewClick(Sender: TObject);
-var
-  TV: IEditorToolView;
-begin
-  pnlTool.Visible     := False;
-  splVertical.Visible := False;
-  for TV in Manager.ToolViews do
-    TV.Visible := False;
 end;
 
 procedure TfrmMain.EVHideEditorToolView(Sender: TObject;
@@ -605,7 +614,6 @@ begin
     Caption := Format('%s - %s',  [Editor.FileName, S])
   else
     Caption := S;
-  Application.Title := Caption;
 end;
 
 procedure TfrmMain.UpdateStatusBar;
@@ -670,7 +678,7 @@ end;
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
-  if Assigned(Manager.ActiveView) then
+  if Assigned(Manager) and Assigned(Manager.ActiveView) then
   begin
     UpdateCaptions;
     UpdateStatusBar;

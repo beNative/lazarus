@@ -1,3 +1,5 @@
+# simple buildscript to make release builds for all supported platforms
+
 typhonbuild --bm="Release win64 win32" notepas.lpr -B
 typhonbuild --bm="Release win32 win32" notepas.lpr -B
 typhonbuild --bm="Release win32 qt" notepas.lpr -B

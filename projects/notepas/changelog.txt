@@ -1,3 +1,16 @@
+2013.11.20 (0.9.18)
+* Assign selected block to searchtext when actSearch or actReplace is fired
+* When searchtext is not found, set the focus back to inputbox.
+* Fixed conflicting replace shortcut
+* New: ESC key closes the current toolview
+* Refactored search engine for more flexibility
+* Added new actFindOccurences action (Shift+Ctrl+F)
+* Fixed odd behaviour when browsing through search results in multiple views
+* Fixed bug in assignment of searchoptions
+* Fixed synchronization issues with the search result list when using
+  actFindNext/actFindPrevious.
+* Fixed Views toolview: grid should be readonly
+
 2013.11.18 (0.9.17)
 * Added temporary work-around for layout related exceptions when displaying
   toolviews

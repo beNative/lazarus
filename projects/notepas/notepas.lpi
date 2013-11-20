@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="17"/>
-      <BuildNr Value="99"/>
-      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.17" URL="http://code.google.com/p/notepas/"/>
+      <RevisionNr Value="18"/>
+      <BuildNr Value="100"/>
+      <StringTable Comments="Text editor for developers" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.18" URL="http://code.google.com/p/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
@@ -919,6 +919,7 @@ end;"/>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Utils"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
@@ -927,7 +928,6 @@ end;"/>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
@@ -988,7 +988,6 @@ end;"/>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.Docking"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -1124,6 +1123,7 @@ end;"/>
       <Unit59>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Commands"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
@@ -1231,10 +1231,12 @@ end;"/>
       <Unit77>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Events"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -1263,7 +1265,9 @@ end;"/>
       <Unit84>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmOptionsThemes"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_SettingsDialog_Highlighters"/>
       </Unit84>
       <Unit85>
@@ -1325,6 +1329,7 @@ end;"/>
       <Unit93>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
@@ -1333,6 +1338,7 @@ end;"/>
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
       </Unit95>
       <Unit96>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1357,6 +1363,7 @@ end;"/>
       <Unit99>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
       </Unit99>
       <Unit100>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
@@ -1369,7 +1376,9 @@ end;"/>
       <Unit101>
         <Filename Value="..\..\components\tslib\editor\charactermap\ts_editor_charactermap_toolview.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmCharacterMap"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_CharacterMap_Toolview"/>
       </Unit101>
       <Unit102>
@@ -1465,7 +1474,9 @@ end;"/>
       <Unit117>
         <Filename Value="..\..\components\tslib\editor\scripteditor\ts_editor_scripteditor_toolview.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmScriptEditor"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_ScriptEditor_ToolView"/>
       </Unit117>
       <Unit118>
@@ -1507,6 +1518,7 @@ end;"/>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SharedLogger"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\colors\ts_editor_colors_toolview.pas"/>
@@ -1614,4 +1626,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2092
+  Left = -1494
   Height = 618
-  Top = 282
+  Top = 462
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -296,6 +296,7 @@ object frmMain: TfrmMain
         Height = 18
         Top = 0
         Width = 14
+        Action = actCloseToolview
         Align = alRight
         Anchors = [akTop, akRight]
         BorderSpacing.InnerBorder = 2
@@ -323,7 +324,6 @@ object frmMain: TfrmMain
         }
         Margin = 2
         Spacing = 0
-        OnClick = btnCloseToolViewClick
         ShowCaption = False
         ParentFont = False
       end
@@ -373,6 +373,11 @@ object frmMain: TfrmMain
     object actInspect: TAction
       Caption = 'Inspect'
       ShortCut = 16496
+    end
+    object actCloseToolview: TAction
+      Caption = 'Close toolview'
+      OnExecute = actCloseToolviewExecute
+      ShortCut = 27
     end
   end
   object imlMain: TImageList

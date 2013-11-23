@@ -40,13 +40,10 @@ uses
 
   runtimetypeinfocontrols,
   pl_kcontrols,
-  pl_exsystem,
   pl_virtualtrees,
-  pl_zeosdbocomp,
   pl_richview,
 
   ts.Components.MultiPanel,
-  ts.Components.DBGridView,
   ts.Components.Docking,
   ts.Components.Docking.OptionsDialog,
   ts.Components.Docking.Resources,
@@ -76,11 +73,9 @@ uses
   ts.Core.ColumnDefinitions,
   ts.Core.ColumnDefinitionsDataTemplate,
   ts.Core.DataTemplates,
-  ts.Core.DBUtils,
   ts.Core.DirectoryWatch,
   ts.Core.EncodingUtils,
   ts.Core.FormSettings,
-  ts.Core.HashStrings,
   ts.Core.Helpers,
   ts.Core.KeyValues,
   ts.Core.NativeXml,
@@ -157,15 +152,7 @@ uses
   ts_Editor_Structure_ToolView,
   ts_Editor_Test_ToolView,
   ts.Editor.CodeFilter.Data,
-  ts.Editor.ViewList.Data,
-
-  ts.RichEditor.Helpers,
-  ts.RichEditor.Interfaces,
-  ts.RichEditor.Manager,
-  ts.RichEditor.TextAttributes,
-  ts.RichEditor.View,
-  ts.Collections,
-  SetupFiltersDialog;
+  ts.Editor.ViewList.Data;
 
 {$R *.res}
 

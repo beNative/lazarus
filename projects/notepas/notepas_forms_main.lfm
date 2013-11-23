@@ -6,7 +6,7 @@ object frmMain: TfrmMain
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 616
+  ClientHeight = 598
   ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
@@ -35,7 +35,7 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 598
+    Top = 580
     Width = 1066
     Align = alBottom
     BorderSpacing.Top = 2
@@ -270,12 +270,12 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 566
+    Height = 548
     Top = 30
     Width = 428
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 566
+    ClientHeight = 548
     ClientWidth = 428
     Color = clForm
     ParentColor = False
@@ -343,7 +343,7 @@ object frmMain: TfrmMain
     end
     object pnlToolClient: TPanel
       Left = 0
-      Height = 548
+      Height = 530
       Top = 18
       Width = 428
       Align = alClient
@@ -353,7 +353,7 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 428
-    Height = 566
+    Height = 548
     Top = 30
     Width = 7
     Visible = False
@@ -553,4 +553,4 @@ object frmMain: TfrmMain
     object MenuItem1: TMenuItem
     end
   end
-end
+end

@@ -3065,6 +3065,179 @@ msgctxt "ts.core.nativexml.sxmlparentnotassigned"
 msgid "XML parent is not assigned"
 msgstr "XML parent is niet toegekend"
 
+#: ts.core.sqlparser.serrasteriskonlyincount
+msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
+msgid "* allowed only in COUNT aggregate"
+msgstr ""
+
+#: ts.core.sqlparser.serrcannotaltergenerator
+msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
+msgid "Alter generator statement unknown"
+msgstr ""
+
+#: ts.core.sqlparser.serrdomainnotallowed
+msgctxt "ts.core.sqlparser.serrdomainnotallowed"
+msgid "Domain name not allowed in typ definition."
+msgstr ""
+
+#: ts.core.sqlparser.serrexpecteddbobject
+msgctxt "ts.core.sqlparser.serrexpecteddbobject"
+msgid "Expected database object type. Got: '%s'"
+msgstr ""
+
+#: ts.core.sqlparser.serrhavingwithoutgroupby
+msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
+msgid "HAVING without GROUP BY clause not allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrintegerexpected
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrintegerexpected"
+msgid "Integer expression expected"
+msgstr "Tooltip expressie evaluatie"
+
+#: ts.core.sqlparser.serrinvalidextract
+msgctxt "ts.core.sqlparser.serrinvalidextract"
+msgid "Invalid element for extract: %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrinvalidliteral
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrinvalidliteral"
+msgid "Invalid literal: \"%s\""
+msgstr "Ongeldige %s encodering"
+
+#: ts.core.sqlparser.serrinvaliduseofcollate
+msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
+msgid "Invalid use of COLLATE"
+msgstr "Ongeldig gebruik van COLLATE"
+
+#: ts.core.sqlparser.serrnoaggregateallowed
+msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
+msgid "Aggregate function not allowed."
+msgstr ""
+
+#: ts.core.sqlparser.serrnoasteriskinsingleton
+msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
+msgid "* not allowed in singleton select"
+msgstr ""
+
+#: ts.core.sqlparser.serrtokenmismatch
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrtokenmismatch"
+msgid "Unexpected token: '%s', expected: '%s'"
+msgstr " Het teken %s%s%s bestaat al !"
+
+#: ts.core.sqlparser.serrunexpectedtoken
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrunexpectedtoken"
+msgid "Unexpected token: %s"
+msgstr "Onbekend token: %s"
+
+#: ts.core.sqlparser.serrunexpectedtokenof
+msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
+msgid "Unexpected token: %s, expected one of %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrunionfieldcountmatch
+msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
+msgid "Field count mismatch in select union : %d <> %d"
+msgstr ""
+
+#: ts.core.sqlparser.serrunknownbooleanop
+msgctxt "ts.core.sqlparser.serrunknownbooleanop"
+msgid "Unknown boolean operation"
+msgstr "Onbekende boolean operatie"
+
+#: ts.core.sqlparser.serrunknowncomparison
+msgctxt "ts.core.sqlparser.serrunknowncomparison"
+msgid "unknown Comparison operation"
+msgstr "onbekende vergelijkingsoperatie"
+
+#: ts.core.sqlparser.serrunmatchedbrace
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrunmatchedbrace"
+msgid "Expected )."
+msgstr "| karakter verwacht"
+
+#: ts.core.sqlparser.serrupperoneargument
+msgctxt "ts.core.sqlparser.serrupperoneargument"
+msgid "Only one argument for UPPER allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrvaryingnotallowed
+msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
+msgid "VARYING not allowed at this point."
+msgstr ""
+
+#: ts.core.sqlscanner.sbarexpected
+msgctxt "ts.core.sqlscanner.sbarexpected"
+msgid "|character expected"
+msgstr "| karakter verwacht"
+
+#: ts.core.sqlscanner.serrifxxxnestinglimitreached
+msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
+msgid "Nesting of$IFxxx too deep"
+msgstr ""
+
+#: ts.core.sqlscanner.serrincludefilenotfound
+msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
+msgid "Could not find include file'%s'"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidcharacter
+msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
+msgid "Invalid character'%s'"
+msgstr "Ongeldig karakter'%s'"
+
+#: ts.core.sqlscanner.serrinvalidnonequal
+#, fuzzy
+msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
+msgid "SyntaxError:!=or!==expected"
+msgstr "Verkort of verleng bestandsnaam"
+
+#: ts.core.sqlscanner.serrinvalidppelse
+msgctxt "ts.core.sqlscanner.serrinvalidppelse"
+msgid "$ELSE without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidppendif
+msgctxt "ts.core.sqlscanner.serrinvalidppendif"
+msgid "$ENDIF without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serropenstring
+msgctxt "ts.core.sqlscanner.serropenstring"
+msgid "string exceeds end of line"
+msgstr "tekst overschrijdt regeleinde"
+
+#: ts.core.sqlscanner.serrunknowntoken
+msgctxt "ts.core.sqlscanner.serrunknowntoken"
+msgid "Unknown token: %s"
+msgstr "Onbekend token: %s"
+
+#: ts.core.sqlscanner.sinvalidhexadecimalnumber
+msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
+msgid "Invalid decimal number"
+msgstr "Ongeldig decimaal nummer"
+
+#: ts.core.utils.snocorrespondingfieldtype
+msgctxt "ts.core.utils.snocorrespondingfieldtype"
+msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
+msgstr ""
+
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
 msgstr ""

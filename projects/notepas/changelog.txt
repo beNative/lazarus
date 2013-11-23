@@ -1,3 +1,6 @@
+2013.11.23 (0.9.19)
+* Fixed handling of keyboard shortcuts in toolviews
+
 2013.11.20 (0.9.18)
 * Assign selected block to searchtext when actSearch or actReplace is fired
 * When searchtext is not found, set the focus back to inputbox.

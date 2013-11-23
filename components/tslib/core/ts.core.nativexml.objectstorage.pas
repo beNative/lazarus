@@ -692,7 +692,7 @@ var
   //local
   procedure WriteString(Value: string);
   begin
-    AChildNode.ValueUnicode := Value;
+    AChildNode.ValueUnicode := UnicodeString(Value);
   end;
   //local
   procedure WriteBool(Value: boolean);
@@ -1459,4 +1459,4 @@ begin
 end;
 
 end.
-
+

@@ -237,7 +237,7 @@ type
     BOM: array[0..3] of byte;    // 4 bytes possibly containing the BOM
     Len: integer;                // byte length of the BOM
     Encoding: TsdStringEncoding; // which string encoding does the file have?
-    HasBOM: boolean;             // does a file have a BOM?
+    HasBOM: Boolean;             // does a file have a BOM?
   end;
 
   // quote char style in TsdQuotedText
@@ -476,8 +476,8 @@ type
     FUtf8LastIdx: integer;
     FUtf8BasePosition: int64;
     FBaseLineNumber: int64;
-    FEndOfStream: boolean;
-    FLastChar0D: boolean;
+    FEndOfStream: Boolean;
+    FLastChar0D: Boolean;
     FOnDebugOut: TsdDebugEvent;
     function LoCase(Ch: AnsiChar): AnsiChar;
     procedure IncCurrentIdxCheck(var BytesAvail: integer);
@@ -498,14 +498,14 @@ type
     // chunks are read, and the flushing happens chunk-wise.
     procedure Flush;
     // Is the stream from binary xml?
-    function IsBinaryXml: boolean;
+    function IsBinaryXml: Boolean;
     // Make at least one byte available from current position
     function MakeDataAvailable: integer;
     // Get the next character from the stream
     function NextChar: AnsiChar;
     // Check if the stream at this position contains string S. If so, the stream
     // will be positioned after, if not, it will remain where it is.
-    function CheckString(const S: Utf8String): boolean;
+    function CheckString(const S: Utf8String): Boolean;
     // Move one position back in the stream
     procedure MoveBack;
     // Read a string from the stream until Terminator is found. The string returned
@@ -631,7 +631,7 @@ type
     procedure SetAttributeValue(Index: integer; const Value: Utf8String);
     function GetAttributeValueAsInteger(Index: integer): integer;
     procedure SetAttributeValueAsInteger(Index: integer; const Value: integer);
-    function GetWriteOnDefault: boolean;
+    function GetWriteOnDefault: Boolean;
     procedure SetWriteOnDefault(const Value: boolean);
     function GetName: Utf8String; virtual;
     function GetValue: Utf8String; virtual;
@@ -640,7 +640,7 @@ type
     procedure DoProgress(Position: int64);
     function GetParentNode(ADepth: integer): TXmlNode;
     function GetEolStyle: TsdEolStyle;
-    function GetPreserveWhiteSpace: boolean;
+    function GetPreserveWhiteSpace: Boolean;
     function GetXmlFormat: TXmlFormatType;
     procedure DoNodeNew(ANode: TXmlNode);
     procedure DoNodeLoaded(ANode: TXmlNode);
@@ -678,6 +678,8 @@ type
     function GetFullPath: Utf8String;
     property WriteOnDefault: boolean read GetWriteOnDefault write SetWriteOnDefault;
     function GetParentNodeName(ADepth: integer): Utf8String;
+
+  public
     // Create a new node object. AOwner must be the TNativeXml that is
     // going to hold this new node. Make sure to use the correct class when
     // creating, e.g. TsdElement.Create(Owner) for an element.
@@ -688,7 +690,6 @@ type
     // Create a new TXmlNode with name AName and UTF8String value AValue. AOwner
     // must be the TNativeXml that is going to hold this new node.
     constructor CreateNameValue(AOwner: TNativeXml; const AName, AValue: Utf8String); virtual;
-  public
     // copy the data and subnodes from ANode; this node is cleared first
     procedure CopyFrom(ANode: TObject); virtual;
     // Create a node as a child of AParent. AOwner must be TNativeXml or descendant,
@@ -728,7 +729,7 @@ type
     property Parent: TXmlNode read FParent;
     // This function returns True if the node has no subnodes and no attributes,
     // and if the node Name and value are empty.
-    function IsClear: boolean;
+    function IsClear: Boolean;
     // clear the node
     procedure Clear; virtual;
     // recursively delete empty nodes
@@ -739,11 +740,11 @@ type
     procedure Delete; virtual;
     // This function returns True if the node has no subnodes and no attributes,
     // and if the node value is empty.
-    function IsEmpty: boolean;
+    function IsEmpty: Boolean;
     // Test whether ANode is equal to another node based on compare options. If
     // MismatchNodes is provided, a list of mismatching subnodes is filled.
     function IsEqualTo(ANode: TXmlNode; Options: TXmlCompareOptions;
-      MismatchNodes: TList = nil): boolean;
+      MismatchNodes: TList = nil): Boolean;
     // Use this method to add an attribute with name AName and string value AValue
     // to the node. AName and AValue must be UTF8 encoded.
     procedure AttributeAdd(const AName, AValue: Utf8String); overload;
@@ -876,7 +877,7 @@ type
     property AttributeValueByNameWide[const AName: Utf8String]: UnicodeString read
       GetAttributeValueByNameWide write SetAttributeValueByNameWide;
     // Use HasAttribute to determine if the node has an attribute with name AName.
-    function HasAttribute(const AName: Utf8String): boolean; virtual;
+    function HasAttribute(const AName: Utf8String): Boolean; virtual;
     // List of subnodes, by index. Iterate through the list using NodeCount
     // and this property. The attributes are listed first, then followed by
     // all other node types, in the order as found in the XML document.
@@ -903,7 +904,7 @@ type
 
     // Convert the node's value to boolean and return the result. If this conversion
     // fails, or no value is found, then the function returns ADefault.
-    function GetValueAsBoolDef(ADefault: boolean): boolean; virtual;
+    function GetValueAsBoolDef(ADefault: boolean): Boolean; virtual;
     // Convert the node's value to a double and return the result. If this conversion
     // fails, or no value is found, then the function returns ADefault.
     function GetValueAsFloatDef(ADefault: double): double; virtual;
@@ -917,7 +918,7 @@ type
     // fails, or no value is found, then the function returns ADefault.
     function GetValueAsInt64Def(ADefault: int64): int64; virtual;
     // Convert the node's value to boolean and return the result.
-    function GetValueAsBool: boolean; virtual;
+    function GetValueAsBool: Boolean; virtual;
     // Convert the node's value to a double and return the result.
     function GetValueAsFloat: double; virtual;
     // Convert the node's value to a TDateTime and return the result.
@@ -963,7 +964,7 @@ type
     // Find the attribute with AName, and convert its value to a boolean. If the
     // attribute is not found, or cannot be converted, the default ADefault will
     // be returned.
-    function ReadAttributeBool(const AName: Utf8String; ADefault: boolean = False): boolean; virtual;
+    function ReadAttributeBool(const AName: Utf8String; ADefault: boolean = False): Boolean; virtual;
     // Find the attribute with AName, and convert its value to an integer. If the
     // attribute is not found, or cannot be converted, the default ADefault will
     // be returned.
@@ -983,7 +984,7 @@ type
     // be returned.
     function ReadAttributeDateTime(const AName: Utf8String; ADefault: TDateTime = 0): TDateTime; virtual;     // added by hdk
 
-    function ReadBool(const AName: Utf8String; ADefault: boolean = False): boolean; virtual;
+    function ReadBool(const AName: Utf8String; ADefault: boolean = False): Boolean; virtual;
     {$IFDEF USEGRAPHICS}
     // Read the properties Color, Mode, Style and Width for the TPen object APen
     // from the subnode with AName.
@@ -1042,10 +1043,10 @@ type
     // AValue. If it does not exist, then create a new attribute AName with the
     // boolean value converted to a quoted string. If ADefault = AValue, and
     // WriteOnDefault = False, no attribute will be added.
-    procedure WriteAttributeBool(const AName: Utf8String; AValue: boolean; ADefault: boolean = False); virtual;
+    procedure WriteAttributeBool(const AName: Utf8String; AValue: Boolean; ADefault: boolean = False); virtual;
     // Add or replace the subnode with AName and set its value to represent the boolean
     // AValue. If AValue = ADefault, and WriteOnDefault = False, no subnode will be added.
-    procedure WriteBool(const AName: Utf8String; AValue: boolean; ADefault: boolean = False); virtual;
+    procedure WriteBool(const AName: Utf8String; AValue: Boolean; ADefault: boolean = False); virtual;
     {$IFDEF USEGRAPHICS}
     // Write properties Color, Mode, Style and Width of the TPen object APen to
     // the subnode with AName. If AName does not exist, it will be created.
@@ -1138,10 +1139,10 @@ type
   public
     procedure CopyFrom(ANode: TObject); override;
     destructor Destroy; override;
-    function IsWhiteSpace: boolean; virtual;
+    function IsWhiteSpace: Boolean; virtual;
     function GetValueUsingReferences(Nodes: array of TXmlNode): Utf8String;
     function ElementType: TsdElementType; override;
-    function HasNonStandardReferences: boolean;
+    function HasNonStandardReferences: Boolean;
     procedure WriteStream(S: TStream); override;
   end;
 
@@ -1175,8 +1176,8 @@ type
     procedure SetName(const Value: Utf8String); override;
     function GetValue: Utf8String; override;
     procedure SetValue(const Value: Utf8String); override;
-    constructor Create(AOwner: TComponent); override;
   public
+    constructor Create(AOwner: TComponent); override;
     procedure CopyFrom(ANode: TObject); override;
     destructor Destroy; override;
     function ParseStream(P: TsdXmlParser): TXmlNode; override;
@@ -1204,7 +1205,7 @@ type
     procedure WriteAttributeList(S: TStream; Count: integer); virtual;
     function GetNodeCount: integer; override;
     function GetNodes(Index: integer): TXmlNode; override;
-    function HasSubContainers: boolean; virtual;
+    function HasSubContainers: Boolean; virtual;
     property NodeList: TsdNodeList read FNodes;
     // count of the attributes
     function GetDirectNodeCount: integer; override;
@@ -1213,8 +1214,8 @@ type
     function GetElements(Index: integer): TsdElement; override;
     function GetElementCount: integer; override;
     function GetNodeClosingStyle: TsdNodeClosingStyle; virtual;
-    constructor Create(AOwner: TComponent); override;
   public
+    constructor Create(AOwner: TComponent); override;
     procedure CopyFrom(ANode: TObject); override;
     destructor Destroy; override;
     procedure Clear; override;
@@ -1305,11 +1306,11 @@ type
     FSystemLiteral: TsdQuotedText;
     FPubIDLiteral: TsdQuotedText;
   protected
-    constructor Create(AOwner: TComponent); override;
     function GetName: Utf8String; override;
     procedure SetName(const Value: Utf8String); override;
     procedure ParseIntermediateData(P: TsdXmlParser); override;
   public
+    constructor Create(AOwner: TComponent); override;
     procedure CopyFrom(ANode: TObject); override;
     destructor Destroy; override;
     function ParseStream(P: TsdXmlParser): TXmlNode; override;
@@ -1388,7 +1389,7 @@ type
     //FOnDebugOut: TsdDebugEvent;
     function GetOrCreateDeclarationNode: TXmlNode; virtual;
     function GetCharset: Utf8String;
-    function GetPreserveWhitespace: boolean;
+    function GetPreserveWhitespace: Boolean;
     procedure SetCharset(const Value: Utf8String);
     procedure SetBinaryDocument(ABinaryXml: TsdBinaryXml);
     procedure SetBinaryMethod(const Value: TsdXmlBinaryMethod);
@@ -1408,27 +1409,27 @@ type
     FRootNodes: TsdNodeList;
     FSymbolTable: TsdSymbolTable;
     // options
-    FAbortParsing: boolean;
+    FAbortParsing: Boolean;
     FDirectCloseTag: Utf8String;
-    FDropCommentsOnParse: boolean;
+    FDropCommentsOnParse: Boolean;
     FEolStyle: TsdEolStyle;
-    FFloatAllowScientific: boolean;
+    FFloatAllowScientific: Boolean;
     FFloatSignificantDigits: integer;
     FExternalBomInfo: TsdBomInfo;
     FExternalCodePage: integer;
     FExternalEncoding: TsdStringEncoding;
-    FFixStructuralErrors: boolean;
-    FHasDeclaration: boolean;
-    FHasDocType: boolean;
-    FHasRoot: boolean;
+    FFixStructuralErrors: Boolean;
+    FHasDeclaration: Boolean;
+    FHasDocType: Boolean;
+    FHasRoot: Boolean;
     FIndentString: Utf8String;
     FNodeClosingStyle: TsdNodeClosingStyle;
-    FParserWarnings: boolean;
+    FParserWarnings: Boolean;
     FRootName: Utf8String;
     FSplitSecondDigits: integer;
     FXmlFormat: TXmlFormatType;
-    FUseLocalBias: boolean;
-    FWriteOnDefault: boolean;
+    FUseLocalBias: Boolean;
+    FWriteOnDefault: Boolean;
     FBinaryMethod: TsdXmlBinaryMethod;
     FAesKeyHex: Utf8String; // optional encryption key string in hex
     FSingleTagNames: TStringList; // used in FixStructuralErrors
@@ -1474,7 +1475,7 @@ type
     // constructors
 
     // Create an xml document with options for declaration, root element and root name.
-    constructor CreateEx(AOwner: TComponent; HasDeclaration, HasDocType, HasRoot: boolean; ARootName: Utf8String);
+    constructor CreateEx(AOwner: TComponent; HasDeclaration, HasDocType, HasRoot: Boolean; ARootName: Utf8String);
     // Use CreateName to Create a new Xml document that will automatically
     // contain a root element with name ARootName. This constructor also adds
     // the default declaration. With default AOwner = nil, there is backward
@@ -1514,7 +1515,7 @@ type
     property IndentString: Utf8String read FIndentString write FIndentString;
     // Function IsEmpty returns true if the root is clear, or in other words, the
     // root contains no value, no name, no subnodes and no attributes.
-    function IsEmpty: boolean;
+    function IsEmpty: Boolean;
     // load from binary xml file (bxm). The advisory file extension is *.BXM
     procedure LoadFromBinaryFile(const AFileName: string); virtual;
     // load from binary xml stream (bxm)
@@ -2088,7 +2089,7 @@ function sdEscapeString(const AValue: Utf8String): Utf8String;
 
 // replace escaped phrases and references written in the core xml source
 // with replacement characters
-function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: boolean; References: array of TXmlNode): Utf8String; overload;
+function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: Boolean; References: array of TXmlNode): Utf8String; overload;
 function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: boolean): Utf8String; overload;
 function sdReplaceString(const AValue: Utf8String): Utf8String; overload;
 
@@ -2123,7 +2124,7 @@ function sdDateTimeToString(ADate: TDateTime; UseDate: boolean = True; UseTime: 
   SplitSecondDigits: integer = 0; UseLocalBias: boolean = False): Utf8String;
 
 function sdBoolToString(Value: boolean): Utf8String;
-function sdBoolFromString(Value: Utf8String): boolean;
+function sdBoolFromString(Value: Utf8String): Boolean;
 
 // Convert a number to a Utf8String, using SignificantDigits to indicate the number of
 // significant digits, and AllowScientific to allow for scientific notation if that
@@ -2473,20 +2474,20 @@ begin
   Result := sdUtf8ToWide(GetValue);
 end;
 
-function TXmlNode.IsClear: boolean;
+function TXmlNode.IsClear: Boolean;
 begin
   Result := IsEmpty and (length(Name) = 0);
 end;
 
-function TXmlNode.IsEmpty: boolean;
+function TXmlNode.IsEmpty: Boolean;
 begin
   Result := (GetNodeCount = 0) and (length(Value) = 0)
 end;
 
-function TXmlNode.IsEqualTo(ANode: TXmlNode; Options: TXmlCompareOptions; MismatchNodes: TList): boolean;
+function TXmlNode.IsEqualTo(ANode: TXmlNode; Options: TXmlCompareOptions; MismatchNodes: TList): Boolean;
 var
   ThisSubNode, ThatSubNode: TXmlNode;
-  NodeResult, ChildResult: boolean;
+  NodeResult, ChildResult: Boolean;
   // local
   procedure AddMismatchNode(ANode: TXmlNode);
   begin
@@ -2494,7 +2495,7 @@ var
       MismatchNodes.Add(ANode);
   end;
   // local
-  function NodeCompareOptions: boolean;
+  function NodeCompareOptions: Boolean;
   begin
     // We assume there are differences
     Result := False;
@@ -2528,7 +2529,7 @@ var
     Result := True;
   end;
   // local
-  function ChildCompareOptions: boolean;
+  function ChildCompareOptions: Boolean;
   var
     i: integer;
   begin
@@ -2594,6 +2595,7 @@ function TXmlNode.NodeAdd(ANode: TXmlNode): integer;
 begin
   // functionality is in descendant TsdContainerNode
   raise Exception.Create(sCannotAddNode);
+  Result := 0;
 end;
 
 function TXmlNode.NodeByName(const AName: Utf8String): TXmlNode;
@@ -2662,6 +2664,7 @@ function TXmlNode.NodeExtract(ANode: TXmlNode): TXmlNode;
 begin
   // functionality is in descendant TsdContainerNode
   raise Exception.Create(sCannotManipulate);
+  Result := nil;
 end;
 
 procedure TXmlNode.NodeExchange(Index1, Index2: integer);
@@ -2847,7 +2850,7 @@ begin
 // functionality is in descendants
 end;
 
-function TXmlNode.ReadAttributeBool(const AName: Utf8String; ADefault: boolean = False): boolean;
+function TXmlNode.ReadAttributeBool(const AName: Utf8String; ADefault: boolean = False): Boolean;
 begin
   Result := StrToBoolDef(AttributeValueByName[AName], ADefault);
 end;
@@ -2893,7 +2896,7 @@ begin
   Result := sdStringToDateTimeDef(AttributeValueByName[AName], ADefault, TNativeXml(FOwner).FUseLocalBias);
 end;
 
-function TXmlNode.ReadBool(const AName: Utf8String; ADefault: boolean = False): boolean;
+function TXmlNode.ReadBool(const AName: Utf8String; ADefault: boolean = False): Boolean;
 var
   Child: TXmlNode;
 begin
@@ -3011,7 +3014,7 @@ begin
   Result := sdUtf8ToAnsi(ReadString(AName, sdAnsiToUtf8(ADefault, CP_ACP)), CP_ACP);
 end;
 
-function TXmlNode.GetValueAsBoolDef(ADefault: boolean): boolean;
+function TXmlNode.GetValueAsBoolDef(ADefault: boolean): Boolean;
 begin
   Result := StrToBoolDef(GetValue, ADefault);
 end;
@@ -3040,7 +3043,7 @@ begin
   Result := StrToInt64Def(GetValue, ADefault);
 end;
 
-function TXmlNode.GetValueAsBool: boolean;
+function TXmlNode.GetValueAsBool: Boolean;
 begin
   Result := StrToBool(GetValue);
 end;
@@ -3190,7 +3193,7 @@ begin
     NodeAdd(Nodes[x]);
 end;
 
-function TXmlNode.GetWriteOnDefault: boolean;
+function TXmlNode.GetWriteOnDefault: Boolean;
 begin
   if assigned(FOwner) then
     Result := TNativeXml(FOwner).WriteOnDefault
@@ -3489,7 +3492,7 @@ begin
     Result := cDefaultEolStyle;
 end;
 
-function TXmlNode.GetPreserveWhiteSpace: boolean;
+function TXmlNode.GetPreserveWhiteSpace: Boolean;
 begin
   if assigned(FOwner) then
     Result := TNativeXml(FOwner).GetPreserveWhiteSpace
@@ -3563,7 +3566,7 @@ begin
   end;
 end;
 
-function TXmlNode.HasAttribute(const AName: Utf8String): boolean;
+function TXmlNode.HasAttribute(const AName: Utf8String): Boolean;
 var
   i: integer;
 begin
@@ -3900,8 +3903,9 @@ end;
 
 function TsdCharData.GetValueUsingReferences(Nodes: array of TXmlNode): Utf8String;
 var
-  HasNonStandardReferences: boolean;
+  HasNonStandardReferences: Boolean;
 begin
+  HasNonStandardReferences := False;
   Result := sdReplaceString(
     sdUnNormaliseEol(GetCoreValue, GetEolStyle),
     HasNonStandardReferences,
@@ -3940,18 +3944,20 @@ begin
   SetCoreValue(TsdCharData(ANode).GetCoreValue);
 end;
 
-function TsdCharData.HasNonStandardReferences: boolean;
+function TsdCharData.HasNonStandardReferences: Boolean;
 var
-  Res: boolean;
+  Res: Boolean;
 begin
+  Res := False;
   sdReplaceString(GetCoreValue, Res);
   Result := Res;
 end;
 
-function TsdCharData.IsWhiteSpace: boolean;
+function TsdCharData.IsWhiteSpace: Boolean;
 var
   S: Utf8String;
 begin
+  Result := False;
   S := TNativeXml(FOwner).FSymbolTable.GetString(FValueID);
   S := sdTrim(S, Result);
 end;
@@ -4007,8 +4013,9 @@ end;
 
 function TsdAttribute.ParseStream(P: TsdXmlParser): TXmlNode;
 var
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
+  IsTrimmed := False;
   Result := Self;
   {$IFDEF SOURCEPOS}
   FSourcePos := P.Position;
@@ -4068,6 +4075,7 @@ var
   Blanks: Utf8String;
   QuoteChar: AnsiChar;
 begin
+  Blanks := '';
   Result := Self;
   // Get the quoted value
   QuoteChar := P.NextCharSkipBlanks(Blanks);
@@ -4140,7 +4148,7 @@ begin
     Result := nil;
 end;
 
-function TsdContainerNode.HasSubContainers: boolean;
+function TsdContainerNode.HasSubContainers: Boolean;
 var
   i: integer;
 begin
@@ -4245,6 +4253,7 @@ var
   AttributeNode: TsdAttribute;
   WhiteSpaceNode: TsdWhiteSpace;
 begin
+  Blanks := '';
   repeat
     Result := P.NextCharSkipBlanks(Blanks);
     if Length(Blanks) > 0 then
@@ -4347,10 +4356,10 @@ var
   NodeClass: TsdNodeClass;
   SubNode, EndNode: TXmlNode;
   EndNodeName: Utf8String;
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
   Result := nil;
-
+  IsTrimmed := False;
   repeat
     // Process char data
     ParseIntermediateData(P);
@@ -4461,6 +4470,7 @@ var
   Blanks: Utf8String;
   QuotedTextNode: TsdQuotedText;
 begin
+  Blanks := '';
   repeat
     Result := P.NextCharSkipBlanks(Blanks);
     if (Length(Blanks) > 0) and (Blanks <> ' ') then
@@ -4678,6 +4688,9 @@ begin
   {$IFDEF SOURCEPOS}
   SourcePos := P.Position;
   {$ENDIF SOURCEPOS}
+  PreString := '';
+  PostString := '';
+
 
   S := P.ReadStringUntilChar('<');
   CharDataString := sdTrim(S, PreString, PostString);
@@ -4722,8 +4735,9 @@ function TsdElement.ParseStream(P: TsdXmlParser): TXmlNode;
 var
   Ch: AnsiChar;
   AName: Utf8String;
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
+  IsTrimmed := False;
   Result := Self;
 
   // Flush the reader.
@@ -4818,7 +4832,7 @@ procedure TsdElement.WriteStream(S: TStream);
 var
   i: integer;
   SubNode: TXmlNode;
-  HasSubElements: boolean;
+  HasSubElements: Boolean;
 begin
   // determine if there is at least one subelement
   HasSubElements := HasSubContainers;
@@ -5052,6 +5066,7 @@ var
   B: AnsiChar;
   WhitespaceNode: TsdWhiteSpace;
 begin
+  Blanks := '';
   repeat
     B := P.NextCharSkipBlanks(Blanks);
 
@@ -5076,8 +5091,13 @@ function TsdDocType.ParseStream(P: TsdXmlParser): TXmlNode;
 var
   Blanks1, Blanks2, Blanks3, Blanks4: Utf8String;
   B: AnsiChar;
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
+  IsTrimmed := False;
+  Blanks1 := '';
+  Blanks2 := '';
+  Blanks3 := '';
+  Blanks4 := '';
   Result := Self;
   // sequence <!DOCTYPE is already parsed here
   // Parse name
@@ -5201,8 +5221,11 @@ end;
 function TsdDtdElement.ParseStream(P: TsdXmlParser): TXmlNode;
 var
   Blanks1, Blanks2: Utf8string;
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
+  IsTrimmed := False;
+  Blanks1 := '';
+  Blanks2 := '';
   Result := Self;
   P.NextCharSkipBlanks(Blanks1);
   P.MoveBack;
@@ -5521,7 +5544,7 @@ begin
   end;
 end;
 
-constructor TNativeXml.CreateEx(AOwner: TComponent; HasDeclaration, HasDocType, HasRoot: boolean; ARootName: Utf8String);
+constructor TNativeXml.CreateEx(AOwner: TComponent; HasDeclaration, HasDocType, HasRoot: Boolean; ARootName: Utf8String);
 begin
   inherited Create(AOwner);
 
@@ -5611,7 +5634,7 @@ begin
       Result := TsdDeclaration(FRootNodes[0]).Encoding;
 end;
 
-function TNativeXml.GetPreserveWhitespace: boolean;
+function TNativeXml.GetPreserveWhitespace: Boolean;
 begin
   Result := (FXmlFormat = xfPreserve);
 end;
@@ -5712,7 +5735,7 @@ begin
       Result := TsdDeclaration(FRootNodes[0]).Version;
 end;
 
-function TNativeXml.IsEmpty: boolean;
+function TNativeXml.IsEmpty: Boolean;
 var
   R: TXmlNode;
 begin
@@ -5778,7 +5801,9 @@ var
   Buffer: array[0..$400 - 1] of AnsiChar;
   BytesRead: cardinal;
 begin
+  Initialize(Buffer);
   Result := 0;
+  BytesRead := 0;
 
   NetHandle := InternetOpenA('nativexml', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
 
@@ -5932,13 +5957,14 @@ var
   {$IFDEF SOURCEPOS}
   SP: int64;
   {$ENDIF SOURCEPOS}
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
   DeclarationEncodingString: Utf8String;
   i, Idx: integer;
   Parent, Content: TXmlNode;
   Container: TsdContainerNode;
-  HasClosed: boolean;
+  HasClosed: Boolean;
 begin
+  IsTrimmed := False;
   FAbortParsing := False;
 
   // prepare for "FixStructuralErrors"
@@ -6101,8 +6127,9 @@ var
     Node: TXmlNode;
     StringData: Utf8String;
     CD: TsdCharData;
-    IsTrimmed: boolean;
+    IsTrimmed: Boolean;
   begin
+    IsTrimmed := False;
     FAbortParsing := False;
 
     // result will have the first re-parsed node
@@ -6206,8 +6233,9 @@ var
   CN: TsdContainerNode;
   ChardataString: Utf8String;
   i: integer;
-  IsTrimmed: boolean;
+  IsTrimmed: Boolean;
 begin
+  IsTrimmed := False;
   Node := FindFirst;
   while assigned(Node) do
   begin
@@ -7254,7 +7282,7 @@ end;
 
 { TsdXmlParser }
 
-function TsdXmlParser.CheckString(const S: Utf8String): boolean;
+function TsdXmlParser.CheckString(const S: Utf8String): Boolean;
 // case-insensitive string check
 var
   i, Count, StartIdx: integer;
@@ -7460,10 +7488,10 @@ begin
     BytesAvail := MakeDataAvailable
 end;
 
-function TsdXmlParser.IsBinaryXml: boolean;
+function TsdXmlParser.IsBinaryXml: Boolean;
 var
   i: integer;
-  Cookie: array[0..3] of AnsiChar;
+  Cookie: array[0..3] of AnsiChar = (#0, #0, #0, #0);
 begin
   Result := False;
   if FRawLastIdx <= length(cBinaryXmlCookie) then
@@ -7642,8 +7670,8 @@ end;
 procedure TsdXmlParser.ReadBOM;
 var
   i, j: integer;
-  BOM: array[0..3] of byte;
-  BomInfoFound: boolean;
+  BOM: array[0..3] of byte = (0, 0, 0, 0);
+  BomInfoFound: Boolean;
 begin
   if FRawLastIdx <= 4 then
   begin
@@ -7813,7 +7841,7 @@ type
   PWord = ^Word;
 var
   i, AnsiCount, WideCount: integer;
-  DefaultCharUsed: boolean;
+  DefaultCharUsed: Boolean = False;
   W: PWord; // pointer to a word
   // local
   procedure AllocRawBuffer(ASize: integer);
@@ -7880,7 +7908,7 @@ end;
 function sdWideToUtf8(const W: UnicodeString): Utf8String;
 var
   WideCount, Utf8Count: integer;
-  LastChar0D: boolean;
+  LastChar0D: Boolean;
 begin
   WideCount := length(W);
   LastChar0D := False;
@@ -7928,7 +7956,7 @@ var
   W: word;
   ByteCh: byte;
   WideIdx, Utf8Idx: integer;
-  AddChar: boolean;
+  AddChar: Boolean;
 begin
   WideIdx := 0;
   Utf8Idx := 0;
@@ -8034,7 +8062,7 @@ end;
 function sdAnsiToUtf8(const A: AnsiString; ACodePage: integer): Utf8String;
 var
   AnsiCount, Utf8Count: integer;
-  LastChar0D: boolean;
+  LastChar0D: Boolean;
 begin
   AnsiCount := length(A);
   SetLength(Result, AnsiCount * 3); // just to be sure
@@ -8053,7 +8081,7 @@ var
   AnsiCh: AnsiChar;
   WideCh: WideChar;
   Len: integer;
-  AddChar: boolean;
+  AddChar: Boolean;
 begin
   AnsiIdx := 0;
   Utf8Idx := 0;
@@ -8102,7 +8130,7 @@ function sdNormaliseBuffer(const RawBuf; var NormBuf; Count: integer; var LastCh
 var
   RawIdx, NormIdx: integer;
   ByteCh: byte;
-  AddChar: boolean;
+  AddChar: Boolean;
 begin
   RawIdx := 0;
   NormIdx := 0;
@@ -8138,7 +8166,7 @@ function sdUtf8ToAnsi(const U: Utf8String; ACodePage: integer): AnsiString;
 // Convert UTF8 to Ansi string
 var
   Utf8Count, AnsiCount: integer;
-  DefaultCharUsed: boolean;
+  DefaultCharUsed: Boolean = False;
 begin
   Utf8Count := length(U);
   SetLength(Result, Utf8Count);
@@ -8154,7 +8182,7 @@ function sdUtf8ToAnsiBuffer(const Utf8Buf; var AnsiBuf; ACodePage, Utf8Count: in
 var
   AnsiIdx, Utf8Idx: integer;
   Utf8Ch: AnsiChar;
-  WideCh: WideChar;
+  WideCh: WideChar = #0;
   Len: integer;
   DU: pointer;
 const
@@ -8194,7 +8222,7 @@ function sdEscapeString(const AValue: Utf8String): Utf8String;
 var
   i, Len: Integer;
   P: PAnsiChar;
-  HasEscapes: boolean;
+  HasEscapes: Boolean;
   ScratchMem: TsdFastMemStream;
 begin
   Result := '';
@@ -8245,13 +8273,13 @@ begin
 
 end;
 
-function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: boolean;
+function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: Boolean;
   References: array of TXmlNode): Utf8String; overload;
 var
   i, j, k, V, Code, Len: Integer;
   W: Word;
   P, Q: PAnsiChar;
-  HasReferences, FoundReference: boolean;
+  HasReferences, FoundReference: Boolean;
   Reference, Replacement: Utf8String;
   ScratchMem: TsdFastMemStream;
 
@@ -8406,12 +8434,12 @@ var
   References: array of TXmlNode;
 begin
   SetLength(References, 0);
-  sdReplaceString(AValue, HasNonStandardReferences, References);
+  Result := sdReplaceString(AValue, HasNonStandardReferences, References);
 end;
 
 function sdReplaceString(const AValue: Utf8String): Utf8String; overload;
 var
-  HasNonStandardReferences: boolean;
+  HasNonStandardReferences: Boolean;
   References: array of TXmlNode;
 begin
   HasNonStandardReferences := False;
@@ -8486,7 +8514,7 @@ function sdNormaliseEol(const S: Utf8String): Utf8String;
 // compress all eol (CR-LF, LF or CR) to normalised eol (only LF aka #$0A)
 var
   i, j, L, IntervalCount: integer;
-  HasCR, HasLF: boolean;
+  HasCR, HasLF: Boolean;
 begin
   L := Length(S);
   HasCR := False;
@@ -8629,7 +8657,7 @@ end;
 
 function sdReadCardinal(S: TStream): cardinal;
 var
-  C: byte;
+  C: byte = 0;
   Bits: integer;
 begin
   Result := 0;
@@ -8724,6 +8752,7 @@ function GetTimeZoneBias: Integer;
 var
   TimeZoneInfo: TTimeZoneInformation;
 begin
+  Initialize(TimeZoneInfo);
   case GetTimeZoneInformation(TimeZoneInfo) of
     TIME_ZONE_ID_UNKNOWN: Result := TimeZoneInfo.Bias;
     TIME_ZONE_ID_STANDARD: Result := TimeZoneInfo.Bias + TimeZoneInfo.StandardBias;
@@ -8803,7 +8832,7 @@ begin
   Result := cBoolValues[Value];
 end;
 
-function sdBoolFromString(Value: Utf8String): boolean;
+function sdBoolFromString(Value: Utf8String): Boolean;
 begin
   Result := StrToBool(Value);
 end;
@@ -9121,7 +9150,7 @@ begin
     for j := 2 downto 0 do
     begin
       // Check overshoot
-      if integer(D) - integer(@Buffer) >= Count then
+      if NativeUInt(D) - NativeUInt(@Buffer) >= Count then
         exit;
       D^ := FourChar shr (j * 8) and $FF;
       inc(D);
@@ -9333,7 +9362,7 @@ var
   SIn, SOut: TStream;
   PayloadPos: int64;
   PlainSize: int64;
-  LineFeed: byte;
+  LineFeed: byte = 0;
 begin
   Cookie := sdReadFromStream(S, length(cBinaryXmlCookie));
   if Cookie <> cBinaryXmlCookie then
@@ -9416,7 +9445,7 @@ end;
 
 function TsdBinaryXml.ReadCardinal(S: TStream): cardinal;
 var
-  C: byte;
+  C: byte = 0;
   Bits: integer;
 begin
   Result := 0;
@@ -9442,11 +9471,11 @@ var
   SubCounts: array of integer;
   Parents: array of TXmlNode;
   Node, Parent: TXmlNode;
-  NodeCount, SubCount, Level: integer;
+  NodeCount: integer = 0;
+  SubCount: integer = 0;
+  Level: integer = 0;
 begin
-
-  Level := 0;
-  NodeCount := 0;
+  Initialize(SubCounts);
   Parent := nil;
 
   repeat
@@ -10033,7 +10062,7 @@ end;
 function TXmlNodeHelper.ProcessXPath(const StartNode: TXmlNode; XPath: string;
                                      const ResultNodes: TList; const StopWhenFound: Boolean): Integer;
 var
-  Recursive: boolean;
+  Recursive: Boolean;
   SlashPos: Integer;
   NodeName: string;
   i: Integer;

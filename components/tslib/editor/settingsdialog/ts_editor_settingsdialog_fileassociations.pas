@@ -166,8 +166,8 @@ begin
 end;
 
 procedure TfrmOptionsAssociate.actDeleteExecute(Sender: TObject);
-var
-  I: integer;
+//var
+//  I: integer;
 begin
   //I := 0;
   //while I <= lvExt.Items.Count - 1 do
@@ -207,8 +207,8 @@ begin
 end;
 
 procedure TfrmOptionsAssociate.lnkBackupClick(Sender: TObject);
-var
-  Param: string;
+//var
+  //Param: string;
  // Res: integer;
 begin
   with TSaveDialog.Create(Self) do

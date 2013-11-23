@@ -155,15 +155,15 @@ end;
 {$ENDIF}
 
 procedure TdlgExt.imIconClick(Sender: TObject);
-var
-  FN: string;
-  Index: integer;
+//var
+//  FN: string;
+//  Index: integer;
 begin
   //FN := GetPartOfStr(edIcon.Hint, 0, SExtDel);
   //Index := StrToInt(GetPartOfStr(edIcon.Hint, 1, SExtDel));
   //if not FileExistsUTF8(FN)  then
-    FN := ParamStr(0);
-    Index := 1;
+    //FN := ParamStr(0);
+    //Index := 1;
   //if ExecuteIconDlg(Handle, FN, Index) then
   //;
     //LoadIcon(FN + SExtDel + IntToStr(Index));

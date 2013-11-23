@@ -9,7 +9,6 @@ inherited frmSearchForm: TfrmSearchForm
   ClientWidth = 309
   Constraints.MinHeight = 312
   Constraints.MinWidth = 300
-  KeyPreview = True
   OnHide = FormHide
   OnShow = FormShow
   PopupMode = pmAuto

@@ -521,7 +521,7 @@ begin
     O := Application
   else
     O := AOwner;
-  Result := TdmEditorManager.Create(AOwner, nil);
+  Result := TdmEditorManager.Create(O, nil);
   Result.PersistSettings := APersistSettings;
   if APersistSettings then
   begin
@@ -567,4 +567,4 @@ begin
 end;
 
 end.
-
+

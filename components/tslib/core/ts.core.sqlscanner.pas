@@ -206,8 +206,6 @@ Type
   TSQLScanner = class
   private
     FOptions         : TSQLScannerOptions;
-    FReturnComments  : Boolean;
-    FReturnWhiteSpace: Boolean;
     FSourceFile      : TLineReader;
     FSourceFilename  : string;
     FCurRow          : Integer;
@@ -677,7 +675,6 @@ function TSQLScanner.DoIdentifier : TSQLToken;
 var
   TokenStart:PChar;
   Len       : Integer;
-  I         : TSQLToken;
   S         : ShortString;
   P         : ^TSQLToken;
 

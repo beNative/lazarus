@@ -167,7 +167,7 @@ type
     //Send functions
     procedure Send(const AText: String); overload; {$ifdef fpc}inline;{$endif}
     procedure Send(Classes: TDebugClasses; const AText: String);overload;
-    procedure Send(const AText: String; Args: array of const);overload; {$ifdef fpc}inline;{$endif}
+    procedure Send(const AText: String; Args: array of const); overload;
     procedure Send(Classes: TDebugClasses; const AText: String; Args: array of const);overload;
     procedure Send(const AText, AValue: String);overload; {$ifdef fpc}inline;{$endif}
     procedure Send(Classes: TDebugClasses; const AText,AValue: String); overload;
@@ -390,7 +390,7 @@ begin
     if Digits = 3 then
     begin
       Digits:=0;
-      Result:=ThousandSeparator+Result;
+      Result := FormatSettings.ThousandSeparator + Result;
     end;
     Result:=TempStr[i]+Result;
     Inc(Digits);

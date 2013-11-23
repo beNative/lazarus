@@ -232,7 +232,7 @@ var
 
   function GetFontTable: UnicodeString;
   begin
-    Result := '{\fonttbl{\f0\fmodern ' + Font.Name;
+    Result := '{\fonttbl{\f0\fmodern ' + UnicodeString(Font.Name);
     Result := Result + ';}}'#13#10;
   end;
 
@@ -241,7 +241,7 @@ begin
   // all the colors
   Result := Result + '{\colortbl';
   for i := 0 to FListColors.Count - 1 do
-    Result := Result + ColorToRTF(TColor(FListColors[i]));
+    Result := Result + string(ColorToRTF(TColor(FListColors[i])));
   Result := Result + '}'#13#10;
   Result := Result + '{\info{\comment}'#13#10;
   Result := Result + '{\title ' + fTitle + '}}'#13#10;
@@ -253,4 +253,4 @@ end;
 
 end.
 
-
+

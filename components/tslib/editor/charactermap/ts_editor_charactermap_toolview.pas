@@ -66,12 +66,14 @@ type
       var CanSelect: Boolean);
 
   strict private
-    procedure EditorSettingsChanged(Sender: TObject);
 
     procedure FillCharMap;
     procedure UpdateCharacterBitmap(const ACharacter: string);
     procedure UpdateUnicodeDisplay(ACol, ARow: Integer);
     procedure UpdateANSIDisplay(ACol, ARow: Integer);
+
+  strict protected
+    procedure EditorSettingsChanged(Sender: TObject); override;
 
   public
     procedure AfterConstruction; override;

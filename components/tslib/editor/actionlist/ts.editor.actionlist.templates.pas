@@ -45,8 +45,6 @@ type
   private
     FActionTemplate : IDataTemplate;
 
-    FActions : TObjectList;
-
   public
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;
     function GetTemplateDataClass: TClass; override;

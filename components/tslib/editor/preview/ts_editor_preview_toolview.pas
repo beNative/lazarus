@@ -46,9 +46,8 @@ type
   strict private
      FSynExporterRTF: TSynExporterRTF;
 
-    procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
-
   strict protected
+     procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer); override;
     procedure UpdateView; override;
 
   public
@@ -66,7 +65,6 @@ begin
   inherited AfterConstruction;
   FSynExporterRTF := TSynExporterRTF.Create(Self);
   mmoPreview.DoubleBuffered := True;
-  Manager.Events.AddOnCaretPositionEvent(EditorCaretPositionChange);
 end;
 {$endregion}
 

@@ -9963,7 +9963,7 @@ var
   A              : TAlignment;
   WR, WW         : Boolean;
   T              : string;
-  I: cint;
+  I              : cint = 0;
 {$ENDIF}
 begin
 {$IFDEF Windows}
@@ -10117,7 +10117,7 @@ var
   SD            : TGridSortDirection;
   SB            : Graphics.TBitmap;
   SR            : TRect;
-  IsPressed     : Boolean;
+  IsPressed     : Boolean = False;
 {$ENDIF}
 begin
 {$IFDEF Windows}
@@ -11650,4 +11650,4 @@ initialization
 finalization
   FreeAndNil(FPatternBitmap);
 
-end.
+end.

@@ -304,6 +304,7 @@ var
   L, BySymbolIndex: integer;
   ASymbol, Item: TsdSymbol;
 begin
+  BySymbolIndex := 0;
   Result := 0;
   L := length(S);
 
@@ -640,8 +641,8 @@ function sdUtf16ToUtf8Mem(Src: Pword; Dst: Pbyte; Count: integer): integer;
 // Therefore, the block at Dst must be at least 1.5 the size of the source block.
 // The function returns the number of *bytes* written.
 var
-  W: word;
-  DStart: Pbyte;
+  W: Word;
+  DStart: PByte;
 begin
   DStart := Dst;
   while Count > 0 do
@@ -670,9 +671,9 @@ begin
         inc(Dst);
       end;
     end;
-    dec(Count);
+    Dec(Count);
   end;
-  Result := integer(Dst) - integer(DStart);
+  Result := Byte(Dst) - Byte(DStart);
 end;
 
 function sdUtf8ToUtf16Mem(var Src: Pbyte; Dst: Pword; Count: integer): integer;
@@ -692,7 +693,7 @@ begin
   DStart := Dst;
   SClose := Src;
   inc(SClose, Count);
-  while integer(Src) < integer(SClose) do
+  while Byte(Src) < Byte(SClose) do
   begin
     // 1st byte
     W := Src^;
@@ -734,6 +735,7 @@ var
   C: byte;
   Bits: integer;
 begin
+  C := 0;
   Result := 0;
   Bits := 0;
   repeat

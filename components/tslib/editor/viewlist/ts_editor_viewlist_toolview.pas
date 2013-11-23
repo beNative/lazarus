@@ -74,8 +74,6 @@ uses
 
 {$region 'construction and destruction' /fold}
 procedure TfrmViewList.AfterConstruction;
-var
-  I: Integer;
 begin
   inherited AfterConstruction;
   FVST := VST.Create(Self, pnlVST);

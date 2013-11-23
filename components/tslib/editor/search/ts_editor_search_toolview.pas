@@ -117,7 +117,6 @@ type
     FTVP : TTreeViewPresenter;
     FVST : TVirtualStringTree;
 
-    procedure EditorSettingsChanged(Sender: TObject);
     procedure SearchEngineExecute(Sender: TObject);
     procedure SearchEngineChange(Sender: TObject);
 
@@ -130,6 +129,8 @@ type
     procedure SetReplaceText(const AValue: string);
 
   strict protected
+    procedure EditorSettingsChanged(Sender: TObject); override;
+
     procedure SettingsChanged; override;
     procedure Execute;
 
@@ -411,8 +412,6 @@ end;
 
 {$region 'protected methods' /fold}
 procedure TfrmSearchForm.Execute;
-var
-  S : string;
 begin
   SearchEngine.SearchText := cbxSearchText.Text;
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
@@ -518,4 +517,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

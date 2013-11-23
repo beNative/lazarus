@@ -717,6 +717,7 @@ var
   KS : TKeyboardState;
   AR : Integer;
 begin
+  Initialize(KS);
   GetKeyboardState(KS);
   SetLength(Result, 2);
   AR := ToAscii(AKey, MapVirtualKey(AKey, 0), KS, @Result[1], 0);

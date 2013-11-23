@@ -2669,6 +2669,27 @@ begin
   inherited Notification(AComponent, Operation);
 end;
 
+procedure TdmEditorManager.ShowToolView(const AName: string;
+  AShowModal: Boolean; ASetFocus: Boolean);
+var
+  ETV : IEditorToolView;
+begin
+  ETV := ToolViews[AName];
+  if not AShowModal then
+  begin
+    { Allow owner to dock the toolview in the main application workspace. }
+    Events.DoShowToolView(ETV);
+    ETV.Visible := True;
+  end
+  else
+  begin
+    ETV.Form.ShowModal;
+  end;
+  ETV.UpdateView;
+  if ASetFocus then
+    ETV.SetFocus;
+end;
+
 {$region 'IEditorActions' /fold}
 function TdmEditorManager.AddView(const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
@@ -2802,34 +2823,6 @@ begin
   Logger.ExitMethod(Self, 'AExceptActive');
 end;
 {$endregion}
-
-procedure TdmEditorManager.ShowToolView(const AName: string;
-  AShowModal: Boolean; ASetFocus: Boolean);
-var
-  ETV : IEditorToolView;
-begin
-    //if not AShowModal then
-    //  ToolViews.Hide;
-    //if AVisible then
-    //begin
-      ETV := ToolViews[AName];
-      if not AShowModal then
-      begin
-        { Allow owner to dock the toolview in the main application workspace. }
-        Events.DoShowToolView(ETV);
-        ETV.Visible := True;
-      end
-      else
-      begin
-        ETV.Form.ShowModal;
-      end;
-      ETV.UpdateView;
-      if ASetFocus then
-        ETV.SetFocus;
-    //end
-    //else
-    //  Events.DoHideToolView(ETV);
-end;
 
 {$region 'IEditorCommands' /fold}
 procedure TdmEditorManager.AssignHighlighter(const AName: string);
@@ -3067,89 +3060,92 @@ var
   V : IEditorView;
 begin
   V := ActiveView;
-  if Assigned(V) and Assigned(Settings) and V.Focused {and FChanged} then
+  if Assigned(V) then
   begin
-    B := V.SelAvail and not Settings.ReadOnly;
-    actDequoteSelection.Enabled               := B;
-    actLowerCaseSelection.Enabled             := B;
-    actToggleBlockCommentSelection.Enabled    := B;
-    actPascalStringOfSelection.Enabled        := B;
-    actStripMarkup.Enabled                    := B;
-    actQuoteSelection.Enabled                 := B;
-    actQuoteLinesAndDelimit.Enabled           := B;
-    actSortSelection.Enabled                  := B;
-    actUpperCaseSelection.Enabled             := B;
-    actStripFirstChar.Enabled                 := B;
-    actStripLastChar.Enabled                  := B;
-    actQuoteLines.Enabled                     := B;
-    actDequoteLines.Enabled                   := B;
-    actSelectionEncodeMenu.Enabled            := B;
-    actSelectionDecodeMenu.Enabled            := B;
-    actEncodeBase64.Enabled                   := B;
-    actDecodeBase64.Enabled                   := B;
-    actEncodeURL.Enabled                      := B;
-    actDecodeURL.Enabled                      := B;
-    actConvertTabsToSpacesInSelection.Enabled := B;
-    actExecuteScriptOnSelection.Enabled       := B;
-    actSyncEdit.Enabled                       := B;
-
-    B := not Settings.ReadOnly;
-    actAlignSelection.Visible          := B;
-    actCut.Visible                     := B;
-    actDelete.Visible                  := B;
-    actDequoteLines.Visible            := B;
-    actDequoteSelection.Visible        := B;
-    actFormat.Visible                  := B;
-    actInsertCharacterFromMap.Visible  := actInsertCharacterFromMap.Visible and B;
-    actPascalStringOfSelection.Visible := B;
-    actPaste.Visible                   := B;
-    actQuoteSelection.Visible          := B;
-    actQuoteLines.Visible              := B;
-    actQuoteLinesAndDelimit.Visible    := B;
-    actShapeCode.Visible               := actShapeCode.Visible and B;
-    actToggleComment.Visible           := B;
-    actStripLastChar.Visible           := B;
-    actStripFirstChar.Visible          := B;
-    actUpperCaseSelection.Visible      := B;
-    actLowerCaseSelection.Visible      := B;
-    actSyncEdit.Visible                := B;
-
-    actRedo.Enabled := B and V.CanRedo;
-    actUndo.Enabled := B and V.CanUndo;
-
     B := ActiveView.Focused;
     actCut.Enabled   := actCut.Visible and B;
     actCopy.Enabled  := actCopy.Visible and B;
     actPaste.Enabled := actPaste.Visible and ActiveView.CanPaste and B;
 
-    B := V.SupportsFolding;
-    actToggleFoldLevel.Enabled := B;
-    actFoldLevel0.Enabled      := B;
-    actFoldLevel1.Enabled      := B;
-    actFoldLevel2.Enabled      := B;
-    actFoldLevel3.Enabled      := B;
-    actFoldLevel4.Enabled      := B;
-    actFoldLevel5.Enabled      := B;
-    actFoldLevel6.Enabled      := B;
-    actFoldLevel7.Enabled      := B;
-    actFoldLevel8.Enabled      := B;
-    actFoldLevel9.Enabled      := B;
-    actFoldLevel10.Enabled     := B;
+    if Assigned(Settings) and V.Focused {and FChanged} then
+    begin
+      B := V.SelAvail and not Settings.ReadOnly;
+      actDequoteSelection.Enabled               := B;
+      actLowerCaseSelection.Enabled             := B;
+      actToggleBlockCommentSelection.Enabled    := B;
+      actPascalStringOfSelection.Enabled        := B;
+      actStripMarkup.Enabled                    := B;
+      actQuoteSelection.Enabled                 := B;
+      actQuoteLinesAndDelimit.Enabled           := B;
+      actSortSelection.Enabled                  := B;
+      actUpperCaseSelection.Enabled             := B;
+      actStripFirstChar.Enabled                 := B;
+      actStripLastChar.Enabled                  := B;
+      actQuoteLines.Enabled                     := B;
+      actDequoteLines.Enabled                   := B;
+      actSelectionEncodeMenu.Enabled            := B;
+      actSelectionDecodeMenu.Enabled            := B;
+      actEncodeBase64.Enabled                   := B;
+      actDecodeBase64.Enabled                   := B;
+      actEncodeURL.Enabled                      := B;
+      actDecodeURL.Enabled                      := B;
+      actConvertTabsToSpacesInSelection.Enabled := B;
+      actExecuteScriptOnSelection.Enabled       := B;
+      actSyncEdit.Enabled                       := B;
 
-    actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
-    actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
+      B := not Settings.ReadOnly;
+      actAlignSelection.Visible          := B;
+      actCut.Visible                     := B;
+      actDelete.Visible                  := B;
+      actDequoteLines.Visible            := B;
+      actDequoteSelection.Visible        := B;
+      actFormat.Visible                  := B;
+      actInsertCharacterFromMap.Visible  := actInsertCharacterFromMap.Visible and B;
+      actPascalStringOfSelection.Visible := B;
+      actPaste.Visible                   := B;
+      actQuoteSelection.Visible          := B;
+      actQuoteLines.Visible              := B;
+      actQuoteLinesAndDelimit.Visible    := B;
+      actShapeCode.Visible               := actShapeCode.Visible and B;
+      actToggleComment.Visible           := B;
+      actStripLastChar.Visible           := B;
+      actStripFirstChar.Visible          := B;
+      actUpperCaseSelection.Visible      := B;
+      actLowerCaseSelection.Visible      := B;
+      actSyncEdit.Visible                := B;
 
-    actSave.Enabled := ActiveView.Modified;
+      actRedo.Enabled := B and V.CanRedo;
+      actUndo.Enabled := B and V.CanUndo;
 
-    actClose.Visible       := ViewCount > 1;
-    actCloseOthers.Visible := ViewCount > 1;
+      B := V.SupportsFolding;
+      actToggleFoldLevel.Enabled := B;
+      actFoldLevel0.Enabled      := B;
+      actFoldLevel1.Enabled      := B;
+      actFoldLevel2.Enabled      := B;
+      actFoldLevel3.Enabled      := B;
+      actFoldLevel4.Enabled      := B;
+      actFoldLevel5.Enabled      := B;
+      actFoldLevel6.Enabled      := B;
+      actFoldLevel7.Enabled      := B;
+      actFoldLevel8.Enabled      := B;
+      actFoldLevel9.Enabled      := B;
+      actFoldLevel10.Enabled     := B;
 
-    actToggleMaximized.Checked :=
-      Settings.FormSettings.WindowState = wsMaximized;
-    actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
-    actSingleInstance.Checked := Settings.SingleInstance;
+      actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
+      actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
 
-    FChanged := False;
+      actSave.Enabled := ActiveView.Modified;
+
+      actClose.Visible       := ViewCount > 1;
+      actCloseOthers.Visible := ViewCount > 1;
+
+      actToggleMaximized.Checked :=
+        Settings.FormSettings.WindowState = wsMaximized;
+      actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
+      actSingleInstance.Checked := Settings.SingleInstance;
+
+      FChanged := False;
+    end;
   end;
 end;
 

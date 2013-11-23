@@ -20,12 +20,19 @@ unit ts.Editor.Events;
 
 {$MODE Delphi}
 
-{ Events dispatched by the IEditorManager and active IEditorView instance. }
+{ Events dispatched by the IEditorManager and active IEditorView instance.
+
+  TMethodList is used to emulate multicast events hence these events can be
+  dispatched to multiple event handlers. This is an implementation of the
+  observer pattern where multiple observers can respond to changes in a subject.
+}
 
 interface
 
 uses
-  Classes, SysUtils, LazMethodList,
+  Classes, SysUtils,
+
+  LazMethodList,
 
   SynEditTypes, SynMacroRecorder,
 

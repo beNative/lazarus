@@ -61,7 +61,6 @@ implementation
 {$R *.lfm}
 
 {$region 'construction and destruction' /fold}
-
 procedure TfrmPreview.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -69,17 +68,9 @@ begin
   mmoPreview.DoubleBuffered := True;
   Manager.Events.AddOnCaretPositionEvent(EditorCaretPositionChange);
 end;
-
-{$endregion}
-
-{$region 'property access mehods' /fold}
-
-
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TfrmPreview.EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
 begin
   UpdateView;
@@ -124,7 +115,6 @@ begin
     EndFormUpdate;
   end;
 end;
-
 {$endregion}
 
 end.

@@ -21,7 +21,20 @@ unit ts_Editor_ToolView_Base;
 { Base toolview form that can be used to create descendants that implement
   IEditorToolView.
   It reacts to changes in the common settings (IEditorSettings) which are
-  associated with the manager (IEditorManager) instance.  }
+  associated with the owning manager (IEditorManager) instance.
+
+  It provides properties which are shortcuts to the following instances that
+  are used by the editor manager:
+    - Manager  : IEditorManager   - The owning editor manager instance
+    - Settings : IEditorSettings  - All persistable settings
+    - View     : IEditorView      - The currently active editor view
+    - Views    : IEditorViews     - The list of available editor views
+
+  It provides virtual event handlers which act as callback methods to let us
+  respond to certain changes in the active editor view or to changes in the
+  settings. It acts as an observer to react on any relevant changes in the
+  observed instances.
+}
 
 {$MODE Delphi}
 
@@ -92,9 +105,6 @@ implementation
 {$R *.lfm}
 
 uses
-{$IFDEF Windows}
-  Windows,
-{$ENDIF}
   LCLIntf, LMessages;
 
 {$region 'construction and destruction' /fold}
@@ -165,7 +175,6 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-
 procedure TCustomEditorToolView.EditorCaretPositionChange(Sender: TObject; X,
   Y: Integer);
 begin
@@ -191,11 +200,9 @@ procedure TCustomEditorToolView.EditorChange(Sender: TObject);
 begin
   UpdateView;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 procedure TCustomEditorToolView.UpdateView;
 begin
   // to be overridden
@@ -212,35 +219,6 @@ procedure TCustomEditorToolView.SettingsChanged;
 begin
   // to be overridden
 end;
-
-//procedure TCustomEditorToolView.Cut;
-//begin
-//  PostMessage(GetFocus, LM_CUT, 0, 0);
-//end;
-//
-//procedure TCustomEditorToolView.Copy;
-//begin
-//  PostMessage(GetFocus, LM_COPY, 0, 0);
-//end;
-//
-//procedure TCustomEditorToolView.Paste;
-//begin
-//  PostMessage(GetFocus, LM_PASTE, 0, 0);
-//end;
-//
-//procedure TCustomEditorToolView.Undo;
-//begin
-//{$IFDEF windows}
-//  PostMessage(GetFocus, WM_UNDO, 0, 0);
-//{$ENDIF}
-//end;
-//
-//procedure TCustomEditorToolView.Redo;
-//begin
-//{$IFDEF windows}
-//  PostMessage(GetFocus, WM_UNDO, 1, 0);
-//{$ENDIF}
-//end;
 {$endregion}
 
 end.

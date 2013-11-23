@@ -1046,6 +1046,7 @@ type
     function GetHighlighters: THighlighters;
     {$endregion}
 
+    procedure UpdateActions;
     function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
     function OpenFile(const AFileName: string): IEditorView;

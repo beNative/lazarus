@@ -2810,9 +2810,8 @@ msgctxt "tfrmviewlist.actclose.caption"
 msgid "Close"
 msgstr ""
 
-#: tfrmviewlist.btnclose.caption
-msgctxt "TFRMVIEWLIST.BTNCLOSE.CAPTION"
-msgid "Close"
+#: tfrmviewlist.actcloseselectedviews.caption
+msgid "Close selected views"
 msgstr ""
 
 #: tfrmviewlist.caption
@@ -3995,6 +3994,15 @@ msgctxt "ts_core_utils.snocorrespondingfieldtype"
 msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
+#: ts_editor_aboutdialog.sauthor
+msgid "Author"
+msgstr ""
+
+#: ts_editor_aboutdialog.sname
+msgctxt "ts_editor_aboutdialog.sname"
+msgid "Name"
+msgstr ""
+
 #: ts_editor_actionlist_toolview.sbutton
 msgctxt "ts_editor_actionlist_toolview.sbutton"
 msgid "Button"
@@ -4452,5 +4460,23 @@ msgstr ""
 #: ts_editor_toolview_search.smatchfound
 msgctxt "ts_editor_toolview_search.smatchfound"
 msgid "%d search match found."
+msgstr ""
+
+#: ts_editor_viewlist_toolview.sfilename
+msgid "Filename"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.shighlighter
+msgctxt "ts_editor_viewlist_toolview.shighlighter"
+msgid "Highlighter"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.smodified
+msgctxt "ts_editor_viewlist_toolview.smodified"
+msgid "Modified"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.spath
+msgid "Path"
 msgstr ""
 

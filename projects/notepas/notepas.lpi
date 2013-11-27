@@ -884,7 +884,6 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -894,7 +893,6 @@ end;"/>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -925,7 +923,6 @@ end;"/>
       <Unit13>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.ExportRTF"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
@@ -978,12 +975,10 @@ end;"/>
       <Unit24>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.GridView"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.DBGridView"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
@@ -1013,7 +1008,6 @@ end;"/>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\components\tslib\core\ts.core.encodingutils.pas"/>
@@ -1022,11 +1016,11 @@ end;"/>
       <Unit34>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
@@ -1041,12 +1035,10 @@ end;"/>
       <Unit38>
         <Filename Value="..\..\components\tslib\components\ts.components.synminimap.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.SynMiniMap"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\components\tslib\components\ts.components.multipanel.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.MultiPanel"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.optionsdialog.pas"/>
@@ -1067,15 +1059,16 @@ end;"/>
       <Unit43>
         <Filename Value="..\..\components\tslib\components\ts.components.uniqueinstance.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.UniqueInstance"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\components\tslib\core\ts.core.brre.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.BRRE"/>
       </Unit44>
       <Unit45>
         <Filename Value="..\..\components\tslib\core\ts.core.brreunicode.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.BRREUnicode"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.debug.pas"/>
@@ -1085,12 +1078,10 @@ end;"/>
       <Unit47>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.streams.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Streams"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.stringtable.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.StringTable"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\components\tslib\core\ts.Core.NativeXml.inc"/>
@@ -1099,11 +1090,11 @@ end;"/>
       <Unit50>
         <Filename Value="..\..\components\tslib\core\ts.core.codecutilswin32.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.CodecUtilsWin32"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
@@ -1232,12 +1223,10 @@ end;"/>
       <Unit74>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit74>
       <Unit75>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Events"/>
       </Unit75>
       <Unit76>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -1352,7 +1341,6 @@ end;"/>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ActionList.Templates"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
@@ -1523,7 +1511,6 @@ end;"/>
       <Unit121>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Logger"/>
       </Unit121>
       <Unit122>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
@@ -1544,6 +1531,7 @@ end;"/>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
       </Unit125>
       <Unit126>
         <Filename Value="build.sh"/>
@@ -1635,4 +1623,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

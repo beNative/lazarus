@@ -23,42 +23,24 @@ unit Notepas_Forms_Main;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls,  Menus,
+  Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls, Menus,
   Buttons, StdCtrls,
 
-  LazUTF8,
+  SynEdit,
 
   DefaultTranslator,
-
-  LResources,
-
-  ts.Components.Docking, ts.Components.Docking.Storage,
 
   // for debugging
   ts.Core.SharedLogger,
 
-  SynEdit,
+  ts.Components.Docking, ts.Components.Docking.Storage,
 
   ts.Editor.Interfaces;
 
 {
   KNOWN PROBLEMS
     - Close all but current tab does not work in all cases
-    - encoding support needs to be implemented
     - saving loading in different encodings
-
-  TODO
-    - Dequote lines in CodeShaper
-    - cheat panel with shortcut/button overview for all supported actions
-    - DWS script support
-    - settings dialog
-    - UNI highlighter designer tool
-
-  IDEAS
-    - surround with function for selected block (as in Notepad2)
-    - duplicate lines
-    - draw tables
-    - status bar builder
 }
 
 type
@@ -115,7 +97,6 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
-    procedure EVHideEditorToolView(Sender: TObject; AEditorToolView: IEditorToolView);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
@@ -126,20 +107,24 @@ type
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;
+    function GetEvents: IEditorEvents;
     function GetManager: IEditorManager;
     function GetMenus: IEditorMenus;
     function GetSettings: IEditorSettings;
     function GetViews: IEditorViews;
     {$endregion}
 
+    procedure InitializeEvents;
+    procedure InitializeControls;
     procedure InitDebugAction(const AActionName: string);
 
     // event handlers
-    procedure EVShowEditorToolView(Sender: TObject; AToolView: IEditorToolView);
-    procedure EVActiveViewChange(Sender: TObject);
-    procedure EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
-    procedure EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
-    procedure EVOpenOtherInstance(Sender: TObject; const AParams: array of string);
+    procedure EditorEventsHideEditorToolView(Sender: TObject; AEditorToolView: IEditorToolView);
+    procedure EditorEventsShowEditorToolView(Sender: TObject; AToolView: IEditorToolView);
+    procedure EditorEventsActiveViewChange(Sender: TObject);
+    procedure EditorEventsAddEditorView(Sender: TObject; AEditorView: IEditorView);
+    procedure EditorEventsStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+    procedure EditorEventsOpenOtherInstance(Sender: TObject; const AParams: array of string);
     procedure EditorSettingsChangedHandler(Sender: TObject);
 
   protected
@@ -157,23 +142,35 @@ type
 
     procedure UpdateActions; override;
 
+    { This instance controls the editor views. }
     property Manager: IEditorManager
       read GetManager;
 
+    { Shortcut to the manager's active editorview. A manager instance can only
+      have one active view. }
     property Editor: IEditorView
       read GetEditor;
 
+    { The list of all supported actions that can be executed on a editor view. }
     property Actions: IEditorActions
       read GetActions;
 
+    { The list of available editor views that are maintained by the editor
+      manager. }
     property Views: IEditorViews
       read GetViews;
 
+    { Menu components to use in the user interface. }
     property Menus: IEditorMenus
       read GetMenus;
 
+    { Collection of all persistable settings for a editor manager instance. }
     property Settings: IEditorSettings
       read GetSettings;
+
+    { Set of events where the user interface can respond to. }
+    property Events: IEditorEvents
+      read GetEvents;
   end;
 
 var
@@ -217,33 +214,8 @@ begin
     FSettings
   );
   FManager.PersistSettings := True;
-  mnuMain.Items.Clear;
-  ConfigureAvailableActions;
-  DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
-  AddDockingMenuItems;
-  AddStandardEditorToolbarButtons(Manager, tlbMain);
-  AddMainMenus;
-  Settings.FormSettings.AssignTo(Self);
-  if Settings.DebugMode then
-  begin
-    // for debugging
-    // more than 5 results in problems when exception is raised and stackinfo is
-    // not available
-    Logger.MaxStackCount := 5;
-    AddEditorDebugMenu(Manager, mnuMain);
-  end;
-
-  pnlViewerCount.Visible := Settings.DebugMode;
-
-  EV := Manager.Events;
-  EV.AddOnActiveViewChangeHandler(EVActiveViewChange);
-  EV.OnStatusChange       := EVStatusChange;
-  EV.OnOpenOtherInstance  := EVOpenOtherInstance;
-  EV.OnAddEditorView      := EVAddEditorView;
-  EV.OnShowEditorToolView := EVShowEditorToolView;
-  EV.OnHideEditorToolView := EVHideEditorToolView;
-
-  Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
+  InitializeControls;
+  InitializeEvents;
   if ParamCount > 0 then
   begin
     for I := 1 to Paramcount do
@@ -259,14 +231,7 @@ begin
   begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
-  pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
-  btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
-  btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
-  btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
-  btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
   Manager.ActiveView := V;
-  DoubleBuffered := True;
-  //Logger.Send(;
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -292,6 +257,11 @@ end;
 function TfrmMain.GetEditor: IEditorView;
 begin
   Result := Manager.ActiveView;
+end;
+
+function TfrmMain.GetEvents: IEditorEvents;
+begin
+  Result := Manager.Events;
 end;
 
 function TfrmMain.GetMenus: IEditorMenus;
@@ -369,7 +339,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.EVStatusChange(Sender: TObject; Changes: TSynStatusChanges);
+procedure TfrmMain.EditorEventsStatusChange(Sender: TObject; Changes: TSynStatusChanges);
 begin
   if scModified in Changes then
   begin
@@ -404,13 +374,13 @@ begin
   btnSelectionMode.PopupMenu.PopUp;
 end;
 
-procedure TfrmMain.EVActiveViewChange(Sender: TObject);
+procedure TfrmMain.EditorEventsActiveViewChange(Sender: TObject);
 begin
   if Assigned(Editor) then
     DockMaster.MakeVisible(Editor.Form, True);
 end;
 
-procedure TfrmMain.EVOpenOtherInstance(Sender: TObject;
+procedure TfrmMain.EditorEventsOpenOtherInstance(Sender: TObject;
   const AParams: array of string);
 var
   I : Integer;
@@ -469,14 +439,14 @@ begin
   Settings.FormSettings.WindowState := WindowState;
 end;
 
-procedure TfrmMain.EVHideEditorToolView(Sender: TObject;
+procedure TfrmMain.EditorEventsHideEditorToolView(Sender: TObject;
   AEditorToolView: IEditorToolView);
 begin
   pnlTool.Visible     := False;
   splVertical.Visible := False;
 end;
 
-procedure TfrmMain.EVShowEditorToolView(Sender: TObject;
+procedure TfrmMain.EditorEventsShowEditorToolView(Sender: TObject;
   AToolView: IEditorToolView);
 begin
   pnlTool.Visible     := False;
@@ -487,7 +457,7 @@ begin
   pnlTool.Visible := True;
 end;
 
-procedure TfrmMain.EVAddEditorView(Sender: TObject; AEditorView: IEditorView);
+procedure TfrmMain.EditorEventsAddEditorView(Sender: TObject; AEditorView: IEditorView);
 var
   V   : IEditorView;
   AHS : TAnchorDockHostSite;
@@ -537,6 +507,43 @@ end;
 {$endregion}
 
 {$region 'private methods' /fold}
+procedure TfrmMain.InitializeEvents;
+begin
+  Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
+  Events.AddOnActiveViewChangeHandler(EditorEventsActiveViewChange);
+  Events.OnStatusChange       := EditorEventsStatusChange;
+  Events.OnOpenOtherInstance  := EditorEventsOpenOtherInstance;
+  Events.OnAddEditorView      := EditorEventsAddEditorView;
+  Events.OnShowEditorToolView := EditorEventsShowEditorToolView;
+  Events.OnHideEditorToolView := EditorEventsHideEditorToolView;
+end;
+
+procedure TfrmMain.InitializeControls;
+begin
+  mnuMain.Items.Clear;
+  ConfigureAvailableActions;
+  DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
+  AddDockingMenuItems;
+  AddStandardEditorToolbarButtons(Manager, tlbMain);
+  AddMainMenus;
+  Settings.FormSettings.AssignTo(Self);
+  if Settings.DebugMode then
+  begin
+    // for debugging
+    // more than 5 results in problems when exception is raised and stackinfo is
+    // not available
+    Logger.MaxStackCount := 5;
+    AddEditorDebugMenu(Manager, mnuMain);
+  end;
+  pnlViewerCount.Visible := Settings.DebugMode;
+  pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
+  btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
+  btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
+  btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
+  btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
+  DoubleBuffered := True;
+end;
+
 procedure TfrmMain.InitDebugAction(const AActionName: string);
 begin
   Actions[AActionName].Enabled := Settings.DebugMode;

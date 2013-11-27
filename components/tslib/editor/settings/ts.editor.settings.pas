@@ -29,8 +29,6 @@ uses
 
   SynEditMiscClasses, SynEditMarkupBracket,
 
-  ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage,
-
   ts.Core.FormSettings,
 
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
@@ -326,6 +324,8 @@ uses
   Dialogs, Forms,
 
   SynEditHighlighter, SynEditStrConst, SynEditTypes,
+
+    ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage,
 
   ts_Editor_Resources;
 
@@ -936,7 +936,6 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-
 procedure TEditorSettings.Load;
 var
   Reader : TsdXmlObjectReader;

@@ -8,7 +8,6 @@ object frmAbout: TfrmAbout
   Caption = 'About'
   ClientHeight = 254
   ClientWidth = 636
-  OnShow = FormShow
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True

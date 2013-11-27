@@ -101,7 +101,6 @@ type
     procedure actDonateExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
-    procedure FormShow(Sender: TObject);
     procedure FTVPDoubleClick(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
@@ -173,7 +172,6 @@ end;
 procedure TfrmAbout.AfterConstruction;
 begin
   inherited AfterConstruction;
-  Screen.Cursor := crHourGlass;
   FVersionInfo := TVersionInfo.Create(Self);
   pnlFPCVersion.Caption     := FVersionInfo.FPCVersion;
   pnlLCLVersion.Caption     := FVersionInfo.LCLVersion;
@@ -356,15 +354,10 @@ begin
   vstCredits.Header.Options := vstCredits.Header.Options + [hoAutoSpring, hoAutoResize];
 end;
 
-procedure TfrmAbout.FormShow(Sender: TObject);
-begin
-  Screen.Cursor := crDefault;
-end;
-
 procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
 begin
   OpenURL((FTVP.SelectedItem as TCredit).URL);
 end;
 
 end.
-
+

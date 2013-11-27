@@ -55,13 +55,13 @@ type
   { TfrmFilter }
 
   TfrmFilter = class(TCustomEditorToolView)
-    aclMain: TActionList;
-    actFocusFilterText: TAction;
-    edtFilter: TEdit;
-    pnlView: TPanel;
-    pnlHeader: TPanel;
-    pnlMain: TPanel;
-    sbrMain: TStatusBar;
+    aclMain            : TActionList;
+    actFocusFilterText : TAction;
+    edtFilter          : TEdit;
+    pnlView            : TPanel;
+    pnlHeader          : TPanel;
+    pnlMain            : TPanel;
+    sbrMain            : TStatusBar;
 
     function CCustomDraw(Sender: TObject; ColumnDefinition: TColumnDefinition;
       Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
@@ -360,7 +360,6 @@ end;
 
 procedure TfrmFilter.FVSTKeyPress(Sender: TObject; var Key: char);
 begin
-//  Logger.Send('KeyPress ActiveControl:', ActiveControl.ClassName);
   if Ord(Key) = VK_RETURN then
   begin
     Close;

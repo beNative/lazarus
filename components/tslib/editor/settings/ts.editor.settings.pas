@@ -325,7 +325,7 @@ uses
 
   SynEditHighlighter, SynEditStrConst, SynEditTypes,
 
-    ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage,
+  ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage,
 
   ts_Editor_Resources;
 
@@ -1133,4 +1133,4 @@ end;
 {$endregion}
 
 end.
-
+

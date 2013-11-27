@@ -17,24 +17,24 @@ object frmAbout: TfrmAbout
     Height = 204
     Top = 4
     Width = 394
-    ActivePage = tsAbout
+    ActivePage = tsCredits
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 176
-      ClientWidth = 386
+      ClientHeight = 179
+      ClientWidth = 390
       object lblFPCVersion: TLabel
         Left = 8
         Height = 15
         Top = 9
-        Width = 65
+        Width = 75
         Caption = 'FPC version:'
         ParentColor = False
       end
       object pnlFPCVersion: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 9
         Width = 105
@@ -47,7 +47,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 58
-        Width = 55
+        Width = 63
         Caption = 'Target OS:'
         ParentColor = False
       end
@@ -55,12 +55,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 78
-        Width = 63
+        Width = 70
         Caption = 'Target CPU:'
         ParentColor = False
       end
       object pnlTargetOS: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 58
         Width = 105
@@ -70,7 +70,7 @@ object frmAbout: TfrmAbout
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 78
         Width = 105
@@ -83,12 +83,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 133
-        Width = 56
+        Width = 65
         Caption = 'Build date:'
         ParentColor = False
       end
       object pnlBuildDate: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 133
         Width = 105
@@ -101,12 +101,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 105
-        Width = 59
+        Width = 69
         Caption = 'Widget set:'
         ParentColor = False
       end
       object pnlWidgetSet: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 105
         Width = 105
@@ -119,12 +119,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 29
-        Width = 64
+        Width = 74
         Caption = 'LCL version:'
         ParentColor = False
       end
       object pnlLCLVersion: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 29
         Width = 105
@@ -137,12 +137,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 151
-        Width = 42
+        Width = 49
         Caption = 'Version:'
         ParentColor = False
       end
       object pnlFileVersion: TPanel
-        Left = 165
+        Left = 169
         Height = 18
         Top = 151
         Width = 105
@@ -184,36 +184,8 @@ object frmAbout: TfrmAbout
       end
     end
     object tsCredits: TTabSheet
+      BorderWidth = 3
       Caption = 'Credits'
-      ClientHeight = 176
-      ClientWidth = 386
-      object vstCredits: TVirtualStringTree
-        Left = 4
-        Height = 162
-        Top = 6
-        Width = 377
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Colors.FocusedSelectionColor = clSilver
-        Colors.FocusedSelectionBorderColor = clSilver
-        Colors.GridLineColor = clSilver
-        Colors.SelectionRectangleBlendColor = clSilver
-        Colors.SelectionRectangleBorderColor = clGray
-        DefaultNodeHeight = 17
-        DefaultText = 'Node'
-        DragType = dtVCL
-        DrawSelectionMode = smBlendedRectangle
-        Header.AutoSizeIndex = 0
-        Header.Columns = <>
-        Header.DefaultHeight = 17
-        Header.Height = 20
-        Header.MainColumn = -1
-        Header.Options = [hoColumnResize, hoDrag, hoShowHint, hoShowSortGlyphs]
-        HintMode = hmHint
-        ParentShowHint = False
-        TabOrder = 0
-        TreeOptions.MiscOptions = [toFullRepaintOnResize, toInitOnSave, toReportMode, toToggleOnDblClick, toWheelPanning, toEditOnClick]
-        TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowHorzGridLines, toShowRoot, toShowTreeLines, toThemeAware, toUseBlendedImages]
-      end
     end
   end
   object imgMain: TImage
@@ -221,7 +193,7 @@ object frmAbout: TfrmAbout
     Height = 64
     Top = 16
     Width = 64
-    AutoSize = True
+    AntialiasingMode = amOn
     Center = True
     Picture.Data = {
       055449636F6E3E42000000000100010040400000010020002842000016000000
@@ -1400,4 +1372,4 @@ object frmAbout: TfrmAbout
       OnExecute = actReportDefectExecute
     end
   end
-end
+end

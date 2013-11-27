@@ -94,7 +94,7 @@ const
 begin
   if Done then exit;
   // TS outcomment for QT
-  WSRegisterCustomRichBox;
+  //WSRegisterCustomRichBox;
   Done := True;
 end;
 
@@ -295,4 +295,4 @@ end;
 
 
 end.
-
+

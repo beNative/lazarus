@@ -45,12 +45,6 @@ unit ts.Components.MultiPanel;
 
 interface
 
-//{$DEFINE TRIAL}
-
-{$IFDEF TRIAL}
-{$MESSAGE 'TRIAL VERSION'}
-{$ENDIF}
-
 {$IFNDEF FPC}
   {$IF CompilerVersion < 18.0}
     {$DEFINE OMP_DELPHI7_DOWN}
@@ -956,42 +950,12 @@ procedure TOCustomMultiPanel.ResizeControls;
 var
   I, L: Integer;
   cPosAbs, DefaultSize: Integer;
-  {$IFDEF TRIAL}
-  xParent: TWinControl;
-  {$ENDIF}
 begin
   if fInResizeControls then
     exit;
 
   fInResizeControls := True;
   try
-    {$IFDEF TRIAL}
-    if PanelCollection.Count > 2 then begin
-      for I := PanelCollection.Count-1 downto 2 do begin
-        if Assigned(PanelCollection[I].Control) then
-          PanelCollection[I].Control.Parent := Self.Parent
-      end;
-
-      Beep;
-      if MessageDlg('You can use only 2 panels in the free version of TOMultiPanel.'#13#10+
-        'If you want to use 3 and more panels, you have to buy a commercial license of TOMultiPanel for EUR 19,- at http://www.kluug.net.'#13#10#13#10+
-        'Do you want to visit http://www.kluug.net?',
-        mtError, [mbYes, mbNo], 0) = mrYes
-      then begin
-        ShellExecute(0, 'open', 'http://www.kluug.net/omultipanel.php', '', '', SW_SHOWNORMAL);
-      end;
-    end;
-
-    xParent := Self.Parent;
-    while Assigned(xParent) do begin
-      if xParent is TOCustomMultiPanel then begin
-        raise Exception.Create('You cannot place a TOMultiPanel into another TOMultiPanel in the free version of TOMultiPanel.');
-      end;
-      xParent := xParent.Parent;
-    end;
-
-    {$ENDIF}
-
     if not(
        not (csLoading in ComponentState) and
        not (csUpdating in ComponentState) and
@@ -1132,30 +1096,7 @@ begin
 end;
 
 procedure TOCustomMultiPanel.SetParent(AParent: TWinControl);
-{$IFDEF TRIAL}
-var
-  xParent: TWinControl;
-{$ENDIF}
 begin
-  {$IFDEF TRIAL}
-  xParent := AParent;
-  while Assigned(xParent) do begin
-    if xParent is TOCustomMultiPanel then begin
-      Beep;
-      if MessageDlg('You cannot place a TOMultiPanel into another TOMultiPanel in the free version of TOMultiPanel.'#13#10+
-        'If you want to do that, you have to buy a commercial license of TOMultiPanel for EUR 19,- at http://www.kluug.net.'#13#10#13#10+
-        'Do you want to visit http://www.kluug.net?',
-        mtError, [mbYes, mbNo], 0) = mrYes
-      then begin
-        ShellExecute(0, 'open', 'http://www.kluug.net/omultipanel.php', '', '', SW_SHOWNORMAL);
-      end;
-      Self.Parent := xParent.Parent;
-      exit;
-    end;
-    xParent := xParent.Parent;
-  end;
-  {$ENDIF}
-
   inherited;
 end;
 
@@ -1489,4 +1430,4 @@ begin
 end;}
 
 end.
-
+

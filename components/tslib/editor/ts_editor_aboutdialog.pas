@@ -94,7 +94,6 @@ type
     btnReportIssue: TSpeedButton;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
-    vstCredits: TVirtualStringTree;
     {$endregion}
 
     procedure actCloseExecute(Sender: TObject);
@@ -107,6 +106,7 @@ type
 
   private
     FVersionInfo : TVersionInfo;
+    FVST         : TVirtualStringTree;
     FTVP         : TTreeViewPresenter;
     FCredits     : TObjectList;
 
@@ -127,6 +127,7 @@ type
     procedure SetAuthor(AValue: string);
     procedure SetName(AValue: string);
     procedure SetURL(AValue: string);
+
   published
     property Name: string
       read FName write SetName;
@@ -147,6 +148,8 @@ implementation
 
 uses
   Controls,
+
+  ts.Core.Helpers,
 
   LCLIntf;
 
@@ -187,13 +190,14 @@ begin
   imgMain.Picture.Assign(FVersionInfo.Icon);
   FCredits := TObjectList.Create(True);
   FillCredits;
+  FVST := VST.Create(Self, tsCredits);
   FTVP := TTreeViewPresenter.Create(Self);
-  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 150);
-  FTVP.ColumnDefinitions.AddColumn('Author', dtString, 200, 100, 300);
+  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 140);
+  FTVP.ColumnDefinitions.AddColumn('Author', dtString, 150, 100, 220);
   FTVP.OnDoubleClick := FTVPDoubleClick;
   FTVP.ListMode := True;
   FTVP.ItemsSource := FCredits;
-  FTVP.TreeView := vstCredits;
+  FTVP.TreeView := FVST;
   pgcMain.ActivePageIndex := 0;
 end;
 
@@ -350,8 +354,6 @@ begin
     'Yusuke Kamiyamane',
     'http://p.yusukekamiyamane.com/'
   );
-  vstCredits.Header.MainColumn := 1;
-  vstCredits.Header.Options := vstCredits.Header.Options + [hoAutoSpring, hoAutoResize];
 end;
 
 procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
@@ -360,4 +362,4 @@ begin
 end;
 
 end.
-
+

@@ -424,7 +424,7 @@ begin
   VST.DrawSelectionMode := smBlendedRectangle;
   VST.Header.Height := 20;
   VST.Header.Font.Color := clWindowText; // for consistent looks with different themes;
-  VST.SelectionBlendFactor := 24;
+  VST.SelectionBlendFactor := 128;
   VST.Font.Color := clWindowText; // for consistent looks with different themes
   VST.Colors.FocusedSelectionColor         := clSilver;
   VST.Colors.FocusedSelectionBorderColor   := clGray;
@@ -532,4 +532,4 @@ begin
 end;
 
 end.
-
+

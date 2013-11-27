@@ -209,6 +209,8 @@ begin
   FSettings := TEditorSettings.Create(Self);
   FSettings.FileName := 'settings.xml';
   FSettings.Load;
+  Logger.Send('Settings loaded');
+  Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
   SetDefaultLang(FSettings.LanguageCode);
   FManager := CreateEditorManager(
     Self,
@@ -264,6 +266,7 @@ begin
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
   Manager.ActiveView := V;
   DoubleBuffered := True;
+  //Logger.Send(;
 end;
 
 procedure TfrmMain.BeforeDestruction;

@@ -1,3 +1,7 @@
+2013.11.27 (0.9.20)
+* Updated all used libraries to most recent versions
+* Resolved issue with setting the default language
+
 2013.11.23 (0.9.19)
 * Fixed handling of keyboard shortcuts in toolviews
 

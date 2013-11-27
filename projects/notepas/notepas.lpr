@@ -25,11 +25,10 @@ uses
   {$IFDEF UNIX} // Required for Linux
   cthreads,
   {$ENDIF}
+  DefaultTranslator,
   Interfaces, // this includes the LCL widgetset
   Forms,
   Notepas_Forms_Main,
-  { you can add units after this }
-  DefaultTranslator,
 
   {$IFDEF Windows}
   FrameViewer09,

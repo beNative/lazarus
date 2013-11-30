@@ -38,7 +38,7 @@
  <CloseOnTerm>False</CloseOnTerm>
  <CloseOnEol>False</CloseOnEol>
  <CaseSensitive>False</CaseSensitive>
- <KW Name="Ruby Keywords">
+ <KW Name="Keywords">
   <Attri>
    <Back>16777215</Back>
    <Fore>32768</Fore>
@@ -1073,7 +1073,7 @@
   <W>@y</W>
   <W>@z</W>
  </KW>
-  <Range Name="Remarks =begin..=end">
+  <Range Name="Comments">
   <Def>
    <Back>16777215</Back>
    <Fore>8388608</Fore>

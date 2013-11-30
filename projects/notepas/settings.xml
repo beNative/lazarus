@@ -269,9 +269,9 @@
 	<LanguageCode>en</LanguageCode>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
-		<Left>25</Left>
-		<Top>25</Top>
-		<Width>1369</Width>
+		<Left>75</Left>
+		<Top>75</Top>
+		<Width>1417</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -288,6 +288,7 @@
 			AXsGAXwGASsGAjw8BgE9BgI+PgYDYW5kBgJhcwYCaW4GAm9yBgRyZWFkBgV3cml0ZQA=
 			</DefinedProperties>
 		</Tokens>
+		<Width>350</Width>
 	</AlignLinesSettings>
 	<SearchEngineSettings>(TSearchEngineSettings)
 		<Options>[,ssoWholeWord,ssoEntireScope]</Options>
@@ -313,6 +314,7 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<IncrementColor>(TSynSelectedColor)
 		<Background>clSilver</Background>
 		<Foreground>clNone</Foreground>
@@ -371,12 +373,14 @@
 		<THighlighterItem>
 			<Name>None</Name>
 			<FormatterSupport>false</FormatterSupport>
+			<DefaultFilter>All Files (*.*)|*.*</DefaultFilter>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>TXT</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>me,nfo,txt</FileExtensions>
+			<DefaultFilter>Text files (*.txt)|*.txt</DefaultFilter>
 			<Description>Text document</Description>
 			<SmartSelectionTags>(TCodeTags)</SmartSelectionTags>
 		</THighlighterItem>
@@ -387,6 +391,7 @@
 			<LineCommentTag>//</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>dpk,dpr,inc,lpr,pas,pp</FileExtensions>
+			<DefaultFilter>Pascal Files (*.pas,*.dpr,*.dpk,*.inc)|*.pas;*.dpr;*.dpk;*.inc</DefaultFilter>
 			<Description>Object Pascal</Description>
 			<SynHighlighter>(TSynPasSyn)
 				<Enabled>false</Enabled>
@@ -448,6 +453,7 @@
 			<LineCommentTag>--</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>sql</FileExtensions>
+			<DefaultFilter>SQL Files (*.sql)|*.sql</DefaultFilter>
 			<Description>SQL</Description>
 			<SynHighlighter>(TSynSQLSyn)
 				<DefaultFilter>SQL Files (*.sql)|*.sql</DefaultFilter>
@@ -519,9 +525,10 @@
 		<THighlighterItem>
 			<Name>XML</Name>
 			<BlockCommentStartTag>ŒT¤ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- T¤ </BlockCommentEndTag>
+			<BlockCommentEndTag>-- T¤</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
+			<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
 			<Description>XML document</Description>
 			<SynHighlighter>(TSynXMLSyn)
 				<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
@@ -593,6 +600,7 @@
 			<Name>LFM</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>dfm,lfm</FileExtensions>
+			<DefaultFilter>Lazarus Form Files (*.lfm)|*.lfm</DefaultFilter>
 			<Description>Object Pascal form definition</Description>
 			<SynHighlighter>(TSynLFMSyn)
 				<DefaultFilter>Lazarus Form Files (*.lfm)|*.lfm</DefaultFilter>
@@ -630,6 +638,7 @@
 			<LineCommentTag>::</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>bat,cmd</FileExtensions>
+			<DefaultFilter>MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd</DefaultFilter>
 			<Description>Windows batch script</Description>
 			<SynHighlighter>(TSynBatSyn)
 				<DefaultFilter>MS-DOS Batch Files (*.bat;*.cmd)|*.bat;*.cmd</DefaultFilter>
@@ -667,6 +676,7 @@
 			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>po</FileExtensions>
+			<DefaultFilter>Po Files (*.po)|*.po</DefaultFilter>
 			<Description>Gettext translation strings</Description>
 			<SynHighlighter>(TSynPoSyn)
 				<DefaultFilter>Po Files (*.po)|*.po</DefaultFilter>
@@ -694,6 +704,7 @@
 			<LineCommentTag>//</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>cpp,h,hpp</FileExtensions>
+			<DefaultFilter>C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh</DefaultFilter>
 			<Description>C++</Description>
 			<SynHighlighter>(TSynCppSyn)
 				<DefaultFilter>C++ Files (*.c,*.cpp,*.h,*.hpp,*.hh)|*.c;*.cpp;*.h;*.hpp;*.hh</DefaultFilter>
@@ -749,6 +760,7 @@
 			<LineCommentTag>//</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>java</FileExtensions>
+			<DefaultFilter>Java Files (*.java)|*.java</DefaultFilter>
 			<Description>Java</Description>
 			<SynHighlighter>(TSynJavaSyn)
 				<DefaultFilter>Java Files (*.java)|*.java</DefaultFilter>
@@ -803,6 +815,7 @@
 			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>pl</FileExtensions>
+			<DefaultFilter>Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi</DefaultFilter>
 			<Description>Perl</Description>
 			<SynHighlighter>(TSynPerlSyn)
 				<DefaultFilter>Perl Files (*.pl,*.pm,*.cgi)|*.pl;*.pm;*.cgi</DefaultFilter>
@@ -865,6 +878,7 @@
 			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>py</FileExtensions>
+			<DefaultFilter>Python Files (*.py)|*.py</DefaultFilter>
 			<Description>Python</Description>
 			<SynHighlighter>(TSynPythonSyn)
 				<DefaultFilter>Python Files (*.py)|*.py</DefaultFilter>
@@ -932,9 +946,10 @@
 		<THighlighterItem>
 			<Name>HTML</Name>
 			<BlockCommentStartTag>ŒT¤ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>-- T¤ </BlockCommentEndTag>
+			<BlockCommentEndTag>-- T¤</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
+			<DefaultFilter>HTML Document (*.htm,*.html)|*.htm;*.html</DefaultFilter>
 			<Description>HTML document</Description>
 			<SynHighlighter>(TSynHTMLSyn)
 				<DefaultFilter>HTML Document (*.htm,*.html)|*.htm;*.html</DefaultFilter>
@@ -994,8 +1009,12 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>JS</Name>
+			<BlockCommentStartTag>/*</BlockCommentStartTag>
+			<BlockCommentEndTag>*/</BlockCommentEndTag>
+			<LineCommentTag>//</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>js</FileExtensions>
+			<DefaultFilter>Javascript Files (*.js)|*.js</DefaultFilter>
 			<Description>JavaScript</Description>
 			<SynHighlighter>(TSynJScriptSyn)
 				<Enabled>false</Enabled>
@@ -1040,8 +1059,12 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>PHP</Name>
+			<BlockCommentStartTag>/*</BlockCommentStartTag>
+			<BlockCommentEndTag>*/</BlockCommentEndTag>
+			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>php</FileExtensions>
+			<DefaultFilter>PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc</DefaultFilter>
 			<Description>PHP</Description>
 			<SynHighlighter>(TSynPHPSyn)
 				<DefaultFilter>PHP Files (*.php,*.php3,*.phtml,*.inc)|*.php;*.php3;*.phtml;*.inc</DefaultFilter>
@@ -1091,6 +1114,7 @@
 			<Name>CSS</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>css</FileExtensions>
+			<DefaultFilter>Cascading Stylesheets (*.css)|*.css</DefaultFilter>
 			<Description>Cascading Style Sheet</Description>
 			<SynHighlighter>(TSynCssSyn)
 				<DefaultFilter>Cascading Stylesheets (*.css)|*.css</DefaultFilter>
@@ -1178,6 +1202,7 @@
 			<Name>TEX</Name>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>tex</FileExtensions>
+			<DefaultFilter>TeX Files (*.tex)|*.tex</DefaultFilter>
 			<Description>TeX</Description>
 			<SynHighlighter>(TSynTeXSyn)
 				<DefaultFilter>TeX Files (*.tex)|*.tex</DefaultFilter>
@@ -1214,8 +1239,10 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>SH</Name>
+			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>sh</FileExtensions>
+			<DefaultFilter>UNIX Shell Scripts (*.sh)|*.sh</DefaultFilter>
 			<Description>Shell script</Description>
 			<SynHighlighter>(TSynUNIXShellScriptSyn)
 				<DefaultFilter>UNIX Shell Scripts (*.sh)|*.sh</DefaultFilter>
@@ -1323,8 +1350,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>RUBY</Name>
-			<BlockCommentStartTag>/*</BlockCommentStartTag>
-			<BlockCommentEndTag>*/</BlockCommentEndTag>
+			<BlockCommentStartTag>=begin</BlockCommentStartTag>
+			<BlockCommentEndTag>=end</BlockCommentEndTag>
 			<LineCommentTag>#</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>rb,rbw</FileExtensions>
@@ -1335,6 +1362,8 @@
 		</THighlighterItem>
 		<THighlighterItem>
 			<Name>LUA</Name>
+			<BlockCommentStartTag>--[[</BlockCommentStartTag>
+			<BlockCommentEndTag>--]]</BlockCommentEndTag>
 			<LineCommentTag>--</LineCommentTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>lua</FileExtensions>

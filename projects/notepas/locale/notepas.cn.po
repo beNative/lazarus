@@ -1158,6 +1158,14 @@ msgstr "URL"
 msgid "Widget set:"
 msgstr ""
 
+#: tfrmabout.tabsheet1.caption
+msgid "Translations"
+msgstr ""
+
+#: tfrmabout.tabsheet2.caption
+msgid "Info"
+msgstr ""
+
 #: tfrmabout.tsabout.caption
 #, fuzzy
 msgid "Version"

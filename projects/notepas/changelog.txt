@@ -1,6 +1,12 @@
+2013.11.30 (0.9.21)
+* Fixed loading and saving of highlighter properties.
+* Fixed DefaultFilter assignment in file save dialog.
+* Improved file list dialog.
+
 2013.11.27 (0.9.20)
 * Updated all used libraries to most recent versions
-* Resolved issue with setting the default language
+* Fixed issue with setting the default language
+* Fixed bug in toolview management
 
 2013.11.23 (0.9.19)
 * Fixed handling of keyboard shortcuts in toolviews

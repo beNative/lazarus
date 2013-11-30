@@ -1437,19 +1437,19 @@ msgstr "URL decode"
 msgid "URL encode"
 msgstr "URL encode"
 
-#: tfrmcodeshaper.btnaligninsertspace.caption
-msgctxt "tfrmcodeshaper.btnaligninsertspace.caption"
-msgid "before"
-msgstr "vóór"
-
-#: tfrmcodeshaper.btnbreakafterbefore.caption
-msgctxt "tfrmcodeshaper.btnbreakafterbefore.caption"
-msgid "before"
-msgstr "vóór"
-
 #: tfrmcodeshaper.caption
 msgid "Code shaper"
 msgstr "Code shaper"
+
+#: tfrmcodeshaper.cbxaligntokenside.text
+msgctxt "tfrmcodeshaper.cbxaligntokenside.text"
+msgid "after"
+msgstr "na"
+
+#: tfrmcodeshaper.cbxinsertbreakstokenside.text
+msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
+msgid "after"
+msgstr "na"
 
 #: tfrmcodeshaper.chkalignlinesinparagraphs.caption
 msgid "Align in paragraphs"

@@ -1329,6 +1329,11 @@ begin
   ShowToolView('Structure', False, False);
 end;
 
+procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
+begin
+  ShowToolView('Test', False, False);
+end;
+
 procedure TdmEditorManager.actSelectAllExecute(Sender: TObject);
 begin
   ActiveView.SelectAll;
@@ -1493,11 +1498,6 @@ end;
 procedure TdmEditorManager.actSyncEditExecute(Sender: TObject);
 begin
   ActiveView.SyncEditSelection;
-end;
-
-procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
-begin
-// TODO
 end;
 
 procedure TdmEditorManager.actToggleFoldLevelExecute(Sender: TObject);
@@ -2166,7 +2166,6 @@ var
   end;
 
 begin
-  Highlighters.Clear;
   Reg(nil, nil, 'None');
   Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
   Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
@@ -2190,8 +2189,8 @@ begin
     // apply common highlighter attributes
 
 
-//  S := ExtractFilePath(Application.ExeName);
-  S := '';
+  S := ExtractFilePath(Application.ExeName);
+//  S := '';
 
   F := S + LAYOUT_LOG;
   if FileExistsUTF8(F) then
@@ -2673,8 +2672,14 @@ procedure TdmEditorManager.ShowToolView(const AName: string;
   AShowModal: Boolean; ASetFocus: Boolean);
 var
   ETV : IEditorToolView;
+  TV  : IEditorToolView;
 begin
   ETV := ToolViews[AName];
+  for TV in ToolViews do
+  begin
+    if TV <> ETV then
+      TV.Visible := False;
+  end;
   if not AShowModal then
   begin
     { Allow owner to dock the toolview in the main application workspace. }
@@ -2935,8 +2940,9 @@ begin
   Events.DoSave(AFileName);
   if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
+    dlgSave.Filter := Settings.Highlighters.FileFilter;
     if Assigned(ActiveView.Editor.Highlighter) then
-      dlgSave.Filter := ActiveView.Editor.Highlighter.DefaultFilter;
+      dlgSave.FilterIndex := ActiveView.HighlighterItem.Index - 1;
     dlgSave.FileName := AFileName;
     if dlgSave.Execute then
     begin

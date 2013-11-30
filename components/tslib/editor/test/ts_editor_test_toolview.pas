@@ -26,6 +26,8 @@ uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
   StdCtrls, ExtCtrls,
 
+  ts.Components.GridView, ts.Components.Inspector,
+
   ts_Editor_ToolView_Base;
 
 type
@@ -33,11 +35,58 @@ type
   { TfrmTest }
 
   TfrmTest = class(TCustomEditorToolView)
+    procedure FGridViewGetCellText(Sender: TObject; Cell: TGridCell;
+      var Value: string);
+    procedure FInspectorGetCellText(Sender: TObject; Cell: TGridCell;
+      var Value: string);
+  strict private
+    FInspector : TExInspector;
+    FGridView  : TGridView;
+  public
+    procedure AfterConstruction; override;
   end;
 
 implementation
 
 {$R *.lfm}
+
+uses
+  ts_Core_ComponentInspector;
+
+{ TfrmTest }
+
+procedure TfrmTest.FGridViewGetCellText(Sender: TObject; Cell: TGridCell;
+  var Value: string);
+begin
+  Value := 'Test';
+end;
+
+procedure TfrmTest.FInspectorGetCellText(Sender: TObject; Cell: TGridCell;
+  var Value: string);
+begin
+  Value := 'Test';
+end;
+
+procedure TfrmTest.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  //FInspector := TExInspector.Create(Self);
+  //FInspector.Parent := Self;
+  //FInspector.Align := alClient;
+  //FInspector.OnGetCellText := FInspectorGetCellText;
+
+  //FGridView := TGridView.Create(Self);
+  //FGridView.Parent := Self;
+  //FGridView.Align := alClient;
+  //FGridView.OnGetCellText := FGridViewGetCellText;
+
+  //FInspector.Columns.Add;
+  //FInspector.Columns.Add;
+
+  //FInspector.Rows.Count := 1;
+  //InspectComponent(FGridView);
+
+end;
 
 end.
 

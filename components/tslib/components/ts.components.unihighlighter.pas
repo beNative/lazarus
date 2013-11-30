@@ -1150,7 +1150,7 @@ var
       else
         Inc(Buf);
     SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
 
     if not SL.Find(S, AIndex) then
       if not AIgnoreUnknown then
@@ -1181,7 +1181,7 @@ var
           else
             Inc(Buf);
         SetLength(ATagParam, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(ATagParam)^, Cardinal(Buf) - Cardinal(sPos));
+        Move(sPos^, Pointer(ATagParam)^, Cardinal(Buf) - Cardinal(sPos));
       end;
       Inc(Buf);
     end;
@@ -1243,7 +1243,7 @@ var
     begin
       Dec(Buf);
       SetLength(Result, Cardinal(Buf) - Cardinal(sPos));
-      move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
+      Move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
     end
     else
       Inc(Buf);
@@ -1263,7 +1263,7 @@ var
       if Buf^ = '&' then
       begin
         SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
         Result := Result + S + GetReplacement;
         sPos := Buf;
       end
@@ -1274,7 +1274,7 @@ var
         Inc(Buf);
     end;
     SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
     Result := Result + S;
     if (GetNextTag(I, S, False)) or (I <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[I] +
@@ -2369,7 +2369,7 @@ var
     begin
       Dec(Buf);
       SetLength(Result, Cardinal(Buf) - Cardinal(sPos));
-      move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
+      Move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
     end
     else
       Inc(Buf);
@@ -2413,7 +2413,7 @@ var
       else
         Inc(Buf);
     SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
 
     if (not SL.Find(S, AIndex)) then
       if (not AIgnoreUnknown) then
@@ -2445,14 +2445,14 @@ var
           else if Buf^ = '&' then
           begin
             SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-            move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+            Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
             T := T + S + GetReplacement;
             sPos := Buf;
           end
           else
             Inc(Buf);
         SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
         ATagParam := T + S;
       end;
       Inc(Buf);
@@ -2474,7 +2474,7 @@ var
       if Buf^ = '&' then
       begin
         SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
         Result := Result + S + GetReplacement;
         sPos := Buf;
       end
@@ -2485,7 +2485,7 @@ var
         Inc(Buf);
     end;
     SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
     Result := Result + S;
     if (GetNextTag(Idx, S)) or (Idx <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[Idx] +

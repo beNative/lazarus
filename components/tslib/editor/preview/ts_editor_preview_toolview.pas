@@ -47,7 +47,8 @@ type
      FSynExporterRTF: TSynExporterRTF;
 
   strict protected
-     procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer); override;
+    procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer); override;
+
     procedure UpdateView; override;
 
   public
@@ -68,12 +69,14 @@ begin
 end;
 {$endregion}
 
-{$region 'protected methods' /fold}
+{$region 'event handlers' /fold}
 procedure TfrmPreview.EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
 begin
   UpdateView;
 end;
+{$endregion}
 
+{$region 'protected methods' /fold}
 procedure TfrmPreview.UpdateView;
 var
   SS : TStringStream;

@@ -276,7 +276,6 @@ type
     ): TVirtualStringTree; static;
   end;
 
-
   { PI }
 
   PI = record
@@ -423,7 +422,7 @@ begin
   VST.Align    := alClient;
   VST.DrawSelectionMode := smBlendedRectangle;
   VST.Header.Height := 20;
-  VST.Header.Font.Color := clWindowText; // for consistent looks with different themes;
+  VST.Header.Font.Color := clWindowText;
   VST.SelectionBlendFactor := 128;
   VST.Font.Color := clWindowText; // for consistent looks with different themes
   VST.Colors.FocusedSelectionColor         := clSilver;

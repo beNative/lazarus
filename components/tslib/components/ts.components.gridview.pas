@@ -11049,8 +11049,8 @@ end;
 
 procedure TCustomGridView.InvalidateRect(Rect: TRect);
 begin
-  if (FUpdateLock = 0) and HandleAllocated and Visible then
-    InvalidateRect(Rect);
+  //if (FUpdateLock = 0) and HandleAllocated and Visible then
+  //  InvalidateRect(Rect);
 end;
 
 procedure TCustomGridView.InvalidateRow(Row: Integer);

@@ -61,6 +61,10 @@ type
 
 implementation
 
+uses
+  SysUtils;
+
+
 {$region 'construction and destruction' /fold}
 constructor TEditorViewInfo.Create(AView: IEditorView);
 begin
@@ -92,7 +96,7 @@ end;
 
 function TEditorViewInfo.GetPath: string;
 begin
-  Result := View.FileName;
+  Result :=  ExtractFilePath(View.FileName);
 end;
 
 function TEditorViewInfo.GetView: IEditorView;

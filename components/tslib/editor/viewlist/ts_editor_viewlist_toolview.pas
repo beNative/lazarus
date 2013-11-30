@@ -38,6 +38,7 @@ type
   TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actClose   : TAction;
+    actCloseSelectedViews: TAction;
     btnClose   : TButton;
     mniClose   : TMenuItem;
     pnlBottom  : TPanel;
@@ -45,6 +46,7 @@ type
     ppmMain    : TPopupMenu;
 
     procedure actCloseExecute(Sender: TObject);
+    procedure actCloseSelectedViewsExecute(Sender: TObject);
 
   private
     FVST      : TVirtualStringTree;
@@ -70,7 +72,15 @@ implementation
 uses
   ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers,
 
+  ts_Core_ComponentInspector,
+
   ts.Editor.ViewList.Data;
+
+resourcestring
+  SFileName    = 'Filename';
+  SHighlighter = 'Highlighter';
+  SModified    = 'Modified';
+  SPath        = 'Path';
 
 {$region 'construction and destruction' /fold}
 procedure TfrmViewList.AfterConstruction;
@@ -79,22 +89,25 @@ begin
   FVST := VST.Create(Self, pnlVST);
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
-  FTVP.ColumnDefinitions.AddColumn('FileName', dtString, 150);
-  with FTVP.ColumnDefinitions.AddColumn('Highlighter', dtString, 80) do
+  with FTVP.ColumnDefinitions.AddColumn('FileName', SFileName, dtString, 200, 30, 1000) do
   begin
 
   end;
-  with FTVP.ColumnDefinitions.AddColumn('Modified', dtString, 80) do
+  FTVP.ColumnDefinitions.AddColumn('Highlighter', SHighlighter, dtString, 80);
+  with FTVP.ColumnDefinitions.AddColumn('Modified', SModified, dtString, 80) do
   begin
     ColumnType := TColumnType.ctCheckBox;
   end;
-  FTVP.ColumnDefinitions.AddColumn('Path', dtString, 400);
+  with FTVP.ColumnDefinitions.AddColumn('Path', SPath, dtString, 100, 30, 1000) do
+  begin
+  end;
   FItemList := TObjectList.Create;
   Refresh;
   FTVP.ItemsSource        := FItemList;
   FTVP.PopupMenu          := ppmMain;
   FTVP.TreeView           := FVST;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
+  //InspectComponents([FTVP, FVST]);
 end;
 
 procedure TfrmViewList.BeforeDestruction;
@@ -106,6 +119,11 @@ end;
 
 {$region 'action handlers' /fold}
 procedure TfrmViewList.actCloseExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmViewList.actCloseSelectedViewsExecute(Sender: TObject);
 var
   V : IEditorView;
   I : Integer;
@@ -141,7 +159,9 @@ end;
 procedure TfrmViewList.UpdateActions;
 begin
   if FItemList.Count <> Views.Count then
+  begin
     Refresh;
+  end;
   inherited UpdateActions;
 end;
 

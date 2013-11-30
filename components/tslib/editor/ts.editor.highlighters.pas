@@ -18,7 +18,7 @@
 
 unit ts.Editor.Highlighters;
 
-{ Holds settings that are specific to each highlighter. }
+{ Holds settings that are specific to each supported highlighter. }
 
 {$MODE Delphi}
 
@@ -48,6 +48,7 @@ type
     FFormatterSupport     : Boolean;
     FLayoutFileName       : string;
     FLineCommentTag       : string;
+    FDefaultFilter        : string;
     FName                 : string;
     FSmartSelectionTags   : TCodeTags;
     FSynHighlighter       : TSynCustomHighlighter;
@@ -55,9 +56,11 @@ type
     FFileExtensions       : TStringList;
 
     // private property access methods
+    function GetDefaultFilter: string;
     function GetFileExtensions: string;
     procedure SetCollection(const Value: THighlighters); reintroduce;
     function GetCollection: THighlighters;
+    procedure SetDefaultFilter(AValue: string);
     procedure SetFileExtensions(AValue: string);
     procedure SetFormatterSupport(const AValue: Boolean);
     procedure SetSmartSelectionTags(AValue: TCodeTags);
@@ -91,25 +94,31 @@ type
       read FCodeFormatter write FCodeFormatter;
 
   published
-    // published properties
     { The name displayed in the collection editor at design time. }
     property Name: string
       read FName write FName;
 
+    { Character sequence that designates the start of a block comment. }
     property BlockCommentStartTag: string
       read FBlockCommentStartTag write FBlockCommentStartTag;
 
+    { Character sequence that designates the end of a block comment. }
     property BlockCommentEndTag: string
       read FBlockCommentEndTag write FBlockCommentEndTag;
 
+    { Character sequence that designates a line comment. }
     property LineCommentTag: string
       read FLineCommentTag write FLineCommentTag;
 
     property FormatterSupport: Boolean
       read FFormatterSupport write SetFormatterSupport;
-    { comma seperated list of file extensions }
+
+    { Comma seperated list of file extensions associated with the highlighter. }
     property FileExtensions: string
       read GetFileExtensions write SetFileExtensions;
+
+    property DefaultFilter: string
+      read GetDefaultFilter write SetDefaultFilter;
 
     property Description: string
       read FDescription write FDescription;
@@ -120,6 +129,7 @@ type
     property SynHighlighter: TSynCustomHighlighter
       read FSynHighlighter write SetSynHighlighter;
 
+    { Set of tags that are used for the SmartSelect feature of the editor. }
     property SmartSelectionTags: TCodeTags
       read FSmartSelectionTags write SetSmartSelectionTags;
 
@@ -149,6 +159,7 @@ type
     end;
 
     // property access methods
+    function GetFileFilter: string;
     function GetItem(Index: Integer): THighlighterItem;
     function GetItemByName(const AName: string): THighlighterItem;
     procedure SetItem(Index: Integer; const Value: THighlighterItem);
@@ -200,6 +211,9 @@ type
 
     property ItemsByName[const AName: string]: THighlighterItem
       read GetItemByName write SetItemByName;
+
+    property FileFilter: string
+      read GetFileFilter;
   end;
 
 implementation
@@ -242,6 +256,20 @@ end;
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
   Result := inherited Items[Index] as THighlighterItem;
+end;
+
+function THighlighters.GetFileFilter: string;
+var
+  S: string;
+  HI: THighlighterItem;
+begin
+  S := '';
+  for HI in Self do
+  begin
+    if HI.DefaultFilter <> '' then
+      S := S + HI.DefaultFilter + '|';
+  end;
+  Result := S;
 end;
 
 procedure THighlighters.SetItem(Index: Integer; const Value: THighlighterItem);
@@ -414,6 +442,9 @@ begin
     end;
 end;
 
+{ Registers a new highlighter or updates an exiting one if the corresponding
+  properties are not assigned yet. }
+
 procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   TSynHighlighterClass; ASynHighlighter: TSynCustomHighlighter;
   const AName: string; const AFileExtensions: string;
@@ -435,17 +466,22 @@ begin
     HI.Description := ADescription;
   HI.SynHighlighterClass  := ASynHighlighterClass;
   HI.CodeFormatter        := ACodeFormatter;
-  HI.LineCommentTag       := ALineCommentTag;
-  HI.BlockCommentStartTag := ABlockCommentStartTag;
-  HI.BlockCommentEndTag   := ABlockCommentEndTag;
-  HI.LayoutFileName       := ALayoutFileName;
-  HI.FileExtensions       := AFileExtensions;
+  if HI.LineCommentTag = '' then
+    HI.LineCommentTag := ALineCommentTag;
+  if HI.BlockCommentStartTag = '' then
+    HI.BlockCommentStartTag := ABlockCommentStartTag;
+  if HI.BlockCommentEndTag = '' then
+    HI.BlockCommentEndTag   := ABlockCommentEndTag;
+  if HI.LayoutFileName = '' then
+    HI.LayoutFileName := ALayoutFileName;
+  if HI.FileExtensions = '' then
+    HI.FileExtensions := AFileExtensions;
   HI.InitSynHighlighter(ASynHighlighter);
   if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(HI.SynHighlighter) then
       TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
-    end;
+  end;
 end;
 {$endregion}
 {$endregion}
@@ -474,10 +510,22 @@ end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function THighlighterItem.GetCollection: THighlighters;
 begin
   Result := inherited Collection as THighlighters;
+end;
+
+function THighlighterItem.GetDefaultFilter: string;
+begin
+  Result := FDefaultFilter;
+end;
+
+procedure THighlighterItem.SetDefaultFilter(AValue: string);
+begin
+  if AValue <> DefaultFilter then
+  begin
+    FDefaultFilter := AValue;
+  end;
 end;
 
 function THighlighterItem.GetFileExtensions: string;
@@ -529,11 +577,9 @@ function THighlighterItem.GetDisplayName: string;
 begin
   Result := Name;
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
-
 procedure THighlighterItem.Assign(Source: TPersistent);
 var
   HLI: THighlighterItem;
@@ -554,6 +600,8 @@ begin
       LineCommentTag       := HLI.LineCommentTag;
       FileExtensions       := HLI.FileExtensions;
       SmartSelectionTags   := HLI.SmartSelectionTags;
+      DefaultFilter        := HLI.DefaultFilter;
+      FormatterSupport     := HLI.FormatterSupport;
     finally
       if Assigned(Collection) then
         Collection.EndUpdate;
@@ -602,7 +650,6 @@ begin
       TSynUniSyn(SynHighlighter).LoadFromFile(S + LayoutFileName);
   end;
 end;
-
 {$endregion}
 {$endregion}
 

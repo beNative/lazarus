@@ -17,24 +17,24 @@ object frmAbout: TfrmAbout
     Height = 204
     Top = 4
     Width = 394
-    ActivePage = tsCredits
+    ActivePage = tsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 179
-      ClientWidth = 390
+      ClientHeight = 176
+      ClientWidth = 386
       object lblFPCVersion: TLabel
         Left = 8
         Height = 15
         Top = 9
-        Width = 75
+        Width = 65
         Caption = 'FPC version:'
         ParentColor = False
       end
       object pnlFPCVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 9
         Width = 105
@@ -47,7 +47,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 58
-        Width = 63
+        Width = 55
         Caption = 'Target OS:'
         ParentColor = False
       end
@@ -55,12 +55,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 78
-        Width = 70
+        Width = 63
         Caption = 'Target CPU:'
         ParentColor = False
       end
       object pnlTargetOS: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 58
         Width = 105
@@ -70,7 +70,7 @@ object frmAbout: TfrmAbout
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 78
         Width = 105
@@ -83,12 +83,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 133
-        Width = 65
+        Width = 56
         Caption = 'Build date:'
         ParentColor = False
       end
       object pnlBuildDate: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 133
         Width = 105
@@ -101,12 +101,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 105
-        Width = 69
+        Width = 59
         Caption = 'Widget set:'
         ParentColor = False
       end
       object pnlWidgetSet: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 105
         Width = 105
@@ -119,12 +119,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 29
-        Width = 74
+        Width = 64
         Caption = 'LCL version:'
         ParentColor = False
       end
       object pnlLCLVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 29
         Width = 105
@@ -137,12 +137,12 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 151
-        Width = 49
+        Width = 42
         Caption = 'Version:'
         ParentColor = False
       end
       object pnlFileVersion: TPanel
-        Left = 169
+        Left = 165
         Height = 18
         Top = 151
         Width = 105
@@ -186,6 +186,12 @@ object frmAbout: TfrmAbout
     object tsCredits: TTabSheet
       BorderWidth = 3
       Caption = 'Credits'
+    end
+    object TabSheet1: TTabSheet
+      Caption = 'Translations'
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Info'
     end
   end
   object imgMain: TImage
@@ -1372,4 +1378,4 @@ object frmAbout: TfrmAbout
       OnExecute = actReportDefectExecute
     end
   end
-end
+end

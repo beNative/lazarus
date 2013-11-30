@@ -92,6 +92,8 @@ type
     Shape4: TShape;
     btnDonate: TSpeedButton;
     btnReportIssue: TSpeedButton;
+    TabSheet1: TTabSheet;
+    TabSheet2: TTabSheet;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
     {$endregion}
@@ -160,6 +162,10 @@ const
     'nationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
   URL_REPORT_ISSUE = 'http://code.google.com/p/notepas/issues/entry';
 
+resourcestring
+  SName   = 'Name';
+  SAuthor = 'Author';
+
 procedure ShowAboutDialog;
 var
   F : TfrmAbout;
@@ -192,8 +198,8 @@ begin
   FillCredits;
   FVST := VST.Create(Self, tsCredits);
   FTVP := TTreeViewPresenter.Create(Self);
-  FTVP.ColumnDefinitions.AddColumn('Name', dtString, 140);
-  FTVP.ColumnDefinitions.AddColumn('Author', dtString, 150, 100, 220);
+  FTVP.ColumnDefinitions.AddColumn('Name', SName, dtString, 140);
+  FTVP.ColumnDefinitions.AddColumn('Author', SAuthor, dtString, 150, 100, 220);
   FTVP.OnDoubleClick := FTVPDoubleClick;
   FTVP.ListMode := True;
   FTVP.ItemsSource := FCredits;
@@ -362,4 +368,4 @@ begin
 end;
 
 end.
-
+

@@ -37,8 +37,6 @@ uses
 
   SynEditTypes,
 
-  MenuButton,
-
   ts.Editor.Interfaces, ts.Editor.CodeShaper.Settings, ts_Editor_ToolView_Base;
 
 type
@@ -81,8 +79,6 @@ type
     btnAlign                        : TBitBtn;
     btnAlign1                       : TBitBtn;
     btnDequote                       : TBitBtn;
-    btnAlignInsertSpace             : TMenuButton;
-    btnBreakAfterBefore             : TMenuButton;
     btnInsertBreaks                 : TBitBtn;
     btnPascalString                 : TButton;
     btnRemoveBreaks                 : TBitBtn;
@@ -109,6 +105,8 @@ type
     chkTrimLinesLeft                : TCheckBox;
     chkTrimLinesRight               : TCheckBox;
     chkUnBreakLinesWrap             : TCheckBox;
+    cbxInsertBreaksTokenSide: TComboBox;
+    cbxAlignTokenSide: TComboBox;
     edtAlignLinesToken              : TLabeledEdit;
     edtBreakLinesToken              : TLabeledEdit;
     edtBreakLinesWrapPosition       : TSpinEdit;
@@ -657,7 +655,6 @@ begin
   A := M.Action as TAction;
   A.Checked := True;
   actToggleAlignInsertSpace.Caption := A.Caption;
-  btnAlignInsertSpace.Caption := M.Caption;
 
   case FBreakTokenSide of
     tsBefore: M := mniBreakBeforeToken;
@@ -665,7 +662,6 @@ begin
   end;
   A := M.Action as TAction;
   A.Checked := True;
-  btnBreakAfterBefore.Caption := M.Caption;
 end;
 {$endregion}
 

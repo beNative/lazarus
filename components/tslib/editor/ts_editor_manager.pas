@@ -25,7 +25,8 @@ unit ts_Editor_Manager;
   Datamodule holding common actions, menu's to manage one or more IEditorView
   instances.
 
-  CTRL-ALT-SHIFT keycombinations are used for experimental features
+  REMARKS:
+    - CTRL-ALT-SHIFT keycombinations are used for experimental features
 
   TODO:
    - apply consistent casing for word under cursor/all words ? => dangerous for strings
@@ -67,8 +68,7 @@ unit ts_Editor_Manager;
       needs to be notified (observer pattern).
 
   Use a IEditorManager instance to create IEditorView instances. In most cases
-  you only need a single manager so you can use the EditorManager singleton
-  declared in this unit.
+  you only need a single manager instance.
     - EditorManager.OpenFile(<<filename>>)
     - EditorManager.NewFile(<<filename>>)
 
@@ -85,12 +85,6 @@ unit ts_Editor_Manager;
                    .Settings  : IEditorSettings
                    .ToolViews : IEditorToolViews
                    .Views     : IEditorViews
-
-    TODO:
-      - let toolviews be started in two modes:
-         - modal
-         - docked (or handled by owner form)
-
 }
 {$endregion}
 
@@ -798,7 +792,9 @@ uses
   ts_Editor_SelectionInfo_ToolView,
   ts_Editor_Filter_ToolView,
 
-  ts_Editor_AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
+  ts_Editor_AboutDialog,
+
+  ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
   ts.Editor.Search.Engine,
 

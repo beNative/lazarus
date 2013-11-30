@@ -64,7 +64,6 @@ implementation
 uses
   SysUtils;
 
-
 {$region 'construction and destruction' /fold}
 constructor TEditorViewInfo.Create(AView: IEditorView);
 begin

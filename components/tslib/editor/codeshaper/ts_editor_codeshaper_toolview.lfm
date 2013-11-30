@@ -57,27 +57,27 @@ inherited frmCodeShaper: TfrmCodeShaper
       TabOrder = 0
       object grpInsertBreaks: TGroupBox
         Left = 0
-        Height = 75
-        Top = 6
+        Height = 72
+        Top = 8
         Width = 462
         Caption = 'Insert breaks'
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 57
+        ClientHeight = 54
         ClientWidth = 458
         TabOrder = 0
         object edtBreakLinesToken: TLabeledEdit
           Left = 230
-          Height = 26
-          Top = 3
+          Height = 23
+          Top = 2
           Width = 44
           EditLabel.AnchorSideTop.Control = edtBreakLinesToken
           EditLabel.AnchorSideTop.Side = asrCenter
           EditLabel.AnchorSideRight.Control = edtBreakLinesToken
           EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 187
-          EditLabel.Height = 16
-          EditLabel.Top = 8
-          EditLabel.Width = 40
+          EditLabel.Left = 191
+          EditLabel.Height = 15
+          EditLabel.Top = 6
+          EditLabel.Width = 36
           EditLabel.Caption = 'Token:'
           EditLabel.ParentColor = False
           Font.Style = [fsBold]
@@ -88,23 +88,23 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkBreakLines: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 4
-          Width = 89
+          Width = 76
           Caption = 'Break lines'
           TabOrder = 1
         end
         object chkBreakLinesWrap: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 28
-          Width = 85
+          Width = 75
           Caption = 'Wrap lines'
           TabOrder = 2
         end
         object edtBreakLinesWrapPosition: TSpinEdit
           Left = 230
-          Height = 26
+          Height = 23
           Top = 27
           Width = 44
           MaxValue = 100000
@@ -113,16 +113,16 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object lblWrapLinesPosition: TLabel
           Left = 114
-          Height = 16
+          Height = 15
           Top = 31
-          Width = 113
+          Width = 103
           Caption = 'maximum position:'
           FocusControl = edtBreakLinesWrapPosition
           ParentColor = False
         end
         object btnInsertBreaks: TBitBtn
           Left = 286
-          Height = 49
+          Height = 46
           Top = 3
           Width = 167
           Action = actInsertBreaks
@@ -130,53 +130,52 @@ inherited frmCodeShaper: TfrmCodeShaper
           Layout = blGlyphTop
           TabOrder = 4
         end
-        object btnBreakAfterBefore: TMenuButton
-          Left = 122
-          Height = 20
-          Top = 5
-          Width = 52
-          Options = [dboShowIndicator]
-          Action = actToggleBreakSide
-          Caption = 'before'
-          Flat = True
-          Font.Color = clBlue
-          Font.Style = [fsUnderline]
-          Margin = 2
-          ParentFont = False
-          Menu = ppmAfterBefore
-          AutoSize = True
+        object cbxInsertBreaksTokenSide: TComboBox
+          Left = 106
+          Height = 23
+          Top = 2
+          Width = 79
+          ItemHeight = 15
+          ItemIndex = 0
+          Items.Strings = (
+            'after'
+            'before'
+          )
+          Style = csDropDownList
+          TabOrder = 5
+          Text = 'after'
         end
       end
       object grpRemoveBreaks: TGroupBox
         Left = 0
-        Height = 71
-        Top = 87
+        Height = 68
+        Top = 88
         Width = 462
         Caption = 'Remove breaks'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 53
+        ClientHeight = 50
         ClientWidth = 458
         TabOrder = 1
         object chkUnBreakLinesWrap: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 27
-          Width = 85
+          Width = 75
           Caption = 'Wrap lines'
           TabOrder = 0
         end
         object lblWrapLinesPosition1: TLabel
           Left = 114
-          Height = 16
+          Height = 15
           Top = 29
-          Width = 113
+          Width = 103
           Caption = 'maximum position:'
           ParentColor = False
         end
         object edtUnBreakLinesWrapPosition: TSpinEdit
           Left = 230
-          Height = 26
+          Height = 23
           Top = 23
           Width = 44
           MaxValue = 100000
@@ -185,15 +184,15 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkBreakLinesTrimSpace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 4
-          Width = 87
+          Width = 78
           Caption = 'Trim space'
           TabOrder = 2
         end
         object btnRemoveBreaks: TBitBtn
           Left = 286
-          Height = 45
+          Height = 42
           Top = 4
           Width = 167
           Action = actRemoveBreaks
@@ -204,34 +203,34 @@ inherited frmCodeShaper: TfrmCodeShaper
       end
       object grpTrim: TGroupBox
         Left = 0
-        Height = 94
+        Height = 92
         Top = 164
         Width = 462
         Caption = 'Trim'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 76
+        ClientHeight = 74
         ClientWidth = 458
         TabOrder = 2
         object chkTrimLinesLeft: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 3
-          Width = 74
+          Width = 65
           Caption = 'Trim left'
           TabOrder = 0
         end
         object chkTrimLinesRight: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 27
-          Width = 82
+          Width = 73
           Caption = 'Trim right'
           TabOrder = 1
         end
         object btnTrim: TBitBtn
           Left = 286
-          Height = 68
+          Height = 66
           Top = 3
           Width = 167
           Action = actTrim
@@ -240,7 +239,7 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object edtTrimLinesIndent: TSpinEdit
           Left = 230
-          Height = 26
+          Height = 23
           Top = 3
           Width = 44
           MinValue = -100
@@ -249,46 +248,46 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object lblTrimLinesIndent: TLabel
           Left = 189
-          Height = 16
+          Height = 15
           Top = 5
-          Width = 43
+          Width = 37
           Caption = 'Indent:'
           FocusControl = edtTrimLinesIndent
           ParentColor = False
         end
         object chkTrimCompressSpace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 51
-          Width = 119
+          Width = 106
           Caption = 'Compress space'
           TabOrder = 4
         end
       end
       object grpAlign: TGroupBox
         Left = 0
-        Height = 94
+        Height = 92
         Top = 264
         Width = 462
         Caption = 'Align'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 76
+        ClientHeight = 74
         ClientWidth = 458
         TabOrder = 3
         object edtAlignLinesToken: TLabeledEdit
           Left = 230
-          Height = 26
-          Top = 27
+          Height = 23
+          Top = 25
           Width = 44
           EditLabel.AnchorSideTop.Control = edtAlignLinesToken
           EditLabel.AnchorSideTop.Side = asrCenter
           EditLabel.AnchorSideRight.Control = edtAlignLinesToken
           EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 187
-          EditLabel.Height = 16
-          EditLabel.Top = 32
-          EditLabel.Width = 40
+          EditLabel.Left = 191
+          EditLabel.Height = 15
+          EditLabel.Top = 29
+          EditLabel.Width = 36
           EditLabel.Caption = 'Token:'
           EditLabel.ParentColor = False
           LabelPosition = lpLeft
@@ -296,9 +295,9 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkAlignLinesRemoveWhitespace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 3
-          Width = 141
+          Width = 125
           Caption = 'Remove whitespace'
           Checked = True
           State = cbChecked
@@ -306,69 +305,70 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkAlignLinesInsertSpace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 27
-          Width = 95
+          Width = 82
           Caption = 'Insert space'
           TabOrder = 2
         end
         object chkAlignLinesInParagraphs: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 51
-          Width = 141
+          Width = 123
           Caption = 'Align in paragraphs'
           TabOrder = 3
         end
         object btnAlign: TBitBtn
           Left = 286
-          Height = 68
+          Height = 66
           Top = 2
           Width = 167
           Action = actAlignLines
           Anchors = [akTop, akLeft, akRight, akBottom]
           TabOrder = 4
         end
-        object btnAlignInsertSpace: TMenuButton
-          Left = 122
-          Height = 19
-          Top = 27
-          Width = 57
-          Options = [dboShowIndicator]
-          Action = actToggleAlignInsertSpace
-          Caption = 'before'
-          Flat = True
-          Font.Color = clBlue
-          Font.Style = [fsUnderline]
-          Margin = 2
-          ParentFont = False
-          Menu = ppmSpaces
+        object cbxAlignTokenSide: TComboBox
+          Left = 106
+          Height = 23
+          Top = 25
+          Width = 79
+          ItemHeight = 15
+          ItemIndex = 0
+          Items.Strings = (
+            'after'
+            'before '
+            'both'
+          )
+          Style = csDropDownList
+          TabOrder = 5
+          Text = 'after'
         end
       end
       object grpQuoteLines: TGroupBox
         Left = 0
-        Height = 94
+        Height = 92
         Top = 364
         Width = 462
         Caption = 'Quote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 76
+        ClientHeight = 74
         ClientWidth = 458
         TabOrder = 4
         object edtQuoteLinesQuoteChar: TLabeledEdit
           Left = 110
-          Height = 26
+          Height = 23
           Top = 2
           Width = 36
           EditLabel.AnchorSideTop.Control = edtQuoteLinesQuoteChar
           EditLabel.AnchorSideTop.Side = asrCenter
           EditLabel.AnchorSideRight.Control = edtQuoteLinesQuoteChar
           EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 7
-          EditLabel.Height = 16
-          EditLabel.Top = 7
-          EditLabel.Width = 100
+          EditLabel.Left = 19
+          EditLabel.Height = 15
+          EditLabel.Top = 6
+          EditLabel.Width = 88
           EditLabel.Caption = 'Quote character:'
           EditLabel.ParentColor = False
           Font.Style = [fsBold]
@@ -380,25 +380,25 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkQuoteLinesDelimitLines: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 51
-          Width = 96
+          Width = 85
           Caption = 'Delimit lines'
           TabOrder = 1
         end
         object edtQuotedLinesDelimiter: TLabeledEdit
           Left = 230
-          Height = 26
+          Height = 23
           Top = 3
           Width = 44
           EditLabel.AnchorSideTop.Control = edtQuotedLinesDelimiter
           EditLabel.AnchorSideTop.Side = asrCenter
           EditLabel.AnchorSideRight.Control = edtQuotedLinesDelimiter
           EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 170
-          EditLabel.Height = 16
-          EditLabel.Top = 8
-          EditLabel.Width = 57
+          EditLabel.Left = 176
+          EditLabel.Height = 15
+          EditLabel.Top = 7
+          EditLabel.Width = 51
           EditLabel.Caption = 'Delimiter:'
           EditLabel.ParentColor = False
           Font.Style = [fsBold]
@@ -409,15 +409,15 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkQuoteLinesTrimSpace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 27
-          Width = 87
+          Width = 78
           Caption = 'Trim space'
           TabOrder = 3
         end
         object btnAlign1: TBitBtn
           Left = 286
-          Height = 68
+          Height = 66
           Top = 2
           Width = 167
           Action = actQuoteLines
@@ -427,18 +427,18 @@ inherited frmCodeShaper: TfrmCodeShaper
       end
       object grpDequoteLines: TGroupBox
         Left = 0
-        Height = 70
+        Height = 68
         Top = 464
         Width = 462
         Caption = 'Dequote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 52
+        ClientHeight = 50
         ClientWidth = 458
         TabOrder = 5
         object edtDequoteLinesQuoteChar: TLabeledEdit
           Left = 110
-          Height = 26
+          Height = 23
           Top = 4
           Width = 36
           EditLabel.AnchorSideLeft.Side = asrBottom
@@ -446,10 +446,10 @@ inherited frmCodeShaper: TfrmCodeShaper
           EditLabel.AnchorSideTop.Side = asrCenter
           EditLabel.AnchorSideRight.Control = edtDequoteLinesQuoteChar
           EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 7
-          EditLabel.Height = 16
-          EditLabel.Top = 9
-          EditLabel.Width = 100
+          EditLabel.Left = 19
+          EditLabel.Height = 15
+          EditLabel.Top = 8
+          EditLabel.Width = 88
           EditLabel.Caption = 'Quote character:'
           EditLabel.ParentColor = False
           Font.Style = [fsBold]
@@ -461,15 +461,15 @@ inherited frmCodeShaper: TfrmCodeShaper
         end
         object chkDeQuoteLinesTrimSpace: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 27
-          Width = 87
+          Width = 78
           Caption = 'Trim space'
           TabOrder = 1
         end
         object btnDequote: TBitBtn
           Left = 286
-          Height = 44
+          Height = 42
           Top = 4
           Width = 167
           Action = actDequoteLines
@@ -479,34 +479,34 @@ inherited frmCodeShaper: TfrmCodeShaper
       end
       object grpReplaceStrings: TGroupBox
         Left = 0
-        Height = 109
-        Top = 538
+        Height = 107
+        Top = 540
         Width = 462
         Caption = 'Replace strings'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 91
+        ClientHeight = 89
         ClientWidth = 458
         TabOrder = 6
         object chkReplaceStringsCaseSensitive: TCheckBox
           Left = 20
-          Height = 21
+          Height = 19
           Top = 66
-          Width = 106
+          Width = 93
           Caption = 'Case sensitive'
           TabOrder = 0
         end
         object chkReplaceStringsWholeWordsOnly: TCheckBox
           Left = 150
-          Height = 21
+          Height = 19
           Top = 66
-          Width = 131
+          Width = 115
           Caption = 'Whole words only'
           TabOrder = 1
         end
         object grdReplaceStrings: TStringGrid
           Left = 10
-          Height = 61
+          Height = 59
           Top = 4
           Width = 311
           Anchors = [akTop, akLeft, akBottom]
@@ -518,12 +518,12 @@ inherited frmCodeShaper: TfrmCodeShaper
               Color = clNone
               Title.Alignment = taCenter
               Title.Caption = 'From'
-              Width = 148
+              Width = 145
             end          
             item
               Title.Alignment = taCenter
               Title.Caption = 'To'
-              Width = 148
+              Width = 145
             end>
           DefaultRowHeight = 18
           FixedCols = 0
@@ -532,13 +532,13 @@ inherited frmCodeShaper: TfrmCodeShaper
           TabOrder = 2
           TitleStyle = tsNative
           ColWidths = (
-            148
-            148
+            145
+            145
           )
         end
         object btnReplace: TBitBtn
           Left = 322
-          Height = 83
+          Height = 81
           Top = 4
           Width = 129
           Action = actReplace
@@ -549,8 +549,8 @@ inherited frmCodeShaper: TfrmCodeShaper
       end
       object grpMisc: TGroupBox
         Left = 0
-        Height = 104
-        Top = 651
+        Height = 101
+        Top = 654
         Width = 462
         Caption = 'Miscellanious operations'
         ChildSizing.LeftRightSpacing = 2
@@ -561,62 +561,62 @@ inherited frmCodeShaper: TfrmCodeShaper
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 3
-        ClientHeight = 86
+        ClientHeight = 83
         ClientWidth = 458
         TabOrder = 7
         object btnPascalString: TButton
           Left = 2
-          Height = 26
+          Height = 25
           Top = 4
-          Width = 160
+          Width = 159
           Action = actMakePascalString
           TabOrder = 0
         end
         object btnStripFirstChar: TButton
-          Left = 162
-          Height = 26
+          Left = 161
+          Height = 25
           Top = 4
           Width = 153
           Action = actStripFirstChar
           TabOrder = 1
         end
         object btnStripLastChar: TButton
-          Left = 315
-          Height = 26
+          Left = 314
+          Height = 25
           Top = 4
-          Width = 141
+          Width = 142
           Action = actStripLastChar
           TabOrder = 2
         end
         object btnStripLastChar1: TButton
           Left = 2
-          Height = 26
-          Top = 30
-          Width = 160
+          Height = 25
+          Top = 29
+          Width = 159
           Action = actRemoveDoubles
           TabOrder = 3
         end
         object btnStripLastChar2: TButton
-          Left = 162
-          Height = 26
-          Top = 30
+          Left = 161
+          Height = 25
+          Top = 29
           Width = 153
           Action = actApplyConsistentCase
           TabOrder = 4
         end
         object btnURLEncode: TButton
-          Left = 315
-          Height = 26
-          Top = 30
-          Width = 141
+          Left = 314
+          Height = 25
+          Top = 29
+          Width = 142
           Action = actURLEncode
           TabOrder = 5
         end
         object btnURLDecode: TButton
           Left = 2
-          Height = 26
-          Top = 56
-          Width = 160
+          Height = 25
+          Top = 54
+          Width = 159
           Action = actURLDecode
           TabOrder = 6
         end
@@ -790,7 +790,7 @@ inherited frmCodeShaper: TfrmCodeShaper
   end
   object ppmAfterBefore: TPopupMenu[3]
     left = 200
-    top = 496
+    top = 440
     object mniBreakAfterToken: TMenuItem
       Action = actBreakAfterToken
       AutoCheck = True
@@ -831,4 +831,4 @@ inherited frmCodeShaper: TfrmCodeShaper
       RadioItem = True
     end
   end
-end
+end

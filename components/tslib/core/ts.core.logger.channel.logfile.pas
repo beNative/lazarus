@@ -41,7 +41,9 @@ unit ts.Core.Logger.Channel.LogFile;
 interface
 
 uses
-  {$ifndef fpc}fpccompat,{$endif} Classes, SysUtils, multilog;
+  {$ifndef fpc}fpccompat,{$endif} Classes, SysUtils,
+
+  ts.Core.Logger;
 
 type
 

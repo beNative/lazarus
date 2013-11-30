@@ -53,6 +53,8 @@ unit ts.Components.UniqueInstance;
 // Modifications by Tim Sinaeve:
 //  - Enabled can be used at runtime. In the original version this setting had
 //    only effect when set at designtime.
+//  - It does not use SimpleIPCWrapper anymore as the bugs for which it was
+//    a workaround are resolved (bug 17248) and (bug 19136) in FPC 2.7.1
 
 {$MODE objfpc}{$H+}
 
@@ -83,7 +85,6 @@ type
     procedure CheckMessage(Sender: TObject);
     {$ENDIF}
   protected
-    //procedure Loaded; override;
     procedure InitIPC;
   public
     procedure AfterConstruction; override;
@@ -107,7 +108,7 @@ implementation
 uses
   ExtCtrls,
 
-  StrUtils, SimpleIPCWrapper;
+  StrUtils;
 
 const
   BaseServerId = 'tuniqueinstance_';
@@ -201,7 +202,7 @@ begin
     IPCClient := TSimpleIPCClient.Create(Self);
     try
       IPCClient.ServerId := GetServerId;
-      if IsServerRunning(IPCClient) then
+      if IPCClient.ServerRunning then
       begin
         //A instance is already running
         //Send a message and then exit
@@ -223,7 +224,7 @@ begin
         FIPCServer.ServerID := IPCClient.ServerId;
         FIPCServer.Global := True;
         FIPCServer.OnMessage := @ReceiveMessage;
-        InitServer(FIPCServer);
+        FIPCServer.StartServer;
         {$IFDEF unix}
         if Assigned(FOnOtherInstance) then
         begin

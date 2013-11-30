@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, FileUtil, RTTICtrls, Forms, Controls, Graphics,
   Dialogs, ExtCtrls, StdCtrls,
 
-  VirtualPages,
+  ts.Components.VirtualPages,
 
   ts.Editor.Interfaces;
 

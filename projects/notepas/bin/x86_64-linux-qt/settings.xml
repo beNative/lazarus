@@ -220,13 +220,13 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>None</HighlighterType>
 	<DimInactiveView>true</DimInactiveView>
 	<FormSettings>(TFormSettings)
 		<Left>553</Left>
 		<Top>71</Top>
 		<Width>1102</Width>
-		<Height>784</Height>
+		<Height>887</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -236,7 +236,9 @@
 		<RemoveWhiteSpace>true</RemoveWhiteSpace>
 		<KeepSpaceBeforeToken>true</KeepSpaceBeforeToken>
 		<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
-		<Tokens>(TStringList)</Tokens>
+		<Tokens>(TStringList)
+			<DefinedProperties></DefinedProperties>
+		</Tokens>
 	</AlignLinesSettings>
 	<SearchEngineSettings>(TSearchEngineSettings)
 		<Options>[,ssoEntireScope]</Options>
@@ -469,7 +471,7 @@
 		<THighlighterItem>
 			<Name>XML</Name>
 			<BlockCommentStartTag>`¤ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--€¤ </BlockCommentEndTag>
+			<BlockCommentEndTag>--€¤</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 			<Description>XML document</Description>
@@ -882,7 +884,7 @@
 		<THighlighterItem>
 			<Name>HTML</Name>
 			<BlockCommentStartTag>`¤ !--</BlockCommentStartTag>
-			<BlockCommentEndTag>--€¤ </BlockCommentEndTag>
+			<BlockCommentEndTag>--€¤</BlockCommentEndTag>
 			<FormatterSupport>false</FormatterSupport>
 			<FileExtensions>htm,html</FileExtensions>
 			<Description>HTML document</Description>

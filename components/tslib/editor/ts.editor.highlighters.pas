@@ -422,24 +422,28 @@ begin
     Result := Items[I];
 end;
 
+{ Finds the corresponding highlighteritem for a given file extension. }
+
 function THighlighters.FindHighlighterForFileType(const AFileExt: string): THighlighterItem;
 var
   I  : Integer;
   HL : TSynCustomHighlighter;
+  S  : string;
 begin
   Result := nil;
+  S := LowerCase(AFileExt);
   for I := 0 to Count - 1 do
   begin
     HL :=  Items[I].SynHighlighter;
     if Assigned(HL) then
     begin
-      if IsWordPresent(AFileExt, Items[I].FileExtensions, [','])
-        or IsWordPresent(AFileExt, HL.DefaultFilter, [',','.', ';']) then
-        begin
-          Result := Items[I];
-        end;
+      if IsWordPresent(S, Items[I].FileExtensions, [','])
+        or IsWordPresent(S, HL.DefaultFilter, [',','.', ';']) then
+      begin
+        Result := Items[I];
       end;
     end;
+  end;
 end;
 
 { Registers a new highlighter or updates an exiting one if the corresponding

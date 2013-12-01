@@ -556,16 +556,6 @@ msgstr ""
 msgid "Indent"
 msgstr ""
 
-#: tdmeditormanager.actinsertcharacterfrommap.caption
-msgctxt "tdmeditormanager.actinsertcharacterfrommap.caption"
-msgid "Insert character from map"
-msgstr ""
-
-#: tdmeditormanager.actinsertcharacterfrommap.hint
-msgctxt "TDMEDITORMANAGER.ACTINSERTCHARACTERFROMMAP.HINT"
-msgid "Insert character from map"
-msgstr ""
-
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
 msgstr ""
@@ -839,6 +829,16 @@ msgstr ""
 
 #: tdmeditormanager.actshowactions.hint
 msgid "Show the list of all available actions."
+msgstr ""
+
+#: tdmeditormanager.actshowcharactermap.caption
+msgctxt "tdmeditormanager.actshowcharactermap.caption"
+msgid "Show character map"
+msgstr ""
+
+#: tdmeditormanager.actshowcharactermap.hint
+msgctxt "tdmeditormanager.actshowcharactermap.hint"
+msgid "Show character map with Ansi and Unicode characters."
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.caption

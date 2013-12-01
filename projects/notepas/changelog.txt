@@ -1,6 +1,7 @@
 2013.12.01 (0.9.22)
 * Fixed issue with XML formatter.
 * Fixed handling of files with extensions in uppercase.
+* Refactored editor commands.
 
 2013.11.30 (0.9.21)
 * Fixed loading and saving of highlighter properties.

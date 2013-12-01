@@ -198,7 +198,6 @@ resourcestring
 procedure TfrmMain.AfterConstruction;
 var
   I  : Integer;
-  EV : IEditorEvents;
   V  : IEditorView;
   S  : string;
 begin

@@ -559,16 +559,6 @@ msgstr "Vergroot editor font"
 msgid "Indent"
 msgstr "Inspringen"
 
-#: tdmeditormanager.actinsertcharacterfrommap.caption
-msgctxt "tdmeditormanager.actinsertcharacterfrommap.caption"
-msgid "Insert character from map"
-msgstr "Voeg speciaal teken in"
-
-#: tdmeditormanager.actinsertcharacterfrommap.hint
-msgctxt "TDMEDITORMANAGER.ACTINSERTCHARACTERFROMMAP.HINT"
-msgid "Insert character from map"
-msgstr "Voeg speciaal teken in"
-
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
 msgstr "Invoegen kleurwaarde"
@@ -844,6 +834,16 @@ msgstr "Editor actions tonen"
 #, fuzzy
 msgid "Show the list of all available actions."
 msgstr "Toon lijst van alle editor views."
+
+#: tdmeditormanager.actshowcharactermap.caption
+msgctxt "tdmeditormanager.actshowcharactermap.caption"
+msgid "Show character map"
+msgstr ""
+
+#: tdmeditormanager.actshowcharactermap.hint
+msgctxt "tdmeditormanager.actshowcharactermap.hint"
+msgid "Show character map with Ansi and Unicode characters."
+msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.caption
 msgctxt "tdmeditormanager.actshowcodefilter.caption"

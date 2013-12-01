@@ -230,6 +230,8 @@ type
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
 
+    procedure FormatCode;
+
     // selection
     procedure SelectAll;
     procedure SelectWord;

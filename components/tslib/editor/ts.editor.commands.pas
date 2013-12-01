@@ -32,11 +32,22 @@ uses
   ts.Editor.Interfaces;
 
 type
+
+  { TEditorCommands }
+
   TEditorCommands = class(TComponent)
   private
     function GetManager: IEditorManager;
+    function GetSelection: IEditorSelection;
+    function GetView: IEditorView;
 
   protected
+    property Selection: IEditorSelection
+      read GetSelection;
+
+    property View: IEditorView
+      read GetView;
+
     property Manager: IEditorManager
       read GetManager;
 
@@ -58,6 +69,16 @@ end;
 function TEditorCommands.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
+end;
+
+function TEditorCommands.GetSelection: IEditorSelection;
+begin
+  Result := Manager.ActiveView.Selection;
+end;
+
+function TEditorCommands.GetView: IEditorView;
+begin
+  Result := Manager.ActiveView;
 end;
 {$endregion}
 

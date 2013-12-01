@@ -178,6 +178,25 @@ begin
   end;
 end;
 
+procedure TCredit.SetName(AValue: string);
+begin
+  if FName = AValue then Exit;
+  FName := AValue;
+end;
+
+procedure TCredit.SetURL(AValue: string);
+begin
+  if FURL = AValue then Exit;
+  FURL := AValue;
+end;
+
+procedure TCredit.SetAuthor(AValue: string);
+begin
+  if FAuthor = AValue then Exit;
+  FAuthor := AValue;
+end;
+
+{$region 'construction and destruction' /fold}
 procedure TfrmAbout.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -215,25 +234,9 @@ begin
 
   inherited BeforeDestruction;
 end;
+{$endregion}
 
-procedure TCredit.SetName(AValue: string);
-begin
-  if FName = AValue then Exit;
-  FName := AValue;
-end;
-
-procedure TCredit.SetURL(AValue: string);
-begin
-  if FURL = AValue then Exit;
-  FURL := AValue;
-end;
-
-procedure TCredit.SetAuthor(AValue: string);
-begin
-  if FAuthor = AValue then Exit;
-  FAuthor := AValue;
-end;
-
+{$region 'event handlers' /fold}
 procedure TfrmAbout.lblURLClick(Sender: TObject);
 begin
   actURL.Execute;
@@ -244,6 +247,13 @@ begin
   actURL.Execute;
 end;
 
+procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
+begin
+  OpenURL((FTVP.SelectedItem as TCredit).URL);
+end;
+{$endregion}
+
+{$region 'action handlers' /fold}
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin
   Close;
@@ -263,7 +273,9 @@ procedure TfrmAbout.actURLExecute(Sender: TObject);
 begin
   OpenURL(FVersionInfo.URL);
 end;
+{$endregion}
 
+{$region 'private methods' /fold}
 procedure TfrmAbout.FillCredits;
 
   procedure AddCredit(const AName: string; const AAuthor: string; const AURL: string);
@@ -361,11 +373,7 @@ begin
     'http://p.yusukekamiyamane.com/'
   );
 end;
-
-procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
-begin
-  OpenURL((FTVP.SelectedItem as TCredit).URL);
-end;
+{$endregion}
 
 end.
 

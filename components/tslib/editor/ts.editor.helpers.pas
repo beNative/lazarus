@@ -282,8 +282,8 @@ begin
   AddButton('');
   AddDropDownButton('actToggleHighlighter', Menus.HighlighterPopupMenu);
   AddButton('');
-  AddButton('actShapeCode');
-  AddButton('actFilterCode');
+  AddButton('actShowCodeShaper');
+  AddButton('actShowCodeFilter');
   AddButton('actInsertCharacterFromMap');
   AddButton('actShowPreview');
   AddButton('');
@@ -436,8 +436,8 @@ begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := SToolsMenuCaption;
   AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(AManager, MI, 'actShapeCode');
-  AddEditorMenuItem(AManager, MI, 'actFilterCode');
+  AddEditorMenuItem(AManager, MI, 'actShowCodeShaper');
+  AddEditorMenuItem(AManager, MI, 'actShowCodeFilter');
   AddEditorMenuItem(AManager, MI);
   AddEditorMenuItem(AManager, MI, 'actSmartSelect');
   AddEditorMenuItem(AManager, MI, 'actFormat');

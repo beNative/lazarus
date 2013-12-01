@@ -112,7 +112,7 @@ type
 
   { TEditorView }
 
-  TEditorView = class(TForm, IEditorView)
+  TEditorView = class(TForm, IEditorView, IEditorSelection)
   published
     imlBookmarkImages: TImageList;
 
@@ -330,6 +330,7 @@ type
             AIncludeStartTag : Boolean;
             AIncludeEndTag   : Boolean
     ): Boolean;
+    procedure FormatCode;
 
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
@@ -516,7 +517,7 @@ type
       read GetHighlighterItem write SetHighlighterItem;
 
     property Selection: IEditorSelection
-      read GetSelection;
+      read GetSelection implements IEditorSelection;
 
     property SynSelection: TSynEditSelection
       read GetSynSelection;
@@ -1764,6 +1765,28 @@ begin
     end;
   end;
   Result := SelAvail;
+end;
+
+{ Formats the (selected if applicable) code using the associated code formatter
+  for the current highlighter. }
+
+procedure TEditorView.FormatCode;
+var
+  N: Integer;
+  S: string;
+begin
+  if Assigned(HighlighterItem.CodeFormatter) then
+  begin
+    if not SelAvail then
+    begin
+      SelectAll;
+    end;
+    Selection.Store;
+    Selection.Text := HighlighterItem.CodeFormatter.Format(Selection.Text);
+    Selection.Restore;
+  end
+  else
+    raise Exception.Create('No codeformatter for current highlighter');
 end;
 
 procedure TEditorView.AdjustFontSize(AOffset: Integer);

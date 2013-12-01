@@ -85,6 +85,10 @@ unit ts_Editor_Manager;
                    .Settings  : IEditorSettings
                    .ToolViews : IEditorToolViews
                    .Views     : IEditorViews
+
+      IEditorCommands
+        Set of commands that can be executed on the active editor view.
+
 }
 {$endregion}
 
@@ -204,7 +208,7 @@ type
     actExportToHTML                   : TAction;
     actExportToRTF                    : TAction;
     actExportToWiki                   : TAction;
-    actFilterCode                     : TAction;
+    actShowCodeFilter                     : TAction;
     actSearch                         : TAction;
     actFindNext                       : TAction;
     actFindNextWord                   : TAction;
@@ -227,7 +231,6 @@ type
     actInsertCharacterFromMap         : TAction;
     actInsertColorValue               : TAction;
     actInspect                        : TAction;
-    actLoadHighlighterFromFile        : TAction;
     actLowerCaseSelection             : TAction;
     actNew                            : TAction;
     actOpen                           : TAction;
@@ -244,7 +247,7 @@ type
     actSave                           : TAction;
     actSaveAs                         : TAction;
     actSettings                       : TAction;
-    actShapeCode                      : TAction;
+    actShowCodeShaper                      : TAction;
     actSortSelection                  : TAction;
     actToggleComment                  : TAction;
     actToggleFoldLevel                : TAction;
@@ -359,7 +362,7 @@ type
     procedure actExportToHTMLExecute(Sender: TObject);
     procedure actExportToRTFExecute(Sender: TObject);
     procedure actExportToWikiExecute(Sender: TObject);
-    procedure actFilterCodeExecute(Sender: TObject);
+    procedure actShowCodeFilterExecute(Sender: TObject);
     procedure actFindNextExecute(Sender: TObject);
     procedure actFindNextWordExecute(Sender: TObject);
     procedure actFindPreviousExecute(Sender: TObject);
@@ -382,7 +385,6 @@ type
     procedure actInsertCharacterFromMapExecute(Sender: TObject);
     procedure actInsertColorValueExecute(Sender: TObject);
     procedure actInspectExecute(Sender: TObject);
-    procedure actLoadHighlighterFromFileExecute(Sender: TObject);
     procedure actLowerCaseSelectionExecute(Sender: TObject);
     procedure actMonitorChangesExecute(Sender: TObject);
     procedure actNewExecute(Sender: TObject);
@@ -401,7 +403,7 @@ type
     procedure actSearchReplaceExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
-    procedure actShapeCodeExecute(Sender: TObject);
+    procedure actShowCodeShaperExecute(Sender: TObject);
     procedure actShowActionsExecute(Sender: TObject);
     procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actShowPreviewExecute(Sender: TObject);
@@ -546,7 +548,6 @@ type
       AToClipBoard  : Boolean = True;
       ANativeFormat : Boolean = True
     );
-    procedure FormatCode;
 
     {$region 'IEditorViews'}
     function IEditorViews.Add = AddView;
@@ -1249,7 +1250,7 @@ begin
   ShowToolView('Search', False, True);
 end;
 
-procedure TdmEditorManager.actShapeCodeExecute(Sender: TObject);
+procedure TdmEditorManager.actShowCodeShaperExecute(Sender: TObject);
 begin
   ShowToolView('CodeShaper', False, True);
 end;
@@ -1405,7 +1406,7 @@ begin
     ActiveView.Cut;
 end;
 
-procedure TdmEditorManager.actFilterCodeExecute(Sender: TObject);
+procedure TdmEditorManager.actShowCodeFilterExecute(Sender: TObject);
 var
   ETV: IEditorToolView;
 begin
@@ -1445,16 +1446,6 @@ begin
     ActiveView.Editor.Gutter.CodeFoldPart,
     ActiveView.Editor.Gutter.SeparatorPart
   ]);
-end;
-
-procedure TdmEditorManager.actLoadHighlighterFromFileExecute(Sender: TObject);
-begin
-  //dlgOpen.Filter := '*.hgl';
-  //if dlgOpen.Execute then
-  //begin
-  //  SynUniSyn.LoadFromFile(dlgOpen.FileName);
-  //end;
-  //HighlighterType := shlUNI;
 end;
 
 procedure TdmEditorManager.actNewExecute(Sender: TObject);
@@ -1568,11 +1559,7 @@ end;
 
 procedure TdmEditorManager.actFormatExecute(Sender: TObject);
 begin
-  try
-    FormatCode;
-  except
-    // do nothing
-  end;
+  ActiveView.FormatCode;
 end;
 
 procedure TdmEditorManager.actIncFontSizeExecute(Sender: TObject);
@@ -1732,11 +1719,8 @@ end;
 
 procedure TdmEditorManager.actFindAllOccurencesExecute(Sender: TObject);
 begin
-  // TODO
   SearchEngine.SearchText := ActiveView.CurrentWord;
   SearchEngine.Execute;
-  //ShowToolView('Search', False, True);
-
 end;
 
 procedure TdmEditorManager.actIndentExecute(Sender: TObject);
@@ -2625,8 +2609,8 @@ begin
   AddMenuItem(MI, FoldPopupMenu);
   //AddMenuItem(MI, EncodingPopupMenu);
   AddMenuItem(MI);
-  AddMenuItem(MI, actFilterCode);
-  AddMenuItem(MI, actShapeCode);
+  AddMenuItem(MI, actShowCodeFilter);
+  AddMenuItem(MI, actShowCodeShaper);
   AddMenuItem(MI, actFormat);
   AddMenuItem(MI);
   AddMenuItem(MI, actClose);
@@ -2938,7 +2922,7 @@ begin
   begin
     dlgSave.Filter := Settings.Highlighters.FileFilter;
     if Assigned(ActiveView.Editor.Highlighter) then
-      dlgSave.FilterIndex := ActiveView.HighlighterItem.Index - 1;
+      dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
     dlgSave.FileName := AFileName;
     if dlgSave.Execute then
     begin
@@ -2969,47 +2953,6 @@ begin
   end
   else
     Result := False;
-end;
-
-{ Formats the (selected if applicable) code using the associated code formatter
-  for the current highlighter. }
-
-procedure TdmEditorManager.FormatCode;
-var
-  N: Integer;
-  S: string;
-begin
-  if Assigned(ActiveView.HighlighterItem.CodeFormatter) then
-  begin
-    try
-      ActiveView.BeginUpdate;
-      actFormat.Enabled := False;
-      try
-        S := IfThen(ActiveView.SelAvail, ActiveView.SelText, ActiveView.Text);
-        S := ActiveView.HighlighterItem.CodeFormatter.Format(S);
-        if ActiveView.SelAvail then
-        begin
-          N := ActiveView.SelStart;
-          ActiveView.Editor.ClearSelection;
-          ActiveView.Editor.InsertTextAtCaret(Trim(S));
-          ActiveView.SelStart := N;
-          ActiveView.SelEnd := ActiveView.SelStart + Length(Trim(S));
-        end
-        else
-        begin
-          ActiveView.SelectAll;
-          ActiveView.Editor.ClearSelection;
-          ActiveView.Editor.InsertTextAtCaret(Trim(S));
-        end;
-      finally
-        ActiveView.EndUpdate;
-      end;
-    finally
-      actFormat.Enabled := True;
-    end;
-  end
-  else
-    raise Exception.Create('No codeformatter for current highlighter');
 end;
 
 procedure TdmEditorManager.OpenFileAtCursor;
@@ -3108,7 +3051,7 @@ begin
       actQuoteSelection.Visible          := B;
       actQuoteLines.Visible              := B;
       actQuoteLinesAndDelimit.Visible    := B;
-      actShapeCode.Visible               := actShapeCode.Visible and B;
+      actShowCodeShaper.Visible               := actShowCodeShaper.Visible and B;
       actToggleComment.Visible           := B;
       actStripLastChar.Visible           := B;
       actStripFirstChar.Visible          := B;

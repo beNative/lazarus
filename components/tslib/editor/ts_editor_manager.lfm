@@ -3699,7 +3699,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 24657
     end
     object actFormat: TAction
-      Category = 'Tools'
+      Category = 'Commands'
       Caption = 'Format text'
       Hint = 'Formats text depending on the current highlighter.'
       ImageIndex = 74
@@ -3725,12 +3725,12 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actDecFontSizeExecute
       ShortCut = 16493
     end
-    object actShapeCode: TAction
+    object actShowCodeShaper: TAction
       Category = 'Tools'
       Caption = 'Shape code'
       Hint = 'Apply custom code formatting to selection'
       ImageIndex = 79
-      OnExecute = actShapeCodeExecute
+      OnExecute = actShowCodeShaperExecute
       ShortCut = 49219
     end
     object actPascalStringOfSelection: TAction
@@ -3872,20 +3872,13 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actInspectExecute
       ShortCut = 16496
     end
-    object actFilterCode: TAction
+    object actShowCodeFilter: TAction
       Category = 'Tools'
       Caption = 'Filter code'
       Hint = 'Filter code'
       ImageIndex = 70
-      OnExecute = actFilterCodeExecute
+      OnExecute = actShowCodeFilterExecute
       ShortCut = 16455
-    end
-    object actLoadHighlighterFromFile: TAction
-      Category = 'Debug'
-      Caption = 'Load highlighter from file'
-      Hint = 'Load highlighter settings from file.'
-      OnExecute = actLoadHighlighterFromFileExecute
-      ShortCut = 16497
     end
     object actInsertColorValue: TAction
       Category = 'Insert'
@@ -3920,7 +3913,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 49232
     end
     object actAutoFormatXML: TAction
-      Category = 'Tools'
+      Category = 'Settings'
       Caption = 'Autoformat XML'
       ImageIndex = 50
       OnExecute = actAutoFormatXMLExecute
@@ -3979,7 +3972,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16452
     end
     object actAutoGuessHighlighter: TAction
-      Category = 'View'
+      Category = 'Commands'
       Caption = 'Auto guess highlighter'
       Hint = 'Auto guess highlighter'
       ImageIndex = 87
@@ -4106,7 +4099,7 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actClearExecute
     end
     object actCreateDesktopLink: TAction
-      Category = 'Tools'
+      Category = 'Commands'
       Caption = 'Create desktop link'
       Hint = 'Create a desktop shortcut to the active file.'
       ImageIndex = 92

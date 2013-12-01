@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release win32 win32"/>
     <Units Count="304">
       <Unit0>
         <Filename Value="notepas.lpr"/>
@@ -71,7 +71,6 @@
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Helpers"/>
         <WindowIndex Value="0"/>
         <TopLine Value="431"/>
         <CursorPos X="42" Y="437"/>
@@ -124,7 +123,7 @@
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Utils"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="2"/>
         <TopLine Value="84"/>
         <CursorPos X="10" Y="109"/>
@@ -135,7 +134,6 @@
       <Unit11>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.TreeViewPresenter"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1253"/>
         <CursorPos X="78" Y="1283"/>
@@ -145,7 +143,6 @@
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.UNIHighlighter"/>
         <WindowIndex Value="0"/>
         <TopLine Value="707"/>
         <CursorPos X="5" Y="3056"/>
@@ -173,7 +170,6 @@
       <Unit15>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.XMLTree"/>
         <WindowIndex Value="0"/>
         <TopLine Value="56"/>
         <CursorPos X="23" Y="55"/>
@@ -429,7 +425,6 @@
       <Unit43>
         <Filename Value="..\..\components\tslib\components\ts.components.uniqueinstance.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.UniqueInstance"/>
         <WindowIndex Value="0"/>
         <TopLine Value="51"/>
         <CursorPos X="54" Y="78"/>
@@ -457,7 +452,6 @@
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.debug.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Debug"/>
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="80" Y="27"/>
@@ -529,7 +523,6 @@
       <Unit54>
         <Filename Value="..\..\components\tslib\core\ts.core.xmlutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.XMLUtils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="75" Y="29"/>
@@ -665,7 +658,6 @@
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Settings"/>
         <WindowIndex Value="0"/>
         <TopLine Value="650"/>
         <CursorPos X="47" Y="655"/>
@@ -748,9 +740,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_View"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="2"/>
-        <TopLine Value="1764"/>
+        <TopLine Value="1761"/>
         <CursorPos X="32" Y="1767"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -915,7 +908,6 @@
       <Unit88>
         <Filename Value="..\..\components\tslib\core\ts.collections.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Collections"/>
         <WindowIndex Value="0"/>
         <TopLine Value="142"/>
         <CursorPos X="1" Y="18"/>
@@ -1115,7 +1107,6 @@
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.HexEditor.Settings"/>
         <WindowIndex Value="0"/>
         <TopLine Value="15"/>
         <CursorPos X="75" Y="35"/>
@@ -1316,7 +1307,6 @@
       <Unit124>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.ViewList.Data"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="1" Y="66"/>
@@ -2622,12 +2612,10 @@
       <Unit286>
         <Filename Value="C:\codetyphon\typhon\components\lazutils\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="1"/>
         <TopLine Value="198"/>
         <CursorPos X="10" Y="223"/>
         <UsageCount Value="13"/>
-        <Loaded Value="True"/>
       </Unit286>
       <Unit287>
         <Filename Value="C:\codetyphon\typhon\components\synedit\synedithighlighter.pp"/>
@@ -2707,7 +2695,6 @@
       </Unit295>
       <Unit296>
         <Filename Value="..\..\components\tslib\components\ts.components.virtualpages.pas"/>
-        <UnitName Value="ts.Components.VirtualPages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="28" Y="30"/>
@@ -2740,7 +2727,7 @@
       <Unit300>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <UnitName Value="ts.Editor.Types"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="1"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="61"/>
@@ -2751,33 +2738,26 @@
       <Unit301>
         <Filename Value="C:\codetyphon\typhon\components\synedit\synpluginsyncroedit.pp"/>
         <UnitName Value="SynPluginSyncroEdit"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="2"/>
         <TopLine Value="1"/>
         <CursorPos X="75" Y="35"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit301>
       <Unit302>
         <Filename Value="C:\codetyphon\fpcsrc\packages\fcl-base\src\base64.pp"/>
         <UnitName Value="base64"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="2"/>
         <TopLine Value="65"/>
         <CursorPos X="50" Y="91"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit302>
       <Unit303>
         <Filename Value="C:\codetyphon\typhon\components\synedit\syneditkeycmds.pp"/>
         <UnitName Value="SynEditKeyCmds"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="2"/>
         <TopLine Value="190"/>
         <CursorPos X="39" Y="56"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit303>
     </Units>
     <CustomDefines Count="1">

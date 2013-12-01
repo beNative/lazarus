@@ -468,8 +468,8 @@ begin
   HI.Name := AName;
   if ADescription <> '' then
     HI.Description := ADescription;
-  HI.SynHighlighterClass  := ASynHighlighterClass;
-  HI.CodeFormatter        := ACodeFormatter;
+  HI.SynHighlighterClass := ASynHighlighterClass;
+  HI.CodeFormatter       := ACodeFormatter;
   if HI.LineCommentTag = '' then
     HI.LineCommentTag := ALineCommentTag;
   if HI.BlockCommentStartTag = '' then

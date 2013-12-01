@@ -110,7 +110,7 @@ uses
   ts.Components.UniqueInstance,
 
   ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
-  ts.Editor.Highlighters, ts_Editor_View, ts.Editor.Events;
+  ts.Editor.Highlighters, ts_Editor_View;
 
 type
   { TdmEditorManager }
@@ -228,7 +228,7 @@ type
     actFormat                         : TAction;
     actHelp                           : TAction;
     actIncFontSize                    : TAction;
-    actInsertCharacterFromMap         : TAction;
+    actShowCharacterMap         : TAction;
     actInsertColorValue               : TAction;
     actInspect                        : TAction;
     actLowerCaseSelection             : TAction;
@@ -382,7 +382,7 @@ type
     procedure actHelpExecute(Sender: TObject);
     procedure actHighlighterExecute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
-    procedure actInsertCharacterFromMapExecute(Sender: TObject);
+    procedure actShowCharacterMapExecute(Sender: TObject);
     procedure actInsertColorValueExecute(Sender: TObject);
     procedure actInspectExecute(Sender: TObject);
     procedure actLowerCaseSelectionExecute(Sender: TObject);
@@ -447,6 +447,7 @@ type
 
     FToolViews    : IEditorToolViews;
     FEvents       : IEditorEvents;
+    FCommands     : IEditorCommands;
     FEditorTools  : TEditorTools;
     FSettings     : IEditorSettings;
     FActiveView   : IEditorView;
@@ -583,14 +584,11 @@ type
       const AFileName   : string = '';
             AShowDialog : Boolean = False
     ): Boolean;
-    procedure OpenFileAtCursor;
-    procedure ToggleHighlighter;
+
     {$IFDEF Windows}
     procedure CreateDesktopLink;
     {$ENDIF}
-    procedure InsertCharacter(const C: TUTF8Char);
     procedure AssignHighlighter(const AName: string);
-    procedure CopyToClipboard;
 
     procedure FindNext;
     procedure FindPrevious;
@@ -705,7 +703,7 @@ type
       read GetActions;
 
     property Commands: IEditorCommands
-      read GetCommands;
+      read GetCommands implements IEditorCommands;
 
     property Selection: IEditorSelection
       read GetSelection;
@@ -775,6 +773,8 @@ uses
 
   ts.Editor.Settings, ts.Editor.Utils,
 
+  ts.Editor.Events, ts.Editor.Commands,
+
   ts_Editor_ViewList_ToolView,
   ts_Editor_CodeShaper_ToolView,
   ts_Editor_Preview_ToolView,
@@ -822,6 +822,7 @@ begin
   inherited AfterConstruction;
   FToolViews := TToolViews.Create(Self);
   FEvents    := TEditorEvents.Create(Self);
+  FCommands  := TEditorCommands.Create(Self);
   FPersistSettings  := False;
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   FViewList         := TEditorViewList.Create;
@@ -862,6 +863,7 @@ begin
   FSearchEngine := nil;
   FSettings := nil;
   FEvents   := nil;
+  FCommands := nil;
   FToolViews := nil;
   FdwsProgramExecution := nil;
   FdwsProgram := nil;
@@ -957,7 +959,7 @@ end;
 
 function TdmEditorManager.GetCommands: IEditorCommands;
 begin
-  Result := Self as IEditorCommands;
+  Result := FCommands as IEditorCommands;
 end;
 
 function TdmEditorManager.GetCurrent: IEditorView;
@@ -1160,12 +1162,12 @@ end;
 
 procedure TdmEditorManager.actToggleCommentExecute(Sender: TObject);
 begin
-  ActiveView.UpdateCommentSelection(False, True);
+  Commands.UpdateCommentSelection(False, True);
 end;
 
 procedure TdmEditorManager.actToggleHighlighterExecute(Sender: TObject);
 begin
-  ToggleHighlighter;
+  Commands.ToggleHighlighter;
 end;
 
 procedure TdmEditorManager.actToggleMaximizedExecute(Sender: TObject);
@@ -1186,7 +1188,7 @@ end;
 
 procedure TdmEditorManager.actUpperCaseSelectionExecute(Sender: TObject);
 begin
-  ActiveView.UpperCaseSelection;
+  Commands.UpperCaseSelection;
 end;
 
 procedure TdmEditorManager.actOpenExecute(Sender: TObject);
@@ -1201,7 +1203,7 @@ end;
 
 procedure TdmEditorManager.actPascalStringOfSelectionExecute(Sender: TObject);
 begin
-  ActiveView.PascalStringFromSelection;
+  Commands.PascalStringFromSelection;
 end;
 
 procedure TdmEditorManager.actPasteExecute(Sender: TObject);
@@ -1212,12 +1214,12 @@ end;
 
 procedure TdmEditorManager.actQuoteLinesAndDelimitExecute(Sender: TObject);
 begin
-  ActiveView.QuoteLinesInSelection(True);
+  Commands.QuoteLinesInSelection(True);
 end;
 
 procedure TdmEditorManager.actQuoteLinesExecute(Sender: TObject);
 begin
-  ActiveView.QuoteLinesInSelection;
+  Commands.QuoteLinesInSelection;
 end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
@@ -1255,7 +1257,7 @@ begin
   ShowToolView('CodeShaper', False, True);
 end;
 
-procedure TdmEditorManager.actInsertCharacterFromMapExecute(Sender: TObject);
+procedure TdmEditorManager.actShowCharacterMapExecute(Sender: TObject);
 begin
   ShowToolView('CharacterMap', False, False);
 end;
@@ -1348,7 +1350,7 @@ end;
 
 procedure TdmEditorManager.actLowerCaseSelectionExecute(Sender: TObject);
 begin
-  ActiveView.LowerCaseSelection;
+  Commands.LowerCaseSelection;
 end;
 
 procedure TdmEditorManager.actExportToRTFExecute(Sender: TObject);
@@ -1397,7 +1399,7 @@ end;
 
 procedure TdmEditorManager.actCopyToClipboardExecute(Sender: TObject);
 begin
-  CopyToClipboard;
+  Commands.CopyToClipboard;
 end;
 
 procedure TdmEditorManager.actCutExecute(Sender: TObject);
@@ -1431,7 +1433,7 @@ end;
 procedure TdmEditorManager.actInsertColorValueExecute(Sender: TObject);
 begin
   dlgColor.Execute;
-  ActiveView.InsertTextAtCaret(IntToStr(Integer(dlgColor.Color)));
+  Commands.InsertTextAtCaret(IntToStr(Integer(dlgColor.Color)));
 end;
 
 procedure TdmEditorManager.actInspectExecute(Sender: TObject);
@@ -1464,27 +1466,27 @@ end;
 
 procedure TdmEditorManager.actSmartSelectExecute(Sender: TObject);
 begin
-   ActiveView.SmartSelect;
+   Commands.SmartSelect;
 end;
 
 procedure TdmEditorManager.actStripFirstCharExecute(Sender: TObject);
 begin
-  ActiveView.StripCharsFromSelection(True, False);
+  Commands.StripCharsFromSelection(True, False);
 end;
 
 procedure TdmEditorManager.actStripMarkupExecute(Sender: TObject);
 begin
-  ActiveView.StripMarkupFromSelection;
+  Commands.StripMarkupFromSelection;
 end;
 
 procedure TdmEditorManager.actStripLastCharExecute(Sender: TObject);
 begin
-  ActiveView.StripCharsFromSelection(False, True);
+  Commands.StripCharsFromSelection(False, True);
 end;
 
 procedure TdmEditorManager.actSyncEditExecute(Sender: TObject);
 begin
-  ActiveView.SyncEditSelection;
+  Commands.SyncEditSelection;
 end;
 
 procedure TdmEditorManager.actToggleFoldLevelExecute(Sender: TObject);
@@ -1559,7 +1561,7 @@ end;
 
 procedure TdmEditorManager.actFormatExecute(Sender: TObject);
 begin
-  ActiveView.FormatCode;
+  Commands.FormatCode;
 end;
 
 procedure TdmEditorManager.actIncFontSizeExecute(Sender: TObject);
@@ -1581,12 +1583,12 @@ end;
 
 procedure TdmEditorManager.actOpenFileAtCursorExecute(Sender: TObject);
 begin
-  OpenFileAtCursor;
+  Commands.OpenFileAtCursor;
 end;
 
 procedure TdmEditorManager.actQuoteSelectionExecute(Sender: TObject);
 begin
-  ActiveView.QuoteSelection;
+  Commands.QuoteSelection;
 end;
 
 procedure TdmEditorManager.actRedoExecute(Sender: TObject);
@@ -1613,7 +1615,7 @@ end;
 
 procedure TdmEditorManager.actDequoteLinesExecute(Sender: TObject);
 begin
-  ActiveView.DequoteLinesInSelection;
+  Commands.DequoteLinesInSelection;
 end;
 
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
@@ -1624,17 +1626,17 @@ end;
 procedure TdmEditorManager.actConvertTabsToSpacesInSelectionExecute(
   Sender: TObject);
 begin
-  ActiveView.ConvertTabsToSpacesInSelection;
+  Commands.ConvertTabsToSpacesInSelection;
 end;
 
 procedure TdmEditorManager.actDecodeURLExecute(Sender: TObject);
 begin
-  ActiveView.URLFromSelection(True);
+  Commands.URLFromSelection(True);
 end;
 
 procedure TdmEditorManager.actEncodeURLExecute(Sender: TObject);
 begin
-  ActiveView.URLFromSelection;
+  Commands.URLFromSelection;
 end;
 
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
@@ -1714,7 +1716,7 @@ end;
 
 procedure TdmEditorManager.actUnindentExecute(Sender: TObject);
 begin
-  ActiveView.Unindent;
+  Commands.Unindent;
 end;
 
 procedure TdmEditorManager.actFindAllOccurencesExecute(Sender: TObject);
@@ -1725,7 +1727,7 @@ end;
 
 procedure TdmEditorManager.actIndentExecute(Sender: TObject);
 begin
-  ActiveView.Indent;
+  Commands.Indent;
 end;
 
 procedure TdmEditorManager.actInsertGUIDExecute(Sender: TObject);
@@ -1733,7 +1735,7 @@ var
   GUID: TGUID;
 begin
   CreateGUID(GUID);
-  ActiveView.InsertTextAtCaret(GUIDToString(GUID));
+  Commands.InsertTextAtCaret(GUIDToString(GUID));
 end;
 
 procedure TdmEditorManager.actNewSharedViewExecute(Sender: TObject);
@@ -1769,7 +1771,7 @@ end;
 
 procedure TdmEditorManager.actToggleBlockCommentSelectionExecute(Sender: TObject);
 begin
-  ActiveView.ToggleBlockCommentSelection;
+  Commands.ToggleBlockCommentSelection;
 end;
 
 procedure TdmEditorManager.actClearExecute(Sender: TObject);
@@ -1817,12 +1819,12 @@ end;
 
 procedure TdmEditorManager.actDequoteSelectionExecute(Sender: TObject);
 begin
-  ActiveView.DequoteSelection;
+  Commands.DequoteSelection;
 end;
 
 procedure TdmEditorManager.actEncodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.Base64FromSelection;
+  Commands.Base64FromSelection;
 end;
 
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
@@ -1853,7 +1855,7 @@ end;
 
 procedure TdmEditorManager.actDecodeBase64Execute(Sender: TObject);
 begin
-  ActiveView.Base64FromSelection(True);
+  Commands.Base64FromSelection(True);
 end;
 
 procedure TdmEditorManager.actShowSpecialCharactersExecute(Sender: TObject);
@@ -2472,7 +2474,7 @@ begin
   MI := InsertPopupMenu.Items;
   MI.Clear;
   MI.Action := actInsertMenu;
-  AddMenuItem(MI, actInsertCharacterFromMap);
+  AddMenuItem(MI, actShowCharacterMap);
   AddMenuItem(MI, actInsertColorValue);
   AddMenuItem(MI, actInsertGUID);
 end;
@@ -2822,16 +2824,6 @@ begin
   end;
 end;
 
-procedure TdmEditorManager.InsertCharacter(const C: TUTF8Char);
-begin
-  ActiveView.InsertTextAtCaret(C);
-end;
-
-procedure TdmEditorManager.CopyToClipboard;
-begin
-  ActiveView.Editor.CopyToClipboard;
-end;
-
 procedure TdmEditorManager.ExportLines(AFormat: string; AToClipBoard: Boolean;
   ANativeFormat: Boolean);
 var
@@ -2955,16 +2947,6 @@ begin
     Result := False;
 end;
 
-procedure TdmEditorManager.OpenFileAtCursor;
-var
-  FN : string;
-begin
-  FN := ExtractFilePath(ActiveView.FileName)
-    + ActiveView.CurrentWord + ExtractFileExt(ActiveView.FileName);
-  if FileExistsUTF8(FN) then
-    Events.DoNew(FN);
-end;
-
 {$IFDEF Windows}
 procedure TdmEditorManager.CreateDesktopLink;
 var
@@ -2982,20 +2964,6 @@ begin
   CreateShellLink(SL);
 end;
 {$ENDIF}
-
-procedure TdmEditorManager.ToggleHighlighter;
-var
-  I: Integer;
-  N: Integer;
-begin
-  if Assigned(ActiveView.HighlighterItem) then
-  begin
-    I := ActiveView.HighlighterItem.Index;
-    N := Highlighters.Count;
-    ActiveView.HighlighterItem := Highlighters[(I + 1) mod N];
-    Settings.HighlighterType := ActiveView.HighlighterItem.Name;
-  end;
-end;
 {$endregion}
 
 {$region 'UpdateActions' /fold}
@@ -3045,7 +3013,7 @@ begin
       actDequoteLines.Visible            := B;
       actDequoteSelection.Visible        := B;
       actFormat.Visible                  := B;
-      actInsertCharacterFromMap.Visible  := actInsertCharacterFromMap.Visible and B;
+      actShowCharacterMap.Visible  := actShowCharacterMap.Visible and B;
       actPascalStringOfSelection.Visible := B;
       actPaste.Visible                   := B;
       actQuoteSelection.Visible          := B;

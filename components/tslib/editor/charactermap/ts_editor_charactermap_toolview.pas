@@ -177,7 +177,7 @@ procedure TfrmCharacterMap.grdANSIKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = VK_RETURN then
-    View.InsertTextAtCaret(grdANSI.Cells[grdANSI.Col, grdANSI.Row]);
+    Manager.Commands.InsertTextAtCaret(grdANSI.Cells[grdANSI.Col, grdANSI.Row]);
 end;
 
 procedure TfrmCharacterMap.EditorSettingsChanged(Sender: TObject);
@@ -198,7 +198,7 @@ begin
   begin
     grdANSI.MouseToCell(X, Y, C, R);
     if grdANSI.Cells[C, R] <> '' then
-      View.InsertTextAtCaret(grdANSI.Cells[C, R])
+      Manager.Commands.InsertTextAtCaret(grdANSI.Cells[C, R])
   end;
 end;
 
@@ -222,7 +222,7 @@ procedure TfrmCharacterMap.grdUnicodeKeyUp(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if Key = VK_RETURN then
-    View.InsertTextAtCaret(grdUnicode.Cells[grdUnicode.Col, grdUnicode.Row]);
+    Manager.Commands.InsertTextAtCaret(grdUnicode.Cells[grdUnicode.Col, grdUnicode.Row]);
 end;
 
 procedure TfrmCharacterMap.grdUnicodeMouseDown(Sender: TObject;
@@ -236,7 +236,7 @@ begin
   if (Button = mbLeft) and (grdUnicode.MouseToGridZone(X, Y) = gzNormal) then
   begin
     grdUnicode.MouseToCell(X, Y, C, R);
-    View.InsertTextAtCaret(grdUnicode.Cells[C, R])
+    Manager.Commands.InsertTextAtCaret(grdUnicode.Cells[C, R])
   end;
 end;
 

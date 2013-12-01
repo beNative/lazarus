@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 1155
-  VerticalOffset = 444
+  HorizontalOffset = 518
+  VerticalOffset = 102
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
@@ -3726,7 +3726,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16493
     end
     object actShowCodeShaper: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Shape code'
       Hint = 'Apply custom code formatting to selection'
       ImageIndex = 79
@@ -3873,7 +3873,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16496
     end
     object actShowCodeFilter: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Filter code'
       Hint = 'Filter code'
       ImageIndex = 70
@@ -3905,7 +3905,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16462
     end
     object actShowPreview: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Show preview'
       Hint = 'Show text preview.'
       ImageIndex = 71
@@ -3949,12 +3949,12 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 1
       OnExecute = actCopyExecute
     end
-    object actInsertCharacterFromMap: TAction
-      Category = 'Insert'
-      Caption = 'Insert character from map'
-      Hint = 'Insert character from map'
+    object actShowCharacterMap: TAction
+      Category = 'ToolViews'
+      Caption = 'Show character map'
+      Hint = 'Show character map with Ansi and Unicode characters.'
       ImageIndex = 43
-      OnExecute = actInsertCharacterFromMapExecute
+      OnExecute = actShowCharacterMapExecute
     end
     object actQuoteSelection: TAction
       Category = 'Selection'
@@ -4161,7 +4161,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 46
     end
     object actShowTest: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       AutoCheck = True
       Caption = 'Show testform'
       OnExecute = actShowTestExecute
@@ -4176,7 +4176,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 24767
     end
     object actShowStructureViewer: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'XML treeview'
       OnExecute = actShowStructureViewerExecute
       ShortCut = 49240
@@ -4309,17 +4309,17 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 103
     end
     object actShowHTMLViewer: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Show HTML viewer'
       OnExecute = actShowHTMLViewerExecute
     end
     object actShowHexEditor: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Show Hex editor'
       OnExecute = actShowHexEditorExecute
     end
     object actShowMiniMap: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Show minimap'
       Hint = 'Show minimap.'
       OnExecute = actShowMiniMapExecute
@@ -4336,7 +4336,7 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actExecuteScriptOnSelectionExecute
     end
     object actShowScriptEditor: TAction
-      Category = 'Tools'
+      Category = 'ToolViews'
       Caption = 'Show script editor'
       OnExecute = actShowScriptEditorExecute
     end

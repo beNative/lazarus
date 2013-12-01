@@ -284,7 +284,7 @@ begin
   AddButton('');
   AddButton('actShowCodeShaper');
   AddButton('actShowCodeFilter');
-  AddButton('actInsertCharacterFromMap');
+  AddButton('actShowCharacterMap');
   AddButton('actShowPreview');
   AddButton('');
   AddButton('actAutoGuessHighlighter');
@@ -389,7 +389,6 @@ begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := SInsertMenuCaption;
   AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(AManager, MI, 'actInsertCharacterFromMap');
   AddEditorMenuItem(AManager, MI, 'actInsertColorValue');
   AddEditorMenuItem(AManager, MI, 'actInsertGUID');
 end;
@@ -438,6 +437,7 @@ begin
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(AManager, MI, 'actShowCodeShaper');
   AddEditorMenuItem(AManager, MI, 'actShowCodeFilter');
+  AddEditorMenuItem(AManager, MI, 'actShowCharacterMap');
   AddEditorMenuItem(AManager, MI);
   AddEditorMenuItem(AManager, MI, 'actSmartSelect');
   AddEditorMenuItem(AManager, MI, 'actFormat');

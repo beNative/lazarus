@@ -316,7 +316,7 @@ begin
   if Assigned(FTVP.CurrentItem) then
   begin
     T := TToken(FTVP.CurrentItem).Token;
-    Manager.ActiveView.AlignSelection(
+    Manager.Commands.AlignSelection(
       T,
       gbxOptions.Checked[0],          // Remove whitespace
       gbxInsertSpace.Checked[0],      // Before token

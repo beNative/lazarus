@@ -7,8 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-  SColorPicker, HSVColorPicker, HexaColorPicker, HSLColorPicker, HColorPicker,
-  HSLRingPicker, ColorBox,
+   HexaColorPicker, ColorBox,
 
   ts_Editor_ToolView_Base;
 

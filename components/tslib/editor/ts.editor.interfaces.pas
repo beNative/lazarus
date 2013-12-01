@@ -193,6 +193,7 @@ type
     // configuration
     procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
+    // state change
     procedure SetHighlightSearch(
       const ASearch  : string;
             AOptions : TSynSearchOptions
@@ -201,22 +202,7 @@ type
     // commands   (IEditorCommands)
     procedure Clear;
     procedure AdjustFontSize(AOffset: Integer);
-    procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
-    procedure ToggleBlockCommentSelection;
-    procedure InsertTextAtCaret(const AText: string);
     procedure Close;
-    procedure AlignSelection(
-      const AToken                  : string;
-            ACompressWS             : Boolean;
-            AInsertSpaceBeforeToken : Boolean;
-            AInsertSpaceAfterToken  : Boolean;
-            AAlignInParagraphs      : Boolean
-    );
-    procedure StripMarkupFromSelection;
-    procedure StripCharsFromSelection(
-      AFirst : Boolean;
-      ALast  : Boolean
-    );
 
     // search
     procedure SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
@@ -230,29 +216,11 @@ type
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
 
-    procedure FormatCode;
-
-    // selection
+     // selection
     procedure SelectAll;
     procedure SelectWord;
-    procedure UpperCaseSelection;
-    procedure LowerCaseSelection;
-    procedure SmartSelect;
-    procedure PascalStringFromSelection;
-    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
-    procedure DequoteLinesInSelection;
-    procedure QuoteSelection;
-    procedure DequoteSelection;
-    procedure Base64FromSelection(ADecode: Boolean = False);
-    procedure URLFromSelection(ADecode: Boolean = False);
-    procedure ConvertTabsToSpacesInSelection;
-    procedure SyncEditSelection;
-    function SelectBlockAroundCursor(const AStartTag, AEndTag: string;
-      AIncludeStartTag, AIncludeEndTag: Boolean): Boolean;
 
     // other commands
-    procedure Indent;
-    procedure UnIndent;
 
     // clipboard commands
     procedure Cut;
@@ -576,11 +544,11 @@ type
       const AText     : string = ''
     );
 
+    // multicast events
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
-
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
@@ -924,15 +892,46 @@ type
 
   IEditorCommands = interface
   ['{5CB77731-425D-44FD-93BA-2137875F76B5}']
-    function SaveFile(
-      const AFileName   : string = '';
-            AShowDialog : Boolean = False
-    ): Boolean;
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
-    procedure InsertCharacter(const C: TUTF8Char);
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
+    procedure UpperCaseSelection;
+    procedure LowerCaseSelection;
+    procedure PascalStringFromSelection;
+    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
+    procedure DequoteLinesInSelection;
+    procedure QuoteSelection;
+    procedure DequoteSelection;
+    procedure Base64FromSelection(ADecode: Boolean = False);
+    procedure URLFromSelection(ADecode: Boolean = False);
+    procedure ConvertTabsToSpacesInSelection;
+    procedure SyncEditSelection;
+    procedure AlignSelection(
+      const AToken                  : string;
+            ACompressWS             : Boolean;
+            AInsertSpaceBeforeToken : Boolean;
+            AInsertSpaceAfterToken  : Boolean;
+            AAlignInParagraphs      : Boolean
+    );
+    procedure StripMarkupFromSelection;
+    procedure StripCharsFromSelection(
+      AFirst : Boolean;
+      ALast  : Boolean
+    );
+    procedure Indent;
+    procedure UnIndent;
+    procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
+    procedure ToggleBlockCommentSelection;
+    procedure InsertTextAtCaret(const AText: string);
+    procedure FormatCode;
+    procedure SmartSelect;
+    function SelectBlockAroundCursor(
+      const AStartTag        : string;
+      const AEndTag          : string;
+            AIncludeStartTag : Boolean;
+            AIncludeEndTag   : Boolean
+    ): Boolean;
   end;
 
   { IEditorMenus }
@@ -1056,6 +1055,10 @@ type
       const AFileName  : string;
       const AText      : string = ''
     ): IEditorView;
+    function SaveFile(
+      const AFileName   : string = '';
+            AShowDialog : Boolean = False
+    ): Boolean;
 
     property PersistSettings: Boolean
       read GetPersistSettings write SetPersistSettings;

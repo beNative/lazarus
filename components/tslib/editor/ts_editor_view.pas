@@ -290,7 +290,6 @@ type
     function IEditorView.Focused = EditorViewFocused;
 
     procedure AssignHighlighterForFileType(const AFileExt: string);
-    procedure SmartSelect;
 
     procedure FindNextWordOccurrence(ADirectionForward: Boolean);
     procedure SetHighlightSearch(
@@ -308,44 +307,6 @@ type
     procedure Clear;
     procedure SelectAll;
     procedure AdjustFontSize(AOffset: Integer);
-
-    // operations on selections
-    procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
-    procedure ToggleBlockCommentSelection;
-    procedure StripMarkupFromSelection;
-    procedure StripCharsFromSelection(
-      AFirst : Boolean;
-      ALast  : Boolean
-    );
-    procedure AlignSelection(
-      const AToken                  : string;
-            ACompressWS             : Boolean;
-            AInsertSpaceBeforeToken : Boolean;
-            AInsertSpaceAfterToken  : Boolean;
-            AAlignInParagraphs      : Boolean
-    );
-    function SelectBlockAroundCursor(
-      const AStartTag        : string;
-      const AEndTag          : string;
-            AIncludeStartTag : Boolean;
-            AIncludeEndTag   : Boolean
-    ): Boolean;
-    procedure FormatCode;
-
-    procedure UpperCaseSelection;
-    procedure LowerCaseSelection;
-    procedure PascalStringFromSelection;
-    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
-    procedure DequoteLinesInSelection;
-    procedure QuoteSelection;
-    procedure DequoteSelection;
-    procedure Base64FromSelection(ADecode: Boolean = False);
-    procedure URLFromSelection(ADecode: Boolean = False);
-    procedure ConvertTabsToSpacesInSelection;
-    procedure SyncEditSelection;
-
-    procedure Indent;
-    procedure UnIndent;
 
     procedure DoChange; dynamic;
 
@@ -371,7 +332,6 @@ type
       out AToken    : string;
       out AAttri    : TSynHighlighterAttributes
     ): Boolean;
-    procedure InsertTextAtCaret(const AText: string);
     procedure Load(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
@@ -494,7 +454,7 @@ type
     property Commands: IEditorCommands
       read GetCommands;
 
-    { A set of useful events to dispatch to the application. }
+    { A set of common events to dispatch to the application. }
     property Events: IEditorEvents
       read GetEvents;
 
@@ -521,10 +481,6 @@ type
 
     property SynSelection: TSynEditSelection
       read GetSynSelection;
-
-    { TODO: this does not belong here. }
-    property SupportsFolding: Boolean
-      read GetSupportsFolding;
 
     { Shortcut to the text contained in the editor. }
     property Lines: TStrings
@@ -583,7 +539,7 @@ implementation
 uses
   GraphUtil, Math,
 
-  LConvEncoding, LCLProc, Base64,
+  LConvEncoding, LCLProc,
 
   SynEditMouseCmds,
 
@@ -1693,454 +1649,9 @@ begin
   Result := Focused or Editor.Focused;
 end;
 
-{ Selects block of code around cursor between AStartTag and AEndTag. Used by
-  the SmartSelect procedure.
-
-  TODO:
-    - support for nested AStartTag and AEndTag (ignore sublevels)
-}
-
-function TEditorView.SelectBlockAroundCursor(const AStartTag: string;
-  const AEndTag: string; AIncludeStartTag: Boolean; AIncludeEndTag: Boolean)
-  : Boolean;
-var
-  Pos : Integer;
-  S   : string;
-  B   : Boolean;
-  I   : Integer;
-  N   : Integer;
-begin
-  if (AStartTag = '') or (AEndTag = '') then
-    Exit;
-
-  S := Text;
-  Pos := SelStart;
-  B := False;
-  while not B and (Pos > 1) do
-  begin
-    N := Length(AStartTag);
-    I := N;
-    B := S[Pos] = AStartTag[I];
-    while B and (Pos > 1) and (I > 1) do
-    begin
-      Dec(I);
-      Dec(Pos);
-      B := S[Pos] = AStartTag[I];
-    end;
-    if not B and (Pos > 1) then
-      Dec(Pos);
-  end;
-  if B then
-  begin
-    if AIncludeStartTag then
-      SelStart := Pos
-    else
-      SelStart := Pos + N;
-  end;
-
-  if B then
-  begin
-    Pos := SelStart;
-    B := False;
-    while not B and (Pos <= Length(S)) do
-    begin
-      N := Length(AEndTag);
-      I := 1;
-      B := S[Pos] = AEndTag[I];
-      while B and (Pos <= Length(S)) and (I < N) do
-      begin
-        Inc(I);
-        Inc(Pos);
-        B := S[Pos] = AEndTag[I];
-      end;
-      if not B and (Pos <= Length(S)) then
-        Inc(Pos);
-    end;
-    if B then
-    begin
-      if AIncludeEndTag then
-        SelEnd := Pos + 1
-      else
-        SelEnd := Pos - N + 1;
-    end;
-  end;
-  Result := SelAvail;
-end;
-
-{ Formats the (selected if applicable) code using the associated code formatter
-  for the current highlighter. }
-
-procedure TEditorView.FormatCode;
-var
-  N: Integer;
-  S: string;
-begin
-  if Assigned(HighlighterItem.CodeFormatter) then
-  begin
-    if not SelAvail then
-    begin
-      SelectAll;
-    end;
-    Selection.Store;
-    Selection.Text := HighlighterItem.CodeFormatter.Format(Selection.Text);
-    Selection.Restore;
-  end
-  else
-    raise Exception.Create('No codeformatter for current highlighter');
-end;
-
 procedure TEditorView.AdjustFontSize(AOffset: Integer);
 begin
   Editor.Font.Size := Editor.Font.Size + AOffset;
-end;
-
-{ Comments or uncomments selected code lines based on the line comment tag of
-  the active highlighter. }
-
-// TS TODO: use Selection, and keep selection after updating selected block
-
-procedure TEditorView.UpdateCommentSelection(ACommentOn, AToggle: Boolean);
-var
-  OldCaretPos    : TPoint;
-  WasSelAvail    : Boolean;
-  BlockBeginLine : Integer;
-  BlockEndLine   : Integer;
-  CommonIndent   : Integer;
-  Prefix         : string;
-  PrefixLength   : Integer;
-
-  function FirstNonBlankPos(const AText: string; AStart: Integer = 1): Integer;
-  var
-    I: Integer;
-  begin
-    for I := AStart to Length(AText) do
-      if (AText[I] <> #32) and (AText[I] <> #9) then
-        Exit(I);
-    Result := -1;
-  end;
-
-  function MinCommonIndent: Integer;
-  var
-    I, J: Integer;
-  begin
-    if CommonIndent = 0 then
-    begin
-      CommonIndent := Max(FirstNonBlankPos(Lines[BlockBeginLine - 1]), 1);
-      for I := BlockBeginLine + 1 to BlockEndLine do
-      begin
-        J := FirstNonBlankPos(Lines[I - 1]);
-        if (J < CommonIndent) and (J > 0) then
-          CommonIndent := J;
-      end;
-    end;
-    Result := CommonIndent;
-  end;
-
-  function InsertPos(ALine: Integer): Integer;
-  begin
-    if not WasSelAvail then
-      Result := MinCommonIndent
-    else
-      Result := 1;
-      case FSelection.SelectionMode of
-        smColumn: // CommonIndent is not used otherwise
-        begin
-          if CommonIndent = 0 then
-            CommonIndent := Min(Editor.LogicalToPhysicalPos(FSelection.BlockBegin).X,
-              Editor.LogicalToPhysicalPos(FSelection.BlockEnd).X);
-          Result := Editor.PhysicalToLogicalPos(Point(CommonIndent, ALine)).X;
-        end;
-        smNormal:
-        begin
-          if FSelection.BlockBegin.Y = FSelection.BlockEnd.Y then
-            Result := FSelection.BlockBegin.X
-          else
-            Result := MinCommonIndent;
-        end;
-        else
-          Result := 1;
-      end;
-  end;
-
-  function DeletePos(ALine: Integer): Integer;
-  var
-    S: string;
-    T: string;
-    N: Integer;
-  begin
-    S := Lines[ALine - 1];
-    N := Length(S);
-    Result := FirstNonBlankPos(S, InsertPos(ALine));
-    if (FSelection.SelectionMode = smColumn) and ((Result < 1) or (Result > N - 1)) then
-      Result := N - 1;
-    Result := Max(1, Result);
-    T := System.Copy(S, Result, PrefixLength);
-    if (N < Result + 1) or (T <> Prefix) then
-      Result := -1;
-  end;
-
-var
-  I             : Integer;
-  NonBlankStart : Integer;
-  BB            : TPoint;
-  BE            : TPoint;
-begin
-  if Settings.ReadOnly then
-    Exit;
-
-  Prefix := HighlighterItem.LineCommentTag;
-  PrefixLength := Length(Prefix);
-
-  if PrefixLength = 0 then
-    ToggleBlockCommentSelection
-  else
-  begin
-    OldCaretPos := CaretXY;
-    Selection.Store;
-    WasSelAvail := SelAvail;
-    CommonIndent := 0;
-
-    BlockBeginLine := FSelection.BlockBegin.Y;
-    BlockEndLine   := FSelection.BlockEnd.Y;
-    if (FSelection.BlockEnd.X = 1) and (BlockEndLine > BlockBeginLine)
-      and (Editor.SelectionMode <> smLine) then
-      Dec(BlockEndLine);
-
-    if AToggle then
-    begin
-      ACommentOn := False;
-      for I := BlockBeginLine to BlockEndLine do
-      begin
-        if DeletePos(I) < 0 then
-        begin
-          ACommentOn := True;
-          Break;
-        end;
-      end;
-    end;
-
-    BeginUpdate;
-    Editor.SelectionMode := smNormal;
-
-    BB := FSelection.BlockBegin;
-    BE := FSelection.BlockEnd;
-    if ACommentOn then
-    begin
-      for I := BlockEndLine downto BlockBeginLine do
-        Editor.TextBetweenPoints[Point(InsertPos(I), I), Point(InsertPos(I), I)] := Prefix;
-      if OldCaretPos.X > InsertPos(OldCaretPos.Y) then
-        OldCaretPos.X := OldCaretPos.X + PrefixLength;
-      if BB.X > InsertPos(BB.Y) then
-       BB.X := BB.X + PrefixLength;
-      if BE.X > InsertPos(BE.Y) then
-        BE.X := BE.X + PrefixLength;
-    end
-    else
-    begin
-      for I := BlockEndLine downto BlockBeginLine do
-      begin
-        NonBlankStart := DeletePos(I);
-        if NonBlankStart < 1 then
-          continue;
-        Editor.TextBetweenPoints[Point(NonBlankStart, I),
-          Point(NonBlankStart + PrefixLength, I)] := '';
-        if (OldCaretPos.Y = I) and (OldCaretPos.X > NonBlankStart) then
-          OldCaretPos.x := Max(OldCaretPos.X - PrefixLength, NonBlankStart);
-        if (BB.Y = I) and (BB.X > NonBlankStart) then
-          BB.X := Max(BB.X - PrefixLength, NonBlankStart);
-        if (BE.Y = I) and (BE.X > NonBlankStart) then
-          BE.X := Max(BE.X - PrefixLength, NonBlankStart);
-      end;
-    end;
-    FSelection.BlockBegin := BB;
-    FSelection.BlockEnd   := BE;
-    EndUpdate;
-    FSelection.Text := Seltext;
-    CaretXY       := OldCaretPos;
-    FSelection.Ignore;
-    FSelection.Clear;
-  end;
-end;
-
-{ Comments/uncomments the selected block with the block comment tags for the
-  current highlighter. }
-
-procedure TEditorView.ToggleBlockCommentSelection;
-var
-  S  : string;
-  S1 : string;
-  S2 : string;
-  N1 : Integer;
-  N2 : Integer;
-begin
-  if SelAvail and (HighlighterItem.BlockCommentStartTag <> '') then
-  begin
-    Selection.Store(True, True);
-    N1 := Length(HighlighterItem.BlockCommentStartTag);
-    N2 := Length(HighlighterItem.BlockCommentEndTag);
-    S := Selection.Text;
-    S1 := System.Copy(S, 1, N1);
-    S2 := System.Copy(S, Length(S) - N2 + 1, Length(S));
-    if (S1 = HighlighterItem.BlockCommentStartTag)
-      and (S2 = HighlighterItem.BlockCommentEndTag) then
-    begin
-      Selection.Text := System.Copy(S, N1 + 1, Length(S) - N2 - N1);
-    end
-    else
-    begin
-      Selection.Text := HighlighterItem.BlockCommentStartTag
-        + Selection.Text + HighlighterItem.BlockCommentEndTag;
-    end;
-    Selection.Restore;
-    Modified := True;
-  end;
-end;
-
-{ TODO -oTS : Not working! }
-
-procedure TEditorView.StripMarkupFromSelection;
-begin
-  Selection.Store;
-  Selection.Text := StripMarkup(Selection.Text);
-  Selection.Restore;
-end;
-
-{ REMARK:
-    Whitespace is ignored. This routine strips the first/last non-space char
-    from each line in the selection.
-}
-
-procedure TEditorView.StripCharsFromSelection(AFirst: Boolean; ALast: Boolean);
-begin
-  Selection.Store(True, True);
-  Selection.Text := StripChars(Selection.Text, AFirst, ALast);
-  Selection.Restore;
-end;
-
-{ TODO -oTS : Align in paragraphs does not work!
-  TODO -oTS : Align to leftmost/rightmost token not implemented!
-}
-
-procedure TEditorView.AlignSelection(const AToken: string; ACompressWS: Boolean;
-  AInsertSpaceBeforeToken: Boolean; AInsertSpaceAfterToken: Boolean;
-  AAlignInParagraphs: Boolean);
-begin
-  if SelAvail then
-  begin
-    Selection.Store(True, True);
-    AlignLines(
-      FSelection.Lines,
-      AToken,
-      ACompressWS,
-      AInsertSpaceBeforeToken,
-      AInsertSpaceAfterToken
-    );
-    Selection.Restore;
-  end;
-end;
-
-procedure TEditorView.UpperCaseSelection;
-begin
-  Selection.Store;
-  Selection.Text := UpperCase(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.LowerCaseSelection;
-begin
-  Selection.Store;
-  Selection.Text := LowerCase(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.PascalStringFromSelection;
-begin
-  Selection.Store;
-  Selection.Text := PascalStringOf(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.QuoteLinesInSelection(ADelimit: Boolean);
-begin
-  Selection.Store;
-  if ADelimit then
-    Selection.Text := QuoteLinesAndDelimit(Selection.Text)
-  else
-    Selection.Text := QuoteLines(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.DequoteLinesInSelection;
-begin
-  Selection.Store;
-  Selection.Text := DequoteLines(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.QuoteSelection;
-begin
-  Selection.Store;
-  Selection.Text := AnsiQuotedStr(Selection.Text, '''');
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.DequoteSelection;
-begin
-  Selection.Store;
-  Selection.Text := AnsiDequotedStr(Selection.Text, '''');
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.Base64FromSelection(ADecode: Boolean);
-begin
-  Selection.Store(True, True);
-  if ADecode then
-    Selection.Text := DecodeStringBase64(Selection.Text)
-  else
-    Selection.Text := EncodeStringBase64(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.URLFromSelection(ADecode: Boolean);
-begin
-  Selection.Store(True, True);
-  if ADecode then
-    Selection.Text := URLDecode(Selection.Text)
-  else
-    Selection.Text := URLEncode(Selection.Text);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.ConvertTabsToSpacesInSelection;
-begin
-  Selection.Store(True, True);
-  Selection.Text := TabsToSpaces(Selection.Text, Editor.TabWidth);
-  Selection.Restore;
-  Modified := True;
-end;
-
-procedure TEditorView.SyncEditSelection;
-begin
-  Editor.CommandProcessor(ecSynPSyncroEdStart, '', nil);
-end;
-
-procedure TEditorView.Indent;
-begin
-  Editor.CommandProcessor(ecBlockIndent, '', nil);
-end;
-
-procedure TEditorView.UnIndent;
-begin
-  Editor.CommandProcessor(ecBlockUnindent, '', nil);
 end;
 
 procedure TEditorView.SearchAndSelectLine(ALineIndex: Integer; const ALine: string);
@@ -2182,23 +1693,6 @@ procedure TEditorView.SelectAll;
 begin
   if Editor.Focused then
     Editor.SelectAll
-end;
-
-{ Makes a smart selection of a block around the cursor. }
-
-{ TODO -oTS : Make this configurable per highlighter. }
-
-procedure TEditorView.SmartSelect;
-begin
-  if Assigned(HighlighterItem) then
-  begin
-    if HighlighterItem.Name = 'XML' then
-      SelectBlockAroundCursor('>', '<', False, False)
-    else if HighlighterItem.Name = 'PAS' then
-      SelectBlockAroundCursor('begin', 'end', True, True)
-    else if HighlighterItem.Name = 'LOG' then
-      SelectBlockAroundCursor('<XMLRoot>', '</XMLRoot>', True, True);
-  end;
 end;
 
 procedure TEditorView.FindNextWordOccurrence(ADirectionForward: Boolean);
@@ -2291,7 +1785,7 @@ begin
     MR := MessageDlg(S, mtConfirmation, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
     begin
-      Result := Commands.SaveFile;
+      Result := Manager.SaveFile;
     end
     else if MR = mrNo then
     begin
@@ -2304,11 +1798,6 @@ begin
       Abort;
     end;
   end;
-end;
-
-procedure TEditorView.InsertTextAtCaret(const AText: string);
-begin
-  Editor.InsertTextAtCaret(AText); // has implicit undoblock
 end;
 
 procedure TEditorView.Load(const AStorageName: string);
@@ -2418,35 +1907,6 @@ end;
 {$endregion}
 
 end.
-
- (*
-procedure TFileDialogWrapper.AssignFileTypes;
-var
-  I, J: Integer;
-  FilterStr: string;
-begin
-  FilterStr := FOpenDialog.Filter;
-  J := 1;
-  I := AnsiPos('|', FilterStr);
-  while I <> 0 do
-    with FFileDialog.Filetypes.Add do
-    begin
-      DisplayName := Copy(FilterStr, J, I - J);
-      if not SysLocale.FarEast then
-        J := PosEx('|', FilterStr, I + 1)
-      else
-      begin
-        J := AnsiPos('|', Copy(FilterStr, I + 1, MAXINT));
-        if J <> 0 then J := J + (I + 1) - 1;
-      end;
-      if J = 0 then J := Length(FilterStr) + 1;
-      FileMask := Copy(FilterStr, I + 1, J - I - 1);
-      Inc(J);
-
-    end;
-end;
-
-*)
 
 {$region 'Keyboard shortcuts' /fold}
 (*//F1                      Topic Search

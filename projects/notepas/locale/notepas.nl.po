@@ -383,16 +383,6 @@ msgctxt "tdmeditormanager.actfilemenu.caption"
 msgid "File"
 msgstr "Bestand"
 
-#: tdmeditormanager.actfiltercode.caption
-msgctxt "tdmeditormanager.actfiltercode.caption"
-msgid "Filter code"
-msgstr "Filter code"
-
-#: tdmeditormanager.actfiltercode.hint
-msgctxt "TDMEDITORMANAGER.ACTFILTERCODE.HINT"
-msgid "Filter code"
-msgstr "Filter code"
-
 #: tdmeditormanager.actfindalloccurences.caption
 msgid "Find all occurences"
 msgstr "Zoek alle instanties"
@@ -613,15 +603,6 @@ msgstr "Inspecteur tonen"
 msgctxt "tdmeditormanager.actlinebreakstylemenu.caption"
 msgid "Linebreakstyle"
 msgstr "Lijneinde type"
-
-#: tdmeditormanager.actloadhighlighterfromfile.caption
-msgid "Load highlighter from file"
-msgstr "Highlighterdefinitie laden uit bestand"
-
-#: tdmeditormanager.actloadhighlighterfromfile.hint
-#, fuzzy
-msgid "Load highlighter settings from file."
-msgstr "Laad desktop instelling van een bestand"
 
 #: tdmeditormanager.actlowercaseselection.caption
 msgid "Lowercase"
@@ -855,14 +836,6 @@ msgctxt "tdmeditormanager.actsettingsmenu.caption"
 msgid "Settings"
 msgstr "Instellingen"
 
-#: tdmeditormanager.actshapecode.caption
-msgid "Shape code"
-msgstr "Code vormgeving"
-
-#: tdmeditormanager.actshapecode.hint
-msgid "Apply custom code formatting to selection"
-msgstr ""
-
 #: tdmeditormanager.actshowactions.caption
 msgid "Show editor actions"
 msgstr "Editor actions tonen"
@@ -871,6 +844,26 @@ msgstr "Editor actions tonen"
 #, fuzzy
 msgid "Show the list of all available actions."
 msgstr "Toon lijst van alle editor views."
+
+#: tdmeditormanager.actshowcodefilter.caption
+msgctxt "tdmeditormanager.actshowcodefilter.caption"
+msgid "Filter code"
+msgstr "Filter code"
+
+#: tdmeditormanager.actshowcodefilter.hint
+msgctxt "tdmeditormanager.actshowcodefilter.hint"
+msgid "Filter code"
+msgstr "Filter code"
+
+#: tdmeditormanager.actshowcodeshaper.caption
+msgctxt "tdmeditormanager.actshowcodeshaper.caption"
+msgid "Shape code"
+msgstr "Code vormgeving"
+
+#: tdmeditormanager.actshowcodeshaper.hint
+msgctxt "tdmeditormanager.actshowcodeshaper.hint"
+msgid "Apply custom code formatting to selection"
+msgstr ""
 
 #: tdmeditormanager.actshowfiltertest.caption
 msgid "Show filter test dialog"

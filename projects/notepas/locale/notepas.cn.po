@@ -397,16 +397,6 @@ msgctxt "tdmeditormanager.actfilemenu.caption"
 msgid "File"
 msgstr "文件"
 
-#: tdmeditormanager.actfiltercode.caption
-msgctxt "tdmeditormanager.actfiltercode.caption"
-msgid "Filter code"
-msgstr ""
-
-#: tdmeditormanager.actfiltercode.hint
-msgctxt "TDMEDITORMANAGER.ACTFILTERCODE.HINT"
-msgid "Filter code"
-msgstr ""
-
 #: tdmeditormanager.actfindalloccurences.caption
 msgid "Find all occurences"
 msgstr "查找全部"
@@ -634,14 +624,6 @@ msgstr ""
 msgctxt "tdmeditormanager.actlinebreakstylemenu.caption"
 msgid "Linebreakstyle"
 msgstr "换行符风格"
-
-#: tdmeditormanager.actloadhighlighterfromfile.caption
-msgid "Load highlighter from file"
-msgstr ""
-
-#: tdmeditormanager.actloadhighlighterfromfile.hint
-msgid "Load highlighter settings from file."
-msgstr ""
 
 #: tdmeditormanager.actlowercaseselection.caption
 msgid "Lowercase"
@@ -876,20 +858,32 @@ msgctxt "tdmeditormanager.actsettingsmenu.caption"
 msgid "Settings"
 msgstr "设置"
 
-#: tdmeditormanager.actshapecode.caption
-msgid "Shape code"
-msgstr ""
-
-#: tdmeditormanager.actshapecode.hint
-msgid "Apply custom code formatting to selection"
-msgstr ""
-
 #: tdmeditormanager.actshowactions.caption
 msgid "Show editor actions"
 msgstr ""
 
 #: tdmeditormanager.actshowactions.hint
 msgid "Show the list of all available actions."
+msgstr ""
+
+#: tdmeditormanager.actshowcodefilter.caption
+msgctxt "tdmeditormanager.actshowcodefilter.caption"
+msgid "Filter code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodefilter.hint
+msgctxt "tdmeditormanager.actshowcodefilter.hint"
+msgid "Filter code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodeshaper.caption
+msgctxt "tdmeditormanager.actshowcodeshaper.caption"
+msgid "Shape code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodeshaper.hint
+msgctxt "tdmeditormanager.actshowcodeshaper.hint"
+msgid "Apply custom code formatting to selection"
 msgstr ""
 
 #: tdmeditormanager.actshowfiltertest.caption

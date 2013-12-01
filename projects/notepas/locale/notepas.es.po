@@ -381,24 +381,12 @@ msgctxt "TDMEDITORMANAGER.ACTFILEMENU.CAPTION"
 msgid "File"
 msgstr "Archivo"
 
-#: tdmeditormanager.actfiltercode.caption
-msgctxt "tdmeditormanager.actfiltercode.caption"
-msgid "Filter code"
-msgstr "Filtrar código"
-
-#: tdmeditormanager.actfiltercode.hint
-msgctxt "TDMEDITORMANAGER.ACTFILTERCODE.HINT"
-msgid "Filter code"
-msgstr "Filtrar código"
-
 #: tdmeditormanager.actfindalloccurences.caption
 msgid "Find all occurences"
 msgstr "Encontrar todas las coincidencias"
 
 #: tdmeditormanager.actfindalloccurences.hint
-msgid ""
-"Finds all occurences of the selected text or the current word at the caret "
-"position."
+msgid "Finds all occurences of the selected text or the current word at the caret position."
 msgstr "Encontrar todas las coincidencias del texto seleccionado"
 
 #: tdmeditormanager.actfindnext.caption
@@ -612,14 +600,6 @@ msgstr "Mostrar Inspector"
 msgctxt "TDMEDITORMANAGER.ACTLINEBREAKSTYLEMENU.CAPTION"
 msgid "Linebreakstyle"
 msgstr ""
-
-#: tdmeditormanager.actloadhighlighterfromfile.caption
-msgid "Load highlighter from file"
-msgstr "Cargar resaltador desde archivo"
-
-#: tdmeditormanager.actloadhighlighterfromfile.hint
-msgid "Load highlighter settings from file."
-msgstr "Cargar configuración del resaltador desde archivo."
 
 #: tdmeditormanager.actlowercaseselection.caption
 msgid "Lowercase"
@@ -853,14 +833,6 @@ msgctxt "TDMEDITORMANAGER.ACTSETTINGSMENU.CAPTION"
 msgid "Settings"
 msgstr "Configuraciones"
 
-#: tdmeditormanager.actshapecode.caption
-msgid "Shape code"
-msgstr "Formar Código"
-
-#: tdmeditormanager.actshapecode.hint
-msgid "Apply custom code formatting to selection"
-msgstr "Aplicar el formato de código personalizado para la selección"
-
 #: tdmeditormanager.actshowactions.caption
 msgid "Show editor actions"
 msgstr "Mostrar las acciones del editor"
@@ -868,6 +840,26 @@ msgstr "Mostrar las acciones del editor"
 #: tdmeditormanager.actshowactions.hint
 msgid "Show the list of all available actions."
 msgstr "Mostrar la lista de acciones del editor"
+
+#: tdmeditormanager.actshowcodefilter.caption
+msgctxt "tdmeditormanager.actshowcodefilter.caption"
+msgid "Filter code"
+msgstr "Filtrar código"
+
+#: tdmeditormanager.actshowcodefilter.hint
+msgctxt "tdmeditormanager.actshowcodefilter.hint"
+msgid "Filter code"
+msgstr "Filtrar código"
+
+#: tdmeditormanager.actshowcodeshaper.caption
+msgctxt "tdmeditormanager.actshowcodeshaper.caption"
+msgid "Shape code"
+msgstr "Formar Código"
+
+#: tdmeditormanager.actshowcodeshaper.hint
+msgctxt "tdmeditormanager.actshowcodeshaper.hint"
+msgid "Apply custom code formatting to selection"
+msgstr "Aplicar el formato de código personalizado para la selección"
 
 #: tdmeditormanager.actshowfiltertest.caption
 msgid "Show filter test dialog"
@@ -956,9 +948,7 @@ msgstr "Permanecer arriba"
 
 #: tdmeditormanager.actstayontop.hint
 msgid "Lets the application window stay on top of all other opened windows."
-msgstr ""
-"Permite a la ventana de la aplicación estar arriba de las demás ventanas "
-"abiertas."
+msgstr "Permite a la ventana de la aplicación estar arriba de las demás ventanas abiertas."
 
 #: tdmeditormanager.actstripfirstchar.caption
 msgid "Strip first character"
@@ -997,8 +987,7 @@ msgid "Toggle block comment selection"
 msgstr "Alterna comentario en el texto seleccionado"
 
 #: tdmeditormanager.acttoggleblockcommentselection.hint
-msgid ""
-"Comment/uncomment the selection with the highlighter's block comment tags."
+msgid "Comment/uncomment the selection with the highlighter's block comment tags."
 msgstr ""
 
 #: tdmeditormanager.acttogglecomment.caption
@@ -1055,21 +1044,6 @@ msgstr "Mayúsculas"
 msgid "Upper case selection"
 msgstr "Mayúsculas en la selección"
 
-#: tdmeditormanager.menuitem21.caption
-msgctxt "TDMEDITORMANAGER.MENUITEM21.CAPTION"
-msgid "New Item1"
-msgstr "Nuevo 1"
-
-#: tdmeditormanager.menuitem22.caption
-msgctxt "TDMEDITORMANAGER.MENUITEM22.CAPTION"
-msgid "New Item1"
-msgstr "Nuevo 1"
-
-#: tdmeditormanager.menuitem8.caption
-msgctxt "tdmeditormanager.menuitem8.caption"
-msgid "New Item1"
-msgstr "Nuevo 1"
-
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
 msgstr ""
@@ -1084,16 +1058,15 @@ msgid "&Close"
 msgstr "&Cerrar"
 
 #: tfrmabout.actdonate.caption
-msgid "actDonate"
+msgid "Donate"
 msgstr ""
 
 #: tfrmabout.actdonate.hint
 msgid "If you like this project, you can support development with a donation."
-msgstr ""
-"Si te gusta este proyecto, puedes hacer una contribución para su desarrollo."
+msgstr "Si te gusta este proyecto, puedes hacer una contribución para su desarrollo."
 
 #: tfrmabout.actreportdefect.caption
-msgid "actReportIssue"
+msgid "Report a defect."
 msgstr ""
 
 #: tfrmabout.actreportdefect.hint
@@ -1139,6 +1112,14 @@ msgstr ""
 
 #: tfrmabout.lblwidgetset.caption
 msgid "Widget set:"
+msgstr ""
+
+#: tfrmabout.tabsheet1.caption
+msgid "Translations"
+msgstr ""
+
+#: tfrmabout.tabsheet2.caption
+msgid "Info"
 msgstr ""
 
 #: tfrmabout.tsabout.caption
@@ -1377,7 +1358,7 @@ msgstr ""
 #: tfrmcodeshaper.actmakepascalstring.caption
 msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
 msgid "Pascal string"
-msgstr ""
+msgstr "Texto en Pascal"
 
 #: tfrmcodeshaper.actquotelines.caption
 msgctxt "tfrmcodeshaper.actquotelines.caption"
@@ -1387,7 +1368,7 @@ msgstr ""
 #: tfrmcodeshaper.actredo.caption
 msgctxt "tfrmcodeshaper.actredo.caption"
 msgid "Redo"
-msgstr ""
+msgstr "Rehacer"
 
 #: tfrmcodeshaper.actremovebreaks.caption
 msgctxt "TFRMCODESHAPER.ACTREMOVEBREAKS.CAPTION"
@@ -1401,7 +1382,7 @@ msgstr ""
 #: tfrmcodeshaper.actreplace.caption
 msgctxt "tfrmcodeshaper.actreplace.caption"
 msgid "Replace"
-msgstr ""
+msgstr "Reemplazar"
 
 #: tfrmcodeshaper.actstripfirstchar.caption
 msgid "Strip first char"
@@ -1434,18 +1415,18 @@ msgstr ""
 msgid "URL encode"
 msgstr ""
 
-#: tfrmcodeshaper.btnaligninsertspace.caption
-msgctxt "TFRMCODESHAPER.BTNALIGNINSERTSPACE.CAPTION"
-msgid "before"
-msgstr ""
-
-#: tfrmcodeshaper.btnbreakafterbefore.caption
-msgctxt "tfrmcodeshaper.btnbreakafterbefore.caption"
-msgid "before"
-msgstr ""
-
 #: tfrmcodeshaper.caption
 msgid "Code shaper"
+msgstr ""
+
+#: tfrmcodeshaper.cbxaligntokenside.text
+msgctxt "tfrmcodeshaper.cbxaligntokenside.text"
+msgid "after"
+msgstr ""
+
+#: tfrmcodeshaper.cbxinsertbreakstokenside.text
+msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
+msgid "after"
 msgstr ""
 
 #: tfrmcodeshaper.chkalignlinesinparagraphs.caption
@@ -1568,7 +1549,7 @@ msgstr "Hasta"
 #: tfrmcodeshaper.grpalign.caption
 msgctxt "tfrmcodeshaper.grpalign.caption"
 msgid "Align"
-msgstr ""
+msgstr "Alinear"
 
 #: tfrmcodeshaper.grpdequotelines.caption
 msgctxt "tfrmcodeshaper.grpdequotelines.caption"
@@ -1813,7 +1794,7 @@ msgstr ""
 #: tfrmfiletypesettings.gboptions.caption
 msgctxt "TFRMFILETYPESETTINGS.GBOPTIONS.CAPTION"
 msgid "&Options:"
-msgstr ""
+msgstr "&Opciones:"
 
 #: tfrmfiletypesettings.lbfilter.caption
 msgctxt "TFRMFILETYPESETTINGS.LBFILTER.CAPTION"
@@ -1986,10 +1967,14 @@ msgstr "Acerca de..."
 msgid "Close all other pages"
 msgstr "Sluit alle andere tabbladen"
 
+#: tfrmmain.actclosetoolview.caption
+msgid "Close toolview"
+msgstr ""
+
 #: tfrmmain.actinspect.caption
 msgctxt "tfrmmain.actinspect.caption"
 msgid "Inspect"
-msgstr ""
+msgstr "Inspeccionar"
 
 #: tfrmmain.btncurrentchar.hint
 msgctxt "TFRMMAIN.BTNCURRENTCHAR.HINT"
@@ -1999,7 +1984,7 @@ msgstr ""
 #: tfrmmain.btnencoding.hint
 msgctxt "tfrmmain.btnencoding.hint"
 msgid "Encoding"
-msgstr ""
+msgstr "Codificación"
 
 #: tfrmmain.btnhighlighter.hint
 msgctxt "tfrmmain.btnhighlighter.hint"
@@ -2218,7 +2203,7 @@ msgstr ""
 #: tfrmoptionsfiletype.gboptions.caption
 msgctxt "tfrmoptionsfiletype.gboptions.caption"
 msgid "&Options:"
-msgstr ""
+msgstr "&Opciones:"
 
 #: tfrmoptionsfiletype.lbfilter.caption
 msgctxt "tfrmoptionsfiletype.lbfilter.caption"
@@ -2629,10 +2614,6 @@ msgstr "Reemplazar"
 msgid "Replace all"
 msgstr "Reemplazar todo"
 
-#: tfrmsearchform.actreplacewith.caption
-msgid "&Replace with:"
-msgstr "&Reemplazar con:"
-
 #: tfrmsearchform.caption
 msgctxt "TFRMSEARCHFORM.CAPTION"
 msgid "Find"
@@ -2810,7 +2791,7 @@ msgstr ""
 #: tfrmstructure.btninspect.caption
 msgctxt "TFRMSTRUCTURE.BTNINSPECT.CAPTION"
 msgid "Inspect"
-msgstr ""
+msgstr "Inspeccionar"
 
 #: tfrmstructure.caption
 msgctxt "TFRMSTRUCTURE.CAPTION"
@@ -2831,9 +2812,8 @@ msgctxt "tfrmviewlist.actclose.caption"
 msgid "Close"
 msgstr ""
 
-#: tfrmviewlist.btnclose.caption
-msgctxt "TFRMVIEWLIST.BTNCLOSE.CAPTION"
-msgid "Close"
+#: tfrmviewlist.actcloseselectedviews.caption
+msgid "Close selected views"
 msgstr ""
 
 #: tfrmviewlist.caption
@@ -2853,7 +2833,7 @@ msgstr ""
 #: tfrmxmltree.btninspect.caption
 msgctxt "TFRMXMLTREE.BTNINSPECT.CAPTION"
 msgid "Inspect"
-msgstr ""
+msgstr "Inspeccionar"
 
 #: tfrmxmltree.caption
 msgctxt "tfrmxmltree.caption"
@@ -2862,88 +2842,6 @@ msgstr ""
 
 #: tricheditorview.caption
 msgid "RichEditorView"
-msgstr ""
-
-#: ts.components.synminimap.sfontfactorminmax
-msgctxt "ts.components.synminimap.sfontfactorminmax"
-msgid "Font factor cannot be smaller than %.d or greater than %.d."
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvert
-msgctxt "ts.core.codecutilswin32.scannotconvert"
-msgid "Unicode code point $%x has no equivalent in %s"
-msgstr ""
-
-#: ts.core.codecutilswin32.scannotconvertucs4
-msgctxt "ts.core.codecutilswin32.scannotconvertucs4"
-msgid "Cannot convert $%8.8X to %s"
-msgstr ""
-
-#: ts.core.codecutilswin32.sencodingoutofrange
-msgctxt "ts.core.codecutilswin32.sencodingoutofrange"
-msgid "%s encoding out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.shighsurrogatenotfound
-msgctxt "ts.core.codecutilswin32.shighsurrogatenotfound"
-msgid "High surrogate not found"
-msgstr ""
-
-#: ts.core.codecutilswin32.sindexoutofrange
-msgctxt "ts.core.codecutilswin32.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts.core.codecutilswin32.sinvalidcodepoint
-msgctxt "ts.core.codecutilswin32.sinvalidcodepoint"
-msgid "$%x is not a valid %s code point"
-msgstr ""
-
-#: ts.core.codecutilswin32.sinvalidencoding
-msgctxt "ts.core.codecutilswin32.sinvalidencoding"
-msgid "Invalid %s encoding"
-msgstr ""
-
-#: ts.core.codecutilswin32.slowsurrogatenotfound
-msgctxt "ts.core.codecutilswin32.slowsurrogatenotfound"
-msgid "Low surrogate not found"
-msgstr ""
-
-#: ts.core.codecutilswin32.ssurrogatenotallowed
-msgctxt "ts.core.codecutilswin32.ssurrogatenotallowed"
-msgid ""
-"Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved "
-"for use with UTF-16"
-msgstr ""
-
-#: ts.core.codecutilswin32.sutf8error
-msgctxt "ts.core.codecutilswin32.sutf8error"
-msgid "UTF-8 error %d"
-msgstr ""
-
-#: ts.core.dbutils.snofieldtypeforvariantvalue
-msgctxt "ts.core.dbutils.snofieldtypeforvariantvalue"
-msgid "No fieldtype for Variant value %s"
-msgstr ""
-
-#: ts.core.dbutils.sparameternotassigned
-msgctxt "ts.core.dbutils.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr ""
-
-#: ts.core.dbutils.squerylookuperrorrunningquery
-msgctxt "ts.core.dbutils.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr ""
-
-#: ts.core.dbutils.squerylookuptoomanyrecords
-msgctxt "ts.core.dbutils.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: ts.core.encodingutils.sindexoutofrange
-msgctxt "ts.core.encodingutils.sindexoutofrange"
-msgid "Index out of range"
 msgstr ""
 
 #: ts.core.generics.collections.sargumentoutofrange
@@ -3044,8 +2942,7 @@ msgstr ""
 
 #: ts.core.nativexml.slevelmismatch
 msgctxt "ts.core.nativexml.slevelmismatch"
-msgid ""
-"level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
 #: ts.core.nativexml.smissingdatainbinarystream
@@ -3290,12 +3187,8 @@ msgid "SettingsDialogBaseForm"
 msgstr ""
 
 #: ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
-msgctxt ""
-"ts_components_docking_resources."
-"adrsafreesideofasplittermustnotbeanchorednodetypeancho"
-msgid ""
-"A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors"
-"[%s]=%s%s%s"
+msgctxt "ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho"
+msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsallfiles
@@ -3304,9 +3197,7 @@ msgid "All files"
 msgstr ""
 
 #: ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts
-msgctxt ""
-"ts_components_docking_resources."
-"adrsamountofpixelthemousehastodragbeforedragstarts"
+msgctxt "ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts"
 msgid "Amount of pixel the mouse has to drag before drag starts"
 msgstr ""
 
@@ -3326,18 +3217,13 @@ msgid "Anchor not found: Node=%s%s%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors
-msgctxt ""
-"ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors"
+msgctxt "ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors"
 msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
-msgctxt ""
-"ts_components_docking_resources."
-"adrsapagemustnotbeanchorednodeparentparenttypeanchors"
-msgid ""
-"A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]="
-"%s%s%s"
+msgctxt "ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors"
+msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsautomatically
@@ -3371,8 +3257,7 @@ msgid "Docking / Anchordocking"
 msgstr ""
 
 #: ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide
-msgctxt ""
-"ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide"
+msgctxt "ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide"
 msgid "Docking enabled (Requires a restart of the IDE)"
 msgstr ""
 
@@ -3397,12 +3282,8 @@ msgid "Duplicate name: "
 msgstr ""
 
 #: ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
-msgctxt ""
-"ts_components_docking_resources."
-"adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
-msgid ""
-"Each docked window has a header that allows dragging, has a context menu "
-"with extra layout functions and shows the caption of the docked window"
+msgctxt "ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
+msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
 msgstr ""
 
 #: ts_components_docking_resources.adrsemptyname
@@ -3456,12 +3337,8 @@ msgid "Header position"
 msgstr ""
 
 #: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
-msgctxt ""
-"ts_components_docking_resources."
-"adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
-msgid ""
-"Hide header captions for sites with only one docked control, as that is "
-"already shown in the normal window title"
+msgctxt "ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
+msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
 msgstr ""
 
 #: ts_components_docking_resources.adrsleft
@@ -3500,16 +3377,12 @@ msgid "modal forms can not be made dockable"
 msgstr ""
 
 #: ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft
-msgctxt ""
-"ts_components_docking_resources."
-"adrsmoveheadertoleftwhenwidthheight100headeralignleft"
+msgctxt "ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft"
 msgid "Move header to left when (Width/Height)*100>=HeaderAlignLeft"
 msgstr ""
 
 #: ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop
-msgctxt ""
-"ts_components_docking_resources."
-"adrsmoveheadertotopwhenwidthheight100headeraligntop"
+msgctxt "ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop"
 msgid "Move header to top when (Width/Height)*100<=HeaderAlignTop"
 msgstr ""
 
@@ -3594,8 +3467,7 @@ msgid "Scale sub sites when a site is resized"
 msgstr ""
 
 #: ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader
-msgctxt ""
-"ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader"
+msgctxt "ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader"
 msgid "Show captions of docked controls in the header"
 msgstr ""
 
@@ -3625,13 +3497,8 @@ msgid "Tab position"
 msgstr ""
 
 #: ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
-msgctxt ""
-"ts_components_docking_resources."
-"adrsthereisanotherdockmasterinstalledonlyonedockingpac"
-msgid ""
-"There is another dock master installed. Only one docking package can be "
-"installed at a time. Please uninstall the other dock master %s and restart "
-"the IDE"
+msgctxt "ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac"
+msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
 msgstr ""
 
 #: ts_components_docking_resources.adrstop
@@ -3640,8 +3507,7 @@ msgid "top"
 msgstr ""
 
 #: ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall
-msgctxt ""
-"ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall"
+msgctxt "ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall"
 msgid "To use anchordocking you must first uninstall %s"
 msgstr ""
 
@@ -3697,9 +3563,7 @@ msgstr ""
 
 #: ts_core_codecutilswin32.ssurrogatenotallowed
 msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
-msgid ""
-"Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved "
-"for use with UTF-16"
+msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
 msgstr ""
 
 #: ts_core_codecutilswin32.sutf8error
@@ -3800,7 +3664,7 @@ msgstr ""
 #: ts_core_fileassociations.sopen
 msgctxt "ts_core_fileassociations.sopen"
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: ts_core_fileassociations.sopencaption
 msgctxt "ts_core_fileassociations.sopencaption"
@@ -3884,8 +3748,7 @@ msgstr ""
 
 #: ts_core_nativexml.slevelmismatch
 msgctxt "ts_core_nativexml.slevelmismatch"
-msgid ""
-"level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
 #: ts_core_nativexml.smissingdatainbinarystream
@@ -4131,6 +3994,15 @@ msgstr ""
 #: ts_core_utils.snocorrespondingfieldtype
 msgctxt "ts_core_utils.snocorrespondingfieldtype"
 msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts_editor_aboutdialog.sauthor
+msgid "Author"
+msgstr ""
+
+#: ts_editor_aboutdialog.sname
+msgctxt "ts_editor_aboutdialog.sname"
+msgid "Name"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sbutton
@@ -4591,3 +4463,22 @@ msgstr ""
 msgctxt "ts_editor_toolview_search.smatchfound"
 msgid "%d search match found."
 msgstr ""
+
+#: ts_editor_viewlist_toolview.sfilename
+msgid "Filename"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.shighlighter
+msgctxt "ts_editor_viewlist_toolview.shighlighter"
+msgid "Highlighter"
+msgstr "Resaltador"
+
+#: ts_editor_viewlist_toolview.smodified
+msgctxt "ts_editor_viewlist_toolview.smodified"
+msgid "Modified"
+msgstr "Modificado"
+
+#: ts_editor_viewlist_toolview.spath
+msgid "Path"
+msgstr ""
+

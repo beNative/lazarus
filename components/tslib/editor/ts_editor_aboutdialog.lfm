@@ -187,11 +187,12 @@ object frmAbout: TfrmAbout
       BorderWidth = 3
       Caption = 'Credits'
     end
-    object TabSheet1: TTabSheet
+    object tsTranslations: TTabSheet
       Caption = 'Translations'
     end
-    object TabSheet2: TTabSheet
+    object tsInfo: TTabSheet
       Caption = 'Info'
+      TabVisible = False
     end
   end
   object imgMain: TImage

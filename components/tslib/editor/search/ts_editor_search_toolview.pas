@@ -158,7 +158,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Controls,
+  Controls, Graphics,
 
   LCLIntf,
 
@@ -386,11 +386,13 @@ begin
   begin
     if SearchEngine.ItemList.Count > 0 then
     begin
+      pnlStatus.Font.Color := clGreen;
       FVST.SetFocus;
       FTVP.SelectedItem := FTVP.ItemsSource[0];
     end
     else
     begin
+      pnlStatus.Font.Color := clRed;
       cbxSearchText.SetFocus;
       cbxSearchText.SelectAll;
     end;

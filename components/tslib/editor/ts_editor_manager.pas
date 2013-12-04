@@ -208,7 +208,7 @@ type
     actExportToHTML                   : TAction;
     actExportToRTF                    : TAction;
     actExportToWiki                   : TAction;
-    actShowCodeFilter                     : TAction;
+    actShowCodeFilter                 : TAction;
     actSearch                         : TAction;
     actFindNext                       : TAction;
     actFindNextWord                   : TAction;
@@ -228,7 +228,7 @@ type
     actFormat                         : TAction;
     actHelp                           : TAction;
     actIncFontSize                    : TAction;
-    actShowCharacterMap         : TAction;
+    actShowCharacterMap               : TAction;
     actInsertColorValue               : TAction;
     actInspect                        : TAction;
     actLowerCaseSelection             : TAction;
@@ -247,7 +247,7 @@ type
     actSave                           : TAction;
     actSaveAs                         : TAction;
     actSettings                       : TAction;
-    actShowCodeShaper                      : TAction;
+    actShowCodeShaper                 : TAction;
     actSortSelection                  : TAction;
     actToggleComment                  : TAction;
     actToggleFoldLevel                : TAction;
@@ -431,6 +431,7 @@ type
     procedure SynMacroRecorderStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject;
       ParamCount: Integer; Parameters: array of String);
+    procedure UniqueInstanceTerminateInstance(Sender: TObject);
     {$endregion}
 
   private
@@ -831,7 +832,8 @@ begin
   FSynUni           := TSynUniSyn.Create(Self);
   FUniqueInstance   := TUniqueInstance.Create(Self);
   FUniqueInstance.Identifier := ApplicationName;
-  FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
+  FUniqueInstance.OnOtherInstance     := UniqueInstanceOtherInstance;
+  FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
   FScriptFunctions := TStringList.Create;
   FEditorTools := [
     etActionList,
@@ -1884,6 +1886,12 @@ procedure TdmEditorManager.UniqueInstanceOtherInstance(Sender: TObject;
    ParamCount: Integer; Parameters: array of String);
 begin
   Events.DoOpenOtherInstance(Parameters);
+end;
+
+procedure TdmEditorManager.UniqueInstanceTerminateInstance(Sender: TObject);
+begin
+  // prevents that the second instance overwrites settings.
+  PersistSettings := False;
 end;
 
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);

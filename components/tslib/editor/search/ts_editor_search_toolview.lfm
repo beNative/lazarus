@@ -407,6 +407,8 @@ inherited frmSearchForm: TfrmSearchForm
     Width = 309
     Align = alBottom
     BevelOuter = bvNone
+    Font.Style = [fsBold]
+    ParentFont = False
     TabOrder = 2
   end
   object aclMain: TActionList[3]

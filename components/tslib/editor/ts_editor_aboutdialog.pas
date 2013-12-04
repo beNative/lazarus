@@ -92,8 +92,8 @@ type
     Shape4: TShape;
     btnDonate: TSpeedButton;
     btnReportIssue: TSpeedButton;
-    TabSheet1: TTabSheet;
-    TabSheet2: TTabSheet;
+    tsTranslations: TTabSheet;
+    tsInfo: TTabSheet;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
     {$endregion}
@@ -102,43 +102,28 @@ type
     procedure actDonateExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
     procedure actURLExecute(Sender: TObject);
-    procedure FTVPDoubleClick(Sender: TObject);
+    procedure FTVPCreditsDoubleClick(Sender: TObject);
     procedure lblURLClick(Sender: TObject);
     procedure lblURLDblClick(Sender: TObject);
 
   private
-    FVersionInfo : TVersionInfo;
-    FVST         : TVirtualStringTree;
-    FTVP         : TTreeViewPresenter;
-    FCredits     : TObjectList;
+    FVersionInfo     : TVersionInfo;
+    FVSTCredits      : TVirtualStringTree;
+    FVSTTranslations : TVirtualStringTree;
+    FTVPCredits      : TTreeViewPresenter;
+    FTVPTranslations : TTreeViewPresenter;
+    FCredits         : TObjectList;
+    FTranslations    : TObjectList;
 
     procedure FillCredits;
+    procedure FillTranslations;
+
+    procedure InitializeCredits;
+    procedure InitializeTranslations;
 
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
-
-  end;
-
-  TCredit = class(TPersistent)
-  strict private
-    FAuthor : string;
-    FName   : string;
-    FURL    : string;
-
-    procedure SetAuthor(AValue: string);
-    procedure SetName(AValue: string);
-    procedure SetURL(AValue: string);
-
-  published
-    property Name: string
-      read FName write SetName;
-
-    property Author: string
-      read FAuthor write SetAuthor;
-
-    property URL: string
-      read FURL write SetURL;
 
   end;
 
@@ -163,8 +148,10 @@ const
   URL_REPORT_ISSUE = 'http://code.google.com/p/notepas/issues/entry';
 
 resourcestring
-  SName   = 'Name';
-  SAuthor = 'Author';
+  SName         = 'Name';
+  SAuthor       = 'Author';
+  SLanguageCode = 'Code';
+  SLanguageName = 'Language';
 
 procedure ShowAboutDialog;
 var
@@ -178,23 +165,46 @@ begin
   end;
 end;
 
-procedure TCredit.SetName(AValue: string);
-begin
-  if FName = AValue then Exit;
-  FName := AValue;
-end;
+{$region 'TCredit' /fold}
+type
+  TCredit = class(TPersistent)
+  strict private
+    FAuthor : string;
+    FName   : string;
+    FURL    : string;
 
-procedure TCredit.SetURL(AValue: string);
-begin
-  if FURL = AValue then Exit;
-  FURL := AValue;
-end;
+  published
+    property Name: string
+      read FName write FName;
 
-procedure TCredit.SetAuthor(AValue: string);
-begin
-  if FAuthor = AValue then Exit;
-  FAuthor := AValue;
-end;
+    property Author: string
+      read FAuthor write FAuthor;
+
+    property URL: string
+      read FURL write FURL;
+  end;
+{$endregion}
+
+{$region 'TTranslation' /fold}
+type
+  TTranslation = class(TPersistent)
+  strict private
+    FAuthor       : string;
+    FLanguageCode : string;
+    FLanguageName : string;
+
+  published
+    property LanguageCode: string
+      read FLanguageCode write FLanguageCode;
+
+    property LanguageName: string
+      read FLanguageName write FLanguageName;
+
+    property Author: string
+      read FAuthor write FAuthor;
+  end;
+
+{$endregion}
 
 {$region 'construction and destruction' /fold}
 procedure TfrmAbout.AfterConstruction;
@@ -213,23 +223,17 @@ begin
   lblURL.Caption            := FVersionInfo.URL;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
-  FCredits := TObjectList.Create(True);
-  FillCredits;
-  FVST := VST.Create(Self, tsCredits);
-  FTVP := TTreeViewPresenter.Create(Self);
-  FTVP.ColumnDefinitions.AddColumn('Name', SName, dtString, 140);
-  FTVP.ColumnDefinitions.AddColumn('Author', SAuthor, dtString, 150, 100, 220);
-  FTVP.OnDoubleClick := FTVPDoubleClick;
-  FTVP.ListMode := True;
-  FTVP.ItemsSource := FCredits;
-  FTVP.TreeView := FVST;
+  InitializeCredits;
+  InitializeTranslations;
   pgcMain.ActivePageIndex := 0;
 end;
 
 procedure TfrmAbout.BeforeDestruction;
 begin
   FreeAndNil(FCredits);
-  FreeAndNil(FTVP);
+  FreeAndNil(FTranslations);
+  FreeAndNil(FTVPCredits);
+  FreeAndNil(FTVPTranslations);
   FreeAndNil(FVersionInfo);
 
   inherited BeforeDestruction;
@@ -247,9 +251,9 @@ begin
   actURL.Execute;
 end;
 
-procedure TfrmAbout.FTVPDoubleClick(Sender: TObject);
+procedure TfrmAbout.FTVPCreditsDoubleClick(Sender: TObject);
 begin
-  OpenURL((FTVP.SelectedItem as TCredit).URL);
+  OpenURL((FTVPCredits.SelectedItem as TCredit).URL);
 end;
 {$endregion}
 
@@ -373,6 +377,74 @@ begin
     'http://p.yusukekamiyamane.com/'
   );
 end;
+
+procedure TfrmAbout.FillTranslations;
+
+  procedure AddTranslation(const ACode: string; const AName: string;
+    const AAuthor: string);
+  var
+    T: TTranslation;
+  begin
+    T := TTranslation.Create;
+    T.LanguageCode := ACode;
+    T.LanguageName := AName;
+    T.Author := AAuthor;
+    FTranslations.Add(T);
+  end;
+
+begin
+  AddTranslation(
+    'en',
+    'English',
+    'Tim Sinaeve'
+  );
+  AddTranslation(
+    'es',
+    'Spanish',
+    'Esteban Vignolo'
+  );
+  AddTranslation(
+    'cn',
+    'Chinese',
+    'Anonymous contributor'
+  );
+  AddTranslation(
+    'nl',
+    'Dutch',
+    'Tim Sinaeve'
+  );
+end;
+
+procedure TfrmAbout.InitializeCredits;
+begin
+  FCredits := TObjectList.Create(True);
+  FillCredits;
+  FVSTCredits := VST.Create(Self, tsCredits);
+  FTVPCredits := TTreeViewPresenter.Create(Self);
+  FTVPCredits.ColumnDefinitions.AddColumn('Name', SName, dtString, 140);
+  FTVPCredits.ColumnDefinitions.AddColumn('Author', SAuthor, dtString, 150,
+    100, 220);
+  FTVPCredits.OnDoubleClick := FTVPCreditsDoubleClick;
+  FTVPCredits.ListMode := True;
+  FTVPCredits.ItemsSource := FCredits;
+  FTVPCredits.TreeView := FVSTCredits;
+end;
+
+procedure TfrmAbout.InitializeTranslations;
+begin
+  FTranslations := TObjectList.Create(True);
+  FillTranslations;
+  FVSTTranslations := VST.Create(Self, tsTranslations);
+  FTVPTranslations := TTreeViewPresenter.Create(Self);
+  FTVPTranslations.ColumnDefinitions.AddColumn('LanguageCode', SLanguageCode, dtString, 50);
+  FTVPTranslations.ColumnDefinitions.AddColumn('LanguageName', SLanguageName, dtString, 100);
+  FTVPTranslations.ColumnDefinitions.AddColumn('Author', SAuthor, dtString, 150,
+    100, 220);
+  FTVPTranslations.ListMode := True;
+  FTVPTranslations.ItemsSource := FTranslations;
+  FTVPTranslations.TreeView := FVSTTranslations;
+end;
+
 {$endregion}
 
 end.

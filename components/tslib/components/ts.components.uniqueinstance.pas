@@ -55,6 +55,7 @@ unit ts.Components.UniqueInstance;
 //    only effect when set at designtime.
 //  - It does not use SimpleIPCWrapper anymore as the bugs for which it was
 //    a workaround are resolved (bug 17248) and (bug 19136) in FPC 2.7.1
+//  - Added OnTerminateInstance notify event
 
 {$MODE objfpc}{$H+}
 
@@ -63,20 +64,26 @@ interface
 uses
   Forms, Classes, SysUtils,
 
-  simpleipc;
+  SimpleIPC;
 
 type
-  TOnOtherInstance = procedure (Sender : TObject; ParamCount: Integer; Parameters: array of String) of object;
+  TOnOtherInstance = procedure (
+    Sender     : TObject;
+    ParamCount : Integer;
+    Parameters : array of string
+  ) of object;
 
   { TUniqueInstance }
 
   TUniqueInstance = class(TComponent)
   private
-    FIdentifier: String;
-    FIPCServer: TSimpleIPCServer;
-    FOnOtherInstance: TOnOtherInstance;
-    FUpdateInterval: Cardinal;
-    FEnabled: Boolean;
+    FIdentifier          : string;
+    FIPCServer           : TSimpleIPCServer;
+    FOnOtherInstance     : TOnOtherInstance;
+    FOnTerminateInstance : TNotifyEvent;
+    FUpdateInterval      : Cardinal;
+    FEnabled             : Boolean;
+
     function GetServerId: String;
     procedure ReceiveMessage(Sender: TObject);
     procedure SetEnabled(AValue: Boolean);
@@ -101,6 +108,9 @@ type
 
     property OnOtherInstance: TOnOtherInstance
       read FOnOtherInstance write FOnOtherInstance;
+
+    property OnTerminateInstance: TNotifyEvent
+      read FOnTerminateInstance write FOnTerminateInstance;
   end;
 
 implementation
@@ -177,6 +187,8 @@ end;
 
 procedure TUniqueInstance.TerminateApp(Sender: TObject; var Done: Boolean);
 begin
+  if Assigned(FOnTerminateInstance) then
+    FOnTerminateInstance(Self);
   Application.Terminate;
   //necessary to avoid being a zombie
   Done := False;

@@ -19,8 +19,8 @@ Files in this folder:
      languagecode.
 
 As .po files are just textfiles they can be edited by any text editor. Another
-option is to use Poedit (http://sourceforge.net/projects/poedit/) which eases
-the translator's job by keeping track of common translations.
+option is to use Poedit (http://www.poedit.net/) which eases the translator's
+job by keeping track of common translations.
 
 This is a list of the ISO languagecodes which can be used:
 

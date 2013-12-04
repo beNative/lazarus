@@ -393,8 +393,8 @@ begin
       V := Manager.OpenFile(S)
     else
       Manager.OpenFile(S);
+    V.Activate;
   end;
-  V.Activate;
 end;
 
 procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);

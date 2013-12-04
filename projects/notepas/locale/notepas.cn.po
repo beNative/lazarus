@@ -1152,14 +1152,6 @@ msgstr "URL"
 msgid "Widget set:"
 msgstr ""
 
-#: tfrmabout.tabsheet1.caption
-msgid "Translations"
-msgstr ""
-
-#: tfrmabout.tabsheet2.caption
-msgid "Info"
-msgstr ""
-
 #: tfrmabout.tsabout.caption
 #, fuzzy
 msgid "Version"
@@ -1167,6 +1159,16 @@ msgstr "版本"
 
 #: tfrmabout.tscredits.caption
 msgid "Credits"
+msgstr ""
+
+#: tfrmabout.tsinfo.caption
+msgctxt "tfrmabout.tsinfo.caption"
+msgid "Info"
+msgstr ""
+
+#: tfrmabout.tstranslations.caption
+msgctxt "tfrmabout.tstranslations.caption"
+msgid "Translations"
 msgstr ""
 
 #: tfrmactionlistview.caption
@@ -3973,6 +3975,15 @@ msgstr ""
 
 #: ts_editor_aboutdialog.sauthor
 msgid "Author"
+msgstr ""
+
+#: ts_editor_aboutdialog.slanguagecode
+msgid "Code"
+msgstr ""
+
+#: ts_editor_aboutdialog.slanguagename
+msgctxt "ts_editor_aboutdialog.slanguagename"
+msgid "Language"
 msgstr ""
 
 #: ts_editor_aboutdialog.sname

@@ -1,3 +1,8 @@
+2013.12.04 (0.9.23)
+* Fixed active view handling when UniqueInstance is enabled.
+* Fixed issue with writing to settings file.
+* Some cosmetic changes.
+
 2013.12.01 (0.9.22)
 * Fixed issue with XML formatter.
 * Fixed handling of files with extensions in uppercase.

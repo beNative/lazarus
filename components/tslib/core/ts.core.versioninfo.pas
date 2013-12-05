@@ -42,13 +42,14 @@ type
     function GetFileDescription: string;
     function GetFileName: string;
     function GetFileVersion: string;
+    function GetHomePage: string;
     function GetIcon: TIcon;
     function GetInternalName: string;
     function GetLegalCopyright: string;
     function GetOriginalFilename: string;
     function GetProductName: string;
     function GetProductVersion: string;
-    function GetURL: string;
+    function GetProjectPage: string;
     function GetWidgetSet: string;
 
   public
@@ -101,8 +102,11 @@ type
     property WidgetSet: string
       read GetWidgetSet;
 
-    property URL: string
-      read GetURL;
+    property HomePage: string
+      read GetHomePage;
+
+    property ProjectPage: string
+      read GetProjectPage;
 
     property Icon: TIcon
       read GetIcon;
@@ -155,6 +159,11 @@ begin
   Result := FFileVersionInfo.VersionStrings.Values['FileVersion'];
 end;
 
+function TVersionInfo.GetHomePage: string;
+begin
+  Result := FFileVersionInfo.VersionStrings.Values['HomePage'];
+end;
+
 function TVersionInfo.GetIcon: TIcon;
 begin
   Result := Application.Icon;
@@ -185,9 +194,9 @@ begin
   Result := FFileVersionInfo.VersionStrings.Values['ProductVersion'];
 end;
 
-function TVersionInfo.GetURL: string;
+function TVersionInfo.GetProjectPage: string;
 begin
-  Result := FFileVersionInfo.VersionStrings.Values['URL'];
+  Result := FFileVersionInfo.VersionStrings.Values['ProjectPage'];
 end;
 
 function TVersionInfo.GetFileName: string;

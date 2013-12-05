@@ -175,7 +175,7 @@ type
     {$endregion}
 
     // information retrieval
-    function GetWordAtPosition(APosition: TPoint): string;
+    function GetWordAtPosition(const APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     function GetHighlighterAttriAtRowCol(
           APosition : TPoint;
@@ -199,7 +199,6 @@ type
             AOptions : TSynSearchOptions
     );
 
-    // commands   (IEditorCommands)
     procedure Clear;
     procedure AdjustFontSize(AOffset: Integer);
     procedure Close;

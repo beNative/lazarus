@@ -63,8 +63,9 @@ type
     aclMain: TActionList;
     actClose: TAction;
     actDonate: TAction;
+    actProjectPage: TAction;
     actReportDefect: TAction;
-    actURL: TAction;
+    actHomePage: TAction;
     btnClose: TButton;
     Image1: TImage;
     imgMain: TImage;
@@ -75,7 +76,8 @@ type
     lblLegalCopyright: TLabel;
     lblTargetCPU: TLabel;
     lblTargetOS: TLabel;
-    lblURL: TLabel;
+    lblHomePage: TLabel;
+    lblProjectPage: TLabel;
     lblWidgetSet: TLabel;
     pgcMain: TPageControl;
     pnlBuildDate: TPanel;
@@ -100,26 +102,34 @@ type
 
     procedure actCloseExecute(Sender: TObject);
     procedure actDonateExecute(Sender: TObject);
+    procedure actProjectPageExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
-    procedure actURLExecute(Sender: TObject);
+    procedure actHomePageExecute(Sender: TObject);
     procedure FTVPCreditsDoubleClick(Sender: TObject);
-    procedure lblURLClick(Sender: TObject);
-    procedure lblURLDblClick(Sender: TObject);
+    procedure lblHomePageClick(Sender: TObject);
+    procedure lblHomePageDblClick(Sender: TObject);
+    procedure lblProjectPageClick(Sender: TObject);
+    procedure lblProjectPageDblClick(Sender: TObject);
 
   private
     FVersionInfo     : TVersionInfo;
     FVSTCredits      : TVirtualStringTree;
     FVSTTranslations : TVirtualStringTree;
+    FVSTInfoList     : TVirtualStringTree;
     FTVPCredits      : TTreeViewPresenter;
     FTVPTranslations : TTreeViewPresenter;
+    FTVPInfoList     : TTreeViewPresenter;
     FCredits         : TObjectList;
     FTranslations    : TObjectList;
+    FInfoList        : TObjectList;
 
     procedure FillCredits;
     procedure FillTranslations;
+    procedure FillInfoList;
 
     procedure InitializeCredits;
     procedure InitializeTranslations;
+    procedure InitializeInfoList;
 
   public
     procedure AfterConstruction; override;
@@ -136,7 +146,9 @@ implementation
 uses
   Controls,
 
-  ts.Core.Helpers,
+  FileUtil,
+
+  ts.Core.Helpers, ts.Core.Utils,
 
   LCLIntf;
 
@@ -152,6 +164,7 @@ resourcestring
   SAuthor       = 'Author';
   SLanguageCode = 'Code';
   SLanguageName = 'Language';
+  SValue        = 'Value';
 
 procedure ShowAboutDialog;
 var
@@ -203,7 +216,22 @@ type
     property Author: string
       read FAuthor write FAuthor;
   end;
+{$endregion}
 
+{$region 'TInfo' /fold}
+type
+  TInfo = class(TPersistent)
+  strict private
+    FName  : string;
+    FValue : string;
+
+  published
+    property Name: string
+      read FName write FName;
+
+    property Value: string
+      read FValue write FValue;
+  end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
@@ -220,11 +248,17 @@ begin
   pnlFileVersion.Caption    := FVersionInfo.FileVersion;
   pnlName.Caption           := FVersionInfo.ProductName + ' '
     + FVersionInfo.ProductVersion;
-  lblURL.Caption            := FVersionInfo.URL;
+  lblHomePage.Caption       := FVersionInfo.HomePage;
+  lblProjectPage.Caption    := FVersionInfo.ProjectPage;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
+  pnlName.Color                 := Color;
+  lblLegalCopyright.Transparent := True;
+  lblHomePage.Transparent       := True;
+  lblProjectPage.Transparent    := True;
   InitializeCredits;
   InitializeTranslations;
+  InitializeInfoList;
   pgcMain.ActivePageIndex := 0;
 end;
 
@@ -232,23 +266,34 @@ procedure TfrmAbout.BeforeDestruction;
 begin
   FreeAndNil(FCredits);
   FreeAndNil(FTranslations);
+  FreeAndNil(FInfoList);
   FreeAndNil(FTVPCredits);
   FreeAndNil(FTVPTranslations);
+  FreeAndNil(FTVPInfoList);
   FreeAndNil(FVersionInfo);
-
   inherited BeforeDestruction;
 end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-procedure TfrmAbout.lblURLClick(Sender: TObject);
+procedure TfrmAbout.lblHomePageClick(Sender: TObject);
 begin
-  actURL.Execute;
+  actHomePage.Execute;
 end;
 
-procedure TfrmAbout.lblURLDblClick(Sender: TObject);
+procedure TfrmAbout.lblHomePageDblClick(Sender: TObject);
 begin
-  actURL.Execute;
+  actHomePage.Execute;
+end;
+
+procedure TfrmAbout.lblProjectPageClick(Sender: TObject);
+begin
+  actProjectPage.Execute;
+end;
+
+procedure TfrmAbout.lblProjectPageDblClick(Sender: TObject);
+begin
+  actProjectPage.Execute;
 end;
 
 procedure TfrmAbout.FTVPCreditsDoubleClick(Sender: TObject);
@@ -268,14 +313,19 @@ begin
   OpenURL(URL_DONATE);
 end;
 
+procedure TfrmAbout.actProjectPageExecute(Sender: TObject);
+begin
+  OpenURL(FVersionInfo.ProjectPage);
+end;
+
 procedure TfrmAbout.actReportDefectExecute(Sender: TObject);
 begin
   OpenURL(URL_REPORT_ISSUE);
 end;
 
-procedure TfrmAbout.actURLExecute(Sender: TObject);
+procedure TfrmAbout.actHomePageExecute(Sender: TObject);
 begin
-  OpenURL(FVersionInfo.URL);
+  OpenURL(FVersionInfo.HomePage);
 end;
 {$endregion}
 
@@ -415,6 +465,31 @@ begin
   );
 end;
 
+procedure TfrmAbout.FillInfoList;
+var
+  S : string;
+
+  procedure AddInfo(const AName: string; const AValue: string);
+  var
+    I: TInfo;
+  begin
+    I := TInfo.Create;
+    I.Name := AName;
+    I.Value := AValue;
+    FInfoList.Add(I);
+  end;
+begin
+  S := Application.ExeName;
+
+
+  AddInfo('Executable', ExtractFileNameOnly(S));
+  AddInfo('Path', ExtractFileDir(S));
+  AddInfo('Size', FormatByteText(FileSize(S)));
+  //
+  //AddInfo('Startup parameters', Application.ApplicationType);
+  //
+end;
+
 procedure TfrmAbout.InitializeCredits;
 begin
   FCredits := TObjectList.Create(True);
@@ -445,6 +520,18 @@ begin
   FTVPTranslations.TreeView := FVSTTranslations;
 end;
 
+procedure TfrmAbout.InitializeInfoList;
+begin
+  FInfoList := TObjectList.Create(True);
+  FillInfoList;
+  FVSTInfoList := VST.Create(Self, tsInfo);
+  FTVPInfoList := TTreeViewPresenter.Create(Self);
+  FTVPInfoList.ColumnDefinitions.AddColumn('Name', SName, dtString, 100);
+  FTVPInfoList.ColumnDefinitions.AddColumn('Value', SValue, dtString, 200);
+  FTVPInfoList.ListMode := True;
+  FTVPInfoList.ItemsSource := FInfoList;
+  FTVPInfoList.TreeView := FVSTInfoList;
+end;
 {$endregion}
 
 end.

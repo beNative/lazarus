@@ -325,7 +325,7 @@ type
     function CloseQuery: Boolean; override;
 
     // public methods
-    function GetWordAtPosition(APosition: TPoint): string;
+    function GetWordAtPosition(const APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     function GetHighlighterAttriAtRowCol(
           APosition : TPoint;
@@ -1885,7 +1885,7 @@ begin
   Modified := False;
 end;
 
-function TEditorView.GetWordAtPosition(APosition: TPoint): string;
+function TEditorView.GetWordAtPosition(const APosition: TPoint): string;
 var
   CaretPos: TPoint;
 begin

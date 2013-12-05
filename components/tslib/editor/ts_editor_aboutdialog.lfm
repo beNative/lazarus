@@ -192,13 +192,12 @@ object frmAbout: TfrmAbout
     end
     object tsInfo: TTabSheet
       Caption = 'Info'
-      TabVisible = False
     end
   end
   object imgMain: TImage
     Left = 88
     Height = 64
-    Top = 16
+    Top = 6
     Width = 64
     AntialiasingMode = amOn
     Center = True
@@ -742,10 +741,10 @@ object frmAbout: TfrmAbout
   object pnlName: TPanel
     Left = 4
     Height = 40
-    Top = 85
-    Width = 236
+    Top = 74
+    Width = 235
     BevelOuter = bvNone
-    Color = clForm
+    Color = clWhite
     Font.Height = -19
     Font.Style = [fsBold]
     ParentColor = False
@@ -753,14 +752,16 @@ object frmAbout: TfrmAbout
     TabOrder = 1
   end
   object lblLegalCopyright: TLabel
-    Left = 8
-    Height = 14
-    Top = 128
-    Width = 224
+    Left = 4
+    Height = 16
+    Top = 119
+    Width = 236
     Alignment = taCenter
     AutoSize = False
+    Color = clWhite
     Layout = tlCenter
     ParentColor = False
+    Transparent = False
   end
   object btnClose: TButton
     Left = 512
@@ -772,28 +773,31 @@ object frmAbout: TfrmAbout
     ModalResult = 11
     TabOrder = 2
   end
-  object lblURL: TLabel
+  object lblHomePage: TLabel
     Cursor = crHandPoint
     Left = 4
-    Height = 24
-    Top = 146
+    Height = 17
+    Hint = 'Homepage'
+    Top = 139
     Width = 236
     Alignment = taCenter
     AutoSize = False
     Caption = 'URL'
+    Color = clWhite
     Font.Color = clBlue
     Font.Height = -11
     Font.Style = [fsUnderline]
     Layout = tlCenter
     ParentColor = False
     ParentFont = False
-    OnClick = lblURLClick
-    OnDblClick = lblURLDblClick
+    Transparent = False
+    OnClick = lblHomePageClick
+    OnDblClick = lblHomePageDblClick
   end
   object Image1: TImage
     Left = 77
     Height = 38
-    Top = 174
+    Top = 186
     Width = 96
     AutoSize = True
     Picture.Data = {
@@ -1352,6 +1356,27 @@ object frmAbout: TfrmAbout
     }
     ShowCaption = False
   end
+  object lblProjectPage: TLabel
+    Cursor = crHandPoint
+    Left = 4
+    Height = 17
+    Hint = 'Project page'
+    Top = 161
+    Width = 236
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'URL'
+    Color = clWhite
+    Font.Color = clBlue
+    Font.Height = -11
+    Font.Style = [fsUnderline]
+    Layout = tlCenter
+    ParentColor = False
+    ParentFont = False
+    Transparent = False
+    OnClick = lblProjectPageClick
+    OnDblClick = lblProjectPageDblClick
+  end
   object aclMain: TActionList
     left = 200
     top = 192
@@ -1361,10 +1386,10 @@ object frmAbout: TfrmAbout
       OnExecute = actCloseExecute
       ShortCut = 27
     end
-    object actURL: TAction
+    object actHomePage: TAction
       Category = 'About'
-      Caption = 'Visit URL'
-      OnExecute = actURLExecute
+      Caption = 'Visit home page'
+      OnExecute = actHomePageExecute
     end
     object actDonate: TAction
       Category = 'About'
@@ -1377,6 +1402,10 @@ object frmAbout: TfrmAbout
       Caption = 'Report a defect.'
       Hint = 'Report an issue.'
       OnExecute = actReportDefectExecute
+    end
+    object actProjectPage: TAction
+      Caption = 'Visit project page'
+      OnExecute = actProjectPageExecute
     end
   end
 end

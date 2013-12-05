@@ -20,6 +20,8 @@ unit ts.Editor.Utils;
 
 { Some static editor helper routines. }
 
+{ TODO: make FPCUnit test cases for these routines }
+
 {$MODE Delphi}
 
 interface
@@ -43,9 +45,9 @@ type
   );
 
 const
-  AllChars = [Low(Char) .. High(Char)];
+  AllChars           = [Low(Char) .. High(Char)];
   DefaultWordBorders = AllChars - ['a'..'z', 'A'..'Z', '0'..'9', '_'];
-  WhiteSpaces = [' ', #9, #10, #13];
+  WhiteSpaces        = [' ', #9, #10, #13];
 
 type
   // comments
@@ -82,7 +84,10 @@ function CompressSpace(
   (possibly multiline) supplied by user, and you want to use this
   for some UI item (like window's caption or menu item) --- this
   "sanitizes" whitespace inside such string. }
-function CompressWhiteSpace(const AString: string): string;
+
+function CompressWhiteSpace(
+  const AString: string
+): string;
 
 procedure AlignLines(
         AStrings                : TStrings;
@@ -165,7 +170,9 @@ function UnCommentText(
         ACommentType : TCommentType
 ): string;
 
-function FormatXML(const AXMLString: string): string;
+function FormatXML(
+  const AXMLString: string
+): string;
 
 function PascalStringOf(
   const AString    : string;
@@ -187,28 +194,46 @@ procedure AddStringsPresentInString(
   const AFilterString : string
 );
 
-function IsXML(const AString: string): Boolean;
+function IsXML(
+  const AString: string
+): Boolean;
 
-function IsPAS(const AString: string): Boolean;
+function IsPAS(
+  const AString: string
+): Boolean;
 
-function IsSQL(const AString: string): Boolean;
+function IsSQL(
+  const AString: string
+): Boolean;
 
-function IsLOG(const AString: string): Boolean;
+function IsLOG(
+  const AString: string
+): Boolean;
 
-function IsLFM(const AString: string): Boolean;
+function IsLFM(
+  const AString: string
+): Boolean;
 
-function IsHTML(const AString: string): Boolean;
+function IsHTML(
+  const AString: string
+): Boolean;
 
-function GuessHighlighterType(const AText: string): string;
+function GuessHighlighterType(
+  const AText: string
+): string;
 
 function ChangeLineBreakStyle(
   const AString         : string;
         ALineBreakStyle : TTextLineBreakStyle
 ): string;
 
-function GuessLineBreakStyle(const AString: string): TTextLineBreakStyle;
+function GuessLineBreakStyle(
+  const AString: string
+): TTextLineBreakStyle;
 
-function StrToLineBreakStyle(const AString: string): TTextLineBreakStyle;
+function StrToLineBreakStyle(
+  const AString : string
+): TTextLineBreakStyle;
 
 function StripChars(
   const AString      : string;
@@ -217,15 +242,25 @@ function StripChars(
         AIgnoreChars : TSysCharSet = [' ']
 ): string;
 
-function StripMarkup(S: string): string;
+function StripMarkup(
+  const AString : string
+): string;
 
-function RemoveDoubles(const AString: string): string;
+function RemoveDoubles(
+  const AString : string
+): string;
 
-procedure MergeBlankStream(Stream: TStream);
+procedure MergeBlankStream(
+  AStream : TStream
+);
 
-function StripPASComments(const AString: string): string;
+function StripPASComments(
+  const AString : string
+): string;
 
-function StripLastLineEnding(const AString: string): string;
+function StripLastLineEnding(
+  const AString : string
+): string;
 
 function MatchRegExpr(
   const AString        : string;
@@ -258,23 +293,36 @@ function MatchRegExpr2(
 // Find SubString in S; do not consider case;
 // this works exactly the same as the Pos function,
 // except for case-INsensitivity.
-function CaseInsensitivePos(const Pat, Text: string): Integer; overload;
+function CaseInsensitivePos(
+  const APattern : string;
+  const AText    : string
+): Integer;
 
 function StrContains(
-  const SubStr, Str: string;
-        CaseSensitive: Boolean = True
+  const ASubString     : string;
+  const AString        : string;
+        ACaseSensitive : Boolean = True
 ): Boolean;
 
 function StrPos(
-  const SubStr, Str: string;
-        CaseSensitive: Boolean = True
+  const ASubString     : string;
+  const AString        : string;
+        ACaseSensitive : Boolean = True
 ): Integer;
 
-function PointToPos(AStrings: TStrings; APoint: TPoint): Integer;
+function PointToPos(
+  AStrings : TStrings;
+  APoint   : TPoint
+): Integer;
 
-function FileIsText(const AFilename: string): Boolean;
+function FileIsText(
+  const AFilename: string
+): Boolean;
 
-function WrapText(const ASource: string; AMaxCol: Integer): string;
+function WrapText(
+  const ASource : string;
+        AMaxCol : Integer
+): string;
 
 function TabsToSpaces(
   const ASource   : string;
@@ -311,29 +359,42 @@ function TabsToSpaces(
         found occurrence.)
     )
   ) }
-function FindPos(const SubText, Text: string; StartPosition, Count: integer;
-  Options: TSearchOptions;
-  const WordBorders: TSysCharSet = DefaultWordBorders): integer;
+function FindPos(
+  const ASubString     : string;
+  const AString        : string;
+        AStartPosition : Integer;
+        ACount         : Integer;
+  const AOptions       : TSearchOptions;
+  const AWordBorders   : TSysCharSet = DefaultWordBorders
+): Integer;
 
 function IsPrefix(
-  const Prefix     : string;
-  const S          : string;
-        IgnoreCase : Boolean = True
+  const APrefix     : string;
+  const AString     : string;
+        AIgnoreCase : Boolean = True
 ): Boolean;
 
 function IsSuffix(
-  const Suffix     : string;
-  const S          : string;
-        IgnoreCase : Boolean = True
+  const ASuffix     : string;
+  const AString     : string;
+        AIgnoreCase : Boolean = True
 ): Boolean;
 
 { Removes the prefix, if it is present. More precisely, if
   IsPrefix(Prefix, S, IgnoreCase) then returns S with this prefix
   removed. Else returns S. }
-function PrefixRemove(const Prefix, S: string; IgnoreCase: boolean): string;
+function PrefixRemove(
+  const APrefix     : string;
+  const AString     : string;
+        AIgnoreCase : Boolean = True
+): string;
 
 { Like PrefixRemove, but checks for and removes Suffix. }
-function SuffixRemove(const Suffix, S: string; IgnoreCase: boolean): string;
+function SuffixRemove(
+  const ASuffix     : string;
+  const AString     : string;
+        AIgnoreCase : Boolean = True
+): string;
 
 { Extract file extensions from a file filter usually specified
   a TOpenDialog.Filter value.
@@ -346,7 +407,10 @@ function SuffixRemove(const Suffix, S: string; IgnoreCase: boolean): string;
   As Extensions contents, we set an array of all extensions extracted from these
   filenames. For example above, we would set Extensions to array
   with two items: @code(['.ext1', '.ext2']). }
-procedure GetFileFilterExts(const FileFilter: string; Extensions: TStringList);
+procedure GetFileFilterExts(
+  const AFileFilter : string;
+        AExtensions : TStringList
+);
 
 { Extract file filter name, from a file filter usually specified
   a TOpenDialog.Filter value.
@@ -362,7 +426,9 @@ procedure GetFileFilterExts(const FileFilter: string; Extensions: TStringList);
   on the right of "|". Extensions on the right of "|" must be separated by
   semicolons, extensions within parenthesis on the left of "|" may
   be separated by semicolons ";" or colons ",". }
-function GetFileFilterName(const FileFilter: string): string;
+function GetFileFilterName(
+  const AFileFilter : string
+): string;
 
 { Search in FileFilter for the bar character "|", and return everything
   after it. This is a simple basis for GetFileFilterExts.
@@ -370,7 +436,9 @@ function GetFileFilterName(const FileFilter: string): string;
   If no "|" found, we return an empty string (in other words,
   file filter without "|" is treated as just a filter name, without
   any extensions). }
-function GetFileFilterExtsStr(const FileFilter: string): string;
+function GetFileFilterExtsStr(
+  const AFileFilter : string
+): string;
 
 implementation
 
@@ -745,7 +813,7 @@ function CommentText(const AString: string; ACommentType: TCommentType): string;
       System.Move(AFirstLineStart[1], Result[NewPos], Length(AFirstLineStart));
       Inc(NewPos, Length(AFirstLineStart));
     end;
-    // copy all lines and add new Alinestart
+    // Copy all lines and add new Alinestart
     while (OldPos <= OldLen) do
     begin
       if (not (AString[OldPos] in [#10, #13])) then
@@ -995,8 +1063,9 @@ begin
   end;
 end;
 
-procedure FilterLines(ASource, AInclude, AExclude, ADestination: TStrings;
-    AIncludeCaseSensitive: Boolean; AExcludeCaseSensitive: Boolean);
+procedure FilterLines(ASource: TStrings; AInclude: TStrings;
+  AExclude: TStrings; ADestination: TStrings; AIncludeCaseSensitive: Boolean;
+  AExcludeCaseSensitive: Boolean);
 var
   I : Integer;
   J : Integer;
@@ -1036,7 +1105,8 @@ begin
   end;
 end;
 
-procedure AddStringsPresentInString(ASource, ADest: TStrings; const AFilterString: string);
+procedure AddStringsPresentInString(ASource: TStrings; ADest: TStrings;
+  const AFilterString: string);
 var
   I: Integer;
   S: string;
@@ -1257,10 +1327,14 @@ begin
   end;
 end;
 
-function StripMarkup(S: string): string;
+function StripMarkup(const AString: string): string;
 var
-  TagBegin, TagEnd, TagLength: integer;
+  TagBegin  : Integer;
+  TagEnd    : Integer;
+  TagLength : Integer;
+  S         : string;
 begin
+  S := AString;
   TagBegin := Pos( '<', S);      // search position of first <
 
   while (TagBegin > 0) do begin  // while there is a < in S
@@ -1275,7 +1349,7 @@ begin
   S := StringReplace(S,'&lt;','<',[rfReplaceAll]);
   S := StringReplace(S,'&gt;','>',[rfReplaceAll]);
   S := StringReplace(S,'&quot;','"',[rfReplaceAll]);
-  Result := S;                   // give the result
+  Result := S;                   // give the Result
 end;
 
 { Will remove double lines after sorting each line. }
@@ -1304,7 +1378,7 @@ begin
   end;
 end;
 
-procedure MergeBlankStream(Stream: TStream);
+procedure MergeBlankStream(AStream: TStream);
 var
   Strings: TStringList;
   I: Integer;
@@ -1335,8 +1409,8 @@ var
 begin
   Strings := TStringList.Create;
   try
-    Stream.Position := 0;
-    Strings.LoadFromStream(Stream);
+    AStream.Position := 0;
+    Strings.LoadFromStream(AStream);
 
     I := Strings.Count - 1;
     PreIsBlank := False;
@@ -1354,8 +1428,8 @@ begin
       PreIsBlank := CurIsBlank;
     end;
 
-    Stream.Size := 0;
-    Strings.SaveToStream(Stream);
+    AStream.Size := 0;
+    Strings.SaveToStream(AStream);
   finally
     FreeAndNil(Strings);
   end;
@@ -1502,36 +1576,39 @@ begin
   end;
 end;
 
-function CaseInsensitivePos(const Pat, Text: string): Integer;
+function CaseInsensitivePos(const APattern: string; const AText: string): Integer;
 begin
-  Result := Pos(AnsiUpperCase(Pat), AnsiUpperCase(Text));
+  Result := Pos(AnsiUpperCase(APattern), AnsiUpperCase(AText));
 end;
 
-function StrContains(const SubStr, Str: string; CaseSensitive: Boolean): Boolean;
+function StrContains(const ASubString: string; const AString: string;
+  ACaseSensitive: Boolean): Boolean;
 begin
-  if CaseSensitive then
-    Result := Pos(SubStr, Str) > 0
+  if ACaseSensitive then
+    Result := Pos(ASubString, AString) > 0
   else
-    Result := CaseInsensitivePos(SubStr, Str) > 0;
+    Result := CaseInsensitivePos(ASubString, AString) > 0;
 end;
 
-function StrPos(const SubStr, Str: string; CaseSensitive: Boolean): Integer;
+function StrPos(const ASubString: string; const AString: string;
+  ACaseSensitive: Boolean): Integer;
 begin
-  if CaseSensitive then
-    Result := Pos(SubStr, Str)
+  if ACaseSensitive then
+    Result := Pos(ASubString, AString)
   else
-    Result := CaseInsensitivePos(SubStr, Str);
+    Result := CaseInsensitivePos(ASubString, AString);
 end;
 
 function PointToPos(AStrings: TStrings; APoint: TPoint): Integer;
+
   function LineLength(const AData: string): Integer;
   begin
     Result := Length(AData) + Length(LineEnding);
   end;
 
 var
-  I: Integer;
-  P: TPoint;
+  I : Integer;
+  P : TPoint;
 begin
   Result := 0;
   I      := 0;
@@ -1574,7 +1651,7 @@ begin
         E:= Min(S + AMaxCol - 1, L)
       else
         while (E > S) and (ASource[E] = ' ') do Dec(E);
-      Result:= Result + System.copy(ASource, S, E - S + 1) + LineEnding;
+      Result:= Result + System.Copy(ASource, S, E - S + 1) + LineEnding;
       P:= E + 1;
     end;
   end;
@@ -1592,118 +1669,130 @@ begin
   );
 end;
 
-function FindPos(const SubText, Text: string; StartPosition, Count: integer;
-  Options: TSearchOptions; const WordBorders: TSysCharSet): integer;
+function FindPos(const ASubString: string; const AString: string;
+  AStartPosition: Integer; ACount: Integer; const AOptions: TSearchOptions;
+  const AWordBorders: TSysCharSet): Integer;
 
-var S, SubS: string;
-     i: integer;
-function MatchingPos(i: integer): boolean;
+var
+  S    : string;
+  SubS : string;
+  I    : Integer;
 
-
-  { sprawdz czy i jest dobra Position wystapienia SubS w S.
-    Uwzglednij przy tym czy soWholeWord in Options, zachowuj sie zawsze
-    jakby bylo soMatchCase in Options. }
-  var realI: integer;
+  function MatchingPos(APos: Integer): Boolean;
+  var
+    I : Integer;
   begin
-   result := false;
-   if Copy(S, i, Length(SubS)) = SubS then
-   begin
-    if soWholeWord in Options then
+    Result := false;
+    if Copy(S, APos, Length(SubS)) = SubS then
     begin
-     realI := i+StartPosition-1;
-     if ( (realI = 1) or (Text[realI-1] in wordBorders) ) and
-        ( (realI+length(subS)-1 = length(Text)) or (Text[realI+length(subS)] in WordBorders) )
-     then result := true
-    end else result := true;
+      if soWholeWord in AOptions then
+      begin
+        I := APos+AStartPosition-1;
+        if ( (I = 1) or (AString[I-1] in AWordBorders) ) and
+        ( (I+length(subS)-1 = length(AString)) or (AString[I+length(subS)] in AWordBorders) )
+     then
+       Result := True
+    end
+    else
+      Result := True;
    end;
   end;
 
-
-
-
+begin
+  S := Copy(AString, AStartPosition, ACount);
+  SubS := ASubString;
+  if not (soMatchCase in AOptions) then
   begin
-   S := copy(Text, StartPosition, Count);
-   SubS := SubText;
-   if not (soMatchCase in Options) then
-   begin
     S := AnsiUpperCase(S);
     SubS := AnsiUpperCase(SubS);
-   end;
-   result := 0;
-   if soBackwards in Options then
+  end;
+  Result := 0;
+  if soBackwards in AOptions then
+  begin
+    for I := ACount-Length(SubS)+1 downto 1 do
+      if MatchingPos(I) then
+      begin
+       Result := I;
+       Break;
+      end;
+   end
+   else
    begin
-    for i := Count-Length(SubS)+1 downto 1 do
-     if MatchingPos(i) then begin result := i; break end;
-   end else
-   begin
-    for i := 1 to Count-Length(SubS)+1 do
-     if MatchingPos(i) then begin result := i; break end;
+     for I := 1 to ACount-Length(SubS)+1 do
+       if MatchingPos(I) then
+       begin
+         Result := I;
+         Break
+       end;
    end;
-   if result > 0 then result := result+StartPosition-1;
+   if Result > 0 then
+     Result := Result + AStartPosition - 1;
 end;
 
-function CharPos(c: char; const s: string; Offset: Integer = 1): integer;
-var i: integer;
+function CharPos(c: char; const s: string; Offset: Integer = 1): Integer;
+var i: Integer;
 begin
 for i := Offset to length(s) do
-if s[i] = c then begin result := i; exit end;
-result := 0;
+if s[i] = c then begin Result := i; exit end;
+Result := 0;
 end;
 
-function SEnding(const S: string; P: integer): string;
+function SEnding(const S: string; P: Integer): string;
 begin
- result := Copy(S, P, MaxInt)
+ Result := Copy(S, P, MaxInt)
 end;
 
-function SRight(const s: string; const rpart: integer): string;
+function SRight(const s: string; const rpart: Integer): string;
 begin
  if Length(s) < rpart then
-  result := s else
-  result := Copy(s, Length(s)-rpart+1, rpart);
+  Result := s else
+  Result := Copy(s, Length(s)-rpart+1, rpart);
 end;
 
-function IsPrefix(const Prefix, S: string; IgnoreCase: boolean): boolean;
+function IsPrefix(const APrefix: string; const AString: string;
+  AIgnoreCase: Boolean): Boolean;
 begin
- if IgnoreCase then
-  result := AnsiCompareText(Copy(S, 1, Length(Prefix)), Prefix) = 0 else
-  result := AnsiCompareStr(Copy(S, 1, Length(Prefix)), Prefix) = 0;
+ if AIgnoreCase then
+  Result := AnsiCompareText(Copy(AString, 1, Length(APrefix)), APrefix) = 0 else
+  Result := AnsiCompareStr(Copy(AString, 1, Length(APrefix)), APrefix) = 0;
 end;
 
-function IsSuffix(const Suffix, S: string; IgnoreCase: boolean): boolean;
+function IsSuffix(const ASuffix: string; const AString: string;
+  AIgnoreCase: Boolean): Boolean;
 begin
- if IgnoreCase then
-  result := AnsiCompareText(SRight(S, Length(Suffix)), Suffix) = 0 else
-  result := AnsiCompareStr(SRight(S, Length(Suffix)), Suffix) = 0;
+ if AIgnoreCase then
+  Result := AnsiCompareText(SRight(AString, Length(ASuffix)), ASuffix) = 0 else
+  Result := AnsiCompareStr(SRight(AString, Length(ASuffix)), ASuffix) = 0;
 end;
 
-function PrefixRemove(const Prefix, S: string; IgnoreCase: boolean): string;
+function PrefixRemove(const APrefix: string; const AString: string;
+  AIgnoreCase: Boolean): string;
 
-function SEnding(const S: string; P: integer): string;
+  function SEnding(const S: string; P: Integer): string;
+  begin
+   Result := Copy(S, P, MaxInt)
+  end;
+
 begin
- result := Copy(S, P, MaxInt)
+ if IsPrefix(APrefix, AString, AIgnoreCase) then
+  Result := SEnding(AString, Length(APrefix) + 1) else
+  Result := AString;
 end;
 
+function SuffixRemove(const ASuffix: string; const AString: string;
+  AIgnoreCase: Boolean): string;
 begin
- if IsPrefix(Prefix, S, IgnoreCase) then
-  Result := SEnding(S, Length(Prefix) + 1) else
-  Result := S;
-end;
-
-
-
-function SuffixRemove(const Suffix, S: string; IgnoreCase: boolean): string;
-begin
- Result := S;
- if IsSuffix(Suffix, S, IgnoreCase) then
+ Result := AString;
+ if IsSuffix(ASuffix, AString, AIgnoreCase) then
  begin
   { doing assignment and SetLength should be a little faster
-    than doing Result := Copy(S, 1, ...) }
-  SetLength(Result, Length(s) - Length(Suffix));
+    than doing Result := Copy(AString, 1, ...) }
+  SetLength(Result, Length(AString) - Length(ASuffix));
  end;
 end;
 
-procedure GetFileFilterExts(const FileFilter: string; Extensions: TStringList);
-var p, SeekPos: integer;
+procedure GetFileFilterExts(const AFileFilter: string; AExtensions: TStringList);
+var p, SeekPos: Integer;
     ExtsStr, filemask: string;
 
     function NextToken(const S: string; var SeekPos: Integer;
@@ -1719,8 +1808,8 @@ var p, SeekPos: integer;
 
       while (SeekPos <= Length(s)) and not(S[SeekPos] in TokenDelims) do Inc(SeekPos);
 
-      { Calculate result := s[TokStart, ... , SeekPos-1] }
-      result := Copy(s, TokStart, SeekPos-TokStart);
+      { Calculate Result := s[TokStart, ... , SeekPos-1] }
+      Result := Copy(s, TokStart, SeekPos-TokStart);
 
       { We don't have to do Inc(seekPos) below. But it's obvious that searching
         for next token can skip SeekPos, since we know S[SeekPos] is TokenDelim. }
@@ -1728,8 +1817,8 @@ var p, SeekPos: integer;
     end;
 
 begin
- Extensions.Clear;
- ExtsStr := GetFileFilterExtsStr(FileFilter);
+ AExtensions.Clear;
+ ExtsStr := GetFileFilterExtsStr(AFileFilter);
  SeekPos := 1;
  repeat
   filemask := NextToken(ExtsStr, SeekPos,[';']);
@@ -1738,13 +1827,13 @@ begin
   if p > 0 then
    Delete(filemask, 1, p-1) else { delete name from filemask }
    filemask := '.'+filemask; { it means there was no name and dot in filemask. So prepend dot. }
-  Extensions.Add(filemask);
+  AExtensions.Add(filemask);
  until false;
 end;
 
-function GetFileFilterName(const FileFilter: string): string;
+function GetFileFilterName(const AFileFilter: string): string;
 var ffLeft, ffRight: string;
-    p, len: integer;
+    p, len: Integer;
 
 
 
@@ -1757,17 +1846,17 @@ begin
 end;
 
 begin
- p := CharPos('|', FileFilter);
- if p = 0 then result := Trim(FileFilter) else
+ p := CharPos('|', AFileFilter);
+ if p = 0 then Result := Trim(AFileFilter) else
  begin
-  ffLeft := Trim(Copy(FileFilter, 1, p-1));
-  ffRight := Trim(SEnding(FileFilter, p+1));
+  ffLeft := Trim(Copy(AFileFilter, 1, p-1));
+  ffRight := Trim(SEnding(AFileFilter, p+1));
   if ffRight = '' then
   begin
-   result := ffLeft;
-   { if FileFilter = 'xxx()|' then it matches to pattern 'xxx(exts)|exts'
+   Result := ffLeft;
+   { if AFileFilter = 'xxx()|' then it matches to pattern 'xxx(exts)|exts'
      so we should return 'xxx', not 'xxx()'.
-     This is often really useful when FileFilter was constructed in an
+     This is often really useful when AFileFilter was constructed in an
      automatic way (e.g. as in mine edytorek). }
    if IsSuffix('()', Result) then
    begin
@@ -1780,7 +1869,7 @@ begin
    p := FindPos(ffRight, ffLeft, 1, Length(ffLeft), [soBackwards]);
    if p = 0 then
     p := FindPos(SReplaceChars(ffRight, ';', ','), ffLeft, 1, Length(ffLeft), [soBackwards]);
-   if p = 0 then result := ffLeft else
+   if p = 0 then Result := ffLeft else
    begin
     len := Length(ffRight);
     {zwieksz len tak zeby objelo biale znaki az do ')'}
@@ -1792,7 +1881,6 @@ begin
       Inc(len) else
       break;
     end;
-    {zmniejsz p tak zeby objelo biale znaki az do '('}
     while p-1 >= 1 do
     begin
      if ffLeft[p-1] = '(' then
@@ -1801,30 +1889,31 @@ begin
       begin Dec(p); Inc(len) end else
       break;
     end;
-    {koniec; wypieprz p, len}
     Delete(ffLeft, p, len);
-    result := Trim(ffLeft);
+    Result := Trim(ffLeft);
    end;
   end;
  end;
 end;
 
-function GetFileFilterExtsStr(const FileFilter: string): string;
-var p: integer;
+function GetFileFilterExtsStr(const AFileFilter: string): string;
+var p: Integer;
 begin
- p := CharPos('|', FileFilter);
+ p := CharPos('|', AFileFilter);
  if p > 0 then
-  result := SEnding(FileFilter, p+1) else
-  result := '';
+  Result := SEnding(AFileFilter, p+1) else
+  Result := '';
 end;
 
 function CompressWhiteSpace(const AString: string): string;
 
-function SCharIs(const s: string; index: integer; const chars: TSysCharSet): boolean;
-begin result:=(index <= Length(s)) and (s[index] in chars) end;
+  function SCharIs(const AString: string; AIndex: Integer; const AChars: TSysCharSet): Boolean;
+  begin
+    Result:=(AIndex <= Length(AString)) and (AString[AIndex] in AChars)
+  end;
 
 var
-  ResultPos: Integer; { this is always next free result position }
+  ResultPos: Integer; { this is always next free Result position }
   SPos: Integer; { this is always next unhandled AString position }
   NextSPos: Integer;
 begin

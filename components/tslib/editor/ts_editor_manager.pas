@@ -1832,6 +1832,7 @@ end;
 procedure TdmEditorManager.actExitExecute(Sender: TObject);
 begin
   ClearViews;
+  Application.Terminate;
 end;
 
 procedure TdmEditorManager.actFindNextWordExecute(Sender: TObject);

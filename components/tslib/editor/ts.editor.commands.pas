@@ -561,8 +561,6 @@ end;
 
 procedure TEditorCommands.FormatCode;
 var
-  N  : Integer;
-  S  : string;
   HI : THighlighterItem;
 begin
   HI := View.HighlighterItem;

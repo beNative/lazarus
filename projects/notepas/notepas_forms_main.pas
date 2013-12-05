@@ -685,7 +685,8 @@ end;
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
-  if Assigned(Manager) and Assigned(Manager.ActiveView) then
+  if Assigned(Manager)
+    and Assigned(Manager.ActiveView) then
   begin
     UpdateCaptions;
     UpdateStatusBar;

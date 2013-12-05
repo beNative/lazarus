@@ -1077,6 +1077,14 @@ msgstr ""
 msgid "If you like this project, you can support development with a donation."
 msgstr ""
 
+#: tfrmabout.acthomepage.caption
+msgid "Visit home page"
+msgstr ""
+
+#: tfrmabout.actprojectpage.caption
+msgid "Visit project page"
+msgstr ""
+
 #: tfrmabout.actreportdefect.caption
 msgid "Report a defect."
 msgstr ""
@@ -1084,10 +1092,6 @@ msgstr ""
 #: tfrmabout.actreportdefect.hint
 msgid "Report an issue."
 msgstr "Rapporteer een probleem."
-
-#: tfrmabout.acturl.caption
-msgid "Visit URL"
-msgstr "Bezoek URL"
 
 #: tfrmabout.caption
 msgctxt "tfrmabout.caption"
@@ -1110,6 +1114,24 @@ msgstr "Versie:"
 msgid "FPC version:"
 msgstr "FPC versie:"
 
+#: tfrmabout.lblhomepage.caption
+msgctxt "tfrmabout.lblhomepage.caption"
+msgid "URL"
+msgstr "URL"
+
+#: tfrmabout.lblhomepage.hint
+msgid "Homepage"
+msgstr ""
+
+#: tfrmabout.lblprojectpage.caption
+msgctxt "tfrmabout.lblprojectpage.caption"
+msgid "URL"
+msgstr "URL"
+
+#: tfrmabout.lblprojectpage.hint
+msgid "Project page"
+msgstr ""
+
 #: tfrmabout.lbltargetcpu.caption
 msgid "Target CPU:"
 msgstr "Doel CPU:"
@@ -1117,10 +1139,6 @@ msgstr "Doel CPU:"
 #: tfrmabout.lbltargetos.caption
 msgid "Target OS:"
 msgstr "Doel OS:"
-
-#: tfrmabout.lblurl.caption
-msgid "URL"
-msgstr "URL"
 
 #: tfrmabout.lblwidgetset.caption
 msgid "Widget set:"
@@ -4028,6 +4046,10 @@ msgstr "Naam"
 msgctxt "ts_editor_aboutdialog.sname"
 msgid "Name"
 msgstr "Naam"
+
+#: ts_editor_aboutdialog.svalue
+msgid "Value"
+msgstr ""
 
 #: ts_editor_actionlist_toolview.sbutton
 msgctxt "ts_editor_actionlist_toolview.sbutton"

@@ -6,7 +6,7 @@ object frmMain: TfrmMain
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 618
+  ClientHeight = 598
   ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300

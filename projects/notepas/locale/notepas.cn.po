@@ -1096,16 +1096,20 @@ msgstr ""
 msgid "If you like this project, you can support development with a donation."
 msgstr ""
 
+#: tfrmabout.acthomepage.caption
+msgid "Visit home page"
+msgstr ""
+
+#: tfrmabout.actprojectpage.caption
+msgid "Visit project page"
+msgstr ""
+
 #: tfrmabout.actreportdefect.caption
 msgid "Report a defect."
 msgstr ""
 
 #: tfrmabout.actreportdefect.hint
 msgid "Report an issue."
-msgstr ""
-
-#: tfrmabout.acturl.caption
-msgid "Visit URL"
 msgstr ""
 
 #: tfrmabout.caption
@@ -1133,6 +1137,26 @@ msgstr "版本:"
 msgid "FPC version:"
 msgstr "FPC版本:"
 
+#: tfrmabout.lblhomepage.caption
+#, fuzzy
+msgctxt "tfrmabout.lblhomepage.caption"
+msgid "URL"
+msgstr "URL"
+
+#: tfrmabout.lblhomepage.hint
+msgid "Homepage"
+msgstr ""
+
+#: tfrmabout.lblprojectpage.caption
+#, fuzzy
+msgctxt "tfrmabout.lblprojectpage.caption"
+msgid "URL"
+msgstr "URL"
+
+#: tfrmabout.lblprojectpage.hint
+msgid "Project page"
+msgstr ""
+
 #: tfrmabout.lbltargetcpu.caption
 #, fuzzy
 msgid "Target CPU:"
@@ -1142,11 +1166,6 @@ msgstr "本机CPU:"
 #, fuzzy
 msgid "Target OS:"
 msgstr "本地系统:"
-
-#: tfrmabout.lblurl.caption
-#, fuzzy
-msgid "URL"
-msgstr "URL"
 
 #: tfrmabout.lblwidgetset.caption
 msgid "Widget set:"
@@ -3989,6 +4008,10 @@ msgstr ""
 #: ts_editor_aboutdialog.sname
 msgctxt "ts_editor_aboutdialog.sname"
 msgid "Name"
+msgstr ""
+
+#: ts_editor_aboutdialog.svalue
+msgid "Value"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sbutton

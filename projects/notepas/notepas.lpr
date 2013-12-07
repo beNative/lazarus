@@ -151,7 +151,7 @@ uses
   ts_Editor_Structure_ToolView,
   ts_Editor_Test_ToolView,
   ts.Editor.CodeFilter.Data,
-  ts.Editor.ViewList.Data;
+  ts.Editor.ViewList.Data, ts.Core.SystemInfo;
 
 {$R *.res}
 

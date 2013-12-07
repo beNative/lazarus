@@ -1,3 +1,9 @@
+2013.12.07 (0.9.25)
+* New feature: merge blank lines in selection.
+* New feature: remove comments from selection.
+* Fixed issues with assigning text from clipboard.
+* Improved AutoGuesHighlighter
+
 2013.12.04 (0.9.24)
 * Fixed issue when closing multiple views at once.
 

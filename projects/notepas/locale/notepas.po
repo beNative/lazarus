@@ -599,6 +599,14 @@ msgstr ""
 msgid "Lower case selection"
 msgstr ""
 
+#: tdmeditormanager.actmergeblanklines.caption
+msgid "Merge blank lines"
+msgstr ""
+
+#: tdmeditormanager.actmergeblanklines.hint
+msgid "Merge blank lines to one in the selected lines."
+msgstr ""
+
 #: tdmeditormanager.actmonitorchanges.caption
 msgid "Monitor changes"
 msgstr ""
@@ -948,6 +956,14 @@ msgstr ""
 
 #: tdmeditormanager.actstayontop.hint
 msgid "Lets the application window stay on top of all other opened windows."
+msgstr ""
+
+#: tdmeditormanager.actstripcomments.caption
+msgid "Strip comments"
+msgstr ""
+
+#: tdmeditormanager.actstripcomments.hint
+msgid "Strip all comments from the selected code."
 msgstr ""
 
 #: tdmeditormanager.actstripfirstchar.caption

@@ -104,6 +104,7 @@ type
   private
     FSettings : IEditorSettings;
     FManager  : IEditorManager;
+
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;

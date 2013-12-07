@@ -111,7 +111,6 @@ if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else
 else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
 begin
   upx := 'upx.exe'
@@ -160,7 +159,6 @@ end;"/>
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
@@ -814,51 +812,54 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="14">
+    <RequiredPackages Count="15">
       <Item1>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="pl_exsystem"/>
       </Item1>
       <Item2>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="FrameViewer09"/>
       </Item2>
       <Item3>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item3>
       <Item4>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="LazControls"/>
       </Item4>
       <Item5>
-        <PackageName Value="pl_colorlib"/>
+        <PackageName Value="richmemopackage"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="pl_colorlib"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="pl_richview"/>
       </Item7>
       <Item8>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_dwscript"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="SynEdit"/>
       </Item9>
       <Item10>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item10>
       <Item11>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item11>
       <Item12>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item12>
       <Item13>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item13>
       <Item14>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item14>
+      <Item15>
+        <PackageName Value="LCL"/>
+      </Item15>
     </RequiredPackages>
-    <Units Count="127">
+    <Units Count="129">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -888,6 +889,7 @@ end;"/>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Helpers"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -896,6 +898,7 @@ end;"/>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -1108,6 +1111,7 @@ end;"/>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -1121,6 +1125,7 @@ end;"/>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+        <UnitName Value="ts.RichEditor.Manager"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
@@ -1520,6 +1525,15 @@ end;"/>
         <Filename Value="build.sh"/>
         <IsPartOfProject Value="True"/>
       </Unit126>
+      <Unit127>
+        <Filename Value="..\..\components\tslib\core\ts.core.system.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit127>
+      <Unit128>
+        <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SystemInfo"/>
+      </Unit128>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

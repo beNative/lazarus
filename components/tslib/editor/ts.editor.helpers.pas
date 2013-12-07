@@ -372,7 +372,9 @@ begin
   AddEditorMenuItem(AManager, MI, 'actStripFirstChar');
   AddEditorMenuItem(AManager, MI, 'actStripLastChar');
   AddEditorMenuItem(AManager, MI);
+  AddEditorMenuItem(AManager, MI, 'actStripComments');
   AddEditorMenuItem(AManager, MI, 'actStripMarkup');
+  AddEditorMenuItem(AManager, MI, 'actMergeBlankLines');
   AddEditorMenuItem(AManager, MI);
   SMI := AddEditorMenuItem(AManager, MI, 'actSelectionEncodeMenu');
   AddEditorMenuItem(AManager, SMI, 'actEncodeBase64');

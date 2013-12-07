@@ -482,9 +482,11 @@ begin
   S := Application.ExeName;
 
 
-  AddInfo('Executable', ExtractFileNameOnly(S));
-  AddInfo('Path', ExtractFileDir(S));
-  AddInfo('Size', FormatByteText(FileSize(S)));
+  AddInfo('Application name:', ExtractFileName(S));
+  AddInfo('Application path:', ExtractFilePath(S));
+  AddInfo('Application size:', FormatByteText(FileSize(S)));
+  AddInfo('Current path:', ExtractFilePath(ParamStr(0)));
+  AddInfo('Current user:', FVersionInfo.UserName);
   //
   //AddInfo('Startup parameters', Application.ApplicationType);
   //
@@ -526,8 +528,9 @@ begin
   FillInfoList;
   FVSTInfoList := VST.Create(Self, tsInfo);
   FTVPInfoList := TTreeViewPresenter.Create(Self);
-  FTVPInfoList.ColumnDefinitions.AddColumn('Name', SName, dtString, 100);
-  FTVPInfoList.ColumnDefinitions.AddColumn('Value', SValue, dtString, 200);
+  FTVPInfoList.ShowHeader := False;
+  FTVPInfoList.ColumnDefinitions.AddColumn('Name', SName, dtString, 110);
+  FTVPInfoList.ColumnDefinitions.AddColumn('Value', SValue, dtString, 200, 200, 400);
   FTVPInfoList.ListMode := True;
   FTVPInfoList.ItemsSource := FInfoList;
   FTVPInfoList.TreeView := FVSTInfoList;

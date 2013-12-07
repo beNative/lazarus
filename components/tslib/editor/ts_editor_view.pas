@@ -781,15 +781,10 @@ end;
 
 procedure TEditorView.SetText(const AValue: string);
 begin
-  if (Lines.Count = 0) and not Assigned(HighlighterItem) and Settings.AutoGuessHighlighterType then
-    HighlighterItem := Manager.Highlighters.ItemsByName[GuessHighlighterType(AValue)];
-  if Assigned(HighlighterItem) and (HighlighterItem.Name = HL_XML)
-    and Settings.AutoFormatXML then
+  if Lines.Text <> AValue then
   begin
-    Lines.Text := FormatXML(AValue);
-  end
-  else
     Lines.Text := AValue;
+  end;
 end;
 
 function TEditorView.GetCaretX: Integer;
@@ -1333,10 +1328,21 @@ begin
 end;
 
 procedure TEditorView.AssignHighlighterForFileType(const AFileExt: string);
+var
+  S : string;
 begin
+  S := '';
   HighlighterItem := Manager.Highlighters.FindHighlighterForFileType(AFileExt);
-  if not Assigned(HighlighterItem) and Settings.AutoGuessHighlighterType then
-    AssignHighlighter(GuessHighlighterType(Text));
+  if not Assigned(HighlighterItem) then
+  begin
+    if Settings.AutoGuessHighlighterType then
+    begin
+      S := GuessHighlighterType(Text);
+    end;
+    if S = '' then
+      S := 'TXT';
+    HighlighterItem := Manager.Highlighters.ItemsByName[S];
+  end
 end;
 
 function TEditorView.IsActive: Boolean;
@@ -1820,7 +1826,11 @@ begin
     S := System.Copy(S, 2, Length(S));
     try
       if FileIsText(FileName) then
+      begin
+
         AssignHighlighterForFileType(S);
+
+      end;
     except
       { TODO -oTS : dirty: need to fix this }
       // for an unknown reason an EAbort is raised

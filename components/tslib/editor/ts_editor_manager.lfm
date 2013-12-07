@@ -4385,6 +4385,18 @@ object dmEditorManager: TdmEditorManager
       DisableIfNoHandler = False
       ImageIndex = 107
     end
+    object actStripComments: TAction
+      Category = 'Selection'
+      Caption = 'Strip comments'
+      Hint = 'Strip all comments from the selected code.'
+      OnExecute = actStripCommentsExecute
+    end
+    object actMergeBlankLines: TAction
+      Category = 'Selection'
+      Caption = 'Merge blank lines'
+      Hint = 'Merge blank lines to one in the selected lines.'
+      OnExecute = actMergeBlankLinesExecute
+    end
   end
   object ppmExport: TPopupMenu
     Images = imlMain

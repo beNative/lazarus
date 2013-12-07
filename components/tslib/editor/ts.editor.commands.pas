@@ -46,6 +46,9 @@ type
     function GetSettings: IEditorSettings;
     function GetView: IEditorView;
 
+    function StripComments(const AString: string): string;
+    function MergeBlankLines(const AString: string): string;
+
   strict protected
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
@@ -71,6 +74,8 @@ type
             AInsertSpaceAfterToken  : Boolean;
             AAlignInParagraphs      : Boolean
     );
+    procedure MergeBlankLinesInSelection;
+    procedure StripCommentsFromSelection;
     procedure StripMarkupFromSelection;
     procedure StripCharsFromSelection(
       AFirst : Boolean;
@@ -114,7 +119,7 @@ type
 implementation
 
 uses
-  Math,
+  Math, StrUtils,
 
   FileUtil, Base64,
 
@@ -122,7 +127,7 @@ uses
 
   ts.Core.Utils,
 
-  ts.Editor.Highlighters,
+  ts.Editor.Highlighters, ts_Editor_Resources, ts.Editor.CommentStripper,
 
   ts.Editor.Utils;
 
@@ -158,6 +163,65 @@ function TEditorCommands.GetView: IEditorView;
 begin
   Result := Manager.ActiveView;
 end;
+
+{ TODO: Use interfaces like (cfr. ICodeFormatter) }
+
+function TEditorCommands.StripComments(const AString: string): string;
+var
+  SSIn  : TStringStream;
+  SSOut : TStringStream;
+  CS    : TCustomCommentStripper;
+  C     : Char;
+begin
+  CS := nil;
+  if AnsiMatchStr(View.HighlighterItem.Name, [HL_PAS]) then
+    CS := TPasCommentStripper.Create(nil)
+  else if AnsiMatchStr(View.HighlighterItem.Name, [HL_CPP, HL_JAVA, HL_CS]) then
+    CS := TCPPCommentStripper.Create(nil);
+  if Assigned(CS) then
+  begin
+    try
+      SSIn := TStringStream.Create('');
+      try
+        SSIn.WriteString(AString);
+        C := #0;
+        SSIn.Write(C, 1);
+        SSIn.Position := 0;
+        SSOut := TStringStream.Create('');
+        try
+          CS.InStream  := SSIn;
+          CS.OutStream := SSOut;
+          CS.Parse;
+          SSOut.Position := 0;
+          Result := SSOut.ReadString(SSOut.Size);
+        finally
+          SSOut.Free;
+        end;
+      finally
+        SSIn.Free;
+      end;
+    finally
+      CS.Free;
+    end;
+  end
+  else
+    Result := AString;
+end;
+
+function TEditorCommands.MergeBlankLines(const AString: string): string;
+var
+  SS : TStringStream;
+begin
+  SS := TStringStream.Create(AString);
+  try
+    SS.Position := 0;
+    MergeBlankStream(SS);
+    Result := SS.DataString;
+  finally
+    SS.Free;
+  end;
+end;
+
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -316,6 +380,20 @@ begin
     );
     Selection.Restore;
   end;
+end;
+
+procedure TEditorCommands.MergeBlankLinesInSelection;
+begin
+  Selection.Store;
+  Selection.Text := MergeBlankLines(Selection.Text);
+  Selection.Restore;
+end;
+
+procedure TEditorCommands.StripCommentsFromSelection;
+begin
+  Selection.Store;
+  Selection.Text := StripComments(Selection.Text);
+  Selection.Restore;
 end;
 
 { TODO -oTS : Not working! }

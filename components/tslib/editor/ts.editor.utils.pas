@@ -254,10 +254,6 @@ procedure MergeBlankStream(
   AStream : TStream
 );
 
-function StripPASComments(
-  const AString : string
-): string;
-
 function StripLastLineEnding(
   const AString : string
 ): string;
@@ -453,7 +449,7 @@ uses
 
   ts.Core.BRRE, ts.Core.BRREUnicode,
 
-  ts_Editor_Resources, ts.Editor.CommentStripper;
+  ts_Editor_Resources;
 
 { Will remove all spaces from the given string, but preserves one space
   between words. Spaces used to indent the given string will not be removed
@@ -1121,10 +1117,10 @@ begin
 end;
 
 function IsXML(const AString: string): Boolean;
+const
+  MATCH = '^\<\?xml version\=.+\?\>$';
 begin
-  Result := AnsiContainsText(AString, '<?xml')
-    or AnsiContainsText(AString, '<xmlroot>')
-    or AnsiContainsText(AString, '<xmlns="');
+  Result := MatchRegExpr(AString, MATCH, False);
 end;
 
 function IsPAS(const AString: string): Boolean;
@@ -1169,9 +1165,42 @@ begin
     or AnsiContainsText(AString, '<HTML');
 end;
 
+{ Tries to guess a suitable highlighter for the given text based on the first
+  2000 bytes. }
+
 function GuessHighlighterType(const AText: string): string;
+var
+  SL : TStringList;
+  S  : string;
 begin
   Result := '';
+  if Length(AText) > 0 then
+  begin
+    SL := TStringList.Create;
+    try
+      SL.Text := Copy(AText, 0, 10000);
+      if SL.Count > 0 then
+      begin
+        S := Trim(SL[0]);
+        if IsXML(S) then
+          Result := HL_XML
+        //if IsLOG(AText) then
+        //  Result := HL_LOG
+        //else if IsPAS(AText) then
+        //  Result := HL_PAS
+        //else if IsLFM(AText) then
+        //  Result := HL_LFM
+        //else if IsHTML(AText) then
+        //  Result := HL_HTML
+        //else if IsXML(AText) then
+        //  Result := HL_XML
+        //else if IsSQL(AText) then
+        //  Result := HL_SQL;
+      end
+    finally
+      SL.Free;
+    end;
+  end;
   //if IsLOG(AText) then
   //  Result := HL_LOG
   //else if IsPAS(AText) then
@@ -1341,7 +1370,7 @@ begin
     TagEnd := Pos('>', S);              // find the matching >
     TagLength := TagEnd - TagBegin + 1;
     Delete(S, TagBegin, TagLength);     // delete the tag
-    TagBegin:= Pos( '<', S);            // search for next <
+    TagBegin := Pos( '<', S);            // search for next <
   end;
 
   S := StringReplace(S,'&nbsp;',' ',[rfReplaceAll]);
@@ -1432,40 +1461,6 @@ begin
     Strings.SaveToStream(AStream);
   finally
     FreeAndNil(Strings);
-  end;
-end;
-
-function StripPASComments(const AString: string): string;
-var
-  SSIn  : TStringStream;
-  SSOut : TStringStream;
-  CS    : TPasCommentStripper;
-  C     : Char;
-begin
-  CS := TPasCommentStripper.Create(nil);
-  try
-    SSIn := TStringStream.Create('');
-    try
-      SSIn.WriteString(AString);
-      C := #0;
-      SSIn.Write(C, 1);
-      ShowMessage(IntToStr(SSIn.Size));
-      SSIn.Position := 0;
-      SSOut := TStringStream.Create('');
-      try
-        CS.InStream  := SSIn;
-        CS.OutStream := SSOut;
-        CS.Parse;
-        SSOut.Position := 0;
-        Result := SSOut.ReadString(SSOut.Size);
-      finally
-        SSOut.Free;
-      end;
-    finally
-      SSIn.Free;
-    end;
-  finally
-    CS.Free;
   end;
 end;
 
@@ -1729,17 +1724,22 @@ begin
      Result := Result + AStartPosition - 1;
 end;
 
-function CharPos(c: char; const s: string; Offset: Integer = 1): Integer;
-var i: Integer;
+function CharPos(AChar: Char; const AString: string; AOffset: Integer = 1): Integer;
+var
+  I: Integer;
 begin
-for i := Offset to length(s) do
-if s[i] = c then begin Result := i; exit end;
-Result := 0;
+  for I := AOffset to Length(AString) do
+    if AString[I] = AChar then
+    begin
+     Result := I;
+     exit
+    end;
+  Result := 0;
 end;
 
 function SEnding(const S: string; P: Integer): string;
 begin
- Result := Copy(S, P, MaxInt)
+  Result := Copy(S, P, MaxInt)
 end;
 
 function SRight(const s: string; const rpart: Integer): string;

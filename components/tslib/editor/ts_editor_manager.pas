@@ -158,6 +158,8 @@ type
     actFoldMenu                       : TAction;
     actEncodeURL                      : TAction;
     actDecodeURL                      : TAction;
+    actMergeBlankLines                : TAction;
+    actStripComments                  : TAction;
     actSelectionEncodeMenu            : TAction;
     actSelectionDecodeMenu            : TAction;
     actSettingsMenu                   : TAction;
@@ -319,6 +321,7 @@ type
     procedure actDecodeURLExecute(Sender: TObject);
     procedure actEncodeURLExecute(Sender: TObject);
     procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
+    procedure actMergeBlankLinesExecute(Sender: TObject);
     procedure actPageSetupExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
     procedure actPrintPreviewExecute(Sender: TObject);
@@ -327,6 +330,7 @@ type
     procedure actShowHTMLViewerExecute(Sender: TObject);
     procedure actShowMiniMapExecute(Sender: TObject);
     procedure actShowScriptEditorExecute(Sender: TObject);
+    procedure actStripCommentsExecute(Sender: TObject);
     procedure actUnindentExecute(Sender: TObject);
     procedure actFindAllOccurencesExecute(Sender: TObject);
     procedure actIndentExecute(Sender: TObject);
@@ -1481,6 +1485,16 @@ begin
   Commands.StripMarkupFromSelection;
 end;
 
+procedure TdmEditorManager.actStripCommentsExecute(Sender: TObject);
+begin
+  Commands.StripCommentsFromSelection;
+end;
+
+procedure TdmEditorManager.actMergeBlankLinesExecute(Sender: TObject);
+begin
+  Commands.MergeBlankLinesInSelection;
+end;
+
 procedure TdmEditorManager.actStripLastCharExecute(Sender: TObject);
 begin
   Commands.StripCharsFromSelection(False, True);
@@ -2434,7 +2448,9 @@ begin
   AddMenuItem(MI);
   AddMenuItem(MI, actStripFirstChar);
   AddMenuItem(MI, actStripLastChar);
+  AddMenuItem(MI, actStripComments);
   AddMenuItem(MI, actStripMarkup);
+  AddMenuItem(MI, actMergeBlankLines);
   AddMenuItem(MI);
   AddMenuItem(MI, actToggleComment);
   AddMenuItem(MI, actToggleBlockCommentSelection);
@@ -3001,8 +3017,10 @@ begin
       actQuoteLinesAndDelimit.Enabled           := B;
       actSortSelection.Enabled                  := B;
       actUpperCaseSelection.Enabled             := B;
+      actStripComments.Enabled                  := B;
       actStripFirstChar.Enabled                 := B;
       actStripLastChar.Enabled                  := B;
+      actMergeBlankLines.Enabled                := B;
       actQuoteLines.Enabled                     := B;
       actDequoteLines.Enabled                   := B;
       actSelectionEncodeMenu.Enabled            := B;
@@ -3022,13 +3040,13 @@ begin
       actDequoteLines.Visible            := B;
       actDequoteSelection.Visible        := B;
       actFormat.Visible                  := B;
-      actShowCharacterMap.Visible  := actShowCharacterMap.Visible and B;
+      actShowCharacterMap.Visible        := actShowCharacterMap.Visible and B;
       actPascalStringOfSelection.Visible := B;
       actPaste.Visible                   := B;
       actQuoteSelection.Visible          := B;
       actQuoteLines.Visible              := B;
       actQuoteLinesAndDelimit.Visible    := B;
-      actShowCodeShaper.Visible               := actShowCodeShaper.Visible and B;
+      actShowCodeShaper.Visible          := actShowCodeShaper.Visible and B;
       actToggleComment.Visible           := B;
       actStripLastChar.Visible           := B;
       actStripFirstChar.Visible          := B;

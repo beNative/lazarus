@@ -913,6 +913,8 @@ type
             AInsertSpaceAfterToken  : Boolean;
             AAlignInParagraphs      : Boolean
     );
+    procedure MergeBlankLinesInSelection;
+    procedure StripCommentsFromSelection;
     procedure StripMarkupFromSelection;
     procedure StripCharsFromSelection(
       AFirst : Boolean;

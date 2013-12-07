@@ -50,6 +50,7 @@ type
     function GetProductName: string;
     function GetProductVersion: string;
     function GetProjectPage: string;
+    function GetUserName: string;
     function GetWidgetSet: string;
 
   public
@@ -99,6 +100,9 @@ type
     property ProductName: string
       read GetProductName;
 
+    property UserName: string
+      read GetUserName;
+
     property WidgetSet: string
       read GetWidgetSet;
 
@@ -124,12 +128,26 @@ uses
 const
   GTK_WIDGETSET       = 'GTK';
   GTK2_WIDGETSET      = 'GTK 2';
+  GTK3_WIDGETSET      = 'GTK 3';
   WIN32_WIDGETSET     = 'Win32/Win64';
   WINCE_WIDGETSET     = 'WinCE';
   CARBON_WIDGETSET    = 'Carbon';
   QT_WIDGETSET        = 'QT';
   FP_GUI_WIDGETSET    = 'FpGUI';
   OTHER_GUI_WIDGETSET = 'Other gui';
+
+  FPC_VERSION    = {$I %FPCVERSION%};
+  FPC_TARGET_CPU = {$I %FPCTARGETCPU%};
+  FPC_TARGET_OS  = {$I %FPCTARGETOS%};
+  BUILD_DATE     = {$I %DATE%};
+
+  {$IFDEF UNIX}
+  USER_NAME = {$I %USER%};
+  {$ENDIF}
+  {$IFDEF MSWINDOWS}
+  USER_NAME = {$I %USERNAME%};
+  {$ENDIF}
+
 
 var
   FVersionInfo: TVersionInfo;
@@ -144,10 +162,10 @@ end;
 procedure TVersionInfo.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FFPCVersion               := {$I%FPCVERSION%};
-  FTargetCPU                := LowerCase({$I%FPCTARGETCPU%});
-  FTargetOS                 := LowerCase({$I%FPCTARGETOS%});
-  FBuildDate                := {$I%DATE%};
+  FFPCVersion               := FPC_VERSION;
+  FTargetCPU                := LowerCase(FPC_TARGET_CPU);
+  FTargetOS                 := LowerCase(FPC_TARGET_OS);
+  FBuildDate                := BUILD_DATE;
   FLCLVersion               := lcl_version;
   FFileVersionInfo          := TFileVersionInfo.Create(Self);
   FFileVersionInfo.FileName := ParamStr(0);
@@ -199,9 +217,14 @@ begin
   Result := FFileVersionInfo.VersionStrings.Values['ProjectPage'];
 end;
 
+function TVersionInfo.GetUserName: string;
+begin
+  Result := USER_NAME;
+end;
+
 function TVersionInfo.GetFileName: string;
 begin
-Result := FFileVersionInfo.FileName;
+  Result := FFileVersionInfo.FileName;
 end;
 
 function TVersionInfo.GetFileDescription: string;

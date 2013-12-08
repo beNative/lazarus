@@ -1,6 +1,6 @@
 2013.12.07 (0.9.25)
-* New feature: merge blank lines in selection.
-* New feature: remove comments from selection.
+* Added new feature: merge blank lines in selection.
+* Added new feature: remove comments from selection.
 * Fixed issues with assigning text from clipboard.
 * Improved AutoGuesHighlighter
 

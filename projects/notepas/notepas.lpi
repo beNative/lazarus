@@ -877,10 +877,12 @@ end;"/>
       <Unit3>
         <Filename Value="..\..\components\tslib\core\ts.core.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Helpers"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -893,6 +895,7 @@ end;"/>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -1104,6 +1107,7 @@ end;"/>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -1156,6 +1160,7 @@ end;"/>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -1214,6 +1219,7 @@ end;"/>
       <Unit76>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Generics.Collections"/>
       </Unit76>
       <Unit77>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.defaults.pas"/>
@@ -1222,10 +1228,12 @@ end;"/>
       <Unit78>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.hashes.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Generics.Hashes"/>
       </Unit78>
       <Unit79>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Generics.Helpers"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>

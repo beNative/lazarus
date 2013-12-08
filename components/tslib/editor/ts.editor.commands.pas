@@ -210,15 +210,15 @@ end;
 
 function TEditorCommands.MergeBlankLines(const AString: string): string;
 var
-  SS : TStringStream;
+  SL : TStrings;
 begin
-  SS := TStringStream.Create(AString);
+  SL := TStringList.Create;
   try
-    SS.Position := 0;
-    MergeBlankStream(SS);
-    Result := SS.DataString;
+    SL.Text := AString;
+    ts.Editor.Utils.MergeBlankLines(SL);
+    Result := SL.Text;
   finally
-    SS.Free;
+    SL.Free;
   end;
 end;
 

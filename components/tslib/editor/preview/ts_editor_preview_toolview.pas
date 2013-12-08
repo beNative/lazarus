@@ -83,7 +83,7 @@ var
   S  : string;
   SL : TStringList;
 begin
-  BeginFormUpdate;
+ BeginFormUpdate;
   try
     mmoPreview.Clear;
     S := View.PreviewText;

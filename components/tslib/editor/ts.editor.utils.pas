@@ -250,8 +250,8 @@ function RemoveDoubles(
   const AString : string
 ): string;
 
-procedure MergeBlankStream(
-  AStream : TStream
+procedure MergeBlankLines(
+  ALines : TStrings
 );
 
 function StripLastLineEnding(
@@ -1407,16 +1407,16 @@ begin
   end;
 end;
 
-procedure MergeBlankStream(AStream: TStream);
+procedure MergeBlankLines(ALines: TStrings);
 var
-  Strings: TStringList;
-  I: Integer;
-  PreIsBlank, CurIsBlank: Boolean;
+  I          : Integer;
+  PreIsBlank : Boolean;
+  CurIsBlank : Boolean;
 
   function IsBlankLine(const ALine: string): Boolean;
   var
-    S: string;
-    I: Integer;
+    S : string;
+    I : Integer;
   begin
     Result := True;
     S := Trim(ALine);
@@ -1436,31 +1436,20 @@ var
   end;
 
 begin
-  Strings := TStringList.Create;
-  try
-    AStream.Position := 0;
-    Strings.LoadFromStream(AStream);
-
-    I := Strings.Count - 1;
-    PreIsBlank := False;
-    while I >= 0 do
+  I := ALines.Count - 1;
+  PreIsBlank := False;
+  while I >= 0 do
+  begin
+    if not IsBlankLine(ALines[I]) then
+      CurIsBlank := False
+    else
     begin
-      if not IsBlankLine(Strings[I]) then
-        CurIsBlank := False
-      else
-      begin
-        if PreIsBlank then
-          Strings.Delete(I);
-        CurIsBlank := True;
-      end;
-      Dec(I);
-      PreIsBlank := CurIsBlank;
+      if PreIsBlank then
+        ALines.Delete(I);
+      CurIsBlank := True;
     end;
-
-    AStream.Size := 0;
-    Strings.SaveToStream(AStream);
-  finally
-    FreeAndNil(Strings);
+    Dec(I);
+    PreIsBlank := CurIsBlank;
   end;
 end;
 

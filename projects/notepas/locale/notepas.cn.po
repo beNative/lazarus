@@ -567,7 +567,8 @@ msgstr "语法着色"
 
 #: tdmeditormanager.actincfontsize.caption
 #, fuzzy
-msgid "Increase fontsize"
+#| msgid "Increase fontsize"
+msgid "Increase font size"
 msgstr "增大字体"
 
 #: tdmeditormanager.actincfontsize.hint

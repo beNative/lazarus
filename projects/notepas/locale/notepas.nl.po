@@ -548,7 +548,9 @@ msgid "Highlighter"
 msgstr "Highlighter"
 
 #: tdmeditormanager.actincfontsize.caption
-msgid "Increase fontsize"
+#, fuzzy
+#| msgid "Increase fontsize"
+msgid "Increase font size"
 msgstr "Vergroot font"
 
 #: tdmeditormanager.actincfontsize.hint

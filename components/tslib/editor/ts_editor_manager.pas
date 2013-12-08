@@ -593,7 +593,6 @@ type
     {$IFDEF Windows}
     procedure CreateDesktopLink;
     {$ENDIF}
-    procedure AssignHighlighter(const AName: string);
 
     procedure FindNext;
     procedure FindPrevious;
@@ -1213,9 +1212,16 @@ begin
 end;
 
 procedure TdmEditorManager.actPasteExecute(Sender: TObject);
+var
+  B : Boolean;
 begin
   if ActiveView.Focused then
+  begin
+    B := (ActiveView.Text = '') and Settings.AutoGuessHighlighterType;
     ActiveView.Paste;
+    if B then
+      Commands.GuessHighlighterType;
+  end;
 end;
 
 procedure TdmEditorManager.actQuoteLinesAndDelimitExecute(Sender: TObject);
@@ -1626,7 +1632,7 @@ var
   A: TAction;
 begin
   A := Sender as TAction;
-  AssignHighlighter(A.Caption);
+  Commands.AssignHighlighter(A.Caption);
 end;
 
 procedure TdmEditorManager.actDequoteLinesExecute(Sender: TObject);
@@ -1636,7 +1642,7 @@ end;
 
 procedure TdmEditorManager.actAutoGuessHighlighterExecute(Sender: TObject);
 begin
-  AssignHighlighter(GuessHighlighterType(ActiveView.Text));
+  Commands.GuessHighlighterType;
 end;
 
 procedure TdmEditorManager.actConvertTabsToSpacesInSelectionExecute(
@@ -2715,7 +2721,7 @@ begin
   if AName <> '' then
     V.Name := AName;
   V.FileName := AFileName;
-//  V.AssignHighlighter(AHighlighter);
+  V.HighlighterName := AHighlighter;
   V.Form.Caption := '';
   ViewList.Add(V);
   Events.DoAddEditorView(V);
@@ -2734,7 +2740,7 @@ begin
   begin
     V := TEditorView.Create(Self);
     V.MasterView := ActiveView;
-    V.AssignHighlighter(AEditorView.HighlighterItem.Name);
+    V.HighlighterName := AEditorView.HighlighterName;
     V.Form.Caption := AEditorView.Form.Caption;
     ViewList.Add(V);
     Events.DoAddEditorView(V);
@@ -2837,18 +2843,6 @@ end;
 {$endregion}
 
 {$region 'IEditorCommands' /fold}
-procedure TdmEditorManager.AssignHighlighter(const AName: string);
-var
-  HLI : THighlighterItem;
-begin
-  if Assigned(Highlighters) then
-  begin
-    HLI := Highlighters.ItemsByName[AName];
-    if Assigned(HLI) then
-      ActiveView.HighlighterItem := HLI;
-  end;
-end;
-
 procedure TdmEditorManager.ExportLines(AFormat: string; AToClipBoard: Boolean;
   ANativeFormat: Boolean);
 var

@@ -190,6 +190,7 @@ type
     function GetCurrentWord: string;
     function GetEditor: TSynEdit;
     function GetEditorFont: TFont;
+    function GetHighlighterName: string;
     function GetInsertMode: Boolean;
     function GetIsFile: Boolean;
     function GetManager: IEditorManager;
@@ -245,6 +246,7 @@ type
     procedure SetFoldState(const AValue: string);
     procedure SetHighlighter(const AValue: TSynCustomHighlighter);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
+    procedure SetHighlighterName(AValue: string);
     procedure SetInsertMode(AValue: Boolean);
     procedure SetIsFile(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
@@ -336,8 +338,6 @@ type
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
     procedure Save(const AStorageName: string = '');
-
-    procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
     // public properties
     { Master view from which the text buffer is shared. }
@@ -472,6 +472,9 @@ type
 
     property Highlighter: TSynCustomHighlighter
       read FHighlighter write SetHighlighter;
+
+    property HighlighterName: string
+      read GetHighlighterName write SetHighlighterName;
 
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;
@@ -677,7 +680,7 @@ procedure TEditorView.EditorPaste(Sender: TObject; var AText: string;
   var AMode: TSynSelectionMode; ALogStartPos: TPoint; var AnAction: TSynCopyPasteAction);
 begin
   if (Lines.Count = 0) and Settings.AutoGuessHighlighterType then
-    HighlighterItem := Manager.Highlighters.ItemsByName[GuessHighlighterType(AText)];
+    Commands.GuessHighlighterType;
   if (HighlighterItem.Name = HL_XML) and Settings.AutoFormatXML then
   begin
     AText := FormatXML(AText);
@@ -810,6 +813,23 @@ end;
 function TEditorView.GetEditorFont: TFont;
 begin
   Result := Editor.Font;
+end;
+
+function TEditorView.GetHighlighterName: string;
+begin
+  if Assigned(FHighlighterItem) then
+    Result := FHighlighterItem.Name
+  else
+    Result := '';
+end;
+
+procedure TEditorView.SetHighlighterName(AValue: string);
+begin
+  if AValue <> HighlighterName then
+  begin
+    // HighlighterItem is always assigned
+    HighlighterItem := Manager.Highlighters.ItemsByName[AValue];
+  end;
 end;
 
 function TEditorView.GetInsertMode: Boolean;
@@ -1322,26 +1342,17 @@ end;
 {$endregion}
 
 {$region 'private methods' /fold}
-procedure TEditorView.AssignHighlighter(const AHighlighter: string);
-begin
-  HighlighterItem := Manager.Highlighters.ItemsByName[AHighlighter];
-end;
-
 procedure TEditorView.AssignHighlighterForFileType(const AFileExt: string);
-var
-  S : string;
 begin
-  S := '';
   HighlighterItem := Manager.Highlighters.FindHighlighterForFileType(AFileExt);
   if not Assigned(HighlighterItem) then
   begin
     if Settings.AutoGuessHighlighterType then
     begin
-      S := GuessHighlighterType(Text);
+      Commands.GuessHighlighterType;
     end;
-    if S = '' then
-      S := 'TXT';
-    HighlighterItem := Manager.Highlighters.ItemsByName[S];
+    if not Assigned(HighlighterItem) then
+      HighlighterName := HL_TXT;
   end
 end;
 

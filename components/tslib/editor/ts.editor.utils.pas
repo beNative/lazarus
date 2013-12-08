@@ -198,10 +198,6 @@ function IsXML(
   const AString: string
 ): Boolean;
 
-function IsPAS(
-  const AString: string
-): Boolean;
-
 function IsSQL(
   const AString: string
 ): Boolean;
@@ -217,10 +213,6 @@ function IsLFM(
 function IsHTML(
   const AString: string
 ): Boolean;
-
-function GuessHighlighterType(
-  const AText: string
-): string;
 
 function ChangeLineBreakStyle(
   const AString         : string;
@@ -1123,13 +1115,6 @@ begin
   Result := MatchRegExpr(AString, MATCH, False);
 end;
 
-function IsPAS(const AString: string): Boolean;
-const
-  MATCH =  '(unit|program|package|library) .+;(.|\n)*end\.';
-begin
-  Result := MatchRegExpr(AString, MATCH, False);
-end;
-
 function IsSQL(const AString: string): Boolean;
 const
   MATCH_SELECT = 'select (.|\n)*from (.|\n)*';
@@ -1184,6 +1169,10 @@ begin
         S := Trim(SL[0]);
         if IsXML(S) then
           Result := HL_XML
+        else
+        begin
+          //
+        end
         //if IsLOG(AText) then
         //  Result := HL_LOG
         //else if IsPAS(AText) then

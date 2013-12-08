@@ -108,6 +108,7 @@ type
     function GetFoldState: string;
     function GetForm: TCustomForm;
     function GetHighlighterItem: THighlighterItem;
+    function GetHighlighterName: string;
     function GetInsertMode: Boolean;
     function GetIsFile: Boolean;
     function GetLineBreakStyle: string;
@@ -150,6 +151,7 @@ type
     procedure SetFoldLevel(const AValue: Integer);
     procedure SetFoldState(const AValue: string);
     procedure SetHighlighterItem(const AValue: THighlighterItem);
+    procedure SetHighlighterName(AValue: string);
     procedure SetInsertMode(AValue: Boolean);
     procedure SetIsFile(AValue: Boolean);
     procedure SetLineBreakStyle(const AValue: string);
@@ -189,9 +191,6 @@ type
 
     // make current view the active one if more than one view is managed.
     procedure Activate;
-
-    // configuration
-    procedure AssignHighlighter(const AHighlighter: string = 'TXT');
 
     // state change
     procedure SetHighlightSearch(
@@ -390,6 +389,9 @@ type
 
     property HighlighterItem: THighlighterItem
       read GetHighlighterItem write SetHighlighterItem;
+
+    property HighlighterName: string
+      read GetHighlighterName write SetHighlighterName;
 
     property EditorFont: TFont
       read GetEditorFont write SetEditorFont;
@@ -927,6 +929,7 @@ type
     procedure InsertTextAtCaret(const AText: string);
     procedure FormatCode;
     procedure SmartSelect;
+    procedure GuessHighlighterType;
     function SelectBlockAroundCursor(
       const AStartTag        : string;
       const AEndTag          : string;

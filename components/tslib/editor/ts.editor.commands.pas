@@ -46,8 +46,37 @@ type
     function GetSettings: IEditorSettings;
     function GetView: IEditorView;
 
-    function StripComments(const AString: string): string;
+    function StripComments(
+      const AString      : string;
+      const AHighlighter : string
+    ): string;
     function MergeBlankLines(const AString: string): string;
+    function GuessHighlighterType(
+      const AText: string
+    ): string; overload;
+    function IsXML(
+      const AString: string
+    ): Boolean;
+
+    function IsPAS(
+      const AString: string
+    ): Boolean;
+
+    function IsSQL(
+      const AString: string
+    ): Boolean;
+
+    function IsLOG(
+      const AString: string
+    ): Boolean;
+
+    function IsLFM(
+      const AString: string
+    ): Boolean;
+
+    function IsHTML(
+      const AString: string
+    ): Boolean;
 
   strict protected
     procedure OpenFileAtCursor;
@@ -81,7 +110,7 @@ type
       AFirst : Boolean;
       ALast  : Boolean
     );
-
+    procedure GuessHighlighterType; overload;
     procedure Indent;
     procedure UnIndent;
     procedure UpdateCommentSelection(ACommentOn, AToggle: Boolean);
@@ -166,17 +195,19 @@ end;
 
 { TODO: Use interfaces like (cfr. ICodeFormatter) }
 
-function TEditorCommands.StripComments(const AString: string): string;
+function TEditorCommands.StripComments(const AString: string;
+  const AHighlighter: string): string;
 var
   SSIn  : TStringStream;
   SSOut : TStringStream;
   CS    : TCustomCommentStripper;
   C     : Char;
+  S     : string;
 begin
   CS := nil;
-  if AnsiMatchStr(View.HighlighterItem.Name, [HL_PAS]) then
+  if AnsiMatchStr(AHighlighter, [HL_PAS]) then
     CS := TPasCommentStripper.Create(nil)
-  else if AnsiMatchStr(View.HighlighterItem.Name, [HL_CPP, HL_JAVA, HL_CS]) then
+  else if AnsiMatchStr(AHighlighter, [HL_CPP, HL_JAVA, HL_CS]) then
     CS := TCPPCommentStripper.Create(nil);
   if Assigned(CS) then
   begin
@@ -193,7 +224,9 @@ begin
           CS.OutStream := SSOut;
           CS.Parse;
           SSOut.Position := 0;
-          Result := SSOut.ReadString(SSOut.Size);
+          S := SSOut.ReadString(SSOut.Size);
+          S := MergeBlankLines(S);
+          Result := S;
         finally
           SSOut.Free;
         end;
@@ -216,10 +249,116 @@ begin
   try
     SL.Text := AString;
     ts.Editor.Utils.MergeBlankLines(SL);
+    // remove first blank line
+    if (SL.Count > 0) and (Trim(SL[0]) = '') then
+      SL.Delete(0);
+    // remove last blank line
+    if (SL.Count > 0) and (Trim(SL[SL.Count - 1]) = '') then
+      SL.Delete(SL.Count - 1);
     Result := SL.Text;
   finally
     SL.Free;
   end;
+end;
+
+function TEditorCommands.GuessHighlighterType(const AText: string): string;
+var
+  SL : TStringList;
+  S  : string;
+begin
+  Result := '';
+  if Length(AText) > 0 then
+  begin
+    SL := TStringList.Create;
+    try
+      SL.Text := Copy(AText, 0, 2000);
+      if SL.Count > 0 then
+      begin
+        S := Trim(SL[0]);
+        if IsXML(S) then
+          Result := HL_XML
+        else
+        begin
+          S := SL.Text;
+          if IsPAS(S) then
+            Result := HL_PAS;
+        end
+        //if IsLOG(AText) then
+        //  Result := HL_LOG
+        //else if IsPAS(AText) then
+        //  Result := HL_PAS
+        //else if IsLFM(AText) then
+        //  Result := HL_LFM
+        //else if IsHTML(AText) then
+        //  Result := HL_HTML
+        //else if IsXML(AText) then
+        //  Result := HL_XML
+        //else if IsSQL(AText) then
+        //  Result := HL_SQL;
+      end
+    finally
+      SL.Free;
+    end;
+  end;
+end;
+
+function TEditorCommands.IsXML(const AString: string): Boolean;
+const
+  MATCH = '^\<\?xml version\=.+\?\>$';
+begin
+  Result := MatchRegExpr(AString, MATCH, False);
+end;
+
+function TEditorCommands.IsPAS(const AString: string): Boolean;
+const
+  MATCH =  '^(unit|program|package|library) .+;$';
+var
+  SL : TStrings;
+  S  : string;
+  B  : Boolean;
+begin
+  Result := False;
+  S := StripComments(AString, HL_PAS);
+  SL := TStringList.Create;
+  try
+    SL.Text := S;
+    B := False;
+    while not B and (SL.Count > 0) do
+    begin
+      if Trim(SL[0]) = '' then
+      begin
+        SL.Delete(0);
+        B := False;
+      end
+      else
+        B := True;
+    end;
+    if SL.Count > 0 then
+      S := Trim(SL[0]);
+    Result := MatchRegExpr(S, MATCH, False);
+  finally
+    SL.Free;
+  end;
+end;
+
+function TEditorCommands.IsSQL(const AString: string): Boolean;
+begin
+   //
+end;
+
+function TEditorCommands.IsLOG(const AString: string): Boolean;
+begin
+//
+end;
+
+function TEditorCommands.IsLFM(const AString: string): Boolean;
+begin
+//
+end;
+
+function TEditorCommands.IsHTML(const AString: string): Boolean;
+begin
+//
 end;
 
 {$endregion}
@@ -392,7 +531,7 @@ end;
 procedure TEditorCommands.StripCommentsFromSelection;
 begin
   Selection.Store;
-  Selection.Text := StripComments(Selection.Text);
+  Selection.Text := StripComments(Selection.Text, View.HighlighterItem.Name);
   Selection.Restore;
 end;
 
@@ -416,6 +555,11 @@ begin
   Selection.Store(True, True);
   Selection.Text := StripChars(Selection.Text, AFirst, ALast);
   Selection.Restore;
+end;
+
+procedure TEditorCommands.GuessHighlighterType;
+begin
+  AssignHighlighter(GuessHighlighterType(View.Text));
 end;
 
 procedure TEditorCommands.Indent;

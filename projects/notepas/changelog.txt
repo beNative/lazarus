@@ -1,3 +1,9 @@
+2013.12.11 (0.9.26)
+* Fixed handling of ESCAPE key in some toolviews.
+* Improved search tool.
+* Fixed issue with viewlist.
+* Fixed some portablility issues.
+
 2013.12.07 (0.9.25)
 * Added new feature: merge blank lines in selection.
 * Added new feature: remove comments from selection.

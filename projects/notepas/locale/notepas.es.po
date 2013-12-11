@@ -1339,24 +1339,6 @@ msgstr ""
 msgid "ToolButton4"
 msgstr ""
 
-#: tfrmcodeshaper.actaligninsertspaceaftertoken.caption
-msgctxt "tfrmcodeshaper.actaligninsertspaceaftertoken.caption"
-msgid "after token"
-msgstr ""
-
-#: tfrmcodeshaper.actaligninsertspacebeforetoken.caption
-msgctxt "tfrmcodeshaper.actaligninsertspacebeforetoken.caption"
-msgid "before token"
-msgstr ""
-
-#: tfrmcodeshaper.actaligninsertspaceonbothsides.caption
-msgid "on both sides"
-msgstr ""
-
-#: tfrmcodeshaper.actalignlines.caption
-msgid "Align lines"
-msgstr ""
-
 #: tfrmcodeshaper.actapplyconsistentcase.caption
 msgid "Consistent case"
 msgstr ""
@@ -1457,26 +1439,9 @@ msgstr ""
 msgid "Code shaper"
 msgstr ""
 
-#: tfrmcodeshaper.cbxaligntokenside.text
-msgctxt "tfrmcodeshaper.cbxaligntokenside.text"
-msgid "after"
-msgstr ""
-
 #: tfrmcodeshaper.cbxinsertbreakstokenside.text
 msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
 msgid "after"
-msgstr ""
-
-#: tfrmcodeshaper.chkalignlinesinparagraphs.caption
-msgid "Align in paragraphs"
-msgstr ""
-
-#: tfrmcodeshaper.chkalignlinesinsertspace.caption
-msgid "Insert space"
-msgstr "Insertar espacios"
-
-#: tfrmcodeshaper.chkalignlinesremovewhitespace.caption
-msgid "Remove whitespace"
 msgstr ""
 
 #: tfrmcodeshaper.chkbreaklines.caption
@@ -1534,11 +1499,6 @@ msgctxt "TFRMCODESHAPER.CHKUNBREAKLINESWRAP.CAPTION"
 msgid "Wrap lines"
 msgstr ""
 
-#: tfrmcodeshaper.edtalignlinestoken.editlabel.caption
-msgctxt "TFRMCODESHAPER.EDTALIGNLINESTOKEN.EDITLABEL.CAPTION"
-msgid "Token:"
-msgstr ""
-
 #: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
 msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
 msgid "Token:"
@@ -1583,11 +1543,6 @@ msgstr "Desde"
 #: tfrmcodeshaper.grdreplacestrings.columns[1].title.caption
 msgid "To"
 msgstr "Hasta"
-
-#: tfrmcodeshaper.grpalign.caption
-msgctxt "tfrmcodeshaper.grpalign.caption"
-msgid "Align"
-msgstr "Alinear"
 
 #: tfrmcodeshaper.grpdequotelines.caption
 msgctxt "tfrmcodeshaper.grpdequotelines.caption"
@@ -1634,20 +1589,6 @@ msgstr ""
 #: tfrmcodeshaper.lblwraplinesposition1.caption
 msgctxt "TFRMCODESHAPER.LBLWRAPLINESPOSITION1.CAPTION"
 msgid "maximum position:"
-msgstr ""
-
-#: tfrmcodeshaper.mnialigninsertspaceaftertoken.caption
-msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEAFTERTOKEN.CAPTION"
-msgid "after"
-msgstr ""
-
-#: tfrmcodeshaper.mnialigninsertspacebeforetoken.caption
-msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEBEFORETOKEN.CAPTION"
-msgid "before"
-msgstr ""
-
-#: tfrmcodeshaper.mnialigninsertspaceonbothsides.caption
-msgid "both"
 msgstr ""
 
 #: tfrmcodeshaper.mnibreakaftertoken.caption
@@ -2670,10 +2611,6 @@ msgstr "Multilínea"
 msgid "Regular expressions"
 msgstr "Expresiones regulares"
 
-#: tfrmsearchform.chksearchinallviews.caption
-msgid "Search in all views"
-msgstr "Buscar en todas las vistas"
-
 #: tfrmsearchform.chkwholewordsonly.caption
 msgctxt "TFRMSEARCHFORM.CHKWHOLEWORDSONLY.CAPTION"
 msgid "Whole words only"
@@ -2704,6 +2641,18 @@ msgstr "Alcance"
 msgid "Text to find:"
 msgstr "Texto a encontrar:"
 
+#: tfrmsearchform.rbactiveview.caption
+msgid "Active &view"
+msgstr ""
+
+#: tfrmsearchform.rballviews.caption
+msgid "&All views"
+msgstr ""
+
+#: tfrmsearchform.rballviews.hint
+msgid "Search in all views."
+msgstr ""
+
 #: tfrmsearchform.rbbackward.caption
 msgid "Backward"
 msgstr "Hacia atrás"
@@ -2720,13 +2669,9 @@ msgstr "Adelante"
 msgid "&From cursor"
 msgstr "&Desde el cursor"
 
-#: tfrmsearchform.rbglobal.caption
-msgid "&Global"
+#: tfrmsearchform.rbselection.caption
+msgid "&Selection"
 msgstr ""
-
-#: tfrmsearchform.rbselected.caption
-msgid "&Selected"
-msgstr "&Seleccionado"
 
 #: tfrmselectioninfo.btnrestore.caption
 msgid "Restore"

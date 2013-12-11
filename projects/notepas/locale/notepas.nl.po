@@ -1352,26 +1352,6 @@ msgstr "ToolButton3"
 msgid "ToolButton4"
 msgstr "ToolButton4"
 
-#: tfrmcodeshaper.actaligninsertspaceaftertoken.caption
-#, fuzzy
-msgctxt "tfrmcodeshaper.actaligninsertspaceaftertoken.caption"
-msgid "after token"
-msgstr "Onbekend token: %s"
-
-#: tfrmcodeshaper.actaligninsertspacebeforetoken.caption
-#, fuzzy
-msgctxt "tfrmcodeshaper.actaligninsertspacebeforetoken.caption"
-msgid "before token"
-msgstr "Onbekend token: %s"
-
-#: tfrmcodeshaper.actaligninsertspaceonbothsides.caption
-msgid "on both sides"
-msgstr "aan beide zijden"
-
-#: tfrmcodeshaper.actalignlines.caption
-msgid "Align lines"
-msgstr "Regels uitlijnen"
-
 #: tfrmcodeshaper.actapplyconsistentcase.caption
 msgid "Consistent case"
 msgstr "Consistent hoofdlettergebruik"
@@ -1472,27 +1452,10 @@ msgstr "URL encode"
 msgid "Code shaper"
 msgstr "Code shaper"
 
-#: tfrmcodeshaper.cbxaligntokenside.text
-msgctxt "tfrmcodeshaper.cbxaligntokenside.text"
-msgid "after"
-msgstr "na"
-
 #: tfrmcodeshaper.cbxinsertbreakstokenside.text
 msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
 msgid "after"
 msgstr "na"
-
-#: tfrmcodeshaper.chkalignlinesinparagraphs.caption
-msgid "Align in paragraphs"
-msgstr "Alligneer in paragrafen"
-
-#: tfrmcodeshaper.chkalignlinesinsertspace.caption
-msgid "Insert space"
-msgstr "Spatie invoegen"
-
-#: tfrmcodeshaper.chkalignlinesremovewhitespace.caption
-msgid "Remove whitespace"
-msgstr "Verwijder blanco's"
 
 #: tfrmcodeshaper.chkbreaklines.caption
 msgid "Break lines"
@@ -1549,11 +1512,6 @@ msgctxt "TFRMCODESHAPER.CHKUNBREAKLINESWRAP.CAPTION"
 msgid "Wrap lines"
 msgstr "Lijnen afbreken"
 
-#: tfrmcodeshaper.edtalignlinestoken.editlabel.caption
-msgctxt "TFRMCODESHAPER.EDTALIGNLINESTOKEN.EDITLABEL.CAPTION"
-msgid "Token:"
-msgstr "Token:"
-
 #: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
 msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
 msgid "Token:"
@@ -1598,11 +1556,6 @@ msgstr "Van"
 #: tfrmcodeshaper.grdreplacestrings.columns[1].title.caption
 msgid "To"
 msgstr "Naar"
-
-#: tfrmcodeshaper.grpalign.caption
-msgctxt "tfrmcodeshaper.grpalign.caption"
-msgid "Align"
-msgstr "Uitlijnen"
 
 #: tfrmcodeshaper.grpdequotelines.caption
 msgctxt "tfrmcodeshaper.grpdequotelines.caption"
@@ -1650,20 +1603,6 @@ msgstr "maximum positie:"
 msgctxt "TFRMCODESHAPER.LBLWRAPLINESPOSITION1.CAPTION"
 msgid "maximum position:"
 msgstr "maximum positie:"
-
-#: tfrmcodeshaper.mnialigninsertspaceaftertoken.caption
-msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEAFTERTOKEN.CAPTION"
-msgid "after"
-msgstr "na"
-
-#: tfrmcodeshaper.mnialigninsertspacebeforetoken.caption
-msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEBEFORETOKEN.CAPTION"
-msgid "before"
-msgstr "vóór"
-
-#: tfrmcodeshaper.mnialigninsertspaceonbothsides.caption
-msgid "both"
-msgstr "beide"
 
 #: tfrmcodeshaper.mnibreakaftertoken.caption
 msgctxt "tfrmcodeshaper.mnibreakaftertoken.caption"
@@ -2718,10 +2657,6 @@ msgstr ""
 msgid "Regular expressions"
 msgstr "Reguliere expressies"
 
-#: tfrmsearchform.chksearchinallviews.caption
-msgid "Search in all views"
-msgstr "Zoek in alle views"
-
 #: tfrmsearchform.chkwholewordsonly.caption
 msgctxt "TFRMSEARCHFORM.CHKWHOLEWORDSONLY.CAPTION"
 msgid "Whole words only"
@@ -2752,6 +2687,18 @@ msgstr "Scope"
 msgid "Text to find:"
 msgstr "Zoek naar tekst:"
 
+#: tfrmsearchform.rbactiveview.caption
+msgid "Active &view"
+msgstr ""
+
+#: tfrmsearchform.rballviews.caption
+msgid "&All views"
+msgstr ""
+
+#: tfrmsearchform.rballviews.hint
+msgid "Search in all views."
+msgstr ""
+
 #: tfrmsearchform.rbbackward.caption
 msgid "Backward"
 msgstr "Achterwaarts"
@@ -2768,13 +2715,9 @@ msgstr "Voorwaarts"
 msgid "&From cursor"
 msgstr "&Vanaf cursor"
 
-#: tfrmsearchform.rbglobal.caption
-msgid "&Global"
-msgstr "&Globaal"
-
-#: tfrmsearchform.rbselected.caption
-msgid "&Selected"
-msgstr "&Selectie"
+#: tfrmsearchform.rbselection.caption
+msgid "&Selection"
+msgstr ""
 
 #: tfrmselectioninfo.btnrestore.caption
 msgid "Restore"

@@ -91,6 +91,7 @@ uses
   ts.Core.XMLUtils,
   ts.Core.Events,
   ts.Core.FileAssociations,
+  ts.Core.SystemInfo,
 
   ts.Editor.CodeFormatters,
   ts.Editor.CodeFormatters.SQL,
@@ -151,7 +152,7 @@ uses
   ts_Editor_Structure_ToolView,
   ts_Editor_Test_ToolView,
   ts.Editor.CodeFilter.Data,
-  ts.Editor.ViewList.Data, ts.Core.SystemInfo;
+  ts.Editor.ViewList.Data;
 
 {$R *.res}
 

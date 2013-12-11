@@ -28,8 +28,8 @@ type
 
 implementation
 
-uses
 {$IFDEF MSWINDOWS}
+uses
   DynLibs, Windows;
 {$ENDIF}
 
@@ -66,14 +66,15 @@ var
 {$ENDIF}
 begin
   Result := '';
-{$IFDEF UNIX}
-  VDevice := 'eth0';
-  VPath := Format('/sys/class/net/%s/address', [VDevice]);
-  if FileExists(VPath) then
-    Result := LSLoadFile(VPath)
-  else
-    Result := 'Could not find the device "' + VDevice + '".';
-{$ENDIF}
+// TODO : fix for UNIX
+//{$IFDEF UNIX}
+//  VDevice := 'eth0';
+//  VPath := Format('/sys/class/net/%s/address', [VDevice]);
+//  if FileExists(VPath) then
+//    Result := LSLoadFile(VPath)
+//  else
+//    Result := 'Could not find the device "' + VDevice + '".';
+//{$ENDIF}
 {$IFDEF MSWINDOWS}
   VLibHandle := LoadLibrary('rpcrt4.dll');
   try
@@ -116,4 +117,4 @@ begin
 end;
 
 end.
-
+

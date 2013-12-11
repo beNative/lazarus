@@ -148,19 +148,15 @@ implementation
 {$R *.lfm}
 
 uses
+  Variants,
 {$IFDEF Windows}
   Windows,
 {$ENDIF}
 
-  ts.Core.SharedLogger,
+  LCLProc, LCLType, LMessages, GraphUtil,
 
-  LCLProc, LCLType,
-
-  Variants,
-
-  LMessages, GraphUtil,
-
-  ts.Core.Utils, ts.Core.Helpers, ts.Core.ColumnDefinitionsDataTemplate,
+  ts.Core.SharedLogger, ts.Core.Utils, ts.Core.Helpers,
+  ts.Core.ColumnDefinitionsDataTemplate,
 
   ts.Editor.Utils;
 

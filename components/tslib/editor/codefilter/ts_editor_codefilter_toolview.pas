@@ -445,7 +445,8 @@ begin
     Modified;
 end;
 
-procedure TfrmCodeFilterDialog.edtFilterKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmCodeFilterDialog.edtFilterKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 var
   A : Boolean;
   B : Boolean;
@@ -454,8 +455,9 @@ var
   E : Boolean;
   F : Boolean;
   G : Boolean;
+  H : Boolean;
 begin
-  // SHIFTED and ALTED keycombinations
+  { SHIFTed and ALTed keycombinations }
   A := (ssAlt in Shift) or (ssShift in Shift);
   { Single keys that need to be handled by the edit control like all displayable
     characters but also HOME and END }
@@ -472,7 +474,9 @@ begin
   F := (Key = VK_SHIFT) and (Shift = [ssShift]);
   { Only (left) ALT key is pressed. }
   G := (Key = VK_MENU) and (Shift = [ssAlt]);
-  if not (A or B or C or D or E or F or G) then
+  { ESCAPE }
+  H := Key = VK_ESCAPE;
+  if not (A or B or C or D or E or F or G or H) then
   begin
     FVKPressed := True;
     Key := 0;
@@ -485,24 +489,26 @@ begin
   end;
 end;
 
-procedure TfrmCodeFilterDialog.edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmCodeFilterDialog.edtFilterKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   if FVKPressed and FVST.Enabled then
   begin
     FVST.Perform(LM_KEYDOWN, Key, 0);
-    //PostMessage(edtFilter.Handle, WM_KEYDOWN, Key, 0);
     if Visible and FVST.CanFocus then
       FVST.SetFocus;
   end;
   FVKPressed := False;
 end;
 
-procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+procedure TfrmCodeFilterDialog.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
 begin
   Filter := '';
 end;
 
-procedure TfrmCodeFilterDialog.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TfrmCodeFilterDialog.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   if Key = VK_ESCAPE then
   begin
@@ -646,12 +652,11 @@ procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: Char);
 begin
   if Ord(Key) = VK_RETURN then
   begin
-    Close;
+    ModalResult := mrOK;
   end
   else if Ord(Key) = VK_ESCAPE then
   begin
     ModalResult := mrCancel;
-    Close;
   end
   else if not edtFilter.Focused then
   begin

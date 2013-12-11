@@ -133,9 +133,6 @@ implementation
   {Utilits,
   , ADUtils}
 
-var
-  gbAppHK: HKEY;
-
 const
   SAppKey = 'Software\';
 

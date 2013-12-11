@@ -303,6 +303,7 @@ end;
 
 function TfrmOptionsThemes.GetThemeFilename(const AName: string): string;
 begin
+  Result := '';
   //Result := AppPath + SThemesPath + ChangeFileExt(AName, SCfgExt);
 end;
 

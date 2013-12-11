@@ -85,7 +85,10 @@ end;
 
 function TEditorViewInfo.GetHighlighter: string;
 begin
-  Result := View.HighlighterItem.Name;
+  if Assigned(View.HighlighterItem) then
+    Result := View.HighlighterItem.Name
+  else
+    Result := '';
 end;
 
 function TEditorViewInfo.GetModified: Boolean;

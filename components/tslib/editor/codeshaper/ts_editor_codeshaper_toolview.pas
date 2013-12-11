@@ -54,10 +54,6 @@ type
     {$region 'designer controls' /fold}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;
-    actAlignLines                   : TAction;
-    actAlignInsertSpaceAfterToken   : TAction;
-    actAlignInsertSpaceBeforeToken  : TAction;
-    actAlignInsertSpaceOnBothSides  : TAction;
     actDequoteLines                 : TAction;
     actApplyConsistentCase          : TAction;
     actURLDecode                    : TAction;
@@ -67,7 +63,6 @@ type
     actStripFirstChar               : TAction;
     actMakePascalString             : TAction;
     actToggleBreakSide              : TAction;
-    actToggleAlignInsertSpace       : TAction;
     actBreakBeforeToken             : TAction;
     actBreakAfterToken              : TAction;
     actQuoteLines                   : TAction;
@@ -76,7 +71,6 @@ type
     actRedo                         : TAction;
     actRemoveBreaks                 : TAction;
     actUndo                         : TAction;
-    btnAlign                        : TBitBtn;
     btnAlign1                       : TBitBtn;
     btnDequote                       : TBitBtn;
     btnInsertBreaks                 : TBitBtn;
@@ -90,9 +84,6 @@ type
     btnTrim                         : TBitBtn;
     btnURLDecode                    : TButton;
     btnURLEncode                    : TButton;
-    chkAlignLinesInParagraphs       : TCheckBox;
-    chkAlignLinesInsertSpace        : TCheckBox;
-    chkAlignLinesRemoveWhitespace   : TCheckBox;
     chkBreakLines                   : TCheckBox;
     chkBreakLinesTrimSpace          : TCheckBox;
     chkBreakLinesWrap               : TCheckBox;
@@ -106,8 +97,6 @@ type
     chkTrimLinesRight               : TCheckBox;
     chkUnBreakLinesWrap             : TCheckBox;
     cbxInsertBreaksTokenSide: TComboBox;
-    cbxAlignTokenSide: TComboBox;
-    edtAlignLinesToken              : TLabeledEdit;
     edtBreakLinesToken              : TLabeledEdit;
     edtBreakLinesWrapPosition       : TSpinEdit;
     edtDequoteLinesQuoteChar        : TLabeledEdit;
@@ -116,7 +105,6 @@ type
     edtTrimLinesIndent              : TSpinEdit;
     edtUnBreakLinesWrapPosition     : TSpinEdit;
     grdReplaceStrings               : TStringGrid;
-    grpAlign                        : TGroupBox;
     grpDequoteLines                 : TGroupBox;
     grpInsertBreaks                 : TGroupBox;
     grpMisc                         : TGroupBox;
@@ -130,20 +118,12 @@ type
     lblWrapLinesPosition1           : TLabel;
     mniBreakAfterToken                       : TMenuItem;
     mniBreakBeforeToken                       : TMenuItem;
-    mniAlignInsertSpaceAfterToken   : TMenuItem;
-    mniAlignInsertSpaceBeforeToken  : TMenuItem;
-    mniAlignInsertSpaceOnBothSides  : TMenuItem;
     pnlOperations                   : TPanel;
     ppmAfterBefore                  : TPopupMenu;
-    ppmSpaces                       : TPopupMenu;
     sbrMain                         : TScrollBox;
     {$endregion}
 
     {$region 'action handlers' /fold}
-    procedure actAlignInsertSpaceAfterTokenExecute(Sender: TObject);
-    procedure actAlignInsertSpaceBeforeTokenExecute(Sender: TObject);
-    procedure actAlignInsertSpaceOnBothSidesExecute(Sender: TObject);
-    procedure actAlignLinesExecute(Sender: TObject);
     procedure actApplyConsistentCaseExecute(Sender: TObject);
     procedure actBreakAfterTokenExecute(Sender: TObject);
     procedure actBreakBeforeTokenExecute(Sender: TObject);
@@ -157,7 +137,6 @@ type
     procedure actReplaceExecute(Sender: TObject);
     procedure actStripFirstCharExecute(Sender: TObject);
     procedure actStripLastCharExecute(Sender: TObject);
-    procedure actToggleAlignInsertSpaceExecute(Sender: TObject);
     procedure actToggleBreakSideExecute(Sender: TObject);
     procedure actTrimExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
@@ -167,7 +146,6 @@ type
     {$endregion}
 
   strict private
-    FAlignTokenSide : TTokenSide;
     FBreakTokenSide : TTokenSide;
 
     function GetSettings: TCodeShaperSettings;
@@ -176,10 +154,8 @@ type
   protected
     procedure AssignText(const AText: string);
     procedure InitializeControls;
-    procedure InitializeAlignLinesControls;
     procedure InitializeBreakLinesControls;
     procedure InitializeQuoteLinesControls;
-    procedure UpdateAlignLinesControls;
     procedure UpdateBreakLinesControls;
     procedure UpdateReplaceStringsControls;
 
@@ -304,11 +280,6 @@ begin
   AssignText(S);
 end;
 
-procedure TfrmCodeShaper.actToggleAlignInsertSpaceExecute(Sender: TObject);
-begin
-  FAlignTokenSide := TTokenSide((Ord(FAlignTokenSide) + 1) mod 3);
-end;
-
 procedure TfrmCodeShaper.actToggleBreakSideExecute(Sender: TObject);
 begin
   FBreakTokenSide := TTokenSide((Ord(FBreakTokenSide) + 1) mod 2);
@@ -332,22 +303,6 @@ begin
   begin
     S := CompressLines(S);
   end;
-  AssignText(S);
-end;
-
-procedure TfrmCodeShaper.actAlignLinesExecute(Sender: TObject);
-var
-  S: string;
-begin
-  S := Text;
-  S := AlignLines(
-    S,
-    edtAlignLinesToken.Text,
-    chkAlignLinesRemoveWhitespace.Checked,
-    chkAlignLinesInsertSpace.Checked and (FAlignTokenSide in [tsBefore, tsBoth]),
-    chkAlignLinesInsertSpace.Checked and (FAlignTokenSide in [tsAfter, tsBoth]),
-    chkAlignLinesInParagraphs.Checked
-  );
   AssignText(S);
 end;
 
@@ -383,21 +338,6 @@ begin
     chkDeQuoteLinesTrimSpace.Checked
   );
   AssignText(S);
-end;
-
-procedure TfrmCodeShaper.actAlignInsertSpaceAfterTokenExecute(Sender: TObject);
-begin
-  FAlignTokenSide := tsAfter;
-end;
-
-procedure TfrmCodeShaper.actAlignInsertSpaceBeforeTokenExecute(Sender: TObject);
-begin
-  FAlignTokenSide := tsBefore;
-end;
-
-procedure TfrmCodeShaper.actAlignInsertSpaceOnBothSidesExecute(Sender: TObject);
-begin
-  FAlignTokenSide := tsBoth;
 end;
 
 procedure TfrmCodeShaper.actInsertBreaksExecute(Sender: TObject);
@@ -483,7 +423,6 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 { Updates the editor with the given text with undo/redo support. }
 
 procedure TfrmCodeShaper.AssignText(const AText: string);
@@ -494,13 +433,6 @@ begin
   else
     View.Selection.Text := AText;
   EndUpdate;
-end;
-
-procedure TfrmCodeShaper.InitializeAlignLinesControls;
-begin
-  edtAlignLinesToken.Text := ':';
-  chkAlignLinesRemoveWhitespace.Checked := True;
-  chkAlignLinesInsertSpace.Checked := True;
 end;
 
 procedure TfrmCodeShaper.InitializeBreakLinesControls;
@@ -517,17 +449,6 @@ begin
   chkQuoteLinesDelimitLines.Checked := False;
   edtQuotedLinesDelimiter.Text := ',';
   edtQuoteLinesQuoteChar.Text := '''';
-end;
-
-procedure TfrmCodeShaper.UpdateAlignLinesControls;
-var
-  B: Boolean;
-begin
-  B := True;
-  edtAlignLinesToken.Enabled := B;
-  chkAlignLinesRemoveWhitespace.Enabled := B;
-  chkAlignLinesInsertSpace.Enabled := B;
-  chkAlignLinesInParagraphs.Enabled := B;
 end;
 
 procedure TfrmCodeShaper.UpdateBreakLinesControls;
@@ -631,7 +552,6 @@ end;
 procedure TfrmCodeShaper.InitializeControls;
 begin
   InitializeBreakLinesControls;
-  InitializeAlignLinesControls;
   InitializeQuoteLinesControls;
 end;
 
@@ -647,14 +567,14 @@ begin
   edtTrimLinesIndent.Enabled :=
     chkTrimLinesRight.Checked or chkTrimLinesLeft.Checked;
 
-  case FAlignTokenSide of
-    tsBoth: M := mniAlignInsertSpaceOnBothSides;
-    tsBefore: M := mniAlignInsertSpaceBeforeToken;
-    tsAfter: M := mniAlignInsertSpaceAfterToken;
-  end;
-  A := M.Action as TAction;
-  A.Checked := True;
-  actToggleAlignInsertSpace.Caption := A.Caption;
+  //case FAlignTokenSide of
+  //  tsBoth: M := mniAlignInsertSpaceOnBothSides;
+  //  tsBefore: M := mniAlignInsertSpaceBeforeToken;
+  //  tsAfter: M := mniAlignInsertSpaceAfterToken;
+  //end;
+  //A := M.Action as TAction;
+  //A.Checked := True;
+  //actToggleAlignInsertSpace.Caption := A.Caption;
 
   case FBreakTokenSide of
     tsBefore: M := mniBreakBeforeToken;

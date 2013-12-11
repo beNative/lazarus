@@ -759,7 +759,7 @@ uses
 
   ts.Core.Logger.Channel.IPC,
 {$ENDIF}
-  FileUtil, Clipbrd, StrUtils, Math, TypInfo, Contnrs,
+  FileUtil, Clipbrd, StrUtils, TypInfo, Contnrs,
 
   LConvEncoding,
 
@@ -807,9 +807,7 @@ uses
 
   ts_Editor_SettingsDialog_Old,
   ts_Editor_SettingsDialog,
-  ts_Editor_SettingsDialog_FileAssociations,
-
-  ts.Editor.ActionList.Templates;
+  ts_Editor_SettingsDialog_FileAssociations;
 
 {$region 'construction and destruction' /fold}
 constructor TdmEditorManager.Create(AOwner: TComponent;
@@ -2695,7 +2693,8 @@ begin
   end;
   if not AShowModal then
   begin
-    { Allow owner to dock the toolview in the main application workspace. }
+    { This for example can allow the owner to dock the toolview in the main
+      application workspace. }
     Events.DoShowToolView(ETV);
     ETV.Visible := True;
   end

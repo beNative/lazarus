@@ -36,14 +36,14 @@ type
   { TfrmViewList }
 
   TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
-    aclMain    : TActionList;
-    actClose   : TAction;
-    actCloseSelectedViews: TAction;
-    btnClose   : TButton;
-    mniClose   : TMenuItem;
-    pnlBottom  : TPanel;
-    pnlVST     : TPanel;
-    ppmMain    : TPopupMenu;
+    aclMain               : TActionList;
+    actClose              : TAction;
+    actCloseSelectedViews : TAction;
+    btnClose              : TButton;
+    mniClose              : TMenuItem;
+    pnlBottom             : TPanel;
+    pnlVST                : TPanel;
+    ppmMain               : TPopupMenu;
 
     procedure actCloseExecute(Sender: TObject);
     procedure actCloseSelectedViewsExecute(Sender: TObject);
@@ -70,8 +70,9 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers,
+  Controls,
 
+  ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers,
   ts_Core_ComponentInspector,
 
   ts.Editor.ViewList.Data;
@@ -120,7 +121,7 @@ end;
 {$region 'action handlers' /fold}
 procedure TfrmViewList.actCloseExecute(Sender: TObject);
 begin
-  Close;
+  ModalResult := mrClose;
 end;
 
 procedure TfrmViewList.actCloseSelectedViewsExecute(Sender: TObject);

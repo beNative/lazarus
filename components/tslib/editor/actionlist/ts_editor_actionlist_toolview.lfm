@@ -3,9 +3,12 @@ object frmActionListView: TfrmActionListView
   Height = 526
   Top = 572
   Width = 800
+  ActiveControl = edtFilterActions
   Caption = 'Actions'
   ClientHeight = 526
   ClientWidth = 800
+  KeyPreview = True
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   Position = poOwnerFormCenter
   LCLVersion = '1.3'

@@ -80,7 +80,7 @@ uses
 {$ENDIF}
   TypInfo, Variants,
 
-  ts.Core.NativeXml, ts.Core.NativeXml.Debug, ts.Core.Utils;
+  ts.Core.NativeXml, ts.Core.NativeXml.Debug;
 
 type
 
@@ -731,6 +731,7 @@ var
     Ident: string;
     IntToIdent: TIntToIdent;
   begin
+    Ident := '';
     IntToIdent := FindIntToIdent(IntType);
     if Assigned(IntToIdent) and IntToIdent(Value, Ident) then
       WriteString(Ident)
@@ -1196,6 +1197,7 @@ var
     V: Longint;
     IdentToInt: TIdentToInt;
   begin
+    V := 0;
     IdentToInt := FindIdentToInt(PropType);
     if Assigned(IdentToInt) and IdentToInt(AValue, V) then
       SetOrdProp(AObject, PropInfo, V)
@@ -1329,6 +1331,7 @@ var
     Value: Variant;
     ACurrency: Currency;
   begin
+    ACurrency := 0.0;
     Result := True;
     VType := StrToInt('$' + AChildNode.AttributeValueByName['vartype']); // RSK
 
@@ -1455,7 +1458,7 @@ begin
   PSet := PInteger(@AState);
   AInfo := GetPropInfo(TComponentAccess, 'ComponentState');
   if Assigned(AInfo.GetProc) then
-    PInteger(NativeInt(Self) + NativeInt(AInfo.GetProc) and $00FFFFFF)^ := PSet^;
+    PInteger(NativeUInt(Self) + NativeUInt(AInfo.GetProc) and $00FFFFFF)^ := PSet^;
 end;
 
 end.

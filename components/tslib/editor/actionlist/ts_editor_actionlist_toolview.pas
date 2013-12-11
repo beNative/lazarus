@@ -50,6 +50,7 @@ type
       Shift: TShiftState);
     procedure edtFilterActionsKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     function FTVPActionsCustomDraw(Sender: TObject;
       ColumnDefinition: TColumnDefinition; Item: TObject;
@@ -400,6 +401,7 @@ end;
 procedure TfrmActionListView.FormShow(Sender: TObject);
 begin
   UpdateLists;
+  edtFilterActions.SetFocus;
 end;
 
 function TfrmActionListView.FTVPActionsCustomDraw(Sender: TObject;
@@ -487,14 +489,39 @@ var
   B : Boolean;
   C : Boolean;
   D : Boolean;
+  E : Boolean;
+  F : Boolean;
+  G : Boolean;
+  H : Boolean;
 begin
+  // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
+  { Single keys that need to be handled by the edit control like all displayable
+    characters but also HOME and END }
   B := (Key in VK_EDIT_KEYS) and (Shift = []);
+  { CTRL-keycombinations that need to be handled by the edit control like
+    CTRL-C for clipboard copy. }
   C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  { SHIFT-keycombinations that need to be handled by the edit control for
+    uppercase characters but also eg. SHIFT-HOME for selections. }
   D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
-  if not (A or B or C or D) then
+  { Only CTRL key is pressed. }
+  E := (Key = VK_CONTROL) and (Shift = [ssCtrl]);
+  { Only SHIFT key is pressed. }
+  F := (Key = VK_SHIFT) and (Shift = [ssShift]);
+  { Only (left) ALT key is pressed. }
+  G := (Key = VK_MENU) and (Shift = [ssAlt]);
+  { ESCAPE }
+  H := Key = VK_ESCAPE;
+  if not (A or B or C or D or E or F or G or H) then
   begin
     FVKPressed := True;
+    Key := 0;
+  end
+  { Prevents jumping to the application's main menu which happens by default
+    if ALT is pressed. }
+  else if G then
+  begin
     Key := 0;
   end;
 end;
@@ -504,13 +531,24 @@ procedure TfrmActionListView.edtFilterActionsKeyUp(Sender: TObject;
 begin
   if FVKPressed and FVSTActions.Enabled then
   begin
-{$IFDEF Windows}
-    PostMessage(FVSTActions.Handle, WM_KEYDOWN, Key, 0);
-{$ENDIF}
+    FVSTActions.Perform(LM_KEYDOWN, Key, 0);
     if Visible and FVSTActions.CanFocus then
       FVSTActions.SetFocus;
   end;
   FVKPressed := False;
+end;
+
+{ Handled when KeyPreview = True. }
+
+procedure TfrmActionListView.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_ESCAPE then
+  begin
+    ModalResult := mrCancel;
+  end
+  else
+    inherited;
 end;
 
 procedure TfrmActionListView.FVSTActionsKeyPress(Sender: TObject; var Key: char
@@ -518,12 +556,11 @@ procedure TfrmActionListView.FVSTActionsKeyPress(Sender: TObject; var Key: char
 begin
   if Ord(Key) = VK_RETURN then
   begin
-    Close;
+    ModalResult := mrOK;
   end
   else if Ord(Key) = VK_ESCAPE then
   begin
     ModalResult := mrCancel;
-    Close;
   end
   else if not edtFilterActions.Focused then
   begin

@@ -60,38 +60,38 @@ type
     actReplace                      : TAction;
     actReplaceAll                   : TAction;
     actFind                         : TAction;
-    btnFind                         : TBitBtn;
-    btnReplace                      : TBitBtn;
-    btnReplaceAll                   : TBitBtn;
+    btnFind: TBitBtn;
+    btnReplace: TBitBtn;
+    btnReplaceAll: TBitBtn;
     cbxReplaceWith                  : TComboBox;
     cbxSearchText                   : TComboBox;
     chkCaseSensitive                : TCheckBox;
-    chkMultiLine                    : TCheckBox;
-    chkRegularExpressions           : TCheckBox;
+    chkMultiLine: TCheckBox;
+    chkRegularExpressions: TCheckBox;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
-    chkSearchInAllViews             : TCheckBox;
     chkWholeWordsOnly               : TCheckBox;
     DirectionGroupBox               : TGroupBox;
     grdReplaceStrings               : TStringGrid;
-    grpDirection                    : TGroupBox;
+    grpDirection: TGroupBox;
     grpMisc                         : TGroupBox;
     grpOptions                      : TGroupBox;
-    grpOrigin                       : TGroupBox;
-    grpScope                        : TGroupBox;
+    grpOrigin: TGroupBox;
     grpReplaceWith                  : TGroupBox;
+    grpScope: TGroupBox;
     grpSearchText                   : TGroupBox;
     Image1                          : TImage;
-    pnlButtons                      : TPanel;
+    pnlButtons: TPanel;
     pnlOperations                   : TPanel;
     pnlResultList                   : TPanel;
-    rbBackward                      : TRadioButton;
-    rbEntireScope                   : TRadioButton;
-    rbForward                       : TRadioButton;
-    rbFromCursor                    : TRadioButton;
-    rbGlobal                        : TRadioButton;
-    rbSelected                      : TRadioButton;
+    rbAllViews: TRadioButton;
+    rbBackward: TRadioButton;
+    rbEntireScope: TRadioButton;
     pnlStatus                       : TPanel;
+    rbForward: TRadioButton;
+    rbFromCursor: TRadioButton;
+    rbActiveView: TRadioButton;
+    rbSelection: TRadioButton;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -110,8 +110,8 @@ type
     procedure rbEntireScopeClick(Sender: TObject);
     procedure rbForwardClick(Sender: TObject);
     procedure rbFromCursorClick(Sender: TObject);
-    procedure rbGlobalClick(Sender: TObject);
-    procedure rbSelectedClick(Sender: TObject);
+    procedure rbActiveViewClick(Sender: TObject);
+    procedure rbSelectionClick(Sender: TObject);
 
   private
     FTVP : TTreeViewPresenter;
@@ -219,7 +219,7 @@ begin
     Include(Result, ssoRegExprMultiLine);
   if rbEntireScope.Checked then
     Include(Result, ssoEntireScope);
-  if rbSelected.Checked then
+  if rbSelection.Checked then
     Include(Result, ssoSelectedOnly);
   if rbBackward.Checked then
     Include(Result, ssoBackwards);
@@ -237,9 +237,9 @@ begin
   else
     rbFromCursor.Checked  := True;
   if ssoSelectedOnly in AValue then
-    rbSelected.Checked := True
+    rbSelection.Checked := True
   else
-    rbGlobal.Checked   := True;
+    rbActiveView.Checked   := True;
   if ssoBackwards in AValue then
     rbBackward.Checked := True
   else
@@ -331,9 +331,9 @@ end;
 procedure TfrmSearchForm.FormShow(Sender: TObject);
 begin
   Options := SearchEngine.Options;
-  chkSearchInAllViews.Checked := SearchEngine.SearchAllViews;
-  cbxSearchText.Text          := SearchEngine.SearchText;
-  cbxReplaceWith.Text         := SearchEngine.ReplaceText;
+  rbAllViews.Checked  := SearchEngine.SearchAllViews;
+  cbxSearchText.Text  := SearchEngine.SearchText;
+  cbxReplaceWith.Text := SearchEngine.ReplaceText;
 end;
 
 procedure TfrmSearchForm.rbBackwardChange(Sender: TObject);
@@ -356,12 +356,12 @@ begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbGlobalClick(Sender: TObject);
+procedure TfrmSearchForm.rbActiveViewClick(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbSelectedClick(Sender: TObject);
+procedure TfrmSearchForm.rbSelectionClick(Sender: TObject);
 begin
   Modified;
 end;
@@ -417,7 +417,7 @@ procedure TfrmSearchForm.Execute;
 begin
   SearchEngine.SearchText := cbxSearchText.Text;
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
-  SearchEngine.SearchAllViews := chkSearchInAllViews.Checked;
+  SearchEngine.SearchAllViews := rbAllViews.Checked;
   SearchEngine.Options        := Options;
   Logger.Send('SearchOptions', SetToString(TypeInfo(TSynSearchOptions), SearchEngine.Options));
   SearchEngine.Execute;
@@ -425,7 +425,7 @@ end;
 
 procedure TfrmSearchForm.UpdateView;
 begin
-  if chkSearchInAllViews.Checked then
+  if rbAllViews.Checked then
   begin
     View.BeginUpdate;
     View.SetHighlightSearch(
@@ -439,8 +439,8 @@ end;
 procedure TfrmSearchForm.SettingsChanged;
 begin
   inherited SettingsChanged;
-  Options                     := SearchEngine.Options;
-  chkSearchInAllViews.Checked := SearchEngine.SearchAllViews;
+  Options            := SearchEngine.Options;
+  rbAllViews.Checked := SearchEngine.SearchAllViews;
 end;
 
 { Updates the active editorview and selects SearchText }
@@ -493,12 +493,10 @@ begin
   B := (SearchEngine.ItemList.Count > 0) and (ReplaceText <> '');
   btnReplace.Visible     := B;
   btnReplaceAll.Visible  := B;
-  B := not chkSearchInAllViews.Checked;
+  B := not rbAllViews.Checked;
   grpOrigin.Enabled    := B;
-  grpScope.Enabled     := B;
   grpDirection.Enabled := B;
   grpOrigin.Visible    := B;
-  grpScope.Visible     := B;
   grpDirection.Visible := B;
   if Update then
   begin

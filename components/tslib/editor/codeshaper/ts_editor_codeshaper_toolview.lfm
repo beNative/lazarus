@@ -58,7 +58,7 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpInsertBreaks: TGroupBox
         Left = 0
         Height = 72
-        Top = 8
+        Top = 20
         Width = 462
         Caption = 'Insert breaks'
         ChildSizing.TopBottomSpacing = 4
@@ -149,7 +149,7 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpRemoveBreaks: TGroupBox
         Left = 0
         Height = 68
-        Top = 88
+        Top = 112
         Width = 462
         Caption = 'Remove breaks'
         ChildSizing.LeftRightSpacing = 2
@@ -204,7 +204,7 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpTrim: TGroupBox
         Left = 0
         Height = 92
-        Top = 164
+        Top = 200
         Width = 462
         Caption = 'Trim'
         ChildSizing.LeftRightSpacing = 2
@@ -264,98 +264,17 @@ inherited frmCodeShaper: TfrmCodeShaper
           TabOrder = 4
         end
       end
-      object grpAlign: TGroupBox
-        Left = 0
-        Height = 92
-        Top = 264
-        Width = 462
-        Caption = 'Align'
-        ChildSizing.LeftRightSpacing = 2
-        ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 74
-        ClientWidth = 458
-        TabOrder = 3
-        object edtAlignLinesToken: TLabeledEdit
-          Left = 230
-          Height = 23
-          Top = 25
-          Width = 44
-          EditLabel.AnchorSideTop.Control = edtAlignLinesToken
-          EditLabel.AnchorSideTop.Side = asrCenter
-          EditLabel.AnchorSideRight.Control = edtAlignLinesToken
-          EditLabel.AnchorSideBottom.Side = asrBottom
-          EditLabel.Left = 191
-          EditLabel.Height = 15
-          EditLabel.Top = 29
-          EditLabel.Width = 36
-          EditLabel.Caption = 'Token:'
-          EditLabel.ParentColor = False
-          LabelPosition = lpLeft
-          TabOrder = 0
-        end
-        object chkAlignLinesRemoveWhitespace: TCheckBox
-          Left = 20
-          Height = 19
-          Top = 3
-          Width = 125
-          Caption = 'Remove whitespace'
-          Checked = True
-          State = cbChecked
-          TabOrder = 1
-        end
-        object chkAlignLinesInsertSpace: TCheckBox
-          Left = 20
-          Height = 19
-          Top = 27
-          Width = 82
-          Caption = 'Insert space'
-          TabOrder = 2
-        end
-        object chkAlignLinesInParagraphs: TCheckBox
-          Left = 20
-          Height = 19
-          Top = 51
-          Width = 123
-          Caption = 'Align in paragraphs'
-          TabOrder = 3
-        end
-        object btnAlign: TBitBtn
-          Left = 286
-          Height = 66
-          Top = 2
-          Width = 167
-          Action = actAlignLines
-          Anchors = [akTop, akLeft, akRight, akBottom]
-          TabOrder = 4
-        end
-        object cbxAlignTokenSide: TComboBox
-          Left = 106
-          Height = 23
-          Top = 25
-          Width = 79
-          ItemHeight = 15
-          ItemIndex = 0
-          Items.Strings = (
-            'after'
-            'before '
-            'both'
-          )
-          Style = csDropDownList
-          TabOrder = 5
-          Text = 'after'
-        end
-      end
       object grpQuoteLines: TGroupBox
         Left = 0
         Height = 92
-        Top = 364
+        Top = 312
         Width = 462
         Caption = 'Quote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 74
         ClientWidth = 458
-        TabOrder = 4
+        TabOrder = 3
         object edtQuoteLinesQuoteChar: TLabeledEdit
           Left = 110
           Height = 23
@@ -428,14 +347,14 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpDequoteLines: TGroupBox
         Left = 0
         Height = 68
-        Top = 464
+        Top = 424
         Width = 462
         Caption = 'Dequote lines'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 50
         ClientWidth = 458
-        TabOrder = 5
+        TabOrder = 4
         object edtDequoteLinesQuoteChar: TLabeledEdit
           Left = 110
           Height = 23
@@ -480,14 +399,14 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpReplaceStrings: TGroupBox
         Left = 0
         Height = 107
-        Top = 540
+        Top = 512
         Width = 462
         Caption = 'Replace strings'
         ChildSizing.LeftRightSpacing = 2
         ChildSizing.TopBottomSpacing = 4
         ClientHeight = 89
         ClientWidth = 458
-        TabOrder = 6
+        TabOrder = 5
         object chkReplaceStringsCaseSensitive: TCheckBox
           Left = 20
           Height = 19
@@ -550,7 +469,7 @@ inherited frmCodeShaper: TfrmCodeShaper
       object grpMisc: TGroupBox
         Left = 0
         Height = 101
-        Top = 654
+        Top = 639
         Width = 462
         Caption = 'Miscellanious operations'
         ChildSizing.LeftRightSpacing = 2
@@ -563,7 +482,7 @@ inherited frmCodeShaper: TfrmCodeShaper
         ChildSizing.ControlsPerLine = 3
         ClientHeight = 83
         ClientWidth = 458
-        TabOrder = 7
+        TabOrder = 6
         object btnPascalString: TButton
           Left = 2
           Height = 25
@@ -642,11 +561,6 @@ inherited frmCodeShaper: TfrmCodeShaper
       Caption = 'Remove breaks'
       OnExecute = actRemoveBreaksExecute
     end
-    object actAlignLines: TAction
-      Category = 'Align'
-      Caption = 'Align lines'
-      OnExecute = actAlignLinesExecute
-    end
     object actRedo: TAction
       Caption = 'Redo'
       OnExecute = actRedoExecute
@@ -664,31 +578,6 @@ inherited frmCodeShaper: TfrmCodeShaper
       Category = 'Quote'
       Caption = 'Quote'
       OnExecute = actQuoteLinesExecute
-    end
-    object actAlignInsertSpaceAfterToken: TAction
-      Category = 'Align'
-      AutoCheck = True
-      Caption = 'after token'
-      GroupIndex = 1
-      OnExecute = actAlignInsertSpaceAfterTokenExecute
-    end
-    object actAlignInsertSpaceBeforeToken: TAction
-      Category = 'Align'
-      AutoCheck = True
-      Caption = 'before token'
-      GroupIndex = 1
-      OnExecute = actAlignInsertSpaceBeforeTokenExecute
-    end
-    object actAlignInsertSpaceOnBothSides: TAction
-      Category = 'Align'
-      AutoCheck = True
-      Caption = 'on both sides'
-      GroupIndex = 1
-      OnExecute = actAlignInsertSpaceOnBothSidesExecute
-    end
-    object actToggleAlignInsertSpace: TAction
-      Category = 'Align'
-      OnExecute = actToggleAlignInsertSpaceExecute
     end
     object actBreakBeforeToken: TAction
       Category = 'Break'
@@ -803,31 +692,6 @@ inherited frmCodeShaper: TfrmCodeShaper
       AutoCheck = True
       Caption = 'before'
       GroupIndex = 2
-      RadioItem = True
-    end
-  end
-  object ppmSpaces: TPopupMenu[4]
-    left = 248
-    top = 272
-    object mniAlignInsertSpaceAfterToken: TMenuItem
-      Action = actAlignInsertSpaceAfterToken
-      AutoCheck = True
-      Caption = 'after'
-      GroupIndex = 1
-      RadioItem = True
-    end
-    object mniAlignInsertSpaceBeforeToken: TMenuItem
-      Action = actAlignInsertSpaceBeforeToken
-      AutoCheck = True
-      Caption = 'before'
-      GroupIndex = 1
-      RadioItem = True
-    end
-    object mniAlignInsertSpaceOnBothSides: TMenuItem
-      Action = actAlignInsertSpaceOnBothSides
-      AutoCheck = True
-      Caption = 'both'
-      GroupIndex = 1
       RadioItem = True
     end
   end

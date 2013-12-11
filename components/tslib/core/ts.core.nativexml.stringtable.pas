@@ -76,9 +76,9 @@ const
   ssString       =  1; // data is a string
   ssBase64Binary =  2; // data is binary and will be handled by Base64 funcs
   ssHexBinary    =  3; // data is binary and will be handled by BinHex funcs
-  ssBoolean      =  4; // boolean (stored in a byte, just 0 and 1 of cardinal)
+  ssBoolean      =  4; // boolean (stored in a Byte, just 0 and 1 of cardinal)
   ssCardinal     =  5; // cardinal (1..N bytes, see TBinaryXml.ReadCardinal)
-  ssInteger      =  6; // integer (1..N bytes)
+  ssInteger      =  6; // Integer (1..N bytes)
   ssDecimal      =  7; // decimal value (see TNativeXml.EncodeDecimalSymbol)
   ssDate         =  8; // date (see TNativeXml.EncodeDateSymbol)
   ssTime         =  9; // time (see TNativeXml.EncodeTimeSymbol)
@@ -96,8 +96,8 @@ type
   private
     FByID: TObjectList;
     FBySymbol: TObjectList;
-    FPluralSymbolCount: integer;
-    function GetSymbolCount: integer;
+    FPluralSymbolCount: Integer;
+    function GetSymbolCount: Integer;
   protected
   public
     constructor Create(AOwner: TComponent); override;
@@ -108,44 +108,44 @@ type
 
     // Add a potentially new string S to the table, the function
     // returns its string ID.
-    function AddString(const S: Utf8String): integer;
+    function AddString(const S: Utf8String): Integer;
 
     // retrieve the string based on its string ID. The string ID is only unique
     // within this string table, so do not use IDs from other tables.
-    function GetString(ID: integer): Utf8String;
+    function GetString(ID: Integer): Utf8String;
 
     // total number of symbols in the table
-    property SymbolCount: integer read GetSymbolCount;
+    property SymbolCount: Integer read GetSymbolCount;
 
     // plural symbols in the table. plural symbols are symbols that have
     // a frequency > 1. ie the symbol is found more than once in the app.
     // PluralCount is only valid after method SortByFrequency.
-    property PluralSymbolCount: integer read FPluralSymbolCount;
+    property PluralSymbolCount: Integer read FPluralSymbolCount;
 
 
     procedure LoadFromFile(const AFileName: string);
     procedure LoadFromStream(S: TStream);
     function LoadSymbol(S: TStream): Cardinal;
     procedure SaveToFile(const AFileName: string);
-    procedure SaveToStream(S: TStream; ACount: integer);
+    procedure SaveToStream(S: TStream; ACount: Integer);
     procedure SaveSymbol(S: TStream; ASymbolID: Cardinal);
 
     procedure ClearFrequency;
-    procedure IncrementFrequency(ID: integer);
+    procedure IncrementFrequency(ID: Integer);
     procedure SortByFrequency(var ANewIDs: array of Cardinal);
   end;
 
 {utility functions}
 
 // compare two bytes
-function sdCompareByte(Byte1, Byte2: byte): integer;
+function sdCompareByte(Byte1, Byte2: Byte): Integer;
 
 // compare two integers
-function sdCompareInteger(Int1, Int2: integer): integer;
+function sdCompareInteger(Int1, Int2: Integer): Integer;
 
 // unicode UTF8 <> UTF16LE coversion functions
-function sdUtf16ToUtf8Mem(Src: Pword; Dst: Pbyte; Count: integer): integer;
-function sdUtf8ToUtf16Mem(var Src: Pbyte; Dst: Pword; Count: integer): integer;
+function sdUtf16ToUtf8Mem(Src: Pword; Dst: Pbyte; Count: Integer): Integer;
+function sdUtf8ToUtf16Mem(var Src: Pbyte; Dst: Pword; Count: Integer): Integer;
 
 // stream methods
 function sdStreamReadCardinal(S: TStream): Cardinal;
@@ -160,48 +160,48 @@ type
   // A symbol item used in symbol lists (do not use directly)
   TsdSymbol = class
   private
-    FID: integer;
+    FID: Integer;
     FFreq: Cardinal;
     FSymbolStyle: Cardinal;
     FFirst: Pbyte;
-    FCharCount: integer;
+    FCharCount: Integer;
   public
     destructor Destroy; override;
     function AsString: Utf8String;
     property SymbolStyle: Cardinal read FSymbolStyle;
-    property CharCount: integer read FCharCount;
+    property CharCount: Integer read FCharCount;
   end;
 
   // A list of symbols (do not use directly)
   TsdSymbolList = class(TObjectList)
   private
-    function GetItems(Index: integer): TsdSymbol;
+    function GetItems(Index: Integer): TsdSymbol;
   protected
     // Assumes list is sorted by refstring
-    function Find(ASymbol: TsdSymbol; var Index: integer): boolean;
+    function Find(ASymbol: TsdSymbol; var Index: Integer): boolean;
   public
-    property Items[Index: integer]: TsdSymbol read GetItems; default;
+    property Items[Index: Integer]: TsdSymbol read GetItems; default;
   end;
 
 
 // compare two symbols. This is NOT an alphabetic compare. symbols are first
-// compared by length, then by first byte, then last byte then second, then
+// compared by length, then by first Byte, then last Byte then second, then
 // N-1, until all bytes are compared.
-function sdCompareSymbol(Symbol1, Symbol2: TsdSymbol): integer;
+function sdCompareSymbol(Symbol1, Symbol2: TsdSymbol): Integer;
 var
-  CharCount: integer;
+  CharCount: Integer;
   First1, First2, Last1, Last2: Pbyte;
   IsEqual: boolean;
 begin
   // Compare string length first
   Result := sdCompareInteger(Symbol1.CharCount, Symbol2.CharCount);
   if Result <> 0 then
-    exit;
+    Exit;
 
   // Compare FFirst
   Result := sdCompareByte(Symbol1.FFirst^, Symbol2.FFirst^);
   if Result <> 0 then
-    exit;
+    Exit;
 
   // CharCount of RS1 (and RS2, since they are equal)
   CharCount := Symbol1.CharCount;
@@ -219,35 +219,35 @@ begin
   if IsEqual then
   begin
     Result := 0;
-    exit;
+    Exit;
   end;
 
   // finally the special conparison: Compare each time last ptrs then first ptrs,
   // until they meet in the middle
   Last1 := First1;
-  inc(Last1, CharCount);
+  Inc(Last1, CharCount);
   Last2 := First2;
-  inc(Last2, CharCount);
+  Inc(Last2, CharCount);
 
   repeat
 
     dec(Last1);
     dec(Last2);
     if First1 = Last1 then
-      exit;
+      Exit;
 
     Result := sdCompareByte(Last1^, Last2^);
     if Result <> 0 then
-      exit;
+      Exit;
 
-    inc(First1);
-    inc(First2);
+    Inc(First1);
+    Inc(First2);
     if First1 = Last1 then
-      exit;
+      Exit;
 
     Result := sdCompareByte(First1^, First2^);
     if Result <> 0 then
-      exit;
+      Exit;
 
   until False;
 end;
@@ -267,14 +267,14 @@ end;
 
 { TsdSymbolList }
 
-function TsdSymbolList.GetItems(Index: integer): TsdSymbol;
+function TsdSymbolList.GetItems(Index: Integer): TsdSymbol;
 begin
   Result := Get(Index);
 end;
 
-function TsdSymbolList.Find(ASymbol: TsdSymbol; var Index: integer): boolean;
+function TsdSymbolList.Find(ASymbol: TsdSymbol; var Index: Integer): boolean;
 var
-  AMin, AMax: integer;
+  AMin, AMax: Integer;
 begin
   Result := False;
 
@@ -288,7 +288,7 @@ begin
     -1: AMin := Index + 1;
      0: begin
           Result := True;
-          exit;
+          Exit;
         end;
      1: AMax := Index;
     end;
@@ -298,10 +298,10 @@ end;
 
 { TsdSymbolTable }
 
-function TsdSymbolTable.AddString(const S: Utf8String): integer;
+function TsdSymbolTable.AddString(const S: Utf8String): Integer;
 var
   Found: boolean;
-  L, BySymbolIndex: integer;
+  L, BySymbolIndex: Integer;
   ASymbol, Item: TsdSymbol;
 begin
   BySymbolIndex := 0;
@@ -310,7 +310,7 @@ begin
 
   // zero-length string
   if L = 0 then
-    exit;
+    Exit;
 
   ASymbol := TsdSymbol.Create;
   try
@@ -324,7 +324,7 @@ begin
       // yes it is found
       Item := TsdSymbol(FBySymbol[BySymbolIndex]);
       Result := Item.FID;
-      exit;
+      Exit;
     end;
 
     // Not found.. must make new item
@@ -359,7 +359,7 @@ end;
 
 procedure TsdSymbolTable.ClearFrequency;
 var
-  i: integer;
+  i: Integer;
 begin
   for i := 0 to FByID.Count - 1 do
     TsdSymbol(FByID[i]).FFreq := 0;
@@ -379,12 +379,12 @@ begin
   inherited;
 end;
 
-function TsdSymbolTable.GetSymbolCount: integer;
+function TsdSymbolTable.GetSymbolCount: Integer;
 begin
   Result := FByID.Count;
 end;
 
-function TsdSymbolTable.GetString(ID: integer): Utf8String;
+function TsdSymbolTable.GetString(ID: Integer): Utf8String;
 begin
   // Find the ID
 
@@ -392,7 +392,7 @@ begin
   if ID <= 0 then
   begin
     Result := '';
-    exit;
+    Exit;
   end;
 
   // out of bounds?
@@ -406,12 +406,12 @@ begin
   Result := TsdSymbol(FByID[ID - 1]).AsString;
 end;
 
-procedure TsdSymbolTable.IncrementFrequency(ID: integer);
+procedure TsdSymbolTable.IncrementFrequency(ID: Integer);
 var
   RS: TsdSymbol;
 begin
   RS := TsdSymbol(FByID[ID - 1]);
-  inc(RS.FFreq);
+  Inc(RS.FFreq);
 end;
 
 procedure TsdSymbolTable.LoadFromFile(const AFileName: string);
@@ -429,7 +429,7 @@ end;
 
 procedure TsdSymbolTable.LoadFromStream(S: TStream);
 var
-  i: integer;
+  i: Integer;
   TableCount: Cardinal;
 begin
   Clear;
@@ -439,7 +439,7 @@ begin
   // table count
   TableCount := sdStreamReadCardinal(S);
   if TableCount = 0 then
-    exit;
+    Exit;
 
   for i := 0 to TableCount - 1 do
   begin
@@ -450,9 +450,10 @@ end;
 function TsdSymbolTable.LoadSymbol(S: TStream): Cardinal;
 var
   Symbol: TsdSymbol;
-  BySymbolIndex: integer;
+  BySymbolIndex: Integer;
   Found: boolean;
 begin
+  BySymbolIndex := 0;
   Symbol := TsdSymbol.Create;
 
   // For now, we just use ssString uniquely as symbol style,.
@@ -478,7 +479,7 @@ begin
   if Found then
   begin
     DoDebugOut(Self, wsFail, 'duplicate symbol!');
-    exit;
+    Exit;
   end;
 
   // insert into the ByRS list
@@ -498,9 +499,9 @@ begin
   end;
 end;
 
-procedure TsdSymbolTable.SaveToStream(S: TStream; ACount: integer);
+procedure TsdSymbolTable.SaveToStream(S: TStream; ACount: Integer);
 var
-  i: integer;
+  i: Integer;
 begin
   // write (part of the) symbol table
   sdStreamWriteCardinal(S, ACount);
@@ -532,7 +533,7 @@ end;
 
 procedure TsdSymbolTable.SortByFrequency(var ANewIDs: array of Cardinal);
   // local
-  function CompareFreq(Pos1, Pos2: integer): integer;
+  function CompareFreq(Pos1, Pos2: Integer): Integer;
   var
     RS1, RS2: TsdSymbol;
   begin
@@ -581,7 +582,7 @@ procedure TsdSymbolTable.SortByFrequency(var ANewIDs: array of Cardinal);
   end;
 // main
 var
-  i: integer;
+  i: Integer;
 begin
   // sort by frequency
   QuickSort(0, FByID.Count - 1);
@@ -592,10 +593,10 @@ begin
   while i < FByID.Count do
   begin
     if TsdSymbol(FByID[i]).FFreq >= 2 then
-      inc(FPluralSymbolCount)
+      Inc(FPluralSymbolCount)
     else
       break;
-    inc(i);
+    Inc(i);
   end;
 
   // tell app about new ID
@@ -613,7 +614,7 @@ end;
 
 {utility functions}
 
-function sdCompareByte(Byte1, Byte2: byte): integer;
+function sdCompareByte(Byte1, Byte2: Byte): Integer;
 begin
   if Byte1 < Byte2 then
     Result := -1
@@ -624,7 +625,7 @@ begin
       Result := 0;
 end;
 
-function sdCompareInteger(Int1, Int2: integer): integer;
+function sdCompareInteger(Int1, Int2: Integer): Integer;
 begin
   if Int1 < Int2 then
     Result := -1
@@ -635,7 +636,7 @@ begin
       Result := 0;
 end;
 
-function sdUtf16ToUtf8Mem(Src: Pword; Dst: Pbyte; Count: integer): integer;
+function sdUtf16ToUtf8Mem(Src: Pword; Dst: Pbyte; Count: Integer): Integer;
 // Convert an Unicode (UTF16 LE) memory block to UTF8. This routine will process
 // Count wide characters (2 bytes size) to Count UTF8 characters (1-3 bytes).
 // Therefore, the block at Dst must be at least 1.5 the size of the source block.
@@ -648,92 +649,93 @@ begin
   while Count > 0 do
   begin
     W := Src^;
-    inc(Src);
+    Inc(Src);
     if W <= $7F then
     begin
-      Dst^ := byte(W);
-      inc(Dst);
+      Dst^ := Byte(W);
+      Inc(Dst);
     end else
     begin
       if W > $7FF then
       begin
-        Dst^ := byte($E0 or (W shr 12));
-        inc(Dst);
-        Dst^ := byte($80 or ((W shr 6) and $3F));
-        inc(Dst);
-        Dst^ := byte($80 or (W and $3F));
-        inc(Dst);
+        Dst^ := Byte($E0 or (W shr 12));
+        Inc(Dst);
+        Dst^ := Byte($80 or ((W shr 6) and $3F));
+        Inc(Dst);
+        Dst^ := Byte($80 or (W and $3F));
+        Inc(Dst);
       end else
       begin //  $7F < W <= $7FF
-        Dst^ := byte($C0 or (W shr 6));
-        inc(Dst);
-        Dst^ := byte($80 or (W and $3F));
-        inc(Dst);
+        Dst^ := Byte($C0 or (W shr 6));
+        Inc(Dst);
+        Dst^ := Byte($80 or (W and $3F));
+        Inc(Dst);
       end;
     end;
     Dec(Count);
   end;
-  Result := Byte(Dst) - Byte(DStart);
+  //Result := Byte(Dst) - Byte(DStart);
+  Result := Byte(Dst - DStart);
 end;
 
-function sdUtf8ToUtf16Mem(var Src: Pbyte; Dst: Pword; Count: integer): integer;
+function sdUtf8ToUtf16Mem(var Src: Pbyte; Dst: Pword; Count: Integer): Integer;
 // Convert an UTF8 memory block to Unicode (UTF16 LE). This routine will process
 // Count *bytes* of UTF8 (each character 1-3 bytes) into UTF16 (each char 2 bytes).
 // Therefore, the block at Dst must be at least 2 times the size of Count, since
-// many UTF8 characters consist of just one byte, and are mapped to 2 bytes. The
+// many UTF8 characters consist of just one Byte, and are mapped to 2 bytes. The
 // function returns the number of *wide chars* written. Note that the Src block must
 // have an exact number of UTF8 characters in it, if Count doesn't match then
 // the last character will be converted anyway (going past the block boundary!)
 var
-  W: word;
-  C: byte;
-  DStart: Pword;
-  SClose: Pbyte;
+  W: Word;
+  C: Byte;
+  DStart: PWord;
+  SClose: PByte;
 begin
   DStart := Dst;
   SClose := Src;
-  inc(SClose, Count);
-  while Byte(Src) < Byte(SClose) do
+  Inc(SClose, Count);
+  while Src < SClose do
   begin
-    // 1st byte
+    // 1st Byte
     W := Src^;
-    inc(Src);
+    Inc(Src);
     if W and $80 <> 0 then
     begin
       W := W and $3F;
       if W and $20 <> 0 then
       begin
-        // 2nd byte
+        // 2nd Byte
         C := Src^;
-        inc(Src);
+        Inc(Src);
         if C and $C0 <> $80 then
-          // malformed trail byte or out of range char
+          // malformed trail Byte or out of range char
           Continue;
         W := (W shl 6) or (C and $3F);
       end;
-      // 2nd or 3rd byte
+      // 2nd or 3rd Byte
       C := Src^;
-      inc(Src);
+      Inc(Src);
       if C and $C0 <> $80 then
-        // malformed trail byte
+        // malformed trail Byte
         Continue;
       Dst^ := (W shl 6) or (C and $3F);
-      inc(Dst);
+      Inc(Dst);
     end else
     begin
       Dst^ := W;
-      inc(Dst);
+      Inc(Dst);
     end;
   end;
-  Result := (integer(Dst) - integer(DStart)) div 2;
+  Result := NativeUInt(Dst - DStart) div 2;
 end;
 
 { stream methods }
 
 function sdStreamReadCardinal(S: TStream): Cardinal;
 var
-  C: byte;
-  Bits: integer;
+  C: Byte;
+  Bits: Integer;
 begin
   C := 0;
   Result := 0;
@@ -742,8 +744,8 @@ begin
     S.Read(C, 1);
     if C > 0 then
     begin
-      inc(Result, (C and $7F) shl Bits);
-      inc(Bits, 7)
+      Inc(Result, (C and $7F) shl Bits);
+      Inc(Bits, 7)
     end;
   until(C and $80) = 0;
 end;
@@ -752,20 +754,20 @@ function sdStreamReadString(S: TStream; ACharCount: Cardinal): Utf8String;
 begin
   SetLength(Result, ACharCount);
   if ACharCount = 0 then
-    exit;
+    Exit;
   S.Read(Result[1], ACharCount);
 end;
 
 procedure sdStreamWriteCardinal(S: TStream; ACardinal: Cardinal);
 var
-  C: byte;
+  C: Byte;
 begin
   repeat
     if ACardinal <= $7F then
     begin
       C := ACardinal;
       S.Write(C, 1);
-      exit;
+      Exit;
     end else
       C := (ACardinal and $7F) or $80;
     S.Write(C, 1);
@@ -775,7 +777,7 @@ end;
 
 procedure sdStreamWriteString(S: TStream; const AString: Utf8String);
 var
-  L: integer;
+  L: Integer;
 begin
   L := Length(AString);
   if L > 0 then

@@ -458,8 +458,9 @@ begin
   ///  grab the cursor coordonates
   ///
   //Windows.GetCursorPos(LPoint);
-  LPoint := Self.ScreenToClient(LPoint);
-  Result := TranslatePoint(@LPoint);
+  //LPoint := Self.ScreenToClient(LPoint);
+  //Result := TranslatePoint(@LPoint);
+  Result := Point(0, 0);
 end;
 
 function TSynMiniMap.GetPixelFormat: TPixelFormat;
@@ -853,4 +854,4 @@ begin
   Result.Y := FFirstLine + APoint.Y div FLineHeightInPixels +1;
 end;
 
-end.
+end.

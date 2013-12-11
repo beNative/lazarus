@@ -40,8 +40,8 @@ type
     procedure FInspectorGetCellText(Sender: TObject; Cell: TGridCell;
       var Value: string);
   strict private
-    FInspector : TExInspector;
-    FGridView  : TGridView;
+    //FInspector : TExInspector;
+    //FGridView  : TGridView;
   public
     procedure AfterConstruction; override;
   end;

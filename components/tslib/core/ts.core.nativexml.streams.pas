@@ -43,15 +43,15 @@ type
   TsdFastMemStream = class(TStream)
   private
     FMemory: Pointer;
-    FPosition: longint;
+    FPosition: NativeInt;
     FFib1: longint;
-    FCapacity: longint;
-    FSize: longint;
+    FCapacity: Int64;
+    FSize: Int64;
   protected
-    procedure SetCapacity(Value: longint);
-    procedure SetSize(NewSize: Longint); override;
+    procedure SetCapacity(Value: Int64);
+    procedure SetSize(const NewSize: Int64); override;
   public
-    constructor Create(InitialCapacity: longint = $1000);
+    constructor Create(InitialCapacity: Int64 = $1000);
     destructor Destroy; override;
     procedure Clear;
     function Read(var Buffer; Count: Longint): Longint; override;
@@ -62,7 +62,7 @@ type
     procedure SaveToFile(AFilename: string);
     procedure SaveToStream(Stream: TStream);
     property Memory: Pointer read FMemory;
-    property Size: longint read FSize write SetSize;
+    property Size: Int64 read FSize write SetSize;
   end;
 
   // Delphi's implementation of TStringStream is severely flawed, it does a SetLength
@@ -105,7 +105,7 @@ begin
   FPosition := 0;
 end;
 
-constructor TsdFastMemStream.Create(InitialCapacity: Integer);
+constructor TsdFastMemStream.Create(InitialCapacity: Int64);
 begin
   inherited Create;
   FFib1 := InitialCapacity div 2;
@@ -145,7 +145,7 @@ begin
   if Count <> 0 then Stream.ReadBuffer(FMemory^, Count);
 end;
 
-function TsdFastMemStream.Read(var Buffer; Count: Integer): Longint;
+function TsdFastMemStream.Read(var Buffer; Count: Longint): Longint;
 begin
   if (FPosition >= 0) and (Count >= 0) then
   begin
@@ -154,7 +154,7 @@ begin
     begin
       if Result > Count then
         Result := Count;
-      Move(Pointer(NativeInt(FMemory) + FPosition)^, Buffer, Result);
+      Move(Pointer(FMemory + FPosition)^, Buffer, Result);
       Inc(FPosition, Result);
       Exit;
     end;
@@ -179,7 +179,7 @@ begin
   if FSize <> 0 then Stream.WriteBuffer(FMemory^, FSize);
 end;
 
-function TsdFastMemStream.Seek(Offset: Integer; Origin: Word): Longint;
+function TsdFastMemStream.Seek(Offset: Longint; Origin: Word): Longint;
 begin
   case Origin of
     soFromBeginning: FPosition := Offset;
@@ -189,7 +189,7 @@ begin
   Result := FPosition;
 end;
 
-procedure TsdFastMemStream.SetCapacity(Value: longint);
+procedure TsdFastMemStream.SetCapacity(Value: Int64);
 // Fibonacci 0,1,1,2,3,5,8,...  FCapacity is Fib2.
 // Fibonacci is a natural growing function where
 // 0 + 1 = 1; 1 + 1 = 2; 1 + 2 = 3; 2 + 3 = 5; etc
@@ -205,7 +205,7 @@ begin
   ReallocMem(FMemory, FCapacity);
 end;
 
-procedure TsdFastMemStream.SetSize(NewSize: longint);
+procedure TsdFastMemStream.SetSize(const NewSize: Int64);
 var
   OldPosition: Longint;
 begin
@@ -216,7 +216,7 @@ begin
     Seek(0, soFromEnd);
 end;
 
-function TsdFastMemStream.Write(const Buffer; Count: Integer): Longint;
+function TsdFastMemStream.Write(const Buffer; Count: Longint): Longint;
 var
   NewPos: Longint;
 begin
@@ -231,7 +231,7 @@ begin
           SetCapacity(NewPos);
         FSize := NewPos;
       end;
-      System.Move(Buffer, Pointer(NativeInt(FMemory) + FPosition)^, Count);
+      System.Move(Buffer, Pointer(FMemory + FPosition)^, Count);
       FPosition := NewPos;
       Result := Count;
       Exit;
@@ -323,4 +323,4 @@ begin
   end;
 end;
 
-end.
+end.

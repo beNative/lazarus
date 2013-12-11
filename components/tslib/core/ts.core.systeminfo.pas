@@ -30,11 +30,11 @@ implementation
 
 uses
 {$IFDEF MSWINDOWS}
-  DynLibs, Windows, JwaTlHelp32;
+  DynLibs, Windows;
 {$ENDIF}
 
 const
-  IP_ADDRESS_MASK  = '%d.%d.%d.%d';
+  //IP_ADDRESS_MASK  = '%d.%d.%d.%d';
   MAC_ADDRESS_MASK = '%2.2x-%2.2x-%2.2x-%2.2x-%2.2x-%2.2x';
 
 { SystemInfo }

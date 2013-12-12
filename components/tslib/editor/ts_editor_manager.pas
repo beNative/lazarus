@@ -796,6 +796,7 @@ uses
   ts_Editor_ScriptEditor_ToolView,
   ts_Editor_SelectionInfo_ToolView,
   ts_Editor_Filter_ToolView,
+  ts_Editor_SortLines_ToolView,
 
   ts_Editor_AboutDialog,
 
@@ -2244,6 +2245,7 @@ begin
   ToolViews.Register(TfrmMiniMap, 'MiniMap');
   ToolViews.Register(TfrmScriptEditor, 'ScriptEditor');
   ToolViews.Register(TfrmFilter, 'Filter');
+  ToolViews.Register(TfrmSortLines, 'SortLines');
 end;
 
 procedure TdmEditorManager.BuildClipboardPopupMenu;

@@ -305,7 +305,9 @@ end;
 
 procedure AddEditorFileMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
 var
-  MI : TMenuItem;
+  M   : TMenuItem;
+  MI  : TMenuItem;
+  SMI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMainMenu.Owner);
   MI.Caption := SFileMenuCaption;
@@ -317,6 +319,19 @@ begin
   AddEditorMenuItem(AManager, MI);
   AddEditorMenuItem(AManager, MI, 'actReload');
   AddEditorMenuItem(AManager, MI);
+  AddEditorMenuItem(AManager, MI, 'actMonitorChanges');
+  AddEditorMenuItem(AManager, MI, 'actCreateDesktopLink');
+  AddEditorMenuItem(AManager, MI);
+  SMI := AddEditorMenuItem(AManager, MI, 'actEncodingMenu');
+  for M in AManager.Menus.EncodingPopupMenu.Items do
+  begin
+    AddEditorMenuItem(AManager, SMI, M.Action.Name);
+  end;
+  SMI := AddEditorMenuItem(AManager, MI, 'actLineBreakStyleMenu');
+  for M in AManager.Menus.LineBreakStylePopupMenu.Items do
+  begin
+    AddEditorMenuItem(AManager, SMI, M.Action.Name);
+  end;
   AddEditorMenuItem(AManager, MI, 'actClose');
   AddEditorMenuItem(AManager, MI, 'actCloseOthers');
   AddEditorMenuItem(AManager, MI, 'actExit');

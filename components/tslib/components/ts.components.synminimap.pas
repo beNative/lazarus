@@ -451,8 +451,8 @@ begin
 end;
 
 function TSynMiniMap.GetClickCoord: TPoint;
-var
-  LPoint: TPoint;
+//var
+//  LPoint: TPoint;
 begin
   ///
   ///  grab the cursor coordonates

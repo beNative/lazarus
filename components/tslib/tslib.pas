@@ -21,8 +21,8 @@ uses
   ts.Core.DBUtils, ts.Core.DirectoryWatch, ts.Core.EncodingUtils, 
   ts.Core.Events, ts.Core.FileAssociations, ts.Core.FormSettings, 
   ts.Core.Generics.Collections, ts.Core.Generics.Defaults, 
-  ts.Core.Generics.Hashes, ts.Core.Generics.Helpers, ts.Core.HashStrings, 
-  ts.Core.Helpers, ts.Core.KeyValues, ts.Core.Logger.Channel.IPC, 
+  ts.Core.Generics.Hashes, ts.Core.Generics.Helpers, ts.Core.Helpers, 
+  ts.Core.KeyValues, ts.Core.Logger.Channel.IPC, 
   ts.Core.Logger.Channel.LogFile, ts.Core.Logger, ts.Core.NativeXml.Debug, 
   ts.Core.NativeXml.ObjectStorage, ts.Core.NativeXml, 
   ts.Core.NativeXml.Streams, ts.Core.NativeXml.StringTable, 
@@ -58,7 +58,8 @@ uses
   ts_Editor_SettingsDialog_KeyMappings, ts_Editor_SettingsDialog_Old, 
   ts_Editor_Shortcuts_ToolView, ts_Editor_Structure_ToolView, 
   ts_Editor_Test_ToolView, ts_Editor_ToolView_Base, ts.Editor.ViewList.Data, 
-  ts_Editor_ViewList_ToolView, LazarusPackageIntf;
+  ts_Editor_ViewList_ToolView, ts.Editor.SortLines.Settings, 
+  ts_Editor_SortLines_ToolView, LazarusPackageIntf;
 
 implementation
 

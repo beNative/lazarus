@@ -43,4 +43,12 @@ inherited frmScriptEditor: TfrmScriptEditor
       TabOrder = 2
     end
   end
+  object aclMain: TActionList[1]
+    left = 533
+    top = 254
+    object actExecute: TAction
+      Caption = 'Execute'
+      OnExecute = actExecuteExecute
+    end
+  end
 end

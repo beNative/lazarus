@@ -16,7 +16,6 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-
 unit ts_Editor_ScriptEditor_ToolView;
 
 {$MODE Delphi}
@@ -25,6 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  ActnList,
 
   ts_Editor_ToolView_Base, ts.Editor.Interfaces;
 
@@ -33,19 +33,24 @@ type
   { TfrmScriptEditor }
 
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
+    aclMain: TActionList;
+    actExecute: TAction;
     pnlLeft   : TPanel;
     pnlRight  : TPanel;
     pnlBottom : TPanel;
     pnlMain   : TPanel;
+
+    procedure actExecuteExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);
+
   private
-    { private declarations }
-    FEditor  : IEditorView;
-    FManager : IEditorManager;
+    FScriptEditor        : IEditorView;
+    FScriptEditorManager : IEditorManager;
+
   public
-    { public declarations }
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
   end;
 
 implementation
@@ -61,26 +66,35 @@ uses
 procedure TfrmScriptEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FEditor := CreateEditorView(pnlLeft, 'ScriptEditor', '', 'PAS');
-  FManager := CreateEditorManager(Self);
+  //FScriptEditor := CreateEditorView(pnlLeft, 'ScriptEditor', '', 'PAS');
+  // The script editor uses a dedicated editor manager
+  FScriptEditorManager := CreateEditorManager(Self, Manager.Settings);
 end;
 
 procedure TfrmScriptEditor.BeforeDestruction;
 begin
-  FEditor := nil;
-  FManager := nil;
+  FScriptEditor := nil;
+  FScriptEditorManager := nil;
   inherited BeforeDestruction;
 end;
 {$endregion}
 
+{$region 'event handlers' /fold}
 procedure TfrmScriptEditor.FormShow(Sender: TObject);
 begin
-  if not Assigned(FEditor) then
-    FEditor := CreateEditorView(pnlLeft, FManager, 'ScriptEditor', '', 'PAS');
+  if not Assigned(FScriptEditor) then
+    FScriptEditor := CreateEditorView(pnlLeft, FScriptEditorManager, 'ScriptEditor', '', 'PAS');
 
   if FileExists('notepas.dws') then
-    FEditor.Load('notepas.dws');
+    FScriptEditor.Load('notepas.dws');
 end;
+
+procedure TfrmScriptEditor.actExecuteExecute(Sender: TObject);
+begin
+  //
+end;
+
+{$endregion}
 
 end.
 

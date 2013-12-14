@@ -55,10 +55,7 @@ const
   DEFAULT_PREVIEW_VISIBLE             = False;
   DEFAULT_SINGLE_INSTANCE             = False;
 
-
-
   DEFAULT_SETTINGS_FILE = 'settings.xml';
-
 
 type
   { TEditorSettings }

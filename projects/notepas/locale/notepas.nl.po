@@ -1,4 +1,4 @@
-msgid ""
+msgid "focus to the search entry field.focus to the search entry field."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: Notepas\n"
@@ -1231,6 +1231,7 @@ msgid "Align at:"
 msgstr "Begin op:"
 
 #: tfrmalignlines.rgpsortdirection.caption
+msgctxt "tfrmalignlines.rgpsortdirection.caption"
 msgid "Sort direction:"
 msgstr "Sorteervolgorde:"
 
@@ -2626,6 +2627,10 @@ msgctxt "tfrmscripteditor.actexecute.caption"
 msgid "Execute"
 msgstr "Uitvoeren"
 
+#: tfrmscripteditor.caption
+msgid "Script editor"
+msgstr ""
+
 #: tfrmsearchform.actfind.caption
 msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
 msgid "Find"
@@ -2685,12 +2690,17 @@ msgid "Replace with:"
 msgstr "Vervang door:"
 
 #: tfrmsearchform.grpscope.caption
+msgctxt "tfrmsearchform.grpscope.caption"
 msgid "Scope"
 msgstr "Scope"
 
 #: tfrmsearchform.grpsearchtext.caption
 msgid "Text to find:"
 msgstr "Zoek naar tekst:"
+
+#: tfrmsearchform.image1.hint
+msgid "Press the F2 function key to set "
+msgstr ""
 
 #: tfrmsearchform.rbactiveview.caption
 msgid "Active &view"
@@ -2811,6 +2821,66 @@ msgstr "StoredCaretXY:"
 #: tfrmselectioninfo.lblstoredcaretxyvalue.caption
 msgid "lblStoredCaretXYValue"
 msgstr "lblStoredCaretXYValue"
+
+#: tfrmsortlines.actexecute.caption
+msgctxt "tfrmsortlines.actexecute.caption"
+msgid "Execute"
+msgstr "Uitvoeren"
+
+#: tfrmsortlines.btnok.caption
+msgctxt "tfrmsortlines.btnok.caption"
+msgid "Sort selection"
+msgstr ""
+
+#: tfrmsortlines.caption
+msgctxt "tfrmsortlines.caption"
+msgid "Sort strings"
+msgstr ""
+
+#: tfrmsortlines.gbxoptions.caption
+msgctxt "tfrmsortlines.gbxoptions.caption"
+msgid "Options"
+msgstr "Opties"
+
+#: tfrmsortlines.rgpscope.caption
+msgctxt "tfrmsortlines.rgpscope.caption"
+msgid "Scope"
+msgstr "Scope"
+
+#: tfrmsortlines.rgpsortdirection.caption
+msgctxt "tfrmsortlines.rgpsortdirection.caption"
+msgid "Sort direction:"
+msgstr "Sorteervolgorde:"
+
+#: tfrmsortstrings.actexecute.caption
+msgctxt "tfrmsortstrings.actexecute.caption"
+msgid "Execute"
+msgstr "Uitvoeren"
+
+#: tfrmsortstrings.btnok.caption
+msgctxt "tfrmsortstrings.btnok.caption"
+msgid "Sort selection"
+msgstr ""
+
+#: tfrmsortstrings.caption
+msgctxt "tfrmsortstrings.caption"
+msgid "Sort strings"
+msgstr ""
+
+#: tfrmsortstrings.gbxoptions.caption
+msgctxt "tfrmsortstrings.gbxoptions.caption"
+msgid "Options"
+msgstr "Opties"
+
+#: tfrmsortstrings.rgpsortdirection.caption
+msgctxt "tfrmsortstrings.rgpsortdirection.caption"
+msgid "Sort direction:"
+msgstr "Sorteervolgorde:"
+
+#: tfrmsortstrings.rgpsortscope.caption
+msgctxt "tfrmsortstrings.rgpsortscope.caption"
+msgid "Scope"
+msgstr "Scope"
 
 #: tfrmstructure.btncollapse.caption
 msgctxt "tfrmstructure.btncollapse.caption"

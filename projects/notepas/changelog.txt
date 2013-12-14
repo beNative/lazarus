@@ -1,4 +1,6 @@
 2013.12.14 (0.9.28)
+* Fixed focus issue when adding new editor view.
+* Optimized some settings.
 
 2013.12.12 (0.9.27)
 * Reorganized some menu items

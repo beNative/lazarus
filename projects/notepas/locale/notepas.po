@@ -1,4 +1,4 @@
-msgid ""
+msgid "focus to the search entry field.focus to the search entry field."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -1215,6 +1215,7 @@ msgid "Align at:"
 msgstr ""
 
 #: tfrmalignlines.rgpsortdirection.caption
+msgctxt "tfrmalignlines.rgpsortdirection.caption"
 msgid "Sort direction:"
 msgstr ""
 
@@ -2578,6 +2579,10 @@ msgctxt "TFRMSCRIPTEDITOR.ACTEXECUTE.CAPTION"
 msgid "Execute"
 msgstr ""
 
+#: tfrmscripteditor.caption
+msgid "Script editor"
+msgstr ""
+
 #: tfrmsearchform.actfind.caption
 msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
 msgid "Find"
@@ -2637,11 +2642,16 @@ msgid "Replace with:"
 msgstr ""
 
 #: tfrmsearchform.grpscope.caption
+msgctxt "tfrmsearchform.grpscope.caption"
 msgid "Scope"
 msgstr ""
 
 #: tfrmsearchform.grpsearchtext.caption
 msgid "Text to find:"
+msgstr ""
+
+#: tfrmsearchform.image1.hint
+msgid "Press the F2 function key to set "
 msgstr ""
 
 #: tfrmsearchform.rbactiveview.caption
@@ -2762,6 +2772,66 @@ msgstr ""
 
 #: tfrmselectioninfo.lblstoredcaretxyvalue.caption
 msgid "lblStoredCaretXYValue"
+msgstr ""
+
+#: tfrmsortlines.actexecute.caption
+msgctxt "TFRMSORTLINES.ACTEXECUTE.CAPTION"
+msgid "Execute"
+msgstr ""
+
+#: tfrmsortlines.btnok.caption
+msgctxt "tfrmsortlines.btnok.caption"
+msgid "Sort selection"
+msgstr ""
+
+#: tfrmsortlines.caption
+msgctxt "tfrmsortlines.caption"
+msgid "Sort strings"
+msgstr ""
+
+#: tfrmsortlines.gbxoptions.caption
+msgctxt "TFRMSORTLINES.GBXOPTIONS.CAPTION"
+msgid "Options"
+msgstr ""
+
+#: tfrmsortlines.rgpscope.caption
+msgctxt "TFRMSORTLINES.RGPSCOPE.CAPTION"
+msgid "Scope"
+msgstr ""
+
+#: tfrmsortlines.rgpsortdirection.caption
+msgctxt "TFRMSORTLINES.RGPSORTDIRECTION.CAPTION"
+msgid "Sort direction:"
+msgstr ""
+
+#: tfrmsortstrings.actexecute.caption
+msgctxt "TFRMSORTSTRINGS.ACTEXECUTE.CAPTION"
+msgid "Execute"
+msgstr ""
+
+#: tfrmsortstrings.btnok.caption
+msgctxt "TFRMSORTSTRINGS.BTNOK.CAPTION"
+msgid "Sort selection"
+msgstr ""
+
+#: tfrmsortstrings.caption
+msgctxt "TFRMSORTSTRINGS.CAPTION"
+msgid "Sort strings"
+msgstr ""
+
+#: tfrmsortstrings.gbxoptions.caption
+msgctxt "TFRMSORTSTRINGS.GBXOPTIONS.CAPTION"
+msgid "Options"
+msgstr ""
+
+#: tfrmsortstrings.rgpsortdirection.caption
+msgctxt "TFRMSORTSTRINGS.RGPSORTDIRECTION.CAPTION"
+msgid "Sort direction:"
+msgstr ""
+
+#: tfrmsortstrings.rgpsortscope.caption
+msgctxt "TFRMSORTSTRINGS.RGPSORTSCOPE.CAPTION"
+msgid "Scope"
 msgstr ""
 
 #: tfrmstructure.btncollapse.caption

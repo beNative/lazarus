@@ -121,7 +121,7 @@ uses
   ts_Editor_SettingsDialog_Highlighters,
   ts_Editor_SettingsDialog_KeyMappings,
   ts_Editor_SettingsDialog_Extensions,
-  ts.Editor.Events,
+  ts.Editor.Events, ts.Editor.Types,
   ts_Editor_Colors_ToolView,
   ts_Editor_SettingsDialog_ApplicationSettings,
   ts_Editor_SettingsDialog_Base,
@@ -130,7 +130,7 @@ uses
   ts.Editor.HTMLView.Settings,
   ts.Editor.HexEditor.Settings,
   ts.Editor.CodeFilter.Settings,
-  ts.Editor.SortLines.Settings,
+  ts.editor.sortstrings.settings,
   ts_Editor_Filter_ToolView,
   ts_Editor_ViewList_ToolView,
   ts.Editor.ActionList.Templates,
@@ -151,10 +151,10 @@ uses
   ts_Editor_SelectionInfo_ToolView,
   ts_Editor_Shortcuts_ToolView,
   ts_Editor_Structure_ToolView,
-  ts_Editor_SortLines_ToolView,
+  ts_editor_sortstrings_toolview,
   ts_Editor_Test_ToolView,
   ts.Editor.CodeFilter.Data,
-  ts.Editor.ViewList.Data;
+  ts.Editor.ViewList.Data, ts.editor.factories;
 
 {$R *.res}
 

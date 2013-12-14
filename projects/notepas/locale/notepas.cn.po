@@ -2611,6 +2611,11 @@ msgstr "全选(&A)"
 msgid "Select All"
 msgstr "全选"
 
+#: tfrmscripteditor.actexecute.caption
+msgctxt "tfrmscripteditor.actexecute.caption"
+msgid "Execute"
+msgstr ""
+
 #: tfrmsearchform.actfind.caption
 msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
 msgid "Find"

@@ -2573,6 +2573,11 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
+#: tfrmscripteditor.actexecute.caption
+msgctxt "TFRMSCRIPTEDITOR.ACTEXECUTE.CAPTION"
+msgid "Execute"
+msgstr ""
+
 #: tfrmsearchform.actfind.caption
 msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
 msgid "Find"

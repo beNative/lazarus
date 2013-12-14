@@ -2621,6 +2621,11 @@ msgstr "Selecteer &Alles"
 msgid "Select All"
 msgstr "Selecteer alles"
 
+#: tfrmscripteditor.actexecute.caption
+msgctxt "tfrmscripteditor.actexecute.caption"
+msgid "Execute"
+msgstr "Uitvoeren"
+
 #: tfrmsearchform.actfind.caption
 msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
 msgid "Find"

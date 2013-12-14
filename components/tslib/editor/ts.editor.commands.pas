@@ -117,6 +117,7 @@ type
     procedure ToggleBlockCommentSelection;
     procedure InsertTextAtCaret(const AText: string);
     procedure FormatCode;
+    procedure SortStrings;
     procedure SmartSelect;
     function SelectBlockAroundCursor(
       const AStartTag        : string;
@@ -798,6 +799,19 @@ begin
   end
   else
     raise Exception.Create('No codeformatter for current highlighter');
+end;
+
+procedure TEditorCommands.SortStrings;
+begin
+  Selection.Store;
+  Selection.Text := ts.Editor.Utils.SortStrings(
+    Selection.Text,
+    Settings.SortStringsSettings.SortDirection,
+    Settings.SortStringsSettings.SortScope,
+    Settings.SortStringsSettings.CaseSensitive,
+    Settings.SortStringsSettings.IgnoreSpaces
+  );
+  Selection.Restore;
 end;
 
 { Makes a smart selection of a block around the cursor. }

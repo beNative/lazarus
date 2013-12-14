@@ -35,7 +35,7 @@ uses
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
-  ts.Editor.HexEditor.Settings,
+  ts.Editor.HexEditor.Settings, ts.Editor.SortStrings.Settings,
 
   ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
@@ -70,6 +70,7 @@ type
 
     function Focused: Boolean;
     procedure SetFocus;
+    function Canfocus: Boolean;
 
     property Parent: TWinControl
       read GetParent write SetParent;
@@ -621,7 +622,6 @@ type
     function GetLineHighlightColor: TSynSelectedColor;
     function GetMiniMapSettings: TMiniMapSettings;
     function GetMouseLinkColor: TSynSelectedColor;
-    function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
     function GetRightEdge: Integer;
     function GetRightEdgeColor: TColor;
@@ -629,6 +629,7 @@ type
     function GetSelectedColor: TSynSelectedColor;
     function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
+    function GetSortStringsSettings: TSortStringsSettings;
     function GetTabWidth: Integer;
     function GetWantTabs: Boolean;
     function GetXML: string;
@@ -660,7 +661,6 @@ type
     procedure SetLineHighlightColor(AValue: TSynSelectedColor);
     procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetMouseLinkColor(AValue: TSynSelectedColor);
-    procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetRightEdge(AValue: Integer);
     procedure SetRightEdgeColor(AValue: TColor);
@@ -668,6 +668,7 @@ type
     procedure SetSelectedColor(AValue: TSynSelectedColor);
     procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
+    procedure SetSortStringsSettings(AValue: TSortStringsSettings);
     procedure SetTabWidth(AValue: Integer);
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
@@ -697,9 +698,6 @@ type
 
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;
-
-    property PreviewVisible: Boolean
-      read GetPreviewVisible write SetPreviewVisible;
 
     property ShowSpecialCharacters: Boolean
       read GetShowSpecialCharacters write SetShowSpecialCharacters;
@@ -742,6 +740,9 @@ type
 
     property MiniMapSettings: TMiniMapSettings
       read GetMiniMapSettings write SetMiniMapSettings;
+
+    property SortStringsSettings: TSortStringsSettings
+      read GetSortStringsSettings write SetSortStringsSettings;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
@@ -907,6 +908,7 @@ type
     procedure Base64FromSelection(ADecode: Boolean = False);
     procedure URLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
+    procedure SortStrings;
     procedure SyncEditSelection;
     procedure AlignSelection(
       const AToken                  : string;

@@ -1,0 +1,124 @@
+inherited frmSortStrings: TfrmSortStrings
+  Height = 394
+  Width = 282
+  Caption = 'Sort strings'
+  ClientHeight = 394
+  ClientWidth = 282
+  object gbxOptions: TCheckGroup[0]
+    Left = 0
+    Height = 56
+    Top = 0
+    Width = 282
+    Align = alTop
+    AutoFill = True
+    Caption = 'Options'
+    ChildSizing.LeftRightSpacing = 20
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.VerticalSpacing = 4
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 38
+    ClientWidth = 278
+    Columns = 2
+    Items.Strings = (
+      'Case sensitive'
+      'Ignore spaces'
+    )
+    OnItemClick = gbxOptionsItemClick
+    TabOrder = 0
+    Data = {
+      020000000202
+    }
+  end
+  object rgpSortDirection: TRadioGroup[1]
+    Left = 0
+    Height = 54
+    Top = 56
+    Width = 282
+    Align = alTop
+    AutoFill = True
+    Caption = 'Sort direction:'
+    ChildSizing.LeftRightSpacing = 20
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 36
+    ClientWidth = 278
+    Columns = 2
+    ItemIndex = 0
+    Items.Strings = (
+      'Ascending'
+      'Descending'
+    )
+    OnClick = rgpSortDirectionClick
+    TabOrder = 1
+  end
+  object pnlBottom: TPanel[2]
+    Left = 0
+    Height = 25
+    Top = 369
+    Width = 282
+    Align = alBottom
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 25
+    ClientWidth = 282
+    TabOrder = 2
+    object btnOK: TButton
+      Left = 155
+      Height = 25
+      Top = -1
+      Width = 120
+      Action = actExecute
+      Anchors = [akRight, akBottom]
+      Caption = 'Sort selection'
+      Default = True
+      ModalResult = 1
+      TabOrder = 0
+    end
+  end
+  object rgpSortScope: TRadioGroup[3]
+    Left = 0
+    Height = 66
+    Top = 110
+    Width = 282
+    Align = alTop
+    AutoFill = True
+    Caption = 'Scope'
+    ChildSizing.LeftRightSpacing = 20
+    ChildSizing.TopBottomSpacing = 6
+    ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+    ChildSizing.EnlargeVertical = crsHomogenousChildResize
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 3
+    ClientHeight = 48
+    ClientWidth = 278
+    Columns = 3
+    ItemIndex = 0
+    Items.Strings = (
+      'Words'
+      'Lines'
+      'Paragraphs'
+    )
+    OnClick = rgpSortScopeClick
+    TabOrder = 3
+  end
+  object aclMain: TActionList[4]
+    left = 296
+    top = 280
+    object actExecute: TAction
+      Caption = 'Execute'
+      OnExecute = actExecuteExecute
+    end
+  end
+end

@@ -16,28 +16,30 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.SortLines.Settings;
+unit ts.Editor.SortStrings.Settings;
 
 {$MODE Delphi}
 
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils,
+
+  ts.Editor.Types;
 
 const
   DEFAULT_WIDTH = 360;
 
 type
-  TSortDirection = (
-    sdAscending,
-    sdDescending
-  );
 
-type
-  TSortLinesSettings = class(TPersistent)
+  { TSortStringsSettings }
+
+  TSortStringsSettings = class(TPersistent)
   strict private
+    FCaseSensitive : Boolean;
+    FIgnoreSpaces  : Boolean;
     FSortDirection : TSortDirection;
+    FSortScope     : TSortScope;
     FWidth         : Integer;
 
   public
@@ -51,48 +53,57 @@ type
     property SortDirection: TSortDirection
       read FSortDirection write FSortDirection default sdAscending;
 
+    property SortScope: TSortScope
+      read FSortScope write FSortScope default ssLines;
+
+    property CaseSensitive: Boolean
+      read FCaseSensitive write FCaseSensitive default False;
+
+    property IgnoreSpaces: Boolean
+      read FIgnoreSpaces write FIgnoreSpaces default False;
+
     property Width: Integer
       read FWidth write FWidth default DEFAULT_WIDTH;
   end;
 
 implementation
 
-{ TSortLinesSettings }
+{ TSortStringsSettings }
 
 {$region 'construction and destruction' /fold}
-procedure TSortLinesSettings.AfterConstruction;
+procedure TSortStringsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth := DEFAULT_WIDTH;
 end;
 
-procedure TSortLinesSettings.BeforeDestruction;
+procedure TSortStringsSettings.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
 {$endregion}
 
 {$region 'public methods' /fold}
-procedure TSortLinesSettings.AssignTo(Dest: TPersistent);
+procedure TSortStringsSettings.AssignTo(Dest: TPersistent);
 var
-  S: TSortLinesSettings;
+  S: TSortStringsSettings;
 begin
-  if Dest is TSortLinesSettings then
+  if Dest is TSortStringsSettings then
   begin
-    S := TSortLinesSettings(Dest);
+    S := TSortStringsSettings(Dest);
     S.Width := Width;
   end
   else
     inherited AssignTo(Dest);
 end;
 
-procedure TSortLinesSettings.Assign(Source: TPersistent);
+procedure TSortStringsSettings.Assign(Source: TPersistent);
 var
-  S : TSortLinesSettings;
+  S : TSortStringsSettings;
 begin
-  if Source is TSortLinesSettings then
+  if Source is TSortStringsSettings then
   begin
-    S := TSortLinesSettings(Source);
+    S := TSortStringsSettings(Source);
     Width := S.Width;
     SortDirection :=  S.SortDirection;
   end

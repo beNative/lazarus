@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ActnList,
+  ActnList, ComCtrls,
 
   ts_Editor_ToolView_Base, ts.Editor.Interfaces;
 
@@ -35,10 +35,13 @@ type
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
     aclMain: TActionList;
     actExecute: TAction;
+    imlMain: TImageList;
     pnlLeft   : TPanel;
     pnlRight  : TPanel;
     pnlBottom : TPanel;
     pnlMain   : TPanel;
+    ToolBar1: TToolBar;
+    btnExecute: TToolButton;
 
     procedure actExecuteExecute(Sender: TObject);
     procedure FormShow(Sender: TObject);

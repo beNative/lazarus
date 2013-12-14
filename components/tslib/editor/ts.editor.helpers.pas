@@ -73,7 +73,6 @@ function CreateEditorManager(
   const ASettingsFileName : string = ''
 ): IEditorManager; overload;
 
-
 { TS: new version }
 function CreateEditorManager(
   AOwner    : TComponent;
@@ -89,7 +88,7 @@ function CreateEditorView(
    const AName         : string = '';
    const AFileName     : string = '';
    const AHighlighter  : string = 'TXT'
-): IEditorView; overload;
+): IEditorView;
 
 procedure AddEditorFileMenu(
   AManager  : IEditorManager;
@@ -523,6 +522,16 @@ begin
   AddEditorHelpMenu(AManager, AMainMenu);
 end;
 
+procedure AddEditorDebugMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
+var
+  MI : TMenuItem;
+begin
+  MI := TMenuItem.Create(AMainMenu.Owner);
+  MI.Caption := SDebugMenuCaption;
+  AMainMenu.Items.Add(MI);
+  AddEditorMenuItem(AManager, MI, 'actInspect');
+end;
+
 function CreateEditorSettings(AOwner : TComponent): IEditorSettings;
 begin
   Result := TEditorSettings.Create(AOwner);
@@ -554,16 +563,6 @@ function CreateEditorManager(AOwner: TComponent;
   ASettings: IEditorSettings): IEditorManager;
 begin
   Result := TdmEditorManager.Create(AOwner, ASettings);
-end;
-
-procedure AddEditorDebugMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
-var
-  MI : TMenuItem;
-begin
-  MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := SDebugMenuCaption;
-  AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(AManager, MI, 'actInspect');
 end;
 
 function CreateEditorView(AParent: TWinControl; AManager: IEditorManager;

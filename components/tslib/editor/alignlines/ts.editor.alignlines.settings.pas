@@ -23,7 +23,9 @@ unit ts.Editor.AlignLines.Settings;
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes, Forms, Controls,
+
+  ts.Editor.Types;
 
 const
   DEFAULT_WIDTH = 360;

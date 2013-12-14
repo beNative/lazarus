@@ -29,6 +29,8 @@ unit ts_Editor_Manager;
     - CTRL-ALT-SHIFT keycombinations are used for experimental features
 
   TODO:
+   - move out creation of dependant modules and use a factory to wire those
+     objects => eases creation of unit tests.
    - apply consistent casing for word under cursor/all words ? => dangerous for strings
 
    - fix highlighter issues
@@ -40,21 +42,11 @@ unit ts_Editor_Manager;
    - show a hintwindow of the selection with the proposed operation!
    - list of all supported actions, category, shortcut, description (treeview)
 
-   - make ts_Editor_Actions, ts_Editor_Menus, ts_Editor_Images ?
-   - make ts_Editor_Events and ts.Editor.Views?
-
-   - xml/HTML treeview?
-   - binary editor view
-   - viewports
-   - settings dialog (store settings in xml)
-
+   - make ts.Editor.Views, ts_Editor_Actions, ts_Editor_Menus, ts_Editor_Images ?
    - goto line
    - goto position
 
-  BUGS:
-   - createdesktoplink has problems with spaces in paths
-   - fix codeshaper undo
-
+  KNOWN ISSUES
    - copy to clipboard
       - as HTML object has a incomplete HTML closing tag
       - as RTF object does the same as copy as RTF text
@@ -97,9 +89,6 @@ interface
 uses
   Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
 
-  // logging
-  ts.Core.SharedLogger,
-
   LCLType,
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
@@ -110,7 +99,9 @@ uses
   ts.Components.UniqueInstance,
 
   ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
-  ts.Editor.Highlighters, ts_Editor_View;
+  ts.Editor.Highlighters, ts_Editor_View,
+
+  ts.Core.SharedLogger;
 
 type
   { TdmEditorManager }
@@ -694,6 +685,7 @@ type
     property ActiveView: IEditorView
       read GetActiveView write SetActiveView;
 
+    { Delegates the implementation of IEditorEvents to an internal object. }
     property Events: IEditorEvents
       read GetEvents implements IEditorEvents;
 
@@ -706,21 +698,25 @@ type
     property Actions: IEditorActions
       read GetActions;
 
+    { Delegates the implementation of IEditorCommands to an internal object. }
     property Commands: IEditorCommands
       read GetCommands implements IEditorCommands;
 
     property Selection: IEditorSelection
       read GetSelection;
 
+    { Delegates the implementation of IEditorSettings to an internal object. }
     property Settings: IEditorSettings
       read GetSettings implements IEditorSettings;
 
+    { Delegates the implementation of IEditorSearchEngine to an internal object. }
     property SearchEngine: IEditorSearchEngine
       read GetSearchEngine implements IEditorSearchEngine;
-    {$endregion}
 
+    { Delegates the implementation of IEditorView to the active editor view. }
     property View: IEditorView
       read GetActiveView implements IEditorView;
+    {$endregion}
 
     {$region 'IEditorViews'}
     property Views[AIndex: Integer]: IEditorView
@@ -796,7 +792,7 @@ uses
   ts_Editor_ScriptEditor_ToolView,
   ts_Editor_SelectionInfo_ToolView,
   ts_Editor_Filter_ToolView,
-  ts_Editor_SortLines_ToolView,
+  ts_Editor_SortStrings_ToolView,
 
   ts_Editor_AboutDialog,
 
@@ -1160,8 +1156,7 @@ end;
 {$region 'action handlers' /fold}
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
-  { TODO -oTS : implement a new toolform for this }
-  ShowMessage('This feature is not implemented yet.');
+  ShowToolView('SortStrings', False, True);
 end;
 
 procedure TdmEditorManager.actToggleCommentExecute(Sender: TObject);
@@ -1292,11 +1287,7 @@ end;
 
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
-  if Assigned(ActiveView) then
-  begin
-    ShowToolView('Preview', False, False);
-    Settings.PreviewVisible := True;
-  end;
+  ShowToolView('Preview', False, False);
 end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
@@ -1463,11 +1454,14 @@ end;
 
 procedure TdmEditorManager.actNewExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
+  V : IEditorView;
 begin
   if Assigned(ActiveView) then
     S := ActiveView.SelText;
-  NewFile(SNewEditorViewFileName, S);
+  V := NewFile(SNewEditorViewFileName, S);
+  if V.CanFocus then
+    V.SetFocus;
 end;
 
 procedure TdmEditorManager.actReloadExecute(Sender: TObject);
@@ -1477,7 +1471,7 @@ end;
 
 procedure TdmEditorManager.actSmartSelectExecute(Sender: TObject);
 begin
-   Commands.SmartSelect;
+  Commands.SmartSelect;
 end;
 
 procedure TdmEditorManager.actStripFirstCharExecute(Sender: TObject);
@@ -2245,7 +2239,7 @@ begin
   ToolViews.Register(TfrmMiniMap, 'MiniMap');
   ToolViews.Register(TfrmScriptEditor, 'ScriptEditor');
   ToolViews.Register(TfrmFilter, 'Filter');
-  ToolViews.Register(TfrmSortLines, 'SortLines');
+  ToolViews.Register(TfrmSortStrings, 'SortStrings');
 end;
 
 procedure TdmEditorManager.BuildClipboardPopupMenu;

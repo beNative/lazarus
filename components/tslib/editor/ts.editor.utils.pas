@@ -32,7 +32,11 @@ uses
 {$ENDIF}
   Classes, SysUtils, TypInfo,
 
-  ts.Core.SharedLogger;
+  AVL_Tree,
+
+  ts.Core.SharedLogger,
+
+  ts.Editor.Types;
 
 const
   LineEnding: string = System.LineEnding;
@@ -131,6 +135,14 @@ function JoinLines(
 function CompressLines(
   const AString         : string;
         APreserveIndent : Boolean = True
+): string;
+
+function SortStrings(
+  const AString: string;
+        ADirection: TSortDirection;
+        ASortScope: TSortScope;
+        ACaseSensitive: Boolean;
+        AIgnoreSpace: Boolean
 ): string;
 
 function TrimLines(
@@ -443,6 +455,196 @@ uses
 
   ts_Editor_Resources;
 
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+type
+  TTextBlockCompareSettings = class
+  public
+    CaseSensitive: boolean;
+    IgnoreSpace: boolean;
+    Ascending: boolean;
+  end;
+
+  TTextBlock = class
+  public
+    Settings: TTextBlockCompareSettings;
+    Start: PChar;
+    Len: integer;
+    constructor Create(TheSettings: TTextBlockCompareSettings;
+      NewStart: PChar; NewLen: integer);
+  end;
+
+var
+  UpChars: array[char] of char;
+
+{ TTextBlock }
+
+constructor TTextBlock.Create(TheSettings: TTextBlockCompareSettings;
+  NewStart: PChar; NewLen: integer);
+begin
+  Settings:=TheSettings;
+  Start:=NewStart;
+  Len:=NewLen;
+end;
+
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+function CompareText(Txt1: PChar; Len1: integer; Txt2: PChar; Len2: integer;
+  CaseSensitive: boolean): integer; overload;
+begin
+  if CaseSensitive then begin
+    while (Len1>0) and (Len2>0) do begin
+      if Txt1^=Txt2^ then begin
+        inc(Txt1);
+        dec(Len1);
+        inc(Txt2);
+        dec(Len2);
+      end else begin
+        if Txt1^<Txt2^ then
+          Result:=1
+        else
+          Result:=-1;
+        exit;
+      end;
+    end;
+  end else begin
+    while (Len1>0) and (Len2>0) do begin
+      if UpChars[Txt1^]=UpChars[Txt2^] then begin
+        inc(Txt1);
+        dec(Len1);
+        inc(Txt2);
+        dec(Len2);
+      end else begin
+        if UpChars[Txt1^]<UpChars[Txt2^] then
+          Result:=1
+        else
+          Result:=-1;
+        exit;
+      end;
+    end;
+  end;
+  if Len1>Len2 then
+    Result:=-1
+  else if Len1<Len2 then
+    Result:=1
+  else
+    Result:=0;
+end;
+
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+function CompareTextIgnoringSpace(Txt1: PChar; Len1: integer;
+  Txt2: PChar; Len2: integer; CaseSensitive: boolean): integer;
+
+  function IsIdentChar(const AChar: Char): Boolean;
+  begin
+    Result := AChar in ['a'..'z','A'..'Z','_','0'..'9'];
+  end;
+
+{ Txt1  Txt2  Result
+   A     A      0
+   A     B      1
+   A     AB     1
+   A;    A      -1
+}
+var
+  P1, P2: integer;
+begin
+  P1:=0;
+  P2:=0;
+  while (P1<Len1) and (P2<Len2) do begin
+    if (CaseSensitive and (Txt1[P1]=Txt2[P2]))
+    or ((not CaseSensitive) and (UpChars[Txt1[P1]]=UpChars[Txt2[P2]])) then
+    begin
+      inc(P1);
+      inc(P2);
+    end else begin
+      // different chars found
+      if (P1>0) and (IsIdentChar(Txt1[P1-1]))
+      and (IsIdentChar(Txt1[P1]) xor IsIdentChar(Txt2[P2])) then begin
+        // one identifier is longer than the other
+        if IsIdentChar(Txt1[P1]) then
+          // identifier in Txt1 is longer than in Txt2
+          Result:=-1
+        else
+          // identifier in Txt2 is longer than in Txt1
+          Result:=+1;
+        exit;
+      end else if (ord(Txt1[P1])<=ord(' ')) then begin
+        // ignore/skip spaces in Txt1
+        repeat
+          inc(P1);
+        until (P1>=Len1) or (ord(Txt1[P1])>ord(' '));
+        if (ord(Txt2[P2])<=ord(' ')) then begin
+          // ignore/skip spaces in Txt2
+          repeat
+            inc(P2);
+          until (P2>=Len2) or (ord(Txt2[P2])>ord(' '));
+        end;
+      end else if (ord(Txt2[P2])<=ord(' ')) then begin
+        // ignore/skip spaces in Txt2
+        repeat
+          inc(P2);
+        until (P2>=Len2) or (ord(Txt2[P2])>ord(' '));
+      end else begin
+        // Txt1<>Txt2
+        if (CaseSensitive and (Txt1[P1]>Txt2[P2]))
+        or ((not CaseSensitive) and (UpChars[Txt1[P1]]>UpChars[Txt2[P2]])) then
+          Result:=-1
+        else
+          Result:=+1;
+        exit;
+      end;
+    end;
+  end;
+  // one text was totally read -> check the rest of the other one
+  // skip spaces
+  while (P1<Len1) and (ord(Txt1[P1])<=ord(' ')) do
+    inc(P1);
+  while (P2<Len2) and (ord(Txt2[P2])<=ord(' ')) do
+    inc(P2);
+  if (P1>=Len1) then begin
+    // rest of P1 was only space
+    if (P2>=Len2) then
+      // rest of P2 was only space
+      Result:=0
+    else
+      // there is some text at the end of P2
+      Result:=1;
+  end else begin
+    // there is some text at the end of P1
+    Result:=-1
+  end;
+end;
+
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+function CompareText(Txt1: PChar; Len1: integer; Txt2: PChar; Len2: integer;
+  CaseSensitive, IgnoreSpace: boolean): integer; overload;
+begin
+  if IgnoreSpace then
+    Result:=CompareTextIgnoringSpace(Txt1,Len1,Txt2,Len2,CaseSensitive)
+  else
+    Result:=CompareText(Txt1,Len1,Txt2,Len2,CaseSensitive);
+end;
+
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+function CompareTextBlock(Data1, Data2: Pointer): integer;
+var
+  Block1: TTextBlock;
+  Block2: TTextBlock;
+  Settings: TTextBlockCompareSettings;
+begin
+  Block1:=TTextBlock(Data1);
+  Block2:=TTextBlock(Data2);
+  Settings:=Block1.Settings;
+  Result:=CompareText(Block1.Start,Block1.Len,Block2.Start,Block2.Len,
+                      Settings.CaseSensitive,Settings.IgnoreSpace);
+  if not Settings.Ascending then
+    Result:=-Result;
+end;
+
 { Will remove all spaces from the given string, but preserves one space
   between words. Spaces used to indent the given string will not be removed
   if APreserveIndent is True. }
@@ -671,6 +873,161 @@ begin
     FreeAndNil(SL);
   end;
 end;
+
+{ Author: Mattias Gaertner (BasicCodeTools.pas) }
+
+function SortStrings(const AString: string; ADirection: TSortDirection;
+  ASortScope: TSortScope; ACaseSensitive, AIgnoreSpace: boolean): string;
+const
+  IdentChars = ['_','a'..'z','A'..'Z'];
+  SpaceChars = [' ',#9];
+var
+  Settings: TTextBlockCompareSettings;
+  Tree: TAVLTree;// tree of TTextBlock
+  StartPos: Integer;
+  EndPos: Integer;
+  ANode: TAVLTreeNode;
+  ABlock: TTextBlock;
+  TxtLen: integer;
+  LastNode: TAVLTreeNode;
+  LastBlock: TTextBlock;
+  LastChar: Char;
+  Last2Char: Char;
+  HeaderIndent: Integer;
+  CurIndent: Integer;
+  CurPos: Integer;
+begin
+  Result:=AString;
+  if Result='' then exit;
+  // create compare settings
+  Settings:=TTextBlockCompareSettings.Create;
+  Settings.CaseSensitive:=ACaseSensitive;
+  Settings.IgnoreSpace:=AIgnoreSpace;
+  Settings.Ascending:=(ADirection=sdAscending);
+  // create AVL tree
+  Tree:=TAVLTree.Create(@CompareTextBlock);
+
+  // collect text blocks
+  TxtLen:=length(AString);
+  case ASortScope of
+
+  ssParagraphs:
+  begin
+    // paragraphs:
+    //   A paragraph is here a header line and all the lines to the next header
+    //   line. A header line has the same indent as the first selected line.
+
+    // find indent in first line
+    HeaderIndent:=0;
+    while (HeaderIndent<TxtLen) and (AString[HeaderIndent+1] in SpaceChars) do
+      inc(HeaderIndent);
+
+    // split text into blocks
+    StartPos:=1;
+    EndPos:=StartPos;
+    while EndPos<=TxtLen do begin
+      CurPos:=EndPos;
+      // find indent of current line
+      while (CurPos<=TxtLen) and (AString[CurPos] in SpaceChars) do
+        inc(CurPos);
+      CurIndent:=CurPos-EndPos;
+      if CurIndent=HeaderIndent then begin
+        // new block
+        if EndPos>StartPos then
+          Tree.Add(
+            TTextBlock.Create(Settings,@AString[StartPos],EndPos-StartPos));
+        StartPos:=EndPos;
+      end;
+      EndPos:=CurPos;
+      // add line to block
+      // read line
+      while (EndPos<=TxtLen) and (not (AString[EndPos] in [#10,#13])) do
+        inc(EndPos);
+      // read line end
+      if (EndPos<=TxtLen) then begin
+        inc(EndPos);
+        if (EndPos<=TxtLen) and (AString[EndPos] in [#10,#13])
+        and (AString[EndPos]<>AString[EndPos-1]) then
+          inc(EndPos);
+      end;
+    end;
+    if EndPos>StartPos then
+      Tree.Add(TTextBlock.Create(Settings,@AString[StartPos],EndPos-StartPos));
+  end;
+
+  ssWords, ssLines:
+  begin
+    StartPos:=1;
+    while StartPos<=TxtLen do begin
+      EndPos:=StartPos+1;
+      while (EndPos<=TxtLen) do begin
+        case ASortScope of
+        ssWords:
+          // check if word start
+          if (AString[EndPos] in IdentChars)
+          and (EndPos>1)
+          and (not (AString[EndPos-1] in IdentChars))
+          then
+            break;
+
+        ssLines:
+          // check if LineEnd
+          if (AString[EndPos] in [#10,#13]) then begin
+            inc(EndPos);
+            if (EndPos<=TxtLen) and (AString[EndPos] in [#10,#13])
+            and (AString[EndPos]<>AString[EndPos-1]) then
+              inc(EndPos);
+            break;
+          end;
+
+        end;
+        inc(EndPos);
+      end;
+      if EndPos>TxtLen then EndPos:=TxtLen+1;
+      if EndPos>StartPos then
+        Tree.Add(TTextBlock.Create(Settings,@AString[StartPos],EndPos-StartPos));
+      StartPos:=EndPos;
+    end;
+  end;
+
+  else
+  //  DebugLn('ERROR: Domain not implemented');
+  end;
+
+  // build sorted text
+  Result:='';
+  ANode:=Tree.FindHighest;
+  while ANode<>nil do begin
+    ABlock:=TTextBlock(ANode.Data);
+    Result:=Result+copy(AString,ABlock.Start-PChar(AString)+1,ABlock.Len);
+    case ASortScope of
+    ssLines,ssParagraphs:
+      if not (Result[length(Result)] in [#10,#13]) then begin
+        // this was the last line before the sorting
+        // if it moved, then copy the line end of the new last line
+        LastNode:=Tree.FindLowest;
+        LastBlock:=TTextBlock(LastNode.Data);
+        LastChar:=PChar(LastBlock.Start+LastBlock.Len-1)^;
+        if LastChar in [#10,#13] then begin
+          if (LastBlock.Len>1) then begin
+            Last2Char:=PChar(LastBlock.Start+LastBlock.Len-2)^;
+            if Last2Char in [#10,#13] then
+              Result:=Result+Last2Char;
+          end;
+          Result:=Result+LastChar;
+        end;
+
+      end;
+    end;
+    ANode:=Tree.FindPrecessor(ANode);
+  end;
+
+  // clean up
+  Tree.FreeAndClear;
+  Tree.Free;
+  Settings.Free;
+end;
+
 
 function QuoteLines(const AString: string; const AQuoteChar: Char;
   ATrimSpace: Boolean): string;

@@ -60,11 +60,12 @@ inherited frmSearchForm: TfrmSearchForm
         TabOrder = 0
       end
       object Image1: TImage
-        Left = 274
+        Left = 2
         Height = 16
-        Top = -15
+        Hint = 'Press the F2 function key to set '#13#10'focus to the search entry field.'
+        Top = 7
         Width = 16
-        Anchors = [akTop, akRight]
+        AntialiasingMode = amOn
         AutoSize = True
         BorderSpacing.Around = 5
         BorderSpacing.InnerBorder = 1

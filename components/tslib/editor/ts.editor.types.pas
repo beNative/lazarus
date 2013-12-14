@@ -10,6 +10,16 @@ uses
   SynMacroRecorder;
 
 type
+  TSortDirection = (
+    sdAscending,
+    sdDescending
+  );
+
+  TSortScope = (
+    ssWords,
+    ssLines,
+    ssParagraphs
+  );
   // event types
   TCaretPositionEvent = procedure(
     Sender : TObject;

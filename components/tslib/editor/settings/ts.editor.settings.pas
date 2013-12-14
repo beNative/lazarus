@@ -34,7 +34,7 @@ uses
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
-  ts.Editor.HexEditor.Settings, ts.Editor.SortLines.Settings,
+  ts.Editor.HexEditor.Settings, ts.Editor.SortStrings.Settings,
 
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
 
@@ -65,7 +65,6 @@ type
     FAutoFormatXML            : Boolean;
     FChangedEventList         : TMethodList;
     FReadOnly                 : Boolean;
-    FPreviewVisible           : Boolean;
     FHighlighterType          : string;
     FAutoGuessHighlighterType : Boolean;
     FShowControlCharacters    : Boolean;
@@ -87,7 +86,7 @@ type
     FMiniMapSettings          : TMiniMapSettings;
     FHTMLViewSettings         : THTMLViewSettings;
     FHexEditorSettings        : THexEditorSettings;
-    FSortLinesSettings        : TSortLinesSettings;
+    FSortStringsSettings      : TSortStringsSettings;
 
     FRightEdge             : Integer;
     FRightEdgeColor        : TColor;
@@ -140,7 +139,6 @@ type
     function GetLineHighlightColor: TSynSelectedColor;
     function GetMiniMapSettings: TMiniMapSettings;
     function GetMouseLinkColor: TSynSelectedColor;
-    function GetPreviewVisible: Boolean;
     function GetReadOnly: Boolean;
     function GetRightEdge: Integer;
     function GetRightEdgeColor: TColor;
@@ -148,7 +146,7 @@ type
     function GetSelectedColor: TSynSelectedColor;
     function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
-    function GetSortLinesSettings: TSortLinesSettings;
+    function GetSortStringsSettings: TSortStringsSettings;
     function GetTabWidth: Integer;
     function GetWantTabs: Boolean;
     function GetXML: string;
@@ -181,7 +179,6 @@ type
     procedure SetLineHighlightColor(AValue: TSynSelectedColor);
     procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetMouseLinkColor(AValue: TSynSelectedColor);
-    procedure SetPreviewVisible(const AValue: Boolean);
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetRightEdge(AValue: Integer);
     procedure SetRightEdgeColor(AValue: TColor);
@@ -189,7 +186,7 @@ type
     procedure SetSelectedColor(AValue: TSynSelectedColor);
     procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
-    procedure SetSortLinesSettings(AValue: TSortLinesSettings);
+    procedure SetSortStringsSettings(AValue: TSortStringsSettings);
     procedure SetTabWidth(AValue: Integer);
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
@@ -230,10 +227,6 @@ type
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly default False;
 
-    property PreviewVisible: Boolean
-      read GetPreviewVisible write SetPreviewVisible
-      default DEFAULT_PREVIEW_VISIBLE;
-
     property DimInactiveView: Boolean
       read GetDimInactiveView write SetDimInactiveView
       default DEFAULT_DIM_ACTIVE_VIEW;
@@ -263,8 +256,8 @@ type
     property SearchEngineSettings: TSearchEngineSettings
       read GetSearchEngineSettings write SetSearchEngineSettings;
 
-    property SortLinesSettings: TSortLinesSettings
-      read GetSortLinesSettings write SetSortLinesSettings;
+    property SortStringsSettings: TSortStringsSettings
+      read GetSortStringsSettings write SetSortStringsSettings;
 
     property CodeShaperSettings: TCodeShaperSettings
       read GetCodeShaperSettings write SetCodeShaperSettings;
@@ -375,7 +368,7 @@ begin
   FMiniMapSettings := TMiniMapSettings.Create;
   FHexEditorSettings := THexEditorSettings.Create;
   FHTMLViewSettings := THTMLViewSettings.Create;
-  FSortLinesSettings := TSortLinesSettings.Create;
+  FSortStringsSettings := TSortStringsSettings.Create;
   FHighlighters := THighLighters.Create(Self);
   FHighlighterAttributes := THighlighterAttributes.Create(nil);
 
@@ -383,7 +376,6 @@ begin
   FHighlighterType := HL_TXT;
   FAutoFormatXML := DEFAULT_AUTO_FORMAT_XML;
   FAutoGuessHighlighterType := DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
-  FPreviewVisible := DEFAULT_PREVIEW_VISIBLE;
   FSingleInstance := DEFAULT_SINGLE_INSTANCE;
   FEditorFont := TFont.Create;
   FEditorFont.Name := 'Courier New';
@@ -426,7 +418,7 @@ begin
   FCodeShaperSettings.Free;
   FCodeFilterSettings.Free;
   FHTMLViewSettings.Free;
-  FSortLinesSettings.Free;
+  FSortStringsSettings.Free;
   FMiniMapSettings.Free;
   FHexEditorSettings.Free;
   FChangedEventList.Free;
@@ -791,20 +783,6 @@ begin
   Changed;
 end;
 
-function TEditorSettings.GetPreviewVisible: Boolean;
-begin
-  Result := FPreviewVisible;
-end;
-
-procedure TEditorSettings.SetPreviewVisible(const AValue: Boolean);
-begin
-  if AValue <> PreviewVisible then
-  begin
-    FPreviewVisible := AValue;
-    Changed;
-  end;
-end;
-
 function TEditorSettings.GetRightEdge: Integer;
 begin
   Result := FRightEdge;
@@ -900,14 +878,14 @@ begin
   end;
 end;
 
-function TEditorSettings.GetSortLinesSettings: TSortLinesSettings;
+function TEditorSettings.GetSortStringsSettings: TSortStringsSettings;
 begin
-  Result := FSortLinesSettings;
+  Result := FSortStringsSettings;
 end;
 
-procedure TEditorSettings.SetSortLinesSettings(AValue: TSortLinesSettings);
+procedure TEditorSettings.SetSortStringsSettings(AValue: TSortStringsSettings);
 begin
-  FSortLinesSettings := AValue;
+  FSortStringsSettings := AValue;
   Changed;
 end;
 

@@ -63,32 +63,36 @@
 
 {
   TS: Fixed pointer operations on Integer to NativeInt for 64bit compilers.
+  - removed dependency from debug unit.
+  - use dedicated methods in unit TypInfo to read object properties
+  - applied consistent naming
 }
 unit ts.Core.NativeXml.ObjectStorage;
 
 {$I ts.Core.NativeXml.inc}
 
-// undefine 'useForms' to avoid including the forms and controls units (visual lib).
+// undefine 'UseForms' to avoid including the forms and controls units (visual lib).
 // This will reduce the app by several megabytes.
-{$DEFINE useForms}
+{$DEFINE UseForms}
 interface
 
 uses
   Classes, SysUtils,
-{$IFDEF useForms}
+{$IFDEF UseForms}
   Forms, Controls,
 {$ENDIF}
   TypInfo, Variants,
 
-  ts.Core.NativeXml, ts.Core.NativeXml.Debug;
+  ts.Core.SharedLogger,
+
+  ts.Core.NativeXml;
 
 type
-
-  // Use TsdXmlObjectWriter to write any TPersistent descendant's published properties
+  // Use TXmlObjectWriter to write any TPersistent descendant's published properties
   // to an XML node.
-  TsdXmlObjectWriter = class(TDebugPersistent)
+  TXmlObjectWriter = class(TPersistent)
   protected
-    procedure WriteProperty(ANode: TXmlNode; AObject: TObject; AParent: TComponent; PropInfo: PPropInfo);
+    procedure WriteProperty(ANode: TXmlNode; AObject: TObject; AParent: TComponent; APropInfo: PPropInfo);
   public
     // Call WriteObject to write the published properties of AObject to the TXmlNode
     // ANode. Specify AParent in order to store references to parent methods and
@@ -100,13 +104,13 @@ type
     procedure WriteComponent(ANode: TXmlNode; AComponent: TComponent; AParent: TComponent = nil);
   end;
 
-  // Use TsdXmlObjectReader to read any TPersistent descendant's published properties
+  // Use TXmlObjectReader to read any TPersistent descendant's published properties
   // from an XML node.
-  TsdXmlObjectReader = class(TDebugPersistent)
+  TXmlObjectReader = class(TPersistent)
   private
     FSetDefaultValues: Boolean;
   protected
-    function ReadProperty(ANode: TXmlNode; AObject: TObject; AParent: TComponent; PropInfo: PPropInfo): boolean;
+    function ReadProperty(ANode: TXmlNode; AObject: TObject; AParent: TComponent; PropInfo: PPropInfo): Boolean;
   public
     // Call CreateComponent to first create AComponent and then read its published
     // properties from the TXmlNode ANode. Specify AParent in order to resolve
@@ -119,7 +123,7 @@ type
     // Call ReadObject to read the published properties of AObject from the TXmlNode
     // ANode. Specify AParent in order to resolve references to parent methods and
     // events correctly.
-    function ReadObject(ANode: TXmlNode; AObject: TObject; AParent: TComponent = nil): boolean;
+    function ReadObject(ANode: TXmlNode; AObject: TObject; AParent: TComponent = nil): Boolean;
     // Call ReadComponent to read the published properties of AComponent from the TXmlNode
     // ANode. Specify AParent in order to resolve references to parent methods and
     // events correctly.
@@ -163,7 +167,7 @@ function ComponentCreateFromXmlStream(S: TStream; Owner: TComponent;
 function ComponentCreateFromXmlString(const Value: string; Owner: TComponent;
   const Name: string): TComponent;
 
-{$IFDEF useForms}
+{$IFDEF UseForms}
 // Create and read a form from the XML file with FileName. In order to successfully
 // create the form from scratch, the form's class must be registered
 // beforehand with a call to RegisterClass. Specify Owner to add the form
@@ -258,7 +262,7 @@ procedure ComponentSaveToXmlStream(AComponent: TComponent; S: TStream;
 // events correctly.
 function ComponentSaveToXmlString(AComponent: TComponent; AParent: TComponent = nil): string;
 
-{$IFDEF useForms}
+{$IFDEF UseForms}
 // Save the form AForm as XML to the file in Filename. This method also stores
 // properties of all child components on the form, and can therefore be used
 // as a form-storage method.
@@ -276,11 +280,10 @@ function FormSaveToXmlString(AForm: TForm): string;
 {$ENDIF}
 
 resourcestring
-
-  sIllegalVarType        = 'illegal variant type';
-  sUnregisteredClassType = 'unregistered classtype encountered in ';
-  sInvalidPropertyValue  = 'invalid property value';
-  sInvalidMethodName     = 'invalid method name';
+  SIllegalVariantType    = 'Illegal variant type';
+  SUnregisteredClassType = 'Unregistered classtype (%s)';
+  SInvalidPropertyValue  = 'Invalid property value (%s)';
+  SInvalidMethodName     = 'Invalid method name';
 
 implementation
 
@@ -298,112 +301,112 @@ type
 function ComponentCreateFromXmlFile(const FileName: string; Owner: TComponent;
   const Name: string): TComponent;
 var
-  S: TStream;
+  FS: TStream;
 begin
-  S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
-    Result := ComponentCreateFromXmlStream(S, Owner, Name);
+    Result := ComponentCreateFromXmlStream(FS, Owner, Name);
   finally
-    S.Free;
+    FS.Free;
   end;
 end;
 
 function ComponentCreateFromXmlNode(ANode: TXmlNode; Owner: TComponent;
   const Name: string): TComponent;
 var
-  AReader: TsdXmlObjectReader;
+  LReader: TXmlObjectReader;
 begin
   Result := nil;
   if not Assigned(ANode) then
-    exit;
+    Exit;
   // Create reader
-  AReader := TsdXmlObjectReader.Create;
+  LReader := TXmlObjectReader.Create;
   try
     // Read the component from the node
-    Result := AReader.CreateComponent(ANode, Owner, nil, Name);
+    Result := LReader.CreateComponent(ANode, Owner, nil, Name);
   finally
-    AReader.Free;
+    LReader.Free;
   end;
 end;
 
 function ComponentCreateFromXmlStream(S: TStream; Owner: TComponent;
   const Name: string): TComponent;
 var
-  ADoc: TNativeXml;
+  LDoc: TNativeXml;
 begin
   Result := nil;
   if not Assigned(S) then
-    exit;
+    Exit;
   // Create XML document
-  ADoc := TNativeXml.Create(nil);
+  LDoc := TNativeXml.Create(nil);
   try
     // Load XML
-    ADoc.LoadFromStream(S);
+    LDoc.LoadFromStream(S);
     // Load from XML node
-    Result := ComponentCreateFromXmlNode(ADoc.Root, Owner, Name);
+    Result := ComponentCreateFromXmlNode(LDoc.Root, Owner, Name);
   finally
-    ADoc.Free;
+    LDoc.Free;
   end;
 end;
 
 function ComponentCreateFromXmlString(const Value: string; Owner: TComponent;
   const Name: string): TComponent;
 var
-  S: TStream;
+  SS: TStream;
 begin
-  S := TStringStream.Create(Value);
+  SS := TStringStream.Create(Value);
   try
-    Result := ComponentCreateFromXmlStream(S, Owner, Name);
+    Result := ComponentCreateFromXmlStream(SS, Owner, Name);
   finally
-    S.Free;
+    SS.Free;
   end;
 end;
 
-{$IFDEF useForms}
+{$IFDEF UseForms}
 function FormCreateFromXmlFile(const FileName: string; Owner: TComponent;
   const Name: string): TForm;
 var
-  S: TStream;
+  FS: TStream;
 begin
-  S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
-    Result := FormCreateFromXmlStream(S, Owner, Name);
+    Result := FormCreateFromXmlStream(FS, Owner, Name);
   finally
-    S.Free;
+    FS.Free;
   end;
 end;
 
 function FormCreateFromXmlStream(S: TStream; Owner: TComponent;
   const Name: string): TForm;
 var
-  ADoc: TNativeXml;
+  LDoc: TNativeXml;
 begin
   Result := nil;
   if not Assigned(S) then
-    exit;
+    Exit;
   // Create XML document
-  ADoc := TNativeXml.Create(nil);
+  LDoc := TNativeXml.Create(nil);
   try
     // Load XML
-    ADoc.LoadFromStream(S);
+    LDoc.LoadFromStream(S);
 
     // Load from XML node
-    Result := TForm(ComponentCreateFromXmlNode(ADoc.Root, Owner, Name));
+    Result := TForm(ComponentCreateFromXmlNode(LDoc.Root, Owner, Name));
   finally
-    ADoc.Free;
+    LDoc.Free;
   end;
 end;
 
 function FormCreateFromXmlString(const Value: string; Owner: TComponent;
   const Name: string): TForm;
 var
-  S: TStream;
+  SS: TStream;
 begin
-  S := TStringStream.Create(Value);
+  SS := TStringStream.Create(Value);
   try
-    Result := FormCreateFromXmlStream(S, Owner, Name);
+    Result := FormCreateFromXmlStream(SS, Owner, Name);
   finally
-    S.Free;
+    SS.Free;
   end;
 end;
 {$ENDIF}
@@ -411,129 +414,129 @@ end;
 procedure ObjectLoadFromXmlFile(AObject: TObject; const FileName: string;
   AParent: TComponent = nil);
 var
-  S: TStream;
+  FS: TStream;
 begin
-  S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+  FS := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
-    ObjectLoadFromXmlStream(AObject, S, AParent);
+    ObjectLoadFromXmlStream(AObject, FS, AParent);
   finally
-    S.Free;
+    FS.Free;
   end;
 end;
 
 procedure ObjectLoadFromXmlNode(AObject: TObject; ANode: TXmlNode; AParent: TComponent = nil);
 var
-  AReader: TsdXmlObjectReader;
+  LReader: TXmlObjectReader;
 begin
   if not Assigned(AObject) or not Assigned(ANode) then
-    exit;
+    Exit;
   // Create writer
-  AReader := TsdXmlObjectReader.Create;
+  LReader := TXmlObjectReader.Create;
   try
     // Write the object to the document
     if AObject is TComponent then
-      AReader.ReadComponent(ANode, TComponent(AObject), AParent)
+      LReader.ReadComponent(ANode, TComponent(AObject), AParent)
     else
-      AReader.ReadObject(ANode, AObject, AParent);
+      LReader.ReadObject(ANode, AObject, AParent);
   finally
-    AReader.Free;
+    LReader.Free;
   end;
 end;
 
 procedure ObjectLoadFromXmlStream(AObject: TObject; S: TStream; AParent: TComponent = nil);
 var
-  ADoc: TNativeXml;
+  LDoc: TNativeXml;
 begin
   if not Assigned(S) then
-    exit;
+    Exit;
   // Create XML document
-  ADoc := TNativeXml.Create(nil);
+  LDoc := TNativeXml.Create(nil);
   try
     // Load XML
-    ADoc.LoadFromStream(S);
+    LDoc.LoadFromStream(S);
     // Load from XML node
-    ObjectLoadFromXmlNode(AObject, ADoc.Root, AParent);
+    ObjectLoadFromXmlNode(AObject, LDoc.Root, AParent);
   finally
-    ADoc.Free;
+    LDoc.Free;
   end;
 end;
 
 procedure ObjectLoadFromXmlString(AObject: TObject; const Value: string; AParent: TComponent = nil);
 var
-  S: TStringStream;
+  SS: TStringStream;
 begin
-  S := TStringStream.Create(Value);
+  SS := TStringStream.Create(Value);
   try
-    ObjectLoadFromXmlStream(AObject, S, AParent);
+    ObjectLoadFromXmlStream(AObject, SS, AParent);
   finally
-    S.Free;
+    SS.Free;
   end;
 end;
 
 procedure ObjectSaveToXmlFile(AObject: TObject; const FileName: string;
   AParent: TComponent = nil);
 var
-  S: TStream;
+  FS: TStream;
 begin
-  S := TFileStream.Create(FileName, fmCreate);
+  FS := TFileStream.Create(FileName, fmCreate);
   try
-    ObjectSaveToXmlStream(AObject, S, AParent);
+    ObjectSaveToXmlStream(AObject, FS, AParent);
   finally
-    S.Free;
+    FS.Free;
   end;
 end;
 
 procedure ObjectSaveToXmlNode(AObject: TObject; ANode: TXmlNode; AParent: TComponent = nil);
 var
-  AWriter: TsdXmlObjectWriter;
+  LWriter: TXmlObjectWriter;
 begin
   if not Assigned(AObject) or not Assigned(ANode) then
-    exit;
+    Exit;
   // Create writer
-  AWriter := TsdXmlObjectWriter.Create;
+  LWriter := TXmlObjectWriter.Create;
   try
     // Write the object to the document
     if AObject is TComponent then
-      AWriter.WriteComponent(ANode, TComponent(AObject), AParent)
+      LWriter.WriteComponent(ANode, TComponent(AObject), AParent)
     else
     begin
       ANode.Name := UTF8String(AObject.ClassName);
-      AWriter.WriteObject(ANode, AObject, AParent);
+      LWriter.WriteObject(ANode, AObject, AParent);
     end;
   finally
-    AWriter.Free;
+    LWriter.Free;
   end;
 end;
 
 procedure ObjectSaveToXmlStream(AObject: TObject; S: TStream; AParent: TComponent = nil);
 var
-  ADoc: TNativeXml;
+  LDoc: TNativeXml;
 begin
   if not Assigned(S) then
-    exit;
+    Exit;
   // Create XML document
-  ADoc := TNativeXml.Create(nil);
+  LDoc := TNativeXml.Create(nil);
   try
-    ADoc.XmlFormat := xfReadable;
+    LDoc.XmlFormat := xfReadable;
     // Save to XML node
-    ObjectSaveToXmlNode(AObject, ADoc.Root, AParent);
+    ObjectSaveToXmlNode(AObject, LDoc.Root, AParent);
     // Save to stream
-    ADoc.SaveToStream(S);
+    LDoc.SaveToStream(S);
   finally
-    ADoc.Free;
+    LDoc.Free;
   end;
 end;
 
 function ObjectSaveToXmlString(AObject: TObject; AParent: TComponent = nil): string;
 var
-  S: TStringStream;
+  SS: TStringStream;
 begin
-  S := TStringStream.Create('');
+  SS := TStringStream.Create('');
   try
-    ObjectSaveToXmlStream(AObject, S, AParent);
-    Result := S.DataString;
+    ObjectSaveToXmlStream(AObject, SS, AParent);
+    Result := SS.DataString;
   finally
-    S.Free;
+    SS.Free;
   end;
 end;
 
@@ -560,7 +563,7 @@ begin
   Result := ObjectSaveToXmlString(AComponent, AParent);
 end;
 
-{$IFDEF useForms}
+{$IFDEF UseForms}
 procedure FormSaveToXmlFile(AForm: TForm; const FileName: string);
 begin
   ComponentSaveToXmlFile(AForm, FileName, AForm);
@@ -577,33 +580,34 @@ begin
 end;
 {$ENDIF}
 
-{ TsdXmlObjectWriter }
+{ TXmlObjectWriter }
 
-procedure TsdXmlObjectWriter.WriteComponent(ANode: TXmlNode; AComponent,
+procedure TXmlObjectWriter.WriteComponent(ANode: TXmlNode; AComponent,
   AParent: TComponent);
 begin
   if not Assigned(ANode) or not Assigned(AComponent) then
-    exit;
+    Exit;
   ANode.Name := UTF8String(AComponent.ClassName);
   if Length(AComponent.Name) > 0 then
     ANode.AttributeAdd('Name', UTF8String(AComponent.Name));
   WriteObject(ANode, AComponent, AParent);
 end;
 
-procedure TsdXmlObjectWriter.WriteObject(ANode: TXmlNode; AObject: TObject;
+procedure TXmlObjectWriter.WriteObject(ANode: TXmlNode; AObject: TObject;
   AParent: TComponent);
 var
-  i, Count: Integer;
-  PropInfo: PPropInfo;
-  PropList: PPropList;
-  S: TStringStream;
-  AWriter: TWriter;
-  AChildNode: TXmlNode;
-  AComponentNode: TXmlNode;
-  C: TComponent;
+  I              : Integer;
+  LCount         : Integer;
+  LPropInfo      : PPropInfo;
+  LPropList      : PPropList;
+  SS             : TStringStream;
+  LWriter        : TWriter;
+  LChildNode     : TXmlNode;
+  LComponentNode : TXmlNode;
+  C              : TComponent;
 begin
   if not Assigned(ANode) or not Assigned(AObject) then
-    exit;
+    Exit;
 
   // If this is a component, store child components
   if AObject is TComponent then
@@ -611,104 +615,107 @@ begin
     C := TComponent(AObject);
     if C.ComponentCount > 0 then
     begin
-      AChildNode := ANode.NodeNew('Components');
-      for i := 0 to C.ComponentCount - 1 do
+      LChildNode := ANode.NodeNew('Components');
+      for I := 0 to C.ComponentCount - 1 do
       begin
-        AComponentNode := AChildNode.NodeNew(UTF8String(C.Components[i].ClassName));
-        if Length(C.Components[i].Name) > 0 then
-          AComponentNode.AttributeAdd('name', UTF8String(C.Components[i].Name));
-        WriteObject(AComponentNode, C.Components[i], TComponent(AObject));
+        LComponentNode := LChildNode.NodeNew(UTF8String(C.Components[I].ClassName));
+        if Length(C.Components[I].Name) > 0 then
+          LComponentNode.AttributeAdd('name', UTF8String(C.Components[I].Name));
+        WriteObject(LComponentNode, C.Components[I], TComponent(AObject));
       end;
     end;
   end;
 
   // If this is a collection, store collections items
   if AObject is TCollection then
-    for i := 0 to TCollection(AObject).Count - 1 do
+  begin
+    for I := 0 to TCollection(AObject).Count - 1 do
     begin
-      AChildNode := ANode.NodeNew(UTF8String(TCollection(AObject).Items[i].ClassName));
-      WriteObject(AChildNode, TCollection(AObject).Items[i], AParent);
+      LChildNode := ANode.NodeNew(UTF8String(TCollection(AObject).Items[I].ClassName));
+      WriteObject(LChildNode, TCollection(AObject).Items[I], AParent);
     end;
+  end;
 
   // Save all regular properties that need storing
-  Count := GetTypeData(AObject.ClassInfo)^.PropCount;
-  if Count > 0 then
+  LCount := GetTypeData(AObject.ClassInfo)^.PropCount;
+  if LCount > 0 then
   begin
-    GetMem(PropList, Count * SizeOf(Pointer));
+    GetMem(LPropList, LCount * SizeOf(Pointer));
     try
-      GetPropInfos(AObject.ClassInfo, PropList);
-      for i := 0 to Count - 1 do
+      GetPropInfos(AObject.ClassInfo, LPropList);
+      for I := 0 to LCount - 1 do
       begin
-        PropInfo := PropList^[i];
-        if PropInfo = nil then
+        LPropInfo := LPropList^[I];
+        if LPropInfo = nil then
           continue;
-        if IsStoredProp(AObject, PropInfo) then
-          WriteProperty(ANode, AObject, AParent, PropInfo);
+        if IsStoredProp(AObject, LPropInfo) then
+          WriteProperty(ANode, AObject, AParent, LPropInfo);
       end;
     finally
-      FreeMem(PropList, Count * SizeOf(Pointer));
+      FreeMem(LPropList, LCount * SizeOf(Pointer));
     end;
   end;
 
   // Save defined properties
   if AObject is TPersistent then
   begin
-    S := TStringStream.Create('');
+    SS := TStringStream.Create('');
     try
-      AWriter := TWriter.Create(S, 4096);
+      LWriter := TWriter.Create(SS, 4096);
       try
-        TPersistentAccess(AObject).DefineProperties(AWriter);
+        TPersistentAccess(AObject).DefineProperties(LWriter);
       finally
-        AWriter.Free;
+        LWriter.Free;
       end;
       // Do we have data from DefineProperties?
-      if S.Size > 0 then
+      if SS.Size > 0 then
       begin
         // Yes, add a node with binary data
-        ANode.NodeNew('DefinedProperties').BinaryString := RawByteString(S.DataString);
+        ANode.NodeNew('DefinedProperties').BinaryString := RawByteString(SS.DataString);
       end;
     finally
-      S.Free;
+      SS.Free;
     end;
   end;
 end;
 
-procedure TsdXmlObjectWriter.WriteProperty(ANode: TXmlNode; AObject: TObject;
-  AParent: TComponent; PropInfo: PPropInfo);
+procedure TXmlObjectWriter.WriteProperty(ANode: TXmlNode; AObject: TObject;
+  AParent: TComponent; APropInfo: PPropInfo);
 var
-  PropType: PTypeInfo;
-  AChildNode: TXmlNode;
-  ACollectionNode: TXmlNode;
-  //local
+  LPropType       : PTypeInfo;
+  LChildNode      : TXmlNode;
+  LCollectionNode : TXmlNode;
+
   procedure WritePropName;
   begin
-    AChildNode := ANode.NodeNew(PPropInfo(PropInfo)^.Name);
+    LChildNode := ANode.NodeNew(PPropInfo(APropInfo)^.Name);
   end;
-  //local
+
   procedure WriteInteger(Value: Int64);
   begin
-    AChildNode.Value := UTF8String(IntToStr(Value));
+    LChildNode.Value := UTF8String(IntToStr(Value));
   end;
-  //local
+
   procedure WriteString(Value: string);
   begin
-    AChildNode.ValueUnicode := UnicodeString(Value);
+    LChildNode.ValueUnicode := UnicodeString(Value);
   end;
-  //local
-  procedure WriteBool(Value: boolean);
+
+  procedure WriteBool(Value: Boolean);
   begin
-    AChildNode.ValueAsBool := Value;
+    LChildNode.ValueAsBool := Value;
   end;
-  //local
+
   procedure WriteSet(Value: Longint);
   var
-    I: Integer;
-    BaseType: PTypeInfo;
-    S, Enum: string;
+    I        : Integer;
+    BaseType : PTypeInfo;
+    S        : string;
+    Enum     : string;
   begin
     S := '';
     {$IFDEF FPC}
-    BaseType := GetTypeData(PropType)^.CompType;
+    BaseType := GetTypeData(LPropType)^.CompType;
     {$ELSE}
     BaseType := GetTypeData(PropType)^.CompType^;
     {$ENDIF}
@@ -723,13 +730,13 @@ var
           S := Enum;
       end;
     end;
-    AChildNode.Value := UTF8String(Format('[%s]', [S]));
+    LChildNode.Value := UTF8String(Format('[%s]', [S]));
   end;
-  //local
+
   procedure WriteIntProp(IntType: PTypeInfo; Value: Longint);
   var
-    Ident: string;
-    IntToIdent: TIntToIdent;
+    Ident      : string;
+    IntToIdent : TIntToIdent;
   begin
     Ident := '';
     IntToIdent := FindIntToIdent(IntType);
@@ -738,81 +745,75 @@ var
     else
       WriteInteger(Value);
   end;
-  //local
+
   procedure WriteCollectionProp(Collection: TCollection);
   var
-    i: Integer;
+    I: Integer;
   begin
     if Assigned(Collection) then
     begin
-      for i := 0 to Collection.Count - 1 do
+      for I := 0 to Collection.Count - 1 do
       begin
-        ACollectionNode := AChildNode.NodeNew(UTF8String(Collection.Items[i].ClassName));
-        WriteObject(ACollectionNode, Collection.Items[I], AParent);
+        LCollectionNode := LChildNode.NodeNew(UTF8String(Collection.Items[I].ClassName));
+        WriteObject(LCollectionNode, Collection.Items[I], AParent);
       end;
     end;
   end;
-  //local
+
   procedure WriteOrdProp;
   var
-    Value: Longint;
+    Value: Int64;
   begin
-    Value := GetOrdProp(AObject, PropInfo);
-    if not (Value = PPropInfo(PropInfo)^.Default) then
+    Value := GetOrdProp(AObject, APropInfo);
+    if not (Value = PPropInfo(APropInfo)^.Default) then
     begin
       WritePropName;
-      case PropType^.Kind of
-      {$IFDEF FPC}
-      tkInteger:     WriteIntProp(PPropInfo(PropInfo)^.PropType, Value);
-      {$ELSE}
-      tkInteger:     WriteIntProp(PPropInfo(PropInfo)^.PropType^, Value);
-      {$ENDIF}
+      case LPropType^.Kind of
+      tkInteger:     WriteIntProp(PPropInfo(APropInfo)^.PropType, Value);
       tkBool:        WriteBool(Value <> 0);
-   
       tkChar:        WriteString(Chr(Value));
       tkSet:         WriteSet(Value);
-      tkEnumeration: WriteString(GetEnumName(PropType, Value));
+      tkEnumeration: WriteString(GetEnumName(LPropType, Value));
       end;
     end;
   end;
-  //local
+
   procedure WriteFloatProp;
   var
-    Value: Extended;
+    Value : Extended;
   begin
-    Value := GetFloatProp(AObject, PropInfo);
+    Value := GetFloatProp(AObject, APropInfo);
     if not (Value = 0) then
-      ANode.WriteFloat(PPropInfo(PropInfo)^.Name, Value);
+      ANode.WriteFloat(PPropInfo(APropInfo)^.Name, Value);
   end;
-  //local
+
   procedure WriteInt64Prop;
   var
     Value: Int64;
   begin
-    Value := GetInt64Prop(AObject, PropInfo);
+    Value := GetInt64Prop(AObject, APropInfo);
     if not (Value = 0) then
-      ANode.WriteInt64(PPropInfo(PropInfo)^.Name, Value);
+      ANode.WriteInt64(PPropInfo(APropInfo)^.Name, Value);
   end;
-  //local
+
   procedure WriteStrProp;
   var
     Value: Utf8String;
   begin
-    Value := Utf8String(GetStrProp(AObject, PropInfo));
+    Value := Utf8String(GetStrProp(AObject, APropInfo));
     if not (Length(Value) = 0) then
-      ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
+      ANode.WriteString(PPropInfo(APropInfo)^.Name, Value);
   end;
-  //local
+
   procedure WriteWideStrProp;
   var
     Value: Utf8String;
   begin
-    Value := Utf8String(GetWideStrProp(AObject, PropInfo));
+    Value := Utf8String(GetWideStrProp(AObject, APropInfo));
     if not (Length(Value) = 0) then
-      ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
+      ANode.WriteString(PPropInfo(APropInfo)^.Name, Value);
   end;
   {$IFDEF UNICODE}
-  //local
   procedure WriteUnicodeStrProp;
   var
     Value: UnicodeString;
@@ -822,11 +823,12 @@ var
       ANode.WriteString(PPropInfo(PropInfo)^.Name, Value);
   end;
   {$ENDIF UNICODE}
-  //local
+
   procedure WriteObjectProp;
   var
-    Value: TObject;
-    ComponentName: string;
+    LObject        : TObject;
+    LComponentName : string;
+
     function GetComponentName(Component: TComponent): string;
     begin
       if Component.Owner = AParent then
@@ -840,119 +842,116 @@ var
       else
         Result := '';
     end;
+
   begin
-    Value := TObject(GetOrdProp(AObject, PropInfo));
-    if not Assigned(Value) then
-      exit;
+    LObject := GetObjectProp(AObject, APropInfo);
+    if not Assigned(LObject) then
+      Exit;
     WritePropName;
-    if (Value is TComponent) and not (csSubComponent in TComponent(Value).ComponentStyle) then
+    if (LObject is TComponent) and not (csSubComponent in TComponent(LObject).ComponentStyle) then
     begin
-      ComponentName := GetComponentName(TComponent(Value));
-      if Length(ComponentName) > 0 then
-        WriteString(ComponentName);
+      LComponentName := GetComponentName(TComponent(LObject));
+      if Length(LComponentName) > 0 then
+        WriteString(LComponentName);
     end
     else
     begin
-      WriteString(Format('(%s)', [Value.ClassName]));
-      if Value is TCollection then
-        WriteCollectionProp(TCollection(Value))
+      WriteString(Format('(%s)', [LObject.ClassName]));
+      if LObject is TCollection then
+        WriteCollectionProp(TCollection(LObject))
       else
       begin
         if AObject is TComponent then
-          WriteObject(AChildNode, Value, TComponent(AObject))
+          WriteObject(LChildNode, LObject, TComponent(AObject))
         else
-          WriteObject(AChildNode, Value, AParent)
+          WriteObject(LChildNode, LObject, AParent)
       end;
       // No need to store an empty child.. so check and remove
-      if AChildNode.NodeCount = 0 then
-        ANode.NodeRemove(AChildNode);
+      if LChildNode.NodeCount = 0 then
+        ANode.NodeRemove(LChildNode);
     end;
   end;
-  //local
+
   procedure WriteMethodProp;
   var
-    Value: TMethod;
+    LMethod: TMethod;
+
     function IsDefaultValue: Boolean;
     begin
-      Result := (Value.Code = nil) or
-        ((Value.Code <> nil) and Assigned(AParent) and (AParent.MethodName(Value.Code) = ''));
+      Result := (LMethod.Code = nil) or
+        ((LMethod.Code <> nil) and Assigned(AParent) and (AParent.MethodName(LMethod.Code) = ''));
     end;
+
   begin
-    Value := GetMethodProp(AObject, PropInfo);
+    LMethod := GetMethodProp(AObject, APropInfo);
     if not IsDefaultValue then
     begin
-      if Assigned(Value.Code) then
+      if Assigned(LMethod.Code) then
       begin
         WritePropName;
         if Assigned(AParent) then
-          WriteString(AParent.MethodName(Value.Code))
+          WriteString(AParent.MethodName(LMethod.Code))
         else
-          AChildNode.Value := '???';
+          LChildNode.Value := '';
       end;
     end;
   end;
-  //local
-  function WriteVariantProp: boolean;
+
+  function WriteVariantProp: Boolean;
   var
-    AValue: Variant;
-    ACurrency: Currency;
-  var
-    VType: Integer;
+    LVariant  : Variant;
+    LCurrency : Currency;
+    LVarType  : Integer;
   begin
     Result := True;
-    AValue := GetVariantProp(AObject, PropInfo);
-    if not VarIsEmpty(AValue) or VarIsNull(AValue) then
+    LVariant := GetVariantProp(AObject, APropInfo);
+    if not VarIsEmpty(LVariant) or VarIsNull(LVariant) then
     begin
-      if VarIsArray(AValue) then
+      if VarIsArray(LVariant) then
       begin
-        DoDebugOut(Self, wsWarn, sIllegalVarType);
+        Logger.SendWarning(SIllegalVariantType);
         Result := False;
         Exit;
       end;
       WritePropName;
-      VType := VarType(AValue);
-      AChildNode.AttributeAdd('vartype', UTF8String(IntToHex(VType, 4)));
-      case VType and varTypeMask of
-      varNull:    AChildNode.Value := '';
-      varOleStr:  AChildNode.Value := Utf8String(AValue);
-      varString:  AChildNode.Value := Utf8String(AValue);
+      LVarType := VarType(LVariant);
+      LChildNode.AttributeAdd('vartype', UTF8String(IntToHex(LVarType, 4)));
+      case LVarType and varTypeMask of
+      varNull:    LChildNode.Value := '';
+      varOleStr:  LChildNode.Value := Utf8String(LVariant);
+      varString:  LChildNode.Value := Utf8String(LVariant);
       varByte,
       varSmallInt,
-      varInteger: AChildNode.SetValueAsInteger(AValue);
+      varInteger: LChildNode.SetValueAsInteger(LVariant);
       varSingle,
-      varDouble:  AChildNode.SetValueAsFloat(AValue);
+      varDouble:  LChildNode.SetValueAsFloat(LVariant);
       varCurrency:
         begin
-          ACurrency := AValue;
-          AChildNode.BufferWrite(ACurrency, SizeOf(ACurrency));
+          LCurrency := LVariant;
+          LChildNode.BufferWrite(LCurrency, SizeOf(LCurrency));
         end;
-      varDate:    AChildNode.SetValueAsDateTime(AValue);
-      varBoolean: AChildNode.SetValueAsBool(AValue);
+      varDate:    LChildNode.SetValueAsDateTime(LVariant);
+      varBoolean: LChildNode.SetValueAsBool(LVariant);
       else
         try
-          ANode.Value := AValue;
+          ANode.Value := LVariant;
         except
-          DoDebugOut(Self, wsWarn, sIllegalVarType);
+          Logger.SendWarning(SIllegalVariantType);
           Result := False;
           Exit;
         end;
       end;//case
     end;
   end;
-//main
+
 begin
-  if (PPropInfo(PropInfo)^.SetProc <> nil) and
-    (PPropInfo(PropInfo)^.GetProc <> nil) then
+  Logger.EnterMethod('TXmlObjectWriter.WriteProperty');
+  if (PPropInfo(APropInfo)^.SetProc <> nil) and
+    (PPropInfo(APropInfo)^.GetProc <> nil) then
   begin
-    {$IFDEF FPC}
-    PropType := PPropInfo(PropInfo)^.PropType;
-    {$ELSE}
-    PropType := PPropInfo(PropInfo)^.PropType^;
-    {$ENDIF}
-    case PropType^.Kind of
-    {$IFDEF FPC}
-	tkBool,
-    {$ENDIF}
+    LPropType := PPropInfo(APropInfo)^.PropType;
+    case LPropType^.Kind of
+    tkBool,
     tkInteger, tkChar, tkEnumeration, tkSet: WriteOrdProp;
     tkFloat:                                 WriteFloatProp;
     {$IFDEF FPC}
@@ -972,23 +971,25 @@ begin
     tkInt64:                                 WriteInt64Prop;
     end;
   end;
+  Logger.ExitMethod('TXmlObjectWriter.WriteProperty');
 end;
 
-{ TsdXmlObjectReader }
+{ TXmlObjectReader }
 
-function TsdXmlObjectReader.CreateComponent(ANode: TXmlNode;
+function TXmlObjectReader.CreateComponent(ANode: TXmlNode;
   AOwner, AParent: TComponent; AName: string): TComponent;
 var
-  AClass: TComponentClass;
+  LClass: TComponentClass;
 begin
-  AClass := TComponentClass(GetClass(string(ANode.Name)));
-  if not Assigned(AClass) then
+  Logger.EnterMethod('TXmlObjectReader.CreateComponent');
+  LClass := TComponentClass(GetClass(string(ANode.Name)));
+  if not Assigned(LClass) then
   begin
-    DoDebugOut(Self, wsFail, Format(sUnregisteredClassType, [ANode.Name]));
+    Logger.SendWarning(Format(SUnregisteredClassType, [ANode.Name]));
     Result := nil;
     Exit;
   end;
-  Result := AClass.Create(AOwner);
+  Result := LClass.Create(AOwner);
   if Length(AName) = 0 then
     Result.Name := ANode.AttributeValueByName['name'] // RSK
   else
@@ -996,34 +997,37 @@ begin
   if not Assigned(AParent) then
     AParent := Result;
   ReadComponent(ANode, Result, AParent);
+  Logger.ExitMethod('TXmlObjectReader.CreateComponent');
 end;
 
-procedure TsdXmlObjectReader.ReadComponent(ANode: TXmlNode; AComponent,
+procedure TXmlObjectReader.ReadComponent(ANode: TXmlNode; AComponent,
   AParent: TComponent);
 begin
   ReadObject(ANode, AComponent, AParent);
 end;
 
-function TsdXmlObjectReader.ReadObject(ANode: TXmlNode; AObject: TObject; AParent: TComponent): boolean;
+function TXmlObjectReader.ReadObject(ANode: TXmlNode; AObject: TObject; AParent: TComponent): Boolean;
 var
-  i, Count: Integer;
-  Item: TCollectionItem;
-  PropInfo: PPropInfo;
-  PropList: PPropList;
-  S: TStringStream;
-  AReader: TReader;
-  AChildNode: TXmlNode;
-  AComponentNode: TXmlNode;
-  AClass: TComponentClass;
-  AComponent: TComponent;
-  C: TComponent;
-  CA: TComponentAccess;
-  Coll: TCollection;
+  I              : Integer;
+  LCount         : Integer;
+  LItem          : TCollectionItem;
+  LPropInfo      : PPropInfo;
+  LPropList      : PPropList;
+  SS             : TStringStream;
+  LReader        : TReader;
+  LChildNode     : TXmlNode;
+  LComponentNode : TXmlNode;
+  LClass         : TComponentClass;
+  LComponent     : TComponent;
+  C              : TComponent;
+  CA             : TComponentAccess;
+  LCollection    : TCollection;
 begin
   Result := True;
   if not Assigned(ANode) or not Assigned(AObject) then
-    exit;
+    Exit;
 
+  Logger.Send(ANode.Name, ANode.Value);
   // Start loading
   if AObject is TComponent then
   begin
@@ -1037,31 +1041,31 @@ begin
     if AObject is TComponent then
     begin
       C := TComponent(AObject);
-      AChildNode := ANode.NodeByName('Components');
-      if Assigned(AChildNode) then
+      LChildNode := ANode.NodeByName('Components');
+      if Assigned(LChildNode) then
       begin
-        for i := 0 to AChildNode.ContainerCount - 1 do // RSK
+        for I := 0 to LChildNode.ContainerCount - 1 do // RSK
         begin
-          AComponentNode := AChildNode.Containers[i]; // RSK
-          AComponent := C.FindComponent(AComponentNode.AttributeValueByName['name']); // RSK
-          if not Assigned(AComponent) then
+          LComponentNode := LChildNode.Containers[I]; // RSK
+          LComponent := C.FindComponent(LComponentNode.AttributeValueByName['name']); // RSK
+          if not Assigned(LComponent) then
           begin
-            AClass := TComponentClass(GetClass(string(AComponentNode.Name)));
-            if not Assigned(AClass) then
+            LClass := TComponentClass(GetClass(string(LComponentNode.Name)));
+            if not Assigned(LClass) then
             begin
-              DoDebugOut(Self, wsFail, sUnregisteredClassType);
+              Logger.SendWarning(Format(SUnregisteredClassType, [LComponentNode.Name]));
               Result := False;
               Exit;
             end;
-            AComponent := AClass.Create(TComponent(AObject));
-            AComponent.Name := AComponentNode.AttributeValueByName['name']; // RSK
-{$IFDEF useForms}
+            LComponent := LClass.Create(TComponent(AObject));
+            LComponent.Name := LComponentNode.AttributeValueByName['name']; // RSK
+{$IFDEF UseForms}
             // In case of new (visual) controls we set the parent
-            if (AComponent is TControl) and (AObject is TWinControl) then
-              TControl(AComponent).Parent := TWinControl(AObject);
+            if (LComponent is TControl) and (AObject is TWinControl) then
+              TControl(LComponent).Parent := TWinControl(AObject);
 {$ENDIF}
           end;
-          ReadComponent(AComponentNode, AComponent, TComponent(AObject));
+          ReadComponent(LComponentNode, LComponent, TComponent(AObject));
         end;
       end;
     end;
@@ -1069,57 +1073,57 @@ begin
     // If this is a collection, load collections items
     if AObject is TCollection then
     begin
-      Coll := TCollection(AObject);
-      Coll.BeginUpdate;
+      LCollection := TCollection(AObject);
+      LCollection.BeginUpdate;
       try
-        Coll.Clear;
-        for i := 0 to ANode.ContainerCount - 1 do // RSK
+        LCollection.Clear;
+        for I := 0 to ANode.ContainerCount - 1 do // RSK
         begin
-          Item := Coll.Add;
-          ReadObject(ANode.Containers[i], Item, AParent); // RSK
+          LItem := LCollection.Add;
+          ReadObject(ANode.Containers[I], LItem, AParent); // RSK
         end;
       finally
-        Coll.EndUpdate;
+        LCollection.EndUpdate;
       end;
     end;
 
     // Load all loadable regular properties
-    Count := GetTypeData(AObject.ClassInfo)^.PropCount;
-    if Count > 0 then
+    LCount := GetTypeData(AObject.ClassInfo)^.PropCount;
+    if LCount > 0 then
     begin
-      GetMem(PropList, Count * SizeOf(Pointer));
+      GetMem(LPropList, LCount * SizeOf(Pointer));
       try
-        GetPropInfos(AObject.ClassInfo, PropList);
-        for i := 0 to Count - 1 do
+        GetPropInfos(AObject.ClassInfo, LPropList);
+        for I := 0 to LCount - 1 do
         begin
-          PropInfo := PropList^[i];
-          if PropInfo = nil then
+          LPropInfo := LPropList^[I];
+          if LPropInfo = nil then
             continue;
-          ReadProperty(ANode, AObject, AParent, PropInfo);
+          ReadProperty(ANode, AObject, AParent, LPropInfo);
         end;
       finally
-        FreeMem(PropList, Count * SizeOf(Pointer));
+        FreeMem(LPropList, LCount * SizeOf(Pointer));
       end;
     end;
 
     // Load defined properties
     if AObject is TPersistent then
     begin
-      AChildNode := ANode.NodeByName('DefinedProperties');
-      if Assigned(AChildNode) then
+      LChildNode := ANode.NodeByName('DefinedProperties');
+      if Assigned(LChildNode) then
       begin
-        S := TStringStream.Create(string(AChildNode.BinaryString));
-        S.Position := 0;
+        SS := TStringStream.Create(string(LChildNode.BinaryString));
+        SS.Position := 0;
         try
-          AReader := TReader.Create(S, 4096);
+          LReader := TReader.Create(SS, 4096);
           try
-            while S.Position < S.Size do
-              TReaderAccess(AReader).ReadProperty(TPersistent(AObject));
+            while SS.Position < SS.Size do
+              TReaderAccess(LReader).ReadProperty(TPersistent(AObject));
           finally
-            AReader.Free;
+            LReader.Free;
           end;
         finally
-          S.Free;
+          SS.Free;
         end;
       end;
     end;
@@ -1136,32 +1140,50 @@ begin
   end;
 end;
 
-function TsdXmlObjectReader.ReadProperty(ANode: TXmlNode;
-  AObject: TObject; AParent: TComponent; PropInfo: PPropInfo): boolean;
+function TXmlObjectReader.ReadProperty(ANode: TXmlNode;
+  AObject: TObject; AParent: TComponent; PropInfo: PPropInfo): Boolean;
 var
-  PropType: PTypeInfo;
-  AChildNode: TXmlNode;
-  Method: TMethod;
-  PropObject: TObject;
+  LPropType   : PTypeInfo;
+  LChildNode  : TXmlNode;
+  LMethod     : TMethod;
+  LPropObject : TObject;
   //local
-  function SetSetProp(const AValue: string): boolean;
+  procedure ReadCollectionProp(ACollection: TCollection);
+  var
+    I: Integer;
+    Item: TPersistent;
+  begin
+    ACollection.BeginUpdate;
+    try
+      ACollection.Clear;
+      for I := 0 to LChildNode.ContainerCount - 1 do
+      begin
+        Item := ACollection.Add;
+        ReadObject(LChildNode.Containers[I], Item, AParent);
+      end;
+    finally
+      ACollection.EndUpdate;
+    end;
+  end;
+
+  function SetSetProp(const AValue: string): Boolean;
   var
     S: string;
     P: Integer;
     ASet: Integer;
     EnumType: PTypeInfo;
     // local local
-    function AddToEnum(const EnumName: string): boolean;
+    function AddToEnum(const EnumName: string): Boolean;
     var
       V: Integer;
     begin
       Result := True;
       if Length(EnumName) = 0 then
-        exit;
+        Exit;
       V := GetEnumValue(EnumType, EnumName);
       if V = -1 then
       begin
-        DoDebugOut(Self, wsFail, sInvalidPropertyValue);
+        Logger.SendWarning(SInvalidPropertyValue, [EnumName]);
         Result := False;
         Exit;
       end;
@@ -1171,7 +1193,7 @@ var
     Result := True;
     ASet := 0;
     {$IFDEF FPC}
-    EnumType := GetTypeData(PropType)^.CompType;
+    EnumType := GetTypeData(LPropType)^.CompType;
     {$ELSE}
     EnumType := GetTypeData(PropType)^.CompType^;
     {$ENDIF}
@@ -1198,41 +1220,41 @@ var
     IdentToInt: TIdentToInt;
   begin
     V := 0;
-    IdentToInt := FindIdentToInt(PropType);
+    IdentToInt := FindIdentToInt(LPropType);
     if Assigned(IdentToInt) and IdentToInt(AValue, V) then
       SetOrdProp(AObject, PropInfo, V)
     else
       SetOrdProp(AObject, PropInfo, StrToInt(AValue));
   end;
 
-  function SetCharProp(const AValue: string): boolean;
+  function SetCharProp(const AValue: string): Boolean;
   begin
     Result := True;
     if Length(AValue) <> 1 then
     begin
-      DoDebugOut(Self, wsFail, sInvalidPropertyValue);
+      Logger.SendWarning(SInvalidPropertyValue, [AValue]);
       Result := False;
       Exit;
     end;
     SetOrdProp(AObject, PropInfo, Ord(AValue[1]));
   end;
 
-  function SetEnumProp(const AValue: string): boolean;
+  function SetEnumProp(const AValue: string): Boolean;
   var
     V: Integer;
   begin
     Result := True;
-    V := GetEnumValue(PropType, AValue);
+    V := GetEnumValue(LPropType, AValue);
     if V = -1 then
     begin
-      DoDebugOut(Self, wsFail, sInvalidPropertyValue);
+      Logger.SendWarning(SInvalidPropertyValue, [AValue]);
       Result := False;
       Exit;
     end;
     SetOrdProp(AObject, PropInfo, V)
   end;
 
-  function SetBoolProp(const AValue: boolean): boolean;
+  function SetBoolProp(const AValue: Boolean): Boolean;
   var
     V: Integer;
   begin
@@ -1244,25 +1266,7 @@ var
     SetOrdProp(AObject, PropInfo, V)
   end;
 
-  procedure ReadCollectionProp(ACollection: TCollection);
-  var
-    i: Integer;
-    Item: TPersistent;
-  begin
-    ACollection.BeginUpdate;
-    try
-      ACollection.Clear;
-      for i := 0 to AChildNode.ContainerCount - 1 do
-      begin
-        Item := ACollection.Add;
-        ReadObject(AChildNode.Containers[i], Item, AParent);
-      end;
-    finally
-      ACollection.EndUpdate;
-    end;
-  end;
-
-  function SetObjectProp(const AValue: string): boolean;
+  function SetObjectProp(const AValue: string): Boolean;
   var
     AClassName: string;
     PropObject: TObject;
@@ -1270,12 +1274,17 @@ var
   begin
     Result := True;
     if Length(AValue) = 0 then
-      exit;
+      Exit;
     if AValue[1] = '(' then
     begin
       // Persistent class
       AClassName := Copy(AValue, 2, Length(AValue) - 2);
-      PropObject := TObject(GetOrdProp(AObject, PropInfo));
+      //PropObject := TObject(GetOrdProp(AObject, PropInfo));
+      //PropObject := GetObjectProp(AObject, );
+      PropObject := GetObjectProp(AObject, PropInfo);
+
+      if Assigned(PropObject) then
+        Logger.Send('PropObject.ClassName', PropObject.ClassName);
       if Assigned(PropObject) and (PropObject.ClassName = AClassName) then
       begin
         if PropObject is TCollection then
@@ -1283,14 +1292,14 @@ var
         else
         begin
           if AObject is TComponent then
-            ReadObject(AChildNode, PropObject, TComponent(AObject))
+            ReadObject(LChildNode, PropObject, TComponent(AObject))
           else
-            ReadObject(AChildNode, PropObject, AParent);
+            ReadObject(LChildNode, PropObject, AParent);
         end;
       end
       else
       begin
-        DoDebugOut(Self, wsFail, sUnregisteredClassType);
+        Logger.SendWarning(SUnregisteredClassType, [AClassName]);
         Result := False;
         Exit;
       end;
@@ -1306,18 +1315,18 @@ var
     end;
   end;
 
-  function SetMethodProp(const AValue: string): boolean;
+  function SetMethodProp(const AValue: string): Boolean;
   var
     Method: TMethod;
   begin
     Result := True;
     // to do: add OnFindMethod
     if not Assigned(AParent) then
-      exit;
+      Exit;
     Method.Code := AParent.MethodAddress(AValue);
     if not Assigned(Method.Code) then
     begin
-      DoDebugOut(Self, wsFail, sInvalidMethodName);
+      Logger.SendWarning(SInvalidMethodName);
       Result := False;
       Exit;
     end;
@@ -1325,7 +1334,7 @@ var
     TypInfo.SetMethodProp(AObject, PropInfo, Method);
   end;
 
-  function SetVariantProp(const AValue: string): boolean;
+  function SetVariantProp(const AValue: string): Boolean;
   var
     VType: Integer;
     Value: Variant;
@@ -1333,115 +1342,141 @@ var
   begin
     ACurrency := 0.0;
     Result := True;
-    VType := StrToInt('$' + AChildNode.AttributeValueByName['vartype']); // RSK
+    VType := StrToInt('$' + LChildNode.AttributeValueByName['vartype']); // RSK
 
     case VType and varTypeMask of
-    varNull:    Value := Null;
-    varOleStr:  Value := AChildNode.ValueUnicode;
-    varString:  Value := AChildNode.Value;
-    varByte,
-    varSmallInt,
-    varInteger: Value := AChildNode.GetValueAsInteger;
-    varSingle,
-    varDouble:  Value := AChildNode.GetValueAsFloat;
-    varCurrency:
+      varNull:
+        Value := Null;
+      varOleStr:
+        Value := LChildNode.ValueUnicode;
+      varString:
+        Value := LChildNode.Value;
+      varByte,
+      varSmallInt,
+      varInteger:
+        Value := LChildNode.GetValueAsInteger;
+      varSingle,
+      varDouble:
+        Value := LChildNode.GetValueAsFloat;
+      varCurrency:
       begin
-        AChildNode.BufferRead(ACurrency, SizeOf(ACurrency));
+        LChildNode.BufferRead(ACurrency, SizeOf(ACurrency));
         Value := ACurrency;
       end;
-    varDate:    Value := AChildNode.GetValueAsDateTime;
-    varBoolean: Value := AChildNode.GetValueAsBool;
+      varDate:
+        Value := LChildNode.GetValueAsDateTime;
+      varBoolean:
+        Value := LChildNode.GetValueAsBool;
     else
       try
         Value := ANode.Value;
       except
-        DoDebugOut(Self, wsFail, sIllegalVarType);
+        Logger.SendWarning(SIllegalVariantType);
         Result := False;
         Exit;
       end;
-    end;//case
-
+    end;
     TVarData(Value).VType := VType;
     TypInfo.SetVariantProp(AObject, PropInfo, Value);
   end;
 
 begin
+  Logger.EnterMethod('TXmlObjectReader.ReadProperty');
   Result := True;
-  if (PPropInfo(PropInfo)^.SetProc <> nil) and
-    (PPropInfo(PropInfo)^.GetProc <> nil) then
+  Logger.Send('Read property: ', ANode.Value);
+  if (PPropInfo(PropInfo)^.SetProc <> nil)
+    and (PPropInfo(PropInfo)^.GetProc <> nil) then
   begin
-    {$IFDEF FPC}
-    PropType := PPropInfo(PropInfo)^.PropType;
-    {$ELSE}
-    PropType := PPropInfo(PropInfo)^.PropType^;
-    {$ENDIF}
-    AChildNode := ANode.NodeByName(PPropInfo(PropInfo)^.Name);
-    if Assigned(AChildNode) then
+    LPropType := PPropInfo(PropInfo)^.PropType;
+    LChildNode := ANode.NodeByName(PPropInfo(PropInfo)^.Name);
+    if Assigned(LChildNode) then
     begin
+      Logger.Send('LChildNode', LChildNode.Value);
       // Non-default values from XML
-      case PropType^.Kind of
-      tkBool:        SetBoolProp(AChildNode.GetValueAsBool);
-      tkInteger:     SetIntProp(AChildNode.Value);
-      tkChar:        SetCharProp(AChildNode.Value);
-      tkSet:         SetSetProp(AChildNode.Value);
-      tkEnumeration: SetEnumProp(AChildNode.Value);
-      tkFloat:       SetFloatProp(AObject, PropInfo, AChildNode.GetValueAsFloat);
-      {$IFDEF FPC}
-      tkAString,
-      {$ENDIF}
-      tkString,
-      tkLString:     SetStrProp(AObject, PropInfo, AChildNode.Value);
-      {$IFDEF UNICODE}
-      tkWString:     SetWideStrProp(AObject, PropInfo, UTF8ToWideString(AChildNode.Value));
-      {$else UNICODE}
-      tkWString:     SetWideStrProp(AObject, PropInfo, UTF8Decode(AChildNode.Value));
-      {$ENDIF UNICODE}
-      {$IFDEF UNICODE}
-      tkUString:     SetUnicodeStrProp(AObject, PropInfo, AChildNode.Value);
-      {$ENDIF UNICODE}
-      tkClass:       SetObjectProp(AChildNode.Value);
-      tkMethod:      SetMethodProp(AChildNode.Value);
-      tkVariant:     SetVariantProp(AChildNode.Value);
-      tkInt64:       SetInt64Prop(AObject, PropInfo, AChildNode.GetValueAsInt64);
-      end;//case
-    end else
+      case LPropType^.Kind of
+        tkBool:
+          SetBoolProp(LChildNode.GetValueAsBool);
+        tkInteger:
+          SetIntProp(LChildNode.Value);
+        tkChar:
+          SetCharProp(LChildNode.Value);
+        tkSet:
+          SetSetProp(LChildNode.Value);
+        tkEnumeration:
+          SetEnumProp(LChildNode.Value);
+        tkFloat:
+          SetFloatProp(AObject, PropInfo, LChildNode.GetValueAsFloat);
+        tkAString,
+        tkString,
+        tkLString:
+          SetStrProp(AObject, PropInfo, LChildNode.Value);
+        {$IFDEF UNICODE}
+        tkWString:
+          SetWideStrProp(AObject, PropInfo, UTF8ToWideString(LChildNode.Value));
+        {$ELSE}
+        tkWString:
+          SetWideStrProp(AObject, PropInfo, UTF8Decode(LChildNode.Value));
+        {$ENDIF}
+        {$IFDEF UNICODE}
+        tkUString:
+          SetUnicodeStrProp(AObject, PropInfo, LChildNode.Value);
+        {$ENDIF}
+        tkClass:
+          SetObjectProp(LChildNode.Value);
+        tkMethod:
+          SetMethodProp(LChildNode.Value);
+        tkVariant:
+          SetVariantProp(LChildNode.Value);
+        tkInt64:
+          SetInt64Prop(AObject, PropInfo, LChildNode.GetValueAsInt64);
+      end;
+    end
+    else
     begin
       if SetDefaultValues then
       begin
         // Set Default value
-        case PropType^.Kind of
-        tkBool:        SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
-        tkInteger:     SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
-        tkChar:        SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
-        tkSet:         SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
-        tkEnumeration: SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
-        tkFloat:       SetFloatProp(AObject, PropInfo, 0);
-        {$IFDEF FPC}
-        tkAString,
-        {$ENDIF}
-        tkString,
-        tkLString,
-        tkWString:     SetStrProp(AObject, PropInfo, '');
-        {$IFDEF UNICODE}
-        tkUString:     SetStrProp(AObject, PropInfo, '');
-        {$ENDIF UNICODE}
-        tkClass:
+        case LPropType^.Kind of
+          tkBool:
+            SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
+          tkInteger:
+            SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
+          tkChar:
+            SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
+          tkSet:
+            SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
+          tkEnumeration:
+            SetOrdProp(AObject, PropInfo, PPropInfo(PropInfo)^.Default);
+          tkFloat:
+            SetFloatProp(AObject, PropInfo, 0);
+          tkAString,
+          tkString,
+          tkLString,
+          tkWString:
+            SetStrProp(AObject, PropInfo, '');
+          {$IFDEF UNICODE}
+          tkUString:
+            SetStrProp(AObject, PropInfo, '');
+          {$ENDIF UNICODE}
+          tkClass:
           begin
-            PropObject := TObject(GetOrdProp(AObject, PropInfo));
-            if PropObject is TComponent then
-              SetOrdProp(AObject, PropInfo, 0);
+            LPropObject := GetObjectProp(AObject, PropInfo);
+            if LPropObject is TComponent then
+              TypInfo.SetObjectProp(AObject, PropInfo, nil);
           end;
-        tkMethod:
+          tkMethod:
           begin
-            Method := TypInfo.GetMethodProp(AObject, PropInfo);
-            Method.Code := nil;
-            TypInfo.SetMethodProp(AObject, PropInfo, Method);
+            LMethod := TypInfo.GetMethodProp(AObject, PropInfo);
+            LMethod.Code := nil;
+            TypInfo.SetMethodProp(AObject, PropInfo, LMethod);
           end;
-        tkInt64:       SetInt64Prop(AObject, PropInfo, 0);
-        end;//case
+          tkInt64:
+            SetInt64Prop(AObject, PropInfo, 0);
+        end;
       end;
     end;
   end;
+  Logger.ExitMethod('TXmlObjectReader.ReadProperty');
 end;
 
 { TComponentAccess }

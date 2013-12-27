@@ -48,7 +48,7 @@
         <PackageName Value="FCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="fpcunitnotepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -59,6 +59,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Test.Editor.Settings"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="test.componentstreaming.testcomponents.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.ComponentStreaming.TestComponents"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="test.componentstreaming.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.ComponentStreaming"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

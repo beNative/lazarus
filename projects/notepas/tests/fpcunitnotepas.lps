@@ -4,16 +4,16 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="65">
+    <Units Count="75">
       <Unit0>
         <Filename Value="fpcunitnotepas.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="fpcunitnotepas"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="62" Y="19"/>
-        <UsageCount Value="52"/>
+        <CursorPos X="1" Y="21"/>
+        <UsageCount Value="74"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,9 +22,9 @@
         <UnitName Value="Test.Editor.Settings"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="187"/>
-        <CursorPos X="59" Y="74"/>
-        <UsageCount Value="52"/>
+        <TopLine Value="62"/>
+        <CursorPos X="87" Y="68"/>
+        <UsageCount Value="74"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -33,24 +33,22 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\..\..\fpcsrc\packages\fcl-fpcunit\src\DUnitCompatibleInterface.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit3>
       <Unit4>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.interfaces.pas"/>
         <UnitName Value="ts.Editor.Interfaces"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="708"/>
-        <CursorPos X="14" Y="727"/>
-        <UsageCount Value="26"/>
-        <Loaded Value="True"/>
+        <TopLine Value="49"/>
+        <CursorPos X="21" Y="69"/>
+        <UsageCount Value="35"/>
       </Unit4>
       <Unit5>
         <Filename Value="D:\codetyphon\ts\components\tslib\tslib.pas"/>
@@ -58,7 +56,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="32" Y="61"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit5>
       <Unit6>
         <Filename Value="D:\codetyphon\ts\components\richmemo\wsrichmemo.pas"/>
@@ -66,7 +64,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit6>
       <Unit7>
         <Filename Value="D:\codetyphon\ts\components\richmemo\win32\win32richmemoproc.pas"/>
@@ -74,7 +72,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="15" Y="392"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\..\components\richmemo\richmemo.pas"/>
@@ -82,7 +80,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="194"/>
         <CursorPos X="5" Y="198"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\..\components\richmemo\richmemofactory.pas"/>
@@ -90,7 +88,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="52" Y="25"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\..\components\richmemo\wsrichmemo.pas"/>
@@ -98,7 +96,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="57"/>
         <CursorPos X="10" Y="77"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit10>
       <Unit11>
         <Filename Value="D:\codetyphon\ts\components\richmemo\richmemofactory.pas"/>
@@ -106,7 +104,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\..\..\typhon\components\fpcunit\guitestrunner.pas"/>
@@ -117,27 +115,25 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="6" Y="33"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit12>
       <Unit13>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.highlighters.pas"/>
         <UnitName Value="ts.Editor.Highlighters"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="10"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="555"/>
-        <CursorPos X="33" Y="596"/>
-        <UsageCount Value="23"/>
+        <TopLine Value="523"/>
+        <CursorPos X="31" Y="549"/>
+        <UsageCount Value="34"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
         <UnitName Value="ts.Editor.HighlighterAttributes"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="135"/>
-        <CursorPos X="49" Y="149"/>
+        <TopLine Value="118"/>
+        <CursorPos X="15" Y="371"/>
         <UsageCount Value="18"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts_editor_manager.pas"/>
@@ -145,7 +141,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1921"/>
         <CursorPos X="3" Y="2536"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\..\..\typhon\components\synedit\synedithighlighter.pp"/>
@@ -153,7 +149,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="28"/>
         <CursorPos X="24" Y="28"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="13"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\..\..\typhon\components\lazutils\fileutil.pas"/>
@@ -161,50 +157,55 @@
         <WindowIndex Value="0"/>
         <TopLine Value="235"/>
         <CursorPos X="17" Y="206"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\..\..\typhon\components\lazutils\fileutil.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="121"/>
         <CursorPos X="1" Y="121"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit18>
       <Unit19>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.helpers.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="330"/>
         <CursorPos X="10" Y="66"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
       </Unit19>
       <Unit20>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <UnitName Value="ts.Editor.Settings"/>
+        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="246"/>
-        <CursorPos X="46" Y="767"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="741"/>
+        <CursorPos X="1" Y="751"/>
+        <UsageCount Value="33"/>
+        <Loaded Value="True"/>
       </Unit20>
       <Unit21>
         <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.formsettings.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="3" Y="29"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="13"/>
       </Unit21>
       <Unit22>
         <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.logger.pas"/>
+        <UnitName Value="ts.Core.Logger"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="14" Y="875"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="730"/>
+        <CursorPos X="1" Y="751"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\..\..\typhon\components\fpcunit\blueball.xpm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit23>
       <Unit24>
@@ -212,7 +213,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="17"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit24>
       <Unit25>
@@ -221,26 +222,25 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="54" Y="16"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit25>
       <Unit26>
         <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
         <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1346"/>
-        <CursorPos X="25" Y="1378"/>
-        <UsageCount Value="22"/>
+        <TopLine Value="1041"/>
+        <CursorPos X="62" Y="1071"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1705"/>
-        <CursorPos X="35" Y="1725"/>
-        <UsageCount Value="16"/>
+        <TopLine Value="1737"/>
+        <CursorPos X="15" Y="1769"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit27>
       <Unit28>
@@ -248,28 +248,31 @@
         <WindowIndex Value="0"/>
         <TopLine Value="100"/>
         <CursorPos X="26" Y="123"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit28>
       <Unit29>
         <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.sharedlogger.pas"/>
+        <UnitName Value="ts.Core.SharedLogger"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
+        <TopLine Value="1"/>
         <CursorPos X="3" Y="42"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="16"/>
+        <Loaded Value="True"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\cregist.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="11" Y="18"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\classes.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="3" Y="19"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\..\..\typhon\components\synedit\synhighlightercpp.pp"/>
@@ -277,7 +280,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="82"/>
         <CursorPos X="3" Y="102"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="17"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\typinfo.pp"/>
@@ -285,15 +288,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="326"/>
         <CursorPos X="11" Y="346"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit33>
       <Unit34>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <UnitName Value="ts.Editor.CodeFilter.Settings"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
-        <CursorPos X="30" Y="22"/>
-        <UsageCount Value="19"/>
+        <CursorPos X="1" Y="110"/>
+        <UsageCount Value="22"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\..\..\fpcsrc\packages\fcl-fpcunit\src\testutils.pp"/>
@@ -301,16 +304,16 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit35>
       <Unit36>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <UnitName Value="ts.Editor.Factories.Settings"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="137"/>
-        <CursorPos X="1" Y="175"/>
-        <UsageCount Value="17"/>
+        <TopLine Value="16"/>
+        <CursorPos X="3" Y="36"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
@@ -318,9 +321,9 @@
         <UnitName Value="ts.Editor.Tools.Settings"/>
         <EditorIndex Value="11"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="53"/>
-        <CursorPos X="83" Y="88"/>
-        <UsageCount Value="19"/>
+        <TopLine Value="48"/>
+        <CursorPos X="54" Y="87"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
       </Unit37>
       <Unit38>
@@ -328,24 +331,22 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="17" Y="24"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="17"/>
       </Unit38>
       <Unit39>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.factories.views.pas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="9" Y="60"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit39>
       <Unit40>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.factories.manager.pas"/>
         <UnitName Value="ts.Editor.Factories.Manager"/>
-        <EditorIndex Value="17"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="44"/>
+        <TopLine Value="47"/>
         <CursorPos X="43" Y="59"/>
-        <UsageCount Value="19"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="24"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\..\..\typhon\components\pl_LuiControls\source\multilog\ipcchannel.pas"/>
@@ -353,7 +354,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\..\..\fpcsrc\packages\fcl-db\src\base\db.pas"/>
@@ -361,53 +362,45 @@
         <WindowIndex Value="0"/>
         <TopLine Value="961"/>
         <CursorPos X="30" Y="1644"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="14"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\..\..\..\typhon\lcl\comctrls.pp"/>
         <UnitName Value="ComCtrls"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2855"/>
         <CursorPos X="15" Y="2878"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="19"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\..\..\..\typhon\lcl\include\treeview.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2674"/>
         <CursorPos X="1" Y="2695"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit44>
       <Unit45>
         <Filename Value="..\..\..\..\typhon\lcl\dbgrids.pas"/>
         <UnitName Value="DBGrids"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="361"/>
         <CursorPos X="15" Y="381"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="19"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\..\..\typhon\lcl\include\control.inc"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3581"/>
         <CursorPos X="22" Y="3602"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="19"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\..\..\typhon\lcl\checklst.pas"/>
         <UnitName Value="CheckLst"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="384"/>
         <CursorPos X="13" Y="405"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="19"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\..\..\typhon\components\codetools\stdcodetools.pas"/>
@@ -415,17 +408,15 @@
         <WindowIndex Value="0"/>
         <TopLine Value="2101"/>
         <CursorPos X="36" Y="2122"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\..\..\typhon\components\lazreport\source\lr_class.pas"/>
         <UnitName Value="LR_Class"/>
-        <EditorIndex Value="9"/>
         <WindowIndex Value="0"/>
         <TopLine Value="8614"/>
         <CursorPos X="3" Y="8617"/>
-        <UsageCount Value="16"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="19"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\..\..\..\typhon\components\pl_ExSystem\source\TplResStoreUnit.pas"/>
@@ -433,7 +424,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="50"/>
         <CursorPos X="15" Y="71"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit50>
       <Unit51>
@@ -442,7 +433,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5351"/>
         <CursorPos X="22" Y="5372"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\..\..\typhon\components\pl_GaiaGIS\source\SBaseFilesLibrary.pas"/>
@@ -450,7 +441,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="52"/>
         <CursorPos X="15" Y="67"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit52>
       <Unit53>
@@ -459,7 +450,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="2"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit53>
       <Unit54>
@@ -468,7 +459,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="406"/>
         <CursorPos X="3" Y="412"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit54>
       <Unit55>
@@ -477,7 +468,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="913"/>
         <CursorPos X="3" Y="920"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit55>
       <Unit56>
@@ -486,7 +477,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="191"/>
         <CursorPos X="2" Y="194"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit56>
       <Unit57>
         <Filename Value="..\..\..\..\typhon\components\pl_ASIOVST\source\GUI\DAV_GuiPixelMap.pas"/>
@@ -494,7 +485,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="49"/>
         <CursorPos X="15" Y="70"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\..\..\typhon\lcl\actnlist.pas"/>
@@ -502,14 +493,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="74"/>
         <CursorPos X="70" Y="102"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="13"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\..\..\typhon\lcl\include\containedaction.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\..\..\typhon\lcl\lclclasses.pp"/>
@@ -517,121 +508,212 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="16" Y="42"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\..\..\typhon\lcl\include\customactionlist.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="31"/>
         <CursorPos X="3" Y="36"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="13"/>
       </Unit61>
       <Unit62>
-        <Filename Value="testcomponents.pas"/>
-        <UnitName Value="TestComponents"/>
-        <EditorIndex Value="10"/>
+        <Filename Value="test.componentstreaming.testcomponents.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.ComponentStreaming.TestComponents"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="53" Y="14"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="21"/>
+        <CursorPos X="1" Y="45"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit62>
       <Unit63>
         <Filename Value="D:\codetyphon\ts\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_old.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Old"/>
-        <EditorIndex Value="13"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="410"/>
-        <CursorPos X="53" Y="441"/>
-        <UsageCount Value="14"/>
-        <Loaded Value="True"/>
+        <TopLine Value="413"/>
+        <CursorPos X="49" Y="440"/>
+        <UsageCount Value="19"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\compon.inc"/>
-        <EditorIndex Value="15"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="572"/>
-        <CursorPos X="47" Y="589"/>
-        <UsageCount Value="13"/>
-        <Loaded Value="True"/>
+        <TopLine Value="57"/>
+        <CursorPos X="3" Y="60"/>
+        <UsageCount Value="14"/>
       </Unit64>
+      <Unit65>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
+        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
+        <EditorIndex Value="12"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="19"/>
+        <CursorPos X="41" Y="43"/>
+        <UsageCount Value="19"/>
+        <Loaded Value="True"/>
+      </Unit65>
+      <Unit66>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\htmlview\ts.editor.htmlview.settings.pas"/>
+        <UnitName Value="ts.Editor.HTMLView.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="14"/>
+        <CursorPos X="34" Y="84"/>
+        <UsageCount Value="12"/>
+      </Unit66>
+      <Unit67>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
+        <UnitName Value="ts.Editor.HexEditor.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="17"/>
+        <CursorPos X="37" Y="87"/>
+        <UsageCount Value="11"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="61"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="13"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
+        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="40" Y="80"/>
+        <UsageCount Value="13"/>
+      </Unit69>
+      <Unit70>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
+        <UnitName Value="ts.Editor.SortStrings.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="39"/>
+        <CursorPos X="39" Y="116"/>
+        <UsageCount Value="8"/>
+      </Unit70>
+      <Unit71>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
+        <UnitName Value="ts.Editor.MiniMap.Settings"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="33" Y="84"/>
+        <UsageCount Value="8"/>
+      </Unit71>
+      <Unit72>
+        <Filename Value="test.componentstreaming.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.ComponentStreaming"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="201"/>
+        <CursorPos X="22" Y="221"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
+      </Unit72>
+      <Unit73>
+        <Filename Value="..\..\..\..\typhon\components\pl_ExDesign\source\ELDsgxUtils.pas"/>
+        <UnitName Value="ELDsgxUtils"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="270"/>
+        <CursorPos X="28" Y="282"/>
+        <UsageCount Value="11"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit73>
+      <Unit74>
+        <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\reader.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="40"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="10"/>
+      </Unit74>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="18" HistoryIndex="17">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
-        <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.factories.settings.pas"/>
-        <Caret Line="174" Column="1" TopLine="137"/>
+        <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\classes\classesh.inc"/>
+        <Caret Line="933" Column="50" TopLine="913"/>
       </Position1>
       <Position2>
-        <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.factories.settings.pas"/>
-        <Caret Line="175" Column="1" TopLine="137"/>
+        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
+        <Caret Line="63" Column="57" TopLine="41"/>
       </Position2>
       <Position3>
-        <Filename Value="test.editor.settings.pas"/>
-        <Caret Line="140" Column="1" TopLine="120"/>
+        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
+        <Caret Line="1013" Column="1" TopLine="993"/>
       </Position3>
       <Position4>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="992" Column="3" TopLine="987"/>
+        <Filename Value="test.editor.settings.pas"/>
+        <Caret Line="288" Column="37" TopLine="252"/>
       </Position4>
       <Position5>
-        <Filename Value="test.editor.settings.pas"/>
-        <Caret Line="142" Column="26" TopLine="120"/>
+        <Filename Value="D:\codetyphon\ts\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <Caret Line="159" Column="88" TopLine="150"/>
       </Position5>
       <Position6>
         <Filename Value="test.editor.settings.pas"/>
-        <Caret Line="1" Column="1" TopLine="49"/>
+        <Caret Line="190" Column="60" TopLine="174"/>
       </Position6>
       <Position7>
-        <Filename Value="D:\codetyphon\ts\components\tslib\editor\ts.editor.highlighters.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="test.editor.settings.pas"/>
+        <Caret Line="49" Column="3" TopLine="21"/>
       </Position7>
       <Position8>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1458" Column="43" TopLine="1449"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="75" Column="24" TopLine="54"/>
       </Position8>
       <Position9>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="2" Column="11" TopLine="2"/>
       </Position9>
       <Position10>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="917" Column="25" TopLine="884"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="1" Column="21" TopLine="79"/>
       </Position10>
       <Position11>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="944" Column="27" TopLine="912"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="20" Column="15" TopLine="1"/>
       </Position11>
       <Position12>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="997" Column="21" TopLine="962"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="10" Column="42" TopLine="1"/>
       </Position12>
       <Position13>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1064" Column="31" TopLine="1031"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="231" Column="1" TopLine="201"/>
       </Position13>
       <Position14>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1195" Column="25" TopLine="1162"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="178" Column="40" TopLine="158"/>
       </Position14>
       <Position15>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1240" Column="23" TopLine="1207"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="181" Column="13" TopLine="161"/>
       </Position15>
       <Position16>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1255" Column="23" TopLine="1222"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="37" Column="43" TopLine="17"/>
       </Position16>
       <Position17>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1306" Column="25" TopLine="1273"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="38" Column="28" TopLine="17"/>
       </Position17>
       <Position18>
-        <Filename Value="D:\codetyphon\ts\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <Caret Line="1333" Column="23" TopLine="1300"/>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="227" Column="26" TopLine="203"/>
       </Position18>
+      <Position19>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="141" Column="1" TopLine="102"/>
+      </Position19>
+      <Position20>
+        <Filename Value="test.componentstreaming.pas"/>
+        <Caret Line="224" Column="1" TopLine="201"/>
+      </Position20>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

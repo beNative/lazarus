@@ -40,17 +40,22 @@ type
     procedure SetUp; override;
     procedure TearDown; override;
 
+    procedure LoadSettings;
+
   published
     procedure TestLoadSettings;
     procedure TestSaveSettings;
 
+//    public
     procedure TestLoadSaveSettings;
-    procedure TestLoadSaveColors;
-    procedure TestLoadSaveHighlighters;
-    procedure TestLoadSaveToolSettings;
 
-  public
+    procedure TestLoadSaveColors;
+
+    procedure TestLoadSaveHighlighters;
     procedure TestLoadSaveHighlighterAttributes;
+
+
+    procedure TestLoadSaveToolSettings;
 
   end;
 
@@ -59,7 +64,7 @@ implementation
 uses
   Graphics, Forms,
 
-  SynEditHighlighter,
+  SynEditHighlighter, SynHighlighterPas,
 
   ts.Core.SharedLogger,
 
@@ -70,9 +75,25 @@ uses
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
 procedure TTestEditorSettings.TestLoadSettings;
+var
+  C : TComponent;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSettings');
+
+
   FSettings.Load;
+  TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
+  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
+
+  Logger.SendComponent(FSettings.ToolSettings);
+  for C in FSettings.ToolSettings do
+    Logger.SendComponent(C);
+
+  for C in FSettings.Highlighters do
+    Logger.SendComponent(C);
+
+
+
   Logger.ExitMethod('TTestEditorSettings.TestLoadSettings');
 end;
 
@@ -92,9 +113,7 @@ var
   SN : string;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveSettings');
-  FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSettings.Load;
+  LoadSettings;
   SO := FSettings.HighlighterType;
   BO := FSettings.DebugMode;
   Logger.Send('BO', BO);
@@ -105,9 +124,7 @@ begin
   FSettings.DebugMode := BN;
   FSettings.Save;
 
-  FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSettings.Load;
+  LoadSettings;
   CheckEquals(SN, FSettings.HighlighterType);
   CheckEquals(BN, FSettings.DebugMode);
 
@@ -135,27 +152,20 @@ var
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveColors');
 
-  FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSettings.Load;
-
+  LoadSettings;
   CO := FSettings.Colors.HighlightAllColor.FrameColor;
   CN := clMaroon;
   FSettings.Colors.HighlightAllColor.FrameColor := CN;
   FSettings.Save;
 
-  FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSettings.Load;
+  LoadSettings;
   CheckEquals(FSettings.Colors.HighlightAllColor.FrameColor, CN);
 
   // restore original color
   FSettings.Colors.HighlightAllColor.FrameColor := CO;
   FSettings.Save;
 
-  FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSettings.Load;
+  LoadSettings;
   CheckEquals(FSettings.Colors.HighlightAllColor.FrameColor, CO);
   Logger.ExitMethod('TTestEditorSettings.TestLoadSaveColors');
 end;
@@ -167,13 +177,15 @@ var
   HLA : THighlighterAttributesItem;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighterAttributes');
+  LoadSettings;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CO := HLA.Attributes.Foreground;
 
   CN := clRed;
   HLA.Attributes.Foreground := CN;
   FSettings.Save;
-  FSettings.Load;
+
+  LoadSettings;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CheckEquals(HLA.Attributes.Foreground, CN);
 
@@ -193,23 +205,32 @@ var
   SN : string;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighters');
-  HI := FSettings.Highlighters.ItemsByName['DIFF'];
+  HI := FSettings.Highlighters.ItemsByName['PAS'];
 
-  SO := HI.FileExtensions;
-  SN := 'test';
-  HI.FileExtensions := SN;
-  FSettings.Save;
-  FSettings.Load;
-  CheckEquals(HI.FileExtensions, SN);
+  if Assigned(HI) then
+  begin
+    SO := HI.FileExtensions;
+    SN := 'test';
+    HI.FileExtensions := SN;
+    (HI.SynHighlighter as TSynPasSyn).CompilerMode := pcmObjFPC;
+    FSettings.Save;
 
-  // restore original values
-  HI.FileExtensions := SO;
-  FSettings.Save;
-  FSettings.Load;
-  CheckEquals(HI.FileExtensions, SO);
+    FSettings := nil;
+    FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
+    FSettings.Load;
+    HI := FSettings.Highlighters.ItemsByName['PAS'];
+    CheckEquals(HI.FileExtensions, SN);
+    CheckTrue((HI.SynHighlighter as TSynPasSyn).CompilerMode = pcmObjFPC);
 
-  //HI.InitSynHighlighter;
-  FSettings.Save;
+    // restore original values
+    HI.FileExtensions := SO;
+    FSettings.Save;
+    FSettings.Load;
+    CheckEquals(HI.FileExtensions, SO);
+
+    //HI.InitSynHighlighter;
+    FSettings.Save;
+  end;
   Logger.ExitMethod('TTestEditorSettings.TestLoadSaveHighlighters');
 end;
 
@@ -219,20 +240,22 @@ var
   NO  : Integer;
   NN  : Integer;
 begin
+  LoadSettings;
   CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
   NO := CSS.Width;
-
   NN := 200;
   CSS.Width := NN;
   FSettings.Save;
-  FSettings.Load;
+
+  LoadSettings;
   CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
   CheckEquals(NN, CSS.Width);
 
   NN := 400;
   CSS.Width := NN;
   FSettings.Save;
-  FSettings.Load;
+
+  LoadSettings;
   CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
   CheckEquals(NN, CSS.Width);
 
@@ -253,6 +276,13 @@ begin
   //FSLBackup.SaveToFile(FSettings.FileName);
   FSettings := nil;
   FreeAndNil(FSLBackup);
+end;
+
+procedure TTestEditorSettings.LoadSettings;
+begin
+  FSettings := nil;
+  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
+  FSettings.Load;
 end;
 
 initialization

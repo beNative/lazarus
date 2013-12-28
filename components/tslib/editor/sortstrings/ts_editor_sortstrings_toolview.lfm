@@ -73,7 +73,7 @@ inherited frmSortStrings: TfrmSortStrings
     ClientWidth = 282
     TabOrder = 2
     object btnOK: TButton
-      Left = 155
+      Left = 161
       Height = 25
       Top = -1
       Width = 120

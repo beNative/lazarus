@@ -32,7 +32,7 @@ type
 
   { TMiniMapSettings }
 
-  TMiniMapSettings = class(TPersistent)
+  TMiniMapSettings = class(TComponent)
   private
     FWidth: Integer;
   public
@@ -79,6 +79,9 @@ begin
   else
     inherited Assign(Source);
 end;
+
+initialization
+  RegisterClass(TMiniMapSettings);
 
 end.
 

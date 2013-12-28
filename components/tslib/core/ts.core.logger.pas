@@ -54,6 +54,8 @@ unit ts.Core.Logger;
   TODO
      Watch TRect, TPoint, TColor, etc.
 
+- Added SendComponent
+
 }
 
 {$mode objfpc}{$H+}
@@ -68,44 +70,43 @@ const
   //mt (Message Type) and lt (Log Type) prefixes are used elsewhere
   //but mt is worse because there's already mtWarning and mtInformation
   //the existing lt* do not makes confusion
-  ltInfo    = 0;
-  ltError   = 1;
-  ltWarning = 2;
-  ltValue   = 3;
+  ltInfo        = 0;
+  ltError       = 1;
+  ltWarning     = 2;
+  ltValue       = 3;
   ltEnterMethod = 4;
   ltExitMethod  = 5;
   ltConditional = 6;
-  ltCheckpoint = 7;
-  ltStrings = 8;
-  ltCallStack = 9;
-  ltObject = 10;
-  ltException = 11;
-  ltBitmap = 12;
-  ltHeapInfo = 13;
-  ltMemory = 14;
-  ltCustomData = 15;
-  ltWatch = 20;
-  ltCounter = 21;
+  ltCheckpoint  = 7;
+  ltStrings     = 8;
+  ltCallStack   = 9;
+  ltObject      = 10;
+  ltException   = 11;
+  ltBitmap      = 12;
+  ltHeapInfo    = 13;
+  ltMemory      = 14;
+  ltCustomData  = 15;
+  ltWatch       = 20;
+  ltCounter     = 21;
 
+  ltClear       =100;
 
-  ltClear=100;
-  
 type
   TLogger = class;
-  
+
   TDebugClass = 0..31;
-  
-  TDebugClasses = Set of TDebugClass;
-  
+
+  TDebugClasses = set of TDebugClass;
+
   TLogMessage = record
-    MsgType: Integer;
-    MsgTime: TDateTime;
-    MsgText: String;
-    Data: TStream;
+    MsgType : Integer;
+    MsgTime : TDateTime;
+    MsgText : string;
+    Data    : TStream;
   end;
 
-  TCustomDataNotify = function (Sender: TLogger; Data: Pointer; var DoSend: Boolean): String of Object;
-  TCustomDataNotifyStatic = function (Sender: TLogger; Data: Pointer; var DoSend: Boolean): String;
+  TCustomDataNotify = function (Sender: TLogger; Data: Pointer; var DoSend: Boolean): string of Object;
+  TCustomDataNotifyStatic = function (Sender: TLogger; Data: Pointer; var DoSend: Boolean): string;
 
   { TLogChannel }
 
@@ -114,18 +115,18 @@ type
     FActive: Boolean;
   public
     procedure Clear; virtual; abstract;
-    procedure Deliver(const AMsg: TLogMessage);virtual;abstract;
+    procedure Deliver(const AMsg: TLogMessage); virtual; abstract;
     procedure Init; virtual;
     property Active: Boolean read FActive write FActive;
   end;
-  
+
   { TChannelList }
 
   TChannelList = class
   private
     FList: TFpList;
-    function GetCount: Integer; {$ifdef fpc}inline;{$endif}
-    function GetItems(AIndex:Integer): TLogChannel; {$ifdef fpc}inline;{$endif}
+    function GetCount: Integer; inline;
+    function GetItems(AIndex:Integer): TLogChannel; inline;
   public
     constructor Create;
     destructor Destroy; override;
@@ -139,134 +140,147 @@ type
 
   TLogger = class
   private
-    FMaxStackCount: Integer;
-    FChannels: TChannelList;
-    FLogStack: TStrings;
-    FCheckList: TStringList;
-    FCounterList: TStringList;
-    FOnCustomData: TCustomDataNotify;
-    FLastActiveClasses: TDebugClasses;
+    FMaxStackCount     : Integer;
+    FChannels          : TChannelList;
+    FLogStack          : TStrings;
+    FCheckList         : TStringList;
+    FCounterList       : TStringList;
+    FOnCustomData      : TCustomDataNotify;
+    FLastActiveClasses : TDebugClasses;
+
     procedure GetCallStack(AStream:TStream);
     procedure SetEnabled(AValue: Boolean);
     function GetEnabled: Boolean;
     procedure SetMaxStackCount(const AValue: Integer);
+
   protected
-    procedure SendStream(AMsgType: Integer;const AText:String; AStream: TStream);
-    procedure SendBuffer(AMsgType: Integer;const AText:String;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Int64);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: QWord);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Boolean);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; const ARect: TRect);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; const APoint: TPoint);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AStrList: TStrings);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Double);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Cardinal);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Integer);overload;
+    procedure Send(Classes: TDebugClasses; const AText,AValue: string); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; Args: array of const);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AObject: TObject);overload;
+    procedure SendColor(Classes: TDebugClasses; const AText: string; AColor: TColor);
+    procedure SendBitmap(Classes: TDebugClasses; const AText: string; ABitmap: TBitmap);
+    procedure SendPointer(Classes: TDebugClasses; const AText: string; APointer: Pointer);overload;
+    procedure SendCallStack(Classes: TDebugClasses; const AText: string);overload;
+    procedure SendException(Classes: TDebugClasses; const AText: string; AException: Exception);overload;
+    procedure SendHeapInfo(Classes: TDebugClasses; const AText: string);overload;
+    procedure SendIf(Classes: TDebugClasses; const AText: string; Expression, IsTrue: Boolean);overload;
+    procedure SendMemory(Classes: TDebugClasses; const AText: string; Address: Pointer; Size: LongWord);overload;
+    procedure SendWarning(Classes: TDebugClasses; const AText: string);overload;
+    procedure SendIf(Classes: TDebugClasses; const AText: string; Expression: Boolean); overload;
+    procedure SendError(Classes: TDebugClasses; const AText: string);overload;
+    procedure SendCustomData(Classes: TDebugClasses; const AText: string; Data: Pointer;
+          CustomDataFunction: TCustomDataNotify);overload;
+    procedure SendCustomData(Classes: TDebugClasses; const AText: string;
+          Data: Pointer);overload;
+    procedure SendCustomData(Classes: TDebugClasses; const AText: string;
+          Data: Pointer; CustomDataFunction: TCustomDataNotifyStatic);overload;
+    procedure IncCounter(Classes: TDebugClasses; const CounterName: string);overload;
+    procedure AddCheckPoint(Classes: TDebugClasses);overload; inline;
+    procedure AddCheckPoint(Classes: TDebugClasses; const CheckName: string);overload;
+    procedure DecCounter(Classes: TDebugClasses; const CounterName: string);overload;
+    procedure ResetCounter(Classes: TDebugClasses; const CounterName: string);overload;
+    procedure ResetCheckPoint(Classes: TDebugClasses);overload;
+    procedure ResetCheckPoint(Classes: TDebugClasses;const CheckName: string);overload;
+    procedure EnterMethod(Classes: TDebugClasses; const AMethodName: string); overload;
+    procedure EnterMethod(Classes: TDebugClasses; Sender: TObject; const AMethodName: string);overload;
+    procedure ExitMethod(Classes: TDebugClasses; const AMethodName: string); overload; inline;
+    procedure ExitMethod(Classes: TDebugClasses; Sender: TObject; const AMethodName: string);overload;
+    procedure Watch(Classes: TDebugClasses; const AText,AValue: string);overload;
+    procedure Watch(Classes: TDebugClasses; const AText: string; AValue: Integer);overload;
+    procedure Watch(Classes: TDebugClasses; const AText: string; AValue: Double);overload;
+    procedure Watch(Classes: TDebugClasses; const AText: string; AValue: Boolean);overload;
+    procedure Watch(Classes: TDebugClasses; const AText: string; AValue: Cardinal);overload;
+
+    procedure SendStream(AMsgType: Integer;const AText:string; AStream: TStream);
+    procedure SendBuffer(AMsgType: Integer;const AText:string;
       var Buffer; Count: LongWord);
   public
     ActiveClasses: TDebugClasses;//Made a public field to allow use of include/exclude functions
     DefaultClasses: TDebugClasses;
     constructor Create;
     destructor Destroy; override;
-    function CalledBy(const AMethodName: String): Boolean;
+    function CalledBy(const AMethodName: string): Boolean;
     procedure Clear;
     //Helper functions
-    function RectToStr(const ARect: TRect): String; //inline
-    function PointToStr(const APoint: TPoint): String; //inline
+    function RectToStr(const ARect: TRect): string; //inline
+    function PointToStr(const APoint: TPoint): string; //inline
+
     //Send functions
-    procedure Send(const AText: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String);overload;
-    procedure Send(const AText: String; Args: array of const); overload;
-    procedure Send(Classes: TDebugClasses; const AText: String; Args: array of const);overload;
-    procedure Send(const AText, AValue: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText,AValue: String); overload;
-    procedure Send(const AText: String; AValue: Integer); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: Integer);overload;
-    {$ifdef fpc}
-    procedure Send(const AText: String; AValue: Cardinal); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: Cardinal);overload;
-    {$endif}
-    procedure Send(const AText: String; AValue: Double); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: Double);overload;
-    procedure Send(const AText: String; AValue: Int64); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: Int64);overload;
-    procedure Send(const AText: String; AValue: QWord); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: QWord);overload;
-    procedure Send(const AText: String; AValue: Boolean); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AValue: Boolean);overload;
-    procedure Send(const AText: String; const ARect: TRect); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; const ARect: TRect);overload;
-    procedure Send(const AText: String; const APoint: TPoint); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; const APoint: TPoint);overload;
-    procedure Send(const AText: String; AStrList: TStrings); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AStrList: TStrings);overload;
-    procedure Send(const AText: String; AObject: TObject); overload; {$ifdef fpc}inline;{$endif}
-    procedure Send(Classes: TDebugClasses; const AText: String; AObject: TObject);overload;
+    procedure Send(const AText: string); overload;
+    procedure Send(const AText: string; AArgs: array of const); overload;
+    procedure Send(const AText: string; AValue: Integer); overload;
+    procedure Send(const AText: string; AValue: Cardinal); overload;
+    procedure Send(const AText: string; AValue: Double); overload;
+    procedure Send(const AText: string; AValue: Int64); overload;
+    procedure Send(const AText: string; AValue: QWord); overload;
+    procedure Send(const AText: string; AValue: Boolean); overload;
+    procedure Send(const AText: string; AStrings: TStrings); overload;
+    procedure Send(const AText: string; AObject: TObject); overload;
+    procedure Send(const AText: string; const AValue: string); overload;
+    procedure Send(const AText: string; const ARect: TRect); overload;
+    procedure Send(const AText: string; const APoint: TPoint); overload;
+    procedure Send(const AText: string; const AInterface: IInterface); overload;
 
-    procedure SendBitmap(const AText: String; ABitmap: TBitmap); //inline;
-    procedure SendBitmap(Classes: TDebugClasses; const AText: String; ABitmap: TBitmap);
-    procedure SendColor(const AText: String; AColor: TColor); //inline;
-    procedure SendColor(Classes: TDebugClasses; const AText: String; AColor: TColor);
+    procedure SendBitmap(const AText: string; ABitmap: TBitmap); //inline;
+    procedure SendColor(const AText: string; AColor: TColor); //inline;
+    procedure SendComponent(AComponent: TComponent); inline;
+    procedure SendPointer(const AText: string; APointer: Pointer); overload; inline;
+    procedure SendCallStack(const AText: string); overload; inline;
+    procedure SendException(const AText: string; AException: Exception);overload; inline;
+    procedure SendHeapInfo(const AText: string); overload; inline;
+    procedure SendMemory(const AText: string; AAddress: Pointer; ASize: LongWord); overload; inline;
+    procedure SendIf(const AText: string; AExpression: Boolean); overload; inline;
+    procedure SendIf(const AText: string; AExpression, AIsTrue: Boolean); overload; inline;
+    procedure SendWarning(const AText: string); overload; inline;
+    procedure SendWarning(const AText: string; AArgs: array of const); overload; inline;
+    procedure SendError(const AText: string); overload; inline;
+    procedure SendError(const AText: string; AArgs: array of const); overload; inline;
+    procedure SendCustomData(const AText: string; AData: Pointer);overload; inline;
+    procedure SendCustomData(const AText: string; AData: Pointer; CustomDataFunction: TCustomDataNotify);overload; inline;
+    procedure SendCustomData(const AText: string; AData: Pointer;
+      CustomDataFunction: TCustomDataNotifyStatic);overload; inline;
+    procedure AddCheckPoint;overload; inline;
+    procedure AddCheckPoint(const ACheckName: string);overload; inline;
+    procedure IncCounter(const ACounterName: string);overload; inline;
+    procedure DecCounter(const ACounterName: string);overload; inline;
+    procedure ResetCounter(const ACounterName: string);overload; inline;
+    function GetCounter(const ACounterName: string): Integer;
+    procedure ResetCheckPoint;overload; inline;
+    procedure ResetCheckPoint(const ACheckName: string);overload; inline;
+    procedure EnterMethod(const AMethodName: string); overload; inline;
+    procedure EnterMethod(Sender: TObject; const AMethodName: string); overload; inline;
+    procedure ExitMethod(const AMethodName: string); overload; inline;
+    procedure ExitMethod(Sender: TObject; const AMethodName: string); overload; inline;
+    procedure Watch(const AText, AValue: string); overload; inline;
+    procedure Watch(const AText: string; AValue: Integer); overload; inline;
+    procedure Watch(const AText: string; AValue: Cardinal); overload; inline;
+    procedure Watch(const AText: string; AValue: Double); overload; inline;
+    procedure Watch(const AText: string; AValue: Boolean); overload; inline;
 
-    procedure SendPointer(const AText: String; APointer: Pointer); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendPointer(Classes: TDebugClasses; const AText: String; APointer: Pointer);overload;
-    procedure SendCallStack(const AText: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendCallStack(Classes: TDebugClasses; const AText: String);overload;
-    procedure SendException(const AText: String; AException: Exception);overload; {$ifdef fpc}inline;{$endif}
-    procedure SendException(Classes: TDebugClasses; const AText: String; AException: Exception);overload;
-    procedure SendHeapInfo(const AText: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendHeapInfo(Classes: TDebugClasses; const AText: String);overload;
-    procedure SendMemory(const AText: String; Address: Pointer; Size: LongWord); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendMemory(Classes: TDebugClasses; const AText: String; Address: Pointer; Size: LongWord);overload;
-    procedure SendIf(const AText: String; Expression: Boolean); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendIf(Classes: TDebugClasses; const AText: String; Expression: Boolean); overload;
-    procedure SendIf(const AText: String; Expression, IsTrue: Boolean); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendIf(Classes: TDebugClasses; const AText: String; Expression, IsTrue: Boolean);overload;
-    procedure SendWarning(const AText: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendWarning(Classes: TDebugClasses; const AText: String);overload;
-    procedure SendError(const AText: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure SendError(Classes: TDebugClasses; const AText: String);overload;
-    procedure SendCustomData(const AText: String; Data: Pointer);overload; {$ifdef fpc}inline;{$endif}
-    procedure SendCustomData(const AText: String; Data: Pointer; CustomDataFunction: TCustomDataNotify);overload; {$ifdef fpc}inline;{$endif}
-    procedure SendCustomData(Classes: TDebugClasses; const AText: String; Data: Pointer;
-      CustomDataFunction: TCustomDataNotify);overload;
-    procedure SendCustomData(Classes: TDebugClasses; const AText: String;
-      Data: Pointer);overload;
-    procedure SendCustomData(Classes: TDebugClasses; const AText: String;
-      Data: Pointer; CustomDataFunction: TCustomDataNotifyStatic);overload;
-    procedure SendCustomData(const AText: String; Data: Pointer;
-      CustomDataFunction: TCustomDataNotifyStatic);overload; {$ifdef fpc}inline;{$endif}
-    procedure AddCheckPoint;overload; {$ifdef fpc}inline;{$endif}
-    procedure AddCheckPoint(Classes: TDebugClasses);overload; {$ifdef fpc}inline;{$endif}
-    procedure AddCheckPoint(const CheckName: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure AddCheckPoint(Classes: TDebugClasses; const CheckName: String);overload;
-    procedure IncCounter(const CounterName: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure IncCounter(Classes: TDebugClasses; const CounterName: String);overload;
-    procedure DecCounter(const CounterName: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure DecCounter(Classes: TDebugClasses; const CounterName: String);overload;
-    procedure ResetCounter(const CounterName: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure ResetCounter(Classes: TDebugClasses; const CounterName: String);overload;
-    function GetCounter(const CounterName: String): Integer;
-    procedure ResetCheckPoint;overload; {$ifdef fpc}inline;{$endif}
-    procedure ResetCheckPoint(Classes: TDebugClasses);overload;
-    procedure ResetCheckPoint(const CheckName: String);overload; {$ifdef fpc}inline;{$endif}
-    procedure ResetCheckPoint(Classes: TDebugClasses;const CheckName: String);overload;
-    procedure EnterMethod(const AMethodName: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure EnterMethod(Classes: TDebugClasses; const AMethodName: String); overload;
-    procedure EnterMethod(Sender: TObject; const AMethodName: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure EnterMethod(Classes: TDebugClasses; Sender: TObject; const AMethodName: String);overload;
-    procedure ExitMethod(const AMethodName: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure ExitMethod(Sender: TObject; const AMethodName: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure ExitMethod(Classes: TDebugClasses; const AMethodName: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure ExitMethod(Classes: TDebugClasses; Sender: TObject; const AMethodName: String);overload;
-    procedure Watch(const AText, AValue: String); overload; {$ifdef fpc}inline;{$endif}
-    procedure Watch(Classes: TDebugClasses; const AText,AValue: String);overload;
-    procedure Watch(const AText: String; AValue: Integer); overload; {$ifdef fpc}inline;{$endif}
-    procedure Watch(Classes: TDebugClasses; const AText: String; AValue: Integer);overload;
-    {$ifdef fpc}
-    procedure Watch(const AText: String; AValue: Cardinal); overload; {$ifdef fpc}inline;{$endif}
-    procedure Watch(Classes: TDebugClasses; const AText: String; AValue: Cardinal);overload;
-    {$endif}
-    procedure Watch(const AText: String; AValue: Double); overload; {$ifdef fpc}inline;{$endif}
-    procedure Watch(Classes: TDebugClasses; const AText: String; AValue: Double);overload;
-    procedure Watch(const AText: String; AValue: Boolean); overload; {$ifdef fpc}inline;{$endif}
-    procedure Watch(Classes: TDebugClasses; const AText: String; AValue: Boolean);overload;
-    property Enabled: Boolean read GetEnabled write SetEnabled;
-    property Channels: TChannelList read FChannels;
-    property LogStack: TStrings read FLogStack;
-    property MaxStackCount: Integer read FMaxStackCount write SetMaxStackCount;
-    property OnCustomData: TCustomDataNotify read FOnCustomData write FOnCustomData;
+    property Enabled: Boolean
+      read GetEnabled write SetEnabled;
+
+    property Channels: TChannelList
+      read FChannels;
+
+    property LogStack: TStrings
+      read FLogStack;
+
+    property MaxStackCount: Integer
+      read FMaxStackCount write SetMaxStackCount;
+
+    property OnCustomData: TCustomDataNotify
+      read FOnCustomData write FOnCustomData;
   end;
 
 implementation
@@ -275,63 +289,62 @@ uses
   IntfGraphics, GraphType, FPimage, FPWriteBMP;
 
 const
-  DefaultCheckName = 'CheckPoint';
+  DEFAULT_CHECK_NAME = 'CheckPoint';
 
-function ColorToStr(Color: TColor): String;
+function ColorToStr(Color: TColor): string;
 begin
   case Color of
-
-    clBlack   : Result:='clBlack';
-    clMaroon  : Result:='clMaroon';
-    clGreen   : Result:='clGreen';
-    clOlive   : Result:='clOlive';
-    clNavy    : Result:='clNavy';
-    clPurple  : Result:='clPurple';
-    clTeal    : Result:='clTeal';
-    clGray {clDkGray}   : Result:='clGray/clDkGray';
-    clSilver {clLtGray}  : Result:='clSilver/clLtGray';
-    clRed     : Result:='clRed';
-    clLime    : Result:='clLime';
-    clYellow  : Result:='clYellow';
-    clBlue    : Result:='clBlue';
-    clFuchsia : Result:='clFuchsia';
-    clAqua    : Result:='clAqua';
-    clWhite   : Result:='clWhite';
-    clCream   : Result:='clCream';
-    clNone    : Result:='clNone';
-    clDefault : Result:='clDefault';
-    clMoneyGreen : Result:='clMoneyGreen';
-    clSkyBlue    : Result:='clSkyBlue';
-    clMedGray    : Result:='clMedGray';
-    clScrollBar               : Result:='clScrollBar';
-    clBackground              : Result:='clBackground';
-    clActiveCaption           : Result:='clActiveCaption';
-    clInactiveCaption         : Result:='clInactiveCaption';
-    clMenu                    : Result:='clMenu';
-    clWindow                  : Result:='clWindow';
-    clWindowFrame             : Result:='clWindowFrame';
-    clMenuText                : Result:='clMenuText';
-    clWindowText              : Result:='clWindowText';
-    clCaptionText             : Result:='clCaptionText';
-    clActiveBorder            : Result:='clActiveBorder';
-    clInactiveBorder          : Result:='clInactiveBorder';
-    clAppWorkspace            : Result:='clAppWorkspace';
-    clHighlight               : Result:='clHighlight';
-    clHighlightText           : Result:='clHighlightText';
-    clBtnFace                 : Result:='clBtnFace';
-    clBtnShadow               : Result:='clBtnShadow';
-    clGrayText                : Result:='clGrayText';
-    clBtnText                 : Result:='clBtnText';
-    clInactiveCaptionText     : Result:='clInactiveCaptionText';
-    clBtnHighlight            : Result:='clBtnHighlight';
-    cl3DDkShadow              : Result:='cl3DDkShadow';
-    cl3DLight                 : Result:='cl3DLight';
-    clInfoText                : Result:='clInfoText';
-    clInfoBk                  : Result:='clInfoBk';
-    clHotLight                : Result:='clHotLight';
-    clGradientActiveCaption   : Result:='clGradientActiveCaption';
-    clGradientInactiveCaption : Result:='clGradientInactiveCaption';
-    clForm                    : Result:='clForm';
+    clBlack                   : Result := 'clBlack';
+    clMaroon                  : Result := 'clMaroon';
+    clGreen                   : Result := 'clGreen';
+    clOlive                   : Result := 'clOlive';
+    clNavy                    : Result := 'clNavy';
+    clPurple                  : Result := 'clPurple';
+    clTeal                    : Result := 'clTeal';
+    clGray{clDkGray}          : Result := 'clGray/clDkGray';
+    clSilver{clLtGray}        : Result := 'clSilver/clLtGray';
+    clRed                     : Result := 'clRed';
+    clLime                    : Result := 'clLime';
+    clYellow                  : Result := 'clYellow';
+    clBlue                    : Result := 'clBlue';
+    clFuchsia                 : Result := 'clFuchsia';
+    clAqua                    : Result := 'clAqua';
+    clWhite                   : Result := 'clWhite';
+    clCream                   : Result := 'clCream';
+    clNone                    : Result := 'clNone';
+    clDefault                 : Result := 'clDefault';
+    clMoneyGreen              : Result := 'clMoneyGreen';
+    clSkyBlue                 : Result := 'clSkyBlue';
+    clMedGray                 : Result := 'clMedGray';
+    clScrollBar               : Result := 'clScrollBar';
+    clBackground              : Result := 'clBackground';
+    clActiveCaption           : Result := 'clActiveCaption';
+    clInactiveCaption         : Result := 'clInactiveCaption';
+    clMenu                    : Result := 'clMenu';
+    clWindow                  : Result := 'clWindow';
+    clWindowFrame             : Result := 'clWindowFrame';
+    clMenuText                : Result := 'clMenuText';
+    clWindowText              : Result := 'clWindowText';
+    clCaptionText             : Result := 'clCaptionText';
+    clActiveBorder            : Result := 'clActiveBorder';
+    clInactiveBorder          : Result := 'clInactiveBorder';
+    clAppWorkspace            : Result := 'clAppWorkspace';
+    clHighlight               : Result := 'clHighlight';
+    clHighlightText           : Result := 'clHighlightText';
+    clBtnFace                 : Result := 'clBtnFace';
+    clBtnShadow               : Result := 'clBtnShadow';
+    clGrayText                : Result := 'clGrayText';
+    clBtnText                 : Result := 'clBtnText';
+    clInactiveCaptionText     : Result := 'clInactiveCaptionText';
+    clBtnHighlight            : Result := 'clBtnHighlight';
+    cl3DDkShadow              : Result := 'cl3DDkShadow';
+    cl3DLight                 : Result := 'cl3DLight';
+    clInfoText                : Result := 'clInfoText';
+    clInfoBk                  : Result := 'clInfoBk';
+    clHotLight                : Result := 'clHotLight';
+    clGradientActiveCaption   : Result := 'clGradientActiveCaption';
+    clGradientInactiveCaption : Result := 'clGradientInactiveCaption';
+    clForm                    : Result := 'clForm';
     {
     //todo find the conflicts
     clColorDesktop            : Result:='clColorDesktop';
@@ -341,19 +354,19 @@ begin
     clBtnHiLight              : Result:='clBtnHiLight';
     }
   else
-    Result := 'Unknow Color';
+    Result := 'Unknown Color';
   end;//case
   Result := Result + ' ($' + IntToHex(Color, 6) + ')';
 end;
 
 procedure SaveBitmapToStream(Bitmap: TBitmap; Stream: TStream);
 var
-  IntfImg: TLazIntfImage;
-  ImgWriter: TFPCustomImageWriter;
-  RawImage: TRawImage;
+  IntfImg   : TLazIntfImage;
+  ImgWriter : TFPCustomImageWriter;
+  RawImage  : TRawImage;
 begin
   // adapted from LCL code
-  IntfImg := nil;
+  IntfImg   := nil;
   ImgWriter := nil;
   try
     IntfImg := TLazIntfImage.Create(0,0);
@@ -376,15 +389,16 @@ begin
   end;
 end;
 
-function FormatNumber (Value: Integer):String;
+function FormatNumber(Value: Integer): string;
 var
-  TempStr:String;
-  i,Digits:Integer;
+  TempStr : string;
+  I       : Integer;
+  Digits  : Integer;
 begin
   Digits:=0;
   Result:='';
   TempStr:=IntToStr(Value);
-  for i := length(TempStr) downto 1 do
+  for I := length(TempStr) downto 1 do
   begin
     //todo: implement using mod() -> get rids of digits
     if Digits = 3 then
@@ -392,7 +406,7 @@ begin
       Digits:=0;
       Result := FormatSettings.ThousandSeparator + Result;
     end;
-    Result:=TempStr[i]+Result;
+    Result:=TempStr[I]+Result;
     Inc(Digits);
   end;
 end;
@@ -400,25 +414,21 @@ end;
 { TLogger }
 
 procedure TLogger.GetCallStack(AStream: TStream);
-{$ifdef fpc}
 var
-  i : Longint;
-  prevbp : Pointer;
-  caller_frame,
-  caller_addr,
-  bp : Pointer;
-  S:String;
-{$endif}
+  I            : Integer;
+  prevbp       : Pointer;
+  caller_frame : Pointer;
+  caller_addr  : Pointer;
+  bp           : Pointer;
+  S            : string;
 begin
-  {$ifdef fpc}
   //routine adapted from fpc source
-
   //This trick skip SendCallstack item
   //bp:=get_frame;
   bp:= get_caller_frame(get_frame);
   try
     prevbp:=bp-1;
-    i:=0;
+    I:=0;
     //is_dev:=do_isdevice(textrec(f).Handle);
     while bp > prevbp Do
      begin
@@ -429,8 +439,8 @@ begin
        //todo: see what is faster concatenate string and use writebuffer or current
        S:=BackTraceStrFunc(caller_addr)+LineEnding;
        AStream.WriteBuffer(S[1],Length(S));
-       Inc(i);
-       if (i>=FMaxStackCount) or (caller_frame=nil) then
+       Inc(I);
+       if (I>=FMaxStackCount) or (caller_frame=nil) then
          break;
        prevbp:=bp;
        bp:=caller_frame;
@@ -438,7 +448,6 @@ begin
    except
      { prevent endless dump if an exception occured }
    end;
-  {$endif} 
 end;
 
 procedure TLogger.SetEnabled(AValue: Boolean);
@@ -460,7 +469,7 @@ begin
   Result:=ActiveClasses <> [];
 end;
 
-procedure TLogger.SendStream(AMsgType: Integer; const AText: String;
+procedure TLogger.SendStream(AMsgType: Integer; const AText: string;
   AStream: TStream);
 var
   MsgRec: TLogMessage;
@@ -479,7 +488,7 @@ begin
   AStream.Free;
 end;
 
-procedure TLogger.SendBuffer(AMsgType: Integer; const AText: String;
+procedure TLogger.SendBuffer(AMsgType: Integer; const AText: string;
   var Buffer; Count: LongWord);
 var
   AStream: TStream;
@@ -532,7 +541,7 @@ begin
   FCounterList.Destroy;
 end;
 
-function TLogger.CalledBy(const AMethodName: String): Boolean;
+function TLogger.CalledBy(const AMethodName: string): Boolean;
 begin
   Result:=FLogStack.IndexOf(UpperCase(AMethodName)) <> -1;
 end;
@@ -546,157 +555,155 @@ begin
       Channels[i].Clear;
 end;
 
-function TLogger.RectToStr(const ARect: TRect): String;
+function TLogger.RectToStr(const ARect: TRect): string;
 begin
   with ARect do
     Result:=Format('(Left: %d; Top: %d; Right: %d; Bottom: %d)',[Left,Top,Right,Bottom]);
 end;
 
-function TLogger.PointToStr(const APoint: TPoint): String;
+function TLogger.PointToStr(const APoint: TPoint): string;
 begin
   with APoint do
     Result:=Format('(X: %d; Y: %d)',[X,Y]);
 end;
 
-procedure TLogger.Send(const AText: String);
+procedure TLogger.Send(const AText: string);
 begin
   Send(DefaultClasses,AText);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String);
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltInfo,AText,nil);
 end;
 
-procedure TLogger.Send(const AText: String; Args: array of const);
+procedure TLogger.Send(const AText: string; AArgs: array of const);
 begin
-  Send(DefaultClasses,AText,Args);
+  Send(DefaultClasses,AText,AArgs);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string;
   Args: array of const);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltInfo, Format(AText,Args),nil);
 end;
 
-procedure TLogger.Send(const AText, AValue: String);
+procedure TLogger.Send(const AText: string; const AValue: string);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText, AValue: String);
+procedure TLogger.Send(Classes: TDebugClasses; const AText, AValue: string);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+AValue,nil);
 end;
 
-procedure TLogger.Send(const AText: String; AValue: Integer);
+procedure TLogger.Send(const AText: string; AValue: Integer);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; AValue: Integer);
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; AValue: Integer);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+IntToStr(AValue),nil);
 end;
 
-{$ifdef fpc}
-procedure TLogger.Send(const AText: String; AValue: Cardinal);
+procedure TLogger.Send(const AText: string; AValue: Cardinal);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string;
   AValue: Cardinal);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+IntToStr(AValue),nil);
 end;
-{$endif}
 
-procedure TLogger.Send(const AText: String; AValue: Double);
+procedure TLogger.Send(const AText: string; AValue: Double);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; AValue: Double
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; AValue: Double
   );
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+FloatToStr(AValue),nil);
 end;
 
-procedure TLogger.Send(const AText: String; AValue: Int64);
+procedure TLogger.Send(const AText: string; AValue: Int64);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; AValue: Int64
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; AValue: Int64
   );
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+IntToStr(AValue),nil);
 end;
 
-procedure TLogger.Send(const AText: String; AValue: QWord);
+procedure TLogger.Send(const AText: string; AValue: QWord);
 begin
   Send(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; AValue: QWord
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; AValue: QWord
   );
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+IntToStr(AValue),nil);
 end;
 
-procedure TLogger.Send(const AText: String; AValue: Boolean);
+procedure TLogger.Send(const AText: string; AValue: Boolean);
 begin
   Send(DefaultClasses, AText, AValue);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; AValue: Boolean);
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; AValue: Boolean);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue, AText + ' = ' + BoolToStr(AValue, True), nil);
 end;
 
-procedure TLogger.Send(const AText: String; const ARect: TRect);
+procedure TLogger.Send(const AText: string; const ARect: TRect);
 begin
   Send(DefaultClasses,AText,ARect);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String;const ARect: TRect);
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string;const ARect: TRect);
 begin
   if Classes * ActiveClasses = [] then Exit;
   with ARect do
     SendStream(ltValue,AText+ ' = '+RectToStr(ARect),nil);
 end;
 
-procedure TLogger.Send(const AText: String; const APoint: TPoint);
+procedure TLogger.Send(const AText: string; const APoint: TPoint);
 begin
   Send(DefaultClasses,AText,APoint);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String; const APoint: TPoint
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string; const APoint: TPoint
   );
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue,AText+' = '+PointToStr(APoint),nil);
 end;
 
-procedure TLogger.Send(const AText: String; AStrList: TStrings);
+procedure TLogger.Send(const AText: string; AStrings: TStrings);
 begin
-  Send(DefaultClasses,AText,AStrList);
+  Send(DefaultClasses,AText,AStrings);
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string;
   AStrList: TStrings);
 var
-  S:String;
+  S:string;
 begin
   if Classes * ActiveClasses = [] then Exit;
   if Assigned(AStrList) then
@@ -706,22 +713,30 @@ begin
   SendBuffer(ltStrings,AText,S[1],Length(S));
 end;
 
-procedure TLogger.Send(const AText: String; AObject: TObject);
+procedure TLogger.Send(const AText: string; AObject: TObject);
 begin
   Send(DefaultClasses,AText,AObject);
 end;
 
-function GetObjectDescription(Sender: TObject): String;
+procedure TLogger.Send(const AText: string; const AInterface: IInterface);
+begin
+  if AInterface is IInterfaceComponentReference then
+    Send(AText, (AInterface as IInterfaceComponentReference).GetComponent)
+  else
+    Send(AText, 'no data for interface');
+end;
+
+function GetObjectDescription(Sender: TObject): string;
 begin
   Result := Sender.ClassName;
   if (Sender is TComponent) and (TComponent(Sender).Name <> '') then
     Result := Result + '(' + TComponent(Sender).Name + ')';
 end;
 
-procedure TLogger.Send(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Send(Classes: TDebugClasses; const AText: string;
   AObject: TObject);
 var
-  TempStr: String;
+  TempStr: string;
   AStream: TStream;
 begin
   if Classes * ActiveClasses = [] then Exit;
@@ -742,24 +757,24 @@ begin
   SendStream(ltObject, TempStr, AStream);
 end;
 
-procedure TLogger.SendPointer(const AText: String; APointer: Pointer);
+procedure TLogger.SendPointer(const AText: string; APointer: Pointer);
 begin
   SendPointer(DefaultClasses,AText,APointer);
 end;
 
-procedure TLogger.SendPointer(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendPointer(Classes: TDebugClasses; const AText: string;
   APointer: Pointer);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue, AText + ' = $' + HexStr(APointer), nil);
 end;
 
-procedure TLogger.SendCallStack(const AText: String);
+procedure TLogger.SendCallStack(const AText: string);
 begin
   SendCallStack(DefaultClasses,AText);
 end;
 
-procedure TLogger.SendCallStack(Classes: TDebugClasses; const AText: String);
+procedure TLogger.SendCallStack(Classes: TDebugClasses; const AText: string);
 var
   AStream: TStream;
 begin
@@ -770,21 +785,18 @@ begin
   SendStream(ltCallStack,AText,AStream);
 end;
 
-procedure TLogger.SendException(const AText: String; AException: Exception);
+procedure TLogger.SendException(const AText: string; AException: Exception);
 begin
   SendException(DefaultClasses,AText,AException);
 end;
 
-procedure TLogger.SendException(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendException(Classes: TDebugClasses; const AText: string;
   AException: Exception);
-{$ifdef fpc}
 var
-  i: Integer;
-  Frames: PPointer;
-  S:String;
-{$endif}
+  i      : Integer;
+  Frames : PPointer;
+  S      : string;
 begin
-  {$ifdef fpc}
   if Classes * ActiveClasses = [] then Exit;
   if AException <> nil then
     S:=AException.ClassName+' - '+AException.Message+LineEnding;
@@ -793,21 +805,17 @@ begin
   for i:= 0 to ExceptFrameCount - 1 do
     S:= S + (LineEnding+BackTraceStrFunc(Frames[i]));
   SendBuffer(ltException,AText,S[1],Length(S));
-  {$endif}
 end;
 
-procedure TLogger.SendHeapInfo(const AText: String);
+procedure TLogger.SendHeapInfo(const AText: string);
 begin
   SendHeapInfo(DefaultClasses,AText);
 end;
 
-procedure TLogger.SendHeapInfo(Classes: TDebugClasses; const AText: String);
-{$ifdef fpc}
+procedure TLogger.SendHeapInfo(Classes: TDebugClasses; const AText: string);
 var
-  S: String;
-{$endif}
+  S: string;
 begin
-  {$ifdef fpc}
   if Classes * ActiveClasses = [] then Exit;
   with GetFPCHeapStatus do
   begin
@@ -818,123 +826,137 @@ begin
       +'CurrHeapFree: '+FormatNumber(CurrHeapFree);
   end;
   SendBuffer(ltHeapInfo,AText,S[1],Length(S));
-  {$endif}
 end;
 
-procedure TLogger.SendMemory(const AText: String; Address: Pointer;
-  Size: LongWord);
+procedure TLogger.SendMemory(const AText: string; AAddress: Pointer;
+  ASize: LongWord);
 begin
-  SendMemory(DefaultClasses,AText,Address,Size)
+  SendMemory(DefaultClasses,AText,AAddress,ASize)
 end;
 
-procedure TLogger.SendMemory(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendMemory(Classes: TDebugClasses; const AText: string;
   Address: Pointer; Size: LongWord);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendBuffer(ltMemory,AText,Address^,Size);
 end;
 
-procedure TLogger.SendIf(const AText: String; Expression: Boolean);
+procedure TLogger.SendIf(const AText: string; AExpression: Boolean);
 begin
-  SendIf(DefaultClasses,AText,Expression,True);
+  SendIf(DefaultClasses, AText, AExpression, True);
 end;
 
-procedure TLogger.SendIf(Classes: TDebugClasses; const AText: String; Expression: Boolean
+procedure TLogger.SendIf(Classes: TDebugClasses; const AText: string; Expression: Boolean
   );
 begin
-  SendIf(Classes,AText,Expression,True);
+  SendIf(Classes, AText, Expression, True);
 end;
 
-procedure TLogger.SendIf(const AText: String; Expression, IsTrue: Boolean);
+procedure TLogger.SendIf(const AText: string; AExpression, AIsTrue: Boolean);
 begin
-  SendIf(DefaultClasses,AText,Expression,IsTrue);
+  SendIf(DefaultClasses,AText,AExpression,AIsTrue);
 end;
 
-procedure TLogger.SendIf(Classes: TDebugClasses; const AText: String; Expression,
+procedure TLogger.SendIf(Classes: TDebugClasses; const AText: string; Expression,
   IsTrue: Boolean);
 begin
-  if (Classes * ActiveClasses = []) or (Expression <> IsTrue) then Exit;
-  SendStream(ltConditional,AText,nil);
+  if (Classes * ActiveClasses = []) or (Expression <> IsTrue) then
+    Exit;
+  SendStream(ltConditional, AText, nil);
 end;
 
-procedure TLogger.SendWarning(const AText: String);
+procedure TLogger.SendWarning(const AText: string);
 begin
-  SendWarning(DefaultClasses,AText);
+  SendWarning(DefaultClasses, AText);
 end;
 
-procedure TLogger.SendWarning(Classes: TDebugClasses; const AText: String);
+procedure TLogger.SendWarning(const AText: string; AArgs: array of const);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWarning,AText,nil);
+  SendWarning(Format(AText, AArgs));
 end;
 
-procedure TLogger.SendError(const AText: String);
+procedure TLogger.SendWarning(Classes: TDebugClasses; const AText: string);
 begin
-  SendError(DefaultClasses,AText);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWarning, AText, nil);
 end;
 
-procedure TLogger.SendError(Classes: TDebugClasses; const AText: String);
+procedure TLogger.SendError(const AText: string);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltError,AText,nil);
+  SendError(DefaultClasses, AText);
 end;
 
-procedure TLogger.SendCustomData(const AText: String; Data: Pointer);
+procedure TLogger.SendError(const AText: string; AArgs: array of const);
 begin
-  SendCustomData(DefaultClasses,AText,Data,FOnCustomData);
+  SendError(Format(AText, AArgs));
 end;
 
-procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: String; Data: Pointer);
+procedure TLogger.SendError(Classes: TDebugClasses; const AText: string);
 begin
-  SendCustomData(Classes,AText,Data,FOnCustomData);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltError, AText, nil);
 end;
 
-procedure TLogger.SendCustomData(const AText: String; Data: Pointer;
+procedure TLogger.SendCustomData(const AText: string; AData: Pointer);
+begin
+  SendCustomData(DefaultClasses, AText, AData, FOnCustomData);
+end;
+
+procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: string; Data: Pointer);
+begin
+  SendCustomData(Classes, AText, Data, FOnCustomData);
+end;
+
+procedure TLogger.SendCustomData(const AText: string; AData: Pointer;
   CustomDataFunction: TCustomDataNotify);
 begin
-  SendCustomData(DefaultClasses,AText,Data,CustomDataFunction);
+  SendCustomData(DefaultClasses, AText, AData, CustomDataFunction);
 end;
 
-procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: string;
   Data: Pointer; CustomDataFunction: TCustomDataNotify);
 var
-  DoSend: Boolean;
-  TempStr: String;
+  DoSend  : Boolean;
+  TempStr : string;
 begin
   if (Classes * ActiveClasses = []) or
-    not Assigned(CustomDataFunction) then Exit;
-  DoSend:=True;
-  TempStr:=CustomDataFunction(Self,Data,DoSend);
+    not Assigned(CustomDataFunction) then
+    Exit;
+  DoSend := True;
+  TempStr := CustomDataFunction(Self, Data, DoSend);
   if DoSend then
-    SendBuffer(ltCustomData,AText,TempStr[1],Length(TempStr));
+    SendBuffer(ltCustomData, AText, TempStr[1], Length(TempStr));
 end;
 
-procedure TLogger.SendCustomData(const AText: String; Data: Pointer;
+procedure TLogger.SendCustomData(const AText: string; AData: Pointer;
   CustomDataFunction: TCustomDataNotifyStatic);
 begin
-  SendCustomData(DefaultClasses,AText,Data,CustomDataFunction);
+  SendCustomData(DefaultClasses, AText, AData, CustomDataFunction);
 end;
 
-procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendCustomData(Classes: TDebugClasses; const AText: string;
   Data: Pointer; CustomDataFunction: TCustomDataNotifyStatic);
 var
-  DoSend: Boolean;
-  TempStr: String;
+  DoSend  : Boolean;
+  TempStr : string;
 begin
   if (Classes * ActiveClasses = []) or
-    not Assigned(CustomDataFunction) then Exit;
-    DoSend:=True;
-  TempStr:=CustomDataFunction(Self,Data,DoSend);
+    not Assigned(CustomDataFunction) then
+    Exit;
+  DoSend := True;
+  TempStr := CustomDataFunction(Self, Data, DoSend);
   if DoSend then
-    SendBuffer(ltCustomData,AText,TempStr[1],Length(TempStr));
+    SendBuffer(ltCustomData, AText, TempStr[1], Length(TempStr));
 end;
 
-procedure TLogger.SendBitmap(const AText: String; ABitmap: TBitmap);
+procedure TLogger.SendBitmap(const AText: string; ABitmap: TBitmap);
 begin
   SendBitmap(DefaultClasses,AText,ABitmap);
 end;
 
-procedure TLogger.SendBitmap(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendBitmap(Classes: TDebugClasses; const AText: string;
   ABitmap: TBitmap);
 var
   AStream: TStream;
@@ -953,112 +975,120 @@ begin
   SendStream(ltBitmap, AText, AStream);
 end;
 
-procedure TLogger.SendColor(const AText: String; AColor: TColor);
+procedure TLogger.SendColor(const AText: string; AColor: TColor);
 begin
   SendColor(DefaultClasses, AText, AColor);
 end;
 
-procedure TLogger.SendColor(Classes: TDebugClasses; const AText: String;
+procedure TLogger.SendColor(Classes: TDebugClasses; const AText: string;
   AColor: TColor);
 begin
   if Classes * ActiveClasses = [] then Exit;
   SendStream(ltValue, AText + ' = ' + ColorToStr(AColor),nil);
 end;
 
+procedure TLogger.SendComponent(AComponent: TComponent);
+begin
+  Send(Format('%s: %s', [AComponent.Name, AComponent.ClassName]), AComponent);
+end;
+
 procedure TLogger.AddCheckPoint;
 begin
-  AddCheckPoint(DefaultClasses,DefaultCheckName);
+  AddCheckPoint(DefaultClasses,DEFAULT_CHECK_NAME);
 end;
 
 procedure TLogger.AddCheckPoint(Classes: TDebugClasses);
 begin
-  AddCheckPoint(Classes,DefaultCheckName);
+  AddCheckPoint(Classes,DEFAULT_CHECK_NAME);
 end;
 
-procedure TLogger.AddCheckPoint(const CheckName: String);
+procedure TLogger.AddCheckPoint(const ACheckName: string);
 begin
-  AddCheckPoint(DefaultClasses,CheckName);
+  AddCheckPoint(DefaultClasses,ACheckName);
 end;
 
-procedure TLogger.AddCheckPoint(Classes: TDebugClasses; const CheckName: String);
+procedure TLogger.AddCheckPoint(Classes: TDebugClasses; const CheckName: string);
 var
-  i: Integer;
-  j: PtrInt;
+  I : Integer;
+  J : PtrInt;
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  i:=FCheckList.IndexOf(CheckName);
-  if i <> -1 then
+  if Classes * ActiveClasses = [] then
+    Exit;
+  I := FCheckList.IndexOf(CheckName);
+  if I <> -1 then
   begin
     //Add a custom CheckList
-    j:=PtrInt(FCheckList.Objects[i])+1;
-    FCheckList.Objects[i]:=TObject(j);
+    J := PtrInt(FCheckList.Objects[I]) + 1;
+    FCheckList.Objects[I] := TObject(J);
   end
   else
   begin
-    FCheckList.AddObject(CheckName,TObject(0));
-    j:=0;
+    FCheckList.AddObject(CheckName, TObject(0));
+    J := 0;
   end;
-  SendStream(ltCheckpoint,CheckName+' #'+IntToStr(j),nil);
+  SendStream(ltCheckpoint, CheckName + ' #' + IntToStr(J), nil);
 end;
 
-procedure TLogger.IncCounter(const CounterName: String);
+procedure TLogger.IncCounter(const ACounterName: string);
 begin
-  IncCounter(DefaultClasses,CounterName);
+  IncCounter(DefaultClasses,ACounterName);
 end;
 
-procedure TLogger.IncCounter(Classes: TDebugClasses; const CounterName: String
+procedure TLogger.IncCounter(Classes: TDebugClasses; const CounterName: string
   );
 var
-  i: Integer;
-  j: PtrInt;
+  I : Integer;
+  J : PtrInt;
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  i := FCounterList.IndexOf(CounterName);
-  if i <> -1 then
+  if Classes * ActiveClasses = [] then
+    Exit;
+  I := FCounterList.IndexOf(CounterName);
+  if I <> -1 then
   begin
-    j := PtrInt(FCounterList.Objects[i]) + 1;
-    FCounterList.Objects[i] := TObject(j);
+    J := PtrInt(FCounterList.Objects[I]) + 1;
+    FCounterList.Objects[I] := TObject(J);
   end
   else
   begin
     FCounterList.AddObject(CounterName, TObject(1));
-    j := 1;
+    J := 1;
   end;
-  SendStream(ltCounter,CounterName+'='+IntToStr(j),nil);
+  SendStream(ltCounter, CounterName + '=' + IntToStr(J), nil);
 end;
 
-procedure TLogger.DecCounter(const CounterName: String);
+procedure TLogger.DecCounter(const ACounterName: string);
 begin
-  DecCounter(DefaultClasses,CounterName);
+  DecCounter(DefaultClasses,ACounterName);
 end;
 
-procedure TLogger.DecCounter(Classes: TDebugClasses; const CounterName: String
+procedure TLogger.DecCounter(Classes: TDebugClasses; const CounterName: string
   );
 var
-  i: Integer;
-  j: PtrInt;
+  I : Integer;
+  J : PtrInt;
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  i := FCounterList.IndexOf(CounterName);
-  if i <> -1 then
+  if Classes * ActiveClasses = [] then
+    Exit;
+  I := FCounterList.IndexOf(CounterName);
+  if I <> -1 then
   begin
-    j := PtrInt(FCounterList.Objects[i]) - 1;
-    FCounterList.Objects[i] := TObject(j);
+    J := PtrInt(FCounterList.Objects[I]) - 1;
+    FCounterList.Objects[I] := TObject(J);
   end
   else
   begin
     FCounterList.AddObject(CounterName, TObject(-1));
-    j := -1;
+    J := -1;
   end;
-  SendStream(ltCounter,CounterName+'='+IntToStr(j),nil);
+  SendStream(ltCounter, CounterName + '=' + IntToStr(J), nil);
 end;
 
-procedure TLogger.ResetCounter(const CounterName: String);
+procedure TLogger.ResetCounter(const ACounterName: string);
 begin
-  ResetCounter(DefaultClasses,CounterName);
+  ResetCounter(DefaultClasses,ACounterName);
 end;
 
-procedure TLogger.ResetCounter(Classes: TDebugClasses; const CounterName: String
+procedure TLogger.ResetCounter(Classes: TDebugClasses; const CounterName: string
   );
 var
   i: Integer;
@@ -1072,11 +1102,11 @@ begin
   end;
 end;
 
-function TLogger.GetCounter(const CounterName: String): Integer;
+function TLogger.GetCounter(const ACounterName: string): Integer;
 var
   i: Integer;
 begin
-  i := FCounterList.IndexOf(CounterName);
+  i := FCounterList.IndexOf(ACounterName);
   if i <> -1 then
     Result := PtrInt(FCounterList.Objects[i])
   else
@@ -1085,20 +1115,20 @@ end;
 
 procedure TLogger.ResetCheckPoint;
 begin
-  ResetCheckPoint(DefaultClasses,DefaultCheckName);
+  ResetCheckPoint(DefaultClasses,DEFAULT_CHECK_NAME);
 end;
 
 procedure TLogger.ResetCheckPoint(Classes: TDebugClasses);
 begin
-  ResetCheckPoint(Classes,DefaultCheckName);
+  ResetCheckPoint(Classes,DEFAULT_CHECK_NAME);
 end;
 
-procedure TLogger.ResetCheckPoint(const CheckName: String);
+procedure TLogger.ResetCheckPoint(const ACheckName: string);
 begin
-  ResetCheckPoint(DefaultClasses,CheckName);
+  ResetCheckPoint(DefaultClasses,ACheckName);
 end;
 
-procedure TLogger.ResetCheckPoint(Classes: TDebugClasses; const CheckName:String);
+procedure TLogger.ResetCheckPoint(Classes: TDebugClasses; const CheckName:string);
 var
   i: Integer;
 begin
@@ -1107,27 +1137,27 @@ begin
   if i <> -1 then
   begin
     FCheckList.Objects[i] := TObject(0);
-    SendStream(ltCheckpoint, CheckName+' #0',nil);
+    SendStream(ltCheckpoint, CheckName + ' #0', nil);
   end;
 end;
 
-procedure TLogger.EnterMethod(const AMethodName: String);
+procedure TLogger.EnterMethod(const AMethodName: string);
 begin
   EnterMethod(DefaultClasses,nil,AMethodName);
 end;
 
-procedure TLogger.EnterMethod(Classes: TDebugClasses; const AMethodName: String);
+procedure TLogger.EnterMethod(Classes: TDebugClasses; const AMethodName: string);
 begin
   EnterMethod(Classes,nil,AMethodName);
 end;
 
-procedure TLogger.EnterMethod(Sender: TObject; const AMethodName: String);
+procedure TLogger.EnterMethod(Sender: TObject; const AMethodName: string);
 begin
   EnterMethod(DefaultClasses,Sender,AMethodName);
 end;
 
 procedure TLogger.EnterMethod(Classes: TDebugClasses; Sender: TObject;
-  const AMethodName: String);
+  const AMethodName: string);
 begin
   if Classes * ActiveClasses = [] then Exit;
   FLogStack.Insert(0, UpperCase(AMethodName));
@@ -1137,33 +1167,33 @@ begin
     SendStream(ltEnterMethod, AMethodName, nil);
 end;
 
-procedure TLogger.ExitMethod(const AMethodName: String);
+procedure TLogger.ExitMethod(const AMethodName: string);
 begin
   ExitMethod(DefaultClasses,nil,AMethodName);
 end;
 
-procedure TLogger.ExitMethod(Sender: TObject; const AMethodName: String);
+procedure TLogger.ExitMethod(Sender: TObject; const AMethodName: string);
 begin
   ExitMethod(DefaultClasses,Sender,AMethodName);
 end;
 
-procedure TLogger.ExitMethod(Classes: TDebugClasses; const AMethodName: String);
+procedure TLogger.ExitMethod(Classes: TDebugClasses; const AMethodName: string);
 begin
   ExitMethod(Classes,nil,AMethodName);
 end;
 
 procedure TLogger.ExitMethod(Classes: TDebugClasses; Sender: TObject;
-  const AMethodName: String);
+  const AMethodName: string);
 var
-  i: Integer;
+  I : Integer;
 begin
   //ensure that ExitMethod will be called always even if there's an unpaired Entermethod
   //and Classes is not in ActiveClasses
   if FLogStack.Count = 0 then Exit;
   //todo: see if is necessary to do Uppercase (set case sensitive to false?)
-  i := FLogStack.IndexOf(UpperCase(AMethodName));
-  if i <> -1 then
-    FLogStack.Delete(i)
+  I := FLogStack.IndexOf(UpperCase(AMethodName));
+  if I <> -1 then
+    FLogStack.Delete(I)
   else
     Exit;
   if Sender <> nil then
@@ -1172,65 +1202,68 @@ begin
     SendStream(ltExitMethod, AMethodName, nil);
 end;
 
-procedure TLogger.Watch(const AText, AValue: String);
+procedure TLogger.Watch(const AText, AValue: string);
 begin
-  Watch(DefaultClasses,AText,AValue);
+  Watch(DefaultClasses, AText, AValue);
 end;
 
-procedure TLogger.Watch(Classes: TDebugClasses; const AText, AValue: String);
+procedure TLogger.Watch(Classes: TDebugClasses; const AText, AValue: string);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWatch,AText+'='+AValue,nil);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWatch, AText + '=' + AValue, nil);
 end;
 
-procedure TLogger.Watch(const AText: String; AValue: Integer);
+procedure TLogger.Watch(const AText: string; AValue: Integer);
 begin
-  Watch(DefaultClasses,AText,AValue);
+  Watch(DefaultClasses, AText, AValue);
 end;
 
-procedure TLogger.Watch(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Watch(Classes: TDebugClasses; const AText: string;
   AValue: Integer);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWatch,AText+'='+IntToStr(AValue),nil);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWatch, AText + '=' + IntToStr(AValue), nil);
 end;
 
-{$ifdef fpc}
-procedure TLogger.Watch(const AText: String; AValue: Cardinal);
+procedure TLogger.Watch(const AText: string; AValue: Cardinal);
 begin
   Watch(DefaultClasses,AText,AValue);
 end;
 
-procedure TLogger.Watch(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Watch(Classes: TDebugClasses; const AText: string;
   AValue: Cardinal);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWatch,AText+'='+IntToStr(AValue),nil);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWatch, AText + '=' + IntToStr(AValue), nil);
 end;
-{$endif}
 
-procedure TLogger.Watch(const AText: String; AValue: Double);
+procedure TLogger.Watch(const AText: string; AValue: Double);
 begin
-  Watch(DefaultClasses,AText,AValue);
+  Watch(DefaultClasses, AText, AValue);
 end;
 
-procedure TLogger.Watch(Classes: TDebugClasses; const AText: String; AValue: Double
-  );
+procedure TLogger.Watch(Classes: TDebugClasses; const AText: string;
+  AValue: Double);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWatch,AText+'='+FloatToStr(AValue),nil);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWatch, AText + '=' + FloatToStr(AValue), nil);
 end;
 
-procedure TLogger.Watch(const AText: String; AValue: Boolean);
+procedure TLogger.Watch(const AText: string; AValue: Boolean);
 begin
-  Watch(DefaultClasses,AText,AValue);
+  Watch(DefaultClasses, AText, AValue);
 end;
 
-procedure TLogger.Watch(Classes: TDebugClasses; const AText: String;
+procedure TLogger.Watch(Classes: TDebugClasses; const AText: string;
   AValue: Boolean);
 begin
-  if Classes * ActiveClasses = [] then Exit;
-  SendStream(ltWatch,AText+'='+BoolToStr(AValue),nil);
+  if Classes * ActiveClasses = [] then
+    Exit;
+  SendStream(ltWatch, AText + '=' + BoolToStr(AValue), nil);
 end;
 
 { TChannelList }
@@ -1252,11 +1285,11 @@ end;
 
 destructor TChannelList.Destroy;
 var
-  i: Integer;
+  I : Integer;
 begin
   //free the registered channels
-  for i := 0 to FList.Count - 1 do
-    Items[i].Free;
+  for I := 0 to FList.Count - 1 do
+    Items[I].Free;
   FList.Destroy;
 end;
 
@@ -1271,12 +1304,10 @@ begin
   FList.Remove(AChannel);
 end;
 
-
 { TLogChannel }
 
 procedure TLogChannel.Init;
 begin
-
 end;
 
 end.

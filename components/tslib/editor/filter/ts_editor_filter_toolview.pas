@@ -508,19 +508,19 @@ begin
       begin
         C := MixColors(
           C,
-          Manager.Settings.HighlightAllColor.Background,
-          Manager.Settings.HighlightAllColor.BackAlpha
+          Manager.Settings.Colors.HighlightAllColor.Background,
+          Manager.Settings.Colors.HighlightAllColor.BackAlpha
         )
       end
       else
       begin
         C := ColorAdjustLuma(
-          Manager.Settings.HighlightAllColor.Background,
+          Manager.Settings.Colors.HighlightAllColor.Background,
           70,
           False
         );
       end;
-      ACanvas.Pen.Color := Manager.Settings.HighlightAllColor.FrameColor;
+      ACanvas.Pen.Color := Manager.Settings.Colors.HighlightAllColor.FrameColor;
       ACanvas.Pen.Width := 1;
       ACanvas.Brush.Color := C;
       ACanvas.Rectangle(ARect);

@@ -26,10 +26,10 @@ object frmEditorSettings: TfrmEditorSettings
       Height = 549
       Top = 2
       Width = 545
-      ActivePage = tsSettings
+      ActivePage = tsToolSettings
       Align = alClient
       BorderSpacing.Around = 2
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Main settings'
@@ -44,6 +44,69 @@ object frmEditorSettings: TfrmEditorSettings
           BorderSpacing.Around = 3
           BevelOuter = bvNone
           TabOrder = 0
+        end
+      end
+      object tsToolSettings: TTabSheet
+        Caption = 'Tool settings'
+        ClientHeight = 521
+        ClientWidth = 537
+        object pnlToolSettings: TPanel
+          Left = 3
+          Height = 515
+          Top = 3
+          Width = 531
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          ClientHeight = 515
+          ClientWidth = 531
+          TabOrder = 0
+          object pnlTSLeft: TPanel
+            Left = 2
+            Height = 511
+            Top = 2
+            Width = 154
+            Align = alLeft
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            TabOrder = 0
+          end
+          object pnlTSRight: TPanel
+            Left = 168
+            Height = 511
+            Top = 2
+            Width = 361
+            Align = alClient
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            ClientHeight = 511
+            ClientWidth = 361
+            TabOrder = 1
+            object pnlTSRightTop: TPanel
+              Left = 0
+              Height = 28
+              Top = 0
+              Width = 361
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+            end
+            object pnlTSRightBottom: TPanel
+              Left = 0
+              Height = 483
+              Top = 28
+              Width = 361
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 1
+            end
+          end
+          object splHLVertical1: TSplitter
+            Left = 158
+            Height = 515
+            Top = 0
+            Width = 8
+          end
         end
       end
       object tsHighlighterAttributes: TTabSheet
@@ -65,38 +128,38 @@ object frmEditorSettings: TfrmEditorSettings
             Left = 2
             Height = 511
             Top = 2
-            Width = 122
+            Width = 154
             Align = alLeft
             BorderSpacing.Around = 2
             BevelOuter = bvNone
             TabOrder = 0
           end
           object pnlHARight: TPanel
-            Left = 136
+            Left = 168
             Height = 511
             Top = 2
-            Width = 393
+            Width = 361
             Align = alClient
             BorderSpacing.Around = 2
             BevelOuter = bvNone
             ClientHeight = 511
-            ClientWidth = 393
+            ClientWidth = 361
             TabOrder = 1
             object pnlHARightTop: TPanel
               Left = 0
               Height = 92
               Top = 0
-              Width = 393
+              Width = 361
               Align = alTop
               BevelOuter = bvNone
               ClientHeight = 92
-              ClientWidth = 393
+              ClientWidth = 361
               TabOrder = 0
               object mmoAliasNames: TTIMemo
                 Left = 0
                 Height = 68
                 Top = 24
-                Width = 393
+                Width = 361
                 Align = alBottom
               end
               object lblAttributeAliases: TLabel
@@ -121,14 +184,14 @@ object frmEditorSettings: TfrmEditorSettings
               Left = 0
               Height = 419
               Top = 92
-              Width = 393
+              Width = 361
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 1
             end
           end
           object splHAVertical: TSplitter
-            Left = 126
+            Left = 158
             Height = 515
             Top = 0
             Width = 8
@@ -137,62 +200,62 @@ object frmEditorSettings: TfrmEditorSettings
       end
       object tsHighlighters: TTabSheet
         Caption = 'Highlighters'
-        ClientHeight = 504
-        ClientWidth = 478
+        ClientHeight = 521
+        ClientWidth = 537
         object pnlHighlighters: TPanel
           Left = 3
-          Height = 498
+          Height = 515
           Top = 3
-          Width = 472
+          Width = 531
           Align = alClient
           BorderSpacing.Around = 3
           BevelOuter = bvNone
-          ClientHeight = 498
-          ClientWidth = 472
+          ClientHeight = 515
+          ClientWidth = 531
           TabOrder = 0
           object pnlHLLeft: TPanel
             Left = 2
-            Height = 494
+            Height = 511
             Top = 2
-            Width = 122
+            Width = 154
             Align = alLeft
             BorderSpacing.Around = 2
             BevelOuter = bvNone
             TabOrder = 0
           end
           object pnlHLRight: TPanel
-            Left = 136
-            Height = 494
+            Left = 168
+            Height = 511
             Top = 2
-            Width = 334
+            Width = 361
             Align = alClient
             BorderSpacing.Around = 2
             BevelOuter = bvNone
-            ClientHeight = 494
-            ClientWidth = 334
+            ClientHeight = 511
+            ClientWidth = 361
             TabOrder = 1
             object pnlHLRightTop: TPanel
               Left = 0
               Height = 188
               Top = 0
-              Width = 334
+              Width = 361
               Align = alTop
               BevelOuter = bvNone
               TabOrder = 0
             end
             object pnlHLRightBottom: TPanel
               Left = 0
-              Height = 306
+              Height = 323
               Top = 188
-              Width = 334
+              Width = 361
               Align = alClient
               BevelOuter = bvNone
               TabOrder = 1
             end
           end
           object splHLVertical: TSplitter
-            Left = 126
-            Height = 498
+            Left = 158
+            Height = 515
             Top = 0
             Width = 8
           end
@@ -200,13 +263,13 @@ object frmEditorSettings: TfrmEditorSettings
       end
       object tsXML: TTabSheet
         Caption = 'XML'
-        ClientHeight = 504
-        ClientWidth = 478
+        ClientHeight = 521
+        ClientWidth = 537
         object pnlXML: TPanel
           Left = 3
-          Height = 498
+          Height = 515
           Top = 3
-          Width = 472
+          Width = 531
           Align = alClient
           BorderSpacing.Around = 3
           BevelOuter = bvNone
@@ -215,8 +278,8 @@ object frmEditorSettings: TfrmEditorSettings
       end
       object tsDebug: TTabSheet
         Caption = 'Debug'
-        ClientHeight = 504
-        ClientWidth = 478
+        ClientHeight = 521
+        ClientWidth = 537
         object btnOpenSettingsFile: TButton
           Left = 10
           Height = 25

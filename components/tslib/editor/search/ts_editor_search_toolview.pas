@@ -80,7 +80,7 @@ type
     grpReplaceWith                  : TGroupBox;
     grpScope: TGroupBox;
     grpSearchText                   : TGroupBox;
-    Image1                          : TImage;
+    imgF2Key                          : TImage;
     pnlButtons: TPanel;
     pnlOperations                   : TPanel;
     pnlResultList                   : TPanel;
@@ -419,7 +419,11 @@ begin
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
   SearchEngine.SearchAllViews := rbAllViews.Checked;
   SearchEngine.Options        := Options;
-  Logger.Send('SearchOptions', SetToString(TypeInfo(TSynSearchOptions), SearchEngine.Options));
+  Logger.Send(
+    'SearchOptions',
+    SetToString(TypeInfo(TSynSearchOptions),
+    SearchEngine.Options)
+  );
   SearchEngine.Execute;
 end;
 
@@ -513,7 +517,9 @@ begin
       FTVP.Refresh;
     end;
     Updated;
-  end
+  end;
+
+  imgF2Key.Visible := GetFirstParentForm(Screen.ActiveControl) = Self;
 end;
 {$endregion}
 

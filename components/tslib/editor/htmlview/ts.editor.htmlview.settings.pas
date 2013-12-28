@@ -29,7 +29,7 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-  THTMLViewSettings = class(TPersistent)
+  THTMLViewSettings = class(TComponent)
   private
     FWidth: Integer;
   public
@@ -79,6 +79,9 @@ begin
     inherited Assign(Source);
 end;
 {$endregion}
+
+initialization
+  RegisterClass(THTMLViewSettings);
 
 end.
 

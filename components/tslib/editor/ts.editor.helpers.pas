@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, ComCtrls, Menus, Controls, ActnList,
 
-  ts.Editor.Interfaces, ts.Editor.Settings, ts_Editor_Resources;
+  ts.Editor.Interfaces, ts_Editor_Resources;
 
 procedure AddActionButton(
   AParent : TToolBar;
@@ -62,33 +62,6 @@ procedure AddStandardEditorMenus(
   AManager  : IEditorManager;
   AMainMenu : TMainMenu
 );
-
-function CreateEditorSettings(
-  AOwner : TComponent = nil
-): IEditorSettings;
-
-function CreateEditorManager(
-        AOwner            : TComponent = nil;
-        APersistSettings  : Boolean = False;
-  const ASettingsFileName : string = ''
-): IEditorManager; overload;
-
-{ TS: new version }
-function CreateEditorManager(
-  AOwner    : TComponent;
-  ASettings : IEditorSettings
-): IEditorManager; overload;
-
-{ TODO: set highlightertype }
-{ TODO: add list with available highlighterttypes }
-
-function CreateEditorView(
-         AParent       : TWinControl;
-         AManager      : IEditorManager;
-   const AName         : string = '';
-   const AFileName     : string = '';
-   const AHighlighter  : string = 'TXT'
-): IEditorView;
 
 procedure AddEditorFileMenu(
   AManager  : IEditorManager;
@@ -530,56 +503,6 @@ begin
   MI.Caption := SDebugMenuCaption;
   AMainMenu.Items.Add(MI);
   AddEditorMenuItem(AManager, MI, 'actInspect');
-end;
-
-function CreateEditorSettings(AOwner : TComponent): IEditorSettings;
-begin
-  Result := TEditorSettings.Create(AOwner);
-end;
-
-function CreateEditorManager(AOwner: TComponent; APersistSettings: Boolean;
-  const ASettingsFileName: string): IEditorManager;
-var
-  O : TComponent;
-  S : string;
-begin
-  if not Assigned(AOwner) then
-    O := Application
-  else
-    O := AOwner;
-  Result := TdmEditorManager.Create(O, nil);
-  Result.PersistSettings := APersistSettings;
-  if APersistSettings then
-  begin
-    if ASettingsFileName = '' then
-      S := ApplicationName + '.xml'
-    else
-      S := ASettingsFileName;
-    Result.Settings.FileName := S;
-  end;
-end;
-
-function CreateEditorManager(AOwner: TComponent;
-  ASettings: IEditorSettings): IEditorManager;
-begin
-  Result := TdmEditorManager.Create(AOwner, ASettings);
-end;
-
-function CreateEditorView(AParent: TWinControl; AManager: IEditorManager;
-  const AName: string; const AFileName: string; const AHighlighter: string
-  ): IEditorView;
-var
-  V: IEditorView;
-begin
-  V := AManager.Views.Add(AName, AFileName, AHighlighter);
-  V.Form.DisableAutoSizing;
-  V.Form.BorderStyle := bsNone;
-  V.Form.Align := alClient;
-  V.Form.Parent := AParent;
-  V.PopupMenu := AManager.Menus.EditorPopupMenu;
-  V.Form.Visible := True;
-  V.Form.EnableAutoSizing;
-  Result := V;
 end;
 
 end.

@@ -267,7 +267,7 @@ end;
 {$region 'property access mehods' /fold}
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
-  Result := (Manager as IEditorSettings).AlignLinesSettings;
+  Result := inherited Settings.ToolSettings.ItemsByClass[TAlignLinesSettings] as TAlignLinesSettings;
 end;
 {$endregion}
 

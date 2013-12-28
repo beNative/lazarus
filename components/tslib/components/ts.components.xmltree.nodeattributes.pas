@@ -41,6 +41,9 @@ type
   );
 
 type
+  TCollectionItem = Classes.TCollectionItem;
+
+type
   TNodeAttributesItem = class(TCollectionItem)
   private
     FBackGroundColor      : TColor;

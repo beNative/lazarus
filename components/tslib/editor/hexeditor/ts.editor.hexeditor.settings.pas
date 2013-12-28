@@ -32,7 +32,7 @@ type
 
   { THexEditorSettings }
 
-  THexEditorSettings = class(TPersistent)
+  THexEditorSettings = class(TComponent)
   private
     FWidth: Integer;
   public
@@ -82,6 +82,9 @@ begin
     inherited Assign(Source);
 end;
 {$endregion}
+
+initialization
+  RegisterClass(THexEditorSettings);
 
 end.
 

@@ -3535,6 +3535,7 @@ object dmEditorManager: TdmEditorManager
   end
   object aclActions: TActionList
     Images = imlMain
+    OnExecute = aclActionsExecute
     left = 216
     top = 88
     object actSettings: TAction

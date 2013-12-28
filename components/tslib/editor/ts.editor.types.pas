@@ -55,20 +55,20 @@ type
   // type aliases
   TEditorViewList = TInterfaceList;
 
-  // enumerations
-type
-  TEditorTool = (
-    etSearch,
-    etCodeShaper,
-    etCodeFilter,
-    etPreview,
-    etHexEditor,
-    etHTMLView,
-    etAlignLines,
-    etActionList,
-    etViewList
-  );
-  TEditorTools = set of TEditorTool;
+//  // enumerations
+//type
+//  TEditorTool = (
+//    etSearch,
+//    etCodeShaper,
+//    etCodeFilter,
+//    etPreview,
+//    etHexEditor,
+//    etHTMLView,
+//    etAlignLines,
+//    etActionList,
+//    etViewList
+//  );
+//  TEditorTools = set of TEditorTool;
 
 implementation
 

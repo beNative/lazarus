@@ -42,6 +42,7 @@ type
   strict private
     function GetEvents: IEditorEvents;
     function GetManager: IEditorManager;
+    function GetSearchEngine: IEditorSearchEngine;
     function GetSelection: IEditorSelection;
     function GetSettings: IEditorSettings;
     function GetView: IEditorView;
@@ -126,6 +127,9 @@ type
             AIncludeEndTag   : Boolean
     ): Boolean;
 
+    procedure FindNext;
+    procedure FindPrevious;
+
     property Selection: IEditorSelection
       read GetSelection;
 
@@ -137,6 +141,9 @@ type
 
     property Settings: IEditorSettings
       read GetSettings;
+
+    property SearchEngine: IEditorSearchEngine
+      read GetSearchEngine;
 
     property Manager: IEditorManager
       read GetManager;
@@ -177,6 +184,11 @@ end;
 function TEditorCommands.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
+end;
+
+function TEditorCommands.GetSearchEngine: IEditorSearchEngine;
+begin
+  Result := Manager.SearchEngine;
 end;
 
 function TEditorCommands.GetSelection: IEditorSelection;
@@ -382,8 +394,8 @@ var
 begin
   if Assigned(View.HighlighterItem) then
   begin
-    I := View.HighlighterItem.Index;
-    N := Manager.Highlighters.Count;
+    //I := View.HighlighterItem.Index;
+    //N := Manager.Highlighters.Count;
     View.HighlighterItem := Manager.Highlighters[(I + 1) mod N];
     Settings.HighlighterType := View.HighlighterItem.Name;
   end;
@@ -804,13 +816,13 @@ end;
 procedure TEditorCommands.SortStrings;
 begin
   Selection.Store;
-  Selection.Text := ts.Editor.Utils.SortStrings(
-    Selection.Text,
-    Settings.SortStringsSettings.SortDirection,
-    Settings.SortStringsSettings.SortScope,
-    Settings.SortStringsSettings.CaseSensitive,
-    Settings.SortStringsSettings.IgnoreSpaces
-  );
+  //Selection.Text := ts.Editor.Utils.SortStrings(
+  //  Selection.Text,
+  //  Settings.SortStringsSettings.SortDirection,
+  //  Settings.SortStringsSettings.SortScope,
+  //  Settings.SortStringsSettings.CaseSensitive,
+  //  Settings.SortStringsSettings.IgnoreSpaces
+  //);
   Selection.Restore;
 end;
 
@@ -904,6 +916,16 @@ begin
     end;
   end;
   Result := View.SelAvail;
+end;
+
+procedure TEditorCommands.FindNext;
+begin
+  SearchEngine.FindNext;
+end;
+
+procedure TEditorCommands.FindPrevious;
+begin
+  SearchEngine.FindPrevious;
 end;
 {$endregion}
 

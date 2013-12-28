@@ -346,7 +346,6 @@ begin
   else
     Result := Items[I];
 end;
-
 {$endregion}
 
 {$region 'THighlighterAttributesItem' /fold}

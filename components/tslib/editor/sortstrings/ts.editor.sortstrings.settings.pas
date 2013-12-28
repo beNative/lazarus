@@ -34,7 +34,7 @@ type
 
   { TSortStringsSettings }
 
-  TSortStringsSettings = class(TPersistent)
+  TSortStringsSettings = class(TComponent)
   strict private
     FCaseSensitive : Boolean;
     FIgnoreSpaces  : Boolean;
@@ -111,6 +111,9 @@ begin
     inherited Assign(Source);
 end;
 {$endregion}
+
+initialization
+  RegisterClass(TSortStringsSettings);
 
 end.
 

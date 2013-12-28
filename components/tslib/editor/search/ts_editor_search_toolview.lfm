@@ -59,7 +59,7 @@ inherited frmSearchForm: TfrmSearchForm
         ParentFont = False
         TabOrder = 0
       end
-      object Image1: TImage
+      object imgF2Key: TImage
         Left = 2
         Height = 16
         Hint = 'Press the F2 function key to set '#13#10'focus to the search entry field.'

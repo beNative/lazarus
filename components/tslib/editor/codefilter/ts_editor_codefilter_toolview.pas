@@ -340,7 +340,7 @@ end;
 
 function TfrmCodeFilterDialog.GetSettings: TCodeFilterSettings;
 begin
-  Result := (Manager as IEditorSettings).CodeFilterSettings;
+  //Result := (Manager as IEditorSettings).CodeFilterSettings;
 end;
 
 function TfrmCodeFilterDialog.GetView: IEditorView;
@@ -571,21 +571,21 @@ begin
       begin
         R.Left := R.Left + TargetCanvas.TextWidth(System.Copy(L.Text, 1, Offset - 1));
         R.Right := R.Left + TargetCanvas.TextWidth(Match);
-        TargetCanvas.Pen.Color := Manager.Settings.HighlightAllColor.FrameColor;
+        TargetCanvas.Pen.Color := Manager.Settings.Colors.HighlightAllColor.FrameColor;
         TargetCanvas.Pen.Width := 1;
         C := ColorToRGB(TargetCanvas.Brush.Color);
         if C <> clWhite then
         begin
           C := MixColors(
             C,
-            Manager.Settings.HighlightAllColor.Background,
-            Manager.Settings.HighlightAllColor.BackAlpha
+            Manager.Settings.Colors.HighlightAllColor.Background,
+            Manager.Settings.Colors.HighlightAllColor.BackAlpha
           )
         end
         else
         begin
           C := ColorAdjustLuma(
-            Manager.Settings.HighlightAllColor.Background,
+            Manager.Settings.Colors.HighlightAllColor.Background,
             50,
             False
           );

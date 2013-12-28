@@ -37,7 +37,8 @@ uses
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings, ts.Editor.SortStrings.Settings,
 
-  ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
+  ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
+  ts.Editor.Colors.Settings, ts.Editor.Tools.Settings;
 
 type
   // forward declarations
@@ -593,83 +594,69 @@ type
   IEditorSettings = interface
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
     {$region 'property access methods' /fold}
-    function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetBlockIndent: Integer;
     function GetBlockTabIndent: Integer;
     function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
-    function GetBracketMatchColor: TSynSelectedColor;
     function GetCloseWithESC: Boolean;
-    function GetCodeFilterSettings: TCodeFilterSettings;
-    function GetCodeShaperSettings: TCodeShaperSettings;
+
+    function GetColors: TEditorColorSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
     function GetExtraCharSpacing: Integer;
     function GetExtraLineSpacing: Integer;
     function GetFileName: string;
-    function GetFoldedCodeColor: TSynSelectedColor;
     function GetFormSettings: TFormSettings;
-    function GetHexEditorSettings: THexEditorSettings;
-    function GetHighlightAllColor: TSynSelectedColor;
+
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
-    function GetHTMLViewSettings: THTMLViewSettings;
-    function GetIncrementColor: TSynSelectedColor;
     function GetLanguageCode: string;
-    function GetLineHighlightColor: TSynSelectedColor;
-    function GetMiniMapSettings: TMiniMapSettings;
-    function GetMouseLinkColor: TSynSelectedColor;
+
     function GetReadOnly: Boolean;
     function GetRightEdge: Integer;
     function GetRightEdgeColor: TColor;
-    function GetSearchEngineSettings: TSearchEngineSettings;
-    function GetSelectedColor: TSynSelectedColor;
+
     function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
-    function GetSortStringsSettings: TSortStringsSettings;
+
     function GetTabWidth: Integer;
+    function GetToolSettings: TEditorToolSettingsList;
     function GetWantTabs: Boolean;
     function GetXML: string;
-    procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
+
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
     procedure SetBlockIndent(AValue: Integer);
     procedure SetBlockTabIndent(AValue: Integer);
     procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
-    procedure SetBracketMatchColor(AValue: TSynSelectedColor);
     procedure SetCloseWithESC(const AValue: Boolean);
-    procedure SetCodeFilterSettings(AValue: TCodeFilterSettings);
-    procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
+
+    procedure SetColors(AValue: TEditorColorSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
     procedure SetExtraCharSpacing(AValue: Integer);
     procedure SetExtraLineSpacing(AValue: Integer);
     procedure SetFileName(const AValue: string);
-    procedure SetFoldedCodeColor(AValue: TSynSelectedColor);
     procedure SetFormSettings(const AValue: TFormSettings);
-    procedure SetHexEditorSettings(AValue: THexEditorSettings);
-    procedure SetHighlightAllColor(AValue: TSynSelectedColor);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
-    procedure SetHTMLViewSettings(AValue: THTMLViewSettings);
-    procedure SetIncrementColor(AValue: TSynSelectedColor);
+
     procedure SetLanguageCode(AValue: string);
-    procedure SetLineHighlightColor(AValue: TSynSelectedColor);
-    procedure SetMiniMapSettings(AValue: TMiniMapSettings);
-    procedure SetMouseLinkColor(AValue: TSynSelectedColor);
+
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetRightEdge(AValue: Integer);
     procedure SetRightEdgeColor(AValue: TColor);
-    procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
-    procedure SetSelectedColor(AValue: TSynSelectedColor);
+
+
     procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
-    procedure SetSortStringsSettings(AValue: TSortStringsSettings);
+
     procedure SetTabWidth(AValue: Integer);
+    procedure SetToolSettings(AValue: TEditorToolSettingsList);
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
@@ -679,6 +666,12 @@ type
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+
+    property Colors: TEditorColorSettings
+      read GetColors write SetColors;
+
+    property ToolSettings:  TEditorToolSettingsList
+      read GetToolSettings write SetToolSettings;
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -717,32 +710,8 @@ type
     property FormSettings: TFormSettings
       read GetFormSettings write SetFormSettings;
 
-    property AlignLinesSettings: TAlignLinesSettings
-      read GetAlignLinesSettings write SetAlignLinesSettings;
-
     property HighlighterAttributes: THighlighterAttributes
       read GetHighlighterAttributes write SetHighlighterAttributes;
-
-    property SearchEngineSettings: TSearchEngineSettings
-      read GetSearchEngineSettings write SetSearchEngineSettings;
-
-    property CodeShaperSettings: TCodeShaperSettings
-      read GetCodeShaperSettings write SetCodeShaperSettings;
-
-    property CodeFilterSettings: TCodeFilterSettings
-      read GetCodeFilterSettings write SetCodeFilterSettings;
-
-    property HexEditorSettings: THexEditorSettings
-      read GetHexEditorSettings write SetHexEditorSettings;
-
-    property HTMLViewSettings: THTMLViewSettings
-      read GetHTMLViewSettings write SetHTMLViewSettings;
-
-    property MiniMapSettings: TMiniMapSettings
-      read GetMiniMapSettings write SetMiniMapSettings;
-
-    property SortStringsSettings: TSortStringsSettings
-      read GetSortStringsSettings write SetSortStringsSettings;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
@@ -753,36 +722,11 @@ type
     property XML: string
       read GetXML;
 
-    // Colors
-    property IncrementColor: TSynSelectedColor
-      read GetIncrementColor write SetIncrementColor;
-
-    property HighlightAllColor: TSynSelectedColor
-      read GetHighlightAllColor write SetHighlightAllColor;
-
-    property BracketMatchColor: TSynSelectedColor
-      read GetBracketMatchColor write SetBracketMatchColor;
-
-    property MouseLinkColor: TSynSelectedColor
-      read GetMouseLinkColor write SetMouseLinkColor;
-
-    property LineHighlightColor: TSynSelectedColor
-      read GetLineHighlightColor write SetLineHighlightColor;
-
-    property FoldedCodeColor: TSynSelectedColor
-      read GetFoldedCodeColor write SetFoldedCodeColor;
-
     property RightEdgeColor: TColor
       read GetRightEdgeColor write SetRightEdgeColor;
 
     property RightEdge: Integer
       read GetRightEdge write SetRightEdge;
-
-    property BracketHighlightStyle: TSynEditBracketHighlightStyle
-      read GetBracketHighlightStyle write SetBracketHighlightStyle;
-
-    property SelectedColor: TSynSelectedColor
-      read GetSelectedColor write SetSelectedColor;
 
     // Editor settings
     property TabWidth: Integer
@@ -802,6 +746,9 @@ type
 
     property ExtraLineSpacing: Integer
       read GetExtraLineSpacing write SetExtraLineSpacing;
+
+    property BracketHighlightStyle: TSynEditBracketHighlightStyle
+      read GetBracketHighlightStyle write SetBracketHighlightStyle;
   end;
 
   IEditorViews = interface
@@ -877,8 +824,9 @@ type
     function GetEnumerator: TEditorToolViewListEnumerator;
 
     function Register(
-            AFormClass : TComponentClass;
-      const AName      : string = ''
+            AFormClass     : TComponentClass;
+            ASettingsClass : TComponentClass;
+      const AName          : string = ''
     ): Boolean;
     procedure Hide;
 
@@ -938,6 +886,10 @@ type
             AIncludeStartTag : Boolean;
             AIncludeEndTag   : Boolean
     ): Boolean;
+
+    procedure FindNext;
+    procedure FindPrevious;
+
   end;
 
   { IEditorMenus }

@@ -89,7 +89,7 @@ type
     //procedure Notify(Item: T; Action: TCollectionNotification); override;
 
   public
-    constructor Create;
+    constructor Create; reintroduce; virtual;
 
     function Add: T;
   //  function GetEnumerator: TSpecializedCollectionEnumerator;

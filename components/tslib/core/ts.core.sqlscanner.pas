@@ -569,7 +569,7 @@ begin
       if not CheckTokenBuf then
         Error(SErrOpenString);
       // Read escaped token
-      Case TokenStr[0] of
+      case TokenStr[0] of
         '"' :
           S := '"';
         '''' :

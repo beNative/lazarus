@@ -35,23 +35,23 @@ type
   { TfrmSortStrings }
 
   TfrmSortStrings = class(TCustomEditorToolView)
-    aclMain: TActionList;
-    actExecute: TAction;
-    btnOK: TButton;
-    gbxOptions: TCheckGroup;
-    pnlBottom: TPanel;
-    rgpSortDirection: TRadioGroup;
-    rgpSortScope: TRadioGroup;
+    aclMain          : TActionList;
+    actExecute       : TAction;
+    btnOK            : TButton;
+    gbxOptions       : TCheckGroup;
+    pnlBottom        : TPanel;
+    rgpSortDirection : TRadioGroup;
+    rgpSortScope     : TRadioGroup;
 
     procedure actExecuteExecute(Sender: TObject);
 
-    procedure gbxOptionsItemClick(Sender: TObject; Index: integer);
+    procedure gbxOptionsItemClick(Sender: TObject; Index: Integer);
     procedure rgpSortScopeClick(Sender: TObject);
     procedure rgpSortDirectionClick(Sender: TObject);
 
   private
     function GetSettings: TSortStringsSettings;
-    { private declarations }
+
   public
     property Settings: TSortStringsSettings
       read GetSettings;
@@ -74,7 +74,7 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-procedure TfrmSortStrings.gbxOptionsItemClick(Sender: TObject; Index: integer);
+procedure TfrmSortStrings.gbxOptionsItemClick(Sender: TObject; Index: Integer);
 var
   B : Boolean;
 begin
@@ -97,16 +97,17 @@ end;
 
 function TfrmSortStrings.GetSettings: TSortStringsSettings;
 begin
-  Result := inherited Settings.SortStringsSettings;
+  Result := inherited Settings.ToolSettings.ItemsByClass[TSortStringsSettings]
+    as TSortStringsSettings;
 end;
 
 procedure TfrmSortStrings.UpdateActions;
 begin
   inherited UpdateActions;
-  gbxOptions.Checked[0] := Settings.CaseSensitive;
-  gbxOptions.Checked[1] := Settings.IgnoreSpaces;
+  gbxOptions.Checked[0]      := Settings.CaseSensitive;
+  gbxOptions.Checked[1]      := Settings.IgnoreSpaces;
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
-  rgpSortScope.ItemIndex := Integer(Settings.SortScope);
+  rgpSortScope.ItemIndex     := Integer(Settings.SortScope);
 end;
 
 {$endregion}

@@ -28,7 +28,7 @@ uses
   SynEditTypes;
 
 type
-  TSearchEngineSettings = class(TPersistent)
+  TSearchEngineSettings = class(TComponent)
   private
     FOptions        : TSynSearchOptions;
     FSearchAllViews : Boolean;
@@ -75,6 +75,9 @@ begin
   else
     inherited Assign(Source);
 end;
+
+initialization
+  RegisterClass(TSearchEngineSettings);
 
 end.
 

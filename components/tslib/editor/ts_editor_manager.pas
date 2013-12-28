@@ -302,6 +302,7 @@ type
     {$endregion}
 
     {$region 'action handlers' /fold}
+    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
@@ -444,7 +445,6 @@ type
     FToolViews    : IEditorToolViews;
     FEvents       : IEditorEvents;
     FCommands     : IEditorCommands;
-    FEditorTools  : TEditorTools;
     FSettings     : IEditorSettings;
     FActiveView   : IEditorView;
     FViewList     : TEditorViewList;
@@ -458,7 +458,6 @@ type
     function GetCurrent: IEditorView;
     function GetEditor: TSynEdit;
     function GetEditorPopupMenu: TPopupMenu;
-    function GetEditorTools: TEditorTools;
     function GetEditorViews: IEditorViews;
     function GetEncodingPopupMenu: TPopupMenu;
     function GetEvents: IEditorEvents;
@@ -493,7 +492,6 @@ type
     function GetViewList: TEditorViewList;
     function GetViews: IEditorViews;
     procedure SetActiveView(AValue: IEditorView);
-    procedure SetEditorTools(AValue: TEditorTools);
     procedure SetPersistSettings(const AValue: Boolean);
     {$endregion}
 
@@ -585,9 +583,6 @@ type
     procedure CreateDesktopLink;
     {$ENDIF}
 
-    procedure FindNext;
-    procedure FindPrevious;
-
     // TComponent overrides
     procedure Notification(
       AComponent : TComponent;
@@ -617,9 +612,6 @@ type
 
     property Items[AName: string]: TCustomAction
       read GetItem; default;
-
-    property EditorTools: TEditorTools
-      read GetEditorTools write SetEditorTools;
 
     {$region 'IEditorMenus'}
     property ClipboardPopupMenu: TPopupMenu
@@ -794,6 +786,15 @@ uses
   ts_Editor_Filter_ToolView,
   ts_Editor_SortStrings_ToolView,
 
+  ts.Editor.AlignLines.Settings,
+  ts.Editor.CodeFilter.Settings,
+  ts.Editor.CodeShaper.Settings,
+  ts.Editor.HexEditor.Settings,
+  ts.Editor.HTMLView.Settings,
+  ts.Editor.MiniMap.Settings,
+  ts.Editor.SortStrings.Settings,
+  ts.Editor.Search.Engine.Settings,
+
   ts_Editor_AboutDialog,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
@@ -819,38 +820,36 @@ end;
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FToolViews := TToolViews.Create(Self);
-  FEvents    := TEditorEvents.Create(Self);
-  FCommands  := TEditorCommands.Create(Self);
   FPersistSettings  := False;
-  FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
-  FViewList         := TEditorViewList.Create;
-  FSearchEngine     := TSearchEngine.Create(Self);
+
   FSynExporterRTF   := TSynExporterRTF.Create(Self);
   FSynUni           := TSynUniSyn.Create(Self);
-  FUniqueInstance   := TUniqueInstance.Create(Self);
-  FUniqueInstance.Identifier := ApplicationName;
+  FScriptFunctions  := TStringList.Create;
+
+  { TODO -oTS : Move the construction of these objects to the outside and pass
+   the instances to the constructor (dependency injection). This will allow to
+   create unit tests for each module. }
+  FToolViews        := TToolViews.Create(Self);
+  FEvents           := TEditorEvents.Create(Self);
+  FCommands         := TEditorCommands.Create(Self);
+  FViewList         := TEditorViewList.Create;
+  FSearchEngine     := TSearchEngine.Create(Self);
+
+  { TODO -oTS : This component does not belong here. This should be handled at
+    the application level. }
+  FUniqueInstance                     := TUniqueInstance.Create(Self);
+  FUniqueInstance.Identifier          := ApplicationName;
   FUniqueInstance.OnOtherInstance     := UniqueInstanceOtherInstance;
   FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
-  FScriptFunctions := TStringList.Create;
-  FEditorTools := [
-    etActionList,
-    etAlignLines,
-    etCodeFilter,
-    etCodeShaper,
-    etHTMLView,
-    etPreview,
-    etSearch,
-    etHexEditor,
-    etViewList
-  ];
 
-  // TODO: these steps should be configurable
+  FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
+
+  { TODO -oTS : These steps should be configurable. }
   //LoadScriptFiles;
+  //RegisterHighlighters;
   RegisterToolViews;
-  RegisterHighlighters;
 
-  InitializeFoldHighlighters;
+//  InitializeFoldHighlighters;
   CreateActions;
   InitializePopupMenus;
 end;
@@ -885,16 +884,6 @@ end;
 function TdmEditorManager.GetEditorPopupMenu: TPopupMenu;
 begin
   Result := ppmEditor;
-end;
-
-function TdmEditorManager.GetEditorTools: TEditorTools;
-begin
-  Result := FEditorTools;
-end;
-
-procedure TdmEditorManager.SetEditorTools(AValue: TEditorTools);
-begin
-  FEditorTools := AValue;
 end;
 
 function TdmEditorManager.GetEditorViews: IEditorViews;
@@ -999,11 +988,9 @@ begin
   begin
     if AValue then
     begin
-      Settings.Load;
       FUniqueInstance.Enabled := Settings.SingleInstance;
       // TSI temp
-      RegisterHighlighters;
-      InitializeFoldHighlighters;
+      //InitializeFoldHighlighters;
     end;
     FPersistSettings := AValue;
   end;
@@ -1380,7 +1367,7 @@ begin
   {$IFDEF Windows}
   CreateDesktopLink;
   {$ELSE}
-  ShowMessage('This feature is not available yet for this platform');
+  ShowMessage(SNotImplementedYet);
   {$ENDIF}
 end;
 
@@ -1511,12 +1498,12 @@ end;
 
 procedure TdmEditorManager.actFindNextExecute(Sender: TObject);
 begin
-  FindNext;
+  Commands.FindNext;
 end;
 
 procedure TdmEditorManager.actFindPreviousExecute(Sender: TObject);
 begin
-  FindPrevious;
+  Commands.FindPrevious;
 end;
 
 procedure TdmEditorManager.actFoldLevel0Execute(Sender: TObject);
@@ -1688,17 +1675,17 @@ end;
 
 procedure TdmEditorManager.actPageSetupExecute(Sender: TObject);
 begin
-  ShowMessage('Not implemented yet');
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmEditorManager.actPrintExecute(Sender: TObject);
 begin
-  ShowMessage('Not implemented yet');
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmEditorManager.actPrintPreviewExecute(Sender: TObject);
 begin
-  ShowMessage('Not implemented yet');
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmEditorManager.actShowFilterTestExecute(Sender: TObject);
@@ -1799,11 +1786,17 @@ begin
   ShowAboutDialog;
 end;
 
+procedure TdmEditorManager.aclActionsExecute(AAction: TBasicAction;
+  var Handled: Boolean);
+begin
+  //Inc(AAction.Tag);
+end;
+
 procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);
 begin
   { TODO -oTS : Implement as a shortcut which takes default settings from the
   dedicated toolview. }
-  ShowMessage('Not implemented yet');
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmEditorManager.actCloseExecute(Sender: TObject);
@@ -1993,8 +1986,7 @@ var
   N  : Integer;
   FH : TSynCustomFoldHighlighter;
 begin
-  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['PAS'].SynHighlighter);
-  FH.AddSpecialAttribute(''); // not sure why this is needed...
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName[HL_PAS].SynHighlighter);
   for I := Low(EditorOptionsDividerInfoPas) to High(EditorOptionsDividerInfoPas) do
   begin
     FH.DividerDrawConfig[I].MaxDrawDepth :=
@@ -2006,26 +1998,33 @@ begin
     if N >= 0 then
       FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
   end;
-  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['XML'].SynHighlighter);
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName[HL_XML].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoXML) to High(EditorOptionsFoldInfoXML) do
   begin
     N := EditorOptionsFoldInfoXML[I].Index;
     if N >= 0 then
       FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
   end;
-  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['LFM'].SynHighlighter);
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName[HL_LFM].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoLFM) to High(EditorOptionsFoldInfoLFM) do
   begin
     N := EditorOptionsFoldInfoLFM[I].Index;
     if N >= 0 then
       FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
   end;
-  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName['HTML'].SynHighlighter);
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName[HL_HTML].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoHTML) to High(EditorOptionsFoldInfoHTML) do
   begin
     N := EditorOptionsFoldInfoHTML[I].Index;
     if N >= 0 then
       FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
+  end;
+  FH := TSynCustomFoldHighlighter(Highlighters.ItemsByName[HL_DIFF].SynHighlighter);
+  for I := Low(EditorOptionsFoldInfoDiff) to High(EditorOptionsFoldInfoDiff) do
+  begin
+    N := EditorOptionsFoldInfoDiff[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoDiff[I].Enabled;
   end;
 end;
 
@@ -2086,7 +2085,7 @@ begin
     for HI in Highlighters do
     begin
       A := TAction.Create(ActionList);
-      A.Tag := HI.Index;
+      //A.Tag := HI.Index;
       A.ActionList := ActionList;
       A.Caption := HI.Name;
       A.Name := actHighlighter.Name + HI.Name;
@@ -2142,106 +2141,7 @@ begin
 end;
 {$endregion}
 
-{$region 'Registration' /fold}
-procedure TdmEditorManager.RegisterHighlighters;
-var
-  S: string;
-  F: string;
-
-  procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
-    ASynHighlighter: TSynCustomHighlighter; const AName: string;
-    const AFileExtensions: string = ''; const ADescription: string = '';
-    const ALineCommentTag: string = ''; const ABlockCommentStartTag: string = '';
-    const ABlockCommentEndTag: string = ''; ACodeFormatter: ICodeFormatter = nil;
-    const ALayoutFileName: string = '');
-  begin
-    Highlighters.RegisterHighlighter(
-      ASynHighlighterClass,
-      ASynHighlighter,
-      AName,
-      AFileExtensions,
-      ALineCommentTag,
-      ABlockCommentStartTag,
-      ABlockCommentEndTag,
-      ACodeFormatter,
-      ADescription,
-      ALayoutFileName
-    );
-  end;
-
-begin
-  Reg(nil, nil, 'None');
-  Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
-  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
-  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
-  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
-  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
-  Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
-  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
-  Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
-  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
-  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
-  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
-  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
-  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
-  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
-  Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
-  Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
-  Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
-  Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
-  //Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, '#');
-    // apply common highlighter attributes
-
-
-  S := ExtractFilePath(Application.ExeName);
-//  S := '';
-
-  F := S + LAYOUT_LOG;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
-  F := S + LAYOUT_INI;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
-  F := S + LAYOUT_RTF;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
-  F := S + LAYOUT_RES;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
-  F := S + LAYOUT_CS;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
-  F := S + LAYOUT_RUBY;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
-  F := S + LAYOUT_LUA;
-  if FileExistsUTF8(F) then
-    Reg(TSynUniSyn, FSynUni, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
-
-  ApplyHighlighterAttributes;
-end;
-
-procedure TdmEditorManager.RegisterToolViews;
-begin
-  ToolViews.Register(TfrmCodeShaper, 'CodeShaper');
-  ToolViews.Register(TfrmSearchForm, 'Search');
-  ToolViews.Register(TfrmViewList, 'ViewList');
-  ToolViews.Register(TfrmPreview, 'Preview');
-  ToolViews.Register(TfrmActionListView, 'ActionListView');
-  ToolViews.Register(TfrmTest, 'Test');
-  ToolViews.Register(TfrmAlignLines, 'AlignLines');
-  ToolViews.Register(TfrmCodeFilterDialog, 'CodeFilter');
-  ToolViews.Register(TfrmSelectionInfo, 'SelectionInfo');
-  ToolViews.Register(TfrmStructure, 'Structure');
-  ToolViews.Register(TfrmCharacterMap, 'CharacterMap');
-  ToolViews.Register(TfrmHTMLView, 'HTMLView');
-  ToolViews.Register(TfrmHexEditor, 'HexEditor');
-  ToolViews.Register(TfrmMiniMap, 'MiniMap');
-  ToolViews.Register(TfrmScriptEditor, 'ScriptEditor');
-  ToolViews.Register(TfrmFilter, 'Filter');
-  ToolViews.Register(TfrmSortStrings, 'SortStrings');
-end;
-
+{$region 'Build popup menus' /fold}
 procedure TdmEditorManager.BuildClipboardPopupMenu;
 var
   MI: TMenuItem;
@@ -2571,6 +2471,141 @@ begin
   AddMenuItem(MI, actExportToWiki);
 end;
 
+procedure TdmEditorManager.BuildEditorPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := EditorPopupMenu.Items;
+  MI.Clear;
+  AddMenuItem(MI, actCut);
+  AddMenuItem(MI, actCopy);
+  AddMenuItem(MI, actPaste);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actUndo);
+  AddMenuItem(MI, actRedo);
+  AddMenuItem(MI);
+  AddMenuItem(MI, FilePopupMenu);
+  AddMenuItem(MI, SettingsPopupMenu);
+  AddMenuItem(MI, SearchPopupMenu);
+  AddMenuItem(MI, SelectPopupMenu);
+  AddMenuItem(MI, SelectionPopupMenu);
+  AddMenuItem(MI, InsertPopupMenu);
+  AddMenuItem(MI, ClipboardPopupMenu);
+  AddMenuItem(MI, ExportPopupMenu);
+  AddMenuItem(MI, HighlighterPopupMenu);
+  AddMenuItem(MI, FoldPopupMenu);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actFormat);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actClose);
+  AddMenuItem(MI, actCloseOthers);
+  AddMenuItem(MI, actShowHTMLViewer);
+  AddMenuItem(MI, actShowHexEditor);
+end;
+{$endregion}
+
+{$region 'Registration' /fold}
+procedure TdmEditorManager.RegisterHighlighters;
+var
+  S: string;
+  F: string;
+
+  procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
+    ASynHighlighter: TSynCustomHighlighter; const AName: string;
+    const AFileExtensions: string = ''; const ADescription: string = '';
+    const ALineCommentTag: string = ''; const ABlockCommentStartTag: string = '';
+    const ABlockCommentEndTag: string = ''; ACodeFormatter: ICodeFormatter = nil;
+    const ALayoutFileName: string = '');
+  begin
+    Highlighters.RegisterHighlighter(
+      ASynHighlighterClass,
+      ASynHighlighter,
+      AName,
+      AFileExtensions,
+      ALineCommentTag,
+      ABlockCommentStartTag,
+      ABlockCommentEndTag,
+      ACodeFormatter,
+      ADescription,
+      ALayoutFileName
+    );
+  end;
+
+begin
+  Reg(nil, nil, 'None');
+  Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
+  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
+  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
+  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
+  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
+  Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
+  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
+  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
+  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
+  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
+  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
+  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
+  Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
+  Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
+  Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
+  Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
+  //Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, '#');
+    // apply common highlighter attributes
+
+
+  S := ExtractFilePath(Application.ExeName);
+//  S := '';
+
+  F := S + LAYOUT_LOG;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
+  F := S + LAYOUT_INI;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
+  F := S + LAYOUT_RTF;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
+  F := S + LAYOUT_RES;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
+  F := S + LAYOUT_CS;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
+  F := S + LAYOUT_RUBY;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
+  F := S + LAYOUT_LUA;
+  if FileExistsUTF8(F) then
+    Reg(TSynUniSyn, FSynUni, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
+
+  ApplyHighlighterAttributes;
+end;
+
+procedure TdmEditorManager.RegisterToolViews;
+begin
+  ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
+  ToolViews.Register(TfrmCodeFilterDialog, TCodeFilterSettings, 'CodeFilter');
+  ToolViews.Register(TfrmHTMLView, THTMLViewSettings, 'HTMLView');
+  ToolViews.Register(TfrmSortStrings, TSortStringsSettings, 'SortStrings');
+  ToolViews.Register(TfrmMiniMap, TMiniMapSettings, 'MiniMap');
+  ToolViews.Register(TfrmHexEditor, THexEditorSettings, 'HexEditor');
+  ToolViews.Register(TfrmSearchForm, TSearchEngineSettings, 'Search');
+  ToolViews.Register(TfrmCodeShaper, TCodeShaperSettings, 'CodeShaper');
+
+  ToolViews.Register(TfrmViewList, nil, 'ViewList');
+  ToolViews.Register(TfrmPreview, nil, 'Preview');
+  ToolViews.Register(TfrmActionListView, nil, 'ActionListView');
+  ToolViews.Register(TfrmTest, nil,  'Test');
+  ToolViews.Register(TfrmSelectionInfo, nil, 'SelectionInfo');
+  ToolViews.Register(TfrmStructure, nil, 'Structure');
+  ToolViews.Register(TfrmCharacterMap, nil, 'CharacterMap');
+  ToolViews.Register(TfrmScriptEditor, nil, 'ScriptEditor');
+  ToolViews.Register(TfrmFilter, nil, 'Filter');
+
+end;
+
 procedure TdmEditorManager.LoadScriptFiles;
 var
   A : TAction;
@@ -2609,41 +2644,6 @@ begin
       );
     end;
   end;
-end;
-
-procedure TdmEditorManager.BuildEditorPopupMenu;
-var
-  MI : TMenuItem;
-begin
-  MI := EditorPopupMenu.Items;
-  MI.Clear;
-  AddMenuItem(MI, actCut);
-  AddMenuItem(MI, actCopy);
-  AddMenuItem(MI, actPaste);
-  AddMenuItem(MI);
-  AddMenuItem(MI, actUndo);
-  AddMenuItem(MI, actRedo);
-  AddMenuItem(MI);
-  AddMenuItem(MI, FilePopupMenu);
-  AddMenuItem(MI, SettingsPopupMenu);
-  AddMenuItem(MI, SearchPopupMenu);
-  AddMenuItem(MI, SelectPopupMenu);
-  AddMenuItem(MI, SelectionPopupMenu);
-  AddMenuItem(MI, InsertPopupMenu);
-  AddMenuItem(MI, ClipboardPopupMenu);
-  AddMenuItem(MI, ExportPopupMenu);
-  AddMenuItem(MI, HighlighterPopupMenu);
-  AddMenuItem(MI, FoldPopupMenu);
-  //AddMenuItem(MI, EncodingPopupMenu);
-  AddMenuItem(MI);
-  AddMenuItem(MI, actShowCodeFilter);
-  AddMenuItem(MI, actShowCodeShaper);
-  AddMenuItem(MI, actFormat);
-  AddMenuItem(MI);
-  AddMenuItem(MI, actClose);
-  AddMenuItem(MI, actCloseOthers);
-  AddMenuItem(MI, actShowHTMLViewer);
-  AddMenuItem(MI, actShowHexEditor);
 end;
 {$endregion}
 {$endregion}
@@ -2927,8 +2927,9 @@ begin
   if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
     dlgSave.Filter := Settings.Highlighters.FileFilter;
-    if Assigned(ActiveView.Editor.Highlighter) then
-      dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
+    /// TODO
+    //if Assigned(ActiveView.Editor.Highlighter) then
+    //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
     dlgSave.FileName := AFileName;
     if dlgSave.Execute then
     begin
@@ -3198,18 +3199,6 @@ begin
   V := AddView('', AFileName);
   V.Text := AText;
   Result := V;
-end;
-{$endregion}
-
-{$region 'Find' /fold}
-procedure TdmEditorManager.FindPrevious;
-begin
-  SearchEngine.FindPrevious;
-end;
-
-procedure TdmEditorManager.FindNext;
-begin
-  SearchEngine.FindNext;
 end;
 {$endregion}
 {$endregion}

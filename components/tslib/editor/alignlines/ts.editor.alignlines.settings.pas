@@ -38,7 +38,7 @@ type
 
   { TAlignLinesSettings }
 
-  TAlignLinesSettings = class(TPersistent)
+  TAlignLinesSettings = class(TComponent)
   strict private
     FAlignInParagraphs    : Boolean;
     FKeepSpaceAfterToken  : Boolean;
@@ -154,6 +154,9 @@ begin
     inherited Assign(Source);
 end;
 {$endregion}
+
+initialization
+  RegisterClass(TAlignLinesSettings);
 
 end.
 

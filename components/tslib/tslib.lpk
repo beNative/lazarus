@@ -8,7 +8,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="components;core"/>
-        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortlines"/>
+        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortlines;editor\sortstrings"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
@@ -720,16 +720,16 @@
         <UnitName Value="ts_Editor_ViewList_ToolView"/>
       </Item175>
       <Item176>
-        <Filename Value="editor\sortlines\ts.editor.sortlines.settings.pas"/>
-        <UnitName Value="ts.Editor.SortLines.Settings"/>
+        <Filename Value="editor\ts.editor.factories.settings.pas"/>
+        <UnitName Value="ts.editor.factories.settings"/>
       </Item176>
       <Item177>
-        <Filename Value="editor\sortlines\ts_editor_sortlines_toolview.lfm"/>
-        <Type Value="LFM"/>
+        <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
+        <UnitName Value="ts.Editor.SortStrings.Settings"/>
       </Item177>
       <Item178>
-        <Filename Value="editor\sortlines\ts_editor_sortlines_toolview.pas"/>
-        <UnitName Value="ts_Editor_SortLines_ToolView"/>
+        <Filename Value="editor\ts.editor.factories.manager.pas"/>
+        <UnitName Value="ts.Editor.Factories.Manager"/>
       </Item178>
     </Files>
     <Type Value="RunAndDesignTime"/>

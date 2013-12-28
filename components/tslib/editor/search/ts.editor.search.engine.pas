@@ -34,10 +34,10 @@ unit ts.Editor.Search.Engine;
     invoke the search dialog or form to enter search input
 
   Find
-    Execute the searchengine to find matched
+    Execute the searchengine to find matches
 
   Replace
-    replace search matches
+    Replace search matches
 
 }
 
@@ -231,7 +231,7 @@ end;
 
 function TSearchEngine.GetSettings: TSearchEngineSettings;
 begin
-  Result := (Manager as IEditorSettings).SearchEngineSettings;
+  Result := (Manager as IEditorSettings).ToolSettings.ItemsByClass[TSearchEngineSettings] as TSearchEngineSettings;
 end;
 
 procedure TSearchEngine.SetSearchText(AValue: string);

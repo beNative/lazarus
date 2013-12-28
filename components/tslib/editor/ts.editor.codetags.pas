@@ -28,6 +28,9 @@ uses
   ts.Core.Collections;
 
 type
+  TCollectionItem = Classes.TCollectionItem;
+
+type
   TCodeTagItem = class(TCollectionItem)
   strict private
     FEndTag   : string;
@@ -52,14 +55,16 @@ implementation
 {$region 'property access mehods' /fold}
 procedure TCodeTagItem.SetStartTag(AValue: string);
 begin
-  if FStartTag=AValue then Exit;
-  FStartTag:=AValue;
+  if FStartTag = AValue then
+    Exit;
+  FStartTag := AValue;
 end;
 
 procedure TCodeTagItem.SetEndTag(AValue: string);
 begin
-  if FEndTag=AValue then Exit;
-  FEndTag:=AValue;
+  if FEndTag = AValue then
+    Exit;
+  FEndTag := AValue;
 end;
 {$endregion}
 

@@ -174,6 +174,9 @@ resourcestring
   SOneLineWithMatchFound = '1 line with match found.';
   SLinesWithMatchFound   = '%d lines with match found.';
 
+  // IEditorManager
+  SNotImplementedYet     = 'This feature is not implemented yet';
+
 const
   DEFAULT_BLEND_FACTOR = 128;
 
@@ -438,4 +441,4 @@ implementation
 {$R *.lfm}
 
 end.
-
+

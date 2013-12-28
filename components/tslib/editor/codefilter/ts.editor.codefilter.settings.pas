@@ -23,7 +23,7 @@ unit ts.Editor.CodeFilter.Settings;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, ActnList,
 
   ts.Core.FormSettings;
 
@@ -34,7 +34,7 @@ type
 
   { TCodeFilterSettings }
 
-  TCodeFilterSettings = class(TPersistent)
+  TCodeFilterSettings = class(TComponent)
   private
     FFormSettings: TFormSettings;
     procedure SetFormSettings(AValue: TFormSettings);
@@ -101,6 +101,9 @@ begin
     inherited Assign(Source);
 end;
 {$endregion}
+
+initialization
+  RegisterClass(TCodeFilterSettings);
 
 end.
 

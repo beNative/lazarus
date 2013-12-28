@@ -61,7 +61,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Editor.Helpers;
+  ts.Editor.Factories.Manager, ts.Editor.Factories.Views;
 
 { TfrmScriptEditor }
 
@@ -69,9 +69,9 @@ uses
 procedure TfrmScriptEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FScriptEditor := CreateEditorView(pnlLeft, 'ScriptEditor', '', 'PAS');
   // The script editor uses a dedicated editor manager
-  FScriptEditorManager := CreateEditorManager(Self, Manager.Settings);
+  FScriptEditorManager :=
+    TEditorManagerFactory.CreateEditorManager(Self, Manager.Settings);
 end;
 
 procedure TfrmScriptEditor.BeforeDestruction;
@@ -86,7 +86,15 @@ end;
 procedure TfrmScriptEditor.FormShow(Sender: TObject);
 begin
   if not Assigned(FScriptEditor) then
-    FScriptEditor := CreateEditorView(pnlLeft, FScriptEditorManager, 'ScriptEditor', '', 'PAS');
+  begin
+    FScriptEditor := TEditorViewFactory.CreateEditorView(
+      pnlLeft,
+      FScriptEditorManager,
+      'ScriptEditor',
+      '',
+      'PAS'
+    );
+  end;
 
   if FileExists('notepas.dws') then
     FScriptEditor.Load('notepas.dws');

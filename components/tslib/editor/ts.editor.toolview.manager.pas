@@ -22,12 +22,12 @@ unit ts.Editor.ToolView.Manager;
 
 interface
 
-{ TToolViewManager allows for lazy instantiation of toolviews. }
+{ TToolViewManager allows for lazy instantiation of registered toolviews. }
 
 uses
   Classes, SysUtils, Contnrs, Forms,
 
-  ts.Editor.Interfaces;
+  ts.Editor.Interfaces, ts.Editor.Tools.Settings;
 
 type
 
@@ -35,10 +35,11 @@ type
 
   TToolView = class(TInterfacedObject, IEditorToolView)
   strict private
-    FName      : string;
-    FFormClass : TComponentClass;
-    FForm      : TForm;
-    FManager   : IEditorManager;
+    FName          : string;
+    FFormClass     : TComponentClass;
+    FForm          : TForm;
+    FManager       : IEditorManager;
+    FSettingsClass : TComponentClass;
 
   strict protected
     function GetForm: TForm;
@@ -50,9 +51,10 @@ type
 
   public
     constructor Create(
-            AManager   : IEditorManager;
-            AFormClass : TComponentClass;
-      const AName      : string
+            AManager       : IEditorManager;
+            AFormClass     : TComponentClass;
+            ASettingsClass : TComponentClass;
+      const AName          : string
     );
     procedure BeforeDestruction; override;
 
@@ -69,6 +71,9 @@ type
 
     property FormClass: TComponentClass
       read FFormClass write FFormClass;
+
+    property SettingsClass: TComponentClass
+      read FSettingsClass write FSettingsClass;
 
     property Visible: Boolean
       read GetVisible write SetVisible;
@@ -89,8 +94,9 @@ type
     function GetEnumerator: TEditorToolViewListEnumerator;
 
     function Register(
-            AFormClass : TComponentClass;
-      const AName      : string = ''
+            AFormClass     : TComponentClass;
+            ASettingsClass : TComponentClass;
+      const AName          : string = ''
     ): Boolean;
 
     procedure Hide;
@@ -121,12 +127,17 @@ uses
 
 {$region 'construction and destruction' /fold}
 constructor TToolView.Create(AManager: IEditorManager;
-  AFormClass: TComponentClass; const AName: string);
+  AFormClass: TComponentClass; ASettingsClass: TComponentClass;
+  const AName: string);
 begin
   inherited Create;
-  FManager   := AManager;
-  FFormClass := AFormClass;
-  FName      := AName;
+  FManager       := AManager;
+  FFormClass     := AFormClass;
+  FSettingsClass := ASettingsClass;
+  FName          := AName;
+
+  if Assigned(ASettingsClass) then
+    FManager.Settings.ToolSettings.RegisterSettings(ASettingsClass, ASettingsClass.ClassName);
 end;
 
 procedure TToolView.BeforeDestruction;
@@ -246,13 +257,13 @@ end;
 
 {$region 'protected methods' /fold}
 function TToolViews.Register(AFormClass: TComponentClass;
-  const AName: string): Boolean;
+  ASettingsClass: TComponentClass; const AName: string): Boolean;
 var
   S  : string;
   TV : IEditorToolView;
 begin
   S  := IfThen(AName = '', AFormClass.ClassName, AName);
-  TV := TToolView.Create(FManager, AFormClass, S);
+  TV := TToolView.Create(FManager, AFormClass, ASettingsClass, S);
   FItems.Add(TV);
   Result := True;
 end;

@@ -220,7 +220,7 @@ end;
 
 function TfrmCodeShaper.GetSettings: TCodeShaperSettings;
 begin
-  Result :=  inherited Settings.CodeShaperSettings;
+  Result := inherited Settings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
 end;
 {$endregion}
 

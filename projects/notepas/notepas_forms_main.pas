@@ -188,9 +188,10 @@ uses
 
   ts.Core.Utils, ts.Core.Helpers,
 
-  ts.Editor.Settings, ts_Editor_Manager, ts_Editor_AboutDialog,
+  ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Helpers;
+  ts_Editor_Resources, ts.Editor.Helpers, ts.Editor.Factories.Manager,
+  ts.Editor.Factories.Settings;
 
 resourcestring
   SModified = 'Modified';
@@ -203,13 +204,20 @@ var
   S  : string;
 begin
   inherited AfterConstruction;
-  FSettings := TEditorSettings.Create(Self);
+  FSettings := TEditorSettingsFactory.CreateEditorSettings(Self);
   FSettings.FileName := 'settings.xml';
   FSettings.Load;
-  Logger.Send('Settings loaded');
-  Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
+  if FSettings.Highlighters.Count = 0 then
+  begin
+    TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
+  end;
+  if FSettings.ToolSettings.Count = 0 then
+  begin
+    TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
+  end;
   SetDefaultLang(FSettings.LanguageCode);
-  FManager := CreateEditorManager(
+  Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
+  FManager := TEditorManagerFactory.CreateEditorManager(
     Self,
     FSettings
   );

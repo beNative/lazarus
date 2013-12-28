@@ -56,10 +56,12 @@ end;
 function TChildComponent.GetParentComponent: TComponent;
 begin
   Result := FParent;
+  //Result := inherited GetParentComponent;
 end;
 
 function TChildComponent.HasParent: Boolean;
 begin
+  //Result := inherited HasParent;
   Result := Assigned(FParent);
 end;
 

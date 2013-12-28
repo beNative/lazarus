@@ -130,7 +130,7 @@ uses
   ts.Editor.HTMLView.Settings,
   ts.Editor.HexEditor.Settings,
   ts.Editor.CodeFilter.Settings,
-  ts.editor.sortstrings.settings,
+  ts.Editor.SortStrings.Settings,
   ts_Editor_Filter_ToolView,
   ts_Editor_ViewList_ToolView,
   ts.Editor.ActionList.Templates,
@@ -151,10 +151,13 @@ uses
   ts_Editor_SelectionInfo_ToolView,
   ts_Editor_Shortcuts_ToolView,
   ts_Editor_Structure_ToolView,
-  ts_editor_sortstrings_toolview,
+  ts_Editor_SortStrings_ToolView,
   ts_Editor_Test_ToolView,
   ts.Editor.CodeFilter.Data,
-  ts.Editor.ViewList.Data, ts.editor.factories;
+  ts.Editor.ViewList.Data,
+  ts.Editor.Factories.Settings,
+  ts.Editor.Factories.Manager,
+  ts.Editor.Factories.Views;
 
 {$R *.res}
 

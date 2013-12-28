@@ -1,3 +1,18 @@
+2013.12.21 (0.9.31)
+* Toolsettings are now components which allow for more flexible persistence.
+* Fixed persistence of highlighter settings.
+* Using factories for module creation to ease the creation of unit tests.
+* Added unit tests for testing of loading and saving editor settings.
+
+2013.12.19 (0.9.30)
+* Improved editor popup menu.
+* Refactored tool settings.
+* Many optimizations for speed and reduced memory footprint.
+
+2013.12.17 (0.9.29)
+* Fixed error when pasting and AutoGuessHighlighter enabled.
+* Refactored color settings.
+
 2013.12.14 (0.9.28)
 * Fixed focus issue when adding new editor view.
 * Optimized some settings.

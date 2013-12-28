@@ -1,4 +1,4 @@
-msgid "focus to the search entry field.focus to the search entry field."
+msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field."
 msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1706,6 +1706,10 @@ msgstr "语法着色"
 msgid "Main settings"
 msgstr ""
 
+#: tfrmeditorsettings.tstoolsettings.caption
+msgid "Tool settings"
+msgstr ""
+
 #: tfrmeditorsettings.tsxml.caption
 msgid "XML"
 msgstr "XML"
@@ -2689,7 +2693,8 @@ msgstr ""
 msgid "Text to find:"
 msgstr "查找:"
 
-#: tfrmsearchform.image1.hint
+#: tfrmsearchform.imgf2key.hint
+msgctxt "tfrmsearchform.imgf2key.hint"
 msgid "Press the F2 function key to set "
 msgstr ""
 
@@ -2940,40 +2945,24 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.core.generics.collections.sargumentoutofrange
-msgid "Argument out of range"
-msgstr ""
-
-#: ts.core.generics.collections.sdictionarykeydoesnotexist
-msgid "Dictionary key does not exist"
-msgstr ""
-
-#: ts.core.generics.collections.sduplicatesnotallowed
-msgid "Duplicates not allowed in dictionary"
-msgstr ""
-
-#: ts.core.generics.collections.sitemnotfound
-msgid "Item not found"
-msgstr ""
-
-#: ts.core.nativexml.objectstorage.sillegalvartype
-msgctxt "ts.core.nativexml.objectstorage.sillegalvartype"
-msgid "illegal variant type"
+#: ts.core.nativexml.objectstorage.sillegalvarianttype
+msgid "Illegal variant type"
 msgstr ""
 
 #: ts.core.nativexml.objectstorage.sinvalidmethodname
-msgctxt "ts.core.nativexml.objectstorage.sinvalidmethodname"
-msgid "invalid method name"
+msgid "Invalid method name"
 msgstr ""
 
 #: ts.core.nativexml.objectstorage.sinvalidpropertyvalue
-msgctxt "ts.core.nativexml.objectstorage.sinvalidpropertyvalue"
-msgid "invalid property value"
+msgid "Invalid property value (%s)"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sobjectcouldnotbeloaded
+msgid "Object could not be loaded for PropInfo (%s)"
 msgstr ""
 
 #: ts.core.nativexml.objectstorage.sunregisteredclasstype
-msgctxt "ts.core.nativexml.objectstorage.sunregisteredclasstype"
-msgid "unregistered classtype encountered in "
+msgid "Unregistered classtype (%s)"
 msgstr ""
 
 #: ts.core.nativexml.sbeginendmismatch
@@ -4245,6 +4234,10 @@ msgstr ""
 msgid "<new>"
 msgstr ""
 
+#: ts_editor_resources.snotimplementedyet
+msgid "This feature is not implemented yet"
+msgstr ""
+
 #: ts_editor_resources.sonelinewithmatchfound
 msgid "1 line with match found."
 msgstr ""
@@ -4346,6 +4339,10 @@ msgstr ""
 
 #: ts_editor_settingsdialog_old.sattributename
 msgid "Attribute name"
+msgstr ""
+
+#: ts_editor_settingsdialog_old.stoolname
+msgid "Toolname"
 msgstr ""
 
 #: ts_editor_toolview_actionlist.sbutton

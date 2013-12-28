@@ -34,7 +34,6 @@ type
   TTestEditorSettings = class(TTestCase)
   private
     FSettings : IEditorSettings;
-    FSLBackup : TStringList;
 
   protected
     procedure SetUp; override;
@@ -42,6 +41,9 @@ type
 
     procedure LoadSettings;
 
+
+  public
+    procedure AfterConstruction; override;
   published
     procedure TestLoadSettings;
     procedure TestSaveSettings;
@@ -79,11 +81,17 @@ var
   C : TComponent;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSettings');
+    Logger.SendComponent(FSettings.ToolSettings);
+  for C in FSettings.ToolSettings do
+    Logger.SendComponent(C);
 
+  for C in FSettings.Highlighters do
+    Logger.SendComponent(C);
+
+  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
 
   FSettings.Load;
-  TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
-  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
+
 
   Logger.SendComponent(FSettings.ToolSettings);
   for C in FSettings.ToolSettings do
@@ -93,14 +101,16 @@ begin
     Logger.SendComponent(C);
 
 
-
   Logger.ExitMethod('TTestEditorSettings.TestLoadSettings');
+  //FSettings.Save;
 end;
 
 procedure TTestEditorSettings.TestSaveSettings;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestSaveSettings');
   Logger.Send('Settings', FSettings);
+  TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
+  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
   FSettings.Save;
   Logger.ExitMethod('TTestEditorSettings.TestSaveSettings');
 end;
@@ -133,7 +143,9 @@ begin
   FSettings.HighlighterType := SN;
   FSettings.DebugMode := BN;
   FSettings.Save;
-  FSettings.Load;
+
+  //FSettings.Load;
+  LoadSettings;
   CheckEquals(SN, FSettings.HighlighterType);
   CheckEquals(BN, FSettings.DebugMode);
 
@@ -205,6 +217,8 @@ var
   SN : string;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighters');
+  TEditorSettingsFactory.RegisterClasses;
+  LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['PAS'];
 
   if Assigned(HI) then
@@ -212,12 +226,11 @@ begin
     SO := HI.FileExtensions;
     SN := 'test';
     HI.FileExtensions := SN;
-    (HI.SynHighlighter as TSynPasSyn).CompilerMode := pcmObjFPC;
+    if Assigned(HI.SynHighlighter) then
+      (HI.SynHighlighter as TSynPasSyn).CompilerMode := pcmObjFPC;
     FSettings.Save;
 
-    FSettings := nil;
-    FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-    FSettings.Load;
+    LoadSettings;
     HI := FSettings.Highlighters.ItemsByName['PAS'];
     CheckEquals(HI.FileExtensions, SN);
     CheckTrue((HI.SynHighlighter as TSynPasSyn).CompilerMode = pcmObjFPC);
@@ -225,7 +238,8 @@ begin
     // restore original values
     HI.FileExtensions := SO;
     FSettings.Save;
-    FSettings.Load;
+
+    LoadSettings;
     CheckEquals(HI.FileExtensions, SO);
 
     //HI.InitSynHighlighter;
@@ -267,15 +281,11 @@ end;
 procedure TTestEditorSettings.SetUp;
 begin
   FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
-  FSLBackup := TStringList.Create;
-  FSLBackup.LoadFromFile(FSettings.FileName);
 end;
 
 procedure TTestEditorSettings.TearDown;
 begin
-  //FSLBackup.SaveToFile(FSettings.FileName);
   FSettings := nil;
-  FreeAndNil(FSLBackup);
 end;
 
 procedure TTestEditorSettings.LoadSettings;
@@ -283,6 +293,11 @@ begin
   FSettings := nil;
   FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
   FSettings.Load;
+end;
+
+procedure TTestEditorSettings.AfterConstruction;
+begin
+  inherited AfterConstruction;
 end;
 
 initialization

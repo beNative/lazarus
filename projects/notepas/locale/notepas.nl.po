@@ -1986,11 +1986,6 @@ msgstr "Sluit alle andere pagina's"
 msgid "Close toolview"
 msgstr ""
 
-#: tfrmmain.actinspect.caption
-msgctxt "tfrmmain.actinspect.caption"
-msgid "Inspect"
-msgstr "Inspecteer"
-
 #: tfrmmain.btncurrentchar.hint
 msgctxt "tfrmmain.btncurrentchar.hint"
 msgid "Character code of character at cursor position"
@@ -4204,10 +4199,6 @@ msgstr "C#"
 #: ts_editor_resources.scssdescription
 msgid "Cascading Style Sheet"
 msgstr "Cascading Style Sheet"
-
-#: ts_editor_resources.sdebugmenucaption
-msgid "&Debug"
-msgstr "&Debug"
 
 #: ts_editor_resources.sdiffdescription
 msgid "Diff"

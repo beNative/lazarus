@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="28"/>
-      <BuildNr Value="120"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.28" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
+      <RevisionNr Value="29"/>
+      <BuildNr Value="122"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.29" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
@@ -886,10 +886,12 @@ end;"/>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Helpers"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -899,6 +901,7 @@ end;"/>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Utils"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -920,6 +923,7 @@ end;"/>
       <Unit13>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.ExportRTF"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
@@ -936,6 +940,7 @@ end;"/>
       <Unit17>
         <Filename Value="..\..\components\tslib\core\ts.core.collections.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Collections"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.editors.pas"/>
@@ -960,15 +965,16 @@ end;"/>
       <Unit22>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DirectoryWatch"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\components\tslib\core\ts.core.formsettings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.FormSettings"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.GridView"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
@@ -997,6 +1003,7 @@ end;"/>
       <Unit31>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -1106,6 +1113,7 @@ end;"/>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.helpers.pas"/>
@@ -1214,6 +1222,7 @@ end;"/>
       <Unit75>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Events"/>
       </Unit75>
       <Unit76>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -1302,6 +1311,7 @@ end;"/>
       <Unit89>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
       </Unit89>
       <Unit90>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
@@ -1551,7 +1561,6 @@ end;"/>
       <Unit132>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Tools.Settings"/>
       </Unit132>
       <Unit133>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>

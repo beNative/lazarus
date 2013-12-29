@@ -1955,11 +1955,6 @@ msgstr "Sluit alle andere tabbladen"
 msgid "Close toolview"
 msgstr ""
 
-#: tfrmmain.actinspect.caption
-msgctxt "tfrmmain.actinspect.caption"
-msgid "Inspect"
-msgstr "Inspeccionar"
-
 #: tfrmmain.btncurrentchar.hint
 msgctxt "TFRMMAIN.BTNCURRENTCHAR.HINT"
 msgid "Character code of character at cursor position"
@@ -4198,11 +4193,6 @@ msgstr ""
 #: ts_editor_resources.scssdescription
 msgctxt "ts_editor_resources.scssdescription"
 msgid "Cascading Style Sheet"
-msgstr ""
-
-#: ts_editor_resources.sdebugmenucaption
-msgctxt "ts_editor_resources.sdebugmenucaption"
-msgid "&Debug"
 msgstr ""
 
 #: ts_editor_resources.sdiffdescription

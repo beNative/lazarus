@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 0
+  Left = 301
   Height = 618
-  Top = 462
+  Top = 200
   Width = 1066
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -358,6 +358,32 @@ object frmMain: TfrmMain
     Width = 7
     Visible = False
   end
+  object tlbDebug: TToolBar
+    Left = 1034
+    Height = 548
+    Top = 30
+    Width = 32
+    Align = alRight
+    AutoSize = True
+    EdgeInner = esNone
+    EdgeOuter = esNone
+    Indent = 0
+    TabOrder = 4
+    Visible = False
+    Wrapable = False
+  end
+  object tlbSelection: TToolBar
+    Left = 1008
+    Height = 548
+    Top = 30
+    Width = 26
+    Align = alRight
+    AutoSize = True
+    EdgeInner = esNone
+    EdgeOuter = esNone
+    Indent = 0
+    TabOrder = 5
+  end
   object aclMain: TActionList
     Images = imlMain
     left = 72
@@ -369,10 +395,6 @@ object frmMain: TfrmMain
     end
     object actCloseAllOtherPages: TAction
       Caption = 'Close all other pages'
-    end
-    object actInspect: TAction
-      Caption = 'Inspect'
-      ShortCut = 16496
     end
     object actCloseToolview: TAction
       Caption = 'Close toolview'

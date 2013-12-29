@@ -52,7 +52,6 @@ type
     aclMain               : TActionList;
     actAbout              : TAction;
     actCloseAllOtherPages : TAction;
-    actInspect            : TAction;
     actCloseToolview: TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
@@ -81,7 +80,9 @@ type
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
+    tlbSelection: TToolBar;
     tlbMain               : TToolBar;
+    tlbDebug: TToolBar;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -132,8 +133,8 @@ type
     procedure AddDockingMenuItems;
     procedure AddMainMenus;
     procedure AssignEvents;
-    procedure ConfigureAvailableActions;
     procedure UpdateCaptions;
+    procedure UpdateControls;
     procedure UpdateStatusBar;
     procedure UpdateEditorViewCaptions;
 
@@ -304,7 +305,6 @@ begin
     TV.Visible := False;
   Manager.ActiveView.SetFocus;
 end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -410,6 +410,7 @@ procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
 begin
   WindowState := Settings.FormSettings.WindowState;
   FormStyle   := Settings.FormSettings.FormStyle;
+  UpdateControls;
 end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
@@ -529,26 +530,30 @@ end;
 procedure TfrmMain.InitializeControls;
 begin
   mnuMain.Items.Clear;
-  ConfigureAvailableActions;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
+
   AddStandardEditorToolbarButtons(Manager, tlbMain);
+  AddExperimentalEditorToolbarButtons(Manager, tlbDebug);
+  AddSelectionToolbarButtons(Manager, tlbSelection);
   AddMainMenus;
   Settings.FormSettings.AssignTo(Self);
-  if Settings.DebugMode then
-  begin
-    // for debugging
-    // more than 5 results in problems when exception is raised and stackinfo is
-    // not available
-    Logger.MaxStackCount := 5;
-    AddEditorDebugMenu(Manager, mnuMain);
-  end;
-  pnlViewerCount.Visible := Settings.DebugMode;
+  UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
+  //if Settings.DebugMode then
+  //begin
+  //  // for debugging
+  //  // more than 5 results in problems when exception is raised and stackinfo is
+  //  // not available
+  //  Logger.MaxStackCount := 5;
+
+  //end;
+
+
   DoubleBuffered := True;
 end;
 
@@ -599,11 +604,20 @@ begin
   end;
 end;
 
-{ Hide actions that are not (fully) implemented or supported. }
-
-procedure TfrmMain.ConfigureAvailableActions;
+procedure TfrmMain.UpdateCaptions;
+var
+  S : string;
 begin
-  // TODO: maintain a list with Available actions in the manager instance !
+  S := Application.Title;
+  if FileExists(Editor.FileName) then
+    Caption := Format('%s - %s',  [Editor.FileName, S])
+  else
+    Caption := S;
+end;
+
+procedure TfrmMain.UpdateControls;
+begin
+  pnlViewerCount.Visible := Settings.DebugMode;
   InitDebugAction('actMonitorChanges');
   InitDebugAction('actShowActions');
   InitDebugAction('actInspect');
@@ -618,18 +632,7 @@ begin
   InitDebugAction('actShowHexEditor');
   InitDebugAction('actShowMiniMap');
   InitDebugAction('actShowScriptEditor');
-  InitDebugAction('actExecuteScriptOnSelection');
-end;
-
-procedure TfrmMain.UpdateCaptions;
-var
-  S : string;
-begin
-  S := Application.Title;
-  if FileExists(Editor.FileName) then
-    Caption := Format('%s - %s',  [Editor.FileName, S])
-  else
-    Caption := S;
+  //InitDebugAction('actExecuteScriptOnSelection');
 end;
 
 procedure TfrmMain.UpdateStatusBar;
@@ -694,11 +697,12 @@ end;
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
-  if Assigned(Manager)
-    and Assigned(Manager.ActiveView) then
+  if Assigned(Manager) and Assigned(Manager.ActiveView) then
   begin
     UpdateCaptions;
     UpdateStatusBar;
+    tlbSelection.Parent  := Editor.Form;
+    tlbSelection.Visible := Editor.SelAvail;
   end;
 end;
 {$endregion}

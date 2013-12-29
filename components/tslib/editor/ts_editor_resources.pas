@@ -167,7 +167,6 @@ resourcestring
   SSettingsMenuCaption     = '&Settings';
   SHighlightersMenuCaption = '&Highlighters';
   SHelpMenuCaption         = '&Help';
-  SDebugMenuCaption        = '&Debug';
   SApplicationMenuCaption  = '&Application';
 
   // CodeFilterDialog

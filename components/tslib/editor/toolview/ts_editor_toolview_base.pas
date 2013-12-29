@@ -105,7 +105,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLIntf, LMessages;
+  LCLIntf;
 
 {$region 'construction and destruction' /fold}
 procedure TCustomEditorToolView.AfterConstruction;

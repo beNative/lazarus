@@ -66,9 +66,7 @@ uses
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditPointClasses, SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
-  SynEditMarkupBracket, SynEditHighlighterFoldBase, SynEditKeyCmds,
-  SynEditMarkupSpecialLine, SynEditMarkupCtrlMouseLink, SynEditMarks,
-  SynEditMiscClasses,
+  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarks, SynEditMiscClasses,
 
   ts.Core.DirectoryWatch,
 
@@ -581,7 +579,7 @@ implementation
 {$R *.lfm}
 
 uses
-  GraphUtil, Math, TypInfo,
+  GraphUtil, TypInfo,
 
   LConvEncoding, LCLProc,
 

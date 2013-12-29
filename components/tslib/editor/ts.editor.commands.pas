@@ -356,22 +356,22 @@ end;
 
 function TEditorCommands.IsSQL(const AString: string): Boolean;
 begin
-   //
+  Result := False;
 end;
 
 function TEditorCommands.IsLOG(const AString: string): Boolean;
 begin
-//
+  Result := False;
 end;
 
 function TEditorCommands.IsLFM(const AString: string): Boolean;
 begin
-//
+  Result := False;
 end;
 
 function TEditorCommands.IsHTML(const AString: string): Boolean;
 begin
-//
+  Result := False;
 end;
 
 {$endregion}
@@ -394,8 +394,8 @@ var
 begin
   if Assigned(View.HighlighterItem) then
   begin
-    //I := View.HighlighterItem.Index;
-    //N := Manager.Highlighters.Count;
+    I := View.HighlighterItem.Index;
+    N := Manager.Highlighters.Count;
     View.HighlighterItem := Manager.Highlighters[(I + 1) mod N];
     Settings.HighlighterType := View.HighlighterItem.Name;
   end;

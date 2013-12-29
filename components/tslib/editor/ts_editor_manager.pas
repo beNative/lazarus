@@ -797,8 +797,6 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
-
   ts.Editor.Search.Engine,
 
   ts.Editor.Toolview.Manager,
@@ -2603,7 +2601,6 @@ begin
   ToolViews.Register(TfrmCharacterMap, nil, 'CharacterMap');
   ToolViews.Register(TfrmScriptEditor, nil, 'ScriptEditor');
   ToolViews.Register(TfrmFilter, nil, 'Filter');
-
 end;
 
 procedure TdmEditorManager.LoadScriptFiles;

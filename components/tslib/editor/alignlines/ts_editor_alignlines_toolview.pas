@@ -26,7 +26,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Buttons, Grids, ActnList, Contnrs,
+  StdCtrls, ExtCtrls, Buttons, ActnList, Contnrs,
 
   VirtualTrees,
 

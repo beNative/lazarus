@@ -110,7 +110,7 @@ type
     function GetOwner: TPersistent; override;
 
   public
-    constructor Create(AOwner: TPersistent); virtual;
+    constructor Create(AOwner: TPersistent); reintroduce; virtual;
   end;
 
 implementation

@@ -49,7 +49,8 @@ unit ts.Editor.Settings;
     ownership mechanism of TComponent to store sub components.
     Both TToolSettings and THighlighters are components that are used as a
     container to host other components. Every subcomponent that they own will
-    be persisted automatically.
+    be persisted automatically. The property that references the container
+    component does not need to be published.
     All the component types you want to store this way need to be registered
     with the RegisterClass procedure found in the Classes unit.
 }
@@ -103,7 +104,6 @@ type
     FSingleInstance           : Boolean;
     FFileName                 : string;
     FLanguageCode             : string;
-    FFoldLevel                : Integer;
     FHighlighters             : THighLighters;
     FDimInactiveView          : Boolean;
     FFormSettings             : TFormSettings;
@@ -111,7 +111,7 @@ type
     FHighlighterAttributes    : THighlighterAttributes;
 
     FColors                   : TEditorColorSettings;
-    FToolSettings             : TEditorToolSettingsList;
+    FToolSettings             : TEditorToolSettings;
 
     FRightEdge             : Integer;
     FRightEdgeColor        : TColor;
@@ -139,7 +139,6 @@ type
     function GetExtraCharSpacing: Integer;
     function GetExtraLineSpacing: Integer;
     function GetFileName: string;
-    function GetFoldLevel: Integer;
     function GetFormSettings: TFormSettings;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
@@ -151,7 +150,7 @@ type
     function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
     function GetTabWidth: Integer;
-    function GetToolSettings: TEditorToolSettingsList;
+    function GetToolSettings: TEditorToolSettings;
     function GetWantTabs: Boolean;
     function GetXML: string;
     procedure SetAutoFormatXML(const AValue: Boolean);
@@ -178,7 +177,7 @@ type
     procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetTabWidth(AValue: Integer);
-    procedure SetToolSettings(AValue: TEditorToolSettingsList);
+    procedure SetToolSettings(AValue: TEditorToolSettings);
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
@@ -207,7 +206,7 @@ type
     property Highlighters: THighlighters
       read GetHighlighters write SetHighlighters;
 
-    property ToolSettings: TEditorToolSettingsList
+    property ToolSettings: TEditorToolSettings
       read GetToolSettings write SetToolSettings;
 
   published
@@ -314,7 +313,7 @@ begin
   FFormSettings.OnChanged := FFormSettingsChanged;
   FColors := TEditorColorSettings.Create;
 
-  FToolSettings := TEditorToolSettingsList.Create(Self);
+  FToolSettings := TEditorToolSettings.Create(Self);
   //FToolSettings.SetSubComponent(True);
   FToolSettings.Name := 'ToolSettings';
 
@@ -467,6 +466,7 @@ begin
   if AValue <> DebugMode then
   begin
     FDebugMode := AValue;
+    Changed;
   end;
 end;
 
@@ -539,11 +539,6 @@ begin
   end;
 end;
 
-function TEditorSettings.GetFoldLevel: Integer;
-begin
-  Result := FFoldLevel;
-end;
-
 function TEditorSettings.GetFormSettings: TFormSettings;
 begin
   Result := FFormSettings;
@@ -552,6 +547,7 @@ end;
 procedure TEditorSettings.SetFormSettings(const AValue: TFormSettings);
 begin
   FFormSettings.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetHighlighterAttributes: THighlighterAttributes;
@@ -562,6 +558,7 @@ end;
 procedure TEditorSettings.SetHighlighterAttributes(AValue: THighlighterAttributes);
 begin
   FHighlighterAttributes.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetHighlighters: THighlighters;
@@ -595,7 +592,11 @@ end;
 
 procedure TEditorSettings.SetLanguageCode(AValue: string);
 begin
-  FLanguageCode := AValue;
+  if AValue <> LanguageCode then
+  begin
+    FLanguageCode := AValue;
+    Changed;
+  end;
 end;
 
 function TEditorSettings.GetRightEdge: Integer;
@@ -676,12 +677,12 @@ begin
   Result := FTabWidth;
 end;
 
-function TEditorSettings.GetToolSettings: TEditorToolSettingsList;
+function TEditorSettings.GetToolSettings: TEditorToolSettings;
 begin
   Result := FToolSettings;
 end;
 
-procedure TEditorSettings.SetToolSettings(AValue: TEditorToolSettingsList);
+procedure TEditorSettings.SetToolSettings(AValue: TEditorToolSettings);
 begin
   FToolSettings.Assign(AValue);
   Changed;

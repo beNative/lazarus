@@ -623,7 +623,7 @@ type
     function GetSingleInstance: Boolean;
 
     function GetTabWidth: Integer;
-    function GetToolSettings: TEditorToolSettingsList;
+    function GetToolSettings: TEditorToolSettings;
     function GetWantTabs: Boolean;
     function GetXML: string;
 
@@ -656,7 +656,7 @@ type
     procedure SetSingleInstance(AValue: Boolean);
 
     procedure SetTabWidth(AValue: Integer);
-    procedure SetToolSettings(AValue: TEditorToolSettingsList);
+    procedure SetToolSettings(AValue: TEditorToolSettings);
     procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
@@ -670,7 +670,7 @@ type
     property Colors: TEditorColorSettings
       read GetColors write SetColors;
 
-    property ToolSettings:  TEditorToolSettingsList
+    property ToolSettings:  TEditorToolSettings
       read GetToolSettings write SetToolSettings;
 
     property FileName: string

@@ -24,9 +24,9 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls,
+  ExtCtrls,
 
-  ts.Components.GridView, ts.Components.Inspector,
+  ts.Components.GridView,
 
   ts_Editor_ToolView_Base;
 
@@ -49,9 +49,6 @@ type
 implementation
 
 {$R *.lfm}
-
-uses
-  ts_Core_ComponentInspector;
 
 { TfrmTest }
 

@@ -26,11 +26,11 @@ uses
   Classes, SysUtils, Contnrs;
 
 type
-  TEditorToolSettingsList = class;
+  TEditorToolSettings = class;
 
-  { TEditorToolSettingsList }
+  { TEditorToolSettings }
 
-  TEditorToolSettingsList = class(TComponent)
+  TEditorToolSettings = class(TComponent)
   private
     function GetCount: Integer;
     function GetItems(AIndex: Integer): TComponent;
@@ -62,10 +62,10 @@ implementation
 uses
   ts.Core.SharedLogger;
 
-{ TEditorToolSettingsList }
+{ TEditorToolSettings }
 
 {$region 'property access mehods' /fold}
-function TEditorToolSettingsList.GetItemsByClass(
+function TEditorToolSettings.GetItemsByClass(
   AClass: TComponentClass): TComponent;
 var
   I : Integer;
@@ -87,17 +87,17 @@ begin
   end;
 end;
 
-function TEditorToolSettingsList.GetCount: Integer;
+function TEditorToolSettings.GetCount: Integer;
 begin
   Result := ComponentCount;
 end;
 
-function TEditorToolSettingsList.GetItems(AIndex: Integer): TComponent;
+function TEditorToolSettings.GetItems(AIndex: Integer): TComponent;
 begin
   Result := Components[AIndex];
 end;
 
-function TEditorToolSettingsList.GetItemsByName(
+function TEditorToolSettings.GetItemsByName(
   const AName: string): TComponent;
 var
   I : Integer;
@@ -121,7 +121,7 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-function TEditorToolSettingsList.RegisterSettings(
+function TEditorToolSettings.RegisterSettings(
   ASettingsClass: TComponentClass; const AName: string): TComponent;
 var
   ESI : TComponent;
@@ -137,7 +137,7 @@ end;
 {$endregion}
 
 initialization
-  RegisterClass(TEditorToolSettingsList);
+  RegisterClass(TEditorToolSettings);
 
 end.
 

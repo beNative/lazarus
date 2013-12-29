@@ -1688,7 +1688,7 @@ begin
       end;
       if ALast then
       begin
-        while (I2 > I1)  and (S[I2] in AIgnoreChars) do
+        while (I2 > I1) and (S[I2] in AIgnoreChars) do
           Dec(I2);
         Dec(I2);
       end;

@@ -72,8 +72,7 @@ implementation
 uses
   Controls,
 
-  ts.Core.ColumnDefinitions, ts.Core.Utils, ts.Core.Helpers,
-  ts_Core_ComponentInspector,
+  ts.Core.ColumnDefinitions, ts.Core.Helpers,
 
   ts.Editor.ViewList.Data;
 

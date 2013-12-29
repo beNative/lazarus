@@ -58,6 +58,16 @@ procedure AddStandardEditorToolbarButtons(
   AToolBar : TToolbar
 );
 
+procedure AddExperimentalEditorToolbarButtons(
+  AManager : IEditorManager;
+  AToolBar : TToolbar
+);
+
+procedure AddSelectionToolbarButtons(
+  AManager : IEditorManager;
+  AToolBar : TToolbar
+);
+
 procedure AddStandardEditorMenus(
   AManager  : IEditorManager;
   AMainMenu : TMainMenu
@@ -101,10 +111,6 @@ procedure AddEditorHighlightersMenu(
   AMainMenu : TMainMenu
 );
 procedure AddEditorHelpMenu(
-  AManager  : IEditorManager;
-  AMainMenu : TMainMenu
-);
-procedure AddEditorDebugMenu(
   AManager  : IEditorManager;
   AMainMenu : TMainMenu
 );
@@ -238,20 +244,20 @@ begin
   AddButton('');
   AddButton('actSearch');
   AddButton('actSearchReplace');
-  AddButton('');
-  AddButton('actAlignSelection');
-  AddButton('actSortSelection');
+  //AddButton('');
+  //AddButton('actAlignSelection');
+  //AddButton('actSortSelection');
   AddButton('');
   AddDropDownButton('actToggleFoldLevel', Menus.FoldPopupMenu);
   AddButton('');
-  AddButton('actFormat');
-  AddButton('actSyncEdit');
-  AddButton('');
-  AddButton('actQuoteLines');
-  AddButton('actDeQuoteLines');
-  AddButton('actQuoteSelection');
-  AddButton('actDeQuoteSelection');
-  AddButton('');
+  //AddButton('actFormat');
+  //AddButton('actSyncEdit');
+  //AddButton('');
+  //AddButton('actQuoteLines');
+  //AddButton('actDeQuoteLines');
+  //AddButton('actQuoteSelection');
+  //AddButton('actDeQuoteSelection');
+  //AddButton('');
   AddDropDownButton('actToggleHighlighter', Menus.HighlighterPopupMenu);
   AddButton('');
   AddButton('actShowCodeShaper');
@@ -273,6 +279,35 @@ begin
   AddButton('actCreateDesktopLink');
   AddButton('actNewSharedView');
   AddButton('actAbout');
+end;
+
+procedure AddExperimentalEditorToolbarButtons(AManager: IEditorManager;
+  AToolBar: TToolbar);
+var
+  Menus: IEditorMenus;
+
+  procedure AddButton(const AActionName: string);
+  begin
+    AddEditorButton(AManager, AToolBar, AActionName);
+  end;
+
+  procedure AddDropDownButton(const AActionName: string; APopupMenu: TPopupMenu);
+  begin
+    AddEditorDropDownButton(AManager, AToolBar, AActionName, APopupMenu);
+  end;
+
+begin
+  Menus := AManager.Menus;
+  AToolBar.DoubleBuffered := True;
+  AToolBar.Images := AManager.Actions.ActionList.Images;
+  AddButton('actSortSelection');
+  AddButton('actShowPreview');
+  AddButton('actInspect');
+  AddButton('actMonitorChanges');
+  AddButton('actShowViews');
+  AddButton('actSingleInstance');
+  AddButton('actCreateDesktopLink');
+  AddButton('actNewSharedView');
 end;
 
 procedure AddEditorFileMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
@@ -480,6 +515,45 @@ begin
   AddEditorMenuItem(AManager, MI, 'actAbout');
 end;
 
+procedure AddSelectionToolbarButtons(AManager: IEditorManager;
+  AToolBar: TToolbar);
+var
+  Menus: IEditorMenus;
+
+  procedure AddButton(const AActionName: string);
+  begin
+    AddEditorButton(AManager, AToolBar, AActionName);
+  end;
+
+  procedure AddDropDownButton(const AActionName: string; APopupMenu: TPopupMenu);
+  begin
+    AddEditorDropDownButton(AManager, AToolBar, AActionName, APopupMenu);
+  end;
+
+begin
+  Menus := AManager.Menus;
+  AToolBar.DoubleBuffered := True;
+  AToolBar.Images := AManager.Actions.ActionList.Images;
+  AddButton('actAlignSelection');
+  AddButton('actSortSelection');
+  AddButton('actFormat');
+  AddButton('actSyncEdit');
+  AddButton('actQuoteLines');
+  AddButton('actDeQuoteLines');
+  AddButton('actQuoteSelection');
+  AddButton('actQuoteLinesAndDelimit');
+  AddButton('actDeQuoteSelection');
+  AddButton('actLowerCaseSelection');
+  AddButton('actUpperCaseSelection');
+  AddButton('actConvertTabsToSpacesInSelection');
+  AddButton('actStripFirstChar');
+  AddButton('actStripLastChar');
+  AddButton('actStripComments');
+  AddButton('actStripMarkup');
+  AddButton('actMergeBlankLines');
+  AddButton('actToggleBlockCommentSelection');
+end;
+
 procedure AddStandardEditorMenus(AManager: IEditorManager; AMainMenu: TMainMenu
   );
 begin
@@ -493,16 +567,6 @@ begin
   AddEditorSettingsMenu(AManager, AMainMenu);
   AddEditorHighlightersMenu(AManager, AMainMenu);
   AddEditorHelpMenu(AManager, AMainMenu);
-end;
-
-procedure AddEditorDebugMenu(AManager: IEditorManager; AMainMenu: TMainMenu);
-var
-  MI : TMenuItem;
-begin
-  MI := TMenuItem.Create(AMainMenu.Owner);
-  MI.Caption := SDebugMenuCaption;
-  AMainMenu.Items.Add(MI);
-  AddEditorMenuItem(AManager, MI, 'actInspect');
 end;
 
 end.

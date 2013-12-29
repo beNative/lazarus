@@ -58,6 +58,7 @@ type
     // private property access methods
     function GetDefaultFilter: string;
     function GetFileExtensions: string;
+    function GetIndex: Integer;
     function GetSynHighlighter: TSynCustomHighlighter;
     procedure SetDefaultFilter(AValue: string);
     procedure SetFileExtensions(AValue: string);
@@ -86,6 +87,9 @@ type
 
     property SynHighlighter: TSynCustomHighlighter
       read GetSynHighlighter;
+
+    property Index: Integer
+      read GetIndex;
 
   published
     property Highlighter: string
@@ -453,6 +457,11 @@ begin
   Result := FFileExtensions.CommaText;
 end;
 
+function THighlighterItem.GetIndex: Integer;
+begin
+  Result := ComponentIndex;
+end;
+
 function THighlighterItem.GetSynHighlighter: TSynCustomHighlighter;
 begin
   if ComponentCount > 0 then
@@ -531,15 +540,7 @@ procedure THighlighterItem.InitSynHighlighter(ASynHighlighter: TSynCustomHighlig
 begin
   if not Assigned(SynHighlighter) and Assigned(SynHighlighterClass) then
   begin
-    //FSynHighlighter := SynHighlighterClass.Create(Self.Owner);
     FSynHighlighter := SynHighlighterClass.Create(Self);
-    // We need to call SetSubComponent to indicate that this component is a
-    // subcomponent.
-    // A subcomponent is a component whose Owner is a component other than the
-    // form or data module in which it resides. Unless such a component calls
-    // SetSubComponent with IsSubComponent set to True, its published properties
-    // will not be persisted.
-    //FSynHighlighter.SetSubComponent(True);
   end;
   if Assigned(ASynHighlighter) then
     SynHighlighter.Assign(ASynHighlighter);

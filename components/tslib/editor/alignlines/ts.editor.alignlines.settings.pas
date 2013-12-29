@@ -31,13 +31,6 @@ const
   DEFAULT_WIDTH = 360;
 
 type
-  TSortDirection = (
-    sdAscending,
-    sdDescending
-  );
-
-  { TAlignLinesSettings }
-
   TAlignLinesSettings = class(TComponent)
   strict private
     FAlignInParagraphs    : Boolean;

@@ -242,9 +242,9 @@ type
     procedure SendIf(const AText: string; AExpression: Boolean); overload; inline;
     procedure SendIf(const AText: string; AExpression, AIsTrue: Boolean); overload; inline;
     procedure SendWarning(const AText: string); overload; inline;
-    procedure SendWarning(const AText: string; AArgs: array of const); overload; inline;
+    procedure SendWarning(const AText: string; AArgs: array of const); overload;
     procedure SendError(const AText: string); overload; inline;
-    procedure SendError(const AText: string; AArgs: array of const); overload; inline;
+    procedure SendError(const AText: string; AArgs: array of const); overload;
     procedure SendCustomData(const AText: string; AData: Pointer);overload; inline;
     procedure SendCustomData(const AText: string; AData: Pointer; CustomDataFunction: TCustomDataNotify);overload; inline;
     procedure SendCustomData(const AText: string; AData: Pointer;

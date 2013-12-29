@@ -127,10 +127,13 @@ type
     FTSVST   : TVirtualStringTree;
     FXMLTree : TXMLTree;
 
+    procedure SettingsChangedHandler(ASender: TObject);
+
     function GetSettings: IEditorSettings;
     function GetManager: IEditorManager;
 
   protected
+    procedure UpdateControls;
     procedure UpdateData;
 
   public
@@ -262,11 +265,10 @@ begin
   FTSVST              := VST.Create(Self, pnlTSLeft);
   FXMLTree            := CreateXMLTree(Self, pnlXML);
   UpdateData;
-  tsDebug.TabVisible        := Settings.DebugMode;
-  tsXML.TabVisible          := Settings.DebugMode;
-  tsHighlighters.TabVisible := Settings.DebugMode;
-  if Settings.DebugMode then
-    FXMLTree.XML := Settings.XML;
+
+  Settings.AddEditorSettingsChangedHandler(SettingsChangedHandler);
+  UpdateControls;
+
   FHLPI.OnEditorFilter  := FHLPIEditorFilter;
   FPI.OnEditorFilter    := FPIEditorFilter;
   FHAPI.OnEditorFilter  := FPIEditorFilter;
@@ -401,9 +403,24 @@ procedure TfrmEditorSettings.plObjectInspector1AddAvailPersistent(
 begin
   Allowed := True;
 end;
+
+procedure TfrmEditorSettings.SettingsChangedHandler(ASender: TObject);
+begin
+  UpdateControls;
+end;
+
 {$endregion}
 
 {$region 'protected methods' /fold}
+procedure TfrmEditorSettings.UpdateControls;
+begin
+  tsDebug.TabVisible        := Settings.DebugMode;
+  tsXML.TabVisible          := Settings.DebugMode;
+  tsHighlighters.TabVisible := Settings.DebugMode;
+  if Settings.DebugMode then
+    FXMLTree.XML := Settings.XML;
+end;
+
 procedure TfrmEditorSettings.UpdateData;
 var
   I: Integer;

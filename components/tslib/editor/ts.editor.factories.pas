@@ -23,7 +23,7 @@ unit ts.Editor.Factories;
 interface
 
 uses
-  Classes, SysUtils, Controls, Menus,
+  Classes, SysUtils, Controls, Menus, ComCtrls,
 
   ts.Editor.Interfaces;
 
@@ -54,13 +54,28 @@ type
       AActions : IEditorActions;
       AMenus   : IEditorMenus
     ): TMainMenu;
+
+    class function CreateMainToolbar(
+      AOwner  : TComponent;
+      AParent : TWinControl;
+      AActions : IEditorActions;
+      AMenus   : IEditorMenus
+    ): TToolbar;
+
+    class function CreateSelectionToolbar(
+      AOwner   : TComponent;
+      AParent  : TWinControl;
+      AActions : IEditorActions;
+      AMenus   : IEditorMenus
+    ): TToolbar;
   end;
 
 implementation
 
 uses
   ts.Editor.Factories.Settings, ts.Editor.Factories.Manager,
-  ts.Editor.Factories.Views, ts.Editor.Factories.Menus;
+  ts.Editor.Factories.Views, ts.Editor.Factories.Menus,
+  ts.Editor.Factories.Toolbars;
 
 { TEditorFactories }
 
@@ -99,6 +114,26 @@ var
 begin
   EMF := TEditorMenusFactory.Create(AActions, AMenus);
   Result := EMF.CreateMainMenu(AOwner);
+end;
+
+class function TEditorFactories.CreateMainToolbar(AOwner: TComponent;
+  AParent: TWinControl; AActions: IEditorActions;
+  AMenus: IEditorMenus): TToolbar;
+var
+  TBF: IEditorToolbarsFactory;
+begin
+  TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
+  Result := TBF.CreateMainToolbar(AOwner, AParent);
+end;
+
+class function TEditorFactories.CreateSelectionToolbar(AOwner: TComponent;
+  AParent: TWinControl; AActions: IEditorActions;
+  AMenus: IEditorMenus): TToolbar;
+var
+  TBF: IEditorToolbarsFactory;
+begin
+  TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
+  Result := TBF.CreateSelectionToolbar(AOwner, AParent);
 end;
 
 end.

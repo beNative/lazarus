@@ -23,7 +23,7 @@ unit ts.Editor.Interfaces;
 interface
 
 uses
-  Classes, ActnList, Controls, Forms, Menus, Contnrs, Graphics,
+  Classes, ActnList, Controls, Forms, Menus, Contnrs, Graphics, ComCtrls,
 
   LCLType,
 
@@ -1125,6 +1125,20 @@ type
     function CreateMainMenu(
       AOwner: TComponent
     ): TMainMenu;
+  end;
+
+  IEditorToolbarsFactory = interface
+  ['{0E1F34F3-E5AF-4A59-8B13-0F9B4D11D69D}']
+    function CreateMainToolbar(
+        AOwner  : TComponent;
+        AParent : TWinControl
+    ): TToolbar;
+
+    function CreateSelectionToolbar(
+        AOwner  : TComponent;
+        AParent : TWinControl
+    ): TToolbar;
+
   end;
 
 implementation

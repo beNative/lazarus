@@ -85,8 +85,6 @@ begin
     if B then
       Result := Components[I];
   end;
-  if not Assigned(Result) then
-    raise Exception.CreateFmt('No settings found of %s', [AClass.ClassName]);
 end;
 
 function TEditorToolSettings.GetCount: Integer;
@@ -142,4 +140,4 @@ initialization
   RegisterClass(TEditorToolSettings);
 
 end.
-
+

@@ -251,11 +251,11 @@ var
 begin
   RegisterClasses;
   ES := TEditorSettings.Create(AOwner);
-  //RegisterToolSettings(ES.ToolSettings);
-  //RegisterHighlighters(ES.Highlighters);
+  RegisterToolSettings(ES.ToolSettings);
+  RegisterHighlighters(ES.Highlighters);
   Result := ES;
 end;
 {$endregion}
 
 end.
-
+

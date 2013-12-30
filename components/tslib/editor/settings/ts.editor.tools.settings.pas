@@ -85,6 +85,8 @@ begin
     if B then
       Result := Components[I];
   end;
+  if not Assigned(Result) then
+    raise Exception.CreateFmt('No settings found of %s', [AClass.ClassName]);
 end;
 
 function TEditorToolSettings.GetCount: Integer;
@@ -115,7 +117,7 @@ begin
         Inc(I);
     end;
     if B then
-      Result := Components[I]
+      Result := Components[I];
   end;
 end;
 {$endregion}

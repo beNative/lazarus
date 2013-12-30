@@ -88,6 +88,7 @@ end;
 
 {$endregion}
 
+{$region 'private methods' /fold}
 function TEditorMenusFactory.CreateMenuItem(AParent: TMenuItem;
   AAction: TBasicAction): TMenuItem;
 var
@@ -138,7 +139,9 @@ begin
   else
     raise Exception.CreateFmt('Action <%s> not found!', [AActionName]);
 end;
+{$endregion}
 
+{$region 'public methods' /fold}
 function TEditorMenusFactory.CreateFileMenu(AMenu: TMenu): TMenuItem;
 var
   M   : TMenuItem;
@@ -171,6 +174,7 @@ begin
   CreateMenuItem(MI, 'actClose');
   CreateMenuItem(MI, 'actCloseOthers');
   CreateMenuItem(MI, 'actExit');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateEditMenu(AMenu: TMenu): TMenuItem;
@@ -191,6 +195,7 @@ begin
   CreateMenuItem(MI, 'actCopyFileName');
   CreateMenuItem(MI, 'actCopyFilePath');
   CreateMenuItem(MI, 'actCopyFullPath');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateSelectionMenu(AMenu: TMenu): TMenuItem;
@@ -232,6 +237,7 @@ begin
   SMI := CreateMenuItem(MI, 'actSelectionDecodeMenu');
   CreateMenuItem(SMI, 'actDecodeBase64');
   CreateMenuItem(SMI, 'actDecodeURL');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateInsertMenu(AMenu: TMenu): TMenuItem;
@@ -243,6 +249,7 @@ begin
   AMenu.Items.Add(MI);
   CreateMenuItem(MI, 'actInsertColorValue');
   CreateMenuItem(MI, 'actInsertGUID');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateSearchMenu(AMenu: TMenu): TMenuItem;
@@ -261,6 +268,7 @@ begin
   CreateMenuItem(MI);
   CreateMenuItem(MI, 'actFindNextWord');
   CreateMenuItem(MI, 'actFindPrevWord');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateToolsMenu(AMenu: TMenu): TMenuItem;
@@ -280,6 +288,7 @@ begin
   CreateMenuItem(MI);
   CreateMenuItem(MI, 'actCreateDesktopLink');
   CreateMenuItem(MI, 'actMonitorChanges');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateViewsMenu(AMenu: TMenu): TMenuItem;
@@ -297,6 +306,7 @@ begin
   CreateMenuItem(MI, 'actShowStructureViewer');
   CreateMenuItem(MI, 'actShowHexEditor');
   CreateMenuItem(MI, 'actShowScriptEditor');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateSettingsMenu(AMenu: TMenu): TMenuItem;
@@ -316,6 +326,7 @@ begin
   CreateMenuItem(MI, 'actToggleMaximized');
   CreateMenuItem(MI);
   CreateMenuItem(MI, 'actSingleInstance');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateHighlightersMenu(AMenu: TMenu): TMenuItem;
@@ -330,6 +341,7 @@ begin
   begin
     CreateMenuItem(MI, M.Action.Name);
   end;
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateHelpMenu(AMenu: TMenu): TMenuItem;
@@ -340,6 +352,7 @@ begin
   MI.Caption := SHelpMenuCaption;
   AMenu.Items.Add(MI);
   CreateMenuItem(MI, 'actAbout');
+  Result := MI;
 end;
 
 function TEditorMenusFactory.CreateMainMenu(AOwner: TComponent): TMainMenu;
@@ -359,6 +372,7 @@ begin
   CreateHelpMenu(MM);
   Result := MM;
 end;
+{$endregion}
 
 end.
 

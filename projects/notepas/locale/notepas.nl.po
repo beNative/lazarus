@@ -2057,11 +2057,6 @@ msgstr "Grootte"
 msgid "Total count of editor viewer instances."
 msgstr ""
 
-#: tfrmmain.tlbmain.caption
-msgctxt "tfrmmain.tlbmain.caption"
-msgid "tlbMain"
-msgstr "tlbMain"
-
 #: tfrmminimap.caption
 msgid "Minimap"
 msgstr "Bestandskaartweergave"

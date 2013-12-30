@@ -6,36 +6,21 @@ object frmMain: TfrmMain
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 598
+  ClientHeight = 618
   ClientWidth = 1066
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
-  Menu = mnuMain
   OnCloseQuery = FormCloseQuery
   OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
   LCLVersion = '1.3'
-  object tlbMain: TToolBar
-    Left = 2
-    Height = 26
-    Top = 2
-    Width = 1062
-    AutoSize = True
-    BorderSpacing.Around = 2
-    Caption = 'tlbMain'
-    EdgeBorders = [ebLeft, ebTop, ebRight, ebBottom]
-    EdgeInner = esNone
-    EdgeOuter = esNone
-    TabOrder = 0
-    Transparent = True
-  end
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 580
+    Top = 600
     Width = 1066
     Align = alBottom
     BorderSpacing.Top = 2
@@ -44,7 +29,7 @@ object frmMain: TfrmMain
     ClientWidth = 1066
     Color = clForm
     ParentColor = False
-    TabOrder = 1
+    TabOrder = 0
     object pnlPosition: TPanel
       Left = 154
       Height = 18
@@ -270,16 +255,16 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 548
-    Top = 30
+    Height = 598
+    Top = 0
     Width = 428
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 548
+    ClientHeight = 598
     ClientWidth = 428
     Color = clForm
     ParentColor = False
-    TabOrder = 2
+    TabOrder = 1
     Visible = False
     object pnlTop: TPanel
       Left = 0
@@ -343,7 +328,7 @@ object frmMain: TfrmMain
     end
     object pnlToolClient: TPanel
       Left = 0
-      Height = 530
+      Height = 580
       Top = 18
       Width = 428
       Align = alClient
@@ -353,36 +338,24 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 428
-    Height = 548
-    Top = 30
+    Height = 598
+    Top = 0
     Width = 7
     Visible = False
   end
   object tlbDebug: TToolBar
     Left = 1034
-    Height = 548
-    Top = 30
+    Height = 598
+    Top = 0
     Width = 32
     Align = alRight
     AutoSize = True
     EdgeInner = esNone
     EdgeOuter = esNone
     Indent = 0
-    TabOrder = 4
+    TabOrder = 3
     Visible = False
     Wrapable = False
-  end
-  object tlbSelection: TToolBar
-    Left = 1008
-    Height = 548
-    Top = 30
-    Width = 26
-    Align = alRight
-    AutoSize = True
-    EdgeInner = esNone
-    EdgeOuter = esNone
-    Indent = 0
-    TabOrder = 5
   end
   object aclMain: TActionList
     Images = imlMain
@@ -568,11 +541,5 @@ object frmMain: TfrmMain
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
-  end
-  object mnuMain: TMainMenu
-    left = 120
-    top = 96
-    object MenuItem1: TMenuItem
-    end
   end
 end

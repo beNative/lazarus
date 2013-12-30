@@ -157,7 +157,9 @@ uses
   ts.Editor.ViewList.Data,
   ts.Editor.Factories.Settings,
   ts.Editor.Factories.Manager,
-  ts.Editor.Factories.Views;
+  ts.Editor.Factories.Views,
+  ts.Editor.Factories.Menus,
+  ts.Editor.Factories, ts.editor.factories.toolbars;
 
 {$R *.res}
 

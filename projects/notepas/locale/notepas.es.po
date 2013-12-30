@@ -2027,11 +2027,6 @@ msgstr ""
 msgid "Total count of editor viewer instances."
 msgstr "Recuento total de instancias de vistas del editor."
 
-#: tfrmmain.tlbmain.caption
-msgctxt "tfrmmain.tlbmain.caption"
-msgid "tlbMain"
-msgstr ""
-
 #: tfrmminimap.caption
 msgid "Minimap"
 msgstr ""

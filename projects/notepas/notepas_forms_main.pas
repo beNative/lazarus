@@ -61,8 +61,6 @@ type
     btnCurrentChar        : TSpeedButton;
     imlMain               : TImageList;
     lblHeader             : TLabel;
-    MenuItem1             : TMenuItem;
-    mnuMain               : TMainMenu;
     pnlToolClient         : TPanel;
     pnlSelectionMode      : TPanel;
     pnlCurrentChar        : TPanel;
@@ -80,8 +78,6 @@ type
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
-    tlbSelection: TToolBar;
-    tlbMain               : TToolBar;
     tlbDebug: TToolBar;
     {$endregion}
 
@@ -105,6 +101,9 @@ type
   private
     FSettings : IEditorSettings;
     FManager  : IEditorManager;
+
+    FMainToolbar      : TToolbar;
+    FSelectionToolbar : TToolbar;
 
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -131,7 +130,6 @@ type
 
   protected
     procedure AddDockingMenuItems;
-    procedure AddMainMenus;
     procedure AssignEvents;
     procedure UpdateCaptions;
     procedure UpdateControls;
@@ -183,7 +181,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, FileUtil, TypInfo,
+  StrUtils, FileUtil, TypInfo, ToolWin,
 
   SynEditTypes,
 
@@ -191,8 +189,7 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Helpers, ts.Editor.Factories.Manager,
-  ts.Editor.Factories.Settings;
+  ts_Editor_Resources, ts.Editor.Helpers, ts.Editor.Factories;
 
 resourcestring
   SModified = 'Modified';
@@ -205,20 +202,20 @@ var
   S  : string;
 begin
   inherited AfterConstruction;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Self);
+  FSettings := TEditorFactories.CreateSettings(Self);
   FSettings.FileName := 'settings.xml';
   FSettings.Load;
   if FSettings.Highlighters.Count = 0 then
   begin
-    TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
+    //TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
   end;
   if FSettings.ToolSettings.Count = 0 then
   begin
-    TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
+    //TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
   end;
   SetDefaultLang(FSettings.LanguageCode);
   Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
-  FManager := TEditorManagerFactory.CreateEditorManager(
+  FManager := TEditorFactories.CreateManager(
     Self,
     FSettings
   );
@@ -241,6 +238,7 @@ begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
   Manager.ActiveView := V;
+  TEditorFactories.CreateMainMenu(Self, Actions, Menus);
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -529,14 +527,30 @@ end;
 
 procedure TfrmMain.InitializeControls;
 begin
-  mnuMain.Items.Clear;
+  //mnuMain.Items.Clear;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
 
-  AddStandardEditorToolbarButtons(Manager, tlbMain);
-  AddExperimentalEditorToolbarButtons(Manager, tlbDebug);
-  AddSelectionToolbarButtons(Manager, tlbSelection);
-  AddMainMenus;
+  FMainToolbar :=
+    TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
+  FMainToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
+  FMainToolbar.EdgeInner := esNone;
+  FMainToolbar.EdgeOuter := esNone;
+  FMainToolbar.ShowHint := True;
+  FMainToolbar.Transparent := True;
+  FMainToolbar.AutoSize := True;
+  FMainToolbar.DoubleBuffered := True;
+  FSelectionToolbar :=
+    TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
+  FSelectionToolbar.Align := alRight;
+  FSelectionToolbar.Visible := False;
+  FSelectionToolbar.Transparent := True;
+  FSelectionToolbar.AutoSize := True;
+  FSelectionToolbar.DoubleBuffered := True;
+
+  //AddStandardEditorToolbarButtons(Manager, tlbMain);
+  //AddExperimentalEditorToolbarButtons(Manager, tlbDebug);
+  //AddSelectionToolbarButtons(Manager, tlbSelection);
   Settings.FormSettings.AssignTo(Self);
   UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
@@ -574,21 +588,6 @@ begin
   MI := TMenuItem.Create(PPM);
   MI.Action := Actions['actCloseOthers'];
   PPM.Items.Add(MI);
-end;
-
-procedure TfrmMain.AddMainMenus;
-begin
-  mnuMain.Images := Manager.Actions.ActionList.Images;
-  AddEditorFileMenu(Manager, mnuMain);
-  AddEditorEditMenu(Manager, mnuMain);
-  AddEditorSelectionMenu(Manager, mnuMain);
-  AddEditorInsertMenu(Manager, mnuMain);
-  AddEditorSearchMenu(Manager, mnuMain);
-  AddEditorViewMenu(Manager, mnuMain);
-  AddEditorToolsMenu(Manager, mnuMain);
-  AddEditorSettingsMenu(Manager, mnuMain);
-  AddEditorHighlightersMenu(Manager, mnuMain);
-  AddEditorHelpMenu(Manager, mnuMain);
 end;
 
 procedure TfrmMain.AssignEvents;
@@ -701,8 +700,8 @@ begin
   begin
     UpdateCaptions;
     UpdateStatusBar;
-    tlbSelection.Parent  := Editor.Form;
-    tlbSelection.Visible := Editor.SelAvail;
+    FSelectionToolbar.Parent  := Editor.Form;
+    FSelectionToolbar.Visible := Editor.SelAvail;
   end;
 end;
 {$endregion}

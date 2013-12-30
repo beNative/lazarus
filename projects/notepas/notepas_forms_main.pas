@@ -41,6 +41,9 @@ uses
   KNOWN PROBLEMS
     - Close all but current tab does not work in all cases
     - saving loading in different encodings
+
+  TODO
+    - status bar factory for editor
 }
 
 type
@@ -104,6 +107,7 @@ type
 
     FMainToolbar      : TToolbar;
     FSelectionToolbar : TToolbar;
+    FMainMenu         : TMainMenu;
 
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -220,6 +224,13 @@ begin
     FSettings
   );
   FManager.PersistSettings := True;
+
+  FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
+  FMainToolbar :=
+    TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
+  FSelectionToolbar :=
+    TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
+
   InitializeControls;
   InitializeEvents;
   if ParamCount > 0 then
@@ -238,7 +249,6 @@ begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
   Manager.ActiveView := V;
-  TEditorFactories.CreateMainMenu(Self, Actions, Menus);
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -527,12 +537,9 @@ end;
 
 procedure TfrmMain.InitializeControls;
 begin
-  //mnuMain.Items.Clear;
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
 
-  FMainToolbar :=
-    TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
   FMainToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
   FMainToolbar.EdgeInner := esNone;
   FMainToolbar.EdgeOuter := esNone;
@@ -540,17 +547,13 @@ begin
   FMainToolbar.Transparent := True;
   FMainToolbar.AutoSize := True;
   FMainToolbar.DoubleBuffered := True;
-  FSelectionToolbar :=
-    TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
+
   FSelectionToolbar.Align := alRight;
   FSelectionToolbar.Visible := False;
   FSelectionToolbar.Transparent := True;
   FSelectionToolbar.AutoSize := True;
   FSelectionToolbar.DoubleBuffered := True;
 
-  //AddStandardEditorToolbarButtons(Manager, tlbMain);
-  //AddExperimentalEditorToolbarButtons(Manager, tlbDebug);
-  //AddSelectionToolbarButtons(Manager, tlbSelection);
   Settings.FormSettings.AssignTo(Self);
   UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
@@ -558,16 +561,6 @@ begin
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
-  //if Settings.DebugMode then
-  //begin
-  //  // for debugging
-  //  // more than 5 results in problems when exception is raised and stackinfo is
-  //  // not available
-  //  Logger.MaxStackCount := 5;
-
-  //end;
-
-
   DoubleBuffered := True;
 end;
 

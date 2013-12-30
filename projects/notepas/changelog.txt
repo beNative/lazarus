@@ -1,3 +1,6 @@
+2013.12.30 (0.9.32)
+* Added new feature: selection toolbar
+
 2013.12.21 (0.9.31)
 * Toolsettings are now components which allow for more flexible persistence.
 * Fixed persistence of highlighter settings.

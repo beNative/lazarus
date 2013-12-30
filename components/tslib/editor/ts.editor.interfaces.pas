@@ -1086,6 +1086,47 @@ type
       read GetCurrent;
   end;
 
+  { IEditorManagerFactory }
+
+  IEditorManagerFactory = interface
+  ['{BE85A08D-936E-4F76-BBE1-A1999DE882B9}']
+    function CreateInstance(
+            AOwner            : TComponent = nil;
+            APersistSettings  : Boolean = False;
+      const ASettingsFileName : string = ''
+    ): IEditorManager; overload;
+
+    function CreateInstance(
+      AOwner    : TComponent;
+      ASettings : IEditorSettings
+    ): IEditorManager; overload;
+  end;
+
+  IEditorViewFactory = interface
+  ['{CAEF28D5-0E70-4D4E-AEC7-07BD6E743945}']
+    function CreateInstance(
+             AParent       : TWinControl;
+             AManager      : IEditorManager;
+       const AName         : string = '';
+       const AFileName     : string = '';
+       const AHighlighter  : string = 'TXT'
+    ): IEditorView;
+  end;
+
+  IEditorSettingsFactory = interface
+  ['{6479785C-A7C0-40D9-9036-D39BEE780CA2}']
+    function CreateInstance(
+      AOwner : TComponent = nil
+    ): IEditorSettings;
+  end;
+
+  IEditorMenusFactory = interface
+  ['{99676D13-D72A-4C2F-B96B-84FC290DDE12}']
+    function CreateMainMenu(
+      AOwner: TComponent
+    ): TMainMenu;
+  end;
+
 implementation
 
 {$region 'TEditorViewListEnumerator' /fold}

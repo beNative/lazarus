@@ -61,7 +61,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Editor.Factories.Manager, ts.Editor.Factories.Views;
+  ts.Editor.Factories;
 
 { TfrmScriptEditor }
 
@@ -71,7 +71,7 @@ begin
   inherited AfterConstruction;
   // The script editor uses a dedicated editor manager
   FScriptEditorManager :=
-    TEditorManagerFactory.CreateEditorManager(Self, Manager.Settings);
+    TEditorFactories.CreateManager(Self, Manager.Settings);
 end;
 
 procedure TfrmScriptEditor.BeforeDestruction;
@@ -87,7 +87,7 @@ procedure TfrmScriptEditor.FormShow(Sender: TObject);
 begin
   if not Assigned(FScriptEditor) then
   begin
-    FScriptEditor := TEditorViewFactory.CreateEditorView(
+    FScriptEditor := TEditorFactories.CreateView(
       pnlLeft,
       FScriptEditorManager,
       'ScriptEditor',

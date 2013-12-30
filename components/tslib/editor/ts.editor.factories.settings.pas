@@ -33,14 +33,14 @@ type
 
   { TEditorSettingsFactory }
 
-  TEditorSettingsFactory = class
+  TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
-    class procedure RegisterToolSettings(ASettings: TEditorToolSettings);
-    class procedure RegisterHighlighters(AHighlighters: THighlighters);
-    class procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
-    class procedure RegisterClasses;
+    procedure RegisterToolSettings(ASettings: TEditorToolSettings);
+    procedure RegisterHighlighters(AHighlighters: THighlighters);
+    procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
+    procedure RegisterClasses;
 
-    class function CreateEditorSettings(
+    function CreateInstance(
       AOwner : TComponent = nil
     ): IEditorSettings;
   end;
@@ -77,7 +77,7 @@ uses
 { TEditorSettingsFactory }
 
 {$region 'private methods' /fold}
-class procedure TEditorSettingsFactory.RegisterToolSettings(
+procedure TEditorSettingsFactory.RegisterToolSettings(
   ASettings: TEditorToolSettings);
 begin
   ASettings.RegisterSettings(TAlignLinesSettings, 'AlignLinesSettings');
@@ -90,7 +90,7 @@ begin
   ASettings.RegisterSettings(TCodeShaperSettings, 'CodeShaperSettings');
 end;
 
-class procedure TEditorSettingsFactory.RegisterHighlighters(
+procedure TEditorSettingsFactory.RegisterHighlighters(
   AHighlighters: THighlighters);
 var
   S: string;
@@ -167,7 +167,7 @@ begin
   //  Reg(TSynUniSyn, FSynUni, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
 end;
 
-class procedure TEditorSettingsFactory.InitializeFoldHighlighters(
+procedure TEditorSettingsFactory.InitializeFoldHighlighters(
   AHighlighters: THighlighters);
 var
   I  : Integer;
@@ -216,7 +216,7 @@ begin
   end;
 end;
 
-class procedure TEditorSettingsFactory.RegisterClasses;
+procedure TEditorSettingsFactory.RegisterClasses;
 begin
   Classes.RegisterClasses([
     TSynPasSyn,
@@ -244,7 +244,7 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-class function TEditorSettingsFactory.CreateEditorSettings(
+function TEditorSettingsFactory.CreateInstance(
   AOwner: TComponent): IEditorSettings;
 var
   ES : IEditorSettings;

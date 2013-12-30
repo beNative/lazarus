@@ -30,13 +30,13 @@ uses
 type
 { TEditorViewFactory }
 
-  TEditorViewFactory = class
-    class function CreateEditorView(
-             AParent       : TWinControl;
-             AManager      : IEditorManager;
-       const AName         : string = '';
-       const AFileName     : string = '';
-       const AHighlighter  : string = 'TXT'
+  TEditorViewFactory = class(TInterfacedObject, IEditorViewFactory)
+    function CreateInstance(
+             AParent      : TWinControl;
+             AManager     : IEditorManager;
+       const AName        : string = '';
+       const AFileName    : string = '';
+       const AHighlighter : string = 'TXT'
     ): IEditorView;
   end;
 
@@ -44,7 +44,7 @@ implementation
 
 { TEditorViewFactory }
 
-class function TEditorViewFactory.CreateEditorView(AParent: TWinControl;
+function TEditorViewFactory.CreateInstance(AParent: TWinControl;
   AManager: IEditorManager; const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
 var

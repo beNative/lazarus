@@ -30,19 +30,18 @@ uses
 type
 { TEditorManagerFactory }
 
-  TEditorManagerFactory = class
-    class function CreateEditorManager(
+  TEditorManagerFactory = class(TInterfacedObject, IEditorManagerFactory)
+    function CreateInstance(
             AOwner            : TComponent = nil;
             APersistSettings  : Boolean = False;
       const ASettingsFileName : string = ''
     ): IEditorManager; overload;
 
 
-    class function CreateEditorManager(
+    function CreateInstance(
       AOwner    : TComponent;
       ASettings : IEditorSettings
     ): IEditorManager; overload;
-
   end;
 
 implementation
@@ -54,7 +53,7 @@ uses
 
 { TEditorManagerFactory }
 
-class function TEditorManagerFactory.CreateEditorManager(AOwner: TComponent;
+function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
   APersistSettings: Boolean; const ASettingsFileName: string): IEditorManager;
 var
   O : TComponent;
@@ -76,7 +75,7 @@ begin
   end;
 end;
 
-class function TEditorManagerFactory.CreateEditorManager(AOwner: TComponent;
+function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
   ASettings: IEditorSettings): IEditorManager;
 begin
   Result := TdmEditorManager.Create(AOwner, ASettings);

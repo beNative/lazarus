@@ -193,7 +193,7 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Helpers, ts.Editor.Factories;
+  ts_Editor_Resources, ts.Editor.Factories;
 
 resourcestring
   SModified = 'Modified';
@@ -699,4 +699,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

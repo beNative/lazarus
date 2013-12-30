@@ -98,7 +98,6 @@ uses
   ts.Editor.CodeTags,
   ts.Editor.Commands,
   ts.Editor.CommentStripper,
-  ts.Editor.Helpers,
   ts.Editor.HighlighterAttributes,
   ts.Editor.Highlighters,
   ts.Editor.Interfaces,
@@ -173,4 +172,4 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
+

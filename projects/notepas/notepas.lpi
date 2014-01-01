@@ -6,7 +6,7 @@
     <General>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="Notepas"/>
+      <Title Value="notepas"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="32"/>
-      <BuildNr Value="127"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2013 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.32" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
+      <RevisionNr Value="33"/>
+      <BuildNr Value="130"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.33" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
       <Item1 Name="Default" Default="True"/>
@@ -1319,6 +1319,7 @@ end;"/>
       <Unit92>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ActionList.Templates"/>
       </Unit92>
       <Unit93>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
@@ -1364,6 +1365,7 @@ end;"/>
       <Unit99>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
       </Unit99>
       <Unit100>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
@@ -1406,6 +1408,7 @@ end;"/>
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.MiniMap.Settings"/>
       </Unit106>
       <Unit107>
         <Filename Value="..\..\components\tslib\editor\minimap\ts_editor_minimap_toolview.pas"/>
@@ -1519,7 +1522,6 @@ end;"/>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Types"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
@@ -1657,4 +1659,4 @@ end;"/>
       </Item10>
     </Exceptions>
   </Debugging>
-</CONFIG>
+</CONFIG>

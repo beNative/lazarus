@@ -82,6 +82,13 @@ type
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
     tlbDebug: TToolBar;
+    ToolBar1: TToolBar;
+    ToolBar2: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -107,6 +114,7 @@ type
 
     FMainToolbar      : TToolbar;
     FSelectionToolbar : TToolbar;
+    FToggleToolbar    : TToolbar;
     FMainMenu         : TMainMenu;
 
     {$region 'property access methods' /fold}
@@ -230,6 +238,8 @@ begin
     TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
   FSelectionToolbar :=
     TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
+  FToggleToolbar :=
+    TEditorFactories.CreateToggleToolbar(Self, FMainToolbar, Actions, Menus);
 
   InitializeControls;
   InitializeEvents;
@@ -540,6 +550,8 @@ begin
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
 
+
+
   FMainToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
   FMainToolbar.EdgeInner := esNone;
   FMainToolbar.EdgeOuter := esNone;
@@ -547,6 +559,18 @@ begin
   FMainToolbar.Transparent := True;
   FMainToolbar.AutoSize := True;
   FMainToolbar.DoubleBuffered := True;
+
+  //FToggleToolbar.Anchors :=  [akTop, akRight];
+  FToggleToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
+  FToggleToolbar.EdgeInner := esNone;
+  FToggleToolbar.EdgeOuter := esNone;
+  FToggleToolbar.ShowHint := True;
+  FToggleToolbar.Align := alRight;
+  FToggleToolbar.AutoSize := False;
+  FToggleToolbar.Width := 75;
+  FToggleToolbar.Transparent := True;
+
+
 
   FSelectionToolbar.Align := alRight;
   FSelectionToolbar.Visible := False;
@@ -699,4 +723,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

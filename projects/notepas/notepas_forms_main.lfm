@@ -343,20 +343,6 @@ object frmMain: TfrmMain
     Width = 7
     Visible = False
   end
-  object tlbDebug: TToolBar
-    Left = 1034
-    Height = 598
-    Top = 0
-    Width = 32
-    Align = alRight
-    AutoSize = True
-    EdgeInner = esNone
-    EdgeOuter = esNone
-    Indent = 0
-    TabOrder = 3
-    Visible = False
-    Wrapable = False
-  end
   object aclMain: TActionList
     Images = imlMain
     left = 72
@@ -542,4 +528,4 @@ object frmMain: TfrmMain
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-end
+end

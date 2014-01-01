@@ -1,9 +1,10 @@
 object EditorView: TEditorView
-  Left = -788
+  Left = 590
   Height = 421
-  Top = 657
+  Top = 268
   Width = 630
   AllowDropFiles = True
+  AlphaBlendValue = 128
   BorderIcons = []
   BorderStyle = bsSingle
   DragMode = dmAutomatic

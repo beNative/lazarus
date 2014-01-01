@@ -18,7 +18,7 @@
         <CompilerPath Value="$(CompPath)"/>
       </Other>
     </CompilerOptions>
-    <Files Count="178">
+    <Files Count="177">
       <Item1>
         <Filename Value="components\ts.components.dbgridview.pas"/>
         <UnitName Value="ts.Components.DBGridView"/>
@@ -300,437 +300,433 @@
         <UnitName Value="ts.Editor.Events"/>
       </Item70>
       <Item71>
-        <Filename Value="editor\ts.editor.helpers.pas"/>
-        <UnitName Value="ts.Editor.Helpers"/>
-      </Item71>
-      <Item72>
         <Filename Value="editor\ts.editor.highlighterattributes.pas"/>
         <UnitName Value="ts.Editor.HighlighterAttributes"/>
-      </Item72>
-      <Item73>
+      </Item71>
+      <Item72>
         <Filename Value="editor\ts.editor.highlighters.pas"/>
         <UnitName Value="ts.Editor.Highlighters"/>
-      </Item73>
-      <Item74>
+      </Item72>
+      <Item73>
         <Filename Value="editor\ts.editor.interfaces.pas"/>
         <UnitName Value="ts.Editor.Interfaces"/>
-      </Item74>
-      <Item75>
+      </Item73>
+      <Item74>
         <Filename Value="editor\ts.editor.selection.pas"/>
         <UnitName Value="ts.Editor.Selection"/>
-      </Item75>
-      <Item76>
+      </Item74>
+      <Item75>
         <Filename Value="editor\ts.editor.toolview.manager.pas"/>
         <UnitName Value="ts.Editor.ToolView.Manager"/>
-      </Item76>
-      <Item77>
+      </Item75>
+      <Item76>
         <Filename Value="editor\ts.editor.types.pas"/>
         <UnitName Value="ts.Editor.Types"/>
-      </Item77>
-      <Item78>
+      </Item76>
+      <Item77>
         <Filename Value="editor\ts.editor.utils.pas"/>
         <UnitName Value="ts.Editor.Utils"/>
-      </Item78>
-      <Item79>
+      </Item77>
+      <Item78>
         <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
         <Type Value="LFM"/>
-      </Item79>
-      <Item80>
+      </Item78>
+      <Item79>
         <Filename Value="editor\ts_editor_aboutdialog.pas"/>
         <UnitName Value="ts_Editor_AboutDialog"/>
-      </Item80>
-      <Item81>
+      </Item79>
+      <Item80>
         <Filename Value="editor\ts_editor_manager.lfm"/>
         <Type Value="LFM"/>
-      </Item81>
-      <Item82>
+      </Item80>
+      <Item81>
         <Filename Value="editor\ts_editor_manager.pas"/>
         <UnitName Value="ts_Editor_Manager"/>
-      </Item82>
-      <Item83>
+      </Item81>
+      <Item82>
         <Filename Value="editor\ts_editor_resources.lfm"/>
         <Type Value="LFM"/>
-      </Item83>
-      <Item84>
+      </Item82>
+      <Item83>
         <Filename Value="editor\ts_editor_resources.pas"/>
         <UnitName Value="ts_Editor_Resources"/>
-      </Item84>
-      <Item85>
+      </Item83>
+      <Item84>
         <Filename Value="editor\ts_editor_view.lfm"/>
         <Type Value="LFM"/>
-      </Item85>
-      <Item86>
+      </Item84>
+      <Item85>
         <Filename Value="editor\ts_editor_view.pas"/>
         <UnitName Value="ts_Editor_View"/>
+      </Item85>
+      <Item86>
+        <Filename Value="editor\SetupFiltersDialog.lfm"/>
+        <Type Value="LFM"/>
       </Item86>
       <Item87>
-        <Filename Value="editor\SetupFiltersDialog.lfm"/>
+        <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
         <Type Value="LFM"/>
       </Item87>
       <Item88>
-        <Filename Value="editor\ts_editor_aboutdialog.lfm"/>
+        <Filename Value="editor\ts_editor_manager.lfm"/>
         <Type Value="LFM"/>
       </Item88>
       <Item89>
-        <Filename Value="editor\ts_editor_manager.lfm"/>
+        <Filename Value="editor\ts_editor_resources.lfm"/>
         <Type Value="LFM"/>
       </Item89>
       <Item90>
-        <Filename Value="editor\ts_editor_resources.lfm"/>
+        <Filename Value="editor\ts_editor_view.lfm"/>
         <Type Value="LFM"/>
       </Item90>
       <Item91>
-        <Filename Value="editor\ts_editor_view.lfm"/>
-        <Type Value="LFM"/>
-      </Item91>
-      <Item92>
         <Filename Value="editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <UnitName Value="ts.Editor.ActionList.Templates"/>
-      </Item92>
-      <Item93>
+      </Item91>
+      <Item92>
         <Filename Value="editor\actionlist\ts_editor_actionlist_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item93>
-      <Item94>
+      </Item92>
+      <Item93>
         <Filename Value="editor\actionlist\ts_editor_actionlist_toolview.pas"/>
         <UnitName Value="ts_Editor_ActionList_ToolView"/>
-      </Item94>
-      <Item95>
+      </Item93>
+      <Item94>
         <Filename Value="editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <UnitName Value="ts.Editor.AlignLines.Settings"/>
-      </Item95>
-      <Item96>
+      </Item94>
+      <Item95>
         <Filename Value="editor\alignlines\ts_editor_alignlines_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item96>
-      <Item97>
+      </Item95>
+      <Item96>
         <Filename Value="editor\alignlines\ts_editor_alignlines_toolview.pas"/>
         <UnitName Value="ts_Editor_AlignLines_ToolView"/>
-      </Item97>
-      <Item98>
+      </Item96>
+      <Item97>
         <Filename Value="editor\charactermap\ts_editor_charactermap_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item98>
-      <Item99>
+      </Item97>
+      <Item98>
         <Filename Value="editor\charactermap\ts_editor_charactermap_toolview.pas"/>
         <UnitName Value="ts_Editor_CharacterMap_Toolview"/>
-      </Item99>
-      <Item100>
+      </Item98>
+      <Item99>
         <Filename Value="editor\codefilter\ts.editor.codefilter.data.pas"/>
         <UnitName Value="ts.Editor.CodeFilter.Data"/>
-      </Item100>
-      <Item101>
+      </Item99>
+      <Item100>
         <Filename Value="editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <UnitName Value="ts.Editor.CodeFilter.Settings"/>
-      </Item101>
-      <Item102>
+      </Item100>
+      <Item101>
         <Filename Value="editor\codefilter\ts_editor_codefilter_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item102>
-      <Item103>
+      </Item101>
+      <Item102>
         <Filename Value="editor\codefilter\ts_editor_codefilter_toolview.pas"/>
         <UnitName Value="ts_Editor_CodeFilter_Toolview"/>
-      </Item103>
-      <Item104>
+      </Item102>
+      <Item103>
         <Filename Value="editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <UnitName Value="ts.Editor.CodeShaper.Settings"/>
-      </Item104>
-      <Item105>
+      </Item103>
+      <Item104>
         <Filename Value="editor\codeshaper\ts_editor_codeshaper_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item105>
-      <Item106>
+      </Item104>
+      <Item105>
         <Filename Value="editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
         <UnitName Value="ts_Editor_CodeShaper_ToolView"/>
-      </Item106>
-      <Item107>
+      </Item105>
+      <Item106>
         <Filename Value="editor\colors\ts_editor_colors_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item107>
-      <Item108>
+      </Item106>
+      <Item107>
         <Filename Value="editor\colors\ts_editor_colors_toolview.pas"/>
         <UnitName Value="ts_Editor_Colors_ToolView"/>
-      </Item108>
-      <Item109>
+      </Item107>
+      <Item108>
         <Filename Value="editor\filter\ts_editor_filter_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item109>
-      <Item110>
+      </Item108>
+      <Item109>
         <Filename Value="editor\filter\ts_editor_filter_toolview.pas"/>
         <UnitName Value="ts_Editor_Filter_ToolView"/>
-      </Item110>
-      <Item111>
+      </Item109>
+      <Item110>
         <Filename Value="editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <UnitName Value="ts.Editor.HexEditor.Settings"/>
-      </Item111>
-      <Item112>
+      </Item110>
+      <Item111>
         <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item112>
-      <Item113>
+      </Item111>
+      <Item112>
         <Filename Value="editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
         <UnitName Value="ts_Editor_HexEditor_ToolView"/>
-      </Item113>
-      <Item114>
+      </Item112>
+      <Item113>
         <Filename Value="editor\htmlview\ts.editor.htmlview.settings.pas"/>
         <UnitName Value="ts.Editor.HTMLView.Settings"/>
-      </Item114>
-      <Item115>
+      </Item113>
+      <Item114>
         <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item115>
-      <Item116>
+      </Item114>
+      <Item115>
         <Filename Value="editor\htmlview\ts_editor_htmlview_toolview.pas"/>
         <UnitName Value="ts_Editor_HTMLView_ToolView"/>
-      </Item116>
-      <Item117>
+      </Item115>
+      <Item116>
         <Filename Value="editor\minimap\ts.editor.minimap.settings.pas"/>
         <UnitName Value="ts.Editor.MiniMap.Settings"/>
-      </Item117>
-      <Item118>
+      </Item116>
+      <Item117>
         <Filename Value="editor\minimap\ts_editor_minimap_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item118>
-      <Item119>
+      </Item117>
+      <Item118>
         <Filename Value="editor\minimap\ts_editor_minimap_toolview.pas"/>
         <UnitName Value="ts_Editor_MiniMap_ToolView"/>
-      </Item119>
-      <Item120>
+      </Item118>
+      <Item119>
         <Filename Value="editor\preview\ts_editor_preview_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item120>
-      <Item121>
+      </Item119>
+      <Item120>
         <Filename Value="editor\preview\ts_editor_preview_toolview.pas"/>
         <UnitName Value="ts_Editor_Preview_ToolView"/>
-      </Item121>
-      <Item122>
+      </Item120>
+      <Item121>
         <Filename Value="editor\scripteditor\ts_editor_scripteditor_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item122>
-      <Item123>
+      </Item121>
+      <Item122>
         <Filename Value="editor\scripteditor\ts_editor_scripteditor_toolview.pas"/>
         <UnitName Value="ts_Editor_ScriptEditor_ToolView"/>
-      </Item123>
-      <Item124>
+      </Item122>
+      <Item123>
         <Filename Value="editor\search\ts.editor.search.data.pas"/>
         <UnitName Value="ts.Editor.Search.Data"/>
-      </Item124>
-      <Item125>
+      </Item123>
+      <Item124>
         <Filename Value="editor\search\ts.editor.search.engine.pas"/>
         <UnitName Value="ts.Editor.Search.Engine"/>
-      </Item125>
-      <Item126>
+      </Item124>
+      <Item125>
         <Filename Value="editor\search\ts.editor.search.engine.settings.pas"/>
         <UnitName Value="ts.Editor.Search.Engine.Settings"/>
-      </Item126>
-      <Item127>
+      </Item125>
+      <Item126>
         <Filename Value="editor\search\ts.editor.search.templates.pas"/>
         <UnitName Value="ts.Editor.Search.Templates"/>
-      </Item127>
-      <Item128>
+      </Item126>
+      <Item127>
         <Filename Value="editor\search\ts_editor_search_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item128>
-      <Item129>
+      </Item127>
+      <Item128>
         <Filename Value="editor\search\ts_editor_search_toolview.pas"/>
         <UnitName Value="ts_Editor_Search_Toolview"/>
-      </Item129>
-      <Item130>
+      </Item128>
+      <Item129>
         <Filename Value="editor\selectioninfo\ts_editor_selectioninfo_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item130>
-      <Item131>
+      </Item129>
+      <Item130>
         <Filename Value="editor\selectioninfo\ts_editor_selectioninfo_toolview.pas"/>
         <UnitName Value="ts_Editor_SelectionInfo_ToolView"/>
-      </Item131>
-      <Item132>
+      </Item130>
+      <Item131>
         <Filename Value="editor\settings\ts.editor.settings.pas"/>
         <UnitName Value="ts.Editor.Settings"/>
+      </Item131>
+      <Item132>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item132>
       <Item133>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item133>
-      <Item134>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog"/>
-      </Item134>
-      <Item135>
+      </Item133>
+      <Item134>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
         <Type Value="LFM"/>
-      </Item135>
-      <Item136>
+      </Item134>
+      <Item135>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_ApplicationSettings"/>
-      </Item136>
-      <Item137>
+      </Item135>
+      <Item136>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.lfm"/>
         <Type Value="LFM"/>
-      </Item137>
-      <Item138>
+      </Item136>
+      <Item137>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Base"/>
-      </Item138>
-      <Item139>
+      </Item137>
+      <Item138>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.lfm"/>
         <Type Value="LFM"/>
-      </Item139>
-      <Item140>
+      </Item138>
+      <Item139>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_EditorSettings"/>
-      </Item140>
-      <Item141>
+      </Item139>
+      <Item140>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.lfm"/>
         <Type Value="LFM"/>
-      </Item141>
-      <Item142>
+      </Item140>
+      <Item141>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Extensions"/>
-      </Item142>
-      <Item143>
+      </Item141>
+      <Item142>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.lfm"/>
         <Type Value="LFM"/>
-      </Item143>
-      <Item144>
+      </Item142>
+      <Item143>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_FileAssociations"/>
-      </Item144>
-      <Item145>
+      </Item143>
+      <Item144>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.lfm"/>
         <Type Value="LFM"/>
-      </Item145>
-      <Item146>
+      </Item144>
+      <Item145>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_FileTypes"/>
-      </Item146>
-      <Item147>
+      </Item145>
+      <Item146>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.lfm"/>
         <Type Value="LFM"/>
-      </Item147>
-      <Item148>
+      </Item146>
+      <Item147>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Highlighters"/>
-      </Item148>
-      <Item149>
+      </Item147>
+      <Item148>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.lfm"/>
         <Type Value="LFM"/>
-      </Item149>
-      <Item150>
+      </Item148>
+      <Item149>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_KeyMappings"/>
-      </Item150>
-      <Item151>
+      </Item149>
+      <Item150>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.lfm"/>
         <Type Value="LFM"/>
-      </Item151>
-      <Item152>
+      </Item150>
+      <Item151>
         <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Old"/>
+      </Item151>
+      <Item152>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item152>
       <Item153>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
         <Type Value="LFM"/>
       </Item153>
       <Item154>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.lfm"/>
         <Type Value="LFM"/>
       </Item154>
       <Item155>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_base.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.lfm"/>
         <Type Value="LFM"/>
       </Item155>
       <Item156>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_editorsettings.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.lfm"/>
         <Type Value="LFM"/>
       </Item156>
       <Item157>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_extensions.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.lfm"/>
         <Type Value="LFM"/>
       </Item157>
       <Item158>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_fileassociations.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.lfm"/>
         <Type Value="LFM"/>
       </Item158>
       <Item159>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_filetypes.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.lfm"/>
         <Type Value="LFM"/>
       </Item159>
       <Item160>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_highlighters.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.lfm"/>
         <Type Value="LFM"/>
       </Item160>
       <Item161>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_keymappings.lfm"/>
+        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.lfm"/>
         <Type Value="LFM"/>
       </Item161>
       <Item162>
-        <Filename Value="editor\settingsdialog\ts_editor_settingsdialog_old.lfm"/>
+        <Filename Value="editor\shortcuts\ts_editor_shortcuts_toolview.lfm"/>
         <Type Value="LFM"/>
       </Item162>
       <Item163>
-        <Filename Value="editor\shortcuts\ts_editor_shortcuts_toolview.lfm"/>
-        <Type Value="LFM"/>
-      </Item163>
-      <Item164>
         <Filename Value="editor\shortcuts\ts_editor_shortcuts_toolview.pas"/>
         <UnitName Value="ts_Editor_Shortcuts_ToolView"/>
-      </Item164>
-      <Item165>
+      </Item163>
+      <Item164>
         <Filename Value="editor\structure\ts_editor_structure_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item165>
-      <Item166>
+      </Item164>
+      <Item165>
         <Filename Value="editor\structure\ts_editor_structure_toolview.pas"/>
         <UnitName Value="ts_Editor_Structure_ToolView"/>
-      </Item166>
-      <Item167>
+      </Item165>
+      <Item166>
         <Filename Value="editor\test\ts_editor_test_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item167>
-      <Item168>
+      </Item166>
+      <Item167>
         <Filename Value="editor\test\ts_editor_test_toolview.pas"/>
         <UnitName Value="ts_Editor_Test_ToolView"/>
+      </Item167>
+      <Item168>
+        <Filename Value="editor\toolview\ts_editor_toolview_base.lfm"/>
+        <Type Value="LFM"/>
       </Item168>
       <Item169>
-        <Filename Value="editor\toolview\ts_editor_toolview_base.lfm"/>
-        <Type Value="LFM"/>
-      </Item169>
-      <Item170>
         <Filename Value="editor\toolview\ts_editor_toolview_base.pas"/>
         <UnitName Value="ts_Editor_ToolView_Base"/>
-      </Item170>
-      <Item171>
+      </Item169>
+      <Item170>
         <Filename Value="editor\toolview\ts_editor_toolview_base.lfm"/>
         <Type Value="LFM"/>
-      </Item171>
-      <Item172>
+      </Item170>
+      <Item171>
         <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
         <UnitName Value="ts.Editor.ViewList.Data"/>
-      </Item172>
-      <Item173>
+      </Item171>
+      <Item172>
         <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.lfm"/>
         <Type Value="LFM"/>
-      </Item173>
-      <Item174>
+      </Item172>
+      <Item173>
         <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.lrt"/>
         <Type Value="Text"/>
-      </Item174>
-      <Item175>
+      </Item173>
+      <Item174>
         <Filename Value="editor\viewlist\ts_editor_viewlist_toolview.pas"/>
         <UnitName Value="ts_Editor_ViewList_ToolView"/>
+      </Item174>
+      <Item175>
+        <Filename Value="editor\ts.editor.factories.settings.pas"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
       </Item175>
       <Item176>
-        <Filename Value="editor\ts.editor.factories.settings.pas"/>
-        <UnitName Value="ts.editor.factories.settings"/>
-      </Item176>
-      <Item177>
         <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
         <UnitName Value="ts.Editor.SortStrings.Settings"/>
-      </Item177>
-      <Item178>
+      </Item176>
+      <Item177>
         <Filename Value="editor\ts.editor.factories.manager.pas"/>
         <UnitName Value="ts.Editor.Factories.Manager"/>
-      </Item178>
+      </Item177>
     </Files>
     <Type Value="RunAndDesignTime"/>
     <RequiredPkgs Count="12">

@@ -36,7 +36,6 @@ type
   private
     FWidth: Integer;
   public
-    procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
 
@@ -49,11 +48,7 @@ implementation
 
 { TMiniMapSettings }
 
-procedure TMiniMapSettings.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
+{$region 'public methods' /fold}
 procedure TMiniMapSettings.AssignTo(Dest: TPersistent);
 var
   S: TMiniMapSettings;
@@ -79,6 +74,7 @@ begin
   else
     inherited Assign(Source);
 end;
+{$endregion}
 
 initialization
   RegisterClass(TMiniMapSettings);

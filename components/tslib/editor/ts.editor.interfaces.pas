@@ -1139,6 +1139,11 @@ type
         AParent : TWinControl
     ): TToolbar;
 
+    function CreateToggleToolbar(
+        AOwner  : TComponent;
+        AParent : TWinControl
+    ): TToolbar;
+
   end;
 
 implementation

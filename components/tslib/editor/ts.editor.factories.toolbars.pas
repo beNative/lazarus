@@ -63,6 +63,11 @@ type
         AOwner  : TComponent;
         AParent : TWinControl
     ): TToolbar;
+
+    function CreateToggleToolbar(
+        AOwner  : TComponent;
+        AParent : TWinControl
+    ): TToolbar;
   end;
 
 implementation
@@ -162,10 +167,7 @@ begin
   CreateToolButton(TB, 'actSettings');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actShowSpecialCharacters');
-  CreateToolButton(TB, 'actMonitorChanges');
   CreateToolButton(TB, 'actShowViews');
-  CreateToolButton(TB, 'actStayOnTop');
-  CreateToolButton(TB, 'actSingleInstance');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actCreateDesktopLink');
   CreateToolButton(TB, 'actNewSharedView');
@@ -180,8 +182,22 @@ begin
   //AddButton('actSingleInstance');
   //AddButton('actCreateDesktopLink');
   //AddButton('actNewSharedView');
+end;
 
+function TEditorToolbarsFactory.CreateToggleToolbar(AOwner: TComponent;
+  AParent: TWinControl): TToolbar;
+var
+  TB : TToolbar;
+begin
+  TB := TToolBar.Create(AOwner);
+  TB.Parent := AParent;
+  TB.Images := FActions.ActionList.Images;
 
+  CreateToolButton(TB, 'actMonitorChanges');
+  CreateToolButton(TB, 'actStayOnTop');
+  CreateToolButton(TB, 'actSingleInstance');
+
+  Result := TB;
 end;
 
 function TEditorToolbarsFactory.CreateSelectionToolbar(AOwner: TComponent;

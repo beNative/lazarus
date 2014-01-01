@@ -1270,6 +1270,11 @@ begin
   end;
 end;
 
+procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
+begin
+  ShowToolView('SelectionInfo', False, False);
+end;
+
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
   ShowToolView('Preview', False, False);
@@ -1741,11 +1746,6 @@ end;
 procedure TdmEditorManager.actNewSharedViewExecute(Sender: TObject);
 begin
   AddSharedView(ActiveView);
-end;
-
-procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
-begin
-  ShowToolView('SelectionInfo', False, False);
 end;
 
 procedure TdmEditorManager.actSelectionModeExecute(Sender: TObject);

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -405,12 +405,12 @@ begin
     HI.LayoutFileName := ALayoutFileName;
   if HI.FileExtensions = '' then
     HI.FileExtensions := AFileExtensions;
-  HI.InitSynHighlighter(ASynHighlighter);
-  if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
-  begin
-    if Assigned(HI.SynHighlighter) then
-      TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
-  end;
+  //HI.InitSynHighlighter(ASynHighlighter);
+  //if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
+  //begin
+  //  if Assigned(HI.SynHighlighter) then
+  //    TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
+  //end;
 end;
 {$endregion}
 {$endregion}
@@ -464,10 +464,11 @@ end;
 
 function THighlighterItem.GetSynHighlighter: TSynCustomHighlighter;
 begin
-  if ComponentCount > 0 then
-    Result := Components[0] as TSynCustomHighlighter
-  else
-    Result := nil;
+  if not Assigned(FSynHighlighter) and (ComponentCount > 0) then
+  begin
+    FSynHighlighter := Components[0] as TSynCustomHighlighter;
+  end;
+  Result := FSynHighlighter;
 end;
 
 procedure THighlighterItem.SetFileExtensions(AValue: string);
@@ -544,6 +545,12 @@ begin
   end;
   if Assigned(ASynHighlighter) then
     SynHighlighter.Assign(ASynHighlighter);
+
+  if (SynHighlighterClass = TSynUniSyn) and FileExistsUTF8(LayoutFileName) then
+  begin
+    if Assigned(SynHighlighter) then
+      TSynUniSyn(SynHighlighter).LoadFromFile(LayoutFileName);
+  end;
 end;
 
 procedure THighlighterItem.Reload;

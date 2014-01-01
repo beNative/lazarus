@@ -68,6 +68,13 @@ type
       AActions : IEditorActions;
       AMenus   : IEditorMenus
     ): TToolbar;
+
+    class function CreateToggleToolbar(
+      AOwner   : TComponent;
+      AParent  : TWinControl;
+      AActions : IEditorActions;
+      AMenus   : IEditorMenus
+    ): TToolbar;
   end;
 
 implementation
@@ -134,6 +141,16 @@ var
 begin
   TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
   Result := TBF.CreateSelectionToolbar(AOwner, AParent);
+end;
+
+class function TEditorFactories.CreateToggleToolbar(AOwner: TComponent;
+  AParent: TWinControl; AActions: IEditorActions;
+  AMenus: IEditorMenus): TToolbar;
+var
+  TBF: IEditorToolbarsFactory;
+begin
+  TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
+  Result := TBF.CreateToggleToolbar(AOwner, AParent);
 end;
 
 end.

@@ -160,6 +160,7 @@ end;
 
 procedure TActionCategoryTemplate.BeforeDestruction;
 begin
+  FActionTemplate := nil;
   inherited BeforeDestruction;
 end;
 

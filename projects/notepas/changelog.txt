@@ -1,5 +1,7 @@
-2013.12.30 (0.9.32)
+2014.01.03 (0.9.32)
+* Fixed: pressing RETURN closes the code filter window.
 * Added new feature: selection toolbar
+* Reorganized toolbar.
 
 2013.12.21 (0.9.31)
 * Toolsettings are now components which allow for more flexible persistence.

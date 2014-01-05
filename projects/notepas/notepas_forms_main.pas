@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -29,6 +29,8 @@ uses
   SynEdit,
 
   DefaultTranslator,
+
+  ts.Components.UniqueInstance,
 
   // for debugging
   ts.Core.SharedLogger,
@@ -81,7 +83,6 @@ type
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
     splVertical           : TSplitter;
-    tlbDebug: TToolBar;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
     ToolButton1: TToolButton;
@@ -107,15 +108,19 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
+    procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
+      Parameters: array of string);
+    procedure UniqueInstanceTerminateInstance(Sender: TObject);
     {$endregion}
   private
     FSettings : IEditorSettings;
     FManager  : IEditorManager;
-
     FMainToolbar      : TToolbar;
     FSelectionToolbar : TToolbar;
-    FToggleToolbar    : TToolbar;
+    FRightToolbar     : TToolbar;
     FMainMenu         : TMainMenu;
+    FToolbarHostPanel : TPanel;
+    FUniqueInstance   : TUniqueInstance;
 
     {$region 'property access methods' /fold}
     function GetActions: IEditorActions;
@@ -193,7 +198,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, FileUtil, TypInfo, ToolWin,
+  StrUtils, FileUtil, TypInfo,
 
   SynEditTypes,
 
@@ -201,7 +206,7 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Factories;
+  ts_Editor_Resources, ts.Editor.Factories.Settings, ts.Editor.Factories;
 
 resourcestring
   SModified = 'Modified';
@@ -214,17 +219,14 @@ var
   S  : string;
 begin
   inherited AfterConstruction;
+  FUniqueInstance                     := TUniqueInstance.Create(Self);
+  FUniqueInstance.Identifier          := ApplicationName;
+  FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
+  FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
   FSettings := TEditorFactories.CreateSettings(Self);
   FSettings.FileName := 'settings.xml';
   FSettings.Load;
-  if FSettings.Highlighters.Count = 0 then
-  begin
-    //TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
-  end;
-  if FSettings.ToolSettings.Count = 0 then
-  begin
-    //TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
-  end;
+  TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
   SetDefaultLang(FSettings.LanguageCode);
   Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
   FManager := TEditorFactories.CreateManager(
@@ -232,15 +234,16 @@ begin
     FSettings
   );
   FManager.PersistSettings := True;
-
+  FUniqueInstance.Enabled := Settings.SingleInstance;
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
   FMainToolbar :=
     TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
   FSelectionToolbar :=
     TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
-  FToggleToolbar :=
-    TEditorFactories.CreateToggleToolbar(Self, FMainToolbar, Actions, Menus);
-
+  FToolbarHostPanel := TPanel.Create(Self);
+  FToolbarHostPanel.Parent := FMainToolbar;
+  FRightToolbar :=
+    TEditorFactories.CreateRightToolbar(Self, FToolbarHostPanel, Actions, Menus);
   InitializeControls;
   InitializeEvents;
   if ParamCount > 0 then
@@ -371,6 +374,9 @@ begin
   begin
     // TODO: draw icon in tabsheet indicating that there was a change
   end;
+  if (scTopLine in Changes) and FSelectionToolbar.Visible then
+    FSelectionToolbar.Invalidate;
+   ;
 end;
 
 procedure TfrmMain.btnEncodingClick(Sender: TObject);
@@ -466,6 +472,18 @@ begin
   Settings.FormSettings.WindowState := WindowState;
 end;
 
+procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject;
+  ParamCount: Integer; Parameters: array of string);
+begin
+  Events.DoOpenOtherInstance(Parameters);
+end;
+
+procedure TfrmMain.UniqueInstanceTerminateInstance(Sender: TObject);
+begin
+  // prevents that the second instance overwrites settings.
+  Manager.PersistSettings := False;
+end;
+
 procedure TfrmMain.EditorEventsHideEditorToolView(Sender: TObject;
   AEditorToolView: IEditorToolView);
 begin
@@ -549,33 +567,29 @@ procedure TfrmMain.InitializeControls;
 begin
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
-
-
-
-  FMainToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
-  FMainToolbar.EdgeInner := esNone;
-  FMainToolbar.EdgeOuter := esNone;
   FMainToolbar.ShowHint := True;
   FMainToolbar.Transparent := True;
   FMainToolbar.AutoSize := True;
   FMainToolbar.DoubleBuffered := True;
 
-  //FToggleToolbar.Anchors :=  [akTop, akRight];
-  FToggleToolbar.EdgeBorders := [ebLeft,ebTop,ebRight,ebBottom];
-  FToggleToolbar.EdgeInner := esNone;
-  FToggleToolbar.EdgeOuter := esNone;
-  FToggleToolbar.ShowHint := True;
-  FToggleToolbar.Align := alRight;
-  FToggleToolbar.AutoSize := False;
-  FToggleToolbar.Width := 75;
-  FToggleToolbar.Transparent := True;
+  FToolbarHostPanel.Parent := FMainToolbar;
+  FToolbarHostPanel.Align := alRight;
+  FToolbarHostPanel.BevelInner := bvNone;
+  FToolbarHostPanel.BevelOuter := bvNone;
+  FToolbarHostPanel.Caption := '';
+  FToolbarHostPanel.Width := FRightToolbar.ButtonCount * FRightToolbar.ButtonWidth;
 
-
+  FRightToolbar.ShowHint := True;
+  FRightToolbar.Align := alTop;
+  FRightToolbar.AutoSize := False;
+  FRightToolbar.Transparent := True;
+  FRightToolbar.Wrapable := False;
+  FRightToolbar.DoubleBuffered := True;
 
   FSelectionToolbar.Align := alRight;
   FSelectionToolbar.Visible := False;
-  FSelectionToolbar.Transparent := True;
   FSelectionToolbar.AutoSize := True;
+  FSelectionToolbar.Transparent := True;
   FSelectionToolbar.DoubleBuffered := True;
 
   Settings.FormSettings.AssignTo(Self);
@@ -717,7 +731,7 @@ begin
   begin
     UpdateCaptions;
     UpdateStatusBar;
-    FSelectionToolbar.Parent  := Editor.Form;
+    FSelectionToolbar.Parent  := Editor.Editor;
     FSelectionToolbar.Visible := Editor.SelAvail;
   end;
 end;

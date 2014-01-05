@@ -158,11 +158,13 @@ uses
   ts.Editor.Factories.Manager,
   ts.Editor.Factories.Views,
   ts.Editor.Factories.Menus,
-  ts.Editor.Factories, ts.editor.factories.toolbars;
+  ts.Editor.Factories.Toolbars,
+  ts.Editor.Factories;
 
 {$R *.res}
 
 begin
+  Application.Title := 'notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');
@@ -171,4 +173,4 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
+

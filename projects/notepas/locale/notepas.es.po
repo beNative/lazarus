@@ -1329,14 +1329,17 @@ msgid "tlbMain"
 msgstr ""
 
 #: tfrmcodefilterdialog.toolbutton1.caption
+msgctxt "tfrmcodefilterdialog.toolbutton1.caption"
 msgid "ToolButton1"
 msgstr ""
 
 #: tfrmcodefilterdialog.toolbutton3.caption
+msgctxt "tfrmcodefilterdialog.toolbutton3.caption"
 msgid "ToolButton3"
 msgstr ""
 
 #: tfrmcodefilterdialog.toolbutton4.caption
+msgctxt "tfrmcodefilterdialog.toolbutton4.caption"
 msgid "ToolButton4"
 msgstr ""
 
@@ -1621,10 +1624,6 @@ msgstr "Abrir archivo de configuración"
 #: tfrmeditorsettings.actreloadsettings.caption
 msgid "Reload settings"
 msgstr "Recargar configuraciones"
-
-#: tfrmeditorsettings.btnapply.caption
-msgid "&Apply"
-msgstr "&Aplicar"
 
 #: tfrmeditorsettings.btnclose.caption
 msgctxt "TFRMEDITORSETTINGS.BTNCLOSE.CAPTION"
@@ -2858,6 +2857,49 @@ msgstr ""
 
 #: tfrmtest.caption
 msgid "Testform"
+msgstr ""
+
+#: tfrmtest.panel1.caption
+msgid "Panel1"
+msgstr ""
+
+#: tfrmtest.toolbar1.caption
+msgid "ToolBar1"
+msgstr ""
+
+#: tfrmtest.toolbar2.caption
+msgid "ToolBar2"
+msgstr ""
+
+#: tfrmtest.toolbutton1.caption
+msgctxt "tfrmtest.toolbutton1.caption"
+msgid "ToolButton1"
+msgstr ""
+
+#: tfrmtest.toolbutton2.caption
+msgid "ToolButton2"
+msgstr ""
+
+#: tfrmtest.toolbutton3.caption
+msgctxt "tfrmtest.toolbutton3.caption"
+msgid "ToolButton3"
+msgstr ""
+
+#: tfrmtest.toolbutton4.caption
+msgctxt "tfrmtest.toolbutton4.caption"
+msgid "ToolButton4"
+msgstr ""
+
+#: tfrmtest.toolbutton5.caption
+msgid "ToolButton5"
+msgstr ""
+
+#: tfrmtest.toolbutton6.caption
+msgid "ToolButton6"
+msgstr ""
+
+#: tfrmtest.toolbutton7.caption
+msgid "ToolButton7"
 msgstr ""
 
 #: tfrmviewlist.actclose.caption

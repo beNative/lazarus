@@ -85,6 +85,7 @@ type
     procedure edtFilterKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     function FTVPColumnDefinitionsItemsCustomDraw(Sender: TObject;
       ColumnDefinition: TColumnDefinition; Item: TObject; TargetCanvas:
@@ -282,6 +283,7 @@ begin
   FTVP.OnFilter := FTVPFilter;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
   FRegExpr := TRegExpr.Create;
+  Settings.FormSettings.AssignTo(Self);
 end;
 
 procedure TfrmCodeFilterDialog.BeforeDestruction;
@@ -517,6 +519,11 @@ begin
   end
   else
     inherited;
+end;
+
+procedure TfrmCodeFilterDialog.FormResize(Sender: TObject);
+begin
+  Settings.FormSettings.Assign(Self);
 end;
 
 procedure TfrmCodeFilterDialog.FormShow(Sender: TObject);

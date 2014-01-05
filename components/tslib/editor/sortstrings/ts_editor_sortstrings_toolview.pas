@@ -44,6 +44,7 @@ type
     rgpSortScope     : TRadioGroup;
 
     procedure actExecuteExecute(Sender: TObject);
+    procedure FormResize(Sender: TObject);
 
     procedure gbxOptionsItemClick(Sender: TObject; Index: Integer);
     procedure rgpSortScopeClick(Sender: TObject);
@@ -56,7 +57,12 @@ type
     property Settings: TSortStringsSettings
       read GetSettings;
 
+  protected
     procedure UpdateActions; override;
+
+  public
+    procedure AfterConstruction; override;
+
   end;
 
 implementation
@@ -65,6 +71,12 @@ implementation
 
 uses
   ts.Editor.Utils, ts.Editor.Types;
+
+procedure TfrmSortStrings.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  Width := Settings.Width;
+end;
 
 {$region 'property access mehods' /fold}
 function TfrmSortStrings.GetSettings: TSortStringsSettings;
@@ -82,6 +94,11 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
+procedure TfrmSortStrings.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
+end;
+
 procedure TfrmSortStrings.gbxOptionsItemClick(Sender: TObject; Index: Integer);
 var
   B : Boolean;
@@ -102,7 +119,9 @@ procedure TfrmSortStrings.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
+{$endregion}
 
+{$region 'protected methods' /fold}
 procedure TfrmSortStrings.UpdateActions;
 begin
   inherited UpdateActions;
@@ -111,7 +130,6 @@ begin
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
   rgpSortScope.ItemIndex     := Integer(Settings.SortScope);
 end;
-
 {$endregion}
 
 end.

@@ -34,10 +34,12 @@ type
     procedure FormShow(Sender: TObject);
     procedure mmoMainClick(Sender: TObject);
     procedure mmoMainEnterAbort(Sender: TObject);
-    procedure mmoMainMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure mmoMainMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
 
   private
     FText : string;
+
     function GetRichText: string;
     procedure SetRichText(const AValue: string);
 
@@ -76,25 +78,24 @@ begin
   Result := FForm;
 end;
 
-procedure TfrmShortcuts.FormShow(Sender: TObject);
+{$region 'construction and destruction' /fold}
+procedure TfrmShortcuts.AfterConstruction;
+var
+  SL: TStringList;
 begin
-  RichText := FText;;
+  inherited AfterConstruction;
+  SL := TStringList.Create ;
+  try
+    SL.LoadFromFile('ShortCuts.rtf');
+    FText := SL.Text;
+  finally
+    FreeAndNil(SL);
+  end;
+  RichText := FText;
 end;
-procedure TfrmShortcuts.mmoMainClick(Sender: TObject);
-begin
-  Abort;
-end;
+{$endregion}
 
-procedure TfrmShortcuts.mmoMainEnterAbort(Sender: TObject);
-begin
-   Abort;
-end;
-
-procedure TfrmShortcuts.mmoMainMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-begin
-  Abort;
-end;
-
+{$region 'property access mehods' /fold}
 function TfrmShortcuts.GetRichText: string;
 var
   SS : TStringStream;
@@ -124,25 +125,29 @@ begin
   finally
     FreeAndNil(SS);
   end;
-
 end;
+{$endregion}
 
-{ TfrmShortcuts }
-
-procedure TfrmShortcuts.AfterConstruction;
-var
-  SL: TStringList;
+{$region 'event handlers' /fold}
+procedure TfrmShortcuts.FormShow(Sender: TObject);
 begin
-  inherited AfterConstruction;
-  SL := TStringList.Create ;
-  try
-    SL.LoadFromFile('tsEdit ShortCuts.rtf');
-    FText := SL.Text;
-  finally
-    FreeAndNil(SL);
-  end;
   RichText := FText;
 end;
+procedure TfrmShortcuts.mmoMainClick(Sender: TObject);
+begin
+  Abort;
+end;
+
+procedure TfrmShortcuts.mmoMainEnterAbort(Sender: TObject);
+begin
+   Abort;
+end;
+
+procedure TfrmShortcuts.mmoMainMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+begin
+  Abort;
+end;
+{$endregion}
 
 end.
 

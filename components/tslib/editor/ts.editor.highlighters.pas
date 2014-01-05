@@ -54,6 +54,7 @@ type
     FSynHighlighter       : TSynCustomHighlighter;
     FSynHighlighterClass  : TSynHighlighterClass;
     FFileExtensions       : TStringList;
+    FUseCommonAttributes: Boolean;
 
     // private property access methods
     function GetDefaultFilter: string;
@@ -65,6 +66,7 @@ type
     procedure SetFormatterSupport(const AValue: Boolean);
     procedure SetSmartSelectionTags(AValue: TCodeTags);
     procedure SetSynHighlighterClass(AValue: TSynHighlighterClass);
+    procedure SetUseCommonAttributes(AValue: Boolean);
 
   public
     // constructors and destructors
@@ -126,6 +128,10 @@ type
     { Set of tags that are used for the SmartSelect feature of the editor. }
     property SmartSelectionTags: TCodeTags
       read FSmartSelectionTags write SetSmartSelectionTags;
+
+    { Assign common attribute settings. }
+    property UseCommonAttributes: Boolean
+      read FUseCommonAttributes write SetUseCommonAttributes default True;
   end;
 
   THighlighterItemClass = class of THighlighterItem;
@@ -419,6 +425,7 @@ begin
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
   FSmartSelectionTags        := TCodeTags.Create(Self);
+  FUseCommonAttributes       := True;
 end;
 
 procedure THighlighterItem.BeforeDestruction;
@@ -493,6 +500,15 @@ begin
     FSynHighlighterClass := AValue;
   end;
 end;
+
+procedure THighlighterItem.SetUseCommonAttributes(AValue: Boolean);
+begin
+  if AValue <> UseCommonAttributes then
+  begin
+    FUseCommonAttributes := AValue;
+  end;
+end;
+
 {$endregion}
 
 {$region 'public methods' /fold}
@@ -515,6 +531,7 @@ begin
     SmartSelectionTags   := HLI.SmartSelectionTags;
     DefaultFilter        := HLI.DefaultFilter;
     FormatterSupport     := HLI.FormatterSupport;
+    UseCommonAttributes  := HLI.UseCommonAttributes;
   end
   else
     inherited Assign(Source);

@@ -1,7 +1,7 @@
 inherited frmHexEditor: TfrmHexEditor
-  Left = 2058
+  Left = 2385
   Height = 565
-  Top = 423
+  Top = 480
   Width = 919
   Caption = 'Hex editor'
   ClientHeight = 565

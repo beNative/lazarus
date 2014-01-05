@@ -4,6 +4,7 @@ inherited frmSortStrings: TfrmSortStrings
   Caption = 'Sort strings'
   ClientHeight = 394
   ClientWidth = 282
+  OnResize = FormResize
   object gbxOptions: TCheckGroup[0]
     Left = 0
     Height = 56

@@ -27,7 +27,9 @@ interface
 uses
   Classes, SysUtils, Contnrs, Forms,
 
-  ts.Editor.Interfaces, ts.Editor.Tools.Settings;
+  ts.Editor.Interfaces, ts.Editor.Tools.Settings,
+
+  ts_Editor_ToolView_Base;
 
 type
 
@@ -40,6 +42,7 @@ type
     FForm          : TForm;
     FManager       : IEditorManager;
     FSettingsClass : TComponentClass;
+    FToolView      : IEditorToolView;
 
   strict protected
     function GetForm: TForm;
@@ -63,8 +66,6 @@ type
 
     { Lets the view respond to changes. }
     procedure UpdateView;
-
-    //procedure Refresh; TODO: refresh all items
 
     property Form: TForm
       read GetForm;
@@ -137,7 +138,10 @@ begin
   FName          := AName;
 
   if Assigned(ASettingsClass) then
-    FManager.Settings.ToolSettings.RegisterSettings(ASettingsClass, ASettingsClass.ClassName);
+    FManager.Settings.ToolSettings.RegisterSettings(
+      ASettingsClass,
+      ASettingsClass.ClassName
+    );
 end;
 
 procedure TToolView.BeforeDestruction;
@@ -193,7 +197,8 @@ end;
 {$region 'protected methods' /fold}
 procedure TToolView.UpdateView;
 begin
-  //Instance.UpdateView;
+  if Assigned(FToolView) then
+    FToolView.UpdateView;
 end;
 
 function TToolView.Focused: Boolean;

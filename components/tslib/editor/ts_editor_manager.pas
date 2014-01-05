@@ -2035,16 +2035,22 @@ var
 begin
   for HL in Settings.Highlighters do
   begin
-    for HAI in Settings.HighlighterAttributes do
+    if Assigned(HL.SynHighlighter) and HL.UseCommonAttributes then
     begin
-      if Assigned(HL.SynHighlighter) then
+      for HAI in Settings.HighlighterAttributes do
       begin
         for I := 0 to HL.SynHighlighter.AttrCount - 1 do
         begin
           A := HL.SynHighlighter.Attribute[I];
-          if (A.Name = HAI.Name) or (HAI.AliasNames.IndexOf(A.Name) >=0) then
+          if (A.Name = HAI.Name) or (HAI.AliasNames.IndexOf(A.Name) >= 0) then
           begin
-            A.Assign(HAI.Attributes);
+//            A.Assign(HAI.Attributes); don't do this => you will lose the attribute name!
+            A.Foreground := HAI.Attributes.Foreground;
+            A.Background := HAI.Attributes.Background;
+            A.FrameColor := HAI.Attributes.FrameColor;
+            A.FrameEdges := HAI.Attributes.FrameEdges;
+            A.Style      := HAI.Attributes.Style;
+            A.StyleMask  := HAI.Attributes.StyleMask;
           end;
         end;
       end;

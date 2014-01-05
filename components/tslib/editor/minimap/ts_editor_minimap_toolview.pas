@@ -35,6 +35,7 @@ type
 
   TfrmMiniMap = class(TCustomEditorToolView)
     procedure FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData);
+    procedure FormResize(Sender: TObject);
   private
     FMiniMap : TSynMiniMap;
     function GetSettings: TMiniMapSettings;
@@ -53,18 +54,7 @@ implementation
 
 {$R *.lfm}
 
-procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
-  );
-begin
-  //
-end;
-
-function TfrmMiniMap.GetSettings: TMiniMapSettings;
-begin
-  Result := inherited Settings.
-    ToolSettings.ItemsByClass[TMiniMapSettings] as TMiniMapSettings;
-end;
-
+{$region 'construction and destruction' /fold}
 procedure TfrmMiniMap.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -75,17 +65,40 @@ begin
   FMiniMap.FontFactor := 3;
   FMiniMap.Options.TabWidth := Manager.Settings.TabWidth;
   FMiniMap.Options.TabWidthOverride := False;
-
   FMiniMap.OnClick := FMiniMapClick;
+  Width := Settings.Width;
+end;
+{$endregion}
 
+{$region 'property access mehods' /fold}
+function TfrmMiniMap.GetSettings: TMiniMapSettings;
+begin
+  Result := inherited Settings.
+    ToolSettings.ItemsByClass[TMiniMapSettings] as TMiniMapSettings;
+end;
+{$endregion}
+
+{$region 'event handlers' /fold}
+procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
+  );
+begin
+  //
 end;
 
+procedure TfrmMiniMap.FormResize(Sender: TObject);
+begin
+  Settings.Width := Width;
+end;
+{$endregion}
+
+{$region 'public methods' /fold}
 procedure TfrmMiniMap.UpdateView;
 begin
   inherited UpdateView;
   FMiniMap.Editor := View.Editor;
   FMiniMap.Render;
 end;
+{$endregion}
 
 end.
 

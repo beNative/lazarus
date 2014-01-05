@@ -27,6 +27,8 @@ unit ts_Editor_CodeShaper_ToolView;
 
     - Hint of each button should describe the operation reflecting the choosen
       settings.
+
+    - Use IEditorCommands
 }
 
 interface
@@ -220,7 +222,8 @@ end;
 
 function TfrmCodeShaper.GetSettings: TCodeShaperSettings;
 begin
-  Result := inherited Settings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
+  Result := inherited Settings
+    .ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
 end;
 {$endregion}
 
@@ -308,8 +311,8 @@ end;
 
 procedure TfrmCodeShaper.actApplyConsistentCaseExecute(Sender: TObject);
 var
-  S: string;
-  W: string;
+  S : string;
+  W : string;
 begin
   S := Text;
   W := View.GetWordAtPosition(View.LogicalCaretXY);
@@ -373,7 +376,7 @@ end;
 
 procedure TfrmCodeShaper.actQuoteLinesExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   if not View.SelAvail then
@@ -407,7 +410,7 @@ end;
 
 procedure TfrmCodeShaper.actURLDecodeExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := URLDecode(Text);
   AssignText(S);
@@ -415,7 +418,7 @@ end;
 
 procedure TfrmCodeShaper.actURLEncodeExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := URLEncode(Text);
   AssignText(S);
@@ -473,19 +476,6 @@ begin
   B := True;
   chkReplaceStringsCaseSensitive.Enabled := B;
   chkReplaceStringsWholeWordsOnly.Enabled := B;
-  if B then
-  begin
-    //grdReplaceStrings.Columns[0].Title.Font.Color := clBlack;
-    //grdReplaceStrings.Columns[1].Title.Font.Color := clBlack;
-    //grdReplaceStrings.Color := clNone;
-  end
-  else
-  begin
-    //grdReplaceStrings.Columns[0].Title.Font.Color := clDisabledButtonText;
-    //grdReplaceStrings.Columns[1].Title.Font.Color := clDisabledButtonText;
-    //grdReplaceStrings.Color := clDisabledBackground;
-
-  end;
   grdReplaceStrings.Enabled := B;
 end;
 

@@ -74,7 +74,7 @@ unit ts.Core.NativeXml.ObjectStorage;
 // undefine 'UseForms' to avoid including the forms and controls units (visual lib).
 // This will reduce the app by several megabytes.
 {$DEFINE UseForms}
-{$DEFINE LOGGER}
+{.$DEFINE LOGGER}
 
 interface
 

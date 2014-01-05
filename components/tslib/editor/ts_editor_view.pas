@@ -66,7 +66,8 @@ uses
 
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditPointClasses, SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
-  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMarks, SynEditMiscClasses,
+  SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMouseCmds, SynEditMarks,
+  SynEditMiscClasses,
 
   ts.Core.DirectoryWatch,
 
@@ -169,6 +170,25 @@ type
             Line, Column  : Integer;
         var ReplaceAction : TSynReplaceAction
     );
+    function EditorMouseActionExec(
+          AnAction : TSynEditMouseAction;
+      var AnInfo   : TSynEditMouseActionInfo
+    ): Boolean;
+    function EditorMouseActionSearch(
+      var AnInfo          : TSynEditMouseActionInfo;
+          HandleActionProc: TSynEditMouseActionHandler
+    ): Boolean;
+    procedure EditorKeyTranslation(
+          Sender          : TObject;
+          Code            : Word;
+          SState          : TShiftState;
+      var Data            : Pointer;
+      var IsStartOfCombo  : Boolean;
+      var Handled         : Boolean;
+      var Command         : TSynEditorCommand;
+          FinishComboOnly : Boolean;
+      var ComboKeyStrokes : TSynEditKeyStrokes
+    );
 
 {$IFDEF Windows}
     procedure DirectoryWatchNotify(const Sender: TObject;
@@ -199,6 +219,7 @@ type
     FFoldLevel       : Integer;
     FBeautifier      : TSynBeautifier;
     FIsFile          : Boolean;
+    FFontChanged     : Boolean;
     FSynSelection    : TSynEditSelection;
 
     FSelection       : IEditorSelection;
@@ -347,7 +368,6 @@ type
 
     procedure Clear;
     procedure SelectAll;
-    procedure AdjustFontSize(AOffset: Integer);
 
     procedure DoChange; dynamic;
 
@@ -583,8 +603,6 @@ uses
 
   LConvEncoding, LCLProc,
 
-  SynEditMouseCmds,
-
   ts.Core.Utils,
 
   ts.Editor.Utils;
@@ -700,6 +718,37 @@ begin
   Logger.Send('EditorReplaceText');
 end;
 
+function TEditorView.EditorMouseActionExec(AnAction: TSynEditMouseAction;
+  var AnInfo: TSynEditMouseActionInfo): Boolean;
+begin
+  Logger.Send(
+    'EditorMouseActionExec(Action = %s)',
+    [AnAction.DisplayName]
+  );
+  if AnAction.Command in [emcWheelZoomOut, emcWheelZoomIn, emcWheelZoomNorm] then
+  begin
+    // this is called before the font is actually changed
+    FFontChanged := True;
+  end;
+end;
+
+function TEditorView.EditorMouseActionSearch(
+  var AnInfo: TSynEditMouseActionInfo;
+  HandleActionProc: TSynEditMouseActionHandler): Boolean;
+begin
+  Logger.Send(
+    'EditorMouseActionSearch(Action = ?)'
+  );
+end;
+
+procedure TEditorView.EditorKeyTranslation(Sender: TObject; Code: Word;
+  SState: TShiftState; var Data: Pointer; var IsStartOfCombo: Boolean;
+  var Handled: Boolean; var Command: TSynEditorCommand;
+  FinishComboOnly: Boolean; var ComboKeyStrokes: TSynEditKeyStrokes);
+begin
+  //
+end;
+
 procedure TEditorView.EditorCommandProcessed(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
@@ -716,6 +765,12 @@ begin
     'EditorChangeUpdating(AUpdating = %s)',
     [BoolToStr(AUpdating, 'True', 'False')]
   );
+  if FFontChanged then
+  begin
+    Settings.EditorFont.Assign(EditorFont);
+    Settings.Apply;
+    FFontChanged := False;
+  end;
 end;
 
 procedure TEditorView.EditorSpecialLineMarkup(Sender: TObject; Line: Integer;
@@ -1644,7 +1699,6 @@ begin
   ];
   AEditor.ScrollBars := ssAutoBoth;
 
-  AEditor.OnStatusChange       := EditorStatusChange;
   AEditor.OnChange             := EditorChange;
   AEditor.OnMouseLink          := EditorMouseLink;
   AEditor.OnClickLink          := EditorClickLink;
@@ -1657,7 +1711,15 @@ begin
   AEditor.OnSpecialLineMarkup  := EditorSpecialLineMarkup;
   AEditor.OnChangeUpdating     := EditorChangeUpdating;
   AEditor.OnCommandProcessed   := EditorCommandProcessed;
-  AEditor.OnReplaceText := EditorReplaceText;
+  AEditor.OnReplaceText        := EditorReplaceText;
+  AEditor.RegisterMouseActionExecHandler(EditorMouseActionExec);
+  AEditor.RegisterMouseActionSearchHandler(EditorMouseActionSearch);
+  AEditor.RegisterStatusChangedHandler(
+    EditorStatusChange,
+    [scCaretX, scCaretY, scLeftChar, scTopLine, scLinesInWindow,
+     scCharsInWindow, scInsertMode, scModified, scSelection, scReadOnly]
+  );
+  AEditor.RegisterKeyTranslationHandler(EditorKeyTranslation);
 
   // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
   // 21/09/2013
@@ -1830,12 +1892,6 @@ end;
 function TEditorView.EditorViewFocused: Boolean;
 begin
   Result := Focused or Editor.Focused;
-end;
-
-procedure TEditorView.AdjustFontSize(AOffset: Integer);
-begin
-  Editor.Font.Size := Editor.Font.Size + AOffset;
-  //Settings.EditorFont.Size := Editor.Font.Size;
 end;
 
 procedure TEditorView.SearchAndSelectLine(ALineIndex: Integer; const ALine: string);

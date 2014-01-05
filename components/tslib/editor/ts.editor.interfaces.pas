@@ -201,7 +201,6 @@ type
     );
 
     procedure Clear;
-    procedure AdjustFontSize(AOffset: Integer);
     procedure Close;
 
     // search
@@ -886,6 +885,7 @@ type
             AIncludeStartTag : Boolean;
             AIncludeEndTag   : Boolean
     ): Boolean;
+    procedure AdjustFontSize(AOffset: Integer);
 
     procedure FindNext;
     procedure FindPrevious;

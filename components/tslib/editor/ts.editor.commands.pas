@@ -96,6 +96,7 @@ type
     procedure URLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SyncEditSelection;
+    procedure AdjustFontSize(AOffset: Integer);
 
     procedure AlignSelection(
       const AToken                  : string;
@@ -512,6 +513,12 @@ end;
 procedure TEditorCommands.SyncEditSelection;
 begin
   View.Editor.CommandProcessor(ecSynPSyncroEdStart, '', nil);
+end;
+
+procedure TEditorCommands.AdjustFontSize(AOffset: Integer);
+begin
+  Settings.EditorFont.Size := Settings.EditorFont.Size + AOffset;
+  Settings.Apply; // needed to trigger settings changed event.
 end;
 
 { TODO -oTS : Align in paragraphs does not work!

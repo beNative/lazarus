@@ -1553,7 +1553,7 @@ end;
 
 procedure TdmEditorManager.actIncFontSizeExecute(Sender: TObject);
 begin
-  ActiveView.AdjustFontSize(1);
+  Commands.AdjustFontSize(1);
 end;
 
 procedure TdmEditorManager.actAutoFormatXMLExecute(Sender: TObject);
@@ -1840,7 +1840,7 @@ end;
 
 procedure TdmEditorManager.actDecFontSizeExecute(Sender: TObject);
 begin
-  ActiveView.AdjustFontSize(-1);
+  Commands.AdjustFontSize(-1);
 end;
 
 procedure TdmEditorManager.actDecodeBase64Execute(Sender: TObject);
@@ -2988,8 +2988,7 @@ var
   A : TCustomAction;
 begin
   S := '';
-  if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem)
-    and (ActiveView.HighlighterItem.Name <> 'None') then
+  if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem) then
   begin
     S := actHighlighter.Name + ActiveView.HighlighterItem.Name;
     A := Items[S];

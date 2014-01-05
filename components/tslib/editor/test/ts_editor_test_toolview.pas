@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls,
+  ExtCtrls, ComCtrls,
 
   ts.Components.GridView,
 
@@ -35,6 +35,16 @@ type
   { TfrmTest }
 
   TfrmTest = class(TCustomEditorToolView)
+    Panel1: TPanel;
+    ToolBar1: TToolBar;
+    ToolBar2: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
     procedure FGridViewGetCellText(Sender: TObject; Cell: TGridCell;
       var Value: string);
     procedure FInspectorGetCellText(Sender: TObject; Cell: TGridCell;

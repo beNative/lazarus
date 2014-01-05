@@ -121,8 +121,8 @@ uses
   SynEditHighlighter;
 
 const
-  _Root     = 'Root';
-  _NewRange = 'New';
+  ROOT_NAME      = 'Root';
+  NEW_RANGE_NAME = 'New';
 
 type
   TVersionType = (
@@ -203,7 +203,10 @@ type
     FName       : string;
 
   public
-    constructor Create(const AKeywords: string; AAttributes: TSynHighlighterAttributes);
+    constructor Create(
+      const AKeywords   : string;
+            AAttributes : TSynHighlighterAttributes
+    );
     destructor Destroy; override;
 
     property Name: string
@@ -220,14 +223,16 @@ type
   end;
 
   TSymbRangeSet = record
-    RangeValue: Integer;
-    IncludeSymbols: Boolean;
+    RangeValue     : Integer;
+    IncludeSymbols : Boolean;
   end;
 
   PSymbRangeSet = ^TSymbRangeSet;
-  TSymbolsSet    = set of Char;
+  TSymbolsSet   = set of Char;
 
   TSymbolList = class;
+
+  { TSymbolNode }
 
   TSymbolNode = class
   strict private
@@ -237,9 +242,13 @@ type
     FSynSymbol   : TSynSymbol;
 
   public
-    constructor Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
-      ABrakeType: TSymbolBreakType); overload; virtual;
+    constructor Create(
+      ASymbolChar : Char;
+      ASynSymbol  : TSynSymbol;
+      ABrakeType  : TSymbolBreakType
+    ); overload; virtual;
     constructor Create(ASymbolChar: Char); overload;
+    procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
     property SymbolChar: Char
@@ -254,6 +263,8 @@ type
     property SynSymbol: TSynSymbol
       read FSynSymbol write FSynSymbol;
   end;
+
+  { TSymbolList }
 
   TSymbolList = class
   strict private
@@ -272,8 +283,8 @@ type
     property Count: Integer
       read GetCount;
 
-    constructor Create; virtual;
-    destructor Destroy; override;
+    procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
   end;
 
   TSynUniSyn = class;
@@ -289,7 +300,7 @@ type
     FHeadNode: TSymbolNode;
 
   public
-    constructor Create(c: Char; ASynSymbol: TSynSymbol;
+    constructor Create(AChar: Char; ASynSymbol: TSynSymbol;
       ABreakType: TSymbolBreakType);
       reintroduce; virtual;
     procedure BeforeDestruction; override;
@@ -347,6 +358,8 @@ type
 
   TAbstractSymbolList = array [Char] of TAbstractSymbols;
 
+  { TSynRange }
+
   TSynRange = class(TPersistent)
   strict private
     FCloseSymbol  : TSynSymbol;
@@ -393,6 +406,7 @@ type
       const AOpenSymbs  : string = '';
       const ACloseSymbs : string = ''
     ); virtual;
+    procedure AfterConstruction; override;
     destructor Destroy; override;
 
     procedure AddSymbolGroup(ASymbolGroup: TSynSymbolGroup);
@@ -579,7 +593,6 @@ type
     ntKeyWords,
     ntNone
   );
-
 
 const
   DefaultTermSymbols: TSymbolsSet =
@@ -795,11 +808,16 @@ begin
   FCloseOnTerm := False;
   FCloseOnEol := False;
 
-  FAttributes := TObjectList.Create;
-  FSymbolGroups := TObjectList.Create;
-  FSynSymbols := TObjectList.Create;
-  FSynRanges := TObjectList.Create;
+  FAttributes := TObjectList.Create(True);
+  FSymbolGroups := TObjectList.Create(True);
+  FSynSymbols := TObjectList.Create(True);
+  FSynRanges := TObjectList.Create(True);
   FTermSymbols := DefaultTermSymbols;
+end;
+
+procedure TSynRange.AfterConstruction;
+begin
+  inherited AfterConstruction;
 end;
 
 destructor TSynRange.Destroy;
@@ -1631,15 +1649,16 @@ end;
 {$endregion}
 
 {$region 'TSymbolList' /fold}
-constructor TSymbolList.Create;
+procedure TSymbolList.AfterConstruction;
 begin
-  FSymbolList := TObjectList.Create;
+  inherited AfterConstruction;
+  FSymbolList := TObjectList.Create(True);
 end;
 
-destructor TSymbolList.Destroy;
+procedure TSymbolList.BeforeDestruction;
 begin
   FSymbolList.Free;
-  inherited;
+  inherited BeforeDestruction;
 end;
 
 procedure TSymbolList.AddSymbol(ASymbolNode: TSymbolNode);
@@ -1703,10 +1722,11 @@ begin
   SN.SynSymbol := ASynSymbol;
 end;
 
-constructor TSymbols.Create(c: Char; ASynSymbol: TSynSymbol;
+constructor TSymbols.Create(AChar: Char; ASynSymbol: TSynSymbol;
   ABreakType: TSymbolBreakType);
 begin
-  FHeadNode := TSymbolNode.Create(c, ASynSymbol, ABreakType);
+  inherited Create;
+  FHeadNode := TSymbolNode.Create(AChar, ASynSymbol, ABreakType);
 end;
 
 procedure TSymbols.BeforeDestruction;
@@ -1784,22 +1804,26 @@ end;
 constructor TSymbolNode.Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
   ABrakeType: TSymbolBreakType);
 begin
+  inherited Create;
   FSymbolChar := ASymbolChar;
-  FNextSymbols := TSymbolList.Create;
-  FBreakType := ABrakeType;
-  FSynSymbol := ASynSymbol;
+  FBreakType  := ABrakeType;
+  FSynSymbol  := ASynSymbol;
 end;
 
 constructor TSymbolNode.Create(ASymbolChar: Char);
 begin
+  inherited Create;
   FSymbolChar := ASymbolChar;
+end;
+
+procedure TSymbolNode.AfterConstruction;
+begin
+  inherited AfterConstruction;
   FNextSymbols := TSymbolList.Create;
-  FSynSymbol := nil;
 end;
 
 procedure TSymbolNode.BeforeDestruction;
 begin
-  FSynSymbol := nil;
   FNextSymbols.Free;
   inherited;
 end;
@@ -1808,6 +1832,7 @@ end;
 {$region 'TDefaultSymbols' /fold}
 constructor TDefaultSymbols.Create(ASynSymbol: TSynSymbol);
 begin
+  inherited Create;
   FSynSymbol := ASynSymbol;
 end;
 
@@ -1828,6 +1853,7 @@ end;
 {$region 'TNumberSymbols' /fold}
 constructor TNumberSymbols.Create(ASynSymbol: TSynSymbol);
 begin
+  inherited Create;
   FSynSymbol := ASynSymbol;
 end;
 
@@ -1884,7 +1910,7 @@ begin
   FPrepared := False;
   FSymbols := TSymbols.Create(' ', nil, btAny);
   FMainRules := TSynRange.Create;
-  FMainRules.Name := _Root;
+  FMainRules.Name := ROOT_NAME;
   FEol := False;
   FPrEol := False;
   FCurrentRule := FMainRules;

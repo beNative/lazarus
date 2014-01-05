@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -23,9 +23,15 @@ unit ts.Editor.Factories.Toolbars;
 interface
 
 uses
-  Classes, SysUtils, Menus, Controls, ActnList, ComCtrls,
+  Classes, SysUtils, Menus, Controls, ActnList, ComCtrls, Toolwin,
 
   ts.Editor.Interfaces, ts_Editor_Resources;
+
+const
+  DEFAULT_EDGE_BORDERS = [ebLeft, ebTop, ebRight, ebBottom];
+  DEFAULT_EDGE_INNER   = esNone;
+  DEFAULT_EDGE_OUTER   = esNone;
+  DEFAULT_TRANSPARANT  = True;
 
 type
 
@@ -35,6 +41,15 @@ type
   strict private
     FActions : IEditorActions;
     FMenus   : IEditorMenus;
+
+    FEdgeBorders : TEdgeBorders;
+    FEdgeInner   : TEdgeStyle;
+    FEdgeOuter   : TEdgeStyle;
+    FTransparant : Boolean;
+
+    procedure ApplyDefaultProperties(
+      AToolbar : TToolbar
+    );
 
     function CreateToolButton(
        AParent    : TToolBar;
@@ -49,6 +64,8 @@ type
     ): TToolButton; overload;
 
   public
+    procedure AfterConstruction; override;
+
     constructor Create(
       AActions  : IEditorActions;
       AMenus    : IEditorMenus
@@ -64,28 +81,67 @@ type
         AParent : TWinControl
     ): TToolbar;
 
-    function CreateToggleToolbar(
+    function CreateRightToolbar(
         AOwner  : TComponent;
         AParent : TWinControl
     ): TToolbar;
+
+    property EdgeBorders: TEdgeBorders
+      read FEdgeBorders write FEdgeBorders default DEFAULT_EDGE_BORDERS;
+
+    property EdgeInner: TEdgeStyle
+      read FEdgeInner write FEdgeInner default DEFAULT_EDGE_INNER;
+
+    property EdgeOuter: TEdgeStyle
+      read FEdgeOuter write FEdgeOuter default DEFAULT_EDGE_OUTER;
+
+    property Transparant: Boolean
+      read FTransparant write FTransparant default DEFAULT_TRANSPARANT;
   end;
 
 implementation
 
-
-
 { TEditorToolbarsFactory }
+
+{$region 'construction and destruction' /fold}
+procedure TEditorToolbarsFactory.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  FEdgeBorders := DEFAULT_EDGE_BORDERS;
+  FEdgeInner   := DEFAULT_EDGE_INNER;
+  FEdgeOuter   := DEFAULT_EDGE_OUTER;
+  FTransparant := DEFAULT_TRANSPARANT;
+end;
+
+constructor TEditorToolbarsFactory.Create(AActions: IEditorActions;
+  AMenus: IEditorMenus);
+begin
+  inherited Create;
+  FActions := AActions;
+  FMenus   := AMenus;
+end;
+{$endregion}
+
+{$region 'private methods' /fold}
+procedure TEditorToolbarsFactory.ApplyDefaultProperties(AToolbar: TToolbar);
+begin
+  AToolbar.EdgeBorders := EdgeBorders;
+  AToolbar.EdgeInner   := EdgeInner;
+  AToolbar.EdgeOuter   := EdgeOuter;
+  AToolbar.Transparent := Transparant;
+end;
 
 function TEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
   AAction: TBasicAction; APopupMenu: TPopupMenu): TToolButton;
 var
   TB: TToolButton;
 begin
-  //TB := TToolButton.Create(AParent.Owner);
   TB := TToolButton.Create(AParent);
   TB.Parent := AParent;
   if not Assigned(AAction) then
-    TB.Style := tbsDivider
+  begin
+    TB.Style := tbsDivider;
+  end
   else
   begin
     if Assigned(APopupMenu) then
@@ -106,21 +162,16 @@ begin
   else
     Result := CreateToolButton(AParent, FActions[AActionName], APopupMenu);
 end;
+{$endregion}
 
-constructor TEditorToolbarsFactory.Create(AActions: IEditorActions;
-  AMenus: IEditorMenus);
-begin
-  inherited Create;
-  FActions := AActions;
-  FMenus   := AMenus;
-end;
-
+{$region 'public methods' /fold}
 function TEditorToolbarsFactory.CreateMainToolbar(AOwner: TComponent;
   AParent: TWinControl): TToolbar;
 var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
+  ApplyDefaultProperties(TB);
   TB.Parent := AParent;
   TB.Images := FActions.ActionList.Images;
 
@@ -140,62 +191,45 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSearch');
   CreateToolButton(TB, 'actSearchReplace');
-  //CreateToolButton('');
-  //CreateToolButton('actAlignSelection');
-  //CreateToolButton('actSortSelection');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actToggleFoldLevel', FMenus.FoldPopupMenu);
   CreateToolButton(TB);
   //CreateToolButton('actFormat');
-  //CreateToolButton('actSyncEdit');
-  //CreateToolButton('');
-  //CreateToolButton('actQuoteLines');
-  //CreateToolButton('actDeQuoteLines');
-  //CreateToolButton('actQuoteSelection');
-  //CreateToolButton('actDeQuoteSelection');
-  //CreateToolButton('');
   CreateToolButton(TB, 'actToggleHighlighter', FMenus.HighlighterPopupMenu);
+  CreateToolButton(TB, 'actAutoGuessHighlighter');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actShowCodeShaper');
   CreateToolButton(TB, 'actShowCodeFilter');
   CreateToolButton(TB, 'actShowCharacterMap');
   CreateToolButton(TB, 'actShowPreview');
   CreateToolButton(TB);
-  CreateToolButton(TB, 'actAutoGuessHighlighter');
   CreateToolButton(TB, 'actSmartSelect');
-  CreateToolButton(TB, 'actInspect');
+  CreateToolButton(TB);
   CreateToolButton(TB, 'actSettings');
   CreateToolButton(TB);
+  CreateToolButton(TB, 'actAbout');
+  CreateToolButton(TB);
   CreateToolButton(TB, 'actShowSpecialCharacters');
-  CreateToolButton(TB, 'actShowViews');
+  CreateToolButton(TB, 'actMonitorChanges');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actCreateDesktopLink');
-  CreateToolButton(TB, 'actNewSharedView');
-  CreateToolButton(TB, 'actAbout');
   Result := TB;
-
-  //AddButton('actSortSelection');
-  //AddButton('actShowPreview');
-  //AddButton('actInspect');
-  //AddButton('actMonitorChanges');
-  //AddButton('actShowViews');
-  //AddButton('actSingleInstance');
-  //AddButton('actCreateDesktopLink');
-  //AddButton('actNewSharedView');
 end;
 
-function TEditorToolbarsFactory.CreateToggleToolbar(AOwner: TComponent;
+function TEditorToolbarsFactory.CreateRightToolbar(AOwner: TComponent;
   AParent: TWinControl): TToolbar;
 var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
+  ApplyDefaultProperties(TB);
   TB.Parent := AParent;
   TB.Images := FActions.ActionList.Images;
 
-  CreateToolButton(TB, 'actMonitorChanges');
-  CreateToolButton(TB, 'actStayOnTop');
+  CreateToolButton(TB, 'actShowViews');
   CreateToolButton(TB, 'actSingleInstance');
+  CreateToolButton(TB, 'actStayOnTop');
+  CreateToolButton(TB, 'actClose');
 
   Result := TB;
 end;
@@ -206,6 +240,7 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
+  ApplyDefaultProperties(TB);
   TB.Parent := AParent;
   TB.Images := FActions.ActionList.Images;
 
@@ -241,6 +276,7 @@ begin
   CreateToolButton(TB, 'actToggleBlockCommentSelection');
   Result := TB;
 end;
+{$endregion}
 
 end.
 

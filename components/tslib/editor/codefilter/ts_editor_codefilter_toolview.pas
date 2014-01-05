@@ -340,7 +340,8 @@ end;
 
 function TfrmCodeFilterDialog.GetSettings: TCodeFilterSettings;
 begin
-  Result := (Manager as IEditorSettings).ToolSettings.ItemsByClass[TCodeFilterSettings] as TCodeFilterSettings;
+  Result := (Manager as IEditorSettings)
+    .ToolSettings.ItemsByClass[TCodeFilterSettings] as TCodeFilterSettings;
 end;
 
 function TfrmCodeFilterDialog.GetView: IEditorView;
@@ -652,7 +653,7 @@ procedure TfrmCodeFilterDialog.FVSTKeyPress(Sender: TObject; var Key: Char);
 begin
   if Ord(Key) = VK_RETURN then
   begin
-    ModalResult := mrOK;
+    Close;
   end
   else if Ord(Key) = VK_ESCAPE then
   begin

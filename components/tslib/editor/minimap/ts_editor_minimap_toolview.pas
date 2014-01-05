@@ -27,13 +27,21 @@ uses
 
   ts.Components.SynMiniMap,
 
-  ts_Editor_ToolView_Base;
+  ts_Editor_ToolView_Base, ts.Editor.MiniMap.Settings;
 
 type
+
+  { TfrmMiniMap }
+
   TfrmMiniMap = class(TCustomEditorToolView)
     procedure FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData);
   private
     FMiniMap : TSynMiniMap;
+    function GetSettings: TMiniMapSettings;
+
+  strict protected
+    property Settings : TMiniMapSettings
+      read GetSettings;
 
   public
     procedure AfterConstruction; override;
@@ -49,6 +57,12 @@ procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
   );
 begin
   //
+end;
+
+function TfrmMiniMap.GetSettings: TMiniMapSettings;
+begin
+  Result := inherited Settings.
+    ToolSettings.ItemsByClass[TMiniMapSettings] as TMiniMapSettings;
 end;
 
 procedure TfrmMiniMap.AfterConstruction;

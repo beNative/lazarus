@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -25,9 +25,7 @@ interface
 uses
   Classes, SysUtils, Controls,
 
-  ts.Editor.Tools.Settings, ts.Editor.Highlighters,
-
-  ts.Editor.Interfaces;
+  ts.Editor.Tools.Settings, ts.Editor.Highlighters, ts.Editor.Interfaces;
 
 type
 
@@ -35,9 +33,12 @@ type
 
   TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
+    procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
+
     procedure RegisterToolSettings(ASettings: TEditorToolSettings);
     procedure RegisterHighlighters(AHighlighters: THighlighters);
-    procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
+    class procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
     procedure RegisterClasses;
 
     function CreateInstance(
@@ -59,8 +60,6 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni,
 
-  ts.Components.UniHighlighter,
-
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
   ts.Editor.AlignLines.Settings,
@@ -72,11 +71,28 @@ uses
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
 
-  ts_Editor_Resources, ts.Editor.Settings;
+  ts_Editor_Resources, ts.Editor.Settings,
+
+  ts.Components.UniHighlighter;
 
 { TEditorSettingsFactory }
 
 {$region 'private methods' /fold}
+
+{$region 'construction and destruction' /fold}
+procedure TEditorSettingsFactory.AfterConstruction;
+begin
+  inherited AfterConstruction;
+
+end;
+
+procedure TEditorSettingsFactory.BeforeDestruction;
+begin
+
+  inherited BeforeDestruction;
+end;
+{$endregion}
+
 procedure TEditorSettingsFactory.RegisterToolSettings(
   ASettings: TEditorToolSettings);
 begin
@@ -95,6 +111,7 @@ procedure TEditorSettingsFactory.RegisterHighlighters(
 var
   S: string;
   F: string;
+  SU : TSynUniSyn;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
@@ -118,7 +135,6 @@ var
   end;
 
 begin
-  Reg(nil, nil, 'None');
   Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
   Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
   Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
@@ -142,32 +158,56 @@ begin
     // apply common highlighter attributes
 
 
-  //S := ExtractFilePath(Application.ExeName);
-  //
-  //F := S + LAYOUT_LOG;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
-  //F := S + LAYOUT_INI;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
-  //F := S + LAYOUT_RTF;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
-  //F := S + LAYOUT_RES;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
-  //F := S + LAYOUT_CS;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
-  //F := S + LAYOUT_RUBY;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
-  //F := S + LAYOUT_LUA;
-  //if FileExistsUTF8(F) then
-  //  Reg(TSynUniSyn, FSynUni, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
+  S := ExtractFilePath(Application.ExeName);
+
+  F := S + LAYOUT_LOG;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
+  end;
+  F := S + LAYOUT_INI;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
+  end;
+  F := S + LAYOUT_RTF;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
+  end;
+  F := S + LAYOUT_RES;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
+  end;
+  F := S + LAYOUT_CS;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
+  end;
+  F := S + LAYOUT_RUBY;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
+  end;
+  F := S + LAYOUT_LUA;
+  if FileExistsUTF8(F) then
+  begin
+    SU := TSynUniSyn.Create(Application);
+    Reg(TSynUniSyn, SU, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
+  end;
 end;
 
-procedure TEditorSettingsFactory.InitializeFoldHighlighters(
+{ Initializes extra information related to the built-in highlighters like
+  folding configuration and devider info. }
+
+class procedure TEditorSettingsFactory.InitializeFoldHighlighters(
   AHighlighters: THighlighters);
 var
   I  : Integer;
@@ -240,7 +280,6 @@ begin
     TSynCustomHighlighter
   ]);
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
@@ -258,4 +297,4 @@ end;
 {$endregion}
 
 end.
-
+

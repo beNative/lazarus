@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -409,7 +409,9 @@ begin
   begin
     HLI := Manager.Highlighters.ItemsByName[AName];
     if Assigned(HLI) then
-      View.HighlighterItem := HLI;
+      View.HighlighterItem := HLI
+    else
+      raise Exception.CreateFmt('Highlighter %s not found!', [AName]);
   end;
 end;
 
@@ -836,12 +838,15 @@ var
   HI : THighlighterItem;
 begin
   HI := View.HighlighterItem;
-  if HI.Name = 'XML' then
-    SelectBlockAroundCursor('>', '<', False, False)
-  else if HI.Name = 'PAS' then
-    SelectBlockAroundCursor('begin', 'end', True, True)
-  else if HI.Name = 'LOG' then
-    SelectBlockAroundCursor('<XMLRoot>', '</XMLRoot>', True, True);
+  if Assigned(HI) then
+  begin
+    if HI.Name = 'XML' then
+      SelectBlockAroundCursor('>', '<', False, False)
+    else if HI.Name = 'PAS' then
+      SelectBlockAroundCursor('begin', 'end', True, True)
+    else if HI.Name = 'LOG' then
+      SelectBlockAroundCursor('<XMLRoot>', '</XMLRoot>', True, True);
+  end;
 end;
 
 { Selects block of code around cursor between AStartTag and AEndTag. Used by

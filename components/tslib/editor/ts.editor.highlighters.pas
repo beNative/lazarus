@@ -405,12 +405,6 @@ begin
     HI.LayoutFileName := ALayoutFileName;
   if HI.FileExtensions = '' then
     HI.FileExtensions := AFileExtensions;
-  //HI.InitSynHighlighter(ASynHighlighter);
-  //if FileExistsUTF8(ALayoutFileName) and (ASynHighlighterClass = TSynUniSyn) then
-  //begin
-  //  if Assigned(HI.SynHighlighter) then
-  //    TSynUniSyn(HI.SynHighlighter).LoadFromFile(ALayoutFileName);
-  //end;
 end;
 {$endregion}
 {$endregion}
@@ -452,11 +446,6 @@ begin
   end;
 end;
 
-function THighlighterItem.GetFileExtensions: string;
-begin
-  Result := FFileExtensions.CommaText;
-end;
-
 function THighlighterItem.GetIndex: Integer;
 begin
   Result := ComponentIndex;
@@ -469,6 +458,11 @@ begin
     FSynHighlighter := Components[0] as TSynCustomHighlighter;
   end;
   Result := FSynHighlighter;
+end;
+
+function THighlighterItem.GetFileExtensions: string;
+begin
+  Result := FFileExtensions.CommaText;
 end;
 
 procedure THighlighterItem.SetFileExtensions(AValue: string);

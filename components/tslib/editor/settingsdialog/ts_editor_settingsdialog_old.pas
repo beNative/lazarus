@@ -96,10 +96,10 @@ type
     tsSettings                  : TTabSheet;
     {$endregion}
 
+    procedure actApplySettingsExecute(Sender: TObject);
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
-    procedure btnApplyClick(Sender: TObject);
     procedure FHATVPSelectionChanged(Sender: TObject);
     procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
       var aShow: boolean);
@@ -227,7 +227,7 @@ type
 function TToolSettingsDataTemplate.GetText(const Item: TObject;
   const ColumnIndex: Integer): string;
 begin
-  Result := (Item as TComponent).ClassName;
+  Result := (Item as TComponent).Name;
 end;
 {$endregion}
 
@@ -264,7 +264,6 @@ begin
   FHLVST              := VST.Create(Self, pnlHLLeft);
   FTSVST              := VST.Create(Self, pnlTSLeft);
   FXMLTree            := CreateXMLTree(Self, pnlXML);
-  UpdateData;
 
   Settings.AddEditorSettingsChangedHandler(SettingsChangedHandler);
   UpdateControls;
@@ -274,6 +273,7 @@ begin
   FHAPI.OnEditorFilter  := FPIEditorFilter;
   FSHLPI.OnEditorFilter := FPIEditorFilter;
   FTSPI.OnEditorFilter  := FPIEditorFilter;
+  UpdateData;
   pcMain.ActivePageIndex := 0;
 end;
 
@@ -382,14 +382,14 @@ begin
   ClearIconCache;
 end;
 
-procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
+procedure TfrmEditorSettings.actApplySettingsExecute(Sender: TObject);
 begin
-  Settings.Load;
   Apply;
 end;
 
-procedure TfrmEditorSettings.btnApplyClick(Sender: TObject);
+procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
 begin
+  Settings.Load;
   Apply;
 end;
 
@@ -426,6 +426,7 @@ var
   I: Integer;
 begin
   FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
+  FPI.Update;
   FHATVP.MultiSelect := True;
   FHATVP.ColumnDefinitions.AddColumn(NAME, SAttributeName, dtString, 150);
   FHAList.Clear;

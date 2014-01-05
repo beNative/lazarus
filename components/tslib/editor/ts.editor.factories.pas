@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -32,6 +32,7 @@ type
   { TEditorFactories }
 
   TEditorFactories = class
+  public
     class function CreateSettings(
       AOwner : TComponent
     ): IEditorSettings;
@@ -69,7 +70,7 @@ type
       AMenus   : IEditorMenus
     ): TToolbar;
 
-    class function CreateToggleToolbar(
+    class function CreateRightToolbar(
       AOwner   : TComponent;
       AParent  : TWinControl;
       AActions : IEditorActions;
@@ -127,7 +128,7 @@ class function TEditorFactories.CreateMainToolbar(AOwner: TComponent;
   AParent: TWinControl; AActions: IEditorActions;
   AMenus: IEditorMenus): TToolbar;
 var
-  TBF: IEditorToolbarsFactory;
+  TBF : IEditorToolbarsFactory;
 begin
   TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
   Result := TBF.CreateMainToolbar(AOwner, AParent);
@@ -137,20 +138,20 @@ class function TEditorFactories.CreateSelectionToolbar(AOwner: TComponent;
   AParent: TWinControl; AActions: IEditorActions;
   AMenus: IEditorMenus): TToolbar;
 var
-  TBF: IEditorToolbarsFactory;
+  TBF : IEditorToolbarsFactory;
 begin
   TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
   Result := TBF.CreateSelectionToolbar(AOwner, AParent);
 end;
 
-class function TEditorFactories.CreateToggleToolbar(AOwner: TComponent;
+class function TEditorFactories.CreateRightToolbar(AOwner: TComponent;
   AParent: TWinControl; AActions: IEditorActions;
   AMenus: IEditorMenus): TToolbar;
 var
-  TBF: IEditorToolbarsFactory;
+  TBF : IEditorToolbarsFactory;
 begin
   TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
-  Result := TBF.CreateToggleToolbar(AOwner, AParent);
+  Result := TBF.CreateRightToolbar(AOwner, AParent);
 end;
 
 end.

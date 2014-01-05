@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -566,15 +566,6 @@ begin
 
   edtTrimLinesIndent.Enabled :=
     chkTrimLinesRight.Checked or chkTrimLinesLeft.Checked;
-
-  //case FAlignTokenSide of
-  //  tsBoth: M := mniAlignInsertSpaceOnBothSides;
-  //  tsBefore: M := mniAlignInsertSpaceBeforeToken;
-  //  tsAfter: M := mniAlignInsertSpaceAfterToken;
-  //end;
-  //A := M.Action as TAction;
-  //A.Checked := True;
-  //actToggleAlignInsertSpace.Caption := A.Caption;
 
   case FBreakTokenSide of
     tsBefore: M := mniBreakBeforeToken;

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -184,6 +184,7 @@ type
   protected
     procedure AssignDefaultColors;
     procedure InitializeHighlighterAttributes;
+    procedure InitializeHighlighters;
     procedure Changed;
 
   public
@@ -781,6 +782,7 @@ begin
       FreeAndNil(Doc);
     end;
   end;
+  InitializeHighlighters; // create higlighters if they cannot be loaded.
   InitializeHighlighterAttributes;
   Logger.ExitMethod('TEditorSettings.Load');
 end;
@@ -957,6 +959,17 @@ begin
     );
   end;
 end;
+
+procedure TEditorSettings.InitializeHighlighters;
+var
+  HI: THighlighterItem;
+begin
+  for HI in Highlighters do
+  begin
+    HI.InitSynHighlighter(HI.SynHighlighter);
+  end;
+end;
+
 {$endregion}
 
 end.

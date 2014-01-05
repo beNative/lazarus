@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -29,17 +29,24 @@ uses
   FramView, HtmlGlobals,
   {$ENDIF}
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
+  ts.Editor.Interfaces, ts_Editor_ToolView_Base, ts.Editor.HTMLView.Settings;
 
 type
+
+  { TfrmHTMLView }
+
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
   private
     {$IFDEF Windows}
     FHTMLViewer: TFrameViewer;
+    function GetSettings: THTMLViewSettings;
     {$ENDIF}
 
   strict protected
     procedure UpdateView; override;
+
+    property Settings : THTMLViewSettings
+      read GetSettings;
 
   public
     procedure AfterConstruction; override;
@@ -63,6 +70,12 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
+function TfrmHTMLView.GetSettings: THTMLViewSettings;
+begin
+  Result := inherited Settings
+    .ToolSettings.ItemsByClass[THTMLViewSettings] as THTMLViewSettings;
+end;
+
 procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;

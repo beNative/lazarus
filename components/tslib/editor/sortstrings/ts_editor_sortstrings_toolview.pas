@@ -52,7 +52,7 @@ type
   private
     function GetSettings: TSortStringsSettings;
 
-  public
+  strict protected
     property Settings: TSortStringsSettings
       read GetSettings;
 
@@ -65,6 +65,14 @@ implementation
 
 uses
   ts.Editor.Utils, ts.Editor.Types;
+
+{$region 'property access mehods' /fold}
+function TfrmSortStrings.GetSettings: TSortStringsSettings;
+begin
+  Result := inherited Settings
+    .ToolSettings.ItemsByClass[TSortStringsSettings] as TSortStringsSettings;
+end;
+{$endregion}
 
 {$region 'action handlers' /fold}
 procedure TfrmSortStrings.actExecuteExecute(Sender: TObject);
@@ -93,12 +101,6 @@ end;
 procedure TfrmSortStrings.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
-end;
-
-function TfrmSortStrings.GetSettings: TSortStringsSettings;
-begin
-  Result := inherited Settings.ToolSettings.ItemsByClass[TSortStringsSettings]
-    as TSortStringsSettings;
 end;
 
 procedure TfrmSortStrings.UpdateActions;

@@ -27,8 +27,8 @@ uses
   StdCtrls,
 
   ts.Components.XMLTree,
-  ts.Editor.Interfaces,
-  ts_Editor_ToolView_Base;
+
+  ts.Editor.Interfaces, ts_Editor_ToolView_Base;
 
 type
   TfrmStructure = class(TCustomEditorToolView, IEditorToolView)

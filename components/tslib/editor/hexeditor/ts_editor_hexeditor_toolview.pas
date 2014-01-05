@@ -90,7 +90,8 @@ end;
 {$region 'property access mehods' /fold}
 function TfrmHexEditor.GetSettings: THexEditorSettings;
 begin
-  //Result := inherited Settings.HexEditorSettings;
+  Result := inherited Settings
+    .ToolSettings.ItemsByClass[THexEditorSettings] as THexEditorSettings;
 end;
 {$endregion}
 

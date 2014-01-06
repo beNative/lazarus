@@ -138,11 +138,12 @@ msgstr "剪贴板"
 
 #: tdmeditormanager.actclose.caption
 #, fuzzy
-msgid "Close editor"
+#| msgid "Close editor"
+msgid "Close active editor view"
 msgstr "关闭编辑器"
 
 #: tdmeditormanager.actclose.hint
-msgid "Close the current editor instance."
+msgid "Close the active editor instance."
 msgstr ""
 
 #: tdmeditormanager.actcloseothers.caption

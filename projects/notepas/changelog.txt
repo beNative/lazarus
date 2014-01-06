@@ -1,8 +1,11 @@
+2014.01.06 (0.9.33)
+
 2014.01.05 (0.9.32)
 * Fixed: pressing RETURN closes the code filter window.
 * Added new feature: selection toolbar
 * Reorganized toolbar.
 * Fixed assignment of common highlighter attributes.
+* Fixed font sizing issues
 
 2013.12.21 (0.9.31)
 * Toolsettings are now components which allow for more flexible persistence.

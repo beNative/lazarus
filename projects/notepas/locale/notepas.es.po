@@ -135,11 +135,15 @@ msgid "Clipboard"
 msgstr "Portapapeles"
 
 #: tdmeditormanager.actclose.caption
-msgid "Close editor"
+#, fuzzy
+#| msgid "Close editor"
+msgid "Close active editor view"
 msgstr "Cerrar editor"
 
 #: tdmeditormanager.actclose.hint
-msgid "Close the current editor instance."
+#, fuzzy
+#| msgid "Close the current editor instance."
+msgid "Close the active editor instance."
 msgstr "Cerrar la instancia actual del editor"
 
 #: tdmeditormanager.actcloseothers.caption

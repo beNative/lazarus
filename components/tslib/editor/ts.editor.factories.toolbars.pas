@@ -259,7 +259,7 @@ begin
   CreateToolButton(TB, 'actQuoteLines');
   CreateToolButton(TB, 'actDeQuoteLines');
   CreateToolButton(TB, 'actQuoteSelection');
-  //CreateToolButton(TB, 'actQuoteLinesAndDelimit');
+  CreateToolButton(TB, 'actQuoteLinesAndDelimit');
   CreateToolButton(TB, 'actDeQuoteSelection');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actLowerCaseSelection');

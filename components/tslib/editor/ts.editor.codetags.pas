@@ -23,21 +23,22 @@ unit ts.Editor.CodeTags;
 interface
 
 uses
-  Classes, SysUtils,
-
-  ts.Core.Collections;
+  Classes, SysUtils;
 
 type
-  TCollectionItem = Classes.TCollectionItem;
 
-type
-  TCodeTagItem = class(TCollectionItem)
+  { TCodeTagItem }
+
+  TCodeTagItem = class(TComponent)
   strict private
     FEndTag   : string;
     FStartTag : string;
 
     procedure SetEndTag(AValue: string);
     procedure SetStartTag(AValue: string);
+
+  public
+    procedure Assign(Source: TPersistent); override;
 
   published
     property StartTag: string
@@ -47,10 +48,37 @@ type
       read FEndTag write SetEndTag;
   end;
 
-  TCodeTags = class(TOwnedCollection<TCodeTagItem>)
+  { TCodeTags }
+
+  TCodeTags = class(TComponent)
+  private
+    function GetItem(Index: Integer): TCodeTagItem;
+    procedure SetItem(Index: Integer; AValue: TCodeTagItem);
+  public
+    function Add: TCodeTagItem;
+
+    property Items[Index: Integer]: TCodeTagItem
+      read GetItem write SetItem; default;
   end;
 
 implementation
+
+{ TCodeTags }
+
+function TCodeTags.GetItem(Index: Integer): TCodeTagItem;
+begin
+  Result := Components[Index] as TCodeTagItem;
+end;
+
+procedure TCodeTags.SetItem(Index: Integer; AValue: TCodeTagItem);
+begin
+  Components[Index].Assign(AValue);
+end;
+
+function TCodeTags.Add: TCodeTagItem;
+begin
+  Result := TCodeTagItem.Create(Self);
+end;
 
 {$region 'property access mehods' /fold}
 procedure TCodeTagItem.SetStartTag(AValue: string);
@@ -58,6 +86,20 @@ begin
   if FStartTag = AValue then
     Exit;
   FStartTag := AValue;
+end;
+
+procedure TCodeTagItem.Assign(Source: TPersistent);
+var
+  CTI : TCodeTagItem;
+begin
+ if (Source <> Self) and (Source is TCodeTagItem) then
+ begin
+   CTI := TCodeTagItem(Source);
+   StartTag := CTI.StartTag;
+   EndTag := CTI.EndTag;
+ end
+ else
+   inherited Assign(Source);
 end;
 
 procedure TCodeTagItem.SetEndTag(AValue: string);

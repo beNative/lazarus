@@ -437,7 +437,6 @@ begin
   FHATVP.ItemsSource := FHAList;
   FHATVP.TreeView := FHAVST;
   FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
-
   FHLTVP.MultiSelect := True;
   FHLTVP.ColumnDefinitions.AddColumn(NAME, SAttributeName, dtString, 150);
   FHLList.Clear;
@@ -448,7 +447,6 @@ begin
   FHLTVP.ItemsSource := FHLList;
   FHLTVP.TreeView := FHLVST;
   FHLTVP.OnSelectionChanged := FHLTVPSelectionChanged;
-
   FTSTVP.MultiSelect := True;
   FTSTVP.ColumnDefinitions.AddColumn(NAME, SToolName, dtString, 150);
   FTSList.Clear;

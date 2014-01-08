@@ -113,8 +113,6 @@ type
   protected
     procedure SetItemName(Item: TCollectionItem); override;
     procedure Update(AItem: TCollectionItem); override;
-    procedure Notify(Item: TCollectionItem; Action: TCollectionNotification);
-      override;
 
   public
     // constructors and destructors
@@ -155,7 +153,8 @@ uses
 {$region 'THighlighterAttributes' /fold}
 
 {$region 'THighlighterAttributes.THighlighterAttributesEnumerator' /fold}
-function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent: THighlighterAttributesItem;
+function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent
+  : THighlighterAttributesItem;
 begin
   Result := FHighlighterAttributes[FPosition];
 end;
@@ -175,16 +174,13 @@ end;
 {$endregion}
 
 {$region 'construction and destruction' /fold}
-
 constructor THighlighterAttributes.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner, THighlighterAttributesItem);
 end;
-
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function THighlighterAttributes.GetItem(Index: Integer): THighlighterAttributesItem;
 begin
   Result := inherited Items[Index] as THighlighterAttributesItem;
@@ -217,11 +213,9 @@ begin
     Item.Attributes.StoredName := AName;
   end;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
-
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
   update is issued.
@@ -233,19 +227,6 @@ begin
 // Make necessary adjustments when items in the collection change
 // Update gets called from TCollection.Changed.
 end;
-
-{ Responds when items are added to or removed from the collection. }
-
-procedure THighlighterAttributes.Notify(Item: TCollectionItem; Action: TCollectionNotification);
-begin
-// The actions that can be used to respond to are:
-//   - cnAdded      : an item was just added to the collection
-//   - cnExtracting : an item is about to be removed from the collection (but
-//                    not freed)
-//   - cnDeleting   : an item is about to be removed from the collection and
-//                    then freed
-end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
@@ -270,9 +251,6 @@ end;
 
 procedure THighlighterAttributes.SetItemName(Item: TCollectionItem);
 begin
-// The Insert method calls SetItemName to initialize the Name property of items
-// when it inserts them into the collection. This overridden version provides
-// collection items with default names.
   THighlighterAttributesItem(Item).Name :=
     Copy(Item.ClassName, 2, Length(Item.ClassName)) + IntToStr(Item.ID + 1);
 end;
@@ -348,7 +326,6 @@ end;
 {$endregion}
 
 {$region 'THighlighterAttributesItem' /fold}
-
 {$region 'construction and destruction' /fold}
 constructor THighlighterAttributesItem.Create(ACollection: TCollection);
 begin
@@ -398,9 +375,9 @@ begin
   FAttributes.Assign(AValue);
 end;
 
-// By default, DisplayName is the name of the TCollectionItem descendant class
-// of which the item is an instance. By providing a dedicated field each item
-// in the Collection editor can be displayed with a unique name.
+{  By default, DisplayName is the name of the TCollectionItem descendant class
+   of which the item is an instance. By providing a dedicated field each item
+   in the Collection editor can be displayed with a unique name. }
 
 function THighlighterAttributesItem.GetDisplayName: string;
 begin
@@ -419,7 +396,6 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-
 procedure THighlighterAttributesItem.Assign(Source: TPersistent);
 var
   AI : THighlighterAttributesItem;
@@ -440,7 +416,6 @@ begin
  else
    inherited Assign(Source);
 end;
-
 {$endregion}
 
 end.

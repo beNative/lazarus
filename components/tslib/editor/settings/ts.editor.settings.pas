@@ -70,6 +70,8 @@ uses
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
   ts.Editor.Colors.Settings, ts.Editor.Tools.Settings,
 
+  ts.Editor.CodeTags,
+
   ts.Core.SharedLogger;
 
 const
@@ -85,8 +87,9 @@ const
   DEFAULT_EXTRA_LINE_SPACING          = 0;
   DEFAULT_DIM_ACTIVE_VIEW             = True;
   DEFAULT_SINGLE_INSTANCE             = False;
-
-  DEFAULT_SETTINGS_FILE = 'settings.xml';
+  DEFAULT_LANGUAGE_CODE               = 'en';
+  DEFAULT_FONT_NAME                   = 'Courier New';
+  DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
   { TEditorSettings }
@@ -291,7 +294,6 @@ type
     property ExtraLineSpacing: Integer
       read GetExtraLineSpacing write SetExtraLineSpacing
       default DEFAULT_EXTRA_LINE_SPACING;
-
   end;
 
 implementation
@@ -315,11 +317,9 @@ begin
   FColors := TEditorColorSettings.Create;
 
   FToolSettings := TEditorToolSettings.Create(Self);
-  //FToolSettings.SetSubComponent(True);
   FToolSettings.Name := 'ToolSettings';
 
   FHighlighters := THighLighters.Create(Self);
-  //FHighlighters.SetSubComponent(True);
   FHighlighters.Name := 'Highlighters';
   FHighlighterAttributes := THighlighterAttributes.Create(Self);
 
@@ -329,7 +329,7 @@ begin
   FAutoGuessHighlighterType := DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
   FSingleInstance := DEFAULT_SINGLE_INSTANCE;
   FEditorFont := TFont.Create;
-  FEditorFont.Name := 'Courier New';
+  FEditorFont.Name := DEFAULT_FONT_NAME;
   FEditorFont.Size := 10;
 
   FBlockIndent     := DEFAULT_BLOCK_INDENT;
@@ -339,6 +339,7 @@ begin
   FRightEdge       := DEFAULT_RIGHT_EDGE;
   FRightEdgeColor  := DEFAULT_RIGHT_EDGE_COLOR;
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
+  FLanguageCode    := DEFAULT_LANGUAGE_CODE;
 
   RegisterClass(TSynSelectedColor);
   AssignDefaultColors;
@@ -800,7 +801,6 @@ begin
   try
     Writer := TXmlObjectWriter.Create;
     try
-      //Logger.Send('Settings SAVE', ObjectSaveToXmlString(Self));
       Doc.XmlFormat := xfReadable;
       Writer.WriteComponent(Doc.Root, Self);
       Doc.SaveToFile(S);
@@ -920,7 +920,6 @@ begin
     );
     RegisterItem(
       SYNS_XML_AttrAttributeName, [
-        SYNS_XML_AttrIdentifier,
         SYNS_XML_AttrNamespaceAttrName,
         SYNS_XML_AttrElementName
       ]
@@ -969,7 +968,6 @@ begin
     HI.InitSynHighlighter(HI.SynHighlighter);
   end;
 end;
-
 {$endregion}
 
 end.

@@ -580,8 +580,12 @@ begin
 end;
 
 procedure TEditorCommands.GuessHighlighterType;
+var
+  S : string;
 begin
-  AssignHighlighter(GuessHighlighterType(View.Text));
+  S := GuessHighlighterType(View.Text);
+  if S <> '' then
+    AssignHighlighter(S);
 end;
 
 procedure TEditorCommands.Indent;

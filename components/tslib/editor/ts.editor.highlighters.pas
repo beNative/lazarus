@@ -54,7 +54,7 @@ type
     FSynHighlighter       : TSynCustomHighlighter;
     FSynHighlighterClass  : TSynHighlighterClass;
     FFileExtensions       : TStringList;
-    FUseCommonAttributes: Boolean;
+    FUseCommonAttributes  : Boolean;
 
     // private property access methods
     function GetDefaultFilter: string;
@@ -93,6 +93,10 @@ type
     property Index: Integer
       read GetIndex;
 
+    { Set of tags that are used for the SmartSelect feature of the editor. }
+    property SmartSelectionTags: TCodeTags
+      read FSmartSelectionTags write SetSmartSelectionTags;
+
   published
     property Highlighter: string
       read FHighlighter write FHighlighter;
@@ -124,10 +128,6 @@ type
 
     property LayoutFileName: string
       read FLayoutFileName write FLayoutFileName;
-
-    { Set of tags that are used for the SmartSelect feature of the editor. }
-    property SmartSelectionTags: TCodeTags
-      read FSmartSelectionTags write SetSmartSelectionTags;
 
     { Assign common attribute settings. }
     property UseCommonAttributes: Boolean
@@ -251,6 +251,11 @@ begin
   Result := Components[Index] as THighlighterItem;
 end;
 
+procedure THighlighters.SetItem(Index: Integer; const Value: THighlighterItem);
+begin
+  Components[Index].Assign(Value);
+end;
+
 function THighlighters.GetFileFilter: string;
 var
   S: string;
@@ -268,11 +273,6 @@ end;
 function THighlighters.GetCount: Integer;
 begin
   Result := ComponentCount;
-end;
-
-procedure THighlighters.SetItem(Index: Integer; const Value: THighlighterItem);
-begin
-  Components[Index].Assign(Value);
 end;
 
 function THighlighters.GetItemByName(const AName: string): THighlighterItem;
@@ -388,6 +388,7 @@ procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   const ADescription: string; const ALayoutFileName: string);
 var
   HI : THighlighterItem;
+  CTI : TCodeTagItem;
 begin
   HI := Find(AName);
   if not Assigned(HI) then
@@ -424,7 +425,9 @@ begin
   FFileExtensions            := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
-  FSmartSelectionTags        := TCodeTags.Create(Self);
+  FSmartSelectionTags        := TCodeTags.Create(nil);
+  //FSmartSelectionTags.Name := 'SmartSelectionTags';
+
   FUseCommonAttributes       := True;
 end;
 
@@ -459,10 +462,24 @@ begin
 end;
 
 function THighlighterItem.GetSynHighlighter: TSynCustomHighlighter;
+var
+  I : Integer;
+  B : Boolean;
 begin
   if not Assigned(FSynHighlighter) and (ComponentCount > 0) then
   begin
-    FSynHighlighter := Components[0] as TSynCustomHighlighter;
+    I := 0;
+    B := False;
+    while not B and (I < ComponentCount) do
+    begin
+      if Components[I] is TSynCustomHighlighter then
+      begin
+        B := True;
+        FSynHighlighter := TSynCustomHighlighter(Components[0]);
+      end
+      else
+        Inc(B);
+    end;
   end;
   Result := FSynHighlighter;
 end;
@@ -521,6 +538,7 @@ begin
     HLI := THighlighterItem(Source);
     SynHighlighterClass  := HLI.SynHighlighterClass;
     SynHighlighter.Assign(HLI.SynHighlighter);
+    SmartSelectionTags.Assign(HLI.SmartSelectionTags);
     Highlighter          := HLI.Highlighter;
     Description          := HLI.Description;
     LayoutFileName       := HLI.LayoutFileName;
@@ -553,6 +571,7 @@ begin
   if not Assigned(SynHighlighter) and Assigned(SynHighlighterClass) then
   begin
     FSynHighlighter := SynHighlighterClass.Create(Self);
+    FSynHighlighter.Name := 'SynHighlighter';
   end;
   if Assigned(ASynHighlighter) then
     SynHighlighter.Assign(ASynHighlighter);

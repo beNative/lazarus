@@ -4415,6 +4415,7 @@ object dmEditorManager: TdmEditorManager
     object actIndent: TAction
       Category = 'Selection'
       Caption = 'Indent'
+      Hint = 'Indent selected lines.'
       ImageIndex = 30
       OnExecute = actIndentExecute
       ShortCut = 24649
@@ -4422,6 +4423,7 @@ object dmEditorManager: TdmEditorManager
     object actUnindent: TAction
       Category = 'Selection'
       Caption = 'Unindent'
+      Hint = 'Unindent selected lines.'
       ImageIndex = 12
       OnExecute = actUnindentExecute
       ShortCut = 24661
@@ -4457,13 +4459,15 @@ object dmEditorManager: TdmEditorManager
     end
     object actConvertTabsToSpacesInSelection: TAction
       Category = 'Selection'
-      Caption = 'Convert tabs to spaces in selection'
+      Caption = 'Convert TABs to spaces in selection'
+      Hint = 'Convert TAB character to the equivalent amount of spaces in the selection.'
       ImageIndex = 111
       OnExecute = actConvertTabsToSpacesInSelectionExecute
     end
     object actExecuteScriptOnSelection: TAction
       Category = 'Selection'
       Caption = 'Execute script on selection'
+      Hint = 'Execute script function on the selected lines.'
       OnExecute = actExecuteScriptOnSelectionExecute
     end
     object actShowScriptEditor: TAction
@@ -4497,11 +4501,13 @@ object dmEditorManager: TdmEditorManager
     object actEncodeURL: TAction
       Category = 'Selection'
       Caption = 'Encode URL'
+      Hint = 'Convert the selected text to an encoded URL string.'
       OnExecute = actEncodeURLExecute
     end
     object actDecodeURL: TAction
       Category = 'Selection'
       Caption = 'Decode URL'
+      Hint = 'Decode the URL from the selected text.'
       OnExecute = actDecodeURLExecute
     end
     object actSelectionEncodeMenu: TAction

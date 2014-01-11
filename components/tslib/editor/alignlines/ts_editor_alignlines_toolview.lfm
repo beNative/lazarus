@@ -144,9 +144,10 @@ inherited frmAlignLines: TfrmAlignLines
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
-        'Rightmost token'
         'Leftmost token'
+        'Rightmost token'
       )
+      OnClick = rgpAlignAtClick
       TabOrder = 3
       Visible = False
     end

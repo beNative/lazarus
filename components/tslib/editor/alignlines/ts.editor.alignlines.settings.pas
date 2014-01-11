@@ -31,9 +31,13 @@ const
   DEFAULT_WIDTH = 360;
 
 type
+
+  { TAlignLinesSettings }
+
   TAlignLinesSettings = class(TComponent)
   strict private
     FAlignInParagraphs    : Boolean;
+    FAlignToToken         : TAlignToToken;
     FKeepSpaceAfterToken  : Boolean;
     FKeepSpaceBeforeToken : Boolean;
     FRemoveWhiteSpace     : Boolean;
@@ -55,6 +59,9 @@ type
   published
     property AlignInParagraphs: Boolean
       read FAlignInParagraphs write FAlignInParagraphs default False;
+
+    property AlignToToken: TAlignToToken
+      read FAlignToToken write FAlignToToken default atLeftMost;
 
     property SortAfterAlign: Boolean
       read FSortAfterAlign write FSortAfterAlign default False;
@@ -85,8 +92,9 @@ procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FSortDirection := sdAscending;
+  FAlignToToken  := atLeftMost;
   FWidth         := DEFAULT_WIDTH;
-  FTokens := TStringList.Create;
+  FTokens            := TStringList.Create;
   FTokens.Duplicates := dupIgnore;
   FTokens.Sorted     := True;
 end;
@@ -122,6 +130,7 @@ begin
     ALS.KeepSpaceBeforeToken := KeepSpaceBeforeToken;
     ALS.AlignInParagraphs    := AlignInParagraphs;
     ALS.RemoveWhiteSpace     := RemoveWhiteSpace;
+    ALS.AlignToToken         := AlignToToken;
     ALS.Tokens               := Tokens;
     ALS.Width                := Width;
   end
@@ -139,6 +148,7 @@ begin
     KeepSpaceAfterToken  := ALS.KeepSpaceAfterToken;
     KeepSpaceBeforeToken := ALS.KeepSpaceBeforeToken;
     AlignInParagraphs    := ALS.AlignInParagraphs;
+    AlignToToken         := ALS.AlignToToken;
     RemoveWhiteSpace     := ALS.RemoveWhiteSpace;
     Tokens               := ALS.Tokens;
     Width                := ALS.Width;

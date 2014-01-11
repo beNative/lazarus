@@ -2127,8 +2127,11 @@ begin
 end;
 
 procedure GetFileFilterExts(const AFileFilter: string; AExtensions: TStringList);
-var p, SeekPos: Integer;
-    ExtsStr, filemask: string;
+var
+  N: Integer;
+  P: Integer;
+  LExt: string;
+  LFileMask : string;
 
     function NextToken(const S: string; var SeekPos: Integer;
       const TokenDelims: TSysCharSet): string;
@@ -2152,43 +2155,45 @@ var p, SeekPos: Integer;
     end;
 
 begin
- AExtensions.Clear;
- ExtsStr := GetFileFilterExtsStr(AFileFilter);
- SeekPos := 1;
- repeat
-  filemask := NextToken(ExtsStr, SeekPos,[';']);
-  if filemask = '' then break;
-  p := CharPos('.', filemask);
-  if p > 0 then
-   Delete(filemask, 1, p-1) else { delete name from filemask }
-   filemask := '.'+filemask; { it means there was no name and dot in filemask. So prepend dot. }
-  AExtensions.Add(filemask);
- until false;
+  AExtensions.Clear;
+  LExt := GetFileFilterExtsStr(AFileFilter);
+  P := 1;
+  repeat
+  LFileMask := NextToken(LExt, P,[';']);
+  if LFileMask = '' then break;
+  N := CharPos('.', LFileMask);
+  if N > 0 then
+   Delete(LFileMask, 1, N-1) else { delete name from LFileMask }
+   LFileMask := '.'+LFileMask; { it means there was no name and dot in LFileMask. So prepend dot. }
+  AExtensions.Add(LFileMask);
+  until False;
 end;
 
 function GetFileFilterName(const AFileFilter: string): string;
-var ffLeft, ffRight: string;
-    p, len: Integer;
+var
+  LLeft: string;
+  LRight: string;
+  N: Integer;
+  L: Integer;
 
-
-
-    function SReplaceChars(const s: string; FromChar, ToChar: char): string;
-var i: Integer;
-begin
- Result := S;
- for i := 1 to Length(Result) do
-  if Result[i] = FromChar then Result[i] := ToChar;
-end;
-
-begin
- p := CharPos('|', AFileFilter);
- if p = 0 then Result := Trim(AFileFilter) else
- begin
-  ffLeft := Trim(Copy(AFileFilter, 1, p-1));
-  ffRight := Trim(SEnding(AFileFilter, p+1));
-  if ffRight = '' then
+  function SReplaceChars(const s: string; FromChar, ToChar: char): string;
+  var
+    I: Integer;
   begin
-   Result := ffLeft;
+   Result := S;
+   for I := 1 to Length(Result) do
+    if Result[I] = FromChar then Result[I] := ToChar;
+  end;
+
+begin
+ N := CharPos('|', AFileFilter);
+ if N = 0 then Result := Trim(AFileFilter) else
+ begin
+  LLeft := Trim(Copy(AFileFilter, 1, N-1));
+  LRight := Trim(SEnding(AFileFilter, N+1));
+  if LRight = '' then
+  begin
+   Result := LLeft;
    { if AFileFilter = 'xxx()|' then it matches to pattern 'xxx(exts)|exts'
      so we should return 'xxx', not 'xxx()'.
      This is often really useful when AFileFilter was constructed in an
@@ -2201,42 +2206,43 @@ begin
    end;
   end else
   begin
-   p := FindPos(ffRight, ffLeft, 1, Length(ffLeft), [soBackwards]);
-   if p = 0 then
-    p := FindPos(SReplaceChars(ffRight, ';', ','), ffLeft, 1, Length(ffLeft), [soBackwards]);
-   if p = 0 then Result := ffLeft else
+   N := FindPos(LRight, LLeft, 1, Length(LLeft), [soBackwards]);
+   if N = 0 then
+    N := FindPos(SReplaceChars(LRight, ';', ','), LLeft, 1, Length(LLeft), [soBackwards]);
+   if N = 0 then Result := LLeft else
    begin
-    len := Length(ffRight);
-    {zwieksz len tak zeby objelo biale znaki az do ')'}
-    while p+len <= Length(ffLeft) do
+    L := Length(LRight);
+    {zwieksz L tak zeby objelo biale znaki az do ')'}
+    while N+L <= Length(LLeft) do
     begin
-     if ffLeft[p+len] = ')' then
-      begin Inc(len); break end else
-     if ffLeft[p+len] in WhiteSpaces then
-      Inc(len) else
+     if LLeft[N+L] = ')' then
+      begin Inc(L); break end else
+     if LLeft[N+L] in WhiteSpaces then
+      Inc(L) else
       break;
     end;
-    while p-1 >= 1 do
+    while N-1 >= 1 do
     begin
-     if ffLeft[p-1] = '(' then
-      begin Dec(p); Inc(len); break end else
-     if ffLeft[p-1] in WhiteSpaces then
-      begin Dec(p); Inc(len) end else
+     if LLeft[N-1] = '(' then
+      begin Dec(N); Inc(L); break end else
+     if LLeft[N-1] in WhiteSpaces then
+      begin Dec(N); Inc(L) end else
       break;
     end;
-    Delete(ffLeft, p, len);
-    Result := Trim(ffLeft);
+    Delete(LLeft, N, L);
+    Result := Trim(LLeft);
    end;
   end;
  end;
 end;
 
 function GetFileFilterExtsStr(const AFileFilter: string): string;
-var p: Integer;
+var
+  N : Integer;
 begin
- p := CharPos('|', AFileFilter);
- if p > 0 then
-  Result := SEnding(AFileFilter, p+1) else
+ N := CharPos('|', AFileFilter);
+ if N > 0 then
+  Result := SEnding(AFileFilter, N+1) else
   Result := '';
 end;
 

@@ -38,6 +38,10 @@ type
     ssLines,
     ssParagraphs
   );
+  TAlignToToken = (
+    atLeftMost,
+    atRightMost
+  );
   // event types
   TCaretPositionEvent = procedure(
     Sender : TObject;

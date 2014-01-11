@@ -166,6 +166,7 @@ uses
   ts.Core.Utils,
 
   ts.Editor.Highlighters, ts_Editor_Resources, ts.Editor.CommentStripper,
+  ts.Editor.SortStrings.Settings,
 
   ts.Editor.Utils;
 
@@ -827,15 +828,19 @@ begin
 end;
 
 procedure TEditorCommands.SortStrings;
+var
+  SSS: TSortStringsSettings;
 begin
+  SSS := Settings.ToolSettings
+    .ItemsByClass[TSortStringsSettings] as TSortStringsSettings;
   Selection.Store;
-  //Selection.Text := ts.Editor.Utils.SortStrings(
-  //  Selection.Text,
-  //  Settings.SortStringsSettings.SortDirection,
-  //  Settings.SortStringsSettings.SortScope,
-  //  Settings.SortStringsSettings.CaseSensitive,
-  //  Settings.SortStringsSettings.IgnoreSpaces
-  //);
+  Selection.Text := ts.Editor.Utils.SortStrings(
+    Selection.Text,
+    SSS.SortDirection,
+    SSS.SortScope,
+    SSS.CaseSensitive,
+    SSS.IgnoreSpaces
+  );
   Selection.Restore;
 end;
 

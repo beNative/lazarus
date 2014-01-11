@@ -201,7 +201,7 @@ begin
   CreateToolButton(TB, 'actShowCodeShaper');
   CreateToolButton(TB, 'actShowCodeFilter');
   CreateToolButton(TB, 'actShowCharacterMap');
-  CreateToolButton(TB, 'actShowPreview');
+//  CreateToolButton(TB, 'actShowPreview');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSmartSelect');
   CreateToolButton(TB);

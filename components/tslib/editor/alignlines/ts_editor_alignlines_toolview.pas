@@ -100,6 +100,7 @@ type
     procedure gbxOptionsItemClick(Sender: TObject; Index: integer);
     procedure mmoTokensChange(Sender: TObject);
     procedure pnlTokensResize(Sender: TObject);
+    procedure rgpAlignAtClick(Sender: TObject);
     procedure rgpSortDirectionClick(Sender: TObject);
 
   strict private
@@ -178,9 +179,9 @@ begin
   end;
   if Settings.Tokens.Count = 0 then
     AssignDefaultTokens;
-  FTVP.ItemsSource := FTokens;
-  FTVP.TreeView    := FVST;
-  FTVP.ShowHeader  := False;
+  FTVP.ItemsSource   := FTokens;
+  FTVP.TreeView      := FVST;
+  FTVP.ShowHeader    := False;
   FTVP.OnDoubleClick := FTVPDoubleClick;
   mmoTokens.Font.Name := Manager.Settings.EditorFont.Name;
   mmoTokens.Lines.Assign(Settings.Tokens);
@@ -258,6 +259,11 @@ begin
   gbxTokenList.Width := (pnlTokens.ClientWidth + 4) div 2;
 end;
 
+procedure TfrmAlignLines.rgpAlignAtClick(Sender: TObject);
+begin
+  Settings.AlignToToken := TAlignToToken((Sender as TRadioGroup).ItemIndex);
+end;
+
 procedure TfrmAlignLines.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
@@ -274,17 +280,38 @@ end;
 {$region 'protected methods' /fold}
 procedure TfrmAlignLines.UpdateTokenList;
 var
-  S : string;
+  S  : string;
+  O  : string;
+  T  : TToken;
+  ST : TToken; // selected token
 begin
   FTVP.BeginUpdate;
+  ST := nil;
+  O  := '';
+  T  := nil;
+  if Assigned(FTVP.CurrentItem) then
+  begin
+    O := TToken(FTVP.CurrentItem).Token;
+  end;
   FTokens.Clear;
   for S in Settings.Tokens do
   begin
     if StrContains(S, Manager.ActiveView.SelText) then
-      FTokens.Add(TToken.Create(S));
+    begin
+      T := TToken.Create(S);
+      FTokens.Add(T);
+      if S = O then
+        ST := T;
+    end;
   end;
   FTVP.EndUpdate;
   FTVP.Refresh;
+  if Assigned(ST) then
+    FTVP.CurrentItem := ST // restore focused item if possible
+  else if FTokens.Count > 0 then
+  begin
+    FTVP.CurrentItem := FTokens[0];
+  end;
 end;
 
 procedure TfrmAlignLines.AssignDefaultTokens;
@@ -305,8 +332,6 @@ end;
 procedure TfrmAlignLines.UpdateView;
 begin
   UpdateTokenList;
-  if FTokens.Count > 0 then
-    FTVP.CurrentItem := FTokens[0];
 end;
 
 procedure TfrmAlignLines.Execute;
@@ -323,6 +348,10 @@ begin
       gbxInsertSpace.Checked[1],      // After token
       gbxOptions.Checked[1]           // Align in paragraphs
     );
+    if gbxOptions.Checked[2] then // TODO: sort after align
+    begin
+      // TODO
+    end;
   end;
   View.Activate;
 end;
@@ -336,6 +365,7 @@ begin
   gbxInsertSpace.Checked[0]  := Settings.KeepSpaceBeforeToken;
   gbxInsertSpace.Checked[1]  := Settings.KeepSpaceAfterToken;
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
+  rgpAlignAt.ItemIndex       := Integer(Settings.AlignToToken);
 end;
 {$endregion}
 

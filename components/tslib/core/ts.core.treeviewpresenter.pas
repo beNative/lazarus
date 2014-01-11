@@ -234,7 +234,6 @@ type
     procedure DoFocusChanging(Sender: TBaseVirtualTree;
       OldNode, NewNode: PVirtualNode; OldColumn, NewColumn: TColumnIndex;
       var Allowed: Boolean);	  
-   
 
     procedure DoGetHint(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var LineBreakStyle: TVTTooltipLineBreakStyle;

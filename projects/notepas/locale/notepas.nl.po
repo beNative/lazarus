@@ -159,8 +159,14 @@ msgid "Close all other editors"
 msgstr "Alle andere editors afsluiten"
 
 #: tdmeditormanager.actconverttabstospacesinselection.caption
-msgid "Convert tabs to spaces in selection"
+#, fuzzy
+#| msgid "Convert tabs to spaces in selection"
+msgid "Convert TABs to spaces in selection"
 msgstr "Converteer tabs naar spaties in selectie"
+
+#: tdmeditormanager.actconverttabstospacesinselection.hint
+msgid "Convert TAB character to the equivalent amount of spaces in the selection."
+msgstr ""
 
 #: tdmeditormanager.actcopy.caption
 msgid "&Copy"
@@ -290,6 +296,10 @@ msgstr ""
 msgid "Decode URL"
 msgstr "Bezoek URL"
 
+#: tdmeditormanager.actdecodeurl.hint
+msgid "Decode the URL from the selected text."
+msgstr ""
+
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
 msgid "Delete"
@@ -330,6 +340,10 @@ msgstr ""
 msgid "Encode URL"
 msgstr "Bezoek URL"
 
+#: tdmeditormanager.actencodeurl.hint
+msgid "Convert the selected text to an encoded URL string."
+msgstr ""
+
 #: tdmeditormanager.actencodingmenu.caption
 msgctxt "tdmeditormanager.actencodingmenu.caption"
 msgid "Encoding"
@@ -337,6 +351,10 @@ msgstr "Codering"
 
 #: tdmeditormanager.actexecutescriptonselection.caption
 msgid "Execute script on selection"
+msgstr ""
+
+#: tdmeditormanager.actexecutescriptonselection.hint
+msgid "Execute script function on the selected lines."
 msgstr ""
 
 #: tdmeditormanager.actexit.caption
@@ -564,6 +582,10 @@ msgstr "Vergroot editor font"
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
 msgstr "Inspringen"
+
+#: tdmeditormanager.actindent.hint
+msgid "Indent selected lines."
+msgstr ""
 
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
@@ -1069,6 +1091,10 @@ msgstr "Ongedaan maken"
 #, fuzzy
 msgid "Unindent"
 msgstr "Unindent Blok"
+
+#: tdmeditormanager.actunindent.hint
+msgid "Unindent selected lines."
+msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.caption
 msgid "Uppercase"

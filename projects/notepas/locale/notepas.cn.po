@@ -159,7 +159,11 @@ msgid "Close all other editors"
 msgstr "关闭所有其他编辑器"
 
 #: tdmeditormanager.actconverttabstospacesinselection.caption
-msgid "Convert tabs to spaces in selection"
+msgid "Convert TABs to spaces in selection"
+msgstr ""
+
+#: tdmeditormanager.actconverttabstospacesinselection.hint
+msgid "Convert TAB character to the equivalent amount of spaces in the selection."
 msgstr ""
 
 #: tdmeditormanager.actcopy.caption
@@ -300,6 +304,10 @@ msgstr ""
 msgid "Decode URL"
 msgstr ""
 
+#: tdmeditormanager.actdecodeurl.hint
+msgid "Decode the URL from the selected text."
+msgstr ""
+
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
 msgid "Delete"
@@ -340,6 +348,10 @@ msgstr ""
 msgid "Encode URL"
 msgstr ""
 
+#: tdmeditormanager.actencodeurl.hint
+msgid "Convert the selected text to an encoded URL string."
+msgstr ""
+
 #: tdmeditormanager.actencodingmenu.caption
 #, fuzzy
 msgctxt "tdmeditormanager.actencodingmenu.caption"
@@ -348,6 +360,10 @@ msgstr "编码"
 
 #: tdmeditormanager.actexecutescriptonselection.caption
 msgid "Execute script on selection"
+msgstr ""
+
+#: tdmeditormanager.actexecutescriptonselection.hint
+msgid "Execute script function on the selected lines."
 msgstr ""
 
 #: tdmeditormanager.actexit.caption
@@ -578,6 +594,10 @@ msgstr ""
 
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
+msgstr ""
+
+#: tdmeditormanager.actindent.hint
+msgid "Indent selected lines."
 msgstr ""
 
 #: tdmeditormanager.actinsertcolorvalue.caption
@@ -1083,6 +1103,10 @@ msgstr "撤销"
 
 #: tdmeditormanager.actunindent.caption
 msgid "Unindent"
+msgstr ""
+
+#: tdmeditormanager.actunindent.hint
+msgid "Unindent selected lines."
 msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.caption

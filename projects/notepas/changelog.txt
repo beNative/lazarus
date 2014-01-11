@@ -1,4 +1,7 @@
-2014.01.06 (0.9.33)
+2014.01.11 (0.9.33)
+* Fixed initialization of highlighter attributes.
+* Fixed some issues in Align Selection toolview
+* Added missing hints for some editor actions
 
 2014.01.05 (0.9.32)
 * Fixed: pressing RETURN closes the code filter window.

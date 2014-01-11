@@ -157,8 +157,14 @@ msgid "Close all other editors"
 msgstr "Cerrar los otros editores"
 
 #: tdmeditormanager.actconverttabstospacesinselection.caption
-msgid "Convert tabs to spaces in selection"
+#, fuzzy
+#| msgid "Convert tabs to spaces in selection"
+msgid "Convert TABs to spaces in selection"
 msgstr "Convertir tabulación en espacios dentro de la selección"
+
+#: tdmeditormanager.actconverttabstospacesinselection.hint
+msgid "Convert TAB character to the equivalent amount of spaces in the selection."
+msgstr ""
 
 #: tdmeditormanager.actcopy.caption
 msgid "&Copy"
@@ -288,6 +294,10 @@ msgstr "Decodificar texto seleccionado desde base64"
 msgid "Decode URL"
 msgstr "Decodificar URL"
 
+#: tdmeditormanager.actdecodeurl.hint
+msgid "Decode the URL from the selected text."
+msgstr ""
+
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
 msgid "Delete"
@@ -328,6 +338,10 @@ msgstr "Codificar el texto seleccionado en base64"
 msgid "Encode URL"
 msgstr "Codificar URL"
 
+#: tdmeditormanager.actencodeurl.hint
+msgid "Convert the selected text to an encoded URL string."
+msgstr ""
+
 #: tdmeditormanager.actencodingmenu.caption
 msgctxt "TDMEDITORMANAGER.ACTENCODINGMENU.CAPTION"
 msgid "Encoding"
@@ -336,6 +350,10 @@ msgstr "Codificación"
 #: tdmeditormanager.actexecutescriptonselection.caption
 msgid "Execute script on selection"
 msgstr "Ejecutar Script en la selección"
+
+#: tdmeditormanager.actexecutescriptonselection.hint
+msgid "Execute script function on the selected lines."
+msgstr ""
 
 #: tdmeditormanager.actexit.caption
 msgid "Exit"
@@ -561,6 +579,10 @@ msgstr "Aumentar tamaño de fuente del editor"
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
 msgstr "Identar"
+
+#: tdmeditormanager.actindent.hint
+msgid "Indent selected lines."
+msgstr ""
 
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
@@ -1057,6 +1079,10 @@ msgstr "Deshacer"
 #: tdmeditormanager.actunindent.caption
 msgid "Unindent"
 msgstr "Desidentar"
+
+#: tdmeditormanager.actunindent.hint
+msgid "Unindent selected lines."
+msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.caption
 msgid "Uppercase"

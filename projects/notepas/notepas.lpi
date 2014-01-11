@@ -877,6 +877,7 @@ end;"/>
       <Unit3>
         <Filename Value="..\..\components\tslib\core\ts.core.helpers.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Helpers"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
@@ -909,6 +910,7 @@ end;"/>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
@@ -1043,7 +1045,6 @@ end;"/>
       <Unit41>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.storage.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.Docking.Storage"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\components\tslib\components\ts.components.uniqueinstance.pas"/>
@@ -1096,6 +1097,7 @@ end;"/>
       <Unit54>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
@@ -1336,6 +1338,7 @@ end;"/>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
@@ -1525,10 +1528,12 @@ end;"/>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SystemInfo"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Types"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
@@ -1550,7 +1555,6 @@ end;"/>
       <Unit130>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Tools.Settings"/>
       </Unit130>
       <Unit131>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>

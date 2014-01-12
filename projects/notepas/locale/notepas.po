@@ -1,4 +1,4 @@
-msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field."
+msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -152,11 +152,29 @@ msgctxt "TDMEDITORMANAGER.ACTCLOSEOTHERS.HINT"
 msgid "Close all other editors"
 msgstr ""
 
-#: tdmeditormanager.actconverttabstospacesinselection.caption
+#: tdmeditormanager.actcompressspace.caption
+msgid "Compress spaces"
+msgstr ""
+
+#: tdmeditormanager.actcompressspace.hint
+msgid "Reduce consecutive spaces to one."
+msgstr ""
+
+#: tdmeditormanager.actcompresswhitespace.caption
+msgid "Compress whitespace"
+msgstr ""
+
+#: tdmeditormanager.actcompresswhitespace.hint
+msgid "Replace any number of consecutive whitespace (including newlines)"
+msgstr ""
+
+#: tdmeditormanager.actconverttabstospaces.caption
+msgctxt "TDMEDITORMANAGER.ACTCONVERTTABSTOSPACES.CAPTION"
 msgid "Convert TABs to spaces in selection"
 msgstr ""
 
-#: tdmeditormanager.actconverttabstospacesinselection.hint
+#: tdmeditormanager.actconverttabstospaces.hint
+msgctxt "TDMEDITORMANAGER.ACTCONVERTTABSTOSPACES.HINT"
 msgid "Convert TAB character to the equivalent amount of spaces in the selection."
 msgstr ""
 
@@ -2961,322 +2979,16 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.core.nativexml.objectstorage.sillegalvarianttype
-msgid "Illegal variant type"
-msgstr ""
-
-#: ts.core.nativexml.objectstorage.sinvalidmethodname
-msgid "Invalid method name"
-msgstr ""
-
-#: ts.core.nativexml.objectstorage.sinvalidpropertyvalue
-msgid "Invalid property value (%s)"
-msgstr ""
-
-#: ts.core.nativexml.objectstorage.sobjectcouldnotbeloaded
-msgid "Object could not be loaded for PropInfo (%s)"
-msgstr ""
-
-#: ts.core.nativexml.objectstorage.sunregisteredclasstype
-msgid "Unregistered classtype (%s)"
-msgstr ""
-
-#: ts.core.nativexml.sbeginendmismatch
-msgctxt "ts.core.nativexml.sbeginendmismatch"
-msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts.core.nativexml.scannotaddattribute
-msgctxt "ts.core.nativexml.scannotaddattribute"
-msgid "cannot add attribute"
-msgstr ""
-
-#: ts.core.nativexml.scannotaddnode
-msgctxt "ts.core.nativexml.scannotaddnode"
-msgid "cannot add node to this type of element"
-msgstr ""
-
-#: ts.core.nativexml.scannotmanipulate
-msgctxt "ts.core.nativexml.scannotmanipulate"
-msgid "cannot manipulate nodes in this type of element"
-msgstr ""
-
-#: ts.core.nativexml.scannotsetname
-msgctxt "ts.core.nativexml.scannotsetname"
-msgid "cannot set name on this type of element"
-msgstr ""
-
-#: ts.core.nativexml.scannotsetvalue
-msgctxt "ts.core.nativexml.scannotsetvalue"
-msgid "cannot set value on this type of element"
-msgstr ""
-
-#: ts.core.nativexml.scopyfromonlywithxmlnode
-msgctxt "ts.core.nativexml.scopyfromonlywithxmlnode"
-msgid "CopyFrom can only be used with TXmlNode descendants"
-msgstr ""
-
-#: ts.core.nativexml.sdefaultcharused
-msgctxt "ts.core.nativexml.sdefaultcharused"
-msgid "default char used for codepage substitution"
-msgstr ""
-
-#: ts.core.nativexml.serrorcalcstreamlength
-msgctxt "ts.core.nativexml.serrorcalcstreamlength"
-msgid "error while calculating streamlength"
-msgstr ""
-
-#: ts.core.nativexml.sillegalendtag
-msgctxt "ts.core.nativexml.sillegalendtag"
-msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
-msgstr ""
-
-#: ts.core.nativexml.sillegaltag
-msgctxt "ts.core.nativexml.sillegaltag"
-msgid "illegal tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts.core.nativexml.sinvalidstream
-msgctxt "ts.core.nativexml.sinvalidstream"
-msgid "invalid stream"
-msgstr ""
-
-#: ts.core.nativexml.slevelmismatch
-msgctxt "ts.core.nativexml.slevelmismatch"
-msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts.core.nativexml.smissingdatainbinarystream
-msgctxt "ts.core.nativexml.smissingdatainbinarystream"
-msgid "missing data in binary stream"
-msgstr ""
-
-#: ts.core.nativexml.snondefaultchardata
-msgctxt "ts.core.nativexml.snondefaultchardata"
-msgid "non-default chardata at line %d (pos %d)"
-msgstr ""
-
-#: ts.core.nativexml.snotsupported
-msgctxt "ts.core.nativexml.snotsupported"
-msgid "feature is not supported yet"
-msgstr ""
-
-#: ts.core.nativexml.sprematureend
-msgctxt "ts.core.nativexml.sprematureend"
-msgid "stream terminated prematurely at pos %d"
-msgstr ""
-
-#: ts.core.nativexml.squotecharexpected
-msgctxt "ts.core.nativexml.squotecharexpected"
-msgid "quote char expected at pos %d"
-msgstr ""
-
-#: ts.core.nativexml.srootelementnotdefined
-msgctxt "ts.core.nativexml.srootelementnotdefined"
-msgid "XML root element not defined."
-msgstr ""
-
-#: ts.core.nativexml.ssignificantdigitsoutofrange
-msgctxt "ts.core.nativexml.ssignificantdigitsoutofrange"
-msgid "significant digits out of range"
-msgstr ""
-
-#: ts.core.nativexml.sunknownbinaryencodingbinhex
-msgctxt "ts.core.nativexml.sunknownbinaryencodingbinhex"
-msgid "unknown encoding: xbeBinHex (deprecated)"
-msgstr ""
-
-#: ts.core.nativexml.sunknownencoding
-msgctxt "ts.core.nativexml.sunknownencoding"
-msgid "unknown encoding"
-msgstr ""
-
-#: ts.core.nativexml.sunsupportedencoding
-msgctxt "ts.core.nativexml.sunsupportedencoding"
-msgid "unsupported encoding (%s)"
-msgstr ""
-
-#: ts.core.nativexml.sunsupportedtag
-msgctxt "ts.core.nativexml.sunsupportedtag"
-msgid "unsupported tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts.core.nativexml.sxmlnodenotassigned
-msgctxt "ts.core.nativexml.sxmlnodenotassigned"
-msgid "XML node is not assigned"
-msgstr ""
-
-#: ts.core.nativexml.sxmlownernotassigned
-msgctxt "ts.core.nativexml.sxmlownernotassigned"
-msgid "XML owner is not assigned"
-msgstr ""
-
-#: ts.core.nativexml.sxmlparentnotassigned
-msgctxt "ts.core.nativexml.sxmlparentnotassigned"
-msgid "XML parent is not assigned"
-msgstr ""
-
-#: ts.core.sqlparser.serrasteriskonlyincount
-msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
-msgid "* allowed only in COUNT aggregate"
-msgstr ""
-
-#: ts.core.sqlparser.serrcannotaltergenerator
-msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
-msgid "Alter generator statement unknown"
-msgstr ""
-
-#: ts.core.sqlparser.serrdomainnotallowed
-msgctxt "ts.core.sqlparser.serrdomainnotallowed"
-msgid "Domain name not allowed in typ definition."
-msgstr ""
-
-#: ts.core.sqlparser.serrexpecteddbobject
-msgctxt "ts.core.sqlparser.serrexpecteddbobject"
-msgid "Expected database object type. Got: '%s'"
-msgstr ""
-
-#: ts.core.sqlparser.serrhavingwithoutgroupby
-msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
-msgid "HAVING without GROUP BY clause not allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrintegerexpected
-msgctxt "ts.core.sqlparser.serrintegerexpected"
-msgid "Integer expression expected"
-msgstr ""
-
-#: ts.core.sqlparser.serrinvalidextract
-msgctxt "ts.core.sqlparser.serrinvalidextract"
-msgid "Invalid element for extract: %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrinvalidliteral
-msgctxt "ts.core.sqlparser.serrinvalidliteral"
-msgid "Invalid literal: \"%s\""
-msgstr ""
-
-#: ts.core.sqlparser.serrinvaliduseofcollate
-msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
-msgid "Invalid use of COLLATE"
-msgstr ""
-
-#: ts.core.sqlparser.serrnoaggregateallowed
-msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
-msgid "Aggregate function not allowed."
-msgstr ""
-
-#: ts.core.sqlparser.serrnoasteriskinsingleton
-msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
-msgid "* not allowed in singleton select"
-msgstr ""
-
-#: ts.core.sqlparser.serrtokenmismatch
-msgctxt "ts.core.sqlparser.serrtokenmismatch"
-msgid "Unexpected token: '%s', expected: '%s'"
-msgstr ""
-
-#: ts.core.sqlparser.serrunexpectedtoken
-msgctxt "ts.core.sqlparser.serrunexpectedtoken"
-msgid "Unexpected token: %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrunexpectedtokenof
-msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
-msgid "Unexpected token: %s, expected one of %s"
-msgstr ""
-
-#: ts.core.sqlparser.serrunionfieldcountmatch
-msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
-msgid "Field count mismatch in select union : %d <> %d"
-msgstr ""
-
-#: ts.core.sqlparser.serrunknownbooleanop
-msgctxt "ts.core.sqlparser.serrunknownbooleanop"
-msgid "Unknown boolean operation"
-msgstr ""
-
-#: ts.core.sqlparser.serrunknowncomparison
-msgctxt "ts.core.sqlparser.serrunknowncomparison"
-msgid "unknown Comparison operation"
-msgstr ""
-
-#: ts.core.sqlparser.serrunmatchedbrace
-msgctxt "ts.core.sqlparser.serrunmatchedbrace"
-msgid "Expected )."
-msgstr ""
-
-#: ts.core.sqlparser.serrupperoneargument
-msgctxt "ts.core.sqlparser.serrupperoneargument"
-msgid "Only one argument for UPPER allowed"
-msgstr ""
-
-#: ts.core.sqlparser.serrvaryingnotallowed
-msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
-msgid "VARYING not allowed at this point."
-msgstr ""
-
-#: ts.core.sqlscanner.sbarexpected
-msgctxt "ts.core.sqlscanner.sbarexpected"
-msgid "|character expected"
-msgstr ""
-
-#: ts.core.sqlscanner.serrifxxxnestinglimitreached
-msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
-msgid "Nesting of$IFxxx too deep"
-msgstr ""
-
-#: ts.core.sqlscanner.serrincludefilenotfound
-msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
-msgid "Could not find include file'%s'"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidcharacter
-msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
-msgid "Invalid character'%s'"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidnonequal
-msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
-msgid "SyntaxError:!=or!==expected"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidppelse
-msgctxt "ts.core.sqlscanner.serrinvalidppelse"
-msgid "$ELSE without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serrinvalidppendif
-msgctxt "ts.core.sqlscanner.serrinvalidppendif"
-msgid "$ENDIF without matching$IFxxx"
-msgstr ""
-
-#: ts.core.sqlscanner.serropenstring
-msgctxt "ts.core.sqlscanner.serropenstring"
-msgid "string exceeds end of line"
-msgstr ""
-
-#: ts.core.sqlscanner.serrunknowntoken
-msgctxt "ts.core.sqlscanner.serrunknowntoken"
-msgid "Unknown token: %s"
-msgstr ""
-
-#: ts.core.sqlscanner.sinvalidhexadecimalnumber
-msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
-msgid "Invalid decimal number"
-msgstr ""
-
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
 #: ts.editor.search.data.sgroup
 msgid "%s (%d matching lines)"
 msgstr ""
 
 #: ts.editor.search.data.sline
 msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
 msgstr ""
 
 #: ts.editor.search.data.sposition

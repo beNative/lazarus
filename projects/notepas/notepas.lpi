@@ -1300,6 +1300,7 @@ end;"/>
       <Unit87>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
       </Unit87>
       <Unit88>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
@@ -1418,7 +1419,6 @@ end;"/>
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.MiniMap.Settings"/>
       </Unit106>
       <Unit107>
         <Filename Value="..\..\components\tslib\editor\minimap\ts_editor_minimap_toolview.pas"/>
@@ -1491,7 +1491,6 @@ end;"/>
       <Unit117>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFilter.Data"/>
       </Unit117>
       <Unit118>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>

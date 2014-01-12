@@ -2,6 +2,9 @@
 * Fixed initialization of highlighter attributes.
 * Fixed some issues in Align Selection toolview
 * Added missing hints for some editor actions
+* Added new CompressSpace and CompressWhitespace actions
+* Matching text is shown in resultlist when search with regex enabled.
+* Fixed result count in CodeFilter.
 
 2014.01.05 (0.9.32)
 * Fixed: pressing RETURN closes the code filter window.

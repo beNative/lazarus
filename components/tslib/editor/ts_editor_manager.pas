@@ -31,11 +31,15 @@ unit ts_Editor_Manager;
   TODO:
    - move out creation of dependant modules and use a factory to wire those
      objects => eases creation of unit tests.
+   - wire Actions to the active view's commands which are stored in the
+     Keystrokes collection property of TSynEdit.
+   - add bookmark actions and map shortcuts to corresponding editor commands.
+   - macro support
+   - spellcheck support
    - apply consistent casing for word under cursor/all words ? => dangerous for strings
 
    - fix highlighter issues
    - fix DeleteView methods
-   - fix SortText
 
    - customizable shortcuts for actions.
 
@@ -590,6 +594,7 @@ type
     procedure UpdateLineBreakStyleActions;
     procedure UpdateSelectionModeActions;
     procedure UpdateHighLighterActions;
+    procedure UpdateFoldingActions;
     procedure UpdateFileActions;
 
     {$region 'IEditorManager'}
@@ -801,6 +806,12 @@ uses
   ts_Editor_SettingsDialog,
   ts_Editor_SettingsDialog_FileAssociations;
 
+const
+  ACTION_PREFIX_ENCODING       = 'actEncoding';
+  ACTION_PREFIX_HIGHLIGHTER    = 'actHighlighter';
+  ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
+  ACTION_PREFIX_LINEBREAKSTYLE = 'actLineBreakStyle';
+
 {$region 'construction and destruction' /fold}
 constructor TdmEditorManager.Create(AOwner: TComponent;
   ASettings: IEditorSettings);
@@ -830,9 +841,6 @@ begin
 
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 
-  { TODO -oTS : These steps should be configurable. }
-  //LoadScriptFiles;
-  //RegisterHighlighters;
   RegisterToolViews;
   CreateActions;
   InitializePopupMenus;
@@ -1991,10 +1999,10 @@ begin
       A := TAction.Create(ActionList);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := actEncodingMenu.Name + DelChars(S, '-');
+      A.Name    := ACTION_PREFIX_ENCODING + DelChars(S, '-');
       A.AutoCheck := True;
       A.GroupIndex := 3;
-      A.Category := actEncodingMenu.Category;
+      A.Category   := actEncodingMenu.Category;
       A.OnExecute  := actEncodingExecute;
     end;
     for S in ALineBreakStyles do
@@ -2002,7 +2010,7 @@ begin
       A := TAction.Create(aclActions);
       A.ActionList := ActionList;
       A.Caption := S;
-      A.Name    := actLineBreakStyleMenu.Name + S;
+      A.Name    := ACTION_PREFIX_LINEBREAKSTYLE + S;
       A.AutoCheck := True;
       A.GroupIndex := 4;
       A.Category := actLineBreakStyleMenu.Category;
@@ -2014,9 +2022,9 @@ begin
       A.ActionList := ActionList;
       A.Caption := HI.Name;
       A.Hint := HI.Description;
-      A.Name := actHighlighter.Name + HI.Name;
+      A.Name := ACTION_PREFIX_HIGHLIGHTER + HI.Name;
       A.AutoCheck := True;
-      A.Category := actHighlighter.Category;
+      A.Category := actHighlighterMenu.Category;
       A.OnExecute := actHighlighterExecute;
       A.GroupIndex := 5;
     end;
@@ -2028,7 +2036,7 @@ begin
       S := GetEnumName(TypeInfo(TSynSelectionMode), A.Tag);
       S := System.Copy(S, 3, Length(S));
       A.Caption := S;
-      A.Name := actSelectionModeMenu.Name + S;
+      A.Name := ACTION_PREFIX_SELECTIONMODE + S;
       A.AutoCheck := True;
       A.GroupIndex := 6;
       A.Category := actSelectionModeMenu.Category;
@@ -2109,7 +2117,7 @@ begin
     GetSupportedEncodings(SL);
     for S in SL do
     begin
-      S := MI.Action.Name + DelChars(S, '-');
+      S := ACTION_PREFIX_ENCODING + DelChars(S, '-');
       A := Items[S];
       if Assigned(A) then
       begin
@@ -2133,7 +2141,7 @@ begin
   for S in ALineBreakStyles do
   begin
     MI := TMenuItem.Create(LineBreakStylePopupMenu);
-    S := LineBreakStylePopupMenu.Items.Action.Name +  S;
+    S := ACTION_PREFIX_LINEBREAKSTYLE +  S;
     A := Items[S];
     if Assigned(A) then
     begin
@@ -2186,7 +2194,7 @@ begin
   for HI in Highlighters do
   begin
     MI := TMenuItem.Create(HighlighterPopupMenu);
-    S  := actHighlighter.Name + HI.Name;
+    S  := ACTION_PREFIX_HIGHLIGHTER + HI.Name;
     A  := Items[S];
     if Assigned(A) then
     begin
@@ -2352,7 +2360,7 @@ begin
     MI := TMenuItem.Create(SelectionModePopupMenu);
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(SM));
     S := System.Copy(S, 3, Length(S));
-    S := SelectionModePopupMenu.Items.Action.Name + S;
+    S := ACTION_PREFIX_SELECTIONMODE + S;
     A := Items[S];
     if Assigned(A) then
     begin
@@ -2511,6 +2519,7 @@ begin
   UpdateEncodingActions;
   UpdateLineBreakStyleActions;
   UpdateFileActions;
+  UpdateFoldingActions;
 end;
 
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
@@ -2946,7 +2955,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := actEncodingMenu.Name + DelChars(ActiveView.Encoding, '-');
+    S := ACTION_PREFIX_ENCODING + DelChars(ActiveView.Encoding, '-');
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -2961,7 +2970,7 @@ begin
   S := '';
   if Assigned(ActiveView) then
   begin
-    S := actLineBreakStyleMenu.Name + ActiveView.LineBreakStyle;
+    S := ACTION_PREFIX_LINEBREAKSTYLE + ActiveView.LineBreakStyle;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -2978,7 +2987,7 @@ begin
   begin
     S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(ActiveView.SelectionMode));
     S := System.Copy(S, 3, Length(S));
-    S := actSelectionModeMenu.Name + S;
+    S := ACTION_PREFIX_SELECTIONMODE + S;
     A := Items[S];
     if Assigned(A) then
       A.Checked := True;
@@ -3010,12 +3019,39 @@ begin
   S := '';
   if Assigned(ActiveView) and Assigned(ActiveView.HighlighterItem) then
   begin
-    S := actHighlighter.Name + ActiveView.HighlighterItem.Name;
+    S := ACTION_PREFIX_HIGHLIGHTER + ActiveView.HighlighterItem.Name;
     A := Items[S];
     // TS TODO!!!
     if Assigned(A) then
       A.Checked := True;
   end;
+end;
+
+procedure TdmEditorManager.UpdateFoldingActions;
+var
+  I : Integer;
+begin
+  // Assign fold shortcuts
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel0);
+  actFoldLevel0.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel1);
+  actFoldLevel1.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel2);
+  actFoldLevel2.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel3);
+  actFoldLevel3.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel4);
+  actFoldLevel4.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel5);
+  actFoldLevel5.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel6);
+  actFoldLevel6.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel7);
+  actFoldLevel7.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel8);
+  actFoldLevel8.ShortCut := View.Editor.Keystrokes[I].ShortCut;
+  I := View.Editor.Keystrokes.FindCommand(ecFoldLevel9);
+  actFoldLevel9.ShortCut := View.Editor.Keystrokes[I].ShortCut;
 end;
 
 procedure TdmEditorManager.ClearHighlightSearch;

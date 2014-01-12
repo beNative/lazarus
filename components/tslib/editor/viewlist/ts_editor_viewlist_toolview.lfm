@@ -1,7 +1,7 @@
 inherited frmViewList: TfrmViewList
-  Left = -1210
+  Left = -916
   Height = 501
-  Top = 218
+  Top = 250
   Width = 800
   Caption = 'Editor views'
   ClientHeight = 501

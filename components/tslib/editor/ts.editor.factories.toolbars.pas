@@ -207,12 +207,12 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSettings');
   CreateToolButton(TB);
-  CreateToolButton(TB, 'actAbout');
-  CreateToolButton(TB);
   CreateToolButton(TB, 'actShowSpecialCharacters');
   CreateToolButton(TB, 'actMonitorChanges');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actCreateDesktopLink');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actAbout');
   Result := TB;
 end;
 

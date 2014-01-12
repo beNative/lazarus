@@ -844,6 +844,8 @@ type
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     procedure AssignHighlighter(const AName: string);
+    procedure CompressSpace;
+    procedure CompressWhitespace;
     procedure CopyToClipboard;
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;

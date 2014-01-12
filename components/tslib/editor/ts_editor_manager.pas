@@ -142,12 +142,14 @@ type
     actFindAllOccurences              : TAction;
     actIndent                         : TAction;
     actFileMenu                       : TAction;
-    actConvertTabsToSpacesInSelection : TAction;
+    actConvertTabsToSpaces : TAction;
     actExecuteScriptOnSelection       : TAction;
     actHighlighterMenu                : TAction;
     actFoldMenu                       : TAction;
     actEncodeURL                      : TAction;
     actDecodeURL                      : TAction;
+    actCompressSpace: TAction;
+    actCompressWhitespace: TAction;
     actMergeBlankLines                : TAction;
     actStripComments                  : TAction;
     actSelectionEncodeMenu            : TAction;
@@ -308,7 +310,9 @@ type
     procedure actAssociateFilesExecute(Sender: TObject);
     procedure actAutoFormatXMLExecute(Sender: TObject);
     procedure actAutoGuessHighlighterExecute(Sender: TObject);
-    procedure actConvertTabsToSpacesInSelectionExecute(Sender: TObject);
+    procedure actCompressSpaceExecute(Sender: TObject);
+    procedure actCompressWhitespaceExecute(Sender: TObject);
+    procedure actConvertTabsToSpacesExecute(Sender: TObject);
     procedure actDecodeURLExecute(Sender: TObject);
     procedure actEncodeURLExecute(Sender: TObject);
     procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
@@ -1611,7 +1615,17 @@ begin
   Commands.GuessHighlighterType;
 end;
 
-procedure TdmEditorManager.actConvertTabsToSpacesInSelectionExecute(
+procedure TdmEditorManager.actCompressSpaceExecute(Sender: TObject);
+begin
+  Commands.CompressSpace;
+end;
+
+procedure TdmEditorManager.actCompressWhitespaceExecute(Sender: TObject);
+begin
+  Commands.CompressWhitespace;
+end;
+
+procedure TdmEditorManager.actConvertTabsToSpacesExecute(
   Sender: TObject);
 begin
   Commands.ConvertTabsToSpacesInSelection;
@@ -2268,6 +2282,8 @@ begin
   AddMenuItem(MI, actStripLastChar);
   AddMenuItem(MI, actStripComments);
   AddMenuItem(MI, actStripMarkup);
+  AddMenuItem(MI, actCompressSpace);
+  AddMenuItem(MI, actCompressWhitespace);
   AddMenuItem(MI, actMergeBlankLines);
   AddMenuItem(MI);
   AddMenuItem(MI, actToggleComment);
@@ -2282,7 +2298,7 @@ begin
   AddMenuItem(MI, SelectionEncodePopupMenu);
   AddMenuItem(MI, SelectionDecodePopupMenu);
   AddMenuItem(MI);
-  AddMenuItem(MI, actConvertTabsToSpacesInSelection);
+  AddMenuItem(MI, actConvertTabsToSpaces);
   AddMenuItem(MI);
   AddMenuItem(MI, actPascalStringOfSelection);
   AddMenuItem(MI, ExecuteScriptOnSelectionPopupMenu);
@@ -2858,9 +2874,13 @@ begin
       actDecodeBase64.Enabled                   := B;
       actEncodeURL.Enabled                      := B;
       actDecodeURL.Enabled                      := B;
-      actConvertTabsToSpacesInSelection.Enabled := B;
+      actConvertTabsToSpaces.Enabled            := B;
       actExecuteScriptOnSelection.Enabled       := B;
       actSyncEdit.Enabled                       := B;
+      actCompressSpace.Enabled                  := B;
+      actCompressWhitespace.Enabled             := B;
+      actIndent.Enabled                         := B;
+      actUnindent.Enabled                       := B;
 
       B := not Settings.ReadOnly;
       actAlignSelection.Visible          := B;

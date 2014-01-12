@@ -85,6 +85,8 @@ type
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
 
+    procedure CompressSpace;
+    procedure CompressWhitespace;
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
     procedure PascalStringFromSelection;
@@ -296,14 +298,13 @@ begin
         begin
           S := SL.Text;
           if IsPAS(S) then
-            Result := HL_PAS;
+            Result := HL_PAS
+          else if IsLFM(S) then
+            Result := HL_LFM
         end
         //if IsLOG(AText) then
         //  Result := HL_LOG
-        //else if IsPAS(AText) then
-        //  Result := HL_PAS
-        //else if IsLFM(AText) then
-        //  Result := HL_LFM
+
         //else if IsHTML(AText) then
         //  Result := HL_HTML
         //else if IsXML(AText) then
@@ -420,6 +421,20 @@ end;
 procedure TEditorCommands.CopyToClipboard;
 begin
   View.Editor.CopyToClipboard;
+end;
+
+procedure TEditorCommands.CompressSpace;
+begin
+  Selection.Store;
+  Selection.Text := ts.Editor.Utils.CompressSpace(Selection.Text);
+  Selection.Restore;
+end;
+
+procedure TEditorCommands.CompressWhitespace;
+begin
+  Selection.Store;
+  Selection.Text := ts.Editor.Utils.CompressWhitespace(Selection.Text);
+  Selection.Restore;
 end;
 
 procedure TEditorCommands.UpperCaseSelection;

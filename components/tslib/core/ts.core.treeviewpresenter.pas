@@ -58,6 +58,7 @@ unit ts.Core.TreeViewPresenter;
     - Support for column Margin property
     - Fixed passing Selected parameter in custom draw events
     - Added TStringlist support
+    - Added VisibleCount property
 }
 
 {$MODE Delphi}
@@ -290,6 +291,7 @@ type
     function GetSelectedItems: TObjectList;
     function CalcCheckBoxRect(const Rect: TRect): TRect;
     function CalcImageRect(const Rect: TRect): TRect;
+    function GetVisibleCount: Cardinal;
     function IsMouseInCheckBox(Node: PVirtualNode; Column: TColumnIndex): Boolean;
     function IsMouseInToggleIcon(HitInfo: THitInfo): Boolean;
     function ToggleCheckBox(Node: PVirtualNode; Column: TColumnIndex): Boolean;
@@ -404,6 +406,7 @@ type
     property PopupMenu: TPopupMenu read FPopupMenu write SetPopupMenu;
     property TreeView: TVirtualStringTree read FTreeView write SetTreeView;
     property OnFilter: TFilterEvent read FOnFilter write FOnFilter;
+    property VisibleCount: Cardinal read GetVisibleCount;
   end;
 
 implementation
@@ -521,6 +524,21 @@ begin
   Result.Top := Rect.Top + (RectHeight(Rect) - ImageList.Height) div 2;
   Result.Right := Result.Left + ImageList.Width;
   Result.Bottom := Result.Top + ImageList.Height;
+end;
+
+function TTreeViewPresenter.GetVisibleCount: Cardinal;
+var
+  LItem: TObject;
+  LNode: PVirtualNode;
+begin
+  Result := 0;
+  LNode := FTreeView.GetFirst;
+  while Assigned(LNode) do
+  begin
+    if (vsVisible in LNode.States) and (not (vsHidden in LNode.States)) then
+      Inc(Result);
+    LNode := FTreeView.GetNext(LNode);
+  end;
 end;
 
 procedure TTreeViewPresenter.DefineProperties(Filer: TFiler);

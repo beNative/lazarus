@@ -39,6 +39,8 @@ type
     FBlockBegin : TPoint;
     FBlockEnd   : TPoint;
     FFileName   : string;
+    FMatch      : string;
+    FShowMatch  : Boolean;
     FStartPos   : Integer;
     FEndPos     : Integer;
     FViewName   : string;
@@ -71,6 +73,12 @@ type
 
     property EndPos: Integer
       read FEndPos write FEndPos;
+
+    property Match: string
+      read FMatch write FMatch;
+
+    property ShowMatch: Boolean
+      read FShowMatch write FShowMatch;
 
   published
     property Text: string
@@ -134,6 +142,7 @@ implementation
 
 resourcestring
   SPosition = 'Position: (%d, %d)';
+  SMatch    = ': ''%s''';
   SLine     = 'Line: %d';
   SGroup    = '%s (%d matching lines)';
 
@@ -141,6 +150,10 @@ resourcestring
 function TSearchResult.GetText: string;
 begin
   Result := Format(SPosition, [Column, Line]);
+  if ShowMatch then
+  begin
+    Result := Result + Format(SMatch, [Match]);
+  end;
 end;
 {$endregion}
 

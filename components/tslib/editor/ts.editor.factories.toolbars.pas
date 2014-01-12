@@ -251,6 +251,8 @@ begin
   CreateToolButton(TB, 'actUnindent');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actMergeBlankLines');
+  CreateToolButton(TB, 'actCompressSpace');
+  CreateToolButton(TB, 'actCompressWhitespace');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actFormat');
   CreateToolButton(TB);
@@ -265,7 +267,7 @@ begin
   CreateToolButton(TB, 'actLowerCaseSelection');
   CreateToolButton(TB, 'actUpperCaseSelection');
   CreateToolButton(TB);
-  CreateToolButton(TB, 'actConvertTabsToSpacesInSelection');
+  CreateToolButton(TB, 'actConvertTabsToSpaces');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actStripFirstChar');
   CreateToolButton(TB, 'actStripLastChar');

@@ -368,6 +368,9 @@ begin
         SR.Column     := ptFoundStart.X;
         SR.Line       := ptFoundStart.Y;
         SR.Index      := N;
+        SR.ShowMatch  := ssoRegExpr in Options;
+        if SR.ShowMatch then
+          SR.Match := AView.Editor.TextBetweenPoints[ptFoundStart, ptFoundEnd];
         SRL.List.Add(SR);
         FItemList.Add(SR);
         ptStart := ptFoundEnd;

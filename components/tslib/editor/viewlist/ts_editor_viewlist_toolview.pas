@@ -107,7 +107,6 @@ begin
   FTVP.PopupMenu          := ppmMain;
   FTVP.TreeView           := FVST;
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
-  //InspectComponents([FTVP, FVST]);
 end;
 
 procedure TfrmViewList.BeforeDestruction;

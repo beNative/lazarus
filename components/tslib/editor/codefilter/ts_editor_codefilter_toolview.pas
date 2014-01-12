@@ -759,17 +759,8 @@ begin
   actApplyFilter.Enabled := RegEx;
   if FUpdate then
   begin
-    { TODO: FVST.VisibleCount does not return the correct value. This
-      workaround resets our treeview if the filter is emptied. }
-    {BEGIN workaround}
-    if Filter = '' then
-      UpdateView
-    else
-    begin
-    {END workaround}
-      UpdateView;
-      ApplyFilter;
-    end;
+    UpdateView;
+    ApplyFilter;
     FUpdate := False;
   end;
   if FUpdateEditorView then // update position in the editorview
@@ -782,11 +773,14 @@ begin
 end;
 
 procedure TfrmCodeFilterDialog.UpdateStatusDisplay;
+var
+  N : Cardinal;
 begin
-  if FVST.VisibleCount = 1 then
+  N := FTVP.VisibleCount;
+  if N = 1 then
     sbrMain.SimpleText :=  SOneLineWithMatchFound
   else
-    sbrMain.SimpleText := Format(SLinesWithMatchFound, [FVST.VisibleCount]);
+    sbrMain.SimpleText := Format(SLinesWithMatchFound, [N]);
 end;
 
 procedure TfrmCodeFilterDialog.ApplyFilter;

@@ -210,10 +210,13 @@ begin
   CreateMenuItem(MI, 'actSortSelection');
   CreateMenuItem(MI, 'actSyncEdit');
   CreateMenuItem(MI);
+  CreateMenuItem(MI, 'actIndent');
+  CreateMenuItem(MI, 'actUnindent');
+  CreateMenuItem(MI);
   CreateMenuItem(MI, 'actLowerCaseSelection');
   CreateMenuItem(MI, 'actUpperCaseSelection');
   CreateMenuItem(MI);
-  CreateMenuItem(MI, 'actConvertTabsToSpacesInSelection');
+  CreateMenuItem(MI, 'actConvertTabsToSpaces');
   CreateMenuItem(MI);
   CreateMenuItem(MI, 'actQuoteSelection');
   CreateMenuItem(MI, 'actDeQuoteSelection');
@@ -229,6 +232,8 @@ begin
   CreateMenuItem(MI);
   CreateMenuItem(MI, 'actStripComments');
   CreateMenuItem(MI, 'actStripMarkup');
+  CreateMenuItem(MI, 'actCompressSpace');
+  CreateMenuItem(MI, 'actCompressWhitespace');
   CreateMenuItem(MI, 'actMergeBlankLines');
   CreateMenuItem(MI);
   SMI := CreateMenuItem(MI, 'actSelectionEncodeMenu');

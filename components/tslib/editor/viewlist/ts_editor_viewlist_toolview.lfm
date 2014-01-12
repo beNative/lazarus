@@ -34,7 +34,7 @@ inherited frmViewList: TfrmViewList
       Top = 4
       Width = 120
       Action = actClose
-      Anchors = [akTop, akLeft, akRight, akBottom]
+      Anchors = [akTop, akRight, akBottom]
       Default = True
       ModalResult = 11
       TabOrder = 0

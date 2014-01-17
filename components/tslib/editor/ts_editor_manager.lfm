@@ -5177,23 +5177,6 @@ object dmEditorManager: TdmEditorManager
     object MenuItem12: TMenuItem
     end
   end
-  object DelphiWebScript: TDelphiWebScript
-    Config.CompilerOptions = [coOptimize, coAssertions, coAllowClosures]
-    left = 504
-    top = 40
-  end
-  object dwsGUIFunctions: TdwsGUIFunctions
-    left = 504
-    top = 96
-  end
-  object dwsGlobalVarsFunctions: TdwsGlobalVarsFunctions
-    left = 504
-    top = 160
-  end
-  object dwsSimpleDebugger: TdwsSimpleDebugger
-    left = 504
-    top = 232
-  end
   object ppmExecuteScriptOnSelection: TPopupMenu
     left = 175
     top = 366

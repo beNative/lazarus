@@ -97,7 +97,8 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
+  //Commented by esvignolo
+  //dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
 
   ts.Components.ExportRTF,
 
@@ -251,13 +252,15 @@ type
     actToggleFoldLevel                : TAction;
     actToggleHighlighter              : TAction;
     actUpperCaseSelection             : TAction;
-    DelphiWebScript                   : TDelphiWebScript;
+    //Commented by esvignolo
+    //DelphiWebScript                   : TDelphiWebScript;
     dlgColor                          : TColorDialog;
     dlgOpen                           : TOpenDialog;
     dlgSave                           : TSaveDialog;
-    dwsGlobalVarsFunctions            : TdwsGlobalVarsFunctions;
-    dwsGUIFunctions                   : TdwsGUIFunctions;
-    dwsSimpleDebugger                 : TdwsSimpleDebugger;
+    //Commented by esvignolo
+    //dwsGlobalVarsFunctions            : TdwsGlobalVarsFunctions;
+    //dwsGUIFunctions                   : TdwsGUIFunctions;
+    //dwsSimpleDebugger                 : TdwsSimpleDebugger;
     imlMain                           : TImageList;
     MenuItem1                         : TMenuItem;
     MenuItem10                        : TMenuItem;
@@ -440,8 +443,9 @@ type
     FPersistSettings  : Boolean;
     FSynExporterRTF   : TSynExporterRTF;
 
-    FdwsProgramExecution : IdwsProgramExecution;
-    FdwsProgram          : IdwsProgram;
+    //Commented by esvignolo
+    //FdwsProgramExecution : IdwsProgramExecution;
+    //FdwsProgram          : IdwsProgram;
     FScriptFunctions     : TStringList;
 
     FToolViews    : IEditorToolViews;
@@ -856,8 +860,9 @@ begin
   FEvents   := nil;
   FCommands := nil;
   FToolViews := nil;
-  FdwsProgramExecution := nil;
-  FdwsProgram := nil;
+  //Commented by esvignolo
+  //FdwsProgramExecution := nil;
+  //FdwsProgram := nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
@@ -1650,35 +1655,37 @@ begin
 end;
 
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
-var
-  A  : TAction;
-  FI : IInfo;
+//Commented by esvignolo
+//var
+//  A  : TAction;
+//  FI : IInfo;
 begin
-  Selection.Store;
-  try
-    A := Sender as TAction;
-    if Assigned(FdwsProgramExecution) then
-    begin
-      FdwsProgramExecution.BeginProgram;
-      try
-        FI := FdwsProgramExecution.Info.Func[A.Caption];
-        if Assigned(FI) then
-        begin
-          Selection.Text := FI.Call(
-            [Selection.Text]
-          ).GetValueAsString;
-        end
-        else
-          raise Exception.Create('Script function not found');
-      finally
-        FdwsProgramExecution.EndProgram;
-      end;
-    end
-    else
-      raise Exception.Create('No script file was found');
-  finally
-    Selection.Restore;
-  end;
+  //Commented by esvignolo
+  //Selection.Store;
+  //try
+  //  A := Sender as TAction;
+  //  if Assigned(FdwsProgramExecution) then
+  //  begin
+  //    FdwsProgramExecution.BeginProgram;
+  //    try
+  //      FI := FdwsProgramExecution.Info.Func[A.Caption];
+  //      if Assigned(FI) then
+  //      begin
+  //        Selection.Text := FI.Call(
+  //          [Selection.Text]
+  //        ).GetValueAsString;
+  //      end
+  //      else
+  //        raise Exception.Create('Script function not found');
+  //    finally
+  //      FdwsProgramExecution.EndProgram;
+  //    end;
+  //  end
+  //  else
+  //    raise Exception.Create('No script file was found');
+  //finally
+  //  Selection.Restore;
+  //end;
 end;
 
 procedure TdmEditorManager.actPageSetupExecute(Sender: TObject);
@@ -2102,12 +2109,14 @@ begin
   AddMenuItem(MI, actCopyWikiToClipboard);
 end;
 
+
 procedure TdmEditorManager.BuildEncodingPopupMenu;
 var
   SL : TStringList;
   S  : string;
   A  : TCustomAction;
   MI : TMenuItem;
+  i  :  integer;
 begin
   SL := TStringList.Create;
   try
@@ -2115,8 +2124,9 @@ begin
     MI.Clear;
     MI.Action := actEncodingMenu;
     GetSupportedEncodings(SL);
-    for S in SL do
+    for i:=0 to SL.Count-1 do //change for ... in loop by esvignolo
     begin
+      S := SL[i];
       S := ACTION_PREFIX_ENCODING + DelChars(S, '-');
       A := Items[S];
       if Assigned(A) then
@@ -2134,12 +2144,15 @@ var
   MI : TMenuItem;
   S  : string;
   A  : TCustomAction;
+  t  : TTextLineBreakStyle;
+
 begin
   MI := LineBreakStylePopupMenu.Items;
   MI.Clear;
   MI.Action := actLineBreakStyleMenu;
-  for S in ALineBreakStyles do
+  for t := Low(TTextLineBreakStyle) to High(TTextLineBreakStyle) do //change for .. in loop
   begin
+    S:= ALineBreakStyles[t];
     MI := TMenuItem.Create(LineBreakStylePopupMenu);
     S := ACTION_PREFIX_LINEBREAKSTYLE +  S;
     A := Items[S];
@@ -2470,43 +2483,45 @@ begin
 end;
 
 procedure TdmEditorManager.LoadScriptFiles;
-var
-  A : TAction;
-  S : string;
-  PS : TSymbol;
+//Commented by esvignolo
+//var
+//  A : TAction;
+//  S : string;
+//  PS : TSymbol;
 begin
-  actExecuteScriptOnSelection.Enabled := False;
-  if FileExistsUTF8('notepas.dws') then
-  begin
-    S := ReadFileToString('notepas.dws');
-    FdwsProgram := DelphiWebScript.Compile(S);
-    if FdwsProgram.Msgs.Count = 0 then
-    begin
-      FdwsProgramExecution := FdwsProgram.Execute;
-      for PS in  FdwsProgram.Table do
-      begin
-        if PS is TFuncSymbol then
-        begin
-          actExecuteScriptOnSelection.Enabled := True;
-          FScriptFunctions.Add(PS.Name);
-          A := TAction.Create(ActionList);
-          A.Hint       := (PS as TFuncSymbol).Description;
-          A.ActionList := ActionList;
-          A.Caption    := PS.Name;
-          A.Name       := actExecuteScriptOnSelection.Name + PS.Name;
-          A.Category   := actExecuteScriptOnSelection.Category;
-          A.OnExecute  := actExecuteScriptOnSelectionExecute;
-        end;
-      end;
-    end
-    else
-    begin
-      raise Exception.CreateFmt(
-        'Compilation failed with:'#13#10,
-        [FdwsProgram.Msgs.AsInfo]
-      );
-    end;
-  end;
+  //Commented by esvignolo
+  //actExecuteScriptOnSelection.Enabled := False;
+  //if FileExistsUTF8('notepas.dws') then
+  //begin
+  //  S := ReadFileToString('notepas.dws');
+  //  FdwsProgram := DelphiWebScript.Compile(S);
+  //  if FdwsProgram.Msgs.Count = 0 then
+  //  begin
+  //    FdwsProgramExecution := FdwsProgram.Execute;
+  //    for PS in  FdwsProgram.Table do
+  //    begin
+  //      if PS is TFuncSymbol then
+  //      begin
+  //        actExecuteScriptOnSelection.Enabled := True;
+  //        FScriptFunctions.Add(PS.Name);
+  //        A := TAction.Create(ActionList);
+  //        A.Hint       := (PS as TFuncSymbol).Description;
+  //        A.ActionList := ActionList;
+  //        A.Caption    := PS.Name;
+  //        A.Name       := actExecuteScriptOnSelection.Name + PS.Name;
+  //        A.Category   := actExecuteScriptOnSelection.Category;
+  //        A.OnExecute  := actExecuteScriptOnSelectionExecute;
+  //      end;
+  //    end;
+  //  end
+  //  else
+  //  begin
+  //    raise Exception.CreateFmt(
+  //      'Compilation failed with:'#13#10,
+  //      [FdwsProgram.Msgs.AsInfo]
+  //    );
+  //  end;
+  //end;
 end;
 {$endregion}
 {$endregion}

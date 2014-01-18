@@ -45,8 +45,10 @@ type
   strict protected
     procedure UpdateView; override;
 
+    {$IFDEF Windows}
     property Settings : THTMLViewSettings
       read GetSettings;
+    {$ENDIF}
 
   public
     procedure AfterConstruction; override;
@@ -70,11 +72,13 @@ end;
 {$endregion}
 
 {$region 'protected methods' /fold}
+{$IFDEF Windows}
 function TfrmHTMLView.GetSettings: THTMLViewSettings;
 begin
   Result := inherited Settings
     .ToolSettings.ItemsByClass[THTMLViewSettings] as THTMLViewSettings;
 end;
+{$ENDIF}
 
 procedure TfrmHTMLView.UpdateView;
 begin
@@ -89,4 +93,4 @@ end;
 {$endregion}
 
 end.
-
+

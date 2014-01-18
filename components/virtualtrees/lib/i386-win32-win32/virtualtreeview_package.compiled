@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="D:\codetyphon\lazarus\fpc\2.7.1\bin\i386-win32\fpc.exe" Date="1132105965"/>
+  <Params Value=" -MObjFPC -Scgi -O1 -g -gl -vewnhi -FiD:\codetyphon\ts\components\virtualtrees\include\intf\win32 -FiD:\codetyphon\ts\components\virtualtrees\units -FiD:\codetyphon\ts\components\virtualtrees\include\intf -FuD:\codetyphon\ts\components\virtualtrees\units\win32 -FuD:\codetyphon\lazarus\packager\units\i386-win32 -FuD:\codetyphon\lazarus\components\lazutils\lib\i386-win32 -FuD:\codetyphon\lazarus\lcl\units\i386-win32 -FuD:\codetyphon\lazarus\lcl\units\i386-win32\win32 -FuD:\codetyphon\ts\components\lclextensions\lib\i386-win32-win32 -FuD:\codetyphon\ts\components\virtualtrees\ -FUD:\codetyphon\ts\components\virtualtrees\lib\i386-win32-win32\ -l -dLCL -dLCLwin32 virtualtreeview_package.pas"/>
+</CONFIG>

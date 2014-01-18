@@ -34,7 +34,6 @@ uses
   FrameViewer09,
   {$ENDIF}
   lazrichedit,
-  lazcontrols,
   richmemopackage,
 
   runtimetypeinfocontrols,
@@ -164,7 +163,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title:='Notepas';
+  Application.Title := 'notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');

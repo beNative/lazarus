@@ -1,3 +1,6 @@
+2014.01.16 (0.9.34)
+* Added shortcuts for close actions.
+
 2014.01.11 (0.9.33)
 * Fixed initialization of highlighter attributes.
 * Fixed some issues in Align Selection toolview
@@ -5,6 +8,7 @@
 * Added new CompressSpace and CompressWhitespace actions
 * Matching text is shown in resultlist when search with regex enabled.
 * Fixed result count in CodeFilter.
+* Fixed folding action sh
 
 2014.01.05 (0.9.32)
 * Fixed: pressing RETURN closes the code filter window.

@@ -25,8 +25,6 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-   HexaColorPicker, ColorBox,
-
   ts_Editor_ToolView_Base;
 
 type
@@ -34,8 +32,6 @@ type
   { TfrmColors }
 
   TfrmColors = class(TForm)
-    ColorListBox1    : TColorListBox;
-    HexaColorPicker1 : THexaColorPicker;
 
   end;
 

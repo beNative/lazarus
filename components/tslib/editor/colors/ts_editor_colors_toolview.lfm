@@ -3,35 +3,5 @@ object frmColors: TfrmColors
   Height = 591
   Top = 229
   Width = 254
-  ClientHeight = 591
-  ClientWidth = 254
   LCLVersion = '1.3'
-  object HexaColorPicker1: THexaColorPicker
-    Left = 0
-    Height = 248
-    Top = 0
-    Width = 254
-    Align = alTop
-    HintFormat = 'RGB(%r, %g, %b)'#13'Hex: #%hex'
-    NewArrowStyle = True
-    IntensityText = 'Intensity'
-    ParentColor = False
-    TabOrder = 0
-    Color = clNone
-    Constraints.MinHeight = 85
-    Constraints.MinWidth = 93
-  end
-  object ColorListBox1: TColorListBox
-    Left = 3
-    Height = 337
-    Top = 251
-    Width = 248
-    ColorRectWidth = 60
-    Style = [cbStandardColors, cbExtendedColors, cbSystemColors, cbCustomColor, cbPrettyNames]
-    Align = alClient
-    BorderSpacing.Around = 3
-    BorderStyle = bsNone
-    ItemHeight = 0
-    TabOrder = 1
-  end
 end

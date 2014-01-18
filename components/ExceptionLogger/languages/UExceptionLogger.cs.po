@@ -1,0 +1,103 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Jiří Hajda <robie@centrum.cz>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: uexceptionlogger.saddress
+msgid "Address"
+msgstr "Adresa"
+
+#: uexceptionlogger.sapplication
+msgid "Application"
+msgstr "Aplikace"
+
+#: uexceptionlogger.scallstack
+msgid "Call stack"
+msgstr "Volací zásobník"
+
+#: uexceptionlogger.sclass
+msgctxt "uexceptionlogger.sclass"
+msgid "Class"
+msgstr "Třída"
+
+#: uexceptionlogger.sclose
+#| msgid "Close"
+msgid "Continue"
+msgstr "Pokračovat"
+
+#: uexceptionlogger.sdetails
+msgid "Details"
+msgstr "Podrobnosti"
+
+#: uexceptionlogger.serroroccured
+msgid "Error occured during program execution:"
+msgstr "Došlo k chybě při vykonávání programu:"
+
+#: uexceptionlogger.sexceptionclass
+msgctxt "uexceptionlogger.sexceptionclass"
+msgid "Class"
+msgstr "Třída"
+
+#: uexceptionlogger.sexceptionhandlercannotbesynchronized
+msgid "Exception handler cannot be synchronized with main thread."
+msgstr "Obsluha vyjímky nemůže být synchronizována s hlavním vláknem."
+
+#: uexceptionlogger.sexceptioninfo
+msgid "Exception info"
+msgstr "Informace výjimky"
+
+#: uexceptionlogger.sgeneral
+msgid "General"
+msgstr "Obecné"
+
+#: uexceptionlogger.signorenexttime
+msgid "Next time ignore this exception"
+msgstr "Příště ignorovat tuto výjimku"
+
+#: uexceptionlogger.sindex
+msgid "Index"
+msgstr "Index"
+
+#: uexceptionlogger.sline
+msgid "Line"
+msgstr "Řádek"
+
+#: uexceptionlogger.smessage
+msgid "Message"
+msgstr "Zpráva"
+
+#: uexceptionlogger.sproceduremethod
+msgid "Procedure/method"
+msgstr "Procedure/metoda"
+
+#: uexceptionlogger.sprocessid
+msgid "Process ID"
+msgstr "ID procesu"
+
+#: uexceptionlogger.sterminate
+#| msgid "Terminate"
+msgid "Exit program"
+msgstr "Ukončit program"
+
+#: uexceptionlogger.sthreadid
+msgid "Thread ID"
+msgstr "ID vlákna"
+
+#: uexceptionlogger.stime
+msgid "Time"
+msgstr "Čas"
+
+#: uexceptionlogger.sunit
+msgid "Unit"
+msgstr "Jednotka"
+
+#: uexceptionlogger.sversion
+msgid "Version"
+msgstr "Verze"
+

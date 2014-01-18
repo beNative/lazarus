@@ -1,0 +1,93 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uexceptionlogger.saddress
+msgid "Address"
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uexceptionlogger.sapplication
+msgid "Application"
+msgstr ""
+
+#: uexceptionlogger.scallstack
+msgid "Call stack"
+msgstr ""
+
+#: uexceptionlogger.sclass
+msgctxt "uexceptionlogger.sclass"
+msgid "Class"
+msgstr ""
+
+#: uexceptionlogger.sclose
+msgid "Continue"
+msgstr ""
+
+#: uexceptionlogger.sdetails
+msgid "Details"
+msgstr ""
+
+#: uexceptionlogger.serroroccured
+msgid "Error occured during program execution:"
+msgstr ""
+
+#: uexceptionlogger.sexceptionclass
+msgctxt "uexceptionlogger.sexceptionclass"
+msgid "Class"
+msgstr ""
+
+#: uexceptionlogger.sexceptionhandlercannotbesynchronized
+msgid "Exception handler cannot be synchronized with main thread."
+msgstr ""
+
+#: uexceptionlogger.sexceptioninfo
+msgid "Exception info"
+msgstr ""
+
+#: uexceptionlogger.sgeneral
+msgid "General"
+msgstr ""
+
+#: uexceptionlogger.signorenexttime
+msgid "Next time ignore this exception"
+msgstr ""
+
+#: uexceptionlogger.sindex
+msgid "Index"
+msgstr ""
+
+#: uexceptionlogger.sline
+msgid "Line"
+msgstr ""
+
+#: uexceptionlogger.smessage
+msgid "Message"
+msgstr ""
+
+#: uexceptionlogger.sproceduremethod
+msgid "Procedure/method"
+msgstr ""
+
+#: uexceptionlogger.sprocessid
+msgid "Process ID"
+msgstr ""
+
+#: uexceptionlogger.sterminate
+msgid "Exit program"
+msgstr ""
+
+#: uexceptionlogger.sthreadid
+msgid "Thread ID"
+msgstr ""
+
+#: uexceptionlogger.stime
+msgid "Time"
+msgstr ""
+
+#: uexceptionlogger.sunit
+msgid "Unit"
+msgstr ""
+
+#: uexceptionlogger.sversion
+msgid "Version"
+msgstr ""
+

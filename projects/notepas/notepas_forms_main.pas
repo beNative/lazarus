@@ -37,7 +37,7 @@ uses
 
   ts.Components.Docking, ts.Components.Docking.Storage,
 
-  ts.Editor.Interfaces;
+  ts.Editor.Interfaces, UExceptionLogger;
 
 {
   KNOWN PROBLEMS
@@ -64,6 +64,7 @@ type
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
+    ExceptionLogger: TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     pnlToolClient         : TPanel;
@@ -105,8 +106,10 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
+    procedure FormClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
+    procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
       Parameters: array of string);
@@ -408,6 +411,11 @@ begin
   btnSelectionMode.PopupMenu.PopUp;
 end;
 
+procedure TfrmMain.FormClick(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmMain.EditorEventsActiveViewChange(Sender: TObject);
 begin
   if Assigned(Editor) then
@@ -467,6 +475,11 @@ begin
     EnableAutoSizing;
   end;
   V.Activate;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+    raise Exception.Create('Test');
 end;
 
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);

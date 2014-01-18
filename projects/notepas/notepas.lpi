@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="33"/>
-      <BuildNr Value="136"/>
+      <BuildNr Value="132"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.33" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
@@ -57,6 +57,7 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
+              <DebugInfoType Value="dsStabs"/>
               <UseHeaptrc Value="True"/>
             </Debugging>
             <Options>
@@ -812,27 +813,27 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="12">
+    <RequiredPackages Count="11">
       <Item1>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item1>
       <Item2>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item3>
       <Item4>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="FrameViewer09"/>
       </Item4>
       <Item5>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="LazControls"/>
       </Item5>
       <Item6>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="SynEdit"/>
       </Item7>
       <Item8>
         <PackageName Value="LazRichEdit"/>
@@ -841,14 +842,11 @@ end;"/>
         <PackageName Value="RunTimeTypeInfoControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="FCL"/>
       </Item10>
       <Item11>
-        <PackageName Value="FCL"/>
-      </Item11>
-      <Item12>
         <PackageName Value="LCL"/>
-      </Item12>
+      </Item11>
     </RequiredPackages>
     <Units Count="138">
       <Unit0>
@@ -875,7 +873,6 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -888,7 +885,6 @@ end;"/>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Utils"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -1206,7 +1202,6 @@ end;"/>
       <Unit76>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.hashes.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Generics.Hashes"/>
       </Unit76>
       <Unit77>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.helpers.pas"/>
@@ -1283,7 +1278,6 @@ end;"/>
       <Unit87>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Search.Data"/>
       </Unit87>
       <Unit88>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
@@ -1320,7 +1314,6 @@ end;"/>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.AlignLines.Settings"/>
       </Unit94>
       <Unit95>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
@@ -1341,7 +1334,6 @@ end;"/>
       <Unit97>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
       </Unit97>
       <Unit98>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_codefilter_toolview.pas"/>
@@ -1506,7 +1498,6 @@ end;"/>
       <Unit125>
         <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.SystemInfo"/>
       </Unit125>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
@@ -1535,7 +1526,6 @@ end;"/>
       <Unit131>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories.Views"/>
       </Unit131>
       <Unit132>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
@@ -1544,12 +1534,10 @@ end;"/>
       <Unit133>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories.Settings"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories.Menus"/>
       </Unit134>
       <Unit135>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
@@ -1558,7 +1546,6 @@ end;"/>
       <Unit136>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories.Toolbars"/>
       </Unit136>
       <Unit137>
         <Filename Value="menubar.pas"/>

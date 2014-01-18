@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="33"/>
-      <BuildNr Value="134"/>
+      <BuildNr Value="136"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.33" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="12">
@@ -812,46 +812,43 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="13">
+    <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="FrameViewer09"/>
       </Item1>
       <Item2>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="OMultiPanel_Design"/>
       </Item2>
       <Item3>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="LazControls"/>
       </Item3>
       <Item4>
-        <PackageName Value="LazControls"/>
+        <PackageName Value="richmemopackage"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="pl_richview"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_richview"/>
+        <PackageName Value="SynEdit"/>
       </Item6>
       <Item7>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="pl_KControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_KControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="pl_virtualtrees"/>
       </Item10>
       <Item11>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="FCL"/>
       </Item11>
       <Item12>
-        <PackageName Value="FCL"/>
-      </Item12>
-      <Item13>
         <PackageName Value="LCL"/>
-      </Item13>
+      </Item12>
     </RequiredPackages>
     <Units Count="138">
       <Unit0>

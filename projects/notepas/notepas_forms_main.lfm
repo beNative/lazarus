@@ -11,9 +11,7 @@ object frmMain: TfrmMain
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
-  OnClick = FormClick
   OnCloseQuery = FormCloseQuery
-  OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
   Position = poDefault

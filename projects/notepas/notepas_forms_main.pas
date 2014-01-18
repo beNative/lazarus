@@ -109,7 +109,6 @@ type
     procedure FormClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
-    procedure FormShow(Sender: TObject);
     procedure FormWindowStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
       Parameters: array of string);
@@ -475,11 +474,6 @@ begin
     EnableAutoSizing;
   end;
   V.Activate;
-end;
-
-procedure TfrmMain.FormShow(Sender: TObject);
-begin
-    raise Exception.Create('Test');
 end;
 
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);

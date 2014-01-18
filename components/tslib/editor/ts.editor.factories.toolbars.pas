@@ -261,8 +261,9 @@ begin
   CreateToolButton(TB, 'actQuoteLines');
   CreateToolButton(TB, 'actDeQuoteLines');
   CreateToolButton(TB, 'actQuoteSelection');
-  CreateToolButton(TB, 'actQuoteLinesAndDelimit');
   CreateToolButton(TB, 'actDeQuoteSelection');
+  CreateToolButton(TB, 'actQuoteLinesAndDelimit');
+  CreateToolButton(TB, 'actPascalStringOfSelection');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actLowerCaseSelection');
   CreateToolButton(TB, 'actUpperCaseSelection');

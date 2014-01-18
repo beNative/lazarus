@@ -528,7 +528,6 @@ end;
 
 function TTreeViewPresenter.GetVisibleCount: Cardinal;
 var
-  LItem: TObject;
   LNode: PVirtualNode;
 begin
   Result := 0;

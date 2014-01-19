@@ -582,10 +582,6 @@ type
             AShowDialog : Boolean = False
     ): Boolean;
 
-    {$IFDEF Windows}
-    procedure CreateDesktopLink;
-    {$ENDIF}
-
     // TComponent overrides
     procedure Notification(
       AComponent : TComponent;
@@ -982,12 +978,6 @@ procedure TdmEditorManager.SetPersistSettings(const AValue: Boolean);
 begin
   if AValue <> PersistSettings then
   begin
-    if AValue then
-    begin
-
-      // TSI temp
-      //InitializeFoldHighlighters;
-    end;
     FPersistSettings := AValue;
   end;
 end;
@@ -1365,11 +1355,7 @@ end;
 
 procedure TdmEditorManager.actCreateDesktopLinkExecute(Sender: TObject);
 begin
-  {$IFDEF Windows}
-  CreateDesktopLink;
-  {$ELSE}
-  ShowMessage(SNotImplementedYet);
-  {$ENDIF}
+  Commands.CreateDesktopLink;
 end;
 
 procedure TdmEditorManager.actCopyRTFTextToClipboardExecute(Sender: TObject);
@@ -2694,7 +2680,6 @@ procedure TdmEditorManager.ClearViews(AExceptActive: Boolean);
 var
   I: Integer;
 begin
-  Logger.EnterMethod(Self, 'AExceptActive');
   if AExceptActive then
   begin
     I := ViewList.IndexOf(ActiveView);
@@ -2705,7 +2690,6 @@ begin
   ViewList.Clear;
   if AExceptActive then
     ViewList.Add(ActiveView);
-  Logger.ExitMethod(Self, 'AExceptActive');
 end;
 {$endregion}
 
@@ -2833,24 +2817,6 @@ begin
   else
     Result := False;
 end;
-
-{$IFDEF Windows}
-procedure TdmEditorManager.CreateDesktopLink;
-var
-  PIDL     : LPItemIDList;
-  InFolder : array[0..MAX_PATH] of Char;
-  SL       : TShellLink;
-begin
-  PIDL := nil;
-  SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY, PIDL) ;
-  SHGetPathFromIDList(PIDL, InFolder) ;
-  SL.Filename := InFolder + '\' + ExtractFileName(ActiveView.FileName) + '.lnk';
-  SL.WorkingDir := ExtractFilePath(SL.Filename);
-  SL.ShortcutTo := Application.ExeName;
-  SL.Parameters := ActiveView.FileName;
-  CreateShellLink(SL);
-end;
-{$ENDIF}
 {$endregion}
 
 {$region 'UpdateActions' /fold}
@@ -2941,8 +2907,6 @@ begin
       actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
 
       actSave.Enabled := ActiveView.Modified;
-
-      //actClose.Enabled       := ViewCount > 1;
       actCloseOthers.Visible := ViewCount > 1;
 
       actToggleMaximized.Checked :=
@@ -2957,8 +2921,8 @@ end;
 
 procedure TdmEditorManager.UpdateEncodingActions;
 var
-  S: string;
-  A: TCustomAction;
+  S : string;
+  A : TCustomAction;
 begin
   S := '';
   if Assigned(ActiveView) then
@@ -2972,8 +2936,8 @@ end;
 
 procedure TdmEditorManager.UpdateLineBreakStyleActions;
 var
-  S: string;
-  A: TCustomAction;
+  S : string;
+  A : TCustomAction;
 begin
   S := '';
   if Assigned(ActiveView) then

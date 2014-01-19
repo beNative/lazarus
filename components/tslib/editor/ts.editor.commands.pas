@@ -30,6 +30,10 @@ unit ts.Editor.Commands;
 interface
 
 uses
+{$IFDEF Windows}
+  Windows,
+{$ENDIF}
+
   Classes, SysUtils,
 
   ts.Editor.Interfaces;
@@ -84,6 +88,7 @@ type
     procedure ToggleHighlighter;
     procedure AssignHighlighter(const AName: string);
     procedure CopyToClipboard;
+    procedure CreateDesktopLink;
 
     procedure CompressSpace;
     procedure CompressWhitespace;
@@ -159,7 +164,11 @@ type
 implementation
 
 uses
-  Math, StrUtils,
+{$IFDEF Windows}
+   ShlObj,
+{$ENDIF}
+
+  Math, StrUtils, Forms,
 
   FileUtil, Base64,
 
@@ -421,6 +430,26 @@ end;
 procedure TEditorCommands.CopyToClipboard;
 begin
   View.Editor.CopyToClipboard;
+end;
+
+procedure TEditorCommands.CreateDesktopLink;
+{$IFDEF Windows}
+var
+  PIDL     : LPItemIDList;
+  InFolder : array[0..MAX_PATH] of Char;
+  SL       : TShellLink;
+{$ENDIF}
+begin
+{$IFDEF Windows}
+  PIDL := nil;
+  SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY, PIDL) ;
+  SHGetPathFromIDList(PIDL, InFolder) ;
+  SL.Filename := InFolder + '\' + ExtractFileName(View.FileName) + '.lnk';
+  SL.WorkingDir := ExtractFilePath(SL.Filename);
+  SL.ShortcutTo := Application.ExeName;
+  SL.Parameters := View.FileName;
+  CreateShellLink(SL);
+{$ENDIF}
 end;
 
 procedure TEditorCommands.CompressSpace;

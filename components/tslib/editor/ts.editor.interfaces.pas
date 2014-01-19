@@ -846,6 +846,7 @@ type
     procedure AssignHighlighter(const AName: string);
     procedure CompressSpace;
     procedure CompressWhitespace;
+    procedure CreateDesktopLink;
     procedure CopyToClipboard;
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;

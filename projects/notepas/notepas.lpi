@@ -27,7 +27,7 @@
       <BuildNr Value="136"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.34" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
-    <BuildModes Count="12">
+    <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -86,7 +86,7 @@
           </Other>
         </CompilerOptions>
       </Item2>
-      <Item3 Name="Release win32 win32">
+      <Item3 Name="Release win32 i386 win32">
         <CompilerOptions>
           <Version Value="11"/>
           <PathDelim Value="\"/>
@@ -164,78 +164,7 @@ end;"/>
           </Other>
         </CompilerOptions>
       </Item3>
-      <Item4 Name="Release win64 win32">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
-
-// example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
-//end;
-
-if GetIDEValue('OS') = 'linux' then
-begin
-  upx := 'upx'
-end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
-begin
-  upx := 'upx.exe'
-end;"/>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
-            <Optimizations>
-              <OptimizationLevel Value="2"/>
-              <VariablesInRegisters Value="True"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <StripSymbols Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-          <Other>
-            <Verbosity>
-              <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
-              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
-            </Verbosity>
-            <CompilerMessages>
-              <IgnoredMessages idx5024="True"/>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-            <ExecuteBefore>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
-            </ExecuteBefore>
-            <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-            </ExecuteAfter>
-          </Other>
-        </CompilerOptions>
-      </Item4>
-      <Item5 Name="Release win32 qt">
+      <Item4 Name="Release win32 i386 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -312,8 +241,8 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
-      </Item5>
-      <Item6 Name="Release win32 gtk2">
+      </Item4>
+      <Item5 Name="Release win32 i386 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -390,8 +319,229 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
+      </Item5>
+      <Item6 Name="Release win64 x86_64 win32">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Conditionals Value="// example for adding linker options on Mac OS X
+//if TargetOS='darwin' then
+//  LinkerOptions := ' -framework OpenGL';
+
+// example for adding a unit and include path on Windows
+//if SrcOS='win' then begin
+//  UnitPath += ';win';
+//  IncPath += ';win';
+//end;
+
+if GetIDEValue('OS') = 'linux' then
+begin
+  upx := 'upx'
+end
+else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+begin
+  upx := 'upx.exe'
+end;"/>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="win64"/>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+            </ExecuteAfter>
+          </Other>
+        </CompilerOptions>
       </Item6>
-      <Item7 Name="Release linux32 qt">
+      <Item7 Name="Release darwin i386 carbon">
+        <MacroValues Count="1">
+          <Macro3 Name="LCLWidgetType" Value="carbon"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Conditionals Value="// example for adding linker options on Mac OS X
+//if TargetOS='darwin' then
+//  LinkerOptions := ' -framework OpenGL';
+
+// example for adding a unit and include path on Windows
+//if SrcOS='win' then begin
+//  UnitPath += ';win';
+//  IncPath += ';win';
+//end;
+
+if GetIDEValue('OS') = 'linux' then
+begin
+  upx := 'upx'
+end
+else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+begin
+  upx := 'upx.exe'
+end;"/>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="darwin"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+            </ExecuteAfter>
+          </Other>
+        </CompilerOptions>
+      </Item7>
+      <Item8 Name="Release darwin x86_64 qt">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="qt"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Conditionals Value="// example for adding linker options on Mac OS X
+//if TargetOS='darwin' then
+//  LinkerOptions := ' -framework OpenGL';
+
+// example for adding a unit and include path on Windows
+//if SrcOS='win' then begin
+//  UnitPath += ';win';
+//  IncPath += ';win';
+//end;
+
+if GetIDEValue('OS') = 'linux' then
+begin
+  upx := 'upx'
+end
+else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+begin
+  upx := 'upx.exe'
+end;"/>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="x86_64"/>
+            <TargetOS Value="darwin"/>
+            <Optimizations>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowSummary Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+              <UseMsgFile Value="True"/>
+            </CompilerMessages>
+            <CompilerPath Value="$(CompPath)"/>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+            </ExecuteAfter>
+          </Other>
+        </CompilerOptions>
+      </Item8>
+      <Item9 Name="Release linux i386 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -465,8 +615,8 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
-      </Item7>
-      <Item8 Name="Release linux32 gtk2">
+      </Item9>
+      <Item10 Name="Release linux i386 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -540,8 +690,8 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
-      </Item8>
-      <Item9 Name="Release linux64 qt">
+      </Item10>
+      <Item11 Name="Release linux x86_64 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -614,8 +764,8 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
-      </Item9>
-      <Item10 Name="Release linux64 gtk2">
+      </Item11>
+      <Item12 Name="Release linux x86_64 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -688,8 +838,8 @@ end;"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>
-      </Item10>
-      <Item11 Name="Release FreeBSD64 gtk2">
+      </Item12>
+      <Item13 Name="Release freebsd x86_64 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -742,8 +892,8 @@ end;"/>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
-      </Item11>
-      <Item12 Name="Release Solaris64 gtk2">
+      </Item13>
+      <Item14 Name="Release solaris x86_64 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -795,11 +945,11 @@ end;"/>
             <CompilerPath Value="$(CompPath)"/>
           </Other>
         </CompilerOptions>
-      </Item12>
+      </Item14>
       <SharedMatrixOptions Count="3">
-        <Item1 ID="468994090888" Modes="Release win32 qt,Release linux32 qt,Release linux64 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
-        <Item2 ID="440664449299" Modes="Release win32 gtk2,Release linux32 gtk2,Release linux64 gtk2,Release FreeBSD64 gtk2,Release Solaris64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
-        <Item3 ID="154453790704" Type="IDEMacro" MacroName="fpGUIPlatform"/>
+        <Item1 ID="468994090888" Modes="Release win32 i386 qt,Release linux i386 qt,Release linux x86_64 qt,Release darwin x86_64 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
+        <Item2 ID="440664449299" Modes="Release win32 i386 gtk2,Release linux i386 gtk2,Release linux x86_64 gtk2,Release freebsd x86_64 gtk2,Release solaris x86_64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item3 ID="326179418783" Modes="Release darwin i386 carbon" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>

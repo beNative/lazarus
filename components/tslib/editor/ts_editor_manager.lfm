@@ -3631,7 +3631,6 @@ object dmEditorManager: TdmEditorManager
   end
   object aclActions: TActionList
     Images = imlMain
-    OnExecute = aclActionsExecute
     left = 216
     top = 88
     object actSettings: TAction
@@ -4155,6 +4154,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Close the active editor instance.'
       ImageIndex = 31
       OnExecute = actCloseExecute
+      ShortCut = 16499
     end
     object actStripFirstChar: TAction
       Category = 'Selection'
@@ -4185,6 +4185,7 @@ object dmEditorManager: TdmEditorManager
       Caption = 'Close all other editors'
       Hint = 'Close all other editors'
       OnExecute = actCloseOthersExecute
+      ShortCut = 24691
     end
     object actMonitorChanges: TAction
       Category = 'Settings'

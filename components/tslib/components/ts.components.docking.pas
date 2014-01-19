@@ -2485,13 +2485,20 @@ begin
   fTreeNameToDocker:=TADNameToControl.Create;
   Tree:=TAnchorDockLayoutTree.Create;
   try
-    // load tree
+    // load layout
     Config.AppendBasePath('MainConfig/');
-    Tree.LoadFromConfig(Config);
-    Config.UndoAppendBasePath;
+    try
+      Tree.LoadFromConfig(Config);
+    finally
+      Config.UndoAppendBasePath;
+    end;
+    // load restore layouts for hidden forms
     Config.AppendBasePath('Restores/');
-    RestoreLayouts.LoadFromConfig(Config);
-    Config.UndoAppendBasePath;
+    try
+      RestoreLayouts.LoadFromConfig(Config);
+    finally
+      Config.UndoAppendBasePath;
+    end;
     // close all unneeded forms/controls
     if not CloseUnneededControls(Tree) then exit;
 
@@ -3930,9 +3937,10 @@ var
 begin
   if Parent=nil then exit;
   DisableAutoSizing;
-  p:=ClientOrigin;
+  p := Point(0,0);
+  p := ClientToScreen(p);
   Parent:=nil;
-  SetBounds(Left+p.x,Top+p.y,Width,Height);
+  SetBounds(p.x,p.y,Width,Height);
   EnableAutoSizing;
 end;
 
@@ -4765,13 +4773,13 @@ var
   c: String;
 begin
   s:=DockMaster.HeaderHint;
-  p:=Pos('%c',s);
+  p:=Pos('%s',s);
   if p>0 then begin
     if Parent<>nil then
       c:=Parent.Caption
     else
       c:='';
-    s:=copy(s,1,p-1)+c+copy(s,p+2,length(s));
+    s:=Format(s,[c]);
   end;
   HintInfo^.HintStr:=s;
   inherited DoOnShowHint(HintInfo);
@@ -4866,9 +4874,18 @@ end;
 procedure TAnchorDockCloseButton.CalculatePreferredSize(var PreferredWidth,
   PreferredHeight: integer; WithThemeSpace: Boolean);
 begin
-  if WithThemeSpace then ;
-  PreferredWidth:=DockMaster.fCloseBtnBitmap.Width+4;
-  PreferredHeight:=DockMaster.fCloseBtnBitmap.Height+4;
+  with ThemeServices.GetDetailSize(ThemeServices.GetElementDetails(twSmallCloseButtonNormal)) do
+  begin
+    PreferredWidth:=cx;
+    PreferredHeight:=cy;
+    {$IF defined(LCLGtk2) or defined(Carbon)}
+    inc(PreferredWidth,2);
+    inc(PreferredHeight,2);
+    {$ENDIF}
+  end;
+//  if WithThemeSpace then ;
+//  PreferredWidth:=DockMaster.fCloseBtnBitmap.Width+4;
+//  PreferredHeight:=DockMaster.fCloseBtnBitmap.Height+4;
 end;
 
 { TAnchorDockManager }
@@ -5442,7 +5459,7 @@ end;
 constructor TAnchorDockSplitter.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);
-  Visible := False;  // Fix TSI
+  Visible := False;  // Fix TS
   Align:=alNone;
   ResizeAnchor:=akLeft;
   // make sure the splitter never vanish

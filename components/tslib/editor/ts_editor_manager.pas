@@ -310,7 +310,6 @@ type
     {$endregion}
 
     {$region 'action handlers' /fold}
-    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
@@ -1794,12 +1793,6 @@ end;
 procedure TdmEditorManager.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;
-end;
-
-procedure TdmEditorManager.aclActionsExecute(AAction: TBasicAction;
-  var Handled: Boolean);
-begin
-  //Inc(AAction.Tag);
 end;
 
 procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);

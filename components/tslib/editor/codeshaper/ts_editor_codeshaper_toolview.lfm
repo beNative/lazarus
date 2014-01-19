@@ -678,8 +678,8 @@ inherited frmCodeShaper: TfrmCodeShaper
     }
   end
   object ppmAfterBefore: TPopupMenu[3]
-    left = 200
-    top = 440
+    left = 208
+    top = 376
     object mniBreakAfterToken: TMenuItem
       Action = actBreakAfterToken
       AutoCheck = True

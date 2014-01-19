@@ -353,7 +353,7 @@ begin
     S := BreakLines(
       S,
       edtBreakLinesToken.Text,
-      actBreakBeforeToken.Checked,
+      cbxInsertBreaksTokenSide.ItemIndex = 0,
       0,//edtTrimLinesIndent.Value,
       chkBreakLinesTrimSpace.Checked
     );

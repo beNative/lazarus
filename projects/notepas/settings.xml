@@ -14,7 +14,7 @@
 						ZQA=
 						</DefinedProperties>
 					</Tokens>
-					<Width>338</Width>
+					<Width>359</Width>
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
 					<FormSettings>(TFormSettings)
@@ -1319,12 +1319,12 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>PAS</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>100</Left>
-		<Top>100</Top>
-		<Width>1369</Width>
+		<Left>200</Left>
+		<Top>200</Top>
+		<Width>1417</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
@@ -1333,6 +1333,5 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
-	<DebugMode>true</DebugMode>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

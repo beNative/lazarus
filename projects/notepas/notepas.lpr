@@ -39,7 +39,6 @@ uses
   runtimetypeinfocontrols,
   kcontrols,
   ExceptionLogger,
-  UExceptionLogger,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -163,7 +162,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title := 'notepas';
+  Application.Title:='Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');

@@ -1,5 +1,7 @@
-2014.01.16 (0.9.34)
+2014.01.19 (0.9.34)
 * Added shortcuts for close actions.
+* Optimized docking behaviour.
+* Fixed token settings in CodeShaper toolview.
 
 2014.01.11 (0.9.33)
 * Fixed initialization of highlighter attributes.
@@ -8,7 +10,7 @@
 * Added new CompressSpace and CompressWhitespace actions
 * Matching text is shown in resultlist when search with regex enabled.
 * Fixed result count in CodeFilter.
-* Fixed folding action sh
+* Fixed folding action shortcuts.
 
 2014.01.05 (0.9.32)
 * Fixed: pressing RETURN closes the code filter window.

@@ -106,7 +106,6 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
-    procedure FormClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
@@ -224,7 +223,7 @@ begin
   inherited AfterConstruction;
   FUniqueInstance                     := TUniqueInstance.Create(Self);
   FUniqueInstance.Identifier          := ApplicationName;
-  FUniqueInstance.OnOtherInstance := UniqueInstanceOtherInstance;
+  FUniqueInstance.OnOtherInstance     := UniqueInstanceOtherInstance;
   FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
   FSettings := TEditorFactories.CreateSettings(Self);
   FSettings.FileName := 'settings.xml';
@@ -237,7 +236,10 @@ begin
     FSettings
   );
   FManager.PersistSettings := True;
-  //FUniqueInstance.Enabled := Settings.SingleInstance;
+{ TODO -oTS : Make this work in a cross platform fashion }
+{$IFNDEF Darwin}
+  FUniqueInstance.Enabled := Settings.SingleInstance;
+{$ENDIF}
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
   FMainToolbar :=
     TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
@@ -269,7 +271,10 @@ end;
 
 procedure TfrmMain.BeforeDestruction;
 begin
-  //Settings.FormSettings.Assign(Self);
+{ TODO -oTS : Make this work in a cross platform fashion }
+{$IFNDEF Darwin}
+  Settings.FormSettings.Assign(Self);
+{$ENDIF}
   FSettings := nil;
   FManager  := nil;
   inherited BeforeDestruction;
@@ -304,7 +309,6 @@ end;
 
 function TfrmMain.GetSettings: IEditorSettings;
 begin
-
   Result := Manager.Settings;
 end;
 
@@ -380,7 +384,6 @@ begin
   end;
   if (scTopLine in Changes) and FSelectionToolbar.Visible then
     FSelectionToolbar.Invalidate;
-   ;
 end;
 
 procedure TfrmMain.btnEncodingClick(Sender: TObject);
@@ -390,6 +393,7 @@ end;
 
 procedure TfrmMain.btnFileNameClick(Sender: TObject);
 begin
+{ TODO -oTS : Make this work in a cross platform fashion }
 {$IFDEF Windows}
   ExploreFile(Editor.FileName);
 {$ENDIF}
@@ -408,11 +412,6 @@ end;
 procedure TfrmMain.btnSelectionModeClick(Sender: TObject);
 begin
   btnSelectionMode.PopupMenu.PopUp;
-end;
-
-procedure TfrmMain.FormClick(Sender: TObject);
-begin
-
 end;
 
 procedure TfrmMain.EditorEventsActiveViewChange(Sender: TObject);
@@ -441,8 +440,11 @@ end;
 
 procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
 begin
-  //WindowState := Settings.FormSettings.WindowState;
-  //FormStyle   := Settings.FormSettings.FormStyle;
+{ TODO -oTS : Make this work in a cross platform fashion }
+{$IFNDEF Darwin}
+  WindowState := Settings.FormSettings.WindowState;
+  FormStyle   := Settings.FormSettings.FormStyle;
+{$ENDIF}
   UpdateControls;
 end;
 
@@ -478,7 +480,10 @@ end;
 
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);
 begin
-  //Settings.FormSettings.WindowState := WindowState;
+{ TODO -oTS : Make this work in a cross platform fashion }
+{$IFNDEF Darwin}
+  Settings.FormSettings.WindowState := WindowState;
+{$ENDIF}
 end;
 
 procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject;
@@ -563,7 +568,7 @@ end;
 {$region 'private methods' /fold}
 procedure TfrmMain.InitializeEvents;
 begin
-  //Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
+  Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
   Events.AddOnActiveViewChangeHandler(EditorEventsActiveViewChange);
   Events.OnStatusChange       := EditorEventsStatusChange;
   Events.OnOpenOtherInstance  := EditorEventsOpenOtherInstance;
@@ -601,7 +606,9 @@ begin
   FSelectionToolbar.Transparent := True;
   FSelectionToolbar.DoubleBuffered := True;
 
-  //Settings.FormSettings.AssignTo(Self);
+{$IFNDEF Darwin}
+  Settings.FormSettings.AssignTo(Self);
+{$ENDIF}
   UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
@@ -613,8 +620,8 @@ end;
 
 procedure TfrmMain.InitDebugAction(const AActionName: string);
 begin
-  //Actions[AActionName].Enabled := Settings.DebugMode;
-  //Actions[AActionName].Visible := Settings.DebugMode;
+  Actions[AActionName].Enabled := Settings.DebugMode;
+  Actions[AActionName].Visible := Settings.DebugMode;
 end;
 {$endregion}
 
@@ -656,7 +663,7 @@ end;
 
 procedure TfrmMain.UpdateControls;
 begin
-  //pnlViewerCount.Visible := Settings.DebugMode;
+  pnlViewerCount.Visible := Settings.DebugMode;
   InitDebugAction('actMonitorChanges');
   InitDebugAction('actShowActions');
   InitDebugAction('actInspect');

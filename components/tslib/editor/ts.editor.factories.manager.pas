@@ -37,7 +37,6 @@ type
       const ASettingsFileName : string = ''
     ): IEditorManager; overload;
 
-
     function CreateInstance(
       AOwner    : TComponent;
       ASettings : IEditorSettings

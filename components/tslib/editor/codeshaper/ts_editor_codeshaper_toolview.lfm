@@ -136,10 +136,10 @@ inherited frmCodeShaper: TfrmCodeShaper
           Top = 2
           Width = 79
           ItemHeight = 15
-          ItemIndex = 0
+          ItemIndex = 1
           Items.Strings = (
-            'after'
             'before'
+            'after'
           )
           Style = csDropDownList
           TabOrder = 5

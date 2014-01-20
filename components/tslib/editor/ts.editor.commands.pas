@@ -824,7 +824,7 @@ var
   HI : THighlighterItem;
 begin
   HI := View.HighlighterItem;
-  if View.SelAvail and (HI.BlockCommentStartTag <> '') then
+  if Assigned(HI) and View.SelAvail and (HI.BlockCommentStartTag <> '') then
   begin
     Selection.Store(True, True);
     N1 := Length(HI.BlockCommentStartTag);

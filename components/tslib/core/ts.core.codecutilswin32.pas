@@ -137,7 +137,7 @@ type
     // Encoding detection functions
     class function  CreateCodecForStream(const Stream: TStream): TUnicodeCodec; virtual;
 
-{$IFNDEF LINUX}
+{$IFDEF WINDOWS}
     // Windows system encoding functions
     class function  CreateCodecForSystemEncoding: TUnicodeCodec; virtual; {$IFDEF VER140+}platform;{$ENDIF}
     class function  SystemEncodingName: string; virtual; {$IFDEF VER140+}platform;{$ENDIF}
@@ -1346,7 +1346,7 @@ type
 
 implementation
 
-{$IFNDEF LINUX}
+{$IFDEF WINDOWS}
 uses
   { Delphi }
   Windows;

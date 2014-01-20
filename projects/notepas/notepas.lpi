@@ -1210,6 +1210,7 @@ end;"/>
       <Unit49>
         <Filename Value="..\..\components\tslib\core\ts.core.codecutilswin32.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.CodecUtilsWin32"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>

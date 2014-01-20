@@ -100,4 +100,4 @@ msgstr "Jednotka"
 #: uexceptionlogger.sversion
 msgid "Version"
 msgstr "Verze"
-
+

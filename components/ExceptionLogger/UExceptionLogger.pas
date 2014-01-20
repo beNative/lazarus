@@ -109,7 +109,9 @@ begin
     Add(SVersion + ': ' + GetAppVersion);
     Add(STime + ': ' + DateTimeToStr(Now));
     Add(SProcessID + ': ' + IntToStr(GetProcessID));
+    {$IFNDEF DARWIN}
     Add(SThreadID + ': ' + IntToStr(GetThreadID));
+    {$ENDIF}
   end;
 end;
 

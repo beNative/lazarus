@@ -1684,7 +1684,7 @@ begin
   end;
 end;
 
-{$IFNDEF LINUX}
+{$IFDEF WINDOWS}
 class function TEncodingRepository.CreateCodecForSystemEncoding: TUnicodeCodec;
 begin
   case GetACP of

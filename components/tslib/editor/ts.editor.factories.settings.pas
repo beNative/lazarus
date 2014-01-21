@@ -73,7 +73,9 @@ uses
 
   ts_Editor_Resources, ts.Editor.Settings,
 
-  ts.Components.UniHighlighter;
+  ts.Components.UniHighlighter,
+
+  ts.Core.Utils;
 
 { TEditorSettingsFactory }
 
@@ -158,7 +160,7 @@ begin
     // apply common highlighter attributes
 
 
-  S := ExtractFilePath(Application.ExeName);
+  S := GetApplicationPath;
 
   F := S + LAYOUT_LOG;
   if FileExistsUTF8(F) then

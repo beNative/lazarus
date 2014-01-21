@@ -166,6 +166,9 @@ begin
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');
+  {$IFDEF WINDOWS}
+  Application.MainFormOnTaskbar := True; //Show window preview after minimize windows, on windows 7, 8...
+  {$ENDIF}
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

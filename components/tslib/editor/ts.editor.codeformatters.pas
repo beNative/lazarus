@@ -68,7 +68,9 @@ uses
 
   Process, FileUtil,
 
-  ts.Editor.Utils;
+  ts.Editor.Utils,
+
+  ts.Core.Utils;
 
 function RunFormatterProcess(const AExeName: string; const AParams: string;
   const AString: string; const ATempFile: string): string;
@@ -78,8 +80,8 @@ var
   S       : string;
   T       : string;
 begin
-  S := ExtractFilePath(Application.ExeName) + AExeName;
-  T := ExtractFilePath(Application.ExeName) + ATempFile;
+  S := GetApplicationPath + AExeName;
+  T := GetApplicationPath + ATempFile;
   if FileExistsUTF8(S) then
   begin
     SL := TStringList.Create;

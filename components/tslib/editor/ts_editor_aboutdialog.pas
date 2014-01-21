@@ -483,7 +483,7 @@ begin
 
 
   AddInfo('Application name:', ExtractFileName(S));
-  AddInfo('Application path:', ExtractFilePath(S));
+  AddInfo('Application path:', GetApplicationPath);
   AddInfo('Application size:', FormatByteText(FileSize(S)));
   AddInfo('Current path:', ExtractFilePath(ParamStr(0)));
   AddInfo('Current user:', FVersionInfo.UserName);

@@ -31,7 +31,9 @@ uses
 
   ts.Editor.Utils, ts.Editor.CodeFormatters, ts.Editor.CodeTags,
 
-  ts.Core.SharedLogger;
+  ts.Core.SharedLogger,
+
+  ts.Core.Utils;
 
 type
   TSynHighlighterClass = class of TSynCustomHighlighter;
@@ -587,7 +589,7 @@ procedure THighlighterItem.Reload;
 var
   S: string;
 begin
-  S := ExtractFilePath(Application.ExeName);
+  S := GetApplicationPath;
   if FileExists(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(SynHighlighter) then

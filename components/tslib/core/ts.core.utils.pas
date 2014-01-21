@@ -30,7 +30,7 @@ uses
 {$IFDEF Windows}
   Windows,
 {$ENDIF}
-  DB;
+  DB, FileUtil;
 
 type
   TVarRecArray = array of TVarRec;
@@ -227,6 +227,8 @@ function DrawHTML(
   const Text    : string
 ): Integer;
 {$ENDIF}
+
+function GetApplicationPath(): string;
 
 procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
 
@@ -2161,5 +2163,17 @@ begin
   end;
 end;
 {$ENDIF}
+
+function GetApplicationPath(): string;
+begin
+  if (FileExistsUTF8(AppendPathDelim(ExtractFilePath(Application.ExeName)) +
+    'settings.xml')) then //use settings.xml to detect directory
+     Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))
+  else
+  begin
+     ForceDirectoriesUTF8(GetAppConfigDirUTF8(False));
+     Result := IncludeTrailingPathDelimiter(GetAppConfigDirUTF8(False));
+  end;
+end;
 
 end.

@@ -1115,6 +1115,10 @@ msgctxt "tfrmabout.actclose.caption"
 msgid "&Close"
 msgstr ""
 
+#: tfrmabout.actcopytoclipboard.caption
+msgid "actCopyToClipboard"
+msgstr ""
+
 #: tfrmabout.actdonate.caption
 msgid "Donate"
 msgstr ""
@@ -1137,6 +1141,11 @@ msgstr ""
 
 #: tfrmabout.actreportdefect.hint
 msgid "Report an issue."
+msgstr ""
+
+#: tfrmabout.btncopytoclipboard.hint
+msgctxt "TFRMABOUT.BTNCOPYTOCLIPBOARD.HINT"
+msgid "Copy to clipboard"
 msgstr ""
 
 #: tfrmabout.caption
@@ -2982,6 +2991,22 @@ msgstr ""
 #: ts.core.utils.snocorrespondingfieldtype
 msgctxt "ts.core.utils.snocorrespondingfieldtype"
 msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

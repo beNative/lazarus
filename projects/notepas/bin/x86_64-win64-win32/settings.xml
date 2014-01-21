@@ -211,7 +211,9 @@
 								<Style>[]</Style>
 							</NamespaceAttributeValueAttri>
 							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
+								<Style>[]</Style>
 							</TextAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
 								<Foreground>clNone</Foreground>
@@ -845,6 +847,7 @@
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
 							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
 							</TextAttri>
 							<ControlSequenceAttri>(TSynHighlighterAttributes)
@@ -1322,10 +1325,10 @@
 	<HighlighterType>XML</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>200</Left>
-		<Top>200</Top>
-		<Width>1417</Width>
-		<Height>819</Height>
+		<Left>78</Left>
+		<Top>78</Top>
+		<Width>1009</Width>
+		<Height>486</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>

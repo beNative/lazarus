@@ -48,7 +48,7 @@ interface
 
 uses
   SysUtils, Forms, StdCtrls, ExtCtrls, Classes, Contnrs, ComCtrls, ActnList,
-  Buttons,
+  Buttons, Clipbrd,
 
   VirtualTrees,
 
@@ -63,10 +63,12 @@ type
     aclMain: TActionList;
     actClose: TAction;
     actDonate: TAction;
+    actCopyToClipboard: TAction;
     actProjectPage: TAction;
     actReportDefect: TAction;
     actHomePage: TAction;
     btnClose: TButton;
+    btnCopyToClipboard: TSpeedButton;
     Image1: TImage;
     imgMain: TImage;
     lbBuildDate: TLabel;
@@ -101,6 +103,7 @@ type
     {$endregion}
 
     procedure actCloseExecute(Sender: TObject);
+    procedure actCopyToClipboardExecute(Sender: TObject);
     procedure actDonateExecute(Sender: TObject);
     procedure actProjectPageExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
@@ -306,6 +309,18 @@ end;
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TfrmAbout.actCopyToClipboardExecute(Sender: TObject);
+var
+  StrInfo: String;
+  i: integer;
+begin
+  StrInfo:='';
+  FillInfoList;
+  for i:=0 to FInfoList.Count-1 do
+      StrInfo := StrInfo+TInfo(FInfoList.Items[i]).Name+TInfo(FInfoList.Items[i]).Value+LineEnding;
+  Clipboard.AsText := StrInfo;
 end;
 
 procedure TfrmAbout.actDonateExecute(Sender: TObject);

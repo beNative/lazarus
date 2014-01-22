@@ -16,7 +16,7 @@ object frmMain: TfrmMain
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.3'
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18

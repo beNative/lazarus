@@ -261,8 +261,8 @@ begin
       else
         Manager.OpenFile(S);
     end;
-  end
-  else
+  end;
+  if (ParamCount = 0) or (Manager.Views.Count=0) then  //if no exists views, create one
   begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;

@@ -212,6 +212,11 @@ uses
 
 resourcestring
   SModified = 'Modified';
+  SLength = 'length';
+  SLines = 'lines';
+  SLn = 'ln';
+  SCol = 'col';
+  SSel = 'sel';
 
 {$region 'construction and destruction' /fold}
 procedure TfrmMain.AfterConstruction;
@@ -684,48 +689,54 @@ end;
 procedure TfrmMain.UpdateStatusBar;
 var
   S : string;
+  SelText: TStringList;
 begin
-  pnlPosition.Caption :=
-    Format('%1d:%1d / %1d | %1d', [
-      Editor.CaretX,
-      Editor.CaretY,
-      Editor.Lines.Count,
-      Editor.SelStart
-    ]);
+  try
+    SelText:= TStringList.Create;
+    SelText.Text:=Editor.SelText;
+    pnlPosition.Caption := SLn+': '+Format('%1d', [Editor.CaretY])+'   '+
+                           SCol+': '+Format('%1d', [Editor.CaretX])+'   '+
+                           SSel+': '+ Format('%1d|%1d', [length(Editor.SelText),
+         (SelText.Count)]);
 
-  pnlViewerCount.Caption := IntToStr(Views.Count);
-  pnlSize.Caption := FormatByteText(Editor.TextSize);
+    pnlViewerCount.Caption := IntToStr(Views.Count);
+    pnlSize.Caption := SLength+': '+FormatByteText(Editor.TextSize)+'   '+SLines+': '+
+                       Format('%1d', [Editor.Lines.Count]);
 
-  if Assigned(Editor.HighlighterItem) then
-    btnHighlighter.Caption := Editor.HighlighterItem.Description;
-  if Editor.InsertMode then
-    pnlInsertMode.Caption := 'INS'
-  else
-    pnlInsertMode.Caption := 'OVR';
-  btnFileName.Caption := Editor.FileName;
-  btnFileName.Hint := Editor.FileName;
-  btnEncoding.Caption := UpperCase(Editor.Encoding);
-  btnLineBreakStyle.Caption := Editor.LineBreakStyle;
-  S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
-  S := System.Copy(S, 3, Length(S));
-  btnSelectionMode.Caption := S;
-  btnCurrentChar.Caption := HexDisplayPrefix + IntToHex(Ord(Editor.CurrentChar), 4);
-  pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
-  OptimizeWidth(pnlViewerCount);
-  OptimizeWidth(pnlPosition);
-  OptimizeWidth(pnlSize);
-  OptimizeWidth(pnlInsertMode);
-  OptimizeWidth(pnlModified);
-  pnlCurrentChar.Width :=
-   GetTextWidth(btnCurrentChar.Caption, btnCurrentChar.Font) + 10;
-  pnlHighlighter.Width :=
-    GetTextWidth(btnHighlighter.Caption, btnHighlighter.Font) + 10;
-  pnlEncoding.Width := GetTextWidth(btnEncoding.Caption, btnEncoding.Font) + 10;
-  pnlSelectionMode.Width :=
-    GetTextWidth(btnSelectionMode.Caption, btnSelectionMode.Font) + 10;
-  pnlFileName.Width := GetTextWidth(btnFileName.Caption, btnFileName.Font) + 10;
-  pnlLineBreakStyle.Width :=
-    GetTextWidth(btnLineBreakStyle.Caption, btnLineBreakStyle.Font) + 10;
+    if Assigned(Editor.HighlighterItem) then
+      btnHighlighter.Caption := Editor.HighlighterItem.Description;
+    if Editor.InsertMode then
+      pnlInsertMode.Caption := 'INS'
+    else
+      pnlInsertMode.Caption := 'OVR';
+    btnFileName.Caption := Editor.FileName;
+    btnFileName.Hint := Editor.FileName;
+    btnEncoding.Caption := UpperCase(Editor.Encoding);
+    btnLineBreakStyle.Caption := Editor.LineBreakStyle;
+    S := GetEnumName(TypeInfo(TSynSelectionMode), Ord(Editor.SelectionMode));
+    S := System.Copy(S, 3, Length(S));
+    btnSelectionMode.Caption := S;
+    btnCurrentChar.Caption := HexDisplayPrefix + IntToHex(Ord(Editor.CurrentChar), 4);
+    pnlModified.Caption := IfThen(Editor.Modified, SModified, '');
+    OptimizeWidth(pnlViewerCount);
+    OptimizeWidth(pnlPosition);
+    OptimizeWidth(pnlSize);
+    OptimizeWidth(pnlInsertMode);
+    OptimizeWidth(pnlModified);
+    pnlCurrentChar.Width :=
+     GetTextWidth(btnCurrentChar.Caption, btnCurrentChar.Font) + 10;
+    pnlHighlighter.Width :=
+      GetTextWidth(btnHighlighter.Caption, btnHighlighter.Font) + 10;
+    pnlEncoding.Width := GetTextWidth(btnEncoding.Caption, btnEncoding.Font) + 10;
+    pnlSelectionMode.Width :=
+      GetTextWidth(btnSelectionMode.Caption, btnSelectionMode.Font) + 10;
+    pnlFileName.Width := GetTextWidth(btnFileName.Caption, btnFileName.Font) + 10;
+    pnlLineBreakStyle.Width :=
+      GetTextWidth(btnLineBreakStyle.Caption, btnLineBreakStyle.Font) + 10;
+
+  finally
+    SelText.Free;
+  end;
 end;
 
 procedure TfrmMain.UpdateEditorViewCaptions;

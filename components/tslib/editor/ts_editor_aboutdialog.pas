@@ -317,7 +317,8 @@ var
   i: integer;
 begin
   StrInfo:='';
-  FillInfoList;
+  if FInfoList.Count=0 then
+     FillInfoList;
   for i:=0 to FInfoList.Count-1 do
       StrInfo := StrInfo+TInfo(FInfoList.Items[i]).Name+TInfo(FInfoList.Items[i]).Value+LineEnding;
   Clipboard.AsText := StrInfo;

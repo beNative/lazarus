@@ -13,11 +13,31 @@ msgctxt "notepas.forms.main.smodified"
 msgid "Modified"
 msgstr "是否改动"
 
+#: notepas_forms_main.scol
+msgid "col"
+msgstr ""
+
+#: notepas_forms_main.slength
+msgid "length"
+msgstr ""
+
+#: notepas_forms_main.slines
+msgid "lines"
+msgstr ""
+
+#: notepas_forms_main.sln
+msgid "ln"
+msgstr ""
+
 #: notepas_forms_main.smodified
 #, fuzzy
 msgctxt "notepas_forms_main.smodified"
 msgid "Modified"
 msgstr "是否改动"
+
+#: notepas_forms_main.ssel
+msgid "sel"
+msgstr ""
 
 #: tcustomsettingsdialog1.lblalpha.caption
 msgid "lblAlpha"

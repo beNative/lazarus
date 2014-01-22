@@ -15,10 +15,30 @@ msgctxt "notepas.forms.main.smodified"
 msgid "Modified"
 msgstr "Modificado"
 
+#: notepas_forms_main.scol
+msgid "col"
+msgstr ""
+
+#: notepas_forms_main.slength
+msgid "length"
+msgstr ""
+
+#: notepas_forms_main.slines
+msgid "lines"
+msgstr ""
+
+#: notepas_forms_main.sln
+msgid "ln"
+msgstr ""
+
 #: notepas_forms_main.smodified
 msgctxt "notepas_forms_main.smodified"
 msgid "Modified"
 msgstr "Modificado"
+
+#: notepas_forms_main.ssel
+msgid "sel"
+msgstr ""
 
 #: tcustomsettingsdialog1.lblalpha.caption
 msgid "lblAlpha"

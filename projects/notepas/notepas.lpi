@@ -421,9 +421,14 @@ if GetIDEValue('OS') = 'linux' then
 begin
   upx := 'upx'
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else
+if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
 begin
   upx := 'upx.exe'
+end;
+if TargetOS='darwin' then
+begin
+   upx := 'upx.sh'
 end;"/>
           <CodeGeneration>
             <Checks>
@@ -434,6 +439,7 @@ end;"/>
             <TargetCPU Value="i386"/>
             <TargetOS Value="darwin"/>
             <Optimizations>
+              <OptimizationLevel Value="3"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
             <SmallerCode Value="True"/>
@@ -442,6 +448,7 @@ end;"/>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
               <UseLineInfoUnit Value="False"/>
+              <StripSymbols Value="True"/>
             </Debugging>
             <Options>
               <Win32>
@@ -461,7 +468,7 @@ end;"/>
             </CompilerMessages>
             <CompilerPath Value="$(CompPath)"/>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <Command Value=".\$(upx) $(TargetFile)"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>

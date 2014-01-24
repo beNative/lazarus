@@ -272,6 +272,12 @@ begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
   Manager.ActiveView := V;
+  //show the parameters in the editor
+  //for I := 0 to Paramcount do
+  //begin
+  //    S := ParamStr(I);
+  //    v.Editor.Text:=v.Editor.Text+s+#13#10;
+  //end;
 end;
 
 procedure TfrmMain.BeforeDestruction;

@@ -1,0 +1,4495 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: notepas.forms.main.smodified
+msgctxt "notepas.forms.main.smodified"
+msgid "Modified"
+msgstr ""
+
+#: notepas_forms_main.smodified
+msgctxt "notepas_forms_main.smodified"
+msgid "Modified"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblalpha.caption
+msgid "lblAlpha"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblbackground.caption
+msgid "lblBackground"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblforeground.caption
+msgid "lblForeground"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblframe.caption
+msgid "lblFrame"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblframecolor.caption
+msgid "lblFrameColor"
+msgstr ""
+
+#: tcustomsettingsdialog1.lblpriority.caption
+msgid "lblPriority"
+msgstr ""
+
+#: tdlgext.bncancel.caption
+msgctxt "TDLGEXT.BNCANCEL.CAPTION"
+msgid "&Cancel"
+msgstr ""
+
+#: tdlgext.bnok.caption
+msgctxt "TDLGEXT.BNOK.CAPTION"
+msgid "&OK"
+msgstr ""
+
+#: tdlgext.caption
+msgid "Extension Options"
+msgstr ""
+
+#: tdlgext.gbext.caption
+msgctxt "TDLGEXT.GBEXT.CAPTION"
+msgid "&Options:"
+msgstr ""
+
+#: tdlgext.lbldescr.caption
+msgid "&Description:"
+msgstr ""
+
+#: tdlgext.lblext.caption
+msgid "&Extension:"
+msgstr ""
+
+#: tdlgext.lblicon.caption
+msgid "&Icon:"
+msgstr ""
+
+#: tdlgsetupfilters.bncancel.caption
+msgctxt "tdlgsetupfilters.bncancel.caption"
+msgid "&Cancel"
+msgstr ""
+
+#: tdlgsetupfilters.bnok.caption
+msgctxt "tdlgsetupfilters.bnok.caption"
+msgid "&OK"
+msgstr ""
+
+#: tdlgsetupfilters.caption
+msgid "Filters Setup"
+msgstr ""
+
+#: tdmeditormanager.actabout.caption
+msgctxt "TDMEDITORMANAGER.ACTABOUT.CAPTION"
+msgid "About"
+msgstr ""
+
+#: tdmeditormanager.actabout.hint
+msgid "Shows the about dialog."
+msgstr ""
+
+#: tdmeditormanager.actalignselection.caption
+msgctxt "TDMEDITORMANAGER.ACTALIGNSELECTION.CAPTION"
+msgid "Align"
+msgstr ""
+
+#: tdmeditormanager.actalignselection.hint
+msgid "Align selected lines"
+msgstr ""
+
+#: tdmeditormanager.actautoformatxml.caption
+msgid "Autoformat XML"
+msgstr ""
+
+#: tdmeditormanager.actautoguesshighlighter.caption
+msgctxt "tdmeditormanager.actautoguesshighlighter.caption"
+msgid "Auto guess highlighter"
+msgstr ""
+
+#: tdmeditormanager.actautoguesshighlighter.hint
+msgctxt "TDMEDITORMANAGER.ACTAUTOGUESSHIGHLIGHTER.HINT"
+msgid "Auto guess highlighter"
+msgstr ""
+
+#: tdmeditormanager.actclear.caption
+msgid "Clear"
+msgstr ""
+
+#: tdmeditormanager.actclear.hint
+msgid "Clear all text in the editor view."
+msgstr ""
+
+#: tdmeditormanager.actclipboardmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTCLIPBOARDMENU.CAPTION"
+msgid "Clipboard"
+msgstr ""
+
+#: tdmeditormanager.actclose.caption
+msgid "Close editor"
+msgstr ""
+
+#: tdmeditormanager.actclose.hint
+msgid "Close the current editor instance."
+msgstr ""
+
+#: tdmeditormanager.actcloseothers.caption
+msgctxt "tdmeditormanager.actcloseothers.caption"
+msgid "Close all other editors"
+msgstr ""
+
+#: tdmeditormanager.actcloseothers.hint
+msgctxt "TDMEDITORMANAGER.ACTCLOSEOTHERS.HINT"
+msgid "Close all other editors"
+msgstr ""
+
+#: tdmeditormanager.actconverttabstospacesinselection.caption
+msgid "Convert tabs to spaces in selection"
+msgstr ""
+
+#: tdmeditormanager.actcopy.caption
+msgid "&Copy"
+msgstr ""
+
+#: tdmeditormanager.actcopy.hint
+msgid "Copy selection"
+msgstr ""
+
+#: tdmeditormanager.actcopyfilename.caption
+msgid "Copy filename"
+msgstr ""
+
+#: tdmeditormanager.actcopyfilename.hint
+msgid "Copy the filename to the clipboard."
+msgstr ""
+
+#: tdmeditormanager.actcopyfilepath.caption
+msgid "Copy file path"
+msgstr ""
+
+#: tdmeditormanager.actcopyfilepath.hint
+msgid "Copy the file path to the clipboard."
+msgstr ""
+
+#: tdmeditormanager.actcopyfullpath.caption
+msgid "Copy full path"
+msgstr ""
+
+#: tdmeditormanager.actcopyfullpath.hint
+msgid "Copy full filepath to the clipboard."
+msgstr ""
+
+#: tdmeditormanager.actcopyhtmltexttoclipboard.caption
+msgid "Copy as HTML text"
+msgstr ""
+
+#: tdmeditormanager.actcopyhtmltexttoclipboard.hint
+msgid "Copy to clipboard as HTML text"
+msgstr ""
+
+#: tdmeditormanager.actcopyrtftexttoclipboard.caption
+msgid "Copy as RTF text"
+msgstr ""
+
+#: tdmeditormanager.actcopyrtftexttoclipboard.hint
+msgid "Copy to clipboard as RTF text"
+msgstr ""
+
+#: tdmeditormanager.actcopyrtftoclipboard.caption
+msgid "Copy as RTF object"
+msgstr ""
+
+#: tdmeditormanager.actcopyrtftoclipboard.hint
+msgid "Copy to clipboard as RTF object"
+msgstr ""
+
+#: tdmeditormanager.actcopythtmltoclipboard.caption
+msgid "Copy as HTML object"
+msgstr ""
+
+#: tdmeditormanager.actcopythtmltoclipboard.hint
+msgid "Copy to clipboard as HTML object"
+msgstr ""
+
+#: tdmeditormanager.actcopytoclipboard.caption
+msgctxt "tdmeditormanager.actcopytoclipboard.caption"
+msgid "Copy to clipboard"
+msgstr ""
+
+#: tdmeditormanager.actcopytoclipboard.hint
+msgctxt "TDMEDITORMANAGER.ACTCOPYTOCLIPBOARD.HINT"
+msgid "Copy to clipboard"
+msgstr ""
+
+#: tdmeditormanager.actcopywikitexttoclipboard.caption
+msgid "Copy as Wiki text"
+msgstr ""
+
+#: tdmeditormanager.actcopywikitexttoclipboard.hint
+msgid "Copy to clipboard as TeX text"
+msgstr ""
+
+#: tdmeditormanager.actcopywikitoclipboard.caption
+msgid "Copy as Wiki object"
+msgstr ""
+
+#: tdmeditormanager.actcopywikitoclipboard.hint
+msgid "Copy to clipboard as Wiki object"
+msgstr ""
+
+#: tdmeditormanager.actcreatedesktoplink.caption
+msgid "Create desktop link"
+msgstr ""
+
+#: tdmeditormanager.actcreatedesktoplink.hint
+msgid "Create a desktop shortcut to the active file."
+msgstr ""
+
+#: tdmeditormanager.actcut.caption
+msgctxt "tdmeditormanager.actcut.caption"
+msgid "Cut"
+msgstr ""
+
+#: tdmeditormanager.actcut.hint
+msgctxt "TDMEDITORMANAGER.ACTCUT.HINT"
+msgid "Cut"
+msgstr ""
+
+#: tdmeditormanager.actdecfontsize.caption
+msgid "Decrease font size"
+msgstr ""
+
+#: tdmeditormanager.actdecfontsize.hint
+msgid "Decrease editor font size"
+msgstr ""
+
+#: tdmeditormanager.actdecodebase64.caption
+msgid "Decode base64"
+msgstr ""
+
+#: tdmeditormanager.actdecodebase64.hint
+msgid "Decode selected text from base64."
+msgstr ""
+
+#: tdmeditormanager.actdecodeurl.caption
+msgid "Decode URL"
+msgstr ""
+
+#: tdmeditormanager.actdelete.caption
+msgctxt "tdmeditormanager.actdelete.caption"
+msgid "Delete"
+msgstr ""
+
+#: tdmeditormanager.actdelete.hint
+msgctxt "TDMEDITORMANAGER.ACTDELETE.HINT"
+msgid "Delete"
+msgstr ""
+
+#: tdmeditormanager.actdequotelines.caption
+msgctxt "TDMEDITORMANAGER.ACTDEQUOTELINES.CAPTION"
+msgid "Dequote lines"
+msgstr ""
+
+#: tdmeditormanager.actdequotelines.hint
+msgid "Dequote each line in the selection."
+msgstr ""
+
+#: tdmeditormanager.actdequoteselection.caption
+msgctxt "TDMEDITORMANAGER.ACTDEQUOTESELECTION.CAPTION"
+msgid "Dequote"
+msgstr ""
+
+#: tdmeditormanager.actdequoteselection.hint
+msgid "Dequote selection"
+msgstr ""
+
+#: tdmeditormanager.actencodebase64.caption
+msgid "Encode base64"
+msgstr ""
+
+#: tdmeditormanager.actencodebase64.hint
+msgid "Encode selected text to base64."
+msgstr ""
+
+#: tdmeditormanager.actencodeurl.caption
+msgid "Encode URL"
+msgstr ""
+
+#: tdmeditormanager.actencodingmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTENCODINGMENU.CAPTION"
+msgid "Encoding"
+msgstr ""
+
+#: tdmeditormanager.actexecutescriptonselection.caption
+msgid "Execute script on selection"
+msgstr ""
+
+#: tdmeditormanager.actexit.caption
+msgid "Exit"
+msgstr ""
+
+#: tdmeditormanager.actexit.hint
+msgid "Exit application"
+msgstr ""
+
+#: tdmeditormanager.actexportmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTEXPORTMENU.CAPTION"
+msgid "Export"
+msgstr ""
+
+#: tdmeditormanager.actexporttohtml.caption
+msgctxt "tdmeditormanager.actexporttohtml.caption"
+msgid "Save as HTML file"
+msgstr ""
+
+#: tdmeditormanager.actexporttohtml.hint
+msgctxt "TDMEDITORMANAGER.ACTEXPORTTOHTML.HINT"
+msgid "Save as HTML file"
+msgstr ""
+
+#: tdmeditormanager.actexporttortf.caption
+msgctxt "tdmeditormanager.actexporttortf.caption"
+msgid "Save as RTF file"
+msgstr ""
+
+#: tdmeditormanager.actexporttortf.hint
+msgctxt "TDMEDITORMANAGER.ACTEXPORTTORTF.HINT"
+msgid "Save as RTF file"
+msgstr ""
+
+#: tdmeditormanager.actexporttowiki.caption
+msgctxt "tdmeditormanager.actexporttowiki.caption"
+msgid "Save as Wiki file"
+msgstr ""
+
+#: tdmeditormanager.actexporttowiki.hint
+msgctxt "TDMEDITORMANAGER.ACTEXPORTTOWIKI.HINT"
+msgid "Save as Wiki file"
+msgstr ""
+
+#: tdmeditormanager.actfilemenu.caption
+msgctxt "TDMEDITORMANAGER.ACTFILEMENU.CAPTION"
+msgid "File"
+msgstr ""
+
+#: tdmeditormanager.actfindalloccurences.caption
+msgid "Find all occurences"
+msgstr ""
+
+#: tdmeditormanager.actfindalloccurences.hint
+msgid "Finds all occurences of the selected text or the current word at the caret position."
+msgstr ""
+
+#: tdmeditormanager.actfindnext.caption
+msgctxt "tdmeditormanager.actfindnext.caption"
+msgid "Find next"
+msgstr ""
+
+#: tdmeditormanager.actfindnext.hint
+msgctxt "TDMEDITORMANAGER.ACTFINDNEXT.HINT"
+msgid "Find next"
+msgstr ""
+
+#: tdmeditormanager.actfindnextword.caption
+msgid "Find &next word"
+msgstr ""
+
+#: tdmeditormanager.actfindnextword.hint
+msgid "Find next word occurence"
+msgstr ""
+
+#: tdmeditormanager.actfindprevious.caption
+msgctxt "tdmeditormanager.actfindprevious.caption"
+msgid "Find previous"
+msgstr ""
+
+#: tdmeditormanager.actfindprevious.hint
+msgctxt "TDMEDITORMANAGER.ACTFINDPREVIOUS.HINT"
+msgid "Find previous"
+msgstr ""
+
+#: tdmeditormanager.actfindprevword.caption
+msgid "Find &previous word"
+msgstr ""
+
+#: tdmeditormanager.actfindprevword.hint
+msgid "Find previous word occurence"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel0.caption
+msgid "Fold level 0"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel0.hint
+msgid "Sets the fold level to 0"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel1.caption
+msgid "Fold level 1"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel1.hint
+msgid "Sets the fold level to 1"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel10.caption
+msgid "Fold level max"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel10.hint
+msgid "Sets the fold level to 10"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel2.caption
+msgid "Fold level 2"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel2.hint
+msgid "Sets the fold level to 2"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel3.caption
+msgid "Fold level 3"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel3.hint
+msgid "Sets the fold level to 3"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel4.caption
+msgid "Fold level 4"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel4.hint
+msgid "Sets the fold level to 4"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel5.caption
+msgid "Fold level 5"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel5.hint
+msgid "Sets the fold level to 5"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel6.caption
+msgid "Fold level 6"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel6.hint
+msgid "Sets the fold level to 6"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel7.caption
+msgid "Fold level 7"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel7.hint
+msgid "Sets the fold level to 7"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel8.caption
+msgid "Fold level 8"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel8.hint
+msgid "Sets the fold level to 8"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel9.caption
+msgid "Fold level 9"
+msgstr ""
+
+#: tdmeditormanager.actfoldlevel9.hint
+msgid "Sets the fold level to 9"
+msgstr ""
+
+#: tdmeditormanager.actfoldmenu.caption
+msgid "Fold"
+msgstr ""
+
+#: tdmeditormanager.actformat.caption
+msgid "Format text"
+msgstr ""
+
+#: tdmeditormanager.actformat.hint
+msgid "Formats text depending on the current highlighter."
+msgstr ""
+
+#: tdmeditormanager.acthelp.caption
+msgctxt "tdmeditormanager.acthelp.caption"
+msgid "&Help"
+msgstr ""
+
+#: tdmeditormanager.acthelp.hint
+msgid "Show help dialog."
+msgstr ""
+
+#: tdmeditormanager.acthighlighter.caption
+msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTER.CAPTION"
+msgid "Highlighter"
+msgstr ""
+
+#: tdmeditormanager.acthighlightermenu.caption
+msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTERMENU.CAPTION"
+msgid "Highlighter"
+msgstr ""
+
+#: tdmeditormanager.actincfontsize.caption
+msgid "Increase fontsize"
+msgstr ""
+
+#: tdmeditormanager.actincfontsize.hint
+msgid "Increase editor font size"
+msgstr ""
+
+#: tdmeditormanager.actindent.caption
+msgid "Indent"
+msgstr ""
+
+#: tdmeditormanager.actinsertcolorvalue.caption
+msgid "Insert color value"
+msgstr ""
+
+#: tdmeditormanager.actinsertcolorvalue.hint
+msgid "Insert numeric color value"
+msgstr ""
+
+#: tdmeditormanager.actinsertguid.caption
+msgid "Insert GUID"
+msgstr ""
+
+#: tdmeditormanager.actinsertguid.hint
+msgid "Inserts a new GUID value."
+msgstr ""
+
+#: tdmeditormanager.actinsertmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTINSERTMENU.CAPTION"
+msgid "Insert"
+msgstr ""
+
+#: tdmeditormanager.actinspect.caption
+msgctxt "TDMEDITORMANAGER.ACTINSPECT.CAPTION"
+msgid "Inspect"
+msgstr ""
+
+#: tdmeditormanager.actinspect.hint
+msgid "Show inspector"
+msgstr ""
+
+#: tdmeditormanager.actlinebreakstylemenu.caption
+msgctxt "TDMEDITORMANAGER.ACTLINEBREAKSTYLEMENU.CAPTION"
+msgid "Linebreakstyle"
+msgstr ""
+
+#: tdmeditormanager.actlowercaseselection.caption
+msgid "Lowercase"
+msgstr ""
+
+#: tdmeditormanager.actlowercaseselection.hint
+msgid "Lower case selection"
+msgstr ""
+
+#: tdmeditormanager.actmonitorchanges.caption
+msgid "Monitor changes"
+msgstr ""
+
+#: tdmeditormanager.actmonitorchanges.hint
+msgid "Monitor for external file changes."
+msgstr ""
+
+#: tdmeditormanager.actnew.caption
+msgid "New"
+msgstr ""
+
+#: tdmeditormanager.actnew.hint
+msgid "Create a new editor view."
+msgstr ""
+
+#: tdmeditormanager.actnewsharedview.caption
+msgid "New shared view"
+msgstr ""
+
+#: tdmeditormanager.actopen.caption
+msgctxt "tdmeditormanager.actopen.caption"
+msgid "Open"
+msgstr ""
+
+#: tdmeditormanager.actopen.hint
+msgid "Open file"
+msgstr ""
+
+#: tdmeditormanager.actopenfileatcursor.caption
+msgctxt "tdmeditormanager.actopenfileatcursor.caption"
+msgid "Open file at cursor"
+msgstr ""
+
+#: tdmeditormanager.actopenfileatcursor.hint
+msgctxt "TDMEDITORMANAGER.ACTOPENFILEATCURSOR.HINT"
+msgid "Open file at cursor"
+msgstr ""
+
+#: tdmeditormanager.actpagesetup.caption
+msgctxt "tdmeditormanager.actpagesetup.caption"
+msgid "Page setup"
+msgstr ""
+
+#: tdmeditormanager.actpagesetup.hint
+msgctxt "TDMEDITORMANAGER.ACTPAGESETUP.HINT"
+msgid "Page setup"
+msgstr ""
+
+#: tdmeditormanager.actpascalstringofselection.caption
+msgctxt "TDMEDITORMANAGER.ACTPASCALSTRINGOFSELECTION.CAPTION"
+msgid "Pascal string"
+msgstr ""
+
+#: tdmeditormanager.actpascalstringofselection.hint
+msgid "Convert selection to pascal string declaration"
+msgstr ""
+
+#: tdmeditormanager.actpaste.caption
+msgctxt "tdmeditormanager.actpaste.caption"
+msgid "Paste"
+msgstr ""
+
+#: tdmeditormanager.actpaste.hint
+msgctxt "TDMEDITORMANAGER.ACTPASTE.HINT"
+msgid "Paste"
+msgstr ""
+
+#: tdmeditormanager.actprint.caption
+msgctxt "tdmeditormanager.actprint.caption"
+msgid "Print"
+msgstr ""
+
+#: tdmeditormanager.actprint.hint
+msgctxt "TDMEDITORMANAGER.ACTPRINT.HINT"
+msgid "Print"
+msgstr ""
+
+#: tdmeditormanager.actprintpreview.caption
+msgctxt "tdmeditormanager.actprintpreview.caption"
+msgid "Print preview"
+msgstr ""
+
+#: tdmeditormanager.actprintpreview.hint
+msgctxt "TDMEDITORMANAGER.ACTPRINTPREVIEW.HINT"
+msgid "Print preview"
+msgstr ""
+
+#: tdmeditormanager.actquotelines.caption
+msgctxt "TDMEDITORMANAGER.ACTQUOTELINES.CAPTION"
+msgid "Quote lines"
+msgstr ""
+
+#: tdmeditormanager.actquotelines.hint
+msgid "Quote each line in the selection."
+msgstr ""
+
+#: tdmeditormanager.actquotelinesanddelimit.caption
+msgid "Quote lines and delimit"
+msgstr ""
+
+#: tdmeditormanager.actquotelinesanddelimit.hint
+msgid "Quote each line in the selection and delimit with comma"
+msgstr ""
+
+#: tdmeditormanager.actquoteselection.caption
+msgctxt "TDMEDITORMANAGER.ACTQUOTESELECTION.CAPTION"
+msgid "Quote"
+msgstr ""
+
+#: tdmeditormanager.actquoteselection.hint
+msgid "Quote selection"
+msgstr ""
+
+#: tdmeditormanager.actredo.caption
+msgctxt "TDMEDITORMANAGER.ACTREDO.CAPTION"
+msgid "Redo"
+msgstr ""
+
+#: tdmeditormanager.actredo.hint
+msgctxt "TDMEDITORMANAGER.ACTREDO.HINT"
+msgid "Redo"
+msgstr ""
+
+#: tdmeditormanager.actreload.caption
+msgid "Reload"
+msgstr ""
+
+#: tdmeditormanager.actreload.hint
+msgid "Reload content."
+msgstr ""
+
+#: tdmeditormanager.actsave.caption
+msgctxt "tdmeditormanager.actsave.caption"
+msgid "Save"
+msgstr ""
+
+#: tdmeditormanager.actsave.hint
+msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
+msgid "Save"
+msgstr ""
+
+#: tdmeditormanager.actsaveas.caption
+msgid "Save as..."
+msgstr ""
+
+#: tdmeditormanager.actsaveas.hint
+msgctxt "tdmeditormanager.actsaveas.hint"
+msgid "Save file as"
+msgstr ""
+
+#: tdmeditormanager.actsearch.caption
+msgid "&Find..."
+msgstr ""
+
+#: tdmeditormanager.actsearch.hint
+msgctxt "tdmeditormanager.actsearch.hint"
+msgid "Find"
+msgstr ""
+
+#: tdmeditormanager.actsearchmenu.caption
+msgid "Search"
+msgstr ""
+
+#: tdmeditormanager.actsearchreplace.caption
+msgid "&Replace..."
+msgstr ""
+
+#: tdmeditormanager.actsearchreplace.hint
+msgctxt "TDMEDITORMANAGER.ACTSEARCHREPLACE.HINT"
+msgid "Replace"
+msgstr ""
+
+#: tdmeditormanager.actselectall.caption
+msgctxt "tdmeditormanager.actselectall.caption"
+msgid "Select &All"
+msgstr ""
+
+#: tdmeditormanager.actselectall.hint
+msgid "Select all."
+msgstr ""
+
+#: tdmeditormanager.actselectiondecodemenu.caption
+msgid "Decode"
+msgstr ""
+
+#: tdmeditormanager.actselectionencodemenu.caption
+msgid "Encode"
+msgstr ""
+
+#: tdmeditormanager.actselectioninfo.caption
+msgid "SelectionInfo"
+msgstr ""
+
+#: tdmeditormanager.actselectionmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTSELECTIONMENU.CAPTION"
+msgid "Selection"
+msgstr ""
+
+#: tdmeditormanager.actselectionmodemenu.caption
+msgctxt "TDMEDITORMANAGER.ACTSELECTIONMODEMENU.CAPTION"
+msgid "Selectionmode"
+msgstr ""
+
+#: tdmeditormanager.actselectmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTSELECTMENU.CAPTION"
+msgid "Select"
+msgstr ""
+
+#: tdmeditormanager.actsettings.caption
+msgctxt "tdmeditormanager.actsettings.caption"
+msgid "Settings"
+msgstr ""
+
+#: tdmeditormanager.actsettings.hint
+msgctxt "tdmeditormanager.actsettings.hint"
+msgid "Editor settings"
+msgstr ""
+
+#: tdmeditormanager.actsettingsmenu.caption
+msgctxt "TDMEDITORMANAGER.ACTSETTINGSMENU.CAPTION"
+msgid "Settings"
+msgstr ""
+
+#: tdmeditormanager.actshowactions.caption
+msgid "Show editor actions"
+msgstr ""
+
+#: tdmeditormanager.actshowactions.hint
+msgid "Show the list of all available actions."
+msgstr ""
+
+#: tdmeditormanager.actshowcharactermap.caption
+msgctxt "tdmeditormanager.actshowcharactermap.caption"
+msgid "Show character map"
+msgstr ""
+
+#: tdmeditormanager.actshowcharactermap.hint
+msgctxt "tdmeditormanager.actshowcharactermap.hint"
+msgid "Show character map with Ansi and Unicode characters."
+msgstr ""
+
+#: tdmeditormanager.actshowcodefilter.caption
+msgctxt "tdmeditormanager.actshowcodefilter.caption"
+msgid "Filter code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodefilter.hint
+msgctxt "tdmeditormanager.actshowcodefilter.hint"
+msgid "Filter code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodeshaper.caption
+msgctxt "tdmeditormanager.actshowcodeshaper.caption"
+msgid "Shape code"
+msgstr ""
+
+#: tdmeditormanager.actshowcodeshaper.hint
+msgctxt "tdmeditormanager.actshowcodeshaper.hint"
+msgid "Apply custom code formatting to selection"
+msgstr ""
+
+#: tdmeditormanager.actshowfiltertest.caption
+msgid "Show filter test dialog"
+msgstr ""
+
+#: tdmeditormanager.actshowhexeditor.caption
+msgid "Show Hex editor"
+msgstr ""
+
+#: tdmeditormanager.actshowhtmlviewer.caption
+msgid "Show HTML viewer"
+msgstr ""
+
+#: tdmeditormanager.actshowminimap.caption
+msgid "Show minimap"
+msgstr ""
+
+#: tdmeditormanager.actshowminimap.hint
+msgid "Show minimap."
+msgstr ""
+
+#: tdmeditormanager.actshowpreview.caption
+msgid "Show preview"
+msgstr ""
+
+#: tdmeditormanager.actshowpreview.hint
+msgid "Show text preview."
+msgstr ""
+
+#: tdmeditormanager.actshowscripteditor.caption
+msgid "Show script editor"
+msgstr ""
+
+#: tdmeditormanager.actshowspecialcharacters.caption
+msgid "Show special characters"
+msgstr ""
+
+#: tdmeditormanager.actshowspecialcharacters.hint
+msgid "Show special characters (like tabs and spaces)."
+msgstr ""
+
+#: tdmeditormanager.actshowstructureviewer.caption
+msgctxt "TDMEDITORMANAGER.ACTSHOWSTRUCTUREVIEWER.CAPTION"
+msgid "XML treeview"
+msgstr ""
+
+#: tdmeditormanager.actshowtest.caption
+msgid "Show testform"
+msgstr ""
+
+#: tdmeditormanager.actshowviews.caption
+msgid "Show views"
+msgstr ""
+
+#: tdmeditormanager.actshowviews.hint
+msgid "Show list of all editor views."
+msgstr ""
+
+#: tdmeditormanager.actsingleinstance.caption
+msgid "Single instance"
+msgstr ""
+
+#: tdmeditormanager.actsingleinstance.hint
+msgid "Allow only one active instance of the application."
+msgstr ""
+
+#: tdmeditormanager.actsmartselect.caption
+msgid "Smartselect"
+msgstr ""
+
+#: tdmeditormanager.actsmartselect.hint
+msgid "Make a smart selection"
+msgstr ""
+
+#: tdmeditormanager.actsortselection.caption
+msgid "Sort"
+msgstr ""
+
+#: tdmeditormanager.actsortselection.hint
+msgid "Sort selected lines"
+msgstr ""
+
+#: tdmeditormanager.actstayontop.caption
+msgid "Stay on top"
+msgstr ""
+
+#: tdmeditormanager.actstayontop.hint
+msgid "Lets the application window stay on top of all other opened windows."
+msgstr ""
+
+#: tdmeditormanager.actstripfirstchar.caption
+msgid "Strip first character"
+msgstr ""
+
+#: tdmeditormanager.actstripfirstchar.hint
+msgid "Strip first character from every line in the selection."
+msgstr ""
+
+#: tdmeditormanager.actstriplastchar.caption
+msgid "Strip last character"
+msgstr ""
+
+#: tdmeditormanager.actstriplastchar.hint
+msgid "Strip last character from every line in the selection."
+msgstr ""
+
+#: tdmeditormanager.actstripmarkup.caption
+msgid "Strip markup"
+msgstr ""
+
+#: tdmeditormanager.actstripmarkup.hint
+msgid "Strip markup tags from XML/HTML."
+msgstr ""
+
+#: tdmeditormanager.actsyncedit.caption
+msgid "Sync edit"
+msgstr ""
+
+#: tdmeditormanager.actsyncedit.hint
+msgid "Synchronized edit"
+msgstr ""
+
+#: tdmeditormanager.acttoggleblockcommentselection.caption
+msgid "Toggle block comment selection"
+msgstr ""
+
+#: tdmeditormanager.acttoggleblockcommentselection.hint
+msgid "Comment/uncomment the selection with the highlighter's block comment tags."
+msgstr ""
+
+#: tdmeditormanager.acttogglecomment.caption
+msgid "Toggle comment"
+msgstr ""
+
+#: tdmeditormanager.acttogglecomment.hint
+msgid "Toggle comment for current line or each selected line."
+msgstr ""
+
+#: tdmeditormanager.acttogglefoldlevel.caption
+msgid "Toggle fold level"
+msgstr ""
+
+#: tdmeditormanager.acttogglefoldlevel.hint
+msgid "Toggle folding level."
+msgstr ""
+
+#: tdmeditormanager.acttogglehighlighter.caption
+msgid "Toggle highlighter"
+msgstr ""
+
+#: tdmeditormanager.acttogglehighlighter.hint
+msgid "Toggle highlighter."
+msgstr ""
+
+#: tdmeditormanager.acttogglemaximized.caption
+msgid "Toggle maximized"
+msgstr ""
+
+#: tdmeditormanager.acttogglemaximized.hint
+msgid "Toggles between maximized and restored mode."
+msgstr ""
+
+#: tdmeditormanager.actundo.caption
+msgctxt "TDMEDITORMANAGER.ACTUNDO.CAPTION"
+msgid "Undo"
+msgstr ""
+
+#: tdmeditormanager.actundo.hint
+msgctxt "TDMEDITORMANAGER.ACTUNDO.HINT"
+msgid "Undo"
+msgstr ""
+
+#: tdmeditormanager.actunindent.caption
+msgid "Unindent"
+msgstr ""
+
+#: tdmeditormanager.actuppercaseselection.caption
+msgid "Uppercase"
+msgstr ""
+
+#: tdmeditormanager.actuppercaseselection.hint
+msgid "Upper case selection"
+msgstr ""
+
+#: teditorsettingsdialog.caption
+msgid "EditorSettingsDialog"
+msgstr ""
+
+#: tform1.caption
+msgid "Form1"
+msgstr ""
+
+#: tfrmabout.actclose.caption
+msgctxt "tfrmabout.actclose.caption"
+msgid "&Close"
+msgstr ""
+
+#: tfrmabout.actdonate.caption
+msgid "Donate"
+msgstr ""
+
+#: tfrmabout.actdonate.hint
+msgid "If you like this project, you can support development with a donation."
+msgstr ""
+
+#: tfrmabout.actreportdefect.caption
+msgid "Report a defect."
+msgstr ""
+
+#: tfrmabout.actreportdefect.hint
+msgid "Report an issue."
+msgstr ""
+
+#: tfrmabout.acturl.caption
+msgid "Visit URL"
+msgstr ""
+
+#: tfrmabout.caption
+msgctxt "TFRMABOUT.CAPTION"
+msgid "About"
+msgstr ""
+
+#: tfrmabout.lbbuilddate.caption
+msgid "Build date:"
+msgstr ""
+
+#: tfrmabout.lblclversion.caption
+msgid "LCL version:"
+msgstr ""
+
+#: tfrmabout.lblfileversion.caption
+msgid "Version:"
+msgstr ""
+
+#: tfrmabout.lblfpcversion.caption
+msgid "FPC version:"
+msgstr ""
+
+#: tfrmabout.lbltargetcpu.caption
+msgid "Target CPU:"
+msgstr ""
+
+#: tfrmabout.lbltargetos.caption
+msgid "Target OS:"
+msgstr ""
+
+#: tfrmabout.lblurl.caption
+msgid "URL"
+msgstr ""
+
+#: tfrmabout.lblwidgetset.caption
+msgid "Widget set:"
+msgstr ""
+
+#: tfrmabout.tsabout.caption
+msgid "Version"
+msgstr ""
+
+#: tfrmabout.tscredits.caption
+msgid "Credits"
+msgstr ""
+
+#: tfrmabout.tsinfo.caption
+msgctxt "tfrmabout.tsinfo.caption"
+msgid "Info"
+msgstr ""
+
+#: tfrmabout.tstranslations.caption
+msgctxt "tfrmabout.tstranslations.caption"
+msgid "Translations"
+msgstr ""
+
+#: tfrmactionlistview.caption
+msgctxt "tfrmactionlistview.caption"
+msgid "Actions"
+msgstr ""
+
+#: tfrmactionlistview.tsactions.caption
+msgctxt "TFRMACTIONLISTVIEW.TSACTIONS.CAPTION"
+msgid "Actions"
+msgstr ""
+
+#: tfrmactionlistview.tscommands.caption
+msgid "Editor key commands"
+msgstr ""
+
+#: tfrmactionlistview.tsmouseactions.caption
+msgid "Editor mouse commands"
+msgstr ""
+
+#: tfrmalignlines.actexecute.caption
+msgctxt "TFRMALIGNLINES.ACTEXECUTE.CAPTION"
+msgid "Execute"
+msgstr ""
+
+#: tfrmalignlines.caption
+msgid "Align selection"
+msgstr ""
+
+#: tfrmalignlines.gbxinsertspace.caption
+msgid "Keep at least one space"
+msgstr ""
+
+#: tfrmalignlines.gbxoptions.caption
+msgctxt "TFRMALIGNLINES.GBXOPTIONS.CAPTION"
+msgid "Options"
+msgstr ""
+
+#: tfrmalignlines.gbxtokenlist.caption
+msgid "Tokens to align to:"
+msgstr ""
+
+#: tfrmalignlines.gbxtokensfound.caption
+msgid "Tokens found in selection:"
+msgstr ""
+
+#: tfrmalignlines.rgpalignat.caption
+msgid "Align at:"
+msgstr ""
+
+#: tfrmalignlines.rgpsortdirection.caption
+msgid "Sort direction:"
+msgstr ""
+
+#: tfrmapplicationsettings.caption
+msgid "frmApplicationSettings"
+msgstr ""
+
+#: tfrmapplicationsettings.chkclosewithesc.caption
+msgctxt "TFRMAPPLICATIONSETTINGS.CHKCLOSEWITHESC.CAPTION"
+msgid "Close the application with the ESC key"
+msgstr ""
+
+#: tfrmapplicationsettings.chkdebugmode.caption
+msgid "chkDebugMode"
+msgstr ""
+
+#: tfrmapplicationsettings.chkdiminactiveview.caption
+msgid "chkDimInactiveView"
+msgstr ""
+
+#: tfrmapplicationsettings.chksingleinstance.caption
+msgid "Allow only one instance of the application"
+msgstr ""
+
+#: tfrmcharactermap.lblcharinfo.caption
+msgctxt "TFRMCHARACTERMAP.LBLCHARINFO.CAPTION"
+msgid "lblCharInfo"
+msgstr ""
+
+#: tfrmcharactermap.lblunicodecharinfo.caption
+msgctxt "TFRMCHARACTERMAP.LBLUNICODECHARINFO.CAPTION"
+msgid "lblUnicodeCharInfo"
+msgstr ""
+
+#: tfrmcharactermap.tsansi.caption
+msgctxt "TFRMCHARACTERMAP.TSANSI.CAPTION"
+msgid "ANSI"
+msgstr ""
+
+#: tfrmcharactermap.tsunicode.caption
+msgctxt "TFRMCHARACTERMAP.TSUNICODE.CAPTION"
+msgid "Unicode"
+msgstr ""
+
+#: tfrmcharactermapdialog.lblcharinfo.caption
+msgctxt "tfrmcharactermapdialog.lblcharinfo.caption"
+msgid "lblCharInfo"
+msgstr ""
+
+#: tfrmcharactermapdialog.lblunicodecharinfo.caption
+msgctxt "tfrmcharactermapdialog.lblunicodecharinfo.caption"
+msgid "lblUnicodeCharInfo"
+msgstr ""
+
+#: tfrmcharactermapdialog.tsansi.caption
+msgctxt "tfrmcharactermapdialog.tsansi.caption"
+msgid "ANSI"
+msgstr ""
+
+#: tfrmcharactermapdialog.tsunicode.caption
+msgctxt "tfrmcharactermapdialog.tsunicode.caption"
+msgid "Unicode"
+msgstr ""
+
+#: tfrmcodefilterdialog.actapplyfilter.caption
+msgid "Apply filter"
+msgstr ""
+
+#: tfrmcodefilterdialog.actcopytonewview.caption
+msgid "Copy to new view"
+msgstr ""
+
+#: tfrmcodefilterdialog.actcopytonewview.hint
+msgid "Copy selected lines to new view"
+msgstr ""
+
+#: tfrmcodefilterdialog.actfocussearchfilter.caption
+msgid "Set focus to searchfilter"
+msgstr ""
+
+#: tfrmcodefilterdialog.actmatchcase.caption
+msgid "Match &case"
+msgstr ""
+
+#: tfrmcodefilterdialog.actregularexpression.caption
+msgid "&Regular expression"
+msgstr ""
+
+#: tfrmcodefilterdialog.actselectall.caption
+msgid "Select all"
+msgstr ""
+
+#: tfrmcodefilterdialog.caption
+msgid "Code filter"
+msgstr ""
+
+#: tfrmcodefilterdialog.lblsearch.caption
+msgid "Search:"
+msgstr ""
+
+#: tfrmcodefilterdialog.mnicopy.caption
+msgctxt "TFRMCODEFILTERDIALOG.MNICOPY.CAPTION"
+msgid "Copy"
+msgstr ""
+
+#: tfrmcodefilterdialog.tlbmain.caption
+msgctxt "TFRMCODEFILTERDIALOG.TLBMAIN.CAPTION"
+msgid "tlbMain"
+msgstr ""
+
+#: tfrmcodefilterdialog.toolbutton1.caption
+msgid "ToolButton1"
+msgstr ""
+
+#: tfrmcodefilterdialog.toolbutton3.caption
+msgid "ToolButton3"
+msgstr ""
+
+#: tfrmcodefilterdialog.toolbutton4.caption
+msgid "ToolButton4"
+msgstr ""
+
+#: tfrmcodeshaper.actaligninsertspaceaftertoken.caption
+msgctxt "tfrmcodeshaper.actaligninsertspaceaftertoken.caption"
+msgid "after token"
+msgstr ""
+
+#: tfrmcodeshaper.actaligninsertspacebeforetoken.caption
+msgctxt "tfrmcodeshaper.actaligninsertspacebeforetoken.caption"
+msgid "before token"
+msgstr ""
+
+#: tfrmcodeshaper.actaligninsertspaceonbothsides.caption
+msgid "on both sides"
+msgstr ""
+
+#: tfrmcodeshaper.actalignlines.caption
+msgid "Align lines"
+msgstr ""
+
+#: tfrmcodeshaper.actapplyconsistentcase.caption
+msgid "Consistent case"
+msgstr ""
+
+#: tfrmcodeshaper.actapplyconsistentcase.hint
+msgid "Every word gets the same casing as the first occurence."
+msgstr ""
+
+#: tfrmcodeshaper.actbreakaftertoken.caption
+msgctxt "TFRMCODESHAPER.ACTBREAKAFTERTOKEN.CAPTION"
+msgid "after token"
+msgstr ""
+
+#: tfrmcodeshaper.actbreakaftertoken.hint
+msgid "Insert breaks after each occurence of the given token."
+msgstr ""
+
+#: tfrmcodeshaper.actbreakbeforetoken.caption
+msgctxt "TFRMCODESHAPER.ACTBREAKBEFORETOKEN.CAPTION"
+msgid "before token"
+msgstr ""
+
+#: tfrmcodeshaper.actbreakbeforetoken.hint
+msgid "Insert breaks before each occurence of the given token."
+msgstr ""
+
+#: tfrmcodeshaper.actdequotelines.caption
+msgctxt "tfrmcodeshaper.actdequotelines.caption"
+msgid "Dequote"
+msgstr ""
+
+#: tfrmcodeshaper.actinsertbreaks.caption
+msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
+msgid "Insert breaks"
+msgstr ""
+
+#: tfrmcodeshaper.actmakepascalstring.caption
+msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
+msgid "Pascal string"
+msgstr ""
+
+#: tfrmcodeshaper.actquotelines.caption
+msgctxt "tfrmcodeshaper.actquotelines.caption"
+msgid "Quote"
+msgstr ""
+
+#: tfrmcodeshaper.actredo.caption
+msgctxt "tfrmcodeshaper.actredo.caption"
+msgid "Redo"
+msgstr ""
+
+#: tfrmcodeshaper.actremovebreaks.caption
+msgctxt "TFRMCODESHAPER.ACTREMOVEBREAKS.CAPTION"
+msgid "Remove breaks"
+msgstr ""
+
+#: tfrmcodeshaper.actremovedoubles.caption
+msgid "Remove doubles"
+msgstr ""
+
+#: tfrmcodeshaper.actreplace.caption
+msgctxt "tfrmcodeshaper.actreplace.caption"
+msgid "Replace"
+msgstr ""
+
+#: tfrmcodeshaper.actstripfirstchar.caption
+msgid "Strip first char"
+msgstr ""
+
+#: tfrmcodeshaper.actstriplastchar.caption
+msgid "Strip last char"
+msgstr ""
+
+#: tfrmcodeshaper.acttogglebreakside.caption
+msgctxt "TFRMCODESHAPER.ACTTOGGLEBREAKSIDE.CAPTION"
+msgid "after token"
+msgstr ""
+
+#: tfrmcodeshaper.acttrim.caption
+msgctxt "TFRMCODESHAPER.ACTTRIM.CAPTION"
+msgid "Trim"
+msgstr ""
+
+#: tfrmcodeshaper.actundo.caption
+msgctxt "tfrmcodeshaper.actundo.caption"
+msgid "Undo"
+msgstr ""
+
+#: tfrmcodeshaper.acturldecode.caption
+msgid "URL decode"
+msgstr ""
+
+#: tfrmcodeshaper.acturlencode.caption
+msgid "URL encode"
+msgstr ""
+
+#: tfrmcodeshaper.caption
+msgid "Code shaper"
+msgstr ""
+
+#: tfrmcodeshaper.cbxaligntokenside.text
+msgctxt "tfrmcodeshaper.cbxaligntokenside.text"
+msgid "after"
+msgstr ""
+
+#: tfrmcodeshaper.cbxinsertbreakstokenside.text
+msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
+msgid "after"
+msgstr ""
+
+#: tfrmcodeshaper.chkalignlinesinparagraphs.caption
+msgid "Align in paragraphs"
+msgstr ""
+
+#: tfrmcodeshaper.chkalignlinesinsertspace.caption
+msgid "Insert space"
+msgstr ""
+
+#: tfrmcodeshaper.chkalignlinesremovewhitespace.caption
+msgid "Remove whitespace"
+msgstr ""
+
+#: tfrmcodeshaper.chkbreaklines.caption
+msgid "Break lines"
+msgstr ""
+
+#: tfrmcodeshaper.chkbreaklinestrimspace.caption
+msgctxt "tfrmcodeshaper.chkbreaklinestrimspace.caption"
+msgid "Trim space"
+msgstr ""
+
+#: tfrmcodeshaper.chkbreaklineswrap.caption
+msgctxt "tfrmcodeshaper.chkbreaklineswrap.caption"
+msgid "Wrap lines"
+msgstr ""
+
+#: tfrmcodeshaper.chkdequotelinestrimspace.caption
+msgctxt "TFRMCODESHAPER.CHKDEQUOTELINESTRIMSPACE.CAPTION"
+msgid "Trim space"
+msgstr ""
+
+#: tfrmcodeshaper.chkquotelinesdelimitlines.caption
+msgid "Delimit lines"
+msgstr ""
+
+#: tfrmcodeshaper.chkquotelinestrimspace.caption
+msgctxt "TFRMCODESHAPER.CHKQUOTELINESTRIMSPACE.CAPTION"
+msgid "Trim space"
+msgstr ""
+
+#: tfrmcodeshaper.chkreplacestringscasesensitive.caption
+msgctxt "tfrmcodeshaper.chkreplacestringscasesensitive.caption"
+msgid "Case sensitive"
+msgstr ""
+
+#: tfrmcodeshaper.chkreplacestringswholewordsonly.caption
+msgctxt "tfrmcodeshaper.chkreplacestringswholewordsonly.caption"
+msgid "Whole words only"
+msgstr ""
+
+#: tfrmcodeshaper.chktrimcompressspace.caption
+msgid "Compress space"
+msgstr ""
+
+#: tfrmcodeshaper.chktrimlinesleft.caption
+msgid "Trim left"
+msgstr ""
+
+#: tfrmcodeshaper.chktrimlinesright.caption
+msgid "Trim right"
+msgstr ""
+
+#: tfrmcodeshaper.chkunbreaklineswrap.caption
+msgctxt "TFRMCODESHAPER.CHKUNBREAKLINESWRAP.CAPTION"
+msgid "Wrap lines"
+msgstr ""
+
+#: tfrmcodeshaper.edtalignlinestoken.editlabel.caption
+msgctxt "TFRMCODESHAPER.EDTALIGNLINESTOKEN.EDITLABEL.CAPTION"
+msgid "Token:"
+msgstr ""
+
+#: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
+msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
+msgid "Token:"
+msgstr ""
+
+#: tfrmcodeshaper.edtbreaklinestoken.text
+msgid ","
+msgstr ""
+
+#: tfrmcodeshaper.edtdequotelinesquotechar.editlabel.caption
+msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.EDITLABEL.CAPTION"
+msgid "Quote character:"
+msgstr ""
+
+#: tfrmcodeshaper.edtdequotelinesquotechar.text
+msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.TEXT"
+msgid "'"
+msgstr ""
+
+#: tfrmcodeshaper.edtquotedlinesdelimiter.editlabel.caption
+msgid "Delimiter:"
+msgstr ""
+
+#: tfrmcodeshaper.edtquotedlinesdelimiter.text
+msgid ", "
+msgstr ""
+
+#: tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption
+msgctxt "tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption"
+msgid "Quote character:"
+msgstr ""
+
+#: tfrmcodeshaper.edtquotelinesquotechar.text
+msgctxt "tfrmcodeshaper.edtquotelinesquotechar.text"
+msgid "'"
+msgstr ""
+
+#: tfrmcodeshaper.grdreplacestrings.columns[0].title.caption
+msgid "From"
+msgstr ""
+
+#: tfrmcodeshaper.grdreplacestrings.columns[1].title.caption
+msgid "To"
+msgstr ""
+
+#: tfrmcodeshaper.grpalign.caption
+msgctxt "tfrmcodeshaper.grpalign.caption"
+msgid "Align"
+msgstr ""
+
+#: tfrmcodeshaper.grpdequotelines.caption
+msgctxt "tfrmcodeshaper.grpdequotelines.caption"
+msgid "Dequote lines"
+msgstr ""
+
+#: tfrmcodeshaper.grpinsertbreaks.caption
+msgctxt "tfrmcodeshaper.grpinsertbreaks.caption"
+msgid "Insert breaks"
+msgstr ""
+
+#: tfrmcodeshaper.grpmisc.caption
+msgid "Miscellanious operations"
+msgstr ""
+
+#: tfrmcodeshaper.grpquotelines.caption
+msgctxt "tfrmcodeshaper.grpquotelines.caption"
+msgid "Quote lines"
+msgstr ""
+
+#: tfrmcodeshaper.grpremovebreaks.caption
+msgctxt "tfrmcodeshaper.grpremovebreaks.caption"
+msgid "Remove breaks"
+msgstr ""
+
+#: tfrmcodeshaper.grpreplacestrings.caption
+msgid "Replace strings"
+msgstr ""
+
+#: tfrmcodeshaper.grptrim.caption
+msgctxt "tfrmcodeshaper.grptrim.caption"
+msgid "Trim"
+msgstr ""
+
+#: tfrmcodeshaper.lbltrimlinesindent.caption
+msgid "Indent:"
+msgstr ""
+
+#: tfrmcodeshaper.lblwraplinesposition.caption
+msgctxt "tfrmcodeshaper.lblwraplinesposition.caption"
+msgid "maximum position:"
+msgstr ""
+
+#: tfrmcodeshaper.lblwraplinesposition1.caption
+msgctxt "TFRMCODESHAPER.LBLWRAPLINESPOSITION1.CAPTION"
+msgid "maximum position:"
+msgstr ""
+
+#: tfrmcodeshaper.mnialigninsertspaceaftertoken.caption
+msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEAFTERTOKEN.CAPTION"
+msgid "after"
+msgstr ""
+
+#: tfrmcodeshaper.mnialigninsertspacebeforetoken.caption
+msgctxt "TFRMCODESHAPER.MNIALIGNINSERTSPACEBEFORETOKEN.CAPTION"
+msgid "before"
+msgstr ""
+
+#: tfrmcodeshaper.mnialigninsertspaceonbothsides.caption
+msgid "both"
+msgstr ""
+
+#: tfrmcodeshaper.mnibreakaftertoken.caption
+msgctxt "TFRMCODESHAPER.MNIBREAKAFTERTOKEN.CAPTION"
+msgid "after"
+msgstr ""
+
+#: tfrmcodeshaper.mnibreakbeforetoken.caption
+msgctxt "TFRMCODESHAPER.MNIBREAKBEFORETOKEN.CAPTION"
+msgid "before"
+msgstr ""
+
+#: tfrmcolorsettings.caption
+msgid "frmColorSettings"
+msgstr ""
+
+#: tfrmeditorsettings.actapplysettings.caption
+msgid "Apply"
+msgstr ""
+
+#: tfrmeditorsettings.actassociate.caption
+msgid "Associate"
+msgstr ""
+
+#: tfrmeditorsettings.actopensettingsfile.caption
+msgid "Open settings file"
+msgstr ""
+
+#: tfrmeditorsettings.actreloadsettings.caption
+msgid "Reload settings"
+msgstr ""
+
+#: tfrmeditorsettings.btnapply.caption
+msgid "&Apply"
+msgstr ""
+
+#: tfrmeditorsettings.btnclose.caption
+msgctxt "TFRMEDITORSETTINGS.BTNCLOSE.CAPTION"
+msgid "&Close"
+msgstr ""
+
+#: tfrmeditorsettings.btnok.caption
+msgctxt "TFRMEDITORSETTINGS.BTNOK.CAPTION"
+msgid "&OK"
+msgstr ""
+
+#: tfrmeditorsettings.caption
+msgctxt "TFRMEDITORSETTINGS.CAPTION"
+msgid "Editor settings"
+msgstr ""
+
+#: tfrmeditorsettings.label1.caption
+msgid "Label1"
+msgstr ""
+
+#: tfrmeditorsettings.lblattributealiases.caption
+msgid "Highlighter attribute aliases:"
+msgstr ""
+
+#: tfrmeditorsettings.tsdebug.caption
+msgid "Debug"
+msgstr ""
+
+#: tfrmeditorsettings.tshighlighterattributes.caption
+msgid "Common highlighter attributes"
+msgstr ""
+
+#: tfrmeditorsettings.tshighlighters.caption
+msgid "Highlighters"
+msgstr ""
+
+#: tfrmeditorsettings.tssettings.caption
+msgid "Main settings"
+msgstr ""
+
+#: tfrmeditorsettings.tsxml.caption
+msgid "XML"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkreadonly.caption
+msgid "Read only mode"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkwanttabs.caption
+msgid "Accept TAB characters:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lblblockindent.caption
+msgid "Block indent spaces:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lblblocktabindent.caption
+msgid "Block indent tabs:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lblextracharspacing.caption
+msgid "Extra character spacing:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lblextralinespacing.caption
+msgid "Extra line spacing:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lblrightedge.caption
+msgid "Right edge position:"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.lbltabwidth.caption
+msgid "TAB width:"
+msgstr ""
+
+#: tfrmfiletypesettings.acadd.caption
+msgctxt "TFRMFILETYPESETTINGS.ACADD.CAPTION"
+msgid "&Add..."
+msgstr ""
+
+#: tfrmfiletypesettings.acdel.caption
+msgctxt "TFRMFILETYPESETTINGS.ACDEL.CAPTION"
+msgid "&Delete..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnac.caption
+msgctxt "TFRMFILETYPESETTINGS.BNAC.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnacedit.caption
+msgctxt "TFRMFILETYPESETTINGS.BNACEDIT.CAPTION"
+msgid "&Edit..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnhelp.caption
+msgctxt "TFRMFILETYPESETTINGS.BNHELP.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnruncmd.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNCMD.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnrundirbrowse.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNDIRBROWSE.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmfiletypesettings.bnrundirtags.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNDIRTAGS.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmfiletypesettings.bnrunoutputexp.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNOUTPUTEXP.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmfiletypesettings.bnrunoutputl.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNOUTPUTL.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmfiletypesettings.bnrunparam.caption
+msgctxt "TFRMFILETYPESETTINGS.BNRUNPARAM.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmfiletypesettings.chkautoi.caption
+msgctxt "TFRMFILETYPESETTINGS.CHKAUTOI.CAPTION"
+msgid "&Auto Indent"
+msgstr ""
+
+#: tfrmfiletypesettings.chksmarttab.caption
+msgctxt "TFRMFILETYPESETTINGS.CHKSMARTTAB.CAPTION"
+msgid "&Smart Tab"
+msgstr ""
+
+#: tfrmfiletypesettings.chkusetab.caption
+msgctxt "TFRMFILETYPESETTINGS.CHKUSETAB.CAPTION"
+msgid "&Uset Tab"
+msgstr ""
+
+#: tfrmfiletypesettings.gboptions.caption
+msgctxt "TFRMFILETYPESETTINGS.GBOPTIONS.CAPTION"
+msgid "&Options:"
+msgstr ""
+
+#: tfrmfiletypesettings.lbfilter.caption
+msgctxt "TFRMFILETYPESETTINGS.LBFILTER.CAPTION"
+msgid "&Filter:"
+msgstr ""
+
+#: tfrmfiletypesettings.lbft.caption
+msgctxt "TFRMFILETYPESETTINGS.LBFT.CAPTION"
+msgid "File &Type:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblcomment.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLCOMMENT.CAPTION"
+msgid "&Comment Char:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblftautocomplete.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLFTAUTOCOMPLETE.CAPTION"
+msgid "&Autocomplete:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblhelp.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLHELP.CAPTION"
+msgid "Help file:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblhighlighter.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLHIGHLIGHTER.CAPTION"
+msgid "&Highlight:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblruncmd.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLRUNCMD.CAPTION"
+msgid "&Command Line:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblrundir.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLRUNDIR.CAPTION"
+msgid "Work &Directory:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblrunoutput.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLRUNOUTPUT.CAPTION"
+msgid "&Output Expression:"
+msgstr ""
+
+#: tfrmfiletypesettings.lblrunparam.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLRUNPARAM.CAPTION"
+msgid "&Parameters:"
+msgstr ""
+
+#: tfrmfiletypesettings.lbltabwidth.caption
+msgctxt "TFRMFILETYPESETTINGS.LBLTABWIDTH.CAPTION"
+msgid "Tab &Width:"
+msgstr ""
+
+#: tfrmfiletypesettings.lnkfilters.caption
+msgctxt "TFRMFILETYPESETTINGS.LNKFILTERS.CAPTION"
+msgid "Setup Filters..."
+msgstr ""
+
+#: tfrmfiletypesettings.tsftac.caption
+msgctxt "TFRMFILETYPESETTINGS.TSFTAC.CAPTION"
+msgid "&Autocomplete"
+msgstr ""
+
+#: tfrmfiletypesettings.tsfthelp.caption
+msgctxt "TFRMFILETYPESETTINGS.TSFTHELP.CAPTION"
+msgid "&Help"
+msgstr ""
+
+#: tfrmfiletypesettings.tsftmain.caption
+msgctxt "TFRMFILETYPESETTINGS.TSFTMAIN.CAPTION"
+msgid "&Main"
+msgstr ""
+
+#: tfrmfiletypesettings.tsftrun.caption
+msgctxt "TFRMFILETYPESETTINGS.TSFTRUN.CAPTION"
+msgid "&Run"
+msgstr ""
+
+#: tfrmfilter.actfocusfiltertext.caption
+msgid "Set focus to filter text"
+msgstr ""
+
+#: tfrmhexeditor.caption
+msgid "Hex editor"
+msgstr ""
+
+#: tfrmhtmlview.caption
+msgid "HTML viewer"
+msgstr ""
+
+#: tfrmkeymappings.acadd.caption
+msgid "&Assign"
+msgstr ""
+
+#: tfrmkeymappings.acdel.caption
+msgctxt "TFRMKEYMAPPINGS.ACDEL.CAPTION"
+msgid "&Delete"
+msgstr ""
+
+#: tfrmkeymappings.bncancel.caption
+msgctxt "TFRMKEYMAPPINGS.BNCANCEL.CAPTION"
+msgid "Close"
+msgstr ""
+
+#: tfrmkeymappings.bnok.caption
+msgid "OK"
+msgstr ""
+
+#: tfrmkeymappings.caption
+msgid "Customize"
+msgstr ""
+
+#: tfrmkeymappings.chklargeicons.caption
+msgid "Show Large Icons"
+msgstr ""
+
+#: tfrmkeymappings.chkshowhint.caption
+msgid "Show Hints"
+msgstr ""
+
+#: tfrmkeymappings.gbactions.caption
+msgid "Select Action:"
+msgstr ""
+
+#: tfrmkeymappings.gbdescr.caption
+msgid "Description:"
+msgstr ""
+
+#: tfrmkeymappings.gbsc.caption
+msgid "Select ShortCut:"
+msgstr ""
+
+#: tfrmkeymappings.lblactions.caption
+msgid "Actions:"
+msgstr ""
+
+#: tfrmkeymappings.lblcategory.caption
+msgid "Category:"
+msgstr ""
+
+#: tfrmkeymappings.lblcurvalue.caption
+msgid "Current ShortCut:"
+msgstr ""
+
+#: tfrmkeymappings.lblnewsc.caption
+msgid "New ShortCur:"
+msgstr ""
+
+#: tfrmkeymappings.tskeyboard.caption
+msgid "Shortcuts"
+msgstr ""
+
+#: tfrmkeymappings.tsoptions.caption
+msgid "Other"
+msgstr ""
+
+#: tfrmkeymappings.tstoolbars.caption
+msgid "Toolbars"
+msgstr ""
+
+#: tfrmmain.actabout.caption
+msgctxt "tfrmmain.actabout.caption"
+msgid "About"
+msgstr ""
+
+#: tfrmmain.actcloseallotherpages.caption
+msgid "Close all other pages"
+msgstr "Sluit alle andere tabbladen"
+
+#: tfrmmain.actclosetoolview.caption
+msgid "Close toolview"
+msgstr ""
+
+#: tfrmmain.actinspect.caption
+msgctxt "tfrmmain.actinspect.caption"
+msgid "Inspect"
+msgstr ""
+
+#: tfrmmain.btncurrentchar.hint
+msgctxt "TFRMMAIN.BTNCURRENTCHAR.HINT"
+msgid "Character code of character at cursor position"
+msgstr ""
+
+#: tfrmmain.btnencoding.hint
+msgctxt "tfrmmain.btnencoding.hint"
+msgid "Encoding"
+msgstr ""
+
+#: tfrmmain.btnhighlighter.hint
+msgctxt "tfrmmain.btnhighlighter.hint"
+msgid "Highlighter"
+msgstr ""
+
+#: tfrmmain.btnlinebreakstyle.hint
+msgctxt "tfrmmain.btnlinebreakstyle.hint"
+msgid "Line break style"
+msgstr ""
+
+#: tfrmmain.btnselectionmode.hint
+msgctxt "TFRMMAIN.BTNSELECTIONMODE.HINT"
+msgid "Selection mode"
+msgstr ""
+
+#: tfrmmain.caption
+msgid "Notepas"
+msgstr ""
+
+#: tfrmmain.pnlcurrentchar.hint
+msgctxt "tfrmmain.pnlcurrentchar.hint"
+msgid "Character code of character at cursor position"
+msgstr ""
+
+#: tfrmmain.pnlencoding.hint
+msgid "Current encoding"
+msgstr ""
+
+#: tfrmmain.pnlhighlighter.hint
+msgid "Current highlighter"
+msgstr ""
+
+#: tfrmmain.pnlinsertmode.caption
+msgctxt "TFRMMAIN.PNLINSERTMODE.CAPTION"
+msgid "INS"
+msgstr ""
+
+#: tfrmmain.pnlinsertmode.hint
+msgid "Insert mode"
+msgstr ""
+
+#: tfrmmain.pnllinebreakstyle.hint
+msgid "Current line break style"
+msgstr ""
+
+#: tfrmmain.pnlposition.hint
+msgid "Cursor position"
+msgstr ""
+
+#: tfrmmain.pnlselectionmode.hint
+msgctxt "TFRMMAIN.PNLSELECTIONMODE.HINT"
+msgid "Selection mode"
+msgstr ""
+
+#: tfrmmain.pnlsize.hint
+msgid "Size"
+msgstr ""
+
+#: tfrmmain.pnlviewercount.hint
+msgid "Total count of editor viewer instances."
+msgstr ""
+
+#: tfrmmain.tlbmain.caption
+msgctxt "tfrmmain.tlbmain.caption"
+msgid "tlbMain"
+msgstr ""
+
+#: tfrmminimap.caption
+msgid "Minimap"
+msgstr ""
+
+#: tfrmoptionsassociate.actadd.caption
+msgctxt "TFRMOPTIONSASSOCIATE.ACTADD.CAPTION"
+msgid "&Add..."
+msgstr ""
+
+#: tfrmoptionsassociate.actdelete.caption
+msgctxt "TFRMOPTIONSASSOCIATE.ACTDELETE.CAPTION"
+msgid "&Delete"
+msgstr ""
+
+#: tfrmoptionsassociate.actdeselectall.caption
+msgctxt "TFRMOPTIONSASSOCIATE.ACTDESELECTALL.CAPTION"
+msgid "&Hide Selection"
+msgstr ""
+
+#: tfrmoptionsassociate.actedit.caption
+msgctxt "TFRMOPTIONSASSOCIATE.ACTEDIT.CAPTION"
+msgid "&Edit..."
+msgstr ""
+
+#: tfrmoptionsassociate.actselectall.caption
+msgctxt "TFRMOPTIONSASSOCIATE.ACTSELECTALL.CAPTION"
+msgid "Se&lect All"
+msgstr ""
+
+#: tfrmoptionsassociate.btndeselectall.caption
+msgid "&Deselect all"
+msgstr ""
+
+#: tfrmoptionsassociate.chkaddtomenu.caption
+msgid "Add to &Context Menu"
+msgstr ""
+
+#: tfrmoptionsassociate.chkallusers.caption
+msgid "Associate for all users"
+msgstr ""
+
+#: tfrmoptionsassociate.chkassoctounknown.caption
+msgid "Associate to &Unknown"
+msgstr ""
+
+#: tfrmoptionsassociate.gbxoptions.caption
+msgctxt "TFRMOPTIONSASSOCIATE.GBXOPTIONS.CAPTION"
+msgid "&Options"
+msgstr ""
+
+#: tfrmoptionsassociate.gbxother.caption
+msgctxt "TFRMOPTIONSASSOCIATE.GBXOTHER.CAPTION"
+msgid "Other:"
+msgstr ""
+
+#: tfrmoptionsassociate.lblbackup.caption
+msgctxt "TFRMOPTIONSASSOCIATE.LBLBACKUP.CAPTION"
+msgid "Make Backup..."
+msgstr ""
+
+#: tfrmoptionsassociate.lblext.caption
+msgid "File associations"
+msgstr ""
+
+#: tfrmoptionsassociate.lblmenucaption.caption
+msgid "Menu &Caption:"
+msgstr ""
+
+#: tfrmoptionsassociate.lvext.columns[0].caption
+msgid "Ext:"
+msgstr ""
+
+#: tfrmoptionsassociate.pnlaccess.caption
+msgctxt "TFRMOPTIONSASSOCIATE.PNLACCESS.CAPTION"
+msgid "You have not permission for associate extensions."
+msgstr ""
+
+#: tfrmoptionsfiletype.acadd.caption
+msgctxt "TFRMOPTIONSFILETYPE.ACADD.CAPTION"
+msgid "&Add..."
+msgstr ""
+
+#: tfrmoptionsfiletype.acdel.caption
+msgctxt "tfrmoptionsfiletype.acdel.caption"
+msgid "&Delete..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnac.caption
+msgctxt "tfrmoptionsfiletype.bnac.caption"
+msgid "..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnacedit.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNACEDIT.CAPTION"
+msgid "&Edit..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnhelp.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNHELP.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnruncmd.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNRUNCMD.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnrundirbrowse.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNRUNDIRBROWSE.CAPTION"
+msgid "..."
+msgstr ""
+
+#: tfrmoptionsfiletype.bnrundirtags.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNRUNDIRTAGS.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmoptionsfiletype.bnrunoutputexp.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNRUNOUTPUTEXP.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmoptionsfiletype.bnrunoutputl.caption
+msgctxt "TFRMOPTIONSFILETYPE.BNRUNOUTPUTL.CAPTION"
+msgid ">"
+msgstr ""
+
+#: tfrmoptionsfiletype.bnrunparam.caption
+msgctxt "tfrmoptionsfiletype.bnrunparam.caption"
+msgid ">"
+msgstr ""
+
+#: tfrmoptionsfiletype.chkautoi.caption
+msgctxt "tfrmoptionsfiletype.chkautoi.caption"
+msgid "&Auto Indent"
+msgstr ""
+
+#: tfrmoptionsfiletype.chksmarttab.caption
+msgctxt "tfrmoptionsfiletype.chksmarttab.caption"
+msgid "&Smart Tab"
+msgstr ""
+
+#: tfrmoptionsfiletype.chkusetab.caption
+msgctxt "tfrmoptionsfiletype.chkusetab.caption"
+msgid "&Uset Tab"
+msgstr ""
+
+#: tfrmoptionsfiletype.gboptions.caption
+msgctxt "tfrmoptionsfiletype.gboptions.caption"
+msgid "&Options:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lbfilter.caption
+msgctxt "tfrmoptionsfiletype.lbfilter.caption"
+msgid "&Filter:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lbft.caption
+msgctxt "tfrmoptionsfiletype.lbft.caption"
+msgid "File &Type:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblcomment.caption
+msgctxt "tfrmoptionsfiletype.lblcomment.caption"
+msgid "&Comment Char:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblftautocomplete.caption
+msgctxt "tfrmoptionsfiletype.lblftautocomplete.caption"
+msgid "&Autocomplete:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblhelp.caption
+msgctxt "tfrmoptionsfiletype.lblhelp.caption"
+msgid "Help file:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblhighlighter.caption
+msgctxt "tfrmoptionsfiletype.lblhighlighter.caption"
+msgid "&Highlight:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblruncmd.caption
+msgctxt "tfrmoptionsfiletype.lblruncmd.caption"
+msgid "&Command Line:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblrundir.caption
+msgctxt "tfrmoptionsfiletype.lblrundir.caption"
+msgid "Work &Directory:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblrunoutput.caption
+msgctxt "tfrmoptionsfiletype.lblrunoutput.caption"
+msgid "&Output Expression:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lblrunparam.caption
+msgctxt "tfrmoptionsfiletype.lblrunparam.caption"
+msgid "&Parameters:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lbltabwidth.caption
+msgctxt "tfrmoptionsfiletype.lbltabwidth.caption"
+msgid "Tab &Width:"
+msgstr ""
+
+#: tfrmoptionsfiletype.lnkfilters.caption
+msgctxt "tfrmoptionsfiletype.lnkfilters.caption"
+msgid "Setup Filters..."
+msgstr ""
+
+#: tfrmoptionsfiletype.tsftac.caption
+msgctxt "tfrmoptionsfiletype.tsftac.caption"
+msgid "&Autocomplete"
+msgstr ""
+
+#: tfrmoptionsfiletype.tsfthelp.caption
+msgctxt "TFRMOPTIONSFILETYPE.TSFTHELP.CAPTION"
+msgid "&Help"
+msgstr ""
+
+#: tfrmoptionsfiletype.tsftmain.caption
+msgctxt "tfrmoptionsfiletype.tsftmain.caption"
+msgid "&Main"
+msgstr ""
+
+#: tfrmoptionsfiletype.tsftrun.caption
+msgctxt "tfrmoptionsfiletype.tsftrun.caption"
+msgid "&Run"
+msgstr ""
+
+#: tfrmoptionsthemes.bnchangefont.caption
+msgctxt "tfrmoptionsthemes.bnchangefont.caption"
+msgid "Change Font..."
+msgstr ""
+
+#: tfrmoptionsthemes.bnthemeadd.caption
+msgid "&Add"
+msgstr ""
+
+#: tfrmoptionsthemes.bnthemedel.caption
+msgctxt "TFRMOPTIONSTHEMES.BNTHEMEDEL.CAPTION"
+msgid "&Delete"
+msgstr ""
+
+#: tfrmoptionsthemes.chkalwaysshowurl.caption
+msgid "Permanently Highlight URL's"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgautosize.caption
+msgid "&Auto Size"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgleadingzeros.caption
+msgid "&Leading Zeros"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgshownumbers.caption
+msgid "&Show Linenumbers"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgusegrad.caption
+msgid "&Show Gradient"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgvisible.caption
+msgid "&Show Gutter"
+msgstr ""
+
+#: tfrmoptionsthemes.chkgzerostart.caption
+msgid "&Zero Start"
+msgstr ""
+
+#: tfrmoptionsthemes.chkhighlightbrackets.caption
+msgid "Highlight matching &brackets:"
+msgstr ""
+
+#: tfrmoptionsthemes.chkhighlightcurrentline.caption
+msgid "Highlight &current line:"
+msgstr ""
+
+#: tfrmoptionsthemes.chkhistylebold.caption
+msgctxt "tfrmoptionsthemes.chkhistylebold.caption"
+msgid "&Bold"
+msgstr ""
+
+#: tfrmoptionsthemes.chkhistyleitalic.caption
+msgctxt "tfrmoptionsthemes.chkhistyleitalic.caption"
+msgid "&Italic"
+msgstr ""
+
+#: tfrmoptionsthemes.chkhistyleunderline.caption
+msgctxt "tfrmoptionsthemes.chkhistyleunderline.caption"
+msgid "&Underline"
+msgstr ""
+
+#: tfrmoptionsthemes.chkurl.caption
+msgid "&Highlight Hyperlinks"
+msgstr ""
+
+#: tfrmoptionsthemes.chkurlbold.caption
+msgctxt "TFRMOPTIONSTHEMES.CHKURLBOLD.CAPTION"
+msgid "&Bold"
+msgstr ""
+
+#: tfrmoptionsthemes.chkurlitalic.caption
+msgctxt "TFRMOPTIONSTHEMES.CHKURLITALIC.CAPTION"
+msgid "&Italic"
+msgstr ""
+
+#: tfrmoptionsthemes.chkurlunderline.caption
+msgctxt "TFRMOPTIONSTHEMES.CHKURLUNDERLINE.CAPTION"
+msgid "&Underline"
+msgstr ""
+
+#: tfrmoptionsthemes.gbcaret.caption
+msgid "Ca&rets:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbdcolors.caption
+msgctxt "tfrmoptionsthemes.gbdcolors.caption"
+msgid "&Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbdfont.caption
+msgctxt "tfrmoptionsthemes.gbdfont.caption"
+msgid "&Font"
+msgstr ""
+
+#: tfrmoptionsthemes.gbdother.caption
+msgid "&Others:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbdselcolors.caption
+msgid "&Selected Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbggrad.caption
+msgid "&Gradient:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbgshownumbers.caption
+msgid "&Linenumbers:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbhiattrs.caption
+msgid "&Attributes:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbhicolor.caption
+msgctxt "TFRMOPTIONSTHEMES.GBHICOLOR.CAPTION"
+msgid "&Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbredge.caption
+msgid "&Right Edge:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbrmfont.caption
+msgctxt "TFRMOPTIONSTHEMES.GBRMFONT.CAPTION"
+msgid "&Font:"
+msgstr ""
+
+#: tfrmoptionsthemes.gbrmsize.caption
+msgid "Font Size for &ReadMode:"
+msgstr ""
+
+#: tfrmoptionsthemes.gburl.caption
+msgid "&Hyperlinks:"
+msgstr ""
+
+#: tfrmoptionsthemes.gburlstyle.caption
+msgctxt "TFRMOPTIONSTHEMES.GBURLSTYLE.CAPTION"
+msgid "&Style:"
+msgstr ""
+
+#: tfrmoptionsthemes.label1.caption
+msgid "&Insert:"
+msgstr ""
+
+#: tfrmoptionsthemes.label2.caption
+msgid "&Overwrite:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbdbg.caption
+msgctxt "tfrmoptionsthemes.lbdbg.caption"
+msgid "&Background:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbdfg.caption
+msgctxt "tfrmoptionsthemes.lbdfg.caption"
+msgid "&Foreground:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbdselbg.caption
+msgctxt "TFRMOPTIONSTHEMES.LBDSELBG.CAPTION"
+msgid "&Background:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbdselfg.caption
+msgctxt "TFRMOPTIONSTHEMES.LBDSELFG.CAPTION"
+msgid "&Foreground:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblborder.caption
+msgid "Border Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgcolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLGCOLOR.CAPTION"
+msgid "&Foreground:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgdigitscount.caption
+msgid "&Digitcount:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgendcolor.caption
+msgid "&End Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgfontcolor.caption
+msgctxt "tfrmoptionsthemes.lblgfontcolor.caption"
+msgid "&Font:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgstartcolor.caption
+msgid "S&tart Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgsteps.caption
+msgid "Ste&ps:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblgwidth.caption
+msgid "Width:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblhbcolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLHBCOLOR.CAPTION"
+msgid "Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblhclcolor.caption
+msgctxt "tfrmoptionsthemes.lblhclcolor.caption"
+msgid "Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblhibgcolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLHIBGCOLOR.CAPTION"
+msgid "&Background:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblhifgcolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLHIFGCOLOR.CAPTION"
+msgid "&Foreground:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblhighlight.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLHIGHLIGHT.CAPTION"
+msgid "&Highlight:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblredgeat.caption
+msgid "&Width:"
+msgstr ""
+
+#: tfrmoptionsthemes.lblurlcolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBLURLCOLOR.CAPTION"
+msgid "Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbredgecolor.caption
+msgctxt "TFRMOPTIONSTHEMES.LBREDGECOLOR.CAPTION"
+msgid "Color:"
+msgstr ""
+
+#: tfrmoptionsthemes.lbtheme.caption
+msgid "&Theme:"
+msgstr ""
+
+#: tfrmoptionsthemes.pnaccess.caption
+msgid "This theme is read-only."
+msgstr ""
+
+#: tfrmoptionsthemes.pndfont.caption
+msgctxt "tfrmoptionsthemes.pndfont.caption"
+msgid "AaBbАаБб"
+msgstr ""
+
+#: tfrmoptionsthemes.pnrmfont.caption
+msgctxt "TFRMOPTIONSTHEMES.PNRMFONT.CAPTION"
+msgid "AaBbАаБб"
+msgstr ""
+
+#: tfrmoptionsthemes.tbhistyle.caption
+msgctxt "tfrmoptionsthemes.tbhistyle.caption"
+msgid "&Style:"
+msgstr ""
+
+#: tfrmoptionsthemes.tsthemegutter.caption
+msgid "&Gutter"
+msgstr ""
+
+#: tfrmoptionsthemes.tsthemehighlight.caption
+msgid "&Highlight"
+msgstr ""
+
+#: tfrmoptionsthemes.tsthememain.caption
+msgctxt "TFRMOPTIONSTHEMES.TSTHEMEMAIN.CAPTION"
+msgid "&Main"
+msgstr ""
+
+#: tfrmoptionsthemes.tsthemeother.caption
+msgid "&Others"
+msgstr ""
+
+#: tfrmoptionsthemes.tsthemereadmode.caption
+msgid "&ReadMode"
+msgstr ""
+
+#: tfrmpreview.caption
+msgid "Preview"
+msgstr ""
+
+#: tfrmpreview.mniopenselectioninneweditor.caption
+msgid "Open selection in new editor"
+msgstr ""
+
+#: tfrmpreview.mniopenselectioninneweditor.hint
+msgid "Opens the currently selected text in new text editor."
+msgstr ""
+
+#: tfrmpreview.mniselectall.caption
+msgctxt "TFRMPREVIEW.MNISELECTALL.CAPTION"
+msgid "Select &All"
+msgstr ""
+
+#: tfrmpreview.mniselectall.hint
+msgid "Select All"
+msgstr ""
+
+#: tfrmsearchform.actfind.caption
+msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
+msgid "Find"
+msgstr ""
+
+#: tfrmsearchform.actfocussearchtext.caption
+msgid "actFocusSearchText"
+msgstr ""
+
+#: tfrmsearchform.actreplace.caption
+msgctxt "TFRMSEARCHFORM.ACTREPLACE.CAPTION"
+msgid "Replace"
+msgstr ""
+
+#: tfrmsearchform.actreplaceall.caption
+msgid "Replace all"
+msgstr ""
+
+#: tfrmsearchform.caption
+msgctxt "TFRMSEARCHFORM.CAPTION"
+msgid "Find"
+msgstr ""
+
+#: tfrmsearchform.chkcasesensitive.caption
+msgctxt "TFRMSEARCHFORM.CHKCASESENSITIVE.CAPTION"
+msgid "Case sensitive"
+msgstr ""
+
+#: tfrmsearchform.chkmultiline.caption
+msgid "Multiline"
+msgstr ""
+
+#: tfrmsearchform.chkregularexpressions.caption
+msgid "Regular expressions"
+msgstr ""
+
+#: tfrmsearchform.chksearchinallviews.caption
+msgid "Search in all views"
+msgstr ""
+
+#: tfrmsearchform.chkwholewordsonly.caption
+msgctxt "TFRMSEARCHFORM.CHKWHOLEWORDSONLY.CAPTION"
+msgid "Whole words only"
+msgstr ""
+
+#: tfrmsearchform.grpdirection.caption
+msgid "Direction"
+msgstr ""
+
+#: tfrmsearchform.grpoptions.caption
+msgctxt "tfrmsearchform.grpoptions.caption"
+msgid "Options"
+msgstr ""
+
+#: tfrmsearchform.grporigin.caption
+msgid "Origin"
+msgstr ""
+
+#: tfrmsearchform.grpreplacewith.caption
+msgid "Replace with:"
+msgstr ""
+
+#: tfrmsearchform.grpscope.caption
+msgid "Scope"
+msgstr ""
+
+#: tfrmsearchform.grpsearchtext.caption
+msgid "Text to find:"
+msgstr ""
+
+#: tfrmsearchform.rbbackward.caption
+msgid "Backward"
+msgstr ""
+
+#: tfrmsearchform.rbentirescope.caption
+msgid "&Entire scope"
+msgstr ""
+
+#: tfrmsearchform.rbforward.caption
+msgid "Forward"
+msgstr ""
+
+#: tfrmsearchform.rbfromcursor.caption
+msgid "&From cursor"
+msgstr ""
+
+#: tfrmsearchform.rbglobal.caption
+msgid "&Global"
+msgstr ""
+
+#: tfrmsearchform.rbselected.caption
+msgid "&Selected"
+msgstr ""
+
+#: tfrmselectioninfo.btnrestore.caption
+msgid "Restore"
+msgstr ""
+
+#: tfrmselectioninfo.btnstore.caption
+msgid "Store"
+msgstr ""
+
+#: tfrmselectioninfo.chkexcludeemptylines.caption
+msgid "ExcludeEmptyLines"
+msgstr ""
+
+#: tfrmselectioninfo.lblblockbegin.caption
+msgid "BlockBegin:"
+msgstr ""
+
+#: tfrmselectioninfo.lblblockbeginvalue.caption
+msgid "lblBlockBeginValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblblockend.caption
+msgid "BlockEnd:"
+msgstr ""
+
+#: tfrmselectioninfo.lblblockendvalue.caption
+msgid "lblBlockEndValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblcaretxy.caption
+msgid "CaretXY:"
+msgstr ""
+
+#: tfrmselectioninfo.lblcaretxyvalue.caption
+msgid "lblCaretXYValue"
+msgstr ""
+
+#: tfrmselectioninfo.lbllinecount.caption
+msgid "LineCount:"
+msgstr ""
+
+#: tfrmselectioninfo.lbllinecountvalue.caption
+msgid "lblLineCountValue"
+msgstr ""
+
+#: tfrmselectioninfo.lbllogicalcaretxy.caption
+msgid "LogicalCaretXY:"
+msgstr ""
+
+#: tfrmselectioninfo.lbllogicalcaretxyvalue.caption
+msgid "lblLogicalCaretXYValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockbegin.caption
+msgid "StoredBlockBegin:"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockbeginvalue.caption
+msgid "lblStoredBlockBeginValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockend.caption
+msgid "StoredBlockEnd:"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockendvalue.caption
+msgid "lblStoredBlockEndValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblocklines.caption
+msgid "lblStoredBlockLines"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockselectionmode.caption
+msgid "StoredBlockSelectionMode:"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredblockselectionmodevalue.caption
+msgid "lblStoredBlockSelectionModeValue"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredcaretxy.caption
+msgid "StoredCaretXY:"
+msgstr ""
+
+#: tfrmselectioninfo.lblstoredcaretxyvalue.caption
+msgid "lblStoredCaretXYValue"
+msgstr ""
+
+#: tfrmstructure.btncollapse.caption
+msgctxt "TFRMSTRUCTURE.BTNCOLLAPSE.CAPTION"
+msgid "Collapse"
+msgstr ""
+
+#: tfrmstructure.btnexpand.caption
+msgctxt "TFRMSTRUCTURE.BTNEXPAND.CAPTION"
+msgid "Expand"
+msgstr ""
+
+#: tfrmstructure.btninspect.caption
+msgctxt "TFRMSTRUCTURE.BTNINSPECT.CAPTION"
+msgid "Inspect"
+msgstr ""
+
+#: tfrmstructure.caption
+msgctxt "TFRMSTRUCTURE.CAPTION"
+msgid "Structure viewer"
+msgstr ""
+
+#: tfrmtest.btnexecute.caption
+msgctxt "tfrmtest.btnexecute.caption"
+msgid "Execute"
+msgstr ""
+
+#: tfrmtest.caption
+msgid "Testform"
+msgstr ""
+
+#: tfrmviewlist.actclose.caption
+msgctxt "tfrmviewlist.actclose.caption"
+msgid "Close"
+msgstr ""
+
+#: tfrmviewlist.actcloseselectedviews.caption
+msgid "Close selected views"
+msgstr ""
+
+#: tfrmviewlist.caption
+msgid "Editor views"
+msgstr ""
+
+#: tfrmxmltree.btncollapse.caption
+msgctxt "tfrmxmltree.btncollapse.caption"
+msgid "Collapse"
+msgstr ""
+
+#: tfrmxmltree.btnexpand.caption
+msgctxt "tfrmxmltree.btnexpand.caption"
+msgid "Expand"
+msgstr ""
+
+#: tfrmxmltree.btninspect.caption
+msgctxt "TFRMXMLTREE.BTNINSPECT.CAPTION"
+msgid "Inspect"
+msgstr ""
+
+#: tfrmxmltree.caption
+msgctxt "tfrmxmltree.caption"
+msgid "Structure viewer"
+msgstr ""
+
+#: tricheditorview.caption
+msgid "RichEditorView"
+msgstr ""
+
+#: ts.core.generics.collections.sargumentoutofrange
+msgid "Argument out of range"
+msgstr ""
+
+#: ts.core.generics.collections.sdictionarykeydoesnotexist
+msgid "Dictionary key does not exist"
+msgstr ""
+
+#: ts.core.generics.collections.sduplicatesnotallowed
+msgid "Duplicates not allowed in dictionary"
+msgstr ""
+
+#: ts.core.generics.collections.sitemnotfound
+msgid "Item not found"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sillegalvartype
+msgctxt "ts.core.nativexml.objectstorage.sillegalvartype"
+msgid "illegal variant type"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidmethodname
+msgctxt "ts.core.nativexml.objectstorage.sinvalidmethodname"
+msgid "invalid method name"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidpropertyvalue
+msgctxt "ts.core.nativexml.objectstorage.sinvalidpropertyvalue"
+msgid "invalid property value"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sunregisteredclasstype
+msgctxt "ts.core.nativexml.objectstorage.sunregisteredclasstype"
+msgid "unregistered classtype encountered in "
+msgstr ""
+
+#: ts.core.nativexml.sbeginendmismatch
+msgctxt "ts.core.nativexml.sbeginendmismatch"
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.scannotaddattribute
+msgctxt "ts.core.nativexml.scannotaddattribute"
+msgid "cannot add attribute"
+msgstr ""
+
+#: ts.core.nativexml.scannotaddnode
+msgctxt "ts.core.nativexml.scannotaddnode"
+msgid "cannot add node to this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotmanipulate
+msgctxt "ts.core.nativexml.scannotmanipulate"
+msgid "cannot manipulate nodes in this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetname
+msgctxt "ts.core.nativexml.scannotsetname"
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetvalue
+msgctxt "ts.core.nativexml.scannotsetvalue"
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scopyfromonlywithxmlnode
+msgctxt "ts.core.nativexml.scopyfromonlywithxmlnode"
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: ts.core.nativexml.sdefaultcharused
+msgctxt "ts.core.nativexml.sdefaultcharused"
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: ts.core.nativexml.serrorcalcstreamlength
+msgctxt "ts.core.nativexml.serrorcalcstreamlength"
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: ts.core.nativexml.sillegalendtag
+msgctxt "ts.core.nativexml.sillegalendtag"
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: ts.core.nativexml.sillegaltag
+msgctxt "ts.core.nativexml.sillegaltag"
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sinvalidstream
+msgctxt "ts.core.nativexml.sinvalidstream"
+msgid "invalid stream"
+msgstr ""
+
+#: ts.core.nativexml.slevelmismatch
+msgctxt "ts.core.nativexml.slevelmismatch"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.smissingdatainbinarystream
+msgctxt "ts.core.nativexml.smissingdatainbinarystream"
+msgid "missing data in binary stream"
+msgstr ""
+
+#: ts.core.nativexml.snondefaultchardata
+msgctxt "ts.core.nativexml.snondefaultchardata"
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.snotsupported
+msgctxt "ts.core.nativexml.snotsupported"
+msgid "feature is not supported yet"
+msgstr ""
+
+#: ts.core.nativexml.sprematureend
+msgctxt "ts.core.nativexml.sprematureend"
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.squotecharexpected
+msgctxt "ts.core.nativexml.squotecharexpected"
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.srootelementnotdefined
+msgctxt "ts.core.nativexml.srootelementnotdefined"
+msgid "XML root element not defined."
+msgstr ""
+
+#: ts.core.nativexml.ssignificantdigitsoutofrange
+msgctxt "ts.core.nativexml.ssignificantdigitsoutofrange"
+msgid "significant digits out of range"
+msgstr ""
+
+#: ts.core.nativexml.sunknownbinaryencodingbinhex
+msgctxt "ts.core.nativexml.sunknownbinaryencodingbinhex"
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: ts.core.nativexml.sunknownencoding
+msgctxt "ts.core.nativexml.sunknownencoding"
+msgid "unknown encoding"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedencoding
+msgctxt "ts.core.nativexml.sunsupportedencoding"
+msgid "unsupported encoding (%s)"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedtag
+msgctxt "ts.core.nativexml.sunsupportedtag"
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sxmlnodenotassigned
+msgctxt "ts.core.nativexml.sxmlnodenotassigned"
+msgid "XML node is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlownernotassigned
+msgctxt "ts.core.nativexml.sxmlownernotassigned"
+msgid "XML owner is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlparentnotassigned
+msgctxt "ts.core.nativexml.sxmlparentnotassigned"
+msgid "XML parent is not assigned"
+msgstr ""
+
+#: ts.core.sqlparser.serrasteriskonlyincount
+msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
+msgid "* allowed only in COUNT aggregate"
+msgstr ""
+
+#: ts.core.sqlparser.serrcannotaltergenerator
+msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
+msgid "Alter generator statement unknown"
+msgstr ""
+
+#: ts.core.sqlparser.serrdomainnotallowed
+msgctxt "ts.core.sqlparser.serrdomainnotallowed"
+msgid "Domain name not allowed in typ definition."
+msgstr ""
+
+#: ts.core.sqlparser.serrexpecteddbobject
+msgctxt "ts.core.sqlparser.serrexpecteddbobject"
+msgid "Expected database object type. Got: '%s'"
+msgstr ""
+
+#: ts.core.sqlparser.serrhavingwithoutgroupby
+msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
+msgid "HAVING without GROUP BY clause not allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrintegerexpected
+msgctxt "ts.core.sqlparser.serrintegerexpected"
+msgid "Integer expression expected"
+msgstr ""
+
+#: ts.core.sqlparser.serrinvalidextract
+msgctxt "ts.core.sqlparser.serrinvalidextract"
+msgid "Invalid element for extract: %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrinvalidliteral
+msgctxt "ts.core.sqlparser.serrinvalidliteral"
+msgid "Invalid literal: \"%s\""
+msgstr ""
+
+#: ts.core.sqlparser.serrinvaliduseofcollate
+msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
+msgid "Invalid use of COLLATE"
+msgstr ""
+
+#: ts.core.sqlparser.serrnoaggregateallowed
+msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
+msgid "Aggregate function not allowed."
+msgstr ""
+
+#: ts.core.sqlparser.serrnoasteriskinsingleton
+msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
+msgid "* not allowed in singleton select"
+msgstr ""
+
+#: ts.core.sqlparser.serrtokenmismatch
+msgctxt "ts.core.sqlparser.serrtokenmismatch"
+msgid "Unexpected token: '%s', expected: '%s'"
+msgstr ""
+
+#: ts.core.sqlparser.serrunexpectedtoken
+msgctxt "ts.core.sqlparser.serrunexpectedtoken"
+msgid "Unexpected token: %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrunexpectedtokenof
+msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
+msgid "Unexpected token: %s, expected one of %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrunionfieldcountmatch
+msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
+msgid "Field count mismatch in select union : %d <> %d"
+msgstr ""
+
+#: ts.core.sqlparser.serrunknownbooleanop
+msgctxt "ts.core.sqlparser.serrunknownbooleanop"
+msgid "Unknown boolean operation"
+msgstr ""
+
+#: ts.core.sqlparser.serrunknowncomparison
+msgctxt "ts.core.sqlparser.serrunknowncomparison"
+msgid "unknown Comparison operation"
+msgstr ""
+
+#: ts.core.sqlparser.serrunmatchedbrace
+msgctxt "ts.core.sqlparser.serrunmatchedbrace"
+msgid "Expected )."
+msgstr ""
+
+#: ts.core.sqlparser.serrupperoneargument
+msgctxt "ts.core.sqlparser.serrupperoneargument"
+msgid "Only one argument for UPPER allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrvaryingnotallowed
+msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
+msgid "VARYING not allowed at this point."
+msgstr ""
+
+#: ts.core.sqlscanner.sbarexpected
+msgctxt "ts.core.sqlscanner.sbarexpected"
+msgid "|character expected"
+msgstr ""
+
+#: ts.core.sqlscanner.serrifxxxnestinglimitreached
+msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
+msgid "Nesting of$IFxxx too deep"
+msgstr ""
+
+#: ts.core.sqlscanner.serrincludefilenotfound
+msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
+msgid "Could not find include file'%s'"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidcharacter
+msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
+msgid "Invalid character'%s'"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidnonequal
+msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
+msgid "SyntaxError:!=or!==expected"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidppelse
+msgctxt "ts.core.sqlscanner.serrinvalidppelse"
+msgid "$ELSE without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidppendif
+msgctxt "ts.core.sqlscanner.serrinvalidppendif"
+msgid "$ENDIF without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serropenstring
+msgctxt "ts.core.sqlscanner.serropenstring"
+msgid "string exceeds end of line"
+msgstr ""
+
+#: ts.core.sqlscanner.serrunknowntoken
+msgctxt "ts.core.sqlscanner.serrunknowntoken"
+msgid "Unknown token: %s"
+msgstr ""
+
+#: ts.core.sqlscanner.sinvalidhexadecimalnumber
+msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
+msgid "Invalid decimal number"
+msgstr ""
+
+#: ts.core.utils.snocorrespondingfieldtype
+msgctxt "ts.core.utils.snocorrespondingfieldtype"
+msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
+msgstr ""
+
+#: tsettingsdialogbaseform.caption
+msgid "SettingsDialogBaseForm"
+msgstr ""
+
+#: ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
+msgctxt "ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho"
+msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsallfiles
+msgctxt "ts_components_docking_resources.adrsallfiles"
+msgid "All files"
+msgstr ""
+
+#: ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts
+msgctxt "ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts"
+msgid "Amount of pixel the mouse has to drag before drag starts"
+msgstr ""
+
+#: ts_components_docking_resources.adrsanchordockinglayout
+msgctxt "ts_components_docking_resources.adrsanchordockinglayout"
+msgid "Anchor Docking Layout"
+msgstr ""
+
+#: ts_components_docking_resources.adrsanchorisnotsplitternodeanchors
+msgctxt "ts_components_docking_resources.adrsanchorisnotsplitternodeanchors"
+msgid "Anchor is not splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsanchornotfoundnodeanchors
+msgctxt "ts_components_docking_resources.adrsanchornotfoundnodeanchors"
+msgid "Anchor not found: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors
+msgctxt "ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors"
+msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
+msgctxt "ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors"
+msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsautomatically
+msgctxt "ts_components_docking_resources.adrsautomatically"
+msgid "Automatically"
+msgstr ""
+
+#: ts_components_docking_resources.adrsbottom
+msgctxt "ts_components_docking_resources.adrsbottom"
+msgid "bottom"
+msgstr ""
+
+#: ts_components_docking_resources.adrsclose
+msgctxt "ts_components_docking_resources.adrsclose"
+msgid "Close"
+msgstr ""
+
+#: ts_components_docking_resources.adrscontrolisalreadyadocksite
+msgctxt "ts_components_docking_resources.adrscontrolisalreadyadocksite"
+msgid "control is already a docksite"
+msgstr ""
+
+#: ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite
+msgctxt "ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite"
+msgid "Custom dock site %s%s%s can have only one site."
+msgstr ""
+
+#: ts_components_docking_resources.adrsdockinganchordocking
+msgctxt "ts_components_docking_resources.adrsdockinganchordocking"
+msgid "Docking / Anchordocking"
+msgstr ""
+
+#: ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide
+msgctxt "ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide"
+msgid "Docking enabled (Requires a restart of the IDE)"
+msgstr ""
+
+#: ts_components_docking_resources.adrsdockingoptions
+msgctxt "ts_components_docking_resources.adrsdockingoptions"
+msgid "Docking options"
+msgstr ""
+
+#: ts_components_docking_resources.adrsdraganddockc
+msgctxt "ts_components_docking_resources.adrsdraganddockc"
+msgid "Use the mouse to drag and dock window \"%c\""
+msgstr ""
+
+#: ts_components_docking_resources.adrsdragthreshold
+msgctxt "ts_components_docking_resources.adrsdragthreshold"
+msgid "Drag threshold"
+msgstr ""
+
+#: ts_components_docking_resources.adrsduplicatename
+msgctxt "ts_components_docking_resources.adrsduplicatename"
+msgid "Duplicate name: "
+msgstr ""
+
+#: ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
+msgctxt "ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
+msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
+msgstr ""
+
+#: ts_components_docking_resources.adrsemptyname
+msgctxt "ts_components_docking_resources.adrsemptyname"
+msgid "Empty name: "
+msgstr ""
+
+#: ts_components_docking_resources.adrsenlarge
+msgctxt "ts_components_docking_resources.adrsenlarge"
+msgid "Enlarge"
+msgstr ""
+
+#: ts_components_docking_resources.adrsenlargeside
+msgctxt "ts_components_docking_resources.adrsenlargeside"
+msgid "Enlarge %s side"
+msgstr ""
+
+#: ts_components_docking_resources.adrserror
+msgctxt "ts_components_docking_resources.adrserror"
+msgid "Error"
+msgstr ""
+
+#: ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile
+msgctxt "ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile"
+msgid "Error loading window layout from file \"%s\"%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrserrorwritingwindowlayouttofile
+msgctxt "ts_components_docking_resources.adrserrorwritingwindowlayouttofile"
+msgid "Error writing window layout to file \"%s\"%s%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsgeneraldockingoptions
+msgctxt "ts_components_docking_resources.adrsgeneraldockingoptions"
+msgid "General docking options"
+msgstr ""
+
+#: ts_components_docking_resources.adrsheaderalignleft
+msgctxt "ts_components_docking_resources.adrsheaderalignleft"
+msgid "Header align left"
+msgstr ""
+
+#: ts_components_docking_resources.adrsheaderaligntop
+msgctxt "ts_components_docking_resources.adrsheaderaligntop"
+msgid "Header align top"
+msgstr ""
+
+#: ts_components_docking_resources.adrsheaderposition
+msgctxt "ts_components_docking_resources.adrsheaderposition"
+msgid "Header position"
+msgstr ""
+
+#: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
+msgctxt "ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
+msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
+msgstr ""
+
+#: ts_components_docking_resources.adrsleft
+msgctxt "ts_components_docking_resources.adrsleft"
+msgid "left"
+msgstr ""
+
+#: ts_components_docking_resources.adrsloadwindowlayoutfromfile
+msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfile"
+msgid "Load window layout from file ..."
+msgstr ""
+
+#: ts_components_docking_resources.adrsloadwindowlayoutfromfilexml
+msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfilexml"
+msgid "Load window layout from file (*.xml)"
+msgstr ""
+
+#: ts_components_docking_resources.adrslocked
+msgctxt "ts_components_docking_resources.adrslocked"
+msgid "Locked"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmerge
+msgctxt "ts_components_docking_resources.adrsmerge"
+msgid "Merge"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmissingcontrolname
+msgctxt "ts_components_docking_resources.adrsmissingcontrolname"
+msgid "missing control name"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmodalformscannotbemadedockable
+msgctxt "ts_components_docking_resources.adrsmodalformscannotbemadedockable"
+msgid "modal forms can not be made dockable"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft
+msgctxt "ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft"
+msgid "Move header to left when (Width/Height)*100>=HeaderAlignLeft"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop
+msgctxt "ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop"
+msgid "Move header to top when (Width/Height)*100<=HeaderAlignTop"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmovepageleft
+msgctxt "ts_components_docking_resources.adrsmovepageleft"
+msgid "Move page left"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmovepageleftmost
+msgctxt "ts_components_docking_resources.adrsmovepageleftmost"
+msgid "Move page leftmost"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmovepageright
+msgctxt "ts_components_docking_resources.adrsmovepageright"
+msgid "Move page right"
+msgstr ""
+
+#: ts_components_docking_resources.adrsmovepagerightmost
+msgctxt "ts_components_docking_resources.adrsmovepagerightmost"
+msgid "Move page rightmost"
+msgstr ""
+
+#: ts_components_docking_resources.adrsnocaptionsforfloatingsites
+msgctxt "ts_components_docking_resources.adrsnocaptionsforfloatingsites"
+msgid "No captions for floating sites"
+msgstr ""
+
+#: ts_components_docking_resources.adrsnochildrenallowedfornodetype
+msgctxt "ts_components_docking_resources.adrsnochildrenallowedfornodetype"
+msgid "No children allowed for Node=%s%s%s Type=%s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsnotsupportedhasparent
+msgctxt "ts_components_docking_resources.adrsnotsupportedhasparent"
+msgid "Not supported: %s has parent %s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsquit
+msgctxt "ts_components_docking_resources.adrsquit"
+msgid "Quit %s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsrequestedbutcreated
+msgctxt "ts_components_docking_resources.adrsrequestedbutcreated"
+msgid "%s requested, but %s created"
+msgstr ""
+
+#: ts_components_docking_resources.adrsrestoredefaultlayout
+msgctxt "ts_components_docking_resources.adrsrestoredefaultlayout"
+msgid "Restore default layout"
+msgstr ""
+
+#: ts_components_docking_resources.adrsright
+msgctxt "ts_components_docking_resources.adrsright"
+msgid "right"
+msgstr ""
+
+#: ts_components_docking_resources.adrssavewindowlayoutasdefault
+msgctxt "ts_components_docking_resources.adrssavewindowlayoutasdefault"
+msgid "Save window layout as default"
+msgstr ""
+
+#: ts_components_docking_resources.adrssavewindowlayouttofile
+msgctxt "ts_components_docking_resources.adrssavewindowlayouttofile"
+msgid "Save window layout to file ..."
+msgstr ""
+
+#: ts_components_docking_resources.adrssavewindowlayouttofilexml
+msgctxt "ts_components_docking_resources.adrssavewindowlayouttofilexml"
+msgid "Save window layout to file (*.xml)"
+msgstr ""
+
+#: ts_components_docking_resources.adrsscaleonresize
+msgctxt "ts_components_docking_resources.adrsscaleonresize"
+msgid "Scale on resize"
+msgstr ""
+
+#: ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized
+msgctxt "ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized"
+msgid "Scale sub sites when a site is resized"
+msgstr ""
+
+#: ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader
+msgctxt "ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader"
+msgid "Show captions of docked controls in the header"
+msgstr ""
+
+#: ts_components_docking_resources.adrsshowheadercaptions
+msgctxt "ts_components_docking_resources.adrsshowheadercaptions"
+msgid "Show header captions"
+msgstr ""
+
+#: ts_components_docking_resources.adrsshowheaders
+msgctxt "ts_components_docking_resources.adrsshowheaders"
+msgid "Show headers"
+msgstr ""
+
+#: ts_components_docking_resources.adrssplitterthickness
+msgctxt "ts_components_docking_resources.adrssplitterthickness"
+msgid "Splitter thickness"
+msgstr ""
+
+#: ts_components_docking_resources.adrssplitterwidth
+msgctxt "ts_components_docking_resources.adrssplitterwidth"
+msgid "Splitter width"
+msgstr ""
+
+#: ts_components_docking_resources.adrstabposition
+msgctxt "ts_components_docking_resources.adrstabposition"
+msgid "Tab position"
+msgstr ""
+
+#: ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
+msgctxt "ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac"
+msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
+msgstr ""
+
+#: ts_components_docking_resources.adrstop
+msgctxt "ts_components_docking_resources.adrstop"
+msgid "top"
+msgstr ""
+
+#: ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall
+msgctxt "ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall"
+msgid "To use anchordocking you must first uninstall %s"
+msgstr ""
+
+#: ts_components_docking_resources.adrsundock
+msgctxt "ts_components_docking_resources.adrsundock"
+msgid "Undock"
+msgstr ""
+
+#: ts_components_synminimap.sfontfactorminmax
+msgctxt "ts_components_synminimap.sfontfactorminmax"
+msgid "Font factor cannot be smaller than %.d or greater than %.d."
+msgstr ""
+
+#: ts_core_codecutilswin32.scannotconvert
+msgctxt "ts_core_codecutilswin32.scannotconvert"
+msgid "Unicode code point $%x has no equivalent in %s"
+msgstr ""
+
+#: ts_core_codecutilswin32.scannotconvertucs4
+msgctxt "ts_core_codecutilswin32.scannotconvertucs4"
+msgid "Cannot convert $%8.8X to %s"
+msgstr ""
+
+#: ts_core_codecutilswin32.sencodingoutofrange
+msgctxt "ts_core_codecutilswin32.sencodingoutofrange"
+msgid "%s encoding out of range"
+msgstr ""
+
+#: ts_core_codecutilswin32.shighsurrogatenotfound
+msgctxt "ts_core_codecutilswin32.shighsurrogatenotfound"
+msgid "High surrogate not found"
+msgstr ""
+
+#: ts_core_codecutilswin32.sindexoutofrange
+msgctxt "ts_core_codecutilswin32.sindexoutofrange"
+msgid "Index out of range"
+msgstr ""
+
+#: ts_core_codecutilswin32.sinvalidcodepoint
+msgctxt "ts_core_codecutilswin32.sinvalidcodepoint"
+msgid "$%x is not a valid %s code point"
+msgstr ""
+
+#: ts_core_codecutilswin32.sinvalidencoding
+msgctxt "ts_core_codecutilswin32.sinvalidencoding"
+msgid "Invalid %s encoding"
+msgstr ""
+
+#: ts_core_codecutilswin32.slowsurrogatenotfound
+msgctxt "ts_core_codecutilswin32.slowsurrogatenotfound"
+msgid "Low surrogate not found"
+msgstr ""
+
+#: ts_core_codecutilswin32.ssurrogatenotallowed
+msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
+msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
+msgstr ""
+
+#: ts_core_codecutilswin32.sutf8error
+msgctxt "ts_core_codecutilswin32.sutf8error"
+msgid "UTF-8 error %d"
+msgstr ""
+
+#: ts_core_dbutils.snofieldtypeforvariantvalue
+msgctxt "ts_core_dbutils.snofieldtypeforvariantvalue"
+msgid "No fieldtype for Variant value %s"
+msgstr ""
+
+#: ts_core_dbutils.sparameternotassigned
+msgctxt "ts_core_dbutils.sparameternotassigned"
+msgid "Parameter <%s> parameter not assigned"
+msgstr ""
+
+#: ts_core_dbutils.squerylookuperrorrunningquery
+msgctxt "ts_core_dbutils.squerylookuperrorrunningquery"
+msgid "Error running query [%s]"
+msgstr ""
+
+#: ts_core_dbutils.squerylookuptoomanyrecords
+msgctxt "ts_core_dbutils.squerylookuptoomanyrecords"
+msgid "The query [%s] returned too many records"
+msgstr ""
+
+#: ts_core_encodingutils.sindexoutofrange
+msgctxt "ts_core_encodingutils.sindexoutofrange"
+msgid "Index out of range"
+msgstr ""
+
+#: ts_core_fileassociations.sallmenu
+msgctxt "ts_core_fileassociations.sallmenu"
+msgid "*"
+msgstr ""
+
+#: ts_core_fileassociations.sallusers
+msgctxt "ts_core_fileassociations.sallusers"
+msgid "AssociateForAllUsers"
+msgstr ""
+
+#: ts_core_fileassociations.sassockey
+msgctxt "ts_core_fileassociations.sassockey"
+msgid "\\Associate"
+msgstr ""
+
+#: ts_core_fileassociations.sbackup
+msgctxt "ts_core_fileassociations.sbackup"
+msgid "Backup"
+msgstr ""
+
+#: ts_core_fileassociations.sclasseskey
+msgctxt "ts_core_fileassociations.sclasseskey"
+msgid "Software\\Classes\\"
+msgstr ""
+
+#: ts_core_fileassociations.scommand
+msgctxt "ts_core_fileassociations.scommand"
+msgid "Command"
+msgstr ""
+
+#: ts_core_fileassociations.sdeficon
+msgctxt "ts_core_fileassociations.sdeficon"
+msgid "DefaultIcon"
+msgstr ""
+
+#: ts_core_fileassociations.sdeficonindex
+msgctxt "ts_core_fileassociations.sdeficonindex"
+msgid "1"
+msgstr ""
+
+#: ts_core_fileassociations.sextdescrformat
+msgctxt "ts_core_fileassociations.sextdescrformat"
+msgid "%s file"
+msgstr ""
+
+#: ts_core_fileassociations.shkcr
+msgctxt "ts_core_fileassociations.shkcr"
+msgid "HKEY_CLASSES_ROOT"
+msgstr ""
+
+#: ts_core_fileassociations.shkcu
+msgctxt "ts_core_fileassociations.shkcu"
+msgid "HKEY_CURRENT_USER"
+msgstr ""
+
+#: ts_core_fileassociations.shklm
+msgctxt "ts_core_fileassociations.shklm"
+msgid "HKEY_LOCAL_MACHINE"
+msgstr ""
+
+#: ts_core_fileassociations.smenucaption
+msgctxt "ts_core_fileassociations.smenucaption"
+msgid "MenuCaption"
+msgstr ""
+
+#: ts_core_fileassociations.sopen
+msgctxt "ts_core_fileassociations.sopen"
+msgid "Open"
+msgstr ""
+
+#: ts_core_fileassociations.sopencaption
+msgctxt "ts_core_fileassociations.sopencaption"
+msgid "OpenWith"
+msgstr ""
+
+#: ts_core_fileassociations.sotherassockey
+msgctxt "ts_core_fileassociations.sotherassockey"
+msgid "\\OtherAssociate"
+msgstr ""
+
+#: ts_core_fileassociations.sshell
+msgctxt "ts_core_fileassociations.sshell"
+msgid "Shell"
+msgstr ""
+
+#: ts_core_fileassociations.sunknown
+msgctxt "ts_core_fileassociations.sunknown"
+msgid "Unknown"
+msgstr ""
+
+#: ts_core_nativexml.sbeginendmismatch
+msgctxt "ts_core_nativexml.sbeginendmismatch"
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts_core_nativexml.scannotaddattribute
+msgctxt "ts_core_nativexml.scannotaddattribute"
+msgid "cannot add attribute"
+msgstr ""
+
+#: ts_core_nativexml.scannotaddnode
+msgctxt "ts_core_nativexml.scannotaddnode"
+msgid "cannot add node to this type of element"
+msgstr ""
+
+#: ts_core_nativexml.scannotmanipulate
+msgctxt "ts_core_nativexml.scannotmanipulate"
+msgid "cannot manipulate nodes in this type of element"
+msgstr ""
+
+#: ts_core_nativexml.scannotsetname
+msgctxt "ts_core_nativexml.scannotsetname"
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: ts_core_nativexml.scannotsetvalue
+msgctxt "ts_core_nativexml.scannotsetvalue"
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: ts_core_nativexml.scopyfromonlywithxmlnode
+msgctxt "ts_core_nativexml.scopyfromonlywithxmlnode"
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: ts_core_nativexml.sdefaultcharused
+msgctxt "ts_core_nativexml.sdefaultcharused"
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: ts_core_nativexml.serrorcalcstreamlength
+msgctxt "ts_core_nativexml.serrorcalcstreamlength"
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: ts_core_nativexml.sillegalendtag
+msgctxt "ts_core_nativexml.sillegalendtag"
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: ts_core_nativexml.sillegaltag
+msgctxt "ts_core_nativexml.sillegaltag"
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts_core_nativexml.sinvalidstream
+msgctxt "ts_core_nativexml.sinvalidstream"
+msgid "invalid stream"
+msgstr ""
+
+#: ts_core_nativexml.slevelmismatch
+msgctxt "ts_core_nativexml.slevelmismatch"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts_core_nativexml.smissingdatainbinarystream
+msgctxt "ts_core_nativexml.smissingdatainbinarystream"
+msgid "missing data in binary stream"
+msgstr ""
+
+#: ts_core_nativexml.snondefaultchardata
+msgctxt "ts_core_nativexml.snondefaultchardata"
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: ts_core_nativexml.snotsupported
+msgctxt "ts_core_nativexml.snotsupported"
+msgid "feature is not supported yet"
+msgstr ""
+
+#: ts_core_nativexml.sprematureend
+msgctxt "ts_core_nativexml.sprematureend"
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: ts_core_nativexml.squotecharexpected
+msgctxt "ts_core_nativexml.squotecharexpected"
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: ts_core_nativexml.srootelementnotdefined
+msgctxt "ts_core_nativexml.srootelementnotdefined"
+msgid "XML root element not defined."
+msgstr ""
+
+#: ts_core_nativexml.ssignificantdigitsoutofrange
+msgctxt "ts_core_nativexml.ssignificantdigitsoutofrange"
+msgid "significant digits out of range"
+msgstr ""
+
+#: ts_core_nativexml.sunknownbinaryencodingbinhex
+msgctxt "ts_core_nativexml.sunknownbinaryencodingbinhex"
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: ts_core_nativexml.sunknownencoding
+msgctxt "ts_core_nativexml.sunknownencoding"
+msgid "unknown encoding"
+msgstr ""
+
+#: ts_core_nativexml.sunsupportedencoding
+msgctxt "ts_core_nativexml.sunsupportedencoding"
+msgid "unsupported encoding (%s)"
+msgstr ""
+
+#: ts_core_nativexml.sunsupportedtag
+msgctxt "ts_core_nativexml.sunsupportedtag"
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts_core_nativexml.sxmlnodenotassigned
+msgctxt "ts_core_nativexml.sxmlnodenotassigned"
+msgid "XML node is not assigned"
+msgstr ""
+
+#: ts_core_nativexml.sxmlownernotassigned
+msgctxt "ts_core_nativexml.sxmlownernotassigned"
+msgid "XML owner is not assigned"
+msgstr ""
+
+#: ts_core_nativexml.sxmlparentnotassigned
+msgctxt "ts_core_nativexml.sxmlparentnotassigned"
+msgid "XML parent is not assigned"
+msgstr ""
+
+#: ts_core_nativexmlobjectstorage.sillegalvartype
+msgctxt "ts_core_nativexmlobjectstorage.sillegalvartype"
+msgid "illegal variant type"
+msgstr ""
+
+#: ts_core_nativexmlobjectstorage.sinvalidmethodname
+msgctxt "ts_core_nativexmlobjectstorage.sinvalidmethodname"
+msgid "invalid method name"
+msgstr ""
+
+#: ts_core_nativexmlobjectstorage.sinvalidpropertyvalue
+msgctxt "ts_core_nativexmlobjectstorage.sinvalidpropertyvalue"
+msgid "invalid property value"
+msgstr ""
+
+#: ts_core_nativexmlobjectstorage.sunregisteredclasstype
+msgctxt "ts_core_nativexmlobjectstorage.sunregisteredclasstype"
+msgid "unregistered classtype encountered in "
+msgstr ""
+
+#: ts_core_sqlparser.serrasteriskonlyincount
+msgctxt "ts_core_sqlparser.serrasteriskonlyincount"
+msgid "* allowed only in COUNT aggregate"
+msgstr ""
+
+#: ts_core_sqlparser.serrcannotaltergenerator
+msgctxt "ts_core_sqlparser.serrcannotaltergenerator"
+msgid "Alter generator statement unknown"
+msgstr ""
+
+#: ts_core_sqlparser.serrdomainnotallowed
+msgctxt "ts_core_sqlparser.serrdomainnotallowed"
+msgid "Domain name not allowed in typ definition."
+msgstr ""
+
+#: ts_core_sqlparser.serrexpecteddbobject
+msgctxt "ts_core_sqlparser.serrexpecteddbobject"
+msgid "Expected database object type. Got: '%s'"
+msgstr ""
+
+#: ts_core_sqlparser.serrhavingwithoutgroupby
+msgctxt "ts_core_sqlparser.serrhavingwithoutgroupby"
+msgid "HAVING without GROUP BY clause not allowed"
+msgstr ""
+
+#: ts_core_sqlparser.serrintegerexpected
+msgctxt "ts_core_sqlparser.serrintegerexpected"
+msgid "Integer expression expected"
+msgstr ""
+
+#: ts_core_sqlparser.serrinvalidextract
+msgctxt "ts_core_sqlparser.serrinvalidextract"
+msgid "Invalid element for extract: %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrinvalidliteral
+msgctxt "ts_core_sqlparser.serrinvalidliteral"
+msgid "Invalid literal: \"%s\""
+msgstr ""
+
+#: ts_core_sqlparser.serrinvaliduseofcollate
+msgctxt "ts_core_sqlparser.serrinvaliduseofcollate"
+msgid "Invalid use of COLLATE"
+msgstr ""
+
+#: ts_core_sqlparser.serrnoaggregateallowed
+msgctxt "ts_core_sqlparser.serrnoaggregateallowed"
+msgid "Aggregate function not allowed."
+msgstr ""
+
+#: ts_core_sqlparser.serrnoasteriskinsingleton
+msgctxt "ts_core_sqlparser.serrnoasteriskinsingleton"
+msgid "* not allowed in singleton select"
+msgstr ""
+
+#: ts_core_sqlparser.serrtokenmismatch
+msgctxt "ts_core_sqlparser.serrtokenmismatch"
+msgid "Unexpected token: '%s', expected: '%s'"
+msgstr ""
+
+#: ts_core_sqlparser.serrunexpectedtoken
+msgctxt "ts_core_sqlparser.serrunexpectedtoken"
+msgid "Unexpected token: %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrunexpectedtokenof
+msgctxt "ts_core_sqlparser.serrunexpectedtokenof"
+msgid "Unexpected token: %s, expected one of %s"
+msgstr ""
+
+#: ts_core_sqlparser.serrunionfieldcountmatch
+msgctxt "ts_core_sqlparser.serrunionfieldcountmatch"
+msgid "Field count mismatch in select union : %d <> %d"
+msgstr ""
+
+#: ts_core_sqlparser.serrunknownbooleanop
+msgctxt "ts_core_sqlparser.serrunknownbooleanop"
+msgid "Unknown boolean operation"
+msgstr ""
+
+#: ts_core_sqlparser.serrunknowncomparison
+msgctxt "ts_core_sqlparser.serrunknowncomparison"
+msgid "unknown Comparison operation"
+msgstr ""
+
+#: ts_core_sqlparser.serrunmatchedbrace
+msgctxt "ts_core_sqlparser.serrunmatchedbrace"
+msgid "Expected )."
+msgstr ""
+
+#: ts_core_sqlparser.serrupperoneargument
+msgctxt "ts_core_sqlparser.serrupperoneargument"
+msgid "Only one argument for UPPER allowed"
+msgstr ""
+
+#: ts_core_sqlparser.serrvaryingnotallowed
+msgctxt "ts_core_sqlparser.serrvaryingnotallowed"
+msgid "VARYING not allowed at this point."
+msgstr ""
+
+#: ts_core_sqlscanner.sbarexpected
+msgctxt "ts_core_sqlscanner.sbarexpected"
+msgid "|character expected"
+msgstr ""
+
+#: ts_core_sqlscanner.serrifxxxnestinglimitreached
+msgctxt "ts_core_sqlscanner.serrifxxxnestinglimitreached"
+msgid "Nesting of$IFxxx too deep"
+msgstr ""
+
+#: ts_core_sqlscanner.serrincludefilenotfound
+msgctxt "ts_core_sqlscanner.serrincludefilenotfound"
+msgid "Could not find include file'%s'"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidcharacter
+msgctxt "ts_core_sqlscanner.serrinvalidcharacter"
+msgid "Invalid character'%s'"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidnonequal
+msgctxt "ts_core_sqlscanner.serrinvalidnonequal"
+msgid "SyntaxError:!=or!==expected"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidppelse
+msgctxt "ts_core_sqlscanner.serrinvalidppelse"
+msgid "$ELSE without matching$IFxxx"
+msgstr ""
+
+#: ts_core_sqlscanner.serrinvalidppendif
+msgctxt "ts_core_sqlscanner.serrinvalidppendif"
+msgid "$ENDIF without matching$IFxxx"
+msgstr ""
+
+#: ts_core_sqlscanner.serropenstring
+msgctxt "ts_core_sqlscanner.serropenstring"
+msgid "string exceeds end of line"
+msgstr ""
+
+#: ts_core_sqlscanner.serrunknowntoken
+msgctxt "ts_core_sqlscanner.serrunknowntoken"
+msgid "Unknown token: %s"
+msgstr ""
+
+#: ts_core_sqlscanner.sinvalidhexadecimalnumber
+msgctxt "ts_core_sqlscanner.sinvalidhexadecimalnumber"
+msgid "Invalid decimal number"
+msgstr ""
+
+#: ts_core_utils.snocorrespondingfieldtype
+msgctxt "ts_core_utils.snocorrespondingfieldtype"
+msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts_editor_aboutdialog.sauthor
+msgid "Author"
+msgstr ""
+
+#: ts_editor_aboutdialog.slanguagecode
+msgid "Code"
+msgstr ""
+
+#: ts_editor_aboutdialog.slanguagename
+msgctxt "ts_editor_aboutdialog.slanguagename"
+msgid "Language"
+msgstr ""
+
+#: ts_editor_aboutdialog.sname
+msgctxt "ts_editor_aboutdialog.sname"
+msgid "Name"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sbutton
+msgctxt "ts_editor_actionlist_toolview.sbutton"
+msgid "Button"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.scaption
+msgctxt "ts_editor_actionlist_toolview.scaption"
+msgid "Caption"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.scategory
+msgctxt "ts_editor_actionlist_toolview.scategory"
+msgid "Category"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sclickcount
+msgctxt "ts_editor_actionlist_toolview.sclickcount"
+msgid "ClickCount"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sclickdir
+msgctxt "ts_editor_actionlist_toolview.sclickdir"
+msgid "ClickDir"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.scommand
+msgctxt "ts_editor_actionlist_toolview.scommand"
+msgid "Command"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.senabled
+msgctxt "ts_editor_actionlist_toolview.senabled"
+msgid "Enabled"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.shint
+msgctxt "ts_editor_actionlist_toolview.shint"
+msgid "Hint"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.smovecaret
+msgctxt "ts_editor_actionlist_toolview.smovecaret"
+msgid "MoveCaret"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sname
+msgctxt "ts_editor_actionlist_toolview.sname"
+msgid "Name"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sshift
+msgctxt "ts_editor_actionlist_toolview.sshift"
+msgid "Shift"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sshiftmask
+msgctxt "ts_editor_actionlist_toolview.sshiftmask"
+msgid "ShiftMask"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sshortcut
+msgctxt "ts_editor_actionlist_toolview.sshortcut"
+msgid "Shortcut"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.sshortcut2
+msgctxt "ts_editor_actionlist_toolview.sshortcut2"
+msgid "Shortcut2"
+msgstr ""
+
+#: ts_editor_actionlist_toolview.svisible
+msgctxt "ts_editor_actionlist_toolview.svisible"
+msgid "Visible"
+msgstr ""
+
+#: ts_editor_alignlines_toolview.stoken
+msgctxt "ts_editor_alignlines_toolview.stoken"
+msgid "Token"
+msgstr ""
+
+#: ts_editor_charactermapdialog.scharactermap
+msgctxt "ts_editor_charactermapdialog.scharactermap"
+msgid "Character Map"
+msgstr ""
+
+#: ts_editor_charactermap_toolview.scharactermap
+msgctxt "ts_editor_charactermap_toolview.scharactermap"
+msgid "Character Map"
+msgstr ""
+
+#: ts_editor_codefilter_toolview.sfilteredcode
+msgctxt "ts_editor_codefilter_toolview.sfilteredcode"
+msgid "<Filtered code>"
+msgstr ""
+
+#: ts_editor_codefilter_toolview.slineindex
+msgctxt "ts_editor_codefilter_toolview.slineindex"
+msgid "Line"
+msgstr ""
+
+#: ts_editor_codefilter_toolview.slinetext
+msgctxt "ts_editor_codefilter_toolview.slinetext"
+msgid "Text"
+msgstr ""
+
+#: ts_editor_resources.sapplicationmenucaption
+msgctxt "ts_editor_resources.sapplicationmenucaption"
+msgid "&Application"
+msgstr ""
+
+#: ts_editor_resources.sasksavechanges
+msgctxt "ts_editor_resources.sasksavechanges"
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts_editor_resources.sbatdescription
+msgctxt "ts_editor_resources.sbatdescription"
+msgid "Windows batch script"
+msgstr ""
+
+#: ts_editor_resources.scppdescription
+msgctxt "ts_editor_resources.scppdescription"
+msgid "C++"
+msgstr ""
+
+#: ts_editor_resources.scsdescription
+msgctxt "ts_editor_resources.scsdescription"
+msgid "C#"
+msgstr ""
+
+#: ts_editor_resources.scssdescription
+msgctxt "ts_editor_resources.scssdescription"
+msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts_editor_resources.sdebugmenucaption
+msgctxt "ts_editor_resources.sdebugmenucaption"
+msgid "&Debug"
+msgstr ""
+
+#: ts_editor_resources.sdiffdescription
+msgid "Diff"
+msgstr ""
+
+#: ts_editor_resources.sfilemenucaption
+msgctxt "ts_editor_resources.sfilemenucaption"
+msgid "&File"
+msgstr ""
+
+#: ts_editor_resources.shelpmenucaption
+msgctxt "ts_editor_resources.shelpmenucaption"
+msgid "&Help"
+msgstr ""
+
+#: ts_editor_resources.shighlightersmenucaption
+msgctxt "ts_editor_resources.shighlightersmenucaption"
+msgid "&Highlighters"
+msgstr ""
+
+#: ts_editor_resources.shtmldescription
+msgctxt "ts_editor_resources.shtmldescription"
+msgid "HTML document"
+msgstr ""
+
+#: ts_editor_resources.sinidescription
+msgctxt "ts_editor_resources.sinidescription"
+msgid "Settings file"
+msgstr ""
+
+#: ts_editor_resources.sinsertmenucaption
+msgctxt "ts_editor_resources.sinsertmenucaption"
+msgid "&Insert"
+msgstr ""
+
+#: ts_editor_resources.sjavadescription
+msgctxt "ts_editor_resources.sjavadescription"
+msgid "Java"
+msgstr ""
+
+#: ts_editor_resources.sjsdescription
+msgctxt "ts_editor_resources.sjsdescription"
+msgid "JavaScript"
+msgstr ""
+
+#: ts_editor_resources.slfmdescription
+msgctxt "ts_editor_resources.slfmdescription"
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts_editor_resources.slineswithmatchfound
+msgctxt "ts_editor_resources.slineswithmatchfound"
+msgid "%d lines with match found."
+msgstr ""
+
+#: ts_editor_resources.slogdescription
+msgctxt "ts_editor_resources.slogdescription"
+msgid "Log"
+msgstr ""
+
+#: ts_editor_resources.sluadescription
+msgid "Lua"
+msgstr ""
+
+#: ts_editor_resources.sneweditorviewfilename
+msgctxt "ts_editor_resources.sneweditorviewfilename"
+msgid "<new>"
+msgstr ""
+
+#: ts_editor_resources.sonelinewithmatchfound
+msgctxt "ts_editor_resources.sonelinewithmatchfound"
+msgid "1 line with match found."
+msgstr ""
+
+#: ts_editor_resources.spasdescription
+msgctxt "ts_editor_resources.spasdescription"
+msgid "Object Pascal"
+msgstr ""
+
+#: ts_editor_resources.sperldescription
+msgctxt "ts_editor_resources.sperldescription"
+msgid "Perl"
+msgstr ""
+
+#: ts_editor_resources.sphpdescription
+msgctxt "ts_editor_resources.sphpdescription"
+msgid "PHP"
+msgstr ""
+
+#: ts_editor_resources.spodescription
+msgctxt "ts_editor_resources.spodescription"
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts_editor_resources.spydescription
+msgctxt "ts_editor_resources.spydescription"
+msgid "Python"
+msgstr ""
+
+#: ts_editor_resources.sresdescription
+msgctxt "ts_editor_resources.sresdescription"
+msgid "Windows resources"
+msgstr ""
+
+#: ts_editor_resources.srtfdescription
+msgctxt "ts_editor_resources.srtfdescription"
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts_editor_resources.srubydescription
+msgid "Ruby"
+msgstr ""
+
+#: ts_editor_resources.ssearching
+msgctxt "ts_editor_resources.ssearching"
+msgid "Searching..."
+msgstr ""
+
+#: ts_editor_resources.ssearchmenucaption
+msgctxt "ts_editor_resources.ssearchmenucaption"
+msgid "&Search"
+msgstr ""
+
+#: ts_editor_resources.sselectionmenucaption
+msgctxt "ts_editor_resources.sselectionmenucaption"
+msgid "Se&lection"
+msgstr ""
+
+#: ts_editor_resources.ssettingsmenucaption
+msgctxt "ts_editor_resources.ssettingsmenucaption"
+msgid "&Settings"
+msgstr ""
+
+#: ts_editor_resources.sshdescription
+msgid "Shell script"
+msgstr ""
+
+#: ts_editor_resources.ssqldescription
+msgctxt "ts_editor_resources.ssqldescription"
+msgid "SQL"
+msgstr ""
+
+#: ts_editor_resources.stexdescription
+msgid "TeX"
+msgstr ""
+
+#: ts_editor_resources.stextnotfound
+msgctxt "ts_editor_resources.stextnotfound"
+msgid "Text not found"
+msgstr ""
+
+#: ts_editor_resources.stoolsmenucaption
+msgctxt "ts_editor_resources.stoolsmenucaption"
+msgid "&Tools"
+msgstr ""
+
+#: ts_editor_resources.stxtdescription
+msgctxt "ts_editor_resources.stxtdescription"
+msgid "Text document"
+msgstr ""
+
+#: ts_editor_resources.sviewmenucaption
+msgctxt "ts_editor_resources.sviewmenucaption"
+msgid "&View"
+msgstr ""
+
+#: ts_editor_resources.sxmldescription
+msgctxt "ts_editor_resources.sxmldescription"
+msgid "XML document"
+msgstr ""
+
+#: ts_editor_search_toolview.sfilename
+msgctxt "ts_editor_search_toolview.sfilename"
+msgid "FileName"
+msgstr ""
+
+#: ts_editor_search_toolview.smatchesfound
+msgctxt "ts_editor_search_toolview.smatchesfound"
+msgid "%d search matches found."
+msgstr ""
+
+#: ts_editor_search_toolview.smatchfound
+msgctxt "ts_editor_search_toolview.smatchfound"
+msgid "%d search match found."
+msgstr ""
+
+#: ts_editor_settingsdialog_old.sattributename
+msgid "Attribute name"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sbutton
+msgctxt "ts_editor_toolview_actionlist.sbutton"
+msgid "Button"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.scaption
+msgctxt "ts_editor_toolview_actionlist.scaption"
+msgid "Caption"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.scategory
+msgctxt "ts_editor_toolview_actionlist.scategory"
+msgid "Category"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sclickcount
+msgctxt "ts_editor_toolview_actionlist.sclickcount"
+msgid "ClickCount"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sclickdir
+msgctxt "ts_editor_toolview_actionlist.sclickdir"
+msgid "ClickDir"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.scommand
+msgctxt "ts_editor_toolview_actionlist.scommand"
+msgid "Command"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.senabled
+msgctxt "ts_editor_toolview_actionlist.senabled"
+msgid "Enabled"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.shint
+msgctxt "ts_editor_toolview_actionlist.shint"
+msgid "Hint"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.smovecaret
+msgctxt "ts_editor_toolview_actionlist.smovecaret"
+msgid "MoveCaret"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sname
+msgctxt "ts_editor_toolview_actionlist.sname"
+msgid "Name"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sshift
+msgctxt "ts_editor_toolview_actionlist.sshift"
+msgid "Shift"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sshiftmask
+msgctxt "ts_editor_toolview_actionlist.sshiftmask"
+msgid "ShiftMask"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sshortcut
+msgctxt "ts_editor_toolview_actionlist.sshortcut"
+msgid "Shortcut"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.sshortcut2
+msgctxt "ts_editor_toolview_actionlist.sshortcut2"
+msgid "Shortcut2"
+msgstr ""
+
+#: ts_editor_toolview_actionlist.svisible
+msgctxt "ts_editor_toolview_actionlist.svisible"
+msgid "Visible"
+msgstr ""
+
+#: ts_editor_toolview_alignlines.stoken
+msgctxt "ts_editor_toolview_alignlines.stoken"
+msgid "Token"
+msgstr ""
+
+#: ts_editor_toolview_charactermap.scharactermap
+msgctxt "ts_editor_toolview_charactermap.scharactermap"
+msgid "Character Map"
+msgstr ""
+
+#: ts_editor_toolview_codefilter.sfilteredcode
+msgctxt "ts_editor_toolview_codefilter.sfilteredcode"
+msgid "<Filtered code>"
+msgstr ""
+
+#: ts_editor_toolview_codefilter.slineindex
+msgctxt "ts_editor_toolview_codefilter.slineindex"
+msgid "Line"
+msgstr ""
+
+#: ts_editor_toolview_codefilter.slinetext
+msgctxt "ts_editor_toolview_codefilter.slinetext"
+msgid "Text"
+msgstr ""
+
+#: ts_editor_toolview_search.scolumn
+msgctxt "ts_editor_toolview_search.scolumn"
+msgid "Column"
+msgstr ""
+
+#: ts_editor_toolview_search.sfilename
+msgctxt "ts_editor_toolview_search.sfilename"
+msgid "FileName"
+msgstr ""
+
+#: ts_editor_toolview_search.sindex
+msgctxt "ts_editor_toolview_search.sindex"
+msgid "#"
+msgstr ""
+
+#: ts_editor_toolview_search.sline
+msgctxt "ts_editor_toolview_search.sline"
+msgid "Line"
+msgstr ""
+
+#: ts_editor_toolview_search.smatchesfound
+msgctxt "ts_editor_toolview_search.smatchesfound"
+msgid "%d search matches found."
+msgstr ""
+
+#: ts_editor_toolview_search.smatchfound
+msgctxt "ts_editor_toolview_search.smatchfound"
+msgid "%d search match found."
+msgstr ""
+
+#: ts_editor_viewlist_toolview.sfilename
+msgid "Filename"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.shighlighter
+msgctxt "ts_editor_viewlist_toolview.shighlighter"
+msgid "Highlighter"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.smodified
+msgctxt "ts_editor_viewlist_toolview.smodified"
+msgid "Modified"
+msgstr ""
+
+#: ts_editor_viewlist_toolview.spath
+msgid "Path"
+msgstr ""
+

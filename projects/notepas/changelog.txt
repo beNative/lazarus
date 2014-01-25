@@ -1,3 +1,6 @@
+2014.01.25 (0.9.35)
+* Optimized toolview handling.
+
 2014.01.19 (0.9.34)
 * Added shortcuts for close actions.
 * Optimized docking behaviour.

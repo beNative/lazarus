@@ -212,11 +212,11 @@ uses
 
 resourcestring
   SModified = 'Modified';
-  SLength = 'length';
-  SLines = 'lines';
-  SLn = 'ln';
-  SCol = 'col';
-  SSel = 'sel';
+  SSize     = 'Size';
+  SLines    = 'Lines';
+  SLn       = 'Ln';
+  SCol      = 'Col';
+  SSel      = 'Sel';
 
 {$region 'construction and destruction' /fold}
 procedure TfrmMain.AfterConstruction;
@@ -697,8 +697,8 @@ var
   S : string;
   SelText: TStringList;
 begin
+  SelText:= TStringList.Create;
   try
-    SelText:= TStringList.Create;
     SelText.Text:=Editor.SelText;
     pnlPosition.Caption := SLn+': '+Format('%1d', [Editor.CaretY])+'   '+
                            SCol+': '+Format('%1d', [Editor.CaretX])+'   '+
@@ -706,7 +706,7 @@ begin
          (SelText.Count)]);
 
     pnlViewerCount.Caption := IntToStr(Views.Count);
-    pnlSize.Caption := SLength+': '+FormatByteText(Editor.TextSize)+'   '+SLines+': '+
+    pnlSize.Caption := SSize+': '+FormatByteText(Editor.TextSize)+'   '+SLines+': '+
                        Format('%1d', [Editor.Lines.Count]);
 
     if Assigned(Editor.HighlighterItem) then

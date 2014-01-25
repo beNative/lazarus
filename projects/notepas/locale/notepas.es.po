@@ -1,4 +1,4 @@
-msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace."
+msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -16,19 +16,15 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: notepas_forms_main.scol
-msgid "col"
-msgstr ""
-
-#: notepas_forms_main.slength
-msgid "length"
+msgid "Col"
 msgstr ""
 
 #: notepas_forms_main.slines
-msgid "lines"
+msgid "Lines"
 msgstr ""
 
 #: notepas_forms_main.sln
-msgid "ln"
+msgid "Ln"
 msgstr ""
 
 #: notepas_forms_main.smodified
@@ -37,7 +33,12 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: notepas_forms_main.ssel
-msgid "sel"
+msgid "Sel"
+msgstr ""
+
+#: notepas_forms_main.ssize
+msgctxt "notepas_forms_main.ssize"
+msgid "Size"
 msgstr ""
 
 #: tcustomsettingsdialog1.lblalpha.caption
@@ -2096,6 +2097,7 @@ msgid "Selection mode"
 msgstr "Modo de selección"
 
 #: tfrmmain.pnlsize.hint
+msgctxt "tfrmmain.pnlsize.hint"
 msgid "Size"
 msgstr ""
 
@@ -3016,21 +3018,9 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.editor.search.data.sgroup
-msgctxt "ts.editor.search.data.sgroup"
-msgid "%s (%d matching lines)"
-msgstr ""
-
-#: ts.editor.search.data.sline
-msgid "Line: %d"
-msgstr ""
-
-#: ts.editor.search.data.smatch
-msgid ": '%s'"
-msgstr ""
-
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
+#: ts.core.utils.snocorrespondingfieldtype
+msgctxt "ts.core.utils.snocorrespondingfieldtype"
+msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

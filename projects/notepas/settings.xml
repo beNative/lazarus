@@ -7,13 +7,7 @@
 					<RemoveWhiteSpace>true</RemoveWhiteSpace>
 					<KeepSpaceBeforeToken>true</KeepSpaceBeforeToken>
 					<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
-					<Tokens>(TStringList)
-						<DefinedProperties>
-						B1N0cmluZ3MBBgEnBgEtBgItLQYBIgYBIwYBJQYCKCoGASoGAiopBgEsBgEuBgIvLwYBOgYCOj0G
-						ATsGAUAGAXsGAXwGAX0GASsGAjw8BgE9BgI+PgYDYW5kBgJhcwYCaW4GAm9yBgRyZWFkBgV3cml0
-						ZQA=
-						</DefinedProperties>
-					</Tokens>
+					<Tokens>(TStringList)</Tokens>
 					<Width>359</Width>
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
@@ -248,8 +242,8 @@
 						</TSynXMLSyn>
 					</Components>
 					<Highlighter>XML</Highlighter>
-					<BlockCommentStartTag>Ü”¤ !--</BlockCommentStartTag>
-					<BlockCommentEndTag>--ð”¤</BlockCommentEndTag>
+					<BlockCommentStartTag>??? !--</BlockCommentStartTag>
+					<BlockCommentEndTag>--???</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 					<Description>XML document</Description>
@@ -647,8 +641,8 @@
 						</TSynHTMLSyn>
 					</Components>
 					<Highlighter>HTML</Highlighter>
-					<BlockCommentStartTag>Ü”¤ !--</BlockCommentStartTag>
-					<BlockCommentEndTag>--ð”¤</BlockCommentEndTag>
+					<BlockCommentStartTag>??? !--</BlockCommentStartTag>
+					<BlockCommentEndTag>--???</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>htm,html</FileExtensions>
 					<Description>HTML document</Description>
@@ -897,12 +891,7 @@
 								<Style>[fsBold]</Style>
 							</SecondKeyAttri>
 							<SecondKeyWords>(TStringList)
-								<DefinedProperties>
-								B1N0cmluZ3MBBgZDRFBBVEgGBkVESVRPUgYESE9NRQYDSUZTBgRMQU5HBgtMQ19NRVNTQUdFUwYH
-								TENfVFlQRQYPTERfTElCUkFSWV9QQVRIBgdMT0dOQU1FBgRNQUlMBglNQUlMQ0hFQ0sGCE1BSUxQ
-								QVRIBgdNQU5QQVRIBgRQQVRIBgNQUzEGA1BTMgYDUFdEBgZTSEFDQ1QGBVNIRUxMBgpTSExJQl9Q
-								QVRIBgRURVJNBgdURVJNQ0FQBgJUWgA=
-								</DefinedProperties>
+								<DefinedProperties></DefinedProperties>
 							</SecondKeyWords>
 							<NumberAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -1093,10 +1082,7 @@
 				<Style>[,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgdDb21tZW50Bg1Eb2N1bWVudGF0aW9uBgtScGwgY29tbWVudAYMU0FTTSBDb21t
-				ZW50AA==
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1107,9 +1093,7 @@
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZTdHJpbmcA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1120,10 +1104,7 @@
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBghCcmFja2V0cwYNUm91bmQgQnJhY2tldAYOU3F1YXJlIEJyYWNrZXQGBlN5bWJv
-				bAA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1134,9 +1115,7 @@
 				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZOdW1iZXIA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1145,10 +1124,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgNLZXkGB1JwbCBrZXkGCFNBU00gS2V5BgtTUUwga2V5d29yZAYQU1FMKlBsdXMg
-				Y29tbWFuZAYLVGVYIENvbW1hbmQA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1159,9 +1135,7 @@
 				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgVGbG9hdAA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1170,9 +1144,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgtIZXhhZGVjaW1hbAA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1183,10 +1155,7 @@
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1SZXNlcnZlZCB3b3JkBhZSZXNlcnZlZCB3b3JkIChQTC9TUUwpBhRTZWNvbmQg
-				cmVzZXJ2ZWQgd29yZAA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1197,10 +1166,7 @@
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1JREUgRGlyZWN0aXZlBgdJbmNsdWRlBgxQcmVwcm9jZXNzb3IGFlByb2Nlc3Np
-				bmcgSW5zdHJ1Y3Rpb24A
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1211,9 +1177,7 @@
 				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBglDaGFyYWN0ZXIA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1222,9 +1186,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBhBTcGVjaWFsIHZhcmlhYmxlAA==
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1233,9 +1195,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgROdWxsAA==
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1246,9 +1206,7 @@
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBghPcGVyYXRvcgA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1257,9 +1215,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgxFbGVtZW50IE5hbWUGGE5hbWVzcGFjZSBBdHRyaWJ1dGUgTmFtZQA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1268,10 +1224,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgVDREFUQQYHRE9DVFlQRQYZTmFtZXNwYWNlIEF0dHJpYnV0ZSBWYWx1ZQYFVmFs
-				dWUA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1280,9 +1233,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZQcmFnbWEA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1291,9 +1242,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1FbWJlZGRlZCB0ZXh0BgRUZXh0AA==
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1302,9 +1251,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgNBc3AGDUNEQVRBIFNlY3Rpb24GD0RPQ1RZUEUgU2VjdGlvbgYHU2VjdGlvbgA=
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
@@ -1313,9 +1260,7 @@
 				<FrameEdges>sfeAround</FrameEdges>
 			</Attributes>
 			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBglEYXRhIHR5cGUA
-				</DefinedProperties>
+				<DefinedProperties></DefinedProperties>
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>

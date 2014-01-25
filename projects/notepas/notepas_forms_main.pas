@@ -107,6 +107,7 @@ type
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
+    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
@@ -272,12 +273,6 @@ begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
   Manager.ActiveView := V;
-  //show the parameters in the editor
-  //for I := 0 to Paramcount do
-  //begin
-  //    S := ParamStr(I);
-  //    v.Editor.Text:=v.Editor.Text+s+#13#10;
-  //end;
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -464,6 +459,13 @@ begin
   CanClose := Actions['actExit'].Execute;
 end;
 
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+ {$IFDEF DARWIN}
+  OnDropFiles := FormDropFiles;
+ {$ENDIF}
+end;
+
 procedure TfrmMain.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 var
@@ -474,6 +476,14 @@ begin
   if Assigned(Editor) then
     V := Editor;
   DisableAutoSizing;
+  {$IFDEF DARWIN}
+  if (Manager.Views.Count=1) then  //for macos because mac open file parameter by DropFile event
+  begin
+      if (Manager.Views[0].FileName=SNewEditorViewFileName) and
+         (Manager.Views[0].TextSize=0) then
+         Manager.Views[0].Close;
+  end;
+  {$ENDIF}
   try
     for I := Low(FileNames) to High(FileNames) do
     begin
@@ -487,6 +497,7 @@ begin
     EnableAutoSizing;
   end;
   V.Activate;
+
 end;
 
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);

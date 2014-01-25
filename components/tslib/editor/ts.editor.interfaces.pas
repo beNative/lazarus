@@ -418,6 +418,7 @@ type
     function GetLines: TStrings;
     function GetSelectionMode: TSynSelectionMode;
     function GetText: string;
+    function GetTextSize: Integer;
     procedure SetBlockBegin(AValue: TPoint);
     procedure SetBlockEnd(AValue: TPoint);
     procedure SetCaretXY(AValue: TPoint);
@@ -450,6 +451,9 @@ type
 
     property Text: string
       read GetText write SetText;
+
+    property TextSize: Integer
+      read GetTextSize;
   end;
 
   { IEditorSearchEngine }
@@ -530,6 +534,10 @@ type
     // event dispatch methods
     procedure DoCaretPositionChange;
     procedure DoActiveViewChange;
+    procedure DoActionExecute(
+          AAction  : TBasicAction;
+      var AHandled : Boolean
+    );
     procedure DoMacroStateChange(AState : TSynMacroState);
     procedure DoOpenOtherInstance(const AParams: array of string);
     procedure DoAddEditorView(AEditorView: IEditorView);
@@ -551,10 +559,12 @@ type
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+    procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+    procedure RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
 
     // events
     property OnAddEditorView: TAddEditorViewEvent

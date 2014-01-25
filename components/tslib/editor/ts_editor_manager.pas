@@ -310,6 +310,7 @@ type
     {$endregion}
 
     {$region 'action handlers' /fold}
+    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
     procedure actAlignSelectionExecute(Sender: TObject);
@@ -806,6 +807,7 @@ uses
   ts_Editor_SettingsDialog_FileAssociations;
 
 const
+  // prefixes for dynamically created actions.
   ACTION_PREFIX_ENCODING       = 'actEncoding';
   ACTION_PREFIX_HIGHLIGHTER    = 'actHighlighter';
   ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
@@ -1781,6 +1783,12 @@ begin
   ShowAboutDialog;
 end;
 
+procedure TdmEditorManager.aclActionsExecute(AAction: TBasicAction;
+  var Handled: Boolean);
+begin
+  Events.DoActionExecute(AAction, Handled);
+end;
+
 procedure TdmEditorManager.actAlignAndSortSelectionExecute(Sender: TObject);
 begin
   { TODO -oTS : Implement as a shortcut which takes default settings from the
@@ -2545,16 +2553,19 @@ begin
     if TV <> ETV then
       TV.Visible := False;
   end;
-  if not AShowModal then
+  if not ETV.Visible then
   begin
-    { This for example can allow the owner to dock the toolview in the main
-      application workspace. }
-    Events.DoShowToolView(ETV);
-    ETV.Visible := True;
-  end
-  else
-  begin
-    ETV.Form.ShowModal;
+    if not AShowModal then
+    begin
+      { This for example can allow the owner to dock the toolview in the main
+        application workspace. }
+      Events.DoShowToolView(ETV);
+      ETV.Visible := True;
+    end
+    else
+    begin
+      ETV.Form.ShowModal;
+    end;
   end;
   ETV.UpdateView;
   if ASetFocus then
@@ -2911,7 +2922,8 @@ begin
 
       actToggleMaximized.Checked :=
         Settings.FormSettings.WindowState = wsMaximized;
-      actStayOnTop.Checked := Settings.FormSettings.FormStyle = fsSystemStayOnTop;
+      actStayOnTop.Checked :=
+        Settings.FormSettings.FormStyle = fsSystemStayOnTop;
       actSingleInstance.Checked := Settings.SingleInstance;
 
       FChanged := False;

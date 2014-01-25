@@ -45,7 +45,7 @@ uses
   ts.Core.Value, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
   ts.Core.DataTemplates, ts.Core.ColumnDefinitionsDataTemplate,
 
-  ts.Editor.Interfaces, ts_Editor_ToolView_Base,
+  ts.Editor.Interfaces, ts.Editor.Types, ts_Editor_ToolView_Base,
 
   ts.Core.SharedLogger, ts.Core.Utils;
 
@@ -119,6 +119,11 @@ type
 
     procedure SearchEngineExecute(Sender: TObject);
     procedure SearchEngineChange(Sender: TObject);
+    procedure ActionExecute(
+          Sender   : TObject;
+          AAction  : TBasicAction;
+      var AHandled : Boolean
+    );
 
     function GetSearchEngine: IEditorSearchEngine;
     function GetOptions: TSynSearchOptions;
@@ -197,6 +202,7 @@ begin
 
   SearchEngine.AddOnExecuteHandler(SearchEngineExecute);
   SearchEngine.AddOnChangeHandler(SearchEngineChange);
+  Manager.Events.AddOnActionExecuteEvent(ActionExecute);
 end;
 {$endregion}
 
@@ -409,6 +415,12 @@ begin
   begin
     FTVP.CurrentItem := SearchEngine.ItemList[SearchEngine.CurrentIndex];
   end;
+end;
+
+procedure TfrmSearchForm.ActionExecute(Sender: TObject; AAction: TBasicAction;
+  var AHandled: Boolean);
+begin
+  Logger.Send('Executed', AAction.Name);
 end;
 {$endregion}
 

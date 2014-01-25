@@ -40,6 +40,15 @@ uses
 
 type
 
+  { TActionExecuteEvents }
+
+  TActionExecuteEvents = class(TMethodList)
+    procedure CallEvents(
+          Sender   : TObject;
+          AAction  : TBasicAction;
+      var AHandled : Boolean);
+  end;
+
   { TCaretPositionEvents }
 
   TCaretPositionEvents = class(TMethodList)
@@ -57,6 +66,7 @@ type
     FModifiedEvents         : TMethodList;
     FActiveViewChangeEvents : TMethodList;
     FCaretPositionEvents    : TCaretPositionEvents;
+    FActionExecuteEvents    : TActionExecuteEvents;
 
     FOnAddEditorView       : TAddEditorViewEvent;
     FOnShowEditorToolView  : TEditorToolViewEvent;
@@ -98,6 +108,7 @@ type
     procedure DoShowToolView(AToolView: IEditorToolView); virtual;
     procedure DoHideToolView(AToolView: IEditorToolView); virtual;
     procedure DoCaretPositionChange; virtual;
+    procedure DoActionExecute(AAction: TBasicAction; var AHandled: Boolean);
     procedure DoMacroStateChange(AState : TSynMacroState); virtual;
     procedure DoOpenOtherInstance(const AParams: array of string); virtual;
     procedure DoStatusMessage(AText: string); virtual;
@@ -113,11 +124,13 @@ type
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+    procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
 
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
+    procedure RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
 
     property OnAddEditorView: TAddEditorViewEvent
       read GetOnAddEditorView write SetOnAddEditorView;
@@ -160,6 +173,18 @@ type
 
 implementation
 
+{ TActionExecuteEvents }
+
+procedure TActionExecuteEvents.CallEvents(Sender: TObject;
+  AAction: TBasicAction; var AHandled: Boolean);
+var
+  I: Integer;
+begin
+  I := Count;
+  while NextDownIndex(I) do
+    TActionExecuteEvent(Items[I])(Sender, AAction, AHandled);
+end;
+
 {$region 'TCaretPositionEvents' /fold}
 {$region 'public methods' /fold}
 procedure TCaretPositionEvents.CallEvents(Sender: TObject; X, Y: Integer);
@@ -188,6 +213,7 @@ begin
   FModifiedEvents         := TMethodList.Create;
   FActiveViewChangeEvents := TMethodList.Create;
   FCaretPositionEvents    := TCaretPositionEvents.Create;
+  FActionExecuteEvents    := TActionExecuteEvents.Create;
 end;
 
 procedure TEditorEvents.BeforeDestruction;
@@ -197,6 +223,7 @@ begin
   FModifiedEvents.Free;
   FActiveViewChangeEvents.Free;
   FCaretPositionEvents.Free;
+  FActionExecuteEvents.Free;
   inherited BeforeDestruction;
 end;
 {$endregion}
@@ -338,6 +365,12 @@ begin
   FCaretPositionEvents.CallEvents(Self, View.CaretX, View.CaretY);
 end;
 
+procedure TEditorEvents.DoActionExecute(AAction: TBasicAction;
+  var AHandled: Boolean);
+begin
+  FActionExecuteEvents.CallEvents(Self, AAction, AHandled);
+end;
+
 procedure TEditorEvents.DoMacroStateChange(AState: TSynMacroState);
 begin
   if Assigned(FOnMacroStateChange) then
@@ -415,6 +448,11 @@ begin
   FCaretPositionEvents.Add(TMethod(AEvent));
 end;
 
+procedure TEditorEvents.AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
+begin
+  FActionExecuteEvents.Add(TMethod(AEvent));
+end;
+
 procedure TEditorEvents.RemoveOnChangeHandler(AEvent: TNotifyEvent);
 begin
   FChangeEvents.Remove(TMethod(AEvent));
@@ -433,6 +471,11 @@ end;
 procedure TEditorEvents.RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
 begin
   FCaretPositionEvents.Remove(TMethod(AEvent));
+end;
+
+procedure TEditorEvents.RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
+begin
+  FActionExecuteEvents.Remove(TMethod(AEvent));
 end;
 {$endregion}
 {$endregion}

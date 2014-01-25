@@ -52,6 +52,7 @@ type
     function GetLines: TStrings;
     function GetSelectionMode: TSynSelectionMode;
     function GetText: string;
+    function GetTextSize: Integer;
     procedure SetBlockBegin(AValue: TPoint);
     procedure SetBlockEnd(AValue: TPoint);
     procedure SetCaretXY(AValue: TPoint);
@@ -98,6 +99,9 @@ type
 
     property Text: string
       read GetText write SetText;
+
+    property TextSize: Integer
+      read GetTextSize;
   end;
 
 implementation
@@ -173,6 +177,11 @@ begin
   // The Text property of a stringlist always returns a line ending at the end
   // of the string which needs to be removed to avoid side effects.
   Result := StripLastLineEnding(FLines.Text);
+end;
+
+function TEditorSelection.GetTextSize: Integer;
+begin
+  Result := Length(Text);
 end;
 
 procedure TEditorSelection.SetText(AValue: string);

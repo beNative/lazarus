@@ -161,9 +161,7 @@ procedure OptimizeWidth(APanel: TPanel);
 
 function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
 
-
  // Variants and TVarRec conversions
-
 function VariantToTypedVarRec(const Item: Variant; VarType: TVarType): TVarRec;
 procedure VariantToVarRec(    AVariant     : Variant;
                           var AVarRecArray : TVarRecArray);
@@ -1051,8 +1049,6 @@ begin
      Result := AVariant1 = AVariant2;
 end;
 
-
-
 { 'Like' code is written by Wladimir Perepletchick }
 
 function Like(const ASource: string; const ATemplate: string): Boolean;
@@ -1116,7 +1112,6 @@ begin
 end;
 
 {$IFDEF Windows}
-
 function CreateGUIDString: string;
 var
   ClassID : TCLSID;
@@ -1501,7 +1496,6 @@ begin
       wsMinimized: SL.SetShowCmd(SW_SHOWMINNOACTIVE);
     end;
     SL.SetIconLocation(PChar(ShellLink.IconPath), ShellLink.IconIndex);
-    //SL.SetHotkey(ShellLink.HotKey);
     SL.SetWorkingDirectory(PChar(ShellLink.WorkingDir));
     SL.SetDescription(PChar(ShellLink.Description));
     if SL.QueryInterface(IID_IPersistFile, PF) <> S_OK then
@@ -2147,7 +2141,7 @@ end;
    ACheckBox.OnClick := EH;
  end;
 
- {$IFDEF Windows}
+{$IFDEF Windows}
 function TaskBarHeight: Integer;
 var
   hTB    : HWND; // taskbar handle

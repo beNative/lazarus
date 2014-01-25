@@ -48,6 +48,12 @@ type
     X, Y   : Integer
   ) of object;
 
+  TActionExecuteEvent = procedure(
+        Sender   : TObject;
+        AAction  : TBasicAction;
+    var AHandled : Boolean
+  ) of object;
+
   TStatusMessageEvent = procedure(
     Sender : TObject;
     Text   : string

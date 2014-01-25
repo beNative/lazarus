@@ -83,11 +83,10 @@ function CompressSpace(
         APreserveIndent : Boolean = True
 ): string;
 
-{ Replace any number of consecutive whitespace (including newlines)
-  with a single whitespace. This is nice when you have a string
-  (possibly multiline) supplied by user, and you want to use this
-  for some UI item (like window's caption or menu item) --- this
-  "sanitizes" whitespace inside such string. }
+{ Replace any number of consecutive whitespace (including newlines) with a
+  single whitespace. This is nice when you have a string (possibly multiline)
+  supplied by user, and you want to use this for some UI item (like window's
+  caption or menu item) - this "sanitizes" whitespace inside such string. }
 
 function CompressWhiteSpace(
   const AString: string
@@ -290,9 +289,9 @@ function MatchRegExpr2(
         ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
-// Find SubString in S; do not consider case;
-// this works exactly the same as the Pos function,
-// except for case-INsensitivity.
+{ Find SubString in S; do not consider case. This works exactly the same as the
+  Pos function, except for case-INsensitivity. }
+
 function CaseInsensitivePos(
   const APattern : string;
   const AText    : string
@@ -1027,7 +1026,6 @@ begin
   Tree.Free;
   Settings.Free;
 end;
-
 
 function QuoteLines(const AString: string; const AQuoteChar: Char;
   ATrimSpace: Boolean): string;

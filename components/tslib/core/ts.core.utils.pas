@@ -30,6 +30,10 @@ uses
 {$IFDEF Windows}
   Windows,
 {$ENDIF}
+{$IFDEF Darwin}
+  MacOSAll,
+{$ENDIF}
+
   DB, FileUtil;
 
 type
@@ -244,6 +248,7 @@ uses
 {$IFDEF Windows}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
+
 
   Variants, ActnList;
 
@@ -1366,11 +1371,11 @@ begin
         PNew := Patterns[PNum].New;
 
         Delta := Positions[C].Position - SourcePosition;
-        Move(PSource^, PDest^, Delta);
+        System.Move(PSource^, PDest^, Delta);
         Inc(PDest, Delta);
 
         // Append NewPattern and advance resultpos
-        Move(PNew^, PDest^, Patterns[PNum].LengthNew);
+        System.Move(PNew^, PDest^, Patterns[PNum].LengthNew);
         Inc(PDest, Patterns[PNum].LengthNew);
 
         // Jump to after OldPattern
@@ -1379,7 +1384,7 @@ begin
       end;
 
       // Append characters after last OldPattern
-      Move(PSource^, PDest^, SourceLength - SourcePosition + 1);
+      System.Move(PSource^, PDest^, SourceLength - SourcePosition + 1);
     end else
       Result := Source; // Nothing to replace
 
@@ -2159,10 +2164,29 @@ end;
 {$ENDIF}
 
 function GetApplicationPath(): string;
+{$IFDEF Darwin}
+var
+  pathRef: CFURLRef;
+  pathCFStr: CFStringRef;
+  pathStr,BundleResourcesDirectory: shortstring;
+
+{$ENDIF}
 begin
+  {$IFDEF Darwin}
+    BundleResourcesDirectory := '/Contents/Resources/';
+    pathRef := CFBundleCopyBundleURL(CFBundleGetMainBundle());
+    pathCFStr := CFURLCopyFileSystemPath(pathRef, kCFURLPOSIXPathStyle);
+    CFStringGetPascalString(pathCFStr, @pathStr, 255, CFStringGetSystemEncoding());
+    CFRelease(pathRef);
+    CFRelease(pathCFStr);
+    if (FileExistsUTF8(pathStr + BundleResourcesDirectory +
+      'settings.xml')) then //use settings.xml to detect directory
+       Result := pathStr + BundleResourcesDirectory
+  {$ELSE}
   if (FileExistsUTF8(AppendPathDelim(ExtractFilePath(Application.ExeName)) +
     'settings.xml')) then //use settings.xml to detect directory
      Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))
+  {$ENDIF}
   else
   begin
      ForceDirectoriesUTF8(GetAppConfigDirUTF8(False));
@@ -2170,4 +2194,4 @@ begin
   end;
 end;
 
-end.
+end.

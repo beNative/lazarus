@@ -184,7 +184,7 @@ begin
   inherited AfterConstruction;
   FVST := VST.Create(Self, pnlResultList);
   FVST.TreeOptions.AutoOptions :=
-    FVST.TreeOptions.AutoOptions + [toAutoSpanColumns];
+    FVST.TreeOptions.AutoOptions + [toAutoSpanColumns] ;
   FVST.Header.MainColumn := 1;
 
   FTVP := TTreeViewPresenter.Create(Self);
@@ -394,7 +394,9 @@ begin
     begin
       pnlStatus.Font.Color := clGreen;
       FVST.SetFocus;
+      {$IFNDEF Darwin} //THIS RAISE ERROR on VirtualTreeView.pas IN Maco
       FTVP.SelectedItem := FTVP.ItemsSource[0];
+      {$ENDIF}
     end
     else
     begin
@@ -535,4 +537,4 @@ begin
 end;
 {$endregion}
 
-end.
+end.

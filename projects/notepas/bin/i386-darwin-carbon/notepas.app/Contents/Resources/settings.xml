@@ -29,7 +29,8 @@
 				</TMiniMapSettings>
 				<THexEditorSettings Name="HexEditorSettings"/>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[,ssoRegExpr]</Options>
+					<Options>[]</Options>
+					<SearchAllViews>true</SearchAllViews>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings"/>
 			</Components>
@@ -205,7 +206,9 @@
 								<Style>[]</Style>
 							</NamespaceAttributeValueAttri>
 							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
+								<Style>[]</Style>
 							</TextAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
 								<Foreground>clNone</Foreground>
@@ -839,6 +842,7 @@
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
 							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
 							</TextAttri>
 							<ControlSequenceAttri>(TSynHighlighterAttributes)

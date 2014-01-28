@@ -1038,6 +1038,7 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -1058,11 +1059,11 @@ end;"/>
       <Unit9>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Utils"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>

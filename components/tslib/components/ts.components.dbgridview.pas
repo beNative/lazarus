@@ -2352,13 +2352,13 @@ begin
               SetCursor(CellFocused, True, True);
             end;
           VK_HOME:
-            if ssCtrl in Shift then
+            if ssCtrlOS in Shift then
             begin
               FDataLink.DataSet.First;
               SetCursor(CellFocused, True, True);
             end;
           VK_END:
-            if ssCtrl in Shift then
+            if ssCtrlOS in Shift then
             begin
               FDataLink.DataSet.Last;
               SetCursor(CellFocused, True, True);
@@ -2459,7 +2459,7 @@ begin
     Exit;
   end;
   Select := (Button = mbLeft) and MultiSelect and FDatalink.Active and
-    ((ssCtrl in Shift) or (ssShift in Shift));
+    ((ssCtrlOS in Shift) or (ssShift in Shift));
   SelectRange := Select and (ssShift in Shift);
   MoveRowByMouse(Shift, X, Y, Select, SelectRange);
   inherited;

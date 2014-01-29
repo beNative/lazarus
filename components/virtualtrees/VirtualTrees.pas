@@ -21525,6 +21525,11 @@ begin
     // 2) Sort the new item list so we can easily traverse it.
     if NewLength > 1 then
       QuickSort(NewItems, 0, NewLength - 1);
+
+    //initialize array for fpc 2.7.1 errors
+    if FSelectionCount=0 then
+       SetLength(FSelection, 0);
+
     // 3) Make room in FSelection for the new items.
     if FSelectionCount + NewLength >= Length(FSelection) then
       SetLength(FSelection, FSelectionCount + NewLength);
@@ -21611,6 +21616,8 @@ begin
     if Count > -1 then
     begin
       FSelectionCount := Count;
+      //fix for 2.7.1 error
+      //if FSelectionCount=1 then setLength(FSelection,0);
       SetLength(FSelection, FSelectionCount);
     end;
   end;
@@ -33057,4 +33064,4 @@ finalization
 end.
 
 
-
+

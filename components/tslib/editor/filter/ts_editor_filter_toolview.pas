@@ -286,14 +286,14 @@ begin
   Logger.Watch('B', B);
   { CTRL-keycombinations that need to be handled by the edit control like
     CTRL-C for clipboard copy. }
-  C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrl]);
+  C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrlOS]);
   Logger.Watch('C', C);
   { SHIFT-keycombinations that need to be handled by the edit control for
     uppercase characters but also eg. SHIFT-HOME for selections. }
   D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
   Logger.Watch('D', D);
   { Only CTRL key is pressed. }
-  E := (Key = VK_CONTROL) and (Shift = [ssCtrl]);
+  E := (Key = VK_CONTROL) and (Shift = [ssCtrlOS]);
   Logger.Watch('E', E);
   { Only SHIFT key is pressed. }
   F := (Key = VK_SHIFT) and (Shift = [ssShift]);

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Compiler Value="/usr/local/bin/ppcppc" Date="1238925281"/>
+  <Params Value=" -MDelphi -Sa -Cirot -O1 -gl  -k-framework -kCarbon -k-framework -kOpenGL -k'-dylib_file' -k'/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib' -WG -vewnhi -l -Fu../../../lazarus/components/printers/lib/powerpc-darwin/carbon/ -Fu../package/units/powerpc-darwin/ -Fu../../../lazarus/ideintf/units/powerpc-darwin/ -Fu../../../lazarus/lcl/units/powerpc-darwin/ -Fu../../../lazarus/lcl/units/powerpc-darwin/carbon/ -Fu../../../lazarus/packager/units/powerpc-darwin/ -Fu. -ohtmldemo -dDebugIt -dLCL -dLCLcarbon htmldemo.dpr"/>
+</CONFIG>

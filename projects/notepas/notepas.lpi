@@ -983,16 +983,16 @@ end;"/>
     </RunParams>
     <RequiredPackages Count="10">
       <Item1>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="HtmlComp"/>
       </Item1>
       <Item2>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item2>
       <Item3>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item3>
       <Item4>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item4>
       <Item5>
         <PackageName Value="richmemopackage"/>
@@ -1038,7 +1038,6 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -1063,7 +1062,6 @@ end;"/>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.TreeViewPresenter"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>

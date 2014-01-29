@@ -196,7 +196,6 @@ begin
   FTVP.TreeView    := FVST;
   FTVP.ItemTemplate := TSearchResultGroupTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.OnSelectionChanged := DoOnSelectionChanged;
-
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
 
@@ -394,9 +393,7 @@ begin
     begin
       pnlStatus.Font.Color := clGreen;
       FVST.SetFocus;
-      {$IFNDEF Darwin} //THIS RAISE ERROR on VirtualTreeView.pas IN Maco
       FTVP.SelectedItem := FTVP.ItemsSource[0];
-      {$ENDIF}
     end
     else
     begin

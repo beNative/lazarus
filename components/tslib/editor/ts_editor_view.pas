@@ -60,7 +60,7 @@ TODO:
 
 interface
 uses
-  Classes, Controls, Forms, Graphics, Menus, SysUtils, Dialogs, StdCtrls, Types,
+  Classes, Controls, Forms, Graphics, Menus, SysUtils, Dialogs, Types, StdCtrls,
 
   LMessages, LCLType,
 
@@ -2157,8 +2157,8 @@ end.
 //Ctrl+F1                Topic Search
   ecNextEditor: SetResult(VK_F6,[]);
   ecPrevEditor: SetResult(VK_F6,[ssShift]);
-  ecWordLeft:   SetResult(VK_A,[ssCtrl],VK_LEFT,[ssCtrl]);
-  ecPageDown:   SetResult(VK_C,[ssCtrl],VK_NEXT,[]);
+  ecWordLeft:   SetResult(VK_A,[ssCtrlOS],VK_LEFT,[ssCtrlOS]);
+  ecPageDown:   SetResult(VK_C,[ssCtrlOS],VK_NEXT,[]);
 //Ctrl+D                 Moves the cursor right one column, accounting for the
 //autoindent setting
 //Ctrl+E                 Moves the cursor up one line

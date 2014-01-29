@@ -1268,7 +1268,7 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>SH</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
 		<Left>200</Left>
@@ -1282,5 +1282,6 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

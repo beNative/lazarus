@@ -1,0 +1,80 @@
+LazarusResources.Add('TForm1','FORMDATA',[
+  'TPF0'#6'TForm1'#5'Form1'#4'Left'#3't'#1#3'Top'#3#11#1#12'ClientHeight'#3#183
+  +#1#6'Height'#3#183#1#11'ClientWidth'#3'm'#2#5'Width'#3'm'#2#5'Color'#7#9'clB'
+  +'tnFace'#12'Font.Charset'#7#15'DEFAULT_CHARSET'#10'Font.Color'#7#12'clWindow'
+  +'Text'#11'Font.Height'#2#243#9'Font.Name'#6#5'Arial'#10'Font.Style'#11#0#4'M'
+  +'enu'#7#8'MainMenu'#8'OnCreate'#7#10'FormCreate'#9'OnDestroy'#7#11'FormDestr'
+  +'oy'#6'OnShow'#7#8'FormShow'#13'PixelsPerInch'#2'`'#0#6'TPanel'#6'Panel1'#4
+  +'Left'#2#0#3'Top'#3#165#1#5'Width'#3'm'#2#6'Height'#2#18#5'Align'#7#8'alBott'
+  +'om'#9'Alignment'#7#13'taLeftJustify'#10'BevelInner'#7#9'bvLowered'#10'Bevel'
+  +'Outer'#7#6'bvNone'#8'TabOrder'#2#0#0#12'TProgressBar'#11'ProgressBar'#4'Lef'
+  +'t'#3#214#1#3'Top'#2#1#5'Width'#3#150#0#6'Height'#2#16#5'Align'#7#7'alRight'
+  +#8'TabOrder'#2#0#7'Visible'#8#0#0#0#6'TPanel'#6'Panel2'#4'Left'#2#0#3'Top'#2
+  +#0#5'Width'#3'm'#2#6'Height'#2'!'#5'Align'#7#5'alTop'#10'BevelOuter'#7#6'bvN'
+  +'one'#8'TabOrder'#2#1#0#5'TEdit'#5'Edit1'#4'Left'#3#190#0#3'Top'#2#4#5'Width'
+  +#3'Q'#1#6'Height'#2#24#7'TabStop'#8#8'ReadOnly'#9#8'TabOrder'#2#3#0#0#7'TBut'
+  +'ton'#12'ReloadButton'#4'Left'#2#10#3'Top'#2#4#5'Width'#2';'#6'Height'#2#24#7
+  +'Caption'#6#7'&Reload'#7'Enabled'#8#8'TabOrder'#2#0#7'OnClick'#7#17'ReloadBu'
+  +'ttonClick'#0#0#7'TButton'#10'BackButton'#4'Left'#2'E'#3'Top'#2#4#5'Width'#2
+  +';'#6'Height'#2#24#7'Caption'#6#5'&Back'#7'Enabled'#8#8'TabOrder'#2#1#7'OnCl'
+  +'ick'#7#12'FwdBackClick'#0#0#7'TButton'#9'FwdButton'#4'Left'#3#128#0#3'Top'#2
+  +#4#5'Width'#2';'#6'Height'#2#24#7'Caption'#6#8'&Forward'#7'Enabled'#8#8'TabO'
+  +'rder'#2#2#7'OnClick'#7#12'FwdBackClick'#0#0#0#6'TPanel'#6'Panel3'#4'Left'#2
+  +#0#3'Top'#2'!'#5'Width'#3'm'#2#6'Height'#3#132#1#5'Align'#7#8'alClient'#10'B'
+  +'evelInner'#7#9'bvLowered'#10'BevelOuter'#7#6'bvNone'#7'Caption'#6#6'Panel3'
+  +#8'TabOrder'#2#2#0#11'THTMLViewer'#6'Viewer'#4'Left'#2#1#3'Top'#2#1#5'Width'
+  +#3'k'#2#6'Height'#3#130#1#16'OnHotSpotCovered'#7#13'HotSpotChange'#14'OnHotS'
+  +'potClick'#7#12'HotSpotClick'#12'OnFormSubmit'#7#11'SubmitEvent'#15'OnHistor'
+  +'yChange'#7#13'HistoryChange'#10'OnProgress'#7#14'ViewerProgress'#7'TabStop'
+  +#9#8'TabOrder'#2#0#5'Align'#7#8'alClient'#13'DefBackground'#7#8'clWindow'#11
+  +'BorderStyle'#7#9'htFocused'#15'HistoryMaxCount'#2#6#11'DefFontName'#6#15'Ti'
+  +'mes New Roman'#14'DefPreFontName'#6#11'Courier New'#12'DefFontColor'#7#12'c'
+  +'lWindowText'#16'DefOverLinkColor'#7#9'clFuchsia'#15'ImageCacheCount'#2#6#8
+  +'NoSelect'#8#7'CharSet'#7#15'DEFAULT_CHARSET'#15'PrintMarginLeft'#5#0#0#0#0#0
+  +#0#0#128#0'@'#16'PrintMarginRight'#5#0#0#0#0#0#0#0#128#0'@'#14'PrintMarginTo'
+  +'p'#5#0#0#0#0#0#0#0#128#0'@'#17'PrintMarginBottom'#5#0#0#0#0#0#0#0#128#0'@'
+  +#10'PrintScale'#5#0#0#0#0#0#0#0#128#255'?'#11'OnMouseMove'#7#15'ViewerMouseM'
+  +'ove'#12'OnProcessing'#7#17'ProcessingHandler'#17'OnPrintHTMLHeader'#7#21'Vi'
+  +'ewerPrintHTMLHeader'#17'OnPrintHTMLFooter'#7#21'ViewerPrintHTMLFooter'#9'On'
+  +'Include'#7#13'ViewerInclude'#14'OnSoundRequest'#7#12'SoundRequest'#13'OnMet'
+  +'aRefresh'#7#16'MetaRefreshEvent'#13'OnObjectClick'#7#11'ObjectClick'#12'OnR'
+  +'ightClick'#7#10'RightClick'#0#0#0#11'TOpenDialog'#10'OpenDialog'#10'Default'
+  +'Ext'#6#3'htm'#6'Filter'#6'%html files|*.htm;*.html|all files|*.*'#7'Options'
+  +#11#14'ofHideReadOnly'#15'ofPathMustExist'#15'ofFileMustExist'#0#4'Left'#3'I'
+  +#1#3'Top'#2#2#0#0#9'TMainMenu'#8'MainMenu'#4'Left'#3'#'#1#3'Top'#2#4#0#9'TMe'
+  +'nuItem'#5'File1'#7'Caption'#6#5'&File'#0#9'TMenuItem'#4'Open'#7'Caption'#6#5
+  +'&Open'#8'ShortCut'#2'r'#7'OnClick'#7#13'OpenFileClick'#0#0#9'TMenuItem'#12
+  +'OpenTextFile'#7'Caption'#6#15'Open &Text File'#7'OnClick'#7#17'OpenTextFile'
+  +'Click'#0#0#9'TMenuItem'#13'OpenImageFile'#7'Caption'#6#16'Open &Image File'
+  +#7'OnClick'#7#18'OpenImageFileClick'#0#0#9'TMenuItem'#13'PrinterSetup1'#7'Ca'
+  +'ption'#6#16'Printer Setup...'#7'OnClick'#7#18'PrinterSetup1Click'#0#0#9'TMe'
+  +'nuItem'#12'Printpreview'#7'Caption'#6#14'Print pre&view'#7'Enabled'#8#7'OnC'
+  +'lick'#7#17'PrintpreviewClick'#0#0#9'TMenuItem'#6'Print1'#7'Caption'#6#9'&Pr'
+  +'int...'#7'Enabled'#8#7'OnClick'#7#11'Print1Click'#0#0#9'TMenuItem'#2'N1'#7
+  +'Caption'#6#1'-'#0#0#9'TMenuItem'#5'Exit1'#7'Caption'#6#5'E&xit'#7'OnClick'#7
+  +#10'Exit1Click'#0#0#0#9'TMenuItem'#5'Edit2'#7'Caption'#6#5'&Edit'#7'OnClick'
+  +#7#10'Edit2Click'#0#9'TMenuItem'#5'Find1'#7'Caption'#6#5'&Find'#7'Enabled'#8
+  +#7'OnClick'#7#10'Find1Click'#0#0#9'TMenuItem'#8'CopyItem'#7'Caption'#6#5'&Co'
+  +'py'#8'ShortCut'#3'C@'#7'OnClick'#7#13'CopyItemClick'#0#0#9'TMenuItem'#2'N2'
+  +#7'Caption'#6#1'-'#0#0#9'TMenuItem'#13'SelectAllItem'#7'Caption'#6#11'Select'
+  +' &All'#7'Enabled'#8#7'OnClick'#7#18'SelectAllItemClick'#0#0#0#9'TMenuItem'#8
+  +'options1'#7'Caption'#6#8'&Options'#0#9'TMenuItem'#10'ShowImages'#7'Caption'
+  +#6#12'&Show images'#7'OnClick'#7#15'ShowImagesClick'#0#0#9'TMenuItem'#5'Font'
+  +'s'#7'Caption'#6#23'Default &Font/Colors...'#7'OnClick'#7#15'FontColorsClick'
+  +#0#0#0#9'TMenuItem'#15'HistoryMenuItem'#7'Caption'#6#8'&History'#7'Visible'#8
+  +#0#0#9'TMenuItem'#6'About1'#7'Caption'#6#6'&About'#7'OnClick'#7#11'About1Cli'
+  ,'ck'#0#0#0#12'TPrintDialog'#11'PrintDialog'#8'FromPage'#2#1#7'MinPage'#2#1#7
+  +'MaxPage'#3#15''''#7'Options'#11#10'poPageNums'#0#6'ToPage'#2#1#4'Left'#3'j'
+  +#1#3'Top'#2#1#0#0#11'TFindDialog'#10'FindDialog'#7'Options'#11#6'frDown'#15
+  +'frHideWholeWord'#18'frDisableWholeWord'#0#6'OnFind'#7#14'FindDialogFind'#4
+  +'Left'#3#249#0#3'Top'#4#255#255#0#0#0#0#10'TPopupMenu'#9'PopupMenu'#4'Left'#3
+  +#144#1#3'Top'#2#1#0#9'TMenuItem'#9'Viewimage'#7'Caption'#6#11'&View image'#7
+  +'OnClick'#7#14'ViewimageClick'#0#0#9'TMenuItem'#20'CopyImageToClipboard'#7'C'
+  +'aption'#6#24'&Copy image to clipboard'#7'OnClick'#7#25'CopyImageToClipboard'
+  +'Click'#0#0#9'TMenuItem'#2'N3'#7'Caption'#6#1'-'#0#0#9'TMenuItem'#15'OpenInN'
+  +'ewWindow'#7'Caption'#6#19'&Open in new window'#7'OnClick'#7#20'OpenInNewWin'
+  +'dowClick'#0#0#0#6'TTimer'#9'MetaTimer'#7'Enabled'#8#7'OnTimer'#7#14'MetaTim'
+  +'erTimer'#4'Left'#3#242#0#3'Top'#2'K'#0#0#6'TTimer'#6'Timer1'#8'Interval'#3
+  +#200#0#7'OnTimer'#7#11'Timer1Timer'#4'Left'#3'#'#1#3'Top'#2'G'#0#0#19'TPrint'
+  +'erSetupDialog'#18'PrinterSetupDialog'#4'Left'#3#192#1#0#0#0
+]);

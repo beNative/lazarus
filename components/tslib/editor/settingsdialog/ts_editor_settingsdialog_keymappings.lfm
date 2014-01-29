@@ -20,18 +20,18 @@ object frmKeyMappings: TfrmKeyMappings
     Height = 353
     Top = 8
     Width = 481
-    ActivePage = tsOptions
-    TabIndex = 2
+    ActivePage = tsToolbars
+    TabIndex = 0
     TabOrder = 0
     object tsToolbars: TTabSheet
       Caption = 'Toolbars'
-      ClientHeight = 327
-      ClientWidth = 473
+      ClientHeight = 314
+      ClientWidth = 475
       object clbToolbars: TCheckListBox
         Left = 8
-        Height = 279
+        Height = 266
         Top = 8
-        Width = 449
+        Width = 451
         Anchors = [akTop, akLeft, akRight, akBottom]
         ItemHeight = 0
         TabOrder = 0
@@ -39,8 +39,8 @@ object frmKeyMappings: TfrmKeyMappings
     end
     object tsKeyboard: TTabSheet
       Caption = 'Shortcuts'
-      ClientHeight = 327
-      ClientWidth = 473
+      ClientHeight = 314
+      ClientWidth = 475
       ImageIndex = 1
       object gbActions: TGroupBox
         Left = 8
@@ -48,23 +48,23 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 8
         Width = 457
         Caption = 'Select Action:'
-        ClientHeight = 127
-        ClientWidth = 453
+        ClientHeight = 122
+        ClientWidth = 449
         TabOrder = 0
         object lblActions: TLabel
           Left = 166
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 38
+          Width = 43
           Caption = 'Actions:'
           FocusControl = lvActions
           ParentColor = False
         end
         object lblCategory: TLabel
           Left = 6
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 45
+          Width = 52
           Caption = 'Category:'
           FocusControl = lbCategory
           ParentColor = False
@@ -102,22 +102,22 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 160
         Width = 457
         Caption = 'Select ShortCut:'
-        ClientHeight = 71
-        ClientWidth = 453
+        ClientHeight = 66
+        ClientWidth = 449
         TabOrder = 1
         object lblNewSC: TLabel
           Left = 230
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 69
+          Width = 76
           Caption = 'New ShortCur:'
           ParentColor = False
         end
         object lblCurValue: TLabel
           Left = 6
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 81
+          Width = 94
           Caption = 'Current ShortCut:'
           FocusControl = lbSC
           ParentColor = False
@@ -154,8 +154,8 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 256
         Width = 457
         Caption = 'Description:'
-        ClientHeight = 39
-        ClientWidth = 453
+        ClientHeight = 34
+        ClientWidth = 449
         TabOrder = 2
         object lblDescr: TLabel
           Left = 6
@@ -170,22 +170,22 @@ object frmKeyMappings: TfrmKeyMappings
     end
     object tsOptions: TTabSheet
       Caption = 'Other'
-      ClientHeight = 327
-      ClientWidth = 473
+      ClientHeight = 314
+      ClientWidth = 475
       ImageIndex = 2
       object chkLargeIcons: TCheckBox
         Left = 16
-        Height = 19
+        Height = 18
         Top = 8
-        Width = 106
+        Width = 130
         Caption = 'Show Large Icons'
         TabOrder = 0
       end
       object chkShowHint: TCheckBox
         Left = 16
-        Height = 19
+        Height = 18
         Top = 24
-        Width = 74
+        Width = 91
         Caption = 'Show Hints'
         TabOrder = 1
       end
@@ -229,4 +229,4 @@ object frmKeyMappings: TfrmKeyMappings
     left = 40
     top = 144
   end
-end
+end

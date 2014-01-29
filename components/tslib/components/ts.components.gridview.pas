@@ -110,6 +110,13 @@ const
   EM_SETRECTNP    = 180;
   EM_SCROLLCARET  = 183;
   EM_SETSEL       = 177;
+  {$ifdef darwin}
+  ssCtrlOS = ssMeta;     // Mac OS X fix
+  {$else}
+  ssCtrlOS = ssCtrl;
+  {$endif}
+
+
 
 type
   TWMLButtonDown   = TLMLButtonDown;
@@ -5018,12 +5025,12 @@ begin
   case Key of
     VK_UP, VK_DOWN:
       {the displacement of focus}
-      if (Shift = [ssCtrl]) or
+      if (Shift = [ssCtrlOS]) or
         ((Shift = []) and (not(WantReturns or WordWrap))) then
         SendToParent;
     VK_PRIOR, VK_NEXT:
       {the displacement of focus}
-      if Shift = [ssCtrl] then
+      if Shift = [ssCtrlOS] then
         SendToParent;
     VK_ESCAPE:
       {cancellation}
@@ -5039,7 +5046,7 @@ begin
 (*
     VK_LEFT, VK_RIGHT, VK_HOME, VK_END:
       {the displacement of focus with that pressed Ctrl}
-      if Shift = [ssCtrl] then
+      if Shift = [ssCtrlOS] then
         SendToParent;
 *)
 
@@ -5478,7 +5485,7 @@ procedure TCustomGridEdit.WndProc(var Message: TMessage);
 
   procedure DoButtonKeys(var Key: Word; Shift: TShiftState);
   begin
-    if (Key = VK_RETURN) and (Shift = [ssCtrl]) then
+    if (Key = VK_RETURN) and (Shift = [ssCtrlOS]) then
     begin
       KillMessage(Handle, WM_CHAR);
       Key := 0;
@@ -8188,13 +8195,13 @@ begin
       VK_HOME:
         {cursor into the beginning of line or table}
         begin
-          Cell := GetCursorCell(CellFocused, HomeOffsets[ssCtrl in Shift]);
+          Cell := GetCursorCell(CellFocused, HomeOffsets[ssCtrlOS in Shift]);
           SetCursor(Cell, True, True);
         end;
       VK_END:
         {cursor into the end of the line or table}
         begin
-          Cell := GetCursorCell(CellFocused, EndOffsets[ssCtrl in Shift]);
+          Cell := GetCursorCell(CellFocused, EndOffsets[ssCtrlOS in Shift]);
           SetCursor(Cell, True, True);
         end;
     end;
@@ -8212,7 +8219,7 @@ begin
       CheckClick(CellFocused);
 
   { ADDED TS : autosize columns }
-  if ([ssCtrl, ssShift] <= Shift) and (Key = VK_ADD) then
+  if ([ssCtrlOS, ssShift] <= Shift) and (Key = VK_ADD) then
   begin
     AutoSizeCols;
     Key := 0;

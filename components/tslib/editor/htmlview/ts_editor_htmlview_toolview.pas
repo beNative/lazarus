@@ -25,9 +25,9 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-  {$IFDEF Windows}
-  FramView, HtmlGlobals,
-  {$ENDIF}
+
+  FramView,
+
 
   ts.Editor.Interfaces, ts_Editor_ToolView_Base, ts.Editor.HTMLView.Settings;
 
@@ -37,18 +37,16 @@ type
 
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
   private
-    {$IFDEF Windows}
+
     FHTMLViewer: TFrameViewer;
     function GetSettings: THTMLViewSettings;
-    {$ENDIF}
 
   strict protected
     procedure UpdateView; override;
 
-    {$IFDEF Windows}
     property Settings : THTMLViewSettings
       read GetSettings;
-    {$ENDIF}
+
 
   public
     procedure AfterConstruction; override;
@@ -62,33 +60,33 @@ implementation
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
-{$IFDEF Windows}
+
   FHTMLViewer := TFrameViewer.Create(Self);
   FHTMLViewer.Parent := Self;
   FHTMLViewer.Align := alClient;
   FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
-{$ENDIF}
+
 end;
 {$endregion}
 
 {$region 'protected methods' /fold}
-{$IFDEF Windows}
+
 function TfrmHTMLView.GetSettings: THTMLViewSettings;
 begin
   Result := inherited Settings
     .ToolSettings.ItemsByClass[THTMLViewSettings] as THTMLViewSettings;
 end;
-{$ENDIF}
+
 
 procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
-{$IFDEF Windows}
+
   if FileExistsUTF8(View.FileName) then
-    FHTMLViewer.LoadFromFile(WideString(View.FileName))
+    FHTMLViewer.LoadFromFile(View.FileName)
   else
-    FHTMLViewer.LoadFromString(WideString(View.Text));
-{$ENDIF}
+    FHTMLViewer.Load(View.Text);
+
 end;
 {$endregion}
 

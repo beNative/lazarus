@@ -1,13 +1,13 @@
 object frmMain: TfrmMain
-  Left = 336
+  Left = 0
   Height = 618
-  Top = 21
-  Width = 1066
+  Top = 22
+  Width = 752
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
   ClientHeight = 618
-  ClientWidth = 1066
+  ClientWidth = 752
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
@@ -22,12 +22,12 @@ object frmMain: TfrmMain
     Left = 0
     Height = 18
     Top = 600
-    Width = 1066
+    Width = 752
     Align = alBottom
     BorderSpacing.Top = 2
     BevelOuter = bvNone
     ClientHeight = 18
-    ClientWidth = 1066
+    ClientWidth = 752
     Color = clForm
     ParentColor = False
     TabOrder = 0
@@ -60,7 +60,7 @@ object frmMain: TfrmMain
       TabOrder = 1
     end
     object pnlFileName: TPanel
-      Left = 792
+      Left = 752
       Height = 18
       Top = 0
       Width = 320

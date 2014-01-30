@@ -30,9 +30,7 @@ uses
   Forms,
   Notepas_Forms_Main,
 
-  {$IFDEF Windows}
-  FrameViewer09,
-  {$ENDIF}
+  HtmlComp,
   lazrichedit,
   richmemopackage,
 

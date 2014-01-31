@@ -48,6 +48,7 @@
             </SyntaxOptions>
           </Parsing>
           <CodeGeneration>
+            <RelocatableUnit Value="True"/>
             <Checks>
               <IOChecks Value="True"/>
               <RangeChecks Value="True"/>

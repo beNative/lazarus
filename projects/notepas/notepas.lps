@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="9"/>
     <BuildModes Active="Debug"/>
-    <Units Count="217">
+    <Units Count="210">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -22,10 +22,11 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Notepas_Forms_Main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="49"/>
-        <CursorPos X="44" Y="122"/>
+        <TopLine Value="188"/>
+        <CursorPos X="84" Y="52"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -110,7 +111,7 @@
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="171"/>
+        <TopLine Value="221"/>
         <CursorPos X="34" Y="201"/>
         <UsageCount Value="201"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -808,12 +809,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_Search_Toolview"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="160"/>
-        <CursorPos X="1" Y="199"/>
+        <TopLine Value="186"/>
+        <CursorPos X="1" Y="201"/>
         <UsageCount Value="201"/>
-        <Bookmarks Count="1">
-          <Item0 X="1" Y="199" ID="1"/>
-        </Bookmarks>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit91>
       <Unit92>
@@ -1270,14 +1268,14 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="53" Y="109"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="81"/>
       </Unit137>
       <Unit138>
         <Filename Value="ideas.txt"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="53" Y="10"/>
-        <UsageCount Value="175"/>
+        <UsageCount Value="173"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit138>
       <Unit139>
@@ -1291,7 +1289,7 @@
           <TopLine Value="204"/>
           <CursorPos X="71" Y="252"/>
         </ExtraEditor1>
-        <UsageCount Value="174"/>
+        <UsageCount Value="172"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit139>
       <Unit140>
@@ -1299,7 +1297,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="60"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit140>
       <Unit141>
@@ -1307,7 +1305,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="6" Y="46"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="53"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit141>
       <Unit142>
@@ -1319,7 +1317,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="22"/>
         <CursorPos X="48" Y="38"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit142>
       <Unit143>
@@ -1327,490 +1325,426 @@
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="23" Y="101"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit143>
       <Unit144>
-        <Filename Value="..\..\..\fpcsrc\rtl\inc\varianth.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-      </Unit144>
-      <Unit145>
         <Filename Value="..\..\..\typhon\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="549"/>
         <CursorPos X="15" Y="567"/>
-        <UsageCount Value="20"/>
-      </Unit145>
-      <Unit146>
+        <UsageCount Value="18"/>
+      </Unit144>
+      <Unit145>
         <Filename Value="..\..\..\fpcsrc\rtl\win\sysutils.pp"/>
         <UnitName Value="sysutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="650"/>
         <CursorPos X="1" Y="654"/>
-        <UsageCount Value="5"/>
-      </Unit146>
-      <Unit147>
+        <UsageCount Value="3"/>
+      </Unit145>
+      <Unit146>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\sysutils\osutil.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="4"/>
         <CursorPos X="1" Y="22"/>
-        <UsageCount Value="5"/>
-      </Unit147>
-      <Unit148>
+        <UsageCount Value="3"/>
+      </Unit146>
+      <Unit147>
         <Filename Value="..\..\..\typhon\components\multithreadprocs\mtpcpu.pas"/>
         <UnitName Value="MTPCPU"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="51"/>
-        <UsageCount Value="5"/>
-      </Unit148>
-      <Unit149>
+        <UsageCount Value="3"/>
+      </Unit147>
+      <Unit148>
         <Filename Value="..\..\..\typhon\components\pl_FortesReport\source\rlreport.pas"/>
         <UnitName Value="RLReport"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1977"/>
         <CursorPos X="14" Y="1993"/>
-        <UsageCount Value="5"/>
-      </Unit149>
-      <Unit150>
+        <UsageCount Value="3"/>
+      </Unit148>
+      <Unit149>
         <Filename Value="..\..\..\fpcsrc\compiler\cfileutl.pas"/>
         <UnitName Value="cfileutl"/>
         <WindowIndex Value="0"/>
         <TopLine Value="509"/>
         <CursorPos X="28" Y="525"/>
-        <UsageCount Value="5"/>
-      </Unit150>
-      <Unit151>
+        <UsageCount Value="3"/>
+      </Unit149>
+      <Unit150>
         <Filename Value="..\..\..\fpcsrc\compiler\systems.pas"/>
         <UnitName Value="systems"/>
         <WindowIndex Value="0"/>
         <TopLine Value="160"/>
         <CursorPos X="8" Y="152"/>
-        <UsageCount Value="5"/>
-      </Unit151>
-      <Unit152>
+        <UsageCount Value="3"/>
+      </Unit150>
+      <Unit151>
         <Filename Value="..\..\..\fpcsrc\compiler\systems\i_linux.pas"/>
         <UnitName Value="i_linux"/>
         <WindowIndex Value="0"/>
         <TopLine Value="730"/>
         <CursorPos X="33" Y="746"/>
-        <UsageCount Value="5"/>
-      </Unit152>
-      <Unit153>
+        <UsageCount Value="3"/>
+      </Unit151>
+      <Unit152>
         <Filename Value="..\..\..\fpcsrc\compiler\systems.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="185"/>
         <CursorPos X="8" Y="81"/>
-        <UsageCount Value="5"/>
-      </Unit153>
-      <Unit154>
-        <Filename Value="..\..\..\typhon\components\pl_ExSystem\source\ExSystemConsts.pas"/>
-        <UnitName Value="ExSystemConsts"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="81"/>
-        <CursorPos X="28" Y="86"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit154>
-      <Unit155>
-        <Filename Value="..\..\..\typhon\components\pl_ExSystem\source\TplProcessThreadUnit.pas"/>
-        <UnitName Value="TplProcessThreadUnit"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="27" Y="10"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit155>
-      <Unit156>
-        <Filename Value="..\..\..\typhon\components\pl_ExSystem\source\vd_resource.pas"/>
-        <UnitName Value="vd_resource"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit156>
-      <Unit157>
-        <Filename Value="..\..\..\typhon\components\pl_ExSystem\source\TplMemINIUnit.pas"/>
-        <UnitName Value="TplMemINIUnit"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="1"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit157>
-      <Unit158>
-        <Filename Value="..\..\..\fpcsrc\rtl\win\dynlibs.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="8"/>
-        <CursorPos X="3" Y="24"/>
-        <UsageCount Value="1"/>
-      </Unit158>
-      <Unit159>
+        <UsageCount Value="3"/>
+      </Unit152>
+      <Unit153>
         <Filename Value="..\..\..\fpcsrc\packages\winunits-jedi\src\jwatlhelp32.pas"/>
         <UnitName Value="JwaTlHelp32"/>
         <WindowIndex Value="0"/>
         <TopLine Value="353"/>
         <CursorPos X="17" Y="375"/>
-        <UsageCount Value="10"/>
-      </Unit159>
-      <Unit160>
+        <UsageCount Value="8"/>
+      </Unit153>
+      <Unit154>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="416"/>
         <CursorPos X="15" Y="442"/>
-        <UsageCount Value="33"/>
-      </Unit160>
-      <Unit161>
+        <UsageCount Value="31"/>
+      </Unit154>
+      <Unit155>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\sysutils\sysunih.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="27"/>
         <CursorPos X="11" Y="61"/>
-        <UsageCount Value="5"/>
-      </Unit161>
-      <Unit162>
+        <UsageCount Value="3"/>
+      </Unit155>
+      <Unit156>
         <Filename Value="..\..\..\typhon\components\synedit\syneditexport.pas"/>
         <UnitName Value="SynEditExport"/>
         <WindowIndex Value="0"/>
         <TopLine Value="282"/>
         <CursorPos X="18" Y="292"/>
-        <UsageCount Value="7"/>
-      </Unit162>
-      <Unit163>
-        <Filename Value="..\..\..\fpcsrc\rtl\inc\systemh.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1205"/>
-        <CursorPos X="11" Y="1085"/>
-        <UsageCount Value="1"/>
-      </Unit163>
-      <Unit164>
+        <UsageCount Value="5"/>
+      </Unit156>
+      <Unit157>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\classes\stringl.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="86"/>
         <CursorPos X="1" Y="94"/>
-        <UsageCount Value="10"/>
-      </Unit164>
-      <Unit165>
+        <UsageCount Value="8"/>
+      </Unit157>
+      <Unit158>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\strutils.pp"/>
         <UnitName Value="strutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="357"/>
         <CursorPos X="24" Y="379"/>
-        <UsageCount Value="10"/>
-      </Unit165>
-      <Unit166>
+        <UsageCount Value="8"/>
+      </Unit158>
+      <Unit159>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-base\src\avl_tree.pp"/>
         <UnitName Value="AVL_Tree"/>
         <WindowIndex Value="0"/>
         <TopLine Value="85"/>
         <CursorPos X="3" Y="65"/>
-        <UsageCount Value="10"/>
-      </Unit166>
-      <Unit167>
+        <UsageCount Value="8"/>
+      </Unit159>
+      <Unit160>
         <Filename Value="..\..\..\typhon\components\synedit\synedittypes.pp"/>
         <UnitName Value="SynEditTypes"/>
         <WindowIndex Value="0"/>
         <TopLine Value="75"/>
         <CursorPos X="54" Y="93"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="33"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit167>
-      <Unit168>
+      </Unit160>
+      <Unit161>
         <Filename Value="..\..\..\typhon\components\synedit\syneditkeycmds.pp"/>
         <UnitName Value="SynEditKeyCmds"/>
         <WindowIndex Value="0"/>
         <TopLine Value="332"/>
         <CursorPos X="14" Y="353"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit168>
-      <Unit169>
+      </Unit161>
+      <Unit162>
         <Filename Value="..\..\..\typhon\components\synedit\synedit.pp"/>
         <UnitName Value="SynEdit"/>
         <WindowIndex Value="0"/>
         <TopLine Value="234"/>
         <CursorPos X="24" Y="248"/>
-        <UsageCount Value="9"/>
-      </Unit169>
-      <Unit170>
+        <UsageCount Value="7"/>
+      </Unit162>
+      <Unit163>
         <Filename Value="..\..\..\typhon\components\synedit\syngutterbase.pp"/>
         <UnitName Value="SynGutterBase"/>
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="3" Y="13"/>
-        <UsageCount Value="10"/>
-      </Unit170>
-      <Unit171>
+        <UsageCount Value="8"/>
+      </Unit163>
+      <Unit164>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmarks.pp"/>
         <UnitName Value="SynEditMarks"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="18" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit171>
-      <Unit172>
+        <UsageCount Value="8"/>
+      </Unit164>
+      <Unit165>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmarkupctrlmouselink.pp"/>
         <UnitName Value="SynEditMarkupCtrlMouseLink"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="4"/>
-      </Unit172>
-      <Unit173>
+        <UsageCount Value="2"/>
+      </Unit165>
+      <Unit166>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmarkup.pp"/>
         <UnitName Value="SynEditMarkup"/>
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="3" Y="43"/>
-        <UsageCount Value="4"/>
-      </Unit173>
-      <Unit174>
+        <UsageCount Value="2"/>
+      </Unit166>
+      <Unit167>
         <Filename Value="..\..\..\typhon\components\synedit\syneditmousecmds.pp"/>
         <UnitName Value="SynEditMouseCmds"/>
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="24" Y="43"/>
-        <UsageCount Value="9"/>
-      </Unit174>
-      <Unit175>
+        <UsageCount Value="7"/>
+      </Unit167>
+      <Unit168>
         <Filename Value="..\..\..\typhon\components\synedit\lazsyneditmousecmdstypes.pp"/>
         <UnitName Value="LazSynEditMouseCmdsTypes"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit175>
-      <Unit176>
-        <Filename Value="..\..\..\fpcsrc\rtl\objpas\classes\collect.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="318"/>
-        <CursorPos X="3" Y="321"/>
-        <UsageCount Value="1"/>
-      </Unit176>
-      <Unit177>
+        <UsageCount Value="8"/>
+      </Unit168>
+      <Unit169>
         <Filename Value="..\..\..\typhon\components\synedit\synhighlightersql.pas"/>
         <UnitName Value="SynHighlighterSQL"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1895"/>
         <CursorPos X="5" Y="1933"/>
-        <UsageCount Value="3"/>
-      </Unit177>
-      <Unit178>
+        <UsageCount Value="1"/>
+      </Unit169>
+      <Unit170>
         <Filename Value="..\..\..\typhon\components\synedit\synedithighlighter.pp"/>
         <UnitName Value="SynEditHighlighter"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1196"/>
         <CursorPos X="23" Y="1218"/>
-        <UsageCount Value="3"/>
-      </Unit178>
-      <Unit179>
+        <UsageCount Value="1"/>
+      </Unit170>
+      <Unit171>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\classes\compon.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="237"/>
         <CursorPos X="3" Y="240"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="2"/>
+      </Unit171>
+      <Unit172>
+        <Filename Value="..\..\..\typhon\lcl\include\application.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="1"/>
+      </Unit172>
+      <Unit173>
+        <Filename Value="..\..\..\typhon\components\synedit\synedithighlighterfoldbase.pas"/>
+        <UnitName Value="SynEditHighlighterFoldBase"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="49"/>
+        <CursorPos X="38" Y="51"/>
+        <UsageCount Value="8"/>
+      </Unit173>
+      <Unit174>
+        <Filename Value="..\..\..\fpcsrc\packages\fv\src\views.pas"/>
+        <UnitName Value="Views"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="2"/>
+      </Unit174>
+      <Unit175>
+        <Filename Value="..\..\..\typhon\lcl\comctrls.pp"/>
+        <UnitName Value="ComCtrls"/>
+        <WindowIndex Value="2"/>
+        <TopLine Value="2145"/>
+        <CursorPos X="19" Y="2174"/>
+        <UsageCount Value="48"/>
+      </Unit175>
+      <Unit176>
+        <Filename Value="..\..\..\typhon\lcl\toolwin.pp"/>
+        <UnitName Value="Toolwin"/>
+        <WindowIndex Value="2"/>
+        <TopLine Value="5"/>
+        <CursorPos X="26" Y="45"/>
+        <UsageCount Value="46"/>
+      </Unit176>
+      <Unit177>
+        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\platform\virtualpanningwindow_win32.pas"/>
+        <UnitName Value="virtualpanningwindow"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="72"/>
+        <CursorPos X="1" Y="110"/>
+        <UsageCount Value="10"/>
+      </Unit177>
+      <Unit178>
+        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\include\vtgraphicsi_qt.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="31"/>
+      </Unit178>
+      <Unit179>
+        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\platform\virtualpanningwindow_gtk2.pas"/>
+        <UnitName Value="virtualpanningwindow"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="17"/>
+        <CursorPos X="1" Y="55"/>
+        <UsageCount Value="10"/>
       </Unit179>
       <Unit180>
-        <Filename Value="..\..\..\typhon\lcl\include\application.inc"/>
+        <Filename Value="..\..\..\typhon\packager\registration\fcllaz.pas"/>
+        <UnitName Value="fcllaz"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="3"/>
       </Unit180>
       <Unit181>
-        <Filename Value="..\..\..\typhon\components\synedit\synedithighlighterfoldbase.pas"/>
-        <UnitName Value="SynEditHighlighterFoldBase"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="49"/>
-        <CursorPos X="38" Y="51"/>
-        <UsageCount Value="10"/>
-      </Unit181>
-      <Unit182>
-        <Filename Value="..\..\..\fpcsrc\packages\fv\src\views.pas"/>
-        <UnitName Value="Views"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="4"/>
-      </Unit182>
-      <Unit183>
-        <Filename Value="..\..\..\typhon\lcl\comctrls.pp"/>
-        <UnitName Value="ComCtrls"/>
-        <WindowIndex Value="2"/>
-        <TopLine Value="2145"/>
-        <CursorPos X="19" Y="2174"/>
-        <UsageCount Value="50"/>
-      </Unit183>
-      <Unit184>
-        <Filename Value="..\..\..\typhon\lcl\toolwin.pp"/>
-        <UnitName Value="Toolwin"/>
-        <WindowIndex Value="2"/>
-        <TopLine Value="5"/>
-        <CursorPos X="26" Y="45"/>
-        <UsageCount Value="48"/>
-      </Unit184>
-      <Unit185>
-        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\platform\virtualpanningwindow_win32.pas"/>
-        <UnitName Value="virtualpanningwindow"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="72"/>
-        <CursorPos X="1" Y="110"/>
-        <UsageCount Value="2"/>
-      </Unit185>
-      <Unit186>
-        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\include\vtgraphicsi_qt.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="33"/>
-      </Unit186>
-      <Unit187>
-        <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\platform\virtualpanningwindow_gtk2.pas"/>
-        <UnitName Value="virtualpanningwindow"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
-        <CursorPos X="1" Y="55"/>
-        <UsageCount Value="2"/>
-      </Unit187>
-      <Unit188>
-        <Filename Value="..\..\..\typhon\packager\registration\fcllaz.pas"/>
-        <UnitName Value="fcllaz"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="5"/>
-      </Unit188>
-      <Unit189>
         <Filename Value="..\..\..\typhon\components\pl_VirtualTrees\source\VirtualTrees.pas"/>
         <UnitName Value="VirtualTrees"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1907"/>
         <CursorPos X="1" Y="1928"/>
-        <UsageCount Value="32"/>
-      </Unit189>
-      <Unit190>
+        <UsageCount Value="30"/>
+      </Unit181>
+      <Unit182>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-base\src\contnrs.pp"/>
         <UnitName Value="contnrs"/>
         <WindowIndex Value="0"/>
         <TopLine Value="793"/>
         <CursorPos X="71" Y="821"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="29"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit190>
-      <Unit191>
+      </Unit182>
+      <Unit183>
         <Filename Value="..\..\..\typhon\lcl\graphics.pp"/>
         <UnitName Value="Graphics"/>
         <WindowIndex Value="0"/>
         <TopLine Value="535"/>
         <CursorPos X="15" Y="553"/>
-        <UsageCount Value="19"/>
-      </Unit191>
-      <Unit192>
+        <UsageCount Value="17"/>
+      </Unit183>
+      <Unit184>
         <Filename Value="..\..\..\typhon\lcl\include\font.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1310"/>
         <CursorPos X="1" Y="1336"/>
-        <UsageCount Value="21"/>
-      </Unit192>
-      <Unit193>
+        <UsageCount Value="19"/>
+      </Unit184>
+      <Unit185>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-image\src\fpcanvas.pp"/>
         <UnitName Value="FPCanvas"/>
         <WindowIndex Value="0"/>
         <TopLine Value="44"/>
         <CursorPos X="15" Y="60"/>
-        <UsageCount Value="19"/>
-      </Unit193>
-      <Unit194>
+        <UsageCount Value="17"/>
+      </Unit185>
+      <Unit186>
         <Filename Value="..\..\..\typhon\ide\keymapping.pp"/>
         <UnitName Value="KeyMapping"/>
         <WindowIndex Value="0"/>
         <TopLine Value="501"/>
         <CursorPos X="1" Y="488"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit194>
-      <Unit195>
+      </Unit186>
+      <Unit187>
         <Filename Value="..\..\..\typhon\components\ideintf\idecommands.pas"/>
         <UnitName Value="IDECommands"/>
         <WindowIndex Value="0"/>
         <TopLine Value="94"/>
         <CursorPos X="15" Y="114"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit195>
-      <Unit196>
+      </Unit187>
+      <Unit188>
         <Filename Value="..\..\..\typhon\ide\main.pp"/>
         <UnitName Value="Main"/>
         <WindowIndex Value="0"/>
         <TopLine Value="14064"/>
         <CursorPos X="3" Y="14073"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit196>
-      <Unit197>
+      </Unit188>
+      <Unit189>
         <Filename Value="..\..\..\typhon\ide\mainbase.pas"/>
         <UnitName Value="MainBase"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1175"/>
         <CursorPos X="45" Y="1195"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit197>
-      <Unit198>
+      </Unit189>
+      <Unit190>
         <Filename Value="..\..\..\typhon\ide\mainbar.pas"/>
         <UnitName Value="MainBar"/>
         <WindowIndex Value="0"/>
         <TopLine Value="102"/>
         <CursorPos X="9" Y="229"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit198>
-      <Unit199>
+      </Unit190>
+      <Unit191>
         <Filename Value="..\..\..\typhon\ide\sourceeditor.pp"/>
         <UnitName Value="SourceEditor"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1190"/>
         <CursorPos X="14" Y="1209"/>
-        <UsageCount Value="8"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit199>
-      <Unit200>
+      </Unit191>
+      <Unit192>
         <Filename Value="..\..\..\lazarus\components\sqldb\registersqldb.pas"/>
         <UnitName Value="registersqldb"/>
         <WindowIndex Value="0"/>
         <TopLine Value="73"/>
         <CursorPos X="5" Y="91"/>
-        <UsageCount Value="4"/>
-      </Unit200>
-      <Unit201>
+        <UsageCount Value="2"/>
+      </Unit192>
+      <Unit193>
         <Filename Value="..\..\..\lazarus\lcl\lclclasses.pp"/>
         <UnitName Value="LCLClasses"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="5" Y="26"/>
-        <UsageCount Value="3"/>
-      </Unit201>
-      <Unit202>
+        <UsageCount Value="1"/>
+      </Unit193>
+      <Unit194>
         <Filename Value="..\..\..\lazarus\lcl\forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="47" Y="29"/>
-        <UsageCount Value="11"/>
-      </Unit202>
-      <Unit203>
+        <UsageCount Value="9"/>
+      </Unit194>
+      <Unit195>
         <Filename Value="..\..\..\lazarus\lcl\controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
         <CursorPos X="36" Y="38"/>
-        <UsageCount Value="11"/>
-      </Unit203>
-      <Unit204>
+        <UsageCount Value="9"/>
+      </Unit195>
+      <Unit196>
         <Filename Value="..\..\components\ExceptionLogger\UExceptionForm.pas"/>
         <ComponentName Value="ExceptionForm"/>
         <HasResources Value="True"/>
@@ -1819,118 +1753,122 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="66" Y="10"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit204>
-      <Unit205>
+      </Unit196>
+      <Unit197>
         <Filename Value="..\..\components\richmemo\richmemoregister.pas"/>
         <UnitName Value="richmemoregister"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="72" Y="13"/>
-        <UsageCount Value="10"/>
-      </Unit205>
-      <Unit206>
+        <UsageCount Value="8"/>
+      </Unit197>
+      <Unit198>
         <Filename Value="..\..\components\richmemo\wsrichmemo.pas"/>
         <UnitName Value="WSRichMemo"/>
         <WindowIndex Value="0"/>
         <TopLine Value="110"/>
         <CursorPos X="1" Y="1"/>
-        <UsageCount Value="10"/>
-      </Unit206>
-      <Unit207>
+        <UsageCount Value="8"/>
+      </Unit198>
+      <Unit199>
         <Filename Value="..\..\components\lazRichEdit\widgetset\wsrichbox.pas"/>
         <UnitName Value="WSRichBox"/>
         <WindowIndex Value="0"/>
         <TopLine Value="82"/>
         <CursorPos X="110" Y="90"/>
-        <UsageCount Value="10"/>
-      </Unit207>
-      <Unit208>
+        <UsageCount Value="8"/>
+      </Unit199>
+      <Unit200>
         <Filename Value="..\..\components\virtualtrees\VirtualTrees.pas"/>
         <UnitName Value="VirtualTrees"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="464"/>
-        <CursorPos X="5" Y="482"/>
-        <UsageCount Value="21"/>
-      </Unit208>
-      <Unit209>
+        <TopLine Value="335"/>
+        <CursorPos X="3" Y="353"/>
+        <UsageCount Value="30"/>
+        <Bookmarks Count="2">
+          <Item0 X="43" Y="21533" ID="2"/>
+          <Item1 X="13" Y="2126" ID="1"/>
+        </Bookmarks>
+      </Unit200>
+      <Unit201>
         <Filename Value="..\..\..\lazarus\fpc\2.7.1\source\rtl\win\wininc\struct.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="202"/>
         <CursorPos X="6" Y="217"/>
-        <UsageCount Value="4"/>
-      </Unit209>
-      <Unit210>
+        <UsageCount Value="2"/>
+      </Unit201>
+      <Unit202>
         <Filename Value="..\..\..\lazarus\fpc\2.7.1\source\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2024"/>
         <CursorPos X="10" Y="2039"/>
-        <UsageCount Value="4"/>
-      </Unit210>
-      <Unit211>
+        <UsageCount Value="2"/>
+      </Unit202>
+      <Unit203>
         <Filename Value="..\..\components\tslib\editor\ts_editor_settingsdialog_old.pas"/>
         <UnitName Value="ts_Editor_SettingsDialog_Old"/>
         <WindowIndex Value="0"/>
         <TopLine Value="175"/>
         <CursorPos X="1" Y="480"/>
-        <UsageCount Value="5"/>
+        <UsageCount Value="3"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit211>
-      <Unit212>
+      </Unit203>
+      <Unit204>
         <Filename Value="..\..\..\lazarus\components\lazutils\lazmethodlist.pas"/>
         <UnitName Value="LazMethodList"/>
         <WindowIndex Value="0"/>
         <TopLine Value="6"/>
         <CursorPos X="14" Y="22"/>
-        <UsageCount Value="9"/>
-      </Unit212>
-      <Unit213>
+        <UsageCount Value="7"/>
+      </Unit204>
+      <Unit205>
         <Filename Value="..\..\components\thtmlviewer\source\HtmlGlobals.pas"/>
         <UnitName Value="HtmlGlobals"/>
         <WindowIndex Value="0"/>
         <TopLine Value="596"/>
         <CursorPos X="28" Y="614"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="19"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit213>
-      <Unit214>
+      </Unit205>
+      <Unit206>
         <Filename Value="..\..\..\development\lazarus\lcl\actnlist.pas"/>
         <UnitName Value="ActnList"/>
         <WindowIndex Value="0"/>
         <TopLine Value="118"/>
         <CursorPos X="3" Y="136"/>
-        <UsageCount Value="9"/>
-      </Unit214>
-      <Unit215>
+        <UsageCount Value="7"/>
+      </Unit206>
+      <Unit207>
         <Filename Value="..\..\..\development\fpc\rtl\objpas\classes\classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="71" Y="114"/>
-        <UsageCount Value="9"/>
-      </Unit215>
-      <Unit216>
+        <UsageCount Value="7"/>
+      </Unit207>
+      <Unit208>
         <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
         <UnitName Value="htmlun2"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="481"/>
-        <CursorPos X="6" Y="493"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
+        <CursorPos X="26" Y="495"/>
+        <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit216>
+      </Unit208>
+      <Unit209>
+        <Filename Value="..\..\components\lclextensions\delphicompat.pas"/>
+        <UnitName Value="DelphiCompat"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="122"/>
+        <CursorPos X="2" Y="134"/>
+        <UsageCount Value="8"/>
+      </Unit209>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="1" HistoryIndex="0">
-      <Position1>
-        <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
-        <Caret Line="1" Column="1" TopLine="1"/>
-      </Position1>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="2">
@@ -1946,7 +1884,7 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="..\..\components\virtualtrees\VirtualTrees.pas"/>
-        <Line Value="16940"/>
+        <Line Value="16944"/>
       </Item2>
     </BreakPoints>
   </Debugging>

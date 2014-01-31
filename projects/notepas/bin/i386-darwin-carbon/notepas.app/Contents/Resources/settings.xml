@@ -1268,7 +1268,7 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>SH</HighlighterType>
+	<HighlighterType>SQL</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
 		<Left>200</Left>

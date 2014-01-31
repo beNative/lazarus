@@ -350,6 +350,10 @@ uses
 const
   {$I lclconstants.inc}
 
+  {$ifdef Darwin}
+  {$define PACKARRAYPASCAL}
+  {$endif}
+
   {$if defined(LCLGtk) or defined(LCLGtk2)}
     {$define Gtk}
   {$endif}
@@ -21526,11 +21530,7 @@ begin
     if NewLength > 1 then
       QuickSort(NewItems, 0, NewLength - 1);
 
-    //initialize array for fpc 2.7.1 errors
-    if FSelectionCount=0 then
-       SetLength(FSelection, 0);
-
-    // 3) Make room in FSelection for the new items.
+    // 3) Make room in FSelecdsftion for the new items.
     if FSelectionCount + NewLength >= Length(FSelection) then
       SetLength(FSelection, FSelectionCount + NewLength);
 

@@ -799,11 +799,15 @@ procedure TEditorView.EditorGutterClick(Sender: TObject; X, Y, Line: Integer;
 var
   S : string;
 begin
+  try
   S := GetEnumName(TypeInfo(TSynEditMark), Integer(Mark));
   Logger.Send(
     'EditorGutterClick(X = %d; Y = %d; Line = %d; Mark = %s)',
     [X, Y, Line, S]
   );
+  except
+    Logger.SendWarning('Logging error on EditorGutterClick exception found');
+  end;
 end;
 
 procedure TEditorView.EditorCutCopy(Sender: TObject; var AText: string;

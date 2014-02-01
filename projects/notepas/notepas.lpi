@@ -1048,6 +1048,7 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -1136,6 +1137,7 @@ end;"/>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -1647,10 +1649,12 @@ end;"/>
       <Unit119>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Logger"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SharedLogger"/>
       </Unit120>
       <Unit121>
         <Filename Value="..\..\components\tslib\editor\colors\ts_editor_colors_toolview.pas"/>
@@ -1719,10 +1723,12 @@ end;"/>
       <Unit135>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Toolbars"/>
       </Unit136>
     </Units>
   </ProjectOptions>

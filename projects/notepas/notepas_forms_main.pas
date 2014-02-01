@@ -243,9 +243,9 @@ begin
   );
   FManager.PersistSettings := True;
 { TODO -oTS : Make this work in a cross platform fashion }
-{$IFNDEF Darwin}
+//{$IFNDEF Darwin}
   FUniqueInstance.Enabled := Settings.SingleInstance;
-{$ENDIF}
+//{$ENDIF}
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
   FMainToolbar :=
     TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
@@ -278,9 +278,9 @@ end;
 procedure TfrmMain.BeforeDestruction;
 begin
 { TODO -oTS : Make this work in a cross platform fashion }
-{$IFNDEF Darwin}
+//{$IFNDEF Darwin}
   Settings.FormSettings.Assign(Self);
-{$ENDIF}
+//{$ENDIF}
   FSettings := nil;
   FManager  := nil;
   inherited BeforeDestruction;
@@ -447,10 +447,10 @@ end;
 procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
 begin
 { TODO -oTS : Make this work in a cross platform fashion }
-{$IFNDEF Darwin}
+//{$IFNDEF Darwin}
   WindowState := Settings.FormSettings.WindowState;
   FormStyle   := Settings.FormSettings.FormStyle;
-{$ENDIF}
+//{$ENDIF}
   UpdateControls;
 end;
 
@@ -503,9 +503,9 @@ end;
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);
 begin
 { TODO -oTS : Make this work in a cross platform fashion }
-{$IFNDEF Darwin}
+//{$IFNDEF Darwin}
   Settings.FormSettings.WindowState := WindowState;
-{$ENDIF}
+//{$ENDIF}
 end;
 
 procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject;
@@ -628,9 +628,9 @@ begin
   FSelectionToolbar.Transparent := True;
   FSelectionToolbar.DoubleBuffered := True;
 
-{$IFNDEF Darwin}
+//{$IFNDEF Darwin}
   Settings.FormSettings.AssignTo(Self);
-{$ENDIF}
+//{$ENDIF}
   UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;

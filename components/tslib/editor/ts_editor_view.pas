@@ -1045,6 +1045,10 @@ begin
     // HighlighterItem is always assigned
     HighlighterItem := Manager.Highlighters.ItemsByName[AValue];
   end;
+  //if no Highlighters defined, we use the number0 Highlighters
+  if trim(AValue)='' then
+     if Manager.Highlighters.Count>0 then
+         HighlighterItem := Manager.Highlighters.Items[0];
 end;
 
 function TEditorView.GetInsertMode: Boolean;

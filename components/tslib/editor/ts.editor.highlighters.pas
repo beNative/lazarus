@@ -468,7 +468,7 @@ var
   I : Integer;
   B : Boolean;
 begin
-  if not Assigned(FSynHighlighter) and (ComponentCount > 0) then
+  if (FSynHighlighter=nil) and (ComponentCount > 0) then
   begin
     I := 0;
     B := False;

@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="34"/>
-      <BuildNr Value="157"/>
+      <BuildNr Value="158"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.34" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="14">
@@ -1057,6 +1057,7 @@ end;"/>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -1157,7 +1158,6 @@ end;"/>
       <Unit30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -1722,7 +1722,6 @@ end;"/>
       <Unit135>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>

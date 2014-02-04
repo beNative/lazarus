@@ -2793,20 +2793,27 @@ begin
   Events.DoSave(AFileName);
   if AShowDialog or not FileExistsUTF8(AFileName) then
   begin
-    dlgSave.Filter := Settings.Highlighters.FileFilter;
-    /// TODO
-    //if Assigned(ActiveView.Editor.Highlighter) then
-    //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
-    dlgSave.FileName := AFileName;
-    if dlgSave.Execute then
+    if not FileExistsUTF8(ActiveView.FileName) then
     begin
-      ActiveView.FileName := dlgSave.FileName;
-      ActiveView.Save(dlgSave.FileName);
-      Result := True;
+        dlgSave.Filter := Settings.Highlighters.FileFilter;
+        /// TODO
+        //if Assigned(ActiveView.Editor.Highlighter) then
+        //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
+        dlgSave.FileName := AFileName;
+        if dlgSave.Execute then
+        begin
+          ActiveView.FileName := dlgSave.FileName;
+          ActiveView.Save(dlgSave.FileName);
+          Result := True;
+        end
+        else Result := False;
     end
     else
-      Result := False;
-  end
+    begin
+       ActiveView.Save(ActiveView.FileName);
+       Result := True;
+    end;
+    end
   else
   begin
     ActiveView.FileName := AFileName;

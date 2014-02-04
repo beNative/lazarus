@@ -628,9 +628,7 @@ begin
   FSelectionToolbar.Transparent := True;
   FSelectionToolbar.DoubleBuffered := True;
 
-//{$IFNDEF Darwin}
   Settings.FormSettings.AssignTo(Self);
-//{$ENDIF}
   UpdateControls;
   pnlHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;
   btnHighlighter.PopupMenu    := Menus.HighlighterPopupMenu;

@@ -857,18 +857,19 @@ var
   HI : THighlighterItem;
 begin
   HI := View.HighlighterItem;
-  if Assigned(HI.CodeFormatter) then
-  begin
-    if not View.SelAvail then
+  if Assigned(HI) then
+    if Assigned(HI.CodeFormatter) then
     begin
-      View.SelectAll;
-    end;
-    Selection.Store;
-    Selection.Text := HI.CodeFormatter.Format(Selection.Text);
-    Selection.Restore;
-  end
-  else
-    raise Exception.Create('No codeformatter for current highlighter');
+      if not View.SelAvail then
+      begin
+        View.SelectAll;
+      end;
+      Selection.Store;
+      Selection.Text := HI.CodeFormatter.Format(Selection.Text);
+      Selection.Restore;
+    end
+    else
+      raise Exception.Create('No codeformatter for current highlighter');
 end;
 
 procedure TEditorCommands.SortStrings;

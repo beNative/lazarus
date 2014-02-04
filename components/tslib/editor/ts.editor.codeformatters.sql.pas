@@ -79,49 +79,54 @@ begin
   LR := TStreamLineReader.Create(SS);
   S := TSQLScanner.Create(LR);
   P  := TSQLParser.Create(S);
+  try
+   E := P.Parse;
+   if Assigned(E) then
+      Result := E.GetAsSQL(
+        [
+          //sfoDoubleQuotes,           // Use double quote character for string literals
+          sfoBackslashEscape,        // Backslash escapes in string literals
+          //sfoSingleQuoteIdentifier,  // quote Identifiers using '
+          //sfoDoubleQuoteIdentifier,  // quote Identifiers using "
+          //sfoBackQuoteIdentifier,    // quote Identifiers using `
+          sfoLowercaseKeyword,       // Lowercase SQL keywords
+          sfoOneFieldPerLine,        // One field per line in SELECT, Update, Insert
+          sfoIndentFields,           // Indent fields (indent=2 space characters)
+          sfoOneTablePerLine,        // One table per line in select FROM clause
+          sfoIndentTables,           // Indent tables in FROM clause
+          sfoNoBracketRightJoin,     // In join, Do not put ( ) around right table if it is also a join
+          //sfoBracketLeftJoin,        // In join, put ( ) around left table if it is also a join
+          sfoWhereOnSeparateLine,    // Put WHERE clause on a separate line
+          sfoIndentWhere,            // Indent WHERE clause
+          sfoOneGroupByFieldPerLine, // One field per line in GROUP BY
+          sfoIndentGroupByFields,    // Indent GROUP BY fields (indent=2 space characters)
+          sfoHavingOnSeparateLine,   // Put HAVING clause on a separate line
+          sfoIndentHaving,           // Indent HAVING clause
+          sfoUnionOnSeparateLine,    // Put UNION on separate line
+          sfoOneOrderByFieldPerLine, // One field per line in ORDER BY
+          sfoIndentOrderByFields,    // Indent ORDER BY fields (indent=2 space characters)
+          sfoPlanOnSeparateLine,     // Put HAVING clause on a separate line
+          sfoIndentPlan,             // Indent HAVING clause
+          sfoOneLogicalPerLine,      // in AND or OR clauses, put newline before AND or OR
+          sfoListNoSpaceBeforeComma, // In comma-separated lists, do not put space before ,
+          //sfoListNoSpaceAfterComma,  // In comma-separated lists, do not put space after ,
+          sfoForceAscending,         // In ORDER BY, explicitly write ASC
+          sfoMultilineDeclareFunction, // Separate parts of 'Declare function' with newlines
+          sfoMultilineCreateDatabase,  // Separate parts of create/alter database with newlines
+          sfoMultilineCreateShadow,    // Separate additional filespecs of create/alter shadow with newlines
+          sfoIndentProcedureBlock      // Indent statements inside procedure/trigger statement block
+        ],
+        2
+      );
 
-  E := P.Parse;
-  Result := E.GetAsSQL(
-    [
-      //sfoDoubleQuotes,           // Use double quote character for string literals
-      sfoBackslashEscape,        // Backslash escapes in string literals
-      //sfoSingleQuoteIdentifier,  // quote Identifiers using '
-      //sfoDoubleQuoteIdentifier,  // quote Identifiers using "
-      //sfoBackQuoteIdentifier,    // quote Identifiers using `
-      sfoLowercaseKeyword,       // Lowercase SQL keywords
-      sfoOneFieldPerLine,        // One field per line in SELECT, Update, Insert
-      sfoIndentFields,           // Indent fields (indent=2 space characters)
-      sfoOneTablePerLine,        // One table per line in select FROM clause
-      sfoIndentTables,           // Indent tables in FROM clause
-      sfoNoBracketRightJoin,     // In join, Do not put ( ) around right table if it is also a join
-      //sfoBracketLeftJoin,        // In join, put ( ) around left table if it is also a join
-      sfoWhereOnSeparateLine,    // Put WHERE clause on a separate line
-      sfoIndentWhere,            // Indent WHERE clause
-      sfoOneGroupByFieldPerLine, // One field per line in GROUP BY
-      sfoIndentGroupByFields,    // Indent GROUP BY fields (indent=2 space characters)
-      sfoHavingOnSeparateLine,   // Put HAVING clause on a separate line
-      sfoIndentHaving,           // Indent HAVING clause
-      sfoUnionOnSeparateLine,    // Put UNION on separate line
-      sfoOneOrderByFieldPerLine, // One field per line in ORDER BY
-      sfoIndentOrderByFields,    // Indent ORDER BY fields (indent=2 space characters)
-      sfoPlanOnSeparateLine,     // Put HAVING clause on a separate line
-      sfoIndentPlan,             // Indent HAVING clause
-      sfoOneLogicalPerLine,      // in AND or OR clauses, put newline before AND or OR
-      sfoListNoSpaceBeforeComma, // In comma-separated lists, do not put space before ,
-      //sfoListNoSpaceAfterComma,  // In comma-separated lists, do not put space after ,
-      sfoForceAscending,         // In ORDER BY, explicitly write ASC
-      sfoMultilineDeclareFunction, // Separate parts of 'Declare function' with newlines
-      sfoMultilineCreateDatabase,  // Separate parts of create/alter database with newlines
-      sfoMultilineCreateShadow,    // Separate additional filespecs of create/alter shadow with newlines
-      sfoIndentProcedureBlock      // Indent statements inside procedure/trigger statement block
-    ],
-    2
-  );
-  SS.Free;
-  LR.Free;
-  P.Free;
-  S.Free;
-  E.Free;
+  finally
+    SS.Free;
+    LR.Free;
+    P.Free;
+    S.Free;
+    E.Free;
+  end;
+
 end;
 {$endregion}
 

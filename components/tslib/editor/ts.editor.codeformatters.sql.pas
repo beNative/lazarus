@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils,
 
-  fpsqlparser, fpsqlscanner, fpsqltree,
+  ts.Core.SQLParser, ts.Core.SQLScanner, ts.Core.SQLTree,
 
   ts.Editor.CodeFormatters;
 
@@ -69,11 +69,11 @@ end;
 {$region 'protected methods' /fold}
 function TSQLFormatter.Format(const AString: string): string;
 var
-  SS: TStringStream;
+  SS : TStringStream;
   LR : TStreamLineReader;
   P  : TSQLParser;
-  S : TSQLScanner;
-  E : TSQLElement;
+  S  : TSQLScanner;
+  E  : TSQLElement;
 begin
 
   SS := TStringStream.Create(AString);
@@ -124,7 +124,6 @@ begin
         ],
         2
       );
-
   finally
     SS.Free;
     LR.Free;
@@ -132,7 +131,6 @@ begin
     S.Free;
     E.Free;
   end;
-
 end;
 {$endregion}
 

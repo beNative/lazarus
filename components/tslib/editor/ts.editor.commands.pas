@@ -103,6 +103,12 @@ type
     procedure URLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SyncEditSelection;
+    procedure Save;
+    function SaveFile(
+      const AFileName   : string = '';
+            AShowDialog : Boolean = False
+    ): Boolean;
+    procedure SaveAll;
     procedure AdjustFontSize(AOffset: Integer);
 
     procedure AlignSelection(
@@ -558,6 +564,40 @@ end;
 procedure TEditorCommands.SyncEditSelection;
 begin
   View.Editor.CommandProcessor(ecSynPSyncroEdStart, '', nil);
+end;
+
+procedure TEditorCommands.Save;
+begin
+  if View.IsFile then
+    SaveFile(View.FileName)
+  else
+  begin
+    View.Save;
+  end;
+end;
+
+function TEditorCommands.SaveFile(const AFileName: string; AShowDialog: Boolean
+  ): Boolean;
+begin
+  //
+end;
+
+procedure TEditorCommands.SaveAll;
+var
+  V : IEditorView;
+begin
+  for V in Manager.Views do
+  begin
+    if V.Modified then
+    begin
+      if V.IsFile then
+      begin
+        Manager.SaveFile(V.FileName);
+      end
+      else
+        V.Save;
+    end;
+  end;
 end;
 
 procedure TEditorCommands.AdjustFontSize(AOffset: Integer);

@@ -50,12 +50,12 @@ unit ts.Components.UniqueInstance;
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-// Modifications by Tim Sinaeve:
-//  - Enabled can be used at runtime. In the original version this setting had
-//    only effect when set at designtime.
-//  - It does not use SimpleIPCWrapper anymore as the bugs for which it was
-//    a workaround are resolved (bug 17248) and (bug 19136) in FPC 2.7.1
-//  - Added OnTerminateInstance notify event
+{ Modifications by Tim Sinaeve:
+  - Enabled can be used at runtime. In the original version this setting had
+    only effect when set at designtime.
+  - It does not use SimpleIPCWrapper anymore as the bugs for which it was
+    a workaround are resolved (bug 17248) and (bug 19136) in FPC 2.7.1
+  - Added OnTerminateInstance notify event }
 
 {$MODE objfpc}{$H+}
 
@@ -88,7 +88,7 @@ type
     procedure ReceiveMessage(Sender: TObject);
     procedure SetEnabled(AValue: Boolean);
     procedure TerminateApp(Sender: TObject; var Done: Boolean);
-    {$IFDEF unix}
+    {$IFDEF UNIX}
     procedure CheckMessage(Sender: TObject);
     {$ENDIF}
   protected
@@ -178,7 +178,7 @@ begin
   end;
 end;
 
-{$IFDEF unix}
+{$IFDEF UNIX}
 procedure TUniqueInstance.CheckMessage(Sender: TObject);
 begin
   FIPCServer.PeekMessage(1, True);
@@ -205,7 +205,7 @@ end;
 procedure TUniqueInstance.InitIPC;
 var
   IPCClient: TSimpleIPCClient;
-  {$IFDEF unix}
+  {$IFDEF UNIX}
   Timer: TTimer;
   {$ENDIF}
 begin
@@ -237,7 +237,7 @@ begin
         FIPCServer.Global := True;
         FIPCServer.OnMessage := @ReceiveMessage;
         FIPCServer.StartServer;
-        {$IFDEF unix}
+        {$IFDEF UNIX}
         if Assigned(FOnOtherInstance) then
         begin
           Timer := TTimer.Create(Self);

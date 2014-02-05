@@ -42,15 +42,32 @@ uses
   ts.Core.SQLScanner, ts.Core.SQLTree;
 
 type
-  TParseTypeFlag = (ptfAllowDomainName, ptfAlterDomain, ptfAllowConstraint,
-    ptProcedureParam, ptfTableFieldDef, ptfCast, ptfExternalFunction,
-    ptfExternalFunctionResult);
+  TParseTypeFlag = (
+    ptfAllowDomainName,
+    ptfAlterDomain,
+    ptfAllowConstraint,
+    ptProcedureParam,
+    ptfTableFieldDef,
+    ptfCast,
+    ptfExternalFunction,
+    ptfExternalFunctionResult
+  );
   TParseTypeFlags = set of TParseTypeFlag;
 
-  TExpressionOption = (eoCheckConstraint, eoTableConstraint, eoComputedBy,
+  TExpressionOption = (
+    eoCheckConstraint,
+    eoTableConstraint,
+    eoComputedBy,
     eoOnlyNull,
-    eoFieldValue, eoSelectvalue, eoParamValue, eoWhereClause, eoJoin,
-    eoHaving, eoListValue, eoIF);
+    eoFieldValue,
+    eoSelectvalue,
+    eoParamValue,
+    eoWhereClause,
+    eoJoin,
+    eoHaving,
+    eoListValue,
+    eoIF
+  );
   TExpressionOptions = set of TExpressionOption;
   TSelectFlag        = (sfSingleTon, sfUnion, sfInto);
   TSelectFlags       = set of TSelectFlag;
@@ -75,9 +92,9 @@ type
     procedure UnexpectedToken(AExpected : TSQLTokens); overload;
     // All elements must be created with this factory function
     function CreateElement(AElementClass : TSQLElementClass;
-      APArent : TSQLElement) : TSQLElement; virtual;
-    function CreateLiteral(APArent: TSQLElement): TSQLLiteral;
-    function CreateIdentifier(APArent : TSQLElement;
+      AParent : TSQLElement) : TSQLElement; virtual;
+    function CreateLiteral(AParent: TSQLElement): TSQLLiteral;
+    function CreateIdentifier(AParent : TSQLElement;
       const AName : TSQLStringType) : TSQLIdentifierName;
     procedure Expect(aToken: TSQLToken); overload;
     procedure Expect(aTokens: TSQLTokens); overload;
@@ -85,152 +102,152 @@ type
     procedure Error(Msg : string); overload;
     procedure Error(Fmt : string; Args : array of const); overload;
     // Expression support
-    function ParseExprLevel1(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel1(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprLevel2(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel2(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprLevel3(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel3(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprLevel4(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel4(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprLevel5(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel5(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprLevel6(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprLevel6(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseExprPrimitive(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseExprPrimitive(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLExpression;
-    function ParseInoperand(APArent: TSQLElement): TSQLExpression;
+    function ParseInoperand(AParent: TSQLElement): TSQLExpression;
     // Lists, primitives
-    function ParseIdentifierList(APArent: TSQLElement;
-      AList: TSQLelementList): integer;
-    function ParseValueList(APArent: TSQLElement; EO : TExpressionOptions)
+    function ParseIdentifierList(AParent: TSQLElement;
+      AList: TSQLelementList): Integer;
+    function ParseValueList(AParent: TSQLElement; EO : TExpressionOptions)
       : TSQLelementList;
-    function ParseSQLValue(APArent: TSQLElement): TSQLExpression;
-    function ParseCheckConstraint(APArent: TSQLElement;
+    function ParseSQLValue(AParent: TSQLElement): TSQLExpression;
+    function ParseCheckConstraint(AParent: TSQLElement;
       TableConstraint : Boolean = False): TSQLExpression;
     // Create/Alter statements
-    function ParseAddTableElement(APArent: TSQLElement)
+    function ParseAddTableElement(AParent: TSQLElement)
       : TSQLAlterTableAddElementOperation;
-    function ParseAlterTableElement(APArent: TSQLElement)
+    function ParseAlterTableElement(AParent: TSQLElement)
       : TSQLAlterTableOperation;
-    function ParseDropTableElement(APArent: TSQLElement)
+    function ParseDropTableElement(AParent: TSQLElement)
       : TSQLDropTableElementOperation;
-    function ParseFieldConstraint(APArent: TSQLElement): TSQLFieldConstraint;
-    function ParseForeignKeyDefinition(APArent: TSQLElement)
+    function ParseFieldConstraint(AParent: TSQLElement): TSQLFieldConstraint;
+    function ParseForeignKeyDefinition(AParent: TSQLElement)
       : TSQLForeignKeyDefinition;
-    procedure ParseCharTypeDefinition(Out DT: TSQLDataType; Out Len: integer;
+    procedure ParseCharTypeDefinition(out DT: TSQLDataType; out Len: Integer;
       Out ACharset : TSQLStringType);
-    procedure ParseBlobDefinition(var ASegmentSize, ABlobType: integer;
+    procedure ParseBlobDefinition(var ASegmentSize, ABlobType: Integer;
       var ACharset : TSQLStringType);
-    function ParseTypeDefinition(APArent: TSQLElement; Flags: TParseTypeFlags)
+    function ParseTypeDefinition(AParent: TSQLElement; Flags: TParseTypeFlags)
       : TSQLTypeDefinition;
-    function ParseTableFieldDef(APArent: TSQLElement): TSQLTableFieldDef;
-    function ParseTableConstraint(APArent: TSQLElement): TSQLTableConstraintDef;
-    function ParseCreateDomainStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseTableFieldDef(AParent: TSQLElement): TSQLTableFieldDef;
+    function ParseTableConstraint(AParent: TSQLElement): TSQLTableConstraintDef;
+    function ParseCreateDomainStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateOrAlterStatement;
-    function ParseCreateExceptionStatement(APArent: TSQLElement;
+    function ParseCreateExceptionStatement(AParent: TSQLElement;
       IsAlter: Boolean): TSQLCreateOrAlterStatement;
-    function ParseCreateGeneratorStatement(APArent: TSQLElement;
+    function ParseCreateGeneratorStatement(AParent: TSQLElement;
       IsAlter: Boolean): TSQLCreateOrAlterStatement;
-    function ParseCreateRoleStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseCreateRoleStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateOrAlterStatement;
-    function ParseCreateIndexStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseCreateIndexStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateOrAlterStatement;
-    function ParseCreateProcedureStatement(APArent: TSQLElement;
+    function ParseCreateProcedureStatement(AParent: TSQLElement;
       IsAlter: Boolean): TSQLCreateOrAlterStatement;
-    function ParseCreateTableStatement(APArent: TSQLElement)
+    function ParseCreateTableStatement(AParent: TSQLElement)
       : TSQLCreateOrAlterStatement;
-    function ParseAlterTableStatement(APArent: TSQLElement)
+    function ParseAlterTableStatement(AParent: TSQLElement)
       : TSQLAlterTableStatement;
-    function ParseCreateViewStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseCreateViewStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateOrAlterStatement;
-    function ParseCreateTriggerStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseCreateTriggerStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateOrAlterStatement;
-    function ParseSetGeneratorStatement(APArent: TSQLElement)
+    function ParseSetGeneratorStatement(AParent: TSQLElement)
       : TSQLSetGeneratorStatement;
-    function ParseCreateDatabaseStatement(APArent: TSQLElement;
+    function ParseCreateDatabaseStatement(AParent: TSQLElement;
       IsAlter: Boolean): TSQLCreateDatabaseStatement;
-    function ParseCreateShadowStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseCreateShadowStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLCreateShadowStatement;
-    function ParseAlterDatabaseStatement(APArent: TSQLElement; IsAlter: Boolean)
+    function ParseAlterDatabaseStatement(AParent: TSQLElement; IsAlter: Boolean)
       : TSQLAlterDatabaseStatement;
-    function ParseSecondaryFile(APArent: TSQLElement): TSQLDatabaseFileInfo;
-    function ParseDeclareFunctionStatement(APArent: TSQLElement)
+    function ParseSecondaryFile(AParent: TSQLElement): TSQLDatabaseFileInfo;
+    function ParseDeclareFunctionStatement(AParent: TSQLElement)
       : TSQLDeclareExternalFunctionStatement;
-    function ParseDeclareStatement(APArent: TSQLElement): TSQLStatement;
+    function ParseDeclareStatement(AParent: TSQLElement): TSQLStatement;
     // GRANT parsing
-    procedure ParseGranteeList(APArent: TSQLElement; List: TSQLelementList;
+    procedure ParseGranteeList(AParent: TSQLElement; List: TSQLelementList;
       AllowObject, AllowGroup, AllowPublic : Boolean;
       IsRevoke: Boolean = False);
-    function ParseGrantExecuteStatement(APArent: TSQLElement)
+    function ParseGrantExecuteStatement(AParent: TSQLElement)
       : TSQLProcedureGrantStatement;
-    function ParseGrantRoleStatement(APArent: TSQLElement)
+    function ParseGrantRoleStatement(AParent: TSQLElement)
       : TSQLRoleGrantStatement;
-    function ParseGrantTableStatement(APArent: TSQLElement)
+    function ParseGrantTableStatement(AParent: TSQLElement)
       : TSQLTableGrantStatement;
     // REVOKE parsing
-    function ParseRevokeExecuteStatement(APArent: TSQLElement)
+    function ParseRevokeExecuteStatement(AParent: TSQLElement)
       : TSQLProcedureRevokeStatement;
-    function ParseRevokeRoleStatement(APArent: TSQLElement)
+    function ParseRevokeRoleStatement(AParent: TSQLElement)
       : TSQLRoleRevokeStatement;
-    function ParseRevokeTableStatement(APArent: TSQLElement)
+    function ParseRevokeTableStatement(AParent: TSQLElement)
       : TSQLTableRevokeStatement;
     // SELECT parsing
-    function ParseExprAggregate(APArent: TSQLElement; EO: TExpressionOptions)
+    function ParseExprAggregate(AParent: TSQLElement; EO: TExpressionOptions)
       : TSQLAggregateFunctionExpression;
-    procedure ParseFromClause(APArent: TSQLSelectStatement;
+    procedure ParseFromClause(AParent: TSQLSelectStatement;
       AList: TSQLelementList);
-    procedure ParseGroupBy(APArent: TSQLSelectStatement;
+    procedure ParseGroupBy(AParent: TSQLSelectStatement;
       AList: TSQLelementList);
-    procedure ParseOrderBy(APArent: TSQLSelectStatement;
+    procedure ParseOrderBy(AParent: TSQLSelectStatement;
       AList: TSQLelementList);
-    procedure ParseSelectFieldList(APArent: TSQLSelectStatement;
+    procedure ParseSelectFieldList(AParent: TSQLSelectStatement;
       AList: TSQLelementList; Singleton : Boolean);
-    function ParseForUpdate(APArent: TSQLSelectStatement): TSQLelementList;
-    function ParseSelectPlan(APArent: TSQLElement): TSQLSelectPlan;
-    function ParseTableRef(APArent: TSQLSelectStatement): TSQLTableReference;
-    procedure ParseIntoList(APArent: TSQLElement; List: TSQLelementList);
+    function ParseForUpdate(AParent: TSQLSelectStatement): TSQLelementList;
+    function ParseSelectPlan(AParent: TSQLElement): TSQLSelectPlan;
+    function ParseTableRef(AParent: TSQLSelectStatement): TSQLTableReference;
+    procedure ParseIntoList(AParent: TSQLElement; List: TSQLelementList);
     // EXECUTE parsing
-    function ParseExecuteProcedureStatement(APArent: TSQLElement)
+    function ParseExecuteProcedureStatement(AParent: TSQLElement)
       : TSQLExecuteProcedureStatement;
     // Stored procedure parsing
-    function ParseAssignStatement(APArent: TSQLElement): TSQLAssignStatement;
-    function ParseExceptionStatement(APArent: TSQLElement)
+    function ParseAssignStatement(AParent: TSQLElement): TSQLAssignStatement;
+    function ParseExceptionStatement(AParent: TSQLElement)
       : TSQLExceptionStatement;
-    function ParseForStatement(APArent: TSQLElement): TSQLForStatement;
-    function ParseIfStatement(APArent: TSQLElement): TSQLIFStatement;
-    function ParsePostEventStatement(APArent: TSQLElement)
+    function ParseForStatement(AParent: TSQLElement): TSQLForStatement;
+    function ParseIfStatement(AParent: TSQLElement): TSQLIFStatement;
+    function ParsePostEventStatement(AParent: TSQLElement)
       : TSQLPostEventStatement;
-    procedure ParseProcedureParamList(APArent: TSQLElement;
+    procedure ParseProcedureParamList(AParent: TSQLElement;
       AList: TSQLelementList);
-    procedure ParseCreateProcedureVariableList(APArent: TSQLElement;
+    procedure ParseCreateProcedureVariableList(AParent: TSQLElement;
       AList: TSQLelementList);
-    function ParseProcedureStatement(APArent: TSQLElement): TSQLStatement;
-    procedure ParseStatementBlock(APArent: TSQLElement;
+    function ParseProcedureStatement(AParent: TSQLElement): TSQLStatement;
+    procedure ParseStatementBlock(AParent: TSQLElement;
       Statements: TSQLelementList);
-    function ParseWhenStatement(APArent: TSQLElement): TSQLWhenStatement;
-    function ParseWhileStatement(APArent: TSQLElement): TSQLWhileStatement;
+    function ParseWhenStatement(AParent: TSQLElement): TSQLWhenStatement;
+    function ParseWhileStatement(AParent: TSQLElement): TSQLWhileStatement;
 
   public
     constructor Create(AInput: TStream); overload;
     constructor Create(AScanner : TSQLScanner); overload;
     destructor Destroy; override;
-    function ParseSelectStatement(APArent : TSQLElement;
+    function ParseSelectStatement(AParent : TSQLElement;
       Flags : TSelectFlags = []) : TSQLSelectStatement;
-    function ParseUpdateStatement(APArent : TSQLElement) : TSQLUpdateStatement;
-    function ParseInsertStatement(APArent : TSQLElement) : TSQLInsertStatement;
-    function ParseDeleteStatement(APArent : TSQLElement) : TSQLDeleteStatement;
-    function ParseCreateStatement(APArent : TSQLElement;
+    function ParseUpdateStatement(AParent : TSQLElement) : TSQLUpdateStatement;
+    function ParseInsertStatement(AParent : TSQLElement) : TSQLInsertStatement;
+    function ParseDeleteStatement(AParent : TSQLElement) : TSQLDeleteStatement;
+    function ParseCreateStatement(AParent : TSQLElement;
       IsAlter : Boolean = False) : TSQLCreateOrAlterStatement;
-    function ParseDropStatement(APArent : TSQLElement) : TSQLDropStatement;
-    function ParseRollbackStatement(APArent : TSQLElement)
+    function ParseDropStatement(AParent : TSQLElement) : TSQLDropStatement;
+    function ParseRollbackStatement(AParent : TSQLElement)
       : TSQLRollbackStatement;
-    function ParseCommitStatement(APArent : TSQLElement) : TSQLCommitStatement;
-    function ParseSetStatement(APArent : TSQLElement) : TSQLStatement;
-    function ParseConnectStatement(APArent : TSQLElement)
+    function ParseCommitStatement(AParent : TSQLElement) : TSQLCommitStatement;
+    function ParseSetStatement(AParent : TSQLElement) : TSQLStatement;
+    function ParseConnectStatement(AParent : TSQLElement)
       : TSQLConnectStatement;
-    function ParseGrantStatement(APArent: TSQLElement): TSQLGrantStatement;
-    function ParseRevokeStatement(APArent: TSQLElement): TSQLGrantStatement;
+    function ParseGrantStatement(AParent: TSQLElement): TSQLGrantStatement;
+    function ParseRevokeStatement(AParent: TSQLElement): TSQLGrantStatement;
     function Parse : TSQLElement;
     function ParseScript(AllowPartial : Boolean = False) : TSQLelementList;
     // Auxiliary stuff
@@ -241,21 +258,21 @@ type
     function PreviousToken : TSQLToken;
     function IsEndOfLine : Boolean;
     function CurSource: string;
-    function CurLine : integer;
-    function CurPos : integer;
+    function CurLine : Integer;
+    function CurPos : Integer;
   end;
 
   { ESQLParser }
 
   ESQLParser = class(Exception)
   private
-    FCol     : integer;
+    FCol     : Integer;
     FFileName: string;
-    FLine    : integer;
+    FLine    : Integer;
 
   public
-    property Line     : integer read FLine write FLine;
-    property Col      : integer read FCol write FCol;
+    property Line     : Integer read FLine write FLine;
+    property Col      : Integer read FCol write FCol;
     property FileName : string read FFileName write FFileName;
   end;
 
@@ -290,8 +307,7 @@ Resourcestring
   SErrInvalidExtract = 'Invalid element for extract: %s';
 
 function StringToSQLExtractElement(const S : TSQLStringType;
-  Out Res : TSQLExtractElement) : Boolean;
-
+  out Res : TSQLExtractElement) : Boolean;
 var
   I  : TSQLExtractElement;
 begin
@@ -332,22 +348,20 @@ begin
   Result := FScanner.CurFilename;
 end;
 
-function TSQLParser.CurLine: integer;
+function TSQLParser.CurLine: Integer;
 begin
   Result := FScanner.CurRow;
 end;
 
-function TSQLParser.CurPos: integer;
+function TSQLParser.CurPos: Integer;
 begin
   Result := FScanner.CurColumn;
 end;
 
 procedure TSQLParser.Error(Msg: string);
-
 var
   ErrAt : string;
   E     : ESQLParser;
-
 begin
   if Assigned(FScanner) then
     if FScanner.CurFilename <> '' then
@@ -363,7 +377,6 @@ begin
     E.Col := FScanner.CurColumn;
     E.FileName := FScanner.CurFilename;
   end;
-  //raise E;
 end;
 
 procedure TSQLParser.Error(Fmt: string; Args: array of const );
@@ -372,38 +385,37 @@ begin
 end;
 
 function TSQLParser.CreateElement(AElementClass: TSQLElementClass;
-  APArent: TSQLElement): TSQLElement;
+  AParent: TSQLElement): TSQLElement;
 begin
-  Result := AElementClass.Create(APArent);
+  Result := AElementClass.Create(AParent);
   Result.Source := CurSource;
   Result.SourceLine := CurLine;
   Result.SourcePos := CurPos;
 end;
 
-function TSQLParser.ParseTableRef(APArent : TSQLSelectStatement)
+function TSQLParser.ParseTableRef(AParent : TSQLSelectStatement)
   : TSQLTableReference;
 var
   T : TSQLSimpleTablereference;
   J : TSQLJoinTableReference;
-
 begin
   if (CurrentToken = tsqlBraceOpen) then
   begin
     GetNextToken;
-    Result := ParseTableRef(APArent);
+    Result := ParseTableRef(AParent);
     Consume(tsqlBraceClose)
   end
   else
   begin
     Expect(tsqlIdentifier);
     T := TSQLSimpleTablereference(CreateElement(TSQLSimpleTablereference,
-      APArent));
+      AParent));
     Result := T;
     T.ObjectName := CreateIdentifier(T, CurrentTokenString);
     GetNextToken;
     if CurrentToken = tsqlBraceOpen then
     begin
-      T.Params := ParseValueList(APArent, [eoParamValue]);
+      T.Params := ParseValueList(AParent, [eoParamValue]);
       GetNextToken;
     end;
     if (CurrentToken = tsqlIdentifier) then
@@ -417,7 +429,7 @@ begin
       tsqlRight] then
     begin
       J := TSQLJoinTableReference(CreateElement(TSQLJoinTableReference,
-        APArent));
+        AParent));
       J.Left := Result;
       Result := J;
       case CurrentToken of
@@ -435,7 +447,7 @@ begin
       if CurrentToken <> tsqlJoin then
         GetNextToken;
       Consume(tsqlJoin);
-      J.Right := ParseTableRef(APArent);
+      J.Right := ParseTableRef(AParent);
       Consume(tsqlOn);
       J.JoinClause := ParseExprLevel1(J, [eoJoin]);
     end;
@@ -443,18 +455,16 @@ begin
     tsqlRight]);
 end;
 
-procedure TSQLParser.ParseFromClause(APArent : TSQLSelectStatement;
+procedure TSQLParser.ParseFromClause(AParent : TSQLSelectStatement;
   AList : TSQLelementList);
-
 var
   T    : TSQLTableReference;
   Done : Boolean;
-
 begin
   // On entry, we are on the FROM keyword.
   Consume(tsqlFrom);
   Repeat
-    T := ParseTableRef(APArent);
+    T := ParseTableRef(AParent);
     AList.Add(T);
     Done := (CurrentToken <> tsqlComma);
     if not Done then
@@ -462,12 +472,11 @@ begin
   until Done;
 end;
 
-procedure TSQLParser.ParseSelectFieldList(APArent : TSQLSelectStatement;
+procedure TSQLParser.ParseSelectFieldList(AParent : TSQLSelectStatement;
   AList : TSQLelementList; Singleton : Boolean);
 var
   F : TSQLSelectField;
   B : Boolean;
-
 begin
   // On entry, we're on the token preceding the field list.
   B := True;
@@ -477,12 +486,12 @@ begin
     begin
       if (CurrentToken = tsqlDistinct) then
       begin
-        APArent.Distinct := True;
+        AParent.Distinct := True;
         GetNextToken;
       end
       else if (CurrentToken = tsqlAll) then
       begin
-        APArent.All := True;
+        AParent.All := True;
         GetNextToken;
       end;
       B := False;
@@ -491,14 +500,14 @@ begin
     begin
       if Singleton then
         Error(SErrNoAsteriskInSingleTon);
-      AList.Add(CreateElement(TSQLSelectAsterisk, APArent));
+      AList.Add(CreateElement(TSQLSelectAsterisk, AParent));
       GetNextToken;
     end
     else
     begin
-      F := TSQLSelectField(CreateElement(TSQLSelectField, APArent));
+      F := TSQLSelectField(CreateElement(TSQLSelectField, AParent));
       AList.Add(F);
-      F.Expression := ParseExprLevel1(APArent, [eoSelectvalue]);
+      F.Expression := ParseExprLevel1(AParent, [eoSelectvalue]);
       if CurrentToken in [tsqlAs, tsqlIdentifier] then
       begin
         if CurrentToken = tsqlAs then
@@ -512,9 +521,8 @@ begin
   until (CurrentToken = tsqlFrom);
 end;
 
-procedure TSQLParser.ParseGroupBy(APArent : TSQLSelectStatement;
+procedure TSQLParser.ParseGroupBy(AParent : TSQLSelectStatement;
   AList : TSQLelementList);
-
 var
   N : TSQLStringType;
 
@@ -534,14 +542,13 @@ begin
       N := N + '.' + CurrentTokenString;
       GetNextToken;
     end;
-    AList.Add(CreateIdentifier(APArent, N));
+    AList.Add(CreateIdentifier(AParent, N));
 
   until (CurrentToken <> tsqlComma);
 end;
 
-function TSQLParser.ParseForUpdate(APArent : TSQLSelectStatement)
+function TSQLParser.ParseForUpdate(AParent : TSQLSelectStatement)
   : TSQLelementList;
-
 begin
   // On entry we're on the FOR token.
   Consume(tsqlFor);
@@ -551,7 +558,7 @@ begin
     Repeat
       GetNextToken;
       Expect(tsqlIdentifier);
-      Result.Add(CreateIdentifier(APArent, CurrentTokenString));
+      Result.Add(CreateIdentifier(AParent, CurrentTokenString));
     until (CurrentToken <> tsqlComma);
   except
     FreeAndNil(Result);
@@ -559,13 +566,11 @@ begin
   end;
 end;
 
-procedure TSQLParser.ParseOrderBy(APArent : TSQLSelectStatement;
+procedure TSQLParser.ParseOrderBy(AParent : TSQLSelectStatement;
   AList : TSQLelementList);
-
 var
   O : TSQLOrderByElement;
   F : TSQLElement;
-
 begin
   // On entry we're on the ORDER token.
   Consume(tsqlOrder);
@@ -574,17 +579,17 @@ begin
     GetNextToken;
     case CurrentToken of
       tsqlIdentifier :
-        F := CreateIdentifier(APArent, CurrentTokenString);
+        F := CreateIdentifier(AParent, CurrentTokenString);
       tsqlIntegerNumber :
         begin
-          F := TSQLIntegerLiteral(CreateElement(TSQLIntegerLiteral, APArent));
+          F := TSQLIntegerLiteral(CreateElement(TSQLIntegerLiteral, AParent));
           TSQLIntegerLiteral(F).Value := StrToInt(CurrentTokenString);
         end
     else
       UnexpectedToken([tsqlIdentifier, tsqlIntegerNumber]);
     end;
     try
-      O := TSQLOrderByElement(CreateElement(TSQLOrderByElement, APArent));
+      O := TSQLOrderByElement(CreateElement(TSQLOrderByElement, AParent));
       AList.Add(O);
       O.Field := F;
       F := nil;
@@ -611,34 +616,32 @@ begin
   until (CurrentToken <> tsqlComma);
 end;
 
-function TSQLParser.ParseSelectPlan(APArent : TSQLElement) : TSQLSelectPlan;
-
+function TSQLParser.ParseSelectPlan(AParent : TSQLElement) : TSQLSelectPlan;
 var
   E : TSQLSelectPlanExpr;
   I : TSQLSelectPlanItem;
   L : TSQLelementList;
   N : TSQLStringType;
-
 begin
   Result := nil;
   try
     case CurrentToken of
       tsqlIdentifier :
         begin
-          if Not(APArent is TSQLSelectPlanExpr) then
+          if Not(AParent is TSQLSelectPlanExpr) then
             UnexpectedToken([tsqlJoin, tsqlmerge, tsqlSort]);
           N := CurrentTokenString;
           case GetNextToken of
             tsqlNatural:
               begin
                 I := TSQLSelectNaturalPlan(CreateElement(TSQLSelectNaturalPlan,
-                  APArent));
+                  AParent));
                 Result := I;
               end;
             tsqlIndex :
               begin
                 I := TSQLSelectIndexedPlan(CreateElement(TSQLSelectIndexedPlan,
-                  APArent));
+                  AParent));
                 Result := I;
                 L := TSQLSelectIndexedPlan(I).Indexes;
                 GetNextToken;
@@ -656,7 +659,7 @@ begin
                 GetNextToken;
                 Expect(tsqlIdentifier);
                 I := TSQLSelectOrderedPlan(CreateElement(TSQLSelectOrderedPlan,
-                  APArent));
+                  AParent));
                 Result := I;
                 TSQLSelectOrderedPlan(I).OrderIndex :=
                   CreateIdentifier(I, CurrentTokenString);
@@ -671,7 +674,7 @@ begin
         tsqlSort,
         tsqlBraceOpen:
         begin
-          E := TSQLSelectPlanExpr(CreateElement(TSQLSelectPlanExpr, APArent));
+          E := TSQLSelectPlanExpr(CreateElement(TSQLSelectPlanExpr, AParent));
           Result := E;
           case CurrentToken of
             tsqlJoin,
@@ -701,13 +704,12 @@ begin
   end;
 end;
 
-function TSQLParser.ParseSelectStatement(APArent: TSQLElement;
+function TSQLParser.ParseSelectStatement(AParent: TSQLElement;
   Flags : TSelectFlags = []): TSQLSelectStatement;
-
 begin
   // On entry, we're on the SELECT keyword
   Expect(tsqlSelect);
-  Result := TSQLSelectStatement(CreateElement(TSQLSelectStatement, APArent));
+  Result := TSQLSelectStatement(CreateElement(TSQLSelectStatement, AParent));
   try
     if (PeekNextToken = tsqlTransaction) then
     begin
@@ -772,9 +774,8 @@ begin
   end;
 end;
 
-function TSQLParser.ParseUpdateStatement(APArent: TSQLElement
+function TSQLParser.ParseUpdateStatement(AParent: TSQLElement
   ): TSQLUpdateStatement;
-
 var
   P : TSQLUpdatePair;
   N : string;
@@ -782,7 +783,7 @@ begin
   // On entry, we're on the UPDATE keyword
   Consume(tsqlUpdate);
   Expect(tsqlIdentifier);
-  Result := TSQLUpdateStatement(CreateElement(TSQLUpdateStatement, APArent));
+  Result := TSQLUpdateStatement(CreateElement(TSQLUpdateStatement, AParent));
   try
     Result.TableName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -816,15 +817,14 @@ begin
   end;
 end;
 
-function TSQLParser.ParseInsertStatement(APArent: TSQLElement)
+function TSQLParser.ParseInsertStatement(AParent: TSQLElement)
   : TSQLInsertStatement;
-
 begin
   // On entry, we're on the INSERT statement
   Consume(tsqlInsert);
   Consume(tsqlInto);
   Expect(tsqlIdentifier);
-  Result := TSQLInsertStatement(CreateElement(TSQLInsertStatement, APArent));
+  Result := TSQLInsertStatement(CreateElement(TSQLInsertStatement, AParent));
   try
     Result.TableName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -858,14 +858,14 @@ begin
   end;
 end;
 
-function TSQLParser.ParseDeleteStatement(APArent: TSQLElement
+function TSQLParser.ParseDeleteStatement(AParent: TSQLElement
   ): TSQLDeleteStatement;
 begin
   // On entry, we're on the DELETE token.
   Consume(tsqlDelete);
   Consume(tsqlFrom);
   Expect(tsqlIdentifier);
-  Result := TSQLDeleteStatement(CreateElement(TSQLDeleteStatement, APArent));
+  Result := TSQLDeleteStatement(CreateElement(TSQLDeleteStatement, AParent));
   try
     Result.TableName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -885,11 +885,11 @@ begin
   end;
 end;
 
-function TSQLParser.ParseTableFieldDef(APArent : TSQLElement)
+function TSQLParser.ParseTableFieldDef(AParent : TSQLElement)
   : TSQLTableFieldDef;
 begin
   // on entry, we're on the field name
-  Result := TSQLTableFieldDef(CreateElement(TSQLTableFieldDef, APArent));
+  Result := TSQLTableFieldDef(CreateElement(TSQLTableFieldDef, AParent));
   try
     Result.FieldName := CreateIdentifier(Result, CurrentTokenString);
     if PeekNextToken = tsqlComputed then
@@ -911,7 +911,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseTableConstraint(APArent: TSQLElement
+function TSQLParser.ParseTableConstraint(AParent: TSQLElement
   ): TSQLTableConstraintDef;
 
   procedure ParseFieldList(R : TSQLTableFieldsConstraintDef);
@@ -919,7 +919,7 @@ function TSQLParser.ParseTableConstraint(APArent: TSQLElement
   begin
     GetNextToken;
     Consume(tsqlBraceOpen);
-    ParseIdentifierList(APArent, R.FieldList);
+    ParseIdentifierList(AParent, R.FieldList);
 //    Consume(tsqlBraceClose);
   end;
 
@@ -941,7 +941,7 @@ begin
       tsqlUnique :
         begin
           Result := TSQLTableUniqueConstraintDef
-            (CreateElement(TSQLTableUniqueConstraintDef, APArent));
+            (CreateElement(TSQLTableUniqueConstraintDef, AParent));
           ParseFieldList(TSQLTableFieldsConstraintDef(Result));
         end;
       tsqlPrimary :
@@ -949,7 +949,7 @@ begin
           GetNextToken;
           Expect(tsqlKey);
           Result := TSQLTablePrimaryKeyConstraintDef
-            (CreateElement(TSQLTablePrimaryKeyConstraintDef, APArent));
+            (CreateElement(TSQLTablePrimaryKeyConstraintDef, AParent));
           ParseFieldList(TSQLTableFieldsConstraintDef(Result));
         end;
       tsqlForeign :
@@ -957,7 +957,7 @@ begin
           GetNextToken;
           Expect(tsqlKey);
           K := TSQLTableForeignKeyConstraintDef
-            (CreateElement(TSQLTableForeignKeyConstraintDef, APArent));
+            (CreateElement(TSQLTableForeignKeyConstraintDef, AParent));
           Result := K;
           ParseFieldList(TSQLTableFieldsConstraintDef(Result));
           Expect(tsqlReferences);
@@ -966,7 +966,7 @@ begin
       tsqlCheck:
         begin
           Result := TSQLTableCheckConstraintDef
-            (CreateElement(TSQLTableCheckConstraintDef, APArent));
+            (CreateElement(TSQLTableCheckConstraintDef, AParent));
           TSQLTableCheckConstraintDef(Result).Check :=
             ParseCheckConstraint(Result, True);
         end
@@ -982,18 +982,16 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateTableStatement(APArent: TSQLElement)
+function TSQLParser.ParseCreateTableStatement(AParent: TSQLElement)
   : TSQLCreateOrAlterStatement;
-
 var
   C  : TSQLCreateTableStatement;
   HC : Boolean;
-
 begin
   // On enter, we're on the TABLE token.
   Consume(tsqlTable);
   C := TSQLCreateTableStatement(CreateElement(TSQLCreateTableStatement,
-    APArent));
+    AParent));
   try
     Expect(tsqlIdentifier);
     C.ObjectName := CreateIdentifier(C, CurrentTokenString);
@@ -1041,9 +1039,8 @@ begin
   end;
 end;
 
-function TSQLParser.ParseDropTableElement(APArent : TSQLElement)
+function TSQLParser.ParseDropTableElement(AParent : TSQLElement)
   : TSQLDropTableElementOperation;
-
 var
   C : Boolean;
 begin
@@ -1054,17 +1051,16 @@ begin
   Expect(tsqlIdentifier);
   if C then
     Result := TSQLDropTableConstraintOperation
-      (CreateElement(TSQLDropTableConstraintOperation, APArent))
+      (CreateElement(TSQLDropTableConstraintOperation, AParent))
   else
     Result := TSQLDropTableFieldOperation
-      (CreateElement(TSQLDropTableFieldOperation, APArent));
+      (CreateElement(TSQLDropTableFieldOperation, AParent));
   Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
   GetNextToken;
 end;
 
-function TSQLParser.ParseAddTableElement(APArent : TSQLElement)
+function TSQLParser.ParseAddTableElement(AParent : TSQLElement)
   : TSQLAlterTableAddElementOperation;
-
 begin
   Result := nil;
   try
@@ -1072,7 +1068,7 @@ begin
       tsqlIdentifier :
         begin
           Result := TSQLAlterTableAddElementOperation
-            (CreateElement(TSQLAlterTableAddFieldOPeration, APArent));
+            (CreateElement(TSQLAlterTableAddFieldOPeration, AParent));
           Result.Element := ParseTableFieldDef(Result);
         end;
       tsqlCheck,
@@ -1082,7 +1078,7 @@ begin
         tsqlUnique:
         begin
           Result := TSQLAlterTableAddElementOperation
-            (CreateElement(TSQLAlterTableAddConstraintOperation, APArent));
+            (CreateElement(TSQLAlterTableAddConstraintOperation, AParent));
           Result.Element := ParseTableConstraint(Result);
         end
     else
@@ -1095,12 +1091,10 @@ begin
   end;
 end;
 
-function TSQLParser.ParseAlterTableElement(APArent : TSQLElement)
+function TSQLParser.ParseAlterTableElement(AParent : TSQLElement)
   : TSQLAlterTableOperation;
-
 var
   N : TSQLStringType;
-
 begin
   Result := nil;
   if GetNextToken = tsqlColumn then
@@ -1113,7 +1107,7 @@ begin
         begin
           GetNextToken;
           Result := TSQLAlterTableOperation
-            (CreateElement(TSQLAlterTableFieldNameOperation, APArent));
+            (CreateElement(TSQLAlterTableFieldNameOperation, AParent));
           TSQLAlterTableFieldNameOperation(Result).NewName :=
             CreateIdentifier(Result, CurrentTokenString);
           GetNextToken;
@@ -1121,7 +1115,7 @@ begin
       tsqltype:
         begin
           Result := TSQLAlterTableOperation
-            (CreateElement(TSQLAlterTableFieldTypeOperation, APArent));
+            (CreateElement(TSQLAlterTableFieldTypeOperation, AParent));
           TSQLAlterTableFieldTypeOperation(Result).NewType :=
             ParseTypeDefinition(Result, [ptfAllowDomainName, ptfAllowConstraint,
             ptfTableFieldDef]);
@@ -1131,7 +1125,7 @@ begin
           GetNextToken;
           Expect(tsqlIntegerNumber);
           Result := TSQLAlterTableOperation
-            (CreateElement(TSQLAlterTableFieldPositionOperation, APArent));
+            (CreateElement(TSQLAlterTableFieldPositionOperation, AParent));
           TSQLAlterTableFieldPositionOperation(Result).NewPosition :=
             StrToInt(CurrentTokenString);
           GetNextToken;
@@ -1146,14 +1140,13 @@ begin
   end;
 end;
 
-function TSQLParser.ParseAlterTableStatement(APArent: TSQLElement)
+function TSQLParser.ParseAlterTableStatement(AParent: TSQLElement)
   : TSQLAlterTableStatement;
-
 begin
   // On enter, we're on the TABLE token.
   Consume(tsqlTable);
   Result := TSQLAlterTableStatement(CreateElement(TSQLAlterTableStatement,
-    APArent));
+    AParent));
   try
     Expect(tsqlIdentifier);
     Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
@@ -1182,9 +1175,8 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateIndexStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateIndexStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
-
 var
   O : TIndexOptions;
   C : TSQLCreateIndexStatement;
@@ -1197,7 +1189,7 @@ begin
     Expect(tsqlIndex);
     Consume(tsqlIndex);
     A := TSQLAlterIndexStatement(CreateElement(TSQLAlterIndexStatement,
-      APArent));
+      AParent));
     try
       Expect(tsqlIdentifier);
       A.ObjectName := CreateIdentifier(A, CurrentTokenString);
@@ -1214,7 +1206,7 @@ begin
   else
   begin
     C := TSQLCreateIndexStatement(CreateElement(TSQLCreateIndexStatement,
-      APArent));
+      AParent));
     try
       if (CurrentToken = tsqlUnique) then
       begin
@@ -1250,12 +1242,10 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateViewStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateViewStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
-
 var
   V : TSQLCreateViewStatement;
-
 begin
   // on entry, we're on the VIEW token.
   if IsAlter then
@@ -1263,7 +1253,7 @@ begin
   Result := nil;
   Consume(tsqlView);
   Expect(tsqlIdentifier);
-  V := TSQLCreateViewStatement(CreateElement(TSQLCreateViewStatement, APArent));
+  V := TSQLCreateViewStatement(CreateElement(TSQLCreateViewStatement, AParent));
   Result := V;
   try
     V.ObjectName := CreateIdentifier(V, CurrentTokenString);
@@ -1288,7 +1278,7 @@ begin
   end;
 end;
 
-procedure TSQLParser.ParseProcedureParamList(APArent: TSQLElement;
+procedure TSQLParser.ParseProcedureParamList(AParent: TSQLElement;
   AList : TSQLelementList);
 
 var
@@ -1299,7 +1289,7 @@ begin
   Repeat
     GetNextToken;
     Expect(tsqlIdentifier);
-    P := TSQLProcedureParamDef(CreateElement(TSQLProcedureParamDef, APArent));
+    P := TSQLProcedureParamDef(CreateElement(TSQLProcedureParamDef, AParent));
     try
       AList.Add(P);
     except
@@ -1313,7 +1303,7 @@ begin
   Consume(tsqlBraceClose);
 end;
 
-procedure TSQLParser.ParseCreateProcedureVariableList(APArent: TSQLElement;
+procedure TSQLParser.ParseCreateProcedureVariableList(AParent: TSQLElement;
   AList : TSQLelementList);
 
 var
@@ -1325,7 +1315,7 @@ begin
     Consume(tsqlDeclare);
     Consume(tsqlVariable);
     Expect(tsqlIdentifier);
-    P := TSQLProcedureParamDef(CreateElement(TSQLProcedureParamDef, APArent));
+    P := TSQLProcedureParamDef(CreateElement(TSQLProcedureParamDef, AParent));
     Try
       AList.Add(P);
     except
@@ -1339,14 +1329,14 @@ begin
   Until (CurrentToken <> tsqlDeclare);
 end;
 
-function TSQLParser.ParseIfStatement(APArent : TSQLElement) : TSQLIFStatement;
+function TSQLParser.ParseIfStatement(AParent : TSQLElement) : TSQLIFStatement;
 begin
   // On Entry, we're on the if token
   Consume(tsqlIf);
   Consume(tsqlBraceOpen);
-  Result := TSQLIFStatement(CreateElement(TSQLIFStatement, APArent));
+  Result := TSQLIFStatement(CreateElement(TSQLIFStatement, AParent));
   try
-    Result.Condition := ParseExprLevel1(APArent, [eoIF]);
+    Result.Condition := ParseExprLevel1(AParent, [eoIF]);
     Consume(tsqlBraceClose);
     Consume(tsqlThen);
     Result.TrueBranch := ParseProcedureStatement(Result);
@@ -1368,7 +1358,7 @@ begin
   end;
 end;
 
-procedure TSQLParser.ParseIntoList(APArent : TSQLElement;
+procedure TSQLParser.ParseIntoList(AParent : TSQLElement;
   List : TSQLelementList);
 
 begin
@@ -1378,18 +1368,18 @@ begin
     if (CurrentToken = tsqlColon) then
       Consume(tsqlColon);
     Expect(tsqlIdentifier);
-    List.Add(CreateIdentifier(APArent, CurrentTokenString));
+    List.Add(CreateIdentifier(AParent, CurrentTokenString));
     GetNextToken;
   Until (CurrentToken <> tsqlComma);
 end;
 
-function TSQLParser.ParseForStatement(APArent : TSQLElement) : TSQLForStatement;
+function TSQLParser.ParseForStatement(AParent : TSQLElement) : TSQLForStatement;
 
 begin
   // On Entry, we're on the FOR token
   Consume(tsqlFor);
   Expect(tsqlSelect);
-  Result := TSQLForStatement(CreateElement(TSQLForStatement, APArent));
+  Result := TSQLForStatement(CreateElement(TSQLForStatement, AParent));
   try
     Result.Select := ParseSelectStatement(Result, []);
     Expect(tsqlInto);
@@ -1402,7 +1392,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExceptionStatement(APArent : TSQLElement)
+function TSQLParser.ParseExceptionStatement(AParent : TSQLElement)
   : TSQLExceptionStatement;
 
 begin
@@ -1410,7 +1400,7 @@ begin
   Consume(tsqlException);
   Expect(tsqlIdentifier);
   Result := TSQLExceptionStatement(CreateElement(TSQLExceptionStatement,
-    APArent));
+    AParent));
   try
     Result.ExceptionName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -1420,7 +1410,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseAssignStatement(APArent : TSQLElement)
+function TSQLParser.ParseAssignStatement(AParent : TSQLElement)
   : TSQLAssignStatement;
 
 var
@@ -1429,7 +1419,7 @@ var
 begin
   // On entry, we're on the identifier token;
   Expect(tsqlIdentifier);
-  Result := TSQLAssignStatement(CreateElement(TSQLAssignStatement, APArent));
+  Result := TSQLAssignStatement(CreateElement(TSQLAssignStatement, AParent));
   try
     N := CurrentTokenString;
     GetNextToken;
@@ -1449,14 +1439,14 @@ begin
   end;
 end;
 
-function TSQLParser.ParsePostEventStatement(APArent : TSQLElement)
+function TSQLParser.ParsePostEventStatement(AParent : TSQLElement)
   : TSQLPostEventStatement;
 
 begin
   // On Entry, we're on the POST_EVENT token
   Consume(tsqlPostEvent);
   Result := TSQLPostEventStatement(CreateElement(TSQLPostEventStatement,
-    APArent));
+    AParent));
   try
     case CurrentToken of
       tsqlIdentifier :
@@ -1473,14 +1463,14 @@ begin
   end;
 end;
 
-function TSQLParser.ParseWhileStatement(APArent : TSQLElement)
+function TSQLParser.ParseWhileStatement(AParent : TSQLElement)
   : TSQLWhileStatement;
 
 begin
   // On entry, we're on the while Token
   Consume(tsqlWhile);
   Consume(tsqlBraceOpen);
-  Result := TSQLWhileStatement(CreateElement(TSQLWhileStatement, APArent));
+  Result := TSQLWhileStatement(CreateElement(TSQLWhileStatement, AParent));
   try
     Result.Condition := ParseExprLevel1(Result, [eoIF]);
     Consume(tsqlBraceClose);
@@ -1492,7 +1482,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseWhenStatement(APArent : TSQLElement)
+function TSQLParser.ParseWhenStatement(AParent : TSQLElement)
   : TSQLWhenStatement;
 
 var
@@ -1502,7 +1492,7 @@ var
 
 begin
   Consume(tsqlWhen);
-  Result := TSQLWhenStatement(CreateElement(TSQLWhenStatement, APArent));
+  Result := TSQLWhenStatement(CreateElement(TSQLWhenStatement, AParent));
   try
     if (CurrentToken = tsqlAny) then
     begin
@@ -1518,7 +1508,7 @@ begin
             begin
               GetNextToken;
               Expect(tsqlIdentifier);
-              E := TSQLWhenException(CreateElement(TSQLWhenException, APArent));
+              E := TSQLWhenException(CreateElement(TSQLWhenException, AParent));
               E.ExceptionName := CreateIdentifier(E, CurrentTokenString);
               Result.Errors.Add(E);
             end;
@@ -1526,7 +1516,7 @@ begin
             begin
               GetNextToken;
               Expect(tsqlIntegerNumber);
-              S := TSQLWhenSQLError(CreateElement(TSQLWhenSQLError, APArent));
+              S := TSQLWhenSQLError(CreateElement(TSQLWhenSQLError, AParent));
               S.ErrorCode := StrToInt(CurrentTokenString);
               Result.Errors.Add(S);
             end;
@@ -1534,7 +1524,7 @@ begin
             begin
               GetNextToken;
               Expect(tsqlIntegerNumber);
-              G := TSQLWhenGDSError(CreateElement(TSQLWhenGDSError, APArent));
+              G := TSQLWhenGDSError(CreateElement(TSQLWhenGDSError, AParent));
               G.GDSErrorNumber := StrToInt(CurrentTokenString);
               Result.Errors.Add(G);
             end;
@@ -1551,7 +1541,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseProcedureStatement(APArent : TSQLElement)
+function TSQLParser.ParseProcedureStatement(AParent : TSQLElement)
   : TSQLStatement;
 
 begin
@@ -1560,50 +1550,50 @@ begin
     tsqlBegin :
       begin
         Result := TSQLStatementBlock(CreateElement(TSQLStatementBlock,
-          APArent));
+          AParent));
         ParseStatementBlock(Result, TSQLStatementBlock(Result).Statements);
       end;
     tsqlIf :
-      Result := ParseIfStatement(APArent);
+      Result := ParseIfStatement(AParent);
     tsqlFor :
-      Result := ParseForStatement(APArent);
+      Result := ParseForStatement(AParent);
     tsqlException :
-      Result := ParseExceptionStatement(APArent);
+      Result := ParseExceptionStatement(AParent);
     tsqlIdentifier :
-      Result := ParseAssignStatement(APArent);
+      Result := ParseAssignStatement(AParent);
     tsqlExecute :
-      Result := ParseExecuteProcedureStatement(APArent);
+      Result := ParseExecuteProcedureStatement(AParent);
     tsqlExit :
       begin
-        Result := TSQLExitStatement(CreateElement(TSQLExitStatement, APArent));
+        Result := TSQLExitStatement(CreateElement(TSQLExitStatement, AParent));
         GetNextToken;
       end;
     tsqlSuspend :
       begin
         Result := TSQLSuspendStatement(CreateElement(TSQLSuspendStatement,
-          APArent));
+          AParent));
         GetNextToken;
       end;
     tsqlPostEvent :
-      Result := ParsePostEventStatement(APArent);
+      Result := ParsePostEventStatement(AParent);
     tsqlWhile :
-      Result := ParseWhileStatement(APArent);
+      Result := ParseWhileStatement(AParent);
     tsqlWhen :
-      Result := ParseWhenStatement(APArent);
+      Result := ParseWhenStatement(AParent);
     tsqlSelect :
-      Result := ParseSelectStatement(APArent, [sfInto]);
+      Result := ParseSelectStatement(AParent, [sfInto]);
     tsqlInsert :
-      Result := ParseInsertStatement(APArent);
+      Result := ParseInsertStatement(AParent);
     tsqlDelete :
-      Result := ParseDeleteStatement(APArent);
+      Result := ParseDeleteStatement(AParent);
     tsqlUpdate :
-      Result := ParseUpdateStatement(APArent);
+      Result := ParseUpdateStatement(AParent);
   else
     UnexpectedToken;
   end;
 end;
 
-procedure TSQLParser.ParseStatementBlock(APArent: TSQLElement;
+procedure TSQLParser.ParseStatementBlock(AParent: TSQLElement;
   Statements : TSQLelementList);
 
 var
@@ -1613,7 +1603,7 @@ begin
   Consume(tsqlBegin);
   while (CurrentToken <> tsqlEnd) do
   begin
-    S := ParseProcedureStatement(APArent);
+    S := ParseProcedureStatement(AParent);
     Statements.Add(S);
     if not(PreviousToken = tsqlEnd) then
       Consume(tsqlSemicolon);
@@ -1621,7 +1611,7 @@ begin
   Consume(tsqlEnd);
 end;
 
-function TSQLParser.ParseCreateProcedureStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateProcedureStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
 
 var
@@ -1633,10 +1623,10 @@ begin
   Expect(tsqlIdentifier);
   if IsAlter then
     P := TSQLAlterProcedureStatement
-      (CreateElement(TSQLAlterProcedureStatement, APArent))
+      (CreateElement(TSQLAlterProcedureStatement, AParent))
   else
     P := TSQLCreateProcedureStatement
-      (CreateElement(TSQLCreateProcedureStatement, APArent));
+      (CreateElement(TSQLCreateProcedureStatement, AParent));
   Result := P;
   try
     Result.ObjectName := CreateIdentifier(P, CurrentTokenString);
@@ -1660,7 +1650,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateGeneratorStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateGeneratorStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
 begin
   GetNextToken;
@@ -1668,7 +1658,7 @@ begin
   if IsAlter then
     Error(SErrCannotAlterGenerator);
   Result := TSQLCreateOrAlterStatement
-    (CreateElement(TSQLCreateGeneratorStatement, APArent));
+    (CreateElement(TSQLCreateGeneratorStatement, AParent));
   try
     Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
   except
@@ -1678,7 +1668,7 @@ begin
   GetNextToken; // Comma;
 end;
 
-function TSQLParser.ParseCreateRoleStatement(APArent: TSQLElement;
+function TSQLParser.ParseCreateRoleStatement(AParent: TSQLElement;
   IsAlter: Boolean): TSQLCreateOrAlterStatement;
 begin
   if IsAlter then
@@ -1686,13 +1676,13 @@ begin
   GetNextToken;
   Expect(tsqlIdentifier);
   Result := TSQLCreateOrAlterStatement(CreateElement(TSQLCreateRoleStatement,
-    APArent));
+    AParent));
   Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
   GetNextToken; // Comma;
 end;
 
 procedure TSQLParser.ParseCharTypeDefinition(Out DT : TSQLDataType;
-  Out Len : integer; Out ACharset : TSQLStringType);
+  Out Len : Integer; Out ACharset : TSQLStringType);
 
 begin
   Len := 0;
@@ -1750,7 +1740,7 @@ begin
   end;
 end;
 
-procedure TSQLParser.ParseBlobDefinition(var ASegmentSize, ABlobType : integer;
+procedure TSQLParser.ParseBlobDefinition(var ASegmentSize, ABlobType : Integer;
   var ACharset : TSQLStringType);
 
 begin
@@ -1801,7 +1791,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseForeignKeyDefinition(APArent : TSQLElement)
+function TSQLParser.ParseForeignKeyDefinition(AParent : TSQLElement)
   : TSQLForeignKeyDefinition;
 
   // On entry, we're on ON Return true if On delete
@@ -1851,7 +1841,7 @@ begin
   GetNextToken;
   Expect(tsqlIdentifier);
   Result := TSQLForeignKeyDefinition(CreateElement(TSQLForeignKeyDefinition,
-    APArent));
+    AParent));
   try
     Result.TableName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -1880,7 +1870,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseFieldConstraint(APArent : TSQLElement)
+function TSQLParser.ParseFieldConstraint(AParent : TSQLElement)
   : TSQLFieldConstraint;
 
 var
@@ -1897,7 +1887,7 @@ begin
     Repeat
       if (Result <> nil) then
       begin
-        L := TSQLFieldConstraintList.Create(APArent);
+        L := TSQLFieldConstraintList.Create(AParent);
         L.List.Add(Result);
         Result := nil;
       end;
@@ -1914,7 +1904,7 @@ begin
             if P then
               Error('Only one primary/unique field constraint allowed');
             Result := TSQLFieldConstraint
-              (CreateElement(TSQLUniqueFieldConstraint, APArent));
+              (CreateElement(TSQLUniqueFieldConstraint, AParent));
             GetNextToken;
             P := True;
           end;
@@ -1925,21 +1915,21 @@ begin
             GetNextToken;
             Expect(tsqlKey);
             Result := TSQLFieldConstraint
-              (CreateElement(TSQLPrimaryKeyFieldConstraint, APArent));
+              (CreateElement(TSQLPrimaryKeyFieldConstraint, AParent));
             GetNextToken;
             P := True;
           end;
         tsqlReferences :
           begin
             K := TSQLForeignKeyFieldConstraint
-              (CreateElement(TSQLForeignKeyFieldConstraint, APArent));
+              (CreateElement(TSQLForeignKeyFieldConstraint, AParent));
             Result := K;
             K.Definition := ParseForeignKeyDefinition(K);
           end;
         tsqlCheck :
           begin
             C := TSQLCheckFieldConstraint
-              (CreateElement(TSQLCheckFieldConstraint, APArent));
+              (CreateElement(TSQLCheckFieldConstraint, AParent));
             Result := C;
             C.Expression := ParseCheckConstraint(K, True);
           end
@@ -1963,16 +1953,16 @@ begin
   end;
 end;
 
-function TSQLParser.ParseTypeDefinition(APArent : TSQLElement;
+function TSQLParser.ParseTypeDefinition(AParent : TSQLElement;
   Flags : TParseTypeFlags) : TSQLTypeDefinition;
 
 var
   TN       : string;
-  AD       : integer;
+  AD       : Integer;
   DT       : TSQLDataType;
   GN       : Boolean; // Do GetNextToken ?
-  sc, prec : integer;
-  bt       : integer;
+  sc, prec : Integer;
+  bt       : Integer;
   D        : TSQLTypeDefinition;
   cs       : TSQLStringType;
   Coll     : TSQLCollation;
@@ -2078,14 +2068,14 @@ begin
       Error(SErrInvalidUseOfCollate);
     GetNextToken;
     Expect(tsqlIdentifier);
-    Coll := TSQLCollation(CreateElement(TSQLCollation, APArent));
+    Coll := TSQLCollation(CreateElement(TSQLCollation, AParent));
     Coll.Name := CurrentTokenString;
     GetNextToken;
   end
   else
     Coll := nil;
   C := nil;
-  D := TSQLTypeDefinition(CreateElement(TSQLTypeDefinition, APArent));
+  D := TSQLTypeDefinition(CreateElement(TSQLTypeDefinition, AParent));
   try
     D.DataType := DT;
     D.TypeName := TN;
@@ -2123,7 +2113,7 @@ begin
       begin
         if Not(ptfAllowConstraint in Flags) then
           UnexpectedToken;
-        D.Constraint := ParseFieldConstraint(APArent);
+        D.Constraint := ParseFieldConstraint(AParent);
       end;
       // table definition can have PRIMARY KEY CHECK
       if (CurrentToken = tsqlCheck) and (ptfTableFieldDef in Flags) then
@@ -2138,7 +2128,7 @@ begin
           Error(SErrInvalidUseOfCollate);
         GetNextToken;
         Expect(tsqlIdentifier);
-        Coll := TSQLCollation(CreateElement(TSQLCollation, APArent));
+        Coll := TSQLCollation(CreateElement(TSQLCollation, AParent));
         Coll.Name := CurrentTokenString;
         GetNextToken;
       end
@@ -2158,32 +2148,32 @@ begin
   end;
 end;
 
-function TSQLParser.CreateLiteral(APArent : TSQLElement) : TSQLLiteral;
+function TSQLParser.CreateLiteral(AParent : TSQLElement) : TSQLLiteral;
 
 begin
   Result := nil;
   case CurrentToken of
     tsqlIntegerNumber:
       begin
-        Result := TSQLLiteral(CreateElement(TSQLIntegerLiteral, APArent));
+        Result := TSQLLiteral(CreateElement(TSQLIntegerLiteral, AParent));
         TSQLIntegerLiteral(Result).Value := StrToInt(CurrentTokenString);
       end;
     tsqlString:
       begin
-        Result := TSQLLiteral(CreateElement(TSQLStringLiteral, APArent));
+        Result := TSQLLiteral(CreateElement(TSQLStringLiteral, AParent));
         TSQLStringLiteral(Result).Value := CurrentTokenString;
       end;
     tsqlFloatNumber:
       begin
-        Result := TSQLLiteral(CreateElement(TSQLFloatLiteral, APArent));
+        Result := TSQLLiteral(CreateElement(TSQLFloatLiteral, AParent));
         TSQLFloatLiteral(Result).Value := StrToFloat(CurrentTokenString);
       end;
     tsqlNull :
-      Result := TSQLLiteral(CreateElement(TSQLNullLiteral, APArent));
+      Result := TSQLLiteral(CreateElement(TSQLNullLiteral, AParent));
     tsqlValue :
-      Result := TSQLLiteral(CreateElement(TSQLValueLiteral, APArent));
+      Result := TSQLLiteral(CreateElement(TSQLValueLiteral, AParent));
     tsqlUSER :
-      Result := TSQLLiteral(CreateElement(TSQLUserLiteral, APArent));
+      Result := TSQLLiteral(CreateElement(TSQLUserLiteral, AParent));
   else
     Error(SErrInvalidLiteral, [CurrentTokenString]);
   end;
@@ -2196,7 +2186,7 @@ begin
     Error('Unexpected end of command');
 end;
 
-function TSQLParser.ParseExprLevel1(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel1(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
 var
@@ -2205,14 +2195,14 @@ var
   L    : TSQLLiteralExpression;
 
 begin
-  Result := ParseExprLevel2(APArent, EO);
+  Result := ParseExprLevel2(AParent, EO);
   Try
     while (CurrentToken in [tsqlAnd, tsqlOr{,tsqlIs}]) do
     begin
       tt := CurrentToken;
       GetNextToken;
       CheckEOF;
-      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, APArent));
+      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, AParent));
       B.Left := TSQLExpression(Result);
       Result := B;
       if tt = tsqlIs then
@@ -2226,8 +2216,8 @@ begin
           B.Operation := boIs;
         Expect(tsqlNull);
         L := TSQLLiteralExpression(CreateElement(TSQLLiteralExpression,
-          APArent));
-        L.Literal := CreateLiteral(APArent);
+          AParent));
+        L.Literal := CreateLiteral(AParent);
         B.Right := L;
         GetNextToken;
       end
@@ -2241,7 +2231,7 @@ begin
         Else
           Error(SErrUnknownBooleanOp)
         end;
-        B.Right := ParseExprLevel2(APArent, EO);
+        B.Right := ParseExprLevel2(AParent, EO);
       end;
     end;
   Except
@@ -2250,7 +2240,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseInoperand(APArent : TSQLElement) : TSQLExpression;
+function TSQLParser.ParseInoperand(AParent : TSQLElement) : TSQLExpression;
 
 var
   S    : TSQLSelectExpression;
@@ -2263,14 +2253,14 @@ begin
   try
     if (CurrentToken = tsqlSelect) then
     begin
-      S := TSQLSelectExpression(CreateElement(TSQLSelectExpression, APArent));
+      S := TSQLSelectExpression(CreateElement(TSQLSelectExpression, AParent));
       Result := S;
-      S.Select := ParseSelectStatement(APArent, [sfSingleTon]);
+      S.Select := ParseSelectStatement(AParent, [sfSingleTon]);
       Consume(tsqlBraceClose);
     end
     else
     begin
-      L := TSQLListExpression(CreateElement(TSQLListExpression, APArent));
+      L := TSQLListExpression(CreateElement(TSQLListExpression, AParent));
       Result := L;
       Repeat
         L.List.Add(ParseExprLevel1(L, [eoListValue]));
@@ -2285,7 +2275,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprLevel2(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel2(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 var
   tt          : TSQLToken;
@@ -2300,7 +2290,7 @@ begin
 
 {$IFDEF debugexpr} Writeln('Level 2 ', TokenInfos[CurrentToken], ': ', CurrentTokenString); {$ENDIF debugexpr}
 
-  Result := ParseExprLevel3(APArent, EO);
+  Result := ParseExprLevel3(AParent, EO);
   try
     if (CurrentToken in sqlComparisons) then
     begin
@@ -2359,8 +2349,8 @@ begin
       end;
       if doin then
       begin
-        Right := ParseInoperand(APArent);
-        B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, APArent));
+        Right := ParseInoperand(AParent);
+        B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, AParent));
         B.Operation := boIn;
         B.Left := Result;
         Result := B;
@@ -2368,33 +2358,33 @@ begin
       end
       else
       begin
-        Right := ParseExprLevel3(APArent, EO);
+        Right := ParseExprLevel3(AParent, EO);
         if (O = boLike) and (CurrentToken = tsqlEscape) then
         begin
           GetNextToken;
           T := TSQLTernaryExpression(CreateElement(TSQLTernaryExpression,
-            APArent));
+            AParent));
           T.Left := Result;
           Result := T;
           T.Middle := Right;
-          T.Right := ParseExprLevel3(APArent, EO);
+          T.Right := ParseExprLevel3(AParent, EO);
           T.Operation := toLikeEscape
         end
         else if bw then
         begin
           Consume(tsqlAnd);
           T := TSQLTernaryExpression(CreateElement(TSQLTernaryExpression,
-            APArent));
+            AParent));
           T.Left := Result;
           Result := T;
           T.Middle := Right;
-          T.Right := ParseExprLevel3(APArent, EO);
+          T.Right := ParseExprLevel3(AParent, EO);
           T.Operation := toBetween;
         end
         else
         begin
           B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression,
-            APArent));
+            AParent));
           B.Operation := O;
           B.Left := Result;
           Result := B;
@@ -2406,7 +2396,7 @@ begin
           B.Operation := boIsNot
         else
         begin
-          U := TSQLUnaryExpression(CreateElement(TSQLUnaryExpression, APArent));
+          U := TSQLUnaryExpression(CreateElement(TSQLUnaryExpression, AParent));
           U.Operand := Result;
           U.Operation := uoNot;
           Result := U;
@@ -2418,7 +2408,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprLevel3(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel3(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
   function NegativeNumber : Boolean; inline;
@@ -2437,7 +2427,7 @@ begin
 
 {$IFDEF debugexpr} Writeln('Level 3 ', TokenInfos[CurrentToken], ': ', CurrentTokenString); {$ENDIF debugexpr}
 
-  Result := ParseExprLevel4(APArent, EO);
+  Result := ParseExprLevel4(AParent, EO);
   try
 
 {$IFDEF debugexpr} Writeln('Level 3 continues ', TokenInfos[CurrentToken], ': ', CurrentTokenString); {$ENDIF debugexpr}
@@ -2455,8 +2445,8 @@ begin
         GetNextToken;
         CheckEOF;
       end;
-      Right := ParseExprLevel4(APArent, EO);
-      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, APArent));
+      Right := ParseExprLevel4(AParent, EO);
+      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, AParent));
       B.Left := Result;
       Result := B;
       B.Right := Right;
@@ -2475,7 +2465,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprLevel4(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel4(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
 var
@@ -2487,15 +2477,15 @@ begin
 
 {$IFDEF debugexpr} Writeln('Level 4 ', TokenInfos[CurrentToken], ': ', CurrentTokenString); {$ENDIF debugexpr}
 
-  Result := ParseExprLevel5(APArent, EO);
+  Result := ParseExprLevel5(AParent, EO);
   try
     while (CurrentToken in [tsqlMul, tsqlDiv]) do
     begin
       tt := CurrentToken;
       GetNextToken;
       CheckEOF;
-      Right := ParseExprLevel5(APArent, EO);
-      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, APArent));
+      Right := ParseExprLevel5(AParent, EO);
+      B := TSQLBinaryExpression(CreateElement(TSQLBinaryExpression, AParent));
       B.Left := Result;
       B.Right := Right;
       case tt of
@@ -2511,7 +2501,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprLevel5(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel5(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
 var
@@ -2528,11 +2518,11 @@ begin
     GetNextToken;
     CheckEOF;
   end;
-  Result := ParseExprLevel6(APArent, EO);
+  Result := ParseExprLevel6(AParent, EO);
   try
     if tt <> tsqlunknown then
     begin
-      U := TSQLUnaryExpression(CreateElement(TSQLUnaryExpression, APArent));
+      U := TSQLUnaryExpression(CreateElement(TSQLUnaryExpression, AParent));
       if tt = tsqlNot then
         U.Operation := uoNot
       else
@@ -2546,7 +2536,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprLevel6(APArent : TSQLElement;
+function TSQLParser.ParseExprLevel6(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
 begin
@@ -2557,10 +2547,10 @@ begin
   begin
     GetNextToken;
     if (CurrentToken <> tsqlSelect) then
-      Result := ParseExprLevel1(APArent, EO)
+      Result := ParseExprLevel1(AParent, EO)
     else
     begin
-      Result := TSQLExpression(CreateElement(TSQLSelectExpression, APArent));
+      Result := TSQLExpression(CreateElement(TSQLSelectExpression, AParent));
       try
         TSQLSelectExpression(Result).Select := ParseSelectStatement(Result,
           [sfSingleTon]);
@@ -2579,11 +2569,11 @@ begin
     end;
   end
   else
-    Result := ParseExprPrimitive(APArent, EO);
+    Result := ParseExprPrimitive(AParent, EO);
 end;
 
-function TSQLParser.ParseIdentifierList(APArent : TSQLElement;
-  AList : TSQLelementList) : integer;
+function TSQLParser.ParseIdentifierList(AParent : TSQLElement;
+  AList : TSQLelementList) : Integer;
 
 begin
   // on entry, we're on first identifier
@@ -2593,14 +2583,14 @@ begin
     if CurrentToken = tsqlComma then
       GetNextToken;
     Expect(tsqlIdentifier);
-    AList.Add(CreateIdentifier(APArent, CurrentTokenString));
+    AList.Add(CreateIdentifier(AParent, CurrentTokenString));
     Inc(Result);
   until (GetNextToken <> tsqlComma);
   Expect(tsqlBraceClose);
   GetNextToken;
 end;
 
-function TSQLParser.ParseValueList(APArent : TSQLElement;
+function TSQLParser.ParseValueList(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLelementList;
 
 var
@@ -2614,7 +2604,7 @@ begin
   Repeat
     GetNextToken;
     if (CurrentToken <> tsqlBraceClose) then
-      E := ParseExprLevel1(APArent, EO);
+      E := ParseExprLevel1(AParent, EO);
     if (E <> nil) then
     begin
       if Result = nil then
@@ -2648,18 +2638,18 @@ begin
   Error(SErrUnexpectedTokenOf, [CurrentTokenString, S]);
 end;
 
-function TSQLParser.CreateIdentifier(APArent : TSQLElement; const AName: TSQLStringType
+function TSQLParser.CreateIdentifier(AParent : TSQLElement; const AName: TSQLStringType
   ): TSQLIdentifierName;
 begin
-  Result := TSQLIdentifierName(CreateElement(TSQLIdentifierName, APArent));
+  Result := TSQLIdentifierName(CreateElement(TSQLIdentifierName, AParent));
   Result.Name := AName;
 end;
 
-function TSQLParser.ParseExprAggregate(APArent : TSQLElement;
+function TSQLParser.ParseExprAggregate(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLAggregateFunctionExpression;
 begin
   Result := TSQLAggregateFunctionExpression
-    (CreateElement(TSQLAggregateFunctionExpression, APArent));
+    (CreateElement(TSQLAggregateFunctionExpression, AParent));
   try
     case CurrentToken of
       tsqlCount :
@@ -2701,7 +2691,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExprPrimitive(APArent : TSQLElement;
+function TSQLParser.ParseExprPrimitive(AParent : TSQLElement;
   EO : TExpressionOptions) : TSQLExpression;
 
 var
@@ -2725,8 +2715,8 @@ begin
         tsqlUSER:
         begin
           Result := TSQLLiteralExpression(CreateElement(TSQLLiteralExpression,
-            APArent));
-          TSQLLiteralExpression(Result).Literal := CreateLiteral(APArent);
+            AParent));
+          TSQLLiteralExpression(Result).Literal := CreateLiteral(AParent);
           GetNextToken;
         end;
       tsqlCast:
@@ -2734,7 +2724,7 @@ begin
           GetNextToken;
           Consume(tsqlBraceOpen);
           Result := TSQLCastExpression(CreateElement(TSQLCastExpression,
-            APArent));
+            AParent));
           TSQLCastExpression(Result).Value := ParseExprLevel1(Result, EO);
           Expect(tsqlAs);
           TSQLCastExpression(Result).NewType :=
@@ -2751,7 +2741,7 @@ begin
           Consume(tsqlIdentifier);
           Consume(tsqlFrom);
           Result := TSQLExtractExpression(CreateElement(TSQLExtractExpression,
-            APArent));
+            AParent));
           TSQLExtractExpression(Result).Element := E;
           TSQLExtractExpression(Result).Value := ParseExprLevel1(Result, EO);
           Consume(tsqlBraceClose);
@@ -2776,7 +2766,7 @@ begin
           end;
           GetNextToken;
           Consume(tsqlBraceOpen);
-          Result := TSQLSelectionExpression(CreateElement(C, APArent));
+          Result := TSQLSelectionExpression(CreateElement(C, AParent));
           TSQLSelectionExpression(Result).Select :=
             ParseSelectStatement(Result, []);
           Consume(tsqlBraceClose);
@@ -2789,12 +2779,12 @@ begin
         begin
           if not([eoSelectvalue, eoHaving] * EO <> []) then
             Error(SErrNoAggregateAllowed);
-          Result := ParseExprAggregate(APArent, EO);
+          Result := ParseExprAggregate(AParent, EO);
         end;
       tsqlUpper :
         begin
           GetNextToken;
-          L := ParseValueList(APArent, EO);
+          L := ParseValueList(AParent, EO);
           if L.Count <> 1 then
           begin
             FreeAndNil(L);
@@ -2802,7 +2792,7 @@ begin
           end;
           GetNextToken; // Consume );
           Result := TSQLFunctionCallExpression
-            (CreateElement(TSQLFunctionCallExpression, APArent));
+            (CreateElement(TSQLFunctionCallExpression, AParent));
           TSQLFunctionCallExpression(Result).IDentifier := 'UPPER';
           TSQLFunctionCallExpression(Result).Arguments := L;
         end;
@@ -2815,9 +2805,9 @@ begin
           GetNextToken;
           Consume(tsqlComma);
           Result := TSQLGenIDExpression(CreateElement(TSQLGenIDExpression,
-            APArent));
+            AParent));
           TSQLGenIDExpression(Result).Generator := CreateIdentifier(Result, N);
-          TSQLGenIDExpression(Result).Value := ParseExprLevel1(APArent, EO);
+          TSQLGenIDExpression(Result).Value := ParseExprLevel1(AParent, EO);
           Consume(tsqlBraceClose);
         end;
       tsqlColon:
@@ -2829,7 +2819,7 @@ begin
           Expect(tsqlIdentifier);
           N := CurrentTokenString;
           Result := TSQLParameterExpression
-            (CreateElement(TSQLParameterExpression, APArent));
+            (CreateElement(TSQLParameterExpression, AParent));
           TSQLParameterExpression(Result).IDentifier :=
             CreateIdentifier(Result, N);
           Consume(tsqlIdentifier);
@@ -2850,7 +2840,7 @@ begin
             end;
           // plain identifier
             Result := TSQLIdentifierExpression
-              (CreateElement(TSQLIdentifierExpression, APArent));
+              (CreateElement(TSQLIdentifierExpression, AParent));
             TSQLIdentifierExpression(Result).IDentifier :=
               CreateIdentifier(Result, N);
           // array access ?
@@ -2866,11 +2856,11 @@ begin
           end
           else
           begin
-            L := ParseValueList(APArent, EO);
+            L := ParseValueList(AParent, EO);
             GetNextToken; // Consume );
           // function call
             Result := TSQLFunctionCallExpression
-              (CreateElement(TSQLFunctionCallExpression, APArent));
+              (CreateElement(TSQLFunctionCallExpression, AParent));
             TSQLFunctionCallExpression(Result).IDentifier := N;
             TSQLFunctionCallExpression(Result).Arguments := L;
           end;
@@ -2884,16 +2874,16 @@ begin
   end;
 end;
 
-function TSQLParser.ParseSQLValue(APArent : TSQLElement) : TSQLExpression;
+function TSQLParser.ParseSQLValue(AParent : TSQLElement) : TSQLExpression;
 
 var
   E : TSQLExpression;
 begin
-  E := ParseExprLevel1(APArent, []);
+  E := ParseExprLevel1(AParent, []);
   Result := E;
 end;
 
-function TSQLParser.ParseCheckConstraint(APArent : TSQLElement;
+function TSQLParser.ParseCheckConstraint(AParent : TSQLElement;
   TableConstraint : Boolean = False) : TSQLExpression;
 
 var
@@ -2906,11 +2896,11 @@ begin
   EO := [eoCheckConstraint];
   if TableConstraint then
     EO := EO + [eoTableConstraint];
-  Result := ParseExprLevel1(APArent, EO);
+  Result := ParseExprLevel1(AParent, EO);
   Consume(tsqlBraceClose);
 end;
 
-function TSQLParser.ParseCreateDomainStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateDomainStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
 
 var
@@ -2927,7 +2917,7 @@ begin
   if not IsAlter then
   begin
     D := TSQLCreateDomainStatement(CreateElement(TSQLCreateDomainStatement,
-      APArent));
+      AParent));
     try
       D.ObjectName := CreateIdentifier(D, N);
       if (PeekNextToken = tsqlAs) then
@@ -2951,7 +2941,7 @@ begin
             Expect(tsqlDefault);
             GetNextToken;
             A := TSQLAlterDomainSetDefaultStatement
-              (CreateElement(TSQLAlterDomainSetDefaultStatement, APArent));
+              (CreateElement(TSQLAlterDomainSetDefaultStatement, AParent));
             TSQLAlterDomainSetDefaultStatement(A).DefaultValue :=
               CreateLiteral(A);
           end;
@@ -2960,10 +2950,10 @@ begin
             case GetNextToken of
               tsqlDefault :
                 A := TSQLAlterDomainDropDefaultStatement
-                  (CreateElement(TSQLAlterDomainDropDefaultStatement, APArent));
+                  (CreateElement(TSQLAlterDomainDropDefaultStatement, AParent));
               tsqlConstraint :
                 A := TSQLAlterDomainDropCheckStatement
-                  (CreateElement(TSQLAlterDomainDropCheckStatement, APArent));
+                  (CreateElement(TSQLAlterDomainDropCheckStatement, AParent));
             else
               Error(SErrUnexpectedToken, [CurrentTokenString]);
             end;
@@ -2974,7 +2964,7 @@ begin
               GetNextToken;
             Expect(tsqlCheck);
             A := TSQLAlterDomainAddCheckStatement
-              (CreateElement(TSQLAlterDomainAddCheckStatement, APArent));
+              (CreateElement(TSQLAlterDomainAddCheckStatement, AParent));
             TSQLAlterDomainAddCheckStatement(A).Check :=
               ParseCheckConstraint(A);
             NN := True;
@@ -2982,7 +2972,7 @@ begin
         tsqltype:
           begin
             A := TSQLAlterDomainTypeStatement
-              (CreateElement(TSQLAlterDomainTypeStatement, APArent));
+              (CreateElement(TSQLAlterDomainTypeStatement, AParent));
             TSQLAlterDomainTypeStatement(A).NewType :=
               ParseTypeDefinition(A, [ptfAlterDomain]);
             NN := True;
@@ -2990,7 +2980,7 @@ begin
         tsqlIdentifier:
           begin
             A := TSQLAlterDomainRenameStatement
-              (CreateElement(TSQLAlterDomainRenameStatement, APArent));
+              (CreateElement(TSQLAlterDomainRenameStatement, AParent));
             TSQLAlterDomainRenameStatement(A).NewName :=
               CreateIdentifier(A, CurrentTokenString);
           end;
@@ -3008,7 +2998,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateExceptionStatement(APArent: TSQLElement;
+function TSQLParser.ParseCreateExceptionStatement(AParent: TSQLElement;
   IsAlter: Boolean): TSQLCreateOrAlterStatement;
 
 var
@@ -3022,10 +3012,10 @@ begin
   try
     if IsAlter then
       E := TSQLCreateExceptionStatement
-        (CreateElement(TSQLAlterExceptionStatement, APArent))
+        (CreateElement(TSQLAlterExceptionStatement, AParent))
     else
       E := TSQLCreateExceptionStatement
-        (CreateElement(TSQLCreateExceptionStatement, APArent));
+        (CreateElement(TSQLCreateExceptionStatement, AParent));
     E.ObjectName := CreateIdentifier(E, N);
     GetNextToken;
     Expect(tsqlString);
@@ -3040,7 +3030,7 @@ begin
   Result := E;
 end;
 
-function TSQLParser.ParseCreateTriggerStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateTriggerStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
 
 var
@@ -3051,10 +3041,10 @@ begin
   Consume(tsqlTrigger);
   if IsAlter then
     T := TSQLAlterTriggerStatement
-      (CreateElement(TSQLAlterTriggerStatement, APArent))
+      (CreateElement(TSQLAlterTriggerStatement, AParent))
   else
     T := TSQLCreateTriggerStatement(CreateElement(TSQLCreateTriggerStatement,
-      APArent));
+      AParent));
   Result := T;
   try
     Expect(tsqlIdentifier);
@@ -3111,14 +3101,14 @@ begin
   end;
 end;
 
-function TSQLParser.ParseSetGeneratorStatement(APArent: TSQLElement
+function TSQLParser.ParseSetGeneratorStatement(AParent: TSQLElement
   ): TSQLSetGeneratorStatement;
 begin
   // On entry, we're on the 'GENERATOR' token
   Consume(tsqlGenerator);
   try
     Result := TSQLSetGeneratorStatement(CreateElement(TSQLSetGeneratorStatement,
-      APArent));
+      AParent));
     Expect(tsqlIdentifier);
     Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -3132,17 +3122,17 @@ begin
   end;
 end;
 
-function TSQLParser.ParseSecondaryFile(APArent: TSQLElement)
+function TSQLParser.ParseSecondaryFile(AParent: TSQLElement)
   : TSQLDatabaseFileInfo;
 
 var
-  I    : integer;
+  I    : Integer;
   Last : TSQLToken;
 
 begin
   // On entry, we're on the FILE token
   Consume(tsqlFile);
-  Result := TSQLDatabaseFileInfo(CreateElement(TSQLDatabaseFileInfo, APArent));
+  Result := TSQLDatabaseFileInfo(CreateElement(TSQLDatabaseFileInfo, AParent));
   try
     Expect(tsqlString);
     Result.FileName := CurrentTokenString;
@@ -3189,13 +3179,13 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateDatabaseStatement(APArent: TSQLElement;
+function TSQLParser.ParseCreateDatabaseStatement(AParent: TSQLElement;
   IsAlter: Boolean) : TSQLCreateDatabaseStatement;
 
 begin
   // On entry, we're on the DATABASE or SCHEMA token
   Result := TSQLCreateDatabaseStatement
-    (CreateElement(TSQLCreateDatabaseStatement, APArent));
+    (CreateElement(TSQLCreateDatabaseStatement, AParent));
   try
     Result.UseSchema := (CurrentToken = tsqlSchema);
     GetNextToken;
@@ -3253,7 +3243,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCreateShadowStatement(APArent: TSQLElement;
+function TSQLParser.ParseCreateShadowStatement(AParent: TSQLElement;
   IsAlter: Boolean): TSQLCreateShadowStatement;
 begin
   // On entry, we're on the SHADOW token.
@@ -3261,7 +3251,7 @@ begin
     UnexpectedToken;
   Consume(tsqlShadow);
   Result := TSQLCreateShadowStatement(CreateElement(TSQLCreateShadowStatement,
-    APArent));
+    AParent));
   try
     Expect(tsqlIntegerNumber);
     Result.Number := StrToInt(CurrentTokenString);
@@ -3300,12 +3290,12 @@ begin
   end;
 end;
 
-function TSQLParser.ParseAlterDatabaseStatement(APArent: TSQLElement;
+function TSQLParser.ParseAlterDatabaseStatement(AParent: TSQLElement;
   IsAlter: Boolean): TSQLAlterDatabaseStatement;
 begin
   // On entry, we're on the DATABASE or SCHEMA token.
   Result := TSQLAlterDatabaseStatement(CreateElement(TSQLAlterDatabaseStatement,
-    APArent));
+    AParent));
   try
     Result.UseSchema := CurrentToken = tsqlSchema;
     GetNextToken;
@@ -3326,49 +3316,49 @@ begin
 
 end;
 
-function TSQLParser.ParseCreateStatement(APArent: TSQLElement; IsAlter: Boolean
+function TSQLParser.ParseCreateStatement(AParent: TSQLElement; IsAlter: Boolean
   ): TSQLCreateOrAlterStatement;
 begin
   case GetNextToken of
     tsqlTable :
       if IsAlter then
-        Result := ParseAlterTableStatement(APArent)
+        Result := ParseAlterTableStatement(AParent)
       else
-        Result := ParseCreateTableStatement(APArent);
+        Result := ParseCreateTableStatement(AParent);
 
     tsqlUnique,
       tsqlAscending,
       tsqlDescending,
       tsqlIndex :
-      Result := ParseCreateIndexStatement(APArent, IsAlter);
+      Result := ParseCreateIndexStatement(AParent, IsAlter);
     tsqlView :
-      Result := ParseCreateViewStatement(APArent, IsAlter);
+      Result := ParseCreateViewStatement(AParent, IsAlter);
     tsqlProcedure :
-      Result := ParseCreateProcedureStatement(APArent, IsAlter);
+      Result := ParseCreateProcedureStatement(AParent, IsAlter);
     tsqlDomain :
-      Result := ParseCreateDomainStatement(APArent, IsAlter);
+      Result := ParseCreateDomainStatement(AParent, IsAlter);
     tsqlGenerator :
-      Result := ParseCreateGeneratorStatement(APArent, IsAlter);
+      Result := ParseCreateGeneratorStatement(AParent, IsAlter);
     tsqlException :
-      Result := ParseCreateExceptionStatement(APArent, IsAlter);
+      Result := ParseCreateExceptionStatement(AParent, IsAlter);
     tsqlTrigger :
-      Result := ParseCreateTriggerStatement(APArent, IsAlter);
+      Result := ParseCreateTriggerStatement(AParent, IsAlter);
     tsqlRole :
-      Result := ParseCreateRoleStatement(APArent, IsAlter);
+      Result := ParseCreateRoleStatement(AParent, IsAlter);
     tsqlSchema,
       tsqlDatabase :
       if IsAlter then
-        Result := ParseAlterDatabaseStatement(APArent, IsAlter)
+        Result := ParseAlterDatabaseStatement(AParent, IsAlter)
       else
-        Result := ParseCreateDatabaseStatement(APArent, IsAlter);
+        Result := ParseCreateDatabaseStatement(AParent, IsAlter);
     tsqlShadow :
-      Result := ParseCreateShadowStatement(APArent, IsAlter);
+      Result := ParseCreateShadowStatement(AParent, IsAlter);
   else
     Error(SErrExpectedDBObject, [CurrentTokenString]);
   end;
 end;
 
-function TSQLParser.ParseDropStatement(APArent: TSQLElement
+function TSQLParser.ParseDropStatement(AParent: TSQLElement
   ): TSQLDropStatement;
 
 var
@@ -3417,19 +3407,19 @@ begin
     Expect(tsqlIntegerNumber)
   else
     Expect(tsqlIdentifier);
-  Result := TSQLDropStatement(CreateElement(C, APArent));
+  Result := TSQLDropStatement(CreateElement(C, AParent));
   Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
   GetNextToken; // Comma
 end;
 
-function TSQLParser.ParseRollbackStatement(APArent: TSQLElement
+function TSQLParser.ParseRollbackStatement(AParent: TSQLElement
   ): TSQLRollbackStatement;
 
 begin
   // On entry, we're on the ROLLBACK statement
   Consume(tsqlRollBack);
   Result := TSQLRollbackStatement(CreateElement(TSQLRollbackStatement,
-    APArent));
+    AParent));
   try
     if (CurrentToken = tsqlTransaction) then
     begin
@@ -3450,11 +3440,11 @@ begin
   end;
 end;
 
-function TSQLParser.ParseCommitStatement(APArent: TSQLElement
+function TSQLParser.ParseCommitStatement(AParent: TSQLElement
   ): TSQLCommitStatement;
 begin
   Consume(tsqlCommit);
-  Result := TSQLCommitStatement(CreateElement(TSQLCommitStatement, APArent));
+  Result := TSQLCommitStatement(CreateElement(TSQLCommitStatement, AParent));
   try
     Result.Work := (CurrentToken = tsqlWork);
     if Result.Work then
@@ -3482,7 +3472,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseExecuteProcedureStatement(APArent: TSQLElement)
+function TSQLParser.ParseExecuteProcedureStatement(AParent: TSQLElement)
   : TSQLExecuteProcedureStatement;
 
 var
@@ -3504,7 +3494,7 @@ begin
   end;
   Expect(tsqlIdentifier);
   Result := TSQLExecuteProcedureStatement
-    (CreateElement(TSQLExecuteProcedureStatement, APArent));
+    (CreateElement(TSQLExecuteProcedureStatement, AParent));
   try
     Result.ProcedureName := CreateIdentifier(Result, CurrentTokenString);
     if (TN <> '') then
@@ -3560,26 +3550,26 @@ begin
   end;
 end;
 
-function TSQLParser.ParseSetStatement(APArent: TSQLElement): TSQLStatement;
+function TSQLParser.ParseSetStatement(AParent: TSQLElement): TSQLStatement;
 begin
   // On Entry, we're on the set statement
   Consume(tsqlSet);
   case CurrentToken of
     tsqlGenerator :
-      Result := ParseSetGeneratorStatement(APArent)
+      Result := ParseSetGeneratorStatement(AParent)
   else
     // For the time being
     UnexpectedToken;
   end;
 end;
 
-function TSQLParser.ParseConnectStatement(APArent: TSQLElement
+function TSQLParser.ParseConnectStatement(AParent: TSQLElement
   ): TSQLConnectStatement;
 begin
   // On entry, we're on CONNECT
   Consume(tsqlConnect);
   Expect(tsqlString);
-  Result := TSQLConnectStatement(CreateElement(TSQLConnectStatement, APArent));
+  Result := TSQLConnectStatement(CreateElement(TSQLConnectStatement, AParent));
   try
     Result.DatabaseName := CurrentTokenString;
     GetNextToken;
@@ -3639,7 +3629,7 @@ begin
   inherited Destroy;
 end;
 
-function TSQLParser.ParseDeclareFunctionStatement(APArent : TSQLElement)
+function TSQLParser.ParseDeclareFunctionStatement(AParent : TSQLElement)
   : TSQLDeclareExternalFunctionStatement;
 
 begin
@@ -3648,7 +3638,7 @@ begin
   Consume(tsqlFunction);
   Expect(tsqlIdentifier);
   Result := TSQLDeclareExternalFunctionStatement
-    (CreateElement(TSQLDeclareExternalFunctionStatement, APArent));
+    (CreateElement(TSQLDeclareExternalFunctionStatement, AParent));
   try
     Result.ObjectName := CreateIdentifier(Result, CurrentTokenString);
     if (PeekNextToken = tsqlReturns) then
@@ -3678,7 +3668,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseDeclareStatement(APArent : TSQLElement)
+function TSQLParser.ParseDeclareStatement(AParent : TSQLElement)
   : TSQLStatement;
 
 begin
@@ -3687,14 +3677,14 @@ begin
   // For the moment, only 'DECLARE EXTERNAL function' is supported
   case CurrentToken of
     tsqlExternal :
-      Result := ParseDeclareFunctionStatement(APArent);
+      Result := ParseDeclareFunctionStatement(AParent);
   else
     UnexpectedToken([tsqlExternal]);
   end;
 
 end;
 
-procedure TSQLParser.ParseGranteeList(APArent: TSQLElement;
+procedure TSQLParser.ParseGranteeList(AParent: TSQLElement;
   List: TSQLelementList; AllowObject, AllowGroup, AllowPublic: Boolean;
   IsRevoke: Boolean = False);
 
@@ -3709,7 +3699,7 @@ type
       GetNextToken;
       Expect(tsqlIdentifier);
     end;
-    Result := TSQLGrantee(CreateElement(AClass, APArent));
+    Result := TSQLGrantee(CreateElement(AClass, AParent));
     Result.Name := CurrentTokenString;
     List.Add(Result);
   end;
@@ -3772,7 +3762,7 @@ begin
 
 end;
 
-function TSQLParser.ParseGrantTableStatement(APArent: TSQLElement)
+function TSQLParser.ParseGrantTableStatement(AParent: TSQLElement)
   : TSQLTableGrantStatement;
 
 var
@@ -3781,7 +3771,7 @@ var
 
 begin
   Result := TSQLTableGrantStatement(CreateElement(TSQLTableGrantStatement,
-    APArent));
+    AParent));
   try
     // On entry, we're on the first ALL/SELECT/UPDATE/INSERT/DELETE/REFERENCE etc. token.
     if CurrentToken = tsqlAll then
@@ -3811,10 +3801,10 @@ begin
             begin
               if CurrentToken = tsqlUpdate then
                 C := TSQLUpdatePrivilege
-                  (CreateElement(TSQLUpdatePrivilege, APArent))
+                  (CreateElement(TSQLUpdatePrivilege, AParent))
               else
                 C := TSQLReferencePrivilege
-                  (CreateElement(TSQLReferencePrivilege, APArent));
+                  (CreateElement(TSQLReferencePrivilege, AParent));
               P := C;
               GetNextToken;
               if (CurrentToken = tsqlBraceOpen) then
@@ -3850,7 +3840,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseRevokeExecuteStatement(APArent: TSQLElement
+function TSQLParser.ParseRevokeExecuteStatement(AParent: TSQLElement
   ): TSQLProcedureRevokeStatement;
 BEGIN
   // On entry, we're on the EXECUTE token
@@ -3859,7 +3849,7 @@ BEGIN
   Consume(tsqlProcedure);
   Expect(tsqlIdentifier);
   Result := TSQLProcedureRevokeStatement
-    (CreateElement(TSQLProcedureRevokeStatement, APArent));
+    (CreateElement(TSQLProcedureRevokeStatement, AParent));
   try
     Result.ProcedureName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -3877,20 +3867,20 @@ BEGIN
   end;
 end;
 
-function TSQLParser.ParseRevokeRoleStatement(APArent: TSQLElement
+function TSQLParser.ParseRevokeRoleStatement(AParent: TSQLElement
   ): TSQLRoleRevokeStatement;
 begin
   Result := nil;
   // On entry, we're on the identifier token
   Expect(tsqlIdentifier);
   Result := TSQLRoleRevokeStatement(CreateElement(TSQLRoleRevokeStatement,
-    APArent));
+    AParent));
   try
     Repeat
       if CurrentToken = tsqlComma then
         GetNextToken;
       Expect(tsqlIdentifier);
-      Result.Roles.Add(CreateIdentifier(APArent, CurrentTokenString));
+      Result.Roles.Add(CreateIdentifier(AParent, CurrentTokenString));
     Until (GetNextToken <> tsqlComma);
     Expect(tsqlFrom);
     ParseGranteeList(Result, Result.Grantees, False, False, True, True);
@@ -3900,7 +3890,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseRevokeTableStatement(APArent: TSQLElement
+function TSQLParser.ParseRevokeTableStatement(AParent: TSQLElement
   ): TSQLTableRevokeStatement;
 var
   C : TSQLColumnPrivilege;
@@ -3908,7 +3898,7 @@ var
 
 begin
   Result := TSQLTableRevokeStatement(CreateElement(TSQLTableRevokeStatement,
-    APArent));
+    AParent));
   try
     // On entry, we're on the first GRANT,ALL/SELECT/UPDATE/INSERT/DELETE/REFERENCE etc. token.
     if (CurrentToken = tsqlGrant) then
@@ -3945,10 +3935,10 @@ begin
             begin
               if CurrentToken = tsqlUpdate then
                 C := TSQLUpdatePrivilege
-                  (CreateElement(TSQLUpdatePrivilege, APArent))
+                  (CreateElement(TSQLUpdatePrivilege, AParent))
               else
                 C := TSQLReferencePrivilege
-                  (CreateElement(TSQLReferencePrivilege, APArent));
+                  (CreateElement(TSQLReferencePrivilege, AParent));
               P := C;
               GetNextToken;
               if (CurrentToken = tsqlBraceOpen) then
@@ -3977,7 +3967,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseGrantExecuteStatement(APArent: TSQLElement)
+function TSQLParser.ParseGrantExecuteStatement(AParent: TSQLElement)
   : TSQLProcedureGrantStatement;
 
 begin
@@ -3987,7 +3977,7 @@ begin
   Consume(tsqlProcedure);
   Expect(tsqlIdentifier);
   Result := TSQLProcedureGrantStatement
-    (CreateElement(TSQLProcedureGrantStatement, APArent));
+    (CreateElement(TSQLProcedureGrantStatement, AParent));
   try
     Result.ProcedureName := CreateIdentifier(Result, CurrentTokenString);
     GetNextToken;
@@ -4005,7 +3995,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseGrantRoleStatement(APArent: TSQLElement)
+function TSQLParser.ParseGrantRoleStatement(AParent: TSQLElement)
   : TSQLRoleGrantStatement;
 
 begin
@@ -4013,13 +4003,13 @@ begin
   // On entry, we're on the identifier token
   Expect(tsqlIdentifier);
   Result := TSQLRoleGrantStatement(CreateElement(TSQLRoleGrantStatement,
-    APArent));
+    AParent));
   try
     Repeat
       if CurrentToken = tsqlComma then
         GetNextToken;
       Expect(tsqlIdentifier);
-      Result.Roles.Add(CreateIdentifier(APArent, CurrentTokenString));
+      Result.Roles.Add(CreateIdentifier(AParent, CurrentTokenString));
     Until (GetNextToken <> tsqlComma);
     Expect(tsqlTo);
     ParseGranteeList(Result, Result.Grantees, False, False, True);
@@ -4036,7 +4026,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseGrantStatement(APArent: TSQLElement)
+function TSQLParser.ParseGrantStatement(AParent: TSQLElement)
   : TSQLGrantStatement;
 
 begin
@@ -4046,16 +4036,16 @@ begin
     Consume(tsqlGrant);
     case CurrentToken of
       tsqlExecute:
-        Result := ParseGrantExecuteStatement(APArent);
+        Result := ParseGrantExecuteStatement(AParent);
       tsqlAll,
         tsqlUpdate,
         tsqlReferences,
         tsqlInsert,
         tsqlDelete,
         tsqlSelect :
-        Result := ParseGrantTableStatement(APArent);
+        Result := ParseGrantTableStatement(AParent);
       tsqlIdentifier :
-        Result := ParseGrantRoleStatement(APArent);
+        Result := ParseGrantRoleStatement(AParent);
     else
       UnexpectedToken([tsqlIdentifier, tsqlExecute, tsqlAll,
         tsqlUpdate, tsqlDelete, tsqlReferences, tsqlInsert, tsqlSelect]);
@@ -4066,7 +4056,7 @@ begin
   end;
 end;
 
-function TSQLParser.ParseRevokeStatement(APArent: TSQLElement
+function TSQLParser.ParseRevokeStatement(AParent: TSQLElement
   ): TSQLGrantStatement;
 begin
   // On entry, we're on the GRANT token
@@ -4075,7 +4065,7 @@ begin
     Consume(tsqlRevoke);
     case CurrentToken of
       tsqlExecute:
-        Result := ParseRevokeExecuteStatement(APArent);
+        Result := ParseRevokeExecuteStatement(AParent);
       tsqlGrant,
         tsqlAll,
         tsqlUpdate,
@@ -4083,9 +4073,9 @@ begin
         tsqlInsert,
         tsqlDelete,
         tsqlSelect :
-        Result := ParseRevokeTableStatement(APArent);
+        Result := ParseRevokeTableStatement(AParent);
       tsqlIdentifier :
-        Result := ParseRevokeRoleStatement(APArent);
+        Result := ParseRevokeRoleStatement(AParent);
     else
       UnexpectedToken([tsqlIdentifier, tsqlExecute, tsqlGrant, tsqlAll,
         tsqlUpdate, tsqlDelete, tsqlReferences, tsqlInsert, tsqlSelect]);

@@ -155,6 +155,7 @@ type
     actDecodeURL                      : TAction;
     actCompressSpace: TAction;
     actCompressWhitespace: TAction;
+    actSaveAll: TAction;
     actMergeBlankLines                : TAction;
     actStripComments                  : TAction;
     actSelectionEncodeMenu            : TAction;
@@ -327,6 +328,7 @@ type
     procedure actPageSetupExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
     procedure actPrintPreviewExecute(Sender: TObject);
+    procedure actSaveAllExecute(Sender: TObject);
     procedure actShowFilterTestExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
     procedure actShowHTMLViewerExecute(Sender: TObject);
@@ -542,6 +544,12 @@ type
   protected
     procedure ActiveViewChanged;
 
+    function SaveFile(
+      const AFileName   : string = '';
+            AShowDialog : Boolean = False
+    ): Boolean;
+    function ViewsModified: Boolean;
+
     procedure ExportLines(
       AFormat       : string;
       AToClipBoard  : Boolean = True;
@@ -576,12 +584,6 @@ type
              AShowModal : Boolean;
              ASetFocus  : Boolean
     );
-
-    { IEditorCommands } { TODO -oTS : Move to dedicated class or TEditorView }
-    function SaveFile(
-      const AFileName   : string = '';
-            AShowDialog : Boolean = False
-    ): Boolean;
 
     // TComponent overrides
     procedure Notification(
@@ -746,7 +748,7 @@ uses
 {$IFDEF Windows}
   ShlObj, Windows,
 
-  ts.Core.Logger.Channel.IPC,
+  ts.Core.Logger.Channel.IPC, // used for logging
 {$ENDIF}
   FileUtil, Clipbrd, StrUtils, TypInfo, Contnrs,
 
@@ -807,7 +809,7 @@ uses
   ts_Editor_SettingsDialog_FileAssociations;
 
 const
-  // prefixes for dynamically created actions.
+  // prefixes used for naming dynamically created actions.
   ACTION_PREFIX_ENCODING       = 'actEncoding';
   ACTION_PREFIX_HIGHLIGHTER    = 'actHighlighter';
   ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
@@ -1205,13 +1207,7 @@ end;
 
 procedure TdmEditorManager.actSaveExecute(Sender: TObject);
 begin
-  if ActiveView.IsFile then
-    SaveFile(ActiveView.FileName)
-  else
-  begin
-    Events.DoSave(ActiveView.FileName);
-    ActiveView.Save;
-  end;
+  Commands.Save;
 end;
 
 procedure TdmEditorManager.actSaveAsExecute(Sender: TObject);
@@ -1601,7 +1597,7 @@ var
   A: TAction;
 begin
   A := Sender as TAction;
-  // TODO: don't use Caption of the action to associate with the highlighter
+  { TODO -oTS: Don't use Caption of the action to associate with the highlighter }
   Commands.AssignHighlighter(A.Caption);
 end;
 
@@ -1690,13 +1686,19 @@ begin
   ShowMessage(SNotImplementedYet);
 end;
 
+procedure TdmEditorManager.actSaveAllExecute(Sender: TObject);
+begin
+  Commands.SaveAll;
+end;
+
+{ Only used for tests. }
 procedure TdmEditorManager.actShowFilterTestExecute(Sender: TObject);
 var
-  F : TfrmFilter;
+  F  : TfrmFilter;
   OL : TObjectList;
-  A: TContainedAction;
+  A  : TContainedAction;
 begin
-  OL := TObjectList.create(False);
+  OL := TObjectList.Create(False);
   try
     for A in ActionList do
     begin
@@ -1704,7 +1706,6 @@ begin
       if OL.Count = 5  then
         Break;
     end;
-
     F := (ToolViews['Filter'].Form as TfrmFilter);
     F.ColumnDefinitions.AddColumn('Name', 'Name');
     F.ColumnDefinitions.AddColumn('Caption', 'Caption');
@@ -1714,7 +1715,6 @@ begin
   finally
     OL.Free;
   end;
-
   // CTRL-ALT-SHIFT-F5
 end;
 
@@ -2524,11 +2524,27 @@ begin
   UpdateFoldingActions;
 end;
 
+function TdmEditorManager.ViewsModified: Boolean;
+var
+  V : IEditorView;
+begin
+  Result := False;
+  for V in (Self as IEditorViews) do
+  begin
+    if V.Modified then
+    begin
+      Result := True;
+      Break;
+    end;
+  end;
+end;
+
 function TdmEditorManager.GetViewsEnumerator: TEditorViewListEnumerator;
 begin
   Result := TEditorViewListEnumerator.Create(FViewList);
 end;
 
+{ TODO -oTS : Checkout if this is appropriate. }
 procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOperation);
 begin
   if Supports(AComponent, IEditorView) and (Operation = opRemove) then
@@ -2932,6 +2948,8 @@ begin
       actStayOnTop.Checked :=
         Settings.FormSettings.FormStyle = fsSystemStayOnTop;
       actSingleInstance.Checked := Settings.SingleInstance;
+
+      actSaveAll.Enabled := ViewsModified;
 
       FChanged := False;
     end;

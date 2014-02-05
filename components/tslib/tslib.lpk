@@ -729,43 +729,34 @@
       </Item177>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="12">
+    <RequiredPkgs Count="9">
       <Item1>
-        <PackageName Value="pl_kcontrols"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="HtmlComp"/>
       </Item2>
       <Item3>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="zcomponent"/>
       </Item3>
       <Item4>
-        <PackageName Value="pl_dwscript"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item4>
       <Item5>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="richmemopackage"/>
       </Item5>
       <Item6>
-        <PackageName Value="pl_zeosdbocomp"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item6>
       <Item7>
-        <PackageName Value="pl_luicontrols"/>
+        <PackageName Value="SynEdit"/>
       </Item7>
       <Item8>
-        <PackageName Value="pl_virtualtrees"/>
+        <PackageName Value="LCL"/>
       </Item8>
       <Item9>
-        <PackageName Value="pl_colorlib"/>
-      </Item9>
-      <Item10>
-        <PackageName Value="SynEdit"/>
-      </Item10>
-      <Item11>
-        <PackageName Value="LCL"/>
-      </Item11>
-      <Item12>
         <PackageName Value="FCL"/>
-      </Item12>
+      </Item9>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

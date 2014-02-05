@@ -378,7 +378,7 @@ type
     property TopLine: Integer
       read GetTopLine write SetTopLine;
 
-    { Set when content has changed since the initial load. }
+    { Set when content has changed since initial load or last save. }
     property Modified: Boolean
       read GetModified write SetModified;
 
@@ -899,10 +899,11 @@ type
             AIncludeEndTag   : Boolean
     ): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
+    procedure Save;
+    procedure SaveAll;
 
     procedure FindNext;
     procedure FindPrevious;
-
   end;
 
   { IEditorMenus }

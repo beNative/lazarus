@@ -179,6 +179,7 @@ begin
   CreateToolButton(TB, 'actOpen');
   CreateToolButton(TB, 'actSave');
   CreateToolButton(TB, 'actSaveAs');
+  CreateToolButton(TB, 'actSaveAll');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actReload');
   CreateToolButton(TB);
@@ -194,7 +195,6 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actToggleFoldLevel', FMenus.FoldPopupMenu);
   CreateToolButton(TB);
-  //CreateToolButton('actFormat');
   CreateToolButton(TB, 'actToggleHighlighter', FMenus.HighlighterPopupMenu);
   CreateToolButton(TB, 'actAutoGuessHighlighter');
   CreateToolButton(TB);
@@ -204,6 +204,7 @@ begin
 //  CreateToolButton(TB, 'actShowPreview');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSmartSelect');
+  CreateToolButton(TB, 'actFormat');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSettings');
   CreateToolButton(TB);

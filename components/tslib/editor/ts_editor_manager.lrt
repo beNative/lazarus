@@ -234,3 +234,5 @@ TDMEDITORMANAGER.ACTCOMPRESSSPACE.HINT=Reduce consecutive spaces to one.
 TDMEDITORMANAGER.ACTCOMPRESSWHITESPACE.CAPTION=Compress whitespace
 TDMEDITORMANAGER.ACTCOMPRESSWHITESPACE.HINT=Replace any number of consecutive whitespace (including newlines)
  with a single whitespace.
+TDMEDITORMANAGER.ACTSAVEALL.CAPTION=Save all
+TDMEDITORMANAGER.ACTSAVEALL.HINT=Save all changes.

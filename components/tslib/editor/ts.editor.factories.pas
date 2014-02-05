@@ -70,7 +70,7 @@ type
       AMenus   : IEditorMenus
     ): TToolbar;
 
-    class function CreateRightToolbar(
+    class function CreateTopRightToolbar(
       AOwner   : TComponent;
       AParent  : TWinControl;
       AActions : IEditorActions;
@@ -144,7 +144,7 @@ begin
   Result := TBF.CreateSelectionToolbar(AOwner, AParent);
 end;
 
-class function TEditorFactories.CreateRightToolbar(AOwner: TComponent;
+class function TEditorFactories.CreateTopRightToolbar(AOwner: TComponent;
   AParent: TWinControl; AActions: IEditorActions;
   AMenus: IEditorMenus): TToolbar;
 var

@@ -100,6 +100,7 @@ type
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
+    procedure btnOKClick(Sender: TObject);
     procedure FHATVPSelectionChanged(Sender: TObject);
     procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
       var aShow: boolean);
@@ -167,6 +168,7 @@ uses
 
   ts.Editor.HighlighterAttributes, ts.Editor.Highlighters,
   ts.Editor.Tools.Settings,
+  ts.Core.Utils,
 
   ts.Core.SharedLogger;
 
@@ -349,7 +351,7 @@ procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
 var
   S: String;
 begin
-  S := ExtractFilePath(Application.ExeName) + Settings.FileName;
+  S := GetApplicationPath + Settings.FileName;
   Manager.OpenFile(S);
 end;
 
@@ -391,6 +393,12 @@ procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
 begin
   Settings.Load;
   Apply;
+end;
+
+procedure TfrmEditorSettings.btnOKClick(Sender: TObject);
+begin
+    Settings.Save;
+    Apply;
 end;
 
 procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
@@ -475,4 +483,4 @@ end;
 {$endregion}
 
 end.
-
+

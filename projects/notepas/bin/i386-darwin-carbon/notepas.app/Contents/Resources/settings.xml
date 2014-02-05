@@ -29,8 +29,7 @@
 				</TMiniMapSettings>
 				<THexEditorSettings Name="HexEditorSettings"/>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[]</Options>
-					<SearchAllViews>true</SearchAllViews>
+					<Options>[,ssoRegExpr]</Options>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings"/>
 			</Components>
@@ -92,8 +91,8 @@
 								<FrameEdges>sfeAround</FrameEdges>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmObjFPC</CompilerMode>
-							<NestedComments>true</NestedComments>
+							<CompilerMode>pcmDelphi</CompilerMode>
+							<NestedComments>false</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1268,13 +1267,13 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>200</Left>
-		<Top>200</Top>
-		<Width>1417</Width>
-		<Height>819</Height>
+		<Left>336</Left>
+		<Top>21</Top>
+		<Width>1066</Width>
+		<Height>618</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -1282,6 +1281,5 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
-	<DebugMode>true</DebugMode>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

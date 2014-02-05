@@ -3010,11 +3010,6 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
 #: ts.editor.search.data.sgroup
 msgid "%s (%d matching lines)"
 msgstr ""

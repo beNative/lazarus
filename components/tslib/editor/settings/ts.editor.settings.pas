@@ -766,7 +766,7 @@ var
   S      : string;
 begin
   Logger.EnterMethod('TEditorSettings.Load');
-  S := ExtractFilePath(Application.ExeName) + FFileName;
+  S :=   GetApplicationPath + FFileName;
   if FileExists(S) then
   begin
     Doc := TNativeXml.Create(nil);
@@ -796,7 +796,7 @@ var
 begin
   Logger.SendCallStack('Save');
   Logger.EnterMethod('TEditorSettings.Save');
-  S := ExtractFilePath(Application.ExeName) + FFileName;
+  S :=   GetApplicationPath + FFileName;
   Doc := TNativeXml.CreateName('Root', nil);
   try
     Writer := TXmlObjectWriter.Create;
@@ -971,4 +971,4 @@ end;
 {$endregion}
 
 end.
-
+

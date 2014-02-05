@@ -1267,8 +1267,8 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
-	<LanguageCode>en</LanguageCode>
+	<HighlighterType>TXT</HighlighterType>
+	<LanguageCode>es</LanguageCode>
 	<FormSettings>(TFormSettings)
 		<Left>336</Left>
 		<Top>21</Top>

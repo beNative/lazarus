@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="LuiLCLComponents"/>
+    <AddToProjectUsesSection Value="True"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="frames"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Files Count="4">
+      <Item1>
+        <Filename Value="luilclmessages.pas"/>
+        <UnitName Value="LuiLCLMessages"/>
+      </Item1>
+      <Item2>
+        <Filename Value="luijsonlclviews.pas"/>
+        <UnitName Value="LuiJSONLCLViews"/>
+      </Item2>
+      <Item3>
+        <Filename Value="register_luilclcomponents.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="register_luilclcomponents"/>
+      </Item3>
+      <Item4>
+        <Filename Value="luilclinterfaces.pas"/>
+        <UnitName Value="LuiLCLInterfaces"/>
+      </Item4>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="luicontrols"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="luicomponents"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="IDEIntf"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

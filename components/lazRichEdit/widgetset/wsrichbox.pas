@@ -93,8 +93,9 @@ const
   Done: Boolean = False;
 begin
   if Done then exit;
-  // TS outcomment for QT
-  //WSRegisterCustomRichBox;
+  {$IFNDEF LCLqt}
+  WSRegisterCustomRichBox;
+  {$ENDIF}
   Done := True;
 end;
 
@@ -295,4 +296,4 @@ end;
 
 
 end.
-
+

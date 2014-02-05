@@ -194,7 +194,8 @@ end;
 class procedure TCustomRichMemo.WSRegisterClass;  
 begin
   inherited;
-  WSRegisterCustomRichMemo;
+  // TS
+  //WSRegisterCustomRichMemo;
 end;
 
 procedure TCustomRichMemo.CreateWnd;  

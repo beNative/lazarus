@@ -905,7 +905,8 @@ begin
         View.SelectAll;
       end;
       Selection.Store;
-      Selection.Text := HI.CodeFormatter.Format(Selection.Text);
+      if Length(Trim(Selection.Text))>0 then
+         Selection.Text := HI.CodeFormatter.Format(Selection.Text);
       Selection.Restore;
     end
     else

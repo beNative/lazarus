@@ -254,7 +254,7 @@ begin
   FToolbarHostPanel := TPanel.Create(Self);
   FToolbarHostPanel.Parent := FMainToolbar;
   FRightToolbar :=
-    TEditorFactories.CreateRightToolbar(Self, FToolbarHostPanel, Actions, Menus);
+    TEditorFactories.CreateTopRightToolbar(Self, FToolbarHostPanel, Actions, Menus);
   InitializeControls;
   InitializeEvents;
   if ParamCount > 0 then

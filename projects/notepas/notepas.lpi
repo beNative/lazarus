@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="34"/>
-      <BuildNr Value="159"/>
+      <BuildNr Value="160"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.34" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="14">
@@ -1052,6 +1052,7 @@ end;"/>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -1060,6 +1061,7 @@ end;"/>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Utils"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -1068,7 +1070,6 @@ end;"/>
       <Unit9>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Utils"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
@@ -1117,6 +1118,7 @@ end;"/>
       <Unit20>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Selection"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
@@ -1157,6 +1159,7 @@ end;"/>
       <Unit30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -1248,6 +1251,7 @@ end;"/>
       <Unit52>
         <Filename Value="..\..\components\tslib\core\ts.core.sqltree.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SQLTree"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\..\components\tslib\core\ts.core.xmlutils.pas"/>
@@ -1260,6 +1264,7 @@ end;"/>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Commands"/>
       </Unit55>
       <Unit56>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
@@ -1312,7 +1317,6 @@ end;"/>
       <Unit65>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Settings"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -1649,7 +1653,6 @@ end;"/>
       <Unit119>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.Logger"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
@@ -1714,7 +1717,6 @@ end;"/>
       <Unit133>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Factories.Settings"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
@@ -1723,6 +1725,7 @@ end;"/>
       <Unit135>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories"/>
       </Unit135>
       <Unit136>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>

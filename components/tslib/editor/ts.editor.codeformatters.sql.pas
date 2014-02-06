@@ -87,7 +87,7 @@ begin
       e:=NIL;
       Result:=AString;
     end;
-   if Assigned(E) then
+   if (Assigned(E)) and (length(aString)>0) then
       Result := E.GetAsSQL(
         [
           //sfoDoubleQuotes,           // Use double quote character for string literals

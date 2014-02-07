@@ -29,7 +29,8 @@
 				</TMiniMapSettings>
 				<THexEditorSettings Name="HexEditorSettings"/>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[,ssoRegExpr]</Options>
+					<Options>[,ssoEntireScope]</Options>
+					<SearchAllViews>true</SearchAllViews>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings"/>
 			</Components>
@@ -40,7 +41,7 @@
 					<Highlighter>TXT</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>me,nfo,txt</FileExtensions>
-					<Description>Tekst document</Description>
+					<Description>Text document</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="PAS">
 					<Components>
@@ -1267,11 +1268,12 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
-	<LanguageCode>en</LanguageCode>
+	<HighlighterType>PHP</HighlighterType>
+	<LanguageCode>es</LanguageCode>
+	<CloseWithESC>true</CloseWithESC>
 	<FormSettings>(TFormSettings)
-		<Left>336</Left>
-		<Top>21</Top>
+		<Left>239</Left>
+		<Top>36</Top>
 		<Width>1066</Width>
 		<Height>618</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -1281,5 +1283,6 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

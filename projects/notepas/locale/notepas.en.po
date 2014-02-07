@@ -10,6 +10,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
 
+msgid " with a single whitespace."
+msgstr ""
+
 #: notepas.forms.main.smodified
 msgctxt "notepas.forms.main.smodified"
 msgid "Modified"
@@ -806,6 +809,14 @@ msgstr ""
 #: tdmeditormanager.actsave.hint
 msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
 msgid "Save"
+msgstr ""
+
+#: tdmeditormanager.actsaveall.caption
+msgid "Save all"
+msgstr ""
+
+#: tdmeditormanager.actsaveall.hint
+msgid "Save all changes."
 msgstr ""
 
 #: tdmeditormanager.actsaveas.caption

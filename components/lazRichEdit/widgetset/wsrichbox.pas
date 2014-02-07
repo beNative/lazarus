@@ -94,7 +94,9 @@ const
 begin
   if Done then exit;
   {$IFNDEF LCLqt}
-  WSRegisterCustomRichBox;
+  {$IFNDEF Darwin}
+   WSRegisterCustomRichBox;
+  {$ENDIF}
   {$ENDIF}
   Done := True;
 end;
@@ -296,4 +298,4 @@ end;
 
 
 end.
-
+

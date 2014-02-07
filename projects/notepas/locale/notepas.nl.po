@@ -12,6 +12,9 @@ msgstr ""
 "Language: nl\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
+msgid " with a single whitespace."
+msgstr ""
+
 #: notepas.forms.main.smodified
 msgctxt "notepas.forms.main.smodified"
 msgid "Modified"
@@ -819,6 +822,14 @@ msgstr "Opslaan"
 msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
 msgid "Save"
 msgstr "Opslaan"
+
+#: tdmeditormanager.actsaveall.caption
+msgid "Save all"
+msgstr ""
+
+#: tdmeditormanager.actsaveall.hint
+msgid "Save all changes."
+msgstr ""
 
 #: tdmeditormanager.actsaveas.caption
 msgid "Save as..."

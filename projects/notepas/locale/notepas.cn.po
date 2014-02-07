@@ -7,6 +7,9 @@ msgstr ""
 "X-Language: zh_CN\n"
 "X-Source-Language: C\n"
 
+msgid " with a single whitespace."
+msgstr ""
+
 #: notepas.forms.main.smodified
 #, fuzzy
 msgctxt "notepas.forms.main.smodified"
@@ -834,6 +837,14 @@ msgstr "保存"
 msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
 msgid "Save"
 msgstr "保存"
+
+#: tdmeditormanager.actsaveall.caption
+msgid "Save all"
+msgstr ""
+
+#: tdmeditormanager.actsaveall.hint
+msgid "Save all changes."
+msgstr ""
 
 #: tdmeditormanager.actsaveas.caption
 msgid "Save as..."

@@ -105,20 +105,20 @@ type
 
   TSQLElement = class(TObject)
   private
-    Fline: integer;
+    FLine: Integer;
     FParent: TSQLElement;
-    FPos: integer;
+    FPos: Integer;
     FSource: string;
 
   public
     constructor Create(AParent: TSQLElement); virtual;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; virtual; abstract;
+      AIndent: Integer = 0): TSQLStringType; virtual; abstract;
     property Parent: TSQLElement read FParent;
     property Source: string read FSource write FSource;
-    property SourceLine: integer read Fline write Fline;
-    property SourcePos: integer read FPos write FPos;
+    property SourceLine: Integer read FLine write FLine;
+    property SourcePos: Integer read FPos write FPos;
   end;
 
   TSQLElementClass = class of TSQLElement;
@@ -127,11 +127,11 @@ type
 
   TSQLElementList = class(TObjectList)
   private
-    function GetE(AIndex: integer): TSQLElement;
-    procedure SetE(AIndex: integer; const AValue: TSQLElement);
+    function GetE(AIndex: Integer): TSQLElement;
+    procedure SetE(AIndex: Integer; const AValue: TSQLElement);
 
   public
-    property Elements[AIndex: integer]: TSQLElement read GetE write SetE; default;
+    property Elements[AIndex: Integer]: TSQLElement read GetE write SetE; default;
   end;
 
   TSQLLiteral = class(TSQLElement);
@@ -141,7 +141,7 @@ type
   TSQLNullLiteral = class(TSQLLiteral)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLUserLiteral }
@@ -149,7 +149,7 @@ type
   TSQLUserLiteral = class(TSQLLiteral)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLValueLiteral }
@@ -157,19 +157,19 @@ type
   TSQLValueLiteral = class(TSQLLiteral)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLIntegerLiteral }
 
   TSQLIntegerLiteral = class(TSQLLiteral)
   private
-    FValue: integer;
+    FValue: Integer;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property Value: integer read FValue write FValue;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property Value: Integer read FValue write FValue;
   end;
 
   { TSQLFloatLiteral }
@@ -180,7 +180,7 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Value: double read FValue write FValue;
   end;
 
@@ -192,7 +192,7 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Value: TSQLStringType read FValue write FValue;
   end;
 
@@ -204,7 +204,7 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Name: TSQLStringType read FName write FName;
   end;
 
@@ -214,7 +214,7 @@ type
 
   TSQLExpression = class(TSQLElement)
   public
-    function UseBrackets: boolean; virtual;
+    function UseBrackets: Boolean; virtual;
   end;
 
   TSQLUnaryOperation = (uoNot, uoMinus);
@@ -228,7 +228,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Literal: TSQLLiteral read FLiteral write FLiteral;
   end;
 
@@ -236,16 +236,16 @@ type
 
   TSQLIdentifierExpression = class(TSQLExpression)
   private
-    FElementIndex: integer;
+    FElementIndex: Integer;
     FIdentifier: TSQLIdentifierName;
 
   public
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Identifier: TSQLIdentifierName read FIdentifier write FIdentifier;
-    property ElementIndex: integer read FElementIndex write FElementIndex;
+    property ElementIndex: Integer read FElementIndex write FElementIndex;
   end;
 
   { TSQLParameterExpression }
@@ -257,7 +257,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Identifier: TSQLIdentifierName read FIdentifier write FIdentifier;
   end;
 
@@ -271,7 +271,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property List: TSQLElementList read FList;
   end;
 
@@ -286,7 +286,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Select: TSQLSelectStatement read FSelect write FSelect;
   end;
 
@@ -295,7 +295,7 @@ type
   TSQLSelectExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLExistsExpression }
@@ -303,7 +303,7 @@ type
   TSQLExistsExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSingularExpression }
@@ -311,7 +311,7 @@ type
   TSQLSingularExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAllExpression }
@@ -319,7 +319,7 @@ type
   TSQLAllExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSomeExpression }
@@ -327,7 +327,7 @@ type
   TSQLSomeExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAnyExpression }
@@ -335,7 +335,7 @@ type
   TSQLAnyExpression = class(TSQLSelectionExpression)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLUnaryExpression }
@@ -348,7 +348,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Operation: TSQLUnaryOperation read FOperation write FOperation;
     property Operand: TSQLExpression read FOperand write FOperand;
   end;
@@ -367,9 +367,9 @@ type
 
   public
     destructor Destroy; override;
-    function UseBrackets: boolean; override;
+    function UseBrackets: Boolean; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Operation: TSQLBinaryOperation read FOperation write FOperation;
     property Left: TSQLExpression read FLeft write FLeft;
     property Right: TSQLExpression read FRight write FRight;
@@ -388,9 +388,9 @@ type
 
   public
     destructor Destroy; override;
-    function UseBrackets: boolean; override;
+    function UseBrackets: Boolean; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Operation: TSQLTernaryOperation read FOperation write FOperation;
     property Left: TSQLExpression read FLeft write FLeft;
     property Middle: TSQLExpression read FMiddle write FMiddle;
@@ -407,7 +407,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Generator: TSQLIdentifierName read FIdentifier write FIdentifier;
     property Value: TSQLExpression read FValue write FValue;
   end;
@@ -422,7 +422,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Identifier: TSQLStringType read FIdentifier write FIdentifier;
     property Arguments: TSQLElementList read FArguments write FArguments;
   end;
@@ -441,7 +441,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Aggregate: TSQLAggregateFunction read Fagg write Fagg;
     property Expression: TSQLExpression read FExpression write FExpression;
     property Option: TSQLAggregateOption read FOption write FOption;
@@ -463,7 +463,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
     property FieldList: TSQLElementList read FFieldList;
     property OnDelete: TForeignKeyAction read FOnDelete write FOnDelete;
@@ -481,7 +481,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ConstraintName: TSQLIdentifierName
       read FConstraintName write FConstraintName;
   end;
@@ -493,7 +493,7 @@ type
   TSQLUniqueFieldConstraint = class(TSQLFieldConstraint)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLPrimaryKeyFieldConstraint }
@@ -501,7 +501,7 @@ type
   TSQLPrimaryKeyFieldConstraint = class(TSQLFieldConstraint)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLForeignKeyFieldConstraint }
@@ -513,7 +513,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Definition: TSQLForeignKeyDefinition read FDef write FDef;
   end;
 
@@ -526,7 +526,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Expression: TSQLExpression read FExpression write FExpression;
   end;
 
@@ -540,7 +540,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property List: TSQLElementList read FList;
   end;
 
@@ -555,7 +555,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Check: TSQLExpression read FCheck write FCheck;
   end;
 
@@ -569,7 +569,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function FieldListSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType;
+      AIndent: Integer = 0): TSQLStringType;
     property FieldList: TSQLElementList read FFieldList;
   end;
 
@@ -578,7 +578,7 @@ type
   TSQLTableUniqueConstraintDef = class(TSQLTableFieldsConstraintDef)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLTablePrimaryKeyConstraintDef }
@@ -586,7 +586,7 @@ type
   TSQLTablePrimaryKeyConstraintDef = class(TSQLTableFieldsConstraintDef)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLTableForeignKeyConstraintDef }
@@ -598,7 +598,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Definition: TSQLForeignKeyDefinition read FDef write FDef;
   end;
 
@@ -611,38 +611,38 @@ type
 
   TSQLTypeDefinition = class(TSQLElement)
   private
-    FArrayDim: integer;
-    FBlobType: integer;
-    FByValue: boolean;
+    FArrayDim: Integer;
+    FBlobType: Integer;
+    FByValue: Boolean;
     FCharSet: TSQLStringType;
     FCollation: TSQLCollation;
     FCheck: TSQLExpression;
     FConstraint: TSQLFieldConstraint;
     FDataType: TSQLDataType;
     FDefault: TSQLLiteral;
-    FNotNull: boolean;
-    Flen: integer;
+    FNotNull: Boolean;
+    Flen: Integer;
     FScale: byte;
     FtypeName: string;
 
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property DataType: TSQLDataType read FDataType write FDataType;
     property TypeName: string read FtypeName write FtypeName;
-    property Len: integer read Flen write Flen;
+    property Len: Integer read Flen write Flen;
     // Length of string or precision for BCD
     property Scale: byte read FScale write FScale;
-    property ArrayDim: integer read FArrayDim write FArrayDim;
-    property BlobType: integer read FBlobType write FBlobType;
-    property NotNull: boolean read FNotNull write FNotNull;
+    property ArrayDim: Integer read FArrayDim write FArrayDim;
+    property BlobType: Integer read FBlobType write FBlobType;
+    property NotNull: Boolean read FNotNull write FNotNull;
     property Collation: TSQLCollation read FCollation write FCollation;
     property Check: TSQLExpression read FCheck write FCheck;
     property DefaultValue: TSQLLiteral read FDefault write FDefault;
     property Charset: TSQLStringType read FCharSet write FCharSet;
     property Constraint: TSQLFieldConstraint read FConstraint write FConstraint;
-    property ByValue: boolean read FByValue write FByValue;
+    property ByValue: Boolean read FByValue write FByValue;
   end;
 
   { TSQLCastExpression }
@@ -655,7 +655,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Value: TSQLExpression read FValue write FValue;
     property NewType: TSQLTypeDefinition read FNewType write FNewType;
   end;
@@ -672,7 +672,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Value: TSQLExpression read FValue write FValue;
     property Element: TSQLExtractElement read FElement write FElement;
   end;
@@ -697,7 +697,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Expression: TSQLExpression read FExpression write FExpression;
     property AliasName: TSQLIdentifierName read FAliasName write FAliasName;
   end;
@@ -717,7 +717,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ObjectName: TSQLIdentifierName read FObjectName write FObjectName;
     property Params: TSQLElementList read FParams write FParams;
     property AliasName: TSQLIdentifierName read FAliasName write FAliasName;
@@ -736,7 +736,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Left: TSQLTableReference read FLeft write FLeft;
     property Right: TSQLTableReference read FRight write FRight;
     property JoinType: TSQLJoinType read FJoinType write FJoinType;
@@ -754,7 +754,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
   end;
 
@@ -763,7 +763,7 @@ type
   TSQLSelectNaturalPlan = class(TSQLSelectPlanItem)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSelectIndexedPlan }
@@ -776,7 +776,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Indexes: TSQLElementList read FIndexes;
   end;
 
@@ -789,7 +789,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property OrderIndex: TSQLIdentifierName read FIndex write FIndex;
   end;
 
@@ -806,7 +806,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Items: TSQLElementList read FItems;
     property JoinType: TPlanJoinType read FJoinType write FJoinType;
   end;
@@ -824,7 +824,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Field: TSQLElement read FField write FField;
     property Collation: TSQLIdentifierName read FCollation write FCollation;
     property OrderBy: TSQLOrderDirection read FOrderBy write FOrderBy;
@@ -834,8 +834,8 @@ type
 
   TSQLSelectStatement = class(TSQLDMLStatement)
   private
-    FAll: boolean;
-    FDistinct: boolean;
+    FAll: Boolean;
+    FDistinct: Boolean;
     FEndAt: TSQLExpression;
     FFields: TSQLElementList;
     FForUpdate: TSQLElementList;
@@ -848,14 +848,14 @@ type
     FTables: TSQLElementList;
     FTN: TSQLIdentifierName;
     FUnion: TSQLSelectStatement;
-    FUnionAll: boolean;
+    FUnionAll: Boolean;
     FWhere: TSQLExpression;
 
   public
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TransactionName: TSQLIdentifierName read FTN write FTN;
     property Tables: TSQLElementList read FTables;
     property Fields: TSQLElementList read FFields;
@@ -866,9 +866,9 @@ type
     property ForUpdate: TSQLElementList read FForUpdate write FForUpdate;
     property Union: TSQLSelectStatement read FUnion write FUnion;
     property Plan: TSQLSelectPlan read FPlan write FPlan;
-    property Distinct: boolean read FDistinct write FDistinct;
-    property All: boolean read FAll write FAll;
-    property UnionAll: boolean read FUnionAll write FUnionAll;
+    property Distinct: Boolean read FDistinct write FDistinct;
+    property All: Boolean read FAll write FAll;
+    property UnionAll: Boolean read FUnionAll write FUnionAll;
     property StartAt: TSQLExpression read FStartAt write FStartAt;
     property EndAt: TSQLExpression read FEndAt write FEndAt;
     property Into: TSQLElementList read FInto write FInto;
@@ -898,7 +898,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Fields: TSQLElementList read FFields write FFields;
     property Values: TSQLElementList read FValues write SetValues;
     property Select: TSQLSelectStatement read FSelect write SetSelect;
@@ -914,7 +914,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property FieldName: TSQLIdentifierName read FFieldName write FFieldName;
     property Value: TSQLExpression read FValue write FValue;
   end;
@@ -930,7 +930,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Values: TSQLElementList read FValues;
     property WhereClause: TSQLExpression read FWhereClause write FWhereClause;
   end;
@@ -946,7 +946,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
     property AliasName: TSQLIdentifierName read FAliasName write FAliasName;
     property WhereClause: TSQLExpression read FWhereClause write FWhereClause;
@@ -956,18 +956,18 @@ type
 
   TSQLTransactionStatement = class(TSQLStatement)
   private
-    FRelease: boolean;
+    FRelease: Boolean;
     FTransactionName: TSQLIdentifierName;
-    FWork: boolean;
+    FWork: Boolean;
 
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TransactionName: TSQLIdentifierName
       read FTransactionName write FTransactionName;
-    property Work: boolean read FWork write FWork;
-    property Release: boolean read FRelease write FRelease;
+    property Work: Boolean read FWork write FWork;
+    property Release: Boolean read FRelease write FRelease;
   end;
 
   { TSQLRollBackStatement }
@@ -975,19 +975,19 @@ type
   TSQLRollBackStatement = class(TSQLTransactionStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLCommitStatement }
 
   TSQLCommitStatement = class(TSQLTransactionStatement)
   private
-    FRetain: boolean;
+    FRetain: Boolean;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property Retain: boolean read FRetain write FRetain;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property Retain: Boolean read FRetain write FRetain;
   end;
 
   { TSQLExecuteProcedureStatement }
@@ -1003,7 +1003,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TransactionName: TSQLIdentifierName read FTN write FTN;
     property ProcedureName: TSQLIdentifierName read FPN write FPN;
     property Params: TSQLElementList read FParams;
@@ -1019,7 +1019,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ObjectName: TSQLIdentifierName read FDBO write FDBO;
   end;
 
@@ -1032,17 +1032,17 @@ type
   TSQLCreateGeneratorStatement = class(TSQLCreateOrAlterGenerator)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSetGeneratorStatement }
 
   TSQLSetGeneratorStatement = class(TSQLCreateOrAlterGenerator)
   private
-    FNewValue: integer;
+    FNewValue: Integer;
 
   public
-    property NewValue: integer read FNewValue write FNewValue;
+    property NewValue: Integer read FNewValue write FNewValue;
   end;
 
   { TSQLCreateRoleStatement }
@@ -1050,7 +1050,7 @@ type
   TSQLCreateRoleStatement = class(TSQLCreateOrAlterStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TDomain }
@@ -1064,7 +1064,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TypeDefinition: TSQLTypeDefinition read FType write FType;
   end;
 
@@ -1072,7 +1072,7 @@ type
 
   TSQLAlterDomainStatement = class(TSQLCreateOrAlterStatement)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAlterDomainDropDefaultStatement }
@@ -1080,7 +1080,7 @@ type
   TSQLAlterDomainDropDefaultStatement = class(TSQLAlterDomainStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAlterDomainDropCheckStatement }
@@ -1088,7 +1088,7 @@ type
   TSQLAlterDomainDropCheckStatement = class(TSQLAlterDomainStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAlterDomainSetDefaultStatement }
@@ -1100,7 +1100,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property DefaultValue: TSQLLiteral read FDefault write FDefault;
   end;
 
@@ -1113,7 +1113,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property NewName: TSQLIdentifierName read FNewName write FNewName;
   end;
 
@@ -1126,7 +1126,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property NewType: TSQLTypeDefinition read FNewType write FNewType;
   end;
 
@@ -1139,7 +1139,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Check: TSQLExpression read FCheck write FCheck;
   end;
 
@@ -1152,7 +1152,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ExceptionMessage: TSQLStringLiteral read FMessage write FMessage;
   end;
 
@@ -1175,7 +1175,7 @@ type
     destructor Destroy; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Options: TIndexOptions read FOptions write FOptions;
     property FieldNames: TSQLElementList read FFieldNames;
   end;
@@ -1184,12 +1184,12 @@ type
 
   TSQLAlterIndexStatement = class(TSQLCreateOrAlterIndexStatement)
   private
-    FInactive: boolean;
+    FInactive: Boolean;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property Inactive: boolean read FInactive write FInactive;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property Inactive: Boolean read FInactive write FInactive;
   end;
 
   { TDeclareExternalFunctionStatement }
@@ -1200,7 +1200,7 @@ type
   private
     FArguments: TSQLElementList;
     FEntryPoint: TSQLStringType;
-    FFreeIt: boolean;
+    FFreeIt: Boolean;
     FModuleName: TSQLStringType;
     FReturnType: TSQLTypeDefinition;
 
@@ -1208,12 +1208,12 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ModuleName: TSQLStringType read FModuleName write FModuleName;
     property EntryPoint: TSQLStringType read FEntryPoint write FEntryPoint;
     property ReturnType: TSQLTypeDefinition read FReturnType write FReturnType;
     property Arguments: TSQLElementList read FArguments;
-    property FreeIt: boolean read FFreeIt write FFreeIt;
+    property FreeIt: Boolean read FFreeIt write FFreeIt;
   end;
 
   { TSQLTableFieldDef }
@@ -1227,7 +1227,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property FieldName: TSQLIdentifierName read FFieldName write FFieldName;
     property FieldType: TSQLTypeDefinition read FFieldType write FFieldType;
     property ComputedBy: TSQLExpression read FComputedBy write FComputedBy;
@@ -1249,7 +1249,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ExternalFileName: TSQLStringLiteral
       read FExternalFile write FExternalFile;
     property FieldDefs: TSQLElementList read FFieldDefs;
@@ -1264,7 +1264,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ObjectName: TSQLIdentifierName read FName write FName;
   end;
 
@@ -1276,14 +1276,14 @@ type
 
   TSQLDropTableFieldOperation = class(TSQLDropTableElementOperation)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLDropTableConstraintOperation }
 
   TSQLDropTableConstraintOperation = class(TSQLDropTableElementOperation)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAlterTableFieldNameOperation }
@@ -1295,7 +1295,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property NewName: TSQLIdentifierName read FNewName write FNewName;
   end;
 
@@ -1308,7 +1308,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property NewType: TSQLTypeDefinition read FNewType write FNewType;
   end;
 
@@ -1316,12 +1316,12 @@ type
 
   TSQLAlterTableFieldPositionOperation = class(TSQLAlterTableOperation)
   private
-    FNewPosition: integer;
+    FNewPosition: Integer;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property NewPosition: integer read FNewPosition write FNewPosition;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property NewPosition: Integer read FNewPosition write FNewPosition;
   end;
 
   { TSQLAddTableElementOperation }
@@ -1343,7 +1343,7 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property FieldDef: TSQLTableFieldDef read GetF;
   end;
 
@@ -1356,7 +1356,7 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ConstraintDef: TSQLTableConstraintDef read GetC;
   end;
 
@@ -1370,7 +1370,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Operations: TSQLElementList read FOperations;
   end;
 
@@ -1380,14 +1380,14 @@ type
   private
     FFields: TSQLElementList;
     FSelect: TSQLSelectStatement;
-    FWCo: boolean;
+    FWCo: Boolean;
 
   public
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     property Fields: TSQLElementList read FFields;
     property Select: TSQLSelectStatement read FSelect write FSelect;
-    property WithCheckOption: boolean read FWCo write FWCo;
+    property WithCheckOption: Boolean read FWCo write FWCo;
   end;
 
   { TSQLCreateViewStatement }
@@ -1395,17 +1395,17 @@ type
   TSQLCreateViewStatement = class(TSQLAlterCreateViewStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAlterCreateDatabaseStatement }
 
   TSQLAlterCreateDatabaseStatement = class(TSQLCreateOrAlterStatement)
   private
-    FUseSchema: boolean;
+    FUseSchema: Boolean;
 
   public
-    property UseSchema: boolean read FUseSchema write FUseSchema;
+    property UseSchema: Boolean read FUseSchema write FUseSchema;
   end;
 
   { TSQLDatabaseFileInfo }
@@ -1413,15 +1413,15 @@ type
   TSQLDatabaseFileInfo = class(TSQLElement)
   private
     FFileName: TSQLStringType;
-    FLength: integer;
-    FStartPage: integer;
+    FLength: Integer;
+    FStartPage: Integer;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property FileName: TSQLStringType read FFileName write FFileName;
-    property Length: integer read FLength write FLength;
-    property StartPage: integer read FStartPage write FStartPage;
+    property Length: Integer read FLength write FLength;
+    property StartPage: Integer read FStartPage write FStartPage;
   end;
 
   { TSQLCreateDatabaseStatement }
@@ -1430,8 +1430,8 @@ type
   private
     FCharSet: TSQLIdentifierName;
     FFileName: TSQLStringType;
-    FLength: integer;
-    FPageSize: integer;
+    FLength: Integer;
+    FPageSize: Integer;
     FPassword: TSQLStringType;
     FSecondaryFiles: TSQLElementList;
     FUserName: TSQLStringType;
@@ -1440,12 +1440,12 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property FileName: TSQLStringType read FFileName write FFileName;
     property UserName: TSQLStringType read FUserName write FUserName;
     property Password: TSQLStringType read FPassword write FPassword;
-    property PageSize: integer read FPageSize write FPageSize;
-    property Length: integer read FLength write FLength;
+    property PageSize: Integer read FPageSize write FPageSize;
+    property Length: Integer read FLength write FLength;
     property Charset: TSQLIdentifierName read FCharSet write FCharSet;
     property SecondaryFiles: TSQLElementList read FSecondaryFiles;
   end;
@@ -1460,7 +1460,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Operations: TSQLElementList read FOperations write FOperations;
   end;
 
@@ -1468,23 +1468,23 @@ type
 
   TSQLCreateShadowStatement = class(TSQLCreateOrAlterStatement)
   private
-    FConditional: boolean;
+    FConditional: Boolean;
     FFileName: string;
-    FLength: integer;
-    FManual: boolean;
-    FNumber: integer;
+    FLength: Integer;
+    FManual: Boolean;
+    FNumber: Integer;
     FSecondaryFiles: TSQLElementList;
 
   public
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property Number: integer read FNumber write FNumber;
-    property Manual: boolean read FManual write FManual;
-    property Conditional: boolean read FConditional write FConditional;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property Number: Integer read FNumber write FNumber;
+    property Manual: Boolean read FManual write FManual;
+    property Conditional: Boolean read FConditional write FConditional;
     property FileName: TSQLStringType read FFileName write FFileName;
-    property Length: integer read FLength write FLength;
+    property Length: Integer read FLength write FLength;
     property SecondaryFiles: TSQLElementList read FSecondaryFiles;
   end;
 
@@ -1498,7 +1498,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ParamName: TSQLIdentifierName read FParamName write FParamName;
     property ParamType: TSQLTypeDefinition read FParamType write FParamType;
   end;
@@ -1513,7 +1513,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Statements: TSQLElementList read FStatements write FStatements;
   end;
 
@@ -1527,7 +1527,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Variable: TSQLIdentifierName read FVar write FVar;
     property Expression: TSQLExpression read FExpression write FExpression;
   end;
@@ -1543,7 +1543,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Condition: TSQLExpression read FCondition write FCondition;
     property TrueBranch: TSQLStatement read FTrueBranch write FTrueBranch;
     property FalseBranch: TSQLStatement read FFalseBranch write FFalseBranch;
@@ -1561,7 +1561,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Select: TSQLSelectStatement read FSelect write FSelect;
     property FieldList: TSQLElementList read FFieldList write FFieldList;
     property Statement: TSQLStatement read FStatement write FStatement;
@@ -1577,7 +1577,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Condition: TSQLExpression read FCondition write FCondition;
     property Statement: TSQLStatement read FStatement write FStatement;
   end;
@@ -1590,12 +1590,12 @@ type
 
   TSQLWhenSQLError = class(TSQLWhenError)
   private
-    FErrorCode: integer;
+    FErrorCode: Integer;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property ErrorCode: integer read FErrorCode write FErrorCode;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property ErrorCode: Integer read FErrorCode write FErrorCode;
   end;
 
   { TSQLWhenException }
@@ -1607,7 +1607,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ExceptionName: TSQLIdentifierName read FEN write FEN;
   end;
 
@@ -1615,19 +1615,19 @@ type
 
   TSQLWhenGDSError = class(TSQLWhenError)
   private
-    FErrorNumber: integer;
+    FErrorNumber: Integer;
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property GDSErrorNumber: integer read FErrorNumber write FErrorNumber;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property GDSErrorNumber: Integer read FErrorNumber write FErrorNumber;
   end;
 
   { TSQLWhenStatement }
 
   TSQLWhenStatement = class(TSQLStatement)
   private
-    FAnyError: boolean;
+    FAnyError: Boolean;
     FErrors: TSQLElementList;
     FStatement: TSQLStatement;
 
@@ -1635,8 +1635,8 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
-    property AnyError: boolean read FAnyError write FAnyError;
+      AIndent: Integer = 0): TSQLStringType; override;
+    property AnyError: Boolean read FAnyError write FAnyError;
     property Errors: TSQLElementList read FErrors write FErrors;
     property Statement: TSQLStatement read FStatement write FStatement;
   end;
@@ -1650,7 +1650,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ExceptionName: TSQLIdentifierName read FEN write FEN;
   end;
 
@@ -1659,7 +1659,7 @@ type
   TSQLExitStatement = class(TSQLStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSuspendStatement }
@@ -1667,7 +1667,7 @@ type
   TSQLSuspendStatement = class(TSQLStatement)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLPostEventStatement }
@@ -1680,7 +1680,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ColName: TSQLIdentifierName read FCN write FCN;
     property EventName: TSQLStringType read FEN write FEN;
   end;
@@ -1696,7 +1696,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property LocalVariables: TSQLElementList
       read FLocalVariables write FLocalVariables;
     property Statements: TSQLElementList read FStatements write FStatements;
@@ -1714,7 +1714,7 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property InputVariables: TSQLElementList
       read FInputVariables write FInputVariables;
     property OutputVariables: TSQLElementList
@@ -1738,19 +1738,19 @@ type
   private
     FMoment: TTriggerMoment;
     FOperations: TTriggerOperations;
-    FPosition: integer;
+    FPosition: Integer;
     FState: TTriggerState;
     FTableName: TSQLIdentifierName;
 
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
     property State: TTriggerState read FState write FState;
     property Moment: TTriggerMoment read FMoment write FMoment;
     property Operations: TTriggerOperations read FOperations write FOperations;
-    property Position: integer read FPosition write FPosition;
+    property Position: Integer read FPosition write FPosition;
   end;
 
   TSQLCreateTriggerStatement = class(TSQLAlterCreateTriggerStatement);
@@ -1767,7 +1767,7 @@ type
     function SQLObjectType(Options: TSQLFormatOptions): string;
       virtual; abstract;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ObjectName: TSQLIdentifierName read FIdentifier write FIdentifier;
   end;
 
@@ -1851,7 +1851,7 @@ type
 
   TSQLConnectStatement = class(TSQLStatement)
   private
-    FCache: integer;
+    FCache: Integer;
     FDBN: TSQLStringType;
     FPWD: TSQLStringType;
     FRole: TSQLStringType;
@@ -1859,12 +1859,12 @@ type
 
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property DatabaseName: TSQLStringType read FDBN write FDBN;
     property UserName: TSQLStringType read FUN write FUN;
     property Password: TSQLStringType read FPWD write FPWD;
     property Role: TSQLStringType read FRole write FRole;
-    property Cache: integer read FCache write FCache;
+    property Cache: Integer read FCache write FCache;
   end;
 
   TSQLPrivilegeKind = (pkSelect, pkInsert, pkDelete, pkUpdate, pkReference);
@@ -1877,7 +1877,7 @@ type
   TSQLInsertPrivilege = class(TSQLPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLDeletePrivilege }
@@ -1885,7 +1885,7 @@ type
   TSQLDeletePrivilege = class(TSQLPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLSelectPrivilege }
@@ -1893,7 +1893,7 @@ type
   TSQLSelectPrivilege = class(TSQLPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLAllPrivilege }
@@ -1901,7 +1901,7 @@ type
   TSQLAllPrivilege = class(TSQLPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLColumnPrivilege }
@@ -1913,7 +1913,7 @@ type
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Columns: TSQLElementList read FColumns write FColumns;
   end;
 
@@ -1922,7 +1922,7 @@ type
   TSQLUpdatePrivilege = class(TSQLColumnPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLReferencePrivilege }
@@ -1930,7 +1930,7 @@ type
   TSQLReferencePrivilege = class(TSQLColumnPrivilege)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   TSQLGrantee = class(TSQLIdentifierName);
@@ -1942,7 +1942,7 @@ type
   TSQLGroupGrantee = class(TSQLGrantee)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLProcedureGrantee }
@@ -1950,7 +1950,7 @@ type
   TSQLProcedureGrantee = class(TSQLGrantee)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLViewGrantee }
@@ -1958,7 +1958,7 @@ type
   TSQLViewGrantee = class(TSQLGrantee)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLTriggerGrantee }
@@ -1966,7 +1966,7 @@ type
   TSQLTriggerGrantee = class(TSQLGrantee)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLPublicGrantee }
@@ -1974,7 +1974,7 @@ type
   TSQLPublicGrantee = class(TSQLGrantee)
   public
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLGrantStatement }
@@ -1984,8 +1984,8 @@ type
     FGrantees: TSQLElementList;
 
   public
-    function GranteesAsSQL(Options: TSQLFormatOptions; AIndent: integer;
-      IsRevoke: boolean = False): TSQLStringType;
+    function GranteesAsSQL(Options: TSQLFormatOptions; AIndent: Integer;
+      IsRevoke: Boolean = False): TSQLStringType;
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     property Grantees: TSQLElementList read FGrantees;
@@ -1996,7 +1996,7 @@ type
 
   TSQLTableGrantStatement = class(TSQLGrantStatement)
   private
-    FGrantOption: boolean;
+    FGrantOption: Boolean;
     FPrivileges: TSQLElementList;
     FTableName: TSQLIdentifierName;
 
@@ -2004,63 +2004,63 @@ type
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property TableName: TSQLIdentifierName read FTableName write FTableName;
     property Privileges: TSQLElementList read FPrivileges;
-    property GrantOption: boolean read FGrantOption write FGrantOption;
+    property GrantOption: Boolean read FGrantOption write FGrantOption;
   end;
 
   { TSQLTableRevokeStatement }
 
   TSQLTableRevokeStatement = class(TSQLTableGrantStatement)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLProcedureGrantStatement }
 
   TSQLProcedureGrantStatement = class(TSQLGrantStatement)
   private
-    FGrantOption: boolean;
+    FGrantOption: Boolean;
     FProcedureName: TSQLIdentifierName;
 
   public
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property ProcedureName: TSQLIdentifierName
       read FProcedureName write FProcedureName;
-    property GrantOption: boolean read FGrantOption write FGrantOption;
+    property GrantOption: Boolean read FGrantOption write FGrantOption;
   end;
 
   { TSQLProcedureRevokeStatement }
 
   TSQLProcedureRevokeStatement = class(TSQLProcedureGrantStatement)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
   { TSQLRoleGrantStatement }
 
   TSQLRoleGrantStatement = class(TSQLGrantStatement)
   private
-    FAdminOption: boolean;
+    FAdminOption: Boolean;
     FRoles: TSQLElementList;
 
   public
     constructor Create(AParent: TSQLElement); override;
     destructor Destroy; override;
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
     property Roles: TSQLElementList read FRoles;
-    property AdminOption: boolean read FAdminOption write FAdminOption;
+    property AdminOption: Boolean read FAdminOption write FAdminOption;
   end;
 
   { TSQLRoleRevokeStatement }
 
   TSQLRoleRevokeStatement = class(TSQLRoleGrantStatement)
     function GetAsSQL(Options: TSQLFormatOptions;
-      AIndent: integer = 0): TSQLStringType; override;
+      AIndent: Integer = 0): TSQLStringType; override;
   end;
 
 const
@@ -2073,8 +2073,8 @@ const
 function SQLKeyWord(const AWord: TSQLStringType;
   Options: TSQLFormatOptions): TSQLStringType;
 function SQLListSeparator(Options: TSQLFormatOptions): string;
-procedure GetSepPrefixIndent(DoNewLine, DoIndent: boolean;
-  var Sep, Prefix: TSQLStringType; var AIndent: integer);
+procedure GetSepPrefixIndent(DoNewLine, DoIndent: Boolean;
+  var Sep, Prefix: TSQLStringType; var AIndent: Integer);
 function SQLFormatString(const AValue: TSQLStringType;
   Options: TSQLFormatOptions): TSQLStringType;
 
@@ -2103,7 +2103,6 @@ begin
 end;
 
 function SQLListSeparator(Options: TSQLFormatOptions): string;
-
 begin
   Result := ' , ';
   if (sfoListNoSpaceBeforeComma in Options) then
@@ -2112,9 +2111,8 @@ begin
     Delete(Result, Length(Result), 1);
 end;
 
-procedure GetSepPrefixIndent(DoNewLine, DoIndent: boolean;
-  var Sep, Prefix: TSQLStringType; var AIndent: integer);
-
+procedure GetSepPrefixIndent(DoNewLine, DoIndent: Boolean;
+  var Sep, Prefix: TSQLStringType; var AIndent: Integer);
 begin
   Prefix := '';
   AIndent := 0;
@@ -2131,12 +2129,12 @@ begin
     Sep := ', ';
 end;
 
-function TSQLElementList.GetE(AIndex: integer): TSQLElement;
+function TSQLElementList.GetE(AIndex: Integer): TSQLElement;
 begin
   Result := TSQLElement(Items[AIndex]);
 end;
 
-procedure TSQLElementList.SetE(AIndex: integer; const AValue: TSQLElement);
+procedure TSQLElementList.SetE(AIndex: Integer; const AValue: TSQLElement);
 begin
   Items[AIndex] := AValue;
 end;
@@ -2144,7 +2142,7 @@ end;
 { TSQLIntegerLiteral }
 
 function TSQLIntegerLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := IntToStr(FValue);
 end;
@@ -2152,7 +2150,7 @@ end;
 { TSQLFloatLiteral }
 
 function TSQLFloatLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   // Needs improvement.
   Result := FloatToStr(FValue);
@@ -2161,8 +2159,7 @@ end;
 { TSQLStringElement }
 
 function TSQLStringLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
-
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLFormatString(Value, Options);
 end;
@@ -2209,17 +2206,15 @@ begin
 end;
 
 function TSQLSelectStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
-
+  AIndent: Integer = 0): TSQLStringType;
 var
-  NewLinePending: boolean;
+  NewLinePending: Boolean;
 
   procedure AddList(const AKeyWord: string; List: TSQLElementList;
-    UseNewLine, UseIndent: boolean);
-
+    UseNewLine, UseIndent: Boolean);
   var
     S, Pref, Sep: TSQLStringType;
-    I, Ind: integer;
+    I, Ind: Integer;
   begin
     S := '';
     Sep := '';
@@ -2247,12 +2242,10 @@ var
   end;
 
   procedure AddExpression(const AKeyWord: TSQLStringType;
-    AExpression: TSQLElement; UseNewLine, UseIndent: boolean);
-
+    AExpression: TSQLElement; UseNewLine, UseIndent: Boolean);
   var
     S, Pref, Sep: TSQLStringType;
-    Ind: integer;
-
+    Ind: Integer;
   begin
     Pref := '';
     Sep := '';
@@ -2324,13 +2317,11 @@ begin
 end;
 
 function TSQLInsertStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Pref, Sep: TSQLStringType;
-  I, Ind: integer;
-  UseNewLine: boolean;
-
+  I, Ind: Integer;
+  UseNewLine: Boolean;
 begin
   S := '';
   Pref := '';
@@ -2387,7 +2378,7 @@ end;
 { TSQLIdentifierName }
 
 function TSQLIdentifierName.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   // Maybe add quoting options later on ?
   Result := FName;
@@ -2408,7 +2399,7 @@ begin
 end;
 
 function TSQLDropStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('DROP ' + SQLObjectType(Options) + ' ', Options);
   if Assigned(FIdentifier) then
@@ -2424,7 +2415,7 @@ begin
 end;
 
 function TSQLCreateOrAlterStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FDBO) then
     Result := FDBO.GetAsSQL(Options, AIndent);
@@ -2439,7 +2430,7 @@ begin
 end;
 
 function TSQLCreateDomainStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('CREATE DOMAIN ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -2459,15 +2450,13 @@ begin
 end;
 
 function TSQLTypeDefinition.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
-
+  AIndent: Integer = 0): TSQLStringType;
 var
   Opcodes: array [TSQLDataType] of
   TSQLStringType = ('', 'SMALLINT', 'INT', 'FLOAT',
     'DOUBLE PRECISION', 'DECIMAL', 'NUMERIC', 'DATE',
     'TIMESTAMP', 'TIME', 'CHAR', 'VARCHAR', 'NATIONAL CHARACTER',
     'NATIONAL CHARACTER VARYING', 'CSTRING', 'BLOB');
-
 begin
   if DataType = sdtDomain then
     Result := SQLKeyWord(UpperCase(TypeName), Options)
@@ -2517,7 +2506,7 @@ begin
 end;
 
 function TSQLLiteralExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   if Assigned(Literal) then
     Result := Literal.GetAsSQL(Options)
@@ -2534,7 +2523,7 @@ begin
 end;
 
 function TSQLUnaryExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FOperand) then
     Result := Operand.GetAsSQL(Options, AIndent);
@@ -2555,23 +2544,20 @@ begin
   inherited Destroy;
 end;
 
-function TSQLBinaryExpression.UseBrackets: boolean;
+function TSQLBinaryExpression.UseBrackets: Boolean;
 begin
   Result := True;
 end;
 
 function TSQLBinaryExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   Opcodes: array [TSQLBinaryOperation] of string =
     ('AND', 'OR', '=', '<', '>', '<=', '>=', '<>',
     '||', '+', '-', '*', '/', 'IN',
     'IS', 'IS NOT', 'LIKE', 'CONTAINING', 'STARTING WITH');
-
 var
   L, R, S: TSQLStringType;
-
 begin
   if Assigned(FLeft) then
   begin
@@ -2603,12 +2589,10 @@ begin
 end;
 
 function TSQLFunctionCallExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   Sep: string;
-
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -2620,7 +2604,6 @@ begin
       Result := Result + FArguments[I].GetAsSQL(Options, AIndent);
     end;
   Result := SQLKeyWord(Identifier, Options) + '(' + Result + ')';
-
 end;
 
 { TSQLTernaryExpression }
@@ -2633,17 +2616,15 @@ begin
   inherited Destroy;
 end;
 
-function TSQLTernaryExpression.UseBrackets: boolean;
+function TSQLTernaryExpression.UseBrackets: Boolean;
 begin
   Result := True;
 end;
 
 function TSQLTernaryExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   M, L, R: TSQLStringType;
-
 begin
   if Assigned(FMiddle) then
     M := FMiddle.GetAsSQL(Options, AIndent);
@@ -2668,7 +2649,7 @@ begin
 end;
 
 function TSQLAlterDomainSetDefaultStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := Result + SQLKeyWord(' SET DEFAULT ', Options);
@@ -2685,7 +2666,7 @@ begin
 end;
 
 function TSQLAlterDomainTypeStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent) + SQLKeyWord(' TYPE ', Options);
   if Assigned(FNewType) then
@@ -2701,7 +2682,7 @@ begin
 end;
 
 function TSQLAlterDomainAddCheckStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if Assigned(FCheck) then
@@ -2725,12 +2706,10 @@ begin
 end;
 
 function TSQLCreateIndexStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   S, Sep: TSQLStringType;
-
 begin
   Result := SQLKeyWord('CREATE ', Options);
   if (ioUnique in Self.Options) then
@@ -2777,13 +2756,11 @@ begin
 end;
 
 function TSQLCreateTableStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep, Pref: TSQLStringType;
-  I, Ind: integer;
+  I, Ind: Integer;
   S: string;
-
 begin
   Result := '';
   Sep := '';
@@ -2826,7 +2803,7 @@ begin
 end;
 
 function TSQLTableFieldDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FFieldName) then
     Result := FieldName.GetAsSQL(Options, AIndent);
@@ -2846,7 +2823,7 @@ begin
 end;
 
 function TSQLConstraintDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FConstraintName) then
     Result := SQLKeyWord('CONSTRAINT ', Options) +
@@ -2862,7 +2839,7 @@ begin
 end;
 
 function TSQLForeignKeyFieldConstraint.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -2888,15 +2865,13 @@ begin
 end;
 
 function TSQLForeignKeyDefinition.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Codes: array [TForeignKeyAction] of
   string = ('', 'NO ACTION', 'CASCADE', 'SET DEFAULT', 'SET NULL');
 var
   Sep: string;
-  I: integer;
-
+  I: Integer;
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -2930,12 +2905,10 @@ begin
 end;
 
 function TSQLTableFieldsConstraintDef.FieldListSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
-
+  AIndent: Integer = 0): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   Sep: string;
-
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -2957,7 +2930,7 @@ begin
 end;
 
 function TSQLTableForeignKeyConstraintDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -2978,7 +2951,7 @@ begin
 end;
 
 function TSQLTableCheckConstraintDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -2997,7 +2970,7 @@ begin
 end;
 
 function TSQLAlterTableOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FName) then
     Result := FName.GetAsSQL(Options, AIndent);
@@ -3018,12 +2991,10 @@ begin
 end;
 
 function TSQLAlterTableStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  Ind, I: integer;
+  Ind, I: Integer;
   Sep, Pref: TSQLStringType;
-
 begin
   Result := '';
   Ind := 0;
@@ -3062,7 +3033,7 @@ begin
 end;
 
 function TSQLAlterTableFieldNameOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALTER COLUMN ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -3080,7 +3051,7 @@ begin
 end;
 
 function TSQLAlterTableFieldTypeOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALTER COLUMN ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -3097,7 +3068,7 @@ begin
 end;
 
 function TSQLAlterTableAddFieldOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ADD ', Options);
   if (FieldDef <> nil) then
@@ -3112,7 +3083,7 @@ begin
 end;
 
 function TSQLAlterTableAddConstraintOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if (ConstraintDef <> nil) and (ConstraintDef.ConstraintName <> nil) then
     Result := SQLKeyWord('ADD ', Options)
@@ -3131,7 +3102,7 @@ begin
 end;
 
 function TSQLCheckFieldConstraint.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -3152,11 +3123,9 @@ begin
 end;
 
 function TSQLDeleteStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep, Pref: TSQLStringType;
-
 begin
   Result := SQLKeyWord('DELETE FROM ', Options);
   if Assigned(FTableName) then
@@ -3201,11 +3170,9 @@ begin
 end;
 
 function TSQLUpdatePair.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   F, V: TSQLStringType;
-
 begin
   if Assigned(FFieldName) then
     F := FFieldName.GetAsSQL(Options, AIndent);
@@ -3230,12 +3197,11 @@ begin
 end;
 
 function TSQLUpdateStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep, Pref: TSQLStringType;
-  I, Ind: integer;
-  UseNewLine: boolean;
-
+  I, Ind: Integer;
+  UseNewLine: Boolean;
 begin
   Result := '';
   S := '';
@@ -3290,12 +3256,12 @@ begin
 end;
 
 function TSQLSelectField.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   if Assigned(FExpression) then
     Result := FExpression.GetAsSQL(Options);
   if Assigned(FAliasName) then
-    Result := Result + ' AS ' + FAliasName.GetAsSQL(Options);
+    Result := Result + SQLKeyWord(' AS ', Options) + FAliasName.GetAsSQL(Options);
 end;
 
 { TSQLSimpleTableReference }
@@ -3309,11 +3275,9 @@ begin
 end;
 
 function TSQLSimpleTableReference.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
-
+  AIndent: Integer = 0): TSQLStringType;
 var
-  I: integer;
-
+  I: Integer;
 begin
   Result := '';
   if Assigned(FParams) and (FParams.Count > 0) then
@@ -3343,16 +3307,13 @@ begin
 end;
 
 function TSQLJoinTableReference.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   Opcodes: array [TSQLJoinType] of string =
     ('', 'INNER ', 'LEFT ', 'RIGHT ', 'OUTER ');
-
 var
   L, R, O, Sep, Prefix: TSQLStringType;
-  Ind: integer;
-
+  Ind: Integer;
 begin
   Sep := '';
   Prefix := '';
@@ -3390,14 +3351,12 @@ begin
 end;
 
 function TSQLAggregateFunctionExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   Opcodes: array [TSQLAggregateFunction] of string = ('COUNT', 'SUM', 'AVG',
     'MAX', 'MIN');
 var
   E: TSQLStringType;
-
 begin
   Result := SQLKeyWord(Opcodes[Aggregate], Options);
   case Option of
@@ -3427,8 +3386,7 @@ begin
 end;
 
 function TSQLGenIDExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   G, E: TSQLStringType;
 begin
@@ -3450,7 +3408,7 @@ begin
 end;
 
 function TSQLCastExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('CAST(', Options);
   if Assigned(FValue) then
@@ -3471,11 +3429,9 @@ begin
 end;
 
 function TSQLOrderByElement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   Opcodes: array [TSQLOrderDirection] of TSQLStringType = ('ASC', 'DESC');
-
 begin
   if Assigned(FField) then
     Result := FField.GetAsSQL(Options, AIndent);
@@ -3500,10 +3456,9 @@ begin
 end;
 
 function TSQLSelectIndexedPlan.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   Sep: TSQLStringType;
 begin
   Result := '';
@@ -3528,7 +3483,7 @@ begin
 end;
 
 function TSQLSelectPlanItem.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FTableName) then
     Result := FTableName.GetAsSQL(Options, AIndent);
@@ -3543,7 +3498,7 @@ begin
 end;
 
 function TSQLSelectOrderedPlan.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if Assigned(FIndex) then
@@ -3566,12 +3521,11 @@ begin
 end;
 
 function TSQLSelectPlanExpr.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   Opcodes: array [TPlanJoinType] of TSQLStringType = ('JOIN ', 'SORT ', 'MERGE ');
 var
-  I: integer;
+  I: Integer;
   Sep: string;
 begin
   Result := '';
@@ -3595,7 +3549,7 @@ begin
 end;
 
 function TSQLSelectionExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   if Assigned(FSelect) then
     Result := Select.GetAsSQL(Options);
@@ -3616,12 +3570,10 @@ begin
 end;
 
 function TSQLListExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   Sep: string;
-
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -3643,7 +3595,7 @@ begin
 end;
 
 function TSQLTransactionStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FTransactionName) then
     Result := SQLKeyWord(' TRANSACTION ', Options) +
@@ -3673,12 +3625,10 @@ begin
 end;
 
 function TSQLExecuteProcedureStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   S := '';
   Result := SQLKeyWord('EXECUTE PROCEDURE', Options);
@@ -3727,10 +3677,9 @@ begin
 end;
 
 function TSQLAlterDatabaseStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   Sep: TSQLStringType;
 begin
   if sfoMultilineCreateDatabase in Options then
@@ -3763,11 +3712,10 @@ begin
 end;
 
 function TSQLCreateDatabaseStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: string;
-  I: integer;
+  I: Integer;
 begin
   if sfoMultilineCreateDatabase in Options then
     Sep := SlineBreak + '  '
@@ -3801,7 +3749,6 @@ end;
 { TSQLAlterCreateViewStatement }
 
 constructor TSQLAlterCreateViewStatement.Create(AParent: TSQLElement);
-
 begin
   inherited Create(AParent);
   FFields := TSQLElementList.Create(True);
@@ -3829,12 +3776,10 @@ begin
 end;
 
 function TSQLCreateShadowStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   if sfoMultilineCreateShadow in Options then
     Sep := SlineBreak + '  '
@@ -3870,12 +3815,10 @@ begin
 end;
 
 function TSQLAlterCreateProcedureStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   S := '';
   if Self is TSQLAlterProcedureStatement then
@@ -3917,7 +3860,7 @@ begin
 end;
 
 function TSQLProcedureParamDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FParamName) then
     Result := ParamName.GetAsSQL(Options, AIndent);
@@ -3940,12 +3883,10 @@ begin
 end;
 
 function SQLIndentStatement(S: string; Options: TSQLFormatOptions): string;
-
 var
   L: TStringList;
-  I: integer;
+  I: Integer;
   Sep: string;
-
 begin
   L := TStringList.Create;
   Sep := '  ';
@@ -3962,10 +3903,9 @@ begin
 end;
 
 function TSQLStatementBlock.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   S: string;
 begin
   S := '';
@@ -3993,7 +3933,7 @@ begin
 end;
 
 function TSQLIFStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('IF (', Options);
   if Assigned(FCondition) then
@@ -4027,13 +3967,11 @@ begin
 end;
 
 function TSQLForStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep, Prefix: TSQLStringType;
-  I, Ind: integer;
-  DoNewLine: boolean;
-
+  I, Ind: Integer;
+  DoNewLine: Boolean;
 begin
   S := '';
   Sep := '';
@@ -4067,7 +4005,7 @@ begin
 end;
 
 function TSQLExceptionStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('EXCEPTION ', Options);
   if Assigned(FEN) then
@@ -4083,7 +4021,7 @@ begin
 end;
 
 function TSQLPostEventStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('POST_EVENT ', Options);
   if EventName <> '' then
@@ -4102,7 +4040,7 @@ begin
 end;
 
 function TSQLAssignStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Assigned(FVar) then
     Result := Variable.GetAsSQL(Options, AIndent);
@@ -4120,7 +4058,7 @@ begin
 end;
 
 function TSQLWhileStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('WHILE (', Options);
   if Assigned(FCondition) then
@@ -4140,12 +4078,11 @@ begin
 end;
 
 function TSQLWhenException.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('EXCEPTION ', Options);
   if Assigned(FEN) then
     Result := Result + ExceptionName.GetAsSQL(Options, AIndent);
-  ;
 end;
 
 { TSQLWhenStatement }
@@ -4164,12 +4101,10 @@ begin
 end;
 
 function TSQLWhenStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   S, Sep: TSQLStringType;
-
 begin
   Result := SQLKeyWord('WHEN ', Options);
   if AnyError then
@@ -4209,13 +4144,10 @@ begin
 end;
 
 function TSQLCreateOrAlterProcedureTriggerStatement.GetAsSQL(
-  Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  Options: TSQLFormatOptions; AIndent: Integer): TSQLStringType;
 var
-  I: integer;
+  I: Integer;
   S: TSQLStringType;
-
 begin
   Result := '';
   for I := 0 to LocalVariables.Count - 1 do
@@ -4244,19 +4176,16 @@ begin
 end;
 
 function TSQLAlterCreateTriggerStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 const
   SStates: array [TTriggerState] of string = ('', 'ACTIVE', 'INACTIVE');
   SMoment: array [TTriggerMoment] of string = ('BEFORE', 'AFTER');
   SOperation: array [TTriggerOperation] of string = ('DELETE', 'INSERT',
     'UPDATE');
-
 var
-  A: boolean;
+  A: Boolean;
   S: TSQLStringType;
   O: TTriggerOperation;
-
 begin
   A := Self is TSQLAlterTriggerStatement;
   if A then
@@ -4305,12 +4234,10 @@ begin
 end;
 
 function TSQLDeclareExternalFunctionStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sp, S, Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   if (sfoMultilineDeclareFunction in Options) then
     Sp := SlineBreak + '  '
@@ -4354,7 +4281,7 @@ begin
 end;
 
 function TSQLIdentifierExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   if Assigned(FIdentifier) then
     Result := Identifier.GetAsSQL(Options);
@@ -4365,7 +4292,7 @@ end;
 { TSQLSelectExpression }
 
 function TSQLSelectExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := '(' + inherited GetAsSQL(Options) + ')';
 end;
@@ -4373,7 +4300,7 @@ end;
 { TSQLExistsExpression }
 
 function TSQLExistsExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLKeyWord('EXISTS', Options) + ' (' + inherited GetAsSQL(Options) + ')';
 end;
@@ -4381,7 +4308,7 @@ end;
 { TSQLSingularExpression }
 
 function TSQLSingularExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLKeyWord('SINGULAR', Options) + ' (' +
     inherited GetAsSQL(Options) + ')';
@@ -4390,7 +4317,7 @@ end;
 { TSQLAllExpression }
 
 function TSQLAllExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLKeyWord('ALL', Options) + ' (' + inherited GetAsSQL(Options) + ')';
 end;
@@ -4398,7 +4325,7 @@ end;
 { TSQLSomeExpression }
 
 function TSQLSomeExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLKeyWord('SOME', Options) + ' (' + inherited GetAsSQL(Options) + ')';
 end;
@@ -4406,14 +4333,14 @@ end;
 { TSQLAnyExpression }
 
 function TSQLAnyExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer = 0): TSQLStringType;
+  AIndent: Integer = 0): TSQLStringType;
 begin
   Result := SQLKeyWord('ANY', Options) + ' (' + inherited GetAsSQL(Options) + ')';
 end;
 
 { TSQLExpression }
 
-function TSQLExpression.UseBrackets: boolean;
+function TSQLExpression.UseBrackets: Boolean;
 begin
   Result := False;
 end;
@@ -4421,7 +4348,7 @@ end;
 { TSQLNullLiteral }
 
 function TSQLNullLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('NULL', Options);
 end;
@@ -4429,7 +4356,7 @@ end;
 { TSQLUserLiteral }
 
 function TSQLUserLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('USER', Options);
 end;
@@ -4437,7 +4364,7 @@ end;
 { TSQLValueLiteral }
 
 function TSQLValueLiteral.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('VALUE', Options);
 end;
@@ -4445,7 +4372,7 @@ end;
 { TSQLUniqueFieldConstraint }
 
 function TSQLUniqueFieldConstraint.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -4456,7 +4383,7 @@ end;
 { TSQLPrimaryKeyFieldConstraint }
 
 function TSQLPrimaryKeyFieldConstraint.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -4467,7 +4394,7 @@ end;
 { TSQLTableUniqueConstraintDef }
 
 function TSQLTableUniqueConstraintDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -4479,7 +4406,7 @@ end;
 { TSQLTablePrimaryKeyConstraintDef }
 
 function TSQLTablePrimaryKeyConstraintDef.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if (Result <> '') then
@@ -4491,7 +4418,7 @@ end;
 { TSQLSelectNaturalPlan }
 
 function TSQLSelectNaturalPlan.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := Result + SQLKeyWord(' NATURAL', Options);
@@ -4500,7 +4427,7 @@ end;
 { TSQLRollBackStatement }
 
 function TSQLRollBackStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ROLLBACK', Options) + inherited GetAsSQL(Options, AIndent);
 end;
@@ -4508,7 +4435,7 @@ end;
 { TSQLCommitStatement }
 
 function TSQLCommitStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('COMMIT', Options) + inherited GetAsSQL(Options, AIndent);
   if Retain then
@@ -4518,7 +4445,7 @@ end;
 { TSQLCreateGeneratorStatement }
 
 function TSQLCreateGeneratorStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('CREATE GENERATOR ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4527,7 +4454,7 @@ end;
 { TSQLCreateRoleStatement }
 
 function TSQLCreateRoleStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('CREATE ROLE ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4536,7 +4463,7 @@ end;
 { TSQLAlterDomainDropDefaultStatement }
 
 function TSQLAlterDomainDropDefaultStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent) +
     SQLKeyWord(' DROP DEFAULT', Options);
@@ -4545,7 +4472,7 @@ end;
 { TSQLAlterDomainDropCheckStatement }
 
 function TSQLAlterDomainDropCheckStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent) + SQLKeyWord(' DROP CHECK', Options);
 end;
@@ -4553,7 +4480,7 @@ end;
 { TSQLAlterDomainStatement }
 
 function TSQLAlterDomainStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALTER DOMAIN ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4568,7 +4495,7 @@ begin
 end;
 
 function TSQLAlterDomainRenameStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   if Assigned(FNewName) then
@@ -4584,7 +4511,7 @@ begin
 end;
 
 function TSQLCreateExceptionStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   if Self is TSQLAlterExceptionStatement then
     Result := SQLKeyWord('ALTER ', Options)
@@ -4599,7 +4526,7 @@ end;
 { TSQLAlterIndexStatement }
 
 function TSQLAlterIndexStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALTER INDEX ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4612,7 +4539,7 @@ end;
 { TSQLDropTableFieldOperation }
 
 function TSQLDropTableFieldOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('DROP ', Options) + inherited GetAsSQL(Options, AIndent);
 end;
@@ -4620,7 +4547,7 @@ end;
 { TSQLDropTableConstraintOperation }
 
 function TSQLDropTableConstraintOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('DROP CONSTRAINT ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4629,7 +4556,7 @@ end;
 { TSQLAlterTableFieldPositionOperation }
 
 function TSQLAlterTableFieldPositionOperation.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALTER COLUMN ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4639,12 +4566,10 @@ end;
 { TSQLCreateViewStatement }
 
 function TSQLCreateViewStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   Result := SQLKeyWord('CREATE VIEW ', Options) +
     inherited GetAsSQL(Options, AIndent);
@@ -4658,10 +4583,10 @@ begin
         S := S + Sep;
       S := S + Fields[I].GetAsSQL(Options, AIndent);
     end;
-    S := ' (' + S + ') AS ';
+    S := ' (' + S + ')' + SQLKeyWord(' AS ', Options);
   end
   else
-    S := ' AS ';
+    S := SQLKeyWord(' AS ', Options);
   Result := Result + S;
   if Assigned(FSelect) then
     Result := Result + Select.GetAsSQL(Options, AIndent);
@@ -4670,7 +4595,7 @@ end;
 { TSQLDatabaseFileInfo }
 
 function TSQLDatabaseFileInfo.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('FILE ', Options) + SQLFormatString(FileName, Options);
   if Length > 0 then
@@ -4683,7 +4608,7 @@ end;
 { TSQLExitStatement }
 
 function TSQLExitStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('EXIT', Options);
 end;
@@ -4691,7 +4616,7 @@ end;
 { TSQLSuspendStatement }
 
 function TSQLSuspendStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('SUSPEND', Options);
 end;
@@ -4699,7 +4624,7 @@ end;
 { TSQLWhenSQLError }
 
 function TSQLWhenSQLError.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('SQLCODE ', Options) + IntToStr(ErrorCode);
 end;
@@ -4707,7 +4632,7 @@ end;
 { TSQLWhenGDSError }
 
 function TSQLWhenGDSError.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('GDSCODE ', Options) + IntToStr(GDSErrorNumber);
 end;
@@ -4806,7 +4731,7 @@ end;
 { TSQLConnectStatement }
 
 function TSQLConnectStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('CONNECT ', Options) + SQLFormatString(DatabaseName, Options);
   if (UserName <> '') then
@@ -4831,8 +4756,7 @@ begin
 end;
 
 function TSQLExtractExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('EXTRACT(' + ExtractElementNames[Element] + ' FROM ', Options);
 
@@ -4851,7 +4775,7 @@ begin
 end;
 
 function TSQLParameterExpression.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := ':';
   if Assigned(FIdentifier) then
@@ -4873,11 +4797,9 @@ begin
 end;
 
 function TSQLFieldConstraintList.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
-  I: integer;
-
+  I: Integer;
 begin
   Result := '';
   for I := 0 to List.Count - 1 do
@@ -4897,11 +4819,10 @@ begin
 end;
 
 function TSQLColumnPrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
+  I: Integer;
 begin
   Result := '';
   if Assigned(FColumns) then
@@ -4921,12 +4842,10 @@ end;
 { TSQLGrantStatement }
 
 function TSQLGrantStatement.GranteesAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer; IsRevoke: boolean = False): TSQLStringType;
-
+  AIndent: Integer; IsRevoke: Boolean = False): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -4970,12 +4889,10 @@ begin
 end;
 
 function TSQLTableGrantStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -5002,7 +4919,7 @@ begin
 end;
 
 function TSQLProcedureGrantStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('GRANT EXECUTE ON PROCEDURE ', Options);
   if Assigned(FProcedureName) then
@@ -5025,11 +4942,10 @@ begin
 end;
 
 function TSQLRoleGrantStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
+  I: Integer;
 begin
   Result := '';
   Sep := SQLListSeparator(Options);
@@ -5048,7 +4964,7 @@ end;
 { TSQLInsertPrivilege }
 
 function TSQLInsertPrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('INSERT', Options);
 end;
@@ -5056,7 +4972,7 @@ end;
 { TSQLDeletePrivilege }
 
 function TSQLDeletePrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('DELETE', Options);
 end;
@@ -5064,7 +4980,7 @@ end;
 { TSQLSelectPrivilege }
 
 function TSQLSelectPrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('SELECT', Options);
 end;
@@ -5072,7 +4988,7 @@ end;
 { TSQLAllPrivilege }
 
 function TSQLAllPrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('ALL PRIVILEGES', Options);
 end;
@@ -5080,7 +4996,7 @@ end;
 { TSQLUpdatePrivilege }
 
 function TSQLUpdatePrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('UPDATE', Options) + Result;
@@ -5089,7 +5005,7 @@ end;
 { TSQLReferencePrivilege }
 
 function TSQLReferencePrivilege.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('REFERENCES', Options) + Result;
@@ -5098,7 +5014,7 @@ end;
 { TSQLGroupGrantee }
 
 function TSQLGroupGrantee.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('GROUP ', Options) + Result;
@@ -5107,7 +5023,7 @@ end;
 { TSQLProcedureGrantee }
 
 function TSQLProcedureGrantee.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('PROCEDURE ', Options) + Result;
@@ -5116,7 +5032,7 @@ end;
 { TSQLViewGrantee }
 
 function TSQLViewGrantee.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('VIEW ', Options) + Result;
@@ -5125,7 +5041,7 @@ end;
 { TSQLTriggerGrantee }
 
 function TSQLTriggerGrantee.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := inherited GetAsSQL(Options, AIndent);
   Result := SQLKeyWord('TRIGGER ', Options) + Result;
@@ -5134,7 +5050,7 @@ end;
 { TSQLPublicGrantee }
 
 function TSQLPublicGrantee.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('PUBLIC', Options);
 end;
@@ -5142,12 +5058,10 @@ end;
 { TSQLTableRevokeStatement }
 
 function TSQLTableRevokeStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   S, Sep: TSQLStringType;
-  I: integer;
-
+  I: Integer;
 begin
   Sep := SQLListSeparator(Options);
   S := '';
@@ -5169,7 +5083,7 @@ end;
 { TSQLProcedureRevokeStatement }
 
 function TSQLProcedureRevokeStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
+  AIndent: Integer): TSQLStringType;
 begin
   Result := SQLKeyWord('REVOKE EXECUTE ON PROCEDURE ', Options);
   if Assigned(FProcedureName) then
@@ -5180,11 +5094,10 @@ end;
 { TSQLRoleRevokeStatement }
 
 function TSQLRoleRevokeStatement.GetAsSQL(Options: TSQLFormatOptions;
-  AIndent: integer): TSQLStringType;
-
+  AIndent: Integer): TSQLStringType;
 var
   Sep: TSQLStringType;
-  I: integer;
+  I: Integer;
 begin
   Result := '';
   Sep := SQLListSeparator(Options);

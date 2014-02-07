@@ -75,10 +75,9 @@ var
   S  : TSQLScanner;
   E  : TSQLElement;
 begin
-
   SS := TStringStream.Create(AString);
   LR := TStreamLineReader.Create(SS);
-  S := TSQLScanner.Create(LR);
+  S  := TSQLScanner.Create(LR);
   P  := TSQLParser.Create(S);
   try
     try

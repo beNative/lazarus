@@ -99,7 +99,7 @@ type
     tsqlUNION, tsqlUPDATE, tsqlUPPER, tsqlUNIQUE, tsqlUSER,
     tsqlValue, tsqlVALUES, tsqlVARIABLE, tsqlVIEW, tsqlVARCHAR, TSQLVARYING,
     tsqlWHERE, tsqlWITH, tsqlWHILE, tsqlWork, tsqlWhen
-    );
+  );
   TSQLTokens = set of TSQLToken;
 
 const
@@ -133,7 +133,7 @@ const
     'FROM', 'FULL', 'FOREIGN', 'FOR', 'FUNCTION', 'FLOAT', 'FILE', 'FREE_IT',
     'GENERATOR', 'GROUP', 'GEN_ID', 'GDSCODE', 'GRANT',
     'HAVING',
-    'if', 'IN', 'INNER', 'INSERT', 'INT', 'INTEGER', 'INTO', 'IS', 'INDEX',
+    'IF', 'IN', 'INNER', 'INSERT', 'INT', 'INTEGER', 'INTO', 'IS', 'INDEX',
     'INACTIVE',
     'JOIN',
     'KEY',
@@ -145,13 +145,13 @@ const
     'PAGE_SIZE', 'POST_EVENT', 'PRIVILEGES', 'PUBLIC',
     'RIGHT', 'ROLE', 'REFERENCES', 'ROLLBACK', 'RELEASE', 'RETAIN',
     'RETURNING_VALUES', 'RETURNS', 'REVOKE',
-    'SELECT', 'set', 'SINGULAR', 'SOME', 'STARTING', 'SUM', 'SKIP', 'SUB_TYPE',
+    'SELECT', 'SET', 'SINGULAR', 'SOME', 'STARTING', 'SUM', 'SKIP', 'SUB_TYPE',
     'SIZE', 'SEGMENT', 'SORT', 'SNAPSHOT', 'SCHEMA', 'SHADOW', 'SUSPEND',
     'SQLCODE', 'SMALLINT',
     'TABLE', 'TRIGGER', 'TIME', 'TIMESTAMP', 'TYPE', 'TO', 'TRANSACTION', 'THEN',
     'UNION', 'UPDATE', 'UPPER', 'UNIQUE', 'USER',
     'VALUE', 'VALUES', 'VARIABLE', 'VIEW', 'VARCHAR', 'VARYING',
-    'WHERE', 'WITH', 'while', 'WORK', 'WHEN'
+    'WHERE', 'WITH', 'WHILE', 'WORK', 'WHEN'
     );
 
 Type
@@ -166,9 +166,9 @@ Type
   TStreamLineReader = class(TLineReader)
   private
     FStream : TStream;
-    Buffer  : Array [0 .. 1024] of Byte;
-    FBufPos,
-      FBufLen : Integer;
+    Buffer  : array [0 .. 1024] of Byte;
+    FBufPos : Integer;
+    FBufLen : Integer;
     procedure FillBuffer;
 
   public
@@ -192,7 +192,8 @@ Type
   ESQLScannerError = class(Exception);
 
   { TSQLScanner }
-  TSQLScannerOption = (soReturnComments,
+  TSQLScannerOption = (
+    soReturnComments,
     soReturnWhiteSpace,
     soBackslashEscapes,
     soNoDoubleDelimIsChar,
@@ -200,7 +201,7 @@ Type
     soSingleQuoteIdentifier,
     // Default: double quote is identifier. Ignored if soDoubleQuoteStringLiteral is not specified
     soBackQuoteIdentifier // Default: double quote is identifier
-    );
+  );
   TSQLScannerOptions = set of TSQLScannerOption;
 
   TSQLScanner = class
@@ -233,7 +234,7 @@ Type
     procedure ClearKeywords(Sender: TObject);
 
   protected
-    Procedure BuildKeyWords; virtual;
+    procedure BuildKeyWords; virtual;
     procedure Error(const Msg: string); overload;
     procedure Error(const Msg: string; Args: array of Const ); overload;
 
@@ -242,9 +243,9 @@ Type
     constructor Create(AStream : TStream); overload;
     destructor Destroy; override;
     procedure OpenFile(const AFilename: string);
-    Function FetchToken: TSQLToken;
-    Function IsEndOfLine : Boolean;
-    Property Options : TSQLScannerOptions Read FOptions Write Setoptions;
+    function FetchToken: TSQLToken;
+    function IsEndOfLine : Boolean;
+    property Options : TSQLScannerOptions read FOptions write Setoptions;
     property SourceFile: TLineReader read FSourceFile;
     property CurFilename: string read FSourceFilename;
     property CurLine: string read FCurLine;
@@ -252,8 +253,8 @@ Type
     property CurColumn: Integer read GetCurColumn;
     property CurToken: TSQLToken read FCurToken;
     property CurTokenString: string read FCurTokenString;
-    Property ExcludeKeywords : TStrings Read GetExcludeKeywords
-      Write SetExcludeKeywords;
+    property ExcludeKeywords : TStrings read GetExcludeKeywords
+      write SetExcludeKeywords;
   end;
 
 implementation
@@ -262,14 +263,12 @@ var
   IdentifierTokens   : array [FirstKeyword .. LastKeyWord] of TSQLToken;
   IdentifierTokensOK : Boolean;
 
-Resourcestring
+resourcestring
   SErrUNknownToken = 'Unknown token: %s';
 
-Procedure BuildIdentifierTokens;
-
+procedure BuildIdentifierTokens;
 var
   T : TSQLToken;
-
 begin
   For T := FirstKeyword to LastKeyWord do
     IdentifierTokens[T] := T;
@@ -357,7 +356,6 @@ begin
 end;
 
 function TSQLScanner.DoWhiteSpace : TSQLToken;
-
 begin
   Result := tsqlWhiteSpace;
   repeat
@@ -366,17 +364,15 @@ begin
       if not FetchLine then
       begin
         FCurToken := Result;
-        exit;
+        Exit;
       end;
   until not(TokenStr[0] in [#9, ' ']);
 end;
 
 function TSQLScanner.DoSingleLineComment : TSQLToken;
-
 var
   TokenStart : PChar;
   Len        : Integer;
-
 begin
   Inc(TokenStr);
   TokenStart := TokenStr;
@@ -390,12 +386,10 @@ begin
 end;
 
 function TSQLScanner.DoMultiLineComment : TSQLToken;
-
 var
   TokenStart : PChar;
   Len, OLen  : Integer;
   PrevToken  : Char;
-
 begin
   Inc(TokenStr);
   TokenStart := TokenStr;
@@ -416,7 +410,7 @@ begin
       begin
         Result := tsqlEOF;
         FCurToken := Result;
-        exit;
+        Exit;
       end;
       TokenStart := TokenStr;
       PrevToken := #0;
@@ -438,8 +432,7 @@ begin
   Result := tsqlComment;
 end;
 
-function TSQLScanner.CommentDiv : TSQLToken;
-
+function TSQLScanner.CommentDiv: TSQLToken;
 begin
   FCurTokenString := '';
   Inc(TokenStr);
@@ -449,12 +442,10 @@ begin
     Result := tsqlDIV;
 end;
 
-Function TSQLScanner.ReadUnicodeEscape : WideChar;
-
+function TSQLScanner.ReadUnicodeEscape: WideChar;
 var
-  S : String;
+  S : string;
   I : Integer;
-
 begin
   S := '0000';
   For I := 1 to 4 do
@@ -473,7 +464,7 @@ end;
 
 procedure TSQLScanner.SetExcludeKeywords(const AValue: TStrings);
 begin
-  With ExcludeKeywords do
+  with ExcludeKeywords do
   begin
     Clear;
     AddStrings(AValue);
@@ -481,10 +472,8 @@ begin
 end;
 
 procedure TSQLScanner.Setoptions(const AValue: TSQLScannerOptions);
-
-Const
+const
   F = [soDoubleQuoteStringLiteral, soSingleQuoteIdentifier];
-
 begin
   FOptions := AValue;
   if ((FOptions * F) = [soSingleQuoteIdentifier]) then
@@ -492,10 +481,8 @@ begin
 end;
 
 procedure TSQLScanner.BuildKeyWords;
-
 var
   I : TSQLToken;
-
 begin
   if not IdentifierTokensOK then
     BuildIdentifierTokens;
@@ -507,15 +494,12 @@ begin
 end;
 
 function TSQLScanner.DoStringLiteral: TSQLToken;
-
 var
   Delim      : Char;
   TokenStart : PChar;
   Len, OLen  : Integer;
-  S          : String;
-
-  Procedure AppendBufToTokenString(DoNextToken : Boolean);
-
+  S          : string;
+  procedure AppendBufToTokenString(DoNextToken : Boolean);
   begin
     SetLength(FCurTokenString, OLen + Len + Length(S));
     if Len > 0 then
@@ -528,8 +512,7 @@ var
     TokenStart := TokenStr + 1;
   end;
 
-  Function CheckTokenBuf : Boolean;
-
+  function CheckTokenBuf : Boolean;
   begin
     Result := (TokenStr[0] <> #0);
     if not Result then
@@ -610,12 +593,10 @@ begin
 end;
 
 function TSQLScanner.DoNumericLiteral :TSQLToken;
-
 var
   TokenStart : PChar;
   Len        : Integer;
   isFloat    : Boolean;
-
 begin
   TokenStart := TokenStr;
   isFloat := false;
@@ -671,13 +652,11 @@ begin
 end;
 
 function TSQLScanner.DoIdentifier : TSQLToken;
-
 var
   TokenStart:PChar;
   Len       : Integer;
   S         : ShortString;
   P         : ^TSQLToken;
-
 begin
   Result := tsqlIdentifier;
   TokenStart := TokenStr;
@@ -712,7 +691,6 @@ begin
   end;
 
   function TSQLScanner.FetchToken: TSQLToken;
-
   begin
     repeat
       if TokenStr = nil then
@@ -945,7 +923,6 @@ begin
   end;
 
   procedure TStreamLineReader.FillBuffer;
-
   begin
     FBufLen := FStream.Read(Buffer, SizeOf(Buffer) - 1);
     Buffer[FBufLen] := 0;
@@ -953,11 +930,9 @@ begin
   end;
 
   function TStreamLineReader.ReadLine: string;
-
   var
     FPos, OLen, Len: Integer;
     PRun           : PByte;
-
   begin
     FPos := FBufPos;
     SetLength(Result, 0);

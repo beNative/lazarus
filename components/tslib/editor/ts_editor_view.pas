@@ -200,7 +200,7 @@ type
     procedure UpdateSharedViews;
     procedure ApplySettings;
 
-  strict private
+  private
     FUpdate          : Boolean;
 {$IFDEF Windows}
     FDirectoryWatch  : TDirectoryWatch;
@@ -321,7 +321,7 @@ type
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     procedure SetParent(const AValue: TWinControl); reintroduce;
-    procedure SetPopupMenu(const AValue: TPopupMenu);
+    procedure SetPopupMenu(AValue: TPopupMenu);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const Value: string); virtual;
     procedure SetSelectionMode(AValue: TSynSelectionMode);
@@ -1270,7 +1270,7 @@ begin
   Result := Editor.PopupMenu;
 end;
 
-procedure TEditorView.SetPopupMenu(const AValue: TPopupMenu);
+procedure TEditorView.SetPopupMenu(AValue: TPopupMenu);
 begin
   Editor.PopupMenu := AValue;
 end;

@@ -34,7 +34,8 @@ type
   TEditorFactories = class
   public
     class function CreateSettings(
-      AOwner : TComponent
+            AOwner    : TComponent;
+      const AFileName : string = ''
     ): IEditorSettings;
 
     class function CreateManager(
@@ -96,13 +97,13 @@ begin
   Result := EMF.CreateInstance(AOwner, ASettings);
 end;
 
-class function TEditorFactories.CreateSettings(
-  AOwner: TComponent): IEditorSettings;
+class function TEditorFactories.CreateSettings(AOwner: TComponent;
+  const AFileName: string): IEditorSettings;
 var
   ESF : IEditorSettingsFactory;
 begin
   ESF := TEditorSettingsFactory.Create;
-  Result := ESF.CreateInstance(AOwner);
+  Result := ESF.CreateInstance(AOwner, AFileName);
 end;
 
 class function TEditorFactories.CreateView(AParent: TWinControl;

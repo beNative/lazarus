@@ -28,7 +28,7 @@ unit ts.Components.UNIHighlighter;
   - proper classes (no public fields, but properties)
   - records holding objects to classes
   - TList => TObjectList
-  - removed useless code
+  - removed useless code and type declarations
 }
 
 {$region 'documentation'}
@@ -173,7 +173,7 @@ type
   strict private
     FAttributes : TSynHighlighterAttributes;
     FOpenRule   : TSynRange;
-    FBrakeType  : TSymbolBreakType;
+    FBreakType  : TSymbolBreakType;
     FSymbol     : string;
 
   public
@@ -188,8 +188,8 @@ type
     property OpenRule: TSynRange
       read FOpenRule write FOpenRule;
 
-    property BrakeType : TSymbolBreakType
-      read FBrakeType write FBrakeType;
+    property BreakType : TSymbolBreakType
+      read FBreakType write FBreakType;
 
     property Attributes: TSynHighlighterAttributes
       read FAttributes write FAttributes;
@@ -222,12 +222,6 @@ type
       read FKeywords;
   end;
 
-  TSymbRangeSet = record
-    RangeValue     : Integer;
-    IncludeSymbols : Boolean;
-  end;
-
-  PSymbRangeSet = ^TSymbRangeSet;
   TSymbolsSet   = set of Char;
 
   TSymbolList = class;
@@ -245,7 +239,7 @@ type
     constructor Create(
       ASymbolChar : Char;
       ASynSymbol  : TSynSymbol;
-      ABrakeType  : TSymbolBreakType
+      ABreakType  : TSymbolBreakType
     ); overload; virtual;
     constructor Create(ASymbolChar: Char); overload;
     procedure AfterConstruction; override;
@@ -291,8 +285,10 @@ type
 
   TAbstractSymbols = class
   public
-    function GetToken(AParser: TSynUniSyn;
-      var ASynSymbol: TSynSymbol): Boolean; virtual; abstract;
+    function GetToken(
+          AParser    : TSynUniSyn;
+      var ASynSymbol : TSynSymbol
+    ): Boolean; virtual; abstract;
   end;
 
   TSymbols = class(TAbstractSymbols)
@@ -305,9 +301,10 @@ type
       reintroduce; virtual;
     procedure BeforeDestruction; override;
 
-
-    function GetToken(AParser: TSynUniSyn;
-      var ASynSymbol: TSynSymbol): Boolean; override;
+    function GetToken(
+          AParser    : TSynUniSyn;
+      var ASynSymbol : TSynSymbol
+    ): Boolean; override;
 
     procedure AddSymbol(const AString: string; ASynSymbol: TSynSymbol;
       ABreakType: TSymbolBreakType);
@@ -764,7 +761,7 @@ begin
   FAttributes := AAttributes;
   FSymbol     := ASymbol;
   FOpenRule   := nil;
-  FBrakeType  := btUnspecified;
+  FBreakType  := btUnspecified;
 end;
 {$endregion}
 
@@ -782,7 +779,7 @@ begin
   if SS <> nil then
   begin
     FSynSymbols.Remove(SS);
-    SS.Free;
+//    SS.Free;
   end;
   FSynSymbols.Add(ASymbol);
 end;
@@ -932,7 +929,7 @@ var
     if Result = nil then
     begin
       Result := TSynSymbol.Create(ASynSymbol.Symbol, ASynSymbol.Attributes);
-      Result.BrakeType := ASynSymbol.BrakeType;
+      Result.BreakType := ASynSymbol.BreakType;
       ARules.AddSymbol(Result);
     end;
     if Result.Attributes = nil then
@@ -985,8 +982,8 @@ begin
       continue;
     S := SynSymbol.Symbol;
     FirstChar := S[1];
-    if SynSymbol.BrakeType <> btUnspecified then
-      BrakeType := SynSymbol.BrakeType
+    if SynSymbol.BreakType <> btUnspecified then
+      BrakeType := SynSymbol.BreakType
     else if S[Length(S)] in FTermSymbols then
       BrakeType := btAny
     else
@@ -1074,7 +1071,7 @@ end;
 
 procedure TSynRange.DeleteAttribs(AIndex: Integer);
 begin
-  TSynHighlighterAttributes(FAttributes[AIndex]).Free;
+//  TSynHighlighterAttributes(FAttributes[AIndex]).Free;
   FAttributes.Delete(AIndex);
 end;
 
@@ -1083,7 +1080,7 @@ var
   HA: TSynHighlighterAttributes;
 begin
   HA := AttribsByName(AName);
-  HA.Free;
+//  HA.Free;
   FAttributes.Remove(HA);
 end;
 
@@ -1566,9 +1563,9 @@ var
             lowercase(GetData(xitCloseOnEol)) = 'true';
         xitAnyTerm:
           if lowercase(GetData(xitAnyTerm)) = 'true' then
-            CurRange.OpenSymbol.BrakeType := btAny
+            CurRange.OpenSymbol.BreakType := btAny
           else
-            CurRange.OpenSymbol.BrakeType := btTerm;
+            CurRange.OpenSymbol.BreakType := btTerm;
         xitDelimiterChars:
           CurRange.TermSymbols := String2Set(GetData(xitDelimiterChars));
         xitNum:
@@ -1802,11 +1799,11 @@ end;
 
 {$region 'TSymbolNode' /fold}
 constructor TSymbolNode.Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
-  ABrakeType: TSymbolBreakType);
+  ABreakType: TSymbolBreakType);
 begin
   inherited Create;
   FSymbolChar := ASymbolChar;
-  FBreakType  := ABrakeType;
+  FBreakType  := ABreakType;
   FSynSymbol  := ASynSymbol;
 end;
 
@@ -1882,6 +1879,7 @@ end;
 {$region 'TDefaultTermSymbols' /fold}
 constructor TDefaultTermSymbols.Create(ASynSymbol: TSynSymbol);
 begin
+  inherited Create;
   FSynSymbol := ASynSymbol;
 end;
 
@@ -1918,6 +1916,7 @@ end;
 
 destructor TSynUniSyn.Destroy;
 begin
+  FCurrentRule := nil;
   FSymbols.Free;
   FMainRules.Free;
   FInfo.History.Free;
@@ -2100,7 +2099,7 @@ begin
     SR.NumberAttributes.Foreground := clRed;
     SR.NumberAttributes.Background := clWhite;
     SR.CaseSensitive := False;
-    SR.OpenSymbol.BrakeType := btAny;
+    SR.OpenSymbol.BreakType := btAny;
     MainRules.AddRange(SR);
 
     SR := TSynRange.Create('"', '"');
@@ -2110,7 +2109,7 @@ begin
     SR.NumberAttributes.Foreground := clRed;
     SR.NumberAttributes.Background := clWhite;
     SR.CaseSensitive := False;
-    SR.OpenSymbol.BrakeType := btAny;
+    SR.OpenSymbol.BreakType := btAny;
     MainRules.AddRange(SR);
 
     SR := TSynRange.Create('{', '}');
@@ -2120,7 +2119,7 @@ begin
     SR.NumberAttributes.Foreground := clNavy;
     SR.NumberAttributes.Background := clWhite;
     SR.CaseSensitive := False;
-    SR.OpenSymbol.BrakeType := btAny;
+    SR.OpenSymbol.BreakType := btAny;
     MainRules.AddRange(SR);
 
     SR := TSynRange.Create('(*', '*)');
@@ -2130,7 +2129,7 @@ begin
     SR.NumberAttributes.Foreground := clNavy;
     SR.NumberAttributes.Background := clWhite;
     SR.CaseSensitive := False;
-    SR.OpenSymbol.BrakeType := btAny;
+    SR.OpenSymbol.BreakType := btAny;
     MainRules.AddRange(SR);
 
     SR := TSynRange.Create('/*', '*/');
@@ -2140,7 +2139,7 @@ begin
     SR.NumberAttributes.Foreground := clNavy;
     SR.NumberAttributes.Background := clWhite;
     SR.CaseSensitive := False;
-    SR.OpenSymbol.BrakeType := btAny;
+    SR.OpenSymbol.BreakType := btAny;
     MainRules.AddRange(SR);
 
     SSG := TSynSymbolGroup.Create('', TSynHighlighterAttributes.Create('unknown'));
@@ -2260,7 +2259,7 @@ procedure TSynUniSyn.SaveToStream(AStream: TStream);
     InsertTag(AIndent, 'CloseSymbol', ARange.CloseSymbol.Symbol);
 
     InsertTag(AIndent, 'DelimiterChars', Set2String(ARange.TermSymbols));
-    if ARange.OpenSymbol.BrakeType = btAny then
+    if ARange.OpenSymbol.BreakType = btAny then
       InsertTag(AIndent, 'AnyTerm', 'True')
     else
       InsertTag(AIndent, 'AnyTerm', 'False');
@@ -2781,9 +2780,9 @@ var
             lowercase(GetData(xitCloseOnEol)) = 'true';
         xitAnyTerm:
           if lowercase(GetData(xitAnyTerm)) = 'true' then
-            CurRange.OpenSymbol.BrakeType := btAny
+            CurRange.OpenSymbol.BreakType := btAny
           else
-            CurRange.OpenSymbol.BrakeType := btTerm;
+            CurRange.OpenSymbol.BreakType := btTerm;
         xitDelimiterChars:
           CurRange.TermSymbols := String2Set(GetData(xitDelimiterChars));
         xitNum:

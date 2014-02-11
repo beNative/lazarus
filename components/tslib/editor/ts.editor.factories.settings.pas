@@ -42,7 +42,8 @@ type
     procedure RegisterClasses;
 
     function CreateInstance(
-      AOwner : TComponent = nil
+            AOwner    : TComponent = nil;
+      const AFileName : string = ''
     ): IEditorSettings;
   end;
 
@@ -285,8 +286,8 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-function TEditorSettingsFactory.CreateInstance(
-  AOwner: TComponent): IEditorSettings;
+function TEditorSettingsFactory.CreateInstance(AOwner: TComponent;
+  const AFileName: string): IEditorSettings;
 var
   ES : IEditorSettings;
 begin
@@ -294,6 +295,11 @@ begin
   ES := TEditorSettings.Create(AOwner);
   RegisterToolSettings(ES.ToolSettings);
   RegisterHighlighters(ES.Highlighters);
+  if AFileName <> '' then
+  begin
+    ES.FileName := AFileName;
+    ES.Load;
+  end;
   Result := ES;
 end;
 {$endregion}

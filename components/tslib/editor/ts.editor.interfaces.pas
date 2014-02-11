@@ -1130,7 +1130,8 @@ type
   IEditorSettingsFactory = interface
   ['{6479785C-A7C0-40D9-9036-D39BEE780CA2}']
     function CreateInstance(
-      AOwner : TComponent = nil
+            AOwner    : TComponent = nil;
+      const AFileName : string = ''
     ): IEditorSettings;
   end;
 

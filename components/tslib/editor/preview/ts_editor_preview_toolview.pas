@@ -78,10 +78,10 @@ end;
 
 {$region 'protected methods' /fold}
 procedure TfrmPreview.UpdateView;
-var
-  SS : TStringStream;
-  S  : string;
-  SL : TStringList;
+//var
+//  SS : TStringStream;
+//  S  : string;
+//  SL : TStringList;
 begin
  BeginFormUpdate;
   try

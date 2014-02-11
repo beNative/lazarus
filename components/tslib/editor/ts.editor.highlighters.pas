@@ -390,7 +390,6 @@ procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   const ADescription: string; const ALayoutFileName: string);
 var
   HI : THighlighterItem;
-  CTI : TCodeTagItem;
 begin
   HI := Find(AName);
   if not Assigned(HI) then

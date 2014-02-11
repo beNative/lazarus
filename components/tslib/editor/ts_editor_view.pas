@@ -721,6 +721,7 @@ end;
 function TEditorView.EditorMouseActionExec(AnAction: TSynEditMouseAction;
   var AnInfo: TSynEditMouseActionInfo): Boolean;
 begin
+  Result := False;
   Logger.Send(
     'EditorMouseActionExec(Action = %s)',
     [AnAction.DisplayName]
@@ -736,6 +737,7 @@ function TEditorView.EditorMouseActionSearch(
   var AnInfo: TSynEditMouseActionInfo;
   HandleActionProc: TSynEditMouseActionHandler): Boolean;
 begin
+  Result := False;
   Logger.Send(
     'EditorMouseActionSearch(Action = ?)'
   );
@@ -2069,9 +2071,7 @@ begin
     try
       if FileIsText(FileName) then
       begin
-
         AssignHighlighterForFileType(S);
-
       end;
     except
       { TODO -oTS : dirty: need to fix this }

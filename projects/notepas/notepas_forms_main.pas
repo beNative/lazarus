@@ -96,18 +96,19 @@ type
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseToolviewExecute(Sender: TObject);
+    procedure AHSActivate(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
     procedure AHSActivateSite(Sender: TObject);
-    procedure AnchorDockPageControlChanging(Sender: TObject; var AllowChange: Boolean);
+    procedure AHSShowModalFinished(Sender: TObject; AResult: Integer);
     procedure btnEncodingClick(Sender: TObject);
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
-    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
@@ -149,7 +150,6 @@ type
 
   protected
     procedure AddDockingMenuItems;
-    procedure AssignEvents;
     procedure UpdateCaptions;
     procedure UpdateControls;
     procedure UpdateStatusBar;
@@ -242,10 +242,7 @@ begin
     FSettings
   );
   FManager.PersistSettings := True;
-{ TODO -oTS : Make this work in a cross platform fashion }
-//{$IFNDEF Darwin}
   FUniqueInstance.Enabled := Settings.SingleInstance;
-//{$ENDIF}
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
   FMainToolbar :=
     TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
@@ -277,10 +274,7 @@ end;
 
 procedure TfrmMain.BeforeDestruction;
 begin
-{ TODO -oTS : Make this work in a cross platform fashion }
-//{$IFNDEF Darwin}
   Settings.FormSettings.Assign(Self);
-//{$ENDIF}
   FSettings := nil;
   FManager  := nil;
   inherited BeforeDestruction;
@@ -340,6 +334,12 @@ begin
     TV.Visible := False;
   Manager.ActiveView.SetFocus;
 end;
+
+procedure TfrmMain.AHSActivate(Sender: TObject);
+begin
+  Logger.Send('AHSActivate');
+end;
+
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -378,8 +378,14 @@ begin
     begin
       EV := C as IEditorView;
       EV.Activate;
+      EV.SetFocus;
     end;
   end;
+end;
+
+procedure TfrmMain.AHSShowModalFinished(Sender: TObject; AResult: Integer);
+begin
+  Editor.SetFocus;
 end;
 
 procedure TfrmMain.EditorEventsStatusChange(Sender: TObject; Changes: TSynStatusChanges);
@@ -420,6 +426,11 @@ begin
   btnSelectionMode.PopupMenu.PopUp;
 end;
 
+procedure TfrmMain.FormActivate(Sender: TObject);
+begin
+  Logger.Send('Form OnActivate');
+end;
+
 procedure TfrmMain.EditorEventsActiveViewChange(Sender: TObject);
 begin
   if Assigned(Editor) then
@@ -446,24 +457,14 @@ end;
 
 procedure TfrmMain.EditorSettingsChangedHandler(Sender: TObject);
 begin
-{ TODO -oTS : Make this work in a cross platform fashion }
-//{$IFNDEF Darwin}
   WindowState := Settings.FormSettings.WindowState;
   FormStyle   := Settings.FormSettings.FormStyle;
-//{$ENDIF}
   UpdateControls;
 end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
   CanClose := Actions['actExit'].Execute;
-end;
-
-procedure TfrmMain.FormCreate(Sender: TObject);
-begin
- {$IFDEF DARWIN}
-  OnDropFiles := FormDropFiles;
- {$ENDIF}
 end;
 
 procedure TfrmMain.FormDropFiles(Sender: TObject;
@@ -497,15 +498,12 @@ begin
     EnableAutoSizing;
   end;
   V.Activate;
-
+  V.SetFocus;
 end;
 
 procedure TfrmMain.FormWindowStateChange(Sender: TObject);
 begin
-{ TODO -oTS : Make this work in a cross platform fashion }
-//{$IFNDEF Darwin}
   Settings.FormSettings.WindowState := WindowState;
-//{$ENDIF}
 end;
 
 procedure TfrmMain.UniqueInstanceOtherInstance(Sender: TObject;
@@ -569,7 +567,9 @@ begin
         AHS.Header.HeaderPosition := adlhpTop;
       end;
       AHS.OnActivateSite := AHSActivateSite;
-      V.OnDropFiles := FormDropFiles;
+      AHS.OnShowModalFinished := AHSShowModalFinished;
+      AHS.OnActivate := AHSActivate;
+      V.OnDropFiles      := FormDropFiles;
       V.Editor.PopupMenu := Menus.EditorPopupMenu;
       UpdateEditorViewCaptions;
     finally
@@ -578,12 +578,6 @@ begin
   finally
     EnableAutoSizing;
   end;
-end;
-
-procedure TfrmMain.AnchorDockPageControlChanging(Sender: TObject;
-  var AllowChange: Boolean);
-begin
-  (Sender as TAnchorDockPageControl).GetActiveSite.Show;
 end;
 {$endregion}
 
@@ -597,6 +591,7 @@ begin
   Events.OnAddEditorView      := EditorEventsAddEditorView;
   Events.OnShowEditorToolView := EditorEventsShowEditorToolView;
   Events.OnHideEditorToolView := EditorEventsHideEditorToolView;
+  OnDropFiles := FormDropFiles;
 end;
 
 procedure TfrmMain.InitializeControls;
@@ -655,19 +650,6 @@ begin
   MI := TMenuItem.Create(PPM);
   MI.Action := Actions['actCloseOthers'];
   PPM.Items.Add(MI);
-end;
-
-procedure TfrmMain.AssignEvents;
-var
-  C: TComponent;
-  I: Integer;
-begin
-  for I := 0 to DockMaster.ComponentCount - 1 do
-  begin
-    C := DockMaster.Components[I];
-    if C is TAnchorDockPageControl then
-      TAnchorDockPageControl(C).OnChanging := AnchorDockPageControlChanging;
-  end;
 end;
 
 procedure TfrmMain.UpdateCaptions;
@@ -748,7 +730,6 @@ begin
     pnlFileName.Width := GetTextWidth(btnFileName.Caption, btnFileName.Font) + 10;
     pnlLineBreakStyle.Width :=
       GetTextWidth(btnLineBreakStyle.Caption, btnLineBreakStyle.Font) + 10;
-
   finally
     SelText.Free;
   end;
@@ -775,6 +756,13 @@ begin
     UpdateStatusBar;
     FSelectionToolbar.Parent  := Editor.Editor;
     FSelectionToolbar.Visible := Editor.SelAvail;
+
+    { For some unknown reason the form is sometimes focused when multiple views
+      are closed. This is a temporary work-around till the real nature of the
+      problem is identified. The anchordocking control might be responsible for
+      this behaviour. }
+    if Screen.ActiveControl = Self then
+      Editor.SetFocus;
   end;
 end;
 {$endregion}

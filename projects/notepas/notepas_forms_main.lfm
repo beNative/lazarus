@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 147
+  Left = -821
   Height = 618
-  Top = 41
+  Top = 223
   Width = 752
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -11,13 +11,13 @@ object frmMain: TfrmMain
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
+  OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
-  OnCreate = FormCreate
   OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.3'
+  LCLVersion = '1.2.0.2'
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18

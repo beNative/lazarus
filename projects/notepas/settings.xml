@@ -12,10 +12,10 @@
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
 					<FormSettings>(TFormSettings)
-						<Left>0</Left>
-						<Top>0</Top>
-						<Width>800</Width>
-						<Height>600</Height>
+						<Left>537</Left>
+						<Top>256</Top>
+						<Width>623</Width>
+						<Height>523</Height>
 						<FormStyle>fsNormal</FormStyle>
 						<WindowState>wsNormal</WindowState>
 					</FormSettings>
@@ -1316,19 +1316,20 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>SQL</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>-8</Left>
-		<Top>-8</Top>
-		<Width>1366</Width>
-		<Height>705</Height>
+		<Left>25</Left>
+		<Top>25</Top>
+		<Width>1424</Width>
+		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
-		<WindowState>wsMaximized</WindowState>
+		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
-		<Height>-15</Height>
-		<Name>Consolas</Name>
+		<Height>-13</Height>
+		<Name>Courier New</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

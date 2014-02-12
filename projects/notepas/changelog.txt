@@ -1,5 +1,13 @@
+2014.02.12 (0.9.36)
+* Fixed problem with last line shown twice in CodeFilter.
+* Fixed copy of selected lines to the clipboard in CodeFilter.
+* Fixed Access Violation that could occur when closing multiple views.
+* Automatic highlighter assignment when opening selections in a new view.
+* Fixed some ocasions where focus was unjustly lost from the active view.
+
 2014.01.25 (0.9.35)
 * Optimized toolview handling.
+* Added actSaveAll
 
 2014.01.19 (0.9.34)
 * Added shortcuts for close actions.

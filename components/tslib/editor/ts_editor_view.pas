@@ -2026,11 +2026,17 @@ function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;
   S : string;
+  V : IEditorView;
 begin
+  V := nil;
   Result := inherited CloseQuery;
   if Modified then
   begin
-    Activate;
+    if Manager.ActiveView <> (Self as IEditorView) then
+    begin
+      V := Manager.ActiveView;
+      Activate;
+    end;
     S := Format(SAskSaveChanges, [FileName]);
     MR := MessageDlg(S, mtConfirmation, [mbYes, mbNo, mbCancel], 0);
     if MR = mrYes then
@@ -2047,6 +2053,10 @@ begin
       Result := False;
       Abort;
     end;
+  end;
+  if Assigned(V) then
+  begin
+    V.Activate;
   end;
 end;
 

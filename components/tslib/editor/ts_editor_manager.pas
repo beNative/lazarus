@@ -2656,7 +2656,7 @@ end;
 
 { 1. Removes the given instance from the list
   2. Closes the instance (which will free it)
-  3. Set the active view to another view if we were closing the active view
+  3. Sets the active view to another view if we were closing the active view
 }
 
 function TdmEditorManager.DeleteView(AView: IEditorView): Boolean;
@@ -2705,18 +2705,20 @@ end;
 
 procedure TdmEditorManager.ClearViews(AExceptActive: Boolean);
 var
-  I: Integer;
+  I : Integer;
+  V : IEditorView;
 begin
   if AExceptActive then
   begin
-    I := ViewList.IndexOf(ActiveView);
+    V := ActiveView;
+    I := ViewList.IndexOf(V);
     ViewList.Delete(I);
   end;
   while ViewCount > 0 do
     DeleteView(0);
   ViewList.Clear;
   if AExceptActive then
-    ViewList.Add(ActiveView);
+    ViewList.Add(V);
 end;
 {$endregion}
 

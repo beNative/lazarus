@@ -13,7 +13,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   PopupMode = pmExplicit
   PopupParent = frmMain.Owner
   Position = poMainFormCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.2.0.2'
   object pnlVST: TPanel
     Left = 3
     Height = 517
@@ -321,6 +321,12 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       ImageIndex = 2
       ShortCut = 115
     end
+    object actCopy: TAction
+      Caption = 'Copy'
+      Hint = 'Copy selected lines to the clipboard.'
+      OnExecute = actCopyExecute
+      ShortCut = 16451
+    end
   end
   object imlMain: TImageList
     left = 200
@@ -464,8 +470,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Action = actSelectAll
     end
     object mniCopy: TMenuItem
-      Caption = 'Copy'
-      ShortCut = 16451
+      Action = actCopy
     end
     object mniCopyToNewView: TMenuItem
       Action = actCopyToNewView

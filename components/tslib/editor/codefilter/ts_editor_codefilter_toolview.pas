@@ -44,6 +44,7 @@ type
     actApplyFilter       : TAction;
     actCopyToNewView     : TAction;
     actFocusSearchFilter : TAction;
+    actCopy: TAction;
     actMatchCase         : TAction;
     actRegularExpression : TAction;
     actSelectAll         : TAction;
@@ -407,6 +408,7 @@ var
   I  : Integer;
   SL : TStringList;
   L  : TLine;
+  S  : string;
 begin
   SL := TStringList.Create;
   try
@@ -415,8 +417,10 @@ begin
       L := TLine(FTVP.SelectedItems[I]);
       SL.Add(L.Text);
     end;
+    S := View.HighlighterName;
     with Manager.Views.Add do
     begin
+      HighlighterName := S;
       FileName := SFilteredCode;
       Text := SL.Text;
     end;
@@ -778,7 +782,7 @@ var
 begin
   N := FTVP.VisibleCount;
   if N = 1 then
-    sbrMain.SimpleText :=  SOneLineWithMatchFound
+    sbrMain.SimpleText := SOneLineWithMatchFound
   else
     sbrMain.SimpleText := Format(SLinesWithMatchFound, [N]);
 end;
@@ -815,7 +819,10 @@ var
 begin
   SL := TStringList.Create;
   try
-    SL.Text := View.Text;
+    { Remove trailing empty lines first. If we don't do this the last line is
+      for an unknown reason shown twice in the grid after multiple filter
+      operations. }
+    SL.Text := TrimRight(View.Text);
     FillList(SL);
     FTVP.Refresh;
     UpdateStatusDisplay;

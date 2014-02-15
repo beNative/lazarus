@@ -338,7 +338,6 @@ type
   TNumberSymbols = class(TAbstractSymbols)
   strict private
     FSynSymbol: TSynSymbol;
-
   public
     constructor Create(ASynSymbol: TSynSymbol); virtual;
     function GetToken(AParser: TSynUniSyn;

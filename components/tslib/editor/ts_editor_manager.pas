@@ -3099,9 +3099,13 @@ function TdmEditorManager.NewFile(const AFileName: string;
   const AText: string): IEditorView;
 var
   V : IEditorView;
+  S : string;
 begin
+  S := '';
   Events.DoNew(AFileName, AText);
-  V := AddView('', AFileName);
+  if Assigned(ActiveView) then
+    S := ActiveView.HighlighterName;
+  V := AddView('', AFileName, S);
   V.Text := AText;
   Result := V;
 end;

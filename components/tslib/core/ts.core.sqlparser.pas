@@ -4133,10 +4133,8 @@ end;
 
 function TSQLParser.ParseScript(AllowPartial : Boolean = False)
   : TSQLelementList;
-
 var
   E : TSQLElement;
-
 begin
   Result := TSQLelementList.Create(True);
   try

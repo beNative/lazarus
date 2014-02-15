@@ -126,14 +126,14 @@ uses
   LCLVersion, InterfaceBase;
 
 const
-  GTK_WIDGETSET       = 'GTK';
-  GTK2_WIDGETSET      = 'GTK 2';
-  GTK3_WIDGETSET      = 'GTK 3';
-  WIN32_WIDGETSET     = 'Win32/Win64';
-  WINCE_WIDGETSET     = 'WinCE';
-  CARBON_WIDGETSET    = 'Carbon';
-  QT_WIDGETSET        = 'QT';
-  FP_GUI_WIDGETSET    = 'FpGUI';
+  GTK_WIDGETSET       = 'gtk';
+  GTK2_WIDGETSET      = 'gtk2';
+  GTK3_WIDGETSET      = 'gtk3';
+  WIN32_WIDGETSET     = 'win32';
+  WINCE_WIDGETSET     = 'wince';
+  CARBON_WIDGETSET    = 'carbon';
+  QT_WIDGETSET        = 'qt';
+  FP_GUI_WIDGETSET    = 'fpgui';
   OTHER_GUI_WIDGETSET = 'Other gui';
 
   FPC_VERSION    = {$I %FPCVERSION%};

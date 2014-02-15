@@ -579,7 +579,8 @@ end;
 function TEditorCommands.SaveFile(const AFileName: string; AShowDialog: Boolean
   ): Boolean;
 begin
-  //
+  // { TODO -oTS : Migrate implementation to here. }.
+  Manager.SaveFile(AFileName, AShowDialog);
 end;
 
 procedure TEditorCommands.SaveAll;

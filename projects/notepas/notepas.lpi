@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="35"/>
-      <BuildNr Value="152"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.35" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
+      <RevisionNr Value="36"/>
+      <BuildNr Value="155"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.36" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
@@ -581,7 +581,7 @@ end;"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux-qt4"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -656,7 +656,7 @@ end;"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\Libraries\i386-linux"/>
+            <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS);$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType);..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -867,7 +867,7 @@ end;"/>
           </Other>
         </CompilerOptions>
       </Item12>
-      <Item13 Name="Release freebsd x86_64 gtk2">
+      <Item13 Name="Release freebsd x86_64 qt">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -879,7 +879,7 @@ end;"/>
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="..\..\..\fpc\units\x86_64-freebsd;..\..\..\fpc\units\x86_64-freebsd\x11;..\..\..\fpc\units\x86_64-freebsd\rtl"/>
+            <Libraries Value="..\..\..\binLibraries\x86_64-freebsd;..\..\..\binLibraries\i386-freebsd-qt4;..\..\..\fpc\units\x86_64-freebsd;..\..\..\fpc\units\x86_64-freebsd\x11;..\..\..\fpc\units\x86_64-freebsd\rtl"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -889,7 +889,6 @@ end;"/>
               <RangeChecks Value="True"/>
               <OverflowChecks Value="True"/>
             </Checks>
-            <TargetCPU Value="x86_64"/>
             <TargetOS Value="freebsd"/>
             <Optimizations>
               <VariablesInRegisters Value="True"/>
@@ -976,7 +975,7 @@ end;"/>
       </Item14>
       <SharedMatrixOptions Count="3">
         <Item1 ID="468994090888" Modes="Release win32 i386 qt,Release linux i386 qt,Release linux x86_64 qt,Release darwin x86_64 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
-        <Item2 ID="440664449299" Modes="Release win32 i386 gtk2,Release linux i386 gtk2,Release linux x86_64 gtk2,Release freebsd x86_64 gtk2,Release solaris x86_64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
+        <Item2 ID="440664449299" Modes="Release win32 i386 gtk2,Release linux i386 gtk2,Release linux x86_64 gtk2,Release freebsd x86_64 qt,Release solaris x86_64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item3 ID="326179418783" Modes="Release darwin i386 carbon" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
       </SharedMatrixOptions>
     </BuildModes>
@@ -991,37 +990,40 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="10">
+    <RequiredPackages Count="11">
       <Item1>
-        <PackageName Value="HtmlComp"/>
+        <PackageName Value="lclextensions_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="HtmlComp"/>
       </Item2>
       <Item3>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item3>
       <Item4>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item7>
       <Item8>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="FCL"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item10>
+      <Item11>
+        <PackageName Value="LCL"/>
+      </Item11>
     </RequiredPackages>
     <Units Count="137">
       <Unit0>
@@ -1048,7 +1050,6 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>

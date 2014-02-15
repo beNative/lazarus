@@ -22,7 +22,7 @@ program notepas;
 
 uses
   SysUtils,
-  {$IFDEF UNIX} // Required for Linux
+  {$IFDEF UNIX} // Required for Linux and BSD
   cthreads,
   {$ENDIF}
   DefaultTranslator,
@@ -30,13 +30,12 @@ uses
   Forms,
   Notepas_Forms_Main,
 
-  HtmlComp,
   lazrichedit,
   richmemopackage,
 
   runtimetypeinfocontrols,
   kcontrols,
-  ExceptionLogger,
+  ExceptionLogger, lclextensions_package,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -172,4 +171,4 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
+

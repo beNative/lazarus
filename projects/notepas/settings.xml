@@ -7,7 +7,13 @@
 					<RemoveWhiteSpace>true</RemoveWhiteSpace>
 					<KeepSpaceBeforeToken>true</KeepSpaceBeforeToken>
 					<KeepSpaceAfterToken>true</KeepSpaceAfterToken>
-					<Tokens>(TStringList)</Tokens>
+					<Tokens>(TStringList)
+						<DefinedProperties>
+						B1N0cmluZ3MBBgEnBgEtBgItLQYBIgYBIwYBJQYCKCoGASoGAiopBgEsBgEuBgIvLwYBOgYCOj0G
+						ATsGAUAGAXsGAXwGAX0GASsGAjw8BgE9BgI+PgYDYW5kBgJhcwYCaW4GAm9yBgRyZWFkBgV3cml0
+						ZQA=
+						</DefinedProperties>
+					</Tokens>
 					<Width>359</Width>
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
@@ -25,11 +31,13 @@
 					<SortScope>ssWords</SortScope>
 				</TSortStringsSettings>
 				<TMiniMapSettings Name="MiniMapSettings">
-					<Width>0</Width>
+					<Width>332</Width>
 				</TMiniMapSettings>
-				<THexEditorSettings Name="HexEditorSettings"/>
+				<THexEditorSettings Name="HexEditorSettings">
+					<Width>658</Width>
+				</THexEditorSettings>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[,ssoRegExpr]</Options>
+					<Options>[ssoMatchCase,ssoRegExpr]</Options>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings"/>
 			</Components>
@@ -1081,6 +1089,9 @@
 			<BackAlpha>128</BackAlpha>
 		</SelectedColor>
 	</Colors>
+	<EditorOptions>(TEditorOptionsSettings)
+		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	</EditorOptions>
 	<HighlighterAttributes>(THighlighterAttributes)
 		<THighlighterAttributesItem>
 			<Name>Comment</Name>
@@ -1319,8 +1330,8 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>25</Left>
-		<Top>25</Top>
+		<Left>75</Left>
+		<Top>75</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -1330,6 +1341,4 @@
 		<Height>-13</Height>
 		<Name>Courier New</Name>
 	</EditorFont>
-	<DebugMode>true</DebugMode>
-	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

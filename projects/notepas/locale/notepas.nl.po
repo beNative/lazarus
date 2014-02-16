@@ -981,6 +981,7 @@ msgid "Show script editor"
 msgstr "Script editor tonen"
 
 #: tdmeditormanager.actshowspecialcharacters.caption
+msgctxt "tdmeditormanager.actshowspecialcharacters.caption"
 msgid "Show special characters"
 msgstr "Speciale karakters tonen"
 
@@ -1777,13 +1778,115 @@ msgstr ""
 msgid "XML"
 msgstr "XML"
 
-#: tfrmeditorsettingsdialog.chkreadonly.caption
-msgid "Read only mode"
-msgstr "Alleen lezen modus"
+#: tfrmeditorsettingsdialog.chkalwaysvisiblecaret.caption
+msgid "Always visible caret"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkautohidecursor.caption
+msgid "Auto hide cursor"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkautoindent.caption
+msgid "Auto indent"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkautoindentonpaste.caption
+msgid "Auto indent on paste"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkbrackethighlight.caption
+msgid "Bracket highlight"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkcaretskipsselection.caption
+msgid "Caret skips selection"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkcaretskipstab.caption
+msgid "Caret skips tab"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkdragdropediting.caption
+msgid "Drag drop editing"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkenhanceendkey.caption
+msgid "Enhance End key"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkenhancehomekey.caption
+msgid "Enhance Home key"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkfoldedcopypaste.caption
+msgid "Folded copy paste"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkoverwriteblock.caption
+msgid "Overwrite block"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkpersistentblock.caption
+msgid "Persistent block"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkshowrightedge.caption
+msgid "Show right edge"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chkshowspecialcharacters.caption
+msgctxt "tfrmeditorsettingsdialog.chkshowspecialcharacters.caption"
+msgid "Show special characters"
+msgstr "Speciale karakters tonen"
+
+#: tfrmeditorsettingsdialog.chksmarttabs.caption
+msgid "Smart tabs"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chktabindent.caption
+msgid "Tab indent"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chktabstospaces.caption
+msgid "Tabs to spaces"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.chktrimtrailingspaces.caption
+msgid "Trim trailing spaces"
+msgstr ""
 
 #: tfrmeditorsettingsdialog.chkwanttabs.caption
 msgid "Accept TAB characters:"
 msgstr "Accepteer TAB karakters:"
+
+#: tfrmeditorsettingsdialog.grpappearance.caption
+msgid "Appearance"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.grpbehaviour.caption
+msgid "Behaviour"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.grpindentation.caption
+msgid "Indentation settings"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.grpkeys.caption
+msgid "Keys"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.grpselection.caption
+msgctxt "tfrmeditorsettingsdialog.grpselection.caption"
+msgid "Selection"
+msgstr "Selectie"
+
+#: tfrmeditorsettingsdialog.grptabs.caption
+msgid "Tabs"
+msgstr ""
+
+#: tfrmeditorsettingsdialog.grpwhitespace.caption
+msgid "Whitespace"
+msgstr ""
 
 #: tfrmeditorsettingsdialog.lblblockindent.caption
 #, fuzzy
@@ -2067,9 +2170,9 @@ msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
 msgstr "Info over"
 
-#: tfrmmain.actcloseallotherpages.caption
-msgid "Close all other pages"
-msgstr "Sluit alle andere pagina's"
+#: tfrmmain.actcheckfornewversion.caption
+msgid "Check for new version"
+msgstr ""
 
 #: tfrmmain.actclosetoolview.caption
 msgid "Close toolview"

@@ -4,6 +4,9 @@
 * Fixed Access Violation that could occur when closing multiple views.
 * Automatic highlighter assignment when opening selections in a new view.
 * Fixed some ocasions where focus was unjustly lost from the active view.
+* Reorganized editor settings.
+* Some modifications in the menu structure.
+* Added many new editor options.
 
 2014.01.25 (0.9.35)
 * Optimized toolview handling.

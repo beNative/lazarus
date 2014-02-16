@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -821
+  Left = -1478
   Height = 618
-  Top = 223
+  Top = 407
   Width = 752
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -353,13 +353,15 @@ object frmMain: TfrmMain
       ImageIndex = 2
       OnExecute = actAboutExecute
     end
-    object actCloseAllOtherPages: TAction
-      Caption = 'Close all other pages'
-    end
     object actCloseToolview: TAction
       Caption = 'Close toolview'
       OnExecute = actCloseToolviewExecute
       ShortCut = 27
+    end
+    object actCheckForNewVersion: TAction
+      Caption = 'Check for new version'
+      OnExecute = actCheckForNewVersionExecute
+      Visible = False
     end
   end
   object imlMain: TImageList

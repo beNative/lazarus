@@ -56,8 +56,8 @@ type
     {$region 'designer controls' /fold}
     aclMain               : TActionList;
     actAbout              : TAction;
-    actCloseAllOtherPages : TAction;
     actCloseToolview: TAction;
+    actCheckForNewVersion: TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
@@ -95,8 +95,8 @@ type
 
     {$region 'action handlers' /fold}
     procedure actAboutExecute(Sender: TObject);
+    procedure actCheckForNewVersionExecute(Sender: TObject);
     procedure actCloseToolviewExecute(Sender: TObject);
-    procedure AHSActivate(Sender: TObject);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -154,6 +154,9 @@ type
     procedure UpdateControls;
     procedure UpdateStatusBar;
     procedure UpdateEditorViewCaptions;
+    procedure AddToolButton(const AParent: TToolBar; const AAction : TContainedAction);
+
+//    procedure CheckForNewVersion;
 
   public
     procedure AfterConstruction; override;
@@ -201,9 +204,13 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, FileUtil, TypInfo,
+  StrUtils, FileUtil, TypInfo, Dialogs,
 
   SynEditTypes,
+
+  httpsend,
+
+  ts.Core.VersionInfo,
 
   ts.Core.Utils, ts.Core.Helpers,
 
@@ -254,6 +261,8 @@ begin
     TEditorFactories.CreateTopRightToolbar(Self, FToolbarHostPanel, Actions, Menus);
   InitializeControls;
   InitializeEvents;
+  actCheckForNewVersion.ActionList := Manager.Actions.GetActionList;
+  AddToolButton(FMainToolbar, actCheckForNewVersion);
   if ParamCount > 0 then
   begin
     for I := 1 to Paramcount do
@@ -324,6 +333,11 @@ begin
   ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
 end;
 
+procedure TfrmMain.actCheckForNewVersionExecute(Sender: TObject);
+begin
+//  CheckForNewVersion;
+end;
+
 procedure TfrmMain.actCloseToolviewExecute(Sender: TObject);
 var
   TV: IEditorToolView;
@@ -334,12 +348,6 @@ begin
     TV.Visible := False;
   Manager.ActiveView.SetFocus;
 end;
-
-procedure TfrmMain.AHSActivate(Sender: TObject);
-begin
-  Logger.Send('AHSActivate');
-end;
-
 {$endregion}
 
 {$region 'event handlers' /fold}
@@ -568,7 +576,6 @@ begin
       end;
       AHS.OnActivateSite := AHSActivateSite;
       AHS.OnShowModalFinished := AHSShowModalFinished;
-      AHS.OnActivate := AHSActivate;
       V.OnDropFiles      := FormDropFiles;
       V.Editor.PopupMenu := Menus.EditorPopupMenu;
       UpdateEditorViewCaptions;
@@ -747,6 +754,40 @@ begin
   end;
 end;
 
+procedure TfrmMain.AddToolButton(const AParent: TToolBar;
+  const AAction: TContainedAction);
+var
+  TB: TToolButton;
+begin
+  TB := TToolButton.Create(AParent);
+  TB.Parent := AParent;
+  begin
+    TB.Action := AAction;
+  end;
+end;
+
+//procedure TfrmMain.CheckForNewVersion;
+//var
+//  S  : string;
+//  SL : TStringList;
+//begin
+//  SL := TStringList.Create;
+//  try
+//    S := 'http://notepas.googlecode.com/svn/releases/version-i386-win32-win32.txt';
+//    if HttpGetText(S, SL) then
+//    begin
+//      if VersionInfo.ProductVersion <> Trim(SL.Text) then
+//        ShowMessage('New version released')
+//      else
+//        ShowMessage('Nothing released');
+//    end
+//    else
+//      ShowMessage('Checkversion failed.');
+//  finally
+//    FreeAndNil(SL);
+//  end;
+//end;
+
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
@@ -757,10 +798,10 @@ begin
     FSelectionToolbar.Parent  := Editor.Editor;
     FSelectionToolbar.Visible := Editor.SelAvail;
 
-    { For some unknown reason the form is sometimes focused when multiple views
-      are closed. This is a temporary work-around till the real nature of the
-      problem is identified. The anchordocking control might be responsible for
-      this behaviour. }
+    { TODO -oTS : For some unknown reason the form is sometimes focused when
+      multiple views are closed. This is a temporary work-around till the real
+      nature of the problem is identified. The anchordocking control might be
+      responsible for this behaviour. }
     if Screen.ActiveControl = Self then
       Editor.SetFocus;
   end;

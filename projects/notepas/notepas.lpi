@@ -990,42 +990,45 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="11">
+    <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="laz_synapse"/>
       </Item1>
       <Item2>
-        <PackageName Value="HtmlComp"/>
+        <PackageName Value="lclextensions_package"/>
       </Item2>
       <Item3>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="HtmlComp"/>
       </Item3>
       <Item4>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item4>
       <Item5>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item5>
       <Item6>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item6>
       <Item7>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item7>
       <Item8>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item9>
       <Item10>
-        <PackageName Value="FCL"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item10>
       <Item11>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item11>
+      <Item12>
+        <PackageName Value="LCL"/>
+      </Item12>
     </RequiredPackages>
-    <Units Count="137">
+    <Units Count="138">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1078,12 +1081,10 @@ end;"/>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.ExportRTF"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
@@ -1132,7 +1133,6 @@ end;"/>
       <Unit23>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Components.GridView"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
@@ -1161,7 +1161,6 @@ end;"/>
       <Unit30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
@@ -1182,7 +1181,6 @@ end;"/>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.SQLScanner"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.value.pas"/>
@@ -1250,7 +1248,6 @@ end;"/>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.SQLParser"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\components\tslib\core\ts.core.sqltree.pas"/>
@@ -1373,7 +1370,6 @@ end;"/>
       <Unit73>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Events"/>
       </Unit73>
       <Unit74>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -1733,6 +1729,10 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit136>
+      <Unit137>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit137>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

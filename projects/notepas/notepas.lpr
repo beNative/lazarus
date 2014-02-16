@@ -35,7 +35,7 @@ uses
 
   runtimetypeinfocontrols,
   kcontrols,
-  ExceptionLogger, lclextensions_package,
+  ExceptionLogger, laz_synapse, lclextensions_package,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -154,7 +154,7 @@ uses
   ts.Editor.Factories.Views,
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
-  ts.Editor.Factories;
+  ts.Editor.Factories, ts.Editor.Options.Settings;
 
 {$R *.res}
 

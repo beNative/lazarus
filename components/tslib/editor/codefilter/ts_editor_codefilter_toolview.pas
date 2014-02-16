@@ -577,7 +577,7 @@ begin
       TargetCanvas.FillRect(R);
       // TODO: does not have any effect as tabs are reduced
       TS := '';
-      TS := AddChar(' ', TS, Manager.Settings.TabWidth);
+      TS := AddChar(' ', TS, Manager.Settings.EditorOptions.TabWidth);
       Line := StringReplace(L.Text, #9, TS, [rfReplaceAll]);
       if IsMatch(L.Text, Match, Offset) then
       begin

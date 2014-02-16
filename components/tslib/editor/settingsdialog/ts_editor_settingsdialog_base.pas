@@ -16,6 +16,12 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+{ Implements a binding mechanism to bind RTTI-controls to published properties
+  in the settings.
+  It uses the convention over configuration paradigm. By using consistent naming
+  of the controls they will automatically bind to their equivalent properties.
+}
+
 unit ts_Editor_SettingsDialog_Base;
 
 {$MODE Delphi}
@@ -41,15 +47,25 @@ type
             AInstance     : IInterface;
             ALink         : TPropertyLink;
       const APropertyName : string = ''
-    );
+    ); overload;
+
+    procedure LinkProperty(
+            AInstance     : TPersistent;
+            ALink         : TPropertyLink;
+      const APropertyName : string = ''
+    ); overload;
 
     procedure AutoLinkChildControls(
       AInstance : IInterface;
       AControl  : TWinControl
-    );
+    ); overload;
+
+    procedure AutoLinkChildControls(
+      AInstance : TPersistent;
+      AControl  : TWinControl
+    ); overload;
 
   public
-    { public declarations }
     property Manager: IEditorManager
       read GetManager;
 
@@ -63,10 +79,11 @@ implementation
 {$R *.lfm}
 
 uses
-  Character, typinfo;
+  Character, TypInfo;
 
 { TCustomSettingsDialog }
 
+{$region 'property access mehods' /fold}
 function TCustomSettingsDialog.GetManager: IEditorManager;
 begin
   Result := Owner.Owner as IEditorManager;
@@ -76,16 +93,26 @@ function TCustomSettingsDialog.GetSettings: IEditorSettings;
 begin
   Result := Manager.Settings;
 end;
+{$endregion}
 
+{$region 'protected methods' /fold}
 { If APropertyName is not assigned the propertyname will be extracted from
   the name of the control. }
 
 procedure TCustomSettingsDialog.LinkProperty(AInstance: IInterface;
   ALink: TPropertyLink; const APropertyName: string);
 var
+  P : TPersistent;
+begin
+  P := TPersistent((AInstance as IInterfaceComponentReference).GetComponent);
+  LinkProperty(P, ALink, APropertyName);
+end;
+
+procedure TCustomSettingsDialog.LinkProperty(AInstance: TPersistent;
+  ALink: TPropertyLink; const APropertyName: string);
+var
   S : string;
   N : Integer;
-  P : TPersistent;
 
   function GetPrefixLength(const AString: string): Integer;
   var
@@ -106,7 +133,6 @@ var
   end;
 
 begin
-  P := TPersistent((AInstance as IInterfaceComponentReference).GetComponent);
   if APropertyName = '' then
   begin
     S := ALink.Owner.Name;
@@ -116,7 +142,7 @@ begin
   end
   else
     S := APropertyName;
-  ALink.SetObjectAndProperty(P, S);
+  ALink.SetObjectAndProperty(AInstance, S);
 end;
 
 procedure TCustomSettingsDialog.AutoLinkChildControls(AInstance: IInterface;
@@ -128,10 +154,29 @@ begin
   for I := 0 to AControl.ControlCount - 1 do
   begin
     C := AControl.Controls[I];
-    if IsPublishedProp(C, 'Link') then
+    if C is TWinControl then
+      AutoLinkChildControls(AInstance, TWinControl(C));
+    if IsPublishedProp(C, 'Link') then // is this a Rtti control?
       LinkProperty(AInstance, GetObjectProp(C, 'Link') as TPropertyLink);
   end;
 end;
+
+procedure TCustomSettingsDialog.AutoLinkChildControls(AInstance: TPersistent;
+  AControl: TWinControl);
+var
+  C : TControl;
+  I : Integer;
+begin
+  for I := 0 to AControl.ControlCount - 1 do
+  begin
+    C := AControl.Controls[I];
+    if C is TWinControl then
+      AutoLinkChildControls(AInstance, TWinControl(C));
+    if IsPublishedProp(C, 'Link') then // is this a Rtti control?
+      LinkProperty(AInstance, GetObjectProp(C, 'Link') as TPropertyLink);
+  end;
+end;
+{$endregion}
 
 end.
 

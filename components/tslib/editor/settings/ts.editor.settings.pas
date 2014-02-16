@@ -69,6 +69,7 @@ uses
 
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
   ts.Editor.Colors.Settings, ts.Editor.Tools.Settings,
+  ts.Editor.Options.Settings,
 
   ts.Editor.CodeTags,
 
@@ -77,14 +78,7 @@ uses
 const
   DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE = True;
   DEFAULT_AUTO_FORMAT_XML             = True;
-  DEFAULT_TAB_WIDTH                   = 2;
   DEFAULT_RIGHT_EDGE                  = 80;
-  DEFAULT_RIGHT_EDGE_COLOR            = clSilver;
-  DEFAULT_BLOCK_INDENT                = 2;
-  DEFAULT_BLOCK_TAB_INDENT            = 2;
-  DEFAULT_WANT_TABS                   = True;
-  DEFAULT_EXTRA_CHAR_SPACING          = 0;
-  DEFAULT_EXTRA_LINE_SPACING          = 0;
   DEFAULT_DIM_ACTIVE_VIEW             = True;
   DEFAULT_SINGLE_INSTANCE             = False;
   DEFAULT_LANGUAGE_CODE               = 'en';
@@ -95,13 +89,13 @@ type
   { TEditorSettings }
 
   TEditorSettings = class(TComponent, IEditorSettings)
+    procedure FEditorOptionsChanged(Sender: TObject);
   private
     FAutoFormatXML            : Boolean;
     FChangedEventList         : TMethodList;
     FReadOnly                 : Boolean;
     FHighlighterType          : string;
     FAutoGuessHighlighterType : Boolean;
-    FShowControlCharacters    : Boolean;
     FCloseWithEsc             : Boolean;
     FDebugMode                : Boolean;
     FSingleInstance           : Boolean;
@@ -115,73 +109,47 @@ type
 
     FColors                   : TEditorColorSettings;
     FToolSettings             : TEditorToolSettings;
-
-    FRightEdge             : Integer;
-    FRightEdgeColor        : TColor;
-    FBracketHighlightStyle : TSynEditBracketHighlightStyle;
-    FWantTabs              : Boolean;
-    FTabWidth              : Integer;
-    FBlockIndent           : Integer;
-    FBlockTabIndent        : Integer;
-    FExtraCharSpacing      : Integer;
-    FExtraLineSpacing      : Integer;
+    FEditorOptions            : TEditorOptionsSettings;
 
     procedure FFormSettingsChanged(Sender: TObject);
+    procedure FColorsChanged(Sender: TObject);
 
     {$region 'property access methods' /fold}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
-    function GetBlockIndent: Integer;
-    function GetBlockTabIndent: Integer;
-    function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
     function GetCloseWithESC: Boolean;
     function GetColors: TEditorColorSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
-    function GetExtraCharSpacing: Integer;
-    function GetExtraLineSpacing: Integer;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetLanguageCode: string;
+    function GetEditorOptions: TEditorOptionsSettings;
     function GetReadOnly: Boolean;
-    function GetRightEdge: Integer;
-    function GetRightEdgeColor: TColor;
-    function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
-    function GetTabWidth: Integer;
     function GetToolSettings: TEditorToolSettings;
-    function GetWantTabs: Boolean;
     function GetXML: string;
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
-    procedure SetBlockIndent(AValue: Integer);
-    procedure SetBlockTabIndent(AValue: Integer);
-    procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
     procedure SetCloseWithESC(const AValue: Boolean);
     procedure SetColors(AValue: TEditorColorSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
-    procedure SetExtraCharSpacing(AValue: Integer);
-    procedure SetExtraLineSpacing(AValue: Integer);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighters(const AValue: THighlighters);
     procedure SetHighlighterType(const AValue: string);
     procedure SetLanguageCode(AValue: string);
+    procedure SetEditorOptions(AValue: TEditorOptionsSettings);
     procedure SetReadOnly(const AValue: Boolean);
-    procedure SetRightEdge(AValue: Integer);
-    procedure SetRightEdgeColor(AValue: TColor);
-    procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
-    procedure SetTabWidth(AValue: Integer);
     procedure SetToolSettings(AValue: TEditorToolSettings);
-    procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
   protected
@@ -217,6 +185,9 @@ type
     property Colors: TEditorColorSettings
       read GetColors write SetColors;
 
+    property EditorOptions: TEditorOptionsSettings
+      read GetEditorOptions write SetEditorOptions;
+
     property HighlighterAttributes: THighlighterAttributes
       read GetHighlighterAttributes write SetHighlighterAttributes;
 
@@ -242,10 +213,6 @@ type
       read GetAutoGuessHighlighterType write SetAutoGuessHighlighterType
       default DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
 
-    property ShowSpecialCharacters: Boolean
-      read GetShowSpecialCharacters write SetShowSpecialCharacters
-      default False;
-
     { Determines if the application can be closed with the ESCAPE key. }
     property CloseWithESC: Boolean
       read GetCloseWithESC write SetCloseWithESC default False;
@@ -262,38 +229,6 @@ type
     property SingleInstance: Boolean
       read GetSingleInstance write SetSingleInstance
       default DEFAULT_SINGLE_INSTANCE;
-
-    property RightEdgeColor: TColor
-      read GetRightEdgeColor write SetRightEdgeColor
-      default DEFAULT_RIGHT_EDGE_COLOR;
-
-    property RightEdge: Integer
-      read GetRightEdge write SetRightEdge default DEFAULT_RIGHT_EDGE;
-
-    property BracketHighlightStyle: TSynEditBracketHighlightStyle
-      read GetBracketHighlightStyle write SetBracketHighlightStyle;
-
-    property TabWidth: Integer
-      read GetTabWidth write SetTabWidth default DEFAULT_TAB_WIDTH;
-
-    property WantTabs: Boolean
-      read GetWantTabs write SetWantTabs default DEFAULT_WANT_TABS;
-
-    property BlockIndent: Integer
-      read GetBlockIndent write SetBlockIndent
-      default DEFAULT_BLOCK_INDENT;
-
-    property BlockTabIndent: Integer
-      read GetBlockTabIndent write SetBlockTabIndent
-      default DEFAULT_BLOCK_TAB_INDENT;
-
-    property ExtraCharSpacing: Integer
-      read GetExtraCharSpacing write SetExtraCharSpacing
-      default DEFAULT_EXTRA_CHAR_SPACING;
-
-    property ExtraLineSpacing: Integer
-      read GetExtraLineSpacing write SetExtraLineSpacing
-      default DEFAULT_EXTRA_LINE_SPACING;
   end;
 
 implementation
@@ -315,6 +250,9 @@ begin
   FFormSettings := TFormSettings.Create;
   FFormSettings.OnChanged := FFormSettingsChanged;
   FColors := TEditorColorSettings.Create;
+  FColors.OnChanged := FColorsChanged;
+  FEditorOptions := TEditorOptionsSettings.Create;
+  FEditorOptions.OnChanged := FEditorOptionsChanged;
 
   FToolSettings := TEditorToolSettings.Create(Self);
   FToolSettings.Name := 'ToolSettings';
@@ -332,12 +270,6 @@ begin
   FEditorFont.Name := DEFAULT_FONT_NAME;
   FEditorFont.Size := 10;
 
-  FBlockIndent     := DEFAULT_BLOCK_INDENT;
-  FBlockTabIndent  := DEFAULT_BLOCK_TAB_INDENT;
-  FTabWidth        := DEFAULT_TAB_WIDTH;
-  FWantTabs        := DEFAULT_WANT_TABS;
-  FRightEdge       := DEFAULT_RIGHT_EDGE;
-  FRightEdgeColor  := DEFAULT_RIGHT_EDGE_COLOR;
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
   FLanguageCode    := DEFAULT_LANGUAGE_CODE;
 
@@ -349,6 +281,7 @@ procedure TEditorSettings.BeforeDestruction;
 begin
   FToolSettings.Free;
   FColors.Free;
+  FEditorOptions.Free;
   FFormSettings.Free;
   FHighlighters.Free;
   FEditorFont.Free;
@@ -359,6 +292,17 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
+
+procedure TEditorSettings.FColorsChanged(Sender: TObject);
+begin
+  Changed;
+end;
+
+procedure TEditorSettings.FEditorOptionsChanged(Sender: TObject);
+begin
+  Changed;
+end;
+
 procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
 begin
   Changed;
@@ -389,48 +333,6 @@ begin
   if AValue <> AutoGuessHighlighterType then
   begin
     FAutoGuessHighlighterType := AValue;
-  end;
-end;
-
-function TEditorSettings.GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
-begin
-  Result := FBracketHighlightStyle;
-end;
-
-procedure TEditorSettings.SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
-begin
-  if AValue <> BracketHighlightStyle then
-  begin
-    FBracketHighlightStyle := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetBlockIndent: Integer;
-begin
-  Result := FBlockIndent;
-end;
-
-procedure TEditorSettings.SetBlockIndent(AValue: Integer);
-begin
-  if AValue <> BlockIndent then
-  begin
-    FBlockIndent := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetBlockTabIndent: Integer;
-begin
-  Result := FBlockTabIndent;
-end;
-
-procedure TEditorSettings.SetBlockTabIndent(AValue: Integer);
-begin
-  if AValue <> BlockTabIndent then
-  begin
-    FBlockTabIndent := AValue;
-    Changed;
   end;
 end;
 
@@ -496,34 +398,6 @@ begin
   if not FEditorFont.IsEqual(AValue) then
   begin
     FEditorFont.Assign(AValue);
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetExtraCharSpacing: Integer;
-begin
-  Result := FExtraCharSpacing;
-end;
-
-procedure TEditorSettings.SetExtraCharSpacing(AValue: Integer);
-begin
-  if AValue <> ExtraCharSpacing then
-  begin
-    FExtraCharSpacing := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetExtraLineSpacing: Integer;
-begin
-  Result := FExtraLineSpacing;
-end;
-
-procedure TEditorSettings.SetExtraLineSpacing(AValue: Integer);
-begin
-  if AValue <> ExtraLineSpacing then
-  begin
-    FExtraLineSpacing := AValue;
     Changed;
   end;
 end;
@@ -601,32 +475,15 @@ begin
   end;
 end;
 
-function TEditorSettings.GetRightEdge: Integer;
+function TEditorSettings.GetEditorOptions: TEditorOptionsSettings;
 begin
-  Result := FRightEdge;
+  Result := FEditorOptions;
 end;
 
-procedure TEditorSettings.SetRightEdge(AValue: Integer);
+procedure TEditorSettings.SetEditorOptions(AValue: TEditorOptionsSettings);
 begin
-  if AValue <> RightEdge then
-  begin
-    FRightEdge := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetRightEdgeColor: TColor;
-begin
-  Result := FRightEdgeColor;
-end;
-
-procedure TEditorSettings.SetRightEdgeColor(AValue: TColor);
-begin
-  if AValue <> RightEdgeColor then
-  begin
-    FRightEdgeColor := AValue;
-    Changed;
-  end;
+  FEditorOptions.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetReadOnly: Boolean;
@@ -639,20 +496,6 @@ begin
   if AValue <> ReadOnly then
   begin
     FReadOnly := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetShowSpecialCharacters: Boolean;
-begin
-  Result := FShowControlCharacters;
-end;
-
-procedure TEditorSettings.SetShowSpecialCharacters(const AValue: Boolean);
-begin
-  if AValue <> ShowSpecialCharacters then
-  begin
-    FShowControlCharacters := AValue;
     Changed;
   end;
 end;
@@ -674,11 +517,6 @@ begin
   end;
 end;
 
-function TEditorSettings.GetTabWidth: Integer;
-begin
-  Result := FTabWidth;
-end;
-
 function TEditorSettings.GetToolSettings: TEditorToolSettings;
 begin
   Result := FToolSettings;
@@ -688,29 +526,6 @@ procedure TEditorSettings.SetToolSettings(AValue: TEditorToolSettings);
 begin
   FToolSettings.Assign(AValue);
   Changed;
-end;
-
-procedure TEditorSettings.SetTabWidth(AValue: Integer);
-begin
-  if AValue <> TabWidth then
-  begin
-    FTabWidth := AValue;
-    Changed;
-  end;
-end;
-
-function TEditorSettings.GetWantTabs: Boolean;
-begin
-  Result := FWantTabs;
-end;
-
-procedure TEditorSettings.SetWantTabs(AValue: Boolean);
-begin
-  if AValue <> WantTabs then
-  begin
-    FWantTabs := AValue;
-    Changed;
-  end;
 end;
 
 function TEditorSettings.GetXML: string;

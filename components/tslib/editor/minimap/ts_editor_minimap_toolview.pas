@@ -63,7 +63,7 @@ begin
   FMiniMap.Align := alClient;
   FMiniMap.Options.AllowScroll := True;
   FMiniMap.FontFactor := 3;
-  FMiniMap.Options.TabWidth := Manager.Settings.TabWidth;
+  FMiniMap.Options.TabWidth := Manager.Settings.EditorOptions.TabWidth;
   FMiniMap.Options.TabWidthOverride := False;
   FMiniMap.OnClick := FMiniMapClick;
   Width := Settings.Width;

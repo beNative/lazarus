@@ -1,12 +1,11 @@
 inherited frmApplicationSettings: TfrmApplicationSettings
-  Left = 630
-  Height = 544
-  Top = 408
-  Width = 707
-  BorderStyle = bsNone
+  Left = 533
+  Height = 179
+  Top = 248
+  Width = 370
   Caption = 'frmApplicationSettings'
-  ClientHeight = 544
-  ClientWidth = 707
+  ClientHeight = 179
+  ClientWidth = 370
   object chkSingleInstance: TTICheckBox[0]
     Left = 10
     Height = 23

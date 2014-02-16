@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, RTTICtrls, Forms, Controls, Graphics, Dialogs,
-  StdCtrls,
+  StdCtrls, ExtCtrls,
 
   ts_Editor_SettingsDialog_Base;
 
@@ -33,31 +33,58 @@ type
   { TfrmEditorSettingsDialog }
 
   TfrmEditorSettingsDialog = class(TCustomSettingsDialog)
-    chkWantTabs: TTICheckBox;
-    edtBlockIndent: TTISpinEdit;
-    edtBlockTabIndent: TTISpinEdit;
-    edtRightEdge: TTISpinEdit;
-    edtExtraLineSpacing: TTISpinEdit;
-    edtExtraCharSpacing: TTISpinEdit;
-    chkReadOnly: TTICheckBox;
-    btnRightEdgeColor: TTIColorButton;
-    edtTabWidth: TTISpinEdit;
-    lblExtraLineSpacing: TLabel;
-    lblExtraCharSpacing: TLabel;
-    lblBlockIndent: TLabel;
-    lblBlockTabIndent: TLabel;
-    lblRightEdge: TLabel;
-    Label6: TLabel;
-    trbBlockTabIndent: TTITrackBar;
-    trbRightEdge: TTITrackBar;
-    trbExtraCharSpacing: TTITrackBar;
-    trbBlockIndent: TTITrackBar;
-    trbTabWidth: TTITrackBar;
-    trbExtraLineSpacing: TTITrackBar;
-  strict private
-
+    chkAlwaysVisibleCaret    : TTICheckBox;
+    chkAutoHideCursor        : TTICheckBox;
+    chkAutoHideCursor1       : TTICheckBox;
+    chkAutoIndent            : TTICheckBox;
+    chkAutoIndentOnPaste     : TTICheckBox;
+    chkBracketHighlight      : TTICheckBox;
+    chkCaretSkipsSelection   : TTICheckBox;
+    chkCaretSkipsTab         : TTICheckBox;
+    chkDragDropEditing       : TTICheckBox;
+    chkEnhanceEndKey         : TTICheckBox;
+    chkEnhanceHomeKey        : TTICheckBox;
+    chkFoldedCopyPaste       : TTICheckBox;
+    chkOverwriteBlock        : TTICheckBox;
+    chkPersistentBlock       : TTICheckBox;
+    chkShowRightEdge         : TTICheckBox;
+    chkShowSpecialCharacters : TTICheckBox;
+    chkSmartTabs             : TTICheckBox;
+    chkTabIndent             : TTICheckBox;
+    chkTabsToSpaces          : TTICheckBox;
+    chkTrimTrailingSpaces    : TTICheckBox;
+    chkWantTabs              : TTICheckBox;
+    edtBlockIndent           : TTISpinEdit;
+    edtBlockTabIndent        : TTISpinEdit;
+    edtExtraCharSpacing      : TTISpinEdit;
+    edtExtraLineSpacing      : TTISpinEdit;
+    edtRightEdge             : TTISpinEdit;
+    edtTabWidth              : TTISpinEdit;
+    chkBoolean               : TGroupBox;
+    grpNumeric               : TGroupBox;
+    grpTabs                  : TGroupBox;
+    grpKeys                  : TGroupBox;
+    grpWhitespace            : TGroupBox;
+    grpSelection             : TGroupBox;
+    grpBehaviour             : TGroupBox;
+    grpIndentation           : TGroupBox;
+    grpAppearance            : TGroupBox;
+    lblBlockIndent           : TLabel;
+    lblBlockTabIndent        : TLabel;
+    Label6                   : TLabel;
+    lblExtraCharSpacing      : TLabel;
+    lblExtraLineSpacing      : TLabel;
+    lblRightEdge             : TLabel;
+    lblTabWidth              : TLabel;
+    pnlMain                  : TPanel;
+    trbBlockIndent           : TTITrackBar;
+    trbBlockTabIndent        : TTITrackBar;
+    trbExtraCharSpacing      : TTITrackBar;
+    trbExtraLineSpacing      : TTITrackBar;
+    trbRightEdge             : TTITrackBar;
+    trbTabWidth              : TTITrackBar;
   public
-  procedure AfterConstruction; override;
+    procedure AfterConstruction; override;
 
   end;
 
@@ -67,21 +94,13 @@ implementation
 
 { TfrmEditorSettingsDialog }
 
+{$region 'construction and destruction' /fold}
 procedure TfrmEditorSettingsDialog.AfterConstruction;
 begin
-  //LinkProperty(Settings, edtBlockIndent.Link);
-  //LinkProperty(Settings, edtBlockTabIndent.Link);
-  //LinkProperty(Settings, edtExtraCharSpacing.Link);
-  //LinkProperty(Settings, edtExtraLineSpacing.Link);
-  //LinkProperty(Settings, chkReadOnly.Link);
-  //LinkProperty(Settings, edtRightEdge.Link);
-  //LinkProperty(Settings, btnRightEdgeColor.Link);
-  //LinkProperty(Settings, chkWantTabs.Link);
-  //LinkProperty(Settings, edtTabWidth.Link);
-  //LinkProperty(Settings, trbTabWidth.Link);
   inherited AfterConstruction;
-  AutoLinkChildControls(Settings, Self);
+  AutoLinkChildControls(Settings.EditorOptions, Self);
 end;
+{$endregion}
 
 end.
 

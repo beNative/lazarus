@@ -2,11 +2,11 @@ object frmOptionsThemes: TfrmOptionsThemes
   Left = 560
   Height = 446
   Top = 161
-  Width = 541
+  Width = 467
   BorderStyle = bsNone
   ClientHeight = 446
-  ClientWidth = 541
-  LCLVersion = '1.1'
+  ClientWidth = 467
+  LCLVersion = '1.2.0.2'
   object lbTheme: TLabel
     Left = 8
     Height = 15

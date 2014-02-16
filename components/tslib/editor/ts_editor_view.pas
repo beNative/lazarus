@@ -798,18 +798,18 @@ end;
 
 procedure TEditorView.EditorGutterClick(Sender: TObject; X, Y, Line: Integer;
   Mark: TSynEditMark);
-var
-  S : string;
+//var
+//  S : string;
 begin
-  try
-  S := GetEnumName(TypeInfo(TSynEditMark), Integer(Mark));
-  Logger.Send(
-    'EditorGutterClick(X = %d; Y = %d; Line = %d; Mark = %s)',
-    [X, Y, Line, S]
-  );
-  except
-    Logger.SendWarning('Logging error on EditorGutterClick exception found');
-  end;
+  //try
+  //  S := GetEnumName(TypeInfo(TSynEditMark), Integer(Mark));
+  //  Logger.Send(
+  //    'EditorGutterClick(X = %d; Y = %d; Line = %d; Mark = %s)',
+  //    [X, Y, Line, S]
+  //  );
+  //except
+  //  Logger.SendWarning('Logging error on EditorGutterClick exception found');
+  //end;
 end;
 
 procedure TEditorView.EditorCutCopy(Sender: TObject; var AText: string;
@@ -1596,19 +1596,106 @@ end;
 
 procedure TEditorView.ApplySettings;
 begin
-  ShowSpecialChars := Settings.ShowSpecialCharacters;
   EditorFont       := Settings.EditorFont;
+  ShowSpecialChars := Settings.EditorOptions.ShowSpecialCharacters;
+  Editor.ExtraLineSpacing      := Settings.EditorOptions.ExtraLineSpacing;
+  Editor.ExtraCharSpacing      := Settings.EditorOptions.ExtraCharSpacing;
+  Editor.BracketHighlightStyle := Settings.EditorOptions.BracketHighlightStyle;
+  Editor.BlockTabIndent        := Settings.EditorOptions.BlockTabIndent;
+  Editor.BlockIndent           := Settings.EditorOptions.BlockIndent;
+  Editor.RightEdge             := Settings.EditorOptions.RightEdge;
+  Editor.TabWidth              := Settings.EditorOptions.TabWidth;
+  Editor.WantTabs              := Settings.EditorOptions.WantTabs;
 
-  Editor.ExtraLineSpacing      := Settings.ExtraLineSpacing;
-  Editor.ExtraCharSpacing      := Settings.ExtraCharSpacing;
-  Editor.BracketHighlightStyle := Settings.BracketHighlightStyle;
+  if Settings.EditorOptions.AutoIndent then
+    Editor.Options := Editor.Options + [eoAutoIndent]
+  else
+    Editor.Options := Editor.Options - [eoAutoIndent];
 
-  Editor.BlockTabIndent        := Settings.BlockTabIndent;
-  Editor.BlockIndent           := Settings.BlockIndent;
-  Editor.RightEdge             := Settings.RightEdge;
-  Editor.RightEdgeColor        := Settings.RightEdgeColor;
-  Editor.TabWidth              := Settings.TabWidth;
-  Editor.WantTabs              := Settings.WantTabs;
+  if Settings.EditorOptions.AutoIndentOnPaste then
+    Editor.Options := Editor.Options + [eoAutoIndentOnPaste]
+  else
+    Editor.Options := Editor.Options - [eoAutoIndentOnPaste];
+
+  if Settings.EditorOptions.SmartTabs then
+    Editor.Options := Editor.Options + [eoSmartTabs]
+  else
+    Editor.Options := Editor.Options - [eoSmartTabs];
+
+  if Settings.EditorOptions.EnhanceHomeKey then
+    Editor.Options := Editor.Options + [eoEnhanceHomeKey]
+  else
+    Editor.Options := Editor.Options - [eoEnhanceHomeKey];
+
+  if Settings.EditorOptions.TabIndent then
+    Editor.Options := Editor.Options + [eoTabIndent]
+  else
+    Editor.Options := Editor.Options - [eoTabIndent];
+
+  if Settings.EditorOptions.TabsToSpaces then
+    Editor.Options := Editor.Options + [eoTabsToSpaces]
+  else
+    Editor.Options := Editor.Options - [eoTabsToSpaces];
+
+  if Settings.EditorOptions.TrimTrailingSpaces then
+    Editor.Options := Editor.Options + [eoTrimTrailingSpaces]
+  else
+    Editor.Options := Editor.Options - [eoTrimTrailingSpaces];
+
+  if Settings.EditorOptions.DragDropEditing then
+    Editor.Options := Editor.Options + [eoDragDropEditing]
+  else
+    Editor.Options := Editor.Options - [eoDragDropEditing];
+
+  if Settings.EditorOptions.BracketHighlight then
+    Editor.Options := Editor.Options + [eoBracketHighlight]
+  else
+    Editor.Options := Editor.Options - [eoBracketHighlight];
+
+  if Settings.EditorOptions.ShowRightEdge then
+    Editor.Options := Editor.Options - [eoHideRightMargin]
+  else
+    Editor.Options := Editor.Options + [eoHideRightMargin];
+
+  if Settings.EditorOptions.EnhanceEndKey then
+    Editor.Options2 := Editor.Options2 + [eoEnhanceEndKey]
+  else
+    Editor.Options2 := Editor.Options2 - [eoEnhanceEndKey];
+
+  if Settings.EditorOptions.CaretSkipsSelection then
+    Editor.Options2 := Editor.Options2 + [eoCaretSkipsSelection]
+  else
+    Editor.Options2 := Editor.Options2 - [eoCaretSkipsSelection];
+
+  if Settings.EditorOptions.CaretSkipsTab then
+    Editor.Options2 := Editor.Options2 + [eoCaretSkipTab]
+  else
+    Editor.Options2 := Editor.Options2 - [eoCaretSkipTab];
+
+  if Settings.EditorOptions.AlwaysVisibleCaret then
+    Editor.Options2 := Editor.Options2 + [eoAlwaysVisibleCaret]
+  else
+    Editor.Options2 := Editor.Options2 - [eoAlwaysVisibleCaret];
+
+  if Settings.EditorOptions.FoldedCopyPaste then
+    Editor.Options2 := Editor.Options2 + [eoFoldedCopyPaste]
+  else
+    Editor.Options2 := Editor.Options2 - [eoFoldedCopyPaste];
+
+  if Settings.EditorOptions.PersistentBlock then
+    Editor.Options2 := Editor.Options2 + [eoPersistentBlock]
+  else
+    Editor.Options2 := Editor.Options2 - [eoPersistentBlock];
+
+  if Settings.EditorOptions.OverwriteBlock then
+    Editor.Options2 := Editor.Options2 + [eoOverwriteBlock]
+  else
+    Editor.Options2 := Editor.Options2 - [eoOverwriteBlock];
+
+  if Settings.EditorOptions.AutoHideCursor then
+    Editor.Options2 := Editor.Options2 + [eoAutoHideCursor]
+  else
+    Editor.Options2 := Editor.Options2 - [eoAutoHideCursor];
 
   Editor.MouseLinkColor        := Settings.Colors.MouseLinkColor;
   Editor.BracketMatchColor     := Settings.Colors.BracketMatchColor;
@@ -1617,6 +1704,7 @@ begin
   Editor.HighlightAllColor     := Settings.Colors.HighlightAllColor;
   Editor.SelectedColor         := Settings.Colors.SelectedColor;
   Editor.IncrementColor        := Settings.Colors.IncrementColor;
+  Editor.RightEdgeColor        := Settings.Colors.RightEdgeColor;
 
   // alternative block selection color?
   //Editor.UseIncrementalColor := False;
@@ -1680,22 +1768,23 @@ begin
 
   AEditor.Options := [
     eoAltSetsColumnMode,
-    eoAutoIndent,
+    eoAutoIndent,        // Will indent the caret on new lines with the same amount of leading white space as the preceding line
     eoAutoIndentOnPaste,
-    eoEnhanceHomeKey,
-    eoGroupUndo,
-    eoHalfPageScroll,
-    eoSmartTabs,
-    eoTabIndent,
-    eoTabsToSpaces,
-    eoTrimTrailingSpaces,
-    eoBracketHighlight,
+    eoEnhanceHomeKey,   // home key jumps to line start if nearer, similar to visual studio
+    eoGroupUndo,       // When undoing/redoing actions, handle all continous changes of the same kind in one call instead undoing/redoing each command separately
+    eoHalfPageScroll,   // When scrolling with page-up and page-down commands, only scroll a half page at a time
+    eoSmartTabs,        // When tabbing, the cursor will go to the next non-white space character of the previous line
+    eoTabIndent,        // When active <Tab> and <Shift><Tab> act as block indent, unindent when text is selected
+    eoTabsToSpaces,    // Converts a tab character to a specified number of space characters
+    eoTrimTrailingSpaces,  // Spaces at the end of lines will be trimmed and not saved
+    eoBracketHighlight, // Highlight matching bracket
     eoShowCtrlMouseLinks,
     eoScrollPastEol,         // makes column selections easier
     eoDragDropEditing,
 //    eoPersistentCaret,     // don't use! bug in TSynEdit
     eoShowScrollHint
   ];
+
   AEditor.Options2 := [
     eoEnhanceEndKey,
     eoFoldedCopyPaste,
@@ -1734,7 +1823,6 @@ begin
   // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
   // 21/09/2013
   AEditor.OnSpecialLineColors := EditorSpecialLineColors;
-
 
   AEditor.Visible := True;
 
@@ -2021,7 +2109,6 @@ end;
 {$endregion}
 
 {$region 'public methods' /fold}
-
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;

@@ -746,7 +746,7 @@ implementation
 
 uses
 {$IFDEF Windows}
-  ShlObj, Windows,
+  Windows,
 
   ts.Core.Logger.Channel.IPC, // used for logging
 {$ENDIF}
@@ -762,7 +762,7 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni,
 
-  ts.Core.Utils, ts_Core_ComponentInspector,
+  ts_Core_ComponentInspector,
 
   ts.Editor.HighlighterAttributes,
 
@@ -1866,7 +1866,7 @@ end;
 
 procedure TdmEditorManager.actShowSpecialCharactersExecute(Sender: TObject);
 begin
-  Settings.ShowSpecialCharacters := (Sender as TAction).Checked;
+  Settings.EditorOptions.ShowSpecialCharacters := (Sender as TAction).Checked;
 end;
 
 procedure TdmEditorManager.actEncodingExecute(Sender: TObject);
@@ -2437,12 +2437,8 @@ begin
   AddMenuItem(MI, HighlighterPopupMenu);
   AddMenuItem(MI, FoldPopupMenu);
   AddMenuItem(MI);
-  AddMenuItem(MI, actFormat);
-  AddMenuItem(MI);
   AddMenuItem(MI, actClose);
   AddMenuItem(MI, actCloseOthers);
-  AddMenuItem(MI, actShowHTMLViewer);
-  AddMenuItem(MI, actShowHexEditor);
 end;
 {$endregion}
 
@@ -2858,8 +2854,8 @@ end;
 {$region 'UpdateActions' /fold}
 procedure TdmEditorManager.UpdateActions;
 var
-  B : Boolean;
-  V : IEditorView;
+  B  : Boolean;
+  V  : IEditorView;
 begin
   V := ActiveView;
   if Assigned(V) then
@@ -2940,7 +2936,8 @@ begin
       actFoldLevel10.Enabled     := B;
 
       actToggleFoldLevel.ImageIndex    := 59 + V.FoldLevel;
-      actShowSpecialCharacters.Checked := Settings.ShowSpecialCharacters;
+      actShowSpecialCharacters.Checked :=
+        Settings.EditorOptions.ShowSpecialCharacters;
 
       actSave.Enabled := ActiveView.Modified;
       actCloseOthers.Visible := ViewCount > 1;
@@ -2955,6 +2952,18 @@ begin
 
       FChanged := False;
     end;
+    // Hide close view actions when there is only one editor view
+    B := ViewCount = 1;
+    actClose.Enabled       := not B;
+    actCloseOthers.Visible := not B;
+    { TODO -oTS : Cleanup popup menu (hide orphaned seperators) }
+    //
+    //if EditorPopupMenu.Items.Count > 0 then
+    //begin
+    //  MI := EditorPopupMenu.Items[EditorPopupMenu.Items.Count - 1];
+    //  if MI.Caption = '-' then
+    //    MI.Visible := False;
+    //end;
   end;
 end;
 

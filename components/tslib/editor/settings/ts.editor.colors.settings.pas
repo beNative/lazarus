@@ -23,9 +23,12 @@ unit ts.Editor.Colors.Settings;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Graphics,
 
   SynEditMiscClasses;
+
+const
+    DEFAULT_RIGHT_EDGE_COLOR = clSilver;
 
 type
 
@@ -41,6 +44,7 @@ type
     FFoldedCodeColor    : TSynSelectedColor;
     FOnChanged          : TNotifyEvent;
     FSelectedColor      : TSynSelectedColor;
+    FRightEdgeColor     : TColor;
 
     function GetBracketMatchColor: TSynSelectedColor;
     function GetFoldedCodeColor: TSynSelectedColor;
@@ -48,6 +52,7 @@ type
     function GetIncrementColor: TSynSelectedColor;
     function GetLineHighlightColor: TSynSelectedColor;
     function GetMouseLinkColor: TSynSelectedColor;
+    function GetRightEdgeColor: TColor;
     function GetSelectedColor: TSynSelectedColor;
     procedure SetBracketMatchColor(AValue: TSynSelectedColor);
     procedure SetFoldedCodeColor(AValue: TSynSelectedColor);
@@ -55,6 +60,7 @@ type
     procedure SetIncrementColor(AValue: TSynSelectedColor);
     procedure SetLineHighlightColor(AValue: TSynSelectedColor);
     procedure SetMouseLinkColor(AValue: TSynSelectedColor);
+    procedure SetRightEdgeColor(AValue: TColor);
     procedure SetSelectedColor(AValue: TSynSelectedColor);
 
   protected
@@ -91,13 +97,15 @@ type
     property SelectedColor: TSynSelectedColor
       read GetSelectedColor write SetSelectedColor;
 
+    property RightEdgeColor: TColor
+      read GetRightEdgeColor write SetRightEdgeColor
+      default DEFAULT_RIGHT_EDGE_COLOR;
+
   end;
 
 implementation
 
 uses
-  Graphics,
-
   SynEditTypes;
 
 {$region 'construction and destruction' /fold}
@@ -189,6 +197,20 @@ begin
   Result := FMouseLinkColor;
 end;
 
+function TEditorColorSettings.GetRightEdgeColor: TColor;
+begin
+  Result := FRightEdgeColor;
+end;
+
+procedure TEditorColorSettings.SetRightEdgeColor(AValue: TColor);
+begin
+  if AValue <> RightEdgeColor then
+  begin
+    FRightEdgeColor := AValue;
+    Changed;
+  end;
+end;
+
 procedure TEditorColorSettings.SetMouseLinkColor(AValue: TSynSelectedColor);
 begin
   FMouseLinkColor.Assign(AValue);
@@ -237,6 +259,8 @@ begin
   FoldedCodeColor.BackAlpha  := 50;
   FoldedCodeColor.Foreground := clMedGray;
   FoldedCodeColor.FrameColor := clMedGray;
+
+  RightEdgeColor := DEFAULT_RIGHT_EDGE_COLOR;
 end;
 
 procedure TEditorColorSettings.Changed;
@@ -260,6 +284,7 @@ begin
     HighlightAllColor  := ECS.HighlightAllColor;
     FoldedCodeColor    := ECS.FoldedCodeColor;
     BracketMatchColor  := ECS.BracketMatchColor;
+    RightEdgeColor     := ECS.RightEdgeColor;
   end
   else
     inherited Assign(ASource);

@@ -40,12 +40,12 @@ type
 
     class function CreateManager(
       AOwner    : TComponent;
-      ASettings : IEditorSettings
+      ASettings : IEditorSettings = nil
      ): IEditorManager;
 
     class function CreateView(
             AParent       : TWinControl;
-            AManager      : IEditorManager;
+            AManager      : IEditorManager = nil;
       const AName         : string = '';
       const AFileName     : string = '';
       const AHighlighter  : string = 'TXT'
@@ -58,8 +58,8 @@ type
     ): TMainMenu;
 
     class function CreateMainToolbar(
-      AOwner  : TComponent;
-      AParent : TWinControl;
+      AOwner   : TComponent;
+      AParent  : TWinControl;
       AActions : IEditorActions;
       AMenus   : IEditorMenus
     ): TToolbar;
@@ -82,6 +82,8 @@ type
 implementation
 
 uses
+  Forms,
+
   ts.Editor.Factories.Settings, ts.Editor.Factories.Manager,
   ts.Editor.Factories.Views, ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars;
@@ -94,6 +96,8 @@ var
   EMF : IEditorManagerFactory;
 begin
   EMF := TEditorManagerFactory.Create;
+  if not Assigned(ASettings) then
+    ASettings := CreateSettings(AOwner);
   Result := EMF.CreateInstance(AOwner, ASettings);
 end;
 
@@ -113,6 +117,8 @@ var
   EVF : IEditorViewFactory;
 begin
   EVF := TEditorViewFactory.Create;
+  if not Assigned(AManager) then
+    AManager := CreateManager(Application);
   Result := EVF.CreateInstance(AParent, AManager, AName, AFileName, AHighlighter);
 end;
 

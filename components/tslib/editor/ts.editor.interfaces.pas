@@ -28,7 +28,7 @@ uses
   LCLType,
 
   SynEdit, SynEditTypes, SynEditHighlighter, SynMacroRecorder,
-  SynEditMiscClasses, SynEditMarkupBracket, SynEditPointClasses,
+  SynEditPointClasses,
 
   ts.Core.FormSettings,
 
@@ -36,6 +36,7 @@ uses
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings, ts.Editor.SortStrings.Settings,
+  ts.Editor.Options.Settings,
 
   ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
   ts.Editor.Colors.Settings, ts.Editor.Tools.Settings;
@@ -605,68 +606,38 @@ type
     {$region 'property access methods' /fold}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
-    function GetBlockIndent: Integer;
-    function GetBlockTabIndent: Integer;
-    function GetBracketHighlightStyle: TSynEditBracketHighlightStyle;
     function GetCloseWithESC: Boolean;
-
     function GetColors: TEditorColorSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
-    function GetExtraCharSpacing: Integer;
-    function GetExtraLineSpacing: Integer;
+    function GetEditorOptions: TEditorOptionsSettings;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
-
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetLanguageCode: string;
-
     function GetReadOnly: Boolean;
-    function GetRightEdge: Integer;
-    function GetRightEdgeColor: TColor;
-
-    function GetShowSpecialCharacters: Boolean;
     function GetSingleInstance: Boolean;
-
-    function GetTabWidth: Integer;
     function GetToolSettings: TEditorToolSettings;
-    function GetWantTabs: Boolean;
     function GetXML: string;
-
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
-    procedure SetBlockIndent(AValue: Integer);
-    procedure SetBlockTabIndent(AValue: Integer);
-    procedure SetBracketHighlightStyle(AValue: TSynEditBracketHighlightStyle);
     procedure SetCloseWithESC(const AValue: Boolean);
-
     procedure SetColors(AValue: TEditorColorSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
-    procedure SetExtraCharSpacing(AValue: Integer);
-    procedure SetExtraLineSpacing(AValue: Integer);
+    procedure SetEditorOptions(AValue: TEditorOptionsSettings);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
-
     procedure SetLanguageCode(AValue: string);
-
     procedure SetReadOnly(const AValue: Boolean);
-    procedure SetRightEdge(AValue: Integer);
-    procedure SetRightEdgeColor(AValue: TColor);
-
-
-    procedure SetShowSpecialCharacters(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
-
-    procedure SetTabWidth(AValue: Integer);
     procedure SetToolSettings(AValue: TEditorToolSettings);
-    procedure SetWantTabs(AValue: Boolean);
     {$endregion}
 
     procedure Load;
@@ -701,9 +672,6 @@ type
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;
 
-    property ShowSpecialCharacters: Boolean
-      read GetShowSpecialCharacters write SetShowSpecialCharacters;
-
     property AutoFormatXML: Boolean
       read GetAutoFormatXML write SetAutoFormatXML;
 
@@ -731,33 +699,9 @@ type
     property XML: string
       read GetXML;
 
-    property RightEdgeColor: TColor
-      read GetRightEdgeColor write SetRightEdgeColor;
-
-    property RightEdge: Integer
-      read GetRightEdge write SetRightEdge;
-
-    // Editor settings
-    property TabWidth: Integer
-      read GetTabWidth write SetTabWidth;
-
-    property WantTabs: Boolean
-      read GetWantTabs write SetWantTabs;
-
-    property BlockIndent: Integer
-      read GetBlockIndent write SetBlockIndent;
-
-    property BlockTabIndent: Integer
-      read GetBlockTabIndent write SetBlockTabIndent;
-
-    property ExtraCharSpacing: Integer
-      read GetExtraCharSpacing write SetExtraCharSpacing;
-
-    property ExtraLineSpacing: Integer
-      read GetExtraLineSpacing write SetExtraLineSpacing;
-
-    property BracketHighlightStyle: TSynEditBracketHighlightStyle
-      read GetBracketHighlightStyle write SetBracketHighlightStyle;
+    // Editor options
+    property EditorOptions: TEditorOptionsSettings
+      read GetEditorOptions write SetEditorOptions;
   end;
 
   IEditorViews = interface

@@ -92,8 +92,8 @@
 								<FrameEdges>sfeAround</FrameEdges>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmDelphi</CompilerMode>
-							<NestedComments>false</NestedComments>
+							<CompilerMode>pcmObjFPC</CompilerMode>
+							<NestedComments>true</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1077,6 +1077,9 @@
 			<BackAlpha>128</BackAlpha>
 		</SelectedColor>
 	</Colors>
+	<EditorOptions>(TEditorOptionsSettings)
+		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	</EditorOptions>
 	<HighlighterAttributes>(THighlighterAttributes)
 		<THighlighterAttributesItem>
 			<Name>Comment</Name>
@@ -1268,14 +1271,14 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>PHP</HighlighterType>
-	<LanguageCode>es</LanguageCode>
+	<HighlighterType>TXT</HighlighterType>
+	<LanguageCode>en</LanguageCode>
 	<CloseWithESC>true</CloseWithESC>
 	<FormSettings>(TFormSettings)
-		<Left>239</Left>
-		<Top>36</Top>
-		<Width>1066</Width>
-		<Height>618</Height>
+		<Left>1</Left>
+		<Top>22</Top>
+		<Width>1440</Width>
+		<Height>804</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -1284,5 +1287,4 @@
 		<Name>Consolas</Name>
 	</EditorFont>
 	<DebugMode>true</DebugMode>
-	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

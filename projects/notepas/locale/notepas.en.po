@@ -1,4 +1,4 @@
-msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace."
+msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -3034,15 +3034,6 @@ msgstr ""
 #: tfrmstructure.caption
 msgctxt "TFRMSTRUCTURE.CAPTION"
 msgid "Structure viewer"
-msgstr ""
-
-#: tfrmtest.btnexecute.caption
-msgctxt "tfrmtest.btnexecute.caption"
-msgid "Execute"
-msgstr ""
-
-#: tfrmtest.caption
-msgid "Testform"
 msgstr ""
 
 #: tfrmtest.panel1.caption

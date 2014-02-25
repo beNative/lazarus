@@ -1846,60 +1846,33 @@ begin
 
   // TEMP CODE FOR MACOS FIX
   {$IFDEF DARWIN}
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+C'));
-  AEditor.Keystrokes.Delete(N);
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+V'));
-  AEditor.Keystrokes.Delete(N);
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+X'));
-  AEditor.Keystrokes.Delete(N);
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+A'));
-  AEditor.Keystrokes.Delete(N);
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+Z'));
-  AEditor.Keystrokes.Delete(N);
-  N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Shift+Ctrl+Z'));
-  AEditor.Keystrokes.Delete(N);
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('C');
-      Shift     := [ssMeta];
-      ShiftMask := [];
-      Command   := ecCopy;
-  end;
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('V');
-      Shift     := [ssMeta];
-      ShiftMask := [];
-      Command   := ecPaste;
-  end;
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('X');
-      Shift     := [ssMeta];
-      ShiftMask := [];
-      Command   := ecCut;
-  end;
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('A');
-      Shift     := [ssMeta];
-      ShiftMask := [];
-      Command   := ecSelectAll;
-  end;
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('Z');
-      Shift     := [ssMeta];
-      ShiftMask := [];
-      Command   := ecUndo;
-  end;
-  with AEditor.Keystrokes.Add do
-  begin
-      Key       := ord('Z');
-      Shift     := [ssMeta, ssShift];
-      ShiftMask := [];
-      Command   := ecRedo;
-  end;
+  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+C'));
+  //AEditor.Keystrokes.Delete(N);
+  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+V'));
+  //AEditor.Keystrokes.Delete(N);
+  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+X'));
+  //AEditor.Keystrokes.Delete(N);
+  //with AEditor.Keystrokes.Add do
+  //begin
+  //    Key       := ord('C');
+  //    Shift     := [ssMeta];
+  //    ShiftMask := [];
+  //    Command   := ecCopy;
+  //end;
+  //with AEditor.Keystrokes.Add do
+  //begin
+  //    Key       := ord('V');
+  //    Shift     := [ssMeta];
+  //    ShiftMask := [];
+  //    Command   := ecPaste;
+  //end;
+  //with AEditor.Keystrokes.Add do
+  //begin
+  //    Key       := ord('X');
+  //    Shift     := [ssMeta];
+  //    ShiftMask := [];
+  //    Command   := ecCut;
+  //end;
   {$ENDIF}
 
 

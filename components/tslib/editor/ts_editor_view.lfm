@@ -344,4 +344,4 @@ object EditorView: TEditorView
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-end
+end

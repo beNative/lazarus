@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 1177
-  VerticalOffset = 291
+  HorizontalOffset = 641
+  VerticalOffset = 138
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
@@ -3834,6 +3834,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Print'
       ImageIndex = 34
       OnExecute = actPrintExecute
+      ShortCut = 16464
       Visible = False
     end
     object actCopyToClipboard: TAction
@@ -3842,6 +3843,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Copy to clipboard'
       ImageIndex = 1
       OnExecute = actCopyToClipboardExecute
+      ShortCut = 16451
     end
     object actShowSpecialCharacters: TAction
       Category = 'Settings'
@@ -4175,6 +4177,7 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Copy selection'
       ImageIndex = 1
       OnExecute = actCopyExecute
+      ShortCut = 16451
     end
     object actShowCharacterMap: TAction
       Category = 'ToolViews'

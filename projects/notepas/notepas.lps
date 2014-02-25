@@ -9,6 +9,7 @@
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="notepas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="21"/>
@@ -24,13 +25,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Notepas_Forms_Main"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="225"/>
         <CursorPos X="26" Y="253"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
@@ -557,13 +555,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts_Editor_Manager"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="461"/>
-        <CursorPos X="18" Y="118"/>
+        <TopLine Value="2034"/>
+        <CursorPos X="37" Y="2051"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit66>
       <Unit67>
@@ -623,17 +618,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts_Editor_View"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1882"/>
-        <CursorPos X="18" Y="1884"/>
+        <TopLine Value="1844"/>
+        <CursorPos X="6" Y="1904"/>
         <UsageCount Value="201"/>
         <Bookmarks Count="1">
           <Item0 X="3" Y="809" ID="1"/>
         </Bookmarks>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit71>
       <Unit72>
@@ -1259,48 +1250,40 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Manager"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="16"/>
         <CursorPos X="94" Y="27"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit132>
       <Unit133>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Settings"/>
-        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
         <TopLine Value="48"/>
         <CursorPos X="37" Y="60"/>
         <UsageCount Value="200"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit133>
       <Unit134>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Menus"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="20" Y="66"/>
         <UsageCount Value="205"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit134>
       <Unit135>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories"/>
-        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="117"/>
         <CursorPos X="35" Y="135"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit135>
       <Unit136>
@@ -1321,7 +1304,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="589"/>
         <CursorPos X="100" Y="589"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="74"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit137>
       <Unit138>
@@ -1908,139 +1891,16 @@
       <Unit209>
         <Filename Value="..\..\..\development\lazarus\lcl\lclclasses.pp"/>
         <UnitName Value="LCLClasses"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="10" Y="26"/>
-        <UsageCount Value="24"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="25"/>
       </Unit209>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
-      <Position1>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="156" Column="1" TopLine="128"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="97" Column="1" TopLine="64"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="105" Column="1" TopLine="64"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="106" Column="1" TopLine="64"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="107" Column="1" TopLine="64"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="118" Column="1" TopLine="102"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="126" Column="1" TopLine="102"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="128" Column="1" TopLine="102"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="129" Column="1" TopLine="102"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="141" Column="1" TopLine="124"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="157" Column="1" TopLine="129"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="97" Column="1" TopLine="64"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="105" Column="1" TopLine="64"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="106" Column="1" TopLine="64"/>
-      </Position14>
-      <Position15>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="107" Column="1" TopLine="64"/>
-      </Position15>
-      <Position16>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="92" Column="44" TopLine="56"/>
-      </Position16>
-      <Position17>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="131" Column="44" TopLine="103"/>
-      </Position17>
-      <Position18>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="137" Column="14" TopLine="110"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="11" Column="36" TopLine="1"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="77" Column="47" TopLine="49"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="114" Column="55" TopLine="86"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="463" Column="40" TopLine="122"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="694" Column="14" TopLine="667"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="935" Column="53" TopLine="907"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="122" Column="45" TopLine="117"/>
-      </Position25>
-      <Position26>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="56" Column="18" TopLine="41"/>
-      </Position26>
-      <Position27>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
-        <Caret Line="937" Column="25" TopLine="909"/>
-      </Position27>
-      <Position28>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_view.pas"/>
-        <Caret Line="1865" Column="59" TopLine="1846"/>
-      </Position28>
-      <Position29>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
-        <Caret Line="66" Column="20" TopLine="55"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_view.pas"/>
-        <Caret Line="658" Column="53" TopLine="637"/>
-      </Position30>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="1">

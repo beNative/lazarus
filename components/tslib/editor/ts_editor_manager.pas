@@ -517,6 +517,7 @@ type
 
     procedure InitializePopupMenus;
     procedure CreateActions;
+    procedure RedefineActionsShortcuts; //used for change ctrl to meta macos fix
     procedure RegisterToolViews;
 
     procedure BuildClipboardPopupMenu;
@@ -846,6 +847,7 @@ begin
 
   RegisterToolViews;
   CreateActions;
+  RedefineActionsShortcuts;
   InitializePopupMenus;
 end;
 
@@ -2039,6 +2041,30 @@ begin
   finally
     FreeAndNil(SL);
   end;
+
+end;
+
+
+procedure TdmEditorManager.RedefineActionsShortcuts;
+var i:integer;
+    TheKey: Word;
+    TheShiftState: TShiftState;
+begin
+    {$IFDEF DARWIN}
+    for i:=0 to aclActions.ActionCount-1 do
+    begin
+        ShortCutToKey(tAction(aclActions.Actions[i]).ShortCut, TheKey, TheShiftState);
+        if TheShiftState = [ssCtrl] then
+           tAction(aclActions.Actions[i]).ShortCut := ShortCut(TheKey, [ssMeta]);
+        if TheShiftState = [ssCtrl, ssShift] then
+           tAction(aclActions.Actions[i]).ShortCut := ShortCut(TheKey, [ssMeta, ssShift]);
+        if tAction(aclActions.Actions[i]).Name='actFindNext' then
+           tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta]);
+        if tAction(aclActions.Actions[i]).Name='actFindPrevious' then
+           tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta, ssShift]);
+
+    end;
+    {$ENDIF}
 end;
 
 { Applies common highlighter attributes }

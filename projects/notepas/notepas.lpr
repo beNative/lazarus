@@ -33,7 +33,7 @@ uses
   lazrichedit,
   richmemopackage,
 
-  runtimetypeinfocontrols,
+  runtimetypeinfocontrols, pascalscript,
   kcontrols,
   ExceptionLogger, laz_synapse, lclextensions_package,
 

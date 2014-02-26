@@ -339,6 +339,9 @@ begin
   rbAllViews.Checked  := SearchEngine.SearchAllViews;
   cbxSearchText.Text  := SearchEngine.SearchText;
   cbxReplaceWith.Text := SearchEngine.ReplaceText;
+  {$IFDEF DARWIN}//THE FORM IN MACOS HAVE SOME PROBLEMS WITH FOCUS, THIS IS TEMPORARY FIX
+  cbxSearchText.setFocus;
+  {$ENDIF}
 end;
 
 procedure TfrmSearchForm.rbBackwardChange(Sender: TObject);

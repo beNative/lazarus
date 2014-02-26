@@ -33,13 +33,13 @@ object frmEditorSettings: TfrmEditorSettings
       TabOrder = 0
       object tsSettings: TTabSheet
         Caption = 'Main settings'
-        ClientHeight = 521
-        ClientWidth = 537
+        ClientHeight = 510
+        ClientWidth = 539
         object pnlPI: TPanel
           Left = 3
-          Height = 515
+          Height = 504
           Top = 3
-          Width = 531
+          Width = 533
           Align = alClient
           BorderSpacing.Around = 3
           BevelOuter = bvNone
@@ -319,7 +319,7 @@ object frmEditorSettings: TfrmEditorSettings
     TabOrder = 1
     object btnClose: TButton
       Left = 423
-      Height = 25
+      Height = 20
       Top = 3
       Width = 120
       Anchors = [akRight, akBottom]
@@ -329,7 +329,7 @@ object frmEditorSettings: TfrmEditorSettings
     end
     object btnOK: TButton
       Left = 297
-      Height = 25
+      Height = 20
       Top = 3
       Width = 120
       Anchors = [akRight, akBottom]
@@ -340,7 +340,7 @@ object frmEditorSettings: TfrmEditorSettings
     end
     object btnApply: TButton
       Left = 170
-      Height = 25
+      Height = 20
       Top = 3
       Width = 120
       Action = actApplySettings

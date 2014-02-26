@@ -92,8 +92,8 @@
 								<FrameEdges>sfeAround</FrameEdges>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmObjFPC</CompilerMode>
-							<NestedComments>true</NestedComments>
+							<CompilerMode>pcmDelphi</CompilerMode>
+							<NestedComments>false</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1280,7 +1280,7 @@
 		<Width>1440</Width>
 		<Height>804</Height>
 		<FormStyle>fsNormal</FormStyle>
-		<WindowState>wsNormal</WindowState>
+		<WindowState>wsMaximized</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
 		<Height>-15</Height>

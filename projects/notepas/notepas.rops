@@ -1,0 +1,11 @@
+Program IFSTest;
+
+function ManipString(AString: string): string;
+begin
+  Result := Trim(AString);
+end;
+
+begin
+  Return:=ManipString(' Hola   ');
+  Showmessage(Return);
+end.

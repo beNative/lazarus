@@ -482,7 +482,7 @@ const
 
   UtilityImageSize = 16; // Needed by descendants for hittests.
 
-  {$if defined(LCLCarbon) or defined(LCLCocoa)}
+  {$IFDEF DARWIN}
     ssCtrlOS = ssMeta;     // Mac OS X fix
   {$else}
     ssCtrlOS = ssCtrl;
@@ -33064,4 +33064,4 @@ finalization
 end.
 
 
-
+

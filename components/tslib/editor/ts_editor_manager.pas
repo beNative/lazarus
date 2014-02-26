@@ -97,7 +97,12 @@ uses
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
-  //Commented by esvignolo
+  //PascalScript
+  uPSComponent, uPSCompiler, uPSRuntime, Variants, uPSUtils,
+  uPSR_std, uPSC_std, uPSR_stdctrls, uPSC_stdctrls, uPSR_forms,
+  uPSC_forms, uPSC_graphics, uPSC_controls, uPSC_classes, uPSR_graphics,
+  uPSR_controls, uPSR_classes,
+
   //dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
 
   ts.Components.ExportRTF,
@@ -105,7 +110,7 @@ uses
   ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
   ts.Editor.Highlighters, ts_Editor_View,
 
-  ts.Core.SharedLogger;
+  ts.Core.SharedLogger, ts.Core.Utils;
 
 type
   { TdmEditorManager }
@@ -306,6 +311,7 @@ type
     ppmSettings                       : TPopupMenu;
     ppmSelection                      : TPopupMenu;
     ppmSelectionMode                  : TPopupMenu;
+    PascalScript                      : TPSScript;
     SynExporterHTML                   : TSynExporterHTML;
     SynMacroRecorder                  : TSynMacroRecorder;
     {$endregion}
@@ -433,6 +439,8 @@ type
     procedure actEncodingExecute(Sender: TObject);
     procedure actLineBreakStyleExecute(Sender: TObject);
     procedure actShowStructureViewerExecute(Sender: TObject);
+    procedure PascalScriptCompile(Sender: TPSScript);
+    procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
     {$endregion}
 
     {$region 'event handlers' /fold}
@@ -864,6 +872,7 @@ begin
   //Commented by esvignolo
   //FdwsProgramExecution := nil;
   //FdwsProgram := nil;
+  PascalScript:=nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
@@ -1308,6 +1317,34 @@ begin
   ShowToolView('Structure', False, False);
 end;
 
+procedure TdmEditorManager.PascalScriptCompile(Sender: TPSScript);
+begin
+  PascalScript.MainFileName := pansichar(PascalScript.script);
+  //Sender.Addfunction(@MyWriteln, 'procedure Writeln(s: string);');
+  //Sender.AddMethod(self, @Tform1.MyReadln, 'function Readln(question: string): string;');
+  //Sender.AddMethod(self, @Tform1.ImportTest, 'function ImportTest(S1: string; s2: Longint; s3: Byte; s4: word; var s5: string): string;');
+  Sender.Addfunction(@ShowMessage, 'procedure ShowMessage(const mytext :string)');
+  Sender.AddRegisteredVariable('vars', 'Variant');
+  Sender.AddRegisteredVariable('Application', 'TApplication');
+  Sender.AddRegisteredVariable('Self',  'TForm');
+  Sender.AddRegisteredVariable('Memo1', 'TMemo');
+  Sender.AddRegisteredVariable('Memo2', 'TMemo');
+  sender.AddRegisteredPTRVariable('az', 'longint');
+  sender.AddRegisteredVariable('myvar', 'integer');
+  sender.AddRegisteredVariable('Return', 'string');
+end;
+
+procedure TdmEditorManager.PascalScriptCompImport(Sender: TObject;
+  x: TPSPascalCompiler);
+begin
+  SIRegister_Std(x);
+  SIRegister_Classes(x, true);
+  SIRegister_Graphics(x, true);
+  SIRegister_Controls(x);
+  SIRegister_stdctrls(x);
+  SIRegister_Forms(x);
+end;
+
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
   ShowToolView('Test', False, False);
@@ -1640,37 +1677,31 @@ begin
 end;
 
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
-//Commented by esvignolo
-//var
-//  A  : TAction;
-//  FI : IInfo;
+var
+  A  : TAction;
+  script:string;
 begin
-  //Commented by esvignolo
-  //Selection.Store;
-  //try
-  //  A := Sender as TAction;
-  //  if Assigned(FdwsProgramExecution) then
-  //  begin
-  //    FdwsProgramExecution.BeginProgram;
-  //    try
-  //      FI := FdwsProgramExecution.Info.Func[A.Caption];
-  //      if Assigned(FI) then
-  //      begin
-  //        Selection.Text := FI.Call(
-  //          [Selection.Text]
-  //        ).GetValueAsString;
-  //      end
-  //      else
-  //        raise Exception.Create('Script function not found');
-  //    finally
-  //      FdwsProgramExecution.EndProgram;
-  //    end;
-  //  end
-  //  else
-  //    raise Exception.Create('No script file was found');
-  //finally
-  //  Selection.Restore;
-  //end;
+  Selection.Store;
+  try
+    A := Sender as TAction;
+    if Assigned(PascalScript) then
+    begin
+      try
+        PascalScript.Script.Assign(Selection.GetLines);
+        if PascalScript.Compile then
+        begin
+          if not PascalScript.Execute then
+             ShowMessage('PascalScript Executing Error: '+PascalScript.ExecErrorToString +' at '+Inttostr(PascalScript.ExecErrorProcNo)+'.'+Inttostr(PascalScript.ExecErrorByteCodePosition));
+
+        end
+        else ShowMessage('PascalScript Compiling failed: '+PascalScript.CompilerErrorToStr(0));
+      except on e:exception do
+         ShowMessage('PascalScript Error: '+e.Message);
+      end;
+    end
+  finally
+    Selection.Restore;
+  end;
 end;
 
 procedure TdmEditorManager.actPageSetupExecute(Sender: TObject);
@@ -2492,46 +2523,49 @@ begin
 end;
 
 procedure TdmEditorManager.LoadScriptFiles;
-//Commented by esvignolo
-//var
-//  A : TAction;
-//  S : string;
-//  PS : TSymbol;
+var
+  A : TAction;
+  S : string;
+  i : integer;
 begin
-  //Commented by esvignolo
   //actExecuteScriptOnSelection.Enabled := False;
-  //if FileExistsUTF8('notepas.dws') then
+  //if FileExistsUTF8(GetApplicationPath+'notepas.rops') then
   //begin
-  //  S := ReadFileToString('notepas.dws');
-  //  FdwsProgram := DelphiWebScript.Compile(S);
-  //  if FdwsProgram.Msgs.Count = 0 then
+  //  S := ReadFileToString(GetApplicationPath+'notepas.rops');
+  //  PascalScript.Script.Text:=S;
+  //  if Assigned(PascalScript) then
   //  begin
-  //    FdwsProgramExecution := FdwsProgram.Execute;
-  //    for PS in  FdwsProgram.Table do
-  //    begin
-  //      if PS is TFuncSymbol then
+  //    try
+  //      if PascalScript.Compile then
   //      begin
-  //        actExecuteScriptOnSelection.Enabled := True;
-  //        FScriptFunctions.Add(PS.Name);
-  //        A := TAction.Create(ActionList);
-  //        A.Hint       := (PS as TFuncSymbol).Description;
-  //        A.ActionList := ActionList;
-  //        A.Caption    := PS.Name;
-  //        A.Name       := actExecuteScriptOnSelection.Name + PS.Name;
-  //        A.Category   := actExecuteScriptOnSelection.Category;
-  //        A.OnExecute  := actExecuteScriptOnSelectionExecute;
-  //      end;
-  //    end;
-  //  end
-  //  else
-  //  begin
-  //    raise Exception.CreateFmt(
-  //      'Compilation failed with:'#13#10,
-  //      [FdwsProgram.Msgs.AsInfo]
-  //    );
-  //  end;
+  //        for i:=0 to PascalScript.Exec.ProcNames.Count-1 do
+  //        begin
+  //          actExecuteScriptOnSelection.Enabled := True;
+  //          FScriptFunctions.Add(PascalScript.Exec.ProcNames.Items[i]);
+  //          A := TAction.Create(ActionList);
+  //          A.Hint       := PascalScript.Exec.ProcNames.Items[i];
+  //          A.ActionList := ActionList;
+  //          A.Caption    := PascalScript.Exec.ProcNames.Items[i];
+  //          A.Name       := actExecuteScriptOnSelection.Name + PascalScript.Exec.ProcNames.Items[i];
+  //          A.Category   := actExecuteScriptOnSelection.Category;
+  //          A.OnExecute  := actExecuteScriptOnSelectionExecute;
+  //        end;
+  //      end
+  //      else
+  //        begin
+  //          ShowMessage('PascalScript Compiling failed: '+PascalScript.CompilerErrorToStr(0));
+  //        end;
+  //
+  //    finally
+  //
+  //    end
+  //
+  //end;
+  //
   //end;
 end;
+
+
 {$endregion}
 {$endregion}
 

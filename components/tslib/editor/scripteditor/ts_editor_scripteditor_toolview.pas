@@ -23,8 +23,8 @@ unit ts_Editor_ScriptEditor_ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ActnList, ComCtrls,
+  Classes, SysUtils, FileUtil, uPSComponent, Forms, Controls, Graphics, Dialogs,
+  ExtCtrls, ActnList, ComCtrls,
 
   ts_Editor_ToolView_Base, ts.Editor.Interfaces;
 

@@ -5275,4 +5275,15 @@ object dmEditorManager: TdmEditorManager
     object MenuItem22: TMenuItem
     end
   end
+  object PascalScript: TPSScript
+    CompilerOptions = []
+    OnCompile = PascalScriptCompile
+    OnCompImport = PascalScriptCompImport
+    Plugins = <    
+      item
+      end>
+    UsePreProcessor = True
+    left = 392
+    top = 232
+  end
 end

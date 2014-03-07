@@ -144,7 +144,7 @@ implementation
 uses
   Graphics,
 
-  ts.RichEditor.View;
+  ts_RichEditor_View;
 
 var
   dmRichEditorActions : TdmRichEditorActions;

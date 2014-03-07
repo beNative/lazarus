@@ -46,7 +46,7 @@ implementation
 uses
   ActnList,
 
-  ts.RichEditor.Manager;
+  ts_RichEditor_Manager;
 
 function CreateRichEditorView(AParent: TWinControl; const AName: string): IRichEditorView;
 var

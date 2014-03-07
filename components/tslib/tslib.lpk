@@ -729,34 +729,37 @@
       </Item177>
     </Files>
     <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="10">
       <Item1>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="pascalscript"/>
       </Item1>
       <Item2>
-        <PackageName Value="HtmlComp"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="HtmlComp"/>
       </Item3>
       <Item4>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="zcomponent"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item9>
+      <Item10>
+        <PackageName Value="FCL"/>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

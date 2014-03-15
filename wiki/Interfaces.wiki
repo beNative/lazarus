@@ -8,5 +8,5 @@ All the interfaces are declared in the {{{ts.Editor.Interfaces}}} unit. Instance
 
 To use the editor library in an application you only need to use 2 units:
 
-* {{{ts.Editor.Interfaces}}} with all the interface types 
-* {{{ts.Editor.Factories}}} to create the required instances of those interface types.
+  * {{{ts.Editor.Interfaces}}} with all the interface types 
+  * {{{ts.Editor.Factories}}} to create the required instances of those interface types.

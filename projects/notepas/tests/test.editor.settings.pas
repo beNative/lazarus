@@ -41,22 +41,15 @@ type
 
     procedure LoadSettings;
 
-
-  public
-    procedure AfterConstruction; override;
   published
     procedure TestLoadSettings;
     procedure TestSaveSettings;
 
 //    public
     procedure TestLoadSaveSettings;
-
     procedure TestLoadSaveColors;
-
     procedure TestLoadSaveHighlighters;
     procedure TestLoadSaveHighlighterAttributes;
-
-
     procedure TestLoadSaveToolSettings;
 
   end;
@@ -72,7 +65,7 @@ uses
 
   ts.Editor.CodeShaper.Settings,
 
-  ts_Editor_Resources, ts.Editor.Factories.Settings,
+  ts_Editor_Resources, ts.Editor.Factories, ts.Editor.Factories.Settings,
 
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
@@ -88,10 +81,7 @@ begin
   for C in FSettings.Highlighters do
     Logger.SendComponent(C);
 
-  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
-
   FSettings.Load;
-
 
   Logger.SendComponent(FSettings.ToolSettings);
   for C in FSettings.ToolSettings do
@@ -100,17 +90,13 @@ begin
   for C in FSettings.Highlighters do
     Logger.SendComponent(C);
 
-
   Logger.ExitMethod('TTestEditorSettings.TestLoadSettings');
-  //FSettings.Save;
 end;
 
 procedure TTestEditorSettings.TestSaveSettings;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestSaveSettings');
   Logger.Send('Settings', FSettings);
-  TEditorSettingsFactory.RegisterToolSettings(FSettings.ToolSettings);
-  TEditorSettingsFactory.RegisterHighlighters(FSettings.Highlighters);
   FSettings.Save;
   Logger.ExitMethod('TTestEditorSettings.TestSaveSettings');
 end;
@@ -217,7 +203,7 @@ var
   SN : string;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighters');
-  TEditorSettingsFactory.RegisterClasses;
+//  TEditorSettingsFactory.RegisterClasses;
   LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['PAS'];
 
@@ -242,7 +228,6 @@ begin
     LoadSettings;
     CheckEquals(HI.FileExtensions, SO);
 
-    //HI.InitSynHighlighter;
     FSettings.Save;
   end;
   Logger.ExitMethod('TTestEditorSettings.TestLoadSaveHighlighters');
@@ -280,7 +265,7 @@ end;
 
 procedure TTestEditorSettings.SetUp;
 begin
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
+  FSettings := TEditorFactories.CreateSettings(Application);
 end;
 
 procedure TTestEditorSettings.TearDown;
@@ -291,13 +276,8 @@ end;
 procedure TTestEditorSettings.LoadSettings;
 begin
   FSettings := nil;
-  FSettings := TEditorSettingsFactory.CreateEditorSettings(Application);
+  FSettings := TEditorFactories.CreateSettings(Application);
   FSettings.Load;
-end;
-
-procedure TTestEditorSettings.AfterConstruction;
-begin
-  inherited AfterConstruction;
 end;
 
 initialization

@@ -4,8 +4,8 @@ program fpcunitnotepas;
 
 uses
   Interfaces, Forms, GuiTestRunner, Test.Editor.Settings, ts.Core.SharedLogger,
-  ts.Core.Logger.Channel.IPC, test.componentstreaming,
-test.componentstreaming.testcomponents;
+  ts.Core.Logger.Channel.IPC,
+  test.componentstreaming, test.componentstreaming.testcomponents;
 
 {$R *.res}
 

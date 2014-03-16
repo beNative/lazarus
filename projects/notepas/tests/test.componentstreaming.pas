@@ -21,12 +21,10 @@ type
     FLFMFile : string;
     FXMLFile : string;
     FComponent: TComponent;
-    FToolSettings : TEditorToolSettingsList;
 
   protected
     procedure SetUp; override;
     procedure TearDown; override;
-
 
     procedure LoadXML(AComponent: TComponent);
     procedure SaveXML(AComponent: TComponent);
@@ -36,13 +34,11 @@ type
 
     procedure AddChildrenToParentComponent;
 
-
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
   published
-
     procedure AddChildrenToComponent;
 
     procedure TestLoadXML;
@@ -50,7 +46,6 @@ type
 
     procedure TestLoadLFM;
     procedure TestSaveLFM;
-
 
   end;
 
@@ -192,16 +187,12 @@ begin
   FXMLFile := ExtractFilePath(Application.ExeName) + 'test.xml';
   FLFMFile := ExtractFilePath(Application.ExeName) + 'test.lfm';
   FParent := TParentComponent.Create(nil);
-  //FComponent := TComponent.Create(nil);
-  FToolSettings := TEditorToolSettingsList.Create(nil);
   FComponent := FParent;
 end;
 
 procedure TTestComponentStreaming.BeforeDestruction;
 begin
   FParent.Free;
-  //FComponent.Free;
-  FToolSettings.Free;
   inherited BeforeDestruction;
 end;
 
@@ -240,7 +231,6 @@ begin
   //        Logger.Send('Owner', C.Owner);
   //end;
 
-
   SaveXML(FComponent);
 end;
 
@@ -267,7 +257,6 @@ begin
   end;
   SaveLFM(FComponent);
 end;
-
 
 initialization
   RegisterTest(TTestComponentStreaming);

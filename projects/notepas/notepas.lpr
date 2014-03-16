@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -33,9 +33,10 @@ uses
   lazrichedit,
   richmemopackage,
 
-  runtimetypeinfocontrols, pascalscript,
-  kcontrols,
-  ExceptionLogger, laz_synapse, lclextensions_package,
+  runtimetypeinfocontrols, pascalscript, kcontrols, ExceptionLogger,
+  OBufferedStreams, ODictionary, OEncoding, OHashedStrings, OTextReadWrite,
+  OWideSupp, OXmlCDOM, OXmlLng, OXmlPDOM, OXmlReadWrite, OXmlSAX,
+  OXmlSeq, OXmlUtils, OXmlXPath, laz_synapse, lclextensions_package,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -171,4 +172,4 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
+

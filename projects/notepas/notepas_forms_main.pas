@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls, Menus,
   Buttons, StdCtrls,
 
-  SynEdit,
+  SynEdit, SynMacroRecorder,
 
   DefaultTranslator,
 
@@ -41,7 +41,6 @@ uses
 
 {
   KNOWN PROBLEMS
-    - Close all but current tab does not work in all cases
     - saving loading in different encodings
 
   TODO
@@ -83,6 +82,7 @@ type
     pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
+    btnMacro: TSpeedButton;
     splVertical           : TSplitter;
     ToolBar1: TToolBar;
     ToolBar2: TToolBar;
@@ -101,12 +101,15 @@ type
 
     {$region 'event handlers' /fold}
     procedure AHSActivateSite(Sender: TObject);
+    procedure AHSClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure AHSShowModalFinished(Sender: TObject; AResult: Integer);
     procedure btnEncodingClick(Sender: TObject);
     procedure btnFileNameClick(Sender: TObject);
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
+    procedure EditorEventsMacroStateChange(Sender: TObject;
+      AState: TSynMacroState);
     procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
@@ -216,7 +219,8 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Factories.Settings, ts.Editor.Factories;
+  ts_Editor_Resources, ts.Editor.Factories.Settings,
+  ts.Editor.Factories;
 
 resourcestring
   SModified = 'Modified';
@@ -274,7 +278,8 @@ begin
         Manager.OpenFile(S);
     end;
   end;
-  if (ParamCount = 0) or (Manager.Views.Count=0) then  //if no exists views, create one
+  // if no view exists, create one
+  if Manager.Views.Count = 0 then
   begin
     V := Manager.NewFile(SNewEditorViewFileName);
   end;
@@ -391,6 +396,11 @@ begin
   end;
 end;
 
+procedure TfrmMain.AHSClose(Sender: TObject; var CloseAction: TCloseAction);
+begin
+  CloseAction := caHide;
+end;
+
 procedure TfrmMain.AHSShowModalFinished(Sender: TObject; AResult: Integer);
 begin
   Editor.SetFocus;
@@ -432,6 +442,22 @@ end;
 procedure TfrmMain.btnSelectionModeClick(Sender: TObject);
 begin
   btnSelectionMode.PopupMenu.PopUp;
+end;
+
+procedure TfrmMain.EditorEventsMacroStateChange(Sender: TObject;
+  AState: TSynMacroState);
+begin
+  btnMacro.Glyph.Clear;
+  case AState of
+    msStopped:
+      btnMacro.Action := Actions['actPlaybackMacro'];
+    msRecording:
+      btnMacro.Action := Actions['actRecordMacro'];
+    msPlaying:
+      btnMacro.Action := Actions['actRecordMacro'];
+    msPaused:
+      btnMacro.Action := Actions['actPlaybackMacro'];
+  end;
 end;
 
 procedure TfrmMain.FormActivate(Sender: TObject);
@@ -598,6 +624,7 @@ begin
   Events.OnAddEditorView      := EditorEventsAddEditorView;
   Events.OnShowEditorToolView := EditorEventsShowEditorToolView;
   Events.OnHideEditorToolView := EditorEventsHideEditorToolView;
+  Events.OnMacroStateChange   := EditorEventsMacroStateChange;
   OnDropFiles := FormDropFiles;
 end;
 
@@ -637,6 +664,8 @@ begin
   btnEncoding.PopupMenu       := Menus.EncodingPopupMenu;
   btnLineBreakStyle.PopupMenu := Menus.LineBreakStylePopupMenu;
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
+
+  btnMacro.Action := Actions['actRecordMacro'];
   DoubleBuffered := True;
 end;
 
@@ -801,9 +830,12 @@ begin
     { TODO -oTS : For some unknown reason the form is sometimes focused when
       multiple views are closed. This is a temporary work-around till the real
       nature of the problem is identified. The anchordocking control might be
-      responsible for this behaviour. }
-    if Screen.ActiveControl = Self then
-      Editor.SetFocus;
+      responsible for this behaviour.
+      Remark: causes side effects with toolviews!
+    }
+
+    //if Screen.ActiveControl = Self then
+    //  Editor.SetFocus;
   end;
 end;
 {$endregion}

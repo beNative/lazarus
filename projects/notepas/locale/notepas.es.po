@@ -1,4 +1,4 @@
-msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field."
+msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace."
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Project-Id-Version: \n"
@@ -9,9 +9,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
-
-msgid "focus to the search entry field."
-msgstr ""
 
 #: notepas.forms.main.smodified
 msgctxt "notepas.forms.main.smodified"
@@ -42,6 +39,34 @@ msgstr ""
 #: notepas_forms_main.ssize
 msgctxt "notepas_forms_main.ssize"
 msgid "Size"
+msgstr ""
+
+#: obufferedstreams.obufferedstreams_nilstream
+msgid "The aStream parameter must be assigned when creating a buffered stream."
+msgstr ""
+
+#: obufferedstreams.obufferedstreams_readingnotpossible
+msgid "You can't read from TOBufferedWriteStream"
+msgstr ""
+
+#: obufferedstreams.obufferedstreams_seekingnotpossible
+msgid "You can't use seek in TOBufferedWriteStream"
+msgstr ""
+
+#: obufferedstreams.obufferedstreams_writingnotpossible
+msgid "You can't write to TOBufferedReadStream"
+msgstr ""
+
+#: odictionary.scannotexchange
+msgid "Sorted ODictionary does not allow exchanging items"
+msgstr ""
+
+#: odictionary.scannotmove
+msgid "Sorted ODictionary does not allow moving items"
+msgstr ""
+
+#: odictionary.sduplicateinteger
+msgid "ODictionary does not allow duplicates"
 msgstr ""
 
 #: tcustomsettingsdialog1.lblalpha.caption
@@ -745,6 +770,10 @@ msgctxt "TDMEDITORMANAGER.ACTPASTE.HINT"
 msgid "Paste"
 msgstr "Pegar"
 
+#: tdmeditormanager.actplaybackmacro.caption
+msgid "Playback macro"
+msgstr ""
+
 #: tdmeditormanager.actprint.caption
 msgctxt "tdmeditormanager.actprint.caption"
 msgid "Print"
@@ -789,6 +818,10 @@ msgstr ""
 
 #: tdmeditormanager.actquoteselection.hint
 msgid "Quote selection"
+msgstr ""
+
+#: tdmeditormanager.actrecordmacro.caption
+msgid "Record macro"
 msgstr ""
 
 #: tdmeditormanager.actredo.caption
@@ -3127,25 +3160,139 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
+#: ts.core.nativexml.sbeginendmismatch
+msgctxt "ts.core.nativexml.sbeginendmismatch"
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: ts.editor.search.data.sgroup
-msgid "%s (%d matching lines)"
+#: ts.core.nativexml.scannotaddattribute
+msgctxt "ts.core.nativexml.scannotaddattribute"
+msgid "cannot add attribute"
 msgstr ""
 
-#: ts.editor.search.data.sline
-msgid "Line: %d"
+#: ts.core.nativexml.scannotaddnode
+msgctxt "ts.core.nativexml.scannotaddnode"
+msgid "cannot add node to this type of element"
 msgstr ""
 
-#: ts.editor.search.data.smatch
-msgid ": '%s'"
+#: ts.core.nativexml.scannotmanipulate
+msgctxt "ts.core.nativexml.scannotmanipulate"
+msgid "cannot manipulate nodes in this type of element"
 msgstr ""
 
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
+#: ts.core.nativexml.scannotsetname
+msgctxt "ts.core.nativexml.scannotsetname"
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetvalue
+msgctxt "ts.core.nativexml.scannotsetvalue"
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scopyfromonlywithxmlnode
+msgctxt "ts.core.nativexml.scopyfromonlywithxmlnode"
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: ts.core.nativexml.sdefaultcharused
+msgctxt "ts.core.nativexml.sdefaultcharused"
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: ts.core.nativexml.serrorcalcstreamlength
+msgctxt "ts.core.nativexml.serrorcalcstreamlength"
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: ts.core.nativexml.sillegalendtag
+msgctxt "ts.core.nativexml.sillegalendtag"
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: ts.core.nativexml.sillegaltag
+msgctxt "ts.core.nativexml.sillegaltag"
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sinvalidstream
+msgctxt "ts.core.nativexml.sinvalidstream"
+msgid "invalid stream"
+msgstr ""
+
+#: ts.core.nativexml.slevelmismatch
+msgctxt "ts.core.nativexml.slevelmismatch"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.smissingdatainbinarystream
+msgctxt "ts.core.nativexml.smissingdatainbinarystream"
+msgid "missing data in binary stream"
+msgstr ""
+
+#: ts.core.nativexml.snondefaultchardata
+msgctxt "ts.core.nativexml.snondefaultchardata"
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.snotsupported
+msgctxt "ts.core.nativexml.snotsupported"
+msgid "feature is not supported yet"
+msgstr ""
+
+#: ts.core.nativexml.sprematureend
+msgctxt "ts.core.nativexml.sprematureend"
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.squotecharexpected
+msgctxt "ts.core.nativexml.squotecharexpected"
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.srootelementnotdefined
+msgctxt "ts.core.nativexml.srootelementnotdefined"
+msgid "XML root element not defined."
+msgstr ""
+
+#: ts.core.nativexml.ssignificantdigitsoutofrange
+msgctxt "ts.core.nativexml.ssignificantdigitsoutofrange"
+msgid "significant digits out of range"
+msgstr ""
+
+#: ts.core.nativexml.sunknownbinaryencodingbinhex
+msgctxt "ts.core.nativexml.sunknownbinaryencodingbinhex"
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: ts.core.nativexml.sunknownencoding
+msgctxt "ts.core.nativexml.sunknownencoding"
+msgid "unknown encoding"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedencoding
+msgctxt "ts.core.nativexml.sunsupportedencoding"
+msgid "unsupported encoding (%s)"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedtag
+msgctxt "ts.core.nativexml.sunsupportedtag"
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sxmlnodenotassigned
+msgctxt "ts.core.nativexml.sxmlnodenotassigned"
+msgid "XML node is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlownernotassigned
+msgctxt "ts.core.nativexml.sxmlownernotassigned"
+msgid "XML owner is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlparentnotassigned
+msgctxt "ts.core.nativexml.sxmlparentnotassigned"
+msgid "XML parent is not assigned"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

@@ -37,9 +37,12 @@
 					<Width>658</Width>
 				</THexEditorSettings>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[ssoMatchCase,ssoRegExpr]</Options>
+					<Options>[ssoMatchCase]</Options>
+					<SearchAllViews>true</SearchAllViews>
 				</TSearchEngineSettings>
-				<TCodeShaperSettings Name="CodeShaperSettings"/>
+				<TCodeShaperSettings Name="CodeShaperSettings">
+					<Width>409</Width>
+				</TCodeShaperSettings>
 			</Components>
 		</TEditorToolSettings>
 		<THighlighters Name="Highlighters">
@@ -1327,11 +1330,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>LOG</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>75</Left>
-		<Top>75</Top>
+		<Left>275</Left>
+		<Top>275</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

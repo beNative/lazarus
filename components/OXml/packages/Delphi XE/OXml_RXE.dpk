@@ -1,0 +1,48 @@
+package OXml_RXE;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DESCRIPTION 'OXml - XML library by Kluug.net'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl;
+
+contains
+  OXmlSeq in '..\..\units\OXmlSeq.pas',
+  OTextReadWrite in '..\..\units\OTextReadWrite.pas',
+  OWideSupp in '..\..\units\OWideSupp.pas',
+  OXmlSAX in '..\..\units\OXmlSAX.pas',
+  OXmlReadWrite in '..\..\units\OXmlReadWrite.pas',
+  OXmlUtils in '..\..\units\OXmlUtils.pas',
+  OXmlXPath in '..\..\units\OXmlXPath.pas',
+  ODictionary in '..\..\units\ODictionary.pas',
+  OXmlLng in '..\..\units\OXmlLng.pas',
+  OHashedStrings in '..\..\units\OHashedStrings.pas',
+  OBufferedStreams in '..\..\units\OBufferedStreams.pas',
+  OEncoding in '..\..\units\OEncoding.pas',
+  OXmlPDOM in '..\..\units\OXmlPDOM.pas',
+  OXmlCDOM in '..\..\units\OXmlCDOM.pas';
+
+end.

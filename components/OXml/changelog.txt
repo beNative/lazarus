@@ -1,0 +1,128 @@
+OXml Change Log
+---------------
+
+Version 0.9 2014-03-11 [SVN commit: 18, https://sourceforge.net/p/oxml/code/18/]
+  - Optimized XPath engine. Now OXml's XPath is faster than OmniXML's and MSXML's.
+  - Test functions for OXmlCDOM.pas. Now OXmlCDOM can be used as well.
+    Remember that OXmlCDOM is a TObject-based DOM for OXml. 
+    The advantages are: usual programming concept, no need to dereference the nodes in FPC.
+    The disadvantages are: small performance penalty and higher memory consumption.
+    But still OXmlCDOM is faster than other interface-based DOMs.
+
+
+Version 0.8 2014-02-26 [SVN commit: 16, https://sourceforge.net/p/oxml/code/16/]
+  - New unit OXmlCDOM.pas: a testing DOM model with nodes as TObject descendants.
+  - Various bug fixes.
+
+
+Version 0.7 2014-02-14 [SVN commit: 14, https://sourceforge.net/p/oxml/code/14/]
+  - New unit OXmlDOMVendor.pas: a DOM vendor for Delphi's own TXMLDocument
+    based on OXml - the fastest DOM vendor available for Delphi.
+  - Error handling rewritten: see the ReaderSettings.ErrorHandling property.
+    OXml can simulate MSXML's, OmniXML's or DelphiXML's error handling.
+  - Added new overloaded functions:
+      * TXMLNode.XML(const aIndentType: TXMLIndentType);
+      * IXMLDocument.XML(const aIndentType: TXMLIndentType);
+
+
+Version 0.6 2014-02-11 [SVN commit: 11, https://sourceforge.net/p/oxml/code/11/]
+  - Renamed TXMLNode.SelectNodeNull to SelectNodeDummy
+  - Renamed TXMLSeqParser.PassNextChildElementHeader to SkipNextChildElementHeader
+  - Renamed TXMLSeqParser.PassNextChildNode to SkipNextChildNode
+  - D2009+: Deleted all anonymous events from TSAXParser. Old classic events were
+    replaced with anonymous events (they can be used as anonymous methods or
+    normal events).
+  - Completely reworked the TSAXAttributes list and TSAXAttribute, please see 
+    the source code or the demo if you need more information.
+  - Fixed bug in reading attributes with space before or after the equal sign.
+  
+
+Version 0.5 [SVN commit: 9, https://sourceforge.net/p/oxml/code/9/]
+  Comment in the beginning:
+  This is a commit with big changes to make OXml simpler and easier to use. I renamed
+  some units/classes/properties in order to reduce confusion and make things more straightforward.
+  I hope this is the last commit with big interface changes before the production state.
+  Sorry for the big changes, but you know, beta version... :)
+
+
+  - Renamed OXmlDOM.pas back to OXmlPDOM.pas - sorry for the confusion, I like the "OXmlDOM.pas" much more
+    but I wasn't aware that a unit of the same name ("oxmldom.pas") is already present in Delphi 6 and
+    thus OXml fails to compile there.
+  - Renamed etXMLDeclarationFinishClose to etFinishXMLDeclarationClose.
+  - Renamed TOXmlReader to TXMLReader.
+  - Renamed TOXmlWriter to TXMLWriter.
+  - Renamed all TOXml* classes to TXML*.
+  - Deleted TOXmlReader.CreateFrom* constructors:
+      Now a more "standardized" approach is used:
+      1. Create a XML reader with TOXmlReader.Create;
+      2. Open a file for parsing with TOXmlReader.Init*
+      3. Use TOXmlReader like in Version 0.4.
+      + You can call Init* on the same TOXmlReader multiple times and so
+        parse more files with the same reader.
+  - Deleted TOXmlWriter.CreateFrom* constructors:
+      Now a more "standardized" approach is used:
+      1. Create a XML writer with TOXmlWriter.Create;
+      2. Open a file for writing with TOXmlWriter.Init*
+      3. Use TOXmlWriter like in Version 0.4.
+      + You can call Init* on the same TOXmlWriter multiple times and so
+        write more files with the same reader.
+  - Deleted TXMLSeqParser.CreateFrom* constructors:
+      Now a more "standardized" approach is used:
+      1. Create a sequential parser with TXMLSeqParser.Create;
+      2. Open a file for parsing with TXMLSeqParser.Init*
+      3. Use TXMLSeqParser like in Version 0.4.
+      + You can call Init* on the same TXMLSeqParser multiple times and so
+        parse more files with the same parser.
+  - Deleted TSAXParser.CreateFrom* constructors:
+      Now a more "standardized" approach is used:
+      1. Create SAX parser with TSAXParser.Create;
+      2. Open a file and start parsing with TSAXParser.Parse* (run where you used TSAXParser.Parse).
+      3. If you stopped parsing continue with TSAXParser.ContinueParsing.
+      + You can call Parse* on the same TSAXParser multiple times and so
+        parse more files with the same parser.
+  - Removed aStop parameter from all TSAXParser events/anonymous methods. Use the StopParsing procedure instead.
+  - Added to all TSAXParser anonymous methods: the aSaxParser (= Sender) parameter.
+  - Fixed bug: TOXmlReader.ReadNextNode for NodeType=etFinishOpenElementClose the NodeName was empty.
+  - Added unit testing project for D6, D2009, FPC/Lazarus, see "unittest" directory.
+  - Changed function parameter prefixes:
+      - "a"..... constant parameter/attribute (in)
+      - "out"... variable parameter/attribute (out)
+      - "io".... variable parameter/attribute (in/out)
+      + I don't use the "out" keyword - e.g. like "SomeMethod(out outVariable: Integer) 
+        due to C++Builder compatibility.
+        Such procedures are declared as "SomeMethod(var outVariable: Integer)".
+  - More performance optimizations. In Delphi 2009+ OXmlPDOM is even faster than pure MS XML.
+    Furthermore OXmlPDOM is in D2009+ as fast as SimpleXML - maybe a little bit faster :)!
+
+Version 0.4 [SVN commit: 5, https://sourceforge.net/p/oxml/code/5/]
+  - Deleted OXmlIntfDOM.pas
+  - Renamed OXmlPDOM.pas to OXmlDOM.pas
+  - Deleted aIndentType and other parameters from IXMLDocument.SaveTo* functions, use IXMLDocument.WriterSettings instead
+  - Renamed TXmlNodeType.ntDOMDocument to ntDocument (compatibility to Delphi XML)
+  - Renamed IXMLDocument.DOMDocument to Node (compatibility to Delphi XML)
+  - Renamed IXMLDocument.DocumentNode to DocumentElement (compatibility to OmniXML/Delphi XML)
+  - Renamed IXMLNode.SelectNodesNull to SelectNodes (the same functionality as OmniXML)
+  - Moved IXMLDocument.StrictXML to IXMLDocument.WriterSettings.StrictXML or IXMLDocument.ReaderSettings.StrictXML
+  - Added IXMLDocument.ReaderSettings
+  - Added IXMLDocument.WriterSettings
+  - Added IXMLDocument.AddChild()
+  - Added IXMLNodeList.Get()
+  - Added IXMLNode.IsTextElement()
+
+Version 0.3 [SVN commit: 4, https://sourceforge.net/p/oxml/code/4/]
+  - OutputFormat: TXmlOutputFormat = (ofNone, ofFlat, ofIndent) renamed to:
+    IndentType: TXmlIndentType = (itNone, itFlat, itIndent)
+  - TOXmlWriterIndentation and TOXmlWriter merged: now TOXmlWriter supports automatic indentation.
+    Use TOXmlWriter.IndentType and TOXmlWriter.IndentString for automatic indentation.
+  - OXmlSeq.pas performance optimization - now TXMLSeqParser is as fast as OXmlPDOM.IXmlDocument.
+  - OXmlSAX.pas: changed Sender attribute in events from TObject to TSAXParser.
+  - OXmlSAX.pas: added NodePath* support - now you can get the current path in the XML document
+    in a SAX event.
+  - Added 2 demo applications (converted from OmniXML demos).
+
+Version 0.2 [SVN commit: 3, https://sourceforge.net/p/oxml/code/3/]
+  - Added OmniXML (original version) - ported to iOS/Android with some OXml units.
+  - Added "OmniXML by Kluug.net"
+
+Version 0.1
+  - initial release

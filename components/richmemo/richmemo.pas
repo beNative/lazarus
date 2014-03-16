@@ -28,22 +28,7 @@ uses
   WSRichMemo; 
 
 type
-
   TFontParams = TIntFontParams;
-
-//  TChangedFontItems = TIntChangedFontItems; // Added by Massimo Nardello
-//  TRichAlignment = TIntRichAlignment; // Added by Massimo Nardello
-
-  {TIntFontParams = record // declared at WSRichMemo
-     Name      : String;
-     Size      : Integer;
-     Color     : TColor;
-     BackColor : TColor; // Added by Massimo
-     Style     : TFontStyles;
-     Alignment : TIntRichAlignment; // Added by Massimo Nardello
-     Indented  : Boolean; // Added by Massimo Nardello
-     Changed   : TIntChangedFontItems; // Added by Massimo
-   end; }
 
   TTextModifyMask  = set of (tmm_Color, tmm_Name, tmm_Size, tmm_Styles);
 
@@ -69,8 +54,6 @@ type
     procedure SetTextAttributes(TextStart, TextLen: Integer; const TextParams: TFontParams); virtual;
     function GetTextAttributes(TextStart: Integer; var TextParams: TFontParams): Boolean; virtual;
     function GetStyleRange(CharOfs: Integer; var RangeStart, RangeLen: Integer): Boolean; virtual;
-    // Removed by Massimo Nardello
-    {procedure SetTextAttributes(TextStart, TextLen: Integer; AFont: TFont);}
     procedure SetRangeColor(TextStart, TextLength: Integer; FontColor: TColor);
     procedure SetRangeParams(TextStart, TextLength: Integer; ModifyMask: TTextModifyMask;
       const FontName: String; FontSize: Integer; FontColor: TColor;
@@ -195,7 +178,7 @@ class procedure TCustomRichMemo.WSRegisterClass;
 begin
   inherited;
   // TS
-  //WSRegisterCustomRichMemo;
+//  WSRegisterCustomRichMemo;
 end;
 
 procedure TCustomRichMemo.CreateWnd;  
@@ -210,25 +193,12 @@ begin
   TWSCustomRichMemoClass(WidgetSetClass).SetHideSelection(Self, fHideSelection);
 end;
 
-// Removed by Massimo Nardello
-{procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;
-  AFont: TFont); 
-var
-  params  : TFontParams;
-begin
-  params.Name := AFont.Name;
-  params.Color := AFont.Color;
-  params.Size := AFont.Size;
-  params.Style := AFont.Style;
-  SetTextAttributes(TextStart, TextLen, {TextStyleAll,} params);
-end;}
-
-procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;  
-  {SetMask: TTextStyleMask;} const TextParams: TFontParams);
+procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;
+  const TextParams: TFontParams);
 begin
   if HandleAllocated then  
     TWSCustomRichMemoClass(WidgetSetClass).SetTextAttributes(Self, TextStart,
-      TextLen, {SetMask,} TextParams);
+      TextLen, TextParams);
 end;
 
 function TCustomRichMemo.GetTextAttributes(TextStart: Integer; var TextParams: TFontParams): Boolean; 

@@ -8,8 +8,8 @@ interface
 
 uses
   OBufferedStreams, ODictionary, OEncoding, OHashedStrings, OTextReadWrite, 
-  OWideSupp, OXmlCDOM, OXmlDOMVendor, OXmlLng, OXmlPDOM, OXmlReadWrite, 
-  OXmlSAX, OXmlSeq, OXmlUtils, OXmlXPath, LazarusPackageIntf;
+  OWideSupp, OXmlCDOM, OXmlLng, OXmlPDOM, OXmlReadWrite, OXmlSAX, OXmlSeq, 
+  OXmlUtils, OXmlXPath, LazarusPackageIntf;
 
 implementation
 

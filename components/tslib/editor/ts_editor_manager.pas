@@ -91,17 +91,16 @@ unit ts_Editor_Manager;
 interface
 
 uses
-  Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
+  Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms, Variants,
 
   LCLType,
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
 
   //PascalScript
-  uPSComponent, uPSCompiler, uPSRuntime, Variants, uPSUtils,
-  uPSR_std, uPSC_std, uPSR_stdctrls, uPSC_stdctrls, uPSR_forms,
-  uPSC_forms, uPSC_graphics, uPSC_controls, uPSC_classes, uPSR_graphics,
-  uPSR_controls, uPSR_classes,
+  uPSComponent, uPSCompiler, uPSRuntime, uPSUtils, uPSR_std, uPSC_std,
+  uPSR_stdctrls, uPSC_stdctrls, uPSR_forms, uPSC_forms, uPSC_graphics,
+  uPSC_controls, uPSC_classes, uPSR_graphics, uPSR_controls, uPSR_classes,
 
   //dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
 
@@ -110,7 +109,8 @@ uses
   ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
   ts.Editor.Highlighters, ts_Editor_View,
 
-  ts.Core.SharedLogger, ts.Core.Utils;
+  ts.Core.SharedLogger, ts.Core.Utils,
+  SynEditKeyCmds;
 
 type
   { TdmEditorManager }
@@ -160,6 +160,8 @@ type
     actDecodeURL                      : TAction;
     actCompressSpace: TAction;
     actCompressWhitespace: TAction;
+    actPlaybackMacro: TAction;
+    actRecordMacro: TAction;
     actSaveAll: TAction;
     actMergeBlankLines                : TAction;
     actStripComments                  : TAction;
@@ -332,8 +334,10 @@ type
     procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
     procedure actMergeBlankLinesExecute(Sender: TObject);
     procedure actPageSetupExecute(Sender: TObject);
+    procedure actPlaybackMacroExecute(Sender: TObject);
     procedure actPrintExecute(Sender: TObject);
     procedure actPrintPreviewExecute(Sender: TObject);
+    procedure actRecordMacroExecute(Sender: TObject);
     procedure actSaveAllExecute(Sender: TObject);
     procedure actShowFilterTestExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
@@ -445,6 +449,8 @@ type
 
     {$region 'event handlers' /fold}
     procedure SynMacroRecorderStateChange(Sender: TObject);
+    procedure SynMacroRecorderUserCommand(aSender: TCustomSynMacroRecorder;
+      aCmd: TSynEditorCommand; var aEvent: TSynMacroEvent);
     {$endregion}
 
   private
@@ -453,10 +459,7 @@ type
     FPersistSettings  : Boolean;
     FSynExporterRTF   : TSynExporterRTF;
 
-    //Commented by esvignolo
-    //FdwsProgramExecution : IdwsProgramExecution;
-    //FdwsProgram          : IdwsProgram;
-    FScriptFunctions     : TStringList;
+    FScriptFunctions  : TStringList;
 
     FToolViews    : IEditorToolViews;
     FEvents       : IEditorEvents;
@@ -763,7 +766,8 @@ uses
 
   LConvEncoding,
 
-  SynEditKeyCmds, SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
+//  SynEditKeyCmds,
+  SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
 
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
@@ -1624,10 +1628,10 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
-  //with TEditorSettingsDialog.Create(Self) do
-  //begin
-  //  ShowModal;
-  //end;
+{  with TEditorSettingsDialog.Create(Self) do
+  begin
+    ShowModal;
+  end;         }
   ExecuteSettingsDialog(Self);
 end;
 
@@ -1709,6 +1713,12 @@ begin
   ShowMessage(SNotImplementedYet);
 end;
 
+procedure TdmEditorManager.actPlaybackMacroExecute(Sender: TObject);
+begin
+  Logger.Send(SynMacroRecorder.AsString);
+  SynMacroRecorder.PlaybackMacro(ActiveView.Editor);
+end;
+
 procedure TdmEditorManager.actPrintExecute(Sender: TObject);
 begin
   ShowMessage(SNotImplementedYet);
@@ -1717,6 +1727,14 @@ end;
 procedure TdmEditorManager.actPrintPreviewExecute(Sender: TObject);
 begin
   ShowMessage(SNotImplementedYet);
+end;
+
+procedure TdmEditorManager.actRecordMacroExecute(Sender: TObject);
+begin
+  if SynMacroRecorder.State = msRecording then
+    SynMacroRecorder.Stop
+  else
+    SynMacroRecorder.RecordMacro(ActiveView.Editor);
 end;
 
 procedure TdmEditorManager.actSaveAllExecute(Sender: TObject);
@@ -1919,6 +1937,16 @@ begin
   Events.DoMacroStateChange(SynMacroRecorder.State);
 end;
 
+procedure TdmEditorManager.SynMacroRecorderUserCommand(
+  aSender: TCustomSynMacroRecorder; aCmd: TSynEditorCommand;
+  var aEvent: TSynMacroEvent);
+begin
+  Logger.Send(
+     'SynMacroRecorderUserCommand(Command = %s)',
+     [EditorCommandToCodeString(aCmd)]
+   );
+end;
+
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
   ApplyHighlighterAttributes;
@@ -2075,7 +2103,6 @@ begin
 
 end;
 
-
 procedure TdmEditorManager.RedefineActionsShortcuts;
 var i:integer;
     TheKey: Word;
@@ -2117,7 +2144,7 @@ begin
           A := HL.SynHighlighter.Attribute[I];
           if (A.Name = HAI.Name) or (HAI.AliasNames.IndexOf(A.Name) >= 0) then
           begin
-//            A.Assign(HAI.Attributes); don't do this => you will lose the attribute name!
+//  A.Assign(HAI.Attributes); don't do this => you will loose the attribute name!
             A.Foreground := HAI.Attributes.Foreground;
             A.Background := HAI.Attributes.Background;
             A.FrameColor := HAI.Attributes.FrameColor;
@@ -2661,6 +2688,8 @@ begin
   V.Form.Caption := '';
   ViewList.Add(V);
   Events.DoAddEditorView(V);
+  // TS macro support
+  SynMacroRecorder.AddEditor(V.Editor);
   V.Activate;
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
@@ -2700,6 +2729,8 @@ begin
       V := Views[I];
       V.Activate
     end;
+    // TS macro support
+    SynMacroRecorder.RemoveEditor(Views[AIndex].Editor);
     Views[AIndex].Close;
     ViewList.Delete(AIndex);
     Result := True;
@@ -2727,6 +2758,7 @@ begin
     begin
       if AView = ActiveView then
       begin
+        SynMacroRecorder.RemoveEditor(AView.Editor);
         AView.Close;
         ViewList.Delete(I);
         Views[0].Activate;
@@ -2734,6 +2766,7 @@ begin
       end
       else
       begin
+        SynMacroRecorder.RemoveEditor(AView.Editor);
         AView.Close;
         ViewList.Delete(I);
       end;

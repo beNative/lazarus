@@ -448,7 +448,7 @@ uses
 
   SynRegExpr,
 
-  DOM, XMLRead, XMLWrite,
+  OXmlPDOM, OXMLUtils,
 
   ts.Core.BRRE, ts.Core.BRREUnicode,
 
@@ -1345,29 +1345,12 @@ end;
 
 function FormatXML(const AXMLString: string): string;
 var
-  Doc : TXMLDocument;
-  SS :  TStringStream;
+  Doc : IXMLDocument;
 begin
-  SS := TStringStream.Create(AXMLString);
-  try
-    Doc := TXMLDocument.Create;
-    try
-      try
-        ReadXMLFile(Doc, SS);
-        SS.Position := 0;
-        SS.Size     := 0;
-        WriteXMLFile(Doc, SS);
-        SS.Position := 0;
-        Result := SS.DataString;
-      except
-        Result := AXMLString;
-      end;
-    finally
-      FreeAndNil(Doc);
-    end;
-  finally
-    FreeAndNil(SS);
-  end;
+  Doc := CreateXMLDoc;
+  Doc.LoadFromXML(AXMLString);
+  Doc.SaveToXML(Result, itIndent);
+
 end;
 
 function PascalStringOf(const AString: string; ATrimLines: Boolean): string;

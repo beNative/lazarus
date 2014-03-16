@@ -5850,7 +5850,7 @@ begin
     InternetCloseHandle(NetHandle);
   end;
 end;
-{$else MSWINDOWS}
+{$ELSE MSWINDOWS}
 function TNativeXml.LoadFromURL(const URL: Utf8String): Int64;
 begin
   DoDebugOut(Self, wsFail, 'not implemented (needs WININET)');

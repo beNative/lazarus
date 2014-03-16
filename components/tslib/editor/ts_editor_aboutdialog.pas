@@ -37,7 +37,6 @@ unit ts_Editor_AboutDialog;
     luicomponents Luiz Américo Pereira Câmara
     MultiLog Luiz Américo Pereira Câmara
     SynUniHighlighter Kirill Burtsev and Vitaly Nevzorov, ported to FPC by Tom Lisjac and Tim Sinaeve
-    CodeTyphon - PilotLogic http://www.pilotlogic.com/
     Silk Icons
     other icons
     GetText translation powered
@@ -406,12 +405,12 @@ begin
     'Luiz Américo Pereira Câmara',
     ''
   );
-  AddCredit(
-    'DWScript',
-    'Original implementation by Matthias Ackermann,' +
-    'currently maintained by Eric Grange. FPC port by Alexander Shishkin.',
-    'http://code.google.com/p/dwscript/'
-  );
+  //AddCredit(
+  //  'DWScript',
+  //  'Original implementation by Matthias Ackermann,' +
+  //  'currently maintained by Eric Grange. FPC port by Alexander Shishkin.',
+  //  'http://code.google.com/p/dwscript/'
+  //);
   AddCredit(
     'OMultiPanel',
     'Ondřej Pokorný',
@@ -426,11 +425,6 @@ begin
     'KControls',
     'Tomas Krysl',
     'http://www.tkweb.eu/en/delphicomp/kcontrols.html'
-  );
-  AddCredit(
-    'CodeTyphon',
-    'PylotLogic',
-    'http://www.pilotlogic.com'
   );
   AddCredit(
     'Silk Icons',
@@ -496,8 +490,6 @@ var
   end;
 begin
   S := Application.ExeName;
-
-
   AddInfo('Application name:', ExtractFileName(S));
   AddInfo('Application path:', GetApplicationPath);
   AddInfo('Application size:', FormatByteText(FileSize(S)));

@@ -23,8 +23,8 @@ unit ts_Editor_ToolView_Base;
   It reacts to changes in the common settings (IEditorSettings) which are
   associated with the owning manager (IEditorManager) instance.
 
-  It provides properties which are shortcuts to the following instances that
-  are used by the editor manager:
+  This base class provides properties which are shortcuts to the following
+  instances that are used by the editor manager:
     - Manager  : IEditorManager   - The owning editor manager instance
     - Settings : IEditorSettings  - All persistable settings
     - View     : IEditorView      - The currently active editor view

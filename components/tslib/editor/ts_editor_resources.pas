@@ -71,7 +71,11 @@ const
   FILE_EXTENSIONS_CPP  = 'cpp,h,hpp';
   FILE_EXTENSIONS_JAVA = 'java';
   FILE_EXTENSIONS_SQL  = 'sql';
-  FILE_EXTENSIONS_XML  = 'xml,hgl,' +
+  FILE_EXTENSIONS_XML  = 'xml,' +                // General XML file
+                         'dtd,' +                // Document Type Definition
+                         'xsd,' +                // XML Schema Definition
+                         'xslt,' +               // XSL Transform file
+                         'hgl,' +                // Highlighter
                          'lpi,lps,lpk,' +        // Lazarus
                          'fpc,compiled' +        // FPC Make
                          'dproj,groupproj,' +    // Delphi
@@ -99,8 +103,9 @@ const
                          'vssm,' +               // Visio Macro-Enabled Stencil
                          'vstx,' +               // Visio Template
                          'vstm,' +               // Visio Macro-Enabled Template
-                         'sgml';                 // Standard Generalized Markup Language
-  FILE_EXTENSIONS_LFM  = 'dfm,lfm';
+                         'sgml,' +               // Standard Generalized Markup Language
+                         'xmmap';                // Mindjet MindManager
+  FILE_EXTENSIONS_LFM  = 'dfm,lfm,fmx';
   FILE_EXTENSIONS_INI  = 'ini,' +
                          'fpd,' +                // FastReport definition
                          'reg,' +                // Windows registry file

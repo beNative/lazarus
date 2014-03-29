@@ -34,9 +34,7 @@ uses
   richmemopackage,
 
   runtimetypeinfocontrols, pascalscript, kcontrols, ExceptionLogger,
-  OBufferedStreams, ODictionary, OEncoding, OHashedStrings, OTextReadWrite,
-  OWideSupp, OXmlCDOM, OXmlLng, OXmlPDOM, OXmlReadWrite, OXmlSAX,
-  OXmlSeq, OXmlUtils, OXmlXPath, laz_synapse, lclextensions_package,
+  laz_synapse, lclextensions_package,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -160,7 +158,7 @@ uses
 {$R *.res}
 
 begin
-  Application.Title:='Notepas';
+  Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');

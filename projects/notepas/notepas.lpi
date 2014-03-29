@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="37"/>
-      <BuildNr Value="160"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.37" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
+      <RevisionNr Value="38"/>
+      <BuildNr Value="166"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2014 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.38" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
@@ -37,8 +37,8 @@
             <Filename Value="notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core;..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortlines;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortlines;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -991,48 +991,51 @@ end;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="13">
+    <RequiredPackages Count="14">
       <Item1>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="pascalscript"/>
       </Item2>
       <Item3>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="laz_synapse"/>
       </Item3>
       <Item4>
-        <PackageName Value="HtmlComp"/>
+        <PackageName Value="lclextensions_package"/>
       </Item4>
       <Item5>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="HtmlComp"/>
       </Item5>
       <Item6>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item6>
       <Item7>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item7>
       <Item8>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="richmemopackage"/>
       </Item9>
       <Item10>
-        <PackageName Value="LazRichEdit"/>
+        <PackageName Value="SynEdit"/>
       </Item10>
       <Item11>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="LazRichEdit"/>
       </Item11>
       <Item12>
-        <PackageName Value="FCL"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item12>
       <Item13>
-        <PackageName Value="LCL"/>
+        <PackageName Value="FCL"/>
       </Item13>
+      <Item14>
+        <PackageName Value="LCL"/>
+      </Item14>
     </RequiredPackages>
-    <Units Count="153">
+    <Units Count="138">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1057,7 +1060,6 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -1236,7 +1238,6 @@ end;"/>
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.streams.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Streams"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.stringtable.pas"/>
@@ -1253,7 +1254,6 @@ end;"/>
       <Unit50>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
@@ -1274,7 +1274,6 @@ end;"/>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Commands"/>
       </Unit55>
       <Unit56>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
@@ -1381,7 +1380,6 @@ end;"/>
       <Unit73>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.Events"/>
       </Unit73>
       <Unit74>
         <Filename Value="..\..\components\tslib\core\ts.core.generics.collections.pas"/>
@@ -1747,80 +1745,6 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Options.Settings"/>
       </Unit137>
-      <Unit138>
-        <Filename Value="..\..\components\OXml\units\OBufferedStreams.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OBufferedStreams"/>
-      </Unit138>
-      <Unit139>
-        <Filename Value="..\..\components\OXml\units\ODictionary.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ODictionary"/>
-      </Unit139>
-      <Unit140>
-        <Filename Value="..\..\components\OXml\units\OEncoding.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OEncoding"/>
-      </Unit140>
-      <Unit141>
-        <Filename Value="..\..\components\OXml\units\OHashedStrings.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OHashedStrings"/>
-      </Unit141>
-      <Unit142>
-        <Filename Value="..\..\components\OXml\units\OTextReadWrite.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OTextReadWrite"/>
-      </Unit142>
-      <Unit143>
-        <Filename Value="..\..\components\OXml\units\OWideSupp.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OWideSupp"/>
-      </Unit143>
-      <Unit144>
-        <Filename Value="..\..\components\OXml\units\OXml.inc"/>
-        <IsPartOfProject Value="True"/>
-      </Unit144>
-      <Unit145>
-        <Filename Value="..\..\components\OXml\units\OXmlCDOM.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlCDOM"/>
-      </Unit145>
-      <Unit146>
-        <Filename Value="..\..\components\OXml\units\OXmlLng.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlLng"/>
-      </Unit146>
-      <Unit147>
-        <Filename Value="..\..\components\OXml\units\OXmlPDOM.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlPDOM"/>
-      </Unit147>
-      <Unit148>
-        <Filename Value="..\..\components\OXml\units\OXmlReadWrite.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlReadWrite"/>
-      </Unit148>
-      <Unit149>
-        <Filename Value="..\..\components\OXml\units\OXmlSAX.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlSAX"/>
-      </Unit149>
-      <Unit150>
-        <Filename Value="..\..\components\OXml\units\OXmlSeq.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlSeq"/>
-      </Unit150>
-      <Unit151>
-        <Filename Value="..\..\components\OXml\units\OXmlUtils.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlUtils"/>
-      </Unit151>
-      <Unit152>
-        <Filename Value="..\..\components\OXml\units\OXmlXPath.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="OXmlXPath"/>
-      </Unit152>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

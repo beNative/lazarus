@@ -55,15 +55,15 @@ type
     {$region 'designer controls' /fold}
     aclMain               : TActionList;
     actAbout              : TAction;
-    actCloseToolview: TAction;
-    actCheckForNewVersion: TAction;
+    actCloseToolview      : TAction;
+    actCheckForNewVersion : TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
-    ExceptionLogger: TExceptionLogger;
+    ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     pnlToolClient         : TPanel;
@@ -82,15 +82,15 @@ type
     pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
-    btnMacro: TSpeedButton;
+    btnMacro              : TSpeedButton;
     splVertical           : TSplitter;
-    ToolBar1: TToolBar;
-    ToolBar2: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
+    ToolBar1              : TToolBar;
+    ToolBar2              : TToolBar;
+    ToolButton1           : TToolButton;
+    ToolButton2           : TToolButton;
+    ToolButton3           : TToolButton;
+    ToolButton4           : TToolButton;
+    ToolButton5           : TToolButton;
     {$endregion}
 
     {$region 'action handlers' /fold}
@@ -159,7 +159,7 @@ type
     procedure UpdateEditorViewCaptions;
     procedure AddToolButton(const AParent: TToolBar; const AAction : TContainedAction);
 
-//    procedure CheckForNewVersion;
+    procedure CheckForNewVersion;
 
   public
     procedure AfterConstruction; override;
@@ -190,7 +190,6 @@ type
       read GetMenus;
 
     { Collection of all persistable settings for a editor manager instance. }
-
     property Settings: IEditorSettings
       read GetSettings;
 
@@ -340,7 +339,7 @@ end;
 
 procedure TfrmMain.actCheckForNewVersionExecute(Sender: TObject);
 begin
-//  CheckForNewVersion;
+  CheckForNewVersion;
 end;
 
 procedure TfrmMain.actCloseToolviewExecute(Sender: TObject);
@@ -795,27 +794,27 @@ begin
   end;
 end;
 
-//procedure TfrmMain.CheckForNewVersion;
-//var
-//  S  : string;
-//  SL : TStringList;
-//begin
-//  SL := TStringList.Create;
-//  try
-//    S := 'http://notepas.googlecode.com/svn/releases/version-i386-win32-win32.txt';
-//    if HttpGetText(S, SL) then
-//    begin
-//      if VersionInfo.ProductVersion <> Trim(SL.Text) then
-//        ShowMessage('New version released')
-//      else
-//        ShowMessage('Nothing released');
-//    end
-//    else
-//      ShowMessage('Checkversion failed.');
-//  finally
-//    FreeAndNil(SL);
-//  end;
-//end;
+procedure TfrmMain.CheckForNewVersion;
+var
+  S  : string;
+  SL : TStringList;
+begin
+  SL := TStringList.Create;
+  try
+    S := 'http://notepas.googlecode.com/svn/releases/version-i386-win32-win32.txt';
+    if HttpGetText(S, SL) then
+    begin
+      if VersionInfo.ProductVersion <> Trim(SL.Text) then
+        ShowMessage('New version released')
+      else
+        ShowMessage('Nothing released');
+    end
+    else
+      ShowMessage('Checkversion failed.');
+  finally
+    FreeAndNil(SL);
+  end;
+end;
 
 procedure TfrmMain.UpdateActions;
 begin

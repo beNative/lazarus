@@ -68,7 +68,9 @@ const
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
   FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk';
-  FILE_EXTENSIONS_CPP  = 'cpp,h,hpp';
+  FILE_EXTENSIONS_CPP  = 'cpp,h,hpp,' +          // C++
+                         'c,' +                  // regular C
+                         'ino';                  // Arduino sketch
   FILE_EXTENSIONS_JAVA = 'java';
   FILE_EXTENSIONS_SQL  = 'sql';
   FILE_EXTENSIONS_XML  = 'xml,' +                // General XML file
@@ -105,7 +107,9 @@ const
                          'vstm,' +               // Visio Macro-Enabled Template
                          'sgml,' +               // Standard Generalized Markup Language
                          'xmmap';                // Mindjet MindManager
-  FILE_EXTENSIONS_LFM  = 'dfm,lfm,fmx';
+  FILE_EXTENSIONS_LFM  = 'dfm,' +                // Delphi VCL form
+                         'lfm,' +                // Lazarus LCL form
+                         'fmx';                  // Delphi Firemonkey form
   FILE_EXTENSIONS_INI  = 'ini,' +
                          'fpd,' +                // FastReport definition
                          'reg,' +                // Windows registry file

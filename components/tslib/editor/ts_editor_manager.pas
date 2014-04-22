@@ -2100,13 +2100,14 @@ begin
   finally
     FreeAndNil(SL);
   end;
-
 end;
 
 procedure TdmEditorManager.RedefineActionsShortcuts;
+{$IFDEF DARWIN}
 var i:integer;
     TheKey: Word;
     TheShiftState: TShiftState;
+{$ENDIF}
 begin
     {$IFDEF DARWIN}
     for i:=0 to aclActions.ActionCount-1 do
@@ -2896,37 +2897,34 @@ end;
 
 function TdmEditorManager.SaveFile(const AFileName: string;
   AShowDialog: Boolean): Boolean;
+var
+  B : Boolean;
+  S : string;
 begin
   Events.DoSave(AFileName);
-  if AShowDialog or not FileExistsUTF8(AFileName) then
+  S := AFileName;
+  B := AShowDialog or not FileExistsUTF8(AFileName);
+  if B then // show dialog
   begin
-    if not FileExistsUTF8(ActiveView.FileName) then
+    dlgSave.Filter := Settings.Highlighters.FileFilter;
+    /// TODO
+    //if Assigned(ActiveView.Editor.Highlighter) then
+    //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
+    dlgSave.FileName := S;
+    if dlgSave.Execute then
     begin
-        dlgSave.Filter := Settings.Highlighters.FileFilter;
-        /// TODO
-        //if Assigned(ActiveView.Editor.Highlighter) then
-        //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
-        dlgSave.FileName := AFileName;
-        if dlgSave.Execute then
-        begin
-          ActiveView.FileName := dlgSave.FileName;
-          ActiveView.Save(dlgSave.FileName);
-          Result := True;
-        end
-        else Result := False;
+      ActiveView.FileName := dlgSave.FileName;
+      ActiveView.Save(dlgSave.FileName);
+      Result := True;
     end
     else
-    begin
-       ActiveView.Save(ActiveView.FileName);
-       Result := True;
-    end;
-    end
+      Result := False;
+  end
   else
   begin
-    ActiveView.FileName := AFileName;
-    ActiveView.Save(AFileName);
+    ActiveView.Save(S);
     Result := True;
-  end
+  end;
 end;
 
 function TdmEditorManager.ActivateView(const AName: string): Boolean;

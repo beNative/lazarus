@@ -30,6 +30,8 @@ uses
 
   DefaultTranslator,
 
+  UExceptionLogger,
+
   ts.Components.UniqueInstance,
 
   // for debugging
@@ -37,7 +39,7 @@ uses
 
   ts.Components.Docking, ts.Components.Docking.Storage,
 
-  ts.Editor.Interfaces, UExceptionLogger;
+  ts.Editor.Interfaces;
 
 {
   KNOWN PROBLEMS
@@ -119,8 +121,8 @@ type
     procedure UniqueInstanceTerminateInstance(Sender: TObject);
     {$endregion}
   private
-    FSettings : IEditorSettings;
-    FManager  : IEditorManager;
+    FSettings         : IEditorSettings;
+    FManager          : IEditorManager;
     FMainToolbar      : TToolbar;
     FSelectionToolbar : TToolbar;
     FRightToolbar     : TToolbar;

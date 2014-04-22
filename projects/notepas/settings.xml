@@ -413,7 +413,7 @@
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>cpp,h,hpp</FileExtensions>
+					<FileExtensions>c,cpp,h,hpp,ino</FileExtensions>
 					<Description>C++</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="JAVA">
@@ -946,7 +946,7 @@
 					</Components>
 					<Highlighter>LOG</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log,txt</FileExtensions>
+					<FileExtensions>log</FileExtensions>
 					<Description>Log</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
 				</THighlighterItem>
@@ -1330,11 +1330,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>LOG</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>275</Left>
-		<Top>275</Top>
+		<Left>150</Left>
+		<Top>150</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

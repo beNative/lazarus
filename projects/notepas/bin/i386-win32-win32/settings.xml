@@ -408,7 +408,7 @@
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>cpp,h,hpp</FileExtensions>
+					<FileExtensions>c,cpp,h,hpp,ino</FileExtensions>
 					<Description>C++</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="JAVA">
@@ -834,7 +834,7 @@
 					<Highlighter>DIFF</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>diff</FileExtensions>
-					<Description>Verschil</Description>
+					<Description>Diff</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="TEX">
 					<Components>
@@ -941,7 +941,7 @@
 					</Components>
 					<Highlighter>LOG</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log,txt</FileExtensions>
+					<FileExtensions>log</FileExtensions>
 					<Description>Log</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
 				</THighlighterItem>
@@ -1087,6 +1087,9 @@
 			<BackAlpha>128</BackAlpha>
 		</SelectedColor>
 	</Colors>
+	<EditorOptions>(TEditorOptionsSettings)
+		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	</EditorOptions>
 	<HighlighterAttributes>(THighlighterAttributes)
 		<THighlighterAttributesItem>
 			<Name>Comment</Name>
@@ -1322,19 +1325,18 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>-8</Left>
-		<Top>-8</Top>
-		<Width>1366</Width>
-		<Height>705</Height>
+		<Left>175</Left>
+		<Top>175</Top>
+		<Width>1424</Width>
+		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
-		<WindowState>wsMaximized</WindowState>
+		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
-	<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 </TEditorSettings>

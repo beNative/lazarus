@@ -1,4 +1,4 @@
-#Explains how to build Notepas for the specified platforms
+# Explains how to build Notepas for the specified platforms
 
 = Introduction =
 

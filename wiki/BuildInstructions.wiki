@@ -1,0 +1,7 @@
+#Explains how to build Notepas for the specified platforms
+
+= Introduction =
+
+This page explains how you can build your own copy of the Notepas binary from the svn sources.
+
+The instructions below show how to build NotePas on a Windows machine but you can also build it on a Linux or Mac OS X machine.

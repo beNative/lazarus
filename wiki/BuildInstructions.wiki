@@ -3,3 +3,8 @@
 This page explains how you can build your own copy of the Notepas binary from the svn sources.
 
 The instructions below show how to build NotePas on a Windows machine but you can also build it on a Linux or Mac OS X machine.
+
+
+You need the 2.7.1 version of the FPC compiler which can be found here:
+
+[ftp://ftp.stack.nl/mirrors/fpc/snapshot/v27/i386-win32/fpc-2.7.1.i386-win32.zip]

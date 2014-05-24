@@ -24,3 +24,9 @@ For Windows users I recommend [http://tortoisesvn.net/downloads.html TortoiseSVN
 http://notepas.googlecode.com/svn/wiki/images/svn%20checkout.png
 
 http://notepas.googlecode.com/svn/wiki/images/svn%20checkout%20dialog.png
+
+Install packages
+
+Next you will need to install the packages used by Notepas to built it:
+
+[http://wiki.lazarus.freepascal.org/Install_Packages]

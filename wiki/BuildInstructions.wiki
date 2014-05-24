@@ -12,3 +12,9 @@ More detailed instructions on how to install Lazarus can be found here:
 Because the code uses some new language features which are not yet supported in the FPC compiler shipped with Lazarus (version 2.6.4) you will need to download FPC version 2.7.1, which can be found here:
 
 [ftp://ftp.stack.nl/mirrors/fpc/snapshot/v27/i386-win32/fpc-2.7.1.i386-win32.zip]
+
+Next you can checkout the sourcecode using SVN:
+
+{{{{
+svn checkout http://notepas.googlecode.com/svn/
+}}}}

@@ -15,8 +15,8 @@ Because the code uses some new language features which are not yet supported in 
 
 Next you can checkout the sourcecode using SVN:
 
-{{{{
+{{{
 svn checkout http://notepas.googlecode.com/svn/
-}}}}
+}}}
 
 For Windows users I recommend [TortoiseSVN|http://tortoisesvn.net/downloads.html] which is a powerful SVN client which integrates in the Windows shell.

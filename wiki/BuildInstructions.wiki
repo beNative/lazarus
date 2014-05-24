@@ -21,6 +21,6 @@ svn checkout http://notepas.googlecode.com/svn/
 
 For Windows users I recommend [http://tortoisesvn.net/downloads.html TortoiseSVN] which is a powerful open source SVN client which integrates in the Windows shell.
 
-[http://code.google.com/p/notepas/source/browse/wiki/images/svn%20checkout.png]
+http://notepas.googlecode.com/svn/wiki/images/svn%20checkout.png
 
-[http://code.google.com/p/notepas/source/browse/wiki/images/svn%20checkout%20dialog.png]
+http://notepas.googlecode.com/svn/wiki/images/svn%20checkout%20dialog.png

@@ -2,7 +2,6 @@
 * Fixed 'Save as' dialog problem.
 * Added support for Arduino sketches.
 
-
 2014.03.15 (0.9.38)
 * Fixed memory leak in XML formatter and replaced it with a faster XML engine.
 * Fixed problem with parsing commandline parameters.

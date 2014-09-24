@@ -672,8 +672,9 @@ end;
 
 procedure TfrmMain.InitDebugAction(const AActionName: string);
 begin
-  Actions[AActionName].Enabled := Settings.DebugMode;
-  Actions[AActionName].Visible := Settings.DebugMode;
+  Actions[AActionName].Enabled      := Settings.DebugMode;
+  Actions[AActionName].Visible      := Settings.DebugMode;
+  Actions['actRecordMacro'].Visible := Settings.DebugMode;
 end;
 {$endregion}
 

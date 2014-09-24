@@ -102,8 +102,8 @@
 								<FrameEdges>sfeAround</FrameEdges>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmDelphi</CompilerMode>
-							<NestedComments>false</NestedComments>
+							<CompilerMode>pcmObjFPC</CompilerMode>
+							<NestedComments>true</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -255,8 +255,8 @@
 						</TSynXMLSyn>
 					</Components>
 					<Highlighter>XML</Highlighter>
-					<BlockCommentStartTag>??? !--</BlockCommentStartTag>
-					<BlockCommentEndTag>--???</BlockCommentEndTag>
+					<BlockCommentStartTag>̃� !--</BlockCommentStartTag>
+					<BlockCommentEndTag>--Û</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
 					<Description>XML document</Description>
@@ -1333,8 +1333,8 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>150</Left>
-		<Top>150</Top>
+		<Left>25</Left>
+		<Top>25</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -1342,6 +1342,7 @@
 	</FormSettings>
 	<EditorFont>(TFont)
 		<Height>-13</Height>
-		<Name>Courier New</Name>
+		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 </TEditorSettings>

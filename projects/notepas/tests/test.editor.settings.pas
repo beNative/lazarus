@@ -45,10 +45,10 @@ type
     procedure TestLoadSettings;
     procedure TestSaveSettings;
 
-//    public
     procedure TestLoadSaveSettings;
     procedure TestLoadSaveColors;
     procedure TestLoadSaveHighlighters;
+    procedure TestLoadSaveCommentTags;
     procedure TestLoadSaveHighlighterAttributes;
     procedure TestLoadSaveToolSettings;
 
@@ -74,7 +74,7 @@ var
   C : TComponent;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSettings');
-    Logger.SendComponent(FSettings.ToolSettings);
+  Logger.SendComponent(FSettings.ToolSettings);
   for C in FSettings.ToolSettings do
     Logger.SendComponent(C);
 
@@ -130,7 +130,6 @@ begin
   FSettings.DebugMode := BN;
   FSettings.Save;
 
-  //FSettings.Load;
   LoadSettings;
   CheckEquals(SN, FSettings.HighlighterType);
   CheckEquals(BN, FSettings.DebugMode);
@@ -203,7 +202,6 @@ var
   SN : string;
 begin
   Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighters');
-//  TEditorSettingsFactory.RegisterClasses;
   LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['PAS'];
 
@@ -231,6 +229,46 @@ begin
     FSettings.Save;
   end;
   Logger.ExitMethod('TTestEditorSettings.TestLoadSaveHighlighters');
+end;
+
+procedure TTestEditorSettings.TestLoadSaveCommentTags;
+var
+  HI   : THighlighterItem;
+  LCTO : string;
+  LCTN : string;
+  LCT  : string;
+  SO   : string;
+  SN   : string;
+begin
+  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveCommentTags');
+  LoadSettings;
+  HI := FSettings.Highlighters.ItemsByName['XML'];
+
+  if Assigned(HI) then
+  begin
+    LCT := HI.LineCommentTag;
+    SO := HI.FileExtensions;
+    SN := 'test';
+    HI.FileExtensions := SN;
+    if Assigned(HI.SynHighlighter) then
+      (HI.SynHighlighter as TSynPasSyn).CompilerMode := pcmObjFPC;
+    FSettings.Save;
+
+    LoadSettings;
+    HI := FSettings.Highlighters.ItemsByName['PAS'];
+    CheckEquals(HI.FileExtensions, SN);
+    CheckTrue((HI.SynHighlighter as TSynPasSyn).CompilerMode = pcmObjFPC);
+
+    // restore original values
+    HI.FileExtensions := SO;
+    FSettings.Save;
+
+    LoadSettings;
+    CheckEquals(HI.FileExtensions, SO);
+
+    FSettings.Save;
+  end;
+  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveCommentTags');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveToolSettings;

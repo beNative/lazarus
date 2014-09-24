@@ -5,7 +5,7 @@ program fpcunitnotepas;
 uses
   Interfaces, Forms, GuiTestRunner, Test.Editor.Settings, ts.Core.SharedLogger,
   ts.Core.Logger.Channel.IPC,
-  test.componentstreaming, test.componentstreaming.testcomponents;
+  Test.ComponentStreaming, Test.ComponentStreaming.TestComponents;
 
 {$R *.res}
 
@@ -13,7 +13,6 @@ begin
   {$IFDEF Windows}
     Logger.Channels.Add(TIPCChannel.Create);
   {$ENDIF}
-
 
   Application.Initialize;
   Application.CreateForm(TGuiTestRunner, TestRunner);

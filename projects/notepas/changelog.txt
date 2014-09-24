@@ -1,5 +1,11 @@
+2014.09.24 (0.9.40)
+* Upgraded to Lazarus/LCL version 1.3
+* Upgraded all 3rd party libraries to current versions
+* Added Goto line/char/col action
+
 2014.04.22 (0.9.39)
 * Fixed 'Save as' dialog problem.
+* Minor cosmethic changes and fixes.
 * Added support for Arduino sketches.
 
 2014.03.15 (0.9.38)

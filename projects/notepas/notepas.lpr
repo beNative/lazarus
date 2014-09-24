@@ -33,8 +33,12 @@ uses
   lazrichedit,
   richmemopackage,
 
-  runtimetypeinfocontrols, pascalscript, kcontrols, ExceptionLogger,
-  laz_synapse, lclextensions_package,
+  runtimetypeinfocontrols,
+  pascalscript,
+  kcontrols,
+  ExceptionLogger,
+  laz_synapse,
+  lclextensions_package,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -83,7 +87,6 @@ uses
   ts.Core.Value,
   ts.Core.VersionInfo,
   ts.Core.XMLUtils,
-  ts.Core.Events,
   ts.Core.FileAssociations,
   ts.Core.SystemInfo,
 
@@ -153,7 +156,8 @@ uses
   ts.Editor.Factories.Views,
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
-  ts.Editor.Factories, ts.Editor.Options.Settings;
+  ts.Editor.Factories,
+  ts.Editor.Options.Settings;
 
 {$R *.res}
 

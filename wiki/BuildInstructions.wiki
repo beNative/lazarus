@@ -1,32 +1,8 @@
 = Introduction =
 
-This page explains how you can build your own copy of the Notepas binary from the svn sources.
-
-The instructions below show how to build NotePas on a Windows machine but you can also build it on a Linux or Mac OS X machine.
-
-First you need to install the Lazarus IDE. In this example I use version 1.2.2 of the IDE but any later version should do fine.
-
-More detailed instructions on how to install Lazarus can be found here:
-[http://wiki.lazarus.freepascal.org/Getting_Lazarus].
-
-Because the code uses some new language features which are not yet supported in the FPC compiler shipped with Lazarus (version 2.6.4) you will need to download FPC version 2.7.1, which can be found here:
-
-[ftp://ftp.stack.nl/mirrors/fpc/snapshot/v27/i386-win32/fpc-2.7.1.i386-win32.zip]
-
-Next you can checkout the sourcecode using SVN:
-
-{{{
-svn checkout http://notepas.googlecode.com/svn/
-}}}
-
-For Windows users I recommend [http://tortoisesvn.net/downloads.html TortoiseSVN] which is a powerful open source SVN client which integrates in the Windows shell.
-
-http://notepas.googlecode.com/svn/wiki/images/svn%20checkout.png
-
-http://notepas.googlecode.com/svn/wiki/images/svn%20checkout%20dialog.png
-
-Install packages
-
-Next you will need to install the packages used by Notepas to built it:
-
-[http://wiki.lazarus.freepascal.org/Install_Packages]
+This page explains how you can build your own copy of the Notepas binary from the svn sources with an automated buildscript which is based on the great [fpcup|https://bitbucket.org/reiniero/fpcup] project.
+The idea is to invoke a single executable that will automatically:
+* download the FPC and Lazarus sources for your platform from the source Subversion/SVN repositories,
+* download and install all 3rd party packages needed to build Notepas.
+* make a fresh Lazarus build
+* make a fresh Notepas build for your platform

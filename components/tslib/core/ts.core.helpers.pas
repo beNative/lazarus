@@ -33,9 +33,9 @@ uses
 
   VirtualTrees,
 
-  ts.Core.TreeViewPresenter, ts.Core.DataTemplates,
+  ts.Core.TreeViewPresenter, ts.Core.DataTemplates;
 
-  ts.Components.XMLTree;
+//  ts.Components.XMLTree;
 
 type
 
@@ -286,10 +286,12 @@ type
     ): TTIPropertyGrid; static;
   end;
 
+(*
 function CreateXMLTree(
   AOwner  : TComponent;
   AParent : TWinControl
 ): TXMLTree;
+*)
 
 { Cannot be used yet because the assignment sequence seems to matter. }
 
@@ -320,9 +322,9 @@ implementation
 uses
   Graphics, TypInfo,
 
-  ObjectInspector,
+  ObjectInspector;
 
-  ts.Components.XMLTree.NodeAttributes;
+//  ts.Components.XMLTree.NodeAttributes;
 
 {$region 'TLocalClass' /fold}
 type
@@ -443,6 +445,7 @@ begin
 end;
 {$endregion}
 
+(*
 function CreateXMLTree(AOwner: TComponent; AParent: TWinControl): TXMLTree;
 var
   XT: TXMLTree;
@@ -454,6 +457,7 @@ begin
     clCream;
   Result := XT;
 end;
+*)
 
 function CreateTVP(AOwner: TComponent; AVST: TVirtualStringTree;
   AItemsSource: TObjectList; AItemTemplate: IDataTemplate): TTreeViewPresenter;

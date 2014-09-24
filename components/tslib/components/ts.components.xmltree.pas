@@ -43,7 +43,7 @@ interface
 {$ENDIF}
 
 uses
-  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList, Messages,
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, ImgList,
 {$IFDEF FPC}
   LMessages,
 {$ENDIF}
@@ -63,6 +63,7 @@ type
   NativeUint = PtrInt;
   TWMChar    = TLMChar;
 {$ENDIF}
+
 
 const
   // Helper message to decouple node change handling from edit handling.
@@ -86,6 +87,7 @@ const
   DEFAULT_FGCOLOR_ATTRIBUTE = clBlack;
   DEFAULT_FGCOLOR_ELEMENT   = clBlack;
   DEFAULT_FGCOLOR_NODE      = clBlack;
+
 {$region 'default VST options' /fold}
 const
   DEFAULT_VST_SELECTIONOPTIONS = [
@@ -717,9 +719,9 @@ type
     {$endregion}
   end;
 
-//*****************************************************************************
 
 implementation
+
 
 uses
 {$IFDEF FPC}
@@ -788,6 +790,7 @@ const
     xeQuotedText,
     xeEndTag
   ];
+
 
 {$region 'TXmlNodeHelper' /fold}
 
@@ -2099,5 +2102,6 @@ begin
   inherited;
 end;
 {$endregion}
+
 
 end.

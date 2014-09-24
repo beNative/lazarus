@@ -62,7 +62,7 @@ uses
 procedure TfrmStructure.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FXMLTree := CreateXMLTree(Self, pnlXmlTree);
+//  FXMLTree := CreateXMLTree(Self, pnlXmlTree);
 end;
 {$endregion}
 

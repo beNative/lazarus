@@ -265,7 +265,7 @@ begin
   FHAVST              := VST.Create(Self, pnlHALeft);
   FHLVST              := VST.Create(Self, pnlHLLeft);
   FTSVST              := VST.Create(Self, pnlTSLeft);
-  FXMLTree            := CreateXMLTree(Self, pnlXML);
+//  FXMLTree            := CreateXMLTree(Self, pnlXML);
 
   Settings.AddEditorSettingsChangedHandler(SettingsChangedHandler);
   UpdateControls;
@@ -483,4 +483,4 @@ end;
 {$endregion}
 
 end.
-
+

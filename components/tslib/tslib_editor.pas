@@ -2,34 +2,11 @@
   This source is only used to compile and install the package.
  }
 
-unit tslib;
+unit tslib_editor;
 
 interface
 
 uses
-  ts.Components.DBGridView, ts.Components.Docking.OptionsDialog, 
-  ts.Components.Docking, ts.Components.Docking.Resources, 
-  ts.Components.Docking.Storage, ts.Components.ExportRTF, 
-  ts.Components.FileAssociation, ts.Components.GridView, 
-  ts.Components.Inspector, ts.Components.MultiPanel, ts.Components.SynMiniMap, 
-  ts.Components.UNIHighlighter, ts.Components.UniqueInstance, 
-  ts.Components.VirtualDBTreeEx, ts.Components.XMLTree.Editors, 
-  ts.Components.XMLTree.NodeAttributes, ts.Components.XMLTree, ts.Collections, 
-  ts.Core.BRRE, ts.Core.BRREUnicode, ts.Core.CodecUtilsWin32, 
-  ts.Core.Collections, ts.Core.ColumnDefinitions, 
-  ts.Core.ColumnDefinitionsDataTemplate, ts.Core.DataTemplates, 
-  ts.Core.DBUtils, ts.Core.DirectoryWatch, ts.Core.EncodingUtils, 
-  ts.Core.Events, ts.Core.FileAssociations, ts.Core.FormSettings, 
-  ts.Core.Generics.Collections, ts.Core.Generics.Defaults, 
-  ts.Core.Generics.Hashes, ts.Core.Generics.Helpers, ts.Core.Helpers, 
-  ts.Core.KeyValues, ts.Core.Logger.Channel.IPC, 
-  ts.Core.Logger.Channel.LogFile, ts.Core.Logger, ts.Core.NativeXml.Debug, 
-  ts.Core.NativeXml.ObjectStorage, ts.Core.NativeXml, 
-  ts.Core.NativeXml.Streams, ts.Core.NativeXml.StringTable, 
-  ts.Core.NativeXml.Win32Compat, ts.Core.SharedLogger, ts.Core.SQLParser, 
-  ts.Core.SQLScanner, ts.Core.SQLTree, ts.Core.StringUtils, 
-  ts.Core.TreeViewPresenter, ts.Core.Utils, ts.Core.Value, 
-  ts.Core.VersionInfo, ts.Core.XMLUtils, ts_Core_ComponentInspector, 
   SetupFiltersDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL, 
   ts.Editor.CodeTags, ts.Editor.Commands, ts.Editor.CommentStripper, 
   ts.Editor.Events, ts.Editor.HighlighterAttributes, ts.Editor.Highlighters, 
@@ -68,5 +45,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('tslib', @Register);
+  RegisterPackage('tslib_editor', @Register);
 end.

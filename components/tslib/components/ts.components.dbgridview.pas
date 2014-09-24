@@ -1109,7 +1109,7 @@ end;
 
 function TDBGridColumns.Add: TDBGridColumn;
 begin
-  Result := TDBGridColumn(inherited Add);
+  Result := TDBGridColumn(TCustomGridColumn(inherited Add));
 end;
 
 function TDBGridColumns.Find(AFieldName: string): TDBGridColumn;

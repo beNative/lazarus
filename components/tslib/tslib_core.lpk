@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="tslib_core"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="core"/>
+        <OtherUnitFiles Value="core"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files Count="38">
+      <Item1>
+        <Filename Value="core\ts_core_componentinspector.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="core\ts_core_componentinspector.pas"/>
+        <UnitName Value="ts_Core_ComponentInspector"/>
+      </Item2>
+      <Item3>
+        <Filename Value="core\ts.core.utils.pas"/>
+        <UnitName Value="ts.Core.Utils"/>
+      </Item3>
+      <Item4>
+        <Filename Value="core\ts.core.fileassociations.pas"/>
+        <UnitName Value="ts.Core.FileAssociations"/>
+      </Item4>
+      <Item5>
+        <Filename Value="core\ts.core.formsettings.pas"/>
+        <UnitName Value="ts.Core.FormSettings"/>
+      </Item5>
+      <Item6>
+        <Filename Value="core\ts.core.brre.pas"/>
+        <UnitName Value="ts.Core.BRRE"/>
+      </Item6>
+      <Item7>
+        <Filename Value="core\ts.core.brreunicode.pas"/>
+        <UnitName Value="ts.Core.BRREUnicode"/>
+      </Item7>
+      <Item8>
+        <Filename Value="core\ts.core.codecutilswin32.pas"/>
+        <UnitName Value="ts.Core.CodecUtilsWin32"/>
+      </Item8>
+      <Item9>
+        <Filename Value="core\ts.core.columndefinitions.pas"/>
+        <UnitName Value="ts.Core.ColumnDefinitions"/>
+      </Item9>
+      <Item10>
+        <Filename Value="core\ts.core.columndefinitionsdatatemplate.pas"/>
+        <UnitName Value="ts.Core.ColumnDefinitionsDataTemplate"/>
+      </Item10>
+      <Item11>
+        <Filename Value="core\ts.core.datatemplates.pas"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
+      </Item11>
+      <Item12>
+        <Filename Value="core\ts.core.dbutils.pas"/>
+        <UnitName Value="ts.Core.DBUtils"/>
+      </Item12>
+      <Item13>
+        <Filename Value="core\ts.core.directorywatch.pas"/>
+        <UnitName Value="ts.Core.DirectoryWatch"/>
+      </Item13>
+      <Item14>
+        <Filename Value="core\ts.core.encodingutils.pas"/>
+        <UnitName Value="ts.Core.EncodingUtils"/>
+      </Item14>
+      <Item15>
+        <Filename Value="core\ts.core.helpers.pas"/>
+        <UnitName Value="ts.Core.Helpers"/>
+      </Item15>
+      <Item16>
+        <Filename Value="core\ts.core.keyvalues.pas"/>
+        <UnitName Value="ts.Core.KeyValues"/>
+      </Item16>
+      <Item17>
+        <Filename Value="core\ts.core.logger.channel.ipc.pas"/>
+        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+      </Item17>
+      <Item18>
+        <Filename Value="core\ts.core.logger.channel.logfile.pas"/>
+        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
+      </Item18>
+      <Item19>
+        <Filename Value="core\ts.core.logger.pas"/>
+        <UnitName Value="ts.Core.Logger"/>
+      </Item19>
+      <Item20>
+        <Filename Value="core\ts.core.nativexml.debug.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Debug"/>
+      </Item20>
+      <Item21>
+        <Filename Value="core\ts.Core.NativeXml.inc"/>
+        <Type Value="Include"/>
+      </Item21>
+      <Item22>
+        <Filename Value="core\ts.core.nativexml.objectstorage.pas"/>
+        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
+      </Item22>
+      <Item23>
+        <Filename Value="core\ts.core.nativexml.objectstorage.pas.bak"/>
+        <Type Value="Text"/>
+      </Item23>
+      <Item24>
+        <Filename Value="core\ts.core.nativexml.pas"/>
+        <UnitName Value="ts.Core.NativeXml"/>
+      </Item24>
+      <Item25>
+        <Filename Value="core\ts.core.nativexml.streams.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Streams"/>
+      </Item25>
+      <Item26>
+        <Filename Value="core\ts.core.nativexml.stringtable.pas"/>
+        <UnitName Value="ts.Core.NativeXml.StringTable"/>
+      </Item26>
+      <Item27>
+        <Filename Value="core\ts.core.nativexml.win32compat.pas"/>
+        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
+      </Item27>
+      <Item28>
+        <Filename Value="core\ts.core.sharedlogger.pas"/>
+        <UnitName Value="ts.Core.SharedLogger"/>
+      </Item28>
+      <Item29>
+        <Filename Value="core\ts.core.sqlparser.pas"/>
+        <UnitName Value="ts.Core.SQLParser"/>
+      </Item29>
+      <Item30>
+        <Filename Value="core\ts.core.sqlscanner.pas"/>
+        <UnitName Value="ts.Core.SQLScanner"/>
+      </Item30>
+      <Item31>
+        <Filename Value="core\ts.core.sqltree.pas"/>
+        <UnitName Value="ts.Core.SQLTree"/>
+      </Item31>
+      <Item32>
+        <Filename Value="core\ts.core.stringutils.pas"/>
+        <UnitName Value="ts.Core.StringUtils"/>
+      </Item32>
+      <Item33>
+        <Filename Value="core\ts.core.systeminfo.pas"/>
+        <UnitName Value="ts.Core.SystemInfo"/>
+      </Item33>
+      <Item34>
+        <Filename Value="core\ts.core.treeviewpresenter.pas"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
+      </Item34>
+      <Item35>
+        <Filename Value="core\ts.core.value.pas"/>
+        <UnitName Value="ts.Core.Value"/>
+      </Item35>
+      <Item36>
+        <Filename Value="core\ts.core.versioninfo.pas"/>
+        <UnitName Value="ts.Core.VersionInfo"/>
+      </Item36>
+      <Item37>
+        <Filename Value="core\ts.core.xmlutils.pas"/>
+        <UnitName Value="ts.Core.XMLUtils"/>
+      </Item37>
+      <Item38>
+        <Filename Value="core\ts.core.collections.pas"/>
+        <UnitName Value="ts.Core.Collections"/>
+      </Item38>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="5">
+      <Item1>
+        <PackageName Value="zcomponent"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="virtualtreeview_package"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="LCL"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="FCL"/>
+      </Item5>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

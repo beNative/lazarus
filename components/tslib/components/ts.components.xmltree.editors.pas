@@ -23,7 +23,7 @@ unit ts.Components.XMLTree.Editors;
 interface
 
 uses
-  Messages, SysUtils, Classes, Controls, Forms, StdCtrls, EditBtn,
+  Messages, SysUtils, Classes, Controls, Forms, StdCtrls,
 
   LCLIntf, LCLType,
 
@@ -217,7 +217,7 @@ var
 begin
   // Since we don't want to activate grid extensions in the tree (this would influence how the selection is drawn)
   // we have to set the edit's width explicitly to the width of the column.
-  TXMLTree(FTree).Header.Columns.GetColumnBounds(FColumn, Dummy, R.Right);
+//  TXMLTree(FTree).Header.Columns.GetColumnBounds(FColumn, Dummy, R.Right);
   FEdit.BoundsRect := R;
 end;
 

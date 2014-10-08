@@ -78,40 +78,40 @@ end;
 
 {$region 'protected methods' /fold}
 procedure TfrmPreview.UpdateView;
-//var
-//  SS : TStringStream;
-//  S  : string;
-//  SL : TStringList;
+var
+  SS : TStringStream;
+  S  : string;
+  SL : TStringList;
 begin
- BeginFormUpdate;
+  BeginFormUpdate;
   try
-    //mmoPreview.Clear;
-    //S := View.PreviewText;
-    //if (S <> '') and (View.Editor.Highlighter <> nil) then
-    //begin
-    //  SL := TStringList.Create;
-    //  try
-    //    SL.Text := S;
-    //    S := '';
-    //    SS := TStringStream.Create(S);
-    //    try
-    //      SL.BeginUpdate;
-    //      FSynExporterRTF.UseBackground := True;
-    //      FSynExporterRTF.Font := View.Editor.Font;
-    //      FSynExporterRTF.Highlighter := View.Editor.Highlighter;
-    //      FSynExporterRTF.ExportAsText := True;
-    //      FSynExporterRTF.ExportAll(SL);
-    //      FSynExporterRTF.SaveToStream(SS);
-    //      SS.Position := 0;
-    //      mmoPreview.LoadRichText(SS);
-    //    finally
-    //      SL.EndUpdate;
-    //      FreeAndNil(SS);
-    //    end;
-    //  finally
-    //    FreeAndNil(SL);
-    //  end;
-    //end;
+    mmoPreview.Clear;
+    S := View.PreviewText;
+    if (S <> '') and (View.Editor.Highlighter <> nil) then
+    begin
+      SL := TStringList.Create;
+      try
+        SL.Text := S;
+        S := '';
+        SS := TStringStream.Create(S);
+        try
+          SL.BeginUpdate;
+          FSynExporterRTF.UseBackground := True;
+          FSynExporterRTF.Font := View.Editor.Font;
+          FSynExporterRTF.Highlighter := View.Editor.Highlighter;
+          FSynExporterRTF.ExportAsText := True;
+          FSynExporterRTF.ExportAll(SL);
+          FSynExporterRTF.SaveToStream(SS);
+          SS.Position := 0;
+          mmoPreview.LoadRichText(SS);
+        finally
+          SL.EndUpdate;
+          FreeAndNil(SS);
+        end;
+      finally
+        FreeAndNil(SL);
+      end;
+    end;
   finally
     EndFormUpdate;
   end;

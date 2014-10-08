@@ -291,7 +291,6 @@ begin
   CreateMenuItem(MI, 'actFormat');
   CreateMenuItem(MI, 'actAutoGuessHighlighter');
   CreateMenuItem(MI);
-  CreateMenuItem(MI, 'actCreateDesktopLink');
   CreateMenuItem(MI, 'actMonitorChanges');
   Result := MI;
 end;

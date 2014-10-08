@@ -28,7 +28,7 @@ uses
 
   PropEdits,
 
-  RTTIGrids, RTTICtrls, ButtonPanel,
+  RTTIGrids, RTTICtrls,
 
   VirtualTrees,
 
@@ -126,7 +126,7 @@ type
     FHAVST   : TVirtualStringTree;
     FHLVST   : TVirtualStringTree;
     FTSVST   : TVirtualStringTree;
-    FXMLTree : TXMLTree;
+//    FXMLTree : TXMLTree;
 
     procedure SettingsChangedHandler(ASender: TObject);
 
@@ -174,6 +174,7 @@ uses
 
 resourcestring
   SAttributeName = 'Attribute name';
+  SHighlighter   = 'Highlighter';
   SToolName      = 'Toolname';
 
 const
@@ -234,14 +235,12 @@ end;
 {$endregion}
 
 {$region 'interfaced methods' /fold}
-
 procedure ExecuteSettingsDialog(AOwner: TComponent);
 begin
   if not Assigned(FForm) then
     FForm := TfrmEditorSettings.Create(AOwner);
   FForm.Execute;
 end;
-
 {$endregion}
 
 {$region 'construction and destruction' /fold}
@@ -425,8 +424,8 @@ begin
   tsDebug.TabVisible        := Settings.DebugMode;
   tsXML.TabVisible          := Settings.DebugMode;
   tsHighlighters.TabVisible := Settings.DebugMode;
-  if Settings.DebugMode then
-    FXMLTree.XML := Settings.XML;
+  //if Settings.DebugMode then
+  //  FXMLTree.XML := Settings.XML;
 end;
 
 procedure TfrmEditorSettings.UpdateData;
@@ -446,7 +445,7 @@ begin
   FHATVP.TreeView := FHAVST;
   FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
   FHLTVP.MultiSelect := True;
-  FHLTVP.ColumnDefinitions.AddColumn(NAME, SAttributeName, dtString, 150);
+  FHLTVP.ColumnDefinitions.AddColumn(NAME, SHighlighter, dtString, 150);
   FHLList.Clear;
   for I := 0 to Settings.Highlighters.Count - 1 do
   begin
@@ -460,7 +459,10 @@ begin
   FTSList.Clear;
   for I := 0 to Settings.ToolSettings.Count - 1 do
   begin
-    Logger.Send(Settings.ToolSettings.Components[I].ClassName, TComponent(Settings.ToolSettings.Components[I]).Name);
+    Logger.Send(
+      Settings.ToolSettings.Components[I].ClassName,
+      TComponent(Settings.ToolSettings.Components[I]).Name
+    );
     FTSList.Add(Settings.ToolSettings.Components[I]);
   end;
   FTSTVP.ItemsSource := FTSList;

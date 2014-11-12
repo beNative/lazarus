@@ -3046,6 +3046,7 @@ begin
     // Hide close view actions when there is only one editor view
     B := ViewCount = 1;
     actClose.Enabled       := not B;
+    actClose.Visible       := not B;
     actCloseOthers.Visible := not B;
     { TODO -oTS : Cleanup popup menu (hide orphaned seperators) }
     //

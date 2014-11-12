@@ -219,7 +219,7 @@ type
     function GetProperty(var   Dest : TVarData;
                          const V    : TVarData;
                          const Name : string): Boolean; override;
-    function SetProperty(const V     : TVarData;
+    function SetProperty(var   V     : TVarData;
                          const Name  : string;
                          const Value : TVarData): Boolean; override;
   end;
@@ -312,7 +312,7 @@ end;
 
 //-----------------------------------------------------------------------------
 
-function TVarDataRecordType.SetProperty(const V: TVarData; const Name: string;
+function TVarDataRecordType.SetProperty(var V: TVarData; const Name: string;
   const Value: TVarData): Boolean;
 begin
   Result := True;

@@ -211,9 +211,7 @@
 								<Style>[]</Style>
 							</NamespaceAttributeValueAttri>
 							<TextAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
-								<Style>[]</Style>
 							</TextAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
 								<Foreground>clNone</Foreground>
@@ -408,7 +406,7 @@
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>c,cpp,h,hpp,ino</FileExtensions>
+					<FileExtensions>cpp,h,hpp</FileExtensions>
 					<Description>C++</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="JAVA">
@@ -834,7 +832,7 @@
 					<Highlighter>DIFF</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>diff</FileExtensions>
-					<Description>Diff</Description>
+					<Description>Verschil</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="TEX">
 					<Components>
@@ -847,7 +845,6 @@
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
 							<TextAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
 								<FrameEdges>sfeAround</FrameEdges>
 							</TextAttri>
 							<ControlSequenceAttri>(TSynHighlighterAttributes)
@@ -941,7 +938,7 @@
 					</Components>
 					<Highlighter>LOG</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log</FileExtensions>
+					<FileExtensions>log,txt</FileExtensions>
 					<Description>Log</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
 				</THighlighterItem>
@@ -1325,13 +1322,13 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>PAS</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>175</Left>
-		<Top>175</Top>
-		<Width>1424</Width>
-		<Height>819</Height>
+		<Left>525</Left>
+		<Top>214</Top>
+		<Width>1149</Width>
+		<Height>855</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>

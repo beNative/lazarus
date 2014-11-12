@@ -267,7 +267,7 @@ begin
   InitializeControls;
   InitializeEvents;
   actCheckForNewVersion.ActionList := Manager.Actions.GetActionList;
-  AddToolButton(FMainToolbar, actCheckForNewVersion);
+  //AddToolButton(FMainToolbar, actCheckForNewVersion);
   if ParamCount > 0 then
   begin
     for I := 1 to Paramcount do

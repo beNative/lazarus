@@ -1,3 +1,7 @@
+2014.11.12 (0.9.41)
+* some minor menu adjustments
+* Upgraded all 3rd party libraries to current versions
+
 2014.09.24 (0.9.40)
 * Upgraded to Lazarus/LCL version 1.3
 * Upgraded all 3rd party libraries to current versions

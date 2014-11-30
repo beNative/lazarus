@@ -75,25 +75,22 @@ unit ts.Components.SynMiniMap;
 interface
 
 uses
-   SysUtils
-   {$IFDEF Windows}
-  ,Windows
-   {$ENDIF}
-  ,Classes
-  , StdCtrls, Forms
-  ,Controls
-  ,Graphics
+  {$IFDEF Windows}
+  Windows,
+  {$ENDIF}
+  SysUtils, Classes, StdCtrls, Forms, Controls, Graphics, GraphMath,
 
-   ,GraphMath
+  SynEdit, LazSynEditText;
 
-  ,SynEdit, LazSynEditText;
+type
+  TBitmap = Graphics.TBitmap;
 
 const
-  SYNMINIMAP_DEFAULT_HEIGHT = 4000;
-  SYNMINIMAP_DEFAULT_WIDTH = 200;
-  SYNMINIMAP_DEFAULT_FONTFACTOR = 5;
-  SYNMINIMAP_FONTFACTOR_MIN = 1; //2
-  SYNMINIMAP_FONTFACTOR_MAX = 10; //4
+  SYNMINIMAP_DEFAULT_HEIGHT           = 4000;
+  SYNMINIMAP_DEFAULT_WIDTH            = 200;
+  SYNMINIMAP_DEFAULT_FONTFACTOR       = 5;
+  SYNMINIMAP_FONTFACTOR_MIN           = 1; //2
+  SYNMINIMAP_FONTFACTOR_MAX           = 10; //4
   SYNMINIMAP_DEFAULT_OPTIONS_TABWIDTH = 4;
 
 type
@@ -460,7 +457,7 @@ begin
   //Windows.GetCursorPos(LPoint);
   //LPoint := Self.ScreenToClient(LPoint);
   //Result := TranslatePoint(@LPoint);
-  Result := Point(0, 0);
+  Result := Classes.Point(0, 0);
 end;
 
 function TSynMiniMap.GetPixelFormat: TPixelFormat;

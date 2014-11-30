@@ -382,6 +382,8 @@ end;
 { Registers a new highlighter or updates an exiting one if the corresponding
   properties are not assigned yet. }
 
+  { TODO: ASynHighlighter is of no use? }
+
 procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   TSynHighlighterClass; ASynHighlighter: TSynCustomHighlighter;
   const AName: string; const AFileExtensions: string;

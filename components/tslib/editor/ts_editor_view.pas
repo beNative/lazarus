@@ -2180,23 +2180,30 @@ begin
   end;
 end;
 
+{  When IsFile is true this loads the given filenameinto the editor view. When
+  IsFile is false, the given storagename is passed to an event which can be
+  handled by the owning application to load the content from another resource
+  like eg. a database table. }
+
 procedure TEditorView.Load(const AStorageName: string);
 var
   S  : string;
   FS : TFileStream;
 begin
   Events.DoLoad(AStorageName);
-  if IsFile and FileExists(AStorageName) then
+  if IsFile then
   begin
-    FileName := AStorageName;
-    FS := TFileStream.Create(AStorageName, fmOpenRead + fmShareDenyNone);
+    if (AStorageName <> '') and FileExists(AStorageName) then
+      FileName := AStorageName;
+
+    FS := TFileStream.Create(FileName, fmOpenRead + fmShareDenyNone);
     try
       LoadFromStream(FS);
     finally
       FreeAndNil(FS);
     end;
     LineBreakStyle := ALineBreakStyles[GuessLineBreakStyle(Text)];
-    S := ExtractFileExt(AStorageName);
+    S := ExtractFileExt(FileName);
     S := System.Copy(S, 2, Length(S));
     try
       if FileIsText(FileName) then

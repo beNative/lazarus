@@ -68,16 +68,16 @@ const
   // comma separated lists of supported file extensions (no spaces)
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
   FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk';
-  FILE_EXTENSIONS_CPP  = 'cpp,h,hpp,' +          // C++
-                         'c,' +                  // regular C
-                         'ino';                  // Arduino sketch
-  FILE_EXTENSIONS_JAVA = 'java';
-  FILE_EXTENSIONS_SQL  = 'sql';
+  FILE_EXTENSIONS_CPP  = 'cpp,hpp,' +            // C++
+                         'c,h' +                 // regular C
+                         'ino,pde';              // Arduino sketch
+  FILE_EXTENSIONS_JAVA = 'java';                 // Java source file
+  FILE_EXTENSIONS_SQL  = 'sql';                  // SQL script source file
   FILE_EXTENSIONS_XML  = 'xml,' +                // General XML file
                          'dtd,' +                // Document Type Definition
                          'xsd,' +                // XML Schema Definition
                          'xslt,' +               // XSL Transform file
-                         'hgl,' +                // Highlighter
+                         'hgl,' +                // Highlighter (synunisyn)
                          'lpi,lps,lpk,' +        // Lazarus
                          'fpc,compiled' +        // FPC Make
                          'dproj,groupproj,' +    // Delphi
@@ -92,7 +92,7 @@ const
                          'xltx,' +               // Excel Template
                          'xltm,' +               // Excel Macro-Enabled Template
                          'xlam,' +               // Excel Add-In
-                         'pptx,' +               //  Open XML Presentation
+                         'pptx,' +               // Open XML Presentation
                          'pptm,' +               // PowerPoint Macro-Enabled Presentation
                          'potx,'  +              // PowerPoint Template
                          'potm,'  +              // PowerPoint Macro-Enabled Template
@@ -106,7 +106,10 @@ const
                          'vstx,' +               // Visio Template
                          'vstm,' +               // Visio Macro-Enabled Template
                          'sgml,' +               // Standard Generalized Markup Language
-                         'xmmap';                // Mindjet MindManager
+                         'xmmap,' +              // Mindjet MindManager
+                         'vcxproj,' +            // Visual C++ Project file
+                         'vcxproj.filters,' +    // Visual C++ Project filters
+                         'cpppjoj';              // C++ Project file
   FILE_EXTENSIONS_LFM  = 'dfm,' +                // Delphi VCL form
                          'lfm,' +                // Lazarus LCL form
                          'fmx';                  // Delphi Firemonkey form

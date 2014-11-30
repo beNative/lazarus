@@ -65,14 +65,14 @@ type
   ) of object;
 
   TStorageEvent = procedure(
-        Sender       : TObject;
-    var AStorageName : string
+        Sender : TObject;
+    var AName  : string
   ) of object;
 
   TNewEvent = procedure(
-          Sender       : TObject;
-    var   AStorageName : string;
-    const AText        : string
+          Sender : TObject;
+    var   AName  : string;
+    const AText  : string
   ) of object;
 
   TOpenOtherInstanceEvent = procedure(

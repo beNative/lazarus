@@ -95,7 +95,7 @@ uses
 
   LCLType,
 
-  SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder,
+  SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder, SynEditKeyCmds,
 
   //PascalScript
   uPSComponent, uPSCompiler, uPSRuntime, uPSUtils, uPSR_std, uPSC_std,
@@ -109,8 +109,7 @@ uses
   ts.Editor.Types, ts.Editor.Interfaces, ts_Editor_Resources,
   ts.Editor.Highlighters, ts_Editor_View,
 
-  ts.Core.SharedLogger, ts.Core.Utils,
-  SynEditKeyCmds;
+  ts.Core.SharedLogger, ts.Core.Utils;
 
 type
   { TdmEditorManager }
@@ -2685,6 +2684,8 @@ begin
   if AName <> '' then
     V.Name := AName;
   V.FileName := AFileName;
+  if FileExistsUTF8(V.FileName) then
+    V.Load;
   V.HighlighterName := AHighlighter;
   V.Form.Caption := '';
   ViewList.Add(V);
@@ -3046,7 +3047,6 @@ begin
     // Hide close view actions when there is only one editor view
     B := ViewCount = 1;
     actClose.Enabled       := not B;
-    actClose.Visible       := not B;
     actCloseOthers.Visible := not B;
     { TODO -oTS : Cleanup popup menu (hide orphaned seperators) }
     //
@@ -3176,11 +3176,13 @@ begin
   end;
 end;
 
+{ Called by actOpen. }
+
 function TdmEditorManager.OpenFile(const AFileName: string): IEditorView;
 var
   V : IEditorView;
 begin
-  Events.DoLoad(AFileName);
+  Events.DoOpen(AFileName);
   { Check if the file is already opened in a view. }
   V := ViewByFileName[AFileName];
   if Assigned(V) then
@@ -3189,12 +3191,14 @@ begin
   begin
     if FileExistsUTF8(AFileName) then
     begin
-      V := AddView('', AFileName);
+      V := AddView;
       V.Load(AFileName);
     end;
     Result := V;
   end;
 end;
+
+{ Called by actNew. }
 
 function TdmEditorManager.NewFile(const AFileName: string;
   const AText: string): IEditorView;

@@ -358,12 +358,21 @@ type
     property FoldLevel: Integer
       read GetFoldLevel write SetFoldLevel;
 
+    { If IsFile=True then this property holds the content's filename. In the
+      other case it is a name that corresponds to content provided by the owning
+      application. This name can eg. be associated with a database resource to
+      load the content from. }
     property FileName: string
       read GetFileName write SetFileName;
 
+    { Component name of the editor view }
+    property Name: string
+      read GetName write SetName;
+
     { Determines if the view content is stored in a file. If True the content
       will be laoded and saved to a file using the FileName property. If False
-      this is delegated to the owning instance. }
+      this is delegated to the owning instance that can provide the content
+      from another resource like eg. a database. }
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
 
@@ -520,6 +529,7 @@ type
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnLoad: TStorageEvent;
+    function GetOnOpen: TStorageEvent;
     function GetOnOpenOtherInstance: TOpenOtherInstanceEvent;
     function GetOnSave: TStorageEvent;
     function GetOnShowEditorToolView: TEditorToolViewEvent;
@@ -531,6 +541,7 @@ type
     function GetOnNew: TNewEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     procedure SetOnNew(const AValue: TNewEvent);
+    procedure SetOnOpen(AValue: TStorageEvent);
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnSave(const AValue: TStorageEvent);
     procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
@@ -553,6 +564,7 @@ type
     procedure DoHideToolView(AToolView: IEditorToolView);
     procedure DoChange;
     procedure DoModified;
+    procedure DoOpen(const AName: string);
     procedure DoSave(const AName: string);
     procedure DoLoad(const AName: string);
     procedure DoNew(
@@ -593,6 +605,9 @@ type
 
     property OnNew: TNewEvent
       read GetOnNew write SetOnNew;
+
+    property OnOpen: TStorageEvent
+      read GetOnOpen write SetOnOpen;
 
     property OnSave: TStorageEvent
       read GetOnSave write SetOnSave;

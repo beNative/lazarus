@@ -395,6 +395,11 @@ begin
     'http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'
   );
   AddCredit(
+    'SynFacilSyn',
+    '',
+    ''
+  );
+  AddCredit(
     'SynUniHighlighter',
     'Original implementation by Kirill Burtsev and Vitaly Nevzorov,' + #13#10 +
     'heavily modified and ported to FPC by Tim Sinaeve.',
@@ -415,11 +420,6 @@ begin
     'OMultiPanel',
     'Ondřej Pokorný',
     'http://www.kluug.net/omultipanel.php'
-  );
-  AddCredit(
-    'fpc-generics-collections',
-    'Maciej Izak',
-    'https://code.google.com/p/fpc-generics-collections/'
   );
   AddCredit(
     'KControls',

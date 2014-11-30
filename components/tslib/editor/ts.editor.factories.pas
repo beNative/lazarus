@@ -16,6 +16,12 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
+{
+  TODO:
+    factory for statusbar with customizable sections
+    factory for custom toolbar, popup menus, etc.
+}
+
 unit ts.Editor.Factories;
 
 {$MODE Delphi}

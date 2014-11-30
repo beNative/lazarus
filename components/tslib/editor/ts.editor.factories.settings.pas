@@ -61,6 +61,8 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni,
 
+  SynFacilHighlighter,
+
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
   ts.Editor.AlignLines.Settings,
@@ -112,9 +114,10 @@ end;
 procedure TEditorSettingsFactory.RegisterHighlighters(
   AHighlighters: THighlighters);
 var
-  S: string;
-  F: string;
+  S  : string;
+  F  : string;
   SU : TSynUniSyn;
+  FH : TSynFacilSyn;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
@@ -156,24 +159,21 @@ begin
   Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
   Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
+  Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
 
-  //Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, '#');
+
+
+  Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
     // apply common highlighter attributes
 
 
+{
   S := GetApplicationPath;
-
   F := S + LAYOUT_LOG;
   if FileExistsUTF8(F) then
   begin
     SU := TSynUniSyn.Create(Application);
     Reg(TSynUniSyn, SU, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
-  end;
-  F := S + LAYOUT_INI;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';', '', '', nil, F);
   end;
   F := S + LAYOUT_RTF;
   if FileExistsUTF8(F) then
@@ -205,6 +205,7 @@ begin
     SU := TSynUniSyn.Create(Application);
     Reg(TSynUniSyn, SU, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
   end;
+}
 end;
 
 { Initializes extra information related to the built-in highlighters like
@@ -279,8 +280,10 @@ begin
     TSynDiffSyn,
     TSynTeXSyn,
     TSynUNIXShellScriptSyn,
+    TSynINISyn,
     TSynUniSyn,
-    TSynCustomHighlighter
+    TSynCustomHighlighter,
+    TSynFacilSyn
   ]);
 end;
 {$endregion}

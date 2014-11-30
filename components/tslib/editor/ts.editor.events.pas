@@ -55,8 +55,6 @@ type
     procedure CallEvents(Sender: TObject; X, Y: Integer);
   end;
 
-type
-
   { TEditorEvents }
 
   TEditorEvents = class(TInterfacedObject, IEditorEvents)
@@ -74,10 +72,13 @@ type
     FOnMacroStateChange    : TMacroStateChangeEvent;
     FOnNew                 : TNewEvent;
     FOnLoad                : TStorageEvent;
+    FOnOpen                : TStorageEvent;
     FOnSave                : TStorageEvent;
     FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
     FOnStatusChange        : TStatusChangeEvent;
     FOnStatusMessage       : TStatusMessageEvent;
+    function GetOnOpen: TStorageEvent;
+    procedure SetOnOpen(AValue: TStorageEvent);
 
   strict protected
     function GetView: IEditorView;
@@ -113,10 +114,11 @@ type
     procedure DoOpenOtherInstance(const AParams: array of string); virtual;
     procedure DoStatusMessage(AText: string); virtual;
     procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
+    procedure DoOpen(const AName: string);
     procedure DoSave(const AName: string);
     procedure DoLoad(const AName: string);
     procedure DoNew(
-      const AStorageName : string = '';
+      const AName : string = '';
       const AText        : string = ''
     );
 
@@ -151,12 +153,17 @@ type
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
 
+    { Called when the 'New' action is executed by user }
     property OnNew: TNewEvent
       read GetOnNew write SetOnNew;
 
     { Called when the editor's content is about to be saved. }
     property OnSave: TStorageEvent
       read GetOnSave write SetOnSave;
+
+    { Called when the 'Open file' action is executed by user. }
+    property OnOpen: TStorageEvent
+      read GetOnOpen write SetOnOpen;
 
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;
@@ -229,6 +236,17 @@ end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
+
+function TEditorEvents.GetOnOpen: TStorageEvent;
+begin
+  Result := FOnOpen;
+end;
+
+procedure TEditorEvents.SetOnOpen(AValue: TStorageEvent);
+begin
+  FOnOpen := AValue;
+end;
+
 function TEditorEvents.GetView: IEditorView;
 begin
   Result := FManager as IEditorView;
@@ -395,6 +413,15 @@ begin
     FOnStatusChange(Self, AChanges);
 end;
 
+procedure TEditorEvents.DoOpen(const AName: string);
+var
+  S : string;
+begin
+  S  := AName;
+  if Assigned(FOnOpen) then
+    FOnOpen(Self, S);
+end;
+
 procedure TEditorEvents.DoSave(const AName: string);
 var
   S: string;
@@ -408,6 +435,11 @@ begin
   end;
 end;
 
+{ Called by an editor view to dispatch an event when the editor is about to
+  load a file or other content that corresponds to the given AName.
+  Note that AName is not necessarily a filename but can eg. be a name that
+  corresponds to a database resource to load the text content from. }
+
 procedure TEditorEvents.DoLoad(const AName: string);
 var
   S : string;
@@ -417,11 +449,13 @@ begin
     FOnLoad(Self, S);
 end;
 
-procedure TEditorEvents.DoNew(const AStorageName: string; const AText: string);
+{ Called by the manager instance to dispatch an event when actNew is executed. }
+
+procedure TEditorEvents.DoNew(const AName: string; const AText: string);
 var
   S : string;
 begin
-  S  := AStorageName;
+  S  := AName;
   if Assigned(FOnNew) then
     FOnNew(Self, S, AText);
 end;

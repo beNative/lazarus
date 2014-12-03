@@ -523,10 +523,14 @@ type
 
   { IEditorEvents }
 
+  { TODO: make a seperation of the events and the dispatcher methods? }
+
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
     {$region 'property access methods' /fold}
     function GetOnAddEditorView: TAddEditorViewEvent;
+    function GetOnAfterSave: TStorageEvent;
+    function GetOnBeforeSave: TStorageEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
     function GetOnLoad: TStorageEvent;
     function GetOnOpen: TStorageEvent;
@@ -534,6 +538,8 @@ type
     function GetOnSave: TStorageEvent;
     function GetOnShowEditorToolView: TEditorToolViewEvent;
     procedure SetOnAddEditorView(AValue: TAddEditorViewEvent);
+    procedure SetOnAfterSave(AValue: TStorageEvent);
+    procedure SetOnBeforeSave(AValue: TStorageEvent);
     procedure SetOnHideEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnLoad(const AValue: TStorageEvent);
     procedure SetOnMacroStateChange(const AValue: TMacroStateChangeEvent);
@@ -556,6 +562,7 @@ type
       var AHandled : Boolean
     );
     procedure DoMacroStateChange(AState : TSynMacroState);
+    procedure DoHighlighterChange;
     procedure DoOpenOtherInstance(const AParams: array of string);
     procedure DoAddEditorView(AEditorView: IEditorView);
     procedure DoStatusMessage(AText: string);
@@ -565,7 +572,8 @@ type
     procedure DoChange;
     procedure DoModified;
     procedure DoOpen(const AName: string);
-    procedure DoSave(const AName: string);
+    procedure DoBeforeSave(const AName: string);
+    procedure DoAfterSave(const AName: string);
     procedure DoLoad(const AName: string);
     procedure DoNew(
       const AFileName : string = '';
@@ -578,11 +586,13 @@ type
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
+    procedure AddOnHighlighterChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
+    procedure RemoveOnHighlighterChangeHandler(AEvent: TNotifyEvent);
 
     // events
     property OnAddEditorView: TAddEditorViewEvent
@@ -609,8 +619,11 @@ type
     property OnOpen: TStorageEvent
       read GetOnOpen write SetOnOpen;
 
-    property OnSave: TStorageEvent
-      read GetOnSave write SetOnSave;
+    property OnBeforeSave: TStorageEvent
+      read GetOnBeforeSave write SetOnBeforeSave;
+
+    property OnAfterSave: TStorageEvent
+      read GetOnAfterSave write SetOnAfterSave;
 
     property OnOpenOtherInstance: TOpenOtherInstanceEvent
       read GetOnOpenOtherInstance write SetOnOpenOtherInstance;

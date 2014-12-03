@@ -472,6 +472,7 @@ type
     property Modified: Boolean
       read GetModified write SetModified;
 
+    { Component name }
     property Name: string
       read GetName write SetName;
 
@@ -1155,7 +1156,7 @@ begin
   if AValue <> Encoding then
   begin
     FEncoding := AValue;
-    Modified := True;
+    Modified  := True;
     //if FileExists(FFileName) then
     //  Save(FFileName);
   end;
@@ -1171,7 +1172,7 @@ begin
   if AValue <> LineBreakStyle then
   begin
     FLineBreakStyle := AValue;
-    Modified := True;
+    Modified        := True;
     //if FileExists(FFileName) then
     //  Save(FFileName);
   end;
@@ -1211,7 +1212,7 @@ begin
     end
     else
       FDirectoryWatch.Stop;
-    end;
+  end;
 {$ENDIF}
 end;
 
@@ -1400,6 +1401,7 @@ begin
       // Update editor actions!!!
       Actions.UpdateHighLighterActions;
     end;
+    Events.DoHighlighterChange;
   end;
 end;
 
@@ -1596,8 +1598,8 @@ end;
 
 procedure TEditorView.ApplySettings;
 begin
-  EditorFont       := Settings.EditorFont;
-  ShowSpecialChars := Settings.EditorOptions.ShowSpecialCharacters;
+  EditorFont                   := Settings.EditorFont;
+  ShowSpecialChars             := Settings.EditorOptions.ShowSpecialCharacters;
   Editor.ExtraLineSpacing      := Settings.EditorOptions.ExtraLineSpacing;
   Editor.ExtraCharSpacing      := Settings.EditorOptions.ExtraCharSpacing;
   Editor.BracketHighlightStyle := Settings.EditorOptions.BracketHighlightStyle;
@@ -1697,14 +1699,16 @@ begin
   else
     Editor.Options2 := Editor.Options2 - [eoAutoHideCursor];
 
-  Editor.MouseLinkColor        := Settings.Colors.MouseLinkColor;
-  Editor.BracketMatchColor     := Settings.Colors.BracketMatchColor;
-  Editor.LineHighlightColor    := Settings.Colors.LineHighlightColor;
-  Editor.FoldedCodeColor       := Settings.Colors.FoldedCodeColor;
-  Editor.HighlightAllColor     := Settings.Colors.HighlightAllColor;
-  Editor.SelectedColor         := Settings.Colors.SelectedColor;
-  Editor.IncrementColor        := Settings.Colors.IncrementColor;
-  Editor.RightEdgeColor        := Settings.Colors.RightEdgeColor;
+  Editor.MouseLinkColor     := Settings.Colors.MouseLinkColor;
+  Editor.BracketMatchColor  := Settings.Colors.BracketMatchColor;
+  Editor.LineHighlightColor := Settings.Colors.LineHighlightColor;
+  Editor.FoldedCodeColor    := Settings.Colors.FoldedCodeColor;
+  Editor.HighlightAllColor  := Settings.Colors.HighlightAllColor;
+  Editor.SelectedColor      := Settings.Colors.SelectedColor;
+  Editor.IncrementColor     := Settings.Colors.IncrementColor;
+  Editor.RightEdgeColor     := Settings.Colors.RightEdgeColor;
+
+  Editor.Refresh; // will repaint using the actual highlighter settings
 
   // alternative block selection color?
   //Editor.UseIncrementalColor := False;
@@ -2261,7 +2265,7 @@ procedure TEditorView.Save(const AStorageName: string);
 var
   FS : TFileStream;
 begin
-  Events.DoSave(AStorageName);
+  Events.DoBeforeSave(AStorageName);
   if IsFile then
   begin
     FS := TFileStream.Create(AStorageName, fmCreate);
@@ -2271,6 +2275,7 @@ begin
       FreeAndNil(FS);
     end;
   end;
+  Events.DoAfterSave(AStorageName);
   Modified := False;
 end;
 

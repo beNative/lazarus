@@ -59,12 +59,13 @@ type
 
   TEditorEvents = class(TInterfacedObject, IEditorEvents)
   strict private
-    FManager                : IEditorManager;
-    FChangeEvents           : TMethodList;
-    FModifiedEvents         : TMethodList;
-    FActiveViewChangeEvents : TMethodList;
-    FCaretPositionEvents    : TCaretPositionEvents;
-    FActionExecuteEvents    : TActionExecuteEvents;
+    FManager                 : IEditorManager;
+    FChangeEvents            : TMethodList;
+    FModifiedEvents          : TMethodList;
+    FActiveViewChangeEvents  : TMethodList;
+    FHighlighterChangeEvents : TMethodList;
+    FCaretPositionEvents     : TCaretPositionEvents;
+    FActionExecuteEvents     : TActionExecuteEvents;
 
     FOnAddEditorView       : TAddEditorViewEvent;
     FOnShowEditorToolView  : TEditorToolViewEvent;
@@ -73,14 +74,18 @@ type
     FOnNew                 : TNewEvent;
     FOnLoad                : TStorageEvent;
     FOnOpen                : TStorageEvent;
+    FOnBeforeSave          : TStorageEvent;
+    FOnAfterSave           : TStorageEvent;
     FOnSave                : TStorageEvent;
     FOnOpenOtherInstance   : TOpenOtherInstanceEvent;
     FOnStatusChange        : TStatusChangeEvent;
     FOnStatusMessage       : TStatusMessageEvent;
-    function GetOnOpen: TStorageEvent;
-    procedure SetOnOpen(AValue: TStorageEvent);
 
   strict protected
+    function GetOnOpen: TStorageEvent;
+    procedure SetOnOpen(AValue: TStorageEvent);
+    function GetOnAfterSave: TStorageEvent;
+    function GetOnBeforeSave: TStorageEvent;
     function GetView: IEditorView;
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnHideEditorToolView: TEditorToolViewEvent;
@@ -100,10 +105,13 @@ type
     procedure SetOnOpenOtherInstance(AValue: TOpenOtherInstanceEvent);
     procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
+    procedure SetOnAfterSave(AValue: TStorageEvent);
+    procedure SetOnBeforeSave(AValue: TStorageEvent);
 
     { will get called by owner to trigger the events }
     procedure DoChange; virtual;
     procedure DoModified; virtual;
+    procedure DoHighlighterChange; virtual;
     procedure DoActiveViewChange; virtual;
     procedure DoAddEditorView(AEditorView: IEditorView); virtual;
     procedure DoShowToolView(AToolView: IEditorToolView); virtual;
@@ -115,7 +123,8 @@ type
     procedure DoStatusMessage(AText: string); virtual;
     procedure DoStatusChange(AChanges: TSynStatusChanges); virtual;
     procedure DoOpen(const AName: string);
-    procedure DoSave(const AName: string);
+    procedure DoBeforeSave(const AName: string);
+    procedure DoAfterSave(const AName: string);
     procedure DoLoad(const AName: string);
     procedure DoNew(
       const AName : string = '';
@@ -124,12 +133,14 @@ type
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure AddOnHighlighterChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
 
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnHighlighterChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
@@ -216,11 +227,12 @@ end;
 procedure TEditorEvents.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangeEvents           := TMethodList.Create;
-  FModifiedEvents         := TMethodList.Create;
-  FActiveViewChangeEvents := TMethodList.Create;
-  FCaretPositionEvents    := TCaretPositionEvents.Create;
-  FActionExecuteEvents    := TActionExecuteEvents.Create;
+  FChangeEvents            := TMethodList.Create;
+  FModifiedEvents          := TMethodList.Create;
+  FActiveViewChangeEvents  := TMethodList.Create;
+  FHighlighterChangeEvents := TMethodList.Create;
+  FCaretPositionEvents     := TCaretPositionEvents.Create;
+  FActionExecuteEvents     := TActionExecuteEvents.Create;
 end;
 
 procedure TEditorEvents.BeforeDestruction;
@@ -231,12 +243,12 @@ begin
   FActiveViewChangeEvents.Free;
   FCaretPositionEvents.Free;
   FActionExecuteEvents.Free;
+  FHighlighterChangeEvents.Free;
   inherited BeforeDestruction;
 end;
 {$endregion}
 
 {$region 'property access mehods' /fold}
-
 function TEditorEvents.GetOnOpen: TStorageEvent;
 begin
   Result := FOnOpen;
@@ -245,6 +257,16 @@ end;
 procedure TEditorEvents.SetOnOpen(AValue: TStorageEvent);
 begin
   FOnOpen := AValue;
+end;
+
+function TEditorEvents.GetOnAfterSave: TStorageEvent;
+begin
+  Result := FOnAfterSave;
+end;
+
+function TEditorEvents.GetOnBeforeSave: TStorageEvent;
+begin
+  Result := FOnBeforeSave;
 end;
 
 function TEditorEvents.GetView: IEditorView;
@@ -342,6 +364,17 @@ procedure TEditorEvents.SetOnStatusChange(const AValue: TStatusChangeEvent);
 begin
   FOnStatusChange := AValue;
 end;
+
+procedure TEditorEvents.SetOnAfterSave(AValue: TStorageEvent);
+begin
+  FOnAfterSave := AValue;
+end;
+
+procedure TEditorEvents.SetOnBeforeSave(AValue: TStorageEvent);
+begin
+  FOnBeforeSave := AValue;
+end;
+
 {$endregion}
 
 {$region 'event dispatch methods' /fold}
@@ -353,6 +386,11 @@ end;
 procedure TEditorEvents.DoModified;
 begin
   FModifiedEvents.CallNotifyEvents(Self);
+end;
+
+procedure TEditorEvents.DoHighlighterChange;
+begin
+  FHighlighterChangeEvents.CallNotifyEvents(Self);
 end;
 
 procedure TEditorEvents.DoActiveViewChange;
@@ -422,14 +460,27 @@ begin
     FOnOpen(Self, S);
 end;
 
-procedure TEditorEvents.DoSave(const AName: string);
+procedure TEditorEvents.DoBeforeSave(const AName: string);
 var
   S: string;
 begin
-  if Assigned(FOnSave) then
+  if Assigned(FOnBeforeSave) then
   begin
     S := View.FileName;
-    FOnSave(Self, S);
+    FOnBeforeSave(Self, S);
+    if View.IsFile then
+      View.FileName := S;
+  end;
+end;
+
+procedure TEditorEvents.DoAfterSave(const AName: string);
+var
+  S: string;
+begin
+  if Assigned(FOnAfterSave) then
+  begin
+    S := View.FileName;
+    FOnAfterSave(Self, S);
     if View.IsFile then
       View.FileName := S;
   end;
@@ -472,6 +523,11 @@ begin
   FModifiedEvents.Add(TMethod(AEvent));
 end;
 
+procedure TEditorEvents.AddOnHighlighterChangeHandler(AEvent: TNotifyEvent);
+begin
+  FHighlighterChangeEvents.Add(TMethod(AEvent));
+end;
+
 procedure TEditorEvents.AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
 begin
   FActiveViewChangeEvents.Add(TMethod(AEvent));
@@ -495,6 +551,11 @@ end;
 procedure TEditorEvents.RemoveOnModifiedHandler(AEvent: TNotifyEvent);
 begin
   FModifiedEvents.Remove(TMethod(AEvent));
+end;
+
+procedure TEditorEvents.RemoveOnHighlighterChangeHandler(AEvent: TNotifyEvent);
+begin
+  FHighlighterChangeEvents.Remove(TMethod(AEvent));
 end;
 
 procedure TEditorEvents.RemoveOnActiveViewChangeHandler(AEvent: TNotifyEvent);

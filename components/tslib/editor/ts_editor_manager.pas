@@ -728,9 +728,13 @@ type
     property Views[AIndex: Integer]: IEditorView
       read GetView;
 
+    { Looks for the view with the given component name. If the view is not found
+      the active view is returned. }
     property ViewByName[AName: string]: IEditorView
       read GetViewByName;
 
+    { Looks for the view with the given filename. If the view is not found nil
+      is returned. }
     property ViewByFileName[AFileName: string]: IEditorView
       read GetViewByFileName;
 
@@ -1085,6 +1089,9 @@ begin
     Result := nil;
 end;
 
+{ Looks for the view with the given filename. If the view is not found nil is
+  returned. }
+
 function TdmEditorManager.GetViewByFileName(AFileName: string): IEditorView;
 var
   I: Integer;
@@ -1104,7 +1111,8 @@ begin
     Result := nil;
 end;
 
-{ If the view is not found the active view is returned. }
+{ Looks for the view with the given component name. If the view is not found
+  the active view is returned. }
 
 function TdmEditorManager.GetViewByName(AName: string): IEditorView;
 var
@@ -1949,6 +1957,8 @@ end;
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
   ApplyHighlighterAttributes;
+  //if Assigned(ActiveView) then
+  //  ActiveView.Editor.Refresh;
 end;
 {$endregion}
 
@@ -2902,7 +2912,6 @@ var
   B : Boolean;
   S : string;
 begin
-  Events.DoSave(AFileName);
   S := AFileName;
   B := AShowDialog or not FileExistsUTF8(AFileName);
   if B then // show dialog

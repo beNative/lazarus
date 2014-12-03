@@ -50,50 +50,50 @@ type
 
   TfrmEditorSettings = class(TForm)
     {$region 'designer controls' /fold}
-    aclMain                     : TActionList;
-    actApplySettings: TAction;
-    actAssociate: TAction;
-    actReloadSettings: TAction;
-    actOpenSettingsFile: TAction;
-    btnApply: TButton;
-    btnOpenSettingsFile: TButton;
-    btnReloadSettings: TButton;
-    btnAssociate: TButton;
-    btnClose: TButton;
-    btnOK: TButton;
-    Label1: TLabel;
-    lblAttributeAliases: TLabel;
-    pnlHARightTop: TPanel;
-    pnlHARightBottom: TPanel;
-    pnlToolSettings: TPanel;
-    pnlTSLeft: TPanel;
-    pnlTSRight: TPanel;
-    pnlTSRightBottom: TPanel;
-    pnlHLRightTop: TPanel;
-    imlMain                     : TImageList;
-    pcMain                      : TPageControl;
-    pnlBottom                   : TPanel;
-    pnlHALeft                   : TPanel;
-    pnlHLLeft: TPanel;
-    pnlHARight                  : TPanel;
-    pnlHLRight: TPanel;
-    pnlHighlighterAttributes    : TPanel;
-    pnlHighlighters: TPanel;
-    pnlHLRightBottom: TPanel;
-    pnlTSRightTop: TPanel;
-    pnlPI                       : TPanel;
-    pnlTop                      : TPanel;
-    pnlXML: TPanel;
-    splHAVertical               : TSplitter;
-    splHLVertical: TSplitter;
-    mmoAliasNames: TTIMemo;
-    splHLVertical1: TSplitter;
-    tsToolSettings: TTabSheet;
-    tsHighlighters: TTabSheet;
-    tsDebug: TTabSheet;
-    tsXML: TTabSheet;
+    aclMain                              : TActionList;
+    actApplySettings                     : TAction;
+    actAssociate                         : TAction;
+    actReloadSettings                    : TAction;
+    actOpenSettingsFile                  : TAction;
+    btnApply                             : TButton;
+    btnOpenSettingsFile                  : TButton;
+    btnReloadSettings                    : TButton;
+    btnAssociate                         : TButton;
+    btnClose                             : TButton;
+    btnOK                                : TButton;
+    Label1                               : TLabel;
+    lblAttributeAliases                  : TLabel;
+    pnlHARightTop                        : TPanel;
+    pnlHARightBottom                     : TPanel;
+    pnlToolSettings                      : TPanel;
+    pnlTSLeft                            : TPanel;
+    pnlTSRight                           : TPanel;
+    pnlTSRightBottom                     : TPanel;
+    pnlHLRightTop                        : TPanel;
+    imlMain                              : TImageList;
+    pcMain                               : TPageControl;
+    pnlBottom                            : TPanel;
+    pnlHALeft                            : TPanel;
+    pnlHLLeft                            : TPanel;
+    pnlHARight                           : TPanel;
+    pnlHLRight                           : TPanel;
+    pnlHighlighterAttributes             : TPanel;
+    pnlHighlighters                      : TPanel;
+    pnlHLRightBottom                     : TPanel;
+    pnlTSRightTop                        : TPanel;
+    pnlPI                                : TPanel;
+    pnlTop                               : TPanel;
+    pnlXML                               : TPanel;
+    splHAVertical                        : TSplitter;
+    splHLVertical                        : TSplitter;
+    mmoAliasNames                        : TTIMemo;
+    splHLVertical1                       : TSplitter;
+    tsToolSettings                       : TTabSheet;
+    tsHighlighters                       : TTabSheet;
+    tsDebug                              : TTabSheet;
+    tsXML                                : TTabSheet;
     tsHighlighterAttributes              : TTabSheet;
-    tsSettings                  : TTabSheet;
+    tsSettings                           : TTabSheet;
     {$endregion}
 
     procedure actApplySettingsExecute(Sender: TObject);
@@ -415,7 +415,6 @@ procedure TfrmEditorSettings.SettingsChangedHandler(ASender: TObject);
 begin
   UpdateControls;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -430,7 +429,7 @@ end;
 
 procedure TfrmEditorSettings.UpdateData;
 var
-  I: Integer;
+  I : Integer;
 begin
   FPI.TIObject := (Settings as IInterfaceComponentReference).GetComponent;
   FPI.Update;

@@ -441,10 +441,8 @@ type
   { TResourcesDataModule }
 
   TResourcesDataModule = class(TDataModule)
-    imlFunctionKeys: TImageList;
-    imlMain: TImageList;
-  private
-  public
+    imlFunctionKeys : TImageList;
+    imlMain         : TImageList;
   end;
 
 implementation

@@ -1123,12 +1123,6 @@ begin
   begin
     FHighlighter := AValue;
     Editor.Highlighter := AValue;
-    { TODO -oTS : Should we trigger these events? }
-    //if Editor.Focused and not Editor.Modified then
-    //begin
-    //  Events.DoModified;
-    //end;
-    //Events.DoChange;
   end;
 end;
 
@@ -1157,8 +1151,6 @@ begin
   begin
     FEncoding := AValue;
     Modified  := True;
-    //if FileExists(FFileName) then
-    //  Save(FFileName);
   end;
 end;
 
@@ -1173,8 +1165,6 @@ begin
   begin
     FLineBreakStyle := AValue;
     Modified        := True;
-    //if FileExists(FFileName) then
-    //  Save(FFileName);
   end;
 end;
 
@@ -1398,7 +1388,6 @@ begin
       AValue.Reload;
       Settings.HighlighterType := FHighlighterItem.Highlighter;
       Highlighter := AValue.SynHighlighter;
-      // Update editor actions!!!
       Actions.UpdateHighLighterActions;
     end;
     Events.DoHighlighterChange;

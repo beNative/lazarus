@@ -25,35 +25,39 @@ interface
 
 uses
   Classes, SysUtils, 
-
   Graphics, Controls, StdCtrls,
-  
-  WSStdCtrls;  
-  
+  WSStdCtrls, RichMemo;
+
 type
+  TIntParaAlignment = RichMemo.TParaAlignment;
+  TIntFontParams = RichMemo.TFontParams;
 
-  TChangedFontItems = set of (fiName, fiSize, fiColor, fiBackcolor, fiItalic,
-    fiBold, fiUnderline, fiStrike, fiAlignment, fiIndented); // Added by Massimo Nardello
+type
+  TIntParaMetric = RichMemo.TParaMetric;
+  TIntParaNumbering = RichMemo.TParaNumbering;
 
-  TRichAlignment = set of (trLeft, trRight, trCenter, trJustified); // Added by Massimo Nardello
+  TTabAlignment = (taLeft, taCenter, taRight, taDecimal, taWordBar);
 
-  TIntFontParams = record
-     Name      : String;
-     Size      : Integer;
-     Color     : TColor;
-     BackColor : TColor; // Added by Massimo Nardello
-     Style     : TFontStyles;
-     Alignment : TRichAlignment; // Added by Massimo Nardello
-     Indented  : Integer; // Added by Massimo Nardello
-     Changed   : TChangedFontItems; // Added by Massimo Nardello
-   end;
+  TTabInfo = record
+    Offset : Double;
+    Align  : TTabAlignment;
+  end;
 
+  TIntParaTabs = record
+    Count : Integer;
+    Tabs  : array of TTabInfo;
+  end;
+
+  TIntSearchOpt = record
+    start   : Integer;
+    len     : Integer;
+    Options : TSearchOptions;
+  end;
 
   { TWSCustomRichMemo }
 
   TWSCustomRichMemo = class(TWSCustomMemo)
   published
-
     //Note: RichMemo cannot use LCL TCustomEdit copy/paste/cut operations
     //      because there's no support for (system native) RICHTEXT clipboard format
     //      that's why Clipboard operations are moved to widgetset level
@@ -66,10 +70,27 @@ type
       var Params: TIntFontParams): Boolean; virtual;
     class procedure SetTextAttributes(const AWinControl: TWinControl; TextStart, TextLen: Integer; 
       const Params: TIntFontParams); virtual;
-    class procedure InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); virtual; 
-    class procedure SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean); override;
+    class function GetParaAlignment(const AWinControl: TWinControl; TextStart: Integer;
+      var AAlign: TIntParaAlignment): Boolean; virtual;
+    class procedure SetParaAlignment(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AAlign: TIntParaAlignment); virtual;
+    class function GetParaMetric(const AWinControl: TWinControl; TextStart: Integer;
+      var AMetric: TIntParaMetric): Boolean; virtual;
+    class procedure SetParaMetric(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AMetric: TIntParaMetric); virtual;
+    class function GetParaNumbering(const AWinControl: TWinControl; TextStart: Integer;
+      var ANumber: TIntParaNumbering): Boolean; virtual;
+    class function GetParaRange(const AWinControl: TWinControl; TextStart: Integer; var rng: TParaRange): Boolean; virtual;
+    class procedure SetParaNumbering(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const ANumber: TIntParaNumbering); virtual;
+    class procedure InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); virtual;
+    //class procedure SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean); override;
     class function LoadRichText(const AWinControl: TWinControl; Source: TStream): Boolean; virtual;
     class function SaveRichText(const AWinControl: TWinControl; Dest: TStream): Boolean; virtual;
+
+    class function Search(const AWinControl: TWinControl; const ANiddle: string; const SearchOpts: TIntSearchOpt): Integer; virtual;
+
+    class procedure SetZoomFactor(const AWinControl: TWinControl; AZoomFactor: Double); virtual;
   end;
   TWSCustomRichMemoClass = class of TWSCustomRichMemo;
 
@@ -115,15 +136,62 @@ class procedure TWSCustomRichMemo.SetTextAttributes(const AWinControl: TWinContr
 begin
 end;
 
+class function TWSCustomRichMemo.GetParaAlignment(
+  const AWinControl: TWinControl; TextStart: Integer;
+  var AAlign: TIntParaAlignment): Boolean;
+begin
+  Result := false;
+end;
+
+class procedure TWSCustomRichMemo.SetParaAlignment(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const AAlign: TIntParaAlignment);
+begin
+
+end;
+
+class function TWSCustomRichMemo.GetParaMetric(const AWinControl: TWinControl;
+  TextStart: Integer; var AMetric: TIntParaMetric): Boolean;
+begin
+  Result := false;
+end;
+
+class procedure TWSCustomRichMemo.SetParaMetric(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const AMetric: TIntParaMetric);
+begin
+
+end;
+
+class function TWSCustomRichMemo.GetParaNumbering(
+  const AWinControl: TWinControl; TextStart: Integer;
+  var ANumber: TIntParaNumbering): Boolean;
+begin
+  Result := false;
+end;
+
+class function TWSCustomRichMemo.GetParaRange(const AWinControl: TWinControl;
+  TextStart: Integer; var rng: TParaRange): Boolean;
+begin
+  Result:=False;
+end;
+
+class procedure TWSCustomRichMemo.SetParaNumbering(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const ANumber: TIntParaNumbering);
+begin
+
+end;
+
 class procedure TWSCustomRichMemo.InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); 
 begin
 
 end;
 
-class procedure TWSCustomRichMemo.SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean); 
+{class procedure TWSCustomRichMemo.SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean);
 begin
 
-end;
+end;}
 
 class function TWSCustomRichMemo.LoadRichText(const AWinControl: TWinControl; Source: TStream): Boolean;
 begin
@@ -135,6 +203,17 @@ begin
   Result := false;
 end;
 
+class function TWSCustomRichMemo.Search(const AWinControl: TWinControl; const ANiddle: string;
+  const SearchOpts: TIntSearchOpt): Integer;
+begin
+  Result:=-1;
+end;
+
+class procedure TWSCustomRichMemo.SetZoomFactor(const AWinControl: TWinControl;
+  AZoomFactor: Double);
+begin
+
+end;
 
 end.
 

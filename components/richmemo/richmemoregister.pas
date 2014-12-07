@@ -5,15 +5,54 @@ unit richmemoregister;
 interface
 
 uses
-  Classes, SysUtils, RichMemo, LResources; 
+  Classes, SysUtils, RichMemo, LResources, PropEdits, RtfEditPropDialog, Forms, Controls;
   
 procedure Register;
 
 implementation
 
+type
+
+  { TRichEditProperty }
+
+  TRichEditProperty = class(TPropertyEditor)
+  public
+    procedure Edit; override;
+    function GetAttributes: TPropertyAttributes; override;
+    function GetValue: ansistring; override;
+  end;
+
+
 procedure Register;
 begin
   RegisterComponents('Common Controls', [TRichMemo]);
+  RegisterPropertyEditor(TypeInfo(AnsiString),(TRichMemo), 'Rtf', TRichEditProperty);
+end;
+
+{ TRichEditProperty }
+
+procedure TRichEditProperty.Edit;
+var
+  TheDialog : TRTFEditDialog;
+begin
+  TheDialog :=TRTFEditDialog.Create(nil);
+  try
+    TheDialog.RichMemo1.Rtf:=GetStrValue;
+    if (TheDialog.ShowModal = mrOK) then
+      SetStrValue( TheDialog.RichMemo1.Rtf );
+  finally
+    TheDialog.Free;
+  end;
+end;
+
+function TRichEditProperty.GetAttributes: TPropertyAttributes;
+begin
+  Result := [paDialog, paRevertable, paReadOnly];
+end;
+
+function TRichEditProperty.GetValue: ansistring;
+begin
+  Result:='(Rich Text)';
 end;
 
 initialization

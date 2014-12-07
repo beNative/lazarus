@@ -25,23 +25,44 @@ interface
 
 uses
   // Win32 headers  
-  Windows, 
+  Windows, RichEdit,
   // RTL headers
   Classes, SysUtils, 
   // LCL headers
   LCLType, LCLIntf, LCLProc, WSLCLClasses,
   Graphics, Controls, StdCtrls, 
   // Win32WidgetSet
-  Win32WSControls, Win32Int,
+  Win32WSControls, Win32Int, Win32WSStdCtrls, win32proc,
   // RichMemo headers
-  WSRichMemo, Win32RichMemoProc;
+  RichMemo, WSRichMemo, Win32RichMemoProc;
 
 type  
+
+  { TWin32RichMemoStringsW }
+
+  TWin32RichMemoStringsW = class(TWin32MemoStrings)
+  protected
+    fHandle : HWND;
+    function GetTextStr: string; override;
+  public
+    constructor Create(AHandle: HWND; TheOwner: TWinControl);
+  end;
+
+  { TWin32RichMemoStringsA }
+
+  TWin32RichMemoStringsA = class(TWin32MemoStrings)
+  protected
+    fHandle : HWND;
+    function GetTextStr: string; override;
+  public
+    constructor Create(AHandle: HWND; TheOwner: TWinControl);
+  end;
 
   { TWin32WSCustomRichMemo }
 
   TWin32WSCustomRichMemo = class(TWSCustomRichMemo)
   published
+    class function GetStrings(const ACustomMemo: TCustomMemo): TStrings; override;
     class procedure SetColor(const AWinControl: TWinControl); override;
   
     class procedure SetSelStart(const ACustomEdit: TCustomEdit; NewStart: integer); override;
@@ -61,10 +82,35 @@ type
     class function LoadRichText(const AWinControl: TWinControl; Source: TStream): Boolean; override;
     class function SaveRichText(const AWinControl: TWinControl; Dst: TStream): Boolean; override;
 
+    class function GetParaAlignment(const AWinControl: TWinControl; TextStart: Integer;
+      var AAlign: TParaAlignment): Boolean; override;
+    class procedure SetParaAlignment(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AAlign: TIntParaAlignment); override;
+
+    class function GetParaMetric(const AWinControl: TWinControl; TextStart: Integer;
+      var AMetrics: TIntParaMetric): Boolean; override;
+    class procedure SetParaMetric(const AWinControl: TWinControl; TextStart, TextLength: Integer;
+      const AMetrics: TIntParaMetric); override;
+    class function GetParaRange(const AWinControl: TWinControl; TextStart: Integer;
+      var ParaRange: TParaRange): Boolean; override;
+
+    class function GetParaNumbering(const AWinControl: TWinControl; TextStart: Integer;
+      var ANumber: TIntParaNumbering): Boolean; override;
+    class procedure SetParaNumbering(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const ANumber: TIntParaNumbering); override;
+
     class procedure InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); override;
+
+    class function Search(const AWinControl: TWinControl; const ANiddle: string;
+      const SearchOpts: TIntSearchOpt): Integer; override;
+
+    class procedure SetZoomFactor(const AWinControl: TWinControl; AZoomFactor: Double); override;
   end;
   
 implementation
+
+type
+  TIntCustomRichMemo = class(TCustomRichMemo);
 
 const
   AlignmentToEditFlags: array[TAlignment] of DWord =
@@ -85,20 +131,115 @@ begin
   SendMessage(AHandle, WM_SETREDRAW, 1, 0);
   if NeedInvalidate then 
     Windows.InvalidateRect(AHandle, nil, true);
-end;  
+end;
+
+function RichEditNotifyProc(const AWinControl: TWinControl; Window: HWnd;
+      Msg: UInt; WParam: Windows.WParam; LParam: Windows.LParam;
+      var MsgResult: Windows.LResult; var WinProcess: Boolean): Boolean;
+var
+  sch : PSELCHANGE;
+begin
+  Result:=false; // we need to catch just notifications,
+    // any other message should be handled in a "Default" manner
+    // So, default result is false;
+  case Msg of
+    WM_NOTIFY: begin
+      sch:=PSELCHANGE(LPARAM);
+      if sch^.nmhdr.code=EN_SELCHANGE then
+      begin
+        if Assigned(AWinControl) and (AWinControl is TCustomRichMemo) then
+          TIntCustomRichMemo(AWinControl).DoSelectionChange;
+        Result:=true;
+      end;
+    end;
+  end;
+end;
 
 function RichEditProc(Window: HWnd; Msg: UInt; WParam: Windows.WParam;
    LParam: Windows.LParam): LResult; stdcall;
 begin 
-  if Msg = WM_PAINT then begin
-    //todo: LCL WM_PAINT handling prevents richedit from drawing correctly
-    Result := CallDefaultWindowProc(Window, Msg, WParam, LParam)
-    //Result := WindowProc(Window, Msg, WParam, LParam)
-  end else
+  case Msg of
+    WM_PAINT : begin
+      //todo: LCL WM_PAINT handling prevents richedit from drawing correctly
+      Result := CallDefaultWindowProc(Window, Msg, WParam, LParam)
+      //Result := WindowProc(Window, Msg, WParam, LParam)
+      end;
+  else
     Result := WindowProc(Window, Msg, WParam, LParam);
-end;  
+  end;
+end;
+
+{ TWin32RichMemoStringsW }
+
+constructor TWin32RichMemoStringsW.Create(AHandle: HWND; TheOwner: TWinControl);
+begin
+  inherited Create(AHandle, TheOwner);
+  fHandle:=AHandle;
+end;
+
+function TWin32RichMemoStringsW.GetTextStr: string;
+var
+  p   : GETTEXTLENGTHEX;
+  t   : GETTEXTEX;
+  res : Integer;
+  w   : WideString;
+begin
+  fillchar(p, sizeof(p), 0);
+  p.flags:=GTL_DEFAULT or GTL_PRECISE or GTL_NUMCHARS;
+  res := SendMessageW(fHandle, EM_GETTEXTLENGTHEX, WPARAM(@P), CP_WINUNICODE);
+  if res>0 then begin
+    SetLength(w, res);
+    FillChar(t, sizeof(t), 0);
+    t.cb:=(length(w)+1)*sizeof(WideChar);
+    t.flags:=GT_DEFAULT;
+    t.codepage:=CP_WINUNICODE;
+    res:=SendMessageW(fHandle, EM_GETTEXTEX, WPARAM(@t), LPARAM(@w[1]));
+    Result:=UTF8Encode(w);
+  end else
+    Result:='';
+end;
+
+
+{ TWin32RichMemoStringsA }
+
+constructor TWin32RichMemoStringsA.Create(AHandle: HWND; TheOwner: TWinControl);
+begin
+  inherited Create(AHandle, TheOwner);
+  fHandle:=AHandle;
+end;
+
+function TWin32RichMemoStringsA.GetTextStr: string;
+var
+  p   : GETTEXTLENGTHEX;
+  t   : GETTEXTEX;
+  res : Integer;
+  s   : WideString;
+begin
+  fillchar(p, sizeof(p), 0);
+  p.flags:=GTL_DEFAULT or GTL_PRECISE or GTL_NUMBYTES;
+  res := SendMessageW(fHandle, EM_GETTEXTLENGTHEX, WPARAM(@P), CP_ACP);
+  if res>0 then begin
+    SetLength(s, res);
+    FillChar(t, sizeof(t), 0);
+    t.cb:=length(s)+1;
+    t.flags:=GT_DEFAULT;
+    t.codepage:=CP_ACP;
+    res:=SendMessageW(fHandle, EM_GETTEXTEX, WPARAM(@t), LPARAM(@s[1]));
+    Result:=AnsiToUtf8(s);
+  end else
+    Result:='';
+end;
 
 { TWin32WSCustomRichMemo }
+
+class function TWin32WSCustomRichMemo.GetStrings(const ACustomMemo: TCustomMemo
+  ): TStrings;
+begin
+  if UnicodeEnabledOS then
+    Result := TWin32RichMemoStringsW.Create(ACustomMemo.Handle, ACustomMemo)
+  else
+    Result := TWin32RichMemoStringsA.Create(ACustomMemo.Handle, ACustomMemo);
+end;
 
 class procedure TWin32WSCustomRichMemo.SetColor(const AWinControl: TWinControl);  
 begin
@@ -114,7 +255,7 @@ begin
   range.cpMin := NewStart;
   range.cpMax := NewStart;
   SendMessage(ACustomEdit.Handle, EM_EXSETSEL, 0, LPARAM(@range));
-  InvalidateRect(ACustomEdit.Handle, nil, false);  
+  InvalidateRect(ACustomEdit.Handle, nil, false);
 end;
 
 class procedure TWin32WSCustomRichMemo.SetSelLength(const ACustomEdit: TCustomEdit; NewLength: integer);  
@@ -148,6 +289,7 @@ var
   Params      : TCreateWindowExParams;
   RichClass   : AnsiString;
   ACustomMemo : TCustomMemo;
+  eventmask   : LPARAM;
 begin
   InitRichEdit;
   RichClass := GetRichEditClass;
@@ -158,7 +300,7 @@ begin
 
   // general initialization of Params
 
-  // if you're using 0.9.28.2 compiler, uncomment the line,
+  // if you're using 0.9.28.2 lazarus, uncomment the line,
   // PrepareCreateWindow(AWinControl, Params);
   // and comment the following like (it's for 0.9.30 compatiblity):
   PrepareCreateWindow(AWinControl, AParams, Params);
@@ -195,7 +337,13 @@ begin
   end;
   // create window
   FinishCreateWindow(AWinControl, Params, false);
+
+  eventmask := SendMessage(AWinControl.Handle, EM_GETEVENTMASK, 0, 0);
+  eventmask := eventmask or ENM_SELCHANGE;
+  SendMessage(AWinControl.Handle, EM_SETEVENTMASK, 0, eventmask);
+
   // memo is not a transparent control -> no need for parentpainting
+  PArams.WindowInfo^.ParentMsgHandler := @RichEditNotifyProc;
   Params.WindowInfo^.needParentPaint := false;
   Result := Params.Window;
 end;
@@ -205,10 +353,12 @@ class procedure TWin32WSCustomRichMemo.SetTextAttributes(const AWinControl: TWin
 var
   OrigStart : Integer;
   OrigLen   : Integer;
-  NeedLock  : Boolean;  
+  NeedLock  : Boolean;
+  eventmask : Integer;
 begin
   if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
-  
+
+  eventmask := RichEditManager.SetEventMask(AWinControl.Handle, 0);
   RichEditManager.GetSelection(AWinControl.Handle, OrigStart, OrigLen);
   
   NeedLock := (OrigStart <> TextStart) or (OrigLen <> TextLen);
@@ -220,6 +370,8 @@ begin
     UnlockRedraw(AWinControl.Handle);
   end else 
     RichEditManager.SetSelectedTextStyle(AWinControl.Handle, Params);
+
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
 end;
 
 class function TWin32WSCustomRichMemo.GetTextAttributes(const AWinControl: TWinControl; 
@@ -234,9 +386,8 @@ begin
     Result := false;
     Exit;
   end;
-  
-  eventmask := SendMessage(AWinControl.Handle, EM_GETEVENTMASK, 0, 0);
-  SendMessage(AWinControl.Handle, EM_SETEVENTMASK, 0, 0);
+
+  eventmask := RichEditManager.SetEventMask(AWinControl.Handle, 0);
   
   RichEditManager.GetSelection(AWinControl.Handle, OrigStart, OrigLen);
   
@@ -252,8 +403,8 @@ begin
     Result := RichEditManager.GetSelectedTextStyle(AWinControl.Handle, Params);
     UnlockRedraw(AWinControl.Handle, false);
   end;
-    
-  SendMessage(AWinControl.Handle, EM_SETEVENTMASK, 0, eventmask);
+
+  RichEditManager.SetEventMask(AWinControl.Handle,eventmask);
 end;
 
 
@@ -287,10 +438,9 @@ begin
     Result := false;
     Exit;
   end;
-  
-  eventmask := SendMessage(AWinControl.Handle, EM_GETEVENTMASK, 0, 0);
-  SendMessage(AWinControl.Handle, EM_SETEVENTMASK, 0, 0);
-  
+
+  eventmask := RichEditManager.SetEventMask(AWinControl.Handle, 0);
+
   RichEditManager.GetSelection(AWinControl.Handle, OrigStart, OrigLen);
   LockRedraw(AWinControl.Handle);
   InitScrollInfo(hInfo);
@@ -311,7 +461,7 @@ begin
   RichEditManager.SetSelection(AWinControl.Handle, OrigStart, OrigLen);
   UnlockRedraw(AWinControl.Handle, false);
   
-  SendMessage(AWinControl.Handle, EM_SETEVENTMASK, 0, eventmask);
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
 end;
 
 class function TWin32WSCustomRichMemo.LoadRichText(
@@ -330,10 +480,218 @@ begin
   Result := RichEditManager.SaveRichText(AWinControl.Handle, Dst);
 end;
 
+class function TWin32WSCustomRichMemo.GetParaAlignment(
+  const AWinControl: TWinControl; TextStart: Integer; var AAlign: TParaAlignment
+  ): Boolean;
+var
+  para : PARAFORMAT2;
+  eventmask: Integer;
+begin
+  Result:=false;
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+
+  RichEditManager.GetPara2(AWinControl.Handle, TextStart, para);
+  case para.wAlignment of
+    PFA_CENTER:  AAlign:=paCenter;
+    PFA_RIGHT:   AAlign:=paRight;
+    PFA_JUSTIFY: AAlign:=paJustify;
+  else
+    AAlign:=paLeft;
+  end;
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+
+  Result:=true;
+end;
+
+class procedure TWin32WSCustomRichMemo.SetParaAlignment(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer; const AAlign: TIntParaAlignment);
+var
+  para : PARAFORMAT2;
+  eventmask: Integer;
+const
+  WinPara : array [TIntParaAlignment] of word = (PFA_LEFT, PFA_RIGHT, PFA_CENTER, PFA_JUSTIFY);
+begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+
+  FillChar(para, sizeof(para), 0);
+  para.cbSize:=sizeof(para);
+  para.dwMask:=PFM_ALIGNMENT;
+  para.wAlignment:=WinPara[AAlign];
+  RichEditManager.SetPara2(AWinControl.Handle, TextStart, TextLen, para);
+
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+end;
+
+class function TWin32WSCustomRichMemo.GetParaMetric(
+  const AWinControl: TWinControl; TextStart: Integer;
+  var AMetrics: TIntParaMetric): Boolean;
+var
+  para : PARAFORMAT2;
+  eventmask: Integer;
+begin
+  Result:=false;
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+
+  RichEditManager.GetPara2(AWinControl.Handle, TextStart, para);
+
+  AMetrics.FirstLine:=para.dxStartIndent/20;
+  AMetrics.TailIndent:=para.dxRightIndent/20;
+  AMetrics.HeadIndent:=(para.dxStartIndent+para.dxOffset)/20;
+  AMetrics.SpaceAfter:=para.dySpaceAfter/20;
+  AMetrics.SpaceBefore:=para.dySpaceBefore/20;
+  AMetrics.LineSpacing:=para.dyLineSpacing*DefLineSpacing/20;
+
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+end;
+
+class procedure TWin32WSCustomRichMemo.SetParaMetric(
+  const AWinControl: TWinControl; TextStart, TextLength: Integer;
+  const AMetrics: TIntParaMetric);
+var
+  para : PARAFORMAT2;
+  eventmask: Integer;
+begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  FillChar(para, SizeOf(para), 0);
+
+  para.cbSize:=sizeof(para);
+  para.dwMask:=
+     PFM_STARTINDENT or PFM_RIGHTINDENT
+     or PFM_OFFSET
+     or PFM_SPACEAFTER or PFM_SPACEBEFORE
+     or PFM_LINESPACING;
+  para.dxStartIndent:=round(AMetrics.FirstLine*20);
+  para.dxRightIndent:=round(AMetrics.TailIndent*20);
+  para.dxOffset:=round((AMetrics.HeadIndent-AMetrics.FirstLine)*20);
+    //round(AMetrics.HeadIndent*20);
+  para.dySpaceAfter:=round(AMetrics.SpaceAfter*20);
+  para.dySpaceBefore:=round(AMetrics.SpaceBefore*20);
+  if AMetrics.LineSpacing > 0 then begin
+    para.dyLineSpacing:=round(AMetrics.LineSpacing/DefLineSpacing*20);
+    para.bLineSpacingRule:=5; // always line spacing?
+  end;
+
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+  RichEditManager.SetPara2(AWinControl.Handle, TextStart, TextLength, para);
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+end;
+
+class function TWin32WSCustomRichMemo.GetParaRange(const AWinControl: TWinControl;
+  TextStart: Integer; var ParaRange: TParaRange): Boolean;
+begin
+  if not Assigned(AWinControl) then
+    Result:=False
+  else begin
+    RichEditManager.GetParaRange(AWinControl.Handle, TextStart, ParaRange);
+    Result:=true;
+  end;
+end;
+
+const
+  PFN_ARABIC   = 2;
+  PFN_LCLETTER = 3;
+  PFN_LCROMAN  = 4;
+  PFN_UCLETTER = 5;
+  PFN_UCROMAN  = 6;
+  PFN_CUSTOM   = 7;
+
+class function TWin32WSCustomRichMemo.GetParaNumbering(
+  const AWinControl: TWinControl; TextStart: Integer;
+  var ANumber: TIntParaNumbering): Boolean;
+var
+  para : PARAFORMAT2;
+  eventmask: INteger;
+begin
+  Result:=False;
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+  RichEditManager.GetPara2(AWinControl.Handle, TextStart, para);
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+
+  case para.wNumbering of
+    PFN_BULLET:   ANumber.Numbering:=pnBullet;
+    PFN_ARABIC:   ANumber.Numbering:=pnNumber;
+    PFN_LCLETTER: ANumber.Numbering:=pnLowLetter;
+    PFN_LCROMAN:  ANumber.Numbering:=pnLowRoman;
+    PFN_UCLETTER: ANumber.Numbering:=pnUpLetter;
+    PFN_UCROMAN:  ANumber.Numbering:=pnUpRoman;
+    PFN_CUSTOM:   begin
+      ANumber.Numbering:=pnCustomChar;
+      ANumber.NumCustom:=WideChar(para.wNumberingStart);
+    end;
+  else
+    ANumber.Numbering:=pnNone;
+  end;
+  ANumber.NumIndent:=para.wNumberingTab/20;
+  Result:=true
+end;
+
+class procedure TWin32WSCustomRichMemo.SetParaNumbering(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const ANumber: TIntParaNumbering);
+var
+  para : PARAFORMAT2;
+  eventmask: INteger;
+begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  FillChar(para, SizeOf(para), 0);
+
+  para.cbSize:=sizeof(para);
+  para.dwMask:=
+     PFM_NUMBERING or PFM_NUMBERINGTAB;
+  case ANumber.Numbering of
+    pnNone:       para.wNumbering:=0;
+    pnBullet:     para.wNumbering:=PFN_BULLET;
+    pnNumber:     para.wNumbering:=PFN_ARABIC;
+    pnLowLetter:  para.wNumbering:=PFN_LCLETTER;
+    pnLowRoman:   para.wNumbering:=PFN_LCROMAN;
+    pnUpLetter:   para.wNumbering:=PFN_UCLETTER;
+    pnUpRoman:    para.wNumbering:=PFN_UCROMAN;
+    pnCustomChar: begin
+      para.wNumbering:=PFN_CUSTOM;
+      para.wNumberingStart:=Word(ANumber.NumCustom);
+      para.dwMask:=para.dwMask or PFM_NUMBERINGSTART;
+    end;
+  end;
+
+  para.wNumberingTab:=round(ANumber.NumIndent*20);
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+  RichEditManager.SetPara2(AWinControl.Handle, TextStart, TextLen, para);
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask)
+end;
+
 class procedure TWin32WSCustomRichMemo.InDelText(const AWinControl:TWinControl;
   const TextUTF8:String;DstStart,DstLen:Integer);
+var
+  eventmask : Integer;
 begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
   RichEditManager.SetText(AWinControl.Handle,UTF8Decode(TextUTF8),DstStart,DstLen);
+  RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+end;
+
+class function TWin32WSCustomRichMemo.Search(const AWinControl: TWinControl;
+  const ANiddle: string; const SearchOpts: TIntSearchOpt): Integer;
+begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  Result:=RichEditManager.Find(AWinControl.Handle, UTF8Decode(ANiddle), SearchOpts);
+end;
+
+class procedure TWin32WSCustomRichMemo.SetZoomFactor(
+  const AWinControl: TWinControl; AZoomFactor: Double);
+var
+  DN : WParam;
+begin
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+  DN := 1000;
+  SendMessage( AWinControl.Handle, EM_SETZOOM, round(AZoomFactor * DN), DN);
 end;
  
 end.

@@ -7,7 +7,7 @@ object RichEditorView: TRichEditorView
   ClientHeight = 467
   ClientWidth = 578
   OnShortCut = FormShortCut
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.3'
   object pnlRichEditor: TPanel
     Left = 0
     Height = 467

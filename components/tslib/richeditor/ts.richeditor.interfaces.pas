@@ -25,8 +25,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Menus, ActnList,
 
-//  RichMemo,
-  RichBox,
+  RichMemo,
 
   ts.RichEditor.TextAttributes;
 
@@ -55,12 +54,11 @@ type
     //function GetCaretXY: TPoint;
     //function GetCaretY: Integer;
     //function GetCurrentWord: string;
-    function GetEditor: TlzRichEdit;
+    function GetEditor: TRichMemo;
     function GetFileName: string;
     //function GetFindHistory: TStrings;
     //function GetFindReplaceDialog: TFindReplaceDialog;
     function GetForm: TCustomForm;
-    function GetIndex: Integer;
     //function GetLines: TStrings;
     //function GetLinesInWindow: Integer;
     //function GetLineText: string;
@@ -89,12 +87,7 @@ type
     //function GetTopLine: Integer;
     //procedure SetBlockBegin(const AValue: TPoint);
     //procedure SetBlockEnd(const AValue: TPoint);
-    //procedure SetCaretX(const AValue: Integer);
-    //procedure SetCaretXY(const AValue: TPoint);
-    //procedure SetCaretY(const AValue: Integer);
     procedure SetFileName(const AValue: string);
-//    procedure SetFindReplaceDialog(const AValue: TFindReplaceDialog);
-    procedure SetIndex(const AValue: Integer);
     //procedure SetLines(const AValue: TStrings);
     //procedure SetLineText(const AValue: string);
     //procedure SetLogicalCaretXY(const AValue: TPoint);
@@ -112,7 +105,7 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     //procedure SetText(const AValue: string);
-    //procedure SetTopLine(const AValue: Integer);
+    procedure SetWordWrap(const AValue: Boolean);
     {%endregion}
 
     // methods
@@ -132,12 +125,11 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
-    procedure SetWordWrap(const AValue: Boolean);
     procedure Undo;
     procedure Redo; // not supported yet
 
     // properties
-    property Editor: TlzRichEdit
+    property Editor: TRichMemo
       read GetEditor;
 
     property Form: TCustomForm
@@ -183,9 +175,6 @@ type
 
     property CaretXY: TPoint
       read GetCaretXY write SetCaretXY;
-    //
-    //property LogicalCaretXY: TPoint
-    //  read GetLogicalCaretXY write SetLogicalCaretXY;
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -204,9 +193,6 @@ type
 
     property OnEditingDone: TNotifyEvent
       read GetOnEditingDone write SetOnEditingDone;
-
-    property Index: Integer
-      read GetIndex write SetIndex;
 
     property TextAttributes: TTextAttributes
       read GetTextAttributes;
@@ -257,20 +243,16 @@ type
 
   IRichEditorActions = interface
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
+    {$region 'property access methods' /fold}
     function GetActions: TActionList;
-    //function GetEditorMenu: TMainMenu;
     function GetEditorPopupMenu: TPopupMenu;
-    //function GetExportPopupMenu: TPopupMenu;
-    //function GetFindReplaceDialog: TFindReplaceDialog;
     function GetItem(AName: string): TContainedAction;
-    //function GetPersistSettings: Boolean;
-    //function GetSettings: IEditorSettings;
     function GetActiveView: IRichEditorView;
     function GetViewByName(AName: string): IRichEditorView;
     procedure SetActiveView(const AValue: IRichEditorView);
     function GetView(AIndex: Integer): IRichEditorView;
     function GetViewCount: Integer;
-//    procedure SetPersistSettings(const AValue: Boolean);
+    {$endregion}
 
     procedure UpdateActions;
     procedure OpenFileAtCursor;
@@ -278,8 +260,10 @@ type
     function SaveFile: Boolean;
     procedure LoadFile;
 
-    function AddView(const AName: string = ''; const AFileName: string = '')
-      : IRichEditorView;
+    function AddView(
+      const AName: string = '';
+      const AFileName: string = ''
+    ): IRichEditorView;
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
 
@@ -288,9 +272,6 @@ type
 
     property ViewCount: Integer
       read GetViewCount;
-
-    //property Settings: IEditorSettings
-    //  read GetSettings;
 
     property Items[AName: string]: TContainedAction
       read GetItem; default;
@@ -301,23 +282,11 @@ type
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
 
-    //property EditorMenu: TMainMenu
-    //  read GetEditorMenu;
-
-    //property ExportPopupMenu: TPopupMenu
-    //  read GetExportPopupMenu;
-
     property Views[AIndex: Integer]: IRichEditorView
       read GetView;
 
     property ViewByName[AName: string]: IRichEditorView
       read GetViewByName;
-
-    //property FindReplaceDialog: TFindReplaceDialog
-    //  read GetFindReplaceDialog;
-
-    //property PersistSettings: Boolean
-    //  read GetPersistSettings write SetPersistSettings;
   end;
 
 implementation

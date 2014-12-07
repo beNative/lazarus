@@ -391,7 +391,6 @@ function TEditorCommands.IsHTML(const AString: string): Boolean;
 begin
   Result := False;
 end;
-
 {$endregion}
 
 {$region 'protected methods' /fold}
@@ -407,8 +406,8 @@ end;
 
 procedure TEditorCommands.ToggleHighlighter;
 var
-  I: Integer;
-  N: Integer;
+  I : Integer;
+  N : Integer;
 begin
   if Assigned(View.HighlighterItem) then
   begin

@@ -20,22 +20,25 @@ unit ts.RichEditor.TextAttributes;
 
 {$MODE Delphi}
 
-{ Text attributes for lzRichEdit }
+{ Text attributes for RichMemo }
 
 interface
 
 uses
   Classes, SysUtils, Graphics,
 
-  RichBox;
+  RichMemo;
 
 type
   TTextAttributes = class(TPersistent)
   private
-    FTextParams : RichBox.TTextAttributes;
+    FFontParams    : TFontParams;
+    FParaMetric    : TParaMetric;
+    FParaAlignment : TParaAlignment;
+
     FUpdateLock : Integer;
     FOnUpdate   : TNotifyEvent;
-    FEditor     : TlzRichEdit;
+    FEditor     : TRichMemo;
     FSelStart   : Integer;
     FSelLength  : Integer;
 
@@ -47,7 +50,6 @@ type
     function GetItalic: Boolean;
     function GetName: string;
     function GetSize: Integer;
-    function GetTextParams: RichBox.TTextAttributes;
     function GetUnderline: Boolean;
     procedure SetBold(const AValue: Boolean);
     procedure SetColor(const AValue: TColor);
@@ -59,7 +61,7 @@ type
     function PositionChanged: Boolean;
 
   public
-    constructor Create(AEditor: TlzRichEdit); reintroduce;
+    constructor Create(AEditor: TRichMemo); reintroduce;
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
     procedure UpdateAttributes;
@@ -70,8 +72,8 @@ type
     property OnUpdate: TNotifyEvent
       read FOnUpdate write FOnUpdate;
 
-    property TextParams: RichBox.TTextAttributes
-      read GetTextParams;
+    //property TextParams: RichBox.TTextAttributes
+    //  read GetTextParams;
 
     property Name: string
       read GetName write SetName;
@@ -94,8 +96,8 @@ type
 
 implementation
 
-
-constructor TTextAttributes.Create(AEditor: TlzRichEdit);
+{$region 'construction and destruction' /fold}
+constructor TTextAttributes.Create(AEditor: TRichMemo);
 begin
   inherited Create;
   FEditor := AEditor;
@@ -104,49 +106,50 @@ end;
 procedure TTextAttributes.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FFont := TFont.Create;
 end;
 
 procedure TTextAttributes.BeforeDestruction;
 begin
-  //FreeAndNil(FFont);
   inherited BeforeDestruction;
 end;
+{$endregion}
 
+
+{$region 'property access mehods' /fold}
 function TTextAttributes.GetBold: Boolean;
 begin
-  Result := fsBold in TextParams.Style;
+  Result := fsBold in FFontParams.Style;
 end;
 
 procedure TTextAttributes.SetBold(const AValue: Boolean);
 begin
-//  if AValue <> Bold then
+  if AValue <> Bold then
   begin
     if AValue then
-      FTextParams.Style := FTextParams.Style + [fsBold]
+      FFontParams.Style := FFontParams.Style + [fsBold]
     else
-      FTextParams.Style := FTextParams.Style - [fsBold];
+      FFontParams.Style := FFontParams.Style - [fsBold];
     Changed;
   end;
 end;
 
 function TTextAttributes.GetColor: TColor;
 begin
-  Result := TextParams.Color;
+  Result := FFontParams.Color;
 end;
 
 procedure TTextAttributes.SetColor(const AValue: TColor);
 begin
   if AValue <> Color then
   begin
-    FTextParams.Color := AValue;
+    FFontParams.Color := AValue;
     Changed;
   end;
 end;
 
 function TTextAttributes.GetItalic: Boolean;
 begin
-  Result := fsItalic in TextParams.Style;
+  Result := fsItalic in FFontParams.Style;
 end;
 
 procedure TTextAttributes.SetItalic(const AValue: Boolean);
@@ -154,44 +157,44 @@ begin
   if AValue <> Italic then
   begin
     if AValue then
-      FTextParams.Style := FTextParams.Style + [fsItalic]
+      FFontParams.Style := FFontParams.Style + [fsItalic]
     else
-      FTextParams.Style := FTextParams.Style - [fsItalic];
+      FFontParams.Style := FFontParams.Style - [fsItalic];
     Changed;
   end;
 end;
 
 function TTextAttributes.GetName: string;
 begin
-  Result := TextParams.Name;
+  Result := FFontParams.Name;
 end;
 
 procedure TTextAttributes.SetName(const AValue: string);
 begin
   if AValue <> Name then
   begin
-    FTextParams.Name := AValue;
+    FFontParams.Name := AValue;
     Changed;
   end;
 end;
 
 function TTextAttributes.GetSize: Integer;
 begin
-  Result := TextParams.Size;
+  Result := FFontParams.Size;
 end;
 
 procedure TTextAttributes.SetSize(const AValue: Integer);
 begin
   if AValue <> Size then
   begin
-    FTextParams.Size := AValue;
+    FFontParams.Size := AValue;
     Changed;
   end;
 end;
 
 function TTextAttributes.GetUnderline: Boolean;
 begin
-  Result := fsUnderline in TextParams.Style;
+  Result := fsUnderLine in FFontParams.Style;
 end;
 
 procedure TTextAttributes.SetUnderline(const AValue: Boolean);
@@ -199,18 +202,25 @@ begin
   if AValue <> Underline then
   begin
     if AValue then
-      FTextParams.Style := FTextParams.Style + [fsUnderline]
+      FFontParams.Style := FFontParams.Style + [fsUnderline]
     else
-      FTextParams.Style := FTextParams.Style - [fsUnderline];
+      FFontParams.Style := FFontParams.Style - [fsUnderline];
     Changed;
   end;
 end;
+{$endregion}
 
-function TTextAttributes.GetTextParams: RichBox.TTextAttributes;
-begin
-  UpdateAttributes;
-  Result := FTextParams;
-end;
+
+
+
+
+
+
+//function TTextAttributes.GetTextParams: RichBox.TTextAttributes;
+//begin
+//  UpdateAttributes;
+//  Result := FTextParams;
+//end;
 
 procedure TTextAttributes.Changed;
 begin
@@ -220,13 +230,11 @@ end;
 
 procedure TTextAttributes.DoUpdate;
 begin
-  FEditor.SelAttributes.Assign(FTextParams);
-  //if FEditor.SelLength > 0 then
-  //  FEditor.SelAttributes.Assign(FTextParams);
-  ////SetTextAttributes(FEditor.SelStart, FEditor.SelLength, FTextParams)
-  //else
-  //  FEditor.SetTextAttributes(FEditor.SelStart, 1, FTextParams);
-  //
+  FEditor.SetTextAttributes(
+    FSelStart,
+    FSelLength,
+    FFontParams
+  );
   if Assigned(OnUpdate) then
     OnUpdate(Self);
 end;

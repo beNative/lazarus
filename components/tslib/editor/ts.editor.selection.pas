@@ -179,14 +179,14 @@ begin
   Result := StripLastLineEnding(FLines.Text);
 end;
 
-function TEditorSelection.GetTextSize: Integer;
-begin
-  Result := Length(Text);
-end;
-
 procedure TEditorSelection.SetText(AValue: string);
 begin
   FLines.Text := AValue;
+end;
+
+function TEditorSelection.GetTextSize: Integer;
+begin
+  Result := Length(Text);
 end;
 
 procedure TEditorSelection.SetSelectionMode(AValue: TSynSelectionMode);

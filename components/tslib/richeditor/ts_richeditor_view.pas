@@ -16,13 +16,12 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts_richeditor_view;
+unit ts_RichEditor_View;
 
 {$MODE Delphi}
 
-{ A richtext editor view based on lzRichEdit.
+{ A richtext editor view based on RichMemo.
 
-- lzRichEdit is aimed at Windows
 - RichMemo is platform independent (maybe implement RichMemo version as well)
 
 }
@@ -44,11 +43,14 @@ uses
 
   LCLType, LMessages,
 
-  RichBox,
+  RichMemo,
 
   ts.RichEditor.Interfaces, ts.RichEditor.TextAttributes;
 
 type
+
+  { TRichEditorView }
+
   TRichEditorView = class(TForm, IRichEditorView)
     pnlRichEditor: TPanel;
 
@@ -61,7 +63,7 @@ type
     procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char); reintroduce;
 
   private
-    FEditor         : TlzRichEdit;
+    FEditor         : TRichMemo;
     FActions        : IRichEditorActions;
     FFileName       : string;
     FOnDropFiles    : TDropFilesEvent;
@@ -69,6 +71,7 @@ type
     FOnChange       : TNotifyEvent;
     FTextAttributes : TTextAttributes;
 
+  protected
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
@@ -76,10 +79,9 @@ type
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
     function GetCaretY: Integer;
-    function GetEditor: TlzRichEdit;
+    function GetEditor: TRichMemo;
     function GetFileName: string;
     function GetForm: TCustomForm;
-    function GetIndex: Integer;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
@@ -94,7 +96,6 @@ type
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const AValue: Integer);
     procedure SetFileName(const AValue: string);
-    procedure SetIndex(const AValue: Integer);
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
@@ -142,11 +143,8 @@ type
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
     procedure SaveToFile(const AFileName: string);
-    //procedure SmartSelect;
     procedure BeginUpdate;
     procedure EndUpdate;
-    //procedure StoreBlock;
-    //procedure RestoreBlock;
 
     property Actions: IRichEditorActions
       read GetActions;
@@ -171,7 +169,7 @@ type
     property CanUndo: Boolean
       read GetCanUndo;
 
-    property Editor: TlzRichEdit
+    property Editor: TRichMemo
       read GetEditor;
 
     property FileName: string
@@ -194,9 +192,6 @@ type
 
     property PopupMenu: TPopupMenu
       read GetPopupMenu write SetPopupMenu;
-
-    property Index: Integer
-      read GetIndex write SetIndex;
 
     property Form: TCustomForm
       read GetForm;
@@ -224,22 +219,21 @@ implementation
 uses
   StdCtrls, Clipbrd;
 
+{$region 'construction and destruction' /fold}
 procedure TRichEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
   FActions := Owner as IRichEditorActions;
-  FEditor := TlzRichEdit.Create(Self);
-  FEditor.Parent := pnlRichEditor;
-  FEditor.PlainText := False; //SaveToStream and LoadFromStream save and load in RTF format
-  //FEditor.ActiveRichOle := True; // cannot be set @runtime
-  FEditor.BorderStyle := bsNone;
-  FEditor.ScrollBars := ssAutoBoth;
-  FEditor.Align := alClient;
+  FEditor                := TRichMemo.Create(Self);
+  FEditor.Parent         := pnlRichEditor;
+  FEditor.BorderStyle    := bsNone;
+  FEditor.ScrollBars     := ssAutoBoth;
+  FEditor.Align          := alClient;
   FEditor.DoubleBuffered := True;
-  FEditor.OnChange  := EditorChange;
+  FEditor.OnChange       := EditorChange;
   FEditor.OnEditingDone  := EditorEditingDone;
-  FEditor.OnUTF8KeyPress  := UTF8KeyPress;
-  FEditor.OnClick  := EditorOnClick;
+  FEditor.OnUTF8KeyPress := UTF8KeyPress;
+  FEditor.OnClick        := EditorOnClick;
 
   FTextAttributes := TTextAttributes.Create(FEditor);
   FTextAttributes.OnUpdate  := TextAttributesUpdate;
@@ -250,7 +244,9 @@ begin
   FreeAndNil(FTextAttributes);
   inherited BeforeDestruction;
 end;
+{$endregion}
 
+{$region 'event handlers' /fold}
 procedure TRichEditorView.TextAttributesUpdate(Sender: TObject);
 begin
   //Editor.SetTextAttributes(SelStart, SelEnd - SelStart, TextAttributes.TextParams);
@@ -263,8 +259,8 @@ end;
 
 procedure TRichEditorView.EditorChange(Sender: TObject);
 begin
-  //FTextAttributes.UpdateAttributes;
-//  DoChange;
+  FTextAttributes.UpdateAttributes;
+  DoChange;
 end;
 
 procedure TRichEditorView.EditorEditingDone(Sender: TObject);
@@ -285,8 +281,10 @@ procedure TRichEditorView.FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 begin
   Handled := Actions.Actions.IsShortCut(Msg);
 end;
+{$endregion}
 
-function TRichEditorView.GetEditor: TlzRichEdit;
+{$region 'property access mehods' /fold}
+function TRichEditorView.GetEditor: TRichMemo;
 begin
   Result := FEditor;
 end;
@@ -318,7 +316,7 @@ end;
 
 procedure TRichEditorView.SetCaretX(const AValue: Integer);
 begin
-  //Editor.CaretPos.X := AValue;
+  Editor.CaretPos := Point(AValue, CaretY);
 end;
 
 function TRichEditorView.GetCaretXY: TPoint;
@@ -338,7 +336,7 @@ end;
 
 procedure TRichEditorView.SetCaretY(const AValue: Integer);
 begin
-  //Editor.CaretPos.Y := AValue;
+  Editor.CaretPos := Point(CaretX, AValue);
 end;
 
 function TRichEditorView.GetFileName: string;
@@ -357,16 +355,6 @@ begin
   begin
     FFileName := AValue;
   end;
-end;
-
-function TRichEditorView.GetIndex: Integer;
-begin
-  Result := 0;
-end;
-
-procedure TRichEditorView.SetIndex(const AValue: Integer);
-begin
-//
 end;
 
 function TRichEditorView.GetModified: Boolean;
@@ -471,20 +459,9 @@ procedure TRichEditorView.SetWordWrap(const AValue: Boolean);
 begin
   Editor.WordWrap := AValue;
 end;
+{$endregion}
 
-
-
-procedure TRichEditorView.UpdateActions;
-begin
-  inherited UpdateActions;
-  if Focused then
-  begin
-    Actions.ActiveView := Self as IRichEditorView;
-  end;
-  if Assigned(Actions) then
-    Actions.UpdateActions;
-end;
-
+{$region 'event dispatch methods' /fold}
 procedure TRichEditorView.DoEditingDone;
 begin
   if Assigned(OnEditingDone) then
@@ -496,8 +473,19 @@ begin
   //if Assigned(OnChange) then
   //  OnChange(Self);
 end;
+{$endregion}
 
-
+{$region 'public methods' /fold}
+procedure TRichEditorView.UpdateActions;
+begin
+  inherited UpdateActions;
+  if Focused then
+  begin
+    Actions.ActiveView := Self as IRichEditorView;
+  end;
+  if Assigned(Actions) then
+    Actions.UpdateActions;
+end;
 
 function TRichEditorView.Focused: Boolean;
 begin
@@ -587,14 +575,12 @@ end;
 
 procedure TRichEditorView.LoadFromStream(AStream: TStream);
 begin
-  //Editor.LoadRichText(AStream);
-  Editor.LoadFromStream(AStream);
+  Editor.LoadRichText(AStream);
 end;
 
 procedure TRichEditorView.SaveToStream(AStream: TStream);
 begin
-  //Editor.SaveRichText(AStream);
-  Editor.SaveToStream(AStream);
+  Editor.SaveRichText(AStream);
 end;
 
 procedure TRichEditorView.SaveToFile(const AFileName: string);
@@ -623,6 +609,10 @@ begin
   Editor.EnableAutoSizing;
   Editor.EndUpdateBounds;
 end;
+{$endregion}
+
+
+
 
 end.
 

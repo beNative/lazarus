@@ -32,6 +32,7 @@ type
   TRichEditorViewList = TComponentList;
 
   TdmRichEditorActions = class(TDataModule, IRichEditorActions)
+    {$region 'designer controls' /fold}
     aclActions    : TActionList;
     actBold       : TAction;
     actColor      : TAction;
@@ -66,6 +67,7 @@ type
     mniSave       : TMenuItem;
     mniSaveAs     : TMenuItem;
     ppmRichEditor : TPopupMenu;
+    {$endregion}
 
     procedure actBoldExecute(Sender: TObject);
     procedure actColorExecute(Sender: TObject);
@@ -154,7 +156,7 @@ begin
   Result := dmRichEditorActions;
 end;
 
-
+{$region 'construction and destruction' /fold}
 procedure TdmRichEditorActions.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -168,9 +170,9 @@ begin
   FreeAndNil(FViews);
   inherited BeforeDestruction;
 end;
+{$endregion}
 
-
-
+{$region 'property access mehods' /fold}
 function TdmRichEditorActions.GetActions: TActionList;
 begin
   Result := aclActions;
@@ -235,7 +237,10 @@ function TdmRichEditorActions.GetViewCount: Integer;
 begin
   Result := FViews.Count;
 end;
+{$endregion}
 
+
+{$region 'action handlers' /fold}
 // File
 
 procedure TdmRichEditorActions.actOpenExecute(Sender: TObject);
@@ -331,7 +336,7 @@ end;
 
 procedure TdmRichEditorActions.actItalicExecute(Sender: TObject);
 begin
-if Assigned(ActiveView) then
+  if Assigned(ActiveView) then
   begin
     ActiveView.TextAttributes.Italic := actItalic.Checked;
   end;
@@ -339,7 +344,7 @@ end;
 
 procedure TdmRichEditorActions.actUnderlineExecute(Sender: TObject);
 begin
-if Assigned(ActiveView) then
+  if Assigned(ActiveView) then
   begin
     ActiveView.TextAttributes.Underline := actUnderline.Checked;
   end;
@@ -347,22 +352,26 @@ end;
 
 procedure TdmRichEditorActions.actUndoExecute(Sender: TObject);
 begin
-  //
+  ActiveView.Editor.Undo;
 end;
 
 procedure TdmRichEditorActions.actWordWrapExecute(Sender: TObject);
 begin
   ActiveView.WordWrap := actWordWrap.Checked;
 end;
+{$endregion}
+
+
+
 
 procedure TdmRichEditorActions.UpdateActions;
 begin
-  //if Assigned(ActiveView) then
-  //begin
-  //  actBold.Checked      := ActiveView.TextAttributes.Bold;
-  //  actUnderline.Checked := ActiveView.TextAttributes.Underline;
-  //  actItalic.Checked    := ActiveView.TextAttributes.Italic;
-  //end;
+  if Assigned(ActiveView) then
+  begin
+    actBold.Checked      := ActiveView.TextAttributes.Bold;
+    actUnderline.Checked := ActiveView.TextAttributes.Underline;
+    actItalic.Checked    := ActiveView.TextAttributes.Italic;
+  end;
 end;
 
 procedure TdmRichEditorActions.OpenFileAtCursor;

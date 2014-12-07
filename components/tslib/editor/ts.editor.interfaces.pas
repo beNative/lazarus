@@ -441,7 +441,6 @@ type
     procedure SetText(AValue: string);
 
     procedure Clear;
-
     procedure Store(
       ALockUpdates           : Boolean = True;
       AAutoExcludeEmptyLines : Boolean = False

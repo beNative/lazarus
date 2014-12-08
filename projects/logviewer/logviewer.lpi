@@ -20,7 +20,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="1"/>
+      <BuildNr Value="2"/>
       <StringTable ProductName="Logviewer" ProductVersion="0.0.0.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -58,12 +58,6 @@
               </Win32>
             </Options>
           </Linking>
-          <Other>
-            <CompilerMessages>
-              <UseMsgFile Value="True"/>
-            </CompilerMessages>
-            <CompilerPath Value="$(CompPath)"/>
-          </Other>
         </CompilerOptions>
       </Item2>
     </BuildModes>
@@ -79,31 +73,40 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="7">
+    <RequiredPackages Count="10">
       <Item1>
-        <PackageName Value="atbinhex_lcl"/>
+        <PackageName Value="richmemopackage"/>
       </Item1>
       <Item2>
-        <PackageName Value="luicontrols"/>
+        <PackageName Value="atbinhex_lcl"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="tslib_editor"/>
       </Item3>
       <Item4>
-        <PackageName Value="RunTimeTypeInfoControls"/>
-        <MinVersion Minor="1" Valid="True"/>
+        <PackageName Value="tslib_core"/>
       </Item4>
       <Item5>
-        <PackageName Value="tslib"/>
+        <PackageName Value="tslib_components"/>
       </Item5>
       <Item6>
-        <PackageName Value="SynEdit"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="luicontrols"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCL"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item7>
+      <Item8>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+        <MinVersion Minor="1" Valid="True"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="SynEdit"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item9>
+      <Item10>
+        <PackageName Value="LCL"/>
+      </Item10>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
@@ -156,11 +159,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>

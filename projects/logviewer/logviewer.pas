@@ -6,13 +6,12 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  luicontrols,
-  atbinhex_lcl,
+  luicontrols, atbinhex_lcl,
   Interfaces, // this includes the LCL widgetset
   Forms,
   { add your units here }
   logviewer_forms_main,
-  ts.Core.SharedLogger,
+  ts.Core.SharedLogger, richmemopackage,
   runtimetypeinfocontrols;
 
 {$R *.res}

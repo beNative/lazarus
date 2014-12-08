@@ -48,8 +48,8 @@ interface
 //      - Optimize Watch update (Cache current values?)
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Grids, StdCtrls, ComCtrls, Buttons, Menus, ActnList, RTTIGrids,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Grids,
+  StdCtrls, ComCtrls, Buttons, Menus, ActnList, RTTIGrids,
 
   LResources,
 
@@ -322,7 +322,7 @@ begin
   inherited AfterConstruction;
   FSettings                := TEditorFactories.CreateSettings(Self);
   FManager                 := TEditorFactories.CreateManager(Self, FSettings);
-  //FManager.Settings.Load;
+  FManager.Settings.Load;
   FEditorView              := TEditorFactories.CreateView(pgText,FManager,'Tool');
 
   vtvMessages.NodeDataSize := SizeOf(TNodeData);
@@ -343,6 +343,7 @@ end;
 
 procedure TfrmMain.BeforeDestruction;
 begin
+  FSettings.Save;
   FEditorView := nil;
   FSettings   := nil;
   FManager    := nil;
@@ -544,6 +545,11 @@ begin
       ltMemory:
       begin
         edtHex.OpenStream(ND.MsgData);
+{
+
+
+        }
+
         pgcViewer.PageIndex := 3;
       end;
       else

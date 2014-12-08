@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -1532
+  Left = -1424
   Height = 883
-  Top = 229
+  Top = 129
   Width = 1260
   HorzScrollBar.Page = 889
   VertScrollBar.Page = 584
@@ -10,7 +10,7 @@ object frmMain: TfrmMain
   ClientWidth = 1260
   DefaultMonitor = dmDesktop
   PopupMode = pmAuto
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.3'
   object sbrMain: TStatusBar
     Left = 0
     Height = 23
@@ -73,8 +73,8 @@ object frmMain: TfrmMain
       end
       object pgHexEditor: TTabSheet
         Caption = 'Hex edtor'
-        ClientHeight = 514
-        ClientWidth = 314
+        ClientHeight = 0
+        ClientWidth = 0
         object edtHex: TATBinHex
           Cursor = crIBeam
           Left = 0

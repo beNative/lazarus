@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
+    <BuildModes Active="Release win32 i386 win32"/>
     <Units Count="65">
       <Unit0>
         <Filename Value="logviewer.pas"/>
@@ -26,7 +26,6 @@
         <CursorPos X="13" Y="248"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="logviewer.watchlist.pas"/>
@@ -419,7 +418,7 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit64>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="logviewer_forms_main.pas"/>
         <Caret Line="63" Column="5" TopLine="44"/>
@@ -486,56 +485,52 @@
         <Caret Line="24"/>
       </Position17>
       <Position18>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="325" Column="17" TopLine="567"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="24"/>
       </Position18>
       <Position19>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="24"/>
+        <Caret Line="22" Column="12"/>
       </Position19>
       <Position20>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="22" Column="12"/>
-      </Position20>
-      <Position21>
         <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
         <Caret Line="499" Column="71" TopLine="475"/>
+      </Position20>
+      <Position21>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="25" Column="25"/>
       </Position21>
       <Position22>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="25" Column="25"/>
+        <Caret Line="24"/>
       </Position22>
       <Position23>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="24"/>
+        <Caret Line="25" Column="13"/>
       </Position23>
       <Position24>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="25" Column="13"/>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="49" Column="52" TopLine="32"/>
       </Position24>
       <Position25>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="49" Column="52" TopLine="32"/>
+        <Caret Line="235" Column="17" TopLine="202"/>
       </Position25>
       <Position26>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="235" Column="17" TopLine="202"/>
+        <Caret Line="325" Column="3" TopLine="295"/>
       </Position26>
       <Position27>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="325" Column="3" TopLine="295"/>
-      </Position27>
-      <Position28>
         <Filename Value="logviewer.pas"/>
         <Caret Line="13" Column="5"/>
+      </Position27>
+      <Position28>
+        <Filename Value="logviewer_forms_main.pas"/>
       </Position28>
       <Position29>
-        <Filename Value="logviewer_forms_main.pas"/>
-      </Position29>
-      <Position30>
         <Filename Value="logviewer.pas"/>
         <Caret Line="24"/>
-      </Position30>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

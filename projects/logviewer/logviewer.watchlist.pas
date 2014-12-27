@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -47,13 +47,18 @@ uses
   ts.Core.SharedLogger;
   
 type
-
-  TWatchUpdate = procedure (const AVariable, AValue: String) of object;
-  TNewWatchVariable = procedure (const AVariable: String; AIndex: PtrInt) of object;
+  TWatchUpdate = procedure (
+    const AVariable : string;
+    const AValue    : string
+  ) of object;
+  TNewWatchVariable = procedure (
+    const AVariable : string;
+          AIndex    : PtrInt
+  ) of object;
 
   TVariableValue = record
-    Index: LongWord;
-    Value: String;
+    Index : LongWord;
+    Value : string;
   end;
   
   PVariableValue = ^TVariableValue;
@@ -67,19 +72,19 @@ type
     FList: TFpList;
     FCurrentIndex: Integer;
     function GetCount: Integer;
-    function GetCurrentValue:String;
-    function GetValues(AIndex: Integer): String;
+    function GetCurrentValue:string;
+    function GetValues(AIndex: Integer): string;
   public
-    constructor Create(const AName: String; AIndex: LongWord);
+    constructor Create(const AName: string; AIndex: LongWord);
     destructor Destroy; override;
     {$ifdef DEBUG_WATCHLIST}
     procedure DumpVariable;
     {$endif}
-    procedure AddValue (const AValue: String; AIndex: LongWord);
+    procedure AddValue (const AValue: string; AIndex: LongWord);
     function Find (AIndex: LongWord): Boolean;
-    property Name: String read FName;
-    property CurrentValue: String read GetCurrentValue;
-    property Values[AIndex: Integer]: String read GetValues; default;
+    property Name: string read FName;
+    property CurrentValue: string read GetCurrentValue;
+    property Values[AIndex: Integer]: string read GetValues; default;
     property Count: Integer read GetCount;
   end;
   
@@ -98,8 +103,8 @@ type
   public
     constructor Create;
     destructor Destroy; override;
-    function IndexOf(const AName: String): Integer;
-    procedure Add(const ANameValue: String; AIndex: LongWord; SkipOnNewVariable: Boolean);
+    function IndexOf(const AName: string): Integer;
+    procedure Add(const ANameValue: string; AIndex: LongWord; SkipOnNewVariable: Boolean);
     procedure Clear;
     procedure Update(AIndex: LongWord);
     property OnUpdate: TWatchUpdate read FOnUpdate write FOnUpdate;
@@ -111,12 +116,12 @@ type
 implementation
   {$ifdef DEBUG_WATCHLIST}
    var
-     TempDbgStr:String;
+     TempDbgStr:string;
   {$endif}
 
 { TWatchVariable }
 
-function TWatchVariable.GetCurrentValue: String;
+function TWatchVariable.GetCurrentValue: string;
 begin
   Result := PVariableValue(FList[FCurrentIndex])^.Value;
 end;
@@ -126,12 +131,12 @@ begin
   Result := FList.Count;
 end;
 
-function TWatchVariable.GetValues(AIndex: Integer): String;
+function TWatchVariable.GetValues(AIndex: Integer): string;
 begin
   Result := PVariableValue(FList[AIndex])^.Value;
 end;
 
-constructor TWatchVariable.Create(const AName: String; AIndex: LongWord);
+constructor TWatchVariable.Create(const AName: string; AIndex: LongWord);
 begin
   FList := TFPList.Create;
   FName := AName;
@@ -161,7 +166,7 @@ begin
 end;
 {$endif}
 
-procedure TWatchVariable.AddValue(const AValue: String; AIndex: LongWord);
+procedure TWatchVariable.AddValue(const AValue: string; AIndex: LongWord);
 var
   TempValue: PVariableValue;
 begin
@@ -235,7 +240,7 @@ begin
   FList.Destroy;
 end;
 
-function TWatchList.IndexOf(const AName: String): Integer;
+function TWatchList.IndexOf(const AName: string): Integer;
 var
   I: Integer;
 begin
@@ -250,10 +255,10 @@ begin
   end;
 end;
 
-procedure TWatchList.Add(const ANameValue: String; AIndex: LongWord; SkipOnNewVariable: Boolean);
+procedure TWatchList.Add(const ANameValue: string; AIndex: LongWord; SkipOnNewVariable: Boolean);
 var
   PosEqual,i:Integer;
-  TempStr: String;
+  TempStr: string;
 begin
   PosEqual := Pos('=',ANameValue);
   TempStr := Copy(ANameValue,1,PosEqual-1);

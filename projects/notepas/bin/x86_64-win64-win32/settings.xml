@@ -935,16 +935,6 @@
 					<FileExtensions>sh</FileExtensions>
 					<Description>Shell script</Description>
 				</THighlighterItem>
-				<THighlighterItem Name="LOG">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>LOG</Highlighter>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log</FileExtensions>
-					<Description>Log</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
-				</THighlighterItem>
 				<THighlighterItem Name="INI">
 					<Components>
 						<TSynUniSyn Name="SynHighlighter"/>
@@ -955,6 +945,27 @@
 					<FileExtensions>desktop,fpd,ini,lrt,msg,prop,properties,reg</FileExtensions>
 					<Description>Settings file</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.ini.xml</LayoutFileName>
+				</THighlighterItem>
+				<THighlighterItem Name="SynFacilSyn">
+					<Components>
+						<TSynFacilSyn Name="SynHighlighter">
+							<Enabled>false</Enabled>
+						</TSynFacilSyn>
+					</Components>
+					<Highlighter>SynFacilSyn</Highlighter>
+					<LineCommentTag>;</LineCommentTag>
+					<FormatterSupport>false</FormatterSupport>
+					<Description>Test</Description>
+				</THighlighterItem>
+				<THighlighterItem Name="LOG">
+					<Components>
+						<TSynUniSyn Name="SynHighlighter"/>
+					</Components>
+					<Highlighter>LOG</Highlighter>
+					<FormatterSupport>false</FormatterSupport>
+					<FileExtensions>log</FileExtensions>
+					<Description>Log</Description>
+					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
 				</THighlighterItem>
 				<THighlighterItem Name="RTF">
 					<Components>
@@ -1325,11 +1336,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>PAS</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>250</Left>
-		<Top>250</Top>
+		<Left>100</Left>
+		<Top>100</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

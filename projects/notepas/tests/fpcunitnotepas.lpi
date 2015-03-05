@@ -36,7 +36,7 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="tslib"/>
+        <PackageName Value="tslib_editor"/>
       </Item1>
       <Item2>
         <PackageName Value="FPCUnitTestRunner"/>
@@ -52,7 +52,6 @@
       <Unit0>
         <Filename Value="fpcunitnotepas.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="fpcunitnotepas"/>
       </Unit0>
       <Unit1>
         <Filename Value="test.editor.settings.pas"/>
@@ -93,12 +92,6 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

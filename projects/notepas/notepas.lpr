@@ -30,7 +30,6 @@ uses
   Forms,
   Notepas_Forms_Main,
 
-  lazrichedit,
   richmemopackage,
 
   runtimetypeinfocontrols,
@@ -157,7 +156,7 @@ uses
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
   ts.Editor.Factories,
-  ts.Editor.Options.Settings;
+  ts.Editor.Options.Settings, SynFacilHighlighter;
 
 {$R *.res}
 

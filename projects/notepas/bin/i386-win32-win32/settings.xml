@@ -932,16 +932,6 @@
 					<FileExtensions>sh</FileExtensions>
 					<Description>Shell script</Description>
 				</THighlighterItem>
-				<THighlighterItem Name="LOG">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>LOG</Highlighter>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log,txt</FileExtensions>
-					<Description>Log</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
-				</THighlighterItem>
 				<THighlighterItem Name="INI">
 					<Components>
 						<TSynUniSyn Name="SynHighlighter"/>
@@ -952,6 +942,27 @@
 					<FileExtensions>desktop,fpd,ini,lrt,msg,prop,properties,reg</FileExtensions>
 					<Description>Settings file</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.ini.xml</LayoutFileName>
+				</THighlighterItem>
+				<THighlighterItem Name="SynFacilSyn">
+					<Components>
+						<TSynFacilSyn Name="SynHighlighter">
+							<Enabled>false</Enabled>
+						</TSynFacilSyn>
+					</Components>
+					<Highlighter>SynFacilSyn</Highlighter>
+					<LineCommentTag>;</LineCommentTag>
+					<FormatterSupport>false</FormatterSupport>
+					<Description>Test</Description>
+				</THighlighterItem>
+				<THighlighterItem Name="LOG">
+					<Components>
+						<TSynUniSyn Name="SynHighlighter"/>
+					</Components>
+					<Highlighter>LOG</Highlighter>
+					<FormatterSupport>false</FormatterSupport>
+					<FileExtensions>log,txt</FileExtensions>
+					<Description>Log</Description>
+					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
 				</THighlighterItem>
 				<THighlighterItem Name="RTF">
 					<Components>
@@ -1322,13 +1333,13 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>PAS</HighlighterType>
+	<HighlighterType>LOG</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>525</Left>
-		<Top>214</Top>
-		<Width>1149</Width>
-		<Height>855</Height>
+		<Left>150</Left>
+		<Top>150</Top>
+		<Width>1424</Width>
+		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -1336,4 +1347,5 @@
 		<Height>-15</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 </TEditorSettings>

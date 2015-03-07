@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -110,9 +110,6 @@ type
     procedure btnHighlighterClick(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure btnSelectionModeClick(Sender: TObject);
-    procedure EditorEventsMacroStateChange(Sender: TObject;
-      AState: TSynMacroState);
-    procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormWindowStateChange(Sender: TObject);
@@ -145,13 +142,32 @@ type
     procedure InitDebugAction(const AActionName: string);
 
     // event handlers
-    procedure EditorEventsHideEditorToolView(Sender: TObject; AEditorToolView: IEditorToolView);
-    procedure EditorEventsShowEditorToolView(Sender: TObject; AToolView: IEditorToolView);
+    procedure EditorEventsHideEditorToolView(
+      Sender          : TObject;
+      AEditorToolView : IEditorToolView
+    );
+    procedure EditorEventsShowEditorToolView(
+      Sender    : TObject;
+      AToolView : IEditorToolView
+    );
+    procedure EditorEventsAddEditorView(
+      Sender      : TObject;
+      AEditorView : IEditorView
+    );
+    procedure EditorEventsOpenOtherInstance(
+            Sender  : TObject;
+      const AParams : array of string
+    );
     procedure EditorEventsActiveViewChange(Sender: TObject);
-    procedure EditorEventsAddEditorView(Sender: TObject; AEditorView: IEditorView);
-    procedure EditorEventsStatusChange(Sender: TObject; Changes: TSynStatusChanges);
-    procedure EditorEventsOpenOtherInstance(Sender: TObject; const AParams: array of string);
+    procedure EditorEventsStatusChange(
+      Sender  : TObject;
+      Changes : TSynStatusChanges
+    );
     procedure EditorSettingsChangedHandler(Sender: TObject);
+    procedure EditorEventsMacroStateChange(
+      Sender : TObject;
+      AState : TSynMacroState
+    );
 
   protected
     procedure AddDockingMenuItems;
@@ -159,7 +175,10 @@ type
     procedure UpdateControls;
     procedure UpdateStatusBar;
     procedure UpdateEditorViewCaptions;
-    procedure AddToolButton(const AParent: TToolBar; const AAction : TContainedAction);
+    procedure AddToolButton(
+      const AParent : TToolBar;
+      const AAction : TContainedAction
+    );
 
     procedure CheckForNewVersion;
 
@@ -208,9 +227,11 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, FileUtil, TypInfo, Dialogs,
+  StrUtils, TypInfo, Dialogs,
 
   SynEditTypes,
+
+  LCLTranslator,
 
   httpsend,
 
@@ -220,8 +241,7 @@ uses
 
   ts_Editor_AboutDialog,
 
-  ts_Editor_Resources, ts.Editor.Factories.Settings,
-  ts.Editor.Factories;
+  ts_Editor_Resources, ts.Editor.Factories.Settings, ts.Editor.Factories;
 
 resourcestring
   SModified = 'Modified';
@@ -357,6 +377,7 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
+
 {$region 'docking support' /fold}
 /// below works to support docking toolforms!
 {
@@ -459,11 +480,6 @@ begin
     msPaused:
       btnMacro.Action := Actions['actPlaybackMacro'];
   end;
-end;
-
-procedure TfrmMain.FormActivate(Sender: TObject);
-begin
-  Logger.Send('Form OnActivate');
 end;
 
 procedure TfrmMain.EditorEventsActiveViewChange(Sender: TObject);
@@ -828,16 +844,6 @@ begin
     UpdateStatusBar;
     FSelectionToolbar.Parent  := Editor.Editor;
     FSelectionToolbar.Visible := Editor.SelAvail;
-
-    { TODO -oTS : For some unknown reason the form is sometimes focused when
-      multiple views are closed. This is a temporary work-around till the real
-      nature of the problem is identified. The anchordocking control might be
-      responsible for this behaviour.
-      Remark: causes side effects with toolviews!
-    }
-
-    //if Screen.ActiveControl = Self then
-    //  Editor.SetFocus;
   end;
 end;
 {$endregion}

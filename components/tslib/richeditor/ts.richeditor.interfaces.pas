@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -34,6 +34,8 @@ uses
 type
   IRichEditorActions = interface;
 
+  { IRichEditorView }
+
   IRichEditorView = interface
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
     {%region /fold}
@@ -67,6 +69,7 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnEditingDone: TNotifyEvent;
+    function GetOnSelectionChange: TNotifyEvent;
 //    function GetOnEditingDone: TNotifyEvent;
     //function GetOnStatusChange: TStatusChangeEvent;
     function GetPopupMenu: TPopupMenu;
@@ -95,6 +98,7 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnEditingDone(const AValue: TNotifyEvent);
+    procedure SetOnSelectionChange(AValue: TNotifyEvent);
     //procedure SetOnEditingDone(const AValue: TNotifyEvent);
     //procedure SetParent(const AValue: TWinControl);
     procedure SetParent(NewParent: TWinControl);
@@ -193,6 +197,9 @@ type
 
     property OnEditingDone: TNotifyEvent
       read GetOnEditingDone write SetOnEditingDone;
+
+    property OnSelectionChange: TNotifyEvent
+      read GetOnSelectionChange write SetOnSelectionChange;
 
     property TextAttributes: TTextAttributes
       read GetTextAttributes;

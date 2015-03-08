@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -600,7 +600,7 @@ implementation
 {$R *.lfm}
 
 uses
-  GraphUtil, TypInfo,
+  GraphUtil, TypInfo, FileUtil, LazUTF8Classes,
 
   LConvEncoding, LCLProc,
 
@@ -1727,7 +1727,7 @@ begin
   AEditor.BookMarkOptions.LeftMargin         := -1;
   AEditor.BookMarkOptions.BookmarkImages     := imlBookmarkImages;
 
-  AEditor.Gutter.Color := 15329769; // light gray
+  AEditor.Gutter.Color := clWhite;
   AEditor.Gutter.Width := 29;
   AEditor.Gutter.SeparatorPart.Visible := False;
 
@@ -1813,8 +1813,8 @@ begin
   );
   AEditor.RegisterKeyTranslationHandler(EditorKeyTranslation);
 
-  // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
-  // 21/09/2013
+  // Workaround for SynEdit bug. Needs to be handled in order to let
+  // Editor.LineHighlightColor work. 21/09/2013
   AEditor.OnSpecialLineColors := EditorSpecialLineColors;
 
   AEditor.Visible := True;
@@ -2181,15 +2181,15 @@ end;
 procedure TEditorView.Load(const AStorageName: string);
 var
   S  : string;
-  FS : TFileStream;
+  FS : TFileStreamUTF8;
 begin
   Events.DoLoad(AStorageName);
   if IsFile then
   begin
-    if (AStorageName <> '') and FileExists(AStorageName) then
+    if (AStorageName <> '') and FileExistsUTF8(AStorageName) then
       FileName := AStorageName;
 
-    FS := TFileStream.Create(FileName, fmOpenRead + fmShareDenyNone);
+    FS := TFileStreamUTF8.Create(FileName, fmOpenRead + fmShareDenyNone);
     try
       LoadFromStream(FS);
     finally

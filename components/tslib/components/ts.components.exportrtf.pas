@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -211,9 +211,9 @@ end;
 
 function TSynExporterRTF.GetColorIndex(AColor: TColor): Integer;
 begin
-  Result := FListColors.IndexOf(pointer(AColor));
+  Result := FListColors.IndexOf(Pointer(AColor));
   if Result = -1 then
-    Result := FListColors.Add(pointer(AColor));
+    Result := FListColors.Add(Pointer(AColor));
 end;
 
 function TSynExporterRTF.GetFooter: string;

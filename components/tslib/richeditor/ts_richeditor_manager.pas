@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -31,6 +31,8 @@ uses
 type
   TRichEditorViewList = TComponentList;
 
+  { TdmRichEditorActions }
+
   TdmRichEditorActions = class(TDataModule, IRichEditorActions)
     {$region 'designer controls' /fold}
     aclActions    : TActionList;
@@ -44,6 +46,8 @@ type
     actDecFontSize: TAction;
     actCut        : TAction;
     actCopy       : TAction;
+    Action1: TAction;
+    actAlignJustify: TAction;
     actWordWrap   : TAction;
     actRedo       : TAction;
     actUndo       : TAction;
@@ -59,6 +63,11 @@ type
     dlgOpen       : TOpenDialog;
     dlgSave       : TSaveDialog;
     imlMain       : TImageList;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
+    MenuItem5: TMenuItem;
     N1            : TMenuItem;
     mniBold       : TMenuItem;
     mniItalic     : TMenuItem;
@@ -69,6 +78,10 @@ type
     ppmRichEditor : TPopupMenu;
     {$endregion}
 
+    procedure actAlignCenterExecute(Sender: TObject);
+    procedure actAlignJustifyExecute(Sender: TObject);
+    procedure actAlignLeftExecute(Sender: TObject);
+    procedure actAlignRightExecute(Sender: TObject);
     procedure actBoldExecute(Sender: TObject);
     procedure actColorExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
@@ -145,6 +158,8 @@ implementation
 
 uses
   Graphics,
+
+  RichMemo,
 
   ts_RichEditor_View;
 
@@ -239,7 +254,6 @@ begin
 end;
 {$endregion}
 
-
 {$region 'action handlers' /fold}
 // File
 
@@ -286,6 +300,26 @@ begin
   end;
 end;
 
+procedure TdmRichEditorActions.actAlignRightExecute(Sender: TObject);
+begin
+  ActiveView.TextAttributes.Alignment := paRight;
+end;
+
+procedure TdmRichEditorActions.actAlignLeftExecute(Sender: TObject);
+begin
+  ActiveView.TextAttributes.Alignment := paLeft;
+end;
+
+procedure TdmRichEditorActions.actAlignCenterExecute(Sender: TObject);
+begin
+  ActiveView.TextAttributes.Alignment := paCenter;
+end;
+
+procedure TdmRichEditorActions.actAlignJustifyExecute(Sender: TObject);
+begin
+  ActiveView.TextAttributes.Alignment := paJustify;
+end;
+
 procedure TdmRichEditorActions.actColorExecute(Sender: TObject);
 begin
   dlgColor.Width := 300;
@@ -320,8 +354,8 @@ begin
   if dlgFont.Execute then
   begin
     ActiveView.TextAttributes.BeginUpdate;
-    ActiveView.TextAttributes.Name := dlgFont.Font.Name;
-    ActiveView.TextAttributes.Size := dlgFont.Font.Size;
+    ActiveView.TextAttributes.FontName := dlgFont.Font.Name;
+    ActiveView.TextAttributes.Size     := dlgFont.Font.Size;
     ActiveView.TextAttributes.EndUpdate;
   end;
 end;
@@ -361,9 +395,6 @@ begin
 end;
 {$endregion}
 
-
-
-
 procedure TdmRichEditorActions.UpdateActions;
 begin
   if Assigned(ActiveView) then
@@ -371,6 +402,12 @@ begin
     actBold.Checked      := ActiveView.TextAttributes.Bold;
     actUnderline.Checked := ActiveView.TextAttributes.Underline;
     actItalic.Checked    := ActiveView.TextAttributes.Italic;
+    case ActiveView.TextAttributes.Alignment of
+      paLeft    : actAlignLeft.Checked    := True;
+      paCenter  : actAlignCenter.Checked  := True;
+      paRight   : actAlignRight.Checked   := True;
+      paJustify : actAlignJustify.Checked := True;
+    end;
   end;
 end;
 
@@ -386,6 +423,7 @@ end;
 
 procedure TdmRichEditorActions.LoadFile;
 begin
+
 //
 end;
 

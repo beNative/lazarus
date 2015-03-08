@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -57,21 +57,24 @@ type
     procedure EditorChange(Sender: TObject);
     procedure EditorEditingDone(Sender: TObject);
     procedure EditorOnClick(Sender: TObject);
+    procedure EditorSelectionChange(Sender: TObject);
 
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
     procedure TextAttributesUpdate(Sender: TObject);
     procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char); reintroduce;
 
   private
-    FEditor         : TRichMemo;
-    FActions        : IRichEditorActions;
-    FFileName       : string;
-    FOnDropFiles    : TDropFilesEvent;
-    FOnEditingDone  : TNotifyEvent;
-    FOnChange       : TNotifyEvent;
-    FTextAttributes : TTextAttributes;
+    FEditor            : TRichMemo;
+    FActions           : IRichEditorActions;
+    FFileName          : string;
+    FOnDropFiles       : TDropFilesEvent;
+    FOnEditingDone     : TNotifyEvent;
+    FOnChange          : TNotifyEvent;
+    FOnSelectionChange : TNotifyEvent;
+    FTextAttributes    : TTextAttributes;
 
   protected
+    {$region 'property access methods' /fold}
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
@@ -105,20 +108,23 @@ type
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-
-  protected
     function GetPopupMenu: TPopupMenu; override;
+    function GetOnSelectionChange: TNotifyEvent;
+    procedure SetOnSelectionChange(AValue: TNotifyEvent);
+    {$endregion}
 
     procedure UpdateActions; override;
 
     procedure DoEditingDone; dynamic;
     procedure DoChange; dynamic;
+    procedure DoSelectionChange; dynamic;
 
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
     function Focused: Boolean; override;
+
     procedure SetFocus; override;
     procedure SelectAll;
     procedure Clear;
@@ -210,6 +216,9 @@ type
 
     property OnEditingDone: TNotifyEvent
       read GetOnEditingDone write SetOnEditingDone;
+
+    property OnSelectionChange: TNotifyEvent
+      read GetOnSelectionChange write SetOnSelectionChange;
   end; 
 
 implementation
@@ -232,6 +241,7 @@ begin
   FEditor.DoubleBuffered := True;
   FEditor.OnChange       := EditorChange;
   FEditor.OnEditingDone  := EditorEditingDone;
+  FEditor.OnSelectionChange := EditorSelectionChange;
   FEditor.OnUTF8KeyPress := UTF8KeyPress;
   FEditor.OnClick        := EditorOnClick;
 
@@ -257,6 +267,16 @@ begin
   FTextAttributes.UpdateAttributes;
 end;
 
+function TRichEditorView.GetOnSelectionChange: TNotifyEvent;
+begin
+  Result := FOnSelectionChange;
+end;
+
+procedure TRichEditorView.SetOnSelectionChange(AValue: TNotifyEvent);
+begin
+  FOnSelectionChange := AValue;
+end;
+
 procedure TRichEditorView.EditorChange(Sender: TObject);
 begin
   FTextAttributes.UpdateAttributes;
@@ -273,6 +293,11 @@ end;
 procedure TRichEditorView.EditorOnClick(Sender: TObject);
 begin
   FTextAttributes.UpdateAttributes;
+end;
+
+procedure TRichEditorView.EditorSelectionChange(Sender: TObject);
+begin
+  DoSelectionChange;
 end;
 
 { Required to be able to handle shortcuts of the action list on the main form. }
@@ -470,8 +495,14 @@ end;
 
 procedure TRichEditorView.DoChange;
 begin
-  //if Assigned(OnChange) then
-  //  OnChange(Self);
+  if Assigned(OnChange) then
+    OnChange(Self);
+end;
+
+procedure TRichEditorView.DoSelectionChange;
+begin
+  if Assigned(OnSelectionChange) then
+    OnSelectionChange(Self);
 end;
 {$endregion}
 

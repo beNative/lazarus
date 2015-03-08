@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -30,11 +30,15 @@ uses
   RichMemo;
 
 type
+
+  { TTextAttributes }
+
   TTextAttributes = class(TPersistent)
   private
     FFontParams    : TFontParams;
     FParaMetric    : TParaMetric;
     FParaAlignment : TParaAlignment;
+    FParaNumbering : TParaNumbering;
 
     FUpdateLock : Integer;
     FOnUpdate   : TNotifyEvent;
@@ -44,17 +48,25 @@ type
 
     procedure Changed;
     procedure DoUpdate;
+    function GetAlignment: TParaAlignment;
+    function GetBkColor: TColor;
 
     function GetBold: Boolean;
     function GetColor: TColor;
+    function GetHasBkColor: Boolean;
     function GetItalic: Boolean;
-    function GetName: string;
+    function GetFontName: string;
+    function GetNumberingStyle: TParaNumStyle;
     function GetSize: Integer;
     function GetUnderline: Boolean;
+    procedure SetAlignment(AValue: TParaAlignment);
+    procedure SetBkColor(AValue: TColor);
     procedure SetBold(const AValue: Boolean);
     procedure SetColor(const AValue: TColor);
+    procedure SetHasBkColor(AValue: Boolean);
     procedure SetItalic(const AValue: Boolean);
-    procedure SetName(const AValue: string);
+    procedure SetFontName(const AValue: string);
+    procedure SetNumberingStyle(AValue: TParaNumStyle);
     procedure SetSize(const AValue: Integer);
     procedure SetUnderline(const AValue: Boolean);
 
@@ -72,14 +84,17 @@ type
     property OnUpdate: TNotifyEvent
       read FOnUpdate write FOnUpdate;
 
-    //property TextParams: RichBox.TTextAttributes
-    //  read GetTextParams;
-
-    property Name: string
-      read GetName write SetName;
+    property FontName: string
+      read GetFontName write SetFontName;
 
     property Color: TColor
       read GetColor write SetColor;
+
+    property BkColor: TColor
+      read GetBkColor write SetBkColor;
+
+    property HasBkColor: Boolean
+      read GetHasBkColor write SetHasBkColor;
 
     property Size: Integer
       read GetSize write SetSize;
@@ -92,6 +107,12 @@ type
 
     property Underline: Boolean
       read GetUnderline write SetUnderline;
+
+    property Alignment: TParaAlignment
+      read GetAlignment write SetAlignment;
+
+    property NumberingStyle: TParaNumStyle
+      read GetNumberingStyle write SetNumberingStyle;
   end;
 
 implementation
@@ -114,7 +135,6 @@ begin
 end;
 {$endregion}
 
-
 {$region 'property access mehods' /fold}
 function TTextAttributes.GetBold: Boolean;
 begin
@@ -129,6 +149,20 @@ begin
       FFontParams.Style := FFontParams.Style + [fsBold]
     else
       FFontParams.Style := FFontParams.Style - [fsBold];
+    Changed;
+  end;
+end;
+
+function TTextAttributes.GetHasBkColor: Boolean;
+begin
+  Result := FFontParams.HasBkClr;
+end;
+
+procedure TTextAttributes.SetHasBkColor(AValue: Boolean);
+begin
+  if AValue <> HasBkColor then
+  begin
+    FFontParams.HasBkClr := AValue;
     Changed;
   end;
 end;
@@ -164,16 +198,30 @@ begin
   end;
 end;
 
-function TTextAttributes.GetName: string;
+function TTextAttributes.GetFontName: string;
 begin
   Result := FFontParams.Name;
 end;
 
-procedure TTextAttributes.SetName(const AValue: string);
+procedure TTextAttributes.SetFontName(const AValue: string);
 begin
-  if AValue <> Name then
+  if AValue <> FontName then
   begin
     FFontParams.Name := AValue;
+    Changed;
+  end;
+end;
+
+function TTextAttributes.GetNumberingStyle: TParaNumStyle;
+begin
+  Result := FParaNumbering.Numbering;
+end;
+
+procedure TTextAttributes.SetNumberingStyle(AValue: TParaNumStyle);
+begin
+  if AValue <> NumberingStyle then
+  begin
+    FParaNumbering.Numbering := AValue;
     Changed;
   end;
 end;
@@ -208,12 +256,21 @@ begin
     Changed;
   end;
 end;
+
+function TTextAttributes.GetBkColor: TColor;
+begin
+  Result := FFontParams.BkColor;
+end;
+
+procedure TTextAttributes.SetBkColor(AValue: TColor);
+begin
+  if AValue <> BkColor then
+  begin
+    FFontParams.BkColor := AValue;
+    Changed;
+  end;
+end;
 {$endregion}
-
-
-
-
-
 
 
 //function TTextAttributes.GetTextParams: RichBox.TTextAttributes;
@@ -235,8 +292,27 @@ begin
     FSelLength,
     FFontParams
   );
+  FEditor.SetParaAlignment(
+    FSelStart,
+    FSelLength,
+    Alignment
+  );
   if Assigned(OnUpdate) then
     OnUpdate(Self);
+end;
+
+function TTextAttributes.GetAlignment: TParaAlignment;
+begin
+  Result := FParaAlignment;
+end;
+
+procedure TTextAttributes.SetAlignment(AValue: TParaAlignment);
+begin
+  if AValue <> Alignment then
+  begin
+    FParaAlignment := AValue;
+    Changed;
+  end;
 end;
 
 function TTextAttributes.PositionChanged: Boolean;
@@ -261,14 +337,18 @@ procedure TTextAttributes.UpdateAttributes;
 begin
   if PositionChanged then
   begin
-    //if FEditor.SelLength = 0 then
-    //begin
-    //  FEditor.SetSelection(FEditor.SelStart, 1, True);
-    //  FEditor.GetTextAttributes(FEditor.SelStart, FTextParams);
-    //  FEditor.SetSelection(FEditor.SelStart, 0, True);
-    //end
+    if FEditor.SelLength = 0 then
+    begin
+        FEditor.GetParaAlignment(FSelStart, FParaAlignment);
+    FEditor.GetTextAttributes(FSelStart, FFontParams);
+    FEditor.GetParaNumbering(FSelStart, FParaNumbering);
+      //FEditor.SetSelection(FEditor.SelStart, 1, True);
+      //FEditor.GetTextAttributes(FEditor.SelStart, FTextParams);
+      //FEditor.SetSelection(FEditor.SelStart, 0, True);
+    end;
     //else
     //  FEditor.GetTextAttributes(FEditor.SelStart, FTextParams);
+
     FSelStart  := FEditor.SelStart;
     FSelLength := FEditor.SelLength;
   end;

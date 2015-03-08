@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -172,10 +172,10 @@ type
   PDBVTData = ^TDBVTData;
 
   TDBVTData = record
-    ID: Double;
-    Level: Integer;
-    Status: TDBVTNodeStatus;
-    Parent: PVirtualNode;
+    ID     : Double;
+    Level  : Integer;
+    Status : TDBVTNodeStatus;
+    Parent : PVirtualNode;
   end;
 
   TBaseVirtualDBTreeEx = class;
@@ -196,7 +196,7 @@ type
 
   TVTNodeDataChangedEvent = procedure(
         Sender     : TBaseVirtualDBTreeEx;
-        Node       :   PVirtualNode;
+        Node       : PVirtualNode;
         Field      : TField;
     var UpdateNode : Boolean
   ) of object;
@@ -228,84 +228,126 @@ type
 
   TBaseVirtualDBTreeEx = class(TCustomVirtualStringTree)
   private
-    FCurID: Double;
-    FDBDataSize: Integer;
-    FDBOptions: TDBVTOptions;
-    FDBStatus: TDBVTStatuses;
-    FDataLink: TVirtualDBTreeExDataLink;
-    FKeyField: TField;
-    FKeyFieldName: string;
-    FLevelField: TField;
-    FLevelFieldName: string;
-    FMaxLevel: Integer;
-    FOnNodeDataChanged: TVTNodeDataChangedEvent;
-    FOnOpeningDataSet: TVTDBOpenQueryEvent;
-    FOnReadNodeFromDB: TVTNodeFromDBEvent;
-    FOnReadPathFromDB: TVTPathToDBEvent;
-    FOnWritePathToDB: TVTPathToDBEvent;
-    FOnWritingDataSet: TVTDBWriteQueryEvent;
-    FParentField: TField;
-    FParentFieldName: string;
-    FPathField: TField;
-    FPathFieldName: string;
-    FViewField: TField;
-    FViewFieldName: string;
-    FImgIdxField: TField;
-    FImgIdxFieldName: string;
+    FCurID             : Double;
+    FDBDataSize        : Integer;
+    FDBOptions         : TDBVTOptions;
+    FDBStatus          : TDBVTStatuses;
+    FDataLink          : TVirtualDBTreeExDataLink;
+    FKeyField          : TField;
+    FKeyFieldName      : string;
+    FLevelField        : TField;
+    FLevelFieldName    : string;
+    FMaxLevel          : Integer;
+    FOnNodeDataChanged : TVTNodeDataChangedEvent;
+    FOnOpeningDataSet  : TVTDBOpenQueryEvent;
+    FOnReadNodeFromDB  : TVTNodeFromDBEvent;
+    FOnReadPathFromDB  : TVTPathToDBEvent;
+    FOnWritePathToDB   : TVTPathToDBEvent;
+    FOnWritingDataSet  : TVTDBWriteQueryEvent;
+    FParentField       : TField;
+    FParentFieldName   : string;
+    FPathField         : TField;
+    FPathFieldName     : string;
+    FViewField         : TField;
+    FViewFieldName     : string;
+    FImgIdxField       : TField;
+    FImgIdxFieldName   : string;
+
     function GetDBNodeDataSize: Integer;
     function GetDBOptions: TDBVTOptions;
     function GetDBStatus: TDBVTStatuses;
     function GetDataSource: TDataSource;
-    procedure RefreshListNode;
-    procedure RefreshNodeByParent;
-    procedure RefreshNodeByPath;
-    procedure SetDBNodeDataSize(Value: Integer);
-    procedure SetDBOptions(Value: TDBVTOptions);
-    procedure SetDataSource(Value: TDataSource);
     procedure SetKeyFieldName(const Value: string);
     procedure SetLevelFieldName(const Value: string);
     procedure SetParentFieldName(const Value: string);
     procedure SetPathFieldName(const Value: string);
     procedure SetViewFieldName(const Value: string);
     procedure SetImgIdxFieldName(const Value: string);
+    procedure SetDBNodeDataSize(Value: Integer);
+    procedure SetDBOptions(Value: TDBVTOptions);
+    procedure SetDataSource(Value: TDataSource);
+    function GetOptions: TStringTreeOptions;
+    procedure SetOptions(const Value: TStringTreeOptions);
+
+    procedure RefreshListNode;
+    procedure RefreshNodeByParent;
+    procedure RefreshNodeByPath;
 
   protected
+    function GetOptionsClass: TTreeOptionsClass; override;
+
     function CanOpenDataSet: Boolean; virtual;
-    function CanWriteToDataSet(Node: PVirtualNode; Column: TColumnIndex;
-      ChangeMode: TDBVTChangeMode): Boolean; virtual;
-    function DoChecking(Node: PVirtualNode; var NewCheckState: TCheckState):
-      Boolean; override;
+    function CanWriteToDataSet(
+      Node       : PVirtualNode;
+      Column     : TColumnIndex;
+      ChangeMode : TDBVTChangeMode
+    ): Boolean; virtual;
+
     function FindChild(Node: PVirtualNode; ID: Double): PVirtualNode;
     function FindNode(Start: PVirtualNode; ID: Double): PVirtualNode;
     function HasVisibleChildren(Node: PVirtualNode): Boolean;
+
     procedure DataLinkActiveChanged; virtual;
     procedure DataLinkChanged; virtual;
     procedure DataLinkEditingChanged; virtual;
     procedure DataLinkRecordChanged(Field: TField); virtual;
     procedure DataLinkScrolled; virtual;
+
+    function DoChecking(
+          Node          : PVirtualNode;
+      var NewCheckState : TCheckState
+    ): Boolean; override;
     procedure DoChecked(Node: PVirtualNode); override;
     procedure DoCollapsed(Node: PVirtualNode); override;
-    procedure DoDragDrop(Source: TObject; DataObject: IDataObject;
-      Formats: TFormatArray; Shift: TShiftState; const Pt: TPoint;
-      var Effect: LongWord; Mode: TDropMode); override;
+    procedure DoDragDrop(
+            Source     : TObject;
+            DataObject : IDataObject;
+            Formats    : TFormatArray;
+            Shift      : TShiftState;
+      const Pt         : TPoint;
+      var   Effect     : LongWord;
+            Mode       : TDropMode
+    ); override;
     procedure DoEdit; override;
-    procedure DoFocusChange(Node: PVirtualNode; Column: TColumnIndex);
-      override;
+    procedure DoFocusChange(
+      Node   : PVirtualNode;
+      Column : TColumnIndex
+    ); override;
     procedure DoFreeNode(Node: PVirtualNode); override;
-    procedure DoInitNode(AParent, Node: PVirtualNode; var InitStates:
-      TVirtualNodeInitStates); override;
-    procedure DoNodeDataChanged(Node: PVirtualNode; Field: TField; var
-      UpdateNode: Boolean); virtual;
+    procedure DoInitNode(
+          AParent, Node: PVirtualNode;
+      var InitStates : TVirtualNodeInitStates
+    ); override;
+    procedure DoNodeDataChanged(
+          Node       : PVirtualNode;
+          Field      : TField;
+      var UpdateNode : Boolean
+    ); virtual;
     procedure DoNodeMoved(Node: PVirtualNode); override;
     procedure DoOpeningDataSet(var Allow: Boolean); virtual;
     procedure DoReadNodeFromDB(Node: PVirtualNode); virtual;
     procedure DoReadPathFromDB(var APath: string); virtual;
     procedure DoWritePathToDB(var APath: string); virtual;
-    procedure DoWritingDataSet(Node: PVirtualNode; Column: TColumnIndex;
-      ChangeMode: TDBVTChangeMode; var Allow: Boolean); virtual;
+    procedure DoWritingDataSet(
+          Node       : PVirtualNode;
+          Column     : TColumnIndex;
+          ChangeMode : TDBVTChangeMode;
+      var Allow      : Boolean
+    ); virtual;
+    function DoGetImageIndex(
+          Node    : PVirtualNode;
+          Kind    : TVTImageKind;
+          Column  : TColumnIndex;
+      var Ghosted : Boolean;
+      var Index   : Integer
+    ): TCustomImageList; override;
+
     procedure InitFields; virtual;
-    procedure Notification(AComponent: TComponent; Operation: TOperation);
-      override;
+    procedure Notification(
+          AComponent : TComponent;
+          Operation  : TOperation
+    ); override;
+
     procedure ReadNodeFromDB(Node: PVirtualNode); virtual;
     procedure RefreshNode; virtual;
     procedure RefreshNodes;
@@ -313,13 +355,6 @@ type
     procedure SetFocusToNode(Node: PVirtualNode);
     procedure ToggleListView;
     procedure ToggleViewMode;
-    function GetOptions: TStringTreeOptions;
-    procedure SetOptions(const Value: TStringTreeOptions);
-    function GetOptionsClass: TTreeOptionsClass; override;
-
-    function DoGetImageIndex(Node: PVirtualNode; Kind: TVTImageKind; Column:
-      TColumnIndex; var Ghosted: Boolean;
-      var Index: Integer): TCustomImageList; override;
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -336,31 +371,51 @@ type
     procedure DeleteSelection;
     procedure ExpandAll;
     procedure GoToRec(AString: string; Mode: TDBVTGoToMode); overload;
-    procedure OnDragOverHandler(Sender: TBaseVirtualTree; Source: TObject;
-      Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode: TDropMode;
-      var Effect: LongWord; var Accept: Boolean);
+
+    procedure OnDragOverHandler(
+            Sender : TBaseVirtualTree;
+            Source : TObject;
+            Shift  : TShiftState;
+            State  : TDragState;
+      const Pt     : TPoint;
+            Mode   : TDropMode;
+      var   Effect : LongWord;
+      var   Accept : Boolean
+    );
+
     procedure UnCheckAll(Node: PVirtualNode; OnlyChildren: Boolean);
     procedure UpdateTree;
+
     property DBNodeDataSize: Integer
       read GetDBNodeDataSize write SetDBNodeDataSize;
+
     property DBStatus: TDBVTStatuses
       read GetDBStatus;
+
     property KeyField: TField
       read FKeyField;
+
     property LevelField: TField
       read FLevelField;
+
     property OnNodeDataChanged: TVTNodeDataChangedEvent
       read FOnNodeDataChanged write FOnNodeDataChanged;
+
     property OnReadNodeFromDB: TVTNodeFromDBEvent
       read FOnReadNodeFromDB write FOnReadNodeFromDB;
+
     property ParentField: TField
       read FParentField;
+
     property PathField: TField
       read FPathField;
+
     property ViewField: TField
       read FViewField;
+
     property ImgIdxField: TField
       read FImgIdxField;
+
     property Canvas;
 
   published
@@ -543,18 +598,35 @@ type
   private
     function GetNodeText(Node: PVirtualNode): UnicodeString;
     procedure SetNodeText(Node: PVirtualNode; const Value: UnicodeString);
+
   protected
-    function DoCompare(Node1, Node2: PVirtualNode; Column: TColumnIndex):
-      Integer; override;
-    procedure DoGetText(Node: PVirtualNode; Column: TColumnIndex; TextType:
-      TVSTTextType; var AText: string); override;
-    procedure DoNewText(Node: PVirtualNode; Column: TColumnIndex; const Text:
-      string); override;
-    procedure DoNodeDataChanged(Node: PVirtualNode; Field: TField; var
-      UpdateNode: Boolean); override;
+    function DoCompare(
+      Node1, Node2: PVirtualNode;
+      Column: TColumnIndex
+    ): Integer; override;
+    procedure DoGetText(
+          Node     : PVirtualNode;
+          Column   : TColumnIndex;
+          TextType : TVSTTextType;
+      var AText    : string
+    ); override;
+    procedure DoNewText(
+            Node   : PVirtualNode;
+            Column : TColumnIndex;
+      const Text   : string
+    ); override;
+    procedure DoNodeDataChanged(
+          Node       : PVirtualNode;
+          Field      : TField;
+      var UpdateNode : Boolean
+    ); override;
     procedure DoReadNodeFromDB(Node: PVirtualNode); override;
-    procedure DoWritingDataSet(Node: PVirtualNode; Column: TColumnIndex;
-      ChangeMode: TDBVTChangeMode; var Allow: Boolean); override;
+    procedure DoWritingDataSet(
+          Node       : PVirtualNode;
+          Column     : TColumnIndex;
+          ChangeMode : TDBVTChangeMode;
+      var Allow      : Boolean
+    ); override;
   public
     constructor Create(AOwner: TComponent); override;
     property Canvas;
@@ -628,7 +700,9 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    property CheckList: TStringList read GetCheckList write SetCheckList;
+
+    property CheckList: TStringList
+      read GetCheckList write SetCheckList;
   end;
 
   TCheckVirtualDBTreeEx = class(TCustomCheckVirtualDBTreeEx)
@@ -654,12 +728,10 @@ type
       SetNodeText;
   end;
 
-//procedure Register;
-
 type
   TDBNodeData = record
-    Text: UnicodeString;
-    ImgIdx: Integer;
+    Text   : UnicodeString;
+    ImgIdx : Integer;
   end;
 
   PDBNodeData = ^TDBNodeData;
@@ -669,22 +741,17 @@ implementation
 uses
   SysUtils, Math;
 
-//procedure Register;
-//begin
-//  RegisterComponents(
-//    'Virtual Controls',
-//    [TVirtualDBTreeEx, TDBCheckVirtualDBTreeEx, TCheckVirtualDBTreeEx]
-//  );
-//end;
-
 type
   THackedTreeOptions = class(TStringTreeOptions);
 
+{$region 'TVirtualDBTreeExDataLink' /fold}
+{$region 'construction and destruction' /fold}
 constructor TVirtualDBTreeExDataLink.Create(ATree: TBaseVirtualDBTreeEx);
 begin
   inherited Create;
   FVirtualDBTreeEx := ATree;
 end;
+{$endregion}
 
 procedure TVirtualDBTreeExDataLink.ActiveChanged;
 begin
@@ -710,12 +777,15 @@ procedure TVirtualDBTreeExDataLink.EditingChanged;
 begin
   FVirtualDBTreeEx.DataLinkEditingChanged;
 end;
+{$endregion}
 
+{$region 'TBaseVirtualDBTreeEx' /fold}
+{$region 'construction and destruction' /fold}
 constructor TBaseVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
   FDataLink := TVirtualDBTreeExDataLink.Create(Self);
-  FDBDataSize := sizeof(TDBVTData);
+  FDBDataSize := SizeOf(TDBVTData);
   NodeDataSize := FDBDataSize;
   FDBOptions := [dboCheckDBStructure, dboParentStructure, dboWriteLevel,
     dboWriteSecondary, dboTrackActive, dboTrackChanges, dboTrackCursor,
@@ -734,7 +804,9 @@ begin
   FDataLink.Free;
   inherited;
 end;
+{$endregion}
 
+{$region 'property access mehods' /fold}
 procedure TBaseVirtualDBTreeEx.SetDataSource(Value: TDataSource);
 begin
   FDataLink.DataSource := Value;
@@ -745,16 +817,6 @@ end;
 function TBaseVirtualDBTreeEx.GetDataSource: TDataSource;
 begin
   Result := FDataLink.DataSource;
-end;
-
-procedure TBaseVirtualDBTreeEx.Notification(AComponent: TComponent; Operation:
-  TOperation);
-begin
-  inherited;
-  if (Operation = opRemove) and Assigned(FDataLink) and
-    (AComponent = DataSource)
-  then
-    DataSource := nil;
 end;
 
 procedure TBaseVirtualDBTreeEx.SetKeyFieldName(const Value: string);
@@ -844,12 +906,189 @@ begin
   end;
 end;
 
+procedure TBaseVirtualDBTreeEx.SetDBNodeDataSize(Value: Integer);
+begin
+  if (Value <> DBNodeDataSize) and (Value >= 0) then
+  begin
+    NodeDataSize := FDBDataSize + Value;
+    UpdateTree;
+  end;
+end;
+
+function TBaseVirtualDBTreeEx.GetDBNodeDataSize: Integer;
+begin
+  Result := NodeDataSize - FDBDataSize;
+end;
+
+function TBaseVirtualDBTreeEx.GetDBStatus: TDBVTStatuses;
+begin
+  Result := FDBStatus;
+end;
+
+function TBaseVirtualDBTreeEx.GetDBOptions: TDBVTOptions;
+begin
+  Result := FDBOptions;
+end;
+
+procedure TBaseVirtualDBTreeEx.SetDBOptions(Value: TDBVTOptions);
+var
+  ToBeSet, ToBeCleared: TDBVTOptions;
+begin
+  EndEditNode;
+  ToBeSet := Value - FDBOptions;
+  ToBeCleared := FDBOptions - Value;
+  FDBOptions := Value;
+
+  if (dboTrackCursor in ToBeSet) then
+  begin
+    if not (dboTrackActive in FDBOptions) or not
+      (dboTrackChanges in FDBOptions)
+    then
+    begin
+      FDBOptions := FDBOptions + [dboTrackActive, dboTrackChanges];
+      FDBOptions := FDBOptions - [dboAllowChecking];
+      if (dbtsChanged in FDBStatus) then
+        DataLinkActiveChanged;
+    end
+    else
+      DataLinkScrolled;
+  end
+  else if (dboTrackChanges in ToBeSet) then
+  begin
+    if not (dboTrackActive in FDBOptions) then
+      FDBOptions := FDBOptions + [dboTrackActive];
+    if dbtsChanged in FDBStatus then
+      DataLinkActiveChanged;
+  end
+  else if dboTrackActive in ToBeSet then
+  begin
+    if dbtsChanged in FDBStatus then
+      DataLinkActiveChanged;
+  end
+  else if dboTrackActive in ToBeCleared then
+  begin
+    FDBOptions := FDBOptions - [dboTrackCursor, dboTrackChanges];
+    FDBOptions := FDBOptions + [dboReadOnly];
+  end
+  else if dboTrackChanges in ToBeCleared then
+  begin
+    FDBOptions := FDBOptions - [dboTrackCursor];
+    FDBOptions := FDBOptions + [dboReadOnly];
+  end
+  else if dboTrackCursor in ToBeCleared then
+    FDBOptions := FDBOptions + [dboReadOnly];
+
+  if dboShowChecks in ToBeSet then
+  begin
+    if dboTrackCursor in FDBOptions then
+    begin
+      FDBOptions := FDBOptions - [dboShowChecks];
+      FDBOptions := FDBOptions + [dboViewAll];
+    end
+    else
+    begin
+      BeginUpdate;
+      THackedTreeOptions(TreeOptions).MiscOptions :=
+        THackedTreeOptions(TreeOptions).MiscOptions + [toCheckSupport];
+      if not (dboViewAll in FDBOptions) then
+        ToggleViewMode;
+      EndUpdate;
+    end;
+  end
+  else if dboShowChecks in ToBeCleared then
+  begin
+    BeginUpdate;
+    THackedTreeOptions(TreeOptions).MiscOptions :=
+      THackedTreeOptions(TreeOptions).MiscOptions - [toCheckSupport];
+    if not (dboViewAll in FDBOptions) then
+    begin
+      FDBOptions := FDBOptions + [dboViewAll];
+      RefreshNodes;
+    end;
+    EndUpdate;
+  end
+  else if dboViewAll in ToBeSet then
+  begin
+    if dboShowChecks in FDBOptions then
+      ToggleViewMode;
+  end
+  else if dboViewAll in ToBeCleared then
+  begin
+    if dboShowChecks in FDBOptions then
+      ToggleViewMode
+    else
+      FDBOptions := FDBOptions + [dboViewAll];
+  end;
+
+  if dboPathStructure in ToBeSet then
+  begin
+    FDBOptions := FDBOptions - [dboParentStructure];
+    if dboTrackActive in FDBOptions then
+      UpdateTree;
+  end
+  else if dboParentStructure in ToBeSet then
+  begin
+    FDBOptions := FDBOptions - [dboPathStructure];
+    if dboTrackActive in FDBOptions then
+      UpdateTree;
+  end
+  else if dboPathStructure in ToBeCleared then
+  begin
+    FDBOptions := FDBOptions + [dboParentStructure];
+    if dboTrackActive in FDBOptions then
+      UpdateTree;
+  end
+  else if dboParentStructure in ToBeCleared then
+  begin
+    FDBOptions := FDBOptions + [dboPathStructure];
+    if dboTrackActive in FDBOptions then
+      UpdateTree;
+  end;
+
+  if dboAlwaysStructured in ToBeSet then
+  begin
+    if not (dbtsStructured in FDBStatus) then
+      RefreshNodes;
+  end
+  else if dboAlwaysStructured in ToBeCleared then
+  begin
+    if dboShowChecks in FDBOptions then
+      FDBOptions := FDBOptions + [dboAlwaysStructured];
+  end;
+
+  if dboListView in ToBeSet then
+    ToggleListView
+  else if dboListView in ToBeCleared then
+  begin
+    if dbtsStructured in FDBStatus then
+      ToggleListView
+    else
+      RefreshNodes;
+  end;
+  if (dboReadOnly in ToBeCleared) and
+    (not (dboTrackCursor in FDBOptions) or not
+    (dboTrackChanges in FDBOptions) or not (dboTrackActive in FDBOptions)) then
+    FDBOptions := FDBOptions + [dboReadOnly];
+end;
+{$endregion}
+
+{$region 'protected mehods' /fold}
+procedure TBaseVirtualDBTreeEx.Notification(AComponent: TComponent; Operation:
+  TOperation);
+begin
+  inherited;
+  if (Operation = opRemove) and Assigned(FDataLink)
+    and (AComponent = DataSource)
+  then
+    DataSource := nil;
+end;
+
 procedure TBaseVirtualDBTreeEx.DataLinkActiveChanged;
 begin
   if not (csDesigning in ComponentState) then
   begin
     ResetFields;
-    if (dboTrackActive in FDBOptions) then
+    if dboTrackActive in FDBOptions then
     begin
       if FDataLink.Active then
         InitFields;
@@ -886,7 +1125,7 @@ begin
   begin
     if not FDataLink.Editing and not (dbtsDataChanging in FDBStatus) then
     begin
-      if (dboTrackChanges in FDBOptions) then
+      if dboTrackChanges in FDBOptions then
         RefreshNodes
       else
         FDBStatus := FDBStatus + [dbtsChanged];
@@ -963,16 +1202,67 @@ begin
       InvalidateNode(FocusedNode);
   end;
 end;
+{$endregion}
 
+{$region 'property access methods'}
+procedure TBaseVirtualDBTreeEx.SetViewFieldName(const Value: string);
+begin
+  if FViewFieldName <> Value then
+  begin
+    FViewField := nil;
+    FViewFieldName := Value;
+    DataLinkActiveChanged;
+  end;
+end;
+
+procedure TBaseVirtualDBTreeEx.SetImgIdxFieldName(const Value: string);
+begin
+  if FImgIdxFieldName <> Value then
+  begin
+    FImgIdxField := nil;
+    FImgIdxFieldName := Value;
+    DataLinkActiveChanged;
+  end;
+end;
+
+function TBaseVirtualDBTreeEx.GetOptions: TStringTreeOptions;
+begin
+  Result := TStringTreeOptions(inherited TreeOptions);
+end;
+
+procedure TBaseVirtualDBTreeEx.SetOptions(const Value: TStringTreeOptions);
+begin
+  inherited TreeOptions := Value;
+end;
+
+function TBaseVirtualDBTreeEx.GetOptionsClass: TTreeOptionsClass;
+begin
+  Result := TStringTreeOptions;
+end;
+{$endregion}
+
+{$region 'public methods' /fold}
+function TBaseVirtualDBTreeEx.CanEdit(Node: PVirtualNode;
+  Column: TColumnIndex):
+Boolean;
+begin
+  if not (dbtsEditing in FDBStatus) and not (dbtsInsert in FDBStatus) then
+    Result := CanWriteToDataSet(Node, Column, dbcmEdit)
+  else
+    Result := True;
+end;
+{$endregion}
+
+{$region 'event dispatch methods' /fold}
 procedure TBaseVirtualDBTreeEx.DoFocusChange(Node: PVirtualNode; Column:
   TColumnIndex);
 var
-  D: PDBVTData;
+  D : PDBVTData;
 begin
   if Assigned(Node) then
   begin
     D := GetNodeData(Node);
-    if D.ID <> FCurID then
+    if Assigned(D) and (D.ID <> FCurID) then
     begin
       FCurID := D.ID;
       if (FCurID <> 0.0) and not (dbtsDataChanging in FDBStatus) and
@@ -985,16 +1275,6 @@ begin
     end;
   end;
   inherited;
-end;
-
-function TBaseVirtualDBTreeEx.CanEdit(Node: PVirtualNode;
-  Column: TColumnIndex):
-Boolean;
-begin
-  if not (dbtsEditing in FDBStatus) and not (dbtsInsert in FDBStatus) then
-    Result := CanWriteToDataSet(Node, Column, dbcmEdit)
-  else
-    Result := True;
 end;
 
 procedure TBaseVirtualDBTreeEx.DoEdit;
@@ -1150,13 +1430,6 @@ begin
   inherited;
 end;
 
-procedure TBaseVirtualDBTreeEx.OnDragOverHandler(Sender: TBaseVirtualTree;
-  Source: TObject; Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode:
-  TDropMode; var Effect: LongWord; var Accept: Boolean);
-begin
-  Accept := CanWriteToDataSet(DropTargetNode, 0, dbcmStructure);
-end;
-
 procedure TBaseVirtualDBTreeEx.DoNodeMoved(Node: PVirtualNode);
 var
   Data: PDBVTData;
@@ -1232,6 +1505,64 @@ begin
   inherited;
 end;
 
+procedure TBaseVirtualDBTreeEx.DoOpeningDataSet(var Allow: Boolean);
+begin
+  Allow := (FViewField <> nil);
+  if Allow then
+  begin
+    if Assigned(FOnOpeningDataSet) then
+      FOnOpeningDataSet(Self, Allow);
+  end;
+end;
+
+procedure TBaseVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
+  TField; var UpdateNode: Boolean);
+begin
+  if Assigned(FOnNodeDataChanged) then
+    FOnNodeDataChanged(Self, Node, Field, UpdateNode);
+end;
+
+procedure TBaseVirtualDBTreeEx.DoReadPathFromDB(var APath: string);
+begin
+  if Assigned(FOnReadPathFromDB) then
+    FOnReadPathFromDB(Self, APath);
+end;
+
+procedure TBaseVirtualDBTreeEx.DoWritePathToDB(var APath: string);
+begin
+  if Assigned(FOnWritePathToDB) then
+    FOnWritePathToDB(Self, APath);
+end;
+
+function TBaseVirtualDBTreeEx.DoGetImageIndex(Node: PVirtualNode; Kind:
+  TVTImageKind; Column: TColumnIndex; var Ghosted: Boolean; var Index: Integer
+): TCustomImageList;
+begin
+  Result := inherited DoGetImageIndex(Node, Kind, Column, Ghosted, Index);
+
+  if Column = Header.MainColumn then
+  begin
+    if (Kind = ikNormal) or (Kind = ikSelected) then
+    begin
+      Index := PDBNodeData(GetDBNodeData(Node)).ImgIdx;
+    end;
+  end;
+
+  if Assigned(OnGetImageIndex) then
+    OnGetImageIndex(Self, Node, Kind, Column, Ghosted, Index);
+end;
+{$endregion}
+
+{$region 'event handlers' /fold}
+procedure TBaseVirtualDBTreeEx.OnDragOverHandler(Sender: TBaseVirtualTree;
+  Source: TObject; Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode:
+  TDropMode; var Effect: LongWord; var Accept: Boolean);
+begin
+  Accept := CanWriteToDataSet(DropTargetNode, 0, dbcmStructure);
+end;
+{$endregion}
+
+{$region 'public methods' /fold}
 procedure TBaseVirtualDBTreeEx.SetFocusToNode(Node: PVirtualNode);
 begin
   if Assigned(FocusedNode) then
@@ -1254,7 +1585,7 @@ begin
   begin
     Data := GetNodeData(Result);
     if Data.ID = ID then
-      break;
+      Break;
     Result := GetNextSibling(Result);
   end;
 end;
@@ -1635,12 +1966,8 @@ begin
     else
       Temp := Copy(Path, 1, Pos - 1);
 
-    try
-      ID := StrToFloat(Temp);
-      Last := FindChild(Node, ID);
-    except
-      Exit;
-    end;
+    ID := StrToFloat(Temp);
+    Last := FindChild(Node, ID);
 
     if Assigned(Last) then
       Delete(Path, 1, Pos);
@@ -1671,20 +1998,16 @@ begin
       else
         Temp := Copy(Path, 1, Pos - 1);
 
-      try
-        ID := StrToFloat(Temp);
-        Node := AddChild(Node);
-        ValidateNode(Node, False);
-        Data := GetNodeData(Node);
-        Inc(Level);
-        Data.ID := ID;
-        Data.Level := Level;
-        Data.Status := dbnsInited;
-        Data.Parent := nil;
-        Delete(Path, 1, Pos);
-      except
-        Exit;
-      end;
+      ID := StrToFloat(Temp);
+      Node := AddChild(Node);
+      ValidateNode(Node, False);
+      Data := GetNodeData(Node);
+      Inc(Level);
+      Data.ID := ID;
+      Data.Level := Level;
+      Data.Status := dbnsInited;
+      Data.Parent := nil;
+      Delete(Path, 1, Pos);
     until Path = '';
   end;
   if Data <> nil then
@@ -1878,171 +2201,6 @@ begin
     FImgIdxField := DataSource.DataSet.FieldByName(FImgIdxFieldName);
 end;
 
-procedure TBaseVirtualDBTreeEx.SetDBNodeDataSize(Value: Integer);
-begin
-  if (Value <> DBNodeDataSize) and (Value >= 0) then
-  begin
-    NodeDataSize := FDBDataSize + Value;
-    UpdateTree;
-  end;
-end;
-
-function TBaseVirtualDBTreeEx.GetDBNodeDataSize: Integer;
-begin
-  Result := NodeDataSize - FDBDataSize;
-end;
-
-function TBaseVirtualDBTreeEx.GetDBStatus: TDBVTStatuses;
-begin
-  Result := FDBStatus;
-end;
-
-function TBaseVirtualDBTreeEx.GetDBOptions: TDBVTOptions;
-begin
-  Result := FDBOptions;
-end;
-
-procedure TBaseVirtualDBTreeEx.SetDBOptions(Value: TDBVTOptions);
-var
-  ToBeSet, ToBeCleared: TDBVTOptions;
-begin
-  EndEditNode;
-  ToBeSet := Value - FDBOptions;
-  ToBeCleared := FDBOptions - Value;
-  FDBOptions := Value;
-
-  if (dboTrackCursor in ToBeSet) then
-  begin
-    if not (dboTrackActive in FDBOptions) or not
-      (dboTrackChanges in FDBOptions)
-    then
-    begin
-      FDBOptions := FDBOptions + [dboTrackActive, dboTrackChanges];
-      FDBOptions := FDBOptions - [dboAllowChecking];
-      if (dbtsChanged in FDBStatus) then
-        DataLinkActiveChanged;
-    end
-    else
-      DataLinkScrolled;
-  end
-  else if (dboTrackChanges in ToBeSet) then
-  begin
-    if not (dboTrackActive in FDBOptions) then
-      FDBOptions := FDBOptions + [dboTrackActive];
-    if dbtsChanged in FDBStatus then
-      DataLinkActiveChanged;
-  end
-  else if dboTrackActive in ToBeSet then
-  begin
-    if dbtsChanged in FDBStatus then
-      DataLinkActiveChanged;
-  end
-  else if dboTrackActive in ToBeCleared then
-  begin
-    FDBOptions := FDBOptions - [dboTrackCursor, dboTrackChanges];
-    FDBOptions := FDBOptions + [dboReadOnly];
-  end
-  else if dboTrackChanges in ToBeCleared then
-  begin
-    FDBOptions := FDBOptions - [dboTrackCursor];
-    FDBOptions := FDBOptions + [dboReadOnly];
-  end
-  else if dboTrackCursor in ToBeCleared then
-    FDBOptions := FDBOptions + [dboReadOnly];
-
-  if dboShowChecks in ToBeSet then
-  begin
-    if dboTrackCursor in FDBOptions then
-    begin
-      FDBOptions := FDBOptions - [dboShowChecks];
-      FDBOptions := FDBOptions + [dboViewAll];
-    end
-    else
-    begin
-      BeginUpdate;
-      THackedTreeOptions(TreeOptions).MiscOptions :=
-        THackedTreeOptions(TreeOptions).MiscOptions + [toCheckSupport];
-      if not (dboViewAll in FDBOptions) then
-        ToggleViewMode;
-      EndUpdate;
-    end;
-  end
-  else if dboShowChecks in ToBeCleared then
-  begin
-    BeginUpdate;
-    THackedTreeOptions(TreeOptions).MiscOptions :=
-      THackedTreeOptions(TreeOptions).MiscOptions - [toCheckSupport];
-    if not (dboViewAll in FDBOptions) then
-    begin
-      FDBOptions := FDBOptions + [dboViewAll];
-      RefreshNodes;
-    end;
-    EndUpdate;
-  end
-  else if dboViewAll in ToBeSet then
-  begin
-    if dboShowChecks in FDBOptions then
-      ToggleViewMode;
-  end
-  else if dboViewAll in ToBeCleared then
-  begin
-    if dboShowChecks in FDBOptions then
-      ToggleViewMode
-    else
-      FDBOptions := FDBOptions + [dboViewAll];
-  end;
-
-  if dboPathStructure in ToBeSet then
-  begin
-    FDBOptions := FDBOptions - [dboParentStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end
-  else if dboParentStructure in ToBeSet then
-  begin
-    FDBOptions := FDBOptions - [dboPathStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end
-  else if dboPathStructure in ToBeCleared then
-  begin
-    FDBOptions := FDBOptions + [dboParentStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end
-  else if dboParentStructure in ToBeCleared then
-  begin
-    FDBOptions := FDBOptions + [dboPathStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end;
-
-  if dboAlwaysStructured in ToBeSet then
-  begin
-    if not (dbtsStructured in FDBStatus) then
-      RefreshNodes;
-  end
-  else if dboAlwaysStructured in ToBeCleared then
-  begin
-    if dboShowChecks in FDBOptions then
-      FDBOptions := FDBOptions + [dboAlwaysStructured];
-  end;
-
-  if dboListView in ToBeSet then
-    ToggleListView
-  else if dboListView in ToBeCleared then
-  begin
-    if dbtsStructured in FDBStatus then
-      ToggleListView
-    else
-      RefreshNodes;
-  end;
-  if (dboReadOnly in ToBeCleared) and
-    (not (dboTrackCursor in FDBOptions) or not
-    (dboTrackChanges in FDBOptions) or not (dboTrackActive in FDBOptions)) then
-    FDBOptions := FDBOptions + [dboReadOnly];
-end;
-
 function TBaseVirtualDBTreeEx.CanOpenDataSet: Boolean;
 begin
   Result := (FKeyField <> nil);
@@ -2052,35 +2210,6 @@ begin
       ((dboParentStructure in FDBOptions) and Assigned(FParentField));
   if Result then
     DoOpeningDataSet(Result);
-end;
-
-procedure TBaseVirtualDBTreeEx.DoOpeningDataSet(var Allow: Boolean);
-begin
-  Allow := (FViewField <> nil);
-  if Allow then
-  begin
-    if Assigned(FOnOpeningDataSet) then
-      FOnOpeningDataSet(Self, Allow);
-  end;
-end;
-
-procedure TBaseVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
-  TField; var UpdateNode: Boolean);
-begin
-  if Assigned(FOnNodeDataChanged) then
-    FOnNodeDataChanged(Self, Node, Field, UpdateNode);
-end;
-
-procedure TBaseVirtualDBTreeEx.DoReadPathFromDB(var APath: string);
-begin
-  if Assigned(FOnReadPathFromDB) then
-    FOnReadPathFromDB(Self, APath);
-end;
-
-procedure TBaseVirtualDBTreeEx.DoWritePathToDB(var APath: string);
-begin
-  if Assigned(FOnWritePathToDB) then
-    FOnWritePathToDB(Self, APath);
 end;
 
 procedure TBaseVirtualDBTreeEx.ReadNodeFromDB(Node: PVirtualNode);
@@ -2311,72 +2440,29 @@ begin
   end;
   EndUpdate;
 end;
+{$endregion}
+{$endregion}
 
-procedure TBaseVirtualDBTreeEx.SetViewFieldName(const Value: string);
-begin
-  if FViewFieldName <> Value then
-  begin
-    FViewField := nil;
-    FViewFieldName := Value;
-    DataLinkActiveChanged;
-  end;
-end;
-
-procedure TBaseVirtualDBTreeEx.SetImgIdxFieldName(const Value: string);
-begin
-  if FImgIdxFieldName <> Value then
-  begin
-    FImgIdxField := nil;
-    FImgIdxFieldName := Value;
-    DataLinkActiveChanged;
-  end;
-end;
-
-function TBaseVirtualDBTreeEx.GetOptions: TStringTreeOptions;
-begin
-  Result := TStringTreeOptions(inherited TreeOptions);
-end;
-
-procedure TBaseVirtualDBTreeEx.SetOptions(const Value: TStringTreeOptions);
-begin
-  inherited TreeOptions := Value;
-end;
-
-function TBaseVirtualDBTreeEx.GetOptionsClass: TTreeOptionsClass;
-begin
-  Result := TStringTreeOptions;
-end;
-
-function TBaseVirtualDBTreeEx.DoGetImageIndex(Node: PVirtualNode; Kind:
-  TVTImageKind; Column: TColumnIndex;
-  var Ghosted: Boolean; var Index: Integer): TCustomImageList;
-begin
-  Result := inherited DoGetImageIndex(Node, Kind, Column, Ghosted, Index);
-
-  if Column = Header.MainColumn then
-  begin
-    if (Kind = ikNormal) or (Kind = ikSelected) then
-      Index := PDBNodeData(GetDBNodeData(Node)).ImgIdx;
-  end;
-
-  if Assigned(OnGetImageIndex) then
-    OnGetImageIndex(Self, Node, Kind, Column, Ghosted, Index);
-end;
-
+{$region 'TVirtualDBTreeEx' /fold}
+{$region 'construction and destruction' /fold}
 constructor TVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
   DBNodeDataSize := SizeOf(TDBNodeData);
 end;
+{$endregion}
 
 procedure TVirtualDBTreeEx.DoReadNodeFromDB(Node: PVirtualNode);
 var
   Data: PDBNodeData;
 begin
+  inherited;
   NodeText[Node] := ViewField.AsString;
   Data := PDBNodeData(GetDBNodeData(Node));
   if ImgIdxField <> nil then
-    Data.ImgIdx := ImgIdxField.AsInteger
+  begin
+    Data.ImgIdx := ImgIdxField.AsInteger;
+  end
   else
     Data.ImgIdx := -1;
 end;
@@ -2448,19 +2534,22 @@ begin
   end;
 end;
 
-procedure TVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
-  UnicodeString);
-begin
-  if Assigned(Node) then
-    PDBNodeData(GetDBNodeData(Node)).Text := Value;
-end;
-
 function TVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): UnicodeString;
 begin
   if Assigned(Node) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text;
 end;
 
+procedure TVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
+  UnicodeString);
+begin
+  if Assigned(Node) then
+    PDBNodeData(GetDBNodeData(Node)).Text := Value;
+end;
+{$endregion}
+
+{$region 'TCustomDBCheckVirtualDBTreeEx' /fold}
+{$region 'construction and destruction' /fold}
 constructor TCustomDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2475,6 +2564,7 @@ begin
   FCheckDataLink.Free;
   inherited;
 end;
+{$endregion}
 
 procedure TCustomDBCheckVirtualDBTreeEx.CheckDataLinkActiveChanged;
 begin
@@ -2503,6 +2593,22 @@ begin
   FCheckDataLink.DataSource := Value;
   if Assigned(Value) then
     Value.FreeNotification(Self);
+end;
+
+function TCustomDBCheckVirtualDBTreeEx.GetCheckList: TStringList;
+var
+  Data: PDBVTData;
+  Node: PVirtualNode;
+begin
+  Result := TStringList.Create;
+  Node := GetFirst;
+  while Assigned(Node) do
+  begin
+    Data := GetNodeData(Node);
+    if CheckState[Node] = csCheckedNormal then
+      Result.Add(FloatToStr(Data.ID));
+    Node := GetNext(Node);
+  end;
 end;
 
 function TCustomDBCheckVirtualDBTreeEx.GetCheckDataSource: TDataSource;
@@ -2570,7 +2676,9 @@ begin
   else
     CheckState[Node] := csUncheckedNormal;
 end;
+{$endregion}
 
+{$region 'TDBCheckVirtualDBTreeEx' /fold}
 constructor TDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2581,14 +2689,15 @@ procedure TDBCheckVirtualDBTreeEx.DoReadNodeFromDB(Node: PVirtualNode);
 var
   Data: PDBNodeData;
 begin
+  inherited;
   NodeText[Node] := ViewField.AsString;
   Data := PDBNodeData(GetDBNodeData(Node));
   if ImgIdxField <> nil then
-    Data.ImgIdx := ImgIdxField.AsInteger
+  begin
+    Data.ImgIdx := ImgIdxField.AsInteger;
+  end
   else
     Data.ImgIdx := -1;
-
-  inherited;
 end;
 
 procedure TDBCheckVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
@@ -2607,7 +2716,6 @@ begin
     Data.ImgIdx := Field.AsInteger;
     UpdateNode := True;
   end;
-
 end;
 
 procedure TDBCheckVirtualDBTreeEx.DoGetText(Node: PVirtualNode; Column:
@@ -2644,9 +2752,6 @@ end;
 function TDBCheckVirtualDBTreeEx.DoCompare(Node1, Node2: PVirtualNode; Column:
   TColumnIndex): Integer;
 begin
-  //  If Column = Header.MainColumn Then If NodeText[Node1] > NodeText[Node2] Then Result := 1
-  //    Else Result := -1
-  //  Else Result := 0;
   Result := 0;
   if Assigned(OnCompareNodes) then
     OnCompareNodes(Self, Node1, Node2, Column, Result)
@@ -2672,9 +2777,13 @@ end;
 function TDBCheckVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): UnicodeString;
 begin
   if Assigned(Node) then
-    Result := PDBNodeData(GetDBNodeData(Node)).Text;
+    Result := PDBNodeData(GetDBNodeData(Node)).Text
+  else
+    Result := '';
 end;
+{$endregion}
 
+{$region 'TCustomCheckVirtualDBTreeEx' /fold}
 constructor TCustomCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2727,33 +2836,34 @@ var
   Data: PDBVTData;
   Index: Integer;
 begin
-  Index := 0;
   inherited;
   Data := GetNodeData(Node);
+  Index := 0;
   if FList.Find(FloatToStr(Data.ID), Index) then
     CheckState[Node] := csCheckedNormal
   else
     CheckState[Node] := csUncheckedNormal;
 end;
+{$endregion}
 
+{$region 'TCheckVirtualDBTreeEx' /fold}
 constructor TCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
-  DBNodeDataSize := sizeof(TDBNodeData);
+  DBNodeDataSize := SizeOf(TDBNodeData);
 end;
 
 procedure TCheckVirtualDBTreeEx.DoReadNodeFromDB(Node: PVirtualNode);
 var
   Data: PDBNodeData;
 begin
+  inherited;
   NodeText[Node] := ViewField.AsString;
   Data := PDBNodeData(GetDBNodeData(Node));
   if ImgIdxField <> nil then
     Data.ImgIdx := ImgIdxField.AsInteger
   else
     Data.ImgIdx := -1;
-
-  inherited;
 end;
 
 procedure TCheckVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
@@ -2839,22 +2949,6 @@ begin
   if Assigned(Node) and (Node <> RootNode) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text;
 end;
-
-function TCustomDBCheckVirtualDBTreeEx.GetCheckList: TStringList;
-var
-  Data: PDBVTData;
-  Node: PVirtualNode;
-begin
-  Result := TStringList.Create;
-  Node := GetFirst;
-  while Assigned(Node) do
-  begin
-    Data := GetNodeData(Node);
-    if CheckState[Node] = csCheckedNormal then
-      Result.Add(FloatToStr(Data.ID));
-    Node := GetNext(Node);
-  end;
-end;
-
+{$endregion}
 end.
 

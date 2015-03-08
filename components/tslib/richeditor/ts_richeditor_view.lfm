@@ -14,7 +14,7 @@ object RichEditorView: TRichEditorView
     Top = 0
     Width = 578
     Align = alClient
-    BevelOuter = bvLowered
+    BevelOuter = bvNone
     TabOrder = 0
   end
 end

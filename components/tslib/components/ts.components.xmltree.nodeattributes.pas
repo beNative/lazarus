@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -87,12 +87,15 @@ type
   end;
 
 type
+
+  { TNodeAttributes }
+
   TNodeAttributes = class(TOwnedCollection<TNodeAttributesItem>)
   private
-    function GetItemByType(Index: TNodeType): T;
+    function GetItemByType(Index: TNodeType): TNodeAttributesItem;
 
   published
-    property ItemByType[Index: TNodeType]: T
+    property ItemByType[Index: TNodeType]: TNodeAttributesItem
       read GetItemByType;
   end;
 
@@ -172,7 +175,7 @@ end;
 {$region 'TNodeAttributes' /fold}
 {$region 'property access mehods' /fold}
 
-function TNodeAttributes.GetItemByType(Index: TNodeType): T;
+function TNodeAttributes.GetItemByType(Index: TNodeType): TNodeAttributesItem;
 var
   I : Integer;
   B : Boolean;

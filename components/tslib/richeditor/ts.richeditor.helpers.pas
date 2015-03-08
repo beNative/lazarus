@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -70,7 +70,7 @@ begin
   TB := TToolButton.Create(AParent.Owner);
   TB.Parent := AParent;
   if not Assigned(AAction) then
-    TB.Style := tbsSeparator
+    TB.Style := tbsDivider
   else
     TB.Action := AAction;
 end;
@@ -146,6 +146,11 @@ begin
   AddButton('actCut');
   AddButton('actCopy');
   AddButton('actPaste');
+  AddButton('');
+  AddButton('actAlignLeft');
+  AddButton('actAlignCenter');
+  AddButton('actAlignRight');
+  AddButton('actAlignJustify');
   AddButton('');
   AddButton('actFont');
   AddButton('actColor');

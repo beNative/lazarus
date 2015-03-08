@@ -229,6 +229,8 @@ implementation
 uses
   StrUtils, TypInfo, Dialogs,
 
+  FileUtil,
+
   SynEditTypes,
 
   LCLTranslator,
@@ -263,36 +265,57 @@ begin
   FUniqueInstance.Identifier          := ApplicationName;
   FUniqueInstance.OnOtherInstance     := UniqueInstanceOtherInstance;
   FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
+
   FSettings := TEditorFactories.CreateSettings(Self);
   FSettings.FileName := 'settings.xml';
   FSettings.Load;
+
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
+
   SetDefaultLang(FSettings.LanguageCode);
   Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
+
   FManager := TEditorFactories.CreateManager(
     Self,
     FSettings
   );
   FManager.PersistSettings := True;
+
   FUniqueInstance.Enabled := Settings.SingleInstance;
+
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
-  FMainToolbar :=
-    TEditorFactories.CreateMainToolbar(Self, Self, Actions, Menus);
-  FSelectionToolbar :=
-    TEditorFactories.CreateSelectionToolbar(Self, nil, Actions, Menus);
+  FMainToolbar := TEditorFactories.CreateMainToolbar(
+    Self,
+    Self,
+    Actions,
+    Menus
+  );
+  FSelectionToolbar := TEditorFactories.CreateSelectionToolbar(
+    Self,
+    nil,
+    Actions,
+    Menus
+  );
   FToolbarHostPanel := TPanel.Create(Self);
   FToolbarHostPanel.Parent := FMainToolbar;
-  FRightToolbar :=
-    TEditorFactories.CreateTopRightToolbar(Self, FToolbarHostPanel, Actions, Menus);
+  FRightToolbar := TEditorFactories.CreateTopRightToolbar(
+    Self,
+    FToolbarHostPanel,
+    Actions,
+    Menus
+  );
   InitializeControls;
   InitializeEvents;
+
   actCheckForNewVersion.ActionList := Manager.Actions.GetActionList;
   //AddToolButton(FMainToolbar, actCheckForNewVersion);
+
   if ParamCount > 0 then
   begin
     for I := 1 to Paramcount do
     begin
-      S := ParamStr(I);
+      S := SysToUTF8(ParamStr(I));
+      Logger.Send('ParamStr(%d)=%s', [I, S]);
       if I = 1 then
         V := Manager.OpenFile(S)
       else

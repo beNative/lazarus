@@ -1,3 +1,7 @@
+2015.03.07
+* Upgraded to latest Lazarus/FPC version
+* Fixed problem with opening filenames with unicode characters
+
 2015.01.10
 * Upgraded all 3rd party libraries to current versions
 * Using SynFacilHighlighter instead of SynUniSynHighlighter

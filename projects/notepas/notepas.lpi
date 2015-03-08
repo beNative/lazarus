@@ -961,7 +961,7 @@ end;"/>
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="c:\verinfo.txt"/>
+        <CommandLineParams Value="&quot;F:\Users\Tim Sinaeve\Desktop\New Documentación Técnica - Rev1.txt&quot;"/>
         <LaunchingApplication Use="True"/>
       </local>
     </RunParams>
@@ -1030,6 +1030,7 @@ end;"/>
       <Unit4>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
@@ -1098,6 +1099,7 @@ end;"/>
       <Unit20>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Selection"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
@@ -1330,6 +1332,7 @@ end;"/>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Events"/>
       </Unit71>
       <Unit72>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>

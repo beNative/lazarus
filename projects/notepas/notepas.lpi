@@ -1039,6 +1039,7 @@ end;"/>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
@@ -1051,6 +1052,7 @@ end;"/>
       <Unit9>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Utils"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
@@ -1059,6 +1061,7 @@ end;"/>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
@@ -1278,10 +1281,12 @@ end;"/>
         <ComponentName Value="CustomEditorToolView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_ToolView_Base"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -1536,6 +1541,7 @@ end;"/>
         <ComponentName Value="frmScriptEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_ScriptEditor_ToolView"/>
       </Unit105>
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\selectioninfo\ts_editor_selectioninfo_toolview.pas"/>
@@ -1566,6 +1572,7 @@ end;"/>
       <Unit111>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
       </Unit111>
       <Unit112>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
@@ -1597,6 +1604,7 @@ end;"/>
       <Unit118>
         <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SystemInfo"/>
       </Unit118>
       <Unit119>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>

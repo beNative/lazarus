@@ -1,6 +1,12 @@
+2015.03.14
+* Automatically assign corresponding file extension to the selected highlighter
+  on save.
+* When no highlighter is active, automatically select corresponding highlighter
+  when a file is saved with a known extension.
+
 2015.03.07
-* Upgraded to latest Lazarus/FPC version
-* Fixed problem with opening filenames with unicode characters
+* Upgraded to LCL version 1.5 and FPC version 3.1.1
+* Fixed problem with opening filenames containing unicode characters
 
 2015.01.10
 * Upgraded all 3rd party libraries to current versions

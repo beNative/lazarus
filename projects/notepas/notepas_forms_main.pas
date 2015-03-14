@@ -733,7 +733,7 @@ var
   S : string;
 begin
   S := Application.Title;
-  if FileExists(Editor.FileName) then
+  if FileExistsUTF8(Editor.FileName) then
     Caption := Format('%s - %s',  [Editor.FileName, S])
   else
     Caption := S;

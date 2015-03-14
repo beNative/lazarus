@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -31,12 +31,10 @@ uses
   Notepas_Forms_Main,
 
   richmemopackage,
-
   runtimetypeinfocontrols,
   pascalscript,
   kcontrols,
   ExceptionLogger,
-  laz_synapse,
   lclextensions_package,
 
   ts.Components.MultiPanel,
@@ -134,7 +132,7 @@ uses
   ts_Editor_Search_ToolView,
   ts_Editor_ActionList_ToolView,
   ts_Editor_AlignLines_ToolView,
-  ts_Editor_ToolView_base,
+  ts_Editor_ToolView_Base,
   ts_Editor_CharacterMap_Toolview,
   ts_Editor_CodeFilter_ToolView,
   ts_Editor_CodeShaper_ToolView,
@@ -156,7 +154,8 @@ uses
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
   ts.Editor.Factories,
-  ts.Editor.Options.Settings, SynFacilHighlighter;
+  ts.Editor.Options.Settings,
+  SynFacilHighlighter;
 
 {$R *.res}
 

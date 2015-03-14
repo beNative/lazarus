@@ -54,12 +54,12 @@ procedure InsertStyledText(const ARichMemo: TCustomRichMemo; const TextUTF8: Str
   InsPos : Integer = -1 );
 procedure InsertColorStyledText(const ARichMemo: TCustomRichMemo; const TextUTF8: String; AColor: TColor; AStyle: TFontStyles;
   InsPos : Integer = -1 );
-procedure InsertFontText(const ARichMemo: TCustomRichMemo; const TextUTF8: String; prms: TFontParams;
+procedure InsertFontText(const ARichMemo: TCustomRichMemo; const TextUTF8: String; const prms: TFontParams;
   InsPos : Integer = -1 );
 
 implementation
 
-procedure InsertFontText(const ARichMemo: TCustomRichMemo; const TextUTF8: String; prms: TFontParams;
+procedure InsertFontText(const ARichMemo: TCustomRichMemo; const TextUTF8: String; const prms: TFontParams;
   InsPos : Integer = -1 );
 var
   len : Integer;

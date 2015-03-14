@@ -24,7 +24,8 @@ unit WSRichMemo;
 interface
 
 uses
-  Classes, SysUtils, 
+  Types, Classes, SysUtils,
+  LCLType,
   Graphics, Controls, StdCtrls,
   WSStdCtrls, RichMemo;
 
@@ -91,11 +92,21 @@ type
     class function Search(const AWinControl: TWinControl; const ANiddle: string; const SearchOpts: TIntSearchOpt): Integer; virtual;
 
     class procedure SetZoomFactor(const AWinControl: TWinControl; AZoomFactor: Double); virtual;
+
+    //inline handler
+    class function InlineInsert(const AWinControl: TWinControl; ATextStart, ATextLength: Integer;
+      const ASize: TSize; AHandler: TRichMemoInline; var wsObj: TRichMemoInlineWSObject): Boolean; virtual;
+    class procedure InlineInvalidate(const AWinControl: TWinControl;
+       AHandler: TRichMemoInline; wsObj: TRichMemoInlineWSObject); virtual;
   end;
   TWSCustomRichMemoClass = class of TWSCustomRichMemo;
 
   
 function WSRegisterCustomRichMemo: Boolean; external name 'WSRegisterCustomRichMemo';
+
+var
+  //note: this internal function might go away eventually!
+  WSGetFontParams: function (wsfontref: HFONT; var params: TFontParams): Boolean = nil;
 
 implementation
 
@@ -211,6 +222,21 @@ end;
 
 class procedure TWSCustomRichMemo.SetZoomFactor(const AWinControl: TWinControl;
   AZoomFactor: Double);
+begin
+
+end;
+
+class function TWSCustomRichMemo.InlineInsert(const AWinControl: TWinControl;
+  ATextStart, ATextLength: Integer; const ASize: TSize; AHandler: TRichMemoInline;
+  var wsObj: TRichMemoInlineWSObject): Boolean;
+begin
+  wsObj:=nil;
+  Result:=false;
+end;
+
+class procedure TWSCustomRichMemo.InlineInvalidate(
+  const AWinControl: TWinControl; AHandler: TRichMemoInline;
+  wsObj: TRichMemoInlineWSObject);
 begin
 
 end;

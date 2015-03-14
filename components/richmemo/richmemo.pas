@@ -24,7 +24,9 @@ unit RichMemo;
 interface
 
 uses
-  Classes, SysUtils, Graphics, StdCtrls, LazUTF8;
+  Types, Classes, SysUtils
+  , LCLType, LCLIntf
+  , Graphics, StdCtrls, LazUTF8;
 
 type
   TFontParams  = record
@@ -59,11 +61,21 @@ type
     , pnLowRoman, pnUpLetter, pnUpRoman, pnCustomChar);
 
   TParaNumbering  = record
-    Numbering   : TParaNumStyle;
-    NumCustom   : WideChar;
-    NumIndent   : Double;
+    Style       : TParaNumStyle;
+    Indent      : Double;
+    CustomChar  : WideChar;
+    NumberStart : Integer;  // used for pnNumber only
+    SepChar     : WideChar;
+    ForceNewNum : Boolean;  // if true and Style is pnNumber, NumberStart is used for the new numbering
   end;
 
+const
+  SepNone = #0;
+  SepPar  = ')';
+  SepDot  = '.';
+
+
+type
   TTextModifyMask  = set of (tmm_Color, tmm_Name, tmm_Size, tmm_Styles, tmm_BackColor);
   TParaModifyMask = set of (pmm_FirstLine, pmm_HeadIndent, pmm_TailIndent, pmm_SpaceBefore, pmm_SpaceAfter, pmm_LineSpacing);
 
@@ -81,6 +93,22 @@ type
 
 type
   TRichMemoObject = class(TObject);
+  TCustomRichMemo = class;
+
+  TRichMemoInlineWSObject = TObject;
+
+  { TRichMemoInline }
+
+  TRichMemoInline = class(TObject)
+  private
+    WSObj    : TRichMemoInlineWSObject;
+    fOwner   : TCustomRichMemo;
+  public
+    procedure Draw(Canvas: TCanvas; const ASize: TSize); virtual;
+    procedure SetVisible(AVisible: Boolean); virtual;
+    procedure Invalidate;
+    property Owner: TCustomRichMemo read fOwner;
+  end;
 
   { TCustomRichMemo }
 
@@ -89,6 +117,8 @@ type
     fHideSelection  : Boolean;
     fOnSelectionChange: TNotifyEvent;
     fZoomFactor : Double;
+  private
+    procedure InlineInvalidate(handler: TRichMemoInline);
   protected
     procedure DoSelectionChange;
     class procedure WSRegisterClass; override;
@@ -133,6 +163,7 @@ type
     function SaveRichText(Dest: TStream): Boolean; virtual;
 
     function InDelText(const UTF8Text: string; InsStartChar, ReplaceLength: Integer): Integer; virtual;
+    function InDelInline(inlineobj: TRichMemoInline; InsStartChar, ReplaceLength: Integer; const ASize: TSize): Integer; virtual;
 
     procedure SetSelLengthFor(const aselstr: string);
 
@@ -216,9 +247,12 @@ function GetFontParams(styles: TFontStyles): TFontParams; overload;
 function GetFontParams(color: TColor; styles: TFontStyles): TFontParams; overload;
 function GetFontParams(const Name: String; color: TColor; styles: TFontStyles): TFontParams; overload;
 function GetFontParams(const Name: String; Size: Integer; color: TColor; styles: TFontStyles): TFontParams; overload;
+function GetFontParams(AFont: TFont): TFontParams; overload;
 
 procedure InitParaMetric(var m: TParaMetric);
 procedure InitParaNumbering(var n: TParaNumbering);
+procedure InitParaNumber(var n: TParaNumbering; ASepChar: WideChar = SepPar; StartNum: Integer = 1);
+procedure InitParaBullet(var n: TParaNumbering);
 
 var
   RTFLoadStream : function (AMemo: TCustomRichMemo; Source: TStream): Boolean = nil;
@@ -227,7 +261,7 @@ var
 implementation
 
 uses
-  WSRichMemo;
+  RichMemoFactory, WSRichMemo;
 
 procedure InitFontParams(var p: TFontParams);
 begin
@@ -258,6 +292,68 @@ begin
   Result.Style := styles;
 end;
 
+//todo: get rid of this Graphics.GetFontData dupication
+//this is the only function that's using LCLType and LCLIntf
+function RMGetFontData(Font: HFont): TFontData;
+var
+  ALogFont: TLogFont;
+begin
+  Result := DefFontData;
+  if Font <> 0 then
+  begin
+    if GetObject(Font, SizeOf(ALogFont), @ALogFont) <> 0 then
+      with Result, ALogFont do
+      begin
+        Height := lfHeight;
+        if lfWeight >= FW_BOLD then Include(Style, fsBold);
+        if lfItalic > 0 then Include(Style, fsItalic);
+        if lfUnderline > 0 then Include(Style, fsUnderline);
+        if lfStrikeOut > 0 then Include(Style, fsStrikeOut);
+        Charset := TFontCharset(lfCharSet);
+        Name := lfFaceName;
+        case lfPitchAndFamily and $F of
+          VARIABLE_PITCH: Pitch := fpVariable;
+          FIXED_PITCH: Pitch := fpFixed;
+        else
+          Pitch := fpDefault;
+        end;
+        Orientation := lfOrientation;
+        Handle := Font;
+      end;
+  end;
+end;
+
+function GetFontParams(AFont: TFont): TFontParams; overload;
+var
+  data   : TFontData;
+  wstest : Boolean;
+begin
+  InitFontParams(Result);
+  if not Assigned(AFont) then Exit;
+
+  if AFont.Reference.Handle <> 0 then begin
+    // WSGetFontParams is introduced, because default Gtk widgetset returns
+    // only FontName from the handle.
+    wstest:= Assigned(WSGetFontParams) and WSGetFontParams(AFont.Reference.Handle, Result);
+    if not wstest then begin
+      data:=RMGetFontData(AFont.Reference.Handle);
+      if data.Height<0
+        then Result.Size:=round(abs(data.Height)/ScreenInfo.PixelsPerInchY*72)
+        else Result.Size:=data.Height;
+      Result.Name:=data.Name;
+      Result.Style:=data.Style;
+    end;
+    // color is not stored with system font information
+    // it's an additional attribute introduced in TFont class
+    Result.Color:=AFont.Color;
+  end else begin
+    Result.Name := AFont.Name;
+    Result.Color := AFont.Color;
+    Result.Size := AFont.Size;
+    Result.Style := AFont.Style;
+  end;
+end;
+
 procedure InitParaMetric(var m: TParaMetric);
 begin
   FillChar(m, sizeof(m), 0);
@@ -267,6 +363,38 @@ end;
 procedure InitParaNumbering(var n: TParaNumbering);
 begin
   FillChar(n, sizeof(n), 0);
+end;
+
+procedure InitParaNumber(var n: TParaNumbering; ASepChar: WideChar; StartNum: Integer);
+begin
+  InitParaNumbering(n);
+  n.Style:=pnNumber;
+  n.NumberStart:=StartNum;
+  n.SepChar:=ASepChar;
+end;
+
+procedure InitParaBullet(var n: TParaNumbering);
+begin
+  InitParaNumbering(n);
+  n.Style:=pnBullet;
+end;
+
+{ TRichMemoInline }
+
+procedure TRichMemoInline.Draw(Canvas: TCanvas; const ASize: TSize);
+begin
+
+end;
+
+procedure TRichMemoInline.SetVisible(AVisible: Boolean);
+begin
+
+end;
+
+procedure TRichMemoInline.Invalidate;
+begin
+  if not Assigned(fOwner) then Exit;
+  Owner.InlineInvalidate( Self );
 end;
 
 { TRichMemo }
@@ -344,6 +472,14 @@ begin
     TWSCustomRichMemoClass(WidgetSetClass).SetZoomFactor(Self, AValue);
 end;
 
+procedure TCustomRichMemo.InlineInvalidate(handler: TRichMemoInline);
+begin
+  if not Assigned(handler) then Exit;
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
+    TWSCustomRichMemoClass(WidgetSetClass).InlineInvalidate(Self, handler, handler.WSObj);
+end;
+
 procedure TCustomRichMemo.DoSelectionChange;
 begin
   if Assigned(fOnSelectionChange) then fOnSelectionChange(Self);
@@ -370,14 +506,9 @@ end;
 
 procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;  
   AFont: TFont); 
-var
-  params  : TFontParams;
 begin
-  params.Name := AFont.Name;
-  params.Color := AFont.Color;
-  params.Size := AFont.Size;
-  params.Style := AFont.Style;
-  SetTextAttributes(TextStart, TextLen, {TextStyleAll,} params);
+  if not Assigned(AFont) then Exit;
+  SetTextAttributes(TextStart, TextLen, GetFontParams(AFont));
 end;
 
 procedure TCustomRichMemo.SetTextAttributes(TextStart, TextLen: Integer;  
@@ -646,6 +777,30 @@ begin
     TWSCustomRichMemoClass(WidgetSetClass).InDelText(Self, UTF8Text, InsStartChar, ReplaceLength);
     Result:=UTF8length(UTF8Text);
   end;
+end;
+
+function TCustomRichMemo.InDelInline(inlineobj: TRichMemoInline; InsStartChar,
+  ReplaceLength: Integer; const ASize: TSize): Integer;
+var
+  obj : TRichMemoInlineWSObject;
+begin
+  Result:=0;
+  if not Assigned(inlineObj) then Exit;
+  if Assigned(inlineobj.fOwner) and (inlineobj.fOwner<>Self) then Exit;
+
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then begin
+    obj:=nil;
+    if not TWSCustomRichMemoClass(WidgetSetClass).InlineInsert(Self, InsStartChar
+      , ReplaceLength, ASize, inlineObj, obj) then begin
+      inlineObj.Free;
+      Result:=0;
+    end;
+    if not Assigned(inlineObj.fOwner) then inlineObj.fOwner:=Self;
+    inlineObj.WSObj:=obj;
+    Result:=ReplaceLength;
+  end else
+    inlineObj.Free;
 end;
 
 procedure TCustomRichMemo.SetSelLengthFor(const aselstr: string);

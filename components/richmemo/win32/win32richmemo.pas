@@ -25,7 +25,7 @@ interface
 
 uses
   // Win32 headers  
-  Windows, RichEdit,
+  Windows, RichEdit, ActiveX,
   // RTL headers
   Classes, SysUtils, 
   // LCL headers
@@ -34,7 +34,7 @@ uses
   // Win32WidgetSet
   Win32WSControls, Win32Int, Win32WSStdCtrls, win32proc,
   // RichMemo headers
-  RichMemo, WSRichMemo, Win32RichMemoProc;
+  RichMemo, WSRichMemo, Win32RichMemoProc, Win32RichMemoOle;
 
 type  
 
@@ -105,7 +105,27 @@ type
       const SearchOpts: TIntSearchOpt): Integer; override;
 
     class procedure SetZoomFactor(const AWinControl: TWinControl; AZoomFactor: Double); override;
+
+    class function InlineInsert(const AWinControl: TWinControl; ATextStart, ATextLength: Integer;
+      const ASize: TSize; AHandler: TRichMemoInline; var wsObj: TRichMemoInlineWSObject): Boolean; override;
+    class procedure InlineInvalidate(const AWinControl: TWinControl;
+       AHandler: TRichMemoInline; wsObj: TRichMemoInlineWSObject); override;
   end;
+
+  { TWin32Inline }
+
+  TWin32Inline = class(TCustomDataViewObject, IOleObject, IDataObject, IViewObject)
+  public
+    richMemo : TCustomRichMemo;
+    canvas   : TCanvas;
+    rminline : TRichMemoInline;
+    isvis    : Boolean;
+    function Draw(dwDrawAspect:DWord;LIndex:Long;pvaspect:pointer;ptd:PDVTARGETDEVICE;hdcTargetDev:HDC; hdcDraw:HDC;lprcBounds:PRECTL;lprcWBounds:PRECTL;pfncontinue:TContinueCallback;dwcontinue:ULONG_PTR):HResult; stdcall;
+    function GetExtent(dwDrawAspect: DWORD; out size: TPoint): HResult;StdCall;
+    function Close(dwSaveOption: DWORD): HResult;StdCall;
+    destructor Destroy; override;
+  end;
+
   
 implementation
 
@@ -167,6 +187,64 @@ begin
   else
     Result := WindowProc(Window, Msg, WParam, LParam);
   end;
+end;
+
+{ TWin32Inline }
+
+function TWin32Inline.Draw(dwDrawAspect: DWord; LIndex: Long;
+  pvaspect: pointer; ptd: PDVTARGETDEVICE; hdcTargetDev: HDC; hdcDraw: HDC;
+  lprcBounds: PRECTL; lprcWBounds: PRECTL; pfncontinue: TContinueCallback;
+  dwcontinue: ULONG_PTR): HResult; stdcall;
+var
+  rst : Boolean;
+  pts : Windows.TPOINT;
+  sz  : TSize;
+begin
+  if not isvis then begin
+    isvis:=true;
+    rminline.SetVisible(isvis);
+  end;
+  canvas.Handle:=hdcDraw;
+
+  rst:= Assigned(lprcBounds);
+  if rst then begin
+    Windows.OffsetViewportOrgEx(hdcDraw, lprcBounds^.left, lprcBounds^.top, @pts);
+    sz.cx:=lprcBounds^.right - lprcBounds^.left;
+    sz.cy:=lprcBounds^.bottom - lprcBounds^.top;
+  end else begin
+    sz.cx:=0;
+    sz.cy:=0;
+  end;
+
+  rminline.Draw(canvas, sz);
+  if rst then Windows.OffsetViewportOrgEx(hdcDraw, pts.x, pts.y, nil);
+
+  Result:=S_OK;
+end;
+
+function TWin32Inline.GetExtent(dwDrawAspect: DWORD; out size: TPoint
+  ): HResult; StdCall;
+begin
+  if not isvis then begin
+    rminline.SetVisible(true);
+    isvis:=true;
+  end;
+  Result:=inherited GetExtent(dwDrawAspect, size);
+end;
+
+function TWin32Inline.Close(dwSaveOption: DWORD): HResult; StdCall;
+begin
+  if isvis then begin
+    rminline.SetVisible(false);
+    isvis:=false;
+  end;
+  Result:=inherited Close(dwSaveOption);
+end;
+
+destructor TWin32Inline.Destroy;
+begin
+  rminline.Free;
+  inherited Destroy;
 end;
 
 { TWin32RichMemoStringsW }
@@ -610,26 +688,33 @@ begin
   Result:=False;
   if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
 
+  InitParaNumbering(ANumber);
   eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
   RichEditManager.GetPara2(AWinControl.Handle, TextStart, para);
   RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
 
   case para.wNumbering of
-    PFN_BULLET:   ANumber.Numbering:=pnBullet;
-    PFN_ARABIC:   ANumber.Numbering:=pnNumber;
-    PFN_LCLETTER: ANumber.Numbering:=pnLowLetter;
-    PFN_LCROMAN:  ANumber.Numbering:=pnLowRoman;
-    PFN_UCLETTER: ANumber.Numbering:=pnUpLetter;
-    PFN_UCROMAN:  ANumber.Numbering:=pnUpRoman;
+    PFN_BULLET:   ANumber.Style:=pnBullet;
+    PFN_ARABIC:   ANumber.Style:=pnNumber;
+    PFN_LCLETTER: ANumber.Style:=pnLowLetter;
+    PFN_LCROMAN:  ANumber.Style:=pnLowRoman;
+    PFN_UCLETTER: ANumber.Style:=pnUpLetter;
+    PFN_UCROMAN:  ANumber.Style:=pnUpRoman;
     PFN_CUSTOM:   begin
-      ANumber.Numbering:=pnCustomChar;
-      ANumber.NumCustom:=WideChar(para.wNumberingStart);
+      ANumber.Style:=pnCustomChar;
+      ANumber.CustomChar:=WideChar(para.wNumberingStart);
     end;
   else
-    ANumber.Numbering:=pnNone;
+    ANumber.Style:=pnNone;
   end;
-  ANumber.NumIndent:=para.wNumberingTab/20;
-  Result:=true
+  if para.wNumberingStyle or PFNS_PLAIN > 0 then
+    ANumber.SepChar:=SepNone
+  else if para.wNumberingStyle or PFNS_PERIOD > 0 then
+    ANumber.SepChar:=SepDot
+  else if (ANumber.Style<>pnNone) and ((para.wNumberingStyle and PFNS_SOMESEPCHAR)= 0) then
+    ANumber.SepChar:=SepPar;
+  ANumber.Indent:=para.wNumberingTab/20;
+  Result:=true;
 end;
 
 class procedure TWin32WSCustomRichMemo.SetParaNumbering(
@@ -637,7 +722,8 @@ class procedure TWin32WSCustomRichMemo.SetParaNumbering(
   const ANumber: TIntParaNumbering);
 var
   para : PARAFORMAT2;
-  eventmask: INteger;
+  eventmask: Integer;
+  numbstyle: Integer;
 begin
   if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
   FillChar(para, SizeOf(para), 0);
@@ -645,22 +731,38 @@ begin
   para.cbSize:=sizeof(para);
   para.dwMask:=
      PFM_NUMBERING or PFM_NUMBERINGTAB;
-  case ANumber.Numbering of
+
+  numbstyle:=0;
+  case ANumber.SepChar of
+    SepPar: numbstyle:=numbstyle or PFNS_PAREN;
+    SepDot: numbstyle:=numbstyle or PFNS_PERIOD;
+    SepNone: numbstyle:=numbstyle or PFNS_PLAIN;
+  end;
+  case ANumber.Style of
     pnNone:       para.wNumbering:=0;
     pnBullet:     para.wNumbering:=PFN_BULLET;
-    pnNumber:     para.wNumbering:=PFN_ARABIC;
+    pnNumber: begin
+      para.wNumbering:=PFN_ARABIC;
+      para.dwMask:=para.dwMask or PFM_NUMBERINGSTART;
+      para.wNumberingStart:=ANumber.NumberStart;
+      if ANumber.ForceNewNum then numbstyle:=numbstyle or PFNS_NEWNUMBER;
+    end;
     pnLowLetter:  para.wNumbering:=PFN_LCLETTER;
     pnLowRoman:   para.wNumbering:=PFN_LCROMAN;
     pnUpLetter:   para.wNumbering:=PFN_UCLETTER;
     pnUpRoman:    para.wNumbering:=PFN_UCROMAN;
     pnCustomChar: begin
       para.wNumbering:=PFN_CUSTOM;
-      para.wNumberingStart:=Word(ANumber.NumCustom);
+      para.wNumberingStart:=Word(ANumber.CustomChar);
       para.dwMask:=para.dwMask or PFM_NUMBERINGSTART;
     end;
   end;
+  if numbstyle<> 0 then begin
+    para.dwMask:=para.dwMask or PFM_NUMBERINGSTYLE;
+    para.wNumberingStyle:=numbstyle;
+  end;
 
-  para.wNumberingTab:=round(ANumber.NumIndent*20);
+  para.wNumberingTab:=round(ANumber.Indent*20);
   eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
   RichEditManager.SetPara2(AWinControl.Handle, TextStart, TextLen, para);
   RichEditManager.SetEventMask(AWinControl.Handle, eventmask)
@@ -692,6 +794,85 @@ begin
   if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
   DN := 1000;
   SendMessage( AWinControl.Handle, EM_SETZOOM, round(AZoomFactor * DN), DN);
+end;
+
+class function TWin32WSCustomRichMemo.InlineInsert(
+  const AWinControl: TWinControl; ATextStart, ATextLength: Integer;
+  const ASize: TSize; AHandler: TRichMemoInline;
+  var wsObj: TRichMemoInlineWSObject): Boolean;
+var
+  hnd : THandle;
+  rch : IRichEditOle;
+  Fmt : FORMATETC;
+  LockBytes: ILockBytes;
+  ClientSite: IOleClientSite;
+  Storage: IStorage;
+  Image: IOleObject;
+  c: TWin32Inline;
+  Obj: TREOBJECT;
+  sl, ss: Integer;
+  eventmask: Integer;
+const
+  PointSize     = 72.0;
+  RtfSizeToInch = 2.54 * 1000.0;
+  SizeFactor    = 1 / PointSize * RtfSizeToInch;
+begin
+  Result:=False;
+  if not Assigned(RichEditManager) or not Assigned(AWinControl) then Exit;
+
+  hnd:=(AWinControl.Handle);
+
+  RichEditManager.GetSelection(hnd, ss, sl);
+  eventmask:=RichEditManager.SetEventMask(AWinControl.Handle, 0);
+  try
+    RichEditManager.SetSelection(hnd, ATextStart, ATextLength);
+    SendMessage(hnd, EM_GETOLEINTERFACE, 0, LPARAM(@rch));
+
+    FillChar(Fmt, sizeoF(Fmt), 0);
+    Fmt.dwAspect:=DVASPECT_CONTENT;
+    Fmt.lindex:=-1;
+
+    CreateILockBytesOnHGlobal(0, True, LockBytes);
+    StgCreateDocfileOnILockBytes(LockBytes, STGM_SHARE_EXCLUSIVE or STGM_CREATE or STGM_READWRITE, 0, Storage);
+    rch.GetClientSite(ClientSite);
+
+    c:=TWin32Inline.Create;
+    c.richMemo:=TCustomRichMemo(AWinControl);
+    c.canvas:=TCanvas.Create;
+    c.rminline:=AHandler;
+
+    Image:=c;
+    OleSetContainedObject(Image, True);
+
+    FillChar(Obj, sizeof(Obj),0);
+    Obj.cbStruct := SizeOf(Obj);
+    Obj.cp := REO_CP_SELECTION;
+    Image.GetUserClassID(Obj.clsid);
+    Obj.poleobj := Image;
+    Obj.pstg := Storage;
+    Obj.polesite := ClientSite;
+    Obj.dvaspect := DVASPECT_CONTENT;
+    Obj.dwFlags := REO_OWNERDRAWSELECT;
+
+    Obj.sizel.cx:=round(ASize.cx * SizeFactor);
+    Obj.sizel.cy:=round(ASize.cy * SizeFactor);
+
+    Result:= Succeeded(rch.InsertObject(obj));
+    if Result then wsObj:=c;
+  finally
+    RichEditManager.SetSelection(hnd, ss, sl);
+    RichEditManager.SetEventMask(AWinControl.Handle, eventmask);
+  end;
+end;
+
+class procedure TWin32WSCustomRichMemo.InlineInvalidate(
+  const AWinControl: TWinControl; AHandler: TRichMemoInline;
+  wsObj: TRichMemoInlineWSObject);
+begin
+  //inherited InlineInvalidate(AWinControl, AHandler, wsObj);
+  if not Assigned(AHandler) or not Assigned(wsObj) or (not (wsObj is TWin32Inline)) then Exit;
+  if not Assigned(TWin32Inline(wsObj).fSink) then Exit;
+  TWin32Inline(wsObj).fSink.OnViewChange(DVASPECT_CONTENT, -1);
 end;
  
 end.

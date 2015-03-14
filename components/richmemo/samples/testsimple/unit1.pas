@@ -16,8 +16,6 @@ type
   TForm1 = class(TForm)
     Button1: TButton;
     Button10: TButton;
-    Button11: TButton;
-    Button12: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
@@ -85,19 +83,11 @@ begin
 end;
 
 procedure TForm1.Button11Click(Sender: TObject);
-var
-  Num : TParaNumbering;
 begin
-  Num.Numbering:=TParaNumStyle(1);
-  RichMemo1.SetParaNumbering(RichMemo1.SelStart, RichMEmo1.SelLength, Num);
 end;
 
 procedure TForm1.Button12Click(Sender: TObject);
-var
-  Num : TParaNumbering;
 begin
-  Num.Numbering:=TParaNumStyle(2);
-  RichMemo1.SetParaNumbering(RichMemo1.SelStart, RichMEmo1.SelLength, Num);
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);

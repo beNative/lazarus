@@ -26,7 +26,6 @@ unit ts_Editor_AboutDialog;
     Lazarus - FPC Free Pascal development team
     TVirtualTreeView Mike Lischke, LCL port by Luiz Américo Pereira Câmara with modifications by Tim Sinaeve
     TSynEdit
-    DWScript engine Matthias Ackermann, maintained by Eric Grange; FPC port by Alexander Shishkin
     TTreeViewPresenter, datatemplates Stefan Glienke
     Anchor Docking Mattias Gaertner
     RTTI controls Mattias Gaertner
@@ -40,7 +39,6 @@ unit ts_Editor_AboutDialog;
     Silk Icons
     other icons
     GetText translation powered
-
 }
 
 interface
@@ -396,8 +394,8 @@ begin
   );
   AddCredit(
     'SynFacilSyn',
-    '',
-    ''
+    'Tito Hinostroza',
+    'http://blog.pucp.edu.pe/blog/tito'
   );
   AddCredit(
     'SynUniHighlighter',
@@ -410,12 +408,11 @@ begin
     'Luiz Américo Pereira Câmara',
     ''
   );
-  //AddCredit(
-  //  'DWScript',
-  //  'Original implementation by Matthias Ackermann,' +
-  //  'currently maintained by Eric Grange. FPC port by Alexander Shishkin.',
-  //  'http://code.google.com/p/dwscript/'
-  //);
+  AddCredit(
+    'TRichMemo',
+    'Dmitry ''skalogryz'' Boyarintsev',
+    ''
+  );
   AddCredit(
     'OMultiPanel',
     'Ondřej Pokorný',

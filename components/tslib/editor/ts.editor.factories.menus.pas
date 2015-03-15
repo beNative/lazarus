@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -239,9 +239,11 @@ begin
   SMI := CreateMenuItem(MI, 'actSelectionEncodeMenu');
   CreateMenuItem(SMI, 'actEncodeBase64');
   CreateMenuItem(SMI, 'actEncodeURL');
+  CreateMenuItem(SMI, 'actEncodeXML');
   SMI := CreateMenuItem(MI, 'actSelectionDecodeMenu');
   CreateMenuItem(SMI, 'actDecodeBase64');
   CreateMenuItem(SMI, 'actDecodeURL');
+  CreateMenuItem(SMI, 'actDecodeXML');
   Result := MI;
 end;
 

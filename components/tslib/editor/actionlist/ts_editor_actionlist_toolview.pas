@@ -447,7 +447,7 @@ begin
           C,
           Manager.Settings.Colors.HighlightAllColor.Background,
           Manager.Settings.Colors.HighlightAllColor.BackAlpha
-        )
+        );
       end
       else
       begin
@@ -588,12 +588,12 @@ begin
 
   CD := FTVPActions.ColumnDefinitions;
   FTVPActions.ItemTemplate := TActionListTemplate.Create(CD);
+  CD.AddColumn('Category', SCategory, dtString, 100);
   with CD.AddColumn('Name', SName, dtString, 150, 150, 200) do
   begin
     OnCustomDraw := FTVPActionsCustomDraw;
   end;
   CD.AddColumn('', dtString, 24);
-  CD.AddColumn('Category', SCategory, dtString, 100);
   with CD.AddColumn('Caption', SCaption, dtString, 120, 100, 200) do
   begin
     OnCustomDraw := FTVPActionsCustomDraw;

@@ -591,7 +591,7 @@ var
   S: string;
 begin
   S := GetApplicationPath;
-  if FileExists(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
+  if FileExistsUTF8(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(SynHighlighter) then
       TSynUniSyn(SynHighlighter).LoadFromFile(S + LayoutFileName);

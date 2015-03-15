@@ -439,12 +439,20 @@ function GetFileFilterExtsStr(
   const AFileFilter : string
 ): string;
 
+function XMLEncode(
+  const AString : string
+): string;
+
+function XMLDecode(
+  const AXMLString : string
+): string;
+
 implementation
 
 uses
   StrUtils, Dialogs, Math,
 
-  LazFileUtils, LazUTF8,
+  LazFileUtils, LazUTF8, Laz2_DOM,
 
   SynRegExpr,
 
@@ -2225,6 +2233,16 @@ begin
  if N > 0 then
   Result := SEnding(AFileFilter, N+1) else
   Result := '';
+end;
+
+function XMLEncode(const AString: string): string;
+begin
+  Result := StrToXMLValue(AString);
+end;
+
+function XMLDecode(const AXMLString: string): string;
+begin
+  Result := XMLValueToStr(AXMLString);
 end;
 
 function CompressWhiteSpace(const AString: string): string;

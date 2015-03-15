@@ -106,7 +106,6 @@ type
     FFormSettings             : TFormSettings;
     FEditorFont               : TFont;
     FHighlighterAttributes    : THighlighterAttributes;
-
     FColors                   : TEditorColorSettings;
     FToolSettings             : TEditorToolSettings;
     FEditorOptions            : TEditorOptionsSettings;
@@ -582,7 +581,7 @@ var
 begin
   Logger.EnterMethod('TEditorSettings.Load');
   S :=   GetApplicationPath + FFileName;
-  if FileExists(S) then
+  if FileExistsUTF8(S) then
   begin
     Doc := TNativeXml.Create(nil);
     try

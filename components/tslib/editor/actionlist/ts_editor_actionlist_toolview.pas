@@ -461,7 +461,6 @@ begin
       TargetCanvas.Brush.Color := C;
       TargetCanvas.Rectangle(R);
       TargetCanvas.Brush.Color := OC;
-
     end;
     R := CellRect;
     TargetCanvas.TextRect(R, R.Left + Margin, R.Top, S, FTextStyle);

@@ -78,6 +78,9 @@ type
 
 implementation
 
+uses
+  FileUtil;
+
 const
   LogPrefixes: array [ltInfo..ltCounter] of String = (
     'INFO',
@@ -190,7 +193,7 @@ end;
 procedure TFileChannel.Init;
 begin
   Assign(FFileHandle,FFileName);
-  if FileExists(FFileName) then
+  if FileExistsUTF8(FFileName) then
     Append(FFileHandle)
   else
     Rewrite(FFileHandle);

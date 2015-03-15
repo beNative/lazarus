@@ -2080,7 +2080,7 @@ var
   SSG: TSynSymbolGroup;
 
 begin
-  if (DefaultFilter <> '') and (FileExists(DefaultFilter)) then
+  if (DefaultFilter <> '') and (FileExistsUTF8(DefaultFilter)) then
     LoadFromFile(DefaultFilter)
   else
   begin

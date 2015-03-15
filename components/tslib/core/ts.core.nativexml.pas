@@ -2207,6 +2207,9 @@ function sdUtf8ToWideBuffer(const Utf8Buf; var WideBuf; ByteCount: Integer): Int
 
 implementation
 
+uses
+  Laz2_DOM, ts.Core.SharedLogger;
+
 type
   TAnsiCharArray = array[0..32767] of AnsiChar;
 
@@ -3921,8 +3924,12 @@ end;
 procedure TsdCharData.SetValue(const Value: Utf8String);
 begin
   // core value is the escaped, eol-normalized value
-  SetCoreValue(sdEscapeString(
-    sdNormaliseEol(Value)))
+  SetCoreValue(
+  // TS Temp
+    sdEscapeString(
+    sdNormaliseEol(Value)
+    )
+    )
 end;
 
 procedure TsdCharData.WriteStream(S: TStream);
@@ -8220,63 +8227,8 @@ begin
 end;
 
 function sdEscapeString(const AValue: Utf8String): Utf8String;
-// contributor: Michael Cessna
-var
-  I, Len: Int64;
-  P: PAnsiChar;
-  HasEscapes: Boolean;
-  ScratchMem: TsdFastMemStream;
 begin
-  Result := '';
-  Len := Length(AValue);
-  if Len = 0 then
-    Exit;
-
-  HasEscapes := False;
-  P := PAnsiChar(AValue);
-  I := 0;
-  while I < Len do
-  begin
-    case P^ of
-    '"'  : HasEscapes := True;
-    '''' : HasEscapes := True;
-    '&'  : HasEscapes := True;
-    '<'  : HasEscapes := True;
-    '>'  : HasEscapes := True;
-    end;
-    Inc(P);
-    Inc(I);
-  end;
-  if not HasEscapes then
-  begin
-    Result := AValue;
-    Exit;
-  end;
-
-  // ScratchMem is a TsdFastMemStream
-  ScratchMem := TsdFastMemStream.Create(Len * 2);
-  try
-    P := PAnsiChar(AValue);
-    I := 0;
-    while I < Len do
-    begin
-      case P^ of
-      '"'  : ScratchMem.Write(AnsiString('&quot;'), 6);
-      '''' : ScratchMem.Write(AnsiString('&apos;'), 6);
-      '&'  : ScratchMem.Write(AnsiString('&amp;'), 5);
-      '<'  : ScratchMem.Write(AnsiString('&lt;'), 4);
-      '>'  : ScratchMem.Write(AnsiString('&gt;'), 4);
-      else
-        ScratchMem.Write(P^, 1);
-      end;
-      Inc(P);
-      Inc(I);
-    end;
-    SetString(Result, PAnsiChar(ScratchMem.Memory), ScratchMem.Position);
-  finally
-    ScratchMem.Free;
-  end;
-
+  Result := Utf8String(StrToXMLValue(AValue));
 end;
 
 function sdReplaceString(const AValue: Utf8String; var HasNonStandardReferences: Boolean;

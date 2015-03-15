@@ -1448,7 +1448,7 @@ const
 var
   S : string;
 begin
-  if FileExists(AFileName) then
+  if FileExistsUTF8(AFileName) then
   begin
     S := Format(PARAM, [AFileName]);
     ShellExecute(
@@ -2195,4 +2195,4 @@ begin
 end;
 
 end.
-
+

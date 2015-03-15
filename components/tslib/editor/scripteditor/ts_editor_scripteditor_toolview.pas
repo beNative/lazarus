@@ -96,7 +96,7 @@ begin
     );
   end;
 
-  if FileExists('notepas.dws') then
+  if FileExistsUTF8('notepas.dws') then
     FScriptEditor.Load('notepas.dws');
 end;
 

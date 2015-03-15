@@ -1194,7 +1194,7 @@ begin
   begin
     if AValue then
     begin
-      if FileExists(FileName) then
+      if FileExistsUTF8(FileName) then
       begin
         FDirectoryWatch.Directory := ExtractFileDir(FileName);
         FDirectoryWatch.Start;

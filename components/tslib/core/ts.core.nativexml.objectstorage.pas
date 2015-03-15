@@ -996,9 +996,6 @@ begin
   if not Assigned(LClass) then
   begin
     raise Exception.CreateFmt(SUnregisteredClassType, [ANode.Name]);
-    //{$IFDEF LOGGER}Logger.SendError(Format(SUnregisteredClassType, [ANode.Name]));{$ENDIF}
-    //Result := nil;
-    //Exit;
   end;
   Result := LClass.Create(AOwner);
   if Length(AName) = 0 then
@@ -1065,9 +1062,6 @@ begin
             if not Assigned(LClass) then
             begin
               raise Exception.CreateFmt(SUnregisteredClassType, [LComponentNode.Name]);
-              //{$IFDEF LOGGER}Logger.SendError(Format(SUnregisteredClassType, [LComponentNode.Name]));{$ENDIF}
-              //Result := False;
-              //Exit;
             end;
             LComponent := LClass.Create(TComponent(AObject));
             LComponent.Name := LComponentNode.AttributeValueByName[NAME_ATTRIBUTE];
@@ -1197,9 +1191,6 @@ var
       if V = -1 then
       begin
         raise Exception.CreateFmt(SInvalidPropertyValue, [EnumName]);
-        //{$IFDEF LOGGER}Logger.SendError(SInvalidPropertyValue, [EnumName]);{$ENDIF}
-        //Result := False;
-        //Exit;
       end;
       Include(TIntegerSet(LSet), V);
     end;
@@ -1243,9 +1234,6 @@ var
     if Length(AValue) <> 1 then
     begin
       raise Exception.CreateFmt(SInvalidPropertyValue, [AValue]);
-      //{$IFDEF LOGGER}Logger.SendError(SInvalidPropertyValue, [AValue]);{$ENDIF}
-      //Result := False;
-      //Exit;
     end;
     SetOrdProp(AObject, APropInfo, Ord(AValue[1]));
   end;
@@ -1259,9 +1247,6 @@ var
     if V = -1 then
     begin
       raise Exception.CreateFmt(SInvalidPropertyValue, [AValue]);
-      //{$IFDEF LOGGER}Logger.SendError(SInvalidPropertyValue, [AValue]);{$ENDIF}
-      //Result := False;
-      //Exit;
     end;
     SetOrdProp(AObject, APropInfo, V)
   end;
@@ -1311,9 +1296,6 @@ var
       else
       begin
         raise Exception.CreateFmt(SObjectCouldNotBeLoaded, [APropInfo.Name]);
-        //{$IFDEF LOGGER}Logger.SendError(SObjectCouldNotBeLoaded, [APropInfo.Name]);{$ENDIF}
-        //Result := False;
-        //Exit;
       end;
     end
     else
@@ -1339,9 +1321,6 @@ var
     if not Assigned(Method.Code) then
     begin
       raise Exception.Create(SInvalidMethodName);
-      //{$IFDEF LOGGER}Logger.SendError(SInvalidMethodName);{$ENDIF}
-      //Result := False;
-      //Exit;
     end;
     Method.Data := AParent;
     TypInfo.SetMethodProp(AObject, APropInfo, Method);
@@ -1422,6 +1401,7 @@ begin
         tkAString,
         tkString,
         tkLString:
+        // TS: XML decode Value !!
           SetStrProp(AObject, APropInfo, LChildNode.Value);
         {$IFDEF UNICODE}
         tkWString:

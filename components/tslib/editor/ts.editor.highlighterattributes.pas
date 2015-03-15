@@ -147,9 +147,7 @@ type
 
 implementation
 
-
 {$region 'THighlighterAttributes' /fold}
-
 {$region 'THighlighterAttributes.THighlighterAttributesEnumerator' /fold}
 function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent
   : THighlighterAttributesItem;
@@ -303,8 +301,8 @@ begin
 end;
 
 { The FindItemID method returns the item in the collection whose ID property
-    is passed to it as a parameter. If no item has the specified ID, FindItemID
-    returns nil. }
+  is passed to it as a parameter. If no item has the specified ID, FindItemID
+  returns nil. }
 
 function THighlighterAttributes.FindItemID(ID: Integer): THighlighterAttributesItem;
 begin
@@ -321,6 +319,7 @@ begin
   else
     Result := Items[I];
 end;
+{$endregion}
 {$endregion}
 
 {$region 'THighlighterAttributesItem' /fold}
@@ -414,6 +413,7 @@ begin
  else
    inherited Assign(Source);
 end;
+{$endregion}
 {$endregion}
 
 end.

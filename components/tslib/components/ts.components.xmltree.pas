@@ -1616,7 +1616,7 @@ begin
     NodeType := NT;
     XMLPath := GetXmlPath(XMLNode);
   end;
-  Include(ANode.LastChild.States, vsInitialUserData);
+  Include(ANode.LastChild.States, vsInitialized);
   Result := True;
   //Logger.ExitMethod(Self, 'AddChild');
 end;

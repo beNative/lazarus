@@ -2916,10 +2916,11 @@ begin
   B := AShowDialog or not FileExistsUTF8(AFileName);
   if B then // show dialog
   begin
-    dlgSave.Filter := Settings.Highlighters.FileFilter;
-    /// TODO
-    //if Assigned(ActiveView.Editor.Highlighter) then
-    //  dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
+    if Assigned(ActiveView.Editor.Highlighter) then
+    begin
+      dlgSave.Filter := ActiveView.HighlighterItem.SynHighlighter.DefaultFilter;
+      dlgSave.FilterIndex := ActiveView.HighlighterItem.Index + 1;
+    end;
     dlgSave.FileName := S;
     if dlgSave.Execute then
     begin

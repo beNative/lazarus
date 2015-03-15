@@ -101,6 +101,7 @@ type
     procedure DequoteSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
     procedure URLFromSelection(ADecode: Boolean = False);
+    procedure XMLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SyncEditSelection;
     procedure Save;
@@ -548,6 +549,17 @@ begin
     Selection.Text := URLDecode(Selection.Text)
   else
     Selection.Text := URLEncode(Selection.Text);
+  Selection.Restore;
+  View.Modified := True;
+end;
+
+procedure TEditorCommands.XMLFromSelection(ADecode: Boolean);
+begin
+  Selection.Store(True, True);
+  if ADecode then
+    Selection.Text := XMLDecode(Selection.Text)
+  else
+    Selection.Text := XMLEncode(Selection.Text);
   Selection.Restore;
   View.Modified := True;
 end;

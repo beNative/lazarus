@@ -1,8 +1,8 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 641
-  VerticalOffset = 138
+  HorizontalOffset = 459
+  VerticalOffset = 202
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
@@ -4801,6 +4801,16 @@ object dmEditorManager: TdmEditorManager
       ImageIndex = 118
       OnExecute = actPlaybackMacroExecute
       ShortCut = 24656
+    end
+    object actEncodeXML: TAction
+      Category = 'Selection'
+      Caption = 'Encode XML'
+      OnExecute = actEncodeXMLExecute
+    end
+    object actDecodeXML: TAction
+      Category = 'Selection'
+      Caption = 'Decode XML'
+      OnExecute = actDecodeXMLExecute
     end
   end
   object ppmExport: TPopupMenu

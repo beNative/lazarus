@@ -159,6 +159,8 @@ type
     actDecodeURL                      : TAction;
     actCompressSpace: TAction;
     actCompressWhitespace: TAction;
+    actEncodeXML: TAction;
+    actDecodeXML: TAction;
     actPlaybackMacro: TAction;
     actRecordMacro: TAction;
     actSaveAll: TAction;
@@ -329,7 +331,9 @@ type
     procedure actCompressWhitespaceExecute(Sender: TObject);
     procedure actConvertTabsToSpacesExecute(Sender: TObject);
     procedure actDecodeURLExecute(Sender: TObject);
+    procedure actDecodeXMLExecute(Sender: TObject);
     procedure actEncodeURLExecute(Sender: TObject);
+    procedure actEncodeXMLExecute(Sender: TObject);
     procedure actExecuteScriptOnSelectionExecute(Sender: TObject);
     procedure actMergeBlankLinesExecute(Sender: TObject);
     procedure actPageSetupExecute(Sender: TObject);
@@ -1682,9 +1686,19 @@ begin
   Commands.URLFromSelection(True);
 end;
 
+procedure TdmEditorManager.actDecodeXMLExecute(Sender: TObject);
+begin
+  Commands.XMLFromSelection(True);
+end;
+
 procedure TdmEditorManager.actEncodeURLExecute(Sender: TObject);
 begin
   Commands.URLFromSelection;
+end;
+
+procedure TdmEditorManager.actEncodeXMLExecute(Sender: TObject);
+begin
+  Commands.XMLFromSelection;
 end;
 
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);

@@ -843,6 +843,7 @@ type
     procedure DequoteSelection;
     procedure Base64FromSelection(ADecode: Boolean = False);
     procedure URLFromSelection(ADecode: Boolean = False);
+    procedure XMLFromSelection(ADecode: Boolean = False);
     procedure ConvertTabsToSpacesInSelection;
     procedure SortStrings;
     procedure SyncEditSelection;

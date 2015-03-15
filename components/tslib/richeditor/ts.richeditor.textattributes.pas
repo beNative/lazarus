@@ -80,7 +80,6 @@ type
     procedure BeginUpdate;
     procedure EndUpdate;
 
-
     property OnUpdate: TNotifyEvent
       read FOnUpdate write FOnUpdate;
 

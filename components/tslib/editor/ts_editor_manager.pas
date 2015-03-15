@@ -151,19 +151,19 @@ type
     actFindAllOccurences              : TAction;
     actIndent                         : TAction;
     actFileMenu                       : TAction;
-    actConvertTabsToSpaces : TAction;
+    actConvertTabsToSpaces            : TAction;
     actExecuteScriptOnSelection       : TAction;
     actHighlighterMenu                : TAction;
     actFoldMenu                       : TAction;
     actEncodeURL                      : TAction;
     actDecodeURL                      : TAction;
-    actCompressSpace: TAction;
-    actCompressWhitespace: TAction;
-    actEncodeXML: TAction;
-    actDecodeXML: TAction;
-    actPlaybackMacro: TAction;
-    actRecordMacro: TAction;
-    actSaveAll: TAction;
+    actCompressSpace                  : TAction;
+    actCompressWhitespace             : TAction;
+    actEncodeXML                      : TAction;
+    actDecodeXML                      : TAction;
+    actPlaybackMacro                  : TAction;
+    actRecordMacro                    : TAction;
+    actSaveAll                        : TAction;
     actMergeBlankLines                : TAction;
     actStripComments                  : TAction;
     actSelectionEncodeMenu            : TAction;
@@ -2429,6 +2429,7 @@ begin
   MI.Action := actSelectionEncodeMenu;
   AddMenuItem(MI, actEncodeBase64);
   AddMenuItem(MI, actEncodeURL);
+  AddMenuItem(MI, actEncodeXML);
 end;
 
 procedure TdmEditorManager.BuildSelectionDecodePopupMenu;
@@ -2440,6 +2441,7 @@ begin
   MI.Action := actSelectionDecodeMenu;
   AddMenuItem(MI, actDecodeBase64);
   AddMenuItem(MI, actDecodeURL);
+  AddMenuItem(MI, actDecodeXML);
 end;
 
 procedure TdmEditorManager.BuildInsertPopupMenu;
@@ -3005,6 +3007,8 @@ begin
       actDecodeBase64.Enabled                   := B;
       actEncodeURL.Enabled                      := B;
       actDecodeURL.Enabled                      := B;
+      actEncodeXML.Enabled                      := B;
+      actDecodeXML.Enabled                      := B;
       actConvertTabsToSpaces.Enabled            := B;
       actExecuteScriptOnSelection.Enabled       := B;
       actSyncEdit.Enabled                       := B;

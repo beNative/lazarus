@@ -214,14 +214,14 @@ end;
 
 function TTextAttributes.GetNumberingStyle: TParaNumStyle;
 begin
-  Result := FParaNumbering.Numbering;
+  Result := FParaNumbering.Style;
 end;
 
 procedure TTextAttributes.SetNumberingStyle(AValue: TParaNumStyle);
 begin
   if AValue <> NumberingStyle then
   begin
-    FParaNumbering.Numbering := AValue;
+    FParaNumbering.Style := AValue;
     Changed;
   end;
 end;

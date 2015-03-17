@@ -1,0 +1,251 @@
+object frmSettingsDialog: TfrmSettingsDialog
+  Left = -1007
+  Height = 461
+  Top = 150
+  Width = 462
+  Caption = 'Settings'
+  ClientHeight = 461
+  ClientWidth = 462
+  Position = poMainFormCenter
+  ShowHint = True
+  LCLVersion = '1.3'
+  object pnlButtons: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 421
+    Width = 450
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 0
+    ShowButtons = [pbCancel, pbClose]
+  end
+  object pgcMain: TPageControl
+    Left = 0
+    Height = 415
+    Top = 0
+    Width = 462
+    ActivePage = tsDataBase
+    Align = alClient
+    TabIndex = 0
+    TabOrder = 1
+    object tsDataBase: TTabSheet
+      Caption = 'Database'
+      ClientHeight = 387
+      ClientWidth = 454
+      object edtDatabaseFile: TFileNameEdit
+        Left = 76
+        Height = 23
+        Top = 11
+        Width = 333
+        DialogOptions = []
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 0
+      end
+      object lblDataBaseFile: TLabel
+        Left = 13
+        Height = 15
+        Top = 16
+        Width = 51
+        Caption = 'Filename:'
+        FocusControl = edtDatabaseFile
+        ParentColor = False
+      end
+      object btnCreateNewDatabase: TButton
+        Left = 191
+        Height = 25
+        Top = 34
+        Width = 123
+        Action = actCreateNewDatabase
+        TabOrder = 1
+      end
+      object btnOpenDatabase: TButton
+        Left = 76
+        Height = 25
+        Top = 34
+        Width = 112
+        Action = actOpenDatabase
+        TabOrder = 2
+      end
+      object btnDeleteDatabase: TButton
+        Left = 317
+        Height = 25
+        Top = 34
+        Width = 115
+        Action = actDeleteDatabase
+        TabOrder = 3
+      end
+      object chkAutomaticIndex: TCheckBox
+        Left = 28
+        Height = 19
+        Hint = 'When no indices are available to aid the evaluation '#13#10'of a query, SQLite might create an automatic index '#13#10'that lasts only for the duration of a single SQL statement '#13#10'and use that index to help boost the query performance.'
+        Top = 74
+        Width = 107
+        Caption = 'Automatic index'
+        OnClick = chkAutomaticIndexClick
+        TabOrder = 4
+      end
+    end
+    object tsImages: TTabSheet
+      Caption = 'Images'
+      ClientHeight = 387
+      ClientWidth = 454
+      object grdGlyph: TVirtualDBGrid
+        Left = 109
+        Height = 382
+        Top = 3
+        Width = 342
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWhite
+        Header.AutoSizeIndex = 4
+        Header.Columns = <>
+        Header.DefaultHeight = 18
+        Header.Height = 18
+        Header.MainColumn = -1
+        Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoRestrictDrag, hoShowHint, hoShowImages, hoVisible, hoAutoSpring, hoDisableAnimatedResize]
+        IncrementalSearch = isAll
+        TabOrder = 0
+        OnAfterCellPaint = grdGlyphAfterCellPaint
+        OnEditing = grdGlyphEditing
+        DBOptions.DataSource = dscGlyph
+        DBOptions.OddRowColor = 16119285
+        DBOptions.EvenRowColor = clWindow
+        DBOptions.SortColumnBgColor = 14745599
+        DBOptions.AdvOptions = [aoEditable, aoShowHorzLines, aoShowVertLines, aoAutoInsertIndicator, aoHighlightSortColumn, aoHourGlassCursor, aoEditDBFieldColumns, aoEditCalculatedColumns, aoEditOnClick, aoEditOnDblClick, aoAddDefaultColumns]
+        OnGetRecordCount = grdGlyphGetRecordCount
+        OnFormatFieldValue = grdGlyphFormatFieldValue
+      end
+      object btnOpenGlyphs: TButton
+        Left = 1
+        Height = 25
+        Top = 3
+        Width = 104
+        Action = actOpenGlyphs
+        TabOrder = 1
+      end
+      object btnRefresh: TButton
+        Left = 1
+        Height = 25
+        Top = 31
+        Width = 104
+        Action = actRefreshGlyphs
+        TabOrder = 2
+      end
+      object vstImageList: TVirtualStringTree
+        Left = 1
+        Height = 326
+        Top = 58
+        Width = 104
+        Anchors = [akTop, akLeft, akBottom]
+        DefaultText = 'Node'
+        Header.AutoSizeIndex = 0
+        Header.Columns = <        
+          item
+            Position = 0
+            Text = 'Index'
+          end        
+          item
+            Position = 1
+            Text = 'Image'
+          end>
+        Header.DefaultHeight = 17
+        TabOrder = 3
+        OnAfterCellPaint = vstImageListAfterCellPaint
+        OnGetText = vstImageListGetText
+      end
+    end
+    object Highlighters: TTabSheet
+      Caption = 'Highlighters'
+      ClientHeight = 387
+      ClientWidth = 454
+      object grdHighlighters: TVirtualDBGrid
+        Left = 117
+        Height = 382
+        Top = 3
+        Width = 335
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Color = clWhite
+        Header.AutoSizeIndex = 4
+        Header.Columns = <>
+        Header.DefaultHeight = 18
+        Header.Height = 18
+        Header.MainColumn = -1
+        Header.Options = [hoAutoResize, hoColumnResize, hoDrag, hoRestrictDrag, hoShowHint, hoShowImages, hoVisible, hoAutoSpring, hoDisableAnimatedResize]
+        IncrementalSearch = isAll
+        TabOrder = 0
+        OnAfterCellPaint = grdHighlightersAfterCellPaint
+        OnEditing = grdGlyphEditing
+        DBOptions.DataSource = dscHighlighter
+        DBOptions.OddRowColor = 16119285
+        DBOptions.EvenRowColor = clWindow
+        DBOptions.SortColumnBgColor = 14745599
+        DBOptions.AdvOptions = [aoEditable, aoShowHorzLines, aoShowVertLines, aoAutoInsertIndicator, aoHighlightSortColumn, aoHourGlassCursor, aoEditDBFieldColumns, aoEditCalculatedColumns, aoEditOnClick, aoEditOnDblClick, aoAddDefaultColumns]
+        OnFormatFieldValue = grdGlyphFormatFieldValue
+      end
+      object cbxImageList: TComboBox
+        Left = 8
+        Height = 24
+        Top = 20
+        Width = 44
+        AutoCompleteText = []
+        DropDownCount = 40
+        ItemHeight = 18
+        OnDrawItem = cbxImageListDrawItem
+        Style = csOwnerDrawFixed
+        TabOrder = 1
+        Text = 'cbxImageList'
+      end
+    end
+  end
+  object aclMain: TActionList
+    left = 416
+    top = 168
+    object actCreateNewDatabase: TAction
+      Caption = 'Create new database'
+      OnExecute = actCreateNewDatabaseExecute
+    end
+    object actOpenDatabase: TAction
+      Caption = 'Open database'
+      OnExecute = actOpenDatabaseExecute
+    end
+    object actDeleteDatabase: TAction
+      Caption = 'Delete database'
+      OnExecute = actDeleteDatabaseExecute
+    end
+    object actOpenGlyphs: TAction
+      Caption = 'Open glyph files'
+      OnExecute = actOpenGlyphsExecute
+    end
+    object actRefreshGlyphs: TAction
+      Caption = 'Refresh'
+      OnExecute = actRefreshGlyphsExecute
+    end
+  end
+  object dscGlyph: TDataSource
+    OnStateChange = dscGlyphStateChange
+    OnUpdateData = dscGlyphUpdateData
+    left = 376
+    top = 107
+  end
+  object dlgOpen: TOpenDialog
+    Title = 'Open glyph'
+    DefaultExt = '.png'
+    Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
+    left = 416
+    top = 104
+  end
+  object dscHighlighter: TDataSource
+    left = 368
+    top = 168
+  end
+end

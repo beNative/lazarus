@@ -1,3 +1,6 @@
+1/04/2015
+- updated sources to support latest tslib sources
+
 14/12/2014
 - refactored sources in ts.Components.VirtualDBTreeEx
 - added DB creation script (snippetsource.sql) to the project sources.

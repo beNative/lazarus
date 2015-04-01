@@ -250,8 +250,6 @@ begin
     SO := HI.FileExtensions;
     SN := 'test';
     HI.FileExtensions := SN;
-    if Assigned(HI.SynHighlighter) then
-      (HI.SynHighlighter as TSynPasSyn).CompilerMode := pcmObjFPC;
     FSettings.Save;
 
     LoadSettings;

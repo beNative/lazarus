@@ -221,6 +221,7 @@ var
   XMLWriter: TXMLWriter;
   RootElement: TXMLWriterElement;
   xT: Cardinal;
+  xEncoding: TEncoding;
 begin
   xT := GetTickCount;
 
@@ -228,7 +229,9 @@ begin
   XMLWriter := TXMLWriter.Create;
   try
     XMLWriter.InitFile(eFileName.Text);
-    XMLWriter.Encoding := GetCreateCodePage(cobCodePage.Items[cobCodePage.ItemIndex]);
+    if TEncoding.EncodingFromAlias(cobCodePage.Items[cobCodePage.ItemIndex], xEncoding) then
+      XMLWriter.Encoding := xEncoding;
+
     try
       XMLWriter.WriterSettings.IndentType := TXmlIndentType(rgOutputFormat.ItemIndex);
       XMLWriter.XMLDeclaration;

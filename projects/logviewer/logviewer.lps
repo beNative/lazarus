@@ -3,15 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release win32 i386 win32"/>
-    <Units Count="65">
+    <BuildModes Active="Debug"/>
+    <Units Count="66">
       <Unit0>
         <Filename Value="logviewer.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="logviewer"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <CursorPos X="73" Y="22"/>
+        <CursorPos X="30" Y="11"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -31,7 +30,7 @@
         <Filename Value="logviewer.watchlist.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="LogViewer.WatchList"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="43"/>
         <CursorPos X="60" Y="48"/>
         <UsageCount Value="56"/>
@@ -410,15 +409,25 @@
       <Unit64>
         <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
         <UnitName Value="htmlun2"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="472"/>
         <CursorPos X="6" Y="493"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit64>
+      <Unit65>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
+        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="1046"/>
+        <CursorPos X="80" Y="1066"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit65>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="logviewer_forms_main.pas"/>
         <Caret Line="63" Column="5" TopLine="44"/>
@@ -531,6 +540,10 @@
         <Filename Value="logviewer.pas"/>
         <Caret Line="24"/>
       </Position29>
+      <Position30>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="11" Column="30"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

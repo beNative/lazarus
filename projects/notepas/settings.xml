@@ -1064,8 +1064,8 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>75</Left>
-		<Top>75</Top>
+		<Left>100</Left>
+		<Top>100</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

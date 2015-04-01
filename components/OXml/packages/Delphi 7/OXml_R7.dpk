@@ -29,11 +29,13 @@ package OXml_R7;
 requires
   rtl,
   xmlrtl,
-  inet;
+  inet,
+  vcl;
 
 contains
   OBufferedStreams in '..\..\units\OBufferedStreams.pas',
   ODictionary in '..\..\units\ODictionary.pas',
+  OJSON in '..\..\units\OJSON.pas',
   OEncoding in '..\..\units\OEncoding.pas',
   OHashedStrings in '..\..\units\OHashedStrings.pas',
   OTextReadWrite in '..\..\units\OTextReadWrite.pas',
@@ -45,6 +47,7 @@ contains
   OXmlUtils in '..\..\units\OXmlUtils.pas',
   OXmlXPath in '..\..\units\OXmlXPath.pas',
   OXmlPDOM in '..\..\units\OXmlPDOM.pas',
-  OXmlCDOM in '..\..\units\OXmlCDOM.pas';
+  OXmlCDOM in '..\..\units\OXmlCDOM.pas',
+  OXmlSerialize in '..\..\units\OXmlSerialize.pas';
 
 end.

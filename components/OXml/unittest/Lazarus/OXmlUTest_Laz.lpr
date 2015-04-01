@@ -7,8 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, OXmlUnitTests, OXmlXPath, OBufferedStreams, ODictionary,
-  OEncoding, OHashedStrings, OTextReadWrite, OWideSupp, OXmlLng,
-  OXmlReadWrite, OXmlSAX, OXmlSeq, OXmlUtils, OXmlPDOM;
+  OEncoding, OHashedStrings, OTextReadWrite, OWideSupp, OXmlLng, OXmlReadWrite,
+  OXmlSAX, OXmlSeq, OXmlUtils, OXmlPDOM, OXmlCDOM, OXmlSerialize, OJSON;
 
 var
   xTest: TOXmlUnitTest;
@@ -27,6 +27,8 @@ begin
   end;
 
   Writeln;
+  {$IFDEF MSWINDOWS}
   Write('Press enter to close.');
   Readln;
-end.
+  {$ENDIF}
+end.

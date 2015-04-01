@@ -7,7 +7,7 @@ unit OXmlSeq;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -45,7 +45,7 @@ uses
   SysUtils, Classes,
   {$ENDIF}
 
-  OWideSupp, OXmlUtils, OXmlReadWrite, OEncoding, OXmlPDOM;
+  OWideSupp, OXmlUtils, OTextReadWrite, OXmlReadWrite, OEncoding, OXmlPDOM;
 
 type
 
@@ -57,7 +57,7 @@ type
     fTempReaderPath: TOWideStringList;
     fTempNodePath: TOWideStringList;
     fXmlDoc: TXMLDocument;
-    fParseError: IXMLParseError;
+    fParseError: IOTextParseError;
 
     function ReadNextChildNodeCustom(const aOnlyElementHeader: Boolean;
       var outElementIsOpen: Boolean): Boolean;
@@ -65,8 +65,8 @@ type
     function GetWhiteSpaceHandling: TXmlWhiteSpaceHandling;
     procedure SetWhiteSpaceHandling(const aWhiteSpaceHandling: TXmlWhiteSpaceHandling);
     function GetReaderSettings: TXMLReaderSettings;
-    function GetApproxStreamPosition: ONativeInt;
-    function GetStreamSize: ONativeInt;
+    function GetApproxStreamPosition: OStreamInt;
+    function GetStreamSize: OStreamInt;
   protected
     procedure DoCreate; virtual;
     procedure DoInit; virtual;
@@ -85,22 +85,19 @@ type
     //init document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    procedure InitFile(const aFileName: String; const aForceEncoding: TEncoding = nil);
+    procedure InitFile(const aFileName: OWideString; const aForceEncoding: TEncoding = nil);
     //init document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
     procedure InitStream(const aStream: TStream; const aForceEncoding: TEncoding = nil);
     //init XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
     procedure InitXML(const aXML: OWideString);
-    {$IFDEF O_RAWBYTESTRING}
-    procedure InitXML_UTF8(const aXML: ORawByteString);
-    {$ENDIF}
-    {$IFDEF O_GENERICBYTES}
+    procedure InitXML_UTF8(const aXML: OUTF8Container);
     //init document from TBytes buffer
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    procedure InitBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil);
-    {$ENDIF}
+    procedure InitBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil); overload;
+    procedure InitBuffer(const aBuffer; const aBufferLength: Integer; const aForceEncoding: TEncoding = nil); overload;
 
     //Release the current document (that was loaded with Init*)
     procedure ReleaseDocument;
@@ -152,11 +149,11 @@ type
   public
     //Approximate position in original read stream
     //  exact position cannot be determined because of variable UTF-8 character lengths
-    property ApproxStreamPosition: ONativeInt read GetApproxStreamPosition;
+    property ApproxStreamPosition: OStreamInt read GetApproxStreamPosition;
     //size of original stream
-    property StreamSize: ONativeInt read GetStreamSize;
+    property StreamSize: OStreamInt read GetStreamSize;
 
-    property ParseError: IXMLParseError read fParseError;
+    property ParseError: IOTextParseError read fParseError;
   end;
 
 implementation
@@ -206,7 +203,7 @@ begin
   fXmlDoc.Clear;
 end;
 
-function TXMLSeqParser.GetApproxStreamPosition: ONativeInt;
+function TXMLSeqParser.GetApproxStreamPosition: OStreamInt;
 begin
   Result := fReader.ApproxStreamPosition;
 end;
@@ -216,7 +213,7 @@ begin
   Result := fReader.ReaderSettings;//direct access to reader settings
 end;
 
-function TXMLSeqParser.GetStreamSize: ONativeInt;
+function TXMLSeqParser.GetStreamSize: OStreamInt;
 begin
   Result := fReader.StreamSize;
 end;
@@ -234,14 +231,14 @@ begin
   while fReader.ReadNextToken(fReaderToken) do
   begin
     case fReaderToken.TokenType of
-      rtOpenElement: begin
+      rtOpenElement:
+      begin
         outElementName := fReaderToken.TokenName;
         Result := True;
         Exit;
       end;
-      rtCloseElement: begin
+      rtCloseElement:
         Break;//Result = False
-      end;
     end;
   end;
 
@@ -260,7 +257,8 @@ begin
   fReader.NodePathAssignTo(fTempReaderPath);
   OExpandPath(fTempReaderPath, fTempNodePath);
 
-  if fReader.NodePathMatch(fTempNodePath) then begin
+  if fReader.NodePathMatch(fTempNodePath) then
+  begin
     Result := True;
     Exit;
   end;
@@ -281,16 +279,21 @@ begin
   ReleaseDocument;
 end;
 
-{$IFDEF O_GENERICBYTES}
 procedure TXMLSeqParser.InitBuffer(const aBuffer: TBytes;
   const aForceEncoding: TEncoding);
 begin
   fReader.InitBuffer(aBuffer, aForceEncoding);
   DoInit;
 end;
-{$ENDIF}
 
-procedure TXMLSeqParser.InitFile(const aFileName: String;
+procedure TXMLSeqParser.InitBuffer(const aBuffer; const aBufferLength: Integer;
+  const aForceEncoding: TEncoding);
+begin
+  fReader.InitBuffer(aBuffer, aBufferLength, aForceEncoding);
+  DoInit;
+end;
+
+procedure TXMLSeqParser.InitFile(const aFileName: OWideString;
   const aForceEncoding: TEncoding);
 begin
   fReader.InitFile(aFileName, aForceEncoding);
@@ -310,20 +313,18 @@ begin
   DoInit;
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-procedure TXMLSeqParser.InitXML_UTF8(const aXML: ORawByteString);
+procedure TXMLSeqParser.InitXML_UTF8(const aXML: OUTF8Container);
 begin
   fReader.InitXML_UTF8(aXML);
   DoInit;
 end;
-{$ENDIF}
 
 function TXMLSeqParser.SkipNextChildElementHeader(
   var outElementIsOpen: Boolean): Boolean;
 var
   x: PXMLNode;
 begin
-  Result := ReadNextChildElementHeader({%H-}x, outElementIsOpen);
+  Result := ReadNextChildElementHeader(x{%H-}, outElementIsOpen);
 end;
 
 function TXMLSeqParser.SkipNextChildNode: Boolean;
@@ -333,7 +334,7 @@ begin
   //use ReadNextChildElementHeaderClose instead of ReadNextChildNode
   //  -> the same result/functionality, but better performance because
   //  the inner nodes are not created
-  Result := ReadNextChildElementHeaderClose({%H-}x);
+  Result := ReadNextChildElementHeaderClose(x{%H-});
 end;
 
 function TXMLSeqParser.ReadNextChildElementHeader(
@@ -349,7 +350,7 @@ function TXMLSeqParser.ReadNextChildElementHeaderClose(
 var
   xElementIsOpen: Boolean;
 begin
-  Result := ReadNextChildElementHeader(outNode, {%H-}xElementIsOpen);
+  Result := ReadNextChildElementHeader(outNode, xElementIsOpen{%H-});
   if Result and xElementIsOpen then
     GoToPath('..');//go back to parent
 end;
@@ -358,7 +359,7 @@ function TXMLSeqParser.ReadNextChildNode(var outNode: PXMLNode): Boolean;
 var
   x: Boolean;
 begin
-  Result := ReadNextChildNodeCustom(False, {%H-}x) and fXmlDoc.Node.HasChildNodes;
+  Result := ReadNextChildNodeCustom(False, x{%H-}) and fXmlDoc.Node.HasChildNodes;
 
   if Result then
     outNode := fXmlDoc.Node.FirstChild;
@@ -380,16 +381,20 @@ begin
   try
     fXmlDoc.Clear(False);
 
-    if fReaderToken.TokenType = rtOpenElement then begin
+    if Assigned(fReaderToken) and (fReaderToken.TokenType = rtOpenElement) then
+    begin
       //last found was opening element (most probably from GoToPath()), write it down!
       xLastNode := fXmlDoc.Node.AddChild(fReaderToken.TokenName)
-    end else begin
+    end else
+    begin
       //last found was something else
       xLastNode := fXmlDoc.Node;
 
       //go to next child
-      if aOnlyElementHeader then begin
-        while fReader.ReadNextToken(fReaderToken) do begin
+      if aOnlyElementHeader then
+      begin
+        while fReader.ReadNextToken(fReaderToken) do
+        begin
           case fReaderToken.TokenType of
             rtOpenElement://new element found
             begin
@@ -406,18 +411,22 @@ begin
       end;
     end;
 
-    if not aOnlyElementHeader then begin
+    if not aOnlyElementHeader then
+    begin
       //read whole element contents
       xBreakReading := fReader.ReaderSettings.BreakReading;
       fReader.ReaderSettings.BreakReading := brAfterDocumentElement;
+      fReader.ResetDocumentElement;
       try
         Result := xLastNode.LoadFromReader(fReader, fReaderToken, fXmlDoc.Node);
       finally
         fReader.ReaderSettings.BreakReading := xBreakReading;
       end;
-    end else begin
+    end else
+    begin
       //read only element header
-      while fReader.ReadNextToken(fReaderToken) do begin
+      while fReader.ReadNextToken(fReaderToken) do
+      begin
         case fReaderToken.TokenType of
           rtXMLDeclarationAttribute, rtAttribute:
             xLastNode.Attributes[fReaderToken.TokenName] := fReaderToken.TokenValue;

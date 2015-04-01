@@ -43,7 +43,7 @@ uses
 begin
   if FileExists('trace.trc') then
     DeleteFile('trace.trc');
-  SetHeapTraceOutput('trace.trc');
+  //SetHeapTraceOutput('trace.trc');
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

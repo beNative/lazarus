@@ -7,7 +7,7 @@ unit OHashedStrings;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -62,6 +62,7 @@ uses
 type
 
   OHashedStringsIndex = Integer;
+  OStringIndex = Integer;
 
   POHashItem = ^TOHashItem;
   TOHashItem = packed {$IFDEF O_EXTRECORDS}record{$ELSE}object{$ENDIF}
@@ -74,7 +75,7 @@ type
     function GetText: OWideString;
     {$ENDIF}
   public
-    function SameText(const aText: OWideString): Boolean;
+    function SameText(const aTextWithCase: OWideString; const aCaseSensitive: Boolean): Boolean;//aTextWithCase must be in correct case already (lowercase if not aCaseSensitive!
   public
     property TextFast: OFastString read fTextFast;
     property Text: OWideString read {$IFDEF O_UNICODE}fTextFast{$ELSE}GetText{$ENDIF};
@@ -82,18 +83,19 @@ type
 
   TOHashedStrings = class(TPersistent)
   private
-    fItems: Array of POHashItem;//array indexed by index
-    fObjects: Array of TObject;
+    fCaseSensitive: Boolean;
+    fItems: array of POHashItem;//array indexed by index
+    fObjects: array of TObject;
     fNextItemId: OHashedStringsIndex;//next list index to use
     fItemLength: OHashedStringsIndex;//count of allocated items in fList
     fMaxItemsBeforeGrowBuckets: OHashedStringsIndex;
-    fBuckets: Array of POHashItem;//array indexed by hash
+    fBuckets: array of POHashItem;//array indexed by hash
 
     fLastHashI: OHashedStringsIndex;
+
+    procedure SetCaseSensitive(const aCaseSensitive: Boolean);
   protected
-    function Find(const aKey: OWideString; var outHash: OHashedStringsIndex): POHashItem;
-    //function HashOf(const aKey: OWideString): Cardinal; virtual;//must be virtual for better performance in D7 (don't ask me why)
-    //function HashOfFast(const aKey: OFastString): Cardinal; virtual;//must be virtual for better performance in D7 (don't ask me why)
+    function Find(const aKey: OWideString; var outHash: OHashedStringsIndex): POHashItem;//aKey must be already processed with LowerCaseIfNotCaseSensitive
     procedure AddItem(const aItem: POHashItem; const aHash: OHashedStringsIndex);
 
     procedure GrowBuckets;
@@ -111,10 +113,11 @@ type
     function GetItem(const aIndex: OHashedStringsIndex): POHashItem;
     procedure SetObject(const aIndex: OHashedStringsIndex; const aObject: TObject);
     function GetObject(const aIndex: OHashedStringsIndex): TObject;
-    {$IFNDEF NEXTGEN}
+    {$IFNDEF O_ARC}
     procedure SetPObject(const aIndex: OHashedStringsIndex; const aObject: Pointer);
     function GetPObject(const aIndex: OHashedStringsIndex): Pointer;
     {$ENDIF}
+    property CaseSensitive: Boolean read fCaseSensitive write SetCaseSensitive;
     property Count: OHashedStringsIndex read fNextItemId;
     procedure Clear(const aFullClear: Boolean = True);
   end;
@@ -133,25 +136,26 @@ type
   private
     fKeys: TOHashedStrings;
     fValues: TOWideStringList;
-    function GetKey(const aIndex: OHashedStringsIndex): OWideString;
-    function GetValue(const aIndex: OHashedStringsIndex): OWideString;
-    procedure SetValue(const aIndex: OHashedStringsIndex; aValue: OWideString);
-    function GetValueOfKey(const aKey: OWideString): OWideString;
-    procedure SetValueOfKey(const aKey, aValue: OWideString);
-    function GetPair(const aIndex: OHashedStringsIndex): TOHashedStringDictionaryPair;
+    function GetCaseSensitive: Boolean; {$IFDEF O_INLINE}inline;{$ENDIF}
+    function GetKey(const aIndex: OHashedStringsIndex): OWideString; {$IFDEF O_INLINE}inline;{$ENDIF}
+    function GetValue(const aIndex: OHashedStringsIndex): OWideString; {$IFDEF O_INLINE}inline;{$ENDIF}
+    procedure SetCaseSensitive(aCaseSensitive: Boolean); {$IFDEF O_INLINE}inline;{$ENDIF}
+    procedure SetValue(const aIndex: OHashedStringsIndex; const aValue: OWideString); {$IFDEF O_INLINE}inline;{$ENDIF}
+    function GetValueOfKey(const aKey: OWideString): OWideString; {$IFDEF O_INLINE}inline;{$ENDIF}
+    procedure SetValueOfKey(const aKey, aValue: OWideString); {$IFDEF O_INLINE}inline;{$ENDIF}
+    function GetPair(const aIndex: OHashedStringsIndex): TOHashedStringDictionaryPair; {$IFDEF O_INLINE}inline;{$ENDIF}
   protected
     procedure AssignTo(Dest: TPersistent); override;
   public
     constructor Create;
     destructor Destroy; override;
   public
-    function IndexOf(const aKey: OWideString): OHashedStringsIndex;
+    function IndexOf(const aKey: OWideString): OHashedStringsIndex; {$IFDEF O_INLINE}inline;{$ENDIF}
     function Add(const aKey, aValue: OWideString): OHashedStringsIndex;
     function TryGetValue(const aKey: OWideString; var outValue: OWideString): Boolean;
-    function Count: OHashedStringsIndex;
+    function Count: OHashedStringsIndex; {$IFDEF O_INLINE}inline;{$ENDIF}
     procedure Clear;
-    {procedure Delete(const aIndex: OHashedStringsIndex);
-    procedure Remove(const aKey: OWideString);}
+    property CaseSensitive: Boolean read GetCaseSensitive write SetCaseSensitive;
 
     property Keys[const aIndex: OHashedStringsIndex]: OWideString read GetKey;
     property Values[const aIndex: OHashedStringsIndex]: OWideString read GetValue write SetValue;
@@ -177,38 +181,38 @@ type
 
   POVirtualHashItem = ^TOVirtualHashItem;
   TOVirtualHashItem = packed record
-    Next: POVirtualHashItem;
-    Index: OHashedStringsIndex;
+    fNext: POVirtualHashItem;
+    fStringIndex: OStringIndex;
+    fIndex: OHashedStringsIndex;
   end;
 
   {$IFDEF O_ANONYMOUS_METHODS}
-  TOVirtualHashIndexGetStringProc = reference to procedure(const aIndex: OHashedStringsIndex;
-    var outString: OWideString);
-  TOVirtualHashIndexSameStringProc = reference to procedure(const aIndex: OHashedStringsIndex;
-    const aString: OWideString; var outSameString: Boolean);
+  TOVirtualHashIndexGetStringProc = reference to function(const aStringIndex: OStringIndex): OWideString;
+  TOVirtualHashIndexSameStringProc = reference to function(const aString1Index: OStringIndex;
+    const aString2: OWideString): Boolean;
   {$ELSE}
-  TOVirtualHashIndexGetStringProc = procedure(const aIndex: OHashedStringsIndex;
-    var outString: OWideString) of Object;
-  TOVirtualHashIndexSameStringProc = procedure(const aIndex: OHashedStringsIndex;
-    const aString: OWideString; var outSameString: Boolean) of Object;
+  TOVirtualHashIndexGetStringProc = function(const aStringIndex: OStringIndex): OWideString of Object;
+  TOVirtualHashIndexSameStringProc = function(const aString1Index: OStringIndex;
+    const aString2: OWideString): Boolean of Object;
   {$ENDIF}
 
   TOVirtualHashIndex = class(TObject)
   private
-    fList: Array of TOVirtualHashItem;//list of real items (by item index)
-    fBuckets: Array of POVirtualHashItem;//indexed by hash
+    fList: array of TOVirtualHashItem;//list of real items (by item index)
+    fBuckets: array of POVirtualHashItem;//indexed by hash
     fOnGetString: TOVirtualHashIndexGetStringProc;
     fOnSameString: TOVirtualHashIndexSameStringProc;
     fNextItemId: OHashedStringsIndex;//next list index to use
 
     fMaxItemsBeforeGrowBuckets: OHashedStringsIndex;
 
-    procedure DefOnSameString(const aIndex: OHashedStringsIndex;
-      const aString: OWideString; var outSameString: Boolean);
+    function DefOnSameString(const aString1Index: OStringIndex;
+      const aString2: OWideString): Boolean;
 
     function Find(const aKey: OWideString; var outHash: OHashedStringsIndex): POVirtualHashItem;
     procedure GrowBuckets;
-    procedure AddItem(const aItem: POVirtualHashItem; const aHash: OHashedStringsIndex);
+    procedure AddItem(const aItem: POVirtualHashItem;
+      const aHash: OHashedStringsIndex);
   public
     constructor Create(
       const aOnGetString: TOVirtualHashIndexGetStringProc;
@@ -216,14 +220,20 @@ type
   public
     procedure Clear(const aNewCount: Integer = 0);
 
-    function IndexOf(const aText: OWideString): OHashedStringsIndex;
-    function Add(const aText: OWideString): OHashedStringsIndex; overload;
-    function Add(const aText: OWideString; var outNewEntry: Boolean): OHashedStringsIndex; overload;
+    function StringIndexOf(const aText: OWideString): OStringIndex;
+    //Add text to the list -> you have to supply its unique index that will be used to retrieve the string in OnGetString
+    function Add(const aTextIndex: OStringIndex): OHashedStringsIndex; overload;
+    function Add(const aTextIndex: OStringIndex;
+      var outNewEntry: Boolean): OHashedStringsIndex; overload;
+  public
+    property NextItemId: OHashedStringsIndex read fNextItemId;//next list index to use
   end;
 
 function OHashedStringsIndexAssigned(const aId: OHashedStringsIndex): Boolean;{$IFDEF O_INLINE}inline;{$ENDIF}
 function HashOf(const aKey: OWideString): Cardinal; {$IFDEF O_INLINE}inline;{$ENDIF}
 function HashOfFast(const aKey: OFastString): Cardinal; {$IFDEF O_INLINE}inline;{$ENDIF}
+function LowerCaseIfNotCaseSensitive(const aText: OWideString; const aCaseSensitive: Boolean): OWideString; {$IFDEF O_INLINE}inline;{$ENDIF}
+function FastLowerCaseIfNotCaseSensitive(const aText: OFastString; const aCaseSensitive: Boolean): OFastString; {$IFDEF O_INLINE}inline;{$ENDIF}
 
 const
   OHASHEDSTRINGSINDEX_UNASSIGNED = -1;
@@ -231,7 +241,24 @@ const
 implementation
 
 uses
-  OXmlLng;
+  OXmlLng
+  {$IFDEF FPC}, LazUTF8{$ENDIF};
+
+function LowerCaseIfNotCaseSensitive(const aText: OWideString; const aCaseSensitive: Boolean): OWideString;
+begin
+  if aCaseSensitive then
+    Result := aText
+  else
+    Result := OLowerCase(aText);
+end;
+
+function FastLowerCaseIfNotCaseSensitive(const aText: OFastString; const aCaseSensitive: Boolean): OFastString;
+begin
+  if aCaseSensitive then
+    Result := aText
+  else
+    Result := OFastLowerCase(aText);
+end;
 
 function OHashedStringsIndexAssigned(const aId: OHashedStringsIndex): Boolean;{$IFDEF O_INLINE}inline;{$ENDIF}
 begin
@@ -258,7 +285,8 @@ begin
   if xLen > 0 then
   begin
     xK := @aKey[1];
-    for I := 1 to xLen*2 do begin
+    for I := 1 to xLen*2 do
+    begin
       Result := ((Result shl 2) or (Result shr (SizeOf(Result)*8 - 2))) xor
         Ord(xK^);
       Inc(xK);
@@ -312,7 +340,8 @@ end;
 function TOHashedStringDictionary.GetValueOfKey(
   const aKey: OWideString): OWideString;
 begin
-  Result := fValues[fKeys.IndexOf(aKey)];
+  if not TryGetValue(aKey, Result{%H-}) then
+    Result := '';
 end;
 
 function TOHashedStringDictionary.IndexOf(
@@ -321,8 +350,13 @@ begin
   Result := fKeys.IndexOf(aKey);
 end;
 
-procedure TOHashedStringDictionary.SetValue(const aIndex: OHashedStringsIndex; aValue: OWideString
-  );
+procedure TOHashedStringDictionary.SetCaseSensitive(aCaseSensitive: Boolean);
+begin
+  fKeys.CaseSensitive := aCaseSensitive;
+end;
+
+procedure TOHashedStringDictionary.SetValue(const aIndex: OHashedStringsIndex;
+  const aValue: OWideString);
 begin
   fValues[aIndex] := aValue;
 end;
@@ -330,7 +364,7 @@ end;
 procedure TOHashedStringDictionary.SetValueOfKey(const aKey,
   aValue: OWideString);
 begin
-  fValues[fKeys.IndexOf(aKey)] := aValue;
+  Add(aKey, aValue);
 end;
 
 constructor TOHashedStringDictionary.Create;
@@ -347,6 +381,11 @@ begin
   fValues.Free;
 
   inherited Destroy;
+end;
+
+function TOHashedStringDictionary.GetCaseSensitive: Boolean;
+begin
+  Result := fKeys.CaseSensitive;
 end;
 
 function TOHashedStringDictionary.Add(const aKey, aValue: OWideString
@@ -383,7 +422,8 @@ procedure TOHashedStringDictionary.AssignTo(Dest: TPersistent);
 var
   xDest: TOHashedStringDictionary;
 begin
-  if Dest is TOHashedStringDictionary then begin
+  if Dest is TOHashedStringDictionary then
+  begin
     xDest := TOHashedStringDictionary(Dest);
 
     xDest.fKeys.Assign(Self.fKeys);
@@ -394,7 +434,8 @@ end;
 
 procedure TOHashedStringDictionary.Clear;
 begin
-  if fKeys.Count > 0 then begin
+  if fKeys.Count > 0 then
+  begin
     fValues.Clear;
     fKeys.Clear(True);
   end;
@@ -437,9 +478,12 @@ function TOHashedStrings.Add(const aText: OWideString;
 var
   xBucket: POHashItem;
   xHash: OHashedStringsIndex;
+  xTextCase: OWideString;
 begin
-  xBucket := Find(aText, {%H-}xHash);
-  if Assigned(xBucket) then begin
+  xTextCase := LowerCaseIfNotCaseSensitive(aText, fCaseSensitive);
+  xBucket := Find(xTextCase, {%H-}xHash);
+  if Assigned(xBucket) then
+  begin
     Result := xBucket.fIndex;
     outNewEntry := False;
     Exit;
@@ -448,10 +492,11 @@ begin
   if fNextItemId = fMaxItemsBeforeGrowBuckets then
   begin
     GrowBuckets;
-    xHash := HashOf(aText) mod Cardinal(Length(fBuckets));//must be here!!! -> the hash is changed!!!
+    xHash := HashOf(xTextCase) mod Cardinal(Length(fBuckets));//must be here!!! -> the hash is changed!!!
   end;
 
-  if fNextItemId = fItemLength then begin
+  if fNextItemId = fItemLength then
+  begin
     New(fItems[fNextItemId]);
     Inc(fItemLength);
   end;
@@ -486,7 +531,8 @@ var
   I: Integer;
   x: Boolean;
 begin
-  if Dest is TOHashedStrings then begin
+  if Dest is TOHashedStrings then
+  begin
     xDest := TOHashedStrings(Dest);
 
     xDest.Clear(False);
@@ -513,7 +559,8 @@ begin
 
     fLastHashI := 0;
     GrowBuckets;
-  end else begin
+  end else
+  begin
     ClearBuckets;
   end;
 end;
@@ -528,7 +575,9 @@ end;
 
 constructor TOHashedStrings.Create;
 begin
-  inherited;
+  inherited Create;
+
+  fCaseSensitive := True;
 
   GrowBuckets;
 end;
@@ -546,7 +595,7 @@ begin
   Result := fBuckets[outHash];
   while Result <> nil do
   begin
-    if Result.SameText(aKey) then
+    if Result.SameText(aKey, fCaseSensitive) then
       Exit
     else
       Result := Result.fNext;
@@ -596,7 +645,7 @@ begin
   SetLength(fObjects, fMaxItemsBeforeGrowBuckets);
 
   for I := 0 to fNextItemId-1 do
-    AddItem(fItems[I], HashOfFast(fItems[I].fTextFast) mod Cardinal(Length(fBuckets)));
+    AddItem(fItems[I], HashOfFast(FastLowerCaseIfNotCaseSensitive(fItems[I].fTextFast, fCaseSensitive)) mod Cardinal(Length(fBuckets)));
 
   Inc(fLastHashI);
 end;
@@ -607,11 +656,22 @@ var
   xP: POHashItem;
   xH: OHashedStringsIndex;
 begin
-  xP := Find(aText, {%H-}xH);
+  xP := Find(LowerCaseIfNotCaseSensitive(aText, fCaseSensitive), {%H-}xH);
   if xP <> nil then
     Result := xP.fIndex
   else
     Result := -1;
+end;
+
+procedure TOHashedStrings.SetCaseSensitive(const aCaseSensitive: Boolean);
+begin
+  if fCaseSensitive = aCaseSensitive then
+    Exit;
+
+  if fNextItemId > 0 then
+    raise Exception.Create('TOHashedStrings: cannot set CaseSensitive to a non-empty list.');
+
+  fCaseSensitive := aCaseSensitive;
 end;
 
 procedure TOHashedStrings.SetObject(const aIndex: OHashedStringsIndex;
@@ -620,7 +680,7 @@ begin
   fObjects[aIndex] := aObject;
 end;
 
-{$IFNDEF NEXTGEN}
+{$IFNDEF O_ARC}
 function TOHashedStrings.GetPObject(
   const aIndex: OHashedStringsIndex): Pointer;
 begin
@@ -643,15 +703,22 @@ begin
 end;
 {$ENDIF}
 
-function TOHashItem.SameText(const aText: OWideString): Boolean;
+function TOHashItem.SameText(const aTextWithCase: OWideString;
+  const aCaseSensitive: Boolean): Boolean;
+{$IFNDEF O_UNICODE}
+var
+  xTextFastCase: OFastString;
+{$ENDIF}
 begin
   {$IFDEF O_UNICODE}
-  Result := (fTextFast = aText);
+  Result := (FastLowerCaseIfNotCaseSensitive(fTextFast, aCaseSensitive) = aTextWithCase);
   {$ELSE}
-  Result :=
-      (Length(fTextFast) = Length(aText)*SizeOf(OWideChar)) and
-      ((fTextFast = '') or //must be here, otherwise @fTextFast[1] causes range check error
-        CompareMem(@fTextFast[1], @aText[1], Length(fTextFast)));
+  Result := (Length(fTextFast) = Length(aTextWithCase)*SizeOf(OWideChar));
+  if Result and (fTextFast <> '') then
+  begin
+    xTextFastCase := FastLowerCaseIfNotCaseSensitive(fTextFast, aCaseSensitive);
+    Result := CompareMem(@xTextFastCase[1], @aTextWithCase[1], Length(xTextFastCase));
+  end;
   {$ENDIF}
 end;
 
@@ -673,65 +740,59 @@ begin
   GrowBuckets;
 end;
 
-procedure TOVirtualHashIndex.DefOnSameString(const aIndex: OHashedStringsIndex;
-  const aString: OWideString; var outSameString: Boolean);
-var
-  xString: OWideString;
+function TOVirtualHashIndex.DefOnSameString(const aString1Index: OStringIndex;
+  const aString2: OWideString): Boolean;
 begin
-  fOnGetString(aIndex, {%H-}xString);
-  outSameString := (xString = aString);
+  Result := (fOnGetString(aString1Index) = aString2);
 end;
 
 function TOVirtualHashIndex.Find(const aKey: OWideString;
   var outHash: OHashedStringsIndex): POVirtualHashItem;
-var
-  xSameString: Boolean;
 begin
   outHash := HashOf(aKey) mod Cardinal(Length(fBuckets));
   Result := fBuckets[outHash];
   while Result <> nil do
   begin
-    fOnSameString(Result.Index, aKey, {%H-}xSameString);
-    if xSameString then
+    if fOnSameString(Result.fStringIndex, aKey) then
       Exit
     else
-      Result := Result.Next;
+      Result := Result.fNext;
   end;
 end;
 
 procedure TOVirtualHashIndex.GrowBuckets;
 var
   I, xLastItemCount: OHashedStringsIndex;
-  xKey: OWideString;
 begin
   xLastItemCount := fNextItemId;
   Clear(fMaxItemsBeforeGrowBuckets+1);
 
   for I := 0 to xLastItemCount-1 do
-  begin
-    fOnGetString(I, {%H-}xKey);
-    AddItem(@fList[I], HashOf(xKey) mod Cardinal(Length(fBuckets)));
-  end;
+    AddItem(@fList[I], HashOf(fOnGetString(fList[I].fStringIndex)) mod Cardinal(Length(fBuckets)));
 
   fNextItemId := xLastItemCount;
 end;
 
-function TOVirtualHashIndex.Add(const aText: OWideString): OHashedStringsIndex;
+function TOVirtualHashIndex.Add(const aTextIndex: OStringIndex): OHashedStringsIndex;
 var
   x: Boolean;
 begin
-  Result := Add(aText, {%H-}x);
+  Result := Add(aTextIndex, {%H-}x);
 end;
 
-function TOVirtualHashIndex.Add(const aText: OWideString;
+function TOVirtualHashIndex.Add(
+  const aTextIndex: OStringIndex;
   var outNewEntry: Boolean): OHashedStringsIndex;
 var
   xBucket: POVirtualHashItem;
   xHash: OHashedStringsIndex;
+  xText: OWideString;
 begin
-  xBucket := Find(aText, {%H-}xHash);
-  if Assigned(xBucket) then begin
-    Result := xBucket.Index;
+  xText := fOnGetString(aTextIndex);
+  xBucket := Find(xText, {%H-}xHash);
+  if Assigned(xBucket) then
+  begin
+    Result := xBucket.fIndex;
     outNewEntry := False;
     Exit;
   end;
@@ -739,10 +800,11 @@ begin
   if fNextItemId = fMaxItemsBeforeGrowBuckets then
   begin
     GrowBuckets;
-    xHash := HashOf(aText) mod Cardinal(Length(fBuckets));//must be here!!! -> the hash is changed!!!
+    xHash := HashOf(xText) mod Cardinal(Length(fBuckets));//must be here!!! -> the hash is changed!!!
   end;
 
   AddItem(@fList[fNextItemId], xHash);
+  fList[fNextItemId].fStringIndex := aTextIndex;
   Result := fNextItemId;
 
   Inc(fNextItemId);
@@ -753,19 +815,19 @@ end;
 procedure TOVirtualHashIndex.AddItem(const aItem: POVirtualHashItem;
   const aHash: OHashedStringsIndex);
 begin
-  aItem.Next := fBuckets[aHash];
+  aItem.fNext := fBuckets[aHash];
   fBuckets[aHash] := aItem;
 end;
 
-function TOVirtualHashIndex.IndexOf(
-  const aText: OWideString): OHashedStringsIndex;
+function TOVirtualHashIndex.StringIndexOf(
+  const aText: OWideString): OStringIndex;
 var
   xP: POVirtualHashItem;
   xH: OHashedStringsIndex;
 begin
   xP := Find(aText, {%H-}xH);
   if xP <> nil then
-    Result := xP.Index
+    Result := xP.fStringIndex
   else
     Result := -1;
 end;
@@ -774,6 +836,7 @@ procedure TOVirtualHashIndex.Clear(const aNewCount: Integer);
 var
   I: OHashedStringsIndex;
   xTableSize: LongWord;
+  xLastLength: Integer;
 begin
   if aNewCount > fMaxItemsBeforeGrowBuckets then
   begin
@@ -790,12 +853,19 @@ begin
   end;
 
   if Length(fList) < fMaxItemsBeforeGrowBuckets then
-    SetLength(fList, fMaxItemsBeforeGrowBuckets*3 div 2);
+  begin
+    xLastLength := Length(fList);
+    SetLength(fList, fMaxItemsBeforeGrowBuckets);
+    for I := xLastLength to High(fList) do
+      fList[I].fStringIndex := -1;
+  end;
+
 
   for I := Low(fList) to High(fList) do//must set all to nil!
   begin
-    fList[I].Index := I;
-    fList[I].Next := nil;
+    fList[I].fIndex := I;
+    fList[I].fNext := nil;
+    //you must not set fStringIndex to -1 here -> old indices would get overwritten !!!
   end;
 
   for I := Low(fBuckets) to High(fBuckets) do//must set all to nil!

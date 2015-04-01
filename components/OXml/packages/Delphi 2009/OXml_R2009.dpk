@@ -41,8 +41,10 @@ contains
   OXmlLng in '..\..\units\OXmlLng.pas',
   OHashedStrings in '..\..\units\OHashedStrings.pas',
   OBufferedStreams in '..\..\units\OBufferedStreams.pas',
+  OJSON in '..\..\units\OJSON.pas',
   OEncoding in '..\..\units\OEncoding.pas',
   OXmlPDOM in '..\..\units\OXmlPDOM.pas',
-  OXmlCDOM in '..\..\units\OXmlCDOM.pas';
+  OXmlCDOM in '..\..\units\OXmlCDOM.pas',
+  OXmlSerialize in '..\..\units\OXmlSerialize.pas';
 
 end.

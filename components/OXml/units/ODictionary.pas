@@ -7,7 +7,7 @@ unit ODictionary;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -42,7 +42,7 @@ uses
   {$IFDEF O_NAMESPACES}
   System.SysUtils, System.Classes, System.Types,
   {$ELSE}
-  SysUtils, Classes, Types,
+  SysUtils, Classes, {$IFDEF O_DELPHI_6_UP}Types,{$ENDIF}
   {$ENDIF}
 
   {$IFDEF O_GENERICS}
@@ -57,33 +57,17 @@ uses
 
 type
 
-  {$IFDEF FPC}
-    TValueRelationship = -1..1;
-
-  const
-    LessThanValue = Low(TValueRelationship);
-    EqualsValue = 0;
-    GreaterThanValue = High(TValueRelationship);
-
-  type
-  {$ENDIF}
-
   {$IFDEF O_GENERICS}
   TODictionaryChange = procedure(Sender: TObject; aKey: ONativeInt; Action: TCollectionNotification) of object;
   {$ELSE}
   TODictionaryChange = procedure(Sender: TObject; aKey: ONativeInt; Action: TListNotification) of object;
   {$ENDIF}
 
-  TODictionaryItem = record
+  TODictionaryItem = packed record
     Key: ONativeInt;
     Value: TObject;
   end;
   PODictionaryItem = ^TODictionaryItem;
-  {$IFDEF O_GENERICS}
-  TODictionaryItemStorageItem = PODictionaryItem;
-  {$ELSE}
-  TODictionaryItemStorageItem = Pointer;
-  {$ENDIF}
 
   TODictionarySorted = (soNone, soAscending, soDescending);
 
@@ -100,17 +84,22 @@ type
 
     procedure InternalInsert(aIndex: Integer; aKey: ONativeInt);
 
-    function GetItem(aIndex: Integer): ONativeInt;
-    procedure SetItem(aIndex: Integer; aKey: ONativeInt);
+    function GetItem(aIndex: Integer): PODictionaryItem;
+    function GetKey(aIndex: Integer): ONativeInt;
+    procedure SetKey(aIndex: Integer; aKey: ONativeInt);
     function GetObject(aIndex: Integer): TObject;
     procedure SetObject(aIndex: Integer; aObject: TObject);
     function GetObjectOfKey(aKey: ONativeInt): TObject;
     procedure SetObjectOfKey(aKey: ONativeInt; aObject: TObject);
-    {$IFNDEF NEXTGEN}
+    {$IFNDEF O_ARC}
     function GetPointer(aIndex: Integer): Pointer;
     procedure SetPointer(aIndex: Integer; aPointer: Pointer);
     function GetPointerOfKey(aKey: ONativeInt): Pointer;
     procedure SetPointerOfKey(aKey: ONativeInt; aPointer: Pointer);
+    function GetInteger(aIndex: Integer): ONativeInt;
+    function GetIntegerOfKey(aKey: ONativeInt): ONativeInt;
+    procedure SetInteger(aIndex: Integer; const aInteger: ONativeInt);
+    procedure SetIntegerOfKey(aKey: ONativeInt; const aInteger: ONativeInt);
     {$ENDIF}
 
     procedure SetSorted(aSorted: TODictionarySorted);
@@ -119,7 +108,7 @@ type
     procedure Notify(const aItem: PODictionaryItem; aAction: TCollectionNotification); override;
     procedure DoChange(aKey: ONativeInt; aAction: TCollectionNotification);
     {$ELSE}
-    procedure Notify(aPtr: Pointer; aAction: TListNotification); override;
+    procedure Notify(aPtr: Pointer; aAction: TListNotification); {$IFNDEF O_DELPHI_4_DOWN}override;{$ELSE}virtual;{$ENDIF}
     procedure DoChange(aKey: ONativeInt; aAction: TListNotification);
     {$ENDIF}
   public
@@ -127,16 +116,28 @@ type
       aDuplicates: TDuplicates = dupIgnore;
       aSorted: TODictionarySorted = soAscending;
       aOwnsObjects: Boolean = False);
+    {$IFDEF O_DELPHI_4_DOWN}
+    destructor Destroy; override;
+    {$ENDIF}
     procedure Assign(Source: TODictionary);
 
     procedure ReadData(Reader: TReader);
     procedure WriteData(Writer: TWriter);
     property Loading: Boolean read fLoading;
 
-    function Add(aKey: ONativeInt): Integer;
-    function AddObject(aKey: ONativeInt; aObject: TObject): Integer;
-    {$IFNDEF NEXTGEN}
-    function AddPointer(aKey: ONativeInt; aPointer: Pointer): Integer;
+    function Add(aKey: ONativeInt): Integer; overload;
+    function Add(aKey: ONativeInt; aObject: TObject): Integer; overload;
+    {$IFNDEF O_ARC}
+    function Add(aKey: ONativeInt; aPointer: Pointer): Integer; overload;
+    function Add(aKey: ONativeInt; aInteger: ONativeInt): Integer; overload;
+    function Add(aKey: Pointer): Integer; overload;
+    function Add(aKey: Pointer; aObject: TObject): Integer; overload;
+    function Add(aKey: Pointer; aPointer: Pointer): Integer; overload;
+    function Add(aKey: Pointer; aInteger: ONativeInt): Integer; overload;
+    {$ENDIF}
+    {$IFDEF O_DELPHI_4_DOWN}
+    procedure Delete(Index: Integer);
+    procedure Clear; override;
     {$ENDIF}
     function Extract(aKey: ONativeInt): ONativeInt;
     function First: ONativeInt;
@@ -144,18 +145,36 @@ type
     function IndexOf(aKey: ONativeInt): Integer;
     procedure Insert(aIndex: Integer; aKey: ONativeInt);
     function Last: ONativeInt;
-    function Remove(aKey: ONativeInt): Integer;
-    property Keys[aIndex: Integer]: ONativeInt read GetItem write SetItem; default;
+    function Remove(aKey: ONativeInt): Integer; overload;
+    {$IFNDEF O_ARC}
+    function Remove(aKey: Pointer): Integer; overload;
+    {$ENDIF}
+    property Keys[aIndex: Integer]: ONativeInt read GetKey write SetKey; default;
     property Objects[aIndex: Integer]: TObject read GetObject write SetObject;
     property ObjectOfKey[aKey: ONativeInt]: TObject read GetObjectOfKey write SetObjectOfKey;
-    {$IFNDEF NEXTGEN}
+    {$IFNDEF O_ARC}
     property Pointers[aIndex: Integer]: Pointer read GetPointer write SetPointer;
     property PointerOfKey[aKey: ONativeInt]: Pointer read GetPointerOfKey write SetPointerOfKey;
+    property Integers[aIndex: Integer]: ONativeInt read GetInteger write SetInteger;
+    property IntegerOfKey[aKey: ONativeInt]: ONativeInt read GetIntegerOfKey write SetIntegerOfKey;
     {$ENDIF}
+    property Items[aIndex: Integer]: PODictionaryItem read GetItem;
 
     {$IFNDEF O_DELPHI_2009}//missing functionality in D2009
     procedure Move(CurIndex, NewIndex: Integer);
     procedure Exchange(Index1, Index2: Integer);
+    {$ENDIF}
+
+    function TryGetValue(const aKey: ONativeInt; var outValue: TObject): Boolean; overload;
+    {$IFNDEF O_ARC}
+    function TryGetValue(const aKey: ONativeInt; var outValue: Integer): Boolean; overload;
+    function TryGetValue(const aKey: ONativeInt; var outValue: Int64): Boolean; overload;
+    function TryGetValue(const aKey: ONativeInt; var outValue: Pointer): Boolean; overload;
+
+    function TryGetValue(const aKey: Pointer; var outValue: TObject): Boolean; overload;
+    function TryGetValue(const aKey: Pointer; var outValue: Integer): Boolean; overload;
+    function TryGetValue(const aKey: Pointer; var outValue: Int64): Boolean; overload;
+    function TryGetValue(const aKey: Pointer; var outValue: Pointer): Boolean; overload;
     {$ENDIF}
 
     procedure DefaultSort(aAsc: Boolean = True);
@@ -167,10 +186,10 @@ type
 
 implementation
 
-resourcestring
-  SDuplicateInteger = 'ODictionary does not allow duplicates';
-  SCannotExchange = 'Sorted ODictionary does not allow exchanging items';
-  SCannotMove = 'Sorted ODictionary does not allow moving items';
+var
+  SDuplicateInteger: OWideString = 'ODictionary does not allow duplicates';
+  SCannotExchange: OWideString = 'Sorted ODictionary does not allow exchanging items';
+  SCannotMove: OWideString = 'Sorted ODictionary does not allow moving items';
 
 { TODictionary }
 
@@ -191,17 +210,67 @@ begin
   InternalInsert(Result, aKey);
 end;
 
-function TODictionary.AddObject(aKey: ONativeInt; aObject: TObject): Integer;
+function TODictionary.Add(aKey: ONativeInt; aObject: TObject): Integer;
 begin
   Result := Add(aKey);
   Objects[Result] := aObject;
 end;
 
-{$IFNDEF NEXTGEN}
-function TODictionary.AddPointer(aKey: ONativeInt; aPointer: Pointer): Integer;
+{$IFNDEF O_ARC}
+function TODictionary.Add(aKey: ONativeInt; aPointer: Pointer): Integer;
 begin
   Result := Add(aKey);
   Pointers[Result] := aPointer;
+end;
+
+function TODictionary.Add(aKey: ONativeInt; aInteger: ONativeInt): Integer;
+begin
+  Result := Add(aKey);
+  Integers[Result] := aInteger;
+end;
+
+function TODictionary.Add(aKey: Pointer): Integer;
+begin
+  Result := Add({%H-}ONativeInt(aKey));
+end;
+
+function TODictionary.Add(aKey: Pointer; aObject: TObject): Integer;
+begin
+  Result := Add({%H-}ONativeInt(aKey), aObject);
+end;
+
+function TODictionary.Add(aKey: Pointer; aPointer: Pointer): Integer;
+begin
+  Result := Add({%H-}ONativeInt(aKey), aPointer);
+end;
+
+function TODictionary.Add(aKey: Pointer; aInteger: ONativeInt): Integer;
+begin
+  Result := Add({%H-}ONativeInt(aKey), aInteger);
+end;
+{$ENDIF}
+
+{$IFDEF O_DELPHI_4_DOWN}
+procedure TODictionary.Delete(Index: Integer);
+var
+  xTemp: PODictionaryItem;
+begin
+  xTemp := Items[Index];
+  
+  inherited Delete(Index);
+
+  if xTemp <> nil then
+    Notify(xTemp, lnDeleted);
+end;
+
+procedure TODictionary.Clear;
+var
+  I: Integer;
+begin
+  for I := 0 to Count-1 do
+    Notify(Items[I], lnDeleted);
+
+  inherited Clear;
 end;
 {$ENDIF}
 
@@ -215,7 +284,8 @@ begin
   fDuplicates := Source.fDuplicates;
   fSorted := Source.fSorted;
 
-  for I := 0 to Source.Count - 1 do begin
+  for I := 0 to Source.Count - 1 do
+  begin
     InternalInsert(I, Source[I]);
   end;
 end;
@@ -242,6 +312,18 @@ begin
   fSorted := aSorted;
   fOwnsObjects := aOwnsObjects;
 end;
+
+{$IFDEF O_DELPHI_4_DOWN}
+destructor TODictionary.Destroy;
+var
+  I: Integer;
+begin
+  for I := 0 to Count-1 do
+    Notify(inherited Items[I], lnDeleted);
+
+  inherited;
+end;
+{$ENDIF}
 
 {$IFNDEF O_GENERICS}
 function SortAsc(Item1, Item2: Pointer): Integer; {$IFDEF O_INLINE}inline;{$ENDIF}
@@ -331,12 +413,9 @@ begin
   begin
     Result := aKey;
     Ptr := inherited Items[I];
+    inherited Items[I] := nil;//MUST BE HERE
     Delete(I);
-    {$IFDEF O_GENERICS}
-    Notify(Ptr, cnExtracted);
-    {$ELSE}
-    Notify(Ptr, lnExtracted);
-    {$ENDIF}
+    Notify(Ptr, {$IFDEF O_GENERICS}cnExtracted{$ELSE}lnExtracted{$ENDIF});
   end;
 end;
 
@@ -371,7 +450,12 @@ begin
   Result := Keys[0];
 end;
 
-function TODictionary.GetItem(aIndex: Integer): ONativeInt;
+function TODictionary.GetItem(aIndex: Integer): PODictionaryItem;
+begin
+  Result := PODictionaryItem(inherited Items[aIndex]);
+end;
+
+function TODictionary.GetKey(aIndex: Integer): ONativeInt;
 begin
   Result := TODictionaryItem(inherited Items[aIndex]^).Key;
 end;
@@ -386,7 +470,7 @@ begin
   Result := Objects[IndexOf(aKey)];
 end;
 
-{$IFNDEF NEXTGEN}
+{$IFNDEF O_ARC}
 function TODictionary.GetPointer(aIndex: Integer): Pointer;
 begin
   Result := Pointer(TODictionaryItem(inherited Items[aIndex]^).Value);
@@ -396,11 +480,22 @@ function TODictionary.GetPointerOfKey(aKey: ONativeInt): Pointer;
 begin
   Result := Pointers[IndexOf(aKey)];
 end;
+
+function TODictionary.GetInteger(aIndex: Integer): ONativeInt;
+begin
+  Result := ONativeInt(TODictionaryItem(inherited Items[aIndex]^).Value);
+end;
+
+function TODictionary.GetIntegerOfKey(aKey: ONativeInt): ONativeInt;
+begin
+  Result := Integers[IndexOf(aKey)];
+end;
 {$ENDIF}
 
 function TODictionary.IndexOf(aKey: ONativeInt): Integer;
 begin
-  if (Sorted = soNone) then begin
+  if (Sorted = soNone) then
+  begin
     Result := 0;
     while (Result < Count) and (Keys[Result] <> aKey) do
       Inc(Result);
@@ -422,10 +517,14 @@ end;
 procedure TODictionary.InternalInsert(aIndex: Integer; aKey: ONativeInt);
 var PD: PODictionaryItem;
 begin
-  GetMem(PD, SizeOf(TODictionaryItem));
+  New(PD);
   PD^.Key := aKey;
-  PD^.Value := nil;
+  //no need to assign Object -> New() fills the PD object with zeros
   inherited Insert(aIndex, PD);
+
+  {$IFDEF O_DELPHI_4_DOWN}
+  Notify(PD, lnAdded);
+  {$ENDIF}
 end;
 
 function TODictionary.Last: ONativeInt;
@@ -447,20 +546,22 @@ end;
 procedure TODictionary.Notify(const aItem: PODictionaryItem; aAction: TCollectionNotification);
 begin
   DoChange(TODictionaryItem(aItem^).Key, aAction);
-  if aAction = cnRemoved then begin
+  if aAction = cnRemoved then
+  begin
     if fOwnsObjects then
       aItem.Value.Free;
-    FreeMem(aItem, SizeOf(TODictionaryItem));
+    Dispose(aItem);
   end;
 end;
 {$ELSE}
 procedure TODictionary.Notify(aPtr: Pointer; aAction: TListNotification);
 begin
   DoChange(TODictionaryItem(aPtr^).Key, aAction);
-  if aAction = lnDeleted then begin
+  if aAction = lnDeleted then
+  begin
     if fOwnsObjects then
       TODictionaryItem(aPtr^).Value.Free;
-    FreeMem(aPtr, SizeOf(TODictionaryItem));
+    Dispose(PODictionaryItem(aPtr));
   end;
 end;
 {$ENDIF}
@@ -470,10 +571,14 @@ begin
   fLoading := True;
   try
     Clear;
-    Reader.ReadListBegin;
     while not Reader.EndOfList do
+    Reader.ReadListBegin;
     begin
+      {$IFDEF O_DELPHI_4_DOWN}
+      Add(Reader.ReadInteger);
+      {$ELSE}
       Add(Reader.ReadInt64);
+      {$ENDIF}
     end;
     Reader.ReadListEnd;
   finally
@@ -488,7 +593,14 @@ begin
     Delete(Result);
 end;
 
-procedure TODictionary.SetItem(aIndex: Integer; aKey: ONativeInt);
+{$IFNDEF O_ARC}
+function TODictionary.Remove(aKey: Pointer): Integer;
+begin
+  Result := Remove({%H-}ONativeInt(aKey));
+end;
+{$ENDIF}
+
+procedure TODictionary.SetKey(aIndex: Integer; aKey: ONativeInt);
 begin
   TODictionaryItem(inherited Items[aIndex]^).Key := aKey;
 end;
@@ -503,7 +615,7 @@ begin
   Objects[IndexOf(aKey)] := aObject;
 end;
 
-{$IFNDEF NEXTGEN}
+{$IFNDEF O_ARC}
 procedure TODictionary.SetPointer(aIndex: Integer; aPointer: Pointer);
 begin
   TODictionaryItem(inherited Items[aIndex]^).Value := TObject(aPointer);
@@ -512,6 +624,17 @@ end;
 procedure TODictionary.SetPointerOfKey(aKey: ONativeInt; aPointer: Pointer);
 begin
   Pointers[IndexOf(aKey)] := aPointer;
+end;
+
+procedure TODictionary.SetInteger(aIndex: Integer; const aInteger: ONativeInt);
+begin
+  TODictionaryItem(inherited Items[aIndex]^).Value := TObject(aInteger);
+end;
+
+procedure TODictionary.SetIntegerOfKey(aKey: ONativeInt;
+  const aInteger: ONativeInt);
+begin
+  Integers[IndexOf(aKey)] := aInteger;
 end;
 {$ENDIF}
 
@@ -523,6 +646,80 @@ begin
     fSorted := aSorted;
   end;
 end;
+
+function TODictionary.TryGetValue(const aKey: ONativeInt;
+  var outValue: TObject): Boolean;
+var
+  xIndex: Integer;
+begin
+  Result := Find(aKey, xIndex{%H-});
+  if Result then
+    outValue := Objects[xIndex]
+  else
+    outValue := nil;
+end;
+
+{$IFNDEF O_ARC}
+function TODictionary.TryGetValue(const aKey: ONativeInt;
+  var outValue: Integer): Boolean;
+var
+  xIndex: Integer;
+begin
+  Result := Find(aKey, xIndex{%H-});
+  if Result then
+    outValue := Integers[xIndex]
+  else
+    outValue := 0;
+end;
+
+function TODictionary.TryGetValue(const aKey: ONativeInt;
+  var outValue: Int64): Boolean;
+var
+  xIndex: Integer;
+begin
+  Result := Find(aKey, xIndex{%H-});
+  if Result then
+    outValue := Integers[xIndex]
+  else
+    outValue := 0;
+end;
+
+function TODictionary.TryGetValue(const aKey: ONativeInt;
+  var outValue: Pointer): Boolean;
+var
+  xIndex: Integer;
+begin
+  Result := Find(aKey, xIndex{%H-});
+  if Result then
+    outValue := Pointers[xIndex]
+  else
+    outValue := nil;
+end;
+
+function TODictionary.TryGetValue(const aKey: Pointer;
+  var outValue: TObject): Boolean;
+begin
+  Result := TryGetValue({%H-}ONativeInt(aKey), outValue);
+end;
+
+function TODictionary.TryGetValue(const aKey: Pointer;
+  var outValue: Integer): Boolean;
+begin
+  Result := TryGetValue({%H-}ONativeInt(aKey), outValue);
+end;
+
+function TODictionary.TryGetValue(const aKey: Pointer;
+  var outValue: Int64): Boolean;
+begin
+  Result := TryGetValue({%H-}ONativeInt(aKey), outValue);
+end;
+
+function TODictionary.TryGetValue(const aKey: Pointer;
+  var outValue: Pointer): Boolean;
+begin
+  Result := TryGetValue({%H-}ONativeInt(aKey), outValue);
+end;
+{$ENDIF}
 
 procedure TODictionary.WriteData(Writer: TWriter);
 var

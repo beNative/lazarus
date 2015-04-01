@@ -2,15 +2,15 @@ unit uXmlTest;
 
 {$mode delphi}{$H+}
 
-{.$DEFINE USE_DELPHIXML}//define/undefine to compare OXml with Delphi XML
-{.$DEFINE USE_MSXML}//define/undefine to compare OXml with MS XML
-{.$DEFINE USE_OMNIXML}//define/undefine to compare OXml with OmniXML
-{.$DEFINE USE_NATIVEXML}//define/undefine to compare OXml with NativeXML
-{.$DEFINE USE_VERYSIMPLE}//define/undefine to compare OXml with VerySimpleXML: http://blog.spreendigital.de/2011/11/10/verysimplexml-a-lightweight-delphi-xml-reader-and-writer/
-{.$DEFINE USE_SIMPLEXML}//define/undefine to compare OXml with SimpleXML: http://www.audio-data.de/simplexml.html
-{.$DEFINE USE_DIXML}//define/undefine to compare OXml with DIXml: http://www.yunqa.de/delphi/doku.php/products/xml/index?DokuWiki=kg5ade2rod3o49f5v1anmf7ol1
-{.$DEFINE USE_ALCINOE}//define/undefine to compare OXml with Alcinoe: https://sourceforge.net/projects/alcinoe/
-{$DEFINE USE_LAZARUSDOMXML}//define/undefine to compare OXml with Lazarus DOM XML
+{.$DEFINE USE_DELPHIXML}      //compare OXml with Delphi XML
+{.$DEFINE USE_MSXML}          //compare OXml with MS XML
+{.$DEFINE USE_OMNIXML}        //compare OXml with OmniXML          http://www.omnixml.com
+{.$DEFINE USE_NATIVEXML}      //compare OXml with NativeXML        http://www.simdesign.nl/xml.html
+{.$DEFINE USE_VERYSIMPLE}     //compare OXml with VerySimpleXML    http://blog.spreendigital.de/2011/11/10/verysimplexml-a-lightweight-delphi-xml-reader-and-writer/
+{.$DEFINE USE_SIMPLEXML}      //compare OXml with SimpleXML        http://www.audio-data.de/simplexml.html
+{.$DEFINE USE_DIXML}          //compare OXml with DIXml            http://www.yunqa.de/delphi/doku.php/products/xml/index?DokuWiki=kg5ade2rod3o49f5v1anmf7ol1
+{.$DEFINE USE_ALCINOE}        //compare OXml with Alcinoe          https://sourceforge.net/projects/alcinoe/
+{.$DEFINE USE_LAZARUSDOMXML}  //compare OXml with Lazarus DOM XML
 
 {$IFDEF FPC}
   {$DEFINE USE_FORIN}
@@ -18,6 +18,9 @@ unit uXmlTest;
   {$IF CompilerVersion >= 20}//D2009
     {$DEFINE USE_FORIN}
     {$DEFINE USE_ANONYMOUS_METHODS}
+  {$IFEND}
+  {$IF CompilerVersion >= 21}//D2010
+    {$DEFINE USE_RTTI}
   {$IFEND}
   {$IF CompilerVersion >= 23}//DXE2
     {$DEFINE USE_ADOM}
@@ -28,7 +31,8 @@ interface
 
 uses
   {$IFDEF FPC}LCLIntf, {$ELSE}Windows, {$ENDIF}
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
+  ComCtrls, DateUtils,
   //BEGIN XML LIBRARIES UNITS
   {$IFDEF USE_DELPHIXML}
   XMLIntf, XMLDoc, xmldom, msxmldom, {$IFDEF USE_ADOM}adomxmldom,{$ENDIF} OXmlDOMVendor,
@@ -59,43 +63,57 @@ uses
   {$ENDIF}
   //END XML LIBRARIES UNITS
   OEncoding, OWideSupp, OTextReadWrite, OXmlReadWrite, OXmlUtils,
-  OXmlCDOM, OXmlPDOM, OXmlSAX, OXmlSeq;
+  OXmlCDOM, OXmlPDOM, OXmlSAX, OXmlSeq, OXmlSerialize
+  {$IFDEF USE_RTTI}
+  , OXmlRTTISerialize
+  {$ENDIF}
+  ;
 
 type
 
   { TForm1 }
 
   TForm1 = class(TForm)
-    BtnAttributeTest: TButton;
-    BtnDOMTest: TButton;
-    BtnEncodingTest: TButton;
-    BtnIterateTest: TButton;
     BtnReadPerformanceTest: TButton;
-    BtnResaveTest: TButton;
-    BtnSequentialTest: TButton;
-    BtnTestReadInvalid: TButton;
-    BtnTestSAX: TButton;
-    BtnTestWriteInvalid: TButton;
-    BtnTestXPath: TButton;
     BtnWritePerformanceTest: TButton;
+    BtnResaveTest: TButton;
     BtnXmlDirectWrite: TButton;
+    BtnTestSAX: TButton;
+    BtnDOMTest: TButton;
+    BtnAttributeTest: TButton;
+    BtnTest4GB: TButton;
+    BtnIterateTest: TButton;
+    BtnSequentialTest: TButton;
+    BtnTestXPath: TButton;
+    BtnTestReadInvalid: TButton;
+    BtnTestWriteInvalid: TButton;
+    BtnEncodingTest: TButton;
     LblTimeInfo: TLabel;
+    BtnSerialize: TButton;
+    BtnDeserialize: TButton;
+    BtnSerializeRTTI: TButton;
+    BtnDeserializeRTTI: TButton;
     Memo1: TMemo;
     Memo2: TMemo;
-    procedure BtnAttributeTestClick(Sender: TObject);
-    procedure BtnDOMTestClick(Sender: TObject);
-    procedure BtnIterateTestClick(Sender: TObject);
-    procedure BtnResaveTestClick(Sender: TObject);
-    procedure BtnSequentialTestClick(Sender: TObject);
-    procedure BtnTestReadInvalidClick(Sender: TObject);
-    procedure BtnTestWriteInvalidClick(Sender: TObject);
     procedure BtnXmlDirectWriteClick(Sender: TObject);
     procedure BtnReadPerformanceTestClick(Sender: TObject);
     procedure BtnTestXPathClick(Sender: TObject);
     procedure BtnTestSAXClick(Sender: TObject);
     procedure BtnWritePerformanceTestClick(Sender: TObject);
+    procedure BtnTestWriteInvalidClick(Sender: TObject);
     procedure BtnEncodingTestClick(Sender: TObject);
+    procedure BtnIterateTestClick(Sender: TObject);
+    procedure BtnSequentialTestClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure BtnTestReadInvalidClick(Sender: TObject);
+    procedure BtnDOMTestClick(Sender: TObject);
+    procedure BtnResaveTestClick(Sender: TObject);
+    procedure BtnAttributeTestClick(Sender: TObject);
+    procedure BtnTest4GBClick(Sender: TObject);
+    procedure BtnSerializeClick(Sender: TObject);
+    procedure BtnDeserializeClick(Sender: TObject);
+    procedure BtnSerializeRTTIClick(Sender: TObject);
+    procedure BtnDeserializeRTTIClick(Sender: TObject);
   private
     procedure DoNothing(const {%H-}aStr1, {%H-}aStr2: OWideString);
 
@@ -103,6 +121,7 @@ type
   private
     DocDir: String;
 
+    {$IFNDEF USE_ANONYMOUS_METHODS}
     procedure SAXStartDocument(Sender: TSAXParser);
     procedure SAXEndDocument(Sender: TSAXParser);
     procedure SAXCharacters(Sender: TSAXParser; const aText: OWideString);
@@ -111,8 +130,61 @@ type
     procedure SAXStartElement(Sender: TSAXParser; const aName: OWideString;
       const aAttributes: TSAXAttributes);
     procedure SAXEndElement(Sender: TSAXParser; const aName: OWideString);
+    {$ENDIF}
+
+    procedure BtnTest4GB_CancelClick(Sender: TObject);
   protected
     procedure DoCreate; override;
+  end;
+
+  TText_OXmlSerializer_Test1_Enum = (enOne, enTwo, enThree);
+  TText_OXmlSerializer_Test1_Set = set of TText_OXmlSerializer_Test1_Enum;
+
+  TText_OXmlSerializer_Test1_Class2 = class(TPersistent)
+  private
+    fMyInt: Integer;
+  published
+    property MyInt: Integer read fMyInt write fMyInt;
+  end;
+
+  TText_OXmlSerializer_Test1_Class = class(TPersistent)
+  private
+    fMyInt: Integer;
+    fMyEnum: TText_OXmlSerializer_Test1_Enum;
+    fMySet: TText_OXmlSerializer_Test1_Set;
+    fMyDate: TDate;
+    fMyDateTime: TDateTime;
+    fMyTime: TTime;
+    fMyFloat: Double;
+    fMyString: String;
+    fMyWideString: WideString;
+    fMyClass: TText_OXmlSerializer_Test1_Class2;
+  public
+    constructor Create;
+    destructor Destroy; override;
+  public
+    MyPublicVar: Integer;
+    property MyPublicProp: Integer read MyPublicVar write MyPublicVar;
+    property MyPublicHiddenProp: Integer read MyPublicVar write MyPublicVar;
+  published
+    property MyInt: Integer read fMyInt write fMyInt;
+    property MyEnum: TText_OXmlSerializer_Test1_Enum read fMyEnum write fMyEnum;
+    property MySet: TText_OXmlSerializer_Test1_Set read fMySet write fMySet;
+    property MyDate: TDate read fMyDate write fMyDate;
+    property MyDateTime: TDateTime read fMyDateTime write fMyDateTime;
+    property MyTime: TTime read fMyTime write fMyTime;
+    property MyFloat: Double read fMyFloat write fMyFloat;
+    property MyString: String read fMyString write fMyString;
+    property MyWideString: WideString read fMyWideString write fMyWideString;
+    property MyClass: TText_OXmlSerializer_Test1_Class2 read fMyClass;
+  end;
+
+  TText_OXmlSerializer_Test1_Record = record
+  private
+    fMyInt: Integer;
+  public
+    MyIntVar: Integer;
+    property MyInt: Integer read fMyInt write fMyInt;
   end;
 
 function SAXEscapeString(const aString: OWideString): OWideString;
@@ -963,13 +1035,13 @@ begin
   TestLazarusSAX;
   {$ENDIF}
 
-  TestOXmlCDOM;
+  {TestOXmlCDOM;
 
   TestOXmlPDOM;
 
   TestOXmlSeq;
 
-  TestOXmlSAX;
+  TestOXmlSAX;}
 
   TestOXmlDirect;
 end;
@@ -1021,9 +1093,9 @@ procedure TForm1.BtnResaveTestClick(Sender: TObject);
       xXmlWriter.WriterSettings.WriteBOM := False;
 
       //simulate reading
-      while xXmlReader.ReadNextToken({%H-}xE) do begin
+      while xXmlReader.ReadNextToken({%H-}xE) do
         DoNothing(xE.TokenName, xE.TokenValue);
-      end;
+
       xT2 := GetTickCount;
 
       //read+write
@@ -1037,6 +1109,7 @@ procedure TForm1.BtnResaveTestClick(Sender: TObject);
           rtFinishOpenElementClose: xXmlWriter.FinishOpenElementClose;
           rtCloseElement: xXmlWriter.CloseElement(xE.TokenName);
           rtText: xXmlWriter.Text(xE.TokenValue);
+          rtEntityReference: xXmlWriter.EntityReference(xE.TokenName);
           rtCData: xXmlWriter.CData(xE.TokenValue);
           rtComment: xXmlWriter.Comment(xE.TokenValue);
           rtProcessingInstruction: xXmlWriter.ProcessingInstruction(xE.TokenName, xE.TokenValue);
@@ -1088,10 +1161,10 @@ begin
   Memo1.Lines.Clear;
   Memo2.Lines.Clear;
 
-  TestOXmlPDOM;
+  {TestOXmlPDOM;
   _MatchTestFiles;
 
-  TestSAX;
+  TestSAX;}
 
   TestDirect;
   _MatchTestFiles;
@@ -1242,6 +1315,113 @@ begin
 
 end;
 
+procedure TForm1.BtnSerializeClick(Sender: TObject);
+var
+  xStream: TMemoryStream;
+  xSerializer: TXMLSerializer;
+  xReader: TOTextReader;
+  xObject: TText_OXmlSerializer_Test1_Class;
+begin
+  xStream := TMemoryStream.Create;
+  xSerializer := TXMLSerializer.Create;
+  xObject := TText_OXmlSerializer_Test1_Class.Create;
+  try
+    xSerializer.WriterSettings.IndentType := itIndent;
+    xSerializer.InitStream(xStream);
+
+    xObject.MyInt := 15;
+    xObject.MyEnum := enTwo;
+    xObject.MySet := [enOne, enThree];
+    xObject.MyDate := Trunc(Now);//get date only
+    xObject.MyDateTime := RecodeMilliSecond(Now, 0);//clear milliseconds
+    xObject.MyTime := Frac(xObject.MyDateTime);//get time only
+    xObject.MyFloat := 3.14;
+    xObject.MyString := 'Kluug.net';
+    xObject.MyWideString := 'Ond'#$0159'ej';//utf-16: Ondrej
+    xObject.MyClass.MyInt := 97;
+
+    xSerializer.WriteObject(xObject);
+
+    xSerializer.ReleaseDocument;
+
+    xStream.Position := 0;
+    xReader := TOTextReader.Create(xStream, TEncoding.UTF8);
+    try
+      Memo1.Lines.Text := xReader.ReadString(High(Integer));
+    finally
+      xReader.Free;
+    end;
+
+  finally
+    xSerializer.Free;
+    xStream.Free;
+    xObject.Free;
+  end;
+end;
+
+procedure TForm1.BtnSerializeRTTIClick(Sender: TObject);
+{$IFDEF USE_RTTI}
+var
+  xStream: TMemoryStream;
+  xSerializer: TXMLRTTISerializer;
+  xReader: TOTextReader;
+  xObject: TText_OXmlSerializer_Test1_Class;
+  xRecord: TText_OXmlSerializer_Test1_Record;
+  xInt: Integer;
+  xDouble: Double;
+begin
+  xStream := TStringStream.Create('', TEncoding.UTF8);
+  xSerializer := TXMLRTTISerializer.Create;
+  xObject := TText_OXmlSerializer_Test1_Class.Create;
+  try
+    xSerializer.WriterSettings.IndentType := itIndent;
+    xSerializer.InitStream(xStream);
+
+    xObject.MyInt := 15;
+    xObject.MyEnum := enTwo;
+    xObject.MySet := [enOne, enThree];
+    xObject.MyDate := Trunc(Now);//get date only
+    xObject.MyDateTime := RecodeMilliSecond(Now, 0);//clear milliseconds
+    xObject.MyTime := Frac(xObject.MyDateTime);//get time only
+    xObject.MyFloat := 3.14;
+    xObject.MyString := 'Kluug.net';
+    xObject.MyWideString := 'Ond'#$0159'ej';//utf-16: Ondrej
+    xObject.MyClass.MyInt := 97;
+    xObject.MyPublicVar := 18;
+
+    xSerializer.WriteObject(xObject);
+
+    xRecord.MyInt := 7;
+    xRecord.MyIntVar := 8;
+    xSerializer.WriteObject(xRecord);
+
+    xInt := 5;
+    xSerializer.WriteObject(xInt);
+
+    xDouble := 3.14;
+    xSerializer.WriteObject(xDouble);
+
+    xSerializer.ReleaseDocument;
+
+    xStream.Position := 0;
+    xReader := TOTextReader.Create(xStream, TEncoding.UTF8);
+    try
+      Memo1.Lines.Text := xReader.ReadString(High(Integer));
+    finally
+      xReader.Free;
+    end;
+
+  finally
+    xSerializer.Free;
+    xStream.Free;
+    xObject.Free;
+  end;
+{$ELSE}
+begin
+  ShowMessage('Enhanced RTTI is available only in Delphi 2010 and newer.');
+{$ENDIF}
+end;
+
 function SAXEscapeString(const aString: OWideString): OWideString;
 begin
   Result := aString;
@@ -1274,6 +1454,138 @@ begin
   Memo2.Lines.Clear;
 
   TestOXmlPDOM;
+end;
+
+procedure TForm1.BtnTest4GBClick(Sender: TObject);
+var
+  xPanel: TPanel;
+  xLblProgress: TLabel;
+  xPB: TProgressBar;
+  xBtnCancel: TButton;
+  xWriter: TXMLWriter;
+  xReader: TXMLReader;
+  xReaderToken: PXMLReaderToken;
+  xFileName: String;
+  I, L: Integer;
+begin
+  {$IFDEF VER130}
+  MessageDlg(
+    'Delphi 5 does not support files bigger than 2 GB.'+sLineBreak+
+    'The test can be run only in Delphi 6 and newer.',
+    mtError, [mbOK], 0);
+  Exit;
+  {$ENDIF}
+
+  if MessageDlg(
+    'This test creates a big file (> 4 GB) with TXMLWriter and parses it with TXMLReader.'+sLineBreak+
+    'Check if you have enough free space on the hard disc.'+sLineBreak+sLineBreak+
+    'This operation can take very long. Do you want to continue?',
+    mtConfirmation, [mbYes, mbNo], 0) <> mrYes
+  then
+    Exit;
+
+  xPanel := TPanel.Create(Self);
+  xLblProgress := TLabel.Create(Self);
+  xPB := TProgressBar.Create(Self);
+  xBtnCancel := TButton.Create(Self);
+  try
+    //create controls
+    xPanel.Parent := Self;
+    xPanel.BevelOuter := bvNone;
+    xPanel.Align := alClient;
+
+    xLblProgress.Parent := xPanel;
+    xLblProgress.Top := 50;
+    xLblProgress.Left := 10;
+    xLblProgress.AutoSize := True;
+
+    xPB.Parent := xLblProgress.Parent;
+    xPB.Top := xLblProgress.BoundsRect.Bottom + 10;
+    xPB.Left := 10;
+    xPB.Width := xPB.Parent.ClientWidth - 2*xPB.Left;
+    xPB.Anchors := [akLeft, akTop, akRight];
+
+    xBtnCancel.Parent := xPB.Parent;
+    xBtnCancel.Top := xPB.BoundsRect.Bottom + 20;
+    xBtnCancel.Left := xPB.Left;
+    xBtnCancel.Caption := 'Cancel';
+
+    xBtnCancel.OnClick := BtnTest4GB_CancelClick;
+
+    xFileName := DocDir+'big.xml';
+
+    //create file
+    xLblProgress.Caption := 'Writing file';
+    xWriter := TXMLWriter.Create;
+    try
+      xWriter.InitFile(xFileName);
+
+      xWriter.XMLDeclaration;
+      xWriter.OpenElement('root', stFinish);
+
+      xPB.Max := 10*1000 - 1;
+      for I := 0 to xPB.Max do
+      begin
+        xWriter.OpenElement('first_layer');
+        xWriter.Attribute('attr1', 'text');
+        xWriter.Attribute('attr2', 'text');
+        xWriter.FinishOpenElement;
+
+        for L := 0 to 11*1000 - 1 do
+        begin
+          xWriter.OpenElement('second_layer');
+          xWriter.Attribute('attrA', 'notes');
+          xWriter.Attribute('attrB', 'notes');
+          xWriter.FinishOpenElementClose;
+        end;
+        xWriter.CloseElement('first_layer');
+
+        xPB.Position := I;
+        Application.ProcessMessages;
+
+        if xBtnCancel.Tag > 0 then//cancel
+          Exit;
+      end;
+
+      xWriter.CloseElement('root');
+    finally
+      xWriter.Free;
+    end;
+
+    //read file
+    xLblProgress.Caption := 'Reading file';
+    xReader := TXMLReader.Create;
+    try
+      xReader.InitFile(xFileName);
+
+      xPB.Max := (xReader.StreamSize div 1024);
+      while xReader.ReadNextToken({%H-}xReaderToken) do
+      begin
+        if (xReaderToken.TokenType = rtOpenElement) and (xReader.NodePathCount = 2) then
+        begin
+          xPB.Position := xReader.ApproxStreamPosition div 1024;
+          Application.ProcessMessages;
+
+          if xBtnCancel.Tag > 0 then//cancel
+            Exit;
+        end;
+      end;
+    finally
+      xReader.Free;
+    end;
+  finally
+    xLblProgress.Free;
+    xPB.Free;
+    xBtnCancel.Free;
+    xPanel.Free;
+
+    DeleteFile(xFileName);
+  end;
+end;
+
+procedure TForm1.BtnTest4GB_CancelClick(Sender: TObject);
+begin
+  (Sender as TButton).Tag := 1;//set canceled tag
 end;
 
 procedure TForm1.BtnTestReadInvalidClick(Sender: TObject);
@@ -1405,7 +1717,7 @@ begin
         for xAttr in aAttributes do begin
           if xAttrStr <> '' then
             xAttrStr := xAttrStr + ', ';
-          xAttrStr := xAttrStr + SAXEscapeString(xAttr.TokenName)+'="'+SAXEscapeString(xAttr.TokenValue)+'"';
+          xAttrStr := xAttrStr + SAXEscapeString(xAttr.NodeName)+'="'+SAXEscapeString(xAttr.NodeValue)+'"';
         end;
         xAttrStr := '['+xAttrStr+']';
 
@@ -1903,6 +2215,84 @@ begin
   Memo2.Lines.Clear;
 end;
 
+procedure TForm1.BtnDeserializeClick(Sender: TObject);
+var
+  xDeserializer: TXMLDeserializer;
+  xObject: TText_OXmlSerializer_Test1_Class;
+  xClassName: OWideString;
+begin
+  xDeserializer := TXMLDeserializer.Create;
+  xObject := nil;
+  try
+    xDeserializer.InitXML(Memo1.Lines.Text);
+
+    while xDeserializer.ReadObjectInfo({%H-}xClassName) do
+    begin
+      if xClassName = TText_OXmlSerializer_Test1_Class.ClassName then
+      begin
+        xObject := TText_OXmlSerializer_Test1_Class.Create;
+
+        xDeserializer.ReadObject(xObject);
+
+        Break;//we want only one object
+      end else
+        raise Exception.Create('Text_OXmlSerializer_Test1_CreateObject: class "'+xClassName+'" is unknown.');
+    end;
+
+    if Assigned(xObject) then
+    begin
+      //do something with the object
+      ShowMessage('MyClass.MyInt = '+IntToStr(xObject.MyClass.MyInt));
+    end else
+      raise Exception.Create('Nothing to deserialize.');
+  finally
+    xDeserializer.Free;
+    xObject.Free;
+  end;
+end;
+
+procedure TForm1.BtnDeserializeRTTIClick(Sender: TObject);
+{$IFDEF USE_RTTI}
+var
+  xDeserializer: TXMLRTTIDeserializer;
+  xObject: TText_OXmlSerializer_Test1_Class;
+  xClassName: OWideString;
+begin
+  xDeserializer := TXMLRTTIDeserializer.Create;
+  xObject := nil;
+  try
+    xDeserializer.InitXML(Memo1.Lines.Text);
+    xDeserializer.UseIndex := False;
+
+    while xDeserializer.ReadObjectInfo({%H-}xClassName) do
+    begin
+      if xClassName = TText_OXmlSerializer_Test1_Class.ClassName then
+      begin
+        xObject := TText_OXmlSerializer_Test1_Class.Create;
+
+        xDeserializer.ReadObject(xObject);
+
+        Break;//we want only one object
+      end else
+        raise Exception.Create('Text_OXmlSerializer_Test1_CreateObject: class "'+xClassName+'" is unknown.');
+    end;
+
+    if Assigned(xObject) then
+    begin
+      //do something with the object
+      ShowMessage('MyClass.MyInt = '+IntToStr(xObject.MyClass.MyInt));
+    end else
+      raise Exception.Create('Nothing to deserialize.');
+  finally
+    xDeserializer.Free;
+    xObject.Free;
+  end;
+{$ELSE}
+begin
+  ShowMessage('Enhanced RTTI is available only in Delphi 2010 and newer.');
+{$ENDIF}
+end;
+
 procedure TForm1.BtnDOMTestClick(Sender: TObject);
   procedure TestOXmlPDOM;
   var
@@ -1949,6 +2339,7 @@ procedure TForm1.BtnEncodingTestClick(Sender: TObject);
     xXML := OXmlPDOM.CreateXMLDoc;
 
     xXML.LoadFromFile(DocDir+'koi8-r.xml');
+    xXML.ReaderSettings.BreakReading := brNone;
     xXML.DocumentElement.SelectNode('load').LoadFromXML('some <i>text</i> with <b>tags</b>');
     xXML.CodePage := CP_WIN_1251;
     xXML.SaveToFile(DocDir+'1251.xml');
@@ -1972,68 +2363,52 @@ end;
 procedure TForm1.MatchTestFiles(const aFileSource, aFileTarget: OWideString);
 var
   xReader1, xReader2: TOTextReader;
-  xBuffer1, xBuffer2: TOTextBuffer;
-  xC1, xC2: OWideChar;
   I: Integer;
 begin
-  xC1 := #0;
-  xC2 := #0;
   xReader1 := TOTextReader.Create;
   xReader2 := TOTextReader.Create;
-  xBuffer1 := TOTextBuffer.Create;
-  xBuffer2 := TOTextBuffer.Create;
   try
     xReader1.InitFile(aFileSource);
     xReader2.InitFile(aFileTarget);
 
     //start comparing after PI
-    while (xC1 <> '>') do
-      if not xReader1.ReadNextChar(xC1) then
+    repeat
+      if not xReader1.ReadNextChar then
         Break;
-    while xC2 <> '>' do
-      if not xReader2.ReadNextChar(xC2) then
+    until xReader1.CurrentChar^ = '>';
+
+    repeat
+      if not xReader2.ReadNextChar then
         Break;
-    xReader1.ReadNextChar(xC1);
-    xReader2.ReadNextChar(xC2);
-    while OXmlIsWhiteSpaceChar(xC1) do
-      if not xReader1.ReadNextChar(xC1) then
+    until xReader2.CurrentChar^ = '>';
+
+    xReader1.ReadNextChar;
+    xReader2.ReadNextChar;
+    while OXmlIsWhiteSpaceChar(xReader1.CurrentChar^) do
+      if not xReader1.ReadNextChar then
         Break;
-    while OXmlIsWhiteSpaceChar(xC2) do
-      if not xReader2.ReadNextChar(xC2) then
+    while OXmlIsWhiteSpaceChar(xReader2.CurrentChar^) do
+      if not xReader2.ReadNextChar then
         Break;
 
-    while True do begin
-      if not xReader1.ReadNextChar(xC1) then
+    while True do
+    begin
+      if not xReader1.ReadNextChar then
         break;
-      xReader2.ReadNextChar(xC2);
-      if xC1 <> xC2 then begin
-        //get some information
-        xBuffer1.Clear;
-        xBuffer2.Clear;
-        xBuffer1.WriteChar(xC1);
-        xBuffer2.WriteChar(xC2);
-        for I := 0 to 19 do begin
-          if not xReader1.ReadNextChar(xC1) then
-            Break;
-          if not xReader2.ReadNextChar(xC2) then
-            Break;
-          xBuffer1.WriteChar(xC1);
-          xBuffer2.WriteChar(xC2);
-        end;
-
+      xReader2.ReadNextChar;
+      if xReader1.CurrentChar^ <> xReader2.CurrentChar^ then
+      begin
         raise Exception.Create('Files do not match:'+sLineBreak+
-          'Reader1 = '+xBuffer1.GetBuffer+sLineBreak+
-          'Reader2 = '+xBuffer2.GetBuffer+sLineBreak);
+          'Reader1 = '+xReader1.ReadPreviousString(16)+sLineBreak+
+          'Reader2 = '+xReader2.ReadPreviousString(16)+sLineBreak);
       end;
 
-      if xC2 = #0 then
+      if xReader2.CurrentChar^ = #0 then
         Break;
     end;
   finally
     xReader1.Free;
     xReader2.Free;
-    xBuffer1.Free;
-    xBuffer2.Free;
   end;
 end;
 
@@ -2803,16 +3178,16 @@ procedure TForm1.BtnXmlDirectWriteClick(Sender: TObject);
       xXmlWriter.DocType('root PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"');
       xXmlWriter.XmlDeclaration(True);
 
-      xRootElement := xXmlWriter.OpenElementR('root');
+      xXmlWriter.OpenElementR('root', {%H-}xRootElement);
       xRootElement.Attribute('description', 'test xml');
 
-      xPersonElement := xRootElement.OpenElementR('boss');
+      xRootElement.OpenElementR('boss', {%H-}xPersonElement);
       xPersonElement.Attribute('name', '?Max Muster');
       xPersonElement.CloseElement;
 
       xRootElement.Comment('this is some text in comment');
 
-      xPersonElement := xRootElement.OpenElementR('person');
+      xRootElement.OpenElementR('person', xPersonElement);
       xPersonElement.Attribute('name', '/Paul Caster');
       xPersonElement.Text('/this text is in person tag');
       xPersonElement.CloseElement;
@@ -2859,9 +3234,9 @@ begin
 
   DocDir := ExtractFilePath(Application.ExeName)+'..'+PathDelim+'doc'+PathDelim;
 
-  {$IFNDEF FPC}{$IF CompilerVersion >= 18}//Delphi 2006 UP
+  {$IFNDEF FPC}{$IFDEF CONDITIONALEXPRESSIONS}{$IF (CompilerVersion >= 18)}//Delphi 2006 UP
   ReportMemoryLeaksOnShutdown := True;
-  {$IFEND}{$ENDIF}
+  {$IFEND}{$ENDIF}{$ENDIF}
 end;
 
 {$IFNDEF USE_ANONYMOUS_METHODS}
@@ -2916,7 +3291,7 @@ begin
   {$ENDIF}
     if xAttrStr <> '' then
       xAttrStr := xAttrStr + ', ';
-    xAttrStr := xAttrStr + SAXEscapeString(xAttr.TokenName)+'="'+SAXEscapeString(xAttr.TokenValue)+'"';
+    xAttrStr := xAttrStr + SAXEscapeString(xAttr.NodeName)+'="'+SAXEscapeString(xAttr.NodeValue)+'"';
   end;
   xAttrStr := '['+xAttrStr+']';
 
@@ -2927,6 +3302,22 @@ end;
 procedure TForm1.DoNothing(const aStr1, aStr2: OWideString);
 begin
   //nothing
+end;
+
+{ TText_OXmlSerializer_Test1_Class }
+
+constructor TText_OXmlSerializer_Test1_Class.Create;
+begin
+  fMyClass := TText_OXmlSerializer_Test1_Class2.Create;
+
+  inherited Create;
+end;
+
+destructor TText_OXmlSerializer_Test1_Class.Destroy;
+begin
+  fMyClass.Free;
+
+  inherited;
 end;
 
 end.

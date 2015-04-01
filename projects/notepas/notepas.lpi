@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="41"/>
-      <BuildNr Value="184"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2015 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.41" HomePage="http://code.google.com/p/notepas/" ProjectPage="http://sourceforge.net/projects/notepas/"/>
+      <RevisionNr Value="42"/>
+      <BuildNr Value="186"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2015 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.41" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://sourceforge.net/projects/notepas/"/>
     </VersionInfo>
     <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
@@ -1131,6 +1131,7 @@ end;"/>
       <Unit27>
         <Filename Value="..\..\components\tslib\core\ts.core.versioninfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.VersionInfo"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\components\tslib\components\ts.components.inspector.pas"/>
@@ -1280,6 +1281,7 @@ end;"/>
         <ComponentName Value="CustomEditorToolView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_ToolView_Base"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
@@ -1307,6 +1309,7 @@ end;"/>
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_AboutDialog"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog.pas"/>
@@ -1331,6 +1334,7 @@ end;"/>
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
@@ -1396,18 +1400,22 @@ end;"/>
       <Unit80>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
       </Unit81>
       <Unit82>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
       </Unit82>
       <Unit83>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1415,10 +1423,12 @@ end;"/>
         <ComponentName Value="frmSearchForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_Search_Toolview"/>
       </Unit84>
       <Unit85>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ActionList.Templates"/>
       </Unit85>
       <Unit86>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
@@ -1426,6 +1436,7 @@ end;"/>
         <ComponentName Value="frmActionListView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_ActionList_ToolView"/>
       </Unit86>
       <Unit87>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
@@ -1477,6 +1488,7 @@ end;"/>
         <ComponentName Value="frmHTMLView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_HTMLView_ToolView"/>
       </Unit95>
       <Unit96>
         <Filename Value="..\..\components\tslib\editor\preview\ts_editor_preview_toolview.pas"/>
@@ -1484,6 +1496,7 @@ end;"/>
         <ComponentName Value="frmPreview"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_Preview_ToolView"/>
       </Unit96>
       <Unit97>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
@@ -1506,6 +1519,7 @@ end;"/>
         <ComponentName Value="frmMiniMap"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_MiniMap_ToolView"/>
       </Unit100>
       <Unit101>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts_editor_viewlist_toolview.pas"/>
@@ -1513,6 +1527,7 @@ end;"/>
         <ComponentName Value="frmViewList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_ViewList_ToolView"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\components\tslib\editor\test\ts_editor_test_toolview.pas"/>
@@ -1547,6 +1562,7 @@ end;"/>
         <ComponentName Value="frmSelectionInfo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_SelectionInfo_ToolView"/>
       </Unit106>
       <Unit107>
         <Filename Value="..\..\components\tslib\editor\filter\ts_editor_filter_toolview.pas"/>
@@ -1554,6 +1570,7 @@ end;"/>
         <ComponentName Value="frmFilter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_Filter_ToolView"/>
       </Unit107>
       <Unit108>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.lfm"/>
@@ -1590,6 +1607,7 @@ end;"/>
       <Unit115>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ViewList.Data"/>
       </Unit115>
       <Unit116>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
@@ -1607,6 +1625,7 @@ end;"/>
       <Unit119>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Types"/>
       </Unit119>
       <Unit120>
         <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>

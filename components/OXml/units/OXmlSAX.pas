@@ -7,7 +7,7 @@ unit OXmlSAX;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -54,15 +54,23 @@ uses
     {$ENDIF}
   {$ENDIF}
 
-  OWideSupp, OXmlUtils, OXmlReadWrite, OEncoding, OHashedStrings;
+  OWideSupp, OXmlUtils, OTextReadWrite, OXmlReadWrite, OEncoding, OHashedStrings;
 
 type
   TSAXParser = class;
 
   //The clue of TSAXAttribute is to reduce string operations to an minimum.
-  // -> therefore TSAXAttribute is just TXMLReaderToken
-  TSAXAttribute = TXMLReaderToken;
-  PSAXAttribute = PXMLReaderToken;
+  // -> therefore TSAXAttribute just uses TXMLReaderToken.TokenName and .TokenValue.
+  //    You can explicitely cast TXMLReaderToken to TSAXAttribute and back!
+  TSAXAttribute = packed {$IFDEF O_EXTRECORDS}record{$ELSE}object{$ENDIF}
+  private
+    fToken: TXMLReaderToken;
+  public
+    property NodeName: OWideString read fToken.TokenName;
+    property NodeValue: OWideString read fToken.TokenValue;
+  end;
+
+  PSAXAttribute = ^TSAXAttribute;
   TSAXAttributeEnum = class;
   TSAXAttributes = class(TObject)
   private
@@ -76,7 +84,7 @@ type
     function GetAttributeItem(const aIndex: Integer): PSAXAttribute;
     function GetCount: Integer;
 
-    procedure GetKeyByIndex(const aIndex: OHashedStringsIndex; var outString: OWideString);
+    function GetKeyByIndex(const aIndex: OStringIndex): OWideString;
   public
     constructor Create;
     destructor Destroy; override;
@@ -138,11 +146,11 @@ type
 
   TSAXParser = class(TObject)
   private
+    fURL: OWideString;
+
     fReader: TXMLReader;
-    fReaderSettings: TXMLReaderSettings;
     fDataRead: Boolean;
     fStopParsing: Boolean;
-    fURL: String;
 
     fOnStartDocument: TSAXNotifyEvent;
     fOnEndDocument: TSAXNotifyEvent;
@@ -152,7 +160,7 @@ type
     fOnStartElement: TSAXStartElementEvent;
     fOnEndElement: TSAXEndElementEvent;
 
-    fParseError: IXMLParseError;
+    fParseError: IOTextParseError;
 
     procedure DoOnStartDocument;
     procedure DoOnEndDocument;
@@ -165,8 +173,9 @@ type
 
     function GetNodePath(const aIndex: Integer): OWideString;
     function GetNodePathCount: Integer;
-    function GetApproxStreamPosition: ONativeInt;
-    function GetStreamSize: ONativeInt;
+    function GetApproxStreamPosition: OStreamInt;
+    function GetStreamSize: OStreamInt;
+    function GetReaderSettings: TXMLReaderSettings;
   protected
     function StartParsing: Boolean;
   public
@@ -180,22 +189,19 @@ type
     //parse document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function ParseFile(const aFileName: String; const aForceEncoding: TEncoding = nil): Boolean;
+    function ParseFile(const aFileName: OWideString; const aForceEncoding: TEncoding = nil): Boolean;
     //parse document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
     function ParseStream(const aStream: TStream; const aForceEncoding: TEncoding = nil): Boolean;
     //parse XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
     function ParseXML(const aXML: OWideString): Boolean;
-    {$IFDEF O_RAWBYTESTRING}
-    function ParseXML_UTF8(const aXML: ORawByteString): Boolean;
-    {$ENDIF}
-    {$IFDEF O_GENERICBYTES}
+    function ParseXML_UTF8(const aXML: OUTF8Container): Boolean;
     //parse document from TBytes buffer
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function ParseBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean;
-    {$ENDIF}
+    function ParseBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean; overload;
+    function ParseBuffer(const aBuffer; const aBufferLength: Integer; const aForceEncoding: TEncoding = nil): Boolean; overload;
   public
     //call StopParsing from an event or anonymous method to stop parsing
     //  When stopped, parsing cannot be continued again.
@@ -217,7 +223,7 @@ type
     property OnEndElement: TSAXEndElementEvent read fOnEndElement write fOnEndElement;//element end </a> or <a />
 
     //XML reader settings
-    property ReaderSettings: TXMLReaderSettings read fReaderSettings;
+    property ReaderSettings: TXMLReaderSettings read GetReaderSettings;
   public
     //following functions and properties can be called only from events or anonymous methods during parsing
 
@@ -239,15 +245,15 @@ type
 
     //Approximate position in original read stream
     //  exact position cannot be determined because of variable UTF-8 character lengths
-    property ApproxStreamPosition: ONativeInt read GetApproxStreamPosition;
+    property ApproxStreamPosition: OStreamInt read GetApproxStreamPosition;
     //size of original stream
-    property StreamSize: ONativeInt read GetStreamSize;
+    property StreamSize: OStreamInt read GetStreamSize;
 
     //determines if parsing has been stopped with the StopParsing procedure
     property ParsingStopped: Boolean read fStopParsing;
 
     //ParseError has information about the error that occured when parsing a document
-    property ParseError: IXMLParseError read fParseError;
+    property ParseError: IOTextParseError read fParseError;
   end;
 
   ESAXParserException = class(Exception);
@@ -260,12 +266,12 @@ constructor TSAXParser.Create;
 begin
   inherited Create;
 
-  fReaderSettings := TXMLReaderSettings.Create;
+  fReader := TXMLReader.Create;
 end;
 
 destructor TSAXParser.Destroy;
 begin
-  fReaderSettings.Free;
+  fReader.Free;
 
   inherited;
 end;
@@ -314,7 +320,7 @@ begin
     fOnStartElement(Self, aName, aAttributes);
 end;
 
-function TSAXParser.GetApproxStreamPosition: ONativeInt;
+function TSAXParser.GetApproxStreamPosition: OStreamInt;
 begin
   Result := fReader.ApproxStreamPosition;
 end;
@@ -329,39 +335,54 @@ begin
   Result := fReader.NodePathCount;
 end;
 
-function TSAXParser.GetStreamSize: ONativeInt;
+function TSAXParser.GetReaderSettings: TXMLReaderSettings;
+begin
+  Result := fReader.ReaderSettings;
+end;
+
+function TSAXParser.GetStreamSize: OStreamInt;
 begin
   Result := fReader.StreamSize;
 end;
 
-{$IFDEF O_GENERICBYTES}
 function TSAXParser.ParseBuffer(const aBuffer: TBytes;
   const aForceEncoding: TEncoding): Boolean;
 var
-  xLength: Integer;
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aBuffer);
-    if xLength > 0 then
-      xStream.SetPointer(@aBuffer[0], xLength);
+    xStream.SetBuffer(aBuffer);
 
     Result := ParseStream(xStream, aForceEncoding);
   finally
     xStream.Free;
   end;
 end;
-{$ENDIF}
 
-function TSAXParser.ParseFile(const aFileName: String;
+function TSAXParser.ParseBuffer(const aBuffer;
+  const aBufferLength: Integer; const aForceEncoding: TEncoding): Boolean;
+var
+  xStream: TVirtualMemoryStream;
+begin
+  xStream := TVirtualMemoryStream.Create;
+  try
+    xStream.SetPointer(@aBuffer, aBufferLength);
+
+    Result := ParseStream(xStream, aForceEncoding);
+  finally
+    xStream.Free;
+  end;
+end;
+
+function TSAXParser.ParseFile(const aFileName: OWideString;
   const aForceEncoding: TEncoding): Boolean;
 var
-  xStream: TFileStream;
+  xStream: TOFileStream;
 begin
   fURL := aFileName;
 
-  xStream := TFileStream.Create(aFileName, fmOpenRead or fmShareDenyNone);
+  xStream := TOFileStream.Create(aFileName, fmOpenRead or fmShareDenyNone);
   try
     Result := ParseStream(xStream, aForceEncoding);
   finally
@@ -372,29 +393,23 @@ end;
 function TSAXParser.ParseStream(const aStream: TStream;
   const aForceEncoding: TEncoding): Boolean;
 begin
-  fReader := TXMLReader.Create;
   try
-    fReader.ReaderSettings.Assign(fReaderSettings);
-
     fReader.InitStream(aStream, aForceEncoding);
+    fReader.URL := fURL;
 
     Result := StartParsing;
   finally
-    fReader.Free;
-    fReader := nil;
+    fReader.ReleaseDocument;
   end;
 end;
 
 function TSAXParser.ParseXML(const aXML: OWideString): Boolean;
 var
-  xLength: Integer;
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aXML);
-    if xLength > 0 then
-      xStream.SetPointer(@aXML[1], xLength * SizeOf(OWideChar));
+    xStream.SetString(aXML);
 
     Result := ParseStream(xStream, TEncoding.OWideStringEncoding);
   finally
@@ -402,24 +417,19 @@ begin
   end;
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-function TSAXParser.ParseXML_UTF8(const aXML: ORawByteString): Boolean;
+function TSAXParser.ParseXML_UTF8(const aXML: OUTF8Container): Boolean;
 var
-  xLength: Integer;
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aXML);
-    if xLength > 0 then
-      xStream.SetPointer(@aXML[1], xLength);
+    xStream.SetString_UTF8(aXML);
 
     Result := ParseStream(xStream, TEncoding.UTF8);
   finally
     xStream.Free;
   end;
 end;
-{$ENDIF}
 
 procedure TSAXParser.NodePathAssignTo(const aNodePath: TOWideStringList);
 begin
@@ -460,22 +470,26 @@ begin
   xAttributes := TSAXAttributes.Create;
   fReader.SetAttributeTokens(xAttributes.fAttributeTokens);
   try
-    while (not fStopParsing) and fReader.ReadNextToken({%H-}xReaderToken) do begin
+    while (not fStopParsing) and fReader.ReadNextToken(xReaderToken{%H-}) do
+    begin
       case xReaderToken.TokenType of
-        rtOpenElement: begin
-          if not fDataRead then begin
+        rtOpenElement:
+        begin
+          if not fDataRead then
+          begin
             DoOnStartDocument;
             fDataRead := True;
           end;
         end;
-        rtFinishOpenElementClose, rtFinishOpenElement: begin
+        rtFinishOpenElementClose, rtFinishOpenElement:
+        begin
           xAttributes.CreateIndex;
           DoOnStartElement(xReaderToken.TokenName, xAttributes);
           if xReaderToken.TokenType = rtFinishOpenElementClose then
             DoOnEndElement(xReaderToken.TokenName);
         end;
         rtCloseElement: DoOnEndElement(xReaderToken.TokenName);
-        rtText, rtCData:
+        rtText, rtCData, rtEntityReference:
           if fDataRead or not OXmlIsWhiteSpace(xReaderToken.TokenValue)
           then//omit empty text before root node
             DoOnCharacters(xReaderToken.TokenValue);
@@ -485,17 +499,16 @@ begin
     end;
 
     if fDataRead and not fStopParsing then
-    begin
       DoOnEndDocument;
-    end;
 
+  finally
     if Assigned(fReader.ParseError) then
     begin
       fParseError := fReader.ParseError;
 
       Result := False;
     end;
-  finally
+
     fReader.SetAttributeTokens(nil);
     xAttributes.Free;
 
@@ -546,13 +559,13 @@ procedure TSAXAttributes.CreateIndex;
 var
   I: Integer;
 begin
-  fIndexUsed := Count > XMLUseIndexForAttributesLimit;
-  if not fIndexUsed then
-    Exit;
-
-  fIndex.Clear(Count);
-  for I := 0 to fAttributeTokens.Count-1 do
-    fIndex.Add(fAttributeTokens[I].TokenName);
+  fIndexUsed := Count > XMLUseIndexNodeLimit;
+  if fIndexUsed then
+  begin
+    fIndex.Clear(Count);
+    for I := 0 to fAttributeTokens.Count-1 do
+      fIndex.Add(I);
+  end;
 end;
 
 destructor TSAXAttributes.Destroy;
@@ -586,11 +599,12 @@ var
   I: Integer;
 begin
   if fIndexUsed then//hash index used
-    Result := fIndex.IndexOf(aAttrName)
+    Result := fIndex.StringIndexOf(aAttrName)
   else
   begin//hash index not used
     for I := 0 to Count-1 do
-    if fAttributeTokens[I].TokenName = aAttrName then begin
+    if fAttributeTokens[I].TokenName = aAttrName then
+    begin
       Result := I;
       Exit;
     end;
@@ -601,19 +615,19 @@ end;
 function TSAXAttributes.First: PSAXAttribute;
 begin
   if fAttributeTokens.Count >= 0 then
-    Result := fAttributeTokens[0]
+    Result := PSAXAttribute(fAttributeTokens[0])
   else
     Result := nil;
 end;
 
 function TSAXAttributes.GetAttributeItem(const aIndex: Integer): PSAXAttribute;
 begin
-  Result := fAttributeTokens[aIndex];
+  Result := PSAXAttribute(fAttributeTokens[aIndex]);
 end;
 
 function TSAXAttributes.Get(const aAttrName: OWideString): OWideString;
 begin
-  Find(aAttrName, {%H-}Result);
+  Find(aAttrName, Result{%H-});
 end;
 
 function TSAXAttributes.GetCount: Integer;
@@ -658,44 +672,45 @@ begin
     Exit;
   end;
 
-  if Assigned(ioAttrEnum) then begin
+  if Assigned(ioAttrEnum) then
+  begin
     //get prev/next
     if not(
        (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount) and
-       (fAttributeTokens[fIteratorCurrent] = ioAttrEnum))
+       (PSAXAttribute(fAttributeTokens[fIteratorCurrent]) = ioAttrEnum))
     then//ioAttrEnum is NOT the last iterator -> we have to find it
-      fIteratorCurrent := fAttributeTokens.IndexOf(ioAttrEnum);
+      fIteratorCurrent := fAttributeTokens.IndexOf(PXMLReaderToken(ioAttrEnum));
 
-    if (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount)
-    then begin
+    if (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount) then
+    begin
       fIteratorCurrent := fIteratorCurrent + aInc;
       Result := (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount);
       if Result then
-        ioAttrEnum := fAttributeTokens[fIteratorCurrent]
+        ioAttrEnum := PSAXAttribute(fAttributeTokens[fIteratorCurrent])
       else
         ioAttrEnum := nil;
     end;
-  end else begin
+  end else
+  begin
     //return first or last element
     if aInc > 0 then
       fIteratorCurrent := 0
     else
       fIteratorCurrent := xCount-1;
-    ioAttrEnum := fAttributeTokens[fIteratorCurrent];
+    ioAttrEnum := PSAXAttribute(fAttributeTokens[fIteratorCurrent]);
     Result := True;
   end;
 end;
 
-procedure TSAXAttributes.GetKeyByIndex(const aIndex: OHashedStringsIndex;
-  var outString: OWideString);
+function TSAXAttributes.GetKeyByIndex(const aIndex: OStringIndex): OWideString;
 begin
-  outString := fAttributeTokens[aIndex].TokenName;
+  Result := fAttributeTokens[aIndex].TokenName;
 end;
 
 function TSAXAttributes.Last: PSAXAttribute;
 begin
   if fAttributeTokens.Count >= 0 then
-    Result := fAttributeTokens[fAttributeTokens.Count-1]
+    Result := PSAXAttribute(fAttributeTokens[fAttributeTokens.Count-1])
   else
     Result := nil;
 end;

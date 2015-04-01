@@ -1,6 +1,102 @@
 OXml Change Log
 ---------------
 
+Version 1.6 2015-03-25 [SVN commit: 64, https://sourceforge.net/p/oxml/code/64/]
+  - Added JSON reader/writer (beta).
+  - Compatibility with FPC trunk (3.1.1).
+  - Generics disabled in Delphi 2009 due to Delphi bugs.
+
+
+Version 1.5 2015-01-07 [SVN commit: 60, https://sourceforge.net/p/oxml/code/60/]
+  - TEncoding.GetSupportedEncodings modified to a function.
+  - Fixed bug in TEncoding in Delphi 2009 and 2010.
+  - Some Delphi 5 issues solved.
+
+
+Version 1.4 2014-12-10 [SVN commit: 58, https://sourceforge.net/p/oxml/code/58/]
+  - Fixed bug in TOWideStringList (only Delphi 5-2007).
+  - OEncoding.pas: added support for Big Endian UTF-16.
+  - OEncoding.pas: added support for UTF-7 (only Delphi 2009+ or Windows platform).
+  - OXmlSerialize.pas: added support for TCollection.
+  - OXmlRTTISerialize.pas: added support for TCollection.
+  - Small bug in TXMLWriterElement fixed.
+
+
+Version 1.3 2014-12-04 [SVN commit: 57, https://sourceforge.net/p/oxml/code/57/]
+  - Case-insensitive TOHashedStrings.
+  - Fixed bug when reading file with last #10 character.
+  - Fixed bug when reading &#0; entity (this invalid entity can be read only with StrictXML = False).
+
+
+Version 1.2 2014-11-20 [SVN commit: 56, https://sourceforge.net/p/oxml/code/56/]
+  - SelectNodeCreate can handle a whole path now. E.g. "element1/element2/@attribute".
+  - Added the aToDocument parameter to TXMLNode.CloneNode.
+  - Default line break handling of the writer changed! 
+    Now WriterSettings.LineBreak is lbLF to comply with XML standards. 
+    The functions SaveToXML use always the system line breaks.
+  - Fixed bug in ISOTryStrToBool.
+  - TXMLNode.AbsolutePath and TXMLNode.NodeLevel properties added.
+  - Resolved bugs in Delphi 2009-XE.
+  - Faster ISOStrToFloat and ISOFloatToStr functions, they are still thread-safe.
+  - FPC writer optimalizations.
+  - ORealWideString renamed to OUnicodeString
+  - Characters that are not in the target encoding are written as XML entities to the file. Works only for text nodes, cdata and attribute values.
+  - Fixed bug in OXmlSerialize.pas
+  - Removed UseIndex property from TXMLDeserializer and TXMLRTTIDeserializer (not used any more).
+  - Added XML declaration and encoding support to TXMLSerializer and TXMLRTTISerializer.
+  - Added TXMLNode.SortChildNodes, SortAttributeNodes, SortChildNodesByName, SortAttributeNodesByName
+  - Added TXMLSerializer.UseRoot and TXMLDeserializer.UseRoot + more options/attributes in WriteObject and ReadObject (ReadObjectFromNode)
+  - Added TXMLRTTISerializer.UseRoot and TXMLRTTISerializer.UseRoot + more options/attributes in WriteObject and ReadObject (ReadObjectFromNode)
+  - Fixed bug in TXMLReader.NodePathAsString
+  - RTTI serializer - added TObject in records support.
+  - RTTI serializer generic record support.
+  - OXmlPDOM and OXmlCDOM - added TXMLNode.FindChildWithIndex* functions for fast searching within ChildNodes.
+  - Added TSerializableObjectDictionary.
+  - Added TSerializableDictionary.
+
+
+Version 1.1 2014-09-24 [SVN commit: 33, https://sourceforge.net/p/oxml/code/33/]
+  - Added OXmlSerialize.pas and OXmlRTTISerialize.pas - XML serializers
+  - Added Delphi XE7 packages
+    ! because some of the OXml backend files are now part of the Delphi RTL
+      and they have the same filenames, you cannot install the design-time
+      package in XE7 any more. I am solving this issue with Embarcadero now.
+
+
+Version 1.0 2014-07-10 [SVN commit: 30, https://sourceforge.net/p/oxml/code/30/]
+  - First stable release. Leaving beta.
+  - Some bug fixes and library enhancements.
+  - License change to "CPAL 1.0" or commercial. Please refer to "\license.txt" file!
+
+
+Version 0.12 2014-04-22 [SVN commit: 27, https://sourceforge.net/p/oxml/code/27/]
+  - Compatibility bugs in connection with various compilers resolved (Delphi 2009, FPC).
+
+
+Version 0.11 2014-04-14 [SVN commit: 25, https://sourceforge.net/p/oxml/code/25/]
+  - OASIS testing suite added. OXml offers 100% XML feature coverage (without DTD's)
+    according to OASIS tests.
+  - Partial DTD support: user-defined entities can be automatically read from the DTD.
+    Not supported DTD features:
+      - Externally defined user entities (entities linking to other files).
+        (Internally defined user entities are supported!)
+      - Entity definition referencing a later defined entity.
+      - CDATA in entities.
+      - Any kind of validation is not supported for now.
+  - EntityReference node added (OXmlPDOM.pas, OXmlCDOM.pas).
+  - Some bug fixes (mostly in connection to the OASIS test suite).
+  - License change to "CPAL 1.0" or commercial. Please refer to "\license.txt" file!
+  - Probably the last version (or one of the last versions) before production state.
+
+
+Version 0.10 2014-04-09 [SVN commit: 21, https://sourceforge.net/p/oxml/code/21/]
+  - Big file (> 4 GB) support also on 32bit systems.
+  - Delphi 4 and Delphi 5 support.
+  - Namespace support.
+  - Some bug fixes.
+  - License change to MPL 1.1 only.
+
+
 Version 0.9 2014-03-11 [SVN commit: 18, https://sourceforge.net/p/oxml/code/18/]
   - Optimized XPath engine. Now OXml's XPath is faster than OmniXML's and MSXML's.
   - Test functions for OXmlCDOM.pas. Now OXmlCDOM can be used as well.

@@ -7,7 +7,7 @@ unit OXmlCDOM;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -21,7 +21,9 @@ unit OXmlCDOM;
     http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html
   - OXmlCDOM uses class-based nodes.
 
-  Just a showcase now! Not properly tested!
+  A clone from OXmlPDOM that uses ordinary classes as nodes.
+  Although OXmlCDOM is a little bit slower and more memory demanding than
+  OXmlPDOM, it's still very fast.
 
 }
 
@@ -54,17 +56,32 @@ uses
     {$ENDIF}
   {$ENDIF}
 
-  OWideSupp, OXmlReadWrite, OEncoding, OHashedStrings, OXmlUtils, OXmlXPath,
-  ODictionary;
+  OWideSupp, OTextReadWrite, OXmlReadWrite, OEncoding, OHashedStrings,
+  OXmlUtils, OXmlXPath, ODictionary;
 
 type
 
   TXMLDocument = class;
-  XMLNodeId = ONativeUInt;
+  XMLNodeId = OXmlReadWrite.XMLNodeId;
+  TXMLNode = class;
 
   IXMLNodeList = interface;
   TXMLChildNodeList = class;
   TXMLAttributeIndex = class;
+
+  {$IFDEF O_GENERICS}
+  TXMLNodeIndex = TDictionary<OHashedStringsIndex,TXMLNode>;
+  TXMLNodeList = TList<TXMLNode>;
+  {$ELSE}
+  TXMLNodeIndex = TODictionary;
+  TXMLNodeList = TList;
+  {$ENDIF}
+
+  {$IFDEF O_ANONYMOUS_METHODS}
+  TXMLNodeCompare = reference to function(const aNode1, aNode2: TXMLNode): Integer;
+  {$ELSE}
+  TXMLNodeCompare = function(const aNode1, aNode2: TXMLNode): Integer;
+  {$ENDIF}
 
   TXMLNode = class(TObject)
   private
@@ -76,6 +93,7 @@ type
 
     fNodeNameId: OHashedStringsIndex;
     fNodeValueId: OHashedStringsIndex;
+    fNameSpaceURIId: OHashedStringsIndex;
 
     fOwnerDocument: TXMLDocument;
   protected
@@ -94,9 +112,13 @@ type
     function GetCChildFromEnd(const aIndex: Integer; const aChildType: TXMLChildType): TXMLNode;
     function FindCChild(const aNodeNameId: OHashedStringsIndex; const aChildType: TXMLChildType;
       var outNode: TXMLNode): Boolean;
+    procedure FillCChildList(const aList: IXMLNodeList; const aChildType: TXMLChildType);
   private
     function GetNodeName: OWideString;
     function GetNodeValue: OWideString;
+    function GetLocalName: OWideString;
+    function GetNameSpacePrefix: OWideString;
+    function GetNameSpaceURI: OWideString;
     procedure SetNodeValue(const aValue: OWideString);
     function GetText: OWideString;
     procedure SetText(const aText: OWideString);
@@ -113,21 +135,39 @@ type
     function GetChildCount: Integer; virtual;
 
     procedure DoDestroy; virtual;//due to NextGen
+
+    function BuildChildrenIndex: TXMLNodeIndex;
   protected
     function GetDoPreserveWhiteSpace: Boolean; virtual;
     function GetIsTextElement: Boolean; virtual;
 
     //assign only basic properties: PreserveWhiteSpace
     procedure AssignProperties(const {%H-}aFromNode: TXMLNode); virtual;
+    function GetNextNodeInTree: TXMLNode; virtual;
+    function GetPreviousNodeInTree: TXMLNode; virtual;
+    function GetAbsolutePath: OWideString;
+    function GetNodeLevel: Integer;
+
+    procedure QuickSort(aLow, aHigh: Integer; const aCompare: TXMLNodeCompare;
+      const aChildNodeList: IXMLNodeList);
   private
     //methods for direct reading/writing
     procedure WriteChildrenXML(const aWriter: TXMLWriter);
     procedure WriteAttributesXML(const aWriter: TXMLWriter); virtual;
-  public
-    procedure Init(const aNodeType: TXmlNodeType;
+  private
+    procedure Init(const aNodeType: TXMLNodeType;
       const aNodeNameId, aNodeValueId: OHashedStringsIndex;
       const aOwnerDocument: TXMLDocument);
 
+    function FindNameSpace(const aNameSpaceURIId: OHashedStringsIndex;
+      const aNameSpacePrefix: OWideString): Boolean;
+    procedure FindNameSpacePrefixes(const aNameSpaceURIId: OHashedStringsIndex;
+      const aNameSpacePrefixes: TOWideStringList);
+    //find all possible (and existing) qualified names for a localname with URI
+    procedure FindQualifiedNames(const aNameSpaceURIId: OHashedStringsIndex;
+      const aLocalName: OWideString;
+      const aQualifiedNameIds: TODictionary);
+  public
     destructor Destroy; override;
   public
     //create and append an element child
@@ -140,6 +180,8 @@ type
     function AddXMLDeclaration: TXMLNode;
     //create and append a text child
     function AddText(const {%H-}aText: OWideString): TXMLNode; virtual;
+    //create and append an entity reference
+    function AddEntityReference(const aEntityName: OWideString): TXMLNode;
     //create and append a CData child
     function AddCDATASection(const aText: OWideString): TXMLNode;
     //create and append a comment child
@@ -158,28 +200,51 @@ type
     //etc.
     function InsertXMLDeclaration(const aBeforeNode: TXMLNode): TXMLNode;
     function InsertText(const aText: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
+    function InsertEntityReference(const aEntityName: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
     function InsertCDATASection(const aText: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
     function InsertComment(const aText: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
     function InsertDocType(const aDocTypeRawText: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
     function InsertProcessingInstruction(const aTarget, aContent: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
   public
-    function HasChildNodes: Boolean; {$IFDEF O_INLINE}inline;{$ENDIF}
-    function HasAttributes: Boolean; {$IFDEF O_INLINE}inline;{$ENDIF}
+    //find all possible prefixes for a namespace URI in current element scope
+    function FindNameSpacePrefixesByURI(const aNameSpaceURI: OWideString;
+      const aNameSpacePrefixes: TOWideStringList): Boolean;
+    //find the namespace URI from prefix in current element scope
+    function FindNameSpaceURIByPrefix(const aNameSpacePrefix: OWideString;
+      var outNameSpaceURI: OWideString): Boolean;
+    //check if the URI-prefix namespace combination exists in current element scope
+    function NameSpaceExists(const aNameSpaceURI, aNameSpacePrefix: OWideString): Boolean;
+  public
+    function HasChildNodes: Boolean;
+    function HasAttributes: Boolean;
     function HasAttribute(const aName: OWideString): Boolean;
+    function HasAttributeNS(const aNameSpaceURI, aLocalName: OWideString): Boolean;
     function FindAttribute(const aName: OWideString; var outAttr: TXMLNode): Boolean; overload;
     function FindAttribute(const aName: OWideString; var outValue: OWideString): Boolean; overload;
-    function FindAttributeById(const {%H-}aNameId: OHashedStringsIndex; var outAttr: TXMLNode): Boolean; overload; virtual;
+    function FindAttributeById(const {%H-}aNameId: OHashedStringsIndex; var outAttr: TXMLNode): Boolean; virtual;
+    function FindAttributeNS(const aNameSpaceURI, aLocalName: OWideString; var outAttr: TXMLNode): Boolean; overload;
+    function FindAttributeNS(const aNameSpaceURI, aLocalName: OWideString; var outValue: OWideString): Boolean; overload;
+    function FindAttributeByValue(const aValue: OWideString; var outAttr: TXMLNode): Boolean; overload;
+    function FindAttributeByValue(const aValue: OWideString; var outName: OWideString): Boolean; overload;
+    function FindAttributeByValueId(const aValueId: OHashedStringsIndex; var outAttr: TXMLNode): Boolean;
     //get attribute
     function GetAttribute(const aName: OWideString): OWideString;
+    function GetAttributeNS(const aNameSpaceURI, aLocalName: OWideString): OWideString;
     //get attribute, if attr does not exist, return aDefaultValue
     function GetAttributeDef(const aName, aDefaultValue: OWideString): OWideString;
+    function GetAttributeNSDef(const aNameSpaceURI, aLocalName, aDefaultValue: OWideString): OWideString;
     //set attribute and return self
     function SetAttribute(const aName, aValue: OWideString): TXMLNode;
+    function SetAttributeNS(const aNameSpaceURI, aQualifiedName, aValue: OWideString): TXMLNode;
 
     //atribute nodes
+    // for performance reasons please avoid using AttributeNodes - use FirstAttribute+NextSibling or GetNextAttribute instead!
+    // read "Performance optimizations" on http://www.kluug.net/oxml.php for further details
     property AttributeNodes: TXMLChildNodeList read GetAttributeNodes;
     property AttributeCount: Integer read GetAttributeCount;
     //element children
+    // for performance reasons please avoid using ChildNodes - use FirstChild+NextSibling or GetNextChild instead!
+    // read "Performance optimizations" on http://www.kluug.net/oxml.php for further details
     property ChildNodes: TXMLChildNodeList read GetChildNodes;
     property ChildCount: Integer read GetChildCount;
 
@@ -193,10 +258,13 @@ type
     function GetPreviousAttribute(var ioAttrEnum: TXMLNode): Boolean;
 
     procedure DeleteAttribute(const aName: OWideString); overload;
+    procedure DeleteAttribute(const aAttr: TXMLNode); overload;
+    procedure DeleteAttributeNS(const aNameSpaceURI, aLocalName: OWideString);
     procedure DeleteAttributes;
     procedure DeleteChildren;
     procedure DeleteSelf;//free current node, both for NextGen and "normal" Pascal
     procedure RemoveSelfFromParent;//remove self from parent node list, the node doesn't get necessarily destroyed
+    procedure ExchangeWithNode(const aNode: TXMLNode);//exchange with another node
 
     //insert a node before another
     //  Inserts the node aNewChild before the existing child node aRefChild.
@@ -218,6 +286,15 @@ type
     function AppendChild(const aNewChild: TXMLNode): TXMLNode;
     //find child by name
     function FindChild(const aName: OWideString; var outNode: TXMLNode): Boolean;
+    function FindChildById(const aNameId: OHashedStringsIndex; var outNode: TXMLNode): Boolean;
+    //find child by name with index
+    //  !!! important - the children names HAVE to be unique !!!
+    //  the index must be assigned before the function call (to nil if it has to be generated automatically)
+    //  the index is created only when necessary (OXml decides)
+    //  the index must be destroyed manually with .Free when not needed any more!
+    //  the index speeds up multiple search
+    function FindChildWithIndex(const aName: OWideString; var outNode: TXMLNode; var ioIndex: TXMLNodeIndex): Boolean;
+    function FindChildByIdWithIndex(const aNameId: OHashedStringsIndex; var outNode: TXMLNode; var ioIndex: TXMLNodeIndex): Boolean;
     //get attribute node by name
     function GetAttributeNode(const aAttrName: OWideString): TXMLNode;
     //set attribute
@@ -228,9 +305,21 @@ type
     //  The removed attribute is not destroyed in any case!
     function RemoveAttribute(const aOldAttribute: TXMLNode): TXMLNode;
     //clone node
-    function CloneNode(const aDeep: Boolean): TXMLNode;
+    //  aDeep = false: only node with attributes,
+    //  aDeep = true: node with attributes and all child tree
+    //  aToDocument: the document that will be the owner of the created node, nil = the same document
+    //  + append the created node after cloning with TXMLNode.AppendChild()
+    function CloneNode(const aDeep: Boolean; const aToDocument: TXMLDocument = nil): TXMLNode;
     //consolidate adjacent text nodes and remove any empty text nodes
     procedure Normalize;
+  public
+    //sort child nodes
+    //  aDeep = false: only one level child nodes
+    //  aDeep = true: whole node tree
+    procedure SortChildNodes(const {%H-}aCompare: TXMLNodeCompare; const {%H-}aDeep: Boolean = False); virtual;
+    procedure SortAttributeNodes(const {%H-}aCompare: TXMLNodeCompare); virtual;
+    procedure SortChildNodesByName(const aDeep: Boolean = False);
+    procedure SortAttributeNodesByName;
   public
     //select the first node by XPath, if not found return false (and outNode=nil)
     function SelectNode(const aXPath: OWideString; var outNode: TXMLNode): Boolean; overload;
@@ -238,10 +327,11 @@ type
     function SelectNode(const aXPath: OWideString): TXMLNode; overload;
     //select the first node by XPath, if not found return a fake "dummy" node (name="", value="")
     function SelectNodeDummy(const aXPath: OWideString): TXMLNode;
-    //select the first node (element/attribute) by name (not XPath!!!),
-    //  if not found the element is created, appended to current node and returned
-    //  - use "NodeName" to find node, use "@AttrName" to find attribute
-    function SelectNodeCreate(const aNodeName: OWideString): TXMLNode;
+    //select the first node (element or attribute) by name
+    //  it is possible to use a normal path "element1/element2/element3"
+    //  it is also possible to use an attribute path "element1/element2/@attribute"
+    //  if not found the whole node path is created!
+    function SelectNodeCreate(const aNodePath: OWideString): TXMLNode;
     //select all nodes by XPath, return maximum of aMaxNodeCount nodes
     //  if nothing found return a aNodeList with no items (count = 0)
     function SelectNodes(const aXPath: OWideString;
@@ -251,6 +341,9 @@ type
     //  if nothing found return a list with no items (count = 0)
     function SelectNodes(const aXPath: OWideString;
       const aMaxNodeCount: Integer = 0): IXMLNodeList; overload;
+    //get child elements by tag name
+    function GetElementsByTagName(const aName: OWideString; var outNodeList: IXMLNodeList): Boolean;
+    function GetElementsByTagNameNS(const aNameSpaceURI, aLocalName: OWideString; var outNodeList: IXMLNodeList): Boolean;
   public
     //load document with custom reader
     //  outReaderToken -> the token enumerator
@@ -262,53 +355,48 @@ type
     //load document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function LoadFromFile(const aFileName: String; const aForceEncoding: TEncoding = nil): Boolean;
+    function LoadFromFile(const aFileName: OWideString; const aForceEncoding: TEncoding = nil): Boolean;
     //load document from file
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
     function LoadFromStream(const aStream: TStream; const aForceEncoding: TEncoding = nil): Boolean;
     //loads XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
     function LoadFromXML(const aXML: OWideString): Boolean;
-    {$IFDEF O_RAWBYTESTRING}
-    function LoadFromXML_UTF8(const aXML: ORawByteString): Boolean;
-    {$ENDIF}
-    {$IFDEF O_GENERICBYTES}
+    function LoadFromXML_UTF8(const aXML: OUTF8Container): Boolean;
     //load document from TBytes buffer
     // if aForceEncoding = nil: in encoding specified by the document
     // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function LoadFromBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean;
-    {$ENDIF}
+    function LoadFromBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean; overload;
+    function LoadFromBuffer(const aBuffer; const aBufferLength: Integer; const aForceEncoding: TEncoding = nil): Boolean; overload;
 
     //save document with custom writer
     procedure SaveToWriter(const aWriter: TXMLWriter);
     //save document to file in encoding specified by the document
-    procedure SaveToFile(const aFileName: String);
+    procedure SaveToFile(const aFileName: OWideString);
     //save document to stream in encoding specified by the document
     procedure SaveToStream(const aStream: TStream);
-    //returns XML as string
+    //returns XML as string (always in the system OWideString encoding and with system line breaks)
     procedure SaveToXML(var outXML: OWideString); overload;
     procedure SaveToXML(var outXML: OWideString; const aIndentType: TXMLIndentType); overload;
-    {$IFDEF O_RAWBYTESTRING}
-    procedure SaveToXML_UTF8(var outXML: ORawByteString); overload;
-    procedure SaveToXML_UTF8(var outXML: ORawByteString; const aIndentType: TXMLIndentType); overload;
-    {$ENDIF}
+    procedure SaveToXML_UTF8(var outXML: OUTF8Container); overload;
+    procedure SaveToXML_UTF8(var outXML: OUTF8Container; const aIndentType: TXMLIndentType); overload;
 
-    {$IFDEF O_GENERICBYTES}
     //returns XML as a buffer in encoding specified by the document
-    procedure SaveToBuffer(var outBuffer: TBytes);
-    {$ENDIF}
+    procedure SaveToBuffer(var outBuffer: TBytes); overload;
+    procedure SaveToBuffer(var outBuffer: OUTF8Container); overload;
   public
     //returns XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
     function XML: OWideString; overload;
     function XML(const aIndentType: TXMLIndentType): OWideString; overload;
-    {$IFDEF O_RAWBYTESTRING}
-    function XML_UTF8: ORawByteString; overload;
-    function XML_UTF8(const aIndentType: TXMLIndentType): ORawByteString; overload;
-    {$ENDIF}
+    function XML_UTF8: OUTF8Container; overload;
+    function XML_UTF8(const aIndentType: TXMLIndentType): OUTF8Container; overload;
   public
-    property NodeType: TXmlNodeType read fNodeType;
+    property NodeType: TXMLNodeType read fNodeType;
     property NodeName: OWideString read GetNodeName;
     property NodeValue: OWideString read GetNodeValue write SetNodeValue;
+    property LocalName: OWideString read GetLocalName;
+    property NameSpaceURI: OWideString read GetNameSpaceURI;
+    property NameSpacePrefix: OWideString read GetNameSpacePrefix;
     property NodeNameId: OHashedStringsIndex read fNodeNameId;
     property NodeValueId: OHashedStringsIndex read fNodeValueId write fNodeValueId;
     property Text: OWideString read GetText write SetText;
@@ -329,9 +417,16 @@ type
 
     property NextSibling: TXMLNode read fNextSibling;
     property PreviousSibling: TXMLNode read fPreviousSibling;
+    property NextNodeInTree: TXMLNode read GetNextNodeInTree;
+    property PreviousNodeInTree: TXMLNode read GetPreviousNodeInTree;
 
     //Although you may use the Attributes[] list, it's faster when you use GetAttribute and SetAttribute directly!
     property Attributes[const aName: OWideString]: OWideString read GetAttribute write _SetAttribute;
+
+    //absolute path of the node
+    property AbsolutePath: OWideString read GetAbsolutePath;
+    //node level in the tree, root element = 1
+    property NodeLevel: Integer read GetNodeLevel;
   end;
 
   TXMLNodeWithChildren = class(TXMLNode)
@@ -353,6 +448,8 @@ type
     function GetChildNodes: TXMLChildNodeList; override;
     function GetAttributeCount: Integer; override;
     function GetChildCount: Integer; override;
+    function GetNextNodeInTree: TXMLNode; override;
+    function GetPreviousNodeInTree: TXMLNode; override;
 
     procedure DeleteCChildren(const aChildType: TXMLChildType); override;
   protected
@@ -372,120 +469,37 @@ type
 
     function AddText(const aText: OWideString): TXMLNode; override;
   public
-    destructor Destroy; override;
-  public
     function FindAttributeById(const aNameId: OHashedStringsIndex; var outAttr: TXMLNode): Boolean; override;
+
+    procedure SortChildNodes(const aCompare: TXMLNodeCompare; const aDeep: Boolean = False); override;
+    procedure SortAttributeNodes(const aCompare: TXMLNodeCompare); override;
   public
     property PreserveWhiteSpace: TXMLPreserveWhiteSpace read fPreserveWhiteSpace write fPreserveWhiteSpace;
   end;
 
-  IXMLDocument = interface
+  IXMLDocument = interface(ICustomXMLDocument)
     ['{490301A3-C95B-4E03-B09D-99E4682BC3FE}']
 
   //protected
-    function GetCodePage: Word;
-    procedure SetCodePage(const aCodePage: Word);
-    function GetVersion: OWideString;
-    procedure SetVersion(const aVersion: OWideString);
-    function GetEncoding: OWideString;
-    procedure SetEncoding(const aEncoding: OWideString);
-    function GetStandAlone: OWideString;
-    procedure SetStandAlone(const aStandAlone: OWideString);
-    function GetWhiteSpaceHandling: TXmlWhiteSpaceHandling;
-    procedure SetWhiteSpaceHandling(const aWhiteSpaceHandling: TXmlWhiteSpaceHandling);
-    function GetWriterSettings: TXMLWriterSettings;
-    function GetReaderSettings: TXMLReaderSettings;
-
     function GetDocumentNode: TXMLNode;
     function GetDocumentElement: TXMLNode;
     procedure SetDocumentElement(const aDocumentElement: TXMLNode);
 
   //public
-    //clear the whole document
-    procedure Clear(const aFullClear: Boolean = True);
-
-    //load document with custom reader
-    //  return false if the XML document is invalid
-    function LoadFromReader(const aReader: TXMLReader; var outReaderToken: PXMLReaderToken): Boolean;
-    //load document from file in encoding specified by the document
-    function LoadFromFile(const aFileName: String; const aForceEncoding: TEncoding = nil): Boolean;
-    //load document from file
-    // if aForceEncoding = nil: in encoding specified by the document
-    // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function LoadFromStream(const aStream: TStream; const aForceEncoding: TEncoding = nil): Boolean;
-    //loads XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
-    function LoadFromXML(const aXML: OWideString): Boolean;
-    {$IFDEF O_RAWBYTESTRING}
-    function LoadFromXML_UTF8(const aXML: ORawByteString): Boolean;
-    {$ENDIF}
-    {$IFDEF O_GENERICBYTES}
-    //load document from TBytes buffer
-    // if aForceEncoding = nil: in encoding specified by the document
-    // if aForceEncoding<>nil : enforce encoding (<?xml encoding=".."?> is ignored)
-    function LoadFromBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean;
-    {$ENDIF}
-
-    //save document with custom writer
-    procedure SaveToWriter(const aWriter: TXMLWriter);
-    //save document to file in encoding specified by the document
-    procedure SaveToFile(const aFileName: String);
-    //save document to stream in encoding specified by the document
-    procedure SaveToStream(const aStream: TStream);
-    //returns XML as string
-    procedure SaveToXML(var outXML: OWideString); overload;
-    procedure SaveToXML(var outXML: OWideString; const aIndentType: TXMLIndentType); overload;
-    {$IFDEF O_RAWBYTESTRING}
-    procedure SaveToXML_UTF8(var outXML: ORawByteString); overload;
-    procedure SaveToXML_UTF8(var outXML: ORawByteString; const aIndentType: TXMLIndentType); overload;
-    {$ENDIF}
-
-    {$IFDEF O_GENERICBYTES}
-    //returns XML as a buffer in encoding specified by the document
-    procedure SaveToBuffer(var outBuffer: TBytes);
-    {$ENDIF}
-
-  //public
-    //returns XML in default unicode encoding: UTF-16 for DELPHI, UTF-8 for FPC
-    function XML: OWideString; overload;
-    function XML(const aIndentType: TXMLIndentType): OWideString; overload;
-    {$IFDEF O_RAWBYTESTRING}
-    function XML_UTF8: ORawByteString; overload;
-    function XML_UTF8(const aIndentType: TXMLIndentType): ORawByteString; overload;
-    {$ENDIF}
-
-  //public
-
-    //document whitespace handling
-    property WhiteSpaceHandling: TXmlWhiteSpaceHandling read GetWhiteSpaceHandling write SetWhiteSpaceHandling;
-
-    //document encoding (as integer identifier) - from <?xml encoding="???"?>
-    property CodePage: Word read GetCodePage write SetCodePage;
-    //document encoding (as string alias) - from <?xml encoding="???"?>
-    property Encoding: OWideString read GetEncoding write SetEncoding;
-    //document standalone - from <?xml standalone="???"?>
-    property StandAlone: OWideString read GetStandAlone write SetStandAlone;
-    //document version - from <?xml version="???"?>
-    property Version: OWideString read GetVersion write SetVersion;
-
-    //XML writer settings
-    property WriterSettings: TXMLWriterSettings read GetWriterSettings;
-    //XML reader settings
-    property ReaderSettings: TXMLReaderSettings read GetReaderSettings;
-
-    //ParseError has information about the error that occured when parsing a document
-    function GetParseError: IXMLParseError;
-    property ParseError: IXMLParseError read GetParseError;
-  //public
     //attribute aName="aValue"
     function CreateAttribute(const aName: OWideString; const aValue: OWideString = ''): TXMLNode;
+    function CreateAttributeNS(const aNameSpaceURI, aQualifiedName: OWideString; const aValue: OWideString = ''): TXMLNode;
     //element <aNodeName />
     function CreateElement(const aNodeName: OWideString): TXMLNode;
+    function CreateElementNS(const aNameSpaceURI, aQualifiedName: OWideString): TXMLNode;
     //xml declaration <?xml ?>
     function CreateXMLDeclaration: TXMLNode;
     //text
     function CreateTextNode(const aText: OWideString): TXMLNode;
     //cdata <![CDATA[aText]]>
     function CreateCDATASection(const aData: OWideString): TXMLNode;
+    //entity reference &aName;
+    function CreateEntityReference(const aName: OWideString): TXMLNode;
     //comment <!--aText-->
     function CreateComment(const aText: OWideString): TXMLNode;
     //doctype <!DOCTYPE aDocTypeRawText>
@@ -504,34 +518,37 @@ type
     property DocumentElement: TXMLNode read GetDocumentElement write SetDocumentElement;
   end;
 
-  TXMLDocument = class(TInterfacedObject, IXMLDocument)
+  TXMLDocument = class(TInterfacedObject, IXMLDocument, ICustomXMLDocument)
   private
     fLoading: Boolean;
-    fURL: String;
+    fURL: OWideString;
 
     fDictionary: TOHashedStrings;
 
     fBlankDocumentNode: TXMLNode;//the blank document element
     fDummyNode: TXMLNode;
     fDummyNodeList: IXMLNodeList;
-    fWhiteSpaceHandling: TXmlWhiteSpaceHandling;
-    fWriterSettings: TXMLWriterSettings;
+    fAbsoluteNodeCount: XMLNodeId;
+    fWhiteSpaceHandling: TXMLWhiteSpaceHandling;
+    fWriterSettings: TXMLDocumentWriterSettings;
     fReaderSettings: TXMLReaderSettings;
-    fParseError: IXMLParseError;
+    fParseError: IOTextParseError;
 
     function FindXMLDeclarationNode(var outXMLDeclarationNode: TXMLNode): Boolean;
     function GetXMLDeclarationAttribute(const aAttributeName: OWideString): OWideString;
     procedure SetXMLDeclarationAttribute(const aAttributeName, aAttributeValue: OWideString);
     function GetCodePage: Word;
     procedure SetCodePage(const aCodePage: Word);
+    function GetURL: OWideString;
+    procedure SetURL(const aURL: OWideString);
     function GetVersion: OWideString;
     procedure SetVersion(const aVersion: OWideString);
     function GetEncoding: OWideString;
     procedure SetEncoding(const aEncoding: OWideString);
     function GetStandAlone: OWideString;
     procedure SetStandAlone(const aStandAlone: OWideString);
-    function GetWhiteSpaceHandling: TXmlWhiteSpaceHandling;
-    procedure SetWhiteSpaceHandling(const aWhiteSpaceHandling: TXmlWhiteSpaceHandling);
+    function GetWhiteSpaceHandling: TXMLWhiteSpaceHandling;
+    procedure SetWhiteSpaceHandling(const aWhiteSpaceHandling: TXMLWhiteSpaceHandling);
     function GetLoading: Boolean;
     procedure SetLoading(const aLoading: Boolean);
     function GetDummyNode: TXMLNode;
@@ -539,18 +556,17 @@ type
     function GetDocumentNode: TXMLNode;//absolute root element (= empty document)
     function GetDocumentElement: TXMLNode;//first element in document (=root)
     procedure SetDocumentElement(const aDocumentElement: TXMLNode);
-    function GetWriterSettings: TXMLWriterSettings;
+    function GetWriterSettings: TXMLDocumentWriterSettings;
     function GetReaderSettings: TXMLReaderSettings;
-    function GetParseError: IXMLParseError;
+    function GetParseError: IOTextParseError;
+    function GetAbsoluteNodeCount: XMLNodeId;
   protected
     procedure ClearNodes(const aFullClear: Boolean); virtual;
 
-    procedure CreateNode(const aNodeType: TXmlNodeType;
-      const aNodeName, aNodeValue: OWideString; var outNode: TXMLNode); overload;
-    procedure CreateNode(const aNodeType: TXmlNodeType;
-      const aNodeNameId, aNodeValueId: OHashedStringsIndex; var outNode: TXMLNode); overload;
-    function IndexOfString(const aString: OWideString): OHashedStringsIndex;
-    function GetString(const aStringId: OHashedStringsIndex): OWideString;
+    function CreateNode(const aNodeType: TXMLNodeType;
+      const aNodeName, aNodeValue: OWideString): TXMLNode; overload;
+    function CreateNode(const aNodeType: TXMLNodeType;
+      const aNodeNameId, aNodeValueId: OHashedStringsIndex): TXMLNode; overload;
     function SetString(const aString: OWideString): OHashedStringsIndex;
 
     property Loading: Boolean read GetLoading write SetLoading;
@@ -559,11 +575,17 @@ type
 
     procedure DoCreate; virtual;
   public
+    function IndexOfString(const aString: OWideString): OHashedStringsIndex;
+    function GetString(const aStringId: OHashedStringsIndex): OWideString;
+  public
     function CreateAttribute(const aName, aValue: OWideString): TXMLNode;
+    function CreateAttributeNS(const aNameSpaceURI, aQualifiedName: OWideString; const aValue: OWideString = ''): TXMLNode;
     function CreateElement(const aNodeName: OWideString): TXMLNode;
+    function CreateElementNS(const aNameSpaceURI, aQualifiedName: OWideString): TXMLNode;
     function CreateXMLDeclaration: TXMLNode;
     function CreateTextNode(const aText: OWideString): TXMLNode;
     function CreateCDATASection(const aData: OWideString): TXMLNode;
+    function CreateEntityReference(const aName: OWideString): TXMLNode;
     function CreateComment(const aText: OWideString): TXMLNode;
     function CreateDocType(const aDocTypeRawText: OWideString): TXMLNode;
     function CreateProcessingInstruction(const aTarget, aContent: OWideString): TXMLNode;
@@ -571,58 +593,53 @@ type
     function AddChild(const aElementName: OWideString): TXMLNode;
   public
     constructor Create({%H-}aDummy: TObject); overload;//aDummy to ge ignored - Delphi XML compatibility
-    constructor Create(const aRootNodeName: OWideString = ''; const aAddUTF8Declaration: Boolean = False); overload;
+    constructor Create(const aRootNodeName: OWideString = ''; const aAddXMLDeclaration: Boolean = False); overload;
     destructor Destroy; override;
   public
     procedure Clear(const aFullClear: Boolean = True);
 
   public
     function LoadFromReader(const aReader: TXMLReader; var outReaderToken: PXMLReaderToken): Boolean;
-    function LoadFromFile(const aFileName: String; const aForceEncoding: TEncoding = nil): Boolean;
+    function LoadFromFile(const aFileName: OWideString; const aForceEncoding: TEncoding = nil): Boolean;
     function LoadFromStream(const aStream: TStream; const aForceEncoding: TEncoding = nil): Boolean;
     function LoadFromXML(const aXML: OWideString): Boolean;
-    {$IFDEF O_RAWBYTESTRING}
-    function LoadFromXML_UTF8(const aXML: ORawByteString): Boolean;
-    {$ENDIF}
-    {$IFDEF O_GENERICBYTES}
-    function LoadFromBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean;
-    {$ENDIF}
+    function LoadFromXML_UTF8(const aXML: OUTF8Container): Boolean;
+    function LoadFromBuffer(const aBuffer: TBytes; const aForceEncoding: TEncoding = nil): Boolean; overload;
+    function LoadFromBuffer(const aBuffer; const aBufferLength: Integer; const aForceEncoding: TEncoding = nil): Boolean; overload;
 
     procedure SaveToWriter(const aWriter: TXMLWriter);
-    procedure SaveToFile(const aFileName: String);
+    procedure SaveToFile(const aFileName: OWideString);
     procedure SaveToStream(const aStream: TStream);
 
-    {$IFDEF O_GENERICBYTES}
-    procedure SaveToBuffer(var outBuffer: TBytes);
-    {$ENDIF}
+    procedure SaveToBuffer(var outBuffer: TBytes); overload;
+    procedure SaveToBuffer(var outBuffer: OUTF8Container); overload;
     procedure SaveToXML(var outXML: OWideString); overload;
     procedure SaveToXML(var outXML: OWideString; const aIndentType: TXMLIndentType); overload;
-    {$IFDEF O_RAWBYTESTRING}
-    procedure SaveToXML_UTF8(var outXML: ORawByteString); overload;
-    procedure SaveToXML_UTF8(var outXML: ORawByteString; const aIndentType: TXMLIndentType); overload;
-    {$ENDIF}
+    procedure SaveToXML_UTF8(var outXML: OUTF8Container); overload;
+    procedure SaveToXML_UTF8(var outXML: OUTF8Container; const aIndentType: TXMLIndentType); overload;
   public
     function XML: OWideString; overload;
     function XML(const aIndentType: TXMLIndentType): OWideString; overload;
-    {$IFDEF O_RAWBYTESTRING}
-    function XML_UTF8: ORawByteString; overload;
-    function XML_UTF8(const aIndentType: TXMLIndentType): ORawByteString; overload;
-    {$ENDIF}
+    function XML_UTF8: OUTF8Container; overload;
+    function XML_UTF8(const aIndentType: TXMLIndentType): OUTF8Container; overload;
   public
+    property URL: OWideString read GetURL write SetURL;
+
     property Node: TXMLNode read fBlankDocumentNode;//GetDocumentNode; performance
     property DocumentElement: TXMLNode read GetDocumentElement write SetDocumentElement;
+    property AbsoluteNodeCount: XMLNodeId read GetAbsoluteNodeCount;
 
-    property WhiteSpaceHandling: TXmlWhiteSpaceHandling read fWhiteSpaceHandling write fWhiteSpaceHandling;//Get/Set; performance
+    property WhiteSpaceHandling: TXMLWhiteSpaceHandling read fWhiteSpaceHandling write fWhiteSpaceHandling;//Get/Set; performance
 
     property CodePage: Word read GetCodePage write SetCodePage;
     property Encoding: OWideString read GetEncoding write SetEncoding;
     property StandAlone: OWideString read GetStandAlone write SetStandAlone;
     property Version: OWideString read GetVersion write SetVersion;
 
-    property WriterSettings: TXMLWriterSettings read fWriterSettings;
+    property WriterSettings: TXMLDocumentWriterSettings read fWriterSettings;
     property ReaderSettings: TXMLReaderSettings read fReaderSettings;
 
-    property ParseError: IXMLParseError read GetParseError;
+    property ParseError: IOTextParseError read GetParseError;
   end;
 
   TXMLResNodeListEnumerator = class;
@@ -648,6 +665,10 @@ type
     function IndexOf(const aName: OWideString; var outNode: TXMLNode): Integer; overload;
     procedure Insert(const aIndex: Integer; const aNode: TXMLNode);
     function Remove(const aNode: TXMLNode): Integer;
+
+    procedure Exchange(const aIndex1, aIndex2: Integer); overload;
+    procedure Exchange(const aNode1, aNode2: TXMLNode); overload;
+    procedure Move(const aCurIndex, aNewIndex: Integer);
 
     function GetFirst: TXMLNode;
     function GetLast: TXMLNode;
@@ -708,6 +729,9 @@ type
     function Remove(const aNode: TXMLNode): Integer; overload;//important: node gets automatically destroyed
     function Remove(const aName: OWideString; var outNode: TXMLNode): Boolean; overload;//important: node DOES NOT GET automatically destroyed
 
+    procedure ExchangeNodes(const aIndex1, aIndex2: Integer); overload;
+    procedure ExchangeNodes(const aNode1, aNode2: TXMLNode); overload;
+
     function GetFirst: TXMLNode;
     function GetLast: TXMLNode;
     function GetNext(var ioNode: TXMLNode): Boolean;
@@ -735,11 +759,7 @@ type
 
   TXMLResNodeList = class(TInterfacedObject, IXMLNodeList)
   private
-    {$IFDEF O_GENERICS}
-    fList: TList<TXMLNode>;
-    {$ELSE}
-    fList: TList;
-    {$ENDIF}
+    fList: TXMLNodeList;
     fIteratorCurrent: Integer;//for fast Next & Prev
 
     function GetPrevNext(var ioNodeEnum: TXMLNode; const aInc: Integer): Boolean;
@@ -764,6 +784,10 @@ type
     function IndexOf(const aName: OWideString; var outNode: TXMLNode): Integer; overload;
     procedure Insert(const aIndex: Integer; const aNode: TXMLNode);
     function Remove(const aNode: TXMLNode): Integer;
+
+    procedure Exchange(const aIndex1, aIndex2: Integer); overload;
+    procedure Exchange(const aNode1, aNode2: TXMLNode); overload;
+    procedure Move(const aCurIndex, aNewIndex: Integer);
 
     function GetFirst: TXMLNode;
     function GetLast: TXMLNode;
@@ -792,7 +816,7 @@ type
     function GetNodeNameId(const aNode: TXMLXPathNode): OHashedStringsIndex; override;
     function GetNodeValueId(const aNode: TXMLXPathNode): OHashedStringsIndex; override;
     function GetStringId(const aString: OWideString): OHashedStringsIndex; override;
-    function GetNodeType(const aNode: TXMLXPathNode): TXmlNodeType; override;
+    function GetNodeType(const aNode: TXMLXPathNode): TXMLNodeType; override;
     procedure GetNodeInfo(const aNode: TXMLXPathNode; var outNodeInfo: TXMLXPathNodeInfo); override;
     function NodeHasAttributes(const aNode: TXMLXPathNode): Boolean; override;
     function NodeFindAttribute(const aNode: TXMLXPathNode; const aAttrNameId: OHashedStringsIndex): TXMLXPathNode; override;
@@ -807,11 +831,7 @@ type
   private
     fParentElement: TXMLNodeWithChildren;
 
-    {$IFDEF O_GENERICS}
-    fIndex: TDictionary<OHashedStringsIndex,TXMLNode>;
-    {$ELSE}
-    fIndex: TODictionary;
-    {$ENDIF}
+    fIndex: TXMLNodeIndex;
   public
     constructor Create(const aParentElement: TXMLNodeWithChildren);
     destructor Destroy; override;
@@ -830,11 +850,18 @@ type
 
 function CreateXMLDoc: IXMLDocument; overload;
 function CreateXMLDoc(const aRootNodeName: OWideString): IXMLDocument; overload;
-function CreateXMLDoc(const aRootNodeName: OWideString; const aAddUTF8Declaration: Boolean): IXMLDocument; overload;
+function CreateXMLDoc(const aRootNodeName: OWideString; const aAddXMLDeclaration: Boolean): IXMLDocument; overload;
+
+function CompareNodeNames(const aNode1, aNode2: TXMLNode): Integer;
 
 implementation
 
 uses OXmlLng;
+
+function CompareNodeNames(const aNode1, aNode2: TXMLNode): Integer;
+begin
+  Result := OWideCompareStr(aNode1.NodeName, aNode2.NodeName);
+end;
 
 function CreateXMLDoc: IXMLDocument;
 begin
@@ -846,9 +873,9 @@ begin
   Result := TXMLDocument.Create(aRootNodeName);
 end;
 
-function CreateXMLDoc(const aRootNodeName: OWideString; const aAddUTF8Declaration: Boolean): IXMLDocument;
+function CreateXMLDoc(const aRootNodeName: OWideString; const aAddXMLDeclaration: Boolean): IXMLDocument;
 begin
-  Result := TXMLDocument.Create(aRootNodeName, aAddUTF8Declaration);
+  Result := TXMLDocument.Create(aRootNodeName, aAddXMLDeclaration);
 end;
 
 { TXMLNode }
@@ -873,21 +900,27 @@ begin
   Result := AddCustomChild(ntElement, aElementName, '');
 end;
 
-function TXMLNode.AddCustomChild(const aType: TXmlNodeType; const aName,
+function TXMLNode.AddCustomChild(const aType: TXMLNodeType; const aName,
   aValue: OWideString): TXMLNode;
 begin
-  fOwnerDocument.CreateNode(aType, aName, aValue, {%H-}Result);
+  Result := fOwnerDocument.CreateNode(aType, aName, aValue);
   Append(Result, ctChild);
 end;
 
 function TXMLNode.AddXMLDeclaration: TXMLNode;
 begin
-  Result := AddCustomChild(ntXMLDeclaration, 'xml', '');
+  Result := AddCustomChild(ntXMLDeclaration, XML_XML, '');
 end;
 
 function TXMLNode.AddDocType(const aDocTypeRawText: OWideString): TXMLNode;
 begin
   Result := AddCustomChild(ntDocType, '', aDocTypeRawText);
+end;
+
+function TXMLNode.AddEntityReference(const aEntityName: OWideString): TXMLNode;
+begin
+  Result := fOwnerDocument.CreateEntityReference(aEntityName);
+  Append(Result, ctChild);
 end;
 
 function TXMLNode.AddProcessingInstruction(const aTarget,
@@ -926,20 +959,35 @@ begin
   //nothing
 end;
 
-function TXMLNode.CloneNode(const aDeep: Boolean): TXMLNode;
+function TXMLNode.BuildChildrenIndex: TXMLNodeIndex;
+var
+  xChildNode: TXMLNode;
+begin
+  Result := TXMLNodeIndex.Create;
+
+  xChildNode := nil;
+  while GetNextChild(xChildNode) do
+    Result.Add(xChildNode.NodeNameId, xChildNode);
+end;
+
+function TXMLNode.CloneNode(const aDeep: Boolean; const aToDocument: TXMLDocument): TXMLNode;
 var
   xIter, xNewNode: TXMLNode;
 begin
-  fOwnerDocument.CreateNode(fNodeType, NodeNameId, NodeValueId, {%H-}Result);
+  if aToDocument = nil then
+    Result := fOwnerDocument.CreateNode(fNodeType, NodeNameId, NodeValueId)
+  else
+    Result := aToDocument.CreateNode(fNodeType, NodeName, NodeValue);
   Result.AssignProperties(Self);
 
   xIter := Self.FirstAttribute;
   while Assigned(xIter) do
   begin
-    fOwnerDocument.CreateNode(xIter.fNodeType, xIter.NodeNameId,
-      xIter.NodeValueId, {%H-}xNewNode);
+    if aToDocument = nil then
+      xNewNode := fOwnerDocument.CreateNode(xIter.fNodeType, xIter.NodeNameId, xIter.NodeValueId)
+    else
+      xNewNode := aToDocument.CreateNode(xIter.fNodeType, xIter.NodeName, xIter.NodeValue);
     xNewNode.AssignProperties(xIter);
-
     Result.Append(xNewNode, ctAttribute);
     xIter := xIter.NextSibling;
   end;
@@ -968,7 +1016,7 @@ end;
 
 procedure TXMLNode.DeleteSelf;
 begin
-  {$IFDEF NEXTGEN}
+  {$IFDEF O_ARC}
   DoDestroy;
   {$ELSE}
   Free;
@@ -988,16 +1036,58 @@ begin
 
   DeleteAttributes;
   DeleteChildren;
+
+  Dec(fOwnerDocument.fAbsoluteNodeCount);
+end;
+
+procedure TXMLNode.ExchangeWithNode(const aNode: TXMLNode);
+var
+  xSelfNextSibling, xSelfNextSiblingParent: TXMLNode;
+begin
+  if aNode.OwnerDocument <> Self.OwnerDocument then
+    raise EXmlDOMException.Create(OXmlLng_ExchangeFromDifferentDocument);
+
+  xSelfNextSibling := Self.NextSibling;
+  xSelfNextSiblingParent := xSelfNextSibling.ParentNode;
+
+  if xSelfNextSibling <> aNode then
+  begin
+    Self.RemoveSelfFromParent;
+    aNode.ParentNode.InsertBefore(Self, aNode);
+  end else
+    xSelfNextSibling := Self;//insert before self if [Self, aNode]
+
+  if aNode.NextSibling <> Self then
+  begin
+    aNode.RemoveSelfFromParent;
+    xSelfNextSiblingParent.InsertBefore(aNode, xSelfNextSibling);
+  end;
 end;
 
 procedure TXMLNode.DeleteAttribute(const aName: OWideString);
 var
   xAttr: TXMLNode;
 begin
-  if not FindAttribute(aName, {%H-}xAttr) then
+  if not FindAttribute(aName, xAttr{%H-}) then
     Exit;
 
-  xAttr.DeleteSelf;
+  DeleteAttribute(xAttr);
+end;
+
+procedure TXMLNode.DeleteAttribute(const aAttr: TXMLNode);
+begin
+  aAttr.DeleteSelf;
+end;
+
+procedure TXMLNode.DeleteAttributeNS(const aNameSpaceURI,
+  aLocalName: OWideString);
+var
+  xAttr: TXMLNode;
+begin
+  if not FindAttributeNS(aNameSpaceURI, aLocalName, xAttr{%H-}) then
+    Exit;
+
+  DeleteAttribute(xAttr);
 end;
 
 procedure TXMLNode.DeleteCChildren(const aChildType: TXMLChildType);
@@ -1020,12 +1110,26 @@ begin
   Result := FindAttributeById(fOwnerDocument.IndexOfString(aName), outAttr);
 end;
 
+procedure TXMLNode.FillCChildList(const aList: IXMLNodeList;
+  const aChildType: TXMLChildType);
+var
+  xChild: TXMLNode;
+begin
+  xChild := GetFirstCChild(aChildType);
+  while Assigned(xChild) do
+  begin
+    aList.Add(xChild);
+
+    xChild := xChild.NextSibling;
+  end;
+end;
+
 function TXMLNode.FindAttribute(const aName: OWideString;
   var outValue: OWideString): Boolean;
 var
   xAttr: TXMLNode;
 begin
-  Result := FindAttribute(aName, {%H-}xAttr);
+  Result := FindAttribute(aName, xAttr{%H-});
   if Result then
     outValue := xAttr.NodeValue
   else
@@ -1039,6 +1143,83 @@ begin
   outAttr := nil;
 end;
 
+function TXMLNode.FindAttributeByValue(const aValue: OWideString;
+  var outAttr: TXMLNode): Boolean;
+begin
+  Result := FindAttributeByValueId(fOwnerDocument.IndexOfString(aValue), outAttr);
+end;
+
+function TXMLNode.FindAttributeByValue(const aValue: OWideString;
+  var outName: OWideString): Boolean;
+var
+  xAttr: TXMLNode;
+begin
+  Result := FindAttributeByValue(aValue, xAttr{%H-});
+  if Result then
+    outName := xAttr.NodeName
+  else
+    outName := '';
+end;
+
+function TXMLNode.FindAttributeByValueId(const aValueId: OHashedStringsIndex;
+  var outAttr: TXMLNode): Boolean;
+begin
+  Result := False;
+  outAttr := nil;
+
+  if not HasAttributes or (aValueId < 0) then
+    Exit;
+
+  outAttr := FirstAttribute;
+  while Assigned(outAttr) do
+  begin
+    if outAttr.NodeValueId = aValueId then//attribute value found, exit -> outAttr has correct value
+    begin
+      Result := True;
+      Exit;
+    end;
+
+    outAttr := outAttr.NextSibling;
+  end;
+  //attribute value not found, -> outAttr has correct value (=nil), Result = False
+end;
+
+function TXMLNode.FindAttributeNS(const aNameSpaceURI, aLocalName: OWideString;
+  var outAttr: TXMLNode): Boolean;
+var
+  xQualifiedNameIds: TODictionary;
+  I: Integer;
+begin
+  xQualifiedNameIds := TODictionary.Create;
+  try
+    FindQualifiedNames(fOwnerDocument.IndexOfString(aNameSpaceURI), aLocalName, xQualifiedNameIds);
+
+    for I := 0 to xQualifiedNameIds.Count-1 do
+    if FindAttributeById(xQualifiedNameIds[I], outAttr) then
+    begin
+      Result := True;
+      Exit;
+    end;
+  finally
+    xQualifiedNameIds.Free;
+  end;
+
+  Result := False;
+  outAttr := nil;
+end;
+
+function TXMLNode.FindAttributeNS(const aNameSpaceURI, aLocalName: OWideString;
+  var outValue: OWideString): Boolean;
+var
+  xAttr: TXMLNode;
+begin
+  Result := FindAttributeNS(aNameSpaceURI, aLocalName, xAttr{%H-});
+  if Result then
+    outValue := xAttr.NodeValue
+  else
+    outValue := '';
+end;
+
 function TXMLNode.FindCChild(const aNodeNameId: OHashedStringsIndex;
   const aChildType: TXMLChildType; var outNode: TXMLNode): Boolean;
 begin
@@ -1047,7 +1228,8 @@ begin
     outNode := GetFirstCChild(aChildType);
     while Assigned(outNode) do
     begin
-      if outNode.NodeNameId = aNodeNameId then begin
+      if outNode.NodeNameId = aNodeNameId then
+      begin
         Result := True;
         Exit;
       end;
@@ -1064,6 +1246,224 @@ begin
   Result := FindCChild(OwnerDocument.IndexOfString(aName), ctChild, outNode);
 end;
 
+function TXMLNode.FindChildById(const aNameId: OHashedStringsIndex;
+  var outNode: TXMLNode): Boolean;
+begin
+  Result := FindCChild(aNameId, ctChild, outNode);
+end;
+
+function TXMLNode.FindChildByIdWithIndex(const aNameId: OHashedStringsIndex;
+  var outNode: TXMLNode; var ioIndex: TXMLNodeIndex): Boolean;
+begin
+  if not HasChildNodes or (aNameId < 0) then
+  begin
+    Result := False;
+    outNode := nil;
+    Exit;
+  end;
+
+  if not Assigned(ioIndex) and (ChildCount > XMLUseIndexNodeLimit) then
+    ioIndex := BuildChildrenIndex;
+
+  if Assigned(ioIndex) then
+  begin
+    //node index used!
+    Result := ioIndex.TryGetValue(aNameId, {$IFNDEF O_GENERICS}TObject{$ELSE}TXMLNode{$ENDIF}(outNode));
+  end else
+  begin
+    //node index not used!
+    Result := FindCChild(aNameId, ctChild, outNode);
+  end;
+end;
+
+function TXMLNode.FindChildWithIndex(const aName: OWideString;
+  var outNode: TXMLNode; var ioIndex: TXMLNodeIndex): Boolean;
+var
+  xNameId: Integer;
+begin
+  xNameId := OwnerDocument.IndexOfString(aName);
+
+  Result := FindChildByIdWithIndex(xNameId, outNode, ioIndex);
+end;
+
+function TXMLNode.FindNameSpace(const aNameSpaceURIId: OHashedStringsIndex;
+  const aNameSpacePrefix: OWideString): Boolean;
+var
+  xAttr: TXMLNode;
+  xNodeName, xLocalName: OWideString;
+begin
+  if NodeType = ntElement then
+  begin
+    xAttr := FirstAttribute;
+    while Assigned(xAttr) do
+    begin
+      if (xAttr.fNodeValueId = aNameSpaceURIId) then
+      begin
+        xNodeName := xAttr.NodeName;
+        if (xNodeName = XML_XMLNS) and
+           (aNameSpacePrefix = '')
+        then
+        begin
+          Result := True;
+          Exit;
+        end else
+        begin
+          if OXmlCheckNameSpace(xNodeName, XML_XMLNS, xLocalName{%H-}) and
+             (aNameSpacePrefix = xLocalName)
+          then
+          begin
+            Result := True;
+            Exit;
+          end;
+        end;
+      end;
+      xAttr := xAttr.NextSibling;
+    end;//while
+  end;
+
+  if Assigned(ParentNode) then
+    Result := ParentNode.FindNameSpace(aNameSpaceURIId, aNameSpacePrefix)
+  else
+    Result := False;
+end;
+
+procedure TXMLNode.FindNameSpacePrefixes(
+  const aNameSpaceURIId: OHashedStringsIndex;
+  const aNameSpacePrefixes: TOWideStringList);
+var
+  xAttr: TXMLNode;
+  xNodeName, xLocalName: OWideString;
+begin
+  if NodeType = ntElement then
+  begin
+    xAttr := FirstAttribute;
+    while Assigned(xAttr) do
+    begin
+      if (xAttr.fNodeValueId = aNameSpaceURIId) then
+      begin
+        xNodeName := xAttr.NodeName;
+        if (xNodeName = XML_XMLNS) then
+          aNameSpacePrefixes.Add('')
+        else
+        if OXmlCheckNameSpace(xNodeName, XML_XMLNS, xLocalName{%H-}) then
+          aNameSpacePrefixes.Add(xLocalName);
+      end;
+      xAttr := xAttr.NextSibling;
+    end;//while
+  end;
+
+  if Assigned(ParentNode) then
+    ParentNode.FindNameSpacePrefixes(aNameSpaceURIId, aNameSpacePrefixes)
+end;
+
+function TXMLNode.FindNameSpacePrefixesByURI(const aNameSpaceURI: OWideString;
+  const aNameSpacePrefixes: TOWideStringList): Boolean;
+var
+  xIdURI: OHashedStringsIndex;
+begin
+  xIdURI := fOwnerDocument.IndexOfString(aNameSpaceURI);
+  aNameSpacePrefixes.Clear;
+  aNameSpacePrefixes.Duplicates := dupIgnore;
+  aNameSpacePrefixes.Sorted := True;
+  if xIdURI >= 0 then
+    FindNameSpacePrefixes(xIdURI, aNameSpacePrefixes);
+
+  Result := aNameSpacePrefixes.Count > 0;
+end;
+
+function TXMLNode.FindNameSpaceURIByPrefix(const aNameSpacePrefix: OWideString;
+  var outNameSpaceURI: OWideString): Boolean;
+var
+  xAttrNameId: OHashedStringsIndex;
+  xNode, xAttr: TXMLNode;
+begin
+  xAttrNameId := fOwnerDocument.IndexOfString(OXmlApplyNameSpace(XML_XMLNS, aNameSpacePrefix));
+
+  xNode := Self;
+  while Assigned(xNode) do
+  begin
+    if xNode.NodeType = ntElement then
+    begin
+      //search for fNameSpaceURIId
+      if (xNode.fNameSpaceURIId >= 0) and (xNode.NameSpacePrefix = aNameSpacePrefix) then
+      begin
+        outNameSpaceURI := fOwnerDocument.GetString(xNode.fNameSpaceURIId);
+        Result := True;
+        Exit;
+      end;
+
+      //search for xmlns attribute
+      if (xAttrNameId >= 0) and
+         xNode.FindAttributeById(xAttrNameId, xAttr{%H-})
+      then
+      begin
+        outNameSpaceURI := xAttr.NodeValue;
+        Result := True;
+        Exit;
+      end;
+    end;
+
+    xNode := xNode.ParentNode;
+  end;
+  Result := False;
+end;
+
+procedure TXMLNode.FindQualifiedNames(
+  const aNameSpaceURIId: OHashedStringsIndex; const aLocalName: OWideString;
+  const aQualifiedNameIds: TODictionary);
+
+  procedure _Add(const bQualifiedName: OWideString);
+  var
+    xQualifiedNameId: OHashedStringsIndex;
+  begin
+    xQualifiedNameId := fOwnerDocument.IndexOfString(bQualifiedName);
+    if xQualifiedNameId >= 0 then
+      aQualifiedNameIds.Add(xQualifiedNameId);
+  end;
+var
+  xAttr: TXMLNode;
+  xNodeName, xNSPrefix: OWideString;
+begin
+  if aNameSpaceURIId < 0 then
+    Exit;
+
+  if NodeType = ntElement then
+  begin
+    xAttr := FirstAttribute;
+    while Assigned(xAttr) do
+    begin
+      if (xAttr.fNodeValueId = aNameSpaceURIId) then
+      begin
+        xNodeName := xAttr.NodeName;
+        if (xNodeName = XML_XMLNS) then
+          _Add(aLocalName)
+        else
+        if OXmlCheckNameSpace(xNodeName, XML_XMLNS, xNSPrefix{%H-}) then
+          _Add(OXmlApplyNameSpace(xNSPrefix, aLocalName));
+      end;
+      xAttr := xAttr.NextSibling;
+    end;//while
+  end;
+
+  if Assigned(ParentNode) then
+    ParentNode.FindQualifiedNames(aNameSpaceURIId, aLocalName, aQualifiedNameIds);
+end;
+
+function TXMLNode.GetAbsolutePath: OWideString;
+var
+  xNode, xDocumentNode: TXMLNode;
+begin
+  xNode := Self;
+  xDocumentNode := OwnerDocument.Node;
+
+  Result := '';
+  while Assigned(xNode) and (xNode <> xDocumentNode) do
+  begin
+    Result := '/' + xNode.NodeName + Result;
+    xNode := xNode.ParentNode;
+  end;
+end;
+
 function TXMLNode.GetAttribute(const aName: OWideString): OWideString;
 begin
   Result := GetAttributeDef(aName, '');
@@ -1077,19 +1477,32 @@ end;
 function TXMLNode.GetAttributeDef(const aName,
   aDefaultValue: OWideString): OWideString;
 begin
-  if not FindAttribute(aName, {%H-}Result) then
+  if not FindAttribute(aName, Result{%H-}) then
     Result := aDefaultValue;
 end;
 
 function TXMLNode.GetAttributeNode(const aAttrName: OWideString): TXMLNode;
 begin
-  if not FindAttribute(aAttrName, {%H-}Result) then
+  if not FindAttribute(aAttrName, Result{%H-}) then
     Result := nil;
 end;
 
 function TXMLNode.GetAttributeNodes: TXMLChildNodeList;
 begin
   Result := nil;
+end;
+
+function TXMLNode.GetAttributeNS(const aNameSpaceURI,
+  aLocalName: OWideString): OWideString;
+begin
+  Result := GetAttributeNSDef(aNameSpaceURI, aLocalName, '');
+end;
+
+function TXMLNode.GetAttributeNSDef(const aNameSpaceURI, aLocalName,
+  aDefaultValue: OWideString): OWideString;
+begin
+  if not FindAttributeNS(aNameSpaceURI, aLocalName, Result{%H-}) then
+    Result := aDefaultValue;
 end;
 
 function TXMLNode.GetChildCount: Integer;
@@ -1107,7 +1520,8 @@ begin
 
   //search forwards through all nodes
   I := -1;
-  while (I < aIndex) and GetNextCChild({%H-}Result, aChildType) do
+  Result := nil;
+  while (I < aIndex) and GetNextCChild(Result, aChildType) do
     Inc(I);
 
   if (I <> aIndex) or not Assigned(Result) then
@@ -1124,7 +1538,8 @@ begin
 
   //search forwards through all nodes
   I := -1;
-  while (I < aIndex) and GetPreviousCChild({%H-}Result, aChildType) do
+  Result := nil;
+  while (I < aIndex) and GetPreviousCChild(Result, aChildType) do
     Inc(I);
 
   if (I <> aIndex) or not Assigned(Result) then
@@ -1144,6 +1559,70 @@ begin
     Result := False;
 end;
 
+function TXMLNode.GetElementsByTagName(const aName: OWideString;
+  var outNodeList: IXMLNodeList): Boolean;
+var
+  xNodeNameId: OHashedStringsIndex;
+  xNode: TXMLNode;
+begin
+  outNodeList := nil;
+
+  xNodeNameId := fOwnerDocument.IndexOfString(aName);
+  if xNodeNameId >= 0 then
+  begin
+    xNode := FirstChild;
+    while Assigned(xNode) do
+    begin
+      if xNode.fNodeNameId = xNodeNameId then
+      begin
+        if not Assigned(outNodeList) then
+          outNodeList := TXMLResNodeList.Create;
+        outNodeList.Add(xNode);
+      end;
+      xNode := xNode.fNextSibling;
+    end;
+  end;
+
+  Result := Assigned(outNodeList);
+  if not Result then
+    outNodeList := fOwnerDocument.DummyResNodeList;
+end;
+
+function TXMLNode.GetElementsByTagNameNS(const aNameSpaceURI,
+  aLocalName: OWideString; var outNodeList: IXMLNodeList): Boolean;
+var
+  xNode: TXMLNode;
+  xQualifiedNameIds: TODictionary;
+begin
+  outNodeList := nil;
+
+  xQualifiedNameIds := TODictionary.Create;
+  try
+    FindQualifiedNames(fOwnerDocument.IndexOfString(aNameSpaceURI), aLocalName, xQualifiedNameIds);
+
+    if xQualifiedNameIds.Count > 0 then
+    begin
+      xNode := FirstChild;
+      while Assigned(xNode) do
+      begin
+        if xQualifiedNameIds.IndexOf(xNode.fNodeNameId) >= 0 then
+        begin
+          if not Assigned(outNodeList) then
+            outNodeList := TXMLResNodeList.Create;
+          outNodeList.Add(xNode);
+        end;
+        xNode := xNode.fNextSibling;
+      end;
+    end;
+  finally
+    xQualifiedNameIds.Free;
+  end;
+
+  Result := Assigned(outNodeList);
+  if not Result then
+    outNodeList := fOwnerDocument.DummyResNodeList;
+end;
+
 function TXMLNode.GetFirstCChild(const aChildType: TXMLChildType): TXMLNode;
 begin
   Result := nil;
@@ -1159,9 +1638,49 @@ begin
   Result := nil;
 end;
 
+function TXMLNode.GetLocalName: OWideString;
+var
+  xPrefix: OWideString;
+begin
+  OXmlResolveNameSpace(NodeName, xPrefix{%H-}, Result{%H-});
+end;
+
+function TXMLNode.GetNodeLevel: Integer;
+var
+  xNode: TXMLNode;
+begin
+  Result := 0;
+  xNode := Self.ParentNode;
+  while Assigned(xNode) do
+  begin
+    Inc(Result);
+    xNode := xNode.ParentNode;
+  end;
+end;
+
 function TXMLNode.GetNodeName: OWideString;
 begin
   Result := fOwnerDocument.GetString(NodeNameId);
+end;
+
+function TXMLNode.GetNameSpacePrefix: OWideString;
+var
+  xLocalName: OWideString;
+begin
+  OXmlResolveNameSpace(NodeName, Result{%H-}, xLocalName{%H-});
+end;
+
+function TXMLNode.GetNameSpaceURI: OWideString;
+begin
+  if fNameSpaceURIId >= 0 then
+    Result := fOwnerDocument.GetString(fNameSpaceURIId)
+  else
+  begin
+    if FindNameSpaceURIByPrefix(NameSpacePrefix, Result) then
+      fNameSpaceURIId := fOwnerDocument.IndexOfString(Result)
+    else
+      Result := '';
+  end;
 end;
 
 function TXMLNode.GetNextAttribute(var ioAttrEnum: TXMLNode): Boolean;
@@ -1185,6 +1704,11 @@ begin
   Result := GetNextCChild(ioChildEnum, ctChild);
 end;
 
+function TXMLNode.GetNextNodeInTree: TXMLNode;
+begin
+  Result := nil;
+end;
+
 function TXMLNode.GetPreviousAttribute(var ioAttrEnum: TXMLNode): Boolean;
 begin
   Result := GetPreviousCChild(ioAttrEnum, ctAttribute);
@@ -1206,13 +1730,18 @@ begin
   Result := GetPreviousCChild(ioChildEnum, ctChild);
 end;
 
+function TXMLNode.GetPreviousNodeInTree: TXMLNode;
+begin
+  Result := nil;
+end;
+
 function TXMLNode.GetText: OWideString;
 var
   xChild: TXMLNode;
 begin
   Result := '';
   case NodeType of
-    ntText, ntCData: Result := NodeValue;
+    ntText, ntCData, ntEntityReference: Result := NodeValue;
     ntDocument, ntElement:
     begin
       xChild := GetFirstCChild(ctChild);
@@ -1227,25 +1756,23 @@ end;
 
 function TXMLNode.XML: OWideString;
 begin
-  SaveToXML({%H-}Result);
+  SaveToXML(Result{%H-});
 end;
 
 function TXMLNode.XML(const aIndentType: TXMLIndentType): OWideString;
 begin
-  SaveToXML({%H-}Result, aIndentType);
+  SaveToXML(Result{%H-}, aIndentType);
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-function TXMLNode.XML_UTF8: ORawByteString;
+function TXMLNode.XML_UTF8: OUTF8Container;
 begin
-  SaveToXML_UTF8({%H-}Result);
+  SaveToXML_UTF8(Result{%H-});
 end;
 
-function TXMLNode.XML_UTF8(const aIndentType: TXMLIndentType): ORawByteString;
+function TXMLNode.XML_UTF8(const aIndentType: TXMLIndentType): OUTF8Container;
 begin
-  SaveToXML_UTF8({%H-}Result, aIndentType);
+  SaveToXML_UTF8(Result{%H-}, aIndentType);
 end;
-{$ENDIF}
 
 function TXMLNode._AddAttribute(const aAttrName,
   aAttrValue: OWideString): TXMLNode;
@@ -1277,7 +1804,15 @@ function TXMLNode.HasAttribute(const aName: OWideString): Boolean;
 var
   x: TXMLNode;
 begin
-  Result := FindAttribute(aName, {%H-}x);
+  Result := FindAttribute(aName, x{%H-});
+end;
+
+function TXMLNode.HasAttributeNS(const aNameSpaceURI,
+  aLocalName: OWideString): Boolean;
+var
+  x: TXMLNode;
+begin
+  Result := FindAttributeNS(aNameSpaceURI, aLocalName, x{%H-});
 end;
 
 function TXMLNode.HasAttributes: Boolean;
@@ -1290,14 +1825,16 @@ begin
   Result := Assigned(GetFirstCChild(ctChild));
 end;
 
-procedure TXMLNode.Init(const aNodeType: TXmlNodeType;
+procedure TXMLNode.Init(const aNodeType: TXMLNodeType;
   const aNodeNameId, aNodeValueId: OHashedStringsIndex;
   const aOwnerDocument: TXMLDocument);
 begin
   fOwnerDocument := aOwnerDocument;
+  Inc(fOwnerDocument.fAbsoluteNodeCount);
   fNodeType := aNodeType;
   fNodeNameId := aNodeNameId;
   fNodeValueId := aNodeValueId;
+  fNameSpaceURIId := -1;
 end;
 
 procedure TXMLNode.Insert(const aNew, aBeforeNode: TXMLNode;
@@ -1320,7 +1857,7 @@ function TXMLNode.InsertAttribute(const aAttrName, aAttrValue: OWideString;
 var
   xBeforeAttr: TXMLNode;
 begin
-  if FindAttribute(aBeforeAttributeName, {%H-}xBeforeAttr) then
+  if FindAttribute(aBeforeAttributeName, xBeforeAttr{%H-}) then
     Result := InsertAttribute(aAttrName, aAttrValue, xBeforeAttr)
   else
     Result := AddAttribute(aAttrName, aAttrValue);
@@ -1350,10 +1887,10 @@ begin
   Result := InsertCustomChild(ntCData, '', aText, aBeforeNode);
 end;
 
-function TXMLNode.InsertCustomChild(const aType: TXmlNodeType; const aName,
+function TXMLNode.InsertCustomChild(const aType: TXMLNodeType; const aName,
   aValue: OWideString; const aBeforeNode: TXMLNode): TXMLNode;
 begin
-  fOwnerDocument.CreateNode(aType, aName, aValue, {%H-}Result);
+  Result := fOwnerDocument.CreateNode(aType, aName, aValue);
   Insert(Result, aBeforeNode, ctChild);
 end;
 
@@ -1374,32 +1911,43 @@ begin
   Result := InsertCustomChild(ntXMLDeclaration, '', '', aBeforeNode);
 end;
 
-{$IFDEF O_GENERICBYTES}
 function TXMLNode.LoadFromBuffer(const aBuffer: TBytes;
   const aForceEncoding: TEncoding): Boolean;
 var
-  xLength: Integer;
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aBuffer);
-    if xLength > 0 then
-      xStream.SetPointer(@aBuffer[0], xLength);
+    xStream.SetBuffer(aBuffer);
+
     Result := LoadFromStream(xStream, aForceEncoding);
   finally
     xStream.Free;
   end;
 end;
-{$ENDIF}
 
-function TXMLNode.LoadFromFile(const aFileName: String;
+function TXMLNode.LoadFromBuffer(const aBuffer;
+  const aBufferLength: Integer; const aForceEncoding: TEncoding): Boolean;
+var
+  xStream: TVirtualMemoryStream;
+begin
+  xStream := TVirtualMemoryStream.Create;
+  try
+    xStream.SetPointer(@aBuffer, aBufferLength);
+
+    Result := LoadFromStream(xStream, aForceEncoding);
+  finally
+    xStream.Free;
+  end;
+end;
+
+function TXMLNode.LoadFromFile(const aFileName: OWideString;
   const aForceEncoding: TEncoding): Boolean;
 var
-  xFS: TFileStream;
+  xFS: TOFileStream;
 begin
-  fOwnerDocument.fURL := aFileName;
-  xFS := TFileStream.Create(aFileName, fmOpenRead or fmShareDenyNone);
+  fOwnerDocument.URL := aFileName;
+  xFS := TOFileStream.Create(aFileName, fmOpenRead or fmShareDenyNone);
   try
     Result := LoadFromStream(xFS, aForceEncoding);
   finally
@@ -1420,11 +1968,11 @@ begin
 
   DeleteChildren;
 
-  //aReader.ReaderSettings.NodePathHandling := npNo; !!! MUST NOT BE HERE due to OXmlSeq.pas -> MUST BE IN LoadFromStream !!!
   fOwnerDocument.Loading := True;
   try
     xLastNode := Self;
-    while aReader.ReadNextToken({%H-}outReaderToken) do begin
+    while aReader.ReadNextToken({%H-}outReaderToken) do
+    begin
       case outReaderToken.TokenType of
         rtText:
           if not Assigned(xLastNode.AddText(outReaderToken.TokenValue)) then
@@ -1433,6 +1981,8 @@ begin
         rtComment: xLastNode.AddComment(outReaderToken.TokenValue);
         rtDocType: xLastNode.AddDocType(outReaderToken.TokenValue);
         rtProcessingInstruction: xLastNode.AddProcessingInstruction(outReaderToken.TokenName, outReaderToken.TokenValue);
+        rtEntityReference:
+          xLastNode.Append(fOwnerDocument.CreateNode(ntEntityReference, outReaderToken.TokenName, outReaderToken.TokenValue), ctChild);
         rtOpenElement:
           xLastNode := xLastNode.AddChild(outReaderToken.TokenName);
         rtOpenXMLDeclaration:
@@ -1453,7 +2003,8 @@ begin
           begin
             Break;
           end;
-        end else begin
+        end else
+        begin
           Break;//This is not an error -> it may happen in the sequential reader (error would be raised already in TXMLReader!)
         end;
       end;
@@ -1469,7 +2020,7 @@ begin
     end;
   finally
     fOwnerDocument.Loading := False;
-    fOwnerDocument.fURL := '';
+    fOwnerDocument.URL := '';
   end;
 end;
 
@@ -1481,9 +2032,15 @@ var
 begin
   xReader := TXMLReader.Create;
   try
-    xReader.InitStream(aStream, aForceEncoding);
     xReader.ReaderSettings.Assign(OwnerDocument.fReaderSettings);
-    Result := LoadFromReader(xReader, {%H-}xReaderToken);
+
+    xReader.InitStream(aStream, aForceEncoding);
+    xReader.URL := fOwnerDocument.URL;
+
+    Result := LoadFromReader(xReader, xReaderToken{%H-});
+
+    if Result then
+      OwnerDocument.fReaderSettings.EntityList.Assign(xReader.ReaderSettings.EntityList);
   finally
     xReader.Free;
   end;
@@ -1491,18 +2048,31 @@ end;
 
 function TXMLNode.LoadFromXML(const aXML: OWideString): Boolean;
 var
-  xLength: Integer;
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aXML);
-    if xLength > 0 then
-      xStream.SetPointer(@aXML[1], xLength * SizeOf(OWideChar));
+    xStream.SetString(aXML);
+
     Result := LoadFromStream(xStream, TEncoding.OWideStringEncoding);
   finally
     xStream.Free;
   end;
+end;
+
+function TXMLNode.NameSpaceExists(const aNameSpaceURI,
+  aNameSpacePrefix: OWideString): Boolean;
+var
+  xIdURI: OHashedStringsIndex;
+  xNameSpacePrefix: OWideString;
+begin
+  xIdURI := fOwnerDocument.IndexOfString(aNameSpaceURI);
+  if xIdURI >= 0 then
+  begin
+    xNameSpacePrefix := aNameSpacePrefix;
+    Result := FindNameSpace(xIdURI, xNameSpacePrefix);
+  end else
+    Result := False;
 end;
 
 procedure TXMLNode.Normalize;
@@ -1546,23 +2116,57 @@ begin
   end;
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-function TXMLNode.LoadFromXML_UTF8(const aXML: ORawByteString): Boolean;
+procedure TXMLNode.QuickSort(aLow, aHigh: Integer;
+  const aCompare: TXMLNodeCompare; const aChildNodeList: IXMLNodeList);
 var
-  xLength: Integer;
+  xLow, xHigh, xMid: Integer;
+begin
+  repeat
+    xLow := aLow;
+    xHigh := aHigh;
+    xMid := (aLow + aHigh) shr 1;
+    repeat
+      while aCompare(aChildNodeList[xLow], aChildNodeList[xMid]) < 0 do
+        Inc(xLow);
+      while aCompare(aChildNodeList[xHigh], aChildNodeList[xMid]) > 0 do
+        Dec(xHigh);
+
+      if xLow <= xHigh then
+      begin
+        if xLow <> xHigh then
+        begin
+          //exchange nodes in xml document
+          aChildNodeList[xLow].ExchangeWithNode(aChildNodeList[xHigh]);
+          //exchange nodes in temp list
+          aChildNodeList.Exchange(xLow, xHigh);
+        end;
+        if xMid = xLow then
+          xMid := xHigh
+        else if xMid = xHigh then
+          xMid := xLow;
+        Inc(xLow);
+        Dec(xHigh);
+      end;
+    until xLow > xHigh;
+    if aLow < xHigh then
+      QuickSort(aLow, xHigh, aCompare, aChildNodeList);
+    aLow := xLow;
+  until xLow >= aHigh;
+end;
+
+function TXMLNode.LoadFromXML_UTF8(const aXML: OUTF8Container): Boolean;
+var
   xStream: TVirtualMemoryStream;
 begin
   xStream := TVirtualMemoryStream.Create;
   try
-    xLength := Length(aXML);
-    if xLength > 0 then
-      xStream.SetPointer(@aXML[1], xLength);
+    xStream.SetString_UTF8(aXML);
+
     Result := LoadFromStream(xStream, TEncoding.UTF8);
   finally
     xStream.Free;
   end;
 end;
-{$ENDIF}
 
 procedure TXMLNode.Remove(const aOld: TXMLNode; const aChildType: TXMLChildType);
 begin
@@ -1589,8 +2193,6 @@ begin
       fParentNode.Remove(Self, ctAttribute)
     else
       fParentNode.Remove(Self, ctChild);
-
-    fParentNode := nil;
   end;
 end;
 
@@ -1612,6 +2214,13 @@ function TXMLNode.InsertDocType(const aDocTypeRawText: OWideString;
   const aBeforeNode: TXMLNode): TXMLNode;
 begin
   Result := InsertCustomChild(ntDocType, '', aDocTypeRawText, aBeforeNode);
+end;
+
+function TXMLNode.InsertEntityReference(const aEntityName: OWideString;
+  const aBeforeNode: TXMLNode): TXMLNode;
+begin
+  Result := fOwnerDocument.CreateEntityReference(aEntityName);
+  Insert(Result, aBeforeNode, ctChild);
 end;
 
 function TXMLNode.InsertProcessingInstruction(const aTarget,
@@ -1636,7 +2245,8 @@ begin
   if aXPath = '' then
     raise EXmlDOMException.Create(OXmlLng_XPathCannotBeEmpty);
 
-  if XPathIsSimpleNode(aXPath, {%H-}xNodeName, {%H-}xChildType) then begin
+  if XPathIsSimpleNode(aXPath, xNodeName{%H-}, xChildType{%H-}) then
+  begin
     //speed optimization without true XPath support
     case xChildType of
       ctChild: Result := FindChild(xNodeName, outNode);
@@ -1644,7 +2254,8 @@ begin
     else
       Result := False;//delphi DCC warning
     end;
-  end else begin
+  end else
+  begin
     xNodeList := nil;
 
     Result := SelectNodes(aXPath, xNodeList, 1);
@@ -1655,11 +2266,30 @@ begin
   end;
 end;
 
-procedure TXMLNode.SaveToFile(const aFileName: String);
+procedure TXMLNode.SaveToBuffer(var outBuffer: OUTF8Container);
 var
-  xFS: TFileStream;
+  xStream: TMemoryStream;
 begin
-  xFS := TFileStream.Create(aFileName, fmCreate);
+  xStream := TMemoryStream.Create;
+  try
+    SaveToStream(xStream);
+
+    SetLength(outBuffer, xStream.Size);
+    if xStream.Size > 0 then
+    begin
+      xStream.Seek(0, soFromBeginning);
+      xStream.ReadBuffer(outBuffer[1], xStream.Size);
+    end;
+  finally
+    xStream.Free;
+  end;
+end;
+
+procedure TXMLNode.SaveToFile(const aFileName: OWideString);
+var
+  xFS: TOFileStream;
+begin
+  xFS := TOFileStream.Create(aFileName, fmCreate);
   try
     SaveToStream(xFS);
   finally
@@ -1696,6 +2326,7 @@ begin
       xWriter.WriterSettings.Assign(OwnerDocument.fWriterSettings);
       xWriter.Encoding := TEncoding.OWideStringEncoding;
       xWriter.WriterSettings.WriteBOM := False;
+      xWriter.WriterSettings.LineBreak := XMLDefaultLineBreak;
 
       SaveToWriter(xWriter);
     finally
@@ -1703,7 +2334,8 @@ begin
     end;
 
     SetLength(outXML, xStream.Size div SizeOf(OWideChar));
-    if xStream.Size > 0 then begin
+    if xStream.Size > 0 then
+    begin
       xStream.Seek(0, soFromBeginning);
       xStream.ReadBuffer(outXML[1], xStream.Size);
     end;
@@ -1725,8 +2357,7 @@ begin
   end;
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-procedure TXMLNode.SaveToXML_UTF8(var outXML: ORawByteString);
+procedure TXMLNode.SaveToXML_UTF8(var outXML: OUTF8Container);
 var
   xStream: TMemoryStream;
   xWriter: TXMLWriter;
@@ -1739,6 +2370,7 @@ begin
       xWriter.WriterSettings.Assign(OwnerDocument.fWriterSettings);
       xWriter.Encoding := TEncoding.UTF8;
       xWriter.WriterSettings.WriteBOM := False;
+      xWriter.WriterSettings.LineBreak := XMLDefaultLineBreak;
 
       SaveToWriter(xWriter);
     finally
@@ -1746,7 +2378,8 @@ begin
     end;
 
     SetLength(outXML, xStream.Size);
-    if xStream.Size > 0 then begin
+    if xStream.Size > 0 then
+    begin
       xStream.Seek(0, soFromBeginning);
       xStream.ReadBuffer(outXML[1], xStream.Size);
     end;
@@ -1755,7 +2388,7 @@ begin
   end;
 end;
 
-procedure TXMLNode.SaveToXML_UTF8(var outXML: ORawByteString; const aIndentType: TXMLIndentType);
+procedure TXMLNode.SaveToXML_UTF8(var outXML: OUTF8Container; const aIndentType: TXMLIndentType);
 var
   xIndentType: TXMLIndentType;
 begin
@@ -1767,37 +2400,60 @@ begin
     fOwnerDocument.fWriterSettings.IndentType := xIndentType;
   end;
 end;
-{$ENDIF}
 
 function TXMLNode.SelectNode(const aXPath: OWideString): TXMLNode;
 begin
-  SelectNode(aXPath, {%H-}Result);
+  SelectNode(aXPath, Result{%H-});
 end;
 
-function TXMLNode.SelectNodeCreate(const aNodeName: OWideString): TXMLNode;
+function TXMLNode.SelectNodeCreate(const aNodePath: OWideString): TXMLNode;
+var
+  xNodeList: TOWideStringList;
+  xNodeName: OWideString;
+  xParentNode, xCurrentNode: TXMLNode;
+  I: Integer;
 begin
-  if aNodeName = '' then
-    raise EXmlDOMException.Create(OXmlLng_NodeNameCannotBeEmpty);
+  xCurrentNode := nil;
+  xNodeList := TOWideStringList.Create;
+  try
+    OExplode(aNodePath, '/', xNodeList);
 
-  if not SelectNode(aNodeName, {%H-}Result) then
-  begin
-    if aNodeName[1] = '@' then
-      Result := AddAttribute(Copy(aNodeName, 2, High(Integer)), '')
-    else
-      Result := AddChild(aNodeName);
+    if xNodeList.Count = 0 then
+      raise EXMLDOMException.Create(OXmlLng_PathCannotBeEmpty);
+
+    xParentNode := Self;
+    for I := 0 to xNodeList.Count-1 do
+    begin
+      xNodeName := xNodeList[I];
+      if xNodeName = '' then
+        raise EXmlDOMException.Create(OXmlLng_NodeNameCannotBeEmpty);
+
+      if not xParentNode.SelectNode(xNodeName, {%H-}xCurrentNode) then
+      begin
+        if xNodeName[1] = '@' then
+          xCurrentNode := xParentNode.AddAttribute(Copy(xNodeName, 2, High(Integer)), '')
+        else
+          xCurrentNode := xParentNode.AddChild(xNodeName);
+      end;
+      xParentNode := xCurrentNode;
+    end;
+  finally
+    xNodeList.Free;
   end;
+
+  Result := xCurrentNode;
 end;
 
 function TXMLNode.SelectNodeDummy(const aXPath: OWideString): TXMLNode;
 begin
-  if not SelectNode(aXPath, {%H-}Result) then
+  if not SelectNode(aXPath, Result{%H-}) then
     Result := OwnerDocument.DummyNode;
 end;
 
 function TXMLNode.SelectNodes(const aXPath: OWideString;
   const aMaxNodeCount: Integer): IXMLNodeList;
 begin
-  SelectNodes(aXPath, {%H-}Result, aMaxNodeCount);
+  SelectNodes(aXPath, Result{%H-}, aMaxNodeCount);
 end;
 
 function TXMLNode.SelectNodes(const aXPath: OWideString;
@@ -1835,12 +2491,27 @@ begin
   if Assigned(aAttr.fParentNode) then
     raise EXmlDOMException.Create(OXmlLng_ParentNodeMustBeNil);
 
-  if FindAttribute(aAttr.NodeName, {%H-}Result) then
+  if FindAttribute(aAttr.NodeName, Result{%H-}) then
     Remove(Result, ctAttribute)
   else
     Result := nil;
 
   Append(aAttr, ctAttribute);
+end;
+
+function TXMLNode.SetAttributeNS(const aNameSpaceURI, aQualifiedName,
+  aValue: OWideString): TXMLNode;
+var
+  xNSPrefix, xLocalName: OWideString;
+begin
+  Result := SetAttribute(aQualifiedName, aValue);
+
+  OXmlResolveNameSpace(aQualifiedName, xNSPrefix{%H-}, xLocalName{%H-});
+  if not NameSpaceExists(aNameSpaceURI, xNSPrefix) then
+  begin
+    //namespace not found, add namespace URI attribute
+    SetAttribute(OXmlApplyNameSpace(XML_XMLNS, xNSPrefix), aNameSpaceURI);
+  end;
 end;
 
 procedure TXMLNode.SetNodeValue(const aValue: OWideString);
@@ -1889,6 +2560,27 @@ begin
   end;
 end;
 
+procedure TXMLNode.SortAttributeNodes(const aCompare: TXMLNodeCompare);
+begin
+  //nothing here
+end;
+
+procedure TXMLNode.SortAttributeNodesByName;
+begin
+  SortAttributeNodes(CompareNodeNames);
+end;
+
+procedure TXMLNode.SortChildNodes(const aCompare: TXMLNodeCompare;
+  const aDeep: Boolean);
+begin
+  //nothing here
+end;
+
+procedure TXMLNode.SortChildNodesByName(const aDeep: Boolean);
+begin
+  SortChildNodes(CompareNodeNames, aDeep);
+end;
+
 procedure TXMLNode.WriteChildrenXML(
   const aWriter: TXMLWriter);
 var
@@ -1924,15 +2616,17 @@ begin
     ntElement: begin
       aWriter.OpenElement(xDict.GetItem(NodeNameId).Text);
       WriteAttributesXML(aWriter);
-      if HasChildNodes then begin
+      if HasChildNodes then
+      begin
         aWriter.FinishOpenElement;
         WriteChildrenXML(aWriter);
         aWriter.CloseElement(xDict.GetItem(NodeNameId).Text,
           (aWriter.WriterSettings.IndentType <> itNone) and//speed optimization
           not (//IsTextElement
             (GetFirstCChild(ctChild) = GetLastCChild(ctChild)) and
-            (GetFirstCChild(ctChild).NodeType = ntText)));
-      end else begin
+            (GetFirstCChild(ctChild).NodeType in [ntText, ntCData])));
+      end else
+      begin
         aWriter.FinishOpenElementClose;
       end;
     end;
@@ -1950,7 +2644,12 @@ begin
         Assigned(fNextSibling) or Assigned(fPreviousSibling));
     end;
     ntCData: begin
-      aWriter.CData(xDict.GetItem(NodeValueId).Text);
+      aWriter.CData(xDict.GetItem(NodeValueId).Text,
+        //= not ParentNode.IsTextElement
+        Assigned(fNextSibling) or Assigned(fPreviousSibling));
+    end;
+    ntEntityReference: begin
+      aWriter.EntityReference(xDict.GetItem(fNodeNameId).Text);
     end;
     ntComment: begin
       aWriter.Comment(xDict.GetItem(NodeValueId).Text);
@@ -1966,7 +2665,6 @@ begin
   end;
 end;
 
-{$IFDEF O_GENERICBYTES}
 procedure TXMLNode.SaveToBuffer(var outBuffer: TBytes);
 var
   xStream: TMemoryStream;
@@ -1976,7 +2674,8 @@ begin
     SaveToStream(xStream);
 
     SetLength(outBuffer, xStream.Size);
-    if xStream.Size > 0 then begin
+    if xStream.Size > 0 then
+    begin
       xStream.Seek(0, soFromBeginning);
       xStream.ReadBuffer(outBuffer[0], xStream.Size);
     end;
@@ -1984,12 +2683,11 @@ begin
     xStream.Free;
   end;
 end;
-{$ENDIF}
 
 { TXMLDocument }
 
 constructor TXMLDocument.Create(const aRootNodeName: OWideString;
-  const aAddUTF8Declaration: Boolean);
+  const aAddXMLDeclaration: Boolean);
 var
   xDec: TXMLNode;
 begin
@@ -1997,7 +2695,8 @@ begin
 
   DoCreate;
 
-  if aAddUTF8Declaration then begin
+  if aAddXMLDeclaration then
+  begin
     xDec := fBlankDocumentNode.AddXMLDeclaration;
     xDec.AddAttribute('version', '1.0');
     xDec.AddAttribute('encoding', 'utf-8');
@@ -2011,40 +2710,66 @@ end;
 function TXMLDocument.CreateAttribute(const aName,
   aValue: OWideString): TXMLNode;
 begin
-  CreateNode(ntAttribute, aName, aValue, {%H-}Result);
+  Result := CreateNode(ntAttribute, aName, aValue);
+end;
+
+function TXMLDocument.CreateAttributeNS(const aNameSpaceURI,
+  aQualifiedName: OWideString; const aValue: OWideString): TXMLNode;
+begin
+  Result := CreateAttribute(aQualifiedName, aValue);
+  if aNameSpaceURI <> '' then
+    Result.fNameSpaceURIId := SetString(aNameSpaceURI);
 end;
 
 function TXMLDocument.CreateCDATASection(const aData: OWideString): TXMLNode;
 begin
-  CreateNode(ntCData, '', aData, {%H-}Result);
+  Result := CreateNode(ntCData, '', aData);
 end;
 
 function TXMLDocument.CreateComment(const aText: OWideString): TXMLNode;
 begin
-  CreateNode(ntComment, '', aText, {%H-}Result);
+  Result := CreateNode(ntComment, '', aText);
 end;
 
 function TXMLDocument.CreateDocType(
   const aDocTypeRawText: OWideString): TXMLNode;
 begin
-  CreateNode(ntDocType, '', aDocTypeRawText, {%H-}Result);
+  Result := CreateNode(ntDocType, '', aDocTypeRawText);
 end;
 
 function TXMLDocument.CreateElement(const aNodeName: OWideString): TXMLNode;
 begin
-  CreateNode(ntElement, aNodeName, '', {%H-}Result);
+  Result := CreateNode(ntElement, aNodeName, '');
 end;
 
-procedure TXMLDocument.CreateNode(const aNodeType: TXmlNodeType;
-  const aNodeNameId, aNodeValueId: OHashedStringsIndex; var outNode: TXMLNode);
+function TXMLDocument.CreateElementNS(const aNameSpaceURI,
+  aQualifiedName: OWideString): TXMLNode;
+begin
+  Result := CreateElement(aQualifiedName);
+  if aNameSpaceURI <> '' then
+    Result.fNameSpaceURIId := SetString(aNameSpaceURI);
+end;
+
+function TXMLDocument.CreateEntityReference(const aName: OWideString): TXMLNode;
+var
+  xEntityValue: OWideString;
+begin
+  if fReaderSettings.EntityList.Find(aName, xEntityValue{%H-}) then
+    Result := CreateNode(ntEntityReference, aName, xEntityValue)
+  else
+    raise EXmlDOMException.Create(OXmlLng_EntityNameNotFound);
+end;
+
+function TXMLDocument.CreateNode(const aNodeType: TXMLNodeType;
+  const aNodeNameId, aNodeValueId: OHashedStringsIndex): TXMLNode;
 begin
   case aNodeType of
-    ntDocument, ntElement, ntXMLDeclaration: outNode := TXMLNodeWithChildren.Create;
+    ntDocument, ntElement, ntXMLDeclaration: Result := TXMLNodeWithChildren.Create;
   else
-    outNode := TXMLNode.Create;
+    Result := TXMLNode.Create;
   end;
 
-  outNode.Init(aNodeType, aNodeNameId, aNodeValueId, Self);
+  Result.Init(aNodeType, aNodeNameId, aNodeValueId, Self);
 end;
 
 constructor TXMLDocument.Create(aDummy: TObject);
@@ -2054,27 +2779,26 @@ begin
   DoCreate;
 end;
 
-procedure TXMLDocument.CreateNode(const aNodeType: TXmlNodeType;
-  const aNodeName, aNodeValue: OWideString; var outNode: TXMLNode);
+function TXMLDocument.CreateNode(const aNodeType: TXMLNodeType;
+  const aNodeName, aNodeValue: OWideString): TXMLNode;
 begin
-  CreateNode(aNodeType, fDictionary.Add(aNodeName), fDictionary.Add(aNodeValue),
-    outNode);
+  Result := CreateNode(aNodeType, fDictionary.Add(aNodeName), fDictionary.Add(aNodeValue));
 end;
 
 function TXMLDocument.CreateProcessingInstruction(const aTarget,
   aContent: OWideString): TXMLNode;
 begin
-  CreateNode(ntProcessingInstruction, aTarget, aContent, {%H-}Result);
+  Result := CreateNode(ntProcessingInstruction, aTarget, aContent);
 end;
 
 function TXMLDocument.CreateTextNode(const aText: OWideString): TXMLNode;
 begin
-  CreateNode(ntText, '', aText, {%H-}Result);
+  Result := CreateNode(ntText, '', aText);
 end;
 
 function TXMLDocument.CreateXMLDeclaration: TXMLNode;
 begin
-  CreateNode(ntXMLDeclaration, 'xml', '', {%H-}Result);
+  Result := CreateNode(ntXMLDeclaration, XML_XML, '');
 end;
 
 function TXMLDocument.AddChild(const aElementName: OWideString): TXMLNode;
@@ -2110,14 +2834,14 @@ end;
 
 procedure TXMLDocument.DoCreate;
 begin
-  fWriterSettings := TXMLWriterSettings.Create;
+  fWriterSettings := TXMLDocumentWriterSettings.Create;
   fReaderSettings := TXMLReaderSettings.Create;
 
   fDictionary := TOHashedStrings.Create;
 
   fWhiteSpaceHandling := wsPreserveInTextOnly;
 
-  CreateNode(ntDocument, '', '', fBlankDocumentNode);
+  fBlankDocumentNode := CreateNode(ntDocument, '', '');
 
   Clear;
 end;
@@ -2127,7 +2851,8 @@ function TXMLDocument.FindXMLDeclarationNode(
 var
   xChild: TXMLNode;
 begin
-  if fBlankDocumentNode.HasChildNodes then begin
+  if fBlankDocumentNode.HasChildNodes then
+  begin
     xChild := nil;
     while fBlankDocumentNode.GetNextChild(xChild) do
     if (xChild.NodeType = ntXMLDeclaration)
@@ -2140,6 +2865,15 @@ begin
 
   Result := False;
   outXMLDeclarationNode := nil;
+end;
+
+function TXMLDocument.GetAbsoluteNodeCount: XMLNodeId;
+begin
+  Result := fAbsoluteNodeCount;
+  if Result > 0 then
+    Dec(Result);//minus one for BlankDocumentNode
+  if Assigned(fDummyNode) then
+    Dec(Result);//minus one for DummyNode
 end;
 
 function TXMLDocument.GetCodePage: Word;
@@ -2162,13 +2896,13 @@ function TXMLDocument.GetXMLDeclarationAttribute(
 var
   xDecNode: TXMLNode;
 begin
-  if FindXMLDeclarationNode({%H-}xDecNode) then
+  if FindXMLDeclarationNode(xDecNode{%H-}) then
     Result := xDecNode.GetAttribute(aAttributeName)
   else
     Result := '';
 end;
 
-function TXMLDocument.GetWriterSettings: TXMLWriterSettings;
+function TXMLDocument.GetWriterSettings: TXMLDocumentWriterSettings;
 begin
   Result := fWriterSettings;
 end;
@@ -2179,7 +2913,8 @@ var
 begin
   xChild := nil;
   while fBlankDocumentNode.GetNextChild(xChild) do
-  if xChild.NodeType = ntElement then begin
+  if xChild.NodeType = ntElement then
+  begin
     Result := xChild;
     Exit;
   end;
@@ -2201,15 +2936,16 @@ begin
   Result := fLoading;
 end;
 
-function TXMLDocument.GetParseError: IXMLParseError;
+function TXMLDocument.GetParseError: IOTextParseError;
 begin
   Result := fParseError;
 end;
 
 function TXMLDocument.GetDummyNode: TXMLNode;
 begin
-  if not Assigned(fDummyNode) then begin
-    CreateNode(ntElement, '', '', fDummyNode);
+  if not Assigned(fDummyNode) then
+  begin
+    fDummyNode := CreateNode(ntElement, '', '');
     fDummyNode.fParentNode := fBlankDocumentNode;
   end;
   Result := fDummyNode;
@@ -2243,12 +2979,17 @@ begin
     Result := '';
 end;
 
+function TXMLDocument.GetURL: OWideString;
+begin
+  Result := fURL;
+end;
+
 function TXMLDocument.GetVersion: OWideString;
 begin
   Result := GetXMLDeclarationAttribute('version');
 end;
 
-function TXMLDocument.GetWhiteSpaceHandling: TXmlWhiteSpaceHandling;
+function TXMLDocument.GetWhiteSpaceHandling: TXMLWhiteSpaceHandling;
 begin
   Result := fWhiteSpaceHandling;
 end;
@@ -2263,24 +3004,20 @@ begin
   Result := Node.XML(aIndentType);
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-function TXMLDocument.XML_UTF8: ORawByteString;
+function TXMLDocument.XML_UTF8: OUTF8Container;
 begin
   Result := Node.XML_UTF8;
 end;
 
-function TXMLDocument.XML_UTF8(const aIndentType: TXMLIndentType): ORawByteString;
+function TXMLDocument.XML_UTF8(const aIndentType: TXMLIndentType): OUTF8Container;
 begin
   Result := Node.XML_UTF8(aIndentType);
 end;
-{$ENDIF}
 
-{$IFDEF O_GENERICBYTES}
 procedure TXMLDocument.SaveToBuffer(var outBuffer: TBytes);
 begin
   Node.SaveToBuffer(outBuffer);
 end;
-{$ENDIF}
 
 function TXMLDocument.IndexOfString(
   const aString: OWideString): OHashedStringsIndex;
@@ -2288,16 +3025,21 @@ begin
   Result := fDictionary.IndexOf(aString);
 end;
 
-{$IFDEF O_GENERICBYTES}
 function TXMLDocument.LoadFromBuffer(const aBuffer: TBytes;
   const aForceEncoding: TEncoding): Boolean;
 begin
   Clear;
   Result := Node.LoadFromBuffer(aBuffer, aForceEncoding);
 end;
-{$ENDIF}
 
-function TXMLDocument.LoadFromFile(const aFileName: String;
+function TXMLDocument.LoadFromBuffer(const aBuffer;
+  const aBufferLength: Integer; const aForceEncoding: TEncoding): Boolean;
+begin
+  Clear;
+  Result := Node.LoadFromBuffer(aBuffer, aBufferLength, aForceEncoding);
+end;
+
+function TXMLDocument.LoadFromFile(const aFileName: OWideString;
   const aForceEncoding: TEncoding): Boolean;
 begin
   Clear;
@@ -2322,15 +3064,18 @@ begin
   Result := Node.LoadFromXML(aXML);
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-function TXMLDocument.LoadFromXML_UTF8(const aXML: ORawByteString): Boolean;
+function TXMLDocument.LoadFromXML_UTF8(const aXML: OUTF8Container): Boolean;
 begin
   Clear;
   Result := Node.LoadFromXML_UTF8(aXML);
 end;
-{$ENDIF}
 
-procedure TXMLDocument.SaveToFile(const aFileName: String);
+procedure TXMLDocument.SaveToBuffer(var outBuffer: OUTF8Container);
+begin
+  Node.SaveToBuffer(outBuffer);
+end;
+
+procedure TXMLDocument.SaveToFile(const aFileName: OWideString);
 begin
   Node.SaveToFile(aFileName);
 end;
@@ -2345,17 +3090,15 @@ begin
   Node.SaveToXML(outXML, aIndentType);
 end;
 
-{$IFDEF O_RAWBYTESTRING}
-procedure TXMLDocument.SaveToXML_UTF8(var outXML: ORawByteString);
+procedure TXMLDocument.SaveToXML_UTF8(var outXML: OUTF8Container);
 begin
   Node.SaveToXML_UTF8(outXML);
 end;
 
-procedure TXMLDocument.SaveToXML_UTF8(var outXML: ORawByteString; const aIndentType: TXMLIndentType);
+procedure TXMLDocument.SaveToXML_UTF8(var outXML: OUTF8Container; const aIndentType: TXMLIndentType);
 begin
   Node.SaveToXML_UTF8(outXML, aIndentType);
 end;
-{$ENDIF}
 
 procedure TXMLDocument.SaveToStream(const aStream: TStream);
 begin
@@ -2374,12 +3117,17 @@ end;
 
 procedure TXMLDocument.SetDocumentElement(const aDocumentElement: TXMLNode);
 var
-  xChild: TXMLNode;
+  xChild, xNextChild: TXMLNode;
 begin
-  xChild := nil;
-  while fBlankDocumentNode.GetNextChild(xChild) do
-  if xChild.NodeType = ntElement then begin
-    xChild.DeleteSelf;
+  xChild := fBlankDocumentNode.FirstChild;
+  while Assigned(xChild) do
+  begin
+    xNextChild := xChild.NextSibling;
+
+    if xChild.NodeType = ntElement then
+      xChild.DeleteSelf;
+
+    xChild := xNextChild;
   end;
 
   fBlankDocumentNode.AppendChild(aDocumentElement);
@@ -2390,7 +3138,8 @@ procedure TXMLDocument.SetXMLDeclarationAttribute(const aAttributeName,
 var
   xDecNode: TXMLNode;
 begin
-  if not FindXMLDeclarationNode({%H-}xDecNode) then begin
+  if not FindXMLDeclarationNode(xDecNode{%H-}) then
+  begin
     if fBlankDocumentNode.HasChildNodes then
       xDecNode := fBlankDocumentNode.InsertXMLDeclaration(fBlankDocumentNode.FirstChild)
     else
@@ -2420,13 +3169,18 @@ begin
   Result := fDictionary.Add(aString);
 end;
 
+procedure TXMLDocument.SetURL(const aURL: OWideString);
+begin
+  fURL := aURL;
+end;
+
 procedure TXMLDocument.SetVersion(const aVersion: OWideString);
 begin
   SetXMLDeclarationAttribute('version', aVersion);
 end;
 
 procedure TXMLDocument.SetWhiteSpaceHandling(
-  const aWhiteSpaceHandling: TXmlWhiteSpaceHandling);
+  const aWhiteSpaceHandling: TXMLWhiteSpaceHandling);
 begin
   fWhiteSpaceHandling := aWhiteSpaceHandling;
 end;
@@ -2475,16 +3229,13 @@ constructor TXMLResNodeList.Create;
 begin
   inherited Create;
 
-  {$IFDEF O_GENERICS}
-  fList := TList<TXMLNode>.Create;
-  {$ELSE}
-  fList := TList.Create;
-  {$ENDIF}
+  fList := TXMLNodeList.Create;
 end;
 
 procedure TXMLResNodeList.Delete(const aIndex: Integer);
 begin
-  if (aIndex >= 0) and  (aIndex < fList.Count) then begin
+  if (aIndex >= 0) and  (aIndex < fList.Count) then
+  begin
     fList.Delete(aIndex);
   end;
 end;
@@ -2505,6 +3256,16 @@ begin
   inherited;
 end;
 
+procedure TXMLResNodeList.Exchange(const aIndex1, aIndex2: Integer);
+begin
+  fList.Exchange(aIndex1, aIndex2);
+end;
+
+procedure TXMLResNodeList.Exchange(const aNode1, aNode2: TXMLNode);
+begin
+  Exchange(IndexOf(aNode1), IndexOf(aNode2));
+end;
+
 procedure TXMLResNodeList.Delete(const aName: OWideString);
 var
   I: Integer;
@@ -2516,7 +3277,7 @@ end;
 
 function TXMLResNodeList.FindNode(const aName: OWideString): TXMLNode;
 begin
-  if IndexOf(aName, {%H-}Result) < 0 then
+  if IndexOf(aName, Result{%H-}) < 0 then
     Result := nil;
 end;
 
@@ -2582,7 +3343,8 @@ begin
     Exit;
   end;
 
-  if Assigned(ioNodeEnum) then begin
+  if Assigned(ioNodeEnum) then
+  begin
     //get prev/next
     if not(
        (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount) and
@@ -2590,8 +3352,8 @@ begin
     then//ioNodeEnum is NOT the last iterator -> we have to find it
       fIteratorCurrent := IndexOf(ioNodeEnum);
 
-    if (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount)
-    then begin
+    if (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount) then
+    begin
       fIteratorCurrent := fIteratorCurrent + aInc;
       Result := (0 <= fIteratorCurrent) and (fIteratorCurrent < xCount);
       if Result then
@@ -2599,7 +3361,8 @@ begin
       else
         ioNodeEnum := nil;
     end;
-  end else begin
+  end else
+  begin
     //return first or last element
     if aInc > 0 then
       fIteratorCurrent := 0
@@ -2613,7 +3376,7 @@ end;
 function TXMLResNodeList.IndexOf(const aName: OWideString): Integer;
 var x: TXMLNode;
 begin
-  Result := IndexOf(aName, {%H-}x);
+  Result := IndexOf(aName, x{%H-});
 end;
 
 function TXMLResNodeList.IndexOf(const aName: OWideString;
@@ -2621,21 +3384,24 @@ function TXMLResNodeList.IndexOf(const aName: OWideString;
 var
   xNameId: OHashedStringsIndex;
 begin
-  if Count = 0 then begin
+  if Count = 0 then
+  begin
     Result := -1;
     outNode := nil;
     Exit;
   end;
 
   xNameId := Nodes[0].fOwnerDocument.IndexOfString(aName);
-  if xNameId < 0 then begin
+  if xNameId < 0 then
+  begin
     Result := -1;
     outNode := nil;
     Exit;
   end;
 
   for Result := 0 to Count-1 do
-  if (Nodes[Result].NodeNameId = xNameId) then begin
+  if (Nodes[Result].NodeNameId = xNameId) then
+  begin
     outNode := Nodes[Result];
     Exit;
   end;
@@ -2652,6 +3418,11 @@ end;
 procedure TXMLResNodeList.Insert(const aIndex: Integer; const aNode: TXMLNode);
 begin
   fList.Insert(aIndex, aNode);
+end;
+
+procedure TXMLResNodeList.Move(const aCurIndex, aNewIndex: Integer);
+begin
+  fList.Move(aCurIndex, aNewIndex);
 end;
 
 function TXMLResNodeList.Remove(const aNode: TXMLNode): Integer;
@@ -2676,11 +3447,7 @@ var
   var
     xChild: TXMLNode;
   begin
-    {$IFDEF O_GENERICS}
     aIdTree.Add(TXMLXPathNode(bNode), xId);
-    {$ELSE}
-    aIdTree.AddPointer({%H-}ONativeInt(TXMLXPathNode(bNode)), {%H-}Pointer(xId));
-    {$ENDIF}
     Inc(xId);
 
     if bLevelsDeepLeft < 0 then
@@ -2691,16 +3458,13 @@ var
       xChild := nil;
       while bNode.GetNextAttribute(xChild) do
       begin
-        {$IFDEF O_GENERICS}
         aIdTree.Add(TXMLXPathNode(xChild), xId);
-        {$ELSE}
-        aIdTree.AddPointer({%H-}ONativeInt(TXMLXPathNode(xChild)), {%H-}Pointer(xId));
-        {$ENDIF}
         Inc(xId);
       end;
     end;
 
-    if bNode.HasChildNodes then begin
+    if bNode.HasChildNodes then
+    begin
       xChild := nil;
       while bNode.GetNextChild(xChild) do
       if xChild.NodeType in [ntElement, ntText, ntCData] then
@@ -2780,7 +3544,7 @@ begin
 end;
 
 function TXMLXPathDOMAdapter.GetNodeType(
-  const aNode: TXMLXPathNode): TXmlNodeType;
+  const aNode: TXMLXPathNode): TXMLNodeType;
 begin
   Result := TXMLNode(aNode).NodeType;
 end;
@@ -2802,7 +3566,7 @@ function TXMLXPathDOMAdapter.NodeFindAttribute(const aNode: TXMLXPathNode;
 var
   xAttr: TXMLNode;
 begin
-  if TXMLNode(aNode).FindAttributeById(aAttrNameId, {%H-}xAttr) then
+  if TXMLNode(aNode).FindAttributeById(aAttrNameId, xAttr{%H-}) then
     Result := xAttr
   else
     Result := nil;
@@ -2829,6 +3593,22 @@ begin
   xNode := Nodes[aIndex];
   if Assigned(xNode) then
     Delete(xNode);
+end;
+
+procedure TXMLChildNodeList.ExchangeNodes(const aIndex1, aIndex2: Integer);
+begin
+  if (aIndex1 < 0) or (aIndex2 < 0) or
+     (aIndex1 >= Count) or (aIndex2 >= Count) or
+     (aIndex1 = aIndex2)
+  then
+    Exit;
+
+  ExchangeNodes(Nodes[aIndex1], Nodes[aIndex2]);
+end;
+
+procedure TXMLChildNodeList.ExchangeNodes(const aNode1, aNode2: TXMLNode);
+begin
+  aNode1.ExchangeWithNode(aNode2);
 end;
 
 procedure TXMLChildNodeList.ExtNodeAppended;
@@ -2862,7 +3642,7 @@ end;
 
 function TXMLChildNodeList.FindNode(const aName: OWideString): TXMLNode;
 begin
-  if not FindNode(aName, {%H-}Result) then
+  if not FindNode(aName, Result{%H-}) then
     Result := nil;
 end;
 
@@ -2920,7 +3700,7 @@ end;
 
 function TXMLChildNodeList.GetLast: TXMLNode;
 begin
-  Result := fParent.GetFirstCChild(fChildType);
+  Result := fParent.GetLastCChild(fChildType);
 end;
 
 function TXMLChildNodeList.GetNext(var ioNode: TXMLNode): Boolean;
@@ -2944,20 +3724,25 @@ begin
      not ((aIndex < (fLastGetNodeIndex-aIndex)) or (aIndex < (aIndex-fLastGetNodeIndex))) and //performance -> search from the start if it needs less cycles
      not (((Count-aIndex) < (fLastGetNodeIndex-aIndex)) or ((Count-aIndex) < (aIndex-fLastGetNodeIndex)))//performance -> search from the end if it needs less cycles
   then begin
-    if (aIndex = fLastGetNodeIndex) then begin
+    if (aIndex = fLastGetNodeIndex) then
+    begin
       //The same node
       Result := fLastGetNode;
-    end else begin
+    end else
+    begin
       //you cannot run this code for (aIndex = fLastGetNodeIndex)!!!
       //find node as a relative sibling from fLastGetNode
       I := fLastGetNodeIndex;
       Result := fLastGetNode;
-      while (I <> aIndex) and Assigned(Result) do begin
-        if aIndex > fLastGetNodeIndex then begin
+      while (I <> aIndex) and Assigned(Result) do
+      begin
+        if aIndex > fLastGetNodeIndex then
+        begin
           //Next in list
           Result := Result.NextSibling;
           Inc(I);
-        end else begin
+        end else
+        begin
           //Previous in list
           Result := Result.PreviousSibling;
           Dec(I);
@@ -2966,13 +3751,16 @@ begin
     end;
   end;
 
-  if not Assigned(Result) then begin
-    if aIndex < Count div 2 then begin
+  if not Assigned(Result) then
+  begin
+    if aIndex < Count div 2 then
+    begin
       //search forwards through all nodes
       I := -1;
       while (I < aIndex) and GetNext(Result) do
         Inc(I);
-    end else begin
+    end else
+    begin
       //search backwards through all nodes
       I := Count;
       while (I > aIndex) and GetPrevious(Result) do
@@ -3084,11 +3872,7 @@ begin
   inherited Create;
 
   fParentElement := aParentElement;
-  {$IFDEF O_GENERICS}
-  fIndex := TDictionary<OHashedStringsIndex,TXMLNode>.Create;
-  {$ELSE}
-  fIndex := TODictionary.Create;
-  {$ENDIF}
+  fIndex := TXMLNodeIndex.Create;
 end;
 
 destructor TXMLAttributeIndex.Destroy;
@@ -3103,7 +3887,7 @@ begin
   {$IFDEF O_GENERICS}
   fIndex.Add(aAttributeNode.NodeNameId, aAttributeNode);
   {$ELSE}
-  fIndex.AddPointer(aAttributeNode.NodeNameId, aAttributeNode);
+  fIndex.Add(aAttributeNode.NodeNameId, aAttributeNode);
   {$ENDIF}
 end;
 
@@ -3119,20 +3903,8 @@ end;
 
 function TXMLAttributeIndex.FindAttribute(const aNameId: OHashedStringsIndex;
   var outAttr: TXMLNode): Boolean;
-{$IFNDEF O_GENERICS}
-var
-  xIndex: Integer;
-{$ENDIF}
 begin
-  {$IFDEF O_GENERICS}
-  Result := fIndex.TryGetValue(aNameId, outAttr);
-  {$ELSE}
-  Result := fIndex.Find(aNameId, {%H-}xIndex);
-  if Result then
-    outAttr := fIndex.Pointers[xIndex]
-  else
-    outAttr := nil;
-  {$ENDIF}
+  Result := fIndex.TryGetValue(aNameId, {$IFNDEF O_GENERICS}TObject{$ELSE}TXMLNode{$ENDIF}(outAttr));
 end;
 
 procedure TXMLAttributeIndex.SetParentElement(const aParentElement: TXMLNodeWithChildren);
@@ -3161,25 +3933,32 @@ function TXMLNodeWithChildren.AddText(const aText: OWideString): TXMLNode;
 var
   xText: OWideString;
 begin
-  if OwnerDocument.Loading then begin
+  if OwnerDocument.Loading then
+  begin
     //document is reading XML
-    if (OwnerDocument.WhiteSpaceHandling = wsPreserveInTextOnly) and OXmlIsWhiteSpace(aText) then begin
+    if (OwnerDocument.WhiteSpaceHandling = wsPreserveInTextOnly) and OXmlIsWhiteSpace(aText) then
+    begin
       xText := '';
     end else if
       (OwnerDocument.WhiteSpaceHandling = wsTrim) or
       ((OwnerDocument.WhiteSpaceHandling = wsAutoTag) and not GetDoPreserveWhiteSpace)
     then begin
       xText := Trim(aText);
-    end else begin
+    end else
+    begin
       xText := aText;
     end;
-  end else begin
+  end else
+  begin
     //programatically creating document
-    if (OwnerDocument.WhiteSpaceHandling = wsPreserveInTextOnly) and OXmlIsWhiteSpace(aText) then begin
+    if (OwnerDocument.WhiteSpaceHandling = wsPreserveInTextOnly) and OXmlIsWhiteSpace(aText) then
+    begin
       xText := '';
-    end else if (OwnerDocument.WhiteSpaceHandling = wsTrim) then begin
+    end else if (OwnerDocument.WhiteSpaceHandling = wsTrim) then
+    begin
       xText := Trim(aText);
-    end else begin
+    end else
+    begin
       xText := aText;
 
       if
@@ -3201,6 +3980,8 @@ procedure TXMLNodeWithChildren.Append(const aNew: TXMLNode;
   const aChildType: TXMLChildType);
 var
   xLastChild: TXMLNode;
+  xNSParent: TXMLNode;
+  xNSURI, xNSPrefix, xLocalName: OWideString;
 begin
   if Assigned(fTempCChildNodes[aChildType]) then
     fTempCChildNodes[aChildType].ExtNodeAppended;
@@ -3208,7 +3989,8 @@ begin
     fTempAttributeIndex.ExtAttributeAdded(aNew);
   Inc(fCChildCount[aChildType]);
 
-  if Assigned(fFirstCChild[aChildType]) then begin
+  if Assigned(fFirstCChild[aChildType]) then
+  begin
     //append to the end
 
     xLastChild := fLastCChild[aChildType];
@@ -3218,13 +4000,39 @@ begin
     fLastCChild[aChildType] := aNew;
     //set prev sibling of new child to last
     aNew.fPreviousSibling := xLastChild;
-  end else begin
+  end else
+  begin
     //no children
 
     fFirstCChild[aChildType] := aNew;
     fLastCChild[aChildType] := aNew;
+
+    aNew.fPreviousSibling := nil;
   end;
   aNew.fParentNode := Self;
+  aNew.fNextSibling := nil;
+
+  if (aNew.fNameSpaceURIId >= 0) then
+  begin
+    //namespace found
+    xNSURI := fOwnerDocument.GetString(aNew.fNameSpaceURIId);
+    if xNSURI = '' then
+      Exit;
+
+    case aNew.NodeType of
+      ntElement: xNSParent := aNew;
+      ntAttribute: xNSParent := aNew.ParentNode;
+    else
+      Exit;
+    end;
+
+    OXmlResolveNameSpace(aNew.NodeName, xNSPrefix{%H-}, xLocalName{%H-});
+    if not xNSParent.NameSpaceExists(xNSURI, xNSPrefix) then
+    begin
+      //namespace not found
+      xNSParent.SetAttribute(OXmlApplyNameSpace(XML_XMLNS, xNSPrefix), xNSURI);
+    end;
+  end;
 end;
 
 procedure TXMLNodeWithChildren.AssignProperties(const aFromNode: TXMLNode);
@@ -3235,33 +4043,17 @@ begin
     Self.fPreserveWhiteSpace := TXMLNodeWithChildren(aFromNode).fPreserveWhiteSpace;
 end;
 
-destructor TXMLNodeWithChildren.Destroy;
-var
-  C: TXMLChildType;
-begin
-  fTempAttributeIndex.Free;
-  for C := Low(C) to High(C) do
-    fTempCChildNodes[C].Free;
-
-  inherited;
-end;
-
 function TXMLNodeWithChildren.FindAttributeById(const aNameId: OHashedStringsIndex;
   var outAttr: TXMLNode): Boolean;
 begin
-  if not HasAttributes then
+  if not HasAttributes or (aNameId < 0) then
   begin
     Result := False;
+    outAttr := nil;
     Exit;
   end;
 
-  if aNameId < 0 then
-  begin
-    Result := False;
-    Exit;
-  end;
-
-  if (fCChildCount[ctAttribute] > XMLUseIndexForAttributesLimit) and
+  if (fCChildCount[ctAttribute] > XMLUseIndexNodeLimit) and
     not Assigned(fTempAttributeIndex)
   then//create index if attribute count is greater than a limit
     fTempAttributeIndex := TXMLAttributeIndex.Create(Self);
@@ -3304,6 +4096,12 @@ begin
 
   fFirstCChild[aChildType] := nil;
   fLastCChild[aChildType] := nil;
+
+  if aChildType = ctAttribute then
+  begin
+    fTempAttributeIndex.Free;
+    fTempAttributeIndex := nil;
+  end;
 end;
 
 function TXMLNodeWithChildren.GetChildNodes: TXMLChildNodeList;
@@ -3345,6 +4143,42 @@ begin
   Result := fLastCChild[aChildType];
 end;
 
+function TXMLNodeWithChildren.GetNextNodeInTree: TXMLNode;
+var
+  xParentNode: TXMLNode;
+begin
+  Result := fFirstCChild[ctChild];
+  if Assigned(Result) then
+    Exit;
+
+  Result := fNextSibling;
+  if Assigned(Result) then
+    Exit;
+
+  xParentNode := fParentNode;
+  while Assigned(xParentNode) and not Assigned(Result) do
+  begin
+    Result := xParentNode.fNextSibling;
+    xParentNode := xParentNode.ParentNode;
+  end;
+end;
+
+function TXMLNodeWithChildren.GetPreviousNodeInTree: TXMLNode;
+var
+  xPreviousSiblingLastChild: TXMLNode;
+begin
+  Result := nil;
+  xPreviousSiblingLastChild := fPreviousSibling;
+  while Assigned(xPreviousSiblingLastChild) do
+  begin
+    Result := xPreviousSiblingLastChild;
+    xPreviousSiblingLastChild := (xPreviousSiblingLastChild as TXMLNodeWithChildren).fLastCChild[ctChild];
+  end;
+
+  if not Assigned(Result) then
+    Result := fParentNode;
+end;
+
 procedure TXMLNodeWithChildren.Insert(const aNew, aBeforeNode: TXMLNode;
   const aChildType: TXMLChildType);
 var
@@ -3360,10 +4194,12 @@ begin
   Inc(fCChildCount[aChildType]);
 
   xAfterNode := aBeforeNode.PreviousSibling;
-  if Assigned(xAfterNode) then begin
+  if Assigned(xAfterNode) then
+  begin
     xAfterNode.fNextSibling := aNew;
     aNew.fPreviousSibling := xAfterNode;
-  end else begin
+  end else
+  begin
     aNew.fPreviousSibling := nil;
   end;
 
@@ -3379,12 +4215,14 @@ function TXMLNodeWithChildren.InsertAttribute(const aAttrName, aAttrValue: OWide
   const aBeforeAttribute: TXMLNode): TXMLNode;
 begin
   Result := nil;
-  if (OwnerDocument.WhiteSpaceHandling = wsAutoTag) and SameText(aAttrName, 'xml:space') then begin
+  if (OwnerDocument.WhiteSpaceHandling = wsAutoTag) and OSameText(aAttrName, XML_XML_SPACE) then
+  begin
     Self.fPreserveWhiteSpace := OXmlStrToPreserve(aAttrValue);
-  end else begin
+  end else
+  begin
     DeleteAttribute(aAttrName);
 
-    fOwnerDocument.CreateNode(ntAttribute, aAttrName, aAttrValue, Result);
+    Result := fOwnerDocument.CreateNode(ntAttribute, aAttrName, aAttrValue);
 
     Insert(Result, aBeforeAttribute, ctAttribute);
   end;
@@ -3411,13 +4249,15 @@ begin
 
   xPrev := aOld.PreviousSibling;
   xNext := aOld.NextSibling;
-  if Assigned(xPrev) then begin
+  if Assigned(xPrev) then
+  begin
     if Assigned(xNext) then
       xPrev.fNextSibling := xNext
     else
       xPrev.fNextSibling := nil;
   end;
-  if Assigned(xNext) then begin
+  if Assigned(xNext) then
+  begin
     if Assigned(xPrev) then
       xNext.fPreviousSibling := xPrev
     else
@@ -3425,6 +4265,45 @@ begin
   end;
 
   aOld.fParentNode := nil;
+  aOld.fNextSibling := nil;
+  aOld.fPreviousSibling := nil;
+end;
+
+procedure TXMLNodeWithChildren.SortAttributeNodes(
+  const aCompare: TXMLNodeCompare);
+var
+  xAttrList: IXMLNodeList;
+begin
+  if not Assigned(FirstAttribute) then
+    Exit;
+
+  if Assigned(fTempAttributeIndex) then
+  begin
+    fTempAttributeIndex.Free;
+    fTempAttributeIndex := nil;
+  end;
+
+  xAttrList := TXMLResNodeList.Create;
+  FillCChildList(xAttrList, ctAttribute);
+  QuickSort(0, xAttrList.Count-1, aCompare, xAttrList);
+end;
+
+procedure TXMLNodeWithChildren.SortChildNodes(const aCompare: TXMLNodeCompare;
+  const aDeep: Boolean);
+var
+  xChildList: IXMLNodeList;
+  I: Integer;
+begin
+  if not Assigned(FirstChild) then
+    Exit;
+
+  xChildList := TXMLResNodeList.Create;
+  FillCChildList(xChildList, ctChild);
+  QuickSort(0, xChildList.Count-1, aCompare, xChildList);
+
+  if aDeep then
+  for I := 0 to xChildList.Count-1 do
+    xChildList[I].SortChildNodes(aCompare, aDeep);
 end;
 
 procedure TXMLNodeWithChildren.WriteAttributesXML(const aWriter: TXMLWriter);
@@ -3436,20 +4315,24 @@ begin
      (Self.fPreserveWhiteSpace <> pwInherit) and
      (Self.fPreserveWhiteSpace <> TXMLNodeWithChildren(ParentNode).fPreserveWhiteSpace)
   then
-    aWriter.Attribute('xml:space', OXmlPreserveToStr(Self.fPreserveWhiteSpace));
+    aWriter.Attribute(XML_XML_SPACE, OXmlPreserveToStr(Self.fPreserveWhiteSpace));
 end;
 
 function TXMLNodeWithChildren._AddAttribute(const aAttrName,
   aAttrValue: OWideString): TXMLNode;
 begin
   Result := nil;
-  if (OwnerDocument.WhiteSpaceHandling = wsAutoTag) and SameText(aAttrName, 'xml:space') then begin
+  if (OwnerDocument.WhiteSpaceHandling = wsAutoTag) and OSameText(aAttrName, XML_XML_SPACE) then
+  begin
     Self.fPreserveWhiteSpace := OXmlStrToPreserve(aAttrValue);
-  end else begin
-    if FindAttribute(aAttrName, Result) then begin
+  end else
+  begin
+    if FindAttribute(aAttrName, Result) then
+    begin
       Result.SetNodeValue(aAttrValue);
-    end else begin
-      fOwnerDocument.CreateNode(ntAttribute, aAttrName, aAttrValue, Result);
+    end else
+    begin
+      Result := fOwnerDocument.CreateNode(ntAttribute, aAttrName, aAttrValue);
       Append(Result, ctAttribute);
     end;
   end;

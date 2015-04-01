@@ -8,7 +8,7 @@ uses
   FMX.Memo;
 
 type
-  TFormTest = class(TForm)
+  TForm1 = class(TForm)
     Memo1: TMemo;
     procedure FormCreate(Sender: TObject);
   private
@@ -18,7 +18,7 @@ type
   end;
 
 var
-  FormTest: TFormTest;
+  Form1: TForm1;
 
 implementation
 
@@ -26,7 +26,7 @@ uses OXmlUnitTests;
 
 {$R *.fmx}
 
-procedure TFormTest.FormCreate(Sender: TObject);
+procedure TForm1.FormCreate(Sender: TObject);
 var
   xTest: TOXmlUnitTest;
 begin

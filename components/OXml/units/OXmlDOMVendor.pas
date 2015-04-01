@@ -7,7 +7,7 @@ unit OXmlDOMVendor;
     All Rights Reserved.
 
   License:
-    MPL 1.1 / GPLv2 / LGPLv2 / FPC modified LGPLv2
+    CPAL 1.0 or commercial
     Please see the /license.txt file for more information.
 
 }
@@ -61,7 +61,7 @@ uses
   SysUtils, Classes, Variants, xmldom,
   {$ENDIF}
 
-  OWideSupp, OXmlUtils, OXmlPDOM;
+  OWideSupp, OXmlUtils, OTextReadWrite, OXmlPDOM;
 
 const
   sOXmlDOMVendor = 'OXml';
@@ -172,9 +172,11 @@ type
     property OXmlNodeList: TXMLChildNodeList read FOXmlNodeList;
   end;
 
+  TOXmlDOMNameSpaceFunc = function(const name: DOMString): IDOMNode of object; safecall;
+
   TOXmlDOMAttrNamedNodeMap = class(TOXmlDOMInterface, IDOMNamedNodeMap)
   private
-     FOXmlNodeList: TXMLChildNodeList;
+    FOXmlNode: PXMLNode;
   protected
     { IDOMNamedNodeMap }
     function get_item(index: Integer): IDOMNode; safecall;
@@ -186,8 +188,8 @@ type
     function setNamedItemNS(const arg: IDOMNode): IDOMNode; safecall;
     function removeNamedItemNS(const namespaceURI, localName: DOMString): IDOMNode; safecall;
   public
-    constructor Create(ANodeList: TXMLChildNodeList);
-    property OXmlNodeList: TXMLChildNodeList read FOXmlNodeList;
+    constructor Create(ANode: PXMLNode);
+    property OXmlNode: PXMLNode read FOXmlNode;
   end;
 
   TOXmlDOMCharacterData = class(TOXmlDOMNode, IDOMCharacterData)
@@ -344,7 +346,7 @@ type
   TOXmlDOMImplementationFactory = class(TDOMVendor)
   public
     function DOMImplementation: IDOMImplementation; override;
-    function Description: String; override;
+    function Description: string; override;
   end;
 
   TDOMIStreamAdapter = class(TStream)
@@ -362,8 +364,8 @@ var
 
 implementation
 
-resourcestring
-  SNodeExpected = 'Node cannot be null';
+var
+  SNodeExpected: OWideString = 'Node cannot be null';
 
 var
   GlobalOXmlDOMImpl: IDOMImplementation;
@@ -381,11 +383,12 @@ begin
       ntElement: xNewClass := TOXmlDOMElement;
       ntAttribute: xNewClass := TOXmlDOMAttr;
       ntText: xNewClass := TOXmlDOMText;
+      ntEntityReference: xNewClass := TOXmlDOMEntityReference;
       ntCData: xNewClass := TOXmlDOMCDATASection;
       ntComment: xNewClass := TOXmlDOMComment;
       ntProcessingInstruction: xNewClass := TOXmlDOMProcessingInstruction;
     else
-      raise Exception.Create('TOXmlDOMNode.get_nodeType: wrong implementation');
+      raise Exception.Create('MakeNode: wrong implementation');
     end;
     Result := xNewClass.Create(Node)
   end
@@ -410,10 +413,12 @@ begin
   Result := (Node as IOXmlNodeRef).GetOXmlNode;
 end;
 
-function MakeAttrNamedNodeMap(const NodeList: TXMLChildNodeList): IDOMNamedNodeMap;
+function MakeAttrNamedNodeMap(const Node: PXMLNode): IDOMNamedNodeMap;
 begin
-  Result := TOXmlDOMAttrNamedNodeMap.Create(NodeList);
+  Result := TOXmlDOMAttrNamedNodeMap.Create(Node);
 end;
+
+{ TDOMIStreamAdapter }
 
 constructor TDOMIStreamAdapter.Create(const Stream: IStream);
 begin
@@ -507,7 +512,7 @@ end;
 function TOXmlDOMNode.get_attributes: IDOMNamedNodeMap;
 begin
   if not Assigned(FAttributes) and Assigned(FOXmlNode.AttributeNodes) then
-    FAttributes := MakeAttrNamedNodeMap(FOXmlNode.AttributeNodes);
+    FAttributes := MakeAttrNamedNodeMap(FOXmlNode);
   Result := FAttributes;
 end;
 
@@ -530,12 +535,12 @@ end;
 
 function TOXmlDOMNode.get_localName: DOMString;
 begin
-  Result := '';//nyi
+  Result := FOXmlNode.LocalName;
 end;
 
 function TOXmlDOMNode.get_namespaceURI: DOMString;
 begin
-  Result := '';//nyi
+  Result := FOXmlNode.NameSpaceURI;
 end;
 
 function TOXmlDOMNode.get_nextSibling: IDOMNode;
@@ -557,6 +562,7 @@ begin
     ntElement: Result := ELEMENT_NODE;
     ntAttribute: Result := ATTRIBUTE_NODE;
     ntText: Result := TEXT_NODE;
+    ntEntityReference: Result := ENTITY_REFERENCE_NODE;
     ntCData: Result := CDATA_SECTION_NODE;
     ntComment: Result := COMMENT_NODE;
     ntProcessingInstruction: Result := PROCESSING_INSTRUCTION_NODE;
@@ -584,7 +590,7 @@ end;
 
 function TOXmlDOMNode.get_prefix: DOMString;
 begin
-  Result := '';//nyi
+  Result := FOXmlNode.NameSpacePrefix;
 end;
 
 function TOXmlDOMNode.get_previousSibling: IDOMNode;
@@ -717,60 +723,70 @@ end;
 
 { TOXmlDOMAttrNamedNodeMap }
 
-constructor TOXmlDOMAttrNamedNodeMap.Create(ANodeList: TXMLChildNodeList);
+constructor TOXmlDOMAttrNamedNodeMap.Create(ANode: PXMLNode);
 begin
   inherited Create;
 
-  FOXmlNodeList := ANodeList;
+  FOXmlNode := ANode;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.getNamedItem(const name: DOMString): IDOMNode;
+var
+  xAttr: PXMLNode;
 begin
-  Result := MakeNode(FOXmlNodeList.FindNode(name));
+  if FOXmlNode.FindAttribute(name, xAttr) then
+    Result := MakeNode(xAttr)
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.getNamedItemNS(const namespaceURI,
   localName: DOMString): IDOMNode;
+var
+  xAttr: PXMLNode;
 begin
-  Result := getNamedItem(namespaceURI+':'+localName);//nyi
+  if FOXmlNode.FindAttributeNS(namespaceURI, localName, xAttr) then
+    Result := MakeNode(xAttr)
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.get_item(index: Integer): IDOMNode;
 begin
-  Result := MakeNode(FOXmlNodeList[index]);
+  Result := MakeNode(FOXmlNode.AttributeFromBegin[index]);
 end;
 
 function TOXmlDOMAttrNamedNodeMap.get_length: Integer;
 begin
-  Result := FOXmlNodeList.Count;
+  Result := FOXmlNode.AttributeCount;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.removeNamedItem(
   const name: DOMString): IDOMNode;
-var
-  xNode: PXMLNode;
 begin
-  if FOXmlNodeList.Remove(name, xNode) then
-    Result := MakeNode(xNode)
-  else
-    Result := nil;
+  Result := getNamedItem(name);
+  if Assigned(Result) then
+    MakeOXmlNode(Result).RemoveSelfFromParent;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.removeNamedItemNS(const namespaceURI,
   localName: DOMString): IDOMNode;
 begin
-  Result := removeNamedItem(namespaceURI+':'+localName);//nyi
+  Result := getNamedItemNS(namespaceURI, localName);
+  if Assigned(Result) then
+    MakeOXmlNode(Result).RemoveSelfFromParent;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.setNamedItem(
   const newItem: IDOMNode): IDOMNode;
 begin
-  Result := MakeNode(FOXmlNodeList.AddNode(MakeOXmlNode(newItem)));
+  FOXmlNode.SetAttributeNode(MakeOXmlNode(newItem));
+  Result := newItem;
 end;
 
 function TOXmlDOMAttrNamedNodeMap.setNamedItemNS(const arg: IDOMNode): IDOMNode;
 begin
-  Result := setNamedItemNS(arg);
+  Result := setNamedItem(arg);
 end;
 
 { TOXmlDOMCharacterData }
@@ -896,26 +912,41 @@ end;
 
 function TOXmlDOMElement.getAttributeNodeNS(const namespaceURI,
   localName: DOMString): IDOMAttr;
+var
+  xNode: PXMLNode;
 begin
-  Result := getAttributeNode(namespaceURI+':'+localName);//nyi
+  if FOXmlNode.FindAttributeNS(namespaceURI, localName, xNode) then
+    Result := MakeNode(xNode) as IDOMAttr
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMElement.getAttributeNS(const namespaceURI,
   localName: DOMString): DOMString;
 begin
-  Result := getAttribute(namespaceURI+':'+localName);//nyi
+  FOXmlNode.FindAttributeNS(namespaceURI, localName, Result);
 end;
 
 function TOXmlDOMElement.getElementsByTagName(
   const name: DOMString): IDOMNodeList;
+var
+  xNodeList: IXMLNodeList;
 begin
-  Result := selectNodes(name);
+  if FOXmlNode.GetElementsByTagName(name, xNodeList) then
+    Result := MakeResNodeList(xNodeList)
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMElement.getElementsByTagNameNS(const namespaceURI,
   localName: DOMString): IDOMNodeList;
+var
+  xNodeList: IXMLNodeList;
 begin
-  Result := getElementsByTagName(namespaceURI+':'+localName);//nyi
+  if FOXmlNode.GetElementsByTagNameNS(namespaceURI, localName, xNodeList) then
+    Result := MakeResNodeList(xNodeList)
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMElement.get_tagName: DOMString;
@@ -931,7 +962,7 @@ end;
 function TOXmlDOMElement.hasAttributeNS(const namespaceURI,
   localName: DOMString): WordBool;
 begin
-  Result := hasAttribute(namespaceURI+':'+localName);
+  Result := FOXmlNode.HasAttributeNS(namespaceURI, localName);
 end;
 
 procedure TOXmlDOMElement.removeAttribute(const name: DOMString);
@@ -953,7 +984,7 @@ end;
 procedure TOXmlDOMElement.removeAttributeNS(const namespaceURI,
   localName: DOMString);
 begin
-  removeAttribute(namespaceURI+':'+localName);//nyi
+  FOXmlNode.DeleteAttributeNS(namespaceURI, localName);
 end;
 
 procedure TOXmlDOMElement.setAttribute(const name, value: DOMString);
@@ -980,7 +1011,7 @@ end;
 procedure TOXmlDOMElement.setAttributeNS(const namespaceURI, qualifiedName,
   value: DOMString);
 begin
-  setAttribute(namespaceURI+':'+qualifiedName, value);
+  FOXmlNode.SetAttributeNS(namespaceURI, qualifiedName, value);
 end;
 
 { TOXmlDOMText }
@@ -1066,7 +1097,7 @@ end;
 function TOXmlDOMDocument.createAttributeNS(const namespaceURI,
   qualifiedName: DOMString): IDOMAttr;
 begin
-  Result := createAttribute(namespaceURI+':'+qualifiedName);
+  Result := TOXmlDOMAttr.Create(FOXmlDocument.CreateAttributeNS(namespaceURI, qualifiedName));
 end;
 
 function TOXmlDOMDocument.createCDATASection(
@@ -1093,13 +1124,13 @@ end;
 function TOXmlDOMDocument.createElementNS(const namespaceURI,
   qualifiedName: DOMString): IDOMElement;
 begin
-  Result := createElement(namespaceURI+':'+qualifiedName);//nyi
+  Result := TOXmlDOMElement.Create(FOXmlDocument.CreateElementNS(namespaceURI, qualifiedName));
 end;
 
 function TOXmlDOMDocument.createEntityReference(
   const name: DOMString): IDOMEntityReference;
 begin
-  DOMVendorNotSupported('createEntityReference', sOXmlDOMVendor);
+  Result := TOXmlDOMEntityReference.Create(FOXmlDocument.CreateEntityReference(name));
 end;
 
 function TOXmlDOMDocument.createProcessingInstruction(const target,
@@ -1107,7 +1138,7 @@ function TOXmlDOMDocument.createProcessingInstruction(const target,
 var
   xNewNode: PXMLNode;
 begin
-  if target = 'xml' then
+  if target = XML_XML then
   begin
     xNewNode := FOXmlDocument.CreateXMLDeclaration;
     xNewNode.NodeValue := data;
@@ -1142,8 +1173,13 @@ end;
 
 function TOXmlDOMDocument.getElementsByTagNameNS(const namespaceURI,
   localName: DOMString): IDOMNodeList;
+var
+  xNodeList: IXMLNodeList;
 begin
-  Result := getElementsByTagName(namespaceURI+':'+localName);//nyi
+  if FOXmlDocument.Node.GetElementsByTagNameNS(namespaceURI, localName, xNodeList) then
+    Result := MakeResNodeList(xNodeList)
+  else
+    Result := nil;
 end;
 
 function TOXmlDOMDocument.get_async: Boolean;
@@ -1339,7 +1375,7 @@ end;
 
 { TOXmlDOMImplementationFactory }
 
-function TOXmlDOMImplementationFactory.Description: String;
+function TOXmlDOMImplementationFactory.Description: string;
 begin
   Result := sOXmlDOMVendor;
 end;

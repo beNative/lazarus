@@ -275,6 +275,7 @@ object dmSnippetSource: TdmSnippetSource
     Connected = False
     LoginPrompt = False
     AfterConnect = conMainAfterConnect
+    DatabaseName = 'snippets.db'
     KeepConnection = False
     Params.Strings = (
       'synchronous = 0'

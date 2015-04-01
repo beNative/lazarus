@@ -35,8 +35,6 @@ interface
 uses
   SysUtils, Classes, Variants, Graphics, DB, DBGrids,
 
-  ZConnection,
-
   BufDataset,
 
   ts.Core.KeyValues;
@@ -102,6 +100,7 @@ procedure ClearFieldValue(      ADataSet   : TDataSet;
 // SQLSelect ?
 
 // use KeyValues to store returned selection
+{
 
 function QueryLookup (      AConnection : TZConnection;
                       const AQuery      : string;
@@ -122,9 +121,9 @@ function QueryLookup(      AConnection    : TZConnection;
                            AResultStrings : TStrings;
                      const AKeyValue      : Variant;
                      const AKeyField      : string = '') : Boolean; overload;
-
+                     }
 //-----------------------------------------------------------------------------
-
+{
 function UpdateRecord(      AConnection  : TZConnection;
                       const ATable       : string;
                       const AUpdateField : string;
@@ -148,6 +147,7 @@ function InsertRecord(      AConnection   : TZConnection;
 //                   const ATable         : string;
 //                   const AKeyValue      : Variant;
 //                   const AKeyField      : string = 'ID');
+}
 
 //-----------------------------------------------------------------------------
 
@@ -179,10 +179,12 @@ function InsertRecord(      AConnection   : TZConnection;
 
 //-----------------------------------------------------------------------------
 
+{
 function GetQueryRecordCount(      AConnection    : TZConnection;
                              const AFromClause    : string;
                              const AWhereClause   : string = '';
                              const AGroupByClause : string = '') : Integer;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -221,9 +223,9 @@ function DataSetToString(ADataSet : TDataSet): string; overload;
 implementation
 
 uses
-  TypInfo, Forms, Controls, Dialogs, StrUtils,
+  TypInfo, Forms, Controls, Dialogs, StrUtils;
 
-  ZDataset;
+  //ZDataset;
 
 //=============================================================================
 
@@ -636,7 +638,7 @@ begin
 end;
 
 //-----------------------------------------------------------------------------
-
+{
 function QueryLookup(AConnection: TZConnection; const AQuery: string;
 const AParams: array of const) : Variant;
 var
@@ -792,6 +794,7 @@ begin
   end;
 end;
 
+}
 //-----------------------------------------------------------------------------
 
 //function ExecuteStoredProcedure(      AProcedure    : TADOStoredProc;
@@ -903,7 +906,7 @@ end;
 //end;
 
 //-----------------------------------------------------------------------------
-
+{
 function UpdateRecord(AConnection : TZConnection; const ATable : string;
   const AUpdateField : string; const AUpdateValue : Variant;
   const AKeyValue : Variant; const AKeyField : string) : Boolean;
@@ -1035,6 +1038,7 @@ begin
   end;
 end;
 
+}
 //-----------------------------------------------------------------------------
 
 //{ Returns the value of the parameter holding the returnvalue after execution

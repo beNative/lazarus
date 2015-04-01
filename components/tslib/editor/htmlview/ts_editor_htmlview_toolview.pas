@@ -77,7 +77,6 @@ begin
     .ToolSettings.ItemsByClass[THTMLViewSettings] as THTMLViewSettings;
 end;
 
-
 procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
@@ -86,9 +85,8 @@ begin
     FHTMLViewer.LoadFromFile(View.FileName)
   else
     FHTMLViewer.Load(View.Text);
-
 end;
 {$endregion}
 
 end.
-
+

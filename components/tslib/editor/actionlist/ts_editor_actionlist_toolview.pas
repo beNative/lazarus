@@ -582,6 +582,7 @@ begin
 
   FTVPActions := TTreeViewPresenter.Create(Self);
   FTVPActions.ListMode := True;
+  FTVPActions.ListMode := False;
   FTVPActions.AllowMove := False;
   FTVPActions.SyncMode := True;
   FTVPActions.ImageList := Manager.Actions.ActionList.Images as TImageList;

@@ -3,6 +3,7 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="tslib_editor"/>
+    <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
@@ -493,8 +494,7 @@
         <UnitName Value="ts.Editor.Factories.Manager"/>
       </Item115>
     </Files>
-    <Type Value="RunAndDesignTime"/>
-    <RequiredPkgs Count="11">
+    <RequiredPkgs Count="10">
       <Item1>
         <PackageName Value="oxml_lazarus"/>
       </Item1>
@@ -508,26 +508,23 @@
         <PackageName Value="HtmlComp"/>
       </Item4>
       <Item5>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LCL"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCL"/>
-      </Item10>
-      <Item11>
         <PackageName Value="FCL"/>
-      </Item11>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

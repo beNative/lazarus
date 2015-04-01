@@ -1,7 +1,7 @@
 object frmActionListView: TfrmActionListView
-  Left = -1289
+  Left = 506
   Height = 526
-  Top = 572
+  Top = 90
   Width = 800
   ActiveControl = edtFilterActions
   Caption = 'Actions'
@@ -11,7 +11,7 @@ object frmActionListView: TfrmActionListView
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   Position = poOwnerFormCenter
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object pnlEditorList: TPanel
     Left = 0
     Height = 526

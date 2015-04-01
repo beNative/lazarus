@@ -20,6 +20,8 @@ unit ts.Editor.Search.Data;
 
 { Data structures used to display the search results hierarchically. }
 
+{ TSearchResultGroup -> TSearchResultLine -> TSearchResult }
+
 {$MODE Delphi}
 
 interface
@@ -44,6 +46,7 @@ type
     FStartPos   : Integer;
     FEndPos     : Integer;
     FViewName   : string;
+
     function GetText: string;
 
   public
@@ -95,11 +98,11 @@ type
     function GetText: string;
 
   public
-    property List: TObjectList
-      read FList;
-
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
+    property List: TObjectList
+      read FList;
 
     property Line : Integer
       read FLine write FLine;
@@ -114,9 +117,10 @@ type
 
   TSearchResultGroup = class(TPersistent)
   private
-    FLines     : TObjectList;
+    FLines    : TObjectList;
     FFileName : string;
-    FViewName: string;
+    FViewName : string;
+
     function GetText: string;
 
   public

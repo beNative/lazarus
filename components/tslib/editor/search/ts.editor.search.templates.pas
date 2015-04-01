@@ -45,7 +45,6 @@ type
       override;
 
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
   end;
 
   { TSearchResultLineTemplate }
@@ -183,11 +182,6 @@ procedure TSearchResultGroupTemplate.AfterConstruction;
 begin
   RegisterDataTemplate(TSearchResultLineTemplate.Create(FColumnDefinitions));
   inherited AfterConstruction;
-end;
-
-procedure TSearchResultGroupTemplate.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
 end;
 {$endregion}
 

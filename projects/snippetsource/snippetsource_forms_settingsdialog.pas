@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -18,7 +18,7 @@
 
 unit SnippetSource_Forms_SettingsDialog;
 
-{$mode objfpc}{$H+}
+{$MODE DELPHI}
 
 { Manages settings for SnippetSource. }
 
@@ -132,7 +132,7 @@ begin
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
   grdGlyph.Images := (FData as IGlyphs).GlyphList;
   grdGlyph.Header.Columns[3].MaxWidth := 50;
-  dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
+  //dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
   chkAutomaticIndex.Checked := SQLiteSettings.AutomaticIndex;
 end;
 

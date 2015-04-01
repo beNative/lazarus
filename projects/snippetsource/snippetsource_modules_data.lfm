@@ -6,37 +6,28 @@ object dmMain: TdmMain
   Width = 392
   object qryMain: TZQuery
     Connection = conMain
+    SortType = stIgnored
     BeforePost = qryMainBeforePost
     SQL.Strings = (
       'select '
-      '  s.ID,'
-      '  s.ParentId,'
-      '  s.Text,'
-      '  s.NodeTypeID,'
-      '  s.ImageIndex,'
-      '  s.NodeName,'
-      '  s.NodePath,'
-      '  s.HighlighterID,'
-      '  s.Comment,'
-      '  s.CommentRTF,'
-      '  s.FoldLevel,'
-      '  s.FoldState'
+      '  *'
       'from '
-      '  Snippet s'
+      '  Snippet'
       'order by '
-      '  s.ParentID, s.ID'
+      '  ParentID, '
+      '  ID'
     )
     Params = <>
+    DataSource = dscLookup
     UpdateMode = umUpdateAll
-    Options = [doCalcDefaults, doSmartOpen]
     left = 224
     top = 25
   end
   object dscLookup: TDataSource
     DataSet = qryLookup
     OnDataChange = dscLookupDataChange
-    left = 138
-    top = 115
+    left = 152
+    top = 96
   end
   object qryHighlighter: TZQuery
     Connection = conMain
@@ -59,7 +50,6 @@ object dmMain: TdmMain
     MacroChar = #0
     Macros = <>
     Duplicates = dupAccept
-    OnChange = shDataBaseScriptChange
     left = 56
     top = 128
     StrData = (
@@ -179,7 +169,7 @@ object dmMain: TdmMain
   object qryLookup: TZQuery
     Connection = conMain
     Params = <>
-    UpdateMode = umUpdateAll
+    WhereMode = wmWhereAll
     left = 239
     top = 102
   end
@@ -806,7 +796,6 @@ object dmMain: TdmMain
   end
   object conMain: TZConnection
     ControlsCodePage = cCP_UTF8
-    AutoEncodeStrings = False
     Properties.Strings = (
       'AutoEncodeStrings=ON'
       'codepage='
@@ -815,10 +804,10 @@ object dmMain: TdmMain
     AfterConnect = conMainAfterConnect
     SQLHourGlass = True
     Port = 0
-    Database = 'snippets.db'
+    Database = 'D:\development\freepascal\projects\snippetsource\snippets.db'
     Protocol = 'sqlite-3'
     LibraryLocation = 'sqlite3.dll'
-    left = 164
-    top = 52
+    left = 136
+    top = 32
   end
 end

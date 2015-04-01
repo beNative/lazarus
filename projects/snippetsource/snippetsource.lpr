@@ -7,9 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  SysUtils, Forms, pascalscript, richmemopackage, lazrichedit,
+  SysUtils, Forms, pascalscript, richmemopackage,
   virtualtreeview_package, virtualdbtreeex_laz, virtualdbgrid_package,
-  luicontrols, khexeditorlaz, zcomponent, oxml_lazarus,
+  luicontrols, khexeditorlaz, oxml_lazarus,
 
   { you can add units after this }
 
@@ -33,17 +33,17 @@ uses
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
-  ts.Editor.HexEditor.Settings, ts.Editor.Types, ts_Editor_SortStrings_ToolView,
+  ts.Editor.HexEditor.Settings, ts.Editor.Types,
 
-  snippetsource_forms_main, snippetsource.virtualtree.editors, OBufferedStreams,
-  ODictionary, OEncoding, OHashedStrings, OTextReadWrite, OWideSupp;
+  SnippetSource_Forms_Main, SnippetSource.Virtualtree.Editors,
+  snippetsource_modules_data2, SnippetSource_Forms_SQLLog;
 
 {$R *.res}
 
 begin
-  //if FileExists('trace.trc') then
-  //  DeleteFile('trace.trc');
-  //SetHeapTraceOutput('trace.trc');
+  if FileExists('trace.trc') then
+    DeleteFile('trace.trc');
+  SetHeapTraceOutput('trace.trc');
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

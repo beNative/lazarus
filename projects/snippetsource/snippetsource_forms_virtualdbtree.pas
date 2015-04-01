@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -38,8 +38,8 @@ interface
 {$MODE Delphi}
 
 uses
-  ActnList, Buttons, Classes, ComCtrls, Controls, DB, DBCtrls, Dialogs,
-  ExtCtrls, Forms, Graphics, Menus, Variants, Windows, ImgList, ActiveX,
+  ActnList, Classes, ComCtrls, Controls, DB, DBCtrls, Dialogs, ExtCtrls, Forms,
+  Graphics, Menus, Variants, Windows, ImgList, ActiveX,
 
   VirtualTrees,
 
@@ -118,7 +118,6 @@ type
     procedure actCollapseAllNodesExecute(Sender: TObject);
 
     procedure dscMainDataChange(Sender: TObject; Field: TField);
-    procedure FormShow(Sender: TObject);
     procedure FTreeViewCreateEditor(Sender: TBaseVirtualTree; Node:
       PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
     procedure FTreeViewDragAllowed(Sender: TBaseVirtualTree; Node: PVirtualNode;
@@ -140,6 +139,7 @@ type
     FOnNewItemNode     : TNewItemNodeEvent;
     FNodeTypeFieldName : string;
 
+    {$region 'property access methods' /fold}
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
     function GetImgIdxFieldName: string;
@@ -170,6 +170,7 @@ type
     procedure SetToolbarTopVisible(const Value: Boolean);
     function GetToolbarBottomVisible: Boolean;
     function GetToolbarTopVisible: Boolean;
+  {$endregion}
 
     procedure GetFileListFromObj(
       const DataObj   : IDataObject;
@@ -280,6 +281,8 @@ implementation
 uses
   SysUtils, ShellApi,
 
+  ts.Core.SharedLogger,
+
   SnippetSource.VirtualTree.Editors;
 
 resourcestring
@@ -296,7 +299,6 @@ begin
   MultiSelect := True;
   ToolbarTopVisible := True;
   ToolbarBottomVisible := True;
-
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   LevelFieldName    := DEFAULT_LEVELFIELDNAME;
@@ -416,6 +418,11 @@ begin
   Result := FNodeTypeFieldName;
 end;
 
+procedure TfrmVirtualDBTree.SetNodeTypeFieldName(AValue: string);
+begin
+  FNodeTypeFieldName := AValue;
+end;
+
 function TfrmVirtualDBTree.GetParentField: TField;
 begin
   Result := FTreeView.ParentField;
@@ -424,11 +431,6 @@ end;
 procedure TfrmVirtualDBTree.SetLevelFieldName(const AValue: string);
 begin
   FTreeView.LevelFieldName := AValue;
-end;
-
-procedure TfrmVirtualDBTree.SetNodeTypeFieldName(AValue: string);
-begin
-  FNodeTypeFieldName := AValue;
 end;
 
 function TfrmVirtualDBTree.GetParentFieldName: string;
@@ -538,16 +540,9 @@ begin
   if Field = nil then
     FTreeView.ScrollIntoView(FTreeView.FocusedNode, True);
 end;
-
-procedure TfrmVirtualDBTree.FormShow(Sender: TObject);
-begin
-  //InspectComponent(FTreeView);
-end;
 {$endregion}
 
 {$region 'event handlers' /fold}
-//= FTreeView ===================================================================
-
 procedure TfrmVirtualDBTree.FTreeViewCreateEditor(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
 begin
@@ -659,8 +654,6 @@ end;
 {$region 'protected methods' /fold}
 procedure TfrmVirtualDBTree.PostTreeData(AParentID, ANodeType: Integer;
   const AName: string);
-var
-  ID : Integer;
 begin
   DataSet.Append;
   ParentField.AsInteger   := AParentID;
@@ -761,7 +754,6 @@ begin
     TreeOptions.StringOptions := [toAutoAcceptEditChange];
   end;
 end;
-
 {$endregion}
 
 {$region 'public methods' /fold}
@@ -806,5 +798,4 @@ begin
   DoNewFolderNode;
 end;
 {$endregion}
-
 end.

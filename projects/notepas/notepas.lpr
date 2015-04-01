@@ -154,8 +154,8 @@ uses
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
   ts.Editor.Factories,
-  ts.Editor.Options.Settings,
-  SynFacilHighlighter;
+  ts.Editor.Options.Settings;
+  //SynFacilHighlighter;
 
 {$R *.res}
 

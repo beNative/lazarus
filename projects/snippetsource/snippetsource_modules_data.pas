@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -27,7 +27,7 @@ uses
 
   StrHolder,
   // zeos
-  ZConnection, ZDataset, ZSqlUpdate, ZSequence, ZSqlMetadata,
+  ZConnection, ZDataset,
 
   SnippetSource.Interfaces;
 
@@ -38,7 +38,7 @@ uses
     in combination with SQLite (Well, I couldn't manage to get it work properly
     at least).
 
-    It is important to select only from one table in qryMain as long that we
+    It is important to select only from one table in qryMain as long as we
     don't have a good solution to address this problem.
 }
 
@@ -51,24 +51,25 @@ type
                                IDataSet,
                                ILookup,
                                IGlyphs,
-                               IHighlighters,
-                               ISQLiteSettings)
-    conMain          : TZConnection;
-    dscLookup        : TDatasource;
-    imlMain          : TImageList;
-    imlGlyphs        : TImageList;
-    qryNodeType      : TZQuery;
-    qryHighlighter   : TZQuery;
-    qryLookup        : TZQuery;
-    qryMain          : TZQuery;
-    qryGlyph         : TZQuery;
-    shDataBaseScript : TStrHolder;
+                               IHighlighters)
+    conMain               : TZConnection;
+    dscLookup             : TDatasource;
+    imlMain               : TImageList;
+    imlGlyphs             : TImageList;
+    qryNodeType           : TZQuery;
+    qryHighlighter        : TZQuery;
+    qryLookup             : TZQuery;
+    qryMain               : TZQuery;
+    qryGlyph              : TZQuery;
+    qrySnippetDataComment : TMemoField;
+    qrySnippetDatarowid   : TLargeintField;
+    qrySnippetDataText    : TMemoField;
+    shDataBaseScript      : TStrHolder;
 
     procedure conMainAfterConnect(Sender: TObject);
     procedure dscLookupDataChange(Sender: TObject; Field: TField);
     procedure qryHighlighterAfterPost(DataSet: TDataSet);
     procedure qryMainBeforePost(DataSet: TDataSet);
-    procedure shDataBaseScriptChange(Sender: TObject);
 
   private
     function GetGlyphList: TImageList;
@@ -110,12 +111,6 @@ type
     procedure SetText(AValue: string);
     function GetFileName: string;
     procedure SetFileName(AValue: string);
-
-    { ISQLiteSettings }
-    function GetAutomaticIndex: Boolean;
-    function GetAutoVacuum: Boolean;
-    procedure SetAutomaticIndex(AValue: Boolean);
-    procedure SetAutoVacuum(AValue: Boolean);
 
     procedure SetValue(const AFieldName: string; const AValue: Variant);
     function AsString(const AFieldName: string): string;
@@ -212,13 +207,6 @@ type
       read GetText write SetText;
     property ImageIndex: Integer
       read GetImageIndex write SetImageIndex;
-
-    { ISQLiteSettings }
-    property AutoVacuum: Boolean
-      read GetAutoVacuum write SetAutoVacuum;
-
-    property AutomaticIndex: Boolean
-      read GetAutomaticIndex write SetAutomaticIndex;
   end;
 
 implementation
@@ -226,17 +214,19 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, Forms, SysUtils, Dialogs, Math;
+  Variants, Forms, SysUtils, Dialogs,
+
+  ts.Core.SharedLogger;
 
 {$region 'construction and destruction' /fold}
 procedure TdmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
   conMain.Connect;
-  //conMain.ExecuteDirect('PRAGMA synchronous = 1;'); // speeds up inserts
+  conMain.ExecuteDirect('PRAGMA synchronous = 1;'); // speeds up inserts
 
-  conMain.ExecuteDirect('PRAGMA synchronous = 0;');
-  conMain.ExecuteDirect('PRAGMA journal_mode = WAL;');
+  //conMain.ExecuteDirect('PRAGMA synchronous = 0;');
+  //conMain.ExecuteDirect('PRAGMA journal_mode = WAL;');
   conMain.ExecuteDirect('PRAGMA journal_mode = OFF;');
   conMain.ExecuteDirect('PRAGMA locking_mode = EXCLUSIVE;');
   conMain.ExecuteDirect('PRAGMA temp_store = MEMORY;');
@@ -244,6 +234,7 @@ begin
   conMain.ExecuteDirect('PRAGMA PAGE_SIZE = 4096;');
   conMain.ExecuteDirect('PRAGMA default_cache_size = 700000;');
   conMain.ExecuteDirect('PRAGMA cache_size = 700000;');
+  conMain.ExecuteDirect('PRAGMA automatic_index = 1;');
   qryHighlighter.Active := True;
   qryNodeType.Active    := True;
   LoadGlyphs;
@@ -301,11 +292,6 @@ end;
 function TdmMain.GetNodePath: string;
 begin
   Result := AsString('NodePath');
-end;
-
-function TdmMain.GetNodeTypeID: Integer;
-begin
-  Result := AsInteger('NodeTypeID');
 end;
 
 function TdmMain.GetParentID: Integer;
@@ -376,19 +362,19 @@ begin
   SetValue('HighlighterID', qryHighlighter.Lookup('Code', AValue, 'ID'));
 end;
 
+function TdmMain.GetImageIndex: Integer;
+begin
+  Result := AsInteger('ImageIndex');
+end;
+
 procedure TdmMain.SetImageIndex(AValue: Integer);
 begin
-  //SetValue('ImageIndex', AValue);
+  SetValue('ImageIndex', AValue);
 end;
 
 function TdmMain.GetID: Integer;
 begin
   Result := AsInteger('ID');
-end;
-
-function TdmMain.GetImageIndex: Integer;
-begin
-  Result := AsInteger('ImageIndex');
 end;
 
 function TdmMain.GetLookupDataSet: TDataSet;
@@ -404,6 +390,11 @@ end;
 procedure TdmMain.SetNodePath(AValue: string);
 begin
   SetValue('NodePath', AValue);
+end;
+
+function TdmMain.GetNodeTypeID: Integer;
+begin
+  Result := AsInteger('NodeTypeID');
 end;
 
 procedure TdmMain.SetNodeTypeID(AValue: Integer);
@@ -436,26 +427,6 @@ begin
   end;
 end;
 
-function TdmMain.GetAutoVacuum: Boolean;
-begin
-
-end;
-
-procedure TdmMain.SetAutomaticIndex(AValue: Boolean);
-begin
-  conMain.ExecuteDirect(Format('PRAGMA automatic_index = %d;', [IfThen(AValue, 1, 0)]));
-end;
-
-function TdmMain.GetAutomaticIndex: Boolean;
-begin
-  //Result := QueryLookup(conMain, 'PRAGMA automatic_index;') = 1;
-end;
-
-procedure TdmMain.SetAutoVacuum(AValue: Boolean);
-begin
-
-end;
-
 function TdmMain.GetGlyphList: TImageList;
 begin
   Result := imlGlyphs;
@@ -480,13 +451,13 @@ end;
 {$region 'event handlers' /fold}
 procedure TdmMain.dscLookupDataChange(Sender: TObject; Field: TField);
 begin
-  //if DataSet.Active then
-  //begin
-  //  DataSet.Locate(
-  //    'ID',
-  //    VarArrayOf([qryLookup.FieldByName('ID').Value]), [loCaseInsensitive]
-  //  );
-  //end;
+  if DataSet.Active then
+  begin
+    DataSet.Locate(
+      'ID',
+      VarArrayOf([qryLookup.FieldByName('ID').Value]), [loCaseInsensitive]
+    );
+  end;
 end;
 
 procedure TdmMain.qryHighlighterAfterPost(DataSet: TDataSet);
@@ -496,15 +467,14 @@ end;
 
 procedure TdmMain.qryMainBeforePost(DataSet: TDataSet);
 begin
-  if NodeTypeID = 1 then
-    SetValue('ImageIndex', qryNodeType.Lookup('ID', NodeTypeID, 'ImageIndex'))
+  if NodeTypeID = 1 then // folder
+  begin
+    ImageIndex := qryNodeType.Lookup('ID', NodeTypeID, 'ImageIndex')
+  end
   else
-    SetValue('ImageIndex', qryHighlighter.Lookup('ID', DataSet['HighlighterID'], 'ImageIndex'))
-end;
-
-procedure TdmMain.shDataBaseScriptChange(Sender: TObject);
-begin
-
+  begin // file, lookup imageindex for the associated highlighter
+    ImageIndex := qryHighlighter.Lookup('ID', DataSet['HighlighterID'], 'ImageIndex');
+  end;
 end;
 
 procedure TdmMain.conMainAfterConnect(Sender: TObject);
@@ -518,10 +488,19 @@ procedure TdmMain.SetValue(const AFieldName: string; const AValue: Variant);
 begin
   if DataSet.Active then
   begin
-    if not (DataSet.State in dsEditModes) then
-      DataSet.Edit;
-    DataSet[AFieldName] := AValue;
+    //if (DataSet[AFieldName] <> Null) and (DataSet[AFieldName] <> AValue) then
+    begin
+      if not (DataSet.State in dsEditModes) then
+        DataSet.Edit;
+      DataSet[AFieldName] := AValue;
+    end;
   end;
+
+  //if dsInsert = DataSet.State then
+  //begin
+  //  DataSet[AFieldName] := AValue;
+  //end
+  //else
 end;
 
 function TdmMain.AsString(const AFieldName: string): string;
@@ -534,7 +513,7 @@ begin
   if DataSet.Active and not VarIsNull(DataSet[AFieldName]) then
     Result := DataSet[AFieldName]
   else
-    Result := 0;
+    Result := -1;
 end;
 {$endregion}
 
@@ -665,18 +644,20 @@ const
     '  h.Code as Highlighter' + #13#10 +
     'from' + #13#10 +
     '  Snippet s' + #13#10 +
-    '  inner join NodeType nt' + #13#10 +
-    '    on (s.NodeTypeId = nt.Id)' + #13#10 +
+    '  inner join SnippetData sd'  + #13#10 +
+    '    on (s.ID = sd.RowId)'   + #13#10 +
+    //'  inner join NodeType nt' + #13#10 +
+    //'    on (s.NodeTypeId = nt.Id)' + #13#10 +
     '  left outer join Highlighter h' + #13#10 +
     '    on (s.HighlighterID = h.Id)' + #13#10 +
     'where' + #13#10 +
-    '  nt.Id = 2' + #13#10 +
-    '  and h.Code in (''PAS'')' + #13#10 +
-    '  and (' + #13#10 +
-    '    (1 = %d and Text like ''%%%s%%'')' + #13#10 +
-    '    or (1 = %d and NodeName like ''%%%s%%'')' + #13#10 +
-    '    or (1 = %d and Comment like ''%%%s%%'')' + #13#10 +
-    '  )';
+    '  Text match ''%%s''';
+
+
+    //'    (1 = %d and Text like ''%%%s%%'')' + #13#10 +
+    //'    or (1 = %d and NodeName like ''%%%s%%'')' + #13#10 +
+    //'    or (1 = %d and Comment like ''%%%s%%'')' + #13#10 +
+    //'  ';
 var
   S: string;
 begin
@@ -685,10 +666,12 @@ begin
   qryLookup.Active := False;
   qryLookup.SQL.Text := Format(
     LOOKUP_SQL,
-    [IfThen(ASearchInText, 1, 0), ASearchString,
-     IfThen(ASearchInName, 1, 0), ASearchString,
-     IfThen(ASearchInComment, 1, 0), ASearchString
-    ]);
+    [ASearchString]
+  );
+    //[IfThen(ASearchInText, 1, 0), ASearchString
+    // IfThen(ASearchInName, 1, 0), ASearchString,
+    // IfThen(ASearchInComment, 1, 0), ASearchString
+    //]);
   qryLookup.Active := True;
   qryLookup.EnableControls;
   DataSet.EnableControls;

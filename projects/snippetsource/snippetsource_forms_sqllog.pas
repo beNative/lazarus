@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -25,26 +25,24 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, DBGrids,
 
-  ZDbcIntfs, ZDbcLogging,
-
   ts.Editor.Interfaces;
 
 type
-  TfrmSQLLog = class(TForm, IZLoggingListener)
-    dscMain: TDatasource;
-    grdMain: TDBGrid;
+  TfrmSQLLog = class(TForm)
+    dscMain : TDatasource;
+    grdMain : TDBGrid;
 
   private
     FManager : IEditorManager;
 
     function GetDataSet: TDataSet;
     procedure SetDataSet(AValue: TDataSet);
-    { private declarations }
+
   public
-    { public declarations }
+
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
-    procedure LogEvent(Event: TZLoggingEvent);
+    //procedure LogEvent(Event: TZLoggingEvent);
 
     property DataSet: TDataSet
       read GetDataSet write SetDataSet;
@@ -57,6 +55,28 @@ uses
 
 {$R *.lfm}
 
+{$region 'construction and destruction' /fold}
+procedure TfrmSQLLog.AfterConstruction;
+var
+  V: IEditorView;
+begin
+  inherited AfterConstruction;
+  FManager := TEditorFactories.CreateManager(Self, nil);
+  V := TEditorFactories.CreateView(Self, FManager, 'Editor2');
+  V.HighlighterName := 'SQL';
+//  DriverManager.AddLoggingListener(Self);
+  V.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
+end;
+
+procedure TfrmSQLLog.BeforeDestruction;
+begin
+  FManager := nil;
+  //DriverManager.RemoveLoggingListener(Self);
+  inherited BeforeDestruction;
+end;
+{$endregion}
+
+{$region 'property access mehods' /fold}
 function TfrmSQLLog.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
@@ -66,32 +86,15 @@ procedure TfrmSQLLog.SetDataSet(AValue: TDataSet);
 begin
   dscMain.DataSet := AValue;
 end;
+{$endregion}
 
-procedure TfrmSQLLog.AfterConstruction;
-var
-  V: IEditorView;
-begin
-  inherited AfterConstruction;
-  FManager := TEditorFactories.CreateManager(Self, nil);
-  V := TEditorFactories.CreateView(Self, FManager, 'Editor2');
-  V.HighlighterName := 'SQL';
-  DriverManager.AddLoggingListener(Self);
-  V.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
- // btnHighlighter.Menu := EditorActions.HighlighterPopupMenu;
-  //V.OnStatusChange := @EStatusChange;
-end;
-
-procedure TfrmSQLLog.BeforeDestruction;
-begin
-  FManager := nil;
-  DriverManager.RemoveLoggingListener(Self);
-  inherited BeforeDestruction;
-end;
-
-procedure TfrmSQLLog.LogEvent(Event: TZLoggingEvent);
-begin
-  FManager.Views.ViewByName['Editor2'].Text := FManager.Views.ViewByName['Editor2'].Text + Event.Message + #13#10;
-end;
+{$region 'public methods' /fold}
+//procedure TfrmSQLLog.LogEvent(Event: TZLoggingEvent);
+//begin
+//  FManager.Views.ViewByName['Editor2'].Text :=
+//    FManager.Views.ViewByName['Editor2'].Text + Event.AsString + #13#10;
+//end;
+{$endregion}
 
 end.
 

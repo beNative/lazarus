@@ -1,7 +1,7 @@
 object frmLookup: TfrmLookup
-  Left = -767
+  Left = 529
   Height = 474
-  Top = 227
+  Top = 186
   Width = 479
   Caption = 'Lookup'
   ClientHeight = 474
@@ -73,8 +73,8 @@ object frmLookup: TfrmLookup
   end
   object grdLookup: TVirtualDBGrid
     Left = 2
-    Height = 396
-    Top = 56
+    Height = 220
+    Top = 232
     Width = 475
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWhite
@@ -96,8 +96,18 @@ object frmLookup: TfrmLookup
     DBOptions.SortColumnBgColor = 15658734
     DBOptions.AdvOptions = [aoShowHorzLines, aoShowVertLines, aoAllowSorting, aoHighlightSortColumn, aoHourGlassCursor, aoSortDBFieldColumns, aoSortCalculatedColumns, aoFullRowSelect]
   end
+  object Memo1: TMemo
+    Left = 8
+    Height = 162
+    Top = 56
+    Width = 462
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 7
+  end
   object dscMain: TDataSource
-    DataSet = dmMain.qryLookup
     left = 160
     top = 144
   end

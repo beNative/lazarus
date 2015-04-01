@@ -8,11 +8,10 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   ClientHeight = 425
   ClientWidth = 318
   KeyPreview = True
-  OnShow = FormShow
   ParentFont = True
   PopupMenu = ppmTreeView
   ShowHint = True
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.3'
   object pnlMain: TPanel
     Left = 3
     Height = 419
@@ -48,24 +47,24 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Images = imlMain
         TabOrder = 0
         object btnNewRoot: TToolButton
-          Left = 3
-          Top = 2
+          Left = 1
+          Top = 0
           Action = actNewRootFolderNode
         end
         object btnNewFolder: TToolButton
-          Left = 26
-          Top = 2
+          Left = 24
+          Top = 0
           Action = actNewFolderNode
         end
         object btnNewItem: TToolButton
-          Left = 49
-          Top = 2
+          Left = 47
+          Top = 0
           Action = actNewItemNode
         end
         object navTreeView: TDBNavigator
-          Left = 230
-          Height = 20
-          Top = 2
+          Left = 232
+          Height = 24
+          Top = 0
           Width = 80
           Align = alRight
           AutoSize = True
@@ -76,7 +75,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 100
-          ClientHeight = 20
+          ClientHeight = 24
           ClientWidth = 80
           DataSource = dscMain
           Flat = True
@@ -90,18 +89,18 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     end
     object pnlBottom: TPanel
       Left = 0
-      Height = 26
-      Top = 393
+      Height = 22
+      Top = 397
       Width = 312
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 26
+      ClientHeight = 22
       ClientWidth = 312
       TabOrder = 1
       object tlbBottomRight: TToolBar
         Left = 0
-        Height = 26
+        Height = 22
         Top = 0
         Width = 312
         Align = alClient
@@ -112,20 +111,20 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Images = imlMain
         TabOrder = 0
         object btnExpandNodes: TToolButton
-          Left = 3
-          Top = 2
+          Left = 1
+          Top = 0
           Action = actExpandAllNodes
         end
         object btnCollapseNodes: TToolButton
-          Left = 26
-          Top = 2
+          Left = 24
+          Top = 0
           Action = actCollapseAllNodes
         end
       end
     end
     object pnlTree: TPanel
       Left = 0
-      Height = 369
+      Height = 373
       Top = 24
       Width = 312
       Align = alClient

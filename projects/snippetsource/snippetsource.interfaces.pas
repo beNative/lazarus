@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -35,8 +35,6 @@ type
 
     function Execute(const ASQL: string): Boolean;
     procedure CreateNewDatabase;
-    procedure BeginUpdate;
-    procedure EndUpdate;
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -154,15 +152,15 @@ type
 
   ILookup = interface
   ['{6B45FCDB-7F36-450D-9C2E-820C69204F4D}']
-    function GetDataSet: TDataSet;
+    function GetLookupDataSet: TDataSet;
     procedure Lookup(
       const ASearchString    : string;
             ASearchInText    : Boolean;
             ASearchInName    : Boolean;
             ASearchInComment : Boolean
     );
-    property DataSet: TDataSet
-      read GetDataSet;
+    property LookupDataSet: TDataSet
+      read GetLookupDataSet;
   end;
 
   IGlyphs = interface
@@ -179,14 +177,6 @@ type
       read GetImageList;
     property GlyphList: TImageList
       read GetGlyphList;
-  end;
-
-  IHighlighters = interface
-  ['{92F3535C-D06F-4DC9-B51D-E3AAD90779E2}']
-    function GetHighlighterDataSet: TDataSet;
-
-    property HighlighterDataSet: TDataSet
-      read GetHighlighterDataSet;
   end;
 
 implementation

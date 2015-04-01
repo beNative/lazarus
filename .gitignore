@@ -1,3 +1,4 @@
 *.o
 *.ppu
 *.compiled
+/components/luipack/lclextensions/lib/i386-win32-win32/*.a

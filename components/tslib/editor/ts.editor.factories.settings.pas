@@ -61,7 +61,7 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni,
 
-  SynFacilHighlighter,
+  //SynFacilHighlighter,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -117,7 +117,7 @@ var
   S  : string;
   F  : string;
   SU : TSynUniSyn;
-  FH : TSynFacilSyn;
+  //FH : TSynFacilSyn;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
@@ -163,7 +163,7 @@ begin
 
 
 
-  Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
+  //Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
     // apply common highlighter attributes
 
 
@@ -282,8 +282,8 @@ begin
     TSynUNIXShellScriptSyn,
     TSynINISyn,
     TSynUniSyn,
-    TSynCustomHighlighter,
-    TSynFacilSyn
+    TSynCustomHighlighter
+//    TSynFacilSyn
   ]);
 end;
 {$endregion}

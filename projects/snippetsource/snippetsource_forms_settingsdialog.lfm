@@ -1,7 +1,7 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = -1007
+  Left = -326
   Height = 461
-  Top = 150
+  Top = 341
   Width = 462
   Caption = 'Settings'
   ClientHeight = 461

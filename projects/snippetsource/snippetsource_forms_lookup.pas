@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2014 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -23,10 +23,8 @@ unit SnippetSource_Forms_Lookup;
 interface
 
 uses
-  Classes, SysUtils, db, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, ActnList,
-
-  LMessages,
 
   VirtualTrees,
 
@@ -37,6 +35,9 @@ uses
   SnippetSource.Interfaces;
 
 type
+
+  { TfrmLookup }
+
   TfrmLookup = class(TForm)
     aclMain    : TActionList;
     actSearch  : TAction;
@@ -47,6 +48,7 @@ type
     dscMain    : TDatasource;
     edtLookup  : TEdit;
     grdLookup  : TVirtualDBGrid;
+    Memo1: TMemo;
     sbrMain    : TStatusBar;
 
     procedure actSearchExecute(Sender: TObject);
@@ -71,7 +73,11 @@ type
     procedure Changed;
 
   public
-    constructor Create(TheOwner: TComponent; AEditor: IEditorView; ALookup: ILookup); reintroduce; virtual;
+    constructor Create(
+      AOwner  : TComponent;
+      AEditor : IEditorView;
+      ALookup : ILookup
+    ); reintroduce; virtual;
     destructor Destroy; override;
 
     procedure UpdateActions; override;
@@ -104,12 +110,13 @@ begin
   FLookupForm.Show;
 end;
 
-constructor TfrmLookup.Create(TheOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
+{$region 'construction and destruction' /fold}
+constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
 begin
-  inherited Create(TheOwner);
+  inherited Create(AOwner);
   FData   := ALookup;
   FEditor := AEditor;
-  dscMain.DataSet := FData.DataSet;
+  dscMain.DataSet := ALookup.LookupDataSet;
 end;
 
 destructor TfrmLookup.Destroy;
@@ -118,25 +125,31 @@ begin
   FData   := nil;
   inherited Destroy;
 end;
+{$endregion}
 
+{$region 'property access mehods' /fold}
 function TfrmLookup.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
 end;
+{$endregion}
 
 procedure TfrmLookup.Changed;
 begin
   FUpdate := True;
 end;
 
+{$region 'action handlers' /fold}
 procedure TfrmLookup.actSearchExecute(Sender: TObject);
 begin
   Execute;
 end;
+{$endregion}
 
+{$region 'event handlers' /fold}
 procedure TfrmLookup.chkNameChange(Sender: TObject);
 begin
-  //Execute;
+  Execute;
 end;
 
 procedure TfrmLookup.edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -272,13 +285,14 @@ procedure TfrmLookup.grdLookupMouseUp(Sender: TObject; Button: TMouseButton;
 begin
   Changed;
 end;
+{$endregion}
 
+{$region 'public methods' /fold}
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;
   if FUpdate then
   begin
-
     if Visible then
     begin
       (FData as IDataSet).DataSet.DisableControls;
@@ -296,11 +310,16 @@ end;
 
 procedure TfrmLookup.Execute;
 begin
-  FData.DataSet.DisableControls;
-  (FData as ILookup).Lookup(edtLookup.Text, chkText.Checked, chkName.Checked, chkComment.Checked);
-  if not FData.DataSet.IsEmpty then
+  FData.LookupDataSet.DisableControls;
+  (FData as ILookup).Lookup(
+    edtLookup.Text,
+    chkText.Checked,
+    chkName.Checked,
+    chkComment.Checked
+  );
+  if not FData.LookupDataSet.IsEmpty then
     FEditor.SearchAndSelectText(edtLookup.Text);
-  FData.DataSet.EnableControls;
+  FData.LookupDataSet.EnableControls;
   AutoSizeColumns;
 end;
 
@@ -325,6 +344,7 @@ begin
   end;
   grdLookup.Header.AutoFitColumns(False);
 end;
+{$endregion}
 
 end.
 

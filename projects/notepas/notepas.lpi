@@ -1147,7 +1147,6 @@ end;"/>
       <Unit31>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.encodingutils.pas"/>
@@ -1281,7 +1280,6 @@ end;"/>
         <ComponentName Value="CustomEditorToolView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_ToolView_Base"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
@@ -1640,6 +1638,7 @@ end;"/>
       <Unit126>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
       </Unit126>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
@@ -1660,7 +1659,6 @@ end;"/>
       <Unit131>
         <Filename Value="..\..\components\SynFacilSyn\SynFacilHighlighter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="SynFacilHighlighter"/>
       </Unit131>
     </Units>
   </ProjectOptions>

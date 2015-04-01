@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 469
+  Left = 548
   Height = 598
-  Top = 191
+  Top = 427
   Width = 999
   Caption = 'SnippetSource'
   ClientHeight = 598
@@ -15,7 +15,7 @@ object frmMain: TfrmMain
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object pnlLeft: TPanel
     Left = 0
     Height = 578
@@ -71,10 +71,16 @@ object frmMain: TfrmMain
           EdgeOuter = esNone
           TabOrder = 0
         end
-        object ToolButton1: TToolButton
+        object btnLookup: TToolButton
           Left = 1
           Top = 0
           Action = actLookup
+        end
+        object btnSettingsDialog: TToolButton
+          Left = 21
+          Top = 0
+          Action = actSettings
+          ImageIndex = 7
         end
       end
       object pnlComments: TPanel
@@ -99,6 +105,7 @@ object frmMain: TfrmMain
           EdgeInner = esNone
           EdgeOuter = esNone
           TabOrder = 0
+          Transparent = True
         end
       end
       object splHorizontal: TSplitter
@@ -154,13 +161,6 @@ object frmMain: TfrmMain
           ParentFont = False
           TabOrder = 0
           Text = 'abcdefghijklmnop ABCDEFGHIJKLMNOP'
-        end
-        object imgNode: TImage
-          Left = 6
-          Height = 16
-          Top = 5
-          Width = 16
-          Align = alCustom
         end
         object btnHighlighter: TMenuButton
           Left = 649

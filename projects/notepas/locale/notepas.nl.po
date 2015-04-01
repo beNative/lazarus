@@ -3211,6 +3211,22 @@ msgctxt "ts.core.utils.snocorrespondingfieldtype"
 msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
+msgstr ""
+
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
 msgstr ""

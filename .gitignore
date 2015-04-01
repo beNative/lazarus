@@ -2,3 +2,17 @@
 *.ppu
 *.compiled
 /components/luipack/lclextensions/lib/i386-win32-win32/*.a
+/components/ExceptionLogger/lib
+/components/htmlport/package/units
+/components/kcontrols/source/lib
+/components/luipack/lclextensions/lib
+/components/luipack/luicomponents/lib
+/components/luipack/luicontrols/lib
+/components/omultipanel/package/lib
+/components/OXml/units/lib
+/components/richmemo/lib
+/components/virtualdbgrid/lib
+/components/virtualdbtreeex/lib
+/components/virtualtrees/lib
+/projects/notepas/lib
+/projects/snippetsource/lib

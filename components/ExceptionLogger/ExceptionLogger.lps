@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="9"/>
+    <Units Count="3">
+      <Unit0>
+        <Filename Value="CustomLineInfo.pas"/>
+        <UnitName Value="CustomLineInfo"/>
+        <TopLine Value="320"/>
+        <CursorPos X="6" Y="339"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="..\luipack\luicontrols\virtualpages.pas"/>
+        <UnitName Value="VirtualPages"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="52" Y="8"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="..\htmlport\package\htmlun2.pas"/>
+        <UnitName Value="htmlun2"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="473"/>
+        <CursorPos X="6" Y="493"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit2>
+    </Units>
+    <JumpHistory Count="5" HistoryIndex="4">
+      <Position1>
+        <Filename Value="CustomLineInfo.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="CustomLineInfo.pas"/>
+        <Caret Line="405" TopLine="366"/>
+      </Position2>
+      <Position3>
+        <Filename Value="..\luipack\luicontrols\virtualpages.pas"/>
+      </Position3>
+      <Position4>
+        <Filename Value="..\luipack\luicontrols\virtualpages.pas"/>
+        <Caret Line="8" Column="41"/>
+      </Position4>
+      <Position5>
+        <Filename Value="..\htmlport\package\htmlun2.pas"/>
+      </Position5>
+    </JumpHistory>
+  </ProjectSession>
+</CONFIG>

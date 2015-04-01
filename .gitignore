@@ -18,3 +18,4 @@
 /projects/snippetsource/lib
 /projects/snippetsource/*.trc
 /components/tslib/lib
+*.or

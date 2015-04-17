@@ -252,7 +252,7 @@ begin
           PostMessage(FWndHandle, WM_DIRWATCH_NOTIFY, NotifyData^.Action, LParam(FileName));
 
         //  TODO: TS: 64 bit!!!
-//          Inc(DWORD(NotifyData), NextEntry);
+          //Inc(DWORD(NotifyData), NextEntry);
         until (NextEntry = 0);
       end;
     end;

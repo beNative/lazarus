@@ -3139,6 +3139,8 @@ var
   B : Boolean;
 begin
   B := FileExistsUTF8(ActiveView.FileName);
+  Logger.Send('Filexists', ActiveView.FileName);
+  Logger.Send('Filexists', B);
   actCreateDesktopLink.Enabled := B;
   actCopyFileName.Enabled      := B;
   actCopyFilePath.Enabled      := B;

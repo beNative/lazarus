@@ -3,14 +3,14 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Debug"/>
-    <Units Count="66">
+    <BuildModes Active="Release win32 i386 win32"/>
+    <Units Count="67">
       <Unit0>
         <Filename Value="logviewer.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="logviewer"/>
         <EditorIndex Value="7"/>
-        <CursorPos X="30" Y="11"/>
+        <CursorPos Y="22"/>
         <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -30,7 +30,7 @@
         <Filename Value="logviewer.watchlist.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="LogViewer.WatchList"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="14"/>
         <TopLine Value="43"/>
         <CursorPos X="60" Y="48"/>
         <UsageCount Value="56"/>
@@ -309,9 +309,13 @@
       </Unit49>
       <Unit50>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <TopLine Value="18"/>
-        <CursorPos X="33" Y="37"/>
+        <UnitName Value="ts.Editor.Settings"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="575"/>
+        <CursorPos X="25" Y="588"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
@@ -333,8 +337,12 @@
       </Unit53>
       <Unit54>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
+        <UnitName Value="ts.Editor.Factories.Manager"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="13"/>
         <CursorPos X="3" Y="33"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
@@ -344,9 +352,12 @@
       </Unit55>
       <Unit56>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
-        <TopLine Value="79"/>
-        <CursorPos X="3" Y="83"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="260"/>
+        <CursorPos X="28" Y="145"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit56>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
@@ -409,7 +420,7 @@
       <Unit64>
         <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
         <UnitName Value="htmlun2"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="472"/>
         <CursorPos X="6" Y="493"/>
         <UsageCount Value="11"/>
@@ -419,95 +430,104 @@
       <Unit65>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
         <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="1046"/>
-        <CursorPos X="80" Y="1066"/>
+        <CursorPos Y="1064"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit65>
+      <Unit66>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <UnitName Value="ts_Editor_Manager"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="3127"/>
+        <CursorPos X="28" Y="3143"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit66>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="63" Column="5" TopLine="44"/>
+        <Caret Line="63" Column="13" TopLine="34"/>
       </Position1>
       <Position2>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="106" Column="7" TopLine="89"/>
+        <Caret Line="106" Column="39" TopLine="78"/>
       </Position2>
       <Position3>
-        <Filename Value="logviewer_forms_main.lfm"/>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="549" Column="33" TopLine="521"/>
       </Position3>
       <Position4>
         <Filename Value="logviewer_forms_main.lfm"/>
-        <Caret Line="77" Column="26" TopLine="60"/>
+        <Caret Line="268" Column="47" TopLine="244"/>
       </Position4>
       <Position5>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="565" Column="33" TopLine="497"/>
+        <Filename Value="logviewer_forms_main.lfm"/>
       </Position5>
       <Position6>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="214" Column="104" TopLine="197"/>
+        <Caret Line="548" TopLine="541"/>
       </Position6>
       <Position7>
         <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="96" Column="3" TopLine="81"/>
       </Position7>
       <Position8>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="63" Column="13" TopLine="34"/>
+        <Caret Line="872" TopLine="839"/>
       </Position8>
       <Position9>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="106" Column="39" TopLine="78"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="9" Column="61"/>
       </Position9>
       <Position10>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="549" Column="33" TopLine="521"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="24"/>
       </Position10>
       <Position11>
-        <Filename Value="logviewer_forms_main.lfm"/>
-        <Caret Line="268" Column="47" TopLine="244"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="24"/>
       </Position11>
       <Position12>
-        <Filename Value="logviewer_forms_main.lfm"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="22" Column="12"/>
       </Position12>
       <Position13>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="548" TopLine="541"/>
+        <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
+        <Caret Line="499" Column="71" TopLine="475"/>
       </Position13>
       <Position14>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="96" Column="3" TopLine="81"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="25" Column="25"/>
       </Position14>
       <Position15>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="872" TopLine="839"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="24"/>
       </Position15>
       <Position16>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="9" Column="61"/>
+        <Caret Line="25" Column="13"/>
       </Position16>
       <Position17>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="24"/>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="49" Column="52" TopLine="32"/>
       </Position17>
       <Position18>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="24"/>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="235" Column="17" TopLine="202"/>
       </Position18>
       <Position19>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="22" Column="12"/>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="325" Column="3" TopLine="295"/>
       </Position19>
       <Position20>
-        <Filename Value="..\..\components\htmlport\package\htmlun2.pas"/>
-        <Caret Line="499" Column="71" TopLine="475"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="13" Column="5"/>
       </Position20>
       <Position21>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="25" Column="25"/>
+        <Filename Value="logviewer_forms_main.pas"/>
       </Position21>
       <Position22>
         <Filename Value="logviewer.pas"/>
@@ -515,34 +535,34 @@
       </Position22>
       <Position23>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="25" Column="13"/>
+        <Caret Line="11" Column="30"/>
       </Position23>
       <Position24>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="49" Column="52" TopLine="32"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
       </Position24>
       <Position25>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="235" Column="17" TopLine="202"/>
+        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Caret Line="3143" Column="28" TopLine="3127"/>
       </Position25>
       <Position26>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="325" Column="3" TopLine="295"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <Caret Line="64" Column="5" TopLine="40"/>
       </Position26>
       <Position27>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="13" Column="5"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <Caret Line="145" Column="28" TopLine="260"/>
       </Position27>
       <Position28>
-        <Filename Value="logviewer_forms_main.pas"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
+        <Caret Line="1064" TopLine="1046"/>
       </Position28>
       <Position29>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="24"/>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="588" Column="24" TopLine="575"/>
       </Position29>
       <Position30>
         <Filename Value="logviewer.pas"/>
-        <Caret Line="11" Column="30"/>
+        <Caret Line="22"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

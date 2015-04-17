@@ -664,6 +664,8 @@ begin
 {$IFDEF Windows}
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
+  // TEST
+  MonitorChanges := True;
 {$ENDIF}
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   ApplySettings;

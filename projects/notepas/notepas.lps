@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release win64 x86_64 win32"/>
+    <BuildModes Active="Default"/>
     <Units Count="247">
       <Unit0>
         <Filename Value="notepas.lpr"/>
@@ -29,7 +29,8 @@
       <Unit2>
         <Filename Value="changelog.txt"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="47" Y="10"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="83" Y="7"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -189,10 +190,9 @@
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.DirectoryWatch"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="203"/>
-        <CursorPos X="40" Y="214"/>
+        <TopLine Value="227"/>
+        <CursorPos X="82" Y="200"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -1984,7 +1984,7 @@
         <Loaded Value="True"/>
       </Unit246>
     </Units>
-    <JumpHistory Count="23" HistoryIndex="22">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
         <Caret Line="2918" Column="85" TopLine="2902"/>
@@ -2074,6 +2074,10 @@
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <Caret Line="255" Column="13" TopLine="239"/>
       </Position23>
+      <Position24>
+        <Filename Value="changelog.txt"/>
+        <Caret Line="21" Column="44"/>
+      </Position24>
     </JumpHistory>
   </ProjectSession>
   <Debugging>

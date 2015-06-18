@@ -48,4 +48,4 @@ Notepas is a fast portable native multiplatform text editor written in Lazarus a
 * (Experimental) support for keyboard macros.
 * A lot of other unique features will be added soon so stay tuned as the code evolves. For now only preview builds for the Windows, Linux and MacOS X (Darwin) platforms are available, but native FreeBSD and Solaris builds are in the pipeline.
 
-Notepas is a work-in-progress. If you have bug reports or suggestions for new features please contact me. I am not able to test every feature on every supported platform so there might be many annoyances that will appear for your specific needs that I'm not aware of. Let me know and I'll tackel it ASAP. Experimental features are activated in debug mode and provide a preliminary look to what's currently cooking in the kitchen.
+Notepas is a work-in-progress. If you have bug reports or suggestions for new features please submit a new issue.  Experimental features are activated in debug mode and provide a preliminary look to what's currently cooking in the kitchen.

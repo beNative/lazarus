@@ -34,7 +34,7 @@ uses
   MacOSAll,
 {$ENDIF}
 
-  DB, FileUtil;
+  db, FileUtil;
 
 type
   TVarRecArray = array of TVarRec;

@@ -1064,9 +1064,9 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>175</Left>
-		<Top>175</Top>
-		<Width>1369</Width>
+		<Left>225</Left>
+		<Top>225</Top>
+		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>

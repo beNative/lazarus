@@ -1041,6 +1041,7 @@ end;"/>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Utils"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -1049,6 +1050,7 @@ end;"/>
       <Unit9>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Utils"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
@@ -1159,6 +1161,7 @@ end;"/>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SQLScanner"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.value.pas"/>

@@ -1,0 +1,381 @@
+object frmMain: TfrmMain
+  Left = -1193
+  Height = 581
+  Top = 281
+  Width = 958
+  Caption = 'TableTool'
+  ClientHeight = 581
+  ClientWidth = 958
+  ShowHint = True
+  LCLVersion = '1.5'
+  object pnlMain: TPanel
+    Left = 0
+    Height = 466
+    Top = 0
+    Width = 958
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 466
+    ClientWidth = 958
+    TabOrder = 0
+    object OMultiPanel1: TOMultiPanel
+      Left = 0
+      Height = 466
+      Top = 0
+      Width = 958
+      PanelCollection = <      
+        item
+          Control = StringGrid
+          Position = 0.5
+          Visible = True
+          Index = 0
+        end      
+        item
+          Control = pnlEditor
+          Position = 1
+          Visible = True
+          Index = 1
+        end>
+      MinPosition = 0.02
+      Align = alClient
+      TabOrder = 0
+      object StringGrid: TStringGrid
+        Left = 0
+        Height = 466
+        Top = 0
+        Width = 479
+        Align = alClient
+        Anchors = []
+        AutoAdvance = aaRightDown
+        BorderSpacing.Around = 4
+        BorderStyle = bsNone
+        CellHintPriority = chpAll
+        ColCount = 100
+        ColumnClickSorts = True
+        FixedColor = 15000804
+        HeaderHotZones = [gzNormal, gzFixedCols, gzFixedRows, gzFixedCells, gzInvalid]
+        HeaderPushZones = [gzNormal, gzFixedCols, gzFixedRows, gzFixedCells, gzInvalid]
+        Options = [goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected, goRowSizing, goColSizing, goRowMoving, goColMoving, goEditing, goAutoAddRows, goThumbTracking, goColSpanning, goDblClickAutoSize, goSmoothScroll, goHeaderHotTracking, goHeaderPushedLook, goFixedColSizing, goCellHints, goCellEllipsis, goAutoAddRowsSkipContentCheck]
+        PopupMenu = ppmMain
+        RowCount = 100
+        TabOrder = 0
+      end
+      object pnlEditor: TPanel
+        Left = 482
+        Height = 466
+        Top = 0
+        Width = 476
+        Anchors = [akTop]
+        BorderSpacing.Around = 4
+        BevelOuter = bvNone
+        TabOrder = 1
+      end
+    end
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 115
+    Top = 466
+    Width = 958
+    Align = alBottom
+    BevelOuter = bvLowered
+    ClientHeight = 115
+    ClientWidth = 958
+    TabOrder = 1
+    object Button1: TButton
+      Left = 376
+      Height = 25
+      Top = 85
+      Width = 194
+      Action = actCopyAsCSV
+      TabOrder = 0
+    end
+    object Button2: TButton
+      Left = 376
+      Height = 25
+      Top = 30
+      Width = 194
+      Action = actCopyAsWiki
+      TabOrder = 1
+    end
+    object Button3: TButton
+      Left = 376
+      Height = 25
+      Top = 58
+      Width = 194
+      Action = actCopyAsTabDelimited
+      TabOrder = 2
+    end
+    object Button4: TButton
+      Left = 376
+      Height = 25
+      Top = 2
+      Width = 194
+      Action = actCopyAsTextTable
+      TabOrder = 3
+    end
+    object trbRows: TTITrackBar
+      Left = 104
+      Height = 25
+      Top = 7
+      Width = 196
+      Frequency = 100
+      Max = 1000
+      Min = 1
+      PageSize = 10
+      Position = 100
+      Link.TIObject = StringGrid
+      Link.TIPropertyName = 'RowCount'
+      TabOrder = 4
+      UseRTTIMinMax = False
+    end
+    object trbFixedCols: TTITrackBar
+      Left = 104
+      Height = 25
+      Top = 32
+      Width = 196
+      Frequency = 100
+      Max = 1000
+      Min = 1
+      PageSize = 10
+      Position = 100
+      Link.TIObject = StringGrid
+      Link.TIPropertyName = 'ColCount'
+      TabOrder = 5
+      UseRTTIMinMax = False
+    end
+    object lblRows: TLabel
+      Left = 16
+      Height = 15
+      Top = 12
+      Width = 57
+      Caption = 'Rowcount:'
+      FocusControl = trbRows
+      ParentColor = False
+    end
+    object lblColumnCount: TLabel
+      Left = 16
+      Height = 15
+      Top = 38
+      Width = 77
+      Caption = 'Columncount:'
+      FocusControl = trbFixedCols
+      ParentColor = False
+    end
+    object edtRowCount: TTISpinEdit
+      Left = 301
+      Height = 23
+      Top = 7
+      Width = 50
+      Link.TIObject = StringGrid
+      Link.TIPropertyName = 'RowCount'
+      MaxValue = 2147483647
+      MinValue = -2147483648
+      TabOrder = 6
+      UseRTTIMinMax = False
+    end
+    object edtColumnCount: TTISpinEdit
+      Left = 301
+      Height = 23
+      Top = 32
+      Width = 50
+      Link.TIObject = StringGrid
+      Link.TIPropertyName = 'ColCount'
+      MaxValue = 2147483647
+      MinValue = -2147483648
+      TabOrder = 7
+      UseRTTIMinMax = False
+    end
+    object Button5: TButton
+      Left = 8
+      Height = 25
+      Top = 58
+      Width = 180
+      Action = actClearSelection
+      TabOrder = 8
+    end
+    object Button6: TButton
+      Left = 7
+      Height = 25
+      Top = 85
+      Width = 180
+      Action = actAutoSizeColumns
+      TabOrder = 9
+    end
+    object Button7: TButton
+      Left = 192
+      Height = 25
+      Top = 58
+      Width = 180
+      Action = actDeleteSelectedCols
+      TabOrder = 10
+    end
+    object Button8: TButton
+      Left = 192
+      Height = 25
+      Top = 85
+      Width = 180
+      Action = actDeleteSelectedRows
+      TabOrder = 11
+    end
+    object grpCharSpacing: TGroupBox
+      Left = 574
+      Height = 103
+      Top = 7
+      Width = 154
+      Caption = 'Character spacing options'
+      ClientHeight = 83
+      ClientWidth = 150
+      TabOrder = 12
+      object edtMargin: TLabeledEdit
+        Left = 95
+        Height = 23
+        Top = 8
+        Width = 40
+        Alignment = taRightJustify
+        EditLabel.AnchorSideTop.Control = edtMargin
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtMargin
+        EditLabel.AnchorSideBottom.Control = edtMargin
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 5
+        EditLabel.Height = 15
+        EditLabel.Top = 12
+        EditLabel.Width = 87
+        EditLabel.Caption = 'Column margin:'
+        EditLabel.ParentColor = False
+        EditLabel.Layout = tlCenter
+        LabelPosition = lpLeft
+        TabOrder = 0
+        Text = '1'
+      end
+      object edtMinColumnWidth: TLabeledEdit
+        Left = 95
+        Height = 23
+        Top = 48
+        Width = 40
+        Alignment = taRightJustify
+        AutoSize = False
+        EditLabel.AnchorSideTop.Control = edtMinColumnWidth
+        EditLabel.AnchorSideTop.Side = asrCenter
+        EditLabel.AnchorSideRight.Control = edtMinColumnWidth
+        EditLabel.AnchorSideBottom.Control = edtMinColumnWidth
+        EditLabel.AnchorSideBottom.Side = asrBottom
+        EditLabel.Left = 6
+        EditLabel.Height = 30
+        EditLabel.Top = 44
+        EditLabel.Width = 77
+        EditLabel.Caption = 'Minimum '#13#10'column width:'
+        EditLabel.ParentColor = False
+        EditLabel.Layout = tlCenter
+        EditLabel.WordWrap = True
+        LabelPosition = lpLeft
+        LabelSpacing = 12
+        TabOrder = 1
+        Text = '10'
+      end
+    end
+    object grpLayoutOptions: TGroupBox
+      Left = 728
+      Height = 103
+      Top = 7
+      Width = 217
+      Anchors = [akTop, akLeft, akRight]
+      Caption = 'Layout options'
+      ClientHeight = 83
+      ClientWidth = 213
+      TabOrder = 13
+      object chkQuoteValues: TCheckBox
+        Left = 16
+        Height = 19
+        Top = 7
+        Width = 110
+        Caption = 'Quote cell values'
+        TabOrder = 0
+      end
+      object chkFirstRowAsHeader: TCheckBox
+        Left = 16
+        Height = 22
+        Top = 44
+        Width = 210
+        AutoSize = False
+        Caption = 'First row is header'
+        TabOrder = 1
+      end
+    end
+  end
+  object aclMain: TActionList
+    left = 224
+    top = 64
+    object actClearSelection: TAction
+      Caption = 'Clear selection'
+      OnExecute = actClearSelectionExecute
+      ShortCut = 46
+    end
+    object actAutoSizeColumns: TAction
+      Caption = 'Auto size columns'
+      OnExecute = actAutoSizeColumnsExecute
+      ShortCut = 24683
+    end
+    object actCopyAsWiki: TAction
+      Caption = 'Copy as Wiki'
+      OnExecute = actCopyAsWikiExecute
+    end
+    object actCopyAsTextTable: TAction
+      Caption = 'Copy as text table'
+      OnExecute = actCopyAsTextTableExecute
+    end
+    object actCopyAsCSV: TAction
+      Caption = 'Copy as comma seperated values'
+      OnExecute = actCopyAsCSVExecute
+    end
+    object actCopyAsTabDelimited: TAction
+      Caption = 'Copy as Tab delimited values'
+      OnExecute = actCopyAsTabDelimitedExecute
+    end
+    object actSelectAll: TAction
+      Caption = 'Select all'
+      OnExecute = actSelectAllExecute
+      ShortCut = 16449
+    end
+    object actDeleteSelectedRows: TAction
+      Caption = 'Delete selected rows'
+      OnExecute = actDeleteSelectedRowsExecute
+    end
+    object actDeleteSelectedCols: TAction
+      Caption = 'Delete selected columns'
+      OnExecute = actDeleteSelectedColsExecute
+    end
+  end
+  object ppmMain: TPopupMenu
+    left = 147
+    top = 61
+    object mniClearGrid: TMenuItem
+      Action = actClearSelection
+    end
+    object mniCopyAsWiki: TMenuItem
+      Action = actCopyAsWiki
+    end
+    object mniAutoSizeColumns: TMenuItem
+      Action = actAutoSizeColumns
+    end
+    object mniCopyAsCSV: TMenuItem
+      Action = actCopyAsCSV
+    end
+    object mniCopyAsTabDelimited: TMenuItem
+      Action = actCopyAsTabDelimited
+    end
+    object MenuItem6: TMenuItem
+      Action = actCopyAsWiki
+    end
+    object mniSelectAll: TMenuItem
+      Action = actSelectAll
+    end
+    object MenuItem1: TMenuItem
+      Action = actDeleteSelectedRows
+    end
+    object MenuItem2: TMenuItem
+      Action = actDeleteSelectedCols
+    end
+  end
+end

@@ -2,6 +2,7 @@ unit VirtualTrees;
 
 {$mode delphi}{$H+}
 {$packset 1}
+{$define PACKARRAYPASCAL}
 
 // Version 4.8.7
 //

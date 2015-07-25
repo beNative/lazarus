@@ -1,4 +1,4 @@
-[Downloads http://github.com/beNative/lazarus/tree/master/projects/notepas/releases]
+[Downloads|http://github.com/beNative/lazarus/tree/master/projects/notepas/releases]
 
 # Introduction
 

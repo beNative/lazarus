@@ -1102,11 +1102,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>200</Left>
-		<Top>200</Top>
+		<Left>25</Left>
+		<Top>25</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

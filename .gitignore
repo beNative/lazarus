@@ -19,3 +19,7 @@
 /projects/snippetsource/*.trc
 /components/tslib/lib
 *.or
+*.a
+/projects/notepas/backup/*.bak
+/projects/notepas/tests/backup/*.bak
+*.bak

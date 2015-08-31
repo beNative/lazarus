@@ -719,6 +719,54 @@
 					<Description>Settings file</Description>
 					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.ini.xml</LayoutFileName>
 				</THighlighterItem>
+				<THighlighterItem Name="LUA">
+					<Components>
+						<TSynLuaSyn Name="SynHighlighter">
+							<DefaultFilter>Lua Files (*.lua)|*.lua</DefaultFilter>
+							<Enabled>false</Enabled>
+							<CommentAttri>(TSynHighlighterAttributes)
+								<Style>[,fsItalic]</Style>
+							</CommentAttri>
+							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
+							<KeyAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlue</Foreground>
+							</KeyAttri>
+							<NonKeyAttri>(TSynHighlighterAttributes)</NonKeyAttri>
+							<SystemAttri>(TSynHighlighterAttributes)</SystemAttri>
+							<NumberAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</NumberAttri>
+							<HexAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
+							</HexAttri>
+							<OctalAttri>(TSynHighlighterAttributes)</OctalAttri>
+							<FloatAttri>(TSynHighlighterAttributes)
+								<Foreground>clFuchsia</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</FloatAttri>
+							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
+							<StringAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</StringAttri>
+							<DocStringAttri>(TSynHighlighterAttributes)
+								<Foreground>clGray</Foreground>
+								<Style>[,fsItalic]</Style>
+							</DocStringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</SymbolAttri>
+							<ErrorAttri>(TSynHighlighterAttributes)</ErrorAttri>
+						</TSynLuaSyn>
+					</Components>
+					<Highlighter>LUA</Highlighter>
+					<BlockCommentStartTag>--[[</BlockCommentStartTag>
+					<BlockCommentEndTag>]]</BlockCommentEndTag>
+					<LineCommentTag>--</LineCommentTag>
+					<FormatterSupport>false</FormatterSupport>
+					<FileExtensions>lua</FileExtensions>
+					<Description>Lua</Description>
+				</THighlighterItem>
 				<THighlighterItem Name="LOG">
 					<Components>
 						<TSynUniSyn Name="SynHighlighter"/>
@@ -1064,8 +1112,8 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>225</Left>
-		<Top>225</Top>
+		<Left>200</Left>
+		<Top>200</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>
@@ -1075,5 +1123,4 @@
 		<Height>-13</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
-	<DebugMode>true</DebugMode>
 </TEditorSettings>

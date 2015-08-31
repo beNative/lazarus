@@ -7,9 +7,9 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  SysUtils, Forms, pascalscript, richmemopackage,
+  SysUtils, Forms, FrameViewer09, pascalscript, richmemopackage,
   virtualtreeview_package, virtualdbtreeex_laz, virtualdbgrid_package,
-  luicontrols, khexeditorlaz, oxml_lazarus,
+  luicontrols, khexeditorlaz,
 
   { you can add units after this }
 

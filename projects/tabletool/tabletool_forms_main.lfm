@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -1193
+  Left = 508
   Height = 581
-  Top = 281
+  Top = 186
   Width = 958
   Caption = 'TableTool'
   ClientHeight = 581

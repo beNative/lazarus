@@ -4,4 +4,4 @@ inherited frmHTMLView: TfrmHTMLView
   Top = 160
   Width = 579
   Caption = 'HTML viewer'
-end
+end

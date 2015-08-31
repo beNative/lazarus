@@ -9,7 +9,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="components;core"/>
-        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortlines;editor\sortstrings"/>
+        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortlines;editor\sortstrings;..\SynFacilSyn"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -32,7 +32,7 @@
         </Debugging>
       </Linking>
     </CompilerOptions>
-    <Files Count="115">
+    <Files Count="118">
       <Item1>
         <Filename Value="editor\SetupFiltersDialog.lfm"/>
         <Type Value="LFM"/>
@@ -493,19 +493,30 @@
         <Filename Value="editor\ts.editor.factories.manager.pas"/>
         <UnitName Value="ts.Editor.Factories.Manager"/>
       </Item115>
+      <Item116>
+        <AddToUsesPkgSection Value="False"/>
+      </Item116>
+      <Item117>
+        <Filename Value="..\SynFacilSyn\SynFacilBasic.pas"/>
+        <UnitName Value="SynFacilBasic"/>
+      </Item117>
+      <Item118>
+        <Filename Value="..\SynFacilSyn\SynFacilHighlighter.pas"/>
+        <UnitName Value="SynFacilHighlighter"/>
+      </Item118>
     </Files>
     <RequiredPkgs Count="10">
       <Item1>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="FrameViewer09"/>
       </Item1>
       <Item2>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item2>
       <Item3>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="pascalscript"/>
       </Item3>
       <Item4>
-        <PackageName Value="HtmlComp"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item4>
       <Item5>
         <PackageName Value="virtualtreeview_package"/>

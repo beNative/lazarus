@@ -25,9 +25,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
 
-
   FramView,
-
 
   ts.Editor.Interfaces, ts_Editor_ToolView_Base, ts.Editor.HTMLView.Settings;
 
@@ -37,8 +35,8 @@ type
 
   TfrmHTMLView = class(TCustomEditorToolView, IEditorToolView)
   private
-
     FHTMLViewer: TFrameViewer;
+
     function GetSettings: THTMLViewSettings;
 
   strict protected
@@ -89,4 +87,3 @@ end;
 {$endregion}
 
 end.
-

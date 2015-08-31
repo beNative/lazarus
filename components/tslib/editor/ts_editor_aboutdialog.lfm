@@ -11,7 +11,7 @@ object frmAbout: TfrmAbout
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.5'
   object pgcMain: TPageControl
     Left = 240
     Height = 204

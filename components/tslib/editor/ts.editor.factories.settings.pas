@@ -61,7 +61,7 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
 
-  //SynFacilHighlighter,
+  SynFacilHighlighter,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -161,10 +161,7 @@ begin
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
   Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
   Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
-
-
-
-  //Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
+  Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
     // apply common highlighter attributes
 
 
@@ -284,8 +281,8 @@ begin
     TSynINISyn,
     TSynUniSyn,
     TSynCustomHighlighter,
-    TSynLuaSyn
-//    TSynFacilSyn
+    TSynLuaSyn,
+    TSynFacilSyn
   ]);
 end;
 {$endregion}

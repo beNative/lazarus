@@ -35,8 +35,8 @@ uses
   ts_Editor_Shortcuts_ToolView, ts_Editor_Structure_ToolView, 
   ts_Editor_Test_ToolView, ts_Editor_ToolView_Base, ts.Editor.ViewList.Data, 
   ts_Editor_ViewList_ToolView, ts.Editor.Factories.Settings, 
-  ts.Editor.SortStrings.Settings, ts.Editor.Factories.Manager, 
-  LazarusPackageIntf;
+  ts.Editor.SortStrings.Settings, ts.Editor.Factories.Manager, SynFacilBasic, 
+  SynFacilHighlighter, LazarusPackageIntf;
 
 implementation
 

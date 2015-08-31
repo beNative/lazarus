@@ -42,30 +42,16 @@ Known Issues:
 @lastmod(2010-01-07)
 The SynHighlighterLua implements a highlighter for Lua for the SynEdit projects.
 }
-{$IFNDEF QSYNHIGHLIGHTERLua}
 unit SynHighlighterLua;
-{$ENDIF}
-
-//{$I SynEdit.inc}
 
 interface
 
+{$I SynEdit.inc}
+
 uses
-{$IFDEF SYN_COMPILER_6_UP}
-  IniFiles, //THashedStringList
-{$ENDIF}
-{$IFDEF SYN_CLX}
-  QGraphics,
-  QSynEditHighlighter,
-  QSynEditTypes,
-{$ELSE}
-  {$IFDEF SYN_LAZARUS}
-  LCLIntf, LCLType,
-  {$ENDIF}
   Graphics,
   SynEditHighlighter,
   SynEditTypes,
-{$ENDIF}
   SysUtils,
   Classes;
 
@@ -167,9 +153,6 @@ type
     property IdentChars;
     procedure SetRange(Value: Pointer); override;
     procedure ResetRange; override;
-    {$IFDEF SYN_LAZARUS}
-    procedure GetTokenEx(out TokenStart: PChar; out TokenLength: integer); override;
-    {$ENDIF}
   published
     property Keywords: TStringlist read FKeywords;
     property CommentAttri: TSynHighlighterAttributes read fCommentAttri
@@ -204,11 +187,7 @@ type
 implementation
 
 uses
-{$IFDEF SYN_CLX}
-  QSynEditStrConst;
-{$ELSE}
   SynEditStrConst;
-{$ENDIF}
 
 var
   GlobalKeywords: TStringList;
@@ -423,10 +402,10 @@ begin
 
     for f := 1 to KEYWORDCOUNT do
       GlobalKeywords.AddObject (KEYWORDSIdents[f],
-        {$IFDEF SYN_LAZARUS}TObject{$ELSE}Pointer{$ENDIF} (Ord(tkKey)));
+        TObject(Ord(tkKey)));
     for f := 1 to NONKEYWORDCOUNT do
       GlobalKeywords.AddObject (NONKEYWORDS[f],
-        {$IFDEF SYN_LAZARUS}TObject{$ELSE}Pointer{$ENDIF}(Ord(tkNonKeyword)));
+        TObject(Ord(tkNonKeyword)));
   end; // if
   Result := GlobalKeywords;
 end;
@@ -448,9 +427,6 @@ begin
 
   // Check to see if it is a keyword
   SetString (s, fToIdent, fStringLen);
-  {$IFDEF SYN_COMPILER_6_UP}
-  index := FKeywords.IndexOf (s);
-  {$ELSE}
   if FKeywords.Find (s, index) then begin
     // TStringList is not case sensitive!
     if s <> FKeywords[index] then
@@ -458,7 +434,6 @@ begin
   end else begin
     index := -1;
   end; // if
-  {$ENDIF}
 
   if index <> -1 then
     Result := TtkTokenKind (PtrInt(FKeywords.Objects[index]))
@@ -481,45 +456,39 @@ var
 begin
   for I := #0 to #255 do
     case I of
-      '-': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}CommentProc;
-	  '[': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}String3Proc;
-      ']': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}String3Proc;
+      '-': fProcTable[I] := @CommentProc;
+	  '[': fProcTable[I] := @String3Proc;
+      ']': fProcTable[I] := @String3Proc;
       '&', '}', '{', ':', ',', (* ']',  '[', *) '*', '`',
       '^', ')', '(', ';', '/', '=', (* '-', *) '+', '!', '\',
       '%', '|', '~' :
-        fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}SymbolProc;
-      #13: fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}CRProc;
-    //  '#': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}CommentProc;
-      '>': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}GreaterProc;
-      'A'..'Q', 'S', 'T', 'V'..'Z', 'a'..'q', 's', 't', 'v'..'z', '_': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}IdentProc;
-      #10: fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}LFProc;
-      '<': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}LowerProc;
-      #0: fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}NullProc;
-      '.', '0'..'9': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}NumberProc;
+        fProcTable[I] := @SymbolProc;
+      #13: fProcTable[I] := @CRProc;
+      '>': fProcTable[I] := @GreaterProc;
+      'A'..'Q', 'S', 'T', 'V'..'Z', 'a'..'q', 's', 't', 'v'..'z', '_': fProcTable[I] := @IdentProc;
+      #10: fProcTable[I] := @LFProc;
+      '<': fProcTable[I] := @LowerProc;
+      #0: fProcTable[I] := @NullProc;
+      '.', '0'..'9': fProcTable[I] := @NumberProc;
       #1..#9, #11, #12, #14..#32:
-        fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}SpaceProc;
-      'r', 'R': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}PreStringProc;
-      'u', 'U': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}UnicodeStringProc;
-      '''': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}StringProc;
-      '"': fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}String2Proc;
+        fProcTable[I] := @SpaceProc;
+      'r', 'R': fProcTable[I] := @PreStringProc;
+      'u', 'U': fProcTable[I] := @UnicodeStringProc;
+      '''': fProcTable[I] := @StringProc;
+      '"': fProcTable[I] := @String2Proc;
     else
-      fProcTable[I] := {$IFDEF SYN_LAZARUS}@{$ENDIF}UnknownProc;
+      fProcTable[I] := @UnknownProc;
     end;
 end;
 
 constructor TSynLuaSyn.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  
-  {$IFDEF SYN_COMPILER_6_UP}
-  FKeywords := THashedStringList.Create;
-  FKeywords.CaseSensitive := True;
-  {$ELSE}
+
   // Older compilers do not ave hashed string list - so use less efficient
   //   TStringList instead - but keep it sorted
   FKeywords := TStringList.Create;
   FKeywords.Sorted := True; 
-  {$ENDIF}
   FKeywords.Duplicates := dupError;
   FKeywords.Assign (GetKeywordIdentifiers);
 
@@ -566,7 +535,7 @@ begin
   fErrorAttri := TSynHighlighterAttributes.Create(SYNS_AttrSyntaxError, SYNS_XML_AttrSyntaxError);
   fErrorAttri.Foreground := clRed;
   AddAttribute(fErrorAttri);
-  SetAttributesOnChange({$IFDEF SYN_LAZARUS}@{$ENDIF}DefHighlightChange);
+  SetAttributesOnChange(@DefHighlightChange);
   MakeMethodTables;
   fDefaultFilter := SYNS_FilterLua;
 end; { Create }
@@ -578,7 +547,7 @@ begin
   inherited;
 end;
 
-procedure TSynLuaSyn.SetLine({$IFDEF FPC}const {$ENDIF}NewValue: string;
+procedure TSynLuaSyn.SetLine(const NewValue: string;
   LineNumber: Integer);
 begin
   fLine := PChar(NewValue);
@@ -586,15 +555,6 @@ begin
   fLineNumber := LineNumber;
   Next;
 end; { SetLine }
-
-{$IFDEF SYN_LAZARUS}
-procedure TSynLuaSyn.GetTokenEx(out TokenStart: PChar;
-  out TokenLength: integer);
-begin
-  TokenLength:=Run-fTokenPos;
-  TokenStart:=FLine + fTokenPos;
-end;
-{$ENDIF}
 
 procedure TSynLuaSyn.SymbolProc;
 begin
@@ -1283,10 +1243,8 @@ end;
 procedure TSynLuaSyn.UnknownProc;
 begin
   inc(Run);
-  {$IFDEF SYN_LAZARUS}
   while (fLine[Run] in [#128..#191]) OR // continued utf8 subcode
    ((fLine[Run]<>#0) and (fProcTable[fLine[Run]] = @UnknownProc)) do inc(Run);
-  {$ENDIF}
   fTokenID := tkUnknown;
 end;
 
@@ -1413,9 +1371,8 @@ begin
 end;
 
 initialization
-{$IFNDEF SYN_CPPB_1}                                                            //mh 2000-07-14
   RegisterPlaceableHighlighter(TSynLuaSyn);
-{$ENDIF}
+
 finalization
   GlobalKeywords.Free;
 end.

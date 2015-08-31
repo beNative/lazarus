@@ -157,7 +157,7 @@ const
     'https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=tim%2esin' +
     'aeve%40gmail%2ecom&lc=BE&item_name=notepas&currency_code=USD&bn=PP%2dDo' +
     'nationsBF%3abtn_donateCC_LG%2egif%3aNonHosted';
-  URL_REPORT_ISSUE = 'http://code.google.com/p/notepas/issues/entry';
+  URL_REPORT_ISSUE = 'https://github.com/beNative/lazarus/issues/new';
 
 resourcestring
   SName         = 'Name';

@@ -27,7 +27,7 @@ uses
   {$ENDIF}
   DefaultTranslator,
   Interfaces, // this includes the LCL widgetset
-  Forms,
+  Forms, FrameViewer09,
   Notepas_Forms_Main,
 
   richmemopackage,
@@ -86,7 +86,6 @@ uses
   ts.Core.XMLUtils,
   ts.Core.FileAssociations,
   ts.Core.SystemInfo,
-
   ts.Editor.CodeFormatters,
   ts.Editor.CodeFormatters.SQL,
   ts.Editor.CodeTags,

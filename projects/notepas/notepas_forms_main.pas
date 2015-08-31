@@ -706,13 +706,15 @@ begin
   btnSelectionMode.PopupMenu  := Menus.SelectionModePopupMenu;
 
   btnMacro.Action := Actions['actRecordMacro'];
+  Actions['actRecordMacro'].Enabled := False;
+  Actions['actRecordMacro'].Visible := False;
   DoubleBuffered := True;
 end;
 
 procedure TfrmMain.InitDebugAction(const AActionName: string);
 begin
-  Actions[AActionName].Enabled      := Settings.DebugMode;
-  Actions[AActionName].Visible      := Settings.DebugMode;
+  Actions[AActionName].Enabled := Settings.DebugMode;
+  Actions[AActionName].Visible := Settings.DebugMode;
 end;
 {$endregion}
 
@@ -768,15 +770,14 @@ begin
   SelText:= TStringList.Create;
   try
     SelText.Text:=Editor.SelText;
-    pnlPosition.Caption := SLn+': '+Format('%1d', [Editor.CaretY])+'   '+
-                           SCol+': '+Format('%1d', [Editor.CaretX])+'   '+
-                           SSel+': '+ Format('%1d|%1d', [length(Editor.SelText),
-         (SelText.Count)]);
-
+    pnlPosition.Caption :=
+      SLn + ': ' + Format('%1d', [Editor.CaretY]) + '   ' +
+      SCol + ': ' + Format('%1d', [Editor.CaretX]) + '   ' +
+      SSel + ': '+ Format('%1d|%1d', [Length(Editor.SelText),
+      (SelText.Count)]);
     pnlViewerCount.Caption := IntToStr(Views.Count);
-    pnlSize.Caption := SSize+': '+FormatByteText(Editor.TextSize)+'   '+SLines+': '+
-                       Format('%1d', [Editor.Lines.Count]);
-
+    pnlSize.Caption := SSize+': '+ FormatByteText(Editor.TextSize) + '   ' +
+      SLines+': '+ Format('%1d', [Editor.Lines.Count]);
     if Assigned(Editor.HighlighterItem) then
       btnHighlighter.Caption := Editor.HighlighterItem.Description;
     if Editor.InsertMode then
@@ -835,6 +836,8 @@ begin
     TB.Action := AAction;
   end;
 end;
+
+{ Just a proof of concept. Implementation pending. }
 
 procedure TfrmMain.CheckForNewVersion;
 var

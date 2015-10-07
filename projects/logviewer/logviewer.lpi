@@ -20,7 +20,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="2"/>
+      <BuildNr Value="6"/>
       <StringTable ProductName="Logviewer" ProductVersion="0.0.0.0"/>
     </VersionInfo>
     <BuildModes Count="2">
@@ -73,46 +73,48 @@
         <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="10">
+    <RequiredPackages Count="11">
       <Item1>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item1>
       <Item2>
-        <PackageName Value="atbinhex_lcl"/>
+        <PackageName Value="richmemopackage"/>
       </Item2>
       <Item3>
-        <PackageName Value="tslib_editor"/>
+        <PackageName Value="atbinhex_lcl"/>
       </Item3>
       <Item4>
-        <PackageName Value="tslib_core"/>
+        <PackageName Value="tslib_editor"/>
       </Item4>
       <Item5>
-        <PackageName Value="tslib_components"/>
+        <PackageName Value="tslib_core"/>
       </Item5>
       <Item6>
-        <PackageName Value="luicontrols"/>
+        <PackageName Value="tslib_components"/>
       </Item6>
       <Item7>
-        <PackageName Value="LCLBase"/>
-        <MinVersion Major="1" Release="1" Valid="True"/>
+        <PackageName Value="luicontrols"/>
       </Item7>
       <Item8>
-        <PackageName Value="RunTimeTypeInfoControls"/>
-        <MinVersion Minor="1" Valid="True"/>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
-        <MinVersion Major="1" Valid="True"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+        <MinVersion Minor="1" Valid="True"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
+        <MinVersion Major="1" Valid="True"/>
       </Item10>
+      <Item11>
+        <PackageName Value="LCL"/>
+      </Item11>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
         <Filename Value="logviewer.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="logviewer"/>
       </Unit0>
       <Unit1>
         <Filename Value="logviewer_forms_main.pas"/>
@@ -120,12 +122,10 @@
         <ComponentName Value="frmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="logviewer_forms_main"/>
       </Unit1>
       <Unit2>
         <Filename Value="logviewer.watchlist.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="LogViewer.WatchList"/>
       </Unit2>
     </Units>
   </ProjectOptions>

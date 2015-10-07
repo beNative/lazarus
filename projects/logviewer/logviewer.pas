@@ -11,7 +11,7 @@ uses
   Forms,
   { add your units here }
   logviewer_forms_main,
-  ts.Core.SharedLogger, richmemopackage,
+  ts.Core.SharedLogger, richmemopackage, virtualtreeview_package,
   runtimetypeinfocontrols;
 
 {$R *.res}

@@ -10,7 +10,7 @@ object frmMain: TfrmMain
   ClientWidth = 1260
   DefaultMonitor = dmDesktop
   PopupMode = pmAuto
-  LCLVersion = '1.3'
+  LCLVersion = '1.5'
   object sbrMain: TStatusBar
     Left = 0
     Height = 23
@@ -64,6 +64,7 @@ object frmMain: TfrmMain
           Top = 0
           Width = 314
           Align = alClient
+          CheckboxForBoolean = False
           DefaultValueFont.Color = clWindowText
           Filter = [tkInteger, tkChar, tkEnumeration, tkFloat, tkSet, tkMethod, tkSString, tkLString, tkAString, tkWString, tkVariant, tkArray, tkRecord, tkInterface, tkClass, tkObject, tkWChar, tkBool, tkInt64, tkQWord, tkDynArray, tkInterfaceRaw, tkProcVar, tkUString, tkUChar]
           Indent = 9
@@ -124,134 +125,165 @@ object frmMain: TfrmMain
       ClientHeight = 820
       ClientWidth = 286
       TabOrder = 0
-      object grdCallStack: TStringGrid
-        Left = 3
-        Height = 590
-        Top = 3
-        Width = 280
-        Align = alClient
-        AutoFillColumns = True
-        BorderSpacing.Around = 3
-        ColCount = 1
-        Columns = <        
-          item
-            Title.Caption = 'CallStack'
-            Width = 276
-          end>
-        FixedCols = 0
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected, goColSizing, goSmoothScroll]
-        RowCount = 1
-        TabOrder = 0
-        TitleStyle = tsNative
-        ColWidths = (
-          276
-        )
-      end
-      object nbWatches: TPageControl
-        Left = 3
-        Height = 221
-        Top = 596
-        Width = 280
-        ActivePage = tsLatest
+      object splLeftHorizontal: TSplitter
+        Cursor = crVSplit
+        Left = 0
+        Height = 8
+        Top = 392
+        Width = 286
         Align = alBottom
-        BorderSpacing.Around = 3
-        TabIndex = 0
+        ResizeAnchor = akBottom
+      end
+      object Panel1: TPanel
+        Left = 0
+        Height = 420
+        Top = 400
+        Width = 286
+        Align = alBottom
+        Caption = 'Panel1'
+        ClientHeight = 420
+        ClientWidth = 286
         TabOrder = 1
-        object tsLatest: TTabSheet
-          Caption = 'Latest'
-          ClientHeight = 193
-          ClientWidth = 272
-          object gridLastestWatch: TStringGrid
-            Left = 0
-            Height = 193
-            Top = 0
-            Width = 272
-            Align = alClient
-            AutoFillColumns = True
-            ColCount = 2
-            Columns = <            
-              item
-                Title.Caption = 'Variable'
-                Width = 134
-              end            
-              item
-                Title.Caption = 'Value'
-                Width = 134
-              end>
-            FixedCols = 0
-            RowCount = 1
-            TabOrder = 0
-            ColWidths = (
-              134
-              134
-            )
+        object nbWatches: TPageControl
+          Left = 4
+          Height = 412
+          Top = 4
+          Width = 278
+          ActivePage = tsHistory
+          Align = alClient
+          BorderSpacing.Around = 3
+          TabIndex = 2
+          TabOrder = 0
+          object tsLatest: TTabSheet
+            Caption = 'Latest'
+            ClientHeight = 128
+            ClientWidth = 270
+            object gridLastestWatch: TStringGrid
+              Left = 0
+              Height = 128
+              Top = 0
+              Width = 270
+              Align = alClient
+              AutoFillColumns = True
+              ColCount = 2
+              Columns = <              
+                item
+                  Title.Caption = 'Variable'
+                  Width = 133
+                end              
+                item
+                  Title.Caption = 'Value'
+                  Width = 133
+                end>
+              FixedCols = 0
+              RowCount = 1
+              TabOrder = 0
+              ColWidths = (
+                133
+                133
+              )
+            end
+          end
+          object tsSelected: TTabSheet
+            Caption = 'Selected'
+            ClientHeight = 195
+            ClientWidth = 278
+            object gridSelectedWatch: TStringGrid
+              Left = 0
+              Height = 195
+              Top = 0
+              Width = 278
+              Align = alClient
+              AutoFillColumns = True
+              ColCount = 2
+              Columns = <              
+                item
+                  Title.Caption = 'Variable'
+                  Width = 128
+                end              
+                item
+                  Title.Caption = 'Value'
+                  Width = 129
+                end>
+              FixedCols = 0
+              RowCount = 1
+              TabOrder = 0
+              ColWidths = (
+                128
+                129
+              )
+            end
+          end
+          object tsHistory: TTabSheet
+            Caption = 'History'
+            ClientHeight = 384
+            ClientWidth = 270
+            object GridWatchHistory: TStringGrid
+              Left = 0
+              Height = 361
+              Top = 23
+              Width = 270
+              Align = alClient
+              ColCount = 1
+              FixedCols = 0
+              RowCount = 1
+              TabOrder = 0
+              ColWidths = (
+                233
+              )
+              Cells = (
+                1
+                0
+                0
+                'Values'
+              )
+            end
+            object ComboWatchHistory: TComboBox
+              Left = 0
+              Height = 23
+              Top = 0
+              Width = 270
+              Align = alTop
+              ItemHeight = 15
+              OnSelect = ComboWatchHistorySelect
+              Style = csDropDownList
+              TabOrder = 1
+            end
           end
         end
-        object tsSelected: TTabSheet
-          Caption = 'Selected'
-          ClientHeight = 195
-          ClientWidth = 278
-          object gridSelectedWatch: TStringGrid
-            Left = 0
-            Height = 195
-            Top = 0
-            Width = 278
-            Align = alClient
-            AutoFillColumns = True
-            ColCount = 2
-            Columns = <            
-              item
-                Title.Caption = 'Variable'
-                Width = 128
-              end            
-              item
-                Title.Caption = 'Value'
-                Width = 129
-              end>
-            FixedCols = 0
-            RowCount = 1
-            TabOrder = 0
-            ColWidths = (
-              128
-              129
-            )
-          end
-        end
-        object tsHistory: TTabSheet
-          Caption = 'History'
-          ClientHeight = 195
-          ClientWidth = 278
-          object GridWatchHistory: TStringGrid
-            Left = 0
-            Height = 174
-            Top = 21
-            Width = 278
-            Align = alClient
-            ColCount = 1
-            FixedCols = 0
-            RowCount = 1
-            TabOrder = 0
-            ColWidths = (
-              233
-            )
-            Cells = (
-              1
-              0
-              0
-              'Values'
-            )
-          end
-          object ComboWatchHistory: TComboBox
-            Left = 0
-            Height = 23
-            Top = 0
-            Width = 278
-            Align = alTop
-            ItemHeight = 15
-            OnSelect = ComboWatchHistorySelect
-            Style = csDropDownList
-            TabOrder = 1
-          end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Height = 392
+        Top = 0
+        Width = 286
+        Align = alClient
+        Caption = 'Panel2'
+        ClientHeight = 392
+        ClientWidth = 286
+        TabOrder = 2
+        object grdCallStack: TStringGrid
+          Left = 4
+          Height = 384
+          Top = 4
+          Width = 278
+          Align = alClient
+          AutoFillColumns = True
+          BorderSpacing.Around = 3
+          ColCount = 1
+          Columns = <          
+            item
+              Title.Caption = 'CallStack'
+              Width = 274
+            end>
+          FixedCols = 0
+          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goDrawFocusSelected, goColSizing, goSmoothScroll]
+          RowCount = 1
+          TabOrder = 0
+          TitleStyle = tsNative
+          ColWidths = (
+            274
+          )
         end
       end
     end
@@ -725,6 +757,7 @@ object frmMain: TfrmMain
     end
     object ToolButton9: TToolButton
       Left = 909
+      Height = 40
       Top = 0
       Width = 10
       Caption = 'ToolButton9'
@@ -732,6 +765,7 @@ object frmMain: TfrmMain
     end
     object ToolButton15: TToolButton
       Left = 630
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton15'
@@ -739,6 +773,7 @@ object frmMain: TfrmMain
     end
     object ToolButton16: TToolButton
       Left = 109
+      Height = 40
       Top = 0
       Width = 10
       Caption = 'ToolButton16'
@@ -746,6 +781,7 @@ object frmMain: TfrmMain
     end
     object ToolButton18: TToolButton
       Left = 491
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton18'
@@ -753,6 +789,7 @@ object frmMain: TfrmMain
     end
     object ToolButton17: TToolButton
       Left = 165
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton17'
@@ -760,6 +797,7 @@ object frmMain: TfrmMain
     end
     object ToolButton19: TToolButton
       Left = 555
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton19'
@@ -767,6 +805,7 @@ object frmMain: TfrmMain
     end
     object ToolButton20: TToolButton
       Left = 325
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton20'
@@ -774,6 +813,7 @@ object frmMain: TfrmMain
     end
     object ToolButton21: TToolButton
       Left = 399
+      Height = 40
       Top = 0
       Width = 5
       Caption = 'ToolButton21'

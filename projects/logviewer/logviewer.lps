@@ -3,13 +3,13 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="9"/>
-    <BuildModes Active="Release win32 i386 win32"/>
+    <BuildModes Active="Debug"/>
     <Units Count="72">
       <Unit0>
         <Filename Value="logviewer.pas"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="35" Y="4"/>
-        <UsageCount Value="60"/>
+        <CursorPos Y="24"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -20,9 +20,9 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="893"/>
-        <CursorPos X="22" Y="914"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="319"/>
+        <CursorPos X="85" Y="328"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -32,7 +32,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="43"/>
         <CursorPos X="60" Y="48"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="62"/>
       </Unit2>
       <Unit3>
         <Filename Value="fabout.pas"/>
@@ -329,9 +329,12 @@
       </Unit52>
       <Unit53>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <UnitName Value="ts.Editor.Factories"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="91"/>
-        <CursorPos X="3" Y="96"/>
+        <CursorPos Y="117"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
@@ -448,8 +451,7 @@
       <Unit70>
         <Filename Value="..\..\..\..\fpc\packages\fcl-process\src\simpleipc.pp"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="164"/>
-        <CursorPos X="16" Y="187"/>
+        <TopLine Value="22"/>
         <UsageCount Value="12"/>
       </Unit70>
       <Unit71>
@@ -459,7 +461,7 @@
         <UsageCount Value="12"/>
       </Unit71>
     </Units>
-    <JumpHistory Count="3" HistoryIndex="2">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="logviewer_forms_main.pas"/>
         <Caret Line="285" Column="13" TopLine="272"/>
@@ -472,6 +474,62 @@
         <Filename Value="logviewer_forms_main.pas"/>
         <Caret Line="286" TopLine="280"/>
       </Position3>
+      <Position4>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="923" Column="32" TopLine="803"/>
+      </Position4>
+      <Position5>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="306" TopLine="288"/>
+      </Position5>
+      <Position6>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="18" Column="32"/>
+      </Position6>
+      <Position7>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="328" TopLine="307"/>
+      </Position7>
+      <Position8>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="175" Column="70" TopLine="158"/>
+      </Position8>
+      <Position9>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="20" Column="31"/>
+      </Position9>
+      <Position10>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="730" Column="23" TopLine="719"/>
+      </Position10>
+      <Position11>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="618" Column="82" TopLine="593"/>
+      </Position11>
+      <Position12>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="152" Column="26" TopLine="125"/>
+      </Position12>
+      <Position13>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="330" Column="14" TopLine="319"/>
+      </Position13>
+      <Position14>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="328" TopLine="319"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="114" TopLine="91"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="115" TopLine="91"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="116" TopLine="91"/>
+      </Position17>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

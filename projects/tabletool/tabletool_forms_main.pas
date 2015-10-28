@@ -47,6 +47,7 @@ type
     Button8: TButton;
     chkFirstRowAsHeader: TCheckBox;
     chkQuoteValues: TCheckBox;
+    Edit1: TEdit;
     edtMargin: TLabeledEdit;
     edtMinColumnWidth: TLabeledEdit;
     grpLayoutOptions: TGroupBox;

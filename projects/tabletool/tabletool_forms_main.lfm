@@ -302,6 +302,14 @@ object frmMain: TfrmMain
         Caption = 'First row is header'
         TabOrder = 1
       end
+      object Edit1: TEdit
+        Left = 153
+        Height = 23
+        Top = 2
+        Width = 80
+        TabOrder = 2
+        Text = 'Edit1'
+      end
     end
   end
   object aclMain: TActionList

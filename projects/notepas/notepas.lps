@@ -1182,8 +1182,8 @@
         <UnitName Value="ts.Editor.Factories.Settings"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="28"/>
-        <TopLine Value="267"/>
-        <CursorPos X="100" Y="206"/>
+        <TopLine Value="259"/>
+        <CursorPos X="15" Y="284"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
@@ -1333,7 +1333,7 @@
         <EditorIndex Value="16"/>
         <TopLine Value="61"/>
         <CursorPos X="111" Y="68"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="50"/>
         <Loaded Value="True"/>
       </Unit148>
       <Unit149>
@@ -1540,7 +1540,7 @@
         <Filename Value="..\..\components\virtualtrees\VirtualTrees.pas"/>
         <EditorIndex Value="34"/>
         <CursorPos X="88" Y="7"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Bookmarks Count="1">
           <Item0 X="43" Y="21534" ID="2"/>
         </Bookmarks>
@@ -2013,7 +2013,7 @@
       <Unit243>
         <Filename Value="..\..\..\..\fpc\packages\fcl-db\src\base\db.pas"/>
         <EditorIndex Value="20"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit243>
       <Unit244>
@@ -2028,7 +2028,7 @@
         <EditorIndex Value="13"/>
         <TopLine Value="29"/>
         <CursorPos X="46" Y="49"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit245>
       <Unit246>
@@ -2042,7 +2042,7 @@
       <Unit247>
         <Filename Value="..\..\..\..\fpc\packages\fcl-process\src\process.pp"/>
         <EditorIndex Value="14"/>
-        <UsageCount Value="15"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit247>
       <Unit248>
@@ -2051,7 +2051,7 @@
         <EditorIndex Value="17"/>
         <TopLine Value="52"/>
         <CursorPos X="31" Y="64"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit248>
       <Unit249>
@@ -2060,7 +2060,7 @@
         <EditorIndex Value="18"/>
         <TopLine Value="1119"/>
         <CursorPos X="86" Y="1132"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit249>
       <Unit250>
@@ -2077,7 +2077,7 @@
         <EditorIndex Value="31"/>
         <TopLine Value="34"/>
         <CursorPos X="7" Y="48"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit251>
@@ -2095,7 +2095,7 @@
         <EditorIndex Value="37"/>
         <TopLine Value="374"/>
         <CursorPos X="17" Y="394"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit253>
       <Unit254>
@@ -2104,7 +2104,7 @@
         <EditorIndex Value="38"/>
         <TopLine Value="366"/>
         <CursorPos X="94" Y="385"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit254>
       <Unit255>
@@ -2113,7 +2113,7 @@
         <EditorIndex Value="29"/>
         <TopLine Value="28"/>
         <CursorPos X="11" Y="39"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit255>
       <Unit256>
@@ -2121,7 +2121,7 @@
         <EditorIndex Value="33"/>
         <TopLine Value="31"/>
         <CursorPos X="5" Y="46"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit256>
@@ -2129,126 +2129,127 @@
         <Filename Value="..\..\..\..\lazarus\components\synedit\synedit.inc"/>
         <EditorIndex Value="30"/>
         <CursorPos X="42" Y="19"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit257>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_aboutdialog.pas"/>
-        <Caret Line="31" Column="60" TopLine="31"/>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="1344" Column="33" TopLine="1340"/>
       </Position1>
       <Position2>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_aboutdialog.pas"/>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="426" Column="71" TopLine="412"/>
       </Position2>
       <Position3>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="1344" Column="33" TopLine="1340"/>
+        <Caret Line="429" Column="77" TopLine="415"/>
       </Position3>
       <Position4>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="426" Column="71" TopLine="412"/>
+        <Caret Line="426" Column="28" TopLine="412"/>
       </Position4>
       <Position5>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="429" Column="77" TopLine="415"/>
+        <Caret Line="61" Column="65" TopLine="46"/>
       </Position5>
       <Position6>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="426" Column="28" TopLine="412"/>
+        <Caret Line="169" Column="36" TopLine="157"/>
       </Position6>
       <Position7>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="61" Column="65" TopLine="46"/>
+        <Caret Line="587" TopLine="573"/>
       </Position7>
       <Position8>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="169" Column="36" TopLine="157"/>
+        <Caret Line="482" Column="48" TopLine="466"/>
       </Position8>
       <Position9>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="587" TopLine="573"/>
+        <Filename Value="..\..\..\..\extras\HtmlViewer\source\vwPrint.pas"/>
       </Position9>
       <Position10>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="482" Column="48" TopLine="466"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\..\..\extras\HtmlViewer\source\vwPrint.pas"/>
-      </Position11>
-      <Position12>
         <Filename Value="..\..\..\..\extras\HtmlViewer\source\vwPrint.pas"/>
         <Caret Line="46" Column="5" TopLine="31"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="49" TopLine="43"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="193" Column="70" TopLine="173"/>
       </Position12>
       <Position13>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="49" TopLine="43"/>
+        <Caret Line="440" Column="17" TopLine="418"/>
       </Position13>
       <Position14>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="193" Column="70" TopLine="173"/>
+        <Caret Line="463" Column="46" TopLine="447"/>
       </Position14>
       <Position15>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="440" Column="17" TopLine="418"/>
+        <Caret Line="1253" Column="11" TopLine="1226"/>
       </Position15>
       <Position16>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="463" Column="46" TopLine="447"/>
+        <Caret Line="1365" TopLine="1341"/>
       </Position16>
       <Position17>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="1253" Column="11" TopLine="1226"/>
+        <Caret Line="488" Column="3" TopLine="481"/>
       </Position17>
       <Position18>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="1365" TopLine="1341"/>
+        <Caret Line="466" Column="7" TopLine="451"/>
       </Position18>
       <Position19>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="488" Column="3" TopLine="481"/>
       </Position19>
       <Position20>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="466" Column="7" TopLine="451"/>
+        <Caret Line="1065" Column="36" TopLine="1038"/>
       </Position20>
       <Position21>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
       </Position21>
       <Position22>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="1065" Column="36" TopLine="1038"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
-      </Position23>
-      <Position24>
         <Filename Value="..\..\..\..\extras\HtmlViewer\source\vwPrint.pas"/>
         <Caret Line="46" Column="5" TopLine="31"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="1243" Column="12" TopLine="1232"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
+        <Caret Line="457" Column="29" TopLine="442"/>
       </Position24>
       <Position25>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="1243" Column="12" TopLine="1232"/>
+        <Caret Line="49" Column="15" TopLine="31"/>
       </Position25>
       <Position26>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="457" Column="29" TopLine="442"/>
+        <Filename Value="..\..\..\..\lazarus\components\synedit\synhighlightertex.pas"/>
+        <Caret Line="382" Column="57" TopLine="363"/>
       </Position26>
       <Position27>
         <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="49" Column="15" TopLine="31"/>
+        <Caret Line="49" Column="19" TopLine="40"/>
       </Position27>
       <Position28>
-        <Filename Value="..\..\..\..\lazarus\components\synedit\synhighlightertex.pas"/>
-        <Caret Line="382" Column="57" TopLine="363"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <Caret Line="206" Column="100" TopLine="258"/>
       </Position28>
       <Position29>
-        <Filename Value="..\..\components\tslib\components\synhighlighterLua.pas"/>
-        <Caret Line="49" Column="19" TopLine="40"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <Caret Line="64" Column="5" TopLine="47"/>
       </Position29>
       <Position30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
-        <Caret Line="163" Column="73" TopLine="267"/>
+        <Caret Line="164" Column="5" TopLine="147"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

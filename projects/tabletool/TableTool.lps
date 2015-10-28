@@ -21,8 +21,8 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="TableTool_Forms_Main"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="82"/>
-        <CursorPos X="4" Y="100"/>
+        <TopLine Value="83"/>
+        <CursorPos X="4" Y="101"/>
         <UsageCount Value="69"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -210,123 +210,123 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="80" TopLine="65"/>
+        <Caret Line="88" Column="47" TopLine="87"/>
       </Position1>
       <Position2>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="88" Column="47" TopLine="87"/>
+        <Caret Line="158" TopLine="140"/>
       </Position2>
       <Position3>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="158" TopLine="140"/>
+        <Caret Line="9" Column="37"/>
       </Position3>
       <Position4>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="9" Column="37"/>
+        <Caret Line="8" Column="37"/>
       </Position4>
       <Position5>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="8" Column="37"/>
+        <Caret Line="111" Column="38" TopLine="93"/>
       </Position5>
       <Position6>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="111" Column="38" TopLine="93"/>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="238" Column="3" TopLine="221"/>
       </Position6>
       <Position7>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="238" Column="3" TopLine="221"/>
+        <Caret Line="38" Column="32" TopLine="10"/>
       </Position7>
       <Position8>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="38" Column="32" TopLine="10"/>
+        <Caret Line="320" Column="4" TopLine="300"/>
       </Position8>
       <Position9>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="320" Column="4" TopLine="300"/>
+        <Caret Line="328" TopLine="310"/>
       </Position9>
       <Position10>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="328" TopLine="310"/>
+        <Caret Line="329" TopLine="311"/>
       </Position10>
       <Position11>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="329" TopLine="311"/>
+        <Caret Line="331" TopLine="313"/>
       </Position11>
       <Position12>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="331" TopLine="313"/>
+        <Caret Line="351" Column="25" TopLine="326"/>
       </Position12>
       <Position13>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="351" Column="25" TopLine="326"/>
+        <Caret Line="418" Column="77" TopLine="383"/>
       </Position13>
       <Position14>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="418" Column="77" TopLine="383"/>
-      </Position14>
-      <Position15>
         <Filename Value="tabletool_forms_main.pas"/>
         <Caret Line="64" Column="68" TopLine="55"/>
+      </Position14>
+      <Position15>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="29" Column="30"/>
       </Position15>
       <Position16>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="29" Column="30"/>
+        <Caret Line="418" Column="6" TopLine="401"/>
       </Position16>
       <Position17>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="418" Column="6" TopLine="401"/>
+        <Caret Line="334" TopLine="308"/>
       </Position17>
       <Position18>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="334" TopLine="308"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="140" Column="31" TopLine="123"/>
       </Position18>
       <Position19>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="140" Column="31" TopLine="123"/>
+        <Caret Line="149" Column="62" TopLine="124"/>
       </Position19>
       <Position20>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="149" Column="62" TopLine="124"/>
+        <Caret Line="165" Column="43" TopLine="130"/>
       </Position20>
       <Position21>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="165" Column="43" TopLine="130"/>
+        <Caret Line="166" Column="43" TopLine="131"/>
       </Position21>
       <Position22>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="166" Column="43" TopLine="131"/>
+        <Caret Line="165" Column="43" TopLine="130"/>
       </Position22>
       <Position23>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="165" Column="43" TopLine="130"/>
+        <Caret Line="164" Column="43" TopLine="129"/>
       </Position23>
       <Position24>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="164" Column="43" TopLine="129"/>
+        <Caret Line="166" Column="43" TopLine="131"/>
       </Position24>
       <Position25>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="166" Column="43" TopLine="131"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position25>
       <Position26>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position26>
       <Position27>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="100" Column="4" TopLine="82"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position27>
       <Position28>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position28>
       <Position29>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="100" Column="4" TopLine="82"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position29>
       <Position30>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>

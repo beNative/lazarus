@@ -169,18 +169,18 @@ object frmMain: TfrmMain
               Columns = <              
                 item
                   Title.Caption = 'Variable'
-                  Width = 133
+                  Width = 124
                 end              
                 item
                   Title.Caption = 'Value'
-                  Width = 133
+                  Width = 125
                 end>
               FixedCols = 0
               RowCount = 1
               TabOrder = 0
               ColWidths = (
-                133
-                133
+                124
+                125
               )
             end
           end
@@ -987,8 +987,8 @@ object frmMain: TfrmMain
     end
   end
   object imgMessages: TImageList
-    left = 832
-    top = 120
+    left = 872
+    top = 128
     Bitmap = {
       4C690E0000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00A364
       3324A4653485A76939C5A56736F2A56736F2A76A39C4A4653584A3643324FFFF
@@ -1444,7 +1444,7 @@ object frmMain: TfrmMain
   object imgToolbar: TImageList
     Height = 32
     Width = 32
-    left = 872
+    left = 944
     top = 120
     Bitmap = {
       4C6903000000200000002000000000000000000000000000000000499207035B

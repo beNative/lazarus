@@ -100,21 +100,21 @@ type
     btnSelectAlll        : TSpeedButton;
     btnSelectNonen       : TSpeedButton;
     btnStop              : TSpeedButton;
-    ComboWatchHistory: TComboBox;
+    ComboWatchHistory    : TComboBox;
     edtFilterMessages    : TSearchEdit;
     edtHex               : TATBinHex;
-    grdCallStack: TStringGrid;
-    gridLastestWatch: TStringGrid;
-    gridSelectedWatch: TStringGrid;
-    GridWatchHistory: TStringGrid;
+    grdCallStack         : TStringGrid;
+    gridLastestWatch     : TStringGrid;
+    gridSelectedWatch    : TStringGrid;
+    GridWatchHistory     : TStringGrid;
     imgToolbar           : TImageList;
     imgMessages          : TImageList;
     ImgViewer            : TImage;
     imlMain              : TImageList;
     ispMain              : TTIPropertyGrid;
-    nbWatches: TPageControl;
-    Panel1: TPanel;
-    Panel2: TPanel;
+    nbWatches            : TPageControl;
+    Panel1               : TPanel;
+    Panel2               : TPanel;
     pnlCallStackWatch    : TPanel;
     pnlFilter            : TPanel;
     pnlLeft              : TPanel;
@@ -127,7 +127,7 @@ type
     pgText               : TTabSheet;
     SpeedButton1         : TSpeedButton;
     SpeedButton2         : TSpeedButton;
-    splLeftHorizontal: TSplitter;
+    splLeftHorizontal    : TSplitter;
     splVertical          : TSplitter;
     sbrMain              : TStatusBar;
     splLeftVertical      : TSplitter;
@@ -154,9 +154,9 @@ type
     ToolButton7          : TToolButton;
     ToolButton8          : TToolButton;
     ToolButton9          : TToolButton;
-    tsHistory: TTabSheet;
-    tsLatest: TTabSheet;
-    tsSelected: TTabSheet;
+    tsHistory            : TTabSheet;
+    tsLatest             : TTabSheet;
+    tsSelected           : TTabSheet;
     vtvMessages          : TVirtualStringTree;
 
     procedure actBitmapExecute(Sender: TObject);
@@ -325,7 +325,7 @@ type
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FSettings                := TEditorFactories.CreateSettings(Self);
+  FSettings                := TEditorFactories.CreateSettings(Self, 'settings.xml');
   FManager                 := TEditorFactories.CreateManager(Self, FSettings);
   FManager.Settings.Load;
   FEditorView              := TEditorFactories.CreateView(pgText,FManager,'Tool');

@@ -126,6 +126,7 @@
       <Unit2>
         <Filename Value="logviewer.watchlist.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="LogViewer.WatchList"/>
       </Unit2>
     </Units>
   </ProjectOptions>

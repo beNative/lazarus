@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -73,6 +73,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
+    {$region 'designer controls' /fold}
     aclMain              : TActionList;
     actClearMessages     : TAction;
     actException         : TAction;
@@ -158,6 +159,7 @@ type
     tsLatest             : TTabSheet;
     tsSelected           : TTabSheet;
     vtvMessages          : TVirtualStringTree;
+    {$endregion}
 
     procedure actBitmapExecute(Sender: TObject);
     procedure actCallStackExecute(Sender: TObject);
@@ -247,11 +249,6 @@ type
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
-    procedure OnFindClass(
-            Reader         : TReader;
-      const AClassName     : string;
-        var ComponentClass : TComponentClass
-    );
 
     property Editor: IEditorView
       read GetEditor;
@@ -322,10 +319,12 @@ type
 
 { TfrmMain }
 
+{$region 'construction and destruction' /fold}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FSettings                := TEditorFactories.CreateSettings(Self, 'settings.xml');
+  FSettings                := TEditorFactories.CreateSettings(Self, 'malloc.xml');
+  //, 'settings.xml');
   FManager                 := TEditorFactories.CreateManager(Self, FSettings);
   FManager.Settings.Load;
   FEditorView              := TEditorFactories.CreateView(pgText,FManager,'Tool');
@@ -356,7 +355,9 @@ begin
   FWatches.Free;
   inherited BeforeDestruction;
 end;
+{$endregion}
 
+{$region 'action handlers' /fold}
 procedure TfrmMain.actClearMessagesExecute(Sender: TObject);
 begin
   vtvMessages.Clear;
@@ -482,7 +483,9 @@ procedure TfrmMain.actValueExecute(Sender: TObject);
 begin
   UpdateActiveMessages(ltValue, Sender);
 end;
+{$endregion}
 
+{$region 'event handlers' /fold}
 procedure TfrmMain.ImgViewerDblClick(Sender: TObject);
 begin
   //with ImgViewer.Picture.Bitmap do
@@ -636,6 +639,7 @@ begin
       ((MsgType in FActiveMessages) and IsWild(Title, FTitleFilter, True));
   end;
 end;
+{$endregion}
 
 procedure TfrmMain.ClearMessages(Sender: TObject);
 begin
@@ -913,16 +917,6 @@ begin
   actSelectNone.Enabled := not (FActiveMessages = []);
   inherited UpdateActions;
 end;
-
-procedure TfrmMain.OnFindClass(Reader: TReader; const AClassName: string;
-  var ComponentClass: TComponentClass);
-begin
-  //ComponentClass := TSynEdit;
-   //TComponentClass(FindClass(AClassName));
-end;
-
-initialization
-//  {$I logviewer.forms.main.lrs}
 
 end.
 

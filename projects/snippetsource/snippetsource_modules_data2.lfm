@@ -1,7 +1,7 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 396
-  HorizontalOffset = 721
+  HorizontalOffset = 951
   VerticalOffset = 359
   Width = 333
   object trsSnippet: TSQLTransaction
@@ -9,7 +9,7 @@ object dmSnippetSource: TdmSnippetSource
     Database = conMain
     Options = []
     left = 48
-    top = 96
+    top = 104
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
@@ -19,31 +19,26 @@ object dmSnippetSource: TdmSnippetSource
         Name = 'ID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'HighlighterID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'NodeTypeID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'ParentID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'ImageIndex'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'NodeName'
@@ -55,31 +50,26 @@ object dmSnippetSource: TdmSnippetSource
         Name = 'NodePath'
         DataType = ftWideString
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'Text'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'FoldLevel'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'Comment'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'CommentRTF'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'FoldState'
@@ -91,13 +81,11 @@ object dmSnippetSource: TdmSnippetSource
         Name = 'DateCreated'
         DataType = ftDateTime
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'DateModified'
         DataType = ftDateTime
         Precision = -1
-        Size = 0
       end>
     AfterEdit = qrySnippetAfterEdit
     AfterInsert = qrySnippetAfterInsert
@@ -260,7 +248,6 @@ object dmSnippetSource: TdmSnippetSource
       Required = False
     end
     object qrySnippetNodePath: TWideStringField
-      DisplayWidth = 0
       FieldKind = fkData
       FieldName = 'NodePath'
       Index = 13
@@ -301,25 +288,21 @@ object dmSnippetSource: TdmSnippetSource
         Name = 'ID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'ImageIndex'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'Image'
         DataType = ftBlob
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'Name'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end>
     Database = conMain
     Transaction = trsSnippet
@@ -389,19 +372,16 @@ object dmSnippetSource: TdmSnippetSource
         Name = 'ID'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'Name'
         DataType = ftMemo
         Precision = -1
-        Size = 0
       end    
       item
         Name = 'ImageIndex'
         DataType = ftInteger
         Precision = -1
-        Size = 0
       end>
     Database = conMain
     Transaction = trsSnippet

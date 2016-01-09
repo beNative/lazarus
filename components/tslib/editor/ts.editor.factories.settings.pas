@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -61,7 +61,7 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
 
-  SynFacilHighlighter,
+  //SynFacilHighlighter,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -161,7 +161,7 @@ begin
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
   Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
   Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
-  Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
+  //Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
     // apply common highlighter attributes
 
 
@@ -281,8 +281,8 @@ begin
     TSynINISyn,
     TSynUniSyn,
     TSynCustomHighlighter,
-    TSynLuaSyn,
-    TSynFacilSyn
+    TSynLuaSyn
+    //TSynFacilSyn
   ]);
 end;
 {$endregion}

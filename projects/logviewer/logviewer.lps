@@ -8,8 +8,8 @@
       <Unit0>
         <Filename Value="logviewer.pas"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos Y="24"/>
-        <UsageCount Value="62"/>
+        <CursorPos X="62" Y="17"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -20,19 +20,21 @@
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="319"/>
-        <CursorPos X="85" Y="328"/>
-        <UsageCount Value="62"/>
+        <TopLine Value="674"/>
+        <CursorPos X="35" Y="508"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="logviewer.watchlist.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="43"/>
-        <CursorPos X="60" Y="48"/>
-        <UsageCount Value="62"/>
+        <UnitName Value="LogViewer.WatchList"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="102"/>
+        <CursorPos X="68" Y="40"/>
+        <UsageCount Value="87"/>
+        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="fabout.pas"/>
@@ -40,171 +42,171 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <CursorPos X="33" Y="17"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="50"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\components\VirtualTreeView-4.8.6-R1\VirtualTrees.pas"/>
         <TopLine Value="783"/>
         <CursorPos X="3" Y="808"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\fpc\2.4.1\source\packages\fcl-process\src\simpleipc.pp"/>
         <TopLine Value="271"/>
         <CursorPos X="11" Y="275"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\fpc\2.4.1\source\rtl\objpas\classes\classesh.inc"/>
         <TopLine Value="1129"/>
         <CursorPos X="25" Y="1181"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\multilog-05\multilog.pas"/>
         <CursorPos X="36" Y="3"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\fpc\2.4.1\source\rtl\inc\ustringh.inc"/>
         <TopLine Value="81"/>
         <CursorPos X="30" Y="117"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\lcl\include\fpimagebitmap.inc"/>
         <TopLine Value="107"/>
         <CursorPos X="33" Y="133"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\..\components\multilog-05\multiloglaz.pas"/>
         <CursorPos X="64" Y="10"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\multilog-05\logtreeview.pas"/>
         <CursorPos X="60" Y="33"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\lcl\controls.pp"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\SynUniSyn\SynUniRules.pas"/>
         <TopLine Value="338"/>
         <CursorPos X="48" Y="354"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\components\SynUniSyn\SynUniClasses.pas"/>
         <TopLine Value="1066"/>
         <CursorPos Y="1109"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\components\SynUniSyn\SynUniHighlighter.pas"/>
         <TopLine Value="25"/>
         <CursorPos X="3" Y="47"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\components\SynUniSyn\SynUniParser.pas"/>
         <TopLine Value="2678"/>
         <CursorPos X="44" Y="2685"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\components\SynUniSyn\SynUniLoadSave2.pas"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit17>
       <Unit18>
         <Filename Value="..\..\components\GridView\Ex_RegGrid.dcr"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\components\GridView\ExtSysUtils.pas"/>
         <CursorPos X="40" Y="33"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\components\GridView\Ex.inc"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\..\components\GridView\ExtStrUtils.pas"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\components\GridView\Ex_DBGrid.pas"/>
         <TopLine Value="45"/>
         <CursorPos Y="81"/>
         <FoldState Value=" T8j8IHB PuNy4I T9j922W PtayN2 T4.0240K1 pK%K23054R11121]5]3[66 PjF+H0Y"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\fpc\2.4.1\source\packages\winunits-jedi\src\jwawingdi.pas"/>
         <TopLine Value="37"/>
         <CursorPos X="17" Y="61"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit23>
       <Unit24>
         <Filename Value="..\..\components\GridView\Ex_Inspector.pas"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit24>
       <Unit25>
         <Filename Value="..\..\components\GridView\ext_graphics.pas"/>
         <TopLine Value="265"/>
         <CursorPos X="5" Y="308"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\GridView\ExtSystem.pas"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit26>
       <Unit27>
         <Filename Value="..\..\components\GridView\Ex_RegGrid.pas"/>
         <CursorPos X="29" Y="82"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\..\fpc\2.4.1\source\packages\winunits-jedi\src\jwawindllnames.pas"/>
         <TopLine Value="99"/>
         <CursorPos X="3" Y="121"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\fpc\2.4.1\source\packages\winunits-jedi\src\jwawintype.pas"/>
         <TopLine Value="1830"/>
         <CursorPos X="55" Y="1831"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\fpc\2.4.1\source\packages\winunits-jedi\src\jwanative.pas"/>
         <TopLine Value="3607"/>
         <CursorPos Y="3629"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\fpc\2.4.1\source\rtl\win\wininc\struct.inc"/>
         <TopLine Value="4996"/>
         <CursorPos X="6" Y="5018"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\GridView\Ex_Grid.pas"/>
         <TopLine Value="10748"/>
         <CursorPos X="7" Y="10782"/>
-        <UsageCount Value="9"/>
+        <UsageCount Value="7"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\components\multilog-05\filechannel.pas"/>
         <TopLine Value="93"/>
         <CursorPos X="37" Y="119"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="11"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\components\tslib\fcodeeditor.pas"/>
@@ -213,61 +215,61 @@
         <ResourceBaseClass Value="Form"/>
         <TopLine Value="1972"/>
         <CursorPos X="54" Y="1978"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\lcl\lresources.pp"/>
         <TopLine Value="1206"/>
         <CursorPos X="3" Y="1061"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\fpc\2.4.1\source\rtl\objpas\classes\reader.inc"/>
         <TopLine Value="808"/>
         <CursorPos X="3" Y="834"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\..\ide\buildmanager.pas"/>
         <TopLine Value="942"/>
         <CursorPos X="81" Y="28"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\..\ide\codebrowser.pas"/>
         <TopLine Value="16"/>
         <CursorPos X="16" Y="31"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit38>
       <Unit39>
         <Filename Value="..\..\designer\jitforms.pp"/>
         <TopLine Value="1287"/>
         <CursorPos X="60" Y="1299"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\examples\componentstreaming\mainunit.pas"/>
         <TopLine Value="11"/>
         <CursorPos X="69" Y="38"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit40>
       <Unit41>
         <Filename Value="..\..\examples\xmlstreaming\mainunit.pas"/>
         <TopLine Value="295"/>
         <CursorPos X="3" Y="302"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit41>
       <Unit42>
         <Filename Value="..\..\lcl\include\clipbrd.inc"/>
         <TopLine Value="364"/>
         <CursorPos X="21" Y="390"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit42>
       <Unit43>
         <Filename Value="..\threads\parallelcompression\classespatch.pas"/>
         <TopLine Value="1554"/>
         <CursorPos X="31" Y="1580"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit43>
       <Unit44>
         <Filename Value="..\_multilogviewer-03\fmain.pas"/>
@@ -275,65 +277,65 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <CursorPos X="46" Y="27"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit44>
       <Unit45>
         <Filename Value="..\..\components\tslib\tseditorview.pas"/>
         <TopLine Value="618"/>
         <CursorPos X="68" Y="644"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\components\virtualtreeview\VirtualTrees.pas"/>
         <TopLine Value="3074"/>
         <CursorPos X="15" Y="3093"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="11"/>
       </Unit46>
       <Unit47>
         <Filename Value="..\..\components\multilog\multilog.pas"/>
         <TopLine Value="59"/>
         <CursorPos X="11" Y="78"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit47>
       <Unit48>
         <Filename Value="..\..\lcl\lcltype.pp"/>
         <TopLine Value="2695"/>
         <CursorPos X="37" Y="2724"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
       </Unit48>
       <Unit49>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="161"/>
         <CursorPos X="52" Y="188"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit49>
       <Unit50>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="575"/>
         <CursorPos X="25" Y="588"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit50>
       <Unit51>
         <Filename Value="..\..\components\tslib\editor\ts.editor.helpers.pas"/>
         <TopLine Value="48"/>
         <CursorPos X="29" Y="77"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\components\tslib\tslib.pas"/>
         <TopLine Value="13"/>
         <CursorPos X="21" Y="35"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <UnitName Value="ts.Editor.Factories"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="91"/>
         <CursorPos Y="117"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit53>
       <Unit54>
@@ -341,40 +343,40 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="3" Y="33"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit54>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
         <TopLine Value="57"/>
         <CursorPos Y="88"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit55>
       <Unit56>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="260"/>
         <CursorPos X="28" Y="145"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit56>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <TopLine Value="1096"/>
         <CursorPos X="14" Y="1118"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="8"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\components\ts.components.virtualdbtreeex.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="19"/>
         <CursorPos X="3" Y="114"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
       </Unit58>
       <Unit59>
         <Filename Value="..\..\components\tslib\core\ts.core.dbutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="23"/>
         <CursorPos X="3" Y="38"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
       </Unit59>
       <Unit60>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
@@ -382,7 +384,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="14"/>
         <CursorPos X="3" Y="29"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
@@ -390,19 +392,19 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="44" Y="26"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
       </Unit61>
       <Unit62>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="12"/>
       </Unit62>
       <Unit63>
         <Filename Value="logviewer_forms_main.lfm"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="59"/>
         <CursorPos X="9" Y="76"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit63>
       <Unit64>
@@ -410,15 +412,17 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="472"/>
         <CursorPos X="6" Y="493"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit64>
       <Unit65>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.objectstorage.pas"/>
-        <EditorIndex Value="-1"/>
+        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="1046"/>
         <CursorPos Y="1064"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="24"/>
+        <Loaded Value="True"/>
       </Unit65>
       <Unit66>
         <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
@@ -426,110 +430,161 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="2772"/>
         <CursorPos X="3" Y="2810"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="19" Y="32"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit68>
       <Unit69>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="101"/>
         <CursorPos Y="138"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\..\..\fpc\packages\fcl-process\src\simpleipc.pp"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\..\..\fpc\packages\fcl-process\src\win\simpleipc.inc"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="35" Y="26"/>
-        <UsageCount Value="12"/>
+        <UsageCount Value="10"/>
       </Unit71>
     </Units>
-    <JumpHistory Count="17" HistoryIndex="16">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="285" Column="13" TopLine="272"/>
+        <Filename Value="logviewer.pas"/>
+        <Caret Line="20" Column="31"/>
       </Position1>
       <Position2>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="811" Column="3" TopLine="777"/>
+        <Caret Line="730" Column="23" TopLine="719"/>
       </Position2>
       <Position3>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="286" TopLine="280"/>
+        <Caret Line="618" Column="82" TopLine="593"/>
       </Position3>
       <Position4>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="923" Column="32" TopLine="803"/>
+        <Caret Line="152" Column="26" TopLine="125"/>
       </Position4>
       <Position5>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="306" TopLine="288"/>
+        <Caret Line="330" Column="14" TopLine="319"/>
       </Position5>
       <Position6>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="18" Column="32"/>
+        <Caret Line="328" TopLine="319"/>
       </Position6>
       <Position7>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="328" TopLine="307"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="114" TopLine="91"/>
       </Position7>
       <Position8>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="175" Column="70" TopLine="158"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="115" TopLine="91"/>
       </Position8>
       <Position9>
-        <Filename Value="logviewer.pas"/>
-        <Caret Line="20" Column="31"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Caret Line="116" TopLine="91"/>
       </Position9>
       <Position10>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="730" Column="23" TopLine="719"/>
+        <Caret Line="333" Column="32" TopLine="292"/>
       </Position10>
       <Position11>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="618" Column="82" TopLine="593"/>
+        <Caret Line="139" Column="54" TopLine="122"/>
       </Position11>
       <Position12>
         <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="152" Column="26" TopLine="125"/>
+        <Caret Line="328" Column="67" TopLine="316"/>
       </Position12>
       <Position13>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="330" Column="14" TopLine="319"/>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="307" Column="10" TopLine="275"/>
       </Position13>
       <Position14>
-        <Filename Value="logviewer_forms_main.pas"/>
-        <Caret Line="328" TopLine="319"/>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="256" Column="5" TopLine="224"/>
       </Position14>
       <Position15>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="114" TopLine="91"/>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="276" TopLine="245"/>
       </Position15>
       <Position16>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="115" TopLine="91"/>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="54" TopLine="53"/>
       </Position16>
       <Position17>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="116" TopLine="91"/>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="277" Column="68" TopLine="246"/>
       </Position17>
+      <Position18>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="931" TopLine="901"/>
+      </Position18>
+      <Position19>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="794" Column="35" TopLine="789"/>
+      </Position19>
+      <Position20>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="820" TopLine="781"/>
+      </Position20>
+      <Position21>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="314" TopLine="293"/>
+      </Position21>
+      <Position22>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="636" Column="5" TopLine="621"/>
+      </Position22>
+      <Position23>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="61" Column="76" TopLine="208"/>
+      </Position23>
+      <Position24>
+        <Filename Value="logviewer_forms_main.pas"/>
+      </Position24>
+      <Position25>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="47" Column="34" TopLine="14"/>
+      </Position25>
+      <Position26>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="51" Column="72" TopLine="18"/>
+      </Position26>
+      <Position27>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="52" Column="57" TopLine="19"/>
+      </Position27>
+      <Position28>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="277" Column="25" TopLine="237"/>
+      </Position28>
+      <Position29>
+        <Filename Value="logviewer.watchlist.pas"/>
+        <Caret Line="40" Column="68" TopLine="102"/>
+      </Position29>
+      <Position30>
+        <Filename Value="logviewer_forms_main.pas"/>
+        <Caret Line="526" Column="57" TopLine="510"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

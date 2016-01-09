@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -336,6 +336,7 @@ type
     procedure UpdateCheckedItems;
     procedure UpdateExpandedItems;
     procedure UpdateSelectedItems;
+
   protected
     procedure DefineProperties(Filer: TFiler); override;
     procedure DoCheckedItemsChanged(Sender: TObject; const Item: TObject;
@@ -375,13 +376,16 @@ type
     property ItemTemplate: IDataTemplate read GetItemTemplate write SetItemTemplate;
     property SelectedItem: TObject read GetSelectedItem write SetSelectedItem;
     property SelectedItems: TObjectList read GetSelectedItems write SetSelectedItems;
+
   published
     property Action: TBasicAction
       read FAction write FAction;
     property AllowClearSelection: Boolean
       read FAllowClearSelection write FAllowClearSelection default True;
-    property AllowMove: Boolean read FAllowMove write FAllowMove default True;
-    property CheckSupport: TCheckSupport read FCheckSupport write SetCheckSupport default csNone;
+    property AllowMove: Boolean
+      read FAllowMove write FAllowMove default True;
+    property CheckSupport: TCheckSupport
+      read FCheckSupport write SetCheckSupport default csNone;
     property ColumnDefinitions: TColumnDefinitions
       read FColumnDefinitions write SetColumnDefinitions;
     property ImageList: TCustomImageList read FImageList write SetImageList;
@@ -1230,8 +1234,7 @@ begin
   end
   else
   begin
-   // LItem := FItemsSource[Node.Index];
-       LItem := ItemTemplate.GetItem(ItemsSource, Node.Index);
+    LItem := ItemTemplate.GetItem(ItemsSource, Node.Index);
   end;
 
   SetNodeItem(Sender, Node, LItem);
@@ -1647,7 +1650,6 @@ procedure TTreeViewPresenter.DrawCheckBox(TargetCanvas: TCanvas;
 var
   LThemedButton: TThemedButton;
   LCheckBoxRect: TRect;
-//  LDetails: TThemedElementDetails;
   LState: Cardinal;
 begin
   LCheckBoxRect := CalcCheckBoxRect(CellRect);
@@ -1697,24 +1699,14 @@ begin
       LThemedButton := tbCheckBoxUncheckedPressed;
     end;
   end;
-
-  //if StyleServices.Enabled and
-  //  (toThemeAware in FTreeView.TreeOptions.PaintOptions) then
-  //begin
-  //  LDetails := StyleServices.GetElementDetails(LThemedButton);
-  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, LCheckBoxRect);
-  //end
-  //else
+  LState := DFCS_BUTTONCHECK;
+  if LThemedButton in [tbCheckBoxCheckedNormal, tbCheckBoxCheckedHot] then
   begin
-    LState := DFCS_BUTTONCHECK;
-    if LThemedButton in [tbCheckBoxCheckedNormal, tbCheckBoxCheckedHot] then
-    begin
-      LState := LState or DFCS_CHECKED;
-    end;
-{$IFDEF Windows}
-    DrawFrameControl(TargetCanvas.Handle, LCheckBoxRect, DFC_BUTTON, LState);
-{$ENDIF}
+    LState := LState or DFCS_CHECKED;
   end;
+{$IFDEF Windows}
+  DrawFrameControl(TargetCanvas.Handle, LCheckBoxRect, DFC_BUTTON, LState);
+{$ENDIF}
 end;
 
 procedure TTreeViewPresenter.DrawImage(TargetCanvas: TCanvas;
@@ -1731,28 +1723,12 @@ end;
 
 procedure TTreeViewPresenter.DrawProgressBar(TargetCanvas: TCanvas;
   Node: PVirtualNode; Column: TColumnIndex; CellRect: TRect; Value: Integer);
-//var
-//  LDetails: TThemedElementDetails;
 begin
-  //if StyleServices.Enabled and
-  //  (toThemeAware in FTreeView.TreeOptions.PaintOptions) then
-  //begin
-  //  InflateRect(CellRect, -1, -1);
-  //  LDetails := StyleServices.GetElementDetails(tpBar);
-  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, CellRect, nil);
-  //  InflateRect(CellRect, -2, -2);
-  //  CellRect.Right := CellRect.Left + Trunc(RectWidth(CellRect) * Value / 100);
-  //  LDetails := StyleServices.GetElementDetails(tpChunk);
-  //  StyleServices.DrawElement(TargetCanvas.Handle, LDetails, CellRect, nil);
-  //end
-  //else
-  begin
-    InflateRect(CellRect, -1, -1);
-    FProgressBar.Position := Value;
-    FProgressBar.Height := RectHeight(CellRect);
-    FProgressBar.Width := RectWidth(CellRect);
-    FProgressBar.PaintTo(TargetCanvas, CellRect.Left, 1);
-  end;
+  InflateRect(CellRect, -1, -1);
+  FProgressBar.Position := Value;
+  FProgressBar.Height := RectHeight(CellRect);
+  FProgressBar.Width := RectWidth(CellRect);
+  FProgressBar.PaintTo(TargetCanvas, CellRect.Left, 1);
 end;
 
 procedure TTreeViewPresenter.EndUpdate;
@@ -1913,7 +1889,7 @@ begin
   begin
     if Node = Tree.RootNode then
     begin
-      Result := {View.}ItemsSource;
+      Result := ItemsSource;
     end
     else
     begin
@@ -1946,7 +1922,7 @@ begin
   begin
     if Node = Tree.RootNode then
     begin
-      Result := {View.}ItemsSource;
+      Result := ItemsSource;
     end
     else
     begin

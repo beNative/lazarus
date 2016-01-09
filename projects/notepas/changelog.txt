@@ -1,3 +1,10 @@
+2015.11.29
+TODOS
+* fix code filter (last line focus bug)
+* fix file association (for Windows)
+
+
+
 2015.07.01
 * Added LUA highlighter
 

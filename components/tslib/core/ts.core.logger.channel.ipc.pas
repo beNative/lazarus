@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -54,11 +54,7 @@ type
 
   TIPCChannel = class (TLogChannel)
   private
-    {$IFDEF FPC}
     FClient: TSimpleIPCClient;
-    {$ELSE}
-    FClient: TWinIPCClient;
-    {$ENDIF}
     FBuffer: TMemoryStream;
     FClearMessage: TLogMessage;
   public
@@ -80,18 +76,16 @@ constructor TIPCChannel.Create;
 begin
   with FClearMessage do
   begin
-    MsgType:=ltClear;
-    //MsgText:='';
-    //MsgTime:=Now;
-    //Data:=nil;
-    //Those are already nil
+    MsgType :=ltClear;
+    MsgText :='';
+    MsgTime :=Now;
+    Data    :=nil;
   end;
   FBuffer:=TMemoryStream.Create;
   FClient := TSimpleIPCClient.Create(nil);
   with FClient do
   begin
     ServerID:='ipc_log_server';
-    //todo: Start server only when channel is active
     if ServerRunning then
     begin
       Self.Active := True;

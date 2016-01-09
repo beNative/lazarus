@@ -1290,16 +1290,6 @@ msgstr "URL"
 msgid "Homepage"
 msgstr ""
 
-#: tfrmabout.lblprojectpage.caption
-#, fuzzy
-msgctxt "tfrmabout.lblprojectpage.caption"
-msgid "URL"
-msgstr "URL"
-
-#: tfrmabout.lblprojectpage.hint
-msgid "Project page"
-msgstr ""
-
 #: tfrmabout.lbltargetcpu.caption
 #, fuzzy
 msgid "Target CPU:"

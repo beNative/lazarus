@@ -1272,15 +1272,6 @@ msgstr "URL"
 msgid "Homepage"
 msgstr ""
 
-#: tfrmabout.lblprojectpage.caption
-msgctxt "tfrmabout.lblprojectpage.caption"
-msgid "URL"
-msgstr "URL"
-
-#: tfrmabout.lblprojectpage.hint
-msgid "Project page"
-msgstr ""
-
 #: tfrmabout.lbltargetcpu.caption
 msgid "Target CPU:"
 msgstr "Doel CPU:"

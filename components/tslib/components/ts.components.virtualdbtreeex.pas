@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -1269,6 +1269,12 @@ begin
         (dboTrackCursor in FDBOptions) then
       begin
         FDBStatus := FDBStatus + [dbtsDataChanging];
+
+        // TODO: check TSI
+        if FDataLink.DataSet.State in dsEditModes then
+          FDataLink.DataSet.Post;
+
+
         FDataLink.DataSet.Locate(FKeyFieldName, D.ID, []);
         FDBStatus := FDBStatus - [dbtsDataChanging];
       end;

@@ -23,3 +23,6 @@
 /projects/notepas/backup/*.bak
 /projects/notepas/tests/backup/*.bak
 *.bak
+/projects/logviewer/bin/i386-win32-win32
+/projects/logviewer/lib/i386-win32-win32
+/projects/logviewer/*.exe

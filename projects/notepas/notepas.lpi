@@ -1056,6 +1056,7 @@ end;"/>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
@@ -1164,6 +1165,7 @@ end;"/>
       <Unit34>
         <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
@@ -1172,6 +1174,7 @@ end;"/>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.value.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Value"/>
       </Unit36>
       <Unit37>
         <Filename Value="..\..\components\tslib\components\ts.components.synminimap.pas"/>
@@ -1245,6 +1248,7 @@ end;"/>
       <Unit53>
         <Filename Value="..\..\components\tslib\core\ts.core.xmlutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.XMLUtils"/>
       </Unit53>
       <Unit54>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
@@ -1404,18 +1408,22 @@ end;"/>
       <Unit80>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
       </Unit80>
       <Unit81>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
       </Unit81>
       <Unit82>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.engine.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
       </Unit82>
       <Unit83>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.templates.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
       </Unit83>
       <Unit84>
         <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
@@ -1463,6 +1471,7 @@ end;"/>
         <ComponentName Value="frmCodeFilterDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts_Editor_CodeFilter_Toolview"/>
       </Unit91>
       <Unit92>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
@@ -1574,6 +1583,7 @@ end;"/>
       <Unit110>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFilter.Data"/>
       </Unit110>
       <Unit111>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
@@ -1602,6 +1612,7 @@ end;"/>
       <Unit116>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
       </Unit116>
       <Unit117>
         <Filename Value="build.sh"/>
@@ -1610,6 +1621,7 @@ end;"/>
       <Unit118>
         <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SystemInfo"/>
       </Unit118>
       <Unit119>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
@@ -1653,6 +1665,7 @@ end;"/>
       <Unit127>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Menus"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
@@ -1662,6 +1675,7 @@ end;"/>
       <Unit129>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Toolbars"/>
       </Unit129>
       <Unit130>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>

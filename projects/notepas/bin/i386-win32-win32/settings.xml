@@ -103,7 +103,7 @@
 								<Foreground>clGray</Foreground>
 							</CommentAttri>
 							<DataTypeAttri>(TSynHighlighterAttributes)
-								<Style>[]</Style>
+								<Foreground>clPurple</Foreground>
 							</DataTypeAttri>
 							<DefaultPackageAttri>(TSynHighlighterAttributes)</DefaultPackageAttri>
 							<ExceptionAttri>(TSynHighlighterAttributes)</ExceptionAttri>
@@ -150,31 +150,28 @@
 						<TSynXMLSyn Name="SynHighlighter">
 							<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
 							<Enabled>false</Enabled>
-							<ElementAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</ElementAttri>
+							<ElementAttri>(TSynHighlighterAttributes)</ElementAttri>
 							<AttributeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Style>[fsBold]</Style>
 							</AttributeAttri>
 							<NamespaceAttributeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Foreground>clMaroon</Foreground>
+								<Style>[fsBold]</Style>
 							</NamespaceAttributeAttri>
 							<AttributeValueAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
 							</AttributeValueAttri>
 							<NamespaceAttributeValueAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
 							</NamespaceAttributeValueAttri>
 							<TextAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
 								<Style>[]</Style>
 							</TextAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
+								<Foreground>clBlue</Foreground>
+								<Style>[fsBold]</Style>
 							</CDATAAttri>
 							<EntityRefAttri>(TSynHighlighterAttributes)</EntityRefAttri>
 							<ProcessingInstructionAttri>(TSynHighlighterAttributes)
@@ -186,8 +183,7 @@
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
 							<DocTypeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
+								<Style>[fsBold]</Style>
 							</DocTypeAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
@@ -198,7 +194,7 @@
 						</TSynXMLSyn>
 					</Components>
 					<Highlighter>XML</Highlighter>
-					<BlockCommentStartTag>Ü”¤!--</BlockCommentStartTag>
+					<BlockCommentStartTag>Ü”?!--</BlockCommentStartTag>
 					<BlockCommentEndTag>--ð”¤</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
@@ -268,7 +264,9 @@
 							<CommentAttri>(TSynHighlighterAttributes)
 								<Foreground>clGray</Foreground>
 							</CommentAttri>
-							<TextAttri>(TSynHighlighterAttributes)</TextAttri>
+							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlack</Foreground>
+							</TextAttri>
 							<KeyAttri>(TSynHighlighterAttributes)
 								<Foreground>clNone</Foreground>
 								<Style>[]</Style>
@@ -465,15 +463,16 @@
 							<AndAttri>(TSynHighlighterAttributes)</AndAttri>
 							<ASPAttri>(TSynHighlighterAttributes)
 								<Background>clNone</Background>
-								<Foreground>clNone</Foreground>
+								<Foreground>clBlue</Foreground>
+								<Style>[fsBold]</Style>
 							</ASPAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
 							</CDATAAttri>
 							<DOCTYPEAttri>(TSynHighlighterAttributes)
 								<Background>clNone</Background>
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
 							</DOCTYPEAttri>
 							<CommentAttri>(TSynHighlighterAttributes)
 								<Foreground>clGray</Foreground>
@@ -487,10 +486,13 @@
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
 							</SymbolAttri>
-							<TextAttri>(TSynHighlighterAttributes)</TextAttri>
+							<TextAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlack</Foreground>
+							</TextAttri>
 							<UndefKeyAttri>(TSynHighlighterAttributes)</UndefKeyAttri>
 							<ValueAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
 							</ValueAttri>
 						</TSynHTMLSyn>
 					</Components>
@@ -634,9 +636,7 @@
 								<Foreground>clGray</Foreground>
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
-							<TextAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-							</TextAttri>
+							<TextAttri>(TSynHighlighterAttributes)</TextAttri>
 							<ControlSequenceAttri>(TSynHighlighterAttributes)
 								<Background>clNone</Background>
 								<Foreground>clNone</Foreground>
@@ -1048,7 +1048,10 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Attribute Name</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clMaroon</Foreground>
+				<Style>[fsBold]</Style>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBgxFbGVtZW50IE5hbWUGGE5hbWVzcGFjZSBBdHRyaWJ1dGUgTmFtZQA=
@@ -1057,7 +1060,10 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Attribute Value</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clGreen</Foreground>
+				<Style>[fsBold,fsItalic]</Style>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBgVDREFUQQYHRE9DVFlQRQYZTmFtZXNwYWNlIEF0dHJpYnV0ZSBWYWx1ZQYFVmFs
@@ -1076,7 +1082,9 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Text</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlack</Foreground>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBg1FbWJlZGRlZCB0ZXh0BgRUZXh0AA==
@@ -1085,7 +1093,10 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Section</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clBlue</Foreground>
+				<Style>[fsBold]</Style>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBgNBc3AGDUNEQVRBIFNlY3Rpb24GD0RPQ1RZUEUgU2VjdGlvbgYHU2VjdGlvbgA=
@@ -1094,7 +1105,10 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Data type</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clPurple</Foreground>
+				<Style>[fsBold]</Style>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBglEYXRhIHR5cGUA
@@ -1102,11 +1116,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>25</Left>
-		<Top>25</Top>
+		<Left>125</Left>
+		<Top>125</Top>
 		<Width>1424</Width>
 		<Height>819</Height>
 		<FormStyle>fsNormal</FormStyle>

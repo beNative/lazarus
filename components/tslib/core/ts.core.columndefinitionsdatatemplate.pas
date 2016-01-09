@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -149,7 +149,6 @@ begin
   if Assigned(Item) and Assigned(FColumnDefinitions)
     and (ColumnIndex < FColumnDefinitions.Count) and (ColumnIndex > -1) then
   begin
-  //  Result := GetValue(Item, ColumnIndex);
     Result := GetValue(Item, ColumnIndex).AsString;
   end
   else

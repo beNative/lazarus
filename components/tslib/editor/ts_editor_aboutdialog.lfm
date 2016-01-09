@@ -1356,27 +1356,6 @@ object frmAbout: TfrmAbout
     }
     ShowCaption = False
   end
-  object lblProjectPage: TLabel
-    Cursor = crHandPoint
-    Left = 4
-    Height = 17
-    Hint = 'Project page'
-    Top = 161
-    Width = 236
-    Alignment = taCenter
-    AutoSize = False
-    Caption = 'URL'
-    Color = clWhite
-    Font.Color = clBlue
-    Font.Height = -11
-    Font.Style = [fsUnderline]
-    Layout = tlCenter
-    ParentColor = False
-    ParentFont = False
-    Transparent = False
-    OnClick = lblProjectPageClick
-    OnDblClick = lblProjectPageDblClick
-  end
   object btnCopyToClipboard: TSpeedButton
     Left = 61
     Height = 24

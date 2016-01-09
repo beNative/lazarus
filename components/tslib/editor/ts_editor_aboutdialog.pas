@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -76,7 +76,6 @@ type
     lblTargetCPU: TLabel;
     lblTargetOS: TLabel;
     lblHomePage: TLabel;
-    lblProjectPage: TLabel;
     lblWidgetSet: TLabel;
     pgcMain: TPageControl;
     pnlBuildDate: TPanel;
@@ -105,6 +104,7 @@ type
     procedure actProjectPageExecute(Sender: TObject);
     procedure actReportDefectExecute(Sender: TObject);
     procedure actHomePageExecute(Sender: TObject);
+
     procedure FTVPCreditsDoubleClick(Sender: TObject);
     procedure lblHomePageClick(Sender: TObject);
     procedure lblHomePageDblClick(Sender: TObject);
@@ -249,13 +249,11 @@ begin
   pnlName.Caption           := FVersionInfo.ProductName + ' '
     + FVersionInfo.ProductVersion;
   lblHomePage.Caption       := FVersionInfo.HomePage;
-  lblProjectPage.Caption    := FVersionInfo.ProjectPage;
   lblLegalCopyright.Caption := FVersionInfo.LegalCopyright;
   imgMain.Picture.Assign(FVersionInfo.Icon);
   pnlName.Color                 := Color;
   lblLegalCopyright.Transparent := True;
   lblHomePage.Transparent       := True;
-  lblProjectPage.Transparent    := True;
   InitializeCredits;
   InitializeTranslations;
   InitializeInfoList;

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -36,7 +36,6 @@ unit LogViewer.WatchList;
   MA 02111-1307, USA.
 }
 
-
 {$mode objfpc}{$H+}
 
 interface
@@ -53,7 +52,7 @@ type
   ) of object;
   TNewWatchVariable = procedure (
     const AVariable : string;
-          AIndex    : PtrInt
+    AIndex          : PtrInt
   ) of object;
 
   TVariableValue = record
@@ -67,57 +66,72 @@ type
 
   TWatchVariable = class
   private
-    FFirstIndex: LongWord;
-    FName: String;
-    FList: TFpList;
-    FCurrentIndex: Integer;
+    FFirstIndex   : LongWord;
+    FName         : string;
+    FList         : TFpList;
+    FCurrentIndex : Integer;
+
     function GetCount: Integer;
     function GetCurrentValue:string;
     function GetValues(AIndex: Integer): string;
+
   public
     constructor Create(const AName: string; AIndex: LongWord);
     destructor Destroy; override;
-    {$ifdef DEBUG_WATCHLIST}
-    procedure DumpVariable;
-    {$endif}
     procedure AddValue (const AValue: string; AIndex: LongWord);
     function Find (AIndex: LongWord): Boolean;
-    property Name: string read FName;
-    property CurrentValue: string read GetCurrentValue;
-    property Values[AIndex: Integer]: string read GetValues; default;
-    property Count: Integer read GetCount;
+
+    property Name: string
+      read FName;
+
+    property CurrentValue: string
+      read GetCurrentValue;
+
+    property Values[AIndex: Integer]: string
+      read GetValues; default;
+
+    property Count: Integer
+      read GetCount;
   end;
   
   { TWatchList }
 
   TWatchList = class
   private
-    FList: TFpList;
-    FOnNewVariable: TNewWatchVariable;
-    FOnUpdate: TWatchUpdate;
+    FList          : TFpList;
+    FOnNewVariable : TNewWatchVariable;
+    FOnUpdate      : TWatchUpdate;
+
     function GetCount: Integer;
     function GetItems(AValue: Integer): TWatchVariable;
-    {$ifdef DEBUG_WATCHLIST}
-    procedure DumpList;
-    {$endif}
+
   public
     constructor Create;
     destructor Destroy; override;
+
     function IndexOf(const AName: string): Integer;
-    procedure Add(const ANameValue: string; AIndex: LongWord; SkipOnNewVariable: Boolean);
+    procedure Add(
+      const ANameValue  : string;
+      AIndex            : LongWord;
+      SkipOnNewVariable : Boolean
+    );
     procedure Clear;
     procedure Update(AIndex: LongWord);
-    property OnUpdate: TWatchUpdate read FOnUpdate write FOnUpdate;
-    property OnNewVariable: TNewWatchVariable read FOnNewVariable write FOnNewVariable;
-    property Items[AValue: Integer]: TWatchVariable read GetItems; default;
-    property Count: Integer read GetCount;
+
+    property OnUpdate: TWatchUpdate
+      read FOnUpdate write FOnUpdate;
+
+    property OnNewVariable: TNewWatchVariable
+      read FOnNewVariable write FOnNewVariable;
+
+    property Items[AValue: Integer]: TWatchVariable
+      read GetItems; default;
+
+    property Count: Integer
+      read GetCount;
   end;
 
 implementation
-  {$ifdef DEBUG_WATCHLIST}
-   var
-     TempDbgStr:string;
-  {$endif}
 
 { TWatchVariable }
 
@@ -152,20 +166,6 @@ begin
   FList.Destroy;
 end;
 
-{$ifdef DEBUG_WATCHLIST}
-procedure TWatchVariable.DumpVariable;
-var
-  i: Integer;
-begin
-  for i:= 0 to FList.Count - 1 do
-  begin
-    Logger.Send('Value',PVariableValue(FList[i])^.Value);
-    Str(PVariableValue(FList[i])^.Index,TempDbgStr);
-    Logger.Send('Index',TempDbgStr);
-  end;
-end;
-{$endif}
-
 procedure TWatchVariable.AddValue(const AValue: string; AIndex: LongWord);
 var
   TempValue: PVariableValue;
@@ -174,50 +174,27 @@ begin
   TempValue^.Index:=AIndex;
   TempValue^.Value:=AValue;
   FList.Add(TempValue);
-  {$ifdef DEBUG_WATCHLIST}
-  Str(AIndex,TempDbgStr);
-  Logger.Send('Adding a value (%s - %s)  to variable %s',[AValue,TempDbgStr,FName]);
-  {$endif}
 end;
 
 function TWatchVariable.Find(AIndex: LongWord): Boolean;
 var
-  i:Integer;
+  I :Integer;
 begin
   Result:=False;
   if AIndex < FFirstIndex then
     Exit;
-  for i:= FList.Count - 1 downto 0 do
+  for I:= FList.Count - 1 downto 0 do
   begin
-    if AIndex >= PVariableValue(FList[i])^.Index then
+    if AIndex >= PVariableValue(FList[I])^.Index then
     begin
       Result := True;
-      FCurrentIndex := i;
-      {$ifdef DEBUG_WATCHLIST}
-      Str(AIndex,TempDbgStr);
-      Logger.Send('Found a value - RequestDate ',TempDbgStr);
-      Str(PVariableValue(FList[i])^.Index,TempDbgStr);
-      Logger.Send('              Variable Date: %s /  Value: %s',[TempDbgStr,Value]);
-      {$endif}
+      FCurrentIndex := I;
       Exit;
     end;
   end;
 end;
 
 { TWatchList }
-{$ifdef DEBUG_WATCHLIST}
-procedure TWatchList.DumpList;
-var
-  i:Integer;
-begin
-  for i:= 0 to FList.Count-1 do
-  begin
-    Logger.EnterMethod(TWatchVariable(FList[i]).Name);
-    TWatchVariable(FList[i]).DumpVariable;
-    Logger.ExitMethod(TWatchVariable(FList[i]).Name);
-  end;
-end;
-{$endif}
 
 function TWatchList.GetCount: Integer;
 begin
@@ -277,9 +254,6 @@ procedure TWatchList.Clear;
 var
   I:Integer;
 begin
-  {$ifdef DEBUG_WATCHLIST}
-  DumpList;
-  {$endif}
   for I:= 0 to FList.Count - 1 do
     TWatchVariable(FList[I]).Destroy;
   FList.Clear;
@@ -289,9 +263,6 @@ procedure TWatchList.Update(AIndex: LongWord);
 var
   I: Integer;
 begin
-  {$ifdef DEBUG_WATCHLIST}
-  DumpList;
-  {$endif}
   for I:= 0 to FList.Count - 1 do
   begin
     with TWatchVariable(FList[I]) do

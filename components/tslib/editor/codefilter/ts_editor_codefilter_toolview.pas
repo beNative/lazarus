@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2015 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -78,6 +78,7 @@ type
     procedure actFocusSearchFilterExecute(Sender: TObject);
     procedure actMatchCaseExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
+
     procedure EditorSettingsChanged(Sender: TObject);
     procedure EditorActiveViewChanged(Sender: TObject);
     procedure EditorChange(Sender: TObject);
@@ -656,7 +657,6 @@ end;
 
 procedure TfrmCodeFilterDialog.FTVPSelectionChanged(Sender: TObject);
 begin
-  Application.ProcessMessages;
   tmrUpdate.Enabled := True;
 end;
 

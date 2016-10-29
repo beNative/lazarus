@@ -581,7 +581,7 @@ var
 begin
   Logger.EnterMethod('TEditorSettings.Load');
   S :=   GetApplicationPath + FFileName;
-  if FileExistsUTF8(S) then
+  if FileExists(S) then
   begin
     Doc := TNativeXml.Create(nil);
     try

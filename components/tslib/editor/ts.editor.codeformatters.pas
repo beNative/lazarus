@@ -82,7 +82,7 @@ var
 begin
   S := GetApplicationPath + AExeName;
   T := GetApplicationPath + ATempFile;
-  if FileExistsUTF8(S) then
+  if FileExists(S) then
   begin
     SL := TStringList.Create;
     try
@@ -105,8 +105,8 @@ begin
     finally
       FreeAndNil(SL);
     end;
-    if FileExistsUTF8(T) then
-      DeleteFileUTF8(T);
+    if FileExists(T) then
+      DeleteFile(T);
   end
   else
     raise Exception.CreateFmt('%s not found!', [S]);

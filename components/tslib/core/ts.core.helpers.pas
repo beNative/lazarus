@@ -35,8 +35,6 @@ uses
 
   ts.Core.TreeViewPresenter, ts.Core.DataTemplates;
 
-//  ts.Components.XMLTree;
-
 type
 
   { VST }
@@ -286,13 +284,6 @@ type
     ): TTIPropertyGrid; static;
   end;
 
-(*
-function CreateXMLTree(
-  AOwner  : TComponent;
-  AParent : TWinControl
-): TXMLTree;
-*)
-
 { Cannot be used yet because the assignment sequence seems to matter. }
 
 function CreateTVP(
@@ -323,8 +314,6 @@ uses
   Graphics, TypInfo,
 
   ObjectInspector;
-
-//  ts.Components.XMLTree.NodeAttributes;
 
 {$region 'TLocalClass' /fold}
 type
@@ -444,21 +433,6 @@ begin
   Result := VST;
 end;
 {$endregion}
-
-(*
-function CreateXMLTree(AOwner: TComponent; AParent: TWinControl): TXMLTree;
-var
-  XT: TXMLTree;
-begin
-  XT := TXMLTree.Create(AOwner);
-  XT.Parent := AParent;
-  XT.Align := alClient;
-  XT.NodeAttributes.ItemByType[ntNode].BackGroundColor :=
-    clCream;
-  Result := XT;
-end;
-*)
-
 function CreateTVP(AOwner: TComponent; AVST: TVirtualStringTree;
   AItemsSource: TObjectList; AItemTemplate: IDataTemplate): TTreeViewPresenter;
 var

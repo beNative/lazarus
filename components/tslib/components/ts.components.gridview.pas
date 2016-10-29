@@ -5138,8 +5138,8 @@ begin
         { cease pressure on the button}
         StopButtonTracking;
         { emulate pressure on the list}
-        M := PointToSmallPoint(P);
-        SendMessage(FActiveList.Handle, WM_LBUTTONDOWN, 0, Integer(M));
+        //M := PointToSmallPoint(P);
+        //SendMessage(FActiveList.Handle, WM_LBUTTONDOWN, 0, Integer(M));
         Exit;
       end;
     end;
@@ -6612,7 +6612,7 @@ end;
 procedure TCustomGridView.WMNCHitTest(var Message: TWMNCHitTest);
 begin
   inherited;
-  FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
+//  FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
 end;
   
 procedure TCustomGridView.WMSetCursor(var Message: TWMSetCursor);

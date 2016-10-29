@@ -564,8 +564,8 @@ var
 begin
   i := cbTheme.ItemIndex;
   S := cbTheme.Items[i];
-  DeleteFileUTF8(GetTmpThemeFilename(S)); { *Converted from DeleteFile* }
-  DeleteFileUTF8(GetThemeFilename(S)); { *Converted from DeleteFile* }
+  DeleteFile(GetTmpThemeFilename(S)); { *Converted from DeleteFile* }
+  DeleteFile(GetThemeFilename(S)); { *Converted from DeleteFile* }
   cbTheme.Items.Delete(i);
   SelectTheme(i - 1);
 end;

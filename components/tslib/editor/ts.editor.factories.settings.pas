@@ -116,7 +116,7 @@ procedure TEditorSettingsFactory.RegisterHighlighters(
 var
   S  : string;
   F  : string;
-  SU : TSynUniSyn;
+  //SU : TSynUniSyn;
   //FH : TSynFacilSyn;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;

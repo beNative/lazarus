@@ -241,7 +241,7 @@ begin
   GlobalDesignHook := PropertyEditorHook;
 
   PropertyEditorHook.AddHandlerSetSelection(OnSetSelection);
-  PropertyEditorHook.AddHandlerModified(OnModified);
+//  PropertyEditorHook.AddHandlerModified(OnModified);
   PropertyEditorHook.AddHandlerBeforeAddPersistent(OnBeforeAddPersistent);
   PropertyEditorHook.AddHandlerPersistentAdded(OnPersistentAdded);
   PropertyEditorHook.AddHandlerDeletePersistent(OnDeletePersistent);

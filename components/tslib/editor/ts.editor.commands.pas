@@ -401,7 +401,7 @@ var
 begin
   FN := ExtractFilePath(View.FileName)
     + View.CurrentWord + ExtractFileExt(View.FileName);
-  if FileExistsUTF8(FN) then
+  if FileExists(FN) then
     Events.DoNew(FN);
 end;
 

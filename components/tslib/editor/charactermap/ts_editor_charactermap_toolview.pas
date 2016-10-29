@@ -166,8 +166,8 @@ begin
   for Y := 0 to grdUnicode.RowCount - 1 do
     for X := 0 to grdUnicode.ColCount - 1 do
     begin
-      if S + N <= E then
-        grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N);
+      //if S + N <= E then
+      //  grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N, );
       Inc(N);
     end;
   grdUnicode.AutoSizeColumns;
@@ -329,7 +329,7 @@ var
   T2    : string;
 begin
   Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
-  T1 := UnicodeToUTF8(Start);
+//  T1 := UnicodeToUTF8(Start);
   T2 := '';
   for I := 1 to Length(T1) do
     T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);

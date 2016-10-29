@@ -61,6 +61,8 @@ implementation
 {$R *.lfm}
 
 uses
+  LazFileUtils,
+
   ts.Editor.Factories;
 
 { TfrmScriptEditor }

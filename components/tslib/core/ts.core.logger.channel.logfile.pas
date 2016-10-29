@@ -193,7 +193,7 @@ end;
 procedure TFileChannel.Init;
 begin
   Assign(FFileHandle,FFileName);
-  if FileExistsUTF8(FFileName) then
+  if FileExists(FFileName) then
     Append(FFileHandle)
   else
     Rewrite(FFileHandle);

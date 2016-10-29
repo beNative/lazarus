@@ -520,6 +520,9 @@
 					<Components>
 						<TSynJScriptSyn Name="SynHighlighter">
 							<Enabled>false</Enabled>
+							<BracketAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+							</BracketAttri>
 							<CommentAttri>(TSynHighlighterAttributes)
 								<Foreground>clSilver</Foreground>
 							</CommentAttri>
@@ -738,19 +741,39 @@
 						<TSynLuaSyn Name="SynHighlighter">
 							<DefaultFilter>Lua Files (*.lua)|*.lua</DefaultFilter>
 							<Enabled>false</Enabled>
-							<CommentAttri>(TSynHighlighterAttributes)</CommentAttri>
+							<CommentAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+								<Style>[,fsItalic]</Style>
+							</CommentAttri>
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
-							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
+							<KeyAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlue</Foreground>
+							</KeyAttri>
 							<NonKeyAttri>(TSynHighlighterAttributes)</NonKeyAttri>
 							<SystemAttri>(TSynHighlighterAttributes)</SystemAttri>
-							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
-							<HexAttri>(TSynHighlighterAttributes)</HexAttri>
+							<NumberAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</NumberAttri>
+							<HexAttri>(TSynHighlighterAttributes)
+								<Foreground>clNone</Foreground>
+							</HexAttri>
 							<OctalAttri>(TSynHighlighterAttributes)</OctalAttri>
-							<FloatAttri>(TSynHighlighterAttributes)</FloatAttri>
+							<FloatAttri>(TSynHighlighterAttributes)
+								<Foreground>clFuchsia</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</FloatAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
-							<DocStringAttri>(TSynHighlighterAttributes)</DocStringAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+							<StringAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</StringAttri>
+							<DocStringAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+								<Style>[,fsItalic]</Style>
+							</DocStringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</SymbolAttri>
 							<ErrorAttri>(TSynHighlighterAttributes)</ErrorAttri>
 						</TSynLuaSyn>
 					</Components>

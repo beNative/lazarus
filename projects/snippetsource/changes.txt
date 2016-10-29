@@ -1,3 +1,10 @@
+29/10/2016
+- updated code to support FPC 3.0.0, which makes it more compatible to recent
+  Delphi versions.
+
+12/10/2016
+- Seems to work fine on Lazarus 1.6.
+
 1/04/2015
 - updated sources to support latest tslib sources
 

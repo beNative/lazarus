@@ -2710,7 +2710,7 @@ begin
   if AName <> '' then
     V.Name := AName;
   V.FileName := AFileName;
-  if FileExistsUTF8(V.FileName) then
+  if FileExists(V.FileName) then
     V.Load;
   V.HighlighterName := AHighlighter;
   V.Form.Caption := '';
@@ -2929,7 +2929,7 @@ var
   S : string;
 begin
   S := AFileName;
-  B := AShowDialog or not FileExistsUTF8(AFileName);
+  B := AShowDialog or not FileExists(AFileName);
   if B then // show dialog
   begin
     if Assigned(ActiveView.Editor.Highlighter) then
@@ -3138,7 +3138,7 @@ procedure TdmEditorManager.UpdateFileActions;
 var
   B : Boolean;
 begin
-  B := FileExistsUTF8(ActiveView.FileName);
+  B := FileExists(ActiveView.FileName);
   Logger.Send('Filexists', ActiveView.FileName);
   Logger.Send('Filexists', B);
   actCreateDesktopLink.Enabled := B;
@@ -3219,7 +3219,7 @@ begin
     Result := V
   else
   begin
-    if FileExistsUTF8(AFileName) then
+    if FileExists(AFileName) then
     begin
       V := AddView;
       V.Load(AFileName);

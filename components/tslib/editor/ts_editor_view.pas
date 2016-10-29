@@ -67,7 +67,7 @@ uses
   SynEdit, SynEditHighlighter, SynPluginSyncroEdit, SynPluginTemplateEdit,
   SynEditPointClasses, SynEditMarkupHighAll, SynEditTypes, SynBeautifier,
   SynEditHighlighterFoldBase, SynEditKeyCmds, SynEditMouseCmds, SynEditMarks,
-  SynEditMiscClasses,
+  SynEditMiscClasses, SynPluginMultiCaret,
 
   ts.Core.DirectoryWatch,
 
@@ -213,6 +213,7 @@ type
     FReplaceHistory  : TStringList;
     FSyncronizedEdit : TSynPluginSyncroEdit;
     FTemplateEdit    : TSynPluginTemplateEdit;
+    FMultiCaret      : TSynPluginMultiCaret;
     FHighlighterItem : THighlighterItem;
     FMHAC            : TSynEditMarkupHighlightAllCaret;
     FFileName        : string;
@@ -645,6 +646,8 @@ begin
   E                   := TSynEditAccess(FEditor);
   FSynSelection       := TSynEditSelection.Create(E.ViewedTextBuffer, True);
   FSynSelection.Caret := E.Caret;
+
+  FMultiCaret := TSynPluginMultiCaret.Create(FEditor);
 
   FSelection := TEditorSelection.Create(Self);
 
@@ -1196,7 +1199,7 @@ begin
   begin
     if AValue then
     begin
-      if FileExistsUTF8(FileName) then
+      if FileExists(FileName) then
       begin
         FDirectoryWatch.Directory := ExtractFileDir(FileName);
         FDirectoryWatch.Start;
@@ -2188,7 +2191,7 @@ begin
   Events.DoLoad(AStorageName);
   if IsFile then
   begin
-    if (AStorageName <> '') and FileExistsUTF8(AStorageName) then
+    if (AStorageName <> '') and FileExists(AStorageName) then
       FileName := AStorageName;
 
     FS := TFileStreamUTF8.Create(FileName, fmOpenRead + fmShareDenyNone);

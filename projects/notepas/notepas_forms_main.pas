@@ -314,7 +314,7 @@ begin
   begin
     for I := 1 to Paramcount do
     begin
-      S := SysToUTF8(ParamStr(I));
+      S := ParamStr(I);
       Logger.Send('ParamStr(%d)=%s', [I, S]);
       if I = 1 then
         V := Manager.OpenFile(S)
@@ -735,7 +735,7 @@ var
   S : string;
 begin
   S := Application.Title;
-  if FileExistsUTF8(Editor.FileName) then
+  if FileExists(Editor.FileName) then
     Caption := Format('%s - %s',  [Editor.FileName, S])
   else
     Caption := S;

@@ -313,10 +313,9 @@ end;
 class function TWin32WSCustomRichMemo.GetStrings(const ACustomMemo: TCustomMemo
   ): TStrings;
 begin
-  if UnicodeEnabledOS then
+
     Result := TWin32RichMemoStringsW.Create(ACustomMemo.Handle, ACustomMemo)
-  else
-    Result := TWin32RichMemoStringsA.Create(ACustomMemo.Handle, ACustomMemo);
+
 end;
 
 class procedure TWin32WSCustomRichMemo.SetColor(const AWinControl: TWinControl);  

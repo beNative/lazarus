@@ -1393,10 +1393,9 @@ end;
 constructor TOFileStream.Create(const aFileName: OWideString; aMode: Word;
   aRights: Cardinal);
 begin
-  //SOLVES FPC BUG WITH "FILE NOT FOUND"
   if
     not (aMode and fmCreate = fmCreate) and
-    not FileExistsUTF8(aFileName)
+    not FileExists(aFileName)
   then
     raise EFCreateError.CreateFmt(OXmlLng_FileNotFound, [aFileName]);
 

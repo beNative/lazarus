@@ -510,6 +510,9 @@
 					<Components>
 						<TSynJScriptSyn Name="SynHighlighter">
 							<Enabled>false</Enabled>
+							<BracketAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+							</BracketAttri>
 							<CommentAttri>(TSynHighlighterAttributes)
 								<Foreground>clGray</Foreground>
 							</CommentAttri>
@@ -1112,10 +1115,10 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>200</Left>
-		<Top>200</Top>
-		<Width>1424</Width>
-		<Height>819</Height>
+		<Left>130</Left>
+		<Top>130</Top>
+		<Width>1904</Width>
+		<Height>998</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
@@ -1123,4 +1126,5 @@
 		<Height>-13</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
+	<DebugMode>true</DebugMode>
 </TEditorSettings>

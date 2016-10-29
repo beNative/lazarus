@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2052
+  Left = 2298
   Height = 618
-  Top = 75
+  Top = 382
   Width = 1259
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -16,7 +16,7 @@ object frmMain: TfrmMain
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.5'
+  LCLVersion = '1.7'
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18

@@ -1,0 +1,3 @@
+[submodule "components/SynFacilSyn"]
+	path = components/SynFacilSyn
+	url = https://github.com/beNative/SynFacilSyn.git

@@ -1,9 +1,11 @@
+2016.10.29
+* Upgraded to LCL version 1.6 and FPC version 3.0.0
+* new feature: support for multiple carets
+
 2015.11.29
 TODOS
 * fix code filter (last line focus bug)
 * fix file association (for Windows)
-
-
 
 2015.07.01
 * Added LUA highlighter

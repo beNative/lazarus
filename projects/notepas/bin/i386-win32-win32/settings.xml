@@ -507,6 +507,9 @@
 					<Components>
 						<TSynJScriptSyn Name="SynHighlighter">
 							<Enabled>false</Enabled>
+							<BracketAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+							</BracketAttri>
 							<CommentAttri>(TSynHighlighterAttributes)
 								<Foreground>clGray</Foreground>
 							</CommentAttri>
@@ -1119,10 +1122,10 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>125</Left>
-		<Top>125</Top>
-		<Width>1424</Width>
-		<Height>819</Height>
+		<Left>234</Left>
+		<Top>234</Top>
+		<Width>1904</Width>
+		<Height>998</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>

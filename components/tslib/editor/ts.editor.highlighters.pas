@@ -579,7 +579,7 @@ begin
   if Assigned(ASynHighlighter) then
     SynHighlighter.Assign(ASynHighlighter);
 
-  if (SynHighlighterClass = TSynUniSyn) and FileExistsUTF8(LayoutFileName) then
+  if (SynHighlighterClass = TSynUniSyn) and FileExists(LayoutFileName) then
   begin
     if Assigned(SynHighlighter) then
       TSynUniSyn(SynHighlighter).LoadFromFile(LayoutFileName);
@@ -591,7 +591,7 @@ var
   S: string;
 begin
   S := GetApplicationPath;
-  if FileExistsUTF8(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
+  if FileExists(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(SynHighlighter) then
       TSynUniSyn(SynHighlighter).LoadFromFile(S + LayoutFileName);

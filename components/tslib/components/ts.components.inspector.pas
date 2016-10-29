@@ -350,7 +350,7 @@ end;
 procedure TCustomInspector.WMNCHitTest(var Message: TWMNCHitTest);
 begin
   inherited;
-  FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
+//  FHitTest := ScreenToClient(SmallPointToPoint(Message.Pos));
 end;
 
 procedure TCustomInspector.WMSetCursor(var Message: TWMSetCursor);

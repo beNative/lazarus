@@ -2080,7 +2080,7 @@ var
   SSG: TSynSymbolGroup;
 
 begin
-  if (DefaultFilter <> '') and (FileExistsUTF8(DefaultFilter)) then
+  if (DefaultFilter <> '') and (FileExists(DefaultFilter)) then
     LoadFromFile(DefaultFilter)
   else
   begin
@@ -2892,7 +2892,7 @@ var
 begin
   if AFileName = '' then
     raise Exception.Create('FileName is empty');
-  FS := TFileStream.Create(UTF8ToSys(AFileName), fmOpenRead or fmShareDenyWrite);
+  FS := TFileStream.Create(AFileName, fmOpenRead or fmShareDenyWrite);
   try
     LoadFromStream(FS);
   finally
@@ -2906,7 +2906,7 @@ var
 begin
   if AFileName = '' then
     raise Exception.Create('FileName is empty');
-  FS := TFileStream.Create(UTF8ToSys(AFileName), fmOpenWrite);
+  FS := TFileStream.Create(AFileName, fmOpenWrite);
   try
     SaveToStream(FS);
   finally

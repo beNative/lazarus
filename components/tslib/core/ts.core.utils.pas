@@ -1448,7 +1448,7 @@ const
 var
   S : string;
 begin
-  if FileExistsUTF8(AFileName) then
+  if FileExists(AFileName) then
   begin
     S := Format(PARAM, [AFileName]);
     ShellExecute(
@@ -2183,14 +2183,14 @@ begin
       'settings.xml')) then //use settings.xml to detect directory
        Result := pathStr + BundleResourcesDirectory
   {$ELSE}
-  if (FileExistsUTF8(AppendPathDelim(ExtractFilePath(Application.ExeName)) +
+  if (FileExists(ExtractFilePath(Application.ExeName) +PathDelim +
     'settings.xml')) then //use settings.xml to detect directory
      Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))
   {$ENDIF}
   else
   begin
-     ForceDirectoriesUTF8(GetAppConfigDirUTF8(False));
-     Result := IncludeTrailingPathDelimiter(GetAppConfigDirUTF8(False));
+     ForceDirectories(GetAppConfigDir(False));
+     Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False));
   end;
 end;
 

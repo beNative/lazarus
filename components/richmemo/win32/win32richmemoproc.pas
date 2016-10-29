@@ -225,9 +225,10 @@ begin
     if LoadLibrary('Msftedit.dll') <> 0 then begin
       GlobalRichClass := 'RichEdit50W';
     end else if LoadLibrary('RICHED20.DLL') <> 0 then begin
-      if UnicodeEnabledOS then GlobalRichClass := 'RichEdit20W'
-      else
-      GlobalRichClass := 'RichEdit20A'
+//      if UnicodeEnabledOS then
+        GlobalRichClass := 'RichEdit20W'
+      //else
+      //GlobalRichClass := 'RichEdit20A'
     end else if LoadLibrary('RICHED32.DLL') <> 0 then begin
       GlobalRichClass := 'RichEdit';
     end;
@@ -567,14 +568,10 @@ begin
   SetSelection(RichEditWnd, TextStart, ReplaceLength);
 
   txt:=nil;
-  if UnicodeEnabledOS then begin
+
     if Text<>'' then txt:=@Text[1];
     SendMessageW(RichEditWnd, EM_REPLACESEL, 0, LPARAM(txt));
-  end else begin
-    AnsiText:=Text;
-    if AnsiText<>'' then txt:=@AnsiText[1];
-    SendMessageA(RichEditWnd, EM_REPLACESEL, 0, LPARAM(txt));
-  end;
+
 
   SetSelection(RichEditWnd, s, l);
 end;
@@ -640,18 +637,11 @@ begin
     end;
   end;
 
-  if UnicodeEnabledOS then begin
     fw.chrg.cpMin := mn;
     fw.chrg.cpMax := mx;
     fw.lpstrText := PWideChar(@ANiddle[1]);
     Result := SendMessage(RichEditWnd, EM_FINDTEXTW, opt, LParam(@fw));
-  end else begin
-    fa.chrg.cpMin := mn;
-    fa.chrg.cpMax := mx;
-    txt:=ANiddle;
-    fa.lpstrText := PAnsiChar(@txt[1]);
-    Result := SendMessage(RichEditWnd, EM_FINDTEXT, opt, LParam(@fa));
-  end;
+
 end;
 
 class procedure TRichEditManager.GetParaRange(RichEditWnd: Handle; TextStart: integer;

@@ -365,9 +365,9 @@ var
 begin
   inherited UpdateActions;
   S := edtDatabaseFile.FileName;
-  actOpenDatabase.Enabled := FileExistsUTF8(S) and (Connection.FileName <> S);
-  actCreateNewDatabase.Enabled := not FileExistsUTF8(S);
-  actDeleteDatabase.Enabled := FileExistsUTF8(S);
+  actOpenDatabase.Enabled := FileExists(S) and (Connection.FileName <> S);
+  actCreateNewDatabase.Enabled := not FileExists(S);
+  actDeleteDatabase.Enabled := FileExists(S);
 end;
 {$endregion}
 

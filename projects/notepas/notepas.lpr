@@ -154,7 +154,6 @@ uses
   ts.Editor.Factories.Toolbars,
   ts.Editor.Factories,
   ts.Editor.Options.Settings;
-  //SynFacilHighlighter;
 
 {$R *.res}
 
@@ -164,7 +163,7 @@ begin
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');
   {$IFDEF WINDOWS}
-  Application.MainFormOnTaskbar := True; //Show window preview after minimize windows, on windows 7, 8...
+  Application.MainFormOnTaskbar := True;
   {$ENDIF}
   RequireDerivedFormResource := True;
   Application.Initialize;

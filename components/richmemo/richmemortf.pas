@@ -489,7 +489,7 @@ begin
   if txtlen=0 then Exit;
 
   b:=Copy(txtbuf, 1, txtlen);
-  len:=UTF8Length(b);
+  len:=Length(b);
 
   txtlen:=0;
   txtbuf:='';

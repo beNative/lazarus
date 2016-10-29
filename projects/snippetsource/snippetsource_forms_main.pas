@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, ExtCtrls,
-  ComCtrls, ActnList, StdCtrls, Menus, Buttons,
+  ComCtrls, ActnList, StdCtrls, Menus, Buttons, LazFileUtils,
 
   SynEdit, VirtualTrees, MenuButton,
 
@@ -218,7 +218,6 @@ uses
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //FData := TdmMain.Create(Self);
   FData := TdmSnippetSource.Create(Self);
 
   CreateEditor;
@@ -471,7 +470,7 @@ begin
     for I := 0 to AFiles.Count - 1 do
     begin
       sFile := AFiles[I];
-      if DirPathExists(sFile) then // add files in directory
+      if DirectoryExists(sFile) then // add files in directory
       begin
         AddPathNode(sFile, FCommonPath, Sender);
         FFileSearcher.Search(sFile);
@@ -531,14 +530,17 @@ begin
   pnlProgress.Caption := Format('Loading file: %s', [APath]);
   IsTextFile := False;
   IsDir      := False;
-  if DirPathExists(APath) then
+  if DirectoryExists(APath) then
   begin
     IsDir := True;
   end
-  else if FileIsText(APath, bReadable) and bReadable then
-  begin
+  else
     IsTextFile := True;
-  end;
+
+  //else if FileIsText(APath, bReadable) and bReadable then
+  //begin
+  //  IsTextFile := True;
+  //end;
 
   if IsDir or IsTextFile then
   begin

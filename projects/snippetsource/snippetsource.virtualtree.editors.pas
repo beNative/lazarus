@@ -185,7 +185,7 @@ end;
 
 function TGridEditLink.EndEdit: Boolean;
 var
-  S: String;
+  S: string;
 begin
   Result := True;
   S := FEdit.Text;

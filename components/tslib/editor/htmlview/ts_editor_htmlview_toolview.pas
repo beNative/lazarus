@@ -79,7 +79,7 @@ procedure TfrmHTMLView.UpdateView;
 begin
   inherited UpdateView;
 
-  if FileExistsUTF8(View.FileName) then
+  if FileExists(View.FileName) then
     FHTMLViewer.LoadFromFile(View.FileName)
   else
     FHTMLViewer.Load(View.Text);

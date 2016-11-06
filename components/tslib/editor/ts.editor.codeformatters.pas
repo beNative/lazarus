@@ -91,6 +91,7 @@ begin
       Process := TProcess.Create(nil);
       try
         Process.Options := [poNoConsole];
+        // todo use Process.Params property
         Process.CommandLine := SysUtils.Format(S + ' ' + AParams, [T]);
         Process.Execute;
         while Process.Running do

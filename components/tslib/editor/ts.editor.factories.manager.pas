@@ -48,7 +48,7 @@ implementation
 uses
   Forms,
 
-  ts_Editor_Manager;
+  ts.Editor.Manager;
 
 { TEditorManagerFactory }
 

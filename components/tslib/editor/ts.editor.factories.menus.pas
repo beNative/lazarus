@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, Menus, ActnList,
 
-  ts.Editor.Interfaces, ts_Editor_Resources;
+  ts.Editor.Interfaces, ts.Editor.Resources;
 
 type
 

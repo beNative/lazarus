@@ -29,7 +29,7 @@ uses
 
   ts.Editor.Interfaces, ts.Editor.Tools.Settings,
 
-  ts_Editor_ToolView_Base;
+  ts.Editor.ToolView.Base;
 
 type
 

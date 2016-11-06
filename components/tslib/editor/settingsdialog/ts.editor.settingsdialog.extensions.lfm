@@ -1,0 +1,122 @@
+object dlgExt: TdlgExt
+  Left = -601
+  Height = 210
+  Top = 483
+  Width = 372
+  BorderStyle = bsDialog
+  Caption = 'Extension Options'
+  ClientHeight = 210
+  ClientWidth = 372
+  Color = clBtnFace
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  OnCloseQuery = FormCloseQuery
+  OnShow = FormShow
+  PopupMode = pmExplicit
+  PopupParent = EditorSettingsDialog.Owner
+  Position = poMainFormCenter
+  LCLVersion = '1.3'
+  object lblExt: TLabel
+    Left = 8
+    Height = 13
+    Top = 8
+    Width = 51
+    Caption = '&Extension:'
+    FocusControl = cbExt
+    ParentColor = False
+  end
+  object gbExt: TGroupBox
+    Left = 8
+    Height = 113
+    Top = 56
+    Width = 353
+    Caption = '&Options:'
+    ClientHeight = 95
+    ClientWidth = 349
+    TabOrder = 0
+    object Bevel1: TBevel
+      Left = 270
+      Height = 65
+      Top = 10
+      Width = 65
+    end
+    object lblIcon: TLabel
+      Left = 14
+      Height = 13
+      Top = 10
+      Width = 25
+      Caption = '&Icon:'
+      ParentColor = False
+    end
+    object imIcon: TImage
+      Cursor = crHandPoint
+      Left = 270
+      Height = 64
+      Top = 10
+      Width = 64
+      Center = True
+      OnClick = imIconClick
+      ParentShowHint = False
+      ShowHint = True
+    end
+    object lblDescr: TLabel
+      Left = 14
+      Height = 13
+      Top = 50
+      Width = 57
+      Caption = '&Description:'
+      ParentColor = False
+    end
+    object edIcon: TEdit
+      Left = 14
+      Height = 21
+      Top = 26
+      Width = 241
+      Color = clBtnFace
+      ParentShowHint = False
+      ReadOnly = True
+      ShowHint = True
+      TabStop = False
+      TabOrder = 0
+    end
+    object cbDescr: TComboBox
+      Left = 14
+      Height = 21
+      Top = 66
+      Width = 241
+      ItemHeight = 13
+      TabOrder = 1
+    end
+  end
+  object bnOK: TButton
+    Left = 8
+    Height = 25
+    Top = 176
+    Width = 273
+    Caption = '&OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object bnCancel: TButton
+    Left = 288
+    Height = 25
+    Top = 176
+    Width = 73
+    Cancel = True
+    Caption = '&Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object cbExt: TComboBox
+    Left = 8
+    Height = 21
+    Top = 24
+    Width = 353
+    ItemHeight = 13
+    OnChange = cbExtChange
+    ParentShowHint = False
+    TabOrder = 3
+  end
+end

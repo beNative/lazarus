@@ -1,0 +1,376 @@
+object frmEditorSettings: TfrmEditorSettings
+  Left = 695
+  Height = 588
+  Top = 185
+  Width = 549
+  BorderIcons = [biSystemMenu]
+  Caption = 'Editor settings'
+  ClientHeight = 588
+  ClientWidth = 549
+  PopupMode = pmAuto
+  Position = poMainFormCenter
+  ShowHint = True
+  LCLVersion = '1.3'
+  object pnlTop: TPanel
+    Left = 0
+    Height = 553
+    Top = 0
+    Width = 549
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 553
+    ClientWidth = 549
+    TabOrder = 0
+    object pcMain: TPageControl
+      Left = 2
+      Height = 549
+      Top = 2
+      Width = 545
+      ActivePage = tsHighlighterAttributes
+      Align = alClient
+      BorderSpacing.Around = 2
+      TabIndex = 2
+      TabOrder = 0
+      object tsSettings: TTabSheet
+        Caption = 'Main settings'
+        ClientHeight = 521
+        ClientWidth = 537
+        object pnlPI: TPanel
+          Left = 3
+          Height = 515
+          Top = 3
+          Width = 531
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+      end
+      object tsToolSettings: TTabSheet
+        Caption = 'Tool settings'
+        ClientHeight = 521
+        ClientWidth = 537
+        object pnlToolSettings: TPanel
+          Left = 3
+          Height = 515
+          Top = 3
+          Width = 531
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          ClientHeight = 515
+          ClientWidth = 531
+          TabOrder = 0
+          object pnlTSLeft: TPanel
+            Left = 2
+            Height = 511
+            Top = 2
+            Width = 154
+            Align = alLeft
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            TabOrder = 0
+          end
+          object pnlTSRight: TPanel
+            Left = 168
+            Height = 511
+            Top = 2
+            Width = 361
+            Align = alClient
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            ClientHeight = 511
+            ClientWidth = 361
+            TabOrder = 1
+            object pnlTSRightTop: TPanel
+              Left = 0
+              Height = 28
+              Top = 0
+              Width = 361
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+            end
+            object pnlTSRightBottom: TPanel
+              Left = 0
+              Height = 483
+              Top = 28
+              Width = 361
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 1
+            end
+          end
+          object splHLVertical1: TSplitter
+            Left = 158
+            Height = 515
+            Top = 0
+            Width = 8
+          end
+        end
+      end
+      object tsHighlighterAttributes: TTabSheet
+        Caption = 'Common highlighter attributes'
+        ClientHeight = 521
+        ClientWidth = 537
+        object pnlHighlighterAttributes: TPanel
+          Left = 3
+          Height = 515
+          Top = 3
+          Width = 531
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          ClientHeight = 515
+          ClientWidth = 531
+          TabOrder = 0
+          object pnlHALeft: TPanel
+            Left = 2
+            Height = 511
+            Top = 2
+            Width = 154
+            Align = alLeft
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            TabOrder = 0
+          end
+          object pnlHARight: TPanel
+            Left = 168
+            Height = 511
+            Top = 2
+            Width = 361
+            Align = alClient
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            ClientHeight = 511
+            ClientWidth = 361
+            TabOrder = 1
+            object pnlHARightTop: TPanel
+              Left = 0
+              Height = 92
+              Top = 0
+              Width = 361
+              Align = alTop
+              BevelOuter = bvNone
+              ClientHeight = 92
+              ClientWidth = 361
+              TabOrder = 0
+              object mmoAliasNames: TTIMemo
+                Left = 0
+                Height = 68
+                Top = 24
+                Width = 361
+                Align = alBottom
+              end
+              object lblAttributeAliases: TLabel
+                Left = 2
+                Height = 15
+                Top = 5
+                Width = 148
+                Caption = 'Highlighter attribute aliases:'
+                FocusControl = mmoAliasNames
+                ParentColor = False
+              end
+              object Label1: TLabel
+                Left = 53
+                Height = 15
+                Top = 61
+                Width = 34
+                Caption = 'Label1'
+                ParentColor = False
+              end
+            end
+            object pnlHARightBottom: TPanel
+              Left = 0
+              Height = 419
+              Top = 92
+              Width = 361
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 1
+            end
+          end
+          object splHAVertical: TSplitter
+            Left = 158
+            Height = 515
+            Top = 0
+            Width = 8
+          end
+        end
+      end
+      object tsHighlighters: TTabSheet
+        Caption = 'Highlighters'
+        ClientHeight = 521
+        ClientWidth = 537
+        object pnlHighlighters: TPanel
+          Left = 3
+          Height = 515
+          Top = 3
+          Width = 531
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          ClientHeight = 515
+          ClientWidth = 531
+          TabOrder = 0
+          object pnlHLLeft: TPanel
+            Left = 2
+            Height = 511
+            Top = 2
+            Width = 154
+            Align = alLeft
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            TabOrder = 0
+          end
+          object pnlHLRight: TPanel
+            Left = 168
+            Height = 511
+            Top = 2
+            Width = 361
+            Align = alClient
+            BorderSpacing.Around = 2
+            BevelOuter = bvNone
+            ClientHeight = 511
+            ClientWidth = 361
+            TabOrder = 1
+            object pnlHLRightTop: TPanel
+              Left = 0
+              Height = 241
+              Top = 0
+              Width = 361
+              Align = alTop
+              BevelOuter = bvNone
+              TabOrder = 0
+            end
+            object pnlHLRightBottom: TPanel
+              Left = 0
+              Height = 270
+              Top = 241
+              Width = 361
+              Align = alClient
+              BevelOuter = bvNone
+              TabOrder = 1
+            end
+          end
+          object splHLVertical: TSplitter
+            Left = 158
+            Height = 515
+            Top = 0
+            Width = 8
+          end
+        end
+      end
+      object tsXML: TTabSheet
+        Caption = 'XML'
+        ClientHeight = 510
+        ClientWidth = 539
+        object pnlXML: TPanel
+          Left = 3
+          Height = 504
+          Top = 3
+          Width = 533
+          Align = alClient
+          BorderSpacing.Around = 3
+          BevelOuter = bvNone
+          TabOrder = 0
+        end
+      end
+      object tsDebug: TTabSheet
+        Caption = 'Debug'
+        ClientHeight = 521
+        ClientWidth = 537
+        object btnOpenSettingsFile: TButton
+          Left = 10
+          Height = 25
+          Top = 8
+          Width = 123
+          Action = actOpenSettingsFile
+          TabOrder = 0
+        end
+        object btnReloadSettings: TButton
+          Left = 10
+          Height = 25
+          Top = 38
+          Width = 123
+          Action = actReloadSettings
+          TabOrder = 1
+        end
+        object btnAssociate: TButton
+          Left = 10
+          Height = 25
+          Top = 70
+          Width = 123
+          Action = actAssociate
+          TabOrder = 2
+        end
+      end
+    end
+  end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 35
+    Top = 553
+    Width = 549
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 35
+    ClientWidth = 549
+    TabOrder = 1
+    object btnClose: TButton
+      Left = 423
+      Height = 26
+      Top = 3
+      Width = 120
+      Anchors = [akRight, akBottom]
+      Caption = '&Close'
+      ModalResult = 11
+      TabOrder = 0
+    end
+    object btnOK: TButton
+      Left = 297
+      Height = 26
+      Top = 3
+      Width = 120
+      Anchors = [akRight, akBottom]
+      Caption = '&OK'
+      ModalResult = 1
+      OnClick = btnOKClick
+      TabOrder = 1
+    end
+    object btnApply: TButton
+      Left = 170
+      Height = 26
+      Top = 3
+      Width = 120
+      Action = actApplySettings
+      Anchors = [akRight, akBottom]
+      TabOrder = 2
+    end
+  end
+  object aclMain: TActionList
+    Images = imlMain
+    left = 256
+    top = 488
+    object actOpenSettingsFile: TAction
+      Caption = 'Open settings file'
+      OnExecute = actOpenSettingsFileExecute
+    end
+    object actApplySettings: TAction
+      Caption = 'Apply'
+      OnExecute = actApplySettingsExecute
+    end
+    object actReloadSettings: TAction
+      Caption = 'Reload settings'
+      OnExecute = actReloadSettingsExecute
+    end
+    object actAssociate: TAction
+      Caption = 'Associate'
+      OnExecute = actAssociateExecute
+    end
+  end
+  object imlMain: TImageList
+    left = 304
+    top = 488
+  end
+end

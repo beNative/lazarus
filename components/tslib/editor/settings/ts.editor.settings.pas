@@ -239,7 +239,7 @@ uses
 
   ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage, ts.Core.Utils,
 
-  ts_Editor_Resources;
+  ts.Editor.Resources;
 
 {$region 'construction and destruction' /fold}
 procedure TEditorSettings.AfterConstruction;

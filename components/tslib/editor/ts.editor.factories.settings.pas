@@ -74,7 +74,7 @@ uses
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
 
-  ts_Editor_Resources, ts.Editor.Settings,
+  ts.Editor.Resources, ts.Editor.Settings,
 
   ts.Components.UniHighlighter,
 

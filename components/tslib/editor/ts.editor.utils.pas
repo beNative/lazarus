@@ -460,7 +460,7 @@ uses
 
   ts.Core.BRRE, ts.Core.BRREUnicode,
 
-  ts_Editor_Resources;
+  ts.Editor.Resources;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
 

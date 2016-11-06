@@ -183,7 +183,7 @@ uses
 
   ts.Core.Utils,
 
-  ts.Editor.Highlighters, ts_Editor_Resources, ts.Editor.CommentStripper,
+  ts.Editor.Highlighters, ts.Editor.Resources, ts.Editor.CommentStripper,
   ts.Editor.SortStrings.Settings,
 
   ts.Editor.Utils;

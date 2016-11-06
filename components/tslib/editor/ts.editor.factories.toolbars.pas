@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, Menus, Controls, ActnList, ComCtrls, Toolwin,
 
-  ts.Editor.Interfaces, ts_Editor_Resources;
+  ts.Editor.Interfaces, ts.Editor.Resources;
 
 const
   DEFAULT_EDGE_BORDERS = [ebLeft, ebTop, ebRight, ebBottom];

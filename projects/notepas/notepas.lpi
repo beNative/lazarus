@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="43"/>
-      <BuildNr Value="199"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2015 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.43" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <RevisionNr Value="44"/>
+      <BuildNr Value="203"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2016 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.44" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
@@ -37,7 +37,7 @@
             <Filename Value="notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortlines;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
@@ -96,7 +96,7 @@
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -175,7 +175,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -251,7 +251,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -324,7 +324,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -405,7 +405,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <Libraries Value="..\..\..\Libraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -493,7 +493,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <Libraries Value="..\..\..\Libraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -566,7 +566,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux-qt4"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -639,7 +639,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux"/>
             <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS);$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType);..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -712,7 +712,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -784,7 +784,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -856,7 +856,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <Libraries Value="..\..\..\binLibraries\x86_64-freebsd;..\..\..\binLibraries\i386-freebsd-qt4;..\..\..\fpc\units\x86_64-freebsd;..\..\..\fpc\units\x86_64-freebsd\x11;..\..\..\fpc\units\x86_64-freebsd\rtl"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
@@ -907,7 +907,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
             <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
@@ -1010,12 +1010,12 @@ end;"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="notepas_forms_main.pas"/>
+        <Filename Value="notepas.main.form.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Notepas_Forms_Main"/>
+        <UnitName Value="NotePas.Main.Form"/>
       </Unit1>
       <Unit2>
         <Filename Value="changelog.txt"/>
@@ -1033,6 +1033,7 @@ end;"/>
       <Unit5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
@@ -1055,6 +1056,7 @@ end;"/>
       <Unit10>
         <Filename Value="..\..\components\tslib\core\ts.core.treeviewpresenter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.TreeViewPresenter"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
@@ -1063,6 +1065,7 @@ end;"/>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.ExportRTF"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
@@ -1083,14 +1086,15 @@ end;"/>
       <Unit17>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.editors.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.XMLTree.Editors"/>
       </Unit17>
       <Unit18>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_resources.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.resources.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="ResourcesDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="ts_Editor_Resources"/>
+        <UnitName Value="ts.Editor.resources"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitionsdatatemplate.pas"/>
@@ -1144,6 +1148,7 @@ end;"/>
       <Unit31>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.encodingutils.pas"/>
@@ -1160,6 +1165,7 @@ end;"/>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlscanner.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SQLScanner"/>
       </Unit35>
       <Unit36>
         <Filename Value="..\..\components\tslib\core\ts.core.value.pas"/>
@@ -1243,6 +1249,7 @@ end;"/>
       <Unit55>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Commands"/>
       </Unit55>
       <Unit56>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
@@ -1272,12 +1279,12 @@ end;"/>
         <ResourceBaseClass Value="Form"/>
       </Unit61>
       <Unit62>
-        <Filename Value="..\..\components\tslib\editor\toolview\ts_editor_toolview_base.pas"/>
+        <Filename Value="..\..\components\tslib\editor\toolview\ts.editor.toolview.base.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="CustomEditorToolView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_ToolView_Base"/>
+        <UnitName Value="ts.Editor.Toolview.Base"/>
       </Unit62>
       <Unit63>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
@@ -1285,51 +1292,55 @@ end;"/>
         <UnitName Value="ts.Editor.Settings"/>
       </Unit63>
       <Unit64>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_manager.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="dmEditorManager"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="ts_Editor_Manager"/>
+        <UnitName Value="ts.Editor.Manager"/>
       </Unit64>
       <Unit65>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_old.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditorSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Old"/>
       </Unit65>
       <Unit66>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_aboutdialog.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAbout"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_AboutDialog"/>
+        <UnitName Value="ts.Editor.AboutDialog"/>
       </Unit66>
       <Unit67>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="EditorSettingsDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog"/>
       </Unit67>
       <Unit68>
-        <Filename Value="..\..\components\tslib\core\ts_core_componentinspector.pas"/>
+        <Filename Value="..\..\components\tslib\core\ts.core.componentinspector.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+        <UnitName Value="ts.Core.ComponentInspector"/>
       </Unit68>
       <Unit69>
-        <Filename Value="..\..\components\tslib\editor\ts_editor_view.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="EditorView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_View"/>
+        <UnitName Value="ts.Editor.View"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
@@ -1337,60 +1348,68 @@ end;"/>
         <UnitName Value="ts.Editor.Events"/>
       </Unit71>
       <Unit72>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_fileassociations.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.fileassociations.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmOptionsAssociate"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.FileAssociations"/>
       </Unit72>
       <Unit73>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_highlighters.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmOptionsThemes"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Highlighters"/>
       </Unit73>
       <Unit74>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_filetypes.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.filetypes.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmFileTypeSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.FileTypes"/>
       </Unit74>
       <Unit75>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_keymappings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.keymappings.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmKeyMappings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.KeyMappings"/>
       </Unit75>
       <Unit76>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_extensions.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.extensions.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="dlgExt"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Extensions"/>
       </Unit76>
       <Unit77>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_applicationsettings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.applicationsettings.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmApplicationSettings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.ApplicationSettings"/>
       </Unit77>
       <Unit78>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_base.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.base.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="CustomSettingsDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Base"/>
       </Unit78>
       <Unit79>
-        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts_editor_settingsdialog_editorsettings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.editorsettings.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmEditorSettingsDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SettingsDialog.EditorSettings"/>
       </Unit79>
       <Unit80>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.data.pas"/>
@@ -1409,251 +1428,272 @@ end;"/>
         <IsPartOfProject Value="True"/>
       </Unit83>
       <Unit84>
-        <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSearchForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.search.toolview"/>
       </Unit84>
       <Unit85>
         <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.templates.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit85>
       <Unit86>
-        <Filename Value="..\..\components\tslib\editor\actionlist\ts_editor_actionlist_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmActionListView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.actionlist.toolview"/>
       </Unit86>
       <Unit87>
         <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit87>
       <Unit88>
-        <Filename Value="..\..\components\tslib\editor\alignlines\ts_editor_alignlines_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmAlignLines"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.alignlines.toolview"/>
       </Unit88>
       <Unit89>
-        <Filename Value="..\..\components\tslib\editor\charactermap\ts_editor_charactermap_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\charactermap\ts.editor.charactermap.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCharacterMap"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.charactermap.toolview"/>
       </Unit89>
       <Unit90>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit90>
       <Unit91>
-        <Filename Value="..\..\components\tslib\editor\codefilter\ts_editor_codefilter_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCodeFilterDialog"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_CodeFilter_Toolview"/>
+        <UnitName Value="ts.Editor.codefilter.toolview"/>
       </Unit91>
       <Unit92>
         <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit92>
       <Unit93>
-        <Filename Value="..\..\components\tslib\editor\codeshaper\ts_editor_codeshaper_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\codeshaper\ts.editor.codeshaper.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmCodeShaper"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.CodeShaper.ToolView"/>
       </Unit93>
       <Unit94>
         <Filename Value="..\..\components\tslib\editor\htmlview\ts.editor.htmlview.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.HTMLView.Settings"/>
       </Unit94>
       <Unit95>
-        <Filename Value="..\..\components\tslib\editor\htmlview\ts_editor_htmlview_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\htmlview\ts.editor.htmlview.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmHTMLView"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts_Editor_HTMLView_ToolView"/>
+        <UnitName Value="ts.Editor.htmlview.toolview"/>
       </Unit95>
       <Unit96>
-        <Filename Value="..\..\components\tslib\editor\preview\ts_editor_preview_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\preview\ts.editor.preview.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmPreview"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.Preview.ToolView"/>
       </Unit96>
       <Unit97>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit97>
       <Unit98>
-        <Filename Value="..\..\components\tslib\editor\hexeditor\ts_editor_hexeditor_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmHexEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.hexeditor.toolview"/>
       </Unit98>
       <Unit99>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit99>
       <Unit100>
-        <Filename Value="..\..\components\tslib\editor\minimap\ts_editor_minimap_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMiniMap"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.minimap.toolview"/>
       </Unit100>
       <Unit101>
-        <Filename Value="..\..\components\tslib\editor\viewlist\ts_editor_viewlist_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmViewList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.viewlist.toolview"/>
       </Unit101>
       <Unit102>
-        <Filename Value="..\..\components\tslib\editor\test\ts_editor_test_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\test\ts.editor.test.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmTest"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.test.toolview"/>
       </Unit102>
       <Unit103>
-        <Filename Value="..\..\components\tslib\editor\structure\ts_editor_structure_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\structure\ts.editor.structure.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
+        <UnitName Value="ts.Editor.structure.toolview"/>
       </Unit103>
       <Unit104>
-        <Filename Value="..\..\components\tslib\editor\shortcuts\ts_editor_shortcuts_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\shortcuts\ts.editor.shortcuts.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmShortcuts"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.shortcuts.toolview"/>
       </Unit104>
       <Unit105>
-        <Filename Value="..\..\components\tslib\editor\scripteditor\ts_editor_scripteditor_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\scripteditor\ts.editor.scripteditor.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.ScriptEditor.ToolView"/>
       </Unit105>
       <Unit106>
-        <Filename Value="..\..\components\tslib\editor\selectioninfo\ts_editor_selectioninfo_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\selectioninfo\ts.editor.selectioninfo.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSelectionInfo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.selectioninfo.toolview"/>
       </Unit106>
       <Unit107>
-        <Filename Value="..\..\components\tslib\editor\filter\ts_editor_filter_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\filter\ts.editor.filter.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmFilter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.filter.toolview"/>
       </Unit107>
       <Unit108>
-        <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.lfm"/>
+        <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit108>
       <Unit109>
-        <Filename Value="..\..\components\tslib\editor\search\ts_editor_search_toolview.lrt"/>
-        <IsPartOfProject Value="True"/>
-      </Unit109>
-      <Unit110>
-        <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit110>
-      <Unit111>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
-      </Unit111>
-      <Unit112>
+      </Unit109>
+      <Unit110>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit112>
-      <Unit113>
+      </Unit110>
+      <Unit111>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit113>
-      <Unit114>
-        <Filename Value="..\..\components\tslib\editor\colors\ts_editor_colors_toolview.pas"/>
+      </Unit111>
+      <Unit112>
+        <Filename Value="..\..\components\tslib\editor\colors\ts.editor.colors.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmColors"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-      </Unit114>
-      <Unit115>
+        <UnitName Value="ts.Editor.colors.toolview"/>
+      </Unit112>
+      <Unit113>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit115>
-      <Unit116>
+      </Unit113>
+      <Unit114>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+      </Unit114>
+      <Unit115>
+        <Filename Value="build.sh"/>
+        <IsPartOfProject Value="True"/>
+      </Unit115>
+      <Unit116>
+        <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit116>
       <Unit117>
-        <Filename Value="build.sh"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit117>
       <Unit118>
-        <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
+        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit118>
       <Unit119>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit119>
-      <Unit120>
-        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit120>
-      <Unit121>
-        <Filename Value="..\..\components\tslib\editor\sortstrings\ts_editor_sortstrings_toolview.pas"/>
+        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSortStrings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.sortstrings.toolview"/>
+      </Unit119>
+      <Unit120>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit120>
+      <Unit121>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit121>
       <Unit122>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit122>
       <Unit123>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Manager"/>
       </Unit123>
       <Unit124>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
       </Unit124>
       <Unit125>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit125>
       <Unit126>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit126>
       <Unit127>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit127>
       <Unit128>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit128>
       <Unit129>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
+        <Filename Value="..\..\..\..\lazarus\components\synedit\synedit.inc"/>
         <IsPartOfProject Value="True"/>
       </Unit129>
       <Unit130>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
+        <Filename Value="notepas.resources.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Notepas.Resources"/>
       </Unit130>
     </Units>
   </ProjectOptions>
@@ -1664,7 +1704,7 @@ end;"/>
       <Filename Value="notepas"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+      <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units;..\..\..\..\lazarus\components\synedit"/>
       <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
     </SearchPaths>

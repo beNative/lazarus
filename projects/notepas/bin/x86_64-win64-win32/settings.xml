@@ -1128,10 +1128,10 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>237</Left>
-		<Top>56</Top>
+		<Left>182</Left>
+		<Top>182</Top>
 		<Width>1904</Width>
-		<Height>993</Height>
+		<Height>998</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>

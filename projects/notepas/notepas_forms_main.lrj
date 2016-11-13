@@ -1,0 +1,21 @@
+{"version":1,"strings":[
+{"hash":90883795,"name":"tfrmmain.caption","sourcebytes":[78,111,116,101,112,97,115],"value":"Notepas"},
+{"hash":256287726,"name":"tfrmmain.pnlposition.hint","sourcebytes":[67,117,114,115,111,114,32,112,111,115,105,116,105,111,110],"value":"Cursor position"},
+{"hash":154631269,"name":"tfrmmain.pnlinsertmode.hint","sourcebytes":[73,110,115,101,114,116,32,109,111,100,101],"value":"Insert mode"},
+{"hash":20019,"name":"tfrmmain.pnlinsertmode.caption","sourcebytes":[73,78,83],"value":"INS"},
+{"hash":240814274,"name":"tfrmmain.pnlhighlighter.hint","sourcebytes":[67,117,114,114,101,110,116,32,104,105,103,104,108,105,103,104,116,101,114],"value":"Current highlighter"},
+{"hash":45287218,"name":"tfrmmain.btnhighlighter.hint","sourcebytes":[72,105,103,104,108,105,103,104,116,101,114],"value":"Highlighter"},
+{"hash":207906423,"name":"tfrmmain.pnlencoding.hint","sourcebytes":[67,117,114,114,101,110,116,32,101,110,99,111,100,105,110,103],"value":"Current encoding"},
+{"hash":77966471,"name":"tfrmmain.btnencoding.hint","sourcebytes":[69,110,99,111,100,105,110,103],"value":"Encoding"},
+{"hash":198741461,"name":"tfrmmain.pnllinebreakstyle.hint","sourcebytes":[67,117,114,114,101,110,116,32,108,105,110,101,32,98,114,101,97,107,32,115,116,121,108,101],"value":"Current line break style"},
+{"hash":169215253,"name":"tfrmmain.btnlinebreakstyle.hint","sourcebytes":[76,105,110,101,32,98,114,101,97,107,32,115,116,121,108,101],"value":"Line break style"},
+{"hash":368901,"name":"tfrmmain.pnlsize.hint","sourcebytes":[83,105,122,101],"value":"Size"},
+{"hash":116254926,"name":"tfrmmain.pnlviewercount.hint","sourcebytes":[84,111,116,97,108,32,99,111,117,110,116,32,111,102,32,101,100,105,116,111,114,32,118,105,101,119,101,114,32,105,110,115,116,97,110,99,101,115,46],"value":"Total count of editor viewer instances."},
+{"hash":170830549,"name":"tfrmmain.pnlselectionmode.hint","sourcebytes":[83,101,108,101,99,116,105,111,110,32,109,111,100,101],"value":"Selection mode"},
+{"hash":170830549,"name":"tfrmmain.btnselectionmode.hint","sourcebytes":[83,101,108,101,99,116,105,111,110,32,109,111,100,101],"value":"Selection mode"},
+{"hash":180823742,"name":"tfrmmain.pnlcurrentchar.hint","sourcebytes":[67,104,97,114,97,99,116,101,114,32,99,111,100,101,32,111,102,32,99,104,97,114,97,99,116,101,114,32,97,116,32,99,117,114,115,111,114,32,112,111,115,105,116,105,111,110],"value":"Character code of character at cursor position"},
+{"hash":180823742,"name":"tfrmmain.btncurrentchar.hint","sourcebytes":[67,104,97,114,97,99,116,101,114,32,99,111,100,101,32,111,102,32,99,104,97,114,97,99,116,101,114,32,97,116,32,99,117,114,115,111,114,32,112,111,115,105,116,105,111,110],"value":"Character code of character at cursor position"},
+{"hash":4691652,"name":"tfrmmain.actabout.caption","sourcebytes":[65,98,111,117,116],"value":"About"},
+{"hash":122338519,"name":"tfrmmain.actclosetoolview.caption","sourcebytes":[67,108,111,115,101,32,116,111,111,108,118,105,101,119],"value":"Close toolview"},
+{"hash":213938622,"name":"tfrmmain.actcheckfornewversion.caption","sourcebytes":[67,104,101,99,107,32,102,111,114,32,110,101,119,32,118,101,114,115,105,111,110],"value":"Check for new version"}
+]}

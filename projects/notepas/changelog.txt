@@ -1,3 +1,6 @@
+2016.11.13
+* All units renamed to dotted equivalents
+
 2016.10.29
 * Upgraded to LCL version 1.6 and FPC version 3.0.0
 * new feature: support for multiple carets

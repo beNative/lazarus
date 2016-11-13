@@ -10,20 +10,49 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.7\n"
 
-#: notepas.forms.main.smodified
-msgctxt "notepas.forms.main.smodified"
+#: notepas.resources.scol
+msgctxt "notepas.resources.scol"
+msgid "Col"
+msgstr ""
+
+#: notepas.resources.slines
+msgctxt "notepas.resources.slines"
+msgid "Lines"
+msgstr ""
+
+#: notepas.resources.sln
+msgctxt "notepas.resources.sln"
+msgid "Ln"
+msgstr ""
+
+#: notepas.resources.smodified
+#, fuzzy
+msgctxt "notepas.resources.smodified"
 msgid "Modified"
 msgstr "Modificado"
 
+#: notepas.resources.ssel
+msgctxt "notepas.resources.ssel"
+msgid "Sel"
+msgstr ""
+
+#: notepas.resources.ssize
+msgctxt "notepas.resources.ssize"
+msgid "Size"
+msgstr ""
+
 #: notepas_forms_main.scol
+msgctxt "notepas_forms_main.scol"
 msgid "Col"
 msgstr ""
 
 #: notepas_forms_main.slines
+msgctxt "notepas_forms_main.slines"
 msgid "Lines"
 msgstr ""
 
 #: notepas_forms_main.sln
+msgctxt "notepas_forms_main.sln"
 msgid "Ln"
 msgstr ""
 
@@ -33,6 +62,7 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: notepas_forms_main.ssel
+msgctxt "notepas_forms_main.ssel"
 msgid "Sel"
 msgstr ""
 
@@ -218,7 +248,9 @@ msgid "Compress whitespace"
 msgstr ""
 
 #: tdmeditormanager.actcompresswhitespace.hint
-msgid "Replace any number of consecutive whitespace (including newlines)"
+msgid ""
+"Replace any number of consecutive whitespace (including newlines)\n"
+" with a single whitespace.\n"
 msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.caption
@@ -3159,9 +3191,326 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.core.utils.snocorrespondingfieldtype
-msgctxt "ts.core.utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
+#: ts.editor.actionlist.toolview.sbutton
+msgctxt "ts.editor.actionlist.toolview.sbutton"
+msgid "Button"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.scaption
+msgctxt "ts.editor.actionlist.toolview.scaption"
+msgid "Caption"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.scategory
+msgctxt "ts.editor.actionlist.toolview.scategory"
+msgid "Category"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sclickcount
+msgctxt "ts.editor.actionlist.toolview.sclickcount"
+msgid "ClickCount"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sclickdir
+msgctxt "ts.editor.actionlist.toolview.sclickdir"
+msgid "ClickDir"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.scommand
+msgctxt "ts.editor.actionlist.toolview.scommand"
+msgid "Command"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.senabled
+msgctxt "ts.editor.actionlist.toolview.senabled"
+msgid "Enabled"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.shint
+msgctxt "ts.editor.actionlist.toolview.shint"
+msgid "Hint"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.smovecaret
+msgctxt "ts.editor.actionlist.toolview.smovecaret"
+msgid "MoveCaret"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sname
+msgctxt "ts.editor.actionlist.toolview.sname"
+msgid "Name"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sshift
+msgctxt "ts.editor.actionlist.toolview.sshift"
+msgid "Shift"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sshiftmask
+msgctxt "ts.editor.actionlist.toolview.sshiftmask"
+msgid "ShiftMask"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sshortcut
+msgctxt "ts.editor.actionlist.toolview.sshortcut"
+msgid "Shortcut"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.sshortcut2
+msgctxt "ts.editor.actionlist.toolview.sshortcut2"
+msgid "Shortcut2"
+msgstr ""
+
+#: ts.editor.actionlist.toolview.svisible
+msgctxt "ts.editor.actionlist.toolview.svisible"
+msgid "Visible"
+msgstr ""
+
+#: ts.editor.alignlines.toolview.stoken
+msgctxt "ts.editor.alignlines.toolview.stoken"
+msgid "Token"
+msgstr ""
+
+#: ts.editor.charactermap.toolview.scharactermap
+msgctxt "ts.editor.charactermap.toolview.scharactermap"
+msgid "Character Map"
+msgstr ""
+
+#: ts.editor.codefilter.toolview.sfilteredcode
+msgctxt "ts.editor.codefilter.toolview.sfilteredcode"
+msgid "<Filtered code>"
+msgstr ""
+
+#: ts.editor.codefilter.toolview.slineindex
+msgctxt "ts.editor.codefilter.toolview.slineindex"
+msgid "Line"
+msgstr ""
+
+#: ts.editor.codefilter.toolview.slinetext
+msgctxt "ts.editor.codefilter.toolview.slinetext"
+msgid "Text"
+msgstr ""
+
+#: ts.editor.resources.sapplicationmenucaption
+msgctxt "ts.editor.resources.sapplicationmenucaption"
+msgid "&Application"
+msgstr ""
+
+#: ts.editor.resources.sasksavechanges
+msgctxt "ts.editor.resources.sasksavechanges"
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts.editor.resources.sbatdescription
+msgctxt "ts.editor.resources.sbatdescription"
+msgid "Windows batch script"
+msgstr ""
+
+#: ts.editor.resources.scppdescription
+msgctxt "ts.editor.resources.scppdescription"
+msgid "C++"
+msgstr ""
+
+#: ts.editor.resources.scsdescription
+msgctxt "ts.editor.resources.scsdescription"
+msgid "C#"
+msgstr ""
+
+#: ts.editor.resources.scssdescription
+msgctxt "ts.editor.resources.scssdescription"
+msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts.editor.resources.sdiffdescription
+msgctxt "ts.editor.resources.sdiffdescription"
+msgid "Diff"
+msgstr ""
+
+#: ts.editor.resources.sfilemenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.sfilemenucaption"
+msgid "&File"
+msgstr "&Achivo"
+
+#: ts.editor.resources.shelpmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.shelpmenucaption"
+msgid "&Help"
+msgstr "A&yuda"
+
+#: ts.editor.resources.shighlightersmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.shighlightersmenucaption"
+msgid "&Highlighters"
+msgstr "&Resaltadores"
+
+#: ts.editor.resources.shtmldescription
+msgctxt "ts.editor.resources.shtmldescription"
+msgid "HTML document"
+msgstr ""
+
+#: ts.editor.resources.sinidescription
+#, fuzzy
+msgctxt "ts.editor.resources.sinidescription"
+msgid "Settings file"
+msgstr "Archivo de configuraciones"
+
+#: ts.editor.resources.sinsertmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.sinsertmenucaption"
+msgid "&Insert"
+msgstr "&Insertar"
+
+#: ts.editor.resources.sjavadescription
+msgctxt "ts.editor.resources.sjavadescription"
+msgid "Java"
+msgstr ""
+
+#: ts.editor.resources.sjsdescription
+msgctxt "ts.editor.resources.sjsdescription"
+msgid "JavaScript"
+msgstr ""
+
+#: ts.editor.resources.slfmdescription
+msgctxt "ts.editor.resources.slfmdescription"
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts.editor.resources.slineswithmatchfound
+msgctxt "ts.editor.resources.slineswithmatchfound"
+msgid "%d lines with match found."
+msgstr ""
+
+#: ts.editor.resources.slogdescription
+msgctxt "ts.editor.resources.slogdescription"
+msgid "Log"
+msgstr ""
+
+#: ts.editor.resources.sluadescription
+msgctxt "ts.editor.resources.sluadescription"
+msgid "Lua"
+msgstr ""
+
+#: ts.editor.resources.sneweditorviewfilename
+#, fuzzy
+msgctxt "ts.editor.resources.sneweditorviewfilename"
+msgid "<new>"
+msgstr "<nuevo>"
+
+#: ts.editor.resources.snotimplementedyet
+msgctxt "ts.editor.resources.snotimplementedyet"
+msgid "This feature is not implemented yet"
+msgstr ""
+
+#: ts.editor.resources.sonelinewithmatchfound
+msgctxt "ts.editor.resources.sonelinewithmatchfound"
+msgid "1 line with match found."
+msgstr ""
+
+#: ts.editor.resources.spasdescription
+msgctxt "ts.editor.resources.spasdescription"
+msgid "Object Pascal"
+msgstr ""
+
+#: ts.editor.resources.sperldescription
+msgctxt "ts.editor.resources.sperldescription"
+msgid "Perl"
+msgstr ""
+
+#: ts.editor.resources.sphpdescription
+msgctxt "ts.editor.resources.sphpdescription"
+msgid "PHP"
+msgstr ""
+
+#: ts.editor.resources.spodescription
+msgctxt "ts.editor.resources.spodescription"
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts.editor.resources.spydescription
+msgctxt "ts.editor.resources.spydescription"
+msgid "Python"
+msgstr ""
+
+#: ts.editor.resources.sresdescription
+msgctxt "ts.editor.resources.sresdescription"
+msgid "Windows resources"
+msgstr ""
+
+#: ts.editor.resources.srtfdescription
+msgctxt "ts.editor.resources.srtfdescription"
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts.editor.resources.srubydescription
+msgctxt "ts.editor.resources.srubydescription"
+msgid "Ruby"
+msgstr ""
+
+#: ts.editor.resources.ssearching
+#, fuzzy
+msgctxt "ts.editor.resources.ssearching"
+msgid "Searching..."
+msgstr "Buscando...."
+
+#: ts.editor.resources.ssearchmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.ssearchmenucaption"
+msgid "&Search"
+msgstr "&Buscar"
+
+#: ts.editor.resources.sselectionmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.sselectionmenucaption"
+msgid "Se&lection"
+msgstr "Se&lección"
+
+#: ts.editor.resources.ssettingsmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.ssettingsmenucaption"
+msgid "&Settings"
+msgstr "&Configuraciones"
+
+#: ts.editor.resources.sshdescription
+msgctxt "ts.editor.resources.sshdescription"
+msgid "Shell script"
+msgstr ""
+
+#: ts.editor.resources.ssqldescription
+msgctxt "ts.editor.resources.ssqldescription"
+msgid "SQL"
+msgstr ""
+
+#: ts.editor.resources.stexdescription
+msgctxt "ts.editor.resources.stexdescription"
+msgid "TeX"
+msgstr ""
+
+#: ts.editor.resources.stextnotfound
+msgctxt "ts.editor.resources.stextnotfound"
+msgid "Text not found"
+msgstr ""
+
+#: ts.editor.resources.stoolsmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.stoolsmenucaption"
+msgid "&Tools"
+msgstr "&Herramientas"
+
+#: ts.editor.resources.stxtdescription
+msgctxt "ts.editor.resources.stxtdescription"
+msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.sviewmenucaption
+#, fuzzy
+msgctxt "ts.editor.resources.sviewmenucaption"
+msgid "&View"
+msgstr "&Vista"
+
+#: ts.editor.resources.sxmldescription
+msgctxt "ts.editor.resources.sxmldescription"
+msgid "XML document"
 msgstr ""
 
 #: ts.editor.search.data.sgroup
@@ -3178,6 +3527,59 @@ msgstr ""
 
 #: ts.editor.search.data.sposition
 msgid "Position: (%d, %d)"
+msgstr ""
+
+#: ts.editor.search.toolview.sfilename
+msgctxt "ts.editor.search.toolview.sfilename"
+msgid "FileName"
+msgstr ""
+
+#: ts.editor.search.toolview.smatchesfound
+msgctxt "ts.editor.search.toolview.smatchesfound"
+msgid "%d search matches found."
+msgstr ""
+
+#: ts.editor.search.toolview.smatchfound
+msgctxt "ts.editor.search.toolview.smatchfound"
+msgid "%d search match found."
+msgstr ""
+
+#: ts.editor.settingsdialog.old.sattributename
+msgctxt "ts.editor.settingsdialog.old.sattributename"
+msgid "Attribute name"
+msgstr ""
+
+#: ts.editor.settingsdialog.old.shighlighter
+#, fuzzy
+msgctxt "ts.editor.settingsdialog.old.shighlighter"
+msgid "Highlighter"
+msgstr "Resaltador"
+
+#: ts.editor.settingsdialog.old.stoolname
+msgctxt "ts.editor.settingsdialog.old.stoolname"
+msgid "Toolname"
+msgstr ""
+
+#: ts.editor.viewlist.toolview.sfilename
+msgctxt "ts.editor.viewlist.toolview.sfilename"
+msgid "Filename"
+msgstr ""
+
+#: ts.editor.viewlist.toolview.shighlighter
+#, fuzzy
+msgctxt "ts.editor.viewlist.toolview.shighlighter"
+msgid "Highlighter"
+msgstr "Resaltador"
+
+#: ts.editor.viewlist.toolview.smodified
+#, fuzzy
+msgctxt "ts.editor.viewlist.toolview.smodified"
+msgid "Modified"
+msgstr "Modificado"
+
+#: ts.editor.viewlist.toolview.spath
+msgctxt "ts.editor.viewlist.toolview.spath"
+msgid "Path"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption
@@ -3995,10 +4397,12 @@ msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
 #: ts_editor_aboutdialog.sauthor
+msgctxt "ts_editor_aboutdialog.sauthor"
 msgid "Author"
 msgstr ""
 
 #: ts_editor_aboutdialog.slanguagecode
+msgctxt "ts_editor_aboutdialog.slanguagecode"
 msgid "Code"
 msgstr ""
 
@@ -4013,6 +4417,7 @@ msgid "Name"
 msgstr ""
 
 #: ts_editor_aboutdialog.svalue
+msgctxt "ts_editor_aboutdialog.svalue"
 msgid "Value"
 msgstr ""
 
@@ -4152,6 +4557,7 @@ msgid "Cascading Style Sheet"
 msgstr ""
 
 #: ts_editor_resources.sdiffdescription
+msgctxt "ts_editor_resources.sdiffdescription"
 msgid "Diff"
 msgstr ""
 
@@ -4211,6 +4617,7 @@ msgid "Log"
 msgstr ""
 
 #: ts_editor_resources.sluadescription
+msgctxt "ts_editor_resources.sluadescription"
 msgid "Lua"
 msgstr ""
 
@@ -4220,6 +4627,7 @@ msgid "<new>"
 msgstr "<nuevo>"
 
 #: ts_editor_resources.snotimplementedyet
+msgctxt "ts_editor_resources.snotimplementedyet"
 msgid "This feature is not implemented yet"
 msgstr ""
 
@@ -4264,6 +4672,7 @@ msgid "Rich Text Format document"
 msgstr ""
 
 #: ts_editor_resources.srubydescription
+msgctxt "ts_editor_resources.srubydescription"
 msgid "Ruby"
 msgstr ""
 
@@ -4288,6 +4697,7 @@ msgid "&Settings"
 msgstr "&Configuraciones"
 
 #: ts_editor_resources.sshdescription
+msgctxt "ts_editor_resources.sshdescription"
 msgid "Shell script"
 msgstr ""
 
@@ -4297,6 +4707,7 @@ msgid "SQL"
 msgstr ""
 
 #: ts_editor_resources.stexdescription
+msgctxt "ts_editor_resources.stexdescription"
 msgid "TeX"
 msgstr ""
 
@@ -4341,6 +4752,7 @@ msgid "%d search match found."
 msgstr ""
 
 #: ts_editor_settingsdialog_old.sattributename
+msgctxt "ts_editor_settingsdialog_old.sattributename"
 msgid "Attribute name"
 msgstr ""
 
@@ -4351,6 +4763,7 @@ msgid "Highlighter"
 msgstr "Resaltador"
 
 #: ts_editor_settingsdialog_old.stoolname
+msgctxt "ts_editor_settingsdialog_old.stoolname"
 msgid "Toolname"
 msgstr ""
 
@@ -4485,6 +4898,7 @@ msgid "%d search match found."
 msgstr ""
 
 #: ts_editor_viewlist_toolview.sfilename
+msgctxt "ts_editor_viewlist_toolview.sfilename"
 msgid "Filename"
 msgstr ""
 
@@ -4499,6 +4913,7 @@ msgid "Modified"
 msgstr "Modificado"
 
 #: ts_editor_viewlist_toolview.spath
+msgctxt "ts_editor_viewlist_toolview.spath"
 msgid "Path"
 msgstr ""
 

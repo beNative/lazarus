@@ -1028,7 +1028,6 @@ begin
 end;
 
 procedure TSynLuaSyn.String3Proc;
-var fBackslashCount:integer;
 begin
   fTokenID := tkString;
 

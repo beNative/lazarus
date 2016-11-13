@@ -538,8 +538,7 @@ begin
   LNode := FTreeView.GetFirst;
   while Assigned(LNode) do
   begin
-    // TS TODO: change to vsFiltered when Virtualtrees v5 is used
-    if (vsVisible in LNode.States) and (not (vsHidden in LNode.States)) then
+    if (vsVisible in LNode.States) and (not (vsFiltered in LNode.States)) then
       Inc(Result);
     LNode := FTreeView.GetNext(LNode);
   end;
@@ -547,7 +546,7 @@ end;
 
 procedure TTreeViewPresenter.DefineProperties(Filer: TFiler);
 begin
-  inherited;
+  inherited DefineProperties(Filer);
   Filer.DefineProperty('MultiSelect', ReadMultiSelect, nil, False);
 end;
 

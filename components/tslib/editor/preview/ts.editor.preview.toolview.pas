@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.preview.ToolView;
+unit ts.Editor.Preview.ToolView;
 
 {$MODE Delphi}
 
@@ -34,9 +34,6 @@ uses
   ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmPreview }
-
   TfrmPreview = class(TCustomEditorToolView, IEditorToolView)
     mniSelectAll                : TMenuItem;
     mniOpenSelectionInNewEditor : TMenuItem;

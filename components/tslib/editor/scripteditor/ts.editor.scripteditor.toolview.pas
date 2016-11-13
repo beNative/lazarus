@@ -23,8 +23,8 @@ unit ts.Editor.ScriptEditor.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, uPSComponent, Forms, Controls, Graphics, Dialogs,
-  ExtCtrls, ActnList, ComCtrls,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  ActnList, ComCtrls,
 
   ts.Editor.ToolView.Base, ts.Editor.Interfaces;
 
@@ -33,7 +33,7 @@ type
   { TfrmScriptEditor }
 
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
-    aclMain: TActionList;
+    aclMain    : TActionList;
     actExecute : TAction;
     imlMain    : TImageList;
     pnlLeft    : TPanel;

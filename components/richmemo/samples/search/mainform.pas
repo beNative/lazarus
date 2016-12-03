@@ -62,10 +62,10 @@ begin
   if chkBackward.Checked then include(opt, soBackward);
 
   Caption:='Searching...';
-  s:=RichMemo1.Search(Edit1.Text, RichMemo1.SelStart, length(RichMemo1.Text), opt);
+  s:=RichMemo1.Search(Edit1.Text, RichMemo1.SelStart, RichMemo1.GetTextLen, opt);
   if (s>=0) then begin
     if (st=s) and (l=UTF8Length(Edit1.Text)) then
-      s:=RichMemo1.Search(Edit1.Text, RichMemo1.SelStart+1, length(RichMemo1.Text), opt);
+      s:=RichMemo1.Search(Edit1.Text, RichMemo1.SelStart+1, RichMemo1.GetTextLen, opt);
   end;
 
   if (s>=0) then begin

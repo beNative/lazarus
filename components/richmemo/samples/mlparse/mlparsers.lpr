@@ -1,4 +1,4 @@
-program testzoom;
+program mlparsers;
 
 {$mode objfpc}{$H+}
 
@@ -7,12 +7,13 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mainform;
+  Forms, Unit1, richmemoml
+  { you can add units after this };
 
 {$R *.res}
 
 begin
-  RequireDerivedFormResource := True;
+  RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
   Application.Run;

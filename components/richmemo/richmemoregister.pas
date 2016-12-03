@@ -38,8 +38,12 @@ begin
   TheDialog :=TRTFEditDialog.Create(nil);
   try
     TheDialog.RichMemo1.Rtf:=GetStrValue;
-    if (TheDialog.ShowModal = mrOK) then
-      SetStrValue( TheDialog.RichMemo1.Rtf );
+    if (TheDialog.ShowModal = mrOK) then begin
+      if TheDialog.RichMemo1.Text = '' then
+        SetStrValue( '' )
+      else
+        SetStrValue( TheDialog.RichMemo1.Rtf );
+    end;
   finally
     TheDialog.Free;
   end;

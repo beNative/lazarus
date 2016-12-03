@@ -20,15 +20,18 @@
 unit RichMemo; 
 
 {$mode objfpc}{$H+}
+{$OBJECTCHECKS OFF}
 
 interface
 
 uses
   Types, Classes, SysUtils
-  , LCLType, LCLIntf
-  , Graphics, StdCtrls, LazUTF8;
+  , LCLType, LCLIntf, Printers
+  , Graphics, Controls, StdCtrls, LazUTF8;
 
 type
+  TVScriptPos = (vpNormal, vpSubScript, vpSuperScript);
+
   TFontParams  = record
     Name      : String;
     Size      : Integer;
@@ -36,6 +39,7 @@ type
     Style     : TFontStyles;
     HasBkClr  : Boolean;
     BkColor   : TColor;
+    VScriptPos  : TVScriptPos;
   end;
 
   TParaAlignment  = (paLeft, paRight, paCenter, paJustify);
@@ -84,12 +88,70 @@ type
 
   TParaRange = record
     start      : Integer; // the first character in the paragraph
-    lenghtNoBr : Integer; // the length of the paragraph, excluding the line break character
+    lengthNoBr : Integer; // the length of the paragraph, excluding the line break character
     length     : Integer; // the length of the paragrpah, including the line break, if present
     // the last line in the control doesn't contain a line break character,
     // thus length = lengthNoBr
   end;
 
+type
+  TTabAlignment = (tabLeft, tabCenter, tabRight, tabDecimal, tabWordBar);
+
+  TTabStop = record
+    Offset : Double;
+    Align  : TTabAlignment; // not used
+  end;
+
+  TTabStopList = record
+    Count : Integer;
+    Tabs  : array of TTabStop;
+  end;
+
+type
+  TRectOffsets = record
+    Left   : Double;
+    Top    : Double;
+    Right  : Double;
+    Bottom : Double;
+  end;
+
+  TPrintParams = record
+    JobTitle  : String;       // print job title to be shown in system printing manager
+    Margins   : TRectOffsets; // margins in points
+    SelStart  : Integer;
+    SelLength : Integer;
+  end;
+
+  TPrintMeasure = record
+    Pages     : Integer;
+  end;
+
+  TPrintAction = (paDocStart, paPageStart, paPageEnd, paDocEnd);
+
+  TPrintActionEvent = procedure (Sender: TObject;
+    APrintAction: TPrintAction;
+    PrintCanvas: TCanvas;
+    CurrentPage: Integer; var AbortPrint: Boolean) of object;
+
+type
+  TLinkAction = (laClick);
+
+  TLinkMouseInfo = record
+    button : TMouseButton;
+  end;
+
+  TLinkActionEvent = procedure (Sender: TObject;
+    ALinkAction: TLinkAction;
+    const info: TLinkMouseInfo;
+    LinkStart, LinkLen: Integer) of object;
+
+  TTextUIFeature = (uiLink);
+  TTextUIFeatures = set of TTextUIFeature;
+
+  TTextUIParam = record
+    features : TTextUIFeatures;
+    linkref  : String;
+  end;
 
 type
   TRichMemoObject = class(TObject);
@@ -114,15 +176,20 @@ type
 
   TCustomRichMemo = class(TCustomMemo)
   private
-    fHideSelection  : Boolean;
-    fOnSelectionChange: TNotifyEvent;
-    fZoomFactor : Double;
+    fHideSelection      : Boolean;
+    fOnSelectionChange  : TNotifyEvent;
+    fOnPrintAction      : TPrintActionEvent;
+    fOnLinkAction       : TLinkActionEvent;
+    fZoomFactor         : Double;
   private
     procedure InlineInvalidate(handler: TRichMemoInline);
+
+    //todo: PrintMeasure doesn't work propertly
+    function PrintMeasure(const params: TPrintParams; var est: TPrintMeasure): Boolean;
   protected
     procedure DoSelectionChange;
     class procedure WSRegisterClass; override;
-    procedure CreateWnd; override;    
+    procedure CreateWnd; override;
     procedure UpdateRichMemo; virtual;
     procedure SetHideSelection(AValue: Boolean);
     function GetContStyleLength(TextStart: Integer): Integer;
@@ -130,11 +197,19 @@ type
     procedure SetSelText(const SelTextUTF8: string); override;
     function GetZoomFactor: Double; virtual;
     procedure SetZoomFactor(AValue: Double); virtual;
+
+    procedure DoPrintAction(PrintJobEvent: TPrintAction;
+      PrintCanvas: TCanvas;
+      CurrentPage: Integer; var AbortPrint: Boolean);
+    procedure DoLinkAction(ALinkAction: TLinkAction; const AMouseInfo: TLinkMouseInfo;
+      LinkStart, LinkEnd: Integer);
+
   public
     constructor Create(AOwner: TComponent); override;
     procedure CopyToClipboard; override;
     procedure CutToClipboard; override;
     procedure PasteFromClipboard; override;
+    function CanPaste: Boolean; virtual;
     
     procedure SetTextAttributes(TextStart, TextLen: Integer; const TextParams: TFontParams); virtual;
     function GetTextAttributes(TextStart: Integer; var TextParams: TFontParams): Boolean; virtual;
@@ -150,28 +225,43 @@ type
     function GetParaRange(CharOfs: Integer; var ParaRange: TParaRange): Boolean; virtual;
     function GetParaRange(CharOfs: Integer; var TextStart, TextLength: Integer): Boolean;
 
+    procedure SetParaTabs(TextStart, TextLen: Integer; const AStopList: TTabStopList); virtual;
+    function GetParaTabs(CharOfs: Integer; var AStopList: TTabStopList): Boolean; virtual;
+
     procedure SetTextAttributes(TextStart, TextLen: Integer; AFont: TFont);
     procedure SetRangeColor(TextStart, TextLength: Integer; FontColor: TColor);
     procedure SetRangeParams(TextStart, TextLength: Integer; ModifyMask: TTextModifyMask;
       const FontName: String; FontSize: Integer; FontColor: TColor; AddFontStyle, RemoveFontStyle: TFontStyles); overload;
     procedure SetRangeParams(TextStart, TextLength: Integer; ModifyMask: TTextModifyMask;
       const fnt: TFontParams; AddFontStyle, RemoveFontStyle: TFontStyles); overload;
-    procedure SetRangeParaParams(TextStart, TextLength: INteger; ModifyMask: TParaModifyMask;
+    procedure SetRangeParaParams(TextStart, TextLength: Integer; ModifyMask: TParaModifyMask;
       const ParaMetric: TParaMetric);
+
+    procedure SetLink(TextStart, TextLength: Integer; AIsLink: Boolean; const ALinkRef: String = ''); virtual;
+    function isLink(TextStart: Integer): Boolean; virtual;
 
     function LoadRichText(Source: TStream): Boolean; virtual;
     function SaveRichText(Dest: TStream): Boolean; virtual;
 
     function InDelText(const UTF8Text: string; InsStartChar, ReplaceLength: Integer): Integer; virtual;
     function InDelInline(inlineobj: TRichMemoInline; InsStartChar, ReplaceLength: Integer; const ASize: TSize): Integer; virtual;
+    function GetText(TextStart, TextLength: Integer): String;
+    function GetUText(TextStart, TextLength: Integer): UnicodeString;
 
     procedure SetSelLengthFor(const aselstr: string);
 
-    function Search(const ANiddle: string; Start, Len: Integer; const SearchOpt: TSearchOptions): Integer;
+    function Search(const ANiddle: string; Start, Len: Integer; const SearchOpt: TSearchOptions): Integer; overload;
+    function Search(const ANiddle: string; Start, Len: Integer; const SearchOpt: TSearchOptions; var ATextStart, ATextLength: Integer): Boolean; overload;
+
+    function Print(const params: TPrintParams): Integer;
+
+    function CharAtPos(x, y: Integer): Integer;
 
     property HideSelection : Boolean read fHideSelection write SetHideSelection;
     property OnSelectionChange: TNotifyEvent read fOnSelectionChange write fOnSelectionChange;
     property ZoomFactor: Double read GetZoomFactor write SetZoomFactor;
+    property OnPrintAction: TPrintActionEvent read fOnPrintAction write fOnPrintAction;
+    property OnLinkAction: TLinkActionEvent read fOnLinkAction write fOnLinkAction;
   end;
   
   { TRichMemo }
@@ -183,6 +273,7 @@ type
     function GetRTF: string; virtual;
     procedure SetRTF(const AValue: string); virtual;
     procedure UpdateRichMemo; override;
+    procedure DestroyHandle; override;
   published
     property Align;
     property Alignment;
@@ -213,6 +304,7 @@ type
     property OnKeyDown;
     property OnKeyPress;
     property OnKeyUp;
+    property OnLinkAction;
     property OnMouseDown;
     property OnMouseEnter;
     property OnMouseLeave;
@@ -223,6 +315,7 @@ type
     property OnMouseWheelUp;
     property OnSelectionChange;
     property OnStartDrag;
+    property OnPrintAction;
     property OnUTF8KeyPress;
     property ParentBidiMode;
     property ParentColor;
@@ -253,6 +346,11 @@ procedure InitParaMetric(var m: TParaMetric);
 procedure InitParaNumbering(var n: TParaNumbering);
 procedure InitParaNumber(var n: TParaNumbering; ASepChar: WideChar = SepPar; StartNum: Integer = 1);
 procedure InitParaBullet(var n: TParaNumbering);
+procedure InitTabStopList(var tabs: TTabStopList); overload;
+procedure InitTabStopList(var tabs: TTabStopList; const TabStopsPt: array of double); overload;
+procedure InitPrintParams(var prm: TPrintParams);
+
+procedure InitTextUIParams(var prm: TTextUIParam);
 
 var
   RTFLoadStream : function (AMemo: TCustomRichMemo; Source: TStream): Boolean = nil;
@@ -261,7 +359,7 @@ var
 implementation
 
 uses
-  RichMemoFactory, WSRichMemo;
+  {%H-}RichMemoFactory, WSRichMemo;
 
 procedure InitFontParams(var p: TFontParams);
 begin
@@ -379,6 +477,33 @@ begin
   n.Style:=pnBullet;
 end;
 
+procedure InitTabStopList(var tabs: TTabStopList);
+begin
+  FillChar(tabs, sizeof(tabs), 0);
+end;
+
+procedure InitTabStopList(var tabs: TTabStopList; const TabStopsPt: array of double);
+var
+  i : Integer;
+begin
+  InitTabStopList(tabs);
+  tabs.count:=length(TabStopsPt);
+  SetLength(tabs.tabs, tabs.Count);
+  for i:=0 to tabs.Count-1 do begin
+    tabs.tabs[i].Offset:=TabStopsPt[i];
+  end;
+end;
+
+procedure InitPrintParams(var prm: TPrintParams);
+begin
+  FillChar(prm, sizeof(prm), 0);
+end;
+
+procedure InitTextUIParams(var prm: TTextUIParam);
+begin
+  FillChar(prm, sizeof(prm), 0);
+end;
+
 { TRichMemoInline }
 
 procedure TRichMemoInline.Draw(Canvas: TCanvas; const ASize: TSize);
@@ -450,6 +575,12 @@ begin
   if fRTF<>'' then SetRTF(fRTF);
 end;
 
+procedure TRichMemo.DestroyHandle;
+begin
+  fRTF:=GetRTF;
+  inherited DestroyHandle;
+end;
+
 { TCustomRichMemo }
 
 procedure TCustomRichMemo.SetHideSelection(AValue: Boolean);
@@ -462,6 +593,10 @@ end;
 function TCustomRichMemo.GetZoomFactor: Double;
 begin
   Result:=fZoomFactor;
+  if HandleAllocated then begin
+    if TWSCustomRichMemoClass(WidgetSetClass).GetZoomFactor(Self, Result) then
+      fZoomFactor:=Result;
+  end;
 end;
 
 procedure TCustomRichMemo.SetZoomFactor(AValue: Double);
@@ -470,6 +605,20 @@ begin
   fZoomFactor:=AValue;
   if HandleAllocated then
     TWSCustomRichMemoClass(WidgetSetClass).SetZoomFactor(Self, AValue);
+end;
+
+procedure TCustomRichMemo.DoPrintAction(PrintJobEvent: TPrintAction;
+  PrintCanvas: TCanvas; CurrentPage: Integer; var AbortPrint: Boolean);
+begin
+  if Assigned(OnPrintAction) then
+    OnPrintAction(Self, PrintJobEvent, PrintCanvas, CurrentPAge, AbortPrint);
+end;
+
+procedure TCustomRichMemo.DoLinkAction(ALinkAction: TLinkAction; const AMouseInfo: TLinkMouseInfo; LinkStart,
+  LinkEnd: Integer);
+begin
+  if Assigned(OnLinkAction) then
+    OnLinkAction(Self, ALinkAction, AMouseInfo, LinkStart, LinkEnd);
 end;
 
 procedure TCustomRichMemo.InlineInvalidate(handler: TRichMemoInline);
@@ -497,7 +646,7 @@ begin
   UpdateRichMemo;
 end;
 
-procedure TCustomRichMemo.UpdateRichMemo; 
+procedure TCustomRichMemo.UpdateRichMemo;
 begin
   if not HandleAllocated then Exit;
   TWSCustomRichMemoClass(WidgetSetClass).SetHideSelection(Self, fHideSelection);
@@ -611,6 +760,21 @@ begin
   TextLength:=p.length;
 end;
 
+procedure TCustomRichMemo.SetParaTabs(TextStart, TextLen: Integer;
+  const AStopList: TTabStopList);
+begin
+  if HandleAllocated then
+    TWSCustomRichMemoClass(WidgetSetClass).SetParaTabs(Self, TextStart, TextLen, AStopList);
+end;
+
+function TCustomRichMemo.GetParaTabs(CharOfs: Integer; var AStopList: TTabStopList): Boolean;
+begin
+  Result:=false;
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
+    Result:=TWSCustomRichMemoClass(WidgetSetClass).GetParaTabs(Self, CharOfs, AStopList);
+end;
+
 function TCustomRichMemo.GetContStyleLength(TextStart: Integer): Integer;
 var
   ofs, len  : Integer;
@@ -662,6 +826,13 @@ begin
     TWSCustomRichMemoClass(WidgetSetClass).PasteFromClipboard(Self);
 end;
 
+function TCustomRichMemo.CanPaste: Boolean;
+begin
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
+    Result:=TWSCustomRichMemoClass(WidgetSetClass).CanPasteFromClipboard(Self);
+end;
+
 procedure TCustomRichMemo.SetRangeColor(TextStart, TextLength: Integer; FontColor: TColor);
 begin
   SetRangeParams(TextStart, TextLength, [tmm_Color], '', 0, FontColor, [], []);
@@ -687,33 +858,56 @@ var
   j : Integer;
   l : Integer;
   p : TFontParams;
+  allowInternalChange: Boolean;
+  fp : TFontParams;
+const
+  AllFontStyles : TFontStyles = [fsBold, fsItalic, fsUnderline, fsStrikeOut];
 begin
   if not HandleAllocated then HandleNeeded;
 
   if (ModifyMask = []) or (TextLength = 0) then Exit;
 
-  i := TextStart;
-  j := TextStart + TextLength;
-  while i < j do begin
-    GetTextAttributes(i, p);
+  allowInternalChange:=(not (tmm_Styles in ModifyMask)) or (AddFontStyle+RemoveFontStyle=AllFontStyles);
 
-    if tmm_Name in ModifyMask   then p.Name := fnt.Name;
-    if tmm_Color in ModifyMask  then p.Color := fnt.Color;
-    if tmm_Size in ModifyMask   then p.Size := fnt.Size;
-    if tmm_Styles in ModifyMask then p.Style := p.Style + AddFontStyle - RemoveFontStyle;
-    if tmm_BackColor in ModifyMask then begin
-      p.HasBkClr:=fnt.HasBkClr;
-      p.BkColor:=fnt.BkColor;
+  if allowInternalChange and (TWSCustomRichMemoClass(WidgetSetClass).isInternalChange(Self, ModifyMask)) then
+  begin
+    // more effecient from OS view
+    fp:=fnt;
+    if tmm_Styles in ModifyMask then  fp.Style:=AddFontStyle;
+    TWSCustomRichMemoClass(WidgetSetClass).SetTextAttributesInternal(Self,
+      TextStart, TextLength, ModifyMask, fp);
+    Exit;
+  end;
+
+  Lines.BeginUpdate;
+  try
+    // manually looping from text ranges and re-applying
+    // all the style. changing only the ones that in the mask
+    i := TextStart;
+    j := TextStart + TextLength;
+    while i < j do begin
+      GetTextAttributes(i, p);
+
+      if tmm_Name in ModifyMask   then p.Name := fnt.Name;
+      if tmm_Color in ModifyMask  then p.Color := fnt.Color;
+      if tmm_Size in ModifyMask   then p.Size := fnt.Size;
+      if tmm_Styles in ModifyMask then p.Style := p.Style + AddFontStyle - RemoveFontStyle;
+      if tmm_BackColor in ModifyMask then begin
+        p.HasBkClr:=fnt.HasBkClr;
+        p.BkColor:=fnt.BkColor;
+      end;
+      l := GetContStyleLength(i);
+      if i + l > j then l := j - i;
+      if l = 0 then Break;
+      SetTextAttributes(i, l, p);
+      inc(i, l);
     end;
-    l := GetContStyleLength(i);
-    if i + l > j then l := j - i;
-    if l = 0 then Break;
-    SetTextAttributes(i, l, p);
-    inc(i, l);
+  finally
+    Lines.EndUpdate
   end;
 end;
 
-procedure TCustomRichMemo.SetRangeParaParams(TextStart, TextLength: INteger;
+procedure TCustomRichMemo.SetRangeParaParams(TextStart, TextLength: Integer;
   ModifyMask: TParaModifyMask; const ParaMetric: TParaMetric);
 var
   ln: Integer;
@@ -736,6 +930,29 @@ begin
     dec(TextLength, ln);
 
   until TextLength<=0;
+end;
+
+procedure TCustomRichMemo.SetLink(TextStart, TextLength: Integer; AIsLink: Boolean; const ALinkRef: String);
+var
+  ui : TTextUIParam;
+begin
+  if HandleAllocated then begin
+    TWSCustomRichMemoClass(WidgetSetClass).GetTextUIParams(Self, TextStart, ui);
+    if AIsLink then begin
+      Include(ui.features, uiLink);
+      ui.linkref:=ALinkRef;
+    end else
+      Exclude(ui.features, uiLink);
+    TWSCustomRichMemoClass(WidgetSetClass).SetTextUIParams(Self, TextStart, TextLength, ui);
+  end;
+end;
+
+function TCustomRichMemo.isLink(TextStart: Integer): Boolean;
+var
+  ui : TTextUIParam;
+begin
+  Result:=HandleAllocated and TWSCustomRichMemoClass(WidgetSetClass).GetTextUIParams(Self, TextStart, ui);
+  if Result then Result:=uiLink in ui.features;
 end;
 
 function TCustomRichMemo.LoadRichText(Source: TStream): Boolean;
@@ -803,6 +1020,34 @@ begin
     inlineObj.Free;
 end;
 
+function TCustomRichMemo.GetText(TextStart, TextLength: Integer): String;
+var
+  isu  : Boolean;
+  txt  : String;
+  utxt : UnicodeString;
+begin
+  Result:='';
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated and not TWSCustomRichMemoClass(WidgetSetClass).GetSubText(Self, TextStart, TextLength, false, isu, txt, utxt) then
+    Exit;
+  if isu then Result:=UTF8Decode(utxt)
+  else Result:=txt;
+end;
+
+function TCustomRichMemo.GetUText(TextStart, TextLength: Integer): UnicodeString;
+var
+  isu  : Boolean;
+  txt  : String;
+  utxt : UnicodeString;
+begin
+    Result:='';
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated and not TWSCustomRichMemoClass(WidgetSetClass).GetSubText(Self, TextStart, TextLength, false, isu, txt, utxt) then
+    Exit;
+  if isu then Result:=utxt
+  else Result:=UTF8Encode(txt);
+end;
+
 procedure TCustomRichMemo.SetSelLengthFor(const aselstr: string);
 begin
   SelLength:=UTF8Length(aselstr);
@@ -811,6 +1056,15 @@ end;
 function TCustomRichMemo.Search(const ANiddle: string; Start, Len: Integer;
   const SearchOpt: TSearchOptions): Integer;
 var
+  ln : Integer;
+begin
+  ln := 0;
+  if not Search(ANiddle, Start, Len, SearchOpt, Result, ln) then Result:=-1;
+end;
+
+function TCustomRichMemo.Search(const ANiddle: string; Start, Len: Integer; const SearchOpt: TSearchOptions;
+  var ATextStart, ATextLength: Integer): Boolean; overload;
+var
   so : TIntSearchOpt;
 begin
   if not HandleAllocated then HandleNeeded;
@@ -818,9 +1072,49 @@ begin
     so.len:=Len;
     so.start:=Start;
     so.options:=SearchOpt;
-    Result:=TWSCustomRichMemoClass(WidgetSetClass).Search(Self, ANiddle, so);
+    if not TWSCustomRichMemoClass(WidgetSetClass).isSearchEx then begin
+      ATextStart:=TWSCustomRichMemoClass(WidgetSetClass).Search(Self, ANiddle, so);
+      // not recommended. The text found coulbe longer than Niddle
+      // depending on the language and search options (to be done)
+      // mostly for Arabi and Hebrew languages
+      ATextLength:=UTF8Length(ANiddle);
+    end else begin
+      Result:=TWSCustomRichMemoClass(WidgetSetClass).SearchEx(Self, ANiddle, so, ATextStart, ATextLength);
+    end;
   end else
+    Result:=false;
+end;
+
+function TCustomRichMemo.Print(const params: TPrintParams): Integer;
+begin
+  Result:=0;
+  if not Assigned(Printer) then Exit;
+  if not HandleAllocated then HandleNeeded;
+  if HandleAllocated then
+    Result:=TWSCustomRichMemoClass(WidgetSetClass).Print(Self, Printer, params, true);
+end;
+
+function TCustomRichMemo.CharAtPos(x, y: Integer): Integer;
+begin
+  if HandleAllocated then
+    Result:=TWSCustomRichMemoClass(WidgetSetClass).CharAtPos(Self, x, y)
+  else
     Result:=-1;
+end;
+
+function TCustomRichMemo.PrintMeasure(const params: TPrintParams; var est: TPrintMeasure): Boolean;
+begin
+  if not Assigned(Printer) then begin
+    Result:=False;
+    Exit;
+  end;
+
+  if not HandleAllocated then HandleNeeded;
+
+  if HandleAllocated then begin
+    est.Pages:=TWSCustomRichMemoClass(WidgetSetClass).Print(Self, Printer, params, false);
+  end else
+    Result:=false;
 end;
 
 end.

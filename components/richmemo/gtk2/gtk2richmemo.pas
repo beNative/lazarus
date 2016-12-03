@@ -39,6 +39,8 @@ uses
 
 const
   TagNameNumeric = 'numeric';
+  TagNameSubOrSuper = 'suborsuper';
+  TagNameLink       = 'link';
   BulletChar     = #$E2#$80#$A2;
   TabChar        = #$09;
 
@@ -48,15 +50,21 @@ type
   protected
     class procedure SetCallbacks(const AGtkWidget: PGtkWidget; const AWidgetInfo: PWidgetInfo);
     class procedure GetWidgetBuffer(const AWinControl: TWinControl; var TextWidget: PGtkWidget; var Buffer: PGtkTextBuffer);
+
+    class function GetAttrAtIter(view: PGtkTextView; const start: TGtkTextIter): PGtkTextAttributes;
     class function GetAttrAtPos(const AWinControl: TWinControl; TextStart: Integer; APara: Boolean = false): PGtkTextAttributes;
+    class procedure GetAttributesAt(const AWinControl: TWinControl; TextStart: Integer; APara: Boolean;
+      var attr: PGtkTextAttributes; var fp: TFontParams);
+
     class procedure ApplyTag(abuffer: PGtkTextBuffer; tag: PGtkTextTag; TextStart, TextLen: Integer; ToParagraphs: Boolean = False);
+    class procedure FormatSubSuperScript(buffer: PGtkTextBuffer; vs: TVScriptPos; fontSizePts: Double; TextStart, TextLen: Integer);
 
   published
     class function CreateHandle(const AWinControl: TWinControl; const AParams: TCreateParams): TLCLIntfHandle; override;
     class procedure DestroyHandle(const AWinControl: TWinControl); override;
 
-    class function  GetSelLength(const ACustomEdit: TCustomEdit): integer; override;
-    class function  GetStrings(const ACustomMemo: TCustomMemo): TStrings; override;
+    class function GetSelLength(const ACustomEdit: TCustomEdit): integer; override;
+    class function GetStrings(const ACustomMemo: TCustomMemo): TStrings; override;
 
     class function GetStyleRange(const AWinControl: TWinControl; TextStart: Integer;
       var RangeStart, RangeLen: Integer): Boolean; override;
@@ -77,8 +85,20 @@ type
     class procedure SetParaNumbering(const AWinControl: TWinControl; TextStart,
       TextLen: Integer; const ANumber: TIntParaNumbering); override;
 
+    class procedure SetParaTabs(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AStopList: TTabStopList); override;
+    class function GetParaTabs(const AWinControl: TWinControl; TextStart: integer;
+      var AStopList: TTabStopList): Boolean; override;
+
     class function GetParaRange(const AWinControl: TWinControl; TextStart: Integer; var rng: TParaRange): Boolean; override;
+
+    class procedure SetTextUIParams(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const ui: TTextUIParam); override;
+    class function GetTextUIParams(const AWinControl: TWinControl; TextStart: Integer;
+      var ui: TTextUIParam): Boolean; override;
+
     class procedure InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); override;
+    class function CharAtPos(const AWinControl: TWinControl; x,y: Integer): Integer; override;
 
     class function Search(const AWinControl: TWinControl; const ANiddle: string; const SearchOpts: TIntSearchOpt): Integer; override;
 
@@ -135,8 +155,26 @@ type
     property Owner: TWinControl read FOwner;
   end;
 
+
+const
+  SubSuperFontKoef = 0.583; // the koef for the font size of sub/super scripts matching Adover Illustrator and OpenOffice
+  SuperRiseKoef =  0.58;
+  SubRiseKoef   = -0.08;
+
 implementation
 
+type
+  TRichMemoData = record
+    link    : Boolean;
+    link_li : integer;
+    link_le : integer;
+    link_act: TGdkEventType;
+    link_btn: guint;
+  end;
+  PRichMemoData = ^TRichMemoData;
+
+var
+  linkCursor: PGdkCursor = nil;// gdk_cursor_new(GDK_DRAFT_LARGE)
 
 // todo: why "shr" on each of this flag test?
 function gtktextattr_underline(const a : TGtkTextAppearance) : Boolean;
@@ -155,7 +193,7 @@ begin
 end;
 
 
-function GtkTextAttrToFontParams(const textAttr: TGtkTextAttributes; var FontParams: TIntFontParams): Boolean;
+function GtkTextAttrToFontParams(const textAttr: TGtkTextAttributes; var FontParams: TIntFontParams; const FontKoef : Double = 1.0): Boolean;
 var
   w   : integer;
   st  : TPangoStyle;
@@ -177,7 +215,7 @@ begin
     sz:=FontParams.Size / PANGO_SCALE;
     if pango_font_description_get_size_is_absolute(pf) then
       sz:=sz/(ScreenDPI/PageDPI);
-    FontParams.Size:=round(sz);
+    FontParams.Size:=round(sz*FontKoef);
     w := pango_font_description_get_weight(pf);
     if w > PANGO_WEIGHT_NORMAL then Include(FontParams.Style, fsBold);
 
@@ -334,7 +372,6 @@ function Gtk2_RichMemoKeyPress(view: PGtkTextView; Event: PGdkEventKey;
 var
   buf    : PGtkTextBuffer;
   mark   : PGtkTextMark;
-  iend   : TGtkTextIter;
   istart : TGtkTextIter;
   tag    : PGtkTextTag;
 begin
@@ -357,6 +394,109 @@ begin
   end;
   Result:=false;
 end;
+
+
+function Gtk2_RichMemoMotion(view: PGtkTextView; Event: PGdkEventKey;
+  WidgetInfo: PWidgetInfo): gboolean; cdecl;
+var
+  mt : PGdkEventMotion;
+  i  : TGtkTextIter;
+  tag : PGtkTextTag;
+  buf : PGtkTextBuffer;
+  w   : PGdkWindow;
+  bx,by: gint;
+begin
+  buf:=gtk_text_view_get_buffer(view);
+  if not Assigned(buf) then Exit;
+
+  tag := gtk_text_tag_table_lookup(
+           gtk_text_buffer_get_tag_table(buf), TagNameLink);
+  if not Assigned(tag) then Exit; // which is odd.
+
+  mt:=PGdkEventMotion(Event);
+  gtk_text_view_window_to_buffer_coords(view, GTK_TEXT_WINDOW_TEXT,
+    round(mt^.x), round(mt^.y), @bx, @by);
+
+  gtk_text_view_get_iter_at_location(view, @i, bx,by);
+
+  gdk_cursor_new(GDK_DRAFT_LARGE);
+  w:= gtk_text_view_get_window(view, GTK_TEXT_WINDOW_TEXT);
+  if gtk_text_iter_has_tag(@i,tag) then begin
+
+    if not Assigned(linkCursor) then
+      linkCursor:=gdk_cursor_new(GDK_HAND1);
+    gdk_window_set_cursor(w, linkCursor);
+  end else
+    gdk_window_set_cursor(w, nil);
+
+  Result:=false;
+end;
+
+function Gtk2_RichMemoMouseButton(view: PGtkTextView; Event: PGdkEventKey;
+  WidgetInfo: PWidgetInfo): gboolean; cdecl;
+var
+  mt : PGdkEventButton;
+  i  : TGtkTextIter;
+  tag : PGtkTextTag;
+  buf : PGtkTextBuffer;
+  bx,by: gint;
+  mi  : TLinkMouseInfo;
+  li,le: integer;
+  act : TLinkAction;
+  data : PRichMemoData;
+begin
+  buf:=gtk_text_view_get_buffer(view);
+  data:=PRichMemoData(WidgetInfo^.UserData);
+  if not Assigned(buf) then Exit;
+
+  tag := gtk_text_tag_table_lookup(
+           gtk_text_buffer_get_tag_table(buf), TagNameLink);
+  if not Assigned(tag) then Exit; // which is odd.
+
+  mt:=PGdkEventButton(Event);
+  gtk_text_view_window_to_buffer_coords(view, GTK_TEXT_WINDOW_TEXT,
+    round(mt^.x), round(mt^.y), @bx, @by);
+
+  gtk_text_view_get_iter_at_location(view, @i, bx,by);
+
+  if gtk_text_iter_has_tag(@i,tag) then begin
+    if TControl(WidgetInfo^.LCLObject) is TCustomRichMemo then
+    begin
+      gtk_text_iter_backward_to_tag_toggle(@i, tag);
+      li:=gtk_text_iter_get_offset(@i);
+      gtk_text_iter_forward_to_tag_toggle(@i, tag);
+      le:=gtk_text_iter_get_offset(@i)-li;
+
+      case mt^._type of
+        GDK_BUTTON_PRESS, GDK_2BUTTON_PRESS, GDK_3BUTTON_PRESS: begin
+          data^.link:=true;
+          data^.link_li:=li;
+          data^.link_le:=le;
+          data^.link_act:=mt^._type;
+          data^.link_btn:=mt^.button;
+        end;
+
+        GDK_BUTTON_RELEASE: begin
+          act:=laClick;
+          if (data^.link) and (data^.link_btn=mt^.button) and (data^.link_li=li) and (le=data^.link_le) then
+          begin
+            data^.link:=false;
+            case mt^.button of
+              2: mi.button:=mbMiddle;
+              3: mi.button:=mbRight;
+            else
+              mi.button:=mbLeft;
+            end;
+            TCustomRichMemoInt(WidgetInfo^.LCLObject).DoLinkAction(act, mi, li, le);
+          end;
+        end;
+      end;
+    end;
+  end;
+
+  Result:=false;
+end;
+
 
 { TGtk2InlineObject }
 
@@ -538,6 +678,9 @@ begin
   SignalConnectAfter(PGtkWidget(TextBuf), 'mark-set', @Gtk2WS_MemoSelChanged, AWidgetInfo);
   SignalConnectAfter(PGtkWidget(TextBuf), 'insert-text', @Gtk2WS_RichMemoInsert, AWidgetInfo);
   SignalConnect(PGtkWidget(view), 'key-press-event',  @Gtk2_RichMemoKeyPress, AWidgetInfo);
+  SignalConnect(PGtkWidget(view), 'motion-notify-event', @Gtk2_RichMemoMotion, AWidgetInfo);
+  SignalConnect(PGtkWidget(view), 'button-press-event', @Gtk2_RichMemoMouseButton, AWidgetInfo);
+  SignalConnect(PGtkWidget(view), 'button-release-event', @Gtk2_RichMemoMouseButton, AWidgetInfo);
 end;
 
 class procedure TGtk2WSCustomRichMemo.GetWidgetBuffer(const AWinControl: TWinControl;
@@ -560,24 +703,33 @@ begin
   buffer := gtk_text_view_get_buffer (PGtkTextView(TextWidget));
 end;
 
+class function TGtk2WSCustomRichMemo.GetAttrAtIter(view: PGtkTextView; const start: TGtkTextIter): PGtkTextAttributes;
+var
+  attr       : PGtkTextAttributes;
+begin
+  Result:=nil;
+  attr := gtk_text_view_get_default_attributes(view);
+  if not Assigned(attr) then Exit;
+
+  gtk_text_iter_get_attributes(@start, attr);
+  Result:=attr;
+end;
+
 class function TGtk2WSCustomRichMemo.GetAttrAtPos(
   const AWinControl: TWinControl; TextStart: Integer; APara: Boolean ): PGtkTextAttributes;
 var
   TextWidget : PGtkWidget;
   buffer     : PGtkTextBuffer;
   iter       : TGtkTextIter;
-  attr       : PGtkTextAttributes;
 begin
   Result:=nil;
   GetWidgetBuffer(AWinControl, TextWidget, buffer);
-
-  attr := gtk_text_view_get_default_attributes(PGtkTextView(TextWidget));
-  if not Assigned(attr) then Exit;
+  if not Assigned(buffer) then Exit;
 
   gtk_text_buffer_get_iter_at_offset(buffer, @iter, TextStart);
   if APara then gtk_text_iter_set_line_offset(@iter, 0);
-  gtk_text_iter_get_attributes(@iter, attr);
-  Result:=attr;
+
+  Result := GetAttrAtIter(PGtkTextView(TextWidget), iter);
 end;
 
 class procedure TGtk2WSCustomRichMemo.ApplyTag(abuffer: PGtkTextBuffer;
@@ -601,6 +753,11 @@ var
   TempWidget: PGtkWidget;
   WidgetInfo: PWidgetInfo;
   buffer: PGtkTextBuffer;
+  SS:TPoint;
+  gcolor  : TGdkColor;
+  data: PRichMemoData;
+const
+  pu: array [Boolean] of gint = (PANGO_UNDERLINE_NONE, PANGO_UNDERLINE_SINGLE);
 begin
   Widget := gtk_scrolled_window_new(nil, nil);
   Result := TLCLIntfHandle(PtrUInt(Widget));
@@ -609,16 +766,21 @@ begin
   DebugGtkWidgets.MarkCreated(Widget,dbgsName(AWinControl));
   {$ENDIF}
 
+  New(data);
+  FillChar(data^, sizeof(TRichMemoData), 0);
   WidgetInfo := CreateWidgetInfo(Pointer(Result), AWinControl, AParams);
+  WidgetInfo^.DataOwner := True;
+  WidgetInfo^.UserData := data;
 
   TempWidget := gtk_text_view_new();
   gtk_container_add(PGtkContainer(Widget), TempWidget);
 
   GTK_WIDGET_UNSET_FLAGS(PGtkScrolledWindow(Widget)^.hscrollbar, GTK_CAN_FOCUS);
   GTK_WIDGET_UNSET_FLAGS(PGtkScrolledWindow(Widget)^.vscrollbar, GTK_CAN_FOCUS);
-  gtk_scrolled_window_set_policy(PGtkScrolledWindow(Widget),
-                                     GTK_POLICY_AUTOMATIC,
-                                     GTK_POLICY_AUTOMATIC);
+
+  SS:=Gtk2TranslateScrollStyle(TCustomMemo(AWinControl).ScrollBars);
+  gtk_scrolled_window_set_policy(PGtkScrolledWindow(Widget),SS.X, SS.Y);
+
   // add border for memo
   gtk_scrolled_window_set_shadow_type(PGtkScrolledWindow(Widget),
     BorderStyleShadowMap[TCustomControl(AWinControl).BorderStyle]);
@@ -626,10 +788,14 @@ begin
   SetMainWidget(Widget, TempWidget);
   GetWidgetInfo(Widget, True)^.CoreWidget := TempWidget;
 
-  gtk_text_view_set_editable(PGtkTextView(TempWidget), True);
-  gtk_text_view_set_wrap_mode(PGtkTextView(TempWidget), GTK_WRAP_WORD);
+  gtk_text_view_set_editable(PGtkTextView(TempWidget), not TCustomMemo(AWinControl).ReadOnly);
+  gtk_text_view_set_justification(PGtkTextView(TempWidget), aGtkJustification[TCustomMemo(AWinControl).Alignment]);
+  if TCustomMemo(AWinControl).WordWrap then
+    gtk_text_view_set_wrap_mode(PGtkTextView(TempWidget), GTK_WRAP_WORD)
+  else
+    gtk_text_view_set_wrap_mode(PGtkTextView(TempWidget), GTK_WRAP_NONE);
 
-  gtk_text_view_set_accepts_tab(PGtkTextView(TempWidget), True);
+  gtk_text_view_set_accepts_tab(PGtkTextView(TempWidget), TCustomMemo(AWinControl).WantTabs);
 
   gtk_widget_show_all(Widget);
 
@@ -639,6 +805,15 @@ begin
       'editable',   [ gboolean(gFALSE),
       'editable-set', gboolean(gTRUE),
       nil]);
+
+  gtk_text_buffer_create_tag (buffer, TagNameSubOrSuper, nil);
+
+  gcolor := TColortoTGDKColor(clBlue);
+  gtk_text_buffer_create_tag (buffer, TagNameLink, 'foreground-gdk', [@gcolor,
+      'foreground-set', gboolean(gTRUE),
+      'underline-set',  gboolean(gTRUE),
+      'underline',      gint(pu[true]),
+      nil] );
 
   Set_RC_Name(AWinControl, Widget);
   SetCallbacks(Widget, WidgetInfo);
@@ -660,7 +835,12 @@ begin
     , @Gtk2WS_MemoSelChanged, GetWidgetInfo(w));
   g_signal_handler_disconnect (b, handlerid);
 
-  inherited DestroyHandle(AWinControl);
+  // the proper way of destroying a widgetset
+  Gtk2WidgetSet.DestroyLCLComponent(AWinControl);
+  // or actually - TGtk2WSWinControl.DestroyHandle(AWinControl)
+  // the following call
+  //   TWSWinControlClass(Classparent).DestroyHandle(AWinControl);
+  // won't work, because TGtk2CustomMemo doesn't have DestoryHandle assigned
 end;
 
 class function TGtk2WSCustomRichMemo.GetSelLength(const ACustomEdit: TCustomEdit
@@ -721,6 +901,84 @@ begin
   Result:=true;
 end;
 
+class procedure TGtk2WSCustomRichMemo.FormatSubSuperScript(buffer: PGtkTextBuffer; vs: TVScriptPos; fontSizePts: Double; TextStart, TextLen: Integer);
+var
+  sz     : gint;
+  istart : TGtkTextIter;
+  iend   : TGtkTextIter;
+  tag     : PGtkTextTag;
+  scrtag   : PGtkTextTag;
+  hasscript : Boolean;
+  k         : Double;
+begin
+  gtk_text_buffer_get_iter_at_offset (buffer, @istart, TextStart);
+  scrtag := gtk_text_tag_table_lookup( gtk_text_buffer_get_tag_table(buffer), TagNameSubOrSuper );
+  hasscript := gtk_text_iter_has_tag( @istart, scrtag );
+
+  if not hasscript then begin
+    iend:=istart;
+    gtk_text_iter_forward_to_tag_toggle(@iend, scrtag);
+    hasscript:=gtk_text_iter_get_offset(@iend)<TextStart+TextLen;
+  end;
+
+  if vs = vpNormal then begin
+    // no need to do anything, since no modifications were applied;
+    if not hasscript then Exit;
+    gtk_text_buffer_get_iter_at_offset (buffer, @iend, TextStart+TextLen);
+    gtk_text_buffer_remove_tag(buffer, scrtag, @istart, @iend);
+    tag := gtk_text_buffer_create_tag (buffer, nil,
+        'rise',     [0,
+        'rise-set',  gboolean(gTRUE),
+        nil]);
+    gtk_text_buffer_apply_tag(buffer, tag, @istart, @iend);
+  end else begin
+    gtk_text_buffer_get_iter_at_offset (buffer, @iend, TextStart+TextLen);
+
+    if vs = vpSubScript then k := SubRiseKoef
+    else k := SuperRiseKoef;
+    sz := round(fontSizePts * k * PANGO_SCALE);
+
+    tag := gtk_text_buffer_create_tag (buffer, nil,
+        'rise',     [sz,
+        'rise-set',  gboolean(gTRUE),
+        'size-set',       gboolean(gTRUE),
+        'size-points',    gdouble(fontSizePts*SubSuperFontKoef),
+        nil]);
+    gtk_text_buffer_apply_tag(buffer, tag, @istart, @iend);
+    gtk_text_buffer_apply_tag(buffer, scrtag, @istart, @iend);
+  end;
+end;
+
+class procedure TGtk2WSCustomRichMemo.GetAttributesAt(
+  const AWinControl: TWinControl; TextStart: Integer; APara: Boolean;
+  var attr: PGtkTextAttributes; var fp: TFontParams);
+var
+  iter : TGtkTextIter;
+  v    : PGtkTextView;
+  b    : PGtkTextBuffer;
+  tag  : PGtkTextTag;
+begin
+  InitFontParams(fp);
+  GetWidgetBuffer(AWinControl, PGtkWidget(v), b);
+
+  gtk_text_buffer_get_iter_at_offset(b, @iter, TextStart);
+  if APara then gtk_text_iter_set_line_offset(@iter, 0);
+
+  attr:=GetAttrAtIter(v, iter);
+  if not Assigned(attr) then Exit;
+
+  tag := gtk_text_tag_table_lookup( gtk_text_buffer_get_tag_table(b), TagNameSubOrSuper );
+
+  if gtk_text_iter_has_tag(@iter, tag) then begin
+    GtkTextAttrToFontParams(attr^, fp, 1 / SubSuperFontKoef );
+    if attr^.appearance.rise < 0 then fp.VScriptPos:=vpSubScript
+    else if attr^.appearance.rise > 0 then fp.VScriptPos:=vpSuperScript;
+  end else
+    GtkTextAttrToFontParams(attr^, fp);
+
+end;
+
+
 class procedure TGtk2WSCustomRichMemo.SetTextAttributes(const AWinControl: TWinControl; TextStart, TextLen: Integer; const Params: TIntFontParams);
 var
   TextWidget: PGtkWidget;
@@ -761,6 +1019,7 @@ begin
       nil]);
   ApplyTag(buffer, tag, TextStart, TextLen);
 
+  FormatSubSuperScript(buffer, Params.VScriptPos, Params.Size, TextStart, TextLen);
 end;
 
 class function TGtk2WSCustomRichMemo.GetParaAlignment(
@@ -819,8 +1078,7 @@ const
   PageDPI   = 72; // not expected to be changed
   PixToPt   = PageDPI / ScreenDPI;
 begin
-  attr:=GetAttrAtPos(AWinControl, TextStart, true);
-  GtkTextAttrToFontParams(attr^, fp);
+  GetAttributesAt(AWinControl, TextStart, true, attr, fp);
   Result := Assigned(attr);
   if Result then begin
     if attr^.indent<0 then begin
@@ -868,8 +1126,7 @@ begin
   end else
     fl:=fl-h;
 
-  attr:=GetAttrAtPos(AWinControl, TextStart);
-  GtkTextAttrToFontParams(attr^, fp);
+  GetAttributesAt(AWinControl, TextStart, true, attr, fp);
   gtk_text_attributes_unref(attr);
 
   GetWidgetBuffer(AWinControl, w, buffer);
@@ -972,6 +1229,79 @@ begin
 
 end;
 
+class procedure TGtk2WSCustomRichMemo.SetParaTabs(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const AStopList: TTabStopList);
+var
+  w      : PGtkWidget;
+  buffer : PGtkTextBuffer;
+  tag    : PGtkTextTag;
+  parr   : PPangoTabArray;
+  i      : Integer;
+const
+  ScreenDPI = 96; // todo: might change, should be received dynamically
+  PageDPI   = 72; // not expected to be changed
+  DPIFactor = ScreenDPI / PageDPI;
+begin
+  GetWidgetBuffer(AWinControl, w, buffer);
+  if not Assigned(w) or not Assigned(buffer) then Exit;
+
+  GetWidgetBuffer(AWinControl, w, buffer);
+
+  if AStopList.Count=0 then
+    parr:=nil
+  else begin
+    parr:=pango_tab_array_new(AStopList.Count, true);
+    for i:=0 to AStopList.Count-1 do begin
+      pango_tab_array_set_tab(parr, i, PANGO_TAB_LEFT, round(AStopList.Tabs[i].Offset * DPIFactor) );
+    end;
+  end;
+
+  tag := gtk_text_buffer_create_tag (buffer, nil,
+      'tabs',   [ parr,
+      'tabs-set', gboolean(AStopList.Count>0),
+      nil]);
+  ApplyTag(buffer, tag, TextStart, TextLen, true);
+
+  if Assigned(parr) then pango_tab_array_free(parr);
+end;
+
+class function TGtk2WSCustomRichMemo.GetParaTabs(
+  const AWinControl: TWinControl; TextStart: integer;
+  var AStopList: TTabStopList): Boolean;
+const
+  ScreenDPI = 96; // todo: might change, should be received dynamically
+  PageDPI   = 72; // not expected to be changed
+  PixToPt   = PageDPI / ScreenDPI;
+var
+  i      : Integer;
+  attr   : PGtkTextAttributes;
+  loc    : gint;
+  al     : TPangoTabAlign;
+  f      : Double;
+begin
+  InitTabStopList(AStopList);
+  attr:=GetAttrAtPos(AWinControl, TextStart, true);
+  Result:=Assigned(attr);
+  if not Result then Exit;
+  if not Assigned(attr^.tabs) then Exit;
+
+  AStopList.Count:=pango_tab_array_get_size(attr^.tabs);
+  if AStopList.Count=0 then Exit;
+
+  f := PixToPt;
+  if not pango_tab_array_get_positions_in_pixels(attr^.tabs) then
+    f:= f / PANGO_SCALE;
+
+  SetLength(AStopList.Tabs, AStopList.Count);
+  for i:=0 to AStopList.Count-1 do begin
+    pango_tab_array_get_tab(attr^.tabs, i, @al, @loc);
+    AStopList.Tabs[i].Offset:=loc*f;
+    AStopList.Tabs[i].Align:=tabLeft;
+  end;
+  gtk_text_attributes_unref(attr);
+end;
+
 class function TGtk2WSCustomRichMemo.GetParaRange(
   const AWinControl: TWinControl; TextStart: Integer; var rng: TParaRange
   ): Boolean;
@@ -991,12 +1321,60 @@ begin
   gtk_text_iter_set_line_offset(@istart, 0);
   gtk_text_iter_forward_to_line_end(@iend);
   rng.start:=gtk_text_iter_get_offset(@istart);
-  rng.lenghtNoBr:=gtk_text_iter_get_offset(@iend)-rng.start;
+  rng.lengthNoBr:=gtk_text_iter_get_offset(@iend)-rng.start;
 
   // if there's a character to move, then it's end of line, if not then it won't change!
   gtk_text_iter_forward_char(@iend);
   rng.length:=gtk_text_iter_get_offset(@iend)-rng.start;
   Result:=true;
+end;
+
+class procedure TGtk2WSCustomRichMemo.SetTextUIParams(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const ui: TTextUIParam);
+var
+  TextWidget: PGtkWidget;
+  buffer  : PGtkTextBuffer;
+  tag     : Pointer;
+  istart : TGtkTextIter;
+  iend   : TGtkTextIter;
+begin
+  GetWidgetBuffer(AWinControl, TextWidget, buffer);
+  if not Assigned(buffer) then Exit;
+
+  gtk_text_buffer_get_iter_at_offset (buffer, @istart, TextStart);
+  gtk_text_buffer_get_iter_at_offset (buffer, @iend, TextStart+TextLen);
+  if uiLink in ui.features then begin
+    gtk_text_buffer_apply_tag_by_name(buffer, TagNameLink, @istart, @iend);
+  end else begin
+    tag := gtk_text_tag_table_lookup(
+         gtk_text_buffer_get_tag_table(buffer), TagNameLink);
+    if Assigned(tag) then
+      gtk_text_buffer_remove_tag(buffer, tag, @istart, @iend);
+  end;
+end;
+
+class function TGtk2WSCustomRichMemo.GetTextUIParams(
+  const AWinControl: TWinControl; TextStart: Integer;
+  var ui: TTextUIParam): Boolean;
+var
+  TextWidget: PGtkWidget;
+  buffer  : PGtkTextBuffer;
+  tag     : PGtkTextTag;
+  istart : TGtkTextIter;
+begin
+  ui.features:=[];
+  GetWidgetBuffer(AWinControl, TextWidget, buffer);
+  Result:=Assigned(buffer);
+  if not Result then Exit;
+
+  tag := gtk_text_tag_table_lookup(
+           gtk_text_buffer_get_tag_table(buffer), TagNameLink);
+  if Assigned(tag) then begin // which is odd.
+    gtk_text_buffer_get_iter_at_offset (buffer, @istart, TextStart);
+    if gtk_text_iter_has_tag(@istart, tag) then
+      Include(ui.features, uiLink);
+  end;
 end;
 
 class procedure TGtk2WSCustomRichMemo.InDelText(const AWinControl: TWinControl;
@@ -1014,6 +1392,23 @@ begin
   gtk_text_buffer_delete(b, @istart, @iend);
   if length(TextUTF8)>0 then
     gtk_text_buffer_insert(b, @istart, @textUTF8[1], length(TextUTF8));
+end;
+
+class function TGtk2WSCustomRichMemo.CharAtPos(const AWinControl: TWinControl;
+  x, y: Integer): Integer;
+var
+  w : PGtkWidget;
+  b : PGtkTextBuffer;
+  istart : TGtkTextIter;
+  gx, gy : gint;
+  trailing: gint;
+begin
+  GetWidgetBuffer(AWinControl, w, b);
+  if not Assigned(w) then Exit;
+
+  gtk_text_view_window_to_buffer_coords(PGtkTextView(w), GTK_TEXT_WINDOW_WIDGET, x, y, @gx, @gy);
+  gtk_text_view_get_iter_at_position(PGtkTextView(w), @istart, @trailing, gx,gy);
+  Result:=gtk_text_iter_get_offset(@istart)+trailing;
 end;
 
 procedure UTF8CharsToWideString(const p: Pchar; var w: WideString);
@@ -1237,7 +1632,6 @@ var
   w      : PGtkWidget;
   b      : PGtkTextBuffer;
   istart : TGtkTextIter;
-  iend   : TGtkTextIter;
   anch   : PGtkTextChildAnchor;
   gi     : TGtk2InlineObject;
   draw   : PGtkWidget;
@@ -1290,16 +1684,14 @@ begin
 end;
 
 
-class function TGtk2WSCustomRichMemo.GetTextAttributes(const AWinControl: TWinControl; TextStart: Integer; var Params: TIntFontParams): Boolean;
+class function TGtk2WSCustomRichMemo.GetTextAttributes(const AWinControl: TWinControl;
+   TextStart: Integer; var Params: TIntFontParams): Boolean;
 var
-  attr       : PGtkTextAttributes;
+  attr : PGtkTextAttributes;
 begin
-  attr:=GetAttrAtPos(AWinControl, TextStart);
+  GetAttributesAt(AWinControl, TextStart, false, attr, params);
   Result := Assigned(attr);
-  if Result then begin
-    GtkTextAttrToFontParams(attr^, Params);
-    gtk_text_attributes_unref(attr);
-  end;
+  if Result then gtk_text_attributes_unref(attr);
 end;
 
 function GtkInsertImageFromFile(const ARichMemo: TCustomRichMemo; APos: Integer;

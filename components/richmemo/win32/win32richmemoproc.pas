@@ -163,18 +163,35 @@ type
     class function SetEventMask(RichEditWnd: Handle; eventmask: integer): Integer;
 
     class function GetTextLength(RichEditWnd: Handle): Integer;
-    class function SetSelectedTextStyle(RichEditWnd: Handle; Params: TIntFontParams): Boolean; virtual;
+    class function SetDefaultTextStyle(RichEditWnd: Handle; Params: TIntFontParams): Boolean; virtual;
+    class function SetSelectedTextStyle(RichEditWnd: Handle; Params: TIntFontParams;
+      useMask: Boolean = false; AModifyMask: TTextModifyMask = []): Boolean; virtual;
     class function GetSelectedTextStyle(RichEditWnd: Handle; var Params: TIntFontParams): Boolean; virtual;
-    class function GetStyleRange(RichEditWnd: Handle; TextStart: Integer; var RangeStart, RangeLen: Integer): Boolean; virtual; 
+    class procedure SetTextUIStyle(RichEditWnd: Handle; const ui: TTextUIParam); virtual;
+    class function GetTextUIStyle(RichEditWnd: Handle; var ui: TTextUIParam): Boolean; virtual;
+
+    class function GetStyleRange(RichEditWnd: Handle; TextStart: Integer; var RangeStart, RangeLen: Integer): Boolean; virtual;
     class procedure GetSelection(RichEditWnd: Handle; var TextStart, TextLen: Integer); virtual;      
-    class procedure SetSelection(RichEditWnd: Handle; TextStart, TextLen: Integer); virtual;      
+    class procedure SetSelection(RichEditWnd: Handle; TextStart, TextLen: Integer); virtual;
+
+    // WARNING: GetSelRange, is causing changes in Selection!
+    class procedure GetSelRange(RichEditWnd: Handle; var sr: TCHARRANGE); virtual;
+    class procedure SetSelRange(RichEditWnd: Handle; const sr: TCHARRANGE); virtual;
+
     class procedure SetHideSelection(RichEditWnd: Handle; AValue: Boolean); virtual;
     class function LoadRichText(RichEditWnd: Handle; ASrc: TStream): Boolean; virtual;
     class function SaveRichText(RichEditWnd: Handle; ADst: TStream): Boolean; virtual;
+
     class procedure SetText(RichEditWnd: Handle; const Text: WideString; TextStart, ReplaceLength: Integer); virtual;
+    class function GetTextW(RichEditWnd: Handle; inSelection: Boolean): WideString; virtual;
+    class function GetTextA(RichEditWnd: Handle; inSelection: Boolean): AnsiString; virtual;
+    class function GetTextUtf8(RichEditWnd: Handle; inSelection: Boolean): string;
+
     class procedure GetPara2(RichEditWnd: Handle; TextStart: Integer; var para: PARAFORMAT2); virtual;
     class procedure SetPara2(RichEditWnd: Handle; TextStart, TextLen: Integer; const para: PARAFORMAT2); virtual;
-    class function Find(RichEditWnd: THandle; const ANiddle: WideString; const ASearch: TIntSearchOpt): Integer; virtual;
+    // the ugly Find() overload, might go away eventually
+    class function Find(RichEditWnd: THandle; const ANiddle: WideString; const ASearch: TIntSearchOpt; var TextLen: Integer): Integer; virtual; overload;
+    class function Find(RichEditWnd: THandle; const ANiddle: WideString; const ASearch: TIntSearchOpt): Integer; overload;
     class procedure GetParaRange(RichEditWnd: Handle; TextStart: integer; var para: TParaRange); virtual;
   end;
   TRichManagerClass = class of TRichEditManager;
@@ -189,12 +206,20 @@ function FontStylesToEffects(Styles: TFontStyles): LongWord;
 function EffectsToFontStyles(Effects: LongWord): TFontStyles;
 
 const
-  CP_UNICODE = 1200;
-  HardBreak  = #13;
+  GT_SELECTION = 2;
+  CP_UNICODE   = 1200;
+  HardBreak    = #13;
 
-const
+  CFE_PROTECTED = $00000010;
+  CFE_LINK      = $00000020;
   CFM_BACKCOLOR = $04000000;
   CFE_AUTOBACKCOLOR = CFM_BACKCOLOR;
+
+  ST_DEFAULT   = $00000000;
+  ST_KEEPUNDO  = $00000001;
+  ST_SELECTION = $00000002;
+  ST_NEWCHARS  = $00000004;
+  ST_UNICODE   = $00000008;
 
 const
   PFNS_PAREN      = $0000;
@@ -205,11 +230,22 @@ const
   PFNS_NEWNUMBER  = $8000;
   PFNS_SOMESEPCHAR = PFNS_PARENS or PFNS_PERIOD or PFNS_PLAIN;
 
+const
+  // this is the list of CHARFORMAT attributes that RichMemo supports
+  CFM_RICHMEMO_ATTRS = CFM_COLOR or CFM_FACE or CFM_SIZE or CFM_EFFECTS
+                       or CFM_SUBSCRIPT or CFM_SUBSCRIPT or CFM_BACKCOLOR;
+
+type
+  TSetTextEx = packed record
+    flags    : DWORD;
+    codepage : UINT;
+  end;
 
 implementation
 
 const
   GlobalRichClass : AnsiString = '';
+  UnicodeEnabledOS : Boolean = true; // todo: implement it to work with Windows 9x, if necessary
   
 const
   TwipsInFontSize = 20; // see MSDN for CHARFORMAT Structure CFM_SIZE
@@ -225,10 +261,9 @@ begin
     if LoadLibrary('Msftedit.dll') <> 0 then begin
       GlobalRichClass := 'RichEdit50W';
     end else if LoadLibrary('RICHED20.DLL') <> 0 then begin
-//      if UnicodeEnabledOS then
-        GlobalRichClass := 'RichEdit20W'
-      //else
-      //GlobalRichClass := 'RichEdit20A'
+      if UnicodeEnabledOS then GlobalRichClass := 'RichEdit20W'
+      else
+      GlobalRichClass := 'RichEdit20A'
     end else if LoadLibrary('RICHED32.DLL') <> 0 then begin
       GlobalRichClass := 'RichEdit';
     end;
@@ -264,6 +299,19 @@ begin
   if Effects and CFE_UNDERLINE > 0 then Include(Result, fsUnderline);
 end;
 
+function VScriptPosToEffects(vpos: TVScriptPos): LongWord;
+const
+  EffMask : array [TVScriptPos] of LongWord = (0, CFE_SUBSCRIPT, CFE_SUPERSCRIPT);
+begin
+  Result:=EffMask[vpos];
+end;
+
+function EffectsToVScriptPost(Effects: LongWord): TVScriptPos;
+begin
+  if Effects and CFE_SUBSCRIPT > 0 then Result:=vpSubScript
+  else if Effects and CFE_SUBSCRIPT > 0 then Result:=vpSuperScript
+  else Result:=vpNormal;
+end;
          
 procedure CharFormatToFontParams(const fmt: TCHARFORMAT; var Params: TIntFontParams);
 begin
@@ -282,6 +330,7 @@ begin
   if fmt.cbSize > sizeof(CHARFORMAT) then begin
     Params.HasBkClr:=(fmt.dwEffects and CFE_AUTOBACKCOLOR) = 0;
     if Params.HasBkClr then Params.Color:=Params.Color;
+    Params.VScriptPos:=EffectsToVScriptPost(fmt.dwEffects);
   end;
 end;
 
@@ -304,11 +353,45 @@ begin
   Result := SendMessage(RichEditWnd, EM_GETTEXTLENGTHEX, WPARAM(@textlen), 0);
 end;
 
-class function TRichEditManager.SetSelectedTextStyle(RichEditWnd: Handle; 
+class function TRichEditManager.SetDefaultTextStyle(RichEditWnd: Handle;
   Params: TIntFontParams): Boolean;
 var
   w : WPARAM;
   fmt : TCHARFORMAT2;
+begin
+  if RichEditWnd = 0 then begin
+    Result := false;
+    Exit;
+  end;
+
+  w := SCF_DEFAULT;
+
+  FillChar(fmt, sizeof(fmt), 0);
+  fmt.cbSize := sizeof(fmt);
+
+  fmt.dwMask := fmt.dwMask or CFM_COLOR;
+  fmt.crTextColor := Params.Color;
+
+  fmt.dwMask := fmt.dwMask or CFM_FACE;
+  // keep last char for Null-termination?
+  CopyStringToCharArray(Params.Name, fmt.szFaceName, LF_FACESIZE-1);
+
+  fmt.dwMask := fmt.dwMask or CFM_SIZE;
+  fmt.yHeight := Params.Size * TwipsInFontSize;
+
+  fmt.dwMask := fmt.dwMask or CFM_EFFECTS or CFM_SUBSCRIPT or CFM_SUPERSCRIPT;
+  fmt.dwEffects := FontStylesToEffects(Params.Style) or VScriptPosToEffects(Params.VScriptPos);
+
+  Result := SendMessage(RichEditWnd, EM_SETCHARFORMAT, w, PtrInt(@fmt))>0;
+end;
+
+class function TRichEditManager.SetSelectedTextStyle(RichEditWnd: Handle; 
+  Params: TIntFontParams; useMask: Boolean; AModifyMask: TTextModifyMask): Boolean;
+var
+  w : WPARAM;
+  fmt : TCHARFORMAT2;
+const
+  CFM_STYLESONLY = CFM_BOLD or CFM_ITALIC or CFM_UNDERLINE or CFM_STRIKEOUT or CFM_SUBSCRIPT or CFM_SUPERSCRIPT;
 begin
   if RichEditWnd = 0 then begin
     Result := false;
@@ -319,26 +402,36 @@ begin
     
   FillChar(fmt, sizeof(fmt), 0);
   fmt.cbSize := sizeof(fmt);
-  
-  fmt.dwMask := fmt.dwMask or CFM_COLOR;
-  fmt.crTextColor := Params.Color;
 
-  fmt.dwMask := fmt.dwMask or CFM_FACE;
-  // keep last char for Null-termination?
-  CopyStringToCharArray(Params.Name, fmt.szFaceName, LF_FACESIZE-1); 
-  
-  fmt.dwMask := fmt.dwMask or CFM_SIZE;
-  fmt.yHeight := Params.Size * TwipsInFontSize;
-  
-  fmt.dwMask := fmt.dwMask or CFM_EFFECTS;
-  fmt.dwEffects := FontStylesToEffects(Params.Style);
+  if not useMask or (tmm_Color in AModifyMask) then begin
+    fmt.dwMask := fmt.dwMask or CFM_COLOR;
+    fmt.crTextColor := Params.Color;
+  end;
 
-  if Params.HasBkClr then begin
-    fmt.dwMask := fmt.dwMask or CFM_BACKCOLOR;
-    fmt.crBackColor := Params.BkColor;
-  end else begin
-    fmt.dwMask := fmt.dwMask or CFM_BACKCOLOR;
-    fmt.dwEffects := fmt.dwEffects or CFE_AUTOBACKCOLOR;
+  if not useMask or (tmm_Name in AModifyMask) then begin
+    fmt.dwMask := fmt.dwMask or CFM_FACE;
+    // keep last char for Null-termination?
+    CopyStringToCharArray(Params.Name, fmt.szFaceName, LF_FACESIZE-1);
+  end;
+
+  if not useMask or (tmm_Size in AModifyMask) then begin
+    fmt.dwMask := fmt.dwMask or CFM_SIZE;
+    fmt.yHeight := Params.Size * TwipsInFontSize;
+  end;
+
+  if not useMask or (tmm_Styles in AModifyMask) then begin
+    fmt.dwMask := fmt.dwMask or CFM_STYLESONLY;
+    fmt.dwEffects := FontStylesToEffects(Params.Style) or VScriptPosToEffects(Params.VScriptPos);
+  end;
+
+  if not useMask or (tmm_BackColor in AModifyMask) then begin
+    if Params.HasBkClr then begin
+      fmt.dwMask := fmt.dwMask or CFM_BACKCOLOR;
+      fmt.crBackColor := Params.BkColor;
+    end else begin
+      fmt.dwMask := fmt.dwMask or CFM_BACKCOLOR;
+      fmt.dwEffects := fmt.dwEffects or CFE_AUTOBACKCOLOR;
+    end;
   end;
 
   Result := SendMessage(RichEditWnd, EM_SETCHARFORMAT, w, PtrInt(@fmt))>0;
@@ -358,12 +451,65 @@ begin
     
   FillChar(fmt, sizeof(fmt), 0);
   fmt.cbSize := sizeof(fmt);
-  fmt.dwMask := CFM_COLOR or CFM_FACE or CFM_SIZE or CFM_EFFECTS or CFM_BACKCOLOR;
-  
+  fmt.dwMask := CFM_RICHMEMO_ATTRS;
+
   SendMessage(RichEditWnd, EM_GETCHARFORMAT, w, PtrInt(@fmt));
   
   CharFormatToFontParams(fmt, Params);
   Result := true;  
+end;
+
+class procedure TRichEditManager.SetTextUIStyle(RichEditWnd: Handle; const ui: TTextUIParam);
+var
+  w   : WPARAM;
+  fmt : TCHARFORMAT2;
+{  st  : TSetTextEx;
+  linkrtf : String;
+  txt     : WideString;
+  txtrtf  : String;}
+begin
+  if RichEditWnd = 0 then Exit;
+
+  w := SCF_SELECTION;
+
+  FillChar(fmt, sizeof(fmt), 0);
+  fmt.cbSize := sizeof(fmt);
+
+  fmt.dwMask := CFM_LINK;
+(*    txt := GetTextW(RichEditWnd, true);
+    st.codepage:=CP_ACP;
+    st.flags:=ST_SELECTION;
+    txtrtf:=txt;
+    writeln('txtrtf = ', txtrtf);
+    linkrtf:=Format('{\rtf1{\field{\*\fldinst{ HYPERLINK "%s"}}{\fldrslt{%s}}}}',
+      [ui.linkref, txtrtf]);
+    SendMessage(RichEditWnd, EM_SETTEXTEX, WPARAM(@st), LParam(@linkrtf[1])); *)
+
+  if uiLink in ui.features then fmt.dwEffects := fmt.dwEffects or CFE_LINK;
+
+  SendMessage(RichEditWnd, EM_SETCHARFORMAT, w, PtrInt(@fmt));
+end;
+
+class function TRichEditManager.GetTextUIStyle(RichEditWnd: Handle; var ui: TTextUIParam): Boolean;
+var
+  w   : WPARAM;
+  fmt : TCHARFORMAT2;
+begin
+  Result:=false;
+  if RichEditWnd = 0 then Exit;
+
+  w := SCF_SELECTION;
+
+  FillChar(fmt, sizeof(fmt), 0);
+  fmt.cbSize := sizeof(fmt);
+
+  fmt.dwMask := CFM_LINK;
+
+  SendMessage(RichEditWnd, EM_GETCHARFORMAT, w, PtrInt(@fmt));
+  InitTextUIParams(ui);
+  if fmt.dwEffects and CFE_LINK > 0 then
+    Include(ui.features, uiLink);
+  Result:=true;
 end;
 
 type
@@ -382,10 +528,9 @@ var
   sel     : TCHARRANGE;
   d       : Integer;
   last    : Integer;
-
+  initMask : DWORD;
 const
-  ALL_MASK = CFM_BOLD or CFM_ITALIC or CFM_STRIKEOUT or CFM_UNDERLINE or 
-             CFM_SIZE or CFM_COLOR or CFM_FACE;
+  ALL_MASK = CFM_RICHMEMO_ATTRS;
 begin
   Result := false;
   if (RichEditWnd = 0) then Exit;
@@ -399,33 +544,47 @@ begin
    
   FillChar(fmt, sizeof(fmt), 0);
   fmt.cbSize := sizeof(fmt);
+
+  sel.cpMin := TextStart;
+  sel.cpMax := TextStart;
+  SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
+  SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+  initMask := fmt.dwMask and ALL_MASK;
   
+  FillChar(fmt, sizeof(fmt), 0);
+  fmt.cbSize := sizeof(fmt);
+
   sel.cpMin := TextStart;
   sel.cpMax := len+1;
   SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
   SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
-  if (fmt.dwMask and ALL_MASK) <> ALL_MASK then begin
+  fmt.dwMask:=fmt.dwMask and ALL_MASK;
+
+  if fmt.dwMask <> initMask then begin
     d := (len - sel.cpMin);
     while d > 1 do begin
       d := d div 2;
-      if (fmt.dwMask and ALL_MASK) = ALL_MASK then
+      if fmt.dwMask = initMask then
         sel.cpMax := sel.cpMax + d        
       else
         sel.cpMax := sel.cpMax - d;
       SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
       SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+      fmt.dwMask:=fmt.dwMask and ALL_MASK;
     end;
-    if (fmt.dwMask and ALL_MASK) = ALL_MASK then begin
-      while (sel.cpMax <= len) and ((fmt.dwMask and ALL_MASK) = ALL_MASK) do begin
+    if fmt.dwMask = initMask then begin
+      while (sel.cpMax <= len) and (fmt.dwMask = initMask) do begin
         inc(sel.cpMax);
         SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
         SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+        fmt.dwMask:=fmt.dwMask and ALL_MASK;
       end;
     end else begin
-      while (sel.cpMax > sel.cpMin) and ((fmt.dwMask and ALL_MASK) <> ALL_MASK) do begin
+      while (sel.cpMax > sel.cpMin) and (fmt.dwMask <> initMask) do begin
         dec(sel.cpMax);
         SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
         SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+        fmt.dwMask:=fmt.dwMask and ALL_MASK;
       end;
       inc(sel.cpMax);
     end;
@@ -436,29 +595,33 @@ begin
   sel.cpMax := TextStart+1;
   SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
   SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
-  if (fmt.dwMask and ALL_MASK) <> ALL_MASK then begin
+  fmt.dwMask:=fmt.dwMask and ALL_MASK;
+  if fmt.dwMask <> initMask then begin
     d := TextStart;
     while d > 1 do begin
       d := d div 2;
-      if (fmt.dwMask and ALL_MASK) = ALL_MASK then
+      if fmt.dwMask = initMask then
         dec(sel.cpMin,d)
       else
         inc(sel.cpMin,d);
       SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
       SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+      fmt.dwMask:=fmt.dwMask and ALL_MASK;
     end;
-    if (fmt.dwMask and ALL_MASK) = ALL_MASK then begin
-      while (sel.cpMin > 0) and ((fmt.dwMask and ALL_MASK) = ALL_MASK) do begin
+    if (fmt.dwMask = initMask) then begin
+      while (sel.cpMin > 0) and (fmt.dwMask = initMask) do begin
         dec(sel.cpMin);
         SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
         SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+        fmt.dwMask:=fmt.dwMask and ALL_MASK;
       end;
-      if (fmt.dwMask and ALL_MASK) <> ALL_MASK then inc(sel.cpMin);
+      if (fmt.dwMask = initMask) then inc(sel.cpMin);
     end else begin
-      while (sel.cpMin < TextStart) and ((fmt.dwMask and ALL_MASK) <> ALL_MASK) do begin
+      while (sel.cpMin < TextStart) and (fmt.dwMask <> initMask) do begin
         inc(sel.cpMin);
         SendMessage(RichEditWnd, EM_EXSETSEL, 0, LPARAM(@sel));
         SendMessage(RichEditWnd, EM_GETCHARFORMAT, SCF_SELECTION, PtrInt(@fmt));
+        fmt.dwMask:=fmt.dwMask and ALL_MASK;
       end;
     end;
   end;  
@@ -487,6 +650,38 @@ begin
   Range.cpMin := TextStart;
   Range.cpMax := TextStart + TextLen;
   SendMessage(RichEditWnd, EM_EXSETSEL, 0, PtrInt(@Range));
+end;
+
+class procedure TRichEditManager.GetSelRange(RichEditWnd: Handle; var sr: TCHARRANGE);
+var
+  st: Integer;
+begin
+  sr.cpMax := 0;
+  sr.cpMin := 0;
+  st:=0;
+  SendMessage(RichEditWnd, EM_EXGETSEL, 0, PtrInt(@sr));
+  // EM_EXGETSEL - always returns min and max, in the math order
+  // (where math is lower, than max)
+  // This, however, doesn't match the seletion direction.
+  // Selection direction is done by either mouse (right to left) and (left to right)
+  // or by holding SHIFT key and moving left to right.
+  // EM_EXSETSEL - repsects the specified sr.cpMax and sr.cpMin order
+
+  // Resetting the selection.
+  // This is a bit hacky, BUT the selection would be reset
+  // towards the direction of the selection
+  SendMessage(RichEditWnd, EM_SETSEL, -1, 0);
+  SendMessage(RichEditWnd, EM_GETSEL, WPARAM(@st), 0);
+
+  if st=sr.cpMin then begin // right-to-left selection
+    sr.cpMin:=sr.cpMax;
+    sr.cpMax:=st;
+  end;
+end;
+
+class procedure TRichEditManager.SetSelRange(RichEditWnd: Handle; const sr: TCHARRANGE);
+begin
+  SendMessage(RichEditWnd, EM_EXSETSEL, 0, PtrInt(@sr));
 end;
 
 class procedure TRichEditManager.SetHideSelection(RichEditWnd: Handle; AValue: Boolean);
@@ -562,26 +757,90 @@ class procedure TRichEditManager.SetText(RichEditWnd:Handle;
 var
   AnsiText : AnsiString;
   txt      : PChar;
-  s, l     : Integer;
+  sr       : TCHARRANGE;
 begin
-  GetSelection(RichEditWnd, s, l);
+  GetSelRange(RichEditWnd, sr);
   SetSelection(RichEditWnd, TextStart, ReplaceLength);
 
   txt:=nil;
-
+  if UnicodeEnabledOS then begin
     if Text<>'' then txt:=@Text[1];
     SendMessageW(RichEditWnd, EM_REPLACESEL, 0, LPARAM(txt));
+  end else begin
+    AnsiText:=Text;
+    if AnsiText<>'' then txt:=@AnsiText[1];
+    SendMessageA(RichEditWnd, EM_REPLACESEL, 0, LPARAM(txt));
+  end;
 
+  SetSelRange(RichEditWnd, sr);
+end;
 
-  SetSelection(RichEditWnd, s, l);
+class function TRichEditManager.GetTextW(RichEditWnd: Handle;
+  inSelection: Boolean): WideString;
+var
+  t   : GETTEXTEX;
+  res : Integer;
+  w   : WideString;
+  st  : Integer;
+begin
+  if inSelection then
+    GetSelection(RichEditWnd, st, res)
+  else
+    res:=GetTextLength(RichEditWnd);
+
+  if res>0 then begin
+    SetLength(w, res);
+    FillChar(t, sizeof(t), 0);
+    t.cb:=(length(w)+1)*sizeof(WideChar);
+    t.flags:=GT_DEFAULT;
+    if inSelection then t.flags:=t.flags or GT_SELECTION;
+    t.codepage:=CP_WINUNICODE;
+    res:=SendMessageW(RichEditWnd, EM_GETTEXTEX, WPARAM(@t), LPARAM(@w[1]));
+    Result:=w;
+  end else
+    Result:='';
+end;
+
+class function TRichEditManager.GetTextA(RichEditWnd: Handle;
+  inSelection: Boolean): AnsiString;
+var
+  t   : GETTEXTEX;
+  res : Integer;
+  s   : AnsiString;
+  st  : Integer;
+begin
+  if inSelection then
+    GetSelection(RichEditWnd, st, res)
+  else
+    res:=GetTextLength(RichEditWnd);
+
+  if res>0 then begin
+    SetLength(s, res);
+    FillChar(t, sizeof(t), 0);
+    t.cb:=length(s)+1;
+    t.flags:=GT_DEFAULT;
+    t.codepage:=CP_ACP;
+    res:=SendMessageA(RichEditWnd, EM_GETTEXTEX, WPARAM(@t), LPARAM(@s[1]));
+    Result:=s;
+  end else
+    Result:='';
+end;
+
+class function TRichEditManager.GetTextUtf8(RichEditWnd: Handle;
+  inSelection: Boolean): string;
+begin
+  if UnicodeEnabledOS then
+    Result:=UTF8Encode(GetTextW(RichEditWnd, inSelection))
+  else
+    Result:=AnsiToUtf8(GetTextA(RichEditWnd, inSelection));
 end;
 
 class procedure TRichEditManager.GetPara2(RichEditWnd: Handle; TextStart: Integer;
   var para: PARAFORMAT2);
 var
-  s, l     : Integer;
+  sr : TCHARRANGE;
 begin
-  GetSelection(RichEditWnd, s, l);
+  GetSelRange(RichEditWnd, sr);
 
   SetSelection(RichEditWnd, TextStart, 0);
 
@@ -589,27 +848,34 @@ begin
   para.cbSize:=sizeof(para);
   SendMessagea(RichEditWnd, EM_GETPARAFORMAT, 0, LPARAM(@para));
 
-  SetSelection(RichEditWnd, s, l);
+  SetSelRange(RichEditWnd, sr);
 end;
 
 class procedure TRichEditManager.SetPara2(RichEditWnd: Handle;
   TextStart, TextLen: Integer; const para: PARAFORMAT2);
 var
-  s, l     : Integer;
+  sr : TCHARRANGE;
 begin
-  GetSelection(RichEditWnd, s, l);
-  SetSelection(RichEditWnd, TextStart, TextLen);
+  GetSelRange(RichEditWnd, sr);
 
+  SetSelection(RichEditWnd, TextStart, TextLen);
   SendMessagea(RichEditWnd, EM_SETPARAFORMAT, 0, LPARAM(@para));
 
-  SetSelection(RichEditWnd, s, l);
+  SetSelRange(RichEditWnd, sr);
+end;
+
+class function TRichEditManager.Find(RichEditWnd: THandle; const ANiddle: WideString; const ASearch: TIntSearchOpt): Integer; overload;
+var
+  l : integer;
+begin
+  Result:=Find(RichEDitWnd, ANiddle, ASearch, l);
 end;
 
 class function TRichEditManager.Find(RichEditWnd: THandle;
-  const ANiddle: WideString; const ASearch: TIntSearchOpt): Integer;
+  const ANiddle: WideString; const ASearch: TIntSearchOpt; var TextLen: Integer): Integer;
 var
-  fw: TFINDTEXTW;
-  fa: TFINDTEXTA;
+  fw: TFINDTEXTEXW;
+  fa: TFINDTEXTEXA;
   opt: WParam;
   txt: string;
   mn, mx : Integer;
@@ -637,18 +903,27 @@ begin
     end;
   end;
 
+  if UnicodeEnabledOS then begin
     fw.chrg.cpMin := mn;
     fw.chrg.cpMax := mx;
     fw.lpstrText := PWideChar(@ANiddle[1]);
-    Result := SendMessage(RichEditWnd, EM_FINDTEXTW, opt, LParam(@fw));
-
+    Result := SendMessage(RichEditWnd, EM_FINDTEXTEXW, opt, LParam(@fw));
+    if Result>=0 then TextLen:=fw.chrgText.cpMax-fw.chrgText.cpMin;
+  end else begin
+    fa.chrg.cpMin := mn;
+    fa.chrg.cpMax := mx;
+    txt:=ANiddle;
+    fa.lpstrText := PAnsiChar(@txt[1]);
+    Result := SendMessage(RichEditWnd, EM_FINDTEXTEX, opt, LParam(@fa));
+    if Result>=0 then TextLen:=fa.chrgText.cpMax-fa.chrgText.cpMin;
+  end;
 end;
 
 class procedure TRichEditManager.GetParaRange(RichEditWnd: Handle; TextStart: integer;
   var para: TParaRange);
 var
   line: Integer;
-  txtlen: Integer;
+  //txtlen: Integer;
   st: Integer;
   ln: Integer;
   toend: Integer;
@@ -657,7 +932,7 @@ var
   rng : TTEXTRANGEA;
   res : Integer;
 begin
-  txtlen:=GetTextLength(RichEditWnd);
+  //txtlen:=GetTextLength(RichEditWnd);
   // lines are NOT paragraphs, but wordwrapped lines
   line:=SendMessage(RichEditWnd, EM_EXLINEFROMCHAR, 0, TextStart);
   st:=SendMessage(RichEditWnd, EM_LINEINDEX, line, 0);
@@ -691,7 +966,7 @@ begin
   until (res=0) or (buf[1] = HardBreak);
 
   para.start:=tost;
-  para.lenghtNoBr:=toend;
+  para.lengthNoBr:=toend;
   if res>0 then inc(toend); // there's a line break character - add it to the range
   para.length:=toend;
 end;
@@ -769,6 +1044,7 @@ end;
 
 initialization
   InsertImageFromFile := @WinInsertImageFromFile;
+  RichEditManager := TRichEditManager;
 
 end.                                            
 

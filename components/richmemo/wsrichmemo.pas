@@ -26,7 +26,8 @@ interface
 uses
   Types, Classes, SysUtils,
   LCLType,
-  Graphics, Controls, StdCtrls,
+  LazUTF8, // used for GetSubText
+  Graphics, Controls, Printers,
   WSStdCtrls, RichMemo;
 
 type
@@ -36,18 +37,6 @@ type
 type
   TIntParaMetric = RichMemo.TParaMetric;
   TIntParaNumbering = RichMemo.TParaNumbering;
-
-  TTabAlignment = (taLeft, taCenter, taRight, taDecimal, taWordBar);
-
-  TTabInfo = record
-    Offset : Double;
-    Align  : TTabAlignment;
-  end;
-
-  TIntParaTabs = record
-    Count : Integer;
-    Tabs  : array of TTabInfo;
-  end;
 
   TIntSearchOpt = record
     start   : Integer;
@@ -65,10 +54,16 @@ type
     class procedure CutToClipboard(const AWinControl: TWinControl); virtual;
     class procedure CopyToClipboard(const AWinControl: TWinControl); virtual;
     class procedure PasteFromClipboard(const AWinControl: TWinControl); virtual;
+    class function CanPasteFromClipboard(const AWinControl: TWinControl): Boolean; virtual;
     
     class function GetStyleRange(const AWinControl: TWinControl; TextStart: Integer; var RangeStart, RangeLen: Integer): Boolean; virtual;
     class function GetTextAttributes(const AWinControl: TWinControl; TextStart: Integer;
       var Params: TIntFontParams): Boolean; virtual;
+
+    class function isInternalChange(const AWinControl: TWinControl; Params: TTextModifyMask): Boolean; virtual;
+    class procedure SetTextAttributesInternal(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AModifyMask: TTextModifyMask; const Params: TIntFontParams); virtual;
+
     class procedure SetTextAttributes(const AWinControl: TWinControl; TextStart, TextLen: Integer; 
       const Params: TIntFontParams); virtual;
     class function GetParaAlignment(const AWinControl: TWinControl; TextStart: Integer;
@@ -84,20 +79,42 @@ type
     class function GetParaRange(const AWinControl: TWinControl; TextStart: Integer; var rng: TParaRange): Boolean; virtual;
     class procedure SetParaNumbering(const AWinControl: TWinControl; TextStart, TextLen: Integer;
       const ANumber: TIntParaNumbering); virtual;
+
+    class procedure SetParaTabs(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const AStopList: TTabStopList); virtual;
+    class function GetParaTabs(const AWinControl: TWinControl; TextStart: integer;
+      var AStopList: TTabStopList): Boolean; virtual;
+
+    class procedure SetTextUIParams(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      const ui: TTextUIParam); virtual;
+    class function GetTextUIParams(const AWinControl: TWinControl; TextStart: Integer;
+      var ui: TTextUIParam): Boolean; virtual;
+
     class procedure InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); virtual;
+    class function GetSubText(const AWinControl: TWinControl; TextStart, TextLen: Integer;
+      AsUnicode: Boolean; var isUnicode: Boolean; var txt: string; var utxt: UnicodeString): Boolean; virtual;
+
+    class function CharAtPos(const AWinControl: TWinControl; x,y: Integer): Integer; virtual;
+
     //class procedure SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean); override;
     class function LoadRichText(const AWinControl: TWinControl; Source: TStream): Boolean; virtual;
     class function SaveRichText(const AWinControl: TWinControl; Dest: TStream): Boolean; virtual;
 
     class function Search(const AWinControl: TWinControl; const ANiddle: string; const SearchOpts: TIntSearchOpt): Integer; virtual;
+    // this is a temproray solution and will be removed eventually leaving a variant of SearchEx only
+    class function isSearchEx: Boolean; virtual;
+    class function SearchEx(const AWinControl: TWinControl; const ANiddle: string; const SearchOpts: TIntSearchOpt; var TextStart, TextLength: Integer): Boolean; virtual;
 
     class procedure SetZoomFactor(const AWinControl: TWinControl; AZoomFactor: Double); virtual;
+    class function GetZoomFactor(const AWinControl: TWinControl; var AZoomFactor:Double): Boolean; virtual;
 
     //inline handler
     class function InlineInsert(const AWinControl: TWinControl; ATextStart, ATextLength: Integer;
       const ASize: TSize; AHandler: TRichMemoInline; var wsObj: TRichMemoInlineWSObject): Boolean; virtual;
     class procedure InlineInvalidate(const AWinControl: TWinControl;
        AHandler: TRichMemoInline; wsObj: TRichMemoInlineWSObject); virtual;
+
+    class function Print(const AWinControl: TWinControl; APrinter: TPrinter; const AParams: TPrintParams; DoPrint: Boolean): Integer; virtual;
   end;
   TWSCustomRichMemoClass = class of TWSCustomRichMemo;
 
@@ -127,6 +144,12 @@ begin
 
 end;
 
+class function TWSCustomRichMemo.CanPasteFromClipboard(
+  const AWinControl: TWinControl): Boolean;
+begin
+  Result := true;
+end;
+
 class function TWSCustomRichMemo.GetStyleRange(const AWinControl: TWinControl;
   TextStart: Integer; var RangeStart, RangeLen: Integer): Boolean;
 begin
@@ -141,9 +164,22 @@ begin
   Result := false;
 end;
 
+class function TWSCustomRichMemo.isInternalChange(
+  const AWinControl: TWinControl; Params: TTextModifyMask): Boolean;
+begin
+  Result:=false;
+end;
+
+class procedure TWSCustomRichMemo.SetTextAttributesInternal(
+  const AWinControl: TWinControl; TextStart, TextLen: Integer;
+  const AModifyMask: TTextModifyMask; const Params: TIntFontParams);
+begin
+
+end;
+
 class procedure TWSCustomRichMemo.SetTextAttributes(const AWinControl: TWinControl; 
   TextStart, TextLen: Integer;  
-  {Mask: TTextStyleMask;} const Params: TIntFontParams);
+  const Params: TIntFontParams);
 begin
 end;
 
@@ -194,9 +230,55 @@ begin
 
 end;
 
+class procedure TWSCustomRichMemo.SetParaTabs(const AWinControl: TWinControl;
+  TextStart, TextLen: Integer; const AStopList: TTabStopList);
+begin
+
+end;
+
+class function TWSCustomRichMemo.GetParaTabs(const AWinControl: TWinControl;
+  TextStart: integer; var AStopList: TTabStopList): Boolean;
+begin
+  Result:=False;
+end;
+
+class procedure TWSCustomRichMemo.SetTextUIParams(const AWinControl: TWinControl;
+  TextStart, TextLen: Integer; const ui: TTextUIParam);
+begin
+
+end;
+
+class function TWSCustomRichMemo.GetTextUIParams(const AWinControl: TWinControl;
+  TextStart: Integer; var ui: TTextUIParam): Boolean;
+begin
+  Result:=false;
+end;
+
 class procedure TWSCustomRichMemo.InDelText(const AWinControl: TWinControl; const TextUTF8: String; DstStart, DstLen: Integer); 
 begin
 
+end;
+
+class function TWSCustomRichMemo.GetSubText(const AWinControl: TWinControl;
+  TextStart, TextLen: Integer; AsUnicode: Boolean; var isUnicode: Boolean;
+  var txt: string; var utxt: UnicodeString): Boolean;
+begin
+  // default, ineffecient implementation
+  if TextLen<0 then GetTextLen(AWinControl, TextLen);
+  Result:=GetText(AWinControl, txt);
+  if not Result then Exit;
+  if TextStart<0 then TextStart:=0;
+  inc(TextStart);
+  utxt:='';
+  isUnicode:=false;
+  txt:=UTF8Copy(txt, TextStart, TextLen);
+  Result:=true;
+end;
+
+class function TWSCustomRichMemo.CharAtPos(const AWinControl: TWinControl; x,
+  y: Integer): Integer;
+begin
+  Result:=-1;
 end;
 
 {class procedure TWSCustomRichMemo.SetHideSelection(const ACustomEdit: TCustomEdit; AHideSelection: Boolean);
@@ -216,14 +298,91 @@ end;
 
 class function TWSCustomRichMemo.Search(const AWinControl: TWinControl; const ANiddle: string;
   const SearchOpts: TIntSearchOpt): Integer;
+var
+  Hay    : UnicodeString;
+  Niddle : UnicodeString;
+  Hay8   : String;
+  isUnicode : Boolean;
+  i, se, ln : Integer;
+
 begin
+  if not Assigned(AWinControl) or not (AWinControl is TCustomRichMemo) then begin
+    Result:=-1;
+    Exit;
+  end;
+  if not GetTextLen(AWinControl, ln) then begin
+    Result:=-1;
+    Exit;
+  end;
+
+  isUnicode:=false;
+  if not GetSubText(AWinControl, 0, ln, true, isUnicode, Hay8, Hay) then begin
+    Result:=-1;
+    Exit;
+  end;
+  if not isUnicode then begin
+    Hay:=UTF8Decode(Hay8);
+    Hay8:='';
+  end;
+
+  if not (soMatchCase in SearchOpts.Options) then begin
+    Niddle:=WideLowerCase(UTF8Decode(ANiddle));
+    Hay:=WideLowercase(Hay);
+  end else
+    Niddle:=UTF8Decode(ANiddle);
+
+  i:=SearchOpts.start;
+  if i<=0 then i:=1 else inc(i);
+
+  if soBackward in SearchOpts.Options then begin
+    dec(i); // to allow repeatative search
+
+    se:=0;
+    if (SearchOpts.len>0) then se:=i-SearchOpts.len;
+    if se<=0 then se:=1;
+
+    for i:=i downto se do
+      //todo: unicode comparison is "a bit more" complex, than just memory comparison
+      if CompareMem(@Niddle[1], @Hay[i], length(Niddle)*2) then begin
+        Result:=i-1; // offset one character! since it should be cursor position
+        Exit;
+      end;
+  end else begin
+    se:=length(Hay)-length(Niddle);
+    if (SearchOpts.len>0) and (se-i>SearchOpts.len) then
+      se:=i+SearchOpts.len;
+
+    for i:=i to se do
+      //todo: unicode comparison is "a bit more" complex, than just memory comparison
+      if CompareMem(@Niddle[1], @Hay[i], length(Niddle)*2) then begin
+        Result:=i-1; // offset one character! since it should be cursor position
+        Exit;
+    end;
+  end;
   Result:=-1;
+end;
+
+class function TWSCustomRichMemo.isSearchEx: Boolean;
+begin
+  Result:=false;
+end;
+
+class function TWSCustomRichMemo.SearchEx(const AWinControl: TWinControl;
+  const ANiddle: string; const SearchOpts: TIntSearchOpt; var TextStart,
+  TextLength: Integer): Boolean;
+begin
+  Result:=false;
 end;
 
 class procedure TWSCustomRichMemo.SetZoomFactor(const AWinControl: TWinControl;
   AZoomFactor: Double);
 begin
 
+end;
+
+class function TWSCustomRichMemo.GetZoomFactor(const AWinControl: TWinControl; var AZoomFactor: Double): Boolean;
+begin
+  Result:=false;
 end;
 
 class function TWSCustomRichMemo.InlineInsert(const AWinControl: TWinControl;
@@ -239,6 +398,12 @@ class procedure TWSCustomRichMemo.InlineInvalidate(
   wsObj: TRichMemoInlineWSObject);
 begin
 
+end;
+
+class function TWSCustomRichMemo.Print(const AWinControl: TWinControl;
+  APrinter: TPrinter; const AParams: TPrintParams; DoPrint: Boolean): Integer;
+begin
+  Result:=0;
 end;
 
 end.

@@ -1,4 +1,4 @@
-program testzoom;
+program project1;
 
 {$mode objfpc}{$H+}
 
@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mainform;
+  Forms, printer4lazarus, mainform
+  { you can add units after this };
 
 {$R *.res}
 

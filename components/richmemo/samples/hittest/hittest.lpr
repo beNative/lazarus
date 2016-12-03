@@ -1,4 +1,4 @@
-program testzoom;
+program hittest;
 
 {$mode objfpc}{$H+}
 
@@ -7,7 +7,8 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, mainform;
+  Forms, mainform
+  { you can add units after this };
 
 {$R *.res}
 

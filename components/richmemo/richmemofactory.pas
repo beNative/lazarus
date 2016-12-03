@@ -51,6 +51,10 @@ begin
   {$ifdef NoRichMemo}RegisterWSComponent(TCustomRichMemo, TWSCustomRichMemo);{$endif}
 end;
 
+initialization
+ // initialization is here just to prevent compiler warning about not being used
+ // the unit is actually used by providing an implementation for WSREgisterCustomRichMemo class
+ // thus it shouldn't be smart-linked out by a smartlinker. hmm
 
 end.
 

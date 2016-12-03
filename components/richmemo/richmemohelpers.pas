@@ -22,8 +22,7 @@ interface
 
 {$IFDEF FPC_FULLVERSION >= 20600}
 uses
-  SysUtils, StrUtils, Graphics,
-  RichMemo;
+  SysUtils, Graphics, RichMemo;
 
 type
   TRichEditFromRichMemo = class(TObject);
@@ -87,6 +86,7 @@ type
     function SelAttributes: TTextAttributes;
     function Paragraph: TParaAttributes;
     function FindText(const SearchStr: String; StartPos, Length: Integer; Options: TSearchTypes): Integer;
+    procedure Print(const ACaption: String); overload;
   end;
 {$ELSE}
   {$WARNING Class Helpers require FPC 2.6.0 or later, RichEdit compatible methods will not be available }
@@ -162,21 +162,18 @@ begin
   m.SetRangeParams( m.SelStart, m.SelLength, [tmm_Size], '', ASize, 0, [], []);
 end;
 
+const
+  AllFontStyles : TFontStyles = [fsBold, fsItalic, fsUnderline, fsStrikeOut];
+
 procedure TRichEditTextAttributes.SetStyles(AValue: TFontStyles);
 var
   m   : TCustomRichMemo;
 begin
   m := TCustomRichMemo(TObject(Self));
-  m.SetRangeParams(m.SelStart, m.SelLength, [tmm_Styles], '', 0, 0, AValue, []);
+  m.SetRangeParams(m.SelStart, m.SelLength, [tmm_Styles], '', 0, 0, AValue, AllFontStyles - AValue);
 end;
 
 { TRichEditParaAttributes }
-
-const
-  ScreenDPI    = 96;
-  EditDPI      = 72;
-  PtToPixel    = EditDPI / ScreenDPI;
-  PixelToPt    = ScreenDPI / EditDPI;
 
 function TRichEditParaAttributes.GetFirstIndent: Integer;
 var
@@ -185,7 +182,7 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  Result := Round((mt.FirstLine - mt.HeadIndent) * PtToPixel);
+  Result := Round((mt.FirstLine - mt.HeadIndent));
 end;
 
 function TRichEditParaAttributes.GetLeftIndent: Integer;
@@ -195,7 +192,7 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  Result := Round(( mt.HeadIndent) * PtToPixel);
+  Result := Round(( mt.HeadIndent) );
 end;
 
 function TRichEditParaAttributes.GetRightIndent: Integer;
@@ -205,17 +202,28 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  Result := Round(( mt.TailIndent) * PtToPixel);
+  Result := Round(( mt.TailIndent));
 end;
 
 function TRichEditParaAttributes.GetTab(Index: Byte): Integer;
+var
+  m  : TCustomRichMemo;
+  stop : TTabStopList;
 begin
-  Result:=0;
+  m:=TCustomRichMemo(TObject(Self));
+  m.GetParaTabs(m.SelStart, stop);
+  if (Index<0) or (Index>=stop.Count) then Result:=0
+  else Result:=round(stop.Tabs[Index].Offset);
 end;
 
 function TRichEditParaAttributes.GetTabCount: Integer;
+var
+  m  : TCustomRichMemo;
+  stop : TTabStopList;
 begin
-  Result:=0;
+  m:=TCustomRichMemo(TObject(Self));
+  m.GetParaTabs(m.SelStart, stop);
+  Result:=stop.Count;
 end;
 
 procedure TRichEditParaAttributes.SetFirstIndent(AValue: Integer);
@@ -225,7 +233,7 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  mt.FirstLine:=mt.HeadIndent + AValue * PixelToPt;
+  mt.FirstLine:=mt.HeadIndent + AValue;
   m.SetParaMetric( m.SelStart, m.SelLength, mt);
 end;
 
@@ -236,7 +244,7 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  mt.HeadIndent:=AValue * PixelToPt;
+  mt.HeadIndent:=AValue;
   m.SetParaMetric( m.SelStart, m.SelLength, mt);
 end;
 
@@ -247,18 +255,36 @@ var
 begin
   m := TCustomRichMemo(TObject(Self));
   m.GetParaMetric( m.SelStart, mt);
-  mt.TailIndent:=AValue * PixelToPt;
+  mt.TailIndent:=AValue;
   m.SetParaMetric( m.SelStart, m.SelLength, mt);
 end;
 
 procedure TRichEditParaAttributes.SetTab(Index: Byte; AValue: Integer);
+var
+  m  : TCustomRichMemo;
+  stop : TTabStopList;
 begin
-  //todo
+  m:=TCustomRichMemo(TObject(Self));
+  m.GetParaTabs(m.SelStart, stop);
+  if (Index<0) or (Index>=stop.Count) then
+    Exit
+  else begin
+    stop.Tabs[index].Offset:=AValue;
+    m.SetParaTabs(m.SelStart, m.SelLength, stop);
+  end;
 end;
 
 procedure TRichEditParaAttributes.SetTabCount(AValue: Integer);
+var
+  m  : TCustomRichMemo;
+  stop : TTabStopList;
 begin
-  //todo
+  m:=TCustomRichMemo(TObject(Self));
+  m.GetParaTabs(m.SelStart, stop);
+  if stop.Count<AValue then
+    SetLength(stop.Tabs, AValue);
+  stop.Count:=AValue;
+  m.SetParaTabs(m.SelStart, m.SelLength, stop);
 end;
 
 function TRichEditParaAttributes.GetAlignment: TRichEditAlignment;
@@ -315,6 +341,15 @@ begin
   Result:=Pos(sub, src);
   if Result<=0 then Result:=-1
   else Result:=StartPos+Result-1;
+end;
+
+procedure TRichEditForMemo.Print(const ACaption: String);
+var
+  prm : TPrintParams;
+begin
+  InitPrintParams(prm);
+  prm.JobTitle:=ACaption;
+  Print(prm);
 end;
 
 {$ENDIF}

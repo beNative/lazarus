@@ -41,6 +41,7 @@ Notepas is a fast portable native multiplatform text editor written in Lazarus a
 * Zoom.
 * Localization support using simple text files that are loaded by the application at runtime (i18n using GetText).
 * Monitor external changes.
+* (Experimental) Multi-caret support.
 * (Experimental) Bookmark support.
 * (Experimental) support for both internal and external code formatters.
 * (Experimental) support for Pascal scripting.

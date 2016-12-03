@@ -14,29 +14,29 @@ uses
   { you can add units after this }
 
   ts.Components.VirtualDBTreeEx,
-  ts_Core_ComponentInspector, ts_Editor_AboutDialog, ts_Editor_Manager,
-  ts_Editor_Resources, ts_Editor_View, ts_Editor_ToolView_Base,
-  ts.Editor.Interfaces, ts_Editor_ScriptEditor_ToolView,
-  ts_Editor_ActionList_ToolView, ts_Editor_ViewList_ToolView,
-  ts_Editor_Test_ToolView, ts_Editor_Structure_ToolView,
-  ts_Editor_Shortcuts_ToolView, ts_Editor_SettingsDialog,
-  ts_Editor_SettingsDialog_ApplicationSettings, ts_editor_settingsdialog_base,
-  ts_editor_settingsdialog_editorsettings, ts_editor_settingsdialog_extensions,
-  ts_editor_settingsdialog_fileassociations, ts_editor_settingsdialog_filetypes,
-  ts_editor_settingsdialog_highlighters, ts_editor_settingsdialog_keymappings,
-  ts_editor_settingsdialog_old, ts_editor_selectioninfo_toolview,
-  ts_editor_search_toolview, ts_editor_preview_toolview,
-  ts_editor_minimap_toolview, ts_editor_htmlview_toolview,
-  ts_editor_hexeditor_toolview, ts_editor_filter_toolview,
-  ts_editor_codeshaper_toolview, ts_editor_codefilter_toolview,
-  ts_editor_charactermap_toolview, ts_editor_alignlines_toolview,
+  ts.Core.ComponentInspector, ts.Editor.AboutDialog, ts.Editor.Manager,
+  ts.Editor.Resources, ts.Editor.View, ts.Editor.ToolView.Base,
+  ts.Editor.Interfaces, ts.Editor.ScriptEditor.ToolView,
+  ts.Editor.ActionList.ToolView, ts.Editor.ViewList.ToolView,
+  ts.Editor.Test.ToolView, ts.Editor.Structure.ToolView,
+  ts.Editor.Shortcuts.ToolView, ts.Editor.SettingsDialog,
+  ts.Editor.SettingsDialog.ApplicationSettings, ts.Editor.SettingsDialog.base,
+  ts.Editor.SettingsDialog.EditorSettings, ts.Editor.SettingsDialog.Extensions,
+  ts.Editor.SettingsDialog.FileAssociations, ts.Editor.SettingsDialog.FileTypes,
+  ts.Editor.SettingsDialog.Highlighters, ts.Editor.SettingsDialog.KeyMappings,
+  ts.Editor.SettingsDialog.Old, ts.Editor.SelectionInfo.ToolView,
+  ts.Editor.Search.ToolView, ts.Editor.Preview.ToolView,
+  ts.Editor.Minimap.ToolView, ts.Editor.HtmlView.ToolView,
+  ts.Editor.HexEditor.ToolView, ts.Editor.Filter.ToolView,
+  ts.Editor.CodeShaper.ToolView, ts.Editor.CodeFilter.ToolView,
+  ts.Editor.CharacterMap.ToolView, ts.Editor.AlignLines.ToolView,
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
   ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings, ts.Editor.Types,
 
-  SnippetSource_Forms_Main, SnippetSource.Virtualtree.Editors,
-  snippetsource_modules_data2, SnippetSource_Forms_SQLLog;
+  SnippetSource.Forms.Main, SnippetSource.Virtualtree.Editors,
+  SnippetSource.Modules.Data2, SnippetSource.Forms.SQLLog;
 
 {$R *.res}
 

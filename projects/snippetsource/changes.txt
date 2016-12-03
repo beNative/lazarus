@@ -1,3 +1,6 @@
+03/12/2016
+- renamed units to dotted namespace-like notation
+
 29/10/2016
 - updated code to support FPC 3.0.0, which makes it more compatible to recent
   Delphi versions.

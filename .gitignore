@@ -34,3 +34,9 @@
 /components/omultipanel/demo/*.exe
 /*.pdf
 *.lrj
+/projects/snippetsource/bin/i386-win32-win32
+/projects/snippetsource/bin/x86_64-win64-win32
+/projects/snippetsource/backup
+/projects/notepas/bin/x86_64-win64-win32
+/projects/tabletool/lib/i386-win32
+/projects/snippetsource/*.exe

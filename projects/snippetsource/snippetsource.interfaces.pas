@@ -18,7 +18,7 @@
 
 unit SnippetSource.Interfaces;
 
-{$mode objfpc}{$H+}
+{$mode delphi}
 
 { Main application interfaces. }
 

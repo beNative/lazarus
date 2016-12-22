@@ -596,8 +596,8 @@ type
 
   TVirtualDBTreeEx = class(TBaseVirtualDBTreeEx)
   private
-    function GetNodeText(Node: PVirtualNode): UnicodeString;
-    procedure SetNodeText(Node: PVirtualNode; const Value: UnicodeString);
+    function GetNodeText(Node: PVirtualNode): string;
+    procedure SetNodeText(Node: PVirtualNode; const Value: string);
 
   protected
     function DoCompare(
@@ -630,7 +630,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     property Canvas;
-    property NodeText[Node: PVirtualNode]: UnicodeString
+    property NodeText[Node: PVirtualNode]: string
 	    read GetNodeText write SetNodeText;
   end;
 
@@ -665,8 +665,8 @@ type
 
   TDBCheckVirtualDBTreeEx = class(TCustomDBCheckVirtualDBTreeEx)
   private
-    function GetNodeText(Node: PVirtualNode): UnicodeString;
-    procedure SetNodeText(Node: PVirtualNode; const Value: UnicodeString);
+    function GetNodeText(Node: PVirtualNode): string;
+    procedure SetNodeText(Node: PVirtualNode; const Value: string);
   protected
     function DoCompare(Node1, Node2: PVirtualNode; Column: TColumnIndex):
       Integer; override;
@@ -682,7 +682,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     property Canvas;
-    property NodeText[Node: PVirtualNode]: UnicodeString
+    property NodeText[Node: PVirtualNode]: string
       read GetNodeText write SetNodeText;
   published
     property CheckDataSource;
@@ -707,8 +707,8 @@ type
 
   TCheckVirtualDBTreeEx = class(TCustomCheckVirtualDBTreeEx)
   private
-    function GetNodeText(Node: PVirtualNode): UnicodeString;
-    procedure SetNodeText(Node: PVirtualNode; const Value: UnicodeString);
+    function GetNodeText(Node: PVirtualNode): string;
+    procedure SetNodeText(Node: PVirtualNode; const Value: string);
   protected
     function DoCompare(Node1, Node2: PVirtualNode; Column: TColumnIndex):
       Integer; override;
@@ -724,13 +724,13 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     property Canvas;
-    property NodeText[Node: PVirtualNode]: UnicodeString read GetNodeText write
+    property NodeText[Node: PVirtualNode]: string read GetNodeText write
       SetNodeText;
   end;
 
 type
   TDBNodeData = record
-    Text   : UnicodeString;
+    Text   : string;
     ImgIdx : Integer;
   end;
 
@@ -2540,14 +2540,14 @@ begin
   end;
 end;
 
-function TVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): UnicodeString;
+function TVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): string;
 begin
   if Assigned(Node) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text;
 end;
 
 procedure TVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
-  UnicodeString);
+  string);
 begin
   if Assigned(Node) then
     PDBNodeData(GetDBNodeData(Node)).Text := Value;
@@ -2774,13 +2774,13 @@ begin
 end;
 
 procedure TDBCheckVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
-  UnicodeString);
+  string);
 begin
   if Assigned(Node) then
     PDBNodeData(GetDBNodeData(Node)).Text := Value;
 end;
 
-function TDBCheckVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): UnicodeString;
+function TDBCheckVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): string;
 begin
   if Assigned(Node) then
     Result := PDBNodeData(GetDBNodeData(Node)).Text
@@ -2943,13 +2943,13 @@ begin
 end;
 
 procedure TCheckVirtualDBTreeEx.SetNodeText(Node: PVirtualNode; const Value:
-  UnicodeString);
+  string);
 begin
   if Assigned(Node) then
     PDBNodeData(GetDBNodeData(Node)).Text := Value;
 end;
 
-function TCheckVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): UnicodeString;
+function TCheckVirtualDBTreeEx.GetNodeText(Node: PVirtualNode): string;
 begin
   Result := '';
   if Assigned(Node) and (Node <> RootNode) then

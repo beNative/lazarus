@@ -42,19 +42,12 @@ type
     // property access methods
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
-    function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
     function GetCaretY: Integer;
     //function GetBlockBegin: TPoint;
     //function GetBlockEnd: TPoint;
-    //function GetCanPaste: Boolean;
-    //function GetCanRedo: Boolean;
-    //function GetCanUndo: Boolean;
-    //function GetCaretX: Integer;
-    //function GetCaretXY: TPoint;
-    //function GetCaretY: Integer;
     //function GetCurrentWord: string;
     function GetEditor: TRichMemo;
     function GetFileName: string;
@@ -130,7 +123,6 @@ type
     procedure Copy;
     procedure Paste;
     procedure Undo;
-    procedure Redo; // not supported yet
 
     // properties
     property Editor: TRichMemo
@@ -144,9 +136,6 @@ type
 
     property CanPaste: Boolean
       read GetCanPaste;
-
-    property CanRedo: Boolean
-      read GetCanRedo;
 
     property CanUndo: Boolean
       read GetCanUndo;

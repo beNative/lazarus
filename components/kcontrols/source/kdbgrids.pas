@@ -630,6 +630,8 @@ procedure TKDBGridCell.ApplyDrawProperties;
 var
   ACol: TKDBGridCol;
 begin
+  if ((Grid as TKDBGrid).FDataLink.Active) then
+  if ((Grid as TKDBGrid).FDataLink.RecordCount < 1) and (Grid.CellPainter.Row>=Grid.FixedRows) then Exit;
   inherited;
   Grid.CellPainter.Graphic := FGraphic;
   if not (gdFixed in Grid.CellPainter.State) and (Grid.Cols[Grid.CellPainter.Col] is TKDBGridCol) then
@@ -943,7 +945,9 @@ begin
     try
       if FDataLink.Active then
       begin
-        RowCount := FixedRows + FDataLink.DataSet.RecordCount;
+        I := FDataLink.DataSet.RecordCount;
+        if I < 1 then I := 1;
+        RowCount := FixedRows + I;
         if FixedCols + FDataLink.DataSet.FieldCount <> ColCount then
         begin
           ClearSortMode;
@@ -978,8 +982,8 @@ begin
             Index := Cols[I].InitialPos;
             if Index < ColCount then
             begin
-              S := FDataLink.DataSet.FieldDefs[Index - FixedCols].Name;
-              ADataType := FDataLink.DataSet.FieldDefs[Index - FixedCols].DataType;
+              s := FDataLink.DataSet.Fields.Fields[Index - FixedCols].DisplayLabel;
+              ADataType := FDataLink.DataSet.Fields.Fields[Index - FixedCols].DataType;
               if Cols[I] is TKDBGridCol then
               begin
                 TKDBGridCol(Cols[I]).FName := S;
@@ -1026,7 +1030,8 @@ begin
                   end;
                 end;
               end;
-            if (dboIndexFixedCol in FDBOptions) and (FixedCols > 0) then
+            if (dboIndexFixedCol in FDBOptions) and (FixedCols > 0) and
+            (FDataLink.DataSet.RecordCount > 0) then
             begin
               Cell := InternalGetCell(0, J);
               if Cell is TKDBGridCell then

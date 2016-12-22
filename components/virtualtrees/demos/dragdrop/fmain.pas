@@ -26,6 +26,8 @@ type
     procedure VirtualStringTree1DragOver(Sender: TBaseVirtualTree;
       Source: TObject; Shift: TShiftState; State: TDragState; const Pt: TPoint;
       Mode: TDropMode; var Effect: Integer; var Accept: Boolean);
+    procedure VirtualStringTree1FreeNode(Sender: TBaseVirtualTree;
+      Node: PVirtualNode);
     procedure VirtualStringTree1GetNodeDataSize(Sender: TBaseVirtualTree;
       var NodeDataSize: Integer);
     procedure VirtualStringTree1GetText(Sender: TBaseVirtualTree;
@@ -134,6 +136,12 @@ procedure TMainForm.VirtualStringTree1DragOver(Sender: TBaseVirtualTree;
   Mode: TDropMode; var Effect: Integer; var Accept: Boolean);
 begin
   Accept := (Sender = VirtualStringTree1) or (Source = ListBox1);
+end;
+
+procedure TMainForm.VirtualStringTree1FreeNode(Sender: TBaseVirtualTree;
+  Node: PVirtualNode);
+begin
+  PNodeData(Sender.GetNodeData(Node))^.Title := '';
 end;
 
 procedure TMainForm.VirtualStringTree1GetNodeDataSize(Sender: TBaseVirtualTree;

@@ -37,13 +37,12 @@ type
     procedure XPTreeGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind;
       Column: TColumnIndex; var Ghosted: Boolean; var Index: Integer);
     procedure FormCreate(Sender: TObject);
-    procedure XPTreeHeaderClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
     procedure XPTreeInitNode(Sender: TBaseVirtualTree; ParentNode, Node: PVirtualNode;
       var InitialStates: TVirtualNodeInitStates);
     procedure XPTreeInitChildren(Sender: TBaseVirtualTree; Node: PVirtualNode; var ChildCount: Cardinal);
     procedure XPTreeGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex;
       TextType: TVSTTextType; var CellText: String);
-    procedure XPTreeHeaderClickx(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState;
+    procedure XPTreeHeaderClick(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState;
       X, Y: Integer);
     procedure XPTreeCompareNodes(Sender: TBaseVirtualTree; Node1, Node2: PVirtualNode; Column: TColumnIndex;
       var Result: Integer);
@@ -60,6 +59,8 @@ var
 //----------------------------------------------------------------------------------------------------------------------
 
 implementation
+
+{$R *.lfm}
 
 uses
   States;
@@ -130,40 +131,6 @@ begin
   {$endif}
 end;
 
-procedure TWindowsXPForm.XPTreeHeaderClick(Sender: TVTHeader;
-  HitInfo: TVTHeaderHitInfo);
-begin
-  with HitInfo do
-  if Button = mbLeft then
-  begin
-    with Sender, Treeview do
-    begin
-      if SortColumn > NoColumn then
-        Columns[SortColumn].Options := Columns[SortColumn].Options + [coParentColor];
-
-      // Do not sort the last column, it contains nothing to sort.
-      if Column = 2 then
-        SortColumn := NoColumn
-      else
-      begin
-        if (SortColumn = NoColumn) or (SortColumn <> Column) then
-        begin
-          SortColumn := Column;
-          SortDirection := sdAscending;
-        end
-        else
-          if SortDirection = sdAscending then
-            SortDirection := sdDescending
-          else
-            SortDirection := sdAscending;
-
-        Columns[SortColumn].Color := $F7F7F7;
-        SortTree(SortColumn, SortDirection, False);
-      end;
-    end;
-  end;
-end;
-
 //----------------------------------------------------------------------------------------------------------------------
 
 procedure TWindowsXPForm.XPTreeInitNode(Sender: TBaseVirtualTree; ParentNode, Node: PVirtualNode;
@@ -221,11 +188,38 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-procedure TWindowsXPForm.XPTreeHeaderClickx(Sender: TVTHeader;
-  Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X, Y: Integer
-  );
+procedure TWindowsXPForm.XPTreeHeaderClick(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
 
 begin
+  if Button = mbLeft then
+  begin
+    with Sender, Treeview do
+    begin
+      if SortColumn > NoColumn then
+        Columns[SortColumn].Options := Columns[SortColumn].Options + [coParentColor];
+        
+      // Do not sort the last column, it contains nothing to sort.
+      if Column = 2 then
+        SortColumn := NoColumn
+      else
+      begin
+        if (SortColumn = NoColumn) or (SortColumn <> Column) then
+        begin
+          SortColumn := Column;
+          SortDirection := sdAscending;
+        end
+        else
+          if SortDirection = sdAscending then
+            SortDirection := sdDescending
+          else
+            SortDirection := sdAscending;
+
+        Columns[SortColumn].Color := $F7F7F7;
+        SortTree(SortColumn, SortDirection, False);
+      end;
+    end;
+  end;
 end;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -288,7 +282,5 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i WindowsXPStyleDemo.lrs}
 
 end.

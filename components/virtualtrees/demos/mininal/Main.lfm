@@ -10,12 +10,12 @@ object MainForm: TMainForm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '0.9.27'
+  LCLVersion = '1.7'
   object Label1: TLabel
     Left = 10
-    Height = 14
+    Height = 13
     Top = 8
-    Width = 112
+    Width = 111
     Caption = 'Last operation duration:'
     ParentColor = False
   end
@@ -24,12 +24,12 @@ object MainForm: TMainForm
     Height = 360
     Top = 24
     Width = 410
-    BorderStyle = bsSingle
     Colors.BorderColor = clWindowText
     Colors.HotColor = clBlack
     DefaultText = 'Node'
     Header.AutoSizeIndex = -1
     Header.Columns = <>
+    Header.DefaultHeight = 17
     Header.Font.Height = -11
     Header.Font.Name = 'MS Sans Serif'
     Header.MainColumn = -1

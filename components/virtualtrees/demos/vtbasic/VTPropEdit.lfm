@@ -12,10 +12,12 @@ object frmVTPropEdit: TfrmVTPropEdit
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  Position = poDefaultPosOnly
-  LCLVersion = '0.9.27'
+  Position = poScreenCenter
+  LCLVersion = '1.7'
   object Panel1: TPanel
+    Left = 0
     Height = 601
+    Top = 0
     Width = 458
     Align = alClient
     BevelOuter = bvNone
@@ -38,6 +40,7 @@ object frmVTPropEdit: TfrmVTPropEdit
       Header.AutoSizeIndex = 1
       Header.Columns = <      
         item
+          Position = 0
           Text = 'Properties'
           Width = 186
         end      
@@ -46,8 +49,9 @@ object frmVTPropEdit: TfrmVTPropEdit
           Options = [coAllowClick, coDraggable, coEnabled, coParentBidiMode, coResizable, coShowDropMark, coVisible]
           Position = 1
           Text = 'Values'
-          Width = 258
+          Width = 254
         end>
+      Header.DefaultHeight = 17
       Header.Font.Height = -11
       Header.Font.Name = 'MS Sans Serif'
       Header.Height = 18
@@ -118,7 +122,7 @@ object frmVTPropEdit: TfrmVTPropEdit
       TabOrder = 2
       object chkTriangleButtons: TCheckBox
         Left = 321
-        Height = 17
+        Height = 19
         Top = 8
         Width = 98
         Caption = 'Triangle Buttons'

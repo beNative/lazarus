@@ -8,7 +8,7 @@ object MainForm: TMainForm
   ClientWidth = 613
   OnCreate = FormCreate
   Position = poDesktopCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.7'
   object MainNotebook: TPageControl
     Left = 0
     Height = 504
@@ -20,13 +20,13 @@ object MainForm: TMainForm
     TabOrder = 0
     object WelcomePage: TTabSheet
       Caption = 'Welcome Translations'
-      ClientHeight = 465
-      ClientWidth = 607
+      ClientHeight = 476
+      ClientWidth = 605
       object WelcomeTree: TVirtualStringTree
         Left = 3
-        Height = 431
+        Height = 442
         Top = 31
-        Width = 601
+        Width = 599
         Align = alClient
         BorderSpacing.Around = 3
         DefaultText = 'Node'
@@ -53,11 +53,11 @@ object MainForm: TMainForm
         Left = 0
         Height = 28
         Top = 0
-        Width = 607
+        Width = 605
         Align = alTop
         BevelOuter = bvNone
         ClientHeight = 28
-        ClientWidth = 607
+        ClientWidth = 605
         TabOrder = 1
         object ChooseWelcomeFontButton: TButton
           Left = 4
@@ -112,10 +112,10 @@ object MainForm: TMainForm
       end
       object TextComboBox: TComboBox
         Left = 284
-        Height = 21
+        Height = 23
         Top = 58
         Width = 184
-        ItemHeight = 0
+        ItemHeight = 15
         Items.Strings = (
           'Não'
           'Coração'
@@ -142,10 +142,9 @@ object MainForm: TMainForm
           'Coração'
           'Sim'
         )
-        ItemHeight = 0
+        ItemHeight = 15
         ScrollWidth = 182
         TabOrder = 5
-        TopIndex = -1
       end
       object AddListTextButton: TButton
         Left = 476

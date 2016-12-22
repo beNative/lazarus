@@ -12,7 +12,7 @@ object AlignForm: TAlignForm
   Font.Name = 'Arial'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.0.8.0'
+  LCLVersion = '0.9.29'
   object Label8: TLabel
     Left = 8
     Height = 111
@@ -26,9 +26,9 @@ object AlignForm: TAlignForm
   end
   object Label1: TLabel
     Left = 8
-    Height = 17
+    Height = 113
     Top = 110
-    Width = 1213
+    Width = 203
     Caption = 'Note that hints are aligned properly and draw selection takes the alignment into account too. Sort arrows are shown but the tree is not sorted. All I want to demonstrate is how well the layout in the header works.'
     ParentColor = False
     ShowAccelChar = False
@@ -99,7 +99,6 @@ object AlignForm: TAlignForm
     Header.Columns = <    
       item
         Alignment = taCenter
-        Color = clWindow
         Hint = 'Text is initially centered and has a left-to-right directionality.'
         ImageIndex = 20
         Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coAutoSpring]
@@ -109,7 +108,6 @@ object AlignForm: TAlignForm
         Width = 199
       end    
       item
-        Color = clWindow
         Hint = 'Text is initially left aligned and has a left-to-right directionality.'
         ImageIndex = 35
         Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coAutoSpring, coWrapCaption]
@@ -120,7 +118,6 @@ object AlignForm: TAlignForm
       end    
       item
         BiDiMode = bdRightToLeft
-        Color = clWindow
         Hint = 'Text is initially left aligned and has a right-to-left directionality.'
         ImageIndex = 32
         Options = [coAllowClick, coDraggable, coEnabled, coResizable, coShowDropMark, coVisible, coAutoSpring]
@@ -151,7 +148,6 @@ object AlignForm: TAlignForm
     TreeOptions.MiscOptions = [toEditable, toFullRepaintOnResize, toInitOnSave, toToggleOnDblClick, toWheelPanning]
     TreeOptions.PaintOptions = [toHideFocusRect, toShowButtons, toShowDropmark, toShowRoot, toShowTreeLines, toThemeAware]
     TreeOptions.SelectionOptions = [toExtendedFocus, toMultiSelect]
-    OnCompareNodes = AlignTreeCompareNodes
     OnFocusChanged = AlignTreeFocusChanged
     OnGetText = AlignTreeGetText
     OnPaintText = AlignTreePaintText

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -9,6 +9,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
     </General>
     <VersionInfo>
@@ -43,7 +44,6 @@
       <Unit0>
         <Filename Value="mvcdemo.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="mvcdemo"/>
       </Unit0>
       <Unit1>
         <Filename Value="MVCDemoMain.pas"/>
@@ -51,30 +51,30 @@
         <ComponentName Value="fmMVCDemo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="MVCDemoMain"/>
       </Unit1>
       <Unit2>
         <Filename Value="MVCPanel.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MVCPanel"/>
       </Unit2>
       <Unit3>
         <Filename Value="MVCTypes.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MVCTypes"/>
       </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="mvcdemo"/>
+    </Target>
+    <SearchPaths>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>

@@ -498,6 +498,9 @@ implementation
 
 uses
   Forms, Math, SysUtils, TypInfo
+{$IFDEF FPC}
+  , LazUtf8
+{$ENDIF}
 {$IFDEF USE_WINAPI}
   , ShlObj
 {$ENDIF}
@@ -1266,7 +1269,7 @@ end;
 function StrNextCharIndex(AText: {$IFDEF STRING_IS_UNICODE}PChar{$ELSE}PWideChar{$ENDIF}; Index: Integer): Integer;
 begin
 {$IFDEF FPC}
-  Result := Index + Length(AText[Index]);
+  Result := Index + UTF8CharacterLength(@AText[Index]);
 {$ELSE}
   Result := Index + 1; // neglecting surrogate pairs
 {$ENDIF}
@@ -1274,17 +1277,29 @@ end;
 
 function StringCharBegin(const AText: {$IFDEF STRING_IS_UNICODE}string{$ELSE}WideString{$ENDIF}; Index: Integer): Integer;
 begin
+{$IFDEF FPC}
+  Result := UTF8CharToByteIndex(PChar(AText), Length(AText), Index)
+{$ELSE}
   Result := Index // neglecting surrogate pairs
+{$ENDIF}
 end;
 
 function StringLength(const AText: {$IFDEF STRING_IS_UNICODE}string{$ELSE}WideString{$ENDIF}): Integer;
 begin
+{$IFDEF FPC}
+  Result := UTF8Length(AText)
+{$ELSE}
   Result := Length(AText) // neglecting surrogate pairs
+{$ENDIF}
 end;
 
 function StringNextCharIndex(const AText: {$IFDEF STRING_IS_UNICODE}string{$ELSE}WideString{$ENDIF}; Index: Integer): Integer;
 begin
+{$IFDEF FPC}
+  Result := Index + UTF8CharacterLength(@AText[Index]);
+{$ELSE}
   Result := Index + 1; // neglecting surrogate pairs
+{$ENDIF}
 end;
 
 procedure TrimWhiteSpaces(var AText: {$IFDEF STRING_IS_UNICODE}PChar{$ELSE}PWideChar{$ENDIF}; var ALen: Integer; const ASet: TKSysCharSet);

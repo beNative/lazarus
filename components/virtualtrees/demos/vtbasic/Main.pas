@@ -61,6 +61,8 @@ TfrmMain =
 
 implementation
 
+   {$R *.lfm}
+
 
    uses
       VTNoData, VTCheckList, VTPropEdit, VTDBExample, VTEditors, ViewCode;
@@ -81,7 +83,7 @@ implementation
       FCaptions.Add( 'Database example 1.'                                    );
 
       {this is first important value to set, 0 is ok if you want to use AddChild later}
-      VT .RootNodeCount := FCaptions.Count;          
+      VT.RootNodeCount := FCaptions.Count;
    end;
 
    procedure TfrmMain.FormDestroy(Sender: TObject);
@@ -182,6 +184,8 @@ implementation
       sFile : string;
       f     : TForm;
    begin
+      if VT.FocusedNode = nil then
+        Exit;
       case VT.FocusedNode.Index of
          0: sFile := 'Main'        ;
          1: sFile := 'VTNoData'    ;
@@ -193,8 +197,6 @@ implementation
       TfrmViewCode(f).SynEdit1.Lines.LoadFromFile( ExtractFilePath(ParamStr(0)) + sFile + '.pas' );
    end;
 
-initialization
-  {$I Main.lrs}
 
 end.
 

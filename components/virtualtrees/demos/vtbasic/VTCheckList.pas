@@ -50,7 +50,7 @@ interface
    function DoVTCheckList( sl : TStringList; var sSelections : string ) : boolean;
       
 implementation
-{.$R *.dfm}
+   {$R *.lfm}
 
    procedure DoVTCheckListExample;
    var
@@ -165,9 +165,6 @@ implementation
       end;         
       ------------------------------------------------------------}
    end;   
-
-initialization
-  {$I VTCheckList.lrs}
 
 end.
 

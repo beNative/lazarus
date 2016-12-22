@@ -110,7 +110,8 @@ interface
 
 
 implementation
-{.$R *.DFM}
+
+   {$R *.lfm}
 
    uses
       VTEditors;
@@ -389,8 +390,6 @@ implementation
          slVals.Free;
       end;
    end;
-initialization
-  {$I VTPropEdit.lrs}
 
 
 end.

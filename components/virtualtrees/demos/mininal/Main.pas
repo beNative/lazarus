@@ -42,6 +42,8 @@ var
 
 implementation
 
+{$R *.lfm}
+
 
 type
   // This is a very simple record we use to store data in the nodes.
@@ -182,8 +184,6 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i Main.lrs}
 
 end.
 

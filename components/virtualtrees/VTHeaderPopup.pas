@@ -58,18 +58,15 @@ unit VTHeaderPopup;
 //
 // Modified 17 Feb 2002 by Jim Kueneman <jimdk@mindspring.com>.
 //   - Added the event to filter the items as they are added to the menu.
+// 2014
+//   - Adapted and improved for LCL by Luiz Américo Pereira Câmara
 //----------------------------------------------------------------------------------------------------------------------
 {$mode delphi}
 
 interface
 
 uses
-  {$ifdef TNT}
-    TntMenus,
-  {$else}
-    Menus,
-  {$endif TNT}
-  VirtualTrees;
+  Menus, VirtualTrees;
 
 type
   TVTHeaderPopupOption = (
@@ -88,22 +85,11 @@ type
     var Cmd: TAddPopupItemType) of object;
   TColumnChangeEvent = procedure(const Sender: TBaseVirtualTree; const Column: TColumnIndex; Visible: Boolean) of object;
 
-  {$ifdef TNT}
-    TVTMenuItem = TTntMenuItem;
-  {$else}
-    TVTMenuItem = TMenuItem;
-  {$endif}
-
-  {$ifdef TNT}
-    TVTHeaderPopupMenu = class(TTntPopupMenu)
-  {$else}
-    TVTHeaderPopupMenu = class(TPopupMenu)
-  {$endif}
+  TVTHeaderPopupMenu = class(TPopupMenu)
   private
-    FOptions: TVTHeaderPopupOptions;
-
     FOnAddHeaderPopupItem: TAddHeaderPopupItemEvent;
     FOnColumnChange: TColumnChangeEvent;
+    FOptions: TVTHeaderPopupOptions;
   protected
     procedure DoAddHeaderPopupItem(const Column: TColumnIndex; out Cmd: TAddPopupItemType); virtual;
     procedure DoColumnChange(Column: TColumnIndex; Visible: Boolean); virtual;
@@ -122,14 +108,12 @@ type
 implementation
 
 uses
-  {$ifdef TNT}
-    TnTClasses
-  {$else}
-    Classes
-  {$endif TNT};
+  Classes;
 
 type
   TVirtualTreeCast = class(TBaseVirtualTree); // Necessary to make the header accessible.
+  TVTMenuItem = class(TMenuItem)
+  end;
 
 //----------------- TVTHeaderPopupMenu ---------------------------------------------------------------------------------
 
@@ -155,7 +139,8 @@ end;
 procedure TVTHeaderPopupMenu.OnMenuItemClick(Sender: TObject);
 
 begin
-  if Assigned(PopupComponent) and (PopupComponent is TBaseVirtualTree) then
+  if PopupComponent is TBaseVirtualTree then
+  begin
     with TVTMenuItem(Sender),
       TVirtualTreeCast(PopupComponent).Header.Columns.Items[Tag] do
     begin
@@ -166,6 +151,7 @@ begin
 
        DoColumnChange(TVTMenuItem(Sender).Tag, not Checked);
     end;
+  end;
 end;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -173,7 +159,6 @@ end;
 procedure TVTHeaderPopupMenu.Popup(x, y: Integer);
 
 var
-  I: Integer;
   ColPos: TColumnPosition;
   ColIdx: TColumnIndex;
 
@@ -183,27 +168,35 @@ var
   VisibleCounter: Cardinal;
   VisibleItem: TVTMenuItem;
 
+  CurrentMenuItem: TMenuItem;
+
 begin
-  if Assigned(PopupComponent) and (PopupComponent is TBaseVirtualTree) then
+  if PopupComponent is TBaseVirtualTree then
   begin
-    // Delete existing menu items.
-    I := Items.Count;
-    while I > 0 do
+    // Delete existing VT menu items. Keep normal ones
+    while Items.Count > 0 do
     begin
-      Dec(I);
-      Items[I].Free;
+      CurrentMenuItem := Items[Items.Count - 1];
+      if CurrentMenuItem is TVTMenuItem then
+        CurrentMenuItem.Free
+      else
+        break;
     end;
 
     // Add column menu items.
     with TVirtualTreeCast(PopupComponent).Header do
     begin
-      if hoShowImages in Options then
-        Self.Images := Images
-      else
-        // Remove a possible reference to image list of another tree previously assigned.
-        Self.Images := nil;
+      if Columns.Count = 0 then
+        Exit;
       VisibleItem := nil;
       VisibleCounter := 0;
+      //add separator if necessary
+      if Items.Count > 0 then
+      begin
+        NewMenuItem := TVTMenuItem.Create(Self);
+        NewMenuItem.Caption := cLineCaption;
+        Items.Add(NewMenuItem);
+      end;
       for ColPos := 0 to Columns.Count - 1 do
       begin
         if poOriginalOrder in FOptions then
@@ -222,7 +215,6 @@ begin
             NewMenuItem.Tag := ColIdx;
             NewMenuItem.Caption := Text;
             NewMenuItem.Hint := Hint;
-            NewMenuItem.ImageIndex := ImageIndex;
             NewMenuItem.Checked := coVisible in Options;
             NewMenuItem.OnClick := OnMenuItemClick;
             if Cmd = apDisabled then

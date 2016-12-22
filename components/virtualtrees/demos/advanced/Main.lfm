@@ -14,7 +14,7 @@ object MainForm: TMainForm
   OnCreate = FormCreate
   OnShow = FormShow
   Position = poScreenCenter
-  LCLVersion = '0.9.29'
+  LCLVersion = '1.7'
   object PageScroller1: TPanel
     Left = 0
     Height = 77
@@ -47,7 +47,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           0800000000000009000000000000000000000001000000010000000000000000
@@ -157,7 +156,6 @@ object MainForm: TMainForm
           E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object AbilitiesDemoButton: TSpeedButton
@@ -168,7 +166,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           0800000000000009000000000000000000000001000000010000FFFFFF005858
@@ -278,7 +275,6 @@ object MainForm: TMainForm
           0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E0E
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object PropertiesDemoButton: TSpeedButton
@@ -289,7 +285,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           36140000424D3614000000000000360400002800000040000000400000000100
           0800000000000010000000000000000000000001000000010000000000000000
@@ -455,7 +450,6 @@ object MainForm: TMainForm
           E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object VisibilityDemoButton: TSpeedButton
@@ -466,7 +460,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           080000000000000900000000000000000000000100000001000000000000040C
@@ -576,7 +569,6 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCCCCCC
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object GridDemoButton: TSpeedButton
@@ -587,7 +579,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           0800000000000009000000000000000000000001000000010000000000000800
@@ -697,7 +688,6 @@ object MainForm: TMainForm
           0000000000000000000000000000000000000000000000000000
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object PaintTreeDemoButton: TSpeedButton
@@ -708,7 +698,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           0800000000000009000000000000000000000001000000010000FFFFFF00FFFF
@@ -818,7 +807,6 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFFFFFFFFFFFFFFF62626262626262626262626
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object AlignDemoButton: TSpeedButton
@@ -829,7 +817,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           36140000424D3614000000000000360400002800000040000000400000000100
           0800000000000010000000000000000000000001000000010000000000000000
@@ -995,14 +982,13 @@ object MainForm: TMainForm
           E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5E5
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object Label1: TLabel
         Left = 0
-        Height = 14
+        Height = 13
         Top = 14
-        Width = 76
+        Width = 72
         Caption = 'Demo picker'
         Font.Height = -11
         Font.Name = 'MS Sans Serif'
@@ -1012,9 +998,9 @@ object MainForm: TMainForm
       end
       object Label2: TLabel
         Left = 0
-        Height = 18
+        Height = 16
         Top = 30
-        Width = 217
+        Width = 196
         Caption = 'Which demo do you want to see?'
         ParentColor = False
       end
@@ -1026,7 +1012,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           361B0000424D361B000000000000360000002800000030000000300000000100
           180000000000001B0000120B0000120B00000000000000000000FF00FFFF00FF
@@ -1248,7 +1233,6 @@ object MainForm: TMainForm
           00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object XPDemoButton: TSpeedButton
@@ -1259,7 +1243,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           96270000424D962700000000000036000000280000003C000000380000000100
           18000000000060270000120B0000120B00000000000000000000FF00FFFF00FF
@@ -1580,7 +1563,6 @@ object MainForm: TMainForm
           00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object SpeedButton2: TSpeedButton
@@ -1591,7 +1573,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           361F0000424D361F000000000000360000002800000029000000400000000100
           180000000000001F0000120B0000120B00000000000000000000FFFFFF4634D5
@@ -1845,7 +1826,6 @@ object MainForm: TMainForm
           FFFFFFFFFFFFFFFFFFFFFFFFFFFAF8F7E2D4D0E7E0DEFFFFFF00
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = DemoButtonClick
       end
       object QuitButton: TSpeedButton
@@ -1856,7 +1836,6 @@ object MainForm: TMainForm
         Top = 2
         Width = 70
         BorderSpacing.Top = 2
-        Color = clBtnFace
         Glyph.Data = {
           360D0000424D360D000000000000360400002800000030000000300000000100
           0800000000000009000000000000000000000001000000010000FFFFFF00AAAA
@@ -1966,21 +1945,20 @@ object MainForm: TMainForm
           D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7D7
         }
         GroupIndex = 1
-        NumGlyphs = 0
         OnClick = QuitButtonClick
       end
     end
   end
   object StatusBar: TStatusBar
     Left = 0
-    Height = 21
-    Top = 562
+    Height = 23
+    Top = 560
     Width = 981
     Panels = <>
   end
   object ContainerPanel: TPanel
     Left = 0
-    Height = 485
+    Height = 483
     Top = 77
     Width = 981
     Align = alClient

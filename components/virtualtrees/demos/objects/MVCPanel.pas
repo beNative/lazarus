@@ -26,8 +26,7 @@ unit MVCPanel;
 interface
 
 uses
-  LCLIntf, Controls, Graphics, SysUtils, Classes, ExtCtrls, StdCtrls,
-  MVCTypes, VirtualTrees;
+  LCLIntf, Controls, Graphics, SysUtils, Classes, ExtCtrls, MVCTypes, VirtualTrees;
 
 type TMVCPanel=class(TCustomPanel)
                  private

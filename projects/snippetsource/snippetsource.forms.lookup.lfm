@@ -1,0 +1,102 @@
+object frmLookup: TfrmLookup
+  Left = 531
+  Height = 474
+  Top = 187
+  Width = 479
+  Caption = 'Lookup'
+  ClientHeight = 474
+  ClientWidth = 479
+  KeyPreview = True
+  OnKeyUp = FormKeyUp
+  PopupMode = pmAuto
+  Position = poMainFormCenter
+  ShowHint = True
+  LCLVersion = '1.7'
+  object edtLookup: TEdit
+    Left = 2
+    Height = 21
+    Top = 3
+    Width = 412
+    Anchors = [akTop, akLeft, akRight]
+    AutoSize = False
+    OnKeyDown = edtLookupKeyDown
+    OnKeyPress = edtLookupKeyPress
+    OnKeyUp = edtLookupKeyUp
+    TabOrder = 0
+  end
+  object btnSearch: TButton
+    Left = 418
+    Height = 25
+    Top = 1
+    Width = 59
+    Action = actSearch
+    Anchors = [akTop, akRight]
+    Default = True
+    TabOrder = 1
+  end
+  object sbrMain: TStatusBar
+    Left = 0
+    Height = 23
+    Top = 451
+    Width = 479
+    Panels = <>
+  end
+  object chkName: TCheckBox
+    Left = 8
+    Height = 19
+    Top = 32
+    Width = 52
+    Caption = 'Name'
+    Checked = True
+    OnChange = chkNameChange
+    State = cbChecked
+    TabOrder = 3
+  end
+  object chkText: TCheckBox
+    Left = 88
+    Height = 19
+    Top = 32
+    Width = 42
+    Caption = 'Text'
+    Checked = True
+    OnChange = chkNameChange
+    State = cbChecked
+    TabOrder = 4
+  end
+  object chkComment: TCheckBox
+    Left = 160
+    Height = 19
+    Top = 32
+    Width = 74
+    Caption = 'Comment'
+    Checked = True
+    State = cbChecked
+    TabOrder = 5
+  end
+  object grdLookup: TDBGrid
+    Left = 4
+    Height = 393
+    Top = 56
+    Width = 470
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    Color = clWindow
+    Columns = <>
+    DataSource = dscMain
+    Flat = True
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgRowHighlight]
+    TabOrder = 6
+    TitleStyle = tsStandard
+  end
+  object dscMain: TDataSource
+    left = 160
+    top = 144
+  end
+  object aclMain: TActionList
+    left = 239
+    top = 144
+    object actSearch: TAction
+      Caption = 'Search'
+      OnExecute = actSearchExecute
+    end
+  end
+end

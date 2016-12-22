@@ -14,7 +14,7 @@ object frmVTNoData: TfrmVTNoData
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   Position = poDefaultPosOnly
-  LCLVersion = '1.0.8.0'
+  LCLVersion = '1.7'
   object Panel1: TPanel
     Left = 0
     Height = 346
@@ -65,9 +65,9 @@ object frmVTNoData: TfrmVTNoData
       TabOrder = 1
       object Label1: TLabel
         Left = 9
-        Height = 14
+        Height = 13
         Top = 9
-        Width = 76
+        Width = 75
         Alignment = taCenter
         Caption = 'VT.TreeOptions'
         Font.Color = clRed

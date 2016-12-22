@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -9,6 +9,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
     </General>
     <VersionInfo>
@@ -47,7 +48,6 @@
       <Unit0>
         <Filename Value="vtbasic.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="vtbasic"/>
       </Unit0>
       <Unit1>
         <Filename Value="Main.pas"/>
@@ -55,12 +55,10 @@
         <ComponentName Value="frmMain"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Main"/>
       </Unit1>
       <Unit2>
         <Filename Value="VTEditors.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="VTEditors"/>
       </Unit2>
       <Unit3>
         <Filename Value="VTNoData.pas"/>
@@ -68,7 +66,6 @@
         <ComponentName Value="frmVTNoData"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="VTNoData"/>
       </Unit3>
       <Unit4>
         <Filename Value="VTPropEdit.pas"/>
@@ -76,19 +73,17 @@
         <ComponentName Value="frmVTPropEdit"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="VTPropEdit"/>
       </Unit4>
       <Unit5>
         <Filename Value="VTreeData.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="VTreeData"/>
       </Unit5>
       <Unit6>
         <Filename Value="ViewCode.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmViewCode"/>
         <HasResources Value="True"/>
-        <UnitName Value="ViewCode"/>
+        <ResourceBaseClass Value="Form"/>
       </Unit6>
       <Unit7>
         <Filename Value="VTCheckList.pas"/>
@@ -96,7 +91,6 @@
         <ComponentName Value="frmVTCheckList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="VTCheckList"/>
       </Unit7>
       <Unit8>
         <Filename Value="VTDBExample.pas"/>
@@ -104,13 +98,18 @@
         <ComponentName Value="frmVTDBExample"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="VTDBExample"/>
       </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="vtbasic"/>
+    </Target>
+    <SearchPaths>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <UseAnsiStrings Value="False"/>
@@ -123,8 +122,5 @@
         </Win32>
       </Options>
     </Linking>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
 </CONFIG>

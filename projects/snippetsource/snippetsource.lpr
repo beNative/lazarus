@@ -36,7 +36,7 @@ uses
   ts.Editor.HexEditor.Settings, ts.Editor.Types,
 
   SnippetSource.Forms.Main, SnippetSource.Virtualtree.Editors,
-  SnippetSource.Modules.Data2, SnippetSource.Forms.SQLLog;
+  SnippetSource.Modules.Data, SnippetSource.Forms.SQLLog;
 
 {$R *.res}
 

@@ -370,7 +370,7 @@ begin
       end;
   else
     if Format = CF_CSV then
-      S := ContentToAnsi(Source, ListSeparator) + #0
+      S := ContentToAnsi(Source, DefaultFormatSettings.ListSeparator) + #0
     else
       if (Format = CF_VRTF) or (Format = CF_VRTFNOOBJS) then
         S := ContentToRTF(Source) + #0

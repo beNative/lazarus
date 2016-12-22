@@ -4,7 +4,7 @@ interface
 
    uses
       DelphiCompat, LCLIntf, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-      Dialogs, StdCtrls, LResources, SynHighlighterPas, SynEdit, LCLType;
+      Dialogs, SynHighlighterPas, SynEdit, LCLType;
 
    type
 
@@ -24,6 +24,8 @@ interface
 
 implementation
 
+   {$R *.lfm}
+
    procedure TfrmViewCode.FormActivate(Sender: TObject);
    var
       r  : TRect;
@@ -36,8 +38,5 @@ implementation
       Width  := r.Right-Left;
       {$endif}
    end;
-
-initialization
-  {$I ViewCode.lrs}
 
 end.

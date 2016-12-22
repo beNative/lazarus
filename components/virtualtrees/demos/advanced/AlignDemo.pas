@@ -14,9 +14,6 @@ uses
   StdCtrls, ComCtrls, VirtualTrees,  ExtCtrls, Menus, LResources;
 
 type
-
-  { TAlignForm }
-
   TAlignForm = class(TForm)
     AlignTree: TVirtualStringTree;
     Label8: TLabel;
@@ -41,13 +38,10 @@ type
     EnabledOptionBox: TCheckBox;
     Label5: TLabel;
     LayoutCombo: TComboBox;
-    procedure AlignTreeCompareNodes(Sender: TBaseVirtualTree; Node1,
-      Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
     procedure AlignTreeGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind; Column: TColumnIndex;
       var Ghosted: Boolean; var Index: Integer);
     procedure AlignTreeGetText(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: String);
-    procedure AlignTreeHeaderClick(Sender: TVTHeader; HitInfo: TVTHeaderHitInfo);
     procedure AlignTreePaintText(Sender: TBaseVirtualTree; const Canvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex;
       TextType: TVSTTextType);
     procedure AlignTreeGetNodeDataSize(Sender: TBaseVirtualTree; var NodeDataSize: Integer);
@@ -59,7 +53,7 @@ type
     procedure IconPopupPopup(Sender: TObject);
     procedure AlignComboChange(Sender: TObject);
     procedure BidiGroupClick(Sender: TObject);
-    procedure AlignTreeHeaderClickx(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
+    procedure AlignTreeHeaderClick(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
       Y: Integer);
     procedure OptionBoxClick(Sender: TObject);
     procedure LayoutComboChange(Sender: TObject);
@@ -79,6 +73,8 @@ var
 //----------------------------------------------------------------------------------------------------------------------
 
 implementation
+
+{$R *.lfm}
 
 uses
   Main, States;
@@ -185,31 +181,6 @@ begin
   end;
 end;
 
-procedure TAlignForm.AlignTreeHeaderClick(Sender: TVTHeader;
-  HitInfo: TVTHeaderHitInfo);
-begin
-  with HitInfo do
-  if Button = mbLeft then
-  begin
-    with Sender do
-    begin
-      if SortColumn <> Column then
-      begin
-        SortColumn := Column;
-        SortDirection := sdAscending;
-      end
-      else
-      case SortDirection of
-        sdAscending:
-          SortDirection := sdDescending;
-        sdDescending:
-          SortColumn := NoColumn;
-      end;
-      AlignTree.SortTree(SortColumn, SortDirection, False);
-    end;
-  end;
-end;
-
 //----------------------------------------------------------------------------------------------------------------------
 
 procedure TAlignForm.AlignTreeGetImageIndex(Sender: TBaseVirtualTree; Node: PVirtualNode; Kind: TVTImageKind;
@@ -226,23 +197,6 @@ begin
   end;
 end;
 
-procedure TAlignForm.AlignTreeCompareNodes(Sender: TBaseVirtualTree; Node1,
-  Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
-var
-  Data1, Data2: PAlignData;
-
-begin
-  Data1 := Sender.GetNodeData(Node1);
-  Data2 := Sender.GetNodeData(Node2);
-  case Column of
-      0: // left alignd column
-        Result := CompareText(Data1.MainColumnText, Data2.MainColumnText);
-      1: // centered column
-        Result := CompareText(Data1.GreekText, Data2.GreekText);
-      2: // right aligned column
-        Result := CompareText(Data1.RTLText, Data2.RTLText);
-    end;
-end;
 //----------------------------------------------------------------------------------------------------------------------
 
 procedure TAlignForm.AlignTreeInitNode(Sender: TBaseVirtualTree; ParentNode, Node: PVirtualNode;
@@ -524,14 +478,31 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-procedure TAlignForm.AlignTreeHeaderClickx(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState;
+procedure TAlignForm.AlignTreeHeaderClick(Sender: TVTHeader; Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState;
   X, Y: Integer);
 
 // This method sets sort column and direction on a header click.
 // Note: this is only to show the header layout. There gets nothing really sorted.
 
 begin
-
+  if Button = mbLeft then
+  begin
+    with Sender do
+    begin
+      if SortColumn <> Column then
+      begin
+        SortColumn := Column;
+        SortDirection := sdAscending;
+      end
+      else
+      case SortDirection of
+        sdAscending:
+          SortDirection := sdDescending;
+        sdDescending:
+          SortColumn := NoColumn;
+      end;
+    end;
+  end;
 end;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -636,7 +607,5 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
- {$I AlignDemo.lrs}
 
 end.

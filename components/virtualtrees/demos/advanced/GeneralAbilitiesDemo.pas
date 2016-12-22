@@ -85,6 +85,8 @@ var
 
 implementation
 
+{$R *.lfm}
+
 uses
   States;
 
@@ -489,7 +491,6 @@ begin
     if Execute then
     begin
       TargetName := FileName;
-      writeln('Filter Index: ', FilterIndex);
       case FilterIndex of
         1: // HTML
           begin
@@ -565,7 +566,5 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i GeneralAbilitiesDemo.lrs}
 
 end.

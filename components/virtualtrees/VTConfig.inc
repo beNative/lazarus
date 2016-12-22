@@ -44,6 +44,8 @@
 {$ifdef Windows}
   {$define EnableThreadSupport}
 {$endif}
-{$ifdef CPU64}
+{$if (FPC_FULLVERSION >= 30100) or defined(CPU64) or defined(LCLCarbon)}
   {$define PACKARRAYPASCAL}
 {$endif}
+
+{$define CompilerVersion := 19}

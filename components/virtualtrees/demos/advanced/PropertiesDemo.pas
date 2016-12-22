@@ -54,6 +54,8 @@ var
 
 implementation
 
+{$R *.lfm}
+
 uses
   Editors, Math, Main, States;
 
@@ -314,7 +316,5 @@ begin
 end;
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i PropertiesDemo.lrs}
 
 end.

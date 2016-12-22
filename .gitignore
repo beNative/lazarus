@@ -26,3 +26,11 @@
 /projects/logviewer/bin/i386-win32-win32
 /projects/logviewer/lib/i386-win32-win32
 /projects/logviewer/*.exe
+/components/tslib/editor/ts_editor_manager.lrj
+/components/tslib/editor/*.lrj
+/projects/notepas/*.exe
+/projects/notepas/releases/*.zip
+/projects/notepas/tests/*.exe
+/components/omultipanel/demo/*.exe
+/*.pdf
+*.lrj

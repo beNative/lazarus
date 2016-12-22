@@ -48,9 +48,9 @@ type
 
     procedure Changed;
     procedure DoUpdate;
+
     function GetAlignment: TParaAlignment;
     function GetBkColor: TColor;
-
     function GetBold: Boolean;
     function GetColor: TColor;
     function GetHasBkColor: Boolean;
@@ -74,8 +74,6 @@ type
 
   public
     constructor Create(AEditor: TRichMemo); reintroduce;
-    procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
     procedure UpdateAttributes;
     procedure BeginUpdate;
     procedure EndUpdate;
@@ -116,21 +114,14 @@ type
 
 implementation
 
+uses
+  ts.Core.Logger, ts.Core.SharedLogger;
+
 {$region 'construction and destruction' /fold}
 constructor TTextAttributes.Create(AEditor: TRichMemo);
 begin
   inherited Create;
   FEditor := AEditor;
-end;
-
-procedure TTextAttributes.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
-procedure TTextAttributes.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
 end;
 {$endregion}
 
@@ -271,13 +262,6 @@ begin
 end;
 {$endregion}
 
-
-//function TTextAttributes.GetTextParams: RichBox.TTextAttributes;
-//begin
-//  UpdateAttributes;
-//  Result := FTextParams;
-//end;
-
 procedure TTextAttributes.Changed;
 begin
   if FUpdateLock = 0 then
@@ -286,6 +270,8 @@ end;
 
 procedure TTextAttributes.DoUpdate;
 begin
+  FSelStart  := FEditor.SelStart;
+  FSelLength := FEditor.SelLength;
   FEditor.SetTextAttributes(
     FSelStart,
     FSelLength,
@@ -296,6 +282,7 @@ begin
     FSelLength,
     Alignment
   );
+  Logger.Send('Start : %d, Length: %d', [FSelStart, FSelLength]);
   if Assigned(OnUpdate) then
     OnUpdate(Self);
 end;
@@ -336,20 +323,14 @@ procedure TTextAttributes.UpdateAttributes;
 begin
   if PositionChanged then
   begin
-    if FEditor.SelLength = 0 then
+    //if FEditor.SelLength = 0 then
     begin
-        FEditor.GetParaAlignment(FSelStart, FParaAlignment);
-    FEditor.GetTextAttributes(FSelStart, FFontParams);
-    FEditor.GetParaNumbering(FSelStart, FParaNumbering);
-      //FEditor.SetSelection(FEditor.SelStart, 1, True);
-      //FEditor.GetTextAttributes(FEditor.SelStart, FTextParams);
-      //FEditor.SetSelection(FEditor.SelStart, 0, True);
+      FSelStart  := FEditor.SelStart;
+      FSelLength := FEditor.SelLength;
+      FEditor.GetParaAlignment(FSelStart, FParaAlignment);
+      FEditor.GetTextAttributes(FSelStart, FFontParams);
+      FEditor.GetParaNumbering(FSelStart, FParaNumbering);
     end;
-    //else
-    //  FEditor.GetTextAttributes(FEditor.SelStart, FTextParams);
-
-    FSelStart  := FEditor.SelStart;
-    FSelLength := FEditor.SelLength;
   end;
 end;
 

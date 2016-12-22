@@ -11,22 +11,22 @@ object WindowsXPForm: TWindowsXPForm
   Font.Height = -13
   Font.Name = 'Microsoft Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '1.0.8.0'
+  LCLVersion = '1.7'
   object Label1: TLabel
-    Left = -449
-    Height = 17
+    Left = -448
+    Height = 16
     Top = 40
-    Width = 1286
+    Width = 1285
     Anchors = [akTop, akRight]
     Caption = 'This demo shows a tree with properties which make it look as in the new Windows XP style. Under Windows XP native theme APIs are used to paint the tree. On other system legacy code is used which simulates the look.'
     ParentColor = False
     WordWrap = True
   end
   object Label2: TLabel
-    Left = -291
-    Height = 17
+    Left = -290
+    Height = 16
     Top = 168
-    Width = 1128
+    Width = 1127
     Anchors = [akTop, akRight]
     Caption = 'Note that the scrollbars are not drawn in the new style on non-XP systems.  It would be far off the goal of the tree to reimplement a full blown scrollbar handling, which would be required otherwise.'
     ParentColor = False
@@ -34,10 +34,10 @@ object WindowsXPForm: TWindowsXPForm
   end
   object Label4: TLabel
     Cursor = crHandPoint
-    Left = -617
-    Height = 17
+    Left = -616
+    Height = 16
     Top = 290
-    Width = 1454
+    Width = 1453
     Anchors = [akTop, akRight]
     Caption = 'If you want to have an explorer treeview with real content then I recommend that you give Jim Kuenemann''s shell tools a try. His shell treeview (based on Virtual Treeview) is the most advanced you will find worldwide. Click here to open Yahoo Group.'
     Font.CharSet = ANSI_CHARSET
@@ -99,7 +99,6 @@ object WindowsXPForm: TWindowsXPForm
     Header.Font.Name = 'Microsoft Sans Serif'
     Header.Height = 24
     Header.Options = [hoColumnResize, hoDrag, hoHotTrack, hoShowSortGlyphs, hoVisible]
-    Header.Style = hsXPStyle
     HintMode = hmHint
     Images = LargeImages
     ParentShowHint = False
@@ -168,13 +167,14 @@ object WindowsXPForm: TWindowsXPForm
     end
     object ToolButton15: TToolButton
       Left = 241
+      Height = 32
       Top = 2
-      Width = 10
+      Width = 8
       Caption = 'ToolButton15'
       Style = tbsSeparator
     end
     object ToolButton16: TToolButton
-      Left = 251
+      Left = 249
       Top = 2
       Caption = 'Click here to print the treeview.'
       ImageIndex = 24

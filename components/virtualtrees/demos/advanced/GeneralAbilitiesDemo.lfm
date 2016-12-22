@@ -12,14 +12,14 @@ object GeneralForm: TGeneralForm
   KeyPreview = True
   OnCreate = FormCreate
   ShowHint = True
-  LCLVersion = '0.9.29'
+  LCLVersion = '1.7'
   object Label18: TLabel
     AnchorSideTop.Control = RadioGroup2
     AnchorSideTop.Side = asrBottom
-    Left = 502
-    Height = 14
-    Top = 361
-    Width = 105
+    Left = 503
+    Height = 13
+    Top = 334
+    Width = 104
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 20
     Caption = 'Switch check images:'
@@ -28,20 +28,20 @@ object GeneralForm: TGeneralForm
   object Label19: TLabel
     AnchorSideTop.Control = CheckMarkCombo
     AnchorSideTop.Side = asrBottom
-    Left = 504
-    Height = 14
-    Top = 418
-    Width = 98
+    Left = 505
+    Height = 13
+    Top = 390
+    Width = 97
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 20
     Caption = 'Switch main column:'
     ParentColor = False
   end
   object Label8: TLabel
-    Left = 488
-    Height = 40
+    Left = 51
+    Height = 13
     Top = 40
-    Width = 232
+    Width = 669
     Anchors = [akTop, akRight]
     Caption = 'This sample is an introduction to the general look and feel of Virtual Treeview. Note: you can change almost every visual aspect of the control.'
     ParentColor = False
@@ -138,7 +138,7 @@ object GeneralForm: TGeneralForm
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 21
-    Top = 377
+    Top = 349
     Width = 216
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
@@ -164,18 +164,18 @@ object GeneralForm: TGeneralForm
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 16
-    Top = 434
+    Top = 405
     Width = 37
     Anchors = [akTop, akRight]
     BorderSpacing.Top = 2
-    Min = 0
-    Max = 2
     Increment = 2
+    Max = 2
+    Min = 0
+    OnChanging = MainColumnUpDownChanging
     Orientation = udHorizontal
     Position = 2
     TabOrder = 2
     Wrap = True
-    OnChanging = MainColumnUpDownChanging
   end
   object BitBtn1: TBitBtn
     Left = 488
@@ -200,7 +200,6 @@ object GeneralForm: TGeneralForm
       33333300C000CC0333333333333330CCCCCCCC03333333333333300000000033
       3333333333333333333333333333333333333333333333333333
     }
-    NumGlyphs = 0
     OnClick = BitBtn1Click
     TabOrder = 3
   end
@@ -209,7 +208,7 @@ object GeneralForm: TGeneralForm
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 77
-    Top = 177
+    Top = 150
     Width = 216
     Anchors = [akTop, akRight]
     AutoFill = True
@@ -238,7 +237,7 @@ object GeneralForm: TGeneralForm
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 77
-    Top = 264
+    Top = 237
     Width = 216
     Anchors = [akTop, akRight]
     AutoFill = True
@@ -268,7 +267,7 @@ object GeneralForm: TGeneralForm
     AnchorSideTop.Side = asrBottom
     Left = 488
     Height = 77
-    Top = 90
+    Top = 63
     Width = 216
     Anchors = [akTop, akRight]
     AutoFill = True
@@ -299,7 +298,6 @@ object GeneralForm: TGeneralForm
     Width = 99
     Anchors = [akTop, akRight]
     Caption = 'Save as text...'
-    NumGlyphs = 0
     OnClick = SaveButtonClick
     TabOrder = 7
   end

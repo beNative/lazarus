@@ -46,7 +46,7 @@ implementation
 uses
   ActnList,
 
-  ts_RichEditor_Manager;
+  ts.RichEditor.Manager;
 
 function CreateRichEditorView(AParent: TWinControl; const AName: string): IRichEditorView;
 var
@@ -147,6 +147,9 @@ begin
   AddButton('actCopy');
   AddButton('actPaste');
   AddButton('');
+  AddButton('actUndo');
+  AddButton('actRedo');
+  AddButton('');
   AddButton('actAlignLeft');
   AddButton('actAlignCenter');
   AddButton('actAlignRight');
@@ -154,6 +157,7 @@ begin
   AddButton('');
   AddButton('actFont');
   AddButton('actColor');
+  AddButton('actBkColor');
   AddButton('');
   AddButton('actIncFontSize');
   AddButton('actDecFontSize');

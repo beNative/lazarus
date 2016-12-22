@@ -11,7 +11,7 @@ interface
 
 uses
   LCLIntf, VTGraphics, Types, SysUtils, Classes, Graphics, Controls, Forms,
-  Dialogs, VirtualTrees, StdCtrls, ExtCtrls, LResources, LCLType, LCLProc;
+  Dialogs, VirtualTrees, StdCtrls, ExtCtrls, LCLType, LCLProc;
 
 type
   THeaderOwnerDrawForm = class(TForm)
@@ -51,6 +51,8 @@ var
 //----------------------------------------------------------------------------------------------------------------------
 
 implementation
+
+{$R *.lfm}
 
 uses
   States, LclExt;
@@ -241,7 +243,7 @@ begin
   //FBackBitmap2.PixelFormat := OptimalPixelFormat;
   CreateCheckerBackground;
   FHeaderBitmap := TBitmap.Create;
-  FHeaderBitmap.LoadFromLazarusResource('Transcriptions');
+  FHeaderBitmap.LoadFromResourceName(HINSTANCE, 'Transcriptions');
 end;
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -305,8 +307,5 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i HeaderCustomDrawDemo.lrs}
-  {$i bitmap.lrs}
 
 end.

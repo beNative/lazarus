@@ -39,7 +39,7 @@ type
   PPropertyData = ^TPropertyData;
   TPropertyData = record
     ValueType: TValueType;
-    Value: String;      // This value can actually be a date or a number too.
+    Value: string;      // This value can actually be a date or a number too.
     Changed: Boolean;
   end;
 

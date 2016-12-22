@@ -12,13 +12,13 @@ object frmVTDBExample: TfrmVTDBExample
   OnActivate = FormActivate
   OnClose = FormClose
   OnCreate = FormCreate
-  Position = poDefaultPosOnly
-  LCLVersion = '1.0.8.0'
+  Position = poScreenCenter
+  LCLVersion = '1.7'
   object Label1: TLabel
     Left = 12
-    Height = 14
+    Height = 13
     Top = 12
-    Width = 117
+    Width = 116
     Caption = 'Last operation duration:'
     ParentColor = False
   end
@@ -113,9 +113,9 @@ object frmVTDBExample: TfrmVTDBExample
       TabOrder = 1
       object Label2: TLabel
         Left = 16
-        Height = 14
+        Height = 13
         Top = 12
-        Width = 65
+        Width = 64
         Caption = 'Add Node(s):'
         Font.Color = clBlue
         Font.Height = -11
@@ -125,9 +125,9 @@ object frmVTDBExample: TfrmVTDBExample
       end
       object Label3: TLabel
         Left = 168
-        Height = 14
+        Height = 13
         Top = 5
-        Width = 33
+        Width = 32
         Caption = 'Toggle'
         Font.Color = clBlue
         Font.Height = -11
@@ -137,9 +137,9 @@ object frmVTDBExample: TfrmVTDBExample
       end
       object Label4: TLabel
         Left = 239
-        Height = 14
+        Height = 13
         Top = 5
-        Width = 38
+        Width = 37
         Caption = 'Options'
         Font.Color = clBlue
         Font.Height = -11
@@ -155,9 +155,9 @@ object frmVTDBExample: TfrmVTDBExample
       end
       object Label5: TLabel
         Left = 307
-        Height = 14
+        Height = 13
         Top = 6
-        Width = 197
+        Width = 196
         Alignment = taCenter
         Caption = '(Tip: Start typing for incremental search)'
         Font.Color = clRed

@@ -48,38 +48,40 @@ procedure SetStatusbarText(const S: string);
 
 implementation
 
+{$R *.lfm}
+
 uses
   SpeedDemo, GeneralAbilitiesDemo, DrawTreeDemo, PropertiesDemo,
   GridDemo, VisibilityDemo, AlignDemo, WindowsXPStyleDemo, MultilineDemo, HeaderCustomDrawDemo,
-  States;
+  States, LCLType;
 
 //----------------------------------------------------------------------------------------------------------------------
-
 
 procedure LoadUnicodeStrings(const Name: string; var Strings: array of String);
 
 // Loads the Unicode strings from the resource.
 
 var
-  Res: TLResource;
-  Head, Tail: PChar;
+  Stream: TResourceStream;
+  Head, Tail: PAnsiChar;
   I: Integer;
 
 begin
-  Res := LazarusResources.Find(Name);
-  if (Res <> nil) and (Res.Value <> '') then
-  begin
-    Head := PChar(Res.Value);
+  Stream := TResourceStream.Create(HINSTANCE, Name, RT_RCDATA);
+  try
+    Head := Stream.Memory;
     Tail := Head;
     for I := 0 to High(Strings) do
     begin
       Head := Tail;
-      while not (Tail^ in [#0, #13]) do
+      while not (Ord(Tail^) in [0, 13]) do
         Inc(Tail);
       SetString(Strings[I], Head, Tail - Head);
       // Skip carriage return and linefeed.
       Inc(Tail, 2);
     end;
+  finally
+    Stream.Free;
   end;
 end;
 
@@ -170,10 +172,6 @@ begin
 end;
 
 //----------------------------------------------------------------------------------------------------------------------
-
-initialization
-  {$i Main.lrs}
-  {$i unicode.lrs}
 
 end.
 

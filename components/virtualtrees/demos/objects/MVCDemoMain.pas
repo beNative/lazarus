@@ -59,6 +59,8 @@ var
 
 implementation
 
+{$R *.lfm}
+
 
 function TfmMVCDemo.CreateDefaultTree:TMVCTree;
 { recurse and curse :-) }
@@ -213,6 +215,5 @@ begin
 end;
 
 initialization
-  {$i MVCDemoMain.lrs}
   Randomize;
 end.

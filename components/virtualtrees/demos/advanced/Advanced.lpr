@@ -21,6 +21,7 @@ uses
   //HeaderCustomDrawDemo in 'HeaderCustomDrawDemo.pas' {HeaderOwnerDrawForm},
   States in 'States.pas' {StateForm}, Printer4Lazarus;
 
+{$R *.res}
 
 begin
   Application.Initialize;

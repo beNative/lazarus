@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 298
+  Left = 428
   Height = 440
-  Top = 162
+  Top = 149
   Width = 500
   ActiveControl = VST1
   Caption = 'VT - Images'
@@ -10,7 +10,7 @@ object Form1: TForm1
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   OnCreate = FormCreate
-  LCLVersion = '1.0.8.0'
+  LCLVersion = '1.7'
   object VST1: TVirtualStringTree
     Cursor = 63
     Left = 0
@@ -27,7 +27,6 @@ object Form1: TForm1
     Header.AutoSizeIndex = 0
     Header.Columns = <    
       item
-        Hint = 'Glavna kolona'
         ImageIndex = 0
         Position = 0
         Text = 'Main'
@@ -57,7 +56,6 @@ object Form1: TForm1
     Header.Images = ImageList1
     Header.Options = [hoColumnResize, hoDrag, hoShowImages, hoShowSortGlyphs, hoVisible]
     Header.SortColumn = 0
-    Header.Style = hsXPStyle
     StateImages = ImageList2
     TabOrder = 0
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoTristateTracking]

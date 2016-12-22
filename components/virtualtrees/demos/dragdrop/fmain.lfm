@@ -7,7 +7,7 @@ object MainForm: TMainForm
   ClientHeight = 349
   ClientWidth = 454
   Position = poScreenCenter
-  LCLVersion = '1.1'
+  LCLVersion = '1.7'
   object VirtualStringTree1: TVirtualStringTree
     Left = 8
     Height = 315
@@ -25,6 +25,7 @@ object MainForm: TMainForm
     TreeOptions.AutoOptions = [toAutoDropExpand, toAutoScroll, toAutoScrollOnExpand, toAutoTristateTracking, toAutoDeleteMovedNodes]
     OnDragOver = VirtualStringTree1DragOver
     OnDragDrop = VirtualStringTree1DragDrop
+    OnFreeNode = VirtualStringTree1FreeNode
     OnGetText = VirtualStringTree1GetText
     OnGetNodeDataSize = VirtualStringTree1GetNodeDataSize
     OnInitNode = VirtualStringTree1InitNode

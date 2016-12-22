@@ -37,6 +37,8 @@ type
 
 implementation
 
+{$R *.lfm}
+
 uses
   Main, States;
 
@@ -153,7 +155,5 @@ end;
 
 //----------------------------------------------------------------------------------------------------------------------
 
-initialization
-  {$i MultilineDemo.lrs}
 
 end.

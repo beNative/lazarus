@@ -11,10 +11,12 @@ object frmMain: TfrmMain
   Font.Name = 'Tahoma'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  Position = poDefaultPosOnly
-  LCLVersion = '0.9.27'
+  Position = poScreenCenter
+  LCLVersion = '1.7'
   object panMain: TPanel
+    Left = 0
     Height = 254
+    Top = 0
     Width = 401
     Align = alClient
     BevelOuter = bvNone
@@ -44,15 +46,16 @@ object frmMain: TfrmMain
       Top = 7
       Width = 387
       Align = alClient
-      BorderStyle = bsSingle
       DefaultText = 'Node'
+      Header.AutoSizeIndex = 0
       Header.Columns = <>
+      Header.DefaultHeight = 17
       Header.Font.Height = -11
       Header.Font.Name = 'MS Shell Dlg 2'
+      Header.Height = 17
       Header.MainColumn = -1
       Header.Options = [hoColumnResize, hoDrag]
       Images = imgMaster
-      RootNodeCount = 5
       TabOrder = 0
       TreeOptions.PaintOptions = [toShowButtons, toShowDropmark, toShowTreeLines, toThemeAware, toUseBlendedImages]
       OnDblClick = VTDblClick
@@ -78,13 +81,11 @@ object frmMain: TfrmMain
         Top = 3
         Width = 75
         Caption = 'View Code'
-        Color = clBtnFace
-        NumGlyphs = 0
         OnClick = btnViewCodeClick
       end
       object chkRadioButtons: TCheckBox
         Left = 85
-        Height = 17
+        Height = 19
         Top = 8
         Width = 87
         Caption = 'Radio Buttons'
@@ -93,7 +94,7 @@ object frmMain: TfrmMain
       end
       object chkChangeHeight: TCheckBox
         Left = 184
-        Height = 17
+        Height = 19
         Top = 8
         Width = 76
         Caption = 'Vary Height'
@@ -102,7 +103,7 @@ object frmMain: TfrmMain
       end
       object chkHotTrack: TCheckBox
         Left = 11
-        Height = 17
+        Height = 19
         Top = 8
         Width = 66
         Caption = 'Hot Track'

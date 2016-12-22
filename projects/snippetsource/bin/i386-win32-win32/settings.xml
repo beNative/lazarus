@@ -87,8 +87,8 @@
 								<Foreground>clOlive</Foreground>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmObjFPC</CompilerMode>
-							<NestedComments>true</NestedComments>
+							<CompilerMode>pcmDelphi</CompilerMode>
+							<NestedComments>false</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -140,7 +140,7 @@
 							<TableNameAttri>(TSynHighlighterAttributes)</TableNameAttri>
 							<TableNames>(TStringList)</TableNames>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
+								<Foreground>clMaroon</Foreground>
 								<Style>[fsBold]</Style>
 							</VariableAttri>
 							<SQLDialect>sqlSybase</SQLDialect>
@@ -262,7 +262,7 @@
 							</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
+								<Foreground>clMaroon</Foreground>
 								<Style>[fsBold]</Style>
 							</VariableAttri>
 						</TSynBatSyn>
@@ -409,7 +409,7 @@
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
+								<Foreground>clMaroon</Foreground>
 							</VariableAttri>
 						</TSynPerlSyn>
 					</Components>
@@ -579,7 +579,7 @@
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
+								<Foreground>clMaroon</Foreground>
 								<Style>[fsBold]</Style>
 							</VariableAttri>
 						</TSynPHPSyn>
@@ -715,7 +715,7 @@
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
 							<VarAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
+								<Foreground>clMaroon</Foreground>
 								<Style>[fsBold]</Style>
 							</VarAttri>
 						</TSynUNIXShellScriptSyn>
@@ -1044,7 +1044,7 @@
 		<THighlighterAttributesItem>
 			<Name>Variable</Name>
 			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clBlue</Foreground>
+				<Foreground>clMaroon</Foreground>
 				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
@@ -1133,7 +1133,7 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>SQL</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

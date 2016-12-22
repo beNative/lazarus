@@ -58,6 +58,8 @@ var
 
 implementation
 
+{$R *.lfm}
+
 uses
   strutils;
 
@@ -209,9 +211,6 @@ begin
     ValidateNode(Node, False);
   end;
 end;
-
-initialization
-  {$I fmain.lrs}
 
 end.
 

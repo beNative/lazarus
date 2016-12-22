@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -9,6 +9,19 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
+      <Icon Value="0"/>
+      <Resources Count="5">
+        <Resource_0 FileName="Res\Lorem ipsum.uni" Type="RCDATA" ResourceName="LOREM IPSUM"/>
+        <Resource_1 FileName="Res\Transcriptions.bmp" Type="BITMAP" ResourceName="TRANSCRIPTIONS"/>
+        <Resource_2 FileName="Res\Arabic.uni" Type="RCDATA" ResourceName="ARABIC"/>
+        <Resource_3 FileName="Res\Greek.uni" Type="RCDATA" ResourceName="GREEK"/>
+        <Resource_4 FileName="Res\Hebrew.uni" Type="RCDATA" ResourceName="HEBREW"/>
+      </Resources>
     </General>
     <VersionInfo>
       <StringTable ProductVersion=""/>
@@ -42,7 +55,6 @@
       <Unit0>
         <Filename Value="Advanced.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Advanced"/>
       </Unit0>
       <Unit1>
         <Filename Value="WindowsXPStyleDemo.pas"/>
@@ -50,7 +62,6 @@
         <ComponentName Value="WindowsXPForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="WindowsXPStyleDemo"/>
       </Unit1>
       <Unit2>
         <Filename Value="AlignDemo.pas"/>
@@ -58,7 +69,6 @@
         <ComponentName Value="AlignForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="AlignDemo"/>
       </Unit2>
       <Unit3>
         <Filename Value="DrawTreeDemo.pas"/>
@@ -66,12 +76,10 @@
         <ComponentName Value="DrawTreeForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="DrawTreeDemo"/>
       </Unit3>
       <Unit4>
         <Filename Value="Editors.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Editors"/>
       </Unit4>
       <Unit5>
         <Filename Value="GeneralAbilitiesDemo.pas"/>
@@ -79,7 +87,6 @@
         <ComponentName Value="GeneralForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="GeneralAbilitiesDemo"/>
       </Unit5>
       <Unit6>
         <Filename Value="GridDemo.pas"/>
@@ -87,7 +94,6 @@
         <ComponentName Value="GridForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="GridDemo"/>
       </Unit6>
       <Unit7>
         <Filename Value="HeaderCustomDrawDemo.pas"/>
@@ -95,7 +101,6 @@
         <ComponentName Value="HeaderOwnerDrawForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="HeaderCustomDrawDemo"/>
       </Unit7>
       <Unit8>
         <Filename Value="Main.pas"/>
@@ -103,7 +108,6 @@
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="Main"/>
       </Unit8>
       <Unit9>
         <Filename Value="MultilineDemo.pas"/>
@@ -111,7 +115,6 @@
         <ComponentName Value="NodeForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="MultilineDemo"/>
       </Unit9>
       <Unit10>
         <Filename Value="PropertiesDemo.pas"/>
@@ -119,7 +122,6 @@
         <ComponentName Value="PropertiesForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="PropertiesDemo"/>
       </Unit10>
       <Unit11>
         <Filename Value="SpeedDemo.pas"/>
@@ -127,7 +129,6 @@
         <ComponentName Value="SpeedForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="SpeedDemo"/>
       </Unit11>
       <Unit12>
         <Filename Value="States.pas"/>
@@ -135,7 +136,6 @@
         <ComponentName Value="StateForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="States"/>
       </Unit12>
       <Unit13>
         <Filename Value="VisibilityDemo.pas"/>
@@ -143,25 +143,33 @@
         <ComponentName Value="VisibilityForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="VisibilityDemo"/>
       </Unit13>
       <Unit14>
         <Filename Value="shlobjext.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="shlobjext"/>
       </Unit14>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
+    <Target>
+      <Filename Value="advanced"/>
+    </Target>
+    <SearchPaths>
+      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <UseAnsiStrings Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <Other>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
   </CompilerOptions>
 </CONFIG>

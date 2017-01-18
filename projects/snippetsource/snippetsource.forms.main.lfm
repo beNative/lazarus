@@ -156,6 +156,7 @@ object frmMain: TfrmMain
           Font.Height = -17
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          OnChange = edtTitleChange
           OnEditingDone = edtTitleEditingDone
           OnMouseEnter = edtTitleMouseEnter
           OnMouseLeave = edtTitleMouseLeave

@@ -107,6 +107,7 @@ type
     procedure btnHighlighterMouseLeave(Sender: TObject);
     procedure btnLineBreakStyleClick(Sender: TObject);
     procedure dscMainDataChange(Sender: TObject; Field: TField);
+    procedure edtTitleChange(Sender: TObject);
     procedure edtTitleEditingDone(Sender: TObject);
     procedure edtTitleMouseEnter(Sender: TObject);
     procedure edtTitleMouseLeave(Sender: TObject);
@@ -418,6 +419,11 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmMain.edtTitleChange(Sender: TObject);
+begin
+  DataSet.Edit;
 end;
 
 procedure TfrmMain.edtTitleEditingDone(Sender: TObject);

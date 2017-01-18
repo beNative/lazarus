@@ -310,8 +310,8 @@ end;"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
         <EditorIndex Value="52"/>
-        <TopLine Value="461"/>
-        <CursorPos X="3" Y="491"/>
+        <TopLine Value="424"/>
+        <CursorPos X="3" Y="426"/>
         <UsageCount Value="243"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -400,8 +400,8 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Lookup"/>
-        <TopLine Value="222"/>
-        <CursorPos X="3" Y="224"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="3" Y="2"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -416,7 +416,7 @@ end;"/>
         <UnitName Value="SnippetSource.Forms.SQLLog"/>
         <EditorIndex Value="1"/>
         <TopLine Value="9"/>
-        <CursorPos X="129" Y="36"/>
+        <CursorPos X="100" Y="43"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -442,7 +442,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Interfaces"/>
         <EditorIndex Value="48"/>
-        <TopLine Value="133"/>
+        <TopLine Value="129"/>
         <CursorPos X="106" Y="53"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -2015,9 +2015,8 @@ end;"/>
       <Unit259>
         <Filename Value="changes.txt"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <CursorPos X="11" Y="9"/>
+        <CursorPos X="58" Y="3"/>
         <UsageCount Value="113"/>
         <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="None"/>
@@ -2713,123 +2712,123 @@ end;"/>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="353" Column="177" TopLine="21"/>
+        <Caret Line="41" Column="85" TopLine="21"/>
       </Position1>
       <Position2>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="41" Column="85" TopLine="21"/>
+        <Caret Line="159" Column="44" TopLine="119"/>
       </Position2>
       <Position3>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="159" Column="44" TopLine="119"/>
+        <Caret Line="522" Column="15" TopLine="485"/>
       </Position3>
       <Position4>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="522" Column="15" TopLine="485"/>
+        <Caret Line="129" Column="27" TopLine="57"/>
       </Position4>
       <Position5>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="129" Column="27" TopLine="57"/>
+        <Caret Line="560" TopLine="532"/>
       </Position5>
       <Position6>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="560" TopLine="532"/>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
+        <Caret Line="433" Column="107" TopLine="404"/>
       </Position6>
       <Position7>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
-        <Caret Line="433" Column="107" TopLine="404"/>
+        <Caret Line="440" Column="107" TopLine="412"/>
       </Position7>
       <Position8>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
-        <Caret Line="440" Column="107" TopLine="412"/>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
+        <Caret Line="93" Column="18" TopLine="71"/>
       </Position8>
       <Position9>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
-        <Caret Line="93" Column="18" TopLine="71"/>
+        <Caret Line="267" Column="35" TopLine="232"/>
       </Position9>
       <Position10>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
-        <Caret Line="267" Column="35" TopLine="232"/>
+        <Caret Line="263" Column="3" TopLine="251"/>
       </Position10>
       <Position11>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.textattributes.pas"/>
-        <Caret Line="263" Column="3" TopLine="251"/>
-      </Position11>
-      <Position12>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
         <Caret Line="305" Column="46" TopLine="284"/>
-      </Position12>
-      <Position13>
+      </Position11>
+      <Position12>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
         <Caret Line="317" Column="51" TopLine="311"/>
-      </Position13>
-      <Position14>
+      </Position12>
+      <Position13>
         <Filename Value="changes.txt"/>
         <Caret Line="10" Column="17"/>
-      </Position14>
-      <Position15>
+      </Position13>
+      <Position14>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
         <Caret Line="343" Column="118" TopLine="309"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
+        <Caret Line="148" Column="107" TopLine="121"/>
       </Position15>
       <Position16>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="148" Column="107" TopLine="121"/>
+        <Caret Line="138" TopLine="78"/>
       </Position16>
       <Position17>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="138" TopLine="78"/>
+        <Caret Line="54" Column="21" TopLine="50"/>
       </Position17>
       <Position18>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="54" Column="21" TopLine="50"/>
-      </Position18>
-      <Position19>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.interfaces.pas"/>
         <Caret Line="133" TopLine="26"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
+        <Caret Line="599" TopLine="571"/>
       </Position19>
       <Position20>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="599" TopLine="571"/>
+        <Caret Line="163" TopLine="72"/>
       </Position20>
       <Position21>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="163" TopLine="72"/>
+        <Caret Line="80" Column="35" TopLine="54"/>
       </Position21>
       <Position22>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="80" Column="35" TopLine="54"/>
+        <Caret Line="173" TopLine="147"/>
       </Position22>
       <Position23>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="173" TopLine="147"/>
+        <Caret Line="54" Column="21" TopLine="27"/>
       </Position23>
       <Position24>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="54" Column="21" TopLine="27"/>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
+        <Caret Line="275" TopLine="191"/>
       </Position24>
       <Position25>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.interfaces.pas"/>
-        <Caret Line="39" Column="3" TopLine="143"/>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
+        <Caret Line="441" TopLine="439"/>
       </Position25>
       <Position26>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="54" Column="21" TopLine="98"/>
+        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
+        <Caret Line="267" Column="52" TopLine="157"/>
       </Position26>
       <Position27>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
-        <Caret Line="275" TopLine="191"/>
+        <Caret Line="415" TopLine="379"/>
       </Position27>
       <Position28>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.view.pas"/>
-        <Caret Line="441" TopLine="439"/>
+        <Filename Value="changes.txt"/>
+        <Caret Line="20" Column="30"/>
       </Position28>
       <Position29>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
-        <Caret Line="267" Column="52" TopLine="157"/>
+        <Filename Value="snippetsource.forms.main.pas"/>
+        <Caret Line="477" Column="103" TopLine="462"/>
       </Position29>
       <Position30>
-        <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.manager.pas"/>
-        <Caret Line="415" TopLine="379"/>
+        <Filename Value="snippetsource.forms.main.pas"/>
+        <Caret Line="430" Column="6" TopLine="430"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

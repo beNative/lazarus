@@ -1,3 +1,7 @@
+07/01/2017
+- fix: switching to another highlighter was not always saved
+- fix: edit mode not activated when editing snippet title
+
 22/12/2016
 - fixed RichEditor issues
 - Added support for background colors to RichEditor

@@ -1473,10 +1473,6 @@ msgstr "Expresión &Regular"
 msgid "Select all"
 msgstr "Seleccionar todo"
 
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr "Filtrar código"
-
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
 msgstr "Buscar:"

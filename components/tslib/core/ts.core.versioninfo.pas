@@ -123,7 +123,7 @@ implementation
 uses
   Forms,
 
-  LCLVersion, InterfaceBase;
+  LCLVersion, InterfaceBase, LCLPlatformDef;
 
 const
   GTK_WIDGETSET       = 'gtk';

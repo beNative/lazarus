@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   SysUtils, Forms, FrameViewer09, pascalscript, richmemopackage,
-  virtualtreeview_package, virtualdbtreeex_laz, virtualdbgrid_package,
+  virtualtreeview_package, virtualdbtreeex_laz,
   luicontrols, khexeditorlaz,
 
   { you can add units after this }

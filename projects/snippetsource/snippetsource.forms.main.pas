@@ -423,7 +423,8 @@ end;
 
 procedure TfrmMain.edtTitleChange(Sender: TObject);
 begin
-  DataSet.Edit;
+  if Snippet.NodeName <> edtTitle.Text then
+    DataSet.Edit;
 end;
 
 procedure TfrmMain.edtTitleEditingDone(Sender: TObject);

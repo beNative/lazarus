@@ -3,12 +3,13 @@ object frmSettingsDialog: TfrmSettingsDialog
   Height = 461
   Top = 245
   Width = 462
+  ActiveControl = pnlButtons.CloseButton
   Caption = 'Settings'
   ClientHeight = 461
   ClientWidth = 462
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.7'
+  Visible = False
   object pnlButtons: TButtonPanel
     Left = 6
     Height = 34
@@ -30,9 +31,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 415
     Top = 0
     Width = 462
-    ActivePage = Highlighters
+    ActivePage = tsDataBase
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 1
     object tsDataBase: TTabSheet
       Caption = 'Database'
@@ -134,6 +135,7 @@ object frmSettingsDialog: TfrmSettingsDialog
             Text = 'Image'
           end>
         Header.DefaultHeight = 17
+        Header.Height = 17
         TabOrder = 2
         OnAfterCellPaint = vstImageListAfterCellPaint
         OnGetText = vstImageListGetText
@@ -165,7 +167,6 @@ object frmSettingsDialog: TfrmSettingsDialog
         OnDrawItem = cbxImageListDrawItem
         Style = csOwnerDrawFixed
         TabOrder = 0
-        Text = 'cbxImageList'
       end
       object grdHighlighters: TDBGrid
         Left = 64

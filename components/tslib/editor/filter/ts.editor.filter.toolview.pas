@@ -348,7 +348,7 @@ begin
   for I := 0 to ColumnDefinitions.Count - 1 do
   begin
     C := ColumnDefinitions[I];
-    S := GetPropValue(Item, C.Name, True);
+    //S := GetPropValue(Item, C.Name, True);
     B := B or IsMatch(S);
   end;
   Accepted := B;

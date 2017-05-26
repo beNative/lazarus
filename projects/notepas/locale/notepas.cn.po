@@ -1504,10 +1504,6 @@ msgstr "正则表达式(&R)"
 msgid "Select all"
 msgstr "全选"
 
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr ""
-
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
 msgstr "查找:"

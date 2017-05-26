@@ -15,7 +15,8 @@ object frmMain: TfrmMain
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  LCLVersion = '1.7'
+  LCLVersion = '1.9.0.0'
+  Visible = False
   object pnlLeft: TPanel
     Left = 0
     Height = 578
@@ -53,6 +54,7 @@ object frmMain: TfrmMain
         Top = 27
         Width = 713
         AutoSize = True
+        ButtonHeight = 22
         ButtonWidth = 20
         EdgeBorders = []
         EdgeInner = esNone

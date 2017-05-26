@@ -1464,10 +1464,6 @@ msgstr ""
 msgid "Select all"
 msgstr ""
 
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr ""
-
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
 msgstr ""

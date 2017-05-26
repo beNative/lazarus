@@ -1112,11 +1112,11 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>PAS</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>-8</Left>
-		<Top>-8</Top>
+		<Left>26</Left>
+		<Top>26</Top>
 		<Width>1904</Width>
 		<Height>998</Height>
 		<FormStyle>fsNormal</FormStyle>

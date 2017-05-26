@@ -28,7 +28,7 @@ uses
 
   LCLType, GraphUtil,
 
-  VirtualTrees, SynRegExpr,
+  VirtualTrees, RegExpr,
 
   ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions, ts.Core.DataTemplates,
 

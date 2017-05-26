@@ -454,7 +454,7 @@ uses
 
   LazFileUtils, LazUTF8, Laz2_DOM,
 
-  SynRegExpr,
+  RegExpr,
 
   OXmlPDOM, OXMLUtils,
 

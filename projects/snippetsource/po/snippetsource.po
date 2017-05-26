@@ -1,74 +1,5 @@
-msgid "focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field.focus to the search entry field. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace."
-msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
-
-#: notepas.resources.scol
-msgctxt "notepas.resources.scol"
-msgid "Col"
-msgstr ""
-
-#: notepas.resources.slines
-msgctxt "notepas.resources.slines"
-msgid "Lines"
-msgstr ""
-
-#: notepas.resources.sln
-msgctxt "notepas.resources.sln"
-msgid "Ln"
-msgstr ""
-
-#: notepas.resources.smodified
-msgctxt "notepas.resources.smodified"
-msgid "Modified"
-msgstr ""
-
-#: notepas.resources.ssel
-msgctxt "notepas.resources.ssel"
-msgid "Sel"
-msgstr ""
-
-#: notepas.resources.ssize
-msgctxt "notepas.resources.ssize"
-msgid "Size"
-msgstr ""
-
-#: notepas_forms_main.scol
-msgctxt "notepas_forms_main.scol"
-msgid "Col"
-msgstr ""
-
-#: notepas_forms_main.slines
-msgctxt "notepas_forms_main.slines"
-msgid "Lines"
-msgstr ""
-
-#: notepas_forms_main.sln
-msgctxt "notepas_forms_main.sln"
-msgid "Ln"
-msgstr ""
-
-#: notepas_forms_main.smodified
-msgctxt "notepas_forms_main.smodified"
-msgid "Modified"
-msgstr ""
-
-#: notepas_forms_main.ssel
-msgctxt "notepas_forms_main.ssel"
-msgid "Sel"
-msgstr ""
-
-#: notepas_forms_main.ssize
-msgctxt "notepas_forms_main.ssize"
-msgid "Size"
-msgstr ""
+msgid "and use that index to help boost the query performance. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.and use that index to help boost the query performance.and use that index to help boost the query performance.and use that index to help boost the query performance. with a single whitespace.and use that index to help boost the query performance. with a single whitespace."
+msgstr "Content-Type: text/plain; charset=UTF-8"
 
 #: obufferedstreams.obufferedstreams_nilstream
 msgid "The aStream parameter must be assigned when creating a buffered stream."
@@ -98,37 +29,58 @@ msgstr ""
 msgid "ODictionary does not allow duplicates"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblalpha.caption
-msgid "lblAlpha"
+#: snippetsource.modules.data.sparameternotassigned
+msgctxt "snippetsource.modules.data.sparameternotassigned"
+msgid "Parameter <%s> parameter not assigned"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblbackground.caption
-msgid "lblBackground"
+#: snippetsource.modules.data.squerylookuperrorrunningquery
+msgctxt "snippetsource.modules.data.squerylookuperrorrunningquery"
+msgid "Error running query [%s]"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblforeground.caption
-msgid "lblForeground"
+#: snippetsource.modules.data.squerylookuptoomanyrecords
+msgctxt "snippetsource.modules.data.squerylookuptoomanyrecords"
+msgid "The query [%s] returned too many records"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblframe.caption
-msgid "lblFrame"
+#: snippetsource_forms_virtualdbtree.sdeleteselecteditems
+msgctxt "snippetsource_forms_virtualdbtree.sdeleteselecteditems"
+msgid "Are you sure you want to delete te selected item(s)?"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblframecolor.caption
-msgid "lblFrameColor"
+#: snippetsource_forms_virtualdbtree.snew
+msgctxt "snippetsource_forms_virtualdbtree.snew"
+msgid "New"
 msgstr ""
 
-#: tcustomsettingsdialog1.lblpriority.caption
-msgid "lblPriority"
+#: snippetsource_forms_virtualdbtree.snewfolder
+msgctxt "snippetsource_forms_virtualdbtree.snewfolder"
+msgid "New folder"
+msgstr ""
+
+#: snippetsource_modules_data2.sparameternotassigned
+msgctxt "snippetsource_modules_data2.sparameternotassigned"
+msgid "Parameter <%s> parameter not assigned"
+msgstr ""
+
+#: snippetsource_modules_data2.squerylookuperrorrunningquery
+msgctxt "snippetsource_modules_data2.squerylookuperrorrunningquery"
+msgid "Error running query [%s]"
+msgstr ""
+
+#: snippetsource_modules_data2.squerylookuptoomanyrecords
+msgctxt "snippetsource_modules_data2.squerylookuptoomanyrecords"
+msgid "The query [%s] returned too many records"
 msgstr ""
 
 #: tdlgext.bncancel.caption
-msgctxt "TDLGEXT.BNCANCEL.CAPTION"
+msgctxt "tdlgext.bncancel.caption"
 msgid "&Cancel"
 msgstr ""
 
 #: tdlgext.bnok.caption
-msgctxt "TDLGEXT.BNOK.CAPTION"
+msgctxt "tdlgext.bnok.caption"
 msgid "&OK"
 msgstr ""
 
@@ -137,7 +89,7 @@ msgid "Extension Options"
 msgstr ""
 
 #: tdlgext.gbext.caption
-msgctxt "TDLGEXT.GBEXT.CAPTION"
+msgctxt "tdlgext.gbext.caption"
 msgid "&Options:"
 msgstr ""
 
@@ -154,12 +106,12 @@ msgid "&Icon:"
 msgstr ""
 
 #: tdlgsetupfilters.bncancel.caption
-msgctxt "tdlgsetupfilters.bncancel.caption"
+msgctxt "TDLGSETUPFILTERS.BNCANCEL.CAPTION"
 msgid "&Cancel"
 msgstr ""
 
 #: tdlgsetupfilters.bnok.caption
-msgctxt "tdlgsetupfilters.bnok.caption"
+msgctxt "TDLGSETUPFILTERS.BNOK.CAPTION"
 msgid "&OK"
 msgstr ""
 
@@ -177,7 +129,7 @@ msgid "Shows the about dialog."
 msgstr ""
 
 #: tdmeditormanager.actalignselection.caption
-msgctxt "TDMEDITORMANAGER.ACTALIGNSELECTION.CAPTION"
+msgctxt "tdmeditormanager.actalignselection.caption"
 msgid "Align"
 msgstr ""
 
@@ -243,18 +195,14 @@ msgid "Compress whitespace"
 msgstr ""
 
 #: tdmeditormanager.actcompresswhitespace.hint
-msgid ""
-"Replace any number of consecutive whitespace (including newlines)\n"
-" with a single whitespace.\n"
+msgid "Replace any number of consecutive whitespace (including newlines)"
 msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.caption
-msgctxt "tdmeditormanager.actconverttabstospaces.caption"
 msgid "Convert TABs to spaces in selection"
 msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.hint
-msgctxt "tdmeditormanager.actconverttabstospaces.hint"
 msgid "Convert TAB character to the equivalent amount of spaces in the selection."
 msgstr ""
 
@@ -405,7 +353,7 @@ msgid "Delete"
 msgstr ""
 
 #: tdmeditormanager.actdequotelines.caption
-msgctxt "TDMEDITORMANAGER.ACTDEQUOTELINES.CAPTION"
+msgctxt "tdmeditormanager.actdequotelines.caption"
 msgid "Dequote lines"
 msgstr ""
 
@@ -414,7 +362,7 @@ msgid "Dequote each line in the selection."
 msgstr ""
 
 #: tdmeditormanager.actdequoteselection.caption
-msgctxt "TDMEDITORMANAGER.ACTDEQUOTESELECTION.CAPTION"
+msgctxt "tdmeditormanager.actdequoteselection.caption"
 msgid "Dequote"
 msgstr ""
 
@@ -443,7 +391,7 @@ msgid "Encode XML"
 msgstr ""
 
 #: tdmeditormanager.actencodingmenu.caption
-msgctxt "tdmeditormanager.actencodingmenu.caption"
+msgctxt "TDMEDITORMANAGER.ACTENCODINGMENU.CAPTION"
 msgid "Encoding"
 msgstr ""
 
@@ -648,7 +596,7 @@ msgid "Formats text depending on the current highlighter."
 msgstr ""
 
 #: tdmeditormanager.acthelp.caption
-msgctxt "tdmeditormanager.acthelp.caption"
+msgctxt "TDMEDITORMANAGER.ACTHELP.CAPTION"
 msgid "&Help"
 msgstr ""
 
@@ -657,7 +605,7 @@ msgid "Show help dialog."
 msgstr ""
 
 #: tdmeditormanager.acthighlighter.caption
-msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTER.CAPTION"
+msgctxt "tdmeditormanager.acthighlighter.caption"
 msgid "Highlighter"
 msgstr ""
 
@@ -704,7 +652,6 @@ msgid "Insert"
 msgstr ""
 
 #: tdmeditormanager.actinspect.caption
-msgctxt "TDMEDITORMANAGER.ACTINSPECT.CAPTION"
 msgid "Inspect"
 msgstr ""
 
@@ -742,6 +689,7 @@ msgid "Monitor for external file changes."
 msgstr ""
 
 #: tdmeditormanager.actnew.caption
+msgctxt "tdmeditormanager.actnew.caption"
 msgid "New"
 msgstr ""
 
@@ -783,7 +731,7 @@ msgid "Page setup"
 msgstr ""
 
 #: tdmeditormanager.actpascalstringofselection.caption
-msgctxt "TDMEDITORMANAGER.ACTPASCALSTRINGOFSELECTION.CAPTION"
+msgctxt "tdmeditormanager.actpascalstringofselection.caption"
 msgid "Pascal string"
 msgstr ""
 
@@ -826,7 +774,7 @@ msgid "Print preview"
 msgstr ""
 
 #: tdmeditormanager.actquotelines.caption
-msgctxt "TDMEDITORMANAGER.ACTQUOTELINES.CAPTION"
+msgctxt "tdmeditormanager.actquotelines.caption"
 msgid "Quote lines"
 msgstr ""
 
@@ -843,7 +791,7 @@ msgid "Quote each line in the selection and delimit with comma"
 msgstr ""
 
 #: tdmeditormanager.actquoteselection.caption
-msgctxt "TDMEDITORMANAGER.ACTQUOTESELECTION.CAPTION"
+msgctxt "tdmeditormanager.actquoteselection.caption"
 msgid "Quote"
 msgstr ""
 
@@ -856,7 +804,7 @@ msgid "Record macro"
 msgstr ""
 
 #: tdmeditormanager.actredo.caption
-msgctxt "TDMEDITORMANAGER.ACTREDO.CAPTION"
+msgctxt "tdmeditormanager.actredo.caption"
 msgid "Redo"
 msgstr ""
 
@@ -892,11 +840,11 @@ msgid "Save all changes."
 msgstr ""
 
 #: tdmeditormanager.actsaveas.caption
+msgctxt "tdmeditormanager.actsaveas.caption"
 msgid "Save as..."
 msgstr ""
 
 #: tdmeditormanager.actsaveas.hint
-msgctxt "tdmeditormanager.actsaveas.hint"
 msgid "Save file as"
 msgstr ""
 
@@ -905,11 +853,12 @@ msgid "&Find..."
 msgstr ""
 
 #: tdmeditormanager.actsearch.hint
-msgctxt "tdmeditormanager.actsearch.hint"
+msgctxt "TDMEDITORMANAGER.ACTSEARCH.HINT"
 msgid "Find"
 msgstr ""
 
 #: tdmeditormanager.actsearchmenu.caption
+msgctxt "tdmeditormanager.actsearchmenu.caption"
 msgid "Search"
 msgstr ""
 
@@ -964,7 +913,7 @@ msgid "Settings"
 msgstr ""
 
 #: tdmeditormanager.actsettings.hint
-msgctxt "tdmeditormanager.actsettings.hint"
+msgctxt "TDMEDITORMANAGER.ACTSETTINGS.HINT"
 msgid "Editor settings"
 msgstr ""
 
@@ -982,32 +931,30 @@ msgid "Show the list of all available actions."
 msgstr ""
 
 #: tdmeditormanager.actshowcharactermap.caption
-msgctxt "tdmeditormanager.actshowcharactermap.caption"
 msgid "Show character map"
 msgstr ""
 
 #: tdmeditormanager.actshowcharactermap.hint
-msgctxt "tdmeditormanager.actshowcharactermap.hint"
 msgid "Show character map with Ansi and Unicode characters."
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.caption
-msgctxt "tdmeditormanager.actshowcodefilter.caption"
+msgctxt "TDMEDITORMANAGER.ACTSHOWCODEFILTER.CAPTION"
 msgid "Filter code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.hint
-msgctxt "tdmeditormanager.actshowcodefilter.hint"
+msgctxt "TDMEDITORMANAGER.ACTSHOWCODEFILTER.HINT"
 msgid "Filter code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.caption
-msgctxt "tdmeditormanager.actshowcodeshaper.caption"
+msgctxt "TDMEDITORMANAGER.ACTSHOWCODESHAPER.CAPTION"
 msgid "Shape code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.hint
-msgctxt "tdmeditormanager.actshowcodeshaper.hint"
+msgctxt "TDMEDITORMANAGER.ACTSHOWCODESHAPER.HINT"
 msgid "Apply custom code formatting to selection"
 msgstr ""
 
@@ -1053,7 +1000,6 @@ msgid "Show special characters (like tabs and spaces)."
 msgstr ""
 
 #: tdmeditormanager.actshowstructureviewer.caption
-msgctxt "TDMEDITORMANAGER.ACTSHOWSTRUCTUREVIEWER.CAPTION"
 msgid "XML treeview"
 msgstr ""
 
@@ -1094,6 +1040,7 @@ msgid "Sort selected lines"
 msgstr ""
 
 #: tdmeditormanager.actstayontop.caption
+msgctxt "tdmeditormanager.actstayontop.caption"
 msgid "Stay on top"
 msgstr ""
 
@@ -1182,7 +1129,7 @@ msgid "Toggles between maximized and restored mode."
 msgstr ""
 
 #: tdmeditormanager.actundo.caption
-msgctxt "TDMEDITORMANAGER.ACTUNDO.CAPTION"
+msgctxt "tdmeditormanager.actundo.caption"
 msgid "Undo"
 msgstr ""
 
@@ -1207,12 +1154,99 @@ msgstr ""
 msgid "Upper case selection"
 msgstr ""
 
-#: teditorsettingsdialog.caption
-msgid "EditorSettingsDialog"
+#: tdmricheditoractions.actaligncenter.caption
+msgid "Align center"
 msgstr ""
 
-#: tform1.caption
-msgid "Form1"
+#: tdmricheditoractions.actalignjustify.caption
+msgid "Align justify"
+msgstr ""
+
+#: tdmricheditoractions.actalignleft.caption
+msgid "Align left"
+msgstr ""
+
+#: tdmricheditoractions.actalignright.caption
+msgid "Align right"
+msgstr ""
+
+#: tdmricheditoractions.actbkcolor.caption
+msgid "Background color"
+msgstr ""
+
+#: tdmricheditoractions.actbkcolor.hint
+msgid "Set text background color."
+msgstr ""
+
+#: tdmricheditoractions.actbold.caption
+msgid "Bold"
+msgstr ""
+
+#: tdmricheditoractions.actcolor.caption
+msgid "actColor"
+msgstr ""
+
+#: tdmricheditoractions.actcopy.caption
+msgid "actCopy"
+msgstr ""
+
+#: tdmricheditoractions.actcut.caption
+msgid "actCut"
+msgstr ""
+
+#: tdmricheditoractions.actdecfontsize.caption
+msgid "actDecFontSize"
+msgstr ""
+
+#: tdmricheditoractions.actfont.caption
+msgid "actFont"
+msgstr ""
+
+#: tdmricheditoractions.actincfontsize.caption
+msgid "actIncFontSize"
+msgstr ""
+
+#: tdmricheditoractions.actitalic.caption
+msgid "Italic"
+msgstr ""
+
+#: tdmricheditoractions.actopen.caption
+msgctxt "TDMRICHEDITORACTIONS.ACTOPEN.CAPTION"
+msgid "Open"
+msgstr ""
+
+#: tdmricheditoractions.actpaste.caption
+msgid "actPaste"
+msgstr ""
+
+#: tdmricheditoractions.actsave.caption
+msgctxt "TDMRICHEDITORACTIONS.ACTSAVE.CAPTION"
+msgid "Save"
+msgstr ""
+
+#: tdmricheditoractions.actsaveas.caption
+msgctxt "TDMRICHEDITORACTIONS.ACTSAVEAS.CAPTION"
+msgid "Save as..."
+msgstr ""
+
+#: tdmricheditoractions.actselectall.caption
+msgid "actSelectAll"
+msgstr ""
+
+#: tdmricheditoractions.actunderline.caption
+msgid "Underline"
+msgstr ""
+
+#: tdmricheditoractions.actundo.caption
+msgid "actUndo"
+msgstr ""
+
+#: tdmricheditoractions.actwordwrap.caption
+msgid "Toggle wordwrap"
+msgstr ""
+
+#: teditorsettingsdialog.caption
+msgid "EditorSettingsDialog"
 msgstr ""
 
 #: tfrmabout.actclose.caption
@@ -1249,12 +1283,12 @@ msgid "Report an issue."
 msgstr ""
 
 #: tfrmabout.btncopytoclipboard.hint
-msgctxt "tfrmabout.btncopytoclipboard.hint"
+msgctxt "TFRMABOUT.BTNCOPYTOCLIPBOARD.HINT"
 msgid "Copy to clipboard"
 msgstr ""
 
 #: tfrmabout.caption
-msgctxt "TFRMABOUT.CAPTION"
+msgctxt "tfrmabout.caption"
 msgid "About"
 msgstr ""
 
@@ -1275,7 +1309,7 @@ msgid "FPC version:"
 msgstr ""
 
 #: tfrmabout.lblhomepage.caption
-msgctxt "tfrmabout.lblhomepage.caption"
+msgctxt "TFRMABOUT.LBLHOMEPAGE.CAPTION"
 msgid "URL"
 msgstr ""
 
@@ -1304,12 +1338,10 @@ msgid "Credits"
 msgstr ""
 
 #: tfrmabout.tsinfo.caption
-msgctxt "tfrmabout.tsinfo.caption"
 msgid "Info"
 msgstr ""
 
 #: tfrmabout.tstranslations.caption
-msgctxt "tfrmabout.tstranslations.caption"
 msgid "Translations"
 msgstr ""
 
@@ -1371,7 +1403,6 @@ msgid "frmApplicationSettings"
 msgstr ""
 
 #: tfrmapplicationsettings.chkclosewithesc.caption
-msgctxt "TFRMAPPLICATIONSETTINGS.CHKCLOSEWITHESC.CAPTION"
 msgid "Close the application with the ESC key"
 msgstr ""
 
@@ -1387,52 +1418,12 @@ msgstr ""
 msgid "Allow only one instance of the application"
 msgstr ""
 
-#: tfrmcharactermap.lblcharinfo.caption
-msgctxt "TFRMCHARACTERMAP.LBLCHARINFO.CAPTION"
-msgid "lblCharInfo"
-msgstr ""
-
-#: tfrmcharactermap.lblunicodecharinfo.caption
-msgctxt "TFRMCHARACTERMAP.LBLUNICODECHARINFO.CAPTION"
-msgid "lblUnicodeCharInfo"
-msgstr ""
-
-#: tfrmcharactermap.tsansi.caption
-msgctxt "TFRMCHARACTERMAP.TSANSI.CAPTION"
-msgid "ANSI"
-msgstr ""
-
-#: tfrmcharactermap.tsunicode.caption
-msgctxt "TFRMCHARACTERMAP.TSUNICODE.CAPTION"
-msgid "Unicode"
-msgstr ""
-
-#: tfrmcharactermapdialog.lblcharinfo.caption
-msgctxt "tfrmcharactermapdialog.lblcharinfo.caption"
-msgid "lblCharInfo"
-msgstr ""
-
-#: tfrmcharactermapdialog.lblunicodecharinfo.caption
-msgctxt "tfrmcharactermapdialog.lblunicodecharinfo.caption"
-msgid "lblUnicodeCharInfo"
-msgstr ""
-
-#: tfrmcharactermapdialog.tsansi.caption
-msgctxt "tfrmcharactermapdialog.tsansi.caption"
-msgid "ANSI"
-msgstr ""
-
-#: tfrmcharactermapdialog.tsunicode.caption
-msgctxt "tfrmcharactermapdialog.tsunicode.caption"
-msgid "Unicode"
-msgstr ""
-
 #: tfrmcodefilterdialog.actapplyfilter.caption
 msgid "Apply filter"
 msgstr ""
 
 #: tfrmcodefilterdialog.actcopy.caption
-msgctxt "tfrmcodefilterdialog.actcopy.caption"
+msgctxt "TFRMCODEFILTERDIALOG.ACTCOPY.CAPTION"
 msgid "Copy"
 msgstr ""
 
@@ -1464,12 +1455,15 @@ msgstr ""
 msgid "Select all"
 msgstr ""
 
+#: tfrmcodefilterdialog.caption
+msgid "Code filter"
+msgstr ""
+
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
 msgstr ""
 
 #: tfrmcodefilterdialog.tlbmain.caption
-msgctxt "TFRMCODEFILTERDIALOG.TLBMAIN.CAPTION"
 msgid "tlbMain"
 msgstr ""
 
@@ -1515,7 +1509,7 @@ msgid "Insert breaks before each occurence of the given token."
 msgstr ""
 
 #: tfrmcodeshaper.actdequotelines.caption
-msgctxt "tfrmcodeshaper.actdequotelines.caption"
+msgctxt "TFRMCODESHAPER.ACTDEQUOTELINES.CAPTION"
 msgid "Dequote"
 msgstr ""
 
@@ -1525,17 +1519,17 @@ msgid "Insert breaks"
 msgstr ""
 
 #: tfrmcodeshaper.actmakepascalstring.caption
-msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
+msgctxt "TFRMCODESHAPER.ACTMAKEPASCALSTRING.CAPTION"
 msgid "Pascal string"
 msgstr ""
 
 #: tfrmcodeshaper.actquotelines.caption
-msgctxt "tfrmcodeshaper.actquotelines.caption"
+msgctxt "TFRMCODESHAPER.ACTQUOTELINES.CAPTION"
 msgid "Quote"
 msgstr ""
 
 #: tfrmcodeshaper.actredo.caption
-msgctxt "tfrmcodeshaper.actredo.caption"
+msgctxt "TFRMCODESHAPER.ACTREDO.CAPTION"
 msgid "Redo"
 msgstr ""
 
@@ -1549,7 +1543,7 @@ msgid "Remove doubles"
 msgstr ""
 
 #: tfrmcodeshaper.actreplace.caption
-msgctxt "tfrmcodeshaper.actreplace.caption"
+msgctxt "TFRMCODESHAPER.ACTREPLACE.CAPTION"
 msgid "Replace"
 msgstr ""
 
@@ -1572,7 +1566,7 @@ msgid "Trim"
 msgstr ""
 
 #: tfrmcodeshaper.actundo.caption
-msgctxt "tfrmcodeshaper.actundo.caption"
+msgctxt "TFRMCODESHAPER.ACTUNDO.CAPTION"
 msgid "Undo"
 msgstr ""
 
@@ -1589,7 +1583,7 @@ msgid "Code shaper"
 msgstr ""
 
 #: tfrmcodeshaper.cbxinsertbreakstokenside.text
-msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
+msgctxt "TFRMCODESHAPER.CBXINSERTBREAKSTOKENSIDE.TEXT"
 msgid "after"
 msgstr ""
 
@@ -1622,12 +1616,12 @@ msgid "Trim space"
 msgstr ""
 
 #: tfrmcodeshaper.chkreplacestringscasesensitive.caption
-msgctxt "tfrmcodeshaper.chkreplacestringscasesensitive.caption"
+msgctxt "TFRMCODESHAPER.CHKREPLACESTRINGSCASESENSITIVE.CAPTION"
 msgid "Case sensitive"
 msgstr ""
 
 #: tfrmcodeshaper.chkreplacestringswholewordsonly.caption
-msgctxt "tfrmcodeshaper.chkreplacestringswholewordsonly.caption"
+msgctxt "TFRMCODESHAPER.CHKREPLACESTRINGSWHOLEWORDSONLY.CAPTION"
 msgid "Whole words only"
 msgstr ""
 
@@ -1694,7 +1688,7 @@ msgid "To"
 msgstr ""
 
 #: tfrmcodeshaper.grpdequotelines.caption
-msgctxt "tfrmcodeshaper.grpdequotelines.caption"
+msgctxt "TFRMCODESHAPER.GRPDEQUOTELINES.CAPTION"
 msgid "Dequote lines"
 msgstr ""
 
@@ -1708,7 +1702,7 @@ msgid "Miscellanious operations"
 msgstr ""
 
 #: tfrmcodeshaper.grpquotelines.caption
-msgctxt "tfrmcodeshaper.grpquotelines.caption"
+msgctxt "TFRMCODESHAPER.GRPQUOTELINES.CAPTION"
 msgid "Quote lines"
 msgstr ""
 
@@ -1741,17 +1735,13 @@ msgid "maximum position:"
 msgstr ""
 
 #: tfrmcodeshaper.mnibreakaftertoken.caption
-msgctxt "TFRMCODESHAPER.MNIBREAKAFTERTOKEN.CAPTION"
+msgctxt "tfrmcodeshaper.mnibreakaftertoken.caption"
 msgid "after"
 msgstr ""
 
 #: tfrmcodeshaper.mnibreakbeforetoken.caption
 msgctxt "TFRMCODESHAPER.MNIBREAKBEFORETOKEN.CAPTION"
 msgid "before"
-msgstr ""
-
-#: tfrmcolorsettings.caption
-msgid "frmColorSettings"
 msgstr ""
 
 #: tfrmeditorsettings.actapplysettings.caption
@@ -1781,7 +1771,7 @@ msgid "&OK"
 msgstr ""
 
 #: tfrmeditorsettings.caption
-msgctxt "TFRMEDITORSETTINGS.CAPTION"
+msgctxt "tfrmeditorsettings.caption"
 msgid "Editor settings"
 msgstr ""
 
@@ -1802,6 +1792,7 @@ msgid "Common highlighter attributes"
 msgstr ""
 
 #: tfrmeditorsettings.tshighlighters.caption
+msgctxt "tfrmeditorsettings.tshighlighters.caption"
 msgid "Highlighters"
 msgstr ""
 
@@ -1874,7 +1865,7 @@ msgid "Show right edge"
 msgstr ""
 
 #: tfrmeditorsettingsdialog.chkshowspecialcharacters.caption
-msgctxt "tfrmeditorsettingsdialog.chkshowspecialcharacters.caption"
+msgctxt "TFRMEDITORSETTINGSDIALOG.CHKSHOWSPECIALCHARACTERS.CAPTION"
 msgid "Show special characters"
 msgstr ""
 
@@ -1915,7 +1906,7 @@ msgid "Keys"
 msgstr ""
 
 #: tfrmeditorsettingsdialog.grpselection.caption
-msgctxt "tfrmeditorsettingsdialog.grpselection.caption"
+msgctxt "TFRMEDITORSETTINGSDIALOG.GRPSELECTION.CAPTION"
 msgid "Selection"
 msgstr ""
 
@@ -1957,12 +1948,11 @@ msgid "&Add..."
 msgstr ""
 
 #: tfrmfiletypesettings.acdel.caption
-msgctxt "TFRMFILETYPESETTINGS.ACDEL.CAPTION"
 msgid "&Delete..."
 msgstr ""
 
 #: tfrmfiletypesettings.bnac.caption
-msgctxt "TFRMFILETYPESETTINGS.BNAC.CAPTION"
+msgctxt "tfrmfiletypesettings.bnac.caption"
 msgid "..."
 msgstr ""
 
@@ -2002,22 +1992,19 @@ msgid ">"
 msgstr ""
 
 #: tfrmfiletypesettings.bnrunparam.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNPARAM.CAPTION"
+msgctxt "tfrmfiletypesettings.bnrunparam.caption"
 msgid ">"
 msgstr ""
 
 #: tfrmfiletypesettings.chkautoi.caption
-msgctxt "TFRMFILETYPESETTINGS.CHKAUTOI.CAPTION"
 msgid "&Auto Indent"
 msgstr ""
 
 #: tfrmfiletypesettings.chksmarttab.caption
-msgctxt "TFRMFILETYPESETTINGS.CHKSMARTTAB.CAPTION"
 msgid "&Smart Tab"
 msgstr ""
 
 #: tfrmfiletypesettings.chkusetab.caption
-msgctxt "TFRMFILETYPESETTINGS.CHKUSETAB.CAPTION"
 msgid "&Uset Tab"
 msgstr ""
 
@@ -2027,87 +2014,70 @@ msgid "&Options:"
 msgstr ""
 
 #: tfrmfiletypesettings.lbfilter.caption
-msgctxt "TFRMFILETYPESETTINGS.LBFILTER.CAPTION"
 msgid "&Filter:"
 msgstr ""
 
 #: tfrmfiletypesettings.lbft.caption
-msgctxt "TFRMFILETYPESETTINGS.LBFT.CAPTION"
 msgid "File &Type:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblcomment.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLCOMMENT.CAPTION"
 msgid "&Comment Char:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblftautocomplete.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLFTAUTOCOMPLETE.CAPTION"
 msgid "&Autocomplete:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblhelp.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLHELP.CAPTION"
 msgid "Help file:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblhighlighter.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLHIGHLIGHTER.CAPTION"
+msgctxt "tfrmfiletypesettings.lblhighlighter.caption"
 msgid "&Highlight:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblruncmd.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLRUNCMD.CAPTION"
 msgid "&Command Line:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblrundir.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLRUNDIR.CAPTION"
 msgid "Work &Directory:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblrunoutput.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLRUNOUTPUT.CAPTION"
 msgid "&Output Expression:"
 msgstr ""
 
 #: tfrmfiletypesettings.lblrunparam.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLRUNPARAM.CAPTION"
 msgid "&Parameters:"
 msgstr ""
 
 #: tfrmfiletypesettings.lbltabwidth.caption
-msgctxt "TFRMFILETYPESETTINGS.LBLTABWIDTH.CAPTION"
 msgid "Tab &Width:"
 msgstr ""
 
 #: tfrmfiletypesettings.lnkfilters.caption
-msgctxt "TFRMFILETYPESETTINGS.LNKFILTERS.CAPTION"
 msgid "Setup Filters..."
 msgstr ""
 
 #: tfrmfiletypesettings.tsftac.caption
-msgctxt "TFRMFILETYPESETTINGS.TSFTAC.CAPTION"
 msgid "&Autocomplete"
 msgstr ""
 
 #: tfrmfiletypesettings.tsfthelp.caption
-msgctxt "TFRMFILETYPESETTINGS.TSFTHELP.CAPTION"
+msgctxt "tfrmfiletypesettings.tsfthelp.caption"
 msgid "&Help"
 msgstr ""
 
 #: tfrmfiletypesettings.tsftmain.caption
-msgctxt "TFRMFILETYPESETTINGS.TSFTMAIN.CAPTION"
+msgctxt "tfrmfiletypesettings.tsftmain.caption"
 msgid "&Main"
 msgstr ""
 
 #: tfrmfiletypesettings.tsftrun.caption
-msgctxt "TFRMFILETYPESETTINGS.TSFTRUN.CAPTION"
 msgid "&Run"
-msgstr ""
-
-#: tfrmfilter.actfocusfiltertext.caption
-msgid "Set focus to filter text"
 msgstr ""
 
 #: tfrmhexeditor.caption
@@ -2128,7 +2098,7 @@ msgid "&Delete"
 msgstr ""
 
 #: tfrmkeymappings.bncancel.caption
-msgctxt "TFRMKEYMAPPINGS.BNCANCEL.CAPTION"
+msgctxt "tfrmkeymappings.bncancel.caption"
 msgid "Close"
 msgstr ""
 
@@ -2188,68 +2158,87 @@ msgstr ""
 msgid "Toolbars"
 msgstr ""
 
+#: tfrmlookup.actsearch.caption
+msgctxt "TFRMLOOKUP.ACTSEARCH.CAPTION"
+msgid "Search"
+msgstr ""
+
+#: tfrmlookup.caption
+msgid "Lookup"
+msgstr ""
+
+#: tfrmlookup.chkcomment.caption
+msgid "Comment"
+msgstr ""
+
+#: tfrmlookup.chkname.caption
+msgctxt "TFRMLOOKUP.CHKNAME.CAPTION"
+msgid "Name"
+msgstr ""
+
+#: tfrmlookup.chktext.caption
+msgctxt "TFRMLOOKUP.CHKTEXT.CAPTION"
+msgid "Text"
+msgstr ""
+
 #: tfrmmain.actabout.caption
-msgctxt "tfrmmain.actabout.caption"
+msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
 msgstr ""
 
-#: tfrmmain.actcheckfornewversion.caption
-msgid "Check for new version"
+#: tfrmmain.actexecute.caption
+msgctxt "tfrmmain.actexecute.caption"
+msgid "Execute"
 msgstr ""
 
-#: tfrmmain.actclosetoolview.caption
-msgid "Close toolview"
+#: tfrmmain.actlookup.caption
+msgctxt "tfrmmain.actlookup.caption"
+msgid "Search snippet database"
 msgstr ""
 
-#: tfrmmain.btncurrentchar.hint
-msgctxt "TFRMMAIN.BTNCURRENTCHAR.HINT"
-msgid "Character code of character at cursor position"
+#: tfrmmain.actlookup.hint
+msgctxt "TFRMMAIN.ACTLOOKUP.HINT"
+msgid "Search snippet database"
 msgstr ""
 
-#: tfrmmain.btnencoding.hint
-msgctxt "tfrmmain.btnencoding.hint"
-msgid "Encoding"
+#: tfrmmain.actsettings.caption
+msgctxt "TFRMMAIN.ACTSETTINGS.CAPTION"
+msgid "Settings"
 msgstr ""
 
-#: tfrmmain.btnhighlighter.hint
-msgctxt "tfrmmain.btnhighlighter.hint"
+#: tfrmmain.acttogglemaximize.caption
+msgid "Toggle maximize"
+msgstr ""
+
+#: tfrmmain.acttogglestayontop.caption
+msgctxt "TFRMMAIN.ACTTOGGLESTAYONTOP.CAPTION"
+msgid "Stay on top"
+msgstr ""
+
+#: tfrmmain.btnhighlightersb.hint
+msgctxt "TFRMMAIN.BTNHIGHLIGHTERSB.HINT"
 msgid "Highlighter"
 msgstr ""
 
 #: tfrmmain.btnlinebreakstyle.hint
-msgctxt "tfrmmain.btnlinebreakstyle.hint"
 msgid "Line break style"
 msgstr ""
 
-#: tfrmmain.btnselectionmode.hint
-msgctxt "TFRMMAIN.BTNSELECTIONMODE.HINT"
-msgid "Selection mode"
+#: tfrmmain.pnleditmode.caption
+msgid "INS"
 msgstr ""
 
-#: tfrmmain.caption
-msgid "Notepas"
-msgstr ""
-
-#: tfrmmain.pnlcurrentchar.hint
-msgctxt "tfrmmain.pnlcurrentchar.hint"
-msgid "Character code of character at cursor position"
-msgstr ""
-
-#: tfrmmain.pnlencoding.hint
-msgid "Current encoding"
+#: tfrmmain.pnleditmode.hint
+msgid "Edit mode"
 msgstr ""
 
 #: tfrmmain.pnlhighlighter.hint
 msgid "Current highlighter"
 msgstr ""
 
-#: tfrmmain.pnlinsertmode.caption
-msgctxt "TFRMMAIN.PNLINSERTMODE.CAPTION"
-msgid "INS"
-msgstr ""
-
-#: tfrmmain.pnlinsertmode.hint
-msgid "Insert mode"
+#: tfrmmain.pnlid.hint
+msgctxt "TFRMMAIN.PNLID.HINT"
+msgid "Size"
 msgstr ""
 
 #: tfrmmain.pnllinebreakstyle.hint
@@ -2260,18 +2249,17 @@ msgstr ""
 msgid "Cursor position"
 msgstr ""
 
-#: tfrmmain.pnlselectionmode.hint
-msgctxt "TFRMMAIN.PNLSELECTIONMODE.HINT"
-msgid "Selection mode"
-msgstr ""
-
 #: tfrmmain.pnlsize.hint
 msgctxt "tfrmmain.pnlsize.hint"
 msgid "Size"
 msgstr ""
 
-#: tfrmmain.pnlviewercount.hint
-msgid "Total count of editor viewer instances."
+#: tfrmmain.pnlsnippetcount.hint
+msgid "Snippet count"
+msgstr ""
+
+#: tfrmmain.tlbapplication.caption
+msgid "tlbApplication"
 msgstr ""
 
 #: tfrmminimap.caption
@@ -2279,27 +2267,25 @@ msgid "Minimap"
 msgstr ""
 
 #: tfrmoptionsassociate.actadd.caption
-msgctxt "TFRMOPTIONSASSOCIATE.ACTADD.CAPTION"
+msgctxt "tfrmoptionsassociate.actadd.caption"
 msgid "&Add..."
 msgstr ""
 
 #: tfrmoptionsassociate.actdelete.caption
-msgctxt "TFRMOPTIONSASSOCIATE.ACTDELETE.CAPTION"
+msgctxt "tfrmoptionsassociate.actdelete.caption"
 msgid "&Delete"
 msgstr ""
 
 #: tfrmoptionsassociate.actdeselectall.caption
-msgctxt "TFRMOPTIONSASSOCIATE.ACTDESELECTALL.CAPTION"
 msgid "&Hide Selection"
 msgstr ""
 
 #: tfrmoptionsassociate.actedit.caption
-msgctxt "TFRMOPTIONSASSOCIATE.ACTEDIT.CAPTION"
+msgctxt "tfrmoptionsassociate.actedit.caption"
 msgid "&Edit..."
 msgstr ""
 
 #: tfrmoptionsassociate.actselectall.caption
-msgctxt "TFRMOPTIONSASSOCIATE.ACTSELECTALL.CAPTION"
 msgid "Se&lect All"
 msgstr ""
 
@@ -2320,17 +2306,14 @@ msgid "Associate to &Unknown"
 msgstr ""
 
 #: tfrmoptionsassociate.gbxoptions.caption
-msgctxt "TFRMOPTIONSASSOCIATE.GBXOPTIONS.CAPTION"
 msgid "&Options"
 msgstr ""
 
 #: tfrmoptionsassociate.gbxother.caption
-msgctxt "TFRMOPTIONSASSOCIATE.GBXOTHER.CAPTION"
 msgid "Other:"
 msgstr ""
 
 #: tfrmoptionsassociate.lblbackup.caption
-msgctxt "TFRMOPTIONSASSOCIATE.LBLBACKUP.CAPTION"
 msgid "Make Backup..."
 msgstr ""
 
@@ -2347,167 +2330,10 @@ msgid "Ext:"
 msgstr ""
 
 #: tfrmoptionsassociate.pnlaccess.caption
-msgctxt "TFRMOPTIONSASSOCIATE.PNLACCESS.CAPTION"
 msgid "You have not permission for associate extensions."
 msgstr ""
 
-#: tfrmoptionsfiletype.acadd.caption
-msgctxt "TFRMOPTIONSFILETYPE.ACADD.CAPTION"
-msgid "&Add..."
-msgstr ""
-
-#: tfrmoptionsfiletype.acdel.caption
-msgctxt "tfrmoptionsfiletype.acdel.caption"
-msgid "&Delete..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnac.caption
-msgctxt "tfrmoptionsfiletype.bnac.caption"
-msgid "..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnacedit.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNACEDIT.CAPTION"
-msgid "&Edit..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnhelp.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNHELP.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnruncmd.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNRUNCMD.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnrundirbrowse.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNRUNDIRBROWSE.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmoptionsfiletype.bnrundirtags.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNRUNDIRTAGS.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmoptionsfiletype.bnrunoutputexp.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNRUNOUTPUTEXP.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmoptionsfiletype.bnrunoutputl.caption
-msgctxt "TFRMOPTIONSFILETYPE.BNRUNOUTPUTL.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmoptionsfiletype.bnrunparam.caption
-msgctxt "tfrmoptionsfiletype.bnrunparam.caption"
-msgid ">"
-msgstr ""
-
-#: tfrmoptionsfiletype.chkautoi.caption
-msgctxt "tfrmoptionsfiletype.chkautoi.caption"
-msgid "&Auto Indent"
-msgstr ""
-
-#: tfrmoptionsfiletype.chksmarttab.caption
-msgctxt "tfrmoptionsfiletype.chksmarttab.caption"
-msgid "&Smart Tab"
-msgstr ""
-
-#: tfrmoptionsfiletype.chkusetab.caption
-msgctxt "tfrmoptionsfiletype.chkusetab.caption"
-msgid "&Uset Tab"
-msgstr ""
-
-#: tfrmoptionsfiletype.gboptions.caption
-msgctxt "tfrmoptionsfiletype.gboptions.caption"
-msgid "&Options:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lbfilter.caption
-msgctxt "tfrmoptionsfiletype.lbfilter.caption"
-msgid "&Filter:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lbft.caption
-msgctxt "tfrmoptionsfiletype.lbft.caption"
-msgid "File &Type:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblcomment.caption
-msgctxt "tfrmoptionsfiletype.lblcomment.caption"
-msgid "&Comment Char:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblftautocomplete.caption
-msgctxt "tfrmoptionsfiletype.lblftautocomplete.caption"
-msgid "&Autocomplete:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblhelp.caption
-msgctxt "tfrmoptionsfiletype.lblhelp.caption"
-msgid "Help file:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblhighlighter.caption
-msgctxt "tfrmoptionsfiletype.lblhighlighter.caption"
-msgid "&Highlight:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblruncmd.caption
-msgctxt "tfrmoptionsfiletype.lblruncmd.caption"
-msgid "&Command Line:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblrundir.caption
-msgctxt "tfrmoptionsfiletype.lblrundir.caption"
-msgid "Work &Directory:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblrunoutput.caption
-msgctxt "tfrmoptionsfiletype.lblrunoutput.caption"
-msgid "&Output Expression:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lblrunparam.caption
-msgctxt "tfrmoptionsfiletype.lblrunparam.caption"
-msgid "&Parameters:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lbltabwidth.caption
-msgctxt "tfrmoptionsfiletype.lbltabwidth.caption"
-msgid "Tab &Width:"
-msgstr ""
-
-#: tfrmoptionsfiletype.lnkfilters.caption
-msgctxt "tfrmoptionsfiletype.lnkfilters.caption"
-msgid "Setup Filters..."
-msgstr ""
-
-#: tfrmoptionsfiletype.tsftac.caption
-msgctxt "tfrmoptionsfiletype.tsftac.caption"
-msgid "&Autocomplete"
-msgstr ""
-
-#: tfrmoptionsfiletype.tsfthelp.caption
-msgctxt "TFRMOPTIONSFILETYPE.TSFTHELP.CAPTION"
-msgid "&Help"
-msgstr ""
-
-#: tfrmoptionsfiletype.tsftmain.caption
-msgctxt "tfrmoptionsfiletype.tsftmain.caption"
-msgid "&Main"
-msgstr ""
-
-#: tfrmoptionsfiletype.tsftrun.caption
-msgctxt "tfrmoptionsfiletype.tsftrun.caption"
-msgid "&Run"
-msgstr ""
-
 #: tfrmoptionsthemes.bnchangefont.caption
-msgctxt "tfrmoptionsthemes.bnchangefont.caption"
 msgid "Change Font..."
 msgstr ""
 
@@ -2600,7 +2426,6 @@ msgid "&Color:"
 msgstr ""
 
 #: tfrmoptionsthemes.gbdfont.caption
-msgctxt "tfrmoptionsthemes.gbdfont.caption"
 msgid "&Font"
 msgstr ""
 
@@ -2818,7 +2643,7 @@ msgid "Select All"
 msgstr ""
 
 #: tfrmscripteditor.actexecute.caption
-msgctxt "tfrmscripteditor.actexecute.caption"
+msgctxt "TFRMSCRIPTEDITOR.ACTEXECUTE.CAPTION"
 msgid "Execute"
 msgstr ""
 
@@ -2836,7 +2661,7 @@ msgid "actFocusSearchText"
 msgstr ""
 
 #: tfrmsearchform.actreplace.caption
-msgctxt "TFRMSEARCHFORM.ACTREPLACE.CAPTION"
+msgctxt "tfrmsearchform.actreplace.caption"
 msgid "Replace"
 msgstr ""
 
@@ -2845,12 +2670,12 @@ msgid "Replace all"
 msgstr ""
 
 #: tfrmsearchform.caption
-msgctxt "TFRMSEARCHFORM.CAPTION"
+msgctxt "tfrmsearchform.caption"
 msgid "Find"
 msgstr ""
 
 #: tfrmsearchform.chkcasesensitive.caption
-msgctxt "TFRMSEARCHFORM.CHKCASESENSITIVE.CAPTION"
+msgctxt "tfrmsearchform.chkcasesensitive.caption"
 msgid "Case sensitive"
 msgstr ""
 
@@ -2863,7 +2688,7 @@ msgid "Regular expressions"
 msgstr ""
 
 #: tfrmsearchform.chkwholewordsonly.caption
-msgctxt "TFRMSEARCHFORM.CHKWHOLEWORDSONLY.CAPTION"
+msgctxt "tfrmsearchform.chkwholewordsonly.caption"
 msgid "Whole words only"
 msgstr ""
 
@@ -2894,7 +2719,6 @@ msgid "Text to find:"
 msgstr ""
 
 #: tfrmsearchform.imgf2key.hint
-msgctxt "tfrmsearchform.imgf2key.hint"
 msgid "Press the F2 function key to set "
 msgstr ""
 
@@ -3018,84 +2842,97 @@ msgstr ""
 msgid "lblStoredCaretXYValue"
 msgstr ""
 
-#: tfrmsortlines.actexecute.caption
-msgctxt "tfrmsortlines.actexecute.caption"
-msgid "Execute"
+#: tfrmsettingsdialog.actcreatenewdatabase.caption
+msgid "Create new database"
 msgstr ""
 
-#: tfrmsortlines.btnok.caption
-msgctxt "tfrmsortlines.btnok.caption"
-msgid "Sort selection"
+#: tfrmsettingsdialog.actdeletedatabase.caption
+msgid "Delete database"
 msgstr ""
 
-#: tfrmsortlines.caption
-msgctxt "tfrmsortlines.caption"
-msgid "Sort strings"
+#: tfrmsettingsdialog.actopendatabase.caption
+msgid "Open database"
 msgstr ""
 
-#: tfrmsortlines.gbxoptions.caption
-msgctxt "tfrmsortlines.gbxoptions.caption"
-msgid "Options"
+#: tfrmsettingsdialog.actopenglyphs.caption
+msgid "Open glyph files"
 msgstr ""
 
-#: tfrmsortlines.rgpscope.caption
-msgctxt "tfrmsortlines.rgpscope.caption"
-msgid "Scope"
+#: tfrmsettingsdialog.actrefreshglyphs.caption
+msgid "Refresh"
 msgstr ""
 
-#: tfrmsortlines.rgpsortdirection.caption
-msgctxt "tfrmsortlines.rgpsortdirection.caption"
-msgid "Sort direction:"
+#: tfrmsettingsdialog.chkautomaticindex.caption
+msgid "Automatic index"
+msgstr ""
+
+#: tfrmsettingsdialog.chkautomaticindex.hint
+msgid ""
+"When no indices are available to aid the evaluation \n"
+"of a query, SQLite might create an automatic index \n"
+"that lasts only for the duration of a single SQL statement \n"
+"and use that index to help boost the query performance.\n"
+msgstr ""
+
+#: tfrmsettingsdialog.dlgopen.title
+msgid "Open glyph"
+msgstr ""
+
+#: tfrmsettingsdialog.highlighters.caption
+msgctxt "TFRMSETTINGSDIALOG.HIGHLIGHTERS.CAPTION"
+msgid "Highlighters"
+msgstr ""
+
+#: tfrmsettingsdialog.lbldatabasefile.caption
+msgid "Filename:"
+msgstr ""
+
+#: tfrmsettingsdialog.tsdatabase.caption
+msgid "Database"
+msgstr ""
+
+#: tfrmsettingsdialog.tsimages.caption
+msgid "Images"
+msgstr ""
+
+#: tfrmsettingsdialog.vstimagelist.header.columns[0].text
+msgid "Index"
+msgstr ""
+
+#: tfrmsettingsdialog.vstimagelist.header.columns[1].text
+msgid "Image"
 msgstr ""
 
 #: tfrmsortstrings.actexecute.caption
-msgctxt "tfrmsortstrings.actexecute.caption"
+msgctxt "TFRMSORTSTRINGS.ACTEXECUTE.CAPTION"
 msgid "Execute"
 msgstr ""
 
 #: tfrmsortstrings.btnok.caption
-msgctxt "tfrmsortstrings.btnok.caption"
 msgid "Sort selection"
 msgstr ""
 
 #: tfrmsortstrings.caption
-msgctxt "tfrmsortstrings.caption"
 msgid "Sort strings"
 msgstr ""
 
 #: tfrmsortstrings.gbxoptions.caption
-msgctxt "tfrmsortstrings.gbxoptions.caption"
+msgctxt "TFRMSORTSTRINGS.GBXOPTIONS.CAPTION"
 msgid "Options"
 msgstr ""
 
 #: tfrmsortstrings.rgpsortdirection.caption
-msgctxt "tfrmsortstrings.rgpsortdirection.caption"
+msgctxt "TFRMSORTSTRINGS.RGPSORTDIRECTION.CAPTION"
 msgid "Sort direction:"
 msgstr ""
 
 #: tfrmsortstrings.rgpsortscope.caption
-msgctxt "tfrmsortstrings.rgpsortscope.caption"
+msgctxt "TFRMSORTSTRINGS.RGPSORTSCOPE.CAPTION"
 msgid "Scope"
 msgstr ""
 
-#: tfrmstructure.btncollapse.caption
-msgctxt "TFRMSTRUCTURE.BTNCOLLAPSE.CAPTION"
-msgid "Collapse"
-msgstr ""
-
-#: tfrmstructure.btnexpand.caption
-msgctxt "TFRMSTRUCTURE.BTNEXPAND.CAPTION"
-msgid "Expand"
-msgstr ""
-
-#: tfrmstructure.btninspect.caption
-msgctxt "TFRMSTRUCTURE.BTNINSPECT.CAPTION"
-msgid "Inspect"
-msgstr ""
-
-#: tfrmstructure.caption
-msgctxt "TFRMSTRUCTURE.CAPTION"
-msgid "Structure viewer"
+#: tfrmsqllog.caption
+msgid "frmSQLLog"
 msgstr ""
 
 #: tfrmtest.panel1.caption
@@ -3111,7 +2948,7 @@ msgid "ToolBar2"
 msgstr ""
 
 #: tfrmtest.toolbutton1.caption
-msgctxt "tfrmtest.toolbutton1.caption"
+msgctxt "TFRMTEST.TOOLBUTTON1.CAPTION"
 msgid "ToolButton1"
 msgstr ""
 
@@ -3120,12 +2957,12 @@ msgid "ToolButton2"
 msgstr ""
 
 #: tfrmtest.toolbutton3.caption
-msgctxt "tfrmtest.toolbutton3.caption"
+msgctxt "TFRMTEST.TOOLBUTTON3.CAPTION"
 msgid "ToolButton3"
 msgstr ""
 
 #: tfrmtest.toolbutton4.caption
-msgctxt "tfrmtest.toolbutton4.caption"
+msgctxt "TFRMTEST.TOOLBUTTON4.CAPTION"
 msgid "ToolButton4"
 msgstr ""
 
@@ -3142,7 +2979,7 @@ msgid "ToolButton7"
 msgstr ""
 
 #: tfrmviewlist.actclose.caption
-msgctxt "tfrmviewlist.actclose.caption"
+msgctxt "TFRMVIEWLIST.ACTCLOSE.CAPTION"
 msgid "Close"
 msgstr ""
 
@@ -3154,338 +2991,166 @@ msgstr ""
 msgid "Editor views"
 msgstr ""
 
-#: tfrmxmltree.btncollapse.caption
-msgctxt "tfrmxmltree.btncollapse.caption"
-msgid "Collapse"
+#: tfrmvirtualdbtree.actcollapseallnodes.hint
+msgid "Collapse all nodes"
 msgstr ""
 
-#: tfrmxmltree.btnexpand.caption
-msgctxt "tfrmxmltree.btnexpand.caption"
-msgid "Expand"
+#: tfrmvirtualdbtree.actdeleteselectednodes.hint
+msgid "Delete all selected nodes (Del)"
 msgstr ""
 
-#: tfrmxmltree.btninspect.caption
-msgctxt "TFRMXMLTREE.BTNINSPECT.CAPTION"
-msgid "Inspect"
+#: tfrmvirtualdbtree.actexpandallnodes.hint
+msgid "Expand all nodes"
 msgstr ""
 
-#: tfrmxmltree.caption
-msgctxt "tfrmxmltree.caption"
-msgid "Structure viewer"
+#: tfrmvirtualdbtree.actnewfoldernode.hint
+msgid "Add a new subfolder to the tree"
+msgstr ""
+
+#: tfrmvirtualdbtree.actnewitemnode.hint
+msgid "Add a new item to the tree"
+msgstr ""
+
+#: tfrmvirtualdbtree.actnewrootfoldernode.hint
+msgid "Add a new rootfolder to the tree"
+msgstr ""
+
+#: tfrmvirtualdbtree.actsavepersistent.hint
+msgid "Save database to file"
+msgstr ""
+
+#: tfrmvirtualdbtree.mnidelete.caption
+msgctxt "TFRMVIRTUALDBTREE.MNIDELETE.CAPTION"
+msgid "Delete"
+msgstr ""
+
+#: tfrmvirtualdbtree.mninewchild.caption
+msgid "New item"
+msgstr ""
+
+#: tfrmvirtualdbtree.mninewfolder.caption
+msgctxt "TFRMVIRTUALDBTREE.MNINEWFOLDER.CAPTION"
+msgid "New folder"
+msgstr ""
+
+#: tfrmvirtualdbtree.mninewroot.caption
+msgid "New rootfolder"
 msgstr ""
 
 #: tricheditorview.caption
 msgid "RichEditorView"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sbutton
-msgctxt "ts.editor.actionlist.toolview.sbutton"
-msgid "Button"
+#: tricheditorview.pnlbottom.caption
+msgid "pnlBottom"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.scaption
-msgctxt "ts.editor.actionlist.toolview.scaption"
-msgid "Caption"
+#: ts.core.nativexml.sbeginendmismatch
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.scategory
-msgctxt "ts.editor.actionlist.toolview.scategory"
-msgid "Category"
+#: ts.core.nativexml.scannotaddattribute
+msgid "cannot add attribute"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sclickcount
-msgctxt "ts.editor.actionlist.toolview.sclickcount"
-msgid "ClickCount"
+#: ts.core.nativexml.scannotaddnode
+msgid "cannot add node to this type of element"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sclickdir
-msgctxt "ts.editor.actionlist.toolview.sclickdir"
-msgid "ClickDir"
+#: ts.core.nativexml.scannotmanipulate
+msgid "cannot manipulate nodes in this type of element"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.scommand
-msgctxt "ts.editor.actionlist.toolview.scommand"
-msgid "Command"
+#: ts.core.nativexml.scannotsetname
+msgid "cannot set name on this type of element"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.senabled
-msgctxt "ts.editor.actionlist.toolview.senabled"
-msgid "Enabled"
+#: ts.core.nativexml.scannotsetvalue
+msgid "cannot set value on this type of element"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.shint
-msgctxt "ts.editor.actionlist.toolview.shint"
-msgid "Hint"
+#: ts.core.nativexml.scopyfromonlywithxmlnode
+msgid "CopyFrom can only be used with TXmlNode descendants"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.smovecaret
-msgctxt "ts.editor.actionlist.toolview.smovecaret"
-msgid "MoveCaret"
+#: ts.core.nativexml.sdefaultcharused
+msgid "default char used for codepage substitution"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sname
-msgctxt "ts.editor.actionlist.toolview.sname"
-msgid "Name"
+#: ts.core.nativexml.serrorcalcstreamlength
+msgid "error while calculating streamlength"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sshift
-msgctxt "ts.editor.actionlist.toolview.sshift"
-msgid "Shift"
+#: ts.core.nativexml.sillegalendtag
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sshiftmask
-msgctxt "ts.editor.actionlist.toolview.sshiftmask"
-msgid "ShiftMask"
+#: ts.core.nativexml.sillegaltag
+msgid "illegal tag (\"%s\") at pos %d"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sshortcut
-msgctxt "ts.editor.actionlist.toolview.sshortcut"
-msgid "Shortcut"
+#: ts.core.nativexml.sinvalidstream
+msgid "invalid stream"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.sshortcut2
-msgctxt "ts.editor.actionlist.toolview.sshortcut2"
-msgid "Shortcut2"
+#: ts.core.nativexml.slevelmismatch
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: ts.editor.actionlist.toolview.svisible
-msgctxt "ts.editor.actionlist.toolview.svisible"
-msgid "Visible"
+#: ts.core.nativexml.smissingdatainbinarystream
+msgid "missing data in binary stream"
 msgstr ""
 
-#: ts.editor.alignlines.toolview.stoken
-msgctxt "ts.editor.alignlines.toolview.stoken"
-msgid "Token"
+#: ts.core.nativexml.snondefaultchardata
+msgid "non-default chardata at line %d (pos %d)"
 msgstr ""
 
-#: ts.editor.charactermap.toolview.scharactermap
-msgctxt "ts.editor.charactermap.toolview.scharactermap"
-msgid "Character Map"
+#: ts.core.nativexml.snotsupported
+msgid "feature is not supported yet"
 msgstr ""
 
-#: ts.editor.codefilter.toolview.sfilteredcode
-msgctxt "ts.editor.codefilter.toolview.sfilteredcode"
-msgid "<Filtered code>"
+#: ts.core.nativexml.sprematureend
+msgid "stream terminated prematurely at pos %d"
 msgstr ""
 
-#: ts.editor.codefilter.toolview.slineindex
-msgctxt "ts.editor.codefilter.toolview.slineindex"
-msgid "Line"
+#: ts.core.nativexml.squotecharexpected
+msgid "quote char expected at pos %d"
 msgstr ""
 
-#: ts.editor.codefilter.toolview.slinetext
-msgctxt "ts.editor.codefilter.toolview.slinetext"
-msgid "Text"
+#: ts.core.nativexml.srootelementnotdefined
+msgid "XML root element not defined."
 msgstr ""
 
-#: ts.editor.resources.sapplicationmenucaption
-msgctxt "ts.editor.resources.sapplicationmenucaption"
-msgid "&Application"
+#: ts.core.nativexml.ssignificantdigitsoutofrange
+msgid "significant digits out of range"
 msgstr ""
 
-#: ts.editor.resources.sasksavechanges
-msgctxt "ts.editor.resources.sasksavechanges"
-msgid "File %s is modified. Do you want to save changes?"
+#: ts.core.nativexml.sunknownbinaryencodingbinhex
+msgid "unknown encoding: xbeBinHex (deprecated)"
 msgstr ""
 
-#: ts.editor.resources.sbatdescription
-msgctxt "ts.editor.resources.sbatdescription"
-msgid "Windows batch script"
+#: ts.core.nativexml.sunknownencoding
+msgid "unknown encoding"
 msgstr ""
 
-#: ts.editor.resources.scppdescription
-msgctxt "ts.editor.resources.scppdescription"
-msgid "C++"
+#: ts.core.nativexml.sunsupportedencoding
+msgid "unsupported encoding (%s)"
 msgstr ""
 
-#: ts.editor.resources.scsdescription
-msgctxt "ts.editor.resources.scsdescription"
-msgid "C#"
+#: ts.core.nativexml.sunsupportedtag
+msgid "unsupported tag (\"%s\") at pos %d"
 msgstr ""
 
-#: ts.editor.resources.scssdescription
-msgctxt "ts.editor.resources.scssdescription"
-msgid "Cascading Style Sheet"
+#: ts.core.nativexml.sxmlnodenotassigned
+msgid "XML node is not assigned"
 msgstr ""
 
-#: ts.editor.resources.sdiffdescription
-msgctxt "ts.editor.resources.sdiffdescription"
-msgid "Diff"
+#: ts.core.nativexml.sxmlownernotassigned
+msgid "XML owner is not assigned"
 msgstr ""
 
-#: ts.editor.resources.sfilemenucaption
-msgctxt "ts.editor.resources.sfilemenucaption"
-msgid "&File"
-msgstr ""
-
-#: ts.editor.resources.shelpmenucaption
-msgctxt "ts.editor.resources.shelpmenucaption"
-msgid "&Help"
-msgstr ""
-
-#: ts.editor.resources.shighlightersmenucaption
-msgctxt "ts.editor.resources.shighlightersmenucaption"
-msgid "&Highlighters"
-msgstr ""
-
-#: ts.editor.resources.shtmldescription
-msgctxt "ts.editor.resources.shtmldescription"
-msgid "HTML document"
-msgstr ""
-
-#: ts.editor.resources.sinidescription
-msgctxt "ts.editor.resources.sinidescription"
-msgid "Settings file"
-msgstr ""
-
-#: ts.editor.resources.sinsertmenucaption
-msgctxt "ts.editor.resources.sinsertmenucaption"
-msgid "&Insert"
-msgstr ""
-
-#: ts.editor.resources.sjavadescription
-msgctxt "ts.editor.resources.sjavadescription"
-msgid "Java"
-msgstr ""
-
-#: ts.editor.resources.sjsdescription
-msgctxt "ts.editor.resources.sjsdescription"
-msgid "JavaScript"
-msgstr ""
-
-#: ts.editor.resources.slfmdescription
-msgctxt "ts.editor.resources.slfmdescription"
-msgid "Object Pascal form definition"
-msgstr ""
-
-#: ts.editor.resources.slineswithmatchfound
-msgctxt "ts.editor.resources.slineswithmatchfound"
-msgid "%d lines with match found."
-msgstr ""
-
-#: ts.editor.resources.slogdescription
-msgctxt "ts.editor.resources.slogdescription"
-msgid "Log"
-msgstr ""
-
-#: ts.editor.resources.sluadescription
-msgctxt "ts.editor.resources.sluadescription"
-msgid "Lua"
-msgstr ""
-
-#: ts.editor.resources.sneweditorviewfilename
-msgctxt "ts.editor.resources.sneweditorviewfilename"
-msgid "<new>"
-msgstr ""
-
-#: ts.editor.resources.snotimplementedyet
-msgctxt "ts.editor.resources.snotimplementedyet"
-msgid "This feature is not implemented yet"
-msgstr ""
-
-#: ts.editor.resources.sonelinewithmatchfound
-msgctxt "ts.editor.resources.sonelinewithmatchfound"
-msgid "1 line with match found."
-msgstr ""
-
-#: ts.editor.resources.spasdescription
-msgctxt "ts.editor.resources.spasdescription"
-msgid "Object Pascal"
-msgstr ""
-
-#: ts.editor.resources.sperldescription
-msgctxt "ts.editor.resources.sperldescription"
-msgid "Perl"
-msgstr ""
-
-#: ts.editor.resources.sphpdescription
-msgctxt "ts.editor.resources.sphpdescription"
-msgid "PHP"
-msgstr ""
-
-#: ts.editor.resources.spodescription
-msgctxt "ts.editor.resources.spodescription"
-msgid "Gettext translation strings"
-msgstr ""
-
-#: ts.editor.resources.spydescription
-msgctxt "ts.editor.resources.spydescription"
-msgid "Python"
-msgstr ""
-
-#: ts.editor.resources.sresdescription
-msgctxt "ts.editor.resources.sresdescription"
-msgid "Windows resources"
-msgstr ""
-
-#: ts.editor.resources.srtfdescription
-msgctxt "ts.editor.resources.srtfdescription"
-msgid "Rich Text Format document"
-msgstr ""
-
-#: ts.editor.resources.srubydescription
-msgctxt "ts.editor.resources.srubydescription"
-msgid "Ruby"
-msgstr ""
-
-#: ts.editor.resources.ssearching
-msgctxt "ts.editor.resources.ssearching"
-msgid "Searching..."
-msgstr ""
-
-#: ts.editor.resources.ssearchmenucaption
-msgctxt "ts.editor.resources.ssearchmenucaption"
-msgid "&Search"
-msgstr ""
-
-#: ts.editor.resources.sselectionmenucaption
-msgctxt "ts.editor.resources.sselectionmenucaption"
-msgid "Se&lection"
-msgstr ""
-
-#: ts.editor.resources.ssettingsmenucaption
-msgctxt "ts.editor.resources.ssettingsmenucaption"
-msgid "&Settings"
-msgstr ""
-
-#: ts.editor.resources.sshdescription
-msgctxt "ts.editor.resources.sshdescription"
-msgid "Shell script"
-msgstr ""
-
-#: ts.editor.resources.ssqldescription
-msgctxt "ts.editor.resources.ssqldescription"
-msgid "SQL"
-msgstr ""
-
-#: ts.editor.resources.stexdescription
-msgctxt "ts.editor.resources.stexdescription"
-msgid "TeX"
-msgstr ""
-
-#: ts.editor.resources.stextnotfound
-msgctxt "ts.editor.resources.stextnotfound"
-msgid "Text not found"
-msgstr ""
-
-#: ts.editor.resources.stoolsmenucaption
-msgctxt "ts.editor.resources.stoolsmenucaption"
-msgid "&Tools"
-msgstr ""
-
-#: ts.editor.resources.stxtdescription
-msgctxt "ts.editor.resources.stxtdescription"
-msgid "Text document"
-msgstr ""
-
-#: ts.editor.resources.sviewmenucaption
-msgctxt "ts.editor.resources.sviewmenucaption"
-msgid "&View"
-msgstr ""
-
-#: ts.editor.resources.sxmldescription
-msgctxt "ts.editor.resources.sxmldescription"
-msgid "XML document"
+#: ts.core.nativexml.sxmlparentnotassigned
+msgid "XML parent is not assigned"
 msgstr ""
 
 #: ts.editor.search.data.sgroup
@@ -3504,882 +3169,19 @@ msgstr ""
 msgid "Position: (%d, %d)"
 msgstr ""
 
-#: ts.editor.search.toolview.sfilename
-msgctxt "ts.editor.search.toolview.sfilename"
-msgid "FileName"
-msgstr ""
-
-#: ts.editor.search.toolview.smatchesfound
-msgctxt "ts.editor.search.toolview.smatchesfound"
-msgid "%d search matches found."
-msgstr ""
-
-#: ts.editor.search.toolview.smatchfound
-msgctxt "ts.editor.search.toolview.smatchfound"
-msgid "%d search match found."
-msgstr ""
-
-#: ts.editor.settingsdialog.old.sattributename
-msgctxt "ts.editor.settingsdialog.old.sattributename"
-msgid "Attribute name"
-msgstr ""
-
-#: ts.editor.settingsdialog.old.shighlighter
-msgctxt "ts.editor.settingsdialog.old.shighlighter"
-msgid "Highlighter"
-msgstr ""
-
-#: ts.editor.settingsdialog.old.stoolname
-msgctxt "ts.editor.settingsdialog.old.stoolname"
-msgid "Toolname"
-msgstr ""
-
-#: ts.editor.viewlist.toolview.sfilename
-msgctxt "ts.editor.viewlist.toolview.sfilename"
-msgid "Filename"
-msgstr ""
-
-#: ts.editor.viewlist.toolview.shighlighter
-msgctxt "ts.editor.viewlist.toolview.shighlighter"
-msgid "Highlighter"
-msgstr ""
-
-#: ts.editor.viewlist.toolview.smodified
-msgctxt "ts.editor.viewlist.toolview.smodified"
-msgid "Modified"
-msgstr ""
-
-#: ts.editor.viewlist.toolview.spath
-msgctxt "ts.editor.viewlist.toolview.spath"
-msgid "Path"
-msgstr ""
-
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
 msgstr ""
 
-#: ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
-msgctxt "ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho"
-msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsallfiles
-msgctxt "ts_components_docking_resources.adrsallfiles"
-msgid "All files"
-msgstr ""
-
-#: ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts
-msgctxt "ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts"
-msgid "Amount of pixel the mouse has to drag before drag starts"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchordockinglayout
-msgctxt "ts_components_docking_resources.adrsanchordockinglayout"
-msgid "Anchor Docking Layout"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchorisnotsplitternodeanchors
-msgctxt "ts_components_docking_resources.adrsanchorisnotsplitternodeanchors"
-msgid "Anchor is not splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchornotfoundnodeanchors
-msgctxt "ts_components_docking_resources.adrsanchornotfoundnodeanchors"
-msgid "Anchor not found: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors
-msgctxt "ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors"
-msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
-msgctxt "ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors"
-msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsautomatically
-msgctxt "ts_components_docking_resources.adrsautomatically"
-msgid "Automatically"
-msgstr ""
-
-#: ts_components_docking_resources.adrsbottom
-msgctxt "ts_components_docking_resources.adrsbottom"
-msgid "bottom"
-msgstr ""
-
-#: ts_components_docking_resources.adrsclose
-msgctxt "ts_components_docking_resources.adrsclose"
-msgid "Close"
-msgstr ""
-
-#: ts_components_docking_resources.adrscontrolisalreadyadocksite
-msgctxt "ts_components_docking_resources.adrscontrolisalreadyadocksite"
-msgid "control is already a docksite"
-msgstr ""
-
-#: ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite
-msgctxt "ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite"
-msgid "Custom dock site %s%s%s can have only one site."
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockinganchordocking
-msgctxt "ts_components_docking_resources.adrsdockinganchordocking"
-msgid "Docking / Anchordocking"
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide
-msgctxt "ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide"
-msgid "Docking enabled (Requires a restart of the IDE)"
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockingoptions
-msgctxt "ts_components_docking_resources.adrsdockingoptions"
-msgid "Docking options"
-msgstr ""
-
-#: ts_components_docking_resources.adrsdraganddockc
-msgctxt "ts_components_docking_resources.adrsdraganddockc"
-msgid "Use the mouse to drag and dock window \"%c\""
-msgstr ""
-
-#: ts_components_docking_resources.adrsdragthreshold
-msgctxt "ts_components_docking_resources.adrsdragthreshold"
-msgid "Drag threshold"
-msgstr ""
-
-#: ts_components_docking_resources.adrsduplicatename
-msgctxt "ts_components_docking_resources.adrsduplicatename"
-msgid "Duplicate name: "
-msgstr ""
-
-#: ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
-msgctxt "ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
-msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
-msgstr ""
-
-#: ts_components_docking_resources.adrsemptyname
-msgctxt "ts_components_docking_resources.adrsemptyname"
-msgid "Empty name: "
-msgstr ""
-
-#: ts_components_docking_resources.adrsenlarge
-msgctxt "ts_components_docking_resources.adrsenlarge"
-msgid "Enlarge"
-msgstr ""
-
-#: ts_components_docking_resources.adrsenlargeside
-msgctxt "ts_components_docking_resources.adrsenlargeside"
-msgid "Enlarge %s side"
-msgstr ""
-
-#: ts_components_docking_resources.adrserror
-msgctxt "ts_components_docking_resources.adrserror"
-msgid "Error"
-msgstr ""
-
-#: ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile
-msgctxt "ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile"
-msgid "Error loading window layout from file \"%s\"%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrserrorwritingwindowlayouttofile
-msgctxt "ts_components_docking_resources.adrserrorwritingwindowlayouttofile"
-msgid "Error writing window layout to file \"%s\"%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsgeneraldockingoptions
-msgctxt "ts_components_docking_resources.adrsgeneraldockingoptions"
-msgid "General docking options"
-msgstr ""
-
-#: ts_components_docking_resources.adrsheaderalignleft
-msgctxt "ts_components_docking_resources.adrsheaderalignleft"
-msgid "Header align left"
-msgstr ""
-
-#: ts_components_docking_resources.adrsheaderaligntop
-msgctxt "ts_components_docking_resources.adrsheaderaligntop"
-msgid "Header align top"
-msgstr ""
-
-#: ts_components_docking_resources.adrsheaderposition
-msgctxt "ts_components_docking_resources.adrsheaderposition"
-msgid "Header position"
-msgstr ""
-
-#: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
-msgctxt "ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
-msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
-msgstr ""
-
-#: ts_components_docking_resources.adrsleft
-msgctxt "ts_components_docking_resources.adrsleft"
-msgid "left"
-msgstr ""
-
-#: ts_components_docking_resources.adrsloadwindowlayoutfromfile
-msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfile"
-msgid "Load window layout from file ..."
-msgstr ""
-
-#: ts_components_docking_resources.adrsloadwindowlayoutfromfilexml
-msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfilexml"
-msgid "Load window layout from file (*.xml)"
-msgstr ""
-
-#: ts_components_docking_resources.adrslocked
-msgctxt "ts_components_docking_resources.adrslocked"
-msgid "Locked"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmerge
-msgctxt "ts_components_docking_resources.adrsmerge"
-msgid "Merge"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmissingcontrolname
-msgctxt "ts_components_docking_resources.adrsmissingcontrolname"
-msgid "missing control name"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmodalformscannotbemadedockable
-msgctxt "ts_components_docking_resources.adrsmodalformscannotbemadedockable"
-msgid "modal forms can not be made dockable"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft
-msgctxt "ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft"
-msgid "Move header to left when (Width/Height)*100>=HeaderAlignLeft"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop
-msgctxt "ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop"
-msgid "Move header to top when (Width/Height)*100<=HeaderAlignTop"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmovepageleft
-msgctxt "ts_components_docking_resources.adrsmovepageleft"
-msgid "Move page left"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmovepageleftmost
-msgctxt "ts_components_docking_resources.adrsmovepageleftmost"
-msgid "Move page leftmost"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmovepageright
-msgctxt "ts_components_docking_resources.adrsmovepageright"
-msgid "Move page right"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmovepagerightmost
-msgctxt "ts_components_docking_resources.adrsmovepagerightmost"
-msgid "Move page rightmost"
-msgstr ""
-
-#: ts_components_docking_resources.adrsnocaptionsforfloatingsites
-msgctxt "ts_components_docking_resources.adrsnocaptionsforfloatingsites"
-msgid "No captions for floating sites"
-msgstr ""
-
-#: ts_components_docking_resources.adrsnochildrenallowedfornodetype
-msgctxt "ts_components_docking_resources.adrsnochildrenallowedfornodetype"
-msgid "No children allowed for Node=%s%s%s Type=%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsnotsupportedhasparent
-msgctxt "ts_components_docking_resources.adrsnotsupportedhasparent"
-msgid "Not supported: %s has parent %s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsquit
-msgctxt "ts_components_docking_resources.adrsquit"
-msgid "Quit %s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsrequestedbutcreated
-msgctxt "ts_components_docking_resources.adrsrequestedbutcreated"
-msgid "%s requested, but %s created"
-msgstr ""
-
-#: ts_components_docking_resources.adrsrestoredefaultlayout
-msgctxt "ts_components_docking_resources.adrsrestoredefaultlayout"
-msgid "Restore default layout"
-msgstr ""
-
-#: ts_components_docking_resources.adrsright
-msgctxt "ts_components_docking_resources.adrsright"
-msgid "right"
-msgstr ""
-
-#: ts_components_docking_resources.adrssavewindowlayoutasdefault
-msgctxt "ts_components_docking_resources.adrssavewindowlayoutasdefault"
-msgid "Save window layout as default"
-msgstr ""
-
-#: ts_components_docking_resources.adrssavewindowlayouttofile
-msgctxt "ts_components_docking_resources.adrssavewindowlayouttofile"
-msgid "Save window layout to file ..."
-msgstr ""
-
-#: ts_components_docking_resources.adrssavewindowlayouttofilexml
-msgctxt "ts_components_docking_resources.adrssavewindowlayouttofilexml"
-msgid "Save window layout to file (*.xml)"
-msgstr ""
-
-#: ts_components_docking_resources.adrsscaleonresize
-msgctxt "ts_components_docking_resources.adrsscaleonresize"
-msgid "Scale on resize"
-msgstr ""
-
-#: ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized
-msgctxt "ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized"
-msgid "Scale sub sites when a site is resized"
-msgstr ""
-
-#: ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader
-msgctxt "ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader"
-msgid "Show captions of docked controls in the header"
-msgstr ""
-
-#: ts_components_docking_resources.adrsshowheadercaptions
-msgctxt "ts_components_docking_resources.adrsshowheadercaptions"
-msgid "Show header captions"
-msgstr ""
-
-#: ts_components_docking_resources.adrsshowheaders
-msgctxt "ts_components_docking_resources.adrsshowheaders"
-msgid "Show headers"
-msgstr ""
-
-#: ts_components_docking_resources.adrssplitterthickness
-msgctxt "ts_components_docking_resources.adrssplitterthickness"
-msgid "Splitter thickness"
-msgstr ""
-
-#: ts_components_docking_resources.adrssplitterwidth
-msgctxt "ts_components_docking_resources.adrssplitterwidth"
-msgid "Splitter width"
-msgstr ""
-
-#: ts_components_docking_resources.adrstabposition
-msgctxt "ts_components_docking_resources.adrstabposition"
-msgid "Tab position"
-msgstr ""
-
-#: ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
-msgctxt "ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac"
-msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
-msgstr ""
-
-#: ts_components_docking_resources.adrstop
-msgctxt "ts_components_docking_resources.adrstop"
-msgid "top"
-msgstr ""
-
-#: ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall
-msgctxt "ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall"
-msgid "To use anchordocking you must first uninstall %s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsundock
-msgctxt "ts_components_docking_resources.adrsundock"
-msgid "Undock"
-msgstr ""
-
-#: ts_components_synminimap.sfontfactorminmax
-msgctxt "ts_components_synminimap.sfontfactorminmax"
-msgid "Font factor cannot be smaller than %.d or greater than %.d."
-msgstr ""
-
-#: ts_core_codecutilswin32.scannotconvert
-msgctxt "ts_core_codecutilswin32.scannotconvert"
-msgid "Unicode code point $%x has no equivalent in %s"
-msgstr ""
-
-#: ts_core_codecutilswin32.scannotconvertucs4
-msgctxt "ts_core_codecutilswin32.scannotconvertucs4"
-msgid "Cannot convert $%8.8X to %s"
-msgstr ""
-
-#: ts_core_codecutilswin32.sencodingoutofrange
-msgctxt "ts_core_codecutilswin32.sencodingoutofrange"
-msgid "%s encoding out of range"
-msgstr ""
-
-#: ts_core_codecutilswin32.shighsurrogatenotfound
-msgctxt "ts_core_codecutilswin32.shighsurrogatenotfound"
-msgid "High surrogate not found"
-msgstr ""
-
-#: ts_core_codecutilswin32.sindexoutofrange
-msgctxt "ts_core_codecutilswin32.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts_core_codecutilswin32.sinvalidcodepoint
-msgctxt "ts_core_codecutilswin32.sinvalidcodepoint"
-msgid "$%x is not a valid %s code point"
-msgstr ""
-
-#: ts_core_codecutilswin32.sinvalidencoding
-msgctxt "ts_core_codecutilswin32.sinvalidencoding"
-msgid "Invalid %s encoding"
-msgstr ""
-
-#: ts_core_codecutilswin32.slowsurrogatenotfound
-msgctxt "ts_core_codecutilswin32.slowsurrogatenotfound"
-msgid "Low surrogate not found"
-msgstr ""
-
-#: ts_core_codecutilswin32.ssurrogatenotallowed
-msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
-msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
-msgstr ""
-
-#: ts_core_codecutilswin32.sutf8error
-msgctxt "ts_core_codecutilswin32.sutf8error"
-msgid "UTF-8 error %d"
-msgstr ""
-
-#: ts_core_dbutils.snofieldtypeforvariantvalue
-msgctxt "ts_core_dbutils.snofieldtypeforvariantvalue"
-msgid "No fieldtype for Variant value %s"
-msgstr ""
-
-#: ts_core_dbutils.sparameternotassigned
-msgctxt "ts_core_dbutils.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr ""
-
-#: ts_core_dbutils.squerylookuperrorrunningquery
-msgctxt "ts_core_dbutils.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr ""
-
-#: ts_core_dbutils.squerylookuptoomanyrecords
-msgctxt "ts_core_dbutils.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: ts_core_encodingutils.sindexoutofrange
-msgctxt "ts_core_encodingutils.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts_core_fileassociations.sallmenu
-msgctxt "ts_core_fileassociations.sallmenu"
-msgid "*"
-msgstr ""
-
-#: ts_core_fileassociations.sallusers
-msgctxt "ts_core_fileassociations.sallusers"
-msgid "AssociateForAllUsers"
-msgstr ""
-
-#: ts_core_fileassociations.sassockey
-msgctxt "ts_core_fileassociations.sassockey"
-msgid "\\Associate"
-msgstr ""
-
-#: ts_core_fileassociations.sbackup
-msgctxt "ts_core_fileassociations.sbackup"
-msgid "Backup"
-msgstr ""
-
-#: ts_core_fileassociations.sclasseskey
-msgctxt "ts_core_fileassociations.sclasseskey"
-msgid "Software\\Classes\\"
-msgstr ""
-
-#: ts_core_fileassociations.scommand
-msgctxt "ts_core_fileassociations.scommand"
-msgid "Command"
-msgstr ""
-
-#: ts_core_fileassociations.sdeficon
-msgctxt "ts_core_fileassociations.sdeficon"
-msgid "DefaultIcon"
-msgstr ""
-
-#: ts_core_fileassociations.sdeficonindex
-msgctxt "ts_core_fileassociations.sdeficonindex"
-msgid "1"
-msgstr ""
-
-#: ts_core_fileassociations.sextdescrformat
-msgctxt "ts_core_fileassociations.sextdescrformat"
-msgid "%s file"
-msgstr ""
-
-#: ts_core_fileassociations.shkcr
-msgctxt "ts_core_fileassociations.shkcr"
-msgid "HKEY_CLASSES_ROOT"
-msgstr ""
-
-#: ts_core_fileassociations.shkcu
-msgctxt "ts_core_fileassociations.shkcu"
-msgid "HKEY_CURRENT_USER"
-msgstr ""
-
-#: ts_core_fileassociations.shklm
-msgctxt "ts_core_fileassociations.shklm"
-msgid "HKEY_LOCAL_MACHINE"
-msgstr ""
-
-#: ts_core_fileassociations.smenucaption
-msgctxt "ts_core_fileassociations.smenucaption"
-msgid "MenuCaption"
-msgstr ""
-
-#: ts_core_fileassociations.sopen
-msgctxt "ts_core_fileassociations.sopen"
-msgid "Open"
-msgstr ""
-
-#: ts_core_fileassociations.sopencaption
-msgctxt "ts_core_fileassociations.sopencaption"
-msgid "OpenWith"
-msgstr ""
-
-#: ts_core_fileassociations.sotherassockey
-msgctxt "ts_core_fileassociations.sotherassockey"
-msgid "\\OtherAssociate"
-msgstr ""
-
-#: ts_core_fileassociations.sshell
-msgctxt "ts_core_fileassociations.sshell"
-msgid "Shell"
-msgstr ""
-
-#: ts_core_fileassociations.sunknown
-msgctxt "ts_core_fileassociations.sunknown"
-msgid "Unknown"
-msgstr ""
-
-#: ts_core_nativexml.sbeginendmismatch
-msgctxt "ts_core_nativexml.sbeginendmismatch"
-msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.scannotaddattribute
-msgctxt "ts_core_nativexml.scannotaddattribute"
-msgid "cannot add attribute"
-msgstr ""
-
-#: ts_core_nativexml.scannotaddnode
-msgctxt "ts_core_nativexml.scannotaddnode"
-msgid "cannot add node to this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotmanipulate
-msgctxt "ts_core_nativexml.scannotmanipulate"
-msgid "cannot manipulate nodes in this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotsetname
-msgctxt "ts_core_nativexml.scannotsetname"
-msgid "cannot set name on this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotsetvalue
-msgctxt "ts_core_nativexml.scannotsetvalue"
-msgid "cannot set value on this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scopyfromonlywithxmlnode
-msgctxt "ts_core_nativexml.scopyfromonlywithxmlnode"
-msgid "CopyFrom can only be used with TXmlNode descendants"
-msgstr ""
-
-#: ts_core_nativexml.sdefaultcharused
-msgctxt "ts_core_nativexml.sdefaultcharused"
-msgid "default char used for codepage substitution"
-msgstr ""
-
-#: ts_core_nativexml.serrorcalcstreamlength
-msgctxt "ts_core_nativexml.serrorcalcstreamlength"
-msgid "error while calculating streamlength"
-msgstr ""
-
-#: ts_core_nativexml.sillegalendtag
-msgctxt "ts_core_nativexml.sillegalendtag"
-msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
-msgstr ""
-
-#: ts_core_nativexml.sillegaltag
-msgctxt "ts_core_nativexml.sillegaltag"
-msgid "illegal tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.sinvalidstream
-msgctxt "ts_core_nativexml.sinvalidstream"
-msgid "invalid stream"
-msgstr ""
-
-#: ts_core_nativexml.slevelmismatch
-msgctxt "ts_core_nativexml.slevelmismatch"
-msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.smissingdatainbinarystream
-msgctxt "ts_core_nativexml.smissingdatainbinarystream"
-msgid "missing data in binary stream"
-msgstr ""
-
-#: ts_core_nativexml.snondefaultchardata
-msgctxt "ts_core_nativexml.snondefaultchardata"
-msgid "non-default chardata at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.snotsupported
-msgctxt "ts_core_nativexml.snotsupported"
-msgid "feature is not supported yet"
-msgstr ""
-
-#: ts_core_nativexml.sprematureend
-msgctxt "ts_core_nativexml.sprematureend"
-msgid "stream terminated prematurely at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.squotecharexpected
-msgctxt "ts_core_nativexml.squotecharexpected"
-msgid "quote char expected at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.srootelementnotdefined
-msgctxt "ts_core_nativexml.srootelementnotdefined"
-msgid "XML root element not defined."
-msgstr ""
-
-#: ts_core_nativexml.ssignificantdigitsoutofrange
-msgctxt "ts_core_nativexml.ssignificantdigitsoutofrange"
-msgid "significant digits out of range"
-msgstr ""
-
-#: ts_core_nativexml.sunknownbinaryencodingbinhex
-msgctxt "ts_core_nativexml.sunknownbinaryencodingbinhex"
-msgid "unknown encoding: xbeBinHex (deprecated)"
-msgstr ""
-
-#: ts_core_nativexml.sunknownencoding
-msgctxt "ts_core_nativexml.sunknownencoding"
-msgid "unknown encoding"
-msgstr ""
-
-#: ts_core_nativexml.sunsupportedencoding
-msgctxt "ts_core_nativexml.sunsupportedencoding"
-msgid "unsupported encoding (%s)"
-msgstr ""
-
-#: ts_core_nativexml.sunsupportedtag
-msgctxt "ts_core_nativexml.sunsupportedtag"
-msgid "unsupported tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.sxmlnodenotassigned
-msgctxt "ts_core_nativexml.sxmlnodenotassigned"
-msgid "XML node is not assigned"
-msgstr ""
-
-#: ts_core_nativexml.sxmlownernotassigned
-msgctxt "ts_core_nativexml.sxmlownernotassigned"
-msgid "XML owner is not assigned"
-msgstr ""
-
-#: ts_core_nativexml.sxmlparentnotassigned
-msgctxt "ts_core_nativexml.sxmlparentnotassigned"
-msgid "XML parent is not assigned"
-msgstr ""
-
-#: ts_core_nativexmlobjectstorage.sillegalvartype
-msgctxt "ts_core_nativexmlobjectstorage.sillegalvartype"
-msgid "illegal variant type"
-msgstr ""
-
-#: ts_core_nativexmlobjectstorage.sinvalidmethodname
-msgctxt "ts_core_nativexmlobjectstorage.sinvalidmethodname"
-msgid "invalid method name"
-msgstr ""
-
-#: ts_core_nativexmlobjectstorage.sinvalidpropertyvalue
-msgctxt "ts_core_nativexmlobjectstorage.sinvalidpropertyvalue"
-msgid "invalid property value"
-msgstr ""
-
-#: ts_core_nativexmlobjectstorage.sunregisteredclasstype
-msgctxt "ts_core_nativexmlobjectstorage.sunregisteredclasstype"
-msgid "unregistered classtype encountered in "
-msgstr ""
-
-#: ts_core_sqlparser.serrasteriskonlyincount
-msgctxt "ts_core_sqlparser.serrasteriskonlyincount"
-msgid "* allowed only in COUNT aggregate"
-msgstr ""
-
-#: ts_core_sqlparser.serrcannotaltergenerator
-msgctxt "ts_core_sqlparser.serrcannotaltergenerator"
-msgid "Alter generator statement unknown"
-msgstr ""
-
-#: ts_core_sqlparser.serrdomainnotallowed
-msgctxt "ts_core_sqlparser.serrdomainnotallowed"
-msgid "Domain name not allowed in typ definition."
-msgstr ""
-
-#: ts_core_sqlparser.serrexpecteddbobject
-msgctxt "ts_core_sqlparser.serrexpecteddbobject"
-msgid "Expected database object type. Got: '%s'"
-msgstr ""
-
-#: ts_core_sqlparser.serrhavingwithoutgroupby
-msgctxt "ts_core_sqlparser.serrhavingwithoutgroupby"
-msgid "HAVING without GROUP BY clause not allowed"
-msgstr ""
-
-#: ts_core_sqlparser.serrintegerexpected
-msgctxt "ts_core_sqlparser.serrintegerexpected"
-msgid "Integer expression expected"
-msgstr ""
-
-#: ts_core_sqlparser.serrinvalidextract
-msgctxt "ts_core_sqlparser.serrinvalidextract"
-msgid "Invalid element for extract: %s"
-msgstr ""
-
-#: ts_core_sqlparser.serrinvalidliteral
-msgctxt "ts_core_sqlparser.serrinvalidliteral"
-msgid "Invalid literal: \"%s\""
-msgstr ""
-
-#: ts_core_sqlparser.serrinvaliduseofcollate
-msgctxt "ts_core_sqlparser.serrinvaliduseofcollate"
-msgid "Invalid use of COLLATE"
-msgstr ""
-
-#: ts_core_sqlparser.serrnoaggregateallowed
-msgctxt "ts_core_sqlparser.serrnoaggregateallowed"
-msgid "Aggregate function not allowed."
-msgstr ""
-
-#: ts_core_sqlparser.serrnoasteriskinsingleton
-msgctxt "ts_core_sqlparser.serrnoasteriskinsingleton"
-msgid "* not allowed in singleton select"
-msgstr ""
-
-#: ts_core_sqlparser.serrtokenmismatch
-msgctxt "ts_core_sqlparser.serrtokenmismatch"
-msgid "Unexpected token: '%s', expected: '%s'"
-msgstr ""
-
-#: ts_core_sqlparser.serrunexpectedtoken
-msgctxt "ts_core_sqlparser.serrunexpectedtoken"
-msgid "Unexpected token: %s"
-msgstr ""
-
-#: ts_core_sqlparser.serrunexpectedtokenof
-msgctxt "ts_core_sqlparser.serrunexpectedtokenof"
-msgid "Unexpected token: %s, expected one of %s"
-msgstr ""
-
-#: ts_core_sqlparser.serrunionfieldcountmatch
-msgctxt "ts_core_sqlparser.serrunionfieldcountmatch"
-msgid "Field count mismatch in select union : %d <> %d"
-msgstr ""
-
-#: ts_core_sqlparser.serrunknownbooleanop
-msgctxt "ts_core_sqlparser.serrunknownbooleanop"
-msgid "Unknown boolean operation"
-msgstr ""
-
-#: ts_core_sqlparser.serrunknowncomparison
-msgctxt "ts_core_sqlparser.serrunknowncomparison"
-msgid "unknown Comparison operation"
-msgstr ""
-
-#: ts_core_sqlparser.serrunmatchedbrace
-msgctxt "ts_core_sqlparser.serrunmatchedbrace"
-msgid "Expected )."
-msgstr ""
-
-#: ts_core_sqlparser.serrupperoneargument
-msgctxt "ts_core_sqlparser.serrupperoneargument"
-msgid "Only one argument for UPPER allowed"
-msgstr ""
-
-#: ts_core_sqlparser.serrvaryingnotallowed
-msgctxt "ts_core_sqlparser.serrvaryingnotallowed"
-msgid "VARYING not allowed at this point."
-msgstr ""
-
-#: ts_core_sqlscanner.sbarexpected
-msgctxt "ts_core_sqlscanner.sbarexpected"
-msgid "|character expected"
-msgstr ""
-
-#: ts_core_sqlscanner.serrifxxxnestinglimitreached
-msgctxt "ts_core_sqlscanner.serrifxxxnestinglimitreached"
-msgid "Nesting of$IFxxx too deep"
-msgstr ""
-
-#: ts_core_sqlscanner.serrincludefilenotfound
-msgctxt "ts_core_sqlscanner.serrincludefilenotfound"
-msgid "Could not find include file'%s'"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidcharacter
-msgctxt "ts_core_sqlscanner.serrinvalidcharacter"
-msgid "Invalid character'%s'"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidnonequal
-msgctxt "ts_core_sqlscanner.serrinvalidnonequal"
-msgid "SyntaxError:!=or!==expected"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidppelse
-msgctxt "ts_core_sqlscanner.serrinvalidppelse"
-msgid "$ELSE without matching$IFxxx"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidppendif
-msgctxt "ts_core_sqlscanner.serrinvalidppendif"
-msgid "$ENDIF without matching$IFxxx"
-msgstr ""
-
-#: ts_core_sqlscanner.serropenstring
-msgctxt "ts_core_sqlscanner.serropenstring"
-msgid "string exceeds end of line"
-msgstr ""
-
-#: ts_core_sqlscanner.serrunknowntoken
-msgctxt "ts_core_sqlscanner.serrunknowntoken"
-msgid "Unknown token: %s"
-msgstr ""
-
-#: ts_core_sqlscanner.sinvalidhexadecimalnumber
-msgctxt "ts_core_sqlscanner.sinvalidhexadecimalnumber"
-msgid "Invalid decimal number"
-msgstr ""
-
-#: ts_core_utils.snocorrespondingfieldtype
-msgctxt "ts_core_utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
 #: ts_editor_aboutdialog.sauthor
-msgctxt "ts_editor_aboutdialog.sauthor"
 msgid "Author"
 msgstr ""
 
 #: ts_editor_aboutdialog.slanguagecode
-msgctxt "ts_editor_aboutdialog.slanguagecode"
 msgid "Code"
 msgstr ""
 
 #: ts_editor_aboutdialog.slanguagename
-msgctxt "ts_editor_aboutdialog.slanguagename"
 msgid "Language"
 msgstr ""
 
@@ -4389,52 +3191,42 @@ msgid "Name"
 msgstr ""
 
 #: ts_editor_aboutdialog.svalue
-msgctxt "ts_editor_aboutdialog.svalue"
 msgid "Value"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sbutton
-msgctxt "ts_editor_actionlist_toolview.sbutton"
 msgid "Button"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.scaption
-msgctxt "ts_editor_actionlist_toolview.scaption"
 msgid "Caption"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.scategory
-msgctxt "ts_editor_actionlist_toolview.scategory"
 msgid "Category"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sclickcount
-msgctxt "ts_editor_actionlist_toolview.sclickcount"
 msgid "ClickCount"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sclickdir
-msgctxt "ts_editor_actionlist_toolview.sclickdir"
 msgid "ClickDir"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.scommand
-msgctxt "ts_editor_actionlist_toolview.scommand"
 msgid "Command"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.senabled
-msgctxt "ts_editor_actionlist_toolview.senabled"
 msgid "Enabled"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.shint
-msgctxt "ts_editor_actionlist_toolview.shint"
 msgid "Hint"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.smovecaret
-msgctxt "ts_editor_actionlist_toolview.smovecaret"
 msgid "MoveCaret"
 msgstr ""
 
@@ -4444,47 +3236,34 @@ msgid "Name"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sshift
-msgctxt "ts_editor_actionlist_toolview.sshift"
 msgid "Shift"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sshiftmask
-msgctxt "ts_editor_actionlist_toolview.sshiftmask"
 msgid "ShiftMask"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sshortcut
-msgctxt "ts_editor_actionlist_toolview.sshortcut"
 msgid "Shortcut"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.sshortcut2
-msgctxt "ts_editor_actionlist_toolview.sshortcut2"
 msgid "Shortcut2"
 msgstr ""
 
 #: ts_editor_actionlist_toolview.svisible
-msgctxt "ts_editor_actionlist_toolview.svisible"
 msgid "Visible"
 msgstr ""
 
 #: ts_editor_alignlines_toolview.stoken
-msgctxt "ts_editor_alignlines_toolview.stoken"
 msgid "Token"
 msgstr ""
 
-#: ts_editor_charactermapdialog.scharactermap
-msgctxt "ts_editor_charactermapdialog.scharactermap"
-msgid "Character Map"
-msgstr ""
-
 #: ts_editor_charactermap_toolview.scharactermap
-msgctxt "ts_editor_charactermap_toolview.scharactermap"
 msgid "Character Map"
 msgstr ""
 
 #: ts_editor_codefilter_toolview.sfilteredcode
-msgctxt "ts_editor_codefilter_toolview.sfilteredcode"
 msgid "<Filtered code>"
 msgstr ""
 
@@ -4499,42 +3278,34 @@ msgid "Text"
 msgstr ""
 
 #: ts_editor_resources.sapplicationmenucaption
-msgctxt "ts_editor_resources.sapplicationmenucaption"
 msgid "&Application"
 msgstr ""
 
 #: ts_editor_resources.sasksavechanges
-msgctxt "ts_editor_resources.sasksavechanges"
 msgid "File %s is modified. Do you want to save changes?"
 msgstr ""
 
 #: ts_editor_resources.sbatdescription
-msgctxt "ts_editor_resources.sbatdescription"
 msgid "Windows batch script"
 msgstr ""
 
 #: ts_editor_resources.scppdescription
-msgctxt "ts_editor_resources.scppdescription"
 msgid "C++"
 msgstr ""
 
 #: ts_editor_resources.scsdescription
-msgctxt "ts_editor_resources.scsdescription"
 msgid "C#"
 msgstr ""
 
 #: ts_editor_resources.scssdescription
-msgctxt "ts_editor_resources.scssdescription"
 msgid "Cascading Style Sheet"
 msgstr ""
 
 #: ts_editor_resources.sdiffdescription
-msgctxt "ts_editor_resources.sdiffdescription"
 msgid "Diff"
 msgstr ""
 
 #: ts_editor_resources.sfilemenucaption
-msgctxt "ts_editor_resources.sfilemenucaption"
 msgid "&File"
 msgstr ""
 
@@ -4544,187 +3315,150 @@ msgid "&Help"
 msgstr ""
 
 #: ts_editor_resources.shighlightersmenucaption
-msgctxt "ts_editor_resources.shighlightersmenucaption"
 msgid "&Highlighters"
 msgstr ""
 
 #: ts_editor_resources.shtmldescription
-msgctxt "ts_editor_resources.shtmldescription"
 msgid "HTML document"
 msgstr ""
 
 #: ts_editor_resources.sinidescription
-msgctxt "ts_editor_resources.sinidescription"
 msgid "Settings file"
 msgstr ""
 
 #: ts_editor_resources.sinsertmenucaption
-msgctxt "ts_editor_resources.sinsertmenucaption"
 msgid "&Insert"
 msgstr ""
 
 #: ts_editor_resources.sjavadescription
-msgctxt "ts_editor_resources.sjavadescription"
 msgid "Java"
 msgstr ""
 
 #: ts_editor_resources.sjsdescription
-msgctxt "ts_editor_resources.sjsdescription"
 msgid "JavaScript"
 msgstr ""
 
 #: ts_editor_resources.slfmdescription
-msgctxt "ts_editor_resources.slfmdescription"
 msgid "Object Pascal form definition"
 msgstr ""
 
 #: ts_editor_resources.slineswithmatchfound
-msgctxt "ts_editor_resources.slineswithmatchfound"
 msgid "%d lines with match found."
 msgstr ""
 
 #: ts_editor_resources.slogdescription
-msgctxt "ts_editor_resources.slogdescription"
 msgid "Log"
 msgstr ""
 
 #: ts_editor_resources.sluadescription
-msgctxt "ts_editor_resources.sluadescription"
 msgid "Lua"
 msgstr ""
 
 #: ts_editor_resources.sneweditorviewfilename
-msgctxt "ts_editor_resources.sneweditorviewfilename"
 msgid "<new>"
 msgstr ""
 
 #: ts_editor_resources.snotimplementedyet
-msgctxt "ts_editor_resources.snotimplementedyet"
 msgid "This feature is not implemented yet"
 msgstr ""
 
 #: ts_editor_resources.sonelinewithmatchfound
-msgctxt "ts_editor_resources.sonelinewithmatchfound"
 msgid "1 line with match found."
 msgstr ""
 
 #: ts_editor_resources.spasdescription
-msgctxt "ts_editor_resources.spasdescription"
 msgid "Object Pascal"
 msgstr ""
 
 #: ts_editor_resources.sperldescription
-msgctxt "ts_editor_resources.sperldescription"
 msgid "Perl"
 msgstr ""
 
 #: ts_editor_resources.sphpdescription
-msgctxt "ts_editor_resources.sphpdescription"
 msgid "PHP"
 msgstr ""
 
 #: ts_editor_resources.spodescription
-msgctxt "ts_editor_resources.spodescription"
 msgid "Gettext translation strings"
 msgstr ""
 
 #: ts_editor_resources.spydescription
-msgctxt "ts_editor_resources.spydescription"
 msgid "Python"
 msgstr ""
 
 #: ts_editor_resources.sresdescription
-msgctxt "ts_editor_resources.sresdescription"
 msgid "Windows resources"
 msgstr ""
 
 #: ts_editor_resources.srtfdescription
-msgctxt "ts_editor_resources.srtfdescription"
 msgid "Rich Text Format document"
 msgstr ""
 
 #: ts_editor_resources.srubydescription
-msgctxt "ts_editor_resources.srubydescription"
 msgid "Ruby"
 msgstr ""
 
 #: ts_editor_resources.ssearching
-msgctxt "ts_editor_resources.ssearching"
 msgid "Searching..."
 msgstr ""
 
 #: ts_editor_resources.ssearchmenucaption
-msgctxt "ts_editor_resources.ssearchmenucaption"
 msgid "&Search"
 msgstr ""
 
 #: ts_editor_resources.sselectionmenucaption
-msgctxt "ts_editor_resources.sselectionmenucaption"
 msgid "Se&lection"
 msgstr ""
 
 #: ts_editor_resources.ssettingsmenucaption
-msgctxt "ts_editor_resources.ssettingsmenucaption"
 msgid "&Settings"
 msgstr ""
 
 #: ts_editor_resources.sshdescription
-msgctxt "ts_editor_resources.sshdescription"
 msgid "Shell script"
 msgstr ""
 
 #: ts_editor_resources.ssqldescription
-msgctxt "ts_editor_resources.ssqldescription"
 msgid "SQL"
 msgstr ""
 
 #: ts_editor_resources.stexdescription
-msgctxt "ts_editor_resources.stexdescription"
 msgid "TeX"
 msgstr ""
 
 #: ts_editor_resources.stextnotfound
-msgctxt "ts_editor_resources.stextnotfound"
 msgid "Text not found"
 msgstr ""
 
 #: ts_editor_resources.stoolsmenucaption
-msgctxt "ts_editor_resources.stoolsmenucaption"
 msgid "&Tools"
 msgstr ""
 
 #: ts_editor_resources.stxtdescription
-msgctxt "ts_editor_resources.stxtdescription"
 msgid "Text document"
 msgstr ""
 
 #: ts_editor_resources.sviewmenucaption
-msgctxt "ts_editor_resources.sviewmenucaption"
 msgid "&View"
 msgstr ""
 
 #: ts_editor_resources.sxmldescription
-msgctxt "ts_editor_resources.sxmldescription"
 msgid "XML document"
 msgstr ""
 
 #: ts_editor_search_toolview.sfilename
-msgctxt "ts_editor_search_toolview.sfilename"
 msgid "FileName"
 msgstr ""
 
 #: ts_editor_search_toolview.smatchesfound
-msgctxt "ts_editor_search_toolview.smatchesfound"
 msgid "%d search matches found."
 msgstr ""
 
 #: ts_editor_search_toolview.smatchfound
-msgctxt "ts_editor_search_toolview.smatchfound"
 msgid "%d search match found."
 msgstr ""
 
 #: ts_editor_settingsdialog_old.sattributename
-msgctxt "ts_editor_settingsdialog_old.sattributename"
 msgid "Attribute name"
 msgstr ""
 
@@ -4734,142 +3468,10 @@ msgid "Highlighter"
 msgstr ""
 
 #: ts_editor_settingsdialog_old.stoolname
-msgctxt "ts_editor_settingsdialog_old.stoolname"
 msgid "Toolname"
 msgstr ""
 
-#: ts_editor_toolview_actionlist.sbutton
-msgctxt "ts_editor_toolview_actionlist.sbutton"
-msgid "Button"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.scaption
-msgctxt "ts_editor_toolview_actionlist.scaption"
-msgid "Caption"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.scategory
-msgctxt "ts_editor_toolview_actionlist.scategory"
-msgid "Category"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sclickcount
-msgctxt "ts_editor_toolview_actionlist.sclickcount"
-msgid "ClickCount"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sclickdir
-msgctxt "ts_editor_toolview_actionlist.sclickdir"
-msgid "ClickDir"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.scommand
-msgctxt "ts_editor_toolview_actionlist.scommand"
-msgid "Command"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.senabled
-msgctxt "ts_editor_toolview_actionlist.senabled"
-msgid "Enabled"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.shint
-msgctxt "ts_editor_toolview_actionlist.shint"
-msgid "Hint"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.smovecaret
-msgctxt "ts_editor_toolview_actionlist.smovecaret"
-msgid "MoveCaret"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sname
-msgctxt "ts_editor_toolview_actionlist.sname"
-msgid "Name"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sshift
-msgctxt "ts_editor_toolview_actionlist.sshift"
-msgid "Shift"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sshiftmask
-msgctxt "ts_editor_toolview_actionlist.sshiftmask"
-msgid "ShiftMask"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sshortcut
-msgctxt "ts_editor_toolview_actionlist.sshortcut"
-msgid "Shortcut"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sshortcut2
-msgctxt "ts_editor_toolview_actionlist.sshortcut2"
-msgid "Shortcut2"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.svisible
-msgctxt "ts_editor_toolview_actionlist.svisible"
-msgid "Visible"
-msgstr ""
-
-#: ts_editor_toolview_alignlines.stoken
-msgctxt "ts_editor_toolview_alignlines.stoken"
-msgid "Token"
-msgstr ""
-
-#: ts_editor_toolview_charactermap.scharactermap
-msgctxt "ts_editor_toolview_charactermap.scharactermap"
-msgid "Character Map"
-msgstr ""
-
-#: ts_editor_toolview_codefilter.sfilteredcode
-msgctxt "ts_editor_toolview_codefilter.sfilteredcode"
-msgid "<Filtered code>"
-msgstr ""
-
-#: ts_editor_toolview_codefilter.slineindex
-msgctxt "ts_editor_toolview_codefilter.slineindex"
-msgid "Line"
-msgstr ""
-
-#: ts_editor_toolview_codefilter.slinetext
-msgctxt "ts_editor_toolview_codefilter.slinetext"
-msgid "Text"
-msgstr ""
-
-#: ts_editor_toolview_search.scolumn
-msgctxt "ts_editor_toolview_search.scolumn"
-msgid "Column"
-msgstr ""
-
-#: ts_editor_toolview_search.sfilename
-msgctxt "ts_editor_toolview_search.sfilename"
-msgid "FileName"
-msgstr ""
-
-#: ts_editor_toolview_search.sindex
-msgctxt "ts_editor_toolview_search.sindex"
-msgid "#"
-msgstr ""
-
-#: ts_editor_toolview_search.sline
-msgctxt "ts_editor_toolview_search.sline"
-msgid "Line"
-msgstr ""
-
-#: ts_editor_toolview_search.smatchesfound
-msgctxt "ts_editor_toolview_search.smatchesfound"
-msgid "%d search matches found."
-msgstr ""
-
-#: ts_editor_toolview_search.smatchfound
-msgctxt "ts_editor_toolview_search.smatchfound"
-msgid "%d search match found."
-msgstr ""
-
 #: ts_editor_viewlist_toolview.sfilename
-msgctxt "ts_editor_viewlist_toolview.sfilename"
 msgid "Filename"
 msgstr ""
 
@@ -4879,12 +3481,10 @@ msgid "Highlighter"
 msgstr ""
 
 #: ts_editor_viewlist_toolview.smodified
-msgctxt "ts_editor_viewlist_toolview.smodified"
 msgid "Modified"
 msgstr ""
 
 #: ts_editor_viewlist_toolview.spath
-msgctxt "ts_editor_viewlist_toolview.spath"
 msgid "Path"
 msgstr ""
 

@@ -1487,10 +1487,6 @@ msgstr "&Reguliere expressie"
 msgid "Select all"
 msgstr "Selecteer &Alle"
 
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr "Code filter"
-
 #: tfrmcodefilterdialog.lblsearch.caption
 msgid "Search:"
 msgstr "Zoeken:"

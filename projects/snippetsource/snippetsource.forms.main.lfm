@@ -15,7 +15,6 @@ object frmMain: TfrmMain
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  LCLVersion = '1.9.0.0'
   Visible = False
   object pnlLeft: TPanel
     Left = 0
@@ -131,35 +130,26 @@ object frmMain: TfrmMain
         ClientWidth = 713
         ParentColor = False
         TabOrder = 3
-        object shpRect: TShape
-          Left = 0
-          Height = 26
-          Top = 0
-          Width = 713
-          Align = alTop
-          Brush.Color = clInfoBk
-          Pen.Color = clGray
-          Pen.EndCap = pecSquare
-          Pen.Width = 3
-        end
         object edtTitle: TEdit
           Left = 26
-          Height = 20
-          Top = 3
+          Height = 24
+          Top = 1
           Width = 622
           Align = alCustom
           Alignment = taCenter
           Anchors = [akTop, akLeft, akRight]
           AutoSize = False
           BorderStyle = bsNone
-          Color = clInfoBk
+          Color = clForm
           Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
+          Font.Color = clGray
           Font.Height = -17
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
           OnChange = edtTitleChange
           OnEditingDone = edtTitleEditingDone
+          OnEnter = edtTitleEnter
           OnMouseEnter = edtTitleMouseEnter
           OnMouseLeave = edtTitleMouseLeave
           ParentFont = False

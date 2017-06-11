@@ -435,6 +435,7 @@ object dmSnippetSource: TdmSnippetSource
     DataBase = conMain
     Transaction = trsSnippet
     OnDirective = scrCreateDatabaseDirective
+    UseDollarString = False
     Directives.Strings = (
       'SET TERM'
       'COMMIT WORK'

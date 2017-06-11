@@ -85,7 +85,6 @@ type
     pnlSize            : TPanel;
     pnlStatusBar       : TPanel;
     pnlTitle           : TPanel;
-    shpRect            : TShape;
     splHorizontal      : TSplitter;
     splVertical        : TSplitter;
     tlbEditorView      : TToolBar;
@@ -109,6 +108,7 @@ type
     procedure dscMainDataChange(Sender: TObject; Field: TField);
     procedure edtTitleChange(Sender: TObject);
     procedure edtTitleEditingDone(Sender: TObject);
+    procedure edtTitleEnter(Sender: TObject);
     procedure edtTitleMouseEnter(Sender: TObject);
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
@@ -432,14 +432,21 @@ begin
   Snippet.NodeName := edtTitle.Text;
 end;
 
+procedure TfrmMain.edtTitleEnter(Sender: TObject);
+begin
+  DataSet.Edit;
+end;
+
 procedure TfrmMain.edtTitleMouseEnter(Sender: TObject);
 begin
-  edtTitle.Color := clWhite;
+  edtTitle.Color      := clWhite;
+  edtTitle.Font.Color := clBlack;
 end;
 
 procedure TfrmMain.edtTitleMouseLeave(Sender: TObject);
 begin
-  edtTitle.Color := clInfoBk;
+  edtTitle.Color      := clForm;
+  edtTitle.Font.Color := clDkGray;
   Editor.SetFocus;
 end;
 

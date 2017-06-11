@@ -11,7 +11,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   ParentFont = True
   PopupMenu = ppmTreeView
   ShowHint = True
-  LCLVersion = '1.7'
+  Visible = False
   object pnlMain: TPanel
     Left = 3
     Height = 419
@@ -41,6 +41,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Top = 0
         Width = 312
         ButtonHeight = 20
+        ButtonWidth = 23
         EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone

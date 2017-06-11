@@ -3,6 +3,7 @@ object frmAbout: TfrmAbout
   Height = 254
   Top = 317
   Width = 636
+  ActiveControl = pgcMain
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
@@ -11,7 +12,7 @@ object frmAbout: TfrmAbout
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.5'
+  Visible = False
   object pgcMain: TPageControl
     Left = 240
     Height = 204
@@ -47,7 +48,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 58
-        Width = 55
+        Width = 54
         Caption = 'Target OS:'
         ParentColor = False
       end
@@ -55,7 +56,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 78
-        Width = 63
+        Width = 62
         Caption = 'Target CPU:'
         ParentColor = False
       end
@@ -137,7 +138,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 151
-        Width = 42
+        Width = 41
         Caption = 'Version:'
         ParentColor = False
       end

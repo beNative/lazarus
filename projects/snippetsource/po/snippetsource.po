@@ -2224,6 +2224,10 @@ msgstr ""
 msgid "Line break style"
 msgstr ""
 
+#: tfrmmain.caption
+msgid "SnippetSource"
+msgstr ""
+
 #: tfrmmain.pnleditmode.caption
 msgid "INS"
 msgstr ""
@@ -2862,6 +2866,15 @@ msgstr ""
 msgid "Refresh"
 msgstr ""
 
+#: tfrmsettingsdialog.caption
+msgctxt "TFRMSETTINGSDIALOG.CAPTION"
+msgid "Settings"
+msgstr ""
+
+#: tfrmsettingsdialog.cbximagelist.text
+msgid "cbxImageList"
+msgstr ""
+
 #: tfrmsettingsdialog.chkautomaticindex.caption
 msgid "Automatic index"
 msgstr ""
@@ -2893,14 +2906,6 @@ msgstr ""
 
 #: tfrmsettingsdialog.tsimages.caption
 msgid "Images"
-msgstr ""
-
-#: tfrmsettingsdialog.vstimagelist.header.columns[0].text
-msgid "Index"
-msgstr ""
-
-#: tfrmsettingsdialog.vstimagelist.header.columns[1].text
-msgid "Image"
 msgstr ""
 
 #: tfrmsortstrings.actexecute.caption

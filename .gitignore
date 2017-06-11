@@ -40,3 +40,7 @@
 /projects/notepas/bin/x86_64-win64-win32
 /projects/tabletool/lib/i386-win32
 /projects/snippetsource/*.exe
+/components/tslib/core/backup
+/components/tslib/editor/backup
+/components/tslib/editor/filter/backup
+/components/tslib/editor/codefilter/backup

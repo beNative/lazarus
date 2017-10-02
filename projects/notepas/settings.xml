@@ -1115,15 +1115,15 @@
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<FormSettings>(TFormSettings)
-		<Left>26</Left>
-		<Top>26</Top>
+		<Left>234</Left>
+		<Top>234</Top>
 		<Width>1904</Width>
 		<Height>998</Height>
 		<FormStyle>fsNormal</FormStyle>
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
-		<Height>-19</Height>
+		<Height>-14</Height>
 		<Name>Consolas</Name>
 	</EditorFont>
 	<DebugMode>true</DebugMode>

@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="44"/>
+      <RevisionNr Value="45"/>
       <BuildNr Value="203"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2016 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.44" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2017 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.45" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="14">
       <Item1 Name="Default" Default="True"/>
@@ -963,48 +963,45 @@ end;"/>
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="13">
+    <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="FrameViewer09"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="pascalscript"/>
       </Item2>
       <Item3>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="laz_synapse"/>
       </Item3>
       <Item4>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="lclextensions_package"/>
       </Item4>
       <Item5>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item5>
       <Item6>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="KHexEditorLaz"/>
       </Item6>
       <Item7>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item7>
       <Item8>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="richmemopackage"/>
       </Item8>
       <Item9>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="SynEdit"/>
       </Item9>
       <Item10>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item10>
       <Item11>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="FCL"/>
       </Item11>
       <Item12>
-        <PackageName Value="FCL"/>
-      </Item12>
-      <Item13>
         <PackageName Value="LCL"/>
-      </Item13>
+      </Item12>
     </RequiredPackages>
-    <Units Count="131">
+    <Units Count="129">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1124,6 +1121,7 @@ end;"/>
       <Unit25>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\components\ts.components.fileassociation.pas"/>
@@ -1494,209 +1492,196 @@ end;"/>
         <UnitName Value="ts.Editor.CodeShaper.ToolView"/>
       </Unit93>
       <Unit94>
-        <Filename Value="..\..\components\tslib\editor\htmlview\ts.editor.htmlview.settings.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.HTMLView.Settings"/>
-      </Unit94>
-      <Unit95>
-        <Filename Value="..\..\components\tslib\editor\htmlview\ts.editor.htmlview.toolview.pas"/>
-        <IsPartOfProject Value="True"/>
-        <ComponentName Value="frmHTMLView"/>
-        <HasResources Value="True"/>
-        <ResourceBaseClass Value="Form"/>
-        <UnitName Value="ts.Editor.htmlview.toolview"/>
-      </Unit95>
-      <Unit96>
         <Filename Value="..\..\components\tslib\editor\preview\ts.editor.preview.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmPreview"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.Preview.ToolView"/>
-      </Unit96>
-      <Unit97>
+      </Unit94>
+      <Unit95>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit97>
-      <Unit98>
+      </Unit95>
+      <Unit96>
         <Filename Value="..\..\components\tslib\editor\hexeditor\ts.editor.hexeditor.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmHexEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.hexeditor.toolview"/>
-      </Unit98>
-      <Unit99>
+      </Unit96>
+      <Unit97>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.settings.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit99>
-      <Unit100>
+      </Unit97>
+      <Unit98>
         <Filename Value="..\..\components\tslib\editor\minimap\ts.editor.minimap.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmMiniMap"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.minimap.toolview"/>
-      </Unit100>
-      <Unit101>
+      </Unit98>
+      <Unit99>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmViewList"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.viewlist.toolview"/>
-      </Unit101>
-      <Unit102>
+      </Unit99>
+      <Unit100>
         <Filename Value="..\..\components\tslib\editor\test\ts.editor.test.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmTest"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.test.toolview"/>
-      </Unit102>
-      <Unit103>
+      </Unit100>
+      <Unit101>
         <Filename Value="..\..\components\tslib\editor\structure\ts.editor.structure.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="ts.Editor.structure.toolview"/>
-      </Unit103>
-      <Unit104>
+      </Unit101>
+      <Unit102>
         <Filename Value="..\..\components\tslib\editor\shortcuts\ts.editor.shortcuts.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmShortcuts"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.shortcuts.toolview"/>
-      </Unit104>
-      <Unit105>
+      </Unit102>
+      <Unit103>
         <Filename Value="..\..\components\tslib\editor\scripteditor\ts.editor.scripteditor.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmScriptEditor"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.ScriptEditor.ToolView"/>
-      </Unit105>
-      <Unit106>
+      </Unit103>
+      <Unit104>
         <Filename Value="..\..\components\tslib\editor\selectioninfo\ts.editor.selectioninfo.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSelectionInfo"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.selectioninfo.toolview"/>
-      </Unit106>
-      <Unit107>
+      </Unit104>
+      <Unit105>
         <Filename Value="..\..\components\tslib\editor\filter\ts.editor.filter.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmFilter"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.filter.ToolView"/>
-      </Unit107>
-      <Unit108>
+      </Unit105>
+      <Unit106>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit108>
-      <Unit109>
+      </Unit106>
+      <Unit107>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.logfile.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
-      </Unit109>
-      <Unit110>
+      </Unit107>
+      <Unit108>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit110>
-      <Unit111>
+      </Unit108>
+      <Unit109>
         <Filename Value="..\..\components\tslib\core\ts.core.sharedlogger.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit111>
-      <Unit112>
+      </Unit109>
+      <Unit110>
         <Filename Value="..\..\components\tslib\editor\colors\ts.editor.colors.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmColors"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.colors.toolview"/>
-      </Unit112>
-      <Unit113>
+      </Unit110>
+      <Unit111>
         <Filename Value="..\..\components\tslib\editor\viewlist\ts.editor.viewlist.data.pas"/>
         <IsPartOfProject Value="True"/>
-      </Unit113>
-      <Unit114>
+      </Unit111>
+      <Unit112>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.channel.ipc.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+      </Unit112>
+      <Unit113>
+        <Filename Value="build.sh"/>
+        <IsPartOfProject Value="True"/>
+      </Unit113>
+      <Unit114>
+        <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit114>
       <Unit115>
-        <Filename Value="build.sh"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit115>
       <Unit116>
-        <Filename Value="..\..\components\tslib\core\ts.core.systeminfo.pas"/>
+        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit116>
       <Unit117>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit117>
-      <Unit118>
-        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit118>
-      <Unit119>
         <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="frmSortStrings"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.sortstrings.toolview"/>
+      </Unit117>
+      <Unit118>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit118>
+      <Unit119>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit119>
       <Unit120>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit120>
       <Unit121>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit121>
-      <Unit122>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit122>
-      <Unit123>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Manager"/>
-      </Unit123>
-      <Unit124>
+      </Unit121>
+      <Unit122>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Settings"/>
+      </Unit122>
+      <Unit123>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit123>
+      <Unit124>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <IsPartOfProject Value="True"/>
       </Unit124>
       <Unit125>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit125>
       <Unit126>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit126>
       <Unit127>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
+        <Filename Value="..\..\..\..\lazarus\components\synedit\synedit.inc"/>
         <IsPartOfProject Value="True"/>
       </Unit127>
       <Unit128>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit128>
-      <Unit129>
-        <Filename Value="..\..\..\..\lazarus\components\synedit\synedit.inc"/>
-        <IsPartOfProject Value="True"/>
-      </Unit129>
-      <Unit130>
         <Filename Value="notepas.resources.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Notepas.Resources"/>
-      </Unit130>
+      </Unit128>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

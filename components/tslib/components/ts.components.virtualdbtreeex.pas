@@ -102,7 +102,7 @@
 
 unit ts.Components.VirtualDBTreeEx;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { A TCustomVirtualStringTree descendant for displaying a DB table as a tree. }
 

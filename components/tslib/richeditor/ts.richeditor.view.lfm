@@ -7,7 +7,7 @@ object RichEditorView: TRichEditorView
   ClientHeight = 467
   ClientWidth = 578
   OnShortCut = FormShortCut
-  LCLVersion = '1.7'
+  Visible = False
   object pnlRichEditor: TPanel
     Left = 0
     Height = 467
@@ -20,12 +20,11 @@ object RichEditorView: TRichEditorView
     TabOrder = 0
     object pnlBottom: TPanel
       Left = 0
-      Height = 27
-      Top = 440
+      Height = 26
+      Top = 441
       Width = 578
       Align = alBottom
       BevelOuter = bvNone
-      Caption = 'pnlBottom'
       TabOrder = 0
     end
   end

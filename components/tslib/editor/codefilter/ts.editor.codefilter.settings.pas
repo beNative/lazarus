@@ -18,7 +18,7 @@
 
 unit ts.Editor.CodeFilter.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

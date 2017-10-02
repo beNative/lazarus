@@ -18,7 +18,7 @@
 
 unit ts.Editor.CodeFormatters.SQL;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

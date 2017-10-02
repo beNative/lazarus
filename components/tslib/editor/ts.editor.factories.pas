@@ -24,7 +24,7 @@
 
 unit ts.Editor.Factories;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

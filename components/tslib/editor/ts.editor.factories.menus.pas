@@ -18,7 +18,7 @@
 
 unit ts.Editor.Factories.Menus;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -18,7 +18,7 @@
 
 unit ts.Editor.Search.Engine.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

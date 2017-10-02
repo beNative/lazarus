@@ -22,7 +22,7 @@ unit ts.Editor.Utils;
 
 { TODO: make FPCUnit test cases for these routines }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

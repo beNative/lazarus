@@ -259,8 +259,6 @@ begin
 {$ENDIF}
 end;
 
-
-
 function TComponentInspectorForm.GetActiveItem: TPersistent;
 begin
   Result := FInspector.TIObject;
@@ -279,8 +277,6 @@ begin
   Result := FInspector.PropertyEditorHook;
 end;
 
-
-
 procedure TComponentInspectorForm.CMDialogKey(var Msg: TCMDialogKey);
 begin
   if Msg.CharCode = VK_ESCAPE then
@@ -291,8 +287,6 @@ begin
   else
     inherited;
 end;
-
-
 
 procedure TComponentInspectorForm.OnSetSelection(const ASelection: TPersistentSelectionList);
 begin
@@ -365,8 +359,6 @@ begin
   end;
 end;
 
-
-
 procedure TComponentInspectorForm.UpdateActions;
 begin
   if not Focused and not Active then
@@ -375,8 +367,6 @@ begin
   end;
   inherited UpdateActions;
 end;
-
-
 
 procedure TComponentInspectorForm.AddComponentToInspector(
   AComponent: TPersistent);
@@ -414,8 +404,5 @@ begin
     FreeAndNil(PSL);
   end;
 end;
-
-
-//*****************************************************************************
 
 end.

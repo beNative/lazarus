@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2298
+  Left = 580
   Height = 618
-  Top = 382
+  Top = 220
   Width = 1259
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -16,7 +16,7 @@ object frmMain: TfrmMain
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.7'
+  LCLVersion = '1.9.0.0'
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
@@ -355,8 +355,8 @@ object frmMain: TfrmMain
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 72
-    top = 96
+    Left = 72
+    Top = 96
     object actAbout: TAction
       Caption = 'About'
       ImageIndex = 2
@@ -373,8 +373,8 @@ object frmMain: TfrmMain
     end
   end
   object imlMain: TImageList
-    left = 24
-    top = 96
+    Left = 24
+    Top = 96
     Bitmap = {
       4C69080000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -637,7 +637,7 @@ object frmMain: TfrmMain
   end
   object ExceptionLogger: TExceptionLogger
     MaxCallStackDepth = 20
-    left = 190
-    top = 97
+    Left = 190
+    Top = 97
   end
 end

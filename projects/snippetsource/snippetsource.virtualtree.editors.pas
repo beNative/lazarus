@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -18,7 +18,7 @@
 
 unit SnippetSource.VirtualTree.Editors;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

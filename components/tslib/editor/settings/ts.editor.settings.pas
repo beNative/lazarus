@@ -18,7 +18,7 @@
 
 unit ts.Editor.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {$region Documentation /fold}
 {

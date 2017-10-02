@@ -21,7 +21,7 @@ unit ts.Editor.HighlighterAttributes;
 { Collection class which wraps TSynHighlighterAttributes. This collection is
   intended to support persistence to XML. }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -541,9 +541,9 @@ begin
   {$IFDEF DARWIN}
   if (Manager.Views.Count=1) then  //for macos because mac open file parameter by DropFile event
   begin
-      if (Manager.Views[0].FileName=SNewEditorViewFileName) and
-         (Manager.Views[0].TextSize=0) then
-         Manager.Views[0].Close;
+    if (Manager.Views[0].FileName=SNewEditorViewFileName) and
+       (Manager.Views[0].TextSize=0) then
+       Manager.Views[0].Close;
   end;
   {$ENDIF}
   try

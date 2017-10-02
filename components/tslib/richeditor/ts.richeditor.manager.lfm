@@ -6,8 +6,8 @@ object dmRichEditorActions: TdmRichEditorActions
   Width = 375
   object aclActions: TActionList
     Images = imlMain
-    left = 32
-    top = 20
+    Left = 32
+    Top = 20
     object actBold: TAction
       Category = 'Style'
       AutoCheck = True
@@ -155,18 +155,18 @@ object dmRichEditorActions: TdmRichEditorActions
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    left = 161
-    top = 16
+    Left = 161
+    Top = 16
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofNoNetworkButton, ofEnableSizing, ofAutoPreview]
-    left = 161
-    top = 72
+    Left = 161
+    Top = 72
   end
   object ppmRichEditor: TPopupMenu
     Images = imlMain
-    left = 32
-    top = 84
+    Left = 32
+    Top = 84
     object mniBold: TMenuItem
       Action = actBold
       AutoCheck = True
@@ -216,8 +216,8 @@ object dmRichEditorActions: TdmRichEditorActions
     end
   end
   object imlMain: TImageList
-    left = 267
-    top = 21
+    Left = 267
+    Top = 21
     Bitmap = {
       4C69180000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF009A6B2731AA7E43A192601805FFFFFF00FFFFFF00FFFF
@@ -1014,14 +1014,14 @@ object dmRichEditorActions: TdmRichEditorActions
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    left = 168
-    top = 139
+    Left = 168
+    Top = 139
   end
   object dlgFont: TFontDialog
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdForceFontExist, fdNoSimulations, fdApplyButton]
-    left = 293
-    top = 116
+    Left = 293
+    Top = 116
   end
 end

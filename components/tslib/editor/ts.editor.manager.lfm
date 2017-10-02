@@ -7,8 +7,8 @@ object dmEditorManager: TdmEditorManager
   object imlMain: TImageList
     AllocBy = 1
     DrawingStyle = dsTransparent
-    left = 213
-    top = 32
+    Left = 213
+    Top = 32
     Bitmap = {
       4C69770000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF009A6B2731AA7E43A192601805FFFFFF00FFFFFF00FFFF
@@ -3824,8 +3824,8 @@ object dmEditorManager: TdmEditorManager
   object aclActions: TActionList
     Images = imlMain
     OnExecute = aclActionsExecute
-    left = 216
-    top = 88
+    Left = 216
+    Top = 88
     object actSettings: TAction
       Category = 'Settings'
       Caption = 'Settings'
@@ -4815,47 +4815,47 @@ object dmEditorManager: TdmEditorManager
   end
   object ppmExport: TPopupMenu
     Images = imlMain
-    left = 40
-    top = 248
+    Left = 40
+    Top = 248
     object MenuItem1: TMenuItem
     end
   end
   object ppmHighLighters: TPopupMenu
     Images = imlMain
-    left = 40
-    top = 200
+    Left = 40
+    Top = 200
     object MenuItem7: TMenuItem
     end
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
-    left = 40
-    top = 144
+    Left = 40
+    Top = 144
     object MenuItem4: TMenuItem
     end
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    left = 285
-    top = 32
+    Left = 285
+    Top = 32
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofEnableSizing, ofViewDetail]
-    left = 285
-    top = 88
+    Left = 285
+    Top = 88
   end
   object SynMacroRecorder: TSynMacroRecorder
     RecordShortCut = 0
     PlaybackShortCut = 0
     OnStateChange = SynMacroRecorderStateChange
     OnUserCommand = SynMacroRecorderUserCommand
-    left = 384
-    top = 32
+    Left = 384
+    Top = 32
   end
   object ppmFold: TPopupMenu
     Images = imlMain
-    left = 40
-    top = 88
+    Left = 40
+    Top = 88
     object MenuItem43: TMenuItem
       Action = actFoldLevel0
       AutoCheck = True
@@ -4971,8 +4971,8 @@ object dmEditorManager: TdmEditorManager
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    left = 285
-    top = 144
+    Left = 285
+    Top = 144
   end
   object SynExporterHTML: TSynExporterHTML
     Color = clWindow
@@ -4983,88 +4983,88 @@ object dmEditorManager: TdmEditorManager
     HTMLFontSize = fs03
     Title = 'Untitled'
     UseBackground = False
-    left = 384
-    top = 96
+    Left = 384
+    Top = 96
   end
   object ppmEncoding: TPopupMenu
-    left = 40
-    top = 315
+    Left = 40
+    Top = 315
     object MenuItem19: TMenuItem
     end
   end
   object ppmLineBreakStyle: TPopupMenu
-    left = 117
-    top = 88
+    Left = 117
+    Top = 88
     object MenuItem6: TMenuItem
     end
   end
   object ppmSelectionMode: TPopupMenu
-    left = 117
-    top = 32
+    Left = 117
+    Top = 32
     object MenuItem3: TMenuItem
     end
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
-    left = 117
-    top = 144
+    Left = 117
+    Top = 144
     object MenuItem5: TMenuItem
     end
   end
   object ppmEditor: TPopupMenu
     Images = imlMain
-    left = 40
-    top = 32
+    Left = 40
+    Top = 32
     object MenuItem2: TMenuItem
     end
   end
   object ppmInsert: TPopupMenu
-    left = 121
-    top = 215
+    Left = 121
+    Top = 215
     object MenuItem8: TMenuItem
     end
   end
   object ppmSearch: TPopupMenu
-    left = 117
-    top = 280
+    Left = 117
+    Top = 280
     object MenuItem9: TMenuItem
     end
   end
   object ppmSettings: TPopupMenu
-    left = 200
-    top = 280
+    Left = 200
+    Top = 280
     object MenuItem10: TMenuItem
     end
   end
   object ppmSelect: TPopupMenu
-    left = 200
-    top = 215
+    Left = 200
+    Top = 215
     object MenuItem11: TMenuItem
     end
   end
   object ppmFile: TPopupMenu
-    left = 280
-    top = 224
+    Left = 280
+    Top = 224
     object MenuItem12: TMenuItem
     end
   end
   object ppmExecuteScriptOnSelection: TPopupMenu
-    left = 175
-    top = 366
+    Left = 175
+    Top = 366
     object MenuItem20: TMenuItem
     end
   end
   object ppmSelectionEncode: TPopupMenu
     Images = imlMain
-    left = 88
-    top = 464
+    Left = 88
+    Top = 464
     object MenuItem21: TMenuItem
     end
   end
   object ppmSelectionDecode: TPopupMenu
     Images = imlMain
-    left = 184
-    top = 464
+    Left = 184
+    Top = 464
     object MenuItem22: TMenuItem
     end
   end
@@ -5076,7 +5076,7 @@ object dmEditorManager: TdmEditorManager
       item
       end>
     UsePreProcessor = True
-    left = 392
-    top = 232
+    Left = 392
+    Top = 232
   end
 end

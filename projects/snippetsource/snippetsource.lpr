@@ -1,15 +1,15 @@
 program SnippetSource;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  SysUtils, Forms, FrameViewer09, pascalscript, richmemopackage,
+  SysUtils, Forms, pascalscript, richmemopackage,
   virtualtreeview_package, virtualdbtreeex_laz,
-  luicontrols, khexeditorlaz,
+  luicontrols,
 
   { you can add units after this }
 
@@ -20,19 +20,18 @@ uses
   ts.Editor.ActionList.ToolView, ts.Editor.ViewList.ToolView,
   ts.Editor.Test.ToolView, ts.Editor.Structure.ToolView,
   ts.Editor.Shortcuts.ToolView, ts.Editor.SettingsDialog,
-  ts.Editor.SettingsDialog.ApplicationSettings, ts.Editor.SettingsDialog.base,
+  ts.Editor.SettingsDialog.ApplicationSettings, ts.Editor.SettingsDialog.Base,
   ts.Editor.SettingsDialog.EditorSettings, ts.Editor.SettingsDialog.Extensions,
   ts.Editor.SettingsDialog.FileAssociations, ts.Editor.SettingsDialog.FileTypes,
   ts.Editor.SettingsDialog.Highlighters, ts.Editor.SettingsDialog.KeyMappings,
   ts.Editor.SettingsDialog.Old, ts.Editor.SelectionInfo.ToolView,
   ts.Editor.Search.ToolView, ts.Editor.Preview.ToolView,
-  ts.Editor.Minimap.ToolView, ts.Editor.HtmlView.ToolView,
-  ts.Editor.HexEditor.ToolView, ts.Editor.Filter.ToolView,
-  ts.Editor.CodeShaper.ToolView, ts.Editor.CodeFilter.ToolView,
-  ts.Editor.CharacterMap.ToolView, ts.Editor.AlignLines.ToolView,
-  ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
-  ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
-  ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
+  ts.Editor.Minimap.ToolView, ts.Editor.HexEditor.ToolView,
+  ts.Editor.Filter.ToolView, ts.Editor.CodeShaper.ToolView,
+  ts.Editor.CodeFilter.ToolView, ts.Editor.CharacterMap.ToolView,
+  ts.Editor.AlignLines.ToolView, ts.Editor.AlignLines.Settings,
+  ts.Editor.Search.Engine.Settings, ts.Editor.CodeShaper.Settings,
+  ts.Editor.CodeFilter.Settings, ts.Editor.MiniMap.Settings,
   ts.Editor.HexEditor.Settings, ts.Editor.Types,
 
   SnippetSource.Forms.Main, SnippetSource.Virtualtree.Editors,

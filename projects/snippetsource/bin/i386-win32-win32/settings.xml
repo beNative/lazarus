@@ -26,23 +26,17 @@
 						<WindowState>wsNormal</WindowState>
 					</FormSettings>
 				</TCodeFilterSettings>
-				<THTMLViewSettings Name="HTMLViewSettings"/>
 				<TSortStringsSettings Name="SortStringsSettings">
 					<SortScope>ssWords</SortScope>
 				</TSortStringsSettings>
 				<TMiniMapSettings Name="MiniMapSettings">
-					<Width>332</Width>
+					<Width>0</Width>
 				</TMiniMapSettings>
-				<THexEditorSettings Name="HexEditorSettings">
-					<Width>658</Width>
-				</THexEditorSettings>
+				<THexEditorSettings Name="HexEditorSettings"/>
 				<TSearchEngineSettings Name="SearchSettings">
-					<Options>[ssoMatchCase]</Options>
-					<SearchAllViews>true</SearchAllViews>
+					<Options>[]</Options>
 				</TSearchEngineSettings>
-				<TCodeShaperSettings Name="CodeShaperSettings">
-					<Width>409</Width>
-				</TCodeShaperSettings>
+				<TCodeShaperSettings Name="CodeShaperSettings"/>
 			</Components>
 		</TEditorToolSettings>
 		<THighlighters Name="Highlighters">
@@ -51,7 +45,7 @@
 					<Highlighter>TXT</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>me,nfo,txt</FileExtensions>
-					<Description>Tekst document</Description>
+					<Description>Text document</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="PAS">
 					<Components>
@@ -76,7 +70,7 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -127,11 +121,10 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<SQLPlusAttri>(TSynHighlighterAttributes)
 								<Foreground>clBlue</Foreground>
-								<Style>[]</Style>
 							</SQLPlusAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -139,10 +132,7 @@
 							</SymbolAttri>
 							<TableNameAttri>(TSynHighlighterAttributes)</TableNameAttri>
 							<TableNames>(TStringList)</TableNames>
-							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
-							</VariableAttri>
+							<VariableAttri>(TSynHighlighterAttributes)</VariableAttri>
 							<SQLDialect>sqlSybase</SQLDialect>
 						</TSynSQLSyn>
 					</Components>
@@ -182,8 +172,8 @@
 								<Style>[]</Style>
 							</TextAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
+								<Foreground>clNone</Foreground>
+								<Style>[]</Style>
 							</CDATAAttri>
 							<EntityRefAttri>(TSynHighlighterAttributes)</EntityRefAttri>
 							<ProcessingInstructionAttri>(TSynHighlighterAttributes)
@@ -196,8 +186,8 @@
 								<Style>[,fsItalic]</Style>
 							</CommentAttri>
 							<DocTypeAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
+								<Foreground>clNone</Foreground>
+								<Style>[]</Style>
 							</DocTypeAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
@@ -208,10 +198,10 @@
 						</TSynXMLSyn>
 					</Components>
 					<Highlighter>XML</Highlighter>
-					<BlockCommentStartTag>̃�!--</BlockCommentStartTag>
-					<BlockCommentEndTag>--Û</BlockCommentEndTag>
+					<BlockCommentStartTag>&lt;!--</BlockCommentStartTag>
+					<BlockCommentEndTag>--&gt;</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>compileddproj,docm,docx,dotm,dotx,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml</FileExtensions>
+					<FileExtensions>compileddproj,cpppjoj,docm,docx,dotm,dotx,dtd,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vcxproj,vcxproj.filters,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml,xmmap,xsd,xslt</FileExtensions>
 					<Description>XML document</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="LFM">
@@ -225,7 +215,6 @@
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
 							<KeyAttri>(TSynHighlighterAttributes)
 								<Foreground>clBlue</Foreground>
-								<Style>[]</Style>
 							</KeyAttri>
 							<NumberAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -234,14 +223,14 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 						</TSynLFMSyn>
 					</Components>
 					<Highlighter>LFM</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>dfm,lfm</FileExtensions>
-					<Description>Object Pascal form definitie</Description>
+					<FileExtensions>dfm,fmx,lfm</FileExtensions>
+					<Description>Object Pascal form definition</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="BAT">
 					<Components>
@@ -254,7 +243,6 @@
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
 							<KeyAttri>(TSynHighlighterAttributes)
 								<Foreground>clBlue</Foreground>
-								<Style>[]</Style>
 							</KeyAttri>
 							<NumberAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -262,8 +250,7 @@
 							</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
+								<Foreground>clNone</Foreground>
 							</VariableAttri>
 						</TSynBatSyn>
 					</Components>
@@ -282,9 +269,7 @@
 								<Foreground>clSilver</Foreground>
 							</CommentAttri>
 							<TextAttri>(TSynHighlighterAttributes)</TextAttri>
-							<KeyAttri>(TSynHighlighterAttributes)
-								<Style>[]</Style>
-							</KeyAttri>
+							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 						</TSynPoSyn>
 					</Components>
@@ -319,7 +304,7 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -332,7 +317,7 @@
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>c,cpp,h,hpp,ino</FileExtensions>
+					<FileExtensions>c,cpp,hino,hpp,pde</FileExtensions>
 					<Description>C++</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="JAVA">
@@ -359,7 +344,7 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -402,14 +387,14 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
+								<Style>[]</Style>
 							</VariableAttri>
 						</TSynPerlSyn>
 					</Components>
@@ -444,13 +429,12 @@
 							</HexAttri>
 							<OctalAttri>(TSynHighlighterAttributes)</OctalAttri>
 							<FloatAttri>(TSynHighlighterAttributes)
-								<Foreground>clFuchsia</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
+								<Foreground>clNone</Foreground>
 							</FloatAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<DocStringAttri>(TSynHighlighterAttributes)
 								<Foreground>clSilver</Foreground>
@@ -479,8 +463,7 @@
 							<AndAttri>(TSynHighlighterAttributes)</AndAttri>
 							<ASPAttri>(TSynHighlighterAttributes)
 								<Background>clNone</Background>
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
+								<Foreground>clNone</Foreground>
 							</ASPAttri>
 							<CDATAAttri>(TSynHighlighterAttributes)
 								<Foreground>clNone</Foreground>
@@ -510,8 +493,8 @@
 						</TSynHTMLSyn>
 					</Components>
 					<Highlighter>HTML</Highlighter>
-					<BlockCommentStartTag>???!--</BlockCommentStartTag>
-					<BlockCommentEndTag>--???</BlockCommentEndTag>
+					<BlockCommentStartTag>&lt;!--</BlockCommentStartTag>
+					<BlockCommentEndTag>--&gt;</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>htm,html</FileExtensions>
 					<Description>HTML document</Description>
@@ -539,7 +522,7 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -572,16 +555,13 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
-							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
-							</VariableAttri>
+							<VariableAttri>(TSynHighlighterAttributes)</VariableAttri>
 						</TSynPHPSyn>
 					</Components>
 					<Highlighter>PHP</Highlighter>
@@ -600,7 +580,6 @@
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
 							<KeyAttri>(TSynHighlighterAttributes)
 								<Foreground>clBlue</Foreground>
-								<Style>[]</Style>
 							</KeyAttri>
 							<NumberAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -609,7 +588,7 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Foreground>clRed</Foreground>
@@ -645,7 +624,7 @@
 					<Highlighter>DIFF</Highlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>diff</FileExtensions>
-					<Description>Verschil</Description>
+					<Description>Diff</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="TEX">
 					<Components>
@@ -661,7 +640,6 @@
 							</TextAttri>
 							<ControlSequenceAttri>(TSynHighlighterAttributes)
 								<Background>clNone</Background>
-								<Style>[]</Style>
 							</ControlSequenceAttri>
 							<MathmodeAttri>(TSynHighlighterAttributes)</MathmodeAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
@@ -709,14 +687,13 @@
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
 								<Foreground>clGreen</Foreground>
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<SymbolAttri>(TSynHighlighterAttributes)
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
 							<VarAttri>(TSynHighlighterAttributes)
-								<Foreground>clMaroon</Foreground>
-								<Style>[fsBold]</Style>
+								<Foreground>clNone</Foreground>
 							</VarAttri>
 						</TSynUNIXShellScriptSyn>
 					</Components>
@@ -727,14 +704,38 @@
 				</THighlighterItem>
 				<THighlighterItem Name="INI">
 					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
+						<TSynIniSyn Name="SynHighlighter">
+							<DefaultFilter>INI Files (*.ini)|*.ini</DefaultFilter>
+							<Enabled>false</Enabled>
+							<CommentAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+							</CommentAttri>
+							<TextAttri>(TSynHighlighterAttributes)</TextAttri>
+							<SectionAttri>(TSynHighlighterAttributes)
+								<Style>[]</Style>
+							</SectionAttri>
+							<KeyAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</KeyAttri>
+							<NumberAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</NumberAttri>
+							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
+							<StringAttri>(TSynHighlighterAttributes)
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)
+								<Style>[fsBold]</Style>
+							</SymbolAttri>
+						</TSynIniSyn>
 					</Components>
 					<Highlighter>INI</Highlighter>
 					<LineCommentTag>;</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>desktop,fpd,ini,lrt,msg,prop,properties,reg</FileExtensions>
 					<Description>Settings file</Description>
-					<LayoutFileName>notepas.highlighter.ini.xml</LayoutFileName>
 				</THighlighterItem>
 				<THighlighterItem Name="LUA">
 					<Components>
@@ -760,12 +761,11 @@
 							</HexAttri>
 							<OctalAttri>(TSynHighlighterAttributes)</OctalAttri>
 							<FloatAttri>(TSynHighlighterAttributes)
-								<Foreground>clFuchsia</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
+								<Foreground>clNone</Foreground>
 							</FloatAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<StringAttri>(TSynHighlighterAttributes)
-								<Style>[fsBold]</Style>
+								<Style>[fsBold,fsItalic]</Style>
 							</StringAttri>
 							<DocStringAttri>(TSynHighlighterAttributes)
 								<Foreground>clSilver</Foreground>
@@ -783,100 +783,8 @@
 					<FileExtensions>lua</FileExtensions>
 					<Description>Lua</Description>
 				</THighlighterItem>
-				<THighlighterItem Name="LOG">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>LOG</Highlighter>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>log</FileExtensions>
-					<Description>Log</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.log.xml</LayoutFileName>
-				</THighlighterItem>
-				<THighlighterItem Name="RTF">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>RTF</Highlighter>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>rtf</FileExtensions>
-					<Description>Rich Text Format document</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.rtf.xml</LayoutFileName>
-				</THighlighterItem>
-				<THighlighterItem Name="RES">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>RES</Highlighter>
-					<LineCommentTag>;</LineCommentTag>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>res</FileExtensions>
-					<Description>Windows resources</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.res.xml</LayoutFileName>
-				</THighlighterItem>
-				<THighlighterItem Name="CS">
-					<Components>
-						<TSynUniSyn Name="SynHighlighter"/>
-					</Components>
-					<Highlighter>CS</Highlighter>
-					<BlockCommentStartTag>/*</BlockCommentStartTag>
-					<BlockCommentEndTag>*/</BlockCommentEndTag>
-					<LineCommentTag>//</LineCommentTag>
-					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>cs</FileExtensions>
-					<Description>C#</Description>
-					<LayoutFileName>C:\codetyphon\ts\projects\notepas\notepas.highlighter.cs.xml</LayoutFileName>
-				</THighlighterItem>
 			</Components>
 		</THighlighters>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
-		<TCodeTags>
-			<Components>
-				<TCodeTagItem>
-					<StartTag>test</StartTag>
-					<EndTag>test</EndTag>
-				</TCodeTagItem>
-			</Components>
-		</TCodeTags>
 	</Components>
 	<Colors>(TEditorColorSettings)
 		<IncrementColor>(TSynSelectedColor)
@@ -937,7 +845,7 @@
 			<Name>String</Name>
 			<Attributes>(TSynHighlighterAttributes)
 				<Foreground>clGreen</Foreground>
-				<Style>[fsBold]</Style>
+				<Style>[fsBold,fsItalic]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
@@ -974,6 +882,7 @@
 			<Name>Key</Name>
 			<Attributes>(TSynHighlighterAttributes)
 				<Foreground>clBlue</Foreground>
+				<Style>[fsBold]</Style>
 			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
@@ -984,10 +893,7 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Float</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clFuchsia</Foreground>
-				<Style>[fsBold,fsItalic]</Style>
-			</Attributes>
+			<Attributes>(TSynHighlighterAttributes)</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBgVGbG9hdAA=
@@ -1031,10 +937,7 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Character</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clGreen</Foreground>
-				<Style>[fsBold,fsItalic]</Style>
-			</Attributes>
+			<Attributes>(TSynHighlighterAttributes)</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBglDaGFyYWN0ZXIA
@@ -1043,10 +946,7 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Variable</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clMaroon</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
+			<Attributes>(TSynHighlighterAttributes)</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBhBTcGVjaWFsIHZhcmlhYmxlAA==
@@ -1113,10 +1013,7 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Section</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clMaroon</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
+			<Attributes>(TSynHighlighterAttributes)</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBgNBc3AGDUNEQVRBIFNlY3Rpb24GD0RPQ1RZUEUgU2VjdGlvbgYHU2VjdGlvbgA=
@@ -1133,21 +1030,23 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
-	<HighlighterType>SQL</HighlighterType>
+	<HighlighterType>PAS</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
 	<FormSettings>(TFormSettings)
-		<Left>-8</Left>
-		<Top>-8</Top>
-		<Width>1920</Width>
-		<Height>1148</Height>
+		<Left>0</Left>
+		<Top>0</Top>
+		<Width>800</Width>
+		<Height>600</Height>
 		<FormStyle>fsNormal</FormStyle>
-		<WindowState>wsMaximized</WindowState>
+		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
-		<Height>-17</Height>
+		<CharSet>ANSI_CHARSET</CharSet>
+		<Height>-13</Height>
 		<Name>Consolas</Name>
+		<Pitch>fpFixed</Pitch>
+		<Quality>fqDraft</Quality>
 	</EditorFont>
-	<DebugMode>true</DebugMode>
 </TEditorSettings>

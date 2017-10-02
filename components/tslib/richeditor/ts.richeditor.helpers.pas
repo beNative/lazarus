@@ -18,7 +18,7 @@
 
 unit ts.RichEditor.Helpers;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -102,8 +102,6 @@ uses
   uPSR_stdctrls, uPSC_stdctrls, uPSR_forms, uPSC_forms, uPSC_graphics,
   uPSC_controls, uPSC_classes, uPSR_graphics, uPSR_controls, uPSR_classes,
 
-  //dwsComp, dwsVCLGUIFunctions, dwsGlobalVarsFunctions, dwsDebugger, dwsEngine,
-
   ts.Components.ExportRTF,
 
   ts.Editor.Types, ts.Editor.Interfaces, ts.Editor.Resources,
@@ -261,15 +259,9 @@ type
     actToggleFoldLevel                : TAction;
     actToggleHighlighter              : TAction;
     actUpperCaseSelection             : TAction;
-    //Commented by esvignolo
-    //DelphiWebScript                   : TDelphiWebScript;
     dlgColor                          : TColorDialog;
     dlgOpen                           : TOpenDialog;
     dlgSave                           : TSaveDialog;
-    //Commented by esvignolo
-    //dwsGlobalVarsFunctions            : TdwsGlobalVarsFunctions;
-    //dwsGUIFunctions                   : TdwsGUIFunctions;
-    //dwsSimpleDebugger                 : TdwsSimpleDebugger;
     imlMain                           : TImageList;
     MenuItem1                         : TMenuItem;
     MenuItem10                        : TMenuItem;
@@ -773,7 +765,6 @@ uses
 
   LConvEncoding,
 
-//  SynEditKeyCmds,
   SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
 
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
@@ -801,7 +792,7 @@ uses
   ts.Editor.CharacterMap.ToolView,
   ts.Editor.Structure.ToolView,
   ts.Editor.AlignLines.ToolView,
-  ts.Editor.HTMLView.ToolView,
+  //ts.Editor.HTMLView.ToolView,
   ts.Editor.HexEditor.ToolView,
   ts.Editor.Minimap.ToolView,
   ts.Editor.ScriptEditor.ToolView,
@@ -813,7 +804,7 @@ uses
   ts.Editor.CodeFilter.Settings,
   ts.Editor.CodeShaper.Settings,
   ts.Editor.HexEditor.Settings,
-  ts.Editor.HTMLView.Settings,
+  //ts.Editor.HTMLView.Settings,
   ts.Editor.MiniMap.Settings,
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
@@ -881,9 +872,6 @@ begin
   FEvents   := nil;
   FCommands := nil;
   FToolViews := nil;
-  //Commented by esvignolo
-  //FdwsProgramExecution := nil;
-  //FdwsProgram := nil;
   PascalScript:=nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FViewList);
@@ -1333,34 +1321,6 @@ begin
   ShowToolView('Structure', False, False);
 end;
 
-procedure TdmEditorManager.PascalScriptCompile(Sender: TPSScript);
-begin
-  PascalScript.MainFileName := pansichar(PascalScript.script);
-  //Sender.Addfunction(@MyWriteln, 'procedure Writeln(s: string);');
-  //Sender.AddMethod(self, @Tform1.MyReadln, 'function Readln(question: string): string;');
-  //Sender.AddMethod(self, @Tform1.ImportTest, 'function ImportTest(S1: string; s2: Longint; s3: Byte; s4: word; var s5: string): string;');
-  Sender.Addfunction(@ShowMessage, 'procedure ShowMessage(const mytext :string)');
-  Sender.AddRegisteredVariable('vars', 'Variant');
-  Sender.AddRegisteredVariable('Application', 'TApplication');
-  Sender.AddRegisteredVariable('Self',  'TForm');
-  Sender.AddRegisteredVariable('Memo1', 'TMemo');
-  Sender.AddRegisteredVariable('Memo2', 'TMemo');
-  sender.AddRegisteredPTRVariable('az', 'longint');
-  sender.AddRegisteredVariable('myvar', 'integer');
-  sender.AddRegisteredVariable('Return', 'string');
-end;
-
-procedure TdmEditorManager.PascalScriptCompImport(Sender: TObject;
-  x: TPSPascalCompiler);
-begin
-  SIRegister_Std(x);
-  SIRegister_Classes(x, true);
-  SIRegister_Graphics(x, true);
-  SIRegister_Controls(x);
-  SIRegister_stdctrls(x);
-  SIRegister_Forms(x);
-end;
-
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
   ShowToolView('Test', False, False);
@@ -1640,10 +1600,6 @@ end;
 
 procedure TdmEditorManager.actSettingsExecute(Sender: TObject);
 begin
-{  with TEditorSettingsDialog.Create(Self) do
-  begin
-    ShowModal;
-  end;         }
   ExecuteSettingsDialog(Self);
 end;
 
@@ -1703,13 +1659,9 @@ begin
 end;
 
 procedure TdmEditorManager.actExecuteScriptOnSelectionExecute(Sender: TObject);
-var
-  A  : TAction;
-  script:string;
 begin
   Selection.Store;
   try
-    A := Sender as TAction;
     if Assigned(PascalScript) then
     begin
       try
@@ -1717,10 +1669,16 @@ begin
         if PascalScript.Compile then
         begin
           if not PascalScript.Execute then
-             ShowMessage('PascalScript Executing Error: '+PascalScript.ExecErrorToString +' at '+Inttostr(PascalScript.ExecErrorProcNo)+'.'+Inttostr(PascalScript.ExecErrorByteCodePosition));
-
+             ShowMessage(
+               'PascalScript Executing Error: ' +
+               PascalScript.ExecErrorToString +' at '+
+               Inttostr(PascalScript.ExecErrorProcNo) +
+               '.' + Inttostr(PascalScript.ExecErrorByteCodePosition)
+             );
         end
-        else ShowMessage('PascalScript Compiling failed: '+PascalScript.CompilerErrorToStr(0));
+        else ShowMessage('PascalScript Compiling failed: ' +
+          PascalScript.CompilerErrorToStr(0)
+        );
       except on e:exception do
          ShowMessage('PascalScript Error: '+e.Message);
       end;
@@ -1782,7 +1740,6 @@ begin
     F := (ToolViews['Filter'].Form as TfrmFilter);
     F.ColumnDefinitions.AddColumn('Name', 'Name');
     F.ColumnDefinitions.AddColumn('Caption', 'Caption');
-    //F.ItemTemplate  := TActionCategoryTemplate.Create(F.ColumnDefinitions);
     F.ItemsSource := OL;
     ShowToolView('Filter', True, True);
   finally
@@ -1954,6 +1911,31 @@ end;
 {$endregion}
 
 {$region 'event handlers' /fold}
+procedure TdmEditorManager.PascalScriptCompile(Sender: TPSScript);
+begin
+  PascalScript.MainFileName := PAnsiChar(PascalScript.Script);
+  Sender.Addfunction(@ShowMessage, 'procedure ShowMessage(const mytext :string)');
+  Sender.AddRegisteredVariable('vars', 'Variant');
+  Sender.AddRegisteredVariable('Application', 'TApplication');
+  Sender.AddRegisteredVariable('Self',  'TForm');
+  Sender.AddRegisteredVariable('Memo1', 'TMemo');
+  Sender.AddRegisteredVariable('Memo2', 'TMemo');
+  sender.AddRegisteredPTRVariable('az', 'longint');
+  sender.AddRegisteredVariable('myvar', 'integer');
+  sender.AddRegisteredVariable('Return', 'string');
+end;
+
+procedure TdmEditorManager.PascalScriptCompImport(Sender: TObject;
+  x: TPSPascalCompiler);
+begin
+  SIRegister_Std(x);
+  SIRegister_Classes(x, true);
+  SIRegister_Graphics(x, true);
+  SIRegister_Controls(x);
+  SIRegister_stdctrls(x);
+  SIRegister_Forms(x);
+end;
+
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
   Events.DoMacroStateChange(SynMacroRecorder.State);
@@ -2558,7 +2540,7 @@ procedure TdmEditorManager.RegisterToolViews;
 begin
   ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
   ToolViews.Register(TfrmCodeFilterDialog, TCodeFilterSettings, 'CodeFilter');
-  ToolViews.Register(TfrmHTMLView, THTMLViewSettings, 'HTMLView');
+  //ToolViews.Register(TfrmHTMLView, THTMLViewSettings, 'HTMLView');
   ToolViews.Register(TfrmSortStrings, TSortStringsSettings, 'SortStrings');
   ToolViews.Register(TfrmMiniMap, TMiniMapSettings, 'MiniMap');
   ToolViews.Register(TfrmHexEditor, THexEditorSettings, 'HexEditor');
@@ -2618,8 +2600,6 @@ begin
   //
   //end;
 end;
-
-
 {$endregion}
 {$endregion}
 

@@ -203,6 +203,7 @@ type
       CurrentPage: Integer; var AbortPrint: Boolean);
     procedure DoLinkAction(ALinkAction: TLinkAction; const AMouseInfo: TLinkMouseInfo;
       LinkStart, LinkEnd: Integer);
+    function GetCanRedo: Boolean; virtual;
 
   public
     constructor Create(AOwner: TComponent); override;
@@ -257,11 +258,14 @@ type
 
     function CharAtPos(x, y: Integer): Integer;
 
+    procedure Redo; virtual;
+
     property HideSelection : Boolean read fHideSelection write SetHideSelection;
     property OnSelectionChange: TNotifyEvent read fOnSelectionChange write fOnSelectionChange;
     property ZoomFactor: Double read GetZoomFactor write SetZoomFactor;
     property OnPrintAction: TPrintActionEvent read fOnPrintAction write fOnPrintAction;
     property OnLinkAction: TLinkActionEvent read fOnLinkAction write fOnLinkAction;
+    property CanRedo: Boolean read GetCanRedo;
   end;
   
   { TRichMemo }
@@ -1102,6 +1106,14 @@ begin
     Result:=-1;
 end;
 
+function TCustomRichMemo.GetCanRedo: Boolean;
+begin
+  if HandleAllocated then
+    Result:=TWSCustomRichMemoClass(WidgetSetClass).GetCanRedo(Self)
+  else
+    Result:=false;
+end;
+
 function TCustomRichMemo.PrintMeasure(const params: TPrintParams; var est: TPrintMeasure): Boolean;
 begin
   if not Assigned(Printer) then begin
@@ -1115,6 +1127,12 @@ begin
     est.Pages:=TWSCustomRichMemoClass(WidgetSetClass).Print(Self, Printer, params, false);
   end else
     Result:=false;
+end;
+
+procedure TCustomRichMemo.Redo;
+begin
+  if HandleAllocated then
+    TWSCustomRichMemoClass(WidgetSetClass).Redo(Self);
 end;
 
 end.

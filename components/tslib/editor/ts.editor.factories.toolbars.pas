@@ -18,7 +18,7 @@
 
 unit ts.Editor.Factories.Toolbars;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

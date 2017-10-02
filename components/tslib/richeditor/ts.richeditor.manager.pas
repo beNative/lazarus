@@ -18,7 +18,7 @@
 
 unit ts.RichEditor.Manager;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
@@ -435,7 +435,6 @@ end;
 
 procedure TdmRichEditorActions.LoadFile;
 begin
-
 //
 end;
 

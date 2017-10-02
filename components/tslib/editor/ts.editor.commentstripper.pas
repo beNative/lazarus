@@ -18,7 +18,7 @@
 
 unit ts.Editor.CommentStripper;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { Comment stripper classes. }
 

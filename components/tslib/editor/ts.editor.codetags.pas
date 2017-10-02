@@ -18,7 +18,7 @@
 
 unit ts.Editor.CodeTags;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

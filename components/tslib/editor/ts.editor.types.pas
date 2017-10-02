@@ -18,7 +18,7 @@
 
 unit ts.Editor.Types;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

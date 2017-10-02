@@ -15,7 +15,7 @@ object frmMain: TfrmMain
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  Visible = False
+  LCLVersion = '1.9.0.0'
   object pnlLeft: TPanel
     Left = 0
     Height = 578
@@ -349,13 +349,13 @@ object frmMain: TfrmMain
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    left = 128
-    top = 105
+    Left = 128
+    Top = 105
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 200
-    top = 105
+    Left = 200
+    Top = 105
     object actExecute: TAction
       Caption = 'Execute'
       ShortCut = 49268
@@ -393,8 +393,8 @@ object frmMain: TfrmMain
     end
   end
   object imlMain: TImageList
-    left = 60
-    top = 105
+    Left = 60
+    Top = 105
     Bitmap = {
       4C69030000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -499,8 +499,8 @@ object frmMain: TfrmMain
     BkColor = clWhite
     DrawingStyle = dsTransparent
     ShareImages = True
-    left = 56
-    top = 248
+    Left = 56
+    Top = 248
     Bitmap = {
       4C69030000001000000010000000FFFFFF00DED3CFA8E3D9D5DEE8E0DDE6E7DF
       DCE3E7DFDCE3E7DEDBE3E3D9D5E3DFD3CFE3DED1CDE3DDD0CCE3DCCECAE3DDCF

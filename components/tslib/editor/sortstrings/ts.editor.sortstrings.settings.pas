@@ -18,7 +18,7 @@
 
 unit ts.Editor.SortStrings.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

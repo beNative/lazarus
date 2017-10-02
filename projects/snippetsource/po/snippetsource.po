@@ -2163,10 +2163,6 @@ msgctxt "TFRMLOOKUP.ACTSEARCH.CAPTION"
 msgid "Search"
 msgstr ""
 
-#: tfrmlookup.caption
-msgid "Lookup"
-msgstr ""
-
 #: tfrmlookup.chkcomment.caption
 msgid "Comment"
 msgstr ""
@@ -2860,6 +2856,11 @@ msgstr ""
 
 #: tfrmsettingsdialog.actrefreshglyphs.caption
 msgid "Refresh"
+msgstr ""
+
+#: tfrmsettingsdialog.caption
+msgctxt "tfrmsettingsdialog.caption"
+msgid "Settings"
 msgstr ""
 
 #: tfrmsettingsdialog.chkautomaticindex.caption

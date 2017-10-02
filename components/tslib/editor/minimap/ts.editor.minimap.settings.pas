@@ -18,7 +18,7 @@
 
 unit ts.Editor.MiniMap.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -48,7 +48,7 @@
 
 unit ts.Components.Docking.Resources;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

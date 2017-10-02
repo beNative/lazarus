@@ -22,7 +22,7 @@
 
 unit ts.Components.FileAssociation;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -18,7 +18,7 @@
 
 unit ts.RichEditor.View;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { A richtext editor view based on RichMemo.
 
@@ -525,8 +525,6 @@ begin
   S := 'Size: %d Font: %s';
   S := Format(S, [FTextAttributes.Size, FTextAttributes.FontName]);
   pnlBottom.Caption := S;
-
-
 end;
 
 procedure TRichEditorView.SetFocus;

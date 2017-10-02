@@ -87,7 +87,7 @@
 
 unit ts.Components.GridView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

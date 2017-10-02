@@ -18,7 +18,7 @@
 
 unit ts.Editor.Commands;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { Implements IEditorCommands which represents a set of commands that can be
   executed on the active editor view.

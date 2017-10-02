@@ -1,15 +1,14 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
-  Height = 396
+  Height = 324
   HorizontalOffset = 952
   VerticalOffset = 360
-  Width = 333
+  Width = 278
   object trsSnippet: TSQLTransaction
     Active = False
     Database = conMain
-    Options = []
-    left = 48
-    top = 104
+    Left = 48
+    Top = 104
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
@@ -87,7 +86,6 @@ object dmSnippetSource: TdmSnippetSource
         DataType = ftDateTime
         Precision = -1
       end>
-    AfterEdit = qrySnippetAfterEdit
     AfterInsert = qrySnippetAfterInsert
     AfterPost = qrySnippetAfterPost
     AfterScroll = qrySnippetAfterScroll
@@ -107,8 +105,8 @@ object dmSnippetSource: TdmSnippetSource
     )
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
-    left = 48
-    top = 168
+    Left = 48
+    Top = 168
     object qrySnippetID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -279,9 +277,8 @@ object dmSnippetSource: TdmSnippetSource
     Transaction = trsSnippet
     OnLog = conMainLog
     LogEvents = [detExecute]
-    Options = []
-    left = 48
-    top = 24
+    Left = 48
+    Top = 24
   end
   object qryGlyph: TSQLQuery
     FieldDefs = <    
@@ -319,10 +316,9 @@ object dmSnippetSource: TdmSnippetSource
       '  ID'
       ''
     )
-    Options = []
     Params = <>
-    left = 184
-    top = 168
+    Left = 184
+    Top = 168
     object qryGlyphID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -394,10 +390,9 @@ object dmSnippetSource: TdmSnippetSource
       '  NodeType'
       ''
     )
-    Options = []
     Params = <>
-    left = 184
-    top = 248
+    Left = 184
+    Top = 248
     object qryNodeTypeID: TLongintField
       DisplayWidth = 10
       FieldKind = fkData
@@ -435,6 +430,7 @@ object dmSnippetSource: TdmSnippetSource
     DataBase = conMain
     Transaction = trsSnippet
     OnDirective = scrCreateDatabaseDirective
+    AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -561,12 +557,12 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    left = 176
-    top = 88
+    Left = 176
+    Top = 88
   end
   object imlMain: TImageList
-    left = 176
-    top = 24
+    Left = 176
+    Top = 24
     Bitmap = {
       4C69010000001000000010000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -604,8 +600,8 @@ object dmSnippetSource: TdmSnippetSource
     }
   end
   object imlGlyphs: TImageList
-    left = 48
-    top = 256
+    Left = 48
+    Top = 256
     Bitmap = {
       4C69110000001000000010000000FFFFFF000000001C00000033000000360000
       0036000000360000003600000036000000360000003600000036000000200000

@@ -27,7 +27,7 @@ uses
   {$ENDIF}
   DefaultTranslator,
   Interfaces, // this includes the LCL widgetset
-  Forms, FrameViewer09,
+  Forms,
   notepas.main.form,
 
   richmemopackage,
@@ -119,7 +119,6 @@ uses
   ts.Editor.SettingsDialog.Base,
   ts.Editor.SettingsDialog.EditorSettings,
   ts.Editor.MiniMap.Settings,
-  ts.Editor.HTMLView.Settings,
   ts.Editor.HexEditor.Settings,
   ts.Editor.CodeFilter.Settings,
   ts.Editor.SortStrings.Settings,
@@ -136,7 +135,6 @@ uses
   ts.Editor.CodeFilter.ToolView,
   ts.Editor.CodeShaper.ToolView,
   ts.Editor.HexEditor.ToolView,
-  ts.Editor.HtmlView.ToolView,
   ts.Editor.MiniMap.ToolView,
   ts.Editor.Preview.ToolView,
   ts.Editor.ScriptEditor.ToolView,

@@ -39,7 +39,7 @@ unit ts.Components.XMLTree;
 interface
 
 {$IFDEF FPC}
-{$MODE Delphi}
+{$MODE DELPHI}
 {$ENDIF}
 
 uses

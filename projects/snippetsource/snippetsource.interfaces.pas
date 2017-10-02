@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -18,7 +18,7 @@
 
 unit SnippetSource.Interfaces;
 
-{$mode delphi}
+{$MODE DELPHI}
 
 { Main application interfaces. }
 
@@ -56,7 +56,7 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
-  function GetImageIndex: Integer;
+    function GetImageIndex: Integer;
     procedure SetDateCreated(AValue: TDateTime);
     function GetDateCreated: TDateTime;
     procedure SetDateModified(AValue: TDateTime);
@@ -168,13 +168,15 @@ type
     function GetGlyphDataSet: TDataSet;
     function GetGlyphList: TImageList;
     function GetImageList: TImageList;
-    property GlyphDataSet: TDataSet
-      read GetGlyphDataSet;
 
     procedure LoadGlyphs;
 
+    property GlyphDataSet: TDataSet
+      read GetGlyphDataSet;
+
     property ImageList: TImageList
       read GetImageList;
+
     property GlyphList: TImageList
       read GetGlyphList;
   end;

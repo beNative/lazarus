@@ -115,6 +115,9 @@ type
        AHandler: TRichMemoInline; wsObj: TRichMemoInlineWSObject); virtual;
 
     class function Print(const AWinControl: TWinControl; APrinter: TPrinter; const AParams: TPrintParams; DoPrint: Boolean): Integer; virtual;
+
+    class procedure Redo(const AWinControl: TWinControl); virtual;
+    class function GetCanRedo(const AWinControl: TWinControl): Boolean; virtual;
   end;
   TWSCustomRichMemoClass = class of TWSCustomRichMemo;
 
@@ -404,6 +407,17 @@ class function TWSCustomRichMemo.Print(const AWinControl: TWinControl;
   APrinter: TPrinter; const AParams: TPrintParams; DoPrint: Boolean): Integer;
 begin
   Result:=0;
+end;
+
+class procedure TWSCustomRichMemo.Redo(const AWinControl: TWinControl);
+begin
+
+end;
+
+class function TWSCustomRichMemo.GetCanRedo(const AWinControl: TWinControl
+  ): Boolean;
+begin
+  Result:=false;
 end;
 
 end.

@@ -22,7 +22,7 @@ unit ts.Editor.Search.Data;
 
 { TSearchResultGroup -> TSearchResultLine -> TSearchResult }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

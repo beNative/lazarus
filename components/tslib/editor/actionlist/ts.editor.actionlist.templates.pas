@@ -18,7 +18,7 @@
 
 unit ts.Editor.ActionList.Templates;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

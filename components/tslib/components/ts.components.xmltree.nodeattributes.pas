@@ -19,7 +19,7 @@
 unit ts.Components.XMLTree.NodeAttributes;
 
 {$IFDEF FPC}
-{$MODE Delphi}
+{$MODE DELPHI}
 {$ENDIF}
 
 interface

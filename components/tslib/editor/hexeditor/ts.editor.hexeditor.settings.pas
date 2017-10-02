@@ -18,7 +18,7 @@
 
 unit ts.Editor.HexEditor.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -18,23 +18,20 @@
 
 unit SnippetSource.Modules.Data;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
 uses
-  Classes, SysUtils, ImgList, Controls,
+  Classes, SysUtils, Controls, FileUtil,
 
-  sqlite3conn, sqldb, sqldblib, db, FileUtil,
+  sqlite3conn, sqldb, db,
 
   ts.Core.Sharedlogger,
 
-  SnippetSource.Interfaces, sqlscript;
+  SnippetSource.Interfaces;
 
 type
-
-  { TdmSnippetSource }
-
   TdmSnippetSource = class(TDataModule,
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
@@ -74,7 +71,6 @@ type
     procedure conMainAfterConnect(Sender: TObject);
     procedure conMainLog(Sender: TSQLConnection; EventType: TDBEventType;
       const Msg: String);
-    procedure qrySnippetAfterEdit(DataSet: TDataSet);
     procedure qrySnippetAfterInsert(DataSet: TDataSet);
     procedure qrySnippetAfterPost(DataSet: TDataSet);
     procedure qrySnippetAfterScroll(DataSet: TDataSet);
@@ -87,7 +83,6 @@ type
     {$endregion}
 
   private
-    FNeedsRefresh : Boolean;
     FInserted     : Boolean;
 
     {$region 'property access methods' /fold}
@@ -133,6 +128,7 @@ type
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
     procedure LoadGlyphs;
     function Execute(const ASQL: string): Boolean;
     procedure CreateNewDatabase;
@@ -530,11 +526,6 @@ begin
   Logger.Send(Msg);
 end;
 
-procedure TdmSnippetSource.qrySnippetAfterEdit(DataSet: TDataSet);
-begin
-  //FNeedsRefresh := True;
-end;
-
 procedure TdmSnippetSource.qrySnippetAfterInsert(DataSet: TDataSet);
 begin
   FInserted := True;
@@ -551,24 +542,6 @@ begin
     trsSnippet.Commit; // will close the dataset and the transaction
     qrySnippet.Active := True; // will start a new transaction
     qrySnippet.Refresh;
-    if FNeedsRefresh then
-    begin
-
-      //qrySnippet.Refresh;
-  //    qrySnippet.EnableControls;
-      //FNeedsRefresh := False;
-    end
-    else
-    begin
-      //if N < qrySnippet.RecordCount then
-      //  qrySnippet.RecNo := N;
-    end;
-
-    //else
-  //    qrySnippet.Resync([rmExact]);
-    //
-    //trsSnippet.Commit;
-
   finally
     qrySnippet.EnableControls;
     if FInserted then
@@ -581,9 +554,7 @@ begin
       if N < qrySnippet.RecordCount then
         qrySnippet.RecNo := N;
     end;
-
   end;
-
 end;
 
 procedure TdmSnippetSource.qrySnippetAfterScroll(DataSet: TDataSet);
@@ -617,7 +588,6 @@ end;
 procedure TdmSnippetSource.qrySnippetNewRecord(DataSet: TDataSet);
 begin
   qrySnippetID.Value := 0;
-  FNeedsRefresh := True;
 end;
 
 procedure TdmSnippetSource.qrySnippetTextGetText(Sender: TField;
@@ -629,7 +599,7 @@ end;
 procedure TdmSnippetSource.scrCreateDatabaseDirective(Sender: TObject;
   Directive, Argument: AnsiString; var StopExecution: Boolean);
 begin
-
+//
 end;
 
 {$endregion}
@@ -695,9 +665,16 @@ end;
 
 procedure TdmSnippetSource.Lookup(const ASearchString: string;
   ASearchInText: Boolean; ASearchInName: Boolean; ASearchInComment: Boolean);
+var
+  R : Variant;
 begin
-//  raise Exception.Create('Not implemented!');
-    DataSet.Locate('Text', VarArrayOf([ASearchString]), []);
+  R := QueryLookup(
+  conMain,
+  'select ID from Snippet where Text like ''%%%s%%'' limit 1',
+    [ASearchString]
+  );
+
+  DataSet.Locate('ID', VarArrayOf([R]), []);
 end;
 {$endregion}
 

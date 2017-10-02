@@ -3,6 +3,7 @@ object frmLookup: TfrmLookup
   Height = 474
   Top = 187
   Width = 479
+  ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 474
   ClientWidth = 479
@@ -11,7 +12,7 @@ object frmLookup: TfrmLookup
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.7'
+  Visible = False
   object edtLookup: TEdit
     Left = 2
     Height = 21

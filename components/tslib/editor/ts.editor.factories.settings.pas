@@ -18,7 +18,7 @@
 
 unit ts.Editor.Factories.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
@@ -69,7 +69,6 @@ uses
   ts.Editor.CodeFilter.Settings,
   ts.Editor.CodeShaper.Settings,
   ts.Editor.HexEditor.Settings,
-  ts.Editor.HTMLView.Settings,
   ts.Editor.MiniMap.Settings,
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
@@ -103,7 +102,7 @@ procedure TEditorSettingsFactory.RegisterToolSettings(
 begin
   ASettings.RegisterSettings(TAlignLinesSettings, 'AlignLinesSettings');
   ASettings.RegisterSettings(TCodeFilterSettings, 'CodeFilterSettings');
-  ASettings.RegisterSettings(THTMLViewSettings, 'HTMLViewSettings');
+  //ASettings.RegisterSettings(THTMLViewSettings, 'HTMLViewSettings');
   ASettings.RegisterSettings(TSortStringsSettings, 'SortStringsSettings');
   ASettings.RegisterSettings(TMiniMapSettings, 'MiniMapSettings');
   ASettings.RegisterSettings(THexEditorSettings, 'HexEditorSettings');

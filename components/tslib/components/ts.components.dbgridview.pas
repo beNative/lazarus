@@ -86,7 +86,7 @@
 
 unit ts.Components.DBGridView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

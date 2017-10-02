@@ -30,7 +30,7 @@
 
 unit ts.Components.Inspector;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

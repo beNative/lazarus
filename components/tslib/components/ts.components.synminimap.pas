@@ -18,7 +18,7 @@
 
 unit ts.Components.SynMiniMap;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {$region 'comments' /fold}
 {

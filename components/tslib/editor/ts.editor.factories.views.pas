@@ -18,7 +18,7 @@
 
 unit ts.Editor.Factories.Views;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

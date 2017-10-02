@@ -20,7 +20,7 @@ unit ts.Editor.Search.Engine;
 
 { Search logic to find text in one or all managed editor views. }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {
   Refactoring notes (20/11/2013, TS)

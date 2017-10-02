@@ -18,7 +18,7 @@
 
 unit ts.RichEditor.TextAttributes;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { Text attributes for RichMemo }
 

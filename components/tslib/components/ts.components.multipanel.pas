@@ -20,7 +20,7 @@ unit ts.Components.MultiPanel;
 
 // original name: OMultipanel
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {
     OMultiPanel

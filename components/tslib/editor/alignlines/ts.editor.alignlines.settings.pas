@@ -18,7 +18,7 @@
 
 unit ts.Editor.AlignLines.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

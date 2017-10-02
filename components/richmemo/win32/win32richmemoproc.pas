@@ -272,7 +272,8 @@ begin
       RichEditManager := TRichEditManager;
       
     Result := GlobalRichClass <> '';
-  end;
+  end else
+    Result:=true;
 end;
 
 procedure CopyStringToCharArray(const s: String; var Chrs: array of Char; ChrsSize: integer);
@@ -329,7 +330,7 @@ begin
   Params.Style := EffectsToFontStyles(fmt.dwEffects);
   if fmt.cbSize > sizeof(CHARFORMAT) then begin
     Params.HasBkClr:=(fmt.dwEffects and CFE_AUTOBACKCOLOR) = 0;
-    if Params.HasBkClr then Params.Color:=Params.Color;
+    if Params.HasBkClr then Params.BkColor:=fmt.crBackColor;
     Params.VScriptPos:=EffectsToVScriptPost(fmt.dwEffects);
   end;
 end;
@@ -889,6 +890,7 @@ begin
   if soMatchCase in ASearch.Options then opt := opt or FR_MATCHCASE;
   if soWholeWord in ASearch.Options then opt := opt or FR_WHOLEWORD;
   mn := ASearch.start;
+  mx := 0;
   if soBackward in ASearch.Options then begin
     if ASearch.len<0 then mx := 0
     else begin

@@ -18,7 +18,7 @@
 
 unit ts.Editor.Interfaces;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { This unit hosts all interfaces of the editor module.
   To make an editor instance you need to use this unit in the interface section
@@ -39,9 +39,8 @@ uses
 
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,
-  ts.Editor.HTMLView.Settings, ts.Editor.MiniMap.Settings,
-  ts.Editor.HexEditor.Settings, ts.Editor.SortStrings.Settings,
-  ts.Editor.Options.Settings,
+  ts.Editor.MiniMap.Settings, ts.Editor.HexEditor.Settings,
+  ts.Editor.SortStrings.Settings, ts.Editor.Options.Settings,
 
   ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
   ts.Editor.Colors.Settings, ts.Editor.Tools.Settings;

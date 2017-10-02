@@ -18,7 +18,7 @@
 
 unit ts.Components.XMLTree.Editors;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

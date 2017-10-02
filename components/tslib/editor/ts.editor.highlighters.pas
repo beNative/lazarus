@@ -20,7 +20,7 @@ unit ts.Editor.Highlighters;
 
 { Holds settings that are specific to each supported highlighter. }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

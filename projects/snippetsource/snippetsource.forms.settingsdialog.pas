@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -42,9 +42,9 @@ type
     aclMain              : TActionList;
     actCreateNewDatabase : TAction;
     actDeleteDatabase    : TAction;
-    actRefreshGlyphs     : TAction;
-    actOpenGlyphs        : TAction;
     actOpenDatabase      : TAction;
+    actOpenGlyphs        : TAction;
+    actRefreshGlyphs     : TAction;
     btnCreateNewDatabase : TButton;
     btnDeleteDatabase    : TButton;
     btnOpenDatabase      : TButton;
@@ -52,18 +52,18 @@ type
     btnRefresh           : TButton;
     cbxImageList         : TComboBox;
     chkAutomaticIndex    : TCheckBox;
-    grdHighlighters      : TDBGrid;
-    grdGlyph             : TDBGrid;
     dlgOpen              : TOpenDialog;
     dscGlyph             : TDatasource;
     dscHighlighter       : TDatasource;
     edtDatabaseFile      : TFileNameEdit;
+    grdGlyph             : TDBGrid;
+    grdHighlighters      : TDBGrid;
+    Highlighters         : TTabSheet;
     lblDataBaseFile      : TLabel;
     pgcMain              : TPageControl;
     pnlButtons           : TButtonPanel;
-    Highlighters         : TTabSheet;
-    tsImages             : TTabSheet;
     tsDataBase           : TTabSheet;
+    tsImages             : TTabSheet;
     vstImageList         : TVirtualStringTree;
 
     procedure actCreateNewDatabaseExecute(Sender: TObject);
@@ -147,7 +147,7 @@ begin
 //  grdGlyph.Images := (FData as IGlyphs).GlyphList;
 //  grdGlyph.Header.Columns[3].MaxWidth := 50;
   //dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
-  chkAutomaticIndex.Checked := SQLiteSettings.AutomaticIndex;
+  //chkAutomaticIndex.Checked := SQLiteSettings.AutomaticIndex;
 end;
 
 procedure TfrmSettingsDialog.AfterConstruction;
@@ -186,7 +186,7 @@ end;
 
 function TfrmSettingsDialog.GetSQLiteSettings: ISQLiteSettings;
 begin
-  Result := FData as ISQLiteSettings;
+//  Result := FData as ISQLiteSettings;
 end;
 {$endregion}
 
@@ -270,7 +270,7 @@ end;
 
 procedure TfrmSettingsDialog.chkAutomaticIndexClick(Sender: TObject);
 begin
-  SQLiteSettings.AutomaticIndex := chkAutomaticIndex.Checked;
+  //SQLiteSettings.AutomaticIndex := chkAutomaticIndex.Checked;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);

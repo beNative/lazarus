@@ -9,7 +9,7 @@ object frmSettingsDialog: TfrmSettingsDialog
   ClientWidth = 462
   Position = poMainFormCenter
   ShowHint = True
-  Visible = False
+  LCLVersion = '1.9.0.0'
   object pnlButtons: TButtonPanel
     Left = 6
     Height = 34
@@ -149,6 +149,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Color = clWindow
         Columns = <>
         DataSource = dscGlyph
+        Flat = True
         TabOrder = 3
       end
     end
@@ -182,8 +183,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
   end
   object aclMain: TActionList
-    left = 128
-    top = 200
+    Left = 128
+    Top = 200
     object actCreateNewDatabase: TAction
       Caption = 'Create new database'
       OnExecute = actCreateNewDatabaseExecute
@@ -208,18 +209,18 @@ object frmSettingsDialog: TfrmSettingsDialog
   object dscGlyph: TDataSource
     OnStateChange = dscGlyphStateChange
     OnUpdateData = dscGlyphUpdateData
-    left = 40
-    top = 136
+    Left = 40
+    Top = 136
   end
   object dlgOpen: TOpenDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    left = 128
-    top = 136
+    Left = 128
+    Top = 136
   end
   object dscHighlighter: TDataSource
-    left = 40
-    top = 200
+    Left = 40
+    Top = 200
   end
 end

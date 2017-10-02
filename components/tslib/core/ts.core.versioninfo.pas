@@ -18,7 +18,7 @@
 
 unit ts.Core.VersionInfo;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

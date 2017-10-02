@@ -50,7 +50,7 @@
 
 unit ts.Components.Docking.OptionsDialog;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

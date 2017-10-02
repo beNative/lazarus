@@ -6,7 +6,8 @@ object frmSQLLog: TfrmSQLLog
   Caption = 'frmSQLLog'
   ClientHeight = 675
   ClientWidth = 730
-  LCLVersion = '1.7'
+  LCLVersion = '1.9.0.0'
+  Visible = False
   object grdMain: TDBGrid
     Left = 0
     Height = 667

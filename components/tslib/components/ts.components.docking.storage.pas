@@ -47,7 +47,7 @@
 }
 Unit ts.Components.Docking.Storage;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

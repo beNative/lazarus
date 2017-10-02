@@ -18,7 +18,7 @@
 
 unit ts.Editor.CodeFormatters;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

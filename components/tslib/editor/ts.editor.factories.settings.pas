@@ -75,9 +75,7 @@ uses
 
   ts.Editor.Resources, ts.Editor.Settings,
 
-  ts.Components.UniHighlighter,
-
-  ts.Core.Utils;
+  ts.Components.UniHighlighter;
 
 { TEditorSettingsFactory }
 
@@ -112,9 +110,9 @@ end;
 
 procedure TEditorSettingsFactory.RegisterHighlighters(
   AHighlighters: THighlighters);
-var
-  S  : string;
-  F  : string;
+//var
+//  S  : string;
+//  F  : string;
   //SU : TSynUniSyn;
   //FH : TSynFacilSyn;
 

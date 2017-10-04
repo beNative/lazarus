@@ -1872,6 +1872,7 @@ var
   R : TBRRERegExpCapture;
   C : TBRRERegExpCaptures;
 begin
+  C := Default(TBRRERegExpCaptures);
   RE := TBRRERegExp.Create(ARegExpr);
   try
     RE.Flags := RE.Flags or brrefUTF8;

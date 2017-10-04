@@ -254,7 +254,7 @@ begin
   FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
 
   FSettings := TEditorFactories.CreateSettings(Self);
-  FSettings.FileName := 'settings.xml';
+  FSettings.FileName := 'notepas.xml';
   FSettings.Load;
 
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);

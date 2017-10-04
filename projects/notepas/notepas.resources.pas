@@ -18,7 +18,7 @@
 
 unit Notepas.Resources;
 
-{$mode delphi}
+{$MODE DELPHI}
 
 interface
 

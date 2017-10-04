@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectGroup FileVersion="1">
+    <Targets Count="3">
+      <Target0 FileName="snippetsource\snippetsource.lpi">
+        <BuildModes Count="4"/>
+        <Mode1 Name="Default"/>
+        <Mode2 Name="Debug"/>
+        <Mode3 Name="Release win32 win32"/>
+        <Mode4 Name="Release win64 win32"/>
+      </Target0>
+      <Target1 FileName="notepas\notepas.lpi">
+        <BuildModes Count="14"/>
+        <Mode1 Name="Default" Compile="True"/>
+        <Mode2 Name="Debug"/>
+        <Mode3 Name="Release win32 i386 win32"/>
+        <Mode4 Name="Release win32 i386 qt"/>
+        <Mode5 Name="Release win32 i386 gtk2"/>
+        <Mode6 Name="Release win64 x86_64 win32"/>
+        <Mode7 Name="Release darwin i386 carbon"/>
+        <Mode8 Name="Release darwin x86_64 qt"/>
+        <Mode9 Name="Release linux i386 qt"/>
+        <Mode10 Name="Release linux i386 gtk2"/>
+        <Mode11 Name="Release linux x86_64 qt"/>
+        <Mode12 Name="Release linux x86_64 gtk2"/>
+        <Mode13 Name="Release freebsd x86_64 qt"/>
+        <Mode14 Name="Release solaris x86_64 gtk2"/>
+      </Target1>
+      <Target2 FileName="tabletool\TableTool.lpi">
+        <BuildModes Count="2"/>
+        <Mode1 Name="Default" Compile="True"/>
+        <Mode2 Name="Release"/>
+      </Target2>
+    </Targets>
+  </ProjectGroup>
+</CONFIG>

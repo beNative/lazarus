@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="45"/>
-      <BuildNr Value="203"/>
+      <BuildNr Value="205"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2017 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.45" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="14">
@@ -965,22 +965,22 @@ end;"/>
     </RunParams>
     <RequiredPackages Count="12">
       <Item1>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="KControlsLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item2>
       <Item3>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="pascalscript"/>
       </Item3>
       <Item4>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="laz_synapse"/>
       </Item4>
       <Item5>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="lclextensions_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="KHexEditorLaz"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item6>
       <Item7>
         <PackageName Value="virtualtreeview_package"/>
@@ -1233,6 +1233,7 @@ end;"/>
       <Unit51>
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.SQLParser"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\components\tslib\core\ts.core.sqltree.pas"/>
@@ -1270,6 +1271,7 @@ end;"/>
       <Unit60>
         <Filename Value="..\..\components\tslib\core\ts.core.fileassociations.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.FileAssociations"/>
       </Unit60>
       <Unit61>
         <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.pas"/>

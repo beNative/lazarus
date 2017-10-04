@@ -18,17 +18,16 @@
 
 program notepas;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 uses
   SysUtils,
-  {$IFDEF UNIX} // Required for Linux and BSD
+{$IFDEF UNIX} // Required for Linux and BSD
   cthreads,
-  {$ENDIF}
+{$ENDIF}
   DefaultTranslator,
   Interfaces, // this includes the LCL widgetset
   Forms,
-  notepas.main.form,
 
   richmemopackage,
   runtimetypeinfocontrols,
@@ -36,6 +35,8 @@ uses
   kcontrols,
   ExceptionLogger,
   lclextensions_package,
+
+  Notepas.Main.Form,
 
   ts.Components.MultiPanel,
   ts.Components.Docking,
@@ -151,7 +152,8 @@ uses
   ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars,
   ts.Editor.Factories,
-  ts.Editor.Options.Settings, notepas.resources;
+  ts.Editor.Options.Settings,
+  Notepas.Resources;
 
 {$R *.res}
 
@@ -161,7 +163,9 @@ begin
   //  DeleteFile('Notepas.trc');
   //SetHeapTraceOutput('Notepas.trc');
   {$IFDEF WINDOWS}
+  {$WARNINGS OFF}
   Application.MainFormOnTaskbar := True;
+  {$WARNINGS ON}
   {$ENDIF}
   RequireDerivedFormResource := True;
   Application.Initialize;

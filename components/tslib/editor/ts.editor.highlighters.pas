@@ -25,7 +25,7 @@ unit ts.Editor.Highlighters;
 interface
 
 uses
-  SysUtils, Classes, Contnrs,
+  SysUtils, Classes,
 
   SynEditHighlighter,
 

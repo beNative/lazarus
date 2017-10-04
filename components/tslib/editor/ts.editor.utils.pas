@@ -1355,10 +1355,10 @@ function FormatXML(const AXMLString: string): string;
 var
   Doc : IXMLDocument;
 begin
+  Result := '';
   Doc := CreateXMLDoc;
   Doc.LoadFromXML(AXMLString);
   Doc.SaveToXML(Result, itIndent);
-
 end;
 
 function PascalStringOf(const AString: string; ATrimLines: Boolean): string;
@@ -1462,11 +1462,11 @@ begin
 end;
 
 function IsSQL(const AString: string): Boolean;
-const
-  MATCH_SELECT = 'select (.|\n)*from (.|\n)*';
-  MATCH_UPDATE = 'update (.|\n)*set (.|\n)*';
-  MATCH_DELETE = 'delete (.|\n)*from (.|\n)*';
-  MATCH_INSERT = 'insert (.|\n)*values[\s\n]+([\w,]+)';
+//const
+//  MATCH_SELECT = 'select (.|\n)*from (.|\n)*';
+//  MATCH_UPDATE = 'update (.|\n)*set (.|\n)*';
+//  MATCH_DELETE = 'delete (.|\n)*from (.|\n)*';
+//  MATCH_INSERT = 'insert (.|\n)*values[\s\n]+([\w,]+)';
 begin
   // TODO: optimize expressions
   Result := False;

@@ -13,29 +13,7 @@ uses
 
   { you can add units after this }
 
-  ts.Components.VirtualDBTreeEx,
-  ts.Core.ComponentInspector, ts.Editor.AboutDialog, ts.Editor.Manager,
-  ts.Editor.Resources, ts.Editor.View, ts.Editor.ToolView.Base,
-  ts.Editor.Interfaces, ts.Editor.ScriptEditor.ToolView,
-  ts.Editor.ActionList.ToolView, ts.Editor.ViewList.ToolView,
-  ts.Editor.Test.ToolView, ts.Editor.Structure.ToolView,
-  ts.Editor.Shortcuts.ToolView, ts.Editor.SettingsDialog,
-  ts.Editor.SettingsDialog.ApplicationSettings, ts.Editor.SettingsDialog.Base,
-  ts.Editor.SettingsDialog.EditorSettings, ts.Editor.SettingsDialog.Extensions,
-  ts.Editor.SettingsDialog.FileAssociations, ts.Editor.SettingsDialog.FileTypes,
-  ts.Editor.SettingsDialog.Highlighters, ts.Editor.SettingsDialog.KeyMappings,
-  ts.Editor.SettingsDialog.Old, ts.Editor.SelectionInfo.ToolView,
-  ts.Editor.Search.ToolView, ts.Editor.Preview.ToolView,
-  ts.Editor.Minimap.ToolView, ts.Editor.HexEditor.ToolView,
-  ts.Editor.Filter.ToolView, ts.Editor.CodeShaper.ToolView,
-  ts.Editor.CodeFilter.ToolView, ts.Editor.CharacterMap.ToolView,
-  ts.Editor.AlignLines.ToolView, ts.Editor.AlignLines.Settings,
-  ts.Editor.Search.Engine.Settings, ts.Editor.CodeShaper.Settings,
-  ts.Editor.CodeFilter.Settings, ts.Editor.MiniMap.Settings,
-  ts.Editor.HexEditor.Settings, ts.Editor.Types,
-
-  SnippetSource.Forms.Main, SnippetSource.Virtualtree.Editors,
-  SnippetSource.Modules.Data, SnippetSource.Forms.SQLLog;
+  SnippetSource.Forms.Main;
 
 {$R *.res}
 

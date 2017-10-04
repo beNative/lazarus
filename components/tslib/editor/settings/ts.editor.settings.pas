@@ -63,7 +63,7 @@ uses
 
   LazMethodList,
 
-  SynEditMiscClasses, SynEditMarkupBracket,
+  SynEditMiscClasses,
 
   ts.Core.FormSettings,
 

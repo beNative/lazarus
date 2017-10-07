@@ -29,7 +29,7 @@ uses
 
 type
   TfrmSelectionInfo = class(TForm, IEditorToolView)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     btnStore                         : TButton;
     btnRestore                       : TButton;
     chkLockUpdates                   : TCheckBox;
@@ -54,7 +54,7 @@ type
     lblStoredBlockLines              : TLabel;
     lblStoredBlockSelectionModeValue : TLabel;
     mmoBlock                         : TMemo;
-    {$endregion}
+    {$ENDREGION}
 
     procedure btnRestoreClick(Sender: TObject);
     procedure btnStoreClick(Sender: TObject);
@@ -96,7 +96,7 @@ uses
   StoredBlockLines
 }
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmSelectionInfo.GetView: IEditorView;
 begin
   Result := Owner as IEditorView;
@@ -116,9 +116,9 @@ function TfrmSelectionInfo.GetVisible: Boolean;
 begin
   Result := Visible;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmSelectionInfo.btnStoreClick(Sender: TObject);
 begin
   View.Selection.Store(chkLockUpdates.Checked, chkExcludeEmptyLines.Checked);
@@ -133,9 +133,9 @@ procedure TfrmSelectionInfo.btnRestoreClick(Sender: TObject);
 begin
   View.Selection.Restore;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmSelectionInfo.UpdateView;
 begin
   UpdateDisplay;
@@ -183,7 +183,7 @@ begin
     inherited UpdateActions;
     UpdateDisplay;
   end;
-  {$endregion}
+  {$ENDREGION}
 
 end.
 

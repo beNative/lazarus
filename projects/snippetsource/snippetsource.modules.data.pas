@@ -35,7 +35,7 @@ type
   TdmSnippetSource = class(TDataModule,
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     conMain                  : TSQLite3Connection;
     imlGlyphs                : TImageList;
     imlMain                  : TImageList;
@@ -65,9 +65,9 @@ type
     qryNodeType              : TSQLQuery;
     scrCreateDatabase        : TSQLScript;
     trsSnippet               : TSQLTransaction;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'event handlers' /fold}
+    {$REGION 'event handlers' /FOLD}
     procedure conMainAfterConnect(Sender: TObject);
     procedure conMainLog(Sender: TSQLConnection; EventType: TDBEventType;
       const Msg: String);
@@ -78,14 +78,12 @@ type
     procedure qrySnippetNewRecord(DataSet: TDataSet);
     procedure qrySnippetTextGetText(Sender: TField; var aText: string;
       DisplayText: Boolean);
-    procedure scrCreateDatabaseDirective(Sender: TObject; Directive,
-      Argument: AnsiString; var StopExecution: Boolean);
-    {$endregion}
+    {$ENDREGION}
 
   private
     FInserted     : Boolean;
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetGlyphDataSet: TDataSet;
     function GetGlyphList: TImageList;
     function GetImageList: TImageList;
@@ -123,14 +121,14 @@ type
     function GetRecordCount: Integer;
     procedure SetActive(AValue: Boolean);
     function GetLookupDataSet: TDataSet;
-    {$endregion}
+    {$ENDREGION}
 
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
     procedure LoadGlyphs;
-    function Execute(const ASQL: string): Boolean;
+    procedure Execute(const ASQL: string);
     procedure CreateNewDatabase;
     function Post: Boolean;
     function Append: Boolean;
@@ -274,7 +272,7 @@ begin
   Result := QueryLookup(AConnection, AQuery, []);
 end;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TdmSnippetSource.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -309,9 +307,9 @@ begin
   trsSnippet.Commit;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TdmSnippetSource.GetActive: Boolean;
 begin
   Result := qrySnippet.Active;
@@ -512,9 +510,9 @@ begin
     conMain.Connected    := True;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TdmSnippetSource.conMainAfterConnect(Sender: TObject);
 begin
    qryGlyph.Active := True;
@@ -523,7 +521,7 @@ end;
 procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
   EventType: TDBEventType; const Msg: String);
 begin
-  Logger.Send(Msg);
+  Logger.Send('SQL = %s', [Msg]);
 end;
 
 procedure TdmSnippetSource.qrySnippetAfterInsert(DataSet: TDataSet);
@@ -595,28 +593,15 @@ procedure TdmSnippetSource.qrySnippetTextGetText(Sender: TField;
 begin
   aText := Sender.AsString;
 end;
+{$ENDREGION}
 
-procedure TdmSnippetSource.scrCreateDatabaseDirective(Sender: TObject;
-  Directive, Argument: AnsiString; var StopExecution: Boolean);
-begin
-//
-end;
-
-{$endregion}
-
-{$region 'private methods' /fold}
-{$endregion}
-
-{$region 'protected methods' /fold}
-{$endregion}
-
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TdmSnippetSource.LoadGlyphs;
 begin
 //  raise Exception.Create('Not implemented!');
 end;
 
-function TdmSnippetSource.Execute(const ASQL: string): Boolean;
+procedure TdmSnippetSource.Execute(const ASQL: string);
 begin
   conMain.ExecuteDirect(ASQL);
 end;
@@ -673,10 +658,9 @@ begin
   'select ID from Snippet where Text like ''%%%s%%'' limit 1',
     [ASearchString]
   );
-
   DataSet.Locate('ID', VarArrayOf([R]), []);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

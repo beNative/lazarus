@@ -238,7 +238,7 @@ implementation
 
 { TEditorOptionsSettings }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorOptionsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -267,9 +267,9 @@ procedure TEditorOptionsSettings.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorOptionsSettings.GetBlockIndent: Integer;
 begin
   Result := FBlockIndent;
@@ -648,17 +648,17 @@ begin
     Changed;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TEditorOptionsSettings.Changed;
 begin
   if Assigned(OnChanged) then
     FOnChanged(Self);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TEditorOptionsSettings.Assign(ASource: TPersistent);
 var
   EOS: TEditorOptionsSettings;
@@ -697,7 +697,7 @@ begin
   else
     inherited Assign(ASource);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

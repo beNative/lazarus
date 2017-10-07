@@ -83,7 +83,7 @@ uses
 
 { TCustomSettingsDialog }
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TCustomSettingsDialog.GetManager: IEditorManager;
 begin
   Result := Owner.Owner as IEditorManager;
@@ -93,9 +93,9 @@ function TCustomSettingsDialog.GetSettings: IEditorSettings;
 begin
   Result := Manager.Settings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 { If APropertyName is not assigned the propertyname will be extracted from
   the name of the control. }
 
@@ -176,7 +176,7 @@ begin
       LinkProperty(AInstance, GetObjectProp(C, 'Link') as TPropertyLink);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

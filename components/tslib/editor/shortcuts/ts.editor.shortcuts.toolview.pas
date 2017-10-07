@@ -78,7 +78,7 @@ begin
   Result := FForm;
 end;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmShortcuts.AfterConstruction;
 var
   SL: TStringList;
@@ -93,9 +93,9 @@ begin
   end;
   RichText := FText;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmShortcuts.GetRichText: string;
 var
   SS : TStringStream;
@@ -126,9 +126,9 @@ begin
     FreeAndNil(SS);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmShortcuts.FormShow(Sender: TObject);
 begin
   RichText := FText;
@@ -147,7 +147,7 @@ procedure TfrmShortcuts.mmoMainMouseDown(Sender: TObject; Button: TMouseButton; 
 begin
   Abort;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

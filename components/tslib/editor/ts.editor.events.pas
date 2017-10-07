@@ -203,8 +203,8 @@ begin
     TActionExecuteEvent(Items[I])(Sender, AAction, AHandled);
 end;
 
-{$region 'TCaretPositionEvents' /fold}
-{$region 'public methods' /fold}
+{$REGION 'TCaretPositionEvents' /FOLD}
+{$REGION 'public methods' /FOLD}
 procedure TCaretPositionEvents.CallEvents(Sender: TObject; X, Y: Integer);
 var
   I: Integer;
@@ -213,11 +213,11 @@ begin
   while NextDownIndex(I) do
     TCaretPositionEvent(Items[I])(Sender, X, Y);
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
-{$region 'TEditorEvents' /fold}
-{$region 'construction and destruction' /fold}
+{$REGION 'TEditorEvents' /FOLD}
+{$REGION 'construction and destruction' /FOLD}
 constructor TEditorEvents.Create(AManager: IEditorManager);
 begin
   inherited Create;
@@ -246,9 +246,9 @@ begin
   FHighlighterChangeEvents.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorEvents.GetOnOpen: TStorageEvent;
 begin
   Result := FOnOpen;
@@ -375,9 +375,9 @@ begin
   FOnBeforeSave := AValue;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 procedure TEditorEvents.DoChange;
 begin
   FChangeEvents.CallNotifyEvents(Self);
@@ -510,9 +510,9 @@ begin
   if Assigned(FOnNew) then
     FOnNew(Self, S, AText);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TEditorEvents.AddOnChangeHandler(AEvent: TNotifyEvent);
 begin
   FChangeEvents.Add(TMethod(AEvent));
@@ -572,8 +572,8 @@ procedure TEditorEvents.RemoveOnActionExecuteEvent(AEvent: TActionExecuteEvent);
 begin
   FActionExecuteEvents.Remove(TMethod(AEvent));
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
 end.
 

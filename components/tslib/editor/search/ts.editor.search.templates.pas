@@ -28,7 +28,7 @@ interface
 uses
   Classes, SysUtils, Contnrs,
 
-  ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions, ts.Core.DataTemplates,
+  ts.Core.TreeViewPresenter, ts.Core.DataTemplates,
   ts.Core.ColumnDefinitionsDataTemplate;
 
 type
@@ -75,7 +75,7 @@ implementation
 uses
   ts.Editor.Search.Data;
 
-{$region 'TSearchResultTemplate' /fold}
+{$REGION 'TSearchResultTemplate' /FOLD}
 function TSearchResultTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
 begin
@@ -89,9 +89,9 @@ function TSearchResultTemplate.GetTemplateDataClass: TClass;
 begin
   Result := TSearchResult;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSearchResultLineTemplate' /fold}
+{$REGION 'TSearchResultLineTemplate' /FOLD}
 procedure TSearchResultLineTemplate.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -136,9 +136,9 @@ begin
   else
     Result := inherited GetItem(Item, Index);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSearchResultGroupTemplate' /fold}
+{$REGION 'TSearchResultGroupTemplate' /FOLD}
 function TSearchResultGroupTemplate.GetItemCount(const Item: TObject): Integer;
 begin
   if Item is TSearchResultGroup then
@@ -183,7 +183,7 @@ begin
   RegisterDataTemplate(TSearchResultLineTemplate.Create(FColumnDefinitions));
   inherited AfterConstruction;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

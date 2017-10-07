@@ -117,15 +117,15 @@ implementation
 uses
   ts.Core.Logger, ts.Core.SharedLogger;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TTextAttributes.Create(AEditor: TRichMemo);
 begin
   inherited Create;
   FEditor := AEditor;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TTextAttributes.GetBold: Boolean;
 begin
   Result := fsBold in FFontParams.Style;
@@ -260,7 +260,7 @@ begin
     Changed;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TTextAttributes.Changed;
 begin

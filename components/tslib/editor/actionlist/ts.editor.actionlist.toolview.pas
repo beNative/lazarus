@@ -127,7 +127,7 @@ uses
 
   SynEditKeyCmds, SynEditMouseCmds,
 
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   Windows,
   {$ENDIF}
 
@@ -196,7 +196,7 @@ var
     VK_END
   ];
 
-{$region 'TActionListTemplate' /fold}
+{$REGION 'TActionListTemplate' /FOLD}
 type
 
   { TActionListTemplate }
@@ -263,9 +263,9 @@ procedure TActionListTemplate.SetValue(const Item: TObject;
 begin
   inherited SetValue(Item, ColumnIndex, Value);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TKeyStrokeTemplate' /fold}
+{$REGION 'TKeyStrokeTemplate' /FOLD}
 type
   TKeyStrokeTemplate = class(TColumnDefinitionsDataTemplate)
     function GetValueForProperty(
@@ -299,9 +299,9 @@ begin
     Result := ShortCutToText(TShortCut(Result.AsInteger));
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TMouseActionTemplate' /fold}
+{$REGION 'TMouseActionTemplate' /FOLD}
 type
   TMouseActionTemplate = class(TColumnDefinitionsDataTemplate)
     function GetValueForProperty(
@@ -322,10 +322,10 @@ begin
     Result := MouseCommandName(C);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TfrmActionListView' /fold}
-{$region 'construction and destruction' /fold}
+{$REGION 'TfrmActionListView' /FOLD}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -355,9 +355,9 @@ begin
   FreeAndNil(FMouseItems);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmActionListView.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
@@ -395,9 +395,9 @@ procedure TfrmActionListView.SetVisible(AValue: Boolean);
 begin
   inherited SetVisible(AValue);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmActionListView.FormShow(Sender: TObject);
 begin
   UpdateLists;
@@ -409,10 +409,10 @@ function TfrmActionListView.FTVPActionsCustomDraw(Sender: TObject;
   CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode;
   Selected: Boolean): Boolean;
 var
-  A : TAction;
-  Match : string;
+  A      : TAction;
+  Match  : string = '';
   Margin : Integer;
-  Offset : Integer;
+  Offset : Integer = 0;
   R      : TRect;
   S      : string;
   C      : TColor;
@@ -570,9 +570,9 @@ begin
     Key := #0;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmActionListView.CreateActionsView;
 var
   CD : TColumnDefinitions;
@@ -713,7 +713,7 @@ begin
     Result := APos > 0;
   end;
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 end.
 

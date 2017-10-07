@@ -76,7 +76,7 @@ type
 
 implementation
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 
 procedure TFormSettings.AfterConstruction;
 begin
@@ -85,9 +85,9 @@ begin
   FHeight := 600;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 
 procedure TFormSettings.SetWindowState(AValue: TWindowState);
 begin
@@ -133,9 +133,9 @@ begin
   Changed;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 
 procedure TFormSettings.Changed;
 begin
@@ -143,9 +143,9 @@ begin
     FOnChanged(Self);
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 
 procedure TFormSettings.Assign(Source: TPersistent);
 var
@@ -183,6 +183,6 @@ begin
     inherited;
 end;
 
-{$endregion}
+{$ENDREGION}
 
 end.

@@ -147,8 +147,8 @@ type
 
 implementation
 
-{$region 'THighlighterAttributes' /fold}
-{$region 'THighlighterAttributes.THighlighterAttributesEnumerator' /fold}
+{$REGION 'THighlighterAttributes' /FOLD}
+{$REGION 'THighlighterAttributes.THighlighterAttributesEnumerator' /FOLD}
 function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent
   : THighlighterAttributesItem;
 begin
@@ -167,16 +167,16 @@ begin
   Inc(FPosition);
   Result := FPosition < FHighlighterAttributes.Count;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor THighlighterAttributes.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner, THighlighterAttributesItem);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function THighlighterAttributes.GetItem(Index: Integer): THighlighterAttributesItem;
 begin
   Result := inherited Items[Index] as THighlighterAttributesItem;
@@ -209,9 +209,9 @@ begin
     Item.Attributes.StoredName := AName;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
   update is issued.
@@ -223,9 +223,9 @@ begin
 // Make necessary adjustments when items in the collection change
 // Update gets called from TCollection.Changed.
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 
 { Adds a new THighlighterAttributesItem instance to the THighlighterAttributes
   collection. }
@@ -319,11 +319,11 @@ begin
   else
     Result := Items[I];
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
-{$region 'THighlighterAttributesItem' /fold}
-{$region 'construction and destruction' /fold}
+{$REGION 'THighlighterAttributesItem' /FOLD}
+{$REGION 'construction and destruction' /FOLD}
 constructor THighlighterAttributesItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
@@ -339,9 +339,9 @@ begin
   FreeAndNil(FAliasNames);
   inherited;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function THighlighterAttributesItem.GetCollection: THighlighterAttributes;
 begin
   Result := inherited Collection as THighlighterAttributes;
@@ -390,9 +390,9 @@ begin
   FName := Value;
   inherited;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure THighlighterAttributesItem.Assign(Source: TPersistent);
 var
   AI : THighlighterAttributesItem;
@@ -413,7 +413,7 @@ begin
  else
    inherited Assign(Source);
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
 end.

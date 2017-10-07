@@ -110,7 +110,7 @@ type
 implementation
 
 uses
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   Windows, ShellApi,
   {$ENDIF}
 
@@ -118,7 +118,7 @@ uses
 
 {$R *.lfm}
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function ExecuteIconDlg(const AParent: HWND; var AFilename: string; var AIconIndex: integer): boolean;
 const
   cMaxPath = 255;

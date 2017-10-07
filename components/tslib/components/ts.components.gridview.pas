@@ -92,7 +92,7 @@ unit ts.Components.GridView;
 interface
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
   Messages, SysUtils, Classes, Controls, Graphics, Forms, Dialogs, StdCtrls,
@@ -1096,7 +1096,7 @@ type
     procedure WMPaste(var Message); message WM_PASTE;
     procedure WMCut(var Message); message WM_CUT;
     procedure WMClear(var Message); message WM_CLEAR;
-    {$IFDEF Windows}
+    {$IFDEF WINDOWS}
     procedure WMUndo(var Message); message WM_UNDO;
     procedure WMCancelMode(var Message: TMessage); message WM_CANCELMODE;
     {$ENDIF}
@@ -2105,7 +2105,7 @@ type
     procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
     procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
-    {$IFDEF Windows}
+    {$IFDEF WINDOWS}
     procedure WMCancelMode(var Message: TWMCancelMode); message WM_CANCELMODE;
     {$ENDIF}
     procedure CMEnabledChanged(var Message: TMessage); message CM_ENABLEDCHANGED;
@@ -2693,7 +2693,7 @@ procedure PaintResizeRectDC(DC: HDC; Rect: TRect);
 var
   NewBrush, OldBrush: HBRUSH;
 begin
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   NewBrush := CreatePatternBrush(PatternBitmap.Handle);
   UnrealizeObject(NewBrush);
   SetBrushOrgEx(DC, 0, 0, nil);
@@ -2815,7 +2815,7 @@ begin
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
   DX := (Rect.Right - Rect.Left) mod 2 - 1;
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   PatBlt(DC, Rect.Left + Flags - 2 + DX, Rect.Top + Flags - 1, 7, 1, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 1 + DX, Rect.Top + Flags + 0, 5, 1, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 0 + DX, Rect.Top + Flags + 1, 3, 1, BLACKNESS);
@@ -2831,7 +2831,7 @@ begin
   if Pressed then Flags := BF_FLAT;
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   PatBlt(DC, Rect.Left + Flags, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
@@ -4817,7 +4817,7 @@ begin
   end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure TCustomGridEdit.WMCancelMode(var Message: TMessage);
 begin
   StopButtonTracking;
@@ -4905,7 +4905,7 @@ begin
     inherited;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure TCustomGridEdit.WMUndo(var Message);
 begin
   if (Grid = nil) or Grid.EditCanUndo(Grid.EditCell) then
@@ -5437,12 +5437,12 @@ end;
 }
 
 procedure KillMessage(Wnd: HWND; Msg: Integer);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   M: TMsg;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   M.Message := 0;
   if PeekMessage(M, Wnd, Msg, Msg, PM_REMOVE) and (M.Message = WM_QUIT) then
     PostQuitMessage(M.wParam);
@@ -5534,7 +5534,7 @@ begin
       with WMButtonDown do
       begin
         //{to the pressure on the button we do not react}
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
         if (EditStyle = geSimple) or
           (not PtInRect(ButtonRect, Point(XPos, YPos))) then
           if UINT(GetMessageTime - FClickTime) < GetDoubleClickTime then
@@ -5602,13 +5602,13 @@ begin
     inherited Invalidate;
     Exit;
   end;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ValidateRect(Handle, nil);
 {$ENDIF}
   InvalidateRect(Handle, nil, True);
   LCLIntf.GetClientRect(Handle, Cur);
   MapWindowPoints(Handle, Grid.Handle, Cur, 2);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ValidateRect(Grid.Handle, @Cur);
 {$ENDIF}
   InvalidateRect(Grid.Handle, @Cur, False);
@@ -6555,7 +6555,7 @@ end;
 procedure TCustomGridView.WMLButtonDown(var Message: TMessage);
 begin
   inherited;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   if FEdit <> nil then
     FEdit.FClickTime := GetMessageTime;
 {$ENDIF}
@@ -6625,7 +6625,7 @@ begin
   Message.Result := 1;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure TCustomGridView.WMCancelMode(var Message: TWMCancelMode);
 begin
   if FEdit <> nil then
@@ -7955,14 +7955,14 @@ end;
 function TCustomGridView.GetTextRect(Canvas: TCanvas; Rect: TRect;
   LeftIndent, TopIndent: Integer; Alignment: TAlignment;
   WantReturns, WordWrap: Boolean; const Text: string): TRect;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   R: TRect;
   P: TDrawTextParams;
   F, W, H, I: Integer;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   P := Default(TDrawTextParams);
   { check how the text is derived: with the aid of DrawTextEx or TextOut}
   if WantReturns or WordWrap or EndEllipsis then
@@ -9319,14 +9319,14 @@ end;
 procedure TCustomGridView.PaintText(Canvas: TCanvas; Rect: TRect;
   LeftIndent, TopIndent: Integer; Alignment: TAlignment;
   WantReturns, WordWrap: Boolean; const Text: string);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   P: TDrawTextParams;
   F, DX: Integer;
   A: UINT;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   P := Default(TDrawTextParams);
   if WantReturns or WordWrap or EndEllipsis then
   begin
@@ -9940,7 +9940,7 @@ begin
 end;
 
 procedure TCustomGridView.DefaultDrawCell(Cell: TGridCell; Rect: TRect);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 //const
 //  DS: array[Boolean] of Integer = (ILD_NORMAL, ILD_SELECTED);
 var
@@ -9960,7 +9960,7 @@ var
   I              : cint = 0;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   { memorize the rectangle of painting}
   DefRect := Rect;
   { displace edge in order not to flood the line of grid}
@@ -10098,7 +10098,7 @@ end;
 
 procedure TCustomGridView.DefaultDrawHeader(Section: TGridHeaderSection;
   Rect: TRect);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   DefRect       : TRect;
   I, X, Y, W, H : Integer;
@@ -10114,7 +10114,7 @@ var
   IsPressed     : Boolean = False;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   P := Default(TDrawTextParams);
   DefRect := Rect;
   Canvas.FillRect(Rect);
@@ -11272,7 +11272,7 @@ end;
 
 procedure TCustomGridView.UndoEdit;
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   if (FEdit <> nil) and EditCanUndo(EditCell) then
     FEdit.Perform(WM_UNDO, 0, 0);
 {$ENDIF}

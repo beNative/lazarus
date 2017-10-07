@@ -48,7 +48,7 @@ implementation
 
 { TMiniMapSettings }
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TMiniMapSettings.AssignTo(Dest: TPersistent);
 var
   S: TMiniMapSettings;
@@ -74,7 +74,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(TMiniMapSettings);

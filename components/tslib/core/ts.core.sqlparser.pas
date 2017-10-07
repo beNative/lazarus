@@ -32,7 +32,7 @@
  **********************************************************************}
 unit ts.Core.SQLParser;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

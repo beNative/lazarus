@@ -71,7 +71,7 @@ type
     FExecuteEvents : TMethodList;
     FChangeEvents  : TMethodList;
 
-    {$region 'property access mehods' /fold}
+    {$REGION 'property access mehods' /FOLD}
     function GetCurrentIndex: Integer;
     function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
@@ -88,7 +88,7 @@ type
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
     procedure SetSearchText(AValue: string);
-    {$endregion}
+    {$ENDREGION}
 
     procedure DoExecute;
     procedure DoChange;
@@ -160,7 +160,7 @@ uses
 const
   MAX_RESULTS = 10000;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TSearchEngine.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -181,9 +181,9 @@ begin
   FExecuteEvents.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TSearchEngine.GetItemList: TObjectList;
 begin
   Result := FItemList;
@@ -285,9 +285,9 @@ procedure TSearchEngine.SetSearchAllViews(AValue: Boolean);
 begin
   Settings.SearchAllViews := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 procedure TSearchEngine.DoExecute;
 begin
   FExecuteEvents.CallNotifyEvents(Self);
@@ -297,9 +297,9 @@ procedure TSearchEngine.DoChange;
 begin
   FChangeEvents.CallNotifyEvents(Self);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TSearchEngine.AddOnExecuteHandler(AEvent: TNotifyEvent);
 begin
   FExecuteEvents.Add(TMethod(AEvent));
@@ -544,7 +544,7 @@ begin
     Options := Options - [ssoReplaceAll];
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

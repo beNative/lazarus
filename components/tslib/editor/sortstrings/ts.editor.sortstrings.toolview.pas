@@ -78,22 +78,22 @@ begin
   Width := Settings.Width;
 end;
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmSortStrings.GetSettings: TSortStringsSettings;
 begin
   Result := inherited Settings
     .ToolSettings.ItemsByClass[TSortStringsSettings] as TSortStringsSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmSortStrings.actExecuteExecute(Sender: TObject);
 begin
   Manager.Commands.SortStrings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmSortStrings.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
@@ -119,9 +119,9 @@ procedure TfrmSortStrings.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmSortStrings.UpdateActions;
 begin
   inherited UpdateActions;
@@ -130,7 +130,7 @@ begin
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
   rgpSortScope.ItemIndex     := Integer(Settings.SortScope);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

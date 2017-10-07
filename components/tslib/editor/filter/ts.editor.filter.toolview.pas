@@ -149,7 +149,7 @@ implementation
 
 uses
   Variants,
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
 
@@ -203,7 +203,7 @@ var
 
 { TfrmFilter }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmFilter.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -228,9 +228,9 @@ procedure TfrmFilter.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmFilter.edtFilterChange(Sender: TObject);
 begin
   FTVP.ApplyFilter;
@@ -368,7 +368,7 @@ begin
   else if not edtFilter.Focused then
   begin
     edtFilter.SetFocus;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
     PostMessage(edtFilter.Handle, WM_CHAR, Ord(Key), 0);
 {$ENDIF}
     edtFilter.SelStart := Length(Filter);
@@ -385,9 +385,9 @@ begin
     Key := 0;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmFilter.GetFilter: string;
 begin
   Result := edtFilter.Text;
@@ -437,9 +437,9 @@ begin
   end;
   inherited SetVisible(Value);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 function TfrmFilter.IsMatch(const AString: string): Boolean;
 begin
   if Filter = '' then
@@ -533,13 +533,13 @@ begin
     B.Free;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmFilter.UpdateActions;
 begin
   inherited UpdateActions;
 end;
-{$endregion}
+{$ENDREGION}
 end.
 

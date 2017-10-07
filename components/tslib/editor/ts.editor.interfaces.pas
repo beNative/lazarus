@@ -90,11 +90,9 @@ type
 
   { Handles display view of the editor. }
 
-  { IEditorView }
-
   IEditorView = interface(IControl)
   ['{94689213-B046-45F6-922B-FAE91C02A3FF}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: IEditorActions;
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
@@ -181,15 +179,15 @@ type
     procedure SetSlaveView(AValue: IEditorView);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
-    {$endregion}
+    {$ENDREGION}
 
     // information retrieval
     function GetWordAtPosition(const APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     function GetHighlighterAttriAtRowCol(
-          APosition : TPoint;
-      out AToken    : string;
-      out AAttri    : TSynHighlighterAttributes
+      APosition  : TPoint;
+      out AToken : string;
+      out AAttri : TSynHighlighterAttributes
     ): Boolean;
 
     // lock updates
@@ -201,8 +199,8 @@ type
 
     // state change
     procedure SetHighlightSearch(
-      const ASearch  : string;
-            AOptions : TSynSearchOptions
+      const ASearch : string;
+      AOptions      : TSynSearchOptions
     );
 
     procedure Clear;
@@ -223,8 +221,6 @@ type
      // selection
     procedure SelectAll;
     procedure SelectWord;
-
-    // other commands
 
     // clipboard commands
     procedure Cut;
@@ -326,7 +322,7 @@ type
 
     property CurrentWord: string
       read GetCurrentWord;
-    //------------------------------------------
+
     property Lines: TStrings
       read GetLines write SetLines;
 
@@ -378,8 +374,6 @@ type
     property LineText: string
       read GetLineText write SetLineText;
 
-    //---| Properties |--------------------------------------------------------
-
     property PreviewText: string
       read GetPreviewText;
 
@@ -421,8 +415,6 @@ type
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
   end;
-
-  { IEditorSelection }
 
   IEditorSelection = interface
   ['{DEBBB1D5-A04A-4264-96E9-0693E20C2A0D}']
@@ -468,8 +460,6 @@ type
     property TextSize: Integer
       read GetTextSize;
   end;
-
-  { IEditorSearchEngine }
 
   IEditorSearchEngine = interface
   ['{5403336C-3E81-4A1B-B2BB-170CF0EF0B84}']
@@ -519,13 +509,11 @@ type
       read GetItemGroups;
   end;
 
-  { IEditorEvents }
-
   { TODO: make a seperation of the events and the dispatcher methods? }
 
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnAfterSave: TStorageEvent;
     function GetOnBeforeSave: TStorageEvent;
@@ -550,7 +538,7 @@ type
     procedure SetOnSave(const AValue: TStorageEvent);
     procedure SetOnShowEditorToolView(AValue: TEditorToolViewEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
-    {$endregion}
+    {$ENDREGION}
 
     // event dispatch methods
     procedure DoCaretPositionChange;
@@ -630,11 +618,9 @@ type
   { Settings we should store if we would like to restore the editor to its
     current state }
 
-  { IEditorSettings }
-
   IEditorSettings = interface
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
@@ -669,7 +655,7 @@ type
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetToolSettings(AValue: TEditorToolSettings);
-    {$endregion}
+    {$ENDREGION}
 
     procedure Load;
     procedure Save;
@@ -808,9 +794,9 @@ type
     function GetEnumerator: TEditorToolViewListEnumerator;
 
     function Register(
-            AFormClass     : TComponentClass;
-            ASettingsClass : TComponentClass;
-      const AName          : string = ''
+      AFormClass     : TComponentClass;
+      ASettingsClass : TComponentClass;
+      const AName    : string = ''
     ): Boolean;
     procedure Hide;
 
@@ -847,11 +833,11 @@ type
     procedure SortStrings;
     procedure SyncEditSelection;
     procedure AlignSelection(
-      const AToken                  : string;
-            ACompressWS             : Boolean;
-            AInsertSpaceBeforeToken : Boolean;
-            AInsertSpaceAfterToken  : Boolean;
-            AAlignInParagraphs      : Boolean
+      const AToken            : string;
+      ACompressWS             : Boolean;
+      AInsertSpaceBeforeToken : Boolean;
+      AInsertSpaceAfterToken  : Boolean;
+      AAlignInParagraphs      : Boolean
     );
     procedure MergeBlankLinesInSelection;
     procedure StripCommentsFromSelection;
@@ -869,10 +855,10 @@ type
     procedure SmartSelect;
     procedure GuessHighlighterType;
     function SelectBlockAroundCursor(
-      const AStartTag        : string;
-      const AEndTag          : string;
-            AIncludeStartTag : Boolean;
-            AIncludeEndTag   : Boolean
+      const AStartTag  : string;
+      const AEndTag    : string;
+      AIncludeStartTag : Boolean;
+      AIncludeEndTag   : Boolean
     ): Boolean;
     procedure AdjustFontSize(AOffset: Integer);
     procedure Save;
@@ -882,11 +868,9 @@ type
     procedure FindPrevious;
   end;
 
-  { IEditorMenus }
-
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEncodingPopupMenu: TPopupMenu;
@@ -903,7 +887,7 @@ type
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
     function GetSettingsPopupMenu: TPopupMenu;
-    {$endregion}
+    {$ENDREGION}
 
     property ClipboardPopupMenu: TPopupMenu
       read GetClipboardPopupMenu;
@@ -971,14 +955,11 @@ type
       read GetActionList;
 
     { TODO -oTS : Declare all actions as properties? }
-
   end;
-
-  { IEditorManager }
 
   IEditorManager = interface
   ['{631A126F-1693-4E25-B691-CD2487BCB820}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: IEditorActions;
     function GetCommands: IEditorCommands;
     function GetEvents: IEditorEvents;
@@ -993,19 +974,19 @@ type
     function GetActiveView: IEditorView;
     procedure SetActiveView(AValue: IEditorView);
     function GetHighlighters: THighlighters;
-    {$endregion}
+    {$ENDREGION}
 
     procedure UpdateActions;
     function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
     function OpenFile(const AFileName: string): IEditorView;
     function NewFile(
-      const AFileName  : string;
-      const AText      : string = ''
+      const AFileName : string;
+      const AText     : string = ''
     ): IEditorView;
     function SaveFile(
-      const AFileName   : string = '';
-            AShowDialog : Boolean = False
+      const AFileName : string = '';
+      AShowDialog     : Boolean = False
     ): Boolean;
 
     property PersistSettings: Boolean
@@ -1045,8 +1026,6 @@ type
       read GetSearchEngine;
   end;
 
-//-----------------------------------------------------------------------------
-
   TEditorViewListEnumerator = class
   strict private
     FIndex : Integer;
@@ -1059,8 +1038,6 @@ type
     property Current: IEditorView
       read GetCurrent;
   end;
-
-  { TEditorToolViewListEnumerator }
 
   TEditorToolViewListEnumerator = class
   strict private
@@ -1076,13 +1053,11 @@ type
       read GetCurrent;
   end;
 
-  { IEditorManagerFactory }
-
   IEditorManagerFactory = interface
   ['{BE85A08D-936E-4F76-BBE1-A1999DE882B9}']
     function CreateInstance(
-            AOwner            : TComponent = nil;
-            APersistSettings  : Boolean = False;
+      AOwner                  : TComponent = nil;
+      APersistSettings        : Boolean = False;
       const ASettingsFileName : string = ''
     ): IEditorManager; overload;
 
@@ -1095,18 +1070,18 @@ type
   IEditorViewFactory = interface
   ['{CAEF28D5-0E70-4D4E-AEC7-07BD6E743945}']
     function CreateInstance(
-             AParent       : TWinControl;
-             AManager      : IEditorManager;
-       const AName         : string = '';
-       const AFileName     : string = '';
-       const AHighlighter  : string = 'TXT'
+      AParent            : TWinControl;
+      AManager           : IEditorManager;
+      const AName        : string = '';
+      const AFileName    : string = '';
+      const AHighlighter : string = 'TXT'
     ): IEditorView;
   end;
 
   IEditorSettingsFactory = interface
   ['{6479785C-A7C0-40D9-9036-D39BEE780CA2}']
     function CreateInstance(
-            AOwner    : TComponent = nil;
+      AOwner          : TComponent = nil;
       const AFileName : string = ''
     ): IEditorSettings;
   end;
@@ -1121,25 +1096,24 @@ type
   IEditorToolbarsFactory = interface
   ['{0E1F34F3-E5AF-4A59-8B13-0F9B4D11D69D}']
     function CreateMainToolbar(
-        AOwner  : TComponent;
-        AParent : TWinControl
+      AOwner  : TComponent;
+      AParent : TWinControl
     ): TToolbar;
 
     function CreateSelectionToolbar(
-        AOwner  : TComponent;
-        AParent : TWinControl
+      AOwner  : TComponent;
+      AParent : TWinControl
     ): TToolbar;
 
     function CreateRightToolbar(
-        AOwner  : TComponent;
-        AParent : TWinControl
+      AOwner  : TComponent;
+      AParent : TWinControl
     ): TToolbar;
-
   end;
 
 implementation
 
-{$region 'TEditorViewListEnumerator' /fold}
+{$REGION 'TEditorViewListEnumerator' /FOLD}
 constructor TEditorViewListEnumerator.Create(AList: TEditorViewList);
 begin
   FList := AList;
@@ -1157,9 +1131,9 @@ begin
   if Result then
     Inc(FIndex);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TEditorToolViewListEnumerator' /fold}
+{$REGION 'TEditorToolViewListEnumerator' /FOLD}
 constructor TEditorToolViewListEnumerator.Create(AList: IEditorToolViews);
 begin
   FList := AList;
@@ -1183,7 +1157,7 @@ begin
   if Result then
     Inc(FIndex);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

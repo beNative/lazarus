@@ -33,9 +33,6 @@ uses
   SnippetSource.Interfaces;
 
 type
-
-  { TfrmLookup }
-
   TfrmLookup = class(TForm)
     aclMain    : TActionList;
     actSearch  : TAction;
@@ -104,7 +101,7 @@ begin
   FLookupForm.Show;
 end;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
 begin
   inherited Create(AOwner);
@@ -119,28 +116,28 @@ begin
   FData   := nil;
   inherited Destroy;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmLookup.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TfrmLookup.Changed;
 begin
   FUpdate := True;
 end;
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmLookup.actSearchExecute(Sender: TObject);
 begin
   Execute;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmLookup.chkNameChange(Sender: TObject);
 begin
   Execute;
@@ -279,9 +276,9 @@ procedure TfrmLookup.grdLookupMouseUp(Sender: TObject; Button: TMouseButton;
 begin
   //Changed;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;
@@ -319,7 +316,7 @@ begin
     grdLookup.AutoAdjustColumns;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

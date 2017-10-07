@@ -53,7 +53,7 @@ type
   { TfrmCodeShaper }
 
   TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;
     actDequoteLines                 : TAction;
@@ -123,9 +123,9 @@ type
     pnlOperations                   : TPanel;
     ppmAfterBefore                  : TPopupMenu;
     sbrMain                         : TScrollBox;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'action handlers' /fold}
+    {$REGION 'action handlers' /FOLD}
     procedure actApplyConsistentCaseExecute(Sender: TObject);
     procedure actBreakAfterTokenExecute(Sender: TObject);
     procedure actBreakBeforeTokenExecute(Sender: TObject);
@@ -145,7 +145,7 @@ type
     procedure actURLDecodeExecute(Sender: TObject);
     procedure actURLEncodeExecute(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    {$endregion}
+    {$ENDREGION}
 
   strict private
     FBreakTokenSide : TTokenSide;
@@ -198,7 +198,7 @@ uses
 
   ts.Editor.Utils;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmCodeShaper.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -209,9 +209,9 @@ procedure TfrmCodeShaper.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmCodeShaper.GetText: string;
 begin
   if View.SelAvail then
@@ -225,16 +225,16 @@ begin
   Result := inherited Settings
     .ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmCodeShaper.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmCodeShaper.actRedoExecute(Sender: TObject);
 begin
   View.Redo;
@@ -423,9 +423,9 @@ begin
   S := URLEncode(Text);
   AssignText(S);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 { Updates the editor with the given text with undo/redo support. }
 
 procedure TfrmCodeShaper.AssignText(const AText: string);
@@ -564,7 +564,7 @@ begin
   A := M.Action as TAction;
   A.Checked := True;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

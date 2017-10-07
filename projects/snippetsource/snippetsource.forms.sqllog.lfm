@@ -1,13 +1,12 @@
 object frmSQLLog: TfrmSQLLog
-  Left = 551
+  Left = 552
   Height = 675
-  Top = 196
+  Top = 197
   Width = 730
   Caption = 'frmSQLLog'
   ClientHeight = 675
   ClientWidth = 730
   LCLVersion = '1.9.0.0'
-  Visible = False
   object grdMain: TDBGrid
     Left = 0
     Height = 667
@@ -24,7 +23,7 @@ object frmSQLLog: TfrmSQLLog
     TitleStyle = tsNative
   end
   object dscMain: TDataSource
-    left = 88
-    top = 344
+    Left = 88
+    Top = 344
   end
 end

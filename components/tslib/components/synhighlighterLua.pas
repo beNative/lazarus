@@ -46,7 +46,25 @@ unit SynHighlighterLua;
 
 interface
 
-{$I SynEdit.inc}
+
+{$IFDEF FPC}
+  {$MODE OBJFPC}
+{$ENDIF}
+
+{$DEFINE SYNEDIT_INCLUDE}
+
+{$IFdef MSWindows}
+  {$DEFINE SYN_WIN32}
+{$ENDIF}
+
+// lazarus change   no $B-
+{$H+}
+
+{$IFDEF SYN_DEVELOPMENT_CHECKS}
+
+{$R+,Q+,S+,T+}
+
+{$ENDIF}
 
 uses
   Graphics,

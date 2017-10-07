@@ -138,7 +138,7 @@ begin
   FSettings.ShowModal;
 end;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TfrmSettingsDialog.Create(TheOwner: TComponent; AData: IInterface);
 begin
   inherited Create(TheOwner);
@@ -171,9 +171,9 @@ begin
   FData := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmSettingsDialog.GetConnection: IConnection;
 begin
   Result := FData as IConnection;
@@ -188,9 +188,9 @@ function TfrmSettingsDialog.GetSQLiteSettings: ISQLiteSettings;
 begin
 //  Result := FData as ISQLiteSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmSettingsDialog.actOpenDatabaseExecute(Sender: TObject);
 begin
   Connection.FileName := edtDatabaseFile.FileName;
@@ -241,9 +241,9 @@ begin
   if FileExists(edtDatabaseFile.FileName) then
     DeleteFile(edtDatabaseFile.FileName);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmSettingsDialog.cbxImageListDrawItem(Control: TWinControl;
   Index: Integer; ARect: TRect; State: TOwnerDrawState);
 var
@@ -334,9 +334,9 @@ begin
   else
     CellText := '';
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmSettingsDialog.LoadImage(const AFileName, AFieldName: string);
 var
   F  : TBlobField;
@@ -364,9 +364,9 @@ begin
     end;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TfrmSettingsDialog.UpdateActions;
 var
   S: string;
@@ -377,7 +377,7 @@ begin
   actCreateNewDatabase.Enabled := not FileExists(S);
   actDeleteDatabase.Enabled := FileExists(S);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

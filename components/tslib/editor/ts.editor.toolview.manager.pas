@@ -126,7 +126,7 @@ uses
 
 { TToolView }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TToolView.Create(AManager: IEditorManager;
   AFormClass: TComponentClass; ASettingsClass: TComponentClass;
   const AName: string);
@@ -149,9 +149,9 @@ begin
   FManager := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TToolView.GetForm: TForm;
 begin
   if not Assigned(FForm) then
@@ -192,9 +192,9 @@ function TToolView.GetName: string;
 begin
   Result := FName;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TToolView.UpdateView;
 begin
   if Assigned(FToolView) then
@@ -205,11 +205,11 @@ function TToolView.Focused: Boolean;
 begin
   Result := Assigned(FForm) and FForm.Focused;
 end;
-{$endregion}
+{$ENDREGION}
 
 { TToolViews }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TToolViews.Create(AEditorManager: IEditorManager);
 begin
   inherited Create;
@@ -223,9 +223,9 @@ begin
   FItems.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TToolViews.GetView(AIndex: Integer): IEditorToolView;
 begin
   Result := FItems[AIndex] as IEditorToolView;
@@ -258,9 +258,9 @@ function TToolViews.GetEnumerator: TEditorToolViewListEnumerator;
 begin
   Result := TEditorToolViewListEnumerator.Create(Self);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 function TToolViews.Register(AFormClass: TComponentClass;
   ASettingsClass: TComponentClass; const AName: string): Boolean;
 var
@@ -283,7 +283,7 @@ begin
     FManager.Events.DoHideToolView(TV);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

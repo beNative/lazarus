@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-{$region 'Original license info' /fold}
+{$REGION 'Original license info' /FOLD}
 (*
  * This software is distributed under BSD license.
  *
@@ -125,7 +125,7 @@
   - Renamed TAnyValue to TValue as this type does not exist (yet?) for FPC.
   - Removed array support
 }
-{$endregion}
+{$ENDREGION}
 
 unit ts.Core.Value;
 

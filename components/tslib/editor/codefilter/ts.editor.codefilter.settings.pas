@@ -52,7 +52,7 @@ type
 
 implementation
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TCodeFilterSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -64,17 +64,17 @@ begin
   FFormSettings.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 procedure TCodeFilterSettings.SetFormSettings(AValue: TFormSettings);
 begin
   if FormSettings <> AValue then
     FFormSettings.Assign(AValue);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TCodeFilterSettings.AssignTo(Dest: TPersistent);
 var
   S: TCodeFilterSettings;
@@ -100,7 +100,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(TCodeFilterSettings);

@@ -63,7 +63,7 @@ type
 
 implementation
 
-{$region 'TActionTemplate' /fold}
+{$REGION 'TActionTemplate' /FOLD}
 function TActionTemplate.GetItemTemplate(const Item: TObject): IDataTemplate;
 begin
   if Item is TContainedAction then
@@ -88,9 +88,9 @@ begin
   else
     Result := inherited GetText(Item, ColumnIndex);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TActionCategoryTemplate' /fold}
+{$REGION 'TActionCategoryTemplate' /FOLD}
 function TActionCategoryTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
 begin
@@ -162,7 +162,7 @@ begin
   FActionTemplate := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

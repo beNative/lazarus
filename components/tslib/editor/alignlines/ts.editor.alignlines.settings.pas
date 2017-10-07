@@ -87,7 +87,7 @@ type
 
 implementation
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -104,9 +104,9 @@ begin
   FTokens.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TAlignLinesSettings.GetTokens: TStrings;
 begin
   Result := FTokens;
@@ -116,9 +116,9 @@ procedure TAlignLinesSettings.SetTokens(AValue: TStrings);
 begin
   FTokens.Assign(AValue);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TAlignLinesSettings.AssignTo(Dest: TPersistent);
 var
   ALS: TAlignLinesSettings;
@@ -156,7 +156,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(TAlignLinesSettings);

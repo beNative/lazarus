@@ -94,7 +94,7 @@ uses
   Messages, SysUtils, Classes, Controls, Graphics, Forms, Math, ImgList, DB,
   DBCtrls,
 
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   CommCtrl,
   {$ENDIF}
 
@@ -2905,7 +2905,7 @@ begin
     H := Rect.Bottom - Y;
   BKC := ColorToRGB(IL.BkColor);
   BLC := ColorToRGB(IL.BlendColor);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ImageList_DrawEx(IL.Handle, i, Canvas.Handle, X, Y, W, H, BKC, BLC,
     ILD_TRANSPARENT);
 {$ENDIF}

@@ -75,7 +75,7 @@ type
     FTextAttributes    : TTextAttributes;
 
   protected
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
     function GetCanUndo: Boolean;
@@ -111,7 +111,7 @@ type
     function GetPopupMenu: TPopupMenu; override;
     function GetOnSelectionChange: TNotifyEvent;
     procedure SetOnSelectionChange(AValue: TNotifyEvent);
-    {$endregion}
+    {$ENDREGION}
 
     procedure UpdateActions; override;
 
@@ -226,7 +226,7 @@ implementation
 uses
   StdCtrls, Clipbrd;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TRichEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -252,9 +252,9 @@ begin
   FreeAndNil(FTextAttributes);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TRichEditorView.TextAttributesUpdate(Sender: TObject);
 begin
   FEditor.Invalidate;
@@ -305,9 +305,9 @@ procedure TRichEditorView.FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 begin
   Handled := Actions.Actions.IsShortCut(Msg);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TRichEditorView.GetEditor: TRichMemo;
 begin
   Result := FEditor;
@@ -478,9 +478,9 @@ procedure TRichEditorView.SetWordWrap(const AValue: Boolean);
 begin
   Editor.WordWrap := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 procedure TRichEditorView.DoEditingDone;
 begin
   if Assigned(OnEditingDone) then
@@ -498,9 +498,9 @@ begin
   if Assigned(OnSelectionChange) then
     OnSelectionChange(Self);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TRichEditorView.UpdateActions;
 begin
   inherited UpdateActions;
@@ -638,7 +638,7 @@ begin
   //Editor.EnableAutoSizing;
   //Editor.EndUpdateBounds;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

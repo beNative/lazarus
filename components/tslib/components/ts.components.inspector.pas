@@ -37,7 +37,7 @@ interface
 uses
   Classes, Controls, Graphics, Forms, Math,
 
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   Windows,
   {$ENDIF}
 
@@ -95,7 +95,7 @@ type
     procedure SetCategoryFont(Value: TFont);
     procedure SetNameFont(Value: TFont);
     procedure SetValueFont(Value: TFont);
-    {$IFDEF Windows}
+    {$IFDEF WINDOWS}
     procedure WMNCHitTest(var Message: TWMNCHitTest); message WM_NCHITTEST;
     procedure WMSetCursor(var Message: TWMSetCursor); message WM_SETCURSOR;
     {$ENDIF}
@@ -346,7 +346,7 @@ begin
   FValueFont.Assign(Value);
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure TCustomInspector.WMNCHitTest(var Message: TWMNCHitTest);
 begin
   inherited;

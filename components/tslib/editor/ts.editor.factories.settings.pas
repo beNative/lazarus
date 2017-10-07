@@ -79,9 +79,9 @@ uses
 
 { TEditorSettingsFactory }
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorSettingsFactory.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -93,7 +93,7 @@ begin
 
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TEditorSettingsFactory.RegisterToolSettings(
   ASettings: TEditorToolSettings);
@@ -282,9 +282,9 @@ begin
     //TSynFacilSyn
   ]);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TEditorSettingsFactory.CreateInstance(AOwner: TComponent;
   const AFileName: string): IEditorSettings;
 var
@@ -301,7 +301,7 @@ begin
   end;
   Result := ES;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

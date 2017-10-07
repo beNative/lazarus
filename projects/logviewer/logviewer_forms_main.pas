@@ -73,7 +73,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain              : TActionList;
     actClearMessages     : TAction;
     actException         : TAction;
@@ -159,7 +159,7 @@ type
     tsLatest             : TTabSheet;
     tsSelected           : TTabSheet;
     vtvMessages          : TVirtualStringTree;
-    {$endregion}
+    {$ENDREGION}
 
     procedure actBitmapExecute(Sender: TObject);
     procedure actCallStackExecute(Sender: TObject);
@@ -319,7 +319,7 @@ type
 
 { TfrmMain }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -355,9 +355,9 @@ begin
   FWatches.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmMain.actClearMessagesExecute(Sender: TObject);
 begin
   vtvMessages.Clear;
@@ -483,9 +483,9 @@ procedure TfrmMain.actValueExecute(Sender: TObject);
 begin
   UpdateActiveMessages(ltValue, Sender);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmMain.ImgViewerDblClick(Sender: TObject);
 begin
   //with ImgViewer.Picture.Bitmap do
@@ -639,7 +639,7 @@ begin
       ((MsgType in FActiveMessages) and IsWild(Title, FTitleFilter, True));
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TfrmMain.ClearMessages(Sender: TObject);
 begin

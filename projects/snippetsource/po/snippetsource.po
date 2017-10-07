@@ -2163,6 +2163,10 @@ msgctxt "TFRMLOOKUP.ACTSEARCH.CAPTION"
 msgid "Search"
 msgstr ""
 
+#: tfrmlookup.caption
+msgid "Lookup"
+msgstr ""
+
 #: tfrmlookup.chkcomment.caption
 msgid "Comment"
 msgstr ""

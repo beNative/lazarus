@@ -27,7 +27,7 @@ uses
   StdCtrls, Character, StrUtils,
 
   LCLType,
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
 {$IFDEF Darwin}
@@ -68,7 +68,7 @@ procedure CloneComponent(
   ATo   : TComponent
 );
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function VirtualKeyToChar(AKey : Word) : string;
 {$ENDIF}
 
@@ -123,7 +123,7 @@ function FormatElapsedTime(ASeconds: Extended): string;
 function FormatByteText(ABytes: Integer): string;
 
 // windows utilities
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function CreateGUIDString: string;
 function CreateUniqueID: string;
 function GetLocalUserName: string;
@@ -132,7 +132,7 @@ function GetLocalComputerName: string;
 
 function GetParentDir(APath: string) : string;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure CreateShellLink(ShellLink: TShellLink);
 function ExploreFile(const AFileName: string): Boolean;
 {$ENDIF}
@@ -212,7 +212,7 @@ function GetPIMTOffset(const I : IInterface): Integer;
 
 // UI windows utils
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 { Displays a size grip on a window. This only works for WIN32/WIN64 widget set.}
 
 procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
@@ -245,7 +245,7 @@ function SetToString(
 implementation
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
 
@@ -256,7 +256,7 @@ resourcestring
   SNoCorrespondingFieldType = 'No corresponding fieldtype found for Variant ' +
                               'with value %s';
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 // code used by SetWindowSizeGrip
 
 const
@@ -565,7 +565,7 @@ begin
   end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function GetLocalComputerName: string;
 var
   Count : DWORD;
@@ -716,7 +716,7 @@ begin
     end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function VirtualKeyToChar(AKey : Word) : string;
 var
   KS : TKeyboardState;
@@ -1116,7 +1116,7 @@ begin
   end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function CreateGUIDString: string;
 var
   ClassID : TCLSID;
@@ -1203,7 +1203,7 @@ var
 begin
   Assert(W1 in [0..255]);
   W2 := W1 xor 255;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   if Integer(C1) < 0 then C1 := GetSysColor(C1 and $000000FF);
   if Integer(C2) < 0 then C2 := GetSysColor(C2 and $000000FF);
 {$ELSE}
@@ -1441,7 +1441,7 @@ begin
     end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function ExploreFile(const AFileName: string): Boolean;
 const
   PARAM = '/e,/select,"%s"';
@@ -1481,7 +1481,7 @@ begin
     end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure CreateShellLink(ShellLink: TShellLink);
 const
   IID_IPersistFile: TGUID = (D1:$0000010B;D2:$0000;D3:$0000;D4:($C0,$00,$00,$00,$00,$00,$00,$46));
@@ -1750,7 +1750,7 @@ begin
   end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
   ): Integer;
 (*DrawHTML - Draws text on a canvas using tags based on a simple subset of HTML/CSS
@@ -2146,7 +2146,7 @@ end;
    ACheckBox.OnClick := EH;
  end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 function TaskBarHeight: Integer;
 var
   hTB    : HWND; // taskbar handle

@@ -188,7 +188,7 @@ implementation
 uses
   ts.Core.SharedLogger;
 
-{$region 'TDataTemplate' /fold}
+{$REGION 'TDataTemplate' /FOLD}
 function TDataTemplate.CompareItems(const Item1, Item2: TObject;
   const ColumnIndex: Integer): Integer;
 var
@@ -365,9 +365,9 @@ procedure TDataTemplate.SetValue(const Item: TObject;
 begin
   // implemented in descendants
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TDataTemplate<T>' /fold}
+{$REGION 'TDataTemplate<T>' /FOLD}
 function TDataTemplate<T>.GetImageIndex(const Item: TObject;
   const ColumnIndex: Integer): Integer;
 begin
@@ -475,6 +475,6 @@ procedure TDataTemplate<T>.SetValue(const Item: T; const ColumnIndex: Integer;
 begin
   inherited SetValue(Item, ColumnIndex, Value);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

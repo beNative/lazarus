@@ -47,7 +47,7 @@ implementation
 
 {$R *.lfm}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmApplicationSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -56,7 +56,7 @@ begin
   LinkProperty(Settings, chkCloseWithESC.Link);
   LinkProperty(Settings, chkDimInactiveView.Link);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

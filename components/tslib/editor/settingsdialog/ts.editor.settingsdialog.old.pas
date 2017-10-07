@@ -49,7 +49,7 @@ type
   { TfrmEditorSettings }
 
   TfrmEditorSettings = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain                              : TActionList;
     actApplySettings                     : TAction;
     actAssociate                         : TAction;
@@ -94,7 +94,7 @@ type
     tsXML                                : TTabSheet;
     tsHighlighterAttributes              : TTabSheet;
     tsSettings                           : TTabSheet;
-    {$endregion}
+    {$ENDREGION}
 
     procedure actApplySettingsExecute(Sender: TObject);
     procedure actAssociateExecute(Sender: TObject);
@@ -189,7 +189,7 @@ const
 var
   FForm: TfrmEditorSettings;
 
-{$region 'TSynAttributesDataTemplate' /fold}
+{$REGION 'TSynAttributesDataTemplate' /FOLD}
 type
   TSynAttributesDataTemplate = class(TDataTemplate)
   public
@@ -202,9 +202,9 @@ function TSynAttributesDataTemplate.GetText(const Item: TObject;
 begin
   Result := (Item as THighlighterAttributesItem).Name;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'THighlightersDataTemplate' /fold}
+{$REGION 'THighlightersDataTemplate' /FOLD}
 type
   THighlightersDataTemplate = class(TDataTemplate)
   public
@@ -217,9 +217,9 @@ function THighlightersDataTemplate.GetText(const Item: TObject;
 begin
   Result := (Item as THighlighterItem).Highlighter;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TToolSettingsDataTemplate' /fold}
+{$REGION 'TToolSettingsDataTemplate' /FOLD}
 type
   TToolSettingsDataTemplate = class(TDataTemplate)
   public
@@ -232,18 +232,18 @@ function TToolSettingsDataTemplate.GetText(const Item: TObject;
 begin
   Result := (Item as TComponent).Name;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'interfaced methods' /fold}
+{$REGION 'interfaced methods' /FOLD}
 procedure ExecuteSettingsDialog(AOwner: TComponent);
 begin
   if not Assigned(FForm) then
     FForm := TfrmEditorSettings.Create(AOwner);
   FForm.Execute;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -285,9 +285,9 @@ begin
   FreeAndNil(FTSList);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmEditorSettings.GetSettings: IEditorSettings;
 begin
   Result := Manager.Settings;
@@ -297,9 +297,9 @@ function TfrmEditorSettings.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
 begin
   mmoAliasNames.Link.TIObject := FHATVP.CurrentItem as TPersistent;
@@ -415,9 +415,9 @@ procedure TfrmEditorSettings.SettingsChangedHandler(ASender: TObject);
 begin
   UpdateControls;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmEditorSettings.UpdateControls;
 begin
   tsDebug.TabVisible        := Settings.DebugMode;
@@ -468,9 +468,9 @@ begin
   FTSTVP.TreeView := FTSVST;
   FTSTVP.OnSelectionChanged := FTSTVPSelectionChanged;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TfrmEditorSettings.Execute: Boolean;
 begin
   ShowModal;
@@ -481,7 +481,7 @@ procedure TfrmEditorSettings.Apply;
 begin
   Settings.Apply;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

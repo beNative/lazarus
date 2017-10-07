@@ -47,15 +47,15 @@ type
 
 implementation
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure THexEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth := DEFAULT_WIDTH;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure THexEditorSettings.AssignTo(Dest: TPersistent);
 var
   S: THexEditorSettings;
@@ -81,7 +81,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(THexEditorSettings);

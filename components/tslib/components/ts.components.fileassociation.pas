@@ -27,7 +27,7 @@ unit ts.Components.FileAssociation;
 interface
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ShlObj,
 {$ENDIF}
   Classes, SysUtils, Registry;
@@ -344,7 +344,7 @@ end;
 
 procedure ClearIconCache;
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, nil, nil);
 {$ENDIF}
 end;

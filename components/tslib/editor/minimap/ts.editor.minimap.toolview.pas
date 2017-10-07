@@ -54,7 +54,7 @@ implementation
 
 {$R *.lfm}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmMiniMap.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -68,17 +68,17 @@ begin
   FMiniMap.OnClick := FMiniMapClick;
   Width := Settings.Width;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmMiniMap.GetSettings: TMiniMapSettings;
 begin
   Result := inherited Settings.
     ToolSettings.ItemsByClass[TMiniMapSettings] as TMiniMapSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
   );
 begin
@@ -89,16 +89,16 @@ procedure TfrmMiniMap.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TfrmMiniMap.UpdateView;
 begin
   inherited UpdateView;
   FMiniMap.Editor := View.Editor;
   FMiniMap.Render;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

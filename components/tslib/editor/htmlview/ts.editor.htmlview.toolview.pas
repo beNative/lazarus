@@ -54,7 +54,7 @@ implementation
 
 {$R *.lfm}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -65,9 +65,9 @@ begin
   FHTMLViewer.fvOptions := FHTMLViewer.fvOptions + [fvNoBorder];
 
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 
 function TfrmHTMLView.GetSettings: THTMLViewSettings;
 begin
@@ -84,6 +84,6 @@ begin
   else
     FHTMLViewer.Load(View.Text);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

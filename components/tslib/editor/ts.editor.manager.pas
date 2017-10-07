@@ -20,7 +20,7 @@ unit ts.Editor.Manager;
 
 {$MODE Delphi}
 
-{$region 'documentation' /fold}
+{$REGION 'documentation' /FOLD}
 {
   Datamodule holding common actions, menu's to manage one or more IEditorView
   instances.
@@ -86,7 +86,7 @@ unit ts.Editor.Manager;
         Set of commands that can be executed on the active editor view.
 
 }
-{$endregion}
+{$ENDREGION}
 
 interface
 
@@ -98,20 +98,17 @@ uses
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder, SynEditKeyCmds,
 
   //PascalScript
-  uPSComponent, uPSCompiler, uPSRuntime, uPSUtils, uPSR_std, uPSC_std,
-  uPSR_stdctrls, uPSC_stdctrls, uPSR_forms, uPSC_forms, uPSC_graphics,
-  uPSC_controls, uPSC_classes, uPSR_graphics, uPSR_controls, uPSR_classes,
+  uPSComponent, uPSCompiler, uPSUtils, uPSC_std, uPSC_stdctrls, uPSC_forms,
+  uPSC_graphics, uPSC_controls, uPSC_classes,
 
   ts.Components.ExportRTF,
 
   ts.Editor.Types, ts.Editor.Interfaces, ts.Editor.Resources,
   ts.Editor.Highlighters, ts.Editor.View,
 
-  ts.Core.SharedLogger, ts.Core.Utils;
+  ts.Core.SharedLogger;
 
 type
-  { TdmEditorManager }
-
   TdmEditorManager = class(TDataModule, IEditorManager,
                                         IEditorActions,
                                         IEditorView,   // active view
@@ -121,7 +118,7 @@ type
                                         IEditorMenus,
                                         IEditorSettings,
                                         IEditorSearchEngine)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclActions                        : TActionList;
     actAlignSelection                 : TAction;
     actAutoFormatXML                  : TAction;
@@ -309,9 +306,9 @@ type
     PascalScript                      : TPSScript;
     SynExporterHTML                   : TSynExporterHTML;
     SynMacroRecorder                  : TSynMacroRecorder;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'action handlers' /fold}
+    {$REGION 'action handlers' /FOLD}
     procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
@@ -440,13 +437,13 @@ type
     procedure actShowStructureViewerExecute(Sender: TObject);
     procedure PascalScriptCompile(Sender: TPSScript);
     procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'event handlers' /fold}
+    {$REGION 'event handlers' /FOLD}
     procedure SynMacroRecorderStateChange(Sender: TObject);
     procedure SynMacroRecorderUserCommand(aSender: TCustomSynMacroRecorder;
       aCmd: TSynEditorCommand; var aEvent: TSynMacroEvent);
-    {$endregion}
+    {$ENDREGION}
 
   private
     FChanged          : Boolean;
@@ -464,7 +461,7 @@ type
     FViewList     : TEditorViewList;
     FSearchEngine : IEditorSearchEngine;
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActionList: TActionList;
     function GetActions: IEditorActions;
     function GetClipboardPopupMenu: TPopupMenu;
@@ -507,7 +504,7 @@ type
     function GetViews: IEditorViews;
     procedure SetActiveView(AValue: IEditorView);
     procedure SetPersistSettings(const AValue: Boolean);
-    {$endregion}
+    {$ENDREGION}
 
     function AddMenuItem(
       AParent : TMenuItem;
@@ -563,7 +560,7 @@ type
       ANativeFormat : Boolean = True
     );
 
-    {$region 'IEditorViews'}
+    {$REGION 'IEditorViews'}
     function IEditorViews.Add = AddView;
     function IEditorViews.Delete = DeleteView;
     function IEditorViews.Clear = ClearViews;
@@ -575,8 +572,8 @@ type
       const AHighlighter : string = ''
     ): IEditorView;
     function AddSharedView(
-            AEditorView : IEditorView;
-      const AName       : string = ''
+      AEditorView : IEditorView;
+      const AName : string = ''
     ): IEditorView;
 
     function DeleteView(AIndex: Integer): Boolean; overload;
@@ -584,12 +581,12 @@ type
     function DeleteView(const AName: string): Boolean; overload;
     procedure ClearViews(AExceptActive: Boolean = False);
     function GetViewsEnumerator: TEditorViewListEnumerator;
-    {$endregion}
+    {$ENDREGION}
 
     procedure ShowToolView(
-       const AName      : string;
-             AShowModal : Boolean;
-             ASetFocus  : Boolean
+       const AName : string;
+       AShowModal  : Boolean;
+       ASetFocus   : Boolean
     );
 
     // TComponent overrides
@@ -606,7 +603,7 @@ type
     procedure UpdateFoldingActions;
     procedure UpdateFileActions;
 
-    {$region 'IEditorManager'}
+    {$REGION 'IEditorManager'}
     function ActivateView(const AName: string): Boolean;
     procedure ClearHighlightSearch;
     function OpenFile(const AFileName: string): IEditorView;
@@ -614,7 +611,7 @@ type
       const AFileName  : string;
       const AText      : string = ''
     ): IEditorView;
-    {$endregion}
+    {$ENDREGION}
 
     // properties
     property ActionList: TActionList
@@ -623,7 +620,7 @@ type
     property Items[AName: string]: TCustomAction
       read GetItem; default;
 
-    {$region 'IEditorMenus'}
+    {$REGION 'IEditorMenus'}
     property ClipboardPopupMenu: TPopupMenu
       read GetClipboardPopupMenu;
 
@@ -674,9 +671,9 @@ type
 
     property SettingsPopupMenu: TPopupMenu
       read GetSettingsPopupMenu;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'IEditorManager'}
+    {$REGION 'IEditorManager'}
     property PersistSettings: Boolean
       read GetPersistSettings write SetPersistSettings;
 
@@ -718,9 +715,9 @@ type
     { Delegates the implementation of IEditorView to the active editor view. }
     property View: IEditorView
       read GetActiveView implements IEditorView;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'IEditorViews'}
+    {$REGION 'IEditorViews'}
     property Views[AIndex: Integer]: IEditorView
       read GetView;
 
@@ -739,7 +736,7 @@ type
 
     property ViewCount: Integer
       read GetViewCount;
-    {$endregion}
+    {$ENDREGION}
 
   public
     constructor Create(
@@ -756,7 +753,7 @@ implementation
 {$R *.lfm}
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 
   ts.Core.Logger.Channel.IPC, // used for logging
@@ -827,7 +824,7 @@ const
   ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
   ACTION_PREFIX_LINEBREAKSTYLE = 'actLineBreakStyle';
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TdmEditorManager.Create(AOwner: TComponent;
   ASettings: IEditorSettings);
 begin
@@ -877,9 +874,9 @@ begin
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access methods' /fold}
+{$REGION 'property access methods' /FOLD}
 function TdmEditorManager.GetEditor: TSynEdit;
 begin
   if Assigned(ActiveView) then
@@ -1143,9 +1140,9 @@ function TdmEditorManager.GetViews: IEditorViews;
 begin
   Result := Self as IEditorViews;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
   ShowToolView('SortStrings', False, True);
@@ -1908,9 +1905,9 @@ procedure TdmEditorManager.actLineBreakStyleExecute(Sender: TObject);
 begin
   ActiveView.LineBreakStyle := (Sender as TAction).Caption;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TdmEditorManager.PascalScriptCompile(Sender: TPSScript);
 begin
   PascalScript.MainFileName := PAnsiChar(PascalScript.Script);
@@ -1957,10 +1954,10 @@ begin
   //if Assigned(ActiveView) then
   //  ActiveView.Editor.Refresh;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
-{$region 'Helpers' /fold}
+{$REGION 'private methods' /FOLD}
+{$REGION 'Helpers' /FOLD}
 function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction
   ): TMenuItem;
 var
@@ -2020,9 +2017,9 @@ begin
   end;
   Result := MI;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'Initialization' /fold}
+{$REGION 'Initialization' /FOLD}
 procedure TdmEditorManager.InitializePopupMenus;
 begin
   BuildClipboardPopupMenu;
@@ -2164,9 +2161,9 @@ begin
     end;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'Build popup menus' /fold}
+{$REGION 'Build popup menus' /FOLD}
 procedure TdmEditorManager.BuildClipboardPopupMenu;
 var
   MI: TMenuItem;
@@ -2533,9 +2530,9 @@ begin
   AddMenuItem(MI, actClose);
   AddMenuItem(MI, actCloseOthers);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'Registration' /fold}
+{$REGION 'Registration' /FOLD}
 procedure TdmEditorManager.RegisterToolViews;
 begin
   ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
@@ -2559,10 +2556,10 @@ begin
 end;
 
 procedure TdmEditorManager.LoadScriptFiles;
-var
-  A : TAction;
-  S : string;
-  i : integer;
+//var
+//  A : TAction;
+//  S : string;
+//  i : integer;
 begin
   //actExecuteScriptOnSelection.Enabled := False;
   //if FileExistsUTF8(GetApplicationPath+'notepas.rops') then
@@ -2600,10 +2597,10 @@ begin
   //
   //end;
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 { Called when the active view is set to another view in the list. }
 procedure TdmEditorManager.ActiveViewChanged;
 begin
@@ -2678,7 +2675,7 @@ begin
     ETV.SetFocus;
 end;
 
-{$region 'IEditorActions' /fold}
+{$REGION 'IEditorActions' /FOLD}
 function TdmEditorManager.AddView(const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
 var
@@ -2818,9 +2815,9 @@ begin
   if AExceptActive then
     ViewList.Add(V);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'IEditorCommands' /fold}
+{$REGION 'IEditorCommands' /FOLD}
 procedure TdmEditorManager.ExportLines(AFormat: string; AToClipBoard: Boolean;
   ANativeFormat: Boolean);
 var
@@ -2948,9 +2945,9 @@ begin
   else
     Result := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'UpdateActions' /fold}
+{$REGION 'UpdateActions' /FOLD}
 procedure TdmEditorManager.UpdateActions;
 var
   B  : Boolean;
@@ -3225,11 +3222,11 @@ begin
   V.Text := AText;
   Result := V;
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
 initialization
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 

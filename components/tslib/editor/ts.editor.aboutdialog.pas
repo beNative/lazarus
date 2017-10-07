@@ -56,7 +56,7 @@ type
   { TfrmAbout }
 
   TfrmAbout = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain: TActionList;
     actClose: TAction;
     actDonate: TAction;
@@ -96,7 +96,7 @@ type
     tsInfo: TTabSheet;
     tsAbout: TTabSheet;
     tsCredits: TTabSheet;
-    {$endregion}
+    {$ENDREGION}
 
     procedure actCloseExecute(Sender: TObject);
     procedure actCopyToClipboardExecute(Sender: TObject);
@@ -178,7 +178,7 @@ begin
   end;
 end;
 
-{$region 'TCredit' /fold}
+{$REGION 'TCredit' /FOLD}
 type
   TCredit = class(TPersistent)
   strict private
@@ -196,9 +196,9 @@ type
     property URL: string
       read FURL write FURL;
   end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TTranslation' /fold}
+{$REGION 'TTranslation' /FOLD}
 type
   TTranslation = class(TPersistent)
   strict private
@@ -216,9 +216,9 @@ type
     property Author: string
       read FAuthor write FAuthor;
   end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TInfo' /fold}
+{$REGION 'TInfo' /FOLD}
 type
   TInfo = class(TPersistent)
   strict private
@@ -232,9 +232,9 @@ type
     property Value: string
       read FValue write FValue;
   end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmAbout.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -271,9 +271,9 @@ begin
   FreeAndNil(FVersionInfo);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmAbout.lblHomePageClick(Sender: TObject);
 begin
   actHomePage.Execute;
@@ -298,9 +298,9 @@ procedure TfrmAbout.FTVPCreditsDoubleClick(Sender: TObject);
 begin
   OpenURL((FTVPCredits.SelectedItem as TCredit).URL);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin
   Close;
@@ -338,9 +338,9 @@ procedure TfrmAbout.actHomePageExecute(Sender: TObject);
 begin
   OpenURL(FVersionInfo.HomePage);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmAbout.FillCredits;
 
   procedure AddCredit(const AName: string; const AAuthor: string; const AURL: string);
@@ -538,7 +538,7 @@ begin
   FTVPInfoList.ItemsSource := FInfoList;
   FTVPInfoList.TreeView := FVSTInfoList;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

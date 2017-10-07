@@ -65,7 +65,7 @@ uses
   ts.Editor.SettingsDialog.ApplicationSettings,
   ts.Editor.SettingsDialog.EditorSettings;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorSettingsDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -110,9 +110,9 @@ begin
   //TfrmOptionsThemes
   FVPM.Pages.AssignTo(lbxPages.Items);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TEditorSettingsDialog.lbxPagesClick(Sender: TObject);
 begin
   FVPM.PageIndex := lbxPages.ItemIndex;
@@ -123,7 +123,7 @@ begin
   Result := Owner as IEditorManager;
 end;
 
-{$endregion}
+{$ENDREGION}
 
 end.
 

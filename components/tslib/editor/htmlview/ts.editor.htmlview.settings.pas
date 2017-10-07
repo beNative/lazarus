@@ -44,15 +44,15 @@ type
 
 implementation
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure THTMLViewSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth := DEFAULT_WIDTH;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure THTMLViewSettings.AssignTo(Dest: TPersistent);
 var
   S: THTMLViewSettings;
@@ -78,7 +78,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(THTMLViewSettings);

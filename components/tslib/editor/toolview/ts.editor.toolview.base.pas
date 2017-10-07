@@ -107,7 +107,7 @@ implementation
 uses
   LCLIntf;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TCustomEditorToolView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -122,9 +122,9 @@ procedure TCustomEditorToolView.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TCustomEditorToolView.GetUpdate: Boolean;
 begin
   Result := FUpdate;
@@ -172,9 +172,9 @@ function TCustomEditorToolView.GetSettings: IEditorSettings;
 begin
   Result := Owner as IEditorSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TCustomEditorToolView.EditorCaretPositionChange(Sender: TObject; X,
   Y: Integer);
 begin
@@ -200,9 +200,9 @@ procedure TCustomEditorToolView.EditorChange(Sender: TObject);
 begin
   UpdateView;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TCustomEditorToolView.UpdateView;
 begin
   // to be overridden
@@ -219,7 +219,7 @@ procedure TCustomEditorToolView.SettingsChanged;
 begin
   // to be overridden
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

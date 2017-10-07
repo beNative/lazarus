@@ -94,13 +94,13 @@ implementation
 
 { TfrmEditorSettingsDialog }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmEditorSettingsDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
   AutoLinkChildControls(Settings.EditorOptions, Self);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

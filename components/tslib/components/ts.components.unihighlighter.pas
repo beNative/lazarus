@@ -31,7 +31,7 @@ unit ts.Components.UNIHighlighter;
   - removed useless code and type declarations
 }
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 {
 (info taken from http://wiki.lazarus.freepascal.org/SynEdit_Highlighter)
 
@@ -111,7 +111,7 @@ example:
  end;                       0        0  // The end closes both: begin and procedure fold
 
 }
-{$endregion}
+{$ENDREGION}
 
 interface
 
@@ -737,7 +737,7 @@ begin
   Result := s;
 end;
 
-{$region 'TSynSymbolGroup' /fold}
+{$REGION 'TSynSymbolGroup' /FOLD}
 constructor TSynSymbolGroup.Create(const AKeywords: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes          := AAttributes;
@@ -752,9 +752,9 @@ begin
   FKeywords.Free;
   inherited;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSynSymbol' /fold}
+{$REGION 'TSynSymbol' /FOLD}
 constructor TSynSymbol.Create(const ASymbol: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes := AAttributes;
@@ -762,9 +762,9 @@ begin
   FOpenRule   := nil;
   FBreakType  := btUnspecified;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSynRange' /fold}
+{$REGION 'TSynRange' /FOLD}
 procedure TSynRange.AddRange(ARange: TSynRange);
 begin
   FSynRanges.Add(ARange);
@@ -1642,9 +1642,9 @@ begin
     SL.Free;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSymbolList' /fold}
+{$REGION 'TSymbolList' /FOLD}
 procedure TSymbolList.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -1691,9 +1691,9 @@ begin
     TSymbolNode(FSymbolList[AIndex]).Free;
   FSymbolList[AIndex] := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSymbols' /fold}
+{$REGION 'TSymbols' /FOLD}
 procedure TSymbols.AddSymbol(const AString: string; ASynSymbol: TSynSymbol; ABreakType: TSymbolBreakType);
 var
   I  : Integer;
@@ -1794,9 +1794,9 @@ begin
     ASynSymbol := Node.SynSymbol;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSymbolNode' /fold}
+{$REGION 'TSymbolNode' /FOLD}
 constructor TSymbolNode.Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
   ABreakType: TSymbolBreakType);
 begin
@@ -1823,9 +1823,9 @@ begin
   FNextSymbols.Free;
   inherited;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TDefaultSymbols' /fold}
+{$REGION 'TDefaultSymbols' /FOLD}
 constructor TDefaultSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1844,9 +1844,9 @@ begin
   AParser.Run := AParser.Run + 1;
   Result := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TNumberSymbols' /fold}
+{$REGION 'TNumberSymbols' /FOLD}
 constructor TNumberSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1873,9 +1873,9 @@ begin
   else
     Result := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TDefaultTermSymbols' /fold}
+{$REGION 'TDefaultTermSymbols' /FOLD}
 constructor TDefaultTermSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1896,9 +1896,9 @@ begin
   ASynSymbol := FSynSymbol;
   Result := True;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSynUniSyn' /fold}
+{$REGION 'TSynUniSyn' /FOLD}
 constructor TSynUniSyn.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
@@ -3075,6 +3075,6 @@ procedure TSynUniSyn.SetSampleSource(Value: string);
 begin
   FInfo.Sample.Text := Value;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

@@ -77,9 +77,6 @@ type
   ) of object;
 
 type
-
-  { TfrmVirtualDBTree }
-
   TfrmVirtualDBTree = class(TForm)
     actCollapseAllNodes    : TAction;
     actDeleteSelectedNodes : TAction;
@@ -139,7 +136,7 @@ type
     FOnNewItemNode     : TNewItemNodeEvent;
     FNodeTypeFieldName : string;
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
     function GetImgIdxFieldName: string;
@@ -170,7 +167,7 @@ type
     procedure SetToolbarTopVisible(const Value: Boolean);
     function GetToolbarBottomVisible: Boolean;
     function GetToolbarTopVisible: Boolean;
-  {$endregion}
+  {$ENDREGION}
 
     procedure GetFileListFromObj(
       const DataObj   : IDataObject;
@@ -281,8 +278,6 @@ implementation
 uses
   SysUtils, ShellApi,
 
-  ts.Core.SharedLogger,
-
   SnippetSource.VirtualTree.Editors;
 
 resourcestring
@@ -290,7 +285,7 @@ resourcestring
   SNewFolder           = 'New folder';
   SNew                 = 'New';
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmVirtualDBTree.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -316,9 +311,9 @@ begin
   dscMain.DataSet := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 procedure TfrmVirtualDBTree.SetDataSet(const Value: TDataSet);
 begin
   if Value <> DataSet then
@@ -480,9 +475,9 @@ procedure TfrmVirtualDBTree.SetViewFieldName(const AValue: string);
 begin
   FTreeView.ViewFieldName := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 procedure TfrmVirtualDBTree.DoNewFolderNode;
 begin
   if Assigned(FOnNewFolderNode) then
@@ -500,9 +495,9 @@ begin
   if Assigned(AFiles) and Assigned(FOnDropFiles) then
     FOnDropFiles(FTreeView, AFiles, AAttachMode);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmVirtualDBTree.actNewRootFolderNodeExecute(Sender: TObject);
 begin
   NewRootFolderNode;
@@ -540,9 +535,9 @@ begin
   if Field = nil then
     FTreeView.ScrollIntoView(FTreeView.FocusedNode, True);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmVirtualDBTree.FTreeViewCreateEditor(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
 begin
@@ -602,9 +597,9 @@ procedure TfrmVirtualDBTree.FTreeViewEdited(Sender: TBaseVirtualTree;
 begin
   ViewField.AsString := FTreeView.NodeText[Node];
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmVirtualDBTree.GetFileListFromObj(const DataObj: IDataObject;
   AFileList: TStrings);
 var
@@ -649,9 +644,9 @@ begin
     ReleaseStgMedium(Medium);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmVirtualDBTree.PostTreeData(AParentID, ANodeType: Integer;
   const AName: string);
 begin
@@ -754,9 +749,9 @@ begin
     TreeOptions.StringOptions := [toAutoAcceptEditChange];
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TfrmVirtualDBTree.NewFolderNode;
 var
   ID: Integer;
@@ -797,5 +792,5 @@ begin
   PostTreeData(0, 1, SNewFolder);
   DoNewFolderNode;
 end;
-{$endregion}
+{$ENDREGION}
 end.

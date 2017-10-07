@@ -54,7 +54,7 @@ type
   { TfrmSearchForm }
 
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain                         : TActionList;
     actFocusSearchText              : TAction;
     actReplace                      : TAction;
@@ -92,14 +92,14 @@ type
     rbFromCursor: TRadioButton;
     rbActiveView: TRadioButton;
     rbSelection: TRadioButton;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'action handlers' /fold}
+    {$REGION 'action handlers' /FOLD}
     procedure actFocusSearchTextExecute(Sender: TObject);
     procedure actReplaceAllExecute(Sender: TObject);
     procedure actReplaceExecute(Sender: TObject);
     procedure actFindExecute(Sender: TObject);
-    {$endregion}
+    {$ENDREGION}
 
     procedure cbxSearchTextChange(Sender: TObject);
     procedure chkClick(Sender: TObject);
@@ -178,7 +178,7 @@ resourcestring
   SMatchFound   = '%d search match found.';
   SMatchesFound = '%d search matches found.';
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -203,9 +203,9 @@ begin
   SearchEngine.AddOnChangeHandler(SearchEngineChange);
   Manager.Events.AddOnActionExecuteEvent(ActionExecute);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmSearchForm.GetSearchEngine: IEditorSearchEngine;
 begin
   Result := Owner as IEditorSearchEngine;
@@ -276,9 +276,9 @@ begin
     cbxReplaceWith.Text := AValue;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmSearchForm.actFocusSearchTextExecute(Sender: TObject);
 begin
   cbxSearchText.SetFocus;
@@ -310,9 +310,9 @@ begin
     Screen.Cursor := crDefault;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmSearchForm.cbxSearchTextChange(Sender: TObject);
 begin
   Modified;
@@ -424,9 +424,9 @@ procedure TfrmSearchForm.ActionExecute(Sender: TObject; AAction: TBasicAction;
 begin
   Logger.Send('Executed', AAction.Name);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmSearchForm.Execute;
 begin
   SearchEngine.SearchText := cbxSearchText.Text;
@@ -535,6 +535,6 @@ begin
 
   imgF2Key.Visible := GetFirstParentForm(Screen.ActiveControl) = Self;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

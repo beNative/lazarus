@@ -103,7 +103,7 @@ implementation
 
 { TEditorToolbarsFactory }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorToolbarsFactory.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -120,9 +120,9 @@ begin
   FActions := AActions;
   FMenus   := AMenus;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TEditorToolbarsFactory.ApplyDefaultProperties(AToolbar: TToolbar);
 begin
   AToolbar.EdgeBorders := EdgeBorders;
@@ -162,9 +162,9 @@ begin
   else
     Result := CreateToolButton(AParent, FActions[AActionName], APopupMenu);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TEditorToolbarsFactory.CreateMainToolbar(AOwner: TComponent;
   AParent: TWinControl): TToolbar;
 var
@@ -281,7 +281,7 @@ begin
   CreateToolButton(TB, 'actToggleBlockCommentSelection');
   Result := TB;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

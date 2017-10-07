@@ -70,7 +70,7 @@ implementation
 
 { TEditorMenusFactory }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TEditorMenusFactory.Create(AActions: IEditorActions;
   AMenus: IEditorMenus);
 begin
@@ -86,9 +86,9 @@ begin
   inherited BeforeDestruction;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 function TEditorMenusFactory.CreateMenuItem(AParent: TMenuItem;
   AAction: TBasicAction): TMenuItem;
 var
@@ -139,9 +139,9 @@ begin
   else
     raise Exception.CreateFmt('Action <%s> not found!', [AActionName]);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TEditorMenusFactory.CreateFileMenu(AMenu: TMenu): TMenuItem;
 var
   M   : TMenuItem;
@@ -378,7 +378,7 @@ begin
   CreateHelpMenu(MM);
   Result := MM;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

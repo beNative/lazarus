@@ -70,7 +70,7 @@ implementation
 
 { TSortStringsSettings }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TSortStringsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -81,9 +81,9 @@ procedure TSortStringsSettings.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TSortStringsSettings.AssignTo(Dest: TPersistent);
 var
   S: TSortStringsSettings;
@@ -110,7 +110,7 @@ begin
   else
     inherited Assign(Source);
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(TSortStringsSettings);

@@ -91,7 +91,7 @@ uses
 resourcestring
   SCharacterMap = 'Character Map';
 
-{$region 'non-interfaced routines' /fold}
+{$REGION 'non-interfaced routines' /FOLD}
 function RoundUp(Value, Divi: Integer): Integer;
 begin
   if Value mod Divi = 0 then
@@ -119,9 +119,9 @@ begin
     ACharacter
   );
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmCharacterMap.AfterConstruction;
 var
   I : Integer;
@@ -146,9 +146,9 @@ begin
   cbxUnicodeRangeSelect(nil);
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmCharacterMap.cbxUnicodeRangeSelect(Sender: TObject);
 var
   N : Integer;
@@ -283,9 +283,9 @@ procedure TfrmCharacterMap.grdUnicodeSelectCell(Sender: TObject; aCol,
 begin
   UpdateUnicodeDisplay(aCol, aRow);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmCharacterMap.FillCharMap;
 var
   R : Integer;
@@ -351,7 +351,7 @@ begin
   else
     lblCharInfo.Caption := '-';
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

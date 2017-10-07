@@ -53,10 +53,9 @@ unit ts.Core.FileAssociations;
 
 interface
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 uses
   Classes, ComCtrls,
-
 
   Windows,
 
@@ -247,9 +246,9 @@ implementation
 uses
   SysUtils;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 
-{$region 'interfaced methods' /fold}
+{$REGION 'interfaced methods' /FOLD}
 function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
 var
   HK: HKEY;
@@ -431,9 +430,9 @@ begin
   if ADRegCheckKey(ARoot, ASubKey) then
     Result := RegWriteBoolean(ARoot, ASubKey, AName, AValue);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TAssociatesList' /fold}
+{$REGION 'TAssociatesList' /FOLD}
 function TAssociatesList.Add: TAssociateItem;
 begin
   Result := TAssociateItem(inherited Add);
@@ -449,9 +448,9 @@ procedure TAssociatesList.SetAssociateItem(Index: Integer;
 begin
   Items[Index].Assign(Value);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TFileAssociate' /fold}
+{$REGION 'TFileAssociate' /FOLD}
 function TFileAssociate.AddItem(const AExt: string): TAssociateItem;
 var
   Item: TAssociateItem;
@@ -810,7 +809,7 @@ begin
     RegWriteBooleanEx(FRootKey, FAppKey, SAllUsers, False);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 {$ENDIF Windows}
 
 end.

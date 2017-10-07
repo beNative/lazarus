@@ -111,7 +111,7 @@ uses
 
   ts.Core.SharedLogger;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TEditorSelection.Create(AEditorView: IEditorView);
 begin
   inherited Create;
@@ -129,9 +129,9 @@ begin
   FLines.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorSelection.GetBlockBegin: TPoint;
 begin
   Result := FBlockBegin;
@@ -193,9 +193,9 @@ procedure TEditorSelection.SetSelectionMode(AValue: TSynSelectionMode);
 begin
   FSelectionMode := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TEditorSelection.Clear;
 begin
   FLines.Clear;
@@ -311,7 +311,7 @@ begin
     FEditorView.Editor.EndUpdate;
   Clear;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

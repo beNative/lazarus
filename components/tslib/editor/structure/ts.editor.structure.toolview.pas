@@ -58,15 +58,15 @@ implementation
 uses
   ts.Core.Helpers, ts.Core.ComponentInspector;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmStructure.AfterConstruction;
 begin
   inherited AfterConstruction;
 //  FXMLTree := CreateXMLTree(Self, pnlXmlTree);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmStructure.btnInspectClick(Sender: TObject);
 begin
   InspectComponent(FXMLTree);
@@ -81,9 +81,9 @@ procedure TfrmStructure.btnCollapseClick(Sender: TObject);
 begin
   FXMLTree.FullCollapse;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmStructure.UpdateView;
 begin
   try
@@ -92,7 +92,7 @@ begin
     // ignore parsing errors
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

@@ -20,7 +20,7 @@ unit ts.Editor.Settings;
 
 {$MODE DELPHI}
 
-{$region Documentation /fold}
+{$REGION Documentation /FOLD}
 {
   TEditorSettings is a component that implements IEditorSettings and holds
   all settings that can be persisted.
@@ -54,7 +54,7 @@ unit ts.Editor.Settings;
     All the component types you want to store this way need to be registered
     with the RegisterClass procedure found in the Classes unit.
 }
-{$endregion}
+{$ENDREGION}
 
 interface
 
@@ -113,7 +113,7 @@ type
     procedure FFormSettingsChanged(Sender: TObject);
     procedure FColorsChanged(Sender: TObject);
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
@@ -149,7 +149,7 @@ type
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetToolSettings(AValue: TEditorToolSettings);
-    {$endregion}
+    {$ENDREGION}
 
   protected
     procedure AssignDefaultColors;
@@ -241,7 +241,7 @@ uses
 
   ts.Editor.Resources;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -288,9 +288,9 @@ begin
   FChangedEventList.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 
 procedure TEditorSettings.FColorsChanged(Sender: TObject);
 begin
@@ -306,9 +306,9 @@ procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
 begin
   Changed;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access methods' /fold}
+{$REGION 'property access methods' /FOLD}
 function TEditorSettings.GetAutoFormatXML: Boolean;
 begin
   Result := FAutoFormatXML;
@@ -531,9 +531,9 @@ function TEditorSettings.GetXML: string;
 begin
   Result := ReadFileToString(FileName);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods'}
+{$REGION 'protected methods'}
 procedure TEditorSettings.AssignDefaultColors;
 begin
   Colors.BracketMatchColor.Background := clAqua;
@@ -570,9 +570,9 @@ procedure TEditorSettings.Changed;
 begin
   FChangedEventList.CallNotifyEvents(Self);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TEditorSettings.Load;
 var
   Reader : TXmlObjectReader;
@@ -782,7 +782,7 @@ begin
     HI.InitSynHighlighter(HI.SynHighlighter);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

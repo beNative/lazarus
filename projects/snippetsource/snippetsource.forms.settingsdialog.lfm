@@ -1,7 +1,7 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 1131
+  Left = 1132
   Height = 461
-  Top = 245
+  Top = 246
   Width = 462
   ActiveControl = pnlButtons.CloseButton
   Caption = 'Settings'

@@ -67,7 +67,7 @@ uses
 
 { TfrmScriptEditor }
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmScriptEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -82,9 +82,9 @@ begin
   FScriptEditorManager := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmScriptEditor.FormShow(Sender: TObject);
 begin
   if not Assigned(FScriptEditor) then
@@ -106,7 +106,7 @@ procedure TfrmScriptEditor.actExecuteExecute(Sender: TObject);
 begin
   //
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

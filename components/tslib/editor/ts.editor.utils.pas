@@ -27,7 +27,7 @@ unit ts.Editor.Utils;
 interface
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
   Classes, SysUtils, TypInfo,

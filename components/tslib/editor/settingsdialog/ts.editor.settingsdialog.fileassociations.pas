@@ -146,7 +146,7 @@ begin
   //FA.ListView := lvExt;
 end;
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmOptionsAssociate.actAddExecute(Sender: TObject);
 begin
   AddEditExt(False);
@@ -194,9 +194,9 @@ begin
   for I := 0 to lvExt.Items.Count - 1 do
     lvExt.Items[I].Checked := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmOptionsAssociate.lvExtChange(Sender: TObject;
   Item: TListItem; Change: TItemChange);
 begin
@@ -239,7 +239,7 @@ procedure TfrmOptionsAssociate.chkAllUsersClick(Sender: TObject);
 begin
   DoLoadAssoc;
 end;
-{$endregion}
+{$ENDREGION}
 
 
 procedure TfrmOptionsAssociate.LoadOptions;

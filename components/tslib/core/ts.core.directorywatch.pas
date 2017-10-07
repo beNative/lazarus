@@ -72,14 +72,14 @@ unit ts.Core.DirectoryWatch;
 interface
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows, jwawinbase,
 {$ENDIF}
   SysUtils, Classes, Messages,
 
   LCLType, LCLIntf;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 const
   FILE_NOTIFY_CHANGE_FILE_NAME   = $00000001;
   FILE_NOTIFY_CHANGE_DIR_NAME    = $00000002;
@@ -152,7 +152,7 @@ type
 
 implementation
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 uses
   LMessages;
 
@@ -203,7 +203,7 @@ type
   end;
 
 procedure TDirWatchThread.Execute;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   NotifyData: PFILE_NOTIFY_INFORMATION;
   Events: array[0..1] of THandle;
@@ -215,7 +215,7 @@ var
   ResSize: Cardinal;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   FillChar(Overlap, SizeOf(TOverlapped), 0);
   Overlap.hEvent := FChangeEvent;
 

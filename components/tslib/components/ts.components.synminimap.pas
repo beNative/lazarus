@@ -20,7 +20,7 @@ unit ts.Components.SynMiniMap;
 
 {$MODE DELPHI}
 
-{$region 'comments' /fold}
+{$REGION 'comments' /FOLD}
 {
   Changes by Tim Sinaeve for Lazarus port:
   - Changed TBufferCoord to TPoint
@@ -70,12 +70,12 @@ unit ts.Components.SynMiniMap;
     -	initial release
 
 *******************************************************************************)
-{$endregion}
+{$ENDREGION}
 
 interface
 
 uses
-  {$IFDEF Windows}
+  {$IFDEF WINDOWS}
   Windows,
   {$ENDIF}
   SysUtils, Classes, StdCtrls, Forms, Controls, Graphics, GraphMath,

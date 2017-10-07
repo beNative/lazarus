@@ -50,11 +50,8 @@ const
   SETTINGS_FILE = 'settings.xml';
 
 type
-
-  { TfrmMain }
-
   TfrmMain = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain            : TActionList;
     actExecute         : TAction;
     actAbout           : TAction;
@@ -92,15 +89,17 @@ type
     tlbApplication     : TToolBar;
     btnLookup          : TToolButton;
     btnSettingsDialog  : TToolButton;
-    {$endregion}
+    {$ENDREGION}
 
+    {$REGION 'action handlers' /FOLD}
     procedure actAboutExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
     procedure actToggleMaximizeExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
+    {$ENDREGION}
 
-    {$region 'event handlers' /fold}
+    {$REGION 'event handlers' /FOLD}
     procedure btnHighlighterSBClick(Sender: TObject);
     procedure btnHighlighterMouseEnter(Sender: TObject);
     procedure btnHighlighterMouseLeave(Sender: TObject);
@@ -121,11 +120,11 @@ type
     procedure EChange(Sender: TObject);
     procedure EHighlighterChange(Sender: TObject);
     procedure EBeforeSave(
-          Sender       : TObject;
+      Sender           : TObject;
       var AStorageName : string
     );
     procedure ENew(
-            Sender    : TObject;
+      Sender          : TObject;
       var   AFileName : string;
       const AText     : string
     );
@@ -134,7 +133,7 @@ type
     procedure RVChange(Sender: TObject);
     procedure RVEditingDone(Sender: TObject);
     procedure RVSelectionChange(Sender: TObject);
-    {$endregion}
+    {$ENDREGION}
 
   private
     FTree         : TfrmVirtualDBTree;
@@ -160,7 +159,7 @@ type
     procedure AddPathNode(
       const APath       : string;
       const ACommonPath : string;
-            ATree       : TBaseVirtualTree
+      ATree             : TBaseVirtualTree
     );
     procedure ExportNode;
 
@@ -171,7 +170,7 @@ type
     procedure UpdateActions; override;
     procedure AddButton(
       const AActionName : string;
-            APopupMenu  : TPopupMenu = nil
+      APopupMenu        : TPopupMenu = nil
     ); overload;
     procedure AddButton(AAction: TBasicAction); overload;
     procedure BuildToolBar;
@@ -215,7 +214,7 @@ uses
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -258,9 +257,9 @@ begin
   FreeAndNil(FFileSearcher);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmMain.GetRichEditor: IRichEditorView;
 begin
   Result := RichEditorActions.ViewByName['Comment'];
@@ -285,9 +284,9 @@ function TfrmMain.GetSnippet: ISnippet;
 begin
   Result := FData as ISnippet;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmMain.actLookupExecute(Sender: TObject);
 begin
   Lookup(Editor, FData as ILookup);
@@ -318,9 +317,9 @@ begin
   else
     FormStyle := fsNormal;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmMain.btnHighlighterSBClick(Sender: TObject);
 begin
   btnHighlighterSB.PopupMenu.PopUp;
@@ -502,7 +501,7 @@ end;
 
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
-//  DataSet.Edit;
+  //DataSet.Edit;
 end;
 
 procedure TfrmMain.RVEditingDone(Sender: TObject);
@@ -530,9 +529,9 @@ procedure TfrmMain.RVSelectionChange(Sender: TObject);
 begin
   DataSet.Edit;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
   ATree: TBaseVirtualTree);
 var
@@ -554,11 +553,6 @@ begin
   end
   else
     IsTextFile := True;
-
-  //else if FileIsText(APath, bReadable) and bReadable then
-  //begin
-  //  IsTextFile := True;
-  //end;
 
   if IsDir or IsTextFile then
   begin
@@ -608,13 +602,19 @@ begin
 end;
 
 procedure TfrmMain.HideAction(const AActionName: string);
+var
+  A : TCustomAction;
 begin
-  //FManager.Actions[AActionName].Enabled := False;
-  //FManager.Actions[AActionName].Visible := False;
+  A := FManager.Actions.ActionList.ActionByName(AActionName) as TCustomAction;
+  if Assigned(A) then
+  begin
+    A.Enabled := False;
+    A.Visible := False;
+  end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmMain.AssignEditorChanges;
 begin
   Snippet.Text := Editor.Text;
@@ -799,6 +799,6 @@ begin
   RV.OnSelectionChange := RVSelectionChange;
   RV.PopupMenu         := RichEditorActions.EditorPopupMenu;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

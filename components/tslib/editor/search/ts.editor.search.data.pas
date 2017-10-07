@@ -150,7 +150,7 @@ resourcestring
   SLine     = 'Line: %d';
   SGroup    = '%s (%d matching lines)';
 
-{$region 'TSearchResult' /fold}
+{$REGION 'TSearchResult' /FOLD}
 function TSearchResult.GetText: string;
 begin
   Result := Format(SPosition, [Column, Line]);
@@ -159,9 +159,9 @@ begin
     Result := Result + Format(SMatch, [Match]);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSearchResultLine' /fold}
+{$REGION 'TSearchResultLine' /FOLD}
 procedure TSearchResultLine.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -178,9 +178,9 @@ function TSearchResultLine.GetText: string;
 begin
   Result := Format(SLine, [Line]);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'TSearchResultGroup' /fold}
+{$REGION 'TSearchResultGroup' /FOLD}
 function TSearchResultGroup.GetText: string;
 begin
   Result := Format(SGroup, [FFileName, FLines.Count]);
@@ -197,7 +197,7 @@ begin
   FLines.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

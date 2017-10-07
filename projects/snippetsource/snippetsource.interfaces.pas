@@ -33,7 +33,7 @@ type
     function GetFileName: string;
     procedure SetFileName(AValue: string);
 
-    function Execute(const ASQL: string): Boolean;
+    procedure Execute(const ASQL: string);
     procedure CreateNewDatabase;
 
     property FileName: string

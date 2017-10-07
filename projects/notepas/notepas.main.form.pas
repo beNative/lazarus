@@ -50,7 +50,7 @@ uses
 
 type
   TfrmMain = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain               : TActionList;
     actAbout              : TAction;
     actCloseToolview      : TAction;
@@ -89,15 +89,15 @@ type
     ToolButton3           : TToolButton;
     ToolButton4           : TToolButton;
     ToolButton5           : TToolButton;
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'action handlers' /fold}
+    {$REGION 'action handlers' /FOLD}
     procedure actAboutExecute(Sender: TObject);
     procedure actCheckForNewVersionExecute(Sender: TObject);
     procedure actCloseToolviewExecute(Sender: TObject);
-    {$endregion}
+    {$ENDREGION}
 
-    {$region 'event handlers' /fold}
+    {$REGION 'event handlers' /FOLD}
     procedure AHSActivateSite(Sender: TObject);
     procedure AHSClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure AHSShowModalFinished(Sender: TObject; AResult: Integer);
@@ -112,7 +112,7 @@ type
     procedure UniqueInstanceOtherInstance(Sender: TObject; ParamCount: Integer;
       Parameters: array of string);
     procedure UniqueInstanceTerminateInstance(Sender: TObject);
-    {$endregion}
+    {$ENDREGION}
   private
     FSettings         : IEditorSettings;
     FManager          : IEditorManager;
@@ -123,7 +123,7 @@ type
     FToolbarHostPanel : TPanel;
     FUniqueInstance   : TUniqueInstance;
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;
     function GetEvents: IEditorEvents;
@@ -131,7 +131,7 @@ type
     function GetMenus: IEditorMenus;
     function GetSettings: IEditorSettings;
     function GetViews: IEditorViews;
-    {$endregion}
+    {$ENDREGION}
 
     procedure InitializeEvents;
     procedure InitializeControls;
@@ -240,7 +240,7 @@ uses
 
   NotePas.Resources;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmMain.AfterConstruction;
 var
   I  : Integer;
@@ -324,9 +324,9 @@ begin
   FManager  := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmMain.GetManager: IEditorManager;
 begin
   Result :=  FManager;
@@ -361,9 +361,9 @@ function TfrmMain.GetViews: IEditorViews;
 begin
   Result := Manager.Views;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
@@ -384,11 +384,11 @@ begin
     TV.Visible := False;
   Manager.ActiveView.SetFocus;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 
-{$region 'docking support' /fold}
+{$REGION 'docking support' /FOLD}
 /// below works to support docking toolforms!
 {
   below works to support docking toolforms!
@@ -408,7 +408,7 @@ end;
   ADHS.EndUpdateLayout;
   DockMaster.EndUpdate;
 }
-{$endregion}
+{$ENDREGION}
 procedure TfrmMain.AHSActivateSite(Sender: TObject);
 var
   AHS : TAnchorDockHostSite;
@@ -639,9 +639,9 @@ begin
     EnableAutoSizing;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmMain.InitializeEvents;
 begin
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
@@ -703,9 +703,9 @@ begin
   Actions[AActionName].Enabled := Settings.DebugMode;
   Actions[AActionName].Visible := Settings.DebugMode;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmMain.AddDockingMenuItems;
 var
   MI  : TMenuItem;
@@ -859,6 +859,6 @@ begin
     FSelectionToolbar.Visible := Editor.SelAvail;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.

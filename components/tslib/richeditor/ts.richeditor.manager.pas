@@ -34,7 +34,7 @@ type
   { TdmRichEditorActions }
 
   TdmRichEditorActions = class(TDataModule, IRichEditorActions)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclActions    : TActionList;
     actBold       : TAction;
     actColor      : TAction;
@@ -75,7 +75,7 @@ type
     mniSave       : TMenuItem;
     mniSaveAs     : TMenuItem;
     ppmRichEditor : TPopupMenu;
-    {$endregion}
+    {$ENDREGION}
 
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
@@ -170,7 +170,7 @@ begin
   Result := dmRichEditorActions;
 end;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TdmRichEditorActions.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -184,9 +184,9 @@ begin
   FreeAndNil(FViews);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TdmRichEditorActions.GetActions: TActionList;
 begin
   Result := aclActions;
@@ -251,9 +251,9 @@ function TdmRichEditorActions.GetViewCount: Integer;
 begin
   Result := FViews.Count;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 // File
 
 procedure TdmRichEditorActions.actOpenExecute(Sender: TObject);
@@ -401,7 +401,7 @@ procedure TdmRichEditorActions.actWordWrapExecute(Sender: TObject);
 begin
   ActiveView.WordWrap := actWordWrap.Checked;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TdmRichEditorActions.UpdateActions;
 begin

@@ -108,7 +108,7 @@ implementation
 uses
   SynEditTypes;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorColorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -134,9 +134,9 @@ begin
   FFoldedCodeColor.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorColorSettings.GetBracketMatchColor: TSynSelectedColor;
 begin
   Result := FBracketMatchColor;
@@ -227,7 +227,7 @@ begin
   FSelectedColor.Assign(AValue);
   Changed;
 end;
-{$endregion}
+{$ENDREGION}
 
 procedure TEditorColorSettings.AssignDefaultColors;
 begin
@@ -269,7 +269,7 @@ begin
     FOnChanged(Self);
 end;
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure TEditorColorSettings.Assign(ASource: TPersistent);
 var
   ECS: TEditorColorSettings;
@@ -289,7 +289,7 @@ begin
   else
     inherited Assign(ASource);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

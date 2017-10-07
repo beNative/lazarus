@@ -64,7 +64,7 @@ implementation
 uses
   SysUtils;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 constructor TEditorViewInfo.Create(AView: IEditorView);
 begin
   FView := AView.Form;
@@ -75,9 +75,9 @@ begin
   FView := nil;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorViewInfo.GetFileName: string;
 begin
   Result := View.Form.Caption;
@@ -105,7 +105,7 @@ function TEditorViewInfo.GetView: IEditorView;
 begin
   Result := FView as IEditorView;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

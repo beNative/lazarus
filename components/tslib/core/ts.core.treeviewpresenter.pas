@@ -67,7 +67,7 @@ interface
 
 uses
   Classes, Controls, Menus, SysUtils, Types, Contnrs, ComCtrls,
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   ActiveX,
 {$ENDIF}
   ts.Core.ColumnDefinitions, ts.Core.DataTemplates,
@@ -216,7 +216,7 @@ type
       PropertyName: string; UpdateTrigger: TUpdateTrigger = utPropertyChanged);
     procedure DoDragAllowed(Sender: TBaseVirtualTree; Node: PVirtualNode;
       Column: TColumnIndex; var Allowed: Boolean);
-    {$IFDEF Windows}
+    {$IFDEF WINDOWS}
     procedure DoDragDrop(Sender: TBaseVirtualTree; Source: TObject;
       DataObject: IDataObject; Formats: TFormatArray; Shift: TShiftState;
       const Pt: TPoint; var Effect: LongWord; Mode: TDropMode);
@@ -418,7 +418,7 @@ implementation
 uses
   Themes, Math, Forms, Graphics, TypInfo,
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
 
@@ -773,6 +773,7 @@ var
   LCursorPos: TPoint;
   LHitInfo: THitInfo;
 begin
+  LHitInfo := Default(THitInfo);
   LCursorPos := FTreeView.ScreenToClient(Mouse.CursorPos);
   FTreeView.GetHitTestInfoAt(LCursorPos.X, LCursorPos.Y, True, LHitInfo);
 
@@ -831,7 +832,7 @@ begin
   end;
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 procedure TTreeViewPresenter.DoDragDrop(Sender: TBaseVirtualTree;
   Source: TObject; DataObject: IDataObject; Formats: TFormatArray;
   Shift: TShiftState; const Pt: TPoint; var Effect: LongWord; Mode: TDropMode);
@@ -1360,6 +1361,7 @@ procedure TTreeViewPresenter.DoMouseDown(Sender: TObject; Button: TMouseButton;
 var
   LHitInfo: THitInfo;
 begin
+  LHitInfo := Default(THitInfo);
   FChecking := False;
   if not (ssDouble in Shift)
     and not (tsVCLDragPending in FTreeView.TreeStates) then
@@ -1398,7 +1400,8 @@ procedure TTreeViewPresenter.DoMouseMove(Sender: TObject; Shift: TShiftState;
 var
   LHitInfo: THitInfo;
 begin
-{$IFDEF Windows}
+  LHitInfo := Default(THitInfo);
+{$IFDEF WINDOWS}
   if GetAsyncKeyState(VK_LBUTTON) = 0 then
   begin
     FTreeView.GetHitTestInfoAt(X, Y, True, LHitInfo);
@@ -1432,6 +1435,7 @@ var
   LItemTemplate: IDataTemplate;
   LColumnDefinition: TColumnDefinition;
 begin
+  LHitInfo := Default(THitInfo);
   if Assigned(FHitInfo.HitNode)
     and not (tsVCLDragPending in FTreeView.TreeStates) then
   begin
@@ -1684,7 +1688,7 @@ begin
 
   if (FHitInfo.HitNode = Node) and (FHitInfo.HitColumn = Column)
     and (hiOnItemCheckbox in FHitInfo.HitPositions)
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
     and (GetAsyncKeyState(VK_LBUTTON) <> 0)
 {$ENDIF}
     and ColumnDefinitions[FHitInfo.HitColumn].AllowEdit then
@@ -1703,7 +1707,7 @@ begin
   begin
     LState := LState or DFCS_CHECKED;
   end;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   DrawFrameControl(TargetCanvas.Handle, LCheckBoxRect, DFC_BUTTON, LState);
 {$ENDIF}
 end;
@@ -2048,7 +2052,7 @@ begin
     FTreeView.OnCompareNodes := DoCompareNodes;
     FTreeView.OnDblClick := DoDblClick;
     FTreeView.OnDragAllowed := DoDragAllowed;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
     FTreeView.OnDragDrop := DoDragDrop;
 {$ENDIF}
     FTreeView.OnDragOver := DoDragOver;
@@ -2156,6 +2160,7 @@ var
   LHitInfo: THitInfo;
   LRect: TRect;
 begin
+  LHitInfo := Default(THitInfo);
   if Assigned(Node) and Assigned(ColumnDefinitions) and (Column > -1)
     and (Column < ColumnDefinitions.Count)
     and (ColumnDefinitions[Column].ColumnType = TColumnType.ctCheckBox) then
@@ -2697,7 +2702,7 @@ begin
 end;
 
 initialization
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   CheckBoxSize := GetSystemMetrics(SM_CYMENUCHECK);
 {$ENDIF}
 

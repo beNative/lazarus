@@ -82,7 +82,7 @@ resourcestring
   SModified    = 'Modified';
   SPath        = 'Path';
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmViewList.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -114,9 +114,9 @@ begin
   FreeAndNil(FItemList);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmViewList.actCloseExecute(Sender: TObject);
 begin
   ModalResult := mrClose;
@@ -134,9 +134,9 @@ begin
   end;
   Refresh;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmViewList.FTVPSelectionChanged(Sender: TObject);
 var
   V: IEditorView;
@@ -147,9 +147,9 @@ begin
     Manager.ActiveView := V;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmViewList.UpdateView;
 begin
   FVST.Invalidate;
@@ -175,7 +175,7 @@ begin
   end;
   FTVP.Refresh;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

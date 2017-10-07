@@ -55,7 +55,7 @@ uses
 
 {$R *.lfm}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmSQLLog.AfterConstruction;
 var
   V: IEditorView;
@@ -74,9 +74,9 @@ begin
   //DriverManager.RemoveLoggingListener(Self);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmSQLLog.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
@@ -86,15 +86,15 @@ procedure TfrmSQLLog.SetDataSet(AValue: TDataSet);
 begin
   dscMain.DataSet := AValue;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 //procedure TfrmSQLLog.LogEvent(Event: TZLoggingEvent);
 //begin
 //  FManager.Views.ViewByName['Editor2'].Text :=
 //    FManager.Views.ViewByName['Editor2'].Text + Event.AsString + #13#10;
 //end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

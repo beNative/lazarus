@@ -215,7 +215,7 @@ uses
 
   ts.Components.UniHighlighter;
 
-{$region 'THighlighterEnumerator' /fold}
+{$REGION 'THighlighterEnumerator' /FOLD}
 function THighlighters.THighlighterEnumerator.GetCurrent: THighlighterItem;
 begin
   Result := FHighlighters[FPosition];
@@ -232,10 +232,10 @@ begin
   Inc(FPosition);
   Result := FPosition < FHighlighters.Count;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'THighlighters' /fold}
-{$region 'construction and destruction' /fold}
+{$REGION 'THighlighters' /FOLD}
+{$REGION 'construction and destruction' /FOLD}
 procedure THighlighters.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -245,9 +245,9 @@ procedure THighlighters.BeforeDestruction;
 begin
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
   Result := Components[Index] as THighlighterItem;
@@ -292,9 +292,9 @@ begin
   if Assigned(Item) then
     Item.Assign(AValue);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 { Adds a new THighlighterItem instance to the list. }
 
 function THighlighters.Add: THighlighterItem;
@@ -416,12 +416,12 @@ begin
   if HI.FileExtensions = '' then
     HI.FileExtensions := AFileExtensions;
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
-{$region 'THighlighterItem' /fold}
+{$REGION 'THighlighterItem' /FOLD}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure THighlighterItem.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -443,9 +443,9 @@ begin
   FreeAndNil(FSmartSelectionTags);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function THighlighterItem.GetDefaultFilter: string;
 begin
   Result := FDefaultFilter;
@@ -529,9 +529,9 @@ begin
   end;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 procedure THighlighterItem.Assign(Source: TPersistent);
 var
   HLI: THighlighterItem;
@@ -597,8 +597,8 @@ begin
       TSynUniSyn(SynHighlighter).LoadFromFile(S + LayoutFileName);
   end;
 end;
-{$endregion}
-{$endregion}
+{$ENDREGION}
+{$ENDREGION}
 
 initialization
   RegisterClass(THighlighters);

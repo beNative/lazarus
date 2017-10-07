@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="45"/>
-      <BuildNr Value="205"/>
+      <BuildNr Value="206"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2017 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.45" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="14">
@@ -1072,14 +1072,17 @@ end;"/>
       <Unit14>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.XMLTree"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.nodeattributes.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.XMLTree.NodeAttributes"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\components\tslib\core\ts.core.collections.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.Collections"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.editors.pas"/>
@@ -1185,6 +1188,7 @@ end;"/>
         <ComponentName Value="AnchorDockOptionsFrame"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="ts.Components.Docking.OptionsDialog"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.resources.pas"/>

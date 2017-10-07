@@ -1,7 +1,7 @@
 object frmLookup: TfrmLookup
-  Left = 531
+  Left = 532
   Height = 474
-  Top = 187
+  Top = 188
   Width = 479
   ActiveControl = edtLookup
   Caption = 'Lookup'
@@ -12,7 +12,7 @@ object frmLookup: TfrmLookup
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  Visible = False
+  LCLVersion = '1.9.0.0'
   object edtLookup: TEdit
     Left = 2
     Height = 21
@@ -89,12 +89,12 @@ object frmLookup: TfrmLookup
     TitleStyle = tsStandard
   end
   object dscMain: TDataSource
-    left = 160
-    top = 144
+    Left = 160
+    Top = 144
   end
   object aclMain: TActionList
-    left = 239
-    top = 144
+    Left = 239
+    Top = 144
     object actSearch: TAction
       Caption = 'Search'
       OnExecute = actSearchExecute

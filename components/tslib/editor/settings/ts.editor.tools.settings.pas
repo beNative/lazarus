@@ -64,7 +64,7 @@ uses
 
 { TEditorToolSettings }
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorToolSettings.GetItemsByClass(
   AClass: TComponentClass): TComponent;
 var
@@ -118,9 +118,9 @@ begin
       Result := Components[I];
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TEditorToolSettings.RegisterSettings(
   ASettingsClass: TComponentClass; const AName: string): TComponent;
 var
@@ -134,7 +134,7 @@ begin
   end;
   Result := ESI;
 end;
-{$endregion}
+{$ENDREGION}
 
 initialization
   RegisterClass(TEditorToolSettings);

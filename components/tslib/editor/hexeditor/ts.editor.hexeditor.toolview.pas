@@ -55,15 +55,15 @@ implementation
 
 {$R *.lfm}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmHexEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
   Width := Settings.Width;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmHexEditor.HexEditorChange(Sender: TObject);
 var
   S: TStream;
@@ -85,17 +85,17 @@ procedure TfrmHexEditor.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmHexEditor.GetSettings: THexEditorSettings;
 begin
   Result := inherited Settings
     .ToolSettings.ItemsByClass[THexEditorSettings] as THexEditorSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmHexEditor.UpdateView;
 var
   S: TStream;
@@ -109,7 +109,7 @@ begin
     S.Free;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

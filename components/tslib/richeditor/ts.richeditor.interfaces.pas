@@ -38,7 +38,7 @@ type
 
   IRichEditorView = interface
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
-    {%region /fold}
+    {%region /FOLD}
     // property access methods
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
@@ -239,7 +239,7 @@ type
 
   IRichEditorActions = interface
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: TActionList;
     function GetEditorPopupMenu: TPopupMenu;
     function GetItem(AName: string): TContainedAction;
@@ -248,7 +248,7 @@ type
     procedure SetActiveView(const AValue: IRichEditorView);
     function GetView(AIndex: Integer): IRichEditorView;
     function GetViewCount: Integer;
-    {$endregion}
+    {$ENDREGION}
 
     procedure UpdateActions;
     procedure OpenFileAtCursor;

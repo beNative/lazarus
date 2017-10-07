@@ -47,7 +47,7 @@ uses
 {$IFDEF FPC}
   LMessages,
 {$ENDIF}
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
   VirtualTrees,
@@ -88,7 +88,7 @@ const
   DEFAULT_FGCOLOR_ELEMENT   = clBlack;
   DEFAULT_FGCOLOR_NODE      = clBlack;
 
-{$region 'default VST options' /fold}
+{$REGION 'default VST options' /FOLD}
 const
   DEFAULT_VST_SELECTIONOPTIONS = [
     { Prevent user from selecting with the selection rectangle in multiselect
@@ -280,7 +280,7 @@ const
       to highest index and vice versa when the tree's bidi mode is changed. }
     toAutoBidiColumnOrdering
   ];
-{$endregion}
+{$ENDREGION}
 
 type
   PNodeData = ^TNodeData;
@@ -378,7 +378,7 @@ type
     function GetDefaultNodeType(AXMLNode: TXmlNode): TNodeType;
 
   protected
-    {$region 'TVirtualStringTree overrides' /fold}
+    {$REGION 'TVirtualStringTree overrides' /FOLD}
     function GetOptionsClass: TTreeOptionsClass; override;
     procedure DoInitNode(Parent, ANode: PVirtualNode;
       var InitStates: TVirtualNodeInitStates); override;
@@ -429,7 +429,7 @@ type
     procedure DoAfterItemPaint(Canvas: TCanvas; Node: PVirtualNode;
       {$IFDEF FPC}const {$ENDIF} ItemRect: TRect); override;
     procedure DoAfterPaint(Canvas: TCanvas); override;
-    {$endregion}
+    {$ENDREGION}
 
     procedure DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
       var ANewNodeType: TNodeType; var AAdd: Boolean); virtual;
@@ -499,7 +499,7 @@ type
       read GetNodeXML write SetNodeXML;
 
   published
-    {$region 'published properties' /fold}
+    {$REGION 'published properties' /FOLD}
     property XML: string
       read GetXML write SetXML;
 
@@ -716,7 +716,7 @@ type
     property OnStateChange;
     property OnStructureChange;
     property OnUpdating;
-    {$endregion}
+    {$ENDREGION}
   end;
 
 
@@ -734,17 +734,17 @@ var
   Flags: Integer;
 begin
   Flags := 0;
-  {$IFDEF Windows}
+{$IFDEF WINDOWS}
   if Pressed then Flags := BF_FLAT;
   DrawEdge(DC, Rect, EDGE_RAISED, BF_RECT or BF_MIDDLE or Flags);
   Flags := (Rect.Right - Rect.Left) div 2 - 1 + Ord(Pressed);
   PatBlt(DC, Rect.Left + Flags, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags - 3, Rect.Top + Flags, 2, 2, BLACKNESS);
   PatBlt(DC, Rect.Left + Flags + 3, Rect.Top + Flags, 2, 2, BLACKNESS);
-  {$ENDIF}
+{$ENDIF}
 end;
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 // xeElement,     //  0 normal element <name {attr}>[value][sub-elements]</name>
 // xeAttribute,   //  1 attribute ( name='value' or name="value")
 // xeCharData,    //  2 character data in a node
@@ -763,7 +763,7 @@ end;
 // xeQuotedText,  // 15 quoted text: "bla" or 'bla'
 // xeEndTag,      // 16 </...> and signal function in binary xml
 // xeError        // 17 some error or unknown
-{$endregion}
+{$ENDREGION}
 
 type
   TVKSet = set of Byte;
@@ -792,7 +792,7 @@ const
   ];
 
 
-{$region 'TXmlNodeHelper' /fold}
+{$REGION 'TXmlNodeHelper' /FOLD}
 
 type
   TXmlNodeHelper = class helper for TXmlNode
@@ -937,9 +937,9 @@ begin
     Result := ProcessXPath(Self, XPath, Nodes, False);
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 
 procedure TXMLTree.AfterConstruction;
 begin
@@ -990,9 +990,9 @@ begin
   inherited;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 
 function TXMLTree.GetNodeXML(ANode: PVirtualNode): string;
 begin
@@ -1076,9 +1076,9 @@ begin
   Result := FXMLDocument;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'message handlers' /fold}
+{$REGION 'message handlers' /FOLD}
 
 { This message was posted by ourselves from the node change handler above to
   decouple that change event and our intention to start editing a node. This
@@ -1095,9 +1095,9 @@ begin
   EditNode(Node, 1);
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 
 procedure TXMLTree.DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
   var ANewNodeType: TNodeType; var AAdd: Boolean);
@@ -1315,7 +1315,7 @@ begin
   if not(tsEditing in TreeStates) and (Shift = []) and (Key in VK_EDIT_KEYS)
   then
   begin
-    {$IFDEF Windows}
+    {$IFDEF WINDOWS}
     SendMessage(Self.Handle, WM_STARTEDITING, NativeUint(FocusedNode), 0);
     {$ENDIF}
     M.Result := 0;
@@ -1326,7 +1326,7 @@ begin
   end;
 end;
 
-{$region 'Painting overrides' /autofold}
+{$REGION 'Painting overrides' /autofold}
 { Some information taken from the Virtual Treeview manual:
 
   Usually the following paint stages are executed during a paint cycle:
@@ -1342,7 +1342,7 @@ end;
   10. after paint       (DoAfterPaint)
 }
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 { This stage is entered once per node to be drawn and allows directly to control
   the path which is the taken to paint the node. (2)
 
@@ -1359,7 +1359,7 @@ end;
   opportunity. Keep in mind though that in particular the colors are set by the
   tree according to specific rules (focus, selection etc.).
 }
-{$endregion}
+{$ENDREGION}
 
 function TXMLTree.DoBeforeItemPaint(Canvas: TCanvas; Node: PVirtualNode;
   {$IFDEF FPC}const {$ENDIF} ItemRect: TRect): Boolean;
@@ -1367,7 +1367,7 @@ begin
   Result := inherited DoBeforeItemPaint(Canvas, Node, ItemRect);
 end;
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 { This stage is also entered only once per node and allows to customize the
   node's background. (3)
 
@@ -1375,7 +1375,7 @@ end;
   different background color or erase the background with a special pattern
   which is different to what the tree would draw.
 }
-{$endregion}
+{$ENDREGION}
 
 procedure TXMLTree.DoBeforeItemErase(Canvas: TCanvas; ANode: PVirtualNode;
 {$IFDEF FPC}const{$ENDIF} ItemRect: TRect; var Color: TColor;
@@ -1391,7 +1391,7 @@ begin
 
 end;
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 { This paint stage is the first of the cell specific stages used to customize
   a single cell of a node and is called several times per node,depending on the
   number of columns. If no columns are used then it is called once.
@@ -1402,7 +1402,7 @@ end;
   painting is limited to the current column. There are still no lines or images
   painted yet.
 }
-{$endregion}
+{$ENDREGION}
 
 procedure TXMLTree.DoBeforeCellPaint(Canvas: TCanvas; ANode: PVirtualNode;
   Column: TColumnIndex; CellPaintMode: TVTCellPaintMode; CellRect: TRect;
@@ -1452,7 +1452,7 @@ begin
   inherited;
 end;
 
-{$region 'documentation'}
+{$REGION 'documentation'}
 { After default stuff like lines and images have been painted the paint node/
   paint text stage is entered.
 
@@ -1469,7 +1469,7 @@ end;
   for the normal text and once for the static text. Use the event's parameter to
   find out what is required.
 }
-{$endregion}
+{$ENDREGION}
 
 procedure TXMLTree.DoPaintText(ANode: PVirtualNode; const Canvas: TCanvas;
   Column: TColumnIndex; TextType: TVSTTextType);
@@ -1545,11 +1545,11 @@ begin
     FOnGetBackColor(Self, ANode, ND.XMLNode, ND.NodeType, ABackColor);
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 
 procedure TXMLTree.WMChar(var Message: TWMChar);
 begin
@@ -1654,9 +1654,9 @@ begin
   Logger.ExitMethod(Self, 'AddChildren');
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 
 procedure TXMLTree.InitializeNodeAttributes;
 var
@@ -1737,9 +1737,9 @@ begin
   FValueColumn := 1;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 
 procedure TXMLTree.Clear;
 begin
@@ -2087,9 +2087,9 @@ begin
   end;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'TExpandedState' /fold}
+{$REGION 'TExpandedState' /FOLD}
 procedure TExpandedState.AfterConstruction;
 begin
   inherited;
@@ -2101,7 +2101,7 @@ begin
   FList.Free;
   inherited;
 end;
-{$endregion}
+{$ENDREGION}
 
 
 end.

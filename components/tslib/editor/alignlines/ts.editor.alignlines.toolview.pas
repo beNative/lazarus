@@ -142,7 +142,7 @@ uses
 resourcestring
   SToken = 'Token';
 
-{$region 'TToken' /fold}
+{$REGION 'TToken' /FOLD}
 type
   TToken = class(TPersistent)
   private
@@ -161,9 +161,9 @@ begin
   inherited Create;
   FToken := AToken;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmAlignLines.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -194,16 +194,16 @@ begin
   FTokens.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmAlignLines.actExecuteExecute(Sender: TObject);
 begin
   Execute;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
   mmoTokens.Lines.Assign(Settings.Tokens);
@@ -268,16 +268,16 @@ procedure TfrmAlignLines.rgpSortDirectionClick(Sender: TObject);
 begin
   Settings.SortDirection := TSortDirection((Sender as TRadioGroup).ItemIndex);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
   Result := inherited Settings.ToolSettings.ItemsByClass[TAlignLinesSettings] as TAlignLinesSettings;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmAlignLines.UpdateTokenList;
 var
   S  : string;
@@ -367,7 +367,7 @@ begin
   rgpSortDirection.ItemIndex := Integer(Settings.SortDirection);
   rgpAlignAt.ItemIndex       := Integer(Settings.AlignToToken);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

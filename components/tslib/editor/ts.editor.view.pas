@@ -20,7 +20,7 @@ unit ts.Editor.View;
 
 {$MODE Delphi}
 
-{$region 'documentation' /fold}
+{$REGION 'documentation' /FOLD}
 {
 Form holding a complete customizable text editor based on the open source
 SynEdit components.
@@ -56,7 +56,7 @@ TODO:
   - SynEdit
   - ts.Core.DirectoryWatch: do react on modifications.
 }
-{$endregion}
+{$ENDREGION}
 
 interface
 uses
@@ -190,7 +190,7 @@ type
       var ComboKeyStrokes : TSynEditKeyStrokes
     );
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
     procedure DirectoryWatchNotify(const Sender: TObject;
       const AAction: TWatchAction; const FileName: string);
 {$ENDIF}
@@ -202,7 +202,7 @@ type
 
   private
     FUpdate          : Boolean;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
     FDirectoryWatch  : TDirectoryWatch;
 {$ENDIF}
     FEncoding        : string;
@@ -236,7 +236,7 @@ type
     FSearchText     : string;
     FSearchOptions  : TSynSearchOptions;
 
-    {$region 'property access methods' /fold}
+    {$REGION 'property access methods' /FOLD}
     function GetActions: IEditorActions;
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
@@ -333,7 +333,7 @@ type
     procedure SetSlaveView(AValue: IEditorView);
     procedure SetText(const AValue: string);
     procedure SetTopLine(const AValue: Integer);
-    {$endregion}
+    {$ENDREGION}
 
     procedure InitializeEditor(AEditor: TSynEdit);
     procedure EditorSettingsChanged(ASender: TObject);
@@ -628,14 +628,14 @@ type
 
 { TSynEditAccess }
 
-{$region 'TSynEditAccess' /fold}
+{$REGION 'TSynEditAccess' /FOLD}
 function TSynEditAccess.GetCaret: TSynEditCaret;
 begin
   Result := GetCaretObj;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorView.AfterConstruction;
 var
   E : TSynEditAccess;
@@ -664,7 +664,7 @@ begin
   FLineBreakStyle := ALineBreakStyles[Lines.TextLineBreakStyle];
 
   InitializeEditor(FEditor);
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
   // TEST
@@ -686,7 +686,7 @@ begin
   if Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
   DisableAutoSizing;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   FreeAndNil(FDirectoryWatch);
 {$ENDIF}
   FreeAndNil(FSynSelection);
@@ -697,9 +697,9 @@ begin
   FreeAndNil(FTemplateEdit);
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TEditorView.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 begin
@@ -857,7 +857,7 @@ begin
   Handled := Actions.ActionList.IsShortCut(Msg);
 end;
 
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 { Event triggered when MonitorChanges is True }
 
 procedure TEditorView.DirectoryWatchNotify(const Sender: TObject;
@@ -958,9 +958,9 @@ begin
     [EditorCommandToCodeString(Command), AChar]
   );
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event dispatch methods' /fold}
+{$REGION 'event dispatch methods' /FOLD}
 procedure TEditorView.DoChange;
 begin
   if Assigned(FOnChange) then
@@ -972,9 +972,9 @@ begin
   CloseAction :=  caFree;
   inherited DoClose(CloseAction);
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access methods' /fold}
+{$REGION 'property access methods' /FOLD}
 function TEditorView.GetSelText: string;
 begin
   Result := Editor.SelText;
@@ -1185,7 +1185,7 @@ end;
 
 function TEditorView.GetMonitorChanges: Boolean;
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Result := FDirectoryWatch.Running;
 {$ELSE}
   Result := False;
@@ -1194,7 +1194,7 @@ end;
 
 procedure TEditorView.SetMonitorChanges(const AValue: Boolean);
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   if AValue <> MonitorChanges then
   begin
     if AValue then
@@ -1556,9 +1556,9 @@ function TEditorView.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TEditorView.AssignHighlighterForFileType(const AFileExt: string);
 begin
   HighlighterItem := Manager.Highlighters.FindHighlighterForFileType(AFileExt);
@@ -1942,9 +1942,9 @@ procedure TEditorView.EditorSettingsChanged(ASender: TObject);
 begin
   FUpdate := True;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 { TODO: store caret pos? }
 
 procedure TEditorView.BeginUpdate;
@@ -2137,9 +2137,9 @@ begin
   end;
 end;
 
-{$endregion}
+{$ENDREGION}
 
-{$region 'public methods' /fold}
+{$REGION 'public methods' /FOLD}
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;
@@ -2292,11 +2292,11 @@ function TEditorView.GetHighlighterAttriAtRowCol(APosition: TPoint;
 begin
   Result := Editor.GetHighlighterAttriAtRowCol(APosition, AToken, AAttri);
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 
-{$region 'Keyboard shortcuts' /fold}
+{$REGION 'Keyboard shortcuts' /FOLD}
 (*//F1                      Topic Search
 //Ctrl+F1                Topic Search
   ecNextEditor: SetResult(VK_F6,[]);
@@ -2480,4 +2480,4 @@ end.
     GetDefaultKeyForCommand(Command,TheKeyA,TheKeyB);
   end;
 *)
-{$endregion}
+{$ENDREGION}

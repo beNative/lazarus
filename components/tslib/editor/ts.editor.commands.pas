@@ -30,7 +30,7 @@ unit ts.Editor.Commands;
 interface
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
 
@@ -171,7 +171,7 @@ type
 implementation
 
 uses
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
    ShlObj,
 {$ENDIF}
 
@@ -188,14 +188,14 @@ uses
 
   ts.Editor.Utils;
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TEditorCommands.AfterConstruction;
 begin
   inherited AfterConstruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TEditorCommands.GetEvents: IEditorEvents;
 begin
   Result := Manager.Events;
@@ -392,9 +392,9 @@ function TEditorCommands.IsHTML(const AString: string): Boolean;
 begin
   Result := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TEditorCommands.OpenFileAtCursor;
 var
   FN : string;
@@ -439,14 +439,14 @@ begin
 end;
 
 procedure TEditorCommands.CreateDesktopLink;
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
 var
   PIDL     : LPItemIDList;
   InFolder : array[0..MAX_PATH] of Char;
   SL       : TShellLink;
 {$ENDIF}
 begin
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   PIDL := nil;
   SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY, PIDL) ;
   SHGetPathFromIDList(PIDL, InFolder) ;
@@ -1046,7 +1046,7 @@ procedure TEditorCommands.FindPrevious;
 begin
   SearchEngine.FindPrevious;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

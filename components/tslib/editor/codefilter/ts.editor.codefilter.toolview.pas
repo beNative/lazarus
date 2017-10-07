@@ -39,7 +39,7 @@ type
   { TfrmCodeFilterDialog }
 
   TfrmCodeFilterDialog = class(TForm)
-    {$region 'designer controls' /fold}
+    {$REGION 'designer controls' /FOLD}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
     actCopyToNewView     : TAction;
@@ -70,7 +70,7 @@ type
     ToolButton1          : TToolButton;
     ToolButton3          : TToolButton;
     ToolButton4          : TToolButton;
-    {$endregion}
+    {$ENDREGION}
 
     procedure actApplyFilterExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
@@ -178,7 +178,7 @@ implementation
 
 uses
   Clipbrd, StrUtils,
-{$IFDEF Windows}
+{$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
   LCLIntf, LMessages,
@@ -240,7 +240,7 @@ resourcestring
   SLineIndex    = 'Line';
   SLineText     = 'Text';
 
-{$region 'construction and destruction' /fold}
+{$REGION 'construction and destruction' /FOLD}
 procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -296,9 +296,9 @@ begin
   FRegExpr.Free;
   inherited BeforeDestruction;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'property access mehods' /fold}
+{$REGION 'property access mehods' /FOLD}
 function TfrmCodeFilterDialog.GetVisible: Boolean;
 begin
   Result := inherited Visible;
@@ -357,9 +357,9 @@ function TfrmCodeFilterDialog.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
 begin
   FVST.Font.Assign(Manager.Settings.EditorFont);
@@ -377,9 +377,9 @@ begin
   Modified;
   UpdateView;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'action handlers' /fold}
+{$REGION 'action handlers' /FOLD}
 procedure TfrmCodeFilterDialog.actApplyFilterExecute(Sender: TObject);
 begin
   Modified;
@@ -444,9 +444,9 @@ procedure TfrmCodeFilterDialog.actSelectAllExecute(Sender: TObject);
 begin
   FTVP.SelectAll;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'event handlers' /fold}
+{$REGION 'event handlers' /FOLD}
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
   if not RegEx and (FLines.Count < MAX_LINES) then
@@ -694,9 +694,9 @@ begin
   FUpdateEditorView := True;
   tmrUpdate.Enabled := False;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'private methods' /fold}
+{$REGION 'private methods' /FOLD}
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
   I: Integer;
@@ -746,9 +746,9 @@ begin
     end;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
-{$region 'protected methods' /fold}
+{$REGION 'protected methods' /FOLD}
 procedure TfrmCodeFilterDialog.Modified;
 begin
   FUpdate := True;
@@ -830,7 +830,7 @@ begin
     SL.Free;
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 end.
 

@@ -53,7 +53,7 @@ type
     FAnimationOptions : TVTAnimationOptions;
 
  strict private const
-   {$region 'default VST options' /fold}
+   {$REGION 'default VST options' /FOLD}
     DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
       owner control. }
@@ -245,7 +245,7 @@ type
         to highest index and vice versa when the tree's bidi mode is changed. }
       toAutoBidiColumnOrdering
     ];
-    {$endregion}
+    {$ENDREGION}
 
   public
     class property HeaderOptions: TVTHeaderOptions
@@ -315,7 +315,7 @@ uses
 
   ObjectInspector;
 
-{$region 'TLocalClass' /fold}
+{$REGION 'TLocalClass' /FOLD}
 type
   TLocalClass = class
   strict private
@@ -382,11 +382,11 @@ begin
     Inspector.TIObject := ASelection.Items[0];
   end;
 end;
-{$endregion}
+{$ENDREGION}
 
 { VST }
 
-{$region 'VST' /fold}
+{$REGION 'VST' /FOLD}
 { Class constructor sets default values for our factories' properties. }
 
 class constructor VST.Create;
@@ -432,7 +432,7 @@ begin
   VST.ButtonFillMode := fmTransparent;
   Result := VST;
 end;
-{$endregion}
+{$ENDREGION}
 function CreateTVP(AOwner: TComponent; AVST: TVirtualStringTree;
   AItemsSource: TObjectList; AItemTemplate: IDataTemplate): TTreeViewPresenter;
 var

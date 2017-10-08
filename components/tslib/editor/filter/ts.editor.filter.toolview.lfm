@@ -59,8 +59,8 @@ inherited frmFilter: TfrmFilter
     Panels = <>
   end
   object aclMain: TActionList[2]
-    left = 158
-    top = 124
+    Left = 158
+    Top = 124
     object actFocusFilterText: TAction
       Caption = 'Set focus to filter text'
       OnExecute = actFocusFilterTextExecute

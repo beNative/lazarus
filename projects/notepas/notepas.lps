@@ -4,16 +4,14 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="257">
+    <Units Count="276">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="126"/>
         <CursorPos X="3" Y="152"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit0>
       <Unit1>
         <Filename Value="notepas.main.form.pas"/>
@@ -22,13 +20,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="NotePas.Main.Form"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="230"/>
         <CursorPos X="9" Y="260"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
         <Filename Value="changelog.txt"/>
@@ -62,31 +57,29 @@
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeFormatters"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="17" Y="95"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="180"/>
         <CursorPos X="50" Y="95"/>
         <UsageCount Value="201"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Utils"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1866"/>
         <CursorPos X="46" Y="1877"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
@@ -148,32 +141,26 @@
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Components.XMLTree"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="765"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="764"/>
         <CursorPos Y="744"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.nodeattributes.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Components.XMLTree.NodeAttributes"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="60"/>
-        <CursorPos X="79" Y="83"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\..\components\tslib\core\ts.core.collections.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.Collections"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="40"/>
         <CursorPos X="54" Y="65"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.editors.pas"/>
@@ -303,11 +290,10 @@
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.win32compat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="181"/>
         <CursorPos X="54" Y="195"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\core\ts.core.encodingutils.pas"/>
@@ -374,12 +360,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="ts.Components.Docking.OptionsDialog"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="26"/>
         <CursorPos X="119" Y="59"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit39>
       <Unit40>
         <Filename Value="..\..\components\tslib\components\ts.components.docking.resources.pas"/>
@@ -465,12 +449,10 @@
         <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Core.SQLParser"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="4162"/>
         <CursorPos Y="4211"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit51>
       <Unit52>
         <Filename Value="..\..\components\tslib\core\ts.core.sqltree.pas"/>
@@ -565,12 +547,10 @@
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Settings"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="561"/>
         <CursorPos X="35" Y="586"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit63>
       <Unit64>
         <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
@@ -605,11 +585,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.AboutDialog"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="26" Y="249"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.pas"/>
@@ -642,11 +620,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.View"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="15" Y="1767"/>
         <UsageCount Value="201"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolview.manager.pas"/>
@@ -1053,10 +1029,9 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.filter.ToolView"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="145"/>
-        <CursorPos X="3" Y="159"/>
+        <TopLine Value="343"/>
+        <CursorPos X="55" Y="540"/>
         <UsageCount Value="201"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit105>
       <Unit106>
         <Filename Value="..\..\components\tslib\editor\codefilter\ts.editor.codefilter.data.pas"/>
@@ -1258,7 +1233,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="42" Y="19"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="45"/>
       </Unit127>
       <Unit128>
         <Filename Value="notepas.resources.pas"/>
@@ -1266,7 +1241,7 @@
         <UnitName Value="Notepas.Resources"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="6" Y="19"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit128>
       <Unit129>
@@ -2171,109 +2146,182 @@
         <CursorPos X="71" Y="67"/>
         <UsageCount Value="10"/>
       </Unit256>
+      <Unit257>
+        <Filename Value="..\..\..\..\fpc\packages\rtl-objpas\src\inc\variants.pp"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="4481"/>
+        <CursorPos X="10" Y="4509"/>
+        <UsageCount Value="10"/>
+      </Unit257>
+      <Unit258>
+        <Filename Value="..\..\..\..\lazarus\ide\findrenameidentifier.pas"/>
+        <ComponentName Value="FindRenameIdentifierDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="FindRenameIdentifier"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="214"/>
+        <CursorPos X="48" Y="34"/>
+        <UsageCount Value="10"/>
+      </Unit258>
+      <Unit259>
+        <Filename Value="..\..\..\..\lazarus\ide\genericlisteditor.pas"/>
+        <ComponentName Value="GenericListEditForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="GenericListEditor"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="41" Y="15"/>
+        <UsageCount Value="10"/>
+      </Unit259>
+      <Unit260>
+        <Filename Value="..\..\..\..\lazarus\ide\ideoptionsdlg.pas"/>
+        <ComponentName Value="IDEOptionsDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="IDEOptionsDlg"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit260>
+      <Unit261>
+        <Filename Value="..\..\..\..\lazarus\ide\syncolorattribeditor.pas"/>
+        <ComponentName Value="SynColorAttrEditor"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="SynColorAttribEditor"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="51"/>
+        <CursorPos X="54" Y="58"/>
+        <UsageCount Value="10"/>
+      </Unit261>
+      <Unit262>
+        <Filename Value="..\..\..\..\lazarus\ide\keymapshortcutdlg.pas"/>
+        <ComponentName Value="ShortCutDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="KeyMapShortCutDlg"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="9" Y="37"/>
+        <UsageCount Value="10"/>
+      </Unit262>
+      <Unit263>
+        <Filename Value="..\..\..\..\lazarus\ide\keymapping.pp"/>
+        <UnitName Value="KeyMapping"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit263>
+      <Unit264>
+        <Filename Value="..\..\..\..\lazarus\ide\toolbarconfig.pas"/>
+        <ComponentName Value="ToolBarConfig"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ToolbarConfig"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="514"/>
+        <CursorPos X="53" Y="451"/>
+        <UsageCount Value="10"/>
+      </Unit264>
+      <Unit265>
+        <Filename Value="..\..\..\..\lazarus\components\ideintf\ideimagesintf.pas"/>
+        <UnitName Value="IDEImagesIntf"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="88"/>
+        <CursorPos X="32" Y="66"/>
+        <UsageCount Value="10"/>
+      </Unit265>
+      <Unit266>
+        <Filename Value="..\..\..\..\lazarus\ide\patheditordlg.pas"/>
+        <ComponentName Value="PathEditorDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="PathEditorDlg"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="217"/>
+        <CursorPos X="34" Y="33"/>
+        <UsageCount Value="10"/>
+      </Unit266>
+      <Unit267>
+        <Filename Value="..\..\..\..\lazarus\ide\inputfiledialog.pas"/>
+        <UnitName Value="InputFileDialog"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="37" Y="19"/>
+        <UsageCount Value="10"/>
+      </Unit267>
+      <Unit268>
+        <Filename Value="..\..\..\..\lazarus\ide\progressdlg.pas"/>
+        <ComponentName Value="IDEProgressDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ProgressDlg"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit268>
+      <Unit269>
+        <Filename Value="..\..\..\..\lazarus\ide\checkcompileropts.pas"/>
+        <ComponentName Value="CheckCompilerOptsDlg"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CheckCompilerOpts"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit269>
+      <Unit270>
+        <Filename Value="..\..\..\..\lazarus\ide\buildmodesmanager.pas"/>
+        <ComponentName Value="BuildModesForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="BuildModesManager"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit270>
+      <Unit271>
+        <Filename Value="..\..\..\..\lazarus\ide\checklfmdlg.pas"/>
+        <ComponentName Value="CheckLFMDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CheckLFMDlg"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit271>
+      <Unit272>
+        <Filename Value="..\..\..\..\lazarus\ide\keymapschemedlg.pas"/>
+        <ComponentName Value="ChooseKeySchemeDlg"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="KeymapSchemeDlg"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="26" Y="33"/>
+        <UsageCount Value="10"/>
+      </Unit272>
+      <Unit273>
+        <Filename Value="..\..\..\..\lazarus\ide\sourcesyneditor.pas"/>
+        <UnitName Value="SourceSynEditor"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="64"/>
+        <UsageCount Value="10"/>
+      </Unit273>
+      <Unit274>
+        <Filename Value="..\..\..\..\lazarus\ide\codecreationdlg.pas"/>
+        <ComponentName Value="CodeCreationDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="CodeCreationDlg"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit274>
+      <Unit275>
+        <Filename Value="..\..\..\..\lazarus\ide\encloseselectiondlg.pas"/>
+        <ComponentName Value="EncloseSelectionDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="EncloseSelectionDlg"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="25"/>
+        <CursorPos X="49" Y="36"/>
+        <UsageCount Value="10"/>
+      </Unit275>
     </Units>
-    <JumpHistory Count="25" HistoryIndex="24">
-      <Position1>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="586" TopLine="556"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="587" TopLine="556"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="588" TopLine="556"/>
-      </Position3>
-      <Position4>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="589" TopLine="556"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="590" TopLine="556"/>
-      </Position5>
-      <Position6>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="591" TopLine="556"/>
-      </Position6>
-      <Position7>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="593" TopLine="556"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="597" TopLine="556"/>
-      </Position8>
-      <Position9>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="257" Column="39" TopLine="233"/>
-      </Position9>
-      <Position10>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="260" Column="9" TopLine="230"/>
-      </Position10>
-      <Position11>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="144" Column="3" TopLine="119"/>
-      </Position11>
-      <Position12>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="146" Column="3" TopLine="121"/>
-      </Position12>
-      <Position13>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="148" Column="3" TopLine="122"/>
-      </Position13>
-      <Position14>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="154" Column="39" TopLine="122"/>
-      </Position14>
-      <Position15>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="166" Column="5" TopLine="126"/>
-      </Position15>
-      <Position16>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="156" Column="28" TopLine="116"/>
-      </Position16>
-      <Position17>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="41" Column="3" TopLine="16"/>
-      </Position17>
-      <Position18>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="39" Column="21" TopLine="16"/>
-      </Position18>
-      <Position19>
-        <Filename Value="..\..\components\tslib\core\ts.core.collections.pas"/>
-        <Caret TopLine="76"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\components\tslib\components\ts.components.xmltree.nodeattributes.pas"/>
-        <Caret Line="98" Column="62" TopLine="60"/>
-      </Position20>
-      <Position21>
-        <Filename Value="notepas.lpr"/>
-        <Caret Line="153" Column="3" TopLine="126"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\components\tslib\components\ts.components.docking.optionsdialog.pas"/>
-        <Caret Line="24" Column="19" TopLine="19"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
-        <Caret Line="184" Column="14" TopLine="151"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
-        <Caret Line="4211" TopLine="4162"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\components\tslib\core\ts.core.sqlparser.pas"/>
-        <Caret Line="51" TopLine="51"/>
-      </Position25>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="2">

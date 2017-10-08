@@ -35,7 +35,6 @@ unit ts.Editor.filter.ToolView;
   - assign TVP events (filter event)
   - assign TVP.ItemsSource property
   - assign TVP.Treeview property
-
   }
 
 interface
@@ -51,9 +50,6 @@ uses
   ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmFilter }
-
   TfrmFilter = class(TCustomEditorToolView)
     aclMain            : TActionList;
     actFocusFilterText : TAction;
@@ -99,20 +95,20 @@ type
     function IsMatch(const AString : string): Boolean; overload; inline;
     function IsMatch(
       const AString : string; // Search string
-        var AMatch  : string; // Matching string
-        var APos    : Integer // Character position where the match starts
+      var AMatch    : string; // Matching string
+      var APos      : Integer // Character position where the match starts
     ): Boolean; overload; inline;
     procedure CalcMatchRect(
-      const ASource           : string;   // String to search for a match
-      const AMatch            : string;   // The found match
-      const AOffset           : Integer;  // Character offset in Source to Match
-            ACanvas           : TCanvas;
-            AColumnDefinition : TColumnDefinition;
-        var ARect             : TRect
+      const ASource     : string;   // String to search for a match
+      const AMatch      : string;   // The found match
+      const AOffset     : Integer;  // Character offset in Source to Match
+      ACanvas           : TCanvas;
+      AColumnDefinition : TColumnDefinition;
+      var ARect         : TRect
     ); inline;
     procedure DrawMatchRect(
-            ACanvas : TCanvas;
-      const ARect   : TRect
+      ACanvas     : TCanvas;
+      const ARect : TRect
     ); inline;
 
     procedure InitializeComponents;
@@ -137,8 +133,9 @@ type
     property ItemsSource: TObjectList
       read GetItemsSource write SetItemsSource;
 
-    { If no ItemTemplate is specified, a default  one will be created that
-      returns the values of all published properties of the objects in the ItemsSource.}
+    { If no ItemTemplate is specified, a default one will be created that
+      returns the values of all published properties of the objects in the
+      ItemsSource.}
     property ItemTemplate: IDataTemplate
       read GetItemTemplate write SetItemTemplate;
   end;
@@ -148,7 +145,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants,
+  Variants, TypInfo,
 {$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
@@ -201,8 +198,6 @@ var
     VK_END
   ];
 
-{ TfrmFilter }
-
 {$REGION 'construction and destruction' /FOLD}
 procedure TfrmFilter.AfterConstruction;
 begin
@@ -241,11 +236,12 @@ function TfrmFilter.CCustomDraw(Sender: TObject;
   CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode;
   Selected: Boolean): Boolean;
 var
-  Match  : string;
-  Offset : Integer;
+  Match  : string = '';
+  Offset : Integer = 0;
   R      : TRect;
   S      : string;
 begin
+  Result := False;
   if DrawMode = dmBeforeCellPaint then
   begin
     S := ItemTemplate.GetText(Item, ColumnDefinition.Index);
@@ -254,6 +250,7 @@ begin
       R := CellRect;
       CalcMatchRect(S, Match, Offset, TargetCanvas, ColumnDefinition, R);
       DrawMatchRect(TargetCanvas, R);
+      Result := True;
     end;
   end;
 end;
@@ -303,7 +300,6 @@ begin
   Logger.Watch('G', G);
   if not (A or B or C or D or E or F or G) then
   begin
-
     FVKPressed := True;
     Key := 0;
   end
@@ -348,7 +344,7 @@ begin
   for I := 0 to ColumnDefinitions.Count - 1 do
   begin
     C := ColumnDefinitions[I];
-    //S := GetPropValue(Item, C.Name, True);
+    S := TypInfo.GetPropValue(Item, C.Name, True);
     B := B or IsMatch(S);
   end;
   Accepted := B;

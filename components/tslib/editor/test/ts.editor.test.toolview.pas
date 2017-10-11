@@ -18,7 +18,7 @@
 
 unit ts.Editor.test.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

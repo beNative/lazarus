@@ -67,7 +67,7 @@
 
 unit ts.Core.DirectoryWatch;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -18,7 +18,7 @@
 
 unit ts.Editor.AboutDialog;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {
   Credits:

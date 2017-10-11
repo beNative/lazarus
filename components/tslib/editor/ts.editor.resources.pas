@@ -20,7 +20,7 @@ unit ts.Editor.resources;
 
 { Shared resources. }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

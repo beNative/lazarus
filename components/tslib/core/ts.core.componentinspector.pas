@@ -18,7 +18,7 @@
 
 unit ts.Core.ComponentInspector;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { Author: Tim Sinaeve
   Lazarus version with native RTTI grid

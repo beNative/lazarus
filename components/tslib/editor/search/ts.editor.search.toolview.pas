@@ -28,7 +28,7 @@ unit ts.Editor.Search.ToolView;
     - copy all matches to a stringlist when regular expressions are used
 }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

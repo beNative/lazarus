@@ -3187,7 +3187,6 @@ var
   List   : TList;
   Column : TDBGridColumn;
 
-
   procedure GetFields(Fields: TFields);
   var
     I: Integer;
@@ -3199,7 +3198,6 @@ var
       //  GetFields((Fields[I] as TObjectField).Fields);
     end;
   end;
-
 
 begin
   if ([csLoading, csDestroying] * ComponentState) <> [] then

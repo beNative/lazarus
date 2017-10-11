@@ -18,7 +18,7 @@
 
 unit ts.Editor.Preview.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

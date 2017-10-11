@@ -18,7 +18,7 @@
 
 unit ts.Core.Collections;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

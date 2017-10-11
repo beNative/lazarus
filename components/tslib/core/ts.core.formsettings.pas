@@ -18,7 +18,7 @@
 
 unit ts.Core.FormSettings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

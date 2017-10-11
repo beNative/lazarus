@@ -18,7 +18,7 @@
 
 unit ts.Editor.shortcuts.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

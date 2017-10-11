@@ -47,7 +47,7 @@ $Id: ExtDialog.pas,v 1.1.1.1 2005/10/25 11:35:05 adsoft Exp $
 
 unit ts.Editor.SettingsDialog.Extensions;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

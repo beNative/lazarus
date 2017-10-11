@@ -18,7 +18,7 @@
 
 unit ts.Editor.actionlist.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

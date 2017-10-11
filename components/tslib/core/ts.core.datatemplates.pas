@@ -53,7 +53,7 @@
 
 unit ts.Core.DataTemplates;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

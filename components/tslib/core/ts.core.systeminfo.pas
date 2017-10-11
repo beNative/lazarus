@@ -1,6 +1,6 @@
 unit ts.Core.SystemInfo;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

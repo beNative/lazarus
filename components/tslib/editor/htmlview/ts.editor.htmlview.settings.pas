@@ -18,7 +18,7 @@
 
 unit ts.Editor.HTMLView.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

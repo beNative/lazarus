@@ -18,7 +18,7 @@
 
 unit ts.Editor.ScriptEditor.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

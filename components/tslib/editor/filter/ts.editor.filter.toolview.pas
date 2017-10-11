@@ -18,7 +18,7 @@
 
 unit ts.Editor.filter.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {
   This is an attempt to make a reusable filter view using a virtual treeview and

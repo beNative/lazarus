@@ -47,7 +47,7 @@ $Id: OptionsFileTypeForm.pas,v 1.3 2006/10/29 08:09:07 adsoft Exp $
 
 unit ts.Editor.SettingsDialog.FileTypes;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

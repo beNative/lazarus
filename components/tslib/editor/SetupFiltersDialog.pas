@@ -29,7 +29,7 @@ $Id: SetupFiltersDialog.pas,v 1.1.1.1 2005/10/25 11:38:03 adsoft Exp $
 
 unit SetupFiltersDialog;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

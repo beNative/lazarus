@@ -18,7 +18,7 @@
 
 unit ts.Editor.Colors.Settings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

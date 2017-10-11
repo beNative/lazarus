@@ -67,7 +67,7 @@ unit ts.Core.KeyValues;
   TODO => make it safe when the KeyValues instance is destroyed.
 }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 //*****************************************************************************
 

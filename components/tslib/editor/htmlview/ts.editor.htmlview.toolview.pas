@@ -18,7 +18,7 @@
 
 unit ts.Editor.htmlview.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

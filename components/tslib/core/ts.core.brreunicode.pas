@@ -18,7 +18,7 @@
 
 unit ts.Core.BRREUnicode;
 {$IFDEF FPC}
- {$MODE Delphi}
+ {$MODE DELPHI}
 {$ENDIF}
 interface
 

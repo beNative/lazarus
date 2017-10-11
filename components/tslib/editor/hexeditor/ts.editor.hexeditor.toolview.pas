@@ -18,7 +18,7 @@
 
 unit ts.Editor.hexeditor.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

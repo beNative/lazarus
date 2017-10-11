@@ -18,7 +18,7 @@
 
 unit ts.Core.Utils;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

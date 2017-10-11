@@ -47,7 +47,7 @@ $Id: CustomizeDialog.pas,v 1.4 2006/11/22 14:13:45 adsoft Exp $
 
 unit ts.Editor.SettingsDialog.KeyMappings;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

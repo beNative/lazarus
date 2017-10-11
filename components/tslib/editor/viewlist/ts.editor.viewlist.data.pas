@@ -18,7 +18,7 @@
 
 unit ts.Editor.ViewList.Data;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

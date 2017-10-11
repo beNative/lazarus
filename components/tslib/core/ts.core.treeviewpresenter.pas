@@ -61,7 +61,7 @@ unit ts.Core.TreeViewPresenter;
     - Added VisibleCount property
 }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -18,7 +18,7 @@
 
 unit ts.Core.XMLUtils;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

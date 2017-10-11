@@ -16,11 +16,11 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.alignlines.ToolView;
+unit ts.Editor.AlignLines.ToolView;
 
 { Tool for aligning selected lines to a common specified token. }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
@@ -71,9 +71,6 @@ const
   );
 
 type
-
-  { TfrmAlignLines }
-
   TfrmAlignLines = class(TCustomEditorToolView, IEditorToolView)
     aclMain          : TActionList;
     actExecute       : TAction;
@@ -92,8 +89,8 @@ type
     splVertical      : TSplitter;
 
     procedure actExecuteExecute(Sender: TObject);
-    procedure FormResize(Sender: TObject);
 
+    procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FTVPDoubleClick(Sender: TObject);
     procedure gbxInsertSpaceItemClick(Sender: TObject; Index: integer);

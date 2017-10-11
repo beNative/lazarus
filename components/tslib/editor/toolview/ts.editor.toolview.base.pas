@@ -36,7 +36,7 @@ unit ts.Editor.ToolView.Base;
   observed instances.
 }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

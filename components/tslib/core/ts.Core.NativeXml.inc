@@ -19,7 +19,7 @@
 
 // Freepascal
 {$IFDEF FPC}
-  {$MODE Delphi}
+  {$MODE DELPHI}
   {$DEFINE D7UP}
 {$ENDIF FPC}
 

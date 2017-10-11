@@ -18,7 +18,7 @@
 
 unit ts.Editor.SettingsDialog;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

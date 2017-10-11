@@ -49,7 +49,7 @@ $Id: OptionsAssociateForm.pas,v 1.4 2006/11/09 08:39:12 adsoft Exp $
 
 unit ts.Editor.SettingsDialog.FileAssociations;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

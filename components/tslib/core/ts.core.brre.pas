@@ -35,7 +35,7 @@ unit ts.Core.BRRE;
 // Define {$DEFINE BRREStrictUTF8} if you do want strict valid UTF8 !
 {$DEFINE BRREUseVirtualStack}
 {$IFDEF FPC}
- {$MODE Delphi}
+ {$MODE DELPHI}
  {$IFDEF cpui386}
   {$DEFINE cpu386}
  {$ENDIF}

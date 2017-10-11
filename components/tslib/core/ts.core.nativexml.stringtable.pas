@@ -56,7 +56,7 @@
 }
 unit ts.Core.NativeXml.StringTable;
 
-{$IFDEF lcl}{$MODE Delphi}{$ENDIF}
+{$IFDEF lcl}{$MODE DELPHI}{$ENDIF}
 
 interface
 

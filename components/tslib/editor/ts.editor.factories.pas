@@ -34,13 +34,10 @@ uses
   ts.Editor.Interfaces;
 
 type
-
-  { TEditorFactories }
-
   TEditorFactories = class
   public
     class function CreateSettings(
-            AOwner    : TComponent;
+      AOwner          : TComponent;
       const AFileName : string = ''
     ): IEditorSettings;
 
@@ -50,11 +47,11 @@ type
      ): IEditorManager;
 
     class function CreateView(
-            AParent       : TWinControl;
-            AManager      : IEditorManager = nil;
-      const AName         : string = '';
-      const AFileName     : string = '';
-      const AHighlighter  : string = 'TXT'
+      AParent            : TWinControl;
+      AManager           : IEditorManager = nil;
+      const AName        : string = '';
+      const AFileName    : string = '';
+      const AHighlighter : string = 'TXT'
     ): IEditorView;
 
     class function CreateMainMenu(
@@ -94,8 +91,7 @@ uses
   ts.Editor.Factories.Views, ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars;
 
-{ TEditorFactories }
-
+{$REGION 'public methods' /FOLD}
 class function TEditorFactories.CreateManager(AOwner: TComponent;
   ASettings: IEditorSettings): IEditorManager;
 var
@@ -166,6 +162,7 @@ begin
   TBF := TEditorToolbarsFactory.Create(AActions, AMenus);
   Result := TBF.CreateRightToolbar(AOwner, AParent);
 end;
+{$ENDREGION}
 
 end.
 

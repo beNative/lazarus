@@ -18,7 +18,7 @@
 
 unit ts.Editor.codefilter.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

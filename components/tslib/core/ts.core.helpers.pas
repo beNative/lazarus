@@ -18,7 +18,7 @@
 
 unit ts.Core.Helpers;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 { Collection of factory types to create components with some common settings. }
 

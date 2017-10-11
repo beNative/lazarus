@@ -28,12 +28,11 @@ uses
   ts.Editor.Interfaces;
 
 type
-{ TEditorManagerFactory }
-
   TEditorManagerFactory = class(TInterfacedObject, IEditorManagerFactory)
+  public
     function CreateInstance(
-            AOwner            : TComponent = nil;
-            APersistSettings  : Boolean = False;
+      AOwner                  : TComponent = nil;
+      APersistSettings        : Boolean = False;
       const ASettingsFileName : string = ''
     ): IEditorManager; overload;
 
@@ -50,8 +49,7 @@ uses
 
   ts.Editor.Manager;
 
-{ TEditorManagerFactory }
-
+{$REGION 'public methods' /FOLD}
 function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
   APersistSettings: Boolean; const ASettingsFileName: string): IEditorManager;
 var
@@ -79,6 +77,7 @@ function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
 begin
   Result := TdmEditorManager.Create(AOwner, ASettings);
 end;
+{$ENDREGION}
 
 end.
 

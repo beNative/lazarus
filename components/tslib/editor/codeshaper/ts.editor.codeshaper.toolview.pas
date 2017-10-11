@@ -18,7 +18,7 @@
 
 unit ts.Editor.CodeShaper.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {
   TODO:

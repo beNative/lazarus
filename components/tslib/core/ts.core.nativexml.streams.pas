@@ -27,7 +27,7 @@
 }
 unit ts.Core.NativeXml.Streams;
 
-{$IFDEF FPC}{$MODE Delphi}{$ENDIF}
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
 
 interface
 

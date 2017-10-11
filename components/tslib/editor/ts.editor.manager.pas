@@ -18,7 +18,7 @@
 
 unit ts.Editor.Manager;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {$REGION 'documentation' /FOLD}
 {
@@ -549,8 +549,8 @@ type
     procedure ActiveViewChanged;
 
     function SaveFile(
-      const AFileName   : string = '';
-            AShowDialog : Boolean = False
+      const AFileName : string = '';
+      AShowDialog     : Boolean = False
     ): Boolean;
     function ViewsModified: Boolean;
 
@@ -584,9 +584,9 @@ type
     {$ENDREGION}
 
     procedure ShowToolView(
-       const AName : string;
-       AShowModal  : Boolean;
-       ASetFocus   : Boolean
+      const AName : string;
+      AShowModal  : Boolean;
+      ASetFocus   : Boolean
     );
 
     // TComponent overrides
@@ -608,8 +608,8 @@ type
     procedure ClearHighlightSearch;
     function OpenFile(const AFileName: string): IEditorView;
     function NewFile(
-      const AFileName  : string;
-      const AText      : string = ''
+      const AFileName : string;
+      const AText     : string = ''
     ): IEditorView;
     {$ENDREGION}
 

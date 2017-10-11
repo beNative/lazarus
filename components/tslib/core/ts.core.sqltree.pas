@@ -33,7 +33,7 @@
 
 unit ts.Core.SQLTree;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

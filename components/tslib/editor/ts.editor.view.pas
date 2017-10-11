@@ -18,7 +18,7 @@
 
 unit ts.Editor.View;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 {$REGION 'documentation' /FOLD}
 {
@@ -78,9 +78,6 @@ uses
   ts.Core.SharedLogger;
 
 type
-
-  { TEditorView }
-
   TEditorView = class(TForm, IEditorView, IEditorSelection)
   published
     imlBookmarkImages: TImageList;
@@ -95,14 +92,14 @@ type
       AUpdating  : Boolean
     );
     procedure EditorSpecialLineMarkup(
-          Sender  : TObject;
-          Line    : Integer;
+      Sender      : TObject;
+      Line        : Integer;
       var Special : Boolean;
-          Markup  : TSynSelectedColor
+      Markup      : TSynSelectedColor
     );
     procedure EditorClearBookmark(
-          Sender : TObject;
-      var Mark   : TSynEditMark
+      Sender   : TObject;
+      var Mark : TSynEditMark
     );
     procedure EditorGutterClick(
       Sender     : TObject;
@@ -110,20 +107,20 @@ type
       Mark       : TSynEditMark
     );
     procedure EditorCutCopy(
-          Sender       : TObject;
-      var AText        : string;
-      var AMode        : TSynSelectionMode;
-          ALogStartPos : TPoint;
-      var AAction      : TSynCopyPasteAction
+      Sender        : TObject;
+      var AText     : string;
+      var AMode     : TSynSelectionMode;
+       ALogStartPos : TPoint;
+      var AAction   : TSynCopyPasteAction
     );
     procedure EditorMouseLink(
-          Sender         : TObject;
-          X, Y           : Integer;
+      Sender             : TObject;
+      X, Y               : Integer;
       var AllowMouseLink : Boolean
     );
     procedure EditorSpecialLineColors(
-          Sender  : TObject;
-          Line    : Integer;
+      Sender      : TObject;
+      Line        : Integer;
       var Special : Boolean;
       var FG, BG  : TColor
     );
@@ -135,64 +132,67 @@ type
       X, Y   : Integer
     );
     procedure EditorPaste(
-          Sender       : TObject;
-      var AText        : string;
-      var AMode        : TSynSelectionMode;
-          ALogStartPos : TPoint;
-      var AAction      : TSynCopyPasteAction
+      Sender       : TObject;
+      var AText    : string;
+      var AMode    : TSynSelectionMode;
+      ALogStartPos : TPoint;
+      var AAction  : TSynCopyPasteAction
     );
     procedure EditorStatusChange(
       Sender  : TObject;
       Changes : TSynStatusChanges
     );
     procedure EditorProcessCommand(
-          Sender  : TObject;
+      Sender      : TObject;
       var Command : TSynEditorCommand;
       var AChar   : TUTF8Char;
-          Data    : Pointer
+      Data        : Pointer
     );
     procedure EditorProcessUserCommand(
-          Sender  : TObject;
+      Sender      : TObject;
       var Command : TSynEditorCommand;
       var AChar   : TUTF8Char;
-          Data    : Pointer
+      Data        : Pointer
     );
     procedure EditorCommandProcessed(
-          Sender  : TObject;
+      Sender      : TObject;
       var Command : TSynEditorCommand;
       var AChar   : TUTF8Char;
-          Data    : Pointer
+      Data        : Pointer
     );
     procedure EditorReplaceText(
-            Sender        : TObject;
-      const ASearch       : string;
-      const AReplace      : string;
-            Line, Column  : Integer;
-        var ReplaceAction : TSynReplaceAction
+      Sender            : TObject;
+      const ASearch     : string;
+      const AReplace    : string;
+      Line, Column      : Integer;
+      var ReplaceAction : TSynReplaceAction
     );
     function EditorMouseActionExec(
-          AnAction : TSynEditMouseAction;
-      var AnInfo   : TSynEditMouseActionInfo
+      AnAction   : TSynEditMouseAction;
+      var AnInfo : TSynEditMouseActionInfo
     ): Boolean;
     function EditorMouseActionSearch(
-      var AnInfo          : TSynEditMouseActionInfo;
-          HandleActionProc: TSynEditMouseActionHandler
+      var AnInfo       : TSynEditMouseActionInfo;
+      HandleActionProc : TSynEditMouseActionHandler
     ): Boolean;
     procedure EditorKeyTranslation(
-          Sender          : TObject;
-          Code            : Word;
-          SState          : TShiftState;
+      Sender              : TObject;
+      Code                : Word;
+      SState              : TShiftState;
       var Data            : Pointer;
       var IsStartOfCombo  : Boolean;
       var Handled         : Boolean;
       var Command         : TSynEditorCommand;
-          FinishComboOnly : Boolean;
+      FinishComboOnly     : Boolean;
       var ComboKeyStrokes : TSynEditKeyStrokes
     );
 
 {$IFDEF WINDOWS}
-    procedure DirectoryWatchNotify(const Sender: TObject;
-      const AAction: TWatchAction; const FileName: string);
+    procedure DirectoryWatchNotify(
+      const Sender   : TObject;
+      const AAction  : TWatchAction;
+      const FileName : string
+    );
 {$ENDIF}
 
     function IsActive: Boolean;
@@ -356,12 +356,12 @@ type
 
     procedure ClearHighlightSearch;
     procedure SetHighlightSearch(
-      const ASearch  : string;
-            AOptions : TSynSearchOptions
+      const ASearch : string;
+      AOptions      : TSynSearchOptions
     );
     procedure SearchAndSelectLine(
-            ALineIndex : Integer;
-      const ALine      : string
+      ALineIndex  : Integer;
+      const ALine : string
     );
     procedure SearchAndSelectText(const AText: string);
     procedure SelectWord;
@@ -390,9 +390,9 @@ type
     function GetWordAtPosition(const APosition: TPoint): string;
     function GetWordFromCaret(const ACaretPos: TPoint): string;
     function GetHighlighterAttriAtRowCol(
-          APosition : TPoint;
-      out AToken    : string;
-      out AAttri    : TSynHighlighterAttributes
+      APosition  : TPoint;
+      out AToken : string;
+      out AAttri : TSynHighlighterAttributes
     ): Boolean;
     procedure Load(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
@@ -610,14 +610,12 @@ uses
   ts.Editor.Utils;
 
 type
-
-  { TSynEditAccess }
-
   TSynEditAccess = class(TSynEdit)
   private
     function GetCaret: TSynEditCaret;
   public
-     // As viewed internally (with uncommited spaces / TODO: expanded tabs, folds). This may change, use with care
+     // As viewed internally (with uncommited spaces / TODO: expanded tabs,
+    // folds). This may change, use with care
     property ViewedTextBuffer;
     // (TSynEditStringList) No uncommited (trailing/trimmable) spaces
     property TextBuffer;
@@ -711,27 +709,27 @@ end;
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  Logger.Send(
-    'EditorProcessUserCommand(Command = %s; AChar = %s; Data)',
-    [EditorCommandToCodeString(Command), AChar]
-  );
+  //Logger.Send(
+  //  'EditorProcessUserCommand(Command = %s; AChar = %s; Data)',
+  //  [EditorCommandToCodeString(Command), AChar]
+  //);
 end;
 
 procedure TEditorView.EditorReplaceText(Sender: TObject; const ASearch: string;
   const AReplace: string; Line, Column: Integer;
   var ReplaceAction: TSynReplaceAction);
 begin
-  Logger.Send('EditorReplaceText');
+  //Logger.Send('EditorReplaceText');
 end;
 
 function TEditorView.EditorMouseActionExec(AnAction: TSynEditMouseAction;
   var AnInfo: TSynEditMouseActionInfo): Boolean;
 begin
   Result := False;
-  Logger.Send(
-    'EditorMouseActionExec(Action = %s)',
-    [AnAction.DisplayName]
-  );
+  //Logger.Send(
+  //  'EditorMouseActionExec(Action = %s)',
+  //  [AnAction.DisplayName]
+  //);
   if AnAction.Command in [emcWheelZoomOut, emcWheelZoomIn, emcWheelZoomNorm] then
   begin
     // this is called before the font is actually changed
@@ -744,9 +742,9 @@ function TEditorView.EditorMouseActionSearch(
   HandleActionProc: TSynEditMouseActionHandler): Boolean;
 begin
   Result := False;
-  Logger.Send(
-    'EditorMouseActionSearch(Action = ?)'
-  );
+  //Logger.Send(
+  //  'EditorMouseActionSearch(Action = ?)'
+  //);
 end;
 
 procedure TEditorView.EditorKeyTranslation(Sender: TObject; Code: Word;
@@ -760,19 +758,19 @@ end;
 procedure TEditorView.EditorCommandProcessed(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  Logger.Send(
-    'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
-    [EditorCommandToCodeString(Command), AChar]
-  );
+  //Logger.Send(
+  //  'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
+  //  [EditorCommandToCodeString(Command), AChar]
+  //);
 end;
 
 procedure TEditorView.EditorChangeUpdating(ASender: TObject;
   AUpdating: Boolean);
 begin
-  Logger.Send(
-    'EditorChangeUpdating(AUpdating = %s)',
-    [BoolToStr(AUpdating, 'True', 'False')]
-  );
+  //Logger.Send(
+  //  'EditorChangeUpdating(AUpdating = %s)',
+  //  [BoolToStr(AUpdating, 'True', 'False')]
+  //);
   if FFontChanged then
   begin
     Settings.EditorFont.Assign(EditorFont);
@@ -783,23 +781,23 @@ end;
 
 procedure TEditorView.EditorSpecialLineMarkup(Sender: TObject; Line: Integer;
   var Special: Boolean; Markup: TSynSelectedColor);
-var
-  S : string;
+//var
+//  S : string;
 begin
-  S := Markup.ToString;
-  Logger.Send(
-    'EditorSpecialLineMarkup(Line = %d; Special = %s; Markup = %s)',
-    [Line, BoolToStr(Special, 'True', 'False'), S]
-  );
+//  S := Markup.ToString;
+//  Logger.Send(
+//    'EditorSpecialLineMarkup(Line = %d; Special = %s; Markup = %s)',
+//    [Line, BoolToStr(Special, 'True', 'False'), S]
+//  );
 end;
 
 procedure TEditorView.EditorClearBookmark(Sender: TObject;
   var Mark: TSynEditMark);
-var
-  S : string;
+//var
+//  S : string;
 begin
-  S := GetEnumName(TypeInfo(TSynEditMark), Integer(Mark));
-  Logger.Send('EditorClearBookmark(Mark = %s)', [S]);
+  //S := GetEnumName(TypeInfo(TSynEditMark), Integer(Mark));
+  //Logger.Send('EditorClearBookmark(Mark = %s)', [S]);
 end;
 
 procedure TEditorView.EditorGutterClick(Sender: TObject; X, Y, Line: Integer;
@@ -821,33 +819,33 @@ end;
 procedure TEditorView.EditorCutCopy(Sender: TObject; var AText: string;
   var AMode: TSynSelectionMode; ALogStartPos: TPoint;
   var AAction: TSynCopyPasteAction);
-var
-  S : string;
-  T : string;
+//var
+//  S : string;
+//  T : string;
 begin
-  S := GetEnumName(TypeInfo(TSynSelectionMode), Integer(AMode));
-  T := GetEnumName(TypeInfo(TSynCopyPasteAction), Integer(AAction));
-  Logger.Send(
-    'EditorCutCopy(AText = %s; AMode = %s; ALogStartPos = %s; AAction = %s)',
-    [AText, S, Logger.PointToStr(ALogStartPos), T]
-  );
+  //S := GetEnumName(TypeInfo(TSynSelectionMode), Integer(AMode));
+  //T := GetEnumName(TypeInfo(TSynCopyPasteAction), Integer(AAction));
+  //Logger.Send(
+  //  'EditorCutCopy(AText = %s; AMode = %s; ALogStartPos = %s; AAction = %s)',
+  //  [AText, S, Logger.PointToStr(ALogStartPos), T]
+  //);
 end;
 
 procedure TEditorView.EditorMouseLink(Sender: TObject; X, Y: Integer;
   var AllowMouseLink: Boolean);
 begin
-  Logger.Send(
-    'EditorMouseLink(X = %d; Y = %d; AllowMouseLink = %s)',
-    [X, Y, BoolToStr(AllowMouseLink, 'True', 'False')]
-  );
+  //Logger.Send(
+  //  'EditorMouseLink(X = %d; Y = %d; AllowMouseLink = %s)',
+  //  [X, Y, BoolToStr(AllowMouseLink, 'True', 'False')]
+  //);
   AllowMouseLink := True;
 end;
 
 procedure TEditorView.EditorSpecialLineColors(Sender: TObject; Line: Integer;
   var Special: Boolean; var FG, BG: TColor);
 begin
-  // Workaround for SynEdit bug. Needs to be handled in order to let Editor.LineHighlightColor work.
-  // 21/09/2013
+  // Workaround for SynEdit bug. Needs to be handled in order to let
+  // Editor.LineHighlightColor work. 21/09/2013
 end;
 
 { Makes actionlist shortcuts work on the form }
@@ -885,16 +883,16 @@ end;
 procedure TEditorView.EditorPaste(Sender: TObject; var AText: string;
   var AMode: TSynSelectionMode; ALogStartPos: TPoint;
   var AAction: TSynCopyPasteAction);
-var
-  S : string;
-  T : string;
+//var
+//  S : string;
+//  T : string;
 begin
-  S := GetEnumName(TypeInfo(TSynSelectionMode), Integer(AMode));
-  T := GetEnumName(TypeInfo(TSynCopyPasteAction), Integer(AAction));
-  Logger.Send(
-    'EditorPaste(AMode = %s; ALogStartPos = %s; AAction = %s)',
-    [S, Logger.PointToStr(ALogStartPos), T]
-  );
+  //S := GetEnumName(TypeInfo(TSynSelectionMode), Integer(AMode));
+  //T := GetEnumName(TypeInfo(TSynCopyPasteAction), Integer(AAction));
+  //Logger.Send(
+  //  'EditorPaste(AMode = %s; ALogStartPos = %s; AAction = %s)',
+  //  [S, Logger.PointToStr(ALogStartPos), T]
+  //);
   if (Lines.Count = 0) and Settings.AutoGuessHighlighterType then
     Commands.GuessHighlighterType;
   if (HighlighterName = HL_XML) and Settings.AutoFormatXML then
@@ -905,7 +903,7 @@ end;
 
 procedure TEditorView.EditorChange(Sender: TObject);
 begin
-  Logger.Send('EditorChange');
+  //Logger.Send('EditorChange');
   DoChange;
   Events.DoChange;
 end;
@@ -915,10 +913,10 @@ procedure TEditorView.EditorStatusChange(Sender: TObject;
 begin
   if not (csDestroying in ComponentState) then
   begin
-    Logger.Send(
-      'EditorStatusChange(Changes = %s)',
-      [SetToString(TypeInfo(TSynStatusChanges), Changes)]
-    );
+    //Logger.Send(
+    //  'EditorStatusChange(Changes = %s)',
+    //  [SetToString(TypeInfo(TSynStatusChanges), Changes)]
+    //);
 
     // we use this event to ensure that the view is activated because the OnEnter
     // event is not triggered when the form is undocked!
@@ -939,24 +937,15 @@ begin
       Events.DoModified;
     end;
   end;
-  //Logger.Send('FirstLineBytePos', SynSelection.FirstLineBytePos);
-  //Logger.Send('EndLineBytePos', SynSelection.EndLineBytePos);
-  //Logger.Send('StartLinePos', SynSelection.StartLinePos);
-  //Logger.Send('EndLinePos', SynSelection.EndLinePos);
-  //Logger.Send('StartBytePos', SynSelection.StartBytePos);
-  //Logger.Send('EndBytePos', SynSelection.EndBytePos);
-  //Logger.Send('LastLineBytePos', SynSelection.LastLineBytePos);
-
 end;
 
 procedure TEditorView.EditorProcessCommand(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  // TODO: dispatch events to manager (cfr. bookmarks)
-  Logger.Send(
-    'EditorProcessCommand(Command = %s; AChar = %s; Data)',
-    [EditorCommandToCodeString(Command), AChar]
-  );
+  //Logger.Send(
+  //  'EditorProcessCommand(Command = %s; AChar = %s; Data)',
+  //  [EditorCommandToCodeString(Command), AChar]
+  //);
 end;
 {$ENDREGION}
 
@@ -1054,9 +1043,8 @@ begin
     HighlighterItem := Manager.Highlighters.ItemsByName[AValue];
   end;
   //if no Highlighters defined, we use the number0 Highlighters
-  if trim(AValue)='' then
-     if Manager.Highlighters.Count>0 then
-         HighlighterItem := Manager.Highlighters.Items[0];
+  if (Trim(AValue) = '') and (Manager.Highlighters.Count > 0) then
+    HighlighterItem := Manager.Highlighters.Items[0];
 end;
 
 function TEditorView.GetInsertMode: Boolean;
@@ -1096,7 +1084,6 @@ procedure TEditorView.SetLines(const Value: TStrings);
 begin
   Editor.Lines := Value;
 end;
-
 
 function TEditorView.GetSearchText: string;
 begin
@@ -1843,7 +1830,7 @@ begin
   AEditor.Keystrokes.Delete(N);
 
   // TEMP CODE FOR MACOS FIX
-  {$IFDEF DARWIN}
+{$IFDEF DARWIN}
   //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+C'));
   //AEditor.Keystrokes.Delete(N);
   //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+V'));
@@ -1871,8 +1858,7 @@ begin
   //    ShiftMask := [];
   //    Command   := ecCut;
   //end;
-  {$ENDIF}
-
+{$ENDIF}
 
   //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+S'));
   //AEditor.Keystrokes.Delete(N);
@@ -2295,189 +2281,3 @@ end;
 {$ENDREGION}
 
 end.
-
-{$REGION 'Keyboard shortcuts' /FOLD}
-(*//F1                      Topic Search
-//Ctrl+F1                Topic Search
-  ecNextEditor: SetResult(VK_F6,[]);
-  ecPrevEditor: SetResult(VK_F6,[ssShift]);
-  ecWordLeft:   SetResult(VK_A,[ssCtrlOS],VK_LEFT,[ssCtrlOS]);
-  ecPageDown:   SetResult(VK_C,[ssCtrlOS],VK_NEXT,[]);
-//Ctrl+D                 Moves the cursor right one column, accounting for the
-//autoindent setting
-//Ctrl+E                 Moves the cursor up one line
-//Ctrl+F                 Moves one word right
-//Ctrl+G                 Deletes the character to the right of the cursor
-//Ctrl+H                 Deletes the character to the left of the cursor
-//Ctrl+I                  Inserts a tab
-//Ctrl+L                 Search|Search Again
-//Ctrl+N                 Inserts a new line
-//Ctrl+P                 Causes next character to be interpreted as an ASCII
-//sequence
-//Ctrl+R                 Moves up one screen
-//Ctrl+S                 Moves the cursor left one column, accounting for the
-//autoindent setting
-//Ctrl+T                 Deletes a word
-//Ctrl+V                 Turns insert mode on/off
-//Ctrl+W                Moves down one screen
-//Ctrl+X                 Moves the cursor down one line
-//Ctrl+Y                 Deletes a line
-//Ctrl+Z                 Moves the cursor up one line
-//Ctrl+Shift+S          Performs an incremental search
-
-//Block commands:
-//---------------
-//Ctrl+K+B      Marks the beginning of a block
-//Ctrl+K+C      Copies a selected block
-//Ctrl+K+H      Hides/shows a selected block
-//Ctrl+K+I       Indents a block by the amount specified in the Block Indent
-//combo box on the General page of the Editor Options dialog box.
-//Ctrl+K+K      Marks the end of a block
-//Ctrl+K+L       Marks the current line as a block
-//Ctrl+K+N      Changes a block to uppercase
-//Ctrl+K+O      Changes a block to lowercase
-//Ctrl+K+P      Prints selected block
-//Ctrl+K+R      Reads a block from a file
-//Ctrl+K+T       Marks a word as a block
-//Ctrl+K+U      Outdents a block by the amount specified in the Block Indent
-//combo box on the General page of the Editor Options dialog box.
-//Ctrl+K+V      Moves a selected block
-//Ctrl+K+W      Writes a selected block to a file
-//Ctrl+K+Y      Deletes a selected block
-//Ctrl+O+C      Turns on column blocking
-//Ctrl+O+I       Marks an inclusive block
-//Ctrl+O+K      Turns off column blocking
-//Ctrl+O+L      Marks a line as a block
-//Shift+Alt+arrow Selects column-oriented blocks
-//Click+Alt+mousemv Selects column-oriented blocks
-//Ctrl+Q+B      Moves to the beginning of a block
-//Ctrl+Q+K      Moves to the end of a block
-
-//Miscellaneous commands:
-//-----------------------
-//Ctrl+K+D      Accesses the menu bar
-//Ctrl+K+E       Changes a word to lowercase
-//Ctrl+K+F       Changes a word to uppercase
-//Ctrl+K+S      File|Save (Default and IDE Classic only)
-//Ctrl+Q+A      Search|Replace
-//Ctrl+Q+F      Search|Find
-//Ctrl+Q+Y      Deletes to the end of a line
-//Ctrl+Q+[       Finds the matching delimiter (forward)
-//Ctrl+Q+Ctrl+[ Finds the matching delimiter (forward)
-//Ctrl+Q+]       Finds the matching delimiter (backward)
-//Ctrl+Q+Ctrl+] Finds the matching delimiter (backward)
-//Ctrl+O+A      Open file at cursor
-//Ctrl+O+B      Browse symbol at cursor (Delphi only)
-//Alt+right arrow  For code browsing
-//Alt +left arrow For code browsing
-//Ctrl+O+G      Search|Go to line number
-//Ctrl+O+O      Inserts compiler options and directives
-//Ctrl+O+U      Toggles case
-//Bookmark commands:
-//------------------
-//Shortcut       Action
-//Ctrl+K+0       Sets bookmark 0
-//Ctrl+K+1       Sets bookmark 1
-//Ctrl+K+2       Sets bookmark 2
-//Ctrl+K+3       Sets bookmark 3
-//Ctrl+K+4       Sets bookmark 4
-//Ctrl+K+5       Sets bookmark 5
-//Ctrl+K+6       Sets bookmark 6
-//Ctrl+K+7       Sets bookmark 7
-//Ctrl+K+8       Sets bookmark 8
-//Ctrl+K+9       Sets bookmark 9
-//Ctrl+K+Ctrl+0 Sets bookmark 0
-//Ctrl+K+Ctrl+1 Sets bookmark 1
-//Ctrl+K+Ctrl+2 Sets bookmark 2
-//Ctrl+K+Ctrl+3 Sets bookmark 3
-//Ctrl+K+Ctrl+4 Sets bookmark 4
-//Ctrl+K+Ctrl+5 Sets bookmark 5
-//Ctrl+K+Ctrl+6 Sets bookmark 6
-//Ctrl+K+Ctrl+7 Sets bookmark 7
-//Ctrl+K+Ctrl+8 Sets bookmark 8
-//Ctrl+K+Ctrl+9 Sets bookmark 9
-//Ctrl+Q+0       Goes to bookmark 0
-//Ctrl+Q+1       Goes to bookmark 1
-//Ctrl+Q+2       Goes to bookmark 2
-//Ctrl+Q+3       Goes to bookmark 3
-//Ctrl+Q+4       Goes to bookmark 4
-//Ctrl+Q+5       Goes to bookmark 5
-//Ctrl+Q+6       Goes to bookmark 6
-//Ctrl+Q+7       Goes to bookmark 7
-//Ctrl+Q+8       Goes to bookmark 8
-//Ctrl+Q+9       Goes to bookmark 9
-//Ctrl+Q+Ctrl+0 Goes to bookmark 0
-//Ctrl+Q+Ctrl+1 Goes to bookmark 1
-//Ctrl+Q+Ctrl+2 Goes to bookmark 2
-//Ctrl+Q+Ctrl+3 Goes to bookmark 3
-//Ctrl+Q+Ctrl+4 Goes to bookmark 4
-//Ctrl+Q+Ctrl+5 Goes to bookmark 5
-//Ctrl+Q+Ctrl+6 Goes to bookmark 6
-//Ctrl+Q+Ctrl+7 Goes to bookmark 7
-//Ctrl+Q+Ctrl+8 Goes to bookmark 8
-//Ctrl+Q+Ctrl+9 Goes to bookmark 9
-//Cursor movement:
-//----------------
-//Ctrl+Q+B      Moves to the beginning of a block
-//Ctrl+Q+C      Moves to end of a file
-//Ctrl+Q+D      Moves to the end of a line
-//Ctrl+Q+E      Moves the cursor to the top of the window
-//Ctrl+Q+K      Moves to the end of a block
-//Ctrl+Q+P      Moves to previous position
-//Ctrl+Q+R      Moves to the beginning of a file
-//Ctrl+Q+S      Moves to the beginning of a line
-//Ctrl+Q+T      Moves the viewing editor so that the current line is placed at
-//the top of the window
-//Ctrl+Q+U      Moves the viewing editor so that the current line is placed at
-//the bottom of the window, if possible
-//Ctrl+Q+X      Moves the cursor to the bottom of the window
-//System keys:
-//------------
-
-//F1              Displays context-sensitive Help
-//F2              File|Save
-//F3              File|Open
-//F4              Run to Cursor
-//F5              Zooms window
-//F6              Displays the next page
-//F7              Run|Trace Into
-//F8              Run|Step Over
-//F9              Run|Run
-//F11             View|Object Inspector
-//F12             View|Toggle Form/Unit
-//Alt+0           View|Window List
-//Alt+F2          View|CPU
-//Alt+F3          File|Close
-//Alt+F7          Displays previous error in Message view
-//Alt+F8          Displays next error in Message view
-//Alt+F11        File|Use Unit (Delphi)
-//Alt+F11        File|Include Unit Hdr (C++)
-//Alt+F12        Displays the Code editor
-//Alt+X           File|Exit
-//Alt+right arrow  For code browsing forward
-//Alt +left arrow For code browsing backward
-//Alt +up arrow  For code browsing Ctrl-click on identifier
-//Alt+Page Down Goes to the next tab
-//Alt+Page Up   Goes to the previous tab
-//Ctrl+F1        Topic Search
-//Ctrl+F2        Run|Program Reset
-//Ctrl+F3        View|Call Stack
-//Ctrl+F6        Open Source/Header file (C++)
-//Ctrl+F7        Add Watch at Cursor
-//Ctrl+F8        Toggle Breakpoint
-//Ctrl+F9        Project|Compile project (Delphi)
-//Ctrl+F9        Project|Make project (C++)
-//Ctrl+F11       File|Open Project
-//Ctrl+F12       View|Units
-//Shift+F7       Run|Trace To Next Source Line
-//Shift+F11      Project|Add To Project
-//Shift+F12      View|Forms
-//Ctrl+D         Descends item (replaces Inspector window)
-//Ctrl+N         Opens a new Inspector window
-//Ctrl+S          Incremental search
-//Ctrl+T          Displays the Type Cast dialog
-  else
-    GetDefaultKeyForCommand(Command,TheKeyA,TheKeyB);
-  end;
-*)
-{$ENDREGION}

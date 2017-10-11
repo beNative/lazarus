@@ -18,7 +18,7 @@
 
 unit ts.Editor.sortstrings.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

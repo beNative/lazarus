@@ -18,7 +18,7 @@
 
 unit ts.Editor.colors.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
@@ -28,9 +28,6 @@ uses
   ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmColors }
-
   TfrmColors = class(TForm)
 
   end;

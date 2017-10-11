@@ -18,7 +18,7 @@
 
 unit ts.Editor.minimap.ToolView;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

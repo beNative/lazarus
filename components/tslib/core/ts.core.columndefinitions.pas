@@ -60,7 +60,7 @@
 
 unit ts.Core.ColumnDefinitions;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

@@ -129,7 +129,7 @@
 
 unit ts.Core.Value;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

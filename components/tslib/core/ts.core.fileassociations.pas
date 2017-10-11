@@ -49,7 +49,7 @@ $Id: uAssociate.pas,v 1.2 2006/03/15 09:38:14 adsoft Exp $
 
 unit ts.Core.FileAssociations;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

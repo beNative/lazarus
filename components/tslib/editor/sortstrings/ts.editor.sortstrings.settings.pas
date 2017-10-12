@@ -31,9 +31,6 @@ const
   DEFAULT_WIDTH = 360;
 
 type
-
-  { TSortStringsSettings }
-
   TSortStringsSettings = class(TComponent)
   strict private
     FCaseSensitive : Boolean;
@@ -70,7 +67,7 @@ implementation
 
 { TSortStringsSettings }
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TSortStringsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -83,7 +80,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TSortStringsSettings.AssignTo(Dest: TPersistent);
 var
   S: TSortStringsSettings;

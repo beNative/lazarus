@@ -23,15 +23,12 @@ unit ts.Editor.HexEditor.Settings;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
-
-  { THexEditorSettings }
-
   THexEditorSettings = class(TComponent)
   private
     FWidth: Integer;
@@ -47,7 +44,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure THexEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -55,7 +52,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure THexEditorSettings.AssignTo(Dest: TPersistent);
 var
   S: THexEditorSettings;

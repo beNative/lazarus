@@ -75,7 +75,7 @@ implementation
 uses
   ts.Editor.Search.Data;
 
-{$REGION 'TSearchResultTemplate' /FOLD}
+{$REGION 'TSearchResultTemplate'}
 function TSearchResultTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
 begin
@@ -91,7 +91,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSearchResultLineTemplate' /FOLD}
+{$REGION 'TSearchResultLineTemplate'}
 procedure TSearchResultLineTemplate.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -138,7 +138,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSearchResultGroupTemplate' /FOLD}
+{$REGION 'TSearchResultGroupTemplate'}
 function TSearchResultGroupTemplate.GetItemCount(const Item: TObject): Integer;
 begin
   if Item is TSearchResultGroup then

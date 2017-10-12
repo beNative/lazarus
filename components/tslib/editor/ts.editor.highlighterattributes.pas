@@ -147,8 +147,8 @@ type
 
 implementation
 
-{$REGION 'THighlighterAttributes' /FOLD}
-{$REGION 'THighlighterAttributes.THighlighterAttributesEnumerator' /FOLD}
+{$REGION 'THighlighterAttributes'}
+{$REGION 'THighlighterAttributes.THighlighterAttributesEnumerator'}
 function THighlighterAttributes.THighlighterAttributesEnumerator.GetCurrent
   : THighlighterAttributesItem;
 begin
@@ -169,14 +169,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor THighlighterAttributes.Create(AOwner: TPersistent);
 begin
   inherited Create(AOwner, THighlighterAttributesItem);
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function THighlighterAttributes.GetItem(Index: Integer): THighlighterAttributesItem;
 begin
   Result := inherited Items[Index] as THighlighterAttributesItem;
@@ -211,7 +211,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
   update is issued.
@@ -225,7 +225,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 
 { Adds a new THighlighterAttributesItem instance to the THighlighterAttributes
   collection. }
@@ -322,8 +322,8 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'THighlighterAttributesItem' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'THighlighterAttributesItem'}
+{$REGION 'construction and destruction'}
 constructor THighlighterAttributesItem.Create(ACollection: TCollection);
 begin
   inherited Create(ACollection);
@@ -341,7 +341,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function THighlighterAttributesItem.GetCollection: THighlighterAttributes;
 begin
   Result := inherited Collection as THighlighterAttributes;
@@ -392,7 +392,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure THighlighterAttributesItem.Assign(Source: TPersistent);
 var
   AI : THighlighterAttributesItem;

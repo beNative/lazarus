@@ -23,8 +23,7 @@ unit ts.Editor.structure.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls,
+  ExtCtrls, StdCtrls,
 
   ts.Components.XMLTree,
 
@@ -58,7 +57,7 @@ implementation
 uses
   ts.Core.Helpers, ts.Core.ComponentInspector;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmStructure.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -66,7 +65,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmStructure.btnInspectClick(Sender: TObject);
 begin
   InspectComponent(FXMLTree);
@@ -83,7 +82,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmStructure.UpdateView;
 begin
   try

@@ -23,16 +23,11 @@ unit ts.Editor.SettingsDialog.ApplicationSettings;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls,
-
-  FileUtil, RTTICtrls,
+  RTTICtrls,
 
   ts.Editor.SettingsDialog.Base;
 
 type
-
-  { TfrmApplicationSettings }
-
   TfrmApplicationSettings = class(TCustomSettingsDialog)
     chkDimInactiveView : TTICheckBox;
     chkSingleInstance  : TTICheckBox;
@@ -47,7 +42,7 @@ implementation
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmApplicationSettings.AfterConstruction;
 begin
   inherited AfterConstruction;

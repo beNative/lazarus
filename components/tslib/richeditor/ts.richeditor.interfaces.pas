@@ -239,7 +239,7 @@ type
 
   IRichEditorActions = interface
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: TActionList;
     function GetEditorPopupMenu: TPopupMenu;
     function GetItem(AName: string): TContainedAction;

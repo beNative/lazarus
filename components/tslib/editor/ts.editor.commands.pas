@@ -188,14 +188,14 @@ uses
 
   ts.Editor.Utils;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorCommands.AfterConstruction;
 begin
   inherited AfterConstruction;
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorCommands.GetEvents: IEditorEvents;
 begin
   Result := Manager.Events;
@@ -394,7 +394,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TEditorCommands.OpenFileAtCursor;
 var
   FN : string;

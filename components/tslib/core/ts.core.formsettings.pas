@@ -76,7 +76,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 
 procedure TFormSettings.AfterConstruction;
 begin
@@ -87,7 +87,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 
 procedure TFormSettings.SetWindowState(AValue: TWindowState);
 begin
@@ -135,7 +135,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 
 procedure TFormSettings.Changed;
 begin
@@ -145,7 +145,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 
 procedure TFormSettings.Assign(Source: TPersistent);
 var

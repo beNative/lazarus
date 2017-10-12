@@ -25,11 +25,11 @@ interface
 uses
   SysUtils, Forms, StdCtrls,
 
-  ts.Editor.Interfaces, Classes;
+  ts.Editor.Interfaces;
 
 type
   TfrmSelectionInfo = class(TForm, IEditorToolView)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     btnStore                         : TButton;
     btnRestore                       : TButton;
     chkLockUpdates                   : TCheckBox;
@@ -96,7 +96,7 @@ uses
   StoredBlockLines
 }
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmSelectionInfo.GetView: IEditorView;
 begin
   Result := Owner as IEditorView;
@@ -118,7 +118,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmSelectionInfo.btnStoreClick(Sender: TObject);
 begin
   View.Selection.Store(chkLockUpdates.Checked, chkExcludeEmptyLines.Checked);
@@ -135,7 +135,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmSelectionInfo.UpdateView;
 begin
   UpdateDisplay;

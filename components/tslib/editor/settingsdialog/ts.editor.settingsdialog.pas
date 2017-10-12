@@ -23,17 +23,13 @@ unit ts.Editor.SettingsDialog;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RTTICtrls, Forms, Controls, Graphics,
-  Dialogs, ExtCtrls, StdCtrls,
+  SysUtils, Forms, ExtCtrls, StdCtrls,
 
   ts.Components.VirtualPages,
 
   ts.Editor.Interfaces;
 
 type
-
-  { TEditorSettingsDialog }
-
   TEditorSettingsDialog = class(TForm, IEditorManager)
     lbxPages    : TListBox;
     pnlLeft     : TPanel;
@@ -65,7 +61,7 @@ uses
   ts.Editor.SettingsDialog.ApplicationSettings,
   ts.Editor.SettingsDialog.EditorSettings;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorSettingsDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -112,7 +108,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TEditorSettingsDialog.lbxPagesClick(Sender: TObject);
 begin
   FVPM.PageIndex := lbxPages.ItemIndex;
@@ -122,7 +118,6 @@ function TEditorSettingsDialog.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
 end;
-
 {$ENDREGION}
 
 end.

@@ -23,17 +23,13 @@ unit ts.Editor.sortstrings.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ActnList,
+  ExtCtrls, StdCtrls, ActnList,
 
   ts.Editor.SortStrings.Settings,
 
   ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmSortStrings }
-
   TfrmSortStrings = class(TCustomEditorToolView)
     aclMain          : TActionList;
     actExecute       : TAction;
@@ -78,7 +74,7 @@ begin
   Width := Settings.Width;
 end;
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmSortStrings.GetSettings: TSortStringsSettings;
 begin
   Result := inherited Settings
@@ -86,14 +82,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmSortStrings.actExecuteExecute(Sender: TObject);
 begin
   Manager.Commands.SortStrings;
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmSortStrings.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
@@ -121,7 +117,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmSortStrings.UpdateActions;
 begin
   inherited UpdateActions;

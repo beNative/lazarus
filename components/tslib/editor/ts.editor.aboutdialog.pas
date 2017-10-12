@@ -52,11 +52,8 @@ uses
   ts.Core.VersionInfo, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions;
 
 type
-
-  { TfrmAbout }
-
   TfrmAbout = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain: TActionList;
     actClose: TAction;
     actDonate: TAction;
@@ -144,8 +141,6 @@ implementation
 {$R *.lfm}
 
 uses
-  Controls,
-
   FileUtil,
 
   ts.Core.Helpers, ts.Core.Utils,
@@ -178,7 +173,7 @@ begin
   end;
 end;
 
-{$REGION 'TCredit' /FOLD}
+{$REGION 'TCredit'}
 type
   TCredit = class(TPersistent)
   strict private
@@ -198,7 +193,7 @@ type
   end;
 {$ENDREGION}
 
-{$REGION 'TTranslation' /FOLD}
+{$REGION 'TTranslation'}
 type
   TTranslation = class(TPersistent)
   strict private
@@ -218,7 +213,7 @@ type
   end;
 {$ENDREGION}
 
-{$REGION 'TInfo' /FOLD}
+{$REGION 'TInfo'}
 type
   TInfo = class(TPersistent)
   strict private
@@ -234,7 +229,7 @@ type
   end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmAbout.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -273,7 +268,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmAbout.lblHomePageClick(Sender: TObject);
 begin
   actHomePage.Execute;
@@ -300,7 +295,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmAbout.actCloseExecute(Sender: TObject);
 begin
   Close;
@@ -340,7 +335,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmAbout.FillCredits;
 
   procedure AddCredit(const AName: string; const AAuthor: string; const AURL: string);

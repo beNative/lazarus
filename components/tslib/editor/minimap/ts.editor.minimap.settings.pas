@@ -23,15 +23,12 @@ unit ts.Editor.MiniMap.Settings;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
-
-  { TMiniMapSettings }
-
   TMiniMapSettings = class(TComponent)
   private
     FWidth: Integer;
@@ -46,9 +43,7 @@ type
 
 implementation
 
-{ TMiniMapSettings }
-
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TMiniMapSettings.AssignTo(Dest: TPersistent);
 var
   S: TMiniMapSettings;

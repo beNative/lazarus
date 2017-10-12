@@ -37,9 +37,6 @@ const
   DEFAULT_RIGHT_EDGE         = 80;
 
 type
-
-  { TEditorOptionsSettings }
-
   TEditorOptionsSettings = class(TPersistent)
   private
     FOnChanged             : TNotifyEvent;
@@ -49,7 +46,6 @@ type
     FExtraCharSpacing      : Integer;
     FExtraLineSpacing      : Integer;
     FRightEdge             : Integer;
-
     FBracketHighlightStyle : TSynEditBracketHighlightStyle;
     FBracketHighlight      : Boolean;
     FEnhanceHomeKey        : Boolean;
@@ -132,7 +128,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+
     procedure Assign(ASource: TPersistent); override;
 
     property OnChanged: TNotifyEvent
@@ -236,9 +232,7 @@ type
 
 implementation
 
-{ TEditorOptionsSettings }
-
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorOptionsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -262,14 +256,9 @@ begin
   FShowRightEdge      := True;
   FOverwriteBlock     := True;
 end;
-
-procedure TEditorOptionsSettings.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorOptionsSettings.GetBlockIndent: Integer;
 begin
   Result := FBlockIndent;
@@ -650,7 +639,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TEditorOptionsSettings.Changed;
 begin
   if Assigned(OnChanged) then
@@ -658,7 +647,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TEditorOptionsSettings.Assign(ASource: TPersistent);
 var
   EOS: TEditorOptionsSettings;

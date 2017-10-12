@@ -128,7 +128,8 @@ const
   FILE_EXTENSIONS_PY   = 'py';
   FILE_EXTENSIONS_HTML = 'html,htm';
   FILE_EXTENSIONS_PO   = 'po';
-  FILE_EXTENSIONS_JS   = 'js';
+  FILE_EXTENSIONS_JS   = 'js,' +
+                         'json';
   FILE_EXTENSIONS_CSS  = 'css';
   FILE_EXTENSIONS_CS   = 'cs';
   FILE_EXTENSIONS_DIFF = 'diff';

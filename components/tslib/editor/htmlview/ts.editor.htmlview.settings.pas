@@ -44,7 +44,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure THTMLViewSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -52,7 +52,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure THTMLViewSettings.AssignTo(Dest: TPersistent);
 var
   S: THTMLViewSettings;

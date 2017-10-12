@@ -215,7 +215,7 @@ uses
 
   ts.Components.UniHighlighter;
 
-{$REGION 'THighlighterEnumerator' /FOLD}
+{$REGION 'THighlighterEnumerator'}
 function THighlighters.THighlighterEnumerator.GetCurrent: THighlighterItem;
 begin
   Result := FHighlighters[FPosition];
@@ -234,8 +234,8 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'THighlighters' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'THighlighters'}
+{$REGION 'construction and destruction'}
 procedure THighlighters.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -247,7 +247,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
   Result := Components[Index] as THighlighterItem;
@@ -294,7 +294,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 { Adds a new THighlighterItem instance to the list. }
 
 function THighlighters.Add: THighlighterItem;
@@ -419,9 +419,9 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'THighlighterItem' /FOLD}
+{$REGION 'THighlighterItem'}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure THighlighterItem.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -445,7 +445,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function THighlighterItem.GetDefaultFilter: string;
 begin
   Result := FDefaultFilter;
@@ -531,7 +531,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure THighlighterItem.Assign(Source: TPersistent);
 var
   HLI: THighlighterItem;

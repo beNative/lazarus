@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-{$REGION 'Original license info' /FOLD}
+{$REGION 'Original license info'}
 (*
  * This software is distributed under BSD license.
  *

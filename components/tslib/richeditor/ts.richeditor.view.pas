@@ -75,7 +75,7 @@ type
     FTextAttributes    : TTextAttributes;
 
   protected
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
     function GetCanUndo: Boolean;
@@ -226,7 +226,7 @@ implementation
 uses
   StdCtrls, Clipbrd;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TRichEditorView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -254,7 +254,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TRichEditorView.TextAttributesUpdate(Sender: TObject);
 begin
   FEditor.Invalidate;
@@ -307,7 +307,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TRichEditorView.GetEditor: TRichMemo;
 begin
   Result := FEditor;
@@ -480,7 +480,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TRichEditorView.DoEditingDone;
 begin
   if Assigned(OnEditingDone) then
@@ -500,7 +500,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TRichEditorView.UpdateActions;
 begin
   inherited UpdateActions;

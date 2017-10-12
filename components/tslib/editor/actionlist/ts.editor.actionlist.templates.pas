@@ -63,7 +63,7 @@ type
 
 implementation
 
-{$REGION 'TActionTemplate' /FOLD}
+{$REGION 'TActionTemplate'}
 function TActionTemplate.GetItemTemplate(const Item: TObject): IDataTemplate;
 begin
   if Item is TContainedAction then
@@ -90,7 +90,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TActionCategoryTemplate' /FOLD}
+{$REGION 'TActionCategoryTemplate'}
 function TActionCategoryTemplate.GetItemTemplate(
   const Item: TObject): IDataTemplate;
 begin

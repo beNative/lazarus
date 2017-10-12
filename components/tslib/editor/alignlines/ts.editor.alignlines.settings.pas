@@ -23,7 +23,7 @@ unit ts.Editor.AlignLines.Settings;
 interface
 
 uses
-  Classes, Forms, Controls,
+  Classes,
 
   ts.Editor.Types;
 
@@ -31,9 +31,6 @@ const
   DEFAULT_WIDTH = 360;
 
 type
-
-  { TAlignLinesSettings }
-
   TAlignLinesSettings = class(TComponent)
   strict private
     FAlignInParagraphs    : Boolean;
@@ -87,7 +84,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -106,7 +103,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TAlignLinesSettings.GetTokens: TStrings;
 begin
   Result := FTokens;
@@ -118,7 +115,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TAlignLinesSettings.AssignTo(Dest: TPersistent);
 var
   ALS: TAlignLinesSettings;

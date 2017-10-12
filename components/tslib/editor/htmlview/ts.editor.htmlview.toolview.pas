@@ -54,7 +54,7 @@ implementation
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmHTMLView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -67,7 +67,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 
 function TfrmHTMLView.GetSettings: THTMLViewSettings;
 begin

@@ -34,7 +34,7 @@ type
   { TdmRichEditorActions }
 
   TdmRichEditorActions = class(TDataModule, IRichEditorActions)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclActions    : TActionList;
     actBold       : TAction;
     actColor      : TAction;
@@ -170,7 +170,7 @@ begin
   Result := dmRichEditorActions;
 end;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TdmRichEditorActions.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -186,7 +186,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TdmRichEditorActions.GetActions: TActionList;
 begin
   Result := aclActions;
@@ -253,7 +253,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 // File
 
 procedure TdmRichEditorActions.actOpenExecute(Sender: TObject);

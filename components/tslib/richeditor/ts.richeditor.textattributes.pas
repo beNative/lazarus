@@ -30,9 +30,6 @@ uses
   RichMemo;
 
 type
-
-  { TTextAttributes }
-
   TTextAttributes = class(TPersistent)
   private
     FFontParams    : TFontParams;
@@ -117,7 +114,7 @@ implementation
 uses
   ts.Core.Logger, ts.Core.SharedLogger;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TTextAttributes.Create(AEditor: TRichMemo);
 begin
   inherited Create;
@@ -125,7 +122,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TTextAttributes.GetBold: Boolean;
 begin
   Result := fsBold in FFontParams.Style;

@@ -52,13 +52,8 @@ unit ts.Editor.SettingsDialog.Highlighters;
 interface
 
 uses
-  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Buttons,
-  {ADSynEditTheme,}
-  FileUtil, Spin,
-  {ADExtDialogs,}
-
-  LCLIntf, LCLType, LMessages;
+  SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, ComCtrls,
+  ExtCtrls, FileUtil, Spin;
 
 type
   TfrmOptionsThemes = class(TForm)
@@ -221,10 +216,6 @@ implementation
 
 {$R *.lfm}
 
-uses
-  SynEditTypes
-  {InputDialog,}
-  {uThemes};
 
 { TfrmOptionsThemes }
 

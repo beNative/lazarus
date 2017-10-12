@@ -261,7 +261,7 @@ implementation
 
 var
   IdentifierTokens   : array [FirstKeyword .. LastKeyWord] of TSQLToken;
-  IdentifierTokensOK : Boolean;
+  IdentifierTokensOK : Boolean = False;
 
 resourcestring
   SErrUNknownToken = 'Unknown token: %s';

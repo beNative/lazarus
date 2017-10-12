@@ -31,9 +31,6 @@ const
     DEFAULT_RIGHT_EDGE_COLOR = clSilver;
 
 type
-
-  { TEditorColorSettings }
-
   TEditorColorSettings = class(TPersistent)
   strict private
     FIncrementColor     : TSynSelectedColor;
@@ -108,7 +105,7 @@ implementation
 uses
   SynEditTypes;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorColorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -136,7 +133,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorColorSettings.GetBracketMatchColor: TSynSelectedColor;
 begin
   Result := FBracketMatchColor;
@@ -269,7 +266,7 @@ begin
     FOnChanged(Self);
 end;
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TEditorColorSettings.Assign(ASource: TPersistent);
 var
   ECS: TEditorColorSettings;

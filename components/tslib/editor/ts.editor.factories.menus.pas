@@ -68,9 +68,7 @@ type
 
 implementation
 
-{ TEditorMenusFactory }
-
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TEditorMenusFactory.Create(AActions: IEditorActions;
   AMenus: IEditorMenus);
 begin
@@ -88,7 +86,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 function TEditorMenusFactory.CreateMenuItem(AParent: TMenuItem;
   AAction: TBasicAction): TMenuItem;
 var
@@ -141,7 +139,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorMenusFactory.CreateFileMenu(AMenu: TMenu): TMenuItem;
 var
   M   : TMenuItem;

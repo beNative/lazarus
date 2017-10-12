@@ -91,7 +91,7 @@ uses
   ts.Editor.Factories.Views, ts.Editor.Factories.Menus,
   ts.Editor.Factories.Toolbars;
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 class function TEditorFactories.CreateManager(AOwner: TComponent;
   ASettings: IEditorSettings): IEditorManager;
 var

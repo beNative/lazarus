@@ -20,7 +20,7 @@ unit ts.Editor.View;
 
 {$MODE DELPHI}
 
-{$REGION 'documentation' /FOLD}
+{$REGION 'documentation'}
 {
 Form holding a complete customizable text editor based on the open source
 SynEdit components.
@@ -236,7 +236,7 @@ type
     FSearchText     : string;
     FSearchOptions  : TSynSearchOptions;
 
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: IEditorActions;
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
@@ -601,9 +601,9 @@ implementation
 {$R *.lfm}
 
 uses
-  GraphUtil, TypInfo, FileUtil, LazUTF8Classes,
+  GraphUtil, TypInfo,
 
-  LConvEncoding, LCLProc,
+  LazUTF8Classes, LConvEncoding, LCLProc,
 
   ts.Core.Utils,
 
@@ -626,14 +626,14 @@ type
 
 { TSynEditAccess }
 
-{$REGION 'TSynEditAccess' /FOLD}
+{$REGION 'TSynEditAccess'}
 function TSynEditAccess.GetCaret: TSynEditCaret;
 begin
   Result := GetCaretObj;
 end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorView.AfterConstruction;
 var
   E : TSynEditAccess;
@@ -697,7 +697,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TEditorView.FormDropFiles(Sender: TObject;
   const FileNames: array of string);
 begin
@@ -949,7 +949,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TEditorView.DoChange;
 begin
   if Assigned(FOnChange) then
@@ -963,7 +963,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access methods' /FOLD}
+{$REGION 'property access methods'}
 function TEditorView.GetSelText: string;
 begin
   Result := Editor.SelText;
@@ -1545,7 +1545,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TEditorView.AssignHighlighterForFileType(const AFileExt: string);
 begin
   HighlighterItem := Manager.Highlighters.FindHighlighterForFileType(AFileExt);
@@ -1930,7 +1930,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 { TODO: store caret pos? }
 
 procedure TEditorView.BeginUpdate;
@@ -2125,7 +2125,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorView.CloseQuery: Boolean;
 var
   MR: TModalResult;

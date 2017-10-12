@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-{$REGION 'comments' /FOLD}
+{$REGION 'comments'}
 { Lazarus port with many modifications by Tim Sinaeve (28/04/2010) }
 
 {——————————————————————————————————————————————————————————————————————————————-
@@ -744,8 +744,8 @@ uses
 type
   THackedTreeOptions = class(TStringTreeOptions);
 
-{$REGION 'TVirtualDBTreeExDataLink' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TVirtualDBTreeExDataLink'}
+{$REGION 'construction and destruction'}
 constructor TVirtualDBTreeExDataLink.Create(ATree: TBaseVirtualDBTreeEx);
 begin
   inherited Create;
@@ -779,8 +779,8 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TBaseVirtualDBTreeEx' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TBaseVirtualDBTreeEx'}
+{$REGION 'construction and destruction'}
 constructor TBaseVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -806,7 +806,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 procedure TBaseVirtualDBTreeEx.SetDataSource(Value: TDataSource);
 begin
   FDataLink.DataSource := Value;
@@ -1072,7 +1072,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected mehods' /FOLD}
+{$REGION 'protected mehods'}
 procedure TBaseVirtualDBTreeEx.Notification(AComponent: TComponent; Operation:
   TOperation);
 begin
@@ -1241,7 +1241,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TBaseVirtualDBTreeEx.CanEdit(Node: PVirtualNode;
   Column: TColumnIndex):
 Boolean;
@@ -1253,7 +1253,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TBaseVirtualDBTreeEx.DoFocusChange(Node: PVirtualNode; Column:
   TColumnIndex);
 var
@@ -1559,7 +1559,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TBaseVirtualDBTreeEx.OnDragOverHandler(Sender: TBaseVirtualTree;
   Source: TObject; Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode:
   TDropMode; var Effect: LongWord; var Accept: Boolean);
@@ -1568,7 +1568,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TBaseVirtualDBTreeEx.SetFocusToNode(Node: PVirtualNode);
 begin
   if Assigned(FocusedNode) then
@@ -2449,8 +2449,8 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'TVirtualDBTreeEx' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TVirtualDBTreeEx'}
+{$REGION 'construction and destruction'}
 constructor TVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2554,8 +2554,8 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TCustomDBCheckVirtualDBTreeEx' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TCustomDBCheckVirtualDBTreeEx'}
+{$REGION 'construction and destruction'}
 constructor TCustomDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2684,7 +2684,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TDBCheckVirtualDBTreeEx' /FOLD}
+{$REGION 'TDBCheckVirtualDBTreeEx'}
 constructor TDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2789,7 +2789,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TCustomCheckVirtualDBTreeEx' /FOLD}
+{$REGION 'TCustomCheckVirtualDBTreeEx'}
 constructor TCustomCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;
@@ -2852,7 +2852,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TCheckVirtualDBTreeEx' /FOLD}
+{$REGION 'TCheckVirtualDBTreeEx'}
 constructor TCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
   inherited;

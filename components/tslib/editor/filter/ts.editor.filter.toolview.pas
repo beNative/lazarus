@@ -198,7 +198,7 @@ var
     VK_END
   ];
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmFilter.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -225,7 +225,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmFilter.edtFilterChange(Sender: TObject);
 begin
   FTVP.ApplyFilter;
@@ -383,7 +383,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmFilter.GetFilter: string;
 begin
   Result := edtFilter.Text;
@@ -435,7 +435,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 function TfrmFilter.IsMatch(const AString: string): Boolean;
 begin
   if Filter = '' then
@@ -531,7 +531,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmFilter.UpdateActions;
 begin
   inherited UpdateActions;

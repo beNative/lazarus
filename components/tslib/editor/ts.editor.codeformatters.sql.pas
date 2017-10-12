@@ -47,7 +47,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TSQLFormatter.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -66,14 +66,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 function TSQLFormatter.Format(const AString: string): string;
 var
-  SS : TStringStream;
-  LR : TStreamLineReader;
-  P  : TSQLParser;
-  S  : TSQLScanner;
-  E  : TSQLElement;
+  SS : TStringStream = nil;
+  LR : TStreamLineReader = nil;
+  P  : TSQLParser = nil;
+  S  : TSQLScanner = nil;
+  E  : TSQLElement = nil;
 begin
   SS := TStringStream.Create(AString);
   LR := TStreamLineReader.Create(SS);
@@ -83,10 +83,10 @@ begin
     try
       E := P.Parse;
     except
-      e:=NIL;
-      Result:=AString;
+      E := nil;
+      Result := AString;
     end;
-   if (Assigned(E)) and (length(aString)>0) then
+   if (Assigned(E)) and (Length(AString) > 0) then
       Result := E.GetAsSQL(
         [
           //sfoDoubleQuotes,           // Use double quote character for string literals

@@ -23,7 +23,7 @@ unit ts.Editor.Search.Engine.Settings;
 interface
 
 uses
-  Classes, Forms, Controls,
+  Classes,
 
   SynEditTypes;
 

@@ -6,7 +6,7 @@ object frmOptionsThemes: TfrmOptionsThemes
   BorderStyle = bsNone
   ClientHeight = 446
   ClientWidth = 467
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '1.9.0.0'
   object lbTheme: TLabel
     Left = 8
     Height = 15
@@ -34,7 +34,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 136
         Width = 201
         Caption = '&Color:'
-        ClientHeight = 63
+        ClientHeight = 61
         ClientWidth = 197
         TabOrder = 1
         object lbDFG: TLabel
@@ -62,7 +62,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 136
         Width = 201
         Caption = '&Selected Color:'
-        ClientHeight = 63
+        ClientHeight = 61
         ClientWidth = 197
         TabOrder = 2
         object lbDSelFG: TLabel
@@ -90,7 +90,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 8
         Width = 409
         Caption = '&Font'
-        ClientHeight = 103
+        ClientHeight = 101
         ClientWidth = 405
         TabOrder = 0
         object pnDFont: TPanel
@@ -122,7 +122,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 224
         Width = 201
         Caption = 'Ca&rets:'
-        ClientHeight = 63
+        ClientHeight = 61
         ClientWidth = 197
         TabOrder = 3
         object Label1: TLabel
@@ -209,7 +209,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 48
         Width = 241
         Caption = '&Attributes:'
-        ClientHeight = 127
+        ClientHeight = 125
         ClientWidth = 237
         TabOrder = 1
         object lbHiAttrs: TListBox
@@ -228,7 +228,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 48
         Width = 161
         Caption = '&Style:'
-        ClientHeight = 55
+        ClientHeight = 53
         ClientWidth = 157
         TabOrder = 2
         object chkHiStyleBold: TCheckBox
@@ -280,7 +280,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 128
         Width = 161
         Caption = '&Color:'
-        ClientHeight = 47
+        ClientHeight = 45
         ClientWidth = 157
         TabOrder = 3
         object lblHiFGColor: TLabel
@@ -366,7 +366,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 136
         Width = 201
         Caption = '&Linenumbers:'
-        ClientHeight = 103
+        ClientHeight = 101
         ClientWidth = 197
         TabOrder = 2
         object lblGDigitsCount: TLabel
@@ -431,7 +431,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 136
         Width = 201
         Caption = '&Gradient:'
-        ClientHeight = 103
+        ClientHeight = 101
         ClientWidth = 197
         TabOrder = 3
         object lblGStartColor: TLabel
@@ -492,7 +492,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 112
         Width = 409
         Caption = 'Font Size for &ReadMode:'
-        ClientHeight = 39
+        ClientHeight = 37
         ClientWidth = 405
         TabOrder = 0
         object spnRMFontSize: TSpinEdit
@@ -511,7 +511,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 8
         Width = 409
         Caption = '&Font:'
-        ClientHeight = 79
+        ClientHeight = 77
         ClientWidth = 405
         TabOrder = 1
         object pnRMFont: TPanel
@@ -540,7 +540,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 4
         Width = 201
         Caption = '&Others:'
-        ClientHeight = 107
+        ClientHeight = 105
         ClientWidth = 197
         TabOrder = 0
         object lblHCLColor: TLabel
@@ -586,7 +586,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 4
         Width = 201
         Caption = '&Right Edge:'
-        ClientHeight = 71
+        ClientHeight = 69
         ClientWidth = 197
         TabOrder = 1
         object lblREdgeAt: TLabel
@@ -623,7 +623,7 @@ object frmOptionsThemes: TfrmOptionsThemes
         Top = 140
         Width = 201
         Caption = '&Hyperlinks:'
-        ClientHeight = 147
+        ClientHeight = 145
         ClientWidth = 197
         TabOrder = 2
         object lblURLColor: TLabel
@@ -650,7 +650,7 @@ object frmOptionsThemes: TfrmOptionsThemes
           Top = 66
           Width = 185
           Caption = '&Style:'
-          ClientHeight = 55
+          ClientHeight = 53
           ClientWidth = 181
           TabOrder = 1
           object chkURLBold: TCheckBox
@@ -743,8 +743,8 @@ object frmOptionsThemes: TfrmOptionsThemes
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdFixedPitchOnly, fdLimitSize]
-    left = 112
-    top = 8
+    Left = 112
+    Top = 8
   end
   object dlgGFont: TFontDialog
     Font.Color = clWindowText
@@ -753,8 +753,8 @@ object frmOptionsThemes: TfrmOptionsThemes
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdFixedPitchOnly, fdLimitSize]
-    left = 144
-    top = 8
+    Left = 144
+    Top = 8
   end
   object dlgTWFont: TFontDialog
     Font.Color = clWindowText
@@ -762,7 +762,7 @@ object frmOptionsThemes: TfrmOptionsThemes
     Font.Name = 'MS Sans Serif'
     MinFontSize = 0
     MaxFontSize = 0
-    left = 240
-    top = 8
+    Left = 240
+    Top = 8
   end
 end

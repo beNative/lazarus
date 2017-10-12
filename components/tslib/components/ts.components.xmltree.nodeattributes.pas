@@ -101,8 +101,8 @@ type
 
 implementation
 
-{$REGION 'TNodeAttributesItem' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TNodeAttributesItem'}
+{$REGION 'construction and destruction'}
 
 constructor TNodeAttributesItem.Create(ACollection: Classes.TCollection);
 begin
@@ -129,7 +129,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 
 procedure TNodeAttributesItem.SetBackGroundColor(AValue: TColor);
 begin
@@ -172,8 +172,8 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'TNodeAttributes' /FOLD}
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'TNodeAttributes'}
+{$REGION 'property access mehods'}
 
 function TNodeAttributes.GetItemByType(Index: TNodeType): TNodeAttributesItem;
 var

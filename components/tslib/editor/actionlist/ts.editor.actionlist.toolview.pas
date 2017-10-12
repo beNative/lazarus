@@ -196,7 +196,7 @@ var
     VK_END
   ];
 
-{$REGION 'TActionListTemplate' /FOLD}
+{$REGION 'TActionListTemplate'}
 type
 
   { TActionListTemplate }
@@ -265,7 +265,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TKeyStrokeTemplate' /FOLD}
+{$REGION 'TKeyStrokeTemplate'}
 type
   TKeyStrokeTemplate = class(TColumnDefinitionsDataTemplate)
     function GetValueForProperty(
@@ -301,7 +301,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TMouseActionTemplate' /FOLD}
+{$REGION 'TMouseActionTemplate'}
 type
   TMouseActionTemplate = class(TColumnDefinitionsDataTemplate)
     function GetValueForProperty(
@@ -324,8 +324,8 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TfrmActionListView' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TfrmActionListView'}
+{$REGION 'construction and destruction'}
 procedure TfrmActionListView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -357,7 +357,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmActionListView.GetManager: IEditorManager;
 begin
   Result := Owner as IEditorManager;
@@ -397,7 +397,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmActionListView.FormShow(Sender: TObject);
 begin
   UpdateLists;
@@ -572,7 +572,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmActionListView.CreateActionsView;
 var
   CD : TColumnDefinitions;

@@ -20,7 +20,7 @@ unit ts.Components.SynMiniMap;
 
 {$MODE DELPHI}
 
-{$REGION 'comments' /FOLD}
+{$REGION 'comments'}
 {
   Changes by Tim Sinaeve for Lazarus port:
   - Changed TBufferCoord to TPoint

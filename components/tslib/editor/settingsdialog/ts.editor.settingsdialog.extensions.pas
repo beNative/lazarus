@@ -52,10 +52,7 @@ unit ts.Editor.SettingsDialog.Extensions;
 interface
 
 uses
-  LCLIntf, LCLType, LMessages, Messages, SysUtils, Variants, Classes, Graphics,
-  Controls, Forms, Dialogs, StdCtrls, ExtCtrls, FileUtil;
-
-//  ts.Core.FileAssociations;
+  LCLIntf, LCLType, SysUtils, Classes, Graphics, Forms, StdCtrls, ExtCtrls;
 
 type
   TdlgExt = class(TForm)
@@ -110,9 +107,9 @@ type
 implementation
 
 uses
-  {$IFDEF WINDOWS}
-  Windows, ShellApi,
-  {$ENDIF}
+{$IFDEF WINDOWS}
+  Windows,
+{$ENDIF}
 
   ts.Core.Utils;
 

@@ -737,7 +737,7 @@ begin
   Result := s;
 end;
 
-{$REGION 'TSynSymbolGroup' /FOLD}
+{$REGION 'TSynSymbolGroup'}
 constructor TSynSymbolGroup.Create(const AKeywords: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes          := AAttributes;
@@ -754,7 +754,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSynSymbol' /FOLD}
+{$REGION 'TSynSymbol'}
 constructor TSynSymbol.Create(const ASymbol: string; AAttributes: TSynHighlighterAttributes);
 begin
   FAttributes := AAttributes;
@@ -764,7 +764,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSynRange' /FOLD}
+{$REGION 'TSynRange'}
 procedure TSynRange.AddRange(ARange: TSynRange);
 begin
   FSynRanges.Add(ARange);
@@ -1644,7 +1644,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSymbolList' /FOLD}
+{$REGION 'TSymbolList'}
 procedure TSymbolList.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -1693,7 +1693,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSymbols' /FOLD}
+{$REGION 'TSymbols'}
 procedure TSymbols.AddSymbol(const AString: string; ASynSymbol: TSynSymbol; ABreakType: TSymbolBreakType);
 var
   I  : Integer;
@@ -1796,7 +1796,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSymbolNode' /FOLD}
+{$REGION 'TSymbolNode'}
 constructor TSymbolNode.Create(ASymbolChar: Char; ASynSymbol: TSynSymbol;
   ABreakType: TSymbolBreakType);
 begin
@@ -1825,7 +1825,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TDefaultSymbols' /FOLD}
+{$REGION 'TDefaultSymbols'}
 constructor TDefaultSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1846,7 +1846,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TNumberSymbols' /FOLD}
+{$REGION 'TNumberSymbols'}
 constructor TNumberSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1875,7 +1875,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TDefaultTermSymbols' /FOLD}
+{$REGION 'TDefaultTermSymbols'}
 constructor TDefaultTermSymbols.Create(ASynSymbol: TSynSymbol);
 begin
   inherited Create;
@@ -1898,7 +1898,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TSynUniSyn' /FOLD}
+{$REGION 'TSynUniSyn'}
 constructor TSynUniSyn.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);

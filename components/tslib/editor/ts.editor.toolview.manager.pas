@@ -25,16 +25,13 @@ interface
 { TToolViewManager allows for lazy instantiation of registered toolviews. }
 
 uses
-  Classes, SysUtils, Contnrs, Forms,
+  Classes, SysUtils, Forms,
 
   ts.Editor.Interfaces, ts.Editor.Tools.Settings,
 
   ts.Editor.ToolView.Base;
 
 type
-
-  { TToolView }
-
   TToolView = class(TInterfacedObject, IEditorToolView)
   strict private
     FName          : string;
@@ -54,10 +51,10 @@ type
 
   public
     constructor Create(
-            AManager       : IEditorManager;
-            AFormClass     : TComponentClass;
-            ASettingsClass : TComponentClass;
-      const AName          : string
+      AManager       : IEditorManager;
+      AFormClass     : TComponentClass;
+      ASettingsClass : TComponentClass;
+      const AName    : string
     );
     procedure BeforeDestruction; override;
 
@@ -80,8 +77,6 @@ type
       read GetVisible write SetVisible;
   end;
 
-  { TToolViews }
-
   TToolViews = class(TInterfacedObject, IEditorToolViews)
   strict private
     FItems   : TInterfaceList;
@@ -95,9 +90,9 @@ type
     function GetEnumerator: TEditorToolViewListEnumerator;
 
     function Register(
-            AFormClass     : TComponentClass;
-            ASettingsClass : TComponentClass;
-      const AName          : string = ''
+      AFormClass     : TComponentClass;
+      ASettingsClass : TComponentClass;
+      const AName    : string = ''
     ): Boolean;
 
     procedure Hide;
@@ -126,7 +121,7 @@ uses
 
 { TToolView }
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TToolView.Create(AManager: IEditorManager;
   AFormClass: TComponentClass; ASettingsClass: TComponentClass;
   const AName: string);
@@ -151,7 +146,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TToolView.GetForm: TForm;
 begin
   if not Assigned(FForm) then
@@ -194,7 +189,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TToolView.UpdateView;
 begin
   if Assigned(FToolView) then
@@ -209,7 +204,7 @@ end;
 
 { TToolViews }
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TToolViews.Create(AEditorManager: IEditorManager);
 begin
   inherited Create;
@@ -225,7 +220,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TToolViews.GetView(AIndex: Integer): IEditorToolView;
 begin
   Result := FItems[AIndex] as IEditorToolView;
@@ -260,7 +255,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 function TToolViews.Register(AFormClass: TComponentClass;
   ASettingsClass: TComponentClass; const AName: string): Boolean;
 var

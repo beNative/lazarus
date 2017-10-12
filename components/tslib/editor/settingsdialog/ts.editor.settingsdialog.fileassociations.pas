@@ -54,40 +54,32 @@ unit ts.Editor.SettingsDialog.FileAssociations;
 interface
 
 uses
-  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ActnList, ExtCtrls,
-
-  LCLIntf, LCLType, LMessages,
-
-  ts.Core.FileAssociations, ts.Editor.SettingsDialog.Extensions;
+  SysUtils, Forms, Dialogs, StdCtrls, ComCtrls, ActnList, ExtCtrls;
 
 type
-
-  { TfrmOptionsAssociate }
-
   TfrmOptionsAssociate = class(TForm)
-    lblExt: TLabel;
-    lvExt: TListView;
-    btnAdd: TButton;
-    btnEdit: TButton;
-    btnDel: TButton;
-    btnSelectAll: TButton;
-    btnDeselectAll: TButton;
-    gbxOptions: TGroupBox;
-    lblMenuCaption: TLabel;
-    edMenuText: TEdit;
-    gbxOther: TGroupBox;
-    chkAddToMenu: TCheckBox;
-    chkAssocToUnknown: TCheckBox;
-    alAssociate: TActionList;
-    actAdd: TAction;
-    actEdit: TAction;
-    actDelete: TAction;
-    actSelectAll: TAction;
-    actDeselectAll: TAction;
-    pnlAccess: TPanel;
-    chkAllUsers: TCheckBox;
-    lblBackup: TLabel;
+    lblExt            : TLabel;
+    lvExt             : TListView;
+    btnAdd            : TButton;
+    btnEdit           : TButton;
+    btnDel            : TButton;
+    btnSelectAll      : TButton;
+    btnDeselectAll    : TButton;
+    gbxOptions        : TGroupBox;
+    lblMenuCaption    : TLabel;
+    edMenuText        : TEdit;
+    gbxOther          : TGroupBox;
+    chkAddToMenu      : TCheckBox;
+    chkAssocToUnknown : TCheckBox;
+    alAssociate       : TActionList;
+    actAdd            : TAction;
+    actEdit           : TAction;
+    actDelete         : TAction;
+    actSelectAll      : TAction;
+    actDeselectAll    : TAction;
+    pnlAccess         : TPanel;
+    chkAllUsers       : TCheckBox;
+    lblBackup         : TLabel;
 
     procedure actEditUpdate(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
@@ -133,8 +125,8 @@ implementation
   {Utilits,
   , ADUtils}
 
-const
-  SAppKey = 'Software\';
+//const
+//  SAppKey = 'Software\';
 
 procedure TfrmOptionsAssociate.AfterConstruction;
 begin
@@ -146,7 +138,7 @@ begin
   //FA.ListView := lvExt;
 end;
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmOptionsAssociate.actAddExecute(Sender: TObject);
 begin
   AddEditExt(False);
@@ -196,7 +188,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmOptionsAssociate.lvExtChange(Sender: TObject;
   Item: TListItem; Change: TItemChange);
 begin
@@ -326,8 +318,6 @@ begin
   //  Free;
   //end;
 end;
-
-
 
 procedure TfrmOptionsAssociate.DoLoadAssoc;
 begin

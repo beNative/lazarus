@@ -248,7 +248,7 @@ uses
 
 {$IFDEF WINDOWS}
 
-{$REGION 'interfaced methods' /FOLD}
+{$REGION 'interfaced methods'}
 function ADRegCheckAccess(const ARoot: HKEY; const ASubKey: string; const samDesired: REGSAM): Boolean;
 var
   HK: HKEY;
@@ -432,7 +432,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TAssociatesList' /FOLD}
+{$REGION 'TAssociatesList'}
 function TAssociatesList.Add: TAssociateItem;
 begin
   Result := TAssociateItem(inherited Add);
@@ -450,7 +450,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TFileAssociate' /FOLD}
+{$REGION 'TFileAssociate'}
 function TFileAssociate.AddItem(const AExt: string): TAssociateItem;
 var
   Item: TAssociateItem;

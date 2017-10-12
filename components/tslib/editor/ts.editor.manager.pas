@@ -20,7 +20,7 @@ unit ts.Editor.Manager;
 
 {$MODE DELPHI}
 
-{$REGION 'documentation' /FOLD}
+{$REGION 'documentation'}
 {
   Datamodule holding common actions, menu's to manage one or more IEditorView
   instances.
@@ -91,9 +91,7 @@ unit ts.Editor.Manager;
 interface
 
 uses
-  Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms, Variants,
-
-  LCLType,
+  Classes, SysUtils, Controls, ActnList, Menus, Dialogs, Forms,
 
   SynEdit, SynEditHighlighter, SynExportHTML, SynMacroRecorder, SynEditKeyCmds,
 
@@ -118,7 +116,7 @@ type
                                         IEditorMenus,
                                         IEditorSettings,
                                         IEditorSearchEngine)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclActions                        : TActionList;
     actAlignSelection                 : TAction;
     actAutoFormatXML                  : TAction;
@@ -308,7 +306,7 @@ type
     SynMacroRecorder                  : TSynMacroRecorder;
     {$ENDREGION}
 
-    {$REGION 'action handlers' /FOLD}
+    {$REGION 'action handlers'}
     procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAboutExecute(Sender: TObject);
     procedure actAlignAndSortSelectionExecute(Sender: TObject);
@@ -439,7 +437,7 @@ type
     procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
     {$ENDREGION}
 
-    {$REGION 'event handlers' /FOLD}
+    {$REGION 'event handlers'}
     procedure SynMacroRecorderStateChange(Sender: TObject);
     procedure SynMacroRecorderUserCommand(aSender: TCustomSynMacroRecorder;
       aCmd: TSynEditorCommand; var aEvent: TSynMacroEvent);
@@ -461,7 +459,7 @@ type
     FViewList     : TEditorViewList;
     FSearchEngine : IEditorSearchEngine;
 
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActionList: TActionList;
     function GetActions: IEditorActions;
     function GetClipboardPopupMenu: TPopupMenu;
@@ -762,13 +760,7 @@ uses
 
   LConvEncoding,
 
-  SynEditTypes, SynPluginSyncroEdit, SynEditHighlighterFoldBase,
-
-  SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
-  SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
-  SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
-  SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
-  SynhighlighterUnixShellScript, SynHighlighterIni,
+  SynEditTypes,
 
   ts.Core.ComponentInspector,
 
@@ -813,8 +805,6 @@ uses
   ts.Editor.ToolView.Manager,
 
   ts.Editor.SettingsDialog.Old,
-  ts.Editor.SettingsDialog.Base,
-  ts.Editor.SettingsDialog,
   ts.Editor.SettingsDialog.FileAssociations;
 
 const
@@ -824,7 +814,7 @@ const
   ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
   ACTION_PREFIX_LINEBREAKSTYLE = 'actLineBreakStyle';
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TdmEditorManager.Create(AOwner: TComponent;
   ASettings: IEditorSettings);
 begin
@@ -876,7 +866,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access methods' /FOLD}
+{$REGION 'property access methods'}
 function TdmEditorManager.GetEditor: TSynEdit;
 begin
   if Assigned(ActiveView) then
@@ -1142,7 +1132,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
   ShowToolView('SortStrings', False, True);
@@ -1907,7 +1897,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TdmEditorManager.PascalScriptCompile(Sender: TPSScript);
 begin
   PascalScript.MainFileName := PAnsiChar(PascalScript.Script);
@@ -1956,8 +1946,8 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
-{$REGION 'Helpers' /FOLD}
+{$REGION 'private methods'}
+{$REGION 'Helpers'}
 function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction
   ): TMenuItem;
 var
@@ -2019,7 +2009,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'Initialization' /FOLD}
+{$REGION 'Initialization'}
 procedure TdmEditorManager.InitializePopupMenus;
 begin
   BuildClipboardPopupMenu;
@@ -2163,7 +2153,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'Build popup menus' /FOLD}
+{$REGION 'Build popup menus'}
 procedure TdmEditorManager.BuildClipboardPopupMenu;
 var
   MI: TMenuItem;
@@ -2532,7 +2522,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'Registration' /FOLD}
+{$REGION 'Registration'}
 procedure TdmEditorManager.RegisterToolViews;
 begin
   ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
@@ -2600,7 +2590,7 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 { Called when the active view is set to another view in the list. }
 procedure TdmEditorManager.ActiveViewChanged;
 begin
@@ -2675,7 +2665,7 @@ begin
     ETV.SetFocus;
 end;
 
-{$REGION 'IEditorActions' /FOLD}
+{$REGION 'IEditorActions'}
 function TdmEditorManager.AddView(const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
 var
@@ -2817,7 +2807,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'IEditorCommands' /FOLD}
+{$REGION 'IEditorCommands'}
 procedure TdmEditorManager.ExportLines(AFormat: string; AToClipBoard: Boolean;
   ANativeFormat: Boolean);
 var
@@ -2947,7 +2937,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'UpdateActions' /FOLD}
+{$REGION 'UpdateActions'}
 procedure TdmEditorManager.UpdateActions;
 var
   B  : Boolean;

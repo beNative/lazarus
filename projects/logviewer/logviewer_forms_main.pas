@@ -41,7 +41,7 @@ unit logviewer_forms_main;
 
 { Modified by Tim Sinaeve }
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 //todo: - Use only one StringGrid for Watches (???)
@@ -73,7 +73,7 @@ type
   { TfrmMain }
 
   TfrmMain = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain              : TActionList;
     actClearMessages     : TAction;
     actException         : TAction;
@@ -319,7 +319,7 @@ type
 
 { TfrmMain }
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -357,7 +357,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmMain.actClearMessagesExecute(Sender: TObject);
 begin
   vtvMessages.Clear;
@@ -485,7 +485,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmMain.ImgViewerDblClick(Sender: TObject);
 begin
   //with ImgViewer.Picture.Bitmap do

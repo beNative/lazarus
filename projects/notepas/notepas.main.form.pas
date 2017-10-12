@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -18,7 +18,7 @@
 
 unit NotePas.Main.Form;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 
@@ -50,7 +50,7 @@ uses
 
 type
   TfrmMain = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain               : TActionList;
     actAbout              : TAction;
     actCloseToolview      : TAction;
@@ -91,13 +91,13 @@ type
     ToolButton5           : TToolButton;
     {$ENDREGION}
 
-    {$REGION 'action handlers' /FOLD}
+    {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
     procedure actCheckForNewVersionExecute(Sender: TObject);
     procedure actCloseToolviewExecute(Sender: TObject);
     {$ENDREGION}
 
-    {$REGION 'event handlers' /FOLD}
+    {$REGION 'event handlers'}
     procedure AHSActivateSite(Sender: TObject);
     procedure AHSClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure AHSShowModalFinished(Sender: TObject; AResult: Integer);
@@ -123,7 +123,7 @@ type
     FToolbarHostPanel : TPanel;
     FUniqueInstance   : TUniqueInstance;
 
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: IEditorActions;
     function GetEditor: IEditorView;
     function GetEvents: IEditorEvents;
@@ -151,7 +151,7 @@ type
       AEditorView : IEditorView
     );
     procedure EditorEventsOpenOtherInstance(
-            Sender  : TObject;
+      Sender        : TObject;
       const AParams : array of string
     );
     procedure EditorEventsActiveViewChange(Sender: TObject);
@@ -240,7 +240,7 @@ uses
 
   NotePas.Resources;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
 var
   I  : Integer;
@@ -326,7 +326,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmMain.GetManager: IEditorManager;
 begin
   Result :=  FManager;
@@ -363,7 +363,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;  // not shown -> manager shows about dialog for the moment
@@ -386,9 +386,9 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 
-{$REGION 'docking support' /FOLD}
+{$REGION 'docking support'}
 /// below works to support docking toolforms!
 {
   below works to support docking toolforms!
@@ -641,7 +641,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmMain.InitializeEvents;
 begin
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChangedHandler);
@@ -705,7 +705,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmMain.AddDockingMenuItems;
 var
   MI  : TMenuItem;

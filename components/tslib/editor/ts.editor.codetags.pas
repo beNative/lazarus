@@ -80,7 +80,7 @@ begin
   Result := TCodeTagItem.Create(Self);
 end;
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 procedure TCodeTagItem.SetStartTag(AValue: string);
 begin
   if FStartTag = AValue then

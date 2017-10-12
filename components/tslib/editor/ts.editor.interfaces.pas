@@ -92,7 +92,7 @@ type
 
   IEditorView = interface(IControl)
   ['{94689213-B046-45F6-922B-FAE91C02A3FF}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: IEditorActions;
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
@@ -513,7 +513,7 @@ type
 
   IEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetOnAddEditorView: TAddEditorViewEvent;
     function GetOnAfterSave: TStorageEvent;
     function GetOnBeforeSave: TStorageEvent;
@@ -620,7 +620,7 @@ type
 
   IEditorSettings = interface
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
@@ -870,7 +870,7 @@ type
 
   IEditorMenus = interface
   ['{4B6F6B6A-8A72-478B-B3AF-089E72E23CDF}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEncodingPopupMenu: TPopupMenu;
@@ -959,7 +959,7 @@ type
 
   IEditorManager = interface
   ['{631A126F-1693-4E25-B691-CD2487BCB820}']
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetActions: IEditorActions;
     function GetCommands: IEditorCommands;
     function GetEvents: IEditorEvents;
@@ -1025,6 +1025,8 @@ type
     property SearchEngine: IEditorSearchEngine
       read GetSearchEngine;
   end;
+
+  { TEditorViewListEnumerator }
 
   TEditorViewListEnumerator = class
   strict private
@@ -1113,7 +1115,7 @@ type
 
 implementation
 
-{$REGION 'TEditorViewListEnumerator' /FOLD}
+{$REGION 'TEditorViewListEnumerator'}
 constructor TEditorViewListEnumerator.Create(AList: TEditorViewList);
 begin
   FList := AList;
@@ -1133,7 +1135,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TEditorToolViewListEnumerator' /FOLD}
+{$REGION 'TEditorToolViewListEnumerator'}
 constructor TEditorToolViewListEnumerator.Create(AList: IEditorToolViews);
 begin
   FList := AList;

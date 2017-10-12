@@ -23,7 +23,7 @@ unit ts.Editor.Factories.Toolbars;
 interface
 
 uses
-  Classes, SysUtils, Menus, Controls, ActnList, ComCtrls, Toolwin,
+  Classes, SysUtils, Menus, Controls, ComCtrls, Toolwin,
 
   ts.Editor.Interfaces, ts.Editor.Resources;
 
@@ -103,7 +103,7 @@ implementation
 
 { TEditorToolbarsFactory }
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorToolbarsFactory.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -122,7 +122,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TEditorToolbarsFactory.ApplyDefaultProperties(AToolbar: TToolbar);
 begin
   AToolbar.EdgeBorders := EdgeBorders;
@@ -164,7 +164,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorToolbarsFactory.CreateMainToolbar(AOwner: TComponent;
   AParent: TWinControl): TToolbar;
 var

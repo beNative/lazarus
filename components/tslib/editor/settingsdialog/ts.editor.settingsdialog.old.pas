@@ -49,7 +49,7 @@ type
   { TfrmEditorSettings }
 
   TfrmEditorSettings = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain                              : TActionList;
     actApplySettings                     : TAction;
     actAssociate                         : TAction;
@@ -189,7 +189,7 @@ const
 var
   FForm: TfrmEditorSettings;
 
-{$REGION 'TSynAttributesDataTemplate' /FOLD}
+{$REGION 'TSynAttributesDataTemplate'}
 type
   TSynAttributesDataTemplate = class(TDataTemplate)
   public
@@ -204,7 +204,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'THighlightersDataTemplate' /FOLD}
+{$REGION 'THighlightersDataTemplate'}
 type
   THighlightersDataTemplate = class(TDataTemplate)
   public
@@ -219,7 +219,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TToolSettingsDataTemplate' /FOLD}
+{$REGION 'TToolSettingsDataTemplate'}
 type
   TToolSettingsDataTemplate = class(TDataTemplate)
   public
@@ -234,7 +234,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'interfaced methods' /FOLD}
+{$REGION 'interfaced methods'}
 procedure ExecuteSettingsDialog(AOwner: TComponent);
 begin
   if not Assigned(FForm) then
@@ -243,7 +243,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -287,7 +287,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmEditorSettings.GetSettings: IEditorSettings;
 begin
   Result := Manager.Settings;
@@ -299,7 +299,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmEditorSettings.FHATVPSelectionChanged(Sender: TObject);
 begin
   mmoAliasNames.Link.TIObject := FHATVP.CurrentItem as TPersistent;
@@ -417,7 +417,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmEditorSettings.UpdateControls;
 begin
   tsDebug.TabVisible        := Settings.DebugMode;
@@ -470,7 +470,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TfrmEditorSettings.Execute: Boolean;
 begin
   ShowModal;

@@ -23,7 +23,6 @@ unit ts.Editor.test.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, SynEdit, Forms, Controls, Graphics, Dialogs,
   ExtCtrls, ComCtrls,
 
   ts.Components.GridView,
@@ -31,9 +30,6 @@ uses
   ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmTest }
-
   TfrmTest = class(TCustomEditorToolView)
     Panel1: TPanel;
     ToolBar1: TToolBar;

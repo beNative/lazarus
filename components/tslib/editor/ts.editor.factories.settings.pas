@@ -23,14 +23,11 @@ unit ts.Editor.Factories.Settings;
 interface
 
 uses
-  Classes, SysUtils, Controls,
+  Classes, SysUtils,
 
   ts.Editor.Tools.Settings, ts.Editor.Highlighters, ts.Editor.Interfaces;
 
 type
-
-  { TEditorSettingsFactory }
-
   TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
     procedure AfterConstruction; override;
@@ -42,7 +39,7 @@ type
     procedure RegisterClasses;
 
     function CreateInstance(
-            AOwner    : TComponent = nil;
+      AOwner          : TComponent = nil;
       const AFileName : string = ''
     ): IEditorSettings;
   end;
@@ -50,18 +47,12 @@ type
 implementation
 
 uses
-  Forms,
-
-  FileUtil,
-
   SynEditHighlighter, SynEditHighlighterFoldBase,
   SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
   SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
   SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
-
-  //SynFacilHighlighter,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -77,11 +68,9 @@ uses
 
   ts.Components.UniHighlighter;
 
-{ TEditorSettingsFactory }
+{$REGION 'private methods'}
 
-{$REGION 'private methods' /FOLD}
-
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorSettingsFactory.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -284,7 +273,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorSettingsFactory.CreateInstance(AOwner: TComponent;
   const AFileName: string): IEditorSettings;
 var

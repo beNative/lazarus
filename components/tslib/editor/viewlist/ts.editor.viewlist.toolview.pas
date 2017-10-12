@@ -23,7 +23,7 @@ unit ts.Editor.viewlist.ToolView;
 interface
 
 uses
-  Classes, SysUtils, Forms, ActnList, Menus, Contnrs, ExtCtrls, StdCtrls,
+  SysUtils, ActnList, Menus, Contnrs, ExtCtrls, StdCtrls,
 
   VirtualTrees,
 
@@ -32,9 +32,6 @@ uses
   ts.Editor.Interfaces, ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmViewList }
-
   TfrmViewList = class(TCustomEditorToolView, IEditorToolView)
     aclMain               : TActionList;
     actClose              : TAction;
@@ -82,7 +79,7 @@ resourcestring
   SModified    = 'Modified';
   SPath        = 'Path';
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmViewList.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -116,7 +113,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmViewList.actCloseExecute(Sender: TObject);
 begin
   ModalResult := mrClose;
@@ -136,7 +133,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmViewList.FTVPSelectionChanged(Sender: TObject);
 var
   V: IEditorView;
@@ -149,7 +146,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmViewList.UpdateView;
 begin
   FVST.Invalidate;

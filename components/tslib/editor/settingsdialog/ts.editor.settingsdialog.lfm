@@ -6,7 +6,7 @@ object EditorSettingsDialog: TEditorSettingsDialog
   Caption = 'EditorSettingsDialog'
   ClientHeight = 633
   ClientWidth = 835
-  LCLVersion = '1.3'
+  LCLVersion = '1.9.0.0'
   object pnlLeft: TPanel
     Left = 0
     Height = 633

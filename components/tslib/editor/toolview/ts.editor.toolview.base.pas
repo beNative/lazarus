@@ -41,14 +41,11 @@ unit ts.Editor.ToolView.Base;
 interface
 
 uses
-  Forms, Classes,
+  Forms,
 
   ts.Editor.Interfaces;
 
 type
-
-  { TCustomEditorToolView }
-
   TCustomEditorToolView = class(TForm, IEditorToolView)
   strict private
     // this flag is set when there are pending updates.
@@ -104,10 +101,8 @@ implementation
 
 {$R *.lfm}
 
-uses
-  LCLIntf;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TCustomEditorToolView.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -124,7 +119,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TCustomEditorToolView.GetUpdate: Boolean;
 begin
   Result := FUpdate;
@@ -174,7 +169,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TCustomEditorToolView.EditorCaretPositionChange(Sender: TObject; X,
   Y: Integer);
 begin
@@ -202,7 +197,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TCustomEditorToolView.UpdateView;
 begin
   // to be overridden

@@ -23,15 +23,11 @@ unit ts.Editor.ScriptEditor.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  ActnList, ComCtrls,
+  Controls, ExtCtrls, ActnList, ComCtrls,
 
   ts.Editor.ToolView.Base, ts.Editor.Interfaces;
 
 type
-
-  { TfrmScriptEditor }
-
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actExecute : TAction;
@@ -65,9 +61,7 @@ uses
 
   ts.Editor.Factories;
 
-{ TfrmScriptEditor }
-
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmScriptEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -84,7 +78,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmScriptEditor.FormShow(Sender: TObject);
 begin
   if not Assigned(FScriptEditor) then
@@ -101,7 +95,9 @@ begin
   if FileExistsUTF8('notepas.dws') then
     FScriptEditor.Load('notepas.dws');
 end;
+{$ENDREGION}
 
+{$REGION 'action handlers'}
 procedure TfrmScriptEditor.actExecuteExecute(Sender: TObject);
 begin
   //

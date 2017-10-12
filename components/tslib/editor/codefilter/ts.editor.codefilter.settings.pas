@@ -23,7 +23,7 @@ unit ts.Editor.CodeFilter.Settings;
 interface
 
 uses
-  Classes, SysUtils, ActnList,
+  Classes, SysUtils,
 
   ts.Core.FormSettings;
 
@@ -31,9 +31,6 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-
-  { TCodeFilterSettings }
-
   TCodeFilterSettings = class(TComponent)
   private
     FFormSettings: TFormSettings;
@@ -52,7 +49,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TCodeFilterSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -66,7 +63,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 procedure TCodeFilterSettings.SetFormSettings(AValue: TFormSettings);
 begin
   if FormSettings <> AValue then
@@ -74,7 +71,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TCodeFilterSettings.AssignTo(Dest: TPersistent);
 var
   S: TCodeFilterSettings;

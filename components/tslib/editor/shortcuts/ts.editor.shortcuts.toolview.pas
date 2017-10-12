@@ -78,7 +78,7 @@ begin
   Result := FForm;
 end;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmShortcuts.AfterConstruction;
 var
   SL: TStringList;
@@ -95,7 +95,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmShortcuts.GetRichText: string;
 var
   SS : TStringStream;
@@ -128,7 +128,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmShortcuts.FormShow(Sender: TObject);
 begin
   RichText := FText;

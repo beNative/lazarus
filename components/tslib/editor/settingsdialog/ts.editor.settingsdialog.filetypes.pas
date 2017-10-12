@@ -52,12 +52,9 @@ unit ts.Editor.SettingsDialog.FileTypes;
 interface
 
 uses
-  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, SynEdit, ComCtrls,
+  SysUtils, Classes, Forms, StdCtrls, ComCtrls,
 
-  LCLIntf, LCLType, LMessages,
-  {ADFileTypes, }ExtCtrls,
-  Menus, ActnList;
+  ActnList;
 
 {
 object tmpFT: TADFileTypes
@@ -177,14 +174,6 @@ type
 
 implementation
 
-uses
-  StrUtils,
-  {$WARNINGS OFF}
-  FileCtrl
-  {$WARNINGS ON}
-
-  {InputDialog, DualInputDialog, EditAutocompleteDialog, SetupFiltersDialog,
-  CommandModule};
 
 {$R *.lfm}
 

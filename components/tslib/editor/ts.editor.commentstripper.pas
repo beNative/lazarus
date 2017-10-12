@@ -121,11 +121,10 @@ type
 
 implementation
 
-{ TCustomCommentStripper }
-
+{$REGION 'construction and destruction' /FOLD}
 constructor TCustomCommentStripper.Create(AOwner: TComponent);
 begin
-  inherited;
+  inherited Create(AOwner);
   FReservedItems := TStringList.Create;
 end;
 
@@ -134,8 +133,9 @@ begin
   FInStream := nil;
   FOutStream := nil;
   FReservedItems.Free;
-  inherited;
+  inherited Destroy;
 end;
+{$ENDREGION}
 
 procedure TCustomCommentStripper.DoBlockEndProcess;
 begin

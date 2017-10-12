@@ -34,9 +34,6 @@ uses
   ts.Editor.Interfaces;
 
 type
-
-  { TCustomSettingsDialog }
-
   TCustomSettingsDialog = class(TForm)
   strict private
     function GetManager: IEditorManager;
@@ -81,9 +78,7 @@ implementation
 uses
   Character, TypInfo;
 
-{ TCustomSettingsDialog }
-
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TCustomSettingsDialog.GetManager: IEditorManager;
 begin
   Result := Owner.Owner as IEditorManager;
@@ -95,7 +90,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 { If APropertyName is not assigned the propertyname will be extracted from
   the name of the control. }
 

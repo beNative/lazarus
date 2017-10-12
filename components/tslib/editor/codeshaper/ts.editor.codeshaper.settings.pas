@@ -23,15 +23,12 @@ unit ts.Editor.CodeShaper.Settings;
 interface
 
 uses
-  Classes, Forms, Controls;
+  Classes;
 
 const
   DEFAULT_WIDTH = 400;
 
 type
-
-  { TCodeShaperSettings }
-
   TCodeShaperSettings = class(TComponent)
   private
     FWidth: Integer;
@@ -47,7 +44,7 @@ type
 
 implementation
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TCodeShaperSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -55,7 +52,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
 var
   S: TCodeShaperSettings;

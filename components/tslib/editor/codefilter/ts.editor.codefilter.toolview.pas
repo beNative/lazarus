@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.codefilter.ToolView;
+unit ts.Editor.CodeFilter.ToolView;
 
 {$MODE DELPHI}
 
@@ -35,16 +35,13 @@ uses
   ts.Editor.Interfaces, ts.Editor.Utils, ts.Editor.CodeFilter.Settings;
 
 type
-
-  { TfrmCodeFilterDialog }
-
   TfrmCodeFilterDialog = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
     actCopyToNewView     : TAction;
     actFocusSearchFilter : TAction;
-    actCopy: TAction;
+    actCopy              : TAction;
     actMatchCase         : TAction;
     actRegularExpression : TAction;
     actSelectAll         : TAction;
@@ -65,7 +62,7 @@ type
     pnlVST               : TPanel;
     ppmMain              : TPopupMenu;
     sbrMain              : TStatusBar;
-    tmrUpdate: TTimer;
+    tmrUpdate            : TTimer;
     tlbMain              : TToolBar;
     ToolButton1          : TToolButton;
     ToolButton3          : TToolButton;
@@ -240,7 +237,7 @@ resourcestring
   SLineIndex    = 'Line';
   SLineText     = 'Text';
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmCodeFilterDialog.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -298,7 +295,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmCodeFilterDialog.GetVisible: Boolean;
 begin
   Result := inherited Visible;
@@ -359,7 +356,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
 begin
   FVST.Font.Assign(Manager.Settings.EditorFont);
@@ -379,7 +376,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmCodeFilterDialog.actApplyFilterExecute(Sender: TObject);
 begin
   Modified;
@@ -446,7 +443,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmCodeFilterDialog.edtFilterChange(Sender: TObject);
 begin
   if not RegEx and (FLines.Count < MAX_LINES) then
@@ -696,7 +693,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
   I: Integer;
@@ -748,7 +745,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmCodeFilterDialog.Modified;
 begin
   FUpdate := True;

@@ -52,15 +52,11 @@ unit ts.Editor.SettingsDialog.KeyMappings;
 interface
 
 uses
-  Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, CheckLst, ComCtrls, ActnList, ImgList,
+  SysUtils, Classes, Controls, Forms, StdCtrls, CheckLst, ComCtrls, ActnList,
 
-  LCLIntf, LCLType, LMessages;
+  LCLType;
 
 type
-
-  { TfrmKeyMappings }
-
   TfrmKeyMappings = class(TForm)
     pcCustomize: TPageControl;
     tsToolbars: TTabSheet;
@@ -117,9 +113,6 @@ type
 
 
 implementation
-
-uses
-  Menus;
 
 {$R *.lfm}
 

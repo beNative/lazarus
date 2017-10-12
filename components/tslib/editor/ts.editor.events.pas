@@ -44,8 +44,8 @@ type
 
   TActionExecuteEvents = class(TMethodList)
     procedure CallEvents(
-          Sender   : TObject;
-          AAction  : TBasicAction;
+      Sender       : TObject;
+      AAction      : TBasicAction;
       var AHandled : Boolean);
   end;
 
@@ -203,8 +203,8 @@ begin
     TActionExecuteEvent(Items[I])(Sender, AAction, AHandled);
 end;
 
-{$REGION 'TCaretPositionEvents' /FOLD}
-{$REGION 'public methods' /FOLD}
+{$REGION 'TCaretPositionEvents'}
+{$REGION 'public methods'}
 procedure TCaretPositionEvents.CallEvents(Sender: TObject; X, Y: Integer);
 var
   I: Integer;
@@ -216,8 +216,8 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 
-{$REGION 'TEditorEvents' /FOLD}
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'TEditorEvents'}
+{$REGION 'construction and destruction'}
 constructor TEditorEvents.Create(AManager: IEditorManager);
 begin
   inherited Create;
@@ -248,7 +248,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorEvents.GetOnOpen: TStorageEvent;
 begin
   Result := FOnOpen;
@@ -377,7 +377,7 @@ end;
 
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TEditorEvents.DoChange;
 begin
   FChangeEvents.CallNotifyEvents(Self);
@@ -512,7 +512,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TEditorEvents.AddOnChangeHandler(AEvent: TNotifyEvent);
 begin
   FChangeEvents.Add(TMethod(AEvent));

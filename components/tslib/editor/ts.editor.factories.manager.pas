@@ -49,7 +49,7 @@ uses
 
   ts.Editor.Manager;
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
   APersistSettings: Boolean; const ASettingsFileName: string): IEditorManager;
 var

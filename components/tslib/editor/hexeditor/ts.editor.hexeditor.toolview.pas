@@ -23,16 +23,13 @@ unit ts.Editor.hexeditor.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils,
 
   KHexEditor,
 
   ts.Editor.Interfaces, ts.Editor.HexEditor.Settings, ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmHexEditor }
-
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)
     HexEditor: TKHexEditor;
 
@@ -55,7 +52,7 @@ implementation
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmHexEditor.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -63,7 +60,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmHexEditor.HexEditorChange(Sender: TObject);
 var
   S: TStream;
@@ -87,7 +84,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmHexEditor.GetSettings: THexEditorSettings;
 begin
   Result := inherited Settings
@@ -95,7 +92,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmHexEditor.UpdateView;
 var
   S: TStream;

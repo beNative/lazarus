@@ -23,16 +23,13 @@ unit ts.Editor.minimap.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  SysUtils, Controls,
 
   ts.Components.SynMiniMap,
 
   ts.Editor.ToolView.Base, ts.Editor.MiniMap.Settings;
 
 type
-
-  { TfrmMiniMap }
-
   TfrmMiniMap = class(TCustomEditorToolView)
     procedure FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData);
     procedure FormResize(Sender: TObject);
@@ -54,7 +51,7 @@ implementation
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmMiniMap.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -70,7 +67,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmMiniMap.GetSettings: TMiniMapSettings;
 begin
   Result := inherited Settings.
@@ -78,7 +75,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
   );
 begin
@@ -91,7 +88,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TfrmMiniMap.UpdateView;
 begin
   inherited UpdateView;

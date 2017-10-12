@@ -49,11 +49,8 @@ type
   );
 
 type
-
-  { TfrmCodeShaper }
-
   TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain                         : TActionList;
     actInsertBreaks                 : TAction;
     actDequoteLines                 : TAction;
@@ -74,11 +71,11 @@ type
     actRemoveBreaks                 : TAction;
     actUndo                         : TAction;
     btnAlign1                       : TBitBtn;
-    btnDequote                       : TBitBtn;
+    btnDequote                      : TBitBtn;
     btnInsertBreaks                 : TBitBtn;
     btnPascalString                 : TButton;
     btnRemoveBreaks                 : TBitBtn;
-    btnReplace: TBitBtn;
+    btnReplace                      : TBitBtn;
     btnStripFirstChar               : TButton;
     btnStripLastChar                : TButton;
     btnStripLastChar1               : TButton;
@@ -98,7 +95,7 @@ type
     chkTrimLinesLeft                : TCheckBox;
     chkTrimLinesRight               : TCheckBox;
     chkUnBreakLinesWrap             : TCheckBox;
-    cbxInsertBreaksTokenSide: TComboBox;
+    cbxInsertBreaksTokenSide        : TComboBox;
     edtBreakLinesToken              : TLabeledEdit;
     edtBreakLinesWrapPosition       : TSpinEdit;
     edtDequoteLinesQuoteChar        : TLabeledEdit;
@@ -118,14 +115,14 @@ type
     lblTrimLinesIndent              : TLabel;
     lblWrapLinesPosition            : TLabel;
     lblWrapLinesPosition1           : TLabel;
-    mniBreakAfterToken                       : TMenuItem;
-    mniBreakBeforeToken                       : TMenuItem;
+    mniBreakAfterToken              : TMenuItem;
+    mniBreakBeforeToken             : TMenuItem;
     pnlOperations                   : TPanel;
     ppmAfterBefore                  : TPopupMenu;
     sbrMain                         : TScrollBox;
     {$ENDREGION}
 
-    {$REGION 'action handlers' /FOLD}
+    {$REGION 'action handlers'}
     procedure actApplyConsistentCaseExecute(Sender: TObject);
     procedure actBreakAfterTokenExecute(Sender: TObject);
     procedure actBreakBeforeTokenExecute(Sender: TObject);
@@ -183,7 +180,6 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
   end;
 
@@ -198,20 +194,15 @@ uses
 
   ts.Editor.Utils;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmCodeShaper.AfterConstruction;
 begin
   inherited AfterConstruction;
   Width := Settings.Width;
 end;
-
-procedure TfrmCodeShaper.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmCodeShaper.GetText: string;
 begin
   if View.SelAvail then
@@ -227,14 +218,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmCodeShaper.FormResize(Sender: TObject);
 begin
   Settings.Width := Width;
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmCodeShaper.actRedoExecute(Sender: TObject);
 begin
   View.Redo;
@@ -425,7 +416,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 { Updates the editor with the given text with undo/redo support. }
 
 procedure TfrmCodeShaper.AssignText(const AText: string);

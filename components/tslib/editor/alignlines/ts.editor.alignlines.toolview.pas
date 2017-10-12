@@ -25,8 +25,7 @@ unit ts.Editor.AlignLines.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls, Buttons, ActnList, Contnrs,
+  Classes, SysUtils, Forms, StdCtrls, ExtCtrls, ActnList, Contnrs,
 
   VirtualTrees,
 
@@ -139,7 +138,7 @@ uses
 resourcestring
   SToken = 'Token';
 
-{$REGION 'TToken' /FOLD}
+{$REGION 'TToken'}
 type
   TToken = class(TPersistent)
   private
@@ -160,7 +159,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmAlignLines.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -193,14 +192,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmAlignLines.actExecuteExecute(Sender: TObject);
 begin
   Execute;
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmAlignLines.FormShow(Sender: TObject);
 begin
   mmoTokens.Lines.Assign(Settings.Tokens);
@@ -267,14 +266,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmAlignLines.GetSettings: TAlignLinesSettings;
 begin
   Result := inherited Settings.ToolSettings.ItemsByClass[TAlignLinesSettings] as TAlignLinesSettings;
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmAlignLines.UpdateTokenList;
 var
   S  : string;

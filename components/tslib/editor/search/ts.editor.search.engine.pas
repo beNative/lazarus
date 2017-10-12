@@ -56,9 +56,6 @@ uses
   ts.Core.SharedLogger;
 
 type
-
-  { TSearchEngine }
-
   TSearchEngine = class(TComponent, IEditorSearchEngine)
   private
     FSearchText    : string;
@@ -71,7 +68,7 @@ type
     FExecuteEvents : TMethodList;
     FChangeEvents  : TMethodList;
 
-    {$REGION 'property access mehods' /FOLD}
+    {$REGION 'property access mehods'}
     function GetCurrentIndex: Integer;
     function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
@@ -160,7 +157,7 @@ uses
 const
   MAX_RESULTS = 10000;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TSearchEngine.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -183,7 +180,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TSearchEngine.GetItemList: TObjectList;
 begin
   Result := FItemList;
@@ -287,7 +284,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TSearchEngine.DoExecute;
 begin
   FExecuteEvents.CallNotifyEvents(Self);
@@ -299,7 +296,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TSearchEngine.AddOnExecuteHandler(AEvent: TNotifyEvent);
 begin
   FExecuteEvents.Add(TMethod(AEvent));

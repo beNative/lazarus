@@ -212,8 +212,8 @@ begin
 end;
 
 procedure TXMLEditLink.SetBounds(R: TRect); stdcall;
-var
-  Dummy: Integer;
+//var
+//  Dummy: Integer;
 begin
   // Since we don't want to activate grid extensions in the tree (this would influence how the selection is drawn)
   // we have to set the edit's width explicitly to the width of the column.

@@ -64,7 +64,7 @@ implementation
 uses
   SysUtils;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TEditorViewInfo.Create(AView: IEditorView);
 begin
   FView := AView.Form;
@@ -77,7 +77,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorViewInfo.GetFileName: string;
 begin
   Result := View.Form.Caption;

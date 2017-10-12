@@ -23,26 +23,22 @@ unit ts.Editor.Factories.Views;
 interface
 
 uses
-  Classes, SysUtils, Controls,
+  SysUtils, Controls,
 
   ts.Editor.Interfaces;
 
 type
-{ TEditorViewFactory }
-
   TEditorViewFactory = class(TInterfacedObject, IEditorViewFactory)
     function CreateInstance(
-             AParent      : TWinControl;
-             AManager     : IEditorManager;
-       const AName        : string = '';
-       const AFileName    : string = '';
-       const AHighlighter : string = 'TXT'
+      AParent            : TWinControl;
+      AManager           : IEditorManager;
+      const AName        : string = '';
+      const AFileName    : string = '';
+      const AHighlighter : string = 'TXT'
     ): IEditorView;
   end;
 
 implementation
-
-{ TEditorViewFactory }
 
 function TEditorViewFactory.CreateInstance(AParent: TWinControl;
   AManager: IEditorManager; const AName: string; const AFileName: string;

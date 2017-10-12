@@ -13,7 +13,6 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   PopupMode = pmExplicit
   Position = poMainFormCenter
   LCLVersion = '1.9.0.0'
-  Visible = False
   object pnlVST: TPanel
     Left = 3
     Height = 517
@@ -171,8 +170,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 328
-    top = 80
+    Left = 328
+    Top = 80
     object actApplyFilter: TAction
       AutoCheck = True
       Caption = 'Apply filter'
@@ -221,8 +220,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     end
   end
   object imlMain: TImageList
-    left = 200
-    top = 80
+    Left = 200
+    Top = 80
     Bitmap = {
       4C69040000001000000010000000B5B3B165B3B1AFFFB2AFADFFB1AFADFFB1AF
       ADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB1AFADFFB2AF
@@ -356,8 +355,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     }
   end
   object ppmMain: TPopupMenu
-    left = 264
-    top = 80
+    Left = 264
+    Top = 80
     object mniSelectAll: TMenuItem
       Action = actSelectAll
     end
@@ -372,7 +371,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Enabled = False
     Interval = 300
     OnTimer = tmrUpdateTimer
-    left = 384
-    top = 80
+    Left = 384
+    Top = 80
   end
 end

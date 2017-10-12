@@ -23,15 +23,11 @@ unit ts.Editor.SettingsDialog.EditorSettings;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, RTTICtrls, Forms, Controls, Graphics, Dialogs,
-  StdCtrls, ExtCtrls,
+  RTTICtrls, StdCtrls, ExtCtrls,
 
   ts.Editor.SettingsDialog.Base;
 
 type
-
-  { TfrmEditorSettingsDialog }
-
   TfrmEditorSettingsDialog = class(TCustomSettingsDialog)
     chkAlwaysVisibleCaret    : TTICheckBox;
     chkAutoHideCursor        : TTICheckBox;
@@ -83,6 +79,7 @@ type
     trbExtraLineSpacing      : TTITrackBar;
     trbRightEdge             : TTITrackBar;
     trbTabWidth              : TTITrackBar;
+
   public
     procedure AfterConstruction; override;
 
@@ -92,9 +89,7 @@ implementation
 
 {$R *.lfm}
 
-{ TfrmEditorSettingsDialog }
-
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmEditorSettingsDialog.AfterConstruction;
 begin
   inherited AfterConstruction;

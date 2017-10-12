@@ -23,13 +23,9 @@ unit ts.Editor.Tools.Settings;
 interface
 
 uses
-  Classes, SysUtils, Contnrs;
+  Classes, SysUtils;
 
 type
-  TEditorToolSettings = class;
-
-  { TEditorToolSettings }
-
   TEditorToolSettings = class(TComponent)
   private
     function GetCount: Integer;
@@ -39,8 +35,8 @@ type
 
   public
     function RegisterSettings(
-              ASettingsClass : TComponentClass;
-        const AName          : string
+      ASettingsClass : TComponentClass;
+      const AName    : string
     ) : TComponent;
 
   public
@@ -62,9 +58,7 @@ implementation
 uses
   ts.Core.SharedLogger;
 
-{ TEditorToolSettings }
-
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorToolSettings.GetItemsByClass(
   AClass: TComponentClass): TComponent;
 var
@@ -120,7 +114,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 function TEditorToolSettings.RegisterSettings(
   ASettingsClass: TComponentClass; const AName: string): TComponent;
 var

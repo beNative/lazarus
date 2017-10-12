@@ -50,51 +50,48 @@ uses
   ts.Core.SharedLogger, ts.Core.Utils;
 
 type
-
-  { TfrmSearchForm }
-
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain                         : TActionList;
     actFocusSearchText              : TAction;
     actReplace                      : TAction;
     actReplaceAll                   : TAction;
     actFind                         : TAction;
-    btnFind: TBitBtn;
-    btnReplace: TBitBtn;
-    btnReplaceAll: TBitBtn;
+    btnFind                         : TBitBtn;
+    btnReplace                      : TBitBtn;
+    btnReplaceAll                   : TBitBtn;
     cbxReplaceWith                  : TComboBox;
     cbxSearchText                   : TComboBox;
     chkCaseSensitive                : TCheckBox;
-    chkMultiLine: TCheckBox;
-    chkRegularExpressions: TCheckBox;
+    chkMultiLine                    : TCheckBox;
+    chkRegularExpressions           : TCheckBox;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
     chkWholeWordsOnly               : TCheckBox;
     DirectionGroupBox               : TGroupBox;
     grdReplaceStrings               : TStringGrid;
-    grpDirection: TGroupBox;
+    grpDirection                    : TGroupBox;
     grpMisc                         : TGroupBox;
     grpOptions                      : TGroupBox;
-    grpOrigin: TGroupBox;
+    grpOrigin                       : TGroupBox;
     grpReplaceWith                  : TGroupBox;
-    grpScope: TGroupBox;
+    grpScope                        : TGroupBox;
     grpSearchText                   : TGroupBox;
-    imgF2Key                          : TImage;
-    pnlButtons: TPanel;
+    imgF2Key                        : TImage;
+    pnlButtons                      : TPanel;
     pnlOperations                   : TPanel;
     pnlResultList                   : TPanel;
-    rbAllViews: TRadioButton;
-    rbBackward: TRadioButton;
-    rbEntireScope: TRadioButton;
+    rbAllViews                      : TRadioButton;
+    rbBackward                      : TRadioButton;
+    rbEntireScope                   : TRadioButton;
     pnlStatus                       : TPanel;
-    rbForward: TRadioButton;
-    rbFromCursor: TRadioButton;
-    rbActiveView: TRadioButton;
-    rbSelection: TRadioButton;
+    rbForward                       : TRadioButton;
+    rbFromCursor                    : TRadioButton;
+    rbActiveView                    : TRadioButton;
+    rbSelection                     : TRadioButton;
     {$ENDREGION}
 
-    {$REGION 'action handlers' /FOLD}
+    {$REGION 'action handlers'}
     procedure actFocusSearchTextExecute(Sender: TObject);
     procedure actReplaceAllExecute(Sender: TObject);
     procedure actReplaceExecute(Sender: TObject);
@@ -178,7 +175,7 @@ resourcestring
   SMatchFound   = '%d search match found.';
   SMatchesFound = '%d search matches found.';
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmSearchForm.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -205,7 +202,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmSearchForm.GetSearchEngine: IEditorSearchEngine;
 begin
   Result := Owner as IEditorSearchEngine;
@@ -278,7 +275,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmSearchForm.actFocusSearchTextExecute(Sender: TObject);
 begin
   cbxSearchText.SetFocus;
@@ -312,7 +309,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmSearchForm.cbxSearchTextChange(Sender: TObject);
 begin
   Modified;
@@ -426,7 +423,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmSearchForm.Execute;
 begin
   SearchEngine.SearchText := cbxSearchText.Text;

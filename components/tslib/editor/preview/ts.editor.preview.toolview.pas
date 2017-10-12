@@ -23,7 +23,7 @@ unit ts.Editor.Preview.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
+  Classes, SysUtils, Menus,
 
   RichMemo,
 
@@ -57,7 +57,7 @@ implementation
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmPreview.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -66,14 +66,14 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmPreview.EditorCaretPositionChange(Sender: TObject; X, Y: Integer);
 begin
   UpdateView;
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmPreview.UpdateView;
 var
   SS : TStringStream;

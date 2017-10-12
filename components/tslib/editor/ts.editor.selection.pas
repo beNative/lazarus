@@ -32,9 +32,6 @@ uses
   ts.Editor.Interfaces;
 
 type
-
-  { TEditorSelection }
-
   TEditorSelection = class(TInterfacedObject, IEditorSelection)
   private
     FBlockBegin    : TPoint;
@@ -111,7 +108,7 @@ uses
 
   ts.Core.SharedLogger;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TEditorSelection.Create(AEditorView: IEditorView);
 begin
   inherited Create;
@@ -131,7 +128,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TEditorSelection.GetBlockBegin: TPoint;
 begin
   Result := FBlockBegin;
@@ -195,7 +192,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TEditorSelection.Clear;
 begin
   FLines.Clear;

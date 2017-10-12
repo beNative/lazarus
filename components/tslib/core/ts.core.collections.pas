@@ -115,14 +115,14 @@ type
 
 implementation
 
-{$REGION 'TCollectionEnumerator<T>' /FOLD}
+{$REGION 'TCollectionEnumerator<T>'}
 function TCollectionEnumerator<T>.GetCurrent: T;
 begin
   Result := T(inherited GetCurrent);
 end;
 {$ENDREGION}
 
-{$REGION 'TCollection<T>' /FOLD}
+{$REGION 'TCollection<T>'}
 function TCollection<T>.Add: T;
 begin
   Result := T(inherited Add());
@@ -166,7 +166,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'TOwnedCollection<T>' /FOLD}
+{$REGION 'TOwnedCollection<T>'}
 constructor TOwnedCollection<T>.Create(AOwner: TPersistent);
 begin
   FOwner := AOwner;

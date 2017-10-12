@@ -23,16 +23,13 @@ unit ts.Editor.charactermap.ToolView;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, StdCtrls, Grids, ComCtrls, ExtCtrls,
+  Classes, SysUtils, Controls, StdCtrls, Grids, ComCtrls, ExtCtrls,
 
-  LCLProc, LCLUnicodeData,
+  LCLUnicodeData,
 
   ts.Editor.Interfaces, ts.Editor.ToolView.Base;
 
 type
-
-  { TfrmCharacterMap }
-
   TfrmCharacterMap = class(TCustomEditorToolView, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
     imgChar            : TImage;
@@ -82,7 +79,7 @@ type
 implementation
 
 uses
-  Graphics, Dialogs,
+  Graphics,
 
   LCLType, LCLIntf;
 
@@ -91,7 +88,7 @@ uses
 resourcestring
   SCharacterMap = 'Character Map';
 
-{$REGION 'non-interfaced routines' /FOLD}
+{$REGION 'non-interfaced routines'}
 function RoundUp(Value, Divi: Integer): Integer;
 begin
   if Value mod Divi = 0 then
@@ -121,7 +118,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmCharacterMap.AfterConstruction;
 var
   I : Integer;
@@ -148,7 +145,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmCharacterMap.cbxUnicodeRangeSelect(Sender: TObject);
 var
   N : Integer;
@@ -285,7 +282,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmCharacterMap.FillCharMap;
 var
   R : Integer;

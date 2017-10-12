@@ -20,7 +20,7 @@ unit ts.Editor.Settings;
 
 {$MODE DELPHI}
 
-{$REGION Documentation /FOLD}
+{$REGION 'documentation'}
 {
   TEditorSettings is a component that implements IEditorSettings and holds
   all settings that can be persisted.
@@ -59,7 +59,7 @@ unit ts.Editor.Settings;
 interface
 
 uses
-  Classes, SysUtils, Graphics, FileUtil, ActnList,
+  Classes, SysUtils, Graphics, FileUtil,
 
   LazMethodList,
 
@@ -86,8 +86,6 @@ const
   DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
-  { TEditorSettings }
-
   TEditorSettings = class(TComponent, IEditorSettings)
     procedure FEditorOptionsChanged(Sender: TObject);
   private
@@ -113,7 +111,7 @@ type
     procedure FFormSettingsChanged(Sender: TObject);
     procedure FColorsChanged(Sender: TObject);
 
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
@@ -233,15 +231,13 @@ type
 implementation
 
 uses
-  Dialogs, Forms,
-
-  SynEditHighlighter, SynEditStrConst, SynEditTypes,
+  SynEditStrConst, SynEditTypes,
 
   ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage, ts.Core.Utils,
 
   ts.Editor.Resources;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -290,7 +286,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 
 procedure TEditorSettings.FColorsChanged(Sender: TObject);
 begin
@@ -308,7 +304,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access methods' /FOLD}
+{$REGION 'property access methods'}
 function TEditorSettings.GetAutoFormatXML: Boolean;
 begin
   Result := FAutoFormatXML;
@@ -572,7 +568,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TEditorSettings.Load;
 var
   Reader : TXmlObjectReader;

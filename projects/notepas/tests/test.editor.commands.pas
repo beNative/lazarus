@@ -18,7 +18,7 @@
 
 unit Test.Editor.Commands;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

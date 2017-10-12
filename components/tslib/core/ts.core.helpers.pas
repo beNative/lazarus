@@ -53,7 +53,7 @@ type
     FAnimationOptions : TVTAnimationOptions;
 
  strict private const
-   {$REGION 'default VST options' /FOLD}
+   {$REGION 'default VST options'}
     DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
       owner control. }
@@ -315,7 +315,7 @@ uses
 
   ObjectInspector;
 
-{$REGION 'TLocalClass' /FOLD}
+{$REGION 'TLocalClass'}
 type
   TLocalClass = class
   strict private
@@ -386,7 +386,7 @@ end;
 
 { VST }
 
-{$REGION 'VST' /FOLD}
+{$REGION 'VST'}
 { Class constructor sets default values for our factories' properties. }
 
 class constructor VST.Create;

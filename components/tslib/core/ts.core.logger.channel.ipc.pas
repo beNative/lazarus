@@ -49,9 +49,6 @@ uses
   ts.Core.Logger;
 
 type
-
-  { TIPCChannel }
-
   TIPCChannel = class (TLogChannel)
   private
     FClient: TSimpleIPCClient;
@@ -67,6 +64,9 @@ type
 
 implementation
 
+uses
+  ts.Core.Logger.Interfaces;
+
 const
   ZeroBuf: Integer = 0;
 
@@ -76,10 +76,10 @@ constructor TIPCChannel.Create;
 begin
   with FClearMessage do
   begin
-    MsgType :=ltClear;
-    MsgText :='';
-    MsgTime :=Now;
-    Data    :=nil;
+    MsgType   := Integer(lmtClear);
+    Text      := '';
+    TimeStamp := Now;
+    Data      := nil;
   end;
   FBuffer:=TMemoryStream.Create;
   FClient := TSimpleIPCClient.Create(nil);
@@ -113,12 +113,12 @@ var
 begin
   with FBuffer do
   begin
-    TextSize:=Length(AMsg.MsgText);
+    TextSize:=Length(AMsg.Text);
     Seek(0,soFromBeginning);
     WriteBuffer(AMsg.MsgType,SizeOf(Integer));
-    WriteBuffer(AMsg.MsgTime,SizeOf(TDateTime));
+    WriteBuffer(AMsg.TimeStamp,SizeOf(TDateTime));
     WriteBuffer(TextSize,SizeOf(Integer));
-    WriteBuffer(AMsg.MsgText[1],TextSize);
+    WriteBuffer(AMsg.Text[1],TextSize);
     if AMsg.Data <> nil then
     begin
       DataSize := AMsg.Data.Size;

@@ -958,7 +958,7 @@ begin
   if Assigned(A) then
     Result := A
   else
-    Logger.SendWarning(Format('Action with name (%s) not found!', [AName]));
+    Logger.Warn(Format('Action with name (%s) not found!', [AName]));
 end;
 
 function TdmEditorManager.GetLineBreakStylePopupMenu: TPopupMenu;
@@ -2626,10 +2626,8 @@ procedure TdmEditorManager.Notification(AComponent: TComponent; Operation: TOper
 begin
   if Supports(AComponent, IEditorView) and (Operation = opRemove) then
   begin
-    Logger.EnterMethod(Self, 'Notification');
     DeleteView(AComponent as IEditorView);
     Logger.Watch('ViewCount', ViewCount);
-    Logger.ExitMethod(Self, 'Notification');
   end;
   inherited Notification(AComponent, Operation);
 end;
@@ -2671,7 +2669,6 @@ function TdmEditorManager.AddView(const AName: string; const AFileName: string;
 var
   V : IEditorView;
 begin
-  Logger.EnterMethod(Self, 'AddView');
   V := TEditorView.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
   { TODO -oTS : Needs to be refactored. }
@@ -2689,7 +2686,6 @@ begin
   V.Activate;
   Result := V;
   Logger.Watch('ViewCount', ViewCount);
-  Logger.ExitMethod(Self, 'AddView');
 end;
 
 function TdmEditorManager.AddSharedView(AEditorView: IEditorView;
@@ -2716,7 +2712,6 @@ var
   I : Integer;
   V : IEditorView;
 begin
-  Logger.EnterMethod(Self, 'DeleteView(AIndex)');
   if (AIndex > -1) and (AIndex < ViewCount) {and (ViewCount > 1)} then
   begin
     I := ViewList.IndexOf(ActiveView);
@@ -2734,7 +2729,6 @@ begin
   else
     Result := False;
   Logger.Watch('ViewCount', ViewCount);
-  Logger.ExitMethod(Self, 'DeleteView(AIndex)');
 end;
 
 { 1. Removes the given instance from the list
@@ -2746,7 +2740,6 @@ function TdmEditorManager.DeleteView(AView: IEditorView): Boolean;
 var
   I : Integer;
 begin
-  Logger.EnterMethod(Self, 'DeleteView(AView)');
   if Assigned(AView) and Assigned(ViewList) then
   begin
     I := ViewList.IndexOf(AView);
@@ -2775,7 +2768,6 @@ begin
   else
     Result := False;
   Logger.Watch('ViewCount', ViewCount);
-  Logger.ExitMethod(Self, 'DeleteView(AView)');
 end;
 
 function TdmEditorManager.DeleteView(const AName: string): Boolean;

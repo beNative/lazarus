@@ -575,7 +575,6 @@ var
   Doc    : TNativeXml;
   S      : string;
 begin
-  Logger.EnterMethod('TEditorSettings.Load');
   S :=   GetApplicationPath + FFileName;
   if FileExists(S) then
   begin
@@ -595,7 +594,6 @@ begin
   end;
   InitializeHighlighters; // create higlighters if they cannot be loaded.
   InitializeHighlighterAttributes;
-  Logger.ExitMethod('TEditorSettings.Load');
 end;
 
 procedure TEditorSettings.Save;
@@ -605,7 +603,6 @@ var
   S      : string;
 begin
   Logger.SendCallStack('Save');
-  Logger.EnterMethod('TEditorSettings.Save');
   S :=   GetApplicationPath + FFileName;
   Doc := TNativeXml.CreateName('Root', nil);
   try
@@ -620,7 +617,6 @@ begin
   finally
     FreeAndNil(Doc);
   end;
-  Logger.ExitMethod('TEditorSettings.Save');
 end;
 
 procedure TEditorSettings.Apply;

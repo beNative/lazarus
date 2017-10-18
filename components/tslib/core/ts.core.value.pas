@@ -16,7 +16,11 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-{$REGION 'Original license info'}
+unit ts.Core.Value;
+
+{$MODE DELPHI}
+
+{$REGION 'Original license info' /FOLD}
 (*
  * This software is distributed under BSD license.
  *
@@ -45,91 +49,14 @@
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ==================================================================================
- * Common unit for Cromis library
- * ==================================================================================
- * 08/03/2010 (1.0.0)
- *   - Initial release
- *   - IAnyValue, TAnyValue implementations
- * ==================================================================================
- * 26/07/2010 (1.0.1)
- *   - Added avtDateTime
- * ==================================================================================
- * 15/08/2010 (1.0.2)
- *   - Added Items property to enable iteration over all values
- *   - Added Count property
- * ==================================================================================
- * 08/10/2010 (1.0.3)
- *   - Use generic list instead of interface list for newer compilers
- * ==================================================================================
- * 28/12/2010 (1.0.4)
- *   - Create new interface object for each assignment to avoid interface sharing
- * ==================================================================================
- * 13/06/2011 (1.0.5)
- *   - Added AnsiString support
- * ==================================================================================
- * 16/06/2011 (1.1.0)
- *   - TAnyValue detached from interfaces. Uses Variants as internal storage
- *   - AsPointer, AsVariant properties added to TAnyValue and IAnyValue
- * ==================================================================================
- * 17/06/2011 (1.1.1)
- *   - IAnyValue uses TAnyValue now internally
- * ==================================================================================
- * 21/06/2011 (1.2.0)
- *   - TAnyValue uses TVarRec for simple data types and Variants for complex ones
- * ==================================================================================
- * 23/06/2011 (1.3.0)
- *   - TAnyValue uses TVarRec for simple data types and array of byes for complex ones
- * ==================================================================================
- * 03/02/2013 (1.4.0)
- *   - Compiler defines to finetune speed vs memory consumption
- * ==================================================================================
- * 05/02/2013 (1.4.1)
- *   - Controlled type conversions
- *   - Redesigned defines to control memory consumption
- * ==================================================================================
- * 06/02/2013 (1.4.2)
- *   - Speed optimizations
- * ==================================================================================
- * 07/02/2013 (1.4.3)
- *   - Speed optimizations
- * ==================================================================================
- * 17/02/2013 (2.0.0)
- *   - Complete rewrite, smaller memory footprint, faster speed
- *   - Array, Variants and Exception support
- * ==================================================================================
- * 18/02/2013 (2.0.1)
- *   - TAnyArray implementation added
- *   - Array enumerator
- * ==================================================================================
- * 20/02/2013 (2.0.2)
- *   - TAnyArray gets streams support
- *   - More casts added for TAnyValue
- * ==================================================================================
- * 23/02/2013 (2.0.3)
- *   - TAnyValue gets name-value pairs support
- * ==================================================================================
- * 27/02/2013 (2.1.0)
- *   - TAnyArray uses sliced arrays for data structure
- *   - LoadFromStream / SaveToStream can now take callback procedure if needed
- * ==================================================================================
- * 10/03/2013 (2.2.0)
- *   - IAnyArray sliced array rewritten to be more efficient
- * ==================================================================================
 *)
-
+{$ENDREGION}
 {
   Modifications by Tim Sinaeve:
   - Some adjustments to make this unit compile with FPC.
   - Renamed TAnyValue to TValue as this type does not exist (yet?) for FPC.
   - Removed array support
 }
-{$ENDREGION}
-
-unit ts.Core.Value;
-
-{$MODE DELPHI}
 
 interface
 

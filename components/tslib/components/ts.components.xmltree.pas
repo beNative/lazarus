@@ -1006,7 +1006,6 @@ var
   NX : TNativeXml;
   P  : PNodeData;
 begin
-  Logger.EnterMethod(Self, 'SetNodeXML');
   NX := TNativeXml.Create(Self);
   try
     NX.ReadFromString(UTF8String(Value));
@@ -1019,7 +1018,6 @@ begin
   finally
     NX.Free;
   end;
-  Logger.ExitMethod(Self, 'SetNodeXML');
 end;
 
 function TXMLTree.GetOptions: TStringTreeOptions;
@@ -1627,7 +1625,6 @@ var
   ParentPath : string;
   I          : Integer;
 begin
-  Logger.EnterMethod(Self, 'AddChildren');
   Result := 0;
   if Assigned(AXMLNode) and (AXMLNode.ElementType in [xeElement, xeAttribute]) then
   begin
@@ -1651,7 +1648,6 @@ begin
       EndUpdate;
     end;
   end;
-  Logger.ExitMethod(Self, 'AddChildren');
 end;
 
 {$ENDREGION}
@@ -1897,8 +1893,6 @@ procedure TXMLTree.NewNode(ANode: PVirtualNode; ANewNodeType: TNodeType;
 var
   N : TXmlNode;
 begin
-  Logger.EnterMethod(Self, 'NewNode');
-
   if not Assigned(ANode) then
     AXmlNode := GetXMLNode(FocusedNode);
 
@@ -1962,7 +1956,6 @@ begin
   if not ABefore then
     Expanded[ANode] := True;
   RefreshNode(ANode, True);
-  Logger.ExitMethod(Self, 'NewNode');
 end;
 
 procedure TXMLTree.DeleteNode(Node: PVirtualNode; Reindex: Boolean);

@@ -16,7 +16,7 @@
   Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 }
 
-unit ts.Editor.shortcuts.ToolView;
+unit ts.Editor.Shortcuts.ToolView;
 
 {$MODE DELPHI}
 

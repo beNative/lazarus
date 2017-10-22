@@ -1,0 +1,30 @@
+object RichEditorViewKMemo: TRichEditorViewKMemo
+  Left = 742
+  Height = 773
+  Top = 247
+  Width = 972
+  Caption = 'RichEditorViewKMemo'
+  ClientHeight = 773
+  ClientWidth = 972
+  LCLVersion = '1.9.0.0'
+  object pnlRichEditor: TPanel
+    Left = 0
+    Height = 773
+    Top = 0
+    Width = 972
+    Align = alClient
+    BevelOuter = bvNone
+    ClientHeight = 773
+    ClientWidth = 972
+    TabOrder = 0
+    object pnlBottom: TPanel
+      Left = 0
+      Height = 26
+      Top = 747
+      Width = 972
+      Align = alBottom
+      BevelOuter = bvNone
+      TabOrder = 0
+    end
+  end
+end

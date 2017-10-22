@@ -158,10 +158,13 @@ uses
 {$R *.res}
 
 begin
+  {$IF DECLARED(UseHeapTrace)}
+   GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
+  {$ENDIF}
   Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
-  //SetHeapTraceOutput('Notepas.trc');
+  SetHeapTraceOutput('Notepas.trc');
   {$IFDEF WINDOWS}
   {$WARNINGS OFF}
   Application.MainFormOnTaskbar := True;

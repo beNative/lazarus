@@ -59,12 +59,12 @@ uses
         operation. }
 
 const
-  DEFAULT_KEYFIELDNAME      = 'ID';
-  DEFAULT_LEVELFIELDNAME    = 'ID';
-  DEFAULT_PARENTFIELDNAME   = 'ParentID';
+  DEFAULT_KEYFIELDNAME      = 'Id';
+  DEFAULT_LEVELFIELDNAME    = 'Id';
+  DEFAULT_PARENTFIELDNAME   = 'ParentId';
   DEFAULT_PATHFIELDNAME     = '';
   DEFAULT_IMGIDXFIELDNAME   = 'ImageIndex';
-  DEFAULT_NODETYPEFIELDNAME = 'NodeTypeID';
+  DEFAULT_NODETYPEFIELDNAME = 'NodeTypeId';
   DEFAULT_VIEWFIELDNAME     = 'NodeName';
 
 type
@@ -78,6 +78,7 @@ type
 
 type
   TfrmVirtualDBTree = class(TForm)
+    {$REGION 'designer controls'}
     actCollapseAllNodes    : TAction;
     actDeleteSelectedNodes : TAction;
     actExpandAllNodes      : TAction;
@@ -106,27 +107,58 @@ type
     tlbBottomRight         : TToolBar;
     btnExpandNodes         : TToolButton;
     btnCollapseNodes       : TToolButton;
+    {$ENDREGION}
 
+    {$REGION 'action handlers'}
     procedure actNewRootFolderNodeExecute(Sender: TObject);
     procedure actNewFolderNodeExecute(Sender: TObject);
     procedure actNewItemNodeExecute(Sender: TObject);
     procedure actDeleteSelectedNodesExecute(Sender: TObject);
     procedure actExpandAllNodesExecute(Sender: TObject);
     procedure actCollapseAllNodesExecute(Sender: TObject);
+    {$ENDREGION}
 
+    {$REGION 'event handlers'}
     procedure dscMainDataChange(Sender: TObject; Field: TField);
-    procedure FTreeViewCreateEditor(Sender: TBaseVirtualTree; Node:
-      PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
-    procedure FTreeViewDragAllowed(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex; var Allowed: Boolean);
-    procedure FTreeViewDragDrop(Sender: TBaseVirtualTree; Source: TObject;
-      DataObject: IDataObject; Formats: TFormatArray; Shift: TShiftState;
-      const Pt: TPoint; var Effect: DWORD; Mode: TDropMode);
-    procedure FTreeViewDragOver(Sender: TBaseVirtualTree; Source: TObject;
-      Shift: TShiftState; State: TDragState; const Pt: TPoint; Mode: TDropMode;
-      var Effect: DWORD; var Accept: Boolean);
-    procedure FTreeViewEdited(Sender: TBaseVirtualTree; Node: PVirtualNode;
-      Column: TColumnIndex);
+
+    procedure FTreeViewCreateEditor(
+      Sender       : TBaseVirtualTree;
+      Node         : PVirtualNode;
+      Column       : TColumnIndex;
+      out EditLink : IVTEditLink
+    );
+    procedure FTreeViewDragAllowed(
+      Sender      : TBaseVirtualTree;
+      Node        : PVirtualNode;
+      Column      : TColumnIndex;
+      var Allowed : Boolean
+    );
+    procedure FTreeViewDragDrop(
+      Sender     : TBaseVirtualTree;
+      Source     : TObject;
+      DataObject : IDataObject;
+      Formats    : TFormatArray;
+      Shift      : TShiftState;
+      const Pt   : TPoint;
+      var Effect : DWORD;
+      Mode       : TDropMode
+    );
+    procedure FTreeViewDragOver(
+      Sender     : TBaseVirtualTree;
+      Source     : TObject;
+      Shift      : TShiftState;
+      State      : TDragState;
+      const Pt   : TPoint;
+      Mode       : TDropMode;
+      var Effect : DWORD;
+      var Accept : Boolean
+    );
+    procedure FTreeViewEdited(
+      Sender : TBaseVirtualTree;
+      Node   : PVirtualNode;
+      Column : TColumnIndex
+    );
+    {$ENDREGION}
 
   private
     FTreeView          : TCheckVirtualDBTreeEx;
@@ -136,7 +168,7 @@ type
     FOnNewItemNode     : TNewItemNodeEvent;
     FNodeTypeFieldName : string;
 
-    {$REGION 'property access methods' /FOLD}
+    {$REGION 'property access methods'}
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
     function GetImgIdxFieldName: string;
@@ -170,15 +202,15 @@ type
   {$ENDREGION}
 
     procedure GetFileListFromObj(
-      const DataObj   : IDataObject;
-            AFileList : TStrings
+      const DataObj : IDataObject;
+      AFileList     : TStrings
     );
 
   protected
     procedure PostTreeData(
-            AParentID : Integer;
-            ANodeType : Integer;
-      const AName     : string
+      AParentId   : Integer;
+      ANodeType   : Integer;
+      const AName : string
     ); virtual;
 
     procedure InitializeTreeView;
@@ -187,7 +219,7 @@ type
     procedure DoNewFolderNode; dynamic;
     procedure DoNewItemNode; dynamic;
     procedure DoDropFiles(
-            AFiles      : TStrings;
+      AFiles            : TStrings;
       const AAttachMode : TVTNodeAttachMode
     ); dynamic;
 
@@ -278,6 +310,8 @@ implementation
 uses
   SysUtils, ShellApi,
 
+  ts.Core.SharedLogger,
+
   SnippetSource.VirtualTree.Editors;
 
 resourcestring
@@ -285,14 +319,14 @@ resourcestring
   SNewFolder           = 'New folder';
   SNew                 = 'New';
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmVirtualDBTree.AfterConstruction;
 begin
   inherited AfterConstruction;
   FTreeView := TCheckVirtualDBTreeEx.Create(Self);
   InitializeTreeView;
-  MultiSelect := True;
-  ToolbarTopVisible := True;
+  MultiSelect          := True;
+  ToolbarTopVisible    := True;
   ToolbarBottomVisible := True;
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
@@ -306,14 +340,14 @@ end;
 
 procedure TfrmVirtualDBTree.BeforeDestruction;
 begin
-  if DataSet.State in dsEditModes then
-    DataSet.Post;
+  //if DataSet.State in dsEditModes then
+//    DataSet.Post;
   dscMain.DataSet := nil;
   inherited BeforeDestruction;
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 procedure TfrmVirtualDBTree.SetDataSet(const Value: TDataSet);
 begin
   if Value <> DataSet then
@@ -477,7 +511,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event dispatch methods' /FOLD}
+{$REGION 'event dispatch methods'}
 procedure TfrmVirtualDBTree.DoNewFolderNode;
 begin
   if Assigned(FOnNewFolderNode) then
@@ -490,14 +524,15 @@ begin
     FOnNewItemNode(Self);
 end;
 
-procedure TfrmVirtualDBTree.DoDropFiles(AFiles: TStrings; const AAttachMode : TVTNodeAttachMode);
+procedure TfrmVirtualDBTree.DoDropFiles(AFiles: TStrings;
+  const AAttachMode : TVTNodeAttachMode);
 begin
   if Assigned(AFiles) and Assigned(FOnDropFiles) then
     FOnDropFiles(FTreeView, AFiles, AAttachMode);
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmVirtualDBTree.actNewRootFolderNodeExecute(Sender: TObject);
 begin
   NewRootFolderNode;
@@ -529,15 +564,15 @@ procedure TfrmVirtualDBTree.actCollapseAllNodesExecute(Sender: TObject);
 begin
   FTreeView.CollapseAll;
 end;
+{$ENDREGION}
 
+{$REGION 'event handlers'}
 procedure TfrmVirtualDBTree.dscMainDataChange(Sender: TObject; Field: TField);
 begin
   if Field = nil then
     FTreeView.ScrollIntoView(FTreeView.FocusedNode, True);
 end;
-{$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
 procedure TfrmVirtualDBTree.FTreeViewCreateEditor(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; out EditLink: IVTEditLink);
 begin
@@ -599,16 +634,16 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmVirtualDBTree.GetFileListFromObj(const DataObj: IDataObject;
   AFileList: TStrings);
 var
-  FmtEtc: TFormatEtc;                   // specifies required data format
-  Medium: TStgMedium;                   // storage medium containing file list
-  DroppedFileCount: Integer;            // number of dropped files
-  I: Integer;                           // loops thru dropped files
-  FileNameLength: Integer;              // length of a dropped file name
-  FileName: WideString;                 // name of a dropped file
+  FmtEtc           : TFormatEtc;         // specifies required data format
+  Medium           : TStgMedium;         // storage medium containing file list
+  DroppedFileCount : Integer;            // number of dropped files
+  I                : Integer;            // loops thru dropped files
+  FileNameLength   : Integer;            // length of a dropped file name
+  FileName         : WideString;         // name of a dropped file
 begin
   // Get required storage medium from data object
   FmtEtc.cfFormat := CF_HDROP;
@@ -622,7 +657,7 @@ begin
       // Get count of files dropped
       DroppedFileCount := DragQueryFile(
         Medium.hGlobal, $FFFFFFFF, nil, 0
-        );
+      );
       // Get name of each file dropped and process it
       for I := 0 to Pred(DroppedFileCount) do
       begin
@@ -646,15 +681,16 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
-procedure TfrmVirtualDBTree.PostTreeData(AParentID, ANodeType: Integer;
+{$REGION 'protected methods'}
+procedure TfrmVirtualDBTree.PostTreeData(AParentId, ANodeType: Integer;
   const AName: string);
 begin
   DataSet.Append;
-  ParentField.AsInteger   := AParentID;
+  ParentField.AsInteger   := AParentId;
   NodeTypeField.AsInteger := ANodeType;
   ViewField.AsString      := AName;
-  DataSet.Post;
+  if DataSet.State in dsEditModes then
+    DataSet.Post;
 end;
 
 procedure TfrmVirtualDBTree.InitializeTreeView;
@@ -671,6 +707,24 @@ begin
     Color := clWhite;
     Colors.FocusedSelectionColor := clGray;
     Colors.HotColor := clBlue;
+{
+    dboAllowChecking,
+    dboAllowStructureChange,
+    dboAlwaysStructured,
+    dboCheckChildren,
+    dboCheckDBStructure,
+    dboListView,
+    dboParentStructure,
+    dboPathStructure,
+    dboReadOnly,
+    dboShowChecks,
+    dboTrackActive,
+    dboTrackChanges,
+    dboTrackCursor,
+    dboViewAll,
+    dboWriteLevel,
+    dboWriteSecondary
+ }
     DBOptions := [
       dboAllowStructureChange,
       dboAlwaysStructured,
@@ -751,39 +805,40 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TfrmVirtualDBTree.NewFolderNode;
 var
-  ID: Integer;
+  Id : Integer;
 begin
   if NodeTypeField.AsInteger = 1 then
-    ID := KeyField.AsInteger
+    Id := KeyField.AsInteger
   else
-    ID := ParentField.AsInteger;
+    Id := ParentField.AsInteger;
   if DataSet.IsEmpty then // no parent, so we create a rootnode
-    ID := 0;
-  PostTreeData(ID, 1, SNewFolder);
+    Id := 0;
+  Logger.Send('NewFolderNode with ParentId', Id);
+  PostTreeData(Id, 1, SNewFolder);
   DoNewFolderNode;
 end;
 
 procedure TfrmVirtualDBTree.NewItemNode;
 var
-  ID: Integer;
+  Id : Integer;
 begin
    if NodeTypeField.AsInteger = 1 then
-    ID := KeyField.AsInteger
+    Id := KeyField.AsInteger
   else
-    ID := ParentField.AsInteger;
-  PostTreeData(ID, 2, SNew);
+    Id := ParentField.AsInteger;
+  PostTreeData(Id, 2, SNew);
   DoNewItemNode;
 end;
 
 procedure TfrmVirtualDBTree.NewSubItemNode;
 var
-  ID: Integer;
+  Id : Integer;
 begin
-  ID := KeyField.AsInteger;
-  PostTreeData(ID, 2, SNew);
+  Id := KeyField.AsInteger;
+  PostTreeData(Id, 2, SNew);
   DoNewItemNode;
 end;
 

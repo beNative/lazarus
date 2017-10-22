@@ -46,7 +46,6 @@ unit ts.Editor.Manager;
    - show a hintwindow of the selection with the proposed operation!
    - list of all supported actions, category, shortcut, description (treeview)
 
-   - make ts.Editor.Views, ts_Editor_Actions, ts_Editor_Menus, ts_Editor_Images ?
    - goto line
    - goto position
 
@@ -439,8 +438,11 @@ type
 
     {$REGION 'event handlers'}
     procedure SynMacroRecorderStateChange(Sender: TObject);
-    procedure SynMacroRecorderUserCommand(aSender: TCustomSynMacroRecorder;
-      aCmd: TSynEditorCommand; var aEvent: TSynMacroEvent);
+    procedure SynMacroRecorderUserCommand(
+      aSender    : TCustomSynMacroRecorder;
+      aCmd       : TSynEditorCommand;
+      var aEvent : TSynMacroEvent
+    );
     {$ENDREGION}
 
   private
@@ -855,11 +857,11 @@ begin
   if PersistSettings then
     FSettings.Save;
   FSearchEngine := nil;
-  FSettings := nil;
-  FEvents   := nil;
-  FCommands := nil;
-  FToolViews := nil;
-  PascalScript:=nil;
+  FSettings     := nil;
+  FEvents       := nil;
+  FCommands     := nil;
+  FToolViews    := nil;
+  PascalScript  := nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FViewList);
   inherited BeforeDestruction;
@@ -1074,8 +1076,8 @@ end;
 
 function TdmEditorManager.GetViewByFileName(AFileName: string): IEditorView;
 var
-  I: Integer;
-  B: Boolean;
+  I : Integer;
+  B : Boolean;
 begin
   I := 0;
   B := False;
@@ -1096,8 +1098,8 @@ end;
 
 function TdmEditorManager.GetViewByName(AName: string): IEditorView;
 var
-  I: Integer;
-  B: Boolean;
+  I : Integer;
+  B : Boolean;
 begin
   I := 0;
   B := False;
@@ -3209,7 +3211,7 @@ end;
 
 initialization
 {$IFDEF WINDOWS}
-  Logger.Channels.Add(TIPCChannel.Create);
+  //Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
 end.

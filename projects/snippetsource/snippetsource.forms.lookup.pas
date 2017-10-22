@@ -51,7 +51,10 @@ type
     procedure edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtLookupKeyPress(Sender: TObject; var Key: char);
     procedure edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+
+    procedure grdLookupClick(Sender: TObject);
     procedure grdLookupFocusChanged(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex);
     procedure grdLookupKeyPress(Sender: TObject; var Key: char);
     procedure grdLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -101,7 +104,7 @@ begin
   FLookupForm.Show;
 end;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
 begin
   inherited Create(AOwner);
@@ -118,7 +121,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmLookup.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
@@ -130,14 +133,14 @@ begin
   FUpdate := True;
 end;
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmLookup.actSearchExecute(Sender: TObject);
 begin
   Execute;
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmLookup.chkNameChange(Sender: TObject);
 begin
   Execute;
@@ -190,18 +193,6 @@ end;
 
 procedure TfrmLookup.edtLookupKeyPress(Sender: TObject; var Key: char);
 begin
-  //FVKPressed := False;
-  //if Ord(Key) = VK_ESCAPE then
-  //begin
-  //  ModalResult := mrCancel;
-  //  CloseQuery;
-  //end
-  //else if Ord(Key) = VK_RETURN then
-  //begin
-  //  ModalResult := mrOK;
-  //  CloseQuery;
-  //end;
-
   case Ord(Key) of
     VK_RETURN:
       begin
@@ -235,6 +226,11 @@ begin
   end
   else
     inherited;
+end;
+
+procedure TfrmLookup.grdLookupClick(Sender: TObject);
+begin
+
 end;
 
 procedure TfrmLookup.grdLookupFocusChanged(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex);
@@ -278,7 +274,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;

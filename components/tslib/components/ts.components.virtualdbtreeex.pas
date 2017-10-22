@@ -172,7 +172,7 @@ type
   PDBVTData = ^TDBVTData;
 
   TDBVTData = record
-    ID     : Double;
+    Id     : Double;
     Level  : Integer;
     Status : TDBVTNodeStatus;
     Parent : PVirtualNode;
@@ -182,22 +182,22 @@ type
   TVirtualDBTreeExDataLink = class;
 
   TVTDBOpenQueryEvent = procedure(
-        Sender : TBaseVirtualDBTreeEx;
-    var Allow  : Boolean
+    Sender    : TBaseVirtualDBTreeEx;
+    var Allow : Boolean
   ) of object;
 
   TVTDBWriteQueryEvent = procedure(
-        Sender     : TBaseVirtualDBTreeEx;
-        Node       : PVirtualNode;
-        Column     : TColumnIndex;
-        ChangeMode : TDBVTChangeMode;
-    var Allow      : Boolean
+    Sender     : TBaseVirtualDBTreeEx;
+    Node       : PVirtualNode;
+    Column     : TColumnIndex;
+    ChangeMode : TDBVTChangeMode;
+    var Allow  : Boolean
   ) of object;
 
   TVTNodeDataChangedEvent = procedure(
-        Sender     : TBaseVirtualDBTreeEx;
-        Node       : PVirtualNode;
-        Field      : TField;
+    Sender         : TBaseVirtualDBTreeEx;
+    Node           : PVirtualNode;
+    Field          : TField;
     var UpdateNode : Boolean
   ) of object;
 
@@ -207,8 +207,8 @@ type
   ) of object;
 
   TVTPathToDBEvent = procedure(
-        Sender : TBaseVirtualDBTreeEx;
-    var Path   : string
+    Sender   : TBaseVirtualDBTreeEx;
+    var Path : string
   ) of object;
 
   TVirtualDBTreeExDataLink = class(TDataLink)
@@ -217,6 +217,7 @@ type
 
   public
     constructor Create(ATree: TBaseVirtualDBTreeEx); virtual;
+    procedure BeforeDestruction; override;
 
   protected
     procedure ActiveChanged; override;
@@ -300,13 +301,13 @@ type
     procedure DoChecked(Node: PVirtualNode); override;
     procedure DoCollapsed(Node: PVirtualNode); override;
     procedure DoDragDrop(
-            Source     : TObject;
-            DataObject : IDataObject;
-            Formats    : TFormatArray;
-            Shift      : TShiftState;
-      const Pt         : TPoint;
-      var   Effect     : LongWord;
-            Mode       : TDropMode
+      Source     : TObject;
+      DataObject : IDataObject;
+      Formats    : TFormatArray;
+      Shift      : TShiftState;
+      const Pt   : TPoint;
+      var Effect : LongWord;
+      Mode       : TDropMode
     ); override;
     procedure DoEdit; override;
     procedure DoFocusChange(
@@ -315,12 +316,12 @@ type
     ); override;
     procedure DoFreeNode(Node: PVirtualNode); override;
     procedure DoInitNode(
-          AParent, Node: PVirtualNode;
+      AParent, Node  : PVirtualNode;
       var InitStates : TVirtualNodeInitStates
     ); override;
     procedure DoNodeDataChanged(
-          Node       : PVirtualNode;
-          Field      : TField;
+      Node           : PVirtualNode;
+      Field          : TField;
       var UpdateNode : Boolean
     ); virtual;
     procedure DoNodeMoved(Node: PVirtualNode); override;
@@ -329,15 +330,15 @@ type
     procedure DoReadPathFromDB(var APath: string); virtual;
     procedure DoWritePathToDB(var APath: string); virtual;
     procedure DoWritingDataSet(
-          Node       : PVirtualNode;
-          Column     : TColumnIndex;
-          ChangeMode : TDBVTChangeMode;
-      var Allow      : Boolean
+      Node       : PVirtualNode;
+      Column     : TColumnIndex;
+      ChangeMode : TDBVTChangeMode;
+      var Allow  : Boolean
     ); virtual;
     function DoGetImageIndex(
-          Node    : PVirtualNode;
-          Kind    : TVTImageKind;
-          Column  : TColumnIndex;
+      Node        : PVirtualNode;
+      Kind        : TVTImageKind;
+      Column      : TColumnIndex;
       var Ghosted : Boolean;
       var Index   : Integer
     ): TCustomImageList; override;
@@ -373,14 +374,14 @@ type
     procedure GoToRec(AString: string; Mode: TDBVTGoToMode); overload;
 
     procedure OnDragOverHandler(
-            Sender : TBaseVirtualTree;
-            Source : TObject;
-            Shift  : TShiftState;
-            State  : TDragState;
-      const Pt     : TPoint;
-            Mode   : TDropMode;
-      var   Effect : LongWord;
-      var   Accept : Boolean
+      Sender     : TBaseVirtualTree;
+      Source     : TObject;
+      Shift      : TShiftState;
+      State      : TDragState;
+      const Pt   : TPoint;
+      Mode       : TDropMode;
+      var Effect : LongWord;
+      var Accept : Boolean
     );
 
     procedure UnCheckAll(Node: PVirtualNode; OnlyChildren: Boolean);
@@ -605,27 +606,27 @@ type
       Column: TColumnIndex
     ): Integer; override;
     procedure DoGetText(
-          Node     : PVirtualNode;
-          Column   : TColumnIndex;
-          TextType : TVSTTextType;
-      var AText    : string
+      Node      : PVirtualNode;
+      Column    : TColumnIndex;
+      TextType  : TVSTTextType;
+      var AText : string
     ); override;
     procedure DoNewText(
-            Node   : PVirtualNode;
-            Column : TColumnIndex;
-      const Text   : string
+      Node       : PVirtualNode;
+      Column     : TColumnIndex;
+      const Text : string
     ); override;
     procedure DoNodeDataChanged(
-          Node       : PVirtualNode;
-          Field      : TField;
+      Node           : PVirtualNode;
+      Field          : TField;
       var UpdateNode : Boolean
     ); override;
     procedure DoReadNodeFromDB(Node: PVirtualNode); override;
     procedure DoWritingDataSet(
-          Node       : PVirtualNode;
-          Column     : TColumnIndex;
-          ChangeMode : TDBVTChangeMode;
-      var Allow      : Boolean
+      Node       : PVirtualNode;
+      Column     : TColumnIndex;
+      ChangeMode : TDBVTChangeMode;
+      var Allow  : Boolean
     ); override;
   public
     constructor Create(AOwner: TComponent); override;
@@ -751,6 +752,12 @@ begin
   inherited Create;
   FVirtualDBTreeEx := ATree;
 end;
+
+procedure TVirtualDBTreeExDataLink.BeforeDestruction;
+begin
+  FVirtualDBTreeEx := nil;
+  inherited BeforeDestruction;
+end;
 {$ENDREGION}
 
 procedure TVirtualDBTreeExDataLink.ActiveChanged;
@@ -801,8 +808,9 @@ end;
 
 destructor TBaseVirtualDBTreeEx.Destroy;
 begin
+  FDataLink.DataSource := nil;
   FDataLink.Free;
-  inherited;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -1184,7 +1192,7 @@ begin
           Node := AddChild(nil);
           ValidateNode(Node, False);
           D := GetNodeData(Node);
-          D.ID := 0.0;
+          D.Id := 0.0;
           D.Level := 0;
           D.Parent := nil;
           D.Status := dbnsInited;
@@ -1262,9 +1270,9 @@ begin
   if Assigned(Node) then
   begin
     D := GetNodeData(Node);
-    if Assigned(D) and (D.ID <> FCurID) then
+    if Assigned(D) and (D.Id <> FCurID) then
     begin
-      FCurID := D.ID;
+      FCurID := D.Id;
       if (FCurID <> 0.0) and not (dbtsDataChanging in FDBStatus) and
         (dboTrackCursor in FDBOptions) then
       begin
@@ -1275,7 +1283,7 @@ begin
           FDataLink.DataSet.Post;
 
 
-        FDataLink.DataSet.Locate(FKeyFieldName, D.ID, []);
+        FDataLink.DataSet.Locate(FKeyFieldName, D.Id, []);
         FDBStatus := FDBStatus - [dbtsDataChanging];
       end;
     end;
@@ -1325,8 +1333,8 @@ begin
       if FDataLink.Editing then
         FDataLink.DataSet.Post;
       FDBStatus := FDBStatus - [dbtsDataChanging];
-      Data.ID := FKeyField.AsFloat;
-      FCurID := Data.ID;
+      Data.Id := FKeyField.AsFloat;
+      FCurID := Data.Id;
     end;
   end;
 end;
@@ -1453,7 +1461,7 @@ begin
     begin
       Data := GetNodeData(Parent);
       Level := Data.Level + 1;
-      ParentID := Data.ID;
+      ParentID := Data.Id;
       if (dboPathStructure in FDBOptions) or (dboWriteSecondary in FDBOptions)
       then
       begin
@@ -1462,14 +1470,14 @@ begin
         while Parent <> RootNode do
         begin
           Data := GetNodeData(Parent);
-          Path := Format('%d.%s', [Data.ID, Path]);
+          Path := Format('%d.%s', [Data.Id, Path]);
           Parent := Parent.Parent;
         end;
       end;
     end;
     Data := GetNodeData(Node);
     Data.Level := Level;
-    FDataLink.DataSet.Locate(FKeyFieldName, Data.ID, []);
+    FDataLink.DataSet.Locate(FKeyFieldName, Data.Id, []);
     FDataLink.DataSet.Edit;
     if (dboPathStructure in FDBOptions) or
       (dboWriteSecondary in FDBOptions) then
@@ -1505,7 +1513,7 @@ begin
   if (Data.Status = dbnsDelete) then
   begin
     if Assigned(FDataLink)
-      and FDataLink.DataSet.Locate(FKeyFieldName, Data.ID, []) then
+      and FDataLink.DataSet.Locate(FKeyFieldName, Data.Id, []) then
       FDataLink.DataSet.Delete;
   end;
   inherited;
@@ -1590,7 +1598,7 @@ begin
   while Assigned(Result) do
   begin
     Data := GetNodeData(Result);
-    if Data.ID = ID then
+    if Data.Id = ID then
       Break;
     Result := GetNextSibling(Result);
   end;
@@ -1608,7 +1616,7 @@ begin
   while Assigned(Result) do
   begin
     Data := GetNodeData(Result);
-    if Data.ID = ID then
+    if Data.Id = ID then
       break;
     Result := GetNext(Result);
   end;
@@ -1662,11 +1670,11 @@ end;
 
 procedure TBaseVirtualDBTreeEx.AddNode(AParent: PVirtualNode);
 var
-  Level: Integer;
-  ParentID: Double;
-  Path: string;
-  Node: PVirtualNode;
-  Data: PDBVTData;
+  Level    : Integer;
+  ParentId : Double;
+  Path     : string;
+  Node     : PVirtualNode;
+  Data     : PDBVTData;
 begin
   EndEditNode;
   if CanWriteToDataSet(AParent, 0, dbcmInsert) then
@@ -1676,29 +1684,29 @@ begin
     if (AParent = nil) or (AParent = RootNode) then
     begin
       Level := 0;
-      ParentID := 0.0;
+      ParentId := 0.0;
       Path := '';
     end
     else
     begin
       Data := GetNodeData(AParent);
       Level := Data.Level + 1;
-      ParentID := Data.ID;
+      ParentId := Data.Id;
       if (dboPathStructure in FDBOptions) or (dboWriteSecondary in FDBOptions)
       then
       begin
-        Path := FloatToStr(ParentID);
+        Path := FloatToStr(ParentId);
         AParent := AParent.Parent;
         while AParent <> RootNode do
         begin
           Data := GetNodeData(AParent);
-          Path := Format('%d.%s', [Data.ID, Path]);
+          Path := Format('%d.%s', [Data.Id, Path]);
           AParent := AParent.Parent;
         end;
       end;
     end;
     Data := GetNodeData(Node);
-    Data.ID := 0.0;
+    Data.Id := 0.0;
     Data.Level := Level;
     Data.Parent := nil;
     FDBStatus := FDBStatus + [dbtsInsert];
@@ -1714,7 +1722,7 @@ begin
       if (dboParentStructure in FDBOptions) or
         (dboWriteSecondary in FDBOptions)
       then
-        FParentField.AsFloat := ParentID;
+        FParentField.AsFloat := ParentId;
       if (dboWriteLevel in FDBOptions) then
         FLevelField.AsInteger := Level;
     end;
@@ -1728,11 +1736,11 @@ end;
 
 procedure TBaseVirtualDBTreeEx.DeleteSelection;
 var
-  Data: PDBVTData;
-  Node: PVirtualNode;
-  Temp: PVirtualNode;
-  Last: PVirtualNode;
-  Focus: PVirtualNode;
+  Data  : PDBVTData;
+  Node  : PVirtualNode;
+  Temp  : PVirtualNode;
+  Last  : PVirtualNode;
+  Focus : PVirtualNode;
 begin
   if not (dbtsDataChanging in FDBStatus) and Assigned(FocusedNode) and
     (SelectedCount > 0) and not (dboReadOnly in FDBOptions) and
@@ -1886,7 +1894,7 @@ begin
           FMaxLevel := Max(FMaxLevel, Data.Level);
         end;
         if (dboTrackCursor in FDBOptions) and not Assigned(FocusedNode) and
-          (Data.ID = FCurID) then
+          (Data.Id = FCurID) then
         begin
           Selected[Temp] := True;
           FocusedNode := Temp;
@@ -1933,7 +1941,7 @@ begin
     Node := AddChild(nil);
     ValidateNode(Node, False);
     Data := GetNodeData(Node);
-    Data.ID := ID;
+    Data.Id := ID;
     Data.Parent := nil;
     Data.Status := dbnsInited;
   end;
@@ -2009,7 +2017,7 @@ begin
       ValidateNode(Node, False);
       Data := GetNodeData(Node);
       Inc(Level);
-      Data.ID := ID;
+      Data.Id := ID;
       Data.Level := Level;
       Data.Status := dbnsInited;
       Data.Parent := nil;
@@ -2049,7 +2057,7 @@ begin
   while Assigned(Temp) and (not Assigned(This) or not Assigned(Parent)) do
   begin
     Data := GetNodeData(Temp);
-    if (Data.ID = ID) then
+    if (Data.Id = ID) then
     begin
       if (Data.Status = dbnsRefreshed) then
       begin
@@ -2057,7 +2065,7 @@ begin
       end;
       This := Temp;
     end;
-    if (Data.ID = ParentID) and (ParentID <> 0.0) then
+    if (Data.Id = ParentID) and (ParentID <> 0.0) then
       Parent := Temp;
     Temp := GetNext(Temp);
   end;
@@ -2066,7 +2074,7 @@ begin
     Parent := AddChild(nil);
     ValidateNode(Parent, False);
     Data := GetNodeData(Parent);
-    Data.ID := ParentID;
+    Data.Id := ParentID;
     Data.Status := dbnsInited;
     Data.Parent := nil;
   end;
@@ -2086,7 +2094,7 @@ begin
         This := Parent;
         Parent := Temp;
         Data := GetNodeData(Parent);
-        Data.ID := ParentID;
+        Data.Id := ParentID;
       end
       else
       begin
@@ -2101,7 +2109,7 @@ begin
     ValidateNode(This, False);
   end;
   Data := GetNodeData(This);
-  Data.ID := ID;
+  Data.Id := ID;
   if not Created then
     Data.Status := dbnsInited;
   ReadNodeFromDB(This);
@@ -2558,7 +2566,7 @@ end;
 {$REGION 'construction and destruction'}
 constructor TCustomDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
-  inherited;
+  inherited Create(AOwner);
   FCheckDataLink := TVirtualDBTreeExDataLink.Create(Self);
   DBOptions := DBOptions - [dboTrackChanges];
   DBOptions := DBOptions + [dboShowChecks, dboAllowChecking];
@@ -2567,8 +2575,9 @@ end;
 
 destructor TCustomDBCheckVirtualDBTreeEx.Destroy;
 begin
+  FResultField := nil;
   FCheckDataLink.Free;
-  inherited;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -2612,7 +2621,7 @@ begin
   begin
     Data := GetNodeData(Node);
     if CheckState[Node] = csCheckedNormal then
-      Result.Add(FloatToStr(Data.ID));
+      Result.Add(FloatToStr(Data.Id));
     Node := GetNext(Node);
   end;
 end;
@@ -2662,10 +2671,10 @@ begin
     if CheckState[Node] = csCheckedNormal then
     begin
       FCheckDataLink.DataSet.Insert;
-      FResultField.AsFloat := Data.ID;
+      FResultField.AsFloat := Data.Id;
       FCheckDataLink.DataSet.Post;
     end
-    else if FCheckDataLink.DataSet.Locate(FResultFieldName, Data.ID, []) then
+    else if FCheckDataLink.DataSet.Locate(FResultFieldName, Data.Id, []) then
       FCheckDataLink.DataSet.Delete;
   end;
   inherited;
@@ -2677,7 +2686,7 @@ var
 begin
   inherited;
   Data := GetNodeData(Node);
-  if FCheckDataLink.DataSet.Locate(FResultFieldName, Data.ID, []) then
+  if FCheckDataLink.DataSet.Locate(FResultFieldName, Data.Id, []) then
     CheckState[Node] := csCheckedNormal
   else
     CheckState[Node] := csUncheckedNormal;
@@ -2826,10 +2835,10 @@ begin
   begin
     Data := GetNodeData(Node);
     if CheckState[Node] = csCheckedNormal then
-      FList.Add(FloatToStr(Data.ID))
+      FList.Add(FloatToStr(Data.Id))
     else
     begin
-      Index := FList.IndexOf(FloatToStr(Data.ID));
+      Index := FList.IndexOf(FloatToStr(Data.Id));
       if Index <> -1 then
         FList.Delete(Index);
     end;
@@ -2845,7 +2854,7 @@ begin
   inherited;
   Data := GetNodeData(Node);
   Index := 0;
-  if FList.Find(FloatToStr(Data.ID), Index) then
+  if FList.Find(FloatToStr(Data.Id), Index) then
     CheckState[Node] := csCheckedNormal
   else
     CheckState[Node] := csUncheckedNormal;

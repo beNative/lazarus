@@ -1,12 +1,12 @@
 object frmLookup: TfrmLookup
-  Left = 532
-  Height = 474
-  Top = 188
-  Width = 479
+  Left = 1541
+  Height = 476
+  Top = 412
+  Width = 501
   ActiveControl = edtLookup
   Caption = 'Lookup'
-  ClientHeight = 474
-  ClientWidth = 479
+  ClientHeight = 476
+  ClientWidth = 501
   KeyPreview = True
   OnKeyUp = FormKeyUp
   PopupMode = pmAuto
@@ -17,7 +17,7 @@ object frmLookup: TfrmLookup
     Left = 2
     Height = 21
     Top = 3
-    Width = 412
+    Width = 434
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
     OnKeyDown = edtLookupKeyDown
@@ -26,7 +26,7 @@ object frmLookup: TfrmLookup
     TabOrder = 0
   end
   object btnSearch: TButton
-    Left = 418
+    Left = 440
     Height = 25
     Top = 1
     Width = 59
@@ -38,8 +38,8 @@ object frmLookup: TfrmLookup
   object sbrMain: TStatusBar
     Left = 0
     Height = 23
-    Top = 451
-    Width = 479
+    Top = 453
+    Width = 501
     Panels = <>
   end
   object chkName: TCheckBox
@@ -75,18 +75,72 @@ object frmLookup: TfrmLookup
     TabOrder = 5
   end
   object grdLookup: TDBGrid
-    Left = 4
-    Height = 393
+    Left = 8
+    Height = 391
     Top = 56
-    Width = 470
+    Width = 485
+    Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
-    Columns = <>
+    Columns = <    
+      item
+        MinSize = 40
+        MaxSize = 40
+        ReadOnly = True
+        SizePriority = 8
+        Title.Alignment = taCenter
+        Title.Caption = 'Id'
+        Width = 93
+        FieldName = 'Id'
+      end    
+      item
+        MinSize = 100
+        MaxSize = 400
+        SizePriority = 0
+        Title.Alignment = taCenter
+        Title.Caption = 'NodeName'
+        Width = 100
+        FieldName = 'NodeName'
+      end    
+      item
+        Alignment = taCenter
+        DropDownRows = 30
+        MinSize = 70
+        MaxSize = 70
+        SizePriority = 8
+        Title.Alignment = taCenter
+        Title.Caption = 'Highlighter'
+        Width = 93
+        FieldName = 'Highlighter'
+      end    
+      item
+        MinSize = 120
+        MaxSize = 120
+        ReadOnly = True
+        SizePriority = 8
+        Title.Alignment = taCenter
+        Title.Caption = 'DateCreated'
+        Width = 93
+        FieldName = 'DateCreated'
+      end    
+      item
+        MinSize = 120
+        MaxSize = 120
+        ReadOnly = True
+        SizePriority = 8
+        Title.Alignment = taCenter
+        Title.Caption = 'DateModified'
+        Width = 93
+        FieldName = 'DateModified'
+      end>
     DataSource = dscMain
     Flat = True
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgRowHighlight]
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgCellHints, dgCellEllipsis, dgRowHighlight, dgDblClickAutoSize]
+    OptionsExtra = [dgeCheckboxColumn]
+    Scrollbars = ssAutoBoth
     TabOrder = 6
-    TitleStyle = tsStandard
+    TitleStyle = tsNative
+    UseXORFeatures = True
   end
   object dscMain: TDataSource
     Left = 160

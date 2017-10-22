@@ -28,8 +28,6 @@ uses
 
   LCLIntf, LCLType,
 
-  delphicompat,
-
   VirtualTrees,
 
   ts.Components.VirtualDBTreeEx;
@@ -38,20 +36,23 @@ type
   // Node data record for the the document properties treeview.
   PPropertyData = ^TPropertyData;
   TPropertyData = record
-    ValueType: TValueType;
-    Value: string;      // This value can actually be a date or a number too.
-    Changed: Boolean;
+    ValueType : TValueType;
+    Value     : string;  // This value can actually be a date or a number too.
+    Changed   : Boolean;
   end;
 
+  {$REGION 'TPropertyEditLink'}
   // Our own edit link to implement several different node editors.
   TPropertyEditLink = class(TInterfacedObject, IVTEditLink)
   private
-    FEdit: TEdit;        // One of the property editor classes.
-    FTree: TCheckVirtualDBTreeEx;
-    FNode: PVirtualNode;       // The node being edited.
-    FColumn: Integer;          // The column of the node being edited.
+    FEdit   : TEdit;
+    FTree   : TCheckVirtualDBTreeEx;
+    FNode   : PVirtualNode;
+    FColumn : Integer;
+
   protected
     procedure EditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+
   public
     destructor Destroy; override;
 
@@ -59,37 +60,48 @@ type
     function CancelEdit: Boolean; stdcall;
     function EndEdit: Boolean; stdcall;
     function GetBounds: TRect; stdcall;
-    function PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex): Boolean; stdcall;
+    function PrepareEdit(
+      Tree   : TBaseVirtualTree;
+      Node   : PVirtualNode;
+      Column : TColumnIndex
+    ): Boolean; stdcall;
     procedure ProcessMessage(var Message: TMessage); stdcall;
     procedure SetBounds(R: TRect); stdcall;
   end;
+  {$ENDREGION}
 
+  {$REGION 'TGridEditLink'}
   // Our own edit link to implement several different node editors.
-
-  { TGridEditLink }
-
   TGridEditLink = class(TPropertyEditLink, IVTEditLink)
   public
     function EndEdit: Boolean; stdcall;
-    function PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex): Boolean; stdcall;
+    function PrepareEdit(
+      Tree   : TBaseVirtualTree;
+      Node   : PVirtualNode;
+      Column : TColumnIndex
+    ): Boolean; stdcall;
   end;
+  {$ENDREGION}
 
 implementation
 
+{$REGION 'TPropertyEditLink'}
+{$REGION 'construction and destruction'}
 destructor TPropertyEditLink.Destroy;
 begin
   FreeAndNil(FEdit);
   FEdit.Free;
   inherited;
 end;
+{$ENDREGION}
 
-procedure TPropertyEditLink.EditKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+procedure TPropertyEditLink.EditKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 var
   CanAdvance: Boolean;
-
 begin
   CanAdvance := true;
-  
+
   case Key of
     VK_ESCAPE:
       if CanAdvance then
@@ -154,7 +166,8 @@ begin
   Result := FEdit.BoundsRect;
 end;
 
-function TPropertyEditLink.PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex): Boolean;
+function TPropertyEditLink.PrepareEdit(Tree: TBaseVirtualTree;
+  Node: PVirtualNode; Column: TColumnIndex): Boolean;
 begin
   Result := True;
   FTree := Tree as TCheckVirtualDBTreeEx;
@@ -182,7 +195,9 @@ begin
   FTree.Header.Columns.GetColumnBounds(FColumn, Dummy, R.Right);
   FEdit.BoundsRect := R;
 end;
+{$ENDREGION}
 
+{$REGION 'TGridEditLink'}
 function TGridEditLink.EndEdit: Boolean;
 var
   S: string;
@@ -197,7 +212,8 @@ begin
   FEdit.Hide;
 end;
 
-function TGridEditLink.PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex): Boolean;
+function TGridEditLink.PrepareEdit(Tree: TBaseVirtualTree; Node: PVirtualNode;
+  Column: TColumnIndex): Boolean;
 begin
   Result := True;
   FTree := Tree as TCheckVirtualDBTreeEx;
@@ -213,5 +229,6 @@ begin
   FEdit.Text := FTree.NodeText[FNode];
   FEdit.OnKeyDown := EditKeyDown;
 end;
+{$ENDREGION}
 
 end.

@@ -39,10 +39,8 @@ type
     procedure SetDataSet(AValue: TDataSet);
 
   public
-
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
-    //procedure LogEvent(Event: TZLoggingEvent);
 
     property DataSet: TDataSet
       read GetDataSet write SetDataSet;
@@ -55,7 +53,7 @@ uses
 
 {$R *.lfm}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmSQLLog.AfterConstruction;
 var
   V: IEditorView;
@@ -76,7 +74,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmSQLLog.GetDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
@@ -88,7 +86,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 //procedure TfrmSQLLog.LogEvent(Event: TZLoggingEvent);
 //begin
 //  FManager.Views.ViewByName['Editor2'].Text :=

@@ -114,14 +114,7 @@ type
     FTVP : TTreeViewPresenter;
     FVST : TVirtualStringTree;
 
-    procedure SearchEngineExecute(Sender: TObject);
-    procedure SearchEngineChange(Sender: TObject);
-    procedure ActionExecute(
-          Sender   : TObject;
-          AAction  : TBasicAction;
-      var AHandled : Boolean
-    );
-
+    {$REGION 'property access mehods'}
     function GetSearchEngine: IEditorSearchEngine;
     function GetOptions: TSynSearchOptions;
     function GetSearchText: string;
@@ -129,6 +122,15 @@ type
     procedure SetSearchText(const AValue: string);
     function GetReplaceText: string;
     procedure SetReplaceText(const AValue: string);
+    {$ENDREGION}
+
+    procedure SearchEngineExecute(Sender: TObject);
+    procedure SearchEngineChange(Sender: TObject);
+    procedure ActionExecute(
+      Sender       : TObject;
+      AAction      : TBasicAction;
+      var AHandled : Boolean
+    );
 
   strict protected
     procedure EditorSettingsChanged(Sender: TObject); override;
@@ -337,7 +339,7 @@ begin
   cbxSearchText.Text  := SearchEngine.SearchText;
   cbxReplaceWith.Text := SearchEngine.ReplaceText;
   {$IFDEF DARWIN}//THE FORM IN MACOS HAVE SOME PROBLEMS WITH FOCUS, THIS IS TEMPORARY FIX
-  cbxSearchText.setFocus;
+  cbxSearchText.SetFocus;
   {$ENDIF}
 end;
 

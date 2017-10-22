@@ -1,8 +1,9 @@
 object frmMain: TfrmMain
-  Left = 551
+  Left = 555
   Height = 598
-  Top = 430
+  Top = 433
   Width = 999
+  ActiveControl = edtSearch
   Caption = 'SnippetSource'
   ClientHeight = 598
   ClientWidth = 999
@@ -150,6 +151,7 @@ object frmMain: TfrmMain
           OnChange = edtTitleChange
           OnEditingDone = edtTitleEditingDone
           OnEnter = edtTitleEnter
+          OnExit = edtTitleExit
           OnMouseEnter = edtTitleMouseEnter
           OnMouseLeave = edtTitleMouseLeave
           ParentFont = False
@@ -349,8 +351,8 @@ object frmMain: TfrmMain
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    Left = 128
-    Top = 105
+    Left = 136
+    Top = 104
   end
   object aclMain: TActionList
     Images = imlMain

@@ -25,16 +25,34 @@ unit SnippetSource.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, DB, Controls;
+  Classes, SysUtils, Controls,
+  db, sqldb;
 
 type
   IConnection = interface
   ['{8F9C0BCC-16D3-49A3-984A-415520289A2F}']
+    {$REGION 'property access mehods'}
     function GetFileName: string;
     procedure SetFileName(AValue: string);
+    function GetAutoApplyUpdates: Boolean;
+    procedure SetAutoApplyUpdates(AValue: Boolean);
+    function GetAutoCommit: Boolean;
+    procedure SetAutoCommit(AValue: Boolean);
+    {$ENDREGION}
 
     procedure Execute(const ASQL: string);
     procedure CreateNewDatabase;
+
+    procedure Commit;
+    procedure Rollback;
+    procedure StartTransaction;
+    procedure EndTransaction;
+
+    property AutoApplyUpdates: Boolean
+      read GetAutoApplyUpdates write SetAutoApplyUpdates;
+
+    property AutoCommit: Boolean
+      read GetAutoCommit write SetAutoCommit;
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -42,10 +60,12 @@ type
 
   ISQLiteSettings = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
+    {$REGION 'property access mehods'}
     function GetAutomaticIndex: Boolean;
     function GetAutoVacuum: Boolean;
     procedure SetAutomaticIndex(AValue: Boolean);
     procedure SetAutoVacuum(AValue: Boolean);
+    {$ENDREGION}
 
     property AutoVacuum: Boolean
       read GetAutoVacuum write SetAutoVacuum;
@@ -56,39 +76,41 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
+    {$REGION 'property access mehods'}
     function GetImageIndex: Integer;
     procedure SetDateCreated(AValue: TDateTime);
     function GetDateCreated: TDateTime;
     procedure SetDateModified(AValue: TDateTime);
     function GetDateModified: TDateTime;
     function GetComment: string;
-    function GetCommentRTF: string;
+    function GetCommentRtf: string;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
     function GetHighlighter: string;
-    function GetID: Integer;
+    function GetId: Integer;
     function GetNodeName: string;
     function GetNodePath: string;
-    function GetNodeTypeID: Integer;
-    function GetParentID: Integer;
+    function GetNodeTypeId: Integer;
+    function GetParentId: Integer;
     function GetText: string;
     procedure SetComment(AValue: string);
-    procedure SetCommentRTF(AValue: string);
+    procedure SetCommentRtf(AValue: string);
     procedure SetFoldLevel(AValue: Integer);
     procedure SetFoldState(AValue: string);
     procedure SetHighlighter(AValue: string);
     procedure SetImageIndex(AValue: Integer);
     procedure SetNodeName(AValue: string);
     procedure SetNodePath(AValue: string);
-    procedure SetNodeTypeID(AValue: Integer);
-    procedure SetParentID(AValue: Integer);
+    procedure SetNodeTypeId(AValue: Integer);
+    procedure SetParentId(AValue: Integer);
     procedure SetText(AValue: string);
+    {$ENDREGION}
 
     property Comment: string
       read GetComment write SetComment;
 
-    property CommentRTF: string
-      read GetCommentRTF write SetCommentRTF;
+    property CommentRtf: string
+      read GetCommentRtf write SetCommentRtf;
 
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;
@@ -105,8 +127,8 @@ type
     property Highlighter: string
       read GetHighlighter write SetHighlighter;
 
-    property ID: Integer
-      read GetID;
+    property Id: Integer
+      read GetId;
 
     property NodeName: string
       read GetNodeName write SetNodeName;
@@ -114,11 +136,11 @@ type
     property NodePath: string
       read GetNodePath write SetNodePath;
 
-    property NodeTypeID: Integer read
-      GetNodeTypeID write SetNodeTypeID;
+    property NodeTypeId: Integer
+      read GetNodeTypeId write SetNodeTypeId;
 
-    property ParentID: Integer
-      read GetParentID write SetParentID;
+    property ParentId: Integer
+      read GetParentId write SetParentId;
 
     property Text: string
       read GetText write SetText;
@@ -129,16 +151,19 @@ type
 
   IDataSet = interface
   ['{13211D24-9ECD-42BE-AB95-C4F833D123E6}']
+    {$REGION 'property access mehods'}
     function GetActive: Boolean;
-    function GetDataSet: TDataSet;
+    procedure SetActive(AValue: Boolean);
+    function GetDataSet: TSQLQuery;
     function GetRecordCount: Integer;
+    {$ENDREGION}
+
     function Post: Boolean;
     function Append: Boolean;
     function Edit: Boolean;
 
     procedure DisableControls;
     procedure EnableControls;
-    procedure SetActive(AValue: Boolean);
 
     property Active: Boolean
       read GetActive write SetActive;
@@ -146,28 +171,34 @@ type
     property RecordCount: Integer
       read GetRecordCount;
 
-    property DataSet: TDataSet
+    property DataSet: TSQLQuery
       read GetDataSet;
   end;
 
   ILookup = interface
   ['{6B45FCDB-7F36-450D-9C2E-820C69204F4D}']
+    {$REGION 'property access mehods'}
     function GetLookupDataSet: TDataSet;
+    {$ENDREGION}
+
     procedure Lookup(
-      const ASearchString    : string;
-            ASearchInText    : Boolean;
-            ASearchInName    : Boolean;
-            ASearchInComment : Boolean
+      const ASearchString : string;
+      ASearchInText       : Boolean;
+      ASearchInName       : Boolean;
+      ASearchInComment    : Boolean
     );
+
     property LookupDataSet: TDataSet
       read GetLookupDataSet;
   end;
 
   IGlyphs = interface
   ['{E3C86684-4FD7-4EB5-8097-06ED826061C8}']
+    {$REGION 'property access mehods'}
     function GetGlyphDataSet: TDataSet;
     function GetGlyphList: TImageList;
     function GetImageList: TImageList;
+    {$ENDREGION}
 
     procedure LoadGlyphs;
 

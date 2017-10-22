@@ -138,7 +138,7 @@ begin
   FSettings.ShowModal;
 end;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 constructor TfrmSettingsDialog.Create(TheOwner: TComponent; AData: IInterface);
 begin
   inherited Create(TheOwner);
@@ -173,7 +173,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmSettingsDialog.GetConnection: IConnection;
 begin
   Result := FData as IConnection;
@@ -190,7 +190,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmSettingsDialog.actOpenDatabaseExecute(Sender: TObject);
 begin
   Connection.FileName := edtDatabaseFile.FileName;
@@ -243,7 +243,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmSettingsDialog.cbxImageListDrawItem(Control: TWinControl;
   Index: Integer; ARect: TRect; State: TOwnerDrawState);
 var
@@ -336,7 +336,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmSettingsDialog.LoadImage(const AFileName, AFieldName: string);
 var
   F  : TBlobField;
@@ -366,7 +366,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'public methods'}
 procedure TfrmSettingsDialog.UpdateActions;
 var
   S: string;

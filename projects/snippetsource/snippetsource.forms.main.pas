@@ -24,7 +24,8 @@ interface
 
 uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, ExtCtrls,
-  ComCtrls, ActnList, StdCtrls, Menus, Buttons, LazFileUtils,
+  ComCtrls, ActnList, StdCtrls, Menus, Buttons,
+  LazFileUtils,
 
   SynEdit, VirtualTrees, MenuButton,
 
@@ -35,15 +36,12 @@ uses
   ts.RichEditor.Helpers, ts.RichEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
-  SnippetSource.Interfaces, SnippetSource.Forms.SQLLog;
+  SnippetSource.Interfaces;
 
 {
   REMARKS:
     - RTF text is stored in Base64 encoding.
       To make the RTF text searchable a copy with only the flat text is stored.
-  12/2014
-    - moved to stock Lazarus db components
-    - use stock db-grid
 }
 
 const
@@ -51,47 +49,47 @@ const
 
 type
   TfrmMain = class(TForm)
-    {$REGION 'designer controls' /FOLD}
+    {$REGION 'designer controls'}
     aclMain            : TActionList;
-    actExecute         : TAction;
     actAbout           : TAction;
+    actExecute         : TAction;
+    actLookup          : TAction;
     actSettings        : TAction;
     actToggleMaximize  : TAction;
     actToggleStayOnTop : TAction;
-    actLookup          : TAction;
+    btnHighlighter     : TMenuButton;
     btnHighlighterSB   : TSpeedButton;
     btnLineBreakStyle  : TSpeedButton;
+    btnLookup          : TToolButton;
+    btnSettingsDialog  : TToolButton;
+    dscMain            : TDatasource;
     edtSearch          : TEdit;
     edtTitle           : TEdit;
-    dscMain            : TDatasource;
     imlMain            : TImageList;
     imlNodes           : TImageList;
-    btnHighlighter     : TMenuButton;
     pnlComments        : TPanel;
     pnlEditMode        : TPanel;
     pnlEditor          : TPanel;
     pnlHighlighter     : TPanel;
     pnlID              : TPanel;
-    pnlProgress        : TPanel;
-    pnlSnippetcount    : TPanel;
     pnlLeft            : TPanel;
     pnlLineBreakStyle  : TPanel;
     pnlPosition        : TPanel;
+    pnlProgress        : TPanel;
     pnlRight           : TPanel;
     pnlSearch          : TPanel;
     pnlSize            : TPanel;
+    pnlSnippetcount    : TPanel;
     pnlStatusBar       : TPanel;
     pnlTitle           : TPanel;
     splHorizontal      : TSplitter;
     splVertical        : TSplitter;
+    tlbApplication     : TToolBar;
     tlbEditorView      : TToolBar;
     tlbRichEditorView  : TToolBar;
-    tlbApplication     : TToolBar;
-    btnLookup          : TToolButton;
-    btnSettingsDialog  : TToolButton;
     {$ENDREGION}
 
-    {$REGION 'action handlers' /FOLD}
+    {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
@@ -99,7 +97,7 @@ type
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
 
-    {$REGION 'event handlers' /FOLD}
+    {$REGION 'event handlers'}
     procedure btnHighlighterSBClick(Sender: TObject);
     procedure btnHighlighterMouseEnter(Sender: TObject);
     procedure btnHighlighterMouseLeave(Sender: TObject);
@@ -108,6 +106,7 @@ type
     procedure edtTitleChange(Sender: TObject);
     procedure edtTitleEditingDone(Sender: TObject);
     procedure edtTitleEnter(Sender: TObject);
+    procedure edtTitleExit(Sender: TObject);
     procedure edtTitleMouseEnter(Sender: TObject);
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
@@ -124,9 +123,9 @@ type
       var AStorageName : string
     );
     procedure ENew(
-      Sender          : TObject;
-      var   AFileName : string;
-      const AText     : string
+      Sender        : TObject;
+      var AFileName : string;
+      const AText   : string
     );
     procedure FTreeNewFolderNode(Sender: TObject);
     procedure FTreeNewItemNode(Sender: TObject);
@@ -144,7 +143,6 @@ type
     FData         : IDataSet;
     FManager      : IEditorManager;
     FSettings     : IEditorSettings;
-    FSQLLog       : TfrmSQLLog;
 
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
@@ -166,15 +164,15 @@ type
   protected
     procedure HideAction(const AActionName: string);
     procedure AssignEditorChanges;
-    procedure UpdateStatusBar;
-    procedure UpdateActions; override;
     procedure AddButton(
       const AActionName : string;
       APopupMenu        : TPopupMenu = nil
     ); overload;
     procedure AddButton(AAction: TBasicAction); overload;
-    procedure BuildToolBar;
     procedure InitActions;
+    procedure UpdateStatusBar;
+    procedure UpdateActions; override;
+    procedure BuildToolBar;
 
   public
      procedure AfterConstruction; override;
@@ -208,13 +206,14 @@ uses
 
   ts.Core.Utils, ts.Core.SharedLogger,
 
-  ts.Editor.Manager, ts.Editor.AboutDialog,
+  ts.Editor.AboutDialog,
 
   ts.Richeditor.Manager,
 
-  SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data;
+  SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
+  SnippetSource.Forms.Grid;
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -230,9 +229,11 @@ begin
 
   BuildToolBar;
   InitActions;
-  dscMain.DataSet := DataSet.DataSet;
 
   CreateTreeview;
+
+  dscMain.DataSet := DataSet.DataSet;
+  ShowGridForm(DataSet.DataSet);
 
   BuildStandardRichEditorToolbar(tlbRichEditorView);
 
@@ -242,24 +243,20 @@ begin
 
   FVersionInfo := TVersionInfo.Create(Self);
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.FileVersion]);
-
-  //FSQLLog := TfrmSQLLog.Create(Self);
-  //FSQLLog.DataSet := DataSet.DataSet;
-  //FSQLLog.Show;
 end;
 
 procedure TfrmMain.BeforeDestruction;
 begin
   FSettings.Save;
-  FData := nil;
-  FManager := nil;
+  FData     := nil;
+  FManager  := nil;
   FSettings := nil;
   FreeAndNil(FFileSearcher);
   inherited BeforeDestruction;
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'property access mehods'}
 function TfrmMain.GetRichEditor: IRichEditorView;
 begin
   Result := RichEditorActions.ViewByName['Comment'];
@@ -286,7 +283,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'action handlers' /FOLD}
+{$REGION 'action handlers'}
 procedure TfrmMain.actLookupExecute(Sender: TObject);
 begin
   Lookup(Editor, FData as ILookup);
@@ -319,7 +316,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'event handlers' /FOLD}
+{$REGION 'event handlers'}
 procedure TfrmMain.btnHighlighterSBClick(Sender: TObject);
 begin
   btnHighlighterSB.PopupMenu.PopUp;
@@ -396,7 +393,6 @@ begin
         Editor.Text := Snippet.Text;
         if Snippet.Highlighter <> '' then
         begin
-          Logger.Send('Setting editor highlighter to ' + Snippet.Highlighter);
           Editor.HighlighterName := Snippet.Highlighter;
         end;
         edtTitle.Text := Snippet.NodeName;
@@ -420,6 +416,7 @@ begin
   end;
 end;
 
+{$REGION 'edtTitle'}
 procedure TfrmMain.edtTitleChange(Sender: TObject);
 begin
   if Snippet.NodeName <> edtTitle.Text then
@@ -442,13 +439,24 @@ begin
   edtTitle.Font.Color := clBlack;
 end;
 
-procedure TfrmMain.edtTitleMouseLeave(Sender: TObject);
+procedure TfrmMain.edtTitleExit(Sender: TObject);
 begin
   edtTitle.Color      := clForm;
   edtTitle.Font.Color := clDkGray;
-  Editor.SetFocus;
 end;
 
+procedure TfrmMain.edtTitleMouseLeave(Sender: TObject);
+begin
+  if not edtTitle.Focused then
+  begin
+    edtTitle.Color      := clForm;
+    edtTitle.Font.Color := clDkGray;
+    Editor.SetFocus;
+  end;
+end;
+{$ENDREGION}
+
+{$REGION 'FileSearcher'}
 procedure TfrmMain.FileSearcherDirectoryFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
@@ -458,7 +466,9 @@ procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
+{$ENDREGION}
 
+{$REGION 'FTree'}
 procedure TfrmMain.FTreeDropFiles(Sender: TBaseVirtualTree;
   AFiles: TStrings; AAttachMode: TVTNodeAttachMode);
 var
@@ -472,12 +482,10 @@ begin
     T := Snippet.NodeTypeID;
     if T = 1 then // FOLDER
     begin
-      AAttachMode := amAddChildLast;
       FParentId := Snippet.Id;
     end
     else
     begin
-      AAttachMode := amInsertAfter;
       FParentId := Snippet.ParentID;
     end;
     for I := 0 to AFiles.Count - 1 do
@@ -498,7 +506,9 @@ begin
     Sender.Refresh;
   end;
 end;
+{$ENDREGION}
 
+{$REGION 'RV'}
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
   //DataSet.Edit;
@@ -530,19 +540,18 @@ begin
   DataSet.Edit;
 end;
 {$ENDREGION}
+{$ENDREGION}
 
-{$REGION 'private methods' /FOLD}
+{$REGION 'private methods'}
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
   ATree: TBaseVirtualTree);
 var
   IsDir       : Boolean;
   IsTextFile  : Boolean;
-  AttachMode  : TVTNodeAttachMode;
   V           : Variant;
   sRelPath    : string;
   sParentPath : string;
   sFileName   : string;
-  bReadable   : Boolean;
 begin
   pnlProgress.Caption := Format('Loading file: %s', [APath]);
   IsTextFile := False;
@@ -614,7 +623,7 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods' /FOLD}
+{$REGION 'protected methods'}
 procedure TfrmMain.AssignEditorChanges;
 begin
   Snippet.Text := Editor.Text;
@@ -753,18 +762,17 @@ end;
 
 procedure TfrmMain.CreateTreeview;
 begin
-  FTree := TfrmVirtualDBTree.Create(Self);
-  FTree.DoubleBuffered := True;
-  FTree.Parent := pnlLeft;
-  FTree.BorderStyle := bsNone;
-  FTree.Align := alClient;
-  FTree.Visible := True;
-  FTree.DataSet := DataSet.DataSet;
-  FTree.ImageList := (FData as IGlyphs).ImageList;
-  FTree.OnDropFiles  := FTreeDropFiles;
+  FTree                 := TfrmVirtualDBTree.Create(Self);
+  FTree.DoubleBuffered  := True;
+  FTree.Parent          := pnlLeft;
+  FTree.BorderStyle     := bsNone;
+  FTree.Align           := alClient;
+  FTree.Visible         := True;
+  FTree.DataSet         := DataSet.DataSet;
+  FTree.ImageList       := (FData as IGlyphs).ImageList;
+  FTree.OnDropFiles     := FTreeDropFiles;
   FTree.OnNewFolderNode := FTreeNewFolderNode;
-  FTree.OnNewItemNode := FTreeNewItemNode;
-  DataSet.Active := True;
+  FTree.OnNewItemNode   := FTreeNewItemNode;
 end;
 
 procedure TfrmMain.CreateEditor;

@@ -18,9 +18,12 @@ uses
 {$R *.res}
 
 begin
+{$IF DECLARED(UseHeapTrace)}
   if FileExists('trace.trc') then
     DeleteFile('trace.trc');
-  //SetHeapTraceOutput('trace.trc');
+  GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
+  SetHeapTraceOutput('trace.trc');
+{$ENDIF}
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

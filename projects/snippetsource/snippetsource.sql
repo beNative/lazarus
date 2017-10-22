@@ -1,8 +1,8 @@
 CREATE TABLE SnippetMetadata (
-    ID            INTEGER         PRIMARY KEY AUTOINCREMENT,
-    HighlighterID INTEGER,
-    NodeTypeID    INTEGER,
-    ParentID      INTEGER,
+    Id            INTEGER         PRIMARY KEY AUTOINCREMENT,
+    HighlighterId INTEGER,
+    NodeTypeId    INTEGER,
+    ParentId      INTEGER,
     ImageIndex    INTEGER,
     NodeName      VARCHAR( 255 ),
     NodePath      TEXT,
@@ -13,8 +13,8 @@ CREATE TABLE SnippetMetadata (
     DateModified  DATETIME
 );
 
-CREATE INDEX idx_SnippetMetadataParentID ON SnippetMetadata (
-    ParentID ASC
+CREATE INDEX idx_SnippetMetadataParentId ON SnippetMetadata (
+    ParentId ASC
 );
 
 CREATE INDEX idx_SnippetMetadataNodePath ON SnippetMetadata (
@@ -32,10 +32,10 @@ CREATE VIRTUAL TABLE SnippetData USING FTS4(
 
 CREATE VIEW Snippet AS
   SELECT
-    sm.ID,
-    sm.HighlighterID,
-    sm.NodeTypeID,
-    sm.ParentID,
+    sm.Id,
+    sm.HighlighterId,
+    sm.NodeTypeId,
+    sm.ParentId,
     sm.ImageIndex,
     sm.NodeName,
     sm.NodePath,
@@ -49,15 +49,15 @@ CREATE VIEW Snippet AS
   FROM
     SnippetMetadata sm
     INNER JOIN SnippetData sd
-      ON (sm.RowID = sd.RowID);
+      ON (sm.RowId = sd.RowId);
 
 CREATE TRIGGER Snippet_insert INSTEAD OF INSERT ON Snippet
 BEGIN
   INSERT INTO SnippetMetadata(
-    ID,
-    HighlighterID,
-    NodeTypeID,
-    ParentID,
+    Id,
+    HighlighterId,
+    NodeTypeId,
+    ParentId,
     ImageIndex,
     NodeName,
     NodePath,
@@ -67,10 +67,10 @@ BEGIN
     DateCreated,
     DateModified
   ) VALUES (
-    NEW.ID,
-    NEW.HighlighterID,
-    NEW.NodeTypeID,
-    NEW.ParentID,
+    NEW.Id,
+    NEW.HighlighterId,
+    NEW.NodeTypeId,
+    NEW.ParentId,
     NEW.ImageIndex,
     NEW.NodeName,
     NEW.NodePath,
@@ -81,7 +81,7 @@ BEGIN
     NEW.DateModified
   );
   INSERT INTO SnippetData(
-    RowID,
+    RowId,
     Text,
     Comment
   ) VALUES (
@@ -93,8 +93,8 @@ END;
 
 CREATE TRIGGER Snippet_delete INSTEAD OF DELETE ON Snippet
 BEGIN
-  DELETE FROM SnippetMetadata WHERE RowID = OLD.RowID;
-  DELETE FROM SnippetData WHERE RowID = OLD.RowID;
+  DELETE FROM SnippetMetadata WHERE RowId = OLD.RowId;
+  DELETE FROM SnippetData WHERE RowId = OLD.RowId;
 END;
 
 

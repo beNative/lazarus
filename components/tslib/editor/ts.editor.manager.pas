@@ -3209,7 +3209,7 @@ end;
 
 initialization
 {$IFDEF WINDOWS}
-  Logger.Channels.Add(TIPCChannel.Create);
+  //Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
 end.

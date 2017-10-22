@@ -25,7 +25,8 @@ unit SnippetSource.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, DB, Controls;
+  Classes, SysUtils, Controls,
+  db, sqldb;
 
 type
   IConnection = interface
@@ -62,33 +63,33 @@ type
     procedure SetDateModified(AValue: TDateTime);
     function GetDateModified: TDateTime;
     function GetComment: string;
-    function GetCommentRTF: string;
+    function GetCommentRtf: string;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
     function GetHighlighter: string;
-    function GetID: Integer;
+    function GetId: Integer;
     function GetNodeName: string;
     function GetNodePath: string;
-    function GetNodeTypeID: Integer;
-    function GetParentID: Integer;
+    function GetNodeTypeId: Integer;
+    function GetParentId: Integer;
     function GetText: string;
     procedure SetComment(AValue: string);
-    procedure SetCommentRTF(AValue: string);
+    procedure SetCommentRtf(AValue: string);
     procedure SetFoldLevel(AValue: Integer);
     procedure SetFoldState(AValue: string);
     procedure SetHighlighter(AValue: string);
     procedure SetImageIndex(AValue: Integer);
     procedure SetNodeName(AValue: string);
     procedure SetNodePath(AValue: string);
-    procedure SetNodeTypeID(AValue: Integer);
-    procedure SetParentID(AValue: Integer);
+    procedure SetNodeTypeId(AValue: Integer);
+    procedure SetParentId(AValue: Integer);
     procedure SetText(AValue: string);
 
     property Comment: string
       read GetComment write SetComment;
 
-    property CommentRTF: string
-      read GetCommentRTF write SetCommentRTF;
+    property CommentRtf: string
+      read GetCommentRtf write SetCommentRtf;
 
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;
@@ -105,8 +106,8 @@ type
     property Highlighter: string
       read GetHighlighter write SetHighlighter;
 
-    property ID: Integer
-      read GetID;
+    property Id: Integer
+      read GetId;
 
     property NodeName: string
       read GetNodeName write SetNodeName;
@@ -114,11 +115,11 @@ type
     property NodePath: string
       read GetNodePath write SetNodePath;
 
-    property NodeTypeID: Integer read
-      GetNodeTypeID write SetNodeTypeID;
+    property NodeTypeId: Integer
+      read GetNodeTypeId write SetNodeTypeId;
 
-    property ParentID: Integer
-      read GetParentID write SetParentID;
+    property ParentId: Integer
+      read GetParentId write SetParentId;
 
     property Text: string
       read GetText write SetText;
@@ -130,15 +131,16 @@ type
   IDataSet = interface
   ['{13211D24-9ECD-42BE-AB95-C4F833D123E6}']
     function GetActive: Boolean;
-    function GetDataSet: TDataSet;
+    procedure SetActive(AValue: Boolean);
+    function GetDataSet: TSQLQuery;
     function GetRecordCount: Integer;
+
     function Post: Boolean;
     function Append: Boolean;
     function Edit: Boolean;
 
     procedure DisableControls;
     procedure EnableControls;
-    procedure SetActive(AValue: Boolean);
 
     property Active: Boolean
       read GetActive write SetActive;
@@ -146,7 +148,7 @@ type
     property RecordCount: Integer
       read GetRecordCount;
 
-    property DataSet: TDataSet
+    property DataSet: TSQLQuery
       read GetDataSet;
   end;
 
@@ -154,10 +156,10 @@ type
   ['{6B45FCDB-7F36-450D-9C2E-820C69204F4D}']
     function GetLookupDataSet: TDataSet;
     procedure Lookup(
-      const ASearchString    : string;
-            ASearchInText    : Boolean;
-            ASearchInName    : Boolean;
-            ASearchInComment : Boolean
+      const ASearchString : string;
+      ASearchInText       : Boolean;
+      ASearchInName       : Boolean;
+      ASearchInComment    : Boolean
     );
     property LookupDataSet: TDataSet
       read GetLookupDataSet;

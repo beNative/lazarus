@@ -244,6 +244,8 @@ begin
       Result := GTK_WIDGETSET;
     lpGtk2:
       Result := GTK2_WIDGETSET;
+    lpGtk3:
+      Result := GTK3_WIDGETSET;
     lpWin32:
       Result := WIN32_WIDGETSET;
     lpWinCE:

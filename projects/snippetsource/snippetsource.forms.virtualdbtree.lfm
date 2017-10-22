@@ -1,7 +1,7 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 701
+  Left = 704
   Height = 425
-  Top = 287
+  Top = 289
   Width = 318
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
@@ -164,13 +164,13 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    Left = 74
-    Top = 366
+    Left = 104
+    Top = 40
   end
   object alsMain: TActionList
     Images = imlMain
     Left = 24
-    Top = 366
+    Top = 40
     object actNewRootFolderNode: TAction
       Hint = 'Add a new rootfolder to the tree'
       ImageIndex = 7
@@ -219,8 +219,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   object imlMain: TImageList
     BkColor = clWhite
     DrawingStyle = dsTransparent
-    Left = 186
-    Top = 366
+    Left = 192
+    Top = 40
     Bitmap = {
       4C690D0000001000000010000000FFFFFF00C17D4460C88B4DBBC88C4FEEC88C
       4FF6C88C4FF7C88C4FF7C88D4FF7C98C4FF7C78B4FF7C5894BD4C4763B91B368

@@ -22,146 +22,165 @@ unit SnippetSource.Modules.Data;
 
 interface
 
+{$REGION 'documentation' /FOLD}
+{
+  Documentation that lead to the final implementation:
+    http://lists.lazarus-ide.org/pipermail/lazarus/2014-November/154238.html
+    http://forum.lazarus-ide.org/index.php/topic,31362.0.html
+    http://free-pascal-lazarus.989080.n3.nabble.com/Lazarus-TSQLQuery-Getting-autoincremented-ID-value-after-insert-MySQL-td4039238i20.html
+
+  Some things to know in regard of SQLite (excerpt from SQLite documentation):
+
+  - The AUTOINCREMENT keyword imposes extra CPU, memory, disk space, and disk
+    I/O overhead and should be avoided if not strictly needed. It is usually
+    not needed.
+  - In SQLite, a column with type INTEGER PRIMARY KEY is an alias for the ROWID
+    (except in WITHOUT ROWID tables) which is always a 64-bit signed integer.
+  - On an INSERT, if the ROWID or INTEGER PRIMARY KEY column is not explicitly
+    given a value, then it will be filled automatically with an unused integer,
+    usually one more than the largest ROWID currently in use. This is true
+    regardless of whether or not the AUTOINCREMENT keyword is used.
+  - If the AUTOINCREMENT keyword appears after INTEGER PRIMARY KEY, that changes
+    the automatic ROWID assignment algorithm to prevent the reuse of ROWIDs over
+    the lifetime of the database. In other words, the purpose of AUTOINCREMENT
+    is to prevent the reuse of ROWIDs from previously deleted rows.
+
+    These settings are used on the qrySnippet component that is used for
+    editing:
+      sqoAutoApplyUpdates
+      sqoAutoCommit
+
+    => This means that after every post on the dataset the following statements
+       are automatically executed in this order:
+         qrySnippet.ApplyUpdates;
+         trsMain.Commit;
+
+       sqoKeepOpenOnCommit
+         By default the dataset is closed after executing Commit. This flag
+         prevents this behaviour and does not require the need to execute the
+         query again to fetch all data after each change is posted.
+
+  TODO
+    - bulk insert for faster adding lots of files
+    - delete and update for a given list of node Id's
+
+}
+{$ENDREGION}
+
 uses
-  Classes, SysUtils, Controls, FileUtil,
+  Classes, SysUtils, FileUtil, Controls,
 
-  sqlite3conn, sqldb, db,
+  sqldb, sqlite3conn, db, BufDataset,
 
-  ts.Core.Sharedlogger,
-
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, ts.Core.SharedLogger;
 
 type
   TdmSnippetSource = class(TDataModule,
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
-    {$REGION 'designer controls' /FOLD}
-    conMain                  : TSQLite3Connection;
-    imlGlyphs                : TImageList;
-    imlMain                  : TImageList;
-    qryGlyphID               : TLongintField;
-    qryGlyphImage            : TBlobField;
-    qryGlyphImageIndex       : TLongintField;
-    qryGlyphName             : TMemoField;
-    qryNodeTypeID            : TLongintField;
-    qryNodeTypeImageIndex    : TLongintField;
-    qryNodeTypeName          : TMemoField;
-    qrySnippet               : TSQLQuery;
-    qrySnippetComment        : TMemoField;
-    qrySnippetCommentRTF     : TMemoField;
-    qrySnippetDateCreated    : TDateTimeField;
-    qrySnippetDateModified   : TDateTimeField;
-    qrySnippetFoldLevel      : TLongintField;
-    qrySnippetFoldState      : TStringField;
-    qrySnippetHighlighterID  : TLongintField;
-    qrySnippetID             : TLongintField;
-    qrySnippetImageIndex     : TLongintField;
-    qrySnippetNodeName       : TStringField;
-    qrySnippetNodePath       : TWideStringField;
-    qrySnippetNodeTypeID     : TLongintField;
-    qrySnippetParentID       : TLongintField;
-    qrySnippetText           : TMemoField;
-    qryGlyph                 : TSQLQuery;
-    qryNodeType              : TSQLQuery;
-    scrCreateDatabase        : TSQLScript;
-    trsSnippet               : TSQLTransaction;
-    {$ENDREGION}
+    conMain           : TSQLite3Connection;
+    imlGlyphs         : TImageList;
+    imlMain           : TImageList;
+    qryGlyph          : TSQLQuery;
+    qryHighlighter    : TSQLQuery;
+    qryNodeType       : TSQLQuery;
+    qrySnippet        : TSQLQuery;
+    scrCreateDatabase : TSQLScript;
+    trsMain           : TSQLTransaction;
 
-    {$REGION 'event handlers' /FOLD}
-    procedure conMainAfterConnect(Sender: TObject);
-    procedure conMainLog(Sender: TSQLConnection; EventType: TDBEventType;
-      const Msg: String);
+    {$REGION 'event handlers'}
+    procedure conMainLog(
+      Sender    : TSQLConnection;
+      EventType : TDBEventType;
+      const Msg : string
+    );
+    procedure qrySnippetAfterDelete(DataSet: TDataSet);
     procedure qrySnippetAfterInsert(DataSet: TDataSet);
+    procedure qrySnippetAfterOpen(DataSet: TDataSet);
     procedure qrySnippetAfterPost(DataSet: TDataSet);
     procedure qrySnippetAfterScroll(DataSet: TDataSet);
+    procedure qrySnippetBeforeOpen(DataSet: TDataSet);
+    procedure qrySnippetBeforePost(DataSet: TDataSet);
     procedure qrySnippetBeforeScroll(DataSet: TDataSet);
     procedure qrySnippetNewRecord(DataSet: TDataSet);
-    procedure qrySnippetTextGetText(Sender: TField; var aText: string;
-      DisplayText: Boolean);
     {$ENDREGION}
 
   private
-    FInserted     : Boolean;
-
-    {$REGION 'property access methods' /FOLD}
-    function GetGlyphDataSet: TDataSet;
-    function GetGlyphList: TImageList;
-    function GetImageList: TImageList;
-    function GetImageIndex: Integer;
-    procedure SetDateCreated(AValue: TDateTime);
-    function GetDateCreated: TDateTime;
-    procedure SetDateModified(AValue: TDateTime);
-    function GetDateModified: TDateTime;
+    {$REGION 'property access mehods'}
+    function GetActive: Boolean;
     function GetComment: string;
-    function GetCommentRTF: string;
+    function GetCommentRtf: string;
+    function GetDataSet: TSQLQuery;
+    function GetDateCreated: TDateTime;
+    function GetDateModified: TDateTime;
+    function GetFileName: string;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
+    function GetGlyphDataSet: TDataSet;
+    function GetGlyphList: TImageList;
     function GetHighlighter: string;
-    function GetID: Integer;
+    function GetId: Integer;
+    function GetImageIndex: Integer;
+    function GetImageList: TImageList;
+    function GetLookupDataSet: TDataSet;
     function GetNodeName: string;
     function GetNodePath: string;
-    function GetNodeTypeID: Integer;
-    function GetParentID: Integer;
+    function GetNodeTypeId: Integer;
+    function GetParentId: Integer;
+    function GetRecordCount: Integer;
     function GetText: string;
+    procedure SetActive(AValue: Boolean);
     procedure SetComment(AValue: string);
-    procedure SetCommentRTF(AValue: string);
+    procedure SetCommentRtf(AValue: string);
+    procedure SetDateCreated(AValue: TDateTime);
+    procedure SetDateModified(AValue: TDateTime);
+    procedure SetFileName(AValue: string);
     procedure SetFoldLevel(AValue: Integer);
     procedure SetFoldState(AValue: string);
     procedure SetHighlighter(AValue: string);
     procedure SetImageIndex(AValue: Integer);
     procedure SetNodeName(AValue: string);
     procedure SetNodePath(AValue: string);
-    procedure SetNodeTypeID(AValue: Integer);
-    procedure SetParentID(AValue: Integer);
+    procedure SetNodeTypeId(AValue: Integer);
+    procedure SetParentId(AValue: Integer);
     procedure SetText(AValue: string);
-    function GetFileName: string;
-    procedure SetFileName(AValue: string);
-    function GetActive: Boolean;
-    function GetDataSet: TDataSet;
-    function GetRecordCount: Integer;
-    procedure SetActive(AValue: Boolean);
-    function GetLookupDataSet: TDataSet;
     {$ENDREGION}
 
-  public
-    procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+  protected
+    procedure SendWatchValues;
+
+    procedure CreateLookupFields;
+    procedure InitField(AField : TField);
+    procedure InitFields(ADataSet : TDataSet);
 
     procedure LoadGlyphs;
     procedure Execute(const ASQL: string);
     procedure CreateNewDatabase;
+
     function Post: Boolean;
-    function Append: Boolean;
     function Edit: Boolean;
+    function Append: Boolean;
 
     procedure DisableControls;
     procedure EnableControls;
 
     procedure Lookup(
-      const ASearchString    : string;
-            ASearchInText    : Boolean;
-            ASearchInName    : Boolean;
-            ASearchInComment : Boolean
+      const ASearchString : string;
+      ASearchInText       : Boolean;
+      ASearchInName       : Boolean;
+      ASearchInComment    : Boolean
     );
 
-    property ImageList: TImageList
-      read GetImageList;
-
-    property GlyphList: TImageList
-      read GetGlyphList;
-
-    property GlyphDataSet: TDataSet
-      read GetGlyphDataSet;
-
-    property FileName: string
-      read GetFileName write SetFileName;
+  public
+    procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
 
     { ISnippet }
     property Comment: string
       read GetComment write SetComment;
 
-    property CommentRTF: string
-      read GetCommentRTF write SetCommentRTF;
+    property CommentRtf: string
+      read GetCommentRtf write SetCommentRtf;
 
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;
@@ -178,8 +197,8 @@ type
     property Highlighter: string
       read GetHighlighter write SetHighlighter;
 
-    property ID: Integer
-      read GetID;
+    property Id: Integer
+      read GetId;
 
     property NodeName: string
       read GetNodeName write SetNodeName;
@@ -187,11 +206,11 @@ type
     property NodePath: string
       read GetNodePath write SetNodePath;
 
-    property NodeTypeID: Integer read
-      GetNodeTypeID write SetNodeTypeID;
+    property NodeTypeId: Integer read
+      GetNodeTypeId write SetNodeTypeId;
 
-    property ParentID: Integer
-      read GetParentID write SetParentID;
+    property ParentId: Integer
+      read GetParentId write SetParentId;
 
     property Text: string
       read GetText write SetText;
@@ -205,11 +224,23 @@ type
     property RecordCount: Integer
       read GetRecordCount;
 
-    property DataSet: TDataSet
+    property DataSet: TSQLQuery
       read GetDataSet;
 
     property LookupDataSet: TDataSet
       read GetLookupDataSet;
+
+    property FileName: string
+      read GetFileName write SetFileName;
+
+    property ImageList: TImageList
+      read GetImageList;
+
+    property GlyphList: TImageList
+      read GetGlyphList;
+
+    property GlyphDataSet: TDataSet
+      read GetGlyphDataSet;
   end;
 
 implementation
@@ -217,13 +248,16 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, Forms;
+  Variants, TypInfo,
+
+  ts.Core.Logger.Channel.IPC;
 
 resourcestring
   SQueryLookupErrorRunningQuery = 'Error running query [%s]';
   SQueryLookupTooManyRecords    = 'The query [%s] returned too many records';
   SParameterNotAssigned         = 'Parameter <%s> parameter not assigned';
 
+{$REGION 'non-interfaced routines'}
 function QueryLookup(AConnection: TSQLConnection; const AQuery: string;
 const AParams: array of const) : Variant; overload;
 var
@@ -271,45 +305,115 @@ function QueryLookup(AConnection: TSQLConnection; const AQuery: string)
 begin
   Result := QueryLookup(AConnection, AQuery, []);
 end;
+{$ENDREGION}
 
-{$REGION 'construction and destruction' /FOLD}
+{$REGION 'construction and destruction'}
 procedure TdmSnippetSource.AfterConstruction;
 begin
   inherited AfterConstruction;
-  conMain.Directory := ExtractFileDir(Application.ExeName);
-  conMain.DatabaseName := 'snippets.db';
-  conMain.Connected := True;
-  trsSnippet.Active := True;
+  qryHighlighter.Active := True;
   DataSet.Active := True;
-
-
-  //Execute('PRAGMA synchronous = 1;'); // speeds up inserts
-  //
-  ////ExecuteDirect('PRAGMA synchronous = 0;');
-  ////ExecuteDirect('PRAGMA journal_mode = WAL;');
-  //Execute('PRAGMA journal_mode = OFF;');
-  //Execute('PRAGMA locking_mode = EXCLUSIVE;');
-  //Execute('PRAGMA temp_store = MEMORY;');
-  //Execute('PRAGMA count_changes = OFF;');
-  //Execute('PRAGMA PAGE_SIZE = 4096;');
-  //Execute('PRAGMA default_cache_size = 700000;');
-  //Execute('PRAGMA cache_size = 700000;');
-  //Execute('PRAGMA automatic_index = 1;');
-
-  qryNodeType.Active    := True;
-//  LoadGlyphs;
-//  BuildImageList(GlyphDataSet, imlGlyphs);
 end;
 
 procedure TdmSnippetSource.BeforeDestruction;
 begin
-  qrySnippet.ApplyUpdates;
-  trsSnippet.Commit;
+  DataSet.Active := False;
+  conMain.Connected := False;
   inherited BeforeDestruction;
 end;
 {$ENDREGION}
 
-{$REGION 'property access mehods' /FOLD}
+{$REGION 'event handlers'}
+procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
+  EventType: TDBEventType; const Msg: string);
+var
+  S : string;
+begin
+  S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
+  Logger.Send(S, Msg);
+end;
+
+{
+  This is the place where we create persistent fields.
+
+  see https://stackoverflow.com/questions/9064162/how-to-create-a-tdataset-lookup-field-at-runtime
+
+  If you want to use lookup fields in your dataset you need to create persistent
+  fields.
+  Persistent fields are created based on the fielddefs collection and need to be
+  created BEFORE you open the dataset.
+}
+
+procedure TdmSnippetSource.qrySnippetBeforeOpen(DataSet: TDataSet);
+var
+  I  : Integer;
+  FD : TFieldDef = nil;
+  F  : TField = nil;
+  DS : TSQLQuery;
+begin
+  DS := DataSet as TSQLQuery;
+  // These two steps are required to get the FieldDefs of the PK initialized
+  // correctly.
+  DS.Prepare;
+  DS.ServerIndexDefs.Update; // Required to create Id field as ftAutoInc.
+  DS.Fields.Clear;
+  DS.FieldDefs.Clear;
+  DS.FieldDefs.Update;
+  for I := 0 to DS.FieldDefs.Count - 1 do
+  begin
+    FD := DS.FieldDefs[I];
+    F := FD.CreateField(DS);
+    // below is just intended for diagnostic reasons to inspect fields @runtime
+    F.Name := Format('fld%s%s', [DS.Name, F.FieldName]);
+  end;
+  CreateLookupFields;
+end;
+
+procedure TdmSnippetSource.qrySnippetBeforePost(DataSet: TDataSet);
+begin
+  DateModified := Now;
+end;
+
+procedure TdmSnippetSource.qrySnippetBeforeScroll(DataSet: TDataSet);
+begin
+  if DataSet.State in dsEditModes then
+    DataSet.Post;
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterOpen(DataSet: TDataSet);
+begin
+  InitFields(DataSet);
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterDelete(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterInsert(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterScroll(DataSet: TDataSet);
+begin
+
+end;
+
+procedure TdmSnippetSource.qrySnippetNewRecord(DataSet: TDataSet);
+begin
+  // forces new value for AutoInc field
+  qrySnippet.FieldByName('Id').Value := 0;
+  qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
+end;
+{$ENDREGION}
+
+{$REGION 'property access mehods'}
 function TdmSnippetSource.GetActive: Boolean;
 begin
   Result := qrySnippet.Active;
@@ -320,158 +424,7 @@ begin
   qrySnippet.Active := AValue;
 end;
 
-function TdmSnippetSource.GetLookupDataSet: TDataSet;
-begin
-  Result := qrySnippet;
-end;
-
-function TdmSnippetSource.GetImageIndex: Integer;
-begin
-  Result := qrySnippetImageIndex.AsInteger;
-end;
-
-procedure TdmSnippetSource.SetDateCreated(AValue: TDateTime);
-begin
-  qrySnippetDateCreated.AsDateTime := AValue;
-end;
-
-function TdmSnippetSource.GetDateCreated: TDateTime;
-begin
-  Result := qrySnippetDateCreated.AsDateTime;
-end;
-
-procedure TdmSnippetSource.SetDateModified(AValue: TDateTime);
-begin
-  qrySnippetDateModified.AsDateTime := AValue;
-end;
-
-function TdmSnippetSource.GetDateModified: TDateTime;
-begin
-  Result := qrySnippetDateModified.AsDateTime;
-end;
-
-function TdmSnippetSource.GetComment: string;
-begin
-  Result := qrySnippetComment.AsString;
-end;
-
-function TdmSnippetSource.GetCommentRTF: string;
-begin
-  Result := qrySnippetCommentRTF.AsString;
-end;
-
-function TdmSnippetSource.GetFoldLevel: Integer;
-begin
-  Result := qrySnippetFoldLevel.AsInteger;
-end;
-
-function TdmSnippetSource.GetFoldState: string;
-begin
-  Result := qrySnippetFoldState.AsString;
-end;
-
-function TdmSnippetSource.GetHighlighter: string;
-begin
-  Result := QueryLookup(
-    conMain,
-    'select Code from Highlighter where ID = %d',
-    [qrySnippetHighlighterID.AsInteger]
-  );
-  Logger.Send('Highlighter', Result);
-end;
-
-function TdmSnippetSource.GetID: Integer;
-begin
-  Result := qrySnippetID.AsInteger;
-end;
-
-function TdmSnippetSource.GetNodeName: string;
-begin
-  Result := qrySnippetNodeName.AsString;
-end;
-
-function TdmSnippetSource.GetNodePath: string;
-begin
-  Result := qrySnippetNodePath.AsString;
-end;
-
-function TdmSnippetSource.GetNodeTypeID: Integer;
-begin
-  Result := qrySnippetNodeTypeID.AsInteger;
-end;
-
-function TdmSnippetSource.GetParentID: Integer;
-begin
-  Result := qrySnippetParentID.AsInteger;
-end;
-
-function TdmSnippetSource.GetText: string;
-begin
-  Result := qrySnippetText.AsString;
-end;
-
-procedure TdmSnippetSource.SetComment(AValue: string);
-begin
-  qrySnippetComment.AsString := AValue;
-end;
-
-procedure TdmSnippetSource.SetCommentRTF(AValue: string);
-begin
-  qrySnippetCommentRTF.AsString := AValue;
-end;
-
-procedure TdmSnippetSource.SetFoldLevel(AValue: Integer);
-begin
-  qrySnippetFoldLevel.AsInteger := AValue;
-end;
-
-procedure TdmSnippetSource.SetFoldState(AValue: string);
-begin
-  qrySnippetFoldState.AsString := AValue;
-end;
-
-procedure TdmSnippetSource.SetHighlighter(AValue: string);
-begin
-  Logger.Send('SetHighlighter', AValue);
-  qrySnippetHighlighterID.AsInteger :=
-    QueryLookup(
-      conMain,
-      'select ID from Highlighter where Code = ''%s''',
-      [AValue]
-    );
-end;
-
-procedure TdmSnippetSource.SetImageIndex(AValue: Integer);
-begin
-  qrySnippetImageIndex.AsInteger := AValue;
-end;
-
-procedure TdmSnippetSource.SetNodeName(AValue: string);
-begin
-  qrySnippetNodeName.AsString := AValue;
-end;
-
-procedure TdmSnippetSource.SetNodePath(AValue: string);
-begin
-  qrySnippetNodePath.AsString := AValue;
-end;
-
-procedure TdmSnippetSource.SetNodeTypeID(AValue: Integer);
-begin
-  qrySnippetNodeTypeID.AsInteger := AValue;
-end;
-
-procedure TdmSnippetSource.SetParentID(AValue: Integer);
-begin
-  qrySnippetParentID.AsInteger := AValue;
-end;
-
-procedure TdmSnippetSource.SetText(AValue: string);
-begin
-  qrySnippetText.AsString := AValue;
-end;
-
-function TdmSnippetSource.GetDataSet: TDataSet;
+function TdmSnippetSource.GetDataSet: TSQLQuery;
 begin
   Result := qrySnippet;
 end;
@@ -479,6 +432,96 @@ end;
 function TdmSnippetSource.GetRecordCount: Integer;
 begin
   Result := qrySnippet.RecordCount;
+end;
+
+function TdmSnippetSource.GetLookupDataSet: TDataSet;
+begin
+  Result := qrySnippet;
+end;
+
+function TdmSnippetSource.GetImageIndex: Integer;
+begin
+  Result := qrySnippet.FieldValues['ImageIndex'];
+end;
+
+function TdmSnippetSource.GetImageList: TImageList;
+begin
+  Result := imlGlyphs;
+end;
+
+procedure TdmSnippetSource.SetImageIndex(AValue: Integer);
+begin
+  qrySnippet.FieldValues['ImageIndex'] := AValue;
+end;
+
+function TdmSnippetSource.GetDateCreated: TDateTime;
+begin
+  Result := qrySnippet.FieldValues['DateCreated'];
+end;
+
+procedure TdmSnippetSource.SetDateCreated(AValue: TDateTime);
+begin
+  qrySnippet.FieldValues['DateCreated'] := AValue;
+end;
+
+function TdmSnippetSource.GetDateModified: TDateTime;
+begin
+  Result := qrySnippet.FieldValues['DateModified'];
+end;
+
+function TdmSnippetSource.GetFileName: string;
+begin
+  Result := conMain.DatabaseName;
+end;
+
+procedure TdmSnippetSource.SetDateModified(AValue: TDateTime);
+begin
+  qrySnippet.FieldValues['DateModified'] := AValue;
+end;
+
+procedure TdmSnippetSource.SetFileName(AValue: string);
+begin
+   if AValue <> FileName then
+  begin
+    conMain.Connected    := False;
+    conMain.DatabaseName := AValue;
+    conMain.Connected    := True;
+  end;
+end;
+
+function TdmSnippetSource.GetComment: string;
+begin
+  Result := qrySnippet.FieldByName('Comment').AsString;
+end;
+
+procedure TdmSnippetSource.SetComment(AValue: string);
+begin
+  qrySnippet.FieldValues['Comment'] := AValue;
+end;
+
+function TdmSnippetSource.GetCommentRtf: string;
+begin
+  Result := qrySnippet.FieldByName('CommentRtf').AsString;
+end;
+
+procedure TdmSnippetSource.SetCommentRtf(AValue: string);
+begin
+  qrySnippet.FieldValues['CommentRtf'] := AValue;
+end;
+
+function TdmSnippetSource.GetFoldLevel: Integer;
+begin
+  Result := qrySnippet.FieldValues['FoldLevel'];
+end;
+
+procedure TdmSnippetSource.SetFoldLevel(AValue: Integer);
+begin
+  qrySnippet.FieldValues['FoldLevel'] := AValue;
+end;
+
+function TdmSnippetSource.GetFoldState: string;
+begin
+  Result := qrySnippet.FieldByName('FoldState').AsString;
 end;
 
 function TdmSnippetSource.GetGlyphDataSet: TDataSet;
@@ -491,126 +534,185 @@ begin
   Result := imlGlyphs;
 end;
 
-function TdmSnippetSource.GetImageList: TImageList;
+function TdmSnippetSource.GetHighlighter: string;
 begin
-  Result := imlGlyphs;
+  Result := qrySnippet.FieldByName('Highlighter').AsString;
 end;
 
-function TdmSnippetSource.GetFileName: string;
+procedure TdmSnippetSource.SetFoldState(AValue: string);
 begin
-  Result := conMain.DatabaseName;
+  qrySnippet.FieldValues['FoldState'] := AValue;
 end;
 
-procedure TdmSnippetSource.SetFileName(AValue: string);
-begin
-  if AValue <> FileName then
-  begin
-    conMain.Connected    := False;
-    conMain.DatabaseName := AValue;
-    conMain.Connected    := True;
-  end;
-end;
-{$ENDREGION}
-
-{$REGION 'event handlers' /FOLD}
-procedure TdmSnippetSource.conMainAfterConnect(Sender: TObject);
-begin
-   qryGlyph.Active := True;
-end;
-
-procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
-  EventType: TDBEventType; const Msg: String);
-begin
-  Logger.Send('SQL = %s', [Msg]);
-end;
-
-procedure TdmSnippetSource.qrySnippetAfterInsert(DataSet: TDataSet);
-begin
-  FInserted := True;
-end;
-
-procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
+procedure TdmSnippetSource.SetHighlighter(AValue: string);
 var
-  N : Integer;
+  LId: Variant;
 begin
-  qrySnippet.DisableControls;
-  try
-    N := qrySnippet.RecNo;
-    qrySnippet.ApplyUpdates;
-    trsSnippet.Commit; // will close the dataset and the transaction
-    qrySnippet.Active := True; // will start a new transaction
-    qrySnippet.Refresh;
-  finally
-    qrySnippet.EnableControls;
-    if FInserted then
-    begin
-      qrySnippet.Last;
-      FInserted := False;
-    end
-    else
-    begin
-      if N < qrySnippet.RecordCount then
-        qrySnippet.RecNo := N;
-    end;
+  if AValue <> Highlighter then
+  begin
+     if not qryHighlighter.Active then
+        qryHighlighter.Active := True;
+    LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
+    qrySnippet.FieldValues['HighlighterId'] := LId;
   end;
 end;
 
-procedure TdmSnippetSource.qrySnippetAfterScroll(DataSet: TDataSet);
+function TdmSnippetSource.GetId: Integer;
 begin
-  if not qryNodeType.Active then
-    qryNodeType.Active := True;
-  qryNodeType.Locate(
-    'ID',
-    VarArrayOf(
-      [qrySnippetNodeTypeID.Value]
-    ),
-    []
-  );
-  //if not qryGlyph.Active then
-  //  qryGlyph.Active := True;
-  //qryGlyph.Locate(
-  //  'ID',
-  //  VarArrayOf(
-  //    [qrySnippetGlyphID.Value]
-  //  ),
-  //  []
-  //);
+  Result := qrySnippet.FieldValues['Id'];
 end;
 
-procedure TdmSnippetSource.qrySnippetBeforeScroll(DataSet: TDataSet);
+function TdmSnippetSource.GetNodeName: string;
 begin
-  if DataSet.State in dsEditModes then
-    DataSet.Post;
+  Result := qrySnippet.FieldByName('NodeName').AsString;
 end;
 
-procedure TdmSnippetSource.qrySnippetNewRecord(DataSet: TDataSet);
+procedure TdmSnippetSource.SetNodeName(AValue: string);
 begin
-  qrySnippetID.Value := 0;
+  qrySnippet.FieldValues['NodeName'] := AValue;
 end;
 
-procedure TdmSnippetSource.qrySnippetTextGetText(Sender: TField;
-  var aText: string; DisplayText: Boolean);
+function TdmSnippetSource.GetNodePath: string;
 begin
-  aText := Sender.AsString;
+  Result := qrySnippet.FieldByName('NodePath').AsString;
 end;
+
+procedure TdmSnippetSource.SetNodePath(AValue: string);
+begin
+  qrySnippet.FieldValues['NodePath'] := AValue;
+end;
+
+function TdmSnippetSource.GetNodeTypeId: Integer;
+begin
+  Result := qrySnippet.FieldValues['NodeTypeId'];
+end;
+
+procedure TdmSnippetSource.SetNodeTypeId(AValue: Integer);
+begin
+  qrySnippet.FieldValues['NodeTypeId'] := AValue;
+end;
+
+function TdmSnippetSource.GetParentId: Integer;
+begin
+  Result := qrySnippet.FieldValues['ParentId'];
+end;
+
+procedure TdmSnippetSource.SetParentId(AValue: Integer);
+begin
+  qrySnippet.FieldValues['ParentId'] := AValue;
+end;
+
+function TdmSnippetSource.GetText: string;
+begin
+  Result := qrySnippet.FieldByName('Text').AsString;
+end;
+
+procedure TdmSnippetSource.SetText(AValue: string);
+begin
+  qrySnippet.FieldValues['Text'] := AValue;
+end;
+
+procedure TdmSnippetSource.SendWatchValues;
+//var
+//  S : string;
+begin
+  //S := GetEnumName(TypeInfo(TDataSetState), Ord(DataSet.State));
+  //S := System.Copy(S, 3, Length(S));
+  //Logger.Watch('State', S);
+  //S := GetEnumName(TypeInfo(TUpdateStatus), Ord(DataSet.UpdateStatus));
+  //S := System.Copy(S, 3, Length(S));
+  //Logger.Watch('UpdateStatus', S);
+  //S := GetEnumName(TypeInfo(TUpdateMode), Ord(DataSet.UpdateMode));
+  //S := System.Copy(S, 3, Length(S));
+  //Logger.Watch('UpdateMode', S);
+end;
+
 {$ENDREGION}
 
-{$REGION 'public methods' /FOLD}
+{$REGION 'protected methods'}
+procedure TdmSnippetSource.CreateLookupFields;
+var
+  F : TField = nil;
+begin
+  if not Assigned(qrySnippet.FindField('Highlighter')) then
+  begin
+    F := TStringField.Create(qrySnippet);
+    F.DataSet           := qrySnippet;
+    F.LookupDataSet     := qryHighlighter;
+    F.KeyFields         := 'HighlighterId';
+    F.FieldName         := 'Highlighter';
+    F.FieldKind         := fkLookup;
+    F.LookupKeyFields   := 'Id';
+    F.LookupResultField := 'Code';
+    F.LookupCache       := True;
+    F.ProviderFlags     := [];
+  end;
+end;
+
+{
+  The provider flag pfRefreshOnInsert is used to fetch the Id-value of the last
+  inserted record.
+  To make this work the query component's RefreshSQL statement is executed right
+  after a new record is inserted.
+  For SQLite it looks as follows: "select last_insert_rowid() as Id"
+}
+
+procedure TdmSnippetSource.InitField(AField: TField);
+begin
+  if AField is TFloatField then
+  begin
+    TFloatField(AField).DisplayFormat := '#,##0.00';
+  end
+  else if AField is TDateTimeField then
+  begin
+    AField.Alignment := taCenter;
+  end;
+  if SameText(AField.FieldName, 'Id') then
+  begin
+    AField.Required :=  True;
+    AField.ProviderFlags := [
+       pfInKey,
+       pfRefreshOnInsert // This field's value should be refreshed after insert.
+    ];
+  end
+  // setup lookupfield
+  else if SameText(AField.FieldName, 'HighLighter') then
+  begin
+    AField.KeyFields     := 'HighlighterId';
+    AField.ProviderFlags := [];
+  end
+  else
+  begin
+    AField.ProviderFlags := [
+      pfInUpdate // Changes to the field should be propagated to the database.
+    ];
+  end;
+end;
+
+procedure TdmSnippetSource.InitFields(ADataSet: TDataSet);
+var
+  Field : TField;
+begin
+  for Field in ADataSet.Fields do
+    InitField(Field);
+end;
+
 procedure TdmSnippetSource.LoadGlyphs;
 begin
-//  raise Exception.Create('Not implemented!');
+  //
 end;
 
 procedure TdmSnippetSource.Execute(const ASQL: string);
 begin
-  conMain.ExecuteDirect(ASQL);
+//
 end;
 
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
-  scrCreateDatabase.ExecuteScript;
+//
 end;
 
+{$REGION 'IDataSet'}
 function TdmSnippetSource.Post: Boolean;
 begin
   if DataSet.State in dsEditModes then
@@ -624,7 +726,13 @@ end;
 
 function TdmSnippetSource.Append: Boolean;
 begin
-  DataSet.Append;
+  if not (DataSet.State in dsEditModes) then
+  begin
+    DataSet.Append;
+    Result := True;
+  end
+  else
+    Result := False;
 end;
 
 function TdmSnippetSource.Edit: Boolean;
@@ -647,6 +755,7 @@ procedure TdmSnippetSource.EnableControls;
 begin
   DataSet.EnableControls;
 end;
+{$ENDREGION}
 
 procedure TdmSnippetSource.Lookup(const ASearchString: string;
   ASearchInText: Boolean; ASearchInName: Boolean; ASearchInComment: Boolean);
@@ -658,9 +767,15 @@ begin
   'select ID from Snippet where Text like ''%%%s%%'' limit 1',
     [ASearchString]
   );
-  DataSet.Locate('ID', VarArrayOf([R]), []);
+  DataSet.Locate('Id', VarArrayOf([R]), []);
 end;
 {$ENDREGION}
+
+initialization
+{$IFDEF WINDOWS}
+  Logger.Channels.Add(TIPCChannel.Create);
+//  Logger.Clear;
+{$ENDIF}
 
 end.
 

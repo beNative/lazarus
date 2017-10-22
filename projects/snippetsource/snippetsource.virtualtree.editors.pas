@@ -28,8 +28,6 @@ uses
 
   LCLIntf, LCLType,
 
-  delphicompat,
-
   VirtualTrees,
 
   ts.Components.VirtualDBTreeEx;

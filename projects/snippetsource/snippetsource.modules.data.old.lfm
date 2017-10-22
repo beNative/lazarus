@@ -1,29 +1,98 @@
-object dmSnippetSource: TdmSnippetSource
+object dmSnippetSourceOld: TdmSnippetSourceOld
   OldCreateOrder = False
-  Height = 230
-  HorizontalOffset = 760
-  VerticalOffset = 286
-  Width = 425
-  object trsMain: TSQLTransaction
+  Height = 506
+  HorizontalOffset = 2970
+  VerticalOffset = 662
+  Width = 389
+  object trsSnippet: TSQLTransaction
     Active = False
     Database = conMain
-    Left = 40
-    Top = 80
+    Left = 48
+    Top = 104
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
-    FieldDefs = <>
-    AfterDelete = qrySnippetAfterDelete
+    IndexName = 'DEFAULT_ORDER'
+    FieldDefs = <    
+      item
+        Name = 'Id'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'HighlighterId'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NodeTypeId'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'ParentId'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'ImageIndex'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NodeName'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'NodePath'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'Text'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'FoldLevel'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'Comment'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'CommentRtf'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'FoldState'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'DateCreated'
+        DataType = ftDateTime
+        Precision = -1
+      end    
+      item
+        Name = 'DateModified'
+        DataType = ftDateTime
+        Precision = -1
+      end>
     AfterInsert = qrySnippetAfterInsert
-    AfterOpen = qrySnippetAfterOpen
     AfterPost = qrySnippetAfterPost
     AfterScroll = qrySnippetAfterScroll
-    BeforeOpen = qrySnippetBeforeOpen
-    BeforePost = qrySnippetBeforePost
     BeforeScroll = qrySnippetBeforeScroll
     OnNewRecord = qrySnippetNewRecord
     Database = conMain
-    Transaction = trsMain
+    Transaction = trsSnippet
     SQL.Strings = (
       'select'
       '  *'
@@ -35,17 +104,189 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     RefreshSQL.Strings = (
-      'select last_insert_rowid() as Id'
+      ''
     )
-    Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates]
+    Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
-    Left = 40
-    Top = 144
+    Left = 48
+    Top = 168
+    object qrySnippetHighlighterId: TLongintField
+      FieldKind = fkData
+      FieldName = 'HighlighterId'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetNodeTypeId: TLongintField
+      FieldKind = fkData
+      FieldName = 'NodeTypeId'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetParentId: TLongintField
+      FieldKind = fkData
+      FieldName = 'ParentId'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetImageIndex: TLongintField
+      FieldKind = fkData
+      FieldName = 'ImageIndex'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetNodeName: TStringField
+      FieldKind = fkData
+      FieldName = 'NodeName'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qrySnippetNodePath: TMemoField
+      FieldKind = fkData
+      FieldName = 'NodePath'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object qrySnippetText: TMemoField
+      FieldKind = fkData
+      FieldName = 'Text'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object qrySnippetFoldLevel: TLongintField
+      FieldKind = fkData
+      FieldName = 'FoldLevel'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetComment: TMemoField
+      FieldKind = fkData
+      FieldName = 'Comment'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object qrySnippetCommentRtf: TMemoField
+      FieldKind = fkData
+      FieldName = 'CommentRtf'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object qrySnippetFoldState: TStringField
+      FieldKind = fkData
+      FieldName = 'FoldState'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object qrySnippetDateCreated: TDateTimeField
+      FieldKind = fkData
+      FieldName = 'DateCreated'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetDateModified: TDateTimeField
+      FieldKind = fkData
+      FieldName = 'DateModified'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object LongintField1: TLongintField
+      FieldKind = fkLookup
+      FieldName = 'Id1'
+      Index = 13
+      KeyFields = 'HighlighterId'
+      LookupCache = True
+      LookupDataSet = qryHighlighter
+      LookupKeyFields = 'Id'
+      LookupResultField = 'Id'
+      ProviderFlags = []
+      ReadOnly = False
+      Required = False
+    end
+    object qrySnippetId: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'Id'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object conMain: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    AfterConnect = conMainAfterConnect
+    DatabaseName = 'D:\development\freepascal\GitHub\lazarus\projects\snippetsource\snippets.db'
+    KeepConnection = False
+    Params.Strings = (
+      'synchronous = 0'
+      'journal_mode = WAL'
+      'locking_mode = EXCLUSIVE'
+      'temp_store = MEMORY'
+      'count_changes = OFF'
+      'PAGE_SIZE = 4096'
+      'default_cache_size = 700000'
+      'cache_size = 700000'
+      'automatic_index = 1'
+    )
+    Transaction = trsSnippet
+    OnLog = conMainLog
+    LogEvents = []
+    Left = 48
+    Top = 24
   end
   object qryGlyph: TSQLQuery
     FieldDefs = <    
       item
-        Name = 'Id'
+        Name = 'ID'
         DataType = ftInteger
         Precision = -1
       end    
@@ -65,7 +306,7 @@ object dmSnippetSource: TdmSnippetSource
         Precision = -1
       end>
     Database = conMain
-    Transaction = trsMain
+    Transaction = trsSnippet
     SQL.Strings = (
       'select'
       '  ID,'
@@ -79,13 +320,70 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Params = <>
-    Left = 136
-    Top = 144
+    Left = 184
+    Top = 168
+    object qryGlyphID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryGlyphImageIndex: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ImageIndex'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryGlyphImage: TBlobField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'Image'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryGlyphName: TMemoField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'Name'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
   end
   object qryNodeType: TSQLQuery
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'Id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'Name'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'ImageIndex'
+        DataType = ftInteger
+        Precision = -1
+      end>
     Database = conMain
-    Transaction = trsMain
+    Transaction = trsSnippet
     SQL.Strings = (
       'select'
       '  ID,'
@@ -96,12 +394,44 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Params = <>
-    Left = 224
-    Top = 144
+    Left = 184
+    Top = 248
+    object qryNodeTypeID: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ID'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryNodeTypeName: TMemoField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'Name'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object qryNodeTypeImageIndex: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'ImageIndex'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object scrCreateDatabase: TSQLScript
     DataBase = conMain
-    Transaction = trsMain
+    Transaction = trsSnippet
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
@@ -229,12 +559,12 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    Left = 312
-    Top = 16
+    Left = 176
+    Top = 88
   end
   object imlMain: TImageList
-    Left = 136
-    Top = 16
+    Left = 176
+    Top = 24
     Bitmap = {
       4C69010000001000000010000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -272,8 +602,8 @@ object dmSnippetSource: TdmSnippetSource
     }
   end
   object imlGlyphs: TImageList
-    Left = 224
-    Top = 16
+    Left = 48
+    Top = 256
     Bitmap = {
       4C69110000001000000010000000FFFFFF000000001C00000033000000360000
       0036000000360000003600000036000000360000003600000036000000200000
@@ -825,9 +1155,44 @@ object dmSnippetSource: TdmSnippetSource
   object qryHighlighter: TSQLQuery
     PacketRecords = -1
     IndexFieldNames = 'Id'
-    FieldDefs = <>
+    FieldDefs = <    
+      item
+        Name = 'Id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'StreamCommentTypeId'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'SingleLineCommentTypeId'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'Code'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'Name'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'Description'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'ImageIndex'
+        DataType = ftInteger
+        Precision = -1
+      end>
     Database = conMain
-    Transaction = trsMain
+    Transaction = trsSnippet
     SQL.Strings = (
       'select'
       '  *'
@@ -836,18 +1201,73 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Params = <>
-    Left = 312
-    Top = 144
-  end
-  object conMain: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    DatabaseName = 'D:\development\freepascal\GitHub\lazarus\projects\snippetsource\snippets.db'
-    KeepConnection = False
-    Transaction = trsMain
-    OnLog = conMainLog
-    LogEvents = []
     Left = 48
-    Top = 24
+    Top = 328
+    object qryHighlighterId: TAutoIncField
+      FieldKind = fkData
+      FieldName = 'Id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object qryHighlighterStreamCommentTypeId: TLongintField
+      FieldKind = fkData
+      FieldName = 'StreamCommentTypeId'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryHighlighterSingleLineCommentTypeId: TLongintField
+      FieldKind = fkData
+      FieldName = 'SingleLineCommentTypeId'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryHighlighterImageIndex: TLongintField
+      FieldKind = fkData
+      FieldName = 'ImageIndex'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryHighlighterCode: TWideStringField
+      FieldKind = fkData
+      FieldName = 'Code'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 0
+    end
+    object qryHighlighterName: TWideStringField
+      FieldKind = fkData
+      FieldName = 'Name'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 0
+    end
+    object qryHighlighterDescription: TWideStringField
+      FieldKind = fkData
+      FieldName = 'Description'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 0
+    end
   end
 end

@@ -1,3 +1,14 @@
+TODO:
+- use
+
+
+
+15/10/2017
+- Refactored the datamodule with the data access components.
+- SQLite (v.3.20.1) supports now string fields and these are now used for small
+  text fields instead of the TEXT type, which translates to ftMemo in the
+  sqldb components which prevents them to be used as lookup fields.
+
 01/10/2017
 - Updated dependencies (using the new package manager as much as possible)
 - FPC 3.1.1 and Lazarus 1.9

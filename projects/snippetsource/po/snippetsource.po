@@ -2080,6 +2080,31 @@ msgstr ""
 msgid "&Run"
 msgstr ""
 
+#: tfrmgrid.actapplyupdates.caption
+msgid "ApplyUpdates"
+msgstr ""
+
+#: tfrmgrid.actcommit.caption
+msgid "Commit"
+msgstr ""
+
+#: tfrmgrid.actinspectdataset.caption
+msgid "Inspect DataSet"
+msgstr ""
+
+#: tfrmgrid.actinspectdbgrid.caption
+msgid "Inspect DBGrid"
+msgstr ""
+
+#: tfrmgrid.actinspectfields.caption
+msgid "Inspect Fields"
+msgstr ""
+
+#: tfrmgrid.toolbar1.caption
+msgctxt "tfrmgrid.toolbar1.caption"
+msgid "ToolBar1"
+msgstr ""
+
 #: tfrmhexeditor.caption
 msgid "Hex editor"
 msgstr ""
@@ -2179,6 +2204,27 @@ msgstr ""
 #: tfrmlookup.chktext.caption
 msgctxt "TFRMLOOKUP.CHKTEXT.CAPTION"
 msgid "Text"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[0].title.caption
+msgid "Id"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[1].title.caption
+msgid "NodeName"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[2].title.caption
+msgctxt "tfrmlookup.grdlookup.columns[2].title.caption"
+msgid "Highlighter"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[3].title.caption
+msgid "DateCreated"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[4].title.caption
+msgid "DateModified"
 msgstr ""
 
 #: tfrmmain.actabout.caption
@@ -2949,6 +2995,7 @@ msgid "Panel1"
 msgstr ""
 
 #: tfrmtest.toolbar1.caption
+msgctxt "tfrmtest.toolbar1.caption"
 msgid "ToolBar1"
 msgstr ""
 
@@ -3050,8 +3097,8 @@ msgstr ""
 msgid "RichEditorView"
 msgstr ""
 
-#: tricheditorview.pnlbottom.caption
-msgid "pnlBottom"
+#: tricheditorviewkmemo.caption
+msgid "RichEditorViewKMemo"
 msgstr ""
 
 #: ts.editor.search.data.sgroup

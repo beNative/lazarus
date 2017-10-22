@@ -3282,6 +3282,232 @@ msgctxt "ts.editor.codefilter.toolview.slinetext"
 msgid "Text"
 msgstr ""
 
+#: ts.editor.resources.sapplicationmenucaption
+msgctxt "ts.editor.resources.sapplicationmenucaption"
+msgid "&Application"
+msgstr ""
+
+#: ts.editor.resources.sasksavechanges
+msgctxt "ts.editor.resources.sasksavechanges"
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts.editor.resources.sbatdescription
+msgctxt "ts.editor.resources.sbatdescription"
+msgid "Windows batch script"
+msgstr ""
+
+#: ts.editor.resources.scppdescription
+msgctxt "ts.editor.resources.scppdescription"
+msgid "C++"
+msgstr ""
+
+#: ts.editor.resources.scsdescription
+msgctxt "ts.editor.resources.scsdescription"
+msgid "C#"
+msgstr ""
+
+#: ts.editor.resources.scssdescription
+msgctxt "ts.editor.resources.scssdescription"
+msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts.editor.resources.sdiffdescription
+msgctxt "ts.editor.resources.sdiffdescription"
+msgid "Diff"
+msgstr ""
+
+#: ts.editor.resources.sfilemenucaption
+msgctxt "ts.editor.resources.sfilemenucaption"
+msgid "&File"
+msgstr ""
+
+#: ts.editor.resources.shelpmenucaption
+msgctxt "ts.editor.resources.shelpmenucaption"
+msgid "&Help"
+msgstr ""
+
+#: ts.editor.resources.shighlightersmenucaption
+msgctxt "ts.editor.resources.shighlightersmenucaption"
+msgid "&Highlighters"
+msgstr ""
+
+#: ts.editor.resources.shtmldescription
+msgctxt "ts.editor.resources.shtmldescription"
+msgid "HTML document"
+msgstr ""
+
+#: ts.editor.resources.sinidescription
+msgctxt "ts.editor.resources.sinidescription"
+msgid "Settings file"
+msgstr ""
+
+#: ts.editor.resources.sinsertmenucaption
+msgctxt "ts.editor.resources.sinsertmenucaption"
+msgid "&Insert"
+msgstr ""
+
+#: ts.editor.resources.sjavadescription
+msgctxt "ts.editor.resources.sjavadescription"
+msgid "Java"
+msgstr ""
+
+#: ts.editor.resources.sjsdescription
+msgctxt "ts.editor.resources.sjsdescription"
+msgid "JavaScript"
+msgstr ""
+
+#: ts.editor.resources.slfmdescription
+msgctxt "ts.editor.resources.slfmdescription"
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts.editor.resources.slineswithmatchfound
+msgctxt "ts.editor.resources.slineswithmatchfound"
+msgid "%d lines with match found."
+msgstr ""
+
+#: ts.editor.resources.slogdescription
+msgctxt "ts.editor.resources.slogdescription"
+msgid "Log"
+msgstr ""
+
+#: ts.editor.resources.sluadescription
+msgctxt "ts.editor.resources.sluadescription"
+msgid "Lua"
+msgstr ""
+
+#: ts.editor.resources.sneweditorviewfilename
+msgctxt "ts.editor.resources.sneweditorviewfilename"
+msgid "<new>"
+msgstr ""
+
+#: ts.editor.resources.snotimplementedyet
+msgctxt "ts.editor.resources.snotimplementedyet"
+msgid "This feature is not implemented yet"
+msgstr ""
+
+#: ts.editor.resources.sonelinewithmatchfound
+msgctxt "ts.editor.resources.sonelinewithmatchfound"
+msgid "1 line with match found."
+msgstr ""
+
+#: ts.editor.resources.spasdescription
+msgctxt "ts.editor.resources.spasdescription"
+msgid "Object Pascal"
+msgstr ""
+
+#: ts.editor.resources.sperldescription
+msgctxt "ts.editor.resources.sperldescription"
+msgid "Perl"
+msgstr ""
+
+#: ts.editor.resources.sphpdescription
+msgctxt "ts.editor.resources.sphpdescription"
+msgid "PHP"
+msgstr ""
+
+#: ts.editor.resources.spodescription
+msgctxt "ts.editor.resources.spodescription"
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts.editor.resources.spydescription
+msgctxt "ts.editor.resources.spydescription"
+msgid "Python"
+msgstr ""
+
+#: ts.editor.resources.sresdescription
+msgctxt "ts.editor.resources.sresdescription"
+msgid "Windows resources"
+msgstr ""
+
+#: ts.editor.resources.srtfdescription
+msgctxt "ts.editor.resources.srtfdescription"
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts.editor.resources.srubydescription
+msgctxt "ts.editor.resources.srubydescription"
+msgid "Ruby"
+msgstr ""
+
+#: ts.editor.resources.ssearching
+msgctxt "ts.editor.resources.ssearching"
+msgid "Searching..."
+msgstr ""
+
+#: ts.editor.resources.ssearchmenucaption
+msgctxt "ts.editor.resources.ssearchmenucaption"
+msgid "&Search"
+msgstr ""
+
+#: ts.editor.resources.sselectionmenucaption
+msgctxt "ts.editor.resources.sselectionmenucaption"
+msgid "Se&lection"
+msgstr ""
+
+#: ts.editor.resources.ssettingsmenucaption
+msgctxt "ts.editor.resources.ssettingsmenucaption"
+msgid "&Settings"
+msgstr ""
+
+#: ts.editor.resources.sshdescription
+msgctxt "ts.editor.resources.sshdescription"
+msgid "Shell script"
+msgstr ""
+
+#: ts.editor.resources.ssqldescription
+msgctxt "ts.editor.resources.ssqldescription"
+msgid "SQL"
+msgstr ""
+
+#: ts.editor.resources.stexdescription
+msgctxt "ts.editor.resources.stexdescription"
+msgid "TeX"
+msgstr ""
+
+#: ts.editor.resources.stextnotfound
+msgctxt "ts.editor.resources.stextnotfound"
+msgid "Text not found"
+msgstr ""
+
+#: ts.editor.resources.stoolsmenucaption
+msgctxt "ts.editor.resources.stoolsmenucaption"
+msgid "&Tools"
+msgstr ""
+
+#: ts.editor.resources.stxtdescription
+msgctxt "ts.editor.resources.stxtdescription"
+msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.sviewmenucaption
+msgctxt "ts.editor.resources.sviewmenucaption"
+msgid "&View"
+msgstr ""
+
+#: ts.editor.resources.sxmldescription
+msgctxt "ts.editor.resources.sxmldescription"
+msgid "XML document"
+msgstr ""
+
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
+msgstr ""
+
 #: ts.editor.search.toolview.sfilename
 msgctxt "ts.editor.search.toolview.sfilename"
 msgid "FileName"

@@ -1,6 +1,6 @@
 unit TableTool.Helpers;
 
-{$MODE Delphi}
+{$MODE DELPHI}
 
 interface
 

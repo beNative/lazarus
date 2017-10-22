@@ -1,8 +1,9 @@
 object frmMain: TfrmMain
-  Left = 551
+  Left = 553
   Height = 598
-  Top = 430
+  Top = 432
   Width = 999
+  ActiveControl = edtSearch
   Caption = 'SnippetSource'
   ClientHeight = 598
   ClientWidth = 999

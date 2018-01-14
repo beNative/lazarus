@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -171,10 +171,6 @@ type
     procedure UpdateControls;
     procedure UpdateStatusBar;
     procedure UpdateEditorViewCaptions;
-    procedure AddToolButton(
-      const AParent : TToolBar;
-      const AAction : TContainedAction
-    );
 
     procedure CheckForNewVersion;
 
@@ -812,17 +808,17 @@ begin
   end;
 end;
 
-procedure TfrmMain.AddToolButton(const AParent: TToolBar;
-  const AAction: TContainedAction);
-var
-  TB: TToolButton;
-begin
-  TB := TToolButton.Create(AParent);
-  TB.Parent := AParent;
-  begin
-    TB.Action := AAction;
-  end;
-end;
+//procedure TfrmMain.AddToolButton(const AParent: TToolBar;
+//  const AAction: TContainedAction);
+//var
+//  TB: TToolButton;
+//begin
+//  TB := TToolButton.Create(AParent);
+//  TB.Parent := AParent;
+//  begin
+//    TB.Action := AAction;
+//  end;
+//end;
 
 { Just a proof of concept. Implementation pending. }
 

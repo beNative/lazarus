@@ -23,9 +23,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="45"/>
-      <BuildNr Value="207"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2017 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.45" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <RevisionNr Value="46"/>
+      <BuildNr Value="209"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2018 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.46" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -166,7 +166,7 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
+          <CompileReasons Run="False"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release win32 i386 gtk2">
@@ -324,7 +324,7 @@ end;"/>
             </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-              <CompileReasons Run="False"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
           <CompileReasons Run="False"/>
@@ -996,6 +996,7 @@ end;"/>
       <Unit11>
         <Filename Value="..\..\components\tslib\components\ts.components.unihighlighter.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.UNIHighlighter"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\components\tslib\components\ts.components.exportrtf.pas"/>
@@ -1005,6 +1006,7 @@ end;"/>
       <Unit13>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitions.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.ColumnDefinitions"/>
       </Unit13>
       <Unit14>
         <Filename Value="..\..\components\tslib\components\ts.components.xmltree.pas"/>
@@ -1032,11 +1034,12 @@ end;"/>
         <ComponentName Value="ResourcesDataModule"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <UnitName Value="ts.Editor.resources"/>
+        <UnitName Value="ts.Editor.Resources"/>
       </Unit18>
       <Unit19>
         <Filename Value="..\..\components\tslib\core\ts.core.columndefinitionsdatatemplate.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.ColumnDefinitionsDataTemplate"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
@@ -1046,10 +1049,12 @@ end;"/>
       <Unit21>
         <Filename Value="..\..\components\tslib\core\ts.core.directorywatch.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DirectoryWatch"/>
       </Unit21>
       <Unit22>
         <Filename Value="..\..\components\tslib\core\ts.core.formsettings.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.FormSettings"/>
       </Unit22>
       <Unit23>
         <Filename Value="..\..\components\tslib\components\ts.components.gridview.pas"/>

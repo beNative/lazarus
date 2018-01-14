@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 581
+  Left = 583
   Height = 618
-  Top = 221
+  Top = 222
   Width = 1259
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]

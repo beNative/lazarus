@@ -1,3 +1,12 @@
+2018.01.14
+* Minor fixes
+* Upgraded to LCL version 1.9 and FPC version 3.1.0
+* Removed unused resources
+* Multiple cursor support (CTRL+SHIFT+Mouse click or ALT+Mouse drag for
+  column-multiline cursor)
+* Removed unused resources
+* Using V5.5.3.1 of the virtualtreeview package
+
 2016.11.13
 * All units renamed to dotted equivalents
 

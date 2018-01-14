@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -160,11 +160,12 @@ uses
 begin
   {$IF DECLARED(UseHeapTrace)}
    GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
-  {$ENDIF}
-  Application.Title := 'Notepas';
   //if FileExists('Notepas.trc') then
   //  DeleteFile('Notepas.trc');
-  SetHeapTraceOutput('Notepas.trc');
+  //SetHeapTraceOutput('Notepas.trc');
+  {$ENDIF}
+  Application.Title := 'Notepas';
+
   {$IFDEF WINDOWS}
   {$WARNINGS OFF}
   Application.MainFormOnTaskbar := True;

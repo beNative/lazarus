@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -35,46 +35,46 @@ type
 
   TdmRichEditorActions = class(TDataModule, IRichEditorActions)
     {$REGION 'designer controls'}
-    aclActions    : TActionList;
-    actBold       : TAction;
-    actColor      : TAction;
-    actAlignRight : TAction;
-    actAlignLeft  : TAction;
-    actAlignCenter: TAction;
-    actFont       : TAction;
-    actIncFontSize: TAction;
-    actDecFontSize: TAction;
-    actCut        : TAction;
-    actCopy       : TAction;
-    actAlignJustify: TAction;
-    actBkColor: TAction;
-    actWordWrap   : TAction;
-    actUndo       : TAction;
-    actSelectAll  : TAction;
-    actPaste      : TAction;
-    actSaveAs     : TAction;
-    actSave       : TAction;
-    actOpen       : TAction;
-    actUnderline  : TAction;
-    actItalic     : TAction;
-    dlgColor      : TColorDialog;
-    dlgFont       : TFontDialog;
-    dlgOpen       : TOpenDialog;
-    dlgSave       : TSaveDialog;
-    imlMain       : TImageList;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
-    MenuItem3: TMenuItem;
-    MenuItem4: TMenuItem;
-    MenuItem5: TMenuItem;
-    N1            : TMenuItem;
-    mniBold       : TMenuItem;
-    mniItalic     : TMenuItem;
-    mniUnderline  : TMenuItem;
-    mniOpen       : TMenuItem;
-    mniSave       : TMenuItem;
-    mniSaveAs     : TMenuItem;
-    ppmRichEditor : TPopupMenu;
+    aclActions      : TActionList;
+    actBold         : TAction;
+    actColor        : TAction;
+    actAlignRight   : TAction;
+    actAlignLeft    : TAction;
+    actAlignCenter  : TAction;
+    actFont         : TAction;
+    actIncFontSize  : TAction;
+    actDecFontSize  : TAction;
+    actCut          : TAction;
+    actCopy         : TAction;
+    actAlignJustify : TAction;
+    actBkColor      : TAction;
+    actWordWrap     : TAction;
+    actUndo         : TAction;
+    actSelectAll    : TAction;
+    actPaste        : TAction;
+    actSaveAs       : TAction;
+    actSave         : TAction;
+    actOpen         : TAction;
+    actUnderline    : TAction;
+    actItalic       : TAction;
+    dlgColor        : TColorDialog;
+    dlgFont         : TFontDialog;
+    dlgOpen         : TOpenDialog;
+    dlgSave         : TSaveDialog;
+    imlMain         : TImageList;
+    MenuItem1       : TMenuItem;
+    MenuItem2       : TMenuItem;
+    MenuItem3       : TMenuItem;
+    MenuItem4       : TMenuItem;
+    MenuItem5       : TMenuItem;
+    N1              : TMenuItem;
+    mniBold         : TMenuItem;
+    mniItalic       : TMenuItem;
+    mniUnderline    : TMenuItem;
+    mniOpen         : TMenuItem;
+    mniSave         : TMenuItem;
+    mniSaveAs       : TMenuItem;
+    ppmRichEditor   : TPopupMenu;
     {$ENDREGION}
 
     procedure actAlignCenterExecute(Sender: TObject);
@@ -160,7 +160,7 @@ uses
 
   RichMemo,
 
-  ts.RichEditor.View;
+  ts.RichEditor.View.RichMemo;
 
 var
   dmRichEditorActions : TdmRichEditorActions;

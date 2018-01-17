@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -52,14 +52,18 @@ type
   { TRichEditorViewKMemo }
 
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
-    pnlBottom: TPanel;
     pnlRichEditor: TPanel;
   private
     FEditor            : TKMemo;
     FActions           : IRichEditorActions;
 
+    {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
     procedure EditorOnClick(Sender: TObject);
+    procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
+    {$ENDREGION}
+
+    {$REGION 'property access mehods'}
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
     function GetCanUndo: Boolean;
@@ -94,11 +98,10 @@ type
     procedure SetSelStart(AValue: Integer);
     procedure SetSelText(AValue: string);
     procedure SetWordWrap(AValue: Boolean);
-    procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
+    {$ENDREGION}
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
     property Actions: IRichEditorActions
       read GetActions;
@@ -171,7 +174,6 @@ implementation
 {$R *.lfm}
 
 {$REGION 'construction and destruction'}
-
 procedure TRichEditorViewKMemo.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -189,11 +191,6 @@ begin
   FEditor.OnUTF8KeyPress := UTF8KeyPress;
   FEditor.OnClick := EditorOnClick;
 end;
-
-procedure TRichEditorViewKMemo.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
@@ -201,7 +198,6 @@ function TRichEditorViewKMemo.GetActions: IRichEditorActions;
 begin
 
 end;
-
 
 
 function TRichEditorViewKMemo.GetCanPaste: Boolean;
@@ -368,9 +364,6 @@ procedure TRichEditorViewKMemo.SetWordWrap(AValue: Boolean);
 begin
 
 end;
-
-
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -82,6 +82,7 @@ type
   published
     imlBookmarkImages: TImageList;
 
+    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
@@ -605,8 +606,6 @@ uses
 
   LazUTF8Classes, LConvEncoding, LCLProc,
 
-  ts.Core.Utils,
-
   ts.Editor.Utils;
 
 type
@@ -704,6 +703,11 @@ begin
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, FileNames);
   Events.DoChange;
+end;
+
+procedure TEditorView.FormCreate(Sender: TObject);
+begin
+
 end;
 
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;

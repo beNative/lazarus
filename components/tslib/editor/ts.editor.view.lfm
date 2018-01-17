@@ -1,7 +1,7 @@
 object EditorView: TEditorView
-  Left = 590
+  Left = 591
   Height = 421
-  Top = 268
+  Top = 269
   Width = 630
   AllowDropFiles = True
   AlphaBlendValue = 128
@@ -11,15 +11,16 @@ object EditorView: TEditorView
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
+  OnCreate = FormCreate
   OnDropFiles = FormDropFiles
   OnShortCut = FormShortCut
   ShowHint = True
   ShowInTaskBar = stNever
   UseDockManager = True
-  LCLVersion = '1.7'
+  LCLVersion = '1.9.0.0'
   object imlBookmarkImages: TImageList
-    left = 157
-    top = 75
+    Left = 157
+    Top = 75
     Bitmap = {
       4C690A0000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -2629,7 +2629,6 @@ begin
   if Supports(AComponent, IEditorView) and (Operation = opRemove) then
   begin
     DeleteView(AComponent as IEditorView);
-    Logger.Watch('ViewCount', ViewCount);
   end;
   inherited Notification(AComponent, Operation);
 end;
@@ -2687,7 +2686,6 @@ begin
   SynMacroRecorder.AddEditor(V.Editor);
   V.Activate;
   Result := V;
-  Logger.Watch('ViewCount', ViewCount);
 end;
 
 function TdmEditorManager.AddSharedView(AEditorView: IEditorView;
@@ -2730,7 +2728,6 @@ begin
   end
   else
     Result := False;
-  Logger.Watch('ViewCount', ViewCount);
 end;
 
 { 1. Removes the given instance from the list
@@ -2769,7 +2766,6 @@ begin
   end
   else
     Result := False;
-  Logger.Watch('ViewCount', ViewCount);
 end;
 
 function TdmEditorManager.DeleteView(const AName: string): Boolean;

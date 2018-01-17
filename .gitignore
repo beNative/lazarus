@@ -46,3 +46,6 @@
 /components/tslib/editor/codefilter/backup
 backup
 /projects/tabletool/*.exe
+/projects/notepas/Notepas.trc
+/projects/notepas/bin/i386-win32-gtk2
+/projects/notepas/bin/i386-win32-win32

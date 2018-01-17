@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -157,8 +157,6 @@ begin
   inherited AfterConstruction;
   edtDatabaseFile.FileName := Connection.FileName;
   vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
-  //TIComboBox1.Link.TIObject := (FData as IGlyphs).ImageList;
-
   cbxImageList.Clear;
   for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
   begin
@@ -256,7 +254,6 @@ begin
   Pos := ARect.Left + ((ARect.Right - ARect.Left) div 2) - 8;
   // This line draws the actual bitmap
   (FData as IGlyphs).ImageList.Draw(C.Canvas , Pos, ARect.Top, Index);
-
 
   //  This line writes the text after the bitmap*)
   //combobox1.canvas.textout(rect.left+imagelist1.width+2,rect.top,

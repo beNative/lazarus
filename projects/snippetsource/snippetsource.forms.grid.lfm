@@ -53,12 +53,11 @@ object frmGrid: TfrmGrid
       end
     end
   end
-  object ToolBar1: TToolBar
+  object tbrMain: TToolBar
     Left = 0
     Height = 26
     Top = 0
     Width = 841
-    Caption = 'ToolBar1'
     ShowCaptions = True
     TabOrder = 1
     object navMain: TDBNavigator
@@ -168,7 +167,7 @@ object frmGrid: TfrmGrid
     Top = 104
   end
   object aclMain: TActionList
-    Left = 304
+    Left = 224
     Top = 104
     object actApplyUpdates: TAction
       Caption = 'ApplyUpdates'

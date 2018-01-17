@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -52,7 +52,6 @@ type
   { TRichEditorView }
 
   TRichEditorView = class(TForm, IRichEditorView)
-    pnlBottom: TPanel;
     pnlRichEditor: TPanel;
 
     procedure EditorChange(Sender: TObject);
@@ -124,8 +123,6 @@ type
     procedure BeforeDestruction; override;
 
     function Focused: Boolean; override;
-
-    procedure UpdatePanel;
 
     procedure SetFocus; override;
     procedure SelectAll;
@@ -510,21 +507,11 @@ begin
   end;
   if Assigned(Actions) then
     Actions.UpdateActions;
-  UpdatePanel;
 end;
 
 function TRichEditorView.Focused: Boolean;
 begin
   Result := inherited Focused or Editor.Focused;
-end;
-
-procedure TRichEditorView.UpdatePanel;
-var
-  S : string;
-begin
-  S := 'Size: %d Font: %s';
-  S := Format(S, [FTextAttributes.Size, FTextAttributes.FontName]);
-  pnlBottom.Caption := S;
 end;
 
 procedure TRichEditorView.SetFocus;

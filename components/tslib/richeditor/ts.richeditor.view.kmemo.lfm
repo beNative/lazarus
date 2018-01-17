@@ -14,17 +14,6 @@ object RichEditorViewKMemo: TRichEditorViewKMemo
     Width = 972
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 773
-    ClientWidth = 972
     TabOrder = 0
-    object pnlBottom: TPanel
-      Left = 0
-      Height = 26
-      Top = 747
-      Width = 972
-      Align = alBottom
-      BevelOuter = bvNone
-      TabOrder = 0
-    end
   end
 end

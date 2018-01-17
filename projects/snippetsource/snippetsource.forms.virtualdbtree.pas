@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -697,16 +697,37 @@ procedure TfrmVirtualDBTree.InitializeTreeView;
 begin
   with FTreeView do
   begin
-    Parent := pnlTree;
-    Align := alClient;
-    DoubleBuffered := True;
+    Parent            := pnlTree;
+    Align             := alClient;
+    DoubleBuffered    := True;
     AnimationDuration := 100;
-    AutoExpandDelay := 500;
-    BorderStyle := bsSingle;
-    ButtonFillMode := fmTransparent;
-    Color := clWhite;
+    AutoExpandDelay   := 500;
+    BorderStyle       := bsSingle;
+    ButtonFillMode    := fmTransparent;
+    Color             := clWhite;
+    DataSource        := dscMain;
+    DefaultPasteMode  := amInsertBefore;
+    DefaultText       := 'Node';
+    DragMode          := dmAutomatic;
+    DragType          := dtOLE;
+    DragOperations    := [doMove];
+    EditDelay         := 200;
+    HintMode               := hmTooltip;
+    IncrementalSearch      := isAll;
+    IncrementalSearchStart := ssAlwaysStartOver;
+    Indent                 := 20;
+    LineMode               := lmBands;
+    PopupMenu              := ppmTreeView;
+
     Colors.FocusedSelectionColor := clGray;
-    Colors.HotColor := clBlue;
+    Colors.HotColor              := clBlue;
+
+    Header.AutoSizeIndex := 0;
+    Header.DefaultHeight := 17;
+    Header.Options       := [hoAutoResize, hoColumnResize, hoDrag];
+    Header.PopupMenu     := ppmTreeView;
+
+
 {
     dboAllowChecking,
     dboAllowStructureChange,
@@ -736,11 +757,7 @@ begin
       dboTrackCursor,
       dboViewAll
     ];
-    DataSource := dscMain;
-    DefaultPasteMode := amInsertBefore;
-    DefaultText := 'Node';
-    DragMode := dmAutomatic;
-    DragType := dtOLE;
+
     ClipboardFormats.Add('CSV');
     ClipboardFormats.Add('HTML Format');
     ClipboardFormats.Add('Plain text');
@@ -748,23 +765,15 @@ begin
     ClipboardFormats.Add('Rich Text Format Without Objects');
     ClipboardFormats.Add('Unicode text');
     ClipboardFormats.Add('Virtual Tree Data');
-    DragOperations := [doMove];
-    EditDelay := 200;
-    Header.AutoSizeIndex := 0;
-    Header.DefaultHeight := 17;
-    Header.Options := [hoAutoResize, hoColumnResize, hoDrag];
-    Header.PopupMenu := ppmTreeView;
-    HintMode := hmTooltip;
-    IncrementalSearch := isAll;
-    IncrementalSearchStart := ssAlwaysStartOver;
-    Indent := 20;
-    LineMode := lmBands;
+
+
     OnCreateEditor := FTreeViewCreateEditor;
-    OnDragAllowed := FTreeViewDragAllowed;
-    OnDragOver := FTreeViewDragOver;
-    OnDragDrop := FTreeViewDragDrop;
-    OnEdited := FTreeViewEdited;
-    PopupMenu := ppmTreeView;
+    OnDragAllowed  := FTreeViewDragAllowed;
+    OnDragOver     := FTreeViewDragOver;
+    OnDragDrop     := FTreeViewDragDrop;
+    OnEdited       := FTreeViewEdited;
+
+
     TreeOptions.AnimationOptions := [
       toAnimatedToggle,
       toAdvancedAnimatedToggle

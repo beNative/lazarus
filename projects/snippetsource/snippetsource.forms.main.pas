@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -53,9 +53,10 @@ type
     aclMain            : TActionList;
     actAbout           : TAction;
     actExecute         : TAction;
+    actApplicationExplorer: TAction;
     actLookup          : TAction;
     actSettings        : TAction;
-    actToggleMaximize  : TAction;
+    actToggleFullScreen  : TAction;
     actToggleStayOnTop : TAction;
     btnHighlighter     : TMenuButton;
     btnHighlighterSB   : TSpeedButton;
@@ -91,9 +92,10 @@ type
 
     {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
+    procedure actApplicationExplorerExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
-    procedure actToggleMaximizeExecute(Sender: TObject);
+    procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
 
@@ -204,6 +206,8 @@ implementation
 uses
   StrUtils, Base64, Dialogs,
 
+  AppExploreFrm,
+
   ts.Core.Utils, ts.Core.SharedLogger,
 
   ts.Editor.AboutDialog,
@@ -299,7 +303,12 @@ begin
   ShowAboutDialog;
 end;
 
-procedure TfrmMain.actToggleMaximizeExecute(Sender: TObject);
+procedure TfrmMain.actApplicationExplorerExecute(Sender: TObject);
+begin
+  ShowAppExplorer;
+end;
+
+procedure TfrmMain.actToggleFullScreenExecute(Sender: TObject);
 begin
   if WindowState = wsMaximized then
     WindowState := wsNormal
@@ -364,11 +373,11 @@ end;
 
 procedure TfrmMain.EHighlighterChange(Sender: TObject);
 begin
-  if Snippet.Highlighter <> Editor.HighlighterName then
-  begin
-    DataSet.Edit;
-    AssignEditorChanges;
-  end;
+  //if Snippet.Highlighter <> Editor.HighlighterName then
+  //begin
+  //  DataSet.Edit;
+  //  AssignEditorChanges;
+  //end;
 end;
 
 procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
@@ -735,29 +744,33 @@ end;
 procedure TfrmMain.InitActions;
 begin
   HideAction('actAlignSelection');
-  HideAction('actSortSelection');
-  HideAction('actInsertCharacterFromMap');
-  HideAction('actInsertColorValue');
-  HideAction('actSearch');
+  HideAction('actAutoGuessHighlighter');
+  HideAction('actClose');
+  HideAction('actCreateDesktopLink');
+  HideAction('actFilterCode');
   HideAction('actFindAllOccurences');
-  HideAction('actSearchReplace');
   HideAction('actFindNext');
   HideAction('actFindPrevious');
-  HideAction('actShowViews');
-  HideAction('actShowActions');
-  HideAction('actShowPreview');
-  HideAction('actShowMiniMap');
-  HideAction('actShowHTMLViewer');
-  HideAction('actShowStructureViewer');
-  HideAction('actShowHexEditor');
-  HideAction('actShowScriptEditor');
-  HideAction('actShapeCode');
-  HideAction('actFilterCode');
-  HideAction('actSmartSelect');
   HideAction('actFormat');
-  HideAction('actAutoGuessHighlighter');
-  HideAction('actCreateDesktopLink');
+  HideAction('actInsertCharacterFromMap');
+  HideAction('actInsertColorValue');
   HideAction('actMonitorChanges');
+  HideAction('actOpenFileAtCursor');
+  HideAction('actSearch');
+  HideAction('actSearchReplace');
+  HideAction('actShapeCode');
+  HideAction('actShowActions');
+  HideAction('actShowHexEditor');
+  HideAction('actShowHTMLViewer');
+  HideAction('actShowMiniMap');
+  HideAction('actShowPreview');
+  HideAction('actShowScriptEditor');
+  HideAction('actShowStructureViewer');
+  HideAction('actShowViews');
+  HideAction('actSmartSelect');
+  HideAction('actSortSelection');
+
+
 end;
 
 procedure TfrmMain.CreateTreeview;

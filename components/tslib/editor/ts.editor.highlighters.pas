@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -30,8 +30,6 @@ uses
   SynEditHighlighter,
 
   ts.Editor.Utils, ts.Editor.CodeFormatters, ts.Editor.CodeTags,
-
-  ts.Core.SharedLogger,
 
   ts.Core.Utils;
 
@@ -399,7 +397,6 @@ begin
     HI := Add;
     HI.Name        := AName;
     HI.Highlighter := AName;
-    Logger.Send('Created highlighter %s', [AName]);
   end;
   if ADescription <> '' then
     HI.Description := ADescription;

@@ -2108,11 +2108,6 @@ msgstr ""
 msgid "Inspect Transaction"
 msgstr ""
 
-#: tfrmgrid.toolbar1.caption
-msgctxt "tfrmgrid.toolbar1.caption"
-msgid "ToolBar1"
-msgstr ""
-
 #: tfrmgrid.tsgrid.caption
 msgid "DBGrid"
 msgstr ""
@@ -2249,6 +2244,10 @@ msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
 msgstr ""
 
+#: tfrmmain.actapplicationexplorer.caption
+msgid "Application explorer"
+msgstr ""
+
 #: tfrmmain.actexecute.caption
 msgctxt "tfrmmain.actexecute.caption"
 msgid "Execute"
@@ -2269,8 +2268,8 @@ msgctxt "TFRMMAIN.ACTSETTINGS.CAPTION"
 msgid "Settings"
 msgstr ""
 
-#: tfrmmain.acttogglemaximize.caption
-msgid "Toggle maximize"
+#: tfrmmain.acttogglefullscreen.caption
+msgid "Toggle full screen"
 msgstr ""
 
 #: tfrmmain.acttogglestayontop.caption

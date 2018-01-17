@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -74,7 +74,7 @@ uses
 
   sqldb, sqlite3conn, db, BufDataset,
 
-  SnippetSource.Interfaces, ts.Core.SharedLogger;
+  SnippetSource.Interfaces, ts.Core.SharedLogger, sqlscript;
 
 type
   TdmSnippetSource = class(TDataModule,
@@ -82,7 +82,6 @@ type
   )
     conMain           : TSQLite3Connection;
     imlGlyphs         : TImageList;
-    imlMain           : TImageList;
     qryGlyph          : TSQLQuery;
     qryHighlighter    : TSQLQuery;
     qryNodeType       : TSQLQuery;
@@ -410,6 +409,7 @@ begin
   // forces new value for AutoInc field
   qrySnippet.FieldByName('Id').Value := 0;
   qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
+  qrySnippet.FieldByName('HighlighterId').AsInteger := 1;
 end;
 {$ENDREGION}
 
@@ -585,6 +585,8 @@ begin
      if not qryHighlighter.Active then
         qryHighlighter.Active := True;
     LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
+    if VarIsNull(LId) then
+      LId := 1;
     qrySnippet.FieldValues['HighlighterId'] := LId;
   end;
 end;

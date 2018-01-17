@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -36,44 +36,44 @@ type
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
     {$REGION 'designer controls'}
-    conMain                  : TSQLite3Connection;
-    imlGlyphs                : TImageList;
-    imlMain                  : TImageList;
-    LongintField1: TLongintField;
-    qryGlyphID               : TLongintField;
-    qryGlyphImage            : TBlobField;
-    qryGlyphImageIndex       : TLongintField;
-    qryGlyphName             : TMemoField;
-    qryHighlighter: TSQLQuery;
-    qryHighlighterCode: TWideStringField;
-    qryHighlighterDescription: TWideStringField;
-    qryHighlighterId: TAutoIncField;
-    qryHighlighterImageIndex: TLongintField;
-    qryHighlighterName: TWideStringField;
-    qryHighlighterSingleLineCommentTypeId: TLongintField;
-    qryHighlighterStreamCommentTypeId: TLongintField;
-    qryNodeTypeID            : TLongintField;
-    qryNodeTypeImageIndex    : TLongintField;
-    qryNodeTypeName          : TMemoField;
-    qrySnippet               : TSQLQuery;
-    qryGlyph                 : TSQLQuery;
-    qryNodeType              : TSQLQuery;
-    qrySnippetComment: TMemoField;
-    qrySnippetCommentRtf: TMemoField;
-    qrySnippetDateCreated: TDateTimeField;
-    qrySnippetDateModified: TDateTimeField;
-    qrySnippetFoldLevel: TLongintField;
-    qrySnippetFoldState: TStringField;
-    qrySnippetHighlighterId: TLongintField;
-    qrySnippetId: TAutoIncField;
-    qrySnippetImageIndex: TLongintField;
-    qrySnippetNodeName: TStringField;
-    qrySnippetNodePath: TMemoField;
-    qrySnippetNodeTypeId: TLongintField;
-    qrySnippetParentId: TLongintField;
-    qrySnippetText: TMemoField;
-    scrCreateDatabase        : TSQLScript;
-    trsSnippet               : TSQLTransaction;
+    conMain                               : TSQLite3Connection;
+    imlGlyphs                             : TImageList;
+    imlMain                               : TImageList;
+    LongintField1                         : TLongintField;
+    qryGlyphID                            : TLongintField;
+    qryGlyphImage                         : TBlobField;
+    qryGlyphImageIndex                    : TLongintField;
+    qryGlyphName                          : TMemoField;
+    qryHighlighter                        : TSQLQuery;
+    qryHighlighterCode                    : TWideStringField;
+    qryHighlighterDescription             : TWideStringField;
+    qryHighlighterId                      : TAutoIncField;
+    qryHighlighterImageIndex              : TLongintField;
+    qryHighlighterName                    : TWideStringField;
+    qryHighlighterSingleLineCommentTypeId : TLongintField;
+    qryHighlighterStreamCommentTypeId     : TLongintField;
+    qryNodeTypeID                         : TLongintField;
+    qryNodeTypeImageIndex                 : TLongintField;
+    qryNodeTypeName                       : TMemoField;
+    qrySnippet                            : TSQLQuery;
+    qryGlyph                              : TSQLQuery;
+    qryNodeType                           : TSQLQuery;
+    qrySnippetComment                     : TMemoField;
+    qrySnippetCommentRtf                  : TMemoField;
+    qrySnippetDateCreated                 : TDateTimeField;
+    qrySnippetDateModified                : TDateTimeField;
+    qrySnippetFoldLevel                   : TLongintField;
+    qrySnippetFoldState                   : TStringField;
+    qrySnippetHighlighterId               : TLongintField;
+    qrySnippetId                          : TAutoIncField;
+    qrySnippetImageIndex                  : TLongintField;
+    qrySnippetNodeName                    : TStringField;
+    qrySnippetNodePath                    : TMemoField;
+    qrySnippetNodeTypeId                  : TLongintField;
+    qrySnippetParentId                    : TLongintField;
+    qrySnippetText                        : TMemoField;
+    scrCreateDatabase                     : TSQLScript;
+    trsSnippet                            : TSQLTransaction;
     {$ENDREGION}
 
     {$REGION 'event handlers'}

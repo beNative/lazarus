@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2017 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -25,7 +25,8 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, ExtendedTabControls, ExtendedNotebook,
   CheckBoxThemed, RTTICtrls, Forms, Controls, Graphics, Dialogs, DBGrids,
-  DbCtrls, ExtCtrls, ComCtrls, ActnList, sqldb,
+  DbCtrls, ExtCtrls, ComCtrls, ActnList,
+  sqldb,
 
   SnippetSource.Interfaces,
 
@@ -55,7 +56,7 @@ type
     btnInspectConnection  : TToolButton;
     tsGrid                : TTabSheet;
     tsSettings            : TTabSheet;
-    ToolBar1              : TToolBar;
+    tbrMain               : TToolBar;
     btnApplyUpdates       : TToolButton;
     btnCommit             : TToolButton;
     btnInspectDataSet     : TToolButton;
@@ -75,8 +76,6 @@ type
 
   public
     constructor Create(AOwner: TComponent; ADataSet: TDataSet); reintroduce;
-    procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
     procedure UpdateActions; override;
 
     procedure UpdateStatusBar;
@@ -90,6 +89,8 @@ procedure ShowGridForm(ADataSet: TDataSet);
 
 implementation
 
+{$R *.lfm}
+
 uses
   TypInfo,
 
@@ -98,14 +99,14 @@ uses
 var
   GridForm : TfrmGrid;
 
+{$REGION 'interfaced routines'}
 procedure ShowGridForm(ADataSet: TDataSet);
 begin
   if not Assigned(GridForm) then
     GridForm := TfrmGrid.Create(Application, ADataSet);
   GridForm.Show;
 end;
-
-{$R *.lfm}
+{$ENDREGION}
 
 {$REGION 'construction and destruction'}
 constructor TfrmGrid.Create(AOwner: TComponent; ADataSet: TDataSet);
@@ -114,50 +115,6 @@ begin
   dscMain.DataSet := ADataSet;
   grdMain.AutoAdjustColumns;
 end;
-
-procedure TfrmGrid.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
-procedure TfrmGrid.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
-
-procedure TfrmGrid.UpdateActions;
-begin
-  inherited UpdateActions;
-  UpdateStatusBar;
-end;
-
-procedure TfrmGrid.UpdateStatusBar;
-var
-  S : string;
-begin
-  if DataSet.Active then
-  begin
-    S := GetEnumName(TypeInfo(TDataSetState), Ord(DataSet.State));
-    pnlState.Caption := Format('State = %s', [S]);
-    S := GetEnumName(TypeInfo(TUpdateStatus), Ord(DataSet.UpdateStatus));
-    pnlUpdateStatus.Caption := Format('UpdateStatus = %s', [S]);
-    S := GetEnumName(TypeInfo(TUpdateMode), Ord(DataSet.UpdateMode));
-    pnlUpdateMode.Caption := Format('UpdateMode = %s', [S]);
-    pnlChangeCount.Caption := Format('ChangeCount = %d', [DataSet.ChangeCount]);
-  end
-  else
-  begin
-    pnlState.Caption := 'Closed';
-    pnlUpdateStatus.Caption := '';
-    pnlUpdateMode.Caption := '';
-    pnlChangeCount.Caption := '';
-  end;
-  OptimizeWidth(pnlState);
-  OptimizeWidth(pnlUpdateStatus);
-  OptimizeWidth(pnlUpdateMode);
-  OptimizeWidth(pnlChangeCount);
-end;
-
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
@@ -210,8 +167,42 @@ procedure TfrmGrid.actInspectTransactionExecute(Sender: TObject);
 begin
   InspectComponent(DataSet.SQLTransaction);
 end;
+{$ENDREGION}
 
+{$REGION 'public methods'}
+procedure TfrmGrid.UpdateActions;
+begin
+  inherited UpdateActions;
+  UpdateStatusBar;
+end;
+
+procedure TfrmGrid.UpdateStatusBar;
+var
+  S : string;
+begin
+  if DataSet.Active then
+  begin
+    S := GetEnumName(TypeInfo(TDataSetState), Ord(DataSet.State));
+    pnlState.Caption := Format('State = %s', [S]);
+    S := GetEnumName(TypeInfo(TUpdateStatus), Ord(DataSet.UpdateStatus));
+    pnlUpdateStatus.Caption := Format('UpdateStatus = %s', [S]);
+    S := GetEnumName(TypeInfo(TUpdateMode), Ord(DataSet.UpdateMode));
+    pnlUpdateMode.Caption := Format('UpdateMode = %s', [S]);
+    pnlChangeCount.Caption := Format('ChangeCount = %d', [DataSet.ChangeCount]);
+  end
+  else
+  begin
+    pnlState.Caption        := 'Closed';
+    pnlUpdateStatus.Caption := '';
+    pnlUpdateMode.Caption   := '';
+    pnlChangeCount.Caption  := '';
+  end;
+  OptimizeWidth(pnlState);
+  OptimizeWidth(pnlUpdateStatus);
+  OptimizeWidth(pnlUpdateMode);
+  OptimizeWidth(pnlChangeCount);
+end;
 {$ENDREGION}
 
 end.
-                      ain
+

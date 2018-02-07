@@ -21,11 +21,7 @@ unit ts.RichEditor.View.KMemo;
 
 {$MODE DELPHI}
 
-{ A richtext editor view based on RichMemo.
-
-- RichMemo is platform independent (maybe implement RichMemo version as well)
-
-}
+{ A richtext editor view based on KMemo }
 
 {
   TODO:
@@ -39,13 +35,14 @@ unit ts.RichEditor.View.KMemo;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs,
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
+  ExtCtrls, Menus,
 
-  KFunctions, KControls, KMemo, ActnList, ExtCtrls,
+  KFunctions, KControls, KMemo,
   KDialogs, KMemoDlgParaStyle, KMemoDlgTextStyle, KMemoDlgHyperlink,
   KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
 
-  ts.RichEditor.Interfaces, ts.RichEditor.TextAttributes;
+  ts.RichEditor.Interfaces;
 
 type
 
@@ -54,15 +51,40 @@ type
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
     pnlRichEditor: TPanel;
   private
-    FEditor            : TKMemo;
-    FActions           : IRichEditorActions;
+    FEditor        : TKMemo;
+    FActions       : IRichEditorActions;
+    FTextStyle     : TKMemoTextStyle;
+    FParaStyle     : TKMemoParaStyle;
+    FUpdateLock    : Integer;
+    FOnChange      : TNotifyEvent;
+
+    FParaStyleForm : TKMemoParaStyleForm;
+    FTextStyleForm : TKMemoTextStyleForm;
+    FContainerForm : TKMemoContainerForm;
+    FHyperlinkForm : TKMemoHyperlinkForm;
+    FNumberingForm : TKMemoNumberingForm;
+    FImageForm     : TKMemoImageForm;
 
     {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
     procedure EditorOnClick(Sender: TObject);
-    procedure UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
+    procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
+    procedure FTextStyleChanged(Sender: TObject);
+    function GetAlignCenter: Boolean;
+    function GetAlignJustify: Boolean;
+    function GetAlignLeft: Boolean;
+    function GetAlignRight: Boolean;
+    function GetCanRedo: Boolean;
+    function GetFont: TFont;
+    procedure SetAlignCenter(AValue: Boolean);
+    procedure SetAlignJustify(AValue: Boolean);
+    procedure SetAlignLeft(AValue: Boolean);
+    procedure SetAlignRight(AValue: Boolean);
     {$ENDREGION}
 
+    function SelectedBlock: TKMemoBlock;
+
+  protected
     {$REGION 'property access mehods'}
     function GetActions: IRichEditorActions;
     function GetCanPaste: Boolean;
@@ -70,7 +92,7 @@ type
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
     function GetCaretY: Integer;
-    function GetEditor: TRichMemo;
+    function GetEditor: TComponent;
     function GetFileName: string;
     function GetForm: TCustomForm;
     function GetModified: Boolean;
@@ -82,26 +104,50 @@ type
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
-    function GetTextAttributes: TTextAttributes;
     function GetWordWrap: Boolean;
-    procedure SetCaretX(AValue: Integer);
-    procedure SetCaretXY(AValue: TPoint);
-    procedure SetCaretY(AValue: Integer);
-    procedure SetFileName(AValue: string);
-    procedure SetModified(AValue: Boolean);
-    procedure SetOnChange(AValue: TNotifyEvent);
-    procedure SetOnDropFiles(AValue: TDropFilesEvent);
-    procedure SetOnEditingDone(AValue: TNotifyEvent);
+    function GetPopupMenu: TPopupMenu; override;
+    procedure SetCaretX(const AValue: Integer);
+    procedure SetCaretXY(const AValue: TPoint);
+    procedure SetCaretY(const AValue: Integer);
+    procedure SetFileName(const AValue: string);
+    procedure SetModified(const AValue: Boolean);
+    procedure SetOnChange(const AValue: TNotifyEvent);
+    procedure SetOnDropFiles(const AValue: TDropFilesEvent);
+    procedure SetOnEditingDone(const AValue: TNotifyEvent);
     procedure SetOnSelectionChange(AValue: TNotifyEvent);
-    procedure SetPopupMenu(AValue: TPopupMenu);
-    procedure SetSelEnd(AValue: Integer);
-    procedure SetSelStart(AValue: Integer);
-    procedure SetSelText(AValue: string);
-    procedure SetWordWrap(AValue: Boolean);
+    procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
+    procedure SetSelEnd(const AValue: Integer);
+    procedure SetSelStart(const AValue: Integer);
+    procedure SetSelText(const AValue: string);
+    procedure SetWordWrap(const AValue: Boolean);
     {$ENDREGION}
+
+    procedure SelectAll;
+    procedure LoadFromFile(const AFileName: string);
+    procedure LoadFromStream(AStream: TStream);
+    procedure SaveToStream(AStream: TStream);
+    procedure SaveToFile(const AFileName: string);
+    procedure BeginUpdate;
+    procedure EndUpdate;
+
+    function InsertImage: Boolean;
+    procedure InsertHyperlink;
+    function IsUpdating: Boolean;
+
+    procedure Clear;
+
+    // clipboard commands
+    procedure Cut;
+    procedure Copy;
+    procedure Paste;
+    procedure Undo;
+    procedure Redo;
 
   public
     procedure AfterConstruction; override;
+    procedure BeforeDestruction; override;
+
+    procedure UpdateActions; override;
 
     property Actions: IRichEditorActions
       read GetActions;
@@ -123,11 +169,17 @@ type
     property CanUndo: Boolean
       read GetCanUndo;
 
-    property Editor: TRichMemo
+    property CanRedo: Boolean
+      read GetCanRedo;
+
+    property Editor: TComponent
       read GetEditor;
 
     property FileName: string
       read GetFileName write SetFileName;
+
+    property Font: TFont
+      read GetFont;
 
     property SelStart: Integer
       read GetSelStart write SetSelStart;
@@ -141,6 +193,18 @@ type
     property SelText: string
       read GetSelText write SetSelText;
 
+    property AlignLeft: Boolean
+      read GetAlignLeft write SetAlignLeft;
+
+    property AlignRight: Boolean
+      read GetAlignRight write SetAlignRight;
+
+    property AlignCenter: Boolean
+      read GetAlignCenter write SetAlignCenter;
+
+    property AlignJustify: Boolean
+      read GetAlignJustify write SetAlignJustify;
+
     property Modified: Boolean
       read GetModified write SetModified;
 
@@ -149,9 +213,6 @@ type
 
     property Form: TCustomForm
       read GetForm;
-
-    property TextAttributes: TTextAttributes
-      read GetTextAttributes;
 
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
@@ -173,6 +234,13 @@ implementation
 
 {$R *.lfm}
 
+uses
+  StdCtrls,
+
+  keditcommon, kgraphics,
+
+  ts.Core.ComponentInspector;
+
 {$REGION 'construction and destruction'}
 procedure TRichEditorViewKMemo.AfterConstruction;
 begin
@@ -181,41 +249,68 @@ begin
   FActions := Owner as IRichEditorActions;
   FEditor.Parent         := pnlRichEditor;
   FEditor.BorderStyle    := bsNone;
-  FEditor.ScrollBars     := ssAutoBoth;
+  FEditor.ScrollBars     := ssBoth;
   FEditor.Align          := alClient;
   FEditor.DoubleBuffered := True;
 
   FEditor.OnChange := EditorChange;
-  FEditor.OnEditingDone  := EditorEditingDone;
-  FEditor.OnSelectionChange := EditorSelectionChange;
-  FEditor.OnUTF8KeyPress := UTF8KeyPress;
   FEditor.OnClick := EditorOnClick;
+  InspectComponent(FEditor);
+
+  FTextStyle := TKMemoTextStyle.Create;
+  FTextStyle.OnChanged := FTextStyleChanged;
+
+  FParaStyle := TKMemoParaStyle.Create;
+  FParaStyle.OnChanged := FParaStyleChanged;
+
+  FContainerForm := TKMemoContainerForm.Create(Self);
+  FHyperlinkForm := TKMemoHyperlinkForm.Create(Self);
+  FImageForm     := TKMemoImageForm.Create(Self);
+  FNumberingForm := TKMemoNumberingForm.Create(Self);
+  FTextStyleForm := TKMemoTextStyleForm.Create(Self);
+end;
+
+procedure TRichEditorViewKMemo.BeforeDestruction;
+begin
+  FTextStyle.Free;
+  FParaStyle.Free;
+  inherited BeforeDestruction;
 end;
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
 function TRichEditorViewKMemo.GetActions: IRichEditorActions;
 begin
-
+  Result := FActions;
 end;
-
 
 function TRichEditorViewKMemo.GetCanPaste: Boolean;
 begin
-
+  Result := FEditor.CommandEnabled(ecPaste);
 end;
 
 function TRichEditorViewKMemo.GetCanUndo: Boolean;
 begin
-
+//  Result := FEditor.CommandEnabled(ecUndo);
+  Result := False; // not supported yet
 end;
 
 function TRichEditorViewKMemo.GetCaretX: Integer;
 begin
+  //
+end;
 
+procedure TRichEditorViewKMemo.SetCaretX(const AValue: Integer);
+begin
+//
 end;
 
 function TRichEditorViewKMemo.GetCaretXY: TPoint;
+begin
+
+end;
+
+procedure TRichEditorViewKMemo.SetCaretXY(const AValue: TPoint);
 begin
 
 end;
@@ -225,37 +320,67 @@ begin
 
 end;
 
-function TRichEditorViewKMemo.GetEditor: TRichMemo;
+procedure TRichEditorViewKMemo.SetCaretY(const AValue: Integer);
 begin
 
+end;
+
+function TRichEditorViewKMemo.GetEditor: TComponent;
+begin
+  Result := FEditor;
 end;
 
 function TRichEditorViewKMemo.GetFileName: string;
 begin
+  //
+end;
 
+procedure TRichEditorViewKMemo.SetFileName(const AValue: string);
+begin
+//
+end;
+
+function TRichEditorViewKMemo.GetFont: TFont;
+begin
+  Result := FTextStyle.Font;
 end;
 
 function TRichEditorViewKMemo.GetForm: TCustomForm;
 begin
-
+  Result := Self;
 end;
 
 function TRichEditorViewKMemo.GetModified: Boolean;
 begin
+  Result := FEditor.Modified;
+end;
 
+procedure TRichEditorViewKMemo.SetModified(const AValue: Boolean);
+begin
+  FEditor.Modified := True;
 end;
 
 function TRichEditorViewKMemo.GetOnChange: TNotifyEvent;
 begin
+  Result := FOnChange;
+end;
 
+procedure TRichEditorViewKMemo.SetOnChange(const AValue: TNotifyEvent);
+begin
+  FOnChange := AValue;
 end;
 
 function TRichEditorViewKMemo.GetOnDropFiles: TDropFilesEvent;
 begin
-
+  //
 end;
 
 function TRichEditorViewKMemo.GetOnEditingDone: TNotifyEvent;
+begin
+
+end;
+
+procedure TRichEditorViewKMemo.SetOnEditingDone(const AValue: TNotifyEvent);
 begin
 
 end;
@@ -265,111 +390,81 @@ begin
 
 end;
 
-function TRichEditorViewKMemo.GetSelAvail: Boolean;
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetSelEnd: Integer;
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetSelStart: Integer;
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetSelText: string;
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetTextAttributes: TTextAttributes;
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetWordWrap: Boolean;
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetCaretX(AValue: Integer);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetCaretXY(AValue: TPoint);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetCaretY(AValue: Integer);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetFileName(AValue: string);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetModified(AValue: Boolean);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetOnChange(AValue: TNotifyEvent);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetOnDropFiles(AValue: TDropFilesEvent);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetOnEditingDone(AValue: TNotifyEvent);
-begin
-
-end;
-
 procedure TRichEditorViewKMemo.SetOnSelectionChange(AValue: TNotifyEvent);
 begin
 
 end;
 
-procedure TRichEditorViewKMemo.SetPopupMenu(AValue: TPopupMenu);
+function TRichEditorViewKMemo.GetSelAvail: Boolean;
+begin
+  Result := FEditor.SelAvail;
+end;
+
+function TRichEditorViewKMemo.GetSelEnd: Integer;
+begin
+  Result := FEditor.SelEnd;
+end;
+
+procedure TRichEditorViewKMemo.SetSelEnd(const AValue: Integer);
+begin
+  FEditor.SelEnd := AValue;
+end;
+
+function TRichEditorViewKMemo.GetSelStart: Integer;
+begin
+  Result := FEditor.SelStart;
+end;
+
+procedure TRichEditorViewKMemo.SetSelStart(const AValue: Integer);
+begin
+  FEditor.SelStart :=  AValue;
+end;
+
+function TRichEditorViewKMemo.GetSelText: string;
+begin
+  Result := FEditor.SelText;
+end;
+
+function TRichEditorViewKMemo.GetWordWrap: Boolean;
+begin
+  Result := FParaStyle.WordWrap;
+end;
+
+procedure TRichEditorViewKMemo.SetWordWrap(const AValue: Boolean);
+begin
+  FParaStyle.WordWrap := AValue;
+end;
+
+function TRichEditorViewKMemo.GetPopupMenu: TPopupMenu;
+begin
+  Result := FEditor.PopupMenu;
+end;
+
+procedure TRichEditorViewKMemo.SetPopupMenu(const AValue: TPopupMenu);
+begin
+  FEditor.PopupMenu := AValue;
+end;
+
+procedure TRichEditorViewKMemo.SetOnDropFiles(const AValue: TDropFilesEvent);
 begin
 
 end;
 
-procedure TRichEditorViewKMemo.SetSelEnd(AValue: Integer);
+procedure TRichEditorViewKMemo.SetSelText(const AValue: string);
 begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetSelStart(AValue: Integer);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetSelText(AValue: string);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetWordWrap(AValue: Boolean);
-begin
-
+  //
 end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
 procedure TRichEditorViewKMemo.EditorChange(Sender: TObject);
 begin
-  //
+  if Assigned(OnChange) and not IsUpdating then
+  begin
+    OnChange(Sender);
+    FEditor.ActiveBlock.SaveUpdateState;
+    FEditor.Modified := True;
+  end;
 end;
 
 procedure TRichEditorViewKMemo.EditorOnClick(Sender: TObject);
@@ -377,11 +472,273 @@ begin
 
 end;
 
-procedure TRichEditorViewKMemo.UTF8KeyPress(Sender: TObject; var UTF8Key: TUTF8Char);
+procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
+  AReasons: TKMemoUpdateReasons);
 begin
-
+  FEditor.SelectionParaStyle := FParaStyle;
 end;
 
+procedure TRichEditorViewKMemo.FTextStyleChanged(Sender: TObject);
+var
+  LSelAvail   : Boolean;
+  LSelEnd     : TKMemoSelectionIndex;
+  LStartIndex : TKMemoSelectionIndex;
+  LEndIndex   : TKMemoSelectionIndex;
+begin
+  // if there is no selection then simulate one word selection or set style for new text
+  LSelAvail := FEditor.SelAvail;
+  LSelEnd := FEditor.SelEnd;
+  if LSelAvail then
+    FEditor.SelectionTextStyle := FTextStyle
+  else if FEditor.GetNearestWordIndexes(LSelEnd, False, LStartIndex, LEndIndex)
+    and (LStartIndex < LSelEnd) and (LSelEnd < LEndIndex) then
+    // simulate MS Word behavior here, LSelEnd is caret position
+    // do not select the word if we are at the beginning or end of the word
+    // and allow set another text style for newly added text
+    FEditor.SetRangeTextStyle(LStartIndex, LEndIndex, FTextStyle)
+  else
+    FEditor.NewTextStyle := FTextStyle;
+end;
+
+function TRichEditorViewKMemo.GetAlignCenter: Boolean;
+begin
+  Result := FParaStyle.HAlign = halCenter;
+end;
+
+procedure TRichEditorViewKMemo.SetAlignCenter(AValue: Boolean);
+begin
+  if AValue then
+    FParaStyle.HAlign := halCenter;
+end;
+
+function TRichEditorViewKMemo.GetAlignJustify: Boolean;
+begin
+  Result := FParaStyle.HAlign = halJustify;
+end;
+
+procedure TRichEditorViewKMemo.SetAlignJustify(AValue: Boolean);
+begin
+  if AValue then
+    FParaStyle.HAlign := halJustify;
+end;
+
+function TRichEditorViewKMemo.GetAlignLeft: Boolean;
+begin
+  Result := FParaStyle.HAlign = halLeft;
+end;
+
+procedure TRichEditorViewKMemo.SetAlignLeft(AValue: Boolean);
+begin
+  if AValue then
+    FParaStyle.HAlign := halLeft;
+end;
+
+function TRichEditorViewKMemo.GetAlignRight: Boolean;
+begin
+  Result := FParaStyle.HAlign = halRight;
+end;
+
+function TRichEditorViewKMemo.GetCanRedo: Boolean;
+begin
+//  Result := FEditor.CommandEnabled(ecRedo);
+  Result := False; // not supported yet
+end;
+
+procedure TRichEditorViewKMemo.SetAlignRight(AValue: Boolean);
+begin
+  if AValue then
+    FParaStyle.HAlign := halRight;
+end;
+{$ENDREGION}
+
+{$REGION 'private methods'}
+function TRichEditorViewKMemo.SelectedBlock: TKMemoBlock;
+begin
+  Result := FEditor.SelectedBlock;
+  if Result = nil then
+    Result := FEditor.ActiveInnerBlock;
+  end;
+{$ENDREGION}
+
+{$REGION 'protected methods'}
+procedure TRichEditorViewKMemo.SelectAll;
+begin
+  FEditor.Select(0, FEditor.SelectableLength);
+end;
+
+procedure TRichEditorViewKMemo.LoadFromFile(const AFileName: string);
+begin
+  FEditor.LoadFromFile(AFileName);
+end;
+
+procedure TRichEditorViewKMemo.SaveToFile(const AFileName: string);
+begin
+  FEditor.SaveToFile(AFileName);
+  FEditor.ClearUndo;
+end;
+
+procedure TRichEditorViewKMemo.LoadFromStream(AStream: TStream);
+begin
+  BeginUpdate;
+  try
+    Clear;
+    FEditor.LoadFromRTFStream(AStream);
+  finally
+    EndUpdate;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.SaveToStream(AStream: TStream);
+begin
+  FEditor.SaveToRTFStream(AStream);
+  FEditor.ClearUndo;
+end;
+
+procedure TRichEditorViewKMemo.BeginUpdate;
+begin
+  Inc(FUpdateLock);
+end;
+
+procedure TRichEditorViewKMemo.EndUpdate;
+begin
+  if FUpdateLock > 0 then
+    Dec(FUpdateLock);
+end;
+
+function TRichEditorViewKMemo.InsertImage: Boolean;
+var
+  LImage: TKMemoImageBlock;
+  LCreated: Boolean;
+begin
+  Result := False;
+  LCreated := False;
+  if SelectedBlock is TKMemoImageBlock then
+    LImage := TKMemoImageBlock(SelectedBlock)
+  else
+  begin
+    LImage := TKMemoImageBlock.Create;
+    LCreated := True;
+  end;
+  FImageForm.Load(FEditor, LImage);
+  if FImageForm.ShowModal = mrOk then
+  begin
+    FImageForm.Save(LImage);
+    if LCreated then
+    begin
+      if FEditor.SelAvail then
+        FEditor.ClearSelection;
+      FEditor.ActiveInnerBlocks.AddAt(LImage, FEditor.SplitAt(FEditor.SelEnd));
+    end;
+    FEditor.Modified := True;
+    Result := True;
+  end
+  else if LCreated then
+    LImage.Free;
+end;
+
+procedure TRichEditorViewKMemo.InsertHyperlink;
+var
+  LBlock     : TKMemoBlock;
+  LHyperlink : TKMemoHyperlink;
+  LCreated   : Boolean;
+begin
+  LCreated := False;
+  if FEditor.SelAvail then
+  begin
+    LHyperlink := TKMemoHyperlink.Create;
+    LHyperlink.Text := FEditor.SelText;
+    LBlock := FEditor.ActiveInnerBlock;
+    if LBlock is TKMemoHyperlink then
+      LHyperlink.URL := TKMemoHyperlink(LBlock).URL;
+    LCreated := True;
+  end
+  else
+  begin
+    LBlock := FEditor.ActiveInnerBlock;
+    if LBlock is TKMemoHyperlink then
+      LHyperlink := TKMemoHyperlink(LBlock)
+    else
+    begin
+      LHyperlink := TKMemoHyperlink.Create;
+      LCreated := True;
+    end;
+  end;
+  FHyperlinkForm.Load(LHyperlink);
+  if FHyperlinkForm.ShowModal = mrOk then
+  begin
+    FHyperlinkForm.Save(LHyperlink);
+    if LCreated then
+    begin
+      if FEditor.SelAvail then
+        FEditor.ClearSelection;
+      FEditor.ActiveInnerBlocks.AddHyperlink(LHyperlink, FEditor.SplitAt(FEditor.SelEnd));
+    end;
+    FEditor.Modified := True;
+  end
+  else if LCreated then
+    LHyperlink.Free;
+end;
+
+function TRichEditorViewKMemo.IsUpdating: Boolean;
+begin
+  Result := FUpdateLock > 0;
+end;
+
+procedure TRichEditorViewKMemo.Clear;
+begin
+  FEditor.Clear;
+end;
+
+procedure TRichEditorViewKMemo.Cut;
+begin
+  FEditor.ExecuteCommand(ecCut);
+end;
+
+procedure TRichEditorViewKMemo.Copy;
+begin
+  FEditor.ExecuteCommand(ecCopy);
+end;
+
+procedure TRichEditorViewKMemo.Paste;
+begin
+  FEditor.ExecuteCommand(ecPaste);
+end;
+
+procedure TRichEditorViewKMemo.Undo;
+begin
+  FEditor.ExecuteCommand(ecUndo);
+end;
+
+procedure TRichEditorViewKMemo.Redo;
+begin
+  FEditor.ExecuteCommand(ecRedo);
+end;
+{$ENDREGION}
+
+{$REGION 'public methods'}
+procedure TRichEditorViewKMemo.UpdateActions;
+begin
+  FTextStyle.OnChanged := nil;
+  try
+    if FEditor.NewTextStyleValid then
+      FTextStyle.Assign(FEditor.NewTextStyle)
+    else
+      FTextStyle.Assign(FEditor.SelectionTextStyle);
+  finally
+    FTextStyle.OnChanged := FTextStyleChanged;
+  end;
+
+  FParaStyle.OnChanged := nil;
+  try
+    FParaStyle.Assign(FEditor.SelectionParaStyle)
+  finally
+    FParaStyle.OnChanged := FParaStyleChanged;
+  end;
+
+  if Assigned(Actions) then
+    Actions.UpdateActions;
+  inherited UpdateActions;
+end;
 {$ENDREGION}
 
 end.

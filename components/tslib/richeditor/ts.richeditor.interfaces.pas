@@ -23,11 +23,7 @@ unit ts.RichEditor.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Menus, ActnList,
-
-  RichMemo,
-
-  ts.RichEditor.TextAttributes;
+  Classes, SysUtils, Forms, Controls, ComCtrls, Menus, ActnList, Graphics;
 
  { All supported actions by the editor views, and holds a collection of all
     registered views. }
@@ -38,10 +34,14 @@ type
 
   IRichEditorView = interface
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
-    {%region /FOLD}
-    // property access methods
+    {$REGION 'property access methods'}
     function GetActions: IRichEditorActions;
+    function GetAlignCenter: Boolean;
+    function GetAlignJustify: Boolean;
+    function GetAlignLeft: Boolean;
+    function GetAlignRight: Boolean;
     function GetCanPaste: Boolean;
+    function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
@@ -49,8 +49,9 @@ type
     //function GetBlockBegin: TPoint;
     //function GetBlockEnd: TPoint;
     //function GetCurrentWord: string;
-    function GetEditor: TRichMemo;
+    function GetEditor: TComponent;
     function GetFileName: string;
+    function GetFont: TFont;
     //function GetFindHistory: TStrings;
     //function GetFindReplaceDialog: TFindReplaceDialog;
     function GetForm: TCustomForm;
@@ -72,8 +73,11 @@ type
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
-    function GetTextAttributes: TTextAttributes;
     function GetWordWrap: Boolean;
+    procedure SetAlignCenter(AValue: Boolean);
+    procedure SetAlignJustify(AValue: Boolean);
+    procedure SetAlignLeft(AValue: Boolean);
+    procedure SetAlignRight(AValue: Boolean);
     procedure SetCaretX(const AValue: Integer);
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const AValue: Integer);
@@ -96,14 +100,24 @@ type
     //procedure SetParent(const AValue: TWinControl);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
-    //procedure SetPopupMenu(const AValue: TPopupMenu);
     //procedure SetSearchText(const AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     //procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-    {%endregion}
+
+    //function GetAlignment: TParaAlignment;
+    //function GetBkColor: TColor;
+    //function GetColor: TColor;
+    //function GetHasBkColor: Boolean;
+    //function GetNumberingStyle: TParaNumStyle;
+    //procedure SetAlignment(AValue: TParaAlignment);
+    //procedure SetBkColor(AValue: TColor);
+    //procedure SetColor(const AValue: TColor);
+    //procedure SetHasBkColor(AValue: Boolean);
+    //procedure SetNumberingStyle(AValue: TParaNumStyle);
+    {$ENDREGION}
 
     // methods
     function Focused: Boolean;
@@ -116,16 +130,21 @@ type
     procedure BeginUpdate;
     procedure EndUpdate;
 
+    function InsertImage: Boolean;
+    procedure InsertHyperlink;
+
     procedure Clear;
 
     // clipboard commands
     procedure Cut;
     procedure Copy;
     procedure Paste;
+
     procedure Undo;
+    procedure Redo;
 
     // properties
-    property Editor: TRichMemo
+    property Editor: TComponent
       read GetEditor;
 
     property Form: TCustomForm
@@ -139,6 +158,9 @@ type
 
     property CanUndo: Boolean
       read GetCanUndo;
+
+    property CanRedo: Boolean
+      read GetCanRedo;
 
     //property Lines: TStrings
     //  read GetLines write SetLines;
@@ -172,6 +194,21 @@ type
     property FileName: string
       read GetFileName write SetFileName;
 
+    property Font: TFont
+      read GetFont;
+
+    property AlignLeft: Boolean
+      read GetAlignLeft write SetAlignLeft;
+
+    property AlignRight: Boolean
+      read GetAlignRight write SetAlignRight;
+
+    property AlignCenter: Boolean
+      read GetAlignCenter write SetAlignCenter;
+
+    property AlignJustify: Boolean
+      read GetAlignJustify write SetAlignJustify;
+
     property SelAvail: Boolean
       read GetSelAvail;
 
@@ -189,9 +226,6 @@ type
 
     property OnSelectionChange: TNotifyEvent
       read GetOnSelectionChange write SetOnSelectionChange;
-
-    property TextAttributes: TTextAttributes
-      read GetTextAttributes;
 
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
@@ -241,20 +275,28 @@ type
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
     {$REGION 'property access methods'}
     function GetActions: TActionList;
-    function GetEditorPopupMenu: TPopupMenu;
     function GetItem(AName: string): TContainedAction;
+    {$ENDREGION}
+
+    procedure UpdateActions;
+
+    property Items[AName: string]: TContainedAction
+      read GetItem; default;
+
+    property Actions: TActionList
+      read GetActions;
+  end;
+
+  IRichEditorManager = interface
+  ['{A1781DE6-B022-4DBA-9D06-327E4612F65A}']
+    {$REGION 'property access methods'}
+    function GetEditorPopupMenu: TPopupMenu;
     function GetActiveView: IRichEditorView;
     function GetViewByName(AName: string): IRichEditorView;
     procedure SetActiveView(const AValue: IRichEditorView);
     function GetView(AIndex: Integer): IRichEditorView;
     function GetViewCount: Integer;
     {$ENDREGION}
-
-    procedure UpdateActions;
-    procedure OpenFileAtCursor;
-
-    function SaveFile: Boolean;
-    procedure LoadFile;
 
     function AddView(
       const AName: string = '';
@@ -266,15 +308,6 @@ type
     property ActiveView: IRichEditorView
       read GetActiveView write SetActiveView;
 
-    property ViewCount: Integer
-      read GetViewCount;
-
-    property Items[AName: string]: TContainedAction
-      read GetItem; default;
-
-    property Actions: TActionList
-      read GetActions;
-
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
 
@@ -283,6 +316,24 @@ type
 
     property ViewByName[AName: string]: IRichEditorView
       read GetViewByName;
+
+    property ViewCount: Integer
+      read GetViewCount;
+  end;
+
+  IRichEditorToolbarsFactory = interface
+  ['{0C183975-86DE-4013-8D05-70879A07E775}']
+    function CreateMainToolbar(
+      AOwner  : TComponent;
+      AParent : TWinControl
+    ): TToolbar;
+  end;
+
+  IRichEditorMenusFactory = interface
+  ['{13671A4F-9330-4A0A-B277-B052356DFE12}']
+    function CreateMainMenu(
+      AOwner   : TComponent
+    ): TMainMenu;
   end;
 
 implementation

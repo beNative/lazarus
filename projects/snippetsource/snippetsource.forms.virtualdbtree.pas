@@ -77,6 +77,9 @@ type
   ) of object;
 
 type
+
+  { TfrmVirtualDBTree }
+
   TfrmVirtualDBTree = class(TForm)
     {$REGION 'designer controls'}
     actCollapseAllNodes    : TAction;
@@ -85,7 +88,6 @@ type
     actNewFolderNode       : TAction;
     actNewItemNode         : TAction;
     actNewRootFolderNode   : TAction;
-    actSavePersistent      : TAction;
     alsMain                : TActionList;
     dscMain                : TDataSource;
     imlMain                : TImageList;
@@ -104,9 +106,9 @@ type
     btnNewFolder           : TToolButton;
     btnNewItem             : TToolButton;
     pnlBottom              : TPanel;
-    tlbBottomRight         : TToolBar;
-    btnExpandNodes         : TToolButton;
-    btnCollapseNodes       : TToolButton;
+    btnCollapseAllNodes    : TToolButton;
+    btnExpandAllNodes      : TToolButton;
+    btnDivider             : TToolButton;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -116,6 +118,7 @@ type
     procedure actDeleteSelectedNodesExecute(Sender: TObject);
     procedure actExpandAllNodesExecute(Sender: TObject);
     procedure actCollapseAllNodesExecute(Sender: TObject);
+    procedure actSavePersistentExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -564,6 +567,11 @@ procedure TfrmVirtualDBTree.actCollapseAllNodesExecute(Sender: TObject);
 begin
   FTreeView.CollapseAll;
 end;
+
+procedure TfrmVirtualDBTree.actSavePersistentExecute(Sender: TObject);
+begin
+  end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -647,10 +655,10 @@ var
 begin
   // Get required storage medium from data object
   FmtEtc.cfFormat := CF_HDROP;
-  FmtEtc.ptd := nil;
+  FmtEtc.ptd      := nil;
   FmtEtc.dwAspect := DVASPECT_CONTENT;
-  FmtEtc.lindex := -1;
-  FmtEtc.tymed := TYMED_HGLOBAL;
+  FmtEtc.lindex   := -1;
+  FmtEtc.tymed    := TYMED_HGLOBAL;
   DataObj.GetData(FmtEtc, Medium);
   try
     try
@@ -697,37 +705,39 @@ procedure TfrmVirtualDBTree.InitializeTreeView;
 begin
   with FTreeView do
   begin
-    Parent            := pnlTree;
-    Align             := alClient;
-    DoubleBuffered    := True;
-    AnimationDuration := 100;
-    AutoExpandDelay   := 500;
-    BorderStyle       := bsSingle;
-    ButtonFillMode    := fmTransparent;
-    Color             := clWhite;
-    DataSource        := dscMain;
-    DefaultPasteMode  := amInsertBefore;
-    DefaultText       := 'Node';
-    DragMode          := dmAutomatic;
-    DragType          := dtOLE;
-    DragOperations    := [doMove];
-    EditDelay         := 200;
-    HintMode               := hmTooltip;
-    IncrementalSearch      := isAll;
-    IncrementalSearchStart := ssAlwaysStartOver;
-    Indent                 := 20;
-    LineMode               := lmBands;
-    PopupMenu              := ppmTreeView;
+    Parent                        := pnlTree;
+    Align                         := alClient;
+    DoubleBuffered                := True;
+    AnimationDuration             := 100;
+    AutoExpandDelay               := 500;
+    BorderStyle                   := bsNone;
+    BorderSpacing.Left            := 0;
+    BorderSpacing.Right           := 0;
+    BorderSpacing.Top             := 0;
+    BorderSpacing.Bottom          := 0;
+    ButtonFillMode                := fmTransparent;
+    Color                         := clWhite;
+    DataSource                    := dscMain;
+    DefaultPasteMode              := amInsertBefore;
+    DefaultText                   := 'Node';
+    DragMode                      := dmAutomatic;
+    DragType                      := dtOLE;
+    DragOperations                := [doMove];
+    EditDelay                     := 200;
+    HintMode                      := hmTooltip;
+    IncrementalSearch             := isAll;
+    IncrementalSearchStart        := ssAlwaysStartOver;
+    Indent                        := 20;
+    LineMode                      := lmBands;
+    PopupMenu                     := ppmTreeView;
 
-    Colors.FocusedSelectionColor := clGray;
-    Colors.HotColor              := clBlue;
+    Colors.FocusedSelectionColor  := clGray;
+    Colors.HotColor               := clBlue;
 
-    Header.AutoSizeIndex := 0;
-    Header.DefaultHeight := 17;
-    Header.Options       := [hoAutoResize, hoColumnResize, hoDrag];
-    Header.PopupMenu     := ppmTreeView;
-
-
+    Header.AutoSizeIndex          := 0;
+    Header.DefaultHeight          := 17;
+    Header.Options                := [hoAutoResize, hoColumnResize, hoDrag];
+    Header.PopupMenu              := ppmTreeView;
 {
     dboAllowChecking,
     dboAllowStructureChange,
@@ -766,13 +776,11 @@ begin
     ClipboardFormats.Add('Unicode text');
     ClipboardFormats.Add('Virtual Tree Data');
 
-
     OnCreateEditor := FTreeViewCreateEditor;
     OnDragAllowed  := FTreeViewDragAllowed;
     OnDragOver     := FTreeViewDragOver;
     OnDragDrop     := FTreeViewDragDrop;
     OnEdited       := FTreeViewEdited;
-
 
     TreeOptions.AnimationOptions := [
       toAnimatedToggle,

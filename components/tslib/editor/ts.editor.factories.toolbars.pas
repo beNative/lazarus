@@ -67,8 +67,8 @@ type
     procedure AfterConstruction; override;
 
     constructor Create(
-      AActions  : IEditorActions;
-      AMenus    : IEditorMenus
+      AActions : IEditorActions;
+      AMenus   : IEditorMenus
     );
 
     function CreateMainToolbar(

@@ -1,6 +1,16 @@
 TODO:
-- use
 
+
+Actions:
+- actCopySnippetToClipBoard
+
+31/01/2018
+- RichMemo has been replaced by TKMemo which has more features while remaining
+  cross platform capable.
+
+
+24/01/2018
+- FPC 3.1.1 and Lazarus 1.9 (trunk sources, revision 57103)
 
 
 15/10/2017

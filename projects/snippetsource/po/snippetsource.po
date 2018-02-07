@@ -315,6 +315,7 @@ msgid "Cut"
 msgstr ""
 
 #: tdmeditormanager.actdecfontsize.caption
+msgctxt "tdmeditormanager.actdecfontsize.caption"
 msgid "Decrease font size"
 msgstr ""
 
@@ -615,6 +616,7 @@ msgid "Highlighter"
 msgstr ""
 
 #: tdmeditormanager.actincfontsize.caption
+msgctxt "tdmeditormanager.actincfontsize.caption"
 msgid "Increase font size"
 msgstr ""
 
@@ -1155,58 +1157,132 @@ msgid "Upper case selection"
 msgstr ""
 
 #: tdmricheditoractions.actaligncenter.caption
+msgctxt "tdmricheditoractions.actaligncenter.caption"
+msgid "Align center"
+msgstr ""
+
+#: tdmricheditoractions.actaligncenter.hint
+msgctxt "tdmricheditoractions.actaligncenter.hint"
 msgid "Align center"
 msgstr ""
 
 #: tdmricheditoractions.actalignjustify.caption
+msgctxt "tdmricheditoractions.actalignjustify.caption"
 msgid "Align justify"
 msgstr ""
 
 #: tdmricheditoractions.actalignleft.caption
+msgctxt "tdmricheditoractions.actalignleft.caption"
+msgid "Align left"
+msgstr ""
+
+#: tdmricheditoractions.actalignleft.hint
+msgctxt "tdmricheditoractions.actalignleft.hint"
 msgid "Align left"
 msgstr ""
 
 #: tdmricheditoractions.actalignright.caption
+msgctxt "tdmricheditoractions.actalignright.caption"
+msgid "Align right"
+msgstr ""
+
+#: tdmricheditoractions.actalignright.hint
+msgctxt "tdmricheditoractions.actalignright.hint"
 msgid "Align right"
 msgstr ""
 
 #: tdmricheditoractions.actbkcolor.caption
+msgctxt "tdmricheditoractions.actbkcolor.caption"
 msgid "Background color"
 msgstr ""
 
 #: tdmricheditoractions.actbkcolor.hint
-msgid "Set text background color."
+msgctxt "tdmricheditoractions.actbkcolor.hint"
+msgid "Set background color."
 msgstr ""
 
 #: tdmricheditoractions.actbold.caption
+msgctxt "tdmricheditoractions.actbold.caption"
 msgid "Bold"
 msgstr ""
 
 #: tdmricheditoractions.actcolor.caption
+msgctxt "tdmricheditoractions.actcolor.caption"
 msgid "actColor"
 msgstr ""
 
 #: tdmricheditoractions.actcopy.caption
-msgid "actCopy"
+msgctxt "tdmricheditoractions.actcopy.caption"
+msgid "Copy"
+msgstr ""
+
+#: tdmricheditoractions.actcopy.hint
+msgctxt "tdmricheditoractions.actcopy.hint"
+msgid "Copy"
 msgstr ""
 
 #: tdmricheditoractions.actcut.caption
-msgid "actCut"
+msgctxt "tdmricheditoractions.actcut.caption"
+msgid "Cut"
+msgstr ""
+
+#: tdmricheditoractions.actcut.hint
+msgctxt "tdmricheditoractions.actcut.hint"
+msgid "Cut"
 msgstr ""
 
 #: tdmricheditoractions.actdecfontsize.caption
-msgid "actDecFontSize"
+msgctxt "tdmricheditoractions.actdecfontsize.caption"
+msgid "Decrease font size"
+msgstr ""
+
+#: tdmricheditoractions.actdecfontsize.hint
+msgctxt "tdmricheditoractions.actdecfontsize.hint"
+msgid "Decrease font size"
 msgstr ""
 
 #: tdmricheditoractions.actfont.caption
-msgid "actFont"
+msgctxt "tdmricheditoractions.actfont.caption"
+msgid "Font"
+msgstr ""
+
+#: tdmricheditoractions.actfont.hint
+msgctxt "tdmricheditoractions.actfont.hint"
+msgid "Font"
 msgstr ""
 
 #: tdmricheditoractions.actincfontsize.caption
-msgid "actIncFontSize"
+msgctxt "tdmricheditoractions.actincfontsize.caption"
+msgid "Increase font size"
+msgstr ""
+
+#: tdmricheditoractions.actincfontsize.hint
+msgctxt "tdmricheditoractions.actincfontsize.hint"
+msgid "Increase font size"
+msgstr ""
+
+#: tdmricheditoractions.actinserthyperlink.caption
+msgctxt "tdmricheditoractions.actinserthyperlink.caption"
+msgid "Insert hyperlink"
+msgstr ""
+
+#: tdmricheditoractions.actinserthyperlink.hint
+msgctxt "tdmricheditoractions.actinserthyperlink.hint"
+msgid "Insert hyperlink at cursor position."
+msgstr ""
+
+#: tdmricheditoractions.actinsertimage.caption
+msgctxt "tdmricheditoractions.actinsertimage.caption"
+msgid "Insert image"
+msgstr ""
+
+#: tdmricheditoractions.actinsertimage.hint
+msgctxt "tdmricheditoractions.actinsertimage.hint"
+msgid "Insert image at cursor position."
 msgstr ""
 
 #: tdmricheditoractions.actitalic.caption
+msgctxt "tdmricheditoractions.actitalic.caption"
 msgid "Italic"
 msgstr ""
 
@@ -1216,7 +1292,23 @@ msgid "Open"
 msgstr ""
 
 #: tdmricheditoractions.actpaste.caption
-msgid "actPaste"
+msgctxt "tdmricheditoractions.actpaste.caption"
+msgid "Paste"
+msgstr ""
+
+#: tdmricheditoractions.actpaste.hint
+msgctxt "tdmricheditoractions.actpaste.hint"
+msgid "Paste"
+msgstr ""
+
+#: tdmricheditoractions.actredo.caption
+msgctxt "tdmricheditoractions.actredo.caption"
+msgid "Redo"
+msgstr ""
+
+#: tdmricheditoractions.actredo.hint
+msgctxt "tdmricheditoractions.actredo.hint"
+msgid "Redo"
 msgstr ""
 
 #: tdmricheditoractions.actsave.caption
@@ -1229,20 +1321,269 @@ msgctxt "TDMRICHEDITORACTIONS.ACTSAVEAS.CAPTION"
 msgid "Save as..."
 msgstr ""
 
+#: tdmricheditoractions.actsaveas.hint
+msgctxt "tdmricheditoractions.actsaveas.hint"
+msgid "Save as..."
+msgstr ""
+
 #: tdmricheditoractions.actselectall.caption
-msgid "actSelectAll"
+msgctxt "tdmricheditoractions.actselectall.caption"
+msgid "Select all"
+msgstr ""
+
+#: tdmricheditoractions.actselectall.hint
+msgctxt "tdmricheditoractions.actselectall.hint"
+msgid "Select all"
+msgstr ""
+
+#: tdmricheditoractions.actstrikethrough.caption
+msgctxt "tdmricheditoractions.actstrikethrough.caption"
+msgid "Strike through"
+msgstr ""
+
+#: tdmricheditoractions.actstrikethrough.hint
+msgctxt "tdmricheditoractions.actstrikethrough.hint"
+msgid "Strike through"
+msgstr ""
+
+#: tdmricheditoractions.acttogglewordwrap.caption
+msgctxt "tdmricheditoractions.acttogglewordwrap.caption"
+msgid "Toggle wordwrap"
+msgstr ""
+
+#: tdmricheditoractions.acttogglewordwrap.hint
+msgctxt "tdmricheditoractions.acttogglewordwrap.hint"
+msgid "Toggle wordwrap"
 msgstr ""
 
 #: tdmricheditoractions.actunderline.caption
+msgctxt "tdmricheditoractions.actunderline.caption"
 msgid "Underline"
 msgstr ""
 
 #: tdmricheditoractions.actundo.caption
-msgid "actUndo"
+msgctxt "tdmricheditoractions.actundo.caption"
+msgid "Undo"
 msgstr ""
 
-#: tdmricheditoractions.actwordwrap.caption
+#: tdmricheditoractions.actundo.hint
+msgctxt "tdmricheditoractions.actundo.hint"
+msgid "Undo"
+msgstr ""
+
+#: tdmricheditormanager.actaligncenter.caption
+msgctxt "tdmricheditormanager.actaligncenter.caption"
+msgid "Align center"
+msgstr ""
+
+#: tdmricheditormanager.actaligncenter.hint
+msgctxt "tdmricheditormanager.actaligncenter.hint"
+msgid "Align center"
+msgstr ""
+
+#: tdmricheditormanager.actalignjustify.caption
+msgctxt "tdmricheditormanager.actalignjustify.caption"
+msgid "Align justify"
+msgstr ""
+
+#: tdmricheditormanager.actalignleft.caption
+msgctxt "tdmricheditormanager.actalignleft.caption"
+msgid "Align left"
+msgstr ""
+
+#: tdmricheditormanager.actalignleft.hint
+msgctxt "tdmricheditormanager.actalignleft.hint"
+msgid "Align left"
+msgstr ""
+
+#: tdmricheditormanager.actalignright.caption
+msgctxt "tdmricheditormanager.actalignright.caption"
+msgid "Align right"
+msgstr ""
+
+#: tdmricheditormanager.actalignright.hint
+msgctxt "tdmricheditormanager.actalignright.hint"
+msgid "Align right"
+msgstr ""
+
+#: tdmricheditormanager.actbkcolor.caption
+msgctxt "tdmricheditormanager.actbkcolor.caption"
+msgid "Background color"
+msgstr ""
+
+#: tdmricheditormanager.actbkcolor.hint
+msgctxt "tdmricheditormanager.actbkcolor.hint"
+msgid "Set background color."
+msgstr ""
+
+#: tdmricheditormanager.actbold.caption
+msgctxt "tdmricheditormanager.actbold.caption"
+msgid "Bold"
+msgstr ""
+
+#: tdmricheditormanager.actcolor.caption
+msgctxt "tdmricheditormanager.actcolor.caption"
+msgid "actColor"
+msgstr ""
+
+#: tdmricheditormanager.actcopy.caption
+msgctxt "tdmricheditormanager.actcopy.caption"
+msgid "Copy"
+msgstr ""
+
+#: tdmricheditormanager.actcopy.hint
+msgctxt "tdmricheditormanager.actcopy.hint"
+msgid "Copy"
+msgstr ""
+
+#: tdmricheditormanager.actcut.caption
+msgctxt "tdmricheditormanager.actcut.caption"
+msgid "Cut"
+msgstr ""
+
+#: tdmricheditormanager.actcut.hint
+msgctxt "tdmricheditormanager.actcut.hint"
+msgid "Cut"
+msgstr ""
+
+#: tdmricheditormanager.actdecfontsize.caption
+msgctxt "tdmricheditormanager.actdecfontsize.caption"
+msgid "Decrease font size"
+msgstr ""
+
+#: tdmricheditormanager.actdecfontsize.hint
+msgctxt "tdmricheditormanager.actdecfontsize.hint"
+msgid "Decrease font size"
+msgstr ""
+
+#: tdmricheditormanager.actfont.caption
+msgctxt "tdmricheditormanager.actfont.caption"
+msgid "Font"
+msgstr ""
+
+#: tdmricheditormanager.actfont.hint
+msgctxt "tdmricheditormanager.actfont.hint"
+msgid "Font"
+msgstr ""
+
+#: tdmricheditormanager.actincfontsize.caption
+msgctxt "tdmricheditormanager.actincfontsize.caption"
+msgid "Increase font size"
+msgstr ""
+
+#: tdmricheditormanager.actincfontsize.hint
+msgctxt "tdmricheditormanager.actincfontsize.hint"
+msgid "Increase font size"
+msgstr ""
+
+#: tdmricheditormanager.actinserthyperlink.caption
+msgctxt "tdmricheditormanager.actinserthyperlink.caption"
+msgid "Insert hyperlink"
+msgstr ""
+
+#: tdmricheditormanager.actinserthyperlink.hint
+msgctxt "tdmricheditormanager.actinserthyperlink.hint"
+msgid "Insert hyperlink at cursor position."
+msgstr ""
+
+#: tdmricheditormanager.actinsertimage.caption
+msgctxt "tdmricheditormanager.actinsertimage.caption"
+msgid "Insert image"
+msgstr ""
+
+#: tdmricheditormanager.actinsertimage.hint
+msgctxt "tdmricheditormanager.actinsertimage.hint"
+msgid "Insert image at cursor position."
+msgstr ""
+
+#: tdmricheditormanager.actitalic.caption
+msgctxt "tdmricheditormanager.actitalic.caption"
+msgid "Italic"
+msgstr ""
+
+#: tdmricheditormanager.actopen.caption
+msgctxt "tdmricheditormanager.actopen.caption"
+msgid "Open"
+msgstr ""
+
+#: tdmricheditormanager.actpaste.caption
+msgctxt "tdmricheditormanager.actpaste.caption"
+msgid "Paste"
+msgstr ""
+
+#: tdmricheditormanager.actpaste.hint
+msgctxt "tdmricheditormanager.actpaste.hint"
+msgid "Paste"
+msgstr ""
+
+#: tdmricheditormanager.actredo.caption
+msgctxt "tdmricheditormanager.actredo.caption"
+msgid "Redo"
+msgstr ""
+
+#: tdmricheditormanager.actredo.hint
+msgctxt "tdmricheditormanager.actredo.hint"
+msgid "Redo"
+msgstr ""
+
+#: tdmricheditormanager.actsave.caption
+msgctxt "tdmricheditormanager.actsave.caption"
+msgid "Save"
+msgstr ""
+
+#: tdmricheditormanager.actsaveas.caption
+msgctxt "tdmricheditormanager.actsaveas.caption"
+msgid "Save as..."
+msgstr ""
+
+#: tdmricheditormanager.actsaveas.hint
+msgctxt "tdmricheditormanager.actsaveas.hint"
+msgid "Save as..."
+msgstr ""
+
+#: tdmricheditormanager.actselectall.caption
+msgctxt "tdmricheditormanager.actselectall.caption"
+msgid "Select all"
+msgstr ""
+
+#: tdmricheditormanager.actselectall.hint
+msgctxt "tdmricheditormanager.actselectall.hint"
+msgid "Select all"
+msgstr ""
+
+#: tdmricheditormanager.actstrikethrough.caption
+msgctxt "tdmricheditormanager.actstrikethrough.caption"
+msgid "Strike through"
+msgstr ""
+
+#: tdmricheditormanager.actstrikethrough.hint
+msgctxt "tdmricheditormanager.actstrikethrough.hint"
+msgid "Strike through"
+msgstr ""
+
+#: tdmricheditormanager.acttogglewordwrap.caption
+msgctxt "tdmricheditormanager.acttogglewordwrap.caption"
 msgid "Toggle wordwrap"
+msgstr ""
+
+#: tdmricheditormanager.acttogglewordwrap.hint
+msgctxt "tdmricheditormanager.acttogglewordwrap.hint"
+msgid "Toggle wordwrap"
+msgstr ""
+
+#: tdmricheditormanager.actunderline.caption
+msgctxt "tdmricheditormanager.actunderline.caption"
+msgid "Underline"
+msgstr ""
+
+#: tdmricheditormanager.actundo.caption
+msgctxt "tdmricheditormanager.actundo.caption"
+msgid "Undo"
+msgstr ""
+
+#: tdmricheditormanager.actundo.hint
+msgctxt "tdmricheditormanager.actundo.hint"
+msgid "Undo"
 msgstr ""
 
 #: teditorsettingsdialog.caption
@@ -1452,6 +1793,7 @@ msgid "&Regular expression"
 msgstr ""
 
 #: tfrmcodefilterdialog.actselectall.caption
+msgctxt "tfrmcodefilterdialog.actselectall.caption"
 msgid "Select all"
 msgstr ""
 
@@ -2908,15 +3250,36 @@ msgstr ""
 msgid "lblStoredCaretXYValue"
 msgstr ""
 
+#: tfrmsettingsdialog.actclose.caption
+msgctxt "tfrmsettingsdialog.actclose.caption"
+msgid "Close"
+msgstr ""
+
+#: tfrmsettingsdialog.actclose.hint
+msgid "Close dialog"
+msgstr ""
+
 #: tfrmsettingsdialog.actcreatenewdatabase.caption
-msgid "Create new database"
+msgid "Create new"
 msgstr ""
 
 #: tfrmsettingsdialog.actdeletedatabase.caption
+msgctxt "tfrmsettingsdialog.actdeletedatabase.caption"
+msgid "Delete"
+msgstr ""
+
+#: tfrmsettingsdialog.actdeletedatabase.hint
+msgctxt "tfrmsettingsdialog.actdeletedatabase.hint"
 msgid "Delete database"
 msgstr ""
 
 #: tfrmsettingsdialog.actopendatabase.caption
+msgctxt "tfrmsettingsdialog.actopendatabase.caption"
+msgid "Open"
+msgstr ""
+
+#: tfrmsettingsdialog.actopendatabase.hint
+msgctxt "tfrmsettingsdialog.actopendatabase.hint"
 msgid "Open database"
 msgstr ""
 
@@ -2926,6 +3289,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.actrefreshglyphs.caption
 msgid "Refresh"
+msgstr ""
+
+#: tfrmsettingsdialog.actrefreshglyphs.hint
+msgid "Refresh glyphs"
 msgstr ""
 
 #: tfrmsettingsdialog.caption
@@ -2956,6 +3323,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.lbldatabasefile.caption
 msgid "Filename:"
+msgstr ""
+
+#: tfrmsettingsdialog.tsapplicationsettings.caption
+msgid "Application settings"
 msgstr ""
 
 #: tfrmsettingsdialog.tsdatabase.caption
@@ -3087,8 +3458,8 @@ msgstr ""
 msgid "Add a new rootfolder to the tree"
 msgstr ""
 
-#: tfrmvirtualdbtree.actsavepersistent.hint
-msgid "Save database to file"
+#: tfrmvirtualdbtree.btndivider.caption
+msgid "btnDivider"
 msgstr ""
 
 #: tfrmvirtualdbtree.mnidelete.caption
@@ -3117,20 +3488,112 @@ msgstr ""
 msgid "RichEditorViewKMemo"
 msgstr ""
 
-#: ts.editor.search.data.sgroup
-msgid "%s (%d matching lines)"
+#: ts.core.nativexml.sbeginendmismatch
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
 msgstr ""
 
-#: ts.editor.search.data.sline
-msgid "Line: %d"
+#: ts.core.nativexml.scannotaddattribute
+msgid "cannot add attribute"
 msgstr ""
 
-#: ts.editor.search.data.smatch
-msgid ": '%s'"
+#: ts.core.nativexml.scannotaddnode
+msgid "cannot add node to this type of element"
 msgstr ""
 
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
+#: ts.core.nativexml.scannotmanipulate
+msgid "cannot manipulate nodes in this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetname
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetvalue
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scopyfromonlywithxmlnode
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: ts.core.nativexml.sdefaultcharused
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: ts.core.nativexml.serrorcalcstreamlength
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: ts.core.nativexml.sillegalendtag
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: ts.core.nativexml.sillegaltag
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sinvalidstream
+msgid "invalid stream"
+msgstr ""
+
+#: ts.core.nativexml.slevelmismatch
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.smissingdatainbinarystream
+msgid "missing data in binary stream"
+msgstr ""
+
+#: ts.core.nativexml.snondefaultchardata
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.snotsupported
+msgid "feature is not supported yet"
+msgstr ""
+
+#: ts.core.nativexml.sprematureend
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.squotecharexpected
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.srootelementnotdefined
+msgid "XML root element not defined."
+msgstr ""
+
+#: ts.core.nativexml.ssignificantdigitsoutofrange
+msgid "significant digits out of range"
+msgstr ""
+
+#: ts.core.nativexml.sunknownbinaryencodingbinhex
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: ts.core.nativexml.sunknownencoding
+msgid "unknown encoding"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedencoding
+msgid "unsupported encoding (%s)"
+msgstr ""
+
+#: ts.core.nativexml.sunsupportedtag
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sxmlnodenotassigned
+msgid "XML node is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlownernotassigned
+msgid "XML owner is not assigned"
+msgstr ""
+
+#: ts.core.nativexml.sxmlparentnotassigned
+msgid "XML parent is not assigned"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

@@ -24,8 +24,8 @@ interface
 
 uses
   Classes, SysUtils, db, FileUtil, ExtendedTabControls, ExtendedNotebook,
-  CheckBoxThemed, RTTICtrls, Forms, Controls, Graphics, Dialogs, DBGrids,
-  DbCtrls, ExtCtrls, ComCtrls, ActnList,
+  RTTICtrls, Forms, Controls, Graphics, Dialogs, DBGrids,
+  DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,
   sqldb,
 
   SnippetSource.Interfaces,
@@ -34,6 +34,7 @@ uses
 
 type
   TfrmGrid = class(TForm)
+    {$REGION 'designer controls'}
     aclMain               : TActionList;
     actApplyUpdates       : TAction;
     actCommit             : TAction;
@@ -62,7 +63,9 @@ type
     btnInspectDataSet     : TToolButton;
     btnInspectDBGrid      : TToolButton;
     btnInspectFields      : TToolButton;
+    {$ENDREGION}
 
+    {$REGION 'action handlers'}
     procedure actApplyUpdatesExecute(Sender: TObject);
     procedure actCommitExecute(Sender: TObject);
     procedure actInspectConnectionExecute(Sender: TObject);
@@ -70,6 +73,7 @@ type
     procedure actInspectDBGridExecute(Sender: TObject);
     procedure actInspectFieldsExecute(Sender: TObject);
     procedure actInspectTransactionExecute(Sender: TObject);
+    {$ENDREGION}
 
   private
     function GetDataSet: TSQLQuery;

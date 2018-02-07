@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ActnList,
 
-  RTTICtrls, ButtonPanel, EditBtn, DBGrids,
+  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn,
 
   VirtualTrees,
 
@@ -39,12 +39,15 @@ type
   { TfrmSettingsDialog }
 
   TfrmSettingsDialog = class(TForm)
+    {$REGION 'designer controls'}
     aclMain              : TActionList;
     actCreateNewDatabase : TAction;
     actDeleteDatabase    : TAction;
+    actClose             : TAction;
     actOpenDatabase      : TAction;
     actOpenGlyphs        : TAction;
     actRefreshGlyphs     : TAction;
+    btnClose             : TBitBtn;
     btnCreateNewDatabase : TButton;
     btnDeleteDatabase    : TButton;
     btnOpenDatabase      : TButton;
@@ -60,12 +63,15 @@ type
     grdHighlighters      : TDBGrid;
     Highlighters         : TTabSheet;
     lblDataBaseFile      : TLabel;
+    pnlBottom            : TPanel;
     pgcMain              : TPageControl;
-    pnlButtons           : TButtonPanel;
+    tsApplicationSettings: TTabSheet;
     tsDataBase           : TTabSheet;
     tsImages             : TTabSheet;
     vstImageList         : TVirtualStringTree;
+    {$ENDREGION}
 
+    procedure actCloseExecute(Sender: TObject);
     procedure actCreateNewDatabaseExecute(Sender: TObject);
     procedure actDeleteDatabaseExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
@@ -81,6 +87,7 @@ type
     procedure chkAutomaticIndexClick(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
+    procedure edtDatabaseFileButtonClick(Sender: TObject);
 
     procedure vstImageListAfterCellPaint(
       Sender         : TBaseVirtualTree;
@@ -96,20 +103,26 @@ type
       TextType     : TVSTTextType;
       var CellText : string
     );
+
   private
     FData: IInterface;
+
     function GetConnection: IConnection;
     function GetGlyphDS: TDataSet;
     function GetSQLiteSettings: ISQLiteSettings;
 
     procedure LoadImage(const AFileName, AFieldName: string);
+
   public
-    procedure UpdateActions; override;
-    constructor Create(TheOwner: TComponent; AData: IInterface); reintroduce;
-      virtual;
+    constructor Create(
+      AOwner : TComponent;
+      AData  : IInterface
+    ); reintroduce; virtual;
 
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
+    procedure UpdateActions; override;
 
     property Connection: IConnection
       read GetConnection;
@@ -128,6 +141,9 @@ implementation
 
 {$R *.lfm}
 
+uses
+  SnippetSource.Resources;
+
 var
   FSettings: TfrmSettingsDialog;
 
@@ -139,9 +155,9 @@ begin
 end;
 
 {$REGION 'construction and destruction'}
-constructor TfrmSettingsDialog.Create(TheOwner: TComponent; AData: IInterface);
+constructor TfrmSettingsDialog.Create(AOwner: TComponent; AData: IInterface);
 begin
-  inherited Create(TheOwner);
+  inherited Create(AOwner);
   FData := AData;
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
 //  grdGlyph.Images := (FData as IGlyphs).GlyphList;
@@ -234,6 +250,11 @@ begin
   Connection.CreateNewDatabase;
 end;
 
+procedure TfrmSettingsDialog.actCloseExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmSettingsDialog.actDeleteDatabaseExecute(Sender: TObject);
 begin
   if FileExists(edtDatabaseFile.FileName) then
@@ -280,6 +301,11 @@ procedure TfrmSettingsDialog.dscGlyphUpdateData(Sender: TObject);
 begin
   //(FData as IGlyphs).LoadGlyphs;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
+end;
+
+procedure TfrmSettingsDialog.edtDatabaseFileButtonClick(Sender: TObject);
+begin
+
 end;
 
 //procedure TfrmSettingsDialog.grdGlyphAfterCellPaint(Sender: TBaseVirtualTree; TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex; const CellRect: TRect);

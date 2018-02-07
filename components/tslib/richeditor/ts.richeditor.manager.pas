@@ -31,52 +31,59 @@ uses
 type
   TRichEditorViewList = TComponentList;
 
-  { TdmRichEditorActions }
+  { TdmRichEditorManager }
 
-  TdmRichEditorActions = class(TDataModule, IRichEditorActions)
+  TdmRichEditorManager = class(TDataModule,
+    IRichEditorManager, IRichEditorActions
+  )
     {$REGION 'designer controls'}
-    aclActions      : TActionList;
-    actBold         : TAction;
-    actColor        : TAction;
-    actAlignRight   : TAction;
-    actAlignLeft    : TAction;
-    actAlignCenter  : TAction;
-    actFont         : TAction;
-    actIncFontSize  : TAction;
-    actDecFontSize  : TAction;
-    actCut          : TAction;
-    actCopy         : TAction;
-    actAlignJustify : TAction;
-    actBkColor      : TAction;
-    actWordWrap     : TAction;
-    actUndo         : TAction;
-    actSelectAll    : TAction;
-    actPaste        : TAction;
-    actSaveAs       : TAction;
-    actSave         : TAction;
-    actOpen         : TAction;
-    actUnderline    : TAction;
-    actItalic       : TAction;
-    dlgColor        : TColorDialog;
-    dlgFont         : TFontDialog;
-    dlgOpen         : TOpenDialog;
-    dlgSave         : TSaveDialog;
-    imlMain         : TImageList;
-    MenuItem1       : TMenuItem;
-    MenuItem2       : TMenuItem;
-    MenuItem3       : TMenuItem;
-    MenuItem4       : TMenuItem;
-    MenuItem5       : TMenuItem;
-    N1              : TMenuItem;
-    mniBold         : TMenuItem;
-    mniItalic       : TMenuItem;
-    mniUnderline    : TMenuItem;
-    mniOpen         : TMenuItem;
-    mniSave         : TMenuItem;
-    mniSaveAs       : TMenuItem;
-    ppmRichEditor   : TPopupMenu;
+    aclActions             : TActionList;
+    actBold                : TAction;
+    actColor               : TAction;
+    actAlignRight          : TAction;
+    actAlignLeft           : TAction;
+    actAlignCenter         : TAction;
+    actFont                : TAction;
+    actIncFontSize         : TAction;
+    actDecFontSize         : TAction;
+    actCut                 : TAction;
+    actCopy                : TAction;
+    actAlignJustify        : TAction;
+    actBkColor             : TAction;
+    actInsertImage         : TAction;
+    actInsertHyperLink     : TAction;
+    actStrikeThrough       : TAction;
+    actRedo                : TAction;
+    actToggleWordWrap      : TAction;
+    actUndo                : TAction;
+    actSelectAll           : TAction;
+    actPaste               : TAction;
+    actSaveAs              : TAction;
+    actSave                : TAction;
+    actOpen                : TAction;
+    actUnderline           : TAction;
+    actItalic              : TAction;
+    dlgColor               : TColorDialog;
+    dlgFont                : TFontDialog;
+    dlgOpen                : TOpenDialog;
+    dlgSave                : TSaveDialog;
+    imlMain                : TImageList;
+    MenuItem1              : TMenuItem;
+    MenuItem2              : TMenuItem;
+    MenuItem3              : TMenuItem;
+    MenuItem4              : TMenuItem;
+    MenuItem5              : TMenuItem;
+    N1                     : TMenuItem;
+    mniBold                : TMenuItem;
+    mniItalic              : TMenuItem;
+    mniUnderline           : TMenuItem;
+    mniOpen                : TMenuItem;
+    mniSave                : TMenuItem;
+    mniSaveAs              : TMenuItem;
+    ppmRichEditor          : TPopupMenu;
     {$ENDREGION}
 
+    {$REGION 'action handlers'}
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
     procedure actAlignLeftExecute(Sender: TObject);
@@ -89,19 +96,24 @@ type
     procedure actDecFontSizeExecute(Sender: TObject);
     procedure actFontExecute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
+    procedure actInsertHyperLinkExecute(Sender: TObject);
+    procedure actInsertImageExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure actStrikeThroughExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
-    procedure actWordWrapExecute(Sender: TObject);
+    procedure actToggleWordWrapExecute(Sender: TObject);
+    {$ENDREGION}
 
   private
     FViews      : TRichEditorViewList;
     FActiveView : IRichEditorView;
 
+  protected
     function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
     function GetEditorPopupMenu: TPopupMenu;
@@ -117,13 +129,10 @@ type
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
 
-    procedure OpenFileAtCursor;
-
-    function SaveFile: Boolean;
-    procedure LoadFile;
-
-    function AddView(const AName: string = ''; const AFileName: string = '')
-      : IRichEditorView;
+    function AddView(
+      const AName     : string = '';
+      const AFileName : string = ''
+    ): IRichEditorView;
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
 
@@ -149,8 +158,6 @@ type
       read GetEditorPopupMenu;
   end;
 
-function RichEditorActions : IRichEditorActions;
-
 implementation
 
 {$R *.lfm}
@@ -158,27 +165,17 @@ implementation
 uses
   Graphics,
 
-  RichMemo,
-
-  ts.RichEditor.View.RichMemo;
-
-var
-  dmRichEditorActions : TdmRichEditorActions;
-
-function RichEditorActions: IRichEditorActions;
-begin
-  Result := dmRichEditorActions;
-end;
+  ts.RichEditor.View.KMemo;
 
 {$REGION 'construction and destruction'}
-procedure TdmRichEditorActions.AfterConstruction;
+procedure TdmRichEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
   FViews := TRichEditorViewList.Create(False);
   FActiveView := nil;
 end;
 
-procedure TdmRichEditorActions.BeforeDestruction;
+procedure TdmRichEditorManager.BeforeDestruction;
 begin
   FActiveView := nil;
   FreeAndNil(FViews);
@@ -187,19 +184,19 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
-function TdmRichEditorActions.GetActions: TActionList;
+function TdmRichEditorManager.GetActions: TActionList;
 begin
   Result := aclActions;
 end;
 
-function TdmRichEditorActions.GetActiveView: IRichEditorView;
+function TdmRichEditorManager.GetActiveView: IRichEditorView;
 begin
   if not Assigned(FActiveView) then
     raise Exception.Create('No active view!');
   Result := FActiveView;
 end;
 
-procedure TdmRichEditorActions.SetActiveView(const AValue: IRichEditorView);
+procedure TdmRichEditorManager.SetActiveView(const AValue: IRichEditorView);
 begin
   if AValue <> FActiveView then
   begin
@@ -208,27 +205,27 @@ begin
   end;
 end;
 
-function TdmRichEditorActions.GetEditorPopupMenu: TPopupMenu;
+function TdmRichEditorManager.GetEditorPopupMenu: TPopupMenu;
 begin
   Result := ppmRichEditor;
 end;
 
-function TdmRichEditorActions.GetItem(AName: string): TContainedAction;
+function TdmRichEditorManager.GetItem(AName: string): TContainedAction;
 begin
   Result := aclActions.ActionByName(AName);
 end;
 
-function TdmRichEditorActions.GetView(AIndex: Integer): IRichEditorView;
+function TdmRichEditorManager.GetView(AIndex: Integer): IRichEditorView;
 begin
   if (AIndex > -1) and (AIndex < FViews.Count) then
   begin
-    Result := TRichEditorView(FViews[AIndex]) as IRichEditorView;
+    Result := FViews[AIndex] as IRichEditorView;
   end
   else
     Result := nil;
 end;
 
-function TdmRichEditorActions.GetViewByName(AName: string): IRichEditorView;
+function TdmRichEditorManager.GetViewByName(AName: string): IRichEditorView;
 var
   I: Integer;
   B: Boolean;
@@ -247,7 +244,7 @@ begin
     Result := nil;
 end;
 
-function TdmRichEditorActions.GetViewCount: Integer;
+function TdmRichEditorManager.GetViewCount: Integer;
 begin
   Result := FViews.Count;
 end;
@@ -256,7 +253,7 @@ end;
 {$REGION 'action handlers'}
 // File
 
-procedure TdmRichEditorActions.actOpenExecute(Sender: TObject);
+procedure TdmRichEditorManager.actOpenExecute(Sender: TObject);
 begin
   if dlgOpen.Execute then
   begin
@@ -265,12 +262,12 @@ begin
   end;
 end;
 
-procedure TdmRichEditorActions.actPasteExecute(Sender: TObject);
+procedure TdmRichEditorManager.actPasteExecute(Sender: TObject);
 begin
   ActiveView.Paste;
 end;
 
-procedure TdmRichEditorActions.actSaveAsExecute(Sender: TObject);
+procedure TdmRichEditorManager.actSaveAsExecute(Sender: TObject);
 begin
   if dlgSave.Execute then
   begin
@@ -279,170 +276,170 @@ begin
   end;
 end;
 
-procedure TdmRichEditorActions.actSaveExecute(Sender: TObject);
+procedure TdmRichEditorManager.actSaveExecute(Sender: TObject);
 begin
   ActiveView.SaveToFile(ActiveView.FileName);
 end;
 
-// Style
-
-procedure TdmRichEditorActions.actBoldExecute(Sender: TObject);
+procedure TdmRichEditorManager.actStrikeThroughExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    ActiveView.TextAttributes.BeginUpdate;
-    ActiveView.TextAttributes.Bold := actBold.Checked;
-    ActiveView.TextAttributes.EndUpdate;
+    ActiveView.Font.StrikeThrough := actStrikeThrough.Checked;
   end;
 end;
 
-procedure TdmRichEditorActions.actAlignRightExecute(Sender: TObject);
+// Style
+
+procedure TdmRichEditorManager.actBoldExecute(Sender: TObject);
 begin
-  ActiveView.TextAttributes.Alignment := paRight;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Font.Bold := actBold.Checked;
+  end;
 end;
 
-procedure TdmRichEditorActions.actBkColorExecute(Sender: TObject);
+procedure TdmRichEditorManager.actAlignRightExecute(Sender: TObject);
+begin
+  ActiveView.AlignRight := True;
+end;
+
+procedure TdmRichEditorManager.actBkColorExecute(Sender: TObject);
 begin
   dlgColor.Width := 300;
     dlgColor.Handle := Application.MainForm.Handle;
     if dlgColor.Execute then
     begin;
-      ActiveView.TextAttributes.HasBkColor := False;
-      ActiveView.TextAttributes.HasBkColor := True;
-      ActiveView.TextAttributes.BkColor := dlgColor.Color;
+      //ActiveView.TextAttributes.HasBkColor := False;
+      //ActiveView.TextAttributes.HasBkColor := True;
+      //ActiveView.TextAttributes.BkColor := dlgColor.Color;
     end;
 end;
 
-procedure TdmRichEditorActions.actAlignLeftExecute(Sender: TObject);
+procedure TdmRichEditorManager.actAlignLeftExecute(Sender: TObject);
 begin
-  ActiveView.TextAttributes.Alignment := paLeft;
+  ActiveView.AlignLeft := True;
 end;
 
-procedure TdmRichEditorActions.actAlignCenterExecute(Sender: TObject);
+procedure TdmRichEditorManager.actAlignCenterExecute(Sender: TObject);
 begin
-  ActiveView.TextAttributes.Alignment := paCenter;
+  ActiveView.AlignCenter := True;
 end;
 
-procedure TdmRichEditorActions.actAlignJustifyExecute(Sender: TObject);
+procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
 begin
-  ActiveView.TextAttributes.Alignment := paJustify;
+  ActiveView.AlignJustify := True;
 end;
 
-procedure TdmRichEditorActions.actColorExecute(Sender: TObject);
+procedure TdmRichEditorManager.actColorExecute(Sender: TObject);
 begin
   dlgColor.Width := 300;
   dlgColor.Handle := Application.MainForm.Handle;
   if dlgColor.Execute then
   begin;
-    ActiveView.TextAttributes.Color := dlgColor.Color;
+    ActiveView.Font.Color := dlgColor.Color;
   end;
 end;
 
-procedure TdmRichEditorActions.actCopyExecute(Sender: TObject);
+procedure TdmRichEditorManager.actCopyExecute(Sender: TObject);
 begin
   ActiveView.Copy;
 end;
 
-procedure TdmRichEditorActions.actCutExecute(Sender: TObject);
+procedure TdmRichEditorManager.actCutExecute(Sender: TObject);
 begin
   ActiveView.Cut;
 end;
 
-procedure TdmRichEditorActions.actDecFontSizeExecute(Sender: TObject);
+procedure TdmRichEditorManager.actDecFontSizeExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    if ActiveView.TextAttributes.Size > 0 then
-      ActiveView.TextAttributes.Size := ActiveView.TextAttributes.Size - 1;
+    if ActiveView.Font.Size > 0 then
+      ActiveView.Font.Size := ActiveView.Font.Size - 1;
   end;
 end;
 
-procedure TdmRichEditorActions.actFontExecute(Sender: TObject);
+procedure TdmRichEditorManager.actFontExecute(Sender: TObject);
 begin
   if dlgFont.Execute then
   begin
-    ActiveView.TextAttributes.BeginUpdate;
-    ActiveView.TextAttributes.FontName := dlgFont.Font.Name;
-    ActiveView.TextAttributes.Size     := dlgFont.Font.Size;
-    ActiveView.TextAttributes.EndUpdate;
+    ActiveView.Font.Assign(dlgFont.Font);
   end;
 end;
 
-procedure TdmRichEditorActions.actIncFontSizeExecute(Sender: TObject);
+procedure TdmRichEditorManager.actIncFontSizeExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    ActiveView.TextAttributes.Size := ActiveView.TextAttributes.Size + 1;
+    ActiveView.Font.Size := ActiveView.Font.Size + 1;
   end;
 end;
 
-procedure TdmRichEditorActions.actItalicExecute(Sender: TObject);
+procedure TdmRichEditorManager.actInsertHyperLinkExecute(Sender: TObject);
+begin
+  ActiveView.InsertHyperlink;
+end;
+
+procedure TdmRichEditorManager.actInsertImageExecute(Sender: TObject);
+begin
+  ActiveView.InsertImage;
+end;
+
+procedure TdmRichEditorManager.actItalicExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    ActiveView.TextAttributes.Italic := actItalic.Checked;
+    ActiveView.Font.Italic := actItalic.Checked;
   end;
 end;
 
-procedure TdmRichEditorActions.actUnderlineExecute(Sender: TObject);
+procedure TdmRichEditorManager.actUnderlineExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
-    ActiveView.TextAttributes.Underline := actUnderline.Checked;
+    ActiveView.Font.Underline := actUnderline.Checked;
   end;
 end;
 
-procedure TdmRichEditorActions.actUndoExecute(Sender: TObject);
+procedure TdmRichEditorManager.actUndoExecute(Sender: TObject);
 begin
-  ActiveView.Editor.Undo;
+  ActiveView.Undo;
 end;
 
-procedure TdmRichEditorActions.actWordWrapExecute(Sender: TObject);
+procedure TdmRichEditorManager.actToggleWordWrapExecute(Sender: TObject);
 begin
-  ActiveView.WordWrap := actWordWrap.Checked;
+  ActiveView.WordWrap := actToggleWordWrap.Checked;
 end;
 {$ENDREGION}
 
-procedure TdmRichEditorActions.UpdateActions;
+{$REGION 'protected methods'}
+procedure TdmRichEditorManager.UpdateActions;
 begin
   if Assigned(ActiveView) then
   begin
-    actBold.Checked      := ActiveView.TextAttributes.Bold;
-    actUnderline.Checked := ActiveView.TextAttributes.Underline;
-    actItalic.Checked    := ActiveView.TextAttributes.Italic;
-    actUndo.Enabled      := ActiveView.CanUndo;
-    actCopy.Enabled      := ActiveView.SelAvail;
-    actCut.Enabled       := ActiveView.SelAvail;
-    actPaste.Enabled     := ActiveView.CanPaste;
-    case ActiveView.TextAttributes.Alignment of
-      paLeft    : actAlignLeft.Checked    := True;
-      paCenter  : actAlignCenter.Checked  := True;
-      paRight   : actAlignRight.Checked   := True;
-      paJustify : actAlignJustify.Checked := True;
-    end;
+    actBold.Checked          := ActiveView.Font.Bold;
+    actUnderline.Checked     := ActiveView.Font.Underline;
+    actItalic.Checked        := ActiveView.Font.Italic;
+    actStrikeThrough.Checked := ActiveView.Font.StrikeThrough;
+    actUndo.Enabled          := ActiveView.CanUndo;
+    actRedo.Enabled          := ActiveView.CanRedo;
+    actCopy.Enabled          := ActiveView.SelAvail;
+    actCut.Enabled           := ActiveView.SelAvail;
+    actPaste.Enabled         := ActiveView.CanPaste;
+    actAlignCenter.Checked   := ActiveView.AlignCenter;
+    actAlignLeft.Checked     := ActiveView.AlignLeft;
+    actAlignRight.Checked    := ActiveView.AlignRight;
+    actAlignJustify.Checked  := ActiveView.AlignJustify;
   end;
 end;
 
-procedure TdmRichEditorActions.OpenFileAtCursor;
-begin
-//
-end;
-
-function TdmRichEditorActions.SaveFile: Boolean;
-begin
-  Result := False;
-end;
-
-procedure TdmRichEditorActions.LoadFile;
-begin
-//
-end;
-
-function TdmRichEditorActions.AddView(const AName: string; const AFileName: string): IRichEditorView;
+function TdmRichEditorManager.AddView(const AName: string;
+ const AFileName: string): IRichEditorView;
 var
-  V : TRichEditorView;
+  V : TRichEditorViewKMemo;
 begin
-  V := TRichEditorView.Create(Self);
+  V := TRichEditorViewKMemo.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
   if AName <> '' then
     V.Name := AName;
@@ -453,19 +450,17 @@ begin
   FActiveView := V;
 end;
 
-function TdmRichEditorActions.DeleteView(AIndex: Integer): Boolean;
+function TdmRichEditorManager.DeleteView(AIndex: Integer): Boolean;
 begin
   { TODO -oTS : Needs implementation }
   Result := False;
 end;
 
-procedure TdmRichEditorActions.ClearViews;
+procedure TdmRichEditorManager.ClearViews;
 begin
   FViews.Clear;
 end;
-
-initialization
-  dmRichEditorActions := TdmRichEditorActions.Create(Application);
+{$ENDREGION}
 
 end.
 

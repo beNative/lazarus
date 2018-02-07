@@ -33,7 +33,7 @@ interface
 uses
   Classes, SysUtils, Graphics,
 
-  ts.Core.Value, ts.Core.Logger.Interfaces;
+  ts.Core.Logger.Interfaces;
 
 type
   TLogger = class;
@@ -127,10 +127,7 @@ type
     procedure SendHeapInfo(Classes: TDebugClasses; const AText: string);overload;
     procedure SendIf(Classes: TDebugClasses; const AText: string; Expression, IsTrue: Boolean);overload;
     procedure SendMemory(Classes: TDebugClasses; const AText: string; Address: Pointer; Size: LongWord);overload;
-    procedure SendWarning(Classes: TDebugClasses; const AText: string);overload;
     procedure SendIf(Classes: TDebugClasses; const AText: string; Expression: Boolean); overload;
-    procedure SendError(Classes: TDebugClasses; const AText: string);overload;
-
 
     procedure IncCounter(Classes: TDebugClasses; const CounterName: string);overload;
 
@@ -191,9 +188,11 @@ type
     procedure SendIf(const AText: string; AExpression: Boolean); overload; inline;
     procedure SendIf(const AText: string; AExpression, AIsTrue: Boolean); overload; inline;
 
-    procedure Warn(const AText: string); overload; inline;
+    procedure Info(const AText: string); overload;
+    procedure Info(const AText: string; AArgs: array of const); overload;
+    procedure Warn(const AText: string); overload;
     procedure Warn(const AText: string; AArgs: array of const); overload;
-    procedure Error(const AText: string); overload; inline;
+    procedure Error(const AText: string); overload;
     procedure Error(const AText: string; AArgs: array of const); overload;
 
     procedure IncCounter(const AName: string); overload; inline;
@@ -806,17 +805,31 @@ begin
   SendIf(DefaultClasses,AText,AExpression,AIsTrue);
 end;
 
+procedure TLogger.Info(const AText: string);
+begin
+  if DefaultClasses * ActiveClasses = [] then
+    Exit;
+  SendStream(lmtInfo, AText, nil);
+end;
+
+procedure TLogger.Info(const AText: string; AArgs: array of const);
+begin
+  Warn(Format(AText, AArgs));
+end;
+
 procedure TLogger.SendIf(Classes: TDebugClasses; const AText: string; Expression,
   IsTrue: Boolean);
 begin
-  if (Classes * ActiveClasses = []) or (Expression <> IsTrue) then
+  if (DefaultClasses * ActiveClasses = []) or (Expression <> IsTrue) then
     Exit;
   SendStream(lmtConditional, AText, nil);
 end;
 
 procedure TLogger.Warn(const AText: string);
 begin
-  SendWarning(DefaultClasses, AText);
+  if DefaultClasses * ActiveClasses = [] then
+    Exit;
+  SendStream(lmtWarning, AText, nil);
 end;
 
 procedure TLogger.Warn(const AText: string; AArgs: array of const);
@@ -824,31 +837,17 @@ begin
   Warn(Format(AText, AArgs));
 end;
 
-procedure TLogger.SendWarning(Classes: TDebugClasses; const AText: string);
-begin
-  if Classes * ActiveClasses = [] then
-    Exit;
-  SendStream(lmtWarning, AText, nil);
-end;
-
 procedure TLogger.Error(const AText: string);
 begin
-  SendError(DefaultClasses, AText);
+  if DefaultClasses * ActiveClasses = [] then
+    Exit;
+  SendStream(lmtError, AText, nil);
 end;
 
 procedure TLogger.Error(const AText: string; AArgs: array of const);
 begin
   Error(Format(AText, AArgs));
 end;
-
-procedure TLogger.SendError(Classes: TDebugClasses; const AText: string);
-begin
-  if Classes * ActiveClasses = [] then
-    Exit;
-  SendStream(lmtError, AText, nil);
-end;
-
-
 
 procedure TLogger.SendBitmap(const AText: string; ABitmap: TBitmap);
 begin

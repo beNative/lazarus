@@ -114,8 +114,8 @@ type
       instance and trigger the Enter method. When the interface variable goes
       out of scope (end of the routine or method) a call to the logger's Leave
       method is triggered. }
-    //function Track(const AName: string): IInterface; overload;
-    //function Track(ASender: TObject; const AName: string): IInterface; overload;
+    function Track(const AName: string): IInterface; overload;
+    function Track(ASender: TObject; const AName: string): IInterface; overload;
 
     procedure AddCheckPoint(const AName: string = '');
     procedure ResetCheckPoint(const AName: string = '');
@@ -124,12 +124,19 @@ type
     //procedure Watch(const AName: string; const AValue: TValue); overload;
     procedure Watch(const AName: string; const AValue: string = ''); overload;
 
-    procedure Warn(const AText: string); overload;
+  procedure Info(const AText: string); overload;
+  procedure Info(const AText: string; AArgs: array of const); overload;
+  procedure Warn(const AText: string); overload;
+  procedure Warn(const AText: string; AArgs: array of const); overload;
+  procedure Error(const AText: string); overload;
+  procedure Error(const AText: string; AArgs: array of const); overload;
+
+    //procedure Warn(const AText: string); overload;
     //procedure Warn(
     //  const AText : string;
     //  const AArgs : array of const
     //); overload;
-    procedure Error(const AText: string); overload;
+    //procedure Error(const AText: string); overload;
     //procedure Error(
     //  const AText : string;
     //  const AArgs : array of const

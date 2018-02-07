@@ -1,49 +1,35 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 1132
-  Height = 461
-  Top = 246
-  Width = 462
-  ActiveControl = pnlButtons.CloseButton
+  Left = 369
+  Height = 427
+  Top = 343
+  Width = 632
   Caption = 'Settings'
-  ClientHeight = 461
-  ClientWidth = 462
+  ClientHeight = 427
+  ClientWidth = 632
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '1.9.0.0'
-  object pnlButtons: TButtonPanel
-    Left = 6
-    Height = 34
-    Top = 421
-    Width = 450
-    OKButton.Name = 'OKButton'
-    OKButton.DefaultCaption = True
-    HelpButton.Name = 'HelpButton'
-    HelpButton.DefaultCaption = True
-    CloseButton.Name = 'CloseButton'
-    CloseButton.DefaultCaption = True
-    CancelButton.Name = 'CancelButton'
-    CancelButton.DefaultCaption = True
-    TabOrder = 0
-    ShowButtons = [pbCancel, pbClose]
-  end
   object pgcMain: TPageControl
     Left = 0
-    Height = 415
+    Height = 390
     Top = 0
-    Width = 462
-    ActivePage = tsDataBase
+    Width = 632
+    ActivePage = tsApplicationSettings
     Align = alClient
     TabIndex = 0
-    TabOrder = 1
+    TabOrder = 0
+    object tsApplicationSettings: TTabSheet
+      Caption = 'Application settings'
+    end
     object tsDataBase: TTabSheet
       Caption = 'Database'
-      ClientHeight = 387
-      ClientWidth = 454
+      ClientHeight = 362
+      ClientWidth = 624
       object edtDatabaseFile: TFileNameEdit
-        Left = 76
+        Left = 64
         Height = 23
-        Top = 11
-        Width = 333
+        Top = 12
+        Width = 328
         DialogOptions = []
         FilterIndex = 0
         HideDirectories = False
@@ -52,9 +38,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         Anchors = [akTop, akLeft, akRight]
         MaxLength = 0
         TabOrder = 0
+        OnButtonClick = edtDatabaseFileButtonClick
       end
       object lblDataBaseFile: TLabel
-        Left = 13
+        Left = 8
         Height = 15
         Top = 16
         Width = 51
@@ -63,34 +50,37 @@ object frmSettingsDialog: TfrmSettingsDialog
         ParentColor = False
       end
       object btnCreateNewDatabase: TButton
-        Left = 191
+        Left = 468
         Height = 25
-        Top = 34
-        Width = 123
+        Top = 10
+        Width = 75
         Action = actCreateNewDatabase
+        Anchors = [akTop, akRight]
         TabOrder = 1
       end
       object btnOpenDatabase: TButton
-        Left = 76
+        Left = 392
         Height = 25
-        Top = 34
-        Width = 112
+        Top = 10
+        Width = 75
         Action = actOpenDatabase
+        Anchors = [akTop, akRight]
         TabOrder = 2
       end
       object btnDeleteDatabase: TButton
-        Left = 317
+        Left = 544
         Height = 25
-        Top = 34
-        Width = 115
+        Top = 10
+        Width = 75
         Action = actDeleteDatabase
+        Anchors = [akTop, akRight]
         TabOrder = 3
       end
       object chkAutomaticIndex: TCheckBox
-        Left = 28
+        Left = 64
         Height = 19
         Hint = 'When no indices are available to aid the evaluation '#13#10'of a query, SQLite might create an automatic index '#13#10'that lasts only for the duration of a single SQL statement '#13#10'and use that index to help boost the query performance.'
-        Top = 74
+        Top = 48
         Width = 107
         Caption = 'Automatic index'
         OnClick = chkAutomaticIndexClick
@@ -99,8 +89,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsImages: TTabSheet
       Caption = 'Images'
-      ClientHeight = 387
-      ClientWidth = 454
+      ClientHeight = 362
+      ClientWidth = 624
       object btnOpenGlyphs: TButton
         Left = 1
         Height = 25
@@ -119,7 +109,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object vstImageList: TVirtualStringTree
         Left = 1
-        Height = 326
+        Height = 301
         Top = 58
         Width = 104
         Anchors = [akTop, akLeft, akBottom]
@@ -142,9 +132,9 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdGlyph: TDBGrid
         Left = 112
-        Height = 388
+        Height = 363
         Top = 3
-        Width = 344
+        Width = 514
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -155,8 +145,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object Highlighters: TTabSheet
       Caption = 'Highlighters'
-      ClientHeight = 387
-      ClientWidth = 454
+      ClientHeight = 362
+      ClientWidth = 624
       object cbxImageList: TComboBox
         Left = 8
         Height = 24
@@ -170,10 +160,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 0
       end
       object grdHighlighters: TDBGrid
-        Left = 64
-        Height = 376
+        Left = 88
+        Height = 335
         Top = 8
-        Width = 384
+        Width = 522
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -182,19 +172,46 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
     end
   end
+  object pnlBottom: TPanel
+    Left = 0
+    Height = 37
+    Top = 390
+    Width = 632
+    Align = alBottom
+    BevelOuter = bvNone
+    ClientHeight = 37
+    ClientWidth = 632
+    TabOrder = 1
+    object btnClose: TBitBtn
+      Left = 471
+      Height = 25
+      Top = 5
+      Width = 150
+      Action = actClose
+      Anchors = [akTop, akRight]
+      Default = True
+      Margin = 0
+      ModalResult = 11
+      Spacing = 20
+      TabOrder = 0
+    end
+  end
   object aclMain: TActionList
+    Images = dmResources.imlMain
     Left = 128
     Top = 200
     object actCreateNewDatabase: TAction
-      Caption = 'Create new database'
+      Caption = 'Create new'
       OnExecute = actCreateNewDatabaseExecute
     end
     object actOpenDatabase: TAction
-      Caption = 'Open database'
+      Caption = 'Open'
+      Hint = 'Open database'
       OnExecute = actOpenDatabaseExecute
     end
     object actDeleteDatabase: TAction
-      Caption = 'Delete database'
+      Caption = 'Delete'
+      Hint = 'Delete database'
       OnExecute = actDeleteDatabaseExecute
     end
     object actOpenGlyphs: TAction
@@ -203,7 +220,14 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object actRefreshGlyphs: TAction
       Caption = 'Refresh'
+      Hint = 'Refresh glyphs'
       OnExecute = actRefreshGlyphsExecute
+    end
+    object actClose: TAction
+      Caption = 'Close'
+      Hint = 'Close dialog'
+      ImageIndex = 0
+      OnExecute = actCloseExecute
     end
   end
   object dscGlyph: TDataSource

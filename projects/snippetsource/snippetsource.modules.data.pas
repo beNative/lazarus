@@ -22,7 +22,7 @@ unit SnippetSource.Modules.Data;
 
 interface
 
-{$REGION 'documentation' /FOLD}
+{$REGION 'documentation'}
 {
   Documentation that lead to the final implementation:
     http://lists.lazarus-ide.org/pipermail/lazarus/2014-November/154238.html
@@ -60,11 +60,77 @@ interface
          prevents this behaviour and does not require the need to execute the
          query again to fetch all data after each change is posted.
 
+    For bulk inserts the sqoAutoApplyUpdates and sqoAutoCommit have a great
+    impact on performance. To avoid these operations for each insert this needs
+    to be disabled and ApplyUpdates and Commit need to be called manually when
+    all records are inserted.
+
   TODO
     - bulk insert for faster adding lots of files. Performance is much increased
       by disabling autocommit and ony once committing after all records are
       inserted.
     - delete and update for a given list of node Id's
+
+  ISSUES
+   - RefreshSQL gets called after every insert or update regardless of the
+     specified provider flags on the key field (pfRefreshOnInsert,
+     pfRefreshOnUpdate) or whether sqoRefreshUsingSelect is specified in the
+     query's options.
+
+--------------------------------------------------------------------------------
+     interface
+    procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery);overload;
+    procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery; pKeyField: string);overload;
+
+implementation
+
+procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery; pKeyField: string);
+//This procedure refreshes a dataset and positions cursor to last record
+//To be used if Dataset is not guaranteed to be sorted by an autoincrement primary key
+var
+  vLastID: Integer;
+  vUpdateStatus : TUpdateStatus;
+begin
+  vUpdateStatus := pDataset.UpdateStatus;
+  //Get last inserted ID in the database
+  pDataset.ApplyUpdates;
+  vLastID:=(pDataSet.DataBase as TSQLite3Connection).GetInsertID;
+  //Now come back to respective row
+  if vUpdateStatus = usInserted then begin
+    pDataset.Refresh;
+    //Refresh and go back to respective row
+    pDataset.Locate(pKeyField,vLastID,[]);
+  end;
+end;
+
+procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery);
+//This procedure refreshes a dataset and positions cursor to last record
+//To be used only if DataSet is guaranteed to be sorted by an autoincrement primary key
+var
+  vLastID: Integer;
+  vUpdateStatus : TUpdateStatus;
+begin
+  vUpdateStatus := pDataset.UpdateStatus;
+  pDataset.ApplyUpdates;
+  vLastID:=(pDataSet.DataBase as TSQLite3Connection).GetInsertID;
+  if vUpdateStatus = usInserted then begin
+    pDataset.Refresh;
+    //Dangerous!
+    pDataSet.Last;
+  end;
+end;
+
+procedure TDataModule1.SQLQuery1AfterPost(DataSet: TDataSet);
+begin
+  RefreshADatasetAfterInsert(Dataset as TSQLQuery); //If your dataset is sorted by primary key
+end;
+
+procedure TDataModule1.SQLQuery2AfterPost(DataSet: TDataSet);
+begin
+  RefreshADatasetAfterInsert(Dataset as TSQLQuery, 'ID'); //if you are not sure that the dataset is always sorted by primary key
+end;
+
+--------------------------------------------------------------------------------
 
 }
 {$ENDREGION}
@@ -74,9 +140,12 @@ uses
 
   sqldb, sqlite3conn, db, BufDataset,
 
-  SnippetSource.Interfaces, ts.Core.SharedLogger, sqlscript;
+  SnippetSource.Interfaces, ts.Core.SharedLogger;
 
 type
+
+  { TdmSnippetSource }
+
   TdmSnippetSource = class(TDataModule,
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
@@ -96,7 +165,7 @@ type
       const Msg : string
     );
     procedure qrySnippetAfterOpen(DataSet: TDataSet);
-    procedure qrySnippetBeforeClose(DataSet: TDataSet);
+    procedure qrySnippetAfterPost(DataSet: TDataSet);
     procedure qrySnippetBeforeOpen(DataSet: TDataSet);
     procedure qrySnippetBeforePost(DataSet: TDataSet);
     procedure qrySnippetBeforeScroll(DataSet: TDataSet);
@@ -156,9 +225,10 @@ type
     procedure InitFields(ADataSet : TDataSet);
 
     procedure LoadGlyphs;
-    procedure Execute(const ASQL: string);
-    procedure CreateNewDatabase;
 
+    { IConnection }
+    procedure CreateNewDatabase;
+    procedure Execute(const ASQL: string);
     procedure Commit;
     procedure Rollback;
     procedure StartTransaction;
@@ -325,12 +395,15 @@ end;
 procedure TdmSnippetSource.AfterConstruction;
 begin
   inherited AfterConstruction;
+  qrySnippet.UsePrimaryKeyAsKey := True;
   qryHighlighter.Active := True;
   DataSet.Active := True;
 end;
 
 procedure TdmSnippetSource.BeforeDestruction;
 begin
+  qrySnippet.ApplyUpdates;
+  Commit;
   DataSet.Active := False;
   conMain.Connected := False;
   inherited BeforeDestruction;
@@ -399,9 +472,25 @@ begin
   InitFields(DataSet);
 end;
 
-procedure TdmSnippetSource.qrySnippetBeforeClose(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
+var
+  LId: Integer;
 begin
-  Logger.Enter('BeforeClose');
+  LId := DataSet.FieldByName('Id').AsInteger;
+  Logger.Send('Id', DataSet.FieldByName('Id').AsInteger);
+  if not DataSet.ControlsDisabled then
+  begin
+    DataSet.DisableControls;
+    try
+      qrySnippet.ApplyUpdates;
+      Commit;
+      qrySnippet.Refresh;
+      qrySnippet.Locate('Id', VarArrayOf([LId]), []);
+
+    finally
+      DataSet.EnableControls;
+    end;
+  end;
 end;
 
 procedure TdmSnippetSource.qrySnippetNewRecord(DataSet: TDataSet);
@@ -410,6 +499,12 @@ begin
   qrySnippet.FieldByName('Id').Value := 0;
   qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
   qrySnippet.FieldByName('HighlighterId').AsInteger := 1;
+  if  qrySnippet.FieldByName('NodeTypeId').AsInteger = 0 then
+  begin
+    qrySnippet.FieldByName('NodeTypeId').AsInteger := 1;
+    qrySnippet.FieldByName('ImageIndex').AsInteger := 1;
+
+  end;
 end;
 {$ENDREGION}
 
@@ -501,14 +596,14 @@ begin
   Result := qrySnippet.FieldValues['DateModified'];
 end;
 
-function TdmSnippetSource.GetFileName: string;
-begin
-  Result := conMain.DatabaseName;
-end;
-
 procedure TdmSnippetSource.SetDateModified(AValue: TDateTime);
 begin
   qrySnippet.FieldValues['DateModified'] := AValue;
+end;
+
+function TdmSnippetSource.GetFileName: string;
+begin
+  Result := conMain.DatabaseName;
 end;
 
 procedure TdmSnippetSource.SetFileName(AValue: string);
@@ -551,11 +646,6 @@ begin
   qrySnippet.FieldValues['FoldLevel'] := AValue;
 end;
 
-function TdmSnippetSource.GetFoldState: string;
-begin
-  Result := qrySnippet.FieldByName('FoldState').AsString;
-end;
-
 function TdmSnippetSource.GetGlyphDataSet: TDataSet;
 begin
   Result := qryGlyph;
@@ -566,14 +656,19 @@ begin
   Result := imlGlyphs;
 end;
 
-function TdmSnippetSource.GetHighlighter: string;
+function TdmSnippetSource.GetFoldState: string;
 begin
-  Result := qrySnippet.FieldByName('Highlighter').AsString;
+  Result := qrySnippet.FieldByName('FoldState').AsString;
 end;
 
 procedure TdmSnippetSource.SetFoldState(AValue: string);
 begin
   qrySnippet.FieldValues['FoldState'] := AValue;
+end;
+
+function TdmSnippetSource.GetHighlighter: string;
+begin
+  Result := qrySnippet.FieldByName('Highlighter').AsString;
 end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
@@ -593,7 +688,10 @@ end;
 
 function TdmSnippetSource.GetId: Integer;
 begin
-  Result := qrySnippet.FieldValues['Id'];
+  if VarIsNull(qrySnippet.FieldValues['Id']) then
+    Result := 0
+  else
+    Result := qrySnippet.FieldValues['Id'];
 end;
 
 function TdmSnippetSource.GetNodeName: string;
@@ -645,7 +743,9 @@ procedure TdmSnippetSource.SetText(AValue: string);
 begin
   qrySnippet.FieldValues['Text'] := AValue;
 end;
+{$ENDREGION}
 
+{$REGION 'protected methods'}
 procedure TdmSnippetSource.SendWatchValues;
 //var
 //  S : string;
@@ -661,9 +761,6 @@ begin
   //Logger.Watch('UpdateMode', S);
 end;
 
-{$ENDREGION}
-
-{$REGION 'protected methods'}
 procedure TdmSnippetSource.CreateLookupFields;
 var
   F : TField = nil;
@@ -705,8 +802,8 @@ begin
   begin
     AField.Required :=  True;
     AField.ProviderFlags := [
-       pfInKey,
-       pfRefreshOnInsert // This field's value should be refreshed after insert.
+       pfInKey
+//       pfRefreshOnInsert // This field's value should be refreshed after insert.
     ];
   end
   // setup lookupfield
@@ -738,12 +835,12 @@ end;
 
 procedure TdmSnippetSource.Execute(const ASQL: string);
 begin
-//
+  conMain.ExecuteDirect(ASQL);
 end;
 
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
-//
+  scrCreateDatabase.ExecuteScript;
 end;
 
 procedure TdmSnippetSource.Commit;
@@ -828,7 +925,6 @@ end;
 initialization
 {$IFDEF WINDOWS}
   Logger.Channels.Add(TIPCChannel.Create);
-//  Logger.Clear;
 {$ENDIF}
 
 end.

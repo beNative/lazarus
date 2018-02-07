@@ -81,8 +81,8 @@
 								<Foreground>clOlive</Foreground>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmDelphi</CompilerMode>
-							<NestedComments>false</NestedComments>
+							<CompilerMode>pcmObjFPC</CompilerMode>
+							<NestedComments>true</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1044,7 +1044,7 @@
 	</FormSettings>
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
-		<Height>-17</Height>
+		<Height>-15</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

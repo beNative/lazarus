@@ -40,9 +40,8 @@ type
     procedure SetAutoCommit(AValue: Boolean);
     {$ENDREGION}
 
-    procedure Execute(const ASQL: string);
     procedure CreateNewDatabase;
-
+    procedure Execute(const ASQL: string);
     procedure Commit;
     procedure Rollback;
     procedure StartTransaction;

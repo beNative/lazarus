@@ -8,12 +8,12 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   SysUtils, Forms, pascalscript, lazcontrols, richmemopackage,
-  virtualtreeview_package, appexplore, AppExploreFrm, virtualdbtreeex_laz,
-  luicontrols,
+  virtualtreeview_package, appexplore, AppExploreFrm,
+  virtualdbtreeexlaz, luicontrols,
 
   { you can add units after this }
 
-  SnippetSource.Forms.Main;
+  SnippetSource.Forms.Main, SnippetSource.Resources;
 
 {$R *.res}
 
@@ -26,6 +26,7 @@ begin
 {$ENDIF}
   Application.Title := 'SnippetSource';
   Application.Initialize;
+  Application.CreateForm(TdmResources, dmResources);
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

@@ -102,6 +102,7 @@ object dmSnippetSource: TdmSnippetSource
   object scrCreateDatabase: TSQLScript
     DataBase = conMain
     Transaction = trsMain
+    OnDirective = scrCreateDatabaseDirective
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (

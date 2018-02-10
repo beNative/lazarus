@@ -2586,10 +2586,6 @@ msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
 msgstr ""
 
-#: tfrmmain.actapplicationexplorer.caption
-msgid "Application explorer"
-msgstr ""
-
 #: tfrmmain.actexecute.caption
 msgctxt "tfrmmain.actexecute.caption"
 msgid "Execute"
@@ -2619,17 +2615,20 @@ msgctxt "TFRMMAIN.ACTTOGGLESTAYONTOP.CAPTION"
 msgid "Stay on top"
 msgstr ""
 
-#: tfrmmain.btnhighlightersb.hint
-msgctxt "TFRMMAIN.BTNHIGHLIGHTERSB.HINT"
-msgid "Highlighter"
-msgstr ""
-
 #: tfrmmain.btnlinebreakstyle.hint
 msgid "Line break style"
 msgstr ""
 
 #: tfrmmain.caption
 msgid "SnippetSource"
+msgstr ""
+
+#: tfrmmain.pnldatecreated.hint
+msgid "Creation date"
+msgstr ""
+
+#: tfrmmain.pnldatemodified.hint
+msgid "Last modification"
 msgstr ""
 
 #: tfrmmain.pnleditmode.caption
@@ -2640,13 +2639,9 @@ msgstr ""
 msgid "Edit mode"
 msgstr ""
 
-#: tfrmmain.pnlhighlighter.hint
-msgid "Current highlighter"
-msgstr ""
-
 #: tfrmmain.pnlid.hint
 msgctxt "TFRMMAIN.PNLID.HINT"
-msgid "Size"
+msgid "ID"
 msgstr ""
 
 #: tfrmmain.pnllinebreakstyle.hint

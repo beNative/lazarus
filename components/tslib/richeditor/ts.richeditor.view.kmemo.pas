@@ -49,7 +49,7 @@ type
   { TRichEditorViewKMemo }
 
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
-    pnlRichEditor: TPanel;
+    pnlRichEditor : TPanel;
   private
     FEditor        : TKMemo;
     FActions       : IRichEditorActions;
@@ -57,29 +57,20 @@ type
     FParaStyle     : TKMemoParaStyle;
     FUpdateLock    : Integer;
     FOnChange      : TNotifyEvent;
-
+    FOnDropFiles   : TDropFilesEvent;
     FParaStyleForm : TKMemoParaStyleForm;
     FTextStyleForm : TKMemoTextStyleForm;
     FContainerForm : TKMemoContainerForm;
     FHyperlinkForm : TKMemoHyperlinkForm;
     FNumberingForm : TKMemoNumberingForm;
     FImageForm     : TKMemoImageForm;
+    FFileName      : string;
 
     {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
-    procedure EditorOnClick(Sender: TObject);
+    procedure FEditorDropFiles(Sender: TObject; X, Y: integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetAlignCenter: Boolean;
-    function GetAlignJustify: Boolean;
-    function GetAlignLeft: Boolean;
-    function GetAlignRight: Boolean;
-    function GetCanRedo: Boolean;
-    function GetFont: TFont;
-    procedure SetAlignCenter(AValue: Boolean);
-    procedure SetAlignJustify(AValue: Boolean);
-    procedure SetAlignLeft(AValue: Boolean);
-    procedure SetAlignRight(AValue: Boolean);
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
@@ -87,25 +78,36 @@ type
   protected
     {$REGION 'property access mehods'}
     function GetActions: IRichEditorActions;
+    function GetAlignCenter: Boolean;
+    function GetAlignJustify: Boolean;
+    function GetAlignLeft: Boolean;
+    function GetAlignRight: Boolean;
     function GetCanPaste: Boolean;
+    function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetCaretX: Integer;
     function GetCaretXY: TPoint;
     function GetCaretY: Integer;
     function GetEditor: TComponent;
     function GetFileName: string;
+    function GetFont: TFont;
     function GetForm: TCustomForm;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
-    function GetOnEditingDone: TNotifyEvent;
-    function GetOnSelectionChange: TNotifyEvent;
+    //function GetOnEditingDone: TNotifyEvent;
+    //function GetOnSelectionChange: TNotifyEvent;
+    function GetPopupMenu: TPopupMenu; override;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
+    function GetText: string;
     function GetWordWrap: Boolean;
-    function GetPopupMenu: TPopupMenu; override;
+    procedure SetAlignCenter(AValue: Boolean);
+    procedure SetAlignJustify(AValue: Boolean);
+    procedure SetAlignLeft(AValue: Boolean);
+    procedure SetAlignRight(AValue: Boolean);
     procedure SetCaretX(const AValue: Integer);
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const AValue: Integer);
@@ -113,12 +115,13 @@ type
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
-    procedure SetOnEditingDone(const AValue: TNotifyEvent);
-    procedure SetOnSelectionChange(AValue: TNotifyEvent);
+    //procedure SetOnEditingDone(const AValue: TNotifyEvent);
+    //procedure SetOnSelectionChange(AValue: TNotifyEvent);
     procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
+    procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
     {$ENDREGION}
 
@@ -142,6 +145,8 @@ type
     procedure Paste;
     procedure Undo;
     procedure Redo;
+
+    procedure DoDropFiles(const FileNames: array of string);
 
   public
     procedure AfterConstruction; override;
@@ -214,6 +219,9 @@ type
     property Form: TCustomForm
       read GetForm;
 
+    property Text: string
+      read GetText write SetText;
+
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
 
@@ -223,11 +231,11 @@ type
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
 
-    property OnEditingDone: TNotifyEvent
-      read GetOnEditingDone write SetOnEditingDone;
+    //property OnEditingDone: TNotifyEvent
+    //  read GetOnEditingDone write SetOnEditingDone;
 
-    property OnSelectionChange: TNotifyEvent
-      read GetOnSelectionChange write SetOnSelectionChange;
+    //property OnSelectionChange: TNotifyEvent
+    //  read GetOnSelectionChange write SetOnSelectionChange;
   end;
 
 implementation
@@ -252,10 +260,8 @@ begin
   FEditor.ScrollBars     := ssBoth;
   FEditor.Align          := alClient;
   FEditor.DoubleBuffered := True;
-
-  FEditor.OnChange := EditorChange;
-  FEditor.OnClick := EditorOnClick;
-  InspectComponent(FEditor);
+  FEditor.OnDropFiles    := FEditorDropFiles;
+  FEditor.OnChange       := EditorChange;
 
   FTextStyle := TKMemoTextStyle.Create;
   FTextStyle.OnChanged := FTextStyleChanged;
@@ -332,12 +338,15 @@ end;
 
 function TRichEditorViewKMemo.GetFileName: string;
 begin
-  //
+  Result := FFileName;
 end;
 
 procedure TRichEditorViewKMemo.SetFileName(const AValue: string);
 begin
-//
+  if AValue <> FileName then
+  begin
+    FFileName := AValue;
+  end;
 end;
 
 function TRichEditorViewKMemo.GetFont: TFont;
@@ -372,27 +381,12 @@ end;
 
 function TRichEditorViewKMemo.GetOnDropFiles: TDropFilesEvent;
 begin
-  //
+  Result := FOnDropFiles;
 end;
 
-function TRichEditorViewKMemo.GetOnEditingDone: TNotifyEvent;
+procedure TRichEditorViewKMemo.SetOnDropFiles(const AValue: TDropFilesEvent);
 begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetOnEditingDone(const AValue: TNotifyEvent);
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetOnSelectionChange: TNotifyEvent;
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetOnSelectionChange(AValue: TNotifyEvent);
-begin
-
+  FOnDropFiles := AValue;
 end;
 
 function TRichEditorViewKMemo.GetSelAvail: Boolean;
@@ -425,6 +419,11 @@ begin
   Result := FEditor.SelText;
 end;
 
+procedure TRichEditorViewKMemo.SetSelText(const AValue: string);
+begin
+  // not supported yet
+end;
+
 function TRichEditorViewKMemo.GetWordWrap: Boolean;
 begin
   Result := FParaStyle.WordWrap;
@@ -444,16 +443,6 @@ procedure TRichEditorViewKMemo.SetPopupMenu(const AValue: TPopupMenu);
 begin
   FEditor.PopupMenu := AValue;
 end;
-
-procedure TRichEditorViewKMemo.SetOnDropFiles(const AValue: TDropFilesEvent);
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetSelText(const AValue: string);
-begin
-  //
-end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -467,9 +456,22 @@ begin
   end;
 end;
 
-procedure TRichEditorViewKMemo.EditorOnClick(Sender: TObject);
+procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: integer;
+  Files: TStrings);
+var
+  LFiles : array of string;
+  I      : Integer;
 begin
-
+  SetLength(LFiles, Files.Count);
+  try
+    for I := 0 to Files.Count - 1 do
+    begin
+      LFiles[I] := Files[I];
+    end;
+    DoDropFiles(LFiles);
+  finally
+    LFiles := nil;
+  end;
 end;
 
 procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
@@ -498,6 +500,16 @@ begin
     FEditor.SetRangeTextStyle(LStartIndex, LEndIndex, FTextStyle)
   else
     FEditor.NewTextStyle := FTextStyle;
+end;
+
+function TRichEditorViewKMemo.GetText: string;
+begin
+  Result := FEditor.Text;
+end;
+
+procedure TRichEditorViewKMemo.SetText(const AValue: string);
+begin
+  FEditor.Text := AValue;
 end;
 
 function TRichEditorViewKMemo.GetAlignCenter: Boolean;
@@ -551,13 +563,21 @@ begin
 end;
 {$ENDREGION}
 
+{$REGION 'event dispatch methods'}
+procedure TRichEditorViewKMemo.DoDropFiles(const FileNames: array of string);
+begin
+  if Assigned(FOnDropFiles) then
+    FOnDropFiles(Self, FileNames);
+end;
+  {$ENDREGION}
+
 {$REGION 'private methods'}
 function TRichEditorViewKMemo.SelectedBlock: TKMemoBlock;
 begin
   Result := FEditor.SelectedBlock;
   if Result = nil then
     Result := FEditor.ActiveInnerBlock;
-  end;
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}

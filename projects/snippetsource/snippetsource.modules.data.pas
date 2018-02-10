@@ -140,7 +140,7 @@ uses
 
   sqldb, sqlite3conn, db, BufDataset,
 
-  SnippetSource.Interfaces, ts.Core.SharedLogger;
+  SnippetSource.Interfaces, ts.Core.SharedLogger, sqlscript;
 
 type
 
@@ -170,6 +170,8 @@ type
     procedure qrySnippetBeforePost(DataSet: TDataSet);
     procedure qrySnippetBeforeScroll(DataSet: TDataSet);
     procedure qrySnippetNewRecord(DataSet: TDataSet);
+    procedure scrCreateDatabaseDirective(Sender: TObject; Directive,
+      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
@@ -506,6 +508,13 @@ begin
 
   end;
 end;
+
+procedure TdmSnippetSource.scrCreateDatabaseDirective(Sender: TObject;
+  Directive, Argument: AnsiString; var StopExecution: Boolean);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'property access mehods'}

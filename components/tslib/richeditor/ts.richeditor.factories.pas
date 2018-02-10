@@ -35,7 +35,6 @@ type
   public
     class function CreateManager(
       AOwner    : TComponent
-   //  ASettings : IRichEditorSettings = nil
      ): IRichEditorManager;
 
     class function CreateView(
@@ -48,14 +47,12 @@ type
     class function CreateMainMenu(
       AOwner   : TComponent;
       AActions : IRichEditorActions
-      //AMenus   : IRichEditorMenus
     ): TMainMenu;
 
     class function CreateMainToolbar(
       AOwner   : TComponent;
       AParent  : TWinControl;
       AActions : IRichEditorActions
-//      AMenus   : IRichEditorMenus
     ): TToolbar;
 
   end;

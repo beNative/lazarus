@@ -1,11 +1,10 @@
 object frmMain: TfrmMain
   Left = 672
-  Height = 598
+  Height = 597
   Top = 133
   Width = 999
-  ActiveControl = edtSearch
   Caption = 'SnippetSource'
-  ClientHeight = 598
+  ClientHeight = 597
   ClientWidth = 999
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
@@ -19,7 +18,7 @@ object frmMain: TfrmMain
   LCLVersion = '1.9.0.0'
   object pnlLeft: TPanel
     Left = 0
-    Height = 578
+    Height = 577
     Top = 0
     Width = 282
     Align = alLeft
@@ -28,24 +27,24 @@ object frmMain: TfrmMain
   end
   object pnlRight: TPanel
     Left = 290
-    Height = 578
+    Height = 577
     Top = 0
     Width = 709
     Align = alClient
     BevelOuter = bvNone
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 578
+    ClientHeight = 577
     ClientWidth = 709
     TabOrder = 1
     object pnlEditor: TPanel
       Left = 0
-      Height = 578
+      Height = 577
       Top = 0
       Width = 709
       Align = alClient
       BevelOuter = bvNone
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 578
+      ClientHeight = 577
       ClientWidth = 709
       TabOrder = 0
       object tlbEditorView: TToolBar
@@ -89,7 +88,7 @@ object frmMain: TfrmMain
       object pnlComments: TPanel
         Left = 0
         Height = 120
-        Top = 458
+        Top = 457
         Width = 709
         Align = alBottom
         BevelOuter = bvNone
@@ -101,7 +100,7 @@ object frmMain: TfrmMain
         Cursor = crVSplit
         Left = 0
         Height = 8
-        Top = 450
+        Top = 449
         Width = 709
         Align = alBottom
         AutoSnap = False
@@ -168,7 +167,7 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 282
-    Height = 578
+    Height = 577
     Top = 0
     Width = 8
     AutoSnap = False
@@ -178,7 +177,7 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 580
+    Top = 579
     Width = 999
     Align = alBottom
     BorderSpacing.Top = 2
@@ -187,7 +186,7 @@ object frmMain: TfrmMain
     ClientWidth = 999
     TabOrder = 3
     object pnlPosition: TPanel
-      Left = 68
+      Left = 376
       Height = 18
       Hint = 'Cursor position'
       Top = 0
@@ -201,7 +200,7 @@ object frmMain: TfrmMain
       TabOrder = 0
     end
     object pnlEditMode: TPanel
-      Left = 332
+      Left = 640
       Height = 18
       Hint = 'Edit mode'
       Top = 0
@@ -214,60 +213,33 @@ object frmMain: TfrmMain
       Caption = 'INS'
       TabOrder = 1
     end
-    object pnlHighlighter: TPanel
-      Left = 418
+    object pnlDateCreated: TPanel
+      Left = 68
       Height = 18
-      Hint = 'Current highlighter'
+      Hint = 'Creation date'
       Top = 0
-      Width = 64
+      Width = 134
       Align = alLeft
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      ClientHeight = 18
-      ClientWidth = 64
       ParentColor = False
       TabOrder = 2
-      object btnHighlighterSB: TSpeedButton
-        Left = 0
-        Height = 18
-        Hint = 'Highlighter'
-        Top = 0
-        Width = 64
-        Align = alClient
-        Flat = True
-        OnClick = btnHighlighterSBClick
-      end
     end
-    object pnlSearch: TPanel
-      Left = 484
+    object pnlDateModified: TPanel
+      Left = 204
       Height = 18
+      Hint = 'Last modification'
       Top = 0
       Width = 170
       Align = alLeft
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      ClientHeight = 18
-      ClientWidth = 170
       TabOrder = 3
-      Visible = False
-      object edtSearch: TEdit
-        Left = 0
-        Height = 18
-        Top = 0
-        Width = 170
-        Align = alClient
-        BorderStyle = bsNone
-        Color = clInfoBk
-        Font.Height = -13
-        Font.Name = 'Consolas'
-        ParentFont = False
-        TabOrder = 0
-      end
     end
     object pnlLineBreakStyle: TPanel
-      Left = 372
+      Left = 680
       Height = 18
       Hint = 'Current line break style'
       Top = 0
@@ -291,7 +263,7 @@ object frmMain: TfrmMain
       end
     end
     object pnlSize: TPanel
-      Left = 220
+      Left = 528
       Height = 18
       Hint = 'Size'
       Top = 0
@@ -318,9 +290,9 @@ object frmMain: TfrmMain
       TabOrder = 6
     end
     object pnlID: TPanel
-      Left = 276
+      Left = 584
       Height = 18
-      Hint = 'Size'
+      Hint = 'ID'
       Top = 0
       Width = 54
       Align = alLeft
@@ -332,10 +304,10 @@ object frmMain: TfrmMain
       TabOrder = 7
     end
     object pnlProgress: TPanel
-      Left = 656
+      Left = 726
       Height = 18
       Top = 0
-      Width = 320
+      Width = 250
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BevelOuter = bvNone
@@ -387,11 +359,6 @@ object frmMain: TfrmMain
       ImageIndex = 2
       OnExecute = actSettingsExecute
       ShortCut = 49235
-    end
-    object actApplicationExplorer: TAction
-      Caption = 'Application explorer'
-      OnExecute = actApplicationExplorerExecute
-      ShortCut = 24641
     end
   end
   object imlMain: TImageList

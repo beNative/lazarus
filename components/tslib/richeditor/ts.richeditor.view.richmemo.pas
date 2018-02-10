@@ -71,7 +71,6 @@ type
     FOnEditingDone     : TNotifyEvent;
     FOnChange          : TNotifyEvent;
     FOnSelectionChange : TNotifyEvent;
-    FTextAttributes    : TTextAttributes;
 
   protected
     {$REGION 'property access methods'}

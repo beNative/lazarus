@@ -211,6 +211,10 @@ type
       read GetGlyphList;
   end;
 
+  ISettings = interface
+  ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
+  end;
+
 implementation
 
 end.

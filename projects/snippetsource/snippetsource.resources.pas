@@ -23,26 +23,12 @@ unit SnippetSource.Resources;
 interface
 
 uses
-  Classes, SysUtils, Controls;
+  Classes, SysUtils;
 
-type
-
-  { TdmResources }
-
-  TdmResources = class(TDataModule)
-    imlMain: TImageList;
-  private
-
-  public
-
-  end;
-
-var
-  dmResources: TdmResources;
+const
+  SETTINGS_FILE = 'settings.json';
 
 implementation
-
-{$R *.lfm}
 
 end.
 

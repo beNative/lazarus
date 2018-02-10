@@ -14,9 +14,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 390
     Top = 0
     Width = 632
-    ActivePage = tsApplicationSettings
+    ActivePage = Highlighters
     Align = alClient
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     object tsApplicationSettings: TTabSheet
       Caption = 'Application settings'

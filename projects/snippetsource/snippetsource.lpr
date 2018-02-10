@@ -13,7 +13,7 @@ uses
 
   { you can add units after this }
 
-  SnippetSource.Forms.Main, SnippetSource.Resources;
+  SnippetSource.Forms.Main, ts.Editor.View;
 
 {$R *.res}
 
@@ -26,7 +26,6 @@ begin
 {$ENDIF}
   Application.Title := 'SnippetSource';
   Application.Initialize;
-  Application.CreateForm(TdmResources, dmResources);
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

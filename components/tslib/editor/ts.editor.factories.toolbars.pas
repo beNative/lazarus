@@ -38,7 +38,7 @@ type
   { TEditorToolbarsFactory }
 
   TEditorToolbarsFactory = class(TInterfacedObject, IEditorToolbarsFactory)
-  strict private
+  private
     FActions : IEditorActions;
     FMenus   : IEditorMenus;
 

@@ -35,52 +35,21 @@ type
   TRichEditorMenusFactory = class(TInterfacedObject, IRichEditorMenusFactory)
   private
     FActions : IRichEditorActions;
+
+  protected
+    function CreateMainMenu(
+      AOwner   : TComponent
+    ): TMainMenu;
+
   public
     constructor Create(
       AActions : IRichEditorActions
     ); reintroduce; virtual;
     procedure BeforeDestruction; override;
 
-    function CreateMainMenu(
-      AOwner   : TComponent
-    ): TMainMenu;
-
-//
-//  procedure AddActionMenuItem(AParent: TMenuItem; AAction: TBasicAction = nil);
-//
-//procedure AddEditorMenuItem(AParent: TMenuItem; const AActionName: string = '');
-
-
   end;
 
 implementation
-
-//procedure AddActionMenuItem(AParent: TMenuItem; AAction: TBasicAction);
-//var
-//  MI: TMenuItem;
-//begin
-//  if not Assigned(AAction) then
-//    AParent.AddSeparator
-//  else
-//  begin
-//    MI := TMenuItem.Create(AParent.Owner);
-//    MI.Action := AAction;
-//    if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
-//      MI.RadioItem := True;
-//    AParent.Add(MI);
-//  end;
-//end;
-//
-//procedure AddEditorMenuItem(AParent: TMenuItem; const AActionName: string);
-//begin
-//  if AActionName = '' then
-//    AddActionMenuItem(AParent, nil)
-//  else
-//    AddActionMenuItem(AParent, RichEditorActions[AActionName]);
-//end;
-//
-
-{ TRichEditorMenusFactory }
 
 {$REGION 'construction and destruction'}
 constructor TRichEditorMenusFactory.Create(AActions: IRichEditorActions);
@@ -94,7 +63,9 @@ begin
   FActions := nil;
   inherited BeforeDestruction;
 end;
+{$ENDREGION}
 
+{$REGION 'protected methods'}
 function TRichEditorMenusFactory.CreateMainMenu(AOwner: TComponent): TMainMenu;
 var
   MM : TMainMenu;
@@ -103,7 +74,6 @@ begin
   MM.Images := FActions.Actions.Images;
   Result := MM;
 end;
-
 {$ENDREGION}
 
 end.

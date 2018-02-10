@@ -126,9 +126,9 @@ begin
   TB.EdgeInner   := esNone;
   TB.EdgeOuter   := esNone;
   TB.Transparent := True;
-  TB.Parent := AParent;
-  TB.Images := FActions.Actions.Images;
-  TB.ButtonWidth:= 10;
+  TB.Parent      := AParent;
+  TB.Images      := FActions.Actions.Images;
+  TB.ButtonWidth := 10;
 
   CreateToolButton(TB, 'actSave');
   CreateToolButton(TB, 'actSaveAs');

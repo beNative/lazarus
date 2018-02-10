@@ -62,10 +62,6 @@ type
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
-    function GetOnEditingDone: TNotifyEvent;
-    function GetOnSelectionChange: TNotifyEvent;
-//    function GetOnEditingDone: TNotifyEvent;
-    //function GetOnStatusChange: TStatusChangeEvent;
     function GetPopupMenu: TPopupMenu;
     //function GetReplaceHistory: TStrings;
     //function GetSearchText: string;
@@ -82,7 +78,7 @@ type
     procedure SetCaretXY(const AValue: TPoint);
     procedure SetCaretY(const AValue: Integer);
     //function GetSettings: IEditorSettings;
-    //function GetText: string;
+    function GetText: string;
     //function GetTextSize: Integer;
     //function GetTopLine: Integer;
     //procedure SetBlockBegin(const AValue: TPoint);
@@ -94,17 +90,13 @@ type
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
-    procedure SetOnEditingDone(const AValue: TNotifyEvent);
-    procedure SetOnSelectionChange(AValue: TNotifyEvent);
-    //procedure SetOnEditingDone(const AValue: TNotifyEvent);
-    //procedure SetParent(const AValue: TWinControl);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
     //procedure SetSearchText(const AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
-    //procedure SetText(const AValue: string);
+    procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
 
     //function GetAlignment: TParaAlignment;
@@ -129,10 +121,9 @@ type
     procedure SaveToFile(const AFileName: string);
     procedure BeginUpdate;
     procedure EndUpdate;
-
+    function IsUpdating: Boolean;
     function InsertImage: Boolean;
     procedure InsertHyperlink;
-
     procedure Clear;
 
     // clipboard commands
@@ -165,8 +156,8 @@ type
     //property Lines: TStrings
     //  read GetLines write SetLines;
     //
-    //property Text: string
-    //  read GetText write SetText;
+    property Text: string
+      read GetText write SetText;
     //
     property SelText: string
       read GetSelText write SetSelText;
@@ -220,12 +211,6 @@ type
 
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
-
-    property OnEditingDone: TNotifyEvent
-      read GetOnEditingDone write SetOnEditingDone;
-
-    property OnSelectionChange: TNotifyEvent
-      read GetOnSelectionChange write SetOnSelectionChange;
 
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;

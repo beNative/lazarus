@@ -7,13 +7,13 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  SysUtils, Forms, pascalscript, lazcontrols, richmemopackage,
-  virtualtreeview_package, appexplore, AppExploreFrm,
+  SysUtils, Forms, pascalscript, lazcontrols,
+  virtualtreeview_package,
   virtualdbtreeexlaz, luicontrols,
 
   { you can add units after this }
 
-  SnippetSource.Forms.Main, ts.Editor.View;
+  SnippetSource.Forms.Main;
 
 {$R *.res}
 

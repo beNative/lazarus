@@ -23,7 +23,9 @@ unit ts.RichEditor.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, ComCtrls, Menus, ActnList, Graphics;
+  Classes, SysUtils, Forms, Controls, ComCtrls, Menus, ActnList, Graphics,
+
+  ts.RichEditor.Types;
 
  { All supported actions by the editor views, and holds a collection of all
     registered views. }
@@ -43,28 +45,17 @@ type
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
-    function GetCaretX: Integer;
-    function GetCaretXY: TPoint;
-    function GetCaretY: Integer;
-    //function GetBlockBegin: TPoint;
-    //function GetBlockEnd: TPoint;
     //function GetCurrentWord: string;
     function GetEditor: TComponent;
     function GetFileName: string;
     function GetFont: TFont;
-    //function GetFindHistory: TStrings;
-    //function GetFindReplaceDialog: TFindReplaceDialog;
     function GetForm: TCustomForm;
-    //function GetLines: TStrings;
     //function GetLinesInWindow: Integer;
     //function GetLineText: string;
-//    function GetLogicalCaretXY: TPoint;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetPopupMenu: TPopupMenu;
-    //function GetReplaceHistory: TStrings;
-    //function GetSearchText: string;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
@@ -74,31 +65,23 @@ type
     procedure SetAlignJustify(AValue: Boolean);
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
-    procedure SetCaretX(const AValue: Integer);
-    procedure SetCaretXY(const AValue: TPoint);
-    procedure SetCaretY(const AValue: Integer);
     //function GetSettings: IEditorSettings;
     function GetText: string;
     //function GetTextSize: Integer;
     //function GetTopLine: Integer;
-    //procedure SetBlockBegin(const AValue: TPoint);
-    //procedure SetBlockEnd(const AValue: TPoint);
     procedure SetFileName(const AValue: string);
-    //procedure SetLines(const AValue: TStrings);
     //procedure SetLineText(const AValue: string);
-    //procedure SetLogicalCaretXY(const AValue: TPoint);
+
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
-    //procedure SetSearchText(const AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-
     //function GetAlignment: TParaAlignment;
     //function GetBkColor: TColor;
     //function GetColor: TColor;
@@ -153,12 +136,9 @@ type
     property CanRedo: Boolean
       read GetCanRedo;
 
-    //property Lines: TStrings
-    //  read GetLines write SetLines;
-    //
     property Text: string
       read GetText write SetText;
-    //
+
     property SelText: string
       read GetSelText write SetSelText;
 
@@ -171,17 +151,6 @@ type
     //property CurrentWord: string
     //  read GetCurrentWord;
     //
-    { current X-coordinate of the caret. }
-    property CaretX: Integer
-      read GetCaretX write SetCaretX;
-
-    { current Y-coordinate of the caret. }
-    property CaretY: Integer
-      read GetCaretY write SetCaretY;
-
-    property CaretXY: TPoint
-      read GetCaretXY write SetCaretXY;
-
     property FileName: string
       read GetFileName write SetFileName;
 
@@ -221,39 +190,54 @@ type
 
  { Events dispatched by the editor view. }
 
+  { IRichEditorEvents }
+
   IRichEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']
-    // property access methods
+    {$REGION 'property access mehods'}
+    function GetOnAfterSave: TStorageEvent;
+    function GetOnBeforeSave: TStorageEvent;
     function GetOnChange: TNotifyEvent;
-    //function GetOnNewFile: TNewFileEvent;
-    //function GetOnOpenFile: TFileEvent;
-    //function GetOnSaveFile: TFileEvent;
-    procedure SetOnChange(const AValue: TNotifyEvent);
-    //procedure SetOnNewFile(const AValue: TNewFileEvent);
-    //procedure SetOnOpenFile(const AValue: TFileEvent);
-    //procedure SetOnSaveFile(const AValue: TFileEvent);
+    function GetOnLoad: TStorageEvent;
+    function GetOnNew: TNewEvent;
+    function GetOnOpen: TStorageEvent;
+    procedure SetOnAfterSave(AValue: TStorageEvent);
+    procedure SetOnBeforeSave(AValue: TStorageEvent);
+    procedure SetOnChange(AValue: TNotifyEvent);
+    procedure SetOnLoad(AValue: TStorageEvent);
+    procedure SetOnNew(AValue: TNewEvent);
+    procedure SetOnOpen(AValue: TStorageEvent);
+    {$ENDREGION}
 
     // event dispatch methods
     procedure DoChange;
-    //procedure DoModified;
-    //procedure DoSaveFile;
-    //procedure DoOpenFile;
-    //procedure DoNewFile(const AFileName: string = ''; const AText: string = '');
-    //function DoFindAndReplace: Integer;
+    procedure DoOpen(const AName: string);
+    procedure DoBeforeSave(const AName: string);
+    procedure DoAfterSave(const AName: string);
+    procedure DoLoad(const AName: string);
+    procedure DoNew(
+      const AName : string = '';
+      const AText : string = ''
+    );
 
-    // event handlers
     { triggered when caret position changes }
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
 
-    //property OnOpenFile: TFileEvent
-    //  read GetOnOpenFile write SetOnOpenFile;
-    //
-    //property OnNewFile: TNewFileEvent
-    //  read GetOnNewFile write SetOnNewFile;
-    //
-    //property OnSaveFile: TFileEvent
-    //  read GetOnSaveFile write SetOnSaveFile;
+    property OnLoad: TStorageEvent
+      read GetOnLoad write SetOnLoad;
+
+    property OnNew: TNewEvent
+      read GetOnNew write SetOnNew;
+
+    property OnOpen: TStorageEvent
+      read GetOnOpen write SetOnOpen;
+
+    property OnBeforeSave: TStorageEvent
+      read GetOnBeforeSave write SetOnBeforeSave;
+
+    property OnAfterSave: TStorageEvent
+      read GetOnAfterSave write SetOnAfterSave;
   end;
 
   IRichEditorActions = interface
@@ -284,8 +268,8 @@ type
     {$ENDREGION}
 
     function AddView(
-      const AName: string = '';
-      const AFileName: string = ''
+      const AName     : string = '';
+      const AFileName : string = ''
     ): IRichEditorView;
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
@@ -317,7 +301,7 @@ type
   IRichEditorMenusFactory = interface
   ['{13671A4F-9330-4A0A-B277-B052356DFE12}']
     function CreateMainMenu(
-      AOwner   : TComponent
+      AOwner : TComponent
     ): TMainMenu;
   end;
 

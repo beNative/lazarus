@@ -191,17 +191,17 @@ type
 
 implementation
 
-{ TActionExecuteEvents }
-
+{$REGION 'TActionExecuteEvents'}
 procedure TActionExecuteEvents.CallEvents(Sender: TObject;
   AAction: TBasicAction; var AHandled: Boolean);
 var
-  I: Integer;
+  I : Integer;
 begin
   I := Count;
   while NextDownIndex(I) do
     TActionExecuteEvent(Items[I])(Sender, AAction, AHandled);
 end;
+{$ENDREGION}
 
 {$REGION 'TCaretPositionEvents'}
 {$REGION 'public methods'}
@@ -374,7 +374,6 @@ procedure TEditorEvents.SetOnBeforeSave(AValue: TStorageEvent);
 begin
   FOnBeforeSave := AValue;
 end;
-
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
@@ -462,7 +461,7 @@ end;
 
 procedure TEditorEvents.DoBeforeSave(const AName: string);
 var
-  S: string;
+  S : string;
 begin
   if Assigned(FOnBeforeSave) then
   begin
@@ -475,7 +474,7 @@ end;
 
 procedure TEditorEvents.DoAfterSave(const AName: string);
 var
-  S: string;
+  S : string;
 begin
   if Assigned(FOnAfterSave) then
   begin

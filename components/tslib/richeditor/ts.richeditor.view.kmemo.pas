@@ -30,6 +30,8 @@ unit ts.RichEditor.View.KMemo;
    - paste formatted text (HTML?)
    - copy formatted text (WIKI, HTML?)
    - SetCaret__ methods don't work because readonly in RichMemo
+
+   - Undo/Redo is not yet supported by the KMemo component
 }
 
 interface
@@ -38,9 +40,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
   ExtCtrls, Menus,
 
-  KFunctions, KControls, KMemo,
-  KDialogs, KMemoDlgParaStyle, KMemoDlgTextStyle, KMemoDlgHyperlink,
-  KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
+  KFunctions, KControls, KMemo, KDialogs, KMemoDlgParaStyle, KMemoDlgTextStyle,
+  KMemoDlgHyperlink, KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
 
   ts.RichEditor.Interfaces;
 
@@ -68,7 +69,7 @@ type
 
     {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
-    procedure FEditorDropFiles(Sender: TObject; X, Y: integer; Files: TStrings);
+    procedure FEditorDropFiles(Sender: TObject; X, Y: Integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
     {$ENDREGION}
@@ -85,9 +86,6 @@ type
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
-    function GetCaretX: Integer;
-    function GetCaretXY: TPoint;
-    function GetCaretY: Integer;
     function GetEditor: TComponent;
     function GetFileName: string;
     function GetFont: TFont;
@@ -95,8 +93,6 @@ type
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
-    //function GetOnEditingDone: TNotifyEvent;
-    //function GetOnSelectionChange: TNotifyEvent;
     function GetPopupMenu: TPopupMenu; override;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
@@ -108,15 +104,10 @@ type
     procedure SetAlignJustify(AValue: Boolean);
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
-    procedure SetCaretX(const AValue: Integer);
-    procedure SetCaretXY(const AValue: TPoint);
-    procedure SetCaretY(const AValue: Integer);
     procedure SetFileName(const AValue: string);
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
-    //procedure SetOnEditingDone(const AValue: TNotifyEvent);
-    //procedure SetOnSelectionChange(AValue: TNotifyEvent);
     procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
@@ -146,7 +137,7 @@ type
     procedure Undo;
     procedure Redo;
 
-    procedure DoDropFiles(const FileNames: array of string);
+    procedure DoDropFiles(const AFileNames: array of string);
 
   public
     procedure AfterConstruction; override;
@@ -156,17 +147,6 @@ type
 
     property Actions: IRichEditorActions
       read GetActions;
-
-    { current X-coordinate of the caret. }
-    property CaretX: Integer
-      read GetCaretX write SetCaretX;
-
-    { current Y-coordinate of the caret. }
-    property CaretY: Integer
-      read GetCaretY write SetCaretY;
-
-    property CaretXY: TPoint
-      read GetCaretXY write SetCaretXY;
 
     property CanPaste: Boolean
       read GetCanPaste;
@@ -230,12 +210,6 @@ type
 
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
-
-    //property OnEditingDone: TNotifyEvent
-    //  read GetOnEditingDone write SetOnEditingDone;
-
-    //property OnSelectionChange: TNotifyEvent
-    //  read GetOnSelectionChange write SetOnSelectionChange;
   end;
 
 implementation
@@ -245,9 +219,7 @@ implementation
 uses
   StdCtrls,
 
-  keditcommon, kgraphics,
-
-  ts.Core.ComponentInspector;
+  keditcommon, kgraphics;
 
 {$REGION 'construction and destruction'}
 procedure TRichEditorViewKMemo.AfterConstruction;
@@ -299,36 +271,6 @@ function TRichEditorViewKMemo.GetCanUndo: Boolean;
 begin
 //  Result := FEditor.CommandEnabled(ecUndo);
   Result := False; // not supported yet
-end;
-
-function TRichEditorViewKMemo.GetCaretX: Integer;
-begin
-  //
-end;
-
-procedure TRichEditorViewKMemo.SetCaretX(const AValue: Integer);
-begin
-//
-end;
-
-function TRichEditorViewKMemo.GetCaretXY: TPoint;
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetCaretXY(const AValue: TPoint);
-begin
-
-end;
-
-function TRichEditorViewKMemo.GetCaretY: Integer;
-begin
-
-end;
-
-procedure TRichEditorViewKMemo.SetCaretY(const AValue: Integer);
-begin
-
 end;
 
 function TRichEditorViewKMemo.GetEditor: TComponent;
@@ -421,7 +363,8 @@ end;
 
 procedure TRichEditorViewKMemo.SetSelText(const AValue: string);
 begin
-  // not supported yet
+  FEditor.DeleteSelectedBlock;
+  FEditor.InsertString(FEditor.SelStart, AValue);
 end;
 
 function TRichEditorViewKMemo.GetWordWrap: Boolean;
@@ -564,12 +507,12 @@ end;
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
-procedure TRichEditorViewKMemo.DoDropFiles(const FileNames: array of string);
+procedure TRichEditorViewKMemo.DoDropFiles(const AFileNames: array of string);
 begin
   if Assigned(FOnDropFiles) then
-    FOnDropFiles(Self, FileNames);
+    FOnDropFiles(Self, AFileNames);
 end;
-  {$ENDREGION}
+{$ENDREGION}
 
 {$REGION 'private methods'}
 function TRichEditorViewKMemo.SelectedBlock: TKMemoBlock;

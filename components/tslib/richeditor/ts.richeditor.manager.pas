@@ -33,8 +33,10 @@ type
 
   { TdmRichEditorManager }
 
-  TdmRichEditorManager = class(TDataModule,
-    IRichEditorManager, IRichEditorActions
+  TdmRichEditorManager = class(TDataModule, IRichEditorManager,
+                                            IRichEditorActions,
+                                            IRichEditorEvents
+
   )
     {$REGION 'designer controls'}
     aclActions             : TActionList;
@@ -112,8 +114,11 @@ type
   private
     FViews      : TRichEditorViewList;
     FActiveView : IRichEditorView;
+    FEvents     : IRichEditorEvents;
+    function GetEvents: IRichEditorEvents;
 
   protected
+    {$REGION 'property access mehods'}
     function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
     function GetEditorPopupMenu: TPopupMenu;
@@ -122,6 +127,7 @@ type
     function GetViewByName(AName: string): IRichEditorView;
     function GetViewCount: Integer;
     procedure SetActiveView(const AValue: IRichEditorView);
+    {$ENDREGION}
 
     procedure UpdateActions;
 
@@ -135,6 +141,10 @@ type
     ): IRichEditorView;
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
+
+    { Delegates the implementation of IEditorEvents to an internal object. }
+    property Events: IRichEditorEvents
+      read GetEvents implements IRichEditorEvents;
 
     property Actions: TActionList
       read GetActions;
@@ -156,6 +166,7 @@ type
 
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
+
   end;
 
 implementation
@@ -165,19 +176,21 @@ implementation
 uses
   Graphics,
 
-  ts.RichEditor.View.KMemo;
+  ts.RichEditor.Events, ts.RichEditor.View.KMemo;
 
 {$REGION 'construction and destruction'}
 procedure TdmRichEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FViews := TRichEditorViewList.Create(False);
+  FViews  := TRichEditorViewList.Create(False);
+  FEvents := TRichEditorEvents.Create(Self);
   FActiveView := nil;
 end;
 
 procedure TdmRichEditorManager.BeforeDestruction;
 begin
   FActiveView := nil;
+  FEvents     := nil;
   FreeAndNil(FViews);
   inherited BeforeDestruction;
 end;
@@ -247,6 +260,11 @@ end;
 function TdmRichEditorManager.GetViewCount: Integer;
 begin
   Result := FViews.Count;
+end;
+
+function TdmRichEditorManager.GetEvents: IRichEditorEvents;
+begin
+  Result := FEvents;
 end;
 {$ENDREGION}
 
@@ -414,6 +432,8 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
+{ Gets called by the active view. }
+
 procedure TdmRichEditorManager.UpdateActions;
 begin
   if Assigned(ActiveView) then

@@ -3591,6 +3591,22 @@ msgstr ""
 msgid "XML parent is not assigned"
 msgstr ""
 
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
+msgstr ""
+
+#: ts.editor.search.data.sline
+msgid "Line: %d"
+msgstr ""
+
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
+msgstr ""
+
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
+msgstr ""
+
 #: tsettingsdialogbaseform.caption
 msgid "SettingsDialogBaseForm"
 msgstr ""

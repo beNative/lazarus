@@ -163,6 +163,8 @@ type
 
     procedure DisableControls;
     procedure EnableControls;
+    procedure BeginBulkInserts;
+    procedure EndBulkInserts;
 
     property Active: Boolean
       read GetActive write SetActive;
@@ -199,8 +201,6 @@ type
     function GetImageList: TImageList;
     {$ENDREGION}
 
-    procedure LoadGlyphs;
-
     property GlyphDataSet: TDataSet
       read GetGlyphDataSet;
 
@@ -211,8 +211,15 @@ type
       read GetGlyphList;
   end;
 
+  { ISettings }
+
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
+    function GetDataBase: string;
+    procedure SetDataBase(const AValue: string);
+
+    property DataBase: string
+      read GetDataBase write SetDataBase;
   end;
 
 implementation

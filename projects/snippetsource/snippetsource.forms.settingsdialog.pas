@@ -240,7 +240,7 @@ end;
 procedure TfrmSettingsDialog.actRefreshGlyphsExecute(Sender: TObject);
 begin
   GlyphDS.Refresh;
-  (FData as IGlyphs).LoadGlyphs;
+  //(FData as IGlyphs).LoadGlyphs;
   vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
 end;
 
@@ -293,8 +293,8 @@ end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);
 begin
-  (FData as IGlyphs).LoadGlyphs;
-  vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
+  //(FData as IGlyphs).LoadGlyphs;
+  //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphUpdateData(Sender: TObject);

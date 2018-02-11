@@ -1,12 +1,12 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 707
+  Left = 708
   Height = 425
-  Top = 292
-  Width = 212
+  Top = 293
+  Width = 246
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
   ClientHeight = 425
-  ClientWidth = 212
+  ClientWidth = 246
   KeyPreview = True
   ParentFont = True
   PopupMenu = ppmTreeView
@@ -16,12 +16,12 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     Left = 2
     Height = 425
     Top = 0
-    Width = 210
+    Width = 244
     Align = alClient
     BorderSpacing.Left = 2
     BevelOuter = bvNone
     ClientHeight = 425
-    ClientWidth = 210
+    ClientWidth = 244
     Constraints.MinWidth = 185
     PopupMenu = ppmTreeView
     TabOrder = 0
@@ -29,17 +29,17 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 24
       Top = 0
-      Width = 210
+      Width = 244
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 24
-      ClientWidth = 210
+      ClientWidth = 244
       TabOrder = 0
       object tlbTop: TToolBar
         Left = 0
         Height = 20
         Top = 0
-        Width = 210
+        Width = 244
         AutoSize = True
         ButtonHeight = 20
         ButtonWidth = 23
@@ -65,10 +65,10 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           Action = actNewItemNode
         end
         object navTreeView: TDBNavigator
-          Left = 130
+          Left = 184
           Height = 20
           Top = 0
-          Width = 80
+          Width = 60
           Align = alRight
           AutoSize = True
           BevelOuter = bvNone
@@ -79,14 +79,14 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 100
           ClientHeight = 20
-          ClientWidth = 80
+          ClientWidth = 60
           DataSource = dscMain
           Flat = True
           Options = []
           ParentShowHint = False
           ShowHint = True
           TabOrder = 0
-          VisibleButtons = [nbDelete, nbPost, nbCancel, nbRefresh]
+          VisibleButtons = [nbPost, nbCancel, nbRefresh]
           Images = imlMain
         end
         object btnCollapseAllNodes: TToolButton
@@ -112,7 +112,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 0
       Top = 425
-      Width = 210
+      Width = 244
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
@@ -122,7 +122,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 401
       Top = 24
-      Width = 210
+      Width = 244
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2

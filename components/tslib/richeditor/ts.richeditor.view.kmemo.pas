@@ -127,6 +127,7 @@ type
     function InsertImage: Boolean;
     procedure InsertHyperlink;
     function IsUpdating: Boolean;
+    function IsEmpty: Boolean;
 
     procedure Clear;
 
@@ -394,12 +395,10 @@ begin
   if Assigned(OnChange) and not IsUpdating then
   begin
     OnChange(Sender);
-    FEditor.ActiveBlock.SaveUpdateState;
-    FEditor.Modified := True;
   end;
 end;
 
-procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: integer;
+procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: Integer;
   Files: TStrings);
 var
   LFiles : array of string;
@@ -645,6 +644,11 @@ end;
 function TRichEditorViewKMemo.IsUpdating: Boolean;
 begin
   Result := FUpdateLock > 0;
+end;
+
+function TRichEditorViewKMemo.IsEmpty: Boolean;
+begin
+  Result := FEditor.Empty;
 end;
 
 procedure TRichEditorViewKMemo.Clear;

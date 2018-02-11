@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 230
-  HorizontalOffset = 965
-  VerticalOffset = 302
+  HorizontalOffset = 967
+  VerticalOffset = 304
   Width = 425
   object trsMain: TSQLTransaction
     Active = False
@@ -29,6 +29,7 @@ object dmSnippetSource: TdmSnippetSource
       '  Snippet'
       'order by'
       '  ParentId,'
+      '  NodeTypeId,'
       '  Id'
       ''
     )
@@ -102,8 +103,7 @@ object dmSnippetSource: TdmSnippetSource
   object scrCreateDatabase: TSQLScript
     DataBase = conMain
     Transaction = trsMain
-    OnDirective = scrCreateDatabaseDirective
-    AutoCommit = False
+    AutoCommit = True
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -120,110 +120,66 @@ object dmSnippetSource: TdmSnippetSource
     )
     Script.Strings = (
       '-- Table: CommentType'
-      'CREATE TABLE CommentType ('
-      '    ID         INTEGER PRIMARY KEY AUTOINCREMENT'
-      '                       UNIQUE,'
-      '    Name       TEXT,'
-      '    StartTag   TEXT,'
-      '    EndTag     TEXT,'
-      '    SingleLine BOOLEAN DEFAULT ( 0 )'
-      ');'
+      'DROP TABLE IF EXISTS CommentType;'
+      'CREATE TABLE CommentType (Id INTEGER PRIMARY KEY, Name STRING (20), StartTag STRING (80), EndTag STRING (80), SingleLine BOOLEAN DEFAULT (0) NOT NULL);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (1, ''C style'', ''/*'', ''*/'', 0);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (2, ''C++ style'', ''//'', NULL, 1);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (3, ''Markup style'', ''<!--'', ''-->'', 0);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (4, ''INI style'', '';'', NULL, 1);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (5, ''Batch style'', ''::'', NULL, 1);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (7, ''Pascal style'', ''{'', ''}'', 0);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (8, ''Shellscript style'', ''#'', NULL, 1);'
+      'INSERT INTO CommentType (Id, Name, StartTag, EndTag, SingleLine) VALUES (9, ''SQL style'', ''--'', NULL, 1);'
       ''
       '-- Table: Glyph'
-      'CREATE TABLE Glyph ('
-      '    ID         INTEGER PRIMARY KEY AUTOINCREMENT,'
-      '    Image      BLOB,'
-      '    Name       TEXT,'
-      '    ImageIndex INTEGER UNIQUE'
-      ');'
+      'DROP TABLE IF EXISTS Glyph;'
+      'CREATE TABLE Glyph (Id INTEGER PRIMARY KEY, Image BLOB, Name STRING (20), ImageIndex INTEGER UNIQUE);'
       ''
       '-- Table: Highlighter'
-      'CREATE TABLE Highlighter ('
-      '    ID                      INTEGER PRIMARY KEY AUTOINCREMENT,'
-      '    StreamCommentTypeID     INTEGER,'
-      '    SingleLineCommentTypeID INTEGER,'
-      '    Code                    TEXT    UNIQUE,'
-      '    Name                    TEXT,'
-      '    Description             TEXT,'
-      '    ImageIndex              INTEGER'
-      ');'
-      ''
-      '-- Table: Snippet'
-      'CREATE TABLE Snippet ('
-      '    ID            INTEGER         PRIMARY KEY AUTOINCREMENT,'
-      '    HighlighterID INTEGER,'
-      '    NodeTypeID    INTEGER,'
-      '    ParentID      INTEGER,'
-      '    ImageIndex    INTEGER,'
-      '    NodeName      VARCHAR( 255 ),'
-      '    NodePath      TEXT,'
-      '    Text          TEXT,'
-      '    FoldLevel     INTEGER,'
-      '    Comment       TEXT,'
-      '    CommentRTF    TEXT,'
-      '    FoldState     VARCHAR( 255 ),'
-      '    DateCreated   DATETIME,'
-      '    DateModified  DATETIME'
-      ');'
+      'DROP TABLE IF EXISTS Highlighter;'
+      'CREATE TABLE Highlighter (Id INTEGER PRIMARY KEY, StreamCommentTypeId INTEGER, SingleLineCommentTypeId INTEGER, Code STRING (10) UNIQUE, Name STRING (20), Description STRING (80), ImageIndex INTEGER);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (1, NULL, NULL, ''none'', ''None'', NULL, 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (2, NULL, NULL, ''TXT'', ''Text'', ''Text document'', 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (3, 7, 2, ''PAS'', ''Pascal'', ''Object Pascal source'', 16);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (4, 1, 9, ''SQL'', ''SQL'', ''SQL script'', 8);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (5, 3, NULL, ''XML'', ''XML'', ''XML document'', 4);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (6, NULL, NULL, ''LFM'', ''LFM'', ''Delphi/Lazarus form'', 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (7, NULL, 5, ''BAT'', ''Batch'', ''Windows batch script'', 2);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (8, NULL, 4, ''INI'', ''INI'', ''INI configuration file'', 11);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (9, 1, 2, ''CPP'', ''C++'', ''C++ source'', 5);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (10, 1, 2, ''JAVA'', ''Java'', ''Java source'', 7);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (11, NULL, NULL, ''PHP'', ''PHP'', ''PHP source'', 10);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (12, NULL, NULL, ''PL'', ''Perl'', ''Perl source'', 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (13, NULL, NULL, ''PY'', ''Python'', ''Python source'', 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (14, 3, NULL, ''HTML'', ''HTML'', ''HTML document'', 3);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (15, NULL, NULL, ''RTF'', ''RTF'', ''Richtext document'', 0);'
+      'INSERT INTO Highlighter (Id, StreamCommentTypeId, SingleLineCommentTypeId, Code, Name, Description, ImageIndex) VALUES (16, NULL, NULL, ''RES'', ''RES'', ''Windows resource script'', 11);'
       ''
       '-- Table: NodeType'
-      'CREATE TABLE NodeType ('
-      '    ID         INTEGER PRIMARY KEY AUTOINCREMENT'
-      '                       UNIQUE,'
-      '    Name       TEXT,'
-      '    ImageIndex INTEGER'
-      ');'
+      'DROP TABLE IF EXISTS NodeType;'
+      'CREATE TABLE NodeType (Id INTEGER PRIMARY KEY, Name STRING (20), ImageIndex INTEGER);'
+      'INSERT INTO NodeType (Id, Name, ImageIndex) VALUES (1, ''Folder'', 1);'
+      'INSERT INTO NodeType (Id, Name, ImageIndex) VALUES (2, ''Text'', 0);'
       ''
-      '-- Index: idx_SnippetParentID'
-      'CREATE INDEX idx_SnippetParentID ON Snippet ('
-      '    ParentID ASC'
-      ');'
-      ';'
-      ''
-      '-- Index: idx_SnippetNodeName'
-      'CREATE INDEX idx_SnippetNodeName ON Snippet ('
-      '    NodeName DESC'
-      ');'
-      ';'
-      ''
-      '-- Index: idx_SnippetNodePath'
-      'CREATE INDEX idx_SnippetNodePath ON Snippet ('
-      '    NodePath ASC'
-      ');'
-      ';'
+      '-- Table: Snippet'
+      'DROP TABLE IF EXISTS Snippet;'
+      'CREATE TABLE Snippet (Id INTEGER PRIMARY KEY, HighlighterId INTEGER NOT NULL DEFAULT (1), NodeTypeId INTEGER NOT NULL, ParentId INTEGER, ImageIndex INTEGER, NodeName STRING (255), NodePath STRING (1024), Text TEXT, FoldLevel INTEGER, Comment TEXT, CommentRtf TEXT, FoldState VARCHAR (255), DateCreated DATETIME, DateModified DATETIME);'
       ''
       '-- Index: idx_HighlighterCode'
-      'CREATE UNIQUE INDEX idx_HighlighterCode ON Highlighter ('
-      '    Code'
-      ');'
-      ';'
+      'DROP INDEX IF EXISTS idx_HighlighterCode;'
+      'CREATE UNIQUE INDEX idx_HighlighterCode ON Highlighter (Code);'
       ''
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (1, ''C style'', ''/*'', ''*/'', 0);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (2, ''C++ style'', ''//'', null, 1);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (3, ''Markup style'', ''<!--'', ''-->'', 0);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (4, ''INI style'', '';'', null, 1);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (5, ''Batch style'', ''::'', null, 1);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (7, ''Pascal style'', ''{'', ''}'', 0);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (8, ''Shellscript style'', ''#'', null, 1);'
-      'INSERT INTO [CommentType] ([ID], [Name], [StartTag], [EndTag], [SingleLine]) VALUES (9, ''SQL style'', ''--'', null, 1);'
+      '-- Index: idx_SnippetNodeName'
+      'DROP INDEX IF EXISTS idx_SnippetNodeName;'
+      'CREATE INDEX idx_SnippetNodeName ON Snippet (NodeName DESC);'
       ''
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (1, null, null, null, null, ''None'', null);'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (2, null, null, null, ''TXT'', ''Text'', ''Text document'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (3, 7, 2, null, ''PAS'', ''Pascal'', ''Object Pascal source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (4, 1, 9, null, ''SQL'', ''SQL'', ''SQL script'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (5, 3, null, null, ''XML'', ''XML'', ''XML document'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (6, null, null, null, ''DFM'', ''DFM'', ''Delphi form'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (7, null, 5, null, ''BAT'', ''Batch'', ''Windows batch script'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (8, null, 4, null, ''INI'', ''INI'', ''INI configuration file'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (9, 1, 2, null, ''CPP'', ''C++'', ''C++ source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (10, 1, 2, null, ''JAVA'', ''Java'', ''Java source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (11, null, null, null, ''PHP'', ''PHP'', ''PHP source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (12, null, null, null, ''PL'', ''Perl'', ''Perl source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (13, null, null, null, ''PY'', ''Python'', ''Python source'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (14, 3, null, null, ''HTML'', ''HTML'', ''HTML document'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (15, null, null, null, ''RTF'', ''RTF'', ''Richtext document'');'
-      'INSERT INTO [Highlighter] ([ID], [StreamCommentTypeID], [SingleLineCommentTypeID], [GlyphID], [Code], [Name], [Description]) VALUES (16, null, null, null, ''RES'', ''RES'', ''Windows resource script'');'
+      '-- Index: idx_SnippetNodePath'
+      'DROP INDEX IF EXISTS idx_SnippetNodePath;'
+      'CREATE INDEX idx_SnippetNodePath ON Snippet (NodePath ASC);'
       ''
+      '-- Index: idx_SnippetParentId'
+      'DROP INDEX IF EXISTS idx_SnippetParentId;'
+      'CREATE INDEX idx_SnippetParentId ON Snippet (ParentId ASC);'
     )
     Terminator = ';'
     CommentsinSQL = True
@@ -740,12 +696,11 @@ object dmSnippetSource: TdmSnippetSource
   object conMain: TSQLite3Connection
     Connected = False
     LoginPrompt = False
-    DatabaseName = 'D:\development\freepascal\GitHub\lazarus\projects\snippetsource\snippets.db'
     KeepConnection = False
     Transaction = trsMain
     OnLog = conMainLog
     LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
-    Left = 40
-    Top = 16
+    Left = 65376
+    Top = 240
   end
 end

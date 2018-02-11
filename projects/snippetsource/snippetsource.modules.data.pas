@@ -138,9 +138,13 @@ end;
 uses
   Classes, SysUtils, FileUtil, Controls,
 
-  sqldb, sqlite3conn, db, BufDataset,
+  sqldb, sqlite3conn, db, BufDataset, sqlscript,
 
-  SnippetSource.Interfaces, ts.Core.SharedLogger, sqlscript;
+  SnippetSource.Interfaces, ts.Core.SharedLogger;
+
+(*
+D:\development\freepascal\GitHub\lazarus\projects\snippetsource\snippets.db
+*)
 
 type
 
@@ -170,11 +174,12 @@ type
     procedure qrySnippetBeforePost(DataSet: TDataSet);
     procedure qrySnippetBeforeScroll(DataSet: TDataSet);
     procedure qrySnippetNewRecord(DataSet: TDataSet);
-    procedure scrCreateDatabaseDirective(Sender: TObject; Directive,
-      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
+    FSettings       : ISettings;
+    FBulkInsertMode : Boolean;
+
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
     function GetAutoApplyUpdates: Boolean;
@@ -226,8 +231,6 @@ type
     procedure InitField(AField : TField);
     procedure InitFields(ADataSet : TDataSet);
 
-    procedure LoadGlyphs;
-
     { IConnection }
     procedure CreateNewDatabase;
     procedure Execute(const ASQL: string);
@@ -235,6 +238,9 @@ type
     procedure Rollback;
     procedure StartTransaction;
     procedure EndTransaction;
+
+    procedure BeginBulkInserts;
+    procedure EndBulkInserts;
 
     function Post: Boolean;
     function Edit: Boolean;
@@ -253,6 +259,11 @@ type
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
+    constructor Create(
+      AOwner    : TComponent;
+      ASettings : ISettings
+    ); reintroduce; virtual;
 
     { IConnection }
     property AutoApplyUpdates: Boolean
@@ -394,9 +405,21 @@ end;
 {$ENDREGION}
 
 {$REGION 'construction and destruction'}
+constructor TdmSnippetSource.Create(AOwner: TComponent; ASettings: ISettings);
+begin
+  inherited Create(AOwner);
+  FSettings := ASettings;
+end;
+
 procedure TdmSnippetSource.AfterConstruction;
 begin
   inherited AfterConstruction;
+  conMain.DatabaseName := FSettings.DataBase;
+  conMain.Connected := True;
+  if not FileExists(FSettings.DataBase) then
+  begin
+    CreateNewDatabase;
+  end;
   qrySnippet.UsePrimaryKeyAsKey := True;
   qryHighlighter.Active := True;
   DataSet.Active := True;
@@ -408,6 +431,7 @@ begin
   Commit;
   DataSet.Active := False;
   conMain.Connected := False;
+  FSettings := nil;
   inherited BeforeDestruction;
 end;
 {$ENDREGION}
@@ -475,23 +499,10 @@ begin
 end;
 
 procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
-var
-  LId: Integer;
 begin
-  LId := DataSet.FieldByName('Id').AsInteger;
-  Logger.Send('Id', DataSet.FieldByName('Id').AsInteger);
-  if not DataSet.ControlsDisabled then
+  if not FBulkInsertMode then
   begin
-    DataSet.DisableControls;
-    try
-      qrySnippet.ApplyUpdates;
-      Commit;
-      qrySnippet.Refresh;
-      qrySnippet.Locate('Id', VarArrayOf([LId]), []);
-
-    finally
-      DataSet.EnableControls;
-    end;
+    Commit;
   end;
 end;
 
@@ -501,20 +512,12 @@ begin
   qrySnippet.FieldByName('Id').Value := 0;
   qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
   qrySnippet.FieldByName('HighlighterId').AsInteger := 1;
-  if  qrySnippet.FieldByName('NodeTypeId').AsInteger = 0 then
+  if qrySnippet.FieldByName('NodeTypeId').AsInteger = 0 then
   begin
     qrySnippet.FieldByName('NodeTypeId').AsInteger := 1;
-    qrySnippet.FieldByName('ImageIndex').AsInteger := 1;
-
+    qrySnippet.FieldByName('ImageIndex').AsInteger := 0;
   end;
 end;
-
-procedure TdmSnippetSource.scrCreateDatabaseDirective(Sender: TObject;
-  Directive, Argument: AnsiString; var StopExecution: Boolean);
-begin
-
-end;
-
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
@@ -592,7 +595,10 @@ end;
 
 function TdmSnippetSource.GetDateCreated: TDateTime;
 begin
-  Result := qrySnippet.FieldValues['DateCreated'];
+  if qrySnippet.FieldValues['DateCreated'] <> Null then
+    Result := qrySnippet.FieldValues['DateCreated']
+  else
+    Result := 0;
 end;
 
 procedure TdmSnippetSource.SetDateCreated(AValue: TDateTime);
@@ -602,7 +608,10 @@ end;
 
 function TdmSnippetSource.GetDateModified: TDateTime;
 begin
-  Result := qrySnippet.FieldValues['DateModified'];
+  if qrySnippet.FieldValues['DateModified'] <> Null then
+    Result := qrySnippet.FieldValues['DateModified']
+  else
+    Result := 0;
 end;
 
 procedure TdmSnippetSource.SetDateModified(AValue: TDateTime);
@@ -811,8 +820,8 @@ begin
   begin
     AField.Required :=  True;
     AField.ProviderFlags := [
-       pfInKey
-//       pfRefreshOnInsert // This field's value should be refreshed after insert.
+      pfInKey
+//      pfRefreshOnInsert // This field's value should be refreshed after insert.
     ];
   end
   // setup lookupfield
@@ -837,11 +846,6 @@ begin
     InitField(Field);
 end;
 
-procedure TdmSnippetSource.LoadGlyphs;
-begin
-  //
-end;
-
 procedure TdmSnippetSource.Execute(const ASQL: string);
 begin
   conMain.ExecuteDirect(ASQL);
@@ -854,6 +858,7 @@ end;
 
 procedure TdmSnippetSource.Commit;
 begin
+  DataSet.ApplyUpdates;
   DataSet.SQLTransaction.Commit;
 end;
 
@@ -870,6 +875,20 @@ end;
 procedure TdmSnippetSource.EndTransaction;
 begin
   DataSet.SQLTransaction.EndTransaction;
+end;
+
+procedure TdmSnippetSource.BeginBulkInserts;
+begin
+  FBulkInsertMode := True;
+end;
+
+procedure TdmSnippetSource.EndBulkInserts;
+begin
+  if FBulkInsertMode then
+  begin;
+    FBulkInsertMode := False;
+    Commit;
+  end;
 end;
 
 {$REGION 'IDataSet'}

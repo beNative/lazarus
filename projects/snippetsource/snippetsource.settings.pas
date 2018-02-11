@@ -37,13 +37,12 @@ type
   private
     FFileName       : string;
     FDataBase       : string;
-    FEditorSettings : TEditorSettings;
 
   protected
     function GetDataBase: string;
-    procedure SetDataBase(AValue: string);
+    procedure SetDataBase(const AValue: string);
     function GetFileName: string;
-    procedure SetFileName(AValue: string);
+    procedure SetFileName(const AValue: string);
 
     procedure Changed;
 
@@ -59,9 +58,6 @@ type
   published
     property DataBase: string
       read GetDataBase write SetDataBase;
-
-    property EditorSettings: TEditorSettings
-      read FEditorSettings write FEditorSettings;
   end;
 
 implementation
@@ -77,7 +73,7 @@ begin
   inherited AfterConstruction;
   Name := 'Settings';
   FFileName := SETTINGS_FILE;
-  FEditorSettings := TEditorSettings.Create(Self);
+  DataBase := 'snippets.db';
 end;
 {$ENDREGION}
 
@@ -87,7 +83,7 @@ begin
   Result := FFileName;
 end;
 
-procedure TSettings.SetFileName(AValue: string);
+procedure TSettings.SetFileName(const AValue: string);
 begin
   if AValue <> FileName then
   begin
@@ -101,7 +97,7 @@ begin
   Result := FDataBase;
 end;
 
-procedure TSettings.SetDataBase(AValue: string);
+procedure TSettings.SetDataBase(const AValue: string);
 begin
   if AValue <> DataBase then
   begin
@@ -151,8 +147,6 @@ var
 begin
   LStreamer := TJSONStreamer.Create(nil);
   try
-    //DataBase :=  'Test';
-    //S := LStreamer.ObjectToJSONString(Self);
     LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline];
     S := LStreamer.ObjectToJSON(Self).FormatJSON;
     SL := TStringList.Create;

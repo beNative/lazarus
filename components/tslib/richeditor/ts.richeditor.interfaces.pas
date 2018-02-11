@@ -105,6 +105,7 @@ type
     procedure BeginUpdate;
     procedure EndUpdate;
     function IsUpdating: Boolean;
+    function IsEmpty: Boolean;
     function InsertImage: Boolean;
     procedure InsertHyperlink;
     procedure Clear;

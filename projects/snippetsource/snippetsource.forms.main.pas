@@ -123,7 +123,6 @@ type
       const AText   : string
     );
     procedure RVChange(Sender: TObject);
-    procedure RVEditingDone(Sender: TObject);
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
       AFiles      : TStrings;
@@ -155,11 +154,19 @@ type
     procedure CreateEditor;
     procedure CreateRichEditor;
 
+    procedure SaveRichText;
+
     procedure AddPathNode(
       const APath       : string;
       const ACommonPath : string;
       ATree             : TBaseVirtualTree
     );
+    procedure AddDirectoryNode(
+      const APath       : string;
+      const ACommonPath : string;
+      ATree             : TBaseVirtualTree
+    );
+
     procedure ExportNode;
 
   protected
@@ -218,9 +225,10 @@ uses
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FData := TdmSnippetSource.Create(Self);
   FSettings := TSettings.Create(Self);
   FSettings.Load;
+
+  FData := TdmSnippetSource.Create(Self, FSettings);
 
   CreateEditor;
   CreateRichEditor;
@@ -234,7 +242,7 @@ begin
   InitActions;
 
   dscMain.DataSet := DataSet.DataSet;
-  ShowGridForm(DataSet.DataSet);
+//  ShowGridForm(DataSet.DataSet);
 
   TRichEditorFactories.CreateMainToolbar(
     Self,
@@ -356,7 +364,6 @@ end;
 
 procedure TfrmMain.EChange(Sender: TObject);
 begin
-  Logger.Info('EChange');
   DataSet.Edit;
   AssignEditorChanges;
 end;
@@ -460,7 +467,8 @@ end;
 {$REGION 'FileSearcher'}
 procedure TfrmMain.FileSearcherDirectoryFound(FileIterator: TFileIterator);
 begin
-  AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
+  //AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
+  AddDirectoryNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
 
 procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
@@ -477,24 +485,25 @@ var
   T     : Integer;
   LFile : string;
 begin
+  FCommonPath := GetCommonPath(AFiles);
+  T := Snippet.NodeTypeId;
+  if T = 1 then // FOLDER
+  begin
+    FParentId := Snippet.Id;
+  end
+  else
+  begin
+    FParentId := Snippet.ParentId;
+  end;
   DataSet.DisableControls;
+  DataSet.BeginBulkInserts;
   try
-    FCommonPath := GetCommonPath(AFiles);
-    T := Snippet.NodeTypeID;
-    if T = 1 then // FOLDER
-    begin
-      FParentId := Snippet.Id;
-    end
-    else
-    begin
-      FParentId := Snippet.ParentID;
-    end;
     for I := 0 to AFiles.Count - 1 do
     begin
       LFile := AFiles[I];
       if DirectoryExists(LFile) then // add files in directory
       begin
-        AddPathNode(LFile, FCommonPath, Sender);
+        AddDirectoryNode(LFile, FCommonPath, Sender);
         FFileSearcher.Search(LFile);
       end
       else
@@ -503,8 +512,10 @@ begin
       end;
     end;
   finally
-    Connection.Commit;
-    DataSet.Active := True;
+    DataSet.EndBulkInserts;
+    //Connection.Commit;
+    DataSet.DataSet.Refresh;
+    //DataSet.Active := True;
     DataSet.EnableControls;
     Sender.Refresh;
   end;
@@ -515,29 +526,11 @@ end;
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
   Logger.Warn('RVChange');
-  DataSet.Edit;
-  AssignEditorChanges;
-end;
-
-procedure TfrmMain.RVEditingDone(Sender: TObject);
-var
-  SS : TStringStream;
-  S   : string;
-begin
-  SS := TStringStream.Create('');
-  try
-    RichEditor.SaveToStream(SS);
-    S := EncodeStringBase64(SS.DataString);
-    if Assigned(DataSet) then
-      DataSet.Edit;
-    if Assigned(Snippet) then
-    begin
-      Snippet.CommentRTF := S;
-      Snippet.Comment := RichEditor.Text;
-    end;
-  finally
-    FreeAndNil(SS);
-  end;
+  //if not RichEditor.IsEmpty  then
+  //begin
+  //  DataSet.Edit;
+  //  AssignEditorChanges;
+  //end;
 end;
 {$ENDREGION}
 {$ENDREGION}
@@ -553,7 +546,7 @@ var
   LParentPath : string;
   LFileName   : string;
 begin
-  pnlProgress.Caption := Format('Loading file: %s', [APath]);
+  DataSet.BeginBulkInserts;
   LIsTextFile := False;
   LIsDir      := False;
   if DirectoryExists(APath) then
@@ -606,6 +599,37 @@ begin
       FParentId := Snippet.ParentId;
   end;
   pnlProgress.Caption := '';
+end;
+
+procedure TfrmMain.AddDirectoryNode(const APath: string;
+  const ACommonPath: string; ATree: TBaseVirtualTree);
+var
+  V           : Variant;
+  LRelPath    : string;
+  LParentPath : string;
+  LFileName   : string;
+begin
+  DataSet.EndBulkInserts;
+  LRelPath    := CreateRelativePath(APath, ACommonPath);
+  LParentPath := ChompPathDelim(GetParentDir(LRelPath));
+  if LParentPath <> '' then
+  begin
+    V := DataSet.DataSet.Lookup('NodePath', LParentPath, 'Id');
+    if V <> Null then
+      FParentId := V;
+  end;
+  LFileName := Trim(ExtractFileName(APath));
+  if LFileName <> '' then
+  begin
+    DataSet.Append;
+    Snippet.NodeName   := LFileName;
+    Snippet.NodeTypeId := 1;
+    Snippet.ImageIndex := 1;
+    Snippet.NodePath   := LRelPath;
+    Snippet.ParentID   := FParentId;
+    DataSet.Post;
+  end;
+  FParentId := Snippet.Id;
 end;
 
 procedure TfrmMain.ExportNode;
@@ -679,6 +703,32 @@ begin
   RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
 end;
 
+procedure TfrmMain.SaveRichText;
+var
+  SS : TStringStream;
+  S  : string;
+begin
+  SS := TStringStream.Create('');
+  try
+    if Assigned(DataSet) then
+      DataSet.Edit;
+    if not RichEditor.IsEmpty then
+    begin
+      RichEditor.SaveToStream(SS);
+      S := EncodeStringBase64(SS.DataString);
+      Snippet.CommentRTF := S;
+      Snippet.Comment    := RichEditor.Text;
+    end
+    else
+    begin
+      Snippet.CommentRTF := '';
+      Snippet.Comment    := '';
+    end;
+  finally
+    FreeAndNil(SS);
+  end;
+end;
+
 procedure TfrmMain.AssignEditorChanges;
 //var
 //  LId: Integer;
@@ -690,8 +740,7 @@ begin
   begin
     Snippet.Highlighter := Editor.HighlighterItem.Name;
   end;
-  RVEditingDone(Self);
-  Logger.Send('Id', Snippet.Id);
+  SaveRichText;
   //Snippet.Id := LId;
 end;
 
@@ -707,11 +756,12 @@ begin
   pnlID.Caption           := IntToStr(Snippet.ID);
   pnlSnippetcount.Caption := Format('%d records.', [DataSet.RecordCount]);
   pnlSize.Caption         := FormatByteText(Editor.TextSize);
-  pnlDateCreated.Caption  := DateTimeToStr(Snippet.DateCreated);
-  pnlDateModified.Caption := DateTimeToStr(Snippet.DateModified);
+  if DataSet.RecordCount > 0 then
+  begin
+    pnlDateCreated.Caption  := DateTimeToStr(Snippet.DateCreated);
+    pnlDateModified.Caption := DateTimeToStr(Snippet.DateModified);
+  end;
 
-  if Assigned(Editor.HighlighterItem) then
-    pnlDateCreated.Caption := Editor.HighlighterItem.Description;
   if Editor.Editor.InsertMode then
     pnlEditMode.Caption := 'INS'
   else
@@ -732,6 +782,7 @@ procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
   btnHighlighter.Caption := Editor.HighlighterName;
+  pnlEditor.Visible := DataSet.RecordCount > 0;
   UpdateStatusBar;
 end;
 

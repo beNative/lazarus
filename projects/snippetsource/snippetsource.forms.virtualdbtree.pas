@@ -118,7 +118,6 @@ type
     procedure actDeleteSelectedNodesExecute(Sender: TObject);
     procedure actExpandAllNodesExecute(Sender: TObject);
     procedure actCollapseAllNodesExecute(Sender: TObject);
-    procedure actSavePersistentExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -313,8 +312,6 @@ implementation
 uses
   SysUtils, ShellApi,
 
-  ts.Core.SharedLogger,
-
   SnippetSource.VirtualTree.Editors;
 
 resourcestring
@@ -343,8 +340,6 @@ end;
 
 procedure TfrmVirtualDBTree.BeforeDestruction;
 begin
-  //if DataSet.State in dsEditModes then
-//    DataSet.Post;
   dscMain.DataSet := nil;
   inherited BeforeDestruction;
 end;
@@ -567,11 +562,6 @@ procedure TfrmVirtualDBTree.actCollapseAllNodesExecute(Sender: TObject);
 begin
   FTreeView.CollapseAll;
 end;
-
-procedure TfrmVirtualDBTree.actSavePersistentExecute(Sender: TObject);
-begin
-  end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -833,7 +823,6 @@ begin
     Id := ParentField.AsInteger;
   if DataSet.IsEmpty then // no parent, so we create a rootnode
     Id := 0;
-  Logger.Send('NewFolderNode with ParentId', Id);
   PostTreeData(Id, 1, SNewFolder);
   DoNewFolderNode;
 end;

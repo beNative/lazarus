@@ -77,18 +77,15 @@ type
 implementation
 
 {$REGION 'construction and destruction'}
-
 procedure TFormSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
   FWidth  := 800;
   FHeight := 600;
 end;
-
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
-
 procedure TFormSettings.SetWindowState(AValue: TWindowState);
 begin
   if (AValue <> WindowState) and (AValue <> wsMinimized) then
@@ -132,21 +129,17 @@ begin
   FWidth := AValue;
   Changed;
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-
 procedure TFormSettings.Changed;
 begin
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
-
 {$ENDREGION}
 
 {$REGION 'public methods'}
-
 procedure TFormSettings.Assign(Source: TPersistent);
 var
   F : TForm;
@@ -182,7 +175,6 @@ begin
   else
     inherited;
 end;
-
 {$ENDREGION}
 
 end.

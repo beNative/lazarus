@@ -1,13 +1,14 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 230
-  HorizontalOffset = 967
-  VerticalOffset = 304
+  HorizontalOffset = 969
+  VerticalOffset = 306
   Width = 425
   object trsMain: TSQLTransaction
     Active = False
     Action = caNone
     Database = conMain
+    Options = [stoUseImplicit]
     Left = 40
     Top = 80
   end
@@ -34,7 +35,7 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     RefreshSQL.Strings = (
-      'select last_insert_rowid() as Id'
+      ''
     )
     Options = [sqoKeepOpenOnCommit]
     Params = <>

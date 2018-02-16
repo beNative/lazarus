@@ -82,7 +82,6 @@ type
   published
     imlBookmarkImages: TImageList;
 
-    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
@@ -705,11 +704,6 @@ begin
   Events.DoChange;
 end;
 
-procedure TEditorView.FormCreate(Sender: TObject);
-begin
-
-end;
-
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
@@ -880,7 +874,6 @@ end;
 procedure TEditorView.EditorClickLink(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  Logger.Send('EditorClickLink');
   Commands.OpenFileAtCursor;
 end;
 
@@ -1939,20 +1932,16 @@ end;
 
 procedure TEditorView.BeginUpdate;
 begin
-  //Logger.EnterMethod(Self, 'BeginUpdate');
   Editor.BeginUpdate;
   Editor.BeginUpdateBounds; // TODO investigate this
   Editor.BeginUndoBlock;
-  //Logger.ExitMethod(Self, 'BeginUpdate');
 end;
 
 procedure TEditorView.EndUpdate;
 begin
-  //Logger.EnterMethod(Self, 'EndUpdate');
   Editor.EndUndoBlock;
   Editor.EndUpdateBounds; // TODO investigate this
   Editor.EndUpdate;
-  //Logger.ExitMethod(Self, 'EndUpdate');
 end;
 
 procedure TEditorView.CopyToClipboard;

@@ -1,7 +1,7 @@
 object ComponentInspectorForm: TComponentInspectorForm
-  Left = 729
+  Left = 731
   Height = 749
-  Top = 201
+  Top = 202
   Width = 340
   BorderStyle = bsSizeToolWin
   ClientHeight = 749
@@ -14,7 +14,7 @@ object ComponentInspectorForm: TComponentInspectorForm
   OnResize = FormResize
   OnShow = FormShow
   ShowInTaskBar = stNever
-  LCLVersion = '1.1'
+  LCLVersion = '1.9.0.0'
   object pnlMain: TPanel
     Left = 3
     Height = 743

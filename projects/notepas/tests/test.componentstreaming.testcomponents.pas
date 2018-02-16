@@ -1,3 +1,21 @@
+{
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+
+  This library is free software; you can redistribute it and/or modify it
+  under the terms of the GNU Library General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
+  for more details.
+
+  You should have received a copy of the GNU Library General Public License
+  along with this library; if not, write to the Free Software Foundation,
+  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+}
+
 unit Test.ComponentStreaming.TestComponents;
 
 interface
@@ -7,8 +25,6 @@ uses
 
 type
   TParentComponent = class;
-
-  { TChildComponent }
 
   TChildComponent = class(TComponent)
   private
@@ -22,9 +38,13 @@ type
 
   public
     destructor Destroy; override;
+
     function GetParentComponent: TComponent; override;
+
     function HasParent: Boolean; override;
-    property Parent: TParentComponent read FParent write SetParent;
+
+    property Parent: TParentComponent
+      read FParent write SetParent;
 
   published
     property TestString: string
@@ -33,20 +53,23 @@ type
 
   TParentComponent = class(TComponent)
   private
-    FChildren: TObjectList;
+    FChildren : TObjectList;
+
   protected
     procedure GetChildren(Proc: TGetChildProc; Root: TComponent); override;
+
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
+
+  published
     property Children: TObjectList
-      read FChildren;
+      read FChildren write FChildren;
   end;
 
 implementation
 
-{ TChildComponent }
-
+{$REGION 'TChildComponent'}
 destructor TChildComponent.Destroy;
 begin
   Parent := nil;
@@ -56,12 +79,10 @@ end;
 function TChildComponent.GetParentComponent: TComponent;
 begin
   Result := FParent;
-  //Result := inherited GetParentComponent;
 end;
 
 function TChildComponent.HasParent: Boolean;
 begin
-  //Result := inherited HasParent;
   Result := Assigned(FParent);
 end;
 
@@ -82,9 +103,9 @@ begin
   if AParent is TParentComponent then
     SetParent(AParent as TParentComponent);
 end;
+{$ENDREGION}
 
-{ TParentComponent }
-
+{$REGION 'TParentComponent'}
 constructor TParentComponent.Create(AOwner: TComponent);
 begin
   inherited;
@@ -104,6 +125,7 @@ begin
   for i := 0 to FChildren.Count - 1 do
     Proc(TComponent(FChildren[i]));
 end;
+{$ENDREGION}
 
 initialization
   RegisterClasses([TChildComponent, TParentComponent]);

@@ -87,9 +87,6 @@ type
     property CodeFormatter: ICodeFormatter
       read FCodeFormatter write FCodeFormatter;
 
-    property SynHighlighter: TSynCustomHighlighter
-      read GetSynHighlighter;
-
     property Index: Integer
       read GetIndex;
 
@@ -100,6 +97,9 @@ type
   published
     property Highlighter: string
       read FHighlighter write FHighlighter;
+
+    property SynHighlighter: TSynCustomHighlighter
+      read GetSynHighlighter write FSynHighlighter;
 
     { Character sequence that designates the start of a block comment. }
     property BlockCommentStartTag: string
@@ -179,8 +179,8 @@ type
     function FindHighlighterForFileType(const AFileExt: string): THighlighterItem;
 
     procedure RegisterHighlighter(
-            ASynHighlighterClass  : TSynHighlighterClass;
-            ASynHighlighter       : TSynCustomHighlighter;  // To ASSIGN the settings!!!
+      ASynHighlighterClass        : TSynHighlighterClass;
+      ASynHighlighter             : TSynCustomHighlighter;  // To ASSIGN the settings!!!
       const AName                 : string;       // unique name
       const AFileExtensions       : string = '';  // comma separated list
       const ALineCommentTag       : string = '';
@@ -192,10 +192,6 @@ type
     ); virtual;
 
     // public properties
-    { Provides indexed access to the list of items. }
-    property Items[Index: Integer]: THighlighterItem
-      read GetItem write SetItem; default;
-
     property Count: Integer
       read GetCount;
 
@@ -204,6 +200,11 @@ type
 
     property FileFilter: string
       read GetFileFilter;
+
+  published
+    { Provides indexed access to the list of items. }
+    property Items[Index: Integer]: THighlighterItem
+      read GetItem write SetItem; default;
   end;
 
 implementation
@@ -248,7 +249,12 @@ end;
 {$REGION 'property access mehods'}
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
-  Result := Components[Index] as THighlighterItem;
+  if Index < ComponentCount then
+  begin
+    Result := Components[Index] as THighlighterItem;
+  end
+  else
+    Result := nil;
 end;
 
 procedure THighlighters.SetItem(Index: Integer; const Value: THighlighterItem);
@@ -466,7 +472,7 @@ var
   I : Integer;
   B : Boolean;
 begin
-  if (FSynHighlighter=nil) and (ComponentCount > 0) then
+  if (FSynHighlighter = nil) and (ComponentCount > 0) then
   begin
     I := 0;
     B := False;

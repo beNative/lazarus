@@ -179,23 +179,21 @@ type
   end;
 
 resourcestring
-  SAllMenu              = '*';
-  SUnknown              = 'Unknown';
-  SMenuCaption          = 'MenuCaption';
-  SAllUsers             = 'AssociateForAllUsers';
-  SAssocKey             = '\Associate';
-  SOtherAssocKey        = '\OtherAssociate';
-  SOpenCaption          = 'OpenWith';
-  SClassesKey           = 'Software\Classes\';
-
-  SShell                = 'Shell';
-  SOpen                 = 'Open';
-  SCommand              = 'Command';
-  SBackup               = 'Backup';
-  SDefIcon              = 'DefaultIcon';
-  SDefIconIndex         = '1';
-
-  SExtDescrFormat       = '%s file';
+  SAllMenu        = '*';
+  SUnknown        = 'Unknown';
+  SMenuCaption    = 'MenuCaption';
+  SAllUsers       = 'AssociateForAllUsers';
+  SAssocKey       = '\Associate';
+  SOtherAssocKey  = '\OtherAssociate';
+  SOpenCaption    = 'OpenWith';
+  SClassesKey     = 'Software\Classes\';
+  SShell          = 'Shell';
+  SOpen           = 'Open';
+  SCommand        = 'Command';
+  SBackup         = 'Backup';
+  SDefIcon        = 'DefaultIcon';
+  SDefIconIndex   = '1';
+  SExtDescrFormat = '%s file';
 
 type
   TRegKeyInfo = record
@@ -208,14 +206,14 @@ type
   end;
 
 const
-  HKCU                  = HKEY_CURRENT_USER;
-  HKLM                  = HKEY_LOCAL_MACHINE;
-  HKCR                  = HKEY_CLASSES_ROOT;
+  HKCU = HKEY_CURRENT_USER;
+  HKLM = HKEY_LOCAL_MACHINE;
+  HKCR = HKEY_CLASSES_ROOT;
 
 resourcestring
-  SHKCR                 = 'HKEY_CLASSES_ROOT';
-  SHKCU                 = 'HKEY_CURRENT_USER';
-  SHKLM                 = 'HKEY_LOCAL_MACHINE';
+  SHKCR = 'HKEY_CLASSES_ROOT';
+  SHKCU = 'HKEY_CURRENT_USER';
+  SHKLM = 'HKEY_LOCAL_MACHINE';
 
 // Registry
 function RegReadString(const ARoot: HKEY; const ASubKey, AName, ADefault: string): string;

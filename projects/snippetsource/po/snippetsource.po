@@ -1642,6 +1642,7 @@ msgid "LCL version:"
 msgstr ""
 
 #: tfrmabout.lblfileversion.caption
+msgctxt "tfrmabout.lblfileversion.caption"
 msgid "Version:"
 msgstr ""
 
@@ -3258,6 +3259,18 @@ msgstr ""
 msgid "Create new"
 msgstr ""
 
+#: tfrmsettingsdialog.actdatabaseintegritycheck.caption
+msgid "Integrity check"
+msgstr ""
+
+#: tfrmsettingsdialog.actdatabaseshrinkmemory.caption
+msgid "Shrink memory"
+msgstr ""
+
+#: tfrmsettingsdialog.actdatabasevacuum.caption
+msgid "Vacuum"
+msgstr ""
+
 #: tfrmsettingsdialog.actdeletedatabase.caption
 msgctxt "tfrmsettingsdialog.actdeletedatabase.caption"
 msgid "Delete"
@@ -3295,20 +3308,12 @@ msgctxt "tfrmsettingsdialog.caption"
 msgid "Settings"
 msgstr ""
 
-#: tfrmsettingsdialog.chkautomaticindex.caption
-msgid "Automatic index"
-msgstr ""
-
-#: tfrmsettingsdialog.chkautomaticindex.hint
-msgid ""
-"When no indices are available to aid the evaluation \n"
-"of a query, SQLite might create an automatic index \n"
-"that lasts only for the duration of a single SQL statement \n"
-"and use that index to help boost the query performance.\n"
-msgstr ""
-
 #: tfrmsettingsdialog.dlgopen.title
 msgid "Open glyph"
+msgstr ""
+
+#: tfrmsettingsdialog.grpdatabaseinfo.caption
+msgid "Database information"
 msgstr ""
 
 #: tfrmsettingsdialog.highlighters.caption

@@ -77,9 +77,9 @@ function GetFullName(AComponent: TComponent) : string;
 // string manipulation routines
 
 procedure StrToStrings(
-  const AString    : string;
-  AList      : TStrings;
-  ASeparator : Char
+  const AString : string;
+  AList         : TStrings;
+  ASeparator    : Char
 );
 
 function Like(
@@ -120,7 +120,7 @@ function XMLDecode(const ASource: string): string;
 
 function FormatElapsedTime(ASeconds: Extended): string;
 
-function FormatByteText(ABytes: Integer): string;
+function FormatByteText(ABytes: Int64): string;
 
 // windows utilities
 {$IFDEF WINDOWS}
@@ -153,12 +153,12 @@ procedure DisableControls(AControlContainer : TWinControl);
 
 function GetTextWidth(
   const AText : string;
-        AFont : TFont
+  AFont       : TFont
 ): Integer;
 
 function GetTextHeight(
   const AText : string;
-  AFont : TFont
+  AFont       : TFont
 ): Integer;
 
 procedure OptimizeWidth(APanel: TPanel);
@@ -166,26 +166,33 @@ procedure OptimizeWidth(APanel: TPanel);
 function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
 
  // Variants and TVarRec conversions
-function VariantToTypedVarRec(const Item: Variant; VarType: TVarType): TVarRec;
-procedure VariantToVarRec(    AVariant     : Variant;
-                          var AVarRecArray : TVarRecArray);
+function VariantToTypedVarRec(
+  const Item : Variant;
+  VarType    : TVarType
+): TVarRec;
+procedure VariantToVarRec(
+  AVariant         : Variant;
+  var AVarRecArray : TVarRecArray
+);
 function VariantToVarRec(const Item: Variant): TVarRec;
-procedure ClearVarRec(var AVarRecArray : TVarRecArray);
+procedure ClearVarRec(var AVarRecArray: TVarRecArray);
 procedure FinalizeVarRec(var Item: TVarRec);
-
-function VarRecToVariant(const AVarRec : TVarRec): Variant;
-function VarRecToString(const AVarRec : TVarRec): string;
-function VarRecToOleVariant(const AVarRec : TVarRec): OleVariant;
+function VarRecToVariant(const AVarRec: TVarRec): Variant;
+function VarRecToString(const AVarRec: TVarRec): string;
+function VarRecToOleVariant(const AVarRec: TVarRec): OleVariant;
 
 function VarArrayElemCount(const AVarArray: Variant): Integer;
 function VarIsValue(const V: Variant): Boolean;
-function VarAsTypeDef(const AValue    : Variant;
-                            AVarType  : TVarType;
-                      const ADefValue : Variant) : Variant;
+function VarAsTypeDef(
+  const AValue    : Variant;
+  AVarType        : TVarType;
+  const ADefValue : Variant
+) : Variant;
 
-
-procedure OleVarFromVariant(var   AOleVariant : OleVariant;
-                            const AVariant    : Variant);
+procedure OleVarFromVariant(
+  var AOleVariant : OleVariant;
+  const AVariant  : Variant
+);
 
 function GetVariantTypeName(const AVariant: Variant): string;
 
@@ -193,22 +200,33 @@ function VariantCompare(AVariant1, AVariant2 : Variant) : Boolean;
 
 function VariantTypeForFieldType(const AFieldType : TFieldType): Integer;
 function FieldTypeForVariant(const AVariant : Variant) : TFieldType;
-function ConvertValueToFieldType(const AVariant : Variant;
-                                 const AField   : TField): Variant;
-function ValueNeedsConversion(const AVarType   : Integer;
-                              const AFieldType : TFieldType): Boolean;
+function ConvertValueToFieldType(
+  const AVariant : Variant;
+  const AField   : TField
+): Variant;
+function ValueNeedsConversion(
+  const AVarType   : Integer;
+  const AFieldType : TFieldType
+): Boolean;
 
 function StringToVariant(AString : string): Variant;
 
-function MixColors(C1, C2: TColor; W1: Integer): TColor;
+function MixColors(
+  C1 : TColor;
+  C2 : TColor;
+  W1 : Integer
+): TColor;
 
-function StringReplaceMultiple(const Source: AnsiString;
-  const OldPatterns, NewPatterns: array of AnsiString;
-  CaseSensitive: Boolean = True): AnsiString;
+function StringReplaceMultiple(
+  const Source      : AnsiString;
+  const OldPatterns : array of AnsiString;
+  const NewPatterns : array of AnsiString;
+  CaseSensitive     : Boolean = True
+): AnsiString;
 
 // Interface utility routines
 
-function GetPIMTOffset(const I : IInterface): Integer;
+function GetPIMTOffset(const I: IInterface): Integer;
 
 // UI windows utils
 
@@ -230,16 +248,19 @@ function DrawHTML(
 ): Integer;
 {$ENDIF}
 
-function GetApplicationPath(): string;
+function GetApplicationPath: string;
 
-procedure SetCheckedState(ACheckBox : TCheckBox; ACheck : Boolean);
+procedure SetCheckedState(
+  ACheckBox : TCheckBox;
+  ACheck    : Boolean
+);
 
 function SetToString(
-        ATypeInfo    : PTypeInfo;
+  ATypeInfo    : PTypeInfo;
   const AValue;
-        AQuoteValues : Boolean = True;
-        ABrackets    : Boolean = True;
-        ATrimChars   : Integer = -1
+  AQuoteValues : Boolean = True;
+  ABrackets    : Boolean = True;
+  ATrimChars   : Integer = -1
 ): string;
 
 implementation
@@ -248,7 +269,6 @@ uses
 {$IFDEF WINDOWS}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
-
 
   Variants, ActnList;
 
@@ -1164,34 +1184,35 @@ end;
 
 { Author: Michael Haller }
 
-function FormatByteText(ABytes: Integer): string;
+function FormatByteText(ABytes: Int64): string;
 var
   D : Double;
 begin
   Result := 'n.a.';
-  try
-    D := ABytes / 1024;
-    if ABytes = 0 then
-      Result := '0 Byte'
+  if ABytes = 0 then
+    Result := '0 Byte'
+  else
+  begin
+    if ABytes < 1024 then
+    begin
+      Result := Format('%d Bytes', [D])
+    end
     else
-      if ABytes < 1048576 then
-        Result := FloatToStrF(D, ffNumber, 18, 1)+' KB'
-      else
-        if ABytes < 1073741824 then begin
-          D := D / 1024;
-          ABytes := Round(D);
-          if ABytes < 10 then
-            Result := FloatToStrF(D, ffNumber, 18, 1)+' MB'
-          else
-            Result := IntToStr(ABytes)+' MB';
-        end else begin
-          ABytes := Round(D / 1024 / 1024);
-          Result := IntToStr(ABytes)+' GB';
-        end;
-    if (Result[Length(Result)-3] = '0') and (Result[Length(Result)-4] = ',') then
-      Delete(Result, Length(Result)-4, 2);
-  except
-    // ignore exceptions
+    if ABytes < 1024 * 1024 then
+    begin
+      D := ABytes / 1024;
+      Result := Format('%4.2f KB', [D])
+    end
+    else if ABytes < 1024 * 1024 * 1024 then
+    begin
+      D := ABytes / 1024 / 1024;
+      Result := Format('%4.2f MB', [D]);
+    end
+    else
+    begin
+      D := ABytes / 1024 / 1024 / 1024;
+      Result := Format('%4.2f GB', [D]);;
+    end;
   end;
 end;
 
@@ -1644,7 +1665,7 @@ function URLDecode(const AString: string): string;
 const
   HexChar = '0123456789ABCDEF';
 var
-  I, J: integer;
+  I, J: Integer;
 begin
   SetLength(Result, Length(AString));
   I := 1;
@@ -1667,20 +1688,20 @@ end;
 
 function XMLEncode(const ASource: string): string;
 begin
-  Result := StringReplace(ASource, '&',  '&amp;',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '<',  '&lt;',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '>',  '&gt;',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '"',  '&quot;',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '''', '&apos;',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(ASource, '&',  '&amp;',[rfReplaceAll]);
+  Result := StringReplace(Result,  '<',  '&lt;',[rfReplaceAll]);
+  Result := StringReplace(Result,  '>',  '&gt;',[rfReplaceAll]);
+  Result := StringReplace(Result,  '"',  '&quot;',[rfReplaceAll]);
+  Result := StringReplace(Result,  '''', '&apos;',[rfReplaceAll]);
 end;
 
 function XMLDecode(const ASource: String): string;
 begin
-  Result := StringReplace(ASource, '&apos;', '''',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '&quot;', '"',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '&gt;',   '>',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '&lt;',   '<',[rfReplaceAll]); {do not localize}
-  Result := StringReplace(Result,  '&amp;',  '&',[rfReplaceAll]); {do not localize}
+  Result := StringReplace(ASource, '&apos;', '''',[rfReplaceAll]);
+  Result := StringReplace(Result,  '&quot;', '"',[rfReplaceAll]);
+  Result := StringReplace(Result,  '&gt;',   '>',[rfReplaceAll]);
+  Result := StringReplace(Result,  '&lt;',   '<',[rfReplaceAll]);
+  Result := StringReplace(Result,  '&amp;',  '&',[rfReplaceAll]);
 end;
 
 //  SetBit()      : Sets a single BIT in a string to true or false
@@ -1841,7 +1862,7 @@ begin
 
   MaxCharHeight := ACanvas.TextHeight('Ag');
 
-  While idx <= length(Text) do
+  while idx <= length(Text) do
   begin
     CurrChar := Text[idx];
 
@@ -1963,7 +1984,7 @@ begin
       begin
         x := ARect.Left;
 
-        inc(y, MaxCharHeight);
+        Inc(y, MaxCharHeight);
       end;
 
       if y + MaxCharHeight < ARect.Bottom then
@@ -2169,7 +2190,6 @@ var
   pathRef: CFURLRef;
   pathCFStr: CFStringRef;
   pathStr,BundleResourcesDirectory: shortstring;
-
 {$ENDIF}
 begin
   {$IFDEF Darwin}
@@ -2183,14 +2203,14 @@ begin
       'settings.xml')) then //use settings.xml to detect directory
        Result := pathStr + BundleResourcesDirectory
   {$ELSE}
-  if (FileExists(ExtractFilePath(Application.ExeName) +PathDelim +
+  if (FileExists(ExtractFilePath(Application.ExeName) + PathDelim +
     'settings.xml')) then //use settings.xml to detect directory
      Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))
   {$ENDIF}
   else
   begin
-     ForceDirectories(GetAppConfigDir(False));
-     Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False));
+    ForceDirectories(GetAppConfigDir(False));
+    Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False));
   end;
 end;
 

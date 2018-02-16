@@ -28,7 +28,7 @@ uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ActnList,
 
-  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn,
+  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn, Grids,
 
   VirtualTrees,
 
@@ -44,23 +44,30 @@ type
     actCreateNewDatabase : TAction;
     actDeleteDatabase    : TAction;
     actClose             : TAction;
+    actDatabaseIntegrityCheck: TAction;
+    actDatabaseVacuum: TAction;
+    actDataBaseShrinkMemory: TAction;
     actOpenDatabase      : TAction;
     actOpenGlyphs        : TAction;
     actRefreshGlyphs     : TAction;
+    btnCreateNewDatabase: TBitBtn;
+    btnDatabaseIntegrityCheck: TBitBtn;
     btnClose             : TBitBtn;
-    btnCreateNewDatabase : TButton;
-    btnDeleteDatabase    : TButton;
-    btnOpenDatabase      : TButton;
+    btnDatabaseShrinkMemory: TBitBtn;
+    btnDatabaseVacuum: TBitBtn;
+    btnDeleteDatabase: TBitBtn;
+    btnOpenDatabase: TBitBtn;
     btnOpenGlyphs        : TButton;
     btnRefresh           : TButton;
     cbxImageList         : TComboBox;
-    chkAutomaticIndex    : TCheckBox;
     dlgOpen              : TOpenDialog;
     dscGlyph             : TDatasource;
     dscHighlighter       : TDatasource;
     edtDatabaseFile      : TFileNameEdit;
     grdGlyph             : TDBGrid;
     grdHighlighters      : TDBGrid;
+    grdDBInfo: TStringGrid;
+    grpDatabaseInfo: TGroupBox;
     Highlighters         : TTabSheet;
     lblDataBaseFile      : TLabel;
     pnlBottom            : TPanel;
@@ -73,6 +80,9 @@ type
 
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateNewDatabaseExecute(Sender: TObject);
+    procedure actDatabaseIntegrityCheckExecute(Sender: TObject);
+    procedure actDataBaseShrinkMemoryExecute(Sender: TObject);
+    procedure actDatabaseVacuumExecute(Sender: TObject);
     procedure actDeleteDatabaseExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actOpenGlyphsExecute(Sender: TObject);
@@ -88,6 +98,7 @@ type
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileButtonClick(Sender: TObject);
+    procedure pgcMainChange(Sender: TObject);
 
     procedure vstImageListAfterCellPaint(
       Sender         : TBaseVirtualTree;
@@ -109,9 +120,11 @@ type
 
     function GetConnection: IConnection;
     function GetGlyphDS: TDataSet;
-    function GetSQLiteSettings: ISQLiteSettings;
+    function GetSQLite: ISQLite;
 
     procedure LoadImage(const AFileName, AFieldName: string);
+
+    procedure UpdateDataBaseInfo;
 
   public
     constructor Create(
@@ -124,14 +137,15 @@ type
 
     procedure UpdateActions; override;
 
+
     property Connection: IConnection
       read GetConnection;
 
     property GlyphDS: TDataSet
       read GetGlyphDS;
 
-    property SQLiteSettings: ISQLiteSettings
-      read GetSQLiteSettings;
+    property SQLite: ISQLite
+      read GetSQLite;
 
   end;
 
@@ -142,6 +156,8 @@ implementation
 {$R *.lfm}
 
 uses
+  ts.Core.Utils,
+
   SnippetSource.Resources;
 
 var
@@ -163,7 +179,6 @@ begin
 //  grdGlyph.Images := (FData as IGlyphs).GlyphList;
 //  grdGlyph.Header.Columns[3].MaxWidth := 50;
   //dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
-  //chkAutomaticIndex.Checked := SQLiteSettings.AutomaticIndex;
 end;
 
 procedure TfrmSettingsDialog.AfterConstruction;
@@ -198,9 +213,9 @@ begin
   Result := (FData as IGlyphs).GlyphDataSet;
 end;
 
-function TfrmSettingsDialog.GetSQLiteSettings: ISQLiteSettings;
+function TfrmSettingsDialog.GetSQLite: ISQLite;
 begin
-//  Result := FData as ISQLiteSettings;
+  Result := FData as ISQLite;
 end;
 {$ENDREGION}
 
@@ -250,9 +265,26 @@ begin
   Connection.CreateNewDatabase;
 end;
 
+procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
+begin
+  SQLite.IntegrityCheck;
+  UpdateDataBaseInfo;
+end;
+
+procedure TfrmSettingsDialog.actDataBaseShrinkMemoryExecute(Sender: TObject);
+begin
+  SQLite.ShrinkMemory;
+end;
+
+procedure TfrmSettingsDialog.actDatabaseVacuumExecute(Sender: TObject);
+begin
+  SQLite.Vacuum;
+  UpdateDataBaseInfo;
+end;
+
 procedure TfrmSettingsDialog.actCloseExecute(Sender: TObject);
 begin
-
+  Close;
 end;
 
 procedure TfrmSettingsDialog.actDeleteDatabaseExecute(Sender: TObject);
@@ -306,6 +338,11 @@ end;
 procedure TfrmSettingsDialog.edtDatabaseFileButtonClick(Sender: TObject);
 begin
 
+end;
+
+procedure TfrmSettingsDialog.pgcMainChange(Sender: TObject);
+begin
+  UpdateDataBaseInfo;
 end;
 
 //procedure TfrmSettingsDialog.grdGlyphAfterCellPaint(Sender: TBaseVirtualTree; TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex; const CellRect: TRect);
@@ -387,6 +424,13 @@ begin
     end;
   end;
 end;
+
+procedure TfrmSettingsDialog.UpdateDataBaseInfo;
+begin
+  grdDBInfo.Cells[1, 0] := SQLite.DBVersion;
+  grdDBInfo.Cells[1, 1] := FormatByteText(SQLite.Size);
+end;
+
 {$ENDREGION}
 
 {$REGION 'public methods'}
@@ -399,6 +443,7 @@ begin
   actOpenDatabase.Enabled := FileExists(S) and (Connection.FileName <> S);
   actCreateNewDatabase.Enabled := not FileExists(S);
   actDeleteDatabase.Enabled := FileExists(S);
+
 end;
 {$ENDREGION}
 

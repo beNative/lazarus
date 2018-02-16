@@ -159,6 +159,7 @@ begin
   Result := FVersionInfo;
 end;
 
+{$REGION 'construction and destruction'}
 procedure TVersionInfo.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -171,7 +172,9 @@ begin
   FFileVersionInfo.FileName := ParamStr(0);
   FFileVersionInfo.ReadFileInfo;
 end;
+{$ENDREGION}
 
+{$REGION 'property access mehods'}
 function TVersionInfo.GetFileVersion: string;
 begin
   Result := FFileVersionInfo.VersionStrings.Values['FileVersion'];
@@ -256,25 +259,29 @@ begin
       Result := QT_WIDGETSET;
     lpfpGUI:
       Result := FP_GUI_WIDGETSET;
-  else
-    Result := OTHER_GUI_WIDGETSET;
+    else
+      Result := OTHER_GUI_WIDGETSET;
+    end;
   end;
-end;
+{$ENDREGION}
 
+{$REGION 'public methods'}
 function TVersionInfo.AsString: string;
 const
   VERSION_INFO =
-    '%s %s' + #13#10 +
-    'Build date: %s' + #13#10 +
+    '%s %s'            + #13#10 +
+    'Build date: %s'   + #13#10 +
     'FPC version : %s' + #13#10 +
     'LCL version : %s' + #13#10 +
-    'Target CPU: %s' + #13#10 +
+    'Target CPU: %s'   + #13#10 +
     'Target OS: %s';
 begin
   Result := Format(VERSION_INFO,
     [ApplicationName, FileVersion, BuildDate, FPCVersion, LCLVersion, TargetCPU,
     TargetOS]);
 end;
+{$ENDREGION}
+
 
 end.
 

@@ -43,14 +43,14 @@ type
     property Count: Integer
       read GetCount;
 
-    property Items[AIndex: Integer]: TComponent
-      read GetItems;
-
     property ItemsByClass[AClass: TComponentClass]: TComponent
       read GetItemsByClass;
 
     property ItemsByName[const AName: string]: TComponent
       read GetItemsByName; default;
+
+    property Items[AIndex: Integer]: TComponent
+      read GetItems;
   end;
 
 implementation
@@ -88,7 +88,8 @@ end;
 
 function TEditorToolSettings.GetItems(AIndex: Integer): TComponent;
 begin
-  Result := Components[AIndex];
+  if AIndex < Count then
+    Result := Components[AIndex];
 end;
 
 function TEditorToolSettings.GetItemsByName(

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2016 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -23,7 +23,9 @@ unit Test.Editor.Settings;
 interface
 
 uses
-  Classes, SysUtils, fpcunit, testutils, testregistry,
+  Classes, SysUtils,
+
+  fpcunit, testutils, testregistry,
 
   ts.Editor.Interfaces;
 
@@ -65,7 +67,7 @@ uses
 
   ts.Editor.CodeShaper.Settings,
 
-  ts_Editor_Resources, ts.Editor.Factories, ts.Editor.Factories.Settings,
+  ts.Editor.Resources, ts.Editor.Factories, ts.Editor.Factories.Settings,
 
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
@@ -73,7 +75,6 @@ procedure TTestEditorSettings.TestLoadSettings;
 var
   C : TComponent;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSettings');
   Logger.SendComponent(FSettings.ToolSettings);
   for C in FSettings.ToolSettings do
     Logger.SendComponent(C);
@@ -89,16 +90,12 @@ begin
 
   for C in FSettings.Highlighters do
     Logger.SendComponent(C);
-
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSettings');
 end;
 
 procedure TTestEditorSettings.TestSaveSettings;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestSaveSettings');
   Logger.Send('Settings', FSettings);
   FSettings.Save;
-  Logger.ExitMethod('TTestEditorSettings.TestSaveSettings');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveSettings;
@@ -108,7 +105,6 @@ var
   BN : Boolean;
   SN : string;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveSettings');
   LoadSettings;
   SO := FSettings.HighlighterType;
   BO := FSettings.DebugMode;
@@ -139,7 +135,6 @@ begin
   FSettings.HighlighterType := SO;
   FSettings.DebugMode := BO;
   FSettings.Save;
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveSettings');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveColors;
@@ -147,14 +142,11 @@ var
   CO : TColor;
   CN : TColor;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveColors');
-
   LoadSettings;
   CO := FSettings.Colors.HighlightAllColor.FrameColor;
   CN := clMaroon;
   FSettings.Colors.HighlightAllColor.FrameColor := CN;
   FSettings.Save;
-
   LoadSettings;
   CheckEquals(FSettings.Colors.HighlightAllColor.FrameColor, CN);
 
@@ -164,7 +156,6 @@ begin
 
   LoadSettings;
   CheckEquals(FSettings.Colors.HighlightAllColor.FrameColor, CO);
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveColors');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveHighlighterAttributes;
@@ -173,7 +164,6 @@ var
   CN  : TColor;
   HLA : THighlighterAttributesItem;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighterAttributes');
   LoadSettings;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CO := HLA.Attributes.Foreground;
@@ -192,7 +182,6 @@ begin
   FSettings.Load;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CheckEquals(HLA.Attributes.Foreground, CO);
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveHighlighterAttributes');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveHighlighters;
@@ -201,7 +190,6 @@ var
   SO : string;
   SN : string;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveHighlighters');
   LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['PAS'];
 
@@ -228,7 +216,6 @@ begin
 
     FSettings.Save;
   end;
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveHighlighters');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveCommentTags;
@@ -240,7 +227,6 @@ var
   SO   : string;
   SN   : string;
 begin
-  Logger.EnterMethod('TTestEditorSettings.TestLoadSaveCommentTags');
   LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['XML'];
 
@@ -266,7 +252,6 @@ begin
 
     FSettings.Save;
   end;
-  Logger.ExitMethod('TTestEditorSettings.TestLoadSaveCommentTags');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveToolSettings;

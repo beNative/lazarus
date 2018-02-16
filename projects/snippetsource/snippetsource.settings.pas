@@ -104,7 +104,6 @@ begin
     FDataBase := AValue;
   end;
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}

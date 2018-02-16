@@ -57,20 +57,29 @@ type
       read GetFileName write SetFileName;
   end;
 
-  ISQLiteSettings = interface
+  { ISQLite }
+
+  ISQLite = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
+  function GetDBVersion: string;
     {$REGION 'property access mehods'}
-    function GetAutomaticIndex: Boolean;
-    function GetAutoVacuum: Boolean;
-    procedure SetAutomaticIndex(AValue: Boolean);
-    procedure SetAutoVacuum(AValue: Boolean);
+    function GetReadOnly: Boolean;
+    function GetSize: Int64;
+    procedure SetReadOnly(AValue: Boolean);
     {$ENDREGION}
 
-    property AutoVacuum: Boolean
-      read GetAutoVacuum write SetAutoVacuum;
+    function IntegrityCheck: Boolean;
+    procedure ShrinkMemory;
+    procedure Vacuum;
 
-    property AutomaticIndex: Boolean
-      read GetAutomaticIndex write SetAutomaticIndex;
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
+
+    property Size: Int64
+      read GetSize;
+
+    property DBVersion: string
+      read GetDBVersion;
   end;
 
   ISnippet = interface
@@ -160,6 +169,7 @@ type
     function Post: Boolean;
     function Append: Boolean;
     function Edit: Boolean;
+    function ApplyUpdates: Boolean;
 
     procedure DisableControls;
     procedure EnableControls;

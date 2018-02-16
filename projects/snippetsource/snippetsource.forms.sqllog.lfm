@@ -1,7 +1,7 @@
 object frmSQLLog: TfrmSQLLog
-  Left = 552
+  Left = 555
   Height = 675
-  Top = 197
+  Top = 199
   Width = 730
   Caption = 'frmSQLLog'
   ClientHeight = 675

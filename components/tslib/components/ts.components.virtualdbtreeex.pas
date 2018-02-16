@@ -1744,8 +1744,7 @@ var
 begin
   if not (dbtsDataChanging in FDBStatus) and Assigned(FocusedNode) and
     (SelectedCount > 0) and not (dboReadOnly in FDBOptions) and
-    FDataLink.Active
-    and Assigned(FKeyField) and not FDataLink.ReadOnly then
+    FDataLink.Active and Assigned(FKeyField) and not FDataLink.ReadOnly then
   begin
     Node := GetFirst;
     Focus := FocusedNode;
@@ -1754,13 +1753,15 @@ begin
     Temp := Focus;
     repeat
       Focus := GetNextSibling(Focus);
-    until not Assigned(Focus) or not Selected[Focus];
+    until
+      not Assigned(Focus) or not Selected[Focus];
     if not Assigned(Focus) then
     begin
       Focus := Temp;
       repeat
         Focus := GetPreviousSibling(Focus);
-      until not Assigned(Focus) or not Selected[Focus];
+      until
+        not Assigned(Focus) or not Selected[Focus];
       if not Assigned(Focus) then
         Focus := Temp.Parent;
       if Focus = RootNode then
@@ -1768,28 +1769,34 @@ begin
     end;
     FDBStatus := FDBStatus + [dbtsDataChanging];
     BeginUpdate;
-    FDataLink.DataSet.DisableControls;
-    while Assigned(Node) do
-    begin
-      if Selected[Node] then
-      begin
-        Temp := Node;
-        Last := GetNextSibling(Node);
-        repeat
-          Data := GetNodeData(Temp);
-          Data.Status := dbnsDelete;
-          Temp := GetNext(Temp);
-        until Temp = Last;
-        if not Assigned(Temp) and (Node.Parent <> RootNode) then
-          Temp := GetNextSibling(Node.Parent);
-        DeleteNode(Node);
-        Node := Temp;
-      end
-      else
-        Node := GetNextVisible(Node);
+    try
+      FDataLink.DataSet.DisableControls;
+      try
+        while Assigned(Node) do
+        begin
+          if Selected[Node] then
+          begin
+            Temp := Node;
+            Last := GetNextSibling(Node);
+            repeat
+              Data := GetNodeData(Temp);
+              Data.Status := dbnsDelete;
+              Temp := GetNext(Temp);
+            until Temp = Last;
+            if not Assigned(Temp) and (Node.Parent <> RootNode) then
+              Temp := GetNextSibling(Node.Parent);
+            DeleteNode(Node);
+            Node := Temp;
+          end
+          else
+            Node := GetNextVisible(Node);
+        end;
+      finally
+        FDataLink.DataSet.EnableControls;
+      end;
+    finally
+      EndUpdate;
     end;
-    FDataLink.DataSet.EnableControls;
-    EndUpdate;
     FDBStatus := FDBStatus - [dbtsDataChanging];
     if Assigned(Focus) and (Focus <> RootNode) then
       SetFocusToNode(Focus);

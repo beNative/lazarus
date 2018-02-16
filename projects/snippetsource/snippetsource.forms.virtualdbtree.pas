@@ -163,12 +163,13 @@ type
     {$ENDREGION}
 
   private
-    FTreeView          : TCheckVirtualDBTreeEx;
-    FOnDropFiles       : TDropFilesEvent;
-    FDataSet           : TDataSet;
-    FOnNewFolderNode   : TNewFolderNodeEvent;
-    FOnNewItemNode     : TNewItemNodeEvent;
-    FNodeTypeFieldName : string;
+    FTreeView              : TCheckVirtualDBTreeEx;
+    FOnDropFiles           : TDropFilesEvent;
+    FDataSet               : TDataSet;
+    FOnNewFolderNode       : TNotifyEvent;
+    FOnNewItemNode         : TNotifyEvent;
+    FOnDeleteSelectedNodes : TNotifyEvent;
+    FNodeTypeFieldName     : string;
 
     {$REGION 'property access methods'}
     function GetImageList: TCustomImageList;
@@ -224,6 +225,7 @@ type
       AFiles            : TStrings;
       const AAttachMode : TVTNodeAttachMode
     ); dynamic;
+    procedure DoDeleteSelectedNodes; dynamic;
 
   public
     procedure AfterConstruction; override;
@@ -232,6 +234,7 @@ type
     procedure NewItemNode;
     procedure NewSubItemNode;
     procedure NewRootFolderNode;
+    procedure DeleteSelectedNodes;
 
     // public properties
     property KeyField: TField
@@ -295,14 +298,17 @@ type
       read GetImageList write SetImageList;
 
     // events
-    property OnNewFolderNode: TNewFolderNodeEvent
+    property OnNewFolderNode: TNotifyEvent
       read FOnNewFolderNode write FOnNewFolderNode;
 
-    property OnNewItemNode: TNewItemNodeEvent
+    property OnNewItemNode: TNotifyEvent
       read FOnNewItemNode write FOnNewItemNode;
 
     property OnDropFiles: TDropFilesEvent
       read FOnDropFiles write FOnDropFiles;
+
+    property OnDeleteSelectedNodes : TNotifyEvent
+      read FOnDeleteSelectedNodes write FOnDeleteSelectedNodes;
   end;
 
 implementation
@@ -528,6 +534,12 @@ begin
   if Assigned(AFiles) and Assigned(FOnDropFiles) then
     FOnDropFiles(FTreeView, AFiles, AAttachMode);
 end;
+
+procedure TfrmVirtualDBTree.DoDeleteSelectedNodes;
+begin
+  if Assigned(FOnDeleteSelectedNodes) then
+    FOnDeleteSelectedNodes(Self);
+end;
 {$ENDREGION}
 
 {$REGION 'action handlers'}
@@ -550,7 +562,9 @@ procedure TfrmVirtualDBTree.actDeleteSelectedNodesExecute(
   Sender: TObject);
 begin
   if MessageDlg(SDeleteSelectedItems, mtWarning, [mbYes, mbNo], 0) in [mrYes] then
-    FTreeView.DeleteSelection;
+  begin
+    DeleteSelectedNodes;
+  end;
 end;
 
 procedure TfrmVirtualDBTree.actExpandAllNodesExecute(Sender: TObject);
@@ -680,8 +694,8 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-procedure TfrmVirtualDBTree.PostTreeData(AParentId, ANodeType: Integer;
-  const AName: string);
+procedure TfrmVirtualDBTree.PostTreeData(AParentId: Integer;
+  ANodeType: Integer; const AName: string);
 begin
   DataSet.Append;
   ParentField.AsInteger   := AParentId;
@@ -852,6 +866,12 @@ procedure TfrmVirtualDBTree.NewRootFolderNode;
 begin
   PostTreeData(0, 1, SNewFolder);
   DoNewFolderNode;
+end;
+
+procedure TfrmVirtualDBTree.DeleteSelectedNodes;
+begin
+  FTreeView.DeleteSelection;
+  DoDeleteSelectedNodes;
 end;
 {$ENDREGION}
 end.

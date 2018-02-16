@@ -1684,7 +1684,6 @@ end;
 
 procedure TdmEditorManager.actPlaybackMacroExecute(Sender: TObject);
 begin
-  Logger.Send(SynMacroRecorder.AsString);
   SynMacroRecorder.PlaybackMacro(ActiveView.Editor);
 end;
 
@@ -3207,7 +3206,7 @@ end;
 
 initialization
 {$IFDEF WINDOWS}
-  //Logger.Channels.Add(TIPCChannel.Create);
+  Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
 end.

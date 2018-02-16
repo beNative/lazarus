@@ -4,12 +4,12 @@
 
 unit tslib_core;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  ts_Core_ComponentInspector, ts.Core.Utils, ts.Core.FileAssociations, 
-  ts.Core.FormSettings, ts.Core.BRRE, ts.Core.BRREUnicode, 
-  ts.Core.CodecUtilsWin32, ts.Core.ColumnDefinitions, 
+  ts.Core.Utils, ts.Core.FileAssociations, ts.Core.FormSettings, ts.Core.BRRE, 
+  ts.Core.BRREUnicode, ts.Core.CodecUtilsWin32, ts.Core.ColumnDefinitions, 
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.DataTemplates, 
   ts.Core.DBUtils, ts.Core.DirectoryWatch, ts.Core.EncodingUtils, 
   ts.Core.Helpers, ts.Core.KeyValues, ts.Core.Logger.Channel.IPC, 

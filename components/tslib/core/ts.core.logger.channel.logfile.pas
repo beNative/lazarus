@@ -43,7 +43,7 @@ interface
 uses
   {$ifndef fpc}fpccompat,{$endif} Classes, SysUtils,
 
-  ts.Core.Logger;
+  ts.Core.Logger, ts.Core.Logger.Interfaces;
 
 type
 
@@ -67,7 +67,7 @@ type
     procedure WriteStrings(AStream: TStream);
     procedure WriteComponent(AStream: TStream);
   public
-    constructor Create (const AFileName: String; ChannelOptions: TFileChannelOptions = [fcoShowHeader, fcoShowTime]);
+    constructor Create(const AFileName: string; AChannelOptions: TFileChannelOptions = [fcoShowHeader, fcoShowTime]);
     procedure Clear; override;
     procedure Deliver(const AMsg: TLogMessage);override;
     procedure Init; override;
@@ -82,7 +82,7 @@ uses
   FileUtil;
 
 const
-  LogPrefixes: array [ltInfo..ltCounter] of String = (
+  LogPrefixes: array [lmtInfo..lmtCounter] of String = (
     'INFO',
     'ERROR',
     'WARNING',
@@ -106,7 +106,7 @@ const
 
 procedure TFileChannel.UpdateIdentation;
 var
-  S:String;
+  S : string;
 begin
   S:='';
   if FShowTime then
@@ -122,15 +122,15 @@ end;
 
 procedure TFileChannel.WriteStrings(AStream: TStream);
 var
-  i: Integer;
+  I : Integer;
 begin
   if AStream.Size = 0 then Exit;
   with TStringList.Create do
   try
-    AStream.Position:=0;
+    AStream.Position := 0;
     LoadFromStream(AStream);
-    for i:= 0 to Count - 1 do
-      WriteLn(FFileHandle,Space(FRelativeIdent+FBaseIdent)+Strings[i]);
+    for I := 0 to Count - 1 do
+      WriteLn(FFileHandle, Space( FRelativeIdent + FBaseIdent) + Strings[I]);
   finally
     Destroy;
   end;
@@ -148,13 +148,14 @@ begin
   TextStream.Destroy;
 end;
 
-constructor TFileChannel.Create(const AFileName: String; ChannelOptions: TFileChannelOptions);
+constructor TFileChannel.Create(const AFileName: string;
+  AChannelOptions: TFileChannelOptions);
 begin
-  FShowPrefix := fcoShowPrefix in ChannelOptions;
-  FShowTime := fcoShowTime in ChannelOptions;
-  FShowHeader := fcoShowHeader in ChannelOptions;
-  Active := True;
-  FFileName := AFileName;
+  FShowPrefix := fcoShowPrefix in AChannelOptions;
+  FShowTime   := fcoShowTime in AChannelOptions;
+  FShowHeader := fcoShowHeader in AChannelOptions;
+  Active      := True;
+  FFileName   := AFileName;
 end;
 
 procedure TFileChannel.Clear;
@@ -165,27 +166,27 @@ end;
 procedure TFileChannel.Deliver(const AMsg: TLogMessage);
 begin
   //Exit method identation must be set before
-  if (AMsg.MsgType = ltExitMethod) and (FRelativeIdent >= 2) then
+  if (AMsg.MsgType = Integer(lmtLeaveMethod)) and (FRelativeIdent >= 2) then
     Dec(FRelativeIdent, 2);
   Append(FFileHandle);
   try
     if FShowTime then
-      Write(FFileHandle, FormatDateTime('hh:nn:ss:zzz', AMsg.MsgTime) + ' ');
+      Write(FFileHandle, FormatDateTime('hh:nn:ss:zzz', AMsg.TimeStamp) + ' ');
     Write(FFileHandle, Space(FRelativeIdent));
     if FShowPrefix then
-      Write(FFileHandle, LogPrefixes[AMsg.MsgType] + ': ');
-    Writeln(FFileHandle, AMsg.MsgText);
+      Write(FFileHandle, LogPrefixes[TLogMessageType(AMsg.MsgType)] + ': ');
+    Writeln(FFileHandle, AMsg.Text);
     if AMsg.Data <> nil then
     begin
-      case AMsg.MsgType of
-        ltStrings, ltCallStack, ltHeapInfo, ltException: WriteStrings(AMsg.Data);
-        ltObject: WriteComponent(AMsg.Data);
+      case TLogMessageType(AMsg.MsgType) of
+        lmtStrings, lmtCallStack, lmtHeapInfo, lmtException: WriteStrings(AMsg.Data);
+        lmtObject: WriteComponent(AMsg.Data);
       end;
     end;
   finally
     Close(FFileHandle);
     //Update enter method identation
-    if AMsg.MsgType = ltEnterMethod then
+    if TLogMessageType(AMsg.MsgType) = lmtEnterMethod then
       Inc(FRelativeIdent, 2);
   end;
 end;

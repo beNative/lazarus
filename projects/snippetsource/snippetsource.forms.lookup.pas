@@ -26,7 +26,7 @@ uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, ActnList, DBGrids,
 
-  VirtualTrees,
+//  VirtualTrees,
 
   ts.Editor.Interfaces,
 
@@ -54,8 +54,6 @@ type
 
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 
-    procedure grdLookupClick(Sender: TObject);
-    procedure grdLookupFocusChanged(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex);
     procedure grdLookupKeyPress(Sender: TObject; var Key: char);
     procedure grdLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdLookupMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
@@ -108,8 +106,8 @@ end;
 constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
 begin
   inherited Create(AOwner);
-  FData   := ALookup;
-  FEditor := AEditor;
+  FData           := ALookup;
+  FEditor         := AEditor;
   dscMain.DataSet := ALookup.LookupDataSet;
 end;
 
@@ -127,11 +125,6 @@ begin
   Result := dscMain.DataSet;
 end;
 {$ENDREGION}
-
-procedure TfrmLookup.Changed;
-begin
-  FUpdate := True;
-end;
 
 {$REGION 'action handlers'}
 procedure TfrmLookup.actSearchExecute(Sender: TObject);
@@ -228,22 +221,6 @@ begin
     inherited;
 end;
 
-procedure TfrmLookup.grdLookupClick(Sender: TObject);
-begin
-
-end;
-
-procedure TfrmLookup.grdLookupFocusChanged(Sender: TBaseVirtualTree; Node: PVirtualNode; Column: TColumnIndex);
-begin
-  //Changed;
-  //if Visible then
-  //begin
-  //  (FData as IDataSet).DataSet.Locate('ID', DataSet.FieldByName('ID').AsInteger, []);
-  //  FEditor.SearchAndSelectText(edtLookup.Text);
-  //end;
-
-end;
-
 procedure TfrmLookup.grdLookupKeyPress(Sender: TObject; var Key: char);
 begin
   //if Ord(Key) = VK_ESCAPE then
@@ -275,6 +252,11 @@ end;
 {$ENDREGION}
 
 {$REGION 'public methods'}
+procedure TfrmLookup.Changed;
+begin
+  FUpdate := True;
+end;
+
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;

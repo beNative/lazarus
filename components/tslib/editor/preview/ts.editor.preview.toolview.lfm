@@ -1,7 +1,7 @@
 inherited frmPreview: TfrmPreview
-  Left = 775
+  Left = 776
   Height = 517
-  Top = 274
+  Top = 275
   Width = 673
   Caption = 'Preview'
   ClientHeight = 517
@@ -16,10 +16,11 @@ inherited frmPreview: TfrmPreview
     Color = clWhite
     HideSelection = False
     TabOrder = 0
+    ZoomFactor = 1
   end
   object ppmPreview: TPopupMenu[1]
-    left = 52
-    top = 116
+    Left = 52
+    Top = 116
     object mniSelectAll: TMenuItem
       Caption = 'Select &All'
       Bitmap.Data = {

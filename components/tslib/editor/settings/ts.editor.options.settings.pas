@@ -68,6 +68,7 @@ type
     FOverwriteBlock        : Boolean;
     FAutoHideCursor        : Boolean;
 
+    {$REGION 'property access mehods'}
     function GetAlwaysVisibleCaret: Boolean;
     function GetAutoHideCursor: Boolean;
     function GetAutoIndent: Boolean;
@@ -122,6 +123,7 @@ type
     procedure SetTabWidth(AValue: Integer);
     procedure SetTrimTrailingSpaces(AValue: Boolean);
     procedure SetWantTabs(AValue: Boolean);
+    {$ENDREGION}
 
   protected
     procedure Changed;
@@ -236,11 +238,11 @@ implementation
 procedure TEditorOptionsSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FBlockIndent     := DEFAULT_BLOCK_INDENT;
-  FBlockTabIndent  := DEFAULT_BLOCK_TAB_INDENT;
-  FTabWidth        := DEFAULT_TAB_WIDTH;
-  FWantTabs        := DEFAULT_WANT_TABS;
-  FRightEdge       := DEFAULT_RIGHT_EDGE;
+  FBlockIndent    := DEFAULT_BLOCK_INDENT;
+  FBlockTabIndent := DEFAULT_BLOCK_TAB_INDENT;
+  FTabWidth       := DEFAULT_TAB_WIDTH;
+  FWantTabs       := DEFAULT_WANT_TABS;
+  FRightEdge      := DEFAULT_RIGHT_EDGE;
 
   FBracketHighlight   := True;
   FEnhanceHomeKey     := True;

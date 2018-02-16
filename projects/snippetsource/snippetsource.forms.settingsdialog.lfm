@@ -1,11 +1,12 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 369
+  Left = 772
   Height = 427
-  Top = 343
-  Width = 632
+  Top = 351
+  Width = 635
+  ActiveControl = btnClose
   Caption = 'Settings'
   ClientHeight = 427
-  ClientWidth = 632
+  ClientWidth = 635
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '1.9.0.0'
@@ -13,23 +14,24 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 390
     Top = 0
-    Width = 632
-    ActivePage = Highlighters
+    Width = 635
+    ActivePage = tsDataBase
     Align = alClient
-    TabIndex = 3
+    TabIndex = 1
     TabOrder = 0
+    OnChange = pgcMainChange
     object tsApplicationSettings: TTabSheet
       Caption = 'Application settings'
     end
     object tsDataBase: TTabSheet
       Caption = 'Database'
       ClientHeight = 362
-      ClientWidth = 624
+      ClientWidth = 627
       object edtDatabaseFile: TFileNameEdit
         Left = 64
         Height = 23
         Top = 12
-        Width = 328
+        Width = 331
         DialogOptions = []
         FilterIndex = 0
         HideDirectories = False
@@ -49,48 +51,114 @@ object frmSettingsDialog: TfrmSettingsDialog
         FocusControl = edtDatabaseFile
         ParentColor = False
       end
-      object btnCreateNewDatabase: TButton
-        Left = 468
-        Height = 25
-        Top = 10
-        Width = 75
-        Action = actCreateNewDatabase
-        Anchors = [akTop, akRight]
+      object btnDatabaseIntegrityCheck: TBitBtn
+        Left = 320
+        Height = 26
+        Top = 112
+        Width = 147
+        Action = actDatabaseIntegrityCheck
         TabOrder = 1
       end
-      object btnOpenDatabase: TButton
-        Left = 392
+      object btnDatabaseVacuum: TBitBtn
+        Left = 320
+        Height = 26
+        Top = 48
+        Width = 147
+        Action = actDatabaseVacuum
+        TabOrder = 2
+      end
+      object grpDatabaseInfo: TGroupBox
+        Left = 8
+        Height = 313
+        Top = 40
+        Width = 300
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Caption = 'Database information'
+        ClientHeight = 293
+        ClientWidth = 296
+        TabOrder = 3
+        object grdDBInfo: TStringGrid
+          Left = 8
+          Height = 272
+          Top = 8
+          Width = 280
+          Anchors = [akTop, akLeft, akRight, akBottom]
+          BorderStyle = bsNone
+          CellHintPriority = chpAll
+          Color = clDefault
+          ColCount = 2
+          Enabled = False
+          FixedColor = clForm
+          FixedCols = 0
+          FixedRows = 0
+          Flat = True
+          Options = [goRangeSelect, goSmoothScroll]
+          TabOrder = 0
+          TitleStyle = tsNative
+          ColWidths = (
+            136
+            136
+          )
+          Cells = (
+            5
+            0
+            0
+            'Version:'
+            0
+            1
+            'Size:'
+            0
+            2
+            'Creation data:'
+            0
+            3
+            'Last updated:'
+            1
+            0
+            '3.3'
+          )
+        end
+      end
+      object btnOpenDatabase: TBitBtn
+        Left = 395
         Height = 25
         Top = 10
         Width = 75
         Action = actOpenDatabase
         Anchors = [akTop, akRight]
-        TabOrder = 2
+        TabOrder = 4
       end
-      object btnDeleteDatabase: TButton
-        Left = 544
+      object btnCreateNewDatabase: TBitBtn
+        Left = 471
+        Height = 25
+        Top = 10
+        Width = 75
+        Action = actCreateNewDatabase
+        Anchors = [akTop, akRight]
+        TabOrder = 5
+      end
+      object btnDeleteDatabase: TBitBtn
+        Left = 547
         Height = 25
         Top = 10
         Width = 75
         Action = actDeleteDatabase
         Anchors = [akTop, akRight]
-        TabOrder = 3
+        TabOrder = 6
       end
-      object chkAutomaticIndex: TCheckBox
-        Left = 64
-        Height = 19
-        Hint = 'When no indices are available to aid the evaluation '#13#10'of a query, SQLite might create an automatic index '#13#10'that lasts only for the duration of a single SQL statement '#13#10'and use that index to help boost the query performance.'
-        Top = 48
-        Width = 107
-        Caption = 'Automatic index'
-        OnClick = chkAutomaticIndexClick
-        TabOrder = 4
+      object btnDatabaseShrinkMemory: TBitBtn
+        Left = 320
+        Height = 26
+        Top = 80
+        Width = 147
+        Action = actDataBaseShrinkMemory
+        TabOrder = 7
       end
     end
     object tsImages: TTabSheet
       Caption = 'Images'
       ClientHeight = 362
-      ClientWidth = 624
+      ClientWidth = 627
       object btnOpenGlyphs: TButton
         Left = 1
         Height = 25
@@ -134,7 +202,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 112
         Height = 363
         Top = 3
-        Width = 514
+        Width = 517
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -146,7 +214,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     object Highlighters: TTabSheet
       Caption = 'Highlighters'
       ClientHeight = 362
-      ClientWidth = 624
+      ClientWidth = 627
       object cbxImageList: TComboBox
         Left = 8
         Height = 24
@@ -163,7 +231,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 88
         Height = 335
         Top = 8
-        Width = 522
+        Width = 525
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -176,16 +244,16 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 37
     Top = 390
-    Width = 632
+    Width = 635
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 37
-    ClientWidth = 632
+    ClientWidth = 635
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 471
+      Left = 474
       Height = 25
-      Top = 5
+      Top = 0
       Width = 150
       Action = actClose
       Anchors = [akTop, akRight]
@@ -197,19 +265,21 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
   end
   object aclMain: TActionList
-    Images = dmResources.imlMain
-    Left = 128
-    Top = 200
+    Left = 584
+    Top = 72
     object actCreateNewDatabase: TAction
+      Category = 'Database'
       Caption = 'Create new'
       OnExecute = actCreateNewDatabaseExecute
     end
     object actOpenDatabase: TAction
+      Category = 'Database'
       Caption = 'Open'
       Hint = 'Open database'
       OnExecute = actOpenDatabaseExecute
     end
     object actDeleteDatabase: TAction
+      Category = 'Database'
       Caption = 'Delete'
       Hint = 'Delete database'
       OnExecute = actDeleteDatabaseExecute
@@ -229,22 +299,37 @@ object frmSettingsDialog: TfrmSettingsDialog
       ImageIndex = 0
       OnExecute = actCloseExecute
     end
+    object actDatabaseIntegrityCheck: TAction
+      Category = 'Database'
+      Caption = 'Integrity check'
+      OnExecute = actDatabaseIntegrityCheckExecute
+    end
+    object actDatabaseVacuum: TAction
+      Category = 'Database'
+      Caption = 'Vacuum'
+      OnExecute = actDatabaseVacuumExecute
+    end
+    object actDataBaseShrinkMemory: TAction
+      Category = 'Database'
+      Caption = 'Shrink memory'
+      OnExecute = actDataBaseShrinkMemoryExecute
+    end
   end
   object dscGlyph: TDataSource
     OnStateChange = dscGlyphStateChange
     OnUpdateData = dscGlyphUpdateData
-    Left = 40
-    Top = 136
+    Left = 584
+    Top = 200
   end
   object dlgOpen: TOpenDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    Left = 128
+    Left = 584
     Top = 136
   end
   object dscHighlighter: TDataSource
-    Left = 40
-    Top = 200
+    Left = 584
+    Top = 272
   end
 end

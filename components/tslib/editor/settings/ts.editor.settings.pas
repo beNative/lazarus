@@ -59,7 +59,9 @@ unit ts.Editor.Settings;
 interface
 
 uses
-  Classes, SysUtils, Graphics, FileUtil,
+  Classes, SysUtils, Graphics, FileUtil, TypInfo,
+
+  fpjsonrtti, fpjson,
 
   LazMethodList,
 
@@ -86,8 +88,10 @@ const
   DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
+
+  { TEditorSettings }
+
   TEditorSettings = class(TComponent, IEditorSettings)
-    procedure FEditorOptionsChanged(Sender: TObject);
   private
     FAutoFormatXML            : Boolean;
     FChangedEventList         : TMethodList;
@@ -108,6 +112,14 @@ type
     FToolSettings             : TEditorToolSettings;
     FEditorOptions            : TEditorOptionsSettings;
 
+    //FDeStreamer : TJSONDeStreamer;
+    //FStreamer   : TJSONStreamer;
+
+    //procedure FDeStreamerBeforeReadObject(Sender: TObject; AObject: TObject;
+    //  JSON: TJSONObject);
+    //procedure FDeStreamerRestoreProperty(Sender: TObject; AObject: TObject;
+    //  Info: PPropInfo; AValue: TJSONData; Var Handled: Boolean);
+    procedure FEditorOptionsChanged(Sender: TObject);
     procedure FFormSettingsChanged(Sender: TObject);
     procedure FColorsChanged(Sender: TObject);
 
@@ -160,6 +172,9 @@ type
     procedure BeforeDestruction; override;
 
     procedure Apply; // to manually force a notification
+    procedure LoadXML; virtual;
+    procedure SaveXML; virtual;
+
     procedure Load; virtual;
     procedure Save; virtual;
 
@@ -172,21 +187,21 @@ type
     property XML: string
       read GetXML;
 
+  published
     property Highlighters: THighlighters
       read GetHighlighters write SetHighlighters;
 
     property ToolSettings: TEditorToolSettings
       read GetToolSettings write SetToolSettings;
 
-  published
+    property HighlighterAttributes: THighlighterAttributes
+      read GetHighlighterAttributes write SetHighlighterAttributes;
+
     property Colors: TEditorColorSettings
       read GetColors write SetColors;
 
     property EditorOptions: TEditorOptionsSettings
       read GetEditorOptions write SetEditorOptions;
-
-    property HighlighterAttributes: THighlighterAttributes
-      read GetHighlighterAttributes write SetHighlighterAttributes;
 
     { Default highlighter type to use. }
     property HighlighterType: string
@@ -238,6 +253,13 @@ uses
   ts.Editor.Resources;
 
 {$REGION 'construction and destruction'}
+
+//procedure OngetObject(Sender: TOBject; AObject: TObject; Info: PPropInfo;
+//  AData: TJSONObject; DataName: TJSONStringType; Var AValue: TObject);
+//begin
+//  Logger.Send(DataName);
+//end;
+
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -248,6 +270,16 @@ begin
   FColors.OnChanged := FColorsChanged;
   FEditorOptions := TEditorOptionsSettings.Create;
   FEditorOptions.OnChanged := FEditorOptionsChanged;
+
+  //FStreamer   := TJSONStreamer.Create(Self);
+  //FStreamer.Options :=  FStreamer.Options + [jsoComponentsInline, jsoStreamChildren];
+  //FDeStreamer := TJSONDeStreamer.Create(Self);
+  //FDeStreamer.Options := FDeStreamer.Options + [jdoIgnorePropertyErrors];
+  //FDeStreamer.BeforeReadObject := FDeStreamerBeforeReadObject;
+  //FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
+  //FDeStreamer.OngetObject :=OngetObject ;
+
+
 
   FToolSettings := TEditorToolSettings.Create(Self);
   FToolSettings.Name := 'ToolSettings';
@@ -287,7 +319,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
-
 procedure TEditorSettings.FColorsChanged(Sender: TObject);
 begin
   Changed;
@@ -297,6 +328,30 @@ procedure TEditorSettings.FEditorOptionsChanged(Sender: TObject);
 begin
   Changed;
 end;
+
+//procedure TEditorSettings.FDeStreamerRestoreProperty(Sender: TObject;
+//  AObject: TObject; Info: PPropInfo; AValue: TJSONData; Var Handled: Boolean);
+////var
+////  C : TComponent;
+////  I: Integer;
+////  A : TJSONArray;
+//begin
+//  Logger.Send('AValueType', Integer(AValue.JSONType));
+//  if Info.Name = 'Highlighters' then
+//  begin
+//    Handled := True;
+//  end
+//  else if Info.Name = 'ToolSettings' then
+//  begin
+//    Handled := True;
+//  end;
+//end;
+//
+//procedure TEditorSettings.FDeStreamerBeforeReadObject(Sender: TObject;
+//  AObject: TObject; JSON: TJSONObject);
+//begin
+//  Logger.Info(JSON.AsJSON);
+//end;
 
 procedure TEditorSettings.FFormSettingsChanged(Sender: TObject);
 begin
@@ -505,9 +560,9 @@ begin
   if AValue <> SingleInstance then
   begin
     FSingleInstance := AValue;
-    // we need to save here to make sure that any other instance runs with the
+    // we need to SaveXML here to make sure that any other instance runs with the
     // same configuration.
-    Save;
+    SaveXML;
     Changed;
   end;
 end;
@@ -569,7 +624,7 @@ end;
 {$ENDREGION}
 
 {$REGION 'public methods'}
-procedure TEditorSettings.Load;
+procedure TEditorSettings.LoadXML;
 var
   Reader : TXmlObjectReader;
   Doc    : TNativeXml;
@@ -596,7 +651,7 @@ begin
   InitializeHighlighterAttributes;
 end;
 
-procedure TEditorSettings.Save;
+procedure TEditorSettings.SaveXML;
 var
   Writer : TXmlObjectWriter;
   Doc    : TNativeXml;
@@ -617,6 +672,46 @@ begin
   finally
     FreeAndNil(Doc);
   end;
+end;
+
+procedure TEditorSettings.Load;
+//var
+//  S  : string;
+begin
+  LoadXML;
+  //if FileExists(FileName) then
+  //begin
+  //  Logger.Info(ReadFileToString(FileName));
+  //  FDeStreamer.JSONToObject(ReadFileToString(FileName), Self);
+  //end;
+end;
+
+procedure TEditorSettings.Save;
+//var
+//  S  : string;
+//  SL : TStringList;
+//  JO : TJSONObject;
+//  JA : TJSONArray;
+//  I  : Integer;
+begin
+  SaveXML;
+
+  //JO := FStreamer.ObjectToJSON(Self);
+  //
+  //JA := TJSONArray.Create;
+  //for I := 0 to Highlighters.Count -1 do
+  //begin
+  //  JA.Add(FStreamer.ObjectToJSON(Highlighters.Items[I]));
+  //end;
+  //JO.Add('Highlighters', JA);
+  //S := JO.FormatJSON;
+  //SL := TStringList.Create;
+  //try
+  //  SL.Text := S;
+  //  SL.SaveToFile(FileName);
+  //finally
+  //  SL.Free;
+  //end;
 end;
 
 procedure TEditorSettings.Apply;

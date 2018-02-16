@@ -62,14 +62,12 @@ begin
   FManager := TEditorFactories.CreateManager(Self, nil);
   V := TEditorFactories.CreateView(Self, FManager, 'Editor2');
   V.HighlighterName := 'SQL';
-//  DriverManager.AddLoggingListener(Self);
   V.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
 end;
 
 procedure TfrmSQLLog.BeforeDestruction;
 begin
   FManager := nil;
-  //DriverManager.RemoveLoggingListener(Self);
   inherited BeforeDestruction;
 end;
 {$ENDREGION}
@@ -84,14 +82,6 @@ procedure TfrmSQLLog.SetDataSet(AValue: TDataSet);
 begin
   dscMain.DataSet := AValue;
 end;
-{$ENDREGION}
-
-{$REGION 'public methods'}
-//procedure TfrmSQLLog.LogEvent(Event: TZLoggingEvent);
-//begin
-//  FManager.Views.ViewByName['Editor2'].Text :=
-//    FManager.Views.ViewByName['Editor2'].Text + Event.AsString + #13#10;
-//end;
 {$ENDREGION}
 
 end.

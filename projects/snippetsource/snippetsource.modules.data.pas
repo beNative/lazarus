@@ -60,6 +60,12 @@ interface
          prevents this behaviour and does not require the need to execute the
          query again to fetch all data after each change is posted.
 
+    Settings on trsMain (TSQLTransaction)
+       stoUseImplicit
+         This means that the database opens a transaction long enough to
+         complete your query and then then closes it automatically. By setting
+         this the connection also doesn't start automatically a new transaction.
+
     For bulk inserts the sqoAutoApplyUpdates and sqoAutoCommit have a great
     impact on performance. To avoid these operations for each insert this needs
     to be disabled and ApplyUpdates and Commit need to be called manually when
@@ -76,62 +82,6 @@ interface
      specified provider flags on the key field (pfRefreshOnInsert,
      pfRefreshOnUpdate) or whether sqoRefreshUsingSelect is specified in the
      query's options.
-
---------------------------------------------------------------------------------
-     interface
-    procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery);overload;
-    procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery; pKeyField: string);overload;
-
-implementation
-
-procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery; pKeyField: string);
-//This procedure refreshes a dataset and positions cursor to last record
-//To be used if Dataset is not guaranteed to be sorted by an autoincrement primary key
-var
-  vLastID: Integer;
-  vUpdateStatus : TUpdateStatus;
-begin
-  vUpdateStatus := pDataset.UpdateStatus;
-  //Get last inserted ID in the database
-  pDataset.ApplyUpdates;
-  vLastID:=(pDataSet.DataBase as TSQLite3Connection).GetInsertID;
-  //Now come back to respective row
-  if vUpdateStatus = usInserted then begin
-    pDataset.Refresh;
-    //Refresh and go back to respective row
-    pDataset.Locate(pKeyField,vLastID,[]);
-  end;
-end;
-
-procedure RefreshADatasetAfterInsert(pDataSet: TSQLQuery);
-//This procedure refreshes a dataset and positions cursor to last record
-//To be used only if DataSet is guaranteed to be sorted by an autoincrement primary key
-var
-  vLastID: Integer;
-  vUpdateStatus : TUpdateStatus;
-begin
-  vUpdateStatus := pDataset.UpdateStatus;
-  pDataset.ApplyUpdates;
-  vLastID:=(pDataSet.DataBase as TSQLite3Connection).GetInsertID;
-  if vUpdateStatus = usInserted then begin
-    pDataset.Refresh;
-    //Dangerous!
-    pDataSet.Last;
-  end;
-end;
-
-procedure TDataModule1.SQLQuery1AfterPost(DataSet: TDataSet);
-begin
-  RefreshADatasetAfterInsert(Dataset as TSQLQuery); //If your dataset is sorted by primary key
-end;
-
-procedure TDataModule1.SQLQuery2AfterPost(DataSet: TDataSet);
-begin
-  RefreshADatasetAfterInsert(Dataset as TSQLQuery, 'ID'); //if you are not sure that the dataset is always sorted by primary key
-end;
-
---------------------------------------------------------------------------------
-
 }
 {$ENDREGION}
 
@@ -150,7 +100,7 @@ type
 
   { TdmSnippetSource }
 
-  TdmSnippetSource = class(TDataModule,
+  TdmSnippetSource = class(TDataModule, ISQLite,
     IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
     conMain           : TSQLite3Connection;
@@ -189,6 +139,7 @@ type
     function GetDataSet: TSQLQuery;
     function GetDateCreated: TDateTime;
     function GetDateModified: TDateTime;
+    function GetDBVersion: string;
     function GetFileName: string;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
@@ -203,7 +154,9 @@ type
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
+    function GetReadOnly: Boolean;
     function GetRecordCount: Integer;
+    function GetSize: Int64;
     function GetText: string;
     procedure SetActive(AValue: Boolean);
     procedure SetAutoApplyUpdates(AValue: Boolean);
@@ -221,11 +174,17 @@ type
     procedure SetNodePath(AValue: string);
     procedure SetNodeTypeId(AValue: Integer);
     procedure SetParentId(AValue: Integer);
+    procedure SetReadOnly(AValue: Boolean);
     procedure SetText(AValue: string);
     {$ENDREGION}
 
   protected
     procedure SendWatchValues;
+
+    { ISQLite }
+    function IntegrityCheck: Boolean;
+    procedure ShrinkMemory;
+    procedure Vacuum;
 
     procedure CreateLookupFields;
     procedure InitField(AField : TField);
@@ -245,6 +204,7 @@ type
     function Post: Boolean;
     function Edit: Boolean;
     function Append: Boolean;
+    function ApplyUpdates: Boolean;
 
     procedure DisableControls;
     procedure EnableControls;
@@ -264,6 +224,16 @@ type
       AOwner    : TComponent;
       ASettings : ISettings
     ); reintroduce; virtual;
+
+    { ISQLite }
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
+
+    property Size: Int64
+      read GetSize;
+
+    property DBVersion: string
+      read GetDBVersion;
 
     { IConnection }
     property AutoApplyUpdates: Boolean
@@ -414,6 +384,7 @@ end;
 procedure TdmSnippetSource.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FSettings.DataBase := 'snippets.db';
   conMain.DatabaseName := FSettings.DataBase;
   conMain.Connected := True;
   if not FileExists(FSettings.DataBase) then
@@ -427,7 +398,7 @@ end;
 
 procedure TdmSnippetSource.BeforeDestruction;
 begin
-  qrySnippet.ApplyUpdates;
+  ApplyUpdates;
   Commit;
   DataSet.Active := False;
   conMain.Connected := False;
@@ -499,10 +470,21 @@ begin
 end;
 
 procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
+var
+  LUpdateStatus : TUpdateStatus;
+  LLastId       : Integer;
 begin
   if not FBulkInsertMode then
   begin
+    LUpdateStatus := DataSet.UpdateStatus;
+    ApplyUpdates;
     Commit;
+    if LUpdateStatus = usInserted then
+    begin
+      LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
+      DataSet.Refresh;
+      Dataset.Locate('Id' , LLastID,[]);
+    end;
   end;
 end;
 
@@ -571,6 +553,11 @@ end;
 function TdmSnippetSource.GetRecordCount: Integer;
 begin
   Result := qrySnippet.RecordCount;
+end;
+
+function TdmSnippetSource.GetSize: Int64;
+begin
+  Result := FileSize(FileName);
 end;
 
 function TdmSnippetSource.GetLookupDataSet: TDataSet;
@@ -761,6 +748,21 @@ procedure TdmSnippetSource.SetText(AValue: string);
 begin
   qrySnippet.FieldValues['Text'] := AValue;
 end;
+
+function TdmSnippetSource.GetReadOnly: Boolean;
+begin
+
+end;
+
+procedure TdmSnippetSource.SetReadOnly(AValue: Boolean);
+begin
+
+end;
+
+function TdmSnippetSource.GetDBVersion: string;
+begin
+  Result := QueryLookup(conMain, 'select sqlite_version();');
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -778,6 +780,23 @@ begin
   //S := System.Copy(S, 3, Length(S));
   //Logger.Watch('UpdateMode', S);
 end;
+
+{$REGION 'ISQLite'}
+function TdmSnippetSource.IntegrityCheck: Boolean;
+begin
+  Result := QueryLookup(conMain, 'pragma integrity_check;') = 'ok';
+end;
+
+procedure TdmSnippetSource.ShrinkMemory;
+begin
+  conMain.ExecuteDirect('pragma shrink_memory;');
+end;
+
+procedure TdmSnippetSource.Vacuum;
+begin
+  conMain.ExecuteDirect('vacuum;');
+end;
+{$ENDREGION}
 
 procedure TdmSnippetSource.CreateLookupFields;
 var
@@ -819,10 +838,7 @@ begin
   if SameText(AField.FieldName, 'Id') then
   begin
     AField.Required :=  True;
-    AField.ProviderFlags := [
-      pfInKey
-//      pfRefreshOnInsert // This field's value should be refreshed after insert.
-    ];
+    AField.ProviderFlags := [pfInKey];
   end
   // setup lookupfield
   else if SameText(AField.FieldName, 'HighLighter') then
@@ -858,7 +874,6 @@ end;
 
 procedure TdmSnippetSource.Commit;
 begin
-  DataSet.ApplyUpdates;
   DataSet.SQLTransaction.Commit;
 end;
 
@@ -887,6 +902,7 @@ begin
   if FBulkInsertMode then
   begin;
     FBulkInsertMode := False;
+    ApplyUpdates;
     Commit;
   end;
 end;
@@ -908,6 +924,17 @@ begin
   if DataSet.Active and not (DataSet.State in dsEditModes) then
   begin
     DataSet.Append;
+    Result := True;
+  end
+  else
+    Result := False;
+end;
+
+function TdmSnippetSource.ApplyUpdates: Boolean;
+begin
+  if DataSet.ChangeCount > 0 then
+  begin
+    DataSet.ApplyUpdates;
     Result := True;
   end
   else

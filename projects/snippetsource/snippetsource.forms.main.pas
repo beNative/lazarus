@@ -144,6 +144,7 @@ type
     FRichEditorManager : IRichEditorManager;
     FSettings          : TSettings;
 
+    procedure FTreeDeleteSelectedNodes(Sender: TObject);
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
@@ -242,15 +243,13 @@ begin
   InitActions;
 
   dscMain.DataSet := DataSet.DataSet;
-//  ShowGridForm(DataSet.DataSet);
+  ShowGridForm(DataSet.DataSet);
 
   TRichEditorFactories.CreateMainToolbar(
     Self,
     pnlComments,
     FRichEditorManager as IRichEditorActions
   );
-  btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
-
   FVersionInfo := TVersionInfo.Create(Self);
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.FileVersion]);
 end;
@@ -360,6 +359,11 @@ procedure TfrmMain.FTreeNewItemNode(Sender: TObject);
 begin
   DataSet.Edit;
   Snippet.ImageIndex := 2;
+end;
+
+procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
+begin
+  DataSet.ApplyUpdates;
 end;
 
 procedure TfrmMain.EChange(Sender: TObject);
@@ -513,9 +517,7 @@ begin
     end;
   finally
     DataSet.EndBulkInserts;
-    //Connection.Commit;
     DataSet.DataSet.Refresh;
-    //DataSet.Active := True;
     DataSet.EnableControls;
     Sender.Refresh;
   end;
@@ -654,17 +656,18 @@ end;
 {$REGION 'protected methods'}
 procedure TfrmMain.CreateTreeview;
 begin
-  FTree                 := TfrmVirtualDBTree.Create(Self);
-  FTree.DoubleBuffered  := True;
-  FTree.Parent          := pnlLeft;
-  FTree.BorderStyle     := bsNone;
-  FTree.Align           := alClient;
-  FTree.Visible         := True;
-  FTree.DataSet         := DataSet.DataSet;
-  FTree.ImageList       := (FData as IGlyphs).ImageList;
-  FTree.OnDropFiles     := FTreeDropFiles;
-  FTree.OnNewFolderNode := FTreeNewFolderNode;
-  FTree.OnNewItemNode   := FTreeNewItemNode;
+  FTree                       := TfrmVirtualDBTree.Create(Self);
+  FTree.DoubleBuffered        := True;
+  FTree.Parent                := pnlLeft;
+  FTree.BorderStyle           := bsNone;
+  FTree.Align                 := alClient;
+  FTree.Visible               := True;
+  FTree.DataSet               := DataSet.DataSet;
+  FTree.ImageList             := (FData as IGlyphs).ImageList;
+  FTree.OnDropFiles           := FTreeDropFiles;
+  FTree.OnNewFolderNode       := FTreeNewFolderNode;
+  FTree.OnNewItemNode         := FTreeNewItemNode;
+  FTree.OnDeleteSelectedNodes := FTreeDeleteSelectedNodes;
 end;
 
 procedure TfrmMain.CreateEditor;
@@ -730,10 +733,7 @@ begin
 end;
 
 procedure TfrmMain.AssignEditorChanges;
-//var
-//  LId: Integer;
 begin
-  //LId := Snippet.Id;
   Snippet.Text      := Editor.Text;
   Snippet.FoldLevel := Editor.FoldLevel;
   if Assigned(Editor.HighlighterItem) then
@@ -741,7 +741,6 @@ begin
     Snippet.Highlighter := Editor.HighlighterItem.Name;
   end;
   SaveRichText;
-  //Snippet.Id := LId;
 end;
 
 procedure TfrmMain.UpdateStatusBar;

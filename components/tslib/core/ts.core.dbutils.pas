@@ -1125,7 +1125,8 @@ begin
     GV.Parent  := Form;
     GV.Align   := alClient;
     GV.DataSource := DataSource;
-    GV.AutoSizeColumns;
+    GV.AutoAdjustColumns;
+//    GV.AutoSizeColumns;
     Form.Width := 800;
     Form.Height := 600;
     Form.Position := poScreenCenter;

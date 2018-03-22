@@ -68,6 +68,7 @@ type
     grdHighlighters      : TDBGrid;
     grdDBInfo: TStringGrid;
     grpDatabaseInfo: TGroupBox;
+    grpLayout: TGroupBox;
     Highlighters         : TTabSheet;
     lblDataBaseFile      : TLabel;
     pnlBottom            : TPanel;

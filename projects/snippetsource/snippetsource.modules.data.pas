@@ -88,13 +88,11 @@ interface
 uses
   Classes, SysUtils, FileUtil, Controls,
 
-  sqldb, sqlite3conn, db, BufDataset, sqlscript,
+  sqldb, sqlite3conn, db, BufDataset,
 
-  SnippetSource.Interfaces, ts.Core.SharedLogger;
+  ts.Core.SharedLogger,
 
-(*
-D:\development\freepascal\GitHub\lazarus\projects\snippetsource\snippets.db
-*)
+  SnippetSource.Interfaces;
 
 type
 
@@ -109,6 +107,7 @@ type
     qryHighlighter    : TSQLQuery;
     qryNodeType       : TSQLQuery;
     qrySnippet        : TSQLQuery;
+    qryLookup         : TSQLQuery;
     scrCreateDatabase : TSQLScript;
     trsMain           : TSQLTransaction;
 
@@ -129,6 +128,7 @@ type
   private
     FSettings       : ISettings;
     FBulkInsertMode : Boolean;
+    FReadOnly       : Boolean;
 
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
@@ -315,14 +315,11 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, TypInfo,
+  Variants, TypInfo, LazFileUtils,
 
-  ts.Core.Logger.Channel.IPC;
+  ts.Core.Logger.Channel.IPC,
 
-resourcestring
-  SQueryLookupErrorRunningQuery = 'Error running query [%s]';
-  SQueryLookupTooManyRecords    = 'The query [%s] returned too many records';
-  SParameterNotAssigned         = 'Parameter <%s> parameter not assigned';
+  SnippetSource.Resources;
 
 {$REGION 'non-interfaced routines'}
 function QueryLookup(AConnection: TSQLConnection; const AQuery: string;
@@ -382,12 +379,23 @@ begin
 end;
 
 procedure TdmSnippetSource.AfterConstruction;
+var
+  LFileName: string;
 begin
   inherited AfterConstruction;
   FSettings.DataBase := 'snippets.db';
-  conMain.DatabaseName := FSettings.DataBase;
+  if FilenameIsAbsolute(FSettings.DataBase) then
+  begin
+    LFileName := FSettings.DataBase;
+  end
+  else
+  begin
+    LFileName := CreateAbsolutePath(FSettings.DataBase, ProgramDirectory);
+  end;
+  conMain.DatabaseName := LFileName;
   conMain.Connected := True;
-  if not FileExists(FSettings.DataBase) then
+  Logger.Send('FileName', LFileName);
+  if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
   begin
     CreateNewDatabase;
   end;
@@ -562,7 +570,7 @@ end;
 
 function TdmSnippetSource.GetLookupDataSet: TDataSet;
 begin
-  Result := qrySnippet;
+  Result := qryLookup;
 end;
 
 function TdmSnippetSource.GetImageIndex: Integer;
@@ -751,12 +759,12 @@ end;
 
 function TdmSnippetSource.GetReadOnly: Boolean;
 begin
-
+  Result := FReadOnly;
 end;
 
 procedure TdmSnippetSource.SetReadOnly(AValue: Boolean);
 begin
-
+  FReadOnly := AValue;
 end;
 
 function TdmSnippetSource.GetDBVersion: string;
@@ -869,6 +877,7 @@ end;
 
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
+  Logger.Info('Creating new database...');
   scrCreateDatabase.ExecuteScript;
 end;
 
@@ -965,21 +974,19 @@ end;
 
 procedure TdmSnippetSource.Lookup(const ASearchString: string;
   ASearchInText: Boolean; ASearchInName: Boolean; ASearchInComment: Boolean);
-var
-  R : Variant;
 begin
-  R := QueryLookup(
-  conMain,
-  'select ID from Snippet where Text like ''%%%s%%'' limit 1',
+  qryLookup.Active := False;
+  qryLookup.SQL.Text := Format(
+    'select * from Snippet where Text like ''%%%s%%''',
     [ASearchString]
   );
-  DataSet.Locate('Id', VarArrayOf([R]), []);
+  qryLookup.Active := True;
 end;
 {$ENDREGION}
 
 initialization
 {$IFDEF WINDOWS}
-  Logger.Channels.Add(TIPCChannel.Create);
+//  Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
 end.

@@ -3461,6 +3461,10 @@ msgctxt "ts.editor.resources.sphpdescription"
 msgid "PHP"
 msgstr "PHP"
 
+#: ts.editor.resources.spikedescription
+msgid "Pike"
+msgstr ""
+
 #: ts.editor.resources.spodescription
 msgctxt "ts.editor.resources.spodescription"
 msgid "Gettext translation strings"
@@ -3539,6 +3543,10 @@ msgstr "工具(&T)"
 #: ts.editor.resources.stxtdescription
 msgctxt "ts.editor.resources.stxtdescription"
 msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.svbdescription
+msgid "Visual Basic"
 msgstr ""
 
 #: ts.editor.resources.sviewmenucaption

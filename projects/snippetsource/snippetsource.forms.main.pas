@@ -45,7 +45,7 @@ uses
 }
 
 const
-  SETTINGS_FILE = 'settings.xml';
+  EDITOR_SETTINGS_FILE = 'settings.xml';
 
 type
 
@@ -56,6 +56,7 @@ type
     aclMain             : TActionList;
     actAbout            : TAction;
     actExecute          : TAction;
+    actShowGridForm     : TAction;
     actLookup           : TAction;
     actSettings         : TAction;
     actToggleFullScreen : TAction;
@@ -94,6 +95,7 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
+    procedure actShowGridFormExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
@@ -243,7 +245,6 @@ begin
   InitActions;
 
   dscMain.DataSet := DataSet.DataSet;
-  ShowGridForm(DataSet.DataSet);
 
   TRichEditorFactories.CreateMainToolbar(
     Self,
@@ -302,6 +303,11 @@ end;
 procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
   ExecuteSettingsDialog(FData);
+end;
+
+procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
+begin
+  ShowGridForm(DataSet.DataSet);
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
@@ -471,7 +477,6 @@ end;
 {$REGION 'FileSearcher'}
 procedure TfrmMain.FileSearcherDirectoryFound(FileIterator: TFileIterator);
 begin
-  //AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
   AddDirectoryNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
 
@@ -676,7 +681,7 @@ var
   V  : IEditorView;
 begin
   FEditorSettings := TEditorFactories.CreateSettings(Self);
-  FEditorSettings.FileName := SETTINGS_FILE;
+  FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
   FEditorSettings.Load;
   FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
   V := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');

@@ -56,6 +56,8 @@ const
   HL_TEX  = 'TEX';
   HL_RUBY = 'RUBY';
   HL_LUA  = 'LUA';
+  HL_PIKE = 'PIKE';
+  HL_VB   = 'VB';
 
   LAYOUT_INI   = 'notepas.highlighter.ini.xml';
   LAYOUT_RTF   = 'notepas.highlighter.rtf.xml';
@@ -137,6 +139,8 @@ const
   FILE_EXTENSIONS_SH   = 'sh';
   FILE_EXTENSIONS_RUBY = 'rb,rbw';
   FILE_EXTENSIONS_LUA  = 'lua';
+  FILE_EXTENSIONS_PIKE = 'pike,pmod';
+  FILE_EXTENSIONS_VB   = 'vb';
 
 resourcestring
   STextNotFound = 'Text not found';
@@ -167,6 +171,9 @@ resourcestring
   SSHDescription   = 'Shell script';
   SRUBYDescription = 'Ruby';
   SLUADescription  = 'Lua';
+  SPikeDescription = 'Pike';
+  SVBDescription   = 'Visual Basic';
+
 
   SAskSaveChanges = 'File %s is modified. Do you want to save changes?';
 

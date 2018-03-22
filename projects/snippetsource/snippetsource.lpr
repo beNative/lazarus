@@ -13,7 +13,7 @@ uses
 
   { you can add units after this }
 
-  SnippetSource.Forms.Main;
+  SnippetSource.Forms.Main, SnippetSource.Resources;
 
 {$R *.res}
 

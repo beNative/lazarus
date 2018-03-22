@@ -22,6 +22,8 @@ unit SnippetSource.Settings;
 
 interface
 
+{ Application settings object for SnippetSource. }
+
 uses
   Classes, SysUtils,
 

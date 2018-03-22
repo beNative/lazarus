@@ -759,7 +759,7 @@ msgid "New"
 msgstr "Nieuw"
 
 #: tdmeditormanager.actnew.hint
-#, fuzzy
+#, fuzzy,badformat
 msgid "Create a new editor view."
 msgstr "Maak een nieuw editor-bestand.%sKies een type."
 
@@ -2130,9 +2130,10 @@ msgid "Setup Filters..."
 msgstr "Pagina instellingen"
 
 #: tfrmfiletypesettings.tsftac.caption
+#, fuzzy
 msgctxt "tfrmfiletypesettings.tsftac.caption"
 msgid "&Autocomplete"
-msgstr ""
+msgstr "&Automatisch aanvullen"
 
 #: tfrmfiletypesettings.tsfthelp.caption
 msgctxt "tfrmfiletypesettings.tsfthelp.caption"
@@ -3504,6 +3505,10 @@ msgctxt "ts.editor.resources.sphpdescription"
 msgid "PHP"
 msgstr "PHP"
 
+#: ts.editor.resources.spikedescription
+msgid "Pike"
+msgstr ""
+
 #: ts.editor.resources.spodescription
 #, fuzzy
 msgctxt "ts.editor.resources.spodescription"
@@ -3593,6 +3598,10 @@ msgstr "&Gereedschap"
 msgctxt "ts.editor.resources.stxtdescription"
 msgid "Text document"
 msgstr "Tekst document"
+
+#: ts.editor.resources.svbdescription
+msgid "Visual Basic"
+msgstr ""
 
 #: ts.editor.resources.sviewmenucaption
 #, fuzzy
@@ -3809,7 +3818,7 @@ msgid "Error loading window layout from file \"%s\"%s%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrserrorwritingwindowlayouttofile
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_components_docking_resources.adrserrorwritingwindowlayouttofile"
 msgid "Error writing window layout to file \"%s\"%s%s"
 msgstr "Error bij schrijven pakketlijst naar bestand%s%s%s%s"
@@ -3915,7 +3924,7 @@ msgid "No children allowed for Node=%s%s%s Type=%s"
 msgstr ""
 
 #: ts_components_docking_resources.adrsnotsupportedhasparent
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_components_docking_resources.adrsnotsupportedhasparent"
 msgid "Not supported: %s has parent %s"
 msgstr "XML parent is niet toegekend"
@@ -4027,7 +4036,7 @@ msgid "Unicode code point $%x has no equivalent in %s"
 msgstr ""
 
 #: ts_core_codecutilswin32.scannotconvertucs4
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_codecutilswin32.scannotconvertucs4"
 msgid "Cannot convert $%8.8X to %s"
 msgstr "Converteer Delphi pakket naar Typhon pakket"
@@ -4038,7 +4047,7 @@ msgid "%s encoding out of range"
 msgstr ""
 
 #: ts_core_codecutilswin32.shighsurrogatenotfound
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_codecutilswin32.shighsurrogatenotfound"
 msgid "High surrogate not found"
 msgstr "Test directory \"%s\" niet gevonden."
@@ -4049,7 +4058,7 @@ msgid "Index out of range"
 msgstr ""
 
 #: ts_core_codecutilswin32.sinvalidcodepoint
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_codecutilswin32.sinvalidcodepoint"
 msgid "$%x is not a valid %s code point"
 msgstr "%s%s%s is geen geldige unit naam."
@@ -4060,7 +4069,7 @@ msgid "Invalid %s encoding"
 msgstr "Ongeldige %s codering"
 
 #: ts_core_codecutilswin32.slowsurrogatenotfound
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_codecutilswin32.slowsurrogatenotfound"
 msgid "Low surrogate not found"
 msgstr "Test directory \"%s\" niet gevonden."
@@ -4236,7 +4245,7 @@ msgid "default char used for codepage substitution"
 msgstr ""
 
 #: ts_core_nativexml.serrorcalcstreamlength
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_nativexml.serrorcalcstreamlength"
 msgid "error while calculating streamlength"
 msgstr "Fout tijdens het schrijven project info file %s%s%s%s%s"
@@ -4252,7 +4261,7 @@ msgid "illegal tag (\"%s\") at pos %d"
 msgstr ""
 
 #: ts_core_nativexml.sinvalidstream
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_nativexml.sinvalidstream"
 msgid "invalid stream"
 msgstr "Ongeldige %s encodering"
@@ -4410,7 +4419,7 @@ msgid "* not allowed in singleton select"
 msgstr ""
 
 #: ts_core_sqlparser.serrtokenmismatch
-#, fuzzy
+#, fuzzy,badformat
 msgctxt "ts_core_sqlparser.serrtokenmismatch"
 msgid "Unexpected token: '%s', expected: '%s'"
 msgstr " Het teken %s%s%s bestaat al !"

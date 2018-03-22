@@ -1,3 +1,6 @@
+2018.03.7
+* Added highlighter for Pike and VB
+
 2018.01.14
 * Minor fixes
 * Upgraded to LCL version 1.9 and FPC version 3.1.0

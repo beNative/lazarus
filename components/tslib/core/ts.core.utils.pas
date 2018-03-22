@@ -1195,7 +1195,7 @@ begin
   begin
     if ABytes < 1024 then
     begin
-      Result := Format('%d Bytes', [D])
+      Result := Format('%d Bytes', [ABytes])
     end
     else
     if ABytes < 1024 * 1024 then

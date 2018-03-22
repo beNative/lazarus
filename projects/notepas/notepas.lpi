@@ -24,7 +24,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="46"/>
-      <BuildNr Value="217"/>
+      <BuildNr Value="218"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2018 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.46" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
@@ -1091,6 +1091,7 @@ end;"/>
       <Unit29>
         <Filename Value="..\..\components\tslib\core\ts.core.stringutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.StringUtils"/>
       </Unit29>
       <Unit30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>

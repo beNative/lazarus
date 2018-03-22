@@ -360,6 +360,10 @@ object frmMain: TfrmMain
       OnExecute = actSettingsExecute
       ShortCut = 49235
     end
+    object actShowGridForm: TAction
+      Caption = 'Show grid form'
+      OnExecute = actShowGridFormExecute
+    end
   end
   object imlMain: TImageList
     Left = 60

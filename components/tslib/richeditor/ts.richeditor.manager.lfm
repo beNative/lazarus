@@ -42,6 +42,7 @@ object dmRichEditorManager: TdmRichEditorManager
     object actSave: TAction
       Category = 'File'
       Caption = 'Save'
+      Hint = 'Save'
       ImageIndex = 19
       OnExecute = actSaveExecute
       ShortCut = 16467
@@ -91,7 +92,7 @@ object dmRichEditorManager: TdmRichEditorManager
     object actFont: TAction
       Category = 'Style'
       Caption = 'Font'
-      Hint = 'Font'
+      Hint = 'Choose font'
       ImageIndex = 7
       OnExecute = actFontExecute
       ShortCut = 49222

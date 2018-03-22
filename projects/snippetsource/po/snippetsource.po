@@ -29,19 +29,29 @@ msgstr ""
 msgid "ODictionary does not allow duplicates"
 msgstr ""
 
-#: snippetsource.modules.data.sparameternotassigned
-msgctxt "snippetsource.modules.data.sparameternotassigned"
+#: snippetsource.resources.sdatecreated
+msgid "Created: %s"
+msgstr ""
+
+#: snippetsource.resources.sdatemodified
+msgid "Modified: %s"
+msgstr ""
+
+#: snippetsource.resources.sid
+msgid "Id: %d"
+msgstr ""
+
+#: snippetsource.resources.sparameternotassigned
+msgctxt "snippetsource.resources.sparameternotassigned"
 msgid "Parameter <%s> parameter not assigned"
 msgstr ""
 
-#: snippetsource.modules.data.squerylookuperrorrunningquery
-msgctxt "snippetsource.modules.data.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
+#: snippetsource.resources.squerylookuperrorrunningquery
+msgid "Error running query <%s>"
 msgstr ""
 
-#: snippetsource.modules.data.squerylookuptoomanyrecords
-msgctxt "snippetsource.modules.data.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
+#: snippetsource.resources.squerylookuptoomanyrecords
+msgid "The query <%s> returned too many records"
 msgstr ""
 
 #: snippetsource_forms_virtualdbtree.sdeleteselecteditems
@@ -1463,7 +1473,7 @@ msgstr ""
 
 #: tdmricheditormanager.actfont.hint
 msgctxt "tdmricheditormanager.actfont.hint"
-msgid "Font"
+msgid "Choose font"
 msgstr ""
 
 #: tdmricheditormanager.actincfontsize.caption
@@ -1531,6 +1541,11 @@ msgctxt "tdmricheditormanager.actsave.caption"
 msgid "Save"
 msgstr ""
 
+#: tdmricheditormanager.actsave.hint
+msgctxt "tdmricheditormanager.actsave.hint"
+msgid "Save"
+msgstr ""
+
 #: tdmricheditormanager.actsaveas.caption
 msgctxt "tdmricheditormanager.actsaveas.caption"
 msgid "Save as..."
@@ -1588,6 +1603,10 @@ msgstr ""
 
 #: teditorsettingsdialog.caption
 msgid "EditorSettingsDialog"
+msgstr ""
+
+#: tform1.caption
+msgid "Form1"
 msgstr ""
 
 #: tfrmabout.actclose.caption
@@ -2607,6 +2626,10 @@ msgctxt "TFRMMAIN.ACTSETTINGS.CAPTION"
 msgid "Settings"
 msgstr ""
 
+#: tfrmmain.actshowgridform.caption
+msgid "Show grid form"
+msgstr ""
+
 #: tfrmmain.acttogglefullscreen.caption
 msgid "Toggle full screen"
 msgstr ""
@@ -3314,6 +3337,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.grpdatabaseinfo.caption
 msgid "Database information"
+msgstr ""
+
+#: tfrmsettingsdialog.grplayout.caption
+msgid "Layout"
 msgstr ""
 
 #: tfrmsettingsdialog.highlighters.caption

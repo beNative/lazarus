@@ -184,9 +184,14 @@ object frmMain: TfrmMain
     BevelOuter = bvNone
     ClientHeight = 18
     ClientWidth = 999
+    Font.CharSet = ANSI_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    ParentFont = False
     TabOrder = 3
     object pnlPosition: TPanel
-      Left = 376
+      Left = 68
       Height = 18
       Hint = 'Cursor position'
       Top = 0
@@ -197,83 +202,119 @@ object frmMain: TfrmMain
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      ParentFont = False
       TabOrder = 0
     end
     object pnlEditMode: TPanel
-      Left = 640
+      Left = 276
       Height = 18
       Hint = 'Edit mode'
       Top = 0
       Width = 38
       Align = alLeft
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
+      BorderStyle = bsSingle
       Caption = 'INS'
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      ParentFont = False
       TabOrder = 1
     end
     object pnlDateCreated: TPanel
-      Left = 68
+      Left = 749
       Height = 18
       Hint = 'Creation date'
       Top = 0
-      Width = 134
-      Align = alLeft
+      Width = 116
+      Align = alRight
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlue
+      Font.Height = -11
+      Font.Name = 'Tahoma'
       ParentColor = False
+      ParentFont = False
       TabOrder = 2
     end
     object pnlDateModified: TPanel
-      Left = 204
+      Left = 867
       Height = 18
       Hint = 'Last modification'
       Top = 0
-      Width = 170
-      Align = alLeft
+      Width = 130
+      Align = alRight
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      ParentFont = False
       TabOrder = 3
     end
     object pnlLineBreakStyle: TPanel
-      Left = 680
+      Left = 316
       Height = 18
       Hint = 'Current line break style'
       Top = 0
       Width = 44
       Align = alLeft
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      ClientHeight = 18
-      ClientWidth = 44
+      BorderStyle = bsSingle
+      ClientHeight = 14
+      ClientWidth = 40
       TabOrder = 4
       object btnLineBreakStyle: TSpeedButton
         Left = 0
-        Height = 18
+        Height = 14
         Hint = 'Line break style'
         Top = 0
-        Width = 44
+        Width = 40
         Align = alClient
         Flat = True
         OnClick = btnLineBreakStyleClick
       end
     end
     object pnlSize: TPanel
-      Left = 528
+      Left = 220
       Height = 18
       Hint = 'Size'
       Top = 0
       Width = 54
       Align = alLeft
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      ParentFont = False
       TabOrder = 5
     end
     object pnlSnippetcount: TPanel
@@ -283,35 +324,39 @@ object frmMain: TfrmMain
       Top = 0
       Width = 64
       Align = alLeft
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
       ParentColor = False
+      ParentFont = False
       TabOrder = 6
     end
-    object pnlID: TPanel
-      Left = 584
+    object pnlId: TPanel
+      Left = 693
       Height = 18
       Hint = 'ID'
       Top = 0
       Width = 54
-      Align = alLeft
+      Align = alRight
+      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
+      BorderStyle = bsSingle
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clRed
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      ParentFont = False
       TabOrder = 7
-    end
-    object pnlProgress: TPanel
-      Left = 726
-      Height = 18
-      Top = 0
-      Width = 250
-      Align = alLeft
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      BevelOuter = bvNone
-      TabOrder = 8
     end
   end
   object dscMain: TDataSource
@@ -359,6 +404,10 @@ object frmMain: TfrmMain
       ImageIndex = 2
       OnExecute = actSettingsExecute
       ShortCut = 49235
+    end
+    object actShowGridForm: TAction
+      Caption = 'Show grid form'
+      OnExecute = actShowGridFormExecute
     end
   end
   object imlMain: TImageList

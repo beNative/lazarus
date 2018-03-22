@@ -4,6 +4,14 @@ TODO:
 Actions:
 - actCopySnippetToClipBoard
 
+24/03/2018
+- Fixed loading and saving of RichText content to/from stream.
+
+21/03/2018
+- fix: resolved path issue with determination of database file location
+- updated database creation script
+- lookup dialog
+
 31/01/2018
 - RichMemo has been replaced by TKMemo which has more features while remaining
   cross platform capable.
@@ -13,7 +21,7 @@ Actions:
 
 15/10/2017
 - Refactored the datamodule with the data access components.
-- SQLite (v.3.20.1) supports now string fields and these are now used for small
+- SQLite (v.3.20.1) supports now varchar fields and these are now used for small
   text fields instead of the TEXT type, which translates to ftMemo in the
   sqldb components which prevents them to be used as lookup fields.
 

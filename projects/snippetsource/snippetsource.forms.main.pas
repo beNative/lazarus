@@ -45,7 +45,7 @@ uses
 }
 
 const
-  SETTINGS_FILE = 'settings.xml';
+  EDITOR_SETTINGS_FILE = 'settings.xml';
 
 type
 
@@ -56,6 +56,7 @@ type
     aclMain             : TActionList;
     actAbout            : TAction;
     actExecute          : TAction;
+    actShowGridForm     : TAction;
     actLookup           : TAction;
     actSettings         : TAction;
     actToggleFullScreen : TAction;
@@ -73,15 +74,14 @@ type
     pnlEditor           : TPanel;
     pnlDateCreated      : TPanel;
     pnlDateModified     : TPanel;
-    pnlID               : TPanel;
+    pnlId               : TPanel;
     pnlLeft             : TPanel;
     pnlLineBreakStyle   : TPanel;
     pnlPosition         : TPanel;
-    pnlProgress         : TPanel;
     pnlRight            : TPanel;
     pnlDateModifie      : TPanel;
     pnlSize             : TPanel;
-    pnlSnippetcount     : TPanel;
+    pnlSnippetCount     : TPanel;
     pnlStatusBar        : TPanel;
     pnlTitle            : TPanel;
     splHorizontal       : TSplitter;
@@ -94,6 +94,7 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
+    procedure actShowGridFormExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
@@ -156,6 +157,7 @@ type
     procedure CreateRichEditor;
 
     procedure SaveRichText;
+    procedure LoadRichText;
 
     procedure AddPathNode(
       const APath       : string;
@@ -220,7 +222,7 @@ uses
   ts.Richeditor.Factories,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
-  SnippetSource.Forms.Grid;
+  SnippetSource.Forms.Grid, SnippetSource.Resources;
 
 {$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
@@ -243,7 +245,6 @@ begin
   InitActions;
 
   dscMain.DataSet := DataSet.DataSet;
-  ShowGridForm(DataSet.DataSet);
 
   TRichEditorFactories.CreateMainToolbar(
     Self,
@@ -302,6 +303,11 @@ end;
 procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
   ExecuteSettingsDialog(FData);
+end;
+
+procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
+begin
+  ShowGridForm(DataSet.DataSet);
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
@@ -389,8 +395,6 @@ end;
 procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
 var
   DS : TDataSet;
-  SS : TStringStream;
-  S  : string;
 begin
   if Field = nil then // browse record
   begin
@@ -407,22 +411,7 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         btnHighlighter.Caption := Snippet.Highlighter;
-        if Snippet.CommentRTF <> '' then
-        begin
-          S := DecodeStringBase64(Snippet.CommentRTF);
-          SS := TStringStream.Create(S);
-          try
-            SS.Position := 0;
-            if SS.Size > 0 then
-            begin
-              RichEditor.LoadFromStream(SS);
-            end;
-          finally
-            SS.Free;
-          end;
-        end
-        else
-          RichEditor.Clear;
+        LoadRichText;
       end;
     end;
   end;
@@ -471,7 +460,6 @@ end;
 {$REGION 'FileSearcher'}
 procedure TfrmMain.FileSearcherDirectoryFound(FileIterator: TFileIterator);
 begin
-  //AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
   AddDirectoryNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
 
@@ -527,12 +515,11 @@ end;
 {$REGION 'RV'}
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
-  Logger.Warn('RVChange');
-  //if not RichEditor.IsEmpty  then
-  //begin
-  //  DataSet.Edit;
-  //  AssignEditorChanges;
-  //end;
+  if not RichEditor.IsEmpty  then
+  begin
+    DataSet.Edit;
+    AssignEditorChanges;
+  end;
 end;
 {$ENDREGION}
 {$ENDREGION}
@@ -543,6 +530,7 @@ procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
 var
   LIsDir      : Boolean;
   LIsTextFile : Boolean;
+  LIsReadable : Boolean;
   V           : Variant;
   LRelPath    : string;
   LParentPath : string;
@@ -557,10 +545,10 @@ begin
   end
   else
   begin
-    LIsTextFile := True;
+    LIsTextFile := FileIsText(APath, LIsReadable);
   end;
 
-  if LIsDir or LIsTextFile then
+  if LIsDir or (LIsTextFile and LIsReadable) then
   begin
     LRelPath    := CreateRelativePath(APath, ACommonPath);
     LParentPath := ChompPathDelim(GetParentDir(LRelPath));
@@ -600,7 +588,6 @@ begin
     else if LIsTextFile then
       FParentId := Snippet.ParentId;
   end;
-  pnlProgress.Caption := '';
 end;
 
 procedure TfrmMain.AddDirectoryNode(const APath: string;
@@ -676,7 +663,7 @@ var
   V  : IEditorView;
 begin
   FEditorSettings := TEditorFactories.CreateSettings(Self);
-  FEditorSettings.FileName := SETTINGS_FILE;
+  FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
   FEditorSettings.Load;
   FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
   V := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
@@ -717,7 +704,9 @@ begin
       DataSet.Edit;
     if not RichEditor.IsEmpty then
     begin
+      RichEditor.BeginUpdate;
       RichEditor.SaveToStream(SS);
+      RichEditor.EndUpdate;
       S := EncodeStringBase64(SS.DataString);
       Snippet.CommentRTF := S;
       Snippet.Comment    := RichEditor.Text;
@@ -732,6 +721,36 @@ begin
   end;
 end;
 
+procedure TfrmMain.LoadRichText;
+var
+  S  : string;
+  SS : TStringStream;
+begin
+  if Snippet.CommentRTF <> '' then
+  begin
+    S := DecodeStringBase64(Snippet.CommentRTF);
+    SS := TStringStream.Create(S);
+    try
+      SS.Position := 0;
+      if SS.Size > 0 then
+      begin
+        RichEditor.BeginUpdate;
+        RichEditor.Clear;
+        RichEditor.LoadFromStream(SS);
+        RichEditor.EndUpdate;
+      end;
+    finally
+      SS.Free;
+    end;
+  end
+  else
+  begin
+    RichEditor.BeginUpdate;
+    RichEditor.Clear;
+    RichEditor.EndUpdate;
+  end;
+end;
+
 procedure TfrmMain.AssignEditorChanges;
 begin
   Snippet.Text      := Editor.Text;
@@ -740,6 +759,7 @@ begin
   begin
     Snippet.Highlighter := Editor.HighlighterItem.Name;
   end;
+  SaveRichText;
   SaveRichText;
 end;
 
@@ -752,13 +772,17 @@ begin
       Editor.Lines.Count,
       Editor.SelStart
     ]);
-  pnlID.Caption           := IntToStr(Snippet.ID);
-  pnlSnippetcount.Caption := Format('%d records.', [DataSet.RecordCount]);
+  pnlSnippetCount.Caption := Format('%d records.', [DataSet.RecordCount]);
   pnlSize.Caption         := FormatByteText(Editor.TextSize);
   if DataSet.RecordCount > 0 then
   begin
-    pnlDateCreated.Caption  := DateTimeToStr(Snippet.DateCreated);
-    pnlDateModified.Caption := DateTimeToStr(Snippet.DateModified);
+    pnlId.Caption           := Format(SId, [Snippet.Id]);
+    pnlDateCreated.Caption  := Format(
+      SDateCreated, [DateTimeToStr(Snippet.DateCreated)]
+    );
+    pnlDateModified.Caption := Format(
+      SDateModified, [DateTimeToStr(Snippet.DateModified)]
+    );
   end;
 
   if Editor.Editor.InsertMode then
@@ -766,15 +790,14 @@ begin
   else
     pnlEditMode.Caption := 'OVR';
   pnlLineBreakStyle.Caption := Editor.LineBreakStyle;
-
+  OptimizeWidth(pnlSnippetCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
-  OptimizeWidth(pnlDateCreated);
-  OptimizeWidth(pnlDateModified);
-  OptimizeWidth(pnlSnippetcount);
   OptimizeWidth(pnlEditMode);
   OptimizeWidth(pnlLineBreakStyle);
-  OptimizeWidth(pnlID);
+  OptimizeWidth(pnlId);
+  OptimizeWidth(pnlDateCreated);
+  OptimizeWidth(pnlDateModified);
 end;
 
 procedure TfrmMain.UpdateActions;

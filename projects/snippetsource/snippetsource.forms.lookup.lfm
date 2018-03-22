@@ -143,6 +143,7 @@ object frmLookup: TfrmLookup
     UseXORFeatures = True
   end
   object dscMain: TDataSource
+    OnDataChange = dscMainDataChange
     Left = 160
     Top = 144
   end

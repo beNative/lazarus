@@ -1,0 +1,36 @@
+object frmQuery: TfrmQuery
+  Left = 496
+  Height = 631
+  Top = 250
+  Width = 887
+  ClientHeight = 631
+  ClientWidth = 887
+  LCLVersion = '1.9.0.0'
+  object pnlQueryEditor: TPanel
+    Left = 0
+    Height = 274
+    Top = 0
+    Width = 887
+    Align = alTop
+    BevelOuter = bvNone
+    TabOrder = 0
+  end
+  object pnlResultSet: TPanel
+    Left = 0
+    Height = 352
+    Top = 279
+    Width = 887
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 1
+  end
+  object splHorizontal: TSplitter
+    Cursor = crVSplit
+    Left = 0
+    Height = 5
+    Top = 274
+    Width = 887
+    Align = alTop
+    ResizeAnchor = akTop
+  end
+end

@@ -86,6 +86,7 @@
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
+					<SynHighlighter>PAS.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>{</BlockCommentStartTag>
 					<BlockCommentEndTag>}</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
@@ -137,6 +138,7 @@
 						</TSynSQLSyn>
 					</Components>
 					<Highlighter>SQL</Highlighter>
+					<SynHighlighter>SQL.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>/*</BlockCommentStartTag>
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>--</LineCommentTag>
@@ -198,6 +200,7 @@
 						</TSynXMLSyn>
 					</Components>
 					<Highlighter>XML</Highlighter>
+					<SynHighlighter>XML.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>&lt;!--</BlockCommentStartTag>
 					<BlockCommentEndTag>--&gt;</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
@@ -228,6 +231,7 @@
 						</TSynLFMSyn>
 					</Components>
 					<Highlighter>LFM</Highlighter>
+					<SynHighlighter>LFM.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>dfm,fmx,lfm</FileExtensions>
 					<Description>Object Pascal form definition</Description>
@@ -255,6 +259,7 @@
 						</TSynBatSyn>
 					</Components>
 					<Highlighter>BAT</Highlighter>
+					<SynHighlighter>BAT.SynHighlighter</SynHighlighter>
 					<LineCommentTag>::</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>bat,cmd</FileExtensions>
@@ -274,6 +279,7 @@
 						</TSynPoSyn>
 					</Components>
 					<Highlighter>PO</Highlighter>
+					<SynHighlighter>PO.SynHighlighter</SynHighlighter>
 					<LineCommentTag>#</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>po</FileExtensions>
@@ -313,6 +319,7 @@
 						</TSynCppSyn>
 					</Components>
 					<Highlighter>CPP</Highlighter>
+					<SynHighlighter>CPP.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>/*</BlockCommentStartTag>
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
@@ -353,6 +360,7 @@
 						</TSynJavaSyn>
 					</Components>
 					<Highlighter>JAVA</Highlighter>
+					<SynHighlighter>JAVA.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>/*</BlockCommentStartTag>
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>//</LineCommentTag>
@@ -399,6 +407,7 @@
 						</TSynPerlSyn>
 					</Components>
 					<Highlighter>PERL</Highlighter>
+					<SynHighlighter>PERL.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>/*</BlockCommentStartTag>
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>#</LineCommentTag>
@@ -448,6 +457,7 @@
 						</TSynPythonSyn>
 					</Components>
 					<Highlighter>PY</Highlighter>
+					<SynHighlighter>PY.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>/*</BlockCommentStartTag>
 					<BlockCommentEndTag>*/</BlockCommentEndTag>
 					<LineCommentTag>#</LineCommentTag>
@@ -493,6 +503,7 @@
 						</TSynHTMLSyn>
 					</Components>
 					<Highlighter>HTML</Highlighter>
+					<SynHighlighter>HTML.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>&lt;!--</BlockCommentStartTag>
 					<BlockCommentEndTag>--&gt;</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
@@ -531,6 +542,7 @@
 						</TSynJScriptSyn>
 					</Components>
 					<Highlighter>JS</Highlighter>
+					<SynHighlighter>JS.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>js</FileExtensions>
 					<Description>JavaScript</Description>
@@ -565,6 +577,7 @@
 						</TSynPHPSyn>
 					</Components>
 					<Highlighter>PHP</Highlighter>
+					<SynHighlighter>PHP.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>php</FileExtensions>
 					<Description>PHP</Description>
@@ -599,6 +612,7 @@
 						</TSynCssSyn>
 					</Components>
 					<Highlighter>CSS</Highlighter>
+					<SynHighlighter>CSS.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>css</FileExtensions>
 					<Description>Cascading Style Sheet</Description>
@@ -622,6 +636,7 @@
 						</TSynDiffSyn>
 					</Components>
 					<Highlighter>DIFF</Highlighter>
+					<SynHighlighter>DIFF.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>diff</FileExtensions>
 					<Description>Diff</Description>
@@ -651,6 +666,7 @@
 						</TSynTeXSyn>
 					</Components>
 					<Highlighter>TEX</Highlighter>
+					<SynHighlighter>TEX.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>tex</FileExtensions>
 					<Description>TeX</Description>
@@ -698,6 +714,7 @@
 						</TSynUNIXShellScriptSyn>
 					</Components>
 					<Highlighter>SH</Highlighter>
+					<SynHighlighter>SH.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>sh</FileExtensions>
 					<Description>Shell script</Description>
@@ -732,6 +749,7 @@
 						</TSynIniSyn>
 					</Components>
 					<Highlighter>INI</Highlighter>
+					<SynHighlighter>INI.SynHighlighter</SynHighlighter>
 					<LineCommentTag>;</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>desktop,fpd,ini,lrt,msg,prop,properties,reg</FileExtensions>
@@ -778,55 +796,59 @@
 						</TSynLuaSyn>
 					</Components>
 					<Highlighter>LUA</Highlighter>
+					<SynHighlighter>LUA.SynHighlighter</SynHighlighter>
 					<LineCommentTag>--</LineCommentTag>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>lua</FileExtensions>
 					<Description>Lua</Description>
 				</THighlighterItem>
+				<THighlighterItem Name="PIKE">
+					<Components>
+						<TSynPikeSyn Name="SynHighlighter">
+							<DefaultFilter>Java Files (*.java)|*.java</DefaultFilter>
+							<Enabled>false</Enabled>
+							<AnnotationAttri>(TSynHighlighterAttributes)</AnnotationAttri>
+							<CommentAttri>(TSynHighlighterAttributes)</CommentAttri>
+							<DocumentAttri>(TSynHighlighterAttributes)</DocumentAttri>
+							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
+							<InvalidAttri>(TSynHighlighterAttributes)</InvalidAttri>
+							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
+							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
+							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
+							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+						</TSynPikeSyn>
+					</Components>
+					<Highlighter>PIKE</Highlighter>
+					<SynHighlighter>PIKE.SynHighlighter</SynHighlighter>
+					<FormatterSupport>false</FormatterSupport>
+					<FileExtensions>pike,pmod</FileExtensions>
+					<Description>Pike</Description>
+				</THighlighterItem>
+				<THighlighterItem Name="VB">
+					<Components>
+						<TSynVBSyn Name="SynHighlighter">
+							<Enabled>false</Enabled>
+							<CommentAttri>(TSynHighlighterAttributes)</CommentAttri>
+							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
+							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
+							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
+							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
+							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+						</TSynVBSyn>
+					</Components>
+					<Highlighter>VB</Highlighter>
+					<SynHighlighter>VB.SynHighlighter</SynHighlighter>
+					<FormatterSupport>false</FormatterSupport>
+					<FileExtensions>vb</FileExtensions>
+					<Description>Visual Basic</Description>
+				</THighlighterItem>
 			</Components>
 		</THighlighters>
 	</Components>
-	<Colors>(TEditorColorSettings)
-		<IncrementColor>(TSynSelectedColor)
-			<Background>clMedGray</Background>
-			<Foreground>clNone</Foreground>
-			<BackAlpha>128</BackAlpha>
-		</IncrementColor>
-		<HighlightAllColor>(TSynSelectedColor)
-			<Background>33023</Background>
-			<Foreground>clNone</Foreground>
-			<FrameColor>27607</FrameColor>
-			<BackAlpha>128</BackAlpha>
-		</HighlightAllColor>
-		<BracketMatchColor>(TSynSelectedColor)
-			<Background>clAqua</Background>
-			<Foreground>clNone</Foreground>
-			<FrameColor>clBlue</FrameColor>
-		</BracketMatchColor>
-		<MouseLinkColor>(TSynSelectedColor)</MouseLinkColor>
-		<LineHighlightColor>(TSynSelectedColor)
-			<Background>clYellow</Background>
-			<Foreground>clNone</Foreground>
-			<FrameColor>clOlive</FrameColor>
-			<FrameStyle>slsDashed</FrameStyle>
-			<BackAlpha>128</BackAlpha>
-			<FrameAlpha>64</FrameAlpha>
-		</LineHighlightColor>
-		<FoldedCodeColor>(TSynSelectedColor)
-			<Background>clSilver</Background>
-			<Foreground>clMedGray</Foreground>
-			<FrameColor>clMedGray</FrameColor>
-			<BackAlpha>50</BackAlpha>
-		</FoldedCodeColor>
-		<SelectedColor>(TSynSelectedColor)
-			<Background>clMedGray</Background>
-			<Foreground>clNone</Foreground>
-			<BackAlpha>128</BackAlpha>
-		</SelectedColor>
-	</Colors>
-	<EditorOptions>(TEditorOptionsSettings)
-		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
-	</EditorOptions>
+	<Highlighters>Highlighters.owner</Highlighters>
+	<ToolSettings>ToolSettings.owner</ToolSettings>
 	<HighlighterAttributes>(THighlighterAttributes)
 		<THighlighterAttributesItem>
 			<Name>Comment</Name>
@@ -1030,6 +1052,47 @@
 			</AliasNames>
 		</THighlighterAttributesItem>
 	</HighlighterAttributes>
+	<Colors>(TEditorColorSettings)
+		<IncrementColor>(TSynSelectedColor)
+			<Background>clMedGray</Background>
+			<Foreground>clNone</Foreground>
+			<BackAlpha>128</BackAlpha>
+		</IncrementColor>
+		<HighlightAllColor>(TSynSelectedColor)
+			<Background>33023</Background>
+			<Foreground>clNone</Foreground>
+			<FrameColor>27607</FrameColor>
+			<BackAlpha>128</BackAlpha>
+		</HighlightAllColor>
+		<BracketMatchColor>(TSynSelectedColor)
+			<Background>clAqua</Background>
+			<Foreground>clNone</Foreground>
+			<FrameColor>clBlue</FrameColor>
+		</BracketMatchColor>
+		<MouseLinkColor>(TSynSelectedColor)</MouseLinkColor>
+		<LineHighlightColor>(TSynSelectedColor)
+			<Background>clYellow</Background>
+			<Foreground>clNone</Foreground>
+			<FrameColor>clOlive</FrameColor>
+			<FrameStyle>slsDashed</FrameStyle>
+			<BackAlpha>128</BackAlpha>
+			<FrameAlpha>64</FrameAlpha>
+		</LineHighlightColor>
+		<FoldedCodeColor>(TSynSelectedColor)
+			<Background>clSilver</Background>
+			<Foreground>clMedGray</Foreground>
+			<FrameColor>clMedGray</FrameColor>
+			<BackAlpha>50</BackAlpha>
+		</FoldedCodeColor>
+		<SelectedColor>(TSynSelectedColor)
+			<Background>clMedGray</Background>
+			<Foreground>clNone</Foreground>
+			<BackAlpha>128</BackAlpha>
+		</SelectedColor>
+	</Colors>
+	<EditorOptions>(TEditorOptionsSettings)
+		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
+	</EditorOptions>
 	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>

@@ -26,13 +26,14 @@ uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
   ComCtrls, ActnList, DBGrids,
 
-//  VirtualTrees,
-
   ts.Editor.Interfaces,
 
   SnippetSource.Interfaces;
 
 type
+
+  { TfrmLookup }
+
   TfrmLookup = class(TForm)
     aclMain    : TActionList;
     actSearch  : TAction;
@@ -48,6 +49,7 @@ type
     procedure actSearchExecute(Sender: TObject);
 
     procedure chkNameChange(Sender: TObject);
+    procedure dscMainDataChange(Sender: TObject; Field: TField);
     procedure edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtLookupKeyPress(Sender: TObject; var Key: char);
     procedure edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -137,6 +139,16 @@ end;
 procedure TfrmLookup.chkNameChange(Sender: TObject);
 begin
   Execute;
+end;
+
+procedure TfrmLookup.dscMainDataChange(Sender: TObject; Field: TField);
+begin
+  if not Assigned(Field) then
+  begin
+     (FData as IDataSet).DataSet .Locate('Id' , DataSet.FieldByName('Id').AsInteger,[]);
+    if not FData.LookupDataSet.IsEmpty then
+      FEditor.SearchAndSelectText(edtLookup.Text);
+  end;
 end;
 
 procedure TfrmLookup.edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -260,17 +272,17 @@ end;
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;
-  if FUpdate then
-  begin
-    if Visible then
-    begin
-      (FData as IDataSet).DataSet.DisableControls;
-      (FData as IDataSet).DataSet.Locate('ID', DataSet.FieldByName('ID').AsInteger, []);
-      (FData as IDataSet).DataSet.EnableControls;
-      FEditor.SearchAndSelectText(edtLookup.Text);
-    end;
-    FUpdate := False;
-  end;
+  //if FUpdate then
+  //begin
+  //  if Visible then
+  //  begin
+  //    (FData as IDataSet).DataSet.DisableControls;
+  //    (FData as IDataSet).DataSet.Locate('Id', DataSet.FieldByName('Id').AsInteger, []);
+  //    (FData as IDataSet).DataSet.EnableControls;
+  //    FEditor.SearchAndSelectText(edtLookup.Text);
+  //  end;
+  //  FUpdate := False;
+  //end;
   if DataSet.Active then
   begin
     sbrMain.SimpleText := Format('%d record(s)', [DataSet.RecordCount]);

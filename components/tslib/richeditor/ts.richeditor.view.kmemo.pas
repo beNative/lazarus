@@ -40,8 +40,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
   ExtCtrls, Menus,
 
-  KFunctions, KControls, KMemo, KDialogs, KMemoDlgParaStyle, KMemoDlgTextStyle,
-  KMemoDlgHyperlink, KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
+  KControls, KMemo, KMemoDlgParaStyle, KMemoDlgTextStyle, KMemoDlgHyperlink,
+  KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
 
   ts.RichEditor.Interfaces;
 
@@ -59,7 +59,7 @@ type
     FUpdateLock    : Integer;
     FOnChange      : TNotifyEvent;
     FOnDropFiles   : TDropFilesEvent;
-    FParaStyleForm : TKMemoParaStyleForm;
+    //FParaStyleForm : TKMemoParaStyleForm;
     FTextStyleForm : TKMemoTextStyleForm;
     FContainerForm : TKMemoContainerForm;
     FHyperlinkForm : TKMemoHyperlinkForm;
@@ -545,6 +545,9 @@ begin
   try
     Clear;
     FEditor.LoadFromRTFStream(AStream);
+    // TS: probably due to a bug an empty line gets inserted after loading
+    // content using LoadFromRTFStream
+    FEditor.DeleteLine(0);
   finally
     EndUpdate;
   end;

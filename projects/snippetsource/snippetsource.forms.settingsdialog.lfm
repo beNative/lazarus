@@ -15,13 +15,23 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 390
     Top = 0
     Width = 635
-    ActivePage = tsDataBase
+    ActivePage = tsApplicationSettings
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplicationSettings: TTabSheet
       Caption = 'Application settings'
+      ClientHeight = 362
+      ClientWidth = 627
+      object grpLayout: TGroupBox
+        Left = 8
+        Height = 144
+        Top = 0
+        Width = 248
+        Caption = 'Layout'
+        TabOrder = 0
+      end
     end
     object tsDataBase: TTabSheet
       Caption = 'Database'
@@ -109,7 +119,7 @@ object frmSettingsDialog: TfrmSettingsDialog
             'Size:'
             0
             2
-            'Creation data:'
+            'Creation date:'
             0
             3
             'Last updated:'
@@ -251,7 +261,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     ClientWidth = 635
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 474
+      Left = 480
       Height = 25
       Top = 0
       Width = 150

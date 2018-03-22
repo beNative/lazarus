@@ -1354,9 +1354,10 @@ msgid "Keep at least one space"
 msgstr ""
 
 #: tfrmalignlines.gbxoptions.caption
+#, fuzzy
 msgctxt "TFRMALIGNLINES.GBXOPTIONS.CAPTION"
 msgid "Options"
-msgstr ""
+msgstr "Opciiones"
 
 #: tfrmalignlines.gbxtokenlist.caption
 msgid "Tokens to align to:"
@@ -1533,9 +1534,10 @@ msgid "Dequote"
 msgstr ""
 
 #: tfrmcodeshaper.actinsertbreaks.caption
+#, fuzzy
 msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
 msgid "Insert breaks"
-msgstr ""
+msgstr "Insertar saltos"
 
 #: tfrmcodeshaper.actmakepascalstring.caption
 msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
@@ -1635,14 +1637,16 @@ msgid "Trim space"
 msgstr ""
 
 #: tfrmcodeshaper.chkreplacestringscasesensitive.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.chkreplacestringscasesensitive.caption"
 msgid "Case sensitive"
-msgstr ""
+msgstr "Sensible a mayúscula"
 
 #: tfrmcodeshaper.chkreplacestringswholewordsonly.caption
+#, fuzzy
 msgctxt "tfrmcodeshaper.chkreplacestringswholewordsonly.caption"
 msgid "Whole words only"
-msgstr ""
+msgstr "Solo palabras completas"
 
 #: tfrmcodeshaper.chktrimcompressspace.caption
 msgid "Compress space"
@@ -2110,9 +2114,10 @@ msgid "&Help"
 msgstr "A&yuda"
 
 #: tfrmfiletypesettings.tsftmain.caption
+#, fuzzy
 msgctxt "TFRMFILETYPESETTINGS.TSFTMAIN.CAPTION"
 msgid "&Main"
-msgstr ""
+msgstr "&Principal"
 
 #: tfrmfiletypesettings.tsftrun.caption
 msgctxt "TFRMFILETYPESETTINGS.TSFTRUN.CAPTION"
@@ -2510,9 +2515,10 @@ msgid "&Help"
 msgstr "A&yuda"
 
 #: tfrmoptionsfiletype.tsftmain.caption
+#, fuzzy
 msgctxt "tfrmoptionsfiletype.tsftmain.caption"
 msgid "&Main"
-msgstr ""
+msgstr "&Principal"
 
 #: tfrmoptionsfiletype.tsftrun.caption
 msgctxt "tfrmoptionsfiletype.tsftrun.caption"
@@ -3422,6 +3428,10 @@ msgctxt "ts.editor.resources.sphpdescription"
 msgid "PHP"
 msgstr ""
 
+#: ts.editor.resources.spikedescription
+msgid "Pike"
+msgstr ""
+
 #: ts.editor.resources.spodescription
 msgctxt "ts.editor.resources.spodescription"
 msgid "Gettext translation strings"
@@ -3500,6 +3510,10 @@ msgstr "&Herramientas"
 #: ts.editor.resources.stxtdescription
 msgctxt "ts.editor.resources.stxtdescription"
 msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.svbdescription
+msgid "Visual Basic"
 msgstr ""
 
 #: ts.editor.resources.sviewmenucaption

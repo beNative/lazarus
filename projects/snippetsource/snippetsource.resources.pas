@@ -28,6 +28,14 @@ uses
 const
   SETTINGS_FILE = 'settings.json';
 
+resourcestring
+  SQueryLookupErrorRunningQuery = 'Error running query <%s>';
+  SQueryLookupTooManyRecords    = 'The query <%s> returned too many records';
+  SParameterNotAssigned         = 'Parameter <%s> parameter not assigned';
+  SDateCreated                  = 'Created: %s';
+  SDateModified                 = 'Modified: %s';
+  SId                           = 'Id: %d';
+
 implementation
 
 end.

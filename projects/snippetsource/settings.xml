@@ -123,7 +123,10 @@
 							</SymbolAttri>
 							<TableNameAttri>(TSynHighlighterAttributes)</TableNameAttri>
 							<TableNames>(TStringList)</TableNames>
-							<VariableAttri>(TSynHighlighterAttributes)</VariableAttri>
+							<VariableAttri>(TSynHighlighterAttributes)
+								<Foreground>clPurple</Foreground>
+								<Style>[fsBold]</Style>
+							</VariableAttri>
 							<SQLDialect>sqlSybase</SQLDialect>
 						</TSynSQLSyn>
 					</Components>
@@ -244,7 +247,8 @@
 							</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Foreground>clPurple</Foreground>
+								<Style>[fsBold]</Style>
 							</VariableAttri>
 						</TSynBatSyn>
 					</Components>
@@ -392,7 +396,7 @@
 								<Style>[fsBold,fsItalic]</Style>
 							</SymbolAttri>
 							<VariableAttri>(TSynHighlighterAttributes)
-								<Style>[]</Style>
+								<Foreground>clPurple</Foreground>
 							</VariableAttri>
 						</TSynPerlSyn>
 					</Components>
@@ -566,7 +570,10 @@
 								<Foreground>clRed</Foreground>
 								<Style>[fsBold,fsItalic]</Style>
 							</SymbolAttri>
-							<VariableAttri>(TSynHighlighterAttributes)</VariableAttri>
+							<VariableAttri>(TSynHighlighterAttributes)
+								<Foreground>clPurple</Foreground>
+								<Style>[fsBold]</Style>
+							</VariableAttri>
 						</TSynPHPSyn>
 					</Components>
 					<Highlighter>PHP</Highlighter>
@@ -704,7 +711,7 @@
 								<Style>[fsBold,fsItalic]</Style>
 							</SymbolAttri>
 							<VarAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
+								<Style>[fsBold]</Style>
 							</VarAttri>
 						</TSynUNIXShellScriptSyn>
 					</Components>
@@ -998,7 +1005,10 @@
 		</THighlighterAttributesItem>
 		<THighlighterAttributesItem>
 			<Name>Variable</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
+			<Attributes>(TSynHighlighterAttributes)
+				<Foreground>clPurple</Foreground>
+				<Style>[fsBold]</Style>
+			</Attributes>
 			<AliasNames>(TStringList)
 				<DefinedProperties>
 				B1N0cmluZ3MBBhBTcGVjaWFsIHZhcmlhYmxlAA==
@@ -1129,7 +1139,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>INI</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

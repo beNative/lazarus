@@ -1,7 +1,7 @@
 inherited frmSearchForm: TfrmSearchForm
-  Left = 498
+  Left = 500
   Height = 645
-  Top = 33
+  Top = 35
   Width = 309
   BorderIcons = [biSystemMenu]
   Caption = 'Find'

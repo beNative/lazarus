@@ -263,12 +263,16 @@ function SetToString(
   ATrimChars   : Integer = -1
 ): string;
 
+function GetFileCreationTime(const AFileName: string): TDateTime;
+
 implementation
 
 uses
 {$IFDEF WINDOWS}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
+
+  LazFileUtils,
 
   Variants, ActnList;
 
@@ -2212,6 +2216,29 @@ begin
     ForceDirectories(GetAppConfigDir(False));
     Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False));
   end;
+end;
+
+function GetFileCreationTime(const AFileName: string): TDateTime;
+var
+   MyRec: TSearchRec;
+
+   function FileTime2DateTime(FileTime: TFileTime): TDateTime;
+   var
+      LocalFileTime: TFileTime;
+      SystemTime: TSystemTime;
+   begin
+      FileTimeToLocalFileTime(FileTime, LocalFileTime) ;
+      FileTimeToSystemTime(LocalFileTime, SystemTime) ;
+      Result := SystemTimeToDateTime(SystemTime) ;
+   end;
+begin
+   Result := Now;
+
+   if FindFirstUTF8(AFileName, faAnyFile, MyRec) = 0 then
+   begin
+      Result := FileTime2DateTime(MyRec.FindData.ftCreationTime);
+      FindCloseUTF8(MyRec);
+   end;
 end;
 
 end.

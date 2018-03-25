@@ -1,8 +1,8 @@
 object dmRichEditorManager: TdmRichEditorManager
   OldCreateOrder = False
   Height = 212
-  HorizontalOffset = 851
-  VerticalOffset = 295
+  HorizontalOffset = 856
+  VerticalOffset = 300
   Width = 375
   object aclActions: TActionList
     Images = imlMain

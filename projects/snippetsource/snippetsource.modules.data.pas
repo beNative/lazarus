@@ -86,13 +86,13 @@ interface
 {$ENDREGION}
 
 uses
-  Classes, SysUtils, FileUtil, Controls,
+  Classes, SysUtils, TplZlibUnit, FileUtil, Controls,
 
   sqldb, sqlite3conn, db, BufDataset,
 
   ts.Core.SharedLogger,
 
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, sqlscript, compressbase;
 
 type
 
@@ -103,6 +103,7 @@ type
   )
     conMain           : TSQLite3Connection;
     imlGlyphs         : TImageList;
+    plZlibCompress1: TplZlibCompress;
     qryGlyph          : TSQLQuery;
     qryHighlighter    : TSQLQuery;
     qryNodeType       : TSQLQuery;
@@ -117,6 +118,8 @@ type
       EventType : TDBEventType;
       const Msg : string
     );
+    procedure plZlibCompress1Compress(Sender: TObject; FileIndex: Integer;
+      FileSize, FilePos: Int64);
     procedure qrySnippetAfterOpen(DataSet: TDataSet);
     procedure qrySnippetAfterPost(DataSet: TDataSet);
     procedure qrySnippetBeforeOpen(DataSet: TDataSet);
@@ -423,6 +426,12 @@ var
 begin
   S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
   Logger.Send(S, Msg);
+end;
+
+procedure TdmSnippetSource.plZlibCompress1Compress(Sender: TObject;
+  FileIndex: Integer; FileSize, FilePos: Int64);
+begin
+  //
 end;
 
 {

@@ -1,12 +1,12 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 772
+  Left = 777
   Height = 427
-  Top = 351
-  Width = 635
+  Top = 355
+  Width = 614
   ActiveControl = btnClose
   Caption = 'Settings'
   ClientHeight = 427
-  ClientWidth = 635
+  ClientWidth = 614
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '1.9.0.0'
@@ -14,10 +14,10 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 390
     Top = 0
-    Width = 635
-    ActivePage = tsApplicationSettings
+    Width = 614
+    ActivePage = tsDataBase
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplicationSettings: TTabSheet
@@ -36,12 +36,12 @@ object frmSettingsDialog: TfrmSettingsDialog
     object tsDataBase: TTabSheet
       Caption = 'Database'
       ClientHeight = 362
-      ClientWidth = 627
+      ClientWidth = 606
       object edtDatabaseFile: TFileNameEdit
         Left = 64
         Height = 23
         Top = 12
-        Width = 331
+        Width = 531
         DialogOptions = []
         FilterIndex = 0
         HideDirectories = False
@@ -62,36 +62,36 @@ object frmSettingsDialog: TfrmSettingsDialog
         ParentColor = False
       end
       object btnDatabaseIntegrityCheck: TBitBtn
-        Left = 320
+        Left = 368
         Height = 26
-        Top = 112
-        Width = 147
+        Top = 67
+        Width = 150
         Action = actDatabaseIntegrityCheck
         TabOrder = 1
       end
       object btnDatabaseVacuum: TBitBtn
-        Left = 320
+        Left = 64
         Height = 26
-        Top = 48
-        Width = 147
+        Top = 67
+        Width = 150
         Action = actDatabaseVacuum
         TabOrder = 2
       end
       object grpDatabaseInfo: TGroupBox
         Left = 8
-        Height = 313
-        Top = 40
-        Width = 300
-        Anchors = [akTop, akLeft, akRight, akBottom]
+        Height = 248
+        Top = 104
+        Width = 298
+        Anchors = [akTop, akLeft, akBottom]
         Caption = 'Database information'
-        ClientHeight = 293
-        ClientWidth = 296
+        ClientHeight = 228
+        ClientWidth = 294
         TabOrder = 3
         object grdDBInfo: TStringGrid
           Left = 8
-          Height = 272
+          Height = 207
           Top = 8
-          Width = 280
+          Width = 278
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderStyle = bsNone
           CellHintPriority = chpAll
@@ -130,37 +130,34 @@ object frmSettingsDialog: TfrmSettingsDialog
         end
       end
       object btnOpenDatabase: TBitBtn
-        Left = 395
+        Left = 64
         Height = 25
-        Top = 10
-        Width = 75
+        Top = 40
+        Width = 150
         Action = actOpenDatabase
-        Anchors = [akTop, akRight]
         TabOrder = 4
       end
       object btnCreateNewDatabase: TBitBtn
-        Left = 471
+        Left = 216
         Height = 25
-        Top = 10
-        Width = 75
+        Top = 40
+        Width = 150
         Action = actCreateNewDatabase
-        Anchors = [akTop, akRight]
         TabOrder = 5
       end
       object btnDeleteDatabase: TBitBtn
-        Left = 547
+        Left = 368
         Height = 25
-        Top = 10
-        Width = 75
+        Top = 40
+        Width = 150
         Action = actDeleteDatabase
-        Anchors = [akTop, akRight]
         TabOrder = 6
       end
       object btnDatabaseShrinkMemory: TBitBtn
-        Left = 320
+        Left = 216
         Height = 26
-        Top = 80
-        Width = 147
+        Top = 67
+        Width = 150
         Action = actDataBaseShrinkMemory
         TabOrder = 7
       end
@@ -254,14 +251,14 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 37
     Top = 390
-    Width = 635
+    Width = 614
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 37
-    ClientWidth = 635
+    ClientWidth = 614
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 480
+      Left = 459
       Height = 25
       Top = 0
       Width = 150
@@ -280,6 +277,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actCreateNewDatabase: TAction
       Category = 'Database'
       Caption = 'Create new'
+      Hint = 'Create a new SnippetSource database.'
       OnExecute = actCreateNewDatabaseExecute
     end
     object actOpenDatabase: TAction
@@ -312,16 +310,19 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actDatabaseIntegrityCheck: TAction
       Category = 'Database'
       Caption = 'Integrity check'
+      Hint = 'This command looks for out-of-order records,  missing pages, '#13#10'malformed records, missing index entries, and constraint errors.'
       OnExecute = actDatabaseIntegrityCheckExecute
     end
     object actDatabaseVacuum: TAction
       Category = 'Database'
       Caption = 'Vacuum'
+      Hint = 'This command rebuilds the database file, repacking '#13#10'it into a minimal amount of disk space. '
       OnExecute = actDatabaseVacuumExecute
     end
     object actDataBaseShrinkMemory: TAction
       Category = 'Database'
       Caption = 'Shrink memory'
+      Hint = 'This command attempts to free as much heap memory '#13#10'as possible from the database connection.'
       OnExecute = actDataBaseShrinkMemoryExecute
     end
   end

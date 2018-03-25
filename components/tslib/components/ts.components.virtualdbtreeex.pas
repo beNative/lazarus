@@ -345,8 +345,8 @@ type
 
     procedure InitFields; virtual;
     procedure Notification(
-          AComponent : TComponent;
-          Operation  : TOperation
+      AComponent : TComponent;
+      Operation  : TOperation
     ); override;
 
     procedure ReadNodeFromDB(Node: PVirtualNode); virtual;

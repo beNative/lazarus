@@ -29,29 +29,19 @@ msgstr ""
 msgid "ODictionary does not allow duplicates"
 msgstr ""
 
-#: snippetsource.resources.sdatecreated
-msgid "Created: %s"
+#: snippetsource.forms.virtualdbtree.sdeleteselecteditems
+msgctxt "snippetsource.forms.virtualdbtree.sdeleteselecteditems"
+msgid "Are you sure you want to delete te selected item(s)?"
 msgstr ""
 
-#: snippetsource.resources.sdatemodified
-msgid "Modified: %s"
+#: snippetsource.forms.virtualdbtree.snew
+msgctxt "snippetsource.forms.virtualdbtree.snew"
+msgid "New"
 msgstr ""
 
-#: snippetsource.resources.sid
-msgid "Id: %d"
-msgstr ""
-
-#: snippetsource.resources.sparameternotassigned
-msgctxt "snippetsource.resources.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr ""
-
-#: snippetsource.resources.squerylookuperrorrunningquery
-msgid "Error running query <%s>"
-msgstr ""
-
-#: snippetsource.resources.squerylookuptoomanyrecords
-msgid "The query <%s> returned too many records"
+#: snippetsource.forms.virtualdbtree.snewfolder
+msgctxt "snippetsource.forms.virtualdbtree.snewfolder"
+msgid "New folder"
 msgstr ""
 
 #: snippetsource_forms_virtualdbtree.sdeleteselecteditems
@@ -3282,16 +3272,38 @@ msgstr ""
 msgid "Create new"
 msgstr ""
 
+#: tfrmsettingsdialog.actcreatenewdatabase.hint
+msgid "Create a new SnippetSource database."
+msgstr ""
+
 #: tfrmsettingsdialog.actdatabaseintegritycheck.caption
 msgid "Integrity check"
+msgstr ""
+
+#: tfrmsettingsdialog.actdatabaseintegritycheck.hint
+msgid ""
+"This command looks for out-of-order records,  missing pages, \n"
+"malformed records, missing index entries, and constraint errors.\n"
 msgstr ""
 
 #: tfrmsettingsdialog.actdatabaseshrinkmemory.caption
 msgid "Shrink memory"
 msgstr ""
 
+#: tfrmsettingsdialog.actdatabaseshrinkmemory.hint
+msgid ""
+"This command attempts to free as much heap memory \n"
+"as possible from the database connection.\n"
+msgstr ""
+
 #: tfrmsettingsdialog.actdatabasevacuum.caption
 msgid "Vacuum"
+msgstr ""
+
+#: tfrmsettingsdialog.actdatabasevacuum.hint
+msgid ""
+"This command rebuilds the database file, repacking \n"
+"it into a minimal amount of disk space. \n"
 msgstr ""
 
 #: tfrmsettingsdialog.actdeletedatabase.caption

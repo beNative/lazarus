@@ -71,8 +71,9 @@ const
   FILE_EXTENSIONS_TXT  = 'txt,nfo,me';
   FILE_EXTENSIONS_PAS  = 'pas,dpr,pp,lpr,inc,dpk';
   FILE_EXTENSIONS_CPP  = 'cpp,hpp,' +            // C++
-                         'c,h' +                 // regular C
-                         'ino,pde';              // Arduino sketch
+                         'c,h,' +                // regular C
+                         'ino,pde,' +            // Arduino sketch
+                         'xpm';                  // X11 Pixmap Graphic
   FILE_EXTENSIONS_JAVA = 'java';                 // Java source file
   FILE_EXTENSIONS_SQL  = 'sql';                  // SQL script source file
   FILE_EXTENSIONS_XML  = 'xml,' +                // General XML file
@@ -81,7 +82,7 @@ const
                          'xslt,' +               // XSL Transform file
                          'hgl,' +                // Highlighter (synunisyn)
                          'lpi,lps,lpk,' +        // Lazarus
-                         'fpc,compiled' +        // FPC Make
+                         'fpc,compiled,' +       // FPC Make
                          'dproj,groupproj,' +    // Delphi
                          'template,' +           // Java templates
                          'svg,' +                // Scalable Vector Graphics
@@ -131,7 +132,7 @@ const
   FILE_EXTENSIONS_HTML = 'html,htm';
   FILE_EXTENSIONS_PO   = 'po';
   FILE_EXTENSIONS_JS   = 'js,' +
-                         'json';
+                         'json';               // Javascript Object Notation
   FILE_EXTENSIONS_CSS  = 'css';
   FILE_EXTENSIONS_CS   = 'cs';
   FILE_EXTENSIONS_DIFF = 'diff';

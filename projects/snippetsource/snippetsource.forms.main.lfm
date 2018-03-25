@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 676
+  Left = 679
   Height = 597
-  Top = 137
+  Top = 139
   Width = 999
   Caption = 'SnippetSource'
   ClientHeight = 597
@@ -217,7 +217,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 38
       Align = alLeft
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
@@ -238,7 +237,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 116
       Align = alRight
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
@@ -258,7 +256,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 130
       Align = alRight
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
@@ -277,7 +274,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 44
       Align = alLeft
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
@@ -303,7 +299,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 54
       Align = alLeft
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2
@@ -324,7 +319,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 64
       Align = alLeft
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
@@ -344,7 +338,6 @@ object frmMain: TfrmMain
       Top = 0
       Width = 54
       Align = alRight
-      Alignment = taLeftJustify
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BorderSpacing.InnerBorder = 2

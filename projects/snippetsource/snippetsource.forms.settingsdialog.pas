@@ -32,6 +32,8 @@ uses
 
   VirtualTrees,
 
+  ts.RichEditor.Interfaces,
+
   SnippetSource.Interfaces;
 
 type
@@ -40,43 +42,43 @@ type
 
   TfrmSettingsDialog = class(TForm)
     {$REGION 'designer controls'}
-    aclMain              : TActionList;
-    actCreateNewDatabase : TAction;
-    actDeleteDatabase    : TAction;
-    actClose             : TAction;
-    actDatabaseIntegrityCheck: TAction;
-    actDatabaseVacuum: TAction;
-    actDataBaseShrinkMemory: TAction;
-    actOpenDatabase      : TAction;
-    actOpenGlyphs        : TAction;
-    actRefreshGlyphs     : TAction;
-    btnCreateNewDatabase: TBitBtn;
-    btnDatabaseIntegrityCheck: TBitBtn;
-    btnClose             : TBitBtn;
-    btnDatabaseShrinkMemory: TBitBtn;
-    btnDatabaseVacuum: TBitBtn;
-    btnDeleteDatabase: TBitBtn;
-    btnOpenDatabase: TBitBtn;
-    btnOpenGlyphs        : TButton;
-    btnRefresh           : TButton;
-    cbxImageList         : TComboBox;
-    dlgOpen              : TOpenDialog;
-    dscGlyph             : TDatasource;
-    dscHighlighter       : TDatasource;
-    edtDatabaseFile      : TFileNameEdit;
-    grdGlyph             : TDBGrid;
-    grdHighlighters      : TDBGrid;
-    grdDBInfo: TStringGrid;
-    grpDatabaseInfo: TGroupBox;
-    grpLayout: TGroupBox;
-    Highlighters         : TTabSheet;
-    lblDataBaseFile      : TLabel;
-    pnlBottom            : TPanel;
-    pgcMain              : TPageControl;
-    tsApplicationSettings: TTabSheet;
-    tsDataBase           : TTabSheet;
-    tsImages             : TTabSheet;
-    vstImageList         : TVirtualStringTree;
+    aclMain                   : TActionList;
+    actCreateNewDatabase      : TAction;
+    actDeleteDatabase         : TAction;
+    actClose                  : TAction;
+    actDatabaseIntegrityCheck : TAction;
+    actDatabaseVacuum         : TAction;
+    actDataBaseShrinkMemory   : TAction;
+    actOpenDatabase           : TAction;
+    actOpenGlyphs             : TAction;
+    actRefreshGlyphs          : TAction;
+    btnCreateNewDatabase      : TBitBtn;
+    btnDatabaseIntegrityCheck : TBitBtn;
+    btnClose                  : TBitBtn;
+    btnDatabaseShrinkMemory   : TBitBtn;
+    btnDatabaseVacuum         : TBitBtn;
+    btnDeleteDatabase         : TBitBtn;
+    btnOpenDatabase           : TBitBtn;
+    btnOpenGlyphs             : TButton;
+    btnRefresh                : TButton;
+    cbxImageList              : TComboBox;
+    dlgOpen                   : TOpenDialog;
+    dscGlyph                  : TDatasource;
+    dscHighlighter            : TDatasource;
+    edtDatabaseFile           : TFileNameEdit;
+    grdGlyph                  : TDBGrid;
+    grdHighlighters           : TDBGrid;
+    grdDBInfo                 : TStringGrid;
+    grpDatabaseInfo           : TGroupBox;
+    grpLayout                 : TGroupBox;
+    Highlighters              : TTabSheet;
+    lblDataBaseFile           : TLabel;
+    pnlBottom                 : TPanel;
+    pgcMain                   : TPageControl;
+    tsApplicationSettings     : TTabSheet;
+    tsDataBase                : TTabSheet;
+    tsImages                  : TTabSheet;
+    vstImageList              : TVirtualStringTree;
     {$ENDREGION}
 
     procedure actCloseExecute(Sender: TObject);
@@ -117,7 +119,9 @@ type
     );
 
   private
-    FData: IInterface;
+    FData              : IInterface;
+    FRichEditorManager : IRichEditorManager;
+    FRichEditor        : IRichEditorView;
 
     function GetConnection: IConnection;
     function GetGlyphDS: TDataSet;
@@ -194,6 +198,7 @@ begin
   begin
     cbxImageList.AddItem('', nil);
   end;
+  UpdateDataBaseInfo;
 end;
 
 procedure TfrmSettingsDialog.BeforeDestruction;
@@ -430,6 +435,8 @@ procedure TfrmSettingsDialog.UpdateDataBaseInfo;
 begin
   grdDBInfo.Cells[1, 0] := SQLite.DBVersion;
   grdDBInfo.Cells[1, 1] := FormatByteText(SQLite.Size);
+  grdDBInfo.Cells[1, 2] := DateTimeToStr(GetFileCreationTime(Connection.FileName));
+  grdDBInfo.Cells[1, 3] := DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
 end;
 
 {$ENDREGION}

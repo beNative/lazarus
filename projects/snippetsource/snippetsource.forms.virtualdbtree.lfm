@@ -1,7 +1,7 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 708
+  Left = 713
   Height = 425
-  Top = 293
+  Top = 298
   Width = 246
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin

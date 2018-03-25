@@ -152,6 +152,8 @@ type
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
 
+    function FileExtensionToHighlighter(const AFileExtension: string): string;
+
     procedure CreateTreeview;
     procedure CreateEditor;
     procedure CreateRichEditor;
@@ -292,6 +294,25 @@ function TfrmMain.GetSnippet: ISnippet;
 begin
   Result := FData as ISnippet;
 end;
+
+function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
+  ): string;
+var
+  I  : Integer = 0;
+  B  : Boolean = False;
+  HL : THighlighters;
+begin
+  HL := FEditorManager.Highlighters;
+  while (I < HL.Count) and not B do
+  begin
+    B := HL[I].FileExtensions.Contains(AFileExtension.ToLower);
+    if not B then
+      Inc(I);
+  end;
+  if B then
+    Result := HL[I].Highlighter;
+end;
+
 {$ENDREGION}
 
 {$REGION 'action handlers'}
@@ -566,7 +587,9 @@ begin
     begin
       DataSet.Append;
       Snippet.Text        := ReadFileToString(APath);
-      Snippet.Highlighter := DelChars(UpperCase(ExtractFileExt(APath)), '.');
+      Snippet.Highlighter := FileExtensionToHighlighter(
+        DelChars(UpperCase(ExtractFileExt(APath)), '.')
+      );
       Snippet.NodeName    := LFileName;
       Snippet.NodeTypeId  := 2;
       Snippet.ImageIndex  := 2;

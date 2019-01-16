@@ -24,7 +24,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, ActnList, ExtCtrls, Menus,
-  Buttons, StdCtrls,
+  Buttons, StdCtrls, Graphics,
 
   SynEdit, SynMacroRecorder,
 
@@ -49,6 +49,9 @@ uses
 }
 
 type
+
+  { TfrmMain }
+
   TfrmMain = class(TForm)
     {$REGION 'designer controls'}
     aclMain               : TActionList;
@@ -64,6 +67,7 @@ type
     ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
+    pnlToolBar            : TPanel;
     pnlToolClient         : TPanel;
     pnlSelectionMode      : TPanel;
     pnlCurrentChar        : TPanel;
@@ -82,7 +86,6 @@ type
     btnCloseToolView      : TSpeedButton;
     btnMacro              : TSpeedButton;
     splVertical           : TSplitter;
-    ToolBar1              : TToolBar;
     ToolBar2              : TToolBar;
     ToolButton1           : TToolButton;
     ToolButton2           : TToolButton;
@@ -269,7 +272,7 @@ begin
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
   FMainToolbar := TEditorFactories.CreateMainToolbar(
     Self,
-    Self,
+    pnlToolBar,
     Actions,
     Menus
   );
@@ -280,7 +283,6 @@ begin
     Menus
   );
   FToolbarHostPanel := TPanel.Create(Self);
-  FToolbarHostPanel.Parent := FMainToolbar;
   FRightToolbar := TEditorFactories.CreateTopRightToolbar(
     Self,
     FToolbarHostPanel,
@@ -655,24 +657,28 @@ procedure TfrmMain.InitializeControls;
 begin
   DockMaster.MakeDockSite(Self, [akTop, akBottom, akRight, akLeft], admrpChild);
   AddDockingMenuItems;
-  FMainToolbar.ShowHint := True;
-  FMainToolbar.Transparent := True;
-  FMainToolbar.AutoSize := True;
+  FMainToolbar.ShowHint       := True;
+  FMainToolbar.Transparent    := True;
+  FMainToolbar.Align          := alLeft;
+  FMainToolbar.AutoSize       := True;
   FMainToolbar.DoubleBuffered := True;
 
-  FToolbarHostPanel.Parent := FMainToolbar;
-  FToolbarHostPanel.Align := alRight;
+  FToolbarHostPanel.Align      := alRight;
+  FToolbarHostPanel.Parent     := pnlToolBar;
   FToolbarHostPanel.BevelInner := bvNone;
   FToolbarHostPanel.BevelOuter := bvNone;
-  FToolbarHostPanel.Caption := '';
-  FToolbarHostPanel.Width := FRightToolbar.ButtonCount * FRightToolbar.ButtonWidth;
+  FToolbarHostPanel.Caption    := '';
+  FToolbarHostPanel.Width      := FRightToolbar.ButtonCount * FRightToolbar.ButtonWidth;
+  FToolbarHostPanel.Anchors    := [akRight, akTop];
 
   FRightToolbar.ShowHint := True;
-  FRightToolbar.Align := alTop;
+  FRightToolbar.Align := alClient;
   FRightToolbar.AutoSize := False;
   FRightToolbar.Transparent := True;
   FRightToolbar.Wrapable := False;
   FRightToolbar.DoubleBuffered := True;
+
+  FMainToolbar.Align := alClient;
 
   FSelectionToolbar.Align := alRight;
   FSelectionToolbar.Visible := False;

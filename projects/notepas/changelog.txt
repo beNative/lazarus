@@ -1,3 +1,8 @@
+2019.01.16
+* Removed unused dependencies
+* Updated project and libraries to most current versions
+* Updated to FPC 3.0.4 and Lazarus 1.8.4 (stable versions)
+
 2018.03.7
 * Added highlighter for Pike and VB
 

@@ -8,6 +8,7 @@ object frmMain: TfrmMain
   Caption = 'Notepas'
   ClientHeight = 618
   ClientWidth = 1259
+  Color = clWindow
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
@@ -16,7 +17,7 @@ object frmMain: TfrmMain
   PopupMode = pmAuto
   Position = poDefault
   ShowHint = True
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '1.8.4.0'
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
@@ -265,12 +266,12 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 598
-    Top = 0
+    Height = 574
+    Top = 24
     Width = 428
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 598
+    ClientHeight = 574
     ClientWidth = 428
     Color = clForm
     ParentColor = False
@@ -278,22 +279,21 @@ object frmMain: TfrmMain
     Visible = False
     object pnlTop: TPanel
       Left = 0
-      Height = 18
+      Height = 25
       Top = 0
       Width = 428
       Align = alTop
       BevelOuter = bvNone
-      ClientHeight = 18
+      ClientHeight = 25
       ClientWidth = 428
       TabOrder = 0
       object btnCloseToolView: TSpeedButton
         Left = 414
-        Height = 18
+        Height = 25
         Top = 0
         Width = 14
         Action = actCloseToolview
         Align = alRight
-        Anchors = [akTop, akRight]
         BorderSpacing.InnerBorder = 2
         BorderSpacing.CellAlignHorizontal = ccaCenter
         BorderSpacing.CellAlignVertical = ccaCenter
@@ -324,7 +324,7 @@ object frmMain: TfrmMain
       end
       object lblHeader: TLabel
         Left = 0
-        Height = 18
+        Height = 25
         Top = 0
         Width = 404
         Align = alLeft
@@ -338,8 +338,8 @@ object frmMain: TfrmMain
     end
     object pnlToolClient: TPanel
       Left = 0
-      Height = 580
-      Top = 18
+      Height = 549
+      Top = 25
       Width = 428
       Align = alClient
       BevelOuter = bvNone
@@ -348,15 +348,25 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 428
-    Height = 598
-    Top = 0
+    Height = 574
+    Top = 24
     Width = 7
     Visible = False
   end
+  object pnlToolBar: TPanel
+    Left = 0
+    Height = 24
+    Top = 0
+    Width = 1259
+    Align = alTop
+    BevelOuter = bvNone
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    TabOrder = 3
+  end
   object aclMain: TActionList
     Images = imlMain
-    Left = 72
-    Top = 96
+    left = 72
+    top = 96
     object actAbout: TAction
       Caption = 'About'
       ImageIndex = 2
@@ -373,8 +383,8 @@ object frmMain: TfrmMain
     end
   end
   object imlMain: TImageList
-    Left = 24
-    Top = 96
+    left = 24
+    top = 96
     Bitmap = {
       4C69080000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -637,7 +647,7 @@ object frmMain: TfrmMain
   end
   object ExceptionLogger: TExceptionLogger
     MaxCallStackDepth = 20
-    Left = 190
-    Top = 97
+    left = 190
+    top = 97
   end
 end

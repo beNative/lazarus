@@ -109,7 +109,7 @@ type
     qryNodeType       : TSQLQuery;
     qrySnippet        : TSQLQuery;
     qryLookup         : TSQLQuery;
-    scrCreateDatabase : TSQLScript;
+    scrCreateDatabase: TSQLScript;
     trsMain           : TSQLTransaction;
 
     {$REGION 'event handlers'}

@@ -44,6 +44,31 @@ msgctxt "snippetsource.forms.virtualdbtree.snewfolder"
 msgid "New folder"
 msgstr ""
 
+#: snippetsource.resources.sdatecreated
+msgid "Created: %s"
+msgstr ""
+
+#: snippetsource.resources.sdatemodified
+msgid "Modified: %s"
+msgstr ""
+
+#: snippetsource.resources.sid
+msgid "Id: %d"
+msgstr ""
+
+#: snippetsource.resources.sparameternotassigned
+msgctxt "snippetsource.resources.sparameternotassigned"
+msgid "Parameter <%s> parameter not assigned"
+msgstr ""
+
+#: snippetsource.resources.squerylookuperrorrunningquery
+msgid "Error running query <%s>"
+msgstr ""
+
+#: snippetsource.resources.squerylookuptoomanyrecords
+msgid "The query <%s> returned too many records"
+msgstr ""
+
 #: snippetsource_forms_virtualdbtree.sdeleteselecteditems
 msgctxt "snippetsource_forms_virtualdbtree.sdeleteselecteditems"
 msgid "Are you sure you want to delete te selected item(s)?"

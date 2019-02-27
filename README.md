@@ -11,28 +11,26 @@ Notepas is a fast portable native multiplatform text editor written in Lazarus a
 * **Align lines**: align multiple lines based on tokens found in the current selection.
 * **Common Syntax coloring rules** for all registered highlighters.
 * **Advanced docking** support.
+* **Multi-caret** support.
+* **Synchronized edit** support.
 
 # Other features:
 
-* Single native and fast executable, no external libraries required.
+* Single native and fast executable. No external libraries are required.
 * Portable, as settings are stored in a single XML-file.
-* Syntax highlighting.
+* Customizable syntax highlighting.
+* Support for user definable highlighters. Highlighter rules can be specified using XML.
 * Code folding depending on syntax (currently for XML, HTML and Pascal code but will be extended to support all highlighters).
-* Multi-line comment folding.
-* Selection folding.
-* Region folding.
-* Synchronized edit.
-* Line modification indicators.
-* Line numbers display.
+* Multi-line comment, region and selection folding.
+* Gutter with line index and modification indicators.
 * Smart searching of the word at the caret position (CTRL-ALT-UP/CTRL-ALT-DOWN)
 * Highlighting of words matching the selected word.
 * Highlighting of text matching the selected block.
+* Highlighting of search matches.
 * Highlighting of matching bracket.
 * Routine seperators.
-* Highlighting of search matches.
 * Comment and uncomment (for both line and block comments) handling depending on active highlighter.
 * Column selection mode.
-* Supports user definable highlighters. Highlighter rules can be specified using XML.
 * Extensive set of keyboard shortcuts allowing fast navigation and intuitive text editing.
 * Drag and drop support for both files and code selections.
 * Search & replace in multiple opened files with regular expression support.
@@ -40,8 +38,7 @@ Notepas is a fast portable native multiplatform text editor written in Lazarus a
 * Support for multiple line endings (Windows, Unix, Mac).
 * Zoom.
 * Localization support using simple text files that are loaded by the application at runtime (i18n using GetText).
-* Monitor external changes.
-* (Experimental) Multi-caret support.
+* Monitor external file changes.
 * (Experimental) Bookmark support.
 * (Experimental) support for both internal and external code formatters.
 * (Experimental) support for Pascal scripting.
@@ -50,6 +47,8 @@ Notepas is a fast portable native multiplatform text editor written in Lazarus a
 * (Experimental) structure viewer.
 * (Experimental) support for multiple views on the same source buffer.
 * (Experimental) support for keyboard macros.
-* A lot of other unique features will be added soon so stay tuned as the code evolves. For now only preview builds for the Windows, Linux and MacOS X (Darwin) platforms are available, but native FreeBSD and Solaris builds are in the pipeline.
 
-Notepas is a work-in-progress. If you have bug reports or suggestions for new features please submit a new issue.  Experimental features are activated in debug mode and provide a preliminary look to what's currently cooking in the kitchen.
+Experimental features are activated in debug mode and provide a preliminary look to what's currently cooking in the kitchen.
+The project files support multiple platform/widget set targets.
+
+If you have bug reports or suggestions for new features please submit a new issue. Pull requests are always welcome.

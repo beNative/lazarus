@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -112,6 +112,7 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
+
     procedure EChange(Sender: TObject);
     procedure EHighlighterChange(Sender: TObject);
     procedure EBeforeSave(
@@ -312,7 +313,6 @@ begin
   if B then
     Result := HL[I].Highlighter;
 end;
-
 {$ENDREGION}
 
 {$REGION 'action handlers'}
@@ -696,7 +696,7 @@ begin
   FEditorManager.Settings.AutoFormatXML := False;
   FEditorManager.Settings.AutoGuessHighlighterType := False;
   EV := FEditorManager.Events;
-  EV.OnNew := ENew;
+  EV.OnNew        := ENew;
   EV.OnBeforeSave := EBeforeSave;
   EV.AddOnChangeHandler(EChange);
   EV.AddOnHighlighterChangeHandler(EHighlighterChange);

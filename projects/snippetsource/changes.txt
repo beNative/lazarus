@@ -4,6 +4,14 @@ TODO:
 Actions:
 - actCopySnippetToClipBoard
 
+27/02/2019
+- Pasing copied images works now in RTF-editor view.
+- Fixed bug: paragraph style changes were not dispatched.
+
+19/01/2019
+- Fixed bug: changes were not always detected in RTF text editor.
+- Updated all used libraries and controls.
+
 24/03/2018
 - Fixed loading and saving of RichText content to/from stream.
 

@@ -16,10 +16,10 @@ object EditorView: TEditorView
   ShowHint = True
   ShowInTaskBar = stNever
   UseDockManager = True
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '1.8.4.0'
   object imlBookmarkImages: TImageList
-    Left = 157
-    Top = 75
+    left = 157
+    top = 75
     Bitmap = {
       4C690A0000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF

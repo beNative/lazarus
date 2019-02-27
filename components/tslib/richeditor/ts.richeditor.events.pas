@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -49,6 +49,7 @@ type
     function GetOnLoad: TStorageEvent;
     function GetOnNew: TNewEvent;
     function GetOnOpen: TStorageEvent;
+    function GetOnSave: TStorageEvent;
     function GetView: IRichEditorView;
     procedure SetOnAfterSave(AValue: TStorageEvent);
     procedure SetOnBeforeSave(AValue: TStorageEvent);
@@ -56,6 +57,7 @@ type
     procedure SetOnLoad(AValue: TStorageEvent);
     procedure SetOnNew(AValue: TNewEvent);
     procedure SetOnOpen(AValue: TStorageEvent);
+    procedure SetOnSave(AValue: TStorageEvent);
     {$ENDREGION}
 
   protected
@@ -84,6 +86,9 @@ type
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
 
+    property OnSave: TStorageEvent
+      read GetOnSave write SetOnSave;
+
     property OnNew: TNewEvent
       read GetOnNew write SetOnNew;
 
@@ -99,8 +104,6 @@ type
   end;
 
 implementation
-
-{ TRichEditorEvents }
 
 {$REGION 'construction and destruction'}
 constructor TRichEditorEvents.Create(AManager: IRichEditorManager);
@@ -145,6 +148,16 @@ end;
 function TRichEditorEvents.GetOnOpen: TStorageEvent;
 begin
   Result := FOnOpen;
+end;
+
+function TRichEditorEvents.GetOnSave: TStorageEvent;
+begin
+  Result := FOnSave;
+end;
+
+procedure TRichEditorEvents.SetOnSave(AValue: TStorageEvent);
+begin
+  FOnSave := AValue;
 end;
 
 function TRichEditorEvents.GetView: IRichEditorView;

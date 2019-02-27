@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -53,7 +53,6 @@ type
     pnlRichEditor : TPanel;
   private
     FEditor        : TKMemo;
-    FActions       : IRichEditorActions;
     FTextStyle     : TKMemoTextStyle;
     FParaStyle     : TKMemoParaStyle;
     FUpdateLock    : Integer;
@@ -66,15 +65,23 @@ type
     FNumberingForm : TKMemoNumberingForm;
     FImageForm     : TKMemoImageForm;
     FFileName      : string;
+    FIsFile        : Boolean;
 
     {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
+    procedure FEditorBlockClick(Sender: TObject; ABlock: TKMemoBlock;
+      var Result: Boolean);
+    procedure FEditorBlockEdit(Sender: TObject; ABlock: TKMemoBlock;
+      var Result: Boolean);
     procedure FEditorDropFiles(Sender: TObject; X, Y: Integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
+    function GetEvents: IRichEditorEvents;
+    function GetIsFile: Boolean;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
+    procedure SetIsFile(AValue: Boolean);
 
   protected
     {$REGION 'property access mehods'}
@@ -118,7 +125,9 @@ type
 
     procedure SelectAll;
     procedure LoadFromFile(const AFileName: string);
+    procedure Load(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
+    procedure Save(const AStorageName: string = '');
     procedure SaveToStream(AStream: TStream);
     procedure SaveToFile(const AFileName: string);
     procedure BeginUpdate;
@@ -139,6 +148,7 @@ type
     procedure Redo;
 
     procedure DoDropFiles(const AFileNames: array of string);
+    procedure DoChange;
 
   public
     procedure AfterConstruction; override;
@@ -157,6 +167,9 @@ type
 
     property CanRedo: Boolean
       read GetCanRedo;
+
+    property Events: IRichEditorEvents
+      read GetEvents;
 
     property Editor: TComponent
       read GetEditor;
@@ -200,6 +213,9 @@ type
     property Form: TCustomForm
       read GetForm;
 
+    property IsFile: Boolean
+      read GetIsFile write SetIsFile;
+
     property Text: string
       read GetText write SetText;
 
@@ -227,7 +243,6 @@ procedure TRichEditorViewKMemo.AfterConstruction;
 begin
   inherited AfterConstruction;
   FEditor := TKMemo.Create(Self);
-  FActions := Owner as IRichEditorActions;
   FEditor.Parent         := pnlRichEditor;
   FEditor.BorderStyle    := bsNone;
   FEditor.ScrollBars     := ssBoth;
@@ -235,6 +250,8 @@ begin
   FEditor.DoubleBuffered := True;
   FEditor.OnDropFiles    := FEditorDropFiles;
   FEditor.OnChange       := EditorChange;
+  FEditor.OnBlockEdit    := FEditorBlockEdit;
+  FEditor.OnBlockClick   := FEditorBlockClick;
 
   FTextStyle := TKMemoTextStyle.Create;
   FTextStyle.OnChanged := FTextStyleChanged;
@@ -260,7 +277,7 @@ end;
 {$REGION 'property access mehods'}
 function TRichEditorViewKMemo.GetActions: IRichEditorActions;
 begin
-  Result := FActions;
+  Result := Owner as IRichEditorActions;
 end;
 
 function TRichEditorViewKMemo.GetCanPaste: Boolean;
@@ -300,6 +317,21 @@ end;
 function TRichEditorViewKMemo.GetForm: TCustomForm;
 begin
   Result := Self;
+end;
+
+function TRichEditorViewKMemo.GetEvents: IRichEditorEvents;
+begin
+  Result := Owner as IRichEditorEvents;
+end;
+
+function TRichEditorViewKMemo.GetIsFile: Boolean;
+begin
+  Result := FIsFile;
+end;
+
+procedure TRichEditorViewKMemo.SetIsFile(AValue: Boolean);
+begin
+  FIsFile := AValue;
 end;
 
 function TRichEditorViewKMemo.GetModified: Boolean;
@@ -387,62 +419,6 @@ procedure TRichEditorViewKMemo.SetPopupMenu(const AValue: TPopupMenu);
 begin
   FEditor.PopupMenu := AValue;
 end;
-{$ENDREGION}
-
-{$REGION 'event handlers'}
-procedure TRichEditorViewKMemo.EditorChange(Sender: TObject);
-begin
-  if Assigned(OnChange) and not IsUpdating then
-  begin
-    OnChange(Sender);
-  end;
-end;
-
-procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: Integer;
-  Files: TStrings);
-var
-  LFiles : array of string;
-  I      : Integer;
-begin
-  SetLength(LFiles, Files.Count);
-  try
-    for I := 0 to Files.Count - 1 do
-    begin
-      LFiles[I] := Files[I];
-    end;
-    DoDropFiles(LFiles);
-  finally
-    LFiles := nil;
-  end;
-end;
-
-procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
-  AReasons: TKMemoUpdateReasons);
-begin
-  FEditor.SelectionParaStyle := FParaStyle;
-end;
-
-procedure TRichEditorViewKMemo.FTextStyleChanged(Sender: TObject);
-var
-  LSelAvail   : Boolean;
-  LSelEnd     : TKMemoSelectionIndex;
-  LStartIndex : TKMemoSelectionIndex;
-  LEndIndex   : TKMemoSelectionIndex;
-begin
-  // if there is no selection then simulate one word selection or set style for new text
-  LSelAvail := FEditor.SelAvail;
-  LSelEnd := FEditor.SelEnd;
-  if LSelAvail then
-    FEditor.SelectionTextStyle := FTextStyle
-  else if FEditor.GetNearestWordIndexes(LSelEnd, False, LStartIndex, LEndIndex)
-    and (LStartIndex < LSelEnd) and (LSelEnd < LEndIndex) then
-    // simulate MS Word behavior here, LSelEnd is caret position
-    // do not select the word if we are at the beginning or end of the word
-    // and allow set another text style for newly added text
-    FEditor.SetRangeTextStyle(LStartIndex, LEndIndex, FTextStyle)
-  else
-    FEditor.NewTextStyle := FTextStyle;
-end;
 
 function TRichEditorViewKMemo.GetText: string;
 begin
@@ -494,8 +470,8 @@ end;
 
 function TRichEditorViewKMemo.GetCanRedo: Boolean;
 begin
-//  Result := FEditor.CommandEnabled(ecRedo);
-  Result := False; // not supported yet
+  // Result := FEditor.CommandEnabled(ecRedo);
+  Result := False;
 end;
 
 procedure TRichEditorViewKMemo.SetAlignRight(AValue: Boolean);
@@ -505,11 +481,87 @@ begin
 end;
 {$ENDREGION}
 
+{$REGION 'event handlers'}
+procedure TRichEditorViewKMemo.EditorChange(Sender: TObject);
+begin
+  DoChange;
+end;
+
+procedure TRichEditorViewKMemo.FEditorBlockClick(Sender: TObject;
+  ABlock: TKMemoBlock; var Result: Boolean);
+begin
+  FEditor.Modified :=  True;
+  DoChange;
+end;
+
+procedure TRichEditorViewKMemo.FEditorBlockEdit(Sender: TObject;
+  ABlock: TKMemoBlock; var Result: Boolean);
+begin
+  DoChange;
+end;
+
+procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: Integer;
+  Files: TStrings);
+var
+  LFiles : array of string;
+  I      : Integer;
+begin
+  SetLength(LFiles, Files.Count);
+  try
+    for I := 0 to Files.Count - 1 do
+    begin
+      LFiles[I] := Files[I];
+    end;
+    DoDropFiles(LFiles);
+  finally
+    LFiles := nil;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
+  AReasons: TKMemoUpdateReasons);
+begin
+  FEditor.SelectionParaStyle := FParaStyle;
+  DoChange;
+end;
+
+procedure TRichEditorViewKMemo.FTextStyleChanged(Sender: TObject);
+var
+  LSelAvail   : Boolean;
+  LSelEnd     : TKMemoSelectionIndex;
+  LStartIndex : TKMemoSelectionIndex;
+  LEndIndex   : TKMemoSelectionIndex;
+begin
+  // if there is no selection then simulate one word selection or set style for new text
+  LSelAvail := FEditor.SelAvail;
+  LSelEnd := FEditor.SelEnd;
+  if LSelAvail then
+    FEditor.SelectionTextStyle := FTextStyle
+  else if FEditor.GetNearestWordIndexes(LSelEnd, False, LStartIndex, LEndIndex)
+    and (LStartIndex < LSelEnd) and (LSelEnd < LEndIndex) then
+    // simulate MS Word behavior here, LSelEnd is caret position
+    // do not select the word if we are at the beginning or end of the word
+    // and allow set another text style for newly added text
+    FEditor.SetRangeTextStyle(LStartIndex, LEndIndex, FTextStyle)
+  else
+    FEditor.NewTextStyle := FTextStyle;
+  DoChange;
+end;
+{$ENDREGION}
+
 {$REGION 'event dispatch methods'}
 procedure TRichEditorViewKMemo.DoDropFiles(const AFileNames: array of string);
 begin
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, AFileNames);
+end;
+
+procedure TRichEditorViewKMemo.DoChange;
+begin
+  if Assigned(OnChange) and not IsUpdating then
+  begin
+    OnChange(Self);
+  end;
 end;
 {$ENDREGION}
 
@@ -533,6 +585,19 @@ begin
   FEditor.LoadFromFile(AFileName);
 end;
 
+procedure TRichEditorViewKMemo.Load(const AStorageName: string);
+begin
+  Events.DoLoad(AStorageName);
+  if IsFile then
+  begin
+    if (AStorageName <> '') and FileExists(AStorageName) then
+      FileName := AStorageName;
+
+    LoadFromFile(FFileName);
+    Modified := False;
+  end;
+end;
+
 procedure TRichEditorViewKMemo.SaveToFile(const AFileName: string);
 begin
   FEditor.SaveToFile(AFileName);
@@ -551,6 +616,18 @@ begin
   finally
     EndUpdate;
   end;
+end;
+
+procedure TRichEditorViewKMemo.Save(const AStorageName: string);
+begin
+  Events.DoBeforeSave(AStorageName);
+  if IsFile then
+  begin
+    FileName := AStorageName;
+    SaveToFile(AStorageName);
+  end;
+  Events.DoAfterSave(AStorageName);
+  Modified := False;
 end;
 
 procedure TRichEditorViewKMemo.SaveToStream(AStream: TStream);
@@ -572,8 +649,8 @@ end;
 
 function TRichEditorViewKMemo.InsertImage: Boolean;
 var
-  LImage: TKMemoImageBlock;
-  LCreated: Boolean;
+  LImage   : TKMemoImageBlock;
+  LCreated : Boolean;
 begin
   Result := False;
   LCreated := False;

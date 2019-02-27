@@ -25,10 +25,11 @@ object frmMain: TfrmMain
     Width = 1259
     Align = alBottom
     BorderSpacing.Top = 2
+    BevelColor = clWhite
     BevelOuter = bvNone
     ClientHeight = 18
     ClientWidth = 1259
-    Color = clForm
+    Color = clWhite
     ParentColor = False
     TabOrder = 0
     object pnlPosition: TPanel

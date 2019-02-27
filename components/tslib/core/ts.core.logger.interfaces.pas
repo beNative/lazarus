@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -37,19 +37,25 @@ type
     lmtCheckpoint  = 7,
     lmtStrings     = 8,   // TStrings and descendants
     lmtCallStack   = 9,   // not supported yet
-    lmtObject      = 10,
+    lmtComponent   = 10,
     lmtException   = 11,
     lmtBitmap      = 12,
     lmtHeapInfo    = 13,  // not supported yet
     lmtMemory      = 14,
     lmtCustomData  = 15,  // not supported yet
+    lmtObject      = 16,
+    lmtInterface   = 17,
+    lmtPersistent  = 18,
     lmtWatch       = 20,
     lmtCounter     = 21,
     lmtColor       = 22,
     lmtAlphaColor  = 23,
-    lmtScreenShot  = 24,  // not supported yet
+    lmtScreenShot  = 24,
     lmtText        = 25,  // arbitrary text with optional highlighter info
-    lmtClear       = 99
+    lmtDataSet     = 26,
+    lmtAction      = 27,  // TAction execution
+    lmtClear       = 99,
+    lmtNone        = 100  // can be used as a default value
   );
 
 type

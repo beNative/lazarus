@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -38,10 +38,10 @@ type
      ): IRichEditorManager;
 
     class function CreateView(
-      AParent            : TWinControl;
-      AManager           : IRichEditorManager = nil;
-      const AName        : string = '';
-      const AFileName    : string = ''
+      AParent         : TWinControl;
+      AManager        : IRichEditorManager = nil;
+      const AName     : string = '';
+      const AFileName : string = ''
     ): IRichEditorView;
 
     class function CreateMainMenu(
@@ -60,9 +60,8 @@ type
 implementation
 
 uses
-  ts.RichEditor.Manager,
-
-  ts.RichEditor.Factories.Toolbars, ts.RichEditor.Factories.Menus;
+  ts.RichEditor.Manager, ts.RichEditor.Factories.Toolbars,
+  ts.RichEditor.Factories.Menus;
 
 {$REGION 'public methods'}
 class function TRichEditorFactories.CreateManager(AOwner: TComponent

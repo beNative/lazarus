@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -98,12 +98,17 @@ type
     function Focused: Boolean;
     procedure SetFocus;
     procedure SelectAll;
+
     procedure LoadFromFile(const AFileName: string);
     procedure LoadFromStream(AStream: TStream);
     procedure SaveToStream(AStream: TStream);
     procedure SaveToFile(const AFileName: string);
+    procedure Load(const AStorageName: string = '');
+    procedure Save(const AStorageName: string = '');
+
     procedure BeginUpdate;
     procedure EndUpdate;
+
     function IsUpdating: Boolean;
     function IsEmpty: Boolean;
     function InsertImage: Boolean;

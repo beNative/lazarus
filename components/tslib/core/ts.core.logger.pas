@@ -105,19 +105,19 @@ type
     procedure SetMaxStackCount(const AValue: Integer);
 
   protected
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Int64);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: QWord);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Boolean);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; const ARect: TRect);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; const APoint: TPoint);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AStrList: TStrings);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Double);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Cardinal);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Integer);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Int64); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: QWord); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Boolean); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; const ARect: TRect); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; const APoint: TPoint); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AStrList: TStrings); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Double); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Cardinal); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AValue: Integer); overload;
     procedure Send(Classes: TDebugClasses; const AText,AValue: string); overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; Args: array of const);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string);overload;
-    procedure Send(Classes: TDebugClasses; const AText: string; AObject: TObject);overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; Args: array of const); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string); overload;
+    procedure Send(Classes: TDebugClasses; const AText: string; AObject: TObject); overload;
 
     procedure SendColor(Classes: TDebugClasses; const AText: string; AColor: TColor);
     procedure SendBitmap(Classes: TDebugClasses; const AText: string; ABitmap: TBitmap);

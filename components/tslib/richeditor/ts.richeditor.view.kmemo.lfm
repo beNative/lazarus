@@ -6,7 +6,7 @@ object RichEditorViewKMemo: TRichEditorViewKMemo
   Caption = 'RichEditorViewKMemo'
   ClientHeight = 342
   ClientWidth = 486
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '1.8.4.0'
   object pnlRichEditor: TPanel
     Left = 0
     Height = 342

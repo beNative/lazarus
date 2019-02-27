@@ -4,10 +4,11 @@ object dmRichEditorManager: TdmRichEditorManager
   HorizontalOffset = 856
   VerticalOffset = 300
   Width = 375
+  PPI = 96
   object aclActions: TActionList
     Images = imlMain
-    Left = 32
-    Top = 20
+    left = 32
+    top = 20
     object actBold: TAction
       Category = 'Style'
       AutoCheck = True
@@ -172,6 +173,7 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Redo'
       Hint = 'Redo'
       ImageIndex = 11
+      OnExecute = actRedoExecute
     end
     object actInsertImage: TAction
       Category = 'Insert'
@@ -198,18 +200,18 @@ object dmRichEditorManager: TdmRichEditorManager
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    Left = 161
-    Top = 16
+    left = 161
+    top = 16
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofNoNetworkButton, ofEnableSizing, ofAutoPreview]
-    Left = 161
-    Top = 72
+    left = 161
+    top = 72
   end
   object ppmRichEditor: TPopupMenu
     Images = imlMain
-    Left = 32
-    Top = 84
+    left = 32
+    top = 84
     object mniBold: TMenuItem
       Action = actBold
       AutoCheck = True
@@ -259,8 +261,8 @@ object dmRichEditorManager: TdmRichEditorManager
     end
   end
   object imlMain: TImageList
-    Left = 267
-    Top = 21
+    left = 267
+    top = 21
     Bitmap = {
       4C69240000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF009A6B2731AA7E43A192601805FFFFFF00FFFFFF00FFFF
@@ -1441,14 +1443,14 @@ object dmRichEditorManager: TdmRichEditorManager
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    Left = 168
-    Top = 139
+    left = 168
+    top = 139
   end
   object dlgFont: TFontDialog
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdForceFontExist, fdNoSimulations, fdApplyButton]
-    Left = 267
-    Top = 88
+    left = 267
+    top = 88
   end
 end

@@ -1154,7 +1154,7 @@
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
 		<Color>clBlack</Color>
-		<Height>-14</Height>
+		<Height>-16</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

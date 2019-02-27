@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -103,6 +103,7 @@ type
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
+    procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
@@ -285,6 +286,11 @@ begin
   ActiveView.Paste;
 end;
 
+procedure TdmRichEditorManager.actRedoExecute(Sender: TObject);
+begin
+  ActiveView.Redo;
+end;
+
 procedure TdmRichEditorManager.actSaveAsExecute(Sender: TObject);
 begin
   if dlgSave.Execute then
@@ -444,6 +450,8 @@ begin
     actStrikeThrough.Checked := ActiveView.Font.StrikeThrough;
     actUndo.Enabled          := ActiveView.CanUndo;
     actRedo.Enabled          := ActiveView.CanRedo;
+    actUndo.Enabled          := True;
+    actRedo.Enabled          := True;
     actCopy.Enabled          := ActiveView.SelAvail;
     actCut.Enabled           := ActiveView.SelAvail;
     actPaste.Enabled         := ActiveView.CanPaste;

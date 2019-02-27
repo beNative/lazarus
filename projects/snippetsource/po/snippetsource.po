@@ -3376,10 +3376,6 @@ msgstr ""
 msgid "Database information"
 msgstr ""
 
-#: tfrmsettingsdialog.grplayout.caption
-msgid "Layout"
-msgstr ""
-
 #: tfrmsettingsdialog.highlighters.caption
 msgctxt "TFRMSETTINGSDIALOG.HIGHLIGHTERS.CAPTION"
 msgid "Highlighters"
@@ -3387,10 +3383,6 @@ msgstr ""
 
 #: tfrmsettingsdialog.lbldatabasefile.caption
 msgid "Filename:"
-msgstr ""
-
-#: tfrmsettingsdialog.tsapplicationsettings.caption
-msgid "Application settings"
 msgstr ""
 
 #: tfrmsettingsdialog.tsdatabase.caption
@@ -3658,22 +3650,6 @@ msgstr ""
 
 #: ts.core.nativexml.sxmlparentnotassigned
 msgid "XML parent is not assigned"
-msgstr ""
-
-#: ts.editor.search.data.sgroup
-msgid "%s (%d matching lines)"
-msgstr ""
-
-#: ts.editor.search.data.sline
-msgid "Line: %d"
-msgstr ""
-
-#: ts.editor.search.data.smatch
-msgid ": '%s'"
-msgstr ""
-
-#: ts.editor.search.data.sposition
-msgid "Position: (%d, %d)"
 msgstr ""
 
 #: tsettingsdialogbaseform.caption

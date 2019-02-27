@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -2254,11 +2254,11 @@ end;
 
 function TEditorView.GetWordAtPosition(const APosition: TPoint): string;
 var
-  CaretPos: TPoint;
+  LCaretPos: TPoint;
 begin
   Result := '';
-  Caretpos := Editor.PhysicalToLogicalPos(APosition);
-  Result := GetWordFromCaret(CaretPos);
+  LCaretPos := Editor.PhysicalToLogicalPos(APosition);
+  Result := GetWordFromCaret(LCaretPos);
 end;
 
 function TEditorView.GetWordFromCaret(const ACaretPos: TPoint): string;

@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.Editor.filter.ToolView;
@@ -276,28 +274,21 @@ begin
   Logger.Send('Keys : %s', [KeyAndShiftStateToKeyString(Key, Shift)]);
   // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
-  Logger.Watch('A', A);
   { Single keys that need to be handled by the edit control like all displayable
     characters but also HOME and END }
   B := (Key in VK_EDIT_KEYS) and (Shift = []);
-  Logger.Watch('B', B);
   { CTRL-keycombinations that need to be handled by the edit control like
     CTRL-C for clipboard copy. }
   C := (Key in VK_CTRL_EDIT_KEYS) and (Shift = [ssCtrlOS]);
-  Logger.Watch('C', C);
   { SHIFT-keycombinations that need to be handled by the edit control for
     uppercase characters but also eg. SHIFT-HOME for selections. }
   D := (Key in VK_SHIFT_EDIT_KEYS) and (Shift = [ssShift]);
-  Logger.Watch('D', D);
   { Only CTRL key is pressed. }
   E := (Key = VK_CONTROL) and (Shift = [ssCtrlOS]);
-  Logger.Watch('E', E);
   { Only SHIFT key is pressed. }
   F := (Key = VK_SHIFT) and (Shift = [ssShift]);
-  Logger.Watch('F', F);
   { Only (left) ALT key is pressed. }
   G := (Key = VK_MENU) and (Shift = [ssAlt]);
-  Logger.Watch('G', G);
   if not (A or B or C or D or E or F or G) then
   begin
     FVKPressed := True;

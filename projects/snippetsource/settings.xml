@@ -66,13 +66,14 @@
 								<Foreground>clRed</Foreground>
 								<Style>[fsBold,fsItalic]</Style>
 							</SymbolAttri>
+							<ProcedureHeaderName>(TSynHighlighterAttributesModifier)</ProcedureHeaderName>
 							<CaseLabelAttri>(TSynHighlighterAttributesModifier)</CaseLabelAttri>
 							<DirectiveAttri>(TSynHighlighterAttributes)
 								<Foreground>clOlive</Foreground>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmObjFPC</CompilerMode>
-							<NestedComments>true</NestedComments>
+							<CompilerMode>pcmDelphi</CompilerMode>
+							<NestedComments>false</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1154,7 +1155,7 @@
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
 		<Color>clBlack</Color>
-		<Height>-14</Height>
+		<Height>-15</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

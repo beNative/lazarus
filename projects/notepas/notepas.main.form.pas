@@ -259,7 +259,7 @@ begin
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
 
   SetDefaultLang(FSettings.LanguageCode);
-  Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
+  //Logger.Send('SetDefaultLang to ' + FSettings.LanguageCode);
 
   FManager := TEditorFactories.CreateManager(
     Self,

@@ -31,6 +31,11 @@
           <UseHeaptrc Value="True"/>
         </Debugging>
       </Linking>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx5024="True"/>
+        </CompilerMessages>
+      </Other>
     </CompilerOptions>
     <Files Count="36">
       <Item1>

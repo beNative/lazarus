@@ -4,6 +4,8 @@ TODO:
 Actions:
 - actCopySnippetToClipBoard
 
+15/01/2020
+
 27/02/2019
 - Pasing copied images works now in RTF-editor view.
 - Fixed bug: paragraph style changes were not dispatched.

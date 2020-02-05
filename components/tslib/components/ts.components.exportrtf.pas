@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This library is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.Components.ExportRTF;
@@ -65,9 +63,12 @@ uses
 
   LCLIntf, LCLType,
 
-  SynEditExport;
+  SynEditExport, SynEditHighlighter;
 
 type
+
+  { TSynExporterRTF }
+
   TSynExporterRTF = class(TSynCustomExporter)
   private
     FAttributesChanged: Boolean;
@@ -76,12 +77,18 @@ type
     function GetColorIndex(AColor: TColor): Integer;
   protected
     procedure FormatAfterLastAttribute; override;
+    procedure FormatAttributeInitImmediate(Attri: TSynHighlighterAttributes;
+      IsSpace: Boolean); override;
+    procedure FormatAttributeDoneImmediate(Attri: TSynHighlighterAttributes;
+      IsSpace: Boolean); override;
     procedure FormatAttributeDone(BackgroundChanged, ForegroundChanged: Boolean;
       FontStylesChanged: TFontStyles); override;
     procedure FormatAttributeInit(BackgroundChanged, ForegroundChanged: Boolean;
       FontStylesChanged: TFontStyles); override;
     procedure FormatBeforeFirstAttribute(BackgroundChanged,
       ForegroundChanged: Boolean; FontStylesChanged: TFontStyles); override;
+    procedure FormatBeforeFirstAttributeImmediate(BG, FG: TColor); override;
+    procedure FormatAfterLastAttributeImmediate; override;
     procedure FormatNewLine; override;
     function GetFooter: string; override;
     function GetFormatName: string; override;
@@ -147,6 +154,18 @@ begin
   // no need to reset the font style here...
 end;
 
+procedure TSynExporterRTF.FormatAttributeInitImmediate(
+  Attri: TSynHighlighterAttributes; IsSpace: Boolean);
+begin
+  //
+end;
+
+procedure TSynExporterRTF.FormatAttributeDoneImmediate(
+  Attri: TSynHighlighterAttributes; IsSpace: Boolean);
+begin
+  //
+end;
+
 procedure TSynExporterRTF.FormatAttributeDone(BackgroundChanged,
   ForegroundChanged: Boolean; FontStylesChanged: TFontStyles);
 const
@@ -204,6 +223,16 @@ begin
   FormatAttributeInit(BackgroundChanged, ForegroundChanged, FontStylesChanged);
 end;
 
+procedure TSynExporterRTF.FormatBeforeFirstAttributeImmediate(BG, FG: TColor);
+begin
+  //
+end;
+
+procedure TSynExporterRTF.FormatAfterLastAttributeImmediate;
+begin
+  //
+end;
+
 procedure TSynExporterRTF.FormatNewLine;
 begin
   AddData(#13#10'\par ');
@@ -237,7 +266,8 @@ var
   end;
 
 begin
-  Result := '{\rtf1\ansi\ansicpg1252\uc1\deff0\deftab720' + GetFontTable;
+  Result := '{\rtf1\ansi\ansicpg1252\uc1\deff0\deftab720' +
+    string(GetFontTable);
   // all the colors
   Result := Result + '{\colortbl';
   for i := 0 to FListColors.Count - 1 do

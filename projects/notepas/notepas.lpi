@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -25,9 +25,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="47"/>
-      <BuildNr Value="226"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2019 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.47" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <RevisionNr Value="48"/>
+      <BuildNr Value="237"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2020 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.48" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -76,7 +76,6 @@
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
@@ -89,6 +88,7 @@
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release win32 i386 win32">
@@ -155,7 +155,6 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
@@ -169,7 +168,7 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Run="False"/>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release win32 i386 gtk2">
@@ -236,104 +235,22 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
             <ExecuteBefore>
-              <CompileReasons Run="False"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-              <CompileReasons Run="False"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Run="False"/>
         </CompilerOptions>
       </Item4>
-      <Item5 Name="Release win64 x86_64 win32">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
-            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-          </SearchPaths>
-          <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
-
-// example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
-//end;
-
-if GetIDEValue('OS') = 'linux' then
-begin
-  upx := 'upx'
-end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
-begin
-  upx := 'upx.exe'
-end;"/>
-          <Parsing>
-            <SyntaxOptions>
-              <SyntaxMode Value="Delphi"/>
-              <UseAnsiStrings Value="False"/>
-            </SyntaxOptions>
-          </Parsing>
-          <CodeGeneration>
-            <SmartLinkUnit Value="True"/>
-            <Checks>
-              <IOChecks Value="True"/>
-            </Checks>
-            <TargetCPU Value="x86_64"/>
-            <TargetOS Value="win64"/>
-            <Optimizations>
-              <OptimizationLevel Value="2"/>
-              <VariablesInRegisters Value="True"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <GenerateDebugInfo Value="False"/>
-              <StripSymbols Value="True"/>
-            </Debugging>
-            <LinkSmart Value="True"/>
-            <Options>
-              <Win32>
-                <GraphicApplication Value="True"/>
-              </Win32>
-            </Options>
-          </Linking>
-          <Other>
-            <Verbosity>
-              <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
-              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
-            </Verbosity>
-            <CompilerMessages>
-              <IgnoredMessages idx5024="True"/>
-            </CompilerMessages>
-            <ExecuteBefore>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
-            </ExecuteBefore>
-            <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
-            </ExecuteAfter>
-          </Other>
-          <CompileReasons Run="False"/>
-        </CompilerOptions>
-      </Item5>
-      <Item6 Name="Release darwin i386 carbon">
+      <Item5 Name="Release darwin i386 carbon">
         <MacroValues Count="1">
           <Macro3 Name="LCLWidgetType" Value="carbon"/>
         </MacroValues>
@@ -409,19 +326,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value=".\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item6>
-      <Item7 Name="Release darwin x86_64 qt">
+      </Item5>
+      <Item6 Name="Release darwin x86_64 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -482,19 +403,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item7>
-      <Item8 Name="Release linux i386 qt">
+      </Item6>
+      <Item7 Name="Release linux i386 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -555,19 +480,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item8>
-      <Item9 Name="Release linux i386 gtk2">
+      </Item7>
+      <Item8 Name="Release linux i386 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -628,19 +557,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item9>
-      <Item10 Name="Release linux x86_64 qt">
+      </Item8>
+      <Item9 Name="Release linux x86_64 qt">
         <MacroValues Count="1">
           <Macro1 Name="LCLWidgetType" Value="qt"/>
         </MacroValues>
@@ -700,19 +633,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item10>
-      <Item11 Name="Release linux x86_64 gtk2">
+      </Item9>
+      <Item10 Name="Release linux x86_64 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -772,19 +709,23 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
             <ExecuteAfter>
               <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item11>
-      <Item12 Name="Release freebsd x86_64 qt">
+      </Item10>
+      <Item11 Name="Release freebsd x86_64 qt">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -826,16 +767,22 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
-      </Item12>
-      <Item13 Name="Release solaris x86_64 gtk2">
+      </Item11>
+      <Item12 Name="Release solaris x86_64 gtk2">
         <MacroValues Count="1">
           <Macro2 Name="LCLWidgetType" Value="gtk2"/>
         </MacroValues>
@@ -877,30 +824,115 @@ end;"/>
           <Other>
             <Verbosity>
               <ShowDebugInfo Value="True"/>
-              <ShowSummary Value="True"/>
               <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
             </Verbosity>
             <CompilerMessages>
               <IgnoredMessages idx5024="True"/>
             </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteAfter>
           </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
+        </CompilerOptions>
+      </Item12>
+      <Item13 Name="Release win32 i386 qt">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="qt"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
+            <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+          </SearchPaths>
+          <Conditionals Value="// example for adding linker options on Mac OS X
+//if TargetOS='darwin' then
+//  LinkerOptions := ' -framework OpenGL';
+
+// example for adding a unit and include path on Windows
+//if SrcOS='win' then begin
+//  UnitPath += ';win';
+//  IncPath += ';win';
+//end;
+
+if GetIDEValue('OS') = 'linux' then
+begin
+  upx := 'upx'
+end
+else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+begin
+  upx := 'upx.exe'
+end;"/>
+          <CodeGeneration>
+            <SmartLinkUnit Value="True"/>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+            <Optimizations>
+              <OptimizationLevel Value="2"/>
+              <VariablesInRegisters Value="True"/>
+            </Optimizations>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <UseLineInfoUnit Value="False"/>
+              <StripSymbols Value="True"/>
+            </Debugging>
+            <LinkSmart Value="True"/>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowDebugInfo Value="True"/>
+              <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+            </Verbosity>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+            </CompilerMessages>
+            <ExecuteBefore>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteBefore>
+            <ExecuteAfter>
+              <Command Value="$Path($(CompPath))\upx $(TargetFile)"/>
+              <CompileReasons Compile="False" Build="False" Run="False"/>
+            </ExecuteAfter>
+          </Other>
+          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item13>
       <SharedMatrixOptions Count="3">
-        <Item1 ID="468994090888" Modes="Release linux i386 qt,Release linux x86_64 qt,Release darwin x86_64 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
+        <Item1 ID="468994090888" Modes="Release linux i386 qt,Release linux x86_64 qt,Release darwin x86_64 qt,Release win32 i386 qt" Type="IDEMacro" MacroName="LCLWidgetType" Value="qt"/>
         <Item2 ID="440664449299" Modes="Release win32 i386 gtk2,Release linux i386 gtk2,Release linux x86_64 gtk2,Release freebsd x86_64 qt,Release solaris x86_64 gtk2" Type="IDEMacro" MacroName="LCLWidgetType" Value="gtk2"/>
         <Item3 ID="326179418783" Modes="Release darwin i386 carbon" Type="IDEMacro" MacroName="LCLWidgetType" Value="carbon"/>
       </SharedMatrixOptions>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="12">
       <Item1>
@@ -1718,13 +1750,19 @@ end;"/>
     <Other>
       <Verbosity>
         <ShowDebugInfo Value="True"/>
-        <ShowSummary Value="True"/>
         <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
       </Verbosity>
       <CompilerMessages>
         <IgnoredMessages idx5024="True"/>
       </CompilerMessages>
+      <ExecuteBefore>
+        <CompileReasons Compile="False" Build="False" Run="False"/>
+      </ExecuteBefore>
+      <ExecuteAfter>
+        <CompileReasons Compile="False" Build="False" Run="False"/>
+      </ExecuteAfter>
     </Other>
+    <CompileReasons Compile="False" Build="False" Run="False"/>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="10">

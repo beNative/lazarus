@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This library is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 {
@@ -1247,7 +1245,6 @@ var
 begin
   inherited;
   ND := GetData(ANode);
-  Logger.Send('RawData', ND.XMLNode);
   if (Column = FValueColumn)
     and (ND.NodeType in [ntElement, ntAttribute, ntText, ntNode])
     and (ND.XMLNode.Value <> UTF8String(Text)) then
@@ -1598,10 +1595,6 @@ begin
   repeat
     B := ANewXMLNode.ElementType in [xeElement, xeAttribute, xeComment];
     NT := GetDefaultNodeType(ANewXMLNode);
-    Logger.Watch('B', B);
-    Logger.Watch('NT', GetEnumName(TypeInfo(NT), Ord(NT)));
-    Logger.Watch('ANewXMLNode', ANewXMLNode.Content);
-
     DoCheckNode(ANode, ANewXMLNode, NT, B);
     if not(B and Assigned(ANewXMLNode)) then
       Exit;
@@ -1637,7 +1630,6 @@ begin
       end
       else
         ParentPath := GetData(ANode).XMLPath + '/';
-      Logger.Watch('ParentPath', ParentPath);
       if AXMLNode.NodeCount > 0 then
       begin
         for I := 0 to AXMLNode.NodeCount - 1 do
@@ -1866,8 +1858,6 @@ begin
     else
       Result := ntUnknown;
   end;
-  Logger.Watch('ElementType', GetEnumName(TypeInfo(AXMLNode.ElementType), Ord(AXMLNode.ElementType)));
-  Logger.Watch('NodeType', GetEnumName(TypeInfo(Result), Ord(Result)));
 end;
 
 procedure TXMLTree.RefreshNode(ANode: PVirtualNode; AParent: Boolean = False);

@@ -12,8 +12,13 @@
         <OtherUnitFiles Value="core"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx5024="True"/>
+        </CompilerMessages>
+      </Other>
     </CompilerOptions>
-    <Files Count="35">
+    <Files Count="34">
       <Item1>
         <Filename Value="core\ts.core.utils.pas"/>
         <UnitName Value="ts.Core.Utils"/>
@@ -75,85 +80,81 @@
         <UnitName Value="ts.Core.Logger.Channel.IPC"/>
       </Item15>
       <Item16>
-        <Filename Value="core\ts.core.logger.channel.logfile.pas"/>
-        <UnitName Value="ts.Core.Logger.Channel.LogFile"/>
-      </Item16>
-      <Item17>
         <Filename Value="core\ts.core.logger.pas"/>
         <UnitName Value="ts.Core.Logger"/>
-      </Item17>
-      <Item18>
+      </Item16>
+      <Item17>
         <Filename Value="core\ts.core.nativexml.debug.pas"/>
         <UnitName Value="ts.Core.NativeXml.Debug"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <Filename Value="core\ts.Core.NativeXml.inc"/>
         <Type Value="Include"/>
-      </Item19>
-      <Item20>
+      </Item18>
+      <Item19>
         <Filename Value="core\ts.core.nativexml.objectstorage.pas"/>
         <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
-      </Item20>
-      <Item21>
+      </Item19>
+      <Item20>
         <Filename Value="core\ts.core.nativexml.pas"/>
         <UnitName Value="ts.Core.NativeXml"/>
-      </Item21>
-      <Item22>
+      </Item20>
+      <Item21>
         <Filename Value="core\ts.core.nativexml.streams.pas"/>
         <UnitName Value="ts.Core.NativeXml.Streams"/>
-      </Item22>
-      <Item23>
+      </Item21>
+      <Item22>
         <Filename Value="core\ts.core.nativexml.stringtable.pas"/>
         <UnitName Value="ts.Core.NativeXml.StringTable"/>
-      </Item23>
-      <Item24>
+      </Item22>
+      <Item23>
         <Filename Value="core\ts.core.nativexml.win32compat.pas"/>
         <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
-      </Item24>
-      <Item25>
+      </Item23>
+      <Item24>
         <Filename Value="core\ts.core.sharedlogger.pas"/>
         <UnitName Value="ts.Core.SharedLogger"/>
-      </Item25>
-      <Item26>
+      </Item24>
+      <Item25>
         <Filename Value="core\ts.core.sqlparser.pas"/>
         <UnitName Value="ts.Core.SQLParser"/>
-      </Item26>
-      <Item27>
+      </Item25>
+      <Item26>
         <Filename Value="core\ts.core.sqlscanner.pas"/>
         <UnitName Value="ts.Core.SQLScanner"/>
-      </Item27>
-      <Item28>
+      </Item26>
+      <Item27>
         <Filename Value="core\ts.core.sqltree.pas"/>
         <UnitName Value="ts.Core.SQLTree"/>
-      </Item28>
-      <Item29>
+      </Item27>
+      <Item28>
         <Filename Value="core\ts.core.stringutils.pas"/>
         <UnitName Value="ts.Core.StringUtils"/>
-      </Item29>
-      <Item30>
+      </Item28>
+      <Item29>
         <Filename Value="core\ts.core.systeminfo.pas"/>
         <UnitName Value="ts.Core.SystemInfo"/>
-      </Item30>
-      <Item31>
+      </Item29>
+      <Item30>
         <Filename Value="core\ts.core.treeviewpresenter.pas"/>
         <UnitName Value="ts.Core.TreeViewPresenter"/>
-      </Item31>
-      <Item32>
+      </Item30>
+      <Item31>
         <Filename Value="core\ts.core.value.pas"/>
         <UnitName Value="ts.Core.Value"/>
-      </Item32>
-      <Item33>
+      </Item31>
+      <Item32>
         <Filename Value="core\ts.core.versioninfo.pas"/>
         <UnitName Value="ts.Core.VersionInfo"/>
-      </Item33>
-      <Item34>
+      </Item32>
+      <Item33>
         <Filename Value="core\ts.core.xmlutils.pas"/>
         <UnitName Value="ts.Core.XMLUtils"/>
-      </Item34>
-      <Item35>
+      </Item33>
+      <Item34>
         <Filename Value="core\ts.core.collections.pas"/>
         <UnitName Value="ts.Core.Collections"/>
-      </Item35>
+      </Item34>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>

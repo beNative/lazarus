@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.Core.Logger.Channel.IPC;
@@ -46,41 +44,33 @@ uses
 
   simpleipc,
 
-  ts.Core.Logger;
+  ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
 
 type
-  TIPCChannel = class (TLogChannel)
+
+  { TIPCChannel }
+
+  TIPCChannel = class (TCustomLogChannel)
   private
     FClient: TSimpleIPCClient;
     FBuffer: TMemoryStream;
-    FClearMessage: TLogMessage;
   public
-    constructor Create;
+    constructor Create(AEnabled: Boolean = True); override;
     destructor Destroy; override;
-    procedure Clear; override;
-    procedure Deliver(const AMsg: TLogMessage);override;
+    function Write(const AMsg: TLogMessage): Boolean; override;
+
   end;
 
 
 implementation
-
-uses
-  ts.Core.Logger.Interfaces;
 
 const
   ZeroBuf: Integer = 0;
 
 { TIPCChannel }
 
-constructor TIPCChannel.Create;
+constructor TIPCChannel.Create(AEnabled: Boolean);
 begin
-  with FClearMessage do
-  begin
-    MsgType   := Integer(lmtClear);
-    Text      := '';
-    TimeStamp := Now;
-    Data      := nil;
-  end;
   FBuffer:=TMemoryStream.Create;
   FClient := TSimpleIPCClient.Create(nil);
   with FClient do
@@ -88,7 +78,7 @@ begin
     ServerID:='ipc_log_server';
     if ServerRunning then
     begin
-      Self.Active := True;
+      Self.Enabled := True;
       Active := True;
     end
     else
@@ -102,12 +92,7 @@ begin
   FBuffer.Destroy;
 end;
 
-procedure TIPCChannel.Clear;
-begin
-  Deliver(FClearMessage);
-end;
-
-procedure TIPCChannel.Deliver(const AMsg: TLogMessage);
+function TIPCChannel.Write(const AMsg: TLogMessage): Boolean;
 var
   TextSize, DataSize: Integer;
 begin
@@ -132,7 +117,9 @@ begin
       WriteBuffer(ZeroBuf,SizeOf(Integer));//necessary?
   end;
   FClient.SendMessage(mtUnknown,FBuffer);
+  Result := True;
 end;
+
 
 end.
 

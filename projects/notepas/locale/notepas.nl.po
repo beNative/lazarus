@@ -44,199 +44,67 @@ msgctxt "notepas.resources.ssize"
 msgid "Size"
 msgstr "Grootte"
 
-#: notepas_forms_main.scol
-msgctxt "notepas_forms_main.scol"
-msgid "Col"
-msgstr ""
-
-#: notepas_forms_main.slines
-msgctxt "notepas_forms_main.slines"
-msgid "Lines"
-msgstr ""
-
-#: notepas_forms_main.sln
-msgctxt "notepas_forms_main.sln"
-msgid "Ln"
-msgstr ""
-
-#: notepas_forms_main.smodified
-msgctxt "notepas_forms_main.smodified"
-msgid "Modified"
-msgstr "Gewijzigd"
-
-#: notepas_forms_main.ssel
-msgctxt "notepas_forms_main.ssel"
-msgid "Sel"
-msgstr ""
-
-#: notepas_forms_main.ssize
-msgctxt "notepas_forms_main.ssize"
-msgid "Size"
-msgstr "Grootte"
-
-#: obufferedstreams.obufferedstreams_nilstream
-msgid "The aStream parameter must be assigned when creating a buffered stream."
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_readingnotpossible
-msgid "You can't read from TOBufferedWriteStream"
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_seekingnotpossible
-msgid "You can't use seek in TOBufferedWriteStream"
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_writingnotpossible
-msgid "You can't write to TOBufferedReadStream"
-msgstr ""
-
-#: odictionary.scannotexchange
-msgid "Sorted ODictionary does not allow exchanging items"
-msgstr ""
-
-#: odictionary.scannotmove
-msgid "Sorted ODictionary does not allow moving items"
-msgstr ""
-
-#: odictionary.sduplicateinteger
-msgid "ODictionary does not allow duplicates"
-msgstr ""
-
-#: tcustomsettingsdialog1.lblalpha.caption
-msgid "lblAlpha"
-msgstr "lblAlpha"
-
-#: tcustomsettingsdialog1.lblbackground.caption
-msgid "lblBackground"
-msgstr "lblBackground"
-
-#: tcustomsettingsdialog1.lblforeground.caption
-msgid "lblForeground"
-msgstr "lblForeground"
-
-#: tcustomsettingsdialog1.lblframe.caption
-msgid "lblFrame"
-msgstr "lblFrame"
-
-#: tcustomsettingsdialog1.lblframecolor.caption
-msgid "lblFrameColor"
-msgstr "lblFrameColor"
-
-#: tcustomsettingsdialog1.lblpriority.caption
-msgid "lblPriority"
-msgstr "lblPriority"
-
-#: tdlgext.bncancel.caption
-msgctxt "tdlgext.bncancel.caption"
-msgid "&Cancel"
-msgstr "&Annuleren"
-
-#: tdlgext.bnok.caption
-msgctxt "tdlgext.bnok.caption"
-msgid "&OK"
-msgstr "&OK"
-
-#: tdlgext.caption
-msgid "Extension Options"
-msgstr "Extensie opties"
-
-#: tdlgext.gbext.caption
-msgctxt "tdlgext.gbext.caption"
-msgid "&Options:"
-msgstr "&Opties"
-
-#: tdlgext.lbldescr.caption
-msgid "&Description:"
-msgstr "&Omschrijving:"
-
-#: tdlgext.lblext.caption
-msgid "&Extension:"
-msgstr "&Extentie:"
-
-#: tdlgext.lblicon.caption
-msgid "&Icon:"
-msgstr "&Icoon:"
-
-#: tdlgsetupfilters.bncancel.caption
-msgctxt "tdlgsetupfilters.bncancel.caption"
-msgid "&Cancel"
-msgstr "&Annuleren"
-
-#: tdlgsetupfilters.bnok.caption
-msgctxt "tdlgsetupfilters.bnok.caption"
-msgid "&OK"
-msgstr "&OK"
-
-#: tdlgsetupfilters.caption
-msgid "Filters Setup"
-msgstr "Filterinstellingen"
-
 #: tdmeditormanager.actabout.caption
-msgctxt "TDMEDITORMANAGER.ACTABOUT.CAPTION"
+#, fuzzy
+msgctxt "tdmeditormanager.actabout.caption"
 msgid "About"
-msgstr "Info"
+msgstr "Info over"
 
 #: tdmeditormanager.actabout.hint
 msgid "Shows the about dialog."
-msgstr "Toont de info dialog"
+msgstr ""
 
 #: tdmeditormanager.actalignselection.caption
-msgctxt "TDMEDITORMANAGER.ACTALIGNSELECTION.CAPTION"
 msgid "Align"
-msgstr "Alligneer"
+msgstr ""
 
 #: tdmeditormanager.actalignselection.hint
 msgid "Align selected lines"
-msgstr "Alligneer geselecteerde lijnen"
+msgstr ""
 
 #: tdmeditormanager.actautoformatxml.caption
 msgid "Autoformat XML"
-msgstr "Automatisch XML formatteren"
+msgstr ""
 
 #: tdmeditormanager.actautoguesshighlighter.caption
 msgctxt "tdmeditormanager.actautoguesshighlighter.caption"
 msgid "Auto guess highlighter"
-msgstr "Automatisch highlighter bepalen"
+msgstr ""
 
 #: tdmeditormanager.actautoguesshighlighter.hint
-msgctxt "TDMEDITORMANAGER.ACTAUTOGUESSHIGHLIGHTER.HINT"
+msgctxt "tdmeditormanager.actautoguesshighlighter.hint"
 msgid "Auto guess highlighter"
-msgstr "Automatisch highlighter bepalen"
+msgstr ""
 
 #: tdmeditormanager.actclear.caption
 msgid "Clear"
-msgstr "Wissen"
+msgstr ""
 
 #: tdmeditormanager.actclear.hint
 msgid "Clear all text in the editor view."
-msgstr "Wis alle tekst in het editorvenster"
+msgstr ""
 
 #: tdmeditormanager.actclipboardmenu.caption
-msgctxt "tdmeditormanager.actclipboardmenu.caption"
 msgid "Clipboard"
-msgstr "Clipboard"
+msgstr ""
 
 #: tdmeditormanager.actclose.caption
-#, fuzzy
-#| msgid "Close editor"
 msgid "Close active editor view"
-msgstr "Editor afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actclose.hint
-#, fuzzy
-#| msgid "Close the current editor instance."
 msgid "Close the active editor instance."
-msgstr "Huidige editor afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actcloseothers.caption
 msgctxt "tdmeditormanager.actcloseothers.caption"
 msgid "Close all other editors"
-msgstr "Alle andere editors afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actcloseothers.hint
-msgctxt "TDMEDITORMANAGER.ACTCLOSEOTHERS.HINT"
+msgctxt "tdmeditormanager.actcloseothers.hint"
 msgid "Close all other editors"
-msgstr "Alle andere editors afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actcompressspace.caption
 msgid "Compress spaces"
@@ -257,136 +125,132 @@ msgid ""
 msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.caption
-#, fuzzy
-#| msgid "Convert tabs to spaces in selection"
-msgctxt "tdmeditormanager.actconverttabstospaces.caption"
 msgid "Convert TABs to spaces in selection"
-msgstr "Converteer tabs naar spaties in selectie"
+msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.hint
-msgctxt "tdmeditormanager.actconverttabstospaces.hint"
 msgid "Convert TAB character to the equivalent amount of spaces in the selection."
 msgstr ""
 
 #: tdmeditormanager.actcopy.caption
 msgid "&Copy"
-msgstr "&Kopiëren"
+msgstr ""
 
 #: tdmeditormanager.actcopy.hint
 msgid "Copy selection"
-msgstr "Kopiëer selectie"
+msgstr ""
 
 #: tdmeditormanager.actcopyfilename.caption
 msgid "Copy filename"
-msgstr "Kopiëer bestandsnaam"
+msgstr ""
 
 #: tdmeditormanager.actcopyfilename.hint
 msgid "Copy the filename to the clipboard."
-msgstr "Kopiëer bestandsnaam naar klembord"
+msgstr ""
 
 #: tdmeditormanager.actcopyfilepath.caption
 msgid "Copy file path"
-msgstr "Kopiëer bestandspad"
+msgstr ""
 
 #: tdmeditormanager.actcopyfilepath.hint
 msgid "Copy the file path to the clipboard."
-msgstr "Kopiëer pad naar klembord."
+msgstr ""
 
 #: tdmeditormanager.actcopyfullpath.caption
 msgid "Copy full path"
-msgstr "Kopiëer bestandsnaam met volledig pad"
+msgstr ""
 
 #: tdmeditormanager.actcopyfullpath.hint
 msgid "Copy full filepath to the clipboard."
-msgstr "Kopiëer het volledige bestandspad naar het klembord."
+msgstr ""
 
 #: tdmeditormanager.actcopyhtmltexttoclipboard.caption
 msgid "Copy as HTML text"
-msgstr "Kopiëer als HTML tekst"
+msgstr ""
 
 #: tdmeditormanager.actcopyhtmltexttoclipboard.hint
 msgid "Copy to clipboard as HTML text"
-msgstr "Kopiëer naar het klembord als HTML tekst."
+msgstr ""
 
 #: tdmeditormanager.actcopyrtftexttoclipboard.caption
 msgid "Copy as RTF text"
-msgstr "Kopiëer als RTF tekst"
+msgstr ""
 
 #: tdmeditormanager.actcopyrtftexttoclipboard.hint
 msgid "Copy to clipboard as RTF text"
-msgstr "Kopiëer naar het klembord als RTF tekst."
+msgstr ""
 
 #: tdmeditormanager.actcopyrtftoclipboard.caption
 msgid "Copy as RTF object"
-msgstr "Kopiëer naar het klembord als RTF object"
+msgstr ""
 
 #: tdmeditormanager.actcopyrtftoclipboard.hint
 msgid "Copy to clipboard as RTF object"
-msgstr "Kopiëer naar het klembord als RTF object"
+msgstr ""
 
 #: tdmeditormanager.actcopythtmltoclipboard.caption
 msgid "Copy as HTML object"
-msgstr "Kopiëer naar het klembord als HTML object"
+msgstr ""
 
 #: tdmeditormanager.actcopythtmltoclipboard.hint
 msgid "Copy to clipboard as HTML object"
-msgstr "Kopiëer naar het klembord als HTML object"
+msgstr ""
 
 #: tdmeditormanager.actcopytoclipboard.caption
 msgctxt "tdmeditormanager.actcopytoclipboard.caption"
 msgid "Copy to clipboard"
-msgstr "Kopiëer naar klembord"
+msgstr ""
 
 #: tdmeditormanager.actcopytoclipboard.hint
-msgctxt "TDMEDITORMANAGER.ACTCOPYTOCLIPBOARD.HINT"
+msgctxt "tdmeditormanager.actcopytoclipboard.hint"
 msgid "Copy to clipboard"
-msgstr "Kopiëer naar klembord"
+msgstr ""
 
 #: tdmeditormanager.actcopywikitexttoclipboard.caption
 msgid "Copy as Wiki text"
-msgstr "Kopiëer als Wiki tekst"
+msgstr ""
 
 #: tdmeditormanager.actcopywikitexttoclipboard.hint
 msgid "Copy to clipboard as TeX text"
-msgstr "Kopiëer naar het klembord als TeX tekst"
+msgstr ""
 
 #: tdmeditormanager.actcopywikitoclipboard.caption
 msgid "Copy as Wiki object"
-msgstr "Kopiëer naar het klembord als Wiki object"
+msgstr ""
 
 #: tdmeditormanager.actcopywikitoclipboard.hint
 msgid "Copy to clipboard as Wiki object"
-msgstr "Kopiëer naar het klembord als Wiki object"
+msgstr ""
 
 #: tdmeditormanager.actcreatedesktoplink.caption
 msgid "Create desktop link"
-msgstr "Maak desktop snelkoppeling"
+msgstr ""
 
 #: tdmeditormanager.actcreatedesktoplink.hint
 msgid "Create a desktop shortcut to the active file."
-msgstr "Maak snelkoppeling op het bureaublad naar het actieve bestand."
+msgstr ""
 
 #: tdmeditormanager.actcut.caption
 msgctxt "tdmeditormanager.actcut.caption"
 msgid "Cut"
-msgstr "Knippen"
+msgstr ""
 
 #: tdmeditormanager.actcut.hint
-msgctxt "TDMEDITORMANAGER.ACTCUT.HINT"
+msgctxt "tdmeditormanager.actcut.hint"
 msgid "Cut"
-msgstr "Knippen"
+msgstr ""
 
 #: tdmeditormanager.actdecfontsize.caption
 msgid "Decrease font size"
-msgstr "Font verkleinen"
+msgstr ""
 
 #: tdmeditormanager.actdecfontsize.hint
 msgid "Decrease editor font size"
-msgstr "Verklein editor lettertype"
+msgstr ""
 
 #: tdmeditormanager.actdecodebase64.caption
 msgid "Decode base64"
-msgstr "Decode base64"
+msgstr ""
 
 #: tdmeditormanager.actdecodebase64.hint
 msgid "Decode selected text from base64."
@@ -394,7 +258,7 @@ msgstr ""
 
 #: tdmeditormanager.actdecodeurl.caption
 msgid "Decode URL"
-msgstr "Bezoek URL"
+msgstr ""
 
 #: tdmeditormanager.actdecodeurl.hint
 msgid "Decode the URL from the selected text."
@@ -407,34 +271,32 @@ msgstr ""
 #: tdmeditormanager.actdelete.caption
 msgctxt "tdmeditormanager.actdelete.caption"
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr ""
 
 #: tdmeditormanager.actdelete.hint
-msgctxt "TDMEDITORMANAGER.ACTDELETE.HINT"
+msgctxt "tdmeditormanager.actdelete.hint"
 msgid "Delete"
-msgstr "Verwijderen"
+msgstr ""
 
 #: tdmeditormanager.actdequotelines.caption
-msgctxt "TDMEDITORMANAGER.ACTDEQUOTELINES.CAPTION"
 msgid "Dequote lines"
-msgstr "Dequote lijnen"
+msgstr ""
 
 #: tdmeditormanager.actdequotelines.hint
 msgid "Dequote each line in the selection."
 msgstr ""
 
 #: tdmeditormanager.actdequoteselection.caption
-msgctxt "TDMEDITORMANAGER.ACTDEQUOTESELECTION.CAPTION"
 msgid "Dequote"
-msgstr "Verwijder quotes"
+msgstr ""
 
 #: tdmeditormanager.actdequoteselection.hint
 msgid "Dequote selection"
-msgstr "Verwijder quotes in selectie"
+msgstr ""
 
 #: tdmeditormanager.actencodebase64.caption
 msgid "Encode base64"
-msgstr "Encode base64"
+msgstr ""
 
 #: tdmeditormanager.actencodebase64.hint
 msgid "Encode selected text to base64."
@@ -442,7 +304,7 @@ msgstr ""
 
 #: tdmeditormanager.actencodeurl.caption
 msgid "Encode URL"
-msgstr "Bezoek URL"
+msgstr ""
 
 #: tdmeditormanager.actencodeurl.hint
 msgid "Convert the selected text to an encoded URL string."
@@ -453,6 +315,7 @@ msgid "Encode XML"
 msgstr ""
 
 #: tdmeditormanager.actencodingmenu.caption
+#, fuzzy
 msgctxt "tdmeditormanager.actencodingmenu.caption"
 msgid "Encoding"
 msgstr "Codering"
@@ -467,55 +330,53 @@ msgstr ""
 
 #: tdmeditormanager.actexit.caption
 msgid "Exit"
-msgstr "Afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actexit.hint
 msgid "Exit application"
-msgstr "Applicatie afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actexportmenu.caption
-msgctxt "tdmeditormanager.actexportmenu.caption"
 msgid "Export"
-msgstr "Exporteer"
+msgstr ""
 
 #: tdmeditormanager.actexporttohtml.caption
 msgctxt "tdmeditormanager.actexporttohtml.caption"
 msgid "Save as HTML file"
-msgstr "Opslaan als HTML bestand"
+msgstr ""
 
 #: tdmeditormanager.actexporttohtml.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTOHTML.HINT"
+msgctxt "tdmeditormanager.actexporttohtml.hint"
 msgid "Save as HTML file"
-msgstr "Opslaan als HTML bestand"
+msgstr ""
 
 #: tdmeditormanager.actexporttortf.caption
 msgctxt "tdmeditormanager.actexporttortf.caption"
 msgid "Save as RTF file"
-msgstr "Opslaan als RTF bestand"
+msgstr ""
 
 #: tdmeditormanager.actexporttortf.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTORTF.HINT"
+msgctxt "tdmeditormanager.actexporttortf.hint"
 msgid "Save as RTF file"
-msgstr "Opslaan als RTF bestand"
+msgstr ""
 
 #: tdmeditormanager.actexporttowiki.caption
 msgctxt "tdmeditormanager.actexporttowiki.caption"
 msgid "Save as Wiki file"
-msgstr "Opslaan als Wiki bestand"
+msgstr ""
 
 #: tdmeditormanager.actexporttowiki.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTOWIKI.HINT"
+msgctxt "tdmeditormanager.actexporttowiki.hint"
 msgid "Save as Wiki file"
-msgstr "Opslaan als Wiki bestand"
+msgstr ""
 
 #: tdmeditormanager.actfilemenu.caption
-msgctxt "tdmeditormanager.actfilemenu.caption"
 msgid "File"
-msgstr "Bestand"
+msgstr ""
 
 #: tdmeditormanager.actfindalloccurences.caption
 msgid "Find all occurences"
-msgstr "Zoek alle instanties"
+msgstr ""
 
 #: tdmeditormanager.actfindalloccurences.hint
 msgid "Finds all occurences of the selected text or the current word at the caret position."
@@ -524,16 +385,16 @@ msgstr ""
 #: tdmeditormanager.actfindnext.caption
 msgctxt "tdmeditormanager.actfindnext.caption"
 msgid "Find next"
-msgstr "Zoek volgende"
+msgstr ""
 
 #: tdmeditormanager.actfindnext.hint
-msgctxt "TDMEDITORMANAGER.ACTFINDNEXT.HINT"
+msgctxt "tdmeditormanager.actfindnext.hint"
 msgid "Find next"
-msgstr "Zoek volgende"
+msgstr ""
 
 #: tdmeditormanager.actfindnextword.caption
 msgid "Find &next word"
-msgstr "Zoek &volgend woord"
+msgstr ""
 
 #: tdmeditormanager.actfindnextword.hint
 msgid "Find next word occurence"
@@ -542,16 +403,16 @@ msgstr ""
 #: tdmeditormanager.actfindprevious.caption
 msgctxt "tdmeditormanager.actfindprevious.caption"
 msgid "Find previous"
-msgstr "Zoek vorig"
+msgstr ""
 
 #: tdmeditormanager.actfindprevious.hint
-msgctxt "TDMEDITORMANAGER.ACTFINDPREVIOUS.HINT"
+msgctxt "tdmeditormanager.actfindprevious.hint"
 msgid "Find previous"
-msgstr "Zoek vorig"
+msgstr ""
 
 #: tdmeditormanager.actfindprevword.caption
 msgid "Find &previous word"
-msgstr "Zoek v&orig woord"
+msgstr ""
 
 #: tdmeditormanager.actfindprevword.hint
 msgid "Find previous word occurence"
@@ -559,7 +420,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel0.caption
 msgid "Fold level 0"
-msgstr "Vouwniveau 0"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel0.hint
 msgid "Sets the fold level to 0"
@@ -567,16 +428,15 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel1.caption
 msgid "Fold level 1"
-msgstr "Vouwniveau 1"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel1.hint
 msgid "Sets the fold level to 1"
 msgstr ""
 
 #: tdmeditormanager.actfoldlevel10.caption
-#, fuzzy
 msgid "Fold level max"
-msgstr "Max regellengte"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel10.hint
 msgid "Sets the fold level to 10"
@@ -584,7 +444,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel2.caption
 msgid "Fold level 2"
-msgstr "Vouwniveau 2"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel2.hint
 msgid "Sets the fold level to 2"
@@ -592,7 +452,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel3.caption
 msgid "Fold level 3"
-msgstr "Vouwniveau 3"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel3.hint
 msgid "Sets the fold level to 3"
@@ -600,7 +460,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel4.caption
 msgid "Fold level 4"
-msgstr "Vouwniveau 4"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel4.hint
 msgid "Sets the fold level to 4"
@@ -608,7 +468,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel5.caption
 msgid "Fold level 5"
-msgstr "Vouwniveau 5"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel5.hint
 msgid "Sets the fold level to 5"
@@ -616,7 +476,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel6.caption
 msgid "Fold level 6"
-msgstr "Vouwniveau 6"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel6.hint
 msgid "Sets the fold level to 6"
@@ -624,7 +484,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel7.caption
 msgid "Fold level 7"
-msgstr "Vouwniveau 7"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel7.hint
 msgid "Sets the fold level to 7"
@@ -632,7 +492,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel8.caption
 msgid "Fold level 8"
-msgstr "Vouwniveau 8"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel8.hint
 msgid "Sets the fold level to 8"
@@ -640,7 +500,7 @@ msgstr ""
 
 #: tdmeditormanager.actfoldlevel9.caption
 msgid "Fold level 9"
-msgstr "Vouwniveau 9"
+msgstr ""
 
 #: tdmeditormanager.actfoldlevel9.hint
 msgid "Sets the fold level to 9"
@@ -648,48 +508,48 @@ msgstr ""
 
 #: tdmeditormanager.actfoldmenu.caption
 msgid "Fold"
-msgstr "Samenvouwen"
+msgstr ""
 
 #: tdmeditormanager.actformat.caption
 msgid "Format text"
-msgstr "Formatteer tekst"
+msgstr ""
 
 #: tdmeditormanager.actformat.hint
 msgid "Formats text depending on the current highlighter."
-msgstr "Formatteer tekst rekening houdend met de huidige syntax."
+msgstr ""
 
 #: tdmeditormanager.acthelp.caption
-msgctxt "TDMEDITORMANAGER.ACTHELP.CAPTION"
+msgctxt "tdmeditormanager.acthelp.caption"
 msgid "&Help"
-msgstr "&Help"
+msgstr ""
 
 #: tdmeditormanager.acthelp.hint
 msgid "Show help dialog."
-msgstr "Help dialog tonen."
+msgstr ""
 
 #: tdmeditormanager.acthighlighter.caption
-msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTER.CAPTION"
+#, fuzzy
+msgctxt "tdmeditormanager.acthighlighter.caption"
 msgid "Highlighter"
 msgstr "Highlighter"
 
 #: tdmeditormanager.acthighlightermenu.caption
+#, fuzzy
 msgctxt "tdmeditormanager.acthighlightermenu.caption"
 msgid "Highlighter"
 msgstr "Highlighter"
 
 #: tdmeditormanager.actincfontsize.caption
-#, fuzzy
-#| msgid "Increase fontsize"
 msgid "Increase font size"
-msgstr "Vergroot font"
+msgstr ""
 
 #: tdmeditormanager.actincfontsize.hint
 msgid "Increase editor font size"
-msgstr "Vergroot editor font"
+msgstr ""
 
 #: tdmeditormanager.actindent.caption
 msgid "Indent"
-msgstr "Inspringen"
+msgstr ""
 
 #: tdmeditormanager.actindent.hint
 msgid "Indent selected lines."
@@ -697,46 +557,43 @@ msgstr ""
 
 #: tdmeditormanager.actinsertcolorvalue.caption
 msgid "Insert color value"
-msgstr "Invoegen kleurwaarde"
+msgstr ""
 
 #: tdmeditormanager.actinsertcolorvalue.hint
 msgid "Insert numeric color value"
-msgstr "Invoegen numerieke kleurwaarde"
+msgstr ""
 
 #: tdmeditormanager.actinsertguid.caption
 msgid "Insert GUID"
-msgstr "GUID invoegen"
+msgstr ""
 
 #: tdmeditormanager.actinsertguid.hint
 msgid "Inserts a new GUID value."
-msgstr "Invoegen GUID waarde."
+msgstr ""
 
 #: tdmeditormanager.actinsertmenu.caption
-msgctxt "tdmeditormanager.actinsertmenu.caption"
 msgid "Insert"
-msgstr "Invoegen"
+msgstr ""
 
 #: tdmeditormanager.actinspect.caption
-msgctxt "TDMEDITORMANAGER.ACTINSPECT.CAPTION"
 msgid "Inspect"
-msgstr "Inspecteer"
+msgstr ""
 
 #: tdmeditormanager.actinspect.hint
 msgid "Show inspector"
-msgstr "Inspecteur tonen"
+msgstr ""
 
 #: tdmeditormanager.actlinebreakstylemenu.caption
-msgctxt "tdmeditormanager.actlinebreakstylemenu.caption"
 msgid "Linebreakstyle"
-msgstr "Lijneinde type"
+msgstr ""
 
 #: tdmeditormanager.actlowercaseselection.caption
 msgid "Lowercase"
-msgstr "Kleine letters"
+msgstr ""
 
 #: tdmeditormanager.actlowercaseselection.hint
 msgid "Lower case selection"
-msgstr "Selectie omzetten naar kleine letters"
+msgstr ""
 
 #: tdmeditormanager.actmergeblanklines.caption
 msgid "Merge blank lines"
@@ -748,58 +605,55 @@ msgstr ""
 
 #: tdmeditormanager.actmonitorchanges.caption
 msgid "Monitor changes"
-msgstr "Monitor wijzigingen"
+msgstr ""
 
 #: tdmeditormanager.actmonitorchanges.hint
 msgid "Monitor for external file changes."
-msgstr "Monitor externe bestandswijzigingen."
+msgstr ""
 
 #: tdmeditormanager.actnew.caption
 msgid "New"
-msgstr "Nieuw"
+msgstr ""
 
 #: tdmeditormanager.actnew.hint
-#, fuzzy,badformat
 msgid "Create a new editor view."
-msgstr "Maak een nieuw editor-bestand.%sKies een type."
+msgstr ""
 
 #: tdmeditormanager.actnewsharedview.caption
 msgid "New shared view"
-msgstr "Nieuwe gedeelde view"
+msgstr ""
 
 #: tdmeditormanager.actopen.caption
-msgctxt "tdmeditormanager.actopen.caption"
 msgid "Open"
-msgstr "Open"
+msgstr ""
 
 #: tdmeditormanager.actopen.hint
 msgid "Open file"
-msgstr "Open bestand"
+msgstr ""
 
 #: tdmeditormanager.actopenfileatcursor.caption
 msgctxt "tdmeditormanager.actopenfileatcursor.caption"
 msgid "Open file at cursor"
-msgstr "Open bestand op cursor"
+msgstr ""
 
 #: tdmeditormanager.actopenfileatcursor.hint
-msgctxt "TDMEDITORMANAGER.ACTOPENFILEATCURSOR.HINT"
+msgctxt "tdmeditormanager.actopenfileatcursor.hint"
 msgid "Open file at cursor"
-msgstr "Open bestand op cursor"
+msgstr ""
 
 #: tdmeditormanager.actpagesetup.caption
 msgctxt "tdmeditormanager.actpagesetup.caption"
 msgid "Page setup"
-msgstr "Pagina instellingen"
+msgstr ""
 
 #: tdmeditormanager.actpagesetup.hint
-msgctxt "TDMEDITORMANAGER.ACTPAGESETUP.HINT"
+msgctxt "tdmeditormanager.actpagesetup.hint"
 msgid "Page setup"
-msgstr "Pagina instellingen"
+msgstr ""
 
 #: tdmeditormanager.actpascalstringofselection.caption
-msgctxt "TDMEDITORMANAGER.ACTPASCALSTRINGOFSELECTION.CAPTION"
 msgid "Pascal string"
-msgstr "Pascal string"
+msgstr ""
 
 #: tdmeditormanager.actpascalstringofselection.hint
 msgid "Convert selection to pascal string declaration"
@@ -808,12 +662,12 @@ msgstr ""
 #: tdmeditormanager.actpaste.caption
 msgctxt "tdmeditormanager.actpaste.caption"
 msgid "Paste"
-msgstr "Plakken"
+msgstr ""
 
 #: tdmeditormanager.actpaste.hint
-msgctxt "TDMEDITORMANAGER.ACTPASTE.HINT"
+msgctxt "tdmeditormanager.actpaste.hint"
 msgid "Paste"
-msgstr "Plakken"
+msgstr ""
 
 #: tdmeditormanager.actplaybackmacro.caption
 msgid "Playback macro"
@@ -822,27 +676,26 @@ msgstr ""
 #: tdmeditormanager.actprint.caption
 msgctxt "tdmeditormanager.actprint.caption"
 msgid "Print"
-msgstr "Afdrukken"
+msgstr ""
 
 #: tdmeditormanager.actprint.hint
-msgctxt "TDMEDITORMANAGER.ACTPRINT.HINT"
+msgctxt "tdmeditormanager.actprint.hint"
 msgid "Print"
-msgstr "Afdrukken"
+msgstr ""
 
 #: tdmeditormanager.actprintpreview.caption
 msgctxt "tdmeditormanager.actprintpreview.caption"
 msgid "Print preview"
-msgstr "Afdrukvoorbeeld"
+msgstr ""
 
 #: tdmeditormanager.actprintpreview.hint
-msgctxt "TDMEDITORMANAGER.ACTPRINTPREVIEW.HINT"
+msgctxt "tdmeditormanager.actprintpreview.hint"
 msgid "Print preview"
-msgstr "Afdrukvoorbeeld"
+msgstr ""
 
 #: tdmeditormanager.actquotelines.caption
-msgctxt "TDMEDITORMANAGER.ACTQUOTELINES.CAPTION"
 msgid "Quote lines"
-msgstr "Quote lijnen"
+msgstr ""
 
 #: tdmeditormanager.actquotelines.hint
 msgid "Quote each line in the selection."
@@ -857,45 +710,44 @@ msgid "Quote each line in the selection and delimit with comma"
 msgstr ""
 
 #: tdmeditormanager.actquoteselection.caption
-msgctxt "TDMEDITORMANAGER.ACTQUOTESELECTION.CAPTION"
 msgid "Quote"
-msgstr "Quote"
+msgstr ""
 
 #: tdmeditormanager.actquoteselection.hint
 msgid "Quote selection"
-msgstr "Quote selectie"
+msgstr ""
 
 #: tdmeditormanager.actrecordmacro.caption
 msgid "Record macro"
 msgstr ""
 
 #: tdmeditormanager.actredo.caption
-msgctxt "TDMEDITORMANAGER.ACTREDO.CAPTION"
+msgctxt "tdmeditormanager.actredo.caption"
 msgid "Redo"
-msgstr "Opnieuw"
+msgstr ""
 
 #: tdmeditormanager.actredo.hint
-msgctxt "TDMEDITORMANAGER.ACTREDO.HINT"
+msgctxt "tdmeditormanager.actredo.hint"
 msgid "Redo"
-msgstr "Opnieuw"
+msgstr ""
 
 #: tdmeditormanager.actreload.caption
 msgid "Reload"
-msgstr "Herladen"
+msgstr ""
 
 #: tdmeditormanager.actreload.hint
 msgid "Reload content."
-msgstr "Herlaad inhoud."
+msgstr ""
 
 #: tdmeditormanager.actsave.caption
 msgctxt "tdmeditormanager.actsave.caption"
 msgid "Save"
-msgstr "Opslaan"
+msgstr ""
 
 #: tdmeditormanager.actsave.hint
-msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
+msgctxt "tdmeditormanager.actsave.hint"
 msgid "Save"
-msgstr "Opslaan"
+msgstr ""
 
 #: tdmeditormanager.actsaveall.caption
 msgid "Save all"
@@ -907,186 +759,171 @@ msgstr ""
 
 #: tdmeditormanager.actsaveas.caption
 msgid "Save as..."
-msgstr "Opslaan &Als"
+msgstr ""
 
 #: tdmeditormanager.actsaveas.hint
 msgid "Save file as"
-msgstr "Bestand opslaan als"
+msgstr ""
 
 #: tdmeditormanager.actsearch.caption
 msgid "&Find..."
-msgstr "&Zoeken..."
+msgstr ""
 
 #: tdmeditormanager.actsearch.hint
-msgctxt "tdmeditormanager.actsearch.hint"
 msgid "Find"
-msgstr "Zoeken"
+msgstr ""
 
 #: tdmeditormanager.actsearchmenu.caption
 msgid "Search"
-msgstr "Zoeken"
+msgstr ""
 
 #: tdmeditormanager.actsearchreplace.caption
 msgid "&Replace..."
-msgstr "&Vervangen"
+msgstr ""
 
 #: tdmeditormanager.actsearchreplace.hint
-msgctxt "TDMEDITORMANAGER.ACTSEARCHREPLACE.HINT"
 msgid "Replace"
-msgstr "Vervangen"
+msgstr ""
 
 #: tdmeditormanager.actselectall.caption
-msgctxt "tdmeditormanager.actselectall.caption"
 msgid "Select &All"
-msgstr "Selecteer &Alles"
+msgstr ""
 
 #: tdmeditormanager.actselectall.hint
 msgid "Select all."
-msgstr "Selecteer alles."
+msgstr ""
 
 #: tdmeditormanager.actselectiondecodemenu.caption
 msgid "Decode"
-msgstr "Decode"
+msgstr ""
 
 #: tdmeditormanager.actselectionencodemenu.caption
 msgid "Encode"
-msgstr "Encode"
+msgstr ""
 
 #: tdmeditormanager.actselectioninfo.caption
 msgid "SelectionInfo"
-msgstr "SelectionInfo"
+msgstr ""
 
 #: tdmeditormanager.actselectionmenu.caption
-msgctxt "tdmeditormanager.actselectionmenu.caption"
 msgid "Selection"
-msgstr "Selectie"
+msgstr ""
 
 #: tdmeditormanager.actselectionmodemenu.caption
-msgctxt "tdmeditormanager.actselectionmodemenu.caption"
 msgid "Selectionmode"
-msgstr "Selectionmode"
+msgstr ""
 
 #: tdmeditormanager.actselectmenu.caption
-msgctxt "tdmeditormanager.actselectmenu.caption"
 msgid "Select"
-msgstr "Selecteren"
+msgstr ""
 
 #: tdmeditormanager.actsettings.caption
 msgctxt "tdmeditormanager.actsettings.caption"
 msgid "Settings"
-msgstr "Instellingen"
+msgstr ""
 
 #: tdmeditormanager.actsettings.hint
-msgctxt "TDMEDITORMANAGER.ACTSETTINGS.HINT"
 msgid "Editor settings"
-msgstr "Editor instellingen"
+msgstr ""
 
 #: tdmeditormanager.actsettingsmenu.caption
 msgctxt "tdmeditormanager.actsettingsmenu.caption"
 msgid "Settings"
-msgstr "Instellingen"
+msgstr ""
 
 #: tdmeditormanager.actshowactions.caption
 msgid "Show editor actions"
-msgstr "Editor actions tonen"
+msgstr ""
 
 #: tdmeditormanager.actshowactions.hint
-#, fuzzy
 msgid "Show the list of all available actions."
-msgstr "Toon lijst van alle editor views."
+msgstr ""
 
 #: tdmeditormanager.actshowcharactermap.caption
-msgctxt "tdmeditormanager.actshowcharactermap.caption"
 msgid "Show character map"
 msgstr ""
 
 #: tdmeditormanager.actshowcharactermap.hint
-msgctxt "tdmeditormanager.actshowcharactermap.hint"
 msgid "Show character map with Ansi and Unicode characters."
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.caption
 msgctxt "tdmeditormanager.actshowcodefilter.caption"
 msgid "Filter code"
-msgstr "Filter code"
+msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.hint
 msgctxt "tdmeditormanager.actshowcodefilter.hint"
 msgid "Filter code"
-msgstr "Filter code"
+msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.caption
-msgctxt "tdmeditormanager.actshowcodeshaper.caption"
 msgid "Shape code"
-msgstr "Code vormgeving"
+msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.hint
-msgctxt "tdmeditormanager.actshowcodeshaper.hint"
 msgid "Apply custom code formatting to selection"
 msgstr ""
 
 #: tdmeditormanager.actshowfiltertest.caption
 msgid "Show filter test dialog"
-msgstr "Toon filter test form."
+msgstr ""
 
 #: tdmeditormanager.actshowhexeditor.caption
 msgid "Show Hex editor"
-msgstr "Toon Hex editor"
+msgstr ""
 
 #: tdmeditormanager.actshowhtmlviewer.caption
 msgid "Show HTML viewer"
-msgstr "Toon HTML viewer"
+msgstr ""
 
 #: tdmeditormanager.actshowminimap.caption
 msgid "Show minimap"
-msgstr "Bestandskaartweergave"
+msgstr ""
 
 #: tdmeditormanager.actshowminimap.hint
 msgid "Show minimap."
-msgstr "Bestandskaartweergave"
+msgstr ""
 
 #: tdmeditormanager.actshowpreview.caption
 msgid "Show preview"
-msgstr "Voorbeeldweergave"
+msgstr ""
 
 #: tdmeditormanager.actshowpreview.hint
 msgid "Show text preview."
-msgstr "Voorbeeldweergave voor tekst tonen"
+msgstr ""
 
 #: tdmeditormanager.actshowscripteditor.caption
 msgid "Show script editor"
-msgstr "Script editor tonen"
+msgstr ""
 
 #: tdmeditormanager.actshowspecialcharacters.caption
-msgctxt "tdmeditormanager.actshowspecialcharacters.caption"
 msgid "Show special characters"
-msgstr "Speciale karakters tonen"
+msgstr ""
 
 #: tdmeditormanager.actshowspecialcharacters.hint
 msgid "Show special characters (like tabs and spaces)."
-msgstr "Toon speciale tekens (zoals tabs en spaties)."
+msgstr ""
 
 #: tdmeditormanager.actshowstructureviewer.caption
-msgctxt "tdmeditormanager.actshowstructureviewer.caption"
 msgid "XML treeview"
-msgstr "XML treeview"
+msgstr ""
 
 #: tdmeditormanager.actshowtest.caption
 msgid "Show testform"
-msgstr "Toon testform"
+msgstr ""
 
 #: tdmeditormanager.actshowviews.caption
 msgid "Show views"
-msgstr "Toon views"
+msgstr ""
 
 #: tdmeditormanager.actshowviews.hint
 msgid "Show list of all editor views."
-msgstr "Toon lijst van alle editor views."
+msgstr ""
 
 #: tdmeditormanager.actsingleinstance.caption
-#, fuzzy
 msgid "Single instance"
-msgstr "Huidige editor afsluiten"
+msgstr ""
 
 #: tdmeditormanager.actsingleinstance.hint
 msgid "Allow only one active instance of the application."
@@ -1094,24 +931,23 @@ msgstr ""
 
 #: tdmeditormanager.actsmartselect.caption
 msgid "Smartselect"
-msgstr "Slimme selectie"
+msgstr ""
 
 #: tdmeditormanager.actsmartselect.hint
-#, fuzzy
 msgid "Make a smart selection"
-msgstr "Selectie omzetten naar kleine letters"
+msgstr ""
 
 #: tdmeditormanager.actsortselection.caption
 msgid "Sort"
-msgstr "Sorteren"
+msgstr ""
 
 #: tdmeditormanager.actsortselection.hint
 msgid "Sort selected lines"
-msgstr "Sorteer lijnen in selectie"
+msgstr ""
 
 #: tdmeditormanager.actstayontop.caption
 msgid "Stay on top"
-msgstr "Fixeer venster op voorgrond"
+msgstr ""
 
 #: tdmeditormanager.actstayontop.hint
 msgid "Lets the application window stay on top of all other opened windows."
@@ -1127,7 +963,7 @@ msgstr ""
 
 #: tdmeditormanager.actstripfirstchar.caption
 msgid "Strip first character"
-msgstr "Verwijder eerste karakter"
+msgstr ""
 
 #: tdmeditormanager.actstripfirstchar.hint
 msgid "Strip first character from every line in the selection."
@@ -1135,7 +971,7 @@ msgstr ""
 
 #: tdmeditormanager.actstriplastchar.caption
 msgid "Strip last character"
-msgstr "Verwijder laatste karakter"
+msgstr ""
 
 #: tdmeditormanager.actstriplastchar.hint
 msgid "Strip last character from every line in the selection."
@@ -1143,7 +979,7 @@ msgstr ""
 
 #: tdmeditormanager.actstripmarkup.caption
 msgid "Strip markup"
-msgstr "Verwijder markup"
+msgstr ""
 
 #: tdmeditormanager.actstripmarkup.hint
 msgid "Strip markup tags from XML/HTML."
@@ -1151,11 +987,11 @@ msgstr ""
 
 #: tdmeditormanager.actsyncedit.caption
 msgid "Sync edit"
-msgstr "Synchroon editeren"
+msgstr ""
 
 #: tdmeditormanager.actsyncedit.hint
 msgid "Synchronized edit"
-msgstr "Gesynchronizeerd editeren"
+msgstr ""
 
 #: tdmeditormanager.acttoggleblockcommentselection.caption
 msgid "Toggle block comment selection"
@@ -1167,55 +1003,49 @@ msgstr ""
 
 #: tdmeditormanager.acttogglecomment.caption
 msgid "Toggle comment"
-msgstr "(uit)commentariëren"
+msgstr ""
 
 #: tdmeditormanager.acttogglecomment.hint
 msgid "Toggle comment for current line or each selected line."
 msgstr ""
 
 #: tdmeditormanager.acttogglefoldlevel.caption
-#, fuzzy
 msgid "Toggle fold level"
-msgstr "Schakel tussen Form/Unit"
+msgstr ""
 
 #: tdmeditormanager.acttogglefoldlevel.hint
-#, fuzzy
 msgid "Toggle folding level."
-msgstr "Schakel tussen Form/Unit"
+msgstr ""
 
 #: tdmeditormanager.acttogglehighlighter.caption
-#, fuzzy
 msgid "Toggle highlighter"
-msgstr "Huidige highlighter"
+msgstr ""
 
 #: tdmeditormanager.acttogglehighlighter.hint
-#, fuzzy
 msgid "Toggle highlighter."
-msgstr "Huidige highlighter"
+msgstr ""
 
 #: tdmeditormanager.acttogglemaximized.caption
-#, fuzzy
 msgid "Toggle maximized"
-msgstr "(uit)commentariëren"
+msgstr ""
 
 #: tdmeditormanager.acttogglemaximized.hint
 msgid "Toggles between maximized and restored mode."
 msgstr ""
 
 #: tdmeditormanager.actundo.caption
-msgctxt "TDMEDITORMANAGER.ACTUNDO.CAPTION"
+msgctxt "tdmeditormanager.actundo.caption"
 msgid "Undo"
-msgstr "Ongedaan maken"
+msgstr ""
 
 #: tdmeditormanager.actundo.hint
-msgctxt "TDMEDITORMANAGER.ACTUNDO.HINT"
+msgctxt "tdmeditormanager.actundo.hint"
 msgid "Undo"
-msgstr "Ongedaan maken"
+msgstr ""
 
 #: tdmeditormanager.actunindent.caption
-#, fuzzy
 msgid "Unindent"
-msgstr "Unindent Blok"
+msgstr ""
 
 #: tdmeditormanager.actunindent.hint
 msgid "Unindent selected lines."
@@ -1223,1016 +1053,11 @@ msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.caption
 msgid "Uppercase"
-msgstr "Hoofdletters"
+msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.hint
 msgid "Upper case selection"
-msgstr "Selectiie omzetten naar hoofdletters"
-
-#: teditorsettingsdialog.caption
-msgid "EditorSettingsDialog"
-msgstr "EditorSettingsDialog"
-
-#: tform1.caption
-msgid "Form1"
-msgstr "Form1"
-
-#: tfrmabout.actclose.caption
-msgctxt "tfrmabout.actclose.caption"
-msgid "&Close"
-msgstr "&Afsluiten"
-
-#: tfrmabout.actcopytoclipboard.caption
-msgid "actCopyToClipboard"
 msgstr ""
-
-#: tfrmabout.actdonate.caption
-msgid "Donate"
-msgstr ""
-
-#: tfrmabout.actdonate.hint
-msgid "If you like this project, you can support development with a donation."
-msgstr ""
-
-#: tfrmabout.acthomepage.caption
-msgid "Visit home page"
-msgstr ""
-
-#: tfrmabout.actprojectpage.caption
-msgid "Visit project page"
-msgstr ""
-
-#: tfrmabout.actreportdefect.caption
-msgid "Report a defect."
-msgstr ""
-
-#: tfrmabout.actreportdefect.hint
-msgid "Report an issue."
-msgstr "Rapporteer een probleem."
-
-#: tfrmabout.btncopytoclipboard.hint
-msgctxt "tfrmabout.btncopytoclipboard.hint"
-msgid "Copy to clipboard"
-msgstr "Kopiëer naar klembord"
-
-#: tfrmabout.caption
-msgctxt "tfrmabout.caption"
-msgid "About"
-msgstr "Over"
-
-#: tfrmabout.lbbuilddate.caption
-msgid "Build date:"
-msgstr "Datum build:"
-
-#: tfrmabout.lblclversion.caption
-msgid "LCL version:"
-msgstr "LCL versie:"
-
-#: tfrmabout.lblfileversion.caption
-msgid "Version:"
-msgstr "Versie:"
-
-#: tfrmabout.lblfpcversion.caption
-msgid "FPC version:"
-msgstr "FPC versie:"
-
-#: tfrmabout.lblhomepage.caption
-msgctxt "tfrmabout.lblhomepage.caption"
-msgid "URL"
-msgstr "URL"
-
-#: tfrmabout.lblhomepage.hint
-msgid "Homepage"
-msgstr ""
-
-#: tfrmabout.lbltargetcpu.caption
-msgid "Target CPU:"
-msgstr "Doel CPU:"
-
-#: tfrmabout.lbltargetos.caption
-msgid "Target OS:"
-msgstr "Doel OS:"
-
-#: tfrmabout.lblwidgetset.caption
-msgid "Widget set:"
-msgstr "Widget set:"
-
-#: tfrmabout.tsabout.caption
-msgid "Version"
-msgstr "Versie"
-
-#: tfrmabout.tscredits.caption
-msgid "Credits"
-msgstr "Credits"
-
-#: tfrmabout.tsinfo.caption
-msgctxt "tfrmabout.tsinfo.caption"
-msgid "Info"
-msgstr ""
-
-#: tfrmabout.tstranslations.caption
-msgctxt "tfrmabout.tstranslations.caption"
-msgid "Translations"
-msgstr ""
-
-#: tfrmactionlistview.caption
-msgctxt "tfrmactionlistview.caption"
-msgid "Actions"
-msgstr "Acties"
-
-#: tfrmactionlistview.tsactions.caption
-msgctxt "TFRMACTIONLISTVIEW.TSACTIONS.CAPTION"
-msgid "Actions"
-msgstr "Acties"
-
-#: tfrmactionlistview.tscommands.caption
-msgid "Editor key commands"
-msgstr "Editor key commando's"
-
-#: tfrmactionlistview.tsmouseactions.caption
-msgid "Editor mouse commands"
-msgstr "Editor muiscommando's"
-
-#: tfrmalignlines.actexecute.caption
-msgctxt "tfrmalignlines.actexecute.caption"
-msgid "Execute"
-msgstr "Uitvoeren"
-
-#: tfrmalignlines.caption
-msgid "Align selection"
-msgstr "Aligneer selectie"
-
-#: tfrmalignlines.gbxinsertspace.caption
-msgid "Keep at least one space"
-msgstr "Behoud ten minste één spatie"
-
-#: tfrmalignlines.gbxoptions.caption
-msgctxt "tfrmalignlines.gbxoptions.caption"
-msgid "Options"
-msgstr "Opties"
-
-#: tfrmalignlines.gbxtokenlist.caption
-#, fuzzy
-msgid "Tokens to align to:"
-msgstr "Alligneer geselecteerde lijnen"
-
-#: tfrmalignlines.gbxtokensfound.caption
-#, fuzzy
-msgid "Tokens found in selection:"
-msgstr "Open selectie in niewe editor"
-
-#: tfrmalignlines.rgpalignat.caption
-msgid "Align at:"
-msgstr "Begin op:"
-
-#: tfrmalignlines.rgpsortdirection.caption
-msgctxt "tfrmalignlines.rgpsortdirection.caption"
-msgid "Sort direction:"
-msgstr "Sorteervolgorde:"
-
-#: tfrmapplicationsettings.caption
-msgid "frmApplicationSettings"
-msgstr "frmApplicationSettings"
-
-#: tfrmapplicationsettings.chkclosewithesc.caption
-msgid "Close the application with the ESC key"
-msgstr ""
-
-#: tfrmapplicationsettings.chkdebugmode.caption
-msgid "chkDebugMode"
-msgstr ""
-
-#: tfrmapplicationsettings.chkdiminactiveview.caption
-msgid "chkDimInactiveView"
-msgstr ""
-
-#: tfrmapplicationsettings.chksingleinstance.caption
-msgid "Allow only one instance of the application"
-msgstr ""
-
-#: tfrmcharactermap.lblcharinfo.caption
-msgctxt "tfrmcharactermap.lblcharinfo.caption"
-msgid "lblCharInfo"
-msgstr ""
-
-#: tfrmcharactermap.lblunicodecharinfo.caption
-msgctxt "tfrmcharactermap.lblunicodecharinfo.caption"
-msgid "lblUnicodeCharInfo"
-msgstr ""
-
-#: tfrmcharactermap.tsansi.caption
-msgctxt "tfrmcharactermap.tsansi.caption"
-msgid "ANSI"
-msgstr "ANSI"
-
-#: tfrmcharactermap.tsunicode.caption
-msgctxt "tfrmcharactermap.tsunicode.caption"
-msgid "Unicode"
-msgstr "Unicode"
-
-#: tfrmcharactermapdialog.lblcharinfo.caption
-msgctxt "tfrmcharactermapdialog.lblcharinfo.caption"
-msgid "lblCharInfo"
-msgstr ""
-
-#: tfrmcharactermapdialog.lblunicodecharinfo.caption
-msgctxt "tfrmcharactermapdialog.lblunicodecharinfo.caption"
-msgid "lblUnicodeCharInfo"
-msgstr ""
-
-#: tfrmcharactermapdialog.tsansi.caption
-msgctxt "tfrmcharactermapdialog.tsansi.caption"
-msgid "ANSI"
-msgstr "ANSI"
-
-#: tfrmcharactermapdialog.tsunicode.caption
-msgctxt "tfrmcharactermapdialog.tsunicode.caption"
-msgid "Unicode"
-msgstr "Unicode"
-
-#: tfrmcodefilterdialog.actapplyfilter.caption
-msgid "Apply filter"
-msgstr "Filter toepassen"
-
-#: tfrmcodefilterdialog.actcopy.caption
-msgctxt "tfrmcodefilterdialog.actcopy.caption"
-msgid "Copy"
-msgstr "Kopiëer"
-
-#: tfrmcodefilterdialog.actcopy.hint
-msgid "Copy selected lines to the clipboard."
-msgstr ""
-
-#: tfrmcodefilterdialog.actcopytonewview.caption
-msgid "Copy to new view"
-msgstr "Kopiëer naar nieuwe view"
-
-#: tfrmcodefilterdialog.actcopytonewview.hint
-msgid "Copy selected lines to new view"
-msgstr ""
-
-#: tfrmcodefilterdialog.actfocussearchfilter.caption
-msgid "Set focus to searchfilter"
-msgstr "Zet focus op zoekfilter:"
-
-#: tfrmcodefilterdialog.actmatchcase.caption
-msgid "Match &case"
-msgstr "&Hoofdlettergevoelig"
-
-#: tfrmcodefilterdialog.actregularexpression.caption
-msgid "&Regular expression"
-msgstr "&Reguliere expressie"
-
-#: tfrmcodefilterdialog.actselectall.caption
-msgid "Select all"
-msgstr "Selecteer &Alle"
-
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr ""
-
-#: tfrmcodefilterdialog.lblsearch.caption
-msgid "Search:"
-msgstr "Zoeken:"
-
-#: tfrmcodefilterdialog.tlbmain.caption
-msgctxt "TFRMCODEFILTERDIALOG.TLBMAIN.CAPTION"
-msgid "tlbMain"
-msgstr ""
-
-#: tfrmcodefilterdialog.toolbutton1.caption
-msgctxt "tfrmcodefilterdialog.toolbutton1.caption"
-msgid "ToolButton1"
-msgstr "ToolButton1"
-
-#: tfrmcodefilterdialog.toolbutton3.caption
-msgctxt "tfrmcodefilterdialog.toolbutton3.caption"
-msgid "ToolButton3"
-msgstr "ToolButton3"
-
-#: tfrmcodefilterdialog.toolbutton4.caption
-msgctxt "tfrmcodefilterdialog.toolbutton4.caption"
-msgid "ToolButton4"
-msgstr "ToolButton4"
-
-#: tfrmcodeshaper.actapplyconsistentcase.caption
-msgid "Consistent case"
-msgstr "Consistent hoofdlettergebruik"
-
-#: tfrmcodeshaper.actapplyconsistentcase.hint
-msgid "Every word gets the same casing as the first occurence."
-msgstr ""
-
-#: tfrmcodeshaper.actbreakaftertoken.caption
-msgctxt "TFRMCODESHAPER.ACTBREAKAFTERTOKEN.CAPTION"
-msgid "after token"
-msgstr "na token"
-
-#: tfrmcodeshaper.actbreakaftertoken.hint
-msgid "Insert breaks after each occurence of the given token."
-msgstr ""
-
-#: tfrmcodeshaper.actbreakbeforetoken.caption
-msgctxt "TFRMCODESHAPER.ACTBREAKBEFORETOKEN.CAPTION"
-msgid "before token"
-msgstr "vóór token"
-
-#: tfrmcodeshaper.actbreakbeforetoken.hint
-msgid "Insert breaks before each occurence of the given token."
-msgstr ""
-
-#: tfrmcodeshaper.actdequotelines.caption
-msgctxt "tfrmcodeshaper.actdequotelines.caption"
-msgid "Dequote"
-msgstr "Dequote"
-
-#: tfrmcodeshaper.actinsertbreaks.caption
-msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
-msgid "Insert breaks"
-msgstr "Lijneindes invoegen"
-
-#: tfrmcodeshaper.actmakepascalstring.caption
-msgctxt "tfrmcodeshaper.actmakepascalstring.caption"
-msgid "Pascal string"
-msgstr "Pascal string"
-
-#: tfrmcodeshaper.actquotelines.caption
-msgctxt "tfrmcodeshaper.actquotelines.caption"
-msgid "Quote"
-msgstr "Quote"
-
-#: tfrmcodeshaper.actredo.caption
-msgctxt "tfrmcodeshaper.actredo.caption"
-msgid "Redo"
-msgstr "Opnieuw"
-
-#: tfrmcodeshaper.actremovebreaks.caption
-msgctxt "TFRMCODESHAPER.ACTREMOVEBREAKS.CAPTION"
-msgid "Remove breaks"
-msgstr "Verwijder lijneindes"
-
-#: tfrmcodeshaper.actremovedoubles.caption
-msgid "Remove doubles"
-msgstr "Verwijder dubbels"
-
-#: tfrmcodeshaper.actreplace.caption
-msgctxt "tfrmcodeshaper.actreplace.caption"
-msgid "Replace"
-msgstr "Vervang"
-
-#: tfrmcodeshaper.actstripfirstchar.caption
-msgid "Strip first char"
-msgstr "Verwijder eerste teken"
-
-#: tfrmcodeshaper.actstriplastchar.caption
-msgid "Strip last char"
-msgstr "Verwijder laatste teken"
-
-#: tfrmcodeshaper.acttogglebreakside.caption
-msgctxt "TFRMCODESHAPER.ACTTOGGLEBREAKSIDE.CAPTION"
-msgid "after token"
-msgstr "na token"
-
-#: tfrmcodeshaper.acttrim.caption
-msgctxt "TFRMCODESHAPER.ACTTRIM.CAPTION"
-msgid "Trim"
-msgstr "Trim"
-
-#: tfrmcodeshaper.actundo.caption
-msgctxt "tfrmcodeshaper.actundo.caption"
-msgid "Undo"
-msgstr "Ongedaan maken"
-
-#: tfrmcodeshaper.acturldecode.caption
-msgid "URL decode"
-msgstr "URL decode"
-
-#: tfrmcodeshaper.acturlencode.caption
-msgid "URL encode"
-msgstr "URL encode"
-
-#: tfrmcodeshaper.caption
-msgid "Code shaper"
-msgstr "Code shaper"
-
-#: tfrmcodeshaper.cbxinsertbreakstokenside.text
-msgctxt "tfrmcodeshaper.cbxinsertbreakstokenside.text"
-msgid "after"
-msgstr "na"
-
-#: tfrmcodeshaper.chkbreaklines.caption
-msgid "Break lines"
-msgstr "Lijnen afbreken"
-
-#: tfrmcodeshaper.chkbreaklinestrimspace.caption
-msgctxt "tfrmcodeshaper.chkbreaklinestrimspace.caption"
-msgid "Trim space"
-msgstr "Trim spaties"
-
-#: tfrmcodeshaper.chkbreaklineswrap.caption
-msgctxt "tfrmcodeshaper.chkbreaklineswrap.caption"
-msgid "Wrap lines"
-msgstr "Lijnen over meerdere regels herschikken"
-
-#: tfrmcodeshaper.chkdequotelinestrimspace.caption
-msgctxt "TFRMCODESHAPER.CHKDEQUOTELINESTRIMSPACE.CAPTION"
-msgid "Trim space"
-msgstr "Trim spaties"
-
-#: tfrmcodeshaper.chkquotelinesdelimitlines.caption
-msgid "Delimit lines"
-msgstr "Afbakenen lijngrenzen"
-
-#: tfrmcodeshaper.chkquotelinestrimspace.caption
-msgctxt "TFRMCODESHAPER.CHKQUOTELINESTRIMSPACE.CAPTION"
-msgid "Trim space"
-msgstr "Trim spaties"
-
-#: tfrmcodeshaper.chkreplacestringscasesensitive.caption
-msgctxt "tfrmcodeshaper.chkreplacestringscasesensitive.caption"
-msgid "Case sensitive"
-msgstr "Hoofdletter gevoelig"
-
-#: tfrmcodeshaper.chkreplacestringswholewordsonly.caption
-msgctxt "tfrmcodeshaper.chkreplacestringswholewordsonly.caption"
-msgid "Whole words only"
-msgstr "Alleen volledige woorden"
-
-#: tfrmcodeshaper.chktrimcompressspace.caption
-msgid "Compress space"
-msgstr "Reduceer spaties"
-
-#: tfrmcodeshaper.chktrimlinesleft.caption
-msgid "Trim left"
-msgstr "Trim links"
-
-#: tfrmcodeshaper.chktrimlinesright.caption
-msgid "Trim right"
-msgstr "Trim rechts"
-
-#: tfrmcodeshaper.chkunbreaklineswrap.caption
-msgctxt "TFRMCODESHAPER.CHKUNBREAKLINESWRAP.CAPTION"
-msgid "Wrap lines"
-msgstr "Lijnen afbreken"
-
-#: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
-msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
-msgid "Token:"
-msgstr "Token:"
-
-#: tfrmcodeshaper.edtbreaklinestoken.text
-msgid ","
-msgstr ","
-
-#: tfrmcodeshaper.edtdequotelinesquotechar.editlabel.caption
-msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.EDITLABEL.CAPTION"
-msgid "Quote character:"
-msgstr "Quote karakter:"
-
-#: tfrmcodeshaper.edtdequotelinesquotechar.text
-msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.TEXT"
-msgid "'"
-msgstr "'"
-
-#: tfrmcodeshaper.edtquotedlinesdelimiter.editlabel.caption
-msgid "Delimiter:"
-msgstr "Scheidingsteken:"
-
-#: tfrmcodeshaper.edtquotedlinesdelimiter.text
-msgid ", "
-msgstr ", "
-
-#: tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption
-msgctxt "tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption"
-msgid "Quote character:"
-msgstr "Quote karakter:"
-
-#: tfrmcodeshaper.edtquotelinesquotechar.text
-msgctxt "tfrmcodeshaper.edtquotelinesquotechar.text"
-msgid "'"
-msgstr "'"
-
-#: tfrmcodeshaper.grdreplacestrings.columns[0].title.caption
-msgid "From"
-msgstr "Van"
-
-#: tfrmcodeshaper.grdreplacestrings.columns[1].title.caption
-msgid "To"
-msgstr "Naar"
-
-#: tfrmcodeshaper.grpdequotelines.caption
-msgctxt "tfrmcodeshaper.grpdequotelines.caption"
-msgid "Dequote lines"
-msgstr "Dequote lijnen"
-
-#: tfrmcodeshaper.grpinsertbreaks.caption
-msgctxt "tfrmcodeshaper.grpinsertbreaks.caption"
-msgid "Insert breaks"
-msgstr "Lijneindes invoegen"
-
-#: tfrmcodeshaper.grpmisc.caption
-msgid "Miscellanious operations"
-msgstr "Diverse operaties"
-
-#: tfrmcodeshaper.grpquotelines.caption
-msgctxt "tfrmcodeshaper.grpquotelines.caption"
-msgid "Quote lines"
-msgstr "Quote lijnen"
-
-#: tfrmcodeshaper.grpremovebreaks.caption
-msgctxt "tfrmcodeshaper.grpremovebreaks.caption"
-msgid "Remove breaks"
-msgstr "Verwijder "
-
-#: tfrmcodeshaper.grpreplacestrings.caption
-msgid "Replace strings"
-msgstr "Vervang strings"
-
-#: tfrmcodeshaper.grptrim.caption
-msgctxt "tfrmcodeshaper.grptrim.caption"
-msgid "Trim"
-msgstr "Trim"
-
-#: tfrmcodeshaper.lbltrimlinesindent.caption
-msgid "Indent:"
-msgstr "Insprong:"
-
-#: tfrmcodeshaper.lblwraplinesposition.caption
-msgctxt "tfrmcodeshaper.lblwraplinesposition.caption"
-msgid "maximum position:"
-msgstr "maximum positie:"
-
-#: tfrmcodeshaper.lblwraplinesposition1.caption
-msgctxt "TFRMCODESHAPER.LBLWRAPLINESPOSITION1.CAPTION"
-msgid "maximum position:"
-msgstr "maximum positie:"
-
-#: tfrmcodeshaper.mnibreakaftertoken.caption
-msgctxt "tfrmcodeshaper.mnibreakaftertoken.caption"
-msgid "after"
-msgstr "na"
-
-#: tfrmcodeshaper.mnibreakbeforetoken.caption
-msgctxt "tfrmcodeshaper.mnibreakbeforetoken.caption"
-msgid "before"
-msgstr "vóór"
-
-#: tfrmcolorsettings.caption
-msgid "frmColorSettings"
-msgstr ""
-
-#: tfrmeditorsettings.actapplysettings.caption
-msgid "Apply"
-msgstr "Toepassen"
-
-#: tfrmeditorsettings.actassociate.caption
-msgid "Associate"
-msgstr "Associeer"
-
-#: tfrmeditorsettings.actopensettingsfile.caption
-msgid "Open settings file"
-msgstr "Open instellingenbestand"
-
-#: tfrmeditorsettings.actreloadsettings.caption
-msgid "Reload settings"
-msgstr "Herlaad instellingen"
-
-#: tfrmeditorsettings.btnclose.caption
-msgctxt "tfrmeditorsettings.btnclose.caption"
-msgid "&Close"
-msgstr "&Afsluiten"
-
-#: tfrmeditorsettings.btnok.caption
-msgctxt "tfrmeditorsettings.btnok.caption"
-msgid "&OK"
-msgstr "&OK"
-
-#: tfrmeditorsettings.caption
-msgctxt "tfrmeditorsettings.caption"
-msgid "Editor settings"
-msgstr "Editor instellingen"
-
-#: tfrmeditorsettings.label1.caption
-msgid "Label1"
-msgstr "Label1"
-
-#: tfrmeditorsettings.lblattributealiases.caption
-#, fuzzy
-msgid "Highlighter attribute aliases:"
-msgstr "attribuut kan niet worden toegevoegd"
-
-#: tfrmeditorsettings.tsdebug.caption
-msgid "Debug"
-msgstr "Debug"
-
-#: tfrmeditorsettings.tshighlighterattributes.caption
-msgid "Common highlighter attributes"
-msgstr "Gemeenschappelijke highlighter attributen"
-
-#: tfrmeditorsettings.tshighlighters.caption
-msgid "Highlighters"
-msgstr "Highlighters"
-
-#: tfrmeditorsettings.tssettings.caption
-#| msgid "Inspector"
-msgid "Main settings"
-msgstr "Instellingen"
-
-#: tfrmeditorsettings.tstoolsettings.caption
-msgid "Tool settings"
-msgstr ""
-
-#: tfrmeditorsettings.tsxml.caption
-msgid "XML"
-msgstr "XML"
-
-#: tfrmeditorsettingsdialog.chkalwaysvisiblecaret.caption
-msgid "Always visible caret"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautohidecursor.caption
-msgid "Auto hide cursor"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautoindent.caption
-msgid "Auto indent"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautoindentonpaste.caption
-msgid "Auto indent on paste"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkbrackethighlight.caption
-msgid "Bracket highlight"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkcaretskipsselection.caption
-msgid "Caret skips selection"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkcaretskipstab.caption
-msgid "Caret skips tab"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkdragdropediting.caption
-msgid "Drag drop editing"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkenhanceendkey.caption
-msgid "Enhance End key"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkenhancehomekey.caption
-msgid "Enhance Home key"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkfoldedcopypaste.caption
-msgid "Folded copy paste"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkoverwriteblock.caption
-msgid "Overwrite block"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkpersistentblock.caption
-msgid "Persistent block"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkshowrightedge.caption
-msgid "Show right edge"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkshowspecialcharacters.caption
-msgctxt "tfrmeditorsettingsdialog.chkshowspecialcharacters.caption"
-msgid "Show special characters"
-msgstr "Speciale karakters tonen"
-
-#: tfrmeditorsettingsdialog.chksmarttabs.caption
-msgid "Smart tabs"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktabindent.caption
-msgid "Tab indent"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktabstospaces.caption
-msgid "Tabs to spaces"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktrimtrailingspaces.caption
-msgid "Trim trailing spaces"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkwanttabs.caption
-msgid "Accept TAB characters:"
-msgstr "Accepteer TAB karakters:"
-
-#: tfrmeditorsettingsdialog.grpappearance.caption
-msgid "Appearance"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpbehaviour.caption
-msgid "Behaviour"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpindentation.caption
-msgid "Indentation settings"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpkeys.caption
-msgid "Keys"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpselection.caption
-msgctxt "tfrmeditorsettingsdialog.grpselection.caption"
-msgid "Selection"
-msgstr "Selectie"
-
-#: tfrmeditorsettingsdialog.grptabs.caption
-msgid "Tabs"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpwhitespace.caption
-msgid "Whitespace"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblblockindent.caption
-#, fuzzy
-msgid "Block indent spaces:"
-msgstr "Tabs naar spaties"
-
-#: tfrmeditorsettingsdialog.lblblocktabindent.caption
-#, fuzzy
-msgid "Block indent tabs:"
-msgstr "Toon folder tabs"
-
-#: tfrmeditorsettingsdialog.lblextracharspacing.caption
-#, fuzzy
-msgid "Extra character spacing:"
-msgstr "Extra regel afstand"
-
-#: tfrmeditorsettingsdialog.lblextralinespacing.caption
-#, fuzzy
-msgid "Extra line spacing:"
-msgstr "Extra regel afstand"
-
-#: tfrmeditorsettingsdialog.lblrightedge.caption
-#, fuzzy
-msgid "Right edge position:"
-msgstr "Verplaats pagina naar rechts"
-
-#: tfrmeditorsettingsdialog.lbltabwidth.caption
-msgid "TAB width:"
-msgstr "TAB breedte:"
-
-#: tfrmfiletypesettings.acadd.caption
-msgctxt "tfrmfiletypesettings.acadd.caption"
-msgid "&Add..."
-msgstr "&Toevoegen..."
-
-#: tfrmfiletypesettings.acdel.caption
-msgctxt "tfrmfiletypesettings.acdel.caption"
-msgid "&Delete..."
-msgstr "&Verwijderen..."
-
-#: tfrmfiletypesettings.bnac.caption
-msgctxt "tfrmfiletypesettings.bnac.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmfiletypesettings.bnacedit.caption
-msgctxt "tfrmfiletypesettings.bnacedit.caption"
-msgid "&Edit..."
-msgstr "&Bewerken"
-
-#: tfrmfiletypesettings.bnhelp.caption
-msgctxt "tfrmfiletypesettings.bnhelp.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmfiletypesettings.bnruncmd.caption
-msgctxt "tfrmfiletypesettings.bnruncmd.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmfiletypesettings.bnrundirbrowse.caption
-msgctxt "tfrmfiletypesettings.bnrundirbrowse.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmfiletypesettings.bnrundirtags.caption
-msgctxt "tfrmfiletypesettings.bnrundirtags.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmfiletypesettings.bnrunoutputexp.caption
-msgctxt "tfrmfiletypesettings.bnrunoutputexp.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmfiletypesettings.bnrunoutputl.caption
-msgctxt "tfrmfiletypesettings.bnrunoutputl.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmfiletypesettings.bnrunparam.caption
-msgctxt "tfrmfiletypesettings.bnrunparam.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmfiletypesettings.chkautoi.caption
-msgctxt "tfrmfiletypesettings.chkautoi.caption"
-msgid "&Auto Indent"
-msgstr "&Automatisch inspringen"
-
-#: tfrmfiletypesettings.chksmarttab.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.chksmarttab.caption"
-msgid "&Smart Tab"
-msgstr "Tab positie"
-
-#: tfrmfiletypesettings.chkusetab.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.chkusetab.caption"
-msgid "&Uset Tab"
-msgstr "Tab positie"
-
-#: tfrmfiletypesettings.gboptions.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.gboptions.caption"
-msgid "&Options:"
-msgstr "Opties"
-
-#: tfrmfiletypesettings.lbfilter.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lbfilter.caption"
-msgid "&Filter:"
-msgstr "Filter toepassen"
-
-#: tfrmfiletypesettings.lbft.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lbft.caption"
-msgid "File &Type:"
-msgstr "Alleen type:"
-
-#: tfrmfiletypesettings.lblcomment.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lblcomment.caption"
-msgid "&Comment Char:"
-msgstr "(uit)commentariëren"
-
-#: tfrmfiletypesettings.lblftautocomplete.caption
-msgctxt "tfrmfiletypesettings.lblftautocomplete.caption"
-msgid "&Autocomplete:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblhelp.caption
-msgctxt "tfrmfiletypesettings.lblhelp.caption"
-msgid "Help file:"
-msgstr "Help bestand:"
-
-#: tfrmfiletypesettings.lblhighlighter.caption
-msgctxt "tfrmfiletypesettings.lblhighlighter.caption"
-msgid "&Highlight:"
-msgstr "&Inkleuring:"
-
-#: tfrmfiletypesettings.lblruncmd.caption
-msgctxt "tfrmfiletypesettings.lblruncmd.caption"
-msgid "&Command Line:"
-msgstr "&Commandolijn:"
-
-#: tfrmfiletypesettings.lblrundir.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lblrundir.caption"
-msgid "Work &Directory:"
-msgstr "Map Hotlist"
-
-#: tfrmfiletypesettings.lblrunoutput.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lblrunoutput.caption"
-msgid "&Output Expression:"
-msgstr "&Reguliere expressie"
-
-#: tfrmfiletypesettings.lblrunparam.caption
-msgctxt "tfrmfiletypesettings.lblrunparam.caption"
-msgid "&Parameters:"
-msgstr "&Parameters:"
-
-#: tfrmfiletypesettings.lbltabwidth.caption
-msgctxt "tfrmfiletypesettings.lbltabwidth.caption"
-msgid "Tab &Width:"
-msgstr "Tab &breedte"
-
-#: tfrmfiletypesettings.lnkfilters.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.lnkfilters.caption"
-msgid "Setup Filters..."
-msgstr "Pagina instellingen"
-
-#: tfrmfiletypesettings.tsftac.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.tsftac.caption"
-msgid "&Autocomplete"
-msgstr "&Automatisch aanvullen"
-
-#: tfrmfiletypesettings.tsfthelp.caption
-msgctxt "tfrmfiletypesettings.tsfthelp.caption"
-msgid "&Help"
-msgstr "&Help"
-
-#: tfrmfiletypesettings.tsftmain.caption
-#, fuzzy
-msgctxt "tfrmfiletypesettings.tsftmain.caption"
-msgid "&Main"
-msgstr "Instellingen"
-
-#: tfrmfiletypesettings.tsftrun.caption
-msgctxt "tfrmfiletypesettings.tsftrun.caption"
-msgid "&Run"
-msgstr "&Uitvoeren"
-
-#: tfrmfilter.actfocusfiltertext.caption
-msgid "Set focus to filter text"
-msgstr ""
-
-#: tfrmhexeditor.caption
-msgid "Hex editor"
-msgstr "Hex editor"
-
-#: tfrmhtmlview.caption
-msgid "HTML viewer"
-msgstr "HTML viewer"
-
-#: tfrmkeymappings.acadd.caption
-msgid "&Assign"
-msgstr "&Toekennen"
-
-#: tfrmkeymappings.acdel.caption
-msgctxt "tfrmkeymappings.acdel.caption"
-msgid "&Delete"
-msgstr "&Verwijderen"
-
-#: tfrmkeymappings.bncancel.caption
-msgctxt "tfrmkeymappings.bncancel.caption"
-msgid "Close"
-msgstr "Sluit"
-
-#: tfrmkeymappings.bnok.caption
-msgid "OK"
-msgstr "OK"
-
-#: tfrmkeymappings.caption
-msgid "Customize"
-msgstr "Aanpassen"
-
-#: tfrmkeymappings.chklargeicons.caption
-#, fuzzy
-msgid "Show Large Icons"
-msgstr "Help dialog tonen."
-
-#: tfrmkeymappings.chkshowhint.caption
-msgid "Show Hints"
-msgstr "Toon hints"
-
-#: tfrmkeymappings.gbactions.caption
-msgid "Select Action:"
-msgstr "Selecteer actie"
-
-#: tfrmkeymappings.gbdescr.caption
-msgid "Description:"
-msgstr "Omschrijving:"
-
-#: tfrmkeymappings.gbsc.caption
-msgid "Select ShortCut:"
-msgstr "Selecteer ShortCut"
-
-#: tfrmkeymappings.lblactions.caption
-msgid "Actions:"
-msgstr "Acties:"
-
-#: tfrmkeymappings.lblcategory.caption
-msgid "Category:"
-msgstr "Categorie:"
-
-#: tfrmkeymappings.lblcurvalue.caption
-msgid "Current ShortCut:"
-msgstr "Huidige ShortCut"
-
-#: tfrmkeymappings.lblnewsc.caption
-msgid "New ShortCur:"
-msgstr "Nieuwe ShortCut"
-
-#: tfrmkeymappings.tskeyboard.caption
-msgid "Shortcuts"
-msgstr "Shortcuts"
-
-#: tfrmkeymappings.tsoptions.caption
-msgid "Other"
-msgstr "Ander"
-
-#: tfrmkeymappings.tstoolbars.caption
-msgid "Toolbars"
-msgstr "Werkbalken"
 
 #: tfrmmain.actabout.caption
 msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
@@ -2319,925 +1144,725 @@ msgstr "Grootte"
 msgid "Total count of editor viewer instances."
 msgstr ""
 
-#: tfrmminimap.caption
-msgid "Minimap"
-msgstr "Bestandskaartweergave"
-
-#: tfrmoptionsassociate.actadd.caption
-msgctxt "tfrmoptionsassociate.actadd.caption"
-msgid "&Add..."
-msgstr "&Toevoegen..."
-
-#: tfrmoptionsassociate.actdelete.caption
-msgctxt "tfrmoptionsassociate.actdelete.caption"
-msgid "&Delete"
-msgstr "&Verwijderen"
-
-#: tfrmoptionsassociate.actdeselectall.caption
-msgid "&Hide Selection"
-msgstr "&Verberg selectie"
-
-#: tfrmoptionsassociate.actedit.caption
-msgctxt "tfrmoptionsassociate.actedit.caption"
-msgid "&Edit..."
-msgstr "&Bewerken..."
-
-#: tfrmoptionsassociate.actselectall.caption
-msgid "Se&lect All"
-msgstr "Selecteer &Alles"
-
-#: tfrmoptionsassociate.btndeselectall.caption
-msgid "&Deselect all"
-msgstr "&Deselecteer alles"
-
-#: tfrmoptionsassociate.chkaddtomenu.caption
-#, fuzzy
-msgid "Add to &Context Menu"
-msgstr "Paden aan pakketten en projecten toevoegen"
-
-#: tfrmoptionsassociate.chkallusers.caption
-#, fuzzy
-msgid "Associate for all users"
-msgstr "Typhon directory (standaard voor alle projecten)"
-
-#: tfrmoptionsassociate.chkassoctounknown.caption
-#, fuzzy
-msgid "Associate to &Unknown"
-msgstr "Onbekende boolean operatie"
-
-#: tfrmoptionsassociate.gbxoptions.caption
-msgid "&Options"
-msgstr "&Opties"
-
-#: tfrmoptionsassociate.gbxother.caption
-msgid "Other:"
-msgstr "&Ander:"
-
-#: tfrmoptionsassociate.lblbackup.caption
-msgid "Make Backup..."
-msgstr "Maak Backup..."
-
-#: tfrmoptionsassociate.lblext.caption
-msgid "File associations"
-msgstr "Bestandsassociaties"
-
-#: tfrmoptionsassociate.lblmenucaption.caption
-msgid "Menu &Caption:"
-msgstr "Menu &Caption"
-
-#: tfrmoptionsassociate.lvext.columns[0].caption
-msgid "Ext:"
-msgstr "Ext:"
-
-#: tfrmoptionsassociate.pnlaccess.caption
-msgid "You have not permission for associate extensions."
+#: ts.components.docking.resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
+msgctxt "ts.components.docking.resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho"
+msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
 msgstr ""
 
-#: tfrmoptionsfiletype.acadd.caption
-msgctxt "tfrmoptionsfiletype.acadd.caption"
-msgid "&Add..."
-msgstr "&Toevoegen..."
-
-#: tfrmoptionsfiletype.acdel.caption
-msgctxt "tfrmoptionsfiletype.acdel.caption"
-msgid "&Delete..."
-msgstr "&Verwijderen..."
-
-#: tfrmoptionsfiletype.bnac.caption
-msgctxt "tfrmoptionsfiletype.bnac.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmoptionsfiletype.bnacedit.caption
-msgctxt "tfrmoptionsfiletype.bnacedit.caption"
-msgid "&Edit..."
-msgstr "&Bewerken"
-
-#: tfrmoptionsfiletype.bnhelp.caption
-msgctxt "tfrmoptionsfiletype.bnhelp.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmoptionsfiletype.bnruncmd.caption
-msgctxt "tfrmoptionsfiletype.bnruncmd.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmoptionsfiletype.bnrundirbrowse.caption
-msgctxt "tfrmoptionsfiletype.bnrundirbrowse.caption"
-msgid "..."
-msgstr "..."
-
-#: tfrmoptionsfiletype.bnrundirtags.caption
-msgctxt "tfrmoptionsfiletype.bnrundirtags.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmoptionsfiletype.bnrunoutputexp.caption
-msgctxt "tfrmoptionsfiletype.bnrunoutputexp.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmoptionsfiletype.bnrunoutputl.caption
-msgctxt "tfrmoptionsfiletype.bnrunoutputl.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmoptionsfiletype.bnrunparam.caption
-msgctxt "tfrmoptionsfiletype.bnrunparam.caption"
-msgid ">"
-msgstr ">"
-
-#: tfrmoptionsfiletype.chkautoi.caption
-msgctxt "tfrmoptionsfiletype.chkautoi.caption"
-msgid "&Auto Indent"
-msgstr "&Automatisch Inspringen"
-
-#: tfrmoptionsfiletype.chksmarttab.caption
+#: ts.components.docking.resources.adrsallfiles
 #, fuzzy
-msgctxt "tfrmoptionsfiletype.chksmarttab.caption"
-msgid "&Smart Tab"
-msgstr "Tab positie"
+msgctxt "ts.components.docking.resources.adrsallfiles"
+msgid "All files"
+msgstr "Alle bestanden"
 
-#: tfrmoptionsfiletype.chkusetab.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.chkusetab.caption"
-msgid "&Uset Tab"
-msgstr "Tab positie"
-
-#: tfrmoptionsfiletype.gboptions.caption
-msgctxt "tfrmoptionsfiletype.gboptions.caption"
-msgid "&Options:"
-msgstr "&Opties:"
-
-#: tfrmoptionsfiletype.lbfilter.caption
-msgctxt "tfrmoptionsfiletype.lbfilter.caption"
-msgid "&Filter:"
-msgstr "&Filter:"
-
-#: tfrmoptionsfiletype.lbft.caption
-msgctxt "tfrmoptionsfiletype.lbft.caption"
-msgid "File &Type:"
-msgstr "Bestands&type:"
-
-#: tfrmoptionsfiletype.lblcomment.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblcomment.caption"
-msgid "&Comment Char:"
-msgstr "(uit)commentariëren"
-
-#: tfrmoptionsfiletype.lblftautocomplete.caption
-msgctxt "tfrmoptionsfiletype.lblftautocomplete.caption"
-msgid "&Autocomplete:"
-msgstr "&Automatisch aanvullen"
-
-#: tfrmoptionsfiletype.lblhelp.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblhelp.caption"
-msgid "Help file:"
-msgstr "Open bestand"
-
-#: tfrmoptionsfiletype.lblhighlighter.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblhighlighter.caption"
-msgid "&Highlight:"
-msgstr "Syntax kleuring"
-
-#: tfrmoptionsfiletype.lblruncmd.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblruncmd.caption"
-msgid "&Command Line:"
-msgstr "Focus commandoregel"
-
-#: tfrmoptionsfiletype.lblrundir.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblrundir.caption"
-msgid "Work &Directory:"
-msgstr "Map Hotlist"
-
-#: tfrmoptionsfiletype.lblrunoutput.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lblrunoutput.caption"
-msgid "&Output Expression:"
-msgstr "&Reguliere expressie"
-
-#: tfrmoptionsfiletype.lblrunparam.caption
-msgctxt "tfrmoptionsfiletype.lblrunparam.caption"
-msgid "&Parameters:"
-msgstr "&Parameters:"
-
-#: tfrmoptionsfiletype.lbltabwidth.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lbltabwidth.caption"
-msgid "Tab &Width:"
-msgstr "Goot breedte"
-
-#: tfrmoptionsfiletype.lnkfilters.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.lnkfilters.caption"
-msgid "Setup Filters..."
-msgstr "Pagina instellingen"
-
-#: tfrmoptionsfiletype.tsftac.caption
-msgctxt "tfrmoptionsfiletype.tsftac.caption"
-msgid "&Autocomplete"
-msgstr "&Automatisch aanvullen"
-
-#: tfrmoptionsfiletype.tsfthelp.caption
-msgctxt "tfrmoptionsfiletype.tsfthelp.caption"
-msgid "&Help"
-msgstr "&Help"
-
-#: tfrmoptionsfiletype.tsftmain.caption
-#, fuzzy
-msgctxt "tfrmoptionsfiletype.tsftmain.caption"
-msgid "&Main"
-msgstr "Instellingen"
-
-#: tfrmoptionsfiletype.tsftrun.caption
-msgctxt "tfrmoptionsfiletype.tsftrun.caption"
-msgid "&Run"
-msgstr "&Uitvoeren"
-
-#: tfrmoptionsthemes.bnchangefont.caption
-msgid "Change Font..."
-msgstr "Wijzig lettertype..."
-
-#: tfrmoptionsthemes.bnthemeadd.caption
-msgid "&Add"
-msgstr "&Toevoegen"
-
-#: tfrmoptionsthemes.bnthemedel.caption
-msgctxt "tfrmoptionsthemes.bnthemedel.caption"
-msgid "&Delete"
-msgstr "&Verwijder"
-
-#: tfrmoptionsthemes.chkalwaysshowurl.caption
-#, fuzzy
-msgid "Permanently Highlight URL's"
-msgstr "Gebruik syntax highlighting"
-
-#: tfrmoptionsthemes.chkgautosize.caption
-#, fuzzy
-msgid "&Auto Size"
-msgstr "Oorspronkelijke grootte:"
-
-#: tfrmoptionsthemes.chkgleadingzeros.caption
-msgid "&Leading Zeros"
-msgstr "&Voorloopnullen"
-
-#: tfrmoptionsthemes.chkgshownumbers.caption
-#, fuzzy
-msgid "&Show Linenumbers"
-msgstr "Inspecteur tonen"
-
-#: tfrmoptionsthemes.chkgusegrad.caption
-#, fuzzy
-msgid "&Show Gradient"
-msgstr "Inspecteur tonen"
-
-#: tfrmoptionsthemes.chkgvisible.caption
-#, fuzzy
-msgid "&Show Gutter"
-msgstr "Toon goot hints"
-
-#: tfrmoptionsthemes.chkgzerostart.caption
-#, fuzzy
-msgid "&Zero Start"
-msgstr "&Start pad:"
-
-#: tfrmoptionsthemes.chkhighlightbrackets.caption
-#, fuzzy
-msgid "Highlight matching &brackets:"
-msgstr "Gebruik syntax highlighting"
-
-#: tfrmoptionsthemes.chkhighlightcurrentline.caption
-#, fuzzy
-msgid "Highlight &current line:"
-msgstr "Verwijder huidige regel"
-
-#: tfrmoptionsthemes.chkhistylebold.caption
-msgctxt "tfrmoptionsthemes.chkhistylebold.caption"
-msgid "&Bold"
-msgstr "&Vet"
-
-#: tfrmoptionsthemes.chkhistyleitalic.caption
-msgctxt "tfrmoptionsthemes.chkhistyleitalic.caption"
-msgid "&Italic"
-msgstr "&Schuin"
-
-#: tfrmoptionsthemes.chkhistyleunderline.caption
-msgctxt "tfrmoptionsthemes.chkhistyleunderline.caption"
-msgid "&Underline"
-msgstr "&Onderlijnd"
-
-#: tfrmoptionsthemes.chkurl.caption
-msgid "&Highlight Hyperlinks"
-msgstr "Hyperlinks inkleuren"
-
-#: tfrmoptionsthemes.chkurlbold.caption
-msgctxt "tfrmoptionsthemes.chkurlbold.caption"
-msgid "&Bold"
-msgstr "&Vet"
-
-#: tfrmoptionsthemes.chkurlitalic.caption
-msgctxt "tfrmoptionsthemes.chkurlitalic.caption"
-msgid "&Italic"
-msgstr "&Schuin"
-
-#: tfrmoptionsthemes.chkurlunderline.caption
-msgctxt "tfrmoptionsthemes.chkurlunderline.caption"
-msgid "&Underline"
-msgstr "&Onderlijnd"
-
-#: tfrmoptionsthemes.gbcaret.caption
-msgid "Ca&rets:"
-msgstr "Ca&rets:"
-
-#: tfrmoptionsthemes.gbdcolors.caption
-msgctxt "tfrmoptionsthemes.gbdcolors.caption"
-msgid "&Color:"
-msgstr "&Kleur:"
-
-#: tfrmoptionsthemes.gbdfont.caption
-msgid "&Font"
-msgstr "&Lettertype"
-
-#: tfrmoptionsthemes.gbdother.caption
-msgid "&Others:"
-msgstr "&Andere:"
-
-#: tfrmoptionsthemes.gbdselcolors.caption
-msgid "&Selected Color:"
-msgstr "&Geselecteerde Kleur:"
-
-#: tfrmoptionsthemes.gbggrad.caption
-msgid "&Gradient:"
+#: ts.components.docking.resources.adrsamountofpixelthemousehastodragbeforedragstarts
+msgctxt "ts.components.docking.resources.adrsamountofpixelthemousehastodragbeforedragstarts"
+msgid "Amount of pixel the mouse has to drag before drag starts"
 msgstr ""
 
-#: tfrmoptionsthemes.gbgshownumbers.caption
-msgid "&Linenumbers:"
-msgstr "&Lijnnummers:"
-
-#: tfrmoptionsthemes.gbhiattrs.caption
-msgid "&Attributes:"
-msgstr "&Attributen"
-
-#: tfrmoptionsthemes.gbhicolor.caption
-msgctxt "tfrmoptionsthemes.gbhicolor.caption"
-msgid "&Color:"
-msgstr "&Kleur:"
-
-#: tfrmoptionsthemes.gbredge.caption
-msgid "&Right Edge:"
-msgstr "&Rechter Rand:"
-
-#: tfrmoptionsthemes.gbrmfont.caption
-msgctxt "tfrmoptionsthemes.gbrmfont.caption"
-msgid "&Font:"
-msgstr "&Lettertype::"
-
-#: tfrmoptionsthemes.gbrmsize.caption
+#: ts.components.docking.resources.adrsanchordockinglayout
 #, fuzzy
-msgid "Font Size for &ReadMode:"
-msgstr "&Buffergrootte voor bestanden:"
+msgctxt "ts.components.docking.resources.adrsanchordockinglayout"
+msgid "Anchor Docking Layout"
+msgstr "Anker Docking Layout"
 
-#: tfrmoptionsthemes.gburl.caption
-msgid "&Hyperlinks:"
-msgstr "&Hyperlinks:"
+#: ts.components.docking.resources.adrsanchorisnotsplitternodeanchors
+msgctxt "ts.components.docking.resources.adrsanchorisnotsplitternodeanchors"
+msgid "Anchor is not splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
 
-#: tfrmoptionsthemes.gburlstyle.caption
-msgctxt "tfrmoptionsthemes.gburlstyle.caption"
-msgid "&Style:"
-msgstr "&Stijl:"
+#: ts.components.docking.resources.adrsanchornotfoundnodeanchors
+msgctxt "ts.components.docking.resources.adrsanchornotfoundnodeanchors"
+msgid "Anchor not found: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
 
-#: tfrmoptionsthemes.label1.caption
-msgid "&Insert:"
-msgstr "&Invoegen:"
+#: ts.components.docking.resources.adrsanchortowrongsideofsplitternodeanchors
+msgctxt "ts.components.docking.resources.adrsanchortowrongsideofsplitternodeanchors"
+msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
+msgstr ""
 
-#: tfrmoptionsthemes.label2.caption
-msgid "&Overwrite:"
-msgstr "&Overschrijven:"
+#: ts.components.docking.resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
+msgctxt "ts.components.docking.resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors"
+msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
+msgstr ""
 
-#: tfrmoptionsthemes.lbdbg.caption
-msgctxt "tfrmoptionsthemes.lbdbg.caption"
-msgid "&Background:"
-msgstr "&Achtergrond:"
-
-#: tfrmoptionsthemes.lbdfg.caption
-msgctxt "tfrmoptionsthemes.lbdfg.caption"
-msgid "&Foreground:"
-msgstr "&Voorgrond:"
-
-#: tfrmoptionsthemes.lbdselbg.caption
-msgctxt "tfrmoptionsthemes.lbdselbg.caption"
-msgid "&Background:"
-msgstr "&Achtergrond:"
-
-#: tfrmoptionsthemes.lbdselfg.caption
-msgctxt "tfrmoptionsthemes.lbdselfg.caption"
-msgid "&Foreground:"
-msgstr "&Voorgrond:"
-
-#: tfrmoptionsthemes.lblborder.caption
-msgid "Border Color:"
-msgstr "Rand kleur:"
-
-#: tfrmoptionsthemes.lblgcolor.caption
-msgctxt "tfrmoptionsthemes.lblgcolor.caption"
-msgid "&Foreground:"
-msgstr "&Voorgrond:"
-
-#: tfrmoptionsthemes.lblgdigitscount.caption
-msgid "&Digitcount:"
-msgstr "&Aantal cijfers:"
-
-#: tfrmoptionsthemes.lblgendcolor.caption
-msgid "&End Color:"
-msgstr "&Einde kleur:"
-
-#: tfrmoptionsthemes.lblgfontcolor.caption
-msgctxt "tfrmoptionsthemes.lblgfontcolor.caption"
-msgid "&Font:"
-msgstr "&Lettertype:"
-
-#: tfrmoptionsthemes.lblgstartcolor.caption
-msgid "S&tart Color:"
-msgstr "&Start kleur:"
-
-#: tfrmoptionsthemes.lblgsteps.caption
-msgid "Ste&ps:"
-msgstr "&Stappen:"
-
-#: tfrmoptionsthemes.lblgwidth.caption
-msgid "Width:"
-msgstr "Breedte:"
-
-#: tfrmoptionsthemes.lblhbcolor.caption
-msgctxt "tfrmoptionsthemes.lblhbcolor.caption"
-msgid "Color:"
-msgstr "Kleur:"
-
-#: tfrmoptionsthemes.lblhclcolor.caption
-msgctxt "tfrmoptionsthemes.lblhclcolor.caption"
-msgid "Color:"
-msgstr "Kleur:"
-
-#: tfrmoptionsthemes.lblhibgcolor.caption
-msgctxt "tfrmoptionsthemes.lblhibgcolor.caption"
-msgid "&Background:"
-msgstr "&Achtergrond:"
-
-#: tfrmoptionsthemes.lblhifgcolor.caption
-msgctxt "tfrmoptionsthemes.lblhifgcolor.caption"
-msgid "&Foreground:"
-msgstr "&Voorgrond:"
-
-#: tfrmoptionsthemes.lblhighlight.caption
-msgctxt "tfrmoptionsthemes.lblhighlight.caption"
-msgid "&Highlight:"
-msgstr "&Inkleuring:"
-
-#: tfrmoptionsthemes.lblredgeat.caption
-msgid "&Width:"
-msgstr "&Breedte:"
-
-#: tfrmoptionsthemes.lblurlcolor.caption
-msgctxt "tfrmoptionsthemes.lblurlcolor.caption"
-msgid "Color:"
-msgstr "Kleur:"
-
-#: tfrmoptionsthemes.lbredgecolor.caption
-msgctxt "tfrmoptionsthemes.lbredgecolor.caption"
-msgid "Color:"
-msgstr "&Kleur:"
-
-#: tfrmoptionsthemes.lbtheme.caption
-msgid "&Theme:"
-msgstr "&Thema:"
-
-#: tfrmoptionsthemes.pnaccess.caption
-msgid "This theme is read-only."
-msgstr "Dit thema is niet wijzigbaar."
-
-#: tfrmoptionsthemes.pndfont.caption
-msgctxt "tfrmoptionsthemes.pndfont.caption"
-msgid "AaBbАаБб"
-msgstr "AaBbАаБб"
-
-#: tfrmoptionsthemes.pnrmfont.caption
-msgctxt "tfrmoptionsthemes.pnrmfont.caption"
-msgid "AaBbАаБб"
-msgstr "AaBbАаБб"
-
-#: tfrmoptionsthemes.tbhistyle.caption
-msgctxt "tfrmoptionsthemes.tbhistyle.caption"
-msgid "&Style:"
-msgstr "&Stijl:"
-
-#: tfrmoptionsthemes.tsthemegutter.caption
+#: ts.components.docking.resources.adrsautomatically
 #, fuzzy
-msgid "&Gutter"
-msgstr "Goot kleur"
-
-#: tfrmoptionsthemes.tsthemehighlight.caption
-msgid "&Highlight"
-msgstr "&Inkleuring"
-
-#: tfrmoptionsthemes.tsthememain.caption
-msgctxt "tfrmoptionsthemes.tsthememain.caption"
-msgid "&Main"
-msgstr "&Hoofd"
-
-#: tfrmoptionsthemes.tsthemeother.caption
-msgid "&Others"
-msgstr "&Andere"
-
-#: tfrmoptionsthemes.tsthemereadmode.caption
-msgid "&ReadMode"
-msgstr "&Leesmodus"
-
-#: tfrmpreview.caption
-msgid "Preview"
-msgstr "Voorbeeldweergave"
-
-#: tfrmpreview.mniopenselectioninneweditor.caption
-msgid "Open selection in new editor"
-msgstr "Open selectie in niewe editor"
-
-#: tfrmpreview.mniopenselectioninneweditor.hint
-msgid "Opens the currently selected text in new text editor."
-msgstr "Open selectie in niewe editor."
-
-#: tfrmpreview.mniselectall.caption
-msgctxt "TFRMPREVIEW.MNISELECTALL.CAPTION"
-msgid "Select &All"
-msgstr "Selecteer &Alles"
-
-#: tfrmpreview.mniselectall.hint
-msgid "Select All"
-msgstr "Selecteer alles"
-
-#: tfrmscripteditor.actexecute.caption
-msgctxt "tfrmscripteditor.actexecute.caption"
-msgid "Execute"
-msgstr "Uitvoeren"
-
-#: tfrmscripteditor.caption
-msgid "Script editor"
-msgstr ""
-
-#: tfrmsearchform.actfind.caption
-msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
-msgid "Find"
-msgstr "Zoek"
-
-#: tfrmsearchform.actfocussearchtext.caption
-msgid "actFocusSearchText"
-msgstr "actFocusSearchText"
-
-#: tfrmsearchform.actreplace.caption
-msgctxt "TFRMSEARCHFORM.ACTREPLACE.CAPTION"
-msgid "Replace"
-msgstr "Vervang"
-
-#: tfrmsearchform.actreplaceall.caption
-msgid "Replace all"
-msgstr "Vervang alle"
-
-#: tfrmsearchform.caption
-msgctxt "TFRMSEARCHFORM.CAPTION"
-msgid "Find"
-msgstr "Zoek"
-
-#: tfrmsearchform.chkcasesensitive.caption
-msgctxt "TFRMSEARCHFORM.CHKCASESENSITIVE.CAPTION"
-msgid "Case sensitive"
-msgstr "Hoofdletter gevoelig"
-
-#: tfrmsearchform.chkmultiline.caption
-msgid "Multiline"
-msgstr ""
-
-#: tfrmsearchform.chkregularexpressions.caption
-msgid "Regular expressions"
-msgstr "Reguliere expressies"
-
-#: tfrmsearchform.chkwholewordsonly.caption
-msgctxt "TFRMSEARCHFORM.CHKWHOLEWORDSONLY.CAPTION"
-msgid "Whole words only"
-msgstr "Alleen hele woorden"
-
-#: tfrmsearchform.grpdirection.caption
-msgid "Direction"
-msgstr "Richting"
-
-#: tfrmsearchform.grpoptions.caption
-msgctxt "tfrmsearchform.grpoptions.caption"
-msgid "Options"
-msgstr "Opties"
-
-#: tfrmsearchform.grporigin.caption
-msgid "Origin"
-msgstr "Oorsprong"
-
-#: tfrmsearchform.grpreplacewith.caption
-msgid "Replace with:"
-msgstr "Vervang door:"
-
-#: tfrmsearchform.grpscope.caption
-msgctxt "tfrmsearchform.grpscope.caption"
-msgid "Scope"
-msgstr "Scope"
-
-#: tfrmsearchform.grpsearchtext.caption
-msgid "Text to find:"
-msgstr "Zoek naar tekst:"
-
-#: tfrmsearchform.imgf2key.hint
-msgctxt "tfrmsearchform.imgf2key.hint"
-msgid "Press the F2 function key to set "
-msgstr ""
-
-#: tfrmsearchform.rbactiveview.caption
-msgid "Active &view"
-msgstr ""
-
-#: tfrmsearchform.rballviews.caption
-msgid "&All views"
-msgstr ""
-
-#: tfrmsearchform.rballviews.hint
-msgid "Search in all views."
-msgstr ""
-
-#: tfrmsearchform.rbbackward.caption
-msgid "Backward"
-msgstr "Achterwaarts"
-
-#: tfrmsearchform.rbentirescope.caption
-msgid "&Entire scope"
-msgstr "&Volledige scope"
-
-#: tfrmsearchform.rbforward.caption
-msgid "Forward"
-msgstr "Voorwaarts"
-
-#: tfrmsearchform.rbfromcursor.caption
-msgid "&From cursor"
-msgstr "&Vanaf cursor"
-
-#: tfrmsearchform.rbselection.caption
-msgid "&Selection"
-msgstr ""
-
-#: tfrmselectioninfo.btnrestore.caption
-msgid "Restore"
-msgstr "Herstel"
-
-#: tfrmselectioninfo.btnstore.caption
-msgid "Store"
-msgstr ""
-
-#: tfrmselectioninfo.chkexcludeemptylines.caption
-msgid "ExcludeEmptyLines"
-msgstr "ExcludeEmptyLines"
-
-#: tfrmselectioninfo.lblblockbegin.caption
-msgid "BlockBegin:"
-msgstr "BlockBegin:"
-
-#: tfrmselectioninfo.lblblockbeginvalue.caption
-msgid "lblBlockBeginValue"
-msgstr "lblBlockBeginValue"
-
-#: tfrmselectioninfo.lblblockend.caption
-msgid "BlockEnd:"
-msgstr "BlockEnd:"
-
-#: tfrmselectioninfo.lblblockendvalue.caption
-msgid "lblBlockEndValue"
-msgstr "lblBlockEndValue"
-
-#: tfrmselectioninfo.lblcaretxy.caption
-msgid "CaretXY:"
-msgstr "CaretXY:"
-
-#: tfrmselectioninfo.lblcaretxyvalue.caption
-msgid "lblCaretXYValue"
-msgstr "lblCaretXYValue"
-
-#: tfrmselectioninfo.lbllinecount.caption
-msgid "LineCount:"
-msgstr "LineCount:"
-
-#: tfrmselectioninfo.lbllinecountvalue.caption
-msgid "lblLineCountValue"
-msgstr "lblLineCountValue"
-
-#: tfrmselectioninfo.lbllogicalcaretxy.caption
-msgid "LogicalCaretXY:"
-msgstr "LogicalCaretXY:"
-
-#: tfrmselectioninfo.lbllogicalcaretxyvalue.caption
-msgid "lblLogicalCaretXYValue"
-msgstr "lblLogicalCaretXYValue"
-
-#: tfrmselectioninfo.lblstoredblockbegin.caption
-msgid "StoredBlockBegin:"
-msgstr "StoredBlockBegin:"
-
-#: tfrmselectioninfo.lblstoredblockbeginvalue.caption
-msgid "lblStoredBlockBeginValue"
-msgstr "lblStoredBlockBeginValue"
-
-#: tfrmselectioninfo.lblstoredblockend.caption
-msgid "StoredBlockEnd:"
-msgstr "StoredBlockEnd:"
-
-#: tfrmselectioninfo.lblstoredblockendvalue.caption
-msgid "lblStoredBlockEndValue"
-msgstr "lblStoredBlockEndValue"
-
-#: tfrmselectioninfo.lblstoredblocklines.caption
-msgid "lblStoredBlockLines"
-msgstr "lblStoredBlockLines"
-
-#: tfrmselectioninfo.lblstoredblockselectionmode.caption
-msgid "StoredBlockSelectionMode:"
-msgstr "StoredBlockSelectionMode:"
-
-#: tfrmselectioninfo.lblstoredblockselectionmodevalue.caption
-msgid "lblStoredBlockSelectionModeValue"
-msgstr "lblStoredBlockSelectionModeValue"
-
-#: tfrmselectioninfo.lblstoredcaretxy.caption
-msgid "StoredCaretXY:"
-msgstr "StoredCaretXY:"
-
-#: tfrmselectioninfo.lblstoredcaretxyvalue.caption
-msgid "lblStoredCaretXYValue"
-msgstr "lblStoredCaretXYValue"
-
-#: tfrmsortlines.actexecute.caption
-msgctxt "tfrmsortlines.actexecute.caption"
-msgid "Execute"
-msgstr "Uitvoeren"
-
-#: tfrmsortlines.btnok.caption
-msgctxt "tfrmsortlines.btnok.caption"
-msgid "Sort selection"
-msgstr ""
-
-#: tfrmsortlines.caption
-msgctxt "tfrmsortlines.caption"
-msgid "Sort strings"
-msgstr ""
-
-#: tfrmsortlines.gbxoptions.caption
-msgctxt "tfrmsortlines.gbxoptions.caption"
-msgid "Options"
-msgstr "Opties"
-
-#: tfrmsortlines.rgpscope.caption
-msgctxt "tfrmsortlines.rgpscope.caption"
-msgid "Scope"
-msgstr "Scope"
-
-#: tfrmsortlines.rgpsortdirection.caption
-msgctxt "tfrmsortlines.rgpsortdirection.caption"
-msgid "Sort direction:"
-msgstr "Sorteervolgorde:"
-
-#: tfrmsortstrings.actexecute.caption
-msgctxt "tfrmsortstrings.actexecute.caption"
-msgid "Execute"
-msgstr "Uitvoeren"
-
-#: tfrmsortstrings.btnok.caption
-msgctxt "tfrmsortstrings.btnok.caption"
-msgid "Sort selection"
-msgstr ""
-
-#: tfrmsortstrings.caption
-msgctxt "tfrmsortstrings.caption"
-msgid "Sort strings"
-msgstr ""
-
-#: tfrmsortstrings.gbxoptions.caption
-msgctxt "tfrmsortstrings.gbxoptions.caption"
-msgid "Options"
-msgstr "Opties"
-
-#: tfrmsortstrings.rgpsortdirection.caption
-msgctxt "tfrmsortstrings.rgpsortdirection.caption"
-msgid "Sort direction:"
-msgstr "Sorteervolgorde:"
-
-#: tfrmsortstrings.rgpsortscope.caption
-msgctxt "tfrmsortstrings.rgpsortscope.caption"
-msgid "Scope"
-msgstr "Scope"
-
-#: tfrmstructure.btncollapse.caption
-msgctxt "tfrmstructure.btncollapse.caption"
-msgid "Collapse"
-msgstr "Samenvouwen"
-
-#: tfrmstructure.btnexpand.caption
-msgctxt "tfrmstructure.btnexpand.caption"
-msgid "Expand"
-msgstr "Uitklappen"
-
-#: tfrmstructure.btninspect.caption
-msgctxt "tfrmstructure.btninspect.caption"
-msgid "Inspect"
-msgstr "Inspecteer"
-
-#: tfrmstructure.caption
-msgctxt "tfrmstructure.caption"
-msgid "Structure viewer"
-msgstr "Structuuroverzicht"
-
-#: tfrmtest.panel1.caption
-msgid "Panel1"
-msgstr ""
-
-#: tfrmtest.toolbar1.caption
-msgid "ToolBar1"
-msgstr ""
-
-#: tfrmtest.toolbar2.caption
-msgid "ToolBar2"
-msgstr ""
-
-#: tfrmtest.toolbutton1.caption
-msgctxt "tfrmtest.toolbutton1.caption"
-msgid "ToolButton1"
-msgstr "ToolButton1"
-
-#: tfrmtest.toolbutton2.caption
-msgid "ToolButton2"
-msgstr ""
-
-#: tfrmtest.toolbutton3.caption
-msgctxt "tfrmtest.toolbutton3.caption"
-msgid "ToolButton3"
-msgstr "ToolButton3"
-
-#: tfrmtest.toolbutton4.caption
-msgctxt "tfrmtest.toolbutton4.caption"
-msgid "ToolButton4"
-msgstr "ToolButton4"
-
-#: tfrmtest.toolbutton5.caption
-msgid "ToolButton5"
-msgstr ""
-
-#: tfrmtest.toolbutton6.caption
-msgid "ToolButton6"
-msgstr ""
-
-#: tfrmtest.toolbutton7.caption
-msgid "ToolButton7"
-msgstr ""
-
-#: tfrmviewlist.actclose.caption
-msgctxt "TFRMVIEWLIST.ACTCLOSE.CAPTION"
+msgctxt "ts.components.docking.resources.adrsautomatically"
+msgid "Automatically"
+msgstr "Automatisch"
+
+#: ts.components.docking.resources.adrsbottom
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsbottom"
+msgid "bottom"
+msgstr "bodem"
+
+#: ts.components.docking.resources.adrsclose
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsclose"
 msgid "Close"
 msgstr "Sluit"
 
-#: tfrmviewlist.actcloseselectedviews.caption
-msgid "Close selected views"
+#: ts.components.docking.resources.adrscontrolisalreadyadocksite
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrscontrolisalreadyadocksite"
+msgid "control is already a docksite"
+msgstr "control is reeds een docksite"
+
+#: ts.components.docking.resources.adrscustomdocksitecanhaveonlyonesite
+msgctxt "ts.components.docking.resources.adrscustomdocksitecanhaveonlyonesite"
+msgid "Custom dock site %s%s%s can have only one site."
 msgstr ""
 
-#: tfrmviewlist.caption
-msgid "Editor views"
-msgstr "Editor views"
+#: ts.components.docking.resources.adrsdockinganchordocking
+msgctxt "ts.components.docking.resources.adrsdockinganchordocking"
+msgid "Docking / Anchordocking"
+msgstr ""
 
-#: tfrmxmltree.btncollapse.caption
-msgctxt "tfrmxmltree.btncollapse.caption"
-msgid "Collapse"
-msgstr "Samenvouwen"
+#: ts.components.docking.resources.adrsdockingenabledrequiresarestartoftheide
+msgctxt "ts.components.docking.resources.adrsdockingenabledrequiresarestartoftheide"
+msgid "Docking enabled (Requires a restart of the IDE)"
+msgstr ""
 
-#: tfrmxmltree.btnexpand.caption
-msgctxt "tfrmxmltree.btnexpand.caption"
-msgid "Expand"
-msgstr "Uitklappen"
+#: ts.components.docking.resources.adrsdockingoptions
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsdockingoptions"
+msgid "Docking options"
+msgstr "Docking opties"
 
-#: tfrmxmltree.btninspect.caption
-msgctxt "TFRMXMLTREE.BTNINSPECT.CAPTION"
-msgid "Inspect"
-msgstr "Inspecteren"
+#: ts.components.docking.resources.adrsdraganddockc
+msgctxt "ts.components.docking.resources.adrsdraganddockc"
+msgid "Use the mouse to drag and dock window \"%c\""
+msgstr ""
 
-#: tfrmxmltree.caption
-msgctxt "tfrmxmltree.caption"
-msgid "Structure viewer"
-msgstr "Structuuroverzicht"
+#: ts.components.docking.resources.adrsdragthreshold
+msgctxt "ts.components.docking.resources.adrsdragthreshold"
+msgid "Drag threshold"
+msgstr ""
 
-#: tricheditorview.caption
-msgid "RichEditorView"
-msgstr "RichEditorView"
+#: ts.components.docking.resources.adrsduplicatename
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsduplicatename"
+msgid "Duplicate name: "
+msgstr "Dubbele naam:"
+
+#: ts.components.docking.resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
+msgctxt "ts.components.docking.resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
+msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
+msgstr ""
+
+#: ts.components.docking.resources.adrsemptyname
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsemptyname"
+msgid "Empty name: "
+msgstr "Lege naam:"
+
+#: ts.components.docking.resources.adrsenlarge
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsenlarge"
+msgid "Enlarge"
+msgstr "Vergroot"
+
+#: ts.components.docking.resources.adrsenlargeside
+msgctxt "ts.components.docking.resources.adrsenlargeside"
+msgid "Enlarge %s side"
+msgstr ""
+
+#: ts.components.docking.resources.adrserror
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrserror"
+msgid "Error"
+msgstr "Fout"
+
+#: ts.components.docking.resources.adrserrorloadingwindowlayoutfromfile
+msgctxt "ts.components.docking.resources.adrserrorloadingwindowlayoutfromfile"
+msgid "Error loading window layout from file \"%s\"%s%s"
+msgstr ""
+
+#: ts.components.docking.resources.adrserrorwritingwindowlayouttofile
+msgctxt "ts.components.docking.resources.adrserrorwritingwindowlayouttofile"
+msgid "Error writing window layout to file \"%s\"%s%s"
+msgstr ""
+
+#: ts.components.docking.resources.adrsgeneraldockingoptions
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsgeneraldockingoptions"
+msgid "General docking options"
+msgstr "Algemene docking opties"
+
+#: ts.components.docking.resources.adrsheaderalignleft
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsheaderalignleft"
+msgid "Header align left"
+msgstr "Hoofding links alligneren"
+
+#: ts.components.docking.resources.adrsheaderaligntop
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsheaderaligntop"
+msgid "Header align top"
+msgstr "Hoofding boven alligneren"
+
+#: ts.components.docking.resources.adrsheaderposition
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsheaderposition"
+msgid "Header position"
+msgstr "Hoofding positie"
+
+#: ts.components.docking.resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
+msgctxt "ts.components.docking.resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
+msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
+msgstr ""
+
+#: ts.components.docking.resources.adrsleft
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsleft"
+msgid "left"
+msgstr "links"
+
+#: ts.components.docking.resources.adrsloadwindowlayoutfromfile
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsloadwindowlayoutfromfile"
+msgid "Load window layout from file ..."
+msgstr "Laad desktop instelling van een bestand ..."
+
+#: ts.components.docking.resources.adrsloadwindowlayoutfromfilexml
+msgctxt "ts.components.docking.resources.adrsloadwindowlayoutfromfilexml"
+msgid "Load window layout from file (*.xml)"
+msgstr ""
+
+#: ts.components.docking.resources.adrslocked
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrslocked"
+msgid "Locked"
+msgstr "Gefixeerd"
+
+#: ts.components.docking.resources.adrsmerge
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmerge"
+msgid "Merge"
+msgstr "Samenvoegen"
+
+#: ts.components.docking.resources.adrsmissingcontrolname
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmissingcontrolname"
+msgid "missing control name"
+msgstr "ontbrekende naam voor control"
+
+#: ts.components.docking.resources.adrsmodalformscannotbemadedockable
+msgctxt "ts.components.docking.resources.adrsmodalformscannotbemadedockable"
+msgid "modal forms can not be made dockable"
+msgstr ""
+
+#: ts.components.docking.resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft
+msgctxt "ts.components.docking.resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft"
+msgid "Move header to left when (Width/Height)*100>=HeaderAlignLeft"
+msgstr ""
+
+#: ts.components.docking.resources.adrsmoveheadertotopwhenwidthheight100headeraligntop
+msgctxt "ts.components.docking.resources.adrsmoveheadertotopwhenwidthheight100headeraligntop"
+msgid "Move header to top when (Width/Height)*100<=HeaderAlignTop"
+msgstr ""
+
+#: ts.components.docking.resources.adrsmovepageleft
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmovepageleft"
+msgid "Move page left"
+msgstr "Verplaats pagina links"
+
+#: ts.components.docking.resources.adrsmovepageleftmost
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmovepageleftmost"
+msgid "Move page leftmost"
+msgstr "Verplaats pagina uiterst links"
+
+#: ts.components.docking.resources.adrsmovepageright
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmovepageright"
+msgid "Move page right"
+msgstr "Verplaats pagina naar rechts"
+
+#: ts.components.docking.resources.adrsmovepagerightmost
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsmovepagerightmost"
+msgid "Move page rightmost"
+msgstr "Verplaats pagina uiterst rechts"
+
+#: ts.components.docking.resources.adrsnocaptionsforfloatingsites
+msgctxt "ts.components.docking.resources.adrsnocaptionsforfloatingsites"
+msgid "No captions for floating sites"
+msgstr ""
+
+#: ts.components.docking.resources.adrsnochildrenallowedfornodetype
+msgctxt "ts.components.docking.resources.adrsnochildrenallowedfornodetype"
+msgid "No children allowed for Node=%s%s%s Type=%s"
+msgstr ""
+
+#: ts.components.docking.resources.adrsnotsupportedhasparent
+msgctxt "ts.components.docking.resources.adrsnotsupportedhasparent"
+msgid "Not supported: %s has parent %s"
+msgstr ""
+
+#: ts.components.docking.resources.adrsquit
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsquit"
+msgid "Quit %s"
+msgstr "Afsluiten %s"
+
+#: ts.components.docking.resources.adrsrequestedbutcreated
+msgctxt "ts.components.docking.resources.adrsrequestedbutcreated"
+msgid "%s requested, but %s created"
+msgstr ""
+
+#: ts.components.docking.resources.adrsrestoredefaultlayout
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsrestoredefaultlayout"
+msgid "Restore default layout"
+msgstr "Herstel normale layout"
+
+#: ts.components.docking.resources.adrsright
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsright"
+msgid "right"
+msgstr "rechts"
+
+#: ts.components.docking.resources.adrssavewindowlayoutasdefault
+msgctxt "ts.components.docking.resources.adrssavewindowlayoutasdefault"
+msgid "Save window layout as default"
+msgstr ""
+
+#: ts.components.docking.resources.adrssavewindowlayouttofile
+msgctxt "ts.components.docking.resources.adrssavewindowlayouttofile"
+msgid "Save window layout to file ..."
+msgstr ""
+
+#: ts.components.docking.resources.adrssavewindowlayouttofilexml
+msgctxt "ts.components.docking.resources.adrssavewindowlayouttofilexml"
+msgid "Save window layout to file (*.xml)"
+msgstr ""
+
+#: ts.components.docking.resources.adrsscaleonresize
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsscaleonresize"
+msgid "Scale on resize"
+msgstr "Schalen bij wijzigen grootte"
+
+#: ts.components.docking.resources.adrsscalesubsiteswhenasiteisresized
+msgctxt "ts.components.docking.resources.adrsscalesubsiteswhenasiteisresized"
+msgid "Scale sub sites when a site is resized"
+msgstr ""
+
+#: ts.components.docking.resources.adrsshowcaptionsofdockedcontrolsintheheader
+msgctxt "ts.components.docking.resources.adrsshowcaptionsofdockedcontrolsintheheader"
+msgid "Show captions of docked controls in the header"
+msgstr ""
+
+#: ts.components.docking.resources.adrsshowheadercaptions
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsshowheadercaptions"
+msgid "Show header captions"
+msgstr "Toon hoofdingsteksten"
+
+#: ts.components.docking.resources.adrsshowheaders
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrsshowheaders"
+msgid "Show headers"
+msgstr "Toon hoofdingen"
+
+#: ts.components.docking.resources.adrssplitterthickness
+msgctxt "ts.components.docking.resources.adrssplitterthickness"
+msgid "Splitter thickness"
+msgstr ""
+
+#: ts.components.docking.resources.adrssplitterwidth
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrssplitterwidth"
+msgid "Splitter width"
+msgstr "Splitter breedte"
+
+#: ts.components.docking.resources.adrstabposition
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrstabposition"
+msgid "Tab position"
+msgstr "Tab positie"
+
+#: ts.components.docking.resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
+msgctxt "ts.components.docking.resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac"
+msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
+msgstr ""
+
+#: ts.components.docking.resources.adrstop
+#, fuzzy
+msgctxt "ts.components.docking.resources.adrstop"
+msgid "top"
+msgstr "top"
+
+#: ts.components.docking.resources.adrstouseanchordockingyoumustfirstuninstall
+msgctxt "ts.components.docking.resources.adrstouseanchordockingyoumustfirstuninstall"
+msgid "To use anchordocking you must first uninstall %s"
+msgstr ""
+
+#: ts.components.docking.resources.adrsundock
+msgctxt "ts.components.docking.resources.adrsundock"
+msgid "Undock"
+msgstr ""
+
+#: ts.components.synminimap.sfontfactorminmax
+msgctxt "ts.components.synminimap.sfontfactorminmax"
+msgid "Font factor cannot be smaller than %.d or greater than %.d."
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sillegalvarianttype
+msgid "Illegal variant type"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidmethodname
+msgid "Invalid method name"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sinvalidpropertyvalue
+msgid "Invalid property value (%s)"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sobjectcouldnotbeloaded
+msgid "Object could not be loaded for PropInfo (%s)"
+msgstr ""
+
+#: ts.core.nativexml.objectstorage.sunregisteredclasstype
+msgid "Unregistered classtype (%s)"
+msgstr ""
+
+#: ts.core.nativexml.sbeginendmismatch
+msgctxt "ts.core.nativexml.sbeginendmismatch"
+msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.scannotaddattribute
+#, fuzzy
+msgctxt "ts.core.nativexml.scannotaddattribute"
+msgid "cannot add attribute"
+msgstr "attribuut kan niet worden toegevoegd"
+
+#: ts.core.nativexml.scannotaddnode
+msgctxt "ts.core.nativexml.scannotaddnode"
+msgid "cannot add node to this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotmanipulate
+msgctxt "ts.core.nativexml.scannotmanipulate"
+msgid "cannot manipulate nodes in this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetname
+msgctxt "ts.core.nativexml.scannotsetname"
+msgid "cannot set name on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scannotsetvalue
+msgctxt "ts.core.nativexml.scannotsetvalue"
+msgid "cannot set value on this type of element"
+msgstr ""
+
+#: ts.core.nativexml.scopyfromonlywithxmlnode
+msgctxt "ts.core.nativexml.scopyfromonlywithxmlnode"
+msgid "CopyFrom can only be used with TXmlNode descendants"
+msgstr ""
+
+#: ts.core.nativexml.sdefaultcharused
+msgctxt "ts.core.nativexml.sdefaultcharused"
+msgid "default char used for codepage substitution"
+msgstr ""
+
+#: ts.core.nativexml.serrorcalcstreamlength
+msgctxt "ts.core.nativexml.serrorcalcstreamlength"
+msgid "error while calculating streamlength"
+msgstr ""
+
+#: ts.core.nativexml.sillegalendtag
+msgctxt "ts.core.nativexml.sillegalendtag"
+msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
+msgstr ""
+
+#: ts.core.nativexml.sillegaltag
+msgctxt "ts.core.nativexml.sillegaltag"
+msgid "illegal tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sinvalidstream
+msgctxt "ts.core.nativexml.sinvalidstream"
+msgid "invalid stream"
+msgstr ""
+
+#: ts.core.nativexml.slevelmismatch
+msgctxt "ts.core.nativexml.slevelmismatch"
+msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.smissingdatainbinarystream
+msgctxt "ts.core.nativexml.smissingdatainbinarystream"
+msgid "missing data in binary stream"
+msgstr ""
+
+#: ts.core.nativexml.snondefaultchardata
+msgctxt "ts.core.nativexml.snondefaultchardata"
+msgid "non-default chardata at line %d (pos %d)"
+msgstr ""
+
+#: ts.core.nativexml.snotsupported
+#, fuzzy
+msgctxt "ts.core.nativexml.snotsupported"
+msgid "feature is not supported yet"
+msgstr "functionaliteit is nog niet ondersteund"
+
+#: ts.core.nativexml.sprematureend
+msgctxt "ts.core.nativexml.sprematureend"
+msgid "stream terminated prematurely at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.squotecharexpected
+msgctxt "ts.core.nativexml.squotecharexpected"
+msgid "quote char expected at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.srootelementnotdefined
+#, fuzzy
+msgctxt "ts.core.nativexml.srootelementnotdefined"
+msgid "XML root element not defined."
+msgstr "XML root element is niet gedefiniëerd"
+
+#: ts.core.nativexml.ssignificantdigitsoutofrange
+msgctxt "ts.core.nativexml.ssignificantdigitsoutofrange"
+msgid "significant digits out of range"
+msgstr ""
+
+#: ts.core.nativexml.sunknownbinaryencodingbinhex
+msgctxt "ts.core.nativexml.sunknownbinaryencodingbinhex"
+msgid "unknown encoding: xbeBinHex (deprecated)"
+msgstr ""
+
+#: ts.core.nativexml.sunknownencoding
+#, fuzzy
+msgctxt "ts.core.nativexml.sunknownencoding"
+msgid "unknown encoding"
+msgstr "onbekende codering"
+
+#: ts.core.nativexml.sunsupportedencoding
+#, fuzzy
+msgctxt "ts.core.nativexml.sunsupportedencoding"
+msgid "unsupported encoding (%s)"
+msgstr "niet ondersteunde codering (%s)"
+
+#: ts.core.nativexml.sunsupportedtag
+msgctxt "ts.core.nativexml.sunsupportedtag"
+msgid "unsupported tag (\"%s\") at pos %d"
+msgstr ""
+
+#: ts.core.nativexml.sxmlnodenotassigned
+#, fuzzy
+msgctxt "ts.core.nativexml.sxmlnodenotassigned"
+msgid "XML node is not assigned"
+msgstr "XML node is niet toegekend"
+
+#: ts.core.nativexml.sxmlownernotassigned
+#, fuzzy
+msgctxt "ts.core.nativexml.sxmlownernotassigned"
+msgid "XML owner is not assigned"
+msgstr "XML owner is niet toegekend"
+
+#: ts.core.nativexml.sxmlparentnotassigned
+#, fuzzy
+msgctxt "ts.core.nativexml.sxmlparentnotassigned"
+msgid "XML parent is not assigned"
+msgstr "XML parent is niet toegekend"
+
+#: ts.core.sqlparser.serrasteriskonlyincount
+msgctxt "ts.core.sqlparser.serrasteriskonlyincount"
+msgid "* allowed only in COUNT aggregate"
+msgstr ""
+
+#: ts.core.sqlparser.serrcannotaltergenerator
+msgctxt "ts.core.sqlparser.serrcannotaltergenerator"
+msgid "Alter generator statement unknown"
+msgstr ""
+
+#: ts.core.sqlparser.serrdomainnotallowed
+msgctxt "ts.core.sqlparser.serrdomainnotallowed"
+msgid "Domain name not allowed in typ definition."
+msgstr ""
+
+#: ts.core.sqlparser.serrexpecteddbobject
+msgctxt "ts.core.sqlparser.serrexpecteddbobject"
+msgid "Expected database object type. Got: '%s'"
+msgstr ""
+
+#: ts.core.sqlparser.serrhavingwithoutgroupby
+msgctxt "ts.core.sqlparser.serrhavingwithoutgroupby"
+msgid "HAVING without GROUP BY clause not allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrintegerexpected
+msgctxt "ts.core.sqlparser.serrintegerexpected"
+msgid "Integer expression expected"
+msgstr ""
+
+#: ts.core.sqlparser.serrinvalidextract
+msgctxt "ts.core.sqlparser.serrinvalidextract"
+msgid "Invalid element for extract: %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrinvalidliteral
+msgctxt "ts.core.sqlparser.serrinvalidliteral"
+msgid "Invalid literal: \"%s\""
+msgstr ""
+
+#: ts.core.sqlparser.serrinvaliduseofcollate
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrinvaliduseofcollate"
+msgid "Invalid use of COLLATE"
+msgstr "Ongeldig gebruik van COLLATE"
+
+#: ts.core.sqlparser.serrnoaggregateallowed
+msgctxt "ts.core.sqlparser.serrnoaggregateallowed"
+msgid "Aggregate function not allowed."
+msgstr ""
+
+#: ts.core.sqlparser.serrnoasteriskinsingleton
+msgctxt "ts.core.sqlparser.serrnoasteriskinsingleton"
+msgid "* not allowed in singleton select"
+msgstr ""
+
+#: ts.core.sqlparser.serrtokenmismatch
+msgctxt "ts.core.sqlparser.serrtokenmismatch"
+msgid "Unexpected token: '%s', expected: '%s'"
+msgstr ""
+
+#: ts.core.sqlparser.serrunexpectedtoken
+msgctxt "ts.core.sqlparser.serrunexpectedtoken"
+msgid "Unexpected token: %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrunexpectedtokenof
+msgctxt "ts.core.sqlparser.serrunexpectedtokenof"
+msgid "Unexpected token: %s, expected one of %s"
+msgstr ""
+
+#: ts.core.sqlparser.serrunionfieldcountmatch
+msgctxt "ts.core.sqlparser.serrunionfieldcountmatch"
+msgid "Field count mismatch in select union : %d <> %d"
+msgstr ""
+
+#: ts.core.sqlparser.serrunknownbooleanop
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrunknownbooleanop"
+msgid "Unknown boolean operation"
+msgstr "Onbekende boolean operatie"
+
+#: ts.core.sqlparser.serrunknowncomparison
+#, fuzzy
+msgctxt "ts.core.sqlparser.serrunknowncomparison"
+msgid "unknown Comparison operation"
+msgstr "onbekende vergelijkingsoperatie"
+
+#: ts.core.sqlparser.serrunmatchedbrace
+msgctxt "ts.core.sqlparser.serrunmatchedbrace"
+msgid "Expected )."
+msgstr ""
+
+#: ts.core.sqlparser.serrupperoneargument
+msgctxt "ts.core.sqlparser.serrupperoneargument"
+msgid "Only one argument for UPPER allowed"
+msgstr ""
+
+#: ts.core.sqlparser.serrvaryingnotallowed
+msgctxt "ts.core.sqlparser.serrvaryingnotallowed"
+msgid "VARYING not allowed at this point."
+msgstr ""
+
+#: ts.core.sqlscanner.sbarexpected
+#, fuzzy
+msgctxt "ts.core.sqlscanner.sbarexpected"
+msgid "|character expected"
+msgstr "| karakter verwacht"
+
+#: ts.core.sqlscanner.serrifxxxnestinglimitreached
+msgctxt "ts.core.sqlscanner.serrifxxxnestinglimitreached"
+msgid "Nesting of$IFxxx too deep"
+msgstr ""
+
+#: ts.core.sqlscanner.serrincludefilenotfound
+msgctxt "ts.core.sqlscanner.serrincludefilenotfound"
+msgid "Could not find include file'%s'"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidcharacter
+#, fuzzy
+msgctxt "ts.core.sqlscanner.serrinvalidcharacter"
+msgid "Invalid character'%s'"
+msgstr "Ongeldig karakter'%s'"
+
+#: ts.core.sqlscanner.serrinvalidnonequal
+msgctxt "ts.core.sqlscanner.serrinvalidnonequal"
+msgid "SyntaxError:!=or!==expected"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidppelse
+msgctxt "ts.core.sqlscanner.serrinvalidppelse"
+msgid "$ELSE without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serrinvalidppendif
+msgctxt "ts.core.sqlscanner.serrinvalidppendif"
+msgid "$ENDIF without matching$IFxxx"
+msgstr ""
+
+#: ts.core.sqlscanner.serropenstring
+#, fuzzy
+msgctxt "ts.core.sqlscanner.serropenstring"
+msgid "string exceeds end of line"
+msgstr "tekst overschrijdt regeleinde"
+
+#: ts.core.sqlscanner.serrunknowntoken
+#, fuzzy
+msgctxt "ts.core.sqlscanner.serrunknowntoken"
+msgid "Unknown token: %s"
+msgstr "Onbekend token: %s"
+
+#: ts.core.sqlscanner.sinvalidhexadecimalnumber
+#, fuzzy
+msgctxt "ts.core.sqlscanner.sinvalidhexadecimalnumber"
+msgid "Invalid decimal number"
+msgstr "Ongeldig decimaal nummer"
+
+#: ts.core.utils.snocorrespondingfieldtype
+msgctxt "ts.core.utils.snocorrespondingfieldtype"
+msgid "No corresponding fieldtype found for Variant with value %s"
+msgstr ""
+
+#: ts.editor.aboutdialog.sauthor
+msgctxt "ts.editor.aboutdialog.sauthor"
+msgid "Author"
+msgstr ""
+
+#: ts.editor.aboutdialog.slanguagecode
+msgctxt "ts.editor.aboutdialog.slanguagecode"
+msgid "Code"
+msgstr ""
+
+#: ts.editor.aboutdialog.slanguagename
+msgctxt "ts.editor.aboutdialog.slanguagename"
+msgid "Language"
+msgstr ""
+
+#: ts.editor.aboutdialog.sname
+#, fuzzy
+msgctxt "ts.editor.aboutdialog.sname"
+msgid "Name"
+msgstr "Naam"
+
+#: ts.editor.aboutdialog.svalue
+msgctxt "ts.editor.aboutdialog.svalue"
+msgid "Value"
+msgstr ""
 
 #: ts.editor.actionlist.toolview.sbutton
 #, fuzzy
@@ -3685,1363 +2310,6 @@ msgstr "Gewijzigd"
 
 #: ts.editor.viewlist.toolview.spath
 msgctxt "ts.editor.viewlist.toolview.spath"
-msgid "Path"
-msgstr ""
-
-#: tsettingsdialogbaseform.caption
-msgid "SettingsDialogBaseForm"
-msgstr ""
-
-#: ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho
-msgctxt "ts_components_docking_resources.adrsafreesideofasplittermustnotbeanchorednodetypeancho"
-msgid "A free side of a splitter must not be anchored: Node=%s%s%s Type=%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsallfiles
-msgctxt "ts_components_docking_resources.adrsallfiles"
-msgid "All files"
-msgstr "Alle bestanden"
-
-#: ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts
-msgctxt "ts_components_docking_resources.adrsamountofpixelthemousehastodragbeforedragstarts"
-msgid "Amount of pixel the mouse has to drag before drag starts"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchordockinglayout
-msgctxt "ts_components_docking_resources.adrsanchordockinglayout"
-msgid "Anchor Docking Layout"
-msgstr "Anker Docking Layout"
-
-#: ts_components_docking_resources.adrsanchorisnotsplitternodeanchors
-msgctxt "ts_components_docking_resources.adrsanchorisnotsplitternodeanchors"
-msgid "Anchor is not splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchornotfoundnodeanchors
-msgctxt "ts_components_docking_resources.adrsanchornotfoundnodeanchors"
-msgid "Anchor not found: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors
-msgctxt "ts_components_docking_resources.adrsanchortowrongsideofsplitternodeanchors"
-msgid "Anchor to wrong side of splitter: Node=%s%s%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors
-msgctxt "ts_components_docking_resources.adrsapagemustnotbeanchorednodeparentparenttypeanchors"
-msgid "A page must not be anchored: Node=%s%s%s Parent=%s ParentType=%s Anchors[%s]=%s%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsautomatically
-msgctxt "ts_components_docking_resources.adrsautomatically"
-msgid "Automatically"
-msgstr "Automatisch"
-
-#: ts_components_docking_resources.adrsbottom
-msgctxt "ts_components_docking_resources.adrsbottom"
-msgid "bottom"
-msgstr "bodem"
-
-#: ts_components_docking_resources.adrsclose
-msgctxt "ts_components_docking_resources.adrsclose"
-msgid "Close"
-msgstr "Sluit"
-
-#: ts_components_docking_resources.adrscontrolisalreadyadocksite
-msgctxt "ts_components_docking_resources.adrscontrolisalreadyadocksite"
-msgid "control is already a docksite"
-msgstr "control is reeds een docksite"
-
-#: ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite
-msgctxt "ts_components_docking_resources.adrscustomdocksitecanhaveonlyonesite"
-msgid "Custom dock site %s%s%s can have only one site."
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockinganchordocking
-msgctxt "ts_components_docking_resources.adrsdockinganchordocking"
-msgid "Docking / Anchordocking"
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide
-msgctxt "ts_components_docking_resources.adrsdockingenabledrequiresarestartoftheide"
-msgid "Docking enabled (Requires a restart of the IDE)"
-msgstr ""
-
-#: ts_components_docking_resources.adrsdockingoptions
-msgctxt "ts_components_docking_resources.adrsdockingoptions"
-msgid "Docking options"
-msgstr "Docking opties"
-
-#: ts_components_docking_resources.adrsdraganddockc
-msgctxt "ts_components_docking_resources.adrsdraganddockc"
-msgid "Use the mouse to drag and dock window \"%c\""
-msgstr ""
-
-#: ts_components_docking_resources.adrsdragthreshold
-msgctxt "ts_components_docking_resources.adrsdragthreshold"
-msgid "Drag threshold"
-msgstr ""
-
-#: ts_components_docking_resources.adrsduplicatename
-msgctxt "ts_components_docking_resources.adrsduplicatename"
-msgid "Duplicate name: "
-msgstr "Dubbele naam:"
-
-#: ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco
-msgctxt "ts_components_docking_resources.adrseachdockedwindowhasaheaderthatallowsdragginghasaco"
-msgid "Each docked window has a header that allows dragging, has a context menu with extra layout functions and shows the caption of the docked window"
-msgstr ""
-
-#: ts_components_docking_resources.adrsemptyname
-msgctxt "ts_components_docking_resources.adrsemptyname"
-msgid "Empty name: "
-msgstr "Lege naam:"
-
-#: ts_components_docking_resources.adrsenlarge
-msgctxt "ts_components_docking_resources.adrsenlarge"
-msgid "Enlarge"
-msgstr "Vergroot"
-
-#: ts_components_docking_resources.adrsenlargeside
-msgctxt "ts_components_docking_resources.adrsenlargeside"
-msgid "Enlarge %s side"
-msgstr ""
-
-#: ts_components_docking_resources.adrserror
-msgctxt "ts_components_docking_resources.adrserror"
-msgid "Error"
-msgstr "Fout"
-
-#: ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile
-msgctxt "ts_components_docking_resources.adrserrorloadingwindowlayoutfromfile"
-msgid "Error loading window layout from file \"%s\"%s%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrserrorwritingwindowlayouttofile
-#, fuzzy,badformat
-msgctxt "ts_components_docking_resources.adrserrorwritingwindowlayouttofile"
-msgid "Error writing window layout to file \"%s\"%s%s"
-msgstr "Error bij schrijven pakketlijst naar bestand%s%s%s%s"
-
-#: ts_components_docking_resources.adrsgeneraldockingoptions
-msgctxt "ts_components_docking_resources.adrsgeneraldockingoptions"
-msgid "General docking options"
-msgstr "Algemene docking opties"
-
-#: ts_components_docking_resources.adrsheaderalignleft
-msgctxt "ts_components_docking_resources.adrsheaderalignleft"
-msgid "Header align left"
-msgstr "Hoofding links alligneren"
-
-#: ts_components_docking_resources.adrsheaderaligntop
-msgctxt "ts_components_docking_resources.adrsheaderaligntop"
-msgid "Header align top"
-msgstr "Hoofding boven alligneren"
-
-#: ts_components_docking_resources.adrsheaderposition
-msgctxt "ts_components_docking_resources.adrsheaderposition"
-msgid "Header position"
-msgstr "Hoofding positie"
-
-#: ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol
-msgctxt "ts_components_docking_resources.adrshideheadercaptionsforsiteswithonlyonedockedcontrol"
-msgid "Hide header captions for sites with only one docked control, as that is already shown in the normal window title"
-msgstr ""
-
-#: ts_components_docking_resources.adrsleft
-msgctxt "ts_components_docking_resources.adrsleft"
-msgid "left"
-msgstr "links"
-
-#: ts_components_docking_resources.adrsloadwindowlayoutfromfile
-msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfile"
-msgid "Load window layout from file ..."
-msgstr "Laad desktop instelling van een bestand ..."
-
-#: ts_components_docking_resources.adrsloadwindowlayoutfromfilexml
-msgctxt "ts_components_docking_resources.adrsloadwindowlayoutfromfilexml"
-msgid "Load window layout from file (*.xml)"
-msgstr ""
-
-#: ts_components_docking_resources.adrslocked
-msgctxt "ts_components_docking_resources.adrslocked"
-msgid "Locked"
-msgstr "Gefixeerd"
-
-#: ts_components_docking_resources.adrsmerge
-msgctxt "ts_components_docking_resources.adrsmerge"
-msgid "Merge"
-msgstr "Samenvoegen"
-
-#: ts_components_docking_resources.adrsmissingcontrolname
-msgctxt "ts_components_docking_resources.adrsmissingcontrolname"
-msgid "missing control name"
-msgstr "ontbrekende naam voor control"
-
-#: ts_components_docking_resources.adrsmodalformscannotbemadedockable
-msgctxt "ts_components_docking_resources.adrsmodalformscannotbemadedockable"
-msgid "modal forms can not be made dockable"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft
-msgctxt "ts_components_docking_resources.adrsmoveheadertoleftwhenwidthheight100headeralignleft"
-msgid "Move header to left when (Width/Height)*100>=HeaderAlignLeft"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop
-msgctxt "ts_components_docking_resources.adrsmoveheadertotopwhenwidthheight100headeraligntop"
-msgid "Move header to top when (Width/Height)*100<=HeaderAlignTop"
-msgstr ""
-
-#: ts_components_docking_resources.adrsmovepageleft
-msgctxt "ts_components_docking_resources.adrsmovepageleft"
-msgid "Move page left"
-msgstr "Verplaats pagina links"
-
-#: ts_components_docking_resources.adrsmovepageleftmost
-msgctxt "ts_components_docking_resources.adrsmovepageleftmost"
-msgid "Move page leftmost"
-msgstr "Verplaats pagina uiterst links"
-
-#: ts_components_docking_resources.adrsmovepageright
-msgctxt "ts_components_docking_resources.adrsmovepageright"
-msgid "Move page right"
-msgstr "Verplaats pagina naar rechts"
-
-#: ts_components_docking_resources.adrsmovepagerightmost
-msgctxt "ts_components_docking_resources.adrsmovepagerightmost"
-msgid "Move page rightmost"
-msgstr "Verplaats pagina uiterst rechts"
-
-#: ts_components_docking_resources.adrsnocaptionsforfloatingsites
-msgctxt "ts_components_docking_resources.adrsnocaptionsforfloatingsites"
-msgid "No captions for floating sites"
-msgstr ""
-
-#: ts_components_docking_resources.adrsnochildrenallowedfornodetype
-msgctxt "ts_components_docking_resources.adrsnochildrenallowedfornodetype"
-msgid "No children allowed for Node=%s%s%s Type=%s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsnotsupportedhasparent
-#, fuzzy,badformat
-msgctxt "ts_components_docking_resources.adrsnotsupportedhasparent"
-msgid "Not supported: %s has parent %s"
-msgstr "XML parent is niet toegekend"
-
-#: ts_components_docking_resources.adrsquit
-msgctxt "ts_components_docking_resources.adrsquit"
-msgid "Quit %s"
-msgstr "Afsluiten %s"
-
-#: ts_components_docking_resources.adrsrequestedbutcreated
-msgctxt "ts_components_docking_resources.adrsrequestedbutcreated"
-msgid "%s requested, but %s created"
-msgstr ""
-
-#: ts_components_docking_resources.adrsrestoredefaultlayout
-msgctxt "ts_components_docking_resources.adrsrestoredefaultlayout"
-msgid "Restore default layout"
-msgstr "Herstel normale layout"
-
-#: ts_components_docking_resources.adrsright
-msgctxt "ts_components_docking_resources.adrsright"
-msgid "right"
-msgstr "rechts"
-
-#: ts_components_docking_resources.adrssavewindowlayoutasdefault
-msgctxt "ts_components_docking_resources.adrssavewindowlayoutasdefault"
-msgid "Save window layout as default"
-msgstr ""
-
-#: ts_components_docking_resources.adrssavewindowlayouttofile
-#, fuzzy
-msgctxt "ts_components_docking_resources.adrssavewindowlayouttofile"
-msgid "Save window layout to file ..."
-msgstr "Desktop instelling opslaan in een bestand"
-
-#: ts_components_docking_resources.adrssavewindowlayouttofilexml
-msgctxt "ts_components_docking_resources.adrssavewindowlayouttofilexml"
-msgid "Save window layout to file (*.xml)"
-msgstr ""
-
-#: ts_components_docking_resources.adrsscaleonresize
-msgctxt "ts_components_docking_resources.adrsscaleonresize"
-msgid "Scale on resize"
-msgstr "Schalen bij wijzigen grootte"
-
-#: ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized
-msgctxt "ts_components_docking_resources.adrsscalesubsiteswhenasiteisresized"
-msgid "Scale sub sites when a site is resized"
-msgstr ""
-
-#: ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader
-msgctxt "ts_components_docking_resources.adrsshowcaptionsofdockedcontrolsintheheader"
-msgid "Show captions of docked controls in the header"
-msgstr ""
-
-#: ts_components_docking_resources.adrsshowheadercaptions
-msgctxt "ts_components_docking_resources.adrsshowheadercaptions"
-msgid "Show header captions"
-msgstr "Toon hoofdingsteksten"
-
-#: ts_components_docking_resources.adrsshowheaders
-msgctxt "ts_components_docking_resources.adrsshowheaders"
-msgid "Show headers"
-msgstr "Toon hoofdingen"
-
-#: ts_components_docking_resources.adrssplitterthickness
-msgctxt "ts_components_docking_resources.adrssplitterthickness"
-msgid "Splitter thickness"
-msgstr ""
-
-#: ts_components_docking_resources.adrssplitterwidth
-msgctxt "ts_components_docking_resources.adrssplitterwidth"
-msgid "Splitter width"
-msgstr "Splitter breedte"
-
-#: ts_components_docking_resources.adrstabposition
-msgctxt "ts_components_docking_resources.adrstabposition"
-msgid "Tab position"
-msgstr "Tab positie"
-
-#: ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac
-msgctxt "ts_components_docking_resources.adrsthereisanotherdockmasterinstalledonlyonedockingpac"
-msgid "There is another dock master installed. Only one docking package can be installed at a time. Please uninstall the other dock master %s and restart the IDE"
-msgstr ""
-
-#: ts_components_docking_resources.adrstop
-msgctxt "ts_components_docking_resources.adrstop"
-msgid "top"
-msgstr "top"
-
-#: ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall
-msgctxt "ts_components_docking_resources.adrstouseanchordockingyoumustfirstuninstall"
-msgid "To use anchordocking you must first uninstall %s"
-msgstr ""
-
-#: ts_components_docking_resources.adrsundock
-msgctxt "ts_components_docking_resources.adrsundock"
-msgid "Undock"
-msgstr ""
-
-#: ts_components_synminimap.sfontfactorminmax
-msgctxt "ts_components_synminimap.sfontfactorminmax"
-msgid "Font factor cannot be smaller than %.d or greater than %.d."
-msgstr ""
-
-#: ts_core_codecutilswin32.scannotconvert
-msgctxt "ts_core_codecutilswin32.scannotconvert"
-msgid "Unicode code point $%x has no equivalent in %s"
-msgstr ""
-
-#: ts_core_codecutilswin32.scannotconvertucs4
-#, fuzzy,badformat
-msgctxt "ts_core_codecutilswin32.scannotconvertucs4"
-msgid "Cannot convert $%8.8X to %s"
-msgstr "Converteer Delphi pakket naar Typhon pakket"
-
-#: ts_core_codecutilswin32.sencodingoutofrange
-msgctxt "ts_core_codecutilswin32.sencodingoutofrange"
-msgid "%s encoding out of range"
-msgstr ""
-
-#: ts_core_codecutilswin32.shighsurrogatenotfound
-#, fuzzy,badformat
-msgctxt "ts_core_codecutilswin32.shighsurrogatenotfound"
-msgid "High surrogate not found"
-msgstr "Test directory \"%s\" niet gevonden."
-
-#: ts_core_codecutilswin32.sindexoutofrange
-msgctxt "ts_core_codecutilswin32.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts_core_codecutilswin32.sinvalidcodepoint
-#, fuzzy,badformat
-msgctxt "ts_core_codecutilswin32.sinvalidcodepoint"
-msgid "$%x is not a valid %s code point"
-msgstr "%s%s%s is geen geldige unit naam."
-
-#: ts_core_codecutilswin32.sinvalidencoding
-msgctxt "ts_core_codecutilswin32.sinvalidencoding"
-msgid "Invalid %s encoding"
-msgstr "Ongeldige %s codering"
-
-#: ts_core_codecutilswin32.slowsurrogatenotfound
-#, fuzzy,badformat
-msgctxt "ts_core_codecutilswin32.slowsurrogatenotfound"
-msgid "Low surrogate not found"
-msgstr "Test directory \"%s\" niet gevonden."
-
-#: ts_core_codecutilswin32.ssurrogatenotallowed
-msgctxt "ts_core_codecutilswin32.ssurrogatenotallowed"
-msgid "Surrogate value $%x found in %s. Values between $D800 and $DFFF are reserved for use with UTF-16"
-msgstr ""
-
-#: ts_core_codecutilswin32.sutf8error
-msgctxt "ts_core_codecutilswin32.sutf8error"
-msgid "UTF-8 error %d"
-msgstr "UTF-8 fout %d"
-
-#: ts_core_dbutils.snofieldtypeforvariantvalue
-msgctxt "ts_core_dbutils.snofieldtypeforvariantvalue"
-msgid "No fieldtype for Variant value %s"
-msgstr ""
-
-#: ts_core_dbutils.sparameternotassigned
-msgctxt "ts_core_dbutils.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr "Parameter <%s> is niet toegekend"
-
-#: ts_core_dbutils.squerylookuperrorrunningquery
-msgctxt "ts_core_dbutils.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr "Fout bij uitvoeren query [%s]"
-
-#: ts_core_dbutils.squerylookuptoomanyrecords
-msgctxt "ts_core_dbutils.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: ts_core_encodingutils.sindexoutofrange
-msgctxt "ts_core_encodingutils.sindexoutofrange"
-msgid "Index out of range"
-msgstr ""
-
-#: ts_core_fileassociations.sallmenu
-msgctxt "ts_core_fileassociations.sallmenu"
-msgid "*"
-msgstr "*"
-
-#: ts_core_fileassociations.sallusers
-msgctxt "ts_core_fileassociations.sallusers"
-msgid "AssociateForAllUsers"
-msgstr ""
-
-#: ts_core_fileassociations.sassockey
-#, fuzzy
-msgctxt "ts_core_fileassociations.sassockey"
-msgid "\\Associate"
-msgstr "Associeer"
-
-#: ts_core_fileassociations.sbackup
-msgctxt "ts_core_fileassociations.sbackup"
-msgid "Backup"
-msgstr "Backup"
-
-#: ts_core_fileassociations.sclasseskey
-msgctxt "ts_core_fileassociations.sclasseskey"
-msgid "Software\\Classes\\"
-msgstr "Software\\Classes\\"
-
-#: ts_core_fileassociations.scommand
-msgctxt "ts_core_fileassociations.scommand"
-msgid "Command"
-msgstr "Commando"
-
-#: ts_core_fileassociations.sdeficon
-msgctxt "ts_core_fileassociations.sdeficon"
-msgid "DefaultIcon"
-msgstr ""
-
-#: ts_core_fileassociations.sdeficonindex
-msgctxt "ts_core_fileassociations.sdeficonindex"
-msgid "1"
-msgstr "1"
-
-#: ts_core_fileassociations.sextdescrformat
-msgctxt "ts_core_fileassociations.sextdescrformat"
-msgid "%s file"
-msgstr "%s bestand"
-
-#: ts_core_fileassociations.shkcr
-#, fuzzy
-msgctxt "ts_core_fileassociations.shkcr"
-msgid "HKEY_CLASSES_ROOT"
-msgstr "XML root element is niet gedefiniëerd"
-
-#: ts_core_fileassociations.shkcu
-#, fuzzy
-msgctxt "ts_core_fileassociations.shkcu"
-msgid "HKEY_CURRENT_USER"
-msgstr "Gebruikers home map"
-
-#: ts_core_fileassociations.shklm
-#, fuzzy
-msgctxt "ts_core_fileassociations.shklm"
-msgid "HKEY_LOCAL_MACHINE"
-msgstr "Toon lokale variabelen"
-
-#: ts_core_fileassociations.smenucaption
-msgctxt "ts_core_fileassociations.smenucaption"
-msgid "MenuCaption"
-msgstr ""
-
-#: ts_core_fileassociations.sopen
-msgctxt "ts_core_fileassociations.sopen"
-msgid "Open"
-msgstr "Open"
-
-#: ts_core_fileassociations.sopencaption
-msgctxt "ts_core_fileassociations.sopencaption"
-msgid "OpenWith"
-msgstr ""
-
-#: ts_core_fileassociations.sotherassockey
-msgctxt "ts_core_fileassociations.sotherassockey"
-msgid "\\OtherAssociate"
-msgstr "\\OtherAssociate"
-
-#: ts_core_fileassociations.sshell
-msgctxt "ts_core_fileassociations.sshell"
-msgid "Shell"
-msgstr "Shell"
-
-#: ts_core_fileassociations.sunknown
-#, fuzzy
-msgctxt "ts_core_fileassociations.sunknown"
-msgid "Unknown"
-msgstr "Onbekende encodering"
-
-#: ts_core_nativexml.sbeginendmismatch
-msgctxt "ts_core_nativexml.sbeginendmismatch"
-msgid "begin and end tag mismatch: \"%s\" and \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.scannotaddattribute
-msgctxt "ts_core_nativexml.scannotaddattribute"
-msgid "cannot add attribute"
-msgstr "attribuut kan niet worden toegevoegd"
-
-#: ts_core_nativexml.scannotaddnode
-msgctxt "ts_core_nativexml.scannotaddnode"
-msgid "cannot add node to this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotmanipulate
-msgctxt "ts_core_nativexml.scannotmanipulate"
-msgid "cannot manipulate nodes in this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotsetname
-msgctxt "ts_core_nativexml.scannotsetname"
-msgid "cannot set name on this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scannotsetvalue
-msgctxt "ts_core_nativexml.scannotsetvalue"
-msgid "cannot set value on this type of element"
-msgstr ""
-
-#: ts_core_nativexml.scopyfromonlywithxmlnode
-msgctxt "ts_core_nativexml.scopyfromonlywithxmlnode"
-msgid "CopyFrom can only be used with TXmlNode descendants"
-msgstr ""
-
-#: ts_core_nativexml.sdefaultcharused
-msgctxt "ts_core_nativexml.sdefaultcharused"
-msgid "default char used for codepage substitution"
-msgstr ""
-
-#: ts_core_nativexml.serrorcalcstreamlength
-#, fuzzy,badformat
-msgctxt "ts_core_nativexml.serrorcalcstreamlength"
-msgid "error while calculating streamlength"
-msgstr "Fout tijdens het schrijven project info file %s%s%s%s%s"
-
-#: ts_core_nativexml.sillegalendtag
-msgctxt "ts_core_nativexml.sillegalendtag"
-msgid "illegal end tag (\"%s\") at line %d (streampos %d)"
-msgstr ""
-
-#: ts_core_nativexml.sillegaltag
-msgctxt "ts_core_nativexml.sillegaltag"
-msgid "illegal tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.sinvalidstream
-#, fuzzy,badformat
-msgctxt "ts_core_nativexml.sinvalidstream"
-msgid "invalid stream"
-msgstr "Ongeldige %s encodering"
-
-#: ts_core_nativexml.slevelmismatch
-msgctxt "ts_core_nativexml.slevelmismatch"
-msgid "level mismatch between subnode \"%s\" and endnode \"%s\" at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.smissingdatainbinarystream
-msgctxt "ts_core_nativexml.smissingdatainbinarystream"
-msgid "missing data in binary stream"
-msgstr ""
-
-#: ts_core_nativexml.snondefaultchardata
-msgctxt "ts_core_nativexml.snondefaultchardata"
-msgid "non-default chardata at line %d (pos %d)"
-msgstr ""
-
-#: ts_core_nativexml.snotsupported
-msgctxt "ts_core_nativexml.snotsupported"
-msgid "feature is not supported yet"
-msgstr "functionaliteit is nog niet ondersteund"
-
-#: ts_core_nativexml.sprematureend
-msgctxt "ts_core_nativexml.sprematureend"
-msgid "stream terminated prematurely at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.squotecharexpected
-msgctxt "ts_core_nativexml.squotecharexpected"
-msgid "quote char expected at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.srootelementnotdefined
-msgctxt "ts_core_nativexml.srootelementnotdefined"
-msgid "XML root element not defined."
-msgstr "XML root element is niet gedefiniëerd"
-
-#: ts_core_nativexml.ssignificantdigitsoutofrange
-msgctxt "ts_core_nativexml.ssignificantdigitsoutofrange"
-msgid "significant digits out of range"
-msgstr ""
-
-#: ts_core_nativexml.sunknownbinaryencodingbinhex
-msgctxt "ts_core_nativexml.sunknownbinaryencodingbinhex"
-msgid "unknown encoding: xbeBinHex (deprecated)"
-msgstr ""
-
-#: ts_core_nativexml.sunknownencoding
-msgctxt "ts_core_nativexml.sunknownencoding"
-msgid "unknown encoding"
-msgstr "onbekende codering"
-
-#: ts_core_nativexml.sunsupportedencoding
-msgctxt "ts_core_nativexml.sunsupportedencoding"
-msgid "unsupported encoding (%s)"
-msgstr "niet ondersteunde codering (%s)"
-
-#: ts_core_nativexml.sunsupportedtag
-msgctxt "ts_core_nativexml.sunsupportedtag"
-msgid "unsupported tag (\"%s\") at pos %d"
-msgstr ""
-
-#: ts_core_nativexml.sxmlnodenotassigned
-msgctxt "ts_core_nativexml.sxmlnodenotassigned"
-msgid "XML node is not assigned"
-msgstr "XML node is niet toegekend"
-
-#: ts_core_nativexml.sxmlownernotassigned
-msgctxt "ts_core_nativexml.sxmlownernotassigned"
-msgid "XML owner is not assigned"
-msgstr "XML owner is niet toegekend"
-
-#: ts_core_nativexml.sxmlparentnotassigned
-msgctxt "ts_core_nativexml.sxmlparentnotassigned"
-msgid "XML parent is not assigned"
-msgstr "XML parent is niet toegekend"
-
-#: ts_core_nativexmlobjectstorage.sillegalvartype
-msgctxt "ts_core_nativexmlobjectstorage.sillegalvartype"
-msgid "illegal variant type"
-msgstr "ongeldig variant type"
-
-#: ts_core_nativexmlobjectstorage.sinvalidmethodname
-msgctxt "ts_core_nativexmlobjectstorage.sinvalidmethodname"
-msgid "invalid method name"
-msgstr "ongeldige method naam"
-
-#: ts_core_nativexmlobjectstorage.sinvalidpropertyvalue
-msgctxt "ts_core_nativexmlobjectstorage.sinvalidpropertyvalue"
-msgid "invalid property value"
-msgstr "ongeldige property waarde"
-
-#: ts_core_nativexmlobjectstorage.sunregisteredclasstype
-msgctxt "ts_core_nativexmlobjectstorage.sunregisteredclasstype"
-msgid "unregistered classtype encountered in "
-msgstr ""
-
-#: ts_core_sqlparser.serrasteriskonlyincount
-msgctxt "ts_core_sqlparser.serrasteriskonlyincount"
-msgid "* allowed only in COUNT aggregate"
-msgstr ""
-
-#: ts_core_sqlparser.serrcannotaltergenerator
-msgctxt "ts_core_sqlparser.serrcannotaltergenerator"
-msgid "Alter generator statement unknown"
-msgstr ""
-
-#: ts_core_sqlparser.serrdomainnotallowed
-msgctxt "ts_core_sqlparser.serrdomainnotallowed"
-msgid "Domain name not allowed in typ definition."
-msgstr ""
-
-#: ts_core_sqlparser.serrexpecteddbobject
-msgctxt "ts_core_sqlparser.serrexpecteddbobject"
-msgid "Expected database object type. Got: '%s'"
-msgstr ""
-
-#: ts_core_sqlparser.serrhavingwithoutgroupby
-msgctxt "ts_core_sqlparser.serrhavingwithoutgroupby"
-msgid "HAVING without GROUP BY clause not allowed"
-msgstr ""
-
-#: ts_core_sqlparser.serrintegerexpected
-#, fuzzy
-msgctxt "ts_core_sqlparser.serrintegerexpected"
-msgid "Integer expression expected"
-msgstr "Tooltip expressie evaluatie"
-
-#: ts_core_sqlparser.serrinvalidextract
-msgctxt "ts_core_sqlparser.serrinvalidextract"
-msgid "Invalid element for extract: %s"
-msgstr ""
-
-#: ts_core_sqlparser.serrinvalidliteral
-#, fuzzy
-msgctxt "ts_core_sqlparser.serrinvalidliteral"
-msgid "Invalid literal: \"%s\""
-msgstr "Ongeldige %s encodering"
-
-#: ts_core_sqlparser.serrinvaliduseofcollate
-msgctxt "ts_core_sqlparser.serrinvaliduseofcollate"
-msgid "Invalid use of COLLATE"
-msgstr "Ongeldig gebruik van COLLATE"
-
-#: ts_core_sqlparser.serrnoaggregateallowed
-msgctxt "ts_core_sqlparser.serrnoaggregateallowed"
-msgid "Aggregate function not allowed."
-msgstr ""
-
-#: ts_core_sqlparser.serrnoasteriskinsingleton
-msgctxt "ts_core_sqlparser.serrnoasteriskinsingleton"
-msgid "* not allowed in singleton select"
-msgstr ""
-
-#: ts_core_sqlparser.serrtokenmismatch
-#, fuzzy,badformat
-msgctxt "ts_core_sqlparser.serrtokenmismatch"
-msgid "Unexpected token: '%s', expected: '%s'"
-msgstr " Het teken %s%s%s bestaat al !"
-
-#: ts_core_sqlparser.serrunexpectedtoken
-#, fuzzy
-msgctxt "ts_core_sqlparser.serrunexpectedtoken"
-msgid "Unexpected token: %s"
-msgstr "Onbekend token: %s"
-
-#: ts_core_sqlparser.serrunexpectedtokenof
-msgctxt "ts_core_sqlparser.serrunexpectedtokenof"
-msgid "Unexpected token: %s, expected one of %s"
-msgstr ""
-
-#: ts_core_sqlparser.serrunionfieldcountmatch
-msgctxt "ts_core_sqlparser.serrunionfieldcountmatch"
-msgid "Field count mismatch in select union : %d <> %d"
-msgstr ""
-
-#: ts_core_sqlparser.serrunknownbooleanop
-msgctxt "ts_core_sqlparser.serrunknownbooleanop"
-msgid "Unknown boolean operation"
-msgstr "Onbekende boolean operatie"
-
-#: ts_core_sqlparser.serrunknowncomparison
-msgctxt "ts_core_sqlparser.serrunknowncomparison"
-msgid "unknown Comparison operation"
-msgstr "onbekende vergelijkingsoperatie"
-
-#: ts_core_sqlparser.serrunmatchedbrace
-#, fuzzy
-msgctxt "ts_core_sqlparser.serrunmatchedbrace"
-msgid "Expected )."
-msgstr "| karakter verwacht"
-
-#: ts_core_sqlparser.serrupperoneargument
-msgctxt "ts_core_sqlparser.serrupperoneargument"
-msgid "Only one argument for UPPER allowed"
-msgstr ""
-
-#: ts_core_sqlparser.serrvaryingnotallowed
-msgctxt "ts_core_sqlparser.serrvaryingnotallowed"
-msgid "VARYING not allowed at this point."
-msgstr ""
-
-#: ts_core_sqlscanner.sbarexpected
-msgctxt "ts_core_sqlscanner.sbarexpected"
-msgid "|character expected"
-msgstr "| karakter verwacht"
-
-#: ts_core_sqlscanner.serrifxxxnestinglimitreached
-msgctxt "ts_core_sqlscanner.serrifxxxnestinglimitreached"
-msgid "Nesting of$IFxxx too deep"
-msgstr ""
-
-#: ts_core_sqlscanner.serrincludefilenotfound
-msgctxt "ts_core_sqlscanner.serrincludefilenotfound"
-msgid "Could not find include file'%s'"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidcharacter
-msgctxt "ts_core_sqlscanner.serrinvalidcharacter"
-msgid "Invalid character'%s'"
-msgstr "Ongeldig karakter'%s'"
-
-#: ts_core_sqlscanner.serrinvalidnonequal
-#, fuzzy
-msgctxt "ts_core_sqlscanner.serrinvalidnonequal"
-msgid "SyntaxError:!=or!==expected"
-msgstr "Verkort of verleng bestandsnaam"
-
-#: ts_core_sqlscanner.serrinvalidppelse
-msgctxt "ts_core_sqlscanner.serrinvalidppelse"
-msgid "$ELSE without matching$IFxxx"
-msgstr ""
-
-#: ts_core_sqlscanner.serrinvalidppendif
-msgctxt "ts_core_sqlscanner.serrinvalidppendif"
-msgid "$ENDIF without matching$IFxxx"
-msgstr ""
-
-#: ts_core_sqlscanner.serropenstring
-msgctxt "ts_core_sqlscanner.serropenstring"
-msgid "string exceeds end of line"
-msgstr "tekst overschrijdt regeleinde"
-
-#: ts_core_sqlscanner.serrunknowntoken
-msgctxt "ts_core_sqlscanner.serrunknowntoken"
-msgid "Unknown token: %s"
-msgstr "Onbekend token: %s"
-
-#: ts_core_sqlscanner.sinvalidhexadecimalnumber
-msgctxt "ts_core_sqlscanner.sinvalidhexadecimalnumber"
-msgid "Invalid decimal number"
-msgstr "Ongeldig decimaal nummer"
-
-#: ts_core_utils.snocorrespondingfieldtype
-msgctxt "ts_core_utils.snocorrespondingfieldtype"
-msgid "No corresponding fieldtype found for Variant with value %s"
-msgstr ""
-
-#: ts_editor_aboutdialog.sauthor
-msgctxt "ts_editor_aboutdialog.sauthor"
-msgid "Author"
-msgstr ""
-
-#: ts_editor_aboutdialog.slanguagecode
-msgctxt "ts_editor_aboutdialog.slanguagecode"
-msgid "Code"
-msgstr ""
-
-#: ts_editor_aboutdialog.slanguagename
-#, fuzzy
-#| msgid "Name"
-msgctxt "ts_editor_aboutdialog.slanguagename"
-msgid "Language"
-msgstr "Naam"
-
-#: ts_editor_aboutdialog.sname
-msgctxt "ts_editor_aboutdialog.sname"
-msgid "Name"
-msgstr "Naam"
-
-#: ts_editor_aboutdialog.svalue
-msgctxt "ts_editor_aboutdialog.svalue"
-msgid "Value"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sbutton
-msgctxt "ts_editor_actionlist_toolview.sbutton"
-msgid "Button"
-msgstr "Knop"
-
-#: ts_editor_actionlist_toolview.scaption
-msgctxt "ts_editor_actionlist_toolview.scaption"
-msgid "Caption"
-msgstr "Caption"
-
-#: ts_editor_actionlist_toolview.scategory
-msgctxt "ts_editor_actionlist_toolview.scategory"
-msgid "Category"
-msgstr "Categorie"
-
-#: ts_editor_actionlist_toolview.sclickcount
-msgctxt "ts_editor_actionlist_toolview.sclickcount"
-msgid "ClickCount"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sclickdir
-msgctxt "ts_editor_actionlist_toolview.sclickdir"
-msgid "ClickDir"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.scommand
-msgctxt "ts_editor_actionlist_toolview.scommand"
-msgid "Command"
-msgstr "Commando"
-
-#: ts_editor_actionlist_toolview.senabled
-msgctxt "ts_editor_actionlist_toolview.senabled"
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: ts_editor_actionlist_toolview.shint
-msgctxt "ts_editor_actionlist_toolview.shint"
-msgid "Hint"
-msgstr "Hint"
-
-#: ts_editor_actionlist_toolview.smovecaret
-msgctxt "ts_editor_actionlist_toolview.smovecaret"
-msgid "MoveCaret"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sname
-msgctxt "ts_editor_actionlist_toolview.sname"
-msgid "Name"
-msgstr "Naam"
-
-#: ts_editor_actionlist_toolview.sshift
-msgctxt "ts_editor_actionlist_toolview.sshift"
-msgid "Shift"
-msgstr "Shift"
-
-#: ts_editor_actionlist_toolview.sshiftmask
-msgctxt "ts_editor_actionlist_toolview.sshiftmask"
-msgid "ShiftMask"
-msgstr "ShiftMask"
-
-#: ts_editor_actionlist_toolview.sshortcut
-msgctxt "ts_editor_actionlist_toolview.sshortcut"
-msgid "Shortcut"
-msgstr "Shortcut"
-
-#: ts_editor_actionlist_toolview.sshortcut2
-msgctxt "ts_editor_actionlist_toolview.sshortcut2"
-msgid "Shortcut2"
-msgstr "Shortcut2"
-
-#: ts_editor_actionlist_toolview.svisible
-msgctxt "ts_editor_actionlist_toolview.svisible"
-msgid "Visible"
-msgstr "Zichtbaar"
-
-#: ts_editor_alignlines_toolview.stoken
-msgctxt "ts_editor_alignlines_toolview.stoken"
-msgid "Token"
-msgstr "Token"
-
-#: ts_editor_charactermapdialog.scharactermap
-msgctxt "ts_editor_charactermapdialog.scharactermap"
-msgid "Character Map"
-msgstr "Speciale tekens"
-
-#: ts_editor_charactermap_toolview.scharactermap
-msgctxt "ts_editor_charactermap_toolview.scharactermap"
-msgid "Character Map"
-msgstr "Speciale tekens"
-
-#: ts_editor_codefilter_toolview.sfilteredcode
-msgctxt "ts_editor_codefilter_toolview.sfilteredcode"
-msgid "<Filtered code>"
-msgstr "<Gefilterde code>"
-
-#: ts_editor_codefilter_toolview.slineindex
-msgctxt "ts_editor_codefilter_toolview.slineindex"
-msgid "Line"
-msgstr "Lijn"
-
-#: ts_editor_codefilter_toolview.slinetext
-msgctxt "ts_editor_codefilter_toolview.slinetext"
-msgid "Text"
-msgstr "Tekst"
-
-#: ts_editor_resources.sapplicationmenucaption
-msgctxt "ts_editor_resources.sapplicationmenucaption"
-msgid "&Application"
-msgstr "&Applicatie"
-
-#: ts_editor_resources.sasksavechanges
-msgctxt "ts_editor_resources.sasksavechanges"
-msgid "File %s is modified. Do you want to save changes?"
-msgstr "Bestand %s is gewijzigd. Wilt U de wijzigingen bewaren?"
-
-#: ts_editor_resources.sbatdescription
-msgctxt "ts_editor_resources.sbatdescription"
-msgid "Windows batch script"
-msgstr "Windows batch script"
-
-#: ts_editor_resources.scppdescription
-msgctxt "ts_editor_resources.scppdescription"
-msgid "C++"
-msgstr "C++"
-
-#: ts_editor_resources.scsdescription
-msgctxt "ts_editor_resources.scsdescription"
-msgid "C#"
-msgstr "C#"
-
-#: ts_editor_resources.scssdescription
-msgctxt "ts_editor_resources.scssdescription"
-msgid "Cascading Style Sheet"
-msgstr "Cascading Style Sheet"
-
-#: ts_editor_resources.sdiffdescription
-msgctxt "ts_editor_resources.sdiffdescription"
-msgid "Diff"
-msgstr "Verschil"
-
-#: ts_editor_resources.sfilemenucaption
-msgctxt "ts_editor_resources.sfilemenucaption"
-msgid "&File"
-msgstr "&Bestand"
-
-#: ts_editor_resources.shelpmenucaption
-msgctxt "ts_editor_resources.shelpmenucaption"
-msgid "&Help"
-msgstr "&Help"
-
-#: ts_editor_resources.shighlightersmenucaption
-msgctxt "ts_editor_resources.shighlightersmenucaption"
-msgid "&Highlighters"
-msgstr "&Highlighters"
-
-#: ts_editor_resources.shtmldescription
-msgctxt "ts_editor_resources.shtmldescription"
-msgid "HTML document"
-msgstr "HTML document"
-
-#: ts_editor_resources.sinidescription
-#| msgid "INI"
-msgctxt "ts_editor_resources.sinidescription"
-msgid "Settings file"
-msgstr "Settings file"
-
-#: ts_editor_resources.sinsertmenucaption
-msgctxt "ts_editor_resources.sinsertmenucaption"
-msgid "&Insert"
-msgstr "&Invoegen"
-
-#: ts_editor_resources.sjavadescription
-msgctxt "ts_editor_resources.sjavadescription"
-msgid "Java"
-msgstr "Java"
-
-#: ts_editor_resources.sjsdescription
-msgctxt "ts_editor_resources.sjsdescription"
-msgid "JavaScript"
-msgstr "JavaScript"
-
-#: ts_editor_resources.slfmdescription
-msgctxt "ts_editor_resources.slfmdescription"
-msgid "Object Pascal form definition"
-msgstr "Object Pascal form definitie"
-
-#: ts_editor_resources.slineswithmatchfound
-msgctxt "ts_editor_resources.slineswithmatchfound"
-msgid "%d lines with match found."
-msgstr "%d lijnen met overeenkomst gevonden."
-
-#: ts_editor_resources.slogdescription
-msgctxt "ts_editor_resources.slogdescription"
-msgid "Log"
-msgstr "Log"
-
-#: ts_editor_resources.sluadescription
-msgctxt "ts_editor_resources.sluadescription"
-msgid "Lua"
-msgstr "Lua"
-
-#: ts_editor_resources.sneweditorviewfilename
-msgctxt "ts_editor_resources.sneweditorviewfilename"
-msgid "<new>"
-msgstr "<nieuw>"
-
-#: ts_editor_resources.snotimplementedyet
-msgctxt "ts_editor_resources.snotimplementedyet"
-msgid "This feature is not implemented yet"
-msgstr ""
-
-#: ts_editor_resources.sonelinewithmatchfound
-msgctxt "ts_editor_resources.sonelinewithmatchfound"
-msgid "1 line with match found."
-msgstr "1 lijn met overeenkomst gevonden."
-
-#: ts_editor_resources.spasdescription
-msgctxt "ts_editor_resources.spasdescription"
-msgid "Object Pascal"
-msgstr "Object Pascal"
-
-#: ts_editor_resources.sperldescription
-msgctxt "ts_editor_resources.sperldescription"
-msgid "Perl"
-msgstr "Perl"
-
-#: ts_editor_resources.sphpdescription
-msgctxt "ts_editor_resources.sphpdescription"
-msgid "PHP"
-msgstr "PHP"
-
-#: ts_editor_resources.spodescription
-msgctxt "ts_editor_resources.spodescription"
-msgid "Gettext translation strings"
-msgstr "Gettext translation strings"
-
-#: ts_editor_resources.spydescription
-msgctxt "ts_editor_resources.spydescription"
-msgid "Python"
-msgstr "Python"
-
-#: ts_editor_resources.sresdescription
-msgctxt "ts_editor_resources.sresdescription"
-msgid "Windows resources"
-msgstr "Windows resources"
-
-#: ts_editor_resources.srtfdescription
-msgctxt "ts_editor_resources.srtfdescription"
-msgid "Rich Text Format document"
-msgstr "Rich Text Format document"
-
-#: ts_editor_resources.srubydescription
-msgctxt "ts_editor_resources.srubydescription"
-msgid "Ruby"
-msgstr "Ruby"
-
-#: ts_editor_resources.ssearching
-msgctxt "ts_editor_resources.ssearching"
-msgid "Searching..."
-msgstr "Zoeken..."
-
-#: ts_editor_resources.ssearchmenucaption
-msgctxt "ts_editor_resources.ssearchmenucaption"
-msgid "&Search"
-msgstr "&Zoek"
-
-#: ts_editor_resources.sselectionmenucaption
-msgctxt "ts_editor_resources.sselectionmenucaption"
-msgid "Se&lection"
-msgstr "Se&lectie"
-
-#: ts_editor_resources.ssettingsmenucaption
-msgctxt "ts_editor_resources.ssettingsmenucaption"
-msgid "&Settings"
-msgstr "&Settings"
-
-#: ts_editor_resources.sshdescription
-msgctxt "ts_editor_resources.sshdescription"
-msgid "Shell script"
-msgstr "Shell script"
-
-#: ts_editor_resources.ssqldescription
-msgctxt "ts_editor_resources.ssqldescription"
-msgid "SQL"
-msgstr "SQL"
-
-#: ts_editor_resources.stexdescription
-msgctxt "ts_editor_resources.stexdescription"
-msgid "TeX"
-msgstr "TeX"
-
-#: ts_editor_resources.stextnotfound
-msgctxt "ts_editor_resources.stextnotfound"
-msgid "Text not found"
-msgstr "Tekst niet gevonden"
-
-#: ts_editor_resources.stoolsmenucaption
-msgctxt "ts_editor_resources.stoolsmenucaption"
-msgid "&Tools"
-msgstr "&Gereedschap"
-
-#: ts_editor_resources.stxtdescription
-msgctxt "ts_editor_resources.stxtdescription"
-msgid "Text document"
-msgstr "Tekst document"
-
-#: ts_editor_resources.sviewmenucaption
-msgctxt "ts_editor_resources.sviewmenucaption"
-msgid "&View"
-msgstr "&View"
-
-#: ts_editor_resources.sxmldescription
-msgctxt "ts_editor_resources.sxmldescription"
-msgid "XML document"
-msgstr "XML document"
-
-#: ts_editor_search_toolview.sfilename
-msgctxt "ts_editor_search_toolview.sfilename"
-msgid "FileName"
-msgstr "Bestandsnaam"
-
-#: ts_editor_search_toolview.smatchesfound
-msgctxt "ts_editor_search_toolview.smatchesfound"
-msgid "%d search matches found."
-msgstr "%d zoektermen gevonden."
-
-#: ts_editor_search_toolview.smatchfound
-msgctxt "ts_editor_search_toolview.smatchfound"
-msgid "%d search match found."
-msgstr "%d zoekterm gevonden."
-
-#: ts_editor_settingsdialog_old.sattributename
-msgctxt "ts_editor_settingsdialog_old.sattributename"
-msgid "Attribute name"
-msgstr "Attribuut naam"
-
-#: ts_editor_settingsdialog_old.shighlighter
-#, fuzzy
-msgctxt "ts_editor_settingsdialog_old.shighlighter"
-msgid "Highlighter"
-msgstr "Highlighter"
-
-#: ts_editor_settingsdialog_old.stoolname
-msgctxt "ts_editor_settingsdialog_old.stoolname"
-msgid "Toolname"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sbutton
-msgctxt "ts_editor_toolview_actionlist.sbutton"
-msgid "Button"
-msgstr "Knop"
-
-#: ts_editor_toolview_actionlist.scaption
-msgctxt "ts_editor_toolview_actionlist.scaption"
-msgid "Caption"
-msgstr "Caption"
-
-#: ts_editor_toolview_actionlist.scategory
-msgctxt "ts_editor_toolview_actionlist.scategory"
-msgid "Category"
-msgstr "Categorie"
-
-#: ts_editor_toolview_actionlist.sclickcount
-msgctxt "ts_editor_toolview_actionlist.sclickcount"
-msgid "ClickCount"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sclickdir
-msgctxt "ts_editor_toolview_actionlist.sclickdir"
-msgid "ClickDir"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.scommand
-msgctxt "ts_editor_toolview_actionlist.scommand"
-msgid "Command"
-msgstr "Commando"
-
-#: ts_editor_toolview_actionlist.senabled
-msgctxt "ts_editor_toolview_actionlist.senabled"
-msgid "Enabled"
-msgstr "Ingeschakeld"
-
-#: ts_editor_toolview_actionlist.shint
-msgctxt "ts_editor_toolview_actionlist.shint"
-msgid "Hint"
-msgstr "Hint"
-
-#: ts_editor_toolview_actionlist.smovecaret
-msgctxt "ts_editor_toolview_actionlist.smovecaret"
-msgid "MoveCaret"
-msgstr ""
-
-#: ts_editor_toolview_actionlist.sname
-msgctxt "ts_editor_toolview_actionlist.sname"
-msgid "Name"
-msgstr "Naam"
-
-#: ts_editor_toolview_actionlist.sshift
-msgctxt "ts_editor_toolview_actionlist.sshift"
-msgid "Shift"
-msgstr "Shift"
-
-#: ts_editor_toolview_actionlist.sshiftmask
-msgctxt "ts_editor_toolview_actionlist.sshiftmask"
-msgid "ShiftMask"
-msgstr "ShiftMask"
-
-#: ts_editor_toolview_actionlist.sshortcut
-msgctxt "ts_editor_toolview_actionlist.sshortcut"
-msgid "Shortcut"
-msgstr "Shortcut"
-
-#: ts_editor_toolview_actionlist.sshortcut2
-#, fuzzy
-msgctxt "ts_editor_toolview_actionlist.sshortcut2"
-msgid "Shortcut2"
-msgstr "Shortcut2"
-
-#: ts_editor_toolview_actionlist.svisible
-msgctxt "ts_editor_toolview_actionlist.svisible"
-msgid "Visible"
-msgstr "Zichtbaar"
-
-#: ts_editor_toolview_alignlines.stoken
-msgctxt "ts_editor_toolview_alignlines.stoken"
-msgid "Token"
-msgstr "Token"
-
-#: ts_editor_toolview_charactermap.scharactermap
-msgctxt "ts_editor_toolview_charactermap.scharactermap"
-msgid "Character Map"
-msgstr "Karakter matrix"
-
-#: ts_editor_toolview_codefilter.sfilteredcode
-msgctxt "ts_editor_toolview_codefilter.sfilteredcode"
-msgid "<Filtered code>"
-msgstr "<Gefilterde code>"
-
-#: ts_editor_toolview_codefilter.slineindex
-msgctxt "ts_editor_toolview_codefilter.slineindex"
-msgid "Line"
-msgstr "Lijn"
-
-#: ts_editor_toolview_codefilter.slinetext
-msgctxt "ts_editor_toolview_codefilter.slinetext"
-msgid "Text"
-msgstr "Tekst"
-
-#: ts_editor_toolview_search.scolumn
-msgid "Column"
-msgstr "Kolom"
-
-#: ts_editor_toolview_search.sfilename
-msgctxt "ts_editor_toolview_search.sfilename"
-msgid "FileName"
-msgstr "Bestandsnaam"
-
-#: ts_editor_toolview_search.sindex
-msgid "#"
-msgstr "#"
-
-#: ts_editor_toolview_search.sline
-msgctxt "ts_editor_toolview_search.sline"
-msgid "Line"
-msgstr "Lijn"
-
-#: ts_editor_toolview_search.smatchesfound
-msgctxt "ts_editor_toolview_search.smatchesfound"
-msgid "%d search matches found."
-msgstr "%d zoektermen gevonden."
-
-#: ts_editor_toolview_search.smatchfound
-msgctxt "ts_editor_toolview_search.smatchfound"
-msgid "%d search match found."
-msgstr "%d zoekterm gevonden."
-
-#: ts_editor_viewlist_toolview.sfilename
-msgctxt "ts_editor_viewlist_toolview.sfilename"
-msgid "Filename"
-msgstr ""
-
-#: ts_editor_viewlist_toolview.shighlighter
-msgctxt "ts_editor_viewlist_toolview.shighlighter"
-msgid "Highlighter"
-msgstr "Highlighter"
-
-#: ts_editor_viewlist_toolview.smodified
-msgctxt "ts_editor_viewlist_toolview.smodified"
-msgid "Modified"
-msgstr "Gewijzigd"
-
-#: ts_editor_viewlist_toolview.spath
-msgctxt "ts_editor_viewlist_toolview.spath"
 msgid "Path"
 msgstr ""
 

@@ -642,11 +642,6 @@ object dmSnippetSource: TdmSnippetSource
     left = 136
     top = 80
   end
-  object plZlibCompress1: TplZlibCompress
-    OnCompress = plZlibCompress1Compress
-    left = 315
-    top = 70
-  end
   object scrCreateDatabase: TSQLScript
     DataBase = conMain
     Transaction = trsMain

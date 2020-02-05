@@ -12,8 +12,11 @@ uses
   virtualdbtreeexlaz,
 
   { you can add units after this }
+  ts.Editor.Manager, ts.Core.ComponentInspector, ts.Core.Logger.Channel.IPC,
+  ts.Core.Logger.Interfaces, ts.Core.Logger, ts.Core.SharedLogger,
+  ts.Core.Utils,
 
-  SnippetSource.Forms.Main, SnippetSource.Resources, ts.Editor.Manager;
+  SnippetSource.Forms.Main, SnippetSource.Resources;
 
 {$R *.res}
 
@@ -24,11 +27,11 @@ begin
   GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
   SetHeapTraceOutput('trace.trc');
 {$ENDIF}
+  Application.Scaled := True;
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
 
 

@@ -14,7 +14,7 @@ object frmKeyMappings: TfrmKeyMappings
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poMainFormCenter
-  LCLVersion = '1.3'
+  LCLVersion = '2.0.2.0'
   object pcCustomize: TPageControl
     Left = 8
     Height = 353
@@ -25,13 +25,13 @@ object frmKeyMappings: TfrmKeyMappings
     TabOrder = 0
     object tsToolbars: TTabSheet
       Caption = 'Toolbars'
-      ClientHeight = 314
-      ClientWidth = 475
+      ClientHeight = 327
+      ClientWidth = 473
       object clbToolbars: TCheckListBox
         Left = 8
-        Height = 266
+        Height = 279
         Top = 8
-        Width = 451
+        Width = 449
         Anchors = [akTop, akLeft, akRight, akBottom]
         ItemHeight = 0
         TabOrder = 0
@@ -48,8 +48,8 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 8
         Width = 457
         Caption = 'Select Action:'
-        ClientHeight = 122
-        ClientWidth = 449
+        ClientHeight = 127
+        ClientWidth = 453
         TabOrder = 0
         object lblActions: TLabel
           Left = 166
@@ -102,8 +102,8 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 160
         Width = 457
         Caption = 'Select ShortCut:'
-        ClientHeight = 66
-        ClientWidth = 449
+        ClientHeight = 71
+        ClientWidth = 453
         TabOrder = 1
         object lblNewSC: TLabel
           Left = 230
@@ -154,8 +154,8 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 256
         Width = 457
         Caption = 'Description:'
-        ClientHeight = 34
-        ClientWidth = 449
+        ClientHeight = 39
+        ClientWidth = 453
         TabOrder = 2
         object lblDescr: TLabel
           Left = 6
@@ -229,4 +229,4 @@ object frmKeyMappings: TfrmKeyMappings
     left = 40
     top = 144
   end
-end
+end

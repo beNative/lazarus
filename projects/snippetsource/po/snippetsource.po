@@ -1,34 +1,6 @@
 msgid "and use that index to help boost the query performance. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace. with a single whitespace.and use that index to help boost the query performance.and use that index to help boost the query performance.and use that index to help boost the query performance. with a single whitespace.and use that index to help boost the query performance. with a single whitespace."
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: obufferedstreams.obufferedstreams_nilstream
-msgid "The aStream parameter must be assigned when creating a buffered stream."
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_readingnotpossible
-msgid "You can't read from TOBufferedWriteStream"
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_seekingnotpossible
-msgid "You can't use seek in TOBufferedWriteStream"
-msgstr ""
-
-#: obufferedstreams.obufferedstreams_writingnotpossible
-msgid "You can't write to TOBufferedReadStream"
-msgstr ""
-
-#: odictionary.scannotexchange
-msgid "Sorted ODictionary does not allow exchanging items"
-msgstr ""
-
-#: odictionary.scannotmove
-msgid "Sorted ODictionary does not allow moving items"
-msgstr ""
-
-#: odictionary.sduplicateinteger
-msgid "ODictionary does not allow duplicates"
-msgstr ""
-
 #: snippetsource.forms.virtualdbtree.sdeleteselecteditems
 msgctxt "snippetsource.forms.virtualdbtree.sdeleteselecteditems"
 msgid "Are you sure you want to delete te selected item(s)?"
@@ -69,83 +41,8 @@ msgstr ""
 msgid "The query <%s> returned too many records"
 msgstr ""
 
-#: snippetsource_forms_virtualdbtree.sdeleteselecteditems
-msgctxt "snippetsource_forms_virtualdbtree.sdeleteselecteditems"
-msgid "Are you sure you want to delete te selected item(s)?"
-msgstr ""
-
-#: snippetsource_forms_virtualdbtree.snew
-msgctxt "snippetsource_forms_virtualdbtree.snew"
-msgid "New"
-msgstr ""
-
-#: snippetsource_forms_virtualdbtree.snewfolder
-msgctxt "snippetsource_forms_virtualdbtree.snewfolder"
-msgid "New folder"
-msgstr ""
-
-#: snippetsource_modules_data2.sparameternotassigned
-msgctxt "snippetsource_modules_data2.sparameternotassigned"
-msgid "Parameter <%s> parameter not assigned"
-msgstr ""
-
-#: snippetsource_modules_data2.squerylookuperrorrunningquery
-msgctxt "snippetsource_modules_data2.squerylookuperrorrunningquery"
-msgid "Error running query [%s]"
-msgstr ""
-
-#: snippetsource_modules_data2.squerylookuptoomanyrecords
-msgctxt "snippetsource_modules_data2.squerylookuptoomanyrecords"
-msgid "The query [%s] returned too many records"
-msgstr ""
-
-#: tdlgext.bncancel.caption
-msgctxt "tdlgext.bncancel.caption"
-msgid "&Cancel"
-msgstr ""
-
-#: tdlgext.bnok.caption
-msgctxt "tdlgext.bnok.caption"
-msgid "&OK"
-msgstr ""
-
-#: tdlgext.caption
-msgid "Extension Options"
-msgstr ""
-
-#: tdlgext.gbext.caption
-msgctxt "tdlgext.gbext.caption"
-msgid "&Options:"
-msgstr ""
-
-#: tdlgext.lbldescr.caption
-msgid "&Description:"
-msgstr ""
-
-#: tdlgext.lblext.caption
-msgid "&Extension:"
-msgstr ""
-
-#: tdlgext.lblicon.caption
-msgid "&Icon:"
-msgstr ""
-
-#: tdlgsetupfilters.bncancel.caption
-msgctxt "TDLGSETUPFILTERS.BNCANCEL.CAPTION"
-msgid "&Cancel"
-msgstr ""
-
-#: tdlgsetupfilters.bnok.caption
-msgctxt "TDLGSETUPFILTERS.BNOK.CAPTION"
-msgid "&OK"
-msgstr ""
-
-#: tdlgsetupfilters.caption
-msgid "Filters Setup"
-msgstr ""
-
 #: tdmeditormanager.actabout.caption
-msgctxt "TDMEDITORMANAGER.ACTABOUT.CAPTION"
+msgctxt "tdmeditormanager.actabout.caption"
 msgid "About"
 msgstr ""
 
@@ -154,7 +51,6 @@ msgid "Shows the about dialog."
 msgstr ""
 
 #: tdmeditormanager.actalignselection.caption
-msgctxt "tdmeditormanager.actalignselection.caption"
 msgid "Align"
 msgstr ""
 
@@ -172,7 +68,7 @@ msgid "Auto guess highlighter"
 msgstr ""
 
 #: tdmeditormanager.actautoguesshighlighter.hint
-msgctxt "TDMEDITORMANAGER.ACTAUTOGUESSHIGHLIGHTER.HINT"
+msgctxt "tdmeditormanager.actautoguesshighlighter.hint"
 msgid "Auto guess highlighter"
 msgstr ""
 
@@ -185,7 +81,6 @@ msgid "Clear all text in the editor view."
 msgstr ""
 
 #: tdmeditormanager.actclipboardmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTCLIPBOARDMENU.CAPTION"
 msgid "Clipboard"
 msgstr ""
 
@@ -203,7 +98,7 @@ msgid "Close all other editors"
 msgstr ""
 
 #: tdmeditormanager.actcloseothers.hint
-msgctxt "TDMEDITORMANAGER.ACTCLOSEOTHERS.HINT"
+msgctxt "tdmeditormanager.actcloseothers.hint"
 msgid "Close all other editors"
 msgstr ""
 
@@ -220,7 +115,9 @@ msgid "Compress whitespace"
 msgstr ""
 
 #: tdmeditormanager.actcompresswhitespace.hint
-msgid "Replace any number of consecutive whitespace (including newlines)"
+msgid ""
+"Replace any number of consecutive whitespace (including newlines)\n"
+" with a single whitespace.\n"
 msgstr ""
 
 #: tdmeditormanager.actconverttabstospaces.caption
@@ -301,7 +198,7 @@ msgid "Copy to clipboard"
 msgstr ""
 
 #: tdmeditormanager.actcopytoclipboard.hint
-msgctxt "TDMEDITORMANAGER.ACTCOPYTOCLIPBOARD.HINT"
+msgctxt "tdmeditormanager.actcopytoclipboard.hint"
 msgid "Copy to clipboard"
 msgstr ""
 
@@ -335,7 +232,7 @@ msgid "Cut"
 msgstr ""
 
 #: tdmeditormanager.actcut.hint
-msgctxt "TDMEDITORMANAGER.ACTCUT.HINT"
+msgctxt "tdmeditormanager.actcut.hint"
 msgid "Cut"
 msgstr ""
 
@@ -374,12 +271,11 @@ msgid "Delete"
 msgstr ""
 
 #: tdmeditormanager.actdelete.hint
-msgctxt "TDMEDITORMANAGER.ACTDELETE.HINT"
+msgctxt "tdmeditormanager.actdelete.hint"
 msgid "Delete"
 msgstr ""
 
 #: tdmeditormanager.actdequotelines.caption
-msgctxt "tdmeditormanager.actdequotelines.caption"
 msgid "Dequote lines"
 msgstr ""
 
@@ -388,7 +284,6 @@ msgid "Dequote each line in the selection."
 msgstr ""
 
 #: tdmeditormanager.actdequoteselection.caption
-msgctxt "tdmeditormanager.actdequoteselection.caption"
 msgid "Dequote"
 msgstr ""
 
@@ -417,7 +312,6 @@ msgid "Encode XML"
 msgstr ""
 
 #: tdmeditormanager.actencodingmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTENCODINGMENU.CAPTION"
 msgid "Encoding"
 msgstr ""
 
@@ -438,7 +332,6 @@ msgid "Exit application"
 msgstr ""
 
 #: tdmeditormanager.actexportmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTEXPORTMENU.CAPTION"
 msgid "Export"
 msgstr ""
 
@@ -448,7 +341,7 @@ msgid "Save as HTML file"
 msgstr ""
 
 #: tdmeditormanager.actexporttohtml.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTOHTML.HINT"
+msgctxt "tdmeditormanager.actexporttohtml.hint"
 msgid "Save as HTML file"
 msgstr ""
 
@@ -458,7 +351,7 @@ msgid "Save as RTF file"
 msgstr ""
 
 #: tdmeditormanager.actexporttortf.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTORTF.HINT"
+msgctxt "tdmeditormanager.actexporttortf.hint"
 msgid "Save as RTF file"
 msgstr ""
 
@@ -468,12 +361,11 @@ msgid "Save as Wiki file"
 msgstr ""
 
 #: tdmeditormanager.actexporttowiki.hint
-msgctxt "TDMEDITORMANAGER.ACTEXPORTTOWIKI.HINT"
+msgctxt "tdmeditormanager.actexporttowiki.hint"
 msgid "Save as Wiki file"
 msgstr ""
 
 #: tdmeditormanager.actfilemenu.caption
-msgctxt "TDMEDITORMANAGER.ACTFILEMENU.CAPTION"
 msgid "File"
 msgstr ""
 
@@ -491,7 +383,7 @@ msgid "Find next"
 msgstr ""
 
 #: tdmeditormanager.actfindnext.hint
-msgctxt "TDMEDITORMANAGER.ACTFINDNEXT.HINT"
+msgctxt "tdmeditormanager.actfindnext.hint"
 msgid "Find next"
 msgstr ""
 
@@ -509,7 +401,7 @@ msgid "Find previous"
 msgstr ""
 
 #: tdmeditormanager.actfindprevious.hint
-msgctxt "TDMEDITORMANAGER.ACTFINDPREVIOUS.HINT"
+msgctxt "tdmeditormanager.actfindprevious.hint"
 msgid "Find previous"
 msgstr ""
 
@@ -622,7 +514,6 @@ msgid "Formats text depending on the current highlighter."
 msgstr ""
 
 #: tdmeditormanager.acthelp.caption
-msgctxt "TDMEDITORMANAGER.ACTHELP.CAPTION"
 msgid "&Help"
 msgstr ""
 
@@ -636,7 +527,7 @@ msgid "Highlighter"
 msgstr ""
 
 #: tdmeditormanager.acthighlightermenu.caption
-msgctxt "TDMEDITORMANAGER.ACTHIGHLIGHTERMENU.CAPTION"
+msgctxt "tdmeditormanager.acthighlightermenu.caption"
 msgid "Highlighter"
 msgstr ""
 
@@ -674,7 +565,6 @@ msgid "Inserts a new GUID value."
 msgstr ""
 
 #: tdmeditormanager.actinsertmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTINSERTMENU.CAPTION"
 msgid "Insert"
 msgstr ""
 
@@ -687,7 +577,6 @@ msgid "Show inspector"
 msgstr ""
 
 #: tdmeditormanager.actlinebreakstylemenu.caption
-msgctxt "TDMEDITORMANAGER.ACTLINEBREAKSTYLEMENU.CAPTION"
 msgid "Linebreakstyle"
 msgstr ""
 
@@ -743,7 +632,7 @@ msgid "Open file at cursor"
 msgstr ""
 
 #: tdmeditormanager.actopenfileatcursor.hint
-msgctxt "TDMEDITORMANAGER.ACTOPENFILEATCURSOR.HINT"
+msgctxt "tdmeditormanager.actopenfileatcursor.hint"
 msgid "Open file at cursor"
 msgstr ""
 
@@ -753,12 +642,11 @@ msgid "Page setup"
 msgstr ""
 
 #: tdmeditormanager.actpagesetup.hint
-msgctxt "TDMEDITORMANAGER.ACTPAGESETUP.HINT"
+msgctxt "tdmeditormanager.actpagesetup.hint"
 msgid "Page setup"
 msgstr ""
 
 #: tdmeditormanager.actpascalstringofselection.caption
-msgctxt "tdmeditormanager.actpascalstringofselection.caption"
 msgid "Pascal string"
 msgstr ""
 
@@ -772,7 +660,7 @@ msgid "Paste"
 msgstr ""
 
 #: tdmeditormanager.actpaste.hint
-msgctxt "TDMEDITORMANAGER.ACTPASTE.HINT"
+msgctxt "tdmeditormanager.actpaste.hint"
 msgid "Paste"
 msgstr ""
 
@@ -786,7 +674,7 @@ msgid "Print"
 msgstr ""
 
 #: tdmeditormanager.actprint.hint
-msgctxt "TDMEDITORMANAGER.ACTPRINT.HINT"
+msgctxt "tdmeditormanager.actprint.hint"
 msgid "Print"
 msgstr ""
 
@@ -796,12 +684,11 @@ msgid "Print preview"
 msgstr ""
 
 #: tdmeditormanager.actprintpreview.hint
-msgctxt "TDMEDITORMANAGER.ACTPRINTPREVIEW.HINT"
+msgctxt "tdmeditormanager.actprintpreview.hint"
 msgid "Print preview"
 msgstr ""
 
 #: tdmeditormanager.actquotelines.caption
-msgctxt "tdmeditormanager.actquotelines.caption"
 msgid "Quote lines"
 msgstr ""
 
@@ -818,7 +705,6 @@ msgid "Quote each line in the selection and delimit with comma"
 msgstr ""
 
 #: tdmeditormanager.actquoteselection.caption
-msgctxt "tdmeditormanager.actquoteselection.caption"
 msgid "Quote"
 msgstr ""
 
@@ -836,7 +722,7 @@ msgid "Redo"
 msgstr ""
 
 #: tdmeditormanager.actredo.hint
-msgctxt "TDMEDITORMANAGER.ACTREDO.HINT"
+msgctxt "tdmeditormanager.actredo.hint"
 msgid "Redo"
 msgstr ""
 
@@ -854,7 +740,7 @@ msgid "Save"
 msgstr ""
 
 #: tdmeditormanager.actsave.hint
-msgctxt "TDMEDITORMANAGER.ACTSAVE.HINT"
+msgctxt "tdmeditormanager.actsave.hint"
 msgid "Save"
 msgstr ""
 
@@ -880,12 +766,10 @@ msgid "&Find..."
 msgstr ""
 
 #: tdmeditormanager.actsearch.hint
-msgctxt "TDMEDITORMANAGER.ACTSEARCH.HINT"
 msgid "Find"
 msgstr ""
 
 #: tdmeditormanager.actsearchmenu.caption
-msgctxt "tdmeditormanager.actsearchmenu.caption"
 msgid "Search"
 msgstr ""
 
@@ -894,12 +778,10 @@ msgid "&Replace..."
 msgstr ""
 
 #: tdmeditormanager.actsearchreplace.hint
-msgctxt "TDMEDITORMANAGER.ACTSEARCHREPLACE.HINT"
 msgid "Replace"
 msgstr ""
 
 #: tdmeditormanager.actselectall.caption
-msgctxt "tdmeditormanager.actselectall.caption"
 msgid "Select &All"
 msgstr ""
 
@@ -920,17 +802,14 @@ msgid "SelectionInfo"
 msgstr ""
 
 #: tdmeditormanager.actselectionmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTSELECTIONMENU.CAPTION"
 msgid "Selection"
 msgstr ""
 
 #: tdmeditormanager.actselectionmodemenu.caption
-msgctxt "TDMEDITORMANAGER.ACTSELECTIONMODEMENU.CAPTION"
 msgid "Selectionmode"
 msgstr ""
 
 #: tdmeditormanager.actselectmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTSELECTMENU.CAPTION"
 msgid "Select"
 msgstr ""
 
@@ -940,12 +819,11 @@ msgid "Settings"
 msgstr ""
 
 #: tdmeditormanager.actsettings.hint
-msgctxt "TDMEDITORMANAGER.ACTSETTINGS.HINT"
 msgid "Editor settings"
 msgstr ""
 
 #: tdmeditormanager.actsettingsmenu.caption
-msgctxt "TDMEDITORMANAGER.ACTSETTINGSMENU.CAPTION"
+msgctxt "tdmeditormanager.actsettingsmenu.caption"
 msgid "Settings"
 msgstr ""
 
@@ -966,22 +844,20 @@ msgid "Show character map with Ansi and Unicode characters."
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.caption
-msgctxt "TDMEDITORMANAGER.ACTSHOWCODEFILTER.CAPTION"
+msgctxt "tdmeditormanager.actshowcodefilter.caption"
 msgid "Filter code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodefilter.hint
-msgctxt "TDMEDITORMANAGER.ACTSHOWCODEFILTER.HINT"
+msgctxt "tdmeditormanager.actshowcodefilter.hint"
 msgid "Filter code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.caption
-msgctxt "TDMEDITORMANAGER.ACTSHOWCODESHAPER.CAPTION"
 msgid "Shape code"
 msgstr ""
 
 #: tdmeditormanager.actshowcodeshaper.hint
-msgctxt "TDMEDITORMANAGER.ACTSHOWCODESHAPER.HINT"
 msgid "Apply custom code formatting to selection"
 msgstr ""
 
@@ -1018,7 +894,6 @@ msgid "Show script editor"
 msgstr ""
 
 #: tdmeditormanager.actshowspecialcharacters.caption
-msgctxt "tdmeditormanager.actshowspecialcharacters.caption"
 msgid "Show special characters"
 msgstr ""
 
@@ -1161,7 +1036,7 @@ msgid "Undo"
 msgstr ""
 
 #: tdmeditormanager.actundo.hint
-msgctxt "TDMEDITORMANAGER.ACTUNDO.HINT"
+msgctxt "tdmeditormanager.actundo.hint"
 msgid "Undo"
 msgstr ""
 
@@ -1179,221 +1054,6 @@ msgstr ""
 
 #: tdmeditormanager.actuppercaseselection.hint
 msgid "Upper case selection"
-msgstr ""
-
-#: tdmricheditoractions.actaligncenter.caption
-msgctxt "tdmricheditoractions.actaligncenter.caption"
-msgid "Align center"
-msgstr ""
-
-#: tdmricheditoractions.actaligncenter.hint
-msgctxt "tdmricheditoractions.actaligncenter.hint"
-msgid "Align center"
-msgstr ""
-
-#: tdmricheditoractions.actalignjustify.caption
-msgctxt "tdmricheditoractions.actalignjustify.caption"
-msgid "Align justify"
-msgstr ""
-
-#: tdmricheditoractions.actalignleft.caption
-msgctxt "tdmricheditoractions.actalignleft.caption"
-msgid "Align left"
-msgstr ""
-
-#: tdmricheditoractions.actalignleft.hint
-msgctxt "tdmricheditoractions.actalignleft.hint"
-msgid "Align left"
-msgstr ""
-
-#: tdmricheditoractions.actalignright.caption
-msgctxt "tdmricheditoractions.actalignright.caption"
-msgid "Align right"
-msgstr ""
-
-#: tdmricheditoractions.actalignright.hint
-msgctxt "tdmricheditoractions.actalignright.hint"
-msgid "Align right"
-msgstr ""
-
-#: tdmricheditoractions.actbkcolor.caption
-msgctxt "tdmricheditoractions.actbkcolor.caption"
-msgid "Background color"
-msgstr ""
-
-#: tdmricheditoractions.actbkcolor.hint
-msgctxt "tdmricheditoractions.actbkcolor.hint"
-msgid "Set background color."
-msgstr ""
-
-#: tdmricheditoractions.actbold.caption
-msgctxt "tdmricheditoractions.actbold.caption"
-msgid "Bold"
-msgstr ""
-
-#: tdmricheditoractions.actcolor.caption
-msgctxt "tdmricheditoractions.actcolor.caption"
-msgid "actColor"
-msgstr ""
-
-#: tdmricheditoractions.actcopy.caption
-msgctxt "tdmricheditoractions.actcopy.caption"
-msgid "Copy"
-msgstr ""
-
-#: tdmricheditoractions.actcopy.hint
-msgctxt "tdmricheditoractions.actcopy.hint"
-msgid "Copy"
-msgstr ""
-
-#: tdmricheditoractions.actcut.caption
-msgctxt "tdmricheditoractions.actcut.caption"
-msgid "Cut"
-msgstr ""
-
-#: tdmricheditoractions.actcut.hint
-msgctxt "tdmricheditoractions.actcut.hint"
-msgid "Cut"
-msgstr ""
-
-#: tdmricheditoractions.actdecfontsize.caption
-msgctxt "tdmricheditoractions.actdecfontsize.caption"
-msgid "Decrease font size"
-msgstr ""
-
-#: tdmricheditoractions.actdecfontsize.hint
-msgctxt "tdmricheditoractions.actdecfontsize.hint"
-msgid "Decrease font size"
-msgstr ""
-
-#: tdmricheditoractions.actfont.caption
-msgctxt "tdmricheditoractions.actfont.caption"
-msgid "Font"
-msgstr ""
-
-#: tdmricheditoractions.actfont.hint
-msgctxt "tdmricheditoractions.actfont.hint"
-msgid "Font"
-msgstr ""
-
-#: tdmricheditoractions.actincfontsize.caption
-msgctxt "tdmricheditoractions.actincfontsize.caption"
-msgid "Increase font size"
-msgstr ""
-
-#: tdmricheditoractions.actincfontsize.hint
-msgctxt "tdmricheditoractions.actincfontsize.hint"
-msgid "Increase font size"
-msgstr ""
-
-#: tdmricheditoractions.actinserthyperlink.caption
-msgctxt "tdmricheditoractions.actinserthyperlink.caption"
-msgid "Insert hyperlink"
-msgstr ""
-
-#: tdmricheditoractions.actinserthyperlink.hint
-msgctxt "tdmricheditoractions.actinserthyperlink.hint"
-msgid "Insert hyperlink at cursor position."
-msgstr ""
-
-#: tdmricheditoractions.actinsertimage.caption
-msgctxt "tdmricheditoractions.actinsertimage.caption"
-msgid "Insert image"
-msgstr ""
-
-#: tdmricheditoractions.actinsertimage.hint
-msgctxt "tdmricheditoractions.actinsertimage.hint"
-msgid "Insert image at cursor position."
-msgstr ""
-
-#: tdmricheditoractions.actitalic.caption
-msgctxt "tdmricheditoractions.actitalic.caption"
-msgid "Italic"
-msgstr ""
-
-#: tdmricheditoractions.actopen.caption
-msgctxt "TDMRICHEDITORACTIONS.ACTOPEN.CAPTION"
-msgid "Open"
-msgstr ""
-
-#: tdmricheditoractions.actpaste.caption
-msgctxt "tdmricheditoractions.actpaste.caption"
-msgid "Paste"
-msgstr ""
-
-#: tdmricheditoractions.actpaste.hint
-msgctxt "tdmricheditoractions.actpaste.hint"
-msgid "Paste"
-msgstr ""
-
-#: tdmricheditoractions.actredo.caption
-msgctxt "tdmricheditoractions.actredo.caption"
-msgid "Redo"
-msgstr ""
-
-#: tdmricheditoractions.actredo.hint
-msgctxt "tdmricheditoractions.actredo.hint"
-msgid "Redo"
-msgstr ""
-
-#: tdmricheditoractions.actsave.caption
-msgctxt "TDMRICHEDITORACTIONS.ACTSAVE.CAPTION"
-msgid "Save"
-msgstr ""
-
-#: tdmricheditoractions.actsaveas.caption
-msgctxt "TDMRICHEDITORACTIONS.ACTSAVEAS.CAPTION"
-msgid "Save as..."
-msgstr ""
-
-#: tdmricheditoractions.actsaveas.hint
-msgctxt "tdmricheditoractions.actsaveas.hint"
-msgid "Save as..."
-msgstr ""
-
-#: tdmricheditoractions.actselectall.caption
-msgctxt "tdmricheditoractions.actselectall.caption"
-msgid "Select all"
-msgstr ""
-
-#: tdmricheditoractions.actselectall.hint
-msgctxt "tdmricheditoractions.actselectall.hint"
-msgid "Select all"
-msgstr ""
-
-#: tdmricheditoractions.actstrikethrough.caption
-msgctxt "tdmricheditoractions.actstrikethrough.caption"
-msgid "Strike through"
-msgstr ""
-
-#: tdmricheditoractions.actstrikethrough.hint
-msgctxt "tdmricheditoractions.actstrikethrough.hint"
-msgid "Strike through"
-msgstr ""
-
-#: tdmricheditoractions.acttogglewordwrap.caption
-msgctxt "tdmricheditoractions.acttogglewordwrap.caption"
-msgid "Toggle wordwrap"
-msgstr ""
-
-#: tdmricheditoractions.acttogglewordwrap.hint
-msgctxt "tdmricheditoractions.acttogglewordwrap.hint"
-msgid "Toggle wordwrap"
-msgstr ""
-
-#: tdmricheditoractions.actunderline.caption
-msgctxt "tdmricheditoractions.actunderline.caption"
-msgid "Underline"
-msgstr ""
-
-#: tdmricheditoractions.actundo.caption
-msgctxt "tdmricheditoractions.actundo.caption"
-msgid "Undo"
-msgstr ""
-
-#: tdmricheditoractions.actundo.hint
-msgctxt "tdmricheditoractions.actundo.hint"
-msgid "Undo"
 msgstr ""
 
 #: tdmricheditormanager.actaligncenter.caption
@@ -1616,1006 +1276,6 @@ msgctxt "tdmricheditormanager.actundo.hint"
 msgid "Undo"
 msgstr ""
 
-#: teditorsettingsdialog.caption
-msgid "EditorSettingsDialog"
-msgstr ""
-
-#: tform1.caption
-msgid "Form1"
-msgstr ""
-
-#: tfrmabout.actclose.caption
-msgctxt "tfrmabout.actclose.caption"
-msgid "&Close"
-msgstr ""
-
-#: tfrmabout.actcopytoclipboard.caption
-msgid "actCopyToClipboard"
-msgstr ""
-
-#: tfrmabout.actdonate.caption
-msgid "Donate"
-msgstr ""
-
-#: tfrmabout.actdonate.hint
-msgid "If you like this project, you can support development with a donation."
-msgstr ""
-
-#: tfrmabout.acthomepage.caption
-msgid "Visit home page"
-msgstr ""
-
-#: tfrmabout.actprojectpage.caption
-msgid "Visit project page"
-msgstr ""
-
-#: tfrmabout.actreportdefect.caption
-msgid "Report a defect."
-msgstr ""
-
-#: tfrmabout.actreportdefect.hint
-msgid "Report an issue."
-msgstr ""
-
-#: tfrmabout.btncopytoclipboard.hint
-msgctxt "TFRMABOUT.BTNCOPYTOCLIPBOARD.HINT"
-msgid "Copy to clipboard"
-msgstr ""
-
-#: tfrmabout.caption
-msgctxt "tfrmabout.caption"
-msgid "About"
-msgstr ""
-
-#: tfrmabout.lbbuilddate.caption
-msgid "Build date:"
-msgstr ""
-
-#: tfrmabout.lblclversion.caption
-msgid "LCL version:"
-msgstr ""
-
-#: tfrmabout.lblfileversion.caption
-msgctxt "tfrmabout.lblfileversion.caption"
-msgid "Version:"
-msgstr ""
-
-#: tfrmabout.lblfpcversion.caption
-msgid "FPC version:"
-msgstr ""
-
-#: tfrmabout.lblhomepage.caption
-msgctxt "TFRMABOUT.LBLHOMEPAGE.CAPTION"
-msgid "URL"
-msgstr ""
-
-#: tfrmabout.lblhomepage.hint
-msgid "Homepage"
-msgstr ""
-
-#: tfrmabout.lbltargetcpu.caption
-msgid "Target CPU:"
-msgstr ""
-
-#: tfrmabout.lbltargetos.caption
-msgid "Target OS:"
-msgstr ""
-
-#: tfrmabout.lblwidgetset.caption
-msgid "Widget set:"
-msgstr ""
-
-#: tfrmabout.tsabout.caption
-msgid "Version"
-msgstr ""
-
-#: tfrmabout.tscredits.caption
-msgid "Credits"
-msgstr ""
-
-#: tfrmabout.tsinfo.caption
-msgid "Info"
-msgstr ""
-
-#: tfrmabout.tstranslations.caption
-msgid "Translations"
-msgstr ""
-
-#: tfrmactionlistview.caption
-msgctxt "tfrmactionlistview.caption"
-msgid "Actions"
-msgstr ""
-
-#: tfrmactionlistview.tsactions.caption
-msgctxt "TFRMACTIONLISTVIEW.TSACTIONS.CAPTION"
-msgid "Actions"
-msgstr ""
-
-#: tfrmactionlistview.tscommands.caption
-msgid "Editor key commands"
-msgstr ""
-
-#: tfrmactionlistview.tsmouseactions.caption
-msgid "Editor mouse commands"
-msgstr ""
-
-#: tfrmalignlines.actexecute.caption
-msgctxt "TFRMALIGNLINES.ACTEXECUTE.CAPTION"
-msgid "Execute"
-msgstr ""
-
-#: tfrmalignlines.caption
-msgid "Align selection"
-msgstr ""
-
-#: tfrmalignlines.gbxinsertspace.caption
-msgid "Keep at least one space"
-msgstr ""
-
-#: tfrmalignlines.gbxoptions.caption
-msgctxt "TFRMALIGNLINES.GBXOPTIONS.CAPTION"
-msgid "Options"
-msgstr ""
-
-#: tfrmalignlines.gbxtokenlist.caption
-msgid "Tokens to align to:"
-msgstr ""
-
-#: tfrmalignlines.gbxtokensfound.caption
-msgid "Tokens found in selection:"
-msgstr ""
-
-#: tfrmalignlines.rgpalignat.caption
-msgid "Align at:"
-msgstr ""
-
-#: tfrmalignlines.rgpsortdirection.caption
-msgctxt "tfrmalignlines.rgpsortdirection.caption"
-msgid "Sort direction:"
-msgstr ""
-
-#: tfrmapplicationsettings.caption
-msgid "frmApplicationSettings"
-msgstr ""
-
-#: tfrmapplicationsettings.chkclosewithesc.caption
-msgid "Close the application with the ESC key"
-msgstr ""
-
-#: tfrmapplicationsettings.chkdebugmode.caption
-msgid "chkDebugMode"
-msgstr ""
-
-#: tfrmapplicationsettings.chkdiminactiveview.caption
-msgid "chkDimInactiveView"
-msgstr ""
-
-#: tfrmapplicationsettings.chksingleinstance.caption
-msgid "Allow only one instance of the application"
-msgstr ""
-
-#: tfrmcodefilterdialog.actapplyfilter.caption
-msgid "Apply filter"
-msgstr ""
-
-#: tfrmcodefilterdialog.actcopy.caption
-msgctxt "TFRMCODEFILTERDIALOG.ACTCOPY.CAPTION"
-msgid "Copy"
-msgstr ""
-
-#: tfrmcodefilterdialog.actcopy.hint
-msgid "Copy selected lines to the clipboard."
-msgstr ""
-
-#: tfrmcodefilterdialog.actcopytonewview.caption
-msgid "Copy to new view"
-msgstr ""
-
-#: tfrmcodefilterdialog.actcopytonewview.hint
-msgid "Copy selected lines to new view"
-msgstr ""
-
-#: tfrmcodefilterdialog.actfocussearchfilter.caption
-msgid "Set focus to searchfilter"
-msgstr ""
-
-#: tfrmcodefilterdialog.actmatchcase.caption
-msgid "Match &case"
-msgstr ""
-
-#: tfrmcodefilterdialog.actregularexpression.caption
-msgid "&Regular expression"
-msgstr ""
-
-#: tfrmcodefilterdialog.actselectall.caption
-msgctxt "tfrmcodefilterdialog.actselectall.caption"
-msgid "Select all"
-msgstr ""
-
-#: tfrmcodefilterdialog.caption
-msgid "Code filter"
-msgstr ""
-
-#: tfrmcodefilterdialog.lblsearch.caption
-msgid "Search:"
-msgstr ""
-
-#: tfrmcodefilterdialog.tlbmain.caption
-msgid "tlbMain"
-msgstr ""
-
-#: tfrmcodefilterdialog.toolbutton1.caption
-msgctxt "tfrmcodefilterdialog.toolbutton1.caption"
-msgid "ToolButton1"
-msgstr ""
-
-#: tfrmcodefilterdialog.toolbutton3.caption
-msgctxt "tfrmcodefilterdialog.toolbutton3.caption"
-msgid "ToolButton3"
-msgstr ""
-
-#: tfrmcodefilterdialog.toolbutton4.caption
-msgctxt "tfrmcodefilterdialog.toolbutton4.caption"
-msgid "ToolButton4"
-msgstr ""
-
-#: tfrmcodeshaper.actapplyconsistentcase.caption
-msgid "Consistent case"
-msgstr ""
-
-#: tfrmcodeshaper.actapplyconsistentcase.hint
-msgid "Every word gets the same casing as the first occurence."
-msgstr ""
-
-#: tfrmcodeshaper.actbreakaftertoken.caption
-msgctxt "TFRMCODESHAPER.ACTBREAKAFTERTOKEN.CAPTION"
-msgid "after token"
-msgstr ""
-
-#: tfrmcodeshaper.actbreakaftertoken.hint
-msgid "Insert breaks after each occurence of the given token."
-msgstr ""
-
-#: tfrmcodeshaper.actbreakbeforetoken.caption
-msgctxt "TFRMCODESHAPER.ACTBREAKBEFORETOKEN.CAPTION"
-msgid "before token"
-msgstr ""
-
-#: tfrmcodeshaper.actbreakbeforetoken.hint
-msgid "Insert breaks before each occurence of the given token."
-msgstr ""
-
-#: tfrmcodeshaper.actdequotelines.caption
-msgctxt "TFRMCODESHAPER.ACTDEQUOTELINES.CAPTION"
-msgid "Dequote"
-msgstr ""
-
-#: tfrmcodeshaper.actinsertbreaks.caption
-msgctxt "TFRMCODESHAPER.ACTINSERTBREAKS.CAPTION"
-msgid "Insert breaks"
-msgstr ""
-
-#: tfrmcodeshaper.actmakepascalstring.caption
-msgctxt "TFRMCODESHAPER.ACTMAKEPASCALSTRING.CAPTION"
-msgid "Pascal string"
-msgstr ""
-
-#: tfrmcodeshaper.actquotelines.caption
-msgctxt "TFRMCODESHAPER.ACTQUOTELINES.CAPTION"
-msgid "Quote"
-msgstr ""
-
-#: tfrmcodeshaper.actredo.caption
-msgctxt "TFRMCODESHAPER.ACTREDO.CAPTION"
-msgid "Redo"
-msgstr ""
-
-#: tfrmcodeshaper.actremovebreaks.caption
-msgctxt "TFRMCODESHAPER.ACTREMOVEBREAKS.CAPTION"
-msgid "Remove breaks"
-msgstr ""
-
-#: tfrmcodeshaper.actremovedoubles.caption
-msgid "Remove doubles"
-msgstr ""
-
-#: tfrmcodeshaper.actreplace.caption
-msgctxt "TFRMCODESHAPER.ACTREPLACE.CAPTION"
-msgid "Replace"
-msgstr ""
-
-#: tfrmcodeshaper.actstripfirstchar.caption
-msgid "Strip first char"
-msgstr ""
-
-#: tfrmcodeshaper.actstriplastchar.caption
-msgid "Strip last char"
-msgstr ""
-
-#: tfrmcodeshaper.acttogglebreakside.caption
-msgctxt "TFRMCODESHAPER.ACTTOGGLEBREAKSIDE.CAPTION"
-msgid "after token"
-msgstr ""
-
-#: tfrmcodeshaper.acttrim.caption
-msgctxt "TFRMCODESHAPER.ACTTRIM.CAPTION"
-msgid "Trim"
-msgstr ""
-
-#: tfrmcodeshaper.actundo.caption
-msgctxt "TFRMCODESHAPER.ACTUNDO.CAPTION"
-msgid "Undo"
-msgstr ""
-
-#: tfrmcodeshaper.acturldecode.caption
-msgid "URL decode"
-msgstr ""
-
-#: tfrmcodeshaper.acturlencode.caption
-msgid "URL encode"
-msgstr ""
-
-#: tfrmcodeshaper.caption
-msgid "Code shaper"
-msgstr ""
-
-#: tfrmcodeshaper.cbxinsertbreakstokenside.text
-msgctxt "TFRMCODESHAPER.CBXINSERTBREAKSTOKENSIDE.TEXT"
-msgid "after"
-msgstr ""
-
-#: tfrmcodeshaper.chkbreaklines.caption
-msgid "Break lines"
-msgstr ""
-
-#: tfrmcodeshaper.chkbreaklinestrimspace.caption
-msgctxt "tfrmcodeshaper.chkbreaklinestrimspace.caption"
-msgid "Trim space"
-msgstr ""
-
-#: tfrmcodeshaper.chkbreaklineswrap.caption
-msgctxt "tfrmcodeshaper.chkbreaklineswrap.caption"
-msgid "Wrap lines"
-msgstr ""
-
-#: tfrmcodeshaper.chkdequotelinestrimspace.caption
-msgctxt "TFRMCODESHAPER.CHKDEQUOTELINESTRIMSPACE.CAPTION"
-msgid "Trim space"
-msgstr ""
-
-#: tfrmcodeshaper.chkquotelinesdelimitlines.caption
-msgid "Delimit lines"
-msgstr ""
-
-#: tfrmcodeshaper.chkquotelinestrimspace.caption
-msgctxt "TFRMCODESHAPER.CHKQUOTELINESTRIMSPACE.CAPTION"
-msgid "Trim space"
-msgstr ""
-
-#: tfrmcodeshaper.chkreplacestringscasesensitive.caption
-msgctxt "TFRMCODESHAPER.CHKREPLACESTRINGSCASESENSITIVE.CAPTION"
-msgid "Case sensitive"
-msgstr ""
-
-#: tfrmcodeshaper.chkreplacestringswholewordsonly.caption
-msgctxt "TFRMCODESHAPER.CHKREPLACESTRINGSWHOLEWORDSONLY.CAPTION"
-msgid "Whole words only"
-msgstr ""
-
-#: tfrmcodeshaper.chktrimcompressspace.caption
-msgid "Compress space"
-msgstr ""
-
-#: tfrmcodeshaper.chktrimlinesleft.caption
-msgid "Trim left"
-msgstr ""
-
-#: tfrmcodeshaper.chktrimlinesright.caption
-msgid "Trim right"
-msgstr ""
-
-#: tfrmcodeshaper.chkunbreaklineswrap.caption
-msgctxt "TFRMCODESHAPER.CHKUNBREAKLINESWRAP.CAPTION"
-msgid "Wrap lines"
-msgstr ""
-
-#: tfrmcodeshaper.edtbreaklinestoken.editlabel.caption
-msgctxt "tfrmcodeshaper.edtbreaklinestoken.editlabel.caption"
-msgid "Token:"
-msgstr ""
-
-#: tfrmcodeshaper.edtbreaklinestoken.text
-msgid ","
-msgstr ""
-
-#: tfrmcodeshaper.edtdequotelinesquotechar.editlabel.caption
-msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.EDITLABEL.CAPTION"
-msgid "Quote character:"
-msgstr ""
-
-#: tfrmcodeshaper.edtdequotelinesquotechar.text
-msgctxt "TFRMCODESHAPER.EDTDEQUOTELINESQUOTECHAR.TEXT"
-msgid "'"
-msgstr ""
-
-#: tfrmcodeshaper.edtquotedlinesdelimiter.editlabel.caption
-msgid "Delimiter:"
-msgstr ""
-
-#: tfrmcodeshaper.edtquotedlinesdelimiter.text
-msgid ", "
-msgstr ""
-
-#: tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption
-msgctxt "tfrmcodeshaper.edtquotelinesquotechar.editlabel.caption"
-msgid "Quote character:"
-msgstr ""
-
-#: tfrmcodeshaper.edtquotelinesquotechar.text
-msgctxt "tfrmcodeshaper.edtquotelinesquotechar.text"
-msgid "'"
-msgstr ""
-
-#: tfrmcodeshaper.grdreplacestrings.columns[0].title.caption
-msgid "From"
-msgstr ""
-
-#: tfrmcodeshaper.grdreplacestrings.columns[1].title.caption
-msgid "To"
-msgstr ""
-
-#: tfrmcodeshaper.grpdequotelines.caption
-msgctxt "TFRMCODESHAPER.GRPDEQUOTELINES.CAPTION"
-msgid "Dequote lines"
-msgstr ""
-
-#: tfrmcodeshaper.grpinsertbreaks.caption
-msgctxt "tfrmcodeshaper.grpinsertbreaks.caption"
-msgid "Insert breaks"
-msgstr ""
-
-#: tfrmcodeshaper.grpmisc.caption
-msgid "Miscellanious operations"
-msgstr ""
-
-#: tfrmcodeshaper.grpquotelines.caption
-msgctxt "TFRMCODESHAPER.GRPQUOTELINES.CAPTION"
-msgid "Quote lines"
-msgstr ""
-
-#: tfrmcodeshaper.grpremovebreaks.caption
-msgctxt "tfrmcodeshaper.grpremovebreaks.caption"
-msgid "Remove breaks"
-msgstr ""
-
-#: tfrmcodeshaper.grpreplacestrings.caption
-msgid "Replace strings"
-msgstr ""
-
-#: tfrmcodeshaper.grptrim.caption
-msgctxt "tfrmcodeshaper.grptrim.caption"
-msgid "Trim"
-msgstr ""
-
-#: tfrmcodeshaper.lbltrimlinesindent.caption
-msgid "Indent:"
-msgstr ""
-
-#: tfrmcodeshaper.lblwraplinesposition.caption
-msgctxt "tfrmcodeshaper.lblwraplinesposition.caption"
-msgid "maximum position:"
-msgstr ""
-
-#: tfrmcodeshaper.lblwraplinesposition1.caption
-msgctxt "TFRMCODESHAPER.LBLWRAPLINESPOSITION1.CAPTION"
-msgid "maximum position:"
-msgstr ""
-
-#: tfrmcodeshaper.mnibreakaftertoken.caption
-msgctxt "tfrmcodeshaper.mnibreakaftertoken.caption"
-msgid "after"
-msgstr ""
-
-#: tfrmcodeshaper.mnibreakbeforetoken.caption
-msgctxt "TFRMCODESHAPER.MNIBREAKBEFORETOKEN.CAPTION"
-msgid "before"
-msgstr ""
-
-#: tfrmeditorsettings.actapplysettings.caption
-msgid "Apply"
-msgstr ""
-
-#: tfrmeditorsettings.actassociate.caption
-msgid "Associate"
-msgstr ""
-
-#: tfrmeditorsettings.actopensettingsfile.caption
-msgid "Open settings file"
-msgstr ""
-
-#: tfrmeditorsettings.actreloadsettings.caption
-msgid "Reload settings"
-msgstr ""
-
-#: tfrmeditorsettings.btnclose.caption
-msgctxt "TFRMEDITORSETTINGS.BTNCLOSE.CAPTION"
-msgid "&Close"
-msgstr ""
-
-#: tfrmeditorsettings.btnok.caption
-msgctxt "TFRMEDITORSETTINGS.BTNOK.CAPTION"
-msgid "&OK"
-msgstr ""
-
-#: tfrmeditorsettings.caption
-msgctxt "tfrmeditorsettings.caption"
-msgid "Editor settings"
-msgstr ""
-
-#: tfrmeditorsettings.label1.caption
-msgid "Label1"
-msgstr ""
-
-#: tfrmeditorsettings.lblattributealiases.caption
-msgid "Highlighter attribute aliases:"
-msgstr ""
-
-#: tfrmeditorsettings.tsdebug.caption
-msgid "Debug"
-msgstr ""
-
-#: tfrmeditorsettings.tshighlighterattributes.caption
-msgid "Common highlighter attributes"
-msgstr ""
-
-#: tfrmeditorsettings.tshighlighters.caption
-msgctxt "tfrmeditorsettings.tshighlighters.caption"
-msgid "Highlighters"
-msgstr ""
-
-#: tfrmeditorsettings.tssettings.caption
-msgid "Main settings"
-msgstr ""
-
-#: tfrmeditorsettings.tstoolsettings.caption
-msgid "Tool settings"
-msgstr ""
-
-#: tfrmeditorsettings.tsxml.caption
-msgid "XML"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkalwaysvisiblecaret.caption
-msgid "Always visible caret"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautohidecursor.caption
-msgid "Auto hide cursor"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautoindent.caption
-msgid "Auto indent"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkautoindentonpaste.caption
-msgid "Auto indent on paste"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkbrackethighlight.caption
-msgid "Bracket highlight"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkcaretskipsselection.caption
-msgid "Caret skips selection"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkcaretskipstab.caption
-msgid "Caret skips tab"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkdragdropediting.caption
-msgid "Drag drop editing"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkenhanceendkey.caption
-msgid "Enhance End key"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkenhancehomekey.caption
-msgid "Enhance Home key"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkfoldedcopypaste.caption
-msgid "Folded copy paste"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkoverwriteblock.caption
-msgid "Overwrite block"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkpersistentblock.caption
-msgid "Persistent block"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkshowrightedge.caption
-msgid "Show right edge"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkshowspecialcharacters.caption
-msgctxt "TFRMEDITORSETTINGSDIALOG.CHKSHOWSPECIALCHARACTERS.CAPTION"
-msgid "Show special characters"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chksmarttabs.caption
-msgid "Smart tabs"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktabindent.caption
-msgid "Tab indent"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktabstospaces.caption
-msgid "Tabs to spaces"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chktrimtrailingspaces.caption
-msgid "Trim trailing spaces"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.chkwanttabs.caption
-msgid "Accept TAB characters:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpappearance.caption
-msgid "Appearance"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpbehaviour.caption
-msgid "Behaviour"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpindentation.caption
-msgid "Indentation settings"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpkeys.caption
-msgid "Keys"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpselection.caption
-msgctxt "TFRMEDITORSETTINGSDIALOG.GRPSELECTION.CAPTION"
-msgid "Selection"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grptabs.caption
-msgid "Tabs"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.grpwhitespace.caption
-msgid "Whitespace"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblblockindent.caption
-msgid "Block indent spaces:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblblocktabindent.caption
-msgid "Block indent tabs:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblextracharspacing.caption
-msgid "Extra character spacing:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblextralinespacing.caption
-msgid "Extra line spacing:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lblrightedge.caption
-msgid "Right edge position:"
-msgstr ""
-
-#: tfrmeditorsettingsdialog.lbltabwidth.caption
-msgid "TAB width:"
-msgstr ""
-
-#: tfrmfiletypesettings.acadd.caption
-msgctxt "TFRMFILETYPESETTINGS.ACADD.CAPTION"
-msgid "&Add..."
-msgstr ""
-
-#: tfrmfiletypesettings.acdel.caption
-msgid "&Delete..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnac.caption
-msgctxt "tfrmfiletypesettings.bnac.caption"
-msgid "..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnacedit.caption
-msgctxt "TFRMFILETYPESETTINGS.BNACEDIT.CAPTION"
-msgid "&Edit..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnhelp.caption
-msgctxt "TFRMFILETYPESETTINGS.BNHELP.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnruncmd.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNCMD.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnrundirbrowse.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNDIRBROWSE.CAPTION"
-msgid "..."
-msgstr ""
-
-#: tfrmfiletypesettings.bnrundirtags.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNDIRTAGS.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmfiletypesettings.bnrunoutputexp.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNOUTPUTEXP.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmfiletypesettings.bnrunoutputl.caption
-msgctxt "TFRMFILETYPESETTINGS.BNRUNOUTPUTL.CAPTION"
-msgid ">"
-msgstr ""
-
-#: tfrmfiletypesettings.bnrunparam.caption
-msgctxt "tfrmfiletypesettings.bnrunparam.caption"
-msgid ">"
-msgstr ""
-
-#: tfrmfiletypesettings.chkautoi.caption
-msgid "&Auto Indent"
-msgstr ""
-
-#: tfrmfiletypesettings.chksmarttab.caption
-msgid "&Smart Tab"
-msgstr ""
-
-#: tfrmfiletypesettings.chkusetab.caption
-msgid "&Uset Tab"
-msgstr ""
-
-#: tfrmfiletypesettings.gboptions.caption
-msgctxt "TFRMFILETYPESETTINGS.GBOPTIONS.CAPTION"
-msgid "&Options:"
-msgstr ""
-
-#: tfrmfiletypesettings.lbfilter.caption
-msgid "&Filter:"
-msgstr ""
-
-#: tfrmfiletypesettings.lbft.caption
-msgid "File &Type:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblcomment.caption
-msgid "&Comment Char:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblftautocomplete.caption
-msgid "&Autocomplete:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblhelp.caption
-msgid "Help file:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblhighlighter.caption
-msgctxt "tfrmfiletypesettings.lblhighlighter.caption"
-msgid "&Highlight:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblruncmd.caption
-msgid "&Command Line:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblrundir.caption
-msgid "Work &Directory:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblrunoutput.caption
-msgid "&Output Expression:"
-msgstr ""
-
-#: tfrmfiletypesettings.lblrunparam.caption
-msgid "&Parameters:"
-msgstr ""
-
-#: tfrmfiletypesettings.lbltabwidth.caption
-msgid "Tab &Width:"
-msgstr ""
-
-#: tfrmfiletypesettings.lnkfilters.caption
-msgid "Setup Filters..."
-msgstr ""
-
-#: tfrmfiletypesettings.tsftac.caption
-msgid "&Autocomplete"
-msgstr ""
-
-#: tfrmfiletypesettings.tsfthelp.caption
-msgctxt "tfrmfiletypesettings.tsfthelp.caption"
-msgid "&Help"
-msgstr ""
-
-#: tfrmfiletypesettings.tsftmain.caption
-msgctxt "tfrmfiletypesettings.tsftmain.caption"
-msgid "&Main"
-msgstr ""
-
-#: tfrmfiletypesettings.tsftrun.caption
-msgid "&Run"
-msgstr ""
-
-#: tfrmgrid.actapplyupdates.caption
-msgid "ApplyUpdates"
-msgstr ""
-
-#: tfrmgrid.actcommit.caption
-msgid "Commit"
-msgstr ""
-
-#: tfrmgrid.actinspectconnection.caption
-msgid "Inspect Connection"
-msgstr ""
-
-#: tfrmgrid.actinspectdataset.caption
-msgid "Inspect DataSet"
-msgstr ""
-
-#: tfrmgrid.actinspectdbgrid.caption
-msgid "Inspect DBGrid"
-msgstr ""
-
-#: tfrmgrid.actinspectfields.caption
-msgid "Inspect Fields"
-msgstr ""
-
-#: tfrmgrid.actinspecttransaction.caption
-msgid "Inspect Transaction"
-msgstr ""
-
-#: tfrmgrid.tsgrid.caption
-msgid "DBGrid"
-msgstr ""
-
-#: tfrmgrid.tssettings.caption
-msgctxt "tfrmgrid.tssettings.caption"
-msgid "Settings"
-msgstr ""
-
-#: tfrmhexeditor.caption
-msgid "Hex editor"
-msgstr ""
-
-#: tfrmhtmlview.caption
-msgid "HTML viewer"
-msgstr ""
-
-#: tfrmkeymappings.acadd.caption
-msgid "&Assign"
-msgstr ""
-
-#: tfrmkeymappings.acdel.caption
-msgctxt "TFRMKEYMAPPINGS.ACDEL.CAPTION"
-msgid "&Delete"
-msgstr ""
-
-#: tfrmkeymappings.bncancel.caption
-msgctxt "tfrmkeymappings.bncancel.caption"
-msgid "Close"
-msgstr ""
-
-#: tfrmkeymappings.bnok.caption
-msgid "OK"
-msgstr ""
-
-#: tfrmkeymappings.caption
-msgid "Customize"
-msgstr ""
-
-#: tfrmkeymappings.chklargeicons.caption
-msgid "Show Large Icons"
-msgstr ""
-
-#: tfrmkeymappings.chkshowhint.caption
-msgid "Show Hints"
-msgstr ""
-
-#: tfrmkeymappings.gbactions.caption
-msgid "Select Action:"
-msgstr ""
-
-#: tfrmkeymappings.gbdescr.caption
-msgid "Description:"
-msgstr ""
-
-#: tfrmkeymappings.gbsc.caption
-msgid "Select ShortCut:"
-msgstr ""
-
-#: tfrmkeymappings.lblactions.caption
-msgid "Actions:"
-msgstr ""
-
-#: tfrmkeymappings.lblcategory.caption
-msgid "Category:"
-msgstr ""
-
-#: tfrmkeymappings.lblcurvalue.caption
-msgid "Current ShortCut:"
-msgstr ""
-
-#: tfrmkeymappings.lblnewsc.caption
-msgid "New ShortCur:"
-msgstr ""
-
-#: tfrmkeymappings.tskeyboard.caption
-msgid "Shortcuts"
-msgstr ""
-
-#: tfrmkeymappings.tsoptions.caption
-msgid "Other"
-msgstr ""
-
-#: tfrmkeymappings.tstoolbars.caption
-msgid "Toolbars"
-msgstr ""
-
-#: tfrmlookup.actsearch.caption
-msgctxt "TFRMLOOKUP.ACTSEARCH.CAPTION"
-msgid "Search"
-msgstr ""
-
-#: tfrmlookup.caption
-msgid "Lookup"
-msgstr ""
-
-#: tfrmlookup.chkcomment.caption
-msgid "Comment"
-msgstr ""
-
-#: tfrmlookup.chkname.caption
-msgctxt "TFRMLOOKUP.CHKNAME.CAPTION"
-msgid "Name"
-msgstr ""
-
-#: tfrmlookup.chktext.caption
-msgctxt "TFRMLOOKUP.CHKTEXT.CAPTION"
-msgid "Text"
-msgstr ""
-
-#: tfrmlookup.grdlookup.columns[0].title.caption
-msgid "Id"
-msgstr ""
-
-#: tfrmlookup.grdlookup.columns[1].title.caption
-msgid "NodeName"
-msgstr ""
-
-#: tfrmlookup.grdlookup.columns[2].title.caption
-msgctxt "tfrmlookup.grdlookup.columns[2].title.caption"
-msgid "Highlighter"
-msgstr ""
-
-#: tfrmlookup.grdlookup.columns[3].title.caption
-msgid "DateCreated"
-msgstr ""
-
-#: tfrmlookup.grdlookup.columns[4].title.caption
-msgid "DateModified"
-msgstr ""
-
 #: tfrmmain.actabout.caption
 msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
@@ -2702,586 +1362,6 @@ msgstr ""
 
 #: tfrmmain.tlbapplication.caption
 msgid "tlbApplication"
-msgstr ""
-
-#: tfrmminimap.caption
-msgid "Minimap"
-msgstr ""
-
-#: tfrmoptionsassociate.actadd.caption
-msgctxt "tfrmoptionsassociate.actadd.caption"
-msgid "&Add..."
-msgstr ""
-
-#: tfrmoptionsassociate.actdelete.caption
-msgctxt "tfrmoptionsassociate.actdelete.caption"
-msgid "&Delete"
-msgstr ""
-
-#: tfrmoptionsassociate.actdeselectall.caption
-msgid "&Hide Selection"
-msgstr ""
-
-#: tfrmoptionsassociate.actedit.caption
-msgctxt "tfrmoptionsassociate.actedit.caption"
-msgid "&Edit..."
-msgstr ""
-
-#: tfrmoptionsassociate.actselectall.caption
-msgid "Se&lect All"
-msgstr ""
-
-#: tfrmoptionsassociate.btndeselectall.caption
-msgid "&Deselect all"
-msgstr ""
-
-#: tfrmoptionsassociate.chkaddtomenu.caption
-msgid "Add to &Context Menu"
-msgstr ""
-
-#: tfrmoptionsassociate.chkallusers.caption
-msgid "Associate for all users"
-msgstr ""
-
-#: tfrmoptionsassociate.chkassoctounknown.caption
-msgid "Associate to &Unknown"
-msgstr ""
-
-#: tfrmoptionsassociate.gbxoptions.caption
-msgid "&Options"
-msgstr ""
-
-#: tfrmoptionsassociate.gbxother.caption
-msgid "Other:"
-msgstr ""
-
-#: tfrmoptionsassociate.lblbackup.caption
-msgid "Make Backup..."
-msgstr ""
-
-#: tfrmoptionsassociate.lblext.caption
-msgid "File associations"
-msgstr ""
-
-#: tfrmoptionsassociate.lblmenucaption.caption
-msgid "Menu &Caption:"
-msgstr ""
-
-#: tfrmoptionsassociate.lvext.columns[0].caption
-msgid "Ext:"
-msgstr ""
-
-#: tfrmoptionsassociate.pnlaccess.caption
-msgid "You have not permission for associate extensions."
-msgstr ""
-
-#: tfrmoptionsthemes.bnchangefont.caption
-msgid "Change Font..."
-msgstr ""
-
-#: tfrmoptionsthemes.bnthemeadd.caption
-msgid "&Add"
-msgstr ""
-
-#: tfrmoptionsthemes.bnthemedel.caption
-msgctxt "TFRMOPTIONSTHEMES.BNTHEMEDEL.CAPTION"
-msgid "&Delete"
-msgstr ""
-
-#: tfrmoptionsthemes.chkalwaysshowurl.caption
-msgid "Permanently Highlight URL's"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgautosize.caption
-msgid "&Auto Size"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgleadingzeros.caption
-msgid "&Leading Zeros"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgshownumbers.caption
-msgid "&Show Linenumbers"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgusegrad.caption
-msgid "&Show Gradient"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgvisible.caption
-msgid "&Show Gutter"
-msgstr ""
-
-#: tfrmoptionsthemes.chkgzerostart.caption
-msgid "&Zero Start"
-msgstr ""
-
-#: tfrmoptionsthemes.chkhighlightbrackets.caption
-msgid "Highlight matching &brackets:"
-msgstr ""
-
-#: tfrmoptionsthemes.chkhighlightcurrentline.caption
-msgid "Highlight &current line:"
-msgstr ""
-
-#: tfrmoptionsthemes.chkhistylebold.caption
-msgctxt "tfrmoptionsthemes.chkhistylebold.caption"
-msgid "&Bold"
-msgstr ""
-
-#: tfrmoptionsthemes.chkhistyleitalic.caption
-msgctxt "tfrmoptionsthemes.chkhistyleitalic.caption"
-msgid "&Italic"
-msgstr ""
-
-#: tfrmoptionsthemes.chkhistyleunderline.caption
-msgctxt "tfrmoptionsthemes.chkhistyleunderline.caption"
-msgid "&Underline"
-msgstr ""
-
-#: tfrmoptionsthemes.chkurl.caption
-msgid "&Highlight Hyperlinks"
-msgstr ""
-
-#: tfrmoptionsthemes.chkurlbold.caption
-msgctxt "TFRMOPTIONSTHEMES.CHKURLBOLD.CAPTION"
-msgid "&Bold"
-msgstr ""
-
-#: tfrmoptionsthemes.chkurlitalic.caption
-msgctxt "TFRMOPTIONSTHEMES.CHKURLITALIC.CAPTION"
-msgid "&Italic"
-msgstr ""
-
-#: tfrmoptionsthemes.chkurlunderline.caption
-msgctxt "TFRMOPTIONSTHEMES.CHKURLUNDERLINE.CAPTION"
-msgid "&Underline"
-msgstr ""
-
-#: tfrmoptionsthemes.gbcaret.caption
-msgid "Ca&rets:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbdcolors.caption
-msgctxt "tfrmoptionsthemes.gbdcolors.caption"
-msgid "&Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbdfont.caption
-msgid "&Font"
-msgstr ""
-
-#: tfrmoptionsthemes.gbdother.caption
-msgid "&Others:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbdselcolors.caption
-msgid "&Selected Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbggrad.caption
-msgid "&Gradient:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbgshownumbers.caption
-msgid "&Linenumbers:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbhiattrs.caption
-msgid "&Attributes:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbhicolor.caption
-msgctxt "TFRMOPTIONSTHEMES.GBHICOLOR.CAPTION"
-msgid "&Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbredge.caption
-msgid "&Right Edge:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbrmfont.caption
-msgctxt "TFRMOPTIONSTHEMES.GBRMFONT.CAPTION"
-msgid "&Font:"
-msgstr ""
-
-#: tfrmoptionsthemes.gbrmsize.caption
-msgid "Font Size for &ReadMode:"
-msgstr ""
-
-#: tfrmoptionsthemes.gburl.caption
-msgid "&Hyperlinks:"
-msgstr ""
-
-#: tfrmoptionsthemes.gburlstyle.caption
-msgctxt "TFRMOPTIONSTHEMES.GBURLSTYLE.CAPTION"
-msgid "&Style:"
-msgstr ""
-
-#: tfrmoptionsthemes.label1.caption
-msgid "&Insert:"
-msgstr ""
-
-#: tfrmoptionsthemes.label2.caption
-msgid "&Overwrite:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbdbg.caption
-msgctxt "tfrmoptionsthemes.lbdbg.caption"
-msgid "&Background:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbdfg.caption
-msgctxt "tfrmoptionsthemes.lbdfg.caption"
-msgid "&Foreground:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbdselbg.caption
-msgctxt "TFRMOPTIONSTHEMES.LBDSELBG.CAPTION"
-msgid "&Background:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbdselfg.caption
-msgctxt "TFRMOPTIONSTHEMES.LBDSELFG.CAPTION"
-msgid "&Foreground:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblborder.caption
-msgid "Border Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgcolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLGCOLOR.CAPTION"
-msgid "&Foreground:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgdigitscount.caption
-msgid "&Digitcount:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgendcolor.caption
-msgid "&End Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgfontcolor.caption
-msgctxt "tfrmoptionsthemes.lblgfontcolor.caption"
-msgid "&Font:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgstartcolor.caption
-msgid "S&tart Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgsteps.caption
-msgid "Ste&ps:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblgwidth.caption
-msgid "Width:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblhbcolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLHBCOLOR.CAPTION"
-msgid "Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblhclcolor.caption
-msgctxt "tfrmoptionsthemes.lblhclcolor.caption"
-msgid "Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblhibgcolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLHIBGCOLOR.CAPTION"
-msgid "&Background:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblhifgcolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLHIFGCOLOR.CAPTION"
-msgid "&Foreground:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblhighlight.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLHIGHLIGHT.CAPTION"
-msgid "&Highlight:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblredgeat.caption
-msgid "&Width:"
-msgstr ""
-
-#: tfrmoptionsthemes.lblurlcolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBLURLCOLOR.CAPTION"
-msgid "Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbredgecolor.caption
-msgctxt "TFRMOPTIONSTHEMES.LBREDGECOLOR.CAPTION"
-msgid "Color:"
-msgstr ""
-
-#: tfrmoptionsthemes.lbtheme.caption
-msgid "&Theme:"
-msgstr ""
-
-#: tfrmoptionsthemes.pnaccess.caption
-msgid "This theme is read-only."
-msgstr ""
-
-#: tfrmoptionsthemes.pndfont.caption
-msgctxt "tfrmoptionsthemes.pndfont.caption"
-msgid "AaBbАаБб"
-msgstr ""
-
-#: tfrmoptionsthemes.pnrmfont.caption
-msgctxt "TFRMOPTIONSTHEMES.PNRMFONT.CAPTION"
-msgid "AaBbАаБб"
-msgstr ""
-
-#: tfrmoptionsthemes.tbhistyle.caption
-msgctxt "tfrmoptionsthemes.tbhistyle.caption"
-msgid "&Style:"
-msgstr ""
-
-#: tfrmoptionsthemes.tsthemegutter.caption
-msgid "&Gutter"
-msgstr ""
-
-#: tfrmoptionsthemes.tsthemehighlight.caption
-msgid "&Highlight"
-msgstr ""
-
-#: tfrmoptionsthemes.tsthememain.caption
-msgctxt "TFRMOPTIONSTHEMES.TSTHEMEMAIN.CAPTION"
-msgid "&Main"
-msgstr ""
-
-#: tfrmoptionsthemes.tsthemeother.caption
-msgid "&Others"
-msgstr ""
-
-#: tfrmoptionsthemes.tsthemereadmode.caption
-msgid "&ReadMode"
-msgstr ""
-
-#: tfrmpreview.caption
-msgid "Preview"
-msgstr ""
-
-#: tfrmpreview.mniopenselectioninneweditor.caption
-msgid "Open selection in new editor"
-msgstr ""
-
-#: tfrmpreview.mniopenselectioninneweditor.hint
-msgid "Opens the currently selected text in new text editor."
-msgstr ""
-
-#: tfrmpreview.mniselectall.caption
-msgctxt "TFRMPREVIEW.MNISELECTALL.CAPTION"
-msgid "Select &All"
-msgstr ""
-
-#: tfrmpreview.mniselectall.hint
-msgid "Select All"
-msgstr ""
-
-#: tfrmscripteditor.actexecute.caption
-msgctxt "TFRMSCRIPTEDITOR.ACTEXECUTE.CAPTION"
-msgid "Execute"
-msgstr ""
-
-#: tfrmscripteditor.caption
-msgid "Script editor"
-msgstr ""
-
-#: tfrmsearchform.actfind.caption
-msgctxt "TFRMSEARCHFORM.ACTFIND.CAPTION"
-msgid "Find"
-msgstr ""
-
-#: tfrmsearchform.actfocussearchtext.caption
-msgid "actFocusSearchText"
-msgstr ""
-
-#: tfrmsearchform.actreplace.caption
-msgctxt "tfrmsearchform.actreplace.caption"
-msgid "Replace"
-msgstr ""
-
-#: tfrmsearchform.actreplaceall.caption
-msgid "Replace all"
-msgstr ""
-
-#: tfrmsearchform.caption
-msgctxt "tfrmsearchform.caption"
-msgid "Find"
-msgstr ""
-
-#: tfrmsearchform.chkcasesensitive.caption
-msgctxt "tfrmsearchform.chkcasesensitive.caption"
-msgid "Case sensitive"
-msgstr ""
-
-#: tfrmsearchform.chkmultiline.caption
-msgid "Multiline"
-msgstr ""
-
-#: tfrmsearchform.chkregularexpressions.caption
-msgid "Regular expressions"
-msgstr ""
-
-#: tfrmsearchform.chkwholewordsonly.caption
-msgctxt "tfrmsearchform.chkwholewordsonly.caption"
-msgid "Whole words only"
-msgstr ""
-
-#: tfrmsearchform.grpdirection.caption
-msgid "Direction"
-msgstr ""
-
-#: tfrmsearchform.grpoptions.caption
-msgctxt "tfrmsearchform.grpoptions.caption"
-msgid "Options"
-msgstr ""
-
-#: tfrmsearchform.grporigin.caption
-msgid "Origin"
-msgstr ""
-
-#: tfrmsearchform.grpreplacewith.caption
-msgid "Replace with:"
-msgstr ""
-
-#: tfrmsearchform.grpscope.caption
-msgctxt "tfrmsearchform.grpscope.caption"
-msgid "Scope"
-msgstr ""
-
-#: tfrmsearchform.grpsearchtext.caption
-msgid "Text to find:"
-msgstr ""
-
-#: tfrmsearchform.imgf2key.hint
-msgid "Press the F2 function key to set "
-msgstr ""
-
-#: tfrmsearchform.rbactiveview.caption
-msgid "Active &view"
-msgstr ""
-
-#: tfrmsearchform.rballviews.caption
-msgid "&All views"
-msgstr ""
-
-#: tfrmsearchform.rballviews.hint
-msgid "Search in all views."
-msgstr ""
-
-#: tfrmsearchform.rbbackward.caption
-msgid "Backward"
-msgstr ""
-
-#: tfrmsearchform.rbentirescope.caption
-msgid "&Entire scope"
-msgstr ""
-
-#: tfrmsearchform.rbforward.caption
-msgid "Forward"
-msgstr ""
-
-#: tfrmsearchform.rbfromcursor.caption
-msgid "&From cursor"
-msgstr ""
-
-#: tfrmsearchform.rbselection.caption
-msgid "&Selection"
-msgstr ""
-
-#: tfrmselectioninfo.btnrestore.caption
-msgid "Restore"
-msgstr ""
-
-#: tfrmselectioninfo.btnstore.caption
-msgid "Store"
-msgstr ""
-
-#: tfrmselectioninfo.chkexcludeemptylines.caption
-msgid "ExcludeEmptyLines"
-msgstr ""
-
-#: tfrmselectioninfo.lblblockbegin.caption
-msgid "BlockBegin:"
-msgstr ""
-
-#: tfrmselectioninfo.lblblockbeginvalue.caption
-msgid "lblBlockBeginValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblblockend.caption
-msgid "BlockEnd:"
-msgstr ""
-
-#: tfrmselectioninfo.lblblockendvalue.caption
-msgid "lblBlockEndValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblcaretxy.caption
-msgid "CaretXY:"
-msgstr ""
-
-#: tfrmselectioninfo.lblcaretxyvalue.caption
-msgid "lblCaretXYValue"
-msgstr ""
-
-#: tfrmselectioninfo.lbllinecount.caption
-msgid "LineCount:"
-msgstr ""
-
-#: tfrmselectioninfo.lbllinecountvalue.caption
-msgid "lblLineCountValue"
-msgstr ""
-
-#: tfrmselectioninfo.lbllogicalcaretxy.caption
-msgid "LogicalCaretXY:"
-msgstr ""
-
-#: tfrmselectioninfo.lbllogicalcaretxyvalue.caption
-msgid "lblLogicalCaretXYValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockbegin.caption
-msgid "StoredBlockBegin:"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockbeginvalue.caption
-msgid "lblStoredBlockBeginValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockend.caption
-msgid "StoredBlockEnd:"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockendvalue.caption
-msgid "lblStoredBlockEndValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblocklines.caption
-msgid "lblStoredBlockLines"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockselectionmode.caption
-msgid "StoredBlockSelectionMode:"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredblockselectionmodevalue.caption
-msgid "lblStoredBlockSelectionModeValue"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredcaretxy.caption
-msgid "StoredCaretXY:"
-msgstr ""
-
-#: tfrmselectioninfo.lblstoredcaretxyvalue.caption
-msgid "lblStoredCaretXYValue"
 msgstr ""
 
 #: tfrmsettingsdialog.actclose.caption
@@ -3401,95 +1481,6 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: tfrmsortstrings.actexecute.caption
-msgctxt "TFRMSORTSTRINGS.ACTEXECUTE.CAPTION"
-msgid "Execute"
-msgstr ""
-
-#: tfrmsortstrings.btnok.caption
-msgid "Sort selection"
-msgstr ""
-
-#: tfrmsortstrings.caption
-msgid "Sort strings"
-msgstr ""
-
-#: tfrmsortstrings.gbxoptions.caption
-msgctxt "TFRMSORTSTRINGS.GBXOPTIONS.CAPTION"
-msgid "Options"
-msgstr ""
-
-#: tfrmsortstrings.rgpsortdirection.caption
-msgctxt "TFRMSORTSTRINGS.RGPSORTDIRECTION.CAPTION"
-msgid "Sort direction:"
-msgstr ""
-
-#: tfrmsortstrings.rgpsortscope.caption
-msgctxt "TFRMSORTSTRINGS.RGPSORTSCOPE.CAPTION"
-msgid "Scope"
-msgstr ""
-
-#: tfrmsqllog.caption
-msgid "frmSQLLog"
-msgstr ""
-
-#: tfrmtest.panel1.caption
-msgid "Panel1"
-msgstr ""
-
-#: tfrmtest.toolbar1.caption
-msgctxt "tfrmtest.toolbar1.caption"
-msgid "ToolBar1"
-msgstr ""
-
-#: tfrmtest.toolbar2.caption
-msgid "ToolBar2"
-msgstr ""
-
-#: tfrmtest.toolbutton1.caption
-msgctxt "TFRMTEST.TOOLBUTTON1.CAPTION"
-msgid "ToolButton1"
-msgstr ""
-
-#: tfrmtest.toolbutton2.caption
-msgid "ToolButton2"
-msgstr ""
-
-#: tfrmtest.toolbutton3.caption
-msgctxt "TFRMTEST.TOOLBUTTON3.CAPTION"
-msgid "ToolButton3"
-msgstr ""
-
-#: tfrmtest.toolbutton4.caption
-msgctxt "TFRMTEST.TOOLBUTTON4.CAPTION"
-msgid "ToolButton4"
-msgstr ""
-
-#: tfrmtest.toolbutton5.caption
-msgid "ToolButton5"
-msgstr ""
-
-#: tfrmtest.toolbutton6.caption
-msgid "ToolButton6"
-msgstr ""
-
-#: tfrmtest.toolbutton7.caption
-msgid "ToolButton7"
-msgstr ""
-
-#: tfrmviewlist.actclose.caption
-msgctxt "TFRMVIEWLIST.ACTCLOSE.CAPTION"
-msgid "Close"
-msgstr ""
-
-#: tfrmviewlist.actcloseselectedviews.caption
-msgid "Close selected views"
-msgstr ""
-
-#: tfrmviewlist.caption
-msgid "Editor views"
-msgstr ""
-
 #: tfrmvirtualdbtree.actcollapseallnodes.hint
 msgid "Collapse all nodes"
 msgstr ""
@@ -3536,12 +1527,12 @@ msgstr ""
 msgid "New rootfolder"
 msgstr ""
 
-#: tricheditorview.caption
-msgid "RichEditorView"
-msgstr ""
-
 #: tricheditorviewkmemo.caption
 msgid "RichEditorViewKMemo"
+msgstr ""
+
+#: ts.components.synminimap.sfontfactorminmax
+msgid "Font factor cannot be smaller than %.d or greater than %.d."
 msgstr ""
 
 #: ts.core.nativexml.sbeginendmismatch
@@ -3652,322 +1643,23 @@ msgstr ""
 msgid "XML parent is not assigned"
 msgstr ""
 
-#: tsettingsdialogbaseform.caption
-msgid "SettingsDialogBaseForm"
+#: ts.core.utils.snocorrespondingfieldtype
+msgid "No corresponding fieldtype found for Variant with value %s"
 msgstr ""
 
-#: ts_editor_aboutdialog.sauthor
-msgid "Author"
+#: ts.editor.search.data.sgroup
+msgid "%s (%d matching lines)"
 msgstr ""
 
-#: ts_editor_aboutdialog.slanguagecode
-msgid "Code"
+#: ts.editor.search.data.sline
+msgid "Line: %d"
 msgstr ""
 
-#: ts_editor_aboutdialog.slanguagename
-msgid "Language"
+#: ts.editor.search.data.smatch
+msgid ": '%s'"
 msgstr ""
 
-#: ts_editor_aboutdialog.sname
-msgctxt "ts_editor_aboutdialog.sname"
-msgid "Name"
-msgstr ""
-
-#: ts_editor_aboutdialog.svalue
-msgid "Value"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sbutton
-msgid "Button"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.scaption
-msgid "Caption"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.scategory
-msgid "Category"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sclickcount
-msgid "ClickCount"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sclickdir
-msgid "ClickDir"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.scommand
-msgid "Command"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.senabled
-msgid "Enabled"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.shint
-msgid "Hint"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.smovecaret
-msgid "MoveCaret"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sname
-msgctxt "ts_editor_actionlist_toolview.sname"
-msgid "Name"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sshift
-msgid "Shift"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sshiftmask
-msgid "ShiftMask"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sshortcut
-msgid "Shortcut"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.sshortcut2
-msgid "Shortcut2"
-msgstr ""
-
-#: ts_editor_actionlist_toolview.svisible
-msgid "Visible"
-msgstr ""
-
-#: ts_editor_alignlines_toolview.stoken
-msgid "Token"
-msgstr ""
-
-#: ts_editor_charactermap_toolview.scharactermap
-msgid "Character Map"
-msgstr ""
-
-#: ts_editor_codefilter_toolview.sfilteredcode
-msgid "<Filtered code>"
-msgstr ""
-
-#: ts_editor_codefilter_toolview.slineindex
-msgctxt "ts_editor_codefilter_toolview.slineindex"
-msgid "Line"
-msgstr ""
-
-#: ts_editor_codefilter_toolview.slinetext
-msgctxt "ts_editor_codefilter_toolview.slinetext"
-msgid "Text"
-msgstr ""
-
-#: ts_editor_resources.sapplicationmenucaption
-msgid "&Application"
-msgstr ""
-
-#: ts_editor_resources.sasksavechanges
-msgid "File %s is modified. Do you want to save changes?"
-msgstr ""
-
-#: ts_editor_resources.sbatdescription
-msgid "Windows batch script"
-msgstr ""
-
-#: ts_editor_resources.scppdescription
-msgid "C++"
-msgstr ""
-
-#: ts_editor_resources.scsdescription
-msgid "C#"
-msgstr ""
-
-#: ts_editor_resources.scssdescription
-msgid "Cascading Style Sheet"
-msgstr ""
-
-#: ts_editor_resources.sdiffdescription
-msgid "Diff"
-msgstr ""
-
-#: ts_editor_resources.sfilemenucaption
-msgid "&File"
-msgstr ""
-
-#: ts_editor_resources.shelpmenucaption
-msgctxt "ts_editor_resources.shelpmenucaption"
-msgid "&Help"
-msgstr ""
-
-#: ts_editor_resources.shighlightersmenucaption
-msgid "&Highlighters"
-msgstr ""
-
-#: ts_editor_resources.shtmldescription
-msgid "HTML document"
-msgstr ""
-
-#: ts_editor_resources.sinidescription
-msgid "Settings file"
-msgstr ""
-
-#: ts_editor_resources.sinsertmenucaption
-msgid "&Insert"
-msgstr ""
-
-#: ts_editor_resources.sjavadescription
-msgid "Java"
-msgstr ""
-
-#: ts_editor_resources.sjsdescription
-msgid "JavaScript"
-msgstr ""
-
-#: ts_editor_resources.slfmdescription
-msgid "Object Pascal form definition"
-msgstr ""
-
-#: ts_editor_resources.slineswithmatchfound
-msgid "%d lines with match found."
-msgstr ""
-
-#: ts_editor_resources.slogdescription
-msgid "Log"
-msgstr ""
-
-#: ts_editor_resources.sluadescription
-msgid "Lua"
-msgstr ""
-
-#: ts_editor_resources.sneweditorviewfilename
-msgid "<new>"
-msgstr ""
-
-#: ts_editor_resources.snotimplementedyet
-msgid "This feature is not implemented yet"
-msgstr ""
-
-#: ts_editor_resources.sonelinewithmatchfound
-msgid "1 line with match found."
-msgstr ""
-
-#: ts_editor_resources.spasdescription
-msgid "Object Pascal"
-msgstr ""
-
-#: ts_editor_resources.sperldescription
-msgid "Perl"
-msgstr ""
-
-#: ts_editor_resources.sphpdescription
-msgid "PHP"
-msgstr ""
-
-#: ts_editor_resources.spodescription
-msgid "Gettext translation strings"
-msgstr ""
-
-#: ts_editor_resources.spydescription
-msgid "Python"
-msgstr ""
-
-#: ts_editor_resources.sresdescription
-msgid "Windows resources"
-msgstr ""
-
-#: ts_editor_resources.srtfdescription
-msgid "Rich Text Format document"
-msgstr ""
-
-#: ts_editor_resources.srubydescription
-msgid "Ruby"
-msgstr ""
-
-#: ts_editor_resources.ssearching
-msgid "Searching..."
-msgstr ""
-
-#: ts_editor_resources.ssearchmenucaption
-msgid "&Search"
-msgstr ""
-
-#: ts_editor_resources.sselectionmenucaption
-msgid "Se&lection"
-msgstr ""
-
-#: ts_editor_resources.ssettingsmenucaption
-msgid "&Settings"
-msgstr ""
-
-#: ts_editor_resources.sshdescription
-msgid "Shell script"
-msgstr ""
-
-#: ts_editor_resources.ssqldescription
-msgid "SQL"
-msgstr ""
-
-#: ts_editor_resources.stexdescription
-msgid "TeX"
-msgstr ""
-
-#: ts_editor_resources.stextnotfound
-msgid "Text not found"
-msgstr ""
-
-#: ts_editor_resources.stoolsmenucaption
-msgid "&Tools"
-msgstr ""
-
-#: ts_editor_resources.stxtdescription
-msgid "Text document"
-msgstr ""
-
-#: ts_editor_resources.sviewmenucaption
-msgid "&View"
-msgstr ""
-
-#: ts_editor_resources.sxmldescription
-msgid "XML document"
-msgstr ""
-
-#: ts_editor_search_toolview.sfilename
-msgid "FileName"
-msgstr ""
-
-#: ts_editor_search_toolview.smatchesfound
-msgid "%d search matches found."
-msgstr ""
-
-#: ts_editor_search_toolview.smatchfound
-msgid "%d search match found."
-msgstr ""
-
-#: ts_editor_settingsdialog_old.sattributename
-msgid "Attribute name"
-msgstr ""
-
-#: ts_editor_settingsdialog_old.shighlighter
-msgctxt "ts_editor_settingsdialog_old.shighlighter"
-msgid "Highlighter"
-msgstr ""
-
-#: ts_editor_settingsdialog_old.stoolname
-msgid "Toolname"
-msgstr ""
-
-#: ts_editor_viewlist_toolview.sfilename
-msgid "Filename"
-msgstr ""
-
-#: ts_editor_viewlist_toolview.shighlighter
-msgctxt "ts_editor_viewlist_toolview.shighlighter"
-msgid "Highlighter"
-msgstr ""
-
-#: ts_editor_viewlist_toolview.smodified
-msgid "Modified"
-msgstr ""
-
-#: ts_editor_viewlist_toolview.spath
-msgid "Path"
+#: ts.editor.search.data.sposition
+msgid "Position: (%d, %d)"
 msgstr ""
 

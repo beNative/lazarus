@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit SnippetSource.Modules.Data;
@@ -88,11 +86,11 @@ interface
 uses
   Classes, SysUtils, TplZlibUnit, FileUtil, Controls,
 
-  sqldb, sqlite3conn, db, BufDataset,
+  sqldb, sqlite3conn, db, sqlscript, BufDataset,
 
   ts.Core.SharedLogger,
 
-  SnippetSource.Interfaces, sqlscript, compressbase;
+  SnippetSource.Interfaces;
 
 type
 
@@ -103,13 +101,12 @@ type
   )
     conMain           : TSQLite3Connection;
     imlGlyphs         : TImageList;
-    plZlibCompress1: TplZlibCompress;
     qryGlyph          : TSQLQuery;
     qryHighlighter    : TSQLQuery;
     qryNodeType       : TSQLQuery;
     qrySnippet        : TSQLQuery;
     qryLookup         : TSQLQuery;
-    scrCreateDatabase: TSQLScript;
+    scrCreateDatabase : TSQLScript;
     trsMain           : TSQLTransaction;
 
     {$REGION 'event handlers'}
@@ -386,7 +383,7 @@ var
   LFileName: string;
 begin
   inherited AfterConstruction;
-  FSettings.DataBase := 'snippets.db';
+  FSettings.DataBase := DATABASE_NAME;
   if FilenameIsAbsolute(FSettings.DataBase) then
   begin
     LFileName := FSettings.DataBase;
@@ -397,7 +394,7 @@ begin
   end;
   conMain.DatabaseName := LFileName;
   conMain.Connected := True;
-  Logger.Send('FileName', LFileName);
+  //Logger.Send('FileName', LFileName);
   if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
   begin
     CreateNewDatabase;
@@ -425,7 +422,7 @@ var
   S : string;
 begin
   S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
-  Logger.Send(S, Msg);
+  //Logger.Send(S, Msg);
 end;
 
 procedure TdmSnippetSource.plZlibCompress1Compress(Sender: TObject;
@@ -449,7 +446,7 @@ procedure TdmSnippetSource.qrySnippetBeforeOpen(DataSet: TDataSet);
 var
   I  : Integer;
   FD : TFieldDef = nil;
-  F  : TField = nil;
+  F  : TField    = nil;
   DS : TSQLQuery;
 begin
   DS := DataSet as TSQLQuery;
@@ -701,10 +698,10 @@ begin
   begin
      if not qryHighlighter.Active then
         qryHighlighter.Active := True;
-    LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
-    if VarIsNull(LId) then
-      LId := 1;
-    qrySnippet.FieldValues['HighlighterId'] := LId;
+    //LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
+    //if VarIsNull(LId) then
+    //  LId := 1;
+    //qrySnippet.FieldValues['HighlighterId'] := LId;
   end;
 end;
 
@@ -886,7 +883,7 @@ end;
 
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
-  Logger.Info('Creating new database...');
+//  Logger.Info('Creating new database...');
   scrCreateDatabase.ExecuteScript;
 end;
 
@@ -995,7 +992,7 @@ end;
 
 initialization
 {$IFDEF WINDOWS}
-//  Logger.Channels.Add(TIPCChannel.Create);
+  //Logger.Channels.Add(TIPCChannel.Create);
 {$ENDIF}
 
 end.

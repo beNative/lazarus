@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This library is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 {
@@ -317,12 +315,16 @@ type
    column cannot be edited (ReadOnly, computed, BLOB field, etc.).
   }
 
+  { TDBGridListBox }
+
   TDBGridListBox = class(TCustomDBListBox)
   private
     FLookupSource : TDataSource;
 
   public
     constructor Create(AOwner: TComponent); override;
+    procedure DataChange(Sender: TObject); override;
+    procedure UpdateData(Sender: TObject); override;
 
     property LookupSource: TDataSource
       read FLookupSource;
@@ -1139,6 +1141,16 @@ constructor TDBGridListBox.Create(AOwner: TComponent);
 begin
   inherited;
   FLookupSource := TDataSource.Create(Self);
+end;
+
+procedure TDBGridListBox.DataChange(Sender: TObject);
+begin
+  //
+end;
+
+procedure TDBGridListBox.UpdateData(Sender: TObject);
+begin
+  //
 end;
 
 { TDBGridEdit }
@@ -2885,7 +2897,7 @@ procedure TCustomDBGridView.PaintIndicatorImage(Rect: TRect; DataRow: Integer);
 var
   I, X, Y, W, H: Integer;
   IL: TImageList;
-  BKC, BLC: DWORD;
+//  BKC, BLC: DWORD;
 begin
   I := GetIndicatorImage(DataRow);
   if i = -1 then
@@ -2903,11 +2915,11 @@ begin
   Y := Rect.Top + Y div 2 - Ord(Fixed.Flat);
   if Y + H > Rect.Bottom then
     H := Rect.Bottom - Y;
-  BKC := ColorToRGB(IL.BkColor);
-  BLC := ColorToRGB(IL.BlendColor);
+  //BKC := ColorToRGB(IL.BkColor);
+  //BLC := ColorToRGB(IL.BlendColor);
 {$IFDEF WINDOWS}
-  ImageList_DrawEx(IL.Handle, i, Canvas.Handle, X, Y, W, H, BKC, BLC,
-    ILD_TRANSPARENT);
+  //ImageList_DrawEx(IL.Handle, i, Canvas.Handle, X, Y, W, H, BKC, BLC,
+//    ILD_TRANSPARENT);
 {$ENDIF}
 end;
 

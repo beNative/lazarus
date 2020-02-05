@@ -797,7 +797,7 @@ begin
   I := 1;
   while I <= xStrLength do
   begin
-    xCharLength := UTF8CharacterLength(P);
+    xCharLength := UTF8CodepointSize(P);
     for L := 1 to xCharLength do
     begin
       Result[xStrLength-I-xCharLength+L+1] := P^;

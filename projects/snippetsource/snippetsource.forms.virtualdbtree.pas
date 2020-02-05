@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit SnippetSource.Forms.VirtualDBTree;
@@ -89,26 +87,28 @@ type
     actNewItemNode         : TAction;
     actNewRootFolderNode   : TAction;
     alsMain                : TActionList;
+    btnCollapseAllNodes    : TToolButton;
+    btnDivider             : TToolButton;
+    btnExpandAllNodes      : TToolButton;
+    btnNewFolder           : TToolButton;
+    btnNewItem             : TToolButton;
+    btnNewRoot             : TToolButton;
     dscMain                : TDataSource;
     imlMain                : TImageList;
     mniDelete              : TMenuItem;
     mniNewChild            : TMenuItem;
     mniNewFolder           : TMenuItem;
     navTreeView            : TDBNavigator;
+    pnlTopLeft             : TPanel;
+    pnlTopRight            : TPanel;
     pnlTree                : TPanel;
     ppmTreeView            : TPopupMenu;
     N1                     : TMenuItem;
     mniNewRoot             : TMenuItem;
     pnlMain                : TPanel;
     pnlTop                 : TPanel;
-    tlbTop                 : TToolBar;
-    btnNewRoot             : TToolButton;
-    btnNewFolder           : TToolButton;
-    btnNewItem             : TToolButton;
     pnlBottom              : TPanel;
-    btnCollapseAllNodes    : TToolButton;
-    btnExpandAllNodes      : TToolButton;
-    btnDivider             : TToolButton;
+    tlbTop                 : TToolBar;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -680,7 +680,7 @@ begin
           Medium.hGlobal, I, PWideChar(FileName), FileNameLength + 1
         );
         // add file name to list
-        AFileList.Append(FileName);
+        AFileList.Append(string(FileName));
       end;
     finally
       // Tidy up - release the drop handle

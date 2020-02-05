@@ -27,7 +27,6 @@ msgid "Class"
 msgstr "Třída"
 
 #: uexceptionlogger.sclose
-#| msgid "Close"
 msgid "Continue"
 msgstr "Pokračovat"
 
@@ -81,7 +80,6 @@ msgid "Process ID"
 msgstr "ID procesu"
 
 #: uexceptionlogger.sterminate
-#| msgid "Terminate"
 msgid "Exit program"
 msgstr "Ukončit program"
 

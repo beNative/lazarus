@@ -31,7 +31,7 @@ uses
   //UExceptionLogger,
 
   // for debugging
-  ts.Core.SharedLogger,
+  //ts.Core.SharedLogger,
 
   ts.Components.Docking, ts.Components.Docking.Storage,
   ts.Components.UniqueInstance,

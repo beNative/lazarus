@@ -3,7 +3,8 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="tslib_components"/>
-    <Type Value="RunAndDesignTime"/>
+    <Type Value="RunTimeOnly"/>
+    <Author Value="Tim Sinaeve"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
@@ -21,7 +22,8 @@
         </CompilerMessages>
       </Other>
     </CompilerOptions>
-    <Files Count="20">
+    <Version Major="1"/>
+    <Files Count="21">
       <Item1>
         <Filename Value="components\ts.components.dbgridview.pas"/>
         <UnitName Value="ts.Components.DBGridView"/>
@@ -102,6 +104,10 @@
         <Filename Value="components\ts.components.xmltree.pas"/>
         <UnitName Value="ts.Components.XMLTree"/>
       </Item20>
+      <Item21>
+        <Filename Value="components\synhighlighterLua.pas"/>
+        <UnitName Value="SynHighlighterLua"/>
+      </Item21>
     </Files>
     <RequiredPkgs Count="3">
       <Item1>

@@ -300,7 +300,6 @@ type
     ppmSelectionMode                  : TPopupMenu;
     PascalScript                      : TPSScript;
     SynExporterHTML                   : TSynExporterHTML;
-    SynMacroRecorder                  : TSynMacroRecorder;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -1682,7 +1681,7 @@ end;
 
 procedure TdmEditorManager.actPlaybackMacroExecute(Sender: TObject);
 begin
-  SynMacroRecorder.PlaybackMacro(ActiveView.Editor);
+  //SynMacroRecorder.PlaybackMacro(ActiveView.Editor);
 end;
 
 procedure TdmEditorManager.actPrintExecute(Sender: TObject);
@@ -1697,10 +1696,10 @@ end;
 
 procedure TdmEditorManager.actRecordMacroExecute(Sender: TObject);
 begin
-  if SynMacroRecorder.State = msRecording then
-    SynMacroRecorder.Stop
-  else
-    SynMacroRecorder.RecordMacro(ActiveView.Editor);
+  //if SynMacroRecorder.State = msRecording then
+  //  SynMacroRecorder.Stop
+  //else
+  //  SynMacroRecorder.RecordMacro(ActiveView.Editor);
 end;
 
 procedure TdmEditorManager.actSaveAllExecute(Sender: TObject);
@@ -1924,17 +1923,17 @@ end;
 
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
 begin
-  Events.DoMacroStateChange(SynMacroRecorder.State);
+  //Events.DoMacroStateChange(SynMacroRecorder.State);
 end;
 
 procedure TdmEditorManager.SynMacroRecorderUserCommand(
   aSender: TCustomSynMacroRecorder; aCmd: TSynEditorCommand;
   var aEvent: TSynMacroEvent);
 begin
-  Logger.Send(
-     'SynMacroRecorderUserCommand(Command = %s)',
-     [EditorCommandToCodeString(aCmd)]
-   );
+  //Logger.Send(
+  //   'SynMacroRecorderUserCommand(Command = %s)',
+  //   [EditorCommandToCodeString(aCmd)]
+  // );
 end;
 
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
@@ -2680,7 +2679,7 @@ begin
   ViewList.Add(V);
   Events.DoAddEditorView(V);
   // TS macro support
-  SynMacroRecorder.AddEditor(V.Editor);
+  //SynMacroRecorder.AddEditor(V.Editor);
   V.Activate;
   Result := V;
 end;
@@ -2718,7 +2717,7 @@ begin
       V.Activate
     end;
     // TS macro support
-    SynMacroRecorder.RemoveEditor(Views[AIndex].Editor);
+    //SynMacroRecorder.RemoveEditor(Views[AIndex].Editor);
     Views[AIndex].Close;
     ViewList.Delete(AIndex);
     Result := True;
@@ -2743,7 +2742,7 @@ begin
     begin
       if AView = ActiveView then
       begin
-        SynMacroRecorder.RemoveEditor(AView.Editor);
+        //SynMacroRecorder.RemoveEditor(AView.Editor);
         AView.Close;
         ViewList.Delete(I);
         Views[0].Activate;
@@ -2751,7 +2750,7 @@ begin
       end
       else
       begin
-        SynMacroRecorder.RemoveEditor(AView.Editor);
+        //SynMacroRecorder.RemoveEditor(AView.Editor);
         AView.Close;
         ViewList.Delete(I);
       end;
@@ -3202,7 +3201,7 @@ end;
 
 initialization
 {$IFDEF WINDOWS}
-//  Logger.Channels.Add(TIPCChannel.Create);
+//  Logger.Channels.Add(TIpcChannel.Create);
 {$ENDIF}
 
 end.

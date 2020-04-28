@@ -43,6 +43,7 @@ type
       FLogger : ILogger;
       FName   : string;
       FSender : TObject;
+
     public
       constructor Create(
         const ALogger: ILogger;
@@ -50,7 +51,9 @@ type
         const AName  : string
         );
       destructor Destroy; override;
+
     end;
+
   private
     FMaxStackCount : Integer;
     FChannels      : TChannelList;
@@ -58,6 +61,7 @@ type
     FLogLevel      : Byte;
     FCheckList     : TStringList;
     FCounterList   : TStringList;
+    FEnabled       : Boolean;
 
   protected
     {$REGION 'property access methods'}
@@ -66,6 +70,8 @@ type
     function GetLogLevel: Byte;
     procedure SetLogLevel(const AValue: Byte);
     procedure SetMaxStackCount(const AValue: Integer);
+    function GetEnabled: Boolean;
+    procedure SetEnabled(const Value: Boolean);
     {$ENDREGION}
 
     function InternalSend(
@@ -119,6 +125,18 @@ type
     function Send(const AName: string; const AValue: Byte): ILogger; overload;
     function Send(const AName: string; const AValue: ShortInt): ILogger; overload;
     function Send(const AName: string; const AValue: UInt64): ILogger; overload;
+
+    function Send(const AValue: string): ILogger; overload;
+    function Send(const AValue: WideString): ILogger; overload;
+    function Send(const AValue: ShortString): ILogger; overload;
+
+    function Send(const AValue: Cardinal): ILogger; overload;
+    function Send(const AValue: Word): ILogger; overload;
+    function Send(const AValue: SmallInt): ILogger; overload;
+    function Send(const AValue: Byte): ILogger; overload;
+    function Send(const AValue: ShortInt): ILogger; overload;
+    function Send(const AValue: UInt64): ILogger; overload;
+
     //function Send(const AName: string; const AValue: FixedInt): ILogger; overload;
 
     //procedure SendBitmap(const AText: string; ABitmap: TBitmap); //inline;
@@ -166,6 +184,9 @@ type
     property Channels: IChannelList
       read GetChannels;
 
+    property Enabled: Boolean
+      read GetEnabled write SetEnabled;
+
     property LogLevel: Byte
       read GetLogLevel write SetLogLevel;
 
@@ -179,12 +200,16 @@ type
 implementation
 
 uses
-  IntfGraphics, GraphType, FPimage, FPWriteBMP;
+  IntfGraphics, GraphType, FPimage, FPWriteBMP,
+
+  ts.Core.Logger.Channel.Ipc;
 
 const
   STACKCOUNTLIMIT        = 256;
-  DEFAULT_CHECK_NAME = 'CheckPoint';
+  DEFAULT_CHECKPOINTNAME = 'CheckPoint';
+  DEFAULT_MAXSTACKCOUNT = 20;
 
+{$REGION 'non-interfaced routines'}
 function ColorToStr(Color: TColor): string;
 begin
   case Color of
@@ -253,6 +278,13 @@ begin
   Result := Result + ' ($' + IntToHex(Color, 6) + ')';
 end;
 
+function GetObjectDescription(Sender: TObject): string;
+begin
+  Result := Sender.ClassName;
+  if (Sender is TComponent) and (TComponent(Sender).Name <> '') then
+    Result := Result + '(' + TComponent(Sender).Name + ')';
+end;
+
 procedure SaveBitmapToStream(Bitmap: TBitmap; Stream: TStream);
 var
   IntfImg   : TLazIntfImage;
@@ -304,35 +336,15 @@ begin
     Inc(Digits);
   end;
 end;
+{$ENDREGION}
 
-{ TLogger.TTrack }
-
-constructor TLogger.TTrack.Create(const ALogger: ILogger; ASender: TObject; const AName: string);
-begin
-  inherited Create;
-  FLogger := ALogger;
-  FSender := ASender;
-  FName   := AName;
-  if not Assigned(FSender) then
-    FLogger.Enter(FName)
-  else
-    FLogger.Enter(FSender, FName);
-end;
-
-destructor TLogger.TTrack.Destroy;
-begin
-  if not Assigned(FSender) then
-    FLogger.Leave(FName)
-  else
-    FLogger.Leave(FSender, FName);
-  inherited Destroy;
-end;
-
-{ TLogger }
-
+{$REGION 'TLogger'}
+{$REGION 'construction and destruction'}
 constructor TLogger.Create;
 begin
   FChannels := TChannelList.Create;
+  FChannels.Add(TIpcChannel.Create);
+
   FMaxStackCount := 20;
   FLogStack := TStringList.Create;
   FCheckList := TStringList.Create;
@@ -356,7 +368,9 @@ begin
   FCheckList.Destroy;
   FCounterList.Destroy;
 end;
+{$ENDREGION}
 
+{$REGION 'property access methods'}
 function TLogger.GetChannels: IChannelList;
 begin
   Result := FChannels as IChannelList;
@@ -374,25 +388,25 @@ begin
   //routine adapted from fpc source
   //This trick skip SendCallstack item
   //bp:=get_frame;
-  bp:= get_caller_frame(get_frame);
+  bp := get_caller_frame(get_frame);
   try
-    prevbp:=bp-1;
-    I:=0;
+    prevbp := bp - 1;
+    I := 0;
     //is_dev:=do_isdevice(textrec(f).Handle);
     while bp > prevbp Do
      begin
-       caller_addr := get_caller_addr(bp);
+       caller_addr  := get_caller_addr(bp);
        caller_frame := get_caller_frame(bp);
-       if (caller_addr=nil) then
-         break;
+       if caller_addr = nil then
+         Break;
        //todo: see what is faster concatenate string and use writebuffer or current
-       S:=BackTraceStrFunc(caller_addr)+LineEnding;
-       AStream.WriteBuffer(S[1],Length(S));
+       S := BackTraceStrFunc(caller_addr) + LineEnding;
+       AStream.WriteBuffer(S[1], Length(S));
        Inc(I);
-       if (I>=FMaxStackCount) or (caller_frame=nil) then
-         break;
-       prevbp:=bp;
-       bp:=caller_frame;
+       if (I >= FMaxStackCount) or (caller_frame = nil) then
+         Break;
+       prevbp := bp;
+       bp := caller_frame;
      end;
    except
      { prevent endless dump if an exception occured }
@@ -409,53 +423,47 @@ begin
   FLogLevel := AValue;
 end;
 
-procedure TLogger.SendStream(AMsgType: TLogMessageType; const AText: string; AStream: TStream);
-var
-  LMessage : TLogMessage;
-  I        :Integer;
-begin
-  with LMessage do
-  begin
-    MsgType   := Integer(AMsgType);
-    TimeStamp := Now;
-    Text      := AText;
-    Data      := AStream;
-  end;
-  for I := 0 to Channels.Count - 1 do
-    if Channels[I].Enabled then
-      Channels[I].Write(LMessage);
-  AStream.Free;
-end;
-
-procedure TLogger.SendBuffer(AMsgType: TLogMessageType; const AText: string; var Buffer; Count: LongWord);
-var
-  AStream: TStream;
-begin
-  if Count > 0 then
-  begin
-    AStream:=TMemoryStream.Create;
-    AStream.Write(Buffer,Count);
-  end
-  else
-    AStream:=nil;
-  //SendStream free AStream
-  SendStream(AMsgType,AText,AStream);
-end;
-
 procedure TLogger.SetMaxStackCount(const AValue: Integer);
 begin
-  if AValue < 256 then
+  if AValue < STACKCOUNTLIMIT then
     FMaxStackCount := AValue
   else
-    FMaxStackCount := 256;
+    FMaxStackCount := STACKCOUNTLIMIT;
 end;
 
-function TLogger.InternalSend(AMsgType: TLogMessageType; const AText: string
-  ): ILogger;
+function TLogger.GetEnabled: Boolean;
 begin
-  Result := InternalSendStream(AMsgType, AText, nil);
+  Result := FEnabled;
 end;
 
+procedure TLogger.SetEnabled(const Value: Boolean);
+begin
+  if Value <> Enabled then
+  begin
+    FEnabled := Value;
+  end;
+end;
+{$ENDREGION}
+
+{$REGION 'private methods'}
+function TLogger.RectToStr(const ARect: TRect): string;
+begin
+  with ARect do
+    Result := Format(
+      '(Left: %d; Top: %d; Right: %d; Bottom: %d)',
+      [Left, Top, Right, Bottom]
+    );
+end;
+
+function TLogger.PointToStr(const APoint: TPoint): string;
+begin
+  with APoint do
+    Result := Format('(X: %d; Y: %d)',[X,Y]);
+end;
+{$ENDREGION}
+
+{$REGION 'protected methods'}
+{$REGION 'Internal methods'}
 function TLogger.InternalSendStream(AMsgType: TLogMessageType;
   const AText: string; AStream: TStream): ILogger;
 var
@@ -480,12 +488,18 @@ begin
   end;
 end;
 
+function TLogger.InternalSend(AMsgType: TLogMessageType; const AText: string)
+  : ILogger;
+begin
+  Result := InternalSendStream(AMsgType, AText, nil);
+end;
+
 function TLogger.InternalSendBuffer(AMsgType: TLogMessageType;
   const AText: string; var ABuffer; ACount: LongWord): ILogger;
 var
-  LStream: TStream;
+  LStream : TStream;
 begin
-  Result := Self;
+  Result  := Self;
   LStream := nil;
   if ACount > 0 then
   begin
@@ -500,90 +514,9 @@ begin
   else
     InternalSendStream(AMsgType, AText, nil);
 end;
+{$ENDREGION}
 
-function TLogger.CalledBy(const AMethodName: string): Boolean;
-begin
-  Result:=FLogStack.IndexOf(UpperCase(AMethodName)) <> -1;
-end;
-
-function TLogger.Clear: ILogger;
-var
-  I : Integer;
-begin
-  Result := Self;
-  // repeated to compensate for initial message loss in combination with
-  // some channels (ZeroMQ)
-  for I := 0 to 3 do
-  begin
-    InternalSend(lmtClear);
-    Sleep(100);
-  end;
-end;
-
-function TLogger.RectToStr(const ARect: TRect): string;
-begin
-  with ARect do
-    Result:=Format('(Left: %d; Top: %d; Right: %d; Bottom: %d)',[Left,Top,Right,Bottom]);
-end;
-
-function TLogger.PointToStr(const APoint: TPoint): string;
-begin
-  with APoint do
-    Result:=Format('(X: %d; Y: %d)',[X,Y]);
-end;
-
-function TLogger.Send(const AName: string;
-  const AArgs: array of const): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: string): ILogger;
-begin
-//  SendStream(lmtValue,AValue+' = '+AValue,nil);
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: WideString): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: ShortString): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: Word): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: SmallInt): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: Byte): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: ShortInt): ILogger;
-begin
-  Result := Self;
-end;
-
-function TLogger.Send(const AName: string; const AValue: UInt64): ILogger;
-begin
-  Result := Self;
-end;
-
+{$REGION 'Notification'}
 function TLogger.Info(const AText: string): ILogger;
 begin
   Result := InternalSend(lmtInfo, AText);
@@ -613,71 +546,108 @@ function TLogger.Error(const AText: string; AArgs: array of const): ILogger;
 begin
   Result := InternalSend(lmtError, Format(AText, AArgs));
 end;
+{$ENDREGION}
 
-function TLogger.Enter(const AName: string): ILogger;
+{$REGION 'Send overloads'}
+function TLogger.Send(const AName: string; const AValue: string): ILogger;
 begin
-  Result := Enter(nil, AName);
+//  SendStream(lmtValue,AValue+' = '+AValue,nil);
+  Result := Self;
 end;
 
-function TLogger.Enter(ASender: TObject; const AName: string): ILogger;
+function TLogger.Send(const AName: string; const AValue: ShortString): ILogger;
 begin
   Result := Self;
-  FLogStack.Insert(0, UpperCase(AName));
-  if ASender <> nil then
-  begin
-    if ASender is TComponent then
-      InternalSend(lmtEnterMethod, TComponent(ASender).Name + '.' + AName)
-    else
-      InternalSend(lmtEnterMethod, ASender.ClassName + '.' + AName);
-  end
-  else
-    InternalSend(lmtEnterMethod, AName);
 end;
 
-function TLogger.Leave(const AName: string): ILogger;
-begin
-  Result := Leave(nil, AName);
-end;
-
-function TLogger.Leave(ASender: TObject; const AName: string): ILogger;
-var
-  I : Integer;
+function TLogger.Send(const AName: string; const AValue: WideString): ILogger;
 begin
   Result := Self;
-  // ensure that Leave will be called allways if there's a unpaired Enter
-  if FLogStack.Count = 0 then
-    Exit;
-  I := FLogStack.IndexOf(AName);
-  if I <> -1 then
-    FLogStack.Delete(I)
-  else
-    Exit;
-  if ASender <> nil then
-  begin
-    if ASender is TComponent then
-      InternalSend(lmtLeaveMethod, TComponent(ASender).Name + '.' + AName)
-    else
-      InternalSend(lmtLeaveMethod, ASender.ClassName + '.' + AName);
-  end
-  else
-    InternalSend(lmtLeaveMethod, AName);
 end;
 
-//procedure TLogger.Send(const AText: string; const AInterface: IInterface);
-//begin
-//  if AInterface is IInterfaceComponentReference then
-//    Send(AText, (AInterface as IInterfaceComponentReference).GetComponent)
-//  else
-//    Send(AText, 'no data for interface');
-//end;
-
-function GetObjectDescription(Sender: TObject): string;
+function TLogger.Send(const AName: string; const AArgs: array of const)
+  : ILogger;
 begin
-  Result := Sender.ClassName;
-  if (Sender is TComponent) and (TComponent(Sender).Name <> '') then
-    Result := Result + '(' + TComponent(Sender).Name + ')';
+  Result := Self;
 end;
 
+function TLogger.Send(const AName: string; const AValue: UInt64): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AName: string; const AValue: Byte): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AName: string; const AValue: Word): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AName: string; const AValue: ShortInt): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AName: string; const AValue: SmallInt): ILogger;
+begin
+  Result := Self;
+end;
+
+function TLogger.Send(const AValue: string): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: WideString): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: ShortString): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: Cardinal): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: Word): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: SmallInt): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: Byte): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: ShortInt): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: UInt64): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+{$ENDREGION}
+
+{$REGION 'Specialized Send methods'}
 //procedure TLogger.Send(Classes: TDebugClasses; const AText: string;
 //  AObject: TObject);
 //var
@@ -750,26 +720,142 @@ end;
 //  end;
 //  SendBuffer(lmtHeapInfo,AText,S[1],Length(S));
 //end;
+{$ENDREGION}
 
-//procedure TLogger.SendBitmap(Classes: TDebugClasses; const AText: string;
-//  ABitmap: TBitmap);
-//var
-//  AStream: TStream;
-//begin
-//  if Classes * ActiveClasses = [] then
-//    Exit;
-//  if ABitmap <> nil then
-//  begin
-//    AStream := TMemoryStream.Create;
-//    //use custom function to avoid bug in TBitmap.SaveToStream
-//    SaveBitmapToStream(ABitmap, AStream);
-//  end
-//  else
-//    AStream := nil;
-//  //SendStream free AStream
-//  SendStream(lmtBitmap, AText, AStream);
-//end;
+{$REGION 'Tracing methods'}
+function TLogger.Enter(const AName: string): ILogger;
+begin
+  Result := Enter(nil, AName);
+end;
 
+function TLogger.Enter(ASender: TObject; const AName: string): ILogger;
+begin
+  Result := Self;
+  FLogStack.Insert(0, UpperCase(AName));
+  if ASender <> nil then
+  begin
+    if ASender is TComponent then
+      InternalSend(lmtEnterMethod, TComponent(ASender).Name + '.' + AName)
+    else
+      InternalSend(lmtEnterMethod, ASender.ClassName + '.' + AName);
+  end
+  else
+    InternalSend(lmtEnterMethod, AName);
+end;
+
+function TLogger.Leave(const AName: string): ILogger;
+begin
+  Result := Leave(nil, AName);
+end;
+
+function TLogger.Leave(ASender: TObject; const AName: string): ILogger;
+var
+  I : Integer;
+begin
+  Result := Self;
+  // ensure that Leave will be called allways if there's a unpaired Enter
+  if FLogStack.Count = 0 then
+    Exit;
+  I := FLogStack.IndexOf(AName);
+  if I <> -1 then
+    FLogStack.Delete(I)
+  else
+    Exit;
+  if ASender <> nil then
+  begin
+    if ASender is TComponent then
+      InternalSend(lmtLeaveMethod, TComponent(ASender).Name + '.' + AName)
+    else
+      InternalSend(lmtLeaveMethod, ASender.ClassName + '.' + AName);
+  end
+  else
+    InternalSend(lmtLeaveMethod, AName);
+end;
+{$ENDREGION}
+
+{$REGION 'Watch'}
+// TODO
+{$ENDREGION}
+{$ENDREGION}
+
+{$REGION 'public methods'}
+procedure TLogger.SendStream(AMsgType: TLogMessageType; const AText: string;
+  AStream: TStream);
+var
+  LMessage : TLogMessage;
+  I        :Integer;
+begin
+  with LMessage do
+  begin
+    MsgType   := Integer(AMsgType);
+    TimeStamp := Now;
+    Text      := AText;
+    Data      := AStream;
+  end;
+  for I := 0 to Channels.Count - 1 do
+    if Channels[I].Enabled then
+      Channels[I].Write(LMessage);
+  AStream.Free;
+end;
+
+procedure TLogger.SendBuffer(AMsgType: TLogMessageType; const AText: string;
+  var Buffer; Count: LongWord);
+var
+  AStream: TStream;
+begin
+  if Count > 0 then
+  begin
+    AStream := TMemoryStream.Create;
+    AStream.Write(Buffer, Count);
+  end
+  else
+    AStream := nil;
+  SendStream(AMsgType, AText, AStream);
+end;
+
+function TLogger.CalledBy(const AMethodName: string): Boolean;
+begin
+  Result := FLogStack.IndexOf(UpperCase(AMethodName)) <> -1;
+end;
+
+function TLogger.Clear: ILogger;
+var
+  I : Integer;
+begin
+  Result := Self;
+  // repeated to compensate for initial message loss in combination with
+  // some channels (ZeroMQ)
+  for I := 0 to 3 do
+  begin
+    InternalSend(lmtClear);
+    Sleep(100);
+  end;
+end;
+{$ENDREGION}
+{$ENDREGION}
+
+{$REGION 'TLogger.TTrack'}
+constructor TLogger.TTrack.Create(const ALogger: ILogger; ASender: TObject; const AName: string);
+begin
+  inherited Create;
+  FLogger := ALogger;
+  FSender := ASender;
+  FName   := AName;
+  if not Assigned(FSender) then
+    FLogger.Enter(FName)
+  else
+    FLogger.Enter(FSender, FName);
+end;
+
+destructor TLogger.TTrack.Destroy;
+begin
+  if not Assigned(FSender) then
+    FLogger.Leave(FName)
+  else
+    FLogger.Leave(FSender, FName);
+  inherited Destroy;
+end;
+{$ENDREGION}
 
 end.
 

@@ -4,6 +4,7 @@
 
 unit tslib_components;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
@@ -15,14 +16,8 @@ uses
   ts.Components.UNIHighlighter, ts.Components.UniqueInstance, 
   ts.Components.VirtualDBTreeEx, ts.Components.VirtualPages, 
   ts.Components.XMLTree.Editors, ts.Components.XMLTree.NodeAttributes, 
-  ts.Components.XMLTree, LazarusPackageIntf;
+  ts.Components.XMLTree, synhighlighterLua;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('tslib_components', @Register);
 end.

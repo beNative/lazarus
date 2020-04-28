@@ -33,56 +33,54 @@ type
 
   { TdmRichEditorManager }
 
-  TdmRichEditorManager = class(TDataModule, IRichEditorManager,
-                                            IRichEditorActions,
-                                            IRichEditorEvents
-
+  TdmRichEditorManager = class(
+    TDataModule, IRichEditorManager, IRichEditorActions, IRichEditorEvents
   )
     {$REGION 'designer controls'}
-    aclActions             : TActionList;
-    actBold                : TAction;
-    actColor               : TAction;
-    actAlignRight          : TAction;
-    actAlignLeft           : TAction;
-    actAlignCenter         : TAction;
-    actFont                : TAction;
-    actIncFontSize         : TAction;
-    actDecFontSize         : TAction;
-    actCut                 : TAction;
-    actCopy                : TAction;
-    actAlignJustify        : TAction;
-    actBkColor             : TAction;
-    actInsertImage         : TAction;
-    actInsertHyperLink     : TAction;
-    actStrikeThrough       : TAction;
-    actRedo                : TAction;
-    actToggleWordWrap      : TAction;
-    actUndo                : TAction;
-    actSelectAll           : TAction;
-    actPaste               : TAction;
-    actSaveAs              : TAction;
-    actSave                : TAction;
-    actOpen                : TAction;
-    actUnderline           : TAction;
-    actItalic              : TAction;
-    dlgColor               : TColorDialog;
-    dlgFont                : TFontDialog;
-    dlgOpen                : TOpenDialog;
-    dlgSave                : TSaveDialog;
-    imlMain                : TImageList;
-    MenuItem1              : TMenuItem;
-    MenuItem2              : TMenuItem;
-    MenuItem3              : TMenuItem;
-    MenuItem4              : TMenuItem;
-    MenuItem5              : TMenuItem;
-    N1                     : TMenuItem;
-    mniBold                : TMenuItem;
-    mniItalic              : TMenuItem;
-    mniUnderline           : TMenuItem;
-    mniOpen                : TMenuItem;
-    mniSave                : TMenuItem;
-    mniSaveAs              : TMenuItem;
-    ppmRichEditor          : TPopupMenu;
+    aclActions         : TActionList;
+    actBold            : TAction;
+    actColor           : TAction;
+    actAlignRight      : TAction;
+    actAlignLeft       : TAction;
+    actAlignCenter     : TAction;
+    actFont            : TAction;
+    actIncFontSize     : TAction;
+    actDecFontSize     : TAction;
+    actCut             : TAction;
+    actCopy            : TAction;
+    actAlignJustify    : TAction;
+    actBkColor         : TAction;
+    actInsertImage     : TAction;
+    actInsertHyperLink : TAction;
+    actStrikeThrough   : TAction;
+    actRedo            : TAction;
+    actToggleWordWrap  : TAction;
+    actUndo            : TAction;
+    actSelectAll       : TAction;
+    actPaste           : TAction;
+    actSaveAs          : TAction;
+    actSave            : TAction;
+    actOpen            : TAction;
+    actUnderline       : TAction;
+    actItalic          : TAction;
+    dlgColor           : TColorDialog;
+    dlgFont            : TFontDialog;
+    dlgOpen            : TOpenDialog;
+    dlgSave            : TSaveDialog;
+    imlMain            : TImageList;
+    MenuItem1          : TMenuItem;
+    MenuItem2          : TMenuItem;
+    MenuItem3          : TMenuItem;
+    MenuItem4          : TMenuItem;
+    MenuItem5          : TMenuItem;
+    N1                 : TMenuItem;
+    mniBold            : TMenuItem;
+    mniItalic          : TMenuItem;
+    mniUnderline       : TMenuItem;
+    mniOpen            : TMenuItem;
+    mniSave            : TMenuItem;
+    mniSaveAs          : TMenuItem;
+    ppmRichEditor      : TPopupMenu;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -116,13 +114,13 @@ type
     FViews      : TRichEditorViewList;
     FActiveView : IRichEditorView;
     FEvents     : IRichEditorEvents;
-    function GetEvents: IRichEditorEvents;
 
   protected
     {$REGION 'property access mehods'}
     function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
     function GetEditorPopupMenu: TPopupMenu;
+    function GetEvents: IRichEditorEvents;
     function GetItem(AName: string): TContainedAction;
     function GetView(AIndex: Integer): IRichEditorView;
     function GetViewByName(AName: string): IRichEditorView;
@@ -448,8 +446,8 @@ begin
     actUnderline.Checked     := ActiveView.Font.Underline;
     actItalic.Checked        := ActiveView.Font.Italic;
     actStrikeThrough.Checked := ActiveView.Font.StrikeThrough;
-    actUndo.Enabled          := ActiveView.CanUndo;
-    actRedo.Enabled          := ActiveView.CanRedo;
+    //actUndo.Enabled          := ActiveView.CanUndo;
+    //actRedo.Enabled          := ActiveView.CanRedo;
     actUndo.Enabled          := True;
     actRedo.Enabled          := True;
     actCopy.Enabled          := ActiveView.SelAvail;

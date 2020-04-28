@@ -791,7 +791,6 @@ const
 
 
 {$REGION 'TXmlNodeHelper'}
-
 type
   TXmlNodeHelper = class helper for TXmlNode
   private
@@ -938,7 +937,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'construction and destruction'}
-
 procedure TXMLTree.AfterConstruction;
 begin
   inherited;
@@ -987,11 +985,9 @@ begin
   FExpandedState.Free;
   inherited;
 end;
-
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
-
 function TXMLTree.GetNodeXML(ANode: PVirtualNode): string;
 begin
   Result := string(GetData(ANode).XMLNode.WriteToString);
@@ -1056,7 +1052,6 @@ begin
       ExpandedStateSave;
 
     AddChildren(nil, FXMLDocument.Root);
-    Logger.Send('XML', XMLDocument.WriteToString);
 
     if not WasCleared then
       ExpandedStateRestore
@@ -1071,11 +1066,9 @@ function TXMLTree.GetXMLDocument: TNativeXml;
 begin
   Result := FXMLDocument;
 end;
-
 {$ENDREGION}
 
 {$REGION 'message handlers'}
-
 { This message was posted by ourselves from the node change handler above to
   decouple that change event and our intention to start editing a node. This
   is necessary to avoid interferences between nodes editors potentially created
@@ -1090,11 +1083,9 @@ begin
     OnEditing event. }
   EditNode(Node, 1);
 end;
-
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
-
 procedure TXMLTree.DoCheckNode(Parent: PVirtualNode; var ANewXMLNode: TXmlNode;
   var ANewNodeType: TNodeType; var AAdd: Boolean);
 begin
@@ -1216,10 +1207,7 @@ begin
   end;
   Text := string(S);
   inherited;
-  //Logger.ExitMethod(Self, 'DoGetText');
 end;
-
-
 
 procedure TXMLTree.DoCanEdit(ANode: PVirtualNode; Column: TColumnIndex;
   var Allowed: Boolean);
@@ -1442,8 +1430,6 @@ begin
       DoGetBackColor(ANode, Column, C);
     until False;
   end;
-
-
   inherited;
 end;
 
@@ -1539,13 +1525,10 @@ begin
   if Assigned(FOnGetBackColor) then
     FOnGetBackColor(Self, ANode, ND.XMLNode, ND.NodeType, ABackColor);
 end;
-
 {$ENDREGION}
-
 {$ENDREGION}
 
 {$REGION 'private methods'}
-
 procedure TXMLTree.WMChar(var Message: TWMChar);
 begin
   with Message do
@@ -1609,7 +1592,6 @@ begin
   end;
   Include(ANode.LastChild.States, vsInitialized);
   Result := True;
-  //Logger.ExitMethod(Self, 'AddChild');
 end;
 
 function TXMLTree.AddChildren(ANode: PVirtualNode; AXMLNode: TXmlNode)
@@ -1641,11 +1623,9 @@ begin
     end;
   end;
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-
 procedure TXMLTree.InitializeNodeAttributes;
 var
   NAI: TNodeAttributesItem;
@@ -1724,11 +1704,9 @@ begin
   end;
   FValueColumn := 1;
 end;
-
 {$ENDREGION}
 
 {$REGION 'public methods'}
-
 procedure TXMLTree.Clear;
 begin
   BeginUpdate;
@@ -2069,7 +2047,6 @@ begin
       EndUpdate;
   end;
 end;
-
 {$ENDREGION}
 
 {$REGION 'TExpandedState'}
@@ -2085,6 +2062,5 @@ begin
   inherited;
 end;
 {$ENDREGION}
-
 
 end.

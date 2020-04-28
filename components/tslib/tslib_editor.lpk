@@ -3,13 +3,14 @@
   <Package Version="4">
     <PathDelim Value="\"/>
     <Name Value="tslib_editor"/>
-    <Type Value="RunAndDesignTime"/>
+    <Type Value="RunTimeOnly"/>
+    <Author Value="Tim Sinaeve"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="components;core"/>
-        <OtherUnitFiles Value="components;core;editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortlines;editor\sortstrings;..\SynFacilSyn"/>
+        <IncludeFiles Value="editor"/>
+        <OtherUnitFiles Value="editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortstrings"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Parsing>
@@ -37,7 +38,8 @@
         </CompilerMessages>
       </Other>
     </CompilerOptions>
-    <Files Count="36">
+    <Version Major="1"/>
+    <Files Count="38">
       <Item1>
         <Filename Value="editor\SetupFiltersDialog.lfm"/>
         <Type Value="LFM"/>
@@ -174,42 +176,53 @@
         <AddToUsesPkgSection Value="False"/>
       </Item34>
       <Item35>
-        <Filename Value="editor\ts.editor.manager.pas"/>
-        <UnitName Value="ts.Editor.Manager"/>
+        <Filename Value="editor\ts.editor.aboutdialog.lfm"/>
+        <Type Value="LFM"/>
       </Item35>
       <Item36>
         <Filename Value="editor\ts.editor.aboutdialog.pas"/>
         <UnitName Value="ts.Editor.AboutDialog"/>
       </Item36>
+      <Item37>
+        <Filename Value="editor\ts.editor.manager.lfm"/>
+        <Type Value="LFM"/>
+      </Item37>
+      <Item38>
+        <Filename Value="editor\ts.editor.manager.pas"/>
+        <UnitName Value="ts.Editor.Manager"/>
+      </Item38>
     </Files>
-    <RequiredPkgs Count="9">
+    <RequiredPkgs Count="10">
       <Item1>
-        <PackageName Value="KControlsLaz"/>
+        <PackageName Value="tslib_components"/>
       </Item1>
       <Item2>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="KControlsLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item3>
       <Item4>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="pascalscript"/>
       </Item4>
       <Item5>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="richmemopackage"/>
       </Item6>
       <Item7>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item9>
+      <Item10>
+        <PackageName Value="FCL"/>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

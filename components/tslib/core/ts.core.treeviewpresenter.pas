@@ -1446,7 +1446,7 @@ begin
       LItem := GetNodeItem(FTreeView, LHitInfo.HitNode);
       LItemTemplate := GetItemTemplate(LItem);
       LColumnDefinition := ColumnDefinitions[LHitInfo.HitColumn];
-      Logger.Send('Value', LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsString);
+      //Logger.Send('Value', LItemTemplate.GetValue(LItem, LHitInfo.HitColumn).AsString);
 
       if Assigned(LItemTemplate) then
       begin

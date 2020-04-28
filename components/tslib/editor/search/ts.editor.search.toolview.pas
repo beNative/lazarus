@@ -419,7 +419,7 @@ end;
 procedure TfrmSearchForm.ActionExecute(Sender: TObject; AAction: TBasicAction;
   var AHandled: Boolean);
 begin
-  Logger.Send('Executed', AAction.Name);
+  //Logger.Send('Executed', AAction.Name);
 end;
 {$ENDREGION}
 
@@ -430,11 +430,11 @@ begin
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
   SearchEngine.SearchAllViews := rbAllViews.Checked;
   SearchEngine.Options        := Options;
-  Logger.Send(
-    'SearchOptions',
-    SetToString(TypeInfo(TSynSearchOptions),
-    SearchEngine.Options)
-  );
+  //Logger.Send(
+  //  'SearchOptions',
+  //  SetToString(TypeInfo(TSynSearchOptions),
+  //  SearchEngine.Options)
+  //);
   SearchEngine.Execute;
 end;
 

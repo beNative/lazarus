@@ -312,7 +312,7 @@ procedure TfrmEditorSettings.FTSTVPSelectionChanged(Sender: TObject);
 begin
   if Assigned(FTSTVP.CurrentItem) then
   begin
-    Logger.Send(FTSTVP.CurrentItem.ClassName, (FTSTVP.CurrentItem as TComponent).Name);
+    //Logger.Send(FTSTVP.CurrentItem.ClassName, (FTSTVP.CurrentItem as TComponent).Name);
     FTSPI.TIObject := (FTSTVP.CurrentItem as TComponent);
   end;
 end;

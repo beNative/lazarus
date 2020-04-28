@@ -47,35 +47,38 @@ uses
   ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
 
 type
+  { TIpcChannel }
 
-  { TIPCChannel }
-
-  TIPCChannel = class (TCustomLogChannel)
+  TIpcChannel = class (TCustomLogChannel)
   private
-    FClient: TSimpleIPCClient;
-    FBuffer: TMemoryStream;
+    FClient : TSimpleIPCClient;
+    FBuffer : TBytesStream;
+
+  protected
+    function GetConnected: Boolean; override;
+
   public
     constructor Create(AEnabled: Boolean = True); override;
     destructor Destroy; override;
+
+    function Connect: Boolean; override;
+    function Disconnect: Boolean; override;
+
     function Write(const AMsg: TLogMessage): Boolean; override;
 
   end;
 
-
 implementation
 
-const
-  ZeroBuf: Integer = 0;
-
-{ TIPCChannel }
-
-constructor TIPCChannel.Create(AEnabled: Boolean);
+{$REGION 'construction and destruction'}
+constructor TIpcChannel.Create(AEnabled: Boolean);
 begin
-  FBuffer:=TMemoryStream.Create;
+  inherited Create;
+  FBuffer := TBytesStream.Create;
   FClient := TSimpleIPCClient.Create(nil);
   with FClient do
   begin
-    ServerID:='ipc_log_server';
+    ServerID := 'ipc_log_server';
     if ServerRunning then
     begin
       Self.Enabled := True;
@@ -86,40 +89,76 @@ begin
   end;
 end;
 
-destructor TIPCChannel.Destroy;
+destructor TIpcChannel.Destroy;
 begin
-  FClient.Destroy;
-  FBuffer.Destroy;
+  FClient.Free;
+  FBuffer.Free;
+  inherited Destroy;
+end;
+{$ENDREGION}
+
+{$REGION 'property access methods'}
+function TIpcChannel.GetConnected: Boolean;
+begin
+  Result := FClient.Active;
+end;
+{$ENDREGION}
+
+{$REGION 'public methods'}
+function TIpcChannel.Connect: Boolean;
+begin
+  FClient.Connect;
+  Result := True;
 end;
 
-function TIPCChannel.Write(const AMsg: TLogMessage): Boolean;
-var
-  TextSize, DataSize: Integer;
+function TIpcChannel.Disconnect: Boolean;
 begin
-  with FBuffer do
+  FClient.Disconnect;
+  Result := True;
+end;
+{
+  Data is streamed in following order:
+    - Message type:  4 bytes (Integer)
+    - TimeStamp:     8 bytes (Double)
+    - TextSize:      4 bytes (Integer)
+    - Text:          TextSize bytes (UTF8 encoded, backwards compatible with Ansi)
+    - DataSize:      4 bytes (Integer)
+    - Data:          DataSize bytes
+}
+
+function TIpcChannel.Write(const AMsg: TLogMessage): Boolean;
+const
+  ZERO_BUF : Integer = 0;
+var
+  LTextSize : Integer;
+  LDataSize : Integer;
+begin
+  FBuffer.Clear;
+  LTextSize := Length(AMsg.Text);
+  FBuffer.Seek(0, soFromBeginning);
+  FBuffer.WriteBuffer(AMsg.MsgType, SizeOf(TLogMessageType));
+  FBuffer.WriteBuffer(AMsg.LogLevel, SizeOf(Byte));
+  FBuffer.WriteBuffer(AMsg.Reserved1, SizeOf(Byte));
+  FBuffer.WriteBuffer(AMsg.Reserved2, SizeOf(Byte));
+  FBuffer.WriteBuffer(AMsg.TimeStamp, SizeOf(TDateTime));
+  FBuffer.WriteBuffer(LTextSize, SizeOf(Integer));
+  if LTextSize > 0 then
   begin
-    TextSize:=Length(AMsg.Text);
-    Seek(0,soFromBeginning);
-    WriteBuffer(AMsg.MsgType,SizeOf(Integer));
-    WriteBuffer(AMsg.TimeStamp,SizeOf(TDateTime));
-    WriteBuffer(TextSize,SizeOf(Integer));
-    WriteBuffer(AMsg.Text[1],TextSize);
-    if AMsg.Data <> nil then
-    begin
-      DataSize := AMsg.Data.Size;
-      //WriteLn('[IPCChannel] Size Of Stream: ',DataSize);
-      WriteBuffer(DataSize,SizeOf(Integer));
-      AMsg.Data.Position := 0;
-      CopyFrom(AMsg.Data,DataSize);
-      //WriteLn('DataCopied: ',CopyFrom(AMsg.Data,DataSize));
-    end
-    else
-      WriteBuffer(ZeroBuf,SizeOf(Integer));//necessary?
+    FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
+  if AMsg.Data <> nil then
+  begin
+    LDataSize := AMsg.Data.Size;
+    FBuffer.WriteBuffer(LDataSize,SizeOf(Integer));
+    AMsg.Data.Position := 0;
+    FBuffer.CopyFrom(AMsg.Data,LDataSize);
+  end
+  else
+    FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
   end;
   FClient.SendMessage(mtUnknown,FBuffer);
   Result := True;
 end;
-
+{$ENDREGION}
 
 end.
 

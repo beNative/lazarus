@@ -4881,14 +4881,6 @@ object dmEditorManager: TdmEditorManager
     left = 285
     top = 88
   end
-  object SynMacroRecorder: TSynMacroRecorder
-    RecordShortCut = 0
-    PlaybackShortCut = 0
-    OnStateChange = SynMacroRecorderStateChange
-    OnUserCommand = SynMacroRecorderUserCommand
-    left = 384
-    top = 32
-  end
   object ppmFold: TPopupMenu
     Images = imlMain
     left = 40

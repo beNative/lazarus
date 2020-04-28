@@ -135,6 +135,7 @@ type
   ['{39FC1459-F7FA-4190-A83E-1B0905456792}']
   function GetCount: Integer;
   function GetItems(AIndex: Integer): ILogChannel;
+  function Add(const AItem: ILogChannel): Integer;
 
   property Count: Integer
     read GetCount;
@@ -173,6 +174,17 @@ type
     function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
     { Int32 = Integer = FixedInt }
     //function Send(const AName: string; const AValue: FixedInt): ILogger; overload;
+
+    function Send(const AValue: string): ILogger; overload;
+    function Send(const AValue: WideString): ILogger; overload;
+    function Send(const AValue: ShortString): ILogger; overload;
+
+    function Send(const AValue: Cardinal): ILogger; overload;
+    function Send(const AValue: Word): ILogger; overload;
+    function Send(const AValue: SmallInt): ILogger; overload;
+    function Send(const AValue: Byte): ILogger; overload;
+    function Send(const AValue: ShortInt): ILogger; overload;
+    function Send(const AValue: UInt64): ILogger; overload;
 
     { All primary types that can implicitely be casted to TValue will be
       handled through this call. }
@@ -250,7 +262,7 @@ type
     //  AIsTrue     : Boolean = True
     //);
     { Sends out a dedicated message to clear the logviewer contents. }
-    function  Clear: ILogger;
+    function Clear: ILogger;
 
     property Channels: IChannelList
       read GetChannels;

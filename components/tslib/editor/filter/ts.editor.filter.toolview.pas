@@ -270,8 +270,8 @@ var
   F : Boolean;
   G : Boolean;
 begin
-  Logger.Send('KeyDown ActiveControl:', ActiveControl.ClassName);
-  Logger.Send('Keys : %s', [KeyAndShiftStateToKeyString(Key, Shift)]);
+  //Logger.Send('KeyDown ActiveControl:', ActiveControl.ClassName);
+  //Logger.Send('Keys : %s', [KeyAndShiftStateToKeyString(Key, Shift)]);
   // SHIFTED and ALTED keycombinations
   A := (ssAlt in Shift) or (ssShift in Shift);
   { Single keys that need to be handled by the edit control like all displayable

@@ -366,7 +366,7 @@ object frmMain: TfrmMain
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 72
+    left = 88
     top = 96
     object actAbout: TAction
       Caption = 'About'
@@ -645,10 +645,5 @@ object frmMain: TfrmMain
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
-  end
-  object ExceptionLogger: TExceptionLogger
-    MaxCallStackDepth = 20
-    left = 190
-    top = 97
   end
 end

@@ -25,9 +25,9 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
-      <RevisionNr Value="48"/>
-      <BuildNr Value="237"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2020 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.48" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <RevisionNr Value="50"/>
+      <BuildNr Value="245"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2020 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.50" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -39,8 +39,6 @@
             <Filename Value="notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\tslib\core"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortlines;..\..\components\tslib\editor\sortstrings"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -88,7 +86,6 @@
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item2>
       <Item3 Name="Release win32 i386 win32">
@@ -99,8 +96,7 @@
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings"/>
+            <IncludeFiles Value="$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -168,7 +164,6 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item3>
       <Item4 Name="Release win32 i386 gtk2">
@@ -339,7 +334,6 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item5>
       <Item6 Name="Release darwin x86_64 qt">
@@ -416,7 +410,6 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item6>
       <Item7 Name="Release linux i386 qt">
@@ -430,9 +423,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
             <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux-qt4"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -507,9 +498,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
             <Libraries Value="..\..\..\Libraries\i386-linux;..\..\..\binLibraries\i386-linux"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS);$(LazarusDir)\lcl\units\$(TargetCPU)-$(TargetOS)\$(LCLWidgetType);..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -584,8 +573,6 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -646,7 +633,6 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item9>
       <Item10 Name="Release linux x86_64 gtk2">
@@ -660,8 +646,6 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -722,7 +706,6 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
-          <CompileReasons Compile="False" Build="False" Run="False"/>
         </CompilerOptions>
       </Item10>
       <Item11 Name="Release freebsd x86_64 qt">
@@ -736,9 +719,7 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
             <Libraries Value="..\..\..\binLibraries\x86_64-freebsd;..\..\..\binLibraries\i386-freebsd-qt4;..\..\..\fpc\units\x86_64-freebsd;..\..\..\fpc\units\x86_64-freebsd\x11;..\..\..\fpc\units\x86_64-freebsd\rtl"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -793,8 +774,6 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\richeditor;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\test;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\search;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <CodeGeneration>
@@ -850,8 +829,6 @@ end;"/>
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
-            <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
@@ -934,43 +911,52 @@ end;"/>
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="12">
+    <RequiredPackages Count="15">
       <Item1>
-        <PackageName Value="KControlsLaz"/>
+        <PackageName Value="tslib_editor"/>
       </Item1>
       <Item2>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="tslib_core"/>
       </Item2>
       <Item3>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="tslib_components"/>
       </Item3>
       <Item4>
-        <PackageName Value="laz_synapse"/>
+        <PackageName Value="KControlsLaz"/>
       </Item4>
       <Item5>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item5>
       <Item6>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="pascalscript"/>
       </Item6>
       <Item7>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="laz_synapse"/>
       </Item7>
       <Item8>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="lclextensions_package"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item9>
       <Item10>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item10>
       <Item11>
-        <PackageName Value="FCL"/>
+        <PackageName Value="richmemopackage"/>
       </Item11>
       <Item12>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item12>
+      <Item13>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item13>
+      <Item14>
+        <PackageName Value="FCL"/>
+      </Item14>
+      <Item15>
+        <PackageName Value="LCL"/>
+      </Item15>
     </RequiredPackages>
     <Units Count="127">
       <Unit0>
@@ -1202,6 +1188,7 @@ end;"/>
       <Unit44>
         <Filename Value="..\..\components\tslib\core\ts.core.brreunicode.pas"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.BRREUnicode"/>
       </Unit44>
       <Unit45>
         <Filename Value="..\..\components\tslib\core\ts.core.nativexml.debug.pas"/>
@@ -1717,9 +1704,8 @@ end;"/>
       <Filename Value="notepas"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\..\components\OXml\units"/>
-      <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\components;..\..\components\tslib\core;..\..\components\tslib\editor;..\..\components\tslib\richeditor;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\settingsdialog;..\..\..\typhon\components\pl_LuiControls\source\multilog;..\..\components\tslib\editor\search;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\htmlview;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\viewlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\test;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\shortcuts;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\colors;..\..\components\tslib\editor\sortstrings;..\..\components\OXml\units"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib"/>
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
@@ -1764,38 +1750,4 @@ end;"/>
     </Other>
     <CompileReasons Compile="False" Build="False" Run="False"/>
   </CompilerOptions>
-  <Debugging>
-    <Exceptions Count="10">
-      <Item1>
-        <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
-        <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
-        <Name Value="EFOpenError"/>
-      </Item3>
-      <Item4>
-        <Name Value="Exception"/>
-      </Item4>
-      <Item5>
-        <Name Value="EXMLReadError"/>
-      </Item5>
-      <Item6>
-        <Name Value="EResNotFound"/>
-      </Item6>
-      <Item7>
-        <Name Value="ERegExpr"/>
-      </Item7>
-      <Item8>
-        <Name Value="EComponentError"/>
-      </Item8>
-      <Item9>
-        <Name Value="EVariantBadVarTypeError"/>
-      </Item9>
-      <Item10>
-        <Name Value="ERangeError"/>
-      </Item10>
-    </Exceptions>
-  </Debugging>
 </CONFIG>

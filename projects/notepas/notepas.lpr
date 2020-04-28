@@ -33,7 +33,7 @@ uses
   runtimetypeinfocontrols,
   pascalscript,
   kcontrols,
-  ExceptionLogger,
+  //ExceptionLogger,
   lclextensions_package,
 
   Notepas.Main.Form;
@@ -43,9 +43,9 @@ uses
 begin
   {$IF DECLARED(UseHeapTrace)}
    GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
-  //if FileExists('Notepas.trc') then
-  //  DeleteFile('Notepas.trc');
-  //SetHeapTraceOutput('Notepas.trc');
+  if FileExists('Notepas.trc') then
+    DeleteFile('Notepas.trc');
+  SetHeapTraceOutput('Notepas.trc');
   {$ENDIF}
   Application.Title := 'Notepas';
 

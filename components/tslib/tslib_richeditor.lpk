@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="tslib_richeditor"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="richeditor"/>
+        <OtherUnitFiles Value="richeditor"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files Count="11">
+      <Item1>
+        <Filename Value="richeditor\ts.richeditor.manager.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="richeditor\ts.richeditor.view.kmemo.lfm"/>
+        <Type Value="LFM"/>
+      </Item2>
+      <Item3>
+        <Filename Value="richeditor\ts.richeditor.events.pas"/>
+        <UnitName Value="ts.RichEditor.Events"/>
+      </Item3>
+      <Item4>
+        <Filename Value="richeditor\ts.richeditor.factories.menus.pas"/>
+        <UnitName Value="ts.RichEditor.Factories.Menus"/>
+      </Item4>
+      <Item5>
+        <Filename Value="richeditor\ts.richeditor.factories.pas"/>
+        <UnitName Value="ts.RichEditor.Factories"/>
+      </Item5>
+      <Item6>
+        <Filename Value="richeditor\ts.richeditor.factories.toolbars.pas"/>
+        <UnitName Value="ts.RichEditor.Factories.Toolbars"/>
+      </Item6>
+      <Item7>
+        <Filename Value="richeditor\ts.richeditor.interfaces.pas"/>
+        <UnitName Value="ts.RichEditor.Interfaces"/>
+      </Item7>
+      <Item8>
+        <Filename Value="richeditor\ts.richeditor.manager.pas"/>
+        <UnitName Value="ts.RichEditor.Manager"/>
+      </Item8>
+      <Item9>
+        <Filename Value="richeditor\ts.richeditor.settings.pas"/>
+        <UnitName Value="ts.RichEditor.Settings"/>
+      </Item9>
+      <Item10>
+        <Filename Value="richeditor\ts.richeditor.types.pas"/>
+        <UnitName Value="ts.RichEditor.Types"/>
+      </Item10>
+      <Item11>
+        <Filename Value="richeditor\ts.richeditor.view.kmemo.pas"/>
+        <UnitName Value="ts.RichEditor.View.KMemo"/>
+      </Item11>
+    </Files>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="KControlsLaz"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="tslib_core"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

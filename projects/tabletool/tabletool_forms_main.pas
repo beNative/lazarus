@@ -98,8 +98,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Editor.Factories,
-
+  ts.Editor.Factories, ts.Logger.SharedLogger, ts.Core.Logger.Channel.IPC,
   TableTool.Helpers;
 
 { TfrmMain }
@@ -107,6 +106,7 @@ uses
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
+  Logger.
   FEditor := TEditorFactories.CreateView(pnlEditor);
 end;
 

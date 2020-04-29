@@ -9,7 +9,7 @@ object frmSettingsDialog: TfrmSettingsDialog
   ClientWidth = 614
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '1.8.4.0'
+  LCLVersion = '2.0.2.0'
   object pgcMain: TPageControl
     Left = 0
     Height = 390
@@ -259,8 +259,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
   end
   object aclMain: TActionList
-    left = 584
-    top = 72
+    left = 360
+    top = 192
     object actCreateNewDatabase: TAction
       Category = 'Database'
       Caption = 'Create new'
@@ -316,18 +316,18 @@ object frmSettingsDialog: TfrmSettingsDialog
   object dscGlyph: TDataSource
     OnStateChange = dscGlyphStateChange
     OnUpdateData = dscGlyphUpdateData
-    left = 584
-    top = 200
+    left = 360
+    top = 288
   end
   object dlgOpen: TOpenDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    left = 584
-    top = 136
+    left = 360
+    top = 240
   end
   object dscHighlighter: TDataSource
-    left = 584
-    top = 272
+    left = 360
+    top = 336
   end
 end

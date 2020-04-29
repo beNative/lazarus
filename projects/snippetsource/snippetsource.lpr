@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   SysUtils, Forms, pascalscript, lazcontrols, luicontrols,
-  virtualtreeview_package,
+  virtualtreeview_package, cmdbox,
   virtualdbtreeexlaz,
 
   { you can add units after this }
@@ -16,7 +16,7 @@ uses
   ts.Core.Logger.Interfaces, ts.Core.Logger, ts.Core.SharedLogger,
   ts.Core.Utils,
 
-  SnippetSource.Forms.Main, SnippetSource.Resources;
+  SnippetSource.Forms.Main, SnippetSource.Resources, SnippetSource.Forms.Console;
 
 {$R *.res}
 
@@ -33,5 +33,3 @@ begin
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.
-
-

@@ -76,6 +76,7 @@
 								<Foreground>clRed</Foreground>
 								<Style>[fsBold]</Style>
 							</SymbolAttri>
+							<ProcedureHeaderName>(TSynHighlighterAttributesModifier)</ProcedureHeaderName>
 							<CaseLabelAttri>(TSynHighlighterAttributesModifier)</CaseLabelAttri>
 							<DirectiveAttri>(TSynHighlighterAttributes)
 								<Foreground>clOlive</Foreground>

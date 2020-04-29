@@ -28,10 +28,10 @@ uses
 
   DefaultTranslator,
 
-  //UExceptionLogger,
+  UExceptionLogger,
 
   // for debugging
-  //ts.Core.SharedLogger,
+  ts.Core.SharedLogger,
 
   ts.Components.Docking, ts.Components.Docking.Storage,
   ts.Components.UniqueInstance,
@@ -62,6 +62,7 @@ type
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
+    ExceptionLogger: TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     pnlToolBar            : TPanel;
@@ -229,7 +230,7 @@ uses
 
   httpsend,
 
-  ts.Core.VersionInfo, ts.Core.Utils, ts.Core.Helpers,
+  ts.Core.VersionInfo, ts.Core.Utils, ts.Core.Helpers, ts.Core.Logger.Channel.IPC,
 
   ts.Editor.AboutDialog, ts.Editor.Resources, ts.Editor.Factories.Settings,
   ts.Editor.Factories,
@@ -256,6 +257,8 @@ begin
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
 
   SetDefaultLang(FSettings.LanguageCode);
+
+  Logger.Send(12);
 
   //Logger.Info('SetDefaultLang to ' + FSettings.LanguageCode);
 

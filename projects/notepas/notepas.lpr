@@ -33,7 +33,7 @@ uses
   runtimetypeinfocontrols,
   pascalscript,
   kcontrols,
-  //ExceptionLogger,
+  ExceptionLogger,
   lclextensions_package,
 
   Notepas.Main.Form;

@@ -2,13 +2,13 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <BuildModes Active="Release"/>
-    <Units Count="30">
+    <Units Count="33">
       <Unit0>
         <Filename Value="TableTool.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="50" Y="14"/>
         <UsageCount Value="69"/>
         <Loaded Value="True"/>
@@ -21,11 +21,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="TableTool_Forms_Main"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="83"/>
-        <CursorPos X="4" Y="101"/>
+        <EditorIndex Value="4"/>
+        <TopLine Value="79"/>
+        <CursorPos X="24" Y="101"/>
         <UsageCount Value="69"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="tabletool.helpers.pas"/>
@@ -56,11 +56,10 @@
       <Unit6>
         <Filename Value="..\..\..\..\lazarus\lcl\grids.pas"/>
         <UnitName Value="Grids"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="889"/>
         <CursorPos X="15" Y="908"/>
         <UsageCount Value="28"/>
-        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\..\..\lazarus\fpc\2.7.1\source\packages\fcl-base\src\avl_tree.pp"/>
@@ -196,139 +195,167 @@
       <Unit28>
         <Filename Value="..\..\..\..\lazarus\components\synedit\synedit.pp"/>
         <UnitName Value="SynEdit"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="911"/>
         <CursorPos X="15" Y="925"/>
         <UsageCount Value="29"/>
-        <Loaded Value="True"/>
       </Unit28>
       <Unit29>
         <Filename Value="..\..\..\..\lazarus\fpc\2.7.1\source\rtl\win\sysutils.pp"/>
         <UsageCount Value="19"/>
       </Unit29>
+      <Unit30>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <UnitName Value="ts.Editor.Utils"/>
+        <TopLine Value="540"/>
+        <CursorPos X="41" Y="562"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <UnitName Value="ts.Editor.Settings"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="31"/>
+        <CursorPos X="14" Y="62"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="62"/>
+        <CursorPos X="17" Y="93"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit32>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="88" Column="47" TopLine="87"/>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="331" TopLine="313"/>
       </Position1>
       <Position2>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="158" TopLine="140"/>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="351" Column="25" TopLine="326"/>
       </Position2>
       <Position3>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="9" Column="37"/>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="418" Column="77" TopLine="383"/>
       </Position3>
       <Position4>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="8" Column="37"/>
+        <Caret Line="64" Column="68" TopLine="55"/>
       </Position4>
       <Position5>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="111" Column="38" TopLine="93"/>
+        <Filename Value="tabletool.helpers.pas"/>
+        <Caret Line="29" Column="30"/>
       </Position5>
       <Position6>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="238" Column="3" TopLine="221"/>
+        <Caret Line="418" Column="6" TopLine="401"/>
       </Position6>
       <Position7>
         <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="38" Column="32" TopLine="10"/>
+        <Caret Line="334" TopLine="308"/>
       </Position7>
       <Position8>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="320" Column="4" TopLine="300"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="140" Column="31" TopLine="123"/>
       </Position8>
       <Position9>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="328" TopLine="310"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="149" Column="62" TopLine="124"/>
       </Position9>
       <Position10>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="329" TopLine="311"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="165" Column="43" TopLine="130"/>
       </Position10>
       <Position11>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="331" TopLine="313"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="166" Column="43" TopLine="131"/>
       </Position11>
       <Position12>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="351" Column="25" TopLine="326"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="165" Column="43" TopLine="130"/>
       </Position12>
       <Position13>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="418" Column="77" TopLine="383"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="164" Column="43" TopLine="129"/>
       </Position13>
       <Position14>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="64" Column="68" TopLine="55"/>
+        <Caret Line="166" Column="43" TopLine="131"/>
       </Position14>
       <Position15>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="29" Column="30"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position15>
       <Position16>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="418" Column="6" TopLine="401"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position16>
       <Position17>
-        <Filename Value="tabletool.helpers.pas"/>
-        <Caret Line="334" TopLine="308"/>
+        <Filename Value="tabletool_forms_main.pas"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position17>
       <Position18>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="140" Column="31" TopLine="123"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position18>
       <Position19>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="149" Column="62" TopLine="124"/>
+        <Caret Line="99" Column="4" TopLine="81"/>
       </Position19>
       <Position20>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="165" Column="43" TopLine="130"/>
+        <Caret Line="100" Column="4" TopLine="82"/>
       </Position20>
       <Position21>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="166" Column="43" TopLine="131"/>
+        <Caret Line="101" Column="4" TopLine="83"/>
       </Position21>
       <Position22>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="165" Column="43" TopLine="130"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
       </Position22>
       <Position23>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="164" Column="43" TopLine="129"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <Caret Line="60" Column="44" TopLine="44"/>
       </Position23>
       <Position24>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="166" Column="43" TopLine="131"/>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="62" Column="14" TopLine="31"/>
       </Position24>
       <Position25>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
+        <Caret Line="93" Column="17" TopLine="62"/>
       </Position25>
       <Position26>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="100" Column="4" TopLine="82"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <Caret Line="482" TopLine="452"/>
       </Position26>
       <Position27>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Caret Line="109" Column="10" TopLine="69"/>
       </Position27>
       <Position28>
         <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="100" Column="4" TopLine="82"/>
+        <Caret Line="101" Column="39" TopLine="82"/>
       </Position28>
       <Position29>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="99" Column="4" TopLine="81"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <Caret Line="483" Column="3" TopLine="461"/>
       </Position29>
       <Position30>
-        <Filename Value="tabletool_forms_main.pas"/>
-        <Caret Line="100" Column="4" TopLine="82"/>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <Caret Line="562" Column="41" TopLine="540"/>
       </Position30>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
   <Debugging>
     <BreakPoints Count="2">

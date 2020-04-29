@@ -77,6 +77,7 @@ type
     vstImageList              : TVirtualStringTree;
     {$ENDREGION}
 
+    {$REGION 'action handlers'}
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateNewDatabaseExecute(Sender: TObject);
     procedure actDatabaseIntegrityCheckExecute(Sender: TObject);
@@ -86,6 +87,7 @@ type
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actOpenGlyphsExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
+    {$ENDREGION}
 
     procedure cbxImageListDrawItem(
       Control : TWinControl;
@@ -137,7 +139,6 @@ type
     procedure BeforeDestruction; override;
 
     procedure UpdateActions; override;
-
 
     property Connection: IConnection
       read GetConnection;
@@ -440,14 +441,13 @@ end;
 {$REGION 'public methods'}
 procedure TfrmSettingsDialog.UpdateActions;
 var
-  S: string;
+  S : string;
 begin
   inherited UpdateActions;
   S := edtDatabaseFile.FileName;
   actOpenDatabase.Enabled := FileExists(S) and (Connection.FileName <> S);
   actCreateNewDatabase.Enabled := not FileExists(S);
   actDeleteDatabase.Enabled := FileExists(S);
-
 end;
 {$ENDREGION}
 

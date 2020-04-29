@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -16,7 +16,7 @@
     </i18n>
     <VersionInfo>
       <UseVersionInfo Value="True"/>
-      <StringTable LegalCopyright="Tim Sinaeve (c) 2014" ProductVersion=""/>
+      <StringTable LegalCopyright="Tim Sinaeve (c) 2014"/>
     </VersionInfo>
     <BuildModes Count="2">
       <Item1 Name="Default" Default="True"/>
@@ -59,9 +59,10 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="6">
       <Item1>

@@ -26,7 +26,7 @@
       <AutoIncrementBuild Value="True"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="50"/>
-      <BuildNr Value="246"/>
+      <BuildNr Value="249"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2020 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="0.9.50" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
@@ -39,6 +39,7 @@
             <Filename Value="notepas"/>
           </Target>
           <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -60,7 +61,6 @@
           </CodeGeneration>
           <Linking>
             <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
               <UseHeaptrc Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>

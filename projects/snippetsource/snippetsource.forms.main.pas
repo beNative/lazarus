@@ -34,7 +34,7 @@ uses
   ts.RichEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
-  SnippetSource.Interfaces, SnippetSource.Settings;
+  SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Console;
 
 {
   REMARKS:
@@ -54,6 +54,7 @@ type
     aclMain             : TActionList;
     actAbout            : TAction;
     actExecute          : TAction;
+    actConsole: TAction;
     actShowGridForm     : TAction;
     actLookup           : TAction;
     actSettings         : TAction;
@@ -86,10 +87,13 @@ type
     splVertical         : TSplitter;
     tlbApplication      : TToolBar;
     tlbEditorView       : TToolBar;
+    btnConsole          : TToolButton;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
+    procedure actConsoleExecute(Sender: TObject);
+    procedure actExecuteExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowGridFormExecute(Sender: TObject);
@@ -143,6 +147,7 @@ type
     FEditorSettings    : IEditorSettings;
     FRichEditorManager : IRichEditorManager;
     FSettings          : TSettings;
+    FConsole           : TfrmConsole;
 
     procedure FTreeDeleteSelectedNodes(Sender: TObject);
     function GetConnection: IConnection;
@@ -332,6 +337,20 @@ end;
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
   ShowAboutDialog;
+end;
+
+procedure TfrmMain.actConsoleExecute(Sender: TObject);
+begin
+  if not Assigned(FConsole) then
+  begin
+    FConsole := TfrmConsole.Create(Self);
+  end;
+  FConsole.Show;
+end;
+
+procedure TfrmMain.actExecuteExecute(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmMain.actToggleFullScreenExecute(Sender: TObject);
@@ -885,6 +904,8 @@ begin
   AddButton('');
   AddButton('actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu);
   AddButton('actToggleHighlighter', FEditorManager.Menus.HighlighterPopupMenu);
+  AddButton('');
+
   AddButton('');
   AddButton('actSettings');
   AddButton('actAbout');

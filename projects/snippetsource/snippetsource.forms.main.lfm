@@ -84,6 +84,11 @@ object frmMain: TfrmMain
           Action = actSettings
           ImageIndex = 7
         end
+        object btnConsole: TToolButton
+          Left = 41
+          Top = 0
+          Action = actConsole
+        end
       end
       object pnlComments: TPanel
         Left = 0
@@ -202,7 +207,6 @@ object frmMain: TfrmMain
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -221,7 +225,6 @@ object frmMain: TfrmMain
       BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Caption = 'INS'
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
@@ -240,7 +243,6 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlue
       Font.Height = -11
@@ -259,7 +261,6 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clGreen
       Font.Height = -11
@@ -277,16 +278,15 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      BorderStyle = bsSingle
-      ClientHeight = 14
-      ClientWidth = 40
+      ClientHeight = 18
+      ClientWidth = 44
       TabOrder = 4
       object btnLineBreakStyle: TSpeedButton
         Left = 0
-        Height = 14
+        Height = 18
         Hint = 'Line break style'
         Top = 0
-        Width = 40
+        Width = 44
         Align = alClient
         Flat = True
         OnClick = btnLineBreakStyleClick
@@ -304,7 +304,6 @@ object frmMain: TfrmMain
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -322,7 +321,6 @@ object frmMain: TfrmMain
       BorderSpacing.Left = 2
       BorderSpacing.Right = 2
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clBlack
       Font.Height = -11
@@ -343,7 +341,6 @@ object frmMain: TfrmMain
       BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
       BevelOuter = bvNone
-      BorderStyle = bsSingle
       Font.CharSet = ANSI_CHARSET
       Font.Color = clRed
       Font.Height = -11
@@ -363,6 +360,7 @@ object frmMain: TfrmMain
     top = 105
     object actExecute: TAction
       Caption = 'Execute'
+      OnExecute = actExecuteExecute
       ShortCut = 49268
     end
     object actLookup: TAction
@@ -401,6 +399,10 @@ object frmMain: TfrmMain
     object actShowGridForm: TAction
       Caption = 'Show grid form'
       OnExecute = actShowGridFormExecute
+    end
+    object actConsole: TAction
+      Caption = 'Console'
+      OnExecute = actConsoleExecute
     end
   end
   object imlMain: TImageList

@@ -115,8 +115,6 @@ type
       EventType : TDBEventType;
       const Msg : string
     );
-    procedure plZlibCompress1Compress(Sender: TObject; FileIndex: Integer;
-      FileSize, FilePos: Int64);
     procedure qrySnippetAfterOpen(DataSet: TDataSet);
     procedure qrySnippetAfterPost(DataSet: TDataSet);
     procedure qrySnippetBeforeOpen(DataSet: TDataSet);
@@ -394,7 +392,6 @@ begin
   end;
   conMain.DatabaseName := LFileName;
   conMain.Connected := True;
-  //Logger.Send('FileName', LFileName);
   if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
   begin
     CreateNewDatabase;
@@ -402,6 +399,7 @@ begin
   qrySnippet.UsePrimaryKeyAsKey := True;
   qryHighlighter.Active := True;
   DataSet.Active := True;
+//  Logger.Info('It starts...');
 end;
 
 procedure TdmSnippetSource.BeforeDestruction;
@@ -422,13 +420,6 @@ var
   S : string;
 begin
   S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
-  //Logger.Send(S, Msg);
-end;
-
-procedure TdmSnippetSource.plZlibCompress1Compress(Sender: TObject;
-  FileIndex: Integer; FileSize, FilePos: Int64);
-begin
-  //
 end;
 
 {

@@ -4,6 +4,9 @@ TODO:
 Actions:
 - actCopySnippetToClipBoard
 
+28/04/2020
+- FPC 3.0.4 and Lazarus 2.0.2 (latest stable release)
+
 15/01/2020
 
 27/02/2019

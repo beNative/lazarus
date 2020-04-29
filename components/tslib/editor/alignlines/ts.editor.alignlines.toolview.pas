@@ -32,7 +32,7 @@ uses
   ts.Editor.ToolView.Base, ts.Editor.Interfaces, ts.Editor.Types,
   ts.Editor.AlignLines.Settings,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 const
   DEFAULT_TOKENS: array[0..28] of string = (

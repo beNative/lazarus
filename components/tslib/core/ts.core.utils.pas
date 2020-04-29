@@ -28,7 +28,7 @@ uses
 {$IFDEF WINDOWS}
   Windows,
 {$ENDIF}
-{$IFDEF Darwin}
+{$IFDEF DARWIN}
   MacOSAll,
 {$ENDIF}
 
@@ -87,12 +87,14 @@ function Like(
 
 { original author: Vladimir Gaitanoff }
 { Returns a number of words delimited with AWordDelims }
+
 function WordCount(
   const AString     : string;
   const AWordDelims : TSysCharSet = AnsiWhiteSpace
 ) : Integer;
 
 { Returns a position of word number AIndex in the string AString }
+
 function WordPosition(
   const AIndex      : Integer;
   const AString     : string;
@@ -100,6 +102,7 @@ function WordPosition(
 ) : Integer;
 
 { Returns a word number AIndex in the string AString }
+
 function ExtractWord(
   const AIndex      : Integer;
   const AString     : string;
@@ -2187,14 +2190,14 @@ end;
 {$ENDIF}
 
 function GetApplicationPath(): string;
-{$IFDEF Darwin}
+{$IFDEF DARWIN}
 var
   pathRef: CFURLRef;
   pathCFStr: CFStringRef;
   pathStr,BundleResourcesDirectory: shortstring;
 {$ENDIF}
 begin
-  {$IFDEF Darwin}
+  {$IFDEF DARWIN}
     BundleResourcesDirectory := '/Contents/Resources/';
     pathRef := CFBundleCopyBundleURL(CFBundleGetMainBundle());
     pathCFStr := CFURLCopyFileSystemPath(pathRef, kCFURLPOSIXPathStyle);

@@ -104,7 +104,7 @@ implementation
 uses
   ts.Editor.Utils,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 {$REGION 'construction and destruction'}
 constructor TEditorSelection.Create(AEditorView: IEditorView);

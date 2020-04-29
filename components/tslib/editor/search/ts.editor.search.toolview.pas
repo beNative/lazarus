@@ -45,7 +45,7 @@ uses
 
   ts.Editor.Interfaces, ts.Editor.Types, ts.Editor.ToolView.Base,
 
-  ts.Core.SharedLogger, ts.Core.Utils;
+  ts.Core.Logger, ts.Core.Utils;
 
 type
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)

@@ -111,8 +111,8 @@
         <UnitName Value="ts.Core.Logger.Interfaces"/>
       </Item19>
       <Item20>
-        <Filename Value="core\ts.core.logger.pas"/>
-        <UnitName Value="ts.Core.Logger"/>
+        <Filename Value="core\ts.core.logger.base.pas"/>
+        <UnitName Value="ts.core.logger.base"/>
       </Item20>
       <Item21>
         <Filename Value="core\ts.core.nativexml.debug.pas"/>
@@ -143,8 +143,8 @@
         <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
       </Item27>
       <Item28>
-        <Filename Value="core\ts.core.sharedlogger.pas"/>
-        <UnitName Value="ts.Core.SharedLogger"/>
+        <Filename Value="core\ts.core.logger.pas"/>
+        <UnitName Value="ts.core.logger"/>
       </Item28>
       <Item29>
         <Filename Value="core\ts.core.sqlparser.pas"/>

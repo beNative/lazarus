@@ -168,7 +168,7 @@ uses
   ts.Editor.Tools.Settings,
   ts.Core.Utils,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 resourcestring
   SAttributeName = 'Attribute name';

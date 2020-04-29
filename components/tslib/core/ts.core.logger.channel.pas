@@ -16,12 +16,13 @@
 
 unit ts.Core.Logger.Channel;
 
-{$mode delphi}
+{$MODE DELPHI}
 
 interface
 
 uses
   SysUtils, Classes,
+  fgl,
 
   ts.Core.Logger.Interfaces;
 
@@ -72,10 +73,10 @@ type
 
   TChannelList = class(TInterfacedObject, IChannelList)
   private
-    FList : TFpList;
+    FList : TFPGInterfacedObjectList<ILogChannel>;
 
   protected
-    function GetCount: Integer; inline;
+    function GetCount: Integer;
     function GetItems(AIndex:Integer): ILogChannel;
 
   public
@@ -99,12 +100,12 @@ implementation
 {$REGION 'construction and destruction'}
 constructor TChannelList.Create;
 begin
-  FList := TFPList.Create;
+  FList := TFPGInterfacedObjectList<ILogChannel>.Create;
 end;
 
 destructor TChannelList.Destroy;
 begin
-  FList.Destroy;
+  FList.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -117,7 +118,7 @@ end;
 
 function TChannelList.GetItems(AIndex:Integer): ILogChannel;
 begin
-  Result := ILogChannel(FList[AIndex]);
+  Result := FList[AIndex];
 end;
 {$ENDREGION}
 

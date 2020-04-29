@@ -96,7 +96,7 @@ implementation
 uses
   TypInfo,
 
-  ts.Core.Utils, ts.Core.SharedLogger;
+  ts.Core.Utils, ts.Core.Logger;
 
 var
   GridForm : TfrmGrid;

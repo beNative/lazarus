@@ -665,9 +665,9 @@ begin
     vtString: Result := StrToInt(GetAsString);
     vtBoolean: Result := Integer(GetAsBoolean);
     vtWideString: Result := StrToInt(string(GetAsWideString));
- {$IFDEF UNICODE}
+    {$IFDEF UNICODE}
     vtAnsiString: Result := StrToInt(string(GetAsAnsiString));
-  {$ENDIF}
+    {$ENDIF}
     else
       raise Exception.CreateFmt(
         'Value of type <%s> cannot be converted to Cardinal',
@@ -714,9 +714,9 @@ begin
     vtBoolean: Result := Integer(GetAsBoolean);
     vtString: Result := StrToFloat(GetAsString);
     vtWideString: Result := StrToFloat(string(GetAsWideString));
- {$IFDEF UNICODE}
+    {$IFDEF UNICODE}
     vtAnsiString: Result := StrToFloat(string(GetAsAnsiString));
-  {$ENDIF}
+    {$ENDIF}
     else
       raise Exception.CreateFmt(
         'Value of type <%s> cannot be converted to Double',
@@ -729,11 +729,11 @@ function TValue.GetAsFloat: Extended;
 begin
   if ValueType = vtFloat then
   begin
-  {$IFNDEF CPUX64}
+    {$IFNDEF CPUX64}
     Result := FData.AsFloat
-  {$ELSE}
+    {$ELSE}
     Result := FData.AsDouble
-  {$ENDIF}
+    {$ENDIF}
   end
   else
     Result := GetAsFloatWithCast;

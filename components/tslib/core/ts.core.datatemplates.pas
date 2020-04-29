@@ -184,7 +184,7 @@ type
 implementation
 
 uses
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 {$REGION 'TDataTemplate'}
 function TDataTemplate.CompareItems(const Item1, Item2: TObject;

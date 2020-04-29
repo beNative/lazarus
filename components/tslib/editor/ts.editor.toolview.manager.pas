@@ -115,7 +115,7 @@ implementation
 uses
   StrUtils,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 { TToolView }
 

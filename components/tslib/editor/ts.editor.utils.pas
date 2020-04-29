@@ -32,7 +32,7 @@ uses
 
   AVL_Tree,
 
-  ts.Core.SharedLogger,
+  ts.Core.Logger,
 
   ts.Editor.Types;
 

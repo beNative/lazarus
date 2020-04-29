@@ -83,7 +83,7 @@ uses
 {$ENDIF}
   TypInfo, Variants,
 
-  ts.Core.SharedLogger,
+  ts.Core.Logger,
 
   ts.Core.NativeXml;
 

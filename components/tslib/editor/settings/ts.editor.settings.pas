@@ -73,7 +73,7 @@ uses
 
   ts.Editor.CodeTags,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 const
   DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE = True;

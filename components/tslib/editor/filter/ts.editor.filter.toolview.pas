@@ -57,10 +57,16 @@ type
     pnlMain            : TPanel;
     sbrMain            : TStatusBar;
 
-    function CCustomDraw(Sender: TObject; ColumnDefinition: TColumnDefinition;
-      Item: TObject; TargetCanvas: TCanvas; CellRect: TRect;
-      ImageList: TCustomImageList; DrawMode: TDrawMode;
-      Selected: Boolean): Boolean;
+    function CCustomDraw(
+      Sender           : TObject;
+      ColumnDefinition : TColumnDefinition;
+      Item             : TObject;
+      TargetCanvas     : TCanvas;
+      CellRect         : TRect;
+      ImageList        : TCustomImageList;
+      DrawMode         : TDrawMode;
+      Selected         : Boolean
+    ): Boolean;
 
     procedure actFocusFilterTextExecute(Sender: TObject);
 
@@ -150,7 +156,7 @@ uses
 
   LCLProc, LCLType, LMessages, GraphUtil,
 
-  ts.Core.SharedLogger, ts.Core.Utils, ts.Core.Helpers,
+  ts.Core.Logger, ts.Core.Utils, ts.Core.Helpers,
   ts.Core.ColumnDefinitionsDataTemplate,
 
   ts.Editor.Utils;

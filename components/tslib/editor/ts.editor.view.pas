@@ -73,7 +73,7 @@ uses
   ts.Editor.Selection,
 
   // logging
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 type
   TEditorView = class(TForm, IEditorView, IEditorSelection)

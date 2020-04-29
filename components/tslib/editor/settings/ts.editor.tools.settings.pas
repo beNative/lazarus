@@ -54,7 +54,7 @@ type
 implementation
 
 uses
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 {$REGION 'property access mehods'}
 function TEditorToolSettings.GetItemsByClass(

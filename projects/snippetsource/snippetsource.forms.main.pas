@@ -54,7 +54,7 @@ type
     aclMain             : TActionList;
     actAbout            : TAction;
     actExecute          : TAction;
-    actConsole: TAction;
+    actConsole          : TAction;
     actShowGridForm     : TAction;
     actLookup           : TAction;
     actSettings         : TAction;
@@ -149,13 +149,13 @@ type
     FSettings          : TSettings;
     FConsole           : TfrmConsole;
 
-    procedure FTreeDeleteSelectedNodes(Sender: TObject);
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
 
+    procedure FTreeDeleteSelectedNodes(Sender: TObject);
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
     procedure CreateTreeview;
@@ -175,7 +175,6 @@ type
       const ACommonPath : string;
       ATree             : TBaseVirtualTree
     );
-
     procedure ExportNode;
 
   protected
@@ -221,7 +220,7 @@ implementation
 uses
   StrUtils, Base64, Dialogs,
 
-  ts.Core.Utils, ts.Core.SharedLogger,
+  ts.Core.Utils, ts.Core.Logger, ts.Core.Logger.Channel.IPC,
 
   ts.Editor.AboutDialog,
 
@@ -259,6 +258,8 @@ begin
   );
   FVersionInfo := TVersionInfo.Create(Self);
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.FileVersion]);
+  Logger.Info('SnippetSource Started');
+  Logger.Send(string(Caption));
 end;
 
 procedure TfrmMain.BeforeDestruction;
@@ -270,6 +271,7 @@ begin
   FEditorSettings := nil;
   FreeAndNil(FFileSearcher);
   inherited BeforeDestruction;
+  Logger.Info('SnippetSource Stopped');
 end;
 {$ENDREGION}
 
@@ -297,24 +299,6 @@ end;
 function TfrmMain.GetSnippet: ISnippet;
 begin
   Result := FData as ISnippet;
-end;
-
-function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
-  ): string;
-var
-  I  : Integer = 0;
-  B  : Boolean = False;
-  HL : THighlighters;
-begin
-  HL := FEditorManager.Highlighters;
-  while (I < HL.Count) and not B do
-  begin
-    B := HL[I].FileExtensions.Contains(AFileExtension.ToLower);
-    if not B then
-      Inc(I);
-  end;
-  if B then
-    Result := HL[I].Highlighter;
 end;
 {$ENDREGION}
 
@@ -563,6 +547,24 @@ end;
 {$ENDREGION}
 
 {$REGION 'private methods'}
+function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
+  ): string;
+var
+  I  : Integer = 0;
+  B  : Boolean = False;
+  HL : THighlighters;
+begin
+  HL := FEditorManager.Highlighters;
+  while (I < HL.Count) and not B do
+  begin
+    B := HL[I].FileExtensions.Contains(AFileExtension.ToLower);
+    if not B then
+      Inc(I);
+  end;
+  if B then
+    Result := HL[I].Highlighter;
+end;
+
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
   ATree: TBaseVirtualTree);
 var

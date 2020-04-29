@@ -424,7 +424,7 @@ uses
 
   ts.Core.Value, ts.Core.ColumnDefinitionsDataTemplate,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 const
   CDefaultCellRect: TRect = (Left: 0; Top: 0; Right: 0; Bottom: 0);

@@ -88,7 +88,7 @@ uses
 
   sqldb, sqlite3conn, db, sqlscript, BufDataset,
 
-  ts.Core.SharedLogger,
+  ts.Core.Logger,
 
   SnippetSource.Interfaces;
 

@@ -101,7 +101,7 @@ uses
   ts.Editor.Types, ts.Editor.Interfaces, ts.Editor.Resources,
   ts.Editor.Highlighters, ts.Editor.View,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 type
   TdmEditorManager = class(TDataModule, IEditorManager,

@@ -23,24 +23,6 @@ unit ts.Core.KeyValues;
     - When a given name does not exist in the collection, the value Unassigned
       is returned (see GetItemValue). => maybe this default behaviour should be
       made configurable.
-
-  TODO :
-    - include a TObject property to associate with a key value?
-    - Add As<type> methods to get the Value in the appropriate type (like
-      DB-fields from a TDataSet)
-    - AddMethods AssignFromDataSet passing the fieldnames ?
-    - Make it possible to receive keyvalues in an array of const structure (
-      so we can use TDataSet.AppendRecord and TDataSet.InsertRecord and
-      TDataSet.SetFields)
-    - Description property
-    - procedure to reset all values for all keys to Unassigned (or a given
-      value?) => reset to Unassigned or remove all values from collection?
-    - Write to / save from INI file or stream (streaming support needs to be
-      investigated)
-    - CheckRequiredValues(const AKeynames : string = ''), which checks if the
-      given keynames (or all if they are not passed) have a value assigned. If
-      this is not the case an exception will be raised.
-    - Enumeration support (so we can use it in "for in" statements) in D2006+
 }
 
 {
@@ -67,14 +49,10 @@ unit ts.Core.KeyValues;
 
 {$MODE DELPHI}
 
-//*****************************************************************************
-
 interface
 
 uses
   SysUtils, Classes;
-
-//=============================================================================
 
 type
   TtsKeyValues = class;
@@ -117,8 +95,6 @@ type
   end;
 
   TtsKeyValueClass = class of TtsKeyValue;
-
-//=============================================================================
 
   TtsKeyValues = class(TCollection)
   private
@@ -191,16 +167,12 @@ type
       read GetItem write SetItem;
   end; // TtsKeyValues
 
-//*****************************************************************************
-
 implementation
 
 uses
   Variants,
 
   ts.Core.Utils;
-
-//=============================================================================
 
 type
   { A custom variant type that implements the mapping from the property names
@@ -222,8 +194,6 @@ type
                          const Value : TVarData): Boolean; override;
   end;
 
-//-----------------------------------------------------------------------------
-
 type
   { Our customized layout of the variants record data. We only need a reference
     to the TtsKeyValues instance. }
@@ -234,8 +204,6 @@ type
     Reserved4                       : LongInt;
   end;
 
-//-----------------------------------------------------------------------------
-
 var
   { The global instance of the custom variant type. The data of the custom
     variant is stored in a TVarData record (which is common to all variants),
@@ -245,17 +213,13 @@ var
 
 { A global function the get our custom VarType value. This may vary and thus
   is determined at runtime. }
-
 function VarDataRecord: TVarType;
 begin
   Result := VarDataRecordType.VarType;
 end;
 
-//-----------------------------------------------------------------------------
-
 { A global function that fills the TVarData fields of the Variant with the
   correct values. }
-
 function VarDataRecordCreate(AKeyValues: TtsKeyValues): Variant;
 begin
   VarClear(Result);
@@ -263,17 +227,7 @@ begin
 //  TVarDataRecordData(Result).KeyValues := AKeyValues;
 end;
 
-
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                             TVarDataRecordType
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{ TVarDataRecordType }
 
 procedure TVarDataRecordType.Clear(var V: TVarData);
 begin
@@ -281,8 +235,6 @@ begin
     TtsKeyValues instance and we are not supposed to destroy it here. }
   SimplisticClear(V);
 end;
-
-//-----------------------------------------------------------------------------
 
 procedure TVarDataRecordType.Copy(var Dest: TVarData; const Source: TVarData;
   const Indirect: Boolean);
@@ -292,14 +244,10 @@ begin
   SimplisticCopy(Dest, Source, Indirect);
 end;
 
-//-----------------------------------------------------------------------------
-
 //function TVarDataRecordType.FixupIdent(const AText: string): string;
 //begin
 //  Result := AText;
 //end;
-
-//-----------------------------------------------------------------------------
 
 function TVarDataRecordType.GetProperty(var Dest: TVarData; const V: TVarData;
   const Name: string): Boolean;
@@ -308,8 +256,6 @@ begin
 //  Variant(Dest) := TVarDataRecordData(V).KeyValues[Name];
 end;
 
-//-----------------------------------------------------------------------------
-
 function TVarDataRecordType.SetProperty(var V: TVarData; const Name: string;
   const Value: TVarData): Boolean;
 begin
@@ -317,24 +263,12 @@ begin
   //TVarDataRecordData(V).KeyValues[Name] := Variant(Value);
 end;
 
-
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                               TtsKeyValues
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
+{ TtsKeyValues }
 
 constructor TtsKeyValues.Create;
 begin
   inherited Create(TtsKeyValue);
 end;
-
-//-----------------------------------------------------------------------------
 
 { Creates a list of keyvalues for the given comma separated list of key names. }
 
@@ -354,10 +288,6 @@ begin
   end;
 end;
 
-
-
-//---|Items|-------------------------------------------------------------------
-
 function TtsKeyValues.GetItem(Index: Integer): TtsKeyValue;
 begin
   Result := inherited Items[Index] as TtsKeyValue;
@@ -367,8 +297,6 @@ procedure TtsKeyValues.SetItem(Index: Integer; const Value: TtsKeyValue);
 begin
   Items[Index].Assign(Value);
 end;
-
-//---|ItemsByName|-------------------------------------------------------------
 
 function TtsKeyValues.GetItemValue(AName: string): Variant;
 var
@@ -396,8 +324,6 @@ begin
   end;
 end;
 
-//---|ObjectsByName|-----------------------------------------------------------
-
 function TtsKeyValues.GetItemObject(Name: string): TObject;
 begin
   // TODO : check for a valid object reference here
@@ -409,14 +335,11 @@ begin
   Values[Name] := Integer(Value);
 end;
 
-
-
 { Overridden method from TCollection to make any necessary changes when the
   items in the collection change. This method is called automatically when an
   update is issued.
   Item = Item that changed. If the Item parameter is nil, then the change
          affects more than one item in the collection. }
-
 procedure TtsKeyValues.Update(AItem: TCollectionItem);
 begin
 // Make necessary adjustments when items in the collection change.
@@ -424,8 +347,6 @@ begin
   if Assigned(FOnChanged) then
     FOnChanged(Self);
 end;
-
-//-----------------------------------------------------------------------------
 
 { Constructs a unique itemname for a new collection-item. }
 
@@ -438,16 +359,12 @@ begin
     Copy(Item.ClassName, 2, Length(Item.ClassName)) + IntToStr(Item.ID + 1);
 end;
 
-
-
 { Adds a new TtsKeyValue instance to the TtsKeyValues collection. }
 
 function TtsKeyValues.Add: TtsKeyValue;
 begin
   Result := inherited Add as TtsKeyValue;
 end;
-
-//-----------------------------------------------------------------------------
 
 { Inserts a new TtsKeyValue instance to the TtsKeyValues collection before
   position specified with Index }
@@ -456,8 +373,6 @@ function TtsKeyValues.Insert(Index: Integer): TtsKeyValue;
 begin
   Result := inherited Insert(Index) as TtsKeyValue;
 end;
-
-//-----------------------------------------------------------------------------
 
 { Represents the Keyvalues collection as a string which can be used for
   diagnostic purposes. }
@@ -477,8 +392,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function TtsKeyValues.Owner: TComponent;
 var
   AOwner: TPersistent;
@@ -490,16 +403,12 @@ begin
     Result := nil;
 end;
 
-//-----------------------------------------------------------------------------
-
 { IInterface support }
 
 function TtsKeyValues._AddRef: Integer; stdcall;
 begin
   Result := InterlockedIncrement(FRefCount);
 end;
-
-//-----------------------------------------------------------------------------
 
 { IInterface support }
 
@@ -509,8 +418,6 @@ begin
   if Result = 0 then
     Destroy;
 end;
-
-//-----------------------------------------------------------------------------
 
 { IInterface support }
 
@@ -522,8 +429,6 @@ begin
     Result := E_NOINTERFACE;
 end;
 
-//-----------------------------------------------------------------------------
-
 function TtsKeyValues.IndexOf(const AName: string): Integer;
 begin
   for Result := 0 to Pred(Count) do
@@ -532,18 +437,13 @@ begin
   Result := -1;
 end;
 
-//-----------------------------------------------------------------------------
-
 { The FindItemID method returns the item in the collection whose ID property
   is passed to it as a parameter. If no item has the specified ID, FindItemID
   returns nil. }
-
 function TtsKeyValues.FindItemID(ID: Integer): TtsKeyValue;
 begin
   Result := inherited FindItemID(ID) as TtsKeyValue;
 end;
-
-//-----------------------------------------------------------------------------
 
 function TtsKeyValues.Find(const AName: string): TtsKeyValue;
 var
@@ -556,19 +456,7 @@ begin
     Result := Items[I];
 end;
 
-
-{
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-                                TtsKeyValue
-_______________________________________________________________________________
-_______________________________________________________________________________
-
-}
-
-
-//---|Collection|--------------------------------------------------------------
+{ TtsKeyValue }
 
 function TtsKeyValue.GetCollection: TtsKeyValues;
 begin
@@ -579,8 +467,6 @@ procedure TtsKeyValue.SetCollection(const Value: TtsKeyValues);
 begin
   inherited Collection := Value;
 end;
-
-//---|DisplayName|-------------------------------------------------------------
 
 function TtsKeyValue.GetDisplayName: string;
 begin
@@ -596,8 +482,6 @@ begin
   end;
 end;
 
-//---|Name|--------------------------------------------------------------------
-
 procedure TtsKeyValue.SetName(const Value: string);
 begin
   if Value <> Name then
@@ -607,8 +491,6 @@ begin
   end;
 end;
 
-//---|Value|-------------------------------------------------------------------
-
 procedure TtsKeyValue.SetValue(const Value: Variant);
 begin
   if Value <> Self.Value then
@@ -617,8 +499,6 @@ begin
     FValue := Value;
   end;
 end;
-
-
 
 procedure TtsKeyValue.Assign(Source: TPersistent);
 begin
@@ -640,8 +520,6 @@ begin
    inherited Assign(Source);
 end;
 
-//-----------------------------------------------------------------------------
-
 { Used to represent the current item as text. }
 
 function TtsKeyValue.KeyValueString: string;
@@ -651,8 +529,6 @@ begin
   else
     Result := Format('%s = %s', [Name, '<Null>']);
 end;
-
-//-----------------------------------------------------------------------------
 
 { Returns a comma separated string of values for the given comma separated
   key names. }
@@ -675,8 +551,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 { Returns a comma separated string of all values. }
 
 function TtsKeyValues.AsCommaText: string;
@@ -694,8 +568,6 @@ begin
       Result := S;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function TtsKeyValues.AsDelimitedText(const AKeyNames, ADelimiter: string;
   AQuoteValues: Boolean; AQuoteChar: Char): string;
@@ -718,8 +590,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function TtsKeyValues.AsDelimitedText(const ADelimiter: string;
   AQuoteValues: Boolean; AQuoteChar: Char): string;
 var
@@ -738,8 +608,6 @@ begin
       Result := S;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 { Returns for the given list of key names the corresponding values as a Variant
   array.
@@ -764,8 +632,6 @@ begin
   Result := VarArrayOf(VA);
 end;
 
-//-----------------------------------------------------------------------------
-
 { This method enables us to access the keyvalues in a record-like way. }
 
 function TtsKeyValues.AsVarDataRecord: Variant;
@@ -773,14 +639,9 @@ begin
   Result := VarDataRecordCreate(Self);
 end;
 
-
-//*****************************************************************************
-
 initialization
   { Create our custom variant type, which will be registered automatically. }
   VarDataRecordType := TVarDataRecordType.Create;
-
-//*****************************************************************************
 
 finalization
   { Free our custom variant type. }

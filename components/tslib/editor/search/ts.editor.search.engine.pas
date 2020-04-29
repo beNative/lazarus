@@ -51,7 +51,7 @@ uses
   ts.Editor.Interfaces, ts.Editor.Search.Engine.Settings,
   ts.Editor.Search.Data,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 type
   TSearchEngine = class(TComponent, IEditorSearchEngine)

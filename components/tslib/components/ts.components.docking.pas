@@ -110,7 +110,7 @@ uses
 
   ts.Components.Docking.Resources, ts.Components.Docking.Storage,
 
-  ts.Core.SharedLogger;
+  ts.Core.Logger;
 
 type
   TAnchorDockHostSite = class;

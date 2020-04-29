@@ -2206,7 +2206,7 @@ function sdUtf8ToWideBuffer(const Utf8Buf; var WideBuf; ByteCount: Integer): Int
 implementation
 
 uses
-  Laz2_DOM, ts.Core.SharedLogger;
+  Laz2_DOM, ts.Core.Logger;
 
 type
   TAnsiCharArray = array[0..32767] of AnsiChar;

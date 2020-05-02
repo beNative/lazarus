@@ -98,18 +98,19 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Editor.Factories, ts.Logger.SharedLogger, ts.Core.Logger.Channel.IPC,
+  ts.Editor.Factories, ts.Core.Logger,
+
   TableTool.Helpers;
 
-{ TfrmMain }
-
+{$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
-  Logger.
   FEditor := TEditorFactories.CreateView(pnlEditor);
 end;
+{$ENDREGION}
 
+{$REGION 'action handlers'}
 procedure TfrmMain.actClearSelectionExecute(Sender: TObject);
 begin
   ClearSelection(StringGrid);
@@ -163,6 +164,7 @@ begin
   FEditor.Text := SelectionToWikiTable(StringGrid, chkFirstRowAsHeader.Checked);
   Clipboard.AsText := FEditor.Text;
 end;
+{$ENDREGION}
 
 end.
 

@@ -53,7 +53,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.Helpers, ts.Core.ComponentInspector;
+  ts.Core.ComponentInspector;
 
 {$REGION 'construction and destruction'}
 procedure TfrmStructure.AfterConstruction;

@@ -1024,7 +1024,7 @@ end;
 
 function TSynRange.GetCaseSensitive: Boolean;
 begin
-  Result := Cardinal(@CaseFunct) = Cardinal(@UpCase);
+  Result := Pointer(@CaseFunct) = Pointer(@UpCase);
 end;
 
 procedure TSynRange.SetCaseSensitive(const Value: Boolean);
@@ -1161,8 +1161,8 @@ var
           IntToStr(LineNumber))
       else
         Inc(Buf);
-    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    SetLength(S, Pointer(Buf) - Pointer(sPos));
+    Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
 
     if not SL.Find(S, AIndex) then
       if not AIgnoreUnknown then
@@ -1192,8 +1192,8 @@ var
           end
           else
             Inc(Buf);
-        SetLength(ATagParam, Cardinal(Buf) - Cardinal(sPos));
-        Move(sPos^, Pointer(ATagParam)^, Cardinal(Buf) - Cardinal(sPos));
+        SetLength(ATagParam, Pointer(Buf) - Pointer(sPos));
+        Move(sPos^, Pointer(ATagParam)^, Pointer(Buf) - Pointer(sPos));
       end;
       Inc(Buf);
     end;
@@ -1254,8 +1254,8 @@ var
     if Result = '' then
     begin
       Dec(Buf);
-      SetLength(Result, Cardinal(Buf) - Cardinal(sPos));
-      Move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
+      SetLength(Result, Pointer(Buf) - Pointer(sPos));
+      Move(sPos^, Pointer(Result)^, Pointer(Buf) - Pointer(sPos));
     end
     else
       Inc(Buf);
@@ -1274,8 +1274,8 @@ var
     begin
       if Buf^ = '&' then
       begin
-        SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        SetLength(S, Pointer(Buf) - Pointer(sPos));
+        Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
         Result := Result + S + GetReplacement;
         sPos := Buf;
       end
@@ -1285,8 +1285,8 @@ var
       else
         Inc(Buf);
     end;
-    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    SetLength(S, Pointer(Buf) - Pointer(sPos));
+    Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
     Result := Result + S;
     if (GetNextTag(I, S, False)) or (I <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[I] +
@@ -2390,8 +2390,8 @@ var
     if Result = '' then
     begin
       Dec(Buf);
-      SetLength(Result, Cardinal(Buf) - Cardinal(sPos));
-      Move(sPos^, Pointer(Result)^, Cardinal(Buf) - Cardinal(sPos));
+      SetLength(Result, Pointer(Buf) - Pointer(sPos));
+      Move(sPos^, Pointer(Result)^, Pointer(Buf) - Pointer(sPos));
     end
     else
       Inc(Buf);
@@ -2434,8 +2434,8 @@ var
           IntToStr(LineNumber))
       else
         Inc(Buf);
-    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    SetLength(S, Pointer(Buf) - Pointer(sPos));
+    Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
 
     if (not SL.Find(S, AIndex)) then
       if (not AIgnoreUnknown) then
@@ -2466,15 +2466,15 @@ var
           end
           else if Buf^ = '&' then
           begin
-            SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-            Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+            SetLength(S, Pointer(Buf) - Pointer(sPos));
+            Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
             T := T + S + GetReplacement;
             sPos := Buf;
           end
           else
             Inc(Buf);
-        SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        SetLength(S, Pointer(Buf) - Pointer(sPos));
+        Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
         ATagParam := T + S;
       end;
       Inc(Buf);
@@ -2495,8 +2495,8 @@ var
     begin
       if Buf^ = '&' then
       begin
-        SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-        Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+        SetLength(S, Pointer(Buf) - Pointer(sPos));
+        Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
         Result := Result + S + GetReplacement;
         sPos := Buf;
       end
@@ -2506,8 +2506,8 @@ var
       else
         Inc(Buf);
     end;
-    SetLength(S, Cardinal(Buf) - Cardinal(sPos));
-    Move(sPos^, Pointer(S)^, Cardinal(Buf) - Cardinal(sPos));
+    SetLength(S, Pointer(Buf) - Pointer(sPos));
+    Move(sPos^, Pointer(S)^, Pointer(Buf) - Pointer(sPos));
     Result := Result + S;
     if (GetNextTag(Idx, S)) or (Idx <> CurTagIndex) then
       raise Exception.Create('Close tag: /' + SL[Idx] +

@@ -35,4 +35,3 @@ finalization
   Logger := nil;
 
 end.
-

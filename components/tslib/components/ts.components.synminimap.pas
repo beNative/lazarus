@@ -411,9 +411,10 @@ end;
 
 procedure TSynMiniMap.DoClick(const AX, AY: Integer);
 var
-  LEventData: TSynMiniMapEventData;
-  LPoint: TPoint;
+  LEventData : TSynMiniMapEventData;
+  LPoint     : TPoint;
 begin
+  LEventData := Default(TSynMiniMapEventData);
   ///
   ///  OnClick has no value unless we have an editor assign
   ///

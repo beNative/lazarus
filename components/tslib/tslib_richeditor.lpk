@@ -19,40 +19,40 @@
         <Type Value="LFM"/>
       </Item1>
       <Item2>
-        <Filename Value="richeditor\ts.richeditor.view.kmemo.lfm"/>
-        <Type Value="LFM"/>
-      </Item2>
-      <Item3>
         <Filename Value="richeditor\ts.richeditor.events.pas"/>
         <UnitName Value="ts.RichEditor.Events"/>
-      </Item3>
-      <Item4>
+      </Item2>
+      <Item3>
         <Filename Value="richeditor\ts.richeditor.factories.menus.pas"/>
         <UnitName Value="ts.RichEditor.Factories.Menus"/>
-      </Item4>
-      <Item5>
+      </Item3>
+      <Item4>
         <Filename Value="richeditor\ts.richeditor.factories.pas"/>
         <UnitName Value="ts.RichEditor.Factories"/>
-      </Item5>
-      <Item6>
+      </Item4>
+      <Item5>
         <Filename Value="richeditor\ts.richeditor.factories.toolbars.pas"/>
         <UnitName Value="ts.RichEditor.Factories.Toolbars"/>
-      </Item6>
-      <Item7>
+      </Item5>
+      <Item6>
         <Filename Value="richeditor\ts.richeditor.interfaces.pas"/>
         <UnitName Value="ts.RichEditor.Interfaces"/>
-      </Item7>
-      <Item8>
+      </Item6>
+      <Item7>
         <Filename Value="richeditor\ts.richeditor.manager.pas"/>
         <UnitName Value="ts.RichEditor.Manager"/>
-      </Item8>
-      <Item9>
+      </Item7>
+      <Item8>
         <Filename Value="richeditor\ts.richeditor.settings.pas"/>
         <UnitName Value="ts.RichEditor.Settings"/>
-      </Item9>
-      <Item10>
+      </Item8>
+      <Item9>
         <Filename Value="richeditor\ts.richeditor.types.pas"/>
         <UnitName Value="ts.RichEditor.Types"/>
+      </Item9>
+      <Item10>
+        <Filename Value="richeditor\ts.richeditor.view.kmemo.lfm"/>
+        <Type Value="LFM"/>
       </Item10>
       <Item11>
         <Filename Value="richeditor\ts.richeditor.view.kmemo.pas"/>

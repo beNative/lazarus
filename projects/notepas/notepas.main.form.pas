@@ -31,7 +31,7 @@ uses
   UExceptionLogger,
 
   // for debugging
-  ts.Core.SharedLogger,
+  ts.Core.Logger,
 
   ts.Components.Docking, ts.Components.Docking.Storage,
   ts.Components.UniqueInstance,
@@ -230,7 +230,7 @@ uses
 
   httpsend,
 
-  ts.Core.VersionInfo, ts.Core.Utils, ts.Core.Helpers, ts.Core.Logger.Channel.IPC,
+  ts.Core.VersionInfo, ts.Core.Utils, ts.Core.Helpers,
 
   ts.Editor.AboutDialog, ts.Editor.Resources, ts.Editor.Factories.Settings,
   ts.Editor.Factories,

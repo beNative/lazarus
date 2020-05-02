@@ -179,12 +179,12 @@ end;
 {$REGION 'public methods'}
 function TCustomLogChannel.Connect: Boolean;
 begin
-  Result := False;
+  Result := False; // to be overridden in descendants
 end;
 
 function TCustomLogChannel.Disconnect: Boolean;
 begin
-  Result := False;
+  Result := False; // to be overridden in descendants
 end;
 {$ENDREGION}
 {$ENDREGION}

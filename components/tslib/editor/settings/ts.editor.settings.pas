@@ -59,7 +59,7 @@ interface
 uses
   Classes, SysUtils, Graphics, FileUtil, TypInfo,
 
-  fpjsonrtti, fpjson,
+  fpjson,
 
   LazMethodList,
 

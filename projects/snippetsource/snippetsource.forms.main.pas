@@ -220,7 +220,7 @@ implementation
 uses
   StrUtils, Base64, Dialogs,
 
-  ts.Core.Utils, ts.Core.Logger, ts.Core.Logger.Channel.IPC,
+  ts.Core.Utils, ts.Core.Logger,
 
   ts.Editor.AboutDialog,
 
@@ -250,6 +250,7 @@ begin
   InitActions;
 
   dscMain.DataSet := DataSet.DataSet;
+  btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
   TRichEditorFactories.CreateMainToolbar(
     Self,
@@ -260,6 +261,10 @@ begin
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.FileVersion]);
   Logger.Info('SnippetSource Started');
   Logger.Send(string(Caption));
+  //Logger.Send(55);
+  Logger.Send('test',Double(10.3));
+  //Logger.Send(Now);
+
 end;
 
 procedure TfrmMain.BeforeDestruction;

@@ -12,10 +12,9 @@ uses
   virtualdbtreeexlaz,
 
   { you can add units after this }
-  ts.Editor.Manager, ts.Core.ComponentInspector, ts.Core.Logger.Channel.IPC,
-  ts.Core.Logger.Interfaces, ts.Core.Logger, ts.Core.Utils,
+  ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
 
-  SnippetSource.Forms.Main, SnippetSource.Resources, SnippetSource.Forms.Console;
+  SnippetSource.Forms.Main;
 
 {$R *.res}
 

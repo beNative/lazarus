@@ -30,7 +30,7 @@ uses
 
   VirtualTrees,
 
-  ts.RichEditor.Interfaces,
+  //ts.RichEditor.Interfaces,
 
   SnippetSource.Interfaces;
 
@@ -118,8 +118,8 @@ type
 
   private
     FData              : IInterface;
-    FRichEditorManager : IRichEditorManager;
-    FRichEditor        : IRichEditorView;
+    //FRichEditorManager : IRichEditorManager;
+    //FRichEditor        : IRichEditorView;
 
     function GetConnection: IConnection;
     function GetGlyphDS: TDataSet;
@@ -158,9 +158,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.Utils,
-
-  SnippetSource.Resources;
+  ts.Core.Utils;
 
 var
   FSettings: TfrmSettingsDialog;

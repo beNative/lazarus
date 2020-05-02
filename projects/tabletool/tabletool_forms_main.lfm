@@ -7,7 +7,7 @@ object frmMain: TfrmMain
   ClientHeight = 581
   ClientWidth = 958
   ShowHint = True
-  LCLVersion = '1.5'
+  LCLVersion = '2.0.2.0'
   object pnlMain: TPanel
     Left = 0
     Height = 466
@@ -233,14 +233,7 @@ object frmMain: TfrmMain
         Top = 8
         Width = 40
         Alignment = taRightJustify
-        EditLabel.AnchorSideTop.Control = edtMargin
-        EditLabel.AnchorSideTop.Side = asrCenter
-        EditLabel.AnchorSideRight.Control = edtMargin
-        EditLabel.AnchorSideBottom.Control = edtMargin
-        EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 5
         EditLabel.Height = 15
-        EditLabel.Top = 12
         EditLabel.Width = 87
         EditLabel.Caption = 'Column margin:'
         EditLabel.ParentColor = False
@@ -256,14 +249,7 @@ object frmMain: TfrmMain
         Width = 40
         Alignment = taRightJustify
         AutoSize = False
-        EditLabel.AnchorSideTop.Control = edtMinColumnWidth
-        EditLabel.AnchorSideTop.Side = asrCenter
-        EditLabel.AnchorSideRight.Control = edtMinColumnWidth
-        EditLabel.AnchorSideBottom.Control = edtMinColumnWidth
-        EditLabel.AnchorSideBottom.Side = asrBottom
-        EditLabel.Left = 6
         EditLabel.Height = 30
-        EditLabel.Top = 44
         EditLabel.Width = 77
         EditLabel.Caption = 'Minimum '#13#10'column width:'
         EditLabel.ParentColor = False

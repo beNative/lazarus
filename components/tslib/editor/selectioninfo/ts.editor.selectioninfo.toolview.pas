@@ -84,9 +84,7 @@ implementation
 uses
   TypInfo,
 
-  SynEditTypes,
-
-  ts.Editor.Selection;
+  SynEditTypes;
 {
   StoredBlockBegin X Y
   StoredBlockEnd   X Y

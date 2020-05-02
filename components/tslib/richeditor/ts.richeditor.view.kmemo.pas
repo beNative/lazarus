@@ -38,8 +38,8 @@ uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
   ExtCtrls, Menus,
 
-  KControls, KMemo, KMemoDlgParaStyle, KMemoDlgTextStyle, KMemoDlgHyperlink,
-  KMemoDlgImage, KMemoDlgNumbering, KMemoDlgContainer,
+  KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
+  KMemoDlgNumbering, KMemoDlgContainer,
 
   ts.RichEditor.Interfaces;
 

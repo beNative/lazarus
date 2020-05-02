@@ -32,8 +32,6 @@ uses
 
   ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
 
-  ts.Components.XMLTree,
-
   ts.Editor.Interfaces;
 
 {

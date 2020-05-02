@@ -753,7 +753,6 @@ uses
 {$IFDEF WINDOWS}
   Windows,
 
-  ts.Core.Logger.Channel.IPC, // used for logging
 {$ENDIF}
   Clipbrd, StrUtils, TypInfo, Contnrs, LazFileUtils,
 

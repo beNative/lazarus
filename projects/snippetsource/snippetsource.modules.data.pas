@@ -84,9 +84,9 @@ interface
 {$ENDREGION}
 
 uses
-  Classes, SysUtils, TplZlibUnit, FileUtil, Controls,
+  Classes, SysUtils, FileUtil, Controls,
 
-  sqldb, sqlite3conn, db, sqlscript, BufDataset,
+  sqldb, sqlite3conn, db, BufDataset,
 
   ts.Core.Logger,
 
@@ -315,8 +315,6 @@ implementation
 uses
   Variants, TypInfo, LazFileUtils,
 
-  ts.Core.Logger.Channel.IPC,
-
   SnippetSource.Resources;
 
 {$REGION 'non-interfaced routines'}
@@ -420,6 +418,7 @@ var
   S : string;
 begin
   S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
+  Logger.Send(S);
 end;
 
 {
@@ -682,8 +681,8 @@ begin
 end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
-var
-  LId: Variant;
+//var
+//  LId: Variant;
 begin
   if AValue <> Highlighter then
   begin
@@ -980,11 +979,6 @@ begin
   qryLookup.Active := True;
 end;
 {$ENDREGION}
-
-initialization
-{$IFDEF WINDOWS}
-  //Logger.Channels.Add(TIPCChannel.Create);
-{$ENDIF}
 
 end.
 

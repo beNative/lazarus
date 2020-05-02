@@ -5,7 +5,7 @@ object frmGrid: TfrmGrid
   Width = 841
   ClientHeight = 668
   ClientWidth = 841
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.0.2.0'
   object pnlMain: TPanel
     Left = 4
     Height = 609
@@ -110,7 +110,7 @@ object frmGrid: TfrmGrid
       Action = actInspectTransaction
     end
     object btnInspectConnection: TToolButton
-      Left = 724
+      Left = 723
       Top = 2
       Action = actInspectConnection
     end
@@ -163,12 +163,12 @@ object frmGrid: TfrmGrid
     end
   end
   object dscMain: TDataSource
-    Left = 144
-    Top = 104
+    left = 144
+    top = 104
   end
   object aclMain: TActionList
-    Left = 224
-    Top = 104
+    left = 224
+    top = 104
     object actApplyUpdates: TAction
       Caption = 'ApplyUpdates'
       OnExecute = actApplyUpdatesExecute

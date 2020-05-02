@@ -100,7 +100,7 @@
       </Item16>
       <Item17>
         <Filename Value="core\ts.core.logger.channel.ipc.pas"/>
-        <UnitName Value="ts.Core.Logger.Channel.IPC"/>
+        <UnitName Value="ts.Core.Logger.Channel.Ipc"/>
       </Item17>
       <Item18>
         <Filename Value="core\ts.core.logger.channel.pas"/>
@@ -112,7 +112,7 @@
       </Item19>
       <Item20>
         <Filename Value="core\ts.core.logger.base.pas"/>
-        <UnitName Value="ts.core.logger.base"/>
+        <UnitName Value="ts.Core.Logger.Base"/>
       </Item20>
       <Item21>
         <Filename Value="core\ts.core.nativexml.debug.pas"/>
@@ -144,7 +144,7 @@
       </Item27>
       <Item28>
         <Filename Value="core\ts.core.logger.pas"/>
-        <UnitName Value="ts.core.logger"/>
+        <UnitName Value="ts.Core.Logger"/>
       </Item28>
       <Item29>
         <Filename Value="core\ts.core.sqlparser.pas"/>

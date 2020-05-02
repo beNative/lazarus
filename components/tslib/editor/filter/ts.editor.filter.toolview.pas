@@ -157,7 +157,6 @@ uses
   LCLProc, LCLType, LMessages, GraphUtil,
 
   ts.Core.Logger, ts.Core.Utils, ts.Core.Helpers,
-  ts.Core.ColumnDefinitionsDataTemplate,
 
   ts.Editor.Utils;
 

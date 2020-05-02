@@ -2052,8 +2052,8 @@ begin
 end;
 
 procedure TCustomDBGridView.DataSetDeleteRecord;
-const
-  Flags = MB_ICONQUESTION or MB_YESNO;
+//const
+//  Flags = MB_ICONQUESTION or MB_YESNO;
 var
   AllowDelete: Boolean;
 begin

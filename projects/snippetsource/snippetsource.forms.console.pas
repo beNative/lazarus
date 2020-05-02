@@ -63,6 +63,7 @@ var
   LBuf : array[0..1024] of Char;
   S : string;
 begin
+  LBuf := '';
   if prcMain.Output.NumBytesAvailable > 0 then
   begin
     while prcMain.Output.NumBytesAvailable > 0 do

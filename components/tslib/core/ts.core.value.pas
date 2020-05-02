@@ -52,7 +52,7 @@ unit ts.Core.Value;
 {
   Modifications by Tim Sinaeve:
   - Some adjustments to make this unit compile with FPC.
-  - Renamed TAnyValue to TValue as this type does not exist (yet?) for FPC.
+  - Renamed TAnyValue to TValue as this type does not exist yet for FPC.
   - Removed array support
 }
 
@@ -176,7 +176,7 @@ type
     class operator Implicit(const Value: Variant): TValue;
     class operator Implicit(const Value: Cardinal): TValue;
     class operator Implicit(const Value: Extended): TValue;
-    //class operator Implicit(const Value: Double): TValue;
+    class operator Implicit(const Value: Double): TValue;
     class operator Implicit(const Value: Integer): TValue;
     class operator Implicit(const Value: string): TValue;
     class operator Implicit(const Value: IInterface): TValue;
@@ -188,7 +188,7 @@ type
     class operator Implicit(const Value: TObject): TValue;
     class operator Implicit(const Value: TDateTime): TValue;
     class operator Implicit(const Value: TValue): Int64; inline;
-    //class operator Implicit(const Value: TValue): Double; inline;
+    class operator Implicit(const Value: TValue): Double; inline;
     class operator Implicit(const Value: TValue): Variant; inline;
     class operator Implicit(const Value: TValue): Cardinal; inline;
     class operator Implicit(const Value: TValue): Extended; inline;
@@ -386,7 +386,7 @@ end;
 
 function TValueObject.GetAsDouble: Double;
 begin
-    Result := FValue.VExtended^;
+  Result := FValue.VExtended^;
 end;
 
 function TValueObject.GetAsFloat: Extended;
@@ -572,16 +572,17 @@ begin
 end;
 
 function TValue.ToString: string;
-const
-  INFO = 'ValueType = %s' + LineEnding +
-         'Value = %s';
+//const
+//  INFO = 'ValueType = %s' + LineEnding +
+//         'Value = %s';
 begin
-  Result := Format(
-    INFO, [
-      GetEnumName(TypeInfo(TValueType), Integer(ValueType)),
-      AsString
-    ]
-  );
+  Result := AsString;
+  //Result := Format(
+  //  INFO, [
+  //    GetEnumName(TypeInfo(TValueType), Integer(ValueType)),
+  //    AsString
+  //  ]
+  //);
 end;
 
 {$IFDEF UNICODE}
@@ -1119,15 +1120,15 @@ begin
   Result := Value.AsPointer;
 end;
 
-//class operator TValue.Implicit(const Value: TValue): Double;
-//begin
-//  Result := Value.AsDouble;
-//end;
+class operator TValue.Implicit(const Value: TValue): Double;
+begin
+  Result := Value.AsDouble;
+end;
 
-//class operator TValue.Implicit(const Value: Double): TValue;
-//begin
-//  Result.AsDouble := Value;
-//end;
+class operator TValue.Implicit(const Value: Double): TValue;
+begin
+  Result.AsDouble := Value;
+end;
 
 function TValue.Equal(const Value: PValue): Boolean;
 begin

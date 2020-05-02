@@ -25,8 +25,6 @@ interface
 uses
   Classes, SysUtils,
 
-  ts.Editor.Settings,
-
   SnippetSource.Interfaces, SnippetSource.Resources;
 
 type

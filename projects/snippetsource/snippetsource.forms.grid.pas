@@ -21,14 +21,11 @@ unit SnippetSource.Forms.Grid;
 interface
 
 uses
-  Classes, SysUtils, db, FileUtil, ExtendedTabControls, ExtendedNotebook,
-  RTTICtrls, Forms, Controls, Graphics, Dialogs, DBGrids,
-  DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,
+  Classes, SysUtils, db, FileUtil, ExtendedNotebook, RTTICtrls, Forms, Controls,
+  Graphics, Dialogs, DBGrids, DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,
   sqldb,
 
-  SnippetSource.Interfaces,
-
-  ts.Components.DBGridView, ts.Core.ComponentInspector;
+  ts.Core.ComponentInspector;
 
 type
   TfrmGrid = class(TForm)

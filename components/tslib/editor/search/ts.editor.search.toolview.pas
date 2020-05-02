@@ -40,12 +40,12 @@ uses
 
   VirtualTrees,
 
-  ts.Core.Value, ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
-  ts.Core.DataTemplates, ts.Core.ColumnDefinitionsDataTemplate,
+  ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
+  ts.Core.ColumnDefinitionsDataTemplate,
 
-  ts.Editor.Interfaces, ts.Editor.Types, ts.Editor.ToolView.Base,
+  ts.Editor.Interfaces, ts.Editor.ToolView.Base,
 
-  ts.Core.Logger, ts.Core.Utils;
+  ts.Core.Logger;
 
 type
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
@@ -168,7 +168,7 @@ uses
 
   ts.Editor.Utils,
 
-  ts.Editor.Search.Engine, ts.Editor.Search.Data, ts.Editor.Search.Templates;
+  ts.Editor.Search.Data, ts.Editor.Search.Templates;
 
 resourcestring
   SFileName     = 'FileName';

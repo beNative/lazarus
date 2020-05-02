@@ -13,7 +13,7 @@ uses
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.ComponentInspector, 
   ts.Core.DataTemplates, ts.Core.DBUtils, ts.Core.DirectoryWatch, 
   ts.Core.EncodingUtils, ts.Core.FileAssociations, ts.Core.FormSettings, 
-  ts.Core.Helpers, ts.Core.KeyValues, ts.Core.Logger.Channel.IPC, 
+  ts.Core.Helpers, ts.Core.KeyValues, ts.Core.Logger.Channel.Ipc, 
   ts.Core.Logger.Channel, ts.Core.Logger.Interfaces, ts.Core.Logger.Base, 
   ts.Core.NativeXml.Debug, ts.Core.NativeXml.ObjectStorage, ts.Core.NativeXml, 
   ts.Core.NativeXml.Streams, ts.Core.NativeXml.StringTable, 

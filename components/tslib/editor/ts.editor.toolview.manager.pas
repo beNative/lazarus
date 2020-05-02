@@ -25,9 +25,7 @@ interface
 uses
   Classes, SysUtils, Forms,
 
-  ts.Editor.Interfaces, ts.Editor.Tools.Settings,
-
-  ts.Editor.ToolView.Base;
+  ts.Editor.Interfaces, ts.Editor.Tools.Settings;
 
 type
   TToolView = class(TInterfacedObject, IEditorToolView)

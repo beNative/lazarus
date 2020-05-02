@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.Core.Logger.Channel.IPC;
+unit ts.Core.Logger.Channel.Ipc;
 
 { Copyright (C) 2006 Luiz Américo Pereira Câmara
 
@@ -45,6 +45,9 @@ uses
   simpleipc,
 
   ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
+
+const
+  IPC_SERVER_ID = 'ipc_log_server';
 
 type
   { TIpcChannel }
@@ -78,7 +81,7 @@ begin
   FClient := TSimpleIPCClient.Create(nil);
   with FClient do
   begin
-    ServerID := 'ipc_log_server';
+    ServerID := IPC_SERVER_ID;
     if ServerRunning then
     begin
       Self.Enabled := True;
@@ -133,30 +136,35 @@ var
   LTextSize : Integer;
   LDataSize : Integer;
 begin
-  FBuffer.Clear;
-  LTextSize := Length(AMsg.Text);
-  FBuffer.Seek(0, soFromBeginning);
-  FBuffer.WriteBuffer(AMsg.MsgType, SizeOf(TLogMessageType));
-  FBuffer.WriteBuffer(AMsg.LogLevel, SizeOf(Byte));
-  FBuffer.WriteBuffer(AMsg.Reserved1, SizeOf(Byte));
-  FBuffer.WriteBuffer(AMsg.Reserved2, SizeOf(Byte));
-  FBuffer.WriteBuffer(AMsg.TimeStamp, SizeOf(TDateTime));
-  FBuffer.WriteBuffer(LTextSize, SizeOf(Integer));
-  if LTextSize > 0 then
+  if Connected then
   begin
-    FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
-  if AMsg.Data <> nil then
-  begin
-    LDataSize := AMsg.Data.Size;
-    FBuffer.WriteBuffer(LDataSize,SizeOf(Integer));
-    AMsg.Data.Position := 0;
-    FBuffer.CopyFrom(AMsg.Data,LDataSize);
+    FBuffer.Clear;
+    LTextSize := Length(AMsg.Text);
+    FBuffer.Seek(0, soFromBeginning);
+    FBuffer.WriteBuffer(AMsg.MsgType, SizeOf(TLogMessageType));
+    FBuffer.WriteBuffer(AMsg.LogLevel, SizeOf(Byte));
+    FBuffer.WriteBuffer(AMsg.Reserved1, SizeOf(Byte));
+    FBuffer.WriteBuffer(AMsg.Reserved2, SizeOf(Byte));
+    FBuffer.WriteBuffer(AMsg.TimeStamp, SizeOf(TDateTime));
+    FBuffer.WriteBuffer(LTextSize, SizeOf(Integer));
+    if LTextSize > 0 then
+    begin
+      FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
+    if AMsg.Data <> nil then
+    begin
+      LDataSize := AMsg.Data.Size;
+      FBuffer.WriteBuffer(LDataSize,SizeOf(Integer));
+      AMsg.Data.Position := 0;
+      FBuffer.CopyFrom(AMsg.Data,LDataSize);
+    end
+    else
+      FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
+    end;
+    FClient.SendMessage(mtUnknown, FBuffer);
+    Result := True;
   end
   else
-    FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
-  end;
-  FClient.SendMessage(mtUnknown,FBuffer);
-  Result := True;
+    Result := False;
 end;
 {$ENDREGION}
 

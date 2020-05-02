@@ -1,5 +1,5 @@
 **See following link to download releases:**
-* [NotePas releases] https://github.com/beNative/Notepas/releases
+* [NotePas releases](https://github.com/beNative/Notepas/releases)
 
 # Introduction
 

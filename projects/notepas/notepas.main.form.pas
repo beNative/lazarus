@@ -62,7 +62,7 @@ type
     btnLineBreakStyle     : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
-    ExceptionLogger: TExceptionLogger;
+    ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     pnlToolBar            : TPanel;
@@ -257,8 +257,6 @@ begin
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
 
   SetDefaultLang(FSettings.LanguageCode);
-
-  Logger.Send(12);
 
   //Logger.Info('SetDefaultLang to ' + FSettings.LanguageCode);
 
@@ -537,10 +535,10 @@ begin
     V := Editor;
   DisableAutoSizing;
   {$IFDEF DARWIN}
-  if (Manager.Views.Count=1) then  //for macos because mac open file parameter by DropFile event
+  if Manager.Views.Count = 1 then  //for macos because mac open file parameter by DropFile event
   begin
-    if (Manager.Views[0].FileName=SNewEditorViewFileName) and
-       (Manager.Views[0].TextSize=0) then
+    if (Manager.Views[0].FileName = SNewEditorViewFileName) and
+       (Manager.Views[0].TextSize = 0) then
        Manager.Views[0].Close;
   end;
   {$ENDIF}

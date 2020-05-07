@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -36,11 +36,15 @@ uses
   ExceptionLogger,
   lclextensions_package,
 
+  ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
+
   Notepas.Main.Form;
 
 {$R *.res}
 
 begin
+  Logger.Channels.Add(TIpcChannel.Create);
+  Logger.Clear;
   {$IF DECLARED(UseHeapTrace)}
    GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
   if FileExists('Notepas.trc') then

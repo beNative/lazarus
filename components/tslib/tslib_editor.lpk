@@ -39,7 +39,7 @@
       </Other>
     </CompilerOptions>
     <Version Major="1"/>
-    <Files Count="39">
+    <Files Count="71">
       <Item1>
         <Filename Value="editor\SetupFiltersDialog.lfm"/>
         <Type Value="LFM"/>
@@ -49,152 +49,281 @@
         <UnitName Value="SetupFiltersDialog"/>
       </Item2>
       <Item3>
-        <Filename Value="editor\ts.editor.codeformatters.pas"/>
-        <UnitName Value="ts.Editor.CodeFormatters"/>
-      </Item3>
-      <Item4>
-        <Filename Value="editor\ts.editor.codeformatters.sql.pas"/>
-        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
-      </Item4>
-      <Item5>
-        <Filename Value="editor\ts.editor.codetags.pas"/>
-        <UnitName Value="ts.Editor.CodeTags"/>
-      </Item5>
-      <Item6>
-        <Filename Value="editor\ts.editor.commands.pas"/>
-        <UnitName Value="ts.Editor.Commands"/>
-      </Item6>
-      <Item7>
-        <Filename Value="editor\ts.editor.commentstripper.pas"/>
-        <UnitName Value="ts.Editor.CommentStripper"/>
-      </Item7>
-      <Item8>
-        <Filename Value="editor\ts.editor.events.pas"/>
-        <UnitName Value="ts.Editor.Events"/>
-      </Item8>
-      <Item9>
-        <Filename Value="editor\ts.editor.highlighterattributes.pas"/>
-        <UnitName Value="ts.Editor.HighlighterAttributes"/>
-      </Item9>
-      <Item10>
-        <Filename Value="editor\ts.editor.highlighters.pas"/>
-        <UnitName Value="ts.Editor.Highlighters"/>
-      </Item10>
-      <Item11>
-        <Filename Value="editor\ts.editor.interfaces.pas"/>
-        <UnitName Value="ts.Editor.Interfaces"/>
-      </Item11>
-      <Item12>
-        <Filename Value="editor\ts.editor.selection.pas"/>
-        <UnitName Value="ts.Editor.Selection"/>
-      </Item12>
-      <Item13>
-        <Filename Value="editor\ts.editor.toolview.manager.pas"/>
-        <UnitName Value="ts.Editor.ToolView.Manager"/>
-      </Item13>
-      <Item14>
-        <Filename Value="editor\ts.editor.types.pas"/>
-        <UnitName Value="ts.Editor.Types"/>
-      </Item14>
-      <Item15>
-        <Filename Value="editor\ts.editor.utils.pas"/>
-        <UnitName Value="ts.Editor.Utils"/>
-      </Item15>
-      <Item16>
-        <Filename Value="editor\SetupFiltersDialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item16>
-      <Item17>
-        <Filename Value="editor\actionlist\ts.editor.actionlist.templates.pas"/>
-        <UnitName Value="ts.Editor.ActionList.Templates"/>
-      </Item17>
-      <Item18>
-        <Filename Value="editor\alignlines\ts.editor.alignlines.settings.pas"/>
-        <UnitName Value="ts.Editor.AlignLines.Settings"/>
-      </Item18>
-      <Item19>
-        <Filename Value="editor\codefilter\ts.editor.codefilter.data.pas"/>
-        <UnitName Value="ts.Editor.CodeFilter.Data"/>
-      </Item19>
-      <Item20>
-        <Filename Value="editor\codefilter\ts.editor.codefilter.settings.pas"/>
-        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
-      </Item20>
-      <Item21>
-        <Filename Value="editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
-        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
-      </Item21>
-      <Item22>
-        <Filename Value="editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
-        <UnitName Value="ts.Editor.HexEditor.Settings"/>
-      </Item22>
-      <Item23>
-        <Filename Value="editor\htmlview\ts.editor.htmlview.settings.pas"/>
-        <UnitName Value="ts.Editor.HTMLView.Settings"/>
-      </Item23>
-      <Item24>
-        <Filename Value="editor\minimap\ts.editor.minimap.settings.pas"/>
-        <UnitName Value="ts.Editor.MiniMap.Settings"/>
-      </Item24>
-      <Item25>
-        <Filename Value="editor\search\ts.editor.search.data.pas"/>
-        <UnitName Value="ts.Editor.Search.Data"/>
-      </Item25>
-      <Item26>
-        <Filename Value="editor\search\ts.editor.search.engine.pas"/>
-        <UnitName Value="ts.Editor.Search.Engine"/>
-      </Item26>
-      <Item27>
-        <Filename Value="editor\search\ts.editor.search.engine.settings.pas"/>
-        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
-      </Item27>
-      <Item28>
-        <Filename Value="editor\search\ts.editor.search.templates.pas"/>
-        <UnitName Value="ts.Editor.Search.Templates"/>
-      </Item28>
-      <Item29>
-        <Filename Value="editor\settings\ts.editor.settings.pas"/>
-        <UnitName Value="ts.Editor.Settings"/>
-      </Item29>
-      <Item30>
-        <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
-        <UnitName Value="ts.Editor.ViewList.Data"/>
-      </Item30>
-      <Item31>
-        <Filename Value="editor\ts.editor.factories.settings.pas"/>
-        <UnitName Value="ts.Editor.Factories.Settings"/>
-      </Item31>
-      <Item32>
-        <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
-        <UnitName Value="ts.Editor.SortStrings.Settings"/>
-      </Item32>
-      <Item33>
-        <Filename Value="editor\ts.editor.factories.manager.pas"/>
-        <UnitName Value="ts.Editor.Factories.Manager"/>
-      </Item33>
-      <Item34>
-        <AddToUsesPkgSection Value="False"/>
-      </Item34>
-      <Item35>
-        <Filename Value="editor\ts.editor.aboutdialog.lfm"/>
-        <Type Value="LFM"/>
-      </Item35>
-      <Item36>
         <Filename Value="editor\ts.editor.aboutdialog.pas"/>
         <UnitName Value="ts.Editor.AboutDialog"/>
-      </Item36>
-      <Item37>
-        <Filename Value="editor\ts.editor.manager.lfm"/>
-        <Type Value="LFM"/>
-      </Item37>
-      <Item38>
+      </Item3>
+      <Item4>
+        <Filename Value="editor\ts.editor.codeformatters.pas"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
+      </Item4>
+      <Item5>
+        <Filename Value="editor\ts.editor.codeformatters.sql.pas"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
+      </Item5>
+      <Item6>
+        <Filename Value="editor\ts.editor.codetags.pas"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
+      </Item6>
+      <Item7>
+        <Filename Value="editor\ts.editor.commands.pas"/>
+        <UnitName Value="ts.Editor.Commands"/>
+      </Item7>
+      <Item8>
+        <Filename Value="editor\ts.editor.commentstripper.pas"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
+      </Item8>
+      <Item9>
+        <Filename Value="editor\ts.editor.events.pas"/>
+        <UnitName Value="ts.Editor.Events"/>
+      </Item9>
+      <Item10>
+        <Filename Value="editor\ts.editor.factories.manager.pas"/>
+        <UnitName Value="ts.Editor.Factories.Manager"/>
+      </Item10>
+      <Item11>
+        <Filename Value="editor\ts.editor.factories.menus.pas"/>
+        <UnitName Value="ts.Editor.Factories.Menus"/>
+      </Item11>
+      <Item12>
+        <Filename Value="editor\ts.editor.factories.pas"/>
+        <UnitName Value="ts.Editor.Factories"/>
+      </Item12>
+      <Item13>
+        <Filename Value="editor\ts.editor.factories.settings.pas"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
+      </Item13>
+      <Item14>
+        <Filename Value="editor\ts.editor.factories.toolbars.pas"/>
+        <UnitName Value="ts.Editor.Factories.Toolbars"/>
+      </Item14>
+      <Item15>
+        <Filename Value="editor\ts.editor.factories.views.pas"/>
+        <UnitName Value="ts.Editor.Factories.Views"/>
+      </Item15>
+      <Item16>
+        <Filename Value="editor\ts.editor.highlighterattributes.pas"/>
+        <UnitName Value="ts.Editor.HighlighterAttributes"/>
+      </Item16>
+      <Item17>
+        <Filename Value="editor\ts.editor.highlighters.pas"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
+      </Item17>
+      <Item18>
+        <Filename Value="editor\ts.editor.interfaces.pas"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
+      </Item18>
+      <Item19>
         <Filename Value="editor\ts.editor.manager.pas"/>
         <UnitName Value="ts.Editor.Manager"/>
-      </Item38>
-      <Item39>
+      </Item19>
+      <Item20>
+        <Filename Value="editor\ts.editor.resources.pas"/>
+        <UnitName Value="ts.Editor.Resources"/>
+      </Item20>
+      <Item21>
+        <Filename Value="editor\ts.editor.selection.pas"/>
+        <UnitName Value="ts.Editor.Selection"/>
+      </Item21>
+      <Item22>
+        <Filename Value="editor\ts.editor.toolview.manager.pas"/>
+        <UnitName Value="ts.Editor.ToolView.Manager"/>
+      </Item22>
+      <Item23>
+        <Filename Value="editor\ts.editor.types.pas"/>
+        <UnitName Value="ts.Editor.Types"/>
+      </Item23>
+      <Item24>
+        <Filename Value="editor\ts.editor.utils.pas"/>
+        <UnitName Value="ts.Editor.Utils"/>
+      </Item24>
+      <Item25>
         <Filename Value="editor\ts.editor.view.pas"/>
         <UnitName Value="ts.Editor.View"/>
+      </Item25>
+      <Item26>
+        <Filename Value="editor\actionlist\ts.editor.actionlist.templates.pas"/>
+        <UnitName Value="ts.Editor.ActionList.Templates"/>
+      </Item26>
+      <Item27>
+        <Filename Value="editor\actionlist\ts.editor.actionlist.toolview.pas"/>
+        <UnitName Value="ts.Editor.ActionList.ToolView"/>
+      </Item27>
+      <Item28>
+        <Filename Value="editor\alignlines\ts.editor.alignlines.settings.pas"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
+      </Item28>
+      <Item29>
+        <Filename Value="editor\alignlines\ts.editor.alignlines.toolview.pas"/>
+        <UnitName Value="ts.Editor.AlignLines.ToolView"/>
+      </Item29>
+      <Item30>
+        <Filename Value="editor\charactermap\ts.editor.charactermap.toolview.pas"/>
+        <UnitName Value="ts.Editor.charactermap.ToolView"/>
+      </Item30>
+      <Item31>
+        <Filename Value="editor\codefilter\ts.editor.codefilter.data.pas"/>
+        <UnitName Value="ts.Editor.CodeFilter.Data"/>
+      </Item31>
+      <Item32>
+        <Filename Value="editor\codefilter\ts.editor.codefilter.settings.pas"/>
+        <UnitName Value="ts.Editor.CodeFilter.Settings"/>
+      </Item32>
+      <Item33>
+        <Filename Value="editor\codefilter\ts.editor.codefilter.toolview.pas"/>
+        <UnitName Value="ts.Editor.CodeFilter.ToolView"/>
+      </Item33>
+      <Item34>
+        <Filename Value="editor\codeshaper\ts.editor.codeshaper.settings.pas"/>
+        <UnitName Value="ts.Editor.CodeShaper.Settings"/>
+      </Item34>
+      <Item35>
+        <Filename Value="editor\codeshaper\ts.editor.codeshaper.toolview.pas"/>
+        <UnitName Value="ts.Editor.CodeShaper.ToolView"/>
+      </Item35>
+      <Item36>
+        <Filename Value="editor\colors\ts.editor.colors.toolview.pas"/>
+        <UnitName Value="ts.Editor.colors.ToolView"/>
+      </Item36>
+      <Item37>
+        <Filename Value="editor\filter\ts.editor.filter.toolview.pas"/>
+        <UnitName Value="ts.Editor.filter.ToolView"/>
+      </Item37>
+      <Item38>
+        <Filename Value="editor\hexeditor\ts.editor.hexeditor.settings.pas"/>
+        <UnitName Value="ts.Editor.HexEditor.Settings"/>
+      </Item38>
+      <Item39>
+        <Filename Value="editor\hexeditor\ts.editor.hexeditor.toolview.pas"/>
+        <UnitName Value="ts.Editor.HexEditor.ToolView"/>
       </Item39>
+      <Item40>
+        <Filename Value="editor\minimap\ts.editor.minimap.settings.pas"/>
+        <UnitName Value="ts.Editor.MiniMap.Settings"/>
+      </Item40>
+      <Item41>
+        <Filename Value="editor\minimap\ts.editor.minimap.toolview.pas"/>
+        <UnitName Value="ts.Editor.MiniMap.ToolView"/>
+      </Item41>
+      <Item42>
+        <Filename Value="editor\preview\ts.editor.preview.toolview.pas"/>
+        <UnitName Value="ts.Editor.Preview.ToolView"/>
+      </Item42>
+      <Item43>
+        <Filename Value="editor\scripteditor\ts.editor.scripteditor.toolview.pas"/>
+        <UnitName Value="ts.Editor.ScriptEditor.ToolView"/>
+      </Item43>
+      <Item44>
+        <Filename Value="editor\search\ts.editor.search.data.pas"/>
+        <UnitName Value="ts.Editor.Search.Data"/>
+      </Item44>
+      <Item45>
+        <Filename Value="editor\search\ts.editor.search.engine.pas"/>
+        <UnitName Value="ts.Editor.Search.Engine"/>
+      </Item45>
+      <Item46>
+        <Filename Value="editor\search\ts.editor.search.engine.settings.pas"/>
+        <UnitName Value="ts.Editor.Search.Engine.Settings"/>
+      </Item46>
+      <Item47>
+        <Filename Value="editor\search\ts.editor.search.templates.pas"/>
+        <UnitName Value="ts.Editor.Search.Templates"/>
+      </Item47>
+      <Item48>
+        <Filename Value="editor\search\ts.editor.search.toolview.pas"/>
+        <UnitName Value="ts.Editor.Search.ToolView"/>
+      </Item48>
+      <Item49>
+        <Filename Value="editor\selectioninfo\ts.editor.selectioninfo.toolview.pas"/>
+        <UnitName Value="ts.Editor.SelectionInfo.ToolView"/>
+      </Item49>
+      <Item50>
+        <Filename Value="editor\settings\ts.editor.colors.settings.pas"/>
+        <UnitName Value="ts.Editor.Colors.Settings"/>
+      </Item50>
+      <Item51>
+        <Filename Value="editor\settings\ts.editor.options.settings.pas"/>
+        <UnitName Value="ts.Editor.Options.Settings"/>
+      </Item51>
+      <Item52>
+        <Filename Value="editor\settings\ts.editor.settings.pas"/>
+        <UnitName Value="ts.Editor.Settings"/>
+      </Item52>
+      <Item53>
+        <Filename Value="editor\settings\ts.editor.tools.settings.pas"/>
+        <UnitName Value="ts.Editor.Tools.Settings"/>
+      </Item53>
+      <Item54>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.applicationsettings.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.ApplicationSettings"/>
+      </Item54>
+      <Item55>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.base.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Base"/>
+      </Item55>
+      <Item56>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.editorsettings.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.EditorSettings"/>
+      </Item56>
+      <Item57>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.extensions.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Extensions"/>
+      </Item57>
+      <Item58>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.fileassociations.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.FileAssociations"/>
+      </Item58>
+      <Item59>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.filetypes.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.FileTypes"/>
+      </Item59>
+      <Item60>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.highlighters.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Highlighters"/>
+      </Item60>
+      <Item61>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.keymappings.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.KeyMappings"/>
+      </Item61>
+      <Item62>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog.Old"/>
+      </Item62>
+      <Item63>
+        <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.pas"/>
+        <UnitName Value="ts.Editor.SettingsDialog"/>
+      </Item63>
+      <Item64>
+        <Filename Value="editor\shortcuts\ts.editor.shortcuts.toolview.pas"/>
+        <UnitName Value="ts.Editor.Shortcuts.ToolView"/>
+      </Item64>
+      <Item65>
+        <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
+        <UnitName Value="ts.Editor.SortStrings.Settings"/>
+      </Item65>
+      <Item66>
+        <Filename Value="editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
+        <UnitName Value="ts.Editor.SortStrings.ToolView"/>
+      </Item66>
+      <Item67>
+        <Filename Value="editor\structure\ts.editor.structure.toolview.pas"/>
+        <UnitName Value="ts.Editor.Structure.ToolView"/>
+      </Item67>
+      <Item68>
+        <Filename Value="editor\test\ts.editor.test.toolview.pas"/>
+        <UnitName Value="ts.Editor.Test.ToolView"/>
+      </Item68>
+      <Item69>
+        <Filename Value="editor\toolview\ts.editor.toolview.base.pas"/>
+        <UnitName Value="ts.Editor.ToolView.Base"/>
+      </Item69>
+      <Item70>
+        <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
+        <UnitName Value="ts.Editor.ViewList.Data"/>
+      </Item70>
+      <Item71>
+        <Filename Value="editor\viewlist\ts.editor.viewlist.toolview.pas"/>
+        <UnitName Value="ts.Editor.ViewList.ToolView"/>
+      </Item71>
     </Files>
     <RequiredPkgs Count="10">
       <Item1>

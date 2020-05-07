@@ -1140,7 +1140,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>BAT</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
@@ -1155,7 +1155,7 @@
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
 		<Color>clBlack</Color>
-		<Height>-15</Height>
+		<Height>-14</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

@@ -21,7 +21,7 @@ unit ts.Core.Logger;
 interface
 
 uses
- ts.Core.Logger.Base, ts.Core.Logger.Interfaces;
+  ts.Core.Logger.Base, ts.Core.Logger.Interfaces;
 
 var
   Logger: ILogger;

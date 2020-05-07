@@ -43,7 +43,7 @@ type
   { TEditorCommands }
 
   TEditorCommands = class(TComponent, IEditorCommands)
-  strict private
+  private
     function GetEvents: IEditorEvents;
     function GetManager: IEditorManager;
     function GetSearchEngine: IEditorSearchEngine;
@@ -56,34 +56,16 @@ type
       const AHighlighter : string
     ): string;
     function MergeBlankLines(const AString: string): string;
-    function GuessHighlighterType(
-      const AText: string
-    ): string; overload;
-    function IsXML(
-      const AString: string
-    ): Boolean;
+    function GuessHighlighterType(const AText: string): string; overload;
 
-    function IsPAS(
-      const AString: string
-    ): Boolean;
+    function IsXML(const AString: string): Boolean;
+    function IsPAS(const AString: string): Boolean;
+    function IsSQL(const AString: string): Boolean;
+    function IsLOG(const AString: string): Boolean;
+    function IsLFM(const AString: string): Boolean;
+    function IsHTML(const AString: string): Boolean;
 
-    function IsSQL(
-      const AString: string
-    ): Boolean;
-
-    function IsLOG(
-      const AString: string
-    ): Boolean;
-
-    function IsLFM(
-      const AString: string
-    ): Boolean;
-
-    function IsHTML(
-      const AString: string
-    ): Boolean;
-
-  strict protected
+  protected
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     procedure AssignHighlighter(const AName: string);
@@ -95,7 +77,7 @@ type
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
     procedure PascalStringFromSelection;
-    procedure QuoteLinesInSelection(ADelimit : Boolean = False);
+    procedure QuoteLinesInSelection(ADelimit: Boolean = False);
     procedure DequoteLinesInSelection;
     procedure QuoteSelection;
     procedure DequoteSelection;
@@ -106,18 +88,18 @@ type
     procedure SyncEditSelection;
     procedure Save;
     function SaveFile(
-      const AFileName   : string = '';
-            AShowDialog : Boolean = False
+      const AFileName : string = '';
+      AShowDialog     : Boolean = False
     ): Boolean;
     procedure SaveAll;
     procedure AdjustFontSize(AOffset: Integer);
 
     procedure AlignSelection(
-      const AToken                  : string;
-            ACompressWS             : Boolean;
-            AInsertSpaceBeforeToken : Boolean;
-            AInsertSpaceAfterToken  : Boolean;
-            AAlignInParagraphs      : Boolean
+      const AToken            : string;
+      ACompressWS             : Boolean;
+      AInsertSpaceBeforeToken : Boolean;
+      AInsertSpaceAfterToken  : Boolean;
+      AAlignInParagraphs      : Boolean
     );
     procedure MergeBlankLinesInSelection;
     procedure StripCommentsFromSelection;
@@ -136,10 +118,10 @@ type
     procedure SortStrings;
     procedure SmartSelect;
     function SelectBlockAroundCursor(
-      const AStartTag        : string;
-      const AEndTag          : string;
-            AIncludeStartTag : Boolean;
-            AIncludeEndTag   : Boolean
+      const AStartTag  : string;
+      const AEndTag    : string;
+      AIncludeStartTag : Boolean;
+      AIncludeEndTag   : Boolean
     ): Boolean;
 
     procedure FindNext;
@@ -974,64 +956,64 @@ function TEditorCommands.SelectBlockAroundCursor(const AStartTag: string;
   const AEndTag: string; AIncludeStartTag: Boolean;
   AIncludeEndTag: Boolean): Boolean;
 var
-  Pos : Integer;
-  S   : string;
-  B   : Boolean;
-  I   : Integer;
-  N   : Integer;
+  LPos : Integer;
+  S    : string;
+  B    : Boolean;
+  I    : Integer;
+  N    : Integer;
 begin
   if (AStartTag = '') or (AEndTag = '') then
     Exit;
 
   S := View.Text;
-  Pos := View.SelStart;
+  LPos := View.SelStart;
   B := False;
-  while not B and (Pos > 1) do
+  while not B and (LPos > 1) do
   begin
     N := Length(AStartTag);
     I := N;
-    B := S[Pos] = AStartTag[I];
-    while B and (Pos > 1) and (I > 1) do
+    B := S[LPos] = AStartTag[I];
+    while B and (LPos > 1) and (I > 1) do
     begin
       Dec(I);
-      Dec(Pos);
-      B := S[Pos] = AStartTag[I];
+      Dec(LPos);
+      B := S[LPos] = AStartTag[I];
     end;
-    if not B and (Pos > 1) then
-      Dec(Pos);
+    if not B and (LPos > 1) then
+      Dec(LPos);
   end;
   if B then
   begin
     if AIncludeStartTag then
-      View.SelStart := Pos
+      View.SelStart := LPos
     else
-      View.SelStart := Pos + N;
+      View.SelStart := LPos + N;
   end;
 
   if B then
   begin
-    Pos := View.SelStart;
+    LPos := View.SelStart;
     B := False;
-    while not B and (Pos <= Length(S)) do
+    while not B and (LPos <= Length(S)) do
     begin
       N := Length(AEndTag);
       I := 1;
-      B := S[Pos] = AEndTag[I];
-      while B and (Pos <= Length(S)) and (I < N) do
+      B := S[LPos] = AEndTag[I];
+      while B and (LPos <= Length(S)) and (I < N) do
       begin
         Inc(I);
-        Inc(Pos);
-        B := S[Pos] = AEndTag[I];
+        Inc(LPos);
+        B := S[LPos] = AEndTag[I];
       end;
-      if not B and (Pos <= Length(S)) then
-        Inc(Pos);
+      if not B and (LPos <= Length(S)) then
+        Inc(LPos);
     end;
     if B then
     begin
       if AIncludeEndTag then
-        View.SelEnd := Pos + 1
+        View.SelEnd := LPos + 1
       else
-        View.SelEnd := Pos - N + 1;
+        View.SelEnd := LPos - N + 1;
     end;
   end;
   Result := View.SelAvail;

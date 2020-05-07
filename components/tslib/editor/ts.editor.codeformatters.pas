@@ -63,7 +63,6 @@ implementation
 
 uses
   Forms,
-
   Process, FileUtil,
 
   ts.Editor.Utils,
@@ -73,10 +72,10 @@ uses
 function RunFormatterProcess(const AExeName: string; const AParams: string;
   const AString: string; const ATempFile: string): string;
 var
-  Process : TProcess;
-  SL      : TStringList;
-  S       : string;
-  T       : string;
+  LProcess : TProcess;
+  SL       : TStringList;
+  S        : string;
+  T        : string;
 begin
   S := GetApplicationPath + AExeName;
   T := GetApplicationPath + ATempFile;
@@ -86,18 +85,18 @@ begin
     try
       SL.Text := AString;
       SL.SaveToFile(T);
-      Process := TProcess.Create(nil);
+      LProcess := TProcess.Create(nil);
       try
-        Process.Options := [poNoConsole];
-        // todo use Process.Params property
-        Process.CommandLine := SysUtils.Format(S + ' ' + AParams, [T]);
-        Process.Execute;
-        while Process.Running do
+        LProcess.Options := [poNoConsole];
+        // todo use LProcess.Params property
+        LProcess.CommandLine := SysUtils.Format(S + ' ' + AParams, [T]);
+        LProcess.Execute;
+        while LProcess.Running do
         begin
           Application.ProcessMessages;
         end;
       finally
-        FreeAndNil(Process);
+        FreeAndNil(LProcess);
       end;
       SL.LoadFromFile(T);
       Result := SL.Text;

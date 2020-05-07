@@ -837,6 +837,7 @@ begin
   if Snippet.Highlighter = '' then
     Snippet.Highlighter := 'TXT';
   SaveRichText;
+  SaveRichText; // needs to be done twice for embedded pictures
 end;
 
 procedure TfrmMain.BuildToolBar;

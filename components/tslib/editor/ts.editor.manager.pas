@@ -1905,17 +1905,17 @@ begin
   Sender.AddRegisteredVariable('Self',  'TForm');
   Sender.AddRegisteredVariable('Memo1', 'TMemo');
   Sender.AddRegisteredVariable('Memo2', 'TMemo');
-  sender.AddRegisteredPTRVariable('az', 'longint');
-  sender.AddRegisteredVariable('myvar', 'integer');
-  sender.AddRegisteredVariable('Return', 'string');
+  Sender.AddRegisteredPTRVariable('az', 'longint');
+  Sender.AddRegisteredVariable('myvar', 'integer');
+  Sender.AddRegisteredVariable('Return', 'string');
 end;
 
 procedure TdmEditorManager.PascalScriptCompImport(Sender: TObject;
   x: TPSPascalCompiler);
 begin
   SIRegister_Std(x);
-  SIRegister_Classes(x, true);
-  SIRegister_Graphics(x, true);
+  SIRegister_Classes(x, True);
+  SIRegister_Graphics(x, True);
   SIRegister_Controls(x);
   SIRegister_stdctrls(x);
   SIRegister_Forms(x);
@@ -3200,8 +3200,5 @@ end;
 {$ENDREGION}
 
 initialization
-{$IFDEF WINDOWS}
-//  Logger.Channels.Add(TIpcChannel.Create);
-{$ENDIF}
 
 end.

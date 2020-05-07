@@ -208,7 +208,7 @@ type
 implementation
 
 uses
-  Forms, StrUtils, Dialogs, FileUtil,
+  Forms, StrUtils, Dialogs,
 
   ts.Components.UniHighlighter;
 

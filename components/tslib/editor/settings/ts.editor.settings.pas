@@ -83,7 +83,7 @@ const
   DEFAULT_SINGLE_INSTANCE             = False;
   DEFAULT_LANGUAGE_CODE               = 'en';
   DEFAULT_FONT_NAME                   = 'Courier New';
-  DEFAULT_SETTINGS_FILE               = 'settings.xml';
+  //DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
 
@@ -261,12 +261,12 @@ uses
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangedEventList := TMethodList.Create;
-  FFormSettings := TFormSettings.Create;
-  FFormSettings.OnChanged := FFormSettingsChanged;
-  FColors := TEditorColorSettings.Create;
-  FColors.OnChanged := FColorsChanged;
-  FEditorOptions := TEditorOptionsSettings.Create;
+  FChangedEventList        := TMethodList.Create;
+  FFormSettings            := TFormSettings.Create;
+  FFormSettings.OnChanged  := FFormSettingsChanged;
+  FColors                  := TEditorColorSettings.Create;
+  FColors.OnChanged        := FColorsChanged;
+  FEditorOptions           := TEditorOptionsSettings.Create;
   FEditorOptions.OnChanged := FEditorOptionsChanged;
 
   //FStreamer   := TJSONStreamer.Create(Self);
@@ -277,23 +277,21 @@ begin
   //FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
   //FDeStreamer.OngetObject :=OngetObject ;
 
-
-
-  FToolSettings := TEditorToolSettings.Create(Self);
+  FToolSettings      := TEditorToolSettings.Create(Self);
   FToolSettings.Name := 'ToolSettings';
 
-  FHighlighters := THighLighters.Create(Self);
-  FHighlighters.Name := 'Highlighters';
+  FHighlighters          := THighLighters.Create(Self);
+  FHighlighters.Name     := 'Highlighters';
   FHighlighterAttributes := THighlighterAttributes.Create(Self);
 
-  FFileName := DEFAULT_SETTINGS_FILE;
-  FHighlighterType := HL_TXT;
-  FAutoFormatXML := DEFAULT_AUTO_FORMAT_XML;
+  //FFileName := DEFAULT_SETTINGS_FILE;
+  FHighlighterType          := HL_TXT;
+  FAutoFormatXML            := DEFAULT_AUTO_FORMAT_XML;
   FAutoGuessHighlighterType := DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
-  FSingleInstance := DEFAULT_SINGLE_INSTANCE;
-  FEditorFont := TFont.Create;
-  FEditorFont.Name := DEFAULT_FONT_NAME;
-  FEditorFont.Size := 10;
+  FSingleInstance           := DEFAULT_SINGLE_INSTANCE;
+  FEditorFont               := TFont.Create;
+  FEditorFont.Name          := DEFAULT_FONT_NAME;
+  FEditorFont.Size          := 10;
 
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
   FLanguageCode    := DEFAULT_LANGUAGE_CODE;
@@ -628,7 +626,8 @@ var
   Doc    : TNativeXml;
   S      : string;
 begin
-  S :=   GetApplicationPath + FFileName;
+  S := GetApplicationPath + FFileName;
+  Logger.Send('LoadXML', S);
   if FileExists(S) then
   begin
     Doc := TNativeXml.Create(nil);
@@ -654,8 +653,8 @@ var
   Doc    : TNativeXml;
   S      : string;
 begin
-  //Logger.SendCallStack('Save');
   S :=   GetApplicationPath + FFileName;
+  Logger.Send('SaveXML', S);
   Doc := TNativeXml.CreateName('Root', nil);
   try
     Writer := TXmlObjectWriter.Create;

@@ -99,8 +99,6 @@ type
 
 implementation
 
-{ TEditorToolbarsFactory }
-
 {$REGION 'construction and destruction'}
 procedure TEditorToolbarsFactory.AfterConstruction;
 begin
@@ -132,7 +130,7 @@ end;
 function TEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
   AAction: TBasicAction; APopupMenu: TPopupMenu): TToolButton;
 var
-  TB: TToolButton;
+  TB : TToolButton;
 begin
   TB := TToolButton.Create(AParent);
   TB.Parent := AParent;
@@ -200,7 +198,6 @@ begin
   CreateToolButton(TB, 'actShowCodeShaper');
   CreateToolButton(TB, 'actShowCodeFilter');
   CreateToolButton(TB, 'actShowCharacterMap');
-//  CreateToolButton(TB, 'actShowPreview');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSmartSelect');
   CreateToolButton(TB, 'actFormat');
@@ -208,7 +205,9 @@ begin
   CreateToolButton(TB, 'actSettings');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actShowSpecialCharacters');
+  CreateToolButton(TB, 'actNewSharedView');
   CreateToolButton(TB, 'actMonitorChanges');
+  CreateToolButton(TB, 'actSortSelection');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actCreateDesktopLink');
   CreateToolButton(TB);
@@ -282,4 +281,3 @@ end;
 {$ENDREGION}
 
 end.
-

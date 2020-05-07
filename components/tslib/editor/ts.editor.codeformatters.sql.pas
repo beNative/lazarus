@@ -29,13 +29,13 @@ uses
 
 type
   TSQLFormatter = class(TInterfacedObject, ICodeFormatter)
-  strict private
+  private
     FLineReader : TStreamLineReader;
     FSQLParser  : TSQLParser;
     FSQLScanner : TSQLScanner;
     FSQLStream  : TStringStream;
 
-  strict protected
+  protected
     function Format(const AString: string): string; virtual;
 
   public

@@ -42,7 +42,7 @@ function TEditorViewFactory.CreateInstance(AParent: TWinControl;
   AManager: IEditorManager; const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
 var
-  V: IEditorView;
+  V : IEditorView;
 begin
   V := AManager.Views.Add(AName, AFileName, AHighlighter);
   V.Form.DisableAutoSizing;

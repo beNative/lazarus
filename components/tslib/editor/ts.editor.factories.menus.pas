@@ -88,7 +88,7 @@ end;
 function TEditorMenusFactory.CreateMenuItem(AParent: TMenuItem;
   AAction: TBasicAction): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   if not Assigned(AAction) then
   begin
@@ -276,7 +276,7 @@ end;
 
 function TEditorMenusFactory.CreateToolsMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SToolsMenuCaption;
@@ -295,7 +295,7 @@ end;
 
 function TEditorMenusFactory.CreateViewsMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SViewMenuCaption;
@@ -313,7 +313,7 @@ end;
 
 function TEditorMenusFactory.CreateSettingsMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SSettingsMenuCaption;
@@ -348,7 +348,7 @@ end;
 
 function TEditorMenusFactory.CreateHelpMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SHelpMenuCaption;

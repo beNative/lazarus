@@ -301,15 +301,16 @@ end;
 
 procedure TfrmAbout.actCopyToClipboardExecute(Sender: TObject);
 var
-  StrInfo: String;
-  i: integer;
+  LStrInfo : string;
+  I        : Integer;
 begin
-  StrInfo:='';
-  if FInfoList.Count=0 then
+  LStrInfo := '';
+  if FInfoList.Count = 0 then
      FillInfoList;
-  for i:=0 to FInfoList.Count-1 do
-      StrInfo := StrInfo+TInfo(FInfoList.Items[i]).Name+TInfo(FInfoList.Items[i]).Value+LineEnding;
-  Clipboard.AsText := StrInfo;
+  for I := 0 to FInfoList.Count - 1 do
+    LStrInfo := LStrInfo + TInfo(FInfoList.Items[I]).Name
+      + TInfo(FInfoList.Items[I]).Value + LineEnding;
+  Clipboard.AsText := LStrInfo;
 end;
 
 procedure TfrmAbout.actDonateExecute(Sender: TObject);
@@ -483,9 +484,6 @@ begin
   AddInfo('Application size:', FormatByteText(FileSize(S)));
   AddInfo('Current path:', ExtractFilePath(ParamStr(0)));
   AddInfo('Current user:', FVersionInfo.UserName);
-  //
-  //AddInfo('Startup parameters', Application.ApplicationType);
-  //
 end;
 
 procedure TfrmAbout.InitializeCredits;
@@ -534,4 +532,3 @@ end;
 {$ENDREGION}
 
 end.
-

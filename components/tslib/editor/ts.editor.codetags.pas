@@ -30,7 +30,7 @@ type
   { TCodeTagItem }
 
   TCodeTagItem = class(TComponent)
-  strict private
+  private
     FEndTag   : string;
     FStartTag : string;
 
@@ -94,9 +94,9 @@ var
 begin
  if (Source <> Self) and (Source is TCodeTagItem) then
  begin
-   CTI := TCodeTagItem(Source);
+   CTI      := TCodeTagItem(Source);
    StartTag := CTI.StartTag;
-   EndTag := CTI.EndTag;
+   EndTag   := CTI.EndTag;
  end
  else
    inherited Assign(Source);

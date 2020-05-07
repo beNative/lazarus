@@ -1377,7 +1377,8 @@ begin
       Highlighter := AValue.SynHighlighter;
       Actions.UpdateHighLighterActions;
     end;
-    Events.DoHighlighterChange;
+    if Editor.PaintLock = 0 then // set after BeginUpdate
+      Events.DoHighlighterChange;
   end;
 end;
 

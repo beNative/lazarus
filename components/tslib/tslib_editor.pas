@@ -20,7 +20,7 @@ uses
   ts.Editor.Search.Engine.Settings, ts.Editor.Search.Templates, 
   ts.Editor.Settings, ts.Editor.ViewList.Data, ts.Editor.Factories.Settings, 
   ts.Editor.SortStrings.Settings, ts.Editor.Factories.Manager, 
-  ts.Editor.AboutDialog, ts.Editor.Manager;
+  ts.Editor.AboutDialog, ts.Editor.Manager, ts.Editor.View;
 
 implementation
 

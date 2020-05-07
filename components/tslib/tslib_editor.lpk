@@ -39,7 +39,7 @@
       </Other>
     </CompilerOptions>
     <Version Major="1"/>
-    <Files Count="38">
+    <Files Count="39">
       <Item1>
         <Filename Value="editor\SetupFiltersDialog.lfm"/>
         <Type Value="LFM"/>
@@ -191,6 +191,10 @@
         <Filename Value="editor\ts.editor.manager.pas"/>
         <UnitName Value="ts.Editor.Manager"/>
       </Item38>
+      <Item39>
+        <Filename Value="editor\ts.editor.view.pas"/>
+        <UnitName Value="ts.Editor.View"/>
+      </Item39>
     </Files>
     <RequiredPkgs Count="10">
       <Item1>

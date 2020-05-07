@@ -42,6 +42,12 @@ type
 
   TLogger = class(TInterfacedObject, ILogger)
   type
+    // https://stackoverflow.com/questions/9592654/what-are-the-differences-between-implementation-of-interfaces-in-delphi-and-laza
+    { TODO: this trick does not work with FPC. In delphi the object cleanup
+    of an interface variable happens at the end of the scope of the calling
+    method. In FPC it can be sooner (when it is not referenced elsewhere in
+    the given scope) }
+
     TTrack = class(TInterfacedObject)
     private
       FLogger : ILogger;
@@ -111,11 +117,11 @@ type
     function PointToStr(const APoint: TPoint): string;
 
   public
-    constructor Create;
+    procedure AfterConstruction; override;
     destructor Destroy; override;
+
     function CalledBy(const AMethodName: string): Boolean;
     function Clear: ILogger;
-
 
     //Send functions
     function Send(const AName: string; const AArgs: array of const): ILogger; overload;
@@ -135,6 +141,7 @@ type
     function Send(const AName: string; const AValue: Byte): ILogger; overload;
     function Send(const AName: string; const AValue: ShortInt): ILogger; overload;
     function Send(const AName: string; const AValue: UInt64): ILogger; overload;
+    function Send(const AName: string; const AValue: Integer): ILogger; overload;
 
     function Send(const AValue: string): ILogger; overload;
     function Send(const AValue: WideString): ILogger; overload;
@@ -146,6 +153,7 @@ type
     function Send(const AValue: Byte): ILogger; overload;
     function Send(const AValue: ShortInt): ILogger; overload;
     function Send(const AValue: UInt64): ILogger; overload;
+    function Send(const AValue: Integer): ILogger; overload;
 
     function SendText(
       const AName        : string;
@@ -158,10 +166,7 @@ type
 
     //procedure SendBitmap(const AText: string; ABitmap: TBitmap); //inline;
     //procedure SendColor(const AText: string; AColor: TColor); //inline;
-    //procedure SendComponent(AComponent: TComponent); inline;
-    //procedure SendPointer(const AText: string; APointer: Pointer); overload; inline;
     //procedure SendCallStack(const AText: string); overload; inline;
-    //procedure SendException(const AText: string; AException: Exception);overload; inline;
     //procedure SendHeapInfo(const AText: string); overload; inline;
     //procedure SendMemory(const AText: string; AAddress: Pointer; ASize: LongWord); overload; inline;
 
@@ -202,6 +207,8 @@ type
       certain position in the code. }
     function AddCheckPoint(const AName: string = ''): ILogger;
     function ResetCheckPoint(const AName: string = ''): ILogger;
+
+    function Action(AAction: TBasicAction): ILogger;
 
     { Counter support }
     function IncCounter(const AName: string): ILogger;
@@ -391,8 +398,9 @@ end;
 
 {$REGION 'TLogger'}
 {$REGION 'construction and destruction'}
-constructor TLogger.Create;
+procedure TLogger.AfterConstruction;
 begin
+  inherited AfterConstruction;
   FChannels                  := TChannelList.Create;
   FEnabled                   := True;
   FMaxStackCount             := DEFAULT_MAXSTACKCOUNT;
@@ -604,6 +612,11 @@ begin
   Result := Self;
 end;
 
+function TLogger.Action(AAction: TBasicAction): ILogger;
+begin
+  Result := InternalSend(lmtAction, AAction.Name);
+end;
+
 function TLogger.IncCounter(const AName: string): ILogger;
 var
   LValue : Int64;
@@ -667,6 +680,11 @@ begin
 end;
 
 function TLogger.Send(const AName: string; const AValue: UInt64): ILogger;
+begin
+  Result := Send(AName, TValue(AValue));
+end;
+
+function TLogger.Send(const AName: string; const AValue: Integer): ILogger;
 begin
   Result := Send(AName, TValue(AValue));
 end;
@@ -753,6 +771,11 @@ begin
 end;
 
 function TLogger.Send(const AValue: UInt64): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AValue: Integer): ILogger;
 begin
   Result := Send('', AValue);
 end;
@@ -915,7 +938,7 @@ function TLogger.Enter(ASender: TObject; const AName: string): ILogger;
 begin
   Result := Self;
   FLogStack.Insert(0, UpperCase(AName));
-  if ASender <> nil then
+  if Assigned(ASender) then
   begin
     if ASender is TComponent then
       InternalSend(lmtEnterMethod, TComponent(ASender).Name + '.' + AName)
@@ -944,7 +967,7 @@ begin
     FLogStack.Delete(I)
   else
     Exit;
-  if ASender <> nil then
+  if Assigned(ASender) then
   begin
     if ASender is TComponent then
       InternalSend(lmtLeaveMethod, TComponent(ASender).Name + '.' + AName)
@@ -967,8 +990,11 @@ begin
 end;
 
 function TLogger.Track(ASender: TObject; const AName: string): IInterface;
+var
+  LI : IInterface;
 begin
-  Result := TTrack.Create(Self, ASender, AName);
+  LI := TTrack.Create(Self, ASender, AName);
+  Result := LI;
 end;
 
 function TLogger.Track(ASender: TObject; const AName: string;
@@ -1066,7 +1092,7 @@ begin
   // some channels (ZeroMQ)
   for I := 0 to 3 do
   begin
-    InternalSend(lmtClear);
+    InternalSend(lmtClear, '');
     Sleep(100);
   end;
 end;
@@ -1074,7 +1100,8 @@ end;
 {$ENDREGION}
 
 {$REGION 'TLogger.TTrack'}
-constructor TLogger.TTrack.Create(const ALogger: ILogger; ASender: TObject; const AName: string);
+constructor TLogger.TTrack.Create(const ALogger: ILogger; ASender: TObject;
+  const AName: string);
 begin
   inherited Create;
   FLogger := ALogger;

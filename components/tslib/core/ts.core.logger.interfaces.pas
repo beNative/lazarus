@@ -169,8 +169,6 @@ type
     function Send(const AName: string; const AValue: ShortString): ILogger; overload;
     function Send(const AName: string; const AValue: string): ILogger; overload;
 
-
-
     { UInt8 = Byte }
     function Send(const AName: string; const AValue: Byte): ILogger; overload;
     { UInt16 = Word }
@@ -184,7 +182,7 @@ type
     { Int16 = SmallInt }
     function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
     { Int32 = Integer = FixedInt }
-    //function Send(const AName: string; const AValue: FixedInt): ILogger; overload;
+    function Send(const AName: string; const AValue: Integer): ILogger; overload;
 
     function Send(const AValue: string): ILogger; overload;
     function Send(const AValue: WideString): ILogger; overload;
@@ -196,6 +194,7 @@ type
     function Send(const AValue: Byte): ILogger; overload;
     function Send(const AValue: ShortInt): ILogger; overload;
     function Send(const AValue: UInt64): ILogger; overload;
+    function Send(const AValue: Integer): ILogger; overload;
 
     { Send methods for types that do not have an implicit cast to TValue
       These are equivalent to Send(AName, TValue.From(AValue)); }
@@ -259,6 +258,8 @@ type
       const AName : string;
       const AArgs : array of const
     ): IInterface; overload;
+
+    function Action(AAction: TBasicAction): ILogger;
 
     function IncCounter(const AName: string): ILogger;
     function DecCounter(const AName: string): ILogger;

@@ -40,7 +40,7 @@ unit ts.Core.Logger.Channel.Ipc;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Windows,
 
   simpleipc,
 
@@ -150,6 +150,7 @@ begin
     if LTextSize > 0 then
     begin
       FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
+    end;
     if AMsg.Data <> nil then
     begin
       LDataSize := AMsg.Data.Size;
@@ -159,8 +160,7 @@ begin
     end
     else
       FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
-    end;
-    FClient.SendMessage(mtUnknown, FBuffer);
+    FClient.SendMessage(GetCurrentProcessId, FBuffer);
     Result := True;
   end
   else

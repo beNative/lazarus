@@ -1800,6 +1800,7 @@ end;
 procedure TdmEditorManager.aclActionsExecute(AAction: TBasicAction;
   var Handled: Boolean);
 begin
+  Logger.Action(AAction);
   Events.DoActionExecute(AAction, Handled);
 end;
 

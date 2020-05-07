@@ -39,7 +39,7 @@ type
     Changed   : Boolean;
   end;
 
-  {$REGION 'TPropertyEditLink'}
+{$REGION 'TPropertyEditLink'}
   // Our own edit link to implement several different node editors.
   TPropertyEditLink = class(TInterfacedObject, IVTEditLink)
   private
@@ -54,21 +54,23 @@ type
   public
     destructor Destroy; override;
 
+    {$REGION 'IVTEditLink'}
     function BeginEdit: Boolean; stdcall;
     function CancelEdit: Boolean; stdcall;
     function EndEdit: Boolean; stdcall;
     function GetBounds: TRect; stdcall;
+    procedure ProcessMessage(var Message: TMessage); stdcall;
+    procedure SetBounds(R: TRect); stdcall;
     function PrepareEdit(
       Tree   : TBaseVirtualTree;
       Node   : PVirtualNode;
       Column : TColumnIndex
     ): Boolean; stdcall;
-    procedure ProcessMessage(var Message: TMessage); stdcall;
-    procedure SetBounds(R: TRect); stdcall;
+    {$ENDREGION}
   end;
-  {$ENDREGION}
+{$ENDREGION}
 
-  {$REGION 'TGridEditLink'}
+{$REGION 'TGridEditLink'}
   // Our own edit link to implement several different node editors.
   TGridEditLink = class(TPropertyEditLink, IVTEditLink)
   public
@@ -79,7 +81,7 @@ type
       Column : TColumnIndex
     ): Boolean; stdcall;
   end;
-  {$ENDREGION}
+{$ENDREGION}
 
 implementation
 
@@ -89,26 +91,27 @@ destructor TPropertyEditLink.Destroy;
 begin
   FreeAndNil(FEdit);
   FEdit.Free;
-  inherited;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
+{$REGION 'event handlers'}
 procedure TPropertyEditLink.EditKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
-  CanAdvance: Boolean;
+  LCanAdvance: Boolean;
 begin
-  CanAdvance := true;
+  LCanAdvance := true;
 
   case Key of
     VK_ESCAPE:
-      if CanAdvance then
+      if LCanAdvance then
       begin
         FTree.CancelEditNode;
         Key := 0;
       end;
     VK_RETURN:
-      if CanAdvance then
+      if LCanAdvance then
       begin
         FTree.EndEditNode;
         Key := 0;
@@ -118,9 +121,9 @@ begin
     VK_DOWN:
       begin
         // Consider special cases before finishing edit mode.
-        CanAdvance := Shift = [];
+        LCanAdvance := Shift = [];
 
-        if CanAdvance then
+        if LCanAdvance then
         begin
           // Forward the keypress to the tree. It will asynchronously change the focused node.
           PostMessage(FTree.Handle, WM_KEYDOWN, Key, 0);
@@ -129,7 +132,9 @@ begin
       end;
   end;
 end;
+{$ENDREGION}
 
+{$REGION 'public methods'}
 function TPropertyEditLink.BeginEdit: Boolean;
 begin
   Result := True;
@@ -145,7 +150,7 @@ end;
 
 function TPropertyEditLink.EndEdit: Boolean;
 var
-  S: String;
+  S : string;
 begin
   Result := True;
 
@@ -186,19 +191,21 @@ end;
 
 procedure TPropertyEditLink.SetBounds(R: TRect);
 var
-  Dummy: Integer;
+  LDummy: Integer;
 begin
-  // Since we don't want to activate grid extensions in the tree (this would influence how the selection is drawn)
+  // Since we don't want to activate grid extensions in the tree (this would
+  // influence how the selection is drawn)
   // we have to set the edit's width explicitly to the width of the column.
-  FTree.Header.Columns.GetColumnBounds(FColumn, Dummy, R.Right);
+  FTree.Header.Columns.GetColumnBounds(FColumn, LDummy, R.Right);
   FEdit.BoundsRect := R;
 end;
+{$ENDREGION}
 {$ENDREGION}
 
 {$REGION 'TGridEditLink'}
 function TGridEditLink.EndEdit: Boolean;
 var
-  S: string;
+  S : string;
 begin
   Result := True;
   S := FEdit.Text;

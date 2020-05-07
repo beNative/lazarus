@@ -96,8 +96,8 @@ type
 
   { TdmSnippetSource }
 
-  TdmSnippetSource = class(TDataModule, ISQLite,
-    IConnection, ISnippet, IDataSet, ILookup, IGlyphs
+  TdmSnippetSource = class(TDataModule,
+    ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs
   )
     conMain           : TSQLite3Connection;
     imlGlyphs         : TImageList;
@@ -115,12 +115,12 @@ type
       EventType : TDBEventType;
       const Msg : string
     );
-    procedure qrySnippetAfterOpen(DataSet: TDataSet);
-    procedure qrySnippetAfterPost(DataSet: TDataSet);
-    procedure qrySnippetBeforeOpen(DataSet: TDataSet);
-    procedure qrySnippetBeforePost(DataSet: TDataSet);
-    procedure qrySnippetBeforeScroll(DataSet: TDataSet);
-    procedure qrySnippetNewRecord(DataSet: TDataSet);
+    procedure qrySnippetAfterOpen(ADataSet: TDataSet);
+    procedure qrySnippetAfterPost(ADataSet: TDataSet);
+    procedure qrySnippetBeforeOpen(ADataSet: TDataSet);
+    procedure qrySnippetBeforePost(ADataSet: TDataSet);
+    procedure qrySnippetBeforeScroll(ADataSet: TDataSet);
+    procedure qrySnippetNewRecord(ADataSet: TDataSet);
     {$ENDREGION}
 
   private
@@ -177,36 +177,9 @@ type
     {$ENDREGION}
 
   protected
-    procedure SendWatchValues;
-
-    { ISQLite }
-    function IntegrityCheck: Boolean;
-    procedure ShrinkMemory;
-    procedure Vacuum;
-
     procedure CreateLookupFields;
     procedure InitField(AField : TField);
     procedure InitFields(ADataSet : TDataSet);
-
-    { IConnection }
-    procedure CreateNewDatabase;
-    procedure Execute(const ASQL: string);
-    procedure Commit;
-    procedure Rollback;
-    procedure StartTransaction;
-    procedure EndTransaction;
-
-    procedure BeginBulkInserts;
-    procedure EndBulkInserts;
-
-    function Post: Boolean;
-    function Edit: Boolean;
-    function Append: Boolean;
-    function ApplyUpdates: Boolean;
-
-    procedure DisableControls;
-    procedure EnableControls;
-
     procedure Lookup(
       const ASearchString : string;
       ASearchInText       : Boolean;
@@ -214,16 +187,42 @@ type
       ASearchInComment    : Boolean
     );
 
+    {$REGION 'ISQLite'}
+    function IntegrityCheck: Boolean;
+    procedure ShrinkMemory;
+    procedure Vacuum;
+    {$ENDREGION}
+
+    {$REGION 'IConnection'}
+    procedure CreateNewDatabase;
+    procedure Execute(const ASQL: string);
+    procedure Commit;
+    procedure Rollback;
+    procedure StartTransaction;
+    procedure EndTransaction;
+    {$ENDREGION}
+
+    {$REGION 'IDataSet'}
+    function Post: Boolean;
+    function Edit: Boolean;
+    function Append: Boolean;
+    function ApplyUpdates: Boolean;
+
+    procedure BeginBulkInserts;
+    procedure EndBulkInserts;
+    procedure EnableControls;
+    procedure DisableControls;
+    {$ENDREGION}
+
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
-
+    destructor Destroy; override;
     constructor Create(
       AOwner    : TComponent;
       ASettings : ISettings
     ); reintroduce; virtual;
 
-    { ISQLite }
+    {$REGION 'ISQLite'}
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;
 
@@ -232,13 +231,16 @@ type
 
     property DBVersion: string
       read GetDBVersion;
+    {$ENDREGION}
 
     { IConnection }
+    {$REGION 'IConnection'}
     property AutoApplyUpdates: Boolean
       read GetAutoApplyUpdates write SetAutoApplyUpdates;
 
     property AutoCommit: Boolean
       read GetAutoCommit write SetAutoCommit;
+    {$ENDREGION}
 
     { ISnippet }
     property Comment: string
@@ -376,8 +378,9 @@ end;
 
 procedure TdmSnippetSource.AfterConstruction;
 var
-  LFileName: string;
+  LFileName : string;
 begin
+  Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
   FSettings.DataBase := DATABASE_NAME;
   if FilenameIsAbsolute(FSettings.DataBase) then
@@ -388,6 +391,7 @@ begin
   begin
     LFileName := CreateAbsolutePath(FSettings.DataBase, ProgramDirectory);
   end;
+  Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
   conMain.DatabaseName := LFileName;
   conMain.Connected := True;
   if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
@@ -397,28 +401,28 @@ begin
   qrySnippet.UsePrimaryKeyAsKey := True;
   qryHighlighter.Active := True;
   DataSet.Active := True;
-//  Logger.Info('It starts...');
+  Logger.Leave(Self, 'AfterConstruction');
 end;
 
-procedure TdmSnippetSource.BeforeDestruction;
+destructor TdmSnippetSource.Destroy;
 begin
   ApplyUpdates;
   Commit;
   DataSet.Active := False;
   conMain.Connected := False;
   FSettings := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
 procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
   EventType: TDBEventType; const Msg: string);
-var
-  S : string;
+//var
+//  S : string;
 begin
-  S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
-  Logger.Send(S);
+  //S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
+  Logger.SendText(Msg);
 end;
 
 {
@@ -432,14 +436,14 @@ end;
   created BEFORE you open the dataset.
 }
 
-procedure TdmSnippetSource.qrySnippetBeforeOpen(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetBeforeOpen(ADataSet: TDataSet);
 var
   I  : Integer;
   FD : TFieldDef = nil;
   F  : TField    = nil;
   DS : TSQLQuery;
 begin
-  DS := DataSet as TSQLQuery;
+  DS := ADataSet as TSQLQuery;
   // These two steps are required to get the FieldDefs of the PK initialized
   // correctly.
   DS.Prepare;
@@ -457,43 +461,48 @@ begin
   CreateLookupFields;
 end;
 
-procedure TdmSnippetSource.qrySnippetBeforePost(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetBeforePost(ADataSet: TDataSet);
 begin
+  Logger.Enter(Self, 'qrySnippetBeforePost');
   DateModified := Now;
+  Logger.Leave(Self, 'qrySnippetBeforePost');
 end;
 
-procedure TdmSnippetSource.qrySnippetBeforeScroll(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetBeforeScroll(ADataSet: TDataSet);
 begin
-  if DataSet.State in dsEditModes then
-    DataSet.Post;
+  if ADataSet.State in dsEditModes then
+    ADataSet.Post;
 end;
 
-procedure TdmSnippetSource.qrySnippetAfterOpen(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetAfterOpen(ADataSet: TDataSet);
 begin
-  InitFields(DataSet);
+  InitFields(ADataSet);
 end;
 
-procedure TdmSnippetSource.qrySnippetAfterPost(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetAfterPost(ADataSet: TDataSet);
 var
   LUpdateStatus : TUpdateStatus;
   LLastId       : Integer;
 begin
+  Logger.Enter(Self, 'qrySnippetAfterPost');
   if not FBulkInsertMode then
   begin
-    LUpdateStatus := DataSet.UpdateStatus;
+    LUpdateStatus := ADataSet.UpdateStatus;
     ApplyUpdates;
     Commit;
     if LUpdateStatus = usInserted then
     begin
       LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
-      DataSet.Refresh;
-      Dataset.Locate('Id' , LLastID,[]);
+      ADataSet.Refresh;
+      ADataSet.Locate('Id' , LLastID,[]);
     end;
   end;
+  Logger.Leave(Self, 'qrySnippetAfterPost');
 end;
 
-procedure TdmSnippetSource.qrySnippetNewRecord(DataSet: TDataSet);
+procedure TdmSnippetSource.qrySnippetNewRecord(ADataSet: TDataSet);
 begin
+  Logger.Enter(Self, 'qrySnippetNewRecord');
   // forces new value for AutoInc field
   qrySnippet.FieldByName('Id').Value := 0;
   qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
@@ -503,6 +512,7 @@ begin
     qrySnippet.FieldByName('NodeTypeId').AsInteger := 1;
     qrySnippet.FieldByName('ImageIndex').AsInteger := 0;
   end;
+  Logger.Leave(Self, 'qrySnippetNewRecord');
 end;
 {$ENDREGION}
 
@@ -510,6 +520,11 @@ end;
 function TdmSnippetSource.GetActive: Boolean;
 begin
   Result := qrySnippet.Active;
+end;
+
+procedure TdmSnippetSource.SetActive(AValue: Boolean);
+begin
+  qrySnippet.Active := AValue;
 end;
 
 function TdmSnippetSource.GetAutoApplyUpdates: Boolean;
@@ -544,11 +559,6 @@ begin
   end;
 end;
 
-procedure TdmSnippetSource.SetActive(AValue: Boolean);
-begin
-  qrySnippet.Active := AValue;
-end;
-
 function TdmSnippetSource.GetDataSet: TSQLQuery;
 begin
   Result := qrySnippet;
@@ -574,14 +584,14 @@ begin
   Result := qrySnippet.FieldValues['ImageIndex'];
 end;
 
-function TdmSnippetSource.GetImageList: TImageList;
-begin
-  Result := imlGlyphs;
-end;
-
 procedure TdmSnippetSource.SetImageIndex(AValue: Integer);
 begin
   qrySnippet.FieldValues['ImageIndex'] := AValue;
+end;
+
+function TdmSnippetSource.GetImageList: TImageList;
+begin
+  Result := imlGlyphs;
 end;
 
 function TdmSnippetSource.GetDateCreated: TDateTime;
@@ -681,17 +691,17 @@ begin
 end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
-//var
-//  LId: Variant;
+var
+  LId: Variant;
 begin
   if AValue <> Highlighter then
   begin
      if not qryHighlighter.Active then
         qryHighlighter.Active := True;
-    //LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
-    //if VarIsNull(LId) then
-    //  LId := 1;
-    //qrySnippet.FieldValues['HighlighterId'] := LId;
+    LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
+    if VarIsNull(LId) then
+      LId := 1;
+    qrySnippet.FieldValues['HighlighterId'] := LId;
   end;
 end;
 
@@ -770,38 +780,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-procedure TdmSnippetSource.SendWatchValues;
-//var
-//  S : string;
-begin
-  //S := GetEnumName(TypeInfo(TDataSetState), Ord(DataSet.State));
-  //S := System.Copy(S, 3, Length(S));
-  //Logger.Watch('State', S);
-  //S := GetEnumName(TypeInfo(TUpdateStatus), Ord(DataSet.UpdateStatus));
-  //S := System.Copy(S, 3, Length(S));
-  //Logger.Watch('UpdateStatus', S);
-  //S := GetEnumName(TypeInfo(TUpdateMode), Ord(DataSet.UpdateMode));
-  //S := System.Copy(S, 3, Length(S));
-  //Logger.Watch('UpdateMode', S);
-end;
-
-{$REGION 'ISQLite'}
-function TdmSnippetSource.IntegrityCheck: Boolean;
-begin
-  Result := QueryLookup(conMain, 'pragma integrity_check;') = 'ok';
-end;
-
-procedure TdmSnippetSource.ShrinkMemory;
-begin
-  conMain.ExecuteDirect('pragma shrink_memory;');
-end;
-
-procedure TdmSnippetSource.Vacuum;
-begin
-  conMain.ExecuteDirect('vacuum;');
-end;
-{$ENDREGION}
-
 procedure TdmSnippetSource.CreateLookupFields;
 var
   F : TField = nil;
@@ -866,35 +844,116 @@ begin
     InitField(Field);
 end;
 
-procedure TdmSnippetSource.Execute(const ASQL: string);
+{$REGION 'ISQLite'}
+function TdmSnippetSource.IntegrityCheck: Boolean;
 begin
-  conMain.ExecuteDirect(ASQL);
+  Result := QueryLookup(conMain, 'pragma integrity_check;') = 'ok';
 end;
 
+procedure TdmSnippetSource.ShrinkMemory;
+begin
+  conMain.ExecuteDirect('pragma shrink_memory;');
+end;
+
+procedure TdmSnippetSource.Vacuum;
+begin
+  conMain.ExecuteDirect('vacuum;');
+end;
+{$ENDREGION}
+
+{$REGION 'IConnection'}
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
-//  Logger.Info('Creating new database...');
+  Logger.Info('Creating new database...');
   scrCreateDatabase.ExecuteScript;
 end;
 
 procedure TdmSnippetSource.Commit;
 begin
+  Logger.Enter(Self, 'Commit');
   DataSet.SQLTransaction.Commit;
+  Logger.Leave(Self, 'Commit');
+end;
+
+procedure TdmSnippetSource.Execute(const ASQL: string);
+begin
+  conMain.ExecuteDirect(ASQL);
 end;
 
 procedure TdmSnippetSource.Rollback;
 begin
+  Logger.Enter(Self, 'Rollback');
   DataSet.SQLTransaction.Rollback;
+  Logger.Leave(Self, 'Rollback');
 end;
 
 procedure TdmSnippetSource.StartTransaction;
 begin
+  Logger.Enter(Self, 'StartTransaction');
   DataSet.SQLTransaction.StartTransaction;
+  Logger.Leave(Self, 'StartTransaction');
 end;
 
 procedure TdmSnippetSource.EndTransaction;
 begin
+  Logger.Enter(Self, 'EndTransaction');
   DataSet.SQLTransaction.EndTransaction;
+  Logger.Leave(Self, 'EndTransaction');
+end;
+{$ENDREGION}
+
+{$REGION 'IDataSet'}
+function TdmSnippetSource.Post: Boolean;
+begin
+  Logger.Enter(Self, 'Post');
+  if DataSet.Active and (DataSet.State in dsEditModes) then
+  begin
+    DataSet.Post;
+    Result := True;
+  end
+  else
+    Result := False;
+  Logger.Leave(Self, 'Post');
+end;
+
+function TdmSnippetSource.Append: Boolean;
+begin
+  Logger.Enter(Self, 'Append');
+  if DataSet.Active and not (DataSet.State in dsEditModes) then
+  begin
+    DataSet.Append;
+    Result := True;
+  end
+  else
+    Result := False;
+  Logger.Leave(Self, 'Append');
+end;
+
+function TdmSnippetSource.ApplyUpdates: Boolean;
+begin
+  Logger.Enter(Self, 'ApplyUpdates');
+  Logger.Send('DataSet.ChangeCount', DataSet.ChangeCount);
+  if DataSet.ChangeCount > 0 then
+  begin
+    DataSet.ApplyUpdates;
+    Result := True;
+  end
+  else
+    Result := False;
+  Logger.Leave(Self, 'ApplyUpdates');
+end;
+
+function TdmSnippetSource.Edit: Boolean;
+begin
+  Logger.Enter(Self, 'Edit');
+  if DataSet.Active and not (DataSet.State in dsEditModes) then
+  begin
+    DataSet.Edit;
+    Result := True;
+  end
+  else
+    Result := False;
+  Logger.Leave(Self, 'Edit');
 end;
 
 procedure TdmSnippetSource.BeginBulkInserts;
@@ -910,51 +969,6 @@ begin
     ApplyUpdates;
     Commit;
   end;
-end;
-
-{$REGION 'IDataSet'}
-function TdmSnippetSource.Post: Boolean;
-begin
-  if DataSet.Active and (DataSet.State in dsEditModes) then
-  begin
-    DataSet.Post;
-    Result := True;
-  end
-  else
-    Result := False;
-end;
-
-function TdmSnippetSource.Append: Boolean;
-begin
-  if DataSet.Active and not (DataSet.State in dsEditModes) then
-  begin
-    DataSet.Append;
-    Result := True;
-  end
-  else
-    Result := False;
-end;
-
-function TdmSnippetSource.ApplyUpdates: Boolean;
-begin
-  if DataSet.ChangeCount > 0 then
-  begin
-    DataSet.ApplyUpdates;
-    Result := True;
-  end
-  else
-    Result := False;
-end;
-
-function TdmSnippetSource.Edit: Boolean;
-begin
-  if DataSet.Active and not (DataSet.State in dsEditModes) then
-  begin
-    DataSet.Edit;
-    Result := True;
-  end
-  else
-    Result := False;
 end;
 
 procedure TdmSnippetSource.DisableControls;

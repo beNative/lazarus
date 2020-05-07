@@ -36,8 +36,9 @@ interface
 {$MODE DELPHI}
 
 uses
-  ActnList, Classes, ComCtrls, Controls, DB, DBCtrls, Dialogs, ExtCtrls, Forms,
-  Graphics, Menus, Variants, Windows, ImgList, ActiveX,
+  ActnList, Classes, ComCtrls, Controls, Dialogs, ExtCtrls, Forms, Graphics,
+  Menus, Variants, Windows, ImgList, ActiveX,
+  DB, DBCtrls,
 
   VirtualTrees,
 
@@ -601,21 +602,21 @@ procedure TfrmVirtualDBTree.FTreeViewDragDrop(Sender: TBaseVirtualTree;
   Source: TObject; DataObject: IDataObject; Formats: TFormatArray;
   Shift: TShiftState; const Pt: TPoint; var Effect: DWORD; Mode: TDropMode);
 var
-  I          : Integer;
-  SL         : TStringList;
-  AttachMode : TVTNodeAttachMode;
-  Node       : PVirtualNode;
+  I           : Integer;
+  SL          : TStringList;
+  LAttachMode : TVTNodeAttachMode;
+  LNode       : PVirtualNode;
 begin
-  Node := Sender.GetNodeAt(Pt.x, Pt.y);
-  Sender.FocusedNode := Node;
+  LNode := Sender.GetNodeAt(Pt.x, Pt.y);
+  Sender.FocusedNode := LNode;
   if Mode = dmOnNode then
-    AttachMode := amInsertBefore
+    LAttachMode := amInsertBefore
   else if Mode = dmAbove then
-    AttachMode := amInsertBefore
+    LAttachMode := amInsertBefore
   else if Mode = dmBelow then
-    AttachMode := amInsertAfter
+    LAttachMode := amInsertAfter
   else
-    AttachMode := amAddChildLast;
+    LAttachMode := amAddChildLast;
 
   SL := TStringList.Create;
   try
@@ -624,7 +625,7 @@ begin
       if (Formats[I] = CF_HDROP) then
       begin
         GetFileListFromObj(DataObject, SL);
-        DoDropFiles(SL, AttachMode);
+        DoDropFiles(SL, LAttachMode);
       end;
     end;
   finally
@@ -650,45 +651,45 @@ end;
 procedure TfrmVirtualDBTree.GetFileListFromObj(const DataObj: IDataObject;
   AFileList: TStrings);
 var
-  FmtEtc           : TFormatEtc;         // specifies required data format
-  Medium           : TStgMedium;         // storage medium containing file list
-  DroppedFileCount : Integer;            // number of dropped files
-  I                : Integer;            // loops thru dropped files
-  FileNameLength   : Integer;            // length of a dropped file name
-  FileName         : WideString;         // name of a dropped file
+  LFmtEtc           : TFormatEtc;         // specifies required data format
+  LMedium           : TStgMedium;         // storage medium containing file list
+  LDroppedFileCount : Integer;            // number of dropped files
+  I                 : Integer;            // loops thru dropped files
+  LFileNameLength   : Integer;            // length of a dropped file name
+  LFileName         : WideString;         // name of a dropped file
 begin
-  // Get required storage medium from data object
-  FmtEtc.cfFormat := CF_HDROP;
-  FmtEtc.ptd      := nil;
-  FmtEtc.dwAspect := DVASPECT_CONTENT;
-  FmtEtc.lindex   := -1;
-  FmtEtc.tymed    := TYMED_HGLOBAL;
-  DataObj.GetData(FmtEtc, Medium);
+  // Get required storage LMedium from data object
+  LFmtEtc.cfFormat := CF_HDROP;
+  LFmtEtc.ptd      := nil;
+  LFmtEtc.dwAspect := DVASPECT_CONTENT;
+  LFmtEtc.lindex   := -1;
+  LFmtEtc.tymed    := TYMED_HGLOBAL;
+  DataObj.GetData(LFmtEtc, LMedium);
   try
     try
       // Get count of files dropped
-      DroppedFileCount := DragQueryFile(
-        Medium.hGlobal, $FFFFFFFF, nil, 0
+      LDroppedFileCount := DragQueryFile(
+        LMedium.hGlobal, $FFFFFFFF, nil, 0
       );
       // Get name of each file dropped and process it
-      for I := 0 to Pred(DroppedFileCount) do
+      for I := 0 to Pred(LDroppedFileCount) do
       begin
         // get length of file name, then name itself
-        FileNameLength := DragQueryFile(Medium.hGlobal, I, nil, 0);
-        SetLength(FileName, FileNameLength);
+        LFileNameLength := DragQueryFile(LMedium.hGlobal, I, nil, 0);
+        SetLength(LFileName, LFileNameLength);
         DragQueryFileW(
-          Medium.hGlobal, I, PWideChar(FileName), FileNameLength + 1
+          LMedium.hGlobal, I, PWideChar(LFileName), LFileNameLength + 1
         );
         // add file name to list
-        AFileList.Append(string(FileName));
+        AFileList.Append(string(LFileName));
       end;
     finally
       // Tidy up - release the drop handle
       // don't use DropH again after this
-      DragFinish(Medium.hGlobal);
+      DragFinish(LMedium.hGlobal);
     end;
   finally
-    ReleaseStgMedium(Medium);
+    ReleaseStgMedium(LMedium);
   end;
 end;
 {$ENDREGION}
@@ -829,36 +830,36 @@ end;
 {$REGION 'public methods'}
 procedure TfrmVirtualDBTree.NewFolderNode;
 var
-  Id : Integer;
+  LId : Integer;
 begin
   if NodeTypeField.AsInteger = 1 then
-    Id := KeyField.AsInteger
+    LId := KeyField.AsInteger
   else
-    Id := ParentField.AsInteger;
+    LId := ParentField.AsInteger;
   if DataSet.IsEmpty then // no parent, so we create a rootnode
-    Id := 0;
-  PostTreeData(Id, 1, SNewFolder);
+    LId := 0;
+  PostTreeData(LId, 1, SNewFolder);
   DoNewFolderNode;
 end;
 
 procedure TfrmVirtualDBTree.NewItemNode;
 var
-  Id : Integer;
+  LId : Integer;
 begin
    if NodeTypeField.AsInteger = 1 then
-    Id := KeyField.AsInteger
+    LId := KeyField.AsInteger
   else
-    Id := ParentField.AsInteger;
-  PostTreeData(Id, 2, SNew);
+    LId := ParentField.AsInteger;
+  PostTreeData(LId, 2, SNew);
   DoNewItemNode;
 end;
 
 procedure TfrmVirtualDBTree.NewSubItemNode;
 var
-  Id : Integer;
+  LId : Integer;
 begin
-  Id := KeyField.AsInteger;
-  PostTreeData(Id, 2, SNew);
+  LId := KeyField.AsInteger;
+  PostTreeData(LId, 2, SNew);
   DoNewItemNode;
 end;
 

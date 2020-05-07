@@ -38,7 +38,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -58,11 +58,10 @@ begin
   V.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
 end;
 
-procedure TfrmQuery.BeforeDestruction;
+destructor TfrmQuery.Destroy;
 begin
   FManager := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
-
 end.
 

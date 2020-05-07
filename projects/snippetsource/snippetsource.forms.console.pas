@@ -16,13 +16,15 @@
 
 unit SnippetSource.Forms.Console;
 
-{$mode delphi}
+{$MODE DELPHI}
 
 interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, uCmdBox;
+  StdCtrls,
+
+  uCmdBox;
 
 type
 
@@ -32,34 +34,50 @@ type
     cmdMain : TCmdBox;
     prcMain : TProcess;
     tmrMain : TTimer;
+
     procedure cmdMainInput(ACmdBox: TCmdBox; Input: string);
     procedure edtInputKeyPress(Sender: TObject; var Key: char);
     procedure tmrMainTimer(Sender: TObject);
 
-
   private
     procedure ProcessString(const AString: string);
 
+
   public
      procedure AfterConstruction; override;
+
+     procedure Execute(const AFileName: string);
 
   end;
 
 implementation
 
+uses
+  ts.Core.Logger;
+
 {$R *.lfm}
 
+{$REGION 'construction and destruction'}
 procedure TfrmConsole.AfterConstruction;
 begin
   inherited AfterConstruction;
   prcMain.Active  := True;
   tmrMain.Enabled := True;
-  cmdMain.StartRead(clSilver,clNavy,'',clYellow,clNavy);
+  cmdMain.StartRead(clSilver, clNavy, '', clYellow, clNavy);
 end;
 
+procedure TfrmConsole.Execute(const AFileName: string);
+begin
+  prcMain.Executable := 'cmd';
+  prcMain.Parameters.Add('/K call ' + AFileName);
+  prcMain.Execute;
+  cmdMain.SetFocus;
+end;
+{$ENDREGION}
+
+{$REGION 'event handlers'}
 procedure TfrmConsole.tmrMainTimer(Sender: TObject);
 var
-  //LBuf: array[0..65535] of Char;
   LBuf : array[0..1024] of Char;
   S : string;
 begin
@@ -76,31 +94,6 @@ begin
       //cmdMain.StartRead(clSilver,clNavy,'',clYellow,clNavy);
     end;
   end;
-end;
-
-procedure TfrmConsole.ProcessString(const AString: string);
-var
-  SL : TStringList;
-  I  : Integer;
-  S  : string;
-begin
-  SL := TStringList.Create;
-  try
-    SL.Text := AString;
-    for I := 0 to SL.Count - 1 do
-    begin
-      S := SL[I];
-      if I < SL.Count - 1 then
-      begin
-        cmdMain.Writeln(S);
-      end
-      else
-        cmdMain.StartRead(clSilver, clBlack, S, clWhite, clBlack);
-    end;
-  finally
-    SL.Free;
-  end;
-
 end;
 
 procedure TfrmConsole.edtInputKeyPress(Sender: TObject; var Key: char);
@@ -124,6 +117,33 @@ begin
   S := Input + LineEnding;
   prcMain.Input.Write(S[1], Length(S));
 end;
+{$ENDREGION}
+
+{$REGION 'protected methods'}
+procedure TfrmConsole.ProcessString(const AString: string);
+var
+  SL : TStringList;
+  I  : Integer;
+  S  : string;
+begin
+  SL := TStringList.Create;
+  try
+    SL.Text := AString;
+    for I := 0 to SL.Count - 1 do
+    begin
+      S := SL[I];
+      if I < SL.Count - 1 then
+      begin
+        cmdMain.Writeln(S);
+      end
+      else
+        cmdMain.StartRead(clSilver, clBlack, S, clWhite, clBlack);
+    end;
+  finally
+    SL.Free;
+  end;
+end;
+{$ENDREGION}
 
 end.
 

@@ -16,7 +16,7 @@ object frmConsole: TfrmConsole
     Width = 741
     Align = alClient
     CaretColor = clWhite
-    CaretType = cartBigBar
+    CaretType = cartUser
     CaretWidth = -1
     CaretHeight = 9
     CaretYShift = 3
@@ -27,16 +27,19 @@ object frmConsole: TfrmConsole
     Font.Name = 'Terminal_Hex'
     BackGroundColor = clBlack
     TabWidth = 2
-    HistoryMax = 100
+    HistoryMax = 1
     InputSelColor = clWhite
     InputSelBackGround = clBlue
     CaretInterval = 500
     EscapeCodeType = esctAnsi
     GraphicalCharacterWidth = 5
+    WriteInput = False
   end
   object prcMain: TProcess
+    PipeBufferSize = 2048
     Active = False
     Executable = 'cmd'
+    ConsoleTitle = 'My console'
     Options = [poUsePipes]
     Priority = ppNormal
     StartupOptions = []
@@ -48,14 +51,14 @@ object frmConsole: TfrmConsole
     WindowTop = 0
     WindowWidth = 0
     FillAttribute = 0
-    left = 194
-    top = 22
+    left = 32
+    top = 16
   end
   object tmrMain: TTimer
     Enabled = False
     Interval = 20
     OnTimer = tmrMainTimer
-    left = 315
-    top = 50
+    left = 104
+    top = 16
   end
 end

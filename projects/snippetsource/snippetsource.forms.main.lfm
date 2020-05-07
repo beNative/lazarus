@@ -87,7 +87,7 @@ object frmMain: TfrmMain
         object btnConsole: TToolButton
           Left = 41
           Top = 0
-          Action = actConsole
+          Action = actExecute
         end
       end
       object pnlComments: TPanel

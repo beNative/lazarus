@@ -1212,7 +1212,7 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    left = 244
-    top = 44
+    left = 256
+    top = 16
   end
 end

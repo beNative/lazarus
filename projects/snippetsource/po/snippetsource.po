@@ -16,6 +16,71 @@ msgctxt "snippetsource.forms.virtualdbtree.snewfolder"
 msgid "New folder"
 msgstr ""
 
+#: snippetsource.resources.sdatecreated
+msgid "Created: %s"
+msgstr ""
+
+#: snippetsource.resources.sdatemodified
+msgid "Modified: %s"
+msgstr ""
+
+#: snippetsource.resources.sid
+msgid "Id: %d"
+msgstr ""
+
+#: snippetsource.resources.sparameternotassigned
+msgid "Parameter <%s> parameter not assigned"
+msgstr ""
+
+#: snippetsource.resources.squerylookuperrorrunningquery
+msgid "Error running query <%s>"
+msgstr ""
+
+#: snippetsource.resources.squerylookuptoomanyrecords
+msgid "The query <%s> returned too many records"
+msgstr ""
+
+#: tfrmconsole.caption
+msgid "frmConsole"
+msgstr ""
+
+#: tfrmgrid.actapplyupdates.caption
+msgid "ApplyUpdates"
+msgstr ""
+
+#: tfrmgrid.actcommit.caption
+msgid "Commit"
+msgstr ""
+
+#: tfrmgrid.actinspectconnection.caption
+msgid "Inspect Connection"
+msgstr ""
+
+#: tfrmgrid.actinspectdataset.caption
+msgid "Inspect DataSet"
+msgstr ""
+
+#: tfrmgrid.actinspectdbgrid.caption
+msgid "Inspect DBGrid"
+msgstr ""
+
+#: tfrmgrid.actinspectfields.caption
+msgid "Inspect Fields"
+msgstr ""
+
+#: tfrmgrid.actinspecttransaction.caption
+msgid "Inspect Transaction"
+msgstr ""
+
+#: tfrmgrid.tsgrid.caption
+msgid "DBGrid"
+msgstr ""
+
+#: tfrmgrid.tssettings.caption
+msgctxt "tfrmgrid.tssettings.caption"
+msgid "Settings"
+msgstr ""
+
 #: tfrmmain.actabout.caption
 msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"

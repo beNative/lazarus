@@ -1140,7 +1140,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>SQL</HighlighterType>
+	<HighlighterType>BAT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

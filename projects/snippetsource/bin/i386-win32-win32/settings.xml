@@ -809,15 +809,30 @@
 							<DefaultFilter>Java Files (*.java)|*.java</DefaultFilter>
 							<Enabled>false</Enabled>
 							<AnnotationAttri>(TSynHighlighterAttributes)</AnnotationAttri>
-							<CommentAttri>(TSynHighlighterAttributes)</CommentAttri>
-							<DocumentAttri>(TSynHighlighterAttributes)</DocumentAttri>
+							<CommentAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+							</CommentAttri>
+							<DocumentAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+							</DocumentAttri>
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
 							<InvalidAttri>(TSynHighlighterAttributes)</InvalidAttri>
-							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
-							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
+							<KeyAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlue</Foreground>
+							</KeyAttri>
+							<NumberAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+							<StringAttri>(TSynHighlighterAttributes)
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold]</Style>
+							</SymbolAttri>
 						</TSynPikeSyn>
 					</Components>
 					<Highlighter>PIKE</Highlighter>
@@ -830,13 +845,26 @@
 					<Components>
 						<TSynVBSyn Name="SynHighlighter">
 							<Enabled>false</Enabled>
-							<CommentAttri>(TSynHighlighterAttributes)</CommentAttri>
+							<CommentAttri>(TSynHighlighterAttributes)
+								<Foreground>clSilver</Foreground>
+							</CommentAttri>
 							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
-							<KeyAttri>(TSynHighlighterAttributes)</KeyAttri>
-							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
+							<KeyAttri>(TSynHighlighterAttributes)
+								<Foreground>clBlue</Foreground>
+							</KeyAttri>
+							<NumberAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+							<StringAttri>(TSynHighlighterAttributes)
+								<Foreground>clGreen</Foreground>
+								<Style>[fsBold,fsItalic]</Style>
+							</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)
+								<Foreground>clRed</Foreground>
+								<Style>[fsBold]</Style>
+							</SymbolAttri>
 						</TSynVBSyn>
 					</Components>
 					<Highlighter>VB</Highlighter>
@@ -1094,7 +1122,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>XML</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

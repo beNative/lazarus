@@ -14,12 +14,14 @@ uses
   { you can add units after this }
   ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
 
-  SnippetSource.Forms.Main;
+  SnippetSource.Forms.Main, SnippetSource.Forms.Console,
+  SnippetSource.Modules.Data, SnippetSource.Forms.Grid, SnippetSource.Settings;
 
 {$R *.res}
 
 begin
   Logger.Channels.Add(TIpcChannel.Create);
+  Logger.Clear;
 {$IF DECLARED(UseHeapTrace)}
   if FileExists('trace.trc') then
     DeleteFile('trace.trc');

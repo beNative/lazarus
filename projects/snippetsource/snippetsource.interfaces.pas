@@ -56,8 +56,6 @@ type
       read GetFileName write SetFileName;
   end;
 
-  { ISQLite }
-
   ISQLite = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
   function GetDBVersion: string;
@@ -170,8 +168,8 @@ type
     function Edit: Boolean;
     function ApplyUpdates: Boolean;
 
-    procedure DisableControls;
     procedure EnableControls;
+    procedure DisableControls;
     procedure BeginBulkInserts;
     procedure EndBulkInserts;
 
@@ -219,8 +217,6 @@ type
     property GlyphList: TImageList
       read GetGlyphList;
   end;
-
-  { ISettings }
 
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']

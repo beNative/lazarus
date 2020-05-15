@@ -38,9 +38,12 @@ type
     FToolView      : IEditorToolView;
 
   strict protected
+    {$REGION 'property access methods'}
     function GetForm: TForm;
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
+    {$ENDREGION}
+
     procedure SetFocus;
     function Focused: Boolean;
     function GetName: string;
@@ -79,9 +82,11 @@ type
     FManager : IEditorManager;
 
   strict protected
+    {$REGION 'property access methods'}
     function GetView(AIndex: Integer): IEditorToolView;
     function GetViewByName(AName: string): IEditorToolView;
     function GetCount: Integer;
+    {$ENDREGION}
 
     function GetEnumerator: TEditorToolViewListEnumerator;
 
@@ -115,8 +120,7 @@ uses
 
   ts.Core.Logger;
 
-{ TToolView }
-
+{$REGION 'TToolView'}
 {$REGION 'construction and destruction'}
 constructor TToolView.Create(AManager: IEditorManager;
   AFormClass: TComponentClass; ASettingsClass: TComponentClass;
@@ -196,9 +200,9 @@ begin
   Result := Assigned(FForm) and FForm.Focused;
 end;
 {$ENDREGION}
+{$ENDREGION}
 
-{ TToolViews }
-
+{$REGION 'TToolViews'}
 {$REGION 'construction and destruction'}
 constructor TToolViews.Create(AEditorManager: IEditorManager);
 begin
@@ -273,6 +277,7 @@ begin
     FManager.Events.DoHideToolView(TV);
   end;
 end;
+{$ENDREGION}
 {$ENDREGION}
 
 end.

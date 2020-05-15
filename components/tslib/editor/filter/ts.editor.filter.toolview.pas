@@ -81,7 +81,7 @@ type
     procedure FVSTKeyPress(Sender: TObject; var Key: char);
     procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 
-  strict private
+  private
     FVST : TVirtualStringTree;
     FTVP : TTreeViewPresenter;
 
@@ -239,19 +239,19 @@ function TfrmFilter.CCustomDraw(Sender: TObject;
   CellRect: TRect; ImageList: TCustomImageList; DrawMode: TDrawMode;
   Selected: Boolean): Boolean;
 var
-  Match  : string = '';
-  Offset : Integer = 0;
-  R      : TRect;
-  S      : string;
+  LMatch  : string = '';
+  LOffset : Integer = 0;
+  R       : TRect;
+  S       : string;
 begin
   Result := False;
   if DrawMode = dmBeforeCellPaint then
   begin
     S := ItemTemplate.GetText(Item, ColumnDefinition.Index);
-    if IsMatch(S, Match, Offset) then
+    if IsMatch(S, LMatch, LOffset) then
     begin
       R := CellRect;
-      CalcMatchRect(S, Match, Offset, TargetCanvas, ColumnDefinition, R);
+      CalcMatchRect(S, LMatch, LOffset, TargetCanvas, ColumnDefinition, R);
       DrawMatchRect(TargetCanvas, R);
       Result := True;
     end;
@@ -534,4 +534,3 @@ begin
 end;
 {$ENDREGION}
 end.
-

@@ -31,11 +31,12 @@ type
   TfrmMiniMap = class(TCustomEditorToolView)
     procedure FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData);
     procedure FormResize(Sender: TObject);
+
   private
     FMiniMap : TSynMiniMap;
     function GetSettings: TMiniMapSettings;
 
-  strict protected
+  protected
     property Settings : TMiniMapSettings
       read GetSettings;
 
@@ -77,7 +78,7 @@ end;
 procedure TfrmMiniMap.FMiniMapClick(Sender: TObject; Data: PSynMiniMapEventData
   );
 begin
-  //
+  // TODO
 end;
 
 procedure TfrmMiniMap.FormResize(Sender: TObject);

@@ -141,10 +141,11 @@ type
     procedure actUndoExecute(Sender: TObject);
     procedure actURLDecodeExecute(Sender: TObject);
     procedure actURLEncodeExecute(Sender: TObject);
-    procedure FormResize(Sender: TObject);
     {$ENDREGION}
 
-  strict private
+    procedure FormResize(Sender: TObject);
+
+  private
     FBreakTokenSide : TTokenSide;
 
     function GetSettings: TCodeShaperSettings;
@@ -244,7 +245,7 @@ end;
 
 procedure TfrmCodeShaper.actRemoveDoublesExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := RemoveDoubles(S);
@@ -258,7 +259,7 @@ end;
 
 procedure TfrmCodeShaper.actStripFirstCharExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := StripChars(S, True, False);
@@ -267,7 +268,7 @@ end;
 
 procedure TfrmCodeShaper.actStripLastCharExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := StripChars(S, False, False);
@@ -281,7 +282,7 @@ end;
 
 procedure TfrmCodeShaper.actTrimExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   if chkTrimLinesLeft.Checked or chkTrimLinesRight.Checked then
@@ -323,7 +324,7 @@ end;
 
 procedure TfrmCodeShaper.actDequoteLinesExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := DequoteLines(
@@ -336,7 +337,7 @@ end;
 
 procedure TfrmCodeShaper.actInsertBreaksExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   if chkBreakLines.Checked then
@@ -358,7 +359,7 @@ end;
 
 procedure TfrmCodeShaper.actMakePascalStringExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := PascalStringOf(S);
@@ -462,7 +463,7 @@ end;
 
 procedure TfrmCodeShaper.UpdateReplaceStringsControls;
 var
-  B: Boolean;
+  B : Boolean;
 begin
   B := True;
   chkReplaceStringsCaseSensitive.Enabled := B;
@@ -506,7 +507,7 @@ end;
 
 procedure TfrmCodeShaper.UpdateQuoteLinesControls;
 var
-  B: Boolean;
+  B : Boolean;
 begin
   B := True;
   edtQuoteLinesQuoteChar.Enabled := B;
@@ -558,5 +559,3 @@ end;
 {$ENDREGION}
 
 end.
-
-

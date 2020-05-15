@@ -341,84 +341,84 @@ const
   );
 
   EditorOptionsFoldInfoLFM: array [0..2] of TEditorOptionsFoldInfo = (
-    ( Name:    dlgFoldLfmObject;
-      Xml:    'Object';
-      Index:   Ord(cfbtLfmObject);
-      Enabled: True
+    (Name:    dlgFoldLfmObject;
+     Xml:    'Object';
+     Index:   Ord(cfbtLfmObject);
+     Enabled: True
     ),
-    ( Name:    dlgFoldLfmList;
-      Xml:     'List';
-      Index:   Ord(cfbtLfmList);
-      Enabled: True
+    (Name:    dlgFoldLfmList;
+     Xml:     'List';
+     Index:   Ord(cfbtLfmList);
+     Enabled: True
     ),
-    ( Name:    dlgFoldLfmItem;
-      Xml:     'Item';
-      Index:   Ord(cfbtLfmItem);
-      Enabled: True
+    (Name:    dlgFoldLfmItem;
+     Xml:     'Item';
+     Index:   Ord(cfbtLfmItem);
+     Enabled: True
     )
   );
 
   EditorOptionsFoldInfoXML: array [0..4] of TEditorOptionsFoldInfo = (
-    ( Name:    dlgFoldXmlNode;
-      Xml:    'Node';
-      Index:   Ord(cfbtXmlNode);
-      Enabled: True
+    (Name:    dlgFoldXmlNode;
+     Xml:    'Node';
+     Index:   Ord(cfbtXmlNode);
+     Enabled: True
     ),
-    ( Name:    dlgFoldXmlComment;
-      Xml:    'Comment';
-      Index:   Ord(cfbtXmlComment);
-      Enabled: True
+    (Name:    dlgFoldXmlComment;
+     Xml:    'Comment';
+     Index:   Ord(cfbtXmlComment);
+     Enabled: True
     ),
-    ( Name:    dlgFoldXmlCData;
-      Xml:    'CData';
-      Index:   Ord(cfbtXmlCData);
-      Enabled: True
+    (Name:    dlgFoldXmlCData;
+     Xml:    'CData';
+     Index:   Ord(cfbtXmlCData);
+     Enabled: True
     ),
-    ( Name:    dlgFoldXmlDocType;
-      Xml:    'DocType';
-      Index:   Ord(cfbtXmlDocType);
-      Enabled: True
+    (Name:    dlgFoldXmlDocType;
+     Xml:    'DocType';
+     Index:   Ord(cfbtXmlDocType);
+     Enabled: True
     ),
-    ( Name:    dlgFoldXmlProcess;
-      Xml:    'ProcessInstr';
-      Index:   Ord(cfbtXmlProcess);
-      Enabled: True
+    (Name:    dlgFoldXmlProcess;
+     Xml:    'ProcessInstr';
+     Index:   Ord(cfbtXmlProcess);
+     Enabled: True
     )
   );
   EditorOptionsFoldInfoHTML: array [0..2] of TEditorOptionsFoldInfo = (
-      ( Name:    dlgFoldHtmlNode;
-        Xml:    'Node';
-        Index:   Ord(cfbtHtmlNode);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldHtmlComment;
-        Xml:    'Comment';
-        Index:   Ord(cfbtXmlComment);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldHtmlAsp;
-        Xml:    'ASP';
-        Index:   Ord(cfbtHtmlAsp);
-        Enabled: True
-      )
+    (Name:    dlgFoldHtmlNode;
+     Xml:    'Node';
+     Index:   Ord(cfbtHtmlNode);
+     Enabled: True
+    ),
+    (Name:    dlgFoldHtmlComment;
+     Xml:    'Comment';
+     Index:   Ord(cfbtXmlComment);
+     Enabled: True
+    ),
+    (Name:    dlgFoldHtmlAsp;
+     Xml:    'ASP';
+     Index:   Ord(cfbtHtmlAsp);
+     Enabled: True
+    )
   );
 
   EditorOptionsFoldInfoDiff: array [0..2] of TEditorOptionsFoldInfo = (
-      ( Name:    dlgFoldDiffFile;
-        Xml:    'File';
-        Index:   Ord(cfbtDiffFile);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldDiffChunk;
-        Xml:    'Chunk';
-        Index:   Ord(cfbtDiffChunk);
-        Enabled: True
-      ),
-      ( Name:    dlgFoldDiffChunkSect;
-        Xml:    'ChunkSect';
-        Index:   Ord(cfbtDiffChunkSect);
-        Enabled: True
-      )
+    (Name:    dlgFoldDiffFile;
+     Xml:    'File';
+     Index:   Ord(cfbtDiffFile);
+     Enabled: True
+    ),
+    (Name:    dlgFoldDiffChunk;
+     Xml:    'Chunk';
+     Index:   Ord(cfbtDiffChunk);
+     Enabled: True
+    ),
+    (Name:    dlgFoldDiffChunkSect;
+     Xml:    'ChunkSect';
+     Index:   Ord(cfbtDiffChunkSect);
+     Enabled: True
+    )
   );
 
 type
@@ -426,8 +426,8 @@ type
   PEditorOptionsDividerInfoList = ^TEditorOptionsDividerInfoList;
 
   TEditorOptionsDividerRecord = record
-    Count: Integer;
-    Info: PEditorOptionsDividerInfoList;
+    Count : Integer;
+    Info  : PEditorOptionsDividerInfoList;
   end;
 
 var

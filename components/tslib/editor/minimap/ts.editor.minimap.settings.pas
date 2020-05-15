@@ -29,7 +29,8 @@ const
 type
   TMiniMapSettings = class(TComponent)
   private
-    FWidth: Integer;
+    FWidth : Integer;
+
   public
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
@@ -44,7 +45,7 @@ implementation
 {$REGION 'public methods'}
 procedure TMiniMapSettings.AssignTo(Dest: TPersistent);
 var
-  S: TMiniMapSettings;
+  S : TMiniMapSettings;
 begin
   if Dest is TMiniMapSettings then
   begin
@@ -57,7 +58,7 @@ end;
 
 procedure TMiniMapSettings.Assign(Source: TPersistent);
 var
-  S: TMiniMapSettings;
+  S : TMiniMapSettings;
 begin
   if Source is TMiniMapSettings then
   begin

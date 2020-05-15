@@ -20,39 +20,39 @@ unit ts.Editor.View;
 
 {$REGION 'documentation'}
 {
-Form holding a complete customizable text editor based on the open source
-SynEdit components.
-Features:
-  - accepts dropped files
-  - auto detect file encoding
-  - dynamic editor creation
-  - synchronized edit
-  - highlight selected text
-  - code folding
-  - file monitor function to watch for external file changes.
+  Form holding a complete customizable text editor based on the open source
+  SynEdit components.
+  Features:
+    - accepts dropped files
+    - auto detect file encoding
+    - dynamic editor creation
+    - synchronized edit
+    - highlight selected text
+    - code folding
+    - file monitor function to watch for external file changes.
 
-TODO:
-  - remove bookmark images
-  - macrorecorder
-  - template editor
-  - configurable page setup and printing with preview
-  - quickbuttons (like the Delphi version had)
-  - URI opener, to open hyperlinks directly from the editor
-  - customizable keystroke-function mappings
-  - configurable code completion proposal
-  - convert to another encoding (partially implemented)
-  - find a way to fold particular sections (now only levels are supported)
-  - send to mail action
+  TODO:
+    - remove bookmark images
+    - macrorecorder
+    - template editor
+    - configurable page setup and printing with preview
+    - quickbuttons (like the Delphi version had)
+    - URI opener, to open hyperlinks directly from the editor
+    - customizable keystroke-function mappings
+    - configurable code completion proposal
+    - convert to another encoding (partially implemented)
+    - find a way to fold particular sections (now only levels are supported)
+    - send to mail action
 
-  KNOWN ISSUES:
-  - When created at runtime, the cleanup of the TSynEdit instance is magnitudes
-    faster than using a design-time instance. Therefor we rely on a manually
-    created instance.
-    This way it is also easier to adapt to changes in the SynEdit component.
+    KNOWN ISSUES:
+    - When created at runtime, the cleanup of the TSynEdit instance is magnitudes
+      faster than using a design-time instance. Therefor we rely on a manually
+      created instance.
+      This way it is also easier to adapt to changes in the SynEdit component.
 
-  DEPENDENCIES:
-  - SynEdit
-  - ts.Core.DirectoryWatch: do react on modifications.
+    DEPENDENCIES:
+    - SynEdit
+    - ts.Core.DirectoryWatch: do react on modifications.
 }
 {$ENDREGION}
 
@@ -76,14 +76,17 @@ uses
   ts.Core.Logger;
 
 type
+
+  { TEditorView }
+
   TEditorView = class(TForm, IEditorView, IEditorSelection)
   published
-    imlBookmarkImages: TImageList;
+    imlBookmarkImages : TImageList;
 
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
-  strict private
+  private
     // SynEdit event handlers
     procedure EditorChangeUpdating(
       ASender    : TObject;
@@ -115,12 +118,6 @@ type
       Sender             : TObject;
       X, Y               : Integer;
       var AllowMouseLink : Boolean
-    );
-    procedure EditorSpecialLineColors(
-      Sender      : TObject;
-      Line        : Integer;
-      var Special : Boolean;
-      var FG, BG  : TColor
     );
     procedure EditorChange(Sender: TObject);
     procedure EditorClickLink(
@@ -336,14 +333,17 @@ type
     procedure InitializeEditor(AEditor: TSynEdit);
     procedure EditorSettingsChanged(ASender: TObject);
 
-  strict protected
+  protected
     procedure BeginUpdate;
     procedure EndUpdate;
 
-    procedure CopyToClipboard;
+    procedure CopySelectionToClipboard;
+    procedure CopyAllToClipboard;
+
     procedure Cut;
     procedure Copy;
     procedure Paste;
+
     procedure Undo;
     procedure Redo;
 
@@ -370,7 +370,6 @@ type
 
     procedure DoChange; dynamic;
 
-  protected
     // TCustomForm overrides
     procedure Activate; override;
     procedure UpdateActions; override;
@@ -599,7 +598,7 @@ implementation
 {$R *.lfm}
 
 uses
-  GraphUtil, TypInfo,
+  GraphUtil, TypInfo, Clipbrd,
 
   LazUTF8Classes, LConvEncoding, LCLProc,
 
@@ -609,6 +608,7 @@ type
   TSynEditAccess = class(TSynEdit)
   private
     function GetCaret: TSynEditCaret;
+
   public
      // As viewed internally (with uncommited spaces / TODO: expanded tabs,
     // folds). This may change, use with care
@@ -616,6 +616,7 @@ type
     // (TSynEditStringList) No uncommited (trailing/trimmable) spaces
     property TextBuffer;
     property WordBreaker; // TSynWordBreaker
+
     property Caret: TSynEditCaret
       read GetCaret;
   end;
@@ -662,7 +663,7 @@ begin
   FDirectoryWatch          := TDirectoryWatch.Create;
   FDirectoryWatch.OnNotify := DirectoryWatchNotify;
   // TEST
-  MonitorChanges := True;
+  //MonitorChanges := True;
 {$ENDIF}
   Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
   ApplySettings;
@@ -674,6 +675,7 @@ begin
   begin
     MasterView.SlaveView := nil;
   end;
+  FSlaveView   := nil;
   FMasterView  := nil;
   FHighlighter := nil;
   FSelection   := nil;
@@ -715,7 +717,7 @@ procedure TEditorView.EditorReplaceText(Sender: TObject; const ASearch: string;
   const AReplace: string; Line, Column: Integer;
   var ReplaceAction: TSynReplaceAction);
 begin
-  //Logger.Send('EditorReplaceText');
+  Logger.Send('EditorReplaceText');
 end;
 
 function TEditorView.EditorMouseActionExec(AnAction: TSynEditMouseAction;
@@ -754,16 +756,16 @@ end;
 procedure TEditorView.EditorCommandProcessed(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  //Logger.Send(
-  //  'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
-  //  [EditorCommandToCodeString(Command), AChar]
-  //);
+  Logger.Info(
+    'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
+    [EditorCommandToCodeString(Command), AChar]
+  );
 end;
 
 procedure TEditorView.EditorChangeUpdating(ASender: TObject;
   AUpdating: Boolean);
 begin
-  //Logger.Send(
+  //Logger.Info(
   //  'EditorChangeUpdating(AUpdating = %s)',
   //  [BoolToStr(AUpdating, 'True', 'False')]
   //);
@@ -780,11 +782,11 @@ procedure TEditorView.EditorSpecialLineMarkup(Sender: TObject; Line: Integer;
 //var
 //  S : string;
 begin
-//  S := Markup.ToString;
-//  Logger.Send(
-//    'EditorSpecialLineMarkup(Line = %d; Special = %s; Markup = %s)',
-//    [Line, BoolToStr(Special, 'True', 'False'), S]
-//  );
+  //S := Markup.ToString;
+  //Logger.Info(
+  //  'EditorSpecialLineMarkup(Line = %d; Special = %s; Markup = %s)',
+  //  [Line, BoolToStr(Special, 'True', 'False'), S]
+  //);
 end;
 
 procedure TEditorView.EditorClearBookmark(Sender: TObject;
@@ -835,13 +837,6 @@ begin
   //  [X, Y, BoolToStr(AllowMouseLink, 'True', 'False')]
   //);
   AllowMouseLink := True;
-end;
-
-procedure TEditorView.EditorSpecialLineColors(Sender: TObject; Line: Integer;
-  var Special: Boolean; var FG, BG: TColor);
-begin
-  // Workaround for SynEdit bug. Needs to be handled in order to let
-  // Editor.LineHighlightColor work. 21/09/2013
 end;
 
 { Makes actionlist shortcuts work on the form }
@@ -937,7 +932,7 @@ end;
 procedure TEditorView.EditorProcessCommand(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  //Logger.Send(
+  //Logger.Info(
   //  'EditorProcessCommand(Command = %s; AChar = %s; Data)',
   //  [EditorCommandToCodeString(Command), AChar]
   //);
@@ -1701,7 +1696,7 @@ end;
 
 procedure TEditorView.InitializeEditor(AEditor: TSynEdit);
 var
-  N: Integer;
+  N : Integer;
 begin
   AEditor.Parent := Self;
   AEditor.Align := alClient;
@@ -1762,7 +1757,7 @@ begin
     eoShowCtrlMouseLinks,
     eoScrollPastEol,         // makes column selections easier
     eoDragDropEditing,
-//    eoPersistentCaret,     // don't use! bug in TSynEdit
+//    eoPersistentCaret,     // not fully supported by SynEdit yet.
     eoShowScrollHint
   ];
 
@@ -1800,11 +1795,6 @@ begin
      scCharsInWindow, scInsertMode, scModified, scSelection, scReadOnly]
   );
   AEditor.RegisterKeyTranslationHandler(EditorKeyTranslation);
-
-  // Workaround for SynEdit bug. Needs to be handled in order to let
-  // Editor.LineHighlightColor work. 21/09/2013
-  AEditor.OnSpecialLineColors := EditorSpecialLineColors;
-
   AEditor.Visible := True;
 
   FSyncronizedEdit := TSynPluginSyncroEdit.Create(nil);
@@ -1943,10 +1933,21 @@ begin
   Editor.EndUpdate;
 end;
 
-procedure TEditorView.CopyToClipboard;
+{ Copies selection regardless of focus. }
+
+procedure TEditorView.CopySelectionToClipboard;
 begin
   Editor.CopyToClipboard;
 end;
+
+{ Copies all text to clipboard. }
+
+procedure TEditorView.CopyAllToClipboard;
+begin
+  Clipboard.AsText := Text;
+end;
+
+{ Cuts selection to clipboard if current view is focused. }
 
 procedure TEditorView.Cut;
 begin
@@ -1958,6 +1959,8 @@ begin
   end
 end;
 
+{ Copies selection to clipboard if current view is focused. }
+
 procedure TEditorView.Copy;
 begin
   if Editor.Focused then
@@ -1967,6 +1970,8 @@ begin
     Editor.CopyToClipboard;
   end
 end;
+
+{ Pastes clipboard content if current view is focused. }
 
 procedure TEditorView.Paste;
 begin
@@ -1992,7 +1997,7 @@ end;
 
 procedure TEditorView.Activate;
 begin
-  inherited;
+  inherited Activate;
   Manager.ActiveView := Self as IEditorView;
 end;
 
@@ -2044,28 +2049,29 @@ end;
 
 procedure TEditorView.FindNextWordOccurrence(ADirectionForward: Boolean);
 var
-  StartX, EndX: Integer;
-  Flags: TSynSearchOptions;
-  LogCaret: TPoint;
+  LStartX   : Integer;
+  LEndX     : Integer;
+  LFlags    : TSynSearchOptions;
+  LLogCaret : TPoint;
 begin
-  StartX := 0;
-  EndX   := Editor.MaxLeftChar;
-  LogCaret := LogicalCaretXY;
-  Editor.GetWordBoundsAtRowCol(LogCaret, StartX, EndX);
-  if EndX <= StartX then
+  LStartX := 0;
+  LEndX   := Editor.MaxLeftChar;
+  LLogCaret := LogicalCaretXY;
+  Editor.GetWordBoundsAtRowCol(LLogCaret, LStartX, LEndX);
+  if LEndX <= LStartX then
     Exit;
-  Flags := [ssoWholeWord];
+  LFlags := [ssoWholeWord];
   if ADirectionForward then
   begin
-    LogCaret.X := EndX;
+    LLogCaret.X := LEndX;
   end
   else
   begin
-    LogCaret.X := StartX;
-    Include(Flags, ssoBackwards);
+    LLogCaret.X := LStartX;
+    Include(LFlags, ssoBackwards);
   end;
-  LogicalCaretXY := LogCaret;
-  Editor.SearchReplace(Editor.GetWordAtRowCol(LogCaret), '', Flags);
+  LogicalCaretXY := LLogCaret;
+  Editor.SearchReplace(Editor.GetWordAtRowCol(LLogCaret), '', LFlags);
 end;
 
 procedure TEditorView.SetHighlightSearch(const ASearch: string; AOptions: TSynSearchOptions);
@@ -2079,7 +2085,7 @@ end;
 
 procedure TEditorView.UpdateActions;
 var
-  B: Boolean;
+  B : Boolean;
 begin
   inherited UpdateActions;
   B := Focused;
@@ -2120,10 +2126,11 @@ end;
 {$REGION 'public methods'}
 function TEditorView.CloseQuery: Boolean;
 var
-  MR: TModalResult;
-  S : string;
-  V : IEditorView;
+  MR : TModalResult;
+  S  : string;
+  V  : IEditorView;
 begin
+  Logger.Enter(Self, 'CloseQuery');
   V := nil;
   Result := inherited CloseQuery;
   if Modified then
@@ -2154,6 +2161,7 @@ begin
   begin
     V.Activate;
   end;
+  Logger.Leave(Self, 'CloseQuery');
 end;
 
 {  When IsFile is true this loads the given filenameinto the editor view. When
@@ -2199,7 +2207,7 @@ end;
 
 procedure TEditorView.LoadFromStream(AStream: TStream);
 var
-  SL: TStringList;
+  SL : TStringList;
 begin
   SL := TStringList.Create;
   try
@@ -2219,7 +2227,7 @@ end;
 
 procedure TEditorView.SaveToStream(AStream: TStream);
 var
-  S  : string;
+  S : string;
 begin
   if LineBreakStyle <> ALineBreakStyles[GuessLineBreakStyle(Text)] then
   begin
@@ -2253,7 +2261,7 @@ end;
 
 function TEditorView.GetWordAtPosition(const APosition: TPoint): string;
 var
-  LCaretPos: TPoint;
+  LCaretPos : TPoint;
 begin
   Result := '';
   LCaretPos := Editor.PhysicalToLogicalPos(APosition);

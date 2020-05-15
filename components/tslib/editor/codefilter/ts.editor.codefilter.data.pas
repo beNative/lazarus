@@ -27,9 +27,10 @@ uses
 
 type
   TLine = class(TPersistent)
-  strict private
+  private
     FIndex : Integer;
     FText  : string;
+
   public
     constructor Create(
       const AIndex : Integer;
@@ -46,12 +47,14 @@ type
 
 implementation
 
+{$REGION 'construction and destruction'}
 constructor TLine.Create(const AIndex: Integer; const AText: string);
 begin
   inherited Create;
   FIndex := AIndex;
   FText  := AText;
 end;
+{$ENDREGION}
 
 end.
 

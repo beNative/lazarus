@@ -302,12 +302,11 @@ begin
   AMenu.Items.Add(MI);
   CreateMenuItem(MI, 'actShowViews');
   CreateMenuItem(MI, 'actShowActions');
-  CreateMenuItem(MI, 'actShowPreview');
-  CreateMenuItem(MI, 'actShowMiniMap');
-  CreateMenuItem(MI, 'actShowHTMLViewer');
-  CreateMenuItem(MI, 'actShowStructureViewer');
-  CreateMenuItem(MI, 'actShowHexEditor');
-  CreateMenuItem(MI, 'actShowScriptEditor');
+//  CreateMenuItem(MI, 'actShowPreview');
+//  CreateMenuItem(MI, 'actShowMiniMap');
+//  CreateMenuItem(MI, 'actShowStructureViewer');
+//  CreateMenuItem(MI, 'actShowHexEditor');
+//  CreateMenuItem(MI, 'actShowScriptEditor');
   Result := MI;
 end;
 

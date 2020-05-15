@@ -41,6 +41,7 @@ type
     FCaretXY       : TPoint;
     FEditorView    : IEditorView;
 
+    {$REGION 'property access methods'}
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
     function GetCaretXY: TPoint;
@@ -53,6 +54,7 @@ type
     procedure SetCaretXY(AValue: TPoint);
     procedure SetSelectionMode(AValue: TSynSelectionMode);
     procedure SetText(AValue: string);
+    {$ENDREGION}
 
   protected
     property LockUpdates: Boolean
@@ -142,6 +144,11 @@ begin
   Result := FBlockEnd;
 end;
 
+procedure TEditorSelection.SetBlockEnd(AValue: TPoint);
+begin
+  FBlockEnd := AValue;
+end;
+
 function TEditorSelection.GetCaretXY: TPoint;
 begin
   Result := FCaretXY;
@@ -155,11 +162,6 @@ end;
 function TEditorSelection.GetLines: TStrings;
 begin
   Result := FLines;
-end;
-
-procedure TEditorSelection.SetBlockEnd(AValue: TPoint);
-begin
-  FBlockEnd := AValue;
 end;
 
 function TEditorSelection.GetSelectionMode: TSynSelectionMode;
@@ -244,18 +246,18 @@ begin
 end;
 
 {
-Depending on the selectionmode RestoreBlock will select code as follows:
+  Depending on the selectionmode RestoreBlock will select code as follows:
 
-   smNormal
-     FBlockEnd.X => charcount of the last line in FLines
-     FBlockEnd.Y => FBlockBegin.Y + FLines.Count
+     smNormal
+       FBlockEnd.X => charcount of the last line in FLines
+       FBlockEnd.Y => FBlockBegin.Y + FLines.Count
 
-   smColumn
-     FBlockEnd.X => FBlockBegin.X
-       + charcount of longest line in FLines
-     FBlockEnd.Y => FBlockBegin.Y + FLines.Count
+     smColumn
+       FBlockEnd.X => FBlockBegin.X
+         + charcount of longest line in FLines
+       FBlockEnd.Y => FBlockBegin.Y + FLines.Count
 
-  FBlockBegin is always left untouched.
+    FBlockBegin is always left untouched.
 }
 
 procedure TEditorSelection.Restore;

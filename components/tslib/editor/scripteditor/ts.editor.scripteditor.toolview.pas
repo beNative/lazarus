@@ -29,15 +29,16 @@ type
   TfrmScriptEditor = class(TCustomEditorToolView, IEditorToolView)
     aclMain    : TActionList;
     actExecute : TAction;
-    imlMain    : TImageList;
-    pnlLeft    : TPanel;
-    pnlRight   : TPanel;
-    pnlBottom  : TPanel;
-    pnlMain    : TPanel;
-    tlbMain    : TToolBar;
     btnExecute : TToolButton;
+    imlMain    : TImageList;
+    pnlBottom  : TPanel;
+    pnlLeft    : TPanel;
+    pnlMain    : TPanel;
+    pnlRight   : TPanel;
+    tlbMain    : TToolBar;
 
     procedure actExecuteExecute(Sender: TObject);
+
     procedure FormShow(Sender: TObject);
 
   private
@@ -98,7 +99,7 @@ end;
 {$REGION 'action handlers'}
 procedure TfrmScriptEditor.actExecuteExecute(Sender: TObject);
 begin
-  //
+  // TODO
 end;
 {$ENDREGION}
 

@@ -7,7 +7,6 @@ inherited frmCharacterMap: TfrmCharacterMap
   BorderStyle = bsSingle
   ClientHeight = 649
   ClientWidth = 369
-  KeyPreview = True
   PopupMode = pmAuto
   Position = poDefault
   object pcMain: TPageControl[0]
@@ -75,22 +74,22 @@ inherited frmCharacterMap: TfrmCharacterMap
         OnSelectCell = grdANSISelectCell
         ColWidths = (
           16
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          21
-          26
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          20
+          24
         )
       end
     end
@@ -140,22 +139,22 @@ inherited frmCharacterMap: TfrmCharacterMap
         OnMouseMove = grdUnicodeMouseMove
         OnSelectCell = grdUnicodeSelectCell
         ColWidths = (
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          22
-          26
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          21
+          24
         )
       end
       object cbxUnicodeRange: TComboBox

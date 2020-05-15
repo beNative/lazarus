@@ -6,12 +6,12 @@ object frmFileTypeSettings: TfrmFileTypeSettings
   BorderStyle = bsNone
   ClientHeight = 409
   ClientWidth = 447
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.0.2.0'
   object lbFT: TLabel
     Left = 8
     Height = 15
     Top = 8
-    Width = 49
+    Width = 48
     Caption = 'File &Type:'
     FocusControl = cbFT
     ParentColor = False
@@ -78,7 +78,7 @@ object frmFileTypeSettings: TfrmFileTypeSettings
           Left = 14
           Height = 15
           Top = 122
-          Width = 57
+          Width = 56
           Caption = 'Tab &Width:'
           FocusControl = cbTabWidth
           ParentColor = False
@@ -113,7 +113,7 @@ object frmFileTypeSettings: TfrmFileTypeSettings
           Left = 14
           Height = 19
           Top = 26
-          Width = 66
+          Width = 65
           Caption = '&Uset Tab'
           TabOrder = 1
         end
@@ -121,7 +121,7 @@ object frmFileTypeSettings: TfrmFileTypeSettings
           Left = 14
           Height = 19
           Top = 42
-          Width = 74
+          Width = 73
           Caption = '&Smart Tab'
           TabOrder = 2
         end
@@ -255,7 +255,7 @@ object frmFileTypeSettings: TfrmFileTypeSettings
         Left = 8
         Height = 15
         Top = 128
-        Width = 99
+        Width = 100
         Caption = '&Output Expression:'
         FocusControl = cbRunOutput
         ParentColor = False
@@ -393,8 +393,8 @@ object frmFileTypeSettings: TfrmFileTypeSettings
     OnClick = lnkFiltersClick
   end
   object AL: TActionList
-    Left = 240
-    Top = 8
+    left = 240
+    top = 8
     object acAdd: TAction
       Caption = '&Add...'
       OnExecute = acAddExecute

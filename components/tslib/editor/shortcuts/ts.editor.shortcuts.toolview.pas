@@ -27,8 +27,9 @@ uses
 
 type
   TfrmShortcuts = class(TForm)
-    mmoMain: TRichMemo;
-    pnlMain: TPanel;
+    mmoMain : TRichMemo;
+    pnlMain : TPanel;
+
     procedure FormShow(Sender: TObject);
     procedure mmoMainClick(Sender: TObject);
     procedure mmoMainEnterAbort(Sender: TObject);

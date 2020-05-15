@@ -21,7 +21,7 @@ inherited frmAlignLines: TfrmAlignLines
     Height = 704
     Top = 4
     Width = 324
-    HorzScrollBar.Page = 303
+    HorzScrollBar.Page = 304
     VertScrollBar.Page = 338
     Align = alClient
     BorderSpacing.Bottom = 4
@@ -247,8 +247,8 @@ inherited frmAlignLines: TfrmAlignLines
     end
   end
   object aclMain: TActionList[2]
-    Left = 152
-    Top = 472
+    left = 152
+    top = 472
     object actExecute: TAction
       Caption = 'Execute'
       OnExecute = actExecuteExecute

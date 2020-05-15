@@ -29,7 +29,8 @@ const
 type
   TCodeShaperSettings = class(TComponent)
   private
-    FWidth: Integer;
+    FWidth : Integer;
+
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
@@ -53,7 +54,7 @@ end;
 {$REGION 'public methods'}
 procedure TCodeShaperSettings.AssignTo(Dest: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S : TCodeShaperSettings;
 begin
   if Dest is TCodeShaperSettings then
   begin
@@ -66,7 +67,7 @@ end;
 
 procedure TCodeShaperSettings.Assign(Source: TPersistent);
 var
-  S: TCodeShaperSettings;
+  S : TCodeShaperSettings;
 begin
   if Source is TCodeShaperSettings then
   begin

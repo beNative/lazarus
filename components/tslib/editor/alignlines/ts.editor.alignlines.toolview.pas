@@ -97,12 +97,12 @@ type
     procedure rgpAlignAtClick(Sender: TObject);
     procedure rgpSortDirectionClick(Sender: TObject);
 
-  strict private
+  private
     FTVP    : TTreeViewPresenter;
     FVST    : TVirtualStringTree;
     FTokens : TObjectList; // list of alignment tokens found in selection
 
-  strict protected
+  protected
     function GetSettings: TAlignLinesSettings;
 
     procedure AssignDefaultTokens;
@@ -115,7 +115,6 @@ type
     property Settings: TAlignLinesSettings
       read GetSettings;
 
-  protected
     procedure UpdateActions; override;
 
   public

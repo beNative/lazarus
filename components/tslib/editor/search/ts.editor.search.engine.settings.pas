@@ -78,5 +78,3 @@ initialization
   RegisterClass(TSearchEngineSettings);
 
 end.
-
-

@@ -51,14 +51,14 @@ uses
 function TEditorManagerFactory.CreateInstance(AOwner: TComponent;
   APersistSettings: Boolean; const ASettingsFileName: string): IEditorManager;
 var
-  O : TComponent;
-  S : string;
+  LOwner : TComponent;
+  S      : string;
 begin
   if not Assigned(AOwner) then
-    O := Application
+    LOwner := Application
   else
-    O := AOwner;
-  Result := TdmEditorManager.Create(O, nil);
+    LOwner := AOwner;
+  Result := TdmEditorManager.Create(LOwner, nil);
   Result.PersistSettings := APersistSettings;
   if APersistSettings then
   begin

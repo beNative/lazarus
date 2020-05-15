@@ -104,19 +104,15 @@ type
 
 implementation
 
-uses
 {$IFDEF WINDOWS}
-  Windows,
+uses
+  Windows;
 {$ENDIF}
-
-  ts.Core.Utils;
 
 {$R *.lfm}
 
 {$IFDEF WINDOWS}
 function ExecuteIconDlg(const AParent: HWND; var AFilename: string; var AIconIndex: integer): boolean;
-const
-  cMaxPath = 255;
 type
   TIconDialog = function(AWnd: HWND; szFileName: PChar; Reserved: Integer; var lpIconIndex: Integer): DWORD; stdcall;
   TIconDialogW = function(Wnd: HWND; szFileName: PWideChar; Reserved: Integer; var lpIconIndex: Integer): DWORD; stdcall;

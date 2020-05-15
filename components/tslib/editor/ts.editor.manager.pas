@@ -104,6 +104,9 @@ uses
   ts.Core.Logger;
 
 type
+
+  { TdmEditorManager }
+
   TdmEditorManager = class(TDataModule, IEditorManager,
                                         IEditorActions,
                                         IEditorView,   // active view
@@ -115,99 +118,50 @@ type
                                         IEditorSearchEngine)
     {$REGION 'designer controls'}
     aclActions                        : TActionList;
+    actAbout                          : TAction;
     actAlignSelection                 : TAction;
     actAutoFormatXML                  : TAction;
-    actDequoteSelection               : TAction;
     actAutoGuessHighlighter           : TAction;
+    actClear                          : TAction;
+    actClipboardMenu                  : TAction;
     actClose                          : TAction;
     actCloseOthers                    : TAction;
-    actAbout                          : TAction;
-    actCopyFullPath                   : TAction;
-    actCopyFileName                   : TAction;
-    actCopyFilePath                   : TAction;
-    actEncodeBase64                   : TAction;
-    actDecodeBase64                   : TAction;
-    actClear                          : TAction;
-    actCreateDesktopLink              : TAction;
-    actExit                           : TAction;
-    actCut                            : TAction;
-    actDelete                         : TAction;
-    actHighlighter                    : TAction;
-    actEncodingMenu                   : TAction;
-    actExportMenu                     : TAction;
-    actClipboardMenu                  : TAction;
-    actInsertGUID                     : TAction;
-    actInsertMenu                     : TAction;
-    actFindAllOccurences              : TAction;
-    actIndent                         : TAction;
-    actFileMenu                       : TAction;
-    actConvertTabsToSpaces            : TAction;
-    actExecuteScriptOnSelection       : TAction;
-    actHighlighterMenu                : TAction;
-    actFoldMenu                       : TAction;
-    actEncodeURL                      : TAction;
-    actDecodeURL                      : TAction;
     actCompressSpace                  : TAction;
     actCompressWhitespace             : TAction;
-    actEncodeXML                      : TAction;
-    actDecodeXML                      : TAction;
-    actPlaybackMacro                  : TAction;
-    actRecordMacro                    : TAction;
-    actSaveAll                        : TAction;
-    actMergeBlankLines                : TAction;
-    actStripComments                  : TAction;
-    actSelectionEncodeMenu            : TAction;
-    actSelectionDecodeMenu            : TAction;
-    actSettingsMenu                   : TAction;
-    actShowFilterTest                 : TAction;
-    actShowScriptEditor               : TAction;
-    actShowMiniMap                    : TAction;
-    actShowHexEditor                  : TAction;
-    actShowHTMLViewer                 : TAction;
-    actUnindent                       : TAction;
-    actSelectMenu                     : TAction;
-    actSearchMenu                     : TAction;
-    actLineBreakStyleMenu             : TAction;
-    actSelectionModeMenu              : TAction;
-    actSelectionMenu                  : TAction;
-    actNewSharedView                  : TAction;
-    actSingleInstance                 : TAction;
-    actToggleMaximized                : TAction;
-    actStayOnTop                      : TAction;
-    actSelectionInfo                  : TAction;
-    actShowStructureViewer            : TAction;
-    actToggleBlockCommentSelection    : TAction;
-    actShowTest                       : TAction;
-    actSelectAll                      : TAction;
-    actUndo                           : TAction;
-    actPaste                          : TAction;
-    actStripMarkup                    : TAction;
-    actTestForm                       : TAction;
-    actSyncEdit                       : TAction;
-    actShowViews                      : TAction;
-    actShowActions                    : TAction;
-    actMonitorChanges                 : TAction;
-    actRedo                           : TAction;
-    actStripFirstChar                 : TAction;
-    actStripLastChar                  : TAction;
-    actSmartSelect                    : TAction;
-    actQuoteSelection                 : TAction;
-    actShowSpecialCharacters          : TAction;
+    actConvertTabsToSpaces            : TAction;
     actCopy                           : TAction;
+    actCopyAllToClipboard             : TAction;
+    actCopyFileName                   : TAction;
+    actCopyFilePath                   : TAction;
+    actCopyFullPath                   : TAction;
     actCopyHTMLTextToClipboard        : TAction;
     actCopyRTFTextToClipboard         : TAction;
     actCopyRTFToClipboard             : TAction;
+    actCopySelectionToClipboard       : TAction;
     actCopytHTMLToClipboard           : TAction;
-    actCopyToClipboard                : TAction;
     actCopyWikiTextToClipboard        : TAction;
     actCopyWikiToClipboard            : TAction;
+    actCreateDesktopLink              : TAction;
+    actCut                            : TAction;
     actDecFontSize                    : TAction;
+    actDecodeBase64                   : TAction;
+    actDecodeURL                      : TAction;
+    actDecodeXML                      : TAction;
+    actDelete                         : TAction;
     actDequoteLines                   : TAction;
+    actDequoteSelection               : TAction;
+    actEncodeBase64                   : TAction;
+    actEncodeURL                      : TAction;
+    actEncodeXML                      : TAction;
+    actEncodingMenu                   : TAction;
+    actExecuteScriptOnSelection       : TAction;
+    actExit                           : TAction;
+    actExportMenu                     : TAction;
     actExportToHTML                   : TAction;
     actExportToRTF                    : TAction;
     actExportToWiki                   : TAction;
-    actShowCodeFilter                 : TAction;
-    actSearch                         : TAction;
+    actFileMenu                       : TAction;
+    actFindAllOccurences              : TAction;
     actFindNext                       : TAction;
     actFindNextWord                   : TAction;
     actFindPrevious                   : TAction;
@@ -223,33 +177,82 @@ type
     actFoldLevel7                     : TAction;
     actFoldLevel8                     : TAction;
     actFoldLevel9                     : TAction;
+    actFoldMenu                       : TAction;
     actFormat                         : TAction;
     actHelp                           : TAction;
+    actHighlighter                    : TAction;
+    actHighlighterMenu                : TAction;
     actIncFontSize                    : TAction;
-    actShowCharacterMap               : TAction;
+    actIndent                         : TAction;
     actInsertColorValue               : TAction;
+    actInsertGUID                     : TAction;
+    actInsertMenu                     : TAction;
     actInspect                        : TAction;
+    actLineBreakStyleMenu             : TAction;
     actLowerCaseSelection             : TAction;
+    actMergeBlankLines                : TAction;
+    actMonitorChanges                 : TAction;
     actNew                            : TAction;
+    actNewSharedView                  : TAction;
     actOpen                           : TAction;
     actOpenFileAtCursor               : TAction;
     actPageSetup                      : TAction;
     actPascalStringOfSelection        : TAction;
-    actShowPreview                    : TAction;
+    actPaste                          : TAction;
+    actPlaybackMacro                  : TAction;
     actPrint                          : TAction;
     actPrintPreview                   : TAction;
     actQuoteLines                     : TAction;
     actQuoteLinesAndDelimit           : TAction;
+    actQuoteSelection                 : TAction;
+    actRecordMacro                    : TAction;
+    actRedo                           : TAction;
     actReload                         : TAction;
-    actSearchReplace                  : TAction;
     actSave                           : TAction;
+    actSaveAll                        : TAction;
     actSaveAs                         : TAction;
+    actSearch                         : TAction;
+    actSearchMenu                     : TAction;
+    actSearchReplace                  : TAction;
+    actSelectAll                      : TAction;
+    actSelectionDecodeMenu            : TAction;
+    actSelectionEncodeMenu            : TAction;
+    actSelectionInfo                  : TAction;
+    actSelectionMenu                  : TAction;
+    actSelectionModeMenu              : TAction;
+    actSelectMenu                     : TAction;
     actSettings                       : TAction;
+    actSettingsMenu                   : TAction;
+    actShowActions                    : TAction;
+    actShowCharacterMap               : TAction;
+    actShowCodeFilter                 : TAction;
     actShowCodeShaper                 : TAction;
+    actShowFilterTest                 : TAction;
+    actShowHexEditor                  : TAction;
+    actShowMiniMap                    : TAction;
+    actShowPreview                    : TAction;
+    actShowScriptEditor               : TAction;
+    actShowSpecialCharacters          : TAction;
+    actShowStructureViewer            : TAction;
+    actShowTest                       : TAction;
+    actShowViews                      : TAction;
+    actSingleInstance                 : TAction;
+    actSmartSelect                    : TAction;
     actSortSelection                  : TAction;
+    actStayOnTop                      : TAction;
+    actStripComments                  : TAction;
+    actStripFirstChar                 : TAction;
+    actStripLastChar                  : TAction;
+    actStripMarkup                    : TAction;
+    actSyncEdit                       : TAction;
+    actTestForm                       : TAction;
+    actToggleBlockCommentSelection    : TAction;
     actToggleComment                  : TAction;
     actToggleFoldLevel                : TAction;
     actToggleHighlighter              : TAction;
+    actToggleMaximized                : TAction;
+    actUndo                           : TAction;
+    actUnindent                       : TAction;
     actUpperCaseSelection             : TAction;
     dlgColor                          : TColorDialog;
     dlgOpen                           : TOpenDialog;
@@ -313,6 +316,7 @@ type
     procedure actCompressSpaceExecute(Sender: TObject);
     procedure actCompressWhitespaceExecute(Sender: TObject);
     procedure actConvertTabsToSpacesExecute(Sender: TObject);
+    procedure actCopyAllToClipboardExecute(Sender: TObject);
     procedure actDecodeURLExecute(Sender: TObject);
     procedure actDecodeXMLExecute(Sender: TObject);
     procedure actEncodeURLExecute(Sender: TObject);
@@ -327,7 +331,6 @@ type
     procedure actSaveAllExecute(Sender: TObject);
     procedure actShowFilterTestExecute(Sender: TObject);
     procedure actShowHexEditorExecute(Sender: TObject);
-    procedure actShowHTMLViewerExecute(Sender: TObject);
     procedure actShowMiniMapExecute(Sender: TObject);
     procedure actShowScriptEditorExecute(Sender: TObject);
     procedure actStripCommentsExecute(Sender: TObject);
@@ -352,7 +355,7 @@ type
     procedure actCopyRTFTextToClipboardExecute(Sender: TObject);
     procedure actCopyRTFToClipboardExecute(Sender: TObject);
     procedure actCopytHTMLToClipboardExecute(Sender: TObject);
-    procedure actCopyToClipboardExecute(Sender: TObject);
+    procedure actCopySelectionToClipboardExecute(Sender: TObject);
     procedure actCopyWikiTextToClipboardExecute(Sender: TObject);
     procedure actCopyWikiToClipboardExecute(Sender: TObject);
     procedure actCreateDesktopLinkExecute(Sender: TObject);
@@ -779,7 +782,6 @@ uses
   ts.Editor.CharacterMap.ToolView,
   ts.Editor.Structure.ToolView,
   ts.Editor.AlignLines.ToolView,
-  //ts.Editor.HTMLView.ToolView,
   ts.Editor.HexEditor.ToolView,
   ts.Editor.Minimap.ToolView,
   ts.Editor.ScriptEditor.ToolView,
@@ -791,7 +793,6 @@ uses
   ts.Editor.CodeFilter.Settings,
   ts.Editor.CodeShaper.Settings,
   ts.Editor.HexEditor.Settings,
-  //ts.Editor.HTMLView.Settings,
   ts.Editor.MiniMap.Settings,
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
@@ -955,8 +956,8 @@ begin
   A := aclActions.ActionByName(AName) as TCustomAction;
   if Assigned(A) then
     Result := A
-  //else
-  //  Logger.Warn(Format('Action with name (%s) not found!', [AName]));
+  else
+    Logger.Warn('Action with name (%s) not found!', [AName]);
 end;
 
 function TdmEditorManager.GetLineBreakStylePopupMenu: TPopupMenu;
@@ -1286,11 +1287,6 @@ begin
   ShowToolView('HexEditor', False, True);
 end;
 
-procedure TdmEditorManager.actShowHTMLViewerExecute(Sender: TObject);
-begin
-  ShowToolView('HTMLView', False, False);
-end;
-
 procedure TdmEditorManager.actShowMiniMapExecute(Sender: TObject);
 begin
   ShowToolView('MiniMap', False, False);
@@ -1371,9 +1367,9 @@ begin
   ExportLines('HTML', True, False);
 end;
 
-procedure TdmEditorManager.actCopyToClipboardExecute(Sender: TObject);
+procedure TdmEditorManager.actCopySelectionToClipboardExecute(Sender: TObject);
 begin
-  Commands.CopyToClipboard;
+  Commands.CopySelectionToClipboard;
 end;
 
 procedure TdmEditorManager.actCutExecute(Sender: TObject);
@@ -1623,6 +1619,11 @@ begin
   Commands.ConvertTabsToSpacesInSelection;
 end;
 
+procedure TdmEditorManager.actCopyAllToClipboardExecute(Sender: TObject);
+begin
+  Commands.CopyAllToClipboard;
+end;
+
 procedure TdmEditorManager.actDecodeURLExecute(Sender: TObject);
 begin
   Commands.URLFromSelection(True);
@@ -1750,7 +1751,7 @@ end;
 
 procedure TdmEditorManager.actInsertGUIDExecute(Sender: TObject);
 var
-  GUID: TGUID;
+  GUID : TGUID;
 begin
   CreateGUID(GUID);
   Commands.InsertTextAtCaret(GUIDToString(GUID));
@@ -1939,8 +1940,6 @@ end;
 procedure TdmEditorManager.EditorSettingsChanged(ASender: TObject);
 begin
   ApplyHighlighterAttributes;
-  //if Assigned(ActiveView) then
-  //  ActiveView.Editor.Refresh;
 end;
 {$ENDREGION}
 
@@ -2136,7 +2135,7 @@ begin
           A := HL.SynHighlighter.Attribute[I];
           if (A.Name = HAI.Name) or (HAI.AliasNames.IndexOf(A.Name) >= 0) then
           begin
-//  A.Assign(HAI.Attributes); don't do this => you will loose the attribute name!
+            // don't call Assign as you will loose the attribute name.
             A.Foreground := HAI.Attributes.Foreground;
             A.Background := HAI.Attributes.Background;
             A.FrameColor := HAI.Attributes.FrameColor;
@@ -2179,7 +2178,7 @@ var
   S  : string;
   A  : TCustomAction;
   MI : TMenuItem;
-  i  :  integer;
+  I  :  integer;
 begin
   SL := TStringList.Create;
   try
@@ -2187,9 +2186,9 @@ begin
     MI.Clear;
     MI.Action := actEncodingMenu;
     GetSupportedEncodings(SL);
-    for i:=0 to SL.Count-1 do //change for ... in loop by esvignolo
+    for I := 0 to SL.Count - 1 do //change for ... in loop by esvignolo
     begin
-      S := SL[i];
+      S := SL[I];
       S := ACTION_PREFIX_ENCODING + DelChars(S, '-');
       A := Items[S];
       if Assigned(A) then
@@ -2207,15 +2206,14 @@ var
   MI : TMenuItem;
   S  : string;
   A  : TCustomAction;
-  t  : TTextLineBreakStyle;
-
+  T  : TTextLineBreakStyle;
 begin
   MI := LineBreakStylePopupMenu.Items;
   MI.Clear;
   MI.Action := actLineBreakStyleMenu;
-  for t := Low(TTextLineBreakStyle) to High(TTextLineBreakStyle) do //change for .. in loop
+  for T := Low(TTextLineBreakStyle) to High(TTextLineBreakStyle) do //change for .. in loop
   begin
-    S:= ALineBreakStyles[t];
+    S:= ALineBreakStyles[T];
     MI := TMenuItem.Create(LineBreakStylePopupMenu);
     S := ACTION_PREFIX_LINEBREAKSTYLE +  S;
     A := Items[S];
@@ -2236,7 +2234,7 @@ end;
 
 procedure TdmEditorManager.BuildFilePopupMenu;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := FilePopupMenu.Items;
   MI.Clear;
@@ -2525,7 +2523,6 @@ procedure TdmEditorManager.RegisterToolViews;
 begin
   ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
   ToolViews.Register(TfrmCodeFilterDialog, TCodeFilterSettings, 'CodeFilter');
-  //ToolViews.Register(TfrmHTMLView, THTMLViewSettings, 'HTMLView');
   ToolViews.Register(TfrmSortStrings, TSortStringsSettings, 'SortStrings');
   ToolViews.Register(TfrmMiniMap, TMiniMapSettings, 'MiniMap');
   ToolViews.Register(TfrmHexEditor, THexEditorSettings, 'HexEditor');
@@ -2708,7 +2705,7 @@ var
   I : Integer;
   V : IEditorView;
 begin
-  if (AIndex > -1) and (AIndex < ViewCount) {and (ViewCount > 1)} then
+  if (AIndex > -1) and (AIndex < ViewCount) then
   begin
     I := ViewList.IndexOf(ActiveView);
     if I = AIndex then // select a new active view
@@ -2937,7 +2934,7 @@ begin
     actCopy.Enabled  := actCopy.Visible and B;
     actPaste.Enabled := actPaste.Visible and ActiveView.CanPaste and B;
 
-    if Assigned(Settings) and V.Focused {and FChanged} then
+    if Assigned(Settings) and V.Focused then
     begin
       B := V.SelAvail and not Settings.ReadOnly;
       actDequoteSelection.Enabled               := B;

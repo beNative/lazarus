@@ -1,7 +1,0 @@
-object frmColors: TfrmColors
-  Left = 800
-  Height = 591
-  Top = 320
-  Width = 254
-  LCLVersion = '1.9.0.0'
-end

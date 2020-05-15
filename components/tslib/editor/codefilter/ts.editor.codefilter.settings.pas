@@ -31,7 +31,8 @@ const
 type
   TCodeFilterSettings = class(TComponent)
   private
-    FFormSettings: TFormSettings;
+    FFormSettings : TFormSettings;
+
     procedure SetFormSettings(AValue: TFormSettings);
 
   public
@@ -72,7 +73,7 @@ end;
 {$REGION 'public methods'}
 procedure TCodeFilterSettings.AssignTo(Dest: TPersistent);
 var
-  S: TCodeFilterSettings;
+  S : TCodeFilterSettings;
 begin
   if Dest is TCodeFilterSettings then
   begin
@@ -85,7 +86,7 @@ end;
 
 procedure TCodeFilterSettings.Assign(Source: TPersistent);
 var
-  S: TCodeFilterSettings;
+  S : TCodeFilterSettings;
 begin
   if Source is TCodeFilterSettings then
   begin

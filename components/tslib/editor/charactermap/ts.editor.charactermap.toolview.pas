@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.Editor.charactermap.ToolView;
+unit ts.Editor.CharacterMap.ToolView;
 
 {$MODE DELPHI}
 
@@ -45,9 +45,9 @@ type
     procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure grdANSIPrepareCanvas(sender: TObject; aCol, aRow: Integer;
+    procedure grdANSIPrepareCanvas(sender: TObject; ACol, ARow: Integer;
       aState: TGridDrawState);
-    procedure grdANSISelectCell(Sender: TObject; aCol, aRow: Integer;
+    procedure grdANSISelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
     procedure grdUnicodeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
       );
@@ -57,17 +57,16 @@ type
       Y: Integer);
     procedure grdUnicodeMouseMove(Sender: TObject; Shift: TShiftState; X,
       Y: Integer);
-    procedure grdUnicodeSelectCell(Sender: TObject; aCol, aRow: Integer;
+    procedure grdUnicodeSelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
 
-  strict private
-
+  private
     procedure FillCharMap;
     procedure UpdateCharacterBitmap(const ACharacter: string);
     procedure UpdateUnicodeDisplay(ACol, ARow: Integer);
     procedure UpdateANSIDisplay(ACol, ARow: Integer);
 
-  strict protected
+  protected
     procedure EditorSettingsChanged(Sender: TObject); override;
 
   public
@@ -197,8 +196,8 @@ begin
   end;
 end;
 
-procedure TfrmCharacterMap.grdANSIPrepareCanvas(sender: TObject; aCol,
-  aRow: Integer; aState: TGridDrawState);
+procedure TfrmCharacterMap.grdANSIPrepareCanvas(sender: TObject; ACol,
+  ARow: Integer; aState: TGridDrawState);
 begin
   if gdFixed in aState then
   begin
@@ -207,10 +206,10 @@ begin
   end
 end;
 
-procedure TfrmCharacterMap.grdANSISelectCell(Sender: TObject; aCol,
-  aRow: Integer; var CanSelect: Boolean);
+procedure TfrmCharacterMap.grdANSISelectCell(Sender: TObject; ACol,
+  ARow: Integer; var CanSelect: Boolean);
 begin
-  UpdateANSIDisplay(aCol, aRow);
+  UpdateANSIDisplay(ACol, ARow);
 end;
 
 procedure TfrmCharacterMap.grdUnicodeKeyUp(Sender: TObject;
@@ -257,15 +256,15 @@ end;
 procedure TfrmCharacterMap.grdUnicodeMouseMove(Sender: TObject;
   Shift: TShiftState; X, Y: Integer);
 var
-  Row   : Integer;
-  Col   : Integer;
+  LRow : Integer;
+  LCol : Integer;
 begin
-  Row := 0;
-  Col := 0;
+  LRow := 0;
+  LCol := 0;
   if grdUnicode.MouseToGridZone(X, Y) = gzNormal then
   begin
-    grdUnicode.MouseToCell(X, Y, Col, Row);
-    UpdateUnicodeDisplay(Col, Row);
+    grdUnicode.MouseToCell(X, Y, LCol, LRow);
+    UpdateUnicodeDisplay(LCol, LRow);
   end
   else
   begin
@@ -273,10 +272,10 @@ begin
   end;
 end;
 
-procedure TfrmCharacterMap.grdUnicodeSelectCell(Sender: TObject; aCol,
-  aRow: Integer; var CanSelect: Boolean);
+procedure TfrmCharacterMap.grdUnicodeSelectCell(Sender: TObject; ACol,
+  ARow: Integer; var CanSelect: Boolean);
 begin
-  UpdateUnicodeDisplay(aCol, aRow);
+  UpdateUnicodeDisplay(ACol, ARow);
 end;
 {$ENDREGION}
 
@@ -334,7 +333,7 @@ end;
 
 procedure TfrmCharacterMap.UpdateANSIDisplay(ACol, ARow: Integer);
 var
-  B: Byte;
+  B : Byte;
 begin
   if grdANSI.Cells[ACol, ARow] <> '' then
   begin

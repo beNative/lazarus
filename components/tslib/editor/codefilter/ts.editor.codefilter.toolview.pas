@@ -96,7 +96,7 @@ type
     procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure tmrUpdateTimer(Sender: TObject);
 
-  strict private
+  private
     FTVP              : TTreeViewPresenter;
     FVST              : TVirtualStringTree;
     FLines            : TObjectList;

@@ -65,12 +65,14 @@ type
 
   IControl = interface
   ['{303F3DE1-81F5-473B-812B-7DD4C306725B}']
+    {$REGION 'property access methods'}
     function GetName: string;
     function GetParent: TWinControl;
     function GetPopupMenu: TPopupMenu;
     procedure SetName(AValue: string);
     procedure SetParent(AValue: TWinControl);
     procedure SetPopupMenu(AValue: TPopupMenu);
+    {$ENDREGION}
 
     function Focused: Boolean;
     procedure SetFocus;
@@ -219,6 +221,9 @@ type
      // selection
     procedure SelectAll;
     procedure SelectWord;
+
+    procedure CopySelectionToClipboard;
+    procedure CopyAllToClipboard;
 
     // clipboard commands
     procedure Cut;
@@ -416,6 +421,7 @@ type
 
   IEditorSelection = interface
   ['{DEBBB1D5-A04A-4264-96E9-0693E20C2A0D}']
+    {$REGION 'property access methods'}
     function GetBlockBegin: TPoint;
     function GetBlockEnd: TPoint;
     function GetCaretXY: TPoint;
@@ -428,6 +434,7 @@ type
     procedure SetCaretXY(AValue: TPoint);
     procedure SetSelectionMode(AValue: TSynSelectionMode);
     procedure SetText(AValue: string);
+    {$ENDREGION}
 
     procedure Clear;
     procedure Store(
@@ -461,6 +468,7 @@ type
 
   IEditorSearchEngine = interface
   ['{5403336C-3E81-4A1B-B2BB-170CF0EF0B84}']
+    {$REGION 'property access methods'}
     function GetCurrentIndex: Integer;
     function GetItemGroups: TObjectList;
     function GetItemList: TObjectList;
@@ -473,6 +481,7 @@ type
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
     procedure SetSearchText(AValue: string);
+    {$ENDREGION}
 
     procedure Execute;
     procedure Replace;
@@ -721,11 +730,13 @@ type
 
   IEditorViews = interface
   ['{FBFB8DC6-7663-4EA4-935D-5B9F3CD7C753}']
+    {$REGION 'property access methods'}
     function GetView(AIndex: Integer): IEditorView;
     function GetViewByFileName(AFileName: string): IEditorView;
     function GetViewByName(AName: string): IEditorView;
     function GetCount: Integer;
     function GetViewList: TEditorViewList;
+    {$ENDREGION}
 
     function Add(
       const AName        : string = '';
@@ -733,8 +744,8 @@ type
       const AHighlighter : string = ''
     ): IEditorView;
     function AddSharedView(
-            AEditorView : IEditorView;
-      const AName       : string = ''
+      AEditorView : IEditorView;
+      const AName : string = ''
     ): IEditorView;
 
     function Delete(AIndex: Integer): Boolean; overload;
@@ -762,10 +773,13 @@ type
 
   IEditorToolView = interface
   ['{F6BEE8F6-BA4D-4B38-8FB0-79088B615DF5}']
+    {$REGION 'property access methods'}
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
     procedure SetVisible(AValue: Boolean);
+    {$ENDREGION}
+
     { Lets the view respond to changes. }
     procedure UpdateView;
 
@@ -785,9 +799,11 @@ type
 
   IEditorToolViews = interface
   ['{A5575878-A189-4F3C-9008-61899B739DA1}']
+    {$REGION 'property access methods'}
     function GetView(AIndex: Integer): IEditorToolView;
     function GetViewByName(AName: string): IEditorToolView;
     function GetCount: Integer;
+    {$ENDREGION}
 
     function GetEnumerator: TEditorToolViewListEnumerator;
 
@@ -816,7 +832,8 @@ type
     procedure CompressSpace;
     procedure CompressWhitespace;
     procedure CreateDesktopLink;
-    procedure CopyToClipboard;
+    procedure CopySelectionToClipboard;
+    procedure CopyAllToClipboard;
     procedure UpperCaseSelection;
     procedure LowerCaseSelection;
     procedure PascalStringFromSelection;
@@ -940,8 +957,10 @@ type
 
   IEditorActions = interface
   ['{E42EF2E3-A7A0-4847-B299-3C35699DC708}']
+    {$REGION 'property access methods'}
     function GetActionList: TActionList;
     function GetItem(AName: string): TCustomAction;
+    {$ENDREGION}
 
     procedure UpdateActions;
     procedure UpdateHighLighterActions;
@@ -1024,8 +1043,6 @@ type
       read GetSearchEngine;
   end;
 
-  { TEditorViewListEnumerator }
-
   TEditorViewListEnumerator = class
   strict private
     FIndex : Integer;
@@ -1033,8 +1050,10 @@ type
 
   public
     constructor Create(AList: TEditorViewList);
+
     function GetCurrent: IEditorView;
     function MoveNext: Boolean;
+
     property Current: IEditorView
       read GetCurrent;
   end;
@@ -1047,8 +1066,10 @@ type
   public
     constructor Create(AList: IEditorToolViews);
     procedure BeforeDestruction; override;
+
     function GetCurrent: IEditorToolView;
     function MoveNext: Boolean;
+
     property Current: IEditorToolView
       read GetCurrent;
   end;
@@ -1116,7 +1137,7 @@ implementation
 {$REGION 'TEditorViewListEnumerator'}
 constructor TEditorViewListEnumerator.Create(AList: TEditorViewList);
 begin
-  FList := AList;
+  FList  := AList;
   FIndex := -1;
 end;
 
@@ -1136,7 +1157,7 @@ end;
 {$REGION 'TEditorToolViewListEnumerator'}
 constructor TEditorToolViewListEnumerator.Create(AList: IEditorToolViews);
 begin
-  FList := AList;
+  FList  := AList;
   FIndex := -1;
 end;
 

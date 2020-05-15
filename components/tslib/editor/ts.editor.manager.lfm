@@ -3936,39 +3936,39 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actExportToRTFExecute
     end
     object actCopytHTMLToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as HTML object'
       Hint = 'Copy to clipboard as HTML object'
       OnExecute = actCopytHTMLToClipboardExecute
     end
     object actCopyWikiToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as Wiki object'
       Hint = 'Copy to clipboard as Wiki object'
       ImageIndex = 81
       OnExecute = actCopyWikiToClipboardExecute
     end
     object actCopyRTFToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as RTF object'
       Hint = 'Copy to clipboard as RTF object'
       OnExecute = actCopyRTFToClipboardExecute
     end
     object actCopyRTFTextToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as RTF text'
       Hint = 'Copy to clipboard as RTF text'
       OnExecute = actCopyRTFTextToClipboardExecute
     end
     object actCopyWikiTextToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as Wiki text'
       Hint = 'Copy to clipboard as TeX text'
       ImageIndex = 81
       OnExecute = actCopyWikiTextToClipboardExecute
     end
     object actCopyHTMLTextToClipboard: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy as HTML text'
       Hint = 'Copy to clipboard as HTML text'
       OnExecute = actCopyHTMLTextToClipboardExecute
@@ -4001,12 +4001,12 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16464
       Visible = False
     end
-    object actCopyToClipboard: TAction
-      Category = 'Edit'
-      Caption = 'Copy to clipboard'
-      Hint = 'Copy to clipboard'
+    object actCopySelectionToClipboard: TAction
+      Category = 'Clipboard'
+      Caption = 'Copy selection to clipboard'
+      Hint = 'Copy selected text to clipboard'
       ImageIndex = 1
-      OnExecute = actCopyToClipboardExecute
+      OnExecute = actCopySelectionToClipboardExecute
       ShortCut = 16451
     end
     object actShowSpecialCharacters: TAction
@@ -4336,7 +4336,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 24644
     end
     object actCopy: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = '&Copy'
       Hint = 'Copy selection'
       ImageIndex = 1
@@ -4442,19 +4442,19 @@ object dmEditorManager: TdmEditorManager
       OnExecute = actShowActionsExecute
     end
     object actCopyFullPath: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy full path'
       Hint = 'Copy full filepath to the clipboard.'
       OnExecute = actCopyFullPathExecute
     end
     object actCopyFileName: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy filename'
       Hint = 'Copy the filename to the clipboard.'
       OnExecute = actCopyFileNameExecute
     end
     object actCopyFilePath: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Copy file path'
       Hint = 'Copy the file path to the clipboard.'
       OnExecute = actCopyFilePathExecute
@@ -4518,7 +4518,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 57427
     end
     object actPaste: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Paste'
       Hint = 'Paste'
       ImageIndex = 2
@@ -4526,7 +4526,7 @@ object dmEditorManager: TdmEditorManager
       ShortCut = 16470
     end
     object actCut: TAction
-      Category = 'Edit'
+      Category = 'Clipboard'
       Caption = 'Cut'
       Hint = 'Cut'
       ImageIndex = 0
@@ -4707,11 +4707,6 @@ object dmEditorManager: TdmEditorManager
       DisableIfNoHandler = False
       ImageIndex = 103
     end
-    object actShowHTMLViewer: TAction
-      Category = 'ToolViews'
-      Caption = 'Show HTML viewer'
-      OnExecute = actShowHTMLViewerExecute
-    end
     object actShowHexEditor: TAction
       Category = 'ToolViews'
       Caption = 'Show Hex editor'
@@ -4848,6 +4843,13 @@ object dmEditorManager: TdmEditorManager
       Category = 'Selection'
       Caption = 'Decode XML'
       OnExecute = actDecodeXMLExecute
+    end
+    object actCopyAllToClipboard: TAction
+      Category = 'Clipboard'
+      Caption = 'Copy all to clipboard.'
+      Hint = 'Copy all text to clipboard.'
+      ImageIndex = 1
+      OnExecute = actCopyAllToClipboardExecute
     end
   end
   object ppmExport: TPopupMenu

@@ -317,31 +317,32 @@ end;
 
 procedure TSearchEngine.AddResultsForView(AView: IEditorView);
 var
-  SRG          : TSearchResultGroup;
-  SRL          : TSearchResultLine;
-  SR           : TSearchResult;
-  ptStart      : TPoint;
-  ptEnd        : TPoint;
-  ptFoundStart : TPoint;
-  ptFoundEnd   : TPoint;
-  Line         : Integer;
-  N            : Integer;
-  B            : Boolean;
+  SRG           : TSearchResultGroup;
+  SRL           : TSearchResultLine;
+  SR            : TSearchResult;
+  LPtStart      : TPoint;
+  LPtEnd        : TPoint;
+  LPtFoundStart : TPoint;
+  LPtFoundEnd   : TPoint;
+  LLine         : Integer;
+  N             : Integer;
+  B             : Boolean;
 begin
   N := 0;
-  ptStart := Point(1, 1);
-  ptEnd.Y := AView.Lines.Count;
-  ptEnd.X := Length(AView.Lines[ptEnd.Y - 1]) + 1;
+  LPtStart := Point(1, 1);
+  LPtEnd.Y := AView.Lines.Count;
+  LPtEnd.X := Length(AView.Lines[LPtEnd.Y - 1]) + 1;
   try
-    B :=  FSESearch.FindNextOne(
+    B := FSESearch.FindNextOne(
       AView.Lines,
-      ptStart,
-      ptEnd,
-      ptFoundStart,
-      ptFoundEnd,
+      LPtStart,
+      LPtEnd,
+      LPtFoundStart,
+      LPtFoundEnd,
       True           // Support unicode case
     );
   except
+    // ignore exceptions
   end;
   if B then
   begin
@@ -349,39 +350,39 @@ begin
     while B and (N < MAX_RESULTS) do
     begin
       SRL := TSearchResultLine.Create;
-      Line := ptFoundStart.y;
-      while B and (ptFoundStart.Y = Line) do
+      LLine := LPtFoundStart.y;
+      while B and (LPtFoundStart.Y = LLine) do
       begin
         Inc(N);
         SR := TSearchResult.Create;
         SR.FileName   := ExtractFileName(AView.FileName);
         SR.ViewName   := AView.Name;
-        SR.BlockBegin := ptFoundStart;
-        SR.BlockEnd   := ptFoundEnd;
-        SR.StartPos   := PointToPos(AView.Lines, ptFoundStart);
-        SR.EndPos     := PointToPos(AView.Lines, ptFoundEnd);
-        SR.Column     := ptFoundStart.X;
-        SR.Line       := ptFoundStart.Y;
+        SR.BlockBegin := LPtFoundStart;
+        SR.BlockEnd   := LPtFoundEnd;
+        SR.StartPos   := PointToPos(AView.Lines, LPtFoundStart);
+        SR.EndPos     := PointToPos(AView.Lines, LPtFoundEnd);
+        SR.Column     := LPtFoundStart.X;
+        SR.Line       := LPtFoundStart.Y;
         SR.Index      := N;
         SR.ShowMatch  := ssoRegExpr in Options;
         if SR.ShowMatch then
-          SR.Match := AView.Editor.TextBetweenPoints[ptFoundStart, ptFoundEnd];
+          SR.Match := AView.Editor.TextBetweenPoints[LPtFoundStart, LPtFoundEnd];
         SRL.List.Add(SR);
         FItemList.Add(SR);
-        ptStart := ptFoundEnd;
+        LPtStart := LPtFoundEnd;
         try
           B :=  FSESearch.FindNextOne(
             AView.Lines,
-            ptStart,
-            ptEnd,
-            ptFoundStart,
-            ptFoundEnd,
+            LPtStart,
+            LPtEnd,
+            LPtFoundStart,
+            LPtFoundEnd,
             True           // Support unicode case
           );
         except
         end;
       end;
-      SRL.Line := Line;
+      SRL.Line := LLine;
       SRG.Lines.Add(SRL);
     end;
     SRG.FileName := ExtractFileName(AView.FileName);
@@ -393,7 +394,7 @@ end;
 function TSearchEngine.PosToLineCol(const AString: string;
   const AOffset: TPoint; APos: Integer): TPoint;
 var
-  I: Integer;
+  I : Integer;
 begin
   Result := AOffset;
   I := 1;
@@ -426,8 +427,8 @@ end;
 
 procedure TSearchEngine.Execute;
 var
-  V: IEditorView;
-  I: Integer;
+  V : IEditorView;
+  I : Integer;
 begin
   FItemGroups.Clear;
   FItemList.Clear;
@@ -453,7 +454,7 @@ end;
 
 procedure TSearchEngine.FindNext;
 var
-  SR: TSearchResult;
+  SR : TSearchResult;
 begin
   Inc(FCurrentIndex);
   if CurrentIndex < ItemList.Count then
@@ -470,7 +471,7 @@ end;
 
 procedure TSearchEngine.FindPrevious;
 var
-  SR: TSearchResult;
+  SR : TSearchResult;
 begin
   Dec(FCurrentIndex);
   if CurrentIndex >= 0 then
@@ -540,4 +541,3 @@ end;
 {$ENDREGION}
 
 end.
-

@@ -914,6 +914,7 @@ end;
 function TLogger.SendVariant(const AName: string; const AValue: Variant
   ): ILogger;
 begin
+  Result := Self;
   //Result := Send(AName, TValue.FromVariant(AValue));
 end;
 
@@ -1018,27 +1019,27 @@ end;
 
 function TLogger.Watch(const AName, AValue: string): ILogger;
 begin
-  //
+  Result := Self;
 end;
 
 function TLogger.Watch(const AName: string; AValue: Integer): ILogger;
 begin
-  //
+  Result := Self;
 end;
 
 function TLogger.Watch(const AName: string; AValue: Cardinal): ILogger;
 begin
-  //
+  Result := Self;
 end;
 
 function TLogger.Watch(const AName: string; AValue: Double): ILogger;
 begin
-  //
+  Result := Self;
 end;
 
 function TLogger.Watch(const AName: string; AValue: Boolean): ILogger;
 begin
-  //
+  Result := Self;
 end;
 {$ENDREGION}
 {$ENDREGION}

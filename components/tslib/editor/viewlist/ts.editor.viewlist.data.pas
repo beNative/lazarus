@@ -28,7 +28,7 @@ uses
 type
   TEditorViewInfo = class
   private
-    FView: TComponent; // TS: no interface reference here!
+    FView : TComponent; // TS: no interface reference here!
 
     function GetFileName: string;
     function GetHighlighter: string;

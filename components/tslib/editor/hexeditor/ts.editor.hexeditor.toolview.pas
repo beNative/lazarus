@@ -29,14 +29,15 @@ uses
 
 type
   TfrmHexEditor = class(TCustomEditorToolView, IEditorToolView)
-    HexEditor: TKHexEditor;
+    HexEditor : TKHexEditor;
 
     procedure FormResize(Sender: TObject);
     procedure HexEditorChange(Sender: TObject);
 
   private
     function GetSettings: THexEditorSettings;
-  strict protected
+
+  protected
     procedure UpdateView; override;
 
     property Settings: THexEditorSettings
@@ -61,7 +62,7 @@ end;
 {$REGION 'event handlers'}
 procedure TfrmHexEditor.HexEditorChange(Sender: TObject);
 var
-  S: TStream;
+  S : TStream;
 begin
   if HexEditor.Focused then
   begin
@@ -93,7 +94,7 @@ end;
 {$REGION 'protected methods'}
 procedure TfrmHexEditor.UpdateView;
 var
-  S: TStream;
+  S : TStream;
 begin
   S := TMemoryStream.Create;
   try

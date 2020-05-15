@@ -29,7 +29,8 @@ const
 type
   THexEditorSettings = class(TComponent)
   private
-    FWidth: Integer;
+    FWidth : Integer;
+
   public
     procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
@@ -82,5 +83,3 @@ initialization
   RegisterClass(THexEditorSettings);
 
 end.
-
-

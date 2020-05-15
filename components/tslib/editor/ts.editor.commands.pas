@@ -44,12 +44,14 @@ type
 
   TEditorCommands = class(TComponent, IEditorCommands)
   private
+    {$REGION 'property access methods'}
     function GetEvents: IEditorEvents;
     function GetManager: IEditorManager;
     function GetSearchEngine: IEditorSearchEngine;
     function GetSelection: IEditorSelection;
     function GetSettings: IEditorSettings;
     function GetView: IEditorView;
+    {$ENDREGION}
 
     function StripComments(
       const AString      : string;
@@ -69,7 +71,8 @@ type
     procedure OpenFileAtCursor;
     procedure ToggleHighlighter;
     procedure AssignHighlighter(const AName: string);
-    procedure CopyToClipboard;
+    procedure CopySelectionToClipboard;
+    procedure CopyAllToClipboard;
     procedure CreateDesktopLink;
 
     procedure CompressSpace;
@@ -415,9 +418,14 @@ begin
   end;
 end;
 
-procedure TEditorCommands.CopyToClipboard;
+procedure TEditorCommands.CopySelectionToClipboard;
 begin
-  View.Editor.CopyToClipboard;
+  View.CopySelectionToClipboard;
+end;
+
+procedure TEditorCommands.CopyAllToClipboard;
+begin
+  View.CopyAllToClipboard;
 end;
 
 procedure TEditorCommands.CreateDesktopLink;

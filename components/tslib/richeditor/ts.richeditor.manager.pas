@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2019 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.RichEditor.Manager;
@@ -38,48 +36,52 @@ type
   )
     {$REGION 'designer controls'}
     aclActions         : TActionList;
+    actAlignCenter     : TAction;
+    actAlignJustify    : TAction;
+    actAlignLeft       : TAction;
+    actAlignRight      : TAction;
+    actBkColor         : TAction;
     actBold            : TAction;
     actColor           : TAction;
-    actAlignRight      : TAction;
-    actAlignLeft       : TAction;
-    actAlignCenter     : TAction;
+    actCopy            : TAction;
+    actCut             : TAction;
+    actDecFontSize     : TAction;
     actFont            : TAction;
     actIncFontSize     : TAction;
-    actDecFontSize     : TAction;
-    actCut             : TAction;
-    actCopy            : TAction;
-    actAlignJustify    : TAction;
-    actBkColor         : TAction;
-    actInsertImage     : TAction;
     actInsertHyperLink : TAction;
-    actStrikeThrough   : TAction;
-    actRedo            : TAction;
-    actToggleWordWrap  : TAction;
-    actUndo            : TAction;
-    actSelectAll       : TAction;
-    actPaste           : TAction;
-    actSaveAs          : TAction;
-    actSave            : TAction;
-    actOpen            : TAction;
-    actUnderline       : TAction;
+    actInsertImage     : TAction;
+    actInsertBulletList: TAction;
+    actIncIndent       : TAction;
+    actDecIndent       : TAction;
+    actAdjustParagraphStyle: TAction;
     actItalic          : TAction;
+    actOpen            : TAction;
+    actPaste           : TAction;
+    actRedo            : TAction;
+    actSave            : TAction;
+    actSaveAs          : TAction;
+    actSelectAll       : TAction;
+    actStrikeThrough   : TAction;
+    actToggleWordWrap  : TAction;
+    actUnderline       : TAction;
+    actUndo            : TAction;
     dlgColor           : TColorDialog;
     dlgFont            : TFontDialog;
     dlgOpen            : TOpenDialog;
     dlgSave            : TSaveDialog;
     imlMain            : TImageList;
-    MenuItem1          : TMenuItem;
-    MenuItem2          : TMenuItem;
-    MenuItem3          : TMenuItem;
-    MenuItem4          : TMenuItem;
-    MenuItem5          : TMenuItem;
-    N1                 : TMenuItem;
+    mniAlignCenter     : TMenuItem;
+    mniAlignJustify    : TMenuItem;
+    mniAlignLeft       : TMenuItem;
+    mniAlignRight      : TMenuItem;
     mniBold            : TMenuItem;
     mniItalic          : TMenuItem;
-    mniUnderline       : TMenuItem;
     mniOpen            : TMenuItem;
     mniSave            : TMenuItem;
     mniSaveAs          : TMenuItem;
+    mniUnderline       : TMenuItem;
+    N1                 : TMenuItem;
+    N2                 : TMenuItem;
     ppmRichEditor      : TPopupMenu;
     {$ENDREGION}
 
@@ -94,12 +96,16 @@ type
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecFontSizeExecute(Sender: TObject);
+    procedure actDecIndentExecute(Sender: TObject);
     procedure actFontExecute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
+    procedure actIncIndentExecute(Sender: TObject);
+    procedure actInsertBulletListExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
+    procedure actAdjustParagraphStyleExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
@@ -213,7 +219,6 @@ begin
   if AValue <> FActiveView then
   begin
     FActiveView := AValue;
-    //ActiveViewUpdated;
   end;
 end;
 
@@ -268,8 +273,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'action handlers'}
-// File
-
 procedure TdmRichEditorManager.actOpenExecute(Sender: TObject);
 begin
   if dlgOpen.Execute then
@@ -277,6 +280,11 @@ begin
     ActiveView.LoadFromFile(dlgOpen.FileName);
     ActiveView.FileName := dlgOpen.FileName;
   end;
+end;
+
+procedure TdmRichEditorManager.actAdjustParagraphStyleExecute(Sender: TObject);
+begin
+  ActiveView.AdjustParagraphStyle;
 end;
 
 procedure TdmRichEditorManager.actPasteExecute(Sender: TObject);
@@ -311,8 +319,6 @@ begin
   end;
 end;
 
-// Style
-
 procedure TdmRichEditorManager.actBoldExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -329,13 +335,13 @@ end;
 procedure TdmRichEditorManager.actBkColorExecute(Sender: TObject);
 begin
   dlgColor.Width := 300;
-    dlgColor.Handle := Application.MainForm.Handle;
-    if dlgColor.Execute then
-    begin;
-      //ActiveView.TextAttributes.HasBkColor := False;
-      //ActiveView.TextAttributes.HasBkColor := True;
-      //ActiveView.TextAttributes.BkColor := dlgColor.Color;
-    end;
+  dlgColor.Handle := Application.MainForm.Handle;
+  if dlgColor.Execute then
+  begin;
+    //ActiveView.TextAttributes.HasBkColor := False;
+    //ActiveView.TextAttributes.HasBkColor := True;
+    //ActiveView.TextAttributes.BkColor := dlgColor.Color;
+  end;
 end;
 
 procedure TdmRichEditorManager.actAlignLeftExecute(Sender: TObject);
@@ -355,7 +361,7 @@ end;
 
 procedure TdmRichEditorManager.actColorExecute(Sender: TObject);
 begin
-  dlgColor.Width := 300;
+  dlgColor.Width  := 300;
   dlgColor.Handle := Application.MainForm.Handle;
   if dlgColor.Execute then
   begin;
@@ -382,6 +388,11 @@ begin
   end;
 end;
 
+procedure TdmRichEditorManager.actDecIndentExecute(Sender: TObject);
+begin
+  ActiveView.DecIndent;
+end;
+
 procedure TdmRichEditorManager.actFontExecute(Sender: TObject);
 begin
   if dlgFont.Execute then
@@ -396,6 +407,16 @@ begin
   begin
     ActiveView.Font.Size := ActiveView.Font.Size + 1;
   end;
+end;
+
+procedure TdmRichEditorManager.actIncIndentExecute(Sender: TObject);
+begin
+  ActiveView.IncIndent;
+end;
+
+procedure TdmRichEditorManager.actInsertBulletListExecute(Sender: TObject);
+begin
+  ActiveView.InsertBulletList;
 end;
 
 procedure TdmRichEditorManager.actInsertHyperLinkExecute(Sender: TObject);
@@ -489,4 +510,3 @@ end;
 {$ENDREGION}
 
 end.
-

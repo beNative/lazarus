@@ -23,7 +23,6 @@ unit ts.RichEditor.View.KMemo;
 
 {
   TODO:
-   - store images
    - drop files
    - paste formatted text (HTML?)
    - copy formatted text (WIKI, HTML?)
@@ -39,7 +38,7 @@ uses
   ExtCtrls, Menus,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
-  KMemoDlgNumbering, KMemoDlgContainer,
+  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle,
 
   ts.RichEditor.Interfaces;
 
@@ -54,9 +53,10 @@ type
     FTextStyle     : TKMemoTextStyle;
     FParaStyle     : TKMemoParaStyle;
     FUpdateLock    : Integer;
+    FDefaultIndent : Integer;
     FOnChange      : TNotifyEvent;
     FOnDropFiles   : TDropFilesEvent;
-    //FParaStyleForm : TKMemoParaStyleForm;
+    FParaStyleForm : TKMemoParaStyleForm;
     FTextStyleForm : TKMemoTextStyleForm;
     FContainerForm : TKMemoContainerForm;
     FHyperlinkForm : TKMemoHyperlinkForm;
@@ -66,20 +66,23 @@ type
     FIsFile        : Boolean;
 
     {$REGION 'event handlers'}
-    procedure EditorChange(Sender: TObject);
-    procedure FEditorBlockClick(Sender: TObject; ABlock: TKMemoBlock;
-      var Result: Boolean);
-    procedure FEditorBlockEdit(Sender: TObject; ABlock: TKMemoBlock;
-      var Result: Boolean);
+    procedure FEditorChange(Sender: TObject);
+    procedure FEditorBlockClick(
+      Sender     : TObject;
+      ABlock     : TKMemoBlock;
+      var Result : Boolean
+    );
+    procedure FEditorBlockEdit(
+      Sender     : TObject;
+      ABlock     : TKMemoBlock;
+      var Result : Boolean
+    );
     procedure FEditorDropFiles(Sender: TObject; X, Y: Integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetEvents: IRichEditorEvents;
-    function GetIsFile: Boolean;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
-    procedure SetIsFile(AValue: Boolean);
 
   protected
     {$REGION 'property access mehods'}
@@ -92,9 +95,11 @@ type
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetEditor: TComponent;
+    function GetEvents: IRichEditorEvents;
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
+    function GetIsFile: Boolean;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
@@ -110,6 +115,7 @@ type
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
     procedure SetFileName(const AValue: string);
+    procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
@@ -133,6 +139,11 @@ type
 
     function InsertImage: Boolean;
     procedure InsertHyperlink;
+    procedure InsertBulletList;
+    procedure IncIndent;
+    procedure DecIndent;
+    procedure AdjustParagraphStyle;
+
     function IsUpdating: Boolean;
     function IsEmpty: Boolean;
 
@@ -232,9 +243,11 @@ implementation
 {$R *.lfm}
 
 uses
-  StdCtrls,
+  StdCtrls, Math,
 
-  keditcommon, kgraphics;
+  keditcommon, kgraphics,
+
+  ts.Core.Logger;
 
 {$REGION 'construction and destruction'}
 procedure TRichEditorViewKMemo.AfterConstruction;
@@ -247,9 +260,11 @@ begin
   FEditor.Align          := alClient;
   FEditor.DoubleBuffered := True;
   FEditor.OnDropFiles    := FEditorDropFiles;
-  FEditor.OnChange       := EditorChange;
+  FEditor.OnChange       := FEditorChange;
   FEditor.OnBlockEdit    := FEditorBlockEdit;
   FEditor.OnBlockClick   := FEditorBlockClick;
+
+  FDefaultIndent := 20;
 
   FTextStyle := TKMemoTextStyle.Create;
   FTextStyle.OnChanged := FTextStyleChanged;
@@ -262,6 +277,7 @@ begin
   FImageForm     := TKMemoImageForm.Create(Self);
   FNumberingForm := TKMemoNumberingForm.Create(Self);
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
+  FParaStyleForm := TKMemoParaStyleForm.Create(Self);
 end;
 
 procedure TRichEditorViewKMemo.BeforeDestruction;
@@ -285,8 +301,8 @@ end;
 
 function TRichEditorViewKMemo.GetCanUndo: Boolean;
 begin
-//  Result := FEditor.CommandEnabled(ecUndo);
-  Result := False; // not supported yet
+  Result := FEditor.CommandEnabled(ecUndo);
+//  Result := False; // not supported yet
 end;
 
 function TRichEditorViewKMemo.GetEditor: TComponent;
@@ -480,7 +496,7 @@ end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
-procedure TRichEditorViewKMemo.EditorChange(Sender: TObject);
+procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
   DoChange;
 end;
@@ -532,7 +548,7 @@ var
 begin
   // if there is no selection then simulate one word selection or set style for new text
   LSelAvail := FEditor.SelAvail;
-  LSelEnd := FEditor.SelEnd;
+  LSelEnd   := FEditor.SelEnd;
   if LSelAvail then
     FEditor.SelectionTextStyle := FTextStyle
   else if FEditor.GetNearestWordIndexes(LSelEnd, False, LStartIndex, LEndIndex)
@@ -567,7 +583,7 @@ end;
 function TRichEditorViewKMemo.SelectedBlock: TKMemoBlock;
 begin
   Result := FEditor.SelectedBlock;
-  if Result = nil then
+  if not Assigned(Result) then
     Result := FEditor.ActiveInnerBlock;
 end;
 {$ENDREGION}
@@ -618,6 +634,7 @@ end;
 
 procedure TRichEditorViewKMemo.Save(const AStorageName: string);
 begin
+  Logger.Enter(Self, 'Save');
   Events.DoBeforeSave(AStorageName);
   if IsFile then
   begin
@@ -626,6 +643,7 @@ begin
   end;
   Events.DoAfterSave(AStorageName);
   Modified := False;
+  Logger.Leave(Self, 'Save');
 end;
 
 procedure TRichEditorViewKMemo.SaveToStream(AStream: TStream);
@@ -676,6 +694,8 @@ begin
     LImage.Free;
 end;
 
+{ Inserts a hyperlink block. }
+
 procedure TRichEditorViewKMemo.InsertHyperlink;
 var
   LBlock     : TKMemoBlock;
@@ -685,9 +705,9 @@ begin
   LCreated := False;
   if FEditor.SelAvail then
   begin
-    LHyperlink := TKMemoHyperlink.Create;
+    LHyperlink      := TKMemoHyperlink.Create;
     LHyperlink.Text := FEditor.SelText;
-    LBlock := FEditor.ActiveInnerBlock;
+    LBlock          := FEditor.ActiveInnerBlock;
     if LBlock is TKMemoHyperlink then
       LHyperlink.URL := TKMemoHyperlink(LBlock).URL;
     LCreated := True;
@@ -700,7 +720,7 @@ begin
     else
     begin
       LHyperlink := TKMemoHyperlink.Create;
-      LCreated := True;
+      LCreated   := True;
     end;
   end;
   FHyperlinkForm.Load(LHyperlink);
@@ -711,12 +731,45 @@ begin
     begin
       if FEditor.SelAvail then
         FEditor.ClearSelection;
-      FEditor.ActiveInnerBlocks.AddHyperlink(LHyperlink, FEditor.SplitAt(FEditor.SelEnd));
+      FEditor.ActiveInnerBlocks.AddHyperlink(
+        LHyperlink,
+        FEditor.SplitAt(FEditor.SelEnd)
+      );
     end;
     FEditor.Modified := True;
   end
   else if LCreated then
     LHyperlink.Free;
+end;
+
+procedure TRichEditorViewKMemo.InsertBulletList;
+begin
+  FNumberingForm.Load(FEditor, FEditor.ListTable, FEditor.NearestParagraph);
+  if FNumberingForm.ShowModal = mrOk then
+    FNumberingForm.Save;
+end;
+
+procedure TRichEditorViewKMemo.IncIndent;
+begin
+  FParaStyle.LeftPadding := Min(
+    FParaStyle.LeftPadding + FEditor.Pt2PxX(FDefaultIndent),
+    FEditor.RequiredContentWidth
+      - FParaStyle.RightPadding - FEditor.Pt2PxX(FDefaultIndent)
+  );
+end;
+
+procedure TRichEditorViewKMemo.DecIndent;
+begin
+  FParaStyle.LeftPadding := Max(
+    FParaStyle.LeftPadding - FEditor.Pt2PxX(FDefaultIndent), 0
+  );
+end;
+
+procedure TRichEditorViewKMemo.AdjustParagraphStyle;
+begin
+  FParaStyleForm.Load(FEditor, FParaStyle);
+  if FParaStyleForm.ShowModal = mrOk then
+    FParaStyleForm.Save(FParaStyle);
 end;
 
 function TRichEditorViewKMemo.IsUpdating: Boolean;

@@ -1,7 +1,7 @@
 object RichEditorViewKMemo: TRichEditorViewKMemo
-  Left = 748
+  Left = 999
   Height = 342
-  Top = 253
+  Top = 305
   Width = 486
   Caption = 'RichEditorViewKMemo'
   ClientHeight = 342

@@ -28,9 +28,6 @@ uses
 type
   TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
-    procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
-
     procedure RegisterToolSettings(ASettings: TEditorToolSettings);
     procedure RegisterHighlighters(AHighlighters: THighlighters);
     class procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
@@ -68,27 +65,11 @@ uses
   ts.Components.UniHighlighter;
 
 {$REGION 'private methods'}
-
-{$REGION 'construction and destruction'}
-procedure TEditorSettingsFactory.AfterConstruction;
-begin
-  inherited AfterConstruction;
-
-end;
-
-procedure TEditorSettingsFactory.BeforeDestruction;
-begin
-
-  inherited BeforeDestruction;
-end;
-{$ENDREGION}
-
 procedure TEditorSettingsFactory.RegisterToolSettings(
   ASettings: TEditorToolSettings);
 begin
   ASettings.RegisterSettings(TAlignLinesSettings, 'AlignLinesSettings');
   ASettings.RegisterSettings(TCodeFilterSettings, 'CodeFilterSettings');
-  //ASettings.RegisterSettings(THTMLViewSettings, 'HTMLViewSettings');
   ASettings.RegisterSettings(TSortStringsSettings, 'SortStringsSettings');
   ASettings.RegisterSettings(TMiniMapSettings, 'MiniMapSettings');
   ASettings.RegisterSettings(THexEditorSettings, 'HexEditorSettings');
@@ -98,11 +79,6 @@ end;
 
 procedure TEditorSettingsFactory.RegisterHighlighters(
   AHighlighters: THighlighters);
-//var
-//  S  : string;
-//  F  : string;
-  //SU : TSynUniSyn;
-  //FH : TSynFacilSyn;
 
   procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
     ASynHighlighter: TSynCustomHighlighter; const AName: string;
@@ -148,10 +124,6 @@ begin
   Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
   Reg(TSynPikeSyn, nil, HL_PIKE, FILE_EXTENSIONS_PIKE, SPikeDescription, '', '', '');
   Reg(TSynVBSyn, nil, HL_VB, FILE_EXTENSIONS_VB, SVBDescription, '', '', '');
-  //Reg(TSynFacilSyn, nil, 'SynFacilSyn', '', 'Test', ';');
-    // apply common highlighter attributes
-
-
 {
   S := GetApplicationPath;
   F := S + LAYOUT_LOG;
@@ -271,8 +243,6 @@ begin
     TSynLuaSyn,
     TSynPikeSyn,
     TSynVBSyn
-
-    //TSynFacilSyn
   ]);
 end;
 {$ENDREGION}

@@ -262,11 +262,6 @@ end;
 
 procedure TEditorSelection.Restore;
 begin
-  //Logger.Send('Restore Start BlockBegin', FBlockBegin);
-  //Logger.Send('Restore Start BlockEnd', FBlockEnd);
-  //Logger.Send('Text', Text);
-  //Logger.Send('Lines.Count', FLines.Count);
-  //Logger.Send('StripLastLine', StripLastLine);
   if StripLastLine then // adjust block selection bounds
   begin
     case SelectionMode of
@@ -286,9 +281,6 @@ begin
       end;
     end;
   end;
-  //Logger.Send('Restore End BlockBegin', FBlockBegin);
-  //Logger.Send('Restore End BlockEnd', FBlockEnd);
-  //Logger.Send(Text);
   FEditorView.Editor.SetTextBetweenPoints(
     BlockBegin,
     BlockEnd,

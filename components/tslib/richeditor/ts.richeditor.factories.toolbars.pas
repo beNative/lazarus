@@ -155,10 +155,15 @@ begin
   CreateToolButton(TB, 'actIncFontSize');
   CreateToolButton(TB, 'actDecFontSize');
   CreateToolButton(TB);
+  CreateToolButton(TB, 'actIncIndent');
+  CreateToolButton(TB, 'actDecIndent');
+  CreateToolButton(TB);
   CreateToolButton(TB, 'actToggleWordWrap');
+  CreateToolButton(TB, 'actAdjustParagraphStyle');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actInsertHyperlink');
   CreateToolButton(TB, 'actInsertImage');
+  CreateToolButton(TB, 'actInsertBulletList');
   Result := TB;
 end;
 {$ENDREGION}

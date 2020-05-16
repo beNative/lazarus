@@ -163,7 +163,10 @@ type
   ///
   ///  event fired under various conditions
   ///
-  TSynMiniMapEvent = procedure (Sender: TObject; Data: PSynMiniMapEventData) of Object;
+  TSynMiniMapEvent = procedure (
+    Sender : TObject;
+    Data   : PSynMiniMapEventData
+  ) of object;
 
 
   ///
@@ -180,9 +183,11 @@ type
     procedure EditorDecPaintLock(Sender: TObject);
 
   private
-    FSynMiniMap: TSynMiniMap;
+    FSynMiniMap : TSynMiniMap;
+
   public
     constructor Create(ASynMiniMap: TSynMiniMap); reintroduce; virtual;
+
   end;
 
   ///
@@ -198,10 +203,12 @@ type
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X: Integer;
       Y: Integer); override;
     procedure DoClick(const AX, AY: Integer); virtual;
+
   private
     FFullSizeBitmap: TBitmap;
     FOffsetBitmap: TBitmap;
     FEditor: TSynEdit;
+
   private
     FEditorHeight: Integer;
     FEditorWidth: Integer;
@@ -222,39 +229,53 @@ type
     FMouseDownPoint: TPoint;
     FMouseUpPoint: TPoint;
     FScrolling: Boolean;
-  private
     FOnClick: TSynMiniMapEvent;
     FScrollBar: TScrollBar;
-  private
     FColors: TSynMiniMapColors;
     FMiniMapPlugin: TSynMiniMapEditorPlugin;
-  private
+
     function GetClickCoord: TPoint;
     procedure ResetInternals;
     procedure ClearEventData(var AEventData: TSynMiniMapEventData); inline;
-  private
+
     function GetPixelFormat: TPixelFormat;
     procedure SetPixelFormat(const Value: TPixelFormat);
     procedure SetEditor(const Value: TSynEdit);
     procedure SetFontFactor(const Value: Single);
+
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-  public
+
+
     function TranslatePoint(const APoint: PPoint): TPoint;
     procedure Render; virtual;
-  public
-    property PreviousLineIndex: Integer read FPreviousLineIndex;
-    property Scrolling: Boolean read FScrolling;
+
+    property PreviousLineIndex : Integer
+      read FPreviousLineIndex;
+
+    property Scrolling : Boolean
+      read FScrolling;
+
   published
-    property Colors: TSynMiniMapColors read FColors write FColors;
-    property Editor: TSynEdit read FEditor write SetEditor;
-    property FontFactor: Single read FFontFactor write SetFontFactor;
-    property Options: TSynMinimapOptions read FOptions write FOptions;
-    property PixelFormat: TPixelFormat read GetPixelFormat write SetPixelFormat;
-  published
-    property OnClick: TSynMiniMapEvent read FOnClick write FOnClick;
-  published
+    property Colors : TSynMiniMapColors
+      read FColors write FColors;
+
+    property Editor : TSynEdit
+      read FEditor write SetEditor;
+
+    property FontFactor : Single
+      read FFontFactor write SetFontFactor;
+
+    property Options : TSynMinimapOptions
+      read FOptions write FOptions;
+
+    property PixelFormat : TPixelFormat
+      read GetPixelFormat write SetPixelFormat;
+
+    property OnClick : TSynMiniMapEvent
+      read FOnClick write FOnClick;
+
     property Align;
     property Constraints;
     property Height;

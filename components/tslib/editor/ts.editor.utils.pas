@@ -77,8 +77,8 @@ const
   );
 
 function CompressSpace(
-  const AString         : string;
-        APreserveIndent : Boolean = True
+  const AString   : string;
+  APreserveIndent : Boolean = True
 ): string;
 
 { Replace any number of consecutive whitespace (including newlines) with a
@@ -91,92 +91,92 @@ function CompressWhiteSpace(
 ): string;
 
 procedure AlignLines(
-        AStrings                : TStrings;
-  const AToken                  : string;
-        ACompressWS             : Boolean = True;
-        AInsertSpaceBeforeToken : Boolean = True;
-        AInsertSpaceAfterToken  : Boolean = True
+  AStrings                : TStrings;
+  const AToken            : string;
+  ACompressWS             : Boolean = True;
+  AInsertSpaceBeforeToken : Boolean = True;
+  AInsertSpaceAfterToken  : Boolean = True
 ); overload;
 
 function AlignLines(
-  const AString                 : string;
-  const AToken                  : string;
-        ACompressWS             : Boolean;
-        AInsertSpaceBeforeToken : Boolean;
-        AInsertSpaceAfterToken  : Boolean
+  const AString           : string;
+  const AToken            : string;
+  ACompressWS             : Boolean;
+  AInsertSpaceBeforeToken : Boolean;
+  AInsertSpaceAfterToken  : Boolean
 ): string; overload;
 
 function AlignLines(
-  const AString                 : string;
-  const AToken                  : string;
-        ACompressWS             : Boolean;
-        AInsertSpaceBeforeToken : Boolean;
-        AInsertSpaceAfterToken  : Boolean;
-        AAlignInParagraphs      : Boolean
+  const AString           : string;
+  const AToken            : string;
+  ACompressWS             : Boolean;
+  AInsertSpaceBeforeToken : Boolean;
+  AInsertSpaceAfterToken  : Boolean;
+  AAlignInParagraphs      : Boolean
 ): string; overload;
 
 function BreakLines(
-  const AString      : string;
-  const AToken       : string;
-        ABeforeToken : Boolean = False;
-        AIndent      : Integer = 0;
-        ATrimSpace   : Boolean = True;
-        ABreakStyle  : TTextLineBreakStyle = tlbsCRLF
+  const AString : string;
+  const AToken  : string;
+  ABeforeToken  : Boolean = False;
+  AIndent       : Integer = 0;
+  ATrimSpace    : Boolean = True;
+  ABreakStyle   : TTextLineBreakStyle = tlbsCRLF
 ): string;
 
 function JoinLines(
-  const AString     : string;
-        ABreakStyle : TTextLineBreakStyle = tlbsCRLF
+  const AString : string;
+  ABreakStyle   : TTextLineBreakStyle = tlbsCRLF
 ): string;
 
 function CompressLines(
-  const AString         : string;
-        APreserveIndent : Boolean = True
+  const AString   : string;
+  APreserveIndent : Boolean = True
 ): string;
 
 function SortStrings(
-  const AString: string;
-        ADirection: TSortDirection;
-        ASortScope: TSortScope;
-        ACaseSensitive: Boolean;
-        AIgnoreSpace: Boolean
+  const AString  : string;
+  ADirection     : TSortDirection;
+  ASortScope     : TSortScope;
+  ACaseSensitive : Boolean;
+  AIgnoreSpace   : Boolean
 ): string;
 
 function TrimLines(
   const AString : string;
-        ALeft   : Boolean;
-        ARight  : Boolean;
-        AIndent : Integer = 0;
-        AChars  : TSysCharSet = [' ']
+  ALeft         : Boolean;
+  ARight        : Boolean;
+  AIndent       : Integer = 0;
+  AChars        : TSysCharSet = [' ']
 ): string;
 
 function QuoteLines(
   const AString    : string;
   const AQuoteChar : Char = '''';
-        ATrimSpace : Boolean = False
+  ATrimSpace       : Boolean = False
 ): string;
 
 function QuoteLinesAndDelimit(
   const AString    : string;
   const AQuoteChar : Char = '''';
   const ADelimiter : string = ', ';
-        ATrimSpace : Boolean = False
+  ATrimSpace       : Boolean = False
 ): string;
 
 function DequoteLines(
   const AString    : string;
   const AQuoteChar : Char = '''';
-        ATrimSpace : Boolean = False
+  ATrimSpace       : Boolean = False
 ): string;
 
 function CommentText(
-  const AString      : string;
-        ACommentType : TCommentType
+  const AString : string;
+  ACommentType  : TCommentType
 ): string;
 
 function UnCommentText(
-  const AString      : string;
-        ACommentType : TCommentType
+  const AString : string;
+  ACommentType  : TCommentType
 ): string;
 
 function FormatXML(
@@ -184,8 +184,8 @@ function FormatXML(
 ): string;
 
 function PascalStringOf(
-  const AString    : string;
-        ATrimLines : Boolean = False
+  const AString : string;
+  ATrimLines    : Boolean = False
 ): string;
 
 procedure FilterLines(
@@ -198,8 +198,8 @@ procedure FilterLines(
 );
 
 procedure AddStringsPresentInString(
-        ASource       : TStrings;
-        ADest         : TStrings;
+  ASource             : TStrings;
+  ADest               : TStrings;
   const AFilterString : string
 );
 
@@ -224,8 +224,8 @@ function IsHTML(
 ): Boolean;
 
 function ChangeLineBreakStyle(
-  const AString         : string;
-        ALineBreakStyle : TTextLineBreakStyle
+  const AString   : string;
+  ALineBreakStyle : TTextLineBreakStyle
 ): string;
 
 function GuessLineBreakStyle(
@@ -237,10 +237,10 @@ function StrToLineBreakStyle(
 ): TTextLineBreakStyle;
 
 function StripChars(
-  const AString      : string;
-        AFirst       : Boolean;
-        ALast        : Boolean;
-        AIgnoreChars : TSysCharSet = [' ']
+  const AString : string;
+  AFirst        : Boolean;
+  ALast         : Boolean;
+  AIgnoreChars  : TSysCharSet = [' ']
 ): string;
 
 function StripMarkup(
@@ -260,31 +260,31 @@ function StripLastLineEnding(
 ): string;
 
 function MatchRegExpr(
-  const AString        : string;
-  const ARegExpr       : string;
-        ACaseSensitive : Boolean = True
+  const AString  : string;
+  const ARegExpr : string;
+  ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
 function MatchRegExpr(
-  const AString        : string;
-  const ARegExpr       : string;
-    var AMatch         : string;
-    var AMatchPos      : Integer;
-        ACaseSensitive : Boolean = True
+  const AString  : string;
+  const ARegExpr : string;
+  var AMatch     : string;
+  var AMatchPos  : Integer;
+  ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
 function MatchRegExpr2(
-  const AString        : string;
-  const ARegExpr       : string;
-        ACaseSensitive : Boolean = True
+  const AString  : string;
+  const ARegExpr : string;
+  ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
 function MatchRegExpr2(
-  const AString        : string;
-  const ARegExpr       : string;
-    var AMatch         : string;
-    var AMatchPos      : Integer;
-        ACaseSensitive : Boolean = True
+  const AString  : string;
+  const ARegExpr : string;
+  var AMatch     : string;
+  var AMatchPos  : Integer;
+  ACaseSensitive : Boolean = True
 ): Boolean; overload;
 
 { Find SubString in S; do not consider case. This works exactly the same as the
@@ -296,15 +296,15 @@ function CaseInsensitivePos(
 ): Integer;
 
 function StrContains(
-  const ASubString     : string;
-  const AString        : string;
-        ACaseSensitive : Boolean = True
+  const ASubString : string;
+  const AString    : string;
+  ACaseSensitive   : Boolean = True
 ): Boolean;
 
 function StrPos(
-  const ASubString     : string;
-  const AString        : string;
-        ACaseSensitive : Boolean = True
+  const ASubString : string;
+  const AString    : string;
+  ACaseSensitive   : Boolean = True
 ): Integer;
 
 function PointToPos(
@@ -318,12 +318,12 @@ function FileIsText(
 
 function WrapText(
   const ASource : string;
-        AMaxCol : Integer
+  AMaxCol       : Integer
 ): string;
 
 function TabsToSpaces(
-  const ASource   : string;
-        ATabWidth : Integer
+  const ASource : string;
+  ATabWidth     : Integer
 ): string;
 
 { Find substring SubText within Text. Returns 0 if not found.
@@ -357,40 +357,40 @@ function TabsToSpaces(
     )
   ) }
 function FindPos(
-  const ASubString     : string;
-  const AString        : string;
-        AStartPosition : Integer;
-        ACount         : Integer;
-  const AOptions       : TSearchOptions;
-  const AWordBorders   : TSysCharSet = DefaultWordBorders
+  const ASubString   : string;
+  const AString      : string;
+  AStartPosition     : Integer;
+  ACount             : Integer;
+  const AOptions     : TSearchOptions;
+  const AWordBorders : TSysCharSet = DefaultWordBorders
 ): Integer;
 
 function IsPrefix(
-  const APrefix     : string;
-  const AString     : string;
-        AIgnoreCase : Boolean = True
+  const APrefix : string;
+  const AString : string;
+  AIgnoreCase   : Boolean = True
 ): Boolean;
 
 function IsSuffix(
-  const ASuffix     : string;
-  const AString     : string;
-        AIgnoreCase : Boolean = True
+  const ASuffix : string;
+  const AString : string;
+  AIgnoreCase   : Boolean = True
 ): Boolean;
 
 { Removes the prefix, if it is present. More precisely, if
   IsPrefix(Prefix, S, IgnoreCase) then returns S with this prefix
   removed. Else returns S. }
 function PrefixRemove(
-  const APrefix     : string;
-  const AString     : string;
-        AIgnoreCase : Boolean = True
+  const APrefix : string;
+  const AString : string;
+  AIgnoreCase   : Boolean = True
 ): string;
 
 { Like PrefixRemove, but checks for and removes Suffix. }
 function SuffixRemove(
-  const ASuffix     : string;
-  const AString     : string;
-        AIgnoreCase : Boolean = True
+  const ASuffix : string;
+  const AString : string;
+  AIgnoreCase   : Boolean = True
 ): string;
 
 { Extract file extensions from a file filter usually specified
@@ -406,10 +406,10 @@ function SuffixRemove(
   with two items: @code(['.ext1', '.ext2']). }
 procedure GetFileFilterExts(
   const AFileFilter : string;
-        AExtensions : TStringList
+  AExtensions       : TStringList
 );
 
-{ Extract file filter name, from a file filter usually specified
+{ Extracts file filter name, from a file filter usually specified
   a TOpenDialog.Filter value.
 
   More precisely: if we do not see bar "|" character, then this is
@@ -427,7 +427,7 @@ function GetFileFilterName(
   const AFileFilter : string
 ): string;
 
-{ Search in FileFilter for the bar character "|", and return everything
+{ Searches in FileFilter for the bar character "|", and return everything
   after it. This is a simple basis for GetFileFilterExts.
 
   If no "|" found, we return an empty string (in other words,
@@ -465,31 +465,32 @@ uses
 type
   TTextBlockCompareSettings = class
   public
-    CaseSensitive: boolean;
-    IgnoreSpace: boolean;
-    Ascending: boolean;
+    CaseSensitive : Boolean;
+    IgnoreSpace   : Boolean;
+    Ascending     : Boolean;
   end;
 
   TTextBlock = class
   public
-    Settings: TTextBlockCompareSettings;
-    Start: PChar;
-    Len: integer;
+    Settings : TTextBlockCompareSettings;
+    Start    : PChar;
+    Len      : Integer;
+
     constructor Create(TheSettings: TTextBlockCompareSettings;
       NewStart: PChar; NewLen: integer);
   end;
 
 var
-  UpChars: array[char] of char;
+  UpChars : array[Char] of Char;
 
 { TTextBlock }
 
 constructor TTextBlock.Create(TheSettings: TTextBlockCompareSettings;
   NewStart: PChar; NewLen: integer);
 begin
-  Settings:=TheSettings;
-  Start:=NewStart;
-  Len:=NewLen;
+  Settings := TheSettings;
+  Start    := NewStart;
+  Len      := NewLen;
 end;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
@@ -497,34 +498,45 @@ end;
 function CompareText(Txt1: PChar; Len1: integer; Txt2: PChar; Len2: integer;
   CaseSensitive: boolean): integer; overload;
 begin
-  if CaseSensitive then begin
-    while (Len1>0) and (Len2>0) do begin
-      if Txt1^=Txt2^ then begin
-        inc(Txt1);
-        dec(Len1);
-        inc(Txt2);
-        dec(Len2);
-      end else begin
+  if CaseSensitive then
+  begin
+    while (Len1>0) and (Len2>0) do
+    begin
+      if Txt1^=Txt2^ then
+      begin
+        Inc(Txt1);
+        Dec(Len1);
+        Inc(Txt2);
+        Dec(Len2);
+      end
+      else
+      begin
         if Txt1^<Txt2^ then
           Result:=1
         else
           Result:=-1;
-        exit;
+        Exit;
       end;
     end;
-  end else begin
-    while (Len1>0) and (Len2>0) do begin
-      if UpChars[Txt1^]=UpChars[Txt2^] then begin
-        inc(Txt1);
-        dec(Len1);
-        inc(Txt2);
-        dec(Len2);
-      end else begin
+  end
+  else
+  begin
+    while (Len1>0) and (Len2>0) do
+    begin
+      if UpChars[Txt1^]=UpChars[Txt2^] then
+      begin
+        Inc(Txt1);
+        Dec(Len1);
+        Inc(Txt2);
+        Dec(Len2);
+      end
+      else
+      begin
         if UpChars[Txt1^]<UpChars[Txt2^] then
           Result:=1
         else
           Result:=-1;
-        exit;
+        Exit;
       end;
     end;
   end;
@@ -637,9 +649,9 @@ end;
 
 function CompareTextBlock(Data1, Data2: Pointer): integer;
 var
-  Block1: TTextBlock;
-  Block2: TTextBlock;
-  Settings: TTextBlockCompareSettings;
+  Block1   : TTextBlock;
+  Block2   : TTextBlock;
+  Settings : TTextBlockCompareSettings;
 begin
   Block1:=TTextBlock(Data1);
   Block2:=TTextBlock(Data2);

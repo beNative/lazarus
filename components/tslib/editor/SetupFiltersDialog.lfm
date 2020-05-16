@@ -1,7 +1,7 @@
 object dlgSetupFilters: TdlgSetupFilters
-  Left = 442
+  Left = 391
   Height = 307
-  Top = 193
+  Top = 134
   Width = 339
   BorderStyle = bsNone
   Caption = 'Filters Setup'
@@ -14,7 +14,7 @@ object dlgSetupFilters: TdlgSetupFilters
   OnHide = FormHide
   OnShow = FormShow
   Position = poMainFormCenter
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.0.2.0'
   object LB: TListBox
     Left = 8
     Height = 289

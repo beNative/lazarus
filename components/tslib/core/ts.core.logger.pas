@@ -24,7 +24,7 @@ uses
   ts.Core.Logger.Base, ts.Core.Logger.Interfaces;
 
 var
-  Logger: ILogger;
+  Logger : ILogger;
   
 implementation
 

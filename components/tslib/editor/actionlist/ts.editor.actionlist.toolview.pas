@@ -81,6 +81,7 @@ type
     procedure CreateCommandsView;
     procedure CreateMouseActionsView;
     procedure UpdateLists;
+
     property Manager: IEditorManager
       read GetManager;
 

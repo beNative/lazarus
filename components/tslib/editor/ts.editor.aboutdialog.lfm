@@ -12,7 +12,7 @@ object frmAbout: TfrmAbout
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  Visible = False
+  LCLVersion = '2.0.2.0'
   object pgcMain: TPageControl
     Left = 240
     Height = 204
@@ -48,7 +48,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 58
-        Width = 54
+        Width = 53
         Caption = 'Target OS:'
         ParentColor = False
       end
@@ -56,7 +56,7 @@ object frmAbout: TfrmAbout
         Left = 8
         Height = 15
         Top = 78
-        Width = 62
+        Width = 61
         Caption = 'Target CPU:'
         ParentColor = False
       end

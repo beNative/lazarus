@@ -339,12 +339,12 @@ procedure TfrmAbout.FillCredits;
 
   procedure AddCredit(const AName: string; const AAuthor: string; const AURL: string);
   var
-    C: TCredit;
+    C : TCredit;
   begin
     C := TCredit.Create;
-    C.Name := AName;
+    C.Name   := AName;
     C.Author := AAuthor;
-    C.URL := AURL;
+    C.URL    := AURL;
     FCredits.Add(C);
   end;
 
@@ -384,27 +384,17 @@ begin
     'Lazarus development team. Original implementation by Martin Waldenburg.',
     'http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'
   );
-  AddCredit(
-    'SynFacilSyn',
-    'Tito Hinostroza',
-    'http://blog.pucp.edu.pe/blog/tito'
-  );
-  AddCredit(
-    'SynUniHighlighter',
-    'Original implementation by Kirill Burtsev and Vitaly Nevzorov,' + #13#10 +
-    'heavily modified and ported to FPC by Tim Sinaeve.',
-    ''
-  );
-  AddCredit(
-    'Multilog',
-    'Luiz Américo Pereira Câmara',
-    ''
-  );
-  AddCredit(
-    'TRichMemo',
-    'Dmitry ''skalogryz'' Boyarintsev',
-    ''
-  );
+  //AddCredit(
+  //  'SynUniHighlighter',
+  //  'Original implementation by Kirill Burtsev and Vitaly Nevzorov,' + #13#10 +
+  //  'heavily modified and ported to FPC by Tim Sinaeve.',
+  //  ''
+  //);
+  //AddCredit(
+  //  'TRichMemo',
+  //  'Dmitry ''skalogryz'' Boyarintsev',
+  //  ''
+  //);
   AddCredit(
     'OMultiPanel',
     'Ondřej Pokorný',
@@ -470,10 +460,10 @@ var
 
   procedure AddInfo(const AName: string; const AValue: string);
   var
-    I: TInfo;
+    I : TInfo;
   begin
-    I := TInfo.Create;
-    I.Name := AName;
+    I       := TInfo.Create;
+    I.Name  := AName;
     I.Value := AValue;
     FInfoList.Add(I);
   end;

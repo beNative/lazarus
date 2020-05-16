@@ -756,10 +756,10 @@ end;
 procedure TEditorView.EditorCommandProcessed(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
-  Logger.Info(
-    'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
-    [EditorCommandToCodeString(Command), AChar]
-  );
+  //Logger.Info(
+  //  'EditorCommandProcessed(Command = %s; AChar = %s; Data)',
+  //  [EditorCommandToCodeString(Command), AChar]
+  //);
 end;
 
 procedure TEditorView.EditorChangeUpdating(ASender: TObject;

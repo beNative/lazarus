@@ -33,6 +33,14 @@ object dmRichEditorManager: TdmRichEditorManager
       OnExecute = actUnderlineExecute
       ShortCut = 16469
     end
+    object actStrikeThrough: TAction
+      Category = 'Style'
+      AutoCheck = True
+      Caption = 'Strike through'
+      Hint = 'Strike through'
+      ImageIndex = 30
+      OnExecute = actStrikeThroughExecute
+    end
     object actOpen: TAction
       Category = 'File'
       Caption = 'Open'
@@ -89,6 +97,14 @@ object dmRichEditorManager: TdmRichEditorManager
       Hint = 'Align center'
       ImageIndex = 21
       OnExecute = actAlignCenterExecute
+    end
+    object actAlignJustify: TAction
+      Category = 'Align'
+      AutoCheck = True
+      Caption = 'Align justify'
+      GroupIndex = 1
+      ImageIndex = 22
+      OnExecute = actAlignJustifyExecute
     end
     object actFont: TAction
       Category = 'Style'
@@ -154,14 +170,6 @@ object dmRichEditorManager: TdmRichEditorManager
       ImageIndex = 33
       OnExecute = actToggleWordWrapExecute
     end
-    object actAlignJustify: TAction
-      Category = 'Align'
-      AutoCheck = True
-      Caption = 'Align justify'
-      GroupIndex = 1
-      ImageIndex = 22
-      OnExecute = actAlignJustifyExecute
-    end
     object actBkColor: TAction
       Category = 'Style'
       Caption = 'Background color'
@@ -189,13 +197,31 @@ object dmRichEditorManager: TdmRichEditorManager
       ImageIndex = 26
       OnExecute = actInsertHyperLinkExecute
     end
-    object actStrikeThrough: TAction
+    object actInsertBulletList: TAction
+      Category = 'Insert'
+      Caption = 'Insert bullet list'
+      ImageIndex = 31
+      OnExecute = actInsertBulletListExecute
+    end
+    object actIncIndent: TAction
       Category = 'Style'
-      AutoCheck = True
-      Caption = 'Strike through'
-      Hint = 'Strike through'
-      ImageIndex = 30
-      OnExecute = actStrikeThroughExecute
+      Caption = 'Increase indent'
+      Hint = 'Increase indentation level.'
+      ImageIndex = 28
+      OnExecute = actIncIndentExecute
+    end
+    object actDecIndent: TAction
+      Category = 'Style'
+      Caption = 'Decrease indent'
+      Hint = 'Decrease indentation level.'
+      ImageIndex = 29
+      OnExecute = actDecIndentExecute
+    end
+    object actAdjustParagraphStyle: TAction
+      Caption = 'Paragraph style'
+      Hint = 'Adjust paragraph style.'
+      ImageIndex = 35
+      OnExecute = actAdjustParagraphStyleExecute
     end
   end
   object dlgSave: TSaveDialog
@@ -224,30 +250,30 @@ object dmRichEditorManager: TdmRichEditorManager
       Action = actUnderline
       AutoCheck = True
     end
-    object MenuItem1: TMenuItem
+    object N1: TMenuItem
       Caption = '-'
     end
-    object MenuItem2: TMenuItem
+    object mniAlignLeft: TMenuItem
       Action = actAlignLeft
       AutoCheck = True
       GroupIndex = 2
     end
-    object MenuItem3: TMenuItem
+    object mniAlignCenter: TMenuItem
       Action = actAlignCenter
       AutoCheck = True
       GroupIndex = 2
     end
-    object MenuItem4: TMenuItem
+    object mniAlignRight: TMenuItem
       Action = actAlignRight
       AutoCheck = True
       GroupIndex = 2
     end
-    object MenuItem5: TMenuItem
+    object mniAlignJustify: TMenuItem
       Action = actAlignJustify
       AutoCheck = True
       GroupIndex = 2
     end
-    object N1: TMenuItem
+    object N2: TMenuItem
       Caption = '-'
     end
     object mniOpen: TMenuItem

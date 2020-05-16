@@ -1,6 +1,6 @@
 inherited frmMiniMap: TfrmMiniMap
-  Left = 528
-  Top = 195
+  Left = 847
+  Top = 235
   Caption = 'Minimap'
   OnResize = FormResize
 end

@@ -86,18 +86,15 @@ interface
 uses
   Classes, SysUtils, FileUtil, Controls,
 
-  sqldb, sqlite3conn, db, BufDataset,
+  sqldb, sqlite3conn, db,
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, sqlscript;
 
 type
-
-  { TdmSnippetSource }
-
   TdmSnippetSource = class(TDataModule,
-    ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs
+    ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters
   )
     conMain           : TSQLite3Connection;
     imlGlyphs         : TImageList;
@@ -115,6 +112,8 @@ type
       EventType : TDBEventType;
       const Msg : string
     );
+    procedure qryGlyphBeforePost(DataSet: TDataSet);
+    procedure qryGlyphNewRecord(DataSet: TDataSet);
     procedure qrySnippetAfterOpen(ADataSet: TDataSet);
     procedure qrySnippetAfterPost(ADataSet: TDataSet);
     procedure qrySnippetBeforeOpen(ADataSet: TDataSet);
@@ -144,6 +143,7 @@ type
     function GetGlyphDataSet: TDataSet;
     function GetGlyphList: TImageList;
     function GetHighlighter: string;
+    function GetHighlighterDataSet: TDataSet;
     function GetId: Integer;
     function GetImageIndex: Integer;
     function GetImageList: TImageList;
@@ -233,7 +233,6 @@ type
       read GetDBVersion;
     {$ENDREGION}
 
-    { IConnection }
     {$REGION 'IConnection'}
     property AutoApplyUpdates: Boolean
       read GetAutoApplyUpdates write SetAutoApplyUpdates;
@@ -242,7 +241,7 @@ type
       read GetAutoCommit write SetAutoCommit;
     {$ENDREGION}
 
-    { ISnippet }
+    {$REGION 'ISnippet'}
     property Comment: string
       read GetComment write SetComment;
 
@@ -273,8 +272,8 @@ type
     property NodePath: string
       read GetNodePath write SetNodePath;
 
-    property NodeTypeId: Integer read
-      GetNodeTypeId write SetNodeTypeId;
+    property NodeTypeId: Integer
+      read GetNodeTypeId write SetNodeTypeId;
 
     property ParentId: Integer
       read GetParentId write SetParentId;
@@ -308,6 +307,10 @@ type
 
     property GlyphDataSet: TDataSet
       read GetGlyphDataSet;
+
+    property HighlighterDataSet: TDataSet
+      read GetHighlighterDataSet;
+    {$ENDREGION}
   end;
 
 implementation
@@ -400,6 +403,7 @@ begin
   end;
   qrySnippet.UsePrimaryKeyAsKey := True;
   qryHighlighter.Active := True;
+  qryGlyph.Active :=  True;
   DataSet.Active := True;
   Logger.Leave(Self, 'AfterConstruction');
 end;
@@ -422,7 +426,17 @@ procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
 //  S : string;
 begin
   //S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
-  Logger.SendText(Msg);
+//  Logger.SendText(Msg);
+end;
+
+procedure TdmSnippetSource.qryGlyphBeforePost(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('DateModified').AsDateTime := Now;
+end;
+
+procedure TdmSnippetSource.qryGlyphNewRecord(DataSet: TDataSet);
+begin
+  DataSet.FieldByName('DateCreated').AsDateTime := Now;
 end;
 
 {
@@ -692,7 +706,7 @@ end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
 var
-  LId: Variant;
+  LId : Variant;
 begin
   if AValue <> Highlighter then
   begin
@@ -703,6 +717,11 @@ begin
       LId := 1;
     qrySnippet.FieldValues['HighlighterId'] := LId;
   end;
+end;
+
+function TdmSnippetSource.GetHighlighterDataSet: TDataSet;
+begin
+  Result := qryHighlighter;
 end;
 
 function TdmSnippetSource.GetId: Integer;
@@ -799,13 +818,11 @@ begin
   end;
 end;
 
-{
-  The provider flag pfRefreshOnInsert is used to fetch the Id-value of the last
+{ The provider flag pfRefreshOnInsert is used to fetch the Id-value of the last
   inserted record.
   To make this work the query component's RefreshSQL statement is executed right
   after a new record is inserted.
-  For SQLite it looks as follows: "select last_insert_rowid() as Id"
-}
+  For SQLite it looks as follows: "select last_insert_rowid() as Id" }
 
 procedure TdmSnippetSource.InitField(AField: TField);
 begin
@@ -905,56 +922,55 @@ end;
 {$REGION 'IDataSet'}
 function TdmSnippetSource.Post: Boolean;
 begin
-  Logger.Enter(Self, 'Post');
   if DataSet.Active and (DataSet.State in dsEditModes) then
   begin
+    Logger.Info('Post');
     DataSet.Post;
     Result := True;
   end
   else
     Result := False;
-  Logger.Leave(Self, 'Post');
 end;
 
 function TdmSnippetSource.Append: Boolean;
 begin
-  Logger.Enter(Self, 'Append');
   if DataSet.Active and not (DataSet.State in dsEditModes) then
   begin
+    Logger.Info('Append');
     DataSet.Append;
     Result := True;
   end
   else
     Result := False;
-  Logger.Leave(Self, 'Append');
 end;
 
 function TdmSnippetSource.ApplyUpdates: Boolean;
 begin
-  Logger.Enter(Self, 'ApplyUpdates');
-  Logger.Send('DataSet.ChangeCount', DataSet.ChangeCount);
   if DataSet.ChangeCount > 0 then
   begin
+    Logger.Info('ApplyUpdates');
+    Logger.Send('DataSet.ChangeCount', DataSet.ChangeCount);
     DataSet.ApplyUpdates;
     Result := True;
   end
   else
     Result := False;
-  Logger.Leave(Self, 'ApplyUpdates');
 end;
 
 function TdmSnippetSource.Edit: Boolean;
 begin
-  Logger.Enter(Self, 'Edit');
   if DataSet.Active and not (DataSet.State in dsEditModes) then
   begin
+    Logger.Info('Edit');
     DataSet.Edit;
     Result := True;
   end
   else
     Result := False;
-  Logger.Leave(Self, 'Edit');
 end;
+
+{ Starts buffering inserts to apply and commit them in one go by calling
+  EndBulkInserts. }
 
 procedure TdmSnippetSource.BeginBulkInserts;
 begin

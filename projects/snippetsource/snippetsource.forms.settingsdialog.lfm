@@ -15,9 +15,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 390
     Top = 0
     Width = 614
-    ActivePage = tsDataBase
+    ActivePage = Highlighters
     Align = alClient
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     OnChange = pgcMainChange
     object tsDataBase: TTabSheet
@@ -154,26 +154,26 @@ object frmSettingsDialog: TfrmSettingsDialog
       ClientHeight = 362
       ClientWidth = 606
       object btnOpenGlyphs: TButton
-        Left = 1
+        Left = 384
         Height = 25
         Top = 3
         Width = 104
-        Action = actOpenGlyphs
+        Action = actAddGlyphs
         TabOrder = 0
       end
       object btnRefresh: TButton
-        Left = 1
+        Left = 496
         Height = 25
-        Top = 31
+        Top = 3
         Width = 104
         Action = actRefreshGlyphs
         TabOrder = 1
       end
       object vstImageList: TVirtualStringTree
-        Left = 1
-        Height = 301
-        Top = 58
-        Width = 104
+        Left = 0
+        Height = 357
+        Top = 3
+        Width = 88
         Anchors = [akTop, akLeft, akBottom]
         DefaultText = 'Node'
         Header.AutoSizeIndex = 0
@@ -193,16 +193,19 @@ object frmSettingsDialog: TfrmSettingsDialog
         OnGetText = vstImageListGetText
       end
       object grdGlyph: TDBGrid
-        Left = 112
-        Height = 363
-        Top = 3
+        Left = 114
+        Height = 328
+        Top = 32
         Width = 496
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
         DataSource = dscGlyph
         Flat = True
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgDblClickAutoSize]
         TabOrder = 3
+        OnDrawColumnCell = grdGlyphDrawColumnCell
+        OnPrepareCanvas = grdGlyphPrepareCanvas
       end
     end
     object Highlighters: TTabSheet
@@ -212,8 +215,8 @@ object frmSettingsDialog: TfrmSettingsDialog
       object cbxImageList: TComboBox
         Left = 8
         Height = 24
-        Top = 20
-        Width = 44
+        Top = 8
+        Width = 72
         AutoCompleteText = []
         DropDownCount = 40
         ItemHeight = 18
@@ -222,15 +225,18 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 0
       end
       object grdHighlighters: TDBGrid
-        Left = 88
-        Height = 335
+        Left = 96
+        Height = 344
         Top = 8
         Width = 504
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
         DataSource = dscHighlighter
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints]
+        ReadOnly = True
         TabOrder = 1
+        OnDrawColumnCell = grdHighlightersDrawColumnCell
       end
     end
   end
@@ -279,9 +285,9 @@ object frmSettingsDialog: TfrmSettingsDialog
       Hint = 'Delete database'
       OnExecute = actDeleteDatabaseExecute
     end
-    object actOpenGlyphs: TAction
-      Caption = 'Open glyph files'
-      OnExecute = actOpenGlyphsExecute
+    object actAddGlyphs: TAction
+      Caption = 'Add glyph files'
+      OnExecute = actAddGlyphsExecute
     end
     object actRefreshGlyphs: TAction
       Caption = 'Refresh'

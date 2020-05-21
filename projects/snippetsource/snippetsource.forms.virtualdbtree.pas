@@ -63,6 +63,7 @@ const
   DEFAULT_PARENTFIELDNAME   = 'ParentId';
   DEFAULT_PATHFIELDNAME     = '';
   DEFAULT_IMGIDXFIELDNAME   = 'ImageIndex';
+  DEFAULT_IMAGEFIELDNAME    = 'Image';
   DEFAULT_NODETYPEFIELDNAME = 'NodeTypeId';
   DEFAULT_VIEWFIELDNAME     = 'NodeName';
 
@@ -173,6 +174,7 @@ type
     FNodeTypeFieldName     : string;
 
     {$REGION 'property access methods'}
+    function GetImageFieldName: string;
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
     function GetImgIdxFieldName: string;
@@ -188,6 +190,7 @@ type
     function GetPathFieldName: string;
     function GetViewField: TField;
     function GetViewFieldName: string;
+    procedure SetImageFieldName(AValue: string);
     procedure SetImageList(AValue: TCustomImageList);
     procedure SetImgIdxFieldName(const AValue: string);
     procedure SetKeyFieldName(const AValue: string);
@@ -289,6 +292,9 @@ type
     property NodeTypeFieldName: string
       read GetNodeTypeFieldName write SetNodeTypeFieldName;
 
+    property ImageFieldName: string
+      read GetImageFieldName write SetImageFieldName;
+
     property ImgIdxFieldName: string
       read GetImgIdxFieldName write SetImgIdxFieldName;
 
@@ -343,6 +349,7 @@ begin
   ImgIdxFieldName   := DEFAULT_IMGIDXFIELDNAME;
   ViewFieldName     := DEFAULT_VIEWFIELDNAME;
   NodeTypeFieldName := DEFAULT_NODETYPEFIELDNAME;
+  ImageFieldName    := DEFAULT_IMAGEFIELDNAME;
 end;
 
 procedure TfrmVirtualDBTree.BeforeDestruction;
@@ -500,6 +507,19 @@ end;
 function TfrmVirtualDBTree.GetViewFieldName: string;
 begin
   Result := FTreeView.ViewFieldName;
+end;
+
+function TfrmVirtualDBTree.GetImageFieldName: string;
+begin
+  Result := FTreeView.ImageFieldName;
+end;
+
+procedure TfrmVirtualDBTree.SetImageFieldName(AValue: string);
+begin
+  if ImageFieldName <> AValue then
+  begin;
+    FTreeView.ImageFieldName := AValue;
+  end;
 end;
 
 procedure TfrmVirtualDBTree.SetImageList(AValue: TCustomImageList);

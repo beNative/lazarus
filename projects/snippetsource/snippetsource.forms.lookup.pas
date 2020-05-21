@@ -53,6 +53,7 @@ type
     procedure edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
 
     procedure grdLookupKeyPress(Sender: TObject; var Key: char);
     procedure grdLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -229,6 +230,11 @@ begin
   end
   else
     inherited;
+end;
+
+procedure TfrmLookup.FormShow(Sender: TObject);
+begin
+  edtLookup.SetFocus;
 end;
 
 procedure TfrmLookup.grdLookupKeyPress(Sender: TObject; var Key: char);

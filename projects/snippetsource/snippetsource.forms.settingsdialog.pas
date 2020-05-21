@@ -30,8 +30,6 @@ uses
 
   VirtualTrees,
 
-  //ts.RichEditor.Interfaces,
-
   SnippetSource.Interfaces;
 
 type
@@ -48,7 +46,7 @@ type
     actDatabaseVacuum         : TAction;
     actDataBaseShrinkMemory   : TAction;
     actOpenDatabase           : TAction;
-    actOpenGlyphs             : TAction;
+    actAddGlyphs              : TAction;
     actRefreshGlyphs          : TAction;
     btnCreateNewDatabase      : TBitBtn;
     btnDatabaseIntegrityCheck : TBitBtn;
@@ -85,7 +83,7 @@ type
     procedure actDatabaseVacuumExecute(Sender: TObject);
     procedure actDeleteDatabaseExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
-    procedure actOpenGlyphsExecute(Sender: TObject);
+    procedure actAddGlyphsExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
     {$ENDREGION}
 
@@ -99,6 +97,12 @@ type
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileButtonClick(Sender: TObject);
+    procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure grdGlyphPrepareCanvas(sender: TObject; DataCol: Integer;
+      Column: TColumn; AState: TGridDrawState);
+    procedure grdHighlightersDrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure pgcMainChange(Sender: TObject);
 
     procedure vstImageListAfterCellPaint(
@@ -117,16 +121,16 @@ type
     );
 
   private
-    FData              : IInterface;
-    //FRichEditorManager : IRichEditorManager;
-    //FRichEditor        : IRichEditorView;
+    FData : IInterface;
 
+    {$REGION 'property access methods'}
     function GetConnection: IConnection;
     function GetGlyphDS: TDataSet;
+    function GetHighlighterDataSet: TDataSet;
     function GetSQLite: ISQLite;
+    {$ENDREGION}
 
     procedure LoadImage(const AFileName, AFieldName: string);
-
     procedure UpdateDataBaseInfo;
 
   public
@@ -145,6 +149,9 @@ type
 
     property GlyphDS: TDataSet
       read GetGlyphDS;
+
+    property HighlighterDataSet: TDataSet
+      read GetHighlighterDataSet;
 
     property SQLite: ISQLite
       read GetSQLite;
@@ -176,28 +183,29 @@ begin
   inherited Create(AOwner);
   FData := AData;
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
-//  grdGlyph.Images := (FData as IGlyphs).GlyphList;
-//  grdGlyph.Header.Columns[3].MaxWidth := 50;
-  //dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
+  (FData as IGlyphs).GlyphDataSet.Active := True;
+  dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
+  //dscHighlighter.DataSet.Active := True;
 end;
 
 procedure TfrmSettingsDialog.AfterConstruction;
 var
-  I: Integer;
+  I : Integer;
 begin
   inherited AfterConstruction;
   edtDatabaseFile.FileName := Connection.FileName;
-  vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
-  cbxImageList.Clear;
-  for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
-  begin
-    cbxImageList.AddItem('', nil);
-  end;
+  //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
+  //cbxImageList.Clear;
+  //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
+  //begin
+  //  cbxImageList.AddItem('', nil);
+  //end;
   UpdateDataBaseInfo;
 end;
 
 procedure TfrmSettingsDialog.BeforeDestruction;
 begin
+  (FData as IGlyphs).GlyphDataSet.Active := False;
   FData := nil;
   inherited BeforeDestruction;
 end;
@@ -214,6 +222,11 @@ begin
   Result := (FData as IGlyphs).GlyphDataSet;
 end;
 
+function TfrmSettingsDialog.GetHighlighterDataSet: TDataSet;
+begin
+  Result := (FData as IHighlighters).HighlighterDataSet;
+end;
+
 function TfrmSettingsDialog.GetSQLite: ISQLite;
 begin
   Result := FData as ISQLite;
@@ -226,27 +239,24 @@ begin
   Connection.FileName := edtDatabaseFile.FileName;
 end;
 
-procedure TfrmSettingsDialog.actOpenGlyphsExecute(Sender: TObject);
+procedure TfrmSettingsDialog.actAddGlyphsExecute(Sender: TObject);
 var
-  sFile: string;
-  sExt : string;
+  LFile: string;
+  LExt : string;
 begin
+  GlyphDS.Active := True;
   if dlgOpen.Execute then
   begin
-    for sFile in dlgOpen.Files do
+    for LFile in dlgOpen.Files do
     begin
-      if FileExists(sFile) then
+      if FileExists(LFile) then
       begin
-       // Sender.InsertNode(Sender.DropTargetNode, AAttachMode);
         if not (GlyphDS.State in dsEditModes) then
           GlyphDS.Append;
-        LoadImage(sFile, 'Image');
-        sExt := ExtractFileExt(sFile);
-        sExt := LowerCase(StringReplace(sExt, '.', '', []));
-        //GlyphDS.FieldByName('ImageType').AsString := sExt;
-        GlyphDS.FieldByName('Name').AsString := ExtractFileName(sFile);
-        //GlyphDS.FieldByName('ParentID').AsInteger := iParent;
-        //GlyphDS.FieldByName('NodeType').AsInteger := 0;
+        LoadImage(LFile, 'Image');
+        LExt := ExtractFileExt(LFile);
+        LExt := LowerCase(StringReplace(LExt, '.', '', []));
+        GlyphDS.FieldByName('Name').AsString := ExtractFileName(LFile);
         GlyphDS.Post;
       end;
     end;
@@ -257,7 +267,7 @@ procedure TfrmSettingsDialog.actRefreshGlyphsExecute(Sender: TObject);
 begin
   GlyphDS.Refresh;
   //(FData as IGlyphs).LoadGlyphs;
-  vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
+  //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
 end;
 
 procedure TfrmSettingsDialog.actCreateNewDatabaseExecute(Sender: TObject);
@@ -299,15 +309,15 @@ end;
 procedure TfrmSettingsDialog.cbxImageListDrawItem(Control: TWinControl;
   Index: Integer; ARect: TRect; State: TOwnerDrawState);
 var
-  Pos: Integer;
-  C: TComboBox;
+  Pos : Integer;
+  C   : TComboBox;
 begin
   C := Control as TComboBox;
   // This ensures the correct highlight color is used
   C.Canvas.FillRect(ARect);
   Pos := ARect.Left + ((ARect.Right - ARect.Left) div 2) - 8;
   // This line draws the actual bitmap
-  (FData as IGlyphs).ImageList.Draw(C.Canvas , Pos, ARect.Top, Index);
+  //(FData as IGlyphs).ImageList.Draw(C.Canvas , Pos, ARect.Top, Index);
 
   //  This line writes the text after the bitmap*)
   //combobox1.canvas.textout(rect.left+imagelist1.width+2,rect.top,
@@ -339,6 +349,80 @@ end;
 procedure TfrmSettingsDialog.edtDatabaseFileButtonClick(Sender: TObject);
 begin
 
+end;
+
+procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  P  : TPicture;
+  F  : TBlobField;
+  MS : TMemoryStream;
+begin
+  if Column.FieldName = 'Image' then
+  begin
+    with Sender as TDBGrid do
+    begin
+      F  := TBlobField(GlyphDS.FieldByName('Image'));
+      if not F.IsNull then
+      begin
+        P := TPicture.Create;
+        try
+          MS := TMemoryStream.Create;
+          try
+            F.SaveToStream(MS);
+            MS.Position := 0;
+            P.LoadFromStream(MS);
+            Canvas.FillRect(Rect);
+            Canvas.Draw(Rect.Left + (Rect.Width div 2) - 8 , Rect.Top, P.Graphic);
+          finally
+            FreeAndNil(MS);
+          end;
+        finally
+          FreeAndNil(P);
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmSettingsDialog.grdGlyphPrepareCanvas(sender: TObject;
+  DataCol: Integer; Column: TColumn; AState: TGridDrawState);
+begin
+
+end;
+
+procedure TfrmSettingsDialog.grdHighlightersDrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+var
+  P  : TPicture;
+  F  : TBlobField;
+  MS : TMemoryStream;
+begin
+  if Column.FieldName = 'Image' then
+  begin
+    with Sender as TDBGrid do
+    begin
+      F := TBlobField(HighlighterDataSet.FieldByName('Image'));
+      Canvas.FillRect(Rect);
+      if not F.IsNull then
+      begin
+        P := TPicture.Create;
+        try
+          MS := TMemoryStream.Create;
+          try
+            F.SaveToStream(MS);
+            MS.Position := 0;
+            P.LoadFromStream(MS);
+            Canvas.Draw(Rect.Left + (Rect.Width div 2) - 8 , Rect.Top, P.Graphic);
+          finally
+            FreeAndNil(MS);
+          end;
+        finally
+          FreeAndNil(P);
+        end;
+      end
+    end;
+  end;
 end;
 
 procedure TfrmSettingsDialog.pgcMainChange(Sender: TObject);
@@ -379,11 +463,11 @@ procedure TfrmSettingsDialog.vstImageListAfterCellPaint(Sender:
 var
   Pos: Integer;
 begin
-  if Column = 1 then
-  begin
-    Pos := CellRect.Left + ((CellRect.Right - CellRect.Left) div 2) - 8;
-    (FData as IGlyphs).ImageList.Draw(TargetCanvas, Pos, CellRect.Top, Node^.Index);
-  end;
+  //if Column = 1 then
+  //begin
+  //  Pos := CellRect.Left + ((CellRect.Right - CellRect.Left) div 2) - 8;
+  //  (FData as IGlyphs).ImageList.Draw(TargetCanvas, Pos, CellRect.Top, Node^.Index);
+  //end;
 end;
 
 procedure TfrmSettingsDialog.vstImageListGetText(Sender: TBaseVirtualTree;
@@ -412,8 +496,6 @@ begin
       P := TPicture.Create;
       try
         P.LoadFromFile(AFileName);
-      //        P.Bitmap.TransparentColor := clDefault;
-      //        P.Bitmap.Transparent := True;
         P.Graphic.SaveToStream(MS);
         MS.Position := 0;
         F.LoadFromStream(MS);
@@ -433,7 +515,6 @@ begin
   grdDBInfo.Cells[1, 2] := DateTimeToStr(GetFileCreationTime(Connection.FileName));
   grdDBInfo.Cells[1, 3] := DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
 end;
-
 {$ENDREGION}
 
 {$REGION 'public methods'}

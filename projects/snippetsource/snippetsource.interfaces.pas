@@ -31,12 +31,12 @@ type
   IConnection = interface
   ['{8F9C0BCC-16D3-49A3-984A-415520289A2F}']
     {$REGION 'property access mehods'}
-    function GetFileName: string;
-    procedure SetFileName(AValue: string);
     function GetAutoApplyUpdates: Boolean;
-    procedure SetAutoApplyUpdates(AValue: Boolean);
     function GetAutoCommit: Boolean;
+    function GetFileName: string;
+    procedure SetAutoApplyUpdates(AValue: Boolean);
     procedure SetAutoCommit(AValue: Boolean);
+    procedure SetFileName(AValue: string);
     {$ENDREGION}
 
     procedure CreateNewDatabase;
@@ -82,17 +82,15 @@ type
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
     {$REGION 'property access mehods'}
-    function GetImageIndex: Integer;
-    procedure SetDateCreated(AValue: TDateTime);
-    function GetDateCreated: TDateTime;
-    procedure SetDateModified(AValue: TDateTime);
-    function GetDateModified: TDateTime;
     function GetComment: string;
     function GetCommentRtf: string;
+    function GetDateCreated: TDateTime;
+    function GetDateModified: TDateTime;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
     function GetHighlighter: string;
     function GetId: Integer;
+    function GetImageIndex: Integer;
     function GetNodeName: string;
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
@@ -100,6 +98,8 @@ type
     function GetText: string;
     procedure SetComment(AValue: string);
     procedure SetCommentRtf(AValue: string);
+    procedure SetDateCreated(AValue: TDateTime);
+    procedure SetDateModified(AValue: TDateTime);
     procedure SetFoldLevel(AValue: Integer);
     procedure SetFoldState(AValue: string);
     procedure SetHighlighter(AValue: string);
@@ -204,7 +204,7 @@ type
   ['{E3C86684-4FD7-4EB5-8097-06ED826061C8}']
     {$REGION 'property access mehods'}
     function GetGlyphDataSet: TDataSet;
-    function GetGlyphList: TImageList;
+    //function GetGlyphList: TImageList;
     function GetImageList: TImageList;
     {$ENDREGION}
 
@@ -213,9 +213,17 @@ type
 
     property ImageList: TImageList
       read GetImageList;
+    //
+    //property GlyphList: TImageList
+    //  read GetGlyphList;
+  end;
 
-    property GlyphList: TImageList
-      read GetGlyphList;
+  IHighlighters = interface
+  ['{AF44F562-9439-43EA-BDDA-F3918BDC0083}']
+    function GetHighlighterDataSet: TDataSet;
+
+    property HighlighterDataSet: TDataSet
+      read GetHighlighterDataSet;
   end;
 
   ISettings = interface

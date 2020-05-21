@@ -52,13 +52,14 @@ type
     {$REGION 'designer controls'}
     aclMain             : TActionList;
     actAbout            : TAction;
-    actExecute          : TAction;
     actConsole          : TAction;
-    actShowGridForm     : TAction;
+    actExecute          : TAction;
     actLookup           : TAction;
     actSettings         : TAction;
+    actShowGridForm     : TAction;
     actToggleFullScreen : TAction;
     actToggleStayOnTop  : TAction;
+    btnConsole          : TToolButton;
     btnHighlighter      : TMenuButton;
     btnLineBreakStyle   : TSpeedButton;
     btnLookup           : TToolButton;
@@ -68,16 +69,16 @@ type
     imlMain             : TImageList;
     imlNodes            : TImageList;
     pnlComments         : TPanel;
+    pnlDateCreated      : TPanel;
+    pnlDateModifie      : TPanel;
+    pnlDateModified     : TPanel;
     pnlEditMode         : TPanel;
     pnlEditor           : TPanel;
-    pnlDateCreated      : TPanel;
-    pnlDateModified     : TPanel;
     pnlId               : TPanel;
     pnlLeft             : TPanel;
     pnlLineBreakStyle   : TPanel;
     pnlPosition         : TPanel;
     pnlRight            : TPanel;
-    pnlDateModifie      : TPanel;
     pnlSize             : TPanel;
     pnlSnippetCount     : TPanel;
     pnlStatusBar        : TPanel;
@@ -86,7 +87,8 @@ type
     splVertical         : TSplitter;
     tlbApplication      : TToolBar;
     tlbEditorView       : TToolBar;
-    btnConsole          : TToolButton;
+    ToolButton1: TToolButton;
+
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -147,13 +149,14 @@ type
     FRichEditorManager : IRichEditorManager;
     FSettings          : TSettings;
     FConsole           : TfrmConsole;
-    FBrowsing          : Boolean;
 
+    {$REGION 'property access methods'}
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
+    {$ENDREGION}
 
     procedure CreateTreeview;
     procedure CreateEditor;
@@ -162,6 +165,7 @@ type
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
     procedure LoadRichText;
+    procedure RVEBeforeSave(Sender: TObject; var AName: string);
     procedure SaveRichText;
 
     procedure AddPathNode(
@@ -193,19 +197,19 @@ type
      procedure AfterConstruction; override;
      destructor Destroy; override;
 
-     property Connection: IConnection
+     property Connection : IConnection
        read GetConnection;
 
-     property Snippet: ISnippet
+     property Snippet : ISnippet
        read GetSnippet;
 
-     property DataSet: IDataSet
+     property DataSet : IDataSet
        read GetDataSet;
 
-     property Editor: IEditorView
+     property Editor : IEditorView
        read GetEditor;
 
-     property RichEditor: IRichEditorView
+     property RichEditor : IRichEditorView
        read GetRichEditor;
   end; 
 
@@ -382,34 +386,46 @@ begin
   btnLineBreakStyle.PopupMenu.PopUp;
 end;
 
-procedure TfrmMain.ENew(Sender: TObject; var AFileName: string; const AText: string);
+procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
+var
+  DS : TDataSet;
 begin
-  FTree.NewSubItemNode;
-  Editor.Text := AText;
-  AssignEditorChanges;
+  if Field = nil then // browse record
+  begin
+    if Assigned(DataSet.DataSet) then
+    begin
+      DS := DataSet.DataSet;
+      if DS.State = dsBrowse then
+      begin
+        FParentId := Snippet.ID;
+        Editor.BeginUpdate; // avoid EChange getting triggered
+        try
+          Editor.Text := Snippet.Text;
+          if Snippet.Highlighter <> '' then
+          begin
+            Editor.HighlighterName := Snippet.Highlighter;
+          end;
+        finally
+          Editor.EndUpdate;
+        end;
+        edtTitle.Text := Snippet.NodeName;
+        btnHighlighter.Caption := Snippet.Highlighter;
+        LoadRichText;
+      end;
+    end;
+  end;
 end;
 
-procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
-begin
-  DataSet.Edit;
-  Snippet.ImageIndex := 1;
-end;
-
-procedure TfrmMain.FTreeNewItemNode(Sender: TObject);
-begin
-  DataSet.Edit;
-  Snippet.ImageIndex := 2;
-end;
-
-procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
-begin
-  DataSet.ApplyUpdates;
-end;
-
+{$REGION 'Editor'}
 procedure TfrmMain.EChange(Sender: TObject);
 begin
   DataSet.Edit;
   AssignEditorChanges;
+end;
+
+procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
+begin
+  DataSet.Post;
 end;
 
 procedure TfrmMain.EHighlighterChange(Sender: TObject);
@@ -422,37 +438,22 @@ begin
   end;
 end;
 
-procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
+procedure TfrmMain.ENew(Sender: TObject; var AFileName: string; const AText: string);
 begin
-  DataSet.Post;
+  FTree.NewSubItemNode;
+  Editor.Text := AText;
+  AssignEditorChanges;
 end;
+{$ENDREGION}
 
-procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
-var
-  DS : TDataSet;
+{$REGION 'RichEditor'}
+procedure TfrmMain.RVEBeforeSave(Sender: TObject; var AName: string);
 begin
-  if Field = nil then // browse record
-  begin
-    if Assigned(DataSet.DataSet) then
-    begin
-      DS := DataSet.DataSet;
-      if DS.State = dsBrowse then
-      begin
-        Editor.BeginUpdate;
-        FParentId := Snippet.ID;
-        Editor.Text := Snippet.Text;
-        if Snippet.Highlighter <> '' then
-        begin
-          Editor.HighlighterName := Snippet.Highlighter;
-        end;
-        edtTitle.Text := Snippet.NodeName;
-        btnHighlighter.Caption := Snippet.Highlighter;
-        LoadRichText;
-        Editor.EndUpdate;
-      end;
-    end;
-  end;
+  Logger.Enter(Self, 'RVEBeforeSave');
+  //DataSet.Post;
+  Logger.Leave(Self, 'RVEBeforeSave');
 end;
+{$ENDREGION}
 
 {$REGION 'edtTitle'}
 procedure TfrmMain.edtTitleChange(Sender: TObject);
@@ -507,6 +508,11 @@ end;
 {$ENDREGION}
 
 {$REGION 'FTree'}
+procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
+begin
+  DataSet.ApplyUpdates;
+end;
+
 procedure TfrmMain.FTreeDropFiles(Sender: TBaseVirtualTree;
   AFiles: TStrings; AAttachMode: TVTNodeAttachMode);
 var
@@ -547,12 +553,24 @@ begin
     Sender.Refresh;
   end;
 end;
+
+procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
+begin
+  DataSet.Edit;
+  Snippet.ImageIndex := 1;
+end;
+
+procedure TfrmMain.FTreeNewItemNode(Sender: TObject);
+begin
+  DataSet.Edit;
+  Snippet.ImageIndex := 2;
+end;
 {$ENDREGION}
 
 {$REGION 'RV'}
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
-  if not RichEditor.IsEmpty  then
+  if not RichEditor.IsEmpty then
   begin
     DataSet.Edit;
     AssignEditorChanges;
@@ -602,7 +620,8 @@ end;
 
 procedure TfrmMain.CreateRichEditor;
 var
-  RV : IRichEditorView;
+  RV  : IRichEditorView;
+  RVE : IRichEditorEvents;
 begin
   FRichEditorManager := TRichEditorFactories.CreateManager(Self);
   RV := TRichEditorFactories.CreateView(
@@ -612,6 +631,8 @@ begin
   );
   RV.OnChange  := RVChange;
   RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
+  RVE := FRichEditorManager as IRichEditorEvents;
+  //RVE.OnBeforeSave := RVEBeforeSave;
 end;
 
 function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
@@ -852,20 +873,14 @@ begin
   AddButton('actPaste');
   AddButton('');
   AddButton('actSelectAll');
+  AddButton('actCopyAllToClipboard');
   AddButton('actClear');
   AddButton('');
   AddButton('actUndo');
   AddButton('actRedo');
   AddButton('');
-  AddButton('actSearch');
-  AddButton('actSearchReplace');
-  AddButton('actFindNext');
-  AddButton('actFindPrevious');
-  AddButton('');
   AddButton('actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu);
   AddButton('actToggleHighlighter', FEditorManager.Menus.HighlighterPopupMenu);
-  AddButton('');
-
   AddButton('');
   AddButton('actSettings');
   AddButton('actAbout');
@@ -875,7 +890,9 @@ procedure TfrmMain.HideAction(const AActionName: string);
 var
   A : TCustomAction;
 begin
-  A := FEditorManager.Actions.ActionList.ActionByName(AActionName) as TCustomAction;
+  A := FEditorManager.Actions.ActionList.ActionByName(
+    AActionName
+  ) as TCustomAction;
   if Assigned(A) then
   begin
     A.Enabled := False;
@@ -903,7 +920,6 @@ begin
   HideAction('actShapeCode');
   HideAction('actShowActions');
   HideAction('actShowHexEditor');
-  HideAction('actShowHTMLViewer');
   HideAction('actShowMiniMap');
   HideAction('actShowPreview');
   HideAction('actShowScriptEditor');

@@ -81,6 +81,46 @@ msgctxt "tfrmgrid.tssettings.caption"
 msgid "Settings"
 msgstr ""
 
+#: tfrmlookup.actsearch.caption
+msgid "Search"
+msgstr ""
+
+#: tfrmlookup.caption
+msgid "Lookup"
+msgstr ""
+
+#: tfrmlookup.chkcomment.caption
+msgid "Comment"
+msgstr ""
+
+#: tfrmlookup.chkname.caption
+msgid "Name"
+msgstr ""
+
+#: tfrmlookup.chktext.caption
+msgid "Text"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[0].title.caption
+msgid "Id"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[1].title.caption
+msgid "NodeName"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[2].title.caption
+msgid "Highlighter"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[3].title.caption
+msgid "DateCreated"
+msgstr ""
+
+#: tfrmlookup.grdlookup.columns[4].title.caption
+msgid "DateModified"
+msgstr ""
+
 #: tfrmmain.actabout.caption
 msgctxt "TFRMMAIN.ACTABOUT.CAPTION"
 msgid "About"
@@ -93,6 +133,10 @@ msgstr ""
 #: tfrmmain.actexecute.caption
 msgctxt "tfrmmain.actexecute.caption"
 msgid "Execute"
+msgstr ""
+
+#: tfrmmain.actexecute.hint
+msgid "Execute snippet code"
 msgstr ""
 
 #: tfrmmain.actlookup.caption
@@ -173,6 +217,14 @@ msgstr ""
 msgid "tlbApplication"
 msgstr ""
 
+#: tfrmmain.toolbutton1.caption
+msgid "ToolButton1"
+msgstr ""
+
+#: tfrmsettingsdialog.actaddglyphs.caption
+msgid "Add glyph files"
+msgstr ""
+
 #: tfrmsettingsdialog.actclose.caption
 msgctxt "tfrmsettingsdialog.actclose.caption"
 msgid "Close"
@@ -238,10 +290,6 @@ msgstr ""
 #: tfrmsettingsdialog.actopendatabase.hint
 msgctxt "tfrmsettingsdialog.actopendatabase.hint"
 msgid "Open database"
-msgstr ""
-
-#: tfrmsettingsdialog.actopenglyphs.caption
-msgid "Open glyph files"
 msgstr ""
 
 #: tfrmsettingsdialog.actrefreshglyphs.caption

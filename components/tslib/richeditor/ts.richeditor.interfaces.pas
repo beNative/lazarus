@@ -112,6 +112,7 @@ type
     function InsertImage: Boolean;
     procedure InsertHyperlink;
     procedure InsertBulletList;
+    procedure InsertTextBox;
     procedure IncIndent;
     procedure DecIndent;
     procedure AdjustParagraphStyle;

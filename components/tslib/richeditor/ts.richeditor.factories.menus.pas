@@ -35,7 +35,7 @@ type
 
   protected
     function CreateMainMenu(
-      AOwner   : TComponent
+      AOwner : TComponent
     ): TMainMenu;
 
   public

@@ -140,6 +140,7 @@ type
     function InsertImage: Boolean;
     procedure InsertHyperlink;
     procedure InsertBulletList;
+    procedure InsertTextBox;
     procedure IncIndent;
     procedure DecIndent;
     procedure AdjustParagraphStyle;
@@ -272,12 +273,14 @@ begin
   FParaStyle := TKMemoParaStyle.Create;
   FParaStyle.OnChanged := FParaStyleChanged;
 
+  // TODO: these should be created by the manager and passed to the view
   FContainerForm := TKMemoContainerForm.Create(Self);
   FHyperlinkForm := TKMemoHyperlinkForm.Create(Self);
   FImageForm     := TKMemoImageForm.Create(Self);
   FNumberingForm := TKMemoNumberingForm.Create(Self);
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
+  FContainerForm := TKMemoContainerForm.Create(Self);
 end;
 
 procedure TRichEditorViewKMemo.BeforeDestruction;
@@ -302,7 +305,6 @@ end;
 function TRichEditorViewKMemo.GetCanUndo: Boolean;
 begin
   Result := FEditor.CommandEnabled(ecUndo);
-//  Result := False; // not supported yet
 end;
 
 function TRichEditorViewKMemo.GetEditor: TComponent;
@@ -749,6 +751,11 @@ begin
     FNumberingForm.Save;
 end;
 
+procedure TRichEditorViewKMemo.InsertTextBox;
+begin
+  //
+end;
+
 procedure TRichEditorViewKMemo.IncIndent;
 begin
   FParaStyle.LeftPadding := Min(
@@ -840,4 +847,3 @@ end;
 {$ENDREGION}
 
 end.
-

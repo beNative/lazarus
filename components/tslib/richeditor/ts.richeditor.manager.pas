@@ -24,6 +24,9 @@ uses
   Classes, SysUtils, FileUtil, ActnList, Dialogs, Menus, Contnrs, Forms,
   Controls,
 
+  KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage, KMemoDlgNumbering,
+  KMemoDlgContainer, KMemoDlgParaStyle,
+
   ts.RichEditor.Interfaces;
 
 type
@@ -35,54 +38,55 @@ type
     TDataModule, IRichEditorManager, IRichEditorActions, IRichEditorEvents
   )
     {$REGION 'designer controls'}
-    aclActions         : TActionList;
-    actAlignCenter     : TAction;
-    actAlignJustify    : TAction;
-    actAlignLeft       : TAction;
-    actAlignRight      : TAction;
-    actBkColor         : TAction;
-    actBold            : TAction;
-    actColor           : TAction;
-    actCopy            : TAction;
-    actCut             : TAction;
-    actDecFontSize     : TAction;
-    actFont            : TAction;
-    actIncFontSize     : TAction;
-    actInsertHyperLink : TAction;
-    actInsertImage     : TAction;
-    actInsertBulletList: TAction;
-    actIncIndent       : TAction;
-    actDecIndent       : TAction;
-    actAdjustParagraphStyle: TAction;
-    actItalic          : TAction;
-    actOpen            : TAction;
-    actPaste           : TAction;
-    actRedo            : TAction;
-    actSave            : TAction;
-    actSaveAs          : TAction;
-    actSelectAll       : TAction;
-    actStrikeThrough   : TAction;
-    actToggleWordWrap  : TAction;
-    actUnderline       : TAction;
-    actUndo            : TAction;
-    dlgColor           : TColorDialog;
-    dlgFont            : TFontDialog;
-    dlgOpen            : TOpenDialog;
-    dlgSave            : TSaveDialog;
-    imlMain            : TImageList;
-    mniAlignCenter     : TMenuItem;
-    mniAlignJustify    : TMenuItem;
-    mniAlignLeft       : TMenuItem;
-    mniAlignRight      : TMenuItem;
-    mniBold            : TMenuItem;
-    mniItalic          : TMenuItem;
-    mniOpen            : TMenuItem;
-    mniSave            : TMenuItem;
-    mniSaveAs          : TMenuItem;
-    mniUnderline       : TMenuItem;
-    N1                 : TMenuItem;
-    N2                 : TMenuItem;
-    ppmRichEditor      : TPopupMenu;
+    aclActions              : TActionList;
+    actAlignCenter          : TAction;
+    actAlignJustify         : TAction;
+    actAlignLeft            : TAction;
+    actAlignRight           : TAction;
+    actBkColor              : TAction;
+    actBold                 : TAction;
+    actColor                : TAction;
+    actCopy                 : TAction;
+    actCut                  : TAction;
+    actDecFontSize          : TAction;
+    actFont                 : TAction;
+    actIncFontSize          : TAction;
+    actInsertHyperLink      : TAction;
+    actInsertImage          : TAction;
+    actInsertBulletList     : TAction;
+    actIncIndent            : TAction;
+    actDecIndent            : TAction;
+    actAdjustParagraphStyle : TAction;
+    actInsertTextBox        : TAction;
+    actItalic               : TAction;
+    actOpen                 : TAction;
+    actPaste                : TAction;
+    actRedo                 : TAction;
+    actSave                 : TAction;
+    actSaveAs               : TAction;
+    actSelectAll            : TAction;
+    actStrikeThrough        : TAction;
+    actToggleWordWrap       : TAction;
+    actUnderline            : TAction;
+    actUndo                 : TAction;
+    dlgColor                : TColorDialog;
+    dlgFont                 : TFontDialog;
+    dlgOpen                 : TOpenDialog;
+    dlgSave                 : TSaveDialog;
+    imlMain                 : TImageList;
+    mniAlignCenter          : TMenuItem;
+    mniAlignJustify         : TMenuItem;
+    mniAlignLeft            : TMenuItem;
+    mniAlignRight           : TMenuItem;
+    mniBold                 : TMenuItem;
+    mniItalic               : TMenuItem;
+    mniOpen                 : TMenuItem;
+    mniSave                 : TMenuItem;
+    mniSaveAs               : TMenuItem;
+    mniUnderline            : TMenuItem;
+    N1                      : TMenuItem;
+    N2                      : TMenuItem;
+    ppmRichEditor           : TPopupMenu;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -103,6 +107,7 @@ type
     procedure actInsertBulletListExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
+    procedure actInsertTextBoxExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actAdjustParagraphStyleExecute(Sender: TObject);
@@ -427,6 +432,11 @@ end;
 procedure TdmRichEditorManager.actInsertImageExecute(Sender: TObject);
 begin
   ActiveView.InsertImage;
+end;
+
+procedure TdmRichEditorManager.actInsertTextBoxExecute(Sender: TObject);
+begin
+  ActiveView.InsertTextBox;
 end;
 
 procedure TdmRichEditorManager.actItalicExecute(Sender: TObject);

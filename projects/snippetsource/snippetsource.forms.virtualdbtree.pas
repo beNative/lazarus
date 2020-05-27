@@ -325,6 +325,8 @@ implementation
 uses
   SysUtils, ShellApi,
 
+  ts.Core.Logger,
+
   SnippetSource.VirtualTree.Editors;
 
 resourcestring
@@ -356,6 +358,7 @@ procedure TfrmVirtualDBTree.BeforeDestruction;
 begin
   dscMain.DataSet := nil;
   inherited BeforeDestruction;
+  Logger.Info('Destroyed TfrmVirtualDBTree');
 end;
 {$ENDREGION}
 

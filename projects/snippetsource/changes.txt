@@ -1,5 +1,45 @@
-TODO:
+Welcome to SnippetSource. A new SQLite database will be created.
 
+SnippetSource lets you organise your favorite pieces of code, scripts, thoughts,
+notes or other documents in a user definable tree structure.
+
+Tips and tricks, solutions to problems you encounter and references can be
+organised as you like.
+
+You can accompany your node with formatted text in RTF format, which will be
+stored together with the node.
+
+All data is stored in a simple yet powerful SQLite database which provides you
+with immediate access to your stored ideas.
+
+Create new folders and documents. You can drag and drop one or multiple files
+into the treeview to create them as snippets in SnippetSource.
+
+This will create a copy of each document and will recreate the underlying folder
+structure as wel.
+
+Nodes can be moved by dragging them to another folder.
+
+It shares the text editor with my Notepas project.
+
+Since version 3 the possibility to execute script code was added. Snippets that
+represent script code can directly be executed.
+
+Another new feature is you can now customize the node images from a user
+definable set of glyphs which can be stored in the snippet database.
+
+As I developer I use it for storing SQL-scripts, code snippets and short
+tutorials with solutions for common problems.
+
+The source to your snippets of your sources
+
+The abillity to execute scripts was added.
+
+IDEAS:
+- support for multiple databases as tabbed views
+- drag and drop of nodes between seperate instances of snippetsource
+
+TODO:
 
 Actions:
 - actCopySnippetToClipBoard

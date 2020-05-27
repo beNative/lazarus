@@ -79,7 +79,7 @@ end;
 procedure TfrmConsole.tmrMainTimer(Sender: TObject);
 var
   LBuf : array[0..1024] of Char;
-  S : string;
+  S    : string;
 begin
   LBuf := '';
   if prcMain.Output.NumBytesAvailable > 0 then
@@ -108,6 +108,7 @@ begin
   //  S := edtInput.Text + LineEnding;
   //  prcMain.Input.Write(S[1], Length(S));
   //end;
+
 end;
 
 procedure TfrmConsole.cmdMainInput(ACmdBox: TCmdBox; Input: string);

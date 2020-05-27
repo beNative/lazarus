@@ -1,12 +1,13 @@
 object frmLookup: TfrmLookup
-  Left = 765
+  Left = 658
   Height = 476
-  Top = 248
+  Top = 220
   Width = 501
   ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 476
   ClientWidth = 501
+  Color = clWindow
   KeyPreview = True
   OnKeyUp = FormKeyUp
   OnShow = FormShow

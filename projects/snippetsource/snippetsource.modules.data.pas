@@ -416,6 +416,7 @@ begin
   conMain.Connected := False;
   FSettings := nil;
   inherited Destroy;
+  Logger.Info('DM Destroyed');
 end;
 {$ENDREGION}
 

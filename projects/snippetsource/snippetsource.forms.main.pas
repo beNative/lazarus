@@ -274,7 +274,7 @@ begin
   FEditorSettings := nil;
   FreeAndNil(FFileSearcher);
   inherited Destroy;
-  Logger.Info('SnippetSource Stopped');
+  Logger.Info('SnippetSource stopped');
 end;
 {$ENDREGION}
 
@@ -872,12 +872,12 @@ begin
   AddButton('actCopy');
   AddButton('actPaste');
   AddButton('');
+  AddButton('actUndo');
+  AddButton('actRedo');
+  AddButton('');
   AddButton('actSelectAll');
   AddButton('actCopyAllToClipboard');
   AddButton('actClear');
-  AddButton('');
-  AddButton('actUndo');
-  AddButton('actRedo');
   AddButton('');
   AddButton('actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu);
   AddButton('actToggleHighlighter', FEditorManager.Menus.HighlighterPopupMenu);

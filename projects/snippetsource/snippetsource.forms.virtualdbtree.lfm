@@ -1,27 +1,27 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 2560
+  Left = 632
   Height = 425
-  Top = 3
+  Top = 213
   Width = 257
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
   ClientHeight = 425
   ClientWidth = 257
+  Color = clWindow
   KeyPreview = True
   ParentFont = True
   PopupMenu = ppmTreeView
   ShowHint = True
   LCLVersion = '2.0.2.0'
   object pnlMain: TPanel
-    Left = 2
+    Left = 0
     Height = 425
     Top = 0
-    Width = 255
+    Width = 257
     Align = alClient
-    BorderSpacing.Left = 2
     BevelOuter = bvNone
     ClientHeight = 425
-    ClientWidth = 255
+    ClientWidth = 257
     Constraints.MinWidth = 185
     PopupMenu = ppmTreeView
     TabOrder = 0
@@ -29,14 +29,16 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 24
       Top = 0
-      Width = 255
+      Width = 257
       Align = alTop
       BevelOuter = bvNone
       ClientHeight = 24
-      ClientWidth = 255
+      ClientWidth = 257
+      Color = clBtnFace
+      ParentColor = False
       TabOrder = 0
       object pnlTopRight: TPanel
-        Left = 190
+        Left = 192
         Height = 24
         Top = 0
         Width = 65
@@ -76,25 +78,27 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Left = 0
         Height = 24
         Top = 0
-        Width = 190
+        Width = 192
         Align = alClient
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 190
+        ClientWidth = 192
         TabOrder = 1
         object tlbTop: TToolBar
           Left = 0
           Height = 24
           Top = 0
-          Width = 190
+          Width = 192
           Align = alClient
           AutoSize = True
           ButtonHeight = 20
           ButtonWidth = 23
+          Color = clBtnFace
           EdgeBorders = []
           EdgeInner = esNone
           EdgeOuter = esNone
           Images = imlMain
+          ParentColor = False
           TabOrder = 0
           Transparent = True
           object btnNewRoot: TToolButton
@@ -136,7 +140,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 0
       Top = 425
-      Width = 255
+      Width = 257
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
@@ -146,7 +150,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 401
       Top = 24
-      Width = 255
+      Width = 257
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2

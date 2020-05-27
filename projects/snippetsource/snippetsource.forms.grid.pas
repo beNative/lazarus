@@ -20,6 +20,8 @@ unit SnippetSource.Forms.Grid;
 
 interface
 
+{ Used internally for debugging. }
+
 uses
   Classes, SysUtils, db, FileUtil, ExtendedNotebook, RTTICtrls, Forms, Controls,
   Graphics, Dialogs, DBGrids, DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,

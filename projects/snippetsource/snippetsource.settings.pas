@@ -69,9 +69,9 @@ uses
 procedure TSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  Name := 'Settings';
+  Name      := 'Settings';
   FFileName := SETTINGS_FILE;
-  DataBase := 'snippets.db';
+  DataBase  := 'snippets.db';
 end;
 {$ENDREGION}
 

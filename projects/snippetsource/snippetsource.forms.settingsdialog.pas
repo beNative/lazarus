@@ -165,7 +165,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.Utils;
+  ts.Core.Utils, ts.Core.Logger;
 
 var
   FSettings: TfrmSettingsDialog;
@@ -194,6 +194,7 @@ var
 begin
   inherited AfterConstruction;
   edtDatabaseFile.FileName := Connection.FileName;
+  pgcMain.ActivePageIndex := 0;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
@@ -208,6 +209,7 @@ begin
   (FData as IGlyphs).GlyphDataSet.Active := False;
   FData := nil;
   inherited BeforeDestruction;
+  Logger.Info('SettingsDialog BeforeDestruction');
 end;
 {$ENDREGION}
 

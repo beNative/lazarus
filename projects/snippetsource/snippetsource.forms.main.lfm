@@ -1,11 +1,12 @@
 object frmMain: TfrmMain
-  Left = 1507
+  Left = 564
   Height = 597
-  Top = 26
+  Top = 228
   Width = 999
   Caption = 'SnippetSource'
   ClientHeight = 597
   ClientWidth = 999
+  Color = clWindow
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
   Font.Height = -11
@@ -18,7 +19,7 @@ object frmMain: TfrmMain
   LCLVersion = '2.0.2.0'
   object pnlLeft: TPanel
     Left = 0
-    Height = 577
+    Height = 579
     Top = 0
     Width = 282
     Align = alLeft
@@ -26,32 +27,32 @@ object frmMain: TfrmMain
     TabOrder = 0
   end
   object pnlRight: TPanel
-    Left = 290
-    Height = 577
+    Left = 286
+    Height = 579
     Top = 0
-    Width = 709
+    Width = 713
     Align = alClient
     BevelOuter = bvNone
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 577
-    ClientWidth = 709
+    ClientHeight = 579
+    ClientWidth = 713
     TabOrder = 1
     object pnlEditor: TPanel
       Left = 0
-      Height = 577
+      Height = 579
       Top = 0
-      Width = 709
+      Width = 713
       Align = alClient
       BevelOuter = bvNone
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 577
-      ClientWidth = 709
+      ClientHeight = 579
+      ClientWidth = 713
       TabOrder = 0
       object tlbEditorView: TToolBar
         Left = 0
         Height = 22
-        Top = 27
-        Width = 709
+        Top = 24
+        Width = 713
         AutoSize = True
         ButtonHeight = 22
         ButtonWidth = 20
@@ -100,49 +101,49 @@ object frmMain: TfrmMain
       object pnlComments: TPanel
         Left = 0
         Height = 120
-        Top = 457
-        Width = 709
+        Top = 459
+        Width = 713
         Align = alBottom
         BevelOuter = bvNone
-        Color = clMenu
-        ParentColor = False
         TabOrder = 1
       end
       object splHorizontal: TSplitter
         Cursor = crVSplit
         Left = 0
-        Height = 8
-        Top = 449
-        Width = 709
+        Height = 4
+        Top = 455
+        Width = 713
         Align = alBottom
         AutoSnap = False
+        Color = clBtnFace
         MinSize = 50
+        ParentColor = False
         ParentShowHint = False
         ResizeAnchor = akBottom
         ResizeStyle = rsPattern
       end
       object pnlTitle: TPanel
         Left = 0
-        Height = 27
+        Height = 24
         Top = 0
-        Width = 709
+        Width = 713
         Align = alTop
         BevelOuter = bvNone
-        ClientHeight = 27
-        ClientWidth = 709
+        ClientHeight = 24
+        ClientWidth = 713
+        Color = clBtnFace
         ParentColor = False
         TabOrder = 3
         object edtTitle: TEdit
-          Left = 26
+          Left = 2
           Height = 24
           Top = 1
-          Width = 618
+          Width = 646
           Align = alCustom
           Alignment = taCenter
           Anchors = [akTop, akLeft, akRight]
           AutoSize = False
           BorderStyle = bsNone
-          Color = clForm
           Font.CharSet = ANSI_CHARSET
           Font.Color = clGray
           Font.Height = -17
@@ -155,11 +156,12 @@ object frmMain: TfrmMain
           OnExit = edtTitleExit
           OnMouseEnter = edtTitleMouseEnter
           OnMouseLeave = edtTitleMouseLeave
+          ParentColor = True
           ParentFont = False
           TabOrder = 0
         end
         object btnHighlighter: TMenuButton
-          Left = 645
+          Left = 649
           Height = 22
           Top = 3
           Width = 62
@@ -179,11 +181,13 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 282
-    Height = 577
+    Height = 579
     Top = 0
-    Width = 8
+    Width = 4
     AutoSnap = False
+    Color = clBtnFace
     MinSize = 50
+    ParentColor = False
     ResizeStyle = rsPattern
   end
   object pnlStatusBar: TPanel
@@ -192,14 +196,15 @@ object frmMain: TfrmMain
     Top = 579
     Width = 999
     Align = alBottom
-    BorderSpacing.Top = 2
     BevelOuter = bvNone
     ClientHeight = 18
     ClientWidth = 999
+    Color = clBtnFace
     Font.CharSet = ANSI_CHARSET
     Font.Color = clBlack
     Font.Height = -11
     Font.Name = 'Tahoma'
+    ParentColor = False
     ParentFont = False
     TabOrder = 3
     object pnlPosition: TPanel
@@ -254,7 +259,6 @@ object frmMain: TfrmMain
       Font.Color = clBlue
       Font.Height = -11
       Font.Name = 'Tahoma'
-      ParentColor = False
       ParentFont = False
       TabOrder = 2
     end
@@ -332,7 +336,6 @@ object frmMain: TfrmMain
       Font.Color = clBlack
       Font.Height = -11
       Font.Name = 'Tahoma'
-      ParentColor = False
       ParentFont = False
       TabOrder = 6
     end

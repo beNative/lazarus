@@ -145,6 +145,8 @@ type
     procedure DecIndent;
     procedure AdjustParagraphStyle;
 
+    function Focused: Boolean; override;
+
     function IsUpdating: Boolean;
     function IsEmpty: Boolean;
 
@@ -777,6 +779,11 @@ begin
   FParaStyleForm.Load(FEditor, FParaStyle);
   if FParaStyleForm.ShowModal = mrOk then
     FParaStyleForm.Save(FParaStyle);
+end;
+
+function TRichEditorViewKMemo.Focused: Boolean;
+begin
+  Result := FEditor.Focused;
 end;
 
 function TRichEditorViewKMemo.IsUpdating: Boolean;

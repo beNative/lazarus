@@ -73,7 +73,7 @@ implementation
 destructor TChildComponent.Destroy;
 begin
   Parent := nil;
-  inherited;
+  inherited Destroy;
 end;
 
 function TChildComponent.GetParentComponent: TComponent;
@@ -108,22 +108,22 @@ end;
 {$REGION 'TParentComponent'}
 constructor TParentComponent.Create(AOwner: TComponent);
 begin
-  inherited;
+  inherited Create(AOwner);
   FChildren := TObjectList.Create;
 end;
 
 destructor TParentComponent.Destroy;
 begin
   FChildren.Free;
-  inherited;
+  inherited Destroy;
 end;
 
 procedure TParentComponent.GetChildren(Proc: TGetChildProc; Root: TComponent);
 var
-  i: Integer;
+  I : Integer;
 begin
-  for i := 0 to FChildren.Count - 1 do
-    Proc(TComponent(FChildren[i]));
+  for I := 0 to FChildren.Count - 1 do
+    Proc(TComponent(FChildren[I]));
 end;
 {$ENDREGION}
 

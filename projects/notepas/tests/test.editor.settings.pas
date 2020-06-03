@@ -63,7 +63,7 @@ uses
 
   SynEditHighlighter, SynHighlighterPas,
 
-  ts.Core.SharedLogger,
+  ts.Core.Logger,
 
   ts.Editor.CodeShaper.Settings,
 

@@ -3,8 +3,10 @@ program fpcunitnotepas;
 {$mode objfpc}{$H+}
 
 uses
-  Interfaces, Forms, GuiTestRunner, Test.Editor.Settings, ts.Core.SharedLogger,
-  ts.Core.Logger.Channel.IPC,
+  Interfaces, Forms, GuiTestRunner,
+
+  ts.Core.Logger,  ts.Core.Logger.Channel.IPC,
+  Test.Editor.Settings,
   Test.ComponentStreaming, Test.ComponentStreaming.TestComponents;
 
 {$R *.res}

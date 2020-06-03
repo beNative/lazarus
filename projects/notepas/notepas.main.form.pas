@@ -60,11 +60,14 @@ type
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
+    btnMacro: TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
     ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
+    pnlMacro: TPanel;
+    pnlClientStatusBar: TPanel;
     pnlToolBar            : TPanel;
     pnlToolClient         : TPanel;
     pnlSelectionMode      : TPanel;
@@ -82,7 +85,7 @@ type
     pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
-    btnMacro              : TSpeedButton;
+    shpLine: TShape;
     splVertical           : TSplitter;
     ToolBar2              : TToolBar;
     ToolButton1           : TToolButton;
@@ -669,19 +672,19 @@ begin
   FToolbarHostPanel.Width      := FRightToolbar.ButtonCount * FRightToolbar.ButtonWidth;
   FToolbarHostPanel.Anchors    := [akRight, akTop];
 
-  FRightToolbar.ShowHint := True;
-  FRightToolbar.Align := alClient;
-  FRightToolbar.AutoSize := False;
-  FRightToolbar.Transparent := True;
-  FRightToolbar.Wrapable := False;
+  FRightToolbar.ShowHint       := True;
+  FRightToolbar.Align          := alClient;
+  FRightToolbar.AutoSize       := False;
+  FRightToolbar.Transparent    := True;
+  FRightToolbar.Wrapable       := False;
   FRightToolbar.DoubleBuffered := True;
 
   FMainToolbar.Align := alClient;
 
-  FSelectionToolbar.Align := alRight;
-  FSelectionToolbar.Visible := False;
-  FSelectionToolbar.AutoSize := True;
-  FSelectionToolbar.Transparent := True;
+  FSelectionToolbar.Align          := alRight;
+  FSelectionToolbar.Visible        := False;
+  FSelectionToolbar.AutoSize       := True;
+  FSelectionToolbar.Transparent    := True;
   FSelectionToolbar.DoubleBuffered := True;
 
   Settings.FormSettings.AssignTo(Self);
@@ -739,13 +742,12 @@ begin
   InitDebugAction('actPrintPreview');
   InitDebugAction('actPageSetup');
   InitDebugAction('actNewSharedView');
-  InitDebugAction('actShowPreview');
-  InitDebugAction('actShowHTMLViewer');
-  InitDebugAction('actShowStructureViewer');
-  InitDebugAction('actShowHexEditor');
-  InitDebugAction('actShowMiniMap');
-  InitDebugAction('actShowScriptEditor');
-  InitDebugAction('actRecordMacro');
+//  InitDebugAction('actShowPreview');
+//  InitDebugAction('actShowStructureViewer');
+//  InitDebugAction('actShowHexEditor');
+//  InitDebugAction('actShowMiniMap');
+//  InitDebugAction('actShowScriptEditor');
+//  InitDebugAction('actRecordMacro');
   //InitDebugAction('actExecuteScriptOnSelection');
 end;
 
@@ -784,7 +786,7 @@ begin
     OptimizeWidth(pnlPosition);
     OptimizeWidth(pnlSize);
     OptimizeWidth(pnlInsertMode);
-    OptimizeWidth(pnlModified);
+    //OptimizeWidth(pnlModified);
     pnlCurrentChar.Width :=
      GetTextWidth(btnCurrentChar.Caption, btnCurrentChar.Font) + 10;
     pnlHighlighter.Width :=

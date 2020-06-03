@@ -1,14 +1,14 @@
 object frmMain: TfrmMain
-  Left = 583
+  Left = 3230
   Height = 618
-  Top = 222
-  Width = 1259
+  Top = 250
+  Width = 1183
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
   ClientHeight = 618
-  ClientWidth = 1259
-  Color = clWindow
+  ClientWidth = 1183
+  Color = clBtnFace
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
@@ -22,62 +22,58 @@ object frmMain: TfrmMain
     Left = 0
     Height = 18
     Top = 600
-    Width = 1259
+    Width = 1183
     Align = alBottom
     BorderSpacing.Top = 2
     BevelColor = clWhite
     BevelOuter = bvNone
     ClientHeight = 18
-    ClientWidth = 1259
-    Color = clWhite
+    ClientWidth = 1183
+    Color = clBtnFace
     ParentColor = False
     TabOrder = 0
     object pnlPosition: TPanel
-      Left = 154
+      Left = 150
       Height = 18
       Hint = 'Cursor position'
       Top = 0
       Width = 150
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       TabOrder = 0
     end
     object pnlInsertMode: TPanel
-      Left = 362
+      Left = 354
       Height = 18
       Hint = 'Insert mode'
       Top = 0
       Width = 38
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       Caption = 'INS'
       TabOrder = 1
     end
     object pnlFileName: TPanel
-      Left = 792
+      Left = 620
       Height = 18
       Top = 0
       Width = 320
       Align = alLeft
       Alignment = taLeftJustify
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 320
       TabOrder = 2
       object btnFileName: TSpeedButton
-        Left = 0
-        Height = 18
-        Top = 0
-        Width = 320
+        Left = 1
+        Height = 16
+        Top = 1
+        Width = 318
         Align = alClient
         Color = clDefault
         Flat = True
@@ -86,24 +82,23 @@ object frmMain: TfrmMain
       end
     end
     object pnlHighlighter: TPanel
-      Left = 574
+      Left = 556
       Height = 18
       Hint = 'Current highlighter'
       Top = 0
       Width = 64
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 64
       TabOrder = 3
       object btnHighlighter: TSpeedButton
-        Left = 0
-        Height = 18
+        Left = 1
+        Height = 16
         Hint = 'Highlighter'
-        Top = 0
-        Width = 64
+        Top = 1
+        Width = 62
         Align = alClient
         Color = clDefault
         Flat = True
@@ -111,24 +106,23 @@ object frmMain: TfrmMain
       end
     end
     object pnlEncoding: TPanel
-      Left = 482
+      Left = 468
       Height = 18
       Hint = 'Current encoding'
       Top = 0
       Width = 44
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 44
       TabOrder = 4
       object btnEncoding: TSpeedButton
-        Left = 0
-        Height = 18
+        Left = 1
+        Height = 16
         Hint = 'Encoding'
-        Top = 0
-        Width = 44
+        Top = 1
+        Width = 42
         Align = alClient
         Color = clDefault
         Flat = True
@@ -136,24 +130,23 @@ object frmMain: TfrmMain
       end
     end
     object pnlLineBreakStyle: TPanel
-      Left = 528
+      Left = 512
       Height = 18
       Hint = 'Current line break style'
       Top = 0
       Width = 44
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 44
       TabOrder = 5
       object btnLineBreakStyle: TSpeedButton
-        Left = 0
-        Height = 18
+        Left = 1
+        Height = 16
         Hint = 'Line break style'
-        Top = 0
-        Width = 44
+        Top = 1
+        Width = 42
         Align = alClient
         Color = clDefault
         Flat = True
@@ -161,67 +154,60 @@ object frmMain: TfrmMain
       end
     end
     object pnlSize: TPanel
-      Left = 306
+      Left = 300
       Height = 18
       Hint = 'Size'
       Top = 0
       Width = 54
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       TabOrder = 6
     end
     object pnlViewerCount: TPanel
-      Left = 2
+      Left = 0
       Height = 18
       Hint = 'Total count of editor viewer instances.'
       Top = 0
       Width = 150
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       TabOrder = 7
     end
     object pnlModified: TPanel
-      Left = 640
+      Left = 940
       Height = 18
       Top = 0
-      Width = 150
+      Width = 68
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       TabOrder = 8
     end
     object pnlSelectionMode: TPanel
-      Left = 402
+      Left = 392
       Height = 18
       Hint = 'Selection mode'
       Top = 0
       Width = 38
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 38
       ParentFont = False
       TabOrder = 9
       object btnSelectionMode: TSpeedButton
-        Left = 0
-        Height = 18
+        Left = 1
+        Height = 16
         Hint = 'Selection mode'
-        Top = 0
-        Width = 38
+        Top = 1
+        Width = 36
         Align = alClient
         Color = clForm
         Flat = True
@@ -229,53 +215,73 @@ object frmMain: TfrmMain
       end
     end
     object pnlCurrentChar: TPanel
-      Left = 442
+      Left = 430
       Height = 18
       Hint = 'Character code of character at cursor position'
       Top = 0
       Width = 38
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       ClientHeight = 18
       ClientWidth = 38
       ParentFont = False
       TabOrder = 10
       object btnCurrentChar: TSpeedButton
-        Left = 0
-        Height = 18
+        Left = 1
+        Height = 16
         Hint = 'Character code of character at cursor position'
-        Top = 0
-        Width = 38
+        Top = 1
+        Width = 36
         Align = alClient
         Color = clForm
         Flat = True
       end
     end
-    object btnMacro: TSpeedButton
-      Left = 1236
+    object pnlClientStatusBar: TPanel
+      Left = 1008
       Height = 18
       Top = 0
-      Width = 23
+      Width = 150
+      Align = alClient
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 11
+    end
+    object pnlMacro: TPanel
+      Left = 1158
+      Height = 18
+      Top = 0
+      Width = 25
       Align = alRight
-      Flat = True
-      Visible = False
-      ShowCaption = False
+      AutoSize = True
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      ClientHeight = 18
+      ClientWidth = 25
+      TabOrder = 12
+      object btnMacro: TSpeedButton
+        Left = 1
+        Height = 16
+        Top = 1
+        Width = 23
+        Align = alRight
+        Flat = True
+        Visible = False
+        ShowCaption = False
+      end
     end
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 574
-    Top = 24
+    Height = 573
+    Top = 25
     Width = 428
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 574
+    ClientHeight = 573
     ClientWidth = 428
-    Color = clForm
-    ParentColor = False
     TabOrder = 1
     Visible = False
     object pnlTop: TPanel
@@ -339,7 +345,7 @@ object frmMain: TfrmMain
     end
     object pnlToolClient: TPanel
       Left = 0
-      Height = 549
+      Height = 548
       Top = 25
       Width = 428
       Align = alClient
@@ -349,8 +355,8 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 428
-    Height = 574
-    Top = 24
+    Height = 573
+    Top = 25
     Width = 7
     Visible = False
   end
@@ -358,11 +364,22 @@ object frmMain: TfrmMain
     Left = 0
     Height = 24
     Top = 0
-    Width = 1259
+    Width = 1183
     Align = alTop
+    BevelColor = clScrollBar
     BevelOuter = bvNone
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    Color = clWindow
+    ParentColor = False
     TabOrder = 3
+  end
+  object shpLine: TShape
+    Left = 0
+    Height = 1
+    Top = 24
+    Width = 1183
+    Align = alTop
+    Pen.Color = clScrollBar
   end
   object aclMain: TActionList
     Images = imlMain

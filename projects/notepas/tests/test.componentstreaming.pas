@@ -88,10 +88,9 @@ uses
 
   FileUtil,
 
-  ts.Core.SharedLogger, ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage;
+  ts.Core.Logger, ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage;
 
 { TTestComponentStreaming }
-
 
 procedure DoOngetObject(Sender: TOBject; AObject: TObject; Info: PPropInfo;
   AData: TJSONObject; DataName: TJSONStringType; Var AValue: TObject);

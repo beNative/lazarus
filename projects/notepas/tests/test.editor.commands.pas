@@ -33,6 +33,7 @@ type
   protected
     procedure SetUp; override;
     procedure TearDown; override;
+
   published
     procedure TestHookUp;
   end;
@@ -55,7 +56,6 @@ begin
 end;
 
 initialization
-
   RegisterTest(TEditorCommandsTest);
 end.
 

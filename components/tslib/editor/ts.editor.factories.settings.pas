@@ -48,7 +48,8 @@ uses
   SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
-  SynHighlighterPike, SynHighlighterVB,
+  SynHighlighterPike, SynHighlighterVB, SynHighlighterCS, SynHighlighterRC,
+  SynHighlighterRuby, SynHighlighterInno,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -103,27 +104,32 @@ procedure TEditorSettingsFactory.RegisterHighlighters(
 
 begin
   Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
-  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
-  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
-  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
-  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
   Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
-  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
   Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
-  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
-  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
-  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
-  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
-  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
-  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
   Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
+  Reg(TSynCsSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/');
   Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
+  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
+  Reg(TSynInnoSyn, nil, HL_ISS, FILE_EXTENSIONS_ISS, SISSDescription, ';');
+  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
+  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription);
+  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
+  Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
+  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
+  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
+  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
+  Reg(TSynPikeSyn, nil, HL_PIKE, FILE_EXTENSIONS_PIKE, SPikeDescription, '', '', '');
+  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
+  Reg(TSynRCSyn, nil, HL_RC, FILE_EXTENSIONS_RC, SRCDescription, '//', '/*', '*/');
+  Reg(TSynRubySyn, nil, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#');
+  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
   Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
-  Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
-  Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
-  Reg(TSynPikeSyn, nil, HL_PIKE, FILE_EXTENSIONS_PIKE, SPikeDescription, '', '', '');
   Reg(TSynVBSyn, nil, HL_VB, FILE_EXTENSIONS_VB, SVBDescription, '', '', '');
+  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
+
 {
   S := GetApplicationPath;
   F := S + LAYOUT_LOG;
@@ -144,24 +150,7 @@ begin
     SU := TSynUniSyn.Create(Application);
     Reg(TSynUniSyn, SU, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
   end;
-  F := S + LAYOUT_CS;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/', nil, F);
-  end;
-  F := S + LAYOUT_RUBY;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#', '/*', '*/', nil, F);
-  end;
-  F := S + LAYOUT_LUA;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--', '', '', nil, F);
-  end;
+
 }
 end;
 
@@ -220,29 +209,33 @@ end;
 procedure TEditorSettingsFactory.RegisterClasses;
 begin
   Classes.RegisterClasses([
-    TSynPasSyn,
-    TSynSQLSyn,
-    TSynXMLSyn,
-    TSynLFMSyn,
     TSynBatSyn,
-    TSynPoSyn,
     TSynCppSyn,
-    TSynJavaSyn,
-    TSynPerlSyn,
-    TSynPythonSyn,
-    TSynHTMLSyn,
-    TSynJScriptSyn,
-    TSynPHPSyn,
     TSynCssSyn,
-    TSynDiffSyn,
-    TSynTeXSyn,
-    TSynUNIXShellScriptSyn,
-    TSynINISyn,
-    TSynUniSyn,
+    TSynCsSyn,
     TSynCustomHighlighter,
+    TSynDiffSyn,
+    TSynHTMLSyn,
+    TSynINISyn,
+    TSynInnoSyn,
+    TSynJavaSyn,
+    TSynJScriptSyn,
+    TSynLFMSyn,
     TSynLuaSyn,
+    TSynPasSyn,
+    TSynPerlSyn,
+    TSynPHPSyn,
     TSynPikeSyn,
-    TSynVBSyn
+    TSynPoSyn,
+    TSynPythonSyn,
+    TSynRCSyn,
+    TSynRubySyn,
+    TSynSQLSyn,
+    TSynTeXSyn,
+    TSynUniSyn,
+    TSynUNIXShellScriptSyn,
+    TSynVBSyn,
+    TSynXMLSyn
   ]);
 end;
 {$ENDREGION}

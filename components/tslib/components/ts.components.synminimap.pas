@@ -288,9 +288,7 @@ type
 implementation
 
 uses
-  Math
-  ,Dialogs
-  ;
+  Math, Dialogs;
 
 resourcestring
   SFontFactorMinMax = 'Font factor cannot be smaller than %.d or greater than %.d.';

@@ -636,13 +636,13 @@ end;
 
 procedure OptimizeWidth(APanel: TPanel);
 var
-  S: string;
+  S : string;
 begin
   S := APanel.Caption;
   if Trim(S) <> '' then
     APanel.Width := GetTextWidth(APanel.Caption, APanel.Font) + 10
   else
-    APanel.Width := 0;
+    APanel.Width := 2;
 end;
 
 function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;

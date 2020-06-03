@@ -16,7 +16,7 @@ uses
   ts.Components.UNIHighlighter, ts.Components.UniqueInstance, 
   ts.Components.VirtualDBTreeEx, ts.Components.VirtualPages, 
   ts.Components.XMLTree.Editors, ts.Components.XMLTree.NodeAttributes, 
-  ts.Components.XMLTree, synhighlighterLua;
+  ts.Components.XMLTree;
 
 implementation
 

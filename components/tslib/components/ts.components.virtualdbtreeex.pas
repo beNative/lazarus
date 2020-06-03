@@ -1212,7 +1212,9 @@ begin
     end;
     if Assigned(FocusedNode) and (dboTrackChanges in FDBOptions) and
       (dboTrackCursor in FDBOptions) then
+    begin
       InvalidateNode(FocusedNode);
+    end;
   end;
 end;
 {$ENDREGION}
@@ -2238,6 +2240,7 @@ begin
   FLevelField := nil;
   FViewField := nil;
   FImgIdxField := nil;
+  FImageField := nil;
 end;
 
 procedure TBaseVirtualDBTreeEx.InitFields;

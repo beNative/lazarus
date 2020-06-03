@@ -10,25 +10,19 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="editor"/>
-        <OtherUnitFiles Value="editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\colors;editor\filter;editor\hexeditor;editor\htmlview;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortstrings"/>
+        <OtherUnitFiles Value="editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\filter;editor\hexeditor;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortstrings"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
-      <Parsing>
-        <SyntaxOptions>
-          <IncludeAssertionCode Value="True"/>
-        </SyntaxOptions>
-      </Parsing>
       <CodeGeneration>
         <Checks>
           <IOChecks Value="True"/>
           <RangeChecks Value="True"/>
           <OverflowChecks Value="True"/>
-          <StackChecks Value="True"/>
         </Checks>
       </CodeGeneration>
       <Linking>
         <Debugging>
-          <DebugInfoType Value="dsDwarf2Set"/>
+          <UseLineInfoUnit Value="False"/>
           <UseHeaptrc Value="True"/>
         </Debugging>
       </Linking>
@@ -150,7 +144,7 @@
       </Item27>
       <Item28>
         <Filename Value="editor\charactermap\ts.editor.charactermap.toolview.pas"/>
-        <UnitName Value="ts.Editor.charactermap.ToolView"/>
+        <UnitName Value="ts.Editor.CharacterMap.ToolView"/>
       </Item28>
       <Item29>
         <Filename Value="editor\codefilter\ts.editor.codefilter.data.pas"/>
@@ -313,37 +307,40 @@
         <UnitName Value="ts.Editor.ViewList.ToolView"/>
       </Item68>
     </Files>
-    <RequiredPkgs Count="10">
+    <RequiredPkgs Count="11">
       <Item1>
-        <PackageName Value="tslib_components"/>
+        <PackageName Value="ExtraHighlighters"/>
       </Item1>
       <Item2>
-        <PackageName Value="KControlsLaz"/>
+        <PackageName Value="tslib_components"/>
       </Item2>
       <Item3>
-        <PackageName Value="oxml_lazarus"/>
+        <PackageName Value="KControlsLaz"/>
       </Item3>
       <Item4>
-        <PackageName Value="pascalscript"/>
+        <PackageName Value="oxml_lazarus"/>
       </Item4>
       <Item5>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="pascalscript"/>
       </Item5>
       <Item6>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item6>
       <Item7>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="richmemopackage"/>
       </Item7>
       <Item8>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item8>
       <Item9>
-        <PackageName Value="LCL"/>
+        <PackageName Value="SynEdit"/>
       </Item9>
       <Item10>
-        <PackageName Value="FCL"/>
+        <PackageName Value="LCL"/>
       </Item10>
+      <Item11>
+        <PackageName Value="FCL"/>
+      </Item11>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -12,6 +12,13 @@
         <OtherUnitFiles Value="richeditor"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <CodeGeneration>
+        <Checks>
+          <IOChecks Value="True"/>
+          <RangeChecks Value="True"/>
+          <OverflowChecks Value="True"/>
+        </Checks>
+      </CodeGeneration>
     </CompilerOptions>
     <Files Count="11">
       <Item1>

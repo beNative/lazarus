@@ -33,8 +33,10 @@ type
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;
     function GetTemplateDataClass: TClass; override;
 
-    function GetText(const Item: TObject; const ColumnIndex: Integer): string;
-      override;
+    function GetText(
+      const Item        : TObject;
+      const ColumnIndex : Integer
+    ): string; override;
   end;
 
   { TActionCategoryTemplate }
@@ -49,11 +51,15 @@ type
 
     function GetItemCount(const Item: TObject): Integer; override;
     function GetItems(const Item: TObject): TObjectList; override;
-    function GetItem(const Item: TObject; const Index: Integer): TObject;
-       override;
+    function GetItem(
+      const Item  : TObject;
+      const Index : Integer
+    ): TObject; override;
 
-    function GetText(const Item: TObject; const ColumnIndex: Integer): string;
-      override;
+    function GetText(
+      const Item        : TObject;
+      const ColumnIndex : Integer
+    ): string; override;
 
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;

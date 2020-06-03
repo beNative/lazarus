@@ -81,7 +81,6 @@ begin
   FMenus   := nil;
   inherited BeforeDestruction;
 end;
-
 {$ENDREGION}
 
 {$REGION 'private methods'}

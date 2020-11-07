@@ -258,32 +258,16 @@ type
     dlgOpen                           : TOpenDialog;
     dlgSave                           : TSaveDialog;
     imlMain                           : TImageList;
-    MenuItem1                         : TMenuItem;
-    MenuItem10                        : TMenuItem;
-    MenuItem11                        : TMenuItem;
-    MenuItem12                        : TMenuItem;
-    MenuItem19                        : TMenuItem;
-    MenuItem2                         : TMenuItem;
-    MenuItem20                        : TMenuItem;
-    MenuItem21                        : TMenuItem;
-    MenuItem22                        : TMenuItem;
-    MenuItem3                         : TMenuItem;
-    MenuItem4                         : TMenuItem;
-    MenuItem43                        : TMenuItem;
-    MenuItem44                        : TMenuItem;
-    MenuItem45                        : TMenuItem;
-    MenuItem46                        : TMenuItem;
-    MenuItem47                        : TMenuItem;
-    MenuItem48                        : TMenuItem;
-    MenuItem49                        : TMenuItem;
-    MenuItem5                         : TMenuItem;
-    MenuItem50                        : TMenuItem;
-    MenuItem51                        : TMenuItem;
-    MenuItem52                        : TMenuItem;
-    MenuItem6                         : TMenuItem;
-    MenuItem7                         : TMenuItem;
-    MenuItem8                         : TMenuItem;
-    MenuItem9                         : TMenuItem;
+    mniFoldLevel0                     : TMenuItem;
+    mniFoldLevel1                     : TMenuItem;
+    mniFoldLevel2                     : TMenuItem;
+    mniFoldLevel3                     : TMenuItem;
+    mniFoldLevel4                     : TMenuItem;
+    mniFoldLevel5                     : TMenuItem;
+    mniFoldLevel6                     : TMenuItem;
+    mniFoldLevel7                     : TMenuItem;
+    mniFoldLevel8                     : TMenuItem;
+    mniFoldLevel9                     : TMenuItem;
     ppmExecuteScriptOnSelection       : TPopupMenu;
     ppmClipboard                      : TPopupMenu;
     ppmEditor                         : TPopupMenu;
@@ -3190,8 +3174,9 @@ begin
   if Assigned(ActiveView) then
     S := ActiveView.HighlighterName;
   V := AddView('', AFileName, S);
-  V.Text := AText;
-  Result := V;
+  V.Text   := AText;
+  V.IsFile := True;
+  Result   := V;
 end;
 {$ENDREGION}
 {$ENDREGION}

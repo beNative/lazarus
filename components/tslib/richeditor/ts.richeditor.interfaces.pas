@@ -48,6 +48,7 @@ type
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
+    function GetIsFile: Boolean;
     //function GetLinesInWindow: Integer;
     //function GetLineText: string;
     function GetModified: Boolean;
@@ -68,6 +69,7 @@ type
     //function GetTextSize: Integer;
     //function GetTopLine: Integer;
     procedure SetFileName(const AValue: string);
+    procedure SetIsFile(AValue: Boolean);
     //procedure SetLineText(const AValue: string);
 
     procedure SetModified(const AValue: Boolean);
@@ -144,6 +146,9 @@ type
 
     property CanRedo: Boolean
       read GetCanRedo;
+
+    property IsFile: Boolean
+      read GetIsFile write SetIsFile;
 
     property Text: string
       read GetText write SetText;

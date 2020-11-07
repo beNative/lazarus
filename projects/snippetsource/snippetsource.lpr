@@ -23,10 +23,10 @@ begin
   Logger.Channels.Add(TIpcChannel.Create);
   Logger.Clear;
 {$IF DECLARED(UseHeapTrace)}
-  if FileExists('trace.trc') then
-    DeleteFile('trace.trc');
-  GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
-  SetHeapTraceOutput('trace.trc');
+  //if FileExists('trace.trc') then
+  //  DeleteFile('trace.trc');
+  //GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
+  //SetHeapTraceOutput('trace.trc');
 {$ENDIF}
   Application.Scaled := True;
   Application.Title := 'SnippetSource';

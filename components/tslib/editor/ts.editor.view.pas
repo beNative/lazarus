@@ -316,7 +316,6 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
-    procedure SetParent(const AValue: TWinControl); reintroduce;
     procedure SetPopupMenu(AValue: TPopupMenu);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const Value: string); virtual;
@@ -334,6 +333,8 @@ type
     procedure EditorSettingsChanged(ASender: TObject);
 
   protected
+    procedure SetParent(AValue: TWinControl); reintroduce;
+
     procedure BeginUpdate;
     procedure EndUpdate;
 
@@ -1233,9 +1234,11 @@ begin
   Result := inherited Parent;
 end;
 
-procedure TEditorView.SetParent(const AValue: TWinControl);
+procedure TEditorView.SetParent(AValue: TWinControl);
 begin
-  inherited Parent := AValue;
+  if Assigned(AValue) then
+    inherited SetParent(AValue);
+
   if Assigned(Parent) then
     Visible := True;
 end;
@@ -2211,7 +2214,7 @@ var
 begin
   SL := TStringList.Create;
   try
-    SL.LoadFromStream(AStream);    ;
+    SL.LoadFromStream(AStream);
     FEncoding := GuessEncoding(SL.Text);
     if FEncoding <> EncodingUTF8 then
     begin
@@ -2229,6 +2232,7 @@ procedure TEditorView.SaveToStream(AStream: TStream);
 var
   S : string;
 begin
+  Logger.Enter(Self, 'SaveToStream');
   if LineBreakStyle <> ALineBreakStyles[GuessLineBreakStyle(Text)] then
   begin
     Text := ChangeLineBreakStyle(Text, StrToLineBreakStyle(LineBreakStyle));
@@ -2239,12 +2243,14 @@ begin
     S := ConvertEncoding(Text, EncodingUTF8, FEncoding);
     AStream.Write(S[1], Length(S));
   end;
+  Logger.Leave(Self, 'SaveToStream');
 end;
 
 procedure TEditorView.Save(const AStorageName: string);
 var
   FS : TFileStream;
 begin
+  Logger.Enter(Self, 'Save');
   Events.DoBeforeSave(AStorageName);
   if IsFile then
   begin
@@ -2257,15 +2263,16 @@ begin
   end;
   Events.DoAfterSave(AStorageName);
   Modified := False;
+  Logger.Leave(Self, 'Save');
 end;
 
 function TEditorView.GetWordAtPosition(const APosition: TPoint): string;
 var
   LCaretPos : TPoint;
 begin
-  Result := '';
+  Result    := '';
   LCaretPos := Editor.PhysicalToLogicalPos(APosition);
-  Result := GetWordFromCaret(LCaretPos);
+  Result    := GetWordFromCaret(LCaretPos);
 end;
 
 function TEditorView.GetWordFromCaret(const ACaretPos: TPoint): string;

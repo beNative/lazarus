@@ -29,7 +29,6 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
 
-  richmemopackage,
   runtimetypeinfocontrols,
   pascalscript,
   kcontrols,

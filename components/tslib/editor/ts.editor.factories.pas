@@ -142,8 +142,8 @@ begin
 end;
 
 class function TEditorFactories.CreateSelectionToolbar(AOwner: TComponent;
-  AParent: TWinControl; AActions: IEditorActions;
-  AMenus: IEditorMenus): TToolbar;
+  AParent: TWinControl; AActions: IEditorActions; AMenus: IEditorMenus)
+  : TToolbar;
 var
   TBF : IEditorToolbarsFactory;
 begin

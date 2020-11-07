@@ -66,6 +66,7 @@ type
     FUpdate    : Boolean;
 
     function GetDataSet: TDataSet;
+
     procedure Changed;
 
   public

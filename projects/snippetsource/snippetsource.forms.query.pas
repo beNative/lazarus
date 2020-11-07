@@ -33,6 +33,7 @@ type
     pnlQueryEditor : TPanel;
     pnlResultSet   : TPanel;
     splHorizontal  : TSplitter;
+
   private
       FManager : IEditorManager;
 

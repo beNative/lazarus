@@ -1,3 +1,15 @@
+TODO (22/06/2020)
+- do not loose position in tree after refresh
+- custom node sequence number (up/down position)
+- more polished look for lookup form
+- bookmark positions or favourites which can be selected immediately
+- most recently changed nodes?
+- most visited nodes?
+- read only mode (with multiple editor buffer views side by side)
+- operations on multiselection of nodes
+- backup/restore option (7z)
+
+
 Welcome to SnippetSource. A new SQLite database will be created.
 
 SnippetSource lets you organise your favorite pieces of code, scripts, thoughts,
@@ -10,17 +22,18 @@ You can accompany your node with formatted text in RTF format, which will be
 stored together with the node.
 
 All data is stored in a simple yet powerful SQLite database which provides you
-with immediate access to your stored ideas.
+with immediate access to your stored snippets.
 
 Create new folders and documents. You can drag and drop one or multiple files
 into the treeview to create them as snippets in SnippetSource.
 
-This will create a copy of each document and will recreate the underlying folder
-structure as wel.
+This will create a copy of each document and will duplicate the underlying
+folder structure as wel.
 
-Nodes can be moved by dragging them to another folder.
+Nodes can be moved freely by dragging them to another folder.
 
-It shares the text editor with my Notepas project.
+It uses the text editor module which was developed for my Notepas project, and
+is based on the SynEdit components used by Lazarus.
 
 Since version 3 the possibility to execute script code was added. Snippets that
 represent script code can directly be executed.
@@ -28,21 +41,61 @@ represent script code can directly be executed.
 Another new feature is you can now customize the node images from a user
 definable set of glyphs which can be stored in the snippet database.
 
+Use Cases
 As I developer I use it for storing SQL-scripts, code snippets and short
 tutorials with solutions for common problems.
+
+A writer could use it to store his favourite quotes.
 
 The source to your snippets of your sources
 
 The abillity to execute scripts was added.
+
+--
+import from older version?
+
+insert into Snippet (
+  Id,
+  HighlighterId,
+  NodeTypeId,
+  ParentId,
+  ImageIndex,
+  NodeName,
+  Text,
+  Comment,
+  CommentRtf
+)
+select
+  Id,
+  HighlighterId,
+  NodeTypeId,
+  ParentId,
+  ImageIndex,
+  NodeName,
+  Text,
+  Comment,
+  CommentRtf
+from
+  otherdb.Snippet
+
+
+---
+
 
 IDEAS:
 - support for multiple databases as tabbed views
 - drag and drop of nodes between seperate instances of snippetsource
 
 TODO:
+- support for custom node images
 
-Actions:
-- actCopySnippetToClipBoard
+DONE
+- Action actCopySnippetToClipBoard
+- removed PathFieldName from TfrmVirtualDBTree (not used anymore)
+
+
+10/06/2020
+- Added initial support for executing Python scripts
 
 28/04/2020
 - FPC 3.0.4 and Lazarus 2.0.2 (latest stable release)

@@ -24,8 +24,8 @@ uses
   Classes, SysUtils;
 
 const
-  SETTINGS_FILE = 'settings.json';
-  DATABASE_NAME = 'snippets.db';
+  SETTINGS_FILE         = 'settings.json';
+  DEFAULT_DATABASE_NAME = 'snippets.db';
 
 resourcestring
   SQueryLookupErrorRunningQuery = 'Error running query <%s>';
@@ -34,6 +34,8 @@ resourcestring
   SDateCreated                  = 'Created: %s';
   SDateModified                 = 'Modified: %s';
   SId                           = 'Id: %d';
+  SAskRecreateTables            = 'Warning: this will delete all data!' + #13#10 +
+                                  'Are you sure you want to continue?';
 
 implementation
 

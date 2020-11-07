@@ -39,7 +39,15 @@ type
     procedure SetFileName(AValue: string);
     {$ENDREGION}
 
+    procedure ConnectToDatabase(const AFileName: string);
+    procedure CreateDatabaseTables;
+    procedure CreateDatabaseIndexes;
+    procedure CreateDatabaseTriggers;
     procedure CreateNewDatabase;
+    procedure SetupConfigurationData;
+    procedure BeginBulkInserts;
+    procedure EndBulkInserts;
+
     procedure Execute(const ASQL: string);
     procedure Commit;
     procedure Rollback;
@@ -58,8 +66,8 @@ type
 
   ISQLite = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
-  function GetDBVersion: string;
     {$REGION 'property access mehods'}
+    function GetDBVersion: string;
     function GetReadOnly: Boolean;
     function GetSize: Int64;
     procedure SetReadOnly(AValue: Boolean);
@@ -163,15 +171,13 @@ type
     function GetRecordCount: Integer;
     {$ENDREGION}
 
-    function Post: Boolean;
     function Append: Boolean;
     function Edit: Boolean;
+    function Post: Boolean;
     function ApplyUpdates: Boolean;
 
     procedure EnableControls;
     procedure DisableControls;
-    procedure BeginBulkInserts;
-    procedure EndBulkInserts;
 
     property Active: Boolean
       read GetActive write SetActive;
@@ -204,7 +210,6 @@ type
   ['{E3C86684-4FD7-4EB5-8097-06ED826061C8}']
     {$REGION 'property access mehods'}
     function GetGlyphDataSet: TDataSet;
-    //function GetGlyphList: TImageList;
     function GetImageList: TImageList;
     {$ENDREGION}
 
@@ -213,9 +218,6 @@ type
 
     property ImageList: TImageList
       read GetImageList;
-    //
-    //property GlyphList: TImageList
-    //  read GetGlyphList;
   end;
 
   IHighlighters = interface
@@ -228,11 +230,31 @@ type
 
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
-    function GetDataBase: string;
-    procedure SetDataBase(const AValue: string);
+    {$REGION 'property access methods'}
+    function GetAutoHideRichEditor: Boolean;
+    procedure SetAutoHideRichEditor(AValue: Boolean);
+    function GetAutoHideEditorToolBar: Boolean;
+    function GetAutoHideRichEditorToolBar: Boolean;
+    function GetDatabase: string;
+    procedure SetAutoHideEditorToolBar(AValue: Boolean);
+    procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
+    procedure SetDatabase(const AValue: string);
+    {$ENDREGION}
 
-    property DataBase: string
-      read GetDataBase write SetDataBase;
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+
+    property Database: string
+      read GetDatabase write SetDatabase;
+
+    property AutoHideRichEditor: Boolean
+      read GetAutoHideRichEditor write SetAutoHideRichEditor;
+
+    property AutoHideEditorToolBar: Boolean
+      read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;
+
+    property AutoHideRichEditorToolBar: Boolean
+      read GetAutoHideRichEditorToolBar write SetAutoHideRichEditorToolBar;
   end;
 
 implementation

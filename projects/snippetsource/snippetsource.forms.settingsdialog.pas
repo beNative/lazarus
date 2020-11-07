@@ -18,7 +18,7 @@ unit SnippetSource.Forms.SettingsDialog;
 
 {$MODE DELPHI}
 
-{ Manages settings for SnippetSource. }
+{ Manages settings for the SnippetSource application. }
 
 interface
 
@@ -38,45 +38,59 @@ type
 
   TfrmSettingsDialog = class(TForm)
     {$REGION 'designer controls'}
-    aclMain                   : TActionList;
-    actCreateNewDatabase      : TAction;
-    actDeleteDatabase         : TAction;
-    actClose                  : TAction;
-    actDatabaseIntegrityCheck : TAction;
-    actDatabaseVacuum         : TAction;
-    actDataBaseShrinkMemory   : TAction;
-    actOpenDatabase           : TAction;
-    actAddGlyphs              : TAction;
-    actRefreshGlyphs          : TAction;
-    btnCreateNewDatabase      : TBitBtn;
-    btnDatabaseIntegrityCheck : TBitBtn;
-    btnClose                  : TBitBtn;
-    btnDatabaseShrinkMemory   : TBitBtn;
-    btnDatabaseVacuum         : TBitBtn;
-    btnDeleteDatabase         : TBitBtn;
-    btnOpenDatabase           : TBitBtn;
-    btnOpenGlyphs             : TButton;
-    btnRefresh                : TButton;
-    cbxImageList              : TComboBox;
-    dlgOpen                   : TOpenDialog;
-    dscGlyph                  : TDatasource;
-    dscHighlighter            : TDatasource;
-    edtDatabaseFile           : TFileNameEdit;
-    grdGlyph                  : TDBGrid;
-    grdHighlighters           : TDBGrid;
-    grdDBInfo                 : TStringGrid;
-    grpDatabaseInfo           : TGroupBox;
-    Highlighters              : TTabSheet;
-    lblDataBaseFile           : TLabel;
-    pnlBottom                 : TPanel;
-    pgcMain                   : TPageControl;
-    tsDataBase                : TTabSheet;
-    tsImages                  : TTabSheet;
-    vstImageList              : TVirtualStringTree;
+    aclMain                      : TActionList;
+    actCreateNewDatabase         : TAction;
+    actDeleteDatabase            : TAction;
+    actClose                     : TAction;
+    actDatabaseIntegrityCheck    : TAction;
+    actDatabaseVacuum            : TAction;
+    actDataBaseShrinkMemory      : TAction;
+    actCreateDatabaseIndexes     : TAction;
+    actCreateDatabaseTables      : TAction;
+    actCreateDatabaseTriggers    : TAction;
+    actReloadConfigurationData   : TAction;
+    actOpenDatabase              : TAction;
+    actAddGlyphs                 : TAction;
+    actRefreshGlyphs             : TAction;
+    btnCreateNewDatabase         : TBitBtn;
+    btnCreateDatabaseIndexes     : TBitBtn;
+    btnCreateDatabaseTables      : TBitBtn;
+    btnCreateDatabaseTriggers    : TBitBtn;
+    btnDatabaseIntegrityCheck    : TBitBtn;
+    btnClose                     : TBitBtn;
+    btnDatabaseShrinkMemory      : TBitBtn;
+    btnDatabaseVacuum            : TBitBtn;
+    btnOpenDatabase              : TBitBtn;
+    btnOpenGlyphs                : TButton;
+    btnRefresh                   : TButton;
+    cbxImageList                 : TComboBox;
+    chkAutoHideEditorToolBar: TCheckBox;
+    chkAutoHideRichEditor: TCheckBox;
+    chkAutoHideRichEditorToolBar: TCheckBox;
+    dlgOpen                      : TOpenDialog;
+    dscGlyph                     : TDatasource;
+    dscHighlighter               : TDatasource;
+    edtDatabaseFile              : TFileNameEdit;
+    grdGlyph                     : TDBGrid;
+    grdHighlighters              : TDBGrid;
+    grdDBInfo                    : TStringGrid;
+    grpLayout: TGroupBox;
+    grpDatabaseInfo              : TGroupBox;
+    Highlighters                 : TTabSheet;
+    imlMain                      : TImageList;
+    lblDataBaseFile              : TLabel;
+    pnlBottom                    : TPanel;
+    pgcMain                      : TPageControl;
+    tsUserInterface              : TTabSheet;
+    tsDataBase                   : TTabSheet;
+    tsImages                     : TTabSheet;
+    vstImageList                 : TVirtualStringTree;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actCloseExecute(Sender: TObject);
+    procedure actCreateDatabaseIndexesExecute(Sender: TObject);
+    procedure actCreateDatabaseTablesExecute(Sender: TObject);
     procedure actCreateNewDatabaseExecute(Sender: TObject);
     procedure actDatabaseIntegrityCheckExecute(Sender: TObject);
     procedure actDataBaseShrinkMemoryExecute(Sender: TObject);
@@ -85,18 +99,22 @@ type
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actAddGlyphsExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
+    procedure actReloadConfigurationDataExecute(Sender: TObject);
     {$ENDREGION}
 
+    {$REGION 'event handlers'}
     procedure cbxImageListDrawItem(
       Control : TWinControl;
       Index   : Integer;
       ARect   : TRect;
       State   : TOwnerDrawState
     );
-    procedure chkAutomaticIndexClick(Sender: TObject);
+    procedure chkAutoHideEditorToolBarClick(Sender: TObject);
+    procedure chkAutoHideRichEditorClick(Sender: TObject);
+    procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
-    procedure edtDatabaseFileButtonClick(Sender: TObject);
+    procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure grdGlyphPrepareCanvas(sender: TObject; DataCol: Integer;
@@ -119,12 +137,15 @@ type
       TextType     : TVSTTextType;
       var CellText : string
     );
+    {$ENDREGION}
 
   private
-    FData : IInterface;
+    FData     : IInterface;
+    FSettings : ISettings;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
+    function GetDataSet: IDataSet;
     function GetGlyphDS: TDataSet;
     function GetHighlighterDataSet: TDataSet;
     function GetSQLite: ISQLite;
@@ -135,12 +156,13 @@ type
 
   public
     constructor Create(
-      AOwner : TComponent;
-      AData  : IInterface
+      AOwner          : TComponent;
+      const AData     : IInterface;
+      const ASettings : ISettings
     ); reintroduce; virtual;
 
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure UpdateActions; override;
 
@@ -156,32 +178,42 @@ type
     property SQLite: ISQLite
       read GetSQLite;
 
+    property DataSet: IDataSet
+      read GetDataSet;
+
   end;
 
-procedure ExecuteSettingsDialog(const AData: IInterface);
+procedure ExecuteSettingsDialog(
+  const AData     : IInterface;
+  const ASettings : ISettings
+);
 
 implementation
 
 {$R *.lfm}
 
 uses
-  ts.Core.Utils, ts.Core.Logger;
+  ts.Core.Utils, ts.Core.Logger,
+  SnippetSource.Resources;
 
 var
-  FSettings: TfrmSettingsDialog;
+  FSettingsDialog: TfrmSettingsDialog;
 
-procedure ExecuteSettingsDialog(const AData: IInterface);
+procedure ExecuteSettingsDialog(const AData: IInterface;
+  const ASettings: ISettings);
 begin
-  if not Assigned(FSettings) then
-    FSettings := TfrmSettingsDialog.Create(Application, AData);
-  FSettings.ShowModal;
+  if not Assigned(FSettingsDialog) then
+    FSettingsDialog := TfrmSettingsDialog.Create(Application, AData, ASettings);
+  FSettingsDialog.ShowModal;
 end;
 
 {$REGION 'construction and destruction'}
-constructor TfrmSettingsDialog.Create(AOwner: TComponent; AData: IInterface);
+constructor TfrmSettingsDialog.Create(AOwner: TComponent;
+  const AData: IInterface; const ASettings: ISettings);
 begin
   inherited Create(AOwner);
-  FData := AData;
+  FData     := AData;
+  FSettings := ASettings;
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
   (FData as IGlyphs).GlyphDataSet.Active := True;
   dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
@@ -189,12 +221,15 @@ begin
 end;
 
 procedure TfrmSettingsDialog.AfterConstruction;
-var
-  I : Integer;
+//var
+//  I : Integer;
 begin
   inherited AfterConstruction;
   edtDatabaseFile.FileName := Connection.FileName;
   pgcMain.ActivePageIndex := 0;
+  chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
+  chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
+  chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
@@ -204,12 +239,13 @@ begin
   UpdateDataBaseInfo;
 end;
 
-procedure TfrmSettingsDialog.BeforeDestruction;
+destructor TfrmSettingsDialog.Destroy;
 begin
   (FData as IGlyphs).GlyphDataSet.Active := False;
-  FData := nil;
-  inherited BeforeDestruction;
-  Logger.Info('SettingsDialog BeforeDestruction');
+  FData     := nil;
+  FSettings := nil;
+  inherited Destroy;
+  Logger.Info('SettingsDialog Destroy');
 end;
 {$ENDREGION}
 
@@ -217,6 +253,11 @@ end;
 function TfrmSettingsDialog.GetConnection: IConnection;
 begin
   Result := FData as IConnection;
+end;
+
+function TfrmSettingsDialog.GetDataSet: IDataSet;
+begin
+  Result := FData as IDataSet;
 end;
 
 function TfrmSettingsDialog.GetGlyphDS: TDataSet;
@@ -238,7 +279,7 @@ end;
 {$REGION 'action handlers'}
 procedure TfrmSettingsDialog.actOpenDatabaseExecute(Sender: TObject);
 begin
-  Connection.FileName := edtDatabaseFile.FileName;
+  FSettings.Database := edtDatabaseFile.FileName;
 end;
 
 procedure TfrmSettingsDialog.actAddGlyphsExecute(Sender: TObject);
@@ -249,6 +290,8 @@ begin
   GlyphDS.Active := True;
   if dlgOpen.Execute then
   begin
+    Connection.BeginBulkInserts;
+    GlyphDS.DisableControls;
     for LFile in dlgOpen.Files do
     begin
       if FileExists(LFile) then
@@ -262,6 +305,8 @@ begin
         GlyphDS.Post;
       end;
     end;
+    GlyphDS.EnableControls;
+    Connection.EndBulkInserts;
   end;
 end;
 
@@ -270,6 +315,11 @@ begin
   GlyphDS.Refresh;
   //(FData as IGlyphs).LoadGlyphs;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
+end;
+
+procedure TfrmSettingsDialog.actReloadConfigurationDataExecute(Sender: TObject);
+begin
+  Connection.SetupConfigurationData;
 end;
 
 procedure TfrmSettingsDialog.actCreateNewDatabaseExecute(Sender: TObject);
@@ -300,6 +350,19 @@ begin
   Close;
 end;
 
+procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
+begin
+  Connection.CreateDatabaseIndexes;
+end;
+
+procedure TfrmSettingsDialog.actCreateDatabaseTablesExecute(Sender: TObject);
+begin
+  if AskConfirmation(SAskRecreateTables) then
+  begin
+    Connection.CreateDatabaseTables;
+  end;
+end;
+
 procedure TfrmSettingsDialog.actDeleteDatabaseExecute(Sender: TObject);
 begin
   if FileExists(edtDatabaseFile.FileName) then
@@ -311,18 +374,18 @@ end;
 procedure TfrmSettingsDialog.cbxImageListDrawItem(Control: TWinControl;
   Index: Integer; ARect: TRect; State: TOwnerDrawState);
 var
-  Pos : Integer;
+  //Pos : Integer;
   C   : TComboBox;
 begin
   C := Control as TComboBox;
   // This ensures the correct highlight color is used
   C.Canvas.FillRect(ARect);
-  Pos := ARect.Left + ((ARect.Right - ARect.Left) div 2) - 8;
+  //Pos := ARect.Left + ((ARect.Right - ARect.Left) div 2) - 8;
   // This line draws the actual bitmap
   //(FData as IGlyphs).ImageList.Draw(C.Canvas , Pos, ARect.Top, Index);
 
   //  This line writes the text after the bitmap*)
-  //combobox1.canvas.textout(rect.left+imagelist1.width+2,rect.top,
+  //combobox1.canvas.textout(rect.left+imlMain.width+2,rect.top,
   //                        combobox1.items[index]);
 
 
@@ -331,9 +394,19 @@ begin
 
 end;
 
-procedure TfrmSettingsDialog.chkAutomaticIndexClick(Sender: TObject);
+procedure TfrmSettingsDialog.chkAutoHideEditorToolBarClick(Sender: TObject);
 begin
-  //SQLiteSettings.AutomaticIndex := chkAutomaticIndex.Checked;
+  FSettings.AutoHideEditorToolBar := (Sender as TCheckBox).Checked;
+end;
+
+procedure TfrmSettingsDialog.chkAutoHideRichEditorClick(Sender: TObject);
+begin
+  FSettings.AutoHideRichEditor := (Sender as TCheckBox).Checked;
+end;
+
+procedure TfrmSettingsDialog.chkAutoHideRichEditorToolBarClick(Sender: TObject);
+begin
+  FSettings.AutoHideRichEditorToolBar := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);
@@ -348,9 +421,11 @@ begin
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
 end;
 
-procedure TfrmSettingsDialog.edtDatabaseFileButtonClick(Sender: TObject);
+procedure TfrmSettingsDialog.edtDatabaseFileAcceptFileName(Sender: TObject;
+  var Value: String);
 begin
-
+  if FileExists(Value) then
+    FSettings.Database := Value;
 end;
 
 procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;
@@ -462,8 +537,8 @@ end;
 procedure TfrmSettingsDialog.vstImageListAfterCellPaint(Sender:
   TBaseVirtualTree; TargetCanvas: TCanvas; Node: PVirtualNode; Column:
   TColumnIndex; const CellRect: TRect);
-var
-  Pos: Integer;
+//var
+//  Pos: Integer;
 begin
   //if Column = 1 then
   //begin
@@ -514,8 +589,10 @@ procedure TfrmSettingsDialog.UpdateDataBaseInfo;
 begin
   grdDBInfo.Cells[1, 0] := SQLite.DBVersion;
   grdDBInfo.Cells[1, 1] := FormatByteText(SQLite.Size);
-  grdDBInfo.Cells[1, 2] := DateTimeToStr(GetFileCreationTime(Connection.FileName));
-  grdDBInfo.Cells[1, 3] := DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
+  grdDBInfo.Cells[1, 2] :=
+    DateTimeToStr(GetFileCreationTime(Connection.FileName));
+  grdDBInfo.Cells[1, 3] :=
+    DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
 end;
 {$ENDREGION}
 
@@ -523,12 +600,14 @@ end;
 procedure TfrmSettingsDialog.UpdateActions;
 var
   S : string;
+  B : Boolean;
 begin
   inherited UpdateActions;
   S := edtDatabaseFile.FileName;
-  actOpenDatabase.Enabled := FileExists(S) and (Connection.FileName <> S);
-  actCreateNewDatabase.Enabled := not FileExists(S);
-  actDeleteDatabase.Enabled := FileExists(S);
+  B := FileExists(S);
+  actOpenDatabase.Enabled      := B and (Connection.FileName <> S);
+  actCreateNewDatabase.Enabled := not B;
+  actDeleteDatabase.Enabled    := B;
 end;
 {$ENDREGION}
 

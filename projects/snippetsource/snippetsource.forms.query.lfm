@@ -1,11 +1,11 @@
 object frmQuery: TfrmQuery
-  Left = 496
+  Left = 345
   Height = 631
-  Top = 250
+  Top = 680
   Width = 887
   ClientHeight = 631
   ClientWidth = 887
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.0.2.0'
   object pnlQueryEditor: TPanel
     Left = 0
     Height = 274

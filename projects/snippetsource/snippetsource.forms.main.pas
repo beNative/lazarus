@@ -26,7 +26,7 @@ uses
   DB,
   LazFileUtils, FileUtil,
 
-  SynEdit, VirtualTrees, MenuButton,
+  SynEdit, VirtualTrees, PythonEngine, MenuButton,
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
@@ -59,18 +59,18 @@ type
     actShowGridForm     : TAction;
     actToggleFullScreen : TAction;
     actToggleStayOnTop  : TAction;
-    btnConsole          : TToolButton;
     btnHighlighter      : TMenuButton;
     btnLineBreakStyle   : TSpeedButton;
-    btnLookup           : TToolButton;
-    btnSettingsDialog   : TToolButton;
     dscMain             : TDatasource;
     edtTitle            : TEdit;
     imlMain             : TImageList;
     imlNodes            : TImageList;
-    pnlComments         : TPanel;
+    lblWelcome          : TLabel;
+    pnlWelcome          : TPanel;
+    pnlStatusBarCenter  : TPanel;
+    pnlEditorToolBar    : TPanel;
+    pnlRichEditor         : TPanel;
     pnlDateCreated      : TPanel;
-    pnlDateModifie      : TPanel;
     pnlDateModified     : TPanel;
     pnlEditMode         : TPanel;
     pnlEditor           : TPanel;
@@ -83,12 +83,13 @@ type
     pnlSnippetCount     : TPanel;
     pnlStatusBar        : TPanel;
     pnlTitle            : TPanel;
+    shpLine             : TShape;
+    shpLine1            : TShape;
+    shpLine2            : TShape;
     splHorizontal       : TSplitter;
     splVertical         : TSplitter;
     tlbApplication      : TToolBar;
     tlbEditorView       : TToolBar;
-    ToolButton1: TToolButton;
-
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -126,6 +127,7 @@ type
       var AFileName : string;
       const AText   : string
     );
+    procedure pnlStatusBarCenterClick(Sender: TObject);
     procedure RVChange(Sender: TObject);
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
@@ -135,6 +137,7 @@ type
     procedure FTreeNewFolderNode(Sender: TObject);
     procedure FTreeNewItemNode(Sender: TObject);
     procedure FTreeDeleteSelectedNodes(Sender: TObject);
+    procedure FTreeCopyNodeData(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -149,6 +152,7 @@ type
     FRichEditorManager : IRichEditorManager;
     FSettings          : TSettings;
     FConsole           : TfrmConsole;
+    FRichEditorToolBar : TToolBar;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
@@ -165,7 +169,6 @@ type
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
     procedure LoadRichText;
-    procedure RVEBeforeSave(Sender: TObject; var AName: string);
     procedure SaveRichText;
 
     procedure AddPathNode(
@@ -182,16 +185,22 @@ type
 
   protected
     procedure AddButton(
+      AToolBar          : TToolBar;
       const AActionName : string;
       APopupMenu        : TPopupMenu = nil
     ); overload;
-    procedure AddButton(AAction: TBasicAction); overload;
+    procedure AddButton(
+      AToolBar : TToolBar;
+      AAction  : TBasicAction
+    ); overload;
     procedure AssignEditorChanges;
     procedure BuildToolBar;
     procedure HideAction(const AActionName: string);
     procedure InitActions;
     procedure UpdateActions; override;
     procedure UpdateStatusBar;
+    procedure UpdateViews;
+    procedure UpdateToolBars;
 
   public
      procedure AfterConstruction; override;
@@ -222,6 +231,7 @@ implementation
 
 uses
   StrUtils, Base64, Dialogs,
+  LclIntf, LclType,
 
   ts.Core.Utils, ts.Core.Logger,
 
@@ -240,6 +250,10 @@ begin
   FSettings.Load;
   FData := TdmSnippetSource.Create(Self, FSettings);
 
+  pnlId.Font.Color           := clRed;
+  pnlDateCreated.Font.Color  := clBlue;
+  pnlDateModified.Font.Color := clGreen;
+
   CreateEditor;
   CreateRichEditor;
   CreateTreeview;
@@ -254,13 +268,13 @@ begin
   InitActions;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
-  TRichEditorFactories.CreateMainToolbar(
+  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
     Self,
-    pnlComments,
+    pnlRichEditor,
     FRichEditorManager as IRichEditorActions
   );
   FVersionInfo := TVersionInfo.Create(Self);
-  Caption := Format('%s %s', [ApplicationName, FVersionInfo.FileVersion]);
+  Caption := Format('%s %s', [ApplicationName, FVersionInfo.ProductVersion]);
 
   Logger.Info('SnippetSource started');
 end;
@@ -313,7 +327,8 @@ end;
 
 procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
-  ExecuteSettingsDialog(FData);
+  ExecuteSettingsDialog(FData, FSettings);
+  FData.DataSet.Refresh;
 end;
 
 procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
@@ -336,20 +351,24 @@ begin
 end;
 
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
-var
-  FS : TFileStream;
+//var
+//  FS : TFileStream;
 begin
-  FS := TFileStream.Create('SnippetSource.bat', fmCreate);
+//  FS := TFileStream.Create('SnippetSource.bat', fmCreate);
   try
-    Editor.SaveToStream(FS);
+//    FConsole.ExecutePy(Editor.Lines);
+    //PythonEngine1.ExecStrings(Editor.Lines);
+    //PythonEngine1.EvalStrings(Editor.Lines);
+    //Editor.SaveToStream(FS);
     if not Assigned(FConsole) then
     begin
       FConsole := TfrmConsole.Create(Self);
     end;
     FConsole.Show;
-    FConsole.Execute('SnippetSource.bat');
+    FConsole.ExecutePy(Editor.Lines);
+    //FConsole.Execute('SnippetSource.bat');
   finally
-    FS.Free;
+//    FS.Free;
   end;
 end;
 
@@ -409,6 +428,7 @@ begin
           Editor.EndUpdate;
         end;
         edtTitle.Text := Snippet.NodeName;
+        edtTitle.Hint := Snippet.NodeName;
         btnHighlighter.Caption := Snippet.Highlighter;
         LoadRichText;
       end;
@@ -444,14 +464,12 @@ begin
   Editor.Text := AText;
   AssignEditorChanges;
 end;
-{$ENDREGION}
 
-{$REGION 'RichEditor'}
-procedure TfrmMain.RVEBeforeSave(Sender: TObject; var AName: string);
+procedure TfrmMain.pnlStatusBarCenterClick(Sender: TObject);
 begin
-  Logger.Enter(Self, 'RVEBeforeSave');
-  //DataSet.Post;
-  Logger.Leave(Self, 'RVEBeforeSave');
+  //FTree.TreeView.BeginUpdate;
+  FTree.TreeView.UpdateTree;
+  //FTree.TreeView.EndUpdate;
 end;
 {$ENDREGION}
 
@@ -465,6 +483,7 @@ end;
 procedure TfrmMain.edtTitleEditingDone(Sender: TObject);
 begin
   Snippet.NodeName := edtTitle.Text;
+  edtTitle.Hint    := edtTitle.Text;
 end;
 
 procedure TfrmMain.edtTitleEnter(Sender: TObject);
@@ -513,6 +532,11 @@ begin
   DataSet.ApplyUpdates;
 end;
 
+procedure TfrmMain.FTreeCopyNodeData(Sender: TObject);
+begin
+  Editor.CopyAllToClipboard;
+end;
+
 procedure TfrmMain.FTreeDropFiles(Sender: TBaseVirtualTree;
   AFiles: TStrings; AAttachMode: TVTNodeAttachMode);
 var
@@ -531,7 +555,7 @@ begin
     FParentId := Snippet.ParentId;
   end;
   DataSet.DisableControls;
-  DataSet.BeginBulkInserts;
+  Connection.BeginBulkInserts;
   try
     for I := 0 to AFiles.Count - 1 do
     begin
@@ -547,7 +571,7 @@ begin
       end;
     end;
   finally
-    DataSet.EndBulkInserts;
+    Connection.EndBulkInserts;
     DataSet.DataSet.Refresh;
     DataSet.EnableControls;
     Sender.Refresh;
@@ -594,6 +618,7 @@ begin
   FTree.OnNewFolderNode       := FTreeNewFolderNode;
   FTree.OnNewItemNode         := FTreeNewItemNode;
   FTree.OnDeleteSelectedNodes := FTreeDeleteSelectedNodes;
+  FTree.OnCopyNodeData        := FTreeCopyNodeData;
 end;
 
 procedure TfrmMain.CreateEditor;
@@ -620,19 +645,17 @@ end;
 
 procedure TfrmMain.CreateRichEditor;
 var
-  RV  : IRichEditorView;
-  RVE : IRichEditorEvents;
+  RV : IRichEditorView;
 begin
   FRichEditorManager := TRichEditorFactories.CreateManager(Self);
   RV := TRichEditorFactories.CreateView(
-    pnlComments,
+    pnlRichEditor,
     FRichEditorManager,
     'Comment'
   );
+  RV.IsFile    := False;
   RV.OnChange  := RVChange;
   RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
-  RVE := FRichEditorManager as IRichEditorEvents;
-  //RVE.OnBeforeSave := RVEBeforeSave;
 end;
 
 function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
@@ -723,7 +746,7 @@ var
   LParentPath : string;
   LFileName   : string;
 begin
-  DataSet.BeginBulkInserts;
+  Connection.BeginBulkInserts;
   LIsTextFile := False;
   LIsDir      := False;
   if DirectoryExists(APath) then
@@ -787,7 +810,7 @@ var
   LParentPath : string;
   LFileName   : string;
 begin
-  DataSet.EndBulkInserts;
+  Connection.EndBulkInserts;
   LRelPath    := CreateRelativePath(APath, ACommonPath);
   LParentPath := ChompPathDelim(GetParentDir(LRelPath));
   if LParentPath <> '' then
@@ -818,12 +841,13 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-procedure TfrmMain.AddButton(const AActionName: string; APopupMenu: TPopupMenu);
+procedure TfrmMain.AddButton(AToolBar: TToolBar; const AActionName: string;
+  APopupMenu: TPopupMenu);
 var
   TB : TToolButton;
 begin
   TB := TToolButton.Create(Self);
-  TB.Parent := tlbEditorView;
+  TB.Parent := AToolBar;
   if Assigned(APopupMenu) then
   begin
     TB.Style := tbsDropDown;
@@ -841,12 +865,12 @@ begin
   end;
 end;
 
-procedure TfrmMain.AddButton(AAction: TBasicAction);
+procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction);
 var
   TB : TToolButton;
 begin
   TB := TToolButton.Create(Self);
-  TB.Parent := tlbApplication;
+  TB.Parent := AToolBar;
   TB.Action := AAction;
 end;
 
@@ -858,32 +882,42 @@ begin
   if Snippet.Highlighter = '' then
     Snippet.Highlighter := 'TXT';
   SaveRichText;
-  SaveRichText; // needs to be done twice for embedded pictures
+  SaveRichText; // needs to be done twice for embedded pictures => TODO bugfix
 end;
 
 procedure TfrmMain.BuildToolBar;
 begin
   tlbEditorView.Images := FEditorManager.Actions.ActionList.Images;
   tlbApplication.Images := imlMain;
-  AddButton('actSave');
-  AddButton('actSaveAs');
-  AddButton('');
-  AddButton('actCut');
-  AddButton('actCopy');
-  AddButton('actPaste');
-  AddButton('');
-  AddButton('actUndo');
-  AddButton('actRedo');
-  AddButton('');
-  AddButton('actSelectAll');
-  AddButton('actCopyAllToClipboard');
-  AddButton('actClear');
-  AddButton('');
-  AddButton('actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu);
-  AddButton('actToggleHighlighter', FEditorManager.Menus.HighlighterPopupMenu);
-  AddButton('');
-  AddButton('actSettings');
-  AddButton('actAbout');
+  AddButton(tlbEditorView, 'actSave');
+  AddButton(tlbEditorView, 'actSaveAs');
+  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView, 'actCut');
+  AddButton(tlbEditorView, 'actCopy');
+  AddButton(tlbEditorView, 'actPaste');
+  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView, 'actUndo');
+  AddButton(tlbEditorView, 'actRedo');
+  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView, 'actSelectAll');
+  AddButton(tlbEditorView, 'actCopyAllToClipboard');
+  AddButton(tlbEditorView, 'actClear');
+  AddButton(tlbEditorView, '');
+  AddButton(
+    tlbEditorView, 'actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu
+  );
+  AddButton(
+    tlbEditorView,
+    'actToggleHighlighter',
+    FEditorManager.Menus.HighlighterPopupMenu
+  );
+  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView, 'actSettings');
+
+  AddButton(tlbApplication, actLookup);
+  AddButton(tlbApplication, actExecute);
+  AddButton(tlbApplication, actSettings);
+  AddButton(tlbApplication, actAbout);
 end;
 
 procedure TfrmMain.HideAction(const AActionName: string);
@@ -933,11 +967,19 @@ procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
   btnHighlighter.Caption := Editor.HighlighterName;
-  pnlEditor.Visible := DataSet.RecordCount > 0;
+  pnlEditor.Visible := (DataSet.RecordCount > 0) and (FTree.SelectionCount < 2);
+  pnlWelcome.Visible := not pnlEditor.Visible;
+  UpdateToolBars;
+  UpdateViews;
   UpdateStatusBar;
+  pnlWelcome.Visible := DataSet.DataSet.Active and DataSet.DataSet.IsEmpty;
 end;
 
 procedure TfrmMain.UpdateStatusBar;
+var
+  LWidth    : Integer;
+  LFileName : string;
+  SS        : TShiftState;
 begin
   pnlPosition.Caption :=
     Format('%1d:%1d / %1d | %1d', [
@@ -958,12 +1000,39 @@ begin
       SDateModified, [DateTimeToStr(Snippet.DateModified)]
     );
   end;
-
   if Editor.Editor.InsertMode then
     pnlEditMode.Caption := 'INS'
   else
     pnlEditMode.Caption := 'OVR';
   pnlLineBreakStyle.Caption := Editor.LineBreakStyle;
+
+  if Odd(GetKeyState(VK_NUMLOCK)) then
+    pnlStatusBarCenter.Caption := 'NUM '
+  else
+    pnlStatusBarCenter.Caption := '';
+
+  if Odd(GetKeyState(VK_CAPITAL)) then
+    pnlStatusBarCenter.Caption := pnlStatusBarCenter.Caption + 'CAPS '
+  else
+    pnlStatusBarCenter.Caption := pnlStatusBarCenter.Caption + '';
+
+
+
+  //LWidth := GetTextWidth(FSettings.Database, pnlStatusBarCenter.Font);
+  //if pnlStatusBarCenter.Width > LWidth then
+  //  pnlStatusBarCenter.Caption := FSettings.Database
+  //else
+  //begin
+  //  LFileName := ExtractFileName(FSettings.Database);
+  //  LWidth := GetTextWidth(LFileName, pnlStatusBarCenter.Font);
+  //  if pnlStatusBarCenter.Width > LWidth then
+  //    pnlStatusBarCenter.Caption := LFileName
+  //  else
+  //    pnlStatusBarCenter.Caption := '';
+  //end;
+
+
+
   OptimizeWidth(pnlSnippetCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
@@ -972,6 +1041,36 @@ begin
   OptimizeWidth(pnlId);
   OptimizeWidth(pnlDateCreated);
   OptimizeWidth(pnlDateModified);
+end;
+
+procedure TfrmMain.UpdateViews;
+begin
+  //Logger.Watch('RichEditor.IsEmpty', RichEditor.IsEmpty);
+  //Logger.Send('RichEditor.Text', RichEditor.Text);
+  if FSettings.AutoHideRichEditor and RichEditor.IsEmpty then
+  begin
+    pnlRichEditor.Visible := False;
+    splHorizontal.Visible := False;
+  end
+  else
+  begin
+    pnlRichEditor.Visible := True;
+    splHorizontal.Visible := True;
+    pnlRichEditor.Align := alBottom;
+  end;
+end;
+
+procedure TfrmMain.UpdateToolBars;
+begin
+  if FSettings.AutoHideEditorToolBar then
+    pnlEditorToolBar.Visible := Editor.Focused
+  else
+    pnlEditorToolBar.Visible := True;
+  shpLine.Visible := pnlEditorToolBar.Visible;
+  if FSettings.AutoHideRichEditorToolBar then
+    FRichEditorToolBar.Visible := RichEditor.Focused
+  else
+  FRichEditorToolBar.Visible := True;
 end;
 {$ENDREGION}
 

@@ -96,6 +96,7 @@ type
     procedure actFindExecute(Sender: TObject);
     {$ENDREGION}
 
+    {$REGION 'event handlers'}
     procedure cbxSearchTextChange(Sender: TObject);
     procedure chkClick(Sender: TObject);
     procedure DoOnSelectionChanged(Sender: TObject);
@@ -107,6 +108,7 @@ type
     procedure rbFromCursorClick(Sender: TObject);
     procedure rbActiveViewClick(Sender: TObject);
     procedure rbSelectionClick(Sender: TObject);
+    {$ENDREGION}
 
   private
     FTVP : TTreeViewPresenter;

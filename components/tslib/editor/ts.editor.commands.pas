@@ -148,9 +148,6 @@ type
     property Manager: IEditorManager
       read GetManager;
 
-  public
-    procedure AfterConstruction; override;
-
   end;
 
 implementation
@@ -166,19 +163,12 @@ uses
 
   SynPluginSyncroEdit, SynEditKeyCmds, SynEditTypes,
 
-  ts.Core.Utils,
+  ts.Core.Utils, ts.Core.Logger,
 
   ts.Editor.Highlighters, ts.Editor.Resources, ts.Editor.CommentStripper,
   ts.Editor.SortStrings.Settings,
 
   ts.Editor.Utils;
-
-{$REGION 'construction and destruction'}
-procedure TEditorCommands.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-{$ENDREGION}
 
 {$REGION 'property access mehods'}
 function TEditorCommands.GetEvents: IEditorEvents;
@@ -216,11 +206,11 @@ end;
 function TEditorCommands.StripComments(const AString: string;
   const AHighlighter: string): string;
 var
-  SSIn  : TStringStream;
-  SSOut : TStringStream;
-  CS    : TCustomCommentStripper;
-  C     : Char;
-  S     : string;
+  LSSIn  : TStringStream;
+  LSSOut : TStringStream;
+  CS     : TCustomCommentStripper;
+  C      : Char;
+  S      : string;
 begin
   CS := nil;
   if AnsiMatchStr(AHighlighter, [HL_PAS]) then
@@ -230,26 +220,26 @@ begin
   if Assigned(CS) then
   begin
     try
-      SSIn := TStringStream.Create('');
+      LSSIn := TStringStream.Create('');
       try
-        SSIn.WriteString(AString);
+        LSSIn.WriteString(AString);
         C := #0;
-        SSIn.Write(C, 1);
-        SSIn.Position := 0;
-        SSOut := TStringStream.Create('');
+        LSSIn.Write(C, 1);
+        LSSIn.Position := 0;
+        LSSOut := TStringStream.Create('');
         try
-          CS.InStream  := SSIn;
-          CS.OutStream := SSOut;
+          CS.InStream  := LSSIn;
+          CS.OutStream := LSSOut;
           CS.Parse;
-          SSOut.Position := 0;
-          S := SSOut.ReadString(SSOut.Size);
+          LSSOut.Position := 0;
+          S := LSSOut.ReadString(LSSOut.Size);
           S := MergeBlankLines(S);
           Result := S;
         finally
-          SSOut.Free;
+          LSSOut.Free;
         end;
       finally
-        SSIn.Free;
+        LSSIn.Free;
       end;
     finally
       CS.Free;
@@ -360,16 +350,19 @@ end;
 
 function TEditorCommands.IsSQL(const AString: string): Boolean;
 begin
+  // TODO
   Result := False;
 end;
 
 function TEditorCommands.IsLOG(const AString: string): Boolean;
 begin
+  // TODO
   Result := False;
 end;
 
 function TEditorCommands.IsLFM(const AString: string): Boolean;
 begin
+  // TODO
   Result := False;
 end;
 
@@ -569,12 +562,14 @@ end;
 
 procedure TEditorCommands.Save;
 begin
+  Logger.Enter('TEditorCommands.Save');
   if View.IsFile then
     SaveFile(View.FileName)
   else
   begin
     View.Save;
   end;
+  Logger.Leave('TEditorCommands.Save');
 end;
 
 function TEditorCommands.SaveFile(const AFileName: string; AShowDialog: Boolean

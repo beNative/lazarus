@@ -61,7 +61,6 @@ const
   DEFAULT_KEYFIELDNAME      = 'Id';
   DEFAULT_LEVELFIELDNAME    = 'Id';
   DEFAULT_PARENTFIELDNAME   = 'ParentId';
-  DEFAULT_PATHFIELDNAME     = '';
   DEFAULT_IMGIDXFIELDNAME   = 'ImageIndex';
   DEFAULT_IMAGEFIELDNAME    = 'Image';
   DEFAULT_NODETYPEFIELDNAME = 'NodeTypeId';
@@ -82,38 +81,44 @@ type
 
   TfrmVirtualDBTree = class(TForm)
     {$REGION 'designer controls'}
-    actCollapseAllNodes    : TAction;
-    actDeleteSelectedNodes : TAction;
-    actExpandAllNodes      : TAction;
-    actNewFolderNode       : TAction;
-    actNewItemNode         : TAction;
-    actNewRootFolderNode   : TAction;
-    alsMain                : TActionList;
-    btnCollapseAllNodes    : TToolButton;
-    btnDivider             : TToolButton;
-    btnExpandAllNodes      : TToolButton;
-    btnNewFolder           : TToolButton;
-    btnNewItem             : TToolButton;
-    btnNewRoot             : TToolButton;
-    dscMain                : TDataSource;
-    imlMain                : TImageList;
-    mniDelete              : TMenuItem;
-    mniNewChild            : TMenuItem;
-    mniNewFolder           : TMenuItem;
-    navTreeView            : TDBNavigator;
-    pnlTopLeft             : TPanel;
-    pnlTopRight            : TPanel;
-    pnlTree                : TPanel;
-    ppmTreeView            : TPopupMenu;
-    N1                     : TMenuItem;
-    mniNewRoot             : TMenuItem;
-    pnlMain                : TPanel;
-    pnlTop                 : TPanel;
-    pnlBottom              : TPanel;
-    tlbTop                 : TToolBar;
+    actCollapseAllNodes       : TAction;
+    actDeleteSelectedNodes    : TAction;
+    actExpandAllNodes         : TAction;
+    actCopyNodeData           : TAction;
+    actDuplicateSelectedNodes : TAction;
+    actNewFolderNode          : TAction;
+    actNewItemNode            : TAction;
+    actNewRootFolderNode      : TAction;
+    alMain                    : TActionList;
+    btnCollapseAllNodes       : TToolButton;
+    btnDivider                : TToolButton;
+    btnExpandAllNodes         : TToolButton;
+    btnNewFolder              : TToolButton;
+    btnNewItem                : TToolButton;
+    btnNewRoot                : TToolButton;
+    dscMain                   : TDataSource;
+    imlMain                   : TImageList;
+    mniCopyNodeData           : TMenuItem;
+    mniDelete                 : TMenuItem;
+    mniNewChild               : TMenuItem;
+    mniNewFolder              : TMenuItem;
+    navTreeView               : TDBNavigator;
+    pnlTopLeft                : TPanel;
+    pnlTopRight               : TPanel;
+    pnlTree                   : TPanel;
+    ppmTreeView               : TPopupMenu;
+    N1                        : TMenuItem;
+    mniNewRoot                : TMenuItem;
+    pnlMain                   : TPanel;
+    pnlTop                    : TPanel;
+    pnlBottom                 : TPanel;
+    shpLine                   : TShape;
+    tlbTop                    : TToolBar;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
+    procedure actCopyNodeDataExecute(Sender: TObject);
+    procedure actDuplicateSelectedNodesExecute(Sender: TObject);
     procedure actNewRootFolderNodeExecute(Sender: TObject);
     procedure actNewFolderNodeExecute(Sender: TObject);
     procedure actNewItemNodeExecute(Sender: TObject);
@@ -171,6 +176,7 @@ type
     FOnNewFolderNode       : TNotifyEvent;
     FOnNewItemNode         : TNotifyEvent;
     FOnDeleteSelectedNodes : TNotifyEvent;
+    FOnCopyNodeData        : TNotifyEvent;
     FNodeTypeFieldName     : string;
 
     {$REGION 'property access methods'}
@@ -187,7 +193,7 @@ type
     function GetParentField: TField;
     function GetParentFieldName: string;
     function GetPathField: TField;
-    function GetPathFieldName: string;
+    function GetSelectionCount: Integer;
     function GetViewField: TField;
     function GetViewFieldName: string;
     procedure SetImageFieldName(AValue: string);
@@ -197,7 +203,6 @@ type
     procedure SetLevelFieldName(const AValue: string);
     procedure SetNodeTypeFieldName(AValue: string);
     procedure SetParentFieldName(const AValue: string);
-    procedure SetPathFieldName(const AValue: string);
     procedure SetViewFieldName(const AValue: string);
     procedure SetDataSet(const Value: TDataSet);
     procedure SetMultiSelect(const Value: Boolean);
@@ -225,15 +230,19 @@ type
     // event dispatch methods
     procedure DoNewFolderNode; dynamic;
     procedure DoNewItemNode; dynamic;
+    procedure DoCopyNodeData; dynamic;
     procedure DoDropFiles(
       AFiles            : TStrings;
       const AAttachMode : TVTNodeAttachMode
     ); dynamic;
     procedure DoDeleteSelectedNodes; dynamic;
 
+    procedure UpdateActions; override;
+
   public
     procedure AfterConstruction; override;
     procedure BeforeDestruction; override;
+
     procedure NewFolderNode;
     procedure NewItemNode;
     procedure NewSubItemNode;
@@ -277,6 +286,9 @@ type
     property ToolbarBottomVisible: Boolean
       read GetToolbarBottomVisible write SetToolbarBottomVisible default True;
 
+    property SelectionCount: Integer
+      read GetSelectionCount;
+
     property KeyFieldName: string
       read GetKeyFieldName write SetKeyFieldName;
 
@@ -285,9 +297,6 @@ type
 
     property LevelFieldName: string
       read GetLevelFieldName write SetLevelFieldName;
-
-    property PathFieldName: string
-      read GetPathFieldName write SetPathFieldName;
 
     property NodeTypeFieldName: string
       read GetNodeTypeFieldName write SetNodeTypeFieldName;
@@ -316,6 +325,9 @@ type
 
     property OnDeleteSelectedNodes : TNotifyEvent
       read FOnDeleteSelectedNodes write FOnDeleteSelectedNodes;
+
+    property OnCopyNodeData : TNotifyEvent
+      read FOnCopyNodeData write FOnCopyNodeData;
   end;
 
 implementation
@@ -347,7 +359,6 @@ begin
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   LevelFieldName    := DEFAULT_LEVELFIELDNAME;
   ParentFieldName   := DEFAULT_PARENTFIELDNAME;
-  PathFieldName     := DEFAULT_PATHFIELDNAME;
   ImgIdxFieldName   := DEFAULT_IMGIDXFIELDNAME;
   ViewFieldName     := DEFAULT_VIEWFIELDNAME;
   NodeTypeFieldName := DEFAULT_NODETYPEFIELDNAME;
@@ -492,14 +503,9 @@ begin
   FTreeView.ParentFieldName := AValue;
 end;
 
-function TfrmVirtualDBTree.GetPathFieldName: string;
+function TfrmVirtualDBTree.GetSelectionCount: Integer;
 begin
-  Result := FTreeView.PathFieldName;
-end;
-
-procedure TfrmVirtualDBTree.SetPathFieldName(const AValue: string);
-begin
-  FTreeView.PathFieldName := AValue;
+  Result := FTreeView.SelectedCount;
 end;
 
 function TfrmVirtualDBTree.GetViewField: TField;
@@ -552,6 +558,12 @@ begin
     FOnNewItemNode(Self);
 end;
 
+procedure TfrmVirtualDBTree.DoCopyNodeData;
+begin
+  if Assigned(OnCopyNodeData) then
+    OnCopyNodeData(Self);
+end;
+
 procedure TfrmVirtualDBTree.DoDropFiles(AFiles: TStrings;
   const AAttachMode : TVTNodeAttachMode);
 begin
@@ -564,12 +576,28 @@ begin
   if Assigned(FOnDeleteSelectedNodes) then
     FOnDeleteSelectedNodes(Self);
 end;
+
+procedure TfrmVirtualDBTree.UpdateActions;
+begin
+  inherited UpdateActions;
+  actCopyNodeData.Enabled := SelectionCount = 1;
+end;
 {$ENDREGION}
 
 {$REGION 'action handlers'}
 procedure TfrmVirtualDBTree.actNewRootFolderNodeExecute(Sender: TObject);
 begin
   NewRootFolderNode;
+end;
+
+procedure TfrmVirtualDBTree.actCopyNodeDataExecute(Sender: TObject);
+begin
+  DoCopyNodeData;
+end;
+
+procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmVirtualDBTree.actNewFolderNodeExecute(Sender: TObject);

@@ -4856,22 +4856,16 @@ object dmEditorManager: TdmEditorManager
     Images = imlMain
     left = 40
     top = 264
-    object MenuItem1: TMenuItem
-    end
   end
   object ppmHighLighters: TPopupMenu
     Images = imlMain
     left = 40
     top = 200
-    object MenuItem7: TMenuItem
-    end
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
     left = 40
     top = 144
-    object MenuItem4: TMenuItem
-    end
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
@@ -4887,7 +4881,7 @@ object dmEditorManager: TdmEditorManager
     Images = imlMain
     left = 40
     top = 88
-    object MenuItem43: TMenuItem
+    object mniFoldLevel0: TMenuItem
       Action = actFoldLevel0
       AutoCheck = True
       GroupIndex = 1
@@ -4896,7 +4890,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel0Execute
     end
-    object MenuItem44: TMenuItem
+    object mniFoldLevel1: TMenuItem
       Action = actFoldLevel1
       AutoCheck = True
       GroupIndex = 1
@@ -4905,7 +4899,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel1Execute
     end
-    object MenuItem45: TMenuItem
+    object mniFoldLevel2: TMenuItem
       Action = actFoldLevel2
       AutoCheck = True
       GroupIndex = 1
@@ -4914,7 +4908,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel2Execute
     end
-    object MenuItem46: TMenuItem
+    object mniFoldLevel3: TMenuItem
       Action = actFoldLevel3
       AutoCheck = True
       GroupIndex = 1
@@ -4923,7 +4917,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel3Execute
     end
-    object MenuItem47: TMenuItem
+    object mniFoldLevel4: TMenuItem
       Action = actFoldLevel4
       AutoCheck = True
       GroupIndex = 1
@@ -4932,7 +4926,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel4Execute
     end
-    object MenuItem48: TMenuItem
+    object mniFoldLevel5: TMenuItem
       Action = actFoldLevel5
       AutoCheck = True
       GroupIndex = 1
@@ -4941,7 +4935,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel5Execute
     end
-    object MenuItem49: TMenuItem
+    object mniFoldLevel6: TMenuItem
       Action = actFoldLevel6
       AutoCheck = True
       GroupIndex = 1
@@ -4950,7 +4944,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel6Execute
     end
-    object MenuItem50: TMenuItem
+    object mniFoldLevel7: TMenuItem
       Action = actFoldLevel7
       AutoCheck = True
       GroupIndex = 1
@@ -4959,7 +4953,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel7Execute
     end
-    object MenuItem51: TMenuItem
+    object mniFoldLevel8: TMenuItem
       Action = actFoldLevel8
       AutoCheck = True
       GroupIndex = 1
@@ -4968,7 +4962,7 @@ object dmEditorManager: TdmEditorManager
       ShowAlwaysCheckable = True
       OnClick = actFoldLevel8Execute
     end
-    object MenuItem52: TMenuItem
+    object mniFoldLevel9: TMenuItem
       Action = actFoldLevel9
       AutoCheck = True
       GroupIndex = 1
@@ -5021,92 +5015,66 @@ object dmEditorManager: TdmEditorManager
     Images = imlMain
     left = 88
     top = 368
-    object MenuItem19: TMenuItem
-    end
   end
   object ppmLineBreakStyle: TPopupMenu
     Images = imlMain
     left = 117
     top = 88
-    object MenuItem6: TMenuItem
-    end
   end
   object ppmSelectionMode: TPopupMenu
     Images = imlMain
     left = 117
     top = 32
-    object MenuItem3: TMenuItem
-    end
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
     left = 117
     top = 144
-    object MenuItem5: TMenuItem
-    end
   end
   object ppmEditor: TPopupMenu
     Images = imlMain
     left = 40
     top = 32
-    object MenuItem2: TMenuItem
-    end
   end
   object ppmInsert: TPopupMenu
     Images = imlMain
     left = 121
     top = 215
-    object MenuItem8: TMenuItem
-    end
   end
   object ppmSearch: TPopupMenu
     Images = imlMain
     left = 117
     top = 280
-    object MenuItem9: TMenuItem
-    end
   end
   object ppmSettings: TPopupMenu
     Images = imlMain
     left = 200
     top = 280
-    object MenuItem10: TMenuItem
-    end
   end
   object ppmSelect: TPopupMenu
     Images = imlMain
     left = 200
     top = 215
-    object MenuItem11: TMenuItem
-    end
   end
   object ppmFile: TPopupMenu
     Images = imlMain
     left = 280
     top = 224
-    object MenuItem12: TMenuItem
-    end
   end
   object ppmExecuteScriptOnSelection: TPopupMenu
     Images = imlMain
     left = 224
     top = 368
-    object MenuItem20: TMenuItem
-    end
   end
   object ppmSelectionEncode: TPopupMenu
     Images = imlMain
     left = 88
     top = 464
-    object MenuItem21: TMenuItem
-    end
   end
   object ppmSelectionDecode: TPopupMenu
     Images = imlMain
     left = 224
     top = 464
-    object MenuItem22: TMenuItem
-    end
   end
   object PascalScript: TPSScript
     CompilerOptions = []

@@ -53,6 +53,8 @@ type
     HotKey      : Integer;
   end;
 
+function AskConfirmation(const AMessage: string): Boolean;
+
 { Sets DoubleBuffered property for all TWinControl instances owned by the given
   component. }
 
@@ -272,10 +274,8 @@ uses
 {$IFDEF WINDOWS}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
-
-  LazFileUtils,
-
-  Variants, ActnList;
+  Variants, ActnList, Dialogs,
+  LazFileUtils;
 
 resourcestring
   SNoCorrespondingFieldType = 'No corresponding fieldtype found for Variant ' +
@@ -454,6 +454,21 @@ begin
       Result := ExtractFilePath(ExtractFileDir(Result));
     Inc(I);
   end;
+end;
+
+function AskConfirmation(const AMessage: string): Boolean;
+var
+  MR: TModalResult;
+begin
+  MR := MessageDlg(AMessage, mtConfirmation, [mbYes, mbNo], 0);
+  if MR = mrYes then
+  begin
+    Result := True;
+  end
+  else
+  begin
+    Result := False;
+  end
 end;
 
 procedure SetDoubleBuffered(AOwner: TComponent; AEnable: Boolean);

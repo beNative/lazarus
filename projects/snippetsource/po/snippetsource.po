@@ -16,6 +16,12 @@ msgctxt "snippetsource.forms.virtualdbtree.snewfolder"
 msgid "New folder"
 msgstr ""
 
+#: snippetsource.resources.saskrecreatetables
+msgid ""
+"Warning: this will delete all data!\n"
+"Are you sure you want to continue?\n"
+msgstr ""
+
 #: snippetsource.resources.sdatecreated
 msgid "Created: %s"
 msgstr ""
@@ -175,6 +181,20 @@ msgstr ""
 msgid "SnippetSource"
 msgstr ""
 
+#: tfrmmain.lblwelcome.caption
+msgid ""
+"Welcome to SnippetSource! \n"
+"\n"
+"A new database has been created, \n"
+"and you can start collecting your snippets right away!\n"
+"\n"
+"You can drag one or more textfiles into the treeview\n"
+"and they will be added to the database.\n"
+"\n"
+"It is also possible to drag complete folderstructures into\n"
+"the treeview. \n"
+msgstr ""
+
 #: tfrmmain.pnldatecreated.hint
 msgid "Creation date"
 msgstr ""
@@ -217,10 +237,6 @@ msgstr ""
 msgid "tlbApplication"
 msgstr ""
 
-#: tfrmmain.toolbutton1.caption
-msgid "ToolButton1"
-msgstr ""
-
 #: tfrmsettingsdialog.actaddglyphs.caption
 msgid "Add glyph files"
 msgstr ""
@@ -232,6 +248,22 @@ msgstr ""
 
 #: tfrmsettingsdialog.actclose.hint
 msgid "Close dialog"
+msgstr ""
+
+#: tfrmsettingsdialog.actcreatedatabaseindexes.caption
+msgid "(Re)creates all indexes"
+msgstr ""
+
+#: tfrmsettingsdialog.actcreatedatabasetables.caption
+msgid "(Re)creates all tables"
+msgstr ""
+
+#: tfrmsettingsdialog.actcreatedatabasetables.hint
+msgid "(Re)creates all database tables. All preexisting tables are dropped fist."
+msgstr ""
+
+#: tfrmsettingsdialog.actcreatedatabasetriggers.caption
+msgid "(Re)create all triggers"
 msgstr ""
 
 #: tfrmsettingsdialog.actcreatenewdatabase.caption
@@ -300,9 +332,29 @@ msgstr ""
 msgid "Refresh glyphs"
 msgstr ""
 
+#: tfrmsettingsdialog.actreloadconfigurationdata.caption
+msgid "(Re)load configuration data"
+msgstr ""
+
+#: tfrmsettingsdialog.actreloadconfigurationdata.hint
+msgid "This will reload all configuration data. Any preexisting data is cleared."
+msgstr ""
+
 #: tfrmsettingsdialog.caption
 msgctxt "tfrmsettingsdialog.caption"
 msgid "Settings"
+msgstr ""
+
+#: tfrmsettingsdialog.chkautohideeditortoolbar.caption
+msgid "Hide editor toolbar when not focused."
+msgstr ""
+
+#: tfrmsettingsdialog.chkautohidericheditor.caption
+msgid "Automatically hide RichEditor when no data."
+msgstr ""
+
+#: tfrmsettingsdialog.chkautohidericheditortoolbar.caption
+msgid "Hide RichEditor toolbar when not focused."
 msgstr ""
 
 #: tfrmsettingsdialog.dlgopen.title
@@ -311,6 +363,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.grpdatabaseinfo.caption
 msgid "Database information"
+msgstr ""
+
+#: tfrmsettingsdialog.grplayout.caption
+msgid "Layout"
 msgstr ""
 
 #: tfrmsettingsdialog.highlighters.caption
@@ -330,6 +386,10 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
+#: tfrmsettingsdialog.tsuserinterface.caption
+msgid "User interface"
+msgstr ""
+
 #: tfrmsettingsdialog.vstimagelist.header.columns[0].text
 msgid "Index"
 msgstr ""
@@ -342,8 +402,20 @@ msgstr ""
 msgid "Collapse all nodes"
 msgstr ""
 
+#: tfrmvirtualdbtree.actcopynodedata.caption
+msgid "Copy snippet to clipboard"
+msgstr ""
+
+#: tfrmvirtualdbtree.actcopynodedata.hint
+msgid "Copies the snippet code of the selected node to the clipboard."
+msgstr ""
+
 #: tfrmvirtualdbtree.actdeleteselectednodes.hint
 msgid "Delete all selected nodes (Del)"
+msgstr ""
+
+#: tfrmvirtualdbtree.actduplicateselectednodes.caption
+msgid "Duplicate selected node(s)"
 msgstr ""
 
 #: tfrmvirtualdbtree.actexpandallnodes.hint

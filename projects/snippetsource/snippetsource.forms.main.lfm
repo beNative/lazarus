@@ -1,25 +1,23 @@
 object frmMain: TfrmMain
-  Left = 564
-  Height = 597
-  Top = 228
-  Width = 999
+  Left = 1038
+  Height = 397
+  Top = 515
+  Width = 676
   Caption = 'SnippetSource'
-  ClientHeight = 597
-  ClientWidth = 999
+  ClientHeight = 397
+  ClientWidth = 676
   Color = clWindow
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
   Font.Height = -11
-  Font.Name = 'Tahoma'
-  Font.Pitch = fpVariable
-  Font.Quality = fqDraft
+  Font.Name = 'Segoe UI'
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
   LCLVersion = '2.0.2.0'
   object pnlLeft: TPanel
     Left = 0
-    Height = 579
+    Height = 379
     Top = 0
     Width = 282
     Align = alLeft
@@ -28,124 +26,91 @@ object frmMain: TfrmMain
   end
   object pnlRight: TPanel
     Left = 286
-    Height = 579
+    Height = 379
     Top = 0
-    Width = 713
+    Width = 390
     Align = alClient
     BevelOuter = bvNone
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 579
-    ClientWidth = 713
+    ClientHeight = 379
+    ClientWidth = 390
+    Color = clBtnFace
+    ParentColor = False
     TabOrder = 1
+    Wordwrap = True
     object pnlEditor: TPanel
       Left = 0
-      Height = 579
+      Height = 379
       Top = 0
-      Width = 713
+      Width = 390
       Align = alClient
       BevelOuter = bvNone
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 579
-      ClientWidth = 713
+      ClientHeight = 379
+      ClientWidth = 390
+      Color = clBtnFace
+      ParentBackground = False
+      ParentColor = False
       TabOrder = 0
-      object tlbEditorView: TToolBar
-        Left = 0
-        Height = 22
-        Top = 24
-        Width = 713
-        AutoSize = True
-        ButtonHeight = 22
-        ButtonWidth = 20
-        EdgeBorders = []
-        EdgeInner = esNone
-        EdgeOuter = esNone
-        TabOrder = 0
-        Transparent = True
-        object tlbApplication: TToolBar
-          Left = 647
-          Height = 22
-          Top = 0
-          Width = 62
-          Align = alRight
-          AutoSize = True
-          Caption = 'tlbApplication'
-          EdgeBorders = []
-          EdgeInner = esNone
-          EdgeOuter = esNone
-          TabOrder = 0
-        end
-        object btnLookup: TToolButton
-          Left = 9
-          Top = 0
-          Action = actLookup
-        end
-        object btnSettingsDialog: TToolButton
-          Left = 29
-          Top = 0
-          Action = actSettings
-          ImageIndex = 7
-        end
-        object btnConsole: TToolButton
-          Left = 49
-          Top = 0
-          Action = actExecute
-        end
-        object ToolButton1: TToolButton
-          Left = 1
-          Height = 22
-          Top = 0
-          Caption = 'ToolButton1'
-          Style = tbsSeparator
-        end
-      end
-      object pnlComments: TPanel
+      object pnlRichEditor: TPanel
         Left = 0
         Height = 120
-        Top = 459
-        Width = 713
+        Top = 259
+        Width = 390
         Align = alBottom
         BevelOuter = bvNone
-        TabOrder = 1
+        ClientHeight = 120
+        ClientWidth = 390
+        TabOrder = 0
+        object shpLine2: TShape
+          Left = 0
+          Height = 1
+          Top = 0
+          Width = 390
+          Align = alTop
+          Pen.Color = clScrollBar
+        end
       end
       object splHorizontal: TSplitter
         Cursor = crVSplit
         Left = 0
         Height = 4
-        Top = 455
-        Width = 713
+        Top = 255
+        Width = 390
         Align = alBottom
         AutoSnap = False
-        Color = clBtnFace
+        Color = clScrollBar
         MinSize = 50
         ParentColor = False
         ParentShowHint = False
         ResizeAnchor = akBottom
-        ResizeStyle = rsPattern
+        ResizeStyle = rsLine
       end
       object pnlTitle: TPanel
         Left = 0
         Height = 24
         Top = 0
-        Width = 713
+        Width = 390
         Align = alTop
+        BevelColor = clScrollBar
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 713
+        ClientWidth = 390
         Color = clBtnFace
         ParentColor = False
-        TabOrder = 3
+        TabOrder = 2
         object edtTitle: TEdit
-          Left = 2
+          Left = 48
           Height = 24
-          Top = 1
-          Width = 646
-          Align = alCustom
+          Top = 0
+          Width = 250
+          Align = alClient
           Alignment = taCenter
           Anchors = [akTop, akLeft, akRight]
           AutoSize = False
           BorderStyle = bsNone
           Font.CharSet = ANSI_CHARSET
-          Font.Color = clGray
+          Font.Color = clGrayText
           Font.Height = -17
           Font.Name = 'Segoe UI'
           Font.Pitch = fpVariable
@@ -161,11 +126,11 @@ object frmMain: TfrmMain
           TabOrder = 0
         end
         object btnHighlighter: TMenuButton
-          Left = 649
-          Height = 22
-          Top = 3
-          Width = 62
-          Anchors = [akTop, akRight]
+          Left = 0
+          Height = 24
+          Top = 0
+          Width = 48
+          Align = alLeft
           Flat = True
           Font.CharSet = ANSI_CHARSET
           Font.Color = clBlack
@@ -176,187 +141,242 @@ object frmMain: TfrmMain
           Font.Style = [fsBold]
           ParentFont = False
         end
+        object tlbApplication: TToolBar
+          Left = 298
+          Height = 24
+          Top = 0
+          Width = 92
+          Align = alRight
+          Caption = 'tlbApplication'
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          TabOrder = 1
+          Transparent = True
+        end
+      end
+      object pnlEditorToolBar: TPanel
+        Left = 0
+        Height = 24
+        Top = 25
+        Width = 390
+        Align = alTop
+        BevelColor = clScrollBar
+        BevelOuter = bvNone
+        ClientHeight = 24
+        ClientWidth = 390
+        TabOrder = 3
+        object tlbEditorView: TToolBar
+          Left = 0
+          Height = 24
+          Top = 0
+          Width = 390
+          Align = alClient
+          ButtonHeight = 22
+          ButtonWidth = 20
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          TabOrder = 0
+          Transparent = True
+        end
+      end
+      object shpLine: TShape
+        Left = 0
+        Height = 1
+        Top = 49
+        Width = 390
+        Align = alTop
+        Pen.Color = clScrollBar
+      end
+      object shpLine1: TShape
+        Left = 0
+        Height = 1
+        Top = 24
+        Width = 390
+        Align = alTop
+        Pen.Color = clScrollBar
       end
     end
   end
   object splVertical: TSplitter
     Left = 282
-    Height = 579
+    Height = 379
     Top = 0
     Width = 4
     AutoSnap = False
-    Color = clBtnFace
+    Color = clScrollBar
     MinSize = 50
     ParentColor = False
-    ResizeStyle = rsPattern
+    ResizeStyle = rsLine
   end
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 579
-    Width = 999
+    Top = 379
+    Width = 676
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 18
-    ClientWidth = 999
+    ClientWidth = 676
     Color = clBtnFace
-    Font.CharSet = ANSI_CHARSET
-    Font.Color = clBlack
-    Font.Height = -11
-    Font.Name = 'Tahoma'
     ParentColor = False
-    ParentFont = False
     TabOrder = 3
-    object pnlPosition: TPanel
-      Left = 68
-      Height = 18
-      Hint = 'Cursor position'
-      Top = 0
-      Width = 150
-      Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
-      BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 0
-    end
-    object pnlEditMode: TPanel
-      Left = 276
-      Height = 18
-      Hint = 'Edit mode'
-      Top = 0
-      Width = 38
-      Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
-      Caption = 'INS'
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 1
-    end
-    object pnlDateCreated: TPanel
-      Left = 749
-      Height = 18
-      Hint = 'Creation date'
-      Top = 0
-      Width = 116
-      Align = alRight
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlue
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 2
-    end
-    object pnlDateModified: TPanel
-      Left = 867
-      Height = 18
-      Hint = 'Last modification'
-      Top = 0
-      Width = 130
-      Align = alRight
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clGreen
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 3
-    end
-    object pnlLineBreakStyle: TPanel
-      Left = 316
-      Height = 18
-      Hint = 'Current line break style'
-      Top = 0
-      Width = 44
-      Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
-      ClientHeight = 18
-      ClientWidth = 44
-      TabOrder = 4
-      object btnLineBreakStyle: TSpeedButton
-        Left = 0
-        Height = 18
-        Hint = 'Line break style'
-        Top = 0
-        Width = 44
-        Align = alClient
-        Flat = True
-        OnClick = btnLineBreakStyleClick
-      end
-    end
-    object pnlSize: TPanel
-      Left = 220
-      Height = 18
-      Hint = 'Size'
-      Top = 0
-      Width = 54
-      Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
-      BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 5
-    end
-    object pnlSnippetcount: TPanel
-      Left = 2
-      Height = 18
-      Hint = 'Snippet count'
-      Top = 0
-      Width = 64
-      Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clBlack
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
-      TabOrder = 6
-    end
     object pnlId: TPanel
-      Left = 693
+      Left = 376
       Height = 18
       Hint = 'ID'
       Top = 0
       Width = 54
       Align = alRight
-      BorderSpacing.Left = 2
-      BorderSpacing.Right = 2
-      BorderSpacing.InnerBorder = 2
       BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
-      Font.CharSet = ANSI_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'Tahoma'
-      ParentFont = False
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
       TabOrder = 7
+    end
+    object pnlLineBreakStyle: TPanel
+      Left = 306
+      Height = 18
+      Hint = 'Current line break style'
+      Top = 0
+      Width = 44
+      Align = alLeft
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      ClientHeight = 18
+      ClientWidth = 44
+      TabOrder = 4
+      object btnLineBreakStyle: TSpeedButton
+        Left = 1
+        Height = 16
+        Hint = 'Line break style'
+        Top = 1
+        Width = 42
+        Align = alClient
+        Color = clScrollBar
+        Flat = True
+        OnClick = btnLineBreakStyleClick
+      end
+    end
+    object pnlPosition: TPanel
+      Left = 64
+      Height = 18
+      Hint = 'Cursor position'
+      Top = 0
+      Width = 150
+      Align = alLeft
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 0
+    end
+    object pnlEditMode: TPanel
+      Left = 268
+      Height = 18
+      Hint = 'Edit mode'
+      Top = 0
+      Width = 38
+      Align = alLeft
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      Caption = 'INS'
+      TabOrder = 1
+    end
+    object pnlDateModified: TPanel
+      Left = 546
+      Height = 18
+      Hint = 'Last modification'
+      Top = 0
+      Width = 130
+      Align = alRight
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 3
+    end
+    object pnlDateCreated: TPanel
+      Left = 430
+      Height = 18
+      Hint = 'Creation date'
+      Top = 0
+      Width = 116
+      Align = alRight
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 2
+    end
+    object pnlSize: TPanel
+      Left = 214
+      Height = 18
+      Hint = 'Size'
+      Top = 0
+      Width = 54
+      Align = alLeft
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 5
+    end
+    object pnlSnippetcount: TPanel
+      Left = 0
+      Height = 18
+      Hint = 'Snippet count'
+      Top = 0
+      Width = 64
+      Align = alLeft
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 6
+    end
+    object pnlStatusBarCenter: TPanel
+      Left = 350
+      Height = 18
+      Top = 0
+      Width = 26
+      Align = alClient
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      TabOrder = 8
+      OnClick = pnlStatusBarCenterClick
+    end
+  end
+  object pnlWelcome: TPanel
+    Left = 320
+    Height = 174
+    Top = 64
+    Width = 324
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = True
+    BevelColor = clScrollBar
+    BevelOuter = bvSpace
+    BevelWidth = 2
+    ClientHeight = 174
+    ClientWidth = 324
+    Constraints.MaxHeight = 200
+    Constraints.MaxWidth = 4000
+    Constraints.MinHeight = 150
+    Constraints.MinWidth = 256
+    TabOrder = 4
+    Visible = False
+    Wordwrap = True
+    object lblWelcome: TLabel
+      Left = 2
+      Height = 170
+      Top = 2
+      Width = 320
+      Align = alClient
+      Alignment = taCenter
+      AutoSize = False
+      BorderSpacing.InnerBorder = 4
+      Caption = 'Welcome to SnippetSource! '#13#10#13#10'A new database has been created, '#13#10'and you can start collecting your snippets right away!'#13#10#13#10'You can drag one or more textfiles into the treeview'#13#10'and they will be added to the database.'#13#10#13#10'It is also possible to drag complete folderstructures into'#13#10'the treeview. '
+      Font.CharSet = ANSI_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      Layout = tlCenter
+      ParentColor = False
+      ParentFont = False
     end
   end
   object dscMain: TDataSource
@@ -371,14 +391,14 @@ object frmMain: TfrmMain
     object actExecute: TAction
       Caption = 'Execute'
       Hint = 'Execute snippet code'
-      ImageIndex = 118
+      ImageIndex = 3
       OnExecute = actExecuteExecute
       ShortCut = 49268
     end
     object actLookup: TAction
       Caption = 'Search snippet database'
       Hint = 'Search snippet database'
-      ImageIndex = 9
+      ImageIndex = 5
       OnExecute = actLookupExecute
       SecondaryShortCuts.Strings = (
         'F3'
@@ -398,19 +418,20 @@ object frmMain: TfrmMain
     end
     object actAbout: TAction
       Caption = 'About'
-      ImageIndex = 0
+      ImageIndex = 2
       OnExecute = actAboutExecute
       ShortCut = 49217
     end
     object actSettings: TAction
       Caption = 'Settings'
-      ImageIndex = 2
+      ImageIndex = 4
       OnExecute = actSettingsExecute
       ShortCut = 49235
     end
     object actShowGridForm: TAction
       Caption = 'Show grid form'
       OnExecute = actShowGridFormExecute
+      ShortCut = 16496
     end
     object actConsole: TAction
       Caption = 'Console'
@@ -421,7 +442,7 @@ object frmMain: TfrmMain
     left = 60
     top = 104
     Bitmap = {
-      4C69040000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      4C69060000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000101E5000101E5000101E5000101
       E5000101E5000101E5000101E5000101E5000101E53C0101E5AB0101E23D0101
@@ -549,7 +570,71 @@ object frmMain: TfrmMain
       5AFF3D7659FFAEAEAEFF00000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000004733AFF21824FFF6382
       72FF000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000
+      0000000000000000000000000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004A4A4A004C4C4C00515151005252
+      5200515151005454543954545467545454675454543951515100525252005151
+      51004C4C4C004A4A4A00FFFFFF00FFFFFF004A4A4A004C4C4C005050503A5151
+      51695050501B51515169FAFAFAFFF5F5F5FF515151695050501B515151695050
+      503A4C4C4C004A4A4A00FFFFFF00FFFFFF004A4A4A004B4B4B3B76767690EAEA
+      EAFF6161617A4C4C4C6BE5E6E6FFE5E6E6FF4C4C4C6B6161617AEAEAEAFF7676
+      76904B4B4B3B4A4A4A00FFFFFF00FFFFFF00474747004747476DE0E0E0FFCACB
+      CBFFE4E5E5FFB4B4B4DBE4E4E4FFE4E4E4FFB4B4B4DBDCDCDCFFCACBCBFFE0E0
+      E0FF4747476D47474700FFFFFF00FFFFFF00393939003F3F3F1C5353537ED0D1
+      D1FFCFD0D0FFDDDEDEFFE1E2E2FFE1E2E2FFDDDEDEFFCFD0D0FFD0D1D1FF5353
+      537E3F3F3F1C39393900FFFFFF00FFFFFF003838383F3939397339393973A0A1
+      A1DCD3D4D4FFA5A6A6D72C2C2C952C2C2C95A5A6A6D7D3D4D4FFA0A1A1DC3939
+      3973393939733838383FFFFFFF00FFFFFF0032323276CBCCCCFFBEBFBFFFC6C7
+      C7FFD2D2D2FF2E2D2D8703030300030303002E2D2D87D2D2D2FFC6C7C7FFBEBF
+      BFFFCBCCCCFF32323276FFFFFF00FFFFFF002B2B2B79C4C4C4FFBBBBBBFFC4C4
+      C4FFD6D3D3FF32303082010101000101010032303082D6D3D3FFC4C4C4FFBBBB
+      BBFFC4C4C4FF2B2B2B79FFFFFF00FFFFFF00252525452424247C2424247C9493
+      93DFD4CFCFFFBCB2B2CF3633337D3633337DBCB2B2CFD4CFCFFF949393DF2424
+      247C2424247C25252545FFFFFF00FFFFFF001E1E1E001D1D1D203332328CCCC6
+      C6FFC3BDBDFFE4D9D9FFF7E8E8FFF7E8E8FFE4D9D9FFC3BDBDFFCCC6C6FF3332
+      328C1D1D1D201E1E1E00FFFFFF00FFFFFF001616160016161682D0C6C6FFBAB1
+      B1FFCCC2C2FF9B9494E0D4CACAFFD4CACAFF9B9494E0CCC2C2FFBAB1B1FFD0C6
+      C6FF1616168216161600FFFFFF00FFFFFF001111110011111149454242A4D8CB
+      CBFF2927279110101085D3C6C6FFD3C6C6FF1010108529272791D8CBCBFF4542
+      42A41111114911111100FFFFFF00FFFFFF0011111100101010000C0C0C4A0B0B
+      0B870D0D0D220B0B0B87E7D7D7FFE2D3D3FF0B0B0B870D0D0D220B0B0B870C0C
+      0C4A1010100011111100FFFFFF00FFFFFF0011111100101010000B0B0B000A0A
+      0A000A0A0A000707074B07070789070707890707074B0A0A0A000A0A0A000B0B
+      0B001010100011111100FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009C8F
+      83E2BCB0A4FF9D9185FFFFFFFF00AEA093FF9D9185FF655D55DAFFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF008E83
+      78E2C3B8AEFF655D55FFFFFFFF007C7268FFA89B8EFF9C8F83E4FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00746B62FFA4978AFF9589
+      7DFF9F9286FF3E3934FFFFFFFF004C4640FF7E746AFF857A70FF3E3934FF453F
+      3AA72522200C15131102FFFFFF00B9ACA008877D72489B8E82FF9D9185FF867B
+      71FF564F48FF504A44FF80766CFF6E665DFF826C58FFA6917DFF948474FF564F
+      48FF0C0B0B7A07070601FFFFFF00AB9D9004AFA194E1BAAEA2FF82776DFF8277
+      6DFFAA917BFFBAA794FFB7A48EFAB09781FF9F8D7DFF836D5BFF716357FF9589
+      7DFF040403E000000003FFFFFF009F9286059D9185FFB1A396FF7F756BFF7C72
+      68FF776D64FF6C635BFF2E2A26FF564F48FF80766CFF7C7268FF776D64FF7067
+      5EFF000000FE00000005FFFFFF00797066055C554EF9423D38FF58514AFF3D38
+      33FF332F2BFF23201DE5171614301E1C19B51A1816FF252220FF191715FF0F0E
+      0DFF010101EE00000002FFFFFF00FFFFFF005A524CC39F9286FFCCC3BAFFC0B4
+      AAFFA6988BFF3E3934A8FFFFFF002C2925A8908479FFC2B8ADFFC0B4AAFFA89B
+      8EFF110F0EC3FFFFFF00FFFFFF00FFFFFF00534C46FC83786FFFCCC3BAFF7970
+      66FF71685FFF37332ED5FFFFFF00252220D5857A70FFC2B8ADFF786F65FF7B71
+      67FF0A0908FCFFFFFF00FFFFFF00FFFFFF004D4741FF83786FFFCCC3BAFF786F
+      65FF7B7167FF2F2B28F9272421011D1B18EE95897DFFC2B8ADFF786F65FF7C72
+      68FF060505FFFFFFFF00FFFFFF00FFFFFF0046413BFF857A70FFC3B8AEFF7C72
+      68FF7F756BFF36322DFF1E1C190F282522D495897DFFBAAEA2FF7C7268FF7F75
+      6BFF010101FFFFFFFF00FFFFFF00FFFFFF003E3934FF393430FF332F2BFF2C29
+      25FF272421FF201D1BFF1716141A110F0EDB0B0A09FF070706FF040403FF0000
+      00FF000000FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
   object imlNodes: TImageList

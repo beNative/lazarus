@@ -1,12 +1,12 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 632
-  Height = 425
+  Left = 633
+  Height = 247
   Top = 213
-  Width = 257
+  Width = 282
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
-  ClientHeight = 425
-  ClientWidth = 257
+  ClientHeight = 247
+  ClientWidth = 282
   Color = clWindow
   KeyPreview = True
   ParentFont = True
@@ -15,13 +15,13 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   LCLVersion = '2.0.2.0'
   object pnlMain: TPanel
     Left = 0
-    Height = 425
+    Height = 247
     Top = 0
-    Width = 257
+    Width = 282
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 425
-    ClientWidth = 257
+    ClientHeight = 247
+    ClientWidth = 282
     Constraints.MinWidth = 185
     PopupMenu = ppmTreeView
     TabOrder = 0
@@ -29,16 +29,17 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Left = 0
       Height = 24
       Top = 0
-      Width = 257
+      Width = 282
       Align = alTop
+      BevelColor = clScrollBar
       BevelOuter = bvNone
       ClientHeight = 24
-      ClientWidth = 257
+      ClientWidth = 282
       Color = clBtnFace
       ParentColor = False
       TabOrder = 0
       object pnlTopRight: TPanel
-        Left = 192
+        Left = 217
         Height = 24
         Top = 0
         Width = 65
@@ -78,17 +79,18 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Left = 0
         Height = 24
         Top = 0
-        Width = 192
+        Width = 217
         Align = alClient
+        BevelColor = clScrollBar
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 192
+        ClientWidth = 217
         TabOrder = 1
         object tlbTop: TToolBar
           Left = 0
           Height = 24
           Top = 0
-          Width = 192
+          Width = 217
           Align = alClient
           AutoSize = True
           ButtonHeight = 20
@@ -117,17 +119,17 @@ object frmVirtualDBTree: TfrmVirtualDBTree
             Action = actNewItemNode
           end
           object btnCollapseAllNodes: TToolButton
-            Left = 93
+            Left = 101
             Top = 0
             Action = actCollapseAllNodes
           end
           object btnExpandAllNodes: TToolButton
-            Left = 70
+            Left = 78
             Top = 0
             Action = actExpandAllNodes
           end
           object btnDivider: TToolButton
-            Left = 116
+            Left = 70
             Height = 20
             Top = 0
             Caption = 'btnDivider'
@@ -139,8 +141,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object pnlBottom: TPanel
       Left = 0
       Height = 0
-      Top = 425
-      Width = 257
+      Top = 247
+      Width = 282
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
@@ -148,18 +150,26 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     end
     object pnlTree: TPanel
       Left = 0
-      Height = 401
-      Top = 24
-      Width = 257
+      Height = 222
+      Top = 25
+      Width = 282
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
     end
+    object shpLine: TShape
+      Left = 0
+      Height = 1
+      Top = 24
+      Width = 282
+      Align = alTop
+      Pen.Color = clScrollBar
+    end
   end
   object ppmTreeView: TPopupMenu
     Images = imlMain
-    left = 48
-    top = 464
+    left = 24
+    top = 104
     object mniNewChild: TMenuItem
       Action = actNewItemNode
       Caption = 'New item'
@@ -183,13 +193,16 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Caption = 'Delete'
       OnClick = actDeleteSelectedNodesExecute
     end
+    object mniCopyNodeData: TMenuItem
+      Action = actCopyNodeData
+    end
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
     left = 104
     top = 40
   end
-  object alsMain: TActionList
+  object alMain: TActionList
     Images = imlMain
     left = 24
     top = 40
@@ -213,6 +226,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     end
     object actDeleteSelectedNodes: TAction
       Hint = 'Delete all selected nodes (Del)'
+      ImageIndex = 5
       OnExecute = actDeleteSelectedNodesExecute
       ShortCut = 46
     end
@@ -232,12 +246,22 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         'Ctrl+Shift+-'
       )
     end
+    object actCopyNodeData: TAction
+      Caption = 'Copy snippet to clipboard'
+      Hint = 'Copies the snippet code of the selected node to the clipboard.'
+      OnExecute = actCopyNodeDataExecute
+      ShortCut = 16451
+    end
+    object actDuplicateSelectedNodes: TAction
+      Caption = 'Duplicate selected node(s)'
+      OnExecute = actDuplicateSelectedNodesExecute
+    end
   end
   object imlMain: TImageList
     BkColor = clWhite
     DrawingStyle = dsTransparent
-    left = 24
-    top = 112
+    left = 104
+    top = 104
     Bitmap = {
       4C690A0000001000000010000000FFFFFF00FFFFFF000088CC610088CC810088
       CC810088CC810088CC810088CC810088CC810088CC810088CC810088CC810088

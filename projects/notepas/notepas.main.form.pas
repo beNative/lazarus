@@ -60,14 +60,14 @@ type
     btnFileName           : TSpeedButton;
     btnHighlighter        : TSpeedButton;
     btnLineBreakStyle     : TSpeedButton;
-    btnMacro: TSpeedButton;
+    btnMacro              : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
     ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
-    pnlMacro: TPanel;
-    pnlClientStatusBar: TPanel;
+    pnlMacro              : TPanel;
+    pnlClientStatusBar    : TPanel;
     pnlToolBar            : TPanel;
     pnlToolClient         : TPanel;
     pnlSelectionMode      : TPanel;
@@ -85,7 +85,7 @@ type
     pnlInsertMode         : TPanel;
     pnlStatusBar          : TPanel;
     btnCloseToolView      : TSpeedButton;
-    shpLine: TShape;
+    shpLine               : TShape;
     splVertical           : TSplitter;
     ToolBar2              : TToolBar;
     ToolButton1           : TToolButton;
@@ -260,8 +260,6 @@ begin
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
 
   SetDefaultLang(FSettings.LanguageCode);
-
-  //Logger.Info('SetDefaultLang to ' + FSettings.LanguageCode);
 
   FManager := TEditorFactories.CreateManager(
     Self,

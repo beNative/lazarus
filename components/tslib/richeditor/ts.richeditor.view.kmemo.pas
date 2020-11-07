@@ -793,7 +793,7 @@ end;
 
 function TRichEditorViewKMemo.IsEmpty: Boolean;
 begin
-  Result := FEditor.Empty;
+  Result := Trim(FEditor.Text) = '';
 end;
 
 procedure TRichEditorViewKMemo.Clear;

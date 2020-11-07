@@ -80,38 +80,45 @@ interface
      specified provider flags on the key field (pfRefreshOnInsert,
      pfRefreshOnUpdate) or whether sqoRefreshUsingSelect is specified in the
      query's options.
+
+     You cannot use Blob fields as calculated or lookup fields.
 }
 {$ENDREGION}
 
 uses
-  Classes, SysUtils, FileUtil, Controls,
+  Classes, SysUtils, FileUtil, Controls, Graphics,
 
-  sqldb, sqlite3conn, db,
+  sqldb, sqlite3conn, db, fgl,
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces, sqlscript;
+  SnippetSource.Interfaces;
 
 type
+  TImageMap = TFPGMapObject<Integer, TBitmap>;
+
+type
+
+  { TdmSnippetSource }
+
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters
   )
     conMain           : TSQLite3Connection;
+    imlNodeTypes      : TImageList;
     imlGlyphs         : TImageList;
     qryGlyph          : TSQLQuery;
     qryHighlighter    : TSQLQuery;
     qryNodeType       : TSQLQuery;
     qrySnippet        : TSQLQuery;
     qryLookup         : TSQLQuery;
-    scrCreateDatabase : TSQLScript;
+    scrCreateTriggers : TSQLScript;
+    scrCreateTables   : TSQLScript;
+    scrCreateIndexes  : TSQLScript;
+    scrInsertData     : TSQLScript;
     trsMain           : TSQLTransaction;
 
     {$REGION 'event handlers'}
-    procedure conMainLog(
-      Sender    : TSQLConnection;
-      EventType : TDBEventType;
-      const Msg : string
-    );
     procedure qryGlyphBeforePost(DataSet: TDataSet);
     procedure qryGlyphNewRecord(DataSet: TDataSet);
     procedure qrySnippetAfterOpen(ADataSet: TDataSet);
@@ -126,8 +133,10 @@ type
     FSettings       : ISettings;
     FBulkInsertMode : Boolean;
     FReadOnly       : Boolean;
+    FHLImages       : TImageMap;
 
     {$REGION 'property access mehods'}
+    procedure FSettingsChange(Sender: TObject);
     function GetActive: Boolean;
     function GetAutoApplyUpdates: Boolean;
     function GetAutoCommit: Boolean;
@@ -178,6 +187,14 @@ type
 
   protected
     procedure CreateLookupFields;
+
+    procedure FillImageMapFromDataSet(
+      AImageMap : TImageMap;
+      ADataSet  : TDataSet
+    );
+    procedure FillNodeTypesImageList;
+    procedure FillImageMaps;
+
     procedure InitField(AField : TField);
     procedure InitFields(ADataSet : TDataSet);
     procedure Lookup(
@@ -194,10 +211,18 @@ type
     {$ENDREGION}
 
     {$REGION 'IConnection'}
+    procedure BeginBulkInserts;
+    procedure EndBulkInserts;
+    procedure ConnectToDatabase(const AFileName: string);
     procedure CreateNewDatabase;
+    procedure CreateDatabaseTables;
+    procedure CreateDatabaseIndexes;
+    procedure CreateDatabaseTriggers;
+    procedure SetupConfigurationData;
     procedure Execute(const ASQL: string);
     procedure Commit;
     procedure Rollback;
+    function ApplyUpdates: Boolean;
     procedure StartTransaction;
     procedure EndTransaction;
     {$ENDREGION}
@@ -206,21 +231,18 @@ type
     function Post: Boolean;
     function Edit: Boolean;
     function Append: Boolean;
-    function ApplyUpdates: Boolean;
 
-    procedure BeginBulkInserts;
-    procedure EndBulkInserts;
     procedure EnableControls;
     procedure DisableControls;
     {$ENDREGION}
 
   public
     procedure AfterConstruction; override;
-    destructor Destroy; override;
     constructor Create(
       AOwner    : TComponent;
       ASettings : ISettings
     ); reintroduce; virtual;
+    destructor Destroy; override;
 
     {$REGION 'ISQLite'}
     property ReadOnly: Boolean
@@ -239,6 +261,9 @@ type
 
     property AutoCommit: Boolean
       read GetAutoCommit write SetAutoCommit;
+
+    property FileName: string
+      read GetFileName write SetFileName;
     {$ENDREGION}
 
     {$REGION 'ISnippet'}
@@ -295,9 +320,6 @@ type
 
     property LookupDataSet: TDataSet
       read GetLookupDataSet;
-
-    property FileName: string
-      read GetFileName write SetFileName;
 
     property ImageList: TImageList
       read GetImageList;
@@ -377,34 +399,17 @@ constructor TdmSnippetSource.Create(AOwner: TComponent; ASettings: ISettings);
 begin
   inherited Create(AOwner);
   FSettings := ASettings;
+  FSettings.AddOnChangeHandler(FSettingsChange);
 end;
 
 procedure TdmSnippetSource.AfterConstruction;
-var
-  LFileName : string;
 begin
   Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
-  FSettings.DataBase := DATABASE_NAME;
-  if FilenameIsAbsolute(FSettings.DataBase) then
-  begin
-    LFileName := FSettings.DataBase;
-  end
-  else
-  begin
-    LFileName := CreateAbsolutePath(FSettings.DataBase, ProgramDirectory);
-  end;
-  Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
-  conMain.DatabaseName := LFileName;
-  conMain.Connected := True;
-  if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
-  begin
-    CreateNewDatabase;
-  end;
+
+  FHLImages := TImageMap.Create(True);
   qrySnippet.UsePrimaryKeyAsKey := True;
-  qryHighlighter.Active := True;
-  qryGlyph.Active :=  True;
-  DataSet.Active := True;
+  ConnectToDatabase(FSettings.Database);
   Logger.Leave(Self, 'AfterConstruction');
 end;
 
@@ -415,21 +420,13 @@ begin
   DataSet.Active := False;
   conMain.Connected := False;
   FSettings := nil;
+  FHLImages.Free;
   inherited Destroy;
   Logger.Info('DM Destroyed');
 end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
-procedure TdmSnippetSource.conMainLog(Sender: TSQLConnection;
-  EventType: TDBEventType; const Msg: string);
-//var
-//  S : string;
-begin
-  //S := GetEnumName(TypeInfo(TDBEventType), Ord(EventType));
-//  Logger.SendText(Msg);
-end;
-
 procedure TdmSnippetSource.qryGlyphBeforePost(DataSet: TDataSet);
 begin
   DataSet.FieldByName('DateModified').AsDateTime := Now;
@@ -458,6 +455,7 @@ var
   F  : TField    = nil;
   DS : TSQLQuery;
 begin
+  Logger.Enter(Self, 'qrySnippetBeforeOpen');
   DS := ADataSet as TSQLQuery;
   // These two steps are required to get the FieldDefs of the PK initialized
   // correctly.
@@ -465,15 +463,19 @@ begin
   DS.ServerIndexDefs.Update; // Required to create Id field as ftAutoInc.
   DS.Fields.Clear;
   DS.FieldDefs.Clear;
+  // Required to force Update when switching to another database
+  DS.FieldDefs.Updated := False;
   DS.FieldDefs.Update;
   for I := 0 to DS.FieldDefs.Count - 1 do
   begin
     FD := DS.FieldDefs[I];
-    F := FD.CreateField(DS);
+    F  := FD.CreateField(DS);
     // below is just intended for diagnostic reasons to inspect fields @runtime
     F.Name := Format('fld%s%s', [DS.Name, F.FieldName]);
+    Logger.Send(F.Name);
   end;
   CreateLookupFields;
+  Logger.Leave(Self, 'qrySnippetBeforeOpen');
 end;
 
 procedure TdmSnippetSource.qrySnippetBeforePost(ADataSet: TDataSet);
@@ -647,6 +649,7 @@ begin
     conMain.Connected    := False;
     conMain.DatabaseName := AValue;
     conMain.Connected    := True;
+    Active := True;
   end;
 end;
 
@@ -707,7 +710,10 @@ end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
 var
-  LId : Variant;
+  LId     : Variant;
+  MS      : TMemoryStream;
+  LKey    : Integer;
+  LBitmap : TBitmap;
 begin
   if AValue <> Highlighter then
   begin
@@ -717,6 +723,20 @@ begin
     if VarIsNull(LId) then
       LId := 1;
     qrySnippet.FieldValues['HighlighterId'] := LId;
+
+    //LKey := Integer(LId);
+    //if FHLImages.TryGetData(LKey, LBitmap) then
+    //begin
+    //  MS := TMemoryStream.Create;
+    //  try
+    //    LBitmap.SaveToStream(MS);
+    //    MS.Position := 0;
+    //    (qrySnippet.FieldByName('Image') as TBlobField).Clear;
+    //    (qrySnippet.FieldByName('Image') as TBlobField).LoadFromStream(MS);
+    //  finally
+    //    MS.Free;
+    //  end;
+    //end;
   end;
 end;
 
@@ -799,6 +819,13 @@ begin
 end;
 {$ENDREGION}
 
+{$REGION 'event handlers'}
+procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
+begin
+  ConnectToDatabase(FSettings.Database);
+end;
+{$ENDREGION}
+
 {$REGION 'protected methods'}
 procedure TdmSnippetSource.CreateLookupFields;
 var
@@ -816,6 +843,110 @@ begin
     F.LookupResultField := 'Code';
     F.LookupCache       := True;
     F.ProviderFlags     := [];
+  end;
+  F := nil;
+end;
+
+procedure TdmSnippetSource.FillImageMapFromDataSet(AImageMap: TImageMap;
+  ADataSet: TDataSet);
+var
+  F  : TBlobField;
+  P  : TPicture      = nil;
+  MS : TMemoryStream = nil;
+  BM : TBitmap;
+begin
+  ADataSet.DisableControls;
+  P := TPicture.Create;
+  MS := TMemoryStream.Create;
+  try
+    ADataSet.First;
+    F := TBlobField(ADataSet.FieldByName('Image'));
+    while not ADataSet.EOF do
+    begin
+      if not F.IsNull then
+      begin
+        MS.Clear;
+        F.SaveToStream(MS);
+        MS.Position := 0;
+        P.LoadFromStream(MS);
+        BM := TBitmap.Create;
+        BM.Assign(P.Bitmap);
+        AImageMap.Add(qryHighlighter.FieldByName('Id').AsInteger, BM);
+      end;
+      ADataSet.Next;
+    end;
+  finally
+    FreeAndNil(MS);
+    FreeAndNil(P);
+    ADataSet.EnableControls;
+  end;
+end;
+
+procedure TdmSnippetSource.FillNodeTypesImageList;
+var
+  F  : TBlobField;
+  P  : TPicture = nil;
+  MS : TMemoryStream;
+begin
+  qryNodeType.First;
+  F := TBlobField(qryNodeType.FieldByName('Image'));
+  while not qryNodeType.EOF do
+  begin
+    if not F.IsNull then
+    begin
+      P := TPicture.Create;
+      try
+        MS := TMemoryStream.Create;
+        try
+          F.SaveToStream(MS);
+          MS.Position := 0;
+          P.LoadFromStream(MS);
+          imlNodeTypes.Add(P.Bitmap, nil);
+        finally
+          FreeAndNil(MS);
+        end;
+      finally
+        FreeAndNil(P);
+      end;
+    end;
+    qryNodeType.Next;
+  end;
+end;
+
+procedure TdmSnippetSource.FillImageMaps;
+var
+  F  : TBlobField;
+  P  : TPicture = nil;
+  MS : TMemoryStream;
+  BM : TBitmap;
+begin
+  qryHighlighter.First;
+  F := TBlobField(qryHighlighter.FieldByName('Image'));
+  while not qryNodeType.EOF do
+  begin
+    if not F.IsNull then
+    begin
+      P := TPicture.Create;
+      try
+        MS := TMemoryStream.Create;
+        try
+          F.SaveToStream(MS);
+          MS.Position := 0;
+          P.LoadFromStream(MS);
+          BM := TBitmap.Create;
+          BM.Assign(P.Bitmap);
+          FHLImages.Add(qryHighlighter.FieldByName('Id').AsInteger, BM);
+
+          //imlNodeTypes.Add(P.Bitmap, nil);
+
+        finally
+          FreeAndNil(MS);
+        end;
+      finally
+        FreeAndNil(P);
+      end;
+    end;
+    qryNodeType.Next;
   end;
 end;
 
@@ -840,7 +971,7 @@ begin
     AField.Required :=  True;
     AField.ProviderFlags := [pfInKey];
   end
-  // setup lookupfield
+  // setup lookupfields
   else if SameText(AField.FieldName, 'HighLighter') then
   begin
     AField.KeyFields     := 'HighlighterId';
@@ -882,8 +1013,46 @@ end;
 {$REGION 'IConnection'}
 procedure TdmSnippetSource.CreateNewDatabase;
 begin
-  Logger.Info('Creating new database...');
-  scrCreateDatabase.ExecuteScript;
+  CreateDatabaseTables;
+  CreateDatabaseIndexes;
+  CreateDatabaseTriggers;
+  SetupConfigurationData;
+end;
+
+{ Creates all tables. They are dropped first in case they would exist. }
+
+procedure TdmSnippetSource.CreateDatabaseTables;
+begin
+  Logger.Info('Creating new tables...');
+  scrCreateTables.ExecuteScript;
+end;
+
+{ Creates indexes for all tables. They are dropped first in case they would
+  exist. }
+
+procedure TdmSnippetSource.CreateDatabaseIndexes;
+begin
+  Logger.Info('Creating new indexes...');
+  scrCreateIndexes.ExecuteScript;
+end;
+
+{ Creates triggers for all tables. They are dropped first in case they would
+  exist.
+  TODO: For an unknown reason this step fails to work properly.  }
+
+procedure TdmSnippetSource.CreateDatabaseTriggers;
+begin
+  Logger.Info('Creating new triggers...');
+  //scrCreateTriggers.ExecuteScript; // not working...
+end;
+
+{ Inserts configuration data for highlighters, comment types and node types.
+  Any data in these tables is cleared before insert. }
+
+procedure TdmSnippetSource.SetupConfigurationData;
+begin
+  Logger.Info('Insert configuration data...');
+  scrInsertData.ExecuteScript;
 end;
 
 procedure TdmSnippetSource.Commit;
@@ -925,7 +1094,6 @@ function TdmSnippetSource.Post: Boolean;
 begin
   if DataSet.Active and (DataSet.State in dsEditModes) then
   begin
-    Logger.Info('Post');
     DataSet.Post;
     Result := True;
   end
@@ -937,7 +1105,6 @@ function TdmSnippetSource.Append: Boolean;
 begin
   if DataSet.Active and not (DataSet.State in dsEditModes) then
   begin
-    Logger.Info('Append');
     DataSet.Append;
     Result := True;
   end
@@ -949,13 +1116,16 @@ function TdmSnippetSource.ApplyUpdates: Boolean;
 begin
   if DataSet.ChangeCount > 0 then
   begin
-    Logger.Info('ApplyUpdates');
-    Logger.Send('DataSet.ChangeCount', DataSet.ChangeCount);
     DataSet.ApplyUpdates;
     Result := True;
   end
   else
     Result := False;
+  if qryGlyph.ChangeCount > 0 then
+  begin
+    qryGlyph.ApplyUpdates;
+    Result := True;
+  end;
 end;
 
 function TdmSnippetSource.Edit: Boolean;
@@ -985,6 +1155,51 @@ begin
     FBulkInsertMode := False;
     ApplyUpdates;
     Commit;
+  end;
+end;
+
+procedure TdmSnippetSource.ConnectToDatabase(const AFileName: string);
+var
+  LFileName : string;
+begin
+  Logger.Send('AFileName', AFileName);
+  if not FileExists(FSettings.Database) then
+  begin
+    FSettings.Database := DEFAULT_DATABASE_NAME;
+  end;
+  if FilenameIsAbsolute(FSettings.Database) then
+  begin
+    LFileName := FSettings.Database;
+  end
+  else
+  begin
+    LFileName := CreateAbsolutePath(FSettings.Database, ProgramDirectory);
+  end;
+  Logger.Send('LFileName', LFileName);
+  if not SameFileName(LFileName, conMain.DatabaseName) then
+  begin
+    conMain.Connected := False;
+    qryHighlighter.Active := False;
+      //FillImageMapFromDataSet(FHLImages, qryHighlighter);
+    qryGlyph.Active :=  False;
+    qryNodeType.Active := False;
+    //FillNodeTypesImageList;
+    DataSet.Active := False;
+
+    Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
+    conMain.DatabaseName := LFileName;
+    conMain.Connected := True;
+    if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
+    begin
+      CreateNewDatabase;
+    end;
+    qryHighlighter.Active := True;
+      //FillImageMapFromDataSet(FHLImages, qryHighlighter);
+    qryGlyph.Active :=  True;
+    qryNodeType.Active := True;
+    //FillNodeTypesImageList;
+    DataSet.Active := True;
+    Logger.Send('DataSet.Active', DataSet.Active);
   end;
 end;
 

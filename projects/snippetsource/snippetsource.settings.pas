@@ -24,6 +24,7 @@ interface
 
 uses
   Classes, SysUtils,
+  LazMethodList,
 
   SnippetSource.Interfaces, SnippetSource.Resources;
 
@@ -33,29 +34,58 @@ type
 
   TSettings = class(TComponent, ISettings)
   private
-    FFileName       : string;
-    FDataBase       : string;
+    FFileName                  : string;
+    FDatabase                  : string;
+    FAutoHideRichEditor        : Boolean;
+    FAutoHideEditorToolBar     : Boolean;
+    FAutoHideRichEditorToolBar : Boolean;
+    FChangeEvents              : TMethodList;
 
   protected
-    function GetDataBase: string;
-    procedure SetDataBase(const AValue: string);
+    {$REGION 'property access methods'}
+    function GetAutoHideRichEditor: Boolean;
+    procedure SetAutoHideRichEditor(AValue: Boolean);
+    function GetAutoHideEditorToolBar: Boolean;
+    procedure SetAutoHideEditorToolBar(AValue: Boolean);
+    function GetAutoHideRichEditorToolBar: Boolean;
+    procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
+    function GetDatabase: string;
+    procedure SetDatabase(const AValue: string);
     function GetFileName: string;
     procedure SetFileName(const AValue: string);
+    {$ENDREGION}
 
     procedure Changed;
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
 
   public
     procedure AfterConstruction; override;
+    destructor Destroy; override;
 
     procedure Load;
     procedure Save;
 
+    { Settings file name }
     property FileName: string
       read GetFileName write SetFileName;
 
+    property Name;
+    property Tag;
+
   published
-    property DataBase: string
-      read GetDataBase write SetDataBase;
+    { Database file name }
+    property Database: string
+      read GetDatabase write SetDatabase;
+
+    property AutoHideEditorToolBar: Boolean
+      read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;
+
+    property AutoHideRichEditorToolBar: Boolean
+      read GetAutoHideRichEditorToolBar write SetAutoHideRichEditorToolBar;
+
+    property AutoHideRichEditor: Boolean
+      read GetAutoHideRichEditor write SetAutoHideRichEditor;
   end;
 
 implementation
@@ -69,9 +99,17 @@ uses
 procedure TSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  Name      := 'Settings';
-  FFileName := SETTINGS_FILE;
-  DataBase  := 'snippets.db';
+  FChangeEvents := TMethodList.Create;
+  Name          := 'Settings';
+  FFileName     := SETTINGS_FILE;
+  Database      := DEFAULT_DATABASE_NAME;
+  FAutoHideEditorToolBar := True;
+end;
+
+destructor TSettings.Destroy;
+begin
+  FChangeEvents.Free;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -90,16 +128,59 @@ begin
   end;
 end;
 
-function TSettings.GetDataBase: string;
+function TSettings.GetAutoHideEditorToolBar: Boolean;
 begin
-  Result := FDataBase;
+  Result := FAutoHideEditorToolBar;
 end;
 
-procedure TSettings.SetDataBase(const AValue: string);
+procedure TSettings.SetAutoHideEditorToolBar(AValue: Boolean);
 begin
-  if AValue <> DataBase then
+  if AValue <> AutoHideEditorToolBar then
   begin
-    FDataBase := AValue;
+    FAutoHideEditorToolBar :=  AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetAutoHideRichEditorToolBar: Boolean;
+begin
+  Result := FAutoHideRichEditorToolBar;
+end;
+
+procedure TSettings.SetAutoHideRichEditorToolBar(AValue: Boolean);
+begin
+  if AValue <> AutoHideRichEditorToolBar then
+  begin
+    FAutoHideRichEditorToolBar := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetAutoHideRichEditor: Boolean;
+begin
+  Result := FAutoHideRichEditor;
+end;
+
+procedure TSettings.SetAutoHideRichEditor(AValue: Boolean);
+begin
+  if AValue <> AutoHideRichEditor then
+  begin
+    FAutoHideRichEditor := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetDatabase: string;
+begin
+  Result := FDatabase;
+end;
+
+procedure TSettings.SetDatabase(const AValue: string);
+begin
+  if AValue <> Database then
+  begin
+    FDatabase := AValue;
+    Changed;
   end;
 end;
 {$ENDREGION}
@@ -107,7 +188,17 @@ end;
 {$REGION 'protected methods'}
 procedure TSettings.Changed;
 begin
-// call OnChanged event?
+  FChangeEvents.CallNotifyEvents(Self);
+end;
+
+procedure TSettings.AddOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Add(TMethod(AEvent));
+end;
+
+procedure TSettings.RemoveOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Remove(TMethod(AEvent));
 end;
 {$ENDREGION}
 
@@ -145,7 +236,7 @@ begin
   LStreamer := TJSONStreamer.Create(nil);
   try
     LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline];
-    S := LStreamer.ObjectToJSON(Self).FormatJSON;
+    S  := LStreamer.ObjectToJSON(Self).FormatJSON;
     SL := TStringList.Create;
     try
       SL.Text := S;

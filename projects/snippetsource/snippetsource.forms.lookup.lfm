@@ -2,11 +2,11 @@ object frmLookup: TfrmLookup
   Left = 658
   Height = 476
   Top = 220
-  Width = 501
+  Width = 617
   ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 476
-  ClientWidth = 501
+  ClientWidth = 617
   Color = clWindow
   KeyPreview = True
   OnKeyUp = FormKeyUp
@@ -19,7 +19,7 @@ object frmLookup: TfrmLookup
     Left = 2
     Height = 21
     Top = 3
-    Width = 434
+    Width = 550
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
     OnKeyDown = edtLookupKeyDown
@@ -28,7 +28,7 @@ object frmLookup: TfrmLookup
     TabOrder = 0
   end
   object btnSearch: TButton
-    Left = 440
+    Left = 556
     Height = 25
     Top = 1
     Width = 59
@@ -41,7 +41,7 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 23
     Top = 453
-    Width = 501
+    Width = 617
     Panels = <>
   end
   object chkName: TCheckBox
@@ -80,9 +80,10 @@ object frmLookup: TfrmLookup
     Left = 8
     Height = 391
     Top = 56
-    Width = 485
+    Width = 601
     Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoFillColumns = True
     Color = clWindow
     Columns = <    
       item
@@ -92,7 +93,7 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'Id'
-        Width = 93
+        Width = 128
         FieldName = 'Id'
       end    
       item
@@ -101,7 +102,7 @@ object frmLookup: TfrmLookup
         SizePriority = 0
         Title.Alignment = taCenter
         Title.Caption = 'NodeName'
-        Width = 100
+        Width = 76
         FieldName = 'NodeName'
       end    
       item
@@ -112,7 +113,7 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'Highlighter'
-        Width = 93
+        Width = 128
         FieldName = 'Highlighter'
       end    
       item
@@ -122,7 +123,7 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'DateCreated'
-        Width = 93
+        Width = 128
         FieldName = 'DateCreated'
       end    
       item
@@ -132,13 +133,13 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'DateModified'
-        Width = 93
+        Width = 128
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
     Flat = True
-    Options = [dgEditing, dgTitles, dgIndicator, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgCellHints, dgCellEllipsis, dgRowHighlight, dgDblClickAutoSize]
-    OptionsExtra = [dgeCheckboxColumn]
+    Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgDblClickAutoSize]
+    OptionsExtra = []
     Scrollbars = ssAutoBoth
     TabOrder = 6
     TitleStyle = tsNative

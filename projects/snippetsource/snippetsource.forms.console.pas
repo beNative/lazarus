@@ -22,7 +22,7 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls,
+  StdCtrls, PythonEngine,
 
   uCmdBox;
 
@@ -33,10 +33,15 @@ type
   TfrmConsole = class(TForm)
     cmdMain : TCmdBox;
     prcMain : TProcess;
+    PythonEngine: TPythonEngine;
+    PythonInputOutput: TPythonInputOutput;
     tmrMain : TTimer;
 
     procedure cmdMainInput(ACmdBox: TCmdBox; Input: string);
-    procedure edtInputKeyPress(Sender: TObject; var Key: char);
+    procedure PythonInputOutputReceiveData(Sender: TObject; var Data: AnsiString
+      );
+    procedure PythonInputOutputSendData(Sender: TObject; const Data: AnsiString
+      );
     procedure tmrMainTimer(Sender: TObject);
 
   private
@@ -47,6 +52,7 @@ type
      procedure AfterConstruction; override;
 
      procedure Execute(const AFileName: string);
+     procedure ExecutePy(const AStrings: TStrings);
 
   end;
 
@@ -61,8 +67,9 @@ uses
 procedure TfrmConsole.AfterConstruction;
 begin
   inherited AfterConstruction;
-  prcMain.Active  := True;
-  tmrMain.Enabled := True;
+  //prcMain.Active  := True;
+  //tmrMain.Enabled := True;
+    //PythonEngine.LoadDll;
   cmdMain.StartRead(clSilver, clNavy, '', clYellow, clNavy);
 end;
 
@@ -73,6 +80,12 @@ begin
   prcMain.Execute;
   cmdMain.SetFocus;
 end;
+
+procedure TfrmConsole.ExecutePy(const AStrings: TStrings);
+begin
+  PythonEngine.ExecStrings(AStrings);
+end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -90,25 +103,10 @@ begin
       prcMain.Output.Read(LBuf, SizeOf(LBuf) - 1);
       S := LBuf;
       ProcessString(S);
-      //cmdMain.Write(S);
-      //cmdMain.StartRead(clSilver,clNavy,'',clYellow,clNavy);
+      cmdMain.Write(S);
+      cmdMain.StartRead(clSilver,clNavy,'',clYellow,clNavy);
     end;
   end;
-end;
-
-procedure TfrmConsole.edtInputKeyPress(Sender: TObject; var Key: char);
-//var
-//  S : string;
-begin
-  //if Key = #13 then
-  //begin
-  //  Key:= #0;
-  //  if not prcMain.Active then
-  //    prcMain.Active := True;
-  //  S := edtInput.Text + LineEnding;
-  //  prcMain.Input.Write(S[1], Length(S));
-  //end;
-
 end;
 
 procedure TfrmConsole.cmdMainInput(ACmdBox: TCmdBox; Input: string);
@@ -116,7 +114,23 @@ var
   S : string;
 begin
   S := Input + LineEnding;
-  prcMain.Input.Write(S[1], Length(S));
+  //prcMain.Input.Write(S[1], Length(S));
+  ProcessString(S);
+  PythonEngine.ExecString(S);
+end;
+
+procedure TfrmConsole.PythonInputOutputReceiveData(Sender: TObject;
+  var Data: AnsiString);
+begin
+  ProcessString(Data);
+  //PythonEngine.ExecString(Data);
+end;
+
+procedure TfrmConsole.PythonInputOutputSendData(Sender: TObject;
+  const Data: AnsiString);
+begin
+//  ProcessString(Data);
+        cmdMain.Writeln(Data);
 end;
 {$ENDREGION}
 
@@ -129,6 +143,7 @@ var
 begin
   SL := TStringList.Create;
   try
+    Logger.SendText(AString);
     SL.Text := AString;
     for I := 0 to SL.Count - 1 do
     begin

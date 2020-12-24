@@ -100,6 +100,7 @@ type
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
+    function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
@@ -135,7 +136,9 @@ type
     procedure Save(const AStorageName: string = '');
     procedure SaveToStream(AStream: TStream);
     procedure SaveToFile(const AFileName: string);
+
     procedure BeginUpdate;
+    function IsUpdating: Boolean;
     procedure EndUpdate;
 
     procedure InsertImageFile(const AFileName: string);
@@ -149,9 +152,6 @@ type
 
     function Focused: Boolean; override;
 
-    function IsUpdating: Boolean;
-    function IsEmpty: Boolean;
-
     procedure Clear;
 
     // clipboard commands
@@ -161,7 +161,7 @@ type
     procedure Undo;
     procedure Redo;
 
-    // event dispatching methods
+    // event dispatch methods
     procedure DoDropFiles(const AFileNames: array of string);
     procedure DoChange;
 
@@ -228,6 +228,9 @@ type
     property Form: TCustomForm
       read GetForm;
 
+    property IsEmpty: Boolean
+      read GetIsEmpty;
+
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
 
@@ -270,8 +273,6 @@ begin
   FEditor.OnChange       := FEditorChange;
   FEditor.OnBlockEdit    := FEditorBlockEdit;
   FEditor.OnBlockClick   := FEditorBlockClick;
-
-
 
   //DropURLTarget1.Target := Self;
 
@@ -349,6 +350,11 @@ end;
 function TRichEditorViewKMemo.GetEvents: IRichEditorEvents;
 begin
   Result := Owner as IRichEditorEvents;
+end;
+
+function TRichEditorViewKMemo.GetIsEmpty: Boolean;
+begin
+  Result := FEditor.Blocks.Count <= 1;
 end;
 
 function TRichEditorViewKMemo.GetIsFile: Boolean;
@@ -518,7 +524,6 @@ begin
   begin
     InsertImageFile(FileNames[I]);
   end;
-
 end;
 
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
@@ -825,11 +830,6 @@ end;
 function TRichEditorViewKMemo.IsUpdating: Boolean;
 begin
   Result := FUpdateLock > 0;
-end;
-
-function TRichEditorViewKMemo.IsEmpty: Boolean;
-begin
-  Result := FEditor.Empty;
 end;
 
 procedure TRichEditorViewKMemo.Clear;

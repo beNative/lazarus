@@ -58,6 +58,7 @@ type
     actDecIndent            : TAction;
     actAdjustParagraphStyle : TAction;
     actInsertTextBox        : TAction;
+    actClear: TAction;
     actItalic               : TAction;
     actOpen                 : TAction;
     actPaste                : TAction;
@@ -74,6 +75,8 @@ type
     dlgOpen                 : TOpenDialog;
     dlgSave                 : TSaveDialog;
     imlMain                 : TImageList;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
     mniAlignCenter          : TMenuItem;
     mniAlignJustify         : TMenuItem;
     mniAlignLeft            : TMenuItem;
@@ -96,6 +99,7 @@ type
     procedure actAlignRightExecute(Sender: TObject);
     procedure actBkColorExecute(Sender: TObject);
     procedure actBoldExecute(Sender: TObject);
+    procedure actClearExecute(Sender: TObject);
     procedure actColorExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
@@ -330,6 +334,11 @@ begin
   begin
     ActiveView.Font.Bold := actBold.Checked;
   end;
+end;
+
+procedure TdmRichEditorManager.actClearExecute(Sender: TObject);
+begin
+  ActiveView.Clear;
 end;
 
 procedure TdmRichEditorManager.actAlignRightExecute(Sender: TObject);

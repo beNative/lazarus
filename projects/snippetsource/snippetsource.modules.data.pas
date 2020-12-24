@@ -510,8 +510,10 @@ begin
     if LUpdateStatus = usInserted then
     begin
       LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
+      ADataSet.DisableControls;
       ADataSet.Refresh;
       ADataSet.Locate('Id' , LLastID,[]);
+      ADataSet.EnableControls;
     end;
   end;
   Logger.Leave(Self, 'qrySnippetAfterPost');

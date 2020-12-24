@@ -90,6 +90,8 @@ type
 
   { Handles display view of the editor. }
 
+  { IEditorView }
+
   IEditorView = interface(IControl)
   ['{94689213-B046-45F6-922B-FAE91C02A3FF}']
     {$REGION 'property access methods'}
@@ -115,6 +117,7 @@ type
     function GetHighlighterItem: THighlighterItem;
     function GetHighlighterName: string;
     function GetInsertMode: Boolean;
+    function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetLineBreakStyle: string;
     function GetLines: TStrings;
@@ -366,6 +369,10 @@ type
     { Component name of the editor view }
     property Name: string
       read GetName write SetName;
+
+    { Returns True if the view doesn't contain any data. }
+    property IsEmpty: Boolean
+      read GetIsEmpty;
 
     { Determines if the view content is stored in a file. If True the content
       will be laoded and saved to a file using the FileName property. If False

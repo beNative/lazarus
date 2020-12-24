@@ -164,6 +164,8 @@ begin
   CreateToolButton(TB, 'actInsertHyperlink');
   CreateToolButton(TB, 'actInsertImage');
   CreateToolButton(TB, 'actInsertBulletList');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actClear');
   Result := TB;
 end;
 {$ENDREGION}

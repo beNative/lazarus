@@ -248,6 +248,7 @@ type
     function GetEditorFont: TFont;
     function GetHighlighterName: string;
     function GetInsertMode: Boolean;
+    function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetManager: IEditorManager;
     function GetEncoding: string;
@@ -474,6 +475,9 @@ type
     { Component name }
     property Name: string
       read GetName write SetName;
+
+    property IsEmpty: Boolean
+      read GetIsEmpty;
 
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
@@ -1041,6 +1045,11 @@ end;
 function TEditorView.GetInsertMode: Boolean;
 begin
   Result := Editor.InsertMode;
+end;
+
+function TEditorView.GetIsEmpty: Boolean;
+begin
+  Result := Editor.Text.IsEmpty;
 end;
 
 procedure TEditorView.SetInsertMode(AValue: Boolean);

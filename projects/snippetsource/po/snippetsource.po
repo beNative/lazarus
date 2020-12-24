@@ -164,6 +164,14 @@ msgstr ""
 msgid "Show grid form"
 msgstr ""
 
+#: tfrmmain.actshowrichtexteditor.caption
+msgid "Show rich-text editor."
+msgstr ""
+
+#: tfrmmain.actshowtexteditor.caption
+msgid "Show text editor."
+msgstr ""
+
 #: tfrmmain.acttogglefullscreen.caption
 msgid "Toggle full screen"
 msgstr ""

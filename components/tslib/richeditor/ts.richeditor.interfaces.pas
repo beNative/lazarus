@@ -48,6 +48,7 @@ type
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
+    function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     //function GetLinesInWindow: Integer;
     //function GetLineText: string;
@@ -110,7 +111,6 @@ type
     procedure EndUpdate;
 
     function IsUpdating: Boolean;
-    function IsEmpty: Boolean;
     function InsertImage: Boolean;
     procedure InsertImageFile(const AFileName: string);
     procedure InsertHyperlink;
@@ -147,6 +147,10 @@ type
 
     property CanRedo: Boolean
       read GetCanRedo;
+
+    { Returns True if the view doesn't contain any data. }
+    property IsEmpty: Boolean
+      read GetIsEmpty;
 
     property IsFile: Boolean
       read GetIsFile write SetIsFile;

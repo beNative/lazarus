@@ -29,10 +29,11 @@ unit ts.Core.Logger.Base;
 interface
 
 uses
-  Classes, SysUtils, Graphics, Menus,
+  Classes, SysUtils, Graphics, Menus, Rtti,
   fgl,
 
-  ts.Core.Value, ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
+  //ts.Core.Value,
+  ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
 
 const
   DEFAULT_MAXSTACKCOUNT  = 20;
@@ -72,6 +73,7 @@ type
     FCheckList     : TStringList;
     FCounterList   : TFPGMap<string, Int64>;
     FEnabled       : Boolean;
+    FRttiContext   : TRttiContext;
 
   protected
     {$REGION 'property access methods'}
@@ -154,6 +156,10 @@ type
     function Send(const AValue: ShortInt): ILogger; overload;
     function Send(const AValue: UInt64): ILogger; overload;
     function Send(const AValue: Integer): ILogger; overload;
+
+    { Will send object data using RTTI information. }
+    function SendObject(const AName: string; AValue: TObject): ILogger; overload;
+    function SendObject(AValue: TObject): ILogger; overload;
 
     function SendText(
       const AName        : string;
@@ -259,7 +265,7 @@ type
 implementation
 
 uses
-  IntfGraphics, GraphType, FPimage, FPWriteBMP, LCLProc,
+  IntfGraphics, GraphType, FPimage, FPWriteBMP, LCLProc, TypInfo,
 
   ts.Core.Logger.Channel.Ipc;
 
@@ -779,6 +785,67 @@ function TLogger.Send(const AValue: Integer): ILogger;
 begin
   Result := Send('', AValue);
 end;
+
+function TLogger.SendObject(const AName: string; AValue: TObject): ILogger;
+var
+  P : TRttiProperty;
+  //F : TRttiField;
+  LExcludedTypes : TTypeKinds;
+  V : TValue;
+  LInstance : TValue;
+  SL : TStringList;
+begin
+  SL := TStringList.Create;
+  LExcludedTypes := [
+      tkClassRef, tkMethod, tkInterface, tkPointer, tkUnknown, tkArray,
+      tkDynArray, tkClass, tkProcedure
+    ];
+  LInstance := AValue;
+
+    for P in FRttiContext.GetType(LInstance.TypeInfo).GetProperties do
+    begin
+      if not (P.PropertyType.TypeKind in LExcludedTypes) and P.IsReadable then
+            begin
+              if LInstance.IsObject then
+                V := P.GetValue(LInstance.AsObject)
+              else
+                V := P.GetValue(LInstance.GetReferenceToRawData);
+              if V.Kind = tkRecord then
+              begin
+                //if TryGetUnderlyingValue(V, V2) then
+                //begin
+                //  if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
+                //    Values[P.Name] := V2;
+                //end
+                //else
+                //begin
+                //  raise Exception.Create('TryGetUnderlyingValue failed.');
+                //end;
+              end
+              else
+              begin
+                SL.Values[P.Name] := V.AsString;
+              end;
+
+    end;
+
+    end;
+
+
+
+  Result := InternalSend(
+    lmtObject,
+    Format('%s (%s) = ' + sLineBreak + '%s',
+    [AName, AValue.ClassName, SL.Text])
+  );
+  SL.Free;
+end;
+
+function TLogger.SendObject(AValue: TObject): ILogger;
+begin
+//
+end;
+
 {$ENDREGION}
 
 {$REGION 'Specialized Send methods'}

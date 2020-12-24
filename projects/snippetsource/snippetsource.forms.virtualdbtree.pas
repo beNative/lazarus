@@ -818,7 +818,7 @@ begin
       dboCheckChildren,
       dboCheckDBStructure,
       dboParentStructure,
-      dboTrackActive,
+      //dboerTrackActive,
       dboTrackChanges,
       dboTrackCursor,
       dboViewAll

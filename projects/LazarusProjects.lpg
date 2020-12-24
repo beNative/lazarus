@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectGroup FileVersion="1">
-    <Targets Count="10">
+    <Targets Count="11">
       <Target0 FileName="..\components\tslib\tslib_core.lpk"/>
       <Target1 FileName="..\components\tslib\tslib_components.lpk"/>
       <Target2 FileName="..\components\tslib\tslib_editor.lpk"/>
@@ -47,6 +47,10 @@
         <BuildModes Count="1"/>
         <Mode1 Name="Default"/>
       </Target9>
+      <Target10 FileName="DragDropTest\DragDropTest.lpi">
+        <BuildModes Count="1"/>
+        <Mode1 Name="Default"/>
+      </Target10>
     </Targets>
   </ProjectGroup>
 </CONFIG>

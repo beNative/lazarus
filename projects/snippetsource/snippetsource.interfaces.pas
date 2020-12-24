@@ -228,10 +228,14 @@ type
       read GetHighlighterDataSet;
   end;
 
+  { ISettings }
+
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
     {$REGION 'property access methods'}
     function GetAutoHideRichEditor: Boolean;
+    procedure SetAutoHideEditor(AValue: Boolean);
+    function GetAutoHidEditor: Boolean;
     procedure SetAutoHideRichEditor(AValue: Boolean);
     function GetAutoHideEditorToolBar: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
@@ -246,6 +250,9 @@ type
 
     property Database: string
       read GetDatabase write SetDatabase;
+
+    property AutoHideEditor: Boolean
+      read GetAutoHidEditor write SetAutoHideEditor;
 
     property AutoHideRichEditor: Boolean
       read GetAutoHideRichEditor write SetAutoHideRichEditor;

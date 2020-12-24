@@ -10,7 +10,7 @@ object frmConsole: TfrmConsole
   PopupMode = pmAuto
   Position = poOwnerFormCenter
   ShowHint = True
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object cmdMain: TCmdBox
     Left = 0
     Height = 551
@@ -53,15 +53,15 @@ object frmConsole: TfrmConsole
     WindowTop = 0
     WindowWidth = 0
     FillAttribute = 0
-    left = 32
-    top = 16
+    Left = 32
+    Top = 16
   end
   object tmrMain: TTimer
     Enabled = False
     Interval = 20
     OnTimer = tmrMainTimer
-    left = 104
-    top = 16
+    Left = 104
+    Top = 16
   end
   object PythonEngine: TPythonEngine
     DllName = 'python38.dll'
@@ -69,15 +69,15 @@ object frmConsole: TfrmConsole
     RegVersion = '3.8'
     UseLastKnownVersion = False
     IO = PythonInputOutput
-    left = 64
-    top = 96
+    Left = 64
+    Top = 96
   end
   object PythonInputOutput: TPythonInputOutput
     OnSendData = PythonInputOutputSendData
     OnReceiveData = PythonInputOutputReceiveData
     UnicodeIO = False
     RawOutput = False
-    left = 216
-    top = 96
+    Left = 216
+    Top = 96
   end
 end

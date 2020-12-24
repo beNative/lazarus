@@ -12,7 +12,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   ParentFont = True
   PopupMenu = ppmTreeView
   ShowHint = True
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object pnlMain: TPanel
     Left = 0
     Height = 247
@@ -168,8 +168,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   end
   object ppmTreeView: TPopupMenu
     Images = imlMain
-    left = 24
-    top = 104
+    Left = 24
+    Top = 104
     object mniNewChild: TMenuItem
       Action = actNewItemNode
       Caption = 'New item'
@@ -199,13 +199,13 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    left = 104
-    top = 40
+    Left = 104
+    Top = 40
   end
   object alMain: TActionList
     Images = imlMain
-    left = 24
-    top = 40
+    Left = 24
+    Top = 40
     object actNewRootFolderNode: TAction
       Hint = 'Add a new rootfolder to the tree'
       ImageIndex = 2
@@ -260,8 +260,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   object imlMain: TImageList
     BkColor = clWhite
     DrawingStyle = dsTransparent
-    left = 104
-    top = 104
+    Left = 104
+    Top = 104
     Bitmap = {
       4C690A0000001000000010000000FFFFFF00FFFFFF000088CC610088CC810088
       CC810088CC810088CC810088CC810088CC810088CC810088CC810088CC810088

@@ -21,9 +21,9 @@ unit ts.Core.Logger.Interfaces;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, Rtti;
 
-  ts.Core.Value;
+  //ts.Core.Value;
 
 type
   TLogMessageType = (
@@ -205,7 +205,7 @@ type
     { Send methods for types that need a custom representation. }
     //procedure SendColor(const AName: string; AColor: TColor);
     //procedure SendAlphaColor(const AName: string; AAlphaColor: TAlphaColor);
-    //procedure SendObject(const AName: string; AValue: TObject);
+    function SendObject(const AName: string; AValue: TObject): ILogger;
     //TODO procedure SendPersistent(const AName: string; AValue: TPersistent); -> log published properties
 
     function SendComponent(const AName: string; AValue: TComponent): ILogger; overload;

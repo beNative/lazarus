@@ -37,12 +37,15 @@ type
     FFileName                  : string;
     FDatabase                  : string;
     FAutoHideRichEditor        : Boolean;
+    FAutoHideEditor            : Boolean;
     FAutoHideEditorToolBar     : Boolean;
     FAutoHideRichEditorToolBar : Boolean;
     FChangeEvents              : TMethodList;
 
   protected
     {$REGION 'property access methods'}
+    function GetAutoHidEditor: Boolean;
+    procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHideRichEditor: Boolean;
     procedure SetAutoHideRichEditor(AValue: Boolean);
     function GetAutoHideEditorToolBar: Boolean;
@@ -80,6 +83,9 @@ type
 
     property AutoHideEditorToolBar: Boolean
       read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;
+
+    property AutoHideEditor: Boolean
+      read GetAutoHidEditor write SetAutoHideEditor;
 
     property AutoHideRichEditorToolBar: Boolean
       read GetAutoHideRichEditorToolBar write SetAutoHideRichEditorToolBar;
@@ -152,6 +158,20 @@ begin
   if AValue <> AutoHideRichEditorToolBar then
   begin
     FAutoHideRichEditorToolBar := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetAutoHidEditor: Boolean;
+begin
+  Result := FAutoHideEditor;
+end;
+
+procedure TSettings.SetAutoHideEditor(AValue: Boolean);
+begin
+  if AValue <> AutoHideEditor then
+  begin
+    FAutoHideEditor := AValue;
     Changed;
   end;
 end;

@@ -195,6 +195,14 @@ msgid ""
 "the treeview. \n"
 msgstr ""
 
+#: tfrmmain.pnlcapslock.caption
+msgid "CAPS"
+msgstr ""
+
+#: tfrmmain.pnlcapslock.hint
+msgid "Caps Lock"
+msgstr ""
+
 #: tfrmmain.pnldatecreated.hint
 msgid "Creation date"
 msgstr ""
@@ -218,6 +226,14 @@ msgstr ""
 
 #: tfrmmain.pnllinebreakstyle.hint
 msgid "Current line break style"
+msgstr ""
+
+#: tfrmmain.pnlnumlock.caption
+msgid "NUM"
+msgstr ""
+
+#: tfrmmain.pnlnumlock.hint
+msgid "Num Lock"
 msgstr ""
 
 #: tfrmmain.pnlposition.hint
@@ -343,6 +359,10 @@ msgstr ""
 #: tfrmsettingsdialog.caption
 msgctxt "tfrmsettingsdialog.caption"
 msgid "Settings"
+msgstr ""
+
+#: tfrmsettingsdialog.chkautohideeditor.caption
+msgid "Automatically hide texteditor when no data."
 msgstr ""
 
 #: tfrmsettingsdialog.chkautohideeditortoolbar.caption

@@ -1,11 +1,11 @@
 object frmMain: TfrmMain
-  Left = 1038
-  Height = 397
-  Top = 515
-  Width = 676
+  Left = 363
+  Height = 596
+  Top = 295
+  Width = 987
   Caption = 'SnippetSource'
-  ClientHeight = 397
-  ClientWidth = 676
+  ClientHeight = 596
+  ClientWidth = 987
   Color = clWindow
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
@@ -14,10 +14,10 @@ object frmMain: TfrmMain
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object pnlLeft: TPanel
     Left = 0
-    Height = 379
+    Height = 578
     Top = 0
     Width = 282
     Align = alLeft
@@ -26,151 +26,48 @@ object frmMain: TfrmMain
   end
   object pnlRight: TPanel
     Left = 286
-    Height = 379
+    Height = 578
     Top = 0
-    Width = 390
+    Width = 701
     Align = alClient
     BevelOuter = bvNone
     ChildSizing.Layout = cclLeftToRightThenTopToBottom
-    ClientHeight = 379
-    ClientWidth = 390
+    ClientHeight = 578
+    ClientWidth = 701
     Color = clBtnFace
     ParentColor = False
     TabOrder = 1
     Wordwrap = True
     object pnlEditor: TPanel
       Left = 0
-      Height = 379
-      Top = 0
-      Width = 390
+      Height = 430
+      Top = 24
+      Width = 701
       Align = alClient
       BevelOuter = bvNone
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ClientHeight = 379
-      ClientWidth = 390
+      ClientHeight = 430
+      ClientWidth = 701
       Color = clBtnFace
       ParentBackground = False
       ParentColor = False
       TabOrder = 0
-      object pnlRichEditor: TPanel
-        Left = 0
-        Height = 120
-        Top = 259
-        Width = 390
-        Align = alBottom
-        BevelOuter = bvNone
-        ClientHeight = 120
-        ClientWidth = 390
-        TabOrder = 0
-        object shpLine2: TShape
-          Left = 0
-          Height = 1
-          Top = 0
-          Width = 390
-          Align = alTop
-          Pen.Color = clScrollBar
-        end
-      end
-      object splHorizontal: TSplitter
-        Cursor = crVSplit
-        Left = 0
-        Height = 4
-        Top = 255
-        Width = 390
-        Align = alBottom
-        AutoSnap = False
-        Color = clScrollBar
-        MinSize = 50
-        ParentColor = False
-        ParentShowHint = False
-        ResizeAnchor = akBottom
-        ResizeStyle = rsLine
-      end
-      object pnlTitle: TPanel
-        Left = 0
-        Height = 24
-        Top = 0
-        Width = 390
-        Align = alTop
-        BevelColor = clScrollBar
-        BevelOuter = bvNone
-        ClientHeight = 24
-        ClientWidth = 390
-        Color = clBtnFace
-        ParentColor = False
-        TabOrder = 2
-        object edtTitle: TEdit
-          Left = 48
-          Height = 24
-          Top = 0
-          Width = 250
-          Align = alClient
-          Alignment = taCenter
-          Anchors = [akTop, akLeft, akRight]
-          AutoSize = False
-          BorderStyle = bsNone
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clGrayText
-          Font.Height = -17
-          Font.Name = 'Segoe UI'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          OnChange = edtTitleChange
-          OnEditingDone = edtTitleEditingDone
-          OnEnter = edtTitleEnter
-          OnExit = edtTitleExit
-          OnMouseEnter = edtTitleMouseEnter
-          OnMouseLeave = edtTitleMouseLeave
-          ParentColor = True
-          ParentFont = False
-          TabOrder = 0
-        end
-        object btnHighlighter: TMenuButton
-          Left = 0
-          Height = 24
-          Top = 0
-          Width = 48
-          Align = alLeft
-          Flat = True
-          Font.CharSet = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'Courier New'
-          Font.Pitch = fpVariable
-          Font.Quality = fqDraft
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object tlbApplication: TToolBar
-          Left = 298
-          Height = 24
-          Top = 0
-          Width = 92
-          Align = alRight
-          Caption = 'tlbApplication'
-          EdgeBorders = []
-          EdgeInner = esNone
-          EdgeOuter = esNone
-          TabOrder = 1
-          Transparent = True
-        end
-      end
       object pnlEditorToolBar: TPanel
         Left = 0
         Height = 24
-        Top = 25
-        Width = 390
+        Top = 1
+        Width = 701
         Align = alTop
         BevelColor = clScrollBar
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 390
-        TabOrder = 3
+        ClientWidth = 701
+        TabOrder = 0
         object tlbEditorView: TToolBar
           Left = 0
           Height = 24
           Top = 0
-          Width = 390
+          Width = 701
           Align = alClient
           ButtonHeight = 22
           ButtonWidth = 20
@@ -184,24 +81,127 @@ object frmMain: TfrmMain
       object shpLine: TShape
         Left = 0
         Height = 1
-        Top = 49
-        Width = 390
+        Top = 25
+        Width = 701
         Align = alTop
         Pen.Color = clScrollBar
       end
       object shpLine1: TShape
         Left = 0
         Height = 1
-        Top = 24
-        Width = 390
+        Top = 0
+        Width = 701
         Align = alTop
         Pen.Color = clScrollBar
       end
     end
+    object pnlRichEditor: TPanel
+      Left = 0
+      Height = 120
+      Top = 458
+      Width = 701
+      Align = alBottom
+      BevelOuter = bvNone
+      ClientHeight = 120
+      ClientWidth = 701
+      TabOrder = 1
+      object shpLine2: TShape
+        Left = 0
+        Height = 1
+        Top = 0
+        Width = 701
+        Align = alTop
+        Pen.Color = clScrollBar
+      end
+    end
+    object pnlTitle: TPanel
+      Left = 0
+      Height = 24
+      Top = 0
+      Width = 701
+      Align = alTop
+      BevelColor = clScrollBar
+      BevelOuter = bvNone
+      ClientHeight = 24
+      ClientWidth = 701
+      Color = clBtnFace
+      ParentColor = False
+      TabOrder = 2
+      object edtTitle: TEdit
+        Left = 48
+        Height = 24
+        Top = 0
+        Width = 561
+        Align = alClient
+        Alignment = taCenter
+        Anchors = [akTop, akLeft, akRight]
+        AutoSize = False
+        BorderStyle = bsNone
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clGrayText
+        Font.Height = -17
+        Font.Name = 'Segoe UI'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        OnChange = edtTitleChange
+        OnEditingDone = edtTitleEditingDone
+        OnEnter = edtTitleEnter
+        OnExit = edtTitleExit
+        OnMouseEnter = edtTitleMouseEnter
+        OnMouseLeave = edtTitleMouseLeave
+        ParentColor = True
+        ParentFont = False
+        TabOrder = 0
+      end
+      object btnHighlighter: TMenuButton
+        Left = 0
+        Height = 24
+        Top = 0
+        Width = 48
+        Align = alLeft
+        Flat = True
+        Font.CharSet = ANSI_CHARSET
+        Font.Color = clBlack
+        Font.Height = -11
+        Font.Name = 'Courier New'
+        Font.Pitch = fpVariable
+        Font.Quality = fqDraft
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object tlbApplication: TToolBar
+        Left = 609
+        Height = 24
+        Top = 0
+        Width = 92
+        Align = alRight
+        Caption = 'tlbApplication'
+        EdgeBorders = []
+        EdgeInner = esNone
+        EdgeOuter = esNone
+        TabOrder = 1
+        Transparent = True
+      end
+    end
+    object splHorizontal: TSplitter
+      Cursor = crVSplit
+      Left = 0
+      Height = 4
+      Top = 454
+      Width = 701
+      Align = alBottom
+      AutoSnap = False
+      Color = clScrollBar
+      MinSize = 50
+      ParentColor = False
+      ParentShowHint = False
+      ResizeAnchor = akBottom
+      ResizeStyle = rsLine
+    end
   end
   object splVertical: TSplitter
     Left = 282
-    Height = 379
+    Height = 578
     Top = 0
     Width = 4
     AutoSnap = False
@@ -213,17 +213,17 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 379
-    Width = 676
+    Top = 578
+    Width = 987
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 18
-    ClientWidth = 676
+    ClientWidth = 987
     Color = clBtnFace
     ParentColor = False
     TabOrder = 3
     object pnlId: TPanel
-      Left = 376
+      Left = 687
       Height = 18
       Hint = 'ID'
       Top = 0
@@ -284,7 +284,7 @@ object frmMain: TfrmMain
       TabOrder = 1
     end
     object pnlDateModified: TPanel
-      Left = 546
+      Left = 857
       Height = 18
       Hint = 'Last modification'
       Top = 0
@@ -295,7 +295,7 @@ object frmMain: TfrmMain
       TabOrder = 3
     end
     object pnlDateCreated: TPanel
-      Left = 430
+      Left = 741
       Height = 18
       Hint = 'Creation date'
       Top = 0
@@ -329,29 +329,54 @@ object frmMain: TfrmMain
       TabOrder = 6
     end
     object pnlStatusBarCenter: TPanel
-      Left = 350
+      Left = 426
       Height = 18
       Top = 0
-      Width = 26
+      Width = 261
       Align = alClient
       BevelColor = clScrollBar
       BevelOuter = bvSpace
       TabOrder = 8
-      OnClick = pnlStatusBarCenterClick
+    end
+    object pnlNumLock: TPanel
+      Left = 350
+      Height = 18
+      Hint = 'Num Lock'
+      Top = 0
+      Width = 38
+      Align = alLeft
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      Caption = 'NUM'
+      TabOrder = 9
+    end
+    object pnlCapsLock: TPanel
+      Left = 388
+      Height = 18
+      Hint = 'Caps Lock'
+      Top = 0
+      Width = 38
+      Align = alLeft
+      BorderSpacing.CellAlignVertical = ccaCenter
+      BevelColor = clScrollBar
+      BevelOuter = bvSpace
+      Caption = 'CAPS'
+      TabOrder = 10
     end
   end
   object pnlWelcome: TPanel
     Left = 320
-    Height = 174
+    Height = 200
     Top = 64
-    Width = 324
+    Width = 635
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
     BevelColor = clScrollBar
     BevelOuter = bvSpace
     BevelWidth = 2
-    ClientHeight = 174
-    ClientWidth = 324
+    ClientHeight = 200
+    ClientWidth = 635
     Constraints.MaxHeight = 200
     Constraints.MaxWidth = 4000
     Constraints.MinHeight = 150
@@ -361,9 +386,9 @@ object frmMain: TfrmMain
     Wordwrap = True
     object lblWelcome: TLabel
       Left = 2
-      Height = 170
+      Height = 196
       Top = 2
-      Width = 320
+      Width = 631
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -381,13 +406,13 @@ object frmMain: TfrmMain
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    left = 136
-    top = 104
+    Left = 136
+    Top = 104
   end
   object aclMain: TActionList
     Images = imlMain
-    left = 200
-    top = 105
+    Left = 200
+    Top = 105
     object actExecute: TAction
       Caption = 'Execute'
       Hint = 'Execute snippet code'
@@ -439,8 +464,8 @@ object frmMain: TfrmMain
     end
   end
   object imlMain: TImageList
-    left = 60
-    top = 104
+    Left = 60
+    Top = 104
     Bitmap = {
       4C69060000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
@@ -641,8 +666,8 @@ object frmMain: TfrmMain
     BkColor = clWhite
     DrawingStyle = dsTransparent
     ShareImages = True
-    left = 56
-    top = 248
+    Left = 56
+    Top = 248
     Bitmap = {
       4C69030000001000000010000000FFFFFF00FFFFFF007F7F554D7F7F55667F7F
       55667F7F55667F7F55667F7F55667F7F55667F7F55667F7F55667F7F55247D7D

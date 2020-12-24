@@ -16,19 +16,17 @@
 
 unit ts.RichEditor.View.KMemo;
 
-
 {$MODE DELPHI}
 
 { A richtext editor view based on KMemo }
 
 {
   TODO:
-   - drop files
+   - drop files (does not work when compiled with Lazarus (cfr. KMemo.pas)
    - paste formatted text (HTML?)
    - copy formatted text (WIKI, HTML?)
-   - SetCaret__ methods don't work because readonly in RichMemo
-
    - Undo/Redo is not yet supported by the KMemo component
+   - drag and drop images in editor view
 }
 
 interface
@@ -48,6 +46,9 @@ type
 
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
     pnlRichEditor : TPanel;
+
+    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
+
   private
     FEditor        : TKMemo;
     FTextStyle     : TKMemoTextStyle;
@@ -137,6 +138,7 @@ type
     procedure BeginUpdate;
     procedure EndUpdate;
 
+    procedure InsertImageFile(const AFileName: string);
     function InsertImage: Boolean;
     procedure InsertHyperlink;
     procedure InsertBulletList;
@@ -159,12 +161,13 @@ type
     procedure Undo;
     procedure Redo;
 
+    // event dispatching methods
     procedure DoDropFiles(const AFileNames: array of string);
     procedure DoChange;
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure UpdateActions; override;
 
@@ -255,6 +258,7 @@ uses
 {$REGION 'construction and destruction'}
 procedure TRichEditorViewKMemo.AfterConstruction;
 begin
+  Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
   FEditor := TKMemo.Create(Self);
   FEditor.Parent         := pnlRichEditor;
@@ -266,6 +270,10 @@ begin
   FEditor.OnChange       := FEditorChange;
   FEditor.OnBlockEdit    := FEditorBlockEdit;
   FEditor.OnBlockClick   := FEditorBlockClick;
+
+
+
+  //DropURLTarget1.Target := Self;
 
   FDefaultIndent := 20;
 
@@ -283,13 +291,14 @@ begin
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
   FContainerForm := TKMemoContainerForm.Create(Self);
+  Logger.Leave(Self, 'AfterConstruction');
 end;
 
-procedure TRichEditorViewKMemo.BeforeDestruction;
+destructor TRichEditorViewKMemo.Destroy;
 begin
   FTextStyle.Free;
   FParaStyle.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -359,7 +368,7 @@ end;
 
 procedure TRichEditorViewKMemo.SetModified(const AValue: Boolean);
 begin
-  FEditor.Modified := True;
+  FEditor.Modified := AValue;
 end;
 
 function TRichEditorViewKMemo.GetOnChange: TNotifyEvent;
@@ -500,21 +509,35 @@ end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
+procedure TRichEditorViewKMemo.FormDropFiles(Sender: TObject;
+  const FileNames: array of String);
+var
+  I : Integer;
+begin
+  for I := 0 to High(FileNames) - 1 do
+  begin
+    InsertImageFile(FileNames[I]);
+  end;
+
+end;
+
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
+  FEditor.Modified := True;
   DoChange;
 end;
 
 procedure TRichEditorViewKMemo.FEditorBlockClick(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
-  FEditor.Modified :=  True;
+  FEditor.Modified := True;
   DoChange;
 end;
 
 procedure TRichEditorViewKMemo.FEditorBlockEdit(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
+  FEditor.Modified := True;
   DoChange;
 end;
 
@@ -524,6 +547,7 @@ var
   LFiles : array of string;
   I      : Integer;
 begin
+  Logger.Enter(Self, 'FEditorDropFiles');
   SetLength(LFiles, Files.Count);
   try
     for I := 0 to Files.Count - 1 do
@@ -534,12 +558,14 @@ begin
   finally
     LFiles := nil;
   end;
+  Logger.Leave(Self, 'FEditorDropFiles');
 end;
 
 procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
   AReasons: TKMemoUpdateReasons);
 begin
   FEditor.SelectionParaStyle := FParaStyle;
+  FEditor.Modified := True;
   DoChange;
 end;
 
@@ -667,6 +693,16 @@ begin
     Dec(FUpdateLock);
 end;
 
+{ Inserts a new image block for the given image file at the current cursor
+  position. }
+
+procedure TRichEditorViewKMemo.InsertImageFile(const AFileName: string);
+begin
+  FEditor.Blocks.AddImageBlock(AFileName);
+end;
+
+{ Creates new or updates existing image block.  }
+
 function TRichEditorViewKMemo.InsertImage: Boolean;
 var
   LImage   : TKMemoImageBlock;
@@ -698,7 +734,7 @@ begin
     LImage.Free;
 end;
 
-{ Inserts a hyperlink block. }
+{ Creates a new or updates an existing hyperlink block. }
 
 procedure TRichEditorViewKMemo.InsertHyperlink;
 var
@@ -793,7 +829,7 @@ end;
 
 function TRichEditorViewKMemo.IsEmpty: Boolean;
 begin
-  Result := Trim(FEditor.Text) = '';
+  Result := FEditor.Empty;
 end;
 
 procedure TRichEditorViewKMemo.Clear;
@@ -818,12 +854,12 @@ end;
 
 procedure TRichEditorViewKMemo.Undo;
 begin
-  FEditor.ExecuteCommand(ecUndo);
+  FEditor.ExecuteCommand(ecUndo); // not supported yet by TKMemo
 end;
 
 procedure TRichEditorViewKMemo.Redo;
 begin
-  FEditor.ExecuteCommand(ecRedo);
+  FEditor.ExecuteCommand(ecRedo);  // not supported yet by TKMemo
 end;
 {$ENDREGION}
 

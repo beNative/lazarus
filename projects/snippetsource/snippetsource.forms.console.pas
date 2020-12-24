@@ -22,20 +22,20 @@ interface
 
 uses
   Classes, SysUtils, process, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, PythonEngine,
+  StdCtrls,
 
-  uCmdBox;
+  PythonEngine, uCmdBox;
 
 type
 
   { TfrmConsole }
 
   TfrmConsole = class(TForm)
-    cmdMain : TCmdBox;
-    prcMain : TProcess;
-    PythonEngine: TPythonEngine;
-    PythonInputOutput: TPythonInputOutput;
-    tmrMain : TTimer;
+    cmdMain           : TCmdBox;
+    prcMain           : TProcess;
+    PythonEngine      : TPythonEngine;
+    PythonInputOutput : TPythonInputOutput;
+    tmrMain           : TTimer;
 
     procedure cmdMainInput(ACmdBox: TCmdBox; Input: string);
     procedure PythonInputOutputReceiveData(Sender: TObject; var Data: AnsiString
@@ -46,7 +46,6 @@ type
 
   private
     procedure ProcessString(const AString: string);
-
 
   public
      procedure AfterConstruction; override;
@@ -67,25 +66,11 @@ uses
 procedure TfrmConsole.AfterConstruction;
 begin
   inherited AfterConstruction;
-  //prcMain.Active  := True;
-  //tmrMain.Enabled := True;
+  prcMain.Active  := True;
+  tmrMain.Enabled := True;
     //PythonEngine.LoadDll;
   cmdMain.StartRead(clSilver, clNavy, '', clYellow, clNavy);
 end;
-
-procedure TfrmConsole.Execute(const AFileName: string);
-begin
-  prcMain.Executable := 'cmd';
-  prcMain.Parameters.Add('/K call ' + AFileName);
-  prcMain.Execute;
-  cmdMain.SetFocus;
-end;
-
-procedure TfrmConsole.ExecutePy(const AStrings: TStrings);
-begin
-  PythonEngine.ExecStrings(AStrings);
-end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -102,7 +87,7 @@ begin
       FillChar(LBuf, SizeOf(LBuf), #0);
       prcMain.Output.Read(LBuf, SizeOf(LBuf) - 1);
       S := LBuf;
-      ProcessString(S);
+    //  ProcessString(S);
       cmdMain.Write(S);
       cmdMain.StartRead(clSilver,clNavy,'',clYellow,clNavy);
     end;
@@ -114,15 +99,15 @@ var
   S : string;
 begin
   S := Input + LineEnding;
-  //prcMain.Input.Write(S[1], Length(S));
-  ProcessString(S);
-  PythonEngine.ExecString(S);
+  prcMain.Input.Write(S[1], Length(S));
+  //ProcessString(S);
+  //PythonEngine.ExecString(S);
 end;
 
 procedure TfrmConsole.PythonInputOutputReceiveData(Sender: TObject;
   var Data: AnsiString);
 begin
-  ProcessString(Data);
+  //ProcessString(Data);
   //PythonEngine.ExecString(Data);
 end;
 
@@ -130,7 +115,7 @@ procedure TfrmConsole.PythonInputOutputSendData(Sender: TObject;
   const Data: AnsiString);
 begin
 //  ProcessString(Data);
-        cmdMain.Writeln(Data);
+  //      cmdMain.Writeln(Data);
 end;
 {$ENDREGION}
 
@@ -141,6 +126,7 @@ var
   I  : Integer;
   S  : string;
 begin
+  Logger.Enter(Self, 'ProcessString');
   SL := TStringList.Create;
   try
     Logger.SendText(AString);
@@ -158,8 +144,25 @@ begin
   finally
     SL.Free;
   end;
+  Logger.Leave(Self, 'ProcessString');
+end;
+{$ENDREGION}
+
+{$REGION 'public methods'}
+procedure TfrmConsole.Execute(const AFileName: string);
+begin
+  Logger.Enter(Self, 'Execute');
+  prcMain.Executable := 'cmd';
+  prcMain.Parameters.Add('/K call ' + AFileName);
+  prcMain.Execute;
+  cmdMain.SetFocus;
+  Logger.Leave(Self, 'Execute');
+end;
+
+procedure TfrmConsole.ExecutePy(const AStrings: TStrings);
+begin
+  PythonEngine.ExecStrings(AStrings);
 end;
 {$ENDREGION}
 
 end.
-

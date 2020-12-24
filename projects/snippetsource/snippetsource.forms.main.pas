@@ -66,10 +66,12 @@ type
     imlMain             : TImageList;
     imlNodes            : TImageList;
     lblWelcome          : TLabel;
+    pnlNumLock          : TPanel;
+    pnlCapsLock         : TPanel;
     pnlWelcome          : TPanel;
     pnlStatusBarCenter  : TPanel;
     pnlEditorToolBar    : TPanel;
-    pnlRichEditor         : TPanel;
+    pnlRichEditor       : TPanel;
     pnlDateCreated      : TPanel;
     pnlDateModified     : TPanel;
     pnlEditMode         : TPanel;
@@ -127,7 +129,6 @@ type
       var AFileName : string;
       const AText   : string
     );
-    procedure pnlStatusBarCenterClick(Sender: TObject);
     procedure RVChange(Sender: TObject);
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
@@ -153,6 +154,7 @@ type
     FSettings          : TSettings;
     FConsole           : TfrmConsole;
     FRichEditorToolBar : TToolBar;
+    FUpdate            : Boolean;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
@@ -165,6 +167,8 @@ type
     procedure CreateTreeview;
     procedure CreateEditor;
     procedure CreateRichEditor;
+
+    procedure Modified;
 
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
@@ -248,6 +252,7 @@ begin
   inherited AfterConstruction;
   FSettings := TSettings.Create(Self);
   FSettings.Load;
+  Logger.SendObject('Settings', FSettings);
   FData := TdmSnippetSource.Create(Self, FSettings);
 
   pnlId.Font.Color           := clRed;
@@ -329,6 +334,7 @@ procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
   ExecuteSettingsDialog(FData, FSettings);
   FData.DataSet.Refresh;
+  Modified;
 end;
 
 procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
@@ -351,24 +357,24 @@ begin
 end;
 
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
-//var
-//  FS : TFileStream;
+var
+  FS : TFileStream;
 begin
-//  FS := TFileStream.Create('SnippetSource.bat', fmCreate);
+  FS := TFileStream.Create('SnippetSource.bat', fmCreate);
   try
 //    FConsole.ExecutePy(Editor.Lines);
     //PythonEngine1.ExecStrings(Editor.Lines);
     //PythonEngine1.EvalStrings(Editor.Lines);
-    //Editor.SaveToStream(FS);
+    Editor.SaveToStream(FS);
     if not Assigned(FConsole) then
     begin
       FConsole := TfrmConsole.Create(Self);
     end;
     FConsole.Show;
-    FConsole.ExecutePy(Editor.Lines);
-    //FConsole.Execute('SnippetSource.bat');
+//    FConsole.ExecutePy(Editor.Lines);
+    FConsole.Execute('SnippetSource.bat');
   finally
-//    FS.Free;
+    FS.Free;
   end;
 end;
 
@@ -409,6 +415,7 @@ procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
 var
   DS : TDataSet;
 begin
+  Logger.Enter(Self, 'dscMainDataChange');
   if Field = nil then // browse record
   begin
     if Assigned(DataSet.DataSet) then
@@ -431,16 +438,24 @@ begin
         edtTitle.Hint := Snippet.NodeName;
         btnHighlighter.Caption := Snippet.Highlighter;
         LoadRichText;
+        Modified;
       end;
     end;
+  end
+  else
+  begin
+    Logger.Send(Field.FieldName, Field.AsString);
   end;
+  Logger.Leave(Self, 'dscMainDataChange');
 end;
 
 {$REGION 'Editor'}
 procedure TfrmMain.EChange(Sender: TObject);
 begin
+  Logger.Enter(Self, 'EChange');
   DataSet.Edit;
   AssignEditorChanges;
+  Logger.Leave(Self, 'EChange');
 end;
 
 procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
@@ -450,26 +465,22 @@ end;
 
 procedure TfrmMain.EHighlighterChange(Sender: TObject);
 begin
-  Logger.Info('EHighlighterChange');
+  Logger.Enter(Self, 'EHighlighterChange');
   if Snippet.Highlighter <> Editor.HighlighterName then
   begin
     DataSet.Edit;
     AssignEditorChanges;
   end;
+  Logger.Leave(Self, 'EHighlighterChange');
 end;
 
 procedure TfrmMain.ENew(Sender: TObject; var AFileName: string; const AText: string);
 begin
+  Logger.Enter(Self, 'ENew');
   FTree.NewSubItemNode;
   Editor.Text := AText;
   AssignEditorChanges;
-end;
-
-procedure TfrmMain.pnlStatusBarCenterClick(Sender: TObject);
-begin
-  //FTree.TreeView.BeginUpdate;
-  FTree.TreeView.UpdateTree;
-  //FTree.TreeView.EndUpdate;
+  Logger.Leave(Self, 'ENew');
 end;
 {$ENDREGION}
 
@@ -594,11 +605,9 @@ end;
 {$REGION 'RV'}
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
-  if not RichEditor.IsEmpty then
-  begin
-    DataSet.Edit;
-    AssignEditorChanges;
-  end;
+  Logger.Enter(Self, 'RVChange');
+  SaveRichText;
+  Logger.Leave(Self, 'RVChange');
 end;
 {$ENDREGION}
 {$ENDREGION}
@@ -658,6 +667,11 @@ begin
   RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
 end;
 
+procedure TfrmMain.Modified;
+begin
+  FUpdate := True;
+end;
+
 function TfrmMain.FileExtensionToHighlighter(const AFileExtension: string
   ): string;
 var
@@ -712,6 +726,7 @@ var
   SS : TStringStream;
   S  : string;
 begin
+  Logger.Enter(Self, 'SaveRichText');
   SS := TStringStream.Create('');
   try
     if Assigned(DataSet) then
@@ -733,6 +748,7 @@ begin
   finally
     FreeAndNil(SS);
   end;
+  Logger.Leave(Self, 'SaveRichText');
 end;
 
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
@@ -740,14 +756,17 @@ procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
 var
   LIsDir      : Boolean;
   LIsTextFile : Boolean;
+  LIsImage    : Boolean;
   LIsReadable : Boolean;
   LParentId   : Variant;
   LRelPath    : string;
   LParentPath : string;
   LFileName   : string;
+  LPicture    : TPicture;
 begin
   Connection.BeginBulkInserts;
   LIsTextFile := False;
+  LIsImage    := False;
   LIsDir      := False;
   if DirectoryExists(APath) then
   begin
@@ -756,9 +775,13 @@ begin
   else
   begin
     LIsTextFile := FileIsText(APath, LIsReadable);
+    if not LIsTextFile then
+    begin
+      LIsImage := TPicture.FindGraphicClassWithFileExt(ExtractFileExt(APath), False) <> nil;
+    end;
   end;
 
-  if LIsDir or (LIsTextFile and LIsReadable) then
+  if LIsDir or (LIsTextFile and LIsReadable) or LIsImage then
   begin
     LRelPath    := CreateRelativePath(APath, ACommonPath);
     LParentPath := ChompPathDelim(GetParentDir(LRelPath));
@@ -783,6 +806,18 @@ begin
       Snippet.NodeTypeId  := 2;
       Snippet.ImageIndex  := 2;
       Snippet.ParentId    := FParentId;
+      DataSet.Post;
+    end
+    else if LIsImage then
+    begin
+      DataSet.Append;
+      Snippet.NodeName    := LFileName;
+      Snippet.NodeTypeId  := 2;
+      Snippet.ImageIndex  := 2;
+      Snippet.ParentId    := FParentId;
+      RichEditor.Clear;
+      RichEditor.InsertImageFile(APath);
+      SaveRichText;
       DataSet.Post;
     end
     else if LIsDir then
@@ -881,8 +916,6 @@ begin
   Snippet.Highlighter := Editor.HighlighterName;
   if Snippet.Highlighter = '' then
     Snippet.Highlighter := 'TXT';
-  SaveRichText;
-  SaveRichText; // needs to be done twice for embedded pictures => TODO bugfix
 end;
 
 procedure TfrmMain.BuildToolBar;
@@ -976,10 +1009,6 @@ begin
 end;
 
 procedure TfrmMain.UpdateStatusBar;
-var
-  LWidth    : Integer;
-  LFileName : string;
-  SS        : TShiftState;
 begin
   pnlPosition.Caption :=
     Format('%1d:%1d / %1d | %1d', [
@@ -1007,37 +1036,21 @@ begin
   pnlLineBreakStyle.Caption := Editor.LineBreakStyle;
 
   if Odd(GetKeyState(VK_NUMLOCK)) then
-    pnlStatusBarCenter.Caption := 'NUM '
+    pnlNumLock.Caption := 'NUM '
   else
-    pnlStatusBarCenter.Caption := '';
+    pnlNumLock.Caption := '';
 
   if Odd(GetKeyState(VK_CAPITAL)) then
-    pnlStatusBarCenter.Caption := pnlStatusBarCenter.Caption + 'CAPS '
+    pnlCapsLock.Caption := 'CAPS'
   else
-    pnlStatusBarCenter.Caption := pnlStatusBarCenter.Caption + '';
-
-
-
-  //LWidth := GetTextWidth(FSettings.Database, pnlStatusBarCenter.Font);
-  //if pnlStatusBarCenter.Width > LWidth then
-  //  pnlStatusBarCenter.Caption := FSettings.Database
-  //else
-  //begin
-  //  LFileName := ExtractFileName(FSettings.Database);
-  //  LWidth := GetTextWidth(LFileName, pnlStatusBarCenter.Font);
-  //  if pnlStatusBarCenter.Width > LWidth then
-  //    pnlStatusBarCenter.Caption := LFileName
-  //  else
-  //    pnlStatusBarCenter.Caption := '';
-  //end;
-
-
-
+    pnlCapsLock.Caption := '';
   OptimizeWidth(pnlSnippetCount);
   OptimizeWidth(pnlPosition);
   OptimizeWidth(pnlSize);
   OptimizeWidth(pnlEditMode);
   OptimizeWidth(pnlLineBreakStyle);
+  OptimizeWidth(pnlNumLock);
+  OptimizeWidth(pnlCapsLock);
   OptimizeWidth(pnlId);
   OptimizeWidth(pnlDateCreated);
   OptimizeWidth(pnlDateModified);
@@ -1045,18 +1058,43 @@ end;
 
 procedure TfrmMain.UpdateViews;
 begin
-  //Logger.Watch('RichEditor.IsEmpty', RichEditor.IsEmpty);
-  //Logger.Send('RichEditor.Text', RichEditor.Text);
-  if FSettings.AutoHideRichEditor and RichEditor.IsEmpty then
+  if FUpdate then
   begin
-    pnlRichEditor.Visible := False;
-    splHorizontal.Visible := False;
-  end
-  else
-  begin
-    pnlRichEditor.Visible := True;
-    splHorizontal.Visible := True;
-    pnlRichEditor.Align := alBottom;
+    if FSettings.AutoHideRichEditor and RichEditor.IsEmpty then
+    begin
+      pnlRichEditor.Visible := False;
+      splHorizontal.Visible := False;
+      if FSettings.AutoHideEditor and (Editor.Text = '') then
+      begin
+        Editor.Editor.Visible := False;
+        splHorizontal.Visible := False;
+      end
+      else
+      begin
+        Editor.Editor.Visible := True;
+        splHorizontal.Visible := False;
+        Editor.Editor.Align := alClient;
+      end;
+    end
+    else
+    begin
+      pnlRichEditor.Visible := True;
+
+      if FSettings.AutoHideEditor and (Editor.Text = '') then
+      begin
+        Editor.Editor.Visible := False;
+        splHorizontal.Visible := False;
+        pnlRichEditor.Align := alClient;
+      end
+      else
+      begin
+        Editor.Editor.Visible := True;
+        splHorizontal.Visible := True;
+        Editor.Editor.Align := alClient;
+        pnlRichEditor.Align := alBottom;
+      end;
+    end;
+    FUpdate := False;
   end;
 end;
 

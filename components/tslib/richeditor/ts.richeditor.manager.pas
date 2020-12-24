@@ -143,7 +143,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     function AddView(
       const AName     : string = '';
@@ -197,12 +197,12 @@ begin
   FActiveView := nil;
 end;
 
-procedure TdmRichEditorManager.BeforeDestruction;
+destructor TdmRichEditorManager.Destroy;
 begin
   FActiveView := nil;
   FEvents     := nil;
   FreeAndNil(FViews);
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -249,8 +249,8 @@ end;
 
 function TdmRichEditorManager.GetViewByName(AName: string): IRichEditorView;
 var
-  I: Integer;
-  B: Boolean;
+  I : Integer;
+  B : Boolean;
 begin
   I := 0;
   B := False;

@@ -112,6 +112,7 @@ type
     function IsUpdating: Boolean;
     function IsEmpty: Boolean;
     function InsertImage: Boolean;
+    procedure InsertImageFile(const AFileName: string);
     procedure InsertHyperlink;
     procedure InsertBulletList;
     procedure InsertTextBox;

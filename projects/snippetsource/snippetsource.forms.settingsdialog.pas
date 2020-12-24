@@ -66,6 +66,7 @@ type
     cbxImageList                 : TComboBox;
     chkAutoHideEditorToolBar: TCheckBox;
     chkAutoHideRichEditor: TCheckBox;
+    chkAutoHideEditor: TCheckBox;
     chkAutoHideRichEditorToolBar: TCheckBox;
     dlgOpen                      : TOpenDialog;
     dscGlyph                     : TDatasource;
@@ -109,6 +110,7 @@ type
       ARect   : TRect;
       State   : TOwnerDrawState
     );
+    procedure chkAutoHideEditorClick(Sender: TObject);
     procedure chkAutoHideEditorToolBarClick(Sender: TObject);
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
@@ -392,6 +394,11 @@ begin
 
   //Pos := ARect.Left + ((ARect.Right - ARect.Left) div 2) - 8;
 
+end;
+
+procedure TfrmSettingsDialog.chkAutoHideEditorClick(Sender: TObject);
+begin
+  FSettings.AutoHideEditor := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.chkAutoHideEditorToolBarClick(Sender: TObject);

@@ -1,4 +1,4 @@
-TODO (22/06/2020)
+TODO (22/12/2020)
 - do not loose position in tree after refresh
 - custom node sequence number (up/down position)
 - more polished look for lookup form
@@ -8,7 +8,8 @@ TODO (22/06/2020)
 - read only mode (with multiple editor buffer views side by side)
 - operations on multiselection of nodes
 - backup/restore option (7z)
-
+- RTF drag and drop pictures
+- store last size + position
 
 Welcome to SnippetSource. A new SQLite database will be created.
 
@@ -33,13 +34,18 @@ folder structure as wel.
 Nodes can be moved freely by dragging them to another folder.
 
 It uses the text editor module which was developed for my Notepas project, and
-is based on the SynEdit components used by Lazarus.
+is based on the SynEdit components used by Lazarus for its source code editor.
+This has the convenient side effect that the capabillities of the text editor
+expand too as Lazarus evolves.
 
 Since version 3 the possibility to execute script code was added. Snippets that
 represent script code can directly be executed.
 
 Another new feature is you can now customize the node images from a user
 definable set of glyphs which can be stored in the snippet database.
+
+My intention is to keep the user interface as clean as possible so users can
+focus more on the content.
 
 Use Cases
 As I developer I use it for storing SQL-scripts, code snippets and short
@@ -50,6 +56,8 @@ A writer could use it to store his favourite quotes.
 The source to your snippets of your sources
 
 The abillity to execute scripts was added.
+
+Images can be dragged and dropped into both the treeviewer and the Richeditor.
 
 --
 import from older version?
@@ -93,6 +101,9 @@ DONE
 - Action actCopySnippetToClipBoard
 - removed PathFieldName from TfrmVirtualDBTree (not used anymore)
 
+24/12/2020
+- FPC 3.2 and Lazarus 2.0.10
+- Support for drag and drop of image files.
 
 10/06/2020
 - Added initial support for executing Python scripts

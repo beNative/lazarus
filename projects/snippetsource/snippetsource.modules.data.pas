@@ -127,6 +127,8 @@ type
     procedure qrySnippetBeforePost(ADataSet: TDataSet);
     procedure qrySnippetBeforeScroll(ADataSet: TDataSet);
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
+
+    procedure FSettingsChange(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -136,7 +138,6 @@ type
     FHLImages       : TImageMap;
 
     {$REGION 'property access mehods'}
-    procedure FSettingsChange(Sender: TObject);
     function GetActive: Boolean;
     function GetAutoApplyUpdates: Boolean;
     function GetAutoCommit: Boolean;
@@ -406,7 +407,6 @@ procedure TdmSnippetSource.AfterConstruction;
 begin
   Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
-
   FHLImages := TImageMap.Create(True);
   qrySnippet.UsePrimaryKeyAsKey := True;
   ConnectToDatabase(FSettings.Database);
@@ -512,7 +512,7 @@ begin
       LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
       ADataSet.DisableControls;
       ADataSet.Refresh;
-      ADataSet.Locate('Id' , LLastID,[]);
+      ADataSet.Locate('Id', LLastID, []);
       ADataSet.EnableControls;
     end;
   end;
@@ -523,8 +523,8 @@ procedure TdmSnippetSource.qrySnippetNewRecord(ADataSet: TDataSet);
 begin
   Logger.Enter(Self, 'qrySnippetNewRecord');
   // forces new value for AutoInc field
-  qrySnippet.FieldByName('Id').Value := 0;
-  qrySnippet.FieldByName('DateCreated').AsDateTime := Now;
+  qrySnippet.FieldByName('Id').Value                := 0;
+  qrySnippet.FieldByName('DateCreated').AsDateTime  := Now;
   qrySnippet.FieldByName('HighlighterId').AsInteger := 1;
   if qrySnippet.FieldByName('NodeTypeId').AsInteger = 0 then
   begin
@@ -554,12 +554,12 @@ end;
 procedure TdmSnippetSource.SetAutoApplyUpdates(AValue: Boolean);
 begin
   if AValue <> AutoApplyUpdates then
-    begin
-      if AValue then
-        DataSet.Options := DataSet.Options + [sqoAutoApplyUpdates]
-      else
-        DataSet.Options := DataSet.Options - [sqoAutoApplyUpdates];
-    end;
+  begin
+    if AValue then
+      DataSet.Options := DataSet.Options + [sqoAutoApplyUpdates]
+    else
+      DataSet.Options := DataSet.Options - [sqoAutoApplyUpdates];
+  end;
 end;
 
 function TdmSnippetSource.GetAutoCommit: Boolean;
@@ -646,7 +646,7 @@ end;
 
 procedure TdmSnippetSource.SetFileName(AValue: string);
 begin
-   if AValue <> FileName then
+  if AValue <> FileName then
   begin
     conMain.Connected    := False;
     conMain.DatabaseName := AValue;
@@ -713,9 +713,9 @@ end;
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
 var
   LId     : Variant;
-  MS      : TMemoryStream;
-  LKey    : Integer;
-  LBitmap : TBitmap;
+  //MS      : TMemoryStream;
+  //LKey    : Integer;
+  //LBitmap : TBitmap;
 begin
   if AValue <> Highlighter then
   begin
@@ -938,10 +938,8 @@ begin
           BM := TBitmap.Create;
           BM.Assign(P.Bitmap);
           FHLImages.Add(qryHighlighter.FieldByName('Id').AsInteger, BM);
-
-          //imlNodeTypes.Add(P.Bitmap, nil);
-
-        finally
+            //imlNodeTypes.Add(P.Bitmap, nil);
+          finally
           FreeAndNil(MS);
         end;
       finally

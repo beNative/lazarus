@@ -23,7 +23,6 @@ object frmMain: TfrmMain
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    OnClick = pnlLeftClick
   end
   object pnlRight: TPanel
     Left = 286

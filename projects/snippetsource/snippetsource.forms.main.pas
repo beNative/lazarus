@@ -133,7 +133,6 @@ type
       var AFileName : string;
       const AText   : string
     );
-    procedure pnlLeftClick(Sender: TObject);
     procedure RVChange(Sender: TObject);
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
@@ -428,16 +427,13 @@ begin
 end;
 
 procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
-var
-  DS : TDataSet;
 begin
   if Field = nil then // browse record
   begin
-    Logger.Enter(Self, 'dscMainDataChange');
+    Logger.Enter(Self, 'dscMainDataChange - browse');
     if Assigned(DataSet.DataSet) then
     begin
-      DS := DataSet.DataSet;
-      if DS.State = dsBrowse then
+      if DataSet.DataSet.State = dsBrowse then
       begin
         FParentId := Snippet.ID;
         Editor.BeginUpdate; // avoid EChange getting triggered
@@ -459,12 +455,8 @@ begin
         Modified;
       end;
     end;
-    Logger.Leave(Self, 'dscMainDataChange');
+    Logger.Leave(Self, 'dscMainDataChange - browse');
   end
-  else
-  begin
-    Logger.Send(Field.FieldName, Field.AsString);
-  end;
 end;
 
 {$REGION 'Editor'}
@@ -500,12 +492,6 @@ begin
   AssignEditorChanges;
   Logger.Leave(Self, 'ENew');
 end;
-
-procedure TfrmMain.pnlLeftClick(Sender: TObject);
-begin
-
-end;
-
 {$ENDREGION}
 
 {$REGION 'edtTitle'}

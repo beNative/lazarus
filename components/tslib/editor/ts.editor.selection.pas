@@ -48,7 +48,7 @@ type
     function GetLines: TStrings;
     function GetSelectionMode: TSynSelectionMode;
     function GetText: string;
-    function GetTextSize: Integer;
+    function GetTextSize: Int64;
     procedure SetBlockBegin(AValue: TPoint);
     procedure SetBlockEnd(AValue: TPoint);
     procedure SetCaretXY(AValue: TPoint);
@@ -97,7 +97,7 @@ type
     property Text: string
       read GetText write SetText;
 
-    property TextSize: Integer
+    property TextSize: Int64
       read GetTextSize;
   end;
 
@@ -181,7 +181,7 @@ begin
   FLines.Text := AValue;
 end;
 
-function TEditorSelection.GetTextSize: Integer;
+function TEditorSelection.GetTextSize: Int64;
 begin
   Result := Length(Text);
 end;

@@ -43,6 +43,7 @@ type
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
+    function GetContentSize: Int64;
     //function GetCurrentWord: string;
     function GetEditor: TComponent;
     function GetFileName: string;
@@ -138,6 +139,9 @@ type
 
     property Actions: IRichEditorActions
       read GetActions;
+
+    property ContentSize: Int64
+      read GetContentSize;
 
     property CanPaste: Boolean
       read GetCanPaste;

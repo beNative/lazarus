@@ -289,7 +289,7 @@ type
     function GetSupportsFolding: Boolean;
     function GetSynSelection: TSynEditSelection;
     function GetText: string;
-    function GetTextSize: Integer;
+    function GetTextSize: Int64;
     function GetTopLine: Integer;
     procedure SetBlockBegin(const AValue: TPoint);
     procedure SetBlockEnd(const AValue: TPoint);
@@ -439,7 +439,7 @@ type
     property CurrentWord: string
       read GetCurrentWord;
 
-    property TextSize: Integer
+    property TextSize: Int64
       read GetTextSize;
 
     property CanPaste: Boolean
@@ -1435,7 +1435,7 @@ begin
   Editor.BlockEnd := AValue;
 end;
 
-function TEditorView.GetTextSize: Integer;
+function TEditorView.GetTextSize: Int64;
 begin
   Result := Length(Text);
 end;

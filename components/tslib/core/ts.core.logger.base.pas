@@ -157,6 +157,9 @@ type
     function Send(const AValue: UInt64): ILogger; overload;
     function Send(const AValue: Integer): ILogger; overload;
 
+    function Send(const AName: string; const AValue: Double): ILogger; overload;
+    function Send(const AValue: Double): ILogger; overload;
+
     { Will send object data using RTTI information. }
     function SendObject(const AName: string; AValue: TObject): ILogger; overload;
     function SendObject(AValue: TObject): ILogger; overload;
@@ -724,6 +727,16 @@ end;
 function TLogger.Send(const AName: string; const AValue: ShortInt): ILogger;
 begin
   Result := Send(AName, TValue(AValue));
+end;
+
+function TLogger.Send(const AName: string; const AValue: Double): ILogger;
+begin
+  Result := Send(AName, Format('%f', [AValue]));
+end;
+
+function TLogger.Send(const AValue: Double): ILogger;
+begin
+  Result := Send('', AValue);
 end;
 
 //function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;

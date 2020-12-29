@@ -146,7 +146,7 @@ type
     function GetSupportsFolding: Boolean;
     function GetSynSelection: TSynEditSelection;
     function GetText: string;
-    function GetTextSize: Integer;
+    function GetTextSize: Int64;
     function GetTopLine: Integer;
     procedure SetBlockBegin(const AValue: TPoint);
     procedure SetBlockEnd(const AValue: TPoint);
@@ -314,7 +314,7 @@ type
     property CanUndo: Boolean
       read GetCanUndo;
 
-    property TextSize: Integer
+    property TextSize: Int64
       read GetTextSize;
 
     property LinesInWindow: Integer
@@ -435,7 +435,7 @@ type
     function GetLines: TStrings;
     function GetSelectionMode: TSynSelectionMode;
     function GetText: string;
-    function GetTextSize: Integer;
+    function GetTextSize: Int64;
     procedure SetBlockBegin(AValue: TPoint);
     procedure SetBlockEnd(AValue: TPoint);
     procedure SetCaretXY(AValue: TPoint);
@@ -469,7 +469,7 @@ type
     property Text: string
       read GetText write SetText;
 
-    property TextSize: Integer
+    property TextSize: Int64
       read GetTextSize;
   end;
 

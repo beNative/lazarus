@@ -81,6 +81,7 @@ type
     procedure FEditorDropFiles(Sender: TObject; X, Y: Integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
+    function GetContentSize: Int64;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
@@ -150,8 +151,6 @@ type
     procedure DecIndent;
     procedure AdjustParagraphStyle;
 
-    function Focused: Boolean; override;
-
     procedure Clear;
 
     // clipboard commands
@@ -170,6 +169,7 @@ type
     destructor Destroy; override;
 
     procedure UpdateActions; override;
+    function Focused: Boolean; override;
 
     property Actions: IRichEditorActions
       read GetActions;
@@ -182,6 +182,9 @@ type
 
     property CanRedo: Boolean
       read GetCanRedo;
+
+    property ContentSize: Int64
+      read GetContentSize;
 
     property Events: IRichEditorEvents
       read GetEvents;
@@ -596,6 +599,11 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   DoChange;
 end;
+
+function TRichEditorViewKMemo.GetContentSize: Int64;
+begin
+  Result := Length(FEditor.RTF);
+end;
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
@@ -689,6 +697,8 @@ end;
 
 procedure TRichEditorViewKMemo.BeginUpdate;
 begin
+  // do not call FEditor.LockUpdate as it causes problems if used in
+  // combination with FEditor.LoadFromRTFStream.
   Inc(FUpdateLock);
 end;
 
@@ -696,6 +706,8 @@ procedure TRichEditorViewKMemo.EndUpdate;
 begin
   if FUpdateLock > 0 then
     Dec(FUpdateLock);
+  // do not call FEditor.UnlLockUpdate as it causes problems if used in
+  // combination with FEditor.LoadFromRTFStream.
 end;
 
 { Inserts a new image block for the given image file at the current cursor
@@ -822,11 +834,6 @@ begin
     FParaStyleForm.Save(FParaStyle);
 end;
 
-function TRichEditorViewKMemo.Focused: Boolean;
-begin
-  Result := FEditor.Focused;
-end;
-
 function TRichEditorViewKMemo.IsUpdating: Boolean;
 begin
   Result := FUpdateLock > 0;
@@ -864,6 +871,11 @@ end;
 {$ENDREGION}
 
 {$REGION 'public methods'}
+function TRichEditorViewKMemo.Focused: Boolean;
+begin
+  Result := FEditor.Focused;
+end;
+
 procedure TRichEditorViewKMemo.UpdateActions;
 begin
   FTextStyle.OnChanged := nil;

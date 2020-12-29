@@ -23,8 +23,6 @@ interface
 uses
   Classes, SysUtils, Rtti;
 
-  //ts.Core.Value;
-
 type
   TLogMessageType = (
     lmtInfo        = 0,
@@ -184,6 +182,8 @@ type
     { Int32 = Integer = FixedInt }
     function Send(const AName: string; const AValue: Integer): ILogger; overload;
 
+    function Send(const AName: string; const AValue: Double): ILogger; overload;
+
     function Send(const AValue: string): ILogger; overload;
     function Send(const AValue: WideString): ILogger; overload;
     function Send(const AValue: ShortString): ILogger; overload;
@@ -195,6 +195,8 @@ type
     function Send(const AValue: ShortInt): ILogger; overload;
     function Send(const AValue: UInt64): ILogger; overload;
     function Send(const AValue: Integer): ILogger; overload;
+
+    function Send(const AValue: Double): ILogger; overload;
 
     { Send methods for types that do not have an implicit cast to TValue
       These are equivalent to Send(AName, TValue.From(AValue)); }

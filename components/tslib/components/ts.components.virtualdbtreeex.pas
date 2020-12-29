@@ -199,6 +199,17 @@ type
     procedure SetOptions(const Value: TStringTreeOptions);
     {$ENDREGION}
 
+    procedure OnDragOverHandler(
+      Sender     : TBaseVirtualTree;
+      Source     : TObject;
+      Shift      : TShiftState;
+      State      : TDragState;
+      const Pt   : TPoint;
+      Mode       : TDropMode;
+      var Effect : LongWord;
+      var Accept : Boolean
+    );
+
     procedure RefreshListNode;
     procedure RefreshNodeByParent;
     procedure RefreshNodeByPath;
@@ -299,27 +310,20 @@ type
       Node   : PVirtualNode;
       Column : TColumnIndex
     ): Boolean; override;
+
     function GetDBNodeData(Node: PVirtualNode): Pointer;
+
     function GoToRec(AId: Double): Boolean; overload;
     procedure GoToRec(AString: string; AMode: TDBVTGoToMode); overload;
+
     function DoCancelEdit: Boolean; override;
     function DoEndEdit: Boolean; override;
+
     procedure AddNode(AParent: PVirtualNode);
     procedure CheckAllChildren(Node: PVirtualNode);
     procedure CollapseAll;
     procedure DeleteSelection;
     procedure ExpandAll;
-
-    procedure OnDragOverHandler(
-      Sender     : TBaseVirtualTree;
-      Source     : TObject;
-      Shift      : TShiftState;
-      State      : TDragState;
-      const Pt   : TPoint;
-      Mode       : TDropMode;
-      var Effect : LongWord;
-      var Accept : Boolean
-    );
 
     procedure UnCheckAll(Node: PVirtualNode; OnlyChildren: Boolean);
     procedure UpdateTree;
@@ -1517,11 +1521,14 @@ var
   LDBData : PDBNodeData;
 begin
   LData := GetNodeData(Node);
-  if (LData.Status = dbnsDelete) then
+  if LData.Status = dbnsDelete then
   begin
     if Assigned(FDataLink)
       and FDataLink.DataSet.Locate(FKeyFieldName, LData.Id, []) then
-      FDataLink.DataSet.Delete;
+    begin
+      Logger.Send('Id', LData.Id);
+      //FDataLink.DataSet.Delete;
+    end;
   end;
   LDBData := PDBNodeData(GetDBNodeData(Node));
   if Assigned(LDBData.Image) then
@@ -2429,7 +2436,7 @@ begin
   begin
     BeginUpdate;
     if dboViewAll in FDBOptions then
-      RefreshNodes()
+      RefreshNodes
     else
     begin
       if dbtsToggleAll in FDBStatus then

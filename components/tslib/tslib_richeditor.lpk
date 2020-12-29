@@ -19,6 +19,11 @@
           <OverflowChecks Value="True"/>
         </Checks>
       </CodeGeneration>
+      <Other>
+        <CompilerMessages>
+          <IgnoredMessages idx6058="True" idx5024="True"/>
+        </CompilerMessages>
+      </Other>
     </CompilerOptions>
     <Files Count="11">
       <Item1>

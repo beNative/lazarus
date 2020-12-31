@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectGroup FileVersion="1">
-    <Targets Count="11">
+    <Targets Count="16">
       <Target0 FileName="..\components\tslib\tslib_core.lpk"/>
       <Target1 FileName="..\components\tslib\tslib_components.lpk"/>
       <Target2 FileName="..\components\tslib\tslib_editor.lpk"/>
       <Target3 FileName="..\components\tslib\tslib_richeditor.lpk"/>
       <Target4 FileName="notepas\notepas.lpi">
-        <BuildModes Count="13"/>
+        <BuildModes Count="14"/>
         <Mode1 Name="Default" Compile="True"/>
         <Mode2 Name="Debug" Compile="True"/>
         <Mode3 Name="Release win32 i386 win32" Compile="True"/>
@@ -21,6 +21,7 @@
         <Mode11 Name="Release freebsd x86_64 qt"/>
         <Mode12 Name="Release solaris x86_64 gtk2"/>
         <Mode13 Name="Release win32 i386 qt"/>
+        <Mode14 Name="Release win64 x86_64 win32"/>
       </Target4>
       <Target5 FileName="snippetsource\snippetsource.lpi">
         <BuildModes Count="4"/>
@@ -51,6 +52,27 @@
         <BuildModes Count="1"/>
         <Mode1 Name="Default"/>
       </Target10>
+      <Target11 FileName="..\..\config_lazarus\onlinepackagemanager\packages\bgrabitmap-master\test\test4lcl\test4lcl.lpi">
+        <BuildModes Count="1"/>
+        <Mode1 Name="Default"/>
+      </Target11>
+      <Target12 FileName="..\..\config_lazarus\onlinepackagemanager\packages\bgrabitmap-master\test\bgralape\pbgralape.lpi">
+        <BuildModes Count="2"/>
+        <Mode1 Name="Debug" Compile="True"/>
+        <Mode2 Name="Release"/>
+      </Target12>
+      <Target13 FileName="..\..\config_lazarus\onlinepackagemanager\packages\bgrabitmap-master\test\testglyph\testglyph.lpi">
+        <BuildModes Count="1"/>
+        <Mode1 Name="Default"/>
+      </Target13>
+      <Target14 FileName="..\..\config_lazarus\onlinepackagemanager\packages\bgrabitmap-master\test\test4other\test4fpgui.lpi">
+        <BuildModes Count="1"/>
+        <Mode1 Name="Default"/>
+      </Target14>
+      <Target15 FileName="..\..\config_lazarus\onlinepackagemanager\packages\bgrabitmap-master\test\createbitmap\createbitmap.lpi">
+        <BuildModes Count="1"/>
+        <Mode1 Name="Default"/>
+      </Target15>
     </Targets>
   </ProjectGroup>
 </CONFIG>

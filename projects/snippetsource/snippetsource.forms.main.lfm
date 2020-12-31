@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 363
+  Left = 2939
   Height = 596
-  Top = 295
+  Top = 648
   Width = 987
   Caption = 'SnippetSource'
   ClientHeight = 596
@@ -55,7 +55,7 @@ object frmMain: TfrmMain
       object pnlEditorToolBar: TPanel
         Left = 0
         Height = 24
-        Top = 1
+        Top = 0
         Width = 701
         Align = alTop
         BevelColor = clScrollBar
@@ -65,7 +65,7 @@ object frmMain: TfrmMain
         TabOrder = 0
         object tlbEditorView: TToolBar
           Left = 0
-          Height = 24
+          Height = 23
           Top = 0
           Width = 701
           Align = alClient
@@ -74,25 +74,19 @@ object frmMain: TfrmMain
           EdgeBorders = []
           EdgeInner = esNone
           EdgeOuter = esNone
+          List = True
+          ShowCaptions = True
           TabOrder = 0
           Transparent = True
         end
-      end
-      object shpLine: TShape
-        Left = 0
-        Height = 1
-        Top = 25
-        Width = 701
-        Align = alTop
-        Pen.Color = clScrollBar
-      end
-      object shpLine1: TShape
-        Left = 0
-        Height = 1
-        Top = 0
-        Width = 701
-        Align = alTop
-        Pen.Color = clScrollBar
+        object shpLine2: TShape
+          Left = 0
+          Height = 1
+          Top = 23
+          Width = 701
+          Align = alBottom
+          Pen.Color = clScrollBar
+        end
       end
     end
     object pnlRichEditor: TPanel
@@ -105,7 +99,7 @@ object frmMain: TfrmMain
       ClientHeight = 120
       ClientWidth = 701
       TabOrder = 1
-      object shpLine2: TShape
+      object shpLine3: TShape
         Left = 0
         Height = 1
         Top = 0
@@ -129,7 +123,7 @@ object frmMain: TfrmMain
       TabOrder = 2
       object edtTitle: TEdit
         Left = 48
-        Height = 24
+        Height = 23
         Top = 0
         Width = 504
         Align = alClient
@@ -155,7 +149,7 @@ object frmMain: TfrmMain
       end
       object btnHighlighter: TMenuButton
         Left = 0
-        Height = 24
+        Height = 23
         Top = 0
         Width = 48
         Align = alLeft
@@ -171,7 +165,7 @@ object frmMain: TfrmMain
       end
       object tlbApplication: TToolBar
         Left = 552
-        Height = 24
+        Height = 23
         Top = 0
         Width = 149
         Align = alRight
@@ -179,8 +173,17 @@ object frmMain: TfrmMain
         EdgeBorders = []
         EdgeInner = esNone
         EdgeOuter = esNone
+        ShowCaptions = True
         TabOrder = 1
         Transparent = True
+      end
+      object shpLine1: TShape
+        Left = 0
+        Height = 1
+        Top = 23
+        Width = 701
+        Align = alBottom
+        Pen.Color = clScrollBar
       end
     end
     object splHorizontal: TSplitter
@@ -308,7 +311,7 @@ object frmMain: TfrmMain
     object pnlSize: TPanel
       Left = 214
       Height = 18
-      Hint = 'Size'
+      Hint = 'Size of node content.'
       Top = 0
       Width = 54
       Align = alLeft
@@ -462,26 +465,34 @@ object frmMain: TfrmMain
       Caption = 'Console'
       OnExecute = actConsoleExecute
     end
-    object actShowTextEditor: TAction
+    object actToggleTextEditor: TAction
       AutoCheck = True
-      Caption = 'Show text editor.'
-      Checked = True
+      Hint = 'Toggle text editor.'
       ImageIndex = 7
-      OnExecute = actShowTextEditorExecute
+      OnExecute = actToggleTextEditorExecute
+      ShortCut = 24660
     end
-    object actShowRichTextEditor: TAction
+    object actToggleRichTextEditor: TAction
       AutoCheck = True
-      Caption = 'Show rich-text editor.'
       Checked = True
+      Hint = 'Toggle rich-text editor.'
       ImageIndex = 6
-      OnExecute = actShowRichTextEditorExecute
+      OnExecute = actToggleRichTextEditorExecute
+      ShortCut = 24658
+    end
+    object actSQLEditor: TAction
+      Caption = 'SQL editor'
+      Hint = 'Start SQL editor.'
+      ImageIndex = 8
+      OnExecute = actSQLEditorExecute
+      ShortCut = 24657
     end
   end
   object imlMain: TImageList
     Left = 60
     Top = 104
     Bitmap = {
-      4C69080000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      4C69090000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF000101E5000101E5000101E5000101
       E5000101E5000101E5000101E5000101E5000101E53C0101E5AB0101E23D0101
@@ -737,7 +748,39 @@ object frmMain: TfrmMain
       40FFE66240FFE66240FFE66240FFE66240FFE66240FFE66240FFE66240FFE662
       40FFE66240FFE5613FC0FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
       FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
-      FF00FFFFFF00FFFFFF00FFFFFF00
+      FF00FFFFFF00FFFFFF00FFFFFF00000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000050000000FF000000FF000000FF0000
+      009F0000000000000020000000FF000000FF00000020000000000000009F0000
+      00FF000000FF0000003000000000000000DF0000004000000010000000FF0000
+      009F00000000000000AF0000007000000070000000AF00000000000000100000
+      00FF000000100000000000000000000000DF0000004000000000000000800000
+      009F00000040000000DF0000000000000000000000DF00000040000000100000
+      00FF000000100000000000000000000000DF0000004000000000000000000000
+      000000000040000000DF0000000000000000000000DF00000040000000100000
+      00FF00000010000000000000000000000050000000FF000000EF000000000000
+      000000000040000000DF0000000000000000000000DF00000040000000100000
+      00FF00000010000000000000000000000000000000000000009F000000FF0000
+      001000000040000000DF0000000000000000000000DF00000040000000100000
+      00FF000000100000000000000000000000000000000000000000000000800000
+      009F00000040000000DF0000000000000000000000DF00000040000000100000
+      00FF000000100000000000000000000000DF0000004000000000000000800000
+      009F00000040000000DF0000000000000000000000DF00000040000000100000
+      00FF000000100000000000000000000000DF000000CF00000000000000800000
+      009F00000000000000AF0000007000000070000000AF00000000000000100000
+      00FF0000001000000040000000DF000000DF000000FF000000FF000000FF0000
+      00100000000000000020000000FF000000FF00000020000000000000009F0000
+      00FF000000FF000000FF000000DF000000000000000000000000000000000000
+      000000000000000000000000008F000000FF0000002000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000AF000000FF00000070000000FF00000040000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000
     }
   end
   object imlNodes: TImageList

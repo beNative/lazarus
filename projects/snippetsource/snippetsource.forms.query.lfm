@@ -5,7 +5,7 @@ object frmQuery: TfrmQuery
   Width = 887
   ClientHeight = 631
   ClientWidth = 887
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object pnlQueryEditor: TPanel
     Left = 0
     Height = 274

@@ -332,7 +332,10 @@ end;
 
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
 begin
-  SQLite.IntegrityCheck;
+  if SQLite.IntegrityCheck then
+    ShowMessage('Integrity check was successful!')
+  else
+    ShowMessage('Database failed integrity check!');
   UpdateDataBaseInfo;
 end;
 
@@ -342,8 +345,14 @@ begin
 end;
 
 procedure TfrmSettingsDialog.actDatabaseVacuumExecute(Sender: TObject);
+var
+  LStartSize : Int64;
+  S          : string;
 begin
+  LStartSize := SQLite.Size;
   SQLite.Vacuum;
+  S := FormatByteText(LStartSize - SQLite.Size);
+  ShowMessageFmt('Database size was reduced by %s.', [S]);
   UpdateDataBaseInfo;
 end;
 
@@ -355,6 +364,7 @@ end;
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
+  ShowMessage('All indexes are rebuilt.')
 end;
 
 procedure TfrmSettingsDialog.actCreateDatabaseTablesExecute(Sender: TObject);

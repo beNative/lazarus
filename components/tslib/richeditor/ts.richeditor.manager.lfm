@@ -293,10 +293,10 @@ object dmRichEditorManager: TdmRichEditorManager
       AutoCheck = True
       GroupIndex = 2
     end
-    object MenuItem1: TMenuItem
+    object N3: TMenuItem
       Caption = '-'
     end
-    object MenuItem2: TMenuItem
+    object mniClear: TMenuItem
       Action = actClear
     end
     object N2: TMenuItem

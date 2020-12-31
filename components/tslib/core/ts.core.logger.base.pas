@@ -137,7 +137,6 @@ type
     function Send(const AName: string; const AValue: ShortString): ILogger; overload;
 
     // Overloads for builtin integer types
-    //function Send(const AName: string; const AValue: Cardinal): ILogger; overload;
     function Send(const AName: string; const AValue: Word): ILogger; overload;
     function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
     function Send(const AName: string; const AValue: Byte): ILogger; overload;
@@ -274,7 +273,7 @@ uses
 
 const
   STACKCOUNTLIMIT        = 256;
-  DEFAULT_CHECKPOINTNAME = 'CheckPoint';
+//  DEFAULT_CHECKPOINTNAME = 'CheckPoint';
 
 {$REGION 'non-interfaced routines'}
 function ColorToStr(Color: TColor): string;
@@ -739,11 +738,6 @@ begin
   Result := Send('', AValue);
 end;
 
-//function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;
-//begin
-//  Result := Send(AName, IntToStr(AValue));
-//end;
-
 function TLogger.Send(const AName: string; const AValue: SmallInt): ILogger;
 begin
   Result := Send(AName, IntToStr(AValue));
@@ -763,11 +757,6 @@ function TLogger.Send(const AValue: ShortString): ILogger;
 begin
   Result := Send('', AValue);
 end;
-
-//function TLogger.Send(const AValue: Cardinal): ILogger;
-//begin
-//  Result := Send('', AValue);
-//end;
 
 function TLogger.Send(const AValue: Word): ILogger;
 begin
@@ -818,34 +807,29 @@ begin
     for P in FRttiContext.GetType(LInstance.TypeInfo).GetProperties do
     begin
       if not (P.PropertyType.TypeKind in LExcludedTypes) and P.IsReadable then
-            begin
-              if LInstance.IsObject then
-                V := P.GetValue(LInstance.AsObject)
-              else
-                V := P.GetValue(LInstance.GetReferenceToRawData);
-              if V.Kind = tkRecord then
-              begin
-                //if TryGetUnderlyingValue(V, V2) then
-                //begin
-                //  if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
-                //    Values[P.Name] := V2;
-                //end
-                //else
-                //begin
-                //  raise Exception.Create('TryGetUnderlyingValue failed.');
-                //end;
-              end
-              else
-              begin
-                SL.Values[P.Name] := V.AsString;
-              end;
-
+      begin
+        if LInstance.IsObject then
+          V := P.GetValue(LInstance.AsObject)
+        else
+          V := P.GetValue(LInstance.GetReferenceToRawData);
+        if V.Kind = tkRecord then
+        begin
+          //if TryGetUnderlyingValue(V, V2) then
+          //begin
+          //  if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
+          //    Values[P.Name] := V2;
+          //end
+          //else
+          //begin
+          //  raise Exception.Create('TryGetUnderlyingValue failed.');
+          //end;
+        end
+        else
+        begin
+          SL.Values[P.Name] := V.AsString;
+        end;
     end;
-
-    end;
-
-
-
+  end;
   Result := InternalSend(
     lmtObject,
     Format('%s (%s) = ' + sLineBreak + '%s',

@@ -58,7 +58,7 @@ type
     actDecIndent            : TAction;
     actAdjustParagraphStyle : TAction;
     actInsertTextBox        : TAction;
-    actClear: TAction;
+    actClear                : TAction;
     actItalic               : TAction;
     actOpen                 : TAction;
     actPaste                : TAction;
@@ -75,8 +75,8 @@ type
     dlgOpen                 : TOpenDialog;
     dlgSave                 : TSaveDialog;
     imlMain                 : TImageList;
-    MenuItem1: TMenuItem;
-    MenuItem2: TMenuItem;
+    N3                      : TMenuItem;
+    mniClear                : TMenuItem;
     mniAlignCenter          : TMenuItem;
     mniAlignJustify         : TMenuItem;
     mniAlignLeft            : TMenuItem;

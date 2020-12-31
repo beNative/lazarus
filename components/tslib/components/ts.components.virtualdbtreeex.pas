@@ -1526,8 +1526,7 @@ begin
     if Assigned(FDataLink)
       and FDataLink.DataSet.Locate(FKeyFieldName, LData.Id, []) then
     begin
-      Logger.Send('Id', LData.Id);
-      //FDataLink.DataSet.Delete;
+      FDataLink.DataSet.Delete;
     end;
   end;
   LDBData := PDBNodeData(GetDBNodeData(Node));

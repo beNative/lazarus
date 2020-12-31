@@ -35,7 +35,7 @@ type
     splHorizontal  : TSplitter;
 
   private
-      FManager : IEditorManager;
+    FManager : IEditorManager;
 
   public
     procedure AfterConstruction; override;

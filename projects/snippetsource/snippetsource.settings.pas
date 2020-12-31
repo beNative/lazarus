@@ -41,6 +41,7 @@ type
     FAutoHideEditorToolBar     : Boolean;
     FAutoHideRichEditorToolBar : Boolean;
     FChangeEvents              : TMethodList;
+    FLastFocusedId             : Integer;
 
   protected
     {$REGION 'property access methods'}
@@ -56,6 +57,8 @@ type
     procedure SetDatabase(const AValue: string);
     function GetFileName: string;
     procedure SetFileName(const AValue: string);
+    function GetLastFocusedId: Integer;
+    procedure SetLastFocusedId(AValue: Integer);
     {$ENDREGION}
 
     procedure Changed;
@@ -80,6 +83,9 @@ type
     { Database file name }
     property Database: string
       read GetDatabase write SetDatabase;
+
+    property LastFocusedId: Integer
+      read GetLastFocusedId write SetLastFocusedId;
 
     property AutoHideEditorToolBar: Boolean
       read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;
@@ -159,6 +165,19 @@ begin
   begin
     FAutoHideRichEditorToolBar := AValue;
     Changed;
+  end;
+end;
+
+function TSettings.GetLastFocusedId: Integer;
+begin
+  Result := FLastFocusedId;
+end;
+
+procedure TSettings.SetLastFocusedId(AValue: Integer);
+begin
+  if AValue <> LastFocusedId then
+  begin
+    FLastFocusedId := AValue;
   end;
 end;
 

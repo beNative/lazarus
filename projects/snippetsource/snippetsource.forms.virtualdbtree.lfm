@@ -1,11 +1,11 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
   Left = 633
-  Height = 247
+  Height = 381
   Top = 213
   Width = 282
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
-  ClientHeight = 247
+  ClientHeight = 381
   ClientWidth = 282
   Color = clWindow
   KeyPreview = True
@@ -15,12 +15,12 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   LCLVersion = '2.0.10.0'
   object pnlMain: TPanel
     Left = 0
-    Height = 247
+    Height = 381
     Top = 0
     Width = 282
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 247
+    ClientHeight = 381
     ClientWidth = 282
     Constraints.MinWidth = 185
     PopupMenu = ppmTreeView
@@ -138,24 +138,14 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         end
       end
     end
-    object pnlBottom: TPanel
-      Left = 0
-      Height = 0
-      Top = 247
-      Width = 282
-      Align = alBottom
-      AutoSize = True
-      BevelOuter = bvNone
-      TabOrder = 1
-    end
     object pnlTree: TPanel
       Left = 0
-      Height = 222
+      Height = 356
       Top = 25
       Width = 282
       Align = alClient
       BevelOuter = bvNone
-      TabOrder = 2
+      TabOrder = 1
     end
     object shpLine: TShape
       Left = 0

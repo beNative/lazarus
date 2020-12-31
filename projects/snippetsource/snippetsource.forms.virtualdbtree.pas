@@ -111,7 +111,6 @@ type
     mniNewRoot                : TMenuItem;
     pnlMain                   : TPanel;
     pnlTop                    : TPanel;
-    pnlBottom                 : TPanel;
     shpLine                   : TShape;
     tlbTop                    : TToolBar;
     {$ENDREGION}
@@ -207,9 +206,7 @@ type
     procedure SetDataSet(const Value: TDataSet);
     procedure SetMultiSelect(const Value: Boolean);
     function GetMultiSelect: Boolean;
-    procedure SetToolbarBottomVisible(const Value: Boolean);
     procedure SetToolbarTopVisible(const Value: Boolean);
-    function GetToolbarBottomVisible: Boolean;
     function GetToolbarTopVisible: Boolean;
   {$ENDREGION}
 
@@ -241,7 +238,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure NewFolderNode;
     procedure NewItemNode;
@@ -282,9 +279,6 @@ type
 
     property ToolbarTopVisible: Boolean
       read GetToolbarTopVisible write SetToolbarTopVisible default True;
-
-    property ToolbarBottomVisible: Boolean
-      read GetToolbarBottomVisible write SetToolbarBottomVisible default True;
 
     property SelectionCount: Integer
       read GetSelectionCount;
@@ -354,7 +348,6 @@ begin
   InitializeTreeView;
   MultiSelect          := True;
   ToolbarTopVisible    := True;
-  ToolbarBottomVisible := True;
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   LevelFieldName    := DEFAULT_LEVELFIELDNAME;
@@ -365,11 +358,10 @@ begin
   ImageFieldName    := DEFAULT_IMAGEFIELDNAME;
 end;
 
-procedure TfrmVirtualDBTree.BeforeDestruction;
+destructor TfrmVirtualDBTree.Destroy;
 begin
   dscMain.DataSet := nil;
-  inherited BeforeDestruction;
-  Logger.Info('Destroyed TfrmVirtualDBTree');
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -381,16 +373,6 @@ begin
     dscMain.DataSet := Value;
     FDataSet := Value;
   end;
-end;
-
-function TfrmVirtualDBTree.GetToolbarBottomVisible: Boolean;
-begin
-  Result := pnlBottom.Visible;
-end;
-
-procedure TfrmVirtualDBTree.SetToolbarBottomVisible(const Value: Boolean);
-begin
-  pnlBottom.Visible := Value;
 end;
 
 function TfrmVirtualDBTree.GetToolbarTopVisible: Boolean;
@@ -669,18 +651,18 @@ begin
   else
     LAttachMode := amAddChildLast;
 
-  SL := TStringList.Create;
-  try
-    for I := 0 to High(Formats) - 1 do
+  for I := 0 to High(Formats) - 1 do
+  begin
+    if (Formats[I] = CF_HDROP) then
     begin
-      if (Formats[I] = CF_HDROP) then
-      begin
+      SL := TStringList.Create;
+      try
         GetFileListFromObj(DataObject, SL);
         DoDropFiles(SL, LAttachMode);
+      finally
+        FreeAndNil(SL);
       end;
     end;
-  finally
-    FreeAndNil(SL);
   end;
 end;
 

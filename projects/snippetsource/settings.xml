@@ -513,8 +513,8 @@
 								<Foreground>clOlive</Foreground>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmObjFPC</CompilerMode>
-							<NestedComments>true</NestedComments>
+							<CompilerMode>pcmDelphi</CompilerMode>
+							<NestedComments>false</NestedComments>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1291,7 +1291,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>XML</HighlighterType>
+	<HighlighterType>BAT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<DimInactiveView>false</DimInactiveView>
 	<AutoFormatXML>false</AutoFormatXML>

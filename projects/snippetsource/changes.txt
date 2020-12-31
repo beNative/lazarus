@@ -1,4 +1,16 @@
+30/12/2020
+
+30/12/2020
+- Image files (all types supported by TPicture) can be dragged and dropped into
+  the treeviewer and the rich editor. Image file types other than png and jpg
+  are automatically converted to jpg.
+- Added settings to automatically hide text and rich-text editors based on node
+  content.
+- Delayed loading of RTF data makes the application more responsive now.
+
 TODO (22/12/2020)
+- multiselected drag/drop of folders/files does not insert to correct node
+- drag and drop of RTF documents
 - do not loose position in tree after refresh
 - custom node sequence number (up/down position)
 - more polished look for lookup form
@@ -8,7 +20,6 @@ TODO (22/12/2020)
 - read only mode (with multiple editor buffer views side by side)
 - operations on multiselection of nodes
 - backup/restore option (7z)
-- RTF drag and drop pictures
 - store last size + position
 
 Welcome to SnippetSource. A new SQLite database will be created.
@@ -86,9 +97,7 @@ select
 from
   otherdb.Snippet
 
-
 ---
-
 
 IDEAS:
 - support for multiple databases as tabbed views

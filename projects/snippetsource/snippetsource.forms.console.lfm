@@ -7,6 +7,7 @@ object frmConsole: TfrmConsole
   VertScrollBar.Visible = False
   ClientHeight = 551
   ClientWidth = 741
+  OnClose = FormClose
   PopupMode = pmAuto
   Position = poOwnerFormCenter
   ShowHint = True
@@ -19,29 +20,29 @@ object frmConsole: TfrmConsole
     Align = alClient
     CaretColor = clWhite
     CaretType = cartUser
-    CaretWidth = -1
+    CaretWidth = 1
     CaretHeight = 9
-    CaretYShift = 3
+    CaretYShift = 0
     OnInput = cmdMainInput
     LineCount = 1000
     Font.Color = clSilver
-    Font.Height = 10
-    Font.Name = 'Terminal_Hex'
+    Font.Height = 12
+    Font.Name = 'Terminal_Ctrl+Hex'
     BackGroundColor = clBlack
-    TabWidth = 2
-    HistoryMax = 1
+    TabWidth = 0
+    HistoryMax = 100
     InputSelColor = clWhite
-    InputSelBackGround = clBlue
+    InputSelBackGround = clBlack
     CaretInterval = 500
     EscapeCodeType = esctAnsi
-    GraphicalCharacterWidth = 5
+    GraphicalCharacterWidth = 1
+    WrapMode = wwmChar
     WriteInput = False
   end
   object prcMain: TProcess
     PipeBufferSize = 2048
     Active = False
     Executable = 'cmd'
-    ConsoleTitle = 'My console'
     Options = [poUsePipes]
     Priority = ppNormal
     StartupOptions = []

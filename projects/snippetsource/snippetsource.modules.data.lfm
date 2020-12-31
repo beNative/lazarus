@@ -1,25 +1,26 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 3443
+  HorizontalOffset = 2040
   VerticalOffset = 33
   Width = 470
-  PPI = 96
   object trsMain: TSQLTransaction
     Active = False
     Action = caNone
     Database = conMain
     Options = [stoUseImplicit]
-    left = 184
-    top = 16
+    Left = 184
+    Top = 16
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
     FieldDefs = <>
     AfterOpen = qrySnippetAfterOpen
     AfterPost = qrySnippetAfterPost
+    AfterRefresh = qrySnippetAfterRefresh
     BeforeOpen = qrySnippetBeforeOpen
     BeforePost = qrySnippetBeforePost
+    BeforeRefresh = qrySnippetBeforeRefresh
     BeforeScroll = qrySnippetBeforeScroll
     OnNewRecord = qrySnippetNewRecord
     Database = conMain
@@ -41,8 +42,8 @@ object dmSnippetSource: TdmSnippetSource
     Params = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
-    left = 40
-    top = 160
+    Left = 40
+    Top = 160
   end
   object qryGlyph: TSQLQuery
     PacketRecords = -1
@@ -62,8 +63,8 @@ object dmSnippetSource: TdmSnippetSource
     )
     Options = [sqoKeepOpenOnCommit]
     Params = <>
-    left = 184
-    top = 80
+    Left = 184
+    Top = 80
   end
   object qryNodeType: TSQLQuery
     FieldDefs = <>
@@ -77,12 +78,12 @@ object dmSnippetSource: TdmSnippetSource
       ''
     )
     Params = <>
-    left = 112
-    top = 80
+    Left = 112
+    Top = 80
   end
   object imlGlyphs: TImageList
-    left = 112
-    top = 248
+    Left = 112
+    Top = 248
     Bitmap = {
       4C690F0000001000000010000000FFFFFF00FFFFFF007F7F554D7F7F55667F7F
       55667F7F55667F7F55667F7F55667F7F55667F7F55667F7F55667F7F55247D7D
@@ -582,8 +583,8 @@ object dmSnippetSource: TdmSnippetSource
     )
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
-    left = 256
-    top = 80
+    Left = 256
+    Top = 80
   end
   object qryLookup: TSQLQuery
     PacketRecords = -1
@@ -608,11 +609,12 @@ object dmSnippetSource: TdmSnippetSource
     Params = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
-    left = 40
-    top = 80
+    Left = 40
+    Top = 80
   end
   object scrCreateTables: TSQLScript
     Transaction = trsMain
+    AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -713,8 +715,8 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    left = 120
-    top = 160
+    Left = 120
+    Top = 160
   end
   object conMain: TSQLite3Connection
     Connected = False
@@ -722,15 +724,17 @@ object dmSnippetSource: TdmSnippetSource
     KeepConnection = False
     Transaction = trsMain
     LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
-    left = 112
-    top = 16
+    AlwaysUseBigint = False
+    Left = 112
+    Top = 16
   end
   object imlNodeTypes: TImageList
-    left = 40
-    top = 248
+    Left = 40
+    Top = 248
   end
   object scrCreateIndexes: TSQLScript
     Transaction = trsMain
+    AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -790,11 +794,12 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    left = 216
-    top = 160
+    Left = 216
+    Top = 160
   end
   object scrCreateTriggers: TSQLScript
     Transaction = trsMain
+    AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -917,11 +922,12 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = False
     UseCommit = False
     UseDefines = False
-    left = 312
-    top = 160
+    Left = 312
+    Top = 160
   end
   object scrInsertData: TSQLScript
     Transaction = trsMain
+    AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
       'SET TERM'
@@ -1430,7 +1436,7 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    left = 408
-    top = 160
+    Left = 408
+    Top = 160
   end
 end

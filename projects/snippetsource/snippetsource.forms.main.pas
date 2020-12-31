@@ -33,7 +33,8 @@ uses
   ts.RichEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
-  SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Console;
+  SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Console,
+  SnippetSource.Forms.Busy;
 
 {
   REMARKS:
@@ -50,61 +51,63 @@ type
 
   TfrmMain = class(TForm)
     {$REGION 'designer controls'}
-    aclMain               : TActionList;
-    actAbout              : TAction;
-    actConsole            : TAction;
-    actExecute            : TAction;
-    actShowRichTextEditor : TAction;
-    actShowTextEditor     : TAction;
-    actLookup             : TAction;
-    actSettings           : TAction;
-    actShowGridForm       : TAction;
-    actToggleFullScreen   : TAction;
-    actToggleStayOnTop    : TAction;
-    btnHighlighter        : TMenuButton;
-    btnLineBreakStyle     : TSpeedButton;
-    dscMain               : TDatasource;
-    edtTitle              : TEdit;
-    imlMain               : TImageList;
-    imlNodes              : TImageList;
-    lblWelcome            : TLabel;
-    pnlNumLock            : TPanel;
-    pnlCapsLock           : TPanel;
-    pnlWelcome            : TPanel;
-    pnlStatusBarCenter    : TPanel;
-    pnlEditorToolBar      : TPanel;
-    pnlRichEditor         : TPanel;
-    pnlDateCreated        : TPanel;
-    pnlDateModified       : TPanel;
-    pnlEditMode           : TPanel;
-    pnlEditor             : TPanel;
-    pnlId                 : TPanel;
-    pnlLeft               : TPanel;
-    pnlLineBreakStyle     : TPanel;
-    pnlPosition           : TPanel;
-    pnlRight              : TPanel;
-    pnlSize               : TPanel;
-    pnlSnippetCount       : TPanel;
-    pnlStatusBar          : TPanel;
-    pnlTitle              : TPanel;
-    shpLine               : TShape;
-    shpLine1              : TShape;
-    shpLine2              : TShape;
-    splHorizontal         : TSplitter;
-    splVertical           : TSplitter;
-    tlbApplication        : TToolBar;
-    tlbEditorView         : TToolBar;
+    aclMain                 : TActionList;
+    actAbout                : TAction;
+    actConsole              : TAction;
+    actExecute              : TAction;
+    actSQLEditor            : TAction;
+    actToggleRichTextEditor : TAction;
+    actToggleTextEditor     : TAction;
+    actLookup               : TAction;
+    actSettings             : TAction;
+    actShowGridForm         : TAction;
+    actToggleFullScreen     : TAction;
+    actToggleStayOnTop      : TAction;
+    btnHighlighter          : TMenuButton;
+    btnLineBreakStyle       : TSpeedButton;
+    dscMain                 : TDatasource;
+    edtTitle                : TEdit;
+    imlMain                 : TImageList;
+    imlNodes                : TImageList;
+    lblWelcome              : TLabel;
+    pnlNumLock              : TPanel;
+    pnlCapsLock             : TPanel;
+    pnlWelcome              : TPanel;
+    pnlStatusBarCenter      : TPanel;
+    pnlEditorToolBar        : TPanel;
+    pnlRichEditor           : TPanel;
+    pnlDateCreated          : TPanel;
+    pnlDateModified         : TPanel;
+    pnlEditMode             : TPanel;
+    pnlEditor               : TPanel;
+    pnlId                   : TPanel;
+    pnlLeft                 : TPanel;
+    pnlLineBreakStyle       : TPanel;
+    pnlPosition             : TPanel;
+    pnlRight                : TPanel;
+    pnlSize                 : TPanel;
+    pnlSnippetCount         : TPanel;
+    pnlStatusBar            : TPanel;
+    pnlTitle                : TPanel;
+    shpLine3                : TShape;
+    shpLine2                : TShape;
+    shpLine1                : TShape;
+    splHorizontal           : TSplitter;
+    splVertical             : TSplitter;
+    tlbApplication          : TToolBar;
+    tlbEditorView           : TToolBar;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
     procedure actConsoleExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
+    procedure actSQLEditorExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowGridFormExecute(Sender: TObject);
-    procedure actShowRichTextEditorExecute(Sender: TObject);
-    procedure actShowTextEditorExecute(Sender: TObject);
+    procedure actToggleRichTextEditorExecute(Sender: TObject);
+    procedure actToggleTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
@@ -147,6 +150,7 @@ type
 
   private
     FTree              : TfrmVirtualDBTree;
+    FBusyForm          : TfrmBusy;
     FVersionInfo       : TVersionInfo;
     FFileSearcher      : TFileSearcher;
     FParentId          : Integer;
@@ -161,6 +165,8 @@ type
     FUpdate            : Boolean;
     FRichEditorVisible : Boolean;
     FTextEditorVisible : Boolean;
+    FRTFStream         : TStringStream;
+    FUpdateRichTextView : Boolean;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
@@ -179,6 +185,7 @@ type
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
     procedure LoadRichText;
+    procedure RVDropFiles(Sender: TObject; const FileNames: array of String);
     procedure SaveRichText;
 
     procedure AddPathNode(
@@ -196,12 +203,14 @@ type
   protected
     procedure AddButton(
       AToolBar          : TToolBar;
-      const AActionName : string;
+      const AActionName : string = '';
+      AShowCaption      : Boolean = False;
       APopupMenu        : TPopupMenu = nil
     ); overload;
     procedure AddButton(
-      AToolBar : TToolBar;
-      AAction  : TBasicAction
+      AToolBar     : TToolBar;
+      AAction      : TBasicAction;
+      AShowCaption : Boolean = False
     ); overload;
     procedure AssignEditorChanges;
     procedure BuildToolBar;
@@ -258,8 +267,9 @@ begin
   inherited AfterConstruction;
   FSettings := TSettings.Create(Self);
   FSettings.Load;
-  Logger.SendObject('Settings', FSettings);
   FData := TdmSnippetSource.Create(Self, FSettings);
+  FBusyForm := TfrmBusy.Create(Self);
+  FBusyForm.Visible := False;
 
   pnlId.Font.Color           := clRed;
   pnlDateCreated.Font.Color  := clBlue;
@@ -268,8 +278,13 @@ begin
   CreateEditor;
   CreateRichEditor;
   CreateTreeview;
+  FRTFStream := TStringStream.Create;
 
   dscMain.DataSet := DataSet.DataSet;
+  if FSettings.LastFocusedId > 0 then
+  begin
+    DataSet.DataSet.Locate('Id', FSettings.LastFocusedId, []);
+  end;
 
   FFileSearcher := TFileSearcher.Create;
   FFileSearcher.OnDirectoryFound := FileSearcherDirectoryFound;
@@ -290,12 +305,15 @@ end;
 
 destructor TfrmMain.Destroy;
 begin
+  FBusyForm.Free;
+  FSettings.LastFocusedId := Snippet.Id;
   FSettings.Save;
   FEditorSettings.Save;
   FData           := nil;
   FEditorManager  := nil;
   FEditorSettings := nil;
   FreeAndNil(FFileSearcher);
+  FRTFStream.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -345,15 +363,15 @@ begin
   ShowGridForm(DataSet.DataSet);
 end;
 
-procedure TfrmMain.actShowRichTextEditorExecute(Sender: TObject);
+procedure TfrmMain.actToggleRichTextEditorExecute(Sender: TObject);
 begin
-  FRichEditorVisible := actShowRichTextEditor.Checked;
+  FRichEditorVisible := actToggleRichTextEditor.Checked;
   Modified;
 end;
 
-procedure TfrmMain.actShowTextEditorExecute(Sender: TObject);
+procedure TfrmMain.actToggleTextEditorExecute(Sender: TObject);
 begin
-  FTextEditorVisible := actShowTextEditor.Checked;
+  FTextEditorVisible := actToggleTextEditor.Checked;
   Modified;
 end;
 
@@ -391,6 +409,11 @@ begin
   finally
     FS.Free;
   end;
+end;
+
+procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
+begin
+  //
 end;
 
 procedure TfrmMain.actToggleFullScreenExecute(Sender: TObject);
@@ -449,9 +472,9 @@ begin
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
         btnHighlighter.Caption := Snippet.Highlighter;
-        LoadRichText;
         FTextEditorVisible := False;
         FRichEditorVisible := False;
+        LoadRichText;
         Modified;
       end;
     end;
@@ -565,6 +588,9 @@ var
   T     : Integer;
   LFile : string;
 begin
+  FBusyForm.Visible := True;
+  FBusyForm.Repaint;
+  Cursor := crHourGlass;
   FCommonPath := GetCommonPath(AFiles);
   T := Snippet.NodeTypeId;
   if T = 1 then // FOLDER
@@ -597,6 +623,8 @@ begin
     DataSet.EnableControls;
     Sender.Refresh;
   end;
+  Cursor := crDefault;
+  FBusyForm.Visible := False;
 end;
 
 procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
@@ -618,6 +646,18 @@ begin
   Logger.Enter(Self, 'RVChange');
   SaveRichText;
   Logger.Leave(Self, 'RVChange');
+end;
+
+procedure TfrmMain.RVDropFiles(Sender: TObject; const FileNames: array of String
+  );
+var
+  S : string;
+begin
+  for S in FileNames do
+  begin
+    RichEditor.InsertImageFile(S);
+  end;
+  SaveRichText;
 end;
 {$ENDREGION}
 {$ENDREGION}
@@ -674,6 +714,7 @@ begin
   );
   RV.IsFile    := False;
   RV.OnChange  := RVChange;
+  RV.OnDropFiles := RVDropFiles;
   RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
 end;
 
@@ -704,30 +745,22 @@ end;
 procedure TfrmMain.LoadRichText;
 var
   S  : string;
-  SS : TStringStream;
 begin
   if Snippet.CommentRTF <> '' then
   begin
     S := DecodeStringBase64(Snippet.CommentRTF);
-    SS := TStringStream.Create(S);
-    try
-      SS.Position := 0;
-      if SS.Size > 0 then
-      begin
-        RichEditor.BeginUpdate;
-        RichEditor.Clear;
-        RichEditor.LoadFromStream(SS);
-        RichEditor.EndUpdate;
-      end;
-    finally
-      SS.Free;
-    end;
+    if S <> FRTFStream.DataString then
+    begin
+      FRTFStream.Clear;
+      FRTFStream.WriteString(S);
+      FRTFStream.Position := 0;
+      FUpdateRichTextView := True;
+    end
   end
   else
   begin
-    RichEditor.BeginUpdate;
-    RichEditor.Clear;
-    RichEditor.EndUpdate;
+    FRTFStream.Clear;
+    FUpdateRichTextView := True;
   end;
 end;
 
@@ -772,7 +805,6 @@ var
   LRelPath    : string;
   LParentPath : string;
   LFileName   : string;
-  LPicture    : TPicture;
 begin
   Connection.BeginBulkInserts;
   LIsTextFile := False;
@@ -785,9 +817,12 @@ begin
   else
   begin
     LIsTextFile := FileIsText(APath, LIsReadable);
+
     if not LIsTextFile then
     begin
-      LIsImage := TPicture.FindGraphicClassWithFileExt(ExtractFileExt(APath), False) <> nil;
+      LIsImage := TPicture.FindGraphicClassWithFileExt(
+        ExtractFileExt(APath), False
+      ) <> nil;
     end;
   end;
 
@@ -887,12 +922,13 @@ end;
 
 {$REGION 'protected methods'}
 procedure TfrmMain.AddButton(AToolBar: TToolBar; const AActionName: string;
-  APopupMenu: TPopupMenu);
+  AShowCaption: Boolean; APopupMenu: TPopupMenu);
 var
   TB : TToolButton;
 begin
   TB := TToolButton.Create(Self);
   TB.Parent := AToolBar;
+  TB.ShowCaption := AShowCaption;
   if Assigned(APopupMenu) then
   begin
     TB.Style := tbsDropDown;
@@ -910,13 +946,18 @@ begin
   end;
 end;
 
-procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction);
+procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction;
+  AShowCaption: Boolean);
 var
   TB : TToolButton;
 begin
   TB := TToolButton.Create(Self);
-  TB.Parent := AToolBar;
-  TB.Action := AAction;
+  TB.Parent      := AToolBar;
+  TB.ShowCaption := AShowCaption;
+  if Assigned(AAction) then
+    TB.Action := AAction
+  else
+    TB.Style := tbsDivider;
 end;
 
 procedure TfrmMain.AssignEditorChanges;
@@ -928,36 +969,42 @@ begin
     Snippet.Highlighter := 'TXT';
 end;
 
+{ Populates the toolbars with buttons for the given actions. }
+
 procedure TfrmMain.BuildToolBar;
 begin
-  tlbEditorView.Images := FEditorManager.Actions.ActionList.Images;
+  tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
   tlbApplication.Images := imlMain;
   AddButton(tlbEditorView, 'actSave');
   AddButton(tlbEditorView, 'actSaveAs');
-  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actCut');
   AddButton(tlbEditorView, 'actCopy');
   AddButton(tlbEditorView, 'actPaste');
-  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actUndo');
   AddButton(tlbEditorView, 'actRedo');
-  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actSelectAll');
   AddButton(tlbEditorView, 'actCopyAllToClipboard');
   AddButton(tlbEditorView, 'actClear');
-  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView);
   AddButton(
-    tlbEditorView, 'actToggleFoldLevel', FEditorManager.Menus.FoldPopupMenu
+    tlbEditorView,
+    'actToggleFoldLevel',
+    False,
+    FEditorManager.Menus.FoldPopupMenu
   );
   AddButton(
     tlbEditorView,
     'actToggleHighlighter',
+    False,
     FEditorManager.Menus.HighlighterPopupMenu
   );
-  AddButton(tlbEditorView, '');
+  AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actSettings');
-  AddButton(tlbApplication, actShowTextEditor);
-  AddButton(tlbApplication, actShowRichTextEditor);
+  AddButton(tlbApplication, actToggleTextEditor);
+  AddButton(tlbApplication, actToggleRichTextEditor);
   AddButton(tlbApplication, actLookup);
   AddButton(tlbApplication, actExecute);
   AddButton(tlbApplication, actSettings);
@@ -1029,7 +1076,7 @@ begin
       Editor.SelStart
     ]);
   pnlSnippetCount.Caption := Format('%d records.', [DataSet.RecordCount]);
-  pnlSize.Caption         := FormatByteText(Editor.TextSize);
+  pnlSize.Caption := FormatByteText(Editor.TextSize + RichEditor.ContentSize);
   if DataSet.RecordCount > 0 then
   begin
     pnlId.Caption           := Format(SId, [Snippet.Id]);
@@ -1070,20 +1117,26 @@ var
 begin
   if FUpdate then
   begin
+    if FUpdateRichTextView then
+    begin
+      RichEditor.LoadFromStream(FRTFStream);
+      FUpdateRichTextView := False;
+    end;
+
     LRichEditorVisible := FRichEditorVisible or
       (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
     LTextEditorVisible := FTextEditorVisible or
       (not (FSettings.AutoHideEditor and Editor.IsEmpty));
-    //Logger.Watch('AutoHideEditor', FSettings.AutoHideEditor);
-    //Logger.Watch('AutoHideRichEditor', FSettings.AutoHideRichEditor);
-    //Logger.Watch('Editor.IsEmpty', Editor.IsEmpty);
-    //Logger.Watch('RichEditor.IsEmpty', RichEditor.IsEmpty);
-    //
-    //
-    //Logger.Watch('LRichEditorVisible', LRichEditorVisible);
-    //Logger.Watch('FRichEditorVisible', FRichEditorVisible);
-    //Logger.Watch('LTextEditorVisible', LTextEditorVisible);
-    //Logger.Watch('FTextEditorVisible', FTextEditorVisible);
+
+    Logger.Watch('AutoHideEditor', FSettings.AutoHideEditor);
+    Logger.Watch('AutoHideRichEditor', FSettings.AutoHideRichEditor);
+    Logger.Watch('Editor.IsEmpty', Editor.IsEmpty);
+    Logger.Watch('RichEditor.IsEmpty', RichEditor.IsEmpty);
+
+    Logger.Watch('LRichEditorVisible', LRichEditorVisible);
+    Logger.Watch('FRichEditorVisible', FRichEditorVisible);
+    Logger.Watch('LTextEditorVisible', LTextEditorVisible);
+    Logger.Watch('FTextEditorVisible', FTextEditorVisible);
 
     pnlEditor.Visible     := LTextEditorVisible;
     pnlRichEditor.Visible := LRichEditorVisible;
@@ -1094,14 +1147,15 @@ begin
       pnlRichEditor.Align := alClient
     else if LTextEditorVisible and LRichEditorVisible then
     begin
-      pnlRichEditor.Align := alBottom;
       pnlEditor.Align     := alClient;
       splHorizontal.Align := alBottom;
+      pnlRichEditor.Align := alBottom;
     end;
-    actShowTextEditor.Checked     := LTextEditorVisible;
-    actShowRichTextEditor.Checked := LRichEditorVisible;
+    actToggleTextEditor.Checked     := LTextEditorVisible;
+    actToggleRichTextEditor.Checked := LRichEditorVisible;
     FTextEditorVisible := LTextEditorVisible;
     FRichEditorVisible := LRichEditorVisible;
+
     FUpdate := False;
   end;
 end;
@@ -1112,7 +1166,6 @@ begin
     pnlEditorToolBar.Visible := Editor.Focused
   else
     pnlEditorToolBar.Visible := True;
-  shpLine.Visible := pnlEditorToolBar.Visible;
   if FSettings.AutoHideRichEditorToolBar then
     FRichEditorToolBar.Visible := RichEditor.Focused
   else

@@ -234,6 +234,7 @@ type
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
     {$REGION 'property access methods'}
     function GetAutoHideRichEditor: Boolean;
+    function GetLastFocusedId: Integer;
     procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
     procedure SetAutoHideRichEditor(AValue: Boolean);
@@ -247,9 +248,13 @@ type
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure SetLastFocusedId(AValue: Integer);
 
     property Database: string
       read GetDatabase write SetDatabase;
+
+    property LastFocusedId: Integer
+      read GetLastFocusedId write SetLastFocusedId;
 
     property AutoHideEditor: Boolean
       read GetAutoHidEditor write SetAutoHideEditor;

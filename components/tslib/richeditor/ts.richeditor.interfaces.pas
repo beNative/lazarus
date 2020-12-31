@@ -112,8 +112,9 @@ type
     procedure EndUpdate;
 
     function IsUpdating: Boolean;
-    function InsertImage: Boolean;
+    function InsertImage: Boolean; overload;
     procedure InsertImageFile(const AFileName: string);
+    procedure InsertImage(AImage: TPicture); overload;
     procedure InsertHyperlink;
     procedure InsertBulletList;
     procedure InsertTextBox;

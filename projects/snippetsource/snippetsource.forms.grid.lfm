@@ -5,7 +5,7 @@ object frmGrid: TfrmGrid
   Width = 841
   ClientHeight = 668
   ClientWidth = 841
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object pnlMain: TPanel
     Left = 4
     Height = 609
@@ -163,12 +163,12 @@ object frmGrid: TfrmGrid
     end
   end
   object dscMain: TDataSource
-    left = 144
-    top = 104
+    Left = 144
+    Top = 104
   end
   object aclMain: TActionList
-    left = 224
-    top = 104
+    Left = 224
+    Top = 104
     object actApplyUpdates: TAction
       Caption = 'ApplyUpdates'
       OnExecute = actApplyUpdatesExecute

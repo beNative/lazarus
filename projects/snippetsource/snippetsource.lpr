@@ -15,7 +15,8 @@ uses
   ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
 
   SnippetSource.Forms.Main, SnippetSource.Forms.Console,
-  SnippetSource.Modules.Data, SnippetSource.Forms.Grid, SnippetSource.Settings;
+  SnippetSource.Modules.Data, SnippetSource.Forms.Grid, SnippetSource.Settings,
+  SnippetSource.Forms.Busy;
 
 {$R *.res}
 

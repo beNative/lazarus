@@ -46,6 +46,10 @@ msgstr ""
 msgid "The query <%s> returned too many records"
 msgstr ""
 
+#: tfrmbusy.lblworking.caption
+msgid "Working..."
+msgstr ""
+
 #: tfrmconsole.caption
 msgid "frmConsole"
 msgstr ""
@@ -164,21 +168,31 @@ msgstr ""
 msgid "Show grid form"
 msgstr ""
 
-#: tfrmmain.actshowrichtexteditor.caption
-msgid "Show rich-text editor."
+#: tfrmmain.actsqleditor.caption
+msgid "SQL editor"
 msgstr ""
 
-#: tfrmmain.actshowtexteditor.caption
-msgid "Show text editor."
+#: tfrmmain.actsqleditor.hint
+msgid "Start SQL editor."
 msgstr ""
 
 #: tfrmmain.acttogglefullscreen.caption
 msgid "Toggle full screen"
 msgstr ""
 
+#: tfrmmain.acttogglerichtexteditor.hint
+msgctxt "tfrmmain.acttogglerichtexteditor.hint"
+msgid "Toggle rich-text editor."
+msgstr ""
+
 #: tfrmmain.acttogglestayontop.caption
 msgctxt "TFRMMAIN.ACTTOGGLESTAYONTOP.CAPTION"
 msgid "Stay on top"
+msgstr ""
+
+#: tfrmmain.acttoggletexteditor.hint
+msgctxt "tfrmmain.acttoggletexteditor.hint"
+msgid "Toggle text editor."
 msgstr ""
 
 #: tfrmmain.btnlinebreakstyle.hint
@@ -250,7 +264,7 @@ msgstr ""
 
 #: tfrmmain.pnlsize.hint
 msgctxt "tfrmmain.pnlsize.hint"
-msgid "Size"
+msgid "Size of node content."
 msgstr ""
 
 #: tfrmmain.pnlsnippetcount.hint
@@ -390,7 +404,7 @@ msgid "Open glyph"
 msgstr ""
 
 #: tfrmsettingsdialog.grpdatabaseinfo.caption
-msgid "Database information"
+msgid "SQLite Database information"
 msgstr ""
 
 #: tfrmsettingsdialog.grplayout.caption

@@ -104,6 +104,7 @@ type
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters
   )
+    {$REGION 'designer controls'}
     conMain           : TSQLite3Connection;
     imlNodeTypes      : TImageList;
     imlGlyphs         : TImageList;
@@ -117,14 +118,17 @@ type
     scrCreateIndexes  : TSQLScript;
     scrInsertData     : TSQLScript;
     trsMain           : TSQLTransaction;
+    {$ENDREGION}
 
     {$REGION 'event handlers'}
     procedure qryGlyphBeforePost(DataSet: TDataSet);
     procedure qryGlyphNewRecord(DataSet: TDataSet);
     procedure qrySnippetAfterOpen(ADataSet: TDataSet);
     procedure qrySnippetAfterPost(ADataSet: TDataSet);
+    procedure qrySnippetAfterRefresh(ADataSet: TDataSet);
     procedure qrySnippetBeforeOpen(ADataSet: TDataSet);
     procedure qrySnippetBeforePost(ADataSet: TDataSet);
+    procedure qrySnippetBeforeRefresh(DataSet: TDataSet);
     procedure qrySnippetBeforeScroll(ADataSet: TDataSet);
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
 
@@ -136,6 +140,7 @@ type
     FBulkInsertMode : Boolean;
     FReadOnly       : Boolean;
     FHLImages       : TImageMap;
+    FFocusedId      : Int64;
 
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
@@ -472,7 +477,6 @@ begin
     F  := FD.CreateField(DS);
     // below is just intended for diagnostic reasons to inspect fields @runtime
     F.Name := Format('fld%s%s', [DS.Name, F.FieldName]);
-    Logger.Send(F.Name);
   end;
   CreateLookupFields;
   Logger.Leave(Self, 'qrySnippetBeforeOpen');
@@ -483,6 +487,11 @@ begin
   Logger.Enter(Self, 'qrySnippetBeforePost');
   DateModified := Now;
   Logger.Leave(Self, 'qrySnippetBeforePost');
+end;
+
+procedure TdmSnippetSource.qrySnippetBeforeRefresh(DataSet: TDataSet);
+begin
+  FFocusedId := Id;
 end;
 
 procedure TdmSnippetSource.qrySnippetBeforeScroll(ADataSet: TDataSet);
@@ -512,11 +521,16 @@ begin
       LLastId := (qrySnippet.DataBase as TSQLite3Connection).GetInsertID;
       ADataSet.DisableControls;
       ADataSet.Refresh;
-      ADataSet.Locate('Id', LLastID, []);
+      ADataSet.Locate('Id', LLastId, []);
       ADataSet.EnableControls;
     end;
   end;
   Logger.Leave(Self, 'qrySnippetAfterPost');
+end;
+
+procedure TdmSnippetSource.qrySnippetAfterRefresh(ADataSet: TDataSet);
+begin
+  ADataSet.Locate('Id', FFocusedId, []);
 end;
 
 procedure TdmSnippetSource.qrySnippetNewRecord(ADataSet: TDataSet);

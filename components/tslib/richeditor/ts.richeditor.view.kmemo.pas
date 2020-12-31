@@ -47,7 +47,10 @@ type
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
     pnlRichEditor : TPanel;
 
-    procedure FormDropFiles(Sender: TObject; const FileNames: array of String);
+    procedure FormDropFiles(
+      Sender          : TObject;
+      const FileNames : array of string
+    );
 
   private
     FEditor        : TKMemo;
@@ -78,10 +81,8 @@ type
       ABlock     : TKMemoBlock;
       var Result : Boolean
     );
-    procedure FEditorDropFiles(Sender: TObject; X, Y: Integer; Files: TStrings);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetContentSize: Int64;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
@@ -96,6 +97,7 @@ type
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
+    function GetContentSize: Int64;
     function GetEditor: TComponent;
     function GetEvents: IRichEditorEvents;
     function GetFileName: string;
@@ -143,7 +145,8 @@ type
     procedure EndUpdate;
 
     procedure InsertImageFile(const AFileName: string);
-    function InsertImage: Boolean;
+    procedure InsertImage(AImage: TPicture); overload;
+    function InsertImage: Boolean; overload;
     procedure InsertHyperlink;
     procedure InsertBulletList;
     procedure InsertTextBox;
@@ -255,7 +258,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StdCtrls, Math,
+  StdCtrls, Math, StrUtils,
 
   keditcommon, kgraphics,
 
@@ -272,7 +275,6 @@ begin
   FEditor.ScrollBars     := ssBoth;
   FEditor.Align          := alClient;
   FEditor.DoubleBuffered := True;
-  FEditor.OnDropFiles    := FEditorDropFiles;
   FEditor.OnChange       := FEditorChange;
   FEditor.OnBlockEdit    := FEditorBlockEdit;
   FEditor.OnBlockClick   := FEditorBlockClick;
@@ -303,6 +305,7 @@ begin
   FTextStyle.Free;
   FParaStyle.Free;
   inherited Destroy;
+  Logger.Info('TRichEditorViewKMemo.Destroy');
 end;
 {$ENDREGION}
 
@@ -519,14 +522,9 @@ end;
 
 {$REGION 'event handlers'}
 procedure TRichEditorViewKMemo.FormDropFiles(Sender: TObject;
-  const FileNames: array of String);
-var
-  I : Integer;
+  const FileNames: array of string);
 begin
-  for I := 0 to High(FileNames) - 1 do
-  begin
-    InsertImageFile(FileNames[I]);
-  end;
+  DoDropFiles(FileNames);
 end;
 
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
@@ -547,26 +545,6 @@ procedure TRichEditorViewKMemo.FEditorBlockEdit(Sender: TObject;
 begin
   FEditor.Modified := True;
   DoChange;
-end;
-
-procedure TRichEditorViewKMemo.FEditorDropFiles(Sender: TObject; X, Y: Integer;
-  Files: TStrings);
-var
-  LFiles : array of string;
-  I      : Integer;
-begin
-  Logger.Enter(Self, 'FEditorDropFiles');
-  SetLength(LFiles, Files.Count);
-  try
-    for I := 0 to Files.Count - 1 do
-    begin
-      LFiles[I] := Files[I];
-    end;
-    DoDropFiles(LFiles);
-  finally
-    LFiles := nil;
-  end;
-  Logger.Leave(Self, 'FEditorDropFiles');
 end;
 
 procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
@@ -714,8 +692,27 @@ end;
   position. }
 
 procedure TRichEditorViewKMemo.InsertImageFile(const AFileName: string);
+var
+  P : TPicture;
 begin
-  FEditor.Blocks.AddImageBlock(AFileName);
+  P := TPicture.Create;
+  try
+    P.LoadFromFile(AFileName);
+    InsertImage(P);
+  finally
+    P.Free;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.InsertImage(AImage: TPicture);
+begin
+  // TKMemo does only handle jpg and png well, so we convert any other
+  // image types to jpeg.
+  if not MatchStr(AImage.Graphic.MimeType, ['image/jpg', 'image/png']) then
+  begin
+    AImage.Assign(AImage.Jpeg);
+  end;
+  FEditor.Blocks.AddImageBlock(AImage);
 end;
 
 { Creates new or updates existing image block.  }

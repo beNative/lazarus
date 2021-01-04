@@ -22,7 +22,7 @@ object frmConsole: TfrmConsole
     CaretType = cartUser
     CaretWidth = 1
     CaretHeight = 9
-    CaretYShift = 0
+    CaretYShift = 4
     OnInput = cmdMainInput
     LineCount = 1000
     Font.Color = clSilver

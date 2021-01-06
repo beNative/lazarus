@@ -305,16 +305,23 @@ end;
 
 destructor TfrmMain.Destroy;
 begin
+  Logger.Enter(Self, 'Destroy');
+  if Assigned(FConsole) then
+  begin
+    FConsole.Free;
+  end;
   FBusyForm.Free;
   FSettings.LastFocusedId := Snippet.Id;
   FSettings.Save;
   FEditorSettings.Save;
-  FData           := nil;
-  FEditorManager  := nil;
-  FEditorSettings := nil;
+  FData              := nil;
+  FRichEditorManager := nil;
+  FEditorManager     := nil;
+  FEditorSettings    := nil;
   FreeAndNil(FFileSearcher);
   FRTFStream.Free;
   inherited Destroy;
+  Logger.Leave(Self, 'Destroy');
 end;
 {$ENDREGION}
 
@@ -395,16 +402,12 @@ var
 begin
   FS := TFileStream.Create('SnippetSource.bat', fmCreate);
   try
-//    FConsole.ExecutePy(Editor.Lines);
-    //PythonEngine1.ExecStrings(Editor.Lines);
-    //PythonEngine1.EvalStrings(Editor.Lines);
     Editor.SaveToStream(FS);
     if not Assigned(FConsole) then
     begin
       FConsole := TfrmConsole.Create(Self);
     end;
     FConsole.Show;
-//    FConsole.ExecutePy(Editor.Lines);
     FConsole.Execute('SnippetSource.bat');
   finally
     FS.Free;
@@ -712,10 +715,10 @@ begin
     FRichEditorManager,
     'Comment'
   );
-  RV.IsFile    := False;
-  RV.OnChange  := RVChange;
+  RV.IsFile      := False;
+  RV.OnChange    := RVChange;
   RV.OnDropFiles := RVDropFiles;
-  RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
+  RV.PopupMenu   := FRichEditorManager.EditorPopupMenu;
 end;
 
 procedure TfrmMain.Modified;

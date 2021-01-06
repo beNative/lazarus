@@ -15,9 +15,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 315
     Top = 0
     Width = 567
-    ActivePage = tsDataBase
+    ActivePage = tsUserInterface
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
     object tsUserInterface: TTabSheet
@@ -25,7 +25,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       ClientHeight = 287
       ClientWidth = 559
       object grpLayout: TGroupBox
-        Left = 8
+        Left = 0
         Height = 128
         Top = 0
         Width = 272
@@ -191,16 +191,6 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         TabOrder = 5
       end
-      object btnDatabaseShrinkMemory: TBitBtn
-        Left = 401
-        Height = 26
-        Top = 256
-        Width = 150
-        Action = actDataBaseShrinkMemory
-        Anchors = [akTop, akRight]
-        Margin = 4
-        TabOrder = 6
-      end
       object btnCreateDatabaseIndexes: TBitBtn
         Left = 401
         Height = 25
@@ -245,7 +235,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           55665555556655555566555555665555554D5555550055555500
         }
         Margin = 4
-        TabOrder = 7
+        TabOrder = 6
       end
       object btnCreateDatabaseTables: TBitBtn
         Left = 401
@@ -291,7 +281,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           55665555556655555566555555665555554D5555550055555500
         }
         Margin = 4
-        TabOrder = 8
+        TabOrder = 7
       end
       object btnCreateDatabaseTriggers: TBitBtn
         Left = 401
@@ -335,6 +325,52 @@ object frmSettingsDialog: TfrmSettingsDialog
           BCFFDBC9C9FFE9D7D7FFF7E6E6FF4E4E4E6A5151510051515100FFFFFF00FFFF
           FF005555554D5555556655555566555555665555556655555566555555665555
           55665555556655555566555555665555554D5555550055555500
+        }
+        Margin = 4
+        TabOrder = 8
+      end
+      object btnBackupDatabase: TBitBtn
+        Left = 400
+        Height = 26
+        Top = 255
+        Width = 150
+        Action = actBackupDatabase
+        Anchors = [akTop, akRight]
+        Glyph.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000FFFFFF000F02
+          0200050101000000000000000000010101002727270099999900999999009999
+          9900999999FFA6A6A6B37E7E7E337C7C7C007C7C7C00FFFFFF00FFFFFF002B2B
+          2B00000000000000000000000000010101000101010027272700737373009999
+          990099999900A6A6A6B3777777FF7777770077777700FFFFFF00FFFFFF002B2B
+          2B00000000000000000000000000010101000101010001010100282828009999
+          9900999999FFA6A6A6B37C7C7C335B5B5B003E3E3E00FFFFFF00FFFFFF002B2B
+          2B00000000000000000000000000010101000101010001010100020202002828
+          28004E4E4E00A6A6A6B3777777FF2121210004040400FFFFFF00FFFFFF002B2B
+          2B0000000025000000680000006A0101016C0101016F01010171020202740202
+          02770202027A0303037E030303820404048604040467FFFFFF00FFFFFF004040
+          402429292967ADADADD9DCDCDCFFD5D5D5FFD5D4D4FFD0C9C9FFCDBCBCFFD0BE
+          BEFFD8C5C5FFE1CFCFFFEBD9D9FFF7E6E6FF04040478FFFFFF00FFFFFF005555
+          554D515151664D4D4D6649494966444444663E3E3E6638383866323232662C2C
+          2C66232323661A1A1A66111111660A0A0A660404044DFFFFFF00FFFFFF005555
+          5500515151004D4D4D0049494900444444003E3E3E0038383800323232004848
+          4800999999FFA6A6A6B3626262330A0A0A0004040400FFFFFF00FFFFFF005555
+          5500515151004D4D4D0049494900444444003E3E3E0038383800323232007E7E
+          7E0099999900A6A6A6B3777777FF777777003E3E3E00FFFFFF00FFFFFF005555
+          5500515151004D4D4D0049494900444444003E3E3E0051515100999999009999
+          9900999999FFA6A6A6B37C7C7C337777770077777700FFFFFF00FFFFFF000000
+          0000000000000000000000000000000000000000000027272700737373009999
+          990099999900A6A6A6B3777777FF7777770077777700FFFFFF00FFFFFF000000
+          0000000000000000000000000000000000000000000000000000272727009999
+          9900999999FFA6A6A6B37C7C7C335A5A5A003C3C3C00FFFFFF00FFFFFF000000
+          0000000000000000000000000000000000000000000000000000000000002727
+          27004D4D4D00A6A6A6B3777777FF1E1E1E0000000000FFFFFF00FFFFFF000000
+          004D000000660000006600000066000000660000006600000066000000660000
+          0066000000660000006600000066000000660000004DFFFFFF00FFFFFF001616
+          16242B2B2B66C3C3C3D9DCDCDCFFD5D5D5FFD5D4D4FFD0C9C9FFCDBCBCFFD0BE
+          BEFFD8C5C5FFE1CFCFFFEBD9D9FFF7E6E6FF2B2B2B66FFFFFF00FFFFFF002B2B
+          2B00555555245555556655555566555555665555556655555566555555665555
+          5566555555665555556655555566555555665555554DFFFFFF00
         }
         Margin = 4
         TabOrder = 9
@@ -459,8 +495,8 @@ object frmSettingsDialog: TfrmSettingsDialog
   end
   object aclMain: TActionList
     Images = imlMain
-    Left = 504
-    Top = 8
+    Left = 40
+    Top = 256
     object actCreateNewDatabase: TAction
       Category = 'Database'
       Caption = 'Create new'
@@ -538,27 +574,31 @@ object frmSettingsDialog: TfrmSettingsDialog
       Category = 'Database'
       Caption = '(Re)create all triggers'
     end
+    object actBackupDatabase: TAction
+      Caption = 'Backup database'
+      OnExecute = actBackupDatabaseExecute
+    end
   end
   object dscGlyph: TDataSource
     OnStateChange = dscGlyphStateChange
     OnUpdateData = dscGlyphUpdateData
-    Left = 280
-    Top = 8
+    Left = 40
+    Top = 184
   end
   object dlgOpen: TOpenDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    Left = 448
-    Top = 8
+    Left = 288
+    Top = 184
   end
   object dscHighlighter: TDataSource
-    Left = 336
-    Top = 8
+    Left = 128
+    Top = 184
   end
   object imlMain: TImageList
-    Left = 400
-    Top = 8
+    Left = 208
+    Top = 184
     Bitmap = {
       4C69060000001000000010000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

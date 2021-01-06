@@ -150,10 +150,10 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actFont');
   CreateToolButton(TB, 'actColor');
-  CreateToolButton(TB, 'actBkColor');
-  CreateToolButton(TB);
-  CreateToolButton(TB, 'actIncFontSize');
-  CreateToolButton(TB, 'actDecFontSize');
+  //CreateToolButton(TB, 'actBkColor');
+  //CreateToolButton(TB);
+  //CreateToolButton(TB, 'actIncFontSize');
+  //CreateToolButton(TB, 'actDecFontSize');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actIncIndent');
   CreateToolButton(TB, 'actDecIndent');

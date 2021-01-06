@@ -86,7 +86,7 @@ interface
 {$ENDREGION}
 
 uses
-  Classes, SysUtils, FileUtil, Controls, Graphics,
+  Classes, SysUtils, Controls, Graphics, LazFileUtils,
 
   sqldb, sqlite3conn, db, fgl,
 
@@ -220,6 +220,7 @@ type
     procedure BeginBulkInserts;
     procedure EndBulkInserts;
     procedure ConnectToDatabase(const AFileName: string);
+    function BackupDatabase: string;
     procedure CreateNewDatabase;
     procedure CreateDatabaseTables;
     procedure CreateDatabaseIndexes;
@@ -346,7 +347,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, TypInfo, LazFileUtils,
+  Variants, TypInfo, Zipper, FileUtil,
 
   SnippetSource.Resources;
 
@@ -1217,13 +1218,50 @@ begin
   end;
 end;
 
+function TdmSnippetSource.BackupDatabase: string;
+var
+  LZipper   : TZipper;
+  LFileName : string;
+begin
+  Logger.Enter(Self, 'BackupDatabase');
+  LZipper := TZipper.Create;
+  try
+    DisableControls;
+    LFileName := Format('%s\%s_%s.zip', [
+      ExtractFilePath(conMain.DatabaseName),
+      LazFileUtils.ExtractFileNameWithoutExt(ExtractFileName(conMain.DatabaseName)),
+      FormatDateTime('YYYYmmdd_hhnn', Now)
+      ]
+    );
+    if FileExists(LFileName) then
+      DeleteFile(LFileName);
+    LZipper.FileName  := LFileName;
+    DataSet.Active    := False;
+    conMain.Connected := False;
+    LZipper.Entries.AddFileEntry(
+      conMain.DatabaseName,
+      ExtractFileName(conMain.DatabaseName) // just filename, no path
+    );
+    LZipper.ZipAllFiles;
+    conMain.Connected := True;
+    DataSet.Active    := True;
+    EnableControls;
+  finally
+    LZipper.Free;
+  end;
+  Result := LFileName;
+  Logger.Leave(Self, 'BackupDatabase');
+end;
+
 procedure TdmSnippetSource.DisableControls;
 begin
+  FFocusedId := Id;
   DataSet.DisableControls;
 end;
 
 procedure TdmSnippetSource.EnableControls;
 begin
+  DataSet.Locate('Id', FFocusedId, []);
   DataSet.EnableControls;
 end;
 {$ENDREGION}

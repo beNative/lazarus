@@ -416,8 +416,6 @@ type
     procedure actEncodingExecute(Sender: TObject);
     procedure actLineBreakStyleExecute(Sender: TObject);
     procedure actShowStructureViewerExecute(Sender: TObject);
-    procedure PascalScriptCompile(Sender: TPSScript);
-    procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -427,6 +425,8 @@ type
       aCmd       : TSynEditorCommand;
       var aEvent : TSynMacroEvent
     );
+    procedure PascalScriptCompile(Sender: TPSScript);
+    procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
     {$ENDREGION}
 
   private
@@ -489,15 +489,6 @@ type
     procedure SetActiveView(AValue: IEditorView);
     procedure SetPersistSettings(const AValue: Boolean);
     {$ENDREGION}
-
-    function AddMenuItem(
-      AParent : TMenuItem;
-      AAction : TBasicAction = nil
-    ): TMenuItem; overload;
-    function AddMenuItem(
-      AParent : TMenuItem;
-      AMenu   : TMenu
-    ): TMenuItem; overload;
 
     // event handlers
     procedure EditorSettingsChanged(ASender: TObject);
@@ -747,7 +738,7 @@ uses
 
   SynEditTypes,
 
-  ts.Core.ComponentInspector,
+  ts.Core.ComponentInspector, ts.Core.Utils,
 
   ts.Editor.HighlighterAttributes,
 
@@ -1928,67 +1919,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'private methods'}
-{$REGION 'Helpers'}
-function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AAction: TBasicAction
-  ): TMenuItem;
-var
-  MI: TMenuItem;
-begin
-  if not Assigned(AAction) then
-  begin
-    AParent.AddSeparator;
-    Result := nil;
-  end
-  else
-  begin
-    MI := TMenuItem.Create(AParent.Owner);
-    MI.Action := AAction;
-    if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
-    begin
-      MI.GlyphShowMode := gsmNever;
-      MI.RadioItem := True;
-      {$IFDEF LCLGTK2}
-      MI.RadioItem  := False;
-      {$ENDIF}
-    end;
-    if (AAction is TAction) and (TAction(AAction).AutoCheck) then
-    begin
-      MI.GlyphShowMode := gsmNever;
-      MI.ShowAlwaysCheckable := True;
-    end;
-    AParent.Add(MI);
-    Result := MI;
-  end;
-end;
-
-function TdmEditorManager.AddMenuItem(AParent: TMenuItem; AMenu: TMenu
-  ): TMenuItem;
-var
-  MI  : TMenuItem;
-  M   : TMenuItem;
-  SM  : TMenuItem;
-  SMI : TMenuItem;
-  I   : Integer;
-begin
-  MI := TMenuItem.Create(AMenu);
-  MI.Action := AMenu.Items.Action;
-  AParent.Add(MI);
-  for M in AMenu.Items do
-  begin
-    SMI := AddMenuItem(MI, M.Action);
-    // add submenu(s)
-    if M.Count > 0 then
-    begin
-      for I := 0 to M.Count - 1 do
-      begin
-        SM := M.Items[I];
-        AddMenuItem(SMI, SM.Action);
-      end;
-    end;
-  end;
-  Result := MI;
-end;
-{$ENDREGION}
 
 {$REGION 'Initialization'}
 procedure TdmEditorManager.InitializePopupMenus;

@@ -40,6 +40,7 @@ type
     {$ENDREGION}
 
     procedure ConnectToDatabase(const AFileName: string);
+    function BackupDatabase: string;
     procedure CreateDatabaseTables;
     procedure CreateDatabaseIndexes;
     procedure CreateDatabaseTriggers;

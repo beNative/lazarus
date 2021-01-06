@@ -22,6 +22,26 @@ msgid ""
 "Are you sure you want to continue?\n"
 msgstr ""
 
+#: snippetsource.resources.sdatabasebackupcreated
+msgid "A backup of the database has been written to %s."
+msgstr ""
+
+#: snippetsource.resources.sdatabaseindexesrebuilt
+msgid "All database indexes have been rebuilt."
+msgstr ""
+
+#: snippetsource.resources.sdatabaseintegritycheckfailed
+msgid "Database failed integrity check!"
+msgstr ""
+
+#: snippetsource.resources.sdatabaseintegritychecksuccessful
+msgid "Integrity check was successful!"
+msgstr ""
+
+#: snippetsource.resources.sdatabasesizehasbeenreduced
+msgid "Database size was reduced by %s."
+msgstr ""
+
 #: snippetsource.resources.sdatecreated
 msgid "Created: %s"
 msgstr ""
@@ -277,6 +297,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.actaddglyphs.caption
 msgid "Add glyph files"
+msgstr ""
+
+#: tfrmsettingsdialog.actbackupdatabase.caption
+msgid "Backup database"
 msgstr ""
 
 #: tfrmsettingsdialog.actclose.caption

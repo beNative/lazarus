@@ -268,6 +268,21 @@ function SetToString(
 
 function GetFileCreationTime(const AFileName: string): TDateTime;
 
+{ Adds a menu item for the given action. If no action is provided a seperator
+  item will be created. }
+
+function AddMenuItem(
+  AParent : TMenuItem;
+  AAction : TBasicAction = nil
+): TMenuItem; overload;
+
+{ Adds a submenu linked to the given parent menu item. }
+
+function AddMenuItem(
+  AParent : TMenuItem;
+  AMenu   : TMenu
+): TMenuItem; overload;
+
 implementation
 
 uses
@@ -2255,6 +2270,65 @@ begin
       Result := FileTime2DateTime(MyRec.FindData.ftCreationTime);
       FindCloseUTF8(MyRec);
    end;
+end;
+
+function AddMenuItem(AParent: TMenuItem; AAction: TBasicAction): TMenuItem;
+var
+  MI: TMenuItem;
+begin
+  if not Assigned(AAction) then
+  begin
+    AParent.AddSeparator;
+    Result := nil;
+  end
+  else
+  begin
+    MI := TMenuItem.Create(AParent.Owner);
+    MI.Action := AAction;
+    if (AAction is TAction) and (TAction(AAction).GroupIndex > 0) then
+    begin
+      MI.GlyphShowMode := gsmNever;
+      MI.RadioItem := True;
+      {$IFDEF LCLGTK2}
+      MI.RadioItem  := False;
+      {$ENDIF}
+    end;
+    if (AAction is TAction) and (TAction(AAction).AutoCheck) then
+    begin
+      MI.GlyphShowMode := gsmNever;
+      MI.ShowAlwaysCheckable := True;
+    end;
+    AParent.Add(MI);
+    Result := MI;
+  end;
+
+end;
+
+function AddMenuItem(AParent: TMenuItem; AMenu: TMenu): TMenuItem;
+var
+  MI  : TMenuItem;
+  M   : TMenuItem;
+  SM  : TMenuItem;
+  SMI : TMenuItem;
+  I   : Integer;
+begin
+  MI := TMenuItem.Create(AMenu);
+  MI.Action := AMenu.Items.Action;
+  AParent.Add(MI);
+  for M in AMenu.Items do
+  begin
+    SMI := AddMenuItem(MI, M.Action);
+    // add submenu(s)
+    if M.Count > 0 then
+    begin
+      for I := 0 to M.Count - 1 do
+      begin
+        SM := M.Items[I];
+        AddMenuItem(SMI, SM.Action);
+      end;
+    end;
+  end;
+  Result := MI;
 end;
 
 end.

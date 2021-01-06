@@ -33,7 +33,6 @@ uses
   pascalscript,
   kcontrols,
   ExceptionLogger,
-  lclextensions_package,
 
   ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
 

@@ -50,6 +50,7 @@ type
 
   public
      procedure AfterConstruction; override;
+     destructor Destroy; override;
 
      procedure Execute(const AFileName: string);
      procedure ExecutePy(const AStrings: TStrings);
@@ -72,6 +73,16 @@ begin
     //PythonEngine.LoadDll;
   //cmdMain.StartRead(clSilver, clBlack, '', clWhite, clBlack);
 end;
+
+destructor TfrmConsole.Destroy;
+begin
+  Logger.Enter(Self, 'Destroy');
+  prcMain.Active  := False;
+  tmrMain.Enabled := True;
+  inherited Destroy;
+  Logger.Leave(Self, 'Destroy');
+end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -88,15 +99,9 @@ begin
       Logger.Watch('prcMain.Output.NumBytesAvailable', prcMain.Output.NumBytesAvailable);
       FillChar(LBuf, SizeOf(LBuf), #0);
       prcMain.Output.Read(LBuf, SizeOf(LBuf) - 1);
-      //prcMain.Output.Read(LBuf, prcMain.Output.NumBytesAvailable);
-      //prcMain.Output.Read(LBuf, prcMain.Output.NumBytesAvailable);
       S := LBuf;
-      //Logger.Watch('LBuf', S);
       ProcessString(S);
-
-      //cmdMain.Write(S);
     end;
-    //cmdMain.StartRead(clSilver, clBlack, '', clWhite, clBlack);
   end;
 end;
 
@@ -143,15 +148,11 @@ begin
   SL := TStringList.Create;
   try
     SL.Text := AString;
-    Logger.Send('CharCount', Length(AString));
-    Logger.Send('LineCount', SL.Count);
-    Logger.Send('AString', AString);
     if SL.Count > 0 then
     begin
       for I := 0 to SL.Count - 1 do
       begin
         S := SL[I];
-        //Logger.Send('Char', S[Length(S)]);
         if (I = (SL.Count - 1)) and (S[Length(S)] = '>') then
         begin
           cmdMain.StartRead(clSilver, clBlack, S, clWhite, clBlack);
@@ -159,12 +160,10 @@ begin
         end
         else if I < (SL.Count - 1) then
         begin
-          Logger.Send(IntToStr(I), S);
           cmdMain.Writeln(S);
         end
         else
         begin
-          Logger.Send(IntToStr(I), S);
           cmdMain.Write(S);
         end;
       end;

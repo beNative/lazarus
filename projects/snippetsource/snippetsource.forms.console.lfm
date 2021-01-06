@@ -65,10 +65,13 @@ object frmConsole: TfrmConsole
     Top = 16
   end
   object PythonEngine: TPythonEngine
+    AutoLoad = False
+    AutoUnload = False
     DllName = 'python38.dll'
     APIVersion = 1013
     RegVersion = '3.8'
     UseLastKnownVersion = False
+    AutoFinalize = False
     IO = PythonInputOutput
     Left = 64
     Top = 96

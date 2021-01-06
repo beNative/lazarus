@@ -48,26 +48,27 @@ type
     actCreateDatabaseIndexes     : TAction;
     actCreateDatabaseTables      : TAction;
     actCreateDatabaseTriggers    : TAction;
+    actBackupDatabase            : TAction;
     actReloadConfigurationData   : TAction;
     actOpenDatabase              : TAction;
     actAddGlyphs                 : TAction;
     actRefreshGlyphs             : TAction;
+    btnBackupDatabase: TBitBtn;
     btnCreateNewDatabase         : TBitBtn;
     btnCreateDatabaseIndexes     : TBitBtn;
     btnCreateDatabaseTables      : TBitBtn;
     btnCreateDatabaseTriggers    : TBitBtn;
     btnDatabaseIntegrityCheck    : TBitBtn;
     btnClose                     : TBitBtn;
-    btnDatabaseShrinkMemory      : TBitBtn;
     btnDatabaseVacuum            : TBitBtn;
     btnOpenDatabase              : TBitBtn;
     btnOpenGlyphs                : TButton;
     btnRefresh                   : TButton;
     cbxImageList                 : TComboBox;
-    chkAutoHideEditorToolBar: TCheckBox;
-    chkAutoHideRichEditor: TCheckBox;
-    chkAutoHideEditor: TCheckBox;
-    chkAutoHideRichEditorToolBar: TCheckBox;
+    chkAutoHideEditorToolBar     : TCheckBox;
+    chkAutoHideRichEditor        : TCheckBox;
+    chkAutoHideEditor            : TCheckBox;
+    chkAutoHideRichEditorToolBar : TCheckBox;
     dlgOpen                      : TOpenDialog;
     dscGlyph                     : TDatasource;
     dscHighlighter               : TDatasource;
@@ -75,7 +76,7 @@ type
     grdGlyph                     : TDBGrid;
     grdHighlighters              : TDBGrid;
     grdDBInfo                    : TStringGrid;
-    grpLayout: TGroupBox;
+    grpLayout                    : TGroupBox;
     grpDatabaseInfo              : TGroupBox;
     Highlighters                 : TTabSheet;
     imlMain                      : TImageList;
@@ -89,6 +90,7 @@ type
     {$ENDREGION}
 
     {$REGION 'action handlers'}
+    procedure actBackupDatabaseExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
@@ -333,9 +335,9 @@ end;
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
 begin
   if SQLite.IntegrityCheck then
-    ShowMessage('Integrity check was successful!')
+    ShowMessage(SDatabaseIntegrityCheckSuccessful)
   else
-    ShowMessage('Database failed integrity check!');
+    ShowMessage(SDatabaseIntegrityCheckFailed);
   UpdateDataBaseInfo;
 end;
 
@@ -352,7 +354,7 @@ begin
   LStartSize := SQLite.Size;
   SQLite.Vacuum;
   S := FormatByteText(LStartSize - SQLite.Size);
-  ShowMessageFmt('Database size was reduced by %s.', [S]);
+  ShowMessageFmt(SDatabaseSizeHasBeenReduced, [S]);
   UpdateDataBaseInfo;
 end;
 
@@ -361,10 +363,18 @@ begin
   Close;
 end;
 
+procedure TfrmSettingsDialog.actBackupDatabaseExecute(Sender: TObject);
+var
+  S : string;
+begin
+  S := Connection.BackupDatabase;
+  ShowMessageFmt(SDatabaseBackupCreated, [S]);
+end;
+
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
-  ShowMessage('All indexes are rebuilt.')
+  ShowMessage(SDatabaseIndexesRebuilt)
 end;
 
 procedure TfrmSettingsDialog.actCreateDatabaseTablesExecute(Sender: TObject);

@@ -37,6 +37,12 @@ resourcestring
   SAskRecreateTables            = 'Warning: this will delete all data!' + #13#10 +
                                   'Are you sure you want to continue?';
 
+  SDatabaseBackupCreated  = 'A backup of the database has been written to %s.';
+  SDatabaseIndexesRebuilt = 'All database indexes have been rebuilt.';
+  SDatabaseSizeHasBeenReduced = 'Database size was reduced by %s.';
+  SDatabaseIntegrityCheckSuccessful = 'Integrity check was successful!';
+  SDatabaseIntegrityCheckFailed     = 'Database failed integrity check!';
+
 implementation
 
 end.

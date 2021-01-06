@@ -904,7 +904,7 @@ end;"/>
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="12">
+    <RequiredPackages Count="11">
       <Item1>
         <PackageName Value="tslib_editor"/>
       </Item1>
@@ -921,26 +921,23 @@ end;"/>
         <PackageName Value="laz_synapse"/>
       </Item5>
       <Item6>
-        <PackageName Value="lclextensions_package"/>
+        <PackageName Value="ExceptionLogger"/>
       </Item6>
       <Item7>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item7>
       <Item8>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item9>
       <Item10>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="FCL"/>
       </Item10>
       <Item11>
-        <PackageName Value="FCL"/>
-      </Item11>
-      <Item12>
         <PackageName Value="LCL"/>
-      </Item12>
+      </Item11>
     </RequiredPackages>
     <Units Count="4">
       <Unit0>

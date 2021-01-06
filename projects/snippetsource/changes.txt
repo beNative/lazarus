@@ -1,4 +1,6 @@
-30/12/2020
+06/01/2021
+- do not loose position in tree after refresh
+- store last size + position
 
 30/12/2020
 - Image files (all types supported by TPicture) can be dragged and dropped into
@@ -11,7 +13,6 @@
 TODO (22/12/2020)
 - multiselected drag/drop of folders/files does not insert to correct node
 - drag and drop of RTF documents
-- do not loose position in tree after refresh
 - custom node sequence number (up/down position)
 - more polished look for lookup form
 - bookmark positions or favourites which can be selected immediately
@@ -20,7 +21,6 @@ TODO (22/12/2020)
 - read only mode (with multiple editor buffer views side by side)
 - operations on multiselection of nodes
 - backup/restore option (7z)
-- store last size + position
 
 Welcome to SnippetSource. A new SQLite database will be created.
 

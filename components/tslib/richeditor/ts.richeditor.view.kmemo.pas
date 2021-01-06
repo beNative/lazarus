@@ -22,7 +22,6 @@ unit ts.RichEditor.View.KMemo;
 
 {
   TODO:
-   - drop files (does not work when compiled with Lazarus (cfr. KMemo.pas)
    - paste formatted text (HTML?)
    - copy formatted text (WIKI, HTML?)
    - Undo/Redo is not yet supported by the KMemo component
@@ -83,6 +82,7 @@ type
     );
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
+    function GetRTFText: string;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
@@ -242,6 +242,9 @@ type
 
     property Text: string
       read GetText write SetText;
+
+    property RTFText: string
+      read GetRTFText;
 
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
@@ -507,16 +510,15 @@ begin
   Result := FParaStyle.HAlign = halRight;
 end;
 
-function TRichEditorViewKMemo.GetCanRedo: Boolean;
-begin
-  // Result := FEditor.CommandEnabled(ecRedo);
-  Result := False;
-end;
-
 procedure TRichEditorViewKMemo.SetAlignRight(AValue: Boolean);
 begin
   if AValue then
     FParaStyle.HAlign := halRight;
+end;
+
+function TRichEditorViewKMemo.GetCanRedo: Boolean;
+begin
+   Result := FEditor.CommandEnabled(ecRedo);
 end;
 {$ENDREGION}
 
@@ -529,21 +531,21 @@ end;
 
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
-  FEditor.Modified := True;
+  Modified := True;
   DoChange;
 end;
 
 procedure TRichEditorViewKMemo.FEditorBlockClick(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
-  FEditor.Modified := True;
+  Modified := True;
   DoChange;
 end;
 
 procedure TRichEditorViewKMemo.FEditorBlockEdit(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
-  FEditor.Modified := True;
+  Modified := True;
   DoChange;
 end;
 
@@ -551,7 +553,7 @@ procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
   AReasons: TKMemoUpdateReasons);
 begin
   FEditor.SelectionParaStyle := FParaStyle;
-  FEditor.Modified := True;
+  Modified := True;
   DoChange;
 end;
 
@@ -578,6 +580,19 @@ begin
   DoChange;
 end;
 
+function TRichEditorViewKMemo.GetRTFText: string;
+var
+  SS : TStringStream;
+begin
+  SS := TStringStream.Create;
+  try
+    FEditor.SaveToRTFStream(SS, False, True);
+    Result := SS.DataString;
+  finally
+    SS.Free;
+  end;
+end;
+
 function TRichEditorViewKMemo.GetContentSize: Int64;
 begin
   Result := Length(FEditor.RTF);
@@ -597,6 +612,12 @@ begin
   begin
     OnChange(Self);
   end;
+  Logger.Watch('ContentHeight', FEditor.ContentHeight);
+  Logger.Watch('ContentWidth', FEditor.ContentWidth);
+  Logger.Watch('ContentLeft', FEditor.ContentLeft);
+  Logger.Watch('ContentTop', FEditor.ContentTop);
+  Logger.Watch('SelText', FEditor.Blocks.SelText);
+  Logger.SendText('RTF', RTFText);
 end;
 {$ENDREGION}
 
@@ -669,7 +690,7 @@ end;
 
 procedure TRichEditorViewKMemo.SaveToStream(AStream: TStream);
 begin
-  FEditor.SaveToRTFStream(AStream);
+  FEditor.SaveToRTFStream(AStream, False, True);
   FEditor.ClearUndo;
 end;
 
@@ -741,7 +762,7 @@ begin
         FEditor.ClearSelection;
       FEditor.ActiveInnerBlocks.AddAt(LImage, FEditor.SplitAt(FEditor.SelEnd));
     end;
-    FEditor.Modified := True;
+    Modified := True;
     Result := True;
   end
   else if LCreated then
@@ -790,7 +811,7 @@ begin
         FEditor.SplitAt(FEditor.SelEnd)
       );
     end;
-    FEditor.Modified := True;
+    Modified := True;
   end
   else if LCreated then
     LHyperlink.Free;

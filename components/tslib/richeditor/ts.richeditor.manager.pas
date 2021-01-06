@@ -75,20 +75,6 @@ type
     dlgOpen                 : TOpenDialog;
     dlgSave                 : TSaveDialog;
     imlMain                 : TImageList;
-    N3                      : TMenuItem;
-    mniClear                : TMenuItem;
-    mniAlignCenter          : TMenuItem;
-    mniAlignJustify         : TMenuItem;
-    mniAlignLeft            : TMenuItem;
-    mniAlignRight           : TMenuItem;
-    mniBold                 : TMenuItem;
-    mniItalic               : TMenuItem;
-    mniOpen                 : TMenuItem;
-    mniSave                 : TMenuItem;
-    mniSaveAs               : TMenuItem;
-    mniUnderline            : TMenuItem;
-    N1                      : TMenuItem;
-    N2                      : TMenuItem;
     ppmRichEditor           : TPopupMenu;
     {$ENDREGION}
 
@@ -156,6 +142,8 @@ type
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
 
+    procedure BuildRichEditorPopupMenu;
+
     { Delegates the implementation of IEditorEvents to an internal object. }
     property Events: IRichEditorEvents
       read GetEvents implements IRichEditorEvents;
@@ -190,6 +178,8 @@ implementation
 uses
   Graphics,
 
+  ts.Core.Utils,
+
   ts.RichEditor.Events, ts.RichEditor.View.KMemo;
 
 {$REGION 'construction and destruction'}
@@ -199,6 +189,7 @@ begin
   FViews  := TRichEditorViewList.Create(False);
   FEvents := TRichEditorEvents.Create(Self);
   FActiveView := nil;
+  BuildRichEditorPopupMenu;
 end;
 
 destructor TdmRichEditorManager.Destroy;
@@ -324,6 +315,7 @@ procedure TdmRichEditorManager.actStrikeThroughExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
+    actStrikeThrough.Checked := not actStrikeThrough.Checked;
     ActiveView.Font.StrikeThrough := actStrikeThrough.Checked;
   end;
 end;
@@ -332,6 +324,7 @@ procedure TdmRichEditorManager.actBoldExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
+    actBold.Checked := not actBold.Checked;
     ActiveView.Font.Bold := actBold.Checked;
   end;
 end;
@@ -452,6 +445,7 @@ procedure TdmRichEditorManager.actItalicExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
+    actItalic.Checked := not actItalic.Checked;
     ActiveView.Font.Italic := actItalic.Checked;
   end;
 end;
@@ -460,6 +454,7 @@ procedure TdmRichEditorManager.actUnderlineExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
   begin
+    actUnderline.Checked := not actUnderline.Checked;
     ActiveView.Font.Underline := actUnderline.Checked;
   end;
 end;
@@ -471,7 +466,58 @@ end;
 
 procedure TdmRichEditorManager.actToggleWordWrapExecute(Sender: TObject);
 begin
+  actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
   ActiveView.WordWrap := actToggleWordWrap.Checked;
+end;
+{$ENDREGION}
+
+{$REGION 'private methods'}
+procedure TdmRichEditorManager.BuildRichEditorPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := ppmRichEditor.Items;
+  MI.Clear;
+  AddMenuItem(MI, actCut);
+  AddMenuItem(MI, actCopy);
+  AddMenuItem(MI, actPaste);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actUndo);
+  AddMenuItem(MI, actRedo);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actBold);
+  AddMenuItem(MI, actItalic);
+  AddMenuItem(MI, actUnderline);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actAlignLeft);
+  AddMenuItem(MI, actAlignCenter);
+  AddMenuItem(MI, actAlignRight);
+  AddMenuItem(MI, actAlignJustify);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actIncIndent);
+  AddMenuItem(MI, actDecIndent);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actToggleWordWrap);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actClear);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actOpen);
+  AddMenuItem(MI, actSave);
+  AddMenuItem(MI, actSaveAs);
+
+  //AddMenuItem(MI, FilePopupMenu);
+  //AddMenuItem(MI, SettingsPopupMenu);
+  //AddMenuItem(MI, SearchPopupMenu);
+  //AddMenuItem(MI, SelectPopupMenu);
+  //AddMenuItem(MI, SelectionPopupMenu);
+  //AddMenuItem(MI, InsertPopupMenu);
+  //AddMenuItem(MI, ClipboardPopupMenu);
+  //AddMenuItem(MI, ExportPopupMenu);
+  //AddMenuItem(MI, HighlighterPopupMenu);
+  //AddMenuItem(MI, FoldPopupMenu);
+  //AddMenuItem(MI);
+  //AddMenuItem(MI, actClose);
+  //AddMenuItem(MI, actCloseOthers);
 end;
 {$ENDREGION}
 
@@ -482,21 +528,22 @@ procedure TdmRichEditorManager.UpdateActions;
 begin
   if Assigned(ActiveView) then
   begin
-    actBold.Checked          := ActiveView.Font.Bold;
-    actUnderline.Checked     := ActiveView.Font.Underline;
-    actItalic.Checked        := ActiveView.Font.Italic;
-    actStrikeThrough.Checked := ActiveView.Font.StrikeThrough;
-    //actUndo.Enabled          := ActiveView.CanUndo;
-    //actRedo.Enabled          := ActiveView.CanRedo;
-    actUndo.Enabled          := True;
-    actRedo.Enabled          := True;
-    actCopy.Enabled          := ActiveView.SelAvail;
-    actCut.Enabled           := ActiveView.SelAvail;
-    actPaste.Enabled         := ActiveView.CanPaste;
-    actAlignCenter.Checked   := ActiveView.AlignCenter;
-    actAlignLeft.Checked     := ActiveView.AlignLeft;
-    actAlignRight.Checked    := ActiveView.AlignRight;
-    actAlignJustify.Checked  := ActiveView.AlignJustify;
+    actBold.Checked           := ActiveView.Font.Bold;
+    actUnderline.Checked      := ActiveView.Font.Underline;
+    actItalic.Checked         := ActiveView.Font.Italic;
+    actStrikeThrough.Checked  := ActiveView.Font.StrikeThrough;
+    //actUndo.Enabled           := ActiveView.CanUndo;
+    //actRedo.Enabled           := ActiveView.CanRedo;
+    actUndo.Enabled           := True;
+    actRedo.Enabled           := True;
+    actCopy.Enabled           := ActiveView.SelAvail;
+    actCut.Enabled            := ActiveView.SelAvail;
+    actPaste.Enabled          := ActiveView.CanPaste;
+    actAlignCenter.Checked    := ActiveView.AlignCenter;
+    actAlignLeft.Checked      := ActiveView.AlignLeft;
+    actAlignRight.Checked     := ActiveView.AlignRight;
+    actAlignJustify.Checked   := ActiveView.AlignJustify;
+    actToggleWordWrap.Checked := ActiveView.WordWrap;
   end;
 end;
 

@@ -712,10 +712,10 @@ begin
     FRichEditorManager,
     'Comment'
   );
-  RV.IsFile    := False;
-  RV.OnChange  := RVChange;
+  RV.IsFile      := False;
+  RV.OnChange    := RVChange;
   RV.OnDropFiles := RVDropFiles;
-  RV.PopupMenu := FRichEditorManager.EditorPopupMenu;
+  RV.PopupMenu   := FRichEditorManager.EditorPopupMenu;
 end;
 
 procedure TfrmMain.Modified;

@@ -10,7 +10,6 @@ object dmRichEditorManager: TdmRichEditorManager
     Top = 20
     object actBold: TAction
       Category = 'Style'
-      AutoCheck = True
       Caption = 'Bold'
       ImageIndex = 3
       OnExecute = actBoldExecute
@@ -18,7 +17,6 @@ object dmRichEditorManager: TdmRichEditorManager
     end
     object actItalic: TAction
       Category = 'Style'
-      AutoCheck = True
       Caption = 'Italic'
       ImageIndex = 4
       OnExecute = actItalicExecute
@@ -26,7 +24,6 @@ object dmRichEditorManager: TdmRichEditorManager
     end
     object actUnderline: TAction
       Category = 'Style'
-      AutoCheck = True
       Caption = 'Underline'
       ImageIndex = 5
       OnExecute = actUnderlineExecute
@@ -34,7 +31,6 @@ object dmRichEditorManager: TdmRichEditorManager
     end
     object actStrikeThrough: TAction
       Category = 'Style'
-      AutoCheck = True
       Caption = 'Strike through'
       Hint = 'Strike through'
       ImageIndex = 30
@@ -72,36 +68,28 @@ object dmRichEditorManager: TdmRichEditorManager
     end
     object actAlignRight: TAction
       Category = 'Align'
-      AutoCheck = True
       Caption = 'Align right'
-      GroupIndex = 1
       Hint = 'Align right'
       ImageIndex = 23
       OnExecute = actAlignRightExecute
     end
     object actAlignLeft: TAction
       Category = 'Align'
-      AutoCheck = True
       Caption = 'Align left'
-      GroupIndex = 1
       Hint = 'Align left'
       ImageIndex = 20
       OnExecute = actAlignLeftExecute
     end
     object actAlignCenter: TAction
       Category = 'Align'
-      AutoCheck = True
       Caption = 'Align center'
-      GroupIndex = 1
       Hint = 'Align center'
       ImageIndex = 21
       OnExecute = actAlignCenterExecute
     end
     object actAlignJustify: TAction
       Category = 'Align'
-      AutoCheck = True
       Caption = 'Align justify'
-      GroupIndex = 1
       ImageIndex = 22
       OnExecute = actAlignJustifyExecute
     end
@@ -168,7 +156,6 @@ object dmRichEditorManager: TdmRichEditorManager
     end
     object actToggleWordWrap: TAction
       Category = 'Settings'
-      AutoCheck = True
       Caption = 'Toggle wordwrap'
       Hint = 'Toggle wordwrap'
       ImageIndex = 33
@@ -258,59 +245,6 @@ object dmRichEditorManager: TdmRichEditorManager
     Images = imlMain
     Left = 32
     Top = 84
-    object mniBold: TMenuItem
-      Action = actBold
-      AutoCheck = True
-    end
-    object mniItalic: TMenuItem
-      Action = actItalic
-      AutoCheck = True
-    end
-    object mniUnderline: TMenuItem
-      Action = actUnderline
-      AutoCheck = True
-    end
-    object N1: TMenuItem
-      Caption = '-'
-    end
-    object mniAlignLeft: TMenuItem
-      Action = actAlignLeft
-      AutoCheck = True
-      GroupIndex = 2
-    end
-    object mniAlignCenter: TMenuItem
-      Action = actAlignCenter
-      AutoCheck = True
-      GroupIndex = 2
-    end
-    object mniAlignRight: TMenuItem
-      Action = actAlignRight
-      AutoCheck = True
-      GroupIndex = 2
-    end
-    object mniAlignJustify: TMenuItem
-      Action = actAlignJustify
-      AutoCheck = True
-      GroupIndex = 2
-    end
-    object N3: TMenuItem
-      Caption = '-'
-    end
-    object mniClear: TMenuItem
-      Action = actClear
-    end
-    object N2: TMenuItem
-      Caption = '-'
-    end
-    object mniOpen: TMenuItem
-      Action = actOpen
-    end
-    object mniSave: TMenuItem
-      Action = actSave
-    end
-    object mniSaveAs: TMenuItem
-      Action = actSaveAs
-    end
   end
   object imlMain: TImageList
     Left = 267

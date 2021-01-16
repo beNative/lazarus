@@ -52,7 +52,7 @@ type
     constructor Create(
       AActions : IRichEditorActions
     ); reintroduce; virtual;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     function CreateMainToolbar(
       AOwner  : TComponent;
@@ -72,10 +72,10 @@ begin
   FActions := AActions;
 end;
 
-procedure TRichEditorToolbarsFactory.BeforeDestruction;
+destructor TRichEditorToolbarsFactory.Destroy;
 begin
   FActions := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

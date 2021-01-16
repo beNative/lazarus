@@ -92,9 +92,11 @@ TODO (22/12/2020)
 - Customize the node images from a user definable set of glyphs which can be
   stored in the snippet database.
 
-DONE
-- Action actCopySnippetToClipBoard
-- removed PathFieldName from TfrmVirtualDBTree (not used anymore)
+16/01/2021
+- Added support for dragging and dropping URL's into the rich-text editor. This
+  does work with Chrome and Edge and Firefox. If you cannot drag and drop links
+  from Firefox, you can fix this by starting the application as follows with the
+  '-no-deelevate' parameter: firefox.exe -no-deelevate
 
 13/01/2021
 - Version 3.1

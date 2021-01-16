@@ -75,7 +75,7 @@ type
 
   public
     constructor Create(AManager: IRichEditorManager);
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     { triggered when caret position changes }
     property OnChange: TNotifyEvent
@@ -110,10 +110,10 @@ begin
   FManager := AManager;
 end;
 
-procedure TRichEditorEvents.BeforeDestruction;
+destructor TRichEditorEvents.Destroy;
 begin
   FManager := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

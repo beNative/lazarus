@@ -79,6 +79,7 @@ type
     {$ENDREGION}
 
     {$REGION 'action handlers'}
+    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
     procedure actAlignLeftExecute(Sender: TObject);
@@ -109,6 +110,7 @@ type
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     procedure actToggleWordWrapExecute(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -178,7 +180,7 @@ implementation
 uses
   Graphics,
 
-  ts.Core.Utils,
+  ts.Core.Utils, ts.Core.Logger,
 
   ts.RichEditor.Events, ts.RichEditor.View.KMemo;
 
@@ -361,6 +363,12 @@ begin
   ActiveView.AlignCenter := True;
 end;
 
+procedure TdmRichEditorManager.aclActionsExecute(AAction: TBasicAction;
+  var Handled: Boolean);
+begin
+  Logger.Action(AAction);
+end;
+
 procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
 begin
   ActiveView.AlignJustify := True;
@@ -469,6 +477,12 @@ begin
   actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
   ActiveView.WordWrap := actToggleWordWrap.Checked;
 end;
+
+procedure TdmRichEditorManager.DataModuleCreate(Sender: TObject);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'private methods'}

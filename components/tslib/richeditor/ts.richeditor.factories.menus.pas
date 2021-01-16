@@ -42,7 +42,7 @@ type
     constructor Create(
       AActions : IRichEditorActions
     ); reintroduce; virtual;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -55,10 +55,10 @@ begin
   FActions := AActions;
 end;
 
-procedure TRichEditorMenusFactory.BeforeDestruction;
+destructor TRichEditorMenusFactory.Destroy;
 begin
   FActions := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

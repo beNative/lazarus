@@ -96,7 +96,6 @@ type
     //procedure SetNumberingStyle(AValue: TParaNumStyle);
     {$ENDREGION}
 
-    // methods
     function Focused: Boolean;
     procedure SetFocus;
     procedure SelectAll;
@@ -115,7 +114,10 @@ type
     function InsertImage: Boolean; overload;
     procedure InsertImageFile(const AFileName: string);
     procedure InsertImage(AImage: TPicture); overload;
-    procedure InsertHyperlink;
+    procedure InsertHyperlink(
+      const AText : string = '';
+      const AURL  : string = ''
+    );
     procedure InsertBulletList;
     procedure InsertTextBox;
     procedure IncIndent;
@@ -212,9 +214,7 @@ type
       read GetPopupMenu write SetPopupMenu;
   end;
 
- { Events dispatched by the editor view. }
-
-  { IRichEditorEvents }
+  { Events dispatched by the editor view. }
 
   IRichEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']

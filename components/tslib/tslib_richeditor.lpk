@@ -71,16 +71,19 @@
         <UnitName Value="ts.RichEditor.View.KMemo"/>
       </Item11>
     </Files>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="4">
       <Item1>
-        <PackageName Value="KControlsLaz"/>
+        <PackageName Value="DragDropLazarus"/>
       </Item1>
       <Item2>
-        <PackageName Value="tslib_core"/>
+        <PackageName Value="KControlsLaz"/>
       </Item2>
       <Item3>
-        <PackageName Value="FCL"/>
+        <PackageName Value="tslib_core"/>
       </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

@@ -1135,6 +1135,10 @@ begin
       FUpdateRichTextView := False;
     end;
 
+    if (RichEditor.IsEmpty) and (FSettings.DefaultRichEditorFontName <> '') then
+    begin
+      RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
+    end;
     LRichEditorVisible := FRichEditorVisible or
       (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
     LTextEditorVisible := FTextEditorVisible or

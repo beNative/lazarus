@@ -32,10 +32,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ActnList,
-  ExtCtrls, Menus,
+  ExtCtrls, Menus, Types,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
-  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle,
+  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, DropComboTarget,
+
+  DropTarget,
 
   ts.RichEditor.Interfaces;
 
@@ -44,8 +46,15 @@ type
   { TRichEditorViewKMemo }
 
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
+    dctMain       : TDropComboTarget;
     pnlRichEditor : TPanel;
 
+    procedure dctMainDrop(
+      Sender     : TObject;
+      ShiftState : TShiftState;
+      APoint     : TPoint;
+      var Effect : Longint
+    );
     procedure FormDropFiles(
       Sender          : TObject;
       const FileNames : array of string
@@ -83,9 +92,11 @@ type
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
     function GetRTFText: string;
+    function GetShowSpecialChars: Boolean;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
+    procedure SetShowSpecialChars(AValue: Boolean);
 
   protected
     {$REGION 'property access mehods'}
@@ -147,7 +158,10 @@ type
     procedure InsertImageFile(const AFileName: string);
     procedure InsertImage(AImage: TPicture); overload;
     function InsertImage: Boolean; overload;
-    procedure InsertHyperlink;
+    procedure InsertHyperlink(
+      const AText : string = '';
+      const AURL  : string = ''
+    );
     procedure InsertBulletList;
     procedure InsertTextBox;
     procedure IncIndent;
@@ -246,6 +260,9 @@ type
     property RTFText: string
       read GetRTFText;
 
+    property ShowSpecialChars: Boolean
+      read GetShowSpecialChars write SetShowSpecialChars;
+
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
 
@@ -281,9 +298,9 @@ begin
   FEditor.OnChange       := FEditorChange;
   FEditor.OnBlockEdit    := FEditorBlockEdit;
   FEditor.OnBlockClick   := FEditorBlockClick;
+  FEditor.Options        := FEditor.Options + [eoWantTab];
 
-  //DropURLTarget1.Target := Self;
-
+  dctMain.Target := FEditor;
   FDefaultIndent := 20;
 
   FTextStyle := TKMemoTextStyle.Create;
@@ -520,6 +537,29 @@ function TRichEditorViewKMemo.GetCanRedo: Boolean;
 begin
    Result := FEditor.CommandEnabled(ecRedo);
 end;
+
+function TRichEditorViewKMemo.GetRTFText: string;
+var
+  SS : TStringStream;
+begin
+  SS := TStringStream.Create;
+  try
+    FEditor.SaveToRTFStream(SS, False, True);
+    Result := SS.DataString;
+  finally
+    SS.Free;
+  end;
+end;
+
+function TRichEditorViewKMemo.GetShowSpecialChars: Boolean;
+begin
+  Result := eoShowFormatting in FEditor.Options;
+end;
+
+function TRichEditorViewKMemo.GetContentSize: Int64;
+begin
+  Result := Length(FEditor.RTF);
+end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -529,6 +569,13 @@ begin
   DoDropFiles(FileNames);
 end;
 
+procedure TRichEditorViewKMemo.dctMainDrop(Sender: TObject;
+  ShiftState: TShiftState; APoint: TPoint; var Effect: Longint);
+begin
+  InsertHyperlink(dctMain.Title, dctMain.URL);
+end;
+
+{$REGION 'Editor'}
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
   Modified := True;
@@ -579,24 +626,7 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   DoChange;
 end;
-
-function TRichEditorViewKMemo.GetRTFText: string;
-var
-  SS : TStringStream;
-begin
-  SS := TStringStream.Create;
-  try
-    FEditor.SaveToRTFStream(SS, False, True);
-    Result := SS.DataString;
-  finally
-    SS.Free;
-  end;
-end;
-
-function TRichEditorViewKMemo.GetContentSize: Int64;
-begin
-  Result := Length(FEditor.RTF);
-end;
+{$ENDREGION}
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
@@ -627,6 +657,14 @@ begin
   Result := FEditor.SelectedBlock;
   if not Assigned(Result) then
     Result := FEditor.ActiveInnerBlock;
+end;
+
+procedure TRichEditorViewKMemo.SetShowSpecialChars(AValue: Boolean);
+begin
+  if AValue then
+    FEditor.Options := FEditor.Options + [eoShowFormatting]
+  else
+    FEditor.Options := FEditor.Options - [eoShowFormatting];
 end;
 {$ENDREGION}
 
@@ -728,7 +766,7 @@ end;
 procedure TRichEditorViewKMemo.InsertImage(AImage: TPicture);
 begin
   // TKMemo does only handle jpg and png well, so we convert any other
-  // image types to jpeg.
+  // image types to jpeg first.
   if not MatchStr(AImage.Graphic.MimeType, ['image/jpg', 'image/png']) then
   begin
     AImage.Assign(AImage.Jpeg);
@@ -736,7 +774,7 @@ begin
   FEditor.Blocks.AddImageBlock(AImage);
 end;
 
-{ Creates new or updates existing image block.  }
+{ Creates new or updates an existing image block.  }
 
 function TRichEditorViewKMemo.InsertImage: Boolean;
 var
@@ -771,7 +809,8 @@ end;
 
 { Creates a new or updates an existing hyperlink block. }
 
-procedure TRichEditorViewKMemo.InsertHyperlink;
+procedure TRichEditorViewKMemo.InsertHyperlink(const AText: string;
+  const AURL: string);
 var
   LBlock     : TKMemoBlock;
   LHyperlink : TKMemoHyperlink;
@@ -795,6 +834,8 @@ begin
     else
     begin
       LHyperlink := TKMemoHyperlink.Create;
+      LHyperlink.Text := AText;
+      LHyperlink.URL  := AURL;
       LCreated   := True;
     end;
   end;

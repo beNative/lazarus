@@ -248,10 +248,13 @@ type
 
   { Holds persistable application settings. }
 
+  { ISettings }
+
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
     {$REGION 'property access methods'}
     function GetAutoHideRichEditor: Boolean;
+    function GetDefaultRichEditorFontName: string;
     function GetLastFocusedId: Integer;
     procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
@@ -266,6 +269,7 @@ type
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetLastFocusedId(AValue: Integer);
 
     property Database: string
@@ -285,6 +289,9 @@ type
 
     property AutoHideRichEditorToolBar: Boolean
       read GetAutoHideRichEditorToolBar write SetAutoHideRichEditorToolBar;
+
+    property DefaultRichEditorFontName: string
+      read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
   end;
 
 implementation

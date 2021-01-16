@@ -38,47 +38,49 @@ type
     TDataModule, IRichEditorManager, IRichEditorActions, IRichEditorEvents
   )
     {$REGION 'designer controls'}
-    aclActions              : TActionList;
-    actAlignCenter          : TAction;
-    actAlignJustify         : TAction;
-    actAlignLeft            : TAction;
-    actAlignRight           : TAction;
-    actBkColor              : TAction;
-    actBold                 : TAction;
-    actColor                : TAction;
-    actCopy                 : TAction;
-    actCut                  : TAction;
-    actDecFontSize          : TAction;
-    actFont                 : TAction;
-    actIncFontSize          : TAction;
-    actInsertHyperLink      : TAction;
-    actInsertImage          : TAction;
-    actInsertBulletList     : TAction;
-    actIncIndent            : TAction;
-    actDecIndent            : TAction;
-    actAdjustParagraphStyle : TAction;
-    actInsertTextBox        : TAction;
-    actClear                : TAction;
-    actItalic               : TAction;
-    actOpen                 : TAction;
-    actPaste                : TAction;
-    actRedo                 : TAction;
-    actSave                 : TAction;
-    actSaveAs               : TAction;
-    actSelectAll            : TAction;
-    actStrikeThrough        : TAction;
-    actToggleWordWrap       : TAction;
-    actUnderline            : TAction;
-    actUndo                 : TAction;
-    dlgColor                : TColorDialog;
-    dlgFont                 : TFontDialog;
-    dlgOpen                 : TOpenDialog;
-    dlgSave                 : TSaveDialog;
-    imlMain                 : TImageList;
-    ppmRichEditor           : TPopupMenu;
+    aclActions               : TActionList;
+    actAlignCenter           : TAction;
+    actAlignJustify          : TAction;
+    actAlignLeft             : TAction;
+    actAlignRight            : TAction;
+    actBkColor               : TAction;
+    actBold                  : TAction;
+    actColor                 : TAction;
+    actCopy                  : TAction;
+    actCut                   : TAction;
+    actDecFontSize           : TAction;
+    actFont                  : TAction;
+    actIncFontSize           : TAction;
+    actInsertHyperLink       : TAction;
+    actInsertImage           : TAction;
+    actInsertBulletList      : TAction;
+    actIncIndent             : TAction;
+    actDecIndent             : TAction;
+    actAdjustParagraphStyle  : TAction;
+    actInsertTextBox         : TAction;
+    actClear                 : TAction;
+    actShowSpecialCharacters : TAction;
+    actItalic                : TAction;
+    actOpen                  : TAction;
+    actPaste                 : TAction;
+    actRedo                  : TAction;
+    actSave                  : TAction;
+    actSaveAs                : TAction;
+    actSelectAll             : TAction;
+    actStrikeThrough         : TAction;
+    actToggleWordWrap        : TAction;
+    actUnderline             : TAction;
+    actUndo                  : TAction;
+    dlgColor                 : TColorDialog;
+    dlgFont                  : TFontDialog;
+    dlgOpen                  : TOpenDialog;
+    dlgSave                  : TSaveDialog;
+    imlMain                  : TImageList;
+    ppmRichEditor            : TPopupMenu;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
+    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
     procedure actAlignLeftExecute(Sender: TObject);
@@ -105,6 +107,7 @@ type
     procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
@@ -178,7 +181,7 @@ implementation
 uses
   Graphics,
 
-  ts.Core.Utils,
+  ts.Core.Utils, ts.Core.Logger,
 
   ts.RichEditor.Events, ts.RichEditor.View.KMemo;
 
@@ -311,6 +314,15 @@ begin
   ActiveView.SaveToFile(ActiveView.FileName);
 end;
 
+procedure TdmRichEditorManager.actShowSpecialCharactersExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    actShowSpecialCharacters.Checked := not actShowSpecialCharacters.Checked;
+    ActiveView.ShowSpecialChars := actShowSpecialCharacters.Checked;
+  end;
+end;
+
 procedure TdmRichEditorManager.actStrikeThroughExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -359,6 +371,12 @@ end;
 procedure TdmRichEditorManager.actAlignCenterExecute(Sender: TObject);
 begin
   ActiveView.AlignCenter := True;
+end;
+
+procedure TdmRichEditorManager.aclActionsExecute(AAction: TBasicAction;
+  var Handled: Boolean);
+begin
+  Logger.Action(AAction);
 end;
 
 procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
@@ -498,6 +516,7 @@ begin
   AddMenuItem(MI, actDecIndent);
   AddMenuItem(MI);
   AddMenuItem(MI, actToggleWordWrap);
+  AddMenuItem(MI, actShowSpecialCharacters);
   AddMenuItem(MI);
   AddMenuItem(MI, actClear);
   AddMenuItem(MI);

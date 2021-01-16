@@ -52,7 +52,7 @@ type
     constructor Create(
       AActions : IRichEditorActions
     ); reintroduce; virtual;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     function CreateMainToolbar(
       AOwner  : TComponent;
@@ -72,10 +72,10 @@ begin
   FActions := AActions;
 end;
 
-procedure TRichEditorToolbarsFactory.BeforeDestruction;
+destructor TRichEditorToolbarsFactory.Destroy;
 begin
   FActions := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -146,7 +146,7 @@ begin
   CreateToolButton(TB, 'actAlignLeft');
   CreateToolButton(TB, 'actAlignCenter');
   CreateToolButton(TB, 'actAlignRight');
-  CreateToolButton(TB, 'actAlignJustify');
+  //CreateToolButton(TB, 'actAlignJustify'); // not working yet
   CreateToolButton(TB);
   CreateToolButton(TB, 'actFont');
   CreateToolButton(TB, 'actColor');
@@ -159,6 +159,7 @@ begin
   CreateToolButton(TB, 'actDecIndent');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actToggleWordWrap');
+  CreateToolButton(TB, 'actShowSpecialCharacters');
   CreateToolButton(TB, 'actAdjustParagraphStyle');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actInsertHyperlink');

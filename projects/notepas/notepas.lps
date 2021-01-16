@@ -108,7 +108,6 @@ end;"/>
         <Filename Value="changelog.txt"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
         <CursorPos X="64" Y="33"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
@@ -436,10 +435,10 @@ end;"/>
       <Unit45>
         <Filename Value="..\..\components\tslib\core\ts.core.brre.pas"/>
         <UnitName Value="ts.Core.BRRE"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos X="65" Y="16"/>
         <UsageCount Value="199"/>
-        <Loaded Value="True"/>
       </Unit45>
       <Unit46>
         <Filename Value="..\..\components\tslib\core\ts.core.brreunicode.pas"/>
@@ -1149,8 +1148,8 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
         <UnitName Value="ts.Editor.Options.Settings"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="632"/>
-        <CursorPos Y="694"/>
+        <TopLine Value="311"/>
+        <CursorPos Y="692"/>
         <UsageCount Value="208"/>
       </Unit126>
       <Unit127>
@@ -1404,23 +1403,11 @@ end;"/>
         <UsageCount Value="9"/>
       </Unit159>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="1">
       <Position1>
-        <Filename Value="..\..\components\tslib\core\ts.core.brre.pas"/>
-        <Caret Line="8897" Column="102" TopLine="8884"/>
-      </Position1>
-      <Position2>
-        <Filename Value="..\..\components\tslib\core\ts.core.brre.pas"/>
-        <Caret Line="836" TopLine="800"/>
-      </Position2>
-      <Position3>
-        <Filename Value="..\..\components\tslib\core\ts.core.brre.pas"/>
-        <Caret Line="22941" Column="5" TopLine="22902"/>
-      </Position3>
-      <Position4>
         <Filename Value="changelog.txt"/>
         <Caret Line="2" Column="8"/>
-      </Position4>
+      </Position1>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

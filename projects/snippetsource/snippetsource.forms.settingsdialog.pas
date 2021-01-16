@@ -49,6 +49,7 @@ type
     actCreateDatabaseTables      : TAction;
     actCreateDatabaseTriggers    : TAction;
     actBackupDatabase            : TAction;
+    actFontDialog: TAction;
     actReloadConfigurationData   : TAction;
     actOpenDatabase              : TAction;
     actAddGlyphs                 : TAction;
@@ -72,14 +73,18 @@ type
     dlgOpen                      : TOpenDialog;
     dscGlyph                     : TDatasource;
     dscHighlighter               : TDatasource;
+    edtFontName: TEditButton;
     edtDatabaseFile              : TFileNameEdit;
+    dlgFont: TFontDialog;
     grdGlyph                     : TDBGrid;
     grdHighlighters              : TDBGrid;
     grdDBInfo                    : TStringGrid;
+    GroupBox1: TGroupBox;
     grpLayout                    : TGroupBox;
     grpDatabaseInfo              : TGroupBox;
     Highlighters                 : TTabSheet;
     imlMain                      : TImageList;
+    lblFontName: TLabel;
     lblDataBaseFile              : TLabel;
     pnlBottom                    : TPanel;
     pgcMain                      : TPageControl;
@@ -99,6 +104,7 @@ type
     procedure actDataBaseShrinkMemoryExecute(Sender: TObject);
     procedure actDatabaseVacuumExecute(Sender: TObject);
     procedure actDeleteDatabaseExecute(Sender: TObject);
+    procedure actFontDialogExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actAddGlyphsExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
@@ -119,6 +125,7 @@ type
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
+    procedure edtFontNameButtonClick(Sender: TObject);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure grdGlyphPrepareCanvas(sender: TObject; DataCol: Integer;
@@ -235,6 +242,7 @@ begin
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   pgcMain.ActivePage                   := tsUserInterface;
+  edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
@@ -391,6 +399,16 @@ begin
   if FileExists(edtDatabaseFile.FileName) then
     DeleteFile(edtDatabaseFile.FileName);
 end;
+
+procedure TfrmSettingsDialog.actFontDialogExecute(Sender: TObject);
+begin
+  if dlgFont.Execute then
+  begin
+    edtFontName.Text := dlgFont.Font.Name;
+    FSettings.DefaultRichEditorFontName := dlgFont.Font.Name;
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -454,6 +472,11 @@ procedure TfrmSettingsDialog.edtDatabaseFileAcceptFileName(Sender: TObject;
 begin
   if FileExists(Value) then
     FSettings.Database := Value;
+end;
+
+procedure TfrmSettingsDialog.edtFontNameButtonClick(Sender: TObject);
+begin
+  actFontDialog.Execute;
 end;
 
 procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;

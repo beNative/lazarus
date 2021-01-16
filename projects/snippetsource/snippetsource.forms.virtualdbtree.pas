@@ -653,7 +653,8 @@ begin
 
   for I := 0 to High(Formats) - 1 do
   begin
-    if (Formats[I] = CF_HDROP) then
+    Logger.Send('I', I);
+    if Formats[I] = CF_HDROP then
     begin
       SL := TStringList.Create;
       try

@@ -42,6 +42,7 @@ type
     FAutoHideRichEditorToolBar : Boolean;
     FChangeEvents              : TMethodList;
     FLastFocusedId             : Integer;
+    FDefaultRichEditorFontName : string;
 
   protected
     {$REGION 'property access methods'}
@@ -59,6 +60,8 @@ type
     procedure SetFileName(const AValue: string);
     function GetLastFocusedId: Integer;
     procedure SetLastFocusedId(AValue: Integer);
+    function GetDefaultRichEditorFontName: string;
+    procedure SetDefaultRichEditorFontName(AValue: string);
     {$ENDREGION}
 
     procedure Changed;
@@ -98,6 +101,9 @@ type
 
     property AutoHideRichEditor: Boolean
       read GetAutoHideRichEditor write SetAutoHideRichEditor;
+
+    property DefaultRichEditorFontName: string
+      read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
   end;
 
 implementation
@@ -180,6 +186,20 @@ begin
   if AValue <> LastFocusedId then
   begin
     FLastFocusedId := AValue;
+  end;
+end;
+
+function TSettings.GetDefaultRichEditorFontName: string;
+begin
+  Result := FDefaultRichEditorFontName;
+end;
+
+procedure TSettings.SetDefaultRichEditorFontName(AValue: string);
+begin
+  if AValue <> DefaultRichEditorFontName then
+  begin
+    FDefaultRichEditorFontName := AValue;
+    Changed;
   end;
 end;
 

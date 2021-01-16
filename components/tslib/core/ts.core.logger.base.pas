@@ -678,7 +678,7 @@ end;
 
 function TLogger.Send(const AName: string; const AValue: WideString): ILogger;
 begin
-  Result := Send(AName, WideString(AValue));
+  Result := Send(AName, string(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AArgs: array of const)

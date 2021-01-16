@@ -432,6 +432,10 @@ msgstr ""
 msgid "Open glyph"
 msgstr ""
 
+#: tfrmsettingsdialog.groupbox1.caption
+msgid "Richtext editor"
+msgstr ""
+
 #: tfrmsettingsdialog.grpdatabaseinfo.caption
 msgid "SQLite Database information"
 msgstr ""
@@ -447,6 +451,10 @@ msgstr ""
 
 #: tfrmsettingsdialog.lbldatabasefile.caption
 msgid "Filename:"
+msgstr ""
+
+#: tfrmsettingsdialog.lblfontname.caption
+msgid "Default font:"
 msgstr ""
 
 #: tfrmsettingsdialog.tsdatabase.caption

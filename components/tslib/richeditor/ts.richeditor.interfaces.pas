@@ -61,6 +61,7 @@ type
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
+    function GetShowSpecialChars: Boolean;
     function GetWordWrap: Boolean;
     procedure SetAlignCenter(AValue: Boolean);
     procedure SetAlignJustify(AValue: Boolean);
@@ -82,6 +83,7 @@ type
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
+    procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
     //function GetAlignment: TParaAlignment;
@@ -96,7 +98,6 @@ type
     //procedure SetNumberingStyle(AValue: TParaNumStyle);
     {$ENDREGION}
 
-    // methods
     function Focused: Boolean;
     procedure SetFocus;
     procedure SelectAll;
@@ -115,7 +116,10 @@ type
     function InsertImage: Boolean; overload;
     procedure InsertImageFile(const AFileName: string);
     procedure InsertImage(AImage: TPicture); overload;
-    procedure InsertHyperlink;
+    procedure InsertHyperlink(
+      const AText : string = '';
+      const AURL  : string = ''
+    );
     procedure InsertBulletList;
     procedure InsertTextBox;
     procedure IncIndent;
@@ -208,13 +212,14 @@ type
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
 
+    property ShowSpecialChars: Boolean
+      read GetShowSpecialChars write SetShowSpecialChars;
+
     property PopupMenu: TPopupMenu
       read GetPopupMenu write SetPopupMenu;
   end;
 
- { Events dispatched by the editor view. }
-
-  { IRichEditorEvents }
+  { Events dispatched by the editor view. }
 
   IRichEditorEvents = interface
   ['{D078C92D-16DF-4727-A18F-4C76E07D37A2}']

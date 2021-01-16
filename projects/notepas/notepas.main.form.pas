@@ -87,12 +87,6 @@ type
     btnCloseToolView      : TSpeedButton;
     shpLine               : TShape;
     splVertical           : TSplitter;
-    ToolBar2              : TToolBar;
-    ToolButton1           : TToolButton;
-    ToolButton2           : TToolButton;
-    ToolButton3           : TToolButton;
-    ToolButton4           : TToolButton;
-    ToolButton5           : TToolButton;
     {$ENDREGION}
 
     {$REGION 'action handlers'}

@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.Editor.filter.ToolView;
+unit ts.Editor.Filter.ToolView;
 
 {$MODE DELPHI}
 
@@ -109,11 +109,11 @@ type
       ACanvas           : TCanvas;
       AColumnDefinition : TColumnDefinition;
       var ARect         : TRect
-    ); inline;
+    );
     procedure DrawMatchRect(
       ACanvas     : TCanvas;
       const ARect : TRect
-    ); inline;
+    );
 
     procedure InitializeComponents;
 

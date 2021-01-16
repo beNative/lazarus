@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, Controls,
 
-  db, sqldb;
+  DB, SQLDB;
 
 type
   IConnection = interface
@@ -43,13 +43,12 @@ type
     function BackupDatabase: string;
     procedure CreateDatabaseTables;
     procedure CreateDatabaseIndexes;
-    procedure CreateDatabaseTriggers;
     procedure CreateNewDatabase;
     procedure SetupConfigurationData;
     procedure BeginBulkInserts;
     procedure EndBulkInserts;
 
-    procedure Execute(const ASQL: string);
+    procedure ExecuteDirect(const ASQL: string);
     procedure Commit;
     procedure Rollback;
     procedure StartTransaction;
@@ -64,6 +63,22 @@ type
     property FileName: string
       read GetFileName write SetFileName;
   end;
+
+  { Interface used to perform arbitrary queries on the Snippets database.  }
+
+  IQuery = interface
+  ['{4969FE0E-1003-4D39-B181-E2D46DFB9AE0}']
+    {$REGION 'property access methods'}
+    function GetQuery: TSQLQuery;
+    {$ENDREGION}
+
+    procedure Execute(const ASQL: string);
+
+    property Query: TSQLQuery
+      read GetQuery;
+  end;
+
+  { Interface to SQLite specific functions and data. }
 
   ISQLite = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
@@ -163,6 +178,8 @@ type
       read GetImageIndex write SetImageIndex;
   end;
 
+  { Interfaces the main dataset which is used to display the snippets tree.  }
+
   IDataSet = interface
   ['{13211D24-9ECD-42BE-AB95-C4F833D123E6}']
     {$REGION 'property access mehods'}
@@ -229,7 +246,7 @@ type
       read GetHighlighterDataSet;
   end;
 
-  { ISettings }
+  { Holds persistable application settings. }
 
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']

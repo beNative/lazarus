@@ -53,7 +53,7 @@ type
     actOpenDatabase              : TAction;
     actAddGlyphs                 : TAction;
     actRefreshGlyphs             : TAction;
-    btnBackupDatabase: TBitBtn;
+    btnBackupDatabase            : TBitBtn;
     btnCreateNewDatabase         : TBitBtn;
     btnCreateDatabaseIndexes     : TBitBtn;
     btnCreateDatabaseTables      : TBitBtn;
@@ -234,6 +234,7 @@ begin
   chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
+  pgcMain.ActivePage                   := tsUserInterface;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do

@@ -82,7 +82,6 @@ begin
   inherited Destroy;
   Logger.Leave(Self, 'Destroy');
 end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}

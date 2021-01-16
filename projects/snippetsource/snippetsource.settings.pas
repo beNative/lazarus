@@ -88,7 +88,7 @@ type
       read GetLastFocusedId write SetLastFocusedId;
 
     property AutoHideEditorToolBar: Boolean
-      read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;
+      read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar default True;
 
     property AutoHideEditor: Boolean
       read GetAutoHidEditor write SetAutoHideEditor;
@@ -103,9 +103,11 @@ type
 implementation
 
 uses
+  Dialogs,
+
   fpjsonrtti,
 
-  Dialogs;
+  ts.Core.Logger;
 
 {$REGION 'construction and destruction'}
 procedure TSettings.AfterConstruction;
@@ -252,6 +254,7 @@ begin
   begin
     SL := TStringList.Create;
     try
+      Logger.Info('Loading settings from %s.', [FileName]);
       SL.LoadFromFile(FileName);
       S := SL.Text;
     finally
@@ -279,6 +282,7 @@ begin
     SL := TStringList.Create;
     try
       SL.Text := S;
+      Logger.Info('Saving settings to %s.', [FileName]);
       SL.SaveToFile(FileName);
     finally
       SL.Free;

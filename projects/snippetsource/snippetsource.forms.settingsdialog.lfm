@@ -1,29 +1,29 @@
 object frmSettingsDialog: TfrmSettingsDialog
   Left = 783
-  Height = 349
+  Height = 346
   Top = 477
-  Width = 567
+  Width = 578
   ActiveControl = btnClose
   Caption = 'Settings'
-  ClientHeight = 349
-  ClientWidth = 567
+  ClientHeight = 346
+  ClientWidth = 578
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '2.0.10.0'
   object pgcMain: TPageControl
     Left = 0
-    Height = 315
+    Height = 312
     Top = 0
-    Width = 567
-    ActivePage = tsUserInterface
+    Width = 578
+    ActivePage = tsDataBase
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = pgcMainChange
     object tsUserInterface: TTabSheet
       Caption = 'User interface'
-      ClientHeight = 287
-      ClientWidth = 559
+      ClientHeight = 284
+      ClientWidth = 570
       object grpLayout: TGroupBox
         Left = 0
         Height = 128
@@ -73,13 +73,13 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsDataBase: TTabSheet
       Caption = 'Database'
-      ClientHeight = 287
-      ClientWidth = 559
+      ClientHeight = 284
+      ClientWidth = 570
       object edtDatabaseFile: TFileNameEdit
         Left = 67
         Height = 23
         Top = 6
-        Width = 490
+        Width = 501
         OnAcceptFileName = edtDatabaseFileAcceptFileName
         DialogOptions = []
         FilterIndex = 0
@@ -87,7 +87,9 @@ object frmSettingsDialog: TfrmSettingsDialog
         ButtonWidth = 23
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
+        Font.Style = [fsBold]
         MaxLength = 0
+        ParentFont = False
         TabOrder = 0
       end
       object lblDataBaseFile: TLabel
@@ -100,7 +102,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         ParentColor = False
       end
       object btnDatabaseIntegrityCheck: TBitBtn
-        Left = 401
+        Left = 412
         Height = 26
         Top = 224
         Width = 150
@@ -110,7 +112,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 1
       end
       object btnDatabaseVacuum: TBitBtn
-        Left = 401
+        Left = 412
         Height = 26
         Top = 192
         Width = 150
@@ -120,20 +122,20 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 2
       end
       object grpDatabaseInfo: TGroupBox
-        Left = 1
-        Height = 251
+        Left = 0
+        Height = 248
         Top = 30
-        Width = 391
+        Width = 402
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'SQLite Database information'
-        ClientHeight = 231
-        ClientWidth = 387
+        ClientHeight = 228
+        ClientWidth = 398
         TabOrder = 3
         object grdDBInfo: TStringGrid
-          Left = 5
-          Height = 215
+          Left = 0
+          Height = 212
           Top = 4
-          Width = 374
+          Width = 385
           Anchors = [akTop, akLeft, akRight, akBottom]
           BorderStyle = bsNone
           CellHintPriority = chpAll
@@ -172,7 +174,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         end
       end
       object btnOpenDatabase: TBitBtn
-        Left = 401
+        Left = 412
         Height = 25
         Top = 34
         Width = 150
@@ -182,7 +184,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 4
       end
       object btnCreateNewDatabase: TBitBtn
-        Left = 401
+        Left = 412
         Height = 25
         Top = 64
         Width = 150
@@ -192,7 +194,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 5
       end
       object btnCreateDatabaseIndexes: TBitBtn
-        Left = 401
+        Left = 412
         Height = 25
         Top = 96
         Width = 150
@@ -238,7 +240,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 6
       end
       object btnCreateDatabaseTables: TBitBtn
-        Left = 401
+        Left = 412
         Height = 25
         Top = 128
         Width = 150
@@ -284,7 +286,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 7
       end
       object btnCreateDatabaseTriggers: TBitBtn
-        Left = 401
+        Left = 412
         Height = 25
         Top = 160
         Width = 150
@@ -330,7 +332,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 8
       end
       object btnBackupDatabase: TBitBtn
-        Left = 400
+        Left = 411
         Height = 26
         Top = 255
         Width = 150
@@ -378,8 +380,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsImages: TTabSheet
       Caption = 'Images'
-      ClientHeight = 287
-      ClientWidth = 559
+      ClientHeight = 284
+      ClientWidth = 570
       object btnOpenGlyphs: TButton
         Left = 98
         Height = 25
@@ -398,7 +400,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object vstImageList: TVirtualStringTree
         Left = 0
-        Height = 282
+        Height = 279
         Top = 3
         Width = 88
         Anchors = [akTop, akLeft, akBottom]
@@ -421,9 +423,9 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdGlyph: TDBGrid
         Left = 98
-        Height = 253
+        Height = 250
         Top = 32
-        Width = 465
+        Width = 476
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -437,8 +439,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object Highlighters: TTabSheet
       Caption = 'Highlighters'
-      ClientHeight = 287
-      ClientWidth = 559
+      ClientHeight = 284
+      ClientWidth = 570
       object cbxImageList: TComboBox
         Left = 8
         Height = 24
@@ -453,18 +455,17 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdHighlighters: TDBGrid
         Left = 88
-        Height = 269
+        Height = 266
         Top = 8
-        Width = 465
+        Width = 476
         Anchors = [akTop, akLeft, akRight, akBottom]
-        AutoFillColumns = True
-        BorderStyle = bsNone
         Color = clWindow
         Columns = <>
         DataSource = dscHighlighter
         Flat = True
-        Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints]
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints, dgDisplayMemoText]
         ReadOnly = True
+        Scrollbars = ssAutoBoth
         TabOrder = 1
         OnDrawColumnCell = grdHighlightersDrawColumnCell
       end
@@ -473,15 +474,15 @@ object frmSettingsDialog: TfrmSettingsDialog
   object pnlBottom: TPanel
     Left = 0
     Height = 34
-    Top = 315
-    Width = 567
+    Top = 312
+    Width = 578
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 34
-    ClientWidth = 567
+    ClientWidth = 578
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 441
+      Left = 452
       Height = 25
       Top = 3
       Width = 120
@@ -555,7 +556,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object actCreateDatabaseIndexes: TAction
       Category = 'Database'
-      Caption = '(Re)creates all indexes'
+      Caption = '(Re)create all indexes'
       OnExecute = actCreateDatabaseIndexesExecute
     end
     object actReloadConfigurationData: TAction
@@ -566,7 +567,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object actCreateDatabaseTables: TAction
       Category = 'Database'
-      Caption = '(Re)creates all tables'
+      Caption = '(Re)create all tables'
       Hint = '(Re)creates all database tables. All preexisting tables are dropped fist.'
       OnExecute = actCreateDatabaseTablesExecute
     end

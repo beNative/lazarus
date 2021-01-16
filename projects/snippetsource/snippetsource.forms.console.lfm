@@ -1,7 +1,7 @@
 object frmConsole: TfrmConsole
-  Left = 629
+  Left = 839
   Height = 551
-  Top = 255
+  Top = 462
   Width = 741
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
@@ -25,9 +25,12 @@ object frmConsole: TfrmConsole
     CaretYShift = 4
     OnInput = cmdMainInput
     LineCount = 1000
+    Font.CharSet = ANSI_CHARSET
     Font.Color = clSilver
-    Font.Height = 12
-    Font.Name = 'Terminal_Ctrl+Hex'
+    Font.Height = -12
+    Font.Name = 'Fixedsys'
+    Font.Pitch = fpFixed
+    Font.Quality = fqDraft
     BackGroundColor = clBlack
     TabWidth = 0
     HistoryMax = 100

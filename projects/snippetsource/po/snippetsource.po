@@ -295,6 +295,11 @@ msgstr ""
 msgid "tlbApplication"
 msgstr ""
 
+#: tfrmquery.actexecute.caption
+msgctxt "tfrmquery.actexecute.caption"
+msgid "Execute"
+msgstr ""
+
 #: tfrmsettingsdialog.actaddglyphs.caption
 msgid "Add glyph files"
 msgstr ""
@@ -313,11 +318,11 @@ msgid "Close dialog"
 msgstr ""
 
 #: tfrmsettingsdialog.actcreatedatabaseindexes.caption
-msgid "(Re)creates all indexes"
+msgid "(Re)create all indexes"
 msgstr ""
 
 #: tfrmsettingsdialog.actcreatedatabasetables.caption
-msgid "(Re)creates all tables"
+msgid "(Re)create all tables"
 msgstr ""
 
 #: tfrmsettingsdialog.actcreatedatabasetables.hint

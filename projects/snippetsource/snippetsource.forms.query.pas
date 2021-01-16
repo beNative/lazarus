@@ -21,25 +21,42 @@ unit SnippetSource.Forms.Query;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils, DB, Forms, Controls, Graphics, Dialogs, ExtCtrls, DBGrids,
+  ActnList,
 
-  ts.Editor.Interfaces;
+  ts.Editor.Interfaces,
+
+  SnippetSource.Interfaces;
 
 type
 
   { TfrmQuery }
 
   TfrmQuery = class(TForm)
+    actExecute     : TAction;
+    alMain         : TActionList;
+    dscMain        : TDataSource;
+    grdMain        : TDBGrid;
     pnlQueryEditor : TPanel;
     pnlResultSet   : TPanel;
     splHorizontal  : TSplitter;
 
+    procedure actExecuteExecute(Sender: TObject);
+
   private
     FManager : IEditorManager;
+    FEditor  : IEditorView;
+    FQuery   : IQuery;
 
   public
     procedure AfterConstruction; override;
     destructor Destroy; override;
+
+    constructor Create(
+      AOwner         : TComponent;
+      AEditorManager : IEditorManager;
+      AQuery         : IQuery
+    ); reintroduce;
 
   end;
 
@@ -50,19 +67,40 @@ implementation
 uses
   ts.Editor.Factories;
 
+{$REGION 'construction and destruction'}
+constructor TfrmQuery.Create(AOwner: TComponent; AEditorManager: IEditorManager;
+  AQuery: IQuery);
+begin
+  inherited Create(AOwner);
+  FManager := AEditorManager;
+  FQuery   := AQuery;
+end;
+
 procedure TfrmQuery.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FManager := TEditorFactories.CreateManager(Self, nil);
-  V := TEditorFactories.CreateView(pnlQueryEditor, FManager, 'QueryEditor');
-  V.HighlighterName := 'SQL';
-  V.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
+  FEditor := TEditorFactories.CreateView(pnlQueryEditor, FManager, 'QueryEditor');
+  FEditor.HighlighterName := 'SQL';
+  FEditor.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
 end;
 
 destructor TfrmQuery.Destroy;
 begin
+  FManager.Views.Delete(FEditor);
+  FEditor  := nil;
   FManager := nil;
+  FQuery   := nil;
   inherited Destroy;
 end;
+{$ENDREGION}
+
+{$REGION 'action handlers'}
+procedure TfrmQuery.actExecuteExecute(Sender: TObject);
+begin
+  FQuery.Execute(FEditor.Text);
+  dscMain.DataSet := FQuery.Query;
+end;
+{$ENDREGION}
+
 end.
 

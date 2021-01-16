@@ -1,29 +1,3 @@
-06/01/2021
-- do not loose position in tree after refresh
-- store last size + position
-
-30/12/2020
-- Image files (all types supported by TPicture) can be dragged and dropped into
-  the treeviewer and the rich editor. Image file types other than png and jpg
-  are automatically converted to jpg.
-- Added settings to automatically hide text and rich-text editors based on node
-  content.
-- Delayed loading of RTF data makes the application more responsive now.
-
-TODO (22/12/2020)
-- multiselected drag/drop of folders/files does not insert to correct node
-- drag and drop of RTF documents
-- custom node sequence number (up/down position)
-- more polished look for lookup form
-- bookmark positions or favourites which can be selected immediately
-- most recently changed nodes?
-- most visited nodes?
-- read only mode (with multiple editor buffer views side by side)
-- operations on multiselection of nodes
-- backup/restore option (7z)
-
-Welcome to SnippetSource. A new SQLite database will be created.
-
 SnippetSource lets you organise your favorite pieces of code, scripts, thoughts,
 notes or other documents in a user definable tree structure.
 
@@ -31,7 +5,8 @@ Tips and tricks, solutions to problems you encounter and references can be
 organised as you like.
 
 You can accompany your node with formatted text in RTF format, which will be
-stored together with the node.
+stored together with the node. It also supports embedded images that you can
+drag and drop into the richtext editor.
 
 All data is stored in a simple yet powerful SQLite database which provides you
 with immediate access to your stored snippets.
@@ -47,22 +22,20 @@ Nodes can be moved freely by dragging them to another folder.
 It uses the text editor module which was developed for my Notepas project, and
 is based on the SynEdit components used by Lazarus for its source code editor.
 This has the convenient side effect that the capabillities of the text editor
-expand too as Lazarus evolves.
+will increase as Lazarus evolves.
 
 Since version 3 the possibility to execute script code was added. Snippets that
 represent script code can directly be executed.
 
-Another new feature is you can now customize the node images from a user
-definable set of glyphs which can be stored in the snippet database.
-
-My intention is to keep the user interface as clean as possible so users can
-focus more on the content.
+My intention is to keep the user interface as clean and fast as possible so
+users can focus more on the content rather than confront them with an
+overwhelming and bloated user interface.
 
 Use Cases
 As I developer I use it for storing SQL-scripts, code snippets and short
 tutorials with solutions for common problems.
 
-A writer could use it to store his favourite quotes.
+A writer could use it to store his/her favourite quotes.
 
 The source to your snippets of your sources
 
@@ -103,12 +76,45 @@ IDEAS:
 - support for multiple databases as tabbed views
 - drag and drop of nodes between seperate instances of snippetsource
 
-TODO:
-- support for custom node images
+TODO (22/12/2020)
+- Multiselected drag/drop of folders/files does not insert to correct node
+- Drag and drop of RTF documents
+- Custom node sequence number (up/down position)
+- More polished look for lookup form
+- Bookmark positions or favourites which can be selected immediately
+- Most recently changed nodes?
+- Most visited nodes?
+- Read only mode (with multiple editor buffer views side by side)
+- Operations on multiselection of nodes
+- Backup/restore option (7z)
+- ImageIndex is now a reference to the internal imagelist rather than a
+  reference to a record in the Glyph table.
+- Customize the node images from a user definable set of glyphs which can be
+  stored in the snippet database.
 
 DONE
 - Action actCopySnippetToClipBoard
 - removed PathFieldName from TfrmVirtualDBTree (not used anymore)
+
+13/01/2021
+- Version 3.1
+- Cleanup settings dialog
+- Added missing highlighters in Highlighter table.
+- Simple database backup function added to settings dialog.
+- Added query dialog (SHIFT+CTRL+Q), that can be used get direct access to the
+  SQLite database.
+
+06/01/2021
+- Do not loose position in tree after refresh.
+- Store last size + position.
+
+30/12/2020
+- Image files (all types supported by TPicture) can be dragged and dropped into
+  the treeviewer and the rich editor. Image file types other than png and jpg
+  are automatically converted to jpg.
+- Added settings to automatically hide text and rich-text editors based on node
+  content.
+- Delayed loading of RTF data makes the application more responsive now.
 
 24/12/2020
 - FPC 3.2 and Lazarus 2.0.10

@@ -149,23 +149,25 @@ type
     {$ENDREGION}
 
   private
-    FTree              : TfrmVirtualDBTree;
-    FBusyForm          : TfrmBusy;
-    FVersionInfo       : TVersionInfo;
-    FFileSearcher      : TFileSearcher;
-    FParentId          : Integer;
-    FCommonPath        : string;
-    FData              : IDataSet;
-    FEditorManager     : IEditorManager;
-    FEditorSettings    : IEditorSettings;
-    FRichEditorManager : IRichEditorManager;
-    FSettings          : TSettings;
-    FConsole           : TfrmConsole;
-    FRichEditorToolBar : TToolBar;
-    FUpdate            : Boolean;
-    FRichEditorVisible : Boolean;
-    FTextEditorVisible : Boolean;
-    FRTFStream         : TStringStream;
+    FTree               : TfrmVirtualDBTree;
+    FBusyForm           : TfrmBusy;
+    FVersionInfo        : TVersionInfo;
+    FFileSearcher       : TFileSearcher;
+    FParentId           : Integer;
+    FCommonPath         : string;
+    FData               : IDataSet;
+    FEditorManager      : IEditorManager;
+    FEditorSettings     : IEditorSettings;
+    FEditor             : IEditorView;
+    FRichEditorManager  : IRichEditorManager;
+    FRichEditor         : IRichEditorView;
+    FSettings           : TSettings;
+    FConsole            : TfrmConsole;
+    FRichEditorToolBar  : TToolBar;
+    FUpdate             : Boolean;
+    FRichEditorVisible  : Boolean;
+    FTextEditorVisible  : Boolean;
+    FRTFStream          : TStringStream;
     FUpdateRichTextView : Boolean;
 
     {$REGION 'property access methods'}
@@ -259,7 +261,7 @@ uses
   ts.Richeditor.Factories,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
-  SnippetSource.Forms.Grid, SnippetSource.Resources;
+  SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources;
 
 {$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
@@ -318,6 +320,8 @@ begin
   FRichEditorManager := nil;
   FEditorManager     := nil;
   FEditorSettings    := nil;
+  FEditor            := nil;
+  FRichEditor        := nil;
   FreeAndNil(FFileSearcher);
   FRTFStream.Free;
   inherited Destroy;
@@ -328,12 +332,12 @@ end;
 {$REGION 'property access mehods'}
 function TfrmMain.GetRichEditor: IRichEditorView;
 begin
-  Result := FRichEditorManager.ViewByName['Comment'];
+  Result := FRichEditor;
 end;
 
 function TfrmMain.GetEditor: IEditorView;
 begin
-  Result := FEditorManager.Views.ViewByName['Editor'];
+  Result := FEditor;
 end;
 
 function TfrmMain.GetConnection: IConnection;
@@ -415,8 +419,16 @@ begin
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
+var
+  F : TfrmQuery;
 begin
-  //
+  F := TfrmQuery.Create(Self, FEditorManager, FData as IQuery);
+  try
+    F.Showmodal;
+    DataSet.DataSet.Refresh;
+  finally
+    F.Free;
+  end;
 end;
 
 procedure TfrmMain.actToggleFullScreenExecute(Sender: TObject);
@@ -686,15 +698,14 @@ end;
 procedure TfrmMain.CreateEditor;
 var
   EV : IEditorEvents;
-  V  : IEditorView;
 begin
   FEditorSettings := TEditorFactories.CreateSettings(Self);
   FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
   FEditorSettings.Load;
   FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
-  V := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
-  V.IsFile := False;
-  V.Editor.PopupMenu  := FEditorManager.Menus.EditorPopupMenu;
+  FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
+  FEditor.IsFile := False;
+  FEditor.Editor.PopupMenu  := FEditorManager.Menus.EditorPopupMenu;
   btnHighlighter.Menu := FEditorManager.Menus.HighlighterPopupMenu;
   FEditorManager.Settings.AutoFormatXML := False;
   FEditorManager.Settings.AutoGuessHighlighterType := False;
@@ -706,19 +717,17 @@ begin
 end;
 
 procedure TfrmMain.CreateRichEditor;
-var
-  RV : IRichEditorView;
 begin
   FRichEditorManager := TRichEditorFactories.CreateManager(Self);
-  RV := TRichEditorFactories.CreateView(
+  FRichEditor := TRichEditorFactories.CreateView(
     pnlRichEditor,
     FRichEditorManager,
     'Comment'
   );
-  RV.IsFile      := False;
-  RV.OnChange    := RVChange;
-  RV.OnDropFiles := RVDropFiles;
-  RV.PopupMenu   := FRichEditorManager.EditorPopupMenu;
+  FRichEditor.IsFile      := False;
+  FRichEditor.OnChange    := RVChange;
+  FRichEditor.OnDropFiles := RVDropFiles;
+  FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;
 end;
 
 procedure TfrmMain.Modified;

@@ -86,13 +86,16 @@ interface
 {$ENDREGION}
 
 uses
-  Classes, SysUtils, Controls, Graphics, LazFileUtils,
+  Classes, SysUtils, Controls, Graphics,
+  DB,
 
-  sqldb, sqlite3conn, db, fgl,
+  LazFileUtils, fgl,
+
+  SQLDB, SQLite3Conn,
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, SQLScript;
 
 type
   TImageMap = TFPGMapObject<Integer, TBitmap>;
@@ -102,7 +105,8 @@ type
   { TdmSnippetSource }
 
   TdmSnippetSource = class(TDataModule,
-    ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters
+    ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters,
+    IQuery
   )
     {$REGION 'designer controls'}
     conMain           : TSQLite3Connection;
@@ -113,10 +117,10 @@ type
     qryNodeType       : TSQLQuery;
     qrySnippet        : TSQLQuery;
     qryLookup         : TSQLQuery;
-    scrCreateTriggers : TSQLScript;
     scrCreateTables   : TSQLScript;
     scrCreateIndexes  : TSQLScript;
     scrInsertData     : TSQLScript;
+    qryQuery          : TSQLQuery;
     trsMain           : TSQLTransaction;
     {$ENDREGION}
 
@@ -167,6 +171,7 @@ type
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
+    function GetQuery: TSQLQuery;
     function GetReadOnly: Boolean;
     function GetRecordCount: Integer;
     function GetSize: Int64;
@@ -224,14 +229,20 @@ type
     procedure CreateNewDatabase;
     procedure CreateDatabaseTables;
     procedure CreateDatabaseIndexes;
-    procedure CreateDatabaseTriggers;
     procedure SetupConfigurationData;
-    procedure Execute(const ASQL: string);
+    procedure ExecuteDirect(const ASQL: string);
     procedure Commit;
     procedure Rollback;
     function ApplyUpdates: Boolean;
     procedure StartTransaction;
     procedure EndTransaction;
+    {$ENDREGION}
+
+    {$REGION 'IQuery'}
+    procedure Execute(const ASQL: string);
+
+    property Query: TSQLQuery
+      read GetQuery;
     {$ENDREGION}
 
     {$REGION 'IDataSet'}
@@ -274,21 +285,28 @@ type
     {$ENDREGION}
 
     {$REGION 'ISnippet'}
+    { Textual representation of the RTF content. This is used for text
+      searching. }
     property Comment: string
       read GetComment write SetComment;
 
+    { Field containing the RTF content of the node's comment. }
     property CommentRtf: string
       read GetCommentRtf write SetCommentRtf;
 
+    { DateTime of creation of the current record. }
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;
 
+    { DateTime of last modificaton to current record. }
     property DateModified: TDateTime
       read GetDateModified write SetDateModified;
 
+    { Currently not used. }
     property FoldLevel: Integer
       read GetFoldLevel write SetFoldLevel;
 
+    { Currently not used. }
     property FoldState: string
       read GetFoldState write SetFoldState;
 
@@ -304,15 +322,19 @@ type
     property NodePath: string
       read GetNodePath write SetNodePath;
 
+    { Reference to NodeType.Id }
     property NodeTypeId: Integer
       read GetNodeTypeId write SetNodeTypeId;
 
+    { Reference to Snippet.Id }
     property ParentId: Integer
       read GetParentId write SetParentId;
 
     property Text: string
       read GetText write SetText;
 
+    { Corresponds to the index in the stock image list and is not a foreign
+      key. }
     property ImageIndex: Integer
       read GetImageIndex write SetImageIndex;
 
@@ -805,6 +827,11 @@ begin
   Result := qrySnippet.FieldValues['ParentId'];
 end;
 
+function TdmSnippetSource.GetQuery: TSQLQuery;
+begin
+  Result := qryQuery;
+end;
+
 procedure TdmSnippetSource.SetParentId(AValue: Integer);
 begin
   qrySnippet.FieldValues['ParentId'] := AValue;
@@ -1030,7 +1057,6 @@ procedure TdmSnippetSource.CreateNewDatabase;
 begin
   CreateDatabaseTables;
   CreateDatabaseIndexes;
-  CreateDatabaseTriggers;
   SetupConfigurationData;
 end;
 
@@ -1051,16 +1077,6 @@ begin
   scrCreateIndexes.ExecuteScript;
 end;
 
-{ Creates triggers for all tables. They are dropped first in case they would
-  exist.
-  TODO: For an unknown reason this step fails to work properly.  }
-
-procedure TdmSnippetSource.CreateDatabaseTriggers;
-begin
-  Logger.Info('Creating new triggers...');
-  //scrCreateTriggers.ExecuteScript; // not working...
-end;
-
 { Inserts configuration data for highlighters, comment types and node types.
   Any data in these tables is cleared before insert. }
 
@@ -1077,7 +1093,7 @@ begin
   Logger.Leave(Self, 'Commit');
 end;
 
-procedure TdmSnippetSource.Execute(const ASQL: string);
+procedure TdmSnippetSource.ExecuteDirect(const ASQL: string);
 begin
   conMain.ExecuteDirect(ASQL);
 end;
@@ -1101,6 +1117,15 @@ begin
   Logger.Enter(Self, 'EndTransaction');
   DataSet.SQLTransaction.EndTransaction;
   Logger.Leave(Self, 'EndTransaction');
+end;
+{$ENDREGION}
+
+{$REGION 'IQuery'}
+procedure TdmSnippetSource.Execute(const ASQL: string);
+begin
+  qryQuery.Active   := False;
+  qryQuery.SQL.Text := ASQL;
+  qryQuery.Active   := True;
 end;
 {$ENDREGION}
 

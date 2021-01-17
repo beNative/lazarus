@@ -112,6 +112,7 @@ type
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     procedure actToggleWordWrapExecute(Sender: TObject);
+    procedure DataModuleCreate(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -487,6 +488,12 @@ begin
   actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
   ActiveView.WordWrap := actToggleWordWrap.Checked;
 end;
+
+procedure TdmRichEditorManager.DataModuleCreate(Sender: TObject);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'private methods'}

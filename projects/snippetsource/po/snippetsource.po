@@ -413,19 +413,23 @@ msgid "Settings"
 msgstr ""
 
 #: tfrmsettingsdialog.chkautohideeditor.caption
-msgid "Automatically hide texteditor when no data."
+msgid "Automatically hide text editor when no data."
 msgstr ""
 
 #: tfrmsettingsdialog.chkautohideeditortoolbar.caption
-msgid "Hide editor toolbar when not focused."
+msgid "Hide text editor toolbar when not focused."
 msgstr ""
 
 #: tfrmsettingsdialog.chkautohidericheditor.caption
-msgid "Automatically hide RichEditor when no data."
+msgid "Automatically hide rich editor when no data."
 msgstr ""
 
 #: tfrmsettingsdialog.chkautohidericheditortoolbar.caption
-msgid "Hide RichEditor toolbar when not focused."
+msgid "Hide rich editor toolbar when not focused."
+msgstr ""
+
+#: tfrmsettingsdialog.chkemitlogmessages.caption
+msgid "Emit log messages for LogViewer"
 msgstr ""
 
 #: tfrmsettingsdialog.dlgopen.title
@@ -440,6 +444,10 @@ msgstr ""
 msgid "SQLite Database information"
 msgstr ""
 
+#: tfrmsettingsdialog.grpdiagnostics.caption
+msgid "Diagnostics"
+msgstr ""
+
 #: tfrmsettingsdialog.grplayout.caption
 msgid "Layout"
 msgstr ""
@@ -447,6 +455,10 @@ msgstr ""
 #: tfrmsettingsdialog.highlighters.caption
 msgctxt "TFRMSETTINGSDIALOG.HIGHLIGHTERS.CAPTION"
 msgid "Highlighters"
+msgstr ""
+
+#: tfrmsettingsdialog.lblapplicationneedstoberestarted.caption
+msgid "The application needs to be restarted for changes to this setting to take effect."
 msgstr ""
 
 #: tfrmsettingsdialog.lbldatabasefile.caption
@@ -457,16 +469,16 @@ msgstr ""
 msgid "Default font:"
 msgstr ""
 
+#: tfrmsettingsdialog.tsapplication.caption
+msgid "Application"
+msgstr ""
+
 #: tfrmsettingsdialog.tsdatabase.caption
 msgid "Database"
 msgstr ""
 
 #: tfrmsettingsdialog.tsimages.caption
 msgid "Images"
-msgstr ""
-
-#: tfrmsettingsdialog.tsuserinterface.caption
-msgid "User interface"
 msgstr ""
 
 #: tfrmsettingsdialog.vstimagelist.header.columns[0].text

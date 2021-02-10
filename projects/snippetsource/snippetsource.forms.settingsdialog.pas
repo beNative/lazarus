@@ -49,7 +49,7 @@ type
     actCreateDatabaseTables      : TAction;
     actCreateDatabaseTriggers    : TAction;
     actBackupDatabase            : TAction;
-    actFontDialog: TAction;
+    actFontDialog                : TAction;
     actReloadConfigurationData   : TAction;
     actOpenDatabase              : TAction;
     actAddGlyphs                 : TAction;
@@ -70,25 +70,28 @@ type
     chkAutoHideRichEditor        : TCheckBox;
     chkAutoHideEditor            : TCheckBox;
     chkAutoHideRichEditorToolBar : TCheckBox;
+    chkEmitLogMessages           : TCheckBox;
     dlgOpen                      : TOpenDialog;
     dscGlyph                     : TDatasource;
     dscHighlighter               : TDatasource;
-    edtFontName: TEditButton;
+    edtFontName                  : TEditButton;
     edtDatabaseFile              : TFileNameEdit;
-    dlgFont: TFontDialog;
+    dlgFont                      : TFontDialog;
     grdGlyph                     : TDBGrid;
     grdHighlighters              : TDBGrid;
     grdDBInfo                    : TStringGrid;
-    GroupBox1: TGroupBox;
+    GroupBox1                    : TGroupBox;
+    grpDiagnostics               : TGroupBox;
     grpLayout                    : TGroupBox;
     grpDatabaseInfo              : TGroupBox;
     Highlighters                 : TTabSheet;
     imlMain                      : TImageList;
-    lblFontName: TLabel;
+    lblApplicationNeedsToBeRestarted: TLabel;
+    lblFontName                  : TLabel;
     lblDataBaseFile              : TLabel;
     pnlBottom                    : TPanel;
     pgcMain                      : TPageControl;
-    tsUserInterface              : TTabSheet;
+    tsApplication                : TTabSheet;
     tsDataBase                   : TTabSheet;
     tsImages                     : TTabSheet;
     vstImageList                 : TVirtualStringTree;
@@ -122,6 +125,7 @@ type
     procedure chkAutoHideEditorToolBarClick(Sender: TObject);
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
+    procedure chkEmitLogMessagesClick(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
@@ -208,7 +212,7 @@ uses
   SnippetSource.Resources;
 
 var
-  FSettingsDialog: TfrmSettingsDialog;
+  FSettingsDialog : TfrmSettingsDialog;
 
 procedure ExecuteSettingsDialog(const AData: IInterface;
   const ASettings: ISettings);
@@ -241,7 +245,8 @@ begin
   chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
-  pgcMain.ActivePage                   := tsUserInterface;
+  chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
+  pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
@@ -258,7 +263,6 @@ begin
   FData     := nil;
   FSettings := nil;
   inherited Destroy;
-  Logger.Info('SettingsDialog Destroy');
 end;
 {$ENDREGION}
 
@@ -408,7 +412,6 @@ begin
     FSettings.DefaultRichEditorFontName := dlgFont.Font.Name;
   end;
 end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -453,6 +456,11 @@ end;
 procedure TfrmSettingsDialog.chkAutoHideRichEditorToolBarClick(Sender: TObject);
 begin
   FSettings.AutoHideRichEditorToolBar := (Sender as TCheckBox).Checked;
+end;
+
+procedure TfrmSettingsDialog.chkEmitLogMessagesClick(Sender: TObject);
+begin
+  FSettings.EmitLogMessages := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);

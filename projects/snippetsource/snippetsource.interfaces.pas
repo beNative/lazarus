@@ -255,6 +255,7 @@ type
     {$REGION 'property access methods'}
     function GetAutoHideRichEditor: Boolean;
     function GetDefaultRichEditorFontName: string;
+    function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
     procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
@@ -270,6 +271,7 @@ type
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure SetDefaultRichEditorFontName(AValue: string);
+    procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
 
     property Database: string
@@ -292,6 +294,9 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property EmitLogMessages: Boolean
+      read GetEmitLogMessages write SetEmitLogMessages;
   end;
 
 implementation

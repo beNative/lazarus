@@ -182,6 +182,8 @@ type
     procedure CreateEditor;
     procedure CreateRichEditor;
 
+    procedure InitializeLogger;
+
     procedure Modified;
 
     function FileExtensionToHighlighter(const AFileExtension: string): string;
@@ -254,7 +256,8 @@ uses
   StrUtils, Base64, Dialogs,
   LclIntf, LclType,
 
-  ts.Core.Utils, ts.Core.Logger,
+  ts.Core.Utils, ts.Core.Logger, ts.Core.Logger.Interfaces,
+  ts.Core.Logger.Channel.IPC,
 
   ts.Editor.AboutDialog,
 
@@ -269,6 +272,9 @@ begin
   inherited AfterConstruction;
   FSettings := TSettings.Create(Self);
   FSettings.Load;
+
+  InitializeLogger;
+
   FData := TdmSnippetSource.Create(Self, FSettings);
   FBusyForm := TfrmBusy.Create(Self);
   FBusyForm.Visible := False;
@@ -728,6 +734,16 @@ begin
   FRichEditor.OnChange    := RVChange;
   FRichEditor.OnDropFiles := RVDropFiles;
   FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;
+end;
+
+procedure TfrmMain.InitializeLogger;
+var
+  I : Integer;
+begin
+  if FSettings.EmitLogMessages then
+  begin
+    Logger.Channels.Add(TIpcChannel.Create);
+  end;
 end;
 
 procedure TfrmMain.Modified;

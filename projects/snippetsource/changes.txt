@@ -75,6 +75,7 @@ from
 IDEAS:
 - support for multiple databases as tabbed views
 - drag and drop of nodes between seperate instances of snippetsource
+- SQLite updated to release 3.34.1
 
 TODO (22/12/2020)
 - Multiselected drag/drop of folders/files does not insert to correct node
@@ -92,6 +93,10 @@ TODO (22/12/2020)
 - Customize the node images from a user definable set of glyphs which can be
   stored in the snippet database.
 
+10/02/2021
+- Version 3.3
+- Added extra setting to enable/disable log messages for LogViewer.
+
 16/01/2021
 - Version 3.2
 - Added support for dragging and dropping URL's into the rich-text editor. This
@@ -104,8 +109,8 @@ TODO (22/12/2020)
 - Cleanup settings dialog
 - Added missing highlighters in Highlighter table.
 - Simple database backup function added to settings dialog.
-- Added query dialog (SHIFT+CTRL+Q), that can be used get direct access to the
-  SQLite database.
+- Added experimental query dialog (SHIFT+CTRL+Q), that can be used get direct
+  access to the SQLite database using SQL statements.
 
 06/01/2021
 - Do not loose position in tree after refresh.

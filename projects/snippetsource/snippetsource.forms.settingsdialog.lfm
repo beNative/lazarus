@@ -1,7 +1,7 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 783
+  Left = 2760
   Height = 346
-  Top = 477
+  Top = 526
   Width = 578
   ActiveControl = btnClose
   Caption = 'Settings'
@@ -15,13 +15,13 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 312
     Top = 0
     Width = 578
-    ActivePage = tsUserInterface
+    ActivePage = tsApplication
     Align = alClient
     TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
-    object tsUserInterface: TTabSheet
-      Caption = 'User interface'
+    object tsApplication: TTabSheet
+      Caption = 'Application'
       ClientHeight = 284
       ClientWidth = 570
       object grpLayout: TGroupBox
@@ -36,27 +36,27 @@ object frmSettingsDialog: TfrmSettingsDialog
         object chkAutoHideRichEditor: TCheckBox
           Left = 8
           Height = 19
-          Top = 80
+          Top = 77
           Width = 255
-          Caption = 'Automatically hide RichEditor when no data.'
+          Caption = 'Automatically hide rich editor when no data.'
           OnClick = chkAutoHideRichEditorClick
           TabOrder = 0
         end
         object chkAutoHideRichEditorToolBar: TCheckBox
           Left = 8
           Height = 19
-          Top = 24
+          Top = 27
           Width = 244
-          Caption = 'Hide RichEditor toolbar when not focused.'
+          Caption = 'Hide rich editor toolbar when not focused.'
           OnClick = chkAutoHideRichEditorToolBarClick
           TabOrder = 1
         end
         object chkAutoHideEditorToolBar: TCheckBox
           Left = 8
           Height = 19
-          Top = 0
-          Width = 221
-          Caption = 'Hide editor toolbar when not focused.'
+          Top = 2
+          Width = 244
+          Caption = 'Hide text editor toolbar when not focused.'
           OnClick = chkAutoHideEditorToolBarClick
           TabOrder = 2
         end
@@ -64,43 +64,78 @@ object frmSettingsDialog: TfrmSettingsDialog
           Left = 8
           Height = 19
           Top = 52
-          Width = 252
-          Caption = 'Automatically hide texteditor when no data.'
+          Width = 255
+          Caption = 'Automatically hide text editor when no data.'
           OnClick = chkAutoHideEditorClick
           TabOrder = 3
         end
       end
       object GroupBox1: TGroupBox
         Left = 280
-        Height = 128
+        Height = 51
         Top = 0
         Width = 288
         Caption = 'Richtext editor'
-        ClientHeight = 108
+        ClientHeight = 31
         ClientWidth = 284
         TabOrder = 1
         object edtFontName: TEditButton
           Left = 80
           Height = 23
-          Top = 1
+          Top = 4
           Width = 199
           Action = actFontDialog
           ButtonWidth = 23
+          Font.Style = [fsBold]
           Images = imlMain
           ImageIndex = 6
           MaxLength = 0
           NumGlyphs = 1
           OnButtonClick = edtFontNameButtonClick
+          ParentFont = False
           PasswordChar = #0
           TabOrder = 0
         end
         object lblFontName: TLabel
           Left = 8
           Height = 15
-          Top = 4
+          Top = 7
           Width = 66
           Caption = 'Default font:'
           ParentColor = False
+        end
+      end
+      object grpDiagnostics: TGroupBox
+        Left = 280
+        Height = 74
+        Top = 54
+        Width = 288
+        Caption = 'Diagnostics'
+        ClientHeight = 54
+        ClientWidth = 284
+        TabOrder = 2
+        object chkEmitLogMessages: TCheckBox
+          Left = 8
+          Height = 19
+          Top = 3
+          Width = 194
+          Caption = 'Emit log messages for LogViewer'
+          OnClick = chkEmitLogMessagesClick
+          TabOrder = 0
+        end
+        object lblApplicationNeedsToBeRestarted: TLabel
+          Left = 8
+          Height = 28
+          Top = 24
+          Width = 271
+          AutoSize = False
+          Caption = 'The application needs to be restarted for changes to this setting to take effect.'
+          Font.Color = clBlue
+          Font.Height = 14
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+          OptimalFill = True
         end
       end
     end

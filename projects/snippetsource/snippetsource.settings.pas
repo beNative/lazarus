@@ -43,9 +43,12 @@ type
     FChangeEvents              : TMethodList;
     FLastFocusedId             : Integer;
     FDefaultRichEditorFontName : string;
+    FEmitLogMessages           : Boolean;
 
   protected
     {$REGION 'property access methods'}
+    function GetEmitLogMessages: Boolean;
+    procedure SetEmitLogMessages(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
     procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHideRichEditor: Boolean;
@@ -104,6 +107,9 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property EmitLogMessages: Boolean
+      read GetEmitLogMessages write SetEmitLogMessages;
   end;
 
 implementation
@@ -111,9 +117,7 @@ implementation
 uses
   Dialogs,
 
-  fpjsonrtti,
-
-  ts.Core.Logger;
+  fpjsonrtti;
 
 {$REGION 'construction and destruction'}
 procedure TSettings.AfterConstruction;
@@ -203,6 +207,20 @@ begin
   end;
 end;
 
+function TSettings.GetEmitLogMessages: Boolean;
+begin
+  Result := FEmitLogMessages;
+end;
+
+procedure TSettings.SetEmitLogMessages(AValue: Boolean);
+begin
+  if AValue <> EmitLogMessages then
+  begin
+    FEmitLogMessages := AValue;
+    Changed;
+  end;
+end;
+
 function TSettings.GetAutoHidEditor: Boolean;
 begin
   Result := FAutoHideEditor;
@@ -274,7 +292,6 @@ begin
   begin
     SL := TStringList.Create;
     try
-      Logger.Info('Loading settings from %s.', [FileName]);
       SL.LoadFromFile(FileName);
       S := SL.Text;
     finally
@@ -302,7 +319,6 @@ begin
     SL := TStringList.Create;
     try
       SL.Text := S;
-      Logger.Info('Saving settings to %s.', [FileName]);
       SL.SaveToFile(FileName);
     finally
       SL.Free;

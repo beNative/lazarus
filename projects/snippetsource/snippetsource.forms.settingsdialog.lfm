@@ -1,5 +1,5 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 2760
+  Left = 200
   Height = 346
   Top = 526
   Width = 578

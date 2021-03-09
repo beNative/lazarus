@@ -1,5 +1,0 @@
-function ManipString(AString: string): string;
-begin
-  Result := Trim(AString);
-end;
-

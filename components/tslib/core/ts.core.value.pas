@@ -176,7 +176,7 @@ type
     class operator Implicit(const Value: Variant): TValue;
     class operator Implicit(const Value: Cardinal): TValue;
     class operator Implicit(const Value: Extended): TValue;
-    class operator Implicit(const Value: Double): TValue;
+    //class operator Implicit(const Value: Double): TValue;
     class operator Implicit(const Value: Integer): TValue;
     class operator Implicit(const Value: string): TValue;
     class operator Implicit(const Value: IInterface): TValue;
@@ -191,7 +191,7 @@ type
     class operator Implicit(const Value: TValue): Double; inline;
     class operator Implicit(const Value: TValue): Variant; inline;
     class operator Implicit(const Value: TValue): Cardinal; inline;
-    class operator Implicit(const Value: TValue): Extended; inline;
+    //class operator Implicit(const Value: TValue): Extended; inline;
     class operator Implicit(const Value: TValue): TObject; inline;
     class operator Implicit(const Value: TValue): string; inline;
     class operator Implicit(const Value: TValue): Integer; inline;
@@ -1120,15 +1120,15 @@ begin
   Result := Value.AsPointer;
 end;
 
-class operator TValue.Implicit(const Value: TValue): Double;
-begin
-  Result := Value.AsDouble;
-end;
+//class operator TValue.Implicit(const Value: TValue): Double;
+//begin
+//  Result := Value.AsDouble;
+//end;
 
-class operator TValue.Implicit(const Value: Double): TValue;
-begin
-  Result.AsDouble := Value;
-end;
+//class operator TValue.Implicit(const Value: Double): TValue;
+//begin
+//  Result.AsDouble := Value;
+//end;
 
 function TValue.Equal(const Value: PValue): Boolean;
 begin

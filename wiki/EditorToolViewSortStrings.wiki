@@ -1,4 +1,0 @@
-#summary SortStrings tool.
-
-= The SortStrings tool =
-

@@ -8,19 +8,15 @@ You can accompany your node with formatted text in RTF format, which will be
 stored together with the node. It also supports embedded images that you can
 drag and drop into the richtext editor.
 
-All data is stored in a simple yet powerful SQLite database which provides you
-with immediate access to your stored snippets.
-
-Create new folders and documents. You can drag and drop one or multiple files
-into the treeview to create them as snippets in SnippetSource.
 
 This will create a copy of each document and will duplicate the underlying
 folder structure as wel.
 
 Nodes can be moved freely by dragging them to another folder.
 
-It uses the text editor module which was developed for my Notepas project, and
-is based on the SynEdit components used by Lazarus for its source code editor.
+It uses the text editor module which was developed for my Notepas project, which
+is in turn based on the SynEdit components used by Lazarus for its source code
+editor.
 This has the convenient side effect that the capabillities of the text editor
 will increase as Lazarus evolves.
 

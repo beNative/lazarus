@@ -95,7 +95,7 @@ uses
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces, SQLScript;
+  SnippetSource.Interfaces;
 
 type
   TImageMap = TFPGMapObject<Integer, TBitmap>;
@@ -109,19 +109,20 @@ type
     IQuery
   )
     {$REGION 'designer controls'}
-    conMain           : TSQLite3Connection;
-    imlNodeTypes      : TImageList;
-    imlGlyphs         : TImageList;
-    qryGlyph          : TSQLQuery;
-    qryHighlighter    : TSQLQuery;
-    qryNodeType       : TSQLQuery;
-    qrySnippet        : TSQLQuery;
-    qryLookup         : TSQLQuery;
-    scrCreateTables   : TSQLScript;
-    scrCreateIndexes  : TSQLScript;
-    scrInsertData     : TSQLScript;
-    qryQuery          : TSQLQuery;
-    trsMain           : TSQLTransaction;
+    conMain          : TSQLite3Connection;
+    imlNodeTypes     : TImageList;
+    imlGlyphs        : TImageList;
+    qryGlyph         : TSQLQuery;
+    qryHighlighter   : TSQLQuery;
+    qryNodeType      : TSQLQuery;
+    qrySnippet       : TSQLQuery;
+    qryLookup        : TSQLQuery;
+    qryHistory       : TSQLQuery;
+    scrCreateTables  : TSQLScript;
+    scrCreateIndexes : TSQLScript;
+    scrInsertData    : TSQLScript;
+    qryQuery         : TSQLQuery;
+    trsMain          : TSQLTransaction;
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -236,6 +237,8 @@ type
     function ApplyUpdates: Boolean;
     procedure StartTransaction;
     procedure EndTransaction;
+    procedure AddHistory;
+    procedure CleanupHistory;
     {$ENDREGION}
 
     {$REGION 'IQuery'}
@@ -756,8 +759,8 @@ var
 begin
   if AValue <> Highlighter then
   begin
-     if not qryHighlighter.Active then
-        qryHighlighter.Active := True;
+   if not qryHighlighter.Active then
+      qryHighlighter.Active := True;
     LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
     if VarIsNull(LId) then
       LId := 1;
@@ -1166,6 +1169,11 @@ begin
     qryGlyph.ApplyUpdates;
     Result := True;
   end;
+  if qryHistory.ChangeCount > 0 then
+  begin
+    qryHistory.ApplyUpdates;
+    Result := True;
+  end;
 end;
 
 function TdmSnippetSource.Edit: Boolean;
@@ -1237,6 +1245,7 @@ begin
       //FillImageMapFromDataSet(FHLImages, qryHighlighter);
     qryGlyph.Active :=  True;
     qryNodeType.Active := True;
+    qryHistory.Active  := True;
     //FillNodeTypesImageList;
     DataSet.Active := True;
     Logger.Send('DataSet.Active', DataSet.Active);
@@ -1300,6 +1309,26 @@ begin
     [ASearchString]
   );
   qryLookup.Active := True;
+end;
+
+procedure TdmSnippetSource.AddHistory;
+begin
+  qryHistory.Active := True;
+  if DataSet.Active and (qryHistory.FieldByName('SnippetId').AsInteger <> Id) then
+  begin
+    qryHistory.Append;
+    qryHistory.FieldByName('SnippetId').AsInteger := Id;
+    qryHistory.FieldByName('DateCreated').AsDateTime := Now;
+    qryHistory.Post;
+  end;
+end;
+
+procedure TdmSnippetSource.CleanupHistory;
+begin
+  qryHistory.CancelUpdates;
+  qryHistory.Active := False;
+  ExecuteDirect('delete from History');
+  qryHistory.Active := True;
 end;
 {$ENDREGION}
 

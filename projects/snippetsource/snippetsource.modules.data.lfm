@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 397
-  VerticalOffset = 88
+  HorizontalOffset = 1029
+  VerticalOffset = 514
   Width = 470
   object trsMain: TSQLTransaction
     Active = False
@@ -701,6 +701,18 @@ object dmSnippetSource: TdmSnippetSource
       '  DateModified  datetime'
       ');'
       ''
+      ''
+      '-- Table: History'
+      'drop table if exists History;'
+      ''
+      'create table History ('
+      '  Id          integer  primary key,'
+      '  SnippetId   integer,'
+      '  DateCreated datetime'
+      ');'
+      ''
+      ''
+      ''
     )
     Terminator = ';'
     CommentsinSQL = True
@@ -779,6 +791,13 @@ object dmSnippetSource: TdmSnippetSource
       ''
       'create index idx_SnippetParentId on Snippet ('
       '  ParentId asc'
+      ');'
+      ''
+      '-- Index: idx_HistorySnippetId'
+      'drop index if exists idx_HistorySnippetId;'
+      ''
+      'create index idx_HistorySnippetId on History ('
+      '  SnippetId'
       ');'
     )
     Terminator = ';'
@@ -1809,5 +1828,28 @@ object dmSnippetSource: TdmSnippetSource
     Params = <>
     Left = 211
     Top = 248
+  end
+  object qryHistory: TSQLQuery
+    PacketRecords = -1
+    FieldDefs = <>
+    Database = conMain
+    Transaction = trsMain
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  History'
+      'order by'
+      '  DateCreated,'
+      '  SnippetId,'
+      '  Id'
+    )
+    RefreshSQL.Strings = (
+      ''
+    )
+    Params = <>
+    Sequence.FieldName = 'Id'
+    Left = 344
+    Top = 80
   end
 end

@@ -38,67 +38,72 @@ type
 
   TfrmSettingsDialog = class(TForm)
     {$REGION 'designer controls'}
-    aclMain                      : TActionList;
-    actCreateNewDatabase         : TAction;
-    actDeleteDatabase            : TAction;
-    actClose                     : TAction;
-    actDatabaseIntegrityCheck    : TAction;
-    actDatabaseVacuum            : TAction;
-    actDataBaseShrinkMemory      : TAction;
-    actCreateDatabaseIndexes     : TAction;
-    actCreateDatabaseTables      : TAction;
-    actCreateDatabaseTriggers    : TAction;
-    actBackupDatabase            : TAction;
-    actFontDialog                : TAction;
-    actReloadConfigurationData   : TAction;
-    actOpenDatabase              : TAction;
-    actAddGlyphs                 : TAction;
-    actRefreshGlyphs             : TAction;
-    btnBackupDatabase            : TBitBtn;
-    btnCreateNewDatabase         : TBitBtn;
-    btnCreateDatabaseIndexes     : TBitBtn;
-    btnCreateDatabaseTables      : TBitBtn;
-    btnCreateDatabaseTriggers    : TBitBtn;
-    btnDatabaseIntegrityCheck    : TBitBtn;
-    btnClose                     : TBitBtn;
-    btnDatabaseVacuum            : TBitBtn;
-    btnOpenDatabase              : TBitBtn;
-    btnOpenGlyphs                : TButton;
-    btnRefresh                   : TButton;
-    cbxImageList                 : TComboBox;
-    chkAutoHideEditorToolBar     : TCheckBox;
-    chkAutoHideRichEditor        : TCheckBox;
-    chkAutoHideEditor            : TCheckBox;
-    chkAutoHideRichEditorToolBar : TCheckBox;
-    chkEmitLogMessages           : TCheckBox;
-    dlgOpen                      : TOpenDialog;
-    dscGlyph                     : TDatasource;
-    dscHighlighter               : TDatasource;
-    edtFontName                  : TEditButton;
-    edtDatabaseFile              : TFileNameEdit;
-    dlgFont                      : TFontDialog;
-    grdGlyph                     : TDBGrid;
-    grdHighlighters              : TDBGrid;
-    grdDBInfo                    : TStringGrid;
-    GroupBox1                    : TGroupBox;
-    grpDiagnostics               : TGroupBox;
-    grpLayout                    : TGroupBox;
-    grpDatabaseInfo              : TGroupBox;
-    Highlighters                 : TTabSheet;
-    imlMain                      : TImageList;
-    lblApplicationNeedsToBeRestarted: TLabel;
-    lblFontName                  : TLabel;
-    lblDataBaseFile              : TLabel;
-    pnlBottom                    : TPanel;
-    pgcMain                      : TPageControl;
-    tsApplication                : TTabSheet;
-    tsDataBase                   : TTabSheet;
-    tsImages                     : TTabSheet;
-    vstImageList                 : TVirtualStringTree;
+    aclMain                          : TActionList;
+    actCreateNewDatabase             : TAction;
+    actDeleteDatabase                : TAction;
+    actClose                         : TAction;
+    actDatabaseIntegrityCheck        : TAction;
+    actDatabaseVacuum                : TAction;
+    actDataBaseShrinkMemory          : TAction;
+    actCreateDatabaseIndexes         : TAction;
+    actCreateDatabaseTables          : TAction;
+    actCreateDatabaseTriggers        : TAction;
+    actBackupDatabase                : TAction;
+    actFontDialog                    : TAction;
+    actCleanupHistory: TAction;
+    actReloadConfigurationData       : TAction;
+    actOpenDatabase                  : TAction;
+    actAddGlyphs                     : TAction;
+    actRefreshGlyphs                 : TAction;
+    btnBackupDatabase                : TBitBtn;
+    btnCreateNewDatabase             : TBitBtn;
+    btnCreateDatabaseIndexes         : TBitBtn;
+    btnCreateDatabaseTables          : TBitBtn;
+    btnCreateDatabaseTriggers        : TBitBtn;
+    btnDatabaseIntegrityCheck        : TBitBtn;
+    btnClose                         : TBitBtn;
+    btnDatabaseVacuum                : TBitBtn;
+    btnOpenDatabase                  : TBitBtn;
+    btnOpenGlyphs                    : TButton;
+    btnRefresh                       : TButton;
+    Button1: TButton;
+    cbxImageList                     : TComboBox;
+    chkTrackHistory: TCheckBox;
+    chkAutoHideEditorToolBar         : TCheckBox;
+    chkAutoHideRichEditor            : TCheckBox;
+    chkAutoHideEditor                : TCheckBox;
+    chkAutoHideRichEditorToolBar     : TCheckBox;
+    chkEmitLogMessages               : TCheckBox;
+    dlgOpen                          : TOpenDialog;
+    dscGlyph                         : TDatasource;
+    dscHighlighter                   : TDatasource;
+    edtFontName                      : TEditButton;
+    edtDatabaseFile                  : TFileNameEdit;
+    dlgFont                          : TFontDialog;
+    grdGlyph                         : TDBGrid;
+    grdHighlighters                  : TDBGrid;
+    grdDBInfo                        : TStringGrid;
+    GroupBox1                        : TGroupBox;
+    GroupBox2: TGroupBox;
+    grpDiagnostics                   : TGroupBox;
+    grpLayout                        : TGroupBox;
+    grpDatabaseInfo                  : TGroupBox;
+    Highlighters                     : TTabSheet;
+    imlMain                          : TImageList;
+    lblApplicationNeedsToBeRestarted : TLabel;
+    lblFontName                      : TLabel;
+    lblDataBaseFile                  : TLabel;
+    pnlBottom                        : TPanel;
+    pgcMain                          : TPageControl;
+    tsApplication                    : TTabSheet;
+    tsDataBase                       : TTabSheet;
+    tsImages                         : TTabSheet;
+    vstImageList                     : TVirtualStringTree;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actBackupDatabaseExecute(Sender: TObject);
+    procedure actCleanupHistoryExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
@@ -126,6 +131,7 @@ type
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
     procedure chkEmitLogMessagesClick(Sender: TObject);
+    procedure chkTrackHistoryClick(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
@@ -246,6 +252,7 @@ begin
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
+  chkTrackHistory.Checked              := FSettings.TrackHistory;
   pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
@@ -384,6 +391,11 @@ begin
   ShowMessageFmt(SDatabaseBackupCreated, [S]);
 end;
 
+procedure TfrmSettingsDialog.actCleanupHistoryExecute(Sender: TObject);
+begin
+   Connection.CleanupHistory;
+end;
+
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
@@ -461,6 +473,11 @@ end;
 procedure TfrmSettingsDialog.chkEmitLogMessagesClick(Sender: TObject);
 begin
   FSettings.EmitLogMessages := (Sender as TCheckBox).Checked;
+end;
+
+procedure TfrmSettingsDialog.chkTrackHistoryClick(Sender: TObject);
+begin
+  FSettings.TrackHistory := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);

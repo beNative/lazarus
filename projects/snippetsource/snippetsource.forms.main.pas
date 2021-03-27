@@ -480,6 +480,8 @@ begin
       if DataSet.DataSet.State = dsBrowse then
       begin
         FParentId := Snippet.ID;
+        if FSettings.TrackHistory then
+          Connection.AddHistory;
         Editor.BeginUpdate; // avoid EChange getting triggered
         try
           Editor.Text := Snippet.Text;
@@ -737,8 +739,6 @@ begin
 end;
 
 procedure TfrmMain.InitializeLogger;
-var
-  I : Integer;
 begin
   if FSettings.EmitLogMessages then
   begin

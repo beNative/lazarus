@@ -308,6 +308,10 @@ msgstr ""
 msgid "Backup database"
 msgstr ""
 
+#: tfrmsettingsdialog.actcleanuphistory.caption
+msgid "Cleanup history"
+msgstr ""
+
 #: tfrmsettingsdialog.actclose.caption
 msgctxt "tfrmsettingsdialog.actclose.caption"
 msgid "Close"
@@ -407,6 +411,10 @@ msgstr ""
 msgid "This will reload all configuration data. Any preexisting data is cleared."
 msgstr ""
 
+#: tfrmsettingsdialog.button1.caption
+msgid "Cleanup all history"
+msgstr ""
+
 #: tfrmsettingsdialog.caption
 msgctxt "tfrmsettingsdialog.caption"
 msgid "Settings"
@@ -432,12 +440,21 @@ msgstr ""
 msgid "Emit log messages for LogViewer"
 msgstr ""
 
+#: tfrmsettingsdialog.chktrackhistory.caption
+msgctxt "tfrmsettingsdialog.chktrackhistory.caption"
+msgid "Keep track of last visited nodes."
+msgstr ""
+
 #: tfrmsettingsdialog.dlgopen.title
 msgid "Open glyph"
 msgstr ""
 
 #: tfrmsettingsdialog.groupbox1.caption
 msgid "Richtext editor"
+msgstr ""
+
+#: tfrmsettingsdialog.groupbox2.caption
+msgid "Statistics"
 msgstr ""
 
 #: tfrmsettingsdialog.grpdatabaseinfo.caption

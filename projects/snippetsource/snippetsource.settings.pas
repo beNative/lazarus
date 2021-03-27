@@ -44,6 +44,7 @@ type
     FLastFocusedId             : Integer;
     FDefaultRichEditorFontName : string;
     FEmitLogMessages           : Boolean;
+    FTrackHistory              : Boolean;
 
   protected
     {$REGION 'property access methods'}
@@ -65,6 +66,8 @@ type
     procedure SetLastFocusedId(AValue: Integer);
     function GetDefaultRichEditorFontName: string;
     procedure SetDefaultRichEditorFontName(AValue: string);
+    function GetTrackHistory: Boolean;
+    procedure SetTrackHistory(AValue: Boolean);
     {$ENDREGION}
 
     procedure Changed;
@@ -110,6 +113,9 @@ type
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
+
+    property TrackHistory: Boolean
+      read GetTrackHistory write SetTrackHistory;
   end;
 
 implementation
@@ -203,6 +209,20 @@ begin
   if AValue <> DefaultRichEditorFontName then
   begin
     FDefaultRichEditorFontName := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetTrackHistory: Boolean;
+begin
+  Result := FTrackHistory;
+end;
+
+procedure TSettings.SetTrackHistory(AValue: Boolean);
+begin
+  if AValue <> TrackHistory then
+  begin
+    FTrackHistory := AValue;
     Changed;
   end;
 end;

@@ -1288,7 +1288,7 @@
 	</FormSettings>
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
-		<Height>-13</Height>
+		<Height>-15</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

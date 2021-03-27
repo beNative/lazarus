@@ -71,10 +71,11 @@ from
 IDEAS:
 - support for multiple databases as tabbed views
 - drag and drop of nodes between seperate instances of snippetsource
-- SQLite updated to release 3.34.1
+- paste snippet into Notepas/DataGrabber using IPC
 
 TODO (22/12/2020)
 - Multiselected drag/drop of folders/files does not insert to correct node
+- Duplicate node
 - Drag and drop of RTF documents
 - Custom node sequence number (up/down position)
 - More polished look for lookup form
@@ -89,9 +90,14 @@ TODO (22/12/2020)
 - Customize the node images from a user definable set of glyphs which can be
   stored in the snippet database.
 
+27/03/2021
+- Version 3.4
+- Added new table History
+
 10/02/2021
 - Version 3.3
 - Added extra setting to enable/disable log messages for LogViewer.
+- SQLite updated to release 3.34.1
 
 16/01/2021
 - Version 3.2

@@ -53,6 +53,8 @@ type
     procedure Rollback;
     procedure StartTransaction;
     procedure EndTransaction;
+    procedure AddHistory;
+    procedure CleanupHistory;
 
     property AutoApplyUpdates: Boolean
       read GetAutoApplyUpdates write SetAutoApplyUpdates;
@@ -257,6 +259,7 @@ type
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
+    function GetTrackHistory: Boolean;
     procedure SetAutoHideEditor(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
     procedure SetAutoHideRichEditor(AValue: Boolean);
@@ -273,6 +276,7 @@ type
     procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
+    procedure SetTrackHistory(AValue: Boolean);
 
     property Database: string
       read GetDatabase write SetDatabase;
@@ -297,6 +301,9 @@ type
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
+
+    property TrackHistory: Boolean
+      read GetTrackHistory write SetTrackHistory;
   end;
 
 implementation

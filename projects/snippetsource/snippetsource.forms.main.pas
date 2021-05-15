@@ -474,7 +474,6 @@ procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
 begin
   if Field = nil then // browse record
   begin
-    Logger.Enter(Self, 'dscMainDataChange - browse');
     if Assigned(DataSet.DataSet) then
     begin
       if DataSet.DataSet.State = dsBrowse then
@@ -501,7 +500,6 @@ begin
         Modified;
       end;
     end;
-    Logger.Leave(Self, 'dscMainDataChange - browse');
   end
 end;
 
@@ -549,6 +547,7 @@ end;
 
 procedure TfrmMain.edtTitleEditingDone(Sender: TObject);
 begin
+  DataSet.Edit;
   Snippet.NodeName := edtTitle.Text;
   edtTitle.Hint    := edtTitle.Text;
 end;
@@ -654,12 +653,16 @@ procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
 begin
   DataSet.Edit;
   Snippet.ImageIndex := 1;
+  edtTitle.SelectAll;
+  edtTitle.SetFocus;
 end;
 
 procedure TfrmMain.FTreeNewItemNode(Sender: TObject);
 begin
   DataSet.Edit;
   Snippet.ImageIndex := 2;
+  edtTitle.SelectAll;
+  edtTitle.SetFocus;
 end;
 {$ENDREGION}
 
@@ -743,6 +746,10 @@ begin
   if FSettings.EmitLogMessages then
   begin
     Logger.Channels.Add(TIpcChannel.Create);
+    Logger.Clear; // first few messages can be lost by receiver instance, so
+    Logger.Clear; // we send some dummy ones.
+    Logger.Clear;
+    Logger.Info('SnippetsSource started.');
   end;
 end;
 

@@ -37,23 +37,29 @@ type
     PythonInputOutput : TPythonInputOutput;
     tmrMain           : TTimer;
 
+    {$REGION 'event handlers'}
     procedure cmdMainInput(ACmdBox: TCmdBox; Input: string);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
-    procedure PythonInputOutputReceiveData(Sender: TObject; var Data: AnsiString
-      );
-    procedure PythonInputOutputSendData(Sender: TObject; const Data: AnsiString
-      );
+    procedure PythonInputOutputReceiveData(
+      Sender   : TObject;
+      var Data : AnsiString
+    );
+    procedure PythonInputOutputSendData(
+      Sender     : TObject;
+      const Data : AnsiString
+    );
     procedure tmrMainTimer(Sender: TObject);
+    {$ENDREGION}
 
   private
     procedure ProcessString(const AString: string);
 
   public
-     procedure AfterConstruction; override;
-     destructor Destroy; override;
+    procedure AfterConstruction; override;
+    destructor Destroy; override;
 
-     procedure Execute(const AFileName: string);
-     procedure ExecutePy(const AStrings: TStrings);
+    procedure Execute(const AFileName: string);
+    procedure ExecutePy(const AStrings: TStrings);
 
   end;
 
@@ -100,6 +106,18 @@ begin
       prcMain.Output.Read(LBuf, SizeOf(LBuf) - 1);
       S := LBuf;
       ProcessString(S);
+    end;
+  end;
+  if prcMain.Stderr.NumBytesAvailable > 0 then
+  begin
+    while prcMain.Stderr.NumBytesAvailable > 0 do
+    begin
+      Logger.Watch('prcMain.StdErr.NumBytesAvailable', prcMain.StdErr.NumBytesAvailable);
+      FillChar(LBuf, SizeOf(LBuf), #0);
+      prcMain.Stderr.Read(LBuf, SizeOf(LBuf) - 1);
+      S := LBuf;
+      cmdMain.TextColor(clRed);
+      cmdMain.Write(S);
     end;
   end;
 end;
@@ -159,10 +177,12 @@ begin
         end
         else if I < (SL.Count - 1) then
         begin
+          cmdMain.TextColor(clSilver);
           cmdMain.Writeln(S);
         end
         else
         begin
+          cmdMain.TextColor(clSilver);
           cmdMain.Write(S);
         end;
       end;

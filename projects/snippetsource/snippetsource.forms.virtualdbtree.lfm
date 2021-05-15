@@ -181,10 +181,32 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object mniDelete: TMenuItem
       Action = actDeleteSelectedNodes
       Caption = 'Delete'
+      Hint = 'Delete selected nodes (Del)'
       OnClick = actDeleteSelectedNodesExecute
+    end
+    object mniPost: TMenuItem
+      Action = actPost
+    end
+    object mniCancel: TMenuItem
+      Action = actCancel
+    end
+    object mniRefresh: TMenuItem
+      Action = actRefresh
+    end
+    object N2: TMenuItem
+      Caption = '-'
     end
     object mniCopyNodeData: TMenuItem
       Action = actCopyNodeData
+    end
+    object MenuItem5: TMenuItem
+      Caption = '-'
+    end
+    object mniExpandAllNodes: TMenuItem
+      Action = actExpandAllNodes
+    end
+    object mniCollapseAllNodes: TMenuItem
+      Action = actCollapseAllNodes
     end
   end
   object dscMain: TDataSource
@@ -200,7 +222,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       Hint = 'Add a new rootfolder to the tree'
       ImageIndex = 2
       OnExecute = actNewRootFolderNodeExecute
-      ShortCut = 49197
+      ShortCut = 24621
     end
     object actNewFolderNode: TAction
       Hint = 'Add a new subfolder to the tree'
@@ -221,20 +243,24 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       ShortCut = 46
     end
     object actExpandAllNodes: TAction
+      Caption = 'Expand all nodes'
       Hint = 'Expand all nodes'
       ImageIndex = 4
       OnExecute = actExpandAllNodesExecute
       SecondaryShortCuts.Strings = (
         'Ctrl++'
       )
+      ShortCut = 24683
     end
     object actCollapseAllNodes: TAction
+      Caption = 'Collapse all nodes'
       Hint = 'Collapse all nodes'
       ImageIndex = 6
       OnExecute = actCollapseAllNodesExecute
       SecondaryShortCuts.Strings = (
         'Ctrl+Shift+-'
       )
+      ShortCut = 24685
     end
     object actCopyNodeData: TAction
       Caption = 'Copy snippet to clipboard'
@@ -245,6 +271,23 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object actDuplicateSelectedNodes: TAction
       Caption = 'Duplicate selected node(s)'
       OnExecute = actDuplicateSelectedNodesExecute
+    end
+    object actRefresh: TAction
+      Caption = 'Refresh'
+      ImageIndex = 9
+      OnExecute = actRefreshExecute
+      ShortCut = 116
+    end
+    object actPost: TAction
+      Caption = 'Post'
+      ImageIndex = 7
+      OnExecute = actPostExecute
+    end
+    object actCancel: TAction
+      Caption = 'Cancel'
+      ImageIndex = 8
+      OnExecute = actCancelExecute
+      ShortCut = 27
     end
   end
   object imlMain: TImageList

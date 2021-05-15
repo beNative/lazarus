@@ -86,6 +86,9 @@ type
     actExpandAllNodes         : TAction;
     actCopyNodeData           : TAction;
     actDuplicateSelectedNodes : TAction;
+    actCancel: TAction;
+    actPost: TAction;
+    actRefresh: TAction;
     actNewFolderNode          : TAction;
     actNewItemNode            : TAction;
     actNewRootFolderNode      : TAction;
@@ -98,6 +101,13 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
+    mniRefresh: TMenuItem;
+    mniPost: TMenuItem;
+    mniCancel: TMenuItem;
+    mniExpandAllNodes: TMenuItem;
+    MenuItem5: TMenuItem;
+    mniCollapseAllNodes: TMenuItem;
+    N2: TMenuItem;
     mniCopyNodeData           : TMenuItem;
     mniDelete                 : TMenuItem;
     mniNewChild               : TMenuItem;
@@ -116,6 +126,7 @@ type
     {$ENDREGION}
 
     {$REGION 'action handlers'}
+    procedure actCancelExecute(Sender: TObject);
     procedure actCopyNodeDataExecute(Sender: TObject);
     procedure actDuplicateSelectedNodesExecute(Sender: TObject);
     procedure actNewRootFolderNodeExecute(Sender: TObject);
@@ -124,6 +135,8 @@ type
     procedure actDeleteSelectedNodesExecute(Sender: TObject);
     procedure actExpandAllNodesExecute(Sender: TObject);
     procedure actCollapseAllNodesExecute(Sender: TObject);
+    procedure actPostExecute(Sender: TObject);
+    procedure actRefreshExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -563,6 +576,8 @@ procedure TfrmVirtualDBTree.UpdateActions;
 begin
   inherited UpdateActions;
   actCopyNodeData.Enabled := SelectionCount = 1;
+  actCancel.Enabled       := DataSet.State in dsEditModes;
+  actPost.Enabled         := DataSet.State in dsEditModes;
 end;
 {$ENDREGION}
 
@@ -575,6 +590,11 @@ end;
 procedure TfrmVirtualDBTree.actCopyNodeDataExecute(Sender: TObject);
 begin
   DoCopyNodeData;
+end;
+
+procedure TfrmVirtualDBTree.actCancelExecute(Sender: TObject);
+begin
+  DataSet.Cancel;
 end;
 
 procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);
@@ -609,6 +629,16 @@ end;
 procedure TfrmVirtualDBTree.actCollapseAllNodesExecute(Sender: TObject);
 begin
   FTreeView.CollapseAll;
+end;
+
+procedure TfrmVirtualDBTree.actPostExecute(Sender: TObject);
+begin
+  DataSet.Post;
+end;
+
+procedure TfrmVirtualDBTree.actRefreshExecute(Sender: TObject);
+begin
+  Refresh;
 end;
 {$ENDREGION}
 
@@ -677,6 +707,11 @@ end;
 procedure TfrmVirtualDBTree.FTreeViewEdited(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex);
 begin
+  if not (DataSet.State in dsEditModes) then
+  begin
+    ShowMessage('Dataset not in edit mode');
+    DataSet.Edit;
+  end;
   ViewField.AsString := FTreeView.NodeText[Node];
 end;
 {$ENDREGION}
@@ -857,6 +892,7 @@ begin
     ];
     TreeOptions.SelectionOptions := [toMultiSelect, toCenterScrollIntoView];
     TreeOptions.StringOptions := [toAutoAcceptEditChange];
+    IncrementalSearch := isNone; // disable incremental search feature
   end;
 end;
 {$ENDREGION}

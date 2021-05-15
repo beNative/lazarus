@@ -8,7 +8,6 @@ You can accompany your node with formatted text in RTF format, which will be
 stored together with the node. It also supports embedded images that you can
 drag and drop into the richtext editor.
 
-
 This will create a copy of each document and will duplicate the underlying
 folder structure as wel.
 
@@ -27,18 +26,14 @@ My intention is to keep the user interface as clean and fast as possible so
 users can focus more on the content rather than confront them with an
 overwhelming and bloated user interface.
 
-Use Cases
-As I developer I use it for storing SQL-scripts, code snippets and short
-tutorials with solutions for common problems.
-
-A writer could use it to store his/her favourite quotes.
-
-The source to your snippets of your sources
-
-The abillity to execute scripts was added.
+This project uses my LogViewer application for runtime logging.
 
 Images can be dragged and dropped into both the treeviewer and the Richeditor.
 
+IDEAS:
+- support for multiple databases as tabbed views
+- drag and drop of nodes between seperate instances of snippetsource
+- paste snippet into Notepas/DataGrabber using IPC
 --
 import from older version?
 
@@ -66,15 +61,7 @@ select
 from
   otherdb.Snippet
 
----
-
-IDEAS:
-- support for multiple databases as tabbed views
-- drag and drop of nodes between seperate instances of snippetsource
-- paste snippet into Notepas/DataGrabber using IPC
-
-TODO (22/12/2020)
-- Multiselected drag/drop of folders/files does not insert to correct node
+TODO (14/05/2021)
 - Duplicate node
 - Drag and drop of RTF documents
 - Custom node sequence number (up/down position)
@@ -89,6 +76,20 @@ TODO (22/12/2020)
   reference to a record in the Glyph table.
 - Customize the node images from a user definable set of glyphs which can be
   stored in the snippet database.
+
+15/05/2021
+- Set focus to snippet title when adding a new node.
+- Show Stderr output in red in the console viewer.
+- Fixed some issues in ts.RichEditor.View.KMemo
+
+14/05/2021
+- Disabled incremental search in treeview as it can result in unwanted focus
+  changes.
+- Lookup dialog improvements.
+
+12/05/2021
+- Fixed possible dataset exception when posting changes to node names.
+- Disabled history feature as it causes problems when adding nodes.
 
 27/03/2021
 - Version 3.4
@@ -150,9 +151,9 @@ TODO (22/12/2020)
 - Fixed loading and saving of RichText content to/from stream.
 
 21/03/2018
-- fix: resolved path issue with determination of database file location
-- updated database creation script
-- lookup dialog
+- Fix: resolved path issue with determination of database file location
+- Updated database creation script
+- Lookup dialog
 
 31/01/2018
 - RichMemo has been replaced by TKMemo which has more features while remaining
@@ -175,30 +176,30 @@ TODO (22/12/2020)
 - FPC 3.0.2 and Lazarus 1.9
 
 07/01/2017
-- fix: switching to another highlighter was not always saved
-- fix: edit mode not activated when editing snippet title
+- Fix: switching to another highlighter was not always saved
+- Fix: edit mode not activated when editing snippet title
 
 22/12/2016
-- fixed RichEditor issues
+- Fixed RichEditor issues
 - Added support for background colors to RichEditor
 
 03/12/2016
-- renamed units to dotted namespace-like notation
+- Renamed units to dotted namespace-like notation
 
 29/10/2016
-- updated code to support FPC 3.0.0, which makes it more compatible to recent
+- Updated code to support FPC 3.0.0, which makes it more compatible to recent
   Delphi versions.
 
 12/10/2016
 - Seems to work fine on Lazarus 1.6.
 
 1/04/2015
-- updated sources to support latest tslib sources
+- Updated sources to support latest tslib sources
 
 14/12/2014
-- refactored sources in ts.Components.VirtualDBTreeEx
-- added DB creation script (snippetsource.sql) to the project sources.
-- fixed bug in showing tree node images.
-- cleanup of unneeded dependencies.
-- using now the Lazarus stock DB components to connect to the database.
+- Refactored sources in ts.Components.VirtualDBTreeEx
+- Added DB creation script (snippetsource.sql) to the project sources.
+- Fixed bug in showing tree node images.
+- Cleanup of unneeded dependencies.
+- Using now the Lazarus stock DB components to connect to the database.
 

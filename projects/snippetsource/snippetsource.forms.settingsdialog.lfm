@@ -1,7 +1,7 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 711
+  Left = 1010
   Height = 346
-  Top = 311
+  Top = 237
   Width = 578
   ActiveControl = btnClose
   Caption = 'Settings'

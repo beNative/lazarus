@@ -1245,7 +1245,7 @@ begin
       //FillImageMapFromDataSet(FHLImages, qryHighlighter);
     qryGlyph.Active :=  True;
     qryNodeType.Active := True;
-    qryHistory.Active  := True;
+    //qryHistory.Active  := True;
     //FillNodeTypesImageList;
     DataSet.Active := True;
     Logger.Send('DataSet.Active', DataSet.Active);

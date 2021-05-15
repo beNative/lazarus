@@ -44,20 +44,31 @@ type
     edtLookup  : TEdit;
     sbrMain    : TStatusBar;
 
+    {$REGION 'action handlers'}
     procedure actSearchExecute(Sender: TObject);
+    {$ENDREGION}
 
+    {$REGION 'event handlers'}
     procedure chkNameChange(Sender: TObject);
     procedure dscMainDataChange(Sender: TObject; Field: TField);
     procedure edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure edtLookupKeyPress(Sender: TObject; var Key: char);
     procedure edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
-
     procedure grdLookupKeyPress(Sender: TObject; var Key: char);
-    procedure grdLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure grdLookupMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+    procedure grdLookupKeyUp(
+      Sender  : TObject;
+      var Key : Word;
+      Shift   : TShiftState
+    );
+    procedure grdLookupMouseUp(
+      Sender : TObject;
+      Button : TMouseButton;
+      Shift  : TShiftState;
+      X, Y   : Integer
+    );
+    {$ENDREGION}
 
   private
     FVKPressed : Boolean;
@@ -274,6 +285,24 @@ begin
   FUpdate := True;
 end;
 
+procedure TfrmLookup.Execute;
+begin
+  FData.LookupDataSet.DisableControls;
+  try
+    (FData as ILookup).Lookup(
+      edtLookup.Text,
+      chkText.Checked,
+      chkName.Checked,
+      chkComment.Checked
+    );
+    if not FData.LookupDataSet.IsEmpty then
+      FEditor.SearchAndSelectText(edtLookup.Text);
+  finally
+    FData.LookupDataSet.EnableControls;
+    grdLookup.AutoAdjustColumns;
+  end;
+end;
+
 procedure TfrmLookup.UpdateActions;
 begin
   inherited UpdateActions;
@@ -291,24 +320,6 @@ begin
   if DataSet.Active then
   begin
     sbrMain.SimpleText := Format('%d record(s)', [DataSet.RecordCount]);
-  end;
-end;
-
-procedure TfrmLookup.Execute;
-begin
-  FData.LookupDataSet.DisableControls;
-  try
-    (FData as ILookup).Lookup(
-      edtLookup.Text,
-      chkText.Checked,
-      chkName.Checked,
-      chkComment.Checked
-    );
-    if not FData.LookupDataSet.IsEmpty then
-      FEditor.SearchAndSelectText(edtLookup.Text);
-  finally
-    FData.LookupDataSet.EnableControls;
-    grdLookup.AutoAdjustColumns;
   end;
 end;
 {$ENDREGION}

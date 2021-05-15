@@ -1,12 +1,12 @@
 object frmLookup: TfrmLookup
-  Left = 658
+  Left = 456
   Height = 476
-  Top = 220
-  Width = 617
+  Top = 401
+  Width = 520
   ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 476
-  ClientWidth = 617
+  ClientWidth = 520
   Color = clWindow
   KeyPreview = True
   OnKeyUp = FormKeyUp
@@ -14,12 +14,12 @@ object frmLookup: TfrmLookup
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.0.10.0'
   object edtLookup: TEdit
     Left = 2
     Height = 21
     Top = 3
-    Width = 550
+    Width = 253
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
     OnKeyDown = edtLookupKeyDown
@@ -28,9 +28,9 @@ object frmLookup: TfrmLookup
     TabOrder = 0
   end
   object btnSearch: TButton
-    Left = 556
+    Left = 260
     Height = 25
-    Top = 1
+    Top = 0
     Width = 59
     Action = actSearch
     Anchors = [akTop, akRight]
@@ -41,14 +41,15 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 23
     Top = 453
-    Width = 617
+    Width = 520
     Panels = <>
   end
   object chkName: TCheckBox
-    Left = 8
+    Left = 328
     Height = 19
-    Top = 32
+    Top = 5
     Width = 52
+    Anchors = [akTop, akRight]
     Caption = 'Name'
     Checked = True
     OnChange = chkNameChange
@@ -56,10 +57,11 @@ object frmLookup: TfrmLookup
     TabOrder = 3
   end
   object chkText: TCheckBox
-    Left = 88
+    Left = 386
     Height = 19
-    Top = 32
+    Top = 5
     Width = 42
+    Anchors = [akTop, akRight]
     Caption = 'Text'
     Checked = True
     OnChange = chkNameChange
@@ -67,23 +69,23 @@ object frmLookup: TfrmLookup
     TabOrder = 4
   end
   object chkComment: TCheckBox
-    Left = 160
+    Left = 437
     Height = 19
-    Top = 32
+    Top = 5
     Width = 74
+    Anchors = [akTop, akRight]
     Caption = 'Comment'
     Checked = True
     State = cbChecked
     TabOrder = 5
   end
   object grdLookup: TDBGrid
-    Left = 8
-    Height = 391
-    Top = 56
-    Width = 601
+    Left = 4
+    Height = 424
+    Top = 27
+    Width = 512
     Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoFillColumns = True
     Color = clWindow
     Columns = <    
       item
@@ -93,7 +95,7 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'Id'
-        Width = 128
+        Width = 25
         FieldName = 'Id'
       end    
       item
@@ -110,49 +112,50 @@ object frmLookup: TfrmLookup
         DropDownRows = 30
         MinSize = 70
         MaxSize = 70
-        SizePriority = 8
+        SizePriority = 6
         Title.Alignment = taCenter
         Title.Caption = 'Highlighter'
-        Width = 128
+        Width = 75
         FieldName = 'Highlighter'
       end    
       item
         MinSize = 120
         MaxSize = 120
         ReadOnly = True
-        SizePriority = 8
+        SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateCreated'
-        Width = 128
+        Width = 80
         FieldName = 'DateCreated'
       end    
       item
         MinSize = 120
         MaxSize = 120
         ReadOnly = True
-        SizePriority = 8
+        SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateModified'
-        Width = 128
+        Width = 87
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
     Flat = True
-    Options = [dgTitles, dgIndicator, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgDblClickAutoSize]
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
     OptionsExtra = []
+    ReadOnly = True
     Scrollbars = ssAutoBoth
     TabOrder = 6
-    TitleStyle = tsNative
+    TitleStyle = tsStandard
     UseXORFeatures = True
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    left = 160
-    top = 144
+    Left = 160
+    Top = 144
   end
   object aclMain: TActionList
-    left = 239
-    top = 144
+    Left = 239
+    Top = 144
     object actSearch: TAction
       Caption = 'Search'
       OnExecute = actSearchExecute

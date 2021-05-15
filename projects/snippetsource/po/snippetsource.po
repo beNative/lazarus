@@ -396,6 +396,7 @@ msgid "Open database"
 msgstr ""
 
 #: tfrmsettingsdialog.actrefreshglyphs.caption
+msgctxt "tfrmsettingsdialog.actrefreshglyphs.caption"
 msgid "Refresh"
 msgstr ""
 
@@ -506,7 +507,17 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+#: tfrmvirtualdbtree.actcancel.caption
+msgid "Cancel"
+msgstr ""
+
+#: tfrmvirtualdbtree.actcollapseallnodes.caption
+msgctxt "tfrmvirtualdbtree.actcollapseallnodes.caption"
+msgid "Collapse all nodes"
+msgstr ""
+
 #: tfrmvirtualdbtree.actcollapseallnodes.hint
+msgctxt "tfrmvirtualdbtree.actcollapseallnodes.hint"
 msgid "Collapse all nodes"
 msgstr ""
 
@@ -526,7 +537,13 @@ msgstr ""
 msgid "Duplicate selected node(s)"
 msgstr ""
 
+#: tfrmvirtualdbtree.actexpandallnodes.caption
+msgctxt "tfrmvirtualdbtree.actexpandallnodes.caption"
+msgid "Expand all nodes"
+msgstr ""
+
 #: tfrmvirtualdbtree.actexpandallnodes.hint
+msgctxt "tfrmvirtualdbtree.actexpandallnodes.hint"
 msgid "Expand all nodes"
 msgstr ""
 
@@ -542,6 +559,15 @@ msgstr ""
 msgid "Add a new rootfolder to the tree"
 msgstr ""
 
+#: tfrmvirtualdbtree.actpost.caption
+msgid "Post"
+msgstr ""
+
+#: tfrmvirtualdbtree.actrefresh.caption
+msgctxt "tfrmvirtualdbtree.actrefresh.caption"
+msgid "Refresh"
+msgstr ""
+
 #: tfrmvirtualdbtree.btndivider.caption
 msgid "btnDivider"
 msgstr ""
@@ -549,6 +575,10 @@ msgstr ""
 #: tfrmvirtualdbtree.mnidelete.caption
 msgctxt "TFRMVIRTUALDBTREE.MNIDELETE.CAPTION"
 msgid "Delete"
+msgstr ""
+
+#: tfrmvirtualdbtree.mnidelete.hint
+msgid "Delete selected nodes (Del)"
 msgstr ""
 
 #: tfrmvirtualdbtree.mninewchild.caption

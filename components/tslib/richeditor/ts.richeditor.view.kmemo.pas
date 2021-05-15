@@ -316,7 +316,6 @@ begin
   FNumberingForm := TKMemoNumberingForm.Create(Self);
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
-  FContainerForm := TKMemoContainerForm.Create(Self);
   Logger.Leave(Self, 'AfterConstruction');
 end;
 
@@ -647,7 +646,6 @@ begin
   Logger.Watch('ContentLeft', FEditor.ContentLeft);
   Logger.Watch('ContentTop', FEditor.ContentTop);
   Logger.Watch('SelText', FEditor.Blocks.SelText);
-  Logger.SendText('RTF', RTFText);
 end;
 {$ENDREGION}
 

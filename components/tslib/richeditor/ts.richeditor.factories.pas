@@ -72,7 +72,7 @@ class function TRichEditorFactories.CreateView(AParent: TWinControl;
   AManager: IRichEditorManager; const AName: string; const AFileName: string
   ): IRichEditorView;
 var
-  V: IRichEditorView;
+  V : IRichEditorView;
 begin
   V := AManager.AddView(AName);
   V.BeginUpdate;
@@ -90,9 +90,9 @@ end;
 class function TRichEditorFactories.CreateMainMenu(AOwner: TComponent;
   AActions: IRichEditorActions): TMainMenu;
 var
-  REMF: IRichEditorMenusFactory;
+  REMF : IRichEditorMenusFactory;
 begin
-  REMF := TRichEditorMenusFactory.Create(AActions);
+  REMF   := TRichEditorMenusFactory.Create(AActions);
   Result := REMF.CreateMainMenu(AOwner);
 end;
 
@@ -101,7 +101,7 @@ class function TRichEditorFactories.CreateMainToolbar(AOwner: TComponent;
 var
   RETF : IRichEditorToolbarsFactory;
 begin
-  RETF := TRichEditorToolbarsFactory.Create(AActions);
+  RETF   := TRichEditorToolbarsFactory.Create(AActions);
   Result := RETF.CreateMainToolbar(AOwner, AParent);
 end;
 {$ENDREGION}

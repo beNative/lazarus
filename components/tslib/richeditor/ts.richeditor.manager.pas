@@ -192,7 +192,6 @@ begin
   inherited AfterConstruction;
   FViews  := TRichEditorViewList.Create(False);
   FEvents := TRichEditorEvents.Create(Self);
-  FActiveView := nil;
   BuildRichEditorPopupMenu;
 end;
 
@@ -214,7 +213,7 @@ end;
 function TdmRichEditorManager.GetActiveView: IRichEditorView;
 begin
   if not Assigned(FActiveView) then
-    raise Exception.Create('No active view!');
+    raise Exception.Create('No active view assigned!');
   Result := FActiveView;
 end;
 

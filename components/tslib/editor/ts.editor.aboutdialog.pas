@@ -20,10 +20,9 @@ unit ts.Editor.AboutDialog;
 
 {
   Credits:
-
     Lazarus - FPC Free Pascal development team
-    TVirtualTreeView Mike Lischke, LCL port by Luiz Américo Pereira Câmara with modifications by Tim Sinaeve
-    TSynEdit
+    TVirtualTreeView Mike Lischke, LCL port by Luiz Américo Pereira Câmara with
+    modifications by Tim Sinaeve
     TTreeViewPresenter, datatemplates Stefan Glienke
     Anchor Docking Mattias Gaertner
     RTTI controls Mattias Gaertner
@@ -33,10 +32,9 @@ unit ts.Editor.AboutDialog;
     luicontrols Luiz Américo Pereira Câmara
     luicomponents Luiz Américo Pereira Câmara
     MultiLog Luiz Américo Pereira Câmara
-    SynUniHighlighter Kirill Burtsev and Vitaly Nevzorov, ported to FPC by Tom Lisjac and Tim Sinaeve
+    SynUniHighlighter Kirill Burtsev and Vitaly Nevzorov, ported to FPC by
+    Tom Lisjac and Tim Sinaeve
     Silk Icons
-    other icons
-    GetText translation powered
 }
 
 interface
@@ -384,17 +382,6 @@ begin
     'Lazarus development team. Original implementation by Martin Waldenburg.',
     'http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'
   );
-  //AddCredit(
-  //  'SynUniHighlighter',
-  //  'Original implementation by Kirill Burtsev and Vitaly Nevzorov,' + #13#10 +
-  //  'heavily modified and ported to FPC by Tim Sinaeve.',
-  //  ''
-  //);
-  //AddCredit(
-  //  'TRichMemo',
-  //  'Dmitry ''skalogryz'' Boyarintsev',
-  //  ''
-  //);
   AddCredit(
     'OMultiPanel',
     'Ondřej Pokorný',
@@ -403,7 +390,7 @@ begin
   AddCredit(
     'KControls',
     'Tomas Krysl',
-    'http://www.tkweb.eu/en/delphicomp/kcontrols.html'
+    'https://github.com/kryslt/KControls'
   );
   AddCredit(
     'Silk Icons',

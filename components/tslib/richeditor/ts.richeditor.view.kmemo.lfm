@@ -1,7 +1,7 @@
 object RichEditorViewKMemo: TRichEditorViewKMemo
-  Left = 999
+  Left = 859
   Height = 342
-  Top = 305
+  Top = 306
   Width = 486
   AllowDropFiles = True
   Caption = 'RichEditorViewKMemo'

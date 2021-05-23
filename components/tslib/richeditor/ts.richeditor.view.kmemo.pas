@@ -35,9 +35,8 @@ uses
   ExtCtrls, Menus, Types,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
-  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, DropComboTarget,
-
-  DropTarget,
+  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle,
+  DropComboTarget, DropTarget,
 
   ts.RichEditor.Interfaces;
 
@@ -91,12 +90,11 @@ type
     );
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetRTFText: string;
-    function GetShowSpecialChars: Boolean;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
-    procedure SetShowSpecialChars(AValue: Boolean);
+
+    function EditContainer(AItem: TKMemoBlock): Boolean; virtual;
 
   protected
     {$REGION 'property access mehods'}
@@ -120,10 +118,12 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetPopupMenu: TPopupMenu; override;
+    function GetRTFText: string;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
     function GetSelText: string;
+    function GetShowSpecialChars: Boolean;
     function GetText: string;
     function GetWordWrap: Boolean;
     procedure SetAlignCenter(AValue: Boolean);
@@ -139,6 +139,7 @@ type
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
+    procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
     {$ENDREGION}
@@ -316,6 +317,7 @@ begin
   FNumberingForm := TKMemoNumberingForm.Create(Self);
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
+
   Logger.Leave(Self, 'AfterConstruction');
 end;
 
@@ -555,6 +557,14 @@ begin
   Result := eoShowFormatting in FEditor.Options;
 end;
 
+procedure TRichEditorViewKMemo.SetShowSpecialChars(AValue: Boolean);
+begin
+  if AValue then
+    FEditor.Options := FEditor.Options + [eoShowFormatting]
+  else
+    FEditor.Options := FEditor.Options - [eoShowFormatting];
+end;
+
 function TRichEditorViewKMemo.GetContentSize: Int64;
 begin
   Result := Length(FEditor.RTF);
@@ -657,12 +667,50 @@ begin
     Result := FEditor.ActiveInnerBlock;
 end;
 
-procedure TRichEditorViewKMemo.SetShowSpecialChars(AValue: Boolean);
+function TRichEditorViewKMemo.EditContainer(AItem: TKMemoBlock): Boolean;
+var
+  Cont: TKMemoContainer;
+  Blocks: TKMemoBlocks;
+  Created: Boolean;
 begin
-  if AValue then
-    FEditor.Options := FEditor.Options + [eoShowFormatting]
+  Result := False;
+  Created := False;
+  if (AItem is TKMemoContainer) and (AItem.Position <> mbpText) then
+    Cont := TKMemoContainer(AItem)
   else
-    FEditor.Options := FEditor.Options - [eoShowFormatting];
+  begin
+    Blocks := AItem.ParentRootBlocks;
+    if (Blocks.Parent is TKMemoContainer) and (Blocks.Parent.Position <> mbpText) then
+      Cont := TKMemoContainer(Blocks.Parent)
+    else
+    begin
+      Cont := TKMemoContainer.Create;
+      //Cont.BlockStyle.ContentPadding.All := Editor.Pt2PxX(FDefaultTextBoxPadding);
+      //Cont.BlockStyle.ContentMargin.All := Editor.Pt2PxX(FDefaultTextBoxMargin);
+      //Cont.FixedWidth := True;
+      //Cont.FixedHeight := True;
+      //Cont.RequiredWidth := Editor.Pt2PxX(FDefaultTextBoxSize.X);
+      //Cont.RequiredHeight := Editor.Pt2PxY(FDefaultTextBoxSize.Y);
+      //Cont.BlockStyle.BorderWidth := Editor.Pt2PxX(FDefaultTextBoxBorderWidth);
+      //Cont.InsertString(sMemoSampleTextBox + cEOL);
+      Created := True;
+    end;
+  end;
+  //FContainerForm.Load(Editor, Cont);
+  if FContainerForm.ShowModal = mrOk then
+  begin
+    FContainerForm.Save(Cont);
+    //if Created then
+    //begin
+    //  if Editor.SelAvail then
+    //    Editor.ClearSelection;
+    //  Editor.ActiveBlocks.AddAt(Cont, Editor.NearestParagraphIndex + 1);
+    //end;
+    //Editor.Modified := True;
+    //Result := True;
+  end
+  else if Created then
+    Cont.Free;
 end;
 {$ENDREGION}
 
@@ -865,7 +913,9 @@ end;
 
 procedure TRichEditorViewKMemo.InsertTextBox;
 begin
-  //
+  //FContainerForm.Load(FEditor, FEditor.ActiveBlock);
+  //if FContainerForm.ShowModal = mrOK then
+  //  FContainerForm.Save;
 end;
 
 procedure TRichEditorViewKMemo.IncIndent;

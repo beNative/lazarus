@@ -20,7 +20,7 @@ uses
   ts.Core.NativeXml.Win32Compat, ts.Core.Logger, ts.Core.SQLParser, 
   ts.Core.SQLScanner, ts.Core.SQLTree, ts.Core.StringUtils, 
   ts.Core.SystemInfo, ts.Core.TreeViewPresenter, ts.Core.Utils, ts.Core.Value, 
-  ts.Core.VersionInfo, ts.Core.XMLUtils;
+  ts.Core.VersionInfo, ts.Core.XMLUtils, ts.Core.VTNode;
 
 implementation
 

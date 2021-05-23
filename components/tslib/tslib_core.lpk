@@ -9,23 +9,14 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="core"/>
         <OtherUnitFiles Value="core"/>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(FPCVer)\core"/>
       </SearchPaths>
       <CodeGeneration>
-        <Checks>
-          <IOChecks Value="True"/>
-          <RangeChecks Value="True"/>
-          <OverflowChecks Value="True"/>
-          <StackChecks Value="True"/>
-        </Checks>
+        <Optimizations>
+          <OptimizationLevel Value="3"/>
+        </Optimizations>
       </CodeGeneration>
-      <Linking>
-        <Debugging>
-          <UseHeaptrc Value="True"/>
-        </Debugging>
-      </Linking>
       <Other>
         <CompilerMessages>
           <IgnoredMessages idx6058="True" idx5024="True"/>
@@ -46,7 +37,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="38">
+    <Files Count="39">
       <Item1>
         <Filename Value="core\ts.core.brre.pas"/>
         <UnitName Value="ts.Core.BRRE"/>
@@ -199,6 +190,10 @@ limitations under the License.         "/>
         <Filename Value="core\ts.core.xmlutils.pas"/>
         <UnitName Value="ts.Core.XMLUtils"/>
       </Item38>
+      <Item39>
+        <Filename Value="core\ts.core.vtnode.pas"/>
+        <UnitName Value="ts.Core.VTNode"/>
+      </Item39>
     </Files>
     <RequiredPkgs Count="4">
       <Item1>

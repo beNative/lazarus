@@ -112,7 +112,6 @@ type
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     procedure actToggleWordWrapExecute(Sender: TObject);
-    procedure DataModuleCreate(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -487,12 +486,6 @@ begin
   actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
   ActiveView.WordWrap := actToggleWordWrap.Checked;
 end;
-
-procedure TdmRichEditorManager.DataModuleCreate(Sender: TObject);
-begin
-
-end;
-
 {$ENDREGION}
 
 {$REGION 'private methods'}
@@ -550,26 +543,53 @@ end;
 { Gets called by the active view. }
 
 procedure TdmRichEditorManager.UpdateActions;
+var
+  B : Boolean;
 begin
-  if Assigned(ActiveView) then
-  begin
-    actBold.Checked           := ActiveView.Font.Bold;
-    actUnderline.Checked      := ActiveView.Font.Underline;
-    actItalic.Checked         := ActiveView.Font.Italic;
-    actStrikeThrough.Checked  := ActiveView.Font.StrikeThrough;
-    //actUndo.Enabled           := ActiveView.CanUndo;
-    //actRedo.Enabled           := ActiveView.CanRedo;
-    actUndo.Enabled           := True;
-    actRedo.Enabled           := True;
-    actCopy.Enabled           := ActiveView.SelAvail;
-    actCut.Enabled            := ActiveView.SelAvail;
-    actPaste.Enabled          := ActiveView.CanPaste;
-    actAlignCenter.Checked    := ActiveView.AlignCenter;
-    actAlignLeft.Checked      := ActiveView.AlignLeft;
-    actAlignRight.Checked     := ActiveView.AlignRight;
-    actAlignJustify.Checked   := ActiveView.AlignJustify;
-    actToggleWordWrap.Checked := ActiveView.WordWrap;
-  end;
+  B := Assigned(ActiveView);
+  actUndo.Enabled                  := B;
+  actRedo.Enabled                  := B;
+  actCopy.Enabled                  := B and ActiveView.SelAvail;
+  actCut.Enabled                   := B and ActiveView.SelAvail;
+  actPaste.Enabled                 := B and ActiveView.CanPaste;
+  actAlignCenter.Enabled           := B;
+  actAlignJustify.Enabled          := B;
+  actAlignLeft.Enabled             := B;
+  actAlignRight.Enabled            := B;
+  actBkColor.Enabled               := B;
+  actColor.Enabled                 := B;
+  actAdjustParagraphStyle.Enabled  := B;
+  actDecFontSize.Enabled           := B;
+  actFont.Enabled                  := B;
+  actIncFontSize.Enabled           := B;
+  actInsertHyperLink.Enabled       := B;
+  actInsertImage.Enabled           := B;
+  actInsertBulletList.Enabled      := B;
+  actIncIndent.Enabled             := B;
+  actDecIndent.Enabled             := B;
+  actInsertTextBox.Enabled         := B;
+  actClear.Enabled                 := B;
+  actShowSpecialCharacters.Enabled := B;
+  actItalic.Enabled                := B;
+  actOpen.Enabled                  := B;
+  actSave.Enabled                  := B;
+  actSaveAs.Enabled                := B;
+  actSelectAll.Enabled             := B;
+  actStrikeThrough.Enabled         := B;
+  actToggleWordWrap.Enabled        := B;
+  actUnderline.Enabled             := B;
+
+  actBold.Checked           := B and ActiveView.Font.Bold;
+  actUnderline.Checked      := B and ActiveView.Font.Underline;
+  actItalic.Checked         := B and ActiveView.Font.Italic;
+  actStrikeThrough.Checked  := B and ActiveView.Font.StrikeThrough;
+  //actUndo.Enabled           := ActiveView.CanUndo;
+  //actRedo.Enabled           := ActiveView.CanRedo;
+  actAlignCenter.Checked    := B and ActiveView.AlignCenter;
+  actAlignLeft.Checked      := B and ActiveView.AlignLeft;
+  actAlignRight.Checked     := B and ActiveView.AlignRight;
+  actAlignJustify.Checked   := B and ActiveView.AlignJustify;
+  actToggleWordWrap.Checked := B and ActiveView.WordWrap;
 end;
 
 function TdmRichEditorManager.AddView(const AName: string;

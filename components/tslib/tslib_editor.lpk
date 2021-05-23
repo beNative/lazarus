@@ -9,21 +9,17 @@
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="editor"/>
         <OtherUnitFiles Value="editor;editor\actionlist;editor\alignlines;editor\charactermap;editor\codefilter;editor\codeshaper;editor\filter;editor\hexeditor;editor\minimap;editor\preview;editor\scripteditor;editor\search;editor\selectioninfo;editor\settings;editor\settingsdialog;editor\shortcuts;editor\structure;editor\test;editor\toolview;editor\viewlist;editor\sortstrings"/>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(FPCVer)\editor"/>
       </SearchPaths>
       <CodeGeneration>
-        <Checks>
-          <IOChecks Value="True"/>
-          <RangeChecks Value="True"/>
-          <OverflowChecks Value="True"/>
-        </Checks>
+        <Optimizations>
+          <OptimizationLevel Value="3"/>
+        </Optimizations>
       </CodeGeneration>
       <Linking>
         <Debugging>
           <UseLineInfoUnit Value="False"/>
-          <UseHeaptrc Value="True"/>
         </Debugging>
       </Linking>
       <Other>

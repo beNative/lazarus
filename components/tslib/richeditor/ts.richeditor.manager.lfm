@@ -1,5 +1,4 @@
 object dmRichEditorManager: TdmRichEditorManager
-  OnCreate = DataModuleCreate
   OldCreateOrder = False
   Height = 212
   HorizontalOffset = 1409

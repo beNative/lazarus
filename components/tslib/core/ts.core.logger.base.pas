@@ -118,6 +118,8 @@ type
     function RectToStr(const ARect: TRect): string;
     function PointToStr(const APoint: TPoint): string;
 
+    function GetProperties(const AInstance: TValue): string;
+
   public
     procedure AfterConstruction; override;
     destructor Destroy; override;
@@ -183,6 +185,9 @@ type
       AExpression : Boolean;
       AIsTrue     : Boolean = True
     ): ILogger;
+
+    function SendPersistent(const AName: string; AValue: TPersistent): ILogger; overload;
+    function SendPersistent(AValue: TPersistent): ILogger; overload;
 
     function SendComponent(const AName: string; AValue: TComponent): ILogger; overload;
     function SendComponent(AValue: TComponent): ILogger; overload;
@@ -520,6 +525,88 @@ begin
   with APoint do
     Result := Format('(X: %d; Y: %d)',[X,Y]);
 end;
+
+function TLogger.GetProperties(const AInstance: TValue): string;
+var
+  P             : TRttiProperty;
+  V             : TValue;
+  V2            : TValue;
+  ExcludedTypes : TTypeKinds;
+//  List          : TList<string>;
+begin
+  //if not AInstance.IsEmpty then
+  //begin
+  //  //Clear;
+  //  ExcludedTypes := [
+  //    tkClassRef, tkMethod, tkInterface, tkPointer, tkUnknown, tkArray,
+  //    tkDynArray, tkClass, tkProcedure
+  //  ];
+  //  List := TList<string>.Create;
+  //  try
+  //    List.AddRange(ANames);
+  //    if AAssignProperties then
+  //    begin
+  //      for P in FRttiContext.GetType(AInstance.TypeInfo).GetProperties do
+  //      begin
+  //        if (List.Count = 0) or List.Contains(P.Name) then
+  //        begin
+  //          if not (P.PropertyType.TypeKind in ExcludedTypes) and P.IsReadable then
+  //          begin
+  //            if AInstance.IsObject then
+  //              V := P.GetValue(AInstance.AsObject)
+  //            else
+  //              V := P.GetValue(AInstance.GetReferenceToRawData);
+  //            if V.Kind = tkRecord then
+  //            begin
+  //              if TryGetUnderlyingValue(V, V2) then
+  //              begin
+  //                if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
+  //                  Values[P.Name] := V2;
+  //              end
+  //              else
+  //              begin
+  //                raise Exception.Create('TryGetUnderlyingValue failed.');
+  //              end;
+  //            end
+  //            else
+  //            begin
+  //              if AAssignNulls or (not AAssignNulls and not V.IsEmpty) then
+  //                Values[P.Name] := V;
+  //            end;
+  //          end;
+  //        end;
+  //      end;
+  //    end;
+  //    if AAssignFields then
+  //    begin
+  //      for F in FRttiContext.GetType(AInstance.TypeInfo).GetFields do
+  //      begin
+  //        if (List.Count = 0) or List.Contains(F.Name) then
+  //        begin
+  //          if not (F.FieldType.TypeKind in ExcludedTypes) then
+  //          begin
+  //            if AInstance.IsObject then
+  //              V := F.GetValue(AInstance.AsObject)
+  //            else
+  //              V := F.GetValue(AInstance.GetReferenceToRawData);
+  //
+  //            if V.Kind = tkRecord then
+  //            begin
+  //              if TryGetUnderlyingValue(V, V2) then
+  //                Values[F.Name] := V2;
+  //            end
+  //            else
+  //              Values[F.Name] := V
+  //          end;
+  //        end;
+  //      end;
+  //    end;
+  //  finally
+  //    FreeAndNil(List);
+  //  end;
+  //end; // if not AInstance.IsEmpty then
+end;
+
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -840,7 +927,7 @@ end;
 
 function TLogger.SendObject(AValue: TObject): ILogger;
 begin
-//
+  SendObject('', AValue);
 end;
 
 {$ENDREGION}
@@ -872,6 +959,23 @@ begin
   Result := Self;
   if AExpression = AIsTrue then
     InternalSend(lmtConditional, AText);
+end;
+
+function TLogger.SendPersistent(const AName: string; AValue: TPersistent
+  ): ILogger;
+begin
+  Result := InternalSend(
+    lmtPersistent,
+    Format('%s (%s) = ' + sLineBreak + '%s',
+      [AName, AValue.ClassName, '']
+    )
+  );
+  //Reflect.PublishedProperties(AValue).ToString
+end;
+
+function TLogger.SendPersistent(AValue: TPersistent): ILogger;
+begin
+  Result := SendPersistent('', AValue);
 end;
 
 function TLogger.SendComponent(const AName: string; AValue: TComponent

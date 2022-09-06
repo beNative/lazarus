@@ -5627,7 +5627,6 @@ end;
 
 constructor TAnchorDockPageControl.Create(TheOwner: TComponent);
 begin
-  PageClass:=DockMaster.PageClass;
   inherited Create(TheOwner);
   PopupMenu:=DockMaster.GetPopupMenu;
 

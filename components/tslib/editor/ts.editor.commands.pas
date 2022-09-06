@@ -431,6 +431,7 @@ var
 begin
 {$IFDEF WINDOWS}
   PIDL := nil;
+  Initialize(InFolder);
   SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY, PIDL) ;
   SHGetPathFromIDList(PIDL, InFolder) ;
   SL.Filename := InFolder + '\' + ExtractFileName(View.FileName) + '.lnk';
@@ -966,7 +967,7 @@ var
   N    : Integer;
 begin
   if (AStartTag = '') or (AEndTag = '') then
-    Exit;
+    Exit(False);
 
   S := View.Text;
   LPos := View.SelStart;

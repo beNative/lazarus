@@ -4,7 +4,7 @@
 
 unit tslib_core;
 
-{$warn 5023 off : no warning about unused units}
+{$WARN 5023 OFF : no warning about unused units}
 interface
 
 uses

@@ -417,6 +417,7 @@ var
   C      : TColor;
   OC     : TColor;
 begin
+  S := '';
   Result := True;
   if DrawMode = dmAfterCellPaint then
   begin

@@ -542,6 +542,7 @@ var
   A : TAction;
   M : TMenuItem;
 begin
+  M := nil;
   inherited UpdateActions;
   actUndo.Enabled := View.CanUndo;
   actRedo.Enabled := View.CanRedo;

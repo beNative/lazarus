@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="Notepas"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
@@ -25,7 +27,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="271"/>
+      <BuildNr Value="272"/>
       <Attributes pvaPrivateBuild="True"/>
       <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2021 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.0" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
@@ -95,25 +97,26 @@
             <Filename Value="bin\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)\notepas"/>
           </Target>
           <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <Parsing>
             <SyntaxOptions>
@@ -178,22 +181,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -256,27 +259,27 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
 else
-if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;
-if TargetOS='darwin' then
+if TargetOS=&apos;darwin&apos; then
 begin
-   upx := 'upx.sh'
+   upx := &apos;upx.sh&apos;
 end;"/>
           <Parsing>
             <SyntaxOptions>
@@ -345,22 +348,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <Checks>
@@ -419,22 +422,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <Checks>
@@ -494,22 +497,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -568,22 +571,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -641,22 +644,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -824,22 +827,22 @@ end;"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
           <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS='darwin' then
-//  LinkerOptions := ' -framework OpenGL';
+//if TargetOS=&apos;darwin&apos; then
+//  LinkerOptions := &apos; -framework OpenGL&apos;;
 
 // example for adding a unit and include path on Windows
-//if SrcOS='win' then begin
-//  UnitPath += ';win';
-//  IncPath += ';win';
+//if SrcOS=&apos;win&apos; then begin
+//  UnitPath += &apos;;win&apos;;
+//  IncPath += &apos;;win&apos;;
 //end;
 
-if GetIDEValue('OS') = 'linux' then
+if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
-  upx := 'upx'
+  upx := &apos;upx&apos;
 end
-else if (GetIDEValue('OS') = 'win32') or (GetIDEValue('OS') = 'win64') then
+else if (GetIDEValue(&apos;OS&apos;) = &apos;win32&apos;) or (GetIDEValue(&apos;OS&apos;) = &apos;win64&apos;) then
 begin
-  upx := 'upx.exe'
+  upx := &apos;upx.exe&apos;
 end;"/>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
@@ -943,6 +946,7 @@ end;"/>
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
+        <UnitName Value="Notepas"/>
       </Unit0>
       <Unit1>
         <Filename Value="notepas.main.form.pas"/>

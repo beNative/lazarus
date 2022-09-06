@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2020 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -29,7 +29,7 @@ uses
   Interfaces, // this includes the LCL widgetset
   Forms,
 
-  runtimetypeinfocontrols,
+  RunTimeTypeInfoControls,
   pascalscript,
   kcontrols,
   ExceptionLogger,
@@ -43,19 +43,19 @@ uses
 begin
   Logger.Channels.Add(TIpcChannel.Create);
   Logger.Clear;
-  {$IF DECLARED(UseHeapTrace)}
+{$IF DECLARED(UseHeapTrace)}
    GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
   if FileExists('Notepas.trc') then
     DeleteFile('Notepas.trc');
   SetHeapTraceOutput('Notepas.trc');
-  {$ENDIF}
+{$ENDIF}
   Application.Title := 'Notepas';
 
-  {$IFDEF WINDOWS}
-  {$WARNINGS OFF}
+{$IFDEF WINDOWS}
+{$WARNINGS OFF}
   Application.MainFormOnTaskbar := True;
-  {$WARNINGS ON}
-  {$ENDIF}
+{$WARNINGS ON}
+{$ENDIF}
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

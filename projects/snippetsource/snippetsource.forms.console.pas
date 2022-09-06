@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -76,8 +76,8 @@ begin
   inherited AfterConstruction;
   prcMain.Active  := True;
   tmrMain.Enabled := True;
-    //PythonEngine.LoadDll;
-  //cmdMain.StartRead(clSilver, clBlack, '', clWhite, clBlack);
+  PythonEngine.LoadDll;
+  cmdMain.StartRead(clSilver, clBlack, '', clWhite, clBlack);
 end;
 
 destructor TfrmConsole.Destroy;
@@ -129,9 +129,9 @@ begin
   Logger.Enter(Self, 'cmdMainInput');
   S := Input + LineEnding;
   Logger.SendText(S);
-  prcMain.Input.Write(S[1], Length(S));
-  //ProcessString(S);
-  //PythonEngine.ExecString(S);
+  //prcMain.Input.Write(S[1], Length(S));
+  ProcessString(S);
+  PythonEngine.ExecString(S);
   Logger.Leave(Self, 'cmdMainInput');
 end;
 
@@ -143,15 +143,15 @@ end;
 procedure TfrmConsole.PythonInputOutputReceiveData(Sender: TObject;
   var Data: AnsiString);
 begin
-  //ProcessString(Data);
-  //PythonEngine.ExecString(Data);
+  ProcessString(Data);
+  PythonEngine.ExecString(Data);
 end;
 
 procedure TfrmConsole.PythonInputOutputSendData(Sender: TObject;
   const Data: AnsiString);
 begin
-//  ProcessString(Data);
-  //      cmdMain.Writeln(Data);
+  ProcessString(Data);
+  cmdMain.Writeln(Data);
 end;
 {$ENDREGION}
 

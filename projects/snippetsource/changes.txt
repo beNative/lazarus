@@ -77,6 +77,9 @@ TODO (14/05/2021)
 - Customize the node images from a user definable set of glyphs which can be
   stored in the snippet database.
 
+16/05/2021
+- Version 3.5
+
 15/05/2021
 - Set focus to snippet title when adding a new node.
 - Show Stderr output in red in the console viewer.

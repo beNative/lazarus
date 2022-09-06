@@ -11,7 +11,7 @@ object frmConsole: TfrmConsole
   PopupMode = pmAuto
   Position = poOwnerFormCenter
   ShowHint = True
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.2.0'
   object cmdMain: TCmdBox
     Left = 0
     Height = 551
@@ -68,14 +68,13 @@ object frmConsole: TfrmConsole
     Top = 16
   end
   object PythonEngine: TPythonEngine
-    AutoLoad = False
-    AutoUnload = False
-    DllName = 'python38.dll'
+    DllName = 'python310.dll'
+    DllPath = 'D:\Tools\Development\Python 3.10.3'
     APIVersion = 1013
-    RegVersion = '3.8'
+    RegVersion = '3.10'
     UseLastKnownVersion = False
-    AutoFinalize = False
     IO = PythonInputOutput
+    UseWindowsConsole = True
     Left = 64
     Top = 96
   end

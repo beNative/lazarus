@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -81,17 +81,17 @@ type
 
   TfrmVirtualDBTree = class(TForm)
     {$REGION 'designer controls'}
+    actCancel                 : TAction;
     actCollapseAllNodes       : TAction;
-    actDeleteSelectedNodes    : TAction;
-    actExpandAllNodes         : TAction;
     actCopyNodeData           : TAction;
+    actDeleteSelectedNodes    : TAction;
     actDuplicateSelectedNodes : TAction;
-    actCancel: TAction;
-    actPost: TAction;
-    actRefresh: TAction;
+    actExpandAllNodes         : TAction;
     actNewFolderNode          : TAction;
     actNewItemNode            : TAction;
     actNewRootFolderNode      : TAction;
+    actPost                   : TAction;
+    actRefresh                : TAction;
     alMain                    : TActionList;
     btnCollapseAllNodes       : TToolButton;
     btnDivider                : TToolButton;
@@ -101,26 +101,26 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
-    mniRefresh: TMenuItem;
-    mniPost: TMenuItem;
-    mniCancel: TMenuItem;
-    mniExpandAllNodes: TMenuItem;
-    MenuItem5: TMenuItem;
-    mniCollapseAllNodes: TMenuItem;
-    N2: TMenuItem;
+    mniCancel                 : TMenuItem;
+    mniCollapseAllNodes       : TMenuItem;
     mniCopyNodeData           : TMenuItem;
     mniDelete                 : TMenuItem;
+    mniExpandAllNodes         : TMenuItem;
     mniNewChild               : TMenuItem;
     mniNewFolder              : TMenuItem;
+    mniNewRoot                : TMenuItem;
+    mniPost                   : TMenuItem;
+    mniRefresh                : TMenuItem;
+    N1                        : TMenuItem;
+    N2                        : TMenuItem;
+    N3                        : TMenuItem;
     navTreeView               : TDBNavigator;
+    pnlMain                   : TPanel;
+    pnlTop                    : TPanel;
     pnlTopLeft                : TPanel;
     pnlTopRight               : TPanel;
     pnlTree                   : TPanel;
     ppmTreeView               : TPopupMenu;
-    N1                        : TMenuItem;
-    mniNewRoot                : TMenuItem;
-    pnlMain                   : TPanel;
-    pnlTop                    : TPanel;
     shpLine                   : TShape;
     tlbTop                    : TToolBar;
     {$ENDREGION}

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -412,13 +412,14 @@ var
 begin
   FS := TFileStream.Create('SnippetSource.bat', fmCreate);
   try
-    Editor.SaveToStream(FS);
+//    Editor.SaveToStream(FS);
     if not Assigned(FConsole) then
     begin
       FConsole := TfrmConsole.Create(Self);
     end;
     FConsole.Show;
-    FConsole.Execute('SnippetSource.bat');
+    FConsole.ExecutePy(Editor.Lines);
+//    FConsole.Execute('SnippetSource.bat');
   finally
     FS.Free;
   end;

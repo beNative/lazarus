@@ -522,6 +522,7 @@
 							</DirectiveAttri>
 							<CompilerMode>pcmDelphi</CompilerMode>
 							<NestedComments>false</NestedComments>
+							<TypeHelpers>true</TypeHelpers>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -901,7 +902,7 @@
 								<Foreground>clBlue</Foreground>
 								<Style>[fsBold]</Style>
 							</SecondKeyAttri>
-							<SecondKeyWords>(TStringList)
+							<SecondKeyWords>(TStringListUTF8Fast)
 								<DefinedProperties>
 								B1N0cmluZ3MBBgZDRFBBVEgGBkVESVRPUgYESE9NRQYDSUZTBgRMQU5HBgtMQ19NRVNTQUdFUwYH
 								TENfVFlQRQYPTERfTElCUkFSWV9QQVRIBgdMT0dOQU1FBgRNQUlMBglNQUlMQ0hFQ0sGCE1BSUxQ
@@ -909,21 +910,11 @@
 								QVRIBgRURVJNBgdURVJNQ0FQBgJUWgA=
 								</DefinedProperties>
 							</SecondKeyWords>
-							<NumberAttri>(TSynHighlighterAttributes)
-								<Foreground>clRed</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
-							</NumberAttri>
+							<NumberAttri>(TSynHighlighterAttributes)</NumberAttri>
 							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<StringAttri>(TSynHighlighterAttributes)
-								<Foreground>clGreen</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
-							</StringAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)
-								<Style>[fsBold]</Style>
-							</SymbolAttri>
-							<VarAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-							</VarAttri>
+							<StringAttri>(TSynHighlighterAttributes)</StringAttri>
+							<SymbolAttri>(TSynHighlighterAttributes)</SymbolAttri>
+							<VarAttri>(TSynHighlighterAttributes)</VarAttri>
 						</TSynUNIXShellScriptSyn>
 					</Components>
 					<Highlighter>SH</Highlighter>
@@ -933,96 +924,17 @@
 					<Description>Shell script</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="VB">
-					<Components>
-						<TSynVBSyn Name="SynHighlighter">
-							<Enabled>false</Enabled>
-							<CommentAttri>(TSynHighlighterAttributes)
-								<Foreground>clSilver</Foreground>
-							</CommentAttri>
-							<IdentifierAttri>(TSynHighlighterAttributes)</IdentifierAttri>
-							<KeyAttri>(TSynHighlighterAttributes)
-								<Foreground>clBlue</Foreground>
-							</KeyAttri>
-							<NumberAttri>(TSynHighlighterAttributes)
-								<Foreground>clRed</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
-							</NumberAttri>
-							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<StringAttri>(TSynHighlighterAttributes)
-								<Foreground>clGreen</Foreground>
-								<Style>[fsBold,fsItalic]</Style>
-							</StringAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)
-								<Foreground>clRed</Foreground>
-								<Style>[fsBold]</Style>
-							</SymbolAttri>
-						</TSynVBSyn>
-					</Components>
 					<Highlighter>VB</Highlighter>
-					<SynHighlighter>VB.SynHighlighter</SynHighlighter>
 					<FormatterSupport>false</FormatterSupport>
 					<FileExtensions>vb</FileExtensions>
 					<Description>Visual Basic</Description>
 				</THighlighterItem>
 				<THighlighterItem Name="XML">
-					<Components>
-						<TSynXMLSyn Name="SynHighlighter">
-							<DefaultFilter>XML Document (*.xml,*.xsd,*.xsl,*.xslt,*.dtd)|*.xml;*.xsd;*.xsl;*.xslt;*.dtd</DefaultFilter>
-							<Enabled>false</Enabled>
-							<ElementAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</ElementAttri>
-							<AttributeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-							</AttributeAttri>
-							<NamespaceAttributeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-							</NamespaceAttributeAttri>
-							<AttributeValueAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</AttributeValueAttri>
-							<NamespaceAttributeValueAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</NamespaceAttributeValueAttri>
-							<TextAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</TextAttri>
-							<CDATAAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</CDATAAttri>
-							<EntityRefAttri>(TSynHighlighterAttributes)</EntityRefAttri>
-							<ProcessingInstructionAttri>(TSynHighlighterAttributes)
-								<Foreground>clOlive</Foreground>
-								<Style>[fsBold]</Style>
-							</ProcessingInstructionAttri>
-							<CommentAttri>(TSynHighlighterAttributes)
-								<Background>clNone</Background>
-								<Foreground>clSilver</Foreground>
-								<Style>[,fsItalic]</Style>
-							</CommentAttri>
-							<DocTypeAttri>(TSynHighlighterAttributes)
-								<Foreground>clNone</Foreground>
-								<Style>[]</Style>
-							</DocTypeAttri>
-							<SpaceAttri>(TSynHighlighterAttributes)</SpaceAttri>
-							<SymbolAttri>(TSynHighlighterAttributes)
-								<Foreground>clRed</Foreground>
-								<Style>[fsBold]</Style>
-							</SymbolAttri>
-							<WantBracesParsed>false</WantBracesParsed>
-						</TSynXMLSyn>
-					</Components>
 					<Highlighter>XML</Highlighter>
-					<SynHighlighter>XML.SynHighlighter</SynHighlighter>
 					<BlockCommentStartTag>&lt;!--</BlockCommentStartTag>
 					<BlockCommentEndTag>--&gt;</BlockCommentEndTag>
 					<FormatterSupport>false</FormatterSupport>
-					<FileExtensions>compileddproj,cpppjoj,docm,docx,dotm,dotx,dtd,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vcxproj,vcxproj.filters,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml,xmmap,xsd,xslt</FileExtensions>
+					<FileExtensions>compiled,cpppjoj,docm,docx,dotm,dotx,dproj,dtd,fpc,groupproj,hgl,lpi,lpk,lps,potm,potx,ppam,ppsm,ppsx,pptm,pptx,sgml,svg,template,vcxproj,vcxproj.filters,vsdm,vsdx,vssm,vssx,vstm,vstx,xlam,xlsm,xlsx,xltm,xltx,xml,xmmap,xsd,xslt</FileExtensions>
 					<Description>XML document</Description>
 				</THighlighterItem>
 			</Components>
@@ -1030,209 +942,7 @@
 	</Components>
 	<Highlighters>Highlighters.owner</Highlighters>
 	<ToolSettings>ToolSettings.owner</ToolSettings>
-	<HighlighterAttributes>(THighlighterAttributes)
-		<THighlighterAttributesItem>
-			<Name>Comment</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clSilver</Foreground>
-				<Style>[,fsItalic]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgdDb21tZW50Bg1Eb2N1bWVudGF0aW9uBgtScGwgY29tbWVudAYMU0FTTSBDb21t
-				ZW50AA==
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>String</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clGreen</Foreground>
-				<Style>[fsBold,fsItalic]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZTdHJpbmcA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Symbol</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clRed</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBghCcmFja2V0cwYNUm91bmQgQnJhY2tldAYOU3F1YXJlIEJyYWNrZXQGBlN5bWJv
-				bAA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Number</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clRed</Foreground>
-				<Style>[fsBold,fsItalic]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZOdW1iZXIA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Key</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clBlue</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgNLZXkGB1JwbCBrZXkGCFNBU00gS2V5BgtTUUwga2V5d29yZAYQU1FMKlBsdXMg
-				Y29tbWFuZAYLVGVYIENvbW1hbmQA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Float</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgVGbG9hdAA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Hexadecimal</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgtIZXhhZGVjaW1hbAA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Reserved word</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clBlue</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1SZXNlcnZlZCB3b3JkBhZSZXNlcnZlZCB3b3JkIChQTC9TUUwpBhRTZWNvbmQg
-				cmVzZXJ2ZWQgd29yZAA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Directive</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clOlive</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1JREUgRGlyZWN0aXZlBgdJbmNsdWRlBgxQcmVwcm9jZXNzb3IGFlByb2Nlc3Np
-				bmcgSW5zdHJ1Y3Rpb24A
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Character</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBglDaGFyYWN0ZXIA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Variable</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBhBTcGVjaWFsIHZhcmlhYmxlAA==
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Null</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgROdWxsAA==
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Operator</Name>
-			<Attributes>(TSynHighlighterAttributes)
-				<Foreground>clRed</Foreground>
-				<Style>[fsBold]</Style>
-			</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBghPcGVyYXRvcgA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Attribute Name</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgxFbGVtZW50IE5hbWUGGE5hbWVzcGFjZSBBdHRyaWJ1dGUgTmFtZQA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Attribute Value</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgVDREFUQQYHRE9DVFlQRQYZTmFtZXNwYWNlIEF0dHJpYnV0ZSBWYWx1ZQYFVmFs
-				dWUA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Macro</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgZQcmFnbWEA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Text</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBg1FbWJlZGRlZCB0ZXh0BgRUZXh0AA==
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Section</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBgNBc3AGDUNEQVRBIFNlY3Rpb24GD0RPQ1RZUEUgU2VjdGlvbgYHU2VjdGlvbgA=
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-		<THighlighterAttributesItem>
-			<Name>Data type</Name>
-			<Attributes>(TSynHighlighterAttributes)</Attributes>
-			<AliasNames>(TStringList)
-				<DefinedProperties>
-				B1N0cmluZ3MBBglEYXRhIHR5cGUA
-				</DefinedProperties>
-			</AliasNames>
-		</THighlighterAttributesItem>
-	</HighlighterAttributes>
+	<HighlighterAttributes>(THighlighterAttributes)</HighlighterAttributes>
 	<Colors>(TEditorColorSettings)
 		<IncrementColor>(TSynSelectedColor)
 			<Background>clMedGray</Background>
@@ -1274,10 +984,8 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>BAT</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
-	<AutoFormatXML>false</AutoFormatXML>
-	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
 	<FormSettings>(TFormSettings)
 		<Left>0</Left>
 		<Top>0</Top>
@@ -1287,10 +995,7 @@
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
-		<CharSet>ANSI_CHARSET</CharSet>
-		<Height>-15</Height>
-		<Name>Consolas</Name>
-		<Pitch>fpFixed</Pitch>
-		<Quality>fqDraft</Quality>
+		<Height>-13</Height>
+		<Name>Courier New</Name>
 	</EditorFont>
 </TEditorSettings>

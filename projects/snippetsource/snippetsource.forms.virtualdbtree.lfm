@@ -199,7 +199,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object mniCopyNodeData: TMenuItem
       Action = actCopyNodeData
     end
-    object MenuItem5: TMenuItem
+    object N3: TMenuItem
       Caption = '-'
     end
     object mniExpandAllNodes: TMenuItem

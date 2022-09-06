@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -186,9 +186,9 @@ type
   ['{13211D24-9ECD-42BE-AB95-C4F833D123E6}']
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
-    procedure SetActive(AValue: Boolean);
     function GetDataSet: TSQLQuery;
     function GetRecordCount: Integer;
+    procedure SetActive(AValue: Boolean);
     {$ENDREGION}
 
     function Append: Boolean;
@@ -255,28 +255,28 @@ type
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
     {$REGION 'property access methods'}
+    function GetAutoHidEditor: Boolean;
+    function GetAutoHideEditorToolBar: Boolean;
     function GetAutoHideRichEditor: Boolean;
+    function GetAutoHideRichEditorToolBar: Boolean;
+    function GetDatabase: string;
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
     function GetTrackHistory: Boolean;
     procedure SetAutoHideEditor(AValue: Boolean);
-    function GetAutoHidEditor: Boolean;
-    procedure SetAutoHideRichEditor(AValue: Boolean);
-    function GetAutoHideEditorToolBar: Boolean;
-    function GetAutoHideRichEditorToolBar: Boolean;
-    function GetDatabase: string;
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
+    procedure SetAutoHideRichEditor(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
-    {$ENDREGION}
-
-    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
-    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
     procedure SetTrackHistory(AValue: Boolean);
+    {$ENDREGION}
+
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
 
     property Database: string
       read GetDatabase write SetDatabase;

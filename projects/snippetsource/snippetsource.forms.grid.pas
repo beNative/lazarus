@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, db, FileUtil, ExtendedNotebook, RTTICtrls, Forms, Controls,
   Graphics, Dialogs, DBGrids, DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,
-  sqldb,
+  SQLDB,
 
   ts.Core.ComponentInspector;
 

@@ -66,10 +66,6 @@ msgstr ""
 msgid "The query <%s> returned too many records"
 msgstr ""
 
-#: tfrmbusy.lblworking.caption
-msgid "Working..."
-msgstr ""
-
 #: tfrmconsole.caption
 msgid "frmConsole"
 msgstr ""
@@ -289,10 +285,6 @@ msgstr ""
 
 #: tfrmmain.pnlsnippetcount.hint
 msgid "Snippet count"
-msgstr ""
-
-#: tfrmmain.tlbapplication.caption
-msgid "tlbApplication"
 msgstr ""
 
 #: tfrmquery.actexecute.caption

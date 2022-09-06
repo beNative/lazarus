@@ -27,9 +27,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <BuildNr Value="272"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="275"/>
       <Attributes pvaPrivateBuild="True"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2021 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.0" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2022 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>

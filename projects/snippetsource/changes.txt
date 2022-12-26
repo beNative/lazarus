@@ -61,7 +61,8 @@ select
 from
   otherdb.Snippet
 
-TODO (14/05/2021)
+TODO (7/12/2022)
+- Readonly setting for node and children
 - Duplicate node
 - Drag and drop of RTF documents
 - Custom node sequence number (up/down position)

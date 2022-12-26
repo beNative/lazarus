@@ -76,7 +76,7 @@ begin
   inherited AfterConstruction;
   prcMain.Active  := True;
   tmrMain.Enabled := True;
-  PythonEngine.LoadDll;
+  //PythonEngine.LoadDll;
   cmdMain.StartRead(clSilver, clBlack, '', clWhite, clBlack);
 end;
 
@@ -129,9 +129,9 @@ begin
   Logger.Enter(Self, 'cmdMainInput');
   S := Input + LineEnding;
   Logger.SendText(S);
-  //prcMain.Input.Write(S[1], Length(S));
-  ProcessString(S);
-  PythonEngine.ExecString(S);
+  prcMain.Input.Write(S[1], Length(S));
+  //ProcessString(S);
+  //PythonEngine.ExecString(S);
   Logger.Leave(Self, 'cmdMainInput');
 end;
 
@@ -208,7 +208,7 @@ end;
 
 procedure TfrmConsole.ExecutePy(const AStrings: TStrings);
 begin
-  PythonEngine.ExecStrings(AStrings);
+  //PythonEngine.ExecStrings(AStrings);
 end;
 {$ENDREGION}
 

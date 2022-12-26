@@ -106,10 +106,11 @@ type
 
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters,
-    IQuery
+    IQuery, IHistory
   )
     {$REGION 'designer controls'}
     conMain          : TSQLite3Connection;
+    conHistory       : TSQLite3Connection;
     imlNodeTypes     : TImageList;
     imlGlyphs        : TImageList;
     qryGlyph         : TSQLQuery;
@@ -123,6 +124,7 @@ type
     scrInsertData    : TSQLScript;
     qryQuery         : TSQLQuery;
     trsMain          : TSQLTransaction;
+    trsHistory       : TSQLTransaction;
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -138,6 +140,10 @@ type
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
 
     procedure FSettingsChange(Sender: TObject);
+    procedure scrCreateTablesDirective(Sender: TObject; Directive,
+      Argument: AnsiString; var StopExecution: Boolean);
+    procedure scrInsertDataDirective(Sender: TObject; Directive,
+      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
@@ -237,6 +243,9 @@ type
     function ApplyUpdates: Boolean;
     procedure StartTransaction;
     procedure EndTransaction;
+    {$ENDREGION}
+
+    {$REGION 'IHistory'}
     procedure AddHistory;
     procedure CleanupHistory;
     {$ENDREGION}
@@ -269,9 +278,11 @@ type
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;
 
+    { Database size in bytes. }
     property Size: Int64
       read GetSize;
 
+    { Version of the SQLite database. }
     property DBVersion: string
       read GetDBVersion;
     {$ENDREGION}
@@ -283,6 +294,7 @@ type
     property AutoCommit: Boolean
       read GetAutoCommit write SetAutoCommit;
 
+    { SQLite database file. }
     property FileName: string
       read GetFileName write SetFileName;
     {$ENDREGION}
@@ -313,15 +325,19 @@ type
     property FoldState: string
       read GetFoldState write SetFoldState;
 
+    { Highlighter code corresponding to the highlighter to select for the
+      editor view. }
     property Highlighter: string
       read GetHighlighter write SetHighlighter;
 
+    { Primary key field. }
     property Id: Integer
       read GetId;
 
     property NodeName: string
       read GetNodeName write SetNodeName;
 
+    { Currently not used. }
     property NodePath: string
       read GetNodePath write SetNodePath;
 
@@ -333,6 +349,7 @@ type
     property ParentId: Integer
       read GetParentId write SetParentId;
 
+    { Flat text shown in the editor view. }
     property Text: string
       read GetText write SetText;
 
@@ -450,6 +467,7 @@ begin
   Commit;
   DataSet.Active := False;
   conMain.Connected := False;
+  conHistory.Connected := False;
   FSettings := nil;
   FHLImages.Free;
   inherited Destroy;
@@ -691,6 +709,10 @@ begin
     conMain.Connected    := False;
     conMain.DatabaseName := AValue;
     conMain.Connected    := True;
+
+    //conHistory.Connected := False;
+    //conHistory.DatabaseName := AValue;
+    //conHistory.Connected    := True;
     Active := True;
   end;
 end;
@@ -871,6 +893,19 @@ procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
 begin
   ConnectToDatabase(FSettings.Database);
 end;
+
+procedure TdmSnippetSource.scrCreateTablesDirective(Sender: TObject; Directive,
+  Argument: AnsiString; var StopExecution: Boolean);
+begin
+
+end;
+
+procedure TdmSnippetSource.scrInsertDataDirective(Sender: TObject; Directive,
+  Argument: AnsiString; var StopExecution: Boolean);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -1032,10 +1067,10 @@ end;
 
 procedure TdmSnippetSource.InitFields(ADataSet: TDataSet);
 var
-  Field : TField;
+  LField : TField;
 begin
-  for Field in ADataSet.Fields do
-    InitField(Field);
+  for LField in ADataSet.Fields do
+    InitField(LField);
 end;
 
 {$REGION 'ISQLite'}
@@ -1234,17 +1269,22 @@ begin
     //FillNodeTypesImageList;
     DataSet.Active := False;
 
-    Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
-    conMain.DatabaseName := LFileName;
-    conMain.Connected := True;
+        //conHistory.DatabaseName := LFileName;
+    //conHistory.Connected := True;
+
     if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
     begin
+      conMain.DatabaseName := LFileName;
       CreateNewDatabase;
     end;
+    Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
+    //conMain.DatabaseName := LFileName;
+    conMain.Connected := True;
     qryHighlighter.Active := True;
       //FillImageMapFromDataSet(FHLImages, qryHighlighter);
     qryGlyph.Active :=  True;
     qryNodeType.Active := True;
+
     //qryHistory.Active  := True;
     //FillNodeTypesImageList;
     DataSet.Active := True;
@@ -1272,12 +1312,15 @@ begin
     LZipper.FileName  := LFileName;
     DataSet.Active    := False;
     conMain.Connected := False;
+    //conHistory.Connected := False;
+    //qryHistory.Active := False;
     LZipper.Entries.AddFileEntry(
       conMain.DatabaseName,
       ExtractFileName(conMain.DatabaseName) // just filename, no path
     );
     LZipper.ZipAllFiles;
     conMain.Connected := True;
+    //conHistory.Connected := True;
     DataSet.Active    := True;
     EnableControls;
   finally
@@ -1313,14 +1356,17 @@ end;
 
 procedure TdmSnippetSource.AddHistory;
 begin
+  Logger.Enter(Self, 'AddHistory');
   qryHistory.Active := True;
-  if DataSet.Active and (qryHistory.FieldByName('SnippetId').AsInteger <> Id) then
+  if DataSet.Active and (Id <> 0)
+    and (qryHistory.FieldByName('SnippetId').AsInteger <> Id) then
   begin
     qryHistory.Append;
     qryHistory.FieldByName('SnippetId').AsInteger := Id;
     qryHistory.FieldByName('DateCreated').AsDateTime := Now;
     qryHistory.Post;
   end;
+  Logger.Leave(Self, 'AddHistory');
 end;
 
 procedure TdmSnippetSource.CleanupHistory;

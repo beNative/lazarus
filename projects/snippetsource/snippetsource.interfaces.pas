@@ -53,8 +53,6 @@ type
     procedure Rollback;
     procedure StartTransaction;
     procedure EndTransaction;
-    procedure AddHistory;
-    procedure CleanupHistory;
 
     property AutoApplyUpdates: Boolean
       read GetAutoApplyUpdates write SetAutoApplyUpdates;
@@ -78,6 +76,12 @@ type
 
     property Query: TSQLQuery
       read GetQuery;
+  end;
+
+  IHistory = interface
+  ['{419EC408-605F-4801-BBC2-86B9542013CD}']
+    procedure AddHistory;
+    procedure CleanupHistory;
   end;
 
   { Interface to SQLite specific functions and data. }

@@ -26,9 +26,9 @@ uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
   ComCtrls, StdCtrls, ActnList,
 
-  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn, Grids,
+  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn, Grids, ValEdit,
 
-  VirtualTrees,
+  VirtualTrees, Registry,
 
   SnippetSource.Interfaces;
 
@@ -50,7 +50,8 @@ type
     actCreateDatabaseTriggers        : TAction;
     actBackupDatabase                : TAction;
     actFontDialog                    : TAction;
-    actCleanupHistory: TAction;
+    actCleanupHistory                : TAction;
+    actCreateVirtualEnvironment      : TAction;
     actReloadConfigurationData       : TAction;
     actOpenDatabase                  : TAction;
     actAddGlyphs                     : TAction;
@@ -66,9 +67,11 @@ type
     btnOpenDatabase                  : TBitBtn;
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
-    Button1: TButton;
+    Button1                          : TButton;
+    Button2: TButton;
     cbxImageList                     : TComboBox;
-    chkTrackHistory: TCheckBox;
+    chkUseCustomEnvironmentVariables: TCheckBox;
+    chkTrackHistory                  : TCheckBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditor            : TCheckBox;
     chkAutoHideEditor                : TCheckBox;
@@ -84,7 +87,7 @@ type
     grdHighlighters                  : TDBGrid;
     grdDBInfo                        : TStringGrid;
     GroupBox1                        : TGroupBox;
-    GroupBox2: TGroupBox;
+    GroupBox2                        : TGroupBox;
     grpDiagnostics                   : TGroupBox;
     grpLayout                        : TGroupBox;
     grpDatabaseInfo                  : TGroupBox;
@@ -93,11 +96,15 @@ type
     lblApplicationNeedsToBeRestarted : TLabel;
     lblFontName                      : TLabel;
     lblDataBaseFile                  : TLabel;
+    mmoEnvironment: TMemo;
     pnlBottom                        : TPanel;
     pgcMain                          : TPageControl;
+    tsPython: TTabSheet;
+    tsTerminalSettings: TTabSheet;
     tsApplication                    : TTabSheet;
     tsDataBase                       : TTabSheet;
     tsImages                         : TTabSheet;
+    grdPythonInterpreters: TValueListEditor;
     vstImageList                     : TVirtualStringTree;
     {$ENDREGION}
 
@@ -108,6 +115,7 @@ type
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
     procedure actCreateNewDatabaseExecute(Sender: TObject);
+    procedure actCreateVirtualEnvironmentExecute(Sender: TObject);
     procedure actDatabaseIntegrityCheckExecute(Sender: TObject);
     procedure actDataBaseShrinkMemoryExecute(Sender: TObject);
     procedure actDatabaseVacuumExecute(Sender: TObject);
@@ -161,19 +169,22 @@ type
     {$ENDREGION}
 
   private
-    FData     : IInterface;
-    FSettings : ISettings;
+    FData               : IInterface;
+    FSettings           : ISettings;
+    FPythonInterpreters : TStrings;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetGlyphDS: TDataSet;
     function GetHighlighterDataSet: TDataSet;
+    function GetHistory: IHistory;
     function GetSQLite: ISQLite;
     {$ENDREGION}
 
     procedure LoadImage(const AFileName, AFieldName: string);
     procedure UpdateDataBaseInfo;
+    procedure LoadPythonInterpreters;
 
   public
     constructor Create(
@@ -201,6 +212,9 @@ type
 
     property DataSet: IDataSet
       read GetDataSet;
+
+    property History: IHistory
+      read GetHistory;
 
   end;
 
@@ -238,6 +252,8 @@ begin
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
   (FData as IGlyphs).GlyphDataSet.Active := True;
   dscHighlighter.DataSet := (FData as IHighlighters).HighlighterDataSet;
+  FPythonInterpreters := TStringList.Create;
+  LoadPythonInterpreters;
   //dscHighlighter.DataSet.Active := True;
 end;
 
@@ -269,6 +285,7 @@ begin
   (FData as IGlyphs).GlyphDataSet.Active := False;
   FData     := nil;
   FSettings := nil;
+  FreeAndNil(FPythonInterpreters);
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -292,6 +309,11 @@ end;
 function TfrmSettingsDialog.GetHighlighterDataSet: TDataSet;
 begin
   Result := (FData as IHighlighters).HighlighterDataSet;
+end;
+
+function TfrmSettingsDialog.GetHistory: IHistory;
+begin
+  Result := FData as IHistory;
 end;
 
 function TfrmSettingsDialog.GetSQLite: ISQLite;
@@ -352,6 +374,12 @@ begin
   Connection.CreateNewDatabase;
 end;
 
+procedure TfrmSettingsDialog.actCreateVirtualEnvironmentExecute(Sender: TObject
+  );
+begin
+   //
+end;
+
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
 begin
   if SQLite.IntegrityCheck then
@@ -393,7 +421,7 @@ end;
 
 procedure TfrmSettingsDialog.actCleanupHistoryExecute(Sender: TObject);
 begin
-   Connection.CleanupHistory;
+   History.CleanupHistory;
 end;
 
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
@@ -670,6 +698,33 @@ begin
   grdDBInfo.Cells[1, 3] :=
     DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
 end;
+
+procedure TfrmSettingsDialog.LoadPythonInterpreters;
+var
+  Registry: TRegistry;
+  Key: string;
+  LKeys : TStringList;
+begin
+  Registry := TRegistry.Create;
+  LKeys := TStringList.Create;
+  try
+    Registry.RootKey := HKEY_LOCAL_MACHINE;
+    if Registry.OpenKeyReadOnly('SOFTWARE\Python\PythonCore') then
+    begin
+      Registry.GetKeyNames(LKeys);
+      for Key in LKeys do
+      begin
+        FPythonInterpreters.AddPair(Key, Registry.ReadString(Key + '\InstallPath'));
+        //Registry.GetNextKey(Key);
+      end;
+    end;
+  finally
+    Registry.Free;
+    LKeys.Free;
+  end;
+  grdPythonInterpreters.Strings. Assign(FPythonInterpreters);
+end;
+
 {$ENDREGION}
 
 {$REGION 'public methods'}

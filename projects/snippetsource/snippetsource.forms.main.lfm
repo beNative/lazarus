@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 646
+  Left = 962
   Height = 596
-  Top = 291
+  Top = 648
   Width = 987
   Caption = 'SnippetSource'
   ClientHeight = 596
@@ -11,6 +11,7 @@ object frmMain: TfrmMain
   Font.Color = clBlack
   Font.Height = -11
   Font.Name = 'Segoe UI'
+  OnCloseQuery = FormCloseQuery
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
@@ -122,10 +123,10 @@ object frmMain: TfrmMain
       ParentColor = False
       TabOrder = 2
       object edtTitle: TEdit
-        Left = 48
+        Left = 72
         Height = 24
         Top = 0
-        Width = 504
+        Width = 480
         Align = alClient
         Alignment = taCenter
         Anchors = [akTop, akLeft, akRight]
@@ -148,7 +149,7 @@ object frmMain: TfrmMain
         TabOrder = 0
       end
       object btnHighlighter: TMenuButton
-        Left = 0
+        Left = 24
         Height = 24
         Top = 0
         Width = 48
@@ -183,6 +184,15 @@ object frmMain: TfrmMain
         Width = 701
         Align = alBottom
         Pen.Color = clScrollBar
+      end
+      object btnImage: TSpeedButton
+        Left = 0
+        Height = 24
+        Top = 0
+        Width = 24
+        Align = alLeft
+        Flat = True
+        Layout = blGlyphTop
       end
     end
     object splHorizontal: TSplitter

@@ -20,14 +20,10 @@ unit SnippetSource.Forms.VirtualDBTree;
   Coded a long time ago for applications like BATBase, RecordPlayer and
   SnippetSource and brought back to life to support Lazarus.
 
-  (29/04/2010)
-
-  REMARK:
-
-  ClipboardFormats.Text needs to be assigned if we want to support Drag
-  operations. After a long investigation (13/06/2010) this turned out to be
-  the reason why drag and drop did not work if we dynamically create the
-  TCheckVirtualDBTreeEx instance.
+  REMARK: ClipboardFormats.
+  Text needs to be assigned if we want to support Drag operations. After a long
+  investigation (13/06/2010) this turned out to be the reason why drag and drop
+  did not work if we dynamically create the TCheckVirtualDBTreeEx instance.
   At designtime this property is assigned by default.
 }
 
@@ -68,8 +64,8 @@ const
 
 type
   TNewFolderNodeEvent = procedure(Sender: TObject) of object;
-  TNewItemNodeEvent = procedure(Sender: TObject) of object;
-  TDropFilesEvent = procedure(
+  TNewItemNodeEvent   = procedure(Sender: TObject) of object;
+  TDropFilesEvent     = procedure(
     Sender      : TBaseVirtualTree;
     AFiles      : TStrings;
     AAttachMode : TVTNodeAttachMode
@@ -200,27 +196,27 @@ type
     function GetKeyFieldName: string;
     function GetLevelField: TField;
     function GetLevelFieldName: string;
+    function GetMultiSelect: Boolean;
     function GetNodeTypeField: TField;
     function GetNodeTypeFieldName: string;
     function GetParentField: TField;
     function GetParentFieldName: string;
     function GetPathField: TField;
     function GetSelectionCount: Integer;
+    function GetToolbarTopVisible: Boolean;
     function GetViewField: TField;
     function GetViewFieldName: string;
+    procedure SetDataSet(const Value: TDataSet);
     procedure SetImageFieldName(AValue: string);
     procedure SetImageList(AValue: TCustomImageList);
     procedure SetImgIdxFieldName(const AValue: string);
     procedure SetKeyFieldName(const AValue: string);
     procedure SetLevelFieldName(const AValue: string);
+    procedure SetMultiSelect(const Value: Boolean);
     procedure SetNodeTypeFieldName(AValue: string);
     procedure SetParentFieldName(const AValue: string);
-    procedure SetViewFieldName(const AValue: string);
-    procedure SetDataSet(const Value: TDataSet);
-    procedure SetMultiSelect(const Value: Boolean);
-    function GetMultiSelect: Boolean;
     procedure SetToolbarTopVisible(const Value: Boolean);
-    function GetToolbarTopVisible: Boolean;
+    procedure SetViewFieldName(const AValue: string);
   {$ENDREGION}
 
     procedure GetFileListFromObj(
@@ -916,7 +912,7 @@ procedure TfrmVirtualDBTree.NewItemNode;
 var
   LId : Integer;
 begin
-   if NodeTypeField.AsInteger = 1 then
+  if NodeTypeField.AsInteger = 1 then
     LId := KeyField.AsInteger
   else
     LId := ParentField.AsInteger;

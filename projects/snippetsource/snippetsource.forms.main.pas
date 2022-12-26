@@ -24,7 +24,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, ExtCtrls, ComCtrls, ActnList,
   StdCtrls, Menus, Buttons,
   DB,
-  LazFileUtils, FileUtil,
+  LazFileUtils, FileUtil, UTF8Process,
 
   SynEdit, VirtualTrees, PythonEngine, MenuButton,
 
@@ -64,6 +64,7 @@ type
     actToggleFullScreen     : TAction;
     actToggleStayOnTop      : TAction;
     btnHighlighter          : TMenuButton;
+    btnImage                : TSpeedButton;
     btnLineBreakStyle       : TSpeedButton;
     dscMain                 : TDatasource;
     edtTitle                : TEdit;
@@ -136,6 +137,7 @@ type
       var AFileName : string;
       const AText   : string
     );
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure RVChange(Sender: TObject);
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
@@ -174,6 +176,7 @@ type
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
+    function GetHistory: IHistory;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
     {$ENDREGION}
@@ -238,6 +241,9 @@ type
      property DataSet : IDataSet
        read GetDataSet;
 
+     property History : IHistory
+       read GetHistory;
+
      property Editor : IEditorView
        read GetEditor;
 
@@ -264,7 +270,8 @@ uses
   ts.Richeditor.Factories,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
-  SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources;
+  SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources,
+  SnippetSource.Modules.Python, SnippetSource.Modules.Terminal;
 
 {$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
@@ -346,6 +353,11 @@ begin
   Result := FEditor;
 end;
 
+function TfrmMain.GetHistory: IHistory;
+begin
+  Result := FData as IHistory;
+end;
+
 function TfrmMain.GetConnection: IConnection;
 begin
   Result := FData as IConnection;
@@ -408,21 +420,42 @@ end;
 
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
 var
-  FS : TFileStream;
+  FS        : TFileStream;
+  LFileName : string;
+const
+  SCRIPT_FILE = 'SnippetSource.%s';
 begin
-  FS := TFileStream.Create('SnippetSource.bat', fmCreate);
+  LFileName := Format(SCRIPT_FILE, [Snippet.Highlighter]);
+  FS := TFileStream.Create(LFileName, fmCreate);
   try
-//    Editor.SaveToStream(FS);
-    if not Assigned(FConsole) then
-    begin
-      FConsole := TfrmConsole.Create(Self);
-    end;
-    FConsole.Show;
-    FConsole.ExecutePy(Editor.Lines);
-//    FConsole.Execute('SnippetSource.bat');
+    Editor.SaveToStream(FS);
   finally
     FS.Free;
   end;
+  if Snippet.Highlighter = 'BAT' then
+  begin
+    dmTerminal.Execute(LFileName);
+  end
+  else if Snippet.Highlighter = 'PY' then
+  begin
+    dmTerminal.Execute('.venv\Scripts\activate.bat & py "SnippetSource.PY"');
+  end;
+
+
+    //if not Assigned(FConsole) then
+    //begin
+    //  FConsole := TfrmConsole.Create(Self);
+    //end;
+    //FConsole.Show;
+    //FConsole.ExecutePy(Editor.Lines);
+    //FConsole.Execute('SnippetSource.bat');
+
+  //dmTerminal.Execute('SnippetSource.bat');
+  ////dmPython.Execute(Editor.Lines);
+
+
+
+
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -472,7 +505,11 @@ begin
 end;
 
 procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
+var
+  LStream : TMemoryStream;
+  LBitmap : TBitmap;
 begin
+  LBitmap := TBitmap.Create;
   if Field = nil then // browse record
   begin
     if Assigned(DataSet.DataSet) then
@@ -480,8 +517,6 @@ begin
       if DataSet.DataSet.State = dsBrowse then
       begin
         FParentId := Snippet.ID;
-        if FSettings.TrackHistory then
-          Connection.AddHistory;
         Editor.BeginUpdate; // avoid EChange getting triggered
         try
           Editor.Text := Snippet.Text;
@@ -494,6 +529,17 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
+        //LBitmap := nil;
+        //Logger.Send('Snippet.ImageIndex', Snippet.ImageIndex);
+        //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
+        //btnImage.Glyph.Assign(LBitmap);
+        //LStream := TMemoryStream.Create;
+        //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
+        //LStream.Position := 0;
+      //btnImage.Glyph.LoadFromStream(LStream);
+        //Snippet.;
+        //Logger.Send('Size', btnImage.Glyph.Height);
+      //  LStream.Free;
         btnHighlighter.Caption := Snippet.Highlighter;
         FTextEditorVisible := False;
         FRichEditorVisible := False;
@@ -501,7 +547,8 @@ begin
         Modified;
       end;
     end;
-  end
+  end;
+  LBitmap.Free;
 end;
 
 {$REGION 'Editor'}
@@ -514,8 +561,17 @@ begin
 end;
 
 procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
+var
+  FS        : TFileStream;
 begin
   DataSet.Post;
+  FS := TFileStream.Create(Snippet.NodeName, fmCreate);
+  try
+    Editor.SaveToStream(FS);
+  finally
+    FS.Free;
+  end;
+
 end;
 
 procedure TfrmMain.EHighlighterChange(Sender: TObject);
@@ -537,6 +593,12 @@ begin
   AssignEditorChanges;
   Logger.Leave(Self, 'ENew');
 end;
+
+procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  dmTerminal.prcTerminal.Active := False;
+end;
+
 {$ENDREGION}
 
 {$REGION 'edtTitle'}
@@ -951,7 +1013,7 @@ end;
 
 procedure TfrmMain.ExportNode;
 begin
-  if Snippet.NodeTypeID = 2 then
+  if Snippet.NodeTypeId = 2 then
     Editor.Save(Snippet.NodeName);
 end;
 {$ENDREGION}
@@ -1195,6 +1257,9 @@ begin
     actToggleRichTextEditor.Checked := LRichEditorVisible;
     FTextEditorVisible := LTextEditorVisible;
     FRichEditorVisible := LRichEditorVisible;
+
+    if FSettings.TrackHistory then
+      History.AddHistory;
 
     FUpdate := False;
   end;

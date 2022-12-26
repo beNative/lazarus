@@ -1,12 +1,12 @@
 object frmConsole: TfrmConsole
-  Left = 839
-  Height = 551
-  Top = 462
-  Width = 741
+  Left = 780
+  Height = 782
+  Top = 227
+  Width = 952
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
-  ClientHeight = 551
-  ClientWidth = 741
+  ClientHeight = 782
+  ClientWidth = 952
   OnClose = FormClose
   PopupMode = pmAuto
   Position = poOwnerFormCenter
@@ -14,9 +14,9 @@ object frmConsole: TfrmConsole
   LCLVersion = '2.2.2.0'
   object cmdMain: TCmdBox
     Left = 0
-    Height = 551
+    Height = 782
     Top = 0
-    Width = 741
+    Width = 952
     Align = alClient
     CaretColor = clWhite
     CaretType = cartUser
@@ -46,9 +46,9 @@ object frmConsole: TfrmConsole
     PipeBufferSize = 2048
     Active = False
     Executable = 'cmd'
-    Options = [poUsePipes]
+    Options = [poUsePipes, poStderrToOutPut, poNoConsole, poPassInput]
     Priority = ppNormal
-    StartupOptions = []
+    StartupOptions = [suoUseShowWindow]
     ShowWindow = swoHIDE
     WindowColumns = 0
     WindowHeight = 0
@@ -66,24 +66,5 @@ object frmConsole: TfrmConsole
     OnTimer = tmrMainTimer
     Left = 104
     Top = 16
-  end
-  object PythonEngine: TPythonEngine
-    DllName = 'python310.dll'
-    DllPath = 'D:\Tools\Development\Python 3.10.3'
-    APIVersion = 1013
-    RegVersion = '3.10'
-    UseLastKnownVersion = False
-    IO = PythonInputOutput
-    UseWindowsConsole = True
-    Left = 64
-    Top = 96
-  end
-  object PythonInputOutput: TPythonInputOutput
-    OnSendData = PythonInputOutputSendData
-    OnReceiveData = PythonInputOutputReceiveData
-    UnicodeIO = False
-    RawOutput = False
-    Left = 216
-    Top = 96
   end
 end

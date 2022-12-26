@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -33,8 +33,8 @@ uses
 
   { you can add units after this }
   SnippetSource.Forms.Main, SnippetSource.Forms.Console,
-  SnippetSource.Modules.Data, SnippetSource.Forms.Grid, SnippetSource.Settings,
-  SnippetSource.Forms.Busy;
+  SnippetSource.Modules.Data, SnippetSource.Modules.Python, SnippetSource.Forms.Grid, SnippetSource.Settings,
+  SnippetSource.Forms.Busy, SnippetSource.Modules.Terminal;
 
 {$R *.res}
 
@@ -45,9 +45,10 @@ begin
   GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
   SetHeapTraceOutput('trace.trc');
 {$ENDIF}
-  Application.Scaled := True;
   Application.Title := 'SnippetSource';
   Application.Initialize;
+  Application.CreateForm(TdmPython, dmPython);
+  Application.CreateForm(TdmTerminal, dmTerminal);
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

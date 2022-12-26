@@ -336,7 +336,7 @@ begin
   FEditor            := nil;
   FRichEditor        := nil;
   FreeAndNil(FFileSearcher);
-  FRTFStream.Free;
+  FreeAndNil(FRTFStream);
   inherited Destroy;
   Logger.Leave(Self, 'Destroy');
 end;
@@ -529,16 +529,15 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
-        //LBitmap := nil;
-        //Logger.Send('Snippet.ImageIndex', Snippet.ImageIndex);
-        //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
-        //btnImage.Glyph.Assign(LBitmap);
+        Logger.Send('Snippet.ImageIndex', Snippet.ImageIndex);
+        (FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
+        btnImage.Glyph.Assign(LBitmap);
         //LStream := TMemoryStream.Create;
         //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
         //LStream.Position := 0;
       //btnImage.Glyph.LoadFromStream(LStream);
-        //Snippet.;
-        //Logger.Send('Size', btnImage.Glyph.Height);
+
+        Logger.Send('Size', btnImage.Glyph.Height);
       //  LStream.Free;
         btnHighlighter.Caption := Snippet.Highlighter;
         FTextEditorVisible := False;
@@ -677,6 +676,7 @@ begin
   FBusyForm.Repaint;
   Cursor := crHourGlass;
   FCommonPath := GetCommonPath(AFiles);
+
   T := Snippet.NodeTypeId;
   if T = 1 then // FOLDER
   begin
@@ -732,9 +732,12 @@ end;
 {$REGION 'RV'}
 procedure TfrmMain.RVChange(Sender: TObject);
 begin
-  Logger.Enter(Self, 'RVChange');
-  SaveRichText;
-  Logger.Leave(Self, 'RVChange');
+  if DataSet.RecordCount > 0 then
+  begin
+    Logger.Enter(Self, 'RVChange');
+    SaveRichText;
+    Logger.Leave(Self, 'RVChange');
+  end;
 end;
 
 procedure TfrmMain.RVDropFiles(Sender: TObject; const FileNames: array of String

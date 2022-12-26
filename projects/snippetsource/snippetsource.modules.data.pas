@@ -89,7 +89,7 @@ uses
   Classes, SysUtils, Controls, Graphics,
   DB,
 
-  LazFileUtils, fgl,
+  fgl,
 
   SQLDB, SQLite3Conn,
 
@@ -389,7 +389,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, TypInfo, Zipper, FileUtil,
+  Variants, TypInfo, Zipper, FileUtil, LazFileUtils,
 
   SnippetSource.Resources;
 
@@ -658,7 +658,10 @@ end;
 
 function TdmSnippetSource.GetImageIndex: Integer;
 begin
-  Result := qrySnippet.FieldValues['ImageIndex'];
+  if qrySnippet.FieldValues['ImageIndex'] <> Null then
+    Result := qrySnippet.FieldValues['ImageIndex']
+  else
+    Result := 0;
 end;
 
 procedure TdmSnippetSource.SetImageIndex(AValue: Integer);
@@ -1271,14 +1274,12 @@ begin
 
         //conHistory.DatabaseName := LFileName;
     //conHistory.Connected := True;
-
+    conMain.DatabaseName := LFileName;
     if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
     begin
-      conMain.DatabaseName := LFileName;
       CreateNewDatabase;
     end;
     Logger.Info('Connecting to SQLite DB: %s', [LFileName]);
-    //conMain.DatabaseName := LFileName;
     conMain.Connected := True;
     qryHighlighter.Active := True;
       //FillImageMapFromDataSet(FHLImages, qryHighlighter);

@@ -29,11 +29,14 @@ uses
 
   pascalscript, lazcontrols, luicontrols,
   virtualtreeview_package, virtualdbtreeexlaz,
-  cmdbox,
+  cmdbox, tslib_editor, tslib_richeditor, KControlsLaz,
+  SQLDBLaz, RunTimeTypeInfoControls, SynEdit, LazUtils,
+  python4lazarus_package,
 
   { you can add units after this }
   SnippetSource.Forms.Main, SnippetSource.Forms.Console,
-  SnippetSource.Modules.Data, SnippetSource.Modules.Python, SnippetSource.Forms.Grid, SnippetSource.Settings,
+  SnippetSource.Modules.Data, SnippetSource.Modules.Python,
+  SnippetSource.Forms.Grid, SnippetSource.Settings,
   SnippetSource.Forms.Busy, SnippetSource.Modules.Terminal;
 
 {$R *.res}

@@ -167,6 +167,7 @@ begin
   CreateToolButton(TB, 'actInsertBulletList');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actClear');
+  CreateToolButton(TB, 'actShowPreview');
   Result := TB;
 end;
 {$ENDREGION}

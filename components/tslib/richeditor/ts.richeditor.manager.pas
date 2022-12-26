@@ -59,6 +59,7 @@ type
     actAdjustParagraphStyle  : TAction;
     actInsertTextBox         : TAction;
     actClear                 : TAction;
+    actShowPreview           : TAction;
     actShowSpecialCharacters : TAction;
     actItalic                : TAction;
     actOpen                  : TAction;
@@ -107,6 +108,7 @@ type
     procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure actShowPreviewExecute(Sender: TObject);
     procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
@@ -311,6 +313,11 @@ end;
 procedure TdmRichEditorManager.actSaveExecute(Sender: TObject);
 begin
   ActiveView.SaveToFile(ActiveView.FileName);
+end;
+
+procedure TdmRichEditorManager.actShowPreviewExecute(Sender: TObject);
+begin
+  ActiveView.ShowPreview;
 end;
 
 procedure TdmRichEditorManager.actShowSpecialCharactersExecute(Sender: TObject);

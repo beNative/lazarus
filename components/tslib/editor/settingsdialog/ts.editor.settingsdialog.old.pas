@@ -301,8 +301,8 @@ begin
   mmoAliasNames.Link.TIObject := FHATVP.CurrentItem as TPersistent;
   mmoAliasNames.Link.TIPropertyName := ALIASNAMES_PROPERTY;
   FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY);
-  FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLE_PROPERTY);
-  FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLEMASK_PROPERTY);
+  //FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLE_PROPERTY);
+  //FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLEMASK_PROPERTY);
   FHAPI.TIObject := FHATVP.CurrentItem as TPersistent;
 end;
 
@@ -342,6 +342,30 @@ begin
     aShow := False;
 end;
 
+procedure TfrmEditorSettings.btnOKClick(Sender: TObject);
+begin
+    Settings.Save;
+    Apply;
+end;
+
+procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
+begin
+  Apply;
+end;
+
+procedure TfrmEditorSettings.plObjectInspector1AddAvailPersistent(
+  APersistent: TPersistent; var Allowed: boolean);
+begin
+  Allowed := True;
+end;
+
+procedure TfrmEditorSettings.SettingsChangedHandler(ASender: TObject);
+begin
+  UpdateControls;
+end;
+{$ENDREGION}
+
+{$REGION 'action handlers'}
 procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
 var
   S: String;
@@ -349,7 +373,6 @@ begin
   S := GetApplicationPath + Settings.FileName;
   Manager.OpenFile(S);
 end;
-
 { TEMP: just a test! }
 { TODO -oTS : make dedicated association settings form }
 
@@ -388,28 +411,6 @@ procedure TfrmEditorSettings.actReloadSettingsExecute(Sender: TObject);
 begin
   Settings.Load;
   Apply;
-end;
-
-procedure TfrmEditorSettings.btnOKClick(Sender: TObject);
-begin
-    Settings.Save;
-    Apply;
-end;
-
-procedure TfrmEditorSettings.OKButtonClick(Sender: TObject);
-begin
-  Apply;
-end;
-
-procedure TfrmEditorSettings.plObjectInspector1AddAvailPersistent(
-  APersistent: TPersistent; var Allowed: boolean);
-begin
-  Allowed := True;
-end;
-
-procedure TfrmEditorSettings.SettingsChangedHandler(ASender: TObject);
-begin
-  UpdateControls;
 end;
 {$ENDREGION}
 

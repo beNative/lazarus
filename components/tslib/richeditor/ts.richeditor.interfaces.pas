@@ -109,6 +109,8 @@ type
     procedure Load(const AStorageName: string = '');
     procedure Save(const AStorageName: string = '');
 
+    procedure ShowPreview;
+
     procedure BeginUpdate;
     procedure EndUpdate;
 

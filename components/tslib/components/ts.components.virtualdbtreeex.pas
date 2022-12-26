@@ -1909,7 +1909,7 @@ begin
       FDataLink.DataSet.Next;
       Inc(I);
     end;
-    if (I > 0) then
+    if I > 0 then
       FDataLink.DataSet.MoveBy(-I);
     I := 0;
     while not (FDataLink.DataSet.Bof) do
@@ -1918,7 +1918,7 @@ begin
       FDataLink.DataSet.Prior;
       Inc(I);
     end;
-    if (I > 0) then
+    if I > 0 then
       FDataLink.DataSet.MoveBy(I);
     if (dboTrackCursor in FDBOptions) and Assigned(FocusedNode) then
     begin
@@ -1968,7 +1968,7 @@ procedure TBaseVirtualDBTreeEx.RefreshNode;
 begin
   if not (dbtsStructured in FDBStatus) then
     RefreshListNode
-  else if (dboPathStructure in FDBOptions) then
+  else if dboPathStructure in FDBOptions then
     RefreshNodeByPath
   else
     RefreshNodeByParent;
@@ -2021,7 +2021,7 @@ begin
   repeat
     LNode := LLast;
     LPos := System.Pos('.', LPath);
-    if (LPos = 0) then
+    if LPos = 0 then
     begin
       LTemp := LPath;
       LPos := Length(LPath);
@@ -2043,7 +2043,7 @@ begin
   end
   else
   begin
-    if (LNode = RootNode) then
+    if LNode = RootNode then
       LLevel := -1
     else
     begin
@@ -2053,7 +2053,7 @@ begin
 
     repeat
       LPos := System.Pos('.', LPath);
-      if (LPos = 0) then
+      if LPos = 0 then
       begin
         LTemp := LPath;
         LPos := Length(LPath);
@@ -2130,12 +2130,12 @@ begin
   LCreated := True;
   if Assigned(LThis) then
   begin
-    if (LThis.Parent <> LParent) then
+    if LThis.Parent <> LParent then
     begin
       if HasAsParent(LParent, LThis) then
       begin
         LData := GetNodeData(LParent);
-        if (LData.Status = dbnsRefreshed) then
+        if LData.Status = dbnsRefreshed then
         begin
           Exit;
         end;
@@ -2179,13 +2179,13 @@ begin
   if dbtsDragDrop in FDBStatus then
     Exit;
   BeginUpdate;
-  if (dboListView in FDBOptions) then
+  if dboListView in FDBOptions then
   begin
     LNode := GetFirst;
     while Assigned(LNode) do
     begin
       LData := GetNodeData(LNode);
-      if (LNode.Parent <> RootNode) then
+      if LNode.Parent <> RootNode then
       begin
         LData.Parent := LNode.Parent;
         LTemp := GetNextSibling(LNode);
@@ -2763,7 +2763,7 @@ end;
 {$REGION 'TDBCheckVirtualDBTreeEx'}
 constructor TDBCheckVirtualDBTreeEx.Create(AOwner: TComponent);
 begin
-  inherited;
+  inherited Create(AOwner);
   DBNodeDataSize := SizeOf(TDBNodeData);
 end;
 

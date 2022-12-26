@@ -8,7 +8,7 @@ object RichEditorViewKMemo: TRichEditorViewKMemo
   ClientHeight = 342
   ClientWidth = 486
   OnDropFiles = FormDropFiles
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.2.0'
   object pnlRichEditor: TPanel
     Left = 0
     Height = 342

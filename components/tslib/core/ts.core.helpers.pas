@@ -343,6 +343,7 @@ begin
   PI.GutterEdgeColor    := clSilver;
   PI.Parent             := AParent;
   PI.Align              := alClient;
+  PI.BorderStyle        := bsNone;
   PI.DefaultItemHeight  := 23;
   PI.PreferredSplitterX := 200;
   PI.SplitterX          := 200;
@@ -457,6 +458,7 @@ begin
   PI.BackgroundColor    := clWindow;
   PI.Color              := clForm;
   PI.DrawHorzGridLines  := False;
+  PI.BorderStyle        := bsNone;
   PI.HighlightColor     := clGray;
   PI.GutterColor        := clForm;
   PI.GutterEdgeColor    := clSilver;

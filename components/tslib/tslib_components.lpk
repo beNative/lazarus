@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="tslib_components"/>
     <Type Value="RunTimeOnly"/>
+    <AddToProjectUsesSection Value="True"/>
     <Author Value="Tim Sinaeve"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -21,7 +22,7 @@
         </CompilerMessages>
       </Other>
     </CompilerOptions>
-    <License Value="Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+    <License Value="Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
 Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
 you may not use this file except in compliance with the License.
@@ -117,6 +118,7 @@ limitations under the License.         "/>
         <UnitName Value="ts.Components.XMLTree"/>
       </Item20>
     </Files>
+    <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="SynEdit"/>

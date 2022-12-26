@@ -83,6 +83,7 @@ type
   published
     imlBookmarkImages : TImageList;
 
+    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
@@ -707,6 +708,11 @@ begin
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, FileNames);
   Events.DoChange;
+end;
+
+procedure TEditorView.FormCreate(Sender: TObject);
+begin
+
 end;
 
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;

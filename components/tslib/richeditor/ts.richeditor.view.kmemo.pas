@@ -35,7 +35,7 @@ uses
   ExtCtrls, Menus, Types,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
-  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle,
+  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, kdialogs,
   DropComboTarget, DropTarget,
 
   ts.RichEditor.Interfaces;
@@ -73,6 +73,7 @@ type
     FHyperlinkForm : TKMemoHyperlinkForm;
     FNumberingForm : TKMemoNumberingForm;
     FImageForm     : TKMemoImageForm;
+    FPreviewDialog : TKPrintPreviewDialog;
     FFileName      : string;
     FIsFile        : Boolean;
 
@@ -168,6 +169,8 @@ type
     procedure IncIndent;
     procedure DecIndent;
     procedure AdjustParagraphStyle;
+
+    procedure ShowPreview;
 
     procedure Clear;
 
@@ -279,7 +282,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StdCtrls, Math, StrUtils,
+  StdCtrls, Math, StrUtils, Printers,
 
   keditcommon, kgraphics,
 
@@ -317,6 +320,7 @@ begin
   FNumberingForm := TKMemoNumberingForm.Create(Self);
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
+  FPreviewDialog := TKPrintPreviewDialog.Create(Self);
 
   Logger.Leave(Self, 'AfterConstruction');
 end;
@@ -939,6 +943,13 @@ begin
   FParaStyleForm.Load(FEditor, FParaStyle);
   if FParaStyleForm.ShowModal = mrOk then
     FParaStyleForm.Save(FParaStyle);
+end;
+
+procedure TRichEditorViewKMemo.ShowPreview;
+begin
+  FPreviewDialog.PrintPreviewForm.Preview.PageSetup.Orientation := poLandscape;
+  FPreviewDialog.Control := FEditor;
+  FPreviewDialog.Execute;
 end;
 
 function TRichEditorViewKMemo.IsUpdating: Boolean;

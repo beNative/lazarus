@@ -73,6 +73,8 @@ type
     {$ENDREGION}
 
     procedure Execute(const ASQL: string);
+    function LastId: Integer;
+    function QueryValue(const ASQL: string): Variant;
 
     property Query: TSQLQuery
       read GetQuery;

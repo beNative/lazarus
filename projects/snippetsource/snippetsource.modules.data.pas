@@ -253,6 +253,10 @@ type
     {$REGION 'IQuery'}
     procedure Execute(const ASQL: string);
 
+    function LastId: Integer;
+
+    function QueryValue(const ASQL: string): Variant;
+
     property Query: TSQLQuery
       read GetQuery;
     {$ENDREGION}
@@ -1168,6 +1172,19 @@ begin
   qryQuery.SQL.Text := ASQL;
   qryQuery.Active   := True;
 end;
+
+function TdmSnippetSource.LastId: Integer;
+begin
+   Result := QueryValue(SQL_LAST_ID);
+end;
+
+function TdmSnippetSource.QueryValue(const ASQL: string): Variant;
+begin
+  Execute(ASQL);
+  Result := qryQuery.Fields[0].Value;
+  qryQuery.Active := False;
+end;
+
 {$ENDREGION}
 
 {$REGION 'IDataSet'}

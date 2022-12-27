@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2022 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -68,12 +68,6 @@ interface
     impact on performance. To avoid these operations for each insert this needs
     to be disabled and ApplyUpdates and Commit need to be called manually when
     all records are inserted.
-
-  TODO
-    - bulk insert for faster adding lots of files. Performance is much increased
-      by disabling autocommit and ony once committing after all records are
-      inserted.
-    - delete and update for a given list of node Id's
 
   ISSUES
    - RefreshSQL gets called after every insert or update regardless of the
@@ -252,6 +246,10 @@ type
 
     {$REGION 'IQuery'}
     procedure Execute(const ASQL: string);
+
+    function LastId: Integer;
+
+    function QueryValue(const ASQL: string): Variant;
 
     property Query: TSQLQuery
       read GetQuery;
@@ -1168,6 +1166,19 @@ begin
   qryQuery.SQL.Text := ASQL;
   qryQuery.Active   := True;
 end;
+
+function TdmSnippetSource.LastId: Integer;
+begin
+   Result := QueryValue(SQL_LAST_ID);
+end;
+
+function TdmSnippetSource.QueryValue(const ASQL: string): Variant;
+begin
+  Execute(ASQL);
+  Result := qryQuery.Fields[0].Value;
+  qryQuery.Active := False;
+end;
+
 {$ENDREGION}
 
 {$REGION 'IDataSet'}

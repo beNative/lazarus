@@ -153,6 +153,7 @@ type
   private
     FTree               : TfrmVirtualDBTree;
     FBusyForm           : TfrmBusy;
+    FLastId             : Integer;
     FVersionInfo        : TVersionInfo;
     FFileSearcher       : TFileSearcher;
     FParentId           : Integer;
@@ -177,6 +178,7 @@ type
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
     function GetHistory: IHistory;
+    function GetQuery: IQuery;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
     {$ENDREGION}
@@ -240,6 +242,9 @@ type
 
      property DataSet : IDataSet
        read GetDataSet;
+
+     property Query: IQuery
+       read GetQuery;
 
      property History : IHistory
        read GetHistory;
@@ -356,6 +361,11 @@ end;
 function TfrmMain.GetHistory: IHistory;
 begin
   Result := FData as IHistory;
+end;
+
+function TfrmMain.GetQuery: IQuery;
+begin
+  Result := FData as IQuery;
 end;
 
 function TfrmMain.GetConnection: IConnection;
@@ -529,15 +539,12 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
-        Logger.Send('Snippet.ImageIndex', Snippet.ImageIndex);
         (FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
         btnImage.Glyph.Assign(LBitmap);
         //LStream := TMemoryStream.Create;
         //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
         //LStream.Position := 0;
-      //btnImage.Glyph.LoadFromStream(LStream);
-
-        Logger.Send('Size', btnImage.Glyph.Height);
+     //btnImage.Glyph.LoadFromStream(LStream);
       //  LStream.Free;
         btnHighlighter.Caption := Snippet.Highlighter;
         FTextEditorVisible := False;
@@ -570,7 +577,6 @@ begin
   finally
     FS.Free;
   end;
-
 end;
 
 procedure TfrmMain.EHighlighterChange(Sender: TObject);
@@ -676,7 +682,8 @@ begin
   FBusyForm.Repaint;
   Cursor := crHourGlass;
   FCommonPath := GetCommonPath(AFiles);
-
+  Logger.Watch('FCommonPath', FCommonPath);
+  FLastId := Query.LastId;
   T := Snippet.NodeTypeId;
   if T = 1 then // FOLDER
   begin
@@ -692,6 +699,7 @@ begin
     for I := 0 to AFiles.Count - 1 do
     begin
       LFile := AFiles[I];
+      Logger.Send('LFile', LFile);
       if DirectoryExists(LFile) then // add files in directory
       begin
         AddDirectoryNode(LFile, FCommonPath, Sender);
@@ -907,6 +915,8 @@ var
   LParentPath : string;
   LFileName   : string;
 begin
+  Logger.Enter(Self, 'AddPathNode');
+  Logger.Send('APath', APath);
   Connection.BeginBulkInserts;
   LIsTextFile := False;
   LIsImage    := False;
@@ -933,7 +943,7 @@ begin
     LParentPath := ChompPathDelim(GetParentDir(LRelPath));
     if LParentPath <> '' then
     begin
-      LParentId := DataSet.DataSet.Lookup('NodePath', LParentPath, 'Id');
+      LParentId := Query.QueryValue(Format(SQL_PARENT_ID, [FLastId, LParentPath]));
       if LParentId <> Null then
         FParentId := LParentId;
     end;
@@ -976,11 +986,14 @@ begin
       Snippet.ParentID   := FParentId;
       DataSet.Post;
     end;
+    Logger.Send('NodeName', Snippet.NodeName);
     if LIsDir then
       FParentId := Snippet.Id
     else if LIsTextFile then
       FParentId := Snippet.ParentId;
+    Logger.Send('FParentId', FParentId);
   end;
+  Logger.Leave(Self, 'AddPathNode');
 end;
 
 procedure TfrmMain.AddDirectoryNode(const APath: string;
@@ -991,12 +1004,17 @@ var
   LParentPath : string;
   LFileName   : string;
 begin
+  Logger.Enter(Self, 'AddDirectoryNode');
   Connection.EndBulkInserts;
+  Logger.Send('APath', APath);
+  Logger.Send('ACommonPath', ACommonPath);
   LRelPath    := CreateRelativePath(APath, ACommonPath);
   LParentPath := ChompPathDelim(GetParentDir(LRelPath));
+  Logger.Send('LRelPath', LRelPath);
+  Logger.Send('LParentPath', LParentPath);
   if LParentPath <> '' then
   begin
-    V := DataSet.DataSet.Lookup('NodePath', LParentPath, 'Id');
+    V := Query.QueryValue(Format(SQL_PARENT_ID, [FLastId, LParentPath]));
     if V <> Null then
       FParentId := V;
   end;
@@ -1008,10 +1026,11 @@ begin
     Snippet.NodeTypeId := 1;
     Snippet.ImageIndex := 1;
     Snippet.NodePath   := LRelPath;
-    Snippet.ParentID   := FParentId;
+    Snippet.ParentId   := FParentId;
     DataSet.Post;
   end;
   FParentId := Snippet.Id;
+  Logger.Leave(Self, 'AddDirectoryNode');
 end;
 
 procedure TfrmMain.ExportNode;

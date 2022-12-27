@@ -26,6 +26,15 @@ uses
 const
   SETTINGS_FILE         = 'settings.json';
   DEFAULT_DATABASE_NAME = 'snippets.db';
+  SQL_LAST_ID = 'select Id from Snippet order by Id desc limit 1';
+  SQL_PARENT_ID =
+    'select'         + sLineBreak +
+    '  Id'           + sLineBreak +
+    'from'           + sLineBreak +
+    '  Snippet'      + sLineBreak +
+    'where'          + sLineBreak +
+    '  (Id >= %d)'   + sLineBreak +
+    '  and NodePath = ''%s''';
 
 resourcestring
   SQueryLookupErrorRunningQuery = 'Error running query <%s>';

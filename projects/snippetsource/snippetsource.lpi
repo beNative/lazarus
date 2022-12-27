@@ -286,7 +286,7 @@ end;"/>
         <PackageName Value="LCL"/>
       </Item17>
     </RequiredPackages>
-    <Units Count="68">
+    <Units Count="69">
       <Unit0>
         <Filename Value="snippetsource.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -302,13 +302,13 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="1018"/>
-        <CursorPos Y="1036"/>
+        <TopLine Value="2"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="243"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit1>
       <Unit2>
         <Filename Value="snippetsource.forms.virtualdbtree.pas"/>
@@ -343,7 +343,7 @@ end;"/>
         <UnitName Value="SnippetSource.Forms.SettingsDialog"/>
         <EditorIndex Value="3"/>
         <TopLine Value="469"/>
-        <CursorPos X="48" Y="413"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -354,7 +354,7 @@ end;"/>
         <UnitName Value="SnippetSource.Interfaces"/>
         <EditorIndex Value="4"/>
         <TopLine Value="58"/>
-        <CursorPos X="53" Y="77"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -387,9 +387,9 @@ end;"/>
         <Filename Value="snippetsource.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Settings"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="293"/>
-        <CursorPos X="43" Y="309"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -422,16 +422,17 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Resources"/>
         <EditorIndex Value="10"/>
-        <CursorPos X="22" Y="31"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit11>
       <Unit12>
         <Filename Value="snippetsource.virtualtree.editors.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.VirtualTree.Editors"/>
-        <EditorIndex Value="11"/>
-        <CursorPos X="65" Y="19"/>
+        <EditorIndex Value="12"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit12>
@@ -748,7 +749,7 @@ end;"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="SnippetSource.Modules.Terminal"/>
         <EditorIndex Value="7"/>
-        <CursorPos X="51" Y="49"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="53"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -825,7 +826,7 @@ end;"/>
         <UnitName Value="ts.Editor.Interfaces"/>
         <EditorIndex Value="2"/>
         <TopLine Value="8"/>
-        <CursorPos X="3" Y="38"/>
+        <CursorPos X="60" Y="2"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit62>
@@ -867,126 +868,134 @@ end;"/>
         <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit67>
+      <Unit68>
+        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
+        <UnitName Value="ts.Components.DBGridView"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="11"/>
+        <CursorPos X="60" Y="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit68>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="984" Column="16" TopLine="932"/>
+        <Caret Line="698" Column="22" TopLine="662"/>
       </Position1>
       <Position2>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="698" Column="22" TopLine="662"/>
+        <Caret Line="203" Column="15" TopLine="175"/>
       </Position2>
       <Position3>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="203" Column="15" TopLine="175"/>
+        <Caret Line="1164" Column="37" TopLine="1107"/>
       </Position3>
       <Position4>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="1164" Column="37" TopLine="1107"/>
+        <Caret Line="61" TopLine="61"/>
       </Position4>
       <Position5>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="61" TopLine="61"/>
+        <Caret Line="667" Column="25" TopLine="658"/>
       </Position5>
       <Position6>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="667" Column="25" TopLine="658"/>
+        <Caret Line="695" Column="38" TopLine="658"/>
       </Position6>
       <Position7>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="695" Column="38" TopLine="658"/>
+        <Caret Line="203" Column="15" TopLine="175"/>
       </Position7>
       <Position8>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="203" Column="15" TopLine="175"/>
+        <Caret Line="1001" Column="51" TopLine="987"/>
       </Position8>
       <Position9>
-        <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="1001" Column="51" TopLine="987"/>
+        <Filename Value="snippetsource.modules.data.pas"/>
+        <Caret Line="240" Column="23" TopLine="222"/>
       </Position9>
       <Position10>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="240" Column="23" TopLine="222"/>
+        <Caret Line="1139" Column="3" TopLine="1135"/>
       </Position10>
       <Position11>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="1139" Column="3" TopLine="1135"/>
+        <Caret Line="255" Column="30" TopLine="209"/>
       </Position11>
       <Position12>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="255" Column="30" TopLine="209"/>
+        <Caret Line="1174" Column="38" TopLine="1145"/>
       </Position12>
       <Position13>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="1174" Column="38" TopLine="1145"/>
+        <Caret Line="258" Column="61" TopLine="227"/>
       </Position13>
       <Position14>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="258" Column="61" TopLine="227"/>
+        <Caret Line="1181" Column="6" TopLine="1163"/>
       </Position14>
       <Position15>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="1181" Column="6" TopLine="1163"/>
+        <Caret Line="229" Column="61" TopLine="89"/>
       </Position15>
       <Position16>
-        <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="229" Column="61" TopLine="89"/>
+        <Filename Value="snippetsource.forms.main.pas"/>
+        <Caret Line="936" Column="20" TopLine="887"/>
       </Position16>
       <Position17>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="936" Column="20" TopLine="887"/>
+        <Caret Line="246" Column="22" TopLine="210"/>
       </Position17>
       <Position18>
-        <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="246" Column="22" TopLine="210"/>
-      </Position18>
-      <Position19>
         <Filename Value="snippetsource.modules.data.pas"/>
         <Caret Line="258" Column="53" TopLine="232"/>
-      </Position19>
-      <Position20>
+      </Position18>
+      <Position19>
         <Filename Value="snippetsource.forms.main.pas"/>
         <Caret Line="1034" Column="21" TopLine="989"/>
-      </Position20>
-      <Position21>
+      </Position19>
+      <Position20>
         <Filename Value="snippetsource.modules.data.pas"/>
         <Caret Line="1178" Column="19" TopLine="1148"/>
-      </Position21>
-      <Position22>
+      </Position20>
+      <Position21>
         <Filename Value="snippetsource.modules.terminal.pas"/>
         <Caret Line="24" Column="22"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\..\lazarus\components\lazutils\utf8process.pp"/>
+        <Caret Line="171" Column="84" TopLine="155"/>
       </Position22>
       <Position23>
         <Filename Value="..\..\..\lazarus\components\lazutils\utf8process.pp"/>
-        <Caret Line="171" Column="84" TopLine="155"/>
       </Position23>
       <Position24>
-        <Filename Value="..\..\..\lazarus\components\lazutils\utf8process.pp"/>
-      </Position24>
-      <Position25>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-process\src\process.pp"/>
         <Caret Line="56" Column="29"/>
+      </Position24>
+      <Position25>
+        <Filename Value="snippetsource.forms.main.pas"/>
+        <Caret Line="946" Column="20" TopLine="918"/>
       </Position25>
       <Position26>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="946" Column="20" TopLine="918"/>
+        <Caret Line="186" Column="12" TopLine="151"/>
       </Position26>
       <Position27>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="186" Column="12" TopLine="151"/>
+        <Caret Line="733" Column="26" TopLine="673"/>
       </Position27>
       <Position28>
         <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="733" Column="26" TopLine="673"/>
+        <Caret Line="205" Column="15" TopLine="177"/>
       </Position28>
       <Position29>
-        <Filename Value="snippetsource.forms.main.pas"/>
-        <Caret Line="205" Column="15" TopLine="177"/>
-      </Position29>
-      <Position30>
         <Filename Value="snippetsource.modules.data.pas"/>
         <Caret Line="1171" Column="72" TopLine="1154"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

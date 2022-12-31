@@ -57,8 +57,9 @@ type
     actIncIndent             : TAction;
     actDecIndent             : TAction;
     actAdjustParagraphStyle  : TAction;
-    actInsertTextBox         : TAction;
     actClear                 : TAction;
+    actEditSelectedItem      : TAction;
+    actAddParagraph          : TAction;
     actShowPreview           : TAction;
     actShowSpecialCharacters : TAction;
     actItalic                : TAction;
@@ -82,6 +83,7 @@ type
 
     {$REGION 'action handlers'}
     procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
+    procedure actAddParagraphExecute(Sender: TObject);
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
     procedure actAlignLeftExecute(Sender: TObject);
@@ -94,16 +96,15 @@ type
     procedure actCutExecute(Sender: TObject);
     procedure actDecFontSizeExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
+    procedure actEditSelectedItemExecute(Sender: TObject);
     procedure actFontExecute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertBulletListExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
-    procedure actInsertTextBoxExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
-    procedure actAdjustParagraphStyleExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
@@ -111,9 +112,10 @@ type
     procedure actShowPreviewExecute(Sender: TObject);
     procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
+    procedure actToggleWordWrapExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
-    procedure actToggleWordWrapExecute(Sender: TObject);
+
     {$ENDREGION}
 
   private
@@ -286,11 +288,6 @@ begin
   end;
 end;
 
-procedure TdmRichEditorManager.actAdjustParagraphStyleExecute(Sender: TObject);
-begin
-  ActiveView.AdjustParagraphStyle;
-end;
-
 procedure TdmRichEditorManager.actPasteExecute(Sender: TObject);
 begin
   ActiveView.Paste;
@@ -385,6 +382,16 @@ begin
   Logger.Action(AAction);
 end;
 
+procedure TdmRichEditorManager.actAddParagraphExecute(Sender: TObject);
+begin
+  ActiveView.AddParagraph;
+end;
+
+procedure TdmRichEditorManager.actEditSelectedItemExecute(Sender: TObject);
+begin
+  ActiveView.EditSelectedItem;
+end;
+
 procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
 begin
   ActiveView.AlignJustify := True;
@@ -460,11 +467,6 @@ begin
   ActiveView.InsertImage;
 end;
 
-procedure TdmRichEditorManager.actInsertTextBoxExecute(Sender: TObject);
-begin
-  ActiveView.InsertTextBox;
-end;
-
 procedure TdmRichEditorManager.actItalicExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -502,6 +504,8 @@ var
 begin
   MI := ppmRichEditor.Items;
   MI.Clear;
+  AddMenuItem(MI, actEditSelectedItem);
+  AddMenuItem(MI);
   AddMenuItem(MI, actCut);
   AddMenuItem(MI, actCopy);
   AddMenuItem(MI, actPaste);
@@ -529,20 +533,6 @@ begin
   AddMenuItem(MI, actOpen);
   AddMenuItem(MI, actSave);
   AddMenuItem(MI, actSaveAs);
-
-  //AddMenuItem(MI, FilePopupMenu);
-  //AddMenuItem(MI, SettingsPopupMenu);
-  //AddMenuItem(MI, SearchPopupMenu);
-  //AddMenuItem(MI, SelectPopupMenu);
-  //AddMenuItem(MI, SelectionPopupMenu);
-  //AddMenuItem(MI, InsertPopupMenu);
-  //AddMenuItem(MI, ClipboardPopupMenu);
-  //AddMenuItem(MI, ExportPopupMenu);
-  //AddMenuItem(MI, HighlighterPopupMenu);
-  //AddMenuItem(MI, FoldPopupMenu);
-  //AddMenuItem(MI);
-  //AddMenuItem(MI, actClose);
-  //AddMenuItem(MI, actCloseOthers);
 end;
 {$ENDREGION}
 
@@ -574,7 +564,6 @@ begin
   actInsertBulletList.Enabled      := B;
   actIncIndent.Enabled             := B;
   actDecIndent.Enabled             := B;
-  actInsertTextBox.Enabled         := B;
   actClear.Enabled                 := B;
   actShowSpecialCharacters.Enabled := B;
   actItalic.Enabled                := B;
@@ -590,6 +579,7 @@ begin
   actUnderline.Checked      := B and ActiveView.Font.Underline;
   actItalic.Checked         := B and ActiveView.Font.Italic;
   actStrikeThrough.Checked  := B and ActiveView.Font.StrikeThrough;
+  // TODO: causes flickering in popupmenu when uncommented.
   //actUndo.Enabled           := ActiveView.CanUndo;
   //actRedo.Enabled           := ActiveView.CanRedo;
   actAlignCenter.Checked    := B and ActiveView.AlignCenter;

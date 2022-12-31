@@ -877,57 +877,33 @@ end;
 
 function TLogger.SendObject(const AName: string; AValue: TObject): ILogger;
 var
-  P : TRttiProperty;
-  //F : TRttiField;
-  LExcludedTypes : TTypeKinds;
-  V : TValue;
-  LInstance : TValue;
+  P  : TRttiProperty;
+  V  : TValue;
   SL : TStringList;
+  S  : string;
 begin
   SL := TStringList.Create;
-  LExcludedTypes := [
-      tkClassRef, tkMethod, tkInterface, tkPointer, tkUnknown, tkArray,
-      tkDynArray, tkClass, tkProcedure
-    ];
-  LInstance := AValue;
-
-    for P in FRttiContext.GetType(LInstance.TypeInfo).GetProperties do
+  try
+    // REMARK: Fields not yet supported.
+    for P in FRttiContext.GetType(AValue.ClassType).GetProperties do
     begin
-      if not (P.PropertyType.TypeKind in LExcludedTypes) and P.IsReadable then
-      begin
-        if LInstance.IsObject then
-          V := P.GetValue(LInstance.AsObject)
-        else
-          V := P.GetValue(LInstance.GetReferenceToRawData);
-        if V.Kind = tkRecord then
-        begin
-          //if TryGetUnderlyingValue(V, V2) then
-          //begin
-          //  if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
-          //    Values[P.Name] := V2;
-          //end
-          //else
-          //begin
-          //  raise Exception.Create('TryGetUnderlyingValue failed.');
-          //end;
-        end
-        else
-        begin
-          SL.Values[P.Name] := V.AsString;
-        end;
+      V := P.GetValue(AValue);
+      SL.Values[P.Name] := V.ToString;
     end;
+
+    Result := InternalSend(
+      lmtObject,
+      Format('%s (%s) = ' + sLineBreak + '%s',
+      [AName, AValue.ClassName, SL.Text])
+    );
+  finally
+    SL.Free;
   end;
-  Result := InternalSend(
-    lmtObject,
-    Format('%s (%s) = ' + sLineBreak + '%s',
-    [AName, AValue.ClassName, SL.Text])
-  );
-  SL.Free;
 end;
 
 function TLogger.SendObject(AValue: TObject): ILogger;
 begin
-  SendObject('', AValue);
+  Result := SendObject('', AValue);
 end;
 
 {$ENDREGION}
@@ -963,14 +939,29 @@ end;
 
 function TLogger.SendPersistent(const AName: string; AValue: TPersistent
   ): ILogger;
+var
+  P  : TRttiProperty;
+  V  : TValue;
+  SL : TStringList;
+  S  : string;
 begin
-  Result := InternalSend(
-    lmtPersistent,
-    Format('%s (%s) = ' + sLineBreak + '%s',
-      [AName, AValue.ClassName, '']
-    )
-  );
-  //Reflect.PublishedProperties(AValue).ToString
+  SL := TStringList.Create;
+  try
+    // REMARK: Fields not yet supported.
+    for P in FRttiContext.GetType(AValue.ClassType).GetProperties do
+    begin
+      V := P.GetValue(AValue);
+      SL.Values[P.Name] := V.ToString;
+    end;
+
+    Result := InternalSend(
+      lmtPersistent,
+      Format('%s (%s) = ' + sLineBreak + '%s',
+      [AName, AValue.ClassName, SL.Text])
+    );
+  finally
+    SL.Free;
+  end;
 end;
 
 function TLogger.SendPersistent(AValue: TPersistent): ILogger;

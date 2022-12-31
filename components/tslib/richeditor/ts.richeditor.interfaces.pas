@@ -23,6 +23,8 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, ComCtrls, Menus, ActnList, Graphics,
 
+  KMemo,
+
   ts.RichEditor.Types;
 
  { All supported actions by the editor views, and holds a collection of all
@@ -45,7 +47,7 @@ type
     function GetCanUndo: Boolean;
     function GetContentSize: Int64;
     //function GetCurrentWord: string;
-    function GetEditor: TComponent;
+    function GetEditor: TKMemo;
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
@@ -115,6 +117,7 @@ type
     procedure EndUpdate;
 
     function IsUpdating: Boolean;
+
     function InsertImage: Boolean; overload;
     procedure InsertImageFile(const AFileName: string);
     procedure InsertImage(AImage: TPicture); overload;
@@ -122,11 +125,13 @@ type
       const AText : string = '';
       const AURL  : string = ''
     );
+    procedure EditSelectedItem;
     procedure InsertBulletList;
-    procedure InsertTextBox;
+    procedure AddParagraph;
+
     procedure IncIndent;
     procedure DecIndent;
-    procedure AdjustParagraphStyle;
+
     procedure Clear;
 
     // clipboard commands
@@ -138,7 +143,7 @@ type
     procedure Redo;
 
     // properties
-    property Editor: TComponent
+    property Editor: TKMemo
       read GetEditor;
 
     property Form: TCustomForm
@@ -178,9 +183,6 @@ type
     property SelEnd: Integer
       read GetSelEnd write SetSelEnd;
 
-    //property CurrentWord: string
-    //  read GetCurrentWord;
-    //
     property FileName: string
       read GetFileName write SetFileName;
 
@@ -205,12 +207,6 @@ type
     property Modified: Boolean
       read GetModified write SetModified;
 
-    property OnDropFiles: TDropFilesEvent
-      read GetOnDropFiles write SetOnDropFiles;
-
-    property OnChange: TNotifyEvent
-      read GetOnChange write SetOnChange;
-
     property WordWrap: Boolean
       read GetWordWrap write SetWordWrap;
 
@@ -219,6 +215,12 @@ type
 
     property PopupMenu: TPopupMenu
       read GetPopupMenu write SetPopupMenu;
+
+    property OnDropFiles: TDropFilesEvent
+      read GetOnDropFiles write SetOnDropFiles;
+
+    property OnChange: TNotifyEvent
+      read GetOnChange write SetOnChange;
   end;
 
   { Events dispatched by the editor view. }

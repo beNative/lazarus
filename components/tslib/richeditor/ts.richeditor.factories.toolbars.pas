@@ -161,6 +161,8 @@ begin
   CreateToolButton(TB, 'actToggleWordWrap');
   CreateToolButton(TB, 'actShowSpecialCharacters');
   CreateToolButton(TB, 'actAdjustParagraphStyle');
+  CreateToolButton(TB, 'actAdjustContainer');
+  CreateToolButton(TB, 'actAdjustImage');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actInsertHyperlink');
   CreateToolButton(TB, 'actInsertImage');

@@ -207,8 +207,10 @@ type
     { Send methods for types that need a custom representation. }
     //procedure SendColor(const AName: string; AColor: TColor);
     //procedure SendAlphaColor(const AName: string; AAlphaColor: TAlphaColor);
-    function SendObject(const AName: string; AValue: TObject): ILogger;
-    //TODO procedure SendPersistent(const AName: string; AValue: TPersistent); -> log published properties
+    function SendObject(const AName: string; AValue: TObject): ILogger; overload;
+    function SendObject(AValue: TObject): ILogger; overload;
+    function SendPersistent(const AName: string; AValue: TPersistent): ILogger; overload;
+    function SendPersistent(AValue: TPersistent): ILogger; overload;
 
     function SendComponent(const AName: string; AValue: TComponent): ILogger; overload;
     function SendComponent(AValue: TComponent): ILogger; overload;

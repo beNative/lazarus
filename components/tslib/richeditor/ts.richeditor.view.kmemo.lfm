@@ -1,12 +1,13 @@
 object RichEditorViewKMemo: TRichEditorViewKMemo
-  Left = 859
+  Left = 0
   Height = 342
-  Top = 306
+  Top = 506
   Width = 486
   AllowDropFiles = True
   Caption = 'RichEditorViewKMemo'
   ClientHeight = 342
   ClientWidth = 486
+  FormStyle = fsStayOnTop
   OnDropFiles = FormDropFiles
   LCLVersion = '2.2.2.0'
   object pnlRichEditor: TPanel

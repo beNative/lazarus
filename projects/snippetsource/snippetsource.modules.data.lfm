@@ -221,7 +221,6 @@ object dmSnippetSource: TdmSnippetSource
   end
   object scrCreateTables: TSQLScript
     Transaction = trsMain
-    OnDirective = scrCreateTablesDirective
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (
@@ -415,7 +414,6 @@ object dmSnippetSource: TdmSnippetSource
   end
   object scrInsertData: TSQLScript
     Transaction = trsMain
-    OnDirective = scrInsertDataDirective
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (

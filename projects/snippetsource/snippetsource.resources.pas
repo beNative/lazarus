@@ -25,6 +25,7 @@ uses
 
 const
   SETTINGS_FILE         = 'settings.json';
+  SQLITE3_DLL           = 'sqlite3.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_LAST_ID = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =

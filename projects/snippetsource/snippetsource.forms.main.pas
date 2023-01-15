@@ -22,11 +22,10 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, ExtCtrls, ComCtrls, ActnList,
-  StdCtrls, Menus, Buttons,
-  DB,
-  LazFileUtils, FileUtil, UTF8Process,
+  StdCtrls, Menus, Buttons, DB,
+  LazFileUtils, FileUtil,
 
-  SynEdit, VirtualTrees, PythonEngine, MenuButton,
+  VirtualTrees, MenuButton,
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
@@ -46,23 +45,20 @@ const
   EDITOR_SETTINGS_FILE = 'settings.xml';
 
 type
-
-  { TfrmMain }
-
   TfrmMain = class(TForm)
     {$REGION 'designer controls'}
     aclMain                 : TActionList;
     actAbout                : TAction;
     actConsole              : TAction;
     actExecute              : TAction;
-    actSQLEditor            : TAction;
-    actToggleRichTextEditor : TAction;
-    actToggleTextEditor     : TAction;
     actLookup               : TAction;
     actSettings             : TAction;
     actShowGridForm         : TAction;
+    actSQLEditor            : TAction;
     actToggleFullScreen     : TAction;
+    actToggleRichTextEditor : TAction;
     actToggleStayOnTop      : TAction;
+    actToggleTextEditor     : TAction;
     btnHighlighter          : TMenuButton;
     btnImage                : TSpeedButton;
     btnLineBreakStyle       : TSpeedButton;
@@ -71,28 +67,28 @@ type
     imlMain                 : TImageList;
     imlNodes                : TImageList;
     lblWelcome              : TLabel;
-    pnlNumLock              : TPanel;
     pnlCapsLock             : TPanel;
-    pnlWelcome              : TPanel;
-    pnlStatusBarCenter      : TPanel;
-    pnlEditorToolBar        : TPanel;
-    pnlRichEditor           : TPanel;
     pnlDateCreated          : TPanel;
     pnlDateModified         : TPanel;
     pnlEditMode             : TPanel;
     pnlEditor               : TPanel;
+    pnlEditorToolBar        : TPanel;
     pnlId                   : TPanel;
     pnlLeft                 : TPanel;
     pnlLineBreakStyle       : TPanel;
+    pnlNumLock              : TPanel;
     pnlPosition             : TPanel;
+    pnlRichEditor           : TPanel;
     pnlRight                : TPanel;
     pnlSize                 : TPanel;
     pnlSnippetCount         : TPanel;
     pnlStatusBar            : TPanel;
+    pnlStatusBarCenter      : TPanel;
     pnlTitle                : TPanel;
-    shpLine3                : TShape;
-    shpLine2                : TShape;
+    pnlWelcome              : TPanel;
     shpLine1                : TShape;
+    shpLine2                : TShape;
+    shpLine3                : TShape;
     splHorizontal           : TSplitter;
     splVertical             : TSplitter;
     tlbApplication          : TToolBar;
@@ -276,7 +272,7 @@ uses
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
   SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources,
-  SnippetSource.Modules.Python, SnippetSource.Modules.Terminal;
+  SnippetSource.Modules.Terminal;
 
 {$REGION 'construction and destruction'}
 procedure TfrmMain.AfterConstruction;
@@ -448,7 +444,7 @@ begin
   end
   else if Snippet.Highlighter = 'PY' then
   begin
-    dmTerminal.Execute('.venv\Scripts\activate.bat & py "SnippetSource.PY"');
+    dmTerminal.Execute('.\.venv\Scripts\activate.bat & py "SnippetSource.PY"');
   end;
 
 
@@ -568,7 +564,7 @@ end;
 
 procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
 var
-  FS        : TFileStream;
+  FS : TFileStream;
 begin
   DataSet.Post;
   FS := TFileStream.Create(Snippet.NodeName, fmCreate);
@@ -603,7 +599,6 @@ procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
 end;
-
 {$ENDREGION}
 
 {$REGION 'edtTitle'}
@@ -853,7 +848,7 @@ end;
 
 procedure TfrmMain.LoadRichText;
 var
-  S  : string;
+  S : string;
 begin
   if Snippet.CommentRTF <> '' then
   begin

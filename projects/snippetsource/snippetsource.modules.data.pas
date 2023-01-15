@@ -80,6 +80,7 @@ interface
 {$ENDREGION}
 
 uses
+  Windows,
   Classes, SysUtils, Controls, Graphics,
   DB,
 
@@ -89,15 +90,12 @@ uses
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces, SQLScript;
+  SnippetSource.Interfaces;
 
 type
   TImageMap = TFPGMapObject<Integer, TBitmap>;
 
 type
-
-  { TdmSnippetSource }
-
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters,
     IQuery, IHistory
@@ -134,10 +132,6 @@ type
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
 
     procedure FSettingsChange(Sender: TObject);
-    procedure scrCreateTablesDirective(Sender: TObject; Directive,
-      Argument: AnsiString; var StopExecution: Boolean);
-    procedure scrInsertDataDirective(Sender: TObject; Directive,
-      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
@@ -199,6 +193,8 @@ type
 
   protected
     procedure CreateLookupFields;
+
+    procedure EnsureSqliteExists;
 
     procedure FillImageMapFromDataSet(
       AImageMap : TImageMap;
@@ -387,7 +383,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Variants, TypInfo, Zipper, FileUtil, LazFileUtils,
+  Variants, TypInfo, Zipper, FileUtil, LazFileUtils, LResources,
 
   SnippetSource.Resources;
 
@@ -453,6 +449,7 @@ procedure TdmSnippetSource.AfterConstruction;
 begin
   Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
+  EnsureSqliteExists;
   FHLImages := TImageMap.Create(True);
   qrySnippet.UsePrimaryKeyAsKey := True;
   ConnectToDatabase(FSettings.Database);
@@ -894,19 +891,6 @@ procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
 begin
   ConnectToDatabase(FSettings.Database);
 end;
-
-procedure TdmSnippetSource.scrCreateTablesDirective(Sender: TObject; Directive,
-  Argument: AnsiString; var StopExecution: Boolean);
-begin
-
-end;
-
-procedure TdmSnippetSource.scrInsertDataDirective(Sender: TObject; Directive,
-  Argument: AnsiString; var StopExecution: Boolean);
-begin
-
-end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -928,6 +912,45 @@ begin
     F.ProviderFlags     := [];
   end;
   F := nil;
+end;
+
+procedure TdmSnippetSource.EnsureSqliteExists;
+var
+  LResourceHandle : THandle;
+  LResourceData   : THandle;
+  LResourceSize   : LongInt;
+  LFileHandle     : THandle;
+  LBytesWritten   : DWORD;
+begin
+  if not FileExistsUTF8(SQLITE3_DLL) then
+  begin
+    // Find the resource
+    LResourceHandle := FindResource(HInstance, 'SQLITE3', RT_RCDATA);
+    if LResourceHandle = 0 then
+      raise Exception.Create('Resource not found');
+
+    // Load the resource data into memory
+    LResourceData := LoadResource(HInstance, LResourceHandle);
+    if LResourceData = 0 then
+      raise Exception.Create('Error loading resource');
+    try
+      LResourceSize := SizeOfResource(HInstance, LResourceHandle);
+
+      // Create the file and write the resource data to it
+      LFileHandle := CreateFile(SQLITE3_DLL,
+        GENERIC_WRITE, 0, nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+      if LFileHandle = INVALID_HANDLE_VALUE then
+        raise Exception.Create('Error creating file');
+      try
+        if not WriteFile(LFileHandle, Pointer(LResourceData)^, LResourceSize, LBytesWritten, nil) then
+          raise Exception.Create('Error writing to file');
+      finally
+        CloseHandle(LFileHandle);
+      end;
+    finally
+      FreeResource(LResourceData);
+    end;
+  end;
 end;
 
 procedure TdmSnippetSource.FillImageMapFromDataSet(AImageMap: TImageMap;

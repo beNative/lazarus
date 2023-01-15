@@ -39,37 +39,55 @@ type
   )
     {$REGION 'designer controls'}
     aclActions               : TActionList;
+    actAddParagraph          : TAction;
     actAlignCenter           : TAction;
     actAlignJustify          : TAction;
     actAlignLeft             : TAction;
     actAlignRight            : TAction;
-    actBkColor               : TAction;
     actBold                  : TAction;
-    actColor                 : TAction;
+    actBulletList            : TAction;
+    actClear                 : TAction;
+    actClipboardMenu         : TAction;
     actCopy                  : TAction;
     actCut                   : TAction;
     actDecFontSize           : TAction;
-    actFont                  : TAction;
+    actDecIndent             : TAction;
+    actDeleteColumn          : TAction;
+    actDeleteRow             : TAction;
+    actEditParagraphStyle    : TAction;
+    actEditSelectedItem      : TAction;
+    actEditTextStyle         : TAction;
+    actFileMenu              : TAction;
     actIncFontSize           : TAction;
+    actIncIndent             : TAction;
+    actInsertBulletList      : TAction;
+    actInsertColumnAfter     : TAction;
+    actInsertColumnBefore    : TAction;
     actInsertHyperLink       : TAction;
     actInsertImage           : TAction;
-    actInsertBulletList      : TAction;
-    actIncIndent             : TAction;
-    actDecIndent             : TAction;
-    actAdjustParagraphStyle  : TAction;
-    actClear                 : TAction;
-    actEditSelectedItem      : TAction;
-    actAddParagraph          : TAction;
-    actShowPreview           : TAction;
-    actShowSpecialCharacters : TAction;
+    actInsertMenu            : TAction;
+    actInsertRowAfter        : TAction;
+    actInsertRowBefore       : TAction;
+    actInsertTable           : TAction;
     actItalic                : TAction;
+    actNumberedList          : TAction;
     actOpen                  : TAction;
     actPaste                 : TAction;
     actRedo                  : TAction;
     actSave                  : TAction;
     actSaveAs                : TAction;
     actSelectAll             : TAction;
+    actSelectionMenu         : TAction;
+    actSelectMenu            : TAction;
+    actSelectTable           : TAction;
+    actSetBackgroundColor    : TAction;
+    actSetFont               : TAction;
+    actSetFontColor          : TAction;
+    actSettingsMenu          : TAction;
+    actShowPreview           : TAction;
+    actShowSpecialCharacters : TAction;
     actStrikeThrough         : TAction;
+    actTableMenu             : TAction;
     actToggleWordWrap        : TAction;
     actUnderline             : TAction;
     actUndo                  : TAction;
@@ -78,7 +96,14 @@ type
     dlgOpen                  : TOpenDialog;
     dlgSave                  : TSaveDialog;
     imlMain                  : TImageList;
+    ppmClipboard             : TPopupMenu;
+    ppmFile                  : TPopupMenu;
+    ppmInsert                : TPopupMenu;
     ppmRichEditor            : TPopupMenu;
+    ppmSelect                : TPopupMenu;
+    ppmSelection             : TPopupMenu;
+    ppmSettings              : TPopupMenu;
+    ppmTable                 : TPopupMenu;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -88,34 +113,45 @@ type
     procedure actAlignJustifyExecute(Sender: TObject);
     procedure actAlignLeftExecute(Sender: TObject);
     procedure actAlignRightExecute(Sender: TObject);
-    procedure actBkColorExecute(Sender: TObject);
     procedure actBoldExecute(Sender: TObject);
+    procedure actBulletListExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
-    procedure actColorExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecFontSizeExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
+    procedure actDeleteColumnExecute(Sender: TObject);
+    procedure actDeleteRowExecute(Sender: TObject);
+    procedure actEditParagraphStyleExecute(Sender: TObject);
     procedure actEditSelectedItemExecute(Sender: TObject);
-    procedure actFontExecute(Sender: TObject);
+    procedure actEditTextStyleExecute(Sender: TObject);
     procedure actIncFontSizeExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertBulletListExecute(Sender: TObject);
+    procedure actInsertColumnAfterExecute(Sender: TObject);
+    procedure actInsertColumnBeforeExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
+    procedure actInsertRowAfterExecute(Sender: TObject);
+    procedure actInsertRowBeforeExecute(Sender: TObject);
+    procedure actInsertTableExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
+    procedure actNumberedListExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actSaveAsExecute(Sender: TObject);
     procedure actSaveExecute(Sender: TObject);
+    procedure actSelectTableExecute(Sender: TObject);
+    procedure actSetBackgroundColorExecute(Sender: TObject);
+    procedure actSetFontColorExecute(Sender: TObject);
+    procedure actSetFontExecute(Sender: TObject);
     procedure actShowPreviewExecute(Sender: TObject);
     procedure actShowSpecialCharactersExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
     procedure actToggleWordWrapExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
-
     {$ENDREGION}
 
   private
@@ -127,9 +163,16 @@ type
     {$REGION 'property access mehods'}
     function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
+    function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
     function GetEvents: IRichEditorEvents;
+    function GetFilePopupMenu: TPopupMenu;
+    function GetInsertPopupMenu: TPopupMenu;
     function GetItem(AName: string): TContainedAction;
+    function GetSelectionPopupMenu: TPopupMenu;
+    function GetSelectPopupMenu: TPopupMenu;
+    function GetSettingsPopupMenu: TPopupMenu;
+    function GetTablePopupMenu: TPopupMenu;
     function GetView(AIndex: Integer): IRichEditorView;
     function GetViewByName(AName: string): IRichEditorView;
     function GetViewCount: Integer;
@@ -149,7 +192,16 @@ type
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
 
+    procedure InitializePopupMenus;
+
     procedure BuildRichEditorPopupMenu;
+    procedure BuildInsertPopupMenu;
+    procedure BuildTablePopupMenu;
+    procedure BuildSelectionPopupMenu;
+    procedure BuildSelectPopupMenu;
+    procedure BuildFilePopupMenu;
+    procedure BuildClipboardPopupMenu;
+    procedure BuildSettingsPopupMenu;
 
     { Delegates the implementation of IEditorEvents to an internal object. }
     property Events: IRichEditorEvents
@@ -173,8 +225,29 @@ type
     property ViewCount: Integer
       read GetViewCount;
 
+    property ClipboardPopupMenu: TPopupMenu
+      read GetClipboardPopupMenu;
+
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
+
+    property FilePopupMenu: TPopupMenu
+      read GetFilePopupMenu;
+
+    property TablePopupMenu: TPopupMenu
+      read GetTablePopupMenu;
+
+    property InsertPopupMenu: TPopupMenu
+      read GetInsertPopupMenu;
+
+    property SelectPopupMenu: TPopupMenu
+      read GetSelectPopupMenu;
+
+    property SelectionPopupMenu: TPopupMenu
+      read GetSelectionPopupMenu;
+
+    property SettingsPopupMenu: TPopupMenu
+      read GetSettingsPopupMenu;
 
   end;
 
@@ -195,7 +268,10 @@ begin
   inherited AfterConstruction;
   FViews  := TRichEditorViewList.Create(False);
   FEvents := TRichEditorEvents.Create(Self);
-  BuildRichEditorPopupMenu;
+  actAlignJustify.Visible := False; // not supported yet by KMemo
+  actUndo.Visible         := False; // not supported yet by KMemo
+  actRedo.Visible         := False; // not supported yet by KMemo
+  InitializePopupMenus;
 end;
 
 destructor TdmRichEditorManager.Destroy;
@@ -344,36 +420,148 @@ begin
   end;
 end;
 
+procedure TdmRichEditorManager.actBulletListExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    actBulletList.Checked := not actBulletList.Checked;
+    ActiveView.Bullets := actBulletList.Checked;
+  end;
+end;
+
 procedure TdmRichEditorManager.actClearExecute(Sender: TObject);
 begin
-  ActiveView.Clear;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Clear;
+  end;
 end;
 
 procedure TdmRichEditorManager.actAlignRightExecute(Sender: TObject);
 begin
-  ActiveView.AlignRight := True;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.AlignRight := True;
+  end;
 end;
 
-procedure TdmRichEditorManager.actBkColorExecute(Sender: TObject);
+procedure TdmRichEditorManager.actDeleteColumnExecute(Sender: TObject);
 begin
-  dlgColor.Width := 300;
-  dlgColor.Handle := Application.MainForm.Handle;
-  if dlgColor.Execute then
-  begin;
-    //ActiveView.TextAttributes.HasBkColor := False;
-    //ActiveView.TextAttributes.HasBkColor := True;
-    //ActiveView.TextAttributes.BkColor := dlgColor.Color;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.DeleteColumn;
+  end;
+end;
+
+procedure TdmRichEditorManager.actDeleteRowExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.DeleteRow;
+  end;
+end;
+
+procedure TdmRichEditorManager.actEditParagraphStyleExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.EditParagraphStyle;
+  end;
+end;
+
+procedure TdmRichEditorManager.actEditTextStyleExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.EditTextStyle;
+  end;
+end;
+
+procedure TdmRichEditorManager.actInsertColumnAfterExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertColumnAfter;
+  end;
+end;
+
+procedure TdmRichEditorManager.actInsertColumnBeforeExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertColumnBefore;
+  end;
+end;
+
+procedure TdmRichEditorManager.actInsertRowAfterExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertRowAfter;
+  end;
+end;
+
+procedure TdmRichEditorManager.actInsertRowBeforeExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertRowBefore;
+  end;
+end;
+
+procedure TdmRichEditorManager.actInsertTableExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.CreateTable(2, 2);
+  end;
+end;
+
+procedure TdmRichEditorManager.actSelectTableExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.SelectTable;
+  end;
+end;
+
+procedure TdmRichEditorManager.actSetBackgroundColorExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    dlgColor.Width := 300;
+    dlgColor.Handle := Application.MainForm.Handle;
+    if dlgColor.Execute then
+    begin
+      ActiveView.BackgroundColor := dlgColor.Color;
+    end;
   end;
 end;
 
 procedure TdmRichEditorManager.actAlignLeftExecute(Sender: TObject);
 begin
-  ActiveView.AlignLeft := True;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.AlignLeft := True;
+  end;
 end;
 
 procedure TdmRichEditorManager.actAlignCenterExecute(Sender: TObject);
 begin
-  ActiveView.AlignCenter := True;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.AlignCenter := True;
+  end;
+end;
+
+// Not supported yet by TKMemo
+
+procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.AlignJustify := True;
+  end;
 end;
 
 procedure TdmRichEditorManager.aclActionsExecute(AAction: TBasicAction;
@@ -384,37 +572,47 @@ end;
 
 procedure TdmRichEditorManager.actAddParagraphExecute(Sender: TObject);
 begin
-  ActiveView.AddParagraph;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.AddParagraph;
+  end;
 end;
 
 procedure TdmRichEditorManager.actEditSelectedItemExecute(Sender: TObject);
 begin
-  ActiveView.EditSelectedItem;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.EditSelectedItem;
+  end;
 end;
 
-procedure TdmRichEditorManager.actAlignJustifyExecute(Sender: TObject);
+procedure TdmRichEditorManager.actSetFontColorExecute(Sender: TObject);
 begin
-  ActiveView.AlignJustify := True;
-end;
-
-procedure TdmRichEditorManager.actColorExecute(Sender: TObject);
-begin
-  dlgColor.Width  := 300;
-  dlgColor.Handle := Application.MainForm.Handle;
-  if dlgColor.Execute then
-  begin;
-    ActiveView.Font.Color := dlgColor.Color;
+  if Assigned(ActiveView) then
+  begin
+    dlgColor.Width  := 300;
+    dlgColor.Handle := Application.MainForm.Handle;
+    if dlgColor.Execute then
+    begin;
+      ActiveView.Font.Color := dlgColor.Color;
+    end;
   end;
 end;
 
 procedure TdmRichEditorManager.actCopyExecute(Sender: TObject);
 begin
-  ActiveView.Copy;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Copy;
+  end;
 end;
 
 procedure TdmRichEditorManager.actCutExecute(Sender: TObject);
 begin
-  ActiveView.Cut;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Cut;
+  end;
 end;
 
 procedure TdmRichEditorManager.actDecFontSizeExecute(Sender: TObject);
@@ -428,14 +626,20 @@ end;
 
 procedure TdmRichEditorManager.actDecIndentExecute(Sender: TObject);
 begin
-  ActiveView.DecIndent;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.DecIndent;
+  end;
 end;
 
-procedure TdmRichEditorManager.actFontExecute(Sender: TObject);
+procedure TdmRichEditorManager.actSetFontExecute(Sender: TObject);
 begin
-  if dlgFont.Execute then
+  if Assigned(ActiveView) then
   begin
-    ActiveView.Font.Assign(dlgFont.Font);
+    if dlgFont.Execute then
+    begin
+      ActiveView.Font.Assign(dlgFont.Font);
+    end;
   end;
 end;
 
@@ -449,22 +653,34 @@ end;
 
 procedure TdmRichEditorManager.actIncIndentExecute(Sender: TObject);
 begin
-  ActiveView.IncIndent;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.IncIndent;
+  end;
 end;
 
 procedure TdmRichEditorManager.actInsertBulletListExecute(Sender: TObject);
 begin
-  ActiveView.InsertBulletList;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.CreateBulletList;
+  end;
 end;
 
 procedure TdmRichEditorManager.actInsertHyperLinkExecute(Sender: TObject);
 begin
-  ActiveView.InsertHyperlink;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertHyperlink;
+  end;
 end;
 
 procedure TdmRichEditorManager.actInsertImageExecute(Sender: TObject);
 begin
-  ActiveView.InsertImage;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.InsertImage;
+  end;
 end;
 
 procedure TdmRichEditorManager.actItalicExecute(Sender: TObject);
@@ -473,6 +689,14 @@ begin
   begin
     actItalic.Checked := not actItalic.Checked;
     ActiveView.Font.Italic := actItalic.Checked;
+  end;
+end;
+
+procedure TdmRichEditorManager.actNumberedListExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    //
   end;
 end;
 
@@ -487,13 +711,54 @@ end;
 
 procedure TdmRichEditorManager.actUndoExecute(Sender: TObject);
 begin
-  ActiveView.Undo;
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Undo;
+  end;
+end;
+
+function TdmRichEditorManager.GetInsertPopupMenu: TPopupMenu;
+begin
+  Result := ppmInsert;
+end;
+
+function TdmRichEditorManager.GetClipboardPopupMenu: TPopupMenu;
+begin
+  Result := ppmClipboard;
+end;
+
+function TdmRichEditorManager.GetFilePopupMenu: TPopupMenu;
+begin
+  Result := ppmFile;
+end;
+
+function TdmRichEditorManager.GetSelectionPopupMenu: TPopupMenu;
+begin
+  Result := ppmSelection;
+end;
+
+function TdmRichEditorManager.GetSelectPopupMenu: TPopupMenu;
+begin
+  Result := ppmSelect;
+end;
+
+function TdmRichEditorManager.GetSettingsPopupMenu: TPopupMenu;
+begin
+   Result := ppmSettings;
+end;
+
+function TdmRichEditorManager.GetTablePopupMenu: TPopupMenu;
+begin
+  Result := ppmTable;
 end;
 
 procedure TdmRichEditorManager.actToggleWordWrapExecute(Sender: TObject);
 begin
-  actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
-  ActiveView.WordWrap := actToggleWordWrap.Checked;
+  if Assigned(ActiveView) then
+  begin
+    actToggleWordWrap.Checked := not actToggleWordWrap.Checked;
+    ActiveView.WordWrap := actToggleWordWrap.Checked;
+  end;
 end;
 {$ENDREGION}
 
@@ -505,34 +770,140 @@ begin
   MI := ppmRichEditor.Items;
   MI.Clear;
   AddMenuItem(MI, actEditSelectedItem);
+  AddMenuItem(MI, actEditParagraphStyle);
+  AddMenuItem(MI, actEditTextStyle);
   AddMenuItem(MI);
   AddMenuItem(MI, actCut);
   AddMenuItem(MI, actCopy);
   AddMenuItem(MI, actPaste);
   AddMenuItem(MI);
-  AddMenuItem(MI, actUndo);
-  AddMenuItem(MI, actRedo);
+  AddMenuItem(MI, TablePopupMenu);
+  AddMenuItem(MI, SelectionPopupMenu);
+  AddMenuItem(MI, FilePopupMenu);
+  AddMenuItem(MI, InsertPopupMenu);
+//  AddMenuItem(MI, SelectPopupMenu);
+//  AddMenuItem(MI, ClipboardPopupMenu);
+  AddMenuItem(MI, SettingsPopupMenu);
+  //AddMenuItem(MI);
+  //AddMenuItem(MI, actUndo); // not supported yet
+  //AddMenuItem(MI, actRedo); // not supported yet
+end;
+
+procedure TdmRichEditorManager.BuildInsertPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := InsertPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actInsertMenu;
+  AddMenuItem(MI, actInsertBulletList);
+  AddMenuItem(MI, actInsertTable);
+  AddMenuItem(MI, actInsertImage);
+  AddMenuItem(MI, actInsertHyperLink);
+  AddMenuItem(MI, actAddParagraph);
+end;
+
+procedure TdmRichEditorManager.BuildTablePopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := TablePopupMenu.Items;
+  MI.Clear;
+  MI.Action := actTableMenu;
+  AddMenuItem(MI, actInsertColumnBefore);
+  AddMenuItem(MI, actInsertColumnAfter);
+  AddMenuItem(MI, actInsertRowBefore);
+  AddMenuItem(MI, actInsertRowAfter);
   AddMenuItem(MI);
+  AddMenuItem(MI, actDeleteRow);
+  AddMenuItem(MI, actDeleteColumn);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSelectTable);
+end;
+
+procedure TdmRichEditorManager.BuildSelectionPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SelectionPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSelectionMenu;
   AddMenuItem(MI, actBold);
   AddMenuItem(MI, actItalic);
   AddMenuItem(MI, actUnderline);
+  AddMenuItem(MI, actStrikeThrough);
   AddMenuItem(MI);
   AddMenuItem(MI, actAlignLeft);
   AddMenuItem(MI, actAlignCenter);
   AddMenuItem(MI, actAlignRight);
-  AddMenuItem(MI, actAlignJustify);
+  //AddMenuItem(MI, actAlignJustify); // not supported yet
   AddMenuItem(MI);
   AddMenuItem(MI, actIncIndent);
   AddMenuItem(MI, actDecIndent);
   AddMenuItem(MI);
+  AddMenuItem(MI, actBulletList);
+  AddMenuItem(MI, actNumberedList);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actSetFontColor);
+  AddMenuItem(MI, actSetBackgroundColor);
+  AddMenuItem(MI, actSetFont);
+  AddMenuItem(MI);
   AddMenuItem(MI, actToggleWordWrap);
-  AddMenuItem(MI, actShowSpecialCharacters);
-  AddMenuItem(MI);
+end;
+
+procedure TdmRichEditorManager.BuildSelectPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SelectPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSelectMenu;
   AddMenuItem(MI, actClear);
-  AddMenuItem(MI);
+end;
+
+procedure TdmRichEditorManager.BuildFilePopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := FilePopupMenu.Items;
+  MI.Clear;
+  MI.Action := actFileMenu;
   AddMenuItem(MI, actOpen);
   AddMenuItem(MI, actSave);
   AddMenuItem(MI, actSaveAs);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actShowPreview);
+end;
+
+procedure TdmRichEditorManager.BuildClipboardPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := ClipboardPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actClipboardMenu;
+end;
+
+procedure TdmRichEditorManager.BuildSettingsPopupMenu;
+var
+  MI : TMenuItem;
+begin
+  MI := SettingsPopupMenu.Items;
+  MI.Clear;
+  MI.Action := actSettingsMenu;
+  AddMenuItem(MI, actShowSpecialCharacters);
+end;
+
+procedure TdmRichEditorManager.InitializePopupMenus;
+begin
+  BuildSelectionPopupMenu;
+  BuildSelectPopupMenu;
+  BuildFilePopupMenu;
+  BuildInsertPopupMenu;
+  BuildTablePopupMenu;
+  BuildClipboardPopupMenu;
+  BuildSettingsPopupMenu;
+  BuildRichEditorPopupMenu;
 end;
 {$ENDREGION}
 
@@ -544,33 +915,36 @@ var
   B : Boolean;
 begin
   B := Assigned(ActiveView);
-  actUndo.Enabled                  := B;
-  actRedo.Enabled                  := B;
-  actCopy.Enabled                  := B and ActiveView.SelAvail;
+  actUndo.Enabled                  := B and ActiveView.CanUndo;
+  actRedo.Enabled                  := B and ActiveView.CanRedo;
   actCut.Enabled                   := B and ActiveView.SelAvail;
+  actCopy.Enabled                  := B and ActiveView.SelAvail;
   actPaste.Enabled                 := B and ActiveView.CanPaste;
+  //actAlignJustify.Enabled          := B;
+  actAddParagraph.Enabled          := B;
   actAlignCenter.Enabled           := B;
-  actAlignJustify.Enabled          := B;
   actAlignLeft.Enabled             := B;
   actAlignRight.Enabled            := B;
-  actBkColor.Enabled               := B;
-  actColor.Enabled                 := B;
-  actAdjustParagraphStyle.Enabled  := B;
+  actClear.Enabled                 := B;
   actDecFontSize.Enabled           := B;
-  actFont.Enabled                  := B;
+  actDecIndent.Enabled             := B;
+  actEditParagraphStyle.Enabled    := B;
+  actEditSelectedItem.Enabled      := B;
+  actEditTextStyle.Enabled         := B;
   actIncFontSize.Enabled           := B;
+  actIncIndent.Enabled             := B;
+  actInsertBulletList.Enabled      := B;
   actInsertHyperLink.Enabled       := B;
   actInsertImage.Enabled           := B;
-  actInsertBulletList.Enabled      := B;
-  actIncIndent.Enabled             := B;
-  actDecIndent.Enabled             := B;
-  actClear.Enabled                 := B;
-  actShowSpecialCharacters.Enabled := B;
   actItalic.Enabled                := B;
   actOpen.Enabled                  := B;
   actSave.Enabled                  := B;
   actSaveAs.Enabled                := B;
   actSelectAll.Enabled             := B;
+  actSetBackgroundColor.Enabled    := B;
+  actSetFont.Enabled               := B;
+  actSetFontColor.Enabled          := B;
+  actShowSpecialCharacters.Enabled := B;
   actStrikeThrough.Enabled         := B;
   actToggleWordWrap.Enabled        := B;
   actUnderline.Enabled             := B;
@@ -579,14 +953,23 @@ begin
   actUnderline.Checked      := B and ActiveView.Font.Underline;
   actItalic.Checked         := B and ActiveView.Font.Italic;
   actStrikeThrough.Checked  := B and ActiveView.Font.StrikeThrough;
-  // TODO: causes flickering in popupmenu when uncommented.
-  //actUndo.Enabled           := ActiveView.CanUndo;
-  //actRedo.Enabled           := ActiveView.CanRedo;
   actAlignCenter.Checked    := B and ActiveView.AlignCenter;
   actAlignLeft.Checked      := B and ActiveView.AlignLeft;
   actAlignRight.Checked     := B and ActiveView.AlignRight;
-  actAlignJustify.Checked   := B and ActiveView.AlignJustify;
+  //actAlignJustify.Checked   := B and ActiveView.AlignJustify;
   actToggleWordWrap.Checked := B and ActiveView.WordWrap;
+
+  actBulletList.Checked := B and ActiveView.Bullets;
+
+  B := B and ActiveView.IsInsideOfTable;
+  actInsertColumnAfter.Visible  := B;
+  actInsertColumnBefore.Visible := B;
+  actInsertRowAfter.Visible     := B;
+  actInsertRowBefore.Visible    := B;
+  actDeleteColumn.Visible       := B;
+  actDeleteRow.Visible          := B;
+  actSelectTable.Visible        := B;
+  actTableMenu.Visible          := B;
 end;
 
 function TdmRichEditorManager.AddView(const AName: string;

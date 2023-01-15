@@ -23,9 +23,9 @@ unit ts.RichEditor.View.KMemo;
 {
   TODO:
    - paste formatted text (HTML?)
+   - proper support for tables
    - copy formatted text (WIKI, HTML?)
    - Undo/Redo is not yet supported by the KMemo component
-   - drag and drop images in editor view
 }
 
 interface
@@ -79,11 +79,17 @@ type
     FIsFile        : Boolean;
 
     {$REGION 'event handlers'}
-    function FEditorAlignInsertBefore(Sender: TWinControl; Control1,
-      Control2: TControl): Boolean;
-    procedure FEditorAlignPosition(Sender: TWinControl; Control: TControl;
-      var NewLeft, NewTop, NewWidth, NewHeight: Integer; var AlignRect: TRect;
-      AlignInfo: TAlignInfo);
+    function FEditorAlignInsertBefore(
+      Sender             : TWinControl;
+      Control1, Control2 : TControl
+    ): Boolean;
+    procedure FEditorAlignPosition(
+      Sender                                   : TWinControl;
+      Control                                  : TControl;
+      var NewLeft, NewTop, NewWidth, NewHeight : Integer;
+      var AlignRect                            : TRect;
+      AlignInfo                                : TAlignInfo
+    );
     procedure FEditorChange(Sender: TObject);
     procedure FEditorBlockClick(
       Sender     : TObject;
@@ -101,10 +107,15 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
-    function GetKMemoNotifier: IKMemoNotifier;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
+
+    function TableRowCell(
+      out ATable : TKMemoTable;
+      out ARow   : TKMemoTableRow;
+      out ACell  : TKMemoTableCell
+    ): Boolean;
 
     function EditContainer(AItem: TKMemoContainer): Boolean;
     function EditImage(AItem: TKMemoImageBlock): Boolean;
@@ -117,7 +128,9 @@ type
     function GetAlignJustify: Boolean;
     function GetAlignLeft: Boolean;
     function GetAlignRight: Boolean;
+    function GetBackgroundColor: TColor;
     function GetCanPaste: Boolean;
+    function GetBullets: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetContentSize: Int64;
@@ -128,6 +141,8 @@ type
     function GetForm: TCustomForm;
     function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
+    function GetIsInsideOfTable: Boolean;
+    function GetKMemoNotifier: IKMemoNotifier;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
@@ -144,22 +159,27 @@ type
     procedure SetAlignJustify(AValue: Boolean);
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
+    procedure SetBackgroundColor(AValue: TColor);
     procedure SetFileName(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
+    procedure SetRTFText(AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
+    procedure SetBullets(AValue: Boolean);
     {$ENDREGION}
 
     procedure SelectAll;
     procedure EditSelectedItem;
+    procedure EditParagraphStyle;
+    procedure EditTextStyle;
     procedure LoadFromFile(const AFileName: string);
     procedure Load(const AStorageName: string = '');
     procedure LoadFromStream(AStream: TStream);
@@ -178,7 +198,17 @@ type
       const AText : string = '';
       const AURL  : string = ''
     );
-    procedure InsertBulletList;
+    procedure InsertRowBefore;
+    procedure InsertRowAfter;
+    procedure InsertColumnBefore;
+    procedure InsertColumnAfter;
+    procedure DeleteColumn;
+    procedure DeleteRow;
+    procedure SelectTable;
+
+    procedure CreateBulletList;
+    procedure CreateNumberedList;
+    procedure CreateTable(AColCount: Integer; ARowCount: Integer);
     procedure IncIndent;
     procedure DecIndent;
 
@@ -211,6 +241,9 @@ type
 
     property Actions: IRichEditorActions
       read GetActions;
+
+    property Bullets: Boolean
+      read GetBullets write SetBullets;
 
     property CanPaste: Boolean
       read GetCanPaste;
@@ -260,6 +293,9 @@ type
     property AlignJustify: Boolean
       read GetAlignJustify write SetAlignJustify;
 
+    property BackgroundColor: TColor
+      read GetBackgroundColor write SetBackgroundColor;
+
     property Modified: Boolean
       read GetModified write SetModified;
 
@@ -275,11 +311,14 @@ type
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
 
+    property IsInsideOfTable: Boolean
+      read GetIsInsideOfTable;
+
     property Text: string
       read GetText write SetText;
 
     property RTFText: string
-      read GetRTFText;
+      read GetRTFText write SetRTFText;
 
     property ShowSpecialChars: Boolean
       read GetShowSpecialChars write SetShowSpecialChars;
@@ -310,23 +349,22 @@ procedure TRichEditorViewKMemo.AfterConstruction;
 var
   LKey : TKEditKey;
 begin
-  Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
   FEditor := TKMemo.Create(Self);
-  FEditor.Parent         := pnlRichEditor;
-  FEditor.BorderStyle    := bsNone;
-  FEditor.ScrollBars     := ssBoth;
-  FEditor.Align          := alClient;
-  FEditor.DoubleBuffered := True;
-  FEditor.OnChange       := FEditorChange;
-  FEditor.OnMouseUp  := FEditorMouseUp;
-  FEditor.OnEndDrag  := FEditorEndDrag;
-  FEditor.OnExit  := FEditorExit;
-  FEditor.OnBlockEdit    := FEditorBlockEdit;
-  FEditor.OnBlockClick   := FEditorBlockClick;
-  FEditor.OnAlignPosition  := FEditorAlignPosition;
-  FEditor.OnAlignInsertBefore  := FEditorAlignInsertBefore;
-  FEditor.Options        := FEditor.Options + [eoWantTab];
+  FEditor.Parent              := pnlRichEditor;
+  FEditor.BorderStyle         := bsNone;
+  FEditor.ScrollBars          := ssBoth;
+  FEditor.Align               := alClient;
+  FEditor.DoubleBuffered      := True;
+  FEditor.OnChange            := FEditorChange;
+  FEditor.OnMouseUp           := FEditorMouseUp;
+  FEditor.OnEndDrag           := FEditorEndDrag;
+  FEditor.OnExit              := FEditorExit;
+  FEditor.OnBlockEdit         := FEditorBlockEdit;
+  FEditor.OnBlockClick        := FEditorBlockClick;
+  FEditor.OnAlignPosition     := FEditorAlignPosition;
+  FEditor.OnAlignInsertBefore := FEditorAlignInsertBefore;
+  FEditor.Options             := FEditor.Options + [eoWantTab];
   LKey.Key := 0;
   LKey.Shift := [];
   FEditor.KeyMapping.Key[ecScrollCenter] := LKey;
@@ -348,8 +386,6 @@ begin
   FTextStyleForm := TKMemoTextStyleForm.Create(Self);
   FParaStyleForm := TKMemoParaStyleForm.Create(Self);
   FPreviewDialog := TKPrintPreviewDialog.Create(Self);
-
-  Logger.Leave(Self, 'AfterConstruction');
 end;
 
 destructor TRichEditorViewKMemo.Destroy;
@@ -357,7 +393,6 @@ begin
   FTextStyle.Free;
   FParaStyle.Free;
   inherited Destroy;
-  Logger.Info('TRichEditorViewKMemo.Destroy');
 end;
 {$ENDREGION}
 
@@ -530,18 +565,13 @@ procedure TRichEditorViewKMemo.SetAlignCenter(AValue: Boolean);
 begin
   if AValue then
   begin
-    if not Assigned(FEditor.NearestParagraph) then
-    begin
-      FEditor.ActiveBlocks.AddParagraph;
-    end;
-    FEditor.NearestParagraph.ParaStyle.HAlign := halCenter;
+    FParaStyle.HAlign := halCenter;
+    Modified := True;
   end;
-      //FParaStyle.HAlign := halCenter;
 end;
 
 function TRichEditorViewKMemo.GetAlignJustify: Boolean;
 begin
-
   Result := FParaStyle.HAlign = halJustify;
 end;
 
@@ -549,11 +579,8 @@ procedure TRichEditorViewKMemo.SetAlignJustify(AValue: Boolean);
 begin
   if AValue then
   begin
-    if not Assigned(FEditor.NearestParagraph) then
-    begin
-      FEditor.ActiveBlocks.AddParagraph;
-    end;
-    FEditor.NearestParagraph.ParaStyle.HAlign := halJustify;
+    FParaStyle.HAlign := halJustify;
+    Modified := True;
   end;
 end;
 
@@ -566,11 +593,8 @@ procedure TRichEditorViewKMemo.SetAlignLeft(AValue: Boolean);
 begin
   if AValue then
   begin
-    if not Assigned(FEditor.NearestParagraph) then
-    begin
-      FEditor.ActiveBlocks.AddParagraph;
-    end;
-    FEditor.NearestParagraph.ParaStyle.HAlign := halLeft;
+    FParaStyle.HAlign := halLeft;
+    Modified := True;
   end;
 end;
 
@@ -583,11 +607,7 @@ procedure TRichEditorViewKMemo.SetAlignRight(AValue: Boolean);
 begin
   if AValue then
   begin
-    if not Assigned(FEditor.NearestParagraph) then
-    begin
-      FEditor.ActiveBlocks.AddParagraph;
-    end;
-    FEditor.NearestParagraph.ParaStyle.HAlign := halRight;
+    FParaStyle.HAlign := halRight;
   end;
 end;
 
@@ -604,6 +624,20 @@ begin
   try
     FEditor.SaveToRTFStream(SS, False, True);
     Result := SS.DataString;
+  finally
+    SS.Free;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.SetRTFText(AValue: string);
+var
+  SS : TStringStream;
+begin
+  SS := TStringStream.Create;
+  try
+    SS.WriteString(AValue);
+    SS.Position := 0;
+    FEditor.LoadFromRTFStream(SS);
   finally
     SS.Free;
   end;
@@ -649,7 +683,6 @@ end;
 {$REGION 'Editor'}
 procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
-  Logger.Info('EditorChange');
   Modified := True;
   DoChange;
 end;
@@ -659,6 +692,7 @@ function TRichEditorViewKMemo.FEditorAlignInsertBefore(Sender: TWinControl;
 begin
   Modified := True;
   DoChange;
+  Result := True;
 end;
 
 procedure TRichEditorViewKMemo.FEditorAlignPosition(Sender: TWinControl;
@@ -681,7 +715,11 @@ end;
 procedure TRichEditorViewKMemo.FEditorBlockEdit(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
-  if ABlock is TKMemoContainer then
+  if ABlock is TKMemoTable then
+  begin
+    //Result := Edi
+  end
+  else if ABlock is TKMemoContainer then
   begin
     Result := EditContainer(ABlock as TKMemoContainer);
   end
@@ -723,8 +761,33 @@ end;
 
 procedure TRichEditorViewKMemo.FParaStyleChanged(Sender: TObject;
   AReasons: TKMemoUpdateReasons);
+var
+  LSelEnd     : TKMemoSelectionIndex;
+  LStartIndex : TKMemoSelectionIndex;
+  LEndIndex   : TKMemoSelectionIndex;
 begin
-  FEditor.SelectionParaStyle := FParaStyle;
+    //muContent,
+    //{ continue previous line info and extent calculation. }
+    //muContentAddOnly,
+    //{ recalculate extent. }
+    //muExtent,
+    //{ selection changed. }
+    //muSelection,
+    //{ selection changed and scroll operation is required to reflect the change. }
+    //muSelectionScroll
+  Logger.Info('FParaStyleChanged');
+  // if there is no selection then simulate one word selection or set style for new text
+  LSelEnd   := FEditor.SelEnd;
+  if FEditor.SelAvail then
+    FEditor.SelectionParaStyle := FParaStyle
+  else if FEditor.GetNearestWordIndexes(LSelEnd, False, LStartIndex, LEndIndex)
+    and (LStartIndex < LSelEnd) and (LSelEnd < LEndIndex) then
+    // simulate MS Word behavior here, LSelEnd is caret position
+    // do not select the word if we are at the beginning or end of the word
+    // and allow set another text style for newly added text
+    FEditor.SetRangeParaStyle(LStartIndex, LEndIndex, FParaStyle)
+  else
+    FEditor.SetRangeParaStyle(LStartIndex, LStartIndex, FParaStyle);
   Modified := True;
   DoChange;
 end;
@@ -736,6 +799,7 @@ var
   LStartIndex : TKMemoSelectionIndex;
   LEndIndex   : TKMemoSelectionIndex;
 begin
+  Logger.Info('FTextStyleChanged');
   // if there is no selection then simulate one word selection or set style for new text
   LSelAvail := FEditor.SelAvail;
   LSelEnd   := FEditor.SelEnd;
@@ -751,6 +815,51 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   Modified := True;
   DoChange;
+end;
+
+function TRichEditorViewKMemo.GetBullets: Boolean;
+begin
+    if FParaStyle.NumberingList < 0 then
+    Result := False
+  else
+    Result :=
+      KMemoNotifier.GetListTable.Items[FParaStyle.NumberingList]
+                                .Levels[FParaStyle.NumberingListLevel]
+                                .Numbering = pnuBullets;
+end;
+
+procedure TRichEditorViewKMemo.SetBullets(AValue: Boolean);
+var
+  BI : TKMemoBlockIndex;
+  LI : TKMemoSelectionIndex;
+  P  : TKMemoParagraph;
+begin
+  if AValue <> Bullets then
+  begin
+    FEditor.RealSelStart;
+    BI := FEditor.ActiveInnerBlocks.IndexToBlockIndex(FEditor.RealSelStart, LI);
+    P := FEditor.ActiveInnerBlocks.GetNearestParagraphBlock(BI);
+    if not Assigned(P) then
+      P := FEditor.NearestParagraph;
+    if P.Numbering <> pnuBullets then
+      P.Numbering := pnuBullets
+    else
+      P.Numbering := pnuNone;
+    if SelAvail then
+    begin
+      FEditor.SelectionParaStyle := P.ParaStyle;
+    end;
+  end;
+end;
+
+function TRichEditorViewKMemo.GetIsInsideOfTable: Boolean;
+begin
+  Result := FEditor.ActiveInnerBlocks.InsideOfTable;
+end;
+
+function TRichEditorViewKMemo.GetBackgroundColor: TColor;
+begin
+  Result := FTextStyle.Brush.Color;
 end;
 {$ENDREGION}
 {$ENDREGION}
@@ -782,6 +891,24 @@ begin
   Result := FEditor.SelectedBlock;
   if not Assigned(Result) then
     Result := FEditor.ActiveInnerBlock;
+end;
+
+{ Get active Table/Row and Cell blocks if possible }
+
+function TRichEditorViewKMemo.TableRowCell(out ATable: TKMemoTable; out
+  ARow: TKMemoTableRow; out ACell: TKMemoTableCell): Boolean;
+begin
+  Result := False;
+  if FEditor.ActiveBlock is TKMemoTable then
+  begin
+    ATable := FEditor.ActiveBlock as TKMemoTable;
+    if FEditor.ActiveInnerBlocks.Parent is TKMemoTableCell then
+    begin
+      ACell  := FEditor.ActiveInnerBlocks.Parent as TKMemoTableCell;
+      ARow   := ACell.ParentRow;
+      Result := True;
+    end;
+  end;
 end;
 
 function TRichEditorViewKMemo.EditContainer(AItem: TKMemoContainer): Boolean;
@@ -819,6 +946,11 @@ begin
     Result := True;
   end;
 end;
+
+procedure TRichEditorViewKMemo.SetBackgroundColor(AValue: TColor);
+begin
+  FTextStyle.Brush.Color := AValue;
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -836,6 +968,22 @@ begin
     LBlock := Editor.ActiveInnerBlock;
   if Assigned(LBlock) then
     KMemoNotifier.EditBlock(LBlock); // will invoke EditBlock event
+end;
+
+procedure TRichEditorViewKMemo.EditParagraphStyle;
+begin
+  FParaStyleForm.Load(FEditor, FParaStyle);
+  if FParaStyleForm.ShowModal = mrOk then
+    FParaStyleForm.Save(FParaStyle);
+end;
+
+procedure TRichEditorViewKMemo.EditTextStyle;
+begin
+  FTextStyleForm.Load(FTextStyle);
+  if FTextStyleForm.ShowModal = mrOk then
+  begin
+    FTextStyleForm.Save(FTextStyle);
+  end;
 end;
 
 procedure TRichEditorViewKMemo.LoadFromFile(const AFileName: string);
@@ -1022,11 +1170,180 @@ begin
     LHyperlink.Free;
 end;
 
-procedure TRichEditorViewKMemo.InsertBulletList;
+procedure TRichEditorViewKMemo.InsertRowBefore;
+var
+  LTable  : TKMemoTable;
+  LRow    : TKMemoTableRow;
+  LNewRow : TKMemoTableRow;
+  LCell   : TKMemoTableCell;
+  C       : TKMemoTableCell;
 begin
-  FNumberingForm.Load(FEditor, FEditor.ListTable, FEditor.NearestParagraph);
-  if FNumberingForm.ShowModal = mrOk then
-    FNumberingForm.Save;
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LNewRow := TKMemoTableRow.Create;
+    LNewRow.CellCount := LRow.CellCount;
+    for C in LNewRow.Blocks do
+    begin
+      C.InsertParagraph(-1);
+    end;
+    LRow.ParentBlocks.AddAt(LNewRow, LCell.RowIndex);
+    LTable.ApplyDefaultCellStyle;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.InsertRowAfter;
+var
+  LTable  : TKMemoTable;
+  LRow    : TKMemoTableRow;
+  LNewRow : TKMemoTableRow;
+  LCell   : TKMemoTableCell;
+  C       : TKMemoTableCell;
+begin
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LNewRow := TKMemoTableRow.Create;
+    LNewRow.CellCount := LRow.CellCount;
+    for C in LNewRow.Blocks do
+    begin
+      C.InsertParagraph(-1);
+    end;
+    // AddAt will append if index does not exist.
+    LRow.ParentBlocks.AddAt(LNewRow, LCell.RowIndex + 1);
+    LTable.ApplyDefaultCellStyle;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.InsertColumnBefore;
+var
+  LTable    : TKMemoTable;
+  LRow      : TKMemoTableRow;
+  LCell     : TKMemoTableCell;
+  R         : TKMemoTableRow;
+  C         : TKMemoTableCell;
+  LColIndex : Integer;
+begin
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LColIndex :=  LCell.ColIndex;
+    for R in LRow.ParentBlocks do
+    begin
+      C := TKMemoTableCell.Create;
+      C.InsertParagraph(-1);
+      R.Blocks.AddAt(C, LColIndex);
+    end;
+    LTable.ApplyDefaultCellStyle;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.InsertColumnAfter;
+var
+  LTable    : TKMemoTable;
+  LRow      : TKMemoTableRow;
+  LCell     : TKMemoTableCell;
+  R         : TKMemoTableRow;
+  C         : TKMemoTableCell;
+  LColIndex : Integer;
+begin
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LColIndex :=  LCell.ColIndex;
+    for R in LRow.ParentBlocks do
+    begin
+      C := TKMemoTableCell.Create;
+      C.InsertParagraph(-1);
+      R.Blocks.AddAt(C, LColIndex + 1);
+    end;
+    LTable.ApplyDefaultCellStyle;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.DeleteColumn;
+var
+  LTable    : TKMemoTable;
+  LRow      : TKMemoTableRow;
+  LCell     : TKMemoTableCell;
+  R         : TKMemoTableRow;
+  LColIndex : Integer;
+begin
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LColIndex :=  LCell.ColIndex;
+    for R in LRow.ParentBlocks do
+    begin
+      Logger.Send('R.CellCount', R.CellCount);
+      if LColIndex < R.CellCount then
+        R.Blocks.Delete(LColIndex);
+    end;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.DeleteRow;
+var
+  LTable    : TKMemoTable;
+  LRow      : TKMemoTableRow;
+  LCell     : TKMemoTableCell;
+begin
+  if TableRowCell(LTable, LRow, LCell) then
+  begin
+    LTable.Blocks.Delete(LCell.RowIndex);
+  end;
+end;
+
+procedure TRichEditorViewKMemo.SelectTable;
+begin
+  if FEditor.ActiveBlock is TKMemoTable then
+    KMemoNotifier.SelectBlock(FEditor.ActiveBlock, sgpNone);
+end;
+
+procedure TRichEditorViewKMemo.CreateBulletList;
+var
+  BI : TKMemoBlockIndex;
+  LI : TKMemoSelectionIndex;
+  P  : TKMemoParagraph;
+begin
+  FEditor.RealSelStart;
+  BI := FEditor.ActiveInnerBlocks.IndexToBlockIndex(FEditor.RealSelStart, LI);
+  P := FEditor.ActiveInnerBlocks.GetNearestParagraphBlock(BI);
+  if not Assigned(P) then
+    P := FEditor.NearestParagraph;
+  if P.Numbering <> pnuBullets then
+    P.Numbering := pnuBullets
+  else
+    P.Numbering := pnuNone;
+
+  //FNumberingForm.Load(FEditor, FEditor.ListTable, P);
+  //if FNumberingForm.ShowModal = mrOk then
+  //  FNumberingForm.Save;
+
+  if SelAvail then
+  begin
+    FEditor.SelectionParaStyle := P.ParaStyle;
+  end;
+end;
+
+procedure TRichEditorViewKMemo.CreateNumberedList;
+begin
+  //
+end;
+
+procedure TRichEditorViewKMemo.CreateTable(AColCount: Integer; ARowCount: Integer);
+var
+  LTable     : TKMemoTable;
+  X          : Integer;
+  Y          : Integer;
+begin
+  LTable := FEditor.ActiveInnerBlocks.AddTable;
+  LTable.ColCount := AColCount;
+  LTable.RowCount := ARowCount;
+  for Y := 0 to LTable.RowCount - 1 do
+  begin
+    for X := 0 to LTable.ColCount - 1 do
+    begin
+      LTable.Cells[X, Y].Blocks.AddParagraph;
+    end;
+  end;
+  LTable.CellStyle.BorderWidth := 2;
+  LTable.ApplyDefaultCellStyle;
 end;
 
 procedure TRichEditorViewKMemo.IncIndent;
@@ -1044,13 +1361,6 @@ begin
     FParaStyle.LeftPadding - FEditor.Pt2PxX(FDefaultIndent), 0
   );
 end;
-
-//procedure TRichEditorViewKMemo.AdjustParagraphStyle;
-//begin
-//  FParaStyleForm.Load(FEditor, FParaStyle);
-//  if FParaStyleForm.ShowModal = mrOk then
-//    FParaStyleForm.Save(FParaStyle);
-//end;
 
 procedure TRichEditorViewKMemo.ShowPreview;
 begin
@@ -1096,7 +1406,7 @@ end;
 
 procedure TRichEditorViewKMemo.AddParagraph;
 begin
-  FEditor.ActiveBlocks.AddParagraph;
+  FEditor.ActiveInnerBlocks.AddParagraph;
   FEditor.ExecuteCommand(ecInsertNewLine);
   Logger.Info('AddParagraph');
 end;

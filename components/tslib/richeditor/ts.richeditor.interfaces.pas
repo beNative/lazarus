@@ -42,23 +42,24 @@ type
     function GetAlignJustify: Boolean;
     function GetAlignLeft: Boolean;
     function GetAlignRight: Boolean;
+    function GetBackgroundColor: TColor;
+    function GetBullets: Boolean;
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetContentSize: Int64;
-    //function GetCurrentWord: string;
     function GetEditor: TKMemo;
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
     function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
-    //function GetLinesInWindow: Integer;
-    //function GetLineText: string;
+    function GetIsInsideOfTable: Boolean;
     function GetModified: Boolean;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetPopupMenu: TPopupMenu;
+    function GetRTFText: string;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
     function GetSelStart: Integer;
@@ -69,35 +70,23 @@ type
     procedure SetAlignJustify(AValue: Boolean);
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
-    //function GetSettings: IEditorSettings;
     function GetText: string;
-    //function GetTextSize: Integer;
-    //function GetTopLine: Integer;
+    procedure SetBackgroundColor(AValue: TColor);
+    procedure SetBullets(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
-    //procedure SetLineText(const AValue: string);
-
     procedure SetModified(const AValue: Boolean);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
+    procedure SetRTFText(AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-    //function GetAlignment: TParaAlignment;
-    //function GetBkColor: TColor;
-    //function GetColor: TColor;
-    //function GetHasBkColor: Boolean;
-    //function GetNumberingStyle: TParaNumStyle;
-    //procedure SetAlignment(AValue: TParaAlignment);
-    //procedure SetBkColor(AValue: TColor);
-    //procedure SetColor(const AValue: TColor);
-    //procedure SetHasBkColor(AValue: Boolean);
-    //procedure SetNumberingStyle(AValue: TParaNumStyle);
     {$ENDREGION}
 
     function Focused: Boolean;
@@ -126,8 +115,20 @@ type
       const AURL  : string = ''
     );
     procedure EditSelectedItem;
-    procedure InsertBulletList;
+    procedure EditParagraphStyle;
+    procedure EditTextStyle;
+    procedure CreateBulletList;
+    procedure CreateNumberedList;
+    procedure CreateTable(AColCount: Integer; ARowCount: Integer);
     procedure AddParagraph;
+
+    procedure InsertRowBefore;
+    procedure InsertRowAfter;
+    procedure InsertColumnBefore;
+    procedure InsertColumnAfter;
+    procedure DeleteColumn;
+    procedure DeleteRow;
+    procedure SelectTable;
 
     procedure IncIndent;
     procedure DecIndent;
@@ -143,6 +144,9 @@ type
     procedure Redo;
 
     // properties
+    property Bullets: Boolean
+      read GetBullets write SetBullets;
+
     property Editor: TKMemo
       read GetEditor;
 
@@ -151,6 +155,9 @@ type
 
     property Actions: IRichEditorActions
       read GetActions;
+
+    property BackgroundColor: TColor
+      read GetBackgroundColor write SetBackgroundColor;
 
     property ContentSize: Int64
       read GetContentSize;
@@ -170,6 +177,12 @@ type
 
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
+
+    property IsInsideOfTable: Boolean
+      read GetIsInsideOfTable;
+
+    property RTFText: string
+      read GetRTFText write SetRTFText;
 
     property Text: string
       read GetText write SetText;

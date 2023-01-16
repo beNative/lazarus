@@ -28,9 +28,9 @@
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="275"/>
+      <BuildNr Value="276"/>
       <Attributes pvaPrivateBuild="True"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2022 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -101,17 +101,7 @@
             <IncludeFiles Value="$(ProjOutDir)"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
           </SearchPaths>
-          <Conditionals Value="// example for adding linker options on Mac OS X
-//if TargetOS=&apos;darwin&apos; then
-//  LinkerOptions := &apos; -framework OpenGL&apos;;
-
-// example for adding a unit and include path on Windows
-//if SrcOS=&apos;win&apos; then begin
-//  UnitPath += &apos;;win&apos;;
-//  IncPath += &apos;;win&apos;;
-//end;
-
-if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
+          <Conditionals Value="if GetIDEValue(&apos;OS&apos;) = &apos;linux&apos; then
 begin
   upx := &apos;upx&apos;
 end
@@ -162,8 +152,8 @@ end;"/>
               <CompileReasons Compile="False" Build="False" Run="False"/>
             </ExecuteBefore>
             <ExecuteAfter>
-              <Command Value="$Path($(CompPath))\$(upx) $(TargetFile)"/>
-              <CompileReasons Compile="False" Build="False" Run="False"/>
+              <Command Value="$(upx) $(TargetFile)"/>
+              <CompileReasons Build="False" Run="False"/>
             </ExecuteAfter>
           </Other>
         </CompilerOptions>

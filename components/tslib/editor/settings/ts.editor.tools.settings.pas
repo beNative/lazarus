@@ -87,7 +87,9 @@ end;
 function TEditorToolSettings.GetItems(AIndex: Integer): TComponent;
 begin
   if AIndex < Count then
-    Result := Components[AIndex];
+    Result := Components[AIndex]
+  else
+    Result := nil;
 end;
 
 function TEditorToolSettings.GetItemsByName(

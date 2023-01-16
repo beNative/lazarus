@@ -2284,7 +2284,6 @@ begin
     Assert(not (AString[SPos] in WhiteSpaces));
 
     { read next non-white-space chunk }
-
     NextSPos := SPos + 1;
     while (NextSPos <= Length(AString)) and
           not (AString[NextSPos] in WhiteSpaces) do
@@ -2296,7 +2295,6 @@ begin
     SPos := NextSPos;
 
     { omit next white-space chunk }
-
     if SCharIs(AString, SPos, WhiteSpaces) then
     begin
       Result[ResultPos] := ' ';

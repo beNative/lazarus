@@ -4,23 +4,9 @@ inherited frmPreview: TfrmPreview
   Top = 331
   Width = 673
   Caption = 'Preview'
-  ClientHeight = 517
-  ClientWidth = 673
-  object mmoPreview: TRichMemo[0]
-    Left = 0
-    Height = 517
-    Top = 0
-    Width = 673
-    Align = alClient
-    BorderStyle = bsNone
-    Color = clWhite
-    HideSelection = False
-    TabOrder = 0
-    ZoomFactor = 1
-  end
-  object ppmPreview: TPopupMenu[1]
-    left = 52
-    top = 116
+  object ppmPreview: TPopupMenu[0]
+    Left = 52
+    Top = 116
     object mniSelectAll: TMenuItem
       Caption = 'Select &All'
       Hint = 'Select All'

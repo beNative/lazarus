@@ -43,7 +43,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="68">
+    <Files Count="67">
       <Item1>
         <Filename Value="editor\ts.editor.aboutdialog.pas"/>
         <UnitName Value="ts.Editor.AboutDialog"/>
@@ -285,40 +285,36 @@ limitations under the License.         "/>
         <UnitName Value="ts.Editor.SettingsDialog"/>
       </Item60>
       <Item61>
-        <Filename Value="editor\shortcuts\ts.editor.shortcuts.toolview.pas"/>
-        <UnitName Value="ts.Editor.Shortcuts.ToolView"/>
-      </Item61>
-      <Item62>
         <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
         <UnitName Value="ts.Editor.SortStrings.Settings"/>
-      </Item62>
-      <Item63>
+      </Item61>
+      <Item62>
         <Filename Value="editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
         <UnitName Value="ts.Editor.SortStrings.ToolView"/>
-      </Item63>
-      <Item64>
+      </Item62>
+      <Item63>
         <Filename Value="editor\structure\ts.editor.structure.toolview.pas"/>
         <UnitName Value="ts.Editor.Structure.ToolView"/>
-      </Item64>
-      <Item65>
+      </Item63>
+      <Item64>
         <Filename Value="editor\test\ts.editor.test.toolview.pas"/>
         <UnitName Value="ts.Editor.Test.ToolView"/>
-      </Item65>
-      <Item66>
+      </Item64>
+      <Item65>
         <Filename Value="editor\toolview\ts.editor.toolview.base.pas"/>
         <UnitName Value="ts.Editor.ToolView.Base"/>
-      </Item66>
-      <Item67>
+      </Item65>
+      <Item66>
         <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
         <UnitName Value="ts.Editor.ViewList.Data"/>
-      </Item67>
-      <Item68>
+      </Item66>
+      <Item67>
         <Filename Value="editor\viewlist\ts.editor.viewlist.toolview.pas"/>
         <UnitName Value="ts.Editor.ViewList.ToolView"/>
-      </Item68>
+      </Item67>
     </Files>
     <CompatibilityMode Value="True"/>
-    <RequiredPkgs Count="11">
+    <RequiredPkgs Count="10">
       <Item1>
         <PackageName Value="ExtraHighlighters"/>
       </Item1>
@@ -338,20 +334,17 @@ limitations under the License.         "/>
         <PackageName Value="virtualtreeview_package"/>
       </Item6>
       <Item7>
-        <PackageName Value="richmemopackage"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="SynEdit"/>
       </Item8>
       <Item9>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="LCL"/>
       </Item9>
       <Item10>
-        <PackageName Value="LCL"/>
-      </Item10>
-      <Item11>
         <PackageName Value="FCL"/>
-      </Item11>
+      </Item10>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

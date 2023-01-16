@@ -19,10 +19,10 @@ uses
   ts.Editor.Types, ts.Editor.Utils, ts.Editor.View, 
   ts.Editor.ActionList.Templates, ts.Editor.ActionList.ToolView, 
   ts.Editor.AlignLines.Settings, ts.Editor.AlignLines.ToolView, 
-  ts.Editor.charactermap.ToolView, ts.Editor.CodeFilter.Data, 
+  ts.Editor.CharacterMap.ToolView, ts.Editor.CodeFilter.Data, 
   ts.Editor.CodeFilter.Settings, ts.Editor.CodeFilter.ToolView, 
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeShaper.ToolView, 
-  ts.Editor.filter.ToolView, ts.Editor.HexEditor.Settings, 
+  ts.Editor.Filter.ToolView, ts.Editor.HexEditor.Settings, 
   ts.Editor.HexEditor.ToolView, ts.Editor.MiniMap.Settings, 
   ts.Editor.MiniMap.ToolView, ts.Editor.Preview.ToolView, 
   ts.Editor.ScriptEditor.ToolView, ts.Editor.Search.Data, 
@@ -36,10 +36,10 @@ uses
   ts.Editor.SettingsDialog.FileAssociations, 
   ts.Editor.SettingsDialog.FileTypes, ts.Editor.SettingsDialog.Highlighters, 
   ts.Editor.SettingsDialog.KeyMappings, ts.Editor.SettingsDialog.Old, 
-  ts.Editor.SettingsDialog, ts.Editor.Shortcuts.ToolView, 
-  ts.Editor.SortStrings.Settings, ts.Editor.SortStrings.ToolView, 
-  ts.Editor.Structure.ToolView, ts.Editor.Test.ToolView, 
-  ts.Editor.ToolView.Base, ts.Editor.ViewList.Data, ts.Editor.ViewList.ToolView;
+  ts.Editor.SettingsDialog, ts.Editor.SortStrings.Settings, 
+  ts.Editor.SortStrings.ToolView, ts.Editor.Structure.ToolView, 
+  ts.Editor.Test.ToolView, ts.Editor.ToolView.Base, ts.Editor.ViewList.Data, 
+  ts.Editor.ViewList.ToolView;
 
 implementation
 

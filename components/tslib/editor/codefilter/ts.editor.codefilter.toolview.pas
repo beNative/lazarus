@@ -708,6 +708,7 @@ end;
 function TfrmCodeFilterDialog.IsMatch(const AString: string; var AMatch: string;
   var APos: Integer): Boolean;
 begin
+  Result := False;
   if Filter <> '' then
   begin
     if RegEx and FIsCompiled then
@@ -723,7 +724,6 @@ begin
     begin
       APos := StrPos(Filter, AString, MatchCase);
       AMatch := System.Copy(AString, APos, Length(Filter));
-
       Result := APos > 0;
     end;
   end;
@@ -731,6 +731,7 @@ end;
 
 function TfrmCodeFilterDialog.IsMatch(const AString: string): Boolean;
 begin
+  Result := False;
   if Filter <> '' then
   begin
     if RegEx and FIsCompiled then

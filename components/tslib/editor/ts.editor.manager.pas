@@ -104,9 +104,6 @@ uses
   ts.Core.Logger;
 
 type
-
-  { TdmEditorManager }
-
   TdmEditorManager = class(TDataModule, IEditorManager,
                                         IEditorActions,
                                         IEditorView,   // active view
@@ -730,7 +727,6 @@ implementation
 uses
 {$IFDEF WINDOWS}
   Windows,
-
 {$ENDIF}
   Clipbrd, StrUtils, TypInfo, Contnrs, LazFileUtils,
 
@@ -751,7 +747,6 @@ uses
   ts.Editor.Preview.ToolView,
   ts.Editor.Test.ToolView,
   ts.Editor.Search.ToolView,
-  ts.Editor.Shortcuts.ToolView,
   ts.Editor.ActionList.ToolView,
   ts.Editor.CodeFilter.ToolView,
   ts.Editor.CharacterMap.ToolView,
@@ -928,6 +923,7 @@ function TdmEditorManager.GetItem(AName: string): TCustomAction;
 var
   A: TCustomAction;
 begin
+  Result := nil;
   A := aclActions.ActionByName(AName) as TCustomAction;
   if Assigned(A) then
     Result := A
@@ -1372,7 +1368,7 @@ end;
 
 procedure TdmEditorManager.actHelpExecute(Sender: TObject);
 begin
-  ShortCuts.Show;
+//
 end;
 
 procedure TdmEditorManager.actInsertColorValueExecute(Sender: TObject);
@@ -1397,7 +1393,7 @@ end;
 
 procedure TdmEditorManager.actNewExecute(Sender: TObject);
 var
-  S : string;
+  S : string = '';
   V : IEditorView;
 begin
   if Assigned(ActiveView) then
@@ -2639,13 +2635,13 @@ end;
 
 { 1. Removes the given instance from the list
   2. Closes the instance (which will free it)
-  3. Sets the active view to another view if we were closing the active view
-}
+  3. Sets the active view to another view if we were closing the active view  }
 
 function TdmEditorManager.DeleteView(AView: IEditorView): Boolean;
 var
   I : Integer;
 begin
+  Result := False;
   if Assigned(AView) and Assigned(ViewList) then
   begin
     I := ViewList.IndexOf(AView);
@@ -2688,7 +2684,7 @@ end;
 procedure TdmEditorManager.ClearViews(AExceptActive: Boolean);
 var
   I : Integer;
-  V : IEditorView;
+  V : IEditorView = nil;
 begin
   if AExceptActive then
   begin
@@ -2699,7 +2695,7 @@ begin
   while ViewCount > 0 do
     DeleteView(0);
   ViewList.Clear;
-  if AExceptActive then
+  if AExceptActive and Assigned(V) then
     ViewList.Add(V);
 end;
 {$ENDREGION}

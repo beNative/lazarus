@@ -76,19 +76,14 @@ uses
   ts.Core.Logger;
 
 type
-
-  { TEditorView }
-
   TEditorView = class(TForm, IEditorView, IEditorSelection)
-  published
     imlBookmarkImages : TImageList;
 
-    procedure FormCreate(Sender: TObject);
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
   private
-    // SynEdit event handlers
+    {$REGION 'SynEdit event handlers'}
     procedure EditorChangeUpdating(
       ASender    : TObject;
       AUpdating  : Boolean
@@ -182,6 +177,7 @@ type
       FinishComboOnly     : Boolean;
       var ComboKeyStrokes : TSynEditKeyStrokes
     );
+    {$ENDREGION}
 
 {$IFDEF WINDOWS}
     procedure DirectoryWatchNotify(
@@ -710,11 +706,6 @@ begin
   Events.DoChange;
 end;
 
-procedure TEditorView.FormCreate(Sender: TObject);
-begin
-
-end;
-
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;
   var Command: TSynEditorCommand; var AChar: TUTF8Char; Data: Pointer);
 begin
@@ -904,7 +895,6 @@ end;
 
 procedure TEditorView.EditorChange(Sender: TObject);
 begin
-  //Logger.Send('EditorChange');
   DoChange;
   Events.DoChange;
 end;
@@ -1762,20 +1752,19 @@ begin
 
   AEditor.Options := [
     eoAltSetsColumnMode,
-    eoAutoIndent,        // Will indent the caret on new lines with the same amount of leading white space as the preceding line
+    eoAutoIndent,
     eoAutoIndentOnPaste,
-    eoEnhanceHomeKey,   // home key jumps to line start if nearer, similar to visual studio
-    eoGroupUndo,       // When undoing/redoing actions, handle all continous changes of the same kind in one call instead undoing/redoing each command separately
-    eoHalfPageScroll,   // When scrolling with page-up and page-down commands, only scroll a half page at a time
-    eoSmartTabs,        // When tabbing, the cursor will go to the next non-white space character of the previous line
-    eoTabIndent,        // When active <Tab> and <Shift><Tab> act as block indent, unindent when text is selected
-    eoTabsToSpaces,    // Converts a tab character to a specified number of space characters
-    eoTrimTrailingSpaces,  // Spaces at the end of lines will be trimmed and not saved
-    eoBracketHighlight, // Highlight matching bracket
+    eoEnhanceHomeKey,
+    eoGroupUndo,
+    eoHalfPageScroll,
+    eoSmartTabs,
+    eoTabIndent,
+    eoTabsToSpaces,
+    eoTrimTrailingSpaces,
+    eoBracketHighlight,
     eoShowCtrlMouseLinks,
-    eoScrollPastEol,         // makes column selections easier
+    eoScrollPastEol,
     eoDragDropEditing,
-//    eoPersistentCaret,     // not fully supported by SynEdit yet.
     eoShowScrollHint
   ];
 
@@ -1863,22 +1852,6 @@ begin
   //    Command   := ecCut;
   //end;
 {$ENDIF}
-
-  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+S'));
-  //AEditor.Keystrokes.Delete(N);
-  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('F1'));
-  //AEditor.Keystrokes.Delete(N);
-
-  //FCompletionProposal := TSynCompletionProposal.Create(Self);
-  //FCompletionProposal.Editor := Editor;
-  //FCompletionProposal.InsertList.Add('Insert');
-  //FCompletionProposal.InsertList.Add('List');
-  //FCompletionProposal.ItemList.Add('IOnsert');
-  //FCompletionProposal.ItemList.Add('IOn');
-  //FCompletionProposal.Columns.Add;
-  //FCompletionProposal.Resizeable := True;
-  //AEditor.MouseActions.FindCommand();
-  // delete the quickpaste command with middle mouse button
 
   // highlights all words that are the same as the one surrounding the caret position
   FMHAC := Editor.MarkupByClass[TSynEditMarkupHighlightAllCaret]

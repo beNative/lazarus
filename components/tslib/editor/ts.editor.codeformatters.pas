@@ -140,55 +140,6 @@ begin
   );
 end;
 
-{
-  Poor Man's T-SQL Formatter - a small free Transact-SQL formatting
-  library for .Net 2.0, written in C#. Distributed under AGPL v3.
-  Copyright (C) 2011 Tao Klerks
-  v1.0.1.23412
-
-  Usage notes:
-
-  SqlFormatter <filename or pattern> <options>
-
-  is  indentString (default: \t)
-  st  spacesPerTab (default: 4)
-  mw  maxLineWidth (default: 999)
-  tc  trailingCommas (default: false)
-  sac spaceAfterExpandedComma (default: false)
-  ebc expandBetweenConditions (default: true)
-  ebe expandBooleanExpressions (default: true)
-  ecs expandCaseStatements (default: true)
-  ecl expandCommaLists (default: true)
-  uk  uppercaseKeywords (default: true)
-  sk  standardizeKeywords (default: false)
-  e   extensions (default: sql)
-  r   recursive (default: false)
-  b   backups (default: true)
-  b   outputFileOrFolder (default: none; if set, overrides the backup option)
-  h ? help
-
-  Disable boolean options with a trailing minus, enable by just specifying them or
-   with a trailing plus.
-
-  eg:
-
-  SqlFormatter TestFiles\* /is:"  " /tc /uc-
-
-  or
-
-  SqlFormatter test*.sql /o:resultfile.sql
-}
-
-//function TSQLFormatter.Format(const AString: string): string;
-//begin
-//  Result := RunFormatterProcess(
-//    'SQLFormatter.exe',
-//    '%s /is:"  " /st:2 /mw:80 /tc /uk-',
-//    AString,
-//    'Formatter.sql'
-//  );
-//end;
-
 function TXMLFormatter.Format(const AString: string): string;
 begin
   Result := ts.Editor.Utils.FormatXML(AString);

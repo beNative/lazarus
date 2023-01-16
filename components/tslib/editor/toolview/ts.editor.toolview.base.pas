@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -47,7 +47,7 @@ uses
 
 type
   TCustomEditorToolView = class(TForm, IEditorToolView)
-  strict private
+  private
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
 
@@ -58,7 +58,7 @@ type
     function GetViews: IEditorViews;
     procedure SetUpdate(AValue: Boolean);
 
-  strict protected
+  protected
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
@@ -94,13 +94,12 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+
   end;
 
 implementation
 
 {$R *.lfm}
-
 
 {$REGION 'construction and destruction'}
 procedure TCustomEditorToolView.AfterConstruction;
@@ -111,11 +110,6 @@ begin
   Manager.Events.AddOnActiveViewChangeHandler(EditorActiveViewChanged);
   Manager.Events.AddOnChangeHandler(EditorChange);
   Manager.Events.AddOnModifiedHandler(EditorModified);
-end;
-
-procedure TCustomEditorToolView.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
 end;
 {$ENDREGION}
 

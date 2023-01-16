@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.Editor.Preview.ToolView;
@@ -25,25 +23,20 @@ interface
 uses
   Classes, SysUtils, Menus,
 
-  RichMemo,
-
-  ts.Editor.Interfaces,
-
   ts.Components.ExportRTF,
 
-  ts.Editor.ToolView.Base;
+  ts.Editor.Interfaces, ts.Editor.ToolView.Base;
 
 type
   TfrmPreview = class(TCustomEditorToolView, IEditorToolView)
     mniSelectAll                : TMenuItem;
     mniOpenSelectionInNewEditor : TMenuItem;
-    mmoPreview                  : TRichMemo;
     ppmPreview                  : TPopupMenu;
 
-  strict private
+  private
      FSynExporterRTF: TSynExporterRTF;
 
-  strict protected
+  protected
     procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer); override;
 
     procedure UpdateView; override;
@@ -62,7 +55,7 @@ procedure TfrmPreview.AfterConstruction;
 begin
   inherited AfterConstruction;
   FSynExporterRTF := TSynExporterRTF.Create(Self);
-  mmoPreview.DoubleBuffered := True;
+  //mmoPreview.DoubleBuffered := True;
 end;
 {$ENDREGION}
 
@@ -75,43 +68,43 @@ end;
 
 {$REGION 'protected methods'}
 procedure TfrmPreview.UpdateView;
-var
-  SS : TStringStream;
-  S  : string;
-  SL : TStringList;
+//var
+//  SS : TStringStream;
+//  S  : string;
+//  SL : TStringList;
 begin
-  BeginFormUpdate;
-  try
-    mmoPreview.Clear;
-    S := View.PreviewText;
-    if (S <> '') and (View.Editor.Highlighter <> nil) then
-    begin
-      SL := TStringList.Create;
-      try
-        SL.Text := S;
-        S := '';
-        SS := TStringStream.Create(S);
-        try
-          SL.BeginUpdate;
-          FSynExporterRTF.UseBackground := True;
-          FSynExporterRTF.Font := View.Editor.Font;
-          FSynExporterRTF.Highlighter := View.Editor.Highlighter;
-          FSynExporterRTF.ExportAsText := True;
-          FSynExporterRTF.ExportAll(SL);
-          FSynExporterRTF.SaveToStream(SS);
-          SS.Position := 0;
-          mmoPreview.LoadRichText(SS);
-        finally
-          SL.EndUpdate;
-          FreeAndNil(SS);
-        end;
-      finally
-        FreeAndNil(SL);
-      end;
-    end;
-  finally
-    EndFormUpdate;
-  end;
+  //BeginFormUpdate;
+  //try
+  //  mmoPreview.Clear;
+  //  S := View.PreviewText;
+  //  if (S <> '') and (View.Editor.Highlighter <> nil) then
+  //  begin
+  //    SL := TStringList.Create;
+  //    try
+  //      SL.Text := S;
+  //      S := '';
+  //      SS := TStringStream.Create(S);
+  //      try
+  //        SL.BeginUpdate;
+  //        FSynExporterRTF.UseBackground := True;
+  //        FSynExporterRTF.Font := View.Editor.Font;
+  //        FSynExporterRTF.Highlighter := View.Editor.Highlighter;
+  //        FSynExporterRTF.ExportAsText := True;
+  //        FSynExporterRTF.ExportAll(SL);
+  //        FSynExporterRTF.SaveToStream(SS);
+  //        SS.Position := 0;
+  //        mmoPreview.LoadRichText(SS);
+  //      finally
+  //        SL.EndUpdate;
+  //        FreeAndNil(SS);
+  //      end;
+  //    finally
+  //      FreeAndNil(SL);
+  //    end;
+  //  end;
+  //finally
+  //  EndFormUpdate;
+  //end;
 end;
 {$ENDREGION}
 

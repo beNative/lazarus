@@ -28,9 +28,6 @@ uses
   Classes, SysUtils, Contnrs;
 
 type
-
-  { TSearchResult }
-
   TSearchResult = class(TPersistent)
   private
     FIndex      : Integer;
@@ -87,8 +84,6 @@ type
 
   end;
 
-  { TSearchResultLine }
-
   TSearchResultLine = class(TPersistent)
   private
     FLine : Integer;
@@ -110,8 +105,6 @@ type
       read GetText;
 
   end;
-
-  { TSearchResultGroup }
 
   TSearchResultGroup = class(TPersistent)
   private

@@ -4,5 +4,5 @@ object CustomEditorToolView: TCustomEditorToolView
   Top = 288
   Width = 320
   KeyPreview = True
-  LCLVersion = '1.2.0.2'
+  LCLVersion = '2.2.2.0'
 end

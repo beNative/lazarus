@@ -27,14 +27,12 @@ unit ts.Editor.AboutDialog;
     Anchor Docking Mattias Gaertner
     RTTI controls Mattias Gaertner
     TDirectoryWatch Iztok Kacin, Cromis, FPC port by Tim Sinaeve
-    TRichMemo Dmitry 'skalogryz' Boyarintsev
     NativeXML Nils Haeck M.Sc.
     luicontrols Luiz Américo Pereira Câmara
     luicomponents Luiz Américo Pereira Câmara
     MultiLog Luiz Américo Pereira Câmara
     SynUniHighlighter Kirill Burtsev and Vitaly Nevzorov, ported to FPC by
     Tom Lisjac and Tim Sinaeve
-    Silk Icons
 }
 
 interface

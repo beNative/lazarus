@@ -30,8 +30,6 @@ uses
   ts.Core.ColumnDefinitionsDataTemplate;
 
 type
-  { TSearchResultGroupTemplate }
-
   TSearchResultGroupTemplate = class(TColumnDefinitionsDataTemplate, IDataTemplate)
   public
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;
@@ -45,8 +43,6 @@ type
     procedure AfterConstruction; override;
   end;
 
-  { TSearchResultLineTemplate }
-
   TSearchResultLineTemplate = class(TColumnDefinitionsDataTemplate, IDataTemplate)
   public
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;
@@ -59,8 +55,6 @@ type
 
     procedure AfterConstruction; override;
   end;
-
-  { TSearchResultTemplate }
 
   TSearchResultTemplate = class(TColumnDefinitionsDataTemplate, IDataTemplate)
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;

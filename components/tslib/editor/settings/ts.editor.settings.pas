@@ -83,12 +83,8 @@ const
   DEFAULT_SINGLE_INSTANCE             = False;
   DEFAULT_LANGUAGE_CODE               = 'en';
   DEFAULT_FONT_NAME                   = 'Courier New';
-  //DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
-
-  { TEditorSettings }
-
   TEditorSettings = class(TComponent, IEditorSettings)
   private
     FAutoFormatXML            : Boolean;

@@ -29,7 +29,7 @@ uses
 
 type
   TToolView = class(TInterfacedObject, IEditorToolView)
-  strict private
+  private
     FName          : string;
     FFormClass     : TComponentClass;
     FForm          : TForm;
@@ -37,7 +37,7 @@ type
     FSettingsClass : TComponentClass;
     FToolView      : IEditorToolView;
 
-  strict protected
+  protected
     {$REGION 'property access methods'}
     function GetForm: TForm;
     function GetVisible: Boolean;
@@ -77,11 +77,11 @@ type
   end;
 
   TToolViews = class(TInterfacedObject, IEditorToolViews)
-  strict private
+  private
     FItems   : TInterfaceList;
     FManager : IEditorManager;
 
-  strict protected
+  protected
     {$REGION 'property access methods'}
     function GetView(AIndex: Integer): IEditorToolView;
     function GetViewByName(AName: string): IEditorToolView;

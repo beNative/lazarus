@@ -217,7 +217,7 @@ type
     procedure SetParentFieldName(const AValue: string);
     procedure SetToolbarTopVisible(const Value: Boolean);
     procedure SetViewFieldName(const AValue: string);
-  {$ENDREGION}
+    {$ENDREGION}
 
     procedure GetFileListFromObj(
       const DataObj : IDataObject;
@@ -355,8 +355,8 @@ begin
   inherited AfterConstruction;
   FTreeView := TCheckVirtualDBTreeEx.Create(Self);
   InitializeTreeView;
-  MultiSelect          := True;
-  ToolbarTopVisible    := True;
+  MultiSelect       := True;
+  ToolbarTopVisible := True;
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   LevelFieldName    := DEFAULT_LEVELFIELDNAME;
@@ -832,7 +832,6 @@ begin
       dboCheckChildren,
       dboCheckDBStructure,
       dboParentStructure,
-      //dboerTrackActive,
       dboTrackChanges,
       dboTrackCursor,
       dboViewAll

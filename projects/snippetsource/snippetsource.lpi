@@ -289,7 +289,7 @@ end;"/>
         <PackageName Value="LCL"/>
       </Item17>
     </RequiredPackages>
-    <Units Count="77">
+    <Units Count="79">
       <Unit0>
         <Filename Value="snippetsource.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -305,7 +305,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="16"/>
         <TopLine Value="715"/>
         <CursorPos Y="746"/>
         <UsageCount Value="243"/>
@@ -319,7 +319,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.VirtualDBTree"/>
-        <EditorIndex Value="25"/>
+        <EditorIndex Value="28"/>
         <TopLine Value="528"/>
         <CursorPos Y="561"/>
         <UsageCount Value="243"/>
@@ -332,7 +332,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Lookup"/>
-        <EditorIndex Value="24"/>
+        <EditorIndex Value="27"/>
         <TopLine Value="60"/>
         <CursorPos X="9" Y="324"/>
         <UsageCount Value="201"/>
@@ -369,7 +369,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="SnippetSource.Modules.Data"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="17"/>
         <TopLine Value="1356"/>
         <CursorPos X="22" Y="1417"/>
         <UsageCount Value="202"/>
@@ -393,7 +393,7 @@ end;"/>
         <Filename Value="snippetsource.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Settings"/>
-        <EditorIndex Value="28"/>
+        <EditorIndex Value="31"/>
         <TopLine Value="292"/>
         <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
@@ -406,11 +406,11 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Console"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="155"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="154"/>
         <CursorPos X="36" Y="137"/>
         <UsageCount Value="201"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
+        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="snippetsource.forms.query.pas"/>
@@ -419,7 +419,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Query"/>
-        <EditorIndex Value="27"/>
+        <EditorIndex Value="30"/>
         <TopLine Value="44"/>
         <CursorPos X="76" Y="73"/>
         <UsageCount Value="200"/>
@@ -429,7 +429,7 @@ end;"/>
         <Filename Value="snippetsource.resources.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Resources"/>
-        <EditorIndex Value="22"/>
+        <EditorIndex Value="25"/>
         <CursorPos X="14" Y="28"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -438,7 +438,7 @@ end;"/>
         <Filename Value="snippetsource.virtualtree.editors.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.VirtualTree.Editors"/>
-        <EditorIndex Value="26"/>
+        <EditorIndex Value="29"/>
         <TopLine Value="178"/>
         <CursorPos X="60" Y="2"/>
         <UsageCount Value="200"/>
@@ -612,10 +612,10 @@ end;"/>
       <Unit33>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.interfaces.pas"/>
         <UnitName Value="ts.RichEditor.Interfaces"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="258"/>
         <CursorPos X="3" Y="289"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit33>
       <Unit34>
@@ -624,11 +624,10 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.RichEditor.View.KMemo"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <TopLine Value="1291"/>
-        <CursorPos X="12" Y="1315"/>
-        <UsageCount Value="29"/>
+        <CursorPos X="41" Y="1308"/>
+        <UsageCount Value="30"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit34>
@@ -654,10 +653,10 @@ end;"/>
       <Unit38>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.factories.toolbars.pas"/>
         <UnitName Value="ts.RichEditor.Factories.Toolbars"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="5"/>
         <CursorPos X="5" Y="36"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit38>
       <Unit39>
@@ -666,10 +665,10 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.RichEditor.Manager"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="63"/>
         <CursorPos Y="63"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit39>
@@ -740,9 +739,9 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="SnippetSource.Modules.Python"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="18"/>
         <CursorPos Y="29"/>
-        <UsageCount Value="84"/>
+        <UsageCount Value="85"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit48>
@@ -768,9 +767,9 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="SnippetSource.Modules.Terminal"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="22"/>
         <CursorPos X="3" Y="25"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="70"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit51>
@@ -838,7 +837,7 @@ end;"/>
         <Filename Value="..\..\components\tslib\tslib_editor.pas"/>
         <EditorIndex Value="1"/>
         <CursorPos X="3" Y="11"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="29"/>
         <Loaded Value="True"/>
       </Unit61>
       <Unit62>
@@ -847,7 +846,7 @@ end;"/>
         <EditorIndex Value="2"/>
         <TopLine Value="8"/>
         <CursorPos X="60" Y="2"/>
-        <UsageCount Value="27"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit62>
       <Unit63>
@@ -876,80 +875,80 @@ end;"/>
       <Unit66>
         <Filename Value="..\..\..\lazarus\components\lazutils\utf8process.pp"/>
         <UnitName Value="UTF8Process"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="23"/>
         <CursorPos X="15" Y="48"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit66>
       <Unit67>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-process\src\process.pp"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="24"/>
         <CursorPos X="30" Y="6"/>
-        <UsageCount Value="22"/>
+        <UsageCount Value="23"/>
         <Loaded Value="True"/>
       </Unit67>
       <Unit68>
         <Filename Value="..\..\components\tslib\components\ts.components.dbgridview.pas"/>
         <UnitName Value="ts.Components.DBGridView"/>
-        <EditorIndex Value="23"/>
+        <EditorIndex Value="26"/>
         <CursorPos X="12" Y="2"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit68>
       <Unit69>
         <Filename Value="..\..\..\lazarus\lcl\lresources.pp"/>
         <UnitName Value="LResources"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="21"/>
         <TopLine Value="528"/>
         <CursorPos X="28" Y="542"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit69>
       <Unit70>
         <Filename Value="..\..\..\fpcsrc\rtl\win\wininc\func.inc"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="135"/>
         <CursorPos X="10" Y="165"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit70>
       <Unit71>
         <Filename Value="..\..\..\fpcsrc\rtl\win\wininc\base.inc"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="20"/>
         <TopLine Value="94"/>
         <CursorPos X="6" Y="101"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit71>
       <Unit72>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <UnitName Value="ts.Core.Utils"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="243"/>
         <CursorPos X="10" Y="274"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit72>
       <Unit73>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.types.pas"/>
         <UnitName Value="ts.RichEditor.Types"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="14"/>
         <CursorPos X="11" Y="32"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit73>
       <Unit74>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.settings.pas"/>
         <UnitName Value="ts.RichEditor.Settings"/>
-        <EditorIndex Value="12"/>
-        <UsageCount Value="11"/>
+        <EditorIndex Value="15"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit74>
       <Unit75>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.factories.pas"/>
         <UnitName Value="ts.RichEditor.Factories"/>
-        <EditorIndex Value="9"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="12"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit75>
       <Unit76>
@@ -959,6 +958,22 @@ end;"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit76>
+      <Unit77>
+        <Filename Value="..\richeditor\mainform.pas"/>
+        <UnitName Value="MainForm"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="36"/>
+        <CursorPos X="100" Y="28"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit77>
+      <Unit78>
+        <Filename Value="..\richeditor\RE.lpr"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="8"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit78>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>

@@ -77,8 +77,8 @@ type
     gbxTokenList     : TGroupBox;
     gbxTokensFound   : TGroupBox;
     mmoTokens        : TMemo;
-    pnlTokens        : TOMultiPanel;
     pnlBottom        : TPanel;
+    pnlTokens        : TOMultiPanel;
     pnlVST           : TPanel;
     rgpAlignAt       : TRadioGroup;
     rgpSortDirection : TRadioGroup;
@@ -172,10 +172,10 @@ begin
   end;
   if Settings.Tokens.Count = 0 then
     AssignDefaultTokens;
-  FTVP.ItemsSource   := FTokens;
-  FTVP.TreeView      := FVST;
-  FTVP.ShowHeader    := False;
-  FTVP.OnDoubleClick := FTVPDoubleClick;
+  FTVP.ItemsSource    := FTokens;
+  FTVP.TreeView       := FVST;
+  FTVP.ShowHeader     := False;
+  FTVP.OnDoubleClick  := FTVPDoubleClick;
   mmoTokens.Font.Name := Manager.Settings.EditorFont.Name;
   mmoTokens.Lines.Assign(Settings.Tokens);
   ActiveControl := FVST;

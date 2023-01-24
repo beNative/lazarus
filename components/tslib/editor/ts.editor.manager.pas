@@ -771,7 +771,7 @@ uses
 
   ts.Editor.Search.Engine,
 
-  ts.Editor.ToolView.Manager,
+  ts.Editor.ToolViews,
 
   ts.Editor.SettingsDialog.Old,
   ts.Editor.SettingsDialog.FileAssociations;
@@ -804,7 +804,7 @@ begin
   { TODO -oTS : Move the construction of these objects to the outside and pass
    the instances to the constructor (dependency injection). This will allow to
    create unit tests for each module. }
-  FToolViews        := TToolViews.Create(Self);
+  FToolViews        := TEditorToolViews.Create(Self);
   FEvents           := TEditorEvents.Create(Self);
   FCommands         := TEditorCommands.Create(Self);
   FViewList         := TEditorViewList.Create;
@@ -2021,7 +2021,6 @@ begin
            tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta]);
         if tAction(aclActions.Actions[i]).Name='actFindPrevious' then
            tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta, ssShift]);
-
     end;
     {$ENDIF}
 end;

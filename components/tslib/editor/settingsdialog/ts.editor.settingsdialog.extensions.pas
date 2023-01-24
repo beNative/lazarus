@@ -117,12 +117,14 @@ type
   TIconDialog = function(AWnd: HWND; szFileName: PChar; Reserved: Integer; var lpIconIndex: Integer): DWORD; stdcall;
   TIconDialogW = function(Wnd: HWND; szFileName: PWideChar; Reserved: Integer; var lpIconIndex: Integer): DWORD; stdcall;
 var
-  IconDialog: TIconDialog;
-  IconDialogW: TIconDialogW;
-  hDLL: THandle;
-  Buffer: array [0..MAX_PATH] of Char;
-  BufferW: array [0..MAX_PATH] of WideChar;
+  IconDialog  : TIconDialog;
+  IconDialogW : TIconDialogW;
+  hDLL        : THandle;
+  Buffer      : array [0..MAX_PATH] of Char;
+  BufferW     : array [0..MAX_PATH] of WideChar;
 begin
+  Initialize(Buffer);
+  Initialize(BufferW);
   hDLL := GetModuleHandle('Shell32.dll');
   if hDLL = 0 then
     hDLL := LoadLibrary('Shell32.dll');

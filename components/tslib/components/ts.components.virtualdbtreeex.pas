@@ -181,22 +181,22 @@ type
     FViewFieldName     : string;
 
     {$REGION 'property access methods'}
+    function GetDataSource: TDataSource;
     function GetDBNodeDataSize: Integer;
     function GetDBOptions: TDBVTOptions;
     function GetDBStatus: TDBVTStatuses;
-    function GetDataSource: TDataSource;
+    function GetOptions: TStringTreeOptions;
+    procedure SetDataSource(Value: TDataSource);
+    procedure SetDBNodeDataSize(Value: Integer);
+    procedure SetDBOptions(Value: TDBVTOptions);
     procedure SetImageFieldName(AValue: string);
+    procedure SetImgIdxFieldName(const Value: string);
     procedure SetKeyFieldName(const Value: string);
     procedure SetLevelFieldName(const Value: string);
+    procedure SetOptions(const Value: TStringTreeOptions);
     procedure SetParentFieldName(const Value: string);
     procedure SetPathFieldName(const Value: string);
     procedure SetViewFieldName(const Value: string);
-    procedure SetImgIdxFieldName(const Value: string);
-    procedure SetDBNodeDataSize(Value: Integer);
-    procedure SetDBOptions(Value: TDBVTOptions);
-    procedure SetDataSource(Value: TDataSource);
-    function GetOptions: TStringTreeOptions;
-    procedure SetOptions(const Value: TStringTreeOptions);
     {$ENDREGION}
 
     procedure OnDragOverHandler(

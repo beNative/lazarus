@@ -44,6 +44,7 @@ type
   published
     property FormSettings: TFormSettings
       read FFormSettings write SetFormSettings;
+
   end;
 
 implementation

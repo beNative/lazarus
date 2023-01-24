@@ -32,7 +32,6 @@ uses
   Classes, SysUtils, Graphics, Menus, Rtti,
   fgl,
 
-  //ts.Core.Value,
   ts.Core.Logger.Interfaces, ts.Core.Logger.Channel;
 
 const

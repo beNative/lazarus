@@ -66,7 +66,6 @@ type
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
     chkWholeWordsOnly               : TCheckBox;
-    DirectionGroupBox               : TGroupBox;
     grdReplaceStrings               : TStringGrid;
     grpDirection                    : TGroupBox;
     grpMisc                         : TGroupBox;
@@ -115,13 +114,13 @@ type
     FVST : TVirtualStringTree;
 
     {$REGION 'property access mehods'}
-    function GetSearchEngine: IEditorSearchEngine;
     function GetOptions: TSynSearchOptions;
+    function GetReplaceText: string;
+    function GetSearchEngine: IEditorSearchEngine;
     function GetSearchText: string;
     procedure SetOptions(AValue: TSynSearchOptions);
-    procedure SetSearchText(const AValue: string);
-    function GetReplaceText: string;
     procedure SetReplaceText(const AValue: string);
+    procedure SetSearchText(const AValue: string);
     {$ENDREGION}
 
     procedure SearchEngineExecute(Sender: TObject);
@@ -132,7 +131,7 @@ type
       var AHandled : Boolean
     );
 
-  strict protected
+  protected
     procedure EditorSettingsChanged(Sender: TObject); override;
 
     procedure SettingsChanged; override;
@@ -421,7 +420,7 @@ end;
 procedure TfrmSearchForm.ActionExecute(Sender: TObject; AAction: TBasicAction;
   var AHandled: Boolean);
 begin
-  //Logger.Send('Executed', AAction.Name);
+  Logger.Info('Executed %s', [AAction.Name]);
 end;
 {$ENDREGION}
 

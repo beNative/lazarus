@@ -30,16 +30,16 @@ uses
 type
   TfrmCharacterMap = class(TCustomEditorToolView, IEditorToolView)
     cbxUnicodeRange    : TComboBox;
-    imgChar            : TImage;
-    lblCharInfo        : TLabel;
-    pcMain             : TPageControl;
     grdANSI            : TStringGrid;
     grdUnicode         : TStringGrid;
+    imgChar            : TImage;
+    lblCharInfo        : TLabel;
+    lblUnicodeCharInfo : TLabel;
+    pcMain             : TPageControl;
     pnlChar            : TPanel;
     shpChar            : TShape;
     tsANSI             : TTabSheet;
     tsUnicode          : TTabSheet;
-    lblUnicodeCharInfo : TLabel;
 
     procedure cbxUnicodeRangeSelect(Sender: TObject);
     procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);

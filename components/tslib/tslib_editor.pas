@@ -15,7 +15,7 @@ uses
   ts.Editor.Factories.Settings, ts.Editor.Factories.Toolbars, 
   ts.Editor.Factories.Views, ts.Editor.HighlighterAttributes, 
   ts.Editor.Highlighters, ts.Editor.Interfaces, ts.Editor.Manager, 
-  ts.Editor.Resources, ts.Editor.Selection, ts.Editor.ToolView.Manager, 
+  ts.Editor.Resources, ts.Editor.Selection, ts.Editor.ToolViews, 
   ts.Editor.Types, ts.Editor.Utils, ts.Editor.View, 
   ts.Editor.ActionList.Templates, ts.Editor.ActionList.ToolView, 
   ts.Editor.AlignLines.Settings, ts.Editor.AlignLines.ToolView, 

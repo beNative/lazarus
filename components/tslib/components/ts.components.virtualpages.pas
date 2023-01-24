@@ -52,36 +52,32 @@ interface
 uses
   Classes, SysUtils, LCLType, Controls;
 
-  //VarRecUtils;
-
-// from VarRecUtils;
-  type
-    TConstArray = array of TVarRec;
+type
+  TConstArray = array of TVarRec;
 
 type
-
-
   TVirtualPage = class;
 
   TVirtualPageEvent = procedure(Sender: TObject; Page: TVirtualPage) of object;
 
-  { TControlDisplayOptions }
-
   TControlDisplayOptions = class(TPersistent)
   private
-    FBorderSpacing: TControlBorderSpacing;
-    FParent: TWinControl;
-    FHeight: Integer;
-    FLeft: Integer;
-    FTop: Integer;
-    FWidth: Integer;
-    FAlign: TAlign;
+    FBorderSpacing : TControlBorderSpacing;
+    FParent        : TWinControl;
+    FHeight        : Integer;
+    FLeft          : Integer;
+    FTop           : Integer;
+    FWidth         : Integer;
+    FAlign         : TAlign;
+
     procedure SetBorderSpacing(AValue: TControlBorderSpacing);
+
   public
     constructor Create;
     destructor Destroy; override;
     procedure Assign(Source: TPersistent); override;
     procedure SetControlBounds(Control: TControl);
+
   published
     property Align: TAlign read FAlign write FAlign default alClient;
     property BorderSpacing: TControlBorderSpacing read FBorderSpacing write SetBorderSpacing;

@@ -26,9 +26,6 @@ uses
   ts.RichEditor.Interfaces;
 
 type
-
-  { TRichEditorFactories }
-
   TRichEditorFactories = class
   public
     class function CreateManager(

@@ -37,14 +37,11 @@ uses
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
   KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, kdialogs,
 
-  DropComboTarget, DropTarget,
+  DropComboTarget,
 
   ts.RichEditor.Interfaces;
 
 type
-
-  { TRichEditorViewKMemo }
-
   TRichEditorViewKMemo = class(TForm, IRichEditorView)
     dctMain       : TDropComboTarget;
     pnlRichEditor : TPanel;
@@ -129,8 +126,8 @@ type
     function GetAlignLeft: Boolean;
     function GetAlignRight: Boolean;
     function GetBackgroundColor: TColor;
-    function GetCanPaste: Boolean;
     function GetBullets: Boolean;
+    function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
     function GetContentSize: Int64;
@@ -160,6 +157,7 @@ type
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
     procedure SetBackgroundColor(AValue: TColor);
+    procedure SetBullets(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
@@ -173,7 +171,7 @@ type
     procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-    procedure SetBullets(AValue: Boolean);
+
     {$ENDREGION}
 
     procedure SelectAll;
@@ -819,7 +817,7 @@ end;
 
 function TRichEditorViewKMemo.GetBullets: Boolean;
 begin
-    if FParaStyle.NumberingList < 0 then
+  if FParaStyle.NumberingList < 0 then
     Result := False
   else
     Result :=
@@ -861,6 +859,11 @@ function TRichEditorViewKMemo.GetBackgroundColor: TColor;
 begin
   Result := FTextStyle.Brush.Color;
 end;
+
+procedure TRichEditorViewKMemo.SetBackgroundColor(AValue: TColor);
+begin
+  FTextStyle.Brush.Color := AValue;
+end;
 {$ENDREGION}
 {$ENDREGION}
 
@@ -893,7 +896,7 @@ begin
     Result := FEditor.ActiveInnerBlock;
 end;
 
-{ Get active Table/Row and Cell blocks if possible }
+{ Returns active Table/Row and Cell blocks if possible. }
 
 function TRichEditorViewKMemo.TableRowCell(out ATable: TKMemoTable; out
   ARow: TKMemoTableRow; out ACell: TKMemoTableCell): Boolean;
@@ -945,11 +948,6 @@ begin
     Editor.Modified := True;
     Result := True;
   end;
-end;
-
-procedure TRichEditorViewKMemo.SetBackgroundColor(AValue: TColor);
-begin
-  FTextStyle.Brush.Color := AValue;
 end;
 {$ENDREGION}
 

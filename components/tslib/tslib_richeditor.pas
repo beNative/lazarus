@@ -11,7 +11,8 @@ uses
   ts.RichEditor.Events, ts.RichEditor.Factories.Menus, 
   ts.RichEditor.Factories, ts.RichEditor.Factories.Toolbars, 
   ts.RichEditor.Interfaces, ts.RichEditor.Manager, ts.RichEditor.Settings, 
-  ts.RichEditor.Types, ts.RichEditor.View.KMemo, LazarusPackageIntf;
+  ts.RichEditor.Types, ts.RichEditor.View.KMemo, ts.RichEditor.ToolView.Base, 
+  ts.RichEditor.Test.Toolview, ts.richeditor.toolviews, LazarusPackageIntf;
 
 implementation
 

@@ -30,7 +30,7 @@ const
 
 type
   TAlignLinesSettings = class(TComponent)
-  strict private
+  private
     FAlignInParagraphs    : Boolean;
     FAlignToToken         : TAlignToToken;
     FKeepSpaceAfterToken  : Boolean;
@@ -86,9 +86,9 @@ implementation
 procedure TAlignLinesSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FSortDirection := sdAscending;
-  FAlignToToken  := atLeftMost;
-  FWidth         := DEFAULT_WIDTH;
+  FSortDirection     := sdAscending;
+  FAlignToToken      := atLeftMost;
+  FWidth             := DEFAULT_WIDTH;
   FTokens            := TStringList.Create;
   FTokens.Duplicates := dupIgnore;
   FTokens.Sorted     := True;

@@ -24,7 +24,7 @@ unit ts.Editor.Search.Templates;
 interface
 
 uses
-  Classes, SysUtils, Contnrs,
+  SysUtils, Contnrs,
 
   ts.Core.TreeViewPresenter, ts.Core.DataTemplates,
   ts.Core.ColumnDefinitionsDataTemplate;

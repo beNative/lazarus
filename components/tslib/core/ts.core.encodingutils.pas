@@ -2692,6 +2692,7 @@ end;
 
 class function TEncodingInfoIsoLatin2.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-2:1987';
     1: Result := 'iso-ir-101';
@@ -2729,6 +2730,7 @@ end;
 
 class function TEncodingInfoIsoLatin3.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-3:1988';
     1: Result := 'iso-ir-109';
@@ -2766,6 +2768,7 @@ end;
 
 class function TEncodingInfoIsoLatin4.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-4:1988';
     1: Result := 'iso-ir-110';
@@ -2839,6 +2842,7 @@ end;
 
 class function TEncodingInfoIsoLatinArabic.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-6:1987';
     1: Result := 'iso-ir-127';
@@ -2877,6 +2881,7 @@ end;
 
 class function TEncodingInfoIsoLatinGreek.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-7:1987';
     1: Result := 'iso-ir-126';
@@ -2916,6 +2921,7 @@ end;
 
 class function TEncodingInfoIsoLatinHebrew.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-8:1988';
     1: Result := 'iso-ir-138';
@@ -2952,6 +2958,7 @@ end;
 
 class function TEncodingInfoIsoLatin5.Alias(I: Integer): string;
 begin
+  Result := '';
   case I of
     0: Result := 'ISO_8859-9:1989';
     1: Result := 'iso-ir-148';

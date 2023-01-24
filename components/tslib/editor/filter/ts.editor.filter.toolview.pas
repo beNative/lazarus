@@ -38,7 +38,7 @@ unit ts.Editor.Filter.ToolView;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   ComCtrls, StdCtrls, ActnList, Contnrs,
 
   VirtualTrees,
@@ -142,6 +142,7 @@ type
       ItemsSource.}
     property ItemTemplate: IDataTemplate
       read GetItemTemplate write SetItemTemplate;
+
   end;
 
 implementation

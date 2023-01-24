@@ -26,9 +26,6 @@ uses
   ts.RichEditor.Types, ts.RichEditor.Interfaces;
 
 type
-
-  { TRichEditorEvents }
-
   TRichEditorEvents = class(TInterfacedObject, IRichEditorEvents)
   private
     FManager      : IRichEditorManager;

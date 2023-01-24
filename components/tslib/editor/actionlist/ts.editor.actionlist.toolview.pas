@@ -31,9 +31,6 @@ uses
   ts.Editor.Interfaces;
 
 type
-
-  { TfrmActionListView }
-
   TfrmActionListView = class(TForm, IEditorToolView)
     edtFilterActions : TEdit;
     pnlActions       : TPanel;
@@ -197,9 +194,6 @@ var
 
 {$REGION 'TActionListTemplate'}
 type
-
-  { TActionListTemplate }
-
   TActionListTemplate = class(TColumnDefinitionsDataTemplate)
     function GetImageIndex(
       const Item        : TObject;
@@ -221,7 +215,7 @@ type
 function TActionListTemplate.GetImageIndex(const Item: TObject;
   const ColumnIndex: Integer): Integer;
 var
-  CD: TColumnDefinition;
+  CD : TColumnDefinition;
 begin
   Result := -1;
   if Assigned(Item) and Assigned(ColumnDefinitions)
@@ -276,7 +270,7 @@ type
 function TKeyStrokeTemplate.GetValueForProperty(const Item: TObject;
   const APropertyName: string): TValue;
 var
-  C: TSynEditorCommand;
+  C : TSynEditorCommand;
   S : string;
 begin
   Result := inherited GetValueForProperty(Item, APropertyName);

@@ -1,7 +1,7 @@
 inherited frmCharacterMap: TfrmCharacterMap
-  Left = -750
+  Left = 628
   Height = 649
-  Top = 249
+  Top = 328
   Width = 369
   ActiveControl = pcMain
   BorderStyle = bsSingle
@@ -65,7 +65,6 @@ inherited frmCharacterMap: TfrmCharacterMap
         RowCount = 15
         ScrollBars = ssAutoVertical
         TabOrder = 0
-        TitleFont.Height = -15
         TitleStyle = tsNative
         OnKeyUp = grdANSIKeyUp
         OnMouseDown = grdANSIMouseDown
@@ -132,7 +131,6 @@ inherited frmCharacterMap: TfrmCharacterMap
         ParentFont = False
         RowCount = 15
         TabOrder = 0
-        TitleFont.Height = -15
         TitleStyle = tsNative
         OnKeyUp = grdUnicodeKeyUp
         OnMouseDown = grdUnicodeMouseDown

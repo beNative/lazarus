@@ -32,8 +32,6 @@ uses
 type
   TRichEditorViewList = TComponentList;
 
-  { TdmRichEditorManager }
-
   TdmRichEditorManager = class(
     TDataModule, IRichEditorManager, IRichEditorActions, IRichEditorEvents
   )
@@ -158,6 +156,7 @@ type
     FViews      : TRichEditorViewList;
     FActiveView : IRichEditorView;
     FEvents     : IRichEditorEvents;
+    FToolViews  : IRichEditorToolViews;
 
   protected
     {$REGION 'property access mehods'}
@@ -193,6 +192,7 @@ type
     procedure ClearViews;
 
     procedure InitializePopupMenus;
+    procedure RegisterToolViews;
 
     procedure BuildRichEditorPopupMenu;
     procedure BuildInsertPopupMenu;
@@ -260,24 +260,27 @@ uses
 
   ts.Core.Utils, ts.Core.Logger,
 
-  ts.RichEditor.Events, ts.RichEditor.View.KMemo;
+  ts.RichEditor.ToolViews, ts.RichEditor.Events, ts.RichEditor.View.KMemo;
 
 {$REGION 'construction and destruction'}
 procedure TdmRichEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FViews  := TRichEditorViewList.Create(False);
-  FEvents := TRichEditorEvents.Create(Self);
+  FViews     := TRichEditorViewList.Create(False);
+  FEvents    := TRichEditorEvents.Create(Self);
+  FToolViews := TRichEditorToolViews.Create(Self);
   actAlignJustify.Visible := False; // not supported yet by KMemo
   actUndo.Visible         := False; // not supported yet by KMemo
   actRedo.Visible         := False; // not supported yet by KMemo
   InitializePopupMenus;
+  RegisterToolViews;
 end;
 
 destructor TdmRichEditorManager.Destroy;
 begin
   FActiveView := nil;
   FEvents     := nil;
+  FToolViews  := nil;
   FreeAndNil(FViews);
   inherited Destroy;
 end;
@@ -905,6 +908,13 @@ begin
   BuildSettingsPopupMenu;
   BuildRichEditorPopupMenu;
 end;
+
+procedure TdmRichEditorManager.RegisterToolViews;
+begin
+  //
+  //FToolViews.Register();
+end;
+
 {$ENDREGION}
 
 {$REGION 'protected methods'}

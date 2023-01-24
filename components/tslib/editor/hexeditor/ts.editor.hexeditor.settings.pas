@@ -39,6 +39,7 @@ type
   published
     property Width: Integer
       read FWidth write FWidth default DEFAULT_WIDTH;
+
   end;
 
 implementation

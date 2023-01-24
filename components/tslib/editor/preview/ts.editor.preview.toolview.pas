@@ -21,7 +21,7 @@ unit ts.Editor.Preview.ToolView;
 interface
 
 uses
-  Classes, SysUtils, Menus,
+  SysUtils, Menus,
 
   ts.Components.ExportRTF,
 

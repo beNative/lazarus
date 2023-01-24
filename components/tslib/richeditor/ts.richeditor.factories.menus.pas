@@ -26,9 +26,6 @@ uses
   ts.RichEditor.Interfaces;
 
 type
-
-  { TRichEditorMenusFactory }
-
   TRichEditorMenusFactory = class(TInterfacedObject, IRichEditorMenusFactory)
   private
     FActions : IRichEditorActions;

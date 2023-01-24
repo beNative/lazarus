@@ -58,9 +58,9 @@ type
   TBaseCollectionEnumerator = TCollectionEnumerator;
 
   TCollectionNotifyEvent<T> = procedure(
-          Sender : TObject;
-    const Item   : T;
-          Action : TCollectionNotification
+    Sender     : TObject;
+    const Item : T;
+    Action     : TCollectionNotification
   ) of object;
 
   TCollectionEnumerator<T> = class(TBaseCollectionEnumerator)
@@ -72,32 +72,20 @@ type
   end;
 
   TCollection<T> = class(TBaseCollection)
-  private
-  //type
-  //  TSpecializedCollectionEnumerator  = TCollectionEnumerator<T>;
-  //  TSpecializedCollectionNotifyEvent = TCollectionNotifyEvent<T>;
-  //var
-    //FOnNotify: TSpecializedCollectionNotifyEvent;
-
   protected
     function GetCount: Integer;
     function GetItem(Index: Integer): T;
     procedure SetItem(Index: Integer; Value: T);
 
-    //procedure Notify(Item: T; Action: TCollectionNotification); override;
-
   public
     constructor Create; reintroduce; virtual;
 
     function Add: T;
-  //  function GetEnumerator: TSpecializedCollectionEnumerator;
     function Insert(Index: Integer): T;
 
     property Items[Index: Integer]: T
       read GetItem write SetItem; default;
 
-    //property OnNotify: TSpecializedCollectionNotifyEvent
-    //  read FOnNotify;
   end;
 
   TOwnedCollection<T> = class(TCollection<T>)
@@ -136,11 +124,6 @@ begin
   Result := inherited Count;
 end;
 
-//function TCollection<T>.GetEnumerator: TSpecializedCollectionEnumerator;
-//begin
-//  Result := TSpecializedCollectionEnumerator.Create(Self);
-//end;
-
 function TCollection<T>.GetItem(Index: Integer): T;
 begin
   Result := T(inherited GetItem(Index));
@@ -150,13 +133,6 @@ function TCollection<T>.Insert(Index: Integer): T;
 begin
   Result := T(inherited Insert(Index));
 end;
-
-//procedure TCollection<T>.Notify(Item: T;
-//  Action: TCollectionNotification);
-//begin
-//  inherited;
-//  FOnNotify.Invoke(Self, Item, Action);
-//end;
 
 procedure TCollection<T>.SetItem(Index: Integer; Value: T);
 begin

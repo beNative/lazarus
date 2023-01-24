@@ -121,8 +121,8 @@ limitations under the License.         "/>
         <UnitName Value="ts.Editor.Selection"/>
       </Item19>
       <Item20>
-        <Filename Value="editor\ts.editor.toolview.manager.pas"/>
-        <UnitName Value="ts.Editor.ToolView.Manager"/>
+        <Filename Value="editor\ts.editor.toolviews.pas"/>
+        <UnitName Value="ts.editor.toolviews"/>
       </Item20>
       <Item21>
         <Filename Value="editor\ts.editor.types.pas"/>

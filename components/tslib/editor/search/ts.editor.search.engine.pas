@@ -159,9 +159,9 @@ const
 procedure TSearchEngine.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FItemGroups := TObjectList.Create(True);
-  FItemList   := TObjectList.Create(False);
-  FSESearch   := TSynEditSearch.Create;
+  FItemGroups    := TObjectList.Create(True);
+  FItemList      := TObjectList.Create(False);
+  FSESearch      := TSynEditSearch.Create;
   FExecuteEvents := TMethodList.Create;
   FChangeEvents  := TMethodList.Create;
   Options        := Settings.Options;

@@ -26,9 +26,6 @@ uses
   ts.Core.DataTemplates, ts.Core.ColumnDefinitionsDataTemplate;
 
 type
-
-  { TActionTemplate }
-
   TActionTemplate = class(TColumnDefinitionsDataTemplate)
     function GetItemTemplate(const Item: TObject): IDataTemplate; override;
     function GetTemplateDataClass: TClass; override;
@@ -38,8 +35,6 @@ type
       const ColumnIndex : Integer
     ): string; override;
   end;
-
-  { TActionCategoryTemplate }
 
   TActionCategoryTemplate = class(TColumnDefinitionsDataTemplate)
   private
@@ -84,6 +79,7 @@ end;
 function TActionTemplate.GetText(const Item: TObject;
   const ColumnIndex: Integer): string;
 begin
+  Result := '';
   if Item is TContainedAction then
   begin
     if ColumnIndex = 1 then

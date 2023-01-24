@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit ts.Editor.CodeShaper.ToolView;
@@ -52,24 +50,24 @@ type
   TfrmCodeShaper = class(TCustomEditorToolView, IEditorToolView)
     {$REGION 'designer controls'}
     aclMain                         : TActionList;
-    actInsertBreaks                 : TAction;
-    actDequoteLines                 : TAction;
     actApplyConsistentCase          : TAction;
-    actURLDecode                    : TAction;
-    actURLEncode                    : TAction;
-    actRemoveDoubles                : TAction;
-    actStripLastChar                : TAction;
-    actStripFirstChar               : TAction;
-    actMakePascalString             : TAction;
-    actToggleBreakSide              : TAction;
-    actBreakBeforeToken             : TAction;
     actBreakAfterToken              : TAction;
+    actBreakBeforeToken             : TAction;
+    actDequoteLines                 : TAction;
+    actInsertBreaks                 : TAction;
+    actMakePascalString             : TAction;
     actQuoteLines                   : TAction;
-    actReplace                      : TAction;
-    actTrim                         : TAction;
     actRedo                         : TAction;
     actRemoveBreaks                 : TAction;
+    actRemoveDoubles                : TAction;
+    actReplace                      : TAction;
+    actStripFirstChar               : TAction;
+    actStripLastChar                : TAction;
+    actToggleBreakSide              : TAction;
+    actTrim                         : TAction;
     actUndo                         : TAction;
+    actURLDecode                    : TAction;
+    actURLEncode                    : TAction;
     btnAlign1                       : TBitBtn;
     btnDequote                      : TBitBtn;
     btnInsertBreaks                 : TBitBtn;
@@ -83,19 +81,19 @@ type
     btnTrim                         : TBitBtn;
     btnURLDecode                    : TButton;
     btnURLEncode                    : TButton;
+    cbxInsertBreaksTokenSide        : TComboBox;
     chkBreakLines                   : TCheckBox;
     chkBreakLinesTrimSpace          : TCheckBox;
     chkBreakLinesWrap               : TCheckBox;
+    chkDeQuoteLinesTrimSpace        : TCheckBox;
     chkQuoteLinesDelimitLines       : TCheckBox;
     chkQuoteLinesTrimSpace          : TCheckBox;
-    chkDeQuoteLinesTrimSpace        : TCheckBox;
     chkReplaceStringsCaseSensitive  : TCheckBox;
     chkReplaceStringsWholeWordsOnly : TCheckBox;
     chkTrimCompressSpace            : TCheckBox;
     chkTrimLinesLeft                : TCheckBox;
     chkTrimLinesRight               : TCheckBox;
     chkUnBreakLinesWrap             : TCheckBox;
-    cbxInsertBreaksTokenSide        : TComboBox;
     edtBreakLinesToken              : TLabeledEdit;
     edtBreakLinesWrapPosition       : TSpinEdit;
     edtDequoteLinesQuoteChar        : TLabeledEdit;
@@ -234,7 +232,7 @@ end;
 
 procedure TfrmCodeShaper.actRemoveBreaksExecute(Sender: TObject);
 var
-  S: string;
+  S : string;
 begin
   S := Text;
   S := JoinLines(S);

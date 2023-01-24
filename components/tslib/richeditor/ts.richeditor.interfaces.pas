@@ -32,8 +32,6 @@ uses
 type
   IRichEditorActions = interface;
 
-  { IRichEditorView }
-
   IRichEditorView = interface
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
     {$REGION 'property access methods'}
@@ -349,6 +347,58 @@ type
     function CreateMainMenu(
       AOwner : TComponent
     ): TMainMenu;
+  end;
+
+  IRichEditorToolView = interface
+  ['{63343AD0-096A-4DD0-AD66-8199C58109BE}']
+    {$REGION 'property access methods'}
+    function GetForm: TForm;
+    function GetName: string;
+    function GetVisible: Boolean;
+    procedure SetVisible(AValue: Boolean);
+    {$ENDREGION}
+    { Lets the view respond to changes. }
+    procedure UpdateView;
+
+    //procedure Refresh; TODO: refresh all items
+    procedure SetFocus;
+    function Focused: Boolean;
+
+    property Visible: Boolean
+      read GetVisible write SetVisible;
+
+    property Name: string
+      read GetName;
+
+    property Form: TForm
+      read GetForm;
+  end;
+
+  IRichEditorToolViews = interface
+  ['{DC7CE737-103C-4863-91E8-4EB0CF661589}']
+  {$REGION 'property access methods'}
+  function GetView(AIndex: Integer): IRichEditorToolView;
+  function GetViewByName(AName: string): IRichEditorToolView;
+  function GetCount: Integer;
+  {$ENDREGION}
+
+  //function GetEnumerator: TEditorToolViewListEnumerator;
+
+  function Register(
+    AFormClass     : TComponentClass;
+    ASettingsClass : TComponentClass;
+    const AName    : string = ''
+  ): Boolean;
+  procedure Hide;
+
+  property Views[AIndex: Integer]: IRichEditorToolView
+    read GetView;
+
+  property ViewByName[AName: string]: IRichEditorToolView
+    read GetViewByName; default;
+
+  property Count: Integer
+    read GetCount;
   end;
 
 implementation

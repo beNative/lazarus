@@ -21,8 +21,7 @@ unit SnippetSource.VirtualTree.Editors;
 interface
 
 uses
-  Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls,
-  Buttons, ExtCtrls, ComCtrls,
+  Messages, SysUtils, Classes, Graphics, Controls, Dialogs, StdCtrls, ComCtrls,
 
   LCLIntf, LCLType,
 

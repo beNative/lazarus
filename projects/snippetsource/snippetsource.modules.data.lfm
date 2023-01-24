@@ -1,16 +1,16 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 0
-  VerticalOffset = 169
-  Width = 470
+  HorizontalOffset = 378
+  VerticalOffset = 828
+  Width = 421
   object trsMain: TSQLTransaction
     Active = False
     Action = caNone
     Database = conMain
     Options = [stoUseImplicit]
     Left = 184
-    Top = 16
+    Top = 24
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
@@ -333,8 +333,8 @@ object dmSnippetSource: TdmSnippetSource
     Transaction = trsMain
     LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
     AlwaysUseBigint = False
-    Left = 112
-    Top = 16
+    Left = 40
+    Top = 24
   end
   object imlNodeTypes: TImageList
     Left = 40
@@ -900,8 +900,8 @@ object dmSnippetSource: TdmSnippetSource
     Transaction = trsHistory
     LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
     AlwaysUseBigint = False
-    Left = 280
-    Top = 16
+    Left = 112
+    Top = 24
   end
   object trsHistory: TSQLTransaction
     Active = False

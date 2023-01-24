@@ -1,12 +1,13 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 1010
+  Left = 810
   Height = 346
-  Top = 237
+  Top = 49
   Width = 578
   ActiveControl = btnClose
   Caption = 'Settings'
   ClientHeight = 346
   ClientWidth = 578
+  PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '2.2.2.0'
@@ -15,9 +16,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 312
     Top = 0
     Width = 578
-    ActivePage = tsPython
+    ActivePage = tsApplication
     Align = alClient
-    TabIndex = 5
+    TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
@@ -40,7 +41,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           Width = 255
           Caption = 'Automatically hide rich editor when no data.'
           OnClick = chkAutoHideRichEditorClick
-          TabOrder = 0
+          TabOrder = 3
         end
         object chkAutoHideRichEditorToolBar: TCheckBox
           Left = 8
@@ -58,7 +59,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           Width = 244
           Caption = 'Hide text editor toolbar when not focused.'
           OnClick = chkAutoHideEditorToolBarClick
-          TabOrder = 2
+          TabOrder = 0
         end
         object chkAutoHideEditor: TCheckBox
           Left = 8
@@ -67,10 +68,10 @@ object frmSettingsDialog: TfrmSettingsDialog
           Width = 255
           Caption = 'Automatically hide text editor when no data.'
           OnClick = chkAutoHideEditorClick
-          TabOrder = 3
+          TabOrder = 2
         end
       end
-      object GroupBox1: TGroupBox
+      object grpRichtextEditor: TGroupBox
         Left = 280
         Height = 51
         Top = 0
@@ -140,7 +141,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           OptimalFill = True
         end
       end
-      object GroupBox2: TGroupBox
+      object grpStatistics: TGroupBox
         Left = 0
         Height = 153
         Top = 128
@@ -151,7 +152,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         ClientWidth = 268
         TabOrder = 3
         object chkTrackHistory: TCheckBox
-          Left = 16
+          Left = 8
           Height = 19
           Top = 8
           Width = 185
@@ -485,6 +486,57 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 9
       end
     end
+    object tsTerminalSettings: TTabSheet
+      Caption = 'Terminal settings'
+      ClientHeight = 284
+      ClientWidth = 570
+      object mmoEnvironment: TMemo
+        Left = 7
+        Height = 249
+        Top = 32
+        Width = 557
+        Anchors = [akTop, akLeft, akRight, akBottom]
+        Font.Height = -13
+        Font.Name = 'Consolas'
+        ParentFont = False
+        TabOrder = 0
+      end
+      object chkUseCustomEnvironmentVariables: TCheckBox
+        Left = 8
+        Height = 19
+        Top = 8
+        Width = 202
+        Caption = 'Use custom environment variables'
+        TabOrder = 1
+      end
+    end
+    object tsPython: TTabSheet
+      Caption = 'Python'
+      ClientHeight = 284
+      ClientWidth = 570
+      OnContextPopup = tsPythonContextPopup
+      object btnCreateVirtualEnvironment: TButton
+        Left = 8
+        Height = 25
+        Top = 8
+        Width = 168
+        Action = actCreateVirtualEnvironment
+        TabOrder = 0
+      end
+      object grdPythonInterpreters: TValueListEditor
+        Left = 208
+        Height = 100
+        Top = 8
+        Width = 200
+        FixedCols = 0
+        RowCount = 2
+        TabOrder = 1
+        ColWidths = (
+          64
+          132
+        )
+      end
+    end
     object tsImages: TTabSheet
       Caption = 'Images'
       ClientHeight = 284
@@ -577,56 +629,6 @@ object frmSettingsDialog: TfrmSettingsDialog
         Scrollbars = ssAutoBoth
         TabOrder = 1
         OnDrawColumnCell = grdHighlightersDrawColumnCell
-      end
-    end
-    object tsTerminalSettings: TTabSheet
-      Caption = 'Terminal settings'
-      ClientHeight = 284
-      ClientWidth = 570
-      object mmoEnvironment: TMemo
-        Left = 7
-        Height = 249
-        Top = 31
-        Width = 557
-        Anchors = [akTop, akLeft, akRight, akBottom]
-        Font.Height = -13
-        Font.Name = 'Consolas'
-        ParentFont = False
-        TabOrder = 0
-      end
-      object chkUseCustomEnvironmentVariables: TCheckBox
-        Left = 8
-        Height = 19
-        Top = 8
-        Width = 202
-        Caption = 'Use custom environment variables'
-        TabOrder = 1
-      end
-    end
-    object tsPython: TTabSheet
-      Caption = 'Python'
-      ClientHeight = 284
-      ClientWidth = 570
-      object Button2: TButton
-        Left = 8
-        Height = 25
-        Top = 8
-        Width = 168
-        Action = actCreateVirtualEnvironment
-        TabOrder = 0
-      end
-      object grdPythonInterpreters: TValueListEditor
-        Left = 208
-        Height = 100
-        Top = 8
-        Width = 200
-        FixedCols = 0
-        RowCount = 2
-        TabOrder = 1
-        ColWidths = (
-          64
-          132
-        )
       end
     end
   end

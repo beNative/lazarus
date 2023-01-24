@@ -30,12 +30,9 @@ uses
 
   VirtualTrees, Registry,
 
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, Types;
 
 type
-
-  { TfrmSettingsDialog }
-
   TfrmSettingsDialog = class(TForm)
     {$REGION 'designer controls'}
     aclMain                          : TActionList;
@@ -68,9 +65,9 @@ type
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
     Button1                          : TButton;
-    Button2: TButton;
+    btnCreateVirtualEnvironment                          : TButton;
     cbxImageList                     : TComboBox;
-    chkUseCustomEnvironmentVariables: TCheckBox;
+    chkUseCustomEnvironmentVariables : TCheckBox;
     chkTrackHistory                  : TCheckBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditor            : TCheckBox;
@@ -86,8 +83,8 @@ type
     grdGlyph                         : TDBGrid;
     grdHighlighters                  : TDBGrid;
     grdDBInfo                        : TStringGrid;
-    GroupBox1                        : TGroupBox;
-    GroupBox2                        : TGroupBox;
+    grpRichtextEditor                : TGroupBox;
+    grpStatistics                    : TGroupBox;
     grpDiagnostics                   : TGroupBox;
     grpLayout                        : TGroupBox;
     grpDatabaseInfo                  : TGroupBox;
@@ -96,15 +93,15 @@ type
     lblApplicationNeedsToBeRestarted : TLabel;
     lblFontName                      : TLabel;
     lblDataBaseFile                  : TLabel;
-    mmoEnvironment: TMemo;
+    mmoEnvironment                   : TMemo;
     pnlBottom                        : TPanel;
     pgcMain                          : TPageControl;
-    tsPython: TTabSheet;
-    tsTerminalSettings: TTabSheet;
+    tsPython                         : TTabSheet;
+    tsTerminalSettings               : TTabSheet;
     tsApplication                    : TTabSheet;
     tsDataBase                       : TTabSheet;
     tsImages                         : TTabSheet;
-    grdPythonInterpreters: TValueListEditor;
+    grdPythonInterpreters            : TValueListEditor;
     vstImageList                     : TVirtualStringTree;
     {$ENDREGION}
 
@@ -151,6 +148,8 @@ type
     procedure grdHighlightersDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure pgcMainChange(Sender: TObject);
+    procedure tsPythonContextPopup(Sender: TObject; MousePos: TPoint;
+      var Handled: Boolean);
 
     procedure vstImageListAfterCellPaint(
       Sender         : TBaseVirtualTree;
@@ -609,6 +608,12 @@ end;
 procedure TfrmSettingsDialog.pgcMainChange(Sender: TObject);
 begin
   UpdateDataBaseInfo;
+end;
+
+procedure TfrmSettingsDialog.tsPythonContextPopup(Sender: TObject;
+  MousePos: TPoint; var Handled: Boolean);
+begin
+
 end;
 
 //procedure TfrmSettingsDialog.grdGlyphAfterCellPaint(Sender: TBaseVirtualTree; TargetCanvas: TCanvas; Node: PVirtualNode; Column: TColumnIndex; const CellRect: TRect);

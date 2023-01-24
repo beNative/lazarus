@@ -29,9 +29,6 @@ uses
   SnippetSource.Interfaces;
 
 type
-
-  { TfrmQuery }
-
   TfrmQuery = class(TForm)
     actExecute     : TAction;
     alMain         : TActionList;

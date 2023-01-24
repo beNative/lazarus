@@ -1,48 +1,51 @@
 object frmGrid: TfrmGrid
-  Left = 629
-  Height = 668
-  Top = 460
-  Width = 841
-  ClientHeight = 668
-  ClientWidth = 841
-  LCLVersion = '2.0.10.0'
+  Left = 994
+  Height = 820
+  Top = 370
+  Width = 1250
+  ClientHeight = 820
+  ClientWidth = 1250
+  PopupMode = pmAuto
+  Position = poOwnerFormCenter
+  ShowHint = True
+  LCLVersion = '2.2.2.0'
   object pnlMain: TPanel
     Left = 4
-    Height = 609
+    Height = 761
     Top = 30
-    Width = 833
+    Width = 1242
     Align = alClient
     BorderSpacing.Bottom = 4
     BorderSpacing.Around = 4
     BevelOuter = bvNone
-    ClientHeight = 609
-    ClientWidth = 833
+    ClientHeight = 761
+    ClientWidth = 1242
     TabOrder = 0
     object enbMain: TExtendedNotebook
       Left = 0
-      Height = 609
+      Height = 761
       Top = 0
-      Width = 833
+      Width = 1242
       ActivePage = tsGrid
       Align = alClient
       TabIndex = 0
       TabOrder = 0
       object tsGrid: TTabSheet
         Caption = 'DBGrid'
-        ClientHeight = 581
-        ClientWidth = 825
+        ClientHeight = 733
+        ClientWidth = 1234
         object grdMain: TDBGrid
           Left = 3
-          Height = 575
+          Height = 727
           Top = 3
-          Width = 819
+          Width = 1228
           Align = alClient
           BorderSpacing.Around = 3
+          BorderStyle = bsNone
           Color = clWindow
           Columns = <>
           DataSource = dscMain
-          Flat = True
-          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints, dgRowHighlight, dgThumbTracking]
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderHotTracking, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize]
           Scrollbars = ssAutoBoth
           TabOrder = 0
           TitleStyle = tsNative
@@ -57,7 +60,7 @@ object frmGrid: TfrmGrid
     Left = 0
     Height = 26
     Top = 0
-    Width = 841
+    Width = 1250
     ShowCaptions = True
     TabOrder = 1
     object navMain: TDBNavigator
@@ -118,12 +121,12 @@ object frmGrid: TfrmGrid
   object pnlStatusBar: TPanel
     Left = 0
     Height = 21
-    Top = 647
-    Width = 841
+    Top = 799
+    Width = 1250
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 21
-    ClientWidth = 841
+    ClientWidth = 1250
     TabOrder = 2
     object pnlState: TPanel
       Left = 0

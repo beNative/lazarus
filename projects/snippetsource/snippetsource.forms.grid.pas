@@ -23,9 +23,8 @@ interface
 { Used internally for debugging. }
 
 uses
-  Classes, SysUtils, db, FileUtil, ExtendedNotebook, RTTICtrls, Forms, Controls,
-  Graphics, Dialogs, DBGrids, DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls,
-  SQLDB,
+  Classes, SysUtils, db, ExtendedNotebook, Forms, Controls, Graphics, Dialogs,
+  DBGrids, DbCtrls, ExtCtrls, ComCtrls, ActnList, StdCtrls, SQLDB,
 
   ts.Core.ComponentInspector;
 
@@ -35,31 +34,31 @@ type
     aclMain               : TActionList;
     actApplyUpdates       : TAction;
     actCommit             : TAction;
+    actInspectConnection  : TAction;
     actInspectDataSet     : TAction;
     actInspectDBGrid      : TAction;
     actInspectFields      : TAction;
     actInspectTransaction : TAction;
-    actInspectConnection  : TAction;
+    btnApplyUpdates       : TToolButton;
+    btnCommit             : TToolButton;
+    btnInspectConnection  : TToolButton;
+    btnInspectDataSet     : TToolButton;
+    btnInspectDBGrid      : TToolButton;
+    btnInspectFields      : TToolButton;
+    btnInspectTransaction : TToolButton;
     dscMain               : TDataSource;
     enbMain               : TExtendedNotebook;
     grdMain               : TDBGrid;
     navMain               : TDBNavigator;
-    pnlState              : TPanel;
-    pnlUpdateStatus       : TPanel;
-    pnlStatusBar          : TPanel;
-    pnlMain               : TPanel;
     pnlChangeCount        : TPanel;
+    pnlMain               : TPanel;
+    pnlState              : TPanel;
+    pnlStatusBar          : TPanel;
     pnlUpdateMode         : TPanel;
-    btnInspectTransaction : TToolButton;
-    btnInspectConnection  : TToolButton;
+    pnlUpdateStatus       : TPanel;
+    tbrMain               : TToolBar;
     tsGrid                : TTabSheet;
     tsSettings            : TTabSheet;
-    tbrMain               : TToolBar;
-    btnApplyUpdates       : TToolButton;
-    btnCommit             : TToolButton;
-    btnInspectDataSet     : TToolButton;
-    btnInspectDBGrid      : TToolButton;
-    btnInspectFields      : TToolButton;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -95,7 +94,7 @@ implementation
 uses
   TypInfo,
 
-  ts.Core.Utils, ts.Core.Logger;
+  ts.Core.Utils;
 
 var
   GridForm : TfrmGrid;

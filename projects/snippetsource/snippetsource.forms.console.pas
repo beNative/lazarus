@@ -27,9 +27,6 @@ uses
   PythonEngine, uCmdBox;
 
 type
-
-  { TfrmConsole }
-
   TfrmConsole = class(TForm)
     cmdMain           : TCmdBox;
     prcMain           : TProcess;

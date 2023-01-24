@@ -29,9 +29,6 @@ uses
   SnippetSource.Interfaces, SnippetSource.Resources;
 
 type
-
-  { TSettings }
-
   TSettings = class(TComponent, ISettings)
   private
     FFileName                  : string;
@@ -129,10 +126,10 @@ uses
 procedure TSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangeEvents := TMethodList.Create;
-  Name          := 'Settings';
-  FFileName     := SETTINGS_FILE;
-  Database      := DEFAULT_DATABASE_NAME;
+  FChangeEvents          := TMethodList.Create;
+  Name                   := 'Settings';
+  FFileName              := SETTINGS_FILE;
+  Database               := DEFAULT_DATABASE_NAME;
   FAutoHideEditorToolBar := True;
 end;
 

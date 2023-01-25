@@ -14,7 +14,6 @@
   limitations under the License.
 }
 
-
 unit ts.RichEditor.Test.Toolview;
 
 {$MODE DELPHI}

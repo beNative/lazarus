@@ -35,8 +35,6 @@ type
   TSynHighlighterClass = class of TSynCustomHighlighter;
   THighlighters        = class;
 
-  { THighlighterItem }
-
   THighlighterItem = class(TComponent)
   private
     FBlockCommentEndTag   : string;
@@ -133,8 +131,6 @@ type
   end;
 
   THighlighterItemClass = class of THighlighterItem;
-
-  { THighlighters }
 
   THighlighters = class(TComponent)
   type

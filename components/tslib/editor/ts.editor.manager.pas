@@ -491,6 +491,7 @@ type
     procedure EditorSettingsChanged(ASender: TObject);
 
     procedure InitializePopupMenus;
+    procedure UpdatePopupMenus;
     procedure CreateActions;
     procedure RedefineActionsShortcuts; //used for change ctrl to meta macos fix
     procedure RegisterToolViews;
@@ -2566,6 +2567,91 @@ begin
     ETV.SetFocus;
 end;
 
+{ Fixup popup menus. }
+
+procedure TdmEditorManager.UpdatePopupMenus;
+var
+  MI           : TMenuItem;
+  LSeperator   : TMenuItem;
+  LLastVisible : TMenuItem;
+
+  procedure UpdatePopupMenu(AMenuItem: TMenuItem);
+  var
+    I            : Integer;
+    MI           : TMenuItem;
+    LSeperator   : TMenuItem;
+    LLastVisible : TMenuItem;
+  begin
+    LSeperator   := nil;
+    LLastVisible := nil;
+    for I := 0 to AMenuItem.Count -1 do
+    begin
+      MI := AMenuItem.Items[I];
+      if MI.Count > 0 then
+      begin
+        UpdatePopupMenu(MI);
+      end;
+      if MI.Caption = cLineCaption then
+      begin
+        if not Assigned(LLastVisible) then
+        begin
+          MI.Visible := False;
+        end;
+        if Assigned(LSeperator) then
+        begin
+          Logger.Send('MI', MI.Caption);
+          LSeperator.Visible := False;
+        end;
+        LSeperator := MI;
+      end
+      else if MI.Visible and Assigned(LSeperator) then
+      begin
+        LSeperator.Visible := True;
+        LSeperator := nil;
+      end;
+      if MI.Visible then
+        LLastVisible := MI;
+    end;
+    if LLastVisible = LSeperator then
+    begin
+      LSeperator.Visible := False;
+    end;
+  end;
+
+begin
+  LSeperator   := nil;
+  LLastVisible := nil;
+  for MI in EditorPopupMenu.Items do
+  begin
+    if MI.Count > 0 then
+      UpdatePopupMenu(MI);
+    if MI.Caption = cLineCaption then
+    begin
+      if not Assigned(LLastVisible) then
+      begin
+        MI.Visible := False;
+      end;
+      if Assigned(LSeperator) then
+      begin
+        Logger.Send('MI', MI.Caption);
+        LSeperator.Visible := False;
+      end;
+      LSeperator := MI;
+    end
+    else if MI.Visible and Assigned(LSeperator) then
+    begin
+      LSeperator.Visible := True;
+      LSeperator := nil;
+    end;
+    if MI.Visible then
+      LLastVisible := MI;
+  end;
+  if LLastVisible = LSeperator then
+  begin
+    LSeperator.Visible := False;
+  end;
+end;
+
 {$REGION 'IEditorActions'}
 function TdmEditorManager.AddView(const AName: string; const AFileName: string;
   const AHighlighter: string): IEditorView;
@@ -2936,14 +3022,8 @@ begin
     B := ViewCount = 1;
     actClose.Enabled       := not B;
     actCloseOthers.Visible := not B;
-    { TODO -oTS : Cleanup popup menu (hide orphaned seperators) }
-    //
-    //if EditorPopupMenu.Items.Count > 0 then
-    //begin
-    //  MI := EditorPopupMenu.Items[EditorPopupMenu.Items.Count - 1];
-    //  if MI.Caption = '-' then
-    //    MI.Visible := False;
-    //end;
+
+    UpdatePopupMenus;
   end;
 end;
 

@@ -26,9 +26,6 @@ uses
   ts.Editor.Interfaces, ts.Editor.Resources;
 
 type
-
-  { TEditorMenusFactory }
-
   TEditorMenusFactory = class(TInterfacedObject, IEditorMenusFactory)
   strict private
     FActions : IEditorActions;
@@ -39,7 +36,7 @@ type
       AAction : TBasicAction = nil
     ): TMenuItem; overload;
     function CreateMenuItem(
-            AParent     : TMenuItem;
+      AParent           : TMenuItem;
       const AActionName : string
     ): TMenuItem; overload;
 

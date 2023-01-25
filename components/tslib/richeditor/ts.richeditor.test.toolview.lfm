@@ -1,5 +1,5 @@
 inherited TestToolView: TTestToolView
-  Left = 553
-  Top = 939
+  Left = 838
+  Top = 210
   Caption = 'TestToolView'
 end

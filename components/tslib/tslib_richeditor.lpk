@@ -42,7 +42,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="14">
+    <Files Count="15">
       <Item1>
         <Filename Value="richeditor\ts.richeditor.manager.lfm"/>
         <Type Value="LFM"/>
@@ -92,28 +92,38 @@ limitations under the License.         "/>
         <UnitName Value="ts.RichEditor.ToolView.Base"/>
       </Item12>
       <Item13>
-        <Filename Value="richeditor\ts.richeditor.test.toolview.pas"/>
-        <UnitName Value="ts.RichEditor.Test.Toolview"/>
+        <Filename Value="richeditor\ts.richeditor.style.toolview.pas"/>
+        <UnitName Value="ts.richeditor.style.toolview"/>
       </Item13>
       <Item14>
         <Filename Value="richeditor\ts.richeditor.toolviews.pas"/>
-        <UnitName Value="ts.richeditor.toolviews"/>
+        <UnitName Value="ts.RichEditor.ToolViews"/>
       </Item14>
+      <Item15>
+        <Filename Value="richeditor\ts.richeditor.test.toolview.pas"/>
+        <UnitName Value="ts.RichEditor.Test.Toolview"/>
+      </Item15>
     </Files>
     <CompatibilityMode Value="True"/>
-    <RequiredPkgs Count="4">
+    <RequiredPkgs Count="6">
       <Item1>
-        <PackageName Value="DragDropLazarus"/>
+        <PackageName Value="mbColorLibLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="KControlsLaz"/>
+        <PackageName Value="LazColorPalette"/>
       </Item2>
       <Item3>
-        <PackageName Value="tslib_core"/>
+        <PackageName Value="DragDropLazarus"/>
       </Item3>
       <Item4>
-        <PackageName Value="FCL"/>
+        <PackageName Value="KControlsLaz"/>
       </Item4>
+      <Item5>
+        <PackageName Value="tslib_core"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="FCL"/>
+      </Item6>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

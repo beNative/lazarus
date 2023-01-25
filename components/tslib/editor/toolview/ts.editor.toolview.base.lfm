@@ -1,7 +1,7 @@
 object CustomEditorToolView: TCustomEditorToolView
-  Left = 612
+  Left = 1179
   Height = 240
-  Top = 288
+  Top = 1096
   Width = 320
   KeyPreview = True
   LCLVersion = '2.2.2.0'

@@ -76,6 +76,10 @@ interface
      query's options.
 
      You cannot use Blob fields as calculated or lookup fields.
+
+   RTF text
+     - RTF text is stored in Base64 encoding.
+       To make the RTF text searchable a copy with only the flat text is stored.
 }
 {$ENDREGION}
 
@@ -90,7 +94,7 @@ uses
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces;
+  SnippetSource.Interfaces, SQLScript;
 
 type
   TImageMap = TFPGMapObject<Integer, TBitmap>;
@@ -98,25 +102,22 @@ type
 type
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ILookup, IGlyphs, IHighlighters,
-    IQuery, IHistory
+    IQuery
   )
     {$REGION 'designer controls'}
     conMain          : TSQLite3Connection;
-    conHistory       : TSQLite3Connection;
-    imlNodeTypes     : TImageList;
     imlGlyphs        : TImageList;
+    imlNodeTypes     : TImageList;
     qryGlyph         : TSQLQuery;
     qryHighlighter   : TSQLQuery;
-    qryNodeType      : TSQLQuery;
-    qrySnippet       : TSQLQuery;
     qryLookup        : TSQLQuery;
-    qryHistory       : TSQLQuery;
-    scrCreateTables  : TSQLScript;
-    scrCreateIndexes : TSQLScript;
-    scrInsertData    : TSQLScript;
+    qryNodeType      : TSQLQuery;
     qryQuery         : TSQLQuery;
+    qrySnippet       : TSQLQuery;
+    scrCreateIndexes : TSQLScript;
+    scrCreateTables  : TSQLScript;
+    scrInsertData    : TSQLScript;
     trsMain          : TSQLTransaction;
-    trsHistory       : TSQLTransaction;
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -233,11 +234,6 @@ type
     function ApplyUpdates: Boolean;
     procedure StartTransaction;
     procedure EndTransaction;
-    {$ENDREGION}
-
-    {$REGION 'IHistory'}
-    procedure AddHistory;
-    procedure CleanupHistory;
     {$ENDREGION}
 
     {$REGION 'IQuery'}
@@ -462,7 +458,6 @@ begin
   Commit;
   DataSet.Active := False;
   conMain.Connected := False;
-  conHistory.Connected := False;
   FSettings := nil;
   FHLImages.Free;
   inherited Destroy;
@@ -521,11 +516,11 @@ begin
   Logger.Leave(Self, 'qrySnippetBeforeOpen');
 end;
 
+{ Assigns DateModified value just before posting the record. }
+
 procedure TdmSnippetSource.qrySnippetBeforePost(ADataSet: TDataSet);
 begin
-  Logger.Enter(Self, 'qrySnippetBeforePost');
   DateModified := Now;
-  Logger.Leave(Self, 'qrySnippetBeforePost');
 end;
 
 procedure TdmSnippetSource.qrySnippetBeforeRefresh(DataSet: TDataSet);
@@ -707,10 +702,6 @@ begin
     conMain.Connected    := False;
     conMain.DatabaseName := AValue;
     conMain.Connected    := True;
-
-    //conHistory.Connected := False;
-    //conHistory.DatabaseName := AValue;
-    //conHistory.Connected    := True;
     Active := True;
   end;
 end;
@@ -1241,11 +1232,6 @@ begin
     qryGlyph.ApplyUpdates;
     Result := True;
   end;
-  if qryHistory.ChangeCount > 0 then
-  begin
-    qryHistory.ApplyUpdates;
-    Result := True;
-  end;
 end;
 
 function TdmSnippetSource.Edit: Boolean;
@@ -1387,29 +1373,6 @@ begin
     [ASearchString]
   );
   qryLookup.Active := True;
-end;
-
-procedure TdmSnippetSource.AddHistory;
-begin
-  Logger.Enter(Self, 'AddHistory');
-  qryHistory.Active := True;
-  if DataSet.Active and (Id <> 0)
-    and (qryHistory.FieldByName('SnippetId').AsInteger <> Id) then
-  begin
-    qryHistory.Append;
-    qryHistory.FieldByName('SnippetId').AsInteger := Id;
-    qryHistory.FieldByName('DateCreated').AsDateTime := Now;
-    qryHistory.Post;
-  end;
-  Logger.Leave(Self, 'AddHistory');
-end;
-
-procedure TdmSnippetSource.CleanupHistory;
-begin
-  qryHistory.CancelUpdates;
-  qryHistory.Active := False;
-  ExecuteDirect('delete from History');
-  qryHistory.Active := True;
 end;
 {$ENDREGION}
 

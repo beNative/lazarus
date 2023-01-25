@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 378
-  VerticalOffset = 828
+  HorizontalOffset = 134
+  VerticalOffset = 799
   Width = 421
   object trsMain: TSQLTransaction
     Active = False
@@ -867,48 +867,5 @@ object dmSnippetSource: TdmSnippetSource
     Macros = <>
     Left = 211
     Top = 248
-  end
-  object qryHistory: TSQLQuery
-    PacketRecords = -1
-    FieldDefs = <>
-    Database = conHistory
-    Transaction = trsHistory
-    SQL.Strings = (
-      'select'
-      '  *'
-      'from'
-      '  History'
-      'order by'
-      '  DateCreated,'
-      '  SnippetId,'
-      '  Id'
-    )
-    RefreshSQL.Strings = (
-      ''
-    )
-    Options = [sqoAutoApplyUpdates, sqoAutoCommit]
-    Params = <>
-    Macros = <>
-    Sequence.FieldName = 'Id'
-    Left = 344
-    Top = 80
-  end
-  object conHistory: TSQLite3Connection
-    Connected = False
-    LoginPrompt = False
-    KeepConnection = False
-    Transaction = trsHistory
-    LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
-    AlwaysUseBigint = False
-    Left = 112
-    Top = 24
-  end
-  object trsHistory: TSQLTransaction
-    Active = False
-    Action = caNone
-    Database = conHistory
-    Options = [stoUseImplicit]
-    Left = 344
-    Top = 16
   end
 end

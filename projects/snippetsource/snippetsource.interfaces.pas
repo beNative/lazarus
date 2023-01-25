@@ -80,12 +80,6 @@ type
       read GetQuery;
   end;
 
-  IHistory = interface
-  ['{419EC408-605F-4801-BBC2-86B9542013CD}']
-    procedure AddHistory;
-    procedure CleanupHistory;
-  end;
-
   { Interface to SQLite specific functions and data. }
 
   ISQLite = interface
@@ -269,7 +263,6 @@ type
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
-    function GetTrackHistory: Boolean;
     procedure SetAutoHideEditor(AValue: Boolean);
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
     procedure SetAutoHideRichEditor(AValue: Boolean);
@@ -278,7 +271,6 @@ type
     procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
-    procedure SetTrackHistory(AValue: Boolean);
     {$ENDREGION}
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
@@ -307,9 +299,6 @@ type
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
-
-    property TrackHistory: Boolean
-      read GetTrackHistory write SetTrackHistory;
   end;
 
 implementation

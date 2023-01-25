@@ -35,12 +35,6 @@ uses
   SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Console,
   SnippetSource.Forms.Busy;
 
-{
-  REMARKS:
-    - RTF text is stored in Base64 encoding.
-      To make the RTF text searchable a copy with only the flat text is stored.
-}
-
 const
   EDITOR_SETTINGS_FILE = 'settings.xml';
 
@@ -173,7 +167,6 @@ type
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
-    function GetHistory: IHistory;
     function GetQuery: IQuery;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
@@ -242,9 +235,6 @@ type
      property Query: IQuery
        read GetQuery;
 
-     property History : IHistory
-       read GetHistory;
-
      property Editor : IEditorView
        read GetEditor;
 
@@ -263,7 +253,7 @@ uses
   StrUtils, Base64, Dialogs,
   LclIntf, LclType,
 
-  ts.Core.Utils, ts.Core.Logger, ts.Core.Logger.Interfaces,
+  ts.Core.Utils, ts.Core.Logger,
   ts.Core.Logger.Channel.IPC,
 
   ts.Editor.AboutDialog,
@@ -352,11 +342,6 @@ end;
 function TfrmMain.GetEditor: IEditorView;
 begin
   Result := FEditor;
-end;
-
-function TfrmMain.GetHistory: IHistory;
-begin
-  Result := FData as IHistory;
 end;
 
 function TfrmMain.GetQuery: IQuery;
@@ -1147,9 +1132,9 @@ begin
   HideAction('actClose');
   HideAction('actCreateDesktopLink');
   HideAction('actFilterCode');
-  HideAction('actFindAllOccurences');
-  HideAction('actFindNext');
-  HideAction('actFindPrevious');
+//  HideAction('actFindAllOccurences');
+//  HideAction('actFindNext');
+//  HideAction('actFindPrevious');
   HideAction('actFormat');
   HideAction('actInsertCharacterFromMap');
   HideAction('actInsertColorValue');
@@ -1274,10 +1259,6 @@ begin
     actToggleRichTextEditor.Checked := LRichEditorVisible;
     FTextEditorVisible := LTextEditorVisible;
     FRichEditorVisible := LRichEditorVisible;
-
-    if FSettings.TrackHistory then
-      History.AddHistory;
-
     FUpdate := False;
   end;
 end;

@@ -64,11 +64,9 @@ type
     btnOpenDatabase                  : TBitBtn;
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
-    Button1                          : TButton;
     btnCreateVirtualEnvironment                          : TButton;
     cbxImageList                     : TComboBox;
     chkUseCustomEnvironmentVariables : TCheckBox;
-    chkTrackHistory                  : TCheckBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditor            : TCheckBox;
     chkAutoHideEditor                : TCheckBox;
@@ -84,7 +82,6 @@ type
     grdHighlighters                  : TDBGrid;
     grdDBInfo                        : TStringGrid;
     grpRichtextEditor                : TGroupBox;
-    grpStatistics                    : TGroupBox;
     grpDiagnostics                   : TGroupBox;
     grpLayout                        : TGroupBox;
     grpDatabaseInfo                  : TGroupBox;
@@ -107,7 +104,6 @@ type
 
     {$REGION 'action handlers'}
     procedure actBackupDatabaseExecute(Sender: TObject);
-    procedure actCleanupHistoryExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
@@ -136,7 +132,6 @@ type
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
     procedure chkEmitLogMessagesClick(Sender: TObject);
-    procedure chkTrackHistoryClick(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
@@ -177,7 +172,6 @@ type
     function GetDataSet: IDataSet;
     function GetGlyphDS: TDataSet;
     function GetHighlighterDataSet: TDataSet;
-    function GetHistory: IHistory;
     function GetSQLite: ISQLite;
     {$ENDREGION}
 
@@ -211,9 +205,6 @@ type
 
     property DataSet: IDataSet
       read GetDataSet;
-
-    property History: IHistory
-      read GetHistory;
 
   end;
 
@@ -267,7 +258,6 @@ begin
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
-  chkTrackHistory.Checked              := FSettings.TrackHistory;
   pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
@@ -308,11 +298,6 @@ end;
 function TfrmSettingsDialog.GetHighlighterDataSet: TDataSet;
 begin
   Result := (FData as IHighlighters).HighlighterDataSet;
-end;
-
-function TfrmSettingsDialog.GetHistory: IHistory;
-begin
-  Result := FData as IHistory;
 end;
 
 function TfrmSettingsDialog.GetSQLite: ISQLite;
@@ -418,11 +403,6 @@ begin
   ShowMessageFmt(SDatabaseBackupCreated, [S]);
 end;
 
-procedure TfrmSettingsDialog.actCleanupHistoryExecute(Sender: TObject);
-begin
-   History.CleanupHistory;
-end;
-
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
@@ -500,11 +480,6 @@ end;
 procedure TfrmSettingsDialog.chkEmitLogMessagesClick(Sender: TObject);
 begin
   FSettings.EmitLogMessages := (Sender as TCheckBox).Checked;
-end;
-
-procedure TfrmSettingsDialog.chkTrackHistoryClick(Sender: TObject);
-begin
-  FSettings.TrackHistory := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);

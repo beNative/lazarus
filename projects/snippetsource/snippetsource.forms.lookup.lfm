@@ -1,7 +1,7 @@
 object frmLookup: TfrmLookup
-  Left = 456
+  Left = 147
   Height = 476
-  Top = 401
+  Top = 419
   Width = 520
   ActiveControl = edtLookup
   Caption = 'Lookup'
@@ -14,7 +14,7 @@ object frmLookup: TfrmLookup
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.2.2.0'
   object edtLookup: TEdit
     Left = 2
     Height = 21

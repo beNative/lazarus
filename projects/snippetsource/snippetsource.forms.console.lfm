@@ -1,7 +1,7 @@
 object frmConsole: TfrmConsole
-  Left = 780
+  Left = 165
   Height = 782
-  Top = 227
+  Top = 534
   Width = 952
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False

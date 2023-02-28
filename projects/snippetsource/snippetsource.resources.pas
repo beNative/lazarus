@@ -37,6 +37,13 @@ const
     '  (Id >= %d)'   + sLineBreak +
     '  and NodePath = ''%s''';
 
+  // Windows registry paths to Python installations
+  PYTHON_CORE_LOCAL_MACHINE = 'SOFTWARE\Python\PythonCore';
+  PYTHON_CORE_CURRENT_USER  = 'Software\Python\PythonCore';
+  PYTHON_DISPLAYNAME        = 'DisplayName';
+  PYTHON_EXECUTABLEPATH     = 'ExecutablePath';
+  PYTHON_INSTALLPATH        = 'InstallPath';
+
 resourcestring
   SQueryLookupErrorRunningQuery = 'Error running query <%s>';
   SQueryLookupTooManyRecords    = 'The query <%s> returned too many records';

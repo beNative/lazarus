@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 134
-  VerticalOffset = 799
+  HorizontalOffset = 248
+  VerticalOffset = 926
   Width = 421
   object trsMain: TSQLTransaction
     Active = False

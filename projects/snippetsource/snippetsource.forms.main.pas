@@ -75,6 +75,7 @@ type
     pnlRichEditor           : TPanel;
     pnlRight                : TPanel;
     pnlSize                 : TPanel;
+    pnlSnippet              : TPanel;
     pnlSnippetCount         : TPanel;
     pnlStatusBar            : TPanel;
     pnlStatusBarCenter      : TPanel;
@@ -116,28 +117,8 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
-    procedure EChange(Sender: TObject);
-    procedure EHighlighterChange(Sender: TObject);
-    procedure EBeforeSave(
-      Sender           : TObject;
-      var AStorageName : string
-    );
-    procedure ENew(
-      Sender        : TObject;
-      var AFileName : string;
-      const AText   : string
-    );
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure RVChange(Sender: TObject);
-    procedure FTreeDropFiles(
-      Sender      : TBaseVirtualTree;
-      AFiles      : TStrings;
-      AAttachMode : TVTNodeAttachMode
-    );
-    procedure FTreeNewFolderNode(Sender: TObject);
-    procedure FTreeNewItemNode(Sender: TObject);
-    procedure FTreeDeleteSelectedNodes(Sender: TObject);
-    procedure FTreeCopyNodeData(Sender: TObject);
+    procedure pnlSnippetClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -163,6 +144,34 @@ type
     FRTFStream          : TStringStream;
     FUpdateRichTextView : Boolean;
 
+    {$REGION 'event handlers'}
+    procedure FEditorChange(Sender: TObject);
+    procedure FEditorHighlighterChange(Sender: TObject);
+    procedure FEditorBeforeSave(
+      Sender           : TObject;
+      var AStorageName : string
+    );
+    procedure FEditorNew(
+      Sender        : TObject;
+      var AFileName : string;
+      const AText   : string
+    );
+    procedure FRichEditorChange(Sender: TObject);
+    procedure FRichEditorDropFiles(
+      Sender           : TObject;
+      const AFileNames : array of string
+    );
+    procedure FTreeDropFiles(
+      Sender      : TBaseVirtualTree;
+      AFiles      : TStrings;
+      AAttachMode : TVTNodeAttachMode
+    );
+    procedure FTreeNewFolderNode(Sender: TObject);
+    procedure FTreeNewItemNode(Sender: TObject);
+    procedure FTreeDeleteSelectedNodes(Sender: TObject);
+    procedure FTreeCopyNodeData(Sender: TObject);
+    {$ENDREGION}
+
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
@@ -171,34 +180,6 @@ type
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
     {$ENDREGION}
-
-    procedure CreateTreeview;
-    procedure CreateEditor;
-    procedure CreateRichEditor;
-
-    procedure InitializeLogger;
-
-    procedure Modified;
-
-    function FileExtensionToHighlighter(const AFileExtension: string): string;
-
-    procedure LoadRichText;
-    procedure RVDropFiles(Sender: TObject; const FileNames: array of String);
-    procedure SaveRichText;
-
-    procedure AddPathNode(
-      const APath       : string;
-      const ACommonPath : string;
-      ATree             : TBaseVirtualTree
-    );
-    procedure AddDirectoryNode(
-      const APath       : string;
-      const ACommonPath : string;
-      ATree             : TBaseVirtualTree
-    );
-    procedure ExportNode;
-
-  protected
     procedure AddButton(
       AToolBar          : TToolBar;
       const AActionName : string = '';
@@ -214,6 +195,34 @@ type
     procedure BuildToolBar;
     procedure HideAction(const AActionName: string);
     procedure InitActions;
+
+    procedure CreateTreeview;
+    procedure CreateEditor;
+    procedure CreateRichEditor;
+
+    procedure InitializeLogger;
+
+    procedure Modified;
+
+    function FileExtensionToHighlighter(const AFileExtension: string): string;
+
+    procedure LoadRichText;
+    procedure SaveRichText;
+
+    procedure AddPathNode(
+      const APath       : string;
+      const ACommonPath : string;
+      ATree             : TBaseVirtualTree
+    );
+    procedure AddDirectoryNode(
+      const APath       : string;
+      const ACommonPath : string;
+      ATree             : TBaseVirtualTree
+    );
+    // not in use?
+    procedure ExportNode;
+
+  protected
     procedure UpdateActions; override;
     procedure UpdateStatusBar;
     procedure UpdateViews;
@@ -431,8 +440,6 @@ begin
   begin
     dmTerminal.Execute('.\.venv\Scripts\activate.bat & py "SnippetSource.PY"');
   end;
-
-
     //if not Assigned(FConsole) then
     //begin
     //  FConsole := TfrmConsole.Create(Self);
@@ -443,10 +450,6 @@ begin
 
   //dmTerminal.Execute('SnippetSource.bat');
   ////dmPython.Execute(Editor.Lines);
-
-
-
-
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -508,7 +511,7 @@ begin
       if DataSet.DataSet.State = dsBrowse then
       begin
         FParentId := Snippet.ID;
-        Editor.BeginUpdate; // avoid EChange getting triggered
+        Editor.BeginUpdate; // avoid FEditorChange getting triggered
         try
           Editor.Text := Snippet.Text;
           if Snippet.Highlighter <> '' then
@@ -538,8 +541,8 @@ begin
   LBitmap.Free;
 end;
 
-{$REGION 'Editor'}
-procedure TfrmMain.EChange(Sender: TObject);
+{$REGION 'FEditor'}
+procedure TfrmMain.FEditorChange(Sender: TObject);
 begin
   Logger.Enter(Self, 'EChange');
   DataSet.Edit;
@@ -547,7 +550,7 @@ begin
   Logger.Leave(Self, 'EChange');
 end;
 
-procedure TfrmMain.EBeforeSave(Sender: TObject; var AStorageName: string);
+procedure TfrmMain.FEditorBeforeSave(Sender: TObject; var AStorageName: string);
 var
   FS : TFileStream;
 begin
@@ -560,7 +563,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.EHighlighterChange(Sender: TObject);
+procedure TfrmMain.FEditorHighlighterChange(Sender: TObject);
 begin
   Logger.Enter(Self, 'EHighlighterChange');
   if Snippet.Highlighter <> Editor.HighlighterName then
@@ -571,18 +574,13 @@ begin
   Logger.Leave(Self, 'EHighlighterChange');
 end;
 
-procedure TfrmMain.ENew(Sender: TObject; var AFileName: string; const AText: string);
+procedure TfrmMain.FEditorNew(Sender: TObject; var AFileName: string; const AText: string);
 begin
   Logger.Enter(Self, 'ENew');
   FTree.NewSubItemNode;
   Editor.Text := AText;
   AssignEditorChanges;
   Logger.Leave(Self, 'ENew');
-end;
-
-procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-begin
-  dmTerminal.prcTerminal.Active := False;
 end;
 {$ENDREGION}
 
@@ -639,6 +637,16 @@ begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
 {$ENDREGION}
+
+procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  dmTerminal.prcTerminal.Active := False;
+end;
+
+procedure TfrmMain.pnlSnippetClick(Sender: TObject);
+begin
+
+end;
 
 {$REGION 'FTree'}
 procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
@@ -717,23 +725,21 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'RV'}
-procedure TfrmMain.RVChange(Sender: TObject);
+{$REGION 'FRichEditor'}
+procedure TfrmMain.FRichEditorChange(Sender: TObject);
 begin
   if DataSet.RecordCount > 0 then
   begin
-    Logger.Enter(Self, 'RVChange');
     SaveRichText;
-    Logger.Leave(Self, 'RVChange');
   end;
 end;
 
-procedure TfrmMain.RVDropFiles(Sender: TObject; const FileNames: array of String
-  );
+procedure TfrmMain.FRichEditorDropFiles(Sender: TObject;
+  const AFileNames: array of string);
 var
   S : string;
 begin
-  for S in FileNames do
+  for S in AFileNames do
   begin
     RichEditor.InsertImageFile(S);
   end;
@@ -743,6 +749,139 @@ end;
 {$ENDREGION}
 
 {$REGION 'private methods'}
+procedure TfrmMain.AddButton(AToolBar: TToolBar; const AActionName: string;
+  AShowCaption: Boolean; APopupMenu: TPopupMenu);
+var
+  TB : TToolButton;
+begin
+  TB := TToolButton.Create(Self);
+  TB.Parent := AToolBar;
+  TB.ShowCaption := AShowCaption;
+  if Assigned(APopupMenu) then
+  begin
+    TB.Style := tbsDropDown;
+    TB.DropdownMenu := APopupMenu;
+    TB.Action := FEditorManager.Actions[AActionName];
+  end
+  else
+  begin
+    if AActionName = '' then
+    begin
+      TB.Style := tbsDivider;
+    end
+    else
+      TB.Action := FEditorManager.Actions[AActionName];
+  end;
+end;
+
+procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction;
+  AShowCaption: Boolean);
+var
+  TB : TToolButton;
+begin
+  TB := TToolButton.Create(Self);
+  TB.Parent      := AToolBar;
+  TB.ShowCaption := AShowCaption;
+  if Assigned(AAction) then
+    TB.Action := AAction
+  else
+    TB.Style := tbsDivider;
+end;
+
+procedure TfrmMain.AssignEditorChanges;
+begin
+  Snippet.Text        := Editor.Text;
+  Snippet.FoldLevel   := Editor.FoldLevel;
+  Snippet.Highlighter := Editor.HighlighterName;
+  if Snippet.Highlighter = '' then
+    Snippet.Highlighter := 'TXT';
+end;
+
+{ Populates the toolbars with buttons for the given actions. }
+
+procedure TfrmMain.BuildToolBar;
+begin
+  tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
+  tlbApplication.Images := imlMain;
+  AddButton(tlbEditorView, 'actSave');
+  AddButton(tlbEditorView, 'actSaveAs');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actCut');
+  AddButton(tlbEditorView, 'actCopy');
+  AddButton(tlbEditorView, 'actPaste');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actUndo');
+  AddButton(tlbEditorView, 'actRedo');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actSelectAll');
+  AddButton(tlbEditorView, 'actCopyAllToClipboard');
+  AddButton(tlbEditorView, 'actClear');
+  AddButton(tlbEditorView);
+  AddButton(
+    tlbEditorView,
+    'actToggleFoldLevel',
+    False,
+    FEditorManager.Menus.FoldPopupMenu
+  );
+  AddButton(
+    tlbEditorView,
+    'actToggleHighlighter',
+    False,
+    FEditorManager.Menus.HighlighterPopupMenu
+  );
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actSettings');
+  AddButton(tlbApplication, actToggleTextEditor);
+  AddButton(tlbApplication, actToggleRichTextEditor);
+  AddButton(tlbApplication, actLookup);
+  AddButton(tlbApplication, actExecute);
+  AddButton(tlbApplication, actSettings);
+  AddButton(tlbApplication, actAbout);
+end;
+
+procedure TfrmMain.HideAction(const AActionName: string);
+var
+  A : TCustomAction;
+begin
+  A := FEditorManager.Actions.ActionList.ActionByName(
+    AActionName
+  ) as TCustomAction;
+  if Assigned(A) then
+  begin
+    A.Enabled := False;
+    A.Visible := False;
+  end;
+end;
+
+procedure TfrmMain.InitActions;
+begin
+  HideAction('actAlignSelection');
+  HideAction('actAutoGuessHighlighter');
+  HideAction('actClose');
+  HideAction('actCreateDesktopLink');
+  HideAction('actFilterCode');
+//  HideAction('actFindAllOccurences');
+//  HideAction('actFindNext');
+//  HideAction('actFindPrevious');
+  HideAction('actFormat');
+  HideAction('actInsertCharacterFromMap');
+  HideAction('actInsertColorValue');
+  HideAction('actMonitorChanges');
+  HideAction('actOpenFileAtCursor');
+  HideAction('actSearch');
+  HideAction('actSearchReplace');
+  HideAction('actShapeCode');
+  HideAction('actShowActions');
+  HideAction('actShowHexEditor');
+  HideAction('actShowMiniMap');
+  HideAction('actShowPreview');
+  HideAction('actShowScriptEditor');
+  HideAction('actShowStructureViewer');
+  HideAction('actShowViews');
+  HideAction('actSmartSelect');
+  HideAction('actSortSelection');
+end;
+
 procedure TfrmMain.CreateTreeview;
 begin
   FTree                       := TfrmVirtualDBTree.Create(Self);
@@ -775,10 +914,10 @@ begin
   FEditorManager.Settings.AutoFormatXML := False;
   FEditorManager.Settings.AutoGuessHighlighterType := False;
   EV := FEditorManager.Events;
-  EV.OnNew        := ENew;
-  EV.OnBeforeSave := EBeforeSave;
-  EV.AddOnChangeHandler(EChange);
-  EV.AddOnHighlighterChangeHandler(EHighlighterChange);
+  EV.OnNew        := FEditorNew;
+  EV.OnBeforeSave := FEditorBeforeSave;
+  EV.AddOnChangeHandler(FEditorChange);
+  EV.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
 end;
 
 procedure TfrmMain.CreateRichEditor;
@@ -790,8 +929,8 @@ begin
     'Comment'
   );
   FRichEditor.IsFile      := False;
-  FRichEditor.OnChange    := RVChange;
-  FRichEditor.OnDropFiles := RVDropFiles;
+  FRichEditor.OnChange    := FRichEditorChange;
+  FRichEditor.OnDropFiles := FRichEditorDropFiles;
   FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;
 end;
 
@@ -1021,145 +1160,11 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-procedure TfrmMain.AddButton(AToolBar: TToolBar; const AActionName: string;
-  AShowCaption: Boolean; APopupMenu: TPopupMenu);
-var
-  TB : TToolButton;
-begin
-  TB := TToolButton.Create(Self);
-  TB.Parent := AToolBar;
-  TB.ShowCaption := AShowCaption;
-  if Assigned(APopupMenu) then
-  begin
-    TB.Style := tbsDropDown;
-    TB.DropdownMenu := APopupMenu;
-    TB.Action := FEditorManager.Actions[AActionName];
-  end
-  else
-  begin
-    if AActionName = '' then
-    begin
-      TB.Style := tbsDivider;
-    end
-    else
-      TB.Action := FEditorManager.Actions[AActionName];
-  end;
-end;
-
-procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction;
-  AShowCaption: Boolean);
-var
-  TB : TToolButton;
-begin
-  TB := TToolButton.Create(Self);
-  TB.Parent      := AToolBar;
-  TB.ShowCaption := AShowCaption;
-  if Assigned(AAction) then
-    TB.Action := AAction
-  else
-    TB.Style := tbsDivider;
-end;
-
-procedure TfrmMain.AssignEditorChanges;
-begin
-  Snippet.Text        := Editor.Text;
-  Snippet.FoldLevel   := Editor.FoldLevel;
-  Snippet.Highlighter := Editor.HighlighterName;
-  if Snippet.Highlighter = '' then
-    Snippet.Highlighter := 'TXT';
-end;
-
-{ Populates the toolbars with buttons for the given actions. }
-
-procedure TfrmMain.BuildToolBar;
-begin
-  tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
-  tlbApplication.Images := imlMain;
-  AddButton(tlbEditorView, 'actSave');
-  AddButton(tlbEditorView, 'actSaveAs');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actCut');
-  AddButton(tlbEditorView, 'actCopy');
-  AddButton(tlbEditorView, 'actPaste');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actUndo');
-  AddButton(tlbEditorView, 'actRedo');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actSelectAll');
-  AddButton(tlbEditorView, 'actCopyAllToClipboard');
-  AddButton(tlbEditorView, 'actClear');
-  AddButton(tlbEditorView);
-  AddButton(
-    tlbEditorView,
-    'actToggleFoldLevel',
-    False,
-    FEditorManager.Menus.FoldPopupMenu
-  );
-  AddButton(
-    tlbEditorView,
-    'actToggleHighlighter',
-    False,
-    FEditorManager.Menus.HighlighterPopupMenu
-  );
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actSettings');
-  AddButton(tlbApplication, actToggleTextEditor);
-  AddButton(tlbApplication, actToggleRichTextEditor);
-  AddButton(tlbApplication, actLookup);
-  AddButton(tlbApplication, actExecute);
-  AddButton(tlbApplication, actSettings);
-  AddButton(tlbApplication, actAbout);
-end;
-
-procedure TfrmMain.HideAction(const AActionName: string);
-var
-  A : TCustomAction;
-begin
-  A := FEditorManager.Actions.ActionList.ActionByName(
-    AActionName
-  ) as TCustomAction;
-  if Assigned(A) then
-  begin
-    A.Enabled := False;
-    A.Visible := False;
-  end;
-end;
-
-procedure TfrmMain.InitActions;
-begin
-  HideAction('actAlignSelection');
-  HideAction('actAutoGuessHighlighter');
-  HideAction('actClose');
-  HideAction('actCreateDesktopLink');
-  HideAction('actFilterCode');
-//  HideAction('actFindAllOccurences');
-//  HideAction('actFindNext');
-//  HideAction('actFindPrevious');
-  HideAction('actFormat');
-  HideAction('actInsertCharacterFromMap');
-  HideAction('actInsertColorValue');
-  HideAction('actMonitorChanges');
-  HideAction('actOpenFileAtCursor');
-  HideAction('actSearch');
-  HideAction('actSearchReplace');
-  HideAction('actShapeCode');
-  HideAction('actShowActions');
-  HideAction('actShowHexEditor');
-  HideAction('actShowMiniMap');
-  HideAction('actShowPreview');
-  HideAction('actShowScriptEditor');
-  HideAction('actShowStructureViewer');
-  HideAction('actShowViews');
-  HideAction('actSmartSelect');
-  HideAction('actSortSelection');
-end;
-
 procedure TfrmMain.UpdateActions;
 begin
   inherited UpdateActions;
   btnHighlighter.Caption := Editor.HighlighterName;
   pnlEditor.Visible := (DataSet.RecordCount > 0) and (FTree.SelectionCount < 2);
-  pnlWelcome.Visible := not pnlEditor.Visible;
   UpdateToolBars;
   UpdateViews;
   UpdateStatusBar;
@@ -1223,7 +1228,7 @@ begin
       FUpdateRichTextView := False;
     end;
 
-    if (RichEditor.IsEmpty) and (FSettings.DefaultRichEditorFontName <> '') then
+    if RichEditor.IsEmpty and (FSettings.DefaultRichEditorFontName <> '') then
     begin
       RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
     end;
@@ -1231,16 +1236,6 @@ begin
       (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
     LTextEditorVisible := FTextEditorVisible or
       (not (FSettings.AutoHideEditor and Editor.IsEmpty));
-
-    Logger.Watch('AutoHideEditor', FSettings.AutoHideEditor);
-    Logger.Watch('AutoHideRichEditor', FSettings.AutoHideRichEditor);
-    Logger.Watch('Editor.IsEmpty', Editor.IsEmpty);
-    Logger.Watch('RichEditor.IsEmpty', RichEditor.IsEmpty);
-
-    Logger.Watch('LRichEditorVisible', LRichEditorVisible);
-    Logger.Watch('FRichEditorVisible', FRichEditorVisible);
-    Logger.Watch('LTextEditorVisible', LTextEditorVisible);
-    Logger.Watch('FTextEditorVisible', FTextEditorVisible);
 
     pnlEditor.Visible     := LTextEditorVisible;
     pnlRichEditor.Visible := LRichEditorVisible;

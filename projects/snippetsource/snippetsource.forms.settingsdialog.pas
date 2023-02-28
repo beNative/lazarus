@@ -36,69 +36,70 @@ type
   TfrmSettingsDialog = class(TForm)
     {$REGION 'designer controls'}
     aclMain                          : TActionList;
-    actCreateNewDatabase             : TAction;
-    actDeleteDatabase                : TAction;
+    actAddGlyphs                     : TAction;
+    actBackupDatabase                : TAction;
+    actCleanupHistory                : TAction;
     actClose                         : TAction;
-    actDatabaseIntegrityCheck        : TAction;
-    actDatabaseVacuum                : TAction;
-    actDataBaseShrinkMemory          : TAction;
     actCreateDatabaseIndexes         : TAction;
     actCreateDatabaseTables          : TAction;
     actCreateDatabaseTriggers        : TAction;
-    actBackupDatabase                : TAction;
-    actFontDialog                    : TAction;
-    actCleanupHistory                : TAction;
+    actCreateNewDatabase             : TAction;
     actCreateVirtualEnvironment      : TAction;
-    actReloadConfigurationData       : TAction;
+    actDatabaseIntegrityCheck        : TAction;
+    actDataBaseShrinkMemory          : TAction;
+    actDatabaseVacuum                : TAction;
+    actDeleteDatabase                : TAction;
+    actFontDialog                    : TAction;
     actOpenDatabase                  : TAction;
-    actAddGlyphs                     : TAction;
     actRefreshGlyphs                 : TAction;
+    actReloadConfigurationData       : TAction;
     btnBackupDatabase                : TBitBtn;
-    btnCreateNewDatabase             : TBitBtn;
+    btnClose                         : TBitBtn;
     btnCreateDatabaseIndexes         : TBitBtn;
     btnCreateDatabaseTables          : TBitBtn;
     btnCreateDatabaseTriggers        : TBitBtn;
+    btnCreateNewDatabase             : TBitBtn;
+    btnCreateVirtualEnvironment      : TButton;
     btnDatabaseIntegrityCheck        : TBitBtn;
-    btnClose                         : TBitBtn;
     btnDatabaseVacuum                : TBitBtn;
     btnOpenDatabase                  : TBitBtn;
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
-    btnCreateVirtualEnvironment                          : TButton;
     cbxImageList                     : TComboBox;
-    chkUseCustomEnvironmentVariables : TCheckBox;
+    chkAutoHideEditor                : TCheckBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditor            : TCheckBox;
-    chkAutoHideEditor                : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
     chkEmitLogMessages               : TCheckBox;
+    chkUseCustomEnvironmentVariables : TCheckBox;
+    dlgFont                          : TFontDialog;
     dlgOpen                          : TOpenDialog;
     dscGlyph                         : TDatasource;
     dscHighlighter                   : TDatasource;
-    edtFontName                      : TEditButton;
     edtDatabaseFile                  : TFileNameEdit;
-    dlgFont                          : TFontDialog;
+    edtFontName                      : TEditButton;
+    edtVenvName                      : TEdit;
+    grdDBInfo                        : TStringGrid;
+    grdEnvironment                   : TStringGrid;
     grdGlyph                         : TDBGrid;
     grdHighlighters                  : TDBGrid;
-    grdDBInfo                        : TStringGrid;
-    grpRichtextEditor                : TGroupBox;
+    grdPythonInterpreters            : TStringGrid;
+    grpDatabaseInfo                  : TGroupBox;
     grpDiagnostics                   : TGroupBox;
     grpLayout                        : TGroupBox;
-    grpDatabaseInfo                  : TGroupBox;
+    grpRichtextEditor                : TGroupBox;
     Highlighters                     : TTabSheet;
     imlMain                          : TImageList;
     lblApplicationNeedsToBeRestarted : TLabel;
-    lblFontName                      : TLabel;
     lblDataBaseFile                  : TLabel;
-    mmoEnvironment                   : TMemo;
-    pnlBottom                        : TPanel;
+    lblFontName                      : TLabel;
     pgcMain                          : TPageControl;
-    tsPython                         : TTabSheet;
-    tsTerminalSettings               : TTabSheet;
+    pnlBottom                        : TPanel;
     tsApplication                    : TTabSheet;
     tsDataBase                       : TTabSheet;
     tsImages                         : TTabSheet;
-    grdPythonInterpreters            : TValueListEditor;
+    tsPython                         : TTabSheet;
+    tsTerminalSettings               : TTabSheet;
     vstImageList                     : TVirtualStringTree;
     {$ENDREGION}
 
@@ -132,10 +133,12 @@ type
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
     procedure chkEmitLogMessagesClick(Sender: TObject);
+    procedure chkUseCustomEnvironmentVariablesChange(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
     procedure edtFontNameButtonClick(Sender: TObject);
+    procedure edtVenvPathAcceptDirectory(Sender: TObject; var Value: String);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure grdGlyphPrepareCanvas(sender: TObject; DataCol: Integer;
@@ -178,6 +181,7 @@ type
     procedure LoadImage(const AFileName, AFieldName: string);
     procedure UpdateDataBaseInfo;
     procedure LoadPythonInterpreters;
+    function CreateVirtualEnvironment(const APythonPath: string): Boolean;
 
   public
     constructor Create(
@@ -218,6 +222,7 @@ implementation
 {$R *.lfm}
 
 uses
+  Process,
   ts.Core.Utils, ts.Core.Logger,
   SnippetSource.Resources;
 
@@ -252,7 +257,8 @@ procedure TfrmSettingsDialog.AfterConstruction;
 //  I : Integer;
 begin
   inherited AfterConstruction;
-  edtDatabaseFile.FileName := Connection.FileName;
+  edtDatabaseFile.FileName := ExtractRelativePath(ExtractFilePath(ParamStr(0)), Connection.FileName);
+
   pgcMain.ActivePageIndex := 0;
   chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
@@ -260,6 +266,7 @@ begin
   chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
   pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
+  grdEnvironment.Enabled               := False;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
@@ -361,7 +368,8 @@ end;
 procedure TfrmSettingsDialog.actCreateVirtualEnvironmentExecute(Sender: TObject
   );
 begin
-   //
+  if not CreateVirtualEnvironment(grdPythonInterpreters.Cells[1, grdPythonInterpreters.Row]) then
+    ShowMessage('This virtual env does already exist');
 end;
 
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
@@ -482,6 +490,12 @@ begin
   FSettings.EmitLogMessages := (Sender as TCheckBox).Checked;
 end;
 
+procedure TfrmSettingsDialog.chkUseCustomEnvironmentVariablesChange
+  (Sender: TObject);
+begin
+  grdEnvironment.Enabled := chkUseCustomEnvironmentVariables.Checked;
+end;
+
 procedure TfrmSettingsDialog.dscGlyphStateChange(Sender: TObject);
 begin
   //(FData as IGlyphs).LoadGlyphs;
@@ -504,6 +518,12 @@ end;
 procedure TfrmSettingsDialog.edtFontNameButtonClick(Sender: TObject);
 begin
   actFontDialog.Execute;
+end;
+
+procedure TfrmSettingsDialog.edtVenvPathAcceptDirectory(Sender: TObject;
+  var Value: String);
+begin
+
 end;
 
 procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;
@@ -679,32 +699,105 @@ begin
     DateTimeToStr(FileDateToDateTime(FileAge(Connection.FileName)));
 end;
 
+{
+ REMARK: TRegistry does require the casing of keys to be correct. This differs
+ from the Windows registry's built-in behavior for key name comparisons which is
+ case insensitive.
+ For this reason the following casing is needed for the root path when
+ contructing a key path to read values from the registry:
+    - HKEY_CURRENT_USER\Software   : keys for software installed for one user
+    - HKEY_LOCAL_MACHINE\SOFTWARE  : keys for software installed for all users
+}
+
 procedure TfrmSettingsDialog.LoadPythonInterpreters;
 var
-  Registry: TRegistry;
-  Key: string;
-  LKeys : TStringList;
-begin
-  Registry := TRegistry.Create;
-  LKeys := TStringList.Create;
-  try
-    Registry.RootKey := HKEY_LOCAL_MACHINE;
-    if Registry.OpenKeyReadOnly('SOFTWARE\Python\PythonCore') then
-    begin
-      Registry.GetKeyNames(LKeys);
-      for Key in LKeys do
-      begin
-        FPythonInterpreters.AddPair(Key, Registry.ReadString(Key + '\InstallPath'));
-        //Registry.GetNextKey(Key);
+  I : Integer;
+
+  function Load(ARootKey: LongWord; const ACorePath: string): Boolean;
+  var
+    LKeys     : TStringList;
+    LRegistry : TRegistry;
+    K         : string;
+    LKey      : string;
+    LName     : string;
+    LPath     : string;
+  begin
+    Result := False;
+    LRegistry := TRegistry.Create;
+    LRegistry.RootKey := ARootKey;
+    try
+      LKeys := TStringList.Create;
+      try
+        if LRegistry.OpenKeyReadOnly(ACorePath) then
+        begin
+          LRegistry.GetKeyNames(LKeys);
+          LRegistry.CloseKey;
+          for K in LKeys do
+          begin
+            LName := '';
+            LPath := '';
+            LKey := Format('%s\%s', [ACorePath, K]);
+            if LRegistry.OpenKeyReadOnly(LKey) then
+            begin
+              LName := LRegistry.ReadString(PYTHON_DISPLAYNAME);
+              LRegistry.CloseKey;
+            end;
+            LKey := Format('%s\%s\%s', [ACorePath, K, PYTHON_INSTALLPATH]);
+            if LRegistry.OpenKeyReadOnly(LKey) then
+            begin
+              LPath := LRegistry.ReadString(PYTHON_EXECUTABLEPATH);
+              LRegistry.CloseKey;
+            end;
+            if not LName.IsEmpty then
+              FPythonInterpreters.AddPair(LName, LPath);
+          end;
+          Result := FPythonInterpreters.Count > 0;
+        end;
+      finally
+        LKeys.Free;
       end;
+    finally
+      LRegistry.Free;
     end;
-  finally
-    Registry.Free;
-    LKeys.Free;
   end;
-  grdPythonInterpreters.Strings. Assign(FPythonInterpreters);
+
+begin
+  Load(HKEY_LOCAL_MACHINE, PYTHON_CORE_LOCAL_MACHINE);
+  Load(HKEY_CURRENT_USER, PYTHON_CORE_CURRENT_USER);
+  grdPythonInterpreters.RowCount := FPythonInterpreters.Count + 1;
+  for I := 0 to FPythonInterpreters.Count - 1 do
+  begin
+    grdPythonInterpreters.Cells[0, I + 1] := FPythonInterpreters.Names[I];
+    grdPythonInterpreters.Cells[1, I + 1] := FPythonInterpreters.ValueFromIndex[I];
+  end;
+  grdPythonInterpreters.AutoSizeColumns;
 end;
 
+function TfrmSettingsDialog.CreateVirtualEnvironment(const APythonPath: string
+  ): Boolean;
+var
+  LProcess : TProcess;
+  LOutput  : TStringList;
+begin
+  LOutput := TStringList.Create;
+  try
+    LProcess := TProcess.Create(nil);
+    try
+      LProcess.Executable := APythonPath;
+      LProcess.Parameters.Add('-m');
+      LProcess.Parameters.Add('venv');
+      LProcess.Parameters.Add(edtVenvName.Text);
+      LProcess.Options := [poWaitOnExit, poUsePipes];
+      LProcess.Execute;
+      LOutput.LoadFromStream(LProcess.Output);
+      Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);
+    finally
+      LProcess.Free;
+    end;
+  finally
+    LOutput.Free;
+  end;
+end;
 {$ENDREGION}
 
 {$REGION 'public methods'}

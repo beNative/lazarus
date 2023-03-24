@@ -1246,6 +1246,7 @@ begin
       pnlRichEditor.Align := alClient
     else if LTextEditorVisible and LRichEditorVisible then
     begin
+      splHorizontal.Align := alTop;
       pnlEditor.Align     := alClient;
       splHorizontal.Align := alBottom;
       pnlRichEditor.Align := alBottom;

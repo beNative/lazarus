@@ -526,9 +526,9 @@
 								<Foreground>clOlive</Foreground>
 								<Style>[fsBold]</Style>
 							</DirectiveAttri>
-							<CompilerMode>pcmDelphi</CompilerMode>
-							<NestedComments>false</NestedComments>
-							<TypeHelpers>true</TypeHelpers>
+							<CompilerMode>pcmObjFPC</CompilerMode>
+							<NestedComments>true</NestedComments>
+							<TypeHelpers>false</TypeHelpers>
 						</TSynPasSyn>
 					</Components>
 					<Highlighter>PAS</Highlighter>
@@ -1299,7 +1299,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>INI</HighlighterType>
+	<HighlighterType>PY</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

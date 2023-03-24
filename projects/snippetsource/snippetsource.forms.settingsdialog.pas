@@ -93,6 +93,7 @@ type
     lblApplicationNeedsToBeRestarted : TLabel;
     lblDataBaseFile                  : TLabel;
     lblFontName                      : TLabel;
+    lblVirtualEnvironmentName        : TLabel;
     pgcMain                          : TPageControl;
     pnlBottom                        : TPanel;
     tsApplication                    : TTabSheet;

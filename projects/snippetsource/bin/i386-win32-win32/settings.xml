@@ -11,12 +11,12 @@
 						ZQA=
 						</DefinedProperties>
 					</Tokens>
-					<Width>359</Width>
+					<Width>305</Width>
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
 					<FormSettings>(TFormSettings)
-						<Left>640</Left>
-						<Top>304</Top>
+						<Left>909</Left>
+						<Top>285</Top>
 						<Width>725</Width>
 						<Height>690</Height>
 						<FormStyle>fsNormal</FormStyle>
@@ -25,6 +25,7 @@
 				</TCodeFilterSettings>
 				<TSortStringsSettings Name="SortStringsSettings">
 					<SortScope>ssWords</SortScope>
+					<Width>297</Width>
 				</TSortStringsSettings>
 				<TMiniMapSettings Name="MiniMapSettings">
 					<Width>0</Width>
@@ -33,7 +34,9 @@
 				<TSearchEngineSettings Name="SearchSettings">
 					<Options>[,ssoEntireScope]</Options>
 				</TSearchEngineSettings>
-				<TCodeShaperSettings Name="CodeShaperSettings"/>
+				<TCodeShaperSettings Name="CodeShaperSettings">
+					<Width>403</Width>
+				</TCodeShaperSettings>
 			</Components>
 		</TEditorToolSettings>
 		<THighlighters Name="Highlighters">

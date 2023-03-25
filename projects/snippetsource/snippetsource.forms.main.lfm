@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = -1349
+  Left = -1501
   Height = 596
-  Top = 273
+  Top = 602
   Width = 1158
   Caption = 'SnippetSource'
   ClientHeight = 596
@@ -257,13 +257,13 @@ object frmMain: TfrmMain
       OnClick = pnlSnippetClick
       object pnlEditor: TPanel
         Left = 0
-        Height = 429
+        Height = 287
         Top = 25
         Width = 872
         Align = alClient
         BevelOuter = bvNone
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ClientHeight = 429
+        ClientHeight = 287
         ClientWidth = 872
         Color = clBtnFace
         ParentBackground = False
@@ -305,15 +305,95 @@ object frmMain: TfrmMain
             Pen.Color = clScrollBar
           end
         end
+        object pnlEditorToolViewHost: TPanel
+          Left = 0
+          Height = 263
+          Top = 24
+          Width = 248
+          Align = alLeft
+          BevelOuter = bvNone
+          ClientHeight = 263
+          ClientWidth = 248
+          TabOrder = 1
+          Visible = False
+          object pnlEditorToolViewHostHeader: TPanel
+            Left = 0
+            Height = 25
+            Top = 0
+            Width = 248
+            Align = alTop
+            BevelOuter = bvNone
+            ClientHeight = 25
+            ClientWidth = 248
+            TabOrder = 0
+            object btnCloseEditorToolView: TSpeedButton
+              Left = 234
+              Height = 25
+              Top = 0
+              Width = 14
+              Action = actCloseEditorToolView
+              Align = alRight
+              BorderSpacing.InnerBorder = 2
+              BorderSpacing.CellAlignHorizontal = ccaCenter
+              BorderSpacing.CellAlignVertical = ccaCenter
+              Flat = True
+              Font.Height = -11
+              Font.Name = 'Marlett'
+              Glyph.Data = {
+                C6010000424DC60100000000000036000000280000000A0000000A0000000100
+                2000000000009001000064000000640000000000000000000000000000000000
+                0000000000120000000000000000000000000000000000000012000000000000
+                000000000000000000A9000000E7000000000000000000000000000000000000
+                00E5000000A90000000000000012000000E5000000FF000000E5000000110000
+                0011000000E3000000FF000000E5000000120000000000000000000000E30000
+                00FF000000DD000000DB000000FF000000E30000000000000000000000000000
+                00000000000F000000DB000000FF000000FF000000DB00000011000000000000
+                0000000000000000000000000012000000DD000000FF000000FF000000DD0000
+                001100000000000000000000000000000000000000E5000000FF000000DB0000
+                00DB000000FF000000E5000000000000000000000012000000E7000000FF0000
+                00E3000000110000000F000000E3000000FF000000E700000012000000000000
+                00A6000000E600000000000000000000000000000000000000E6000000A60000
+                0000000000000000000000000011000000000000000000000000000000000000
+                00110000000000000000
+              }
+              Margin = 2
+              Spacing = 0
+              ShowCaption = False
+              ParentFont = False
+            end
+            object lblEditorToolViewHeader: TLabel
+              Left = 0
+              Height = 25
+              Top = 0
+              Width = 224
+              Align = alLeft
+              Alignment = taCenter
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              Font.Style = [fsBold]
+              Layout = tlCenter
+              ParentColor = False
+              ParentFont = False
+            end
+          end
+        end
+        object splEditorVertical: TSplitter
+          Left = 248
+          Height = 263
+          Top = 24
+          Width = 5
+          Color = clScrollBar
+          ParentColor = False
+          Visible = False
+        end
       end
       object pnlRichEditor: TPanel
         Left = 0
-        Height = 120
-        Top = 458
+        Height = 262
+        Top = 316
         Width = 872
         Align = alBottom
         BevelOuter = bvNone
-        ClientHeight = 120
+        ClientHeight = 262
         ClientWidth = 872
         TabOrder = 1
         object shpLine3: TShape
@@ -323,6 +403,86 @@ object frmMain: TfrmMain
           Width = 872
           Align = alTop
           Pen.Color = clScrollBar
+        end
+        object pnlRichEditorToolViewHost: TPanel
+          Left = 0
+          Height = 261
+          Top = 1
+          Width = 248
+          Align = alLeft
+          BevelOuter = bvNone
+          ClientHeight = 261
+          ClientWidth = 248
+          TabOrder = 0
+          Visible = False
+          object pnlRichEditorToolViewHostHeader: TPanel
+            Left = 0
+            Height = 25
+            Top = 0
+            Width = 248
+            Align = alTop
+            BevelOuter = bvNone
+            ClientHeight = 25
+            ClientWidth = 248
+            TabOrder = 0
+            object btnCloseRichEditorToolView: TSpeedButton
+              Left = 234
+              Height = 25
+              Top = 0
+              Width = 14
+              Action = actCloseRichEditorToolView
+              Align = alRight
+              BorderSpacing.InnerBorder = 2
+              BorderSpacing.CellAlignHorizontal = ccaCenter
+              BorderSpacing.CellAlignVertical = ccaCenter
+              Flat = True
+              Font.Height = -11
+              Font.Name = 'Marlett'
+              Glyph.Data = {
+                C6010000424DC60100000000000036000000280000000A0000000A0000000100
+                2000000000009001000064000000640000000000000000000000000000000000
+                0000000000120000000000000000000000000000000000000012000000000000
+                000000000000000000A9000000E7000000000000000000000000000000000000
+                00E5000000A90000000000000012000000E5000000FF000000E5000000110000
+                0011000000E3000000FF000000E5000000120000000000000000000000E30000
+                00FF000000DD000000DB000000FF000000E30000000000000000000000000000
+                00000000000F000000DB000000FF000000FF000000DB00000011000000000000
+                0000000000000000000000000012000000DD000000FF000000FF000000DD0000
+                001100000000000000000000000000000000000000E5000000FF000000DB0000
+                00DB000000FF000000E5000000000000000000000012000000E7000000FF0000
+                00E3000000110000000F000000E3000000FF000000E700000012000000000000
+                00A6000000E600000000000000000000000000000000000000E6000000A60000
+                0000000000000000000000000011000000000000000000000000000000000000
+                00110000000000000000
+              }
+              Margin = 2
+              Spacing = 0
+              ShowCaption = False
+              ParentFont = False
+            end
+            object lblRichEditorToolViewHeader: TLabel
+              Left = 0
+              Height = 25
+              Top = 0
+              Width = 224
+              Align = alLeft
+              Alignment = taCenter
+              Anchors = [akTop, akLeft, akRight, akBottom]
+              Font.Style = [fsBold]
+              Layout = tlCenter
+              ParentColor = False
+              ParentFont = False
+            end
+          end
+        end
+        object splRichEditorVertical: TSplitter
+          Left = 248
+          Height = 261
+          Top = 1
+          Width = 5
+          Color = clScrollBar
+          ParentColor = False
+          Visible = False
         end
       end
       object pnlTitle: TPanel
@@ -342,7 +502,7 @@ object frmMain: TfrmMain
           Left = 72
           Height = 24
           Top = 0
-          Width = 651
+          Width = 632
           Align = alClient
           Alignment = taCenter
           Anchors = [akTop, akLeft, akRight]
@@ -381,10 +541,10 @@ object frmMain: TfrmMain
           ParentFont = False
         end
         object tlbApplication: TToolBar
-          Left = 723
+          Left = 704
           Height = 24
           Top = 0
-          Width = 149
+          Width = 168
           Align = alRight
           EdgeBorders = []
           EdgeInner = esNone
@@ -415,7 +575,7 @@ object frmMain: TfrmMain
         Cursor = crVSplit
         Left = 0
         Height = 4
-        Top = 454
+        Top = 312
         Width = 872
         Align = alBottom
         AutoSnap = False
@@ -507,6 +667,14 @@ object frmMain: TfrmMain
       ImageIndex = 8
       OnExecute = actSQLEditorExecute
       ShortCut = 24657
+    end
+    object actCloseRichEditorToolView: TAction
+      Caption = 'Close toolview.'
+      OnExecute = actCloseRichEditorToolViewExecute
+    end
+    object actCloseEditorToolView: TAction
+      Caption = 'Close toolview.'
+      OnExecute = actCloseEditorToolViewExecute
     end
   end
   object imlMain: TImageList

@@ -1,11 +1,11 @@
 object frmSettingsDialog: TfrmSettingsDialog
   Left = 868
-  Height = 357
+  Height = 354
   Top = 212
   Width = 619
   ActiveControl = btnClose
   Caption = 'Settings'
-  ClientHeight = 357
+  ClientHeight = 354
   ClientWidth = 619
   PopupMode = pmAuto
   Position = poMainFormCenter
@@ -13,17 +13,17 @@ object frmSettingsDialog: TfrmSettingsDialog
   LCLVersion = '2.2.2.0'
   object pgcMain: TPageControl
     Left = 0
-    Height = 323
+    Height = 320
     Top = 0
     Width = 619
-    ActivePage = tsPython
+    ActivePage = tsApplication
     Align = alClient
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
       Caption = 'Application'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       object grpLayout: TGroupBox
         Left = 0
@@ -144,7 +144,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsDataBase: TTabSheet
       Caption = 'Database'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       object edtDatabaseFile: TFileNameEdit
         Left = 67
@@ -200,30 +200,34 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grpDatabaseInfo: TGroupBox
         Left = 0
-        Height = 259
+        Height = 256
         Top = 30
         Width = 443
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'SQLite Database information'
-        ClientHeight = 239
+        ClientHeight = 236
         ClientWidth = 439
         TabOrder = 3
         object grdDBInfo: TStringGrid
           Left = 0
-          Height = 223
+          Height = 220
           Top = 4
           Width = 426
           Anchors = [akTop, akLeft, akRight, akBottom]
+          AutoEdit = False
           BorderStyle = bsNone
           CellHintPriority = chpAll
           Color = clDefault
           ColCount = 2
-          Enabled = False
+          DefaultDrawing = False
+          ExtendedSelect = False
           FixedColor = clForm
           FixedCols = 0
           FixedRows = 0
           Flat = True
-          Options = [goRangeSelect, goSmoothScroll]
+          Font.Color = clBlack
+          Options = []
+          ParentFont = False
           TabOrder = 0
           TitleStyle = tsNative
           ColWidths = (
@@ -461,7 +465,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsTerminalSettings: TTabSheet
       Caption = 'Terminal settings'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       object chkUseCustomEnvironmentVariables: TCheckBox
         Left = 8
@@ -474,7 +478,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdEnvironment: TStringGrid
         Left = 1
-        Height = 261
+        Height = 258
         Top = 32
         Width = 609
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -517,12 +521,12 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsPython: TTabSheet
       Caption = 'Python'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       OnContextPopup = tsPythonContextPopup
       object grdPythonInterpreters: TStringGrid
         Left = 0
-        Height = 188
+        Height = 209
         Top = 0
         Width = 609
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -560,27 +564,27 @@ object frmSettingsDialog: TfrmSettingsDialog
         )
       end
       object edtVenvName: TEdit
-        Left = 296
+        Left = 269
         Height = 23
-        Top = 196
-        Width = 312
+        Top = 213
+        Width = 337
         Anchors = [akLeft, akRight, akBottom]
         TabOrder = 1
         Text = 'MyVenv'
       end
       object btnCreateVirtualEnvironment: TButton
-        Left = 6
-        Height = 65
-        Top = 225
-        Width = 600
+        Left = 0
+        Height = 49
+        Top = 240
+        Width = 609
         Action = actCreateVirtualEnvironment
         Anchors = [akRight, akBottom]
         TabOrder = 2
       end
       object lblVirtualEnvironmentName: TLabel
-        Left = 8
+        Left = 0
         Height = 15
-        Top = 204
+        Top = 216
         Width = 265
         Anchors = [akLeft, akBottom]
         Caption = 'Name (a subfolder with this name will be created):'
@@ -589,7 +593,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsImages: TTabSheet
       Caption = 'Images'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       TabVisible = False
       object btnOpenGlyphs: TButton
@@ -610,7 +614,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object vstImageList: TVirtualStringTree
         Left = 0
-        Height = 290
+        Height = 287
         Top = 3
         Width = 88
         Anchors = [akTop, akLeft, akBottom]
@@ -633,7 +637,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdGlyph: TDBGrid
         Left = 98
-        Height = 261
+        Height = 258
         Top = 32
         Width = 517
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -649,7 +653,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object Highlighters: TTabSheet
       Caption = 'Highlighters'
-      ClientHeight = 295
+      ClientHeight = 292
       ClientWidth = 611
       TabVisible = False
       object cbxImageList: TComboBox
@@ -666,7 +670,7 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grdHighlighters: TDBGrid
         Left = 88
-        Height = 277
+        Height = 274
         Top = 8
         Width = 517
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -685,7 +689,7 @@ object frmSettingsDialog: TfrmSettingsDialog
   object pnlBottom: TPanel
     Left = 0
     Height = 34
-    Top = 323
+    Top = 320
     Width = 619
     Align = alBottom
     BevelOuter = bvNone

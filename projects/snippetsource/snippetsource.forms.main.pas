@@ -41,57 +41,71 @@ const
 type
   TfrmMain = class(TForm)
     {$REGION 'designer controls'}
-    aclMain                 : TActionList;
-    actAbout                : TAction;
-    actConsole              : TAction;
-    actExecute              : TAction;
-    actLookup               : TAction;
-    actSettings             : TAction;
-    actShowGridForm         : TAction;
-    actSQLEditor            : TAction;
-    actToggleFullScreen     : TAction;
-    actToggleRichTextEditor : TAction;
-    actToggleStayOnTop      : TAction;
-    actToggleTextEditor     : TAction;
-    btnHighlighter          : TMenuButton;
-    btnImage                : TSpeedButton;
-    btnLineBreakStyle       : TSpeedButton;
-    dscMain                 : TDatasource;
-    edtTitle                : TEdit;
-    imlMain                 : TImageList;
-    imlNodes                : TImageList;
-    lblWelcome              : TLabel;
-    pnlCapsLock             : TPanel;
-    pnlDateCreated          : TPanel;
-    pnlDateModified         : TPanel;
-    pnlEditMode             : TPanel;
-    pnlEditor               : TPanel;
-    pnlEditorToolBar        : TPanel;
-    pnlId                   : TPanel;
-    pnlLeft                 : TPanel;
-    pnlLineBreakStyle       : TPanel;
-    pnlNumLock              : TPanel;
-    pnlPosition             : TPanel;
-    pnlRichEditor           : TPanel;
-    pnlRight                : TPanel;
-    pnlSize                 : TPanel;
-    pnlSnippet              : TPanel;
-    pnlSnippetCount         : TPanel;
-    pnlStatusBar            : TPanel;
-    pnlStatusBarCenter      : TPanel;
-    pnlTitle                : TPanel;
-    pnlWelcome              : TPanel;
-    shpLine1                : TShape;
-    shpLine2                : TShape;
-    shpLine3                : TShape;
-    splHorizontal           : TSplitter;
-    splVertical             : TSplitter;
-    tlbApplication          : TToolBar;
-    tlbEditorView           : TToolBar;
+    aclMain                         : TActionList;
+    actAbout                        : TAction;
+    actCloseRichEditorToolView      : TAction;
+    actConsole                      : TAction;
+    actExecute                      : TAction;
+    actCloseEditorToolView: TAction;
+    actLookup                       : TAction;
+    actSettings                     : TAction;
+    actShowGridForm                 : TAction;
+    actSQLEditor                    : TAction;
+    actToggleFullScreen             : TAction;
+    actToggleRichTextEditor         : TAction;
+    actToggleStayOnTop              : TAction;
+    actToggleTextEditor             : TAction;
+    btnCloseEditorToolView          : TSpeedButton;
+    btnCloseRichEditorToolView      : TSpeedButton;
+    btnHighlighter                  : TMenuButton;
+    btnImage                        : TSpeedButton;
+    btnLineBreakStyle               : TSpeedButton;
+    dscMain                         : TDatasource;
+    edtTitle                        : TEdit;
+    imlMain                         : TImageList;
+    imlNodes                        : TImageList;
+    lblEditorToolViewHeader         : TLabel;
+    lblRichEditorToolViewHeader     : TLabel;
+    lblWelcome                      : TLabel;
+    pnlCapsLock                     : TPanel;
+    pnlDateCreated                  : TPanel;
+    pnlDateModified                 : TPanel;
+    pnlEditMode                     : TPanel;
+    pnlEditor                       : TPanel;
+    pnlEditorToolBar                : TPanel;
+    pnlEditorToolViewHost           : TPanel;
+    pnlEditorToolViewHostHeader     : TPanel;
+    pnlId                           : TPanel;
+    pnlLeft                         : TPanel;
+    pnlLineBreakStyle               : TPanel;
+    pnlNumLock                      : TPanel;
+    pnlPosition                     : TPanel;
+    pnlRichEditor                   : TPanel;
+    pnlRichEditorToolViewHost       : TPanel;
+    pnlRichEditorToolViewHostHeader : TPanel;
+    pnlRight                        : TPanel;
+    pnlSize                         : TPanel;
+    pnlSnippet                      : TPanel;
+    pnlSnippetCount                 : TPanel;
+    pnlStatusBar                    : TPanel;
+    pnlStatusBarCenter              : TPanel;
+    pnlTitle                        : TPanel;
+    pnlWelcome                      : TPanel;
+    shpLine1                        : TShape;
+    shpLine2                        : TShape;
+    shpLine3                        : TShape;
+    splEditorVertical               : TSplitter;
+    splHorizontal                   : TSplitter;
+    splRichEditorVertical           : TSplitter;
+    splVertical                     : TSplitter;
+    tlbApplication                  : TToolBar;
+    tlbEditorView                   : TToolBar;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
+    procedure actCloseEditorToolViewExecute(Sender: TObject);
+    procedure actCloseRichEditorToolViewExecute(Sender: TObject);
     procedure actConsoleExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
@@ -161,6 +175,23 @@ type
       Sender           : TObject;
       const AFileNames : array of string
     );
+    procedure FRichEditorHideToolView(
+      Sender    : TObject;
+      AToolView : IRichEditorToolView
+    );
+    procedure FRichEditorShowToolView(
+      Sender              : TObject;
+      AToolView : IRichEditorToolView
+    );
+    procedure FEditorHideToolView(
+      Sender    : TObject;
+      AToolView : IEditorToolView
+    );
+    procedure FEditorShowToolView(
+      Sender    : TObject;
+      AToolView : IEditorToolView
+    );
+
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
       AFiles      : TStrings;
@@ -192,7 +223,7 @@ type
       AShowCaption : Boolean = False
     ); overload;
     procedure AssignEditorChanges;
-    procedure BuildToolBar;
+    procedure BuildEditorToolBar;
     procedure HideAction(const AActionName: string);
     procedure InitActions;
 
@@ -262,7 +293,7 @@ uses
   StrUtils, Base64, Dialogs,
   LclIntf, LclType,
 
-  ts.Core.Utils, ts.Core.Logger,
+  ts.Core.Utils, ts.Core.Logger, ts.Core.Helpers,
   ts.Core.Logger.Channel.IPC,
 
   ts.Editor.AboutDialog,
@@ -305,7 +336,7 @@ begin
   FFileSearcher.OnDirectoryFound := FileSearcherDirectoryFound;
   FFileSearcher.OnFileFound      := FileSearcherFileFound;
 
-  BuildToolBar;
+  BuildEditorToolBar;
   InitActions;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
@@ -409,6 +440,28 @@ begin
   ShowAboutDialog;
 end;
 
+procedure TfrmMain.actCloseEditorToolViewExecute(Sender: TObject);
+var
+  TV : IEditorToolView;
+begin
+  pnlEditorToolViewHost.Visible     := False;
+  splEditorVertical.Visible := False;
+  for TV in FEditorManager.ToolViews do
+    TV.Visible := False;
+  FEditorManager.ActiveView.SetFocus;
+end;
+
+procedure TfrmMain.actCloseRichEditorToolViewExecute(Sender: TObject);
+var
+  TV: IRichEditorToolView;
+begin
+  pnlRichEditorToolViewHost.Visible     := False;
+  splRichEditorVertical.Visible := False;
+  for TV in FRichEditorManager.ToolViews do
+    TV.Visible := False;
+  FRichEditorManager.ActiveView.SetFocus;
+end;
+
 procedure TfrmMain.actConsoleExecute(Sender: TObject);
 begin
   if not Assigned(FConsole) then
@@ -500,7 +553,7 @@ end;
 
 procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
 var
-  LStream : TMemoryStream;
+  //LStream : TMemoryStream;
   LBitmap : TBitmap;
 begin
   LBitmap := TBitmap.Create;
@@ -745,6 +798,41 @@ begin
   end;
   SaveRichText;
 end;
+
+procedure TfrmMain.FRichEditorHideToolView(Sender: TObject;
+  AToolView: IRichEditorToolView);
+begin
+//
+end;
+
+procedure TfrmMain.FRichEditorShowToolView(Sender: TObject;
+  AToolView: IRichEditorToolView);
+begin
+  pnlRichEditorToolViewHost.Visible   := False;
+  pnlRichEditorToolViewHost.Width     := AToolView.Form.Width;
+  lblRichEditorToolViewHeader.Caption := AToolView.Form.Caption;
+  splRichEditorVertical.Visible       := True;
+  AssignFormParent(AToolView.Form, pnlRichEditorToolViewHost);
+  pnlRichEditorToolViewHost.Visible   := True;
+end;
+
+procedure TfrmMain.FEditorHideToolView(Sender: TObject;
+  AToolView: IEditorToolView);
+begin
+  //
+end;
+
+procedure TfrmMain.FEditorShowToolView(Sender: TObject;
+  AToolView: IEditorToolView);
+begin
+  pnlEditorToolViewHost.Visible   := False;
+  pnlEditorToolViewHost.Width     := AToolView.Form.Width;
+  lblEditorToolViewHeader.Caption := AToolView.Form.Caption;
+  splEditorVertical.Visible       := True;
+  AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
+  pnlEditorToolViewHost.Visible   := True;
+end;
+
 {$ENDREGION}
 {$ENDREGION}
 
@@ -799,7 +887,7 @@ end;
 
 { Populates the toolbars with buttons for the given actions. }
 
-procedure TfrmMain.BuildToolBar;
+procedure TfrmMain.BuildEditorToolBar;
 begin
   tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
   tlbApplication.Images := imlMain;
@@ -812,6 +900,16 @@ begin
   AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actUndo');
   AddButton(tlbEditorView, 'actRedo');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actSearch');
+  AddButton(tlbEditorView, 'actSearchReplace');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actShowCodeShaper');
+  AddButton(tlbEditorView, 'actShowCodeFilter');
+  AddButton(tlbEditorView, 'actShowCharacterMap');
+  AddButton(tlbEditorView);
+  AddButton(tlbEditorView, 'actShowSpecialCharacters');
+  AddButton(tlbEditorView, 'actSortSelection');
   AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actSelectAll');
   AddButton(tlbEditorView, 'actCopyAllToClipboard');
@@ -834,6 +932,7 @@ begin
   AddButton(tlbApplication, actToggleTextEditor);
   AddButton(tlbApplication, actToggleRichTextEditor);
   AddButton(tlbApplication, actLookup);
+  AddButton(tlbApplication, actSQLEditor);
   AddButton(tlbApplication, actExecute);
   AddButton(tlbApplication, actSettings);
   AddButton(tlbApplication, actAbout);
@@ -855,11 +954,11 @@ end;
 
 procedure TfrmMain.InitActions;
 begin
-  HideAction('actAlignSelection');
+  //HideAction('actAlignSelection');
   HideAction('actAutoGuessHighlighter');
   HideAction('actClose');
   HideAction('actCreateDesktopLink');
-  HideAction('actFilterCode');
+  //HideAction('actFilterCode');
 //  HideAction('actFindAllOccurences');
 //  HideAction('actFindNext');
 //  HideAction('actFindPrevious');
@@ -868,9 +967,9 @@ begin
   HideAction('actInsertColorValue');
   HideAction('actMonitorChanges');
   HideAction('actOpenFileAtCursor');
-  HideAction('actSearch');
-  HideAction('actSearchReplace');
-  HideAction('actShapeCode');
+  //HideAction('actSearch');
+  //HideAction('actSearchReplace');
+  //HideAction('actShapeCode');
   HideAction('actShowActions');
   HideAction('actShowHexEditor');
   HideAction('actShowMiniMap');
@@ -879,7 +978,7 @@ begin
   HideAction('actShowStructureViewer');
   HideAction('actShowViews');
   HideAction('actSmartSelect');
-  HideAction('actSortSelection');
+  //HideAction('actSortSelection');
 end;
 
 procedure TfrmMain.CreateTreeview;
@@ -918,6 +1017,8 @@ begin
   EV.OnBeforeSave := FEditorBeforeSave;
   EV.AddOnChangeHandler(FEditorChange);
   EV.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
+  EV.OnShowEditorToolView := FEditorShowToolView;
+  EV.OnHideEditorToolView := FEditorHideToolView;
 end;
 
 procedure TfrmMain.CreateRichEditor;
@@ -932,6 +1033,8 @@ begin
   FRichEditor.OnChange    := FRichEditorChange;
   FRichEditor.OnDropFiles := FRichEditorDropFiles;
   FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;
+  FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
+  FRichEditorManager.Events.OnHideRichEditorToolView := FRichEditorHideToolView;
 end;
 
 procedure TfrmMain.InitializeLogger;
@@ -1248,8 +1351,8 @@ begin
     begin
       splHorizontal.Align := alTop;
       pnlEditor.Align     := alClient;
-      splHorizontal.Align := alBottom;
       pnlRichEditor.Align := alBottom;
+      splHorizontal.Align := alBottom;
     end;
     actToggleTextEditor.Checked     := LTextEditorVisible;
     actToggleRichTextEditor.Checked := LRichEditorVisible;

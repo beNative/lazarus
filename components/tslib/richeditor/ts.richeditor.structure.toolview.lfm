@@ -1,9 +1,9 @@
 inherited StructureToolView: TStructureToolView
   Left = -1136
-  Height = 687
+  Height = 391
   Top = 412
-  Width = 535
-  Caption = 'StructureToolView'
+  Width = 321
+  Caption = 'Structure'
   object imlMain: TImageList[0]
     DrawingStyle = dsTransparent
     Left = 72

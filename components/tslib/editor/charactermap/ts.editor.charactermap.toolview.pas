@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, Controls, StdCtrls, Grids, ComCtrls, ExtCtrls,
 
-  LCLUnicodeData,
+  LCLUnicodeData, Forms,
 
   ts.Editor.Interfaces, ts.Editor.ToolView.Base;
 
@@ -37,10 +37,12 @@ type
     lblUnicodeCharInfo : TLabel;
     pcMain             : TPageControl;
     pnlChar            : TPanel;
+    sbrMain            : TScrollBox;
     shpChar            : TShape;
     tsANSI             : TTabSheet;
     tsUnicode          : TTabSheet;
 
+    {$REGION 'event handlers'}
     procedure cbxUnicodeRangeSelect(Sender: TObject);
     procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
@@ -59,6 +61,7 @@ type
       Y: Integer);
     procedure grdUnicodeSelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
+    {$ENDREGION}
 
   private
     procedure FillCharMap;
@@ -95,11 +98,8 @@ begin
     Result := (Value div Divi) + 1;
 end;
 
-function CreateCharacterBitmap(
-  const AFontName     : string;
-  const ACharacter    : string;
-  const ABitmapHeight : Integer
-): TBitmap;
+function CreateCharacterBitmap(const AFontName: string; const ACharacter: string;
+  const ABitmapHeight: Integer): TBitmap;
 begin
   Result := TBitmap.Create;
   Result.Height := ABitmapHeight;
@@ -149,7 +149,6 @@ begin
 
   inherited Destroy;
 end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -170,8 +169,8 @@ begin
   for Y := 0 to grdUnicode.RowCount - 1 do
     for X := 0 to grdUnicode.ColCount - 1 do
     begin
-      //if S + N <= E then
-      //  grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N, );
+      if S + N <= E then
+        //grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N);
       Inc(N);
     end;
   grdUnicode.AutoSizeColumns;
@@ -311,34 +310,34 @@ end;
 
 procedure TfrmCharacterMap.UpdateCharacterBitmap(const ACharacter: string);
 var
-  Bmp: TBitmap;
+  LBitmap : TBitmap;
 begin
-  Bmp:= CreateCharacterBitmap(
+  LBitmap:= CreateCharacterBitmap(
     Manager.Settings.EditorFont.Name,
     ACharacter,
     imgChar.Height
   );
   try
-    imgChar.Picture.Graphic := Bmp
+    imgChar.Picture.Graphic := LBitmap
   finally
-    Bmp.Free;
+    LBitmap.Free;
   end;
 end;
 
 procedure TfrmCharacterMap.UpdateUnicodeDisplay(ACol, ARow: Integer);
-//var
-//  I     : Integer;
-//  Start : Cardinal;
-//  T1    : string;
-//  T2    : string;
+var
+  I     : Integer;
+  Start : Cardinal;
+  T1    : string;
+  T2    : string;
 begin
-  //Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
+  Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
   //T1 := UnicodeToUTF8(Start);
-  //T2 := '';
-  //for I := 1 to Length(T1) do
-  //  T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
-  //lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
-  //UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
+  T2 := '';
+  for I := 1 to Length(T1) do
+    T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
+  lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
+  UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
 end;
 
 procedure TfrmCharacterMap.UpdateANSIDisplay(ACol, ARow: Integer);

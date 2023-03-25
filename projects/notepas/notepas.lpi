@@ -933,7 +933,7 @@ end;"/>
         <PackageName Value="LCL"/>
       </Item11>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -956,6 +956,10 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Notepas.Resources"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="notepas.main.form.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

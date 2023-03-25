@@ -54,7 +54,7 @@ type
     {$REGION 'designer controls'}
     aclMain               : TActionList;
     actAbout              : TAction;
-    actCloseToolview      : TAction;
+    actCloseToolView      : TAction;
     actCheckForNewVersion : TAction;
     btnEncoding           : TSpeedButton;
     btnFileName           : TSpeedButton;
@@ -92,7 +92,7 @@ type
     {$REGION 'action handlers'}
     procedure actAboutExecute(Sender: TObject);
     procedure actCheckForNewVersionExecute(Sender: TObject);
-    procedure actCloseToolviewExecute(Sender: TObject);
+    procedure actCloseToolViewExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -137,8 +137,8 @@ type
 
     // event handlers
     procedure EditorEventsHideEditorToolView(
-      Sender          : TObject;
-      AEditorToolView : IEditorToolView
+      Sender    : TObject;
+      AToolView : IEditorToolView
     );
     procedure EditorEventsShowEditorToolView(
       Sender    : TObject;
@@ -366,9 +366,9 @@ begin
   CheckForNewVersion;
 end;
 
-procedure TfrmMain.actCloseToolviewExecute(Sender: TObject);
+procedure TfrmMain.actCloseToolViewExecute(Sender: TObject);
 var
-  TV: IEditorToolView;
+  TV : IEditorToolView;
 begin
   pnlTool.Visible     := False;
   splVertical.Visible := False;
@@ -571,7 +571,7 @@ begin
 end;
 
 procedure TfrmMain.EditorEventsHideEditorToolView(Sender: TObject;
-  AEditorToolView: IEditorToolView);
+  AToolView: IEditorToolView);
 begin
   pnlTool.Visible     := False;
   splVertical.Visible := False;

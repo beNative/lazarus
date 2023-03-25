@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 499
+  Left = -1950
   Height = 618
-  Top = 123
+  Top = 78
   Width = 1183
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
@@ -299,7 +299,7 @@ object frmMain: TfrmMain
         Height = 25
         Top = 0
         Width = 14
-        Action = actCloseToolview
+        Action = actCloseToolView
         Align = alRight
         BorderSpacing.InnerBorder = 2
         BorderSpacing.CellAlignHorizontal = ccaCenter
@@ -390,9 +390,9 @@ object frmMain: TfrmMain
       ImageIndex = 2
       OnExecute = actAboutExecute
     end
-    object actCloseToolview: TAction
+    object actCloseToolView: TAction
       Caption = 'Close toolview'
-      OnExecute = actCloseToolviewExecute
+      OnExecute = actCloseToolViewExecute
       ShortCut = 27
     end
     object actCheckForNewVersion: TAction

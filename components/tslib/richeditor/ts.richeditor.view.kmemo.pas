@@ -683,6 +683,7 @@ procedure TRichEditorViewKMemo.FEditorChange(Sender: TObject);
 begin
   Modified := True;
   DoChange;
+  Events.DoChange;
 end;
 
 function TRichEditorViewKMemo.FEditorAlignInsertBefore(Sender: TWinControl;

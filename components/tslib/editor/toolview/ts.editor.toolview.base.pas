@@ -92,6 +92,7 @@ type
 
   public
     procedure AfterConstruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -109,6 +110,26 @@ begin
   Manager.Events.AddOnChangeHandler(EditorChange);
   Manager.Events.AddOnModifiedHandler(EditorModified);
 end;
+
+destructor TCustomEditorToolView.Destroy;
+begin
+  if Assigned(Manager) then
+  begin
+    if Assigned(Manager.Events) then
+    begin
+      Manager.Events.RemoveOnCaretPositionEvent(EditorCaretPositionChange);
+      Manager.Events.RemoveOnActiveViewChangeHandler(EditorActiveViewChanged);
+      Manager.Events.RemoveOnChangeHandler(EditorChange);
+      Manager.Events.RemoveOnModifiedHandler(EditorModified);
+    end;
+    if Assigned(Manager.Settings) then
+    begin
+      Manager.Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
+    end;
+  end;
+  inherited Destroy;
+end;
+
 {$ENDREGION}
 
 {$REGION 'property access mehods'}

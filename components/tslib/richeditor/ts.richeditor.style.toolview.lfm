@@ -1,0 +1,33 @@
+inherited StyleToolView: TStyleToolView
+  Left = 356
+  Height = 302
+  Top = 181
+  Width = 239
+  Caption = 'StyleToolView'
+  ClientHeight = 302
+  ClientWidth = 239
+  object cpMain: THexaColorPicker[0]
+    Left = 16
+    Height = 224
+    Top = 48
+    Width = 213
+    HintFormat = 'RGB(%r, %g, %b)'#13'Hex: #%hex'
+    IntensityText = 'Intensity'
+    TabOrder = 0
+    Constraints.MinHeight = 85
+    Constraints.MinWidth = 93
+  end
+  object tcColors: TTabControl[1]
+    Left = 16
+    Height = 32
+    Top = 8
+    Width = 200
+    TabIndex = 0
+    Tabs.Strings = (
+      'Font'
+      'Background'
+      'Borders'
+    )
+    TabOrder = 1
+  end
+end

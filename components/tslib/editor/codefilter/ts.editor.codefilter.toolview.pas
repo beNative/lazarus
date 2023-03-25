@@ -163,7 +163,7 @@ type
 
   public
      procedure AfterConstruction; override;
-     procedure BeforeDestruction; override;
+     destructor Destroy; override;
 
   end;
 
@@ -181,6 +181,7 @@ uses
   SynEditHighlighter,
 
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Helpers, ts.Core.Utils,
+  ts.Core.Logger,
 
   ts.Editor.Resources,
 
@@ -283,13 +284,23 @@ begin
   Settings.FormSettings.AssignTo(Self);
 end;
 
-procedure TfrmCodeFilterDialog.BeforeDestruction;
+destructor TfrmCodeFilterDialog.Destroy;
 begin
   FLines.Free;
   FTVP.TreeView := nil;
   FVST.Free;
   FRegExpr.Free;
-  inherited BeforeDestruction;
+  if Assigned(Manager) and Assigned(Manager.Events) then
+  begin
+    if Assigned(Manager.Events) then
+    begin
+      Manager.Events.RemoveOnActiveViewChangeHandler(EditorActiveViewChanged);
+      Manager.Events.RemoveOnChangeHandler(EditorChange);
+    end;
+    if Assigned(Manager.Settings) then
+      Manager.Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
+  end;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

@@ -88,7 +88,7 @@ type
     function GetCount: Integer;
     {$ENDREGION}
 
-    //function GetEnumerator: TEditorToolViewListEnumerator;
+    function GetEnumerator: TRichEditorToolViewListEnumerator;
 
     function Register(
       AFormClass     : TComponentClass;
@@ -109,7 +109,7 @@ type
 
   public
     constructor Create(AEditorManager: IRichEditorManager);
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -212,11 +212,11 @@ begin
   FItems   := TInterfaceList.Create;
 end;
 
-procedure TRichEditorToolViews.BeforeDestruction;
+destructor TRichEditorToolViews.Destroy;
 begin
   FManager := nil;
   FItems.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -249,10 +249,10 @@ begin
   Result := FItems.Count;
 end;
 
-//function TRichEditorToolViews.GetEnumerator: TEditorToolViewListEnumerator;
-//begin
-//  Result := TEditorToolViewListEnumerator.Create(Self);
-//end;
+function TRichEditorToolViews.GetEnumerator: TRichEditorToolViewListEnumerator;
+begin
+  Result := TRichEditorToolViewListEnumerator.Create(Self);
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -272,11 +272,11 @@ procedure TRichEditorToolViews.Hide;
 var
   TV: IRichEditorToolView;
 begin
-  //for TV in (Self as IRichEditorToolViews) do
-  //begin
-  //  TV.Visible := False;
-  //  FManager.Events.DoHideToolView(TV);
-  //end;
+  for TV in (Self as IRichEditorToolViews) do
+  begin
+    TV.Visible := False;
+    FManager.Events.DoHideToolView(TV);
+  end;
 end;
 {$ENDREGION}
 {$ENDREGION}

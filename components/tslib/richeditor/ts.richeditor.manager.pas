@@ -67,6 +67,7 @@ type
     actInsertRowAfter        : TAction;
     actInsertRowBefore       : TAction;
     actInsertTable           : TAction;
+    actShowStructureViewer   : TAction;
     actItalic                : TAction;
     actNumberedList          : TAction;
     actOpen                  : TAction;
@@ -146,6 +147,7 @@ type
     procedure actSetFontExecute(Sender: TObject);
     procedure actShowPreviewExecute(Sender: TObject);
     procedure actShowSpecialCharactersExecute(Sender: TObject);
+    procedure actShowStructureViewerExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
     procedure actToggleWordWrapExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
@@ -160,7 +162,10 @@ type
 
   protected
     {$REGION 'property access mehods'}
-    function GetActions: TActionList;
+    function GetActionList: TActionList;
+    function GetActions: IRichEditorActions;
+    function GetToolViews: IRichEditorToolViews;
+    //function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
     function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
@@ -193,6 +198,11 @@ type
 
     procedure InitializePopupMenus;
     procedure RegisterToolViews;
+    procedure ShowToolView(
+      const AName : string;
+      AShowModal  : Boolean;
+      ASetFocus   : Boolean
+    );
 
     procedure BuildRichEditorPopupMenu;
     procedure BuildInsertPopupMenu;
@@ -207,11 +217,17 @@ type
     property Events: IRichEditorEvents
       read GetEvents implements IRichEditorEvents;
 
-    property Actions: TActionList
+    property ActionList: TActionList
+      read GetActionList;
+
+    property Actions: IRichEditorActions
       read GetActions;
 
     property ActiveView: IRichEditorView
       read GetActiveView write SetActiveView;
+
+    property ToolViews: IRichEditorToolViews
+      read GetToolViews;
 
     property Items[AName: string]: TContainedAction
       read GetItem; default;
@@ -260,7 +276,9 @@ uses
 
   ts.Core.Utils, ts.Core.Logger,
 
-  ts.RichEditor.ToolViews, ts.RichEditor.Events, ts.RichEditor.View.KMemo;
+  ts.RichEditor.ToolViews, ts.RichEditor.Events, ts.RichEditor.View.KMemo,
+
+  ts.RichEditor.Structure.ToolView;
 
 {$REGION 'construction and destruction'}
 procedure TdmRichEditorManager.AfterConstruction;
@@ -287,10 +305,10 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
-function TdmRichEditorManager.GetActions: TActionList;
-begin
-  Result := aclActions;
-end;
+//function TdmRichEditorManager.GetActions: TActionList;
+//  Result := aclActions;
+//begin
+//end;
 
 function TdmRichEditorManager.GetActiveView: IRichEditorView;
 begin
@@ -403,6 +421,11 @@ begin
     actShowSpecialCharacters.Checked := not actShowSpecialCharacters.Checked;
     ActiveView.ShowSpecialChars := actShowSpecialCharacters.Checked;
   end;
+end;
+
+procedure TdmRichEditorManager.actShowStructureViewerExecute(Sender: TObject);
+begin
+  ShowToolView('Structure', False, False);
 end;
 
 procedure TdmRichEditorManager.actStrikeThroughExecute(Sender: TObject);
@@ -720,6 +743,21 @@ begin
   end;
 end;
 
+function TdmRichEditorManager.GetActionList: TActionList;
+begin
+  Result := aclActions;
+end;
+
+function TdmRichEditorManager.GetActions: IRichEditorActions;
+begin
+  Result := Self as IRichEditorActions;
+end;
+
+function TdmRichEditorManager.GetToolViews: IRichEditorToolViews;
+begin
+  Result := FToolViews;
+end;
+
 function TdmRichEditorManager.GetInsertPopupMenu: TPopupMenu;
 begin
   Result := ppmInsert;
@@ -911,10 +949,39 @@ end;
 
 procedure TdmRichEditorManager.RegisterToolViews;
 begin
-  //
-  //FToolViews.Register();
+  ToolViews.Register(TStructureToolView, nil, 'Structure');
 end;
 
+procedure TdmRichEditorManager.ShowToolView(const AName: string;
+  AShowModal: Boolean; ASetFocus: Boolean);
+var
+  ETV : IRichEditorToolView;
+  TV  : IRichEditorToolView;
+begin
+  ETV := ToolViews[AName];
+  for TV in ToolViews do
+  begin
+    if TV <> ETV then
+      TV.Visible := False;
+  end;
+  if not ETV.Visible then
+  begin
+    if not AShowModal then
+    begin
+      { This for example can allow the owner to dock the toolview in the main
+        application workspace. }
+      Events.DoShowToolView(ETV);
+      ETV.Visible := True;
+    end
+    else
+    begin
+      ETV.Form.ShowModal;
+    end;
+  end;
+  ETV.UpdateView;
+  if ASetFocus then
+    ETV.SetFocus;
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}

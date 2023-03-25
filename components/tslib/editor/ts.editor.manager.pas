@@ -824,6 +824,7 @@ begin
   FActiveView := nil;
   if PersistSettings then
     FSettings.Save;
+  FSettings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
   FSearchEngine := nil;
   FSettings     := nil;
   FEvents       := nil;
@@ -2567,7 +2568,7 @@ begin
     ETV.SetFocus;
 end;
 
-{ Fixup popup menus. }
+{ Fixup popup menus. TODO: optimize and make this generic. }
 
 procedure TdmEditorManager.UpdatePopupMenus;
 var
@@ -2599,7 +2600,6 @@ var
         end;
         if Assigned(LSeperator) then
         begin
-          Logger.Send('MI', MI.Caption);
           LSeperator.Visible := False;
         end;
         LSeperator := MI;
@@ -2633,7 +2633,6 @@ begin
       end;
       if Assigned(LSeperator) then
       begin
-        Logger.Send('MI', MI.Caption);
         LSeperator.Visible := False;
       end;
       LSeperator := MI;

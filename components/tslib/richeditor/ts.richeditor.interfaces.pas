@@ -30,7 +30,14 @@ uses
  { All supported actions by the editor views, and holds a collection of all
     registered views. }
 type
-  IRichEditorActions = interface;
+  IRichEditorActions   = interface;
+  IRichEditorToolView  = interface;
+  IRichEditorToolViews = interface;
+
+  TRichEditorToolViewEvent = procedure(
+    Sender              : TObject;
+    ARichEditorToolView : IRichEditorToolView
+  ) of object;
 
   IRichEditorView = interface
   ['{9F85A3C6-584D-497F-9C5C-7300D7AEF92E}']
@@ -241,13 +248,14 @@ type
     {$REGION 'property access mehods'}
     function GetOnAfterSave: TStorageEvent;
     function GetOnBeforeSave: TStorageEvent;
-    function GetOnChange: TNotifyEvent;
+    function GetOnHideRichEditorToolView: TRichEditorToolViewEvent;
     function GetOnLoad: TStorageEvent;
     function GetOnNew: TNewEvent;
     function GetOnOpen: TStorageEvent;
+    function GetOnShowRichEditorToolView: TRichEditorToolViewEvent;
     procedure SetOnAfterSave(AValue: TStorageEvent);
     procedure SetOnBeforeSave(AValue: TStorageEvent);
-    procedure SetOnChange(AValue: TNotifyEvent);
+    procedure SetOnHideRichEditorToolView(AValue: TRichEditorToolViewEvent);
     procedure SetOnLoad(AValue: TStorageEvent);
     procedure SetOnNew(AValue: TNewEvent);
     procedure SetOnOpen(AValue: TStorageEvent);
@@ -263,10 +271,14 @@ type
       const AName : string = '';
       const AText : string = ''
     );
+    procedure DoShowToolView(AToolView: IRichEditorToolView);
+    procedure DoHideToolView(AToolView: IRichEditorToolView);
 
-    { triggered when caret position changes }
-    property OnChange: TNotifyEvent
-      read GetOnChange write SetOnChange;
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure SetOnShowRichEditorToolView(AValue: TRichEditorToolViewEvent);
 
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
@@ -282,12 +294,18 @@ type
 
     property OnAfterSave: TStorageEvent
       read GetOnAfterSave write SetOnAfterSave;
+
+    property OnShowRichEditorToolView: TRichEditorToolViewEvent
+      read GetOnShowRichEditorToolView write SetOnShowRichEditorToolView;
+
+    property OnHideRichEditorToolView : TRichEditorToolViewEvent
+      read GetOnHideRichEditorToolView write SetOnHideRichEditorToolView;
   end;
 
   IRichEditorActions = interface
   ['{E60C0187-4F9E-4585-B776-5B710B5498F9}']
     {$REGION 'property access methods'}
-    function GetActions: TActionList;
+    function GetActionList: TActionList;
     function GetItem(AName: string): TContainedAction;
     {$ENDREGION}
 
@@ -296,15 +314,19 @@ type
     property Items[AName: string]: TContainedAction
       read GetItem; default;
 
-    property Actions: TActionList
-      read GetActions;
+    property ActionList: TActionList
+      read GetActionList;
   end;
 
   IRichEditorManager = interface
   ['{A1781DE6-B022-4DBA-9D06-327E4612F65A}']
     {$REGION 'property access methods'}
+    function GetActionList: TActionList;
+    function GetActions: IRichEditorActions;
     function GetEditorPopupMenu: TPopupMenu;
     function GetActiveView: IRichEditorView;
+    function GetEvents: IRichEditorEvents;
+    function GetToolViews: IRichEditorToolViews;
     function GetViewByName(AName: string): IRichEditorView;
     procedure SetActiveView(const AValue: IRichEditorView);
     function GetView(AIndex: Integer): IRichEditorView;
@@ -318,11 +340,23 @@ type
     function DeleteView(AIndex: Integer): Boolean;
     procedure ClearViews;
 
+    property ActionList: TActionList
+      read GetActionList;
+
+    property Actions: IRichEditorActions
+      read GetActions;
+
     property ActiveView: IRichEditorView
       read GetActiveView write SetActiveView;
 
     property EditorPopupMenu: TPopupMenu
       read GetEditorPopupMenu;
+
+    property Events: IRichEditorEvents
+      read GetEvents;
+
+    property ToolViews: IRichEditorToolViews
+      read GetToolViews;
 
     property Views[AIndex: Integer]: IRichEditorView
       read GetView;
@@ -374,6 +408,22 @@ type
       read GetForm;
   end;
 
+  TRichEditorToolViewListEnumerator = class
+  strict private
+    FIndex : Integer;
+    FList  : IRichEditorToolViews;
+
+  public
+    constructor Create(AList: IRichEditorToolViews);
+    destructor Destroy; override;
+
+    function GetCurrent: IRichEditorToolView;
+    function MoveNext: Boolean;
+
+    property Current: IRichEditorToolView
+      read GetCurrent;
+  end;
+
   IRichEditorToolViews = interface
   ['{DC7CE737-103C-4863-91E8-4EB0CF661589}']
   {$REGION 'property access methods'}
@@ -382,7 +432,7 @@ type
   function GetCount: Integer;
   {$ENDREGION}
 
-  //function GetEnumerator: TEditorToolViewListEnumerator;
+  function GetEnumerator: TRichEditorToolViewListEnumerator;
 
   function Register(
     AFormClass     : TComponentClass;
@@ -402,6 +452,33 @@ type
   end;
 
 implementation
+
+{$REGION 'TRichEditorToolViewListEnumerator'}
+constructor TRichEditorToolViewListEnumerator.Create(AList: IRichEditorToolViews
+  );
+begin
+  FList  := AList;
+  FIndex := -1;
+end;
+
+destructor TRichEditorToolViewListEnumerator.Destroy;
+begin
+  FList := nil;
+  inherited Destroy;
+end;
+
+function TRichEditorToolViewListEnumerator.GetCurrent: IRichEditorToolView;
+begin
+  Result := FList.Views[FIndex] as IRichEditorToolView;
+end;
+
+function TRichEditorToolViewListEnumerator.MoveNext: Boolean;
+begin
+  Result := FIndex < (FList.Count - 1);
+  if Result then
+    Inc(FIndex);
+end;
+{$ENDREGION}
 
 end.
 

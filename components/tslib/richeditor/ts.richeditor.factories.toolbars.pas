@@ -122,7 +122,7 @@ begin
   TB.EdgeOuter   := esNone;
   TB.Transparent := True;
   TB.Parent      := AParent;
-  TB.Images      := FActions.Actions.Images;
+  TB.Images      := FActions.ActionList.Images;
   TB.ButtonWidth := 10;
 
   CreateToolButton(TB, 'actSave');
@@ -167,6 +167,7 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actClear');
   CreateToolButton(TB, 'actShowPreview');
+  CreateToolButton(TB, 'actShowStructureViewer');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actSelectTable');
   CreateToolButton(TB, 'actInsertColumnBefore');

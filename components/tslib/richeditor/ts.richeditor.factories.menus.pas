@@ -65,7 +65,7 @@ var
   MM : TMainMenu;
 begin
   MM := TMainMenu.Create(AOwner);
-  MM.Images := FActions.Actions.Images;
+  MM.Images := FActions.ActionList.Images;
   Result := MM;
 end;
 {$ENDREGION}

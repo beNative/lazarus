@@ -56,7 +56,7 @@ type
   { TEditorEvents }
 
   TEditorEvents = class(TInterfacedObject, IEditorEvents)
-  strict private
+  private
     FManager                 : IEditorManager;
     FChangeEvents            : TMethodList;
     FModifiedEvents          : TMethodList;
@@ -79,7 +79,7 @@ type
     FOnStatusChange        : TStatusChangeEvent;
     FOnStatusMessage       : TStatusMessageEvent;
 
-  strict protected
+  protected
     function GetOnOpen: TStorageEvent;
     procedure SetOnOpen(AValue: TStorageEvent);
     function GetOnAfterSave: TStorageEvent;
@@ -135,7 +135,7 @@ type
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
-
+    // TODO: these are not used...
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnHighlighterChangeHandler(AEvent: TNotifyEvent);
@@ -183,7 +183,7 @@ type
   public
     constructor Create(AManager: IEditorManager);
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -233,7 +233,7 @@ begin
   FActionExecuteEvents     := TActionExecuteEvents.Create;
 end;
 
-procedure TEditorEvents.BeforeDestruction;
+destructor TEditorEvents.Destroy;
 begin
   FManager := nil;
   FChangeEvents.Free;
@@ -242,7 +242,7 @@ begin
   FCaretPositionEvents.Free;
   FActionExecuteEvents.Free;
   FHighlighterChangeEvents.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

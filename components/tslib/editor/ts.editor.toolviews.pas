@@ -109,7 +109,7 @@ type
 
   public
     constructor Create(AEditorManager: IEditorManager);
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   end;
 
@@ -211,11 +211,11 @@ begin
   FItems   := TInterfaceList.Create;
 end;
 
-procedure TEditorToolViews.BeforeDestruction;
+destructor TEditorToolViews.Destroy;
 begin
   FManager := nil;
   FItems.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -269,7 +269,7 @@ end;
 
 procedure TEditorToolViews.Hide;
 var
-  TV: IEditorToolView;
+  TV : IEditorToolView;
 begin
   for TV in (Self as IEditorToolViews) do
   begin

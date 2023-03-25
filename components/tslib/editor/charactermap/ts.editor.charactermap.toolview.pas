@@ -71,6 +71,7 @@ type
 
   public
     procedure AfterConstruction; override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -140,6 +141,15 @@ begin
   cbxUnicodeRangeSelect(nil);
   Manager.Settings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 end;
+
+destructor TfrmCharacterMap.Destroy;
+begin
+  if Assigned(Manager) and Assigned(Manager.Settings) then
+    Manager.Settings.RemoveEditorSettingsChangedHandler(EditorSettingsChanged);
+
+  inherited Destroy;
+end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}

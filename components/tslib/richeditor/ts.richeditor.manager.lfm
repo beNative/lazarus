@@ -391,6 +391,12 @@ object dmRichEditorManager: TdmRichEditorManager
       ImageIndex = 40
       OnExecute = actInsertTableExecute
     end
+    object actShowStructureViewer: TAction
+      Category = 'ToolViews'
+      Caption = 'Structure viewer'
+      OnExecute = actShowStructureViewerExecute
+      ShortCut = 49240
+    end
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]

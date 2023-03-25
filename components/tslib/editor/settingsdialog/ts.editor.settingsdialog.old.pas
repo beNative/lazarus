@@ -260,7 +260,6 @@ begin
   FHAVST              := VST.Create(Self, pnlHALeft);
   FHLVST              := VST.Create(Self, pnlHLLeft);
   FTSVST              := VST.Create(Self, pnlTSLeft);
-//  FXMLTree            := CreateXMLTree(Self, pnlXML);
 
   Settings.AddEditorSettingsChangedHandler(SettingsChangedHandler);
   UpdateControls;
@@ -276,6 +275,8 @@ end;
 
 procedure TfrmEditorSettings.BeforeDestruction;
 begin
+  if Assigned(Manager) and Assigned(Settings) then
+    Settings.RemoveEditorSettingsChangedHandler(SettingsChangedHandler);
   FreeAndNil(FHAList);
   FreeAndNil(FHLList);
   FreeAndNil(FTSList);

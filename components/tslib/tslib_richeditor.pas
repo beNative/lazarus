@@ -13,7 +13,8 @@ uses
   ts.RichEditor.Interfaces, ts.RichEditor.Manager, ts.RichEditor.Settings, 
   ts.RichEditor.Types, ts.RichEditor.View.KMemo, ts.RichEditor.ToolView.Base, 
   ts.RichEditor.Style.ToolView, ts.RichEditor.ToolViews, 
-  ts.RichEditor.Test.Toolview, LazarusPackageIntf;
+  ts.RichEditor.Structure.ToolView, ts.RichEditor.Test.Toolview, 
+  ts.RichEditor.Utils, LazarusPackageIntf;
 
 implementation
 

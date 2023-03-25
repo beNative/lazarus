@@ -46,21 +46,30 @@ uses
 type
   TCustomRichEditorToolView = class(TForm, IRichEditorToolView)
   private
-    function GetManager: IRichEditorManager;
-    function GetView: IRichEditorView;
+    FUpdate : Boolean;
 
   protected
+    {$REGION 'property access methods'}
+    function GetUpdate: Boolean;
+    procedure SetUpdate(AValue: Boolean);
+    function GetManager: IRichEditorManager;
+    function GetView: IRichEditorView;
     function GetForm: TForm;
     function GetName: string;
     function GetVisible: Boolean;
+    {$ENDREGION}
 
-    procedure UpdateView;
+    procedure UpdateView; virtual;
+    procedure Modified; virtual;
 
     property Manager: IRichEditorManager
       read GetManager;
 
     property View: IRichEditorView
       read GetView;
+
+    property Update: Boolean
+      read GetUpdate write SetUpdate;
 
   end;
 
@@ -69,6 +78,19 @@ implementation
 {$R *.lfm}
 
 {$REGION 'property access methods'}
+function TCustomRichEditorToolView.GetUpdate: Boolean;
+begin
+  Result := FUpdate;
+end;
+
+procedure TCustomRichEditorToolView.SetUpdate(AValue: Boolean);
+begin
+  if AValue <> Update then
+  begin
+    FUpdate := AValue;
+  end;
+end;
+
 function TCustomRichEditorToolView.GetManager: IRichEditorManager;
 begin
   Result := Owner as IRichEditorManager;
@@ -76,7 +98,7 @@ end;
 
 function TCustomRichEditorToolView.GetView: IRichEditorView;
 begin
-  Result := Owner as IRichEditorView;
+  Result := Manager.ActiveView;
 end;
 
 function TCustomRichEditorToolView.GetForm: TForm;
@@ -99,6 +121,11 @@ end;
 procedure TCustomRichEditorToolView.UpdateView;
 begin
   //
+end;
+
+procedure TCustomRichEditorToolView.Modified;
+begin
+  FUpdate := True;
 end;
 {$ENDREGION}
 

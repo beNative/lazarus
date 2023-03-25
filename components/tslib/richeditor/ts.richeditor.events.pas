@@ -23,41 +23,49 @@ interface
 uses
   Classes, SysUtils,
 
+  LazMethodList,
+
   ts.RichEditor.Types, ts.RichEditor.Interfaces;
 
 type
   TRichEditorEvents = class(TInterfacedObject, IRichEditorEvents)
   private
-    FManager      : IRichEditorManager;
-    FOnNew        : TNewEvent;
-    FOnLoad       : TStorageEvent;
-    FOnOpen       : TStorageEvent;
-    FOnBeforeSave : TStorageEvent;
-    FOnAfterSave  : TStorageEvent;
-    FOnSave       : TStorageEvent;
-    FOnChange     : TNotifyEvent;
+    FManager                  : IRichEditorManager;
+    FChangeEvents             : TMethodList;
+    FModifiedEvents           : TMethodList;
+    FOnNew                    : TNewEvent;
+    FOnLoad                   : TStorageEvent;
+    FOnOpen                   : TStorageEvent;
+    FOnBeforeSave             : TStorageEvent;
+    FOnAfterSave              : TStorageEvent;
+    FOnSave                   : TStorageEvent;
+    FOnShowRichEditorToolView : TRichEditorToolViewEvent;
+    FOnHideRichEditorToolView : TRichEditorToolViewEvent;
 
     {$REGION 'property access mehods'}
     function GetOnAfterSave: TStorageEvent;
     function GetOnBeforeSave: TStorageEvent;
-    function GetOnChange: TNotifyEvent;
+    function GetOnHideRichEditorToolView: TRichEditorToolViewEvent;
     function GetOnLoad: TStorageEvent;
     function GetOnNew: TNewEvent;
     function GetOnOpen: TStorageEvent;
     function GetOnSave: TStorageEvent;
+    function GetOnShowRichEditorToolView: TRichEditorToolViewEvent;
     function GetView: IRichEditorView;
     procedure SetOnAfterSave(AValue: TStorageEvent);
     procedure SetOnBeforeSave(AValue: TStorageEvent);
-    procedure SetOnChange(AValue: TNotifyEvent);
+    procedure SetOnHideRichEditorToolView(AValue: TRichEditorToolViewEvent);
     procedure SetOnLoad(AValue: TStorageEvent);
     procedure SetOnNew(AValue: TNewEvent);
     procedure SetOnOpen(AValue: TStorageEvent);
     procedure SetOnSave(AValue: TStorageEvent);
+    procedure SetOnShowRichEditorToolView(AValue: TRichEditorToolViewEvent);
     {$ENDREGION}
 
   protected
     // event dispatch methods
     procedure DoChange;
+    procedure DoModified;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -66,17 +74,16 @@ type
       const AName : string = '';
       const AText : string = ''
     );
+    procedure DoShowToolView(AToolView: IRichEditorToolView); virtual;
+    procedure DoHideToolView(AToolView: IRichEditorToolView); virtual;
+
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
 
     property View: IRichEditorView
       read GetView;
-
-  public
-    constructor Create(AManager: IRichEditorManager);
-    destructor Destroy; override;
-
-    { triggered when caret position changes }
-    property OnChange: TNotifyEvent
-      read GetOnChange write SetOnChange;
 
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
@@ -96,6 +103,17 @@ type
     property OnAfterSave: TStorageEvent
       read GetOnAfterSave write SetOnAfterSave;
 
+    property OnShowRichEditorToolView: TRichEditorToolViewEvent
+      read GetOnShowRichEditorToolView write SetOnShowRichEditorToolView;
+
+    property OnHideRichEditorToolView : TRichEditorToolViewEvent
+      read GetOnHideRichEditorToolView write SetOnHideRichEditorToolView;
+
+  public
+    constructor Create(AManager: IRichEditorManager);
+    procedure AfterConstruction; override;
+    destructor Destroy; override;
+
   end;
 
 implementation
@@ -107,9 +125,18 @@ begin
   FManager := AManager;
 end;
 
+procedure TRichEditorEvents.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  FChangeEvents   := TMethodList.Create;
+  FModifiedEvents := TMethodList.Create;
+end;
+
 destructor TRichEditorEvents.Destroy;
 begin
   FManager := nil;
+  FChangeEvents.Free;
+  FModifiedEvents.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -125,9 +152,10 @@ begin
   Result := FOnBeforeSave;
 end;
 
-function TRichEditorEvents.GetOnChange: TNotifyEvent;
+function TRichEditorEvents.
+  GetOnHideRichEditorToolView: TRichEditorToolViewEvent;
 begin
-  Result := FOnChange;
+  Result := FOnHideRichEditorToolView;
 end;
 
 function TRichEditorEvents.GetOnLoad: TStorageEvent;
@@ -150,9 +178,21 @@ begin
   Result := FOnSave;
 end;
 
+function TRichEditorEvents.
+  GetOnShowRichEditorToolView: TRichEditorToolViewEvent;
+begin
+   Result := FOnShowRichEditorToolView;
+end;
+
 procedure TRichEditorEvents.SetOnSave(AValue: TStorageEvent);
 begin
   FOnSave := AValue;
+end;
+
+procedure TRichEditorEvents.SetOnShowRichEditorToolView
+  (AValue: TRichEditorToolViewEvent);
+begin
+  FOnShowRichEditorToolView := AValue;
 end;
 
 function TRichEditorEvents.GetView: IRichEditorView;
@@ -170,9 +210,10 @@ begin
   FOnBeforeSave := AValue;
 end;
 
-procedure TRichEditorEvents.SetOnChange(AValue: TNotifyEvent);
+procedure TRichEditorEvents.SetOnHideRichEditorToolView
+  (AValue: TRichEditorToolViewEvent);
 begin
-  FOnChange := AValue;
+  FOnHideRichEditorToolView := AValue;
 end;
 
 procedure TRichEditorEvents.SetOnLoad(AValue: TStorageEvent);
@@ -194,8 +235,12 @@ end;
 {$REGION 'event dispatch methods'}
 procedure TRichEditorEvents.DoChange;
 begin
-  if Assigned(FOnChange) then
-    FOnChange(Self);
+  FChangeEvents.CallNotifyEvents(Self);
+end;
+
+procedure TRichEditorEvents.DoModified;
+begin
+  FModifiedEvents.CallNotifyEvents(Self);
 end;
 
 procedure TRichEditorEvents.DoOpen(const AName: string);
@@ -245,6 +290,40 @@ begin
   S := AName;
   if Assigned(FOnNew) then
     FOnNew(Self, S, AText);
+end;
+
+procedure TRichEditorEvents.DoShowToolView(AToolView: IRichEditorToolView);
+begin
+  if Assigned(FOnShowRichEditorToolView) then
+    FOnShowRichEditorToolView(Self, AToolView);
+end;
+
+procedure TRichEditorEvents.DoHideToolView(AToolView: IRichEditorToolView);
+begin
+  if Assigned(FOnHideRichEditorToolView) then
+    FOnHideRichEditorToolView(Self, AToolView);
+end;
+{$ENDREGION}
+
+{$REGION 'protected methods'}
+procedure TRichEditorEvents.AddOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Add(TMethod(AEvent));
+end;
+
+procedure TRichEditorEvents.AddOnModifiedHandler(AEvent: TNotifyEvent);
+begin
+  FModifiedEvents.Add(TMethod(AEvent));
+end;
+
+procedure TRichEditorEvents.RemoveOnChangeHandler(AEvent: TNotifyEvent);
+begin
+  FChangeEvents.Remove(TMethod(AEvent));
+end;
+
+procedure TRichEditorEvents.RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+begin
+   FModifiedEvents.Remove(TMethod(AEvent));
 end;
 {$ENDREGION}
 

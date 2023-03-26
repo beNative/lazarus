@@ -50,6 +50,7 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
+    actRunVirtualEnvironment: TAction;
     actOpenDatabase                  : TAction;
     actRefreshGlyphs                 : TAction;
     actReloadConfigurationData       : TAction;
@@ -120,6 +121,7 @@ type
     procedure actAddGlyphsExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
     procedure actReloadConfigurationDataExecute(Sender: TObject);
+    procedure actRunVirtualEnvironmentExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -139,11 +141,8 @@ type
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
     procedure edtFontNameButtonClick(Sender: TObject);
-    procedure edtVenvPathAcceptDirectory(Sender: TObject; var Value: String);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
-    procedure grdGlyphPrepareCanvas(sender: TObject; DataCol: Integer;
-      Column: TColumn; AState: TGridDrawState);
     procedure grdHighlightersDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure pgcMainChange(Sender: TObject);
@@ -182,7 +181,7 @@ type
     procedure LoadImage(const AFileName, AFieldName: string);
     procedure UpdateDataBaseInfo;
     procedure LoadPythonInterpreters;
-    function CreateVirtualEnvironment(const APythonPath: string): Boolean;
+    function CreatePythonVirtualEnvironment(const APythonPath: string): Boolean;
 
   public
     constructor Create(
@@ -258,7 +257,8 @@ procedure TfrmSettingsDialog.AfterConstruction;
 //  I : Integer;
 begin
   inherited AfterConstruction;
-  edtDatabaseFile.FileName := ExtractRelativePath(ExtractFilePath(ParamStr(0)), Connection.FileName);
+  edtDatabaseFile.FileName :=
+    ExtractRelativePath(ExtractFilePath(ParamStr(0)), Connection.FileName);
 
   pgcMain.ActivePageIndex := 0;
   chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
@@ -268,6 +268,7 @@ begin
   pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   grdEnvironment.Enabled               := False;
+  edtVenvName.Text                     := FSettings.PythonVirtualEnvironmentName;
   //vstImageList.RootNodeCount :=  (FData as IGlyphs).ImageList.Count;
   //cbxImageList.Clear;
   //for I := 0 to (FData as IGlyphs).ImageList.Count - 1 do
@@ -360,6 +361,31 @@ begin
   Connection.SetupConfigurationData;
 end;
 
+procedure TfrmSettingsDialog.actRunVirtualEnvironmentExecute(Sender: TObject);
+//var
+//  LProcess : TProcess;
+//  LOutput  : TStringList;
+begin
+  //LOutput := TStringList.Create;
+  //try
+  //  LProcess := TProcess.Create(nil);
+  //  try
+  //    LProcess.Executable := APythonPath;
+  //    LProcess.Parameters.Add('-m');
+  //    LProcess.Parameters.Add('venv');
+  //    LProcess.Parameters.Add(edtVenvName.Text);
+  //    LProcess.Options := [{poWaitOnExit,} poUsePipes];
+  //    LProcess.Execute;
+  //    LOutput.LoadFromStream(LProcess.Output);
+  //    Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);
+  //  finally
+  //    LProcess.Free;
+  //  end;
+  //finally
+  //  LOutput.Free;
+  //end;
+end;
+
 procedure TfrmSettingsDialog.actCreateNewDatabaseExecute(Sender: TObject);
 begin
   Connection.FileName := edtDatabaseFile.FileName;
@@ -368,9 +394,14 @@ end;
 
 procedure TfrmSettingsDialog.actCreateVirtualEnvironmentExecute(Sender: TObject
   );
+var
+  LPath : string;
 begin
-  if not CreateVirtualEnvironment(grdPythonInterpreters.Cells[1, grdPythonInterpreters.Row]) then
-    ShowMessage('This virtual env does already exist');
+  LPath := grdPythonInterpreters.Cells[1, grdPythonInterpreters.Row];
+  if not CreatePythonVirtualEnvironment(LPath) then
+    ShowMessage(SVirtualEnvironmentAlreadyExists)
+  else
+    FSettings.PythonVirtualEnvironmentName := edtVenvName.Caption;
 end;
 
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
@@ -521,12 +552,6 @@ begin
   actFontDialog.Execute;
 end;
 
-procedure TfrmSettingsDialog.edtVenvPathAcceptDirectory(Sender: TObject;
-  var Value: String);
-begin
-
-end;
-
 procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;
   const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
 var
@@ -559,12 +584,6 @@ begin
       end;
     end;
   end;
-end;
-
-procedure TfrmSettingsDialog.grdGlyphPrepareCanvas(sender: TObject;
-  DataCol: Integer; Column: TColumn; AState: TGridDrawState);
-begin
-
 end;
 
 procedure TfrmSettingsDialog.grdHighlightersDrawColumnCell(Sender: TObject;
@@ -774,7 +793,7 @@ begin
   grdPythonInterpreters.AutoSizeColumns;
 end;
 
-function TfrmSettingsDialog.CreateVirtualEnvironment(const APythonPath: string
+function TfrmSettingsDialog.CreatePythonVirtualEnvironment(const APythonPath: string
   ): Boolean;
 var
   LProcess : TProcess;
@@ -788,7 +807,7 @@ begin
       LProcess.Parameters.Add('-m');
       LProcess.Parameters.Add('venv');
       LProcess.Parameters.Add(edtVenvName.Text);
-      LProcess.Options := [poWaitOnExit, poUsePipes];
+      LProcess.Options := [poUsePipes, poNoConsole];
       LProcess.Execute;
       LOutput.LoadFromStream(LProcess.Output);
       Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);

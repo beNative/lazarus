@@ -32,8 +32,7 @@ uses
   ts.RichEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
-  SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Console,
-  SnippetSource.Forms.Busy;
+  SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Busy;
 
 const
   EDITOR_SETTINGS_FILE = 'settings.xml';
@@ -46,7 +45,7 @@ type
     actCloseRichEditorToolView      : TAction;
     actConsole                      : TAction;
     actExecute                      : TAction;
-    actCloseEditorToolView: TAction;
+    actCloseEditorToolView          : TAction;
     actLookup                       : TAction;
     actSettings                     : TAction;
     actShowGridForm                 : TAction;
@@ -106,7 +105,6 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
-    procedure actConsoleExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
@@ -132,7 +130,6 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure pnlSnippetClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -150,7 +147,6 @@ type
     FRichEditorManager  : IRichEditorManager;
     FRichEditor         : IRichEditorView;
     FSettings           : TSettings;
-    FConsole            : TfrmConsole;
     FRichEditorToolBar  : TToolBar;
     FUpdate             : Boolean;
     FRichEditorVisible  : Boolean;
@@ -224,6 +220,7 @@ type
     ); overload;
     procedure AssignEditorChanges;
     procedure BuildEditorToolBar;
+    procedure BuildApplicationToolBar;
     procedure HideAction(const AActionName: string);
     procedure InitActions;
 
@@ -337,6 +334,7 @@ begin
   FFileSearcher.OnFileFound      := FileSearcherFileFound;
 
   BuildEditorToolBar;
+  BuildApplicationToolBar;
   InitActions;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
@@ -352,10 +350,6 @@ end;
 destructor TfrmMain.Destroy;
 begin
   Logger.Enter(Self, 'Destroy');
-  if Assigned(FConsole) then
-  begin
-    FConsole.Free;
-  end;
   FBusyForm.Free;
   FSettings.LastFocusedId := Snippet.Id;
   FSettings.Save;
@@ -462,21 +456,13 @@ begin
   FRichEditorManager.ActiveView.SetFocus;
 end;
 
-procedure TfrmMain.actConsoleExecute(Sender: TObject);
-begin
-  if not Assigned(FConsole) then
-  begin
-    FConsole := TfrmConsole.Create(Self);
-  end;
-  FConsole.Show;
-end;
-
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
 var
   FS        : TFileStream;
   LFileName : string;
 const
   SCRIPT_FILE = 'SnippetSource.%s';
+  COMMAND    = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
 begin
   LFileName := Format(SCRIPT_FILE, [Snippet.Highlighter]);
   FS := TFileStream.Create(LFileName, fmCreate);
@@ -491,7 +477,8 @@ begin
   end
   else if Snippet.Highlighter = 'PY' then
   begin
-    dmTerminal.Execute('.\.venv\Scripts\activate.bat & py "SnippetSource.PY"');
+    //dmTerminal.Execute('.\.venv\Scripts\activate.bat & py "SnippetSource.PY"');
+    dmTerminal.Execute(Format(COMMAND, [FSettings.PythonVirtualEnvironmentName]));
   end;
     //if not Assigned(FConsole) then
     //begin
@@ -696,11 +683,6 @@ begin
   dmTerminal.prcTerminal.Active := False;
 end;
 
-procedure TfrmMain.pnlSnippetClick(Sender: TObject);
-begin
-
-end;
-
 {$REGION 'FTree'}
 procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
 begin
@@ -885,12 +867,9 @@ begin
     Snippet.Highlighter := 'TXT';
 end;
 
-{ Populates the toolbars with buttons for the given actions. }
-
 procedure TfrmMain.BuildEditorToolBar;
 begin
   tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
-  tlbApplication.Images := imlMain;
   AddButton(tlbEditorView, 'actSave');
   AddButton(tlbEditorView, 'actSaveAs');
   AddButton(tlbEditorView);
@@ -929,11 +908,17 @@ begin
   );
   AddButton(tlbEditorView);
   AddButton(tlbEditorView, 'actSettings');
+end;
+
+procedure TfrmMain.BuildApplicationToolBar;
+begin
+  tlbApplication.Images := imlMain;
   AddButton(tlbApplication, actToggleTextEditor);
   AddButton(tlbApplication, actToggleRichTextEditor);
   AddButton(tlbApplication, actLookup);
   AddButton(tlbApplication, actSQLEditor);
   AddButton(tlbApplication, actExecute);
+  AddButton(tlbApplication, actConsole);
   AddButton(tlbApplication, actSettings);
   AddButton(tlbApplication, actAbout);
 end;

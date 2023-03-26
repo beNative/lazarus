@@ -31,19 +31,22 @@ uses
 type
   TSettings = class(TComponent, ISettings)
   private
-    FFileName                  : string;
-    FDatabase                  : string;
-    FAutoHideRichEditor        : Boolean;
-    FAutoHideEditor            : Boolean;
-    FAutoHideEditorToolBar     : Boolean;
-    FAutoHideRichEditorToolBar : Boolean;
-    FChangeEvents              : TMethodList;
-    FLastFocusedId             : Integer;
-    FDefaultRichEditorFontName : string;
-    FEmitLogMessages           : Boolean;
+    FFileName                     : string;
+    FDatabase                     : string;
+    FAutoHideRichEditor           : Boolean;
+    FAutoHideEditor               : Boolean;
+    FAutoHideEditorToolBar        : Boolean;
+    FAutoHideRichEditorToolBar    : Boolean;
+    FChangeEvents                 : TMethodList;
+    FLastFocusedId                : Integer;
+    FDefaultRichEditorFontName    : string;
+    FEmitLogMessages              : Boolean;
+    FPythonVirtualEnvironmentName : string;
 
   protected
     {$REGION 'property access methods'}
+    function GetPythonVirtualEnvironmentName: string;
+    procedure SetPythonVirtualEnvironmentName(AValue: string);
     function GetEmitLogMessages: Boolean;
     procedure SetEmitLogMessages(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
@@ -104,6 +107,9 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property PythonVirtualEnvironmentName: string
+      read GetPythonVirtualEnvironmentName write SetPythonVirtualEnvironmentName;
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
@@ -200,6 +206,20 @@ begin
   if AValue <> DefaultRichEditorFontName then
   begin
     FDefaultRichEditorFontName := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetPythonVirtualEnvironmentName: string;
+begin
+  Result := FPythonVirtualEnvironmentName;
+end;
+
+procedure TSettings.SetPythonVirtualEnvironmentName(AValue: string);
+begin
+  if AValue <> PythonVirtualEnvironmentName then
+  begin
+    FPythonVirtualEnvironmentName := AValue;
     Changed;
   end;
 end;

@@ -16,9 +16,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 320
     Top = 0
     Width = 619
-    ActivePage = tsApplication
+    ActivePage = tsPython
     Align = alClient
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
@@ -570,15 +570,16 @@ object frmSettingsDialog: TfrmSettingsDialog
         Width = 337
         Anchors = [akLeft, akRight, akBottom]
         TabOrder = 1
-        Text = 'MyVenv'
       end
       object btnCreateVirtualEnvironment: TButton
         Left = 0
         Height = 49
         Top = 240
-        Width = 609
+        Width = 296
         Action = actCreateVirtualEnvironment
         Anchors = [akRight, akBottom]
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 2
       end
       object lblVirtualEnvironmentName: TLabel
@@ -648,7 +649,6 @@ object frmSettingsDialog: TfrmSettingsDialog
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgDblClickAutoSize]
         TabOrder = 3
         OnDrawColumnCell = grdGlyphDrawColumnCell
-        OnPrepareCanvas = grdGlyphPrepareCanvas
       end
     end
     object Highlighters: TTabSheet
@@ -805,6 +805,10 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actCreateVirtualEnvironment: TAction
       Caption = 'Create virtual environment'
       OnExecute = actCreateVirtualEnvironmentExecute
+    end
+    object actRunVirtualEnvironment: TAction
+      Caption = 'Run virtual environment'
+      OnExecute = actRunVirtualEnvironmentExecute
     end
   end
   object dscGlyph: TDataSource

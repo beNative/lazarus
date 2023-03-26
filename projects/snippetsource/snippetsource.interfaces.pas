@@ -263,6 +263,7 @@ type
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
+    function GetPythonVirtualEnvironmentName: string;
     procedure SetAutoHideEditor(AValue: Boolean);
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
     procedure SetAutoHideRichEditor(AValue: Boolean);
@@ -275,6 +276,7 @@ type
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure SetPythonVirtualEnvironmentName(AValue: string);
 
     property Database: string
       read GetDatabase write SetDatabase;
@@ -299,6 +301,9 @@ type
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
+
+    property PythonVirtualEnvironmentName: string
+      read GetPythonVirtualEnvironmentName write SetPythonVirtualEnvironmentName;
   end;
 
 implementation

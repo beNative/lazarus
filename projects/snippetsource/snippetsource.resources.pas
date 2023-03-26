@@ -59,6 +59,7 @@ resourcestring
   SDatabaseSizeHasBeenReduced = 'Database size was reduced by %s.';
   SDatabaseIntegrityCheckSuccessful = 'Integrity check was successful!';
   SDatabaseIntegrityCheckFailed     = 'Database failed integrity check!';
+  SVirtualEnvironmentAlreadyExists  = 'This virtual environment already exists.';
 
 implementation
 

@@ -32,7 +32,7 @@ uses
   python4lazarus_package,
 
   { you can add units after this }
-  SnippetSource.Forms.Main, SnippetSource.Forms.Console,
+  SnippetSource.Forms.Main,
   SnippetSource.Modules.Data, SnippetSource.Modules.Python,
   SnippetSource.Forms.Grid, SnippetSource.Settings,
   SnippetSource.Forms.Busy, SnippetSource.Modules.Terminal;

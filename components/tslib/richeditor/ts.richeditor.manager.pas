@@ -67,6 +67,7 @@ type
     actInsertRowAfter        : TAction;
     actInsertRowBefore       : TAction;
     actInsertTable           : TAction;
+    actDeleteTable: TAction;
     actShowStructureViewer   : TAction;
     actItalic                : TAction;
     actNumberedList          : TAction;
@@ -121,6 +122,7 @@ type
     procedure actDecIndentExecute(Sender: TObject);
     procedure actDeleteColumnExecute(Sender: TObject);
     procedure actDeleteRowExecute(Sender: TObject);
+    procedure actDeleteTableExecute(Sender: TObject);
     procedure actEditParagraphStyleExecute(Sender: TObject);
     procedure actEditSelectedItemExecute(Sender: TObject);
     procedure actEditTextStyleExecute(Sender: TObject);
@@ -484,6 +486,14 @@ begin
   if Assigned(ActiveView) then
   begin
     ActiveView.DeleteRow;
+  end;
+end;
+
+procedure TdmRichEditorManager.actDeleteTableExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    //ActiveView.SelectTable.;
   end;
 end;
 

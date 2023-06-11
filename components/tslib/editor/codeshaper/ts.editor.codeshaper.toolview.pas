@@ -166,7 +166,6 @@ type
     ): string;
     procedure UpdateQuoteLinesControls;
     procedure UpdateActions; override;
-    procedure UpdateView; override;
 
     procedure BeginUpdate;
     procedure EndUpdate;
@@ -522,11 +521,6 @@ end;
 procedure TfrmCodeShaper.EndUpdate;
 begin
   View.Selection.Restore;
-end;
-
-procedure TfrmCodeShaper.UpdateView;
-begin
-  //
 end;
 
 procedure TfrmCodeShaper.InitializeControls;

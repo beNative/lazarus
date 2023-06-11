@@ -30,7 +30,7 @@ const
 
 type
   TEditorColorSettings = class(TPersistent)
-  strict private
+  private
     FIncrementColor     : TSynSelectedColor;
     FHighlightAllColor  : TSynSelectedColor;
     FBracketMatchColor  : TSynSelectedColor;

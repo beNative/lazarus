@@ -35,7 +35,7 @@ uses
   ExtCtrls, Menus, Types,
 
   KControls, KMemo, KMemoDlgTextStyle, KMemoDlgHyperlink, KMemoDlgImage,
-  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, kdialogs,
+  KMemoDlgNumbering, KMemoDlgContainer, KMemoDlgParaStyle, KDialogs,
 
   DropComboTarget,
 
@@ -46,6 +46,7 @@ type
     dctMain       : TDropComboTarget;
     pnlRichEditor : TPanel;
 
+    {$REGION 'event handlers'}
     procedure dctMainDrop(
       Sender     : TObject;
       ShiftState : TShiftState;
@@ -56,6 +57,7 @@ type
       Sender          : TObject;
       const FileNames : array of string
     );
+    {$ENDREGION}
 
   private
     FEditor        : TKMemo;
@@ -65,6 +67,7 @@ type
     FDefaultIndent : Integer;
     FOnChange      : TNotifyEvent;
     FOnDropFiles   : TDropFilesEvent;
+    FOnSelectBlock : TNotifyEvent;
     FParaStyleForm : TKMemoParaStyleForm;
     FTextStyleForm : TKMemoTextStyleForm;
     FContainerForm : TKMemoContainerForm;
@@ -76,10 +79,12 @@ type
     FIsFile        : Boolean;
 
     {$REGION 'event handlers'}
+    // probably not needed
     function FEditorAlignInsertBefore(
       Sender             : TWinControl;
       Control1, Control2 : TControl
     ): Boolean;
+    // probably not needed
     procedure FEditorAlignPosition(
       Sender                                   : TWinControl;
       Control                                  : TControl;
@@ -100,6 +105,8 @@ type
     );
     procedure FEditorEndDrag(Sender, Target: TObject; X, Y: Integer);
     procedure FEditorExit(Sender: TObject);
+    procedure FEditorListTableChanged(AList: TKMemoList; ALevel: TKMemoListLevel
+      );
     procedure FEditorMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
@@ -141,6 +148,7 @@ type
     function GetIsInsideOfTable: Boolean;
     function GetKMemoNotifier: IKMemoNotifier;
     function GetModified: Boolean;
+    function GetOnSelectBlock: TNotifyEvent;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetPopupMenu: TPopupMenu; override;
@@ -161,6 +169,7 @@ type
     procedure SetFileName(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
     procedure SetModified(const AValue: Boolean);
+    procedure SetOnSelectBlock(AValue: TNotifyEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetPopupMenu(const AValue: TPopupMenu); reintroduce;
@@ -171,7 +180,6 @@ type
     procedure SetShowSpecialChars(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetWordWrap(const AValue: Boolean);
-
     {$ENDREGION}
 
     procedure SelectAll;
@@ -226,6 +234,7 @@ type
     // event dispatch methods
     procedure DoDropFiles(const AFileNames: array of string);
     procedure DoChange;
+    procedure DoSelectBlock;
 
     property KMemoNotifier: IKMemoNotifier
       read GetKMemoNotifier;
@@ -329,6 +338,9 @@ type
 
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
+
+    property OnSelectBlock: TNotifyEvent
+      read GetOnSelectBlock write SetOnSelectBlock;
   end;
 
 implementation
@@ -341,6 +353,13 @@ uses
   keditcommon, kgraphics,
 
   ts.Core.Logger;
+
+type
+  TKAccessMemo = class(TKMemo)
+  published
+    property States;
+
+  end;
 
 {$REGION 'construction and destruction'}
 procedure TRichEditorViewKMemo.AfterConstruction;
@@ -360,7 +379,10 @@ begin
   FEditor.OnExit              := FEditorExit;
   FEditor.OnBlockEdit         := FEditorBlockEdit;
   FEditor.OnBlockClick        := FEditorBlockClick;
+  FEditor.ListTable.OnChanged  := FEditorListTableChanged;
+  // needed?
   FEditor.OnAlignPosition     := FEditorAlignPosition;
+  // needed?
   FEditor.OnAlignInsertBefore := FEditorAlignInsertBefore;
   FEditor.Options             := FEditor.Options + [eoWantTab];
   LKey.Key := 0;
@@ -476,6 +498,16 @@ end;
 procedure TRichEditorViewKMemo.SetOnChange(const AValue: TNotifyEvent);
 begin
   FOnChange := AValue;
+end;
+
+function TRichEditorViewKMemo.GetOnSelectBlock: TNotifyEvent;
+begin
+  Result := FOnSelectBlock;
+end;
+
+procedure TRichEditorViewKMemo.SetOnSelectBlock(AValue: TNotifyEvent);
+begin
+  FOnSelectBlock := AValue;
 end;
 
 function TRichEditorViewKMemo.GetOnDropFiles: TDropFilesEvent;
@@ -689,8 +721,8 @@ end;
 function TRichEditorViewKMemo.FEditorAlignInsertBefore(Sender: TWinControl;
   Control1, Control2: TControl): Boolean;
 begin
-  Modified := True;
-  DoChange;
+  //Modified := True;
+  //DoChange;
   Result := True;
 end;
 
@@ -698,15 +730,15 @@ procedure TRichEditorViewKMemo.FEditorAlignPosition(Sender: TWinControl;
   Control: TControl; var NewLeft, NewTop, NewWidth, NewHeight: Integer;
   var AlignRect: TRect; AlignInfo: TAlignInfo);
 begin
-  Modified := True;
-  DoChange;
+  //Modified := True;
+  //DoChange;
 end;
 
 procedure TRichEditorViewKMemo.FEditorBlockClick(Sender: TObject;
   ABlock: TKMemoBlock; var Result: Boolean);
 begin
   Modified := True;
-  DoChange;
+  DoSelectBlock;
 end;
 
 { Gets called when executing IKMemoNotifier.EditBlock. }
@@ -749,6 +781,13 @@ procedure TRichEditorViewKMemo.FEditorExit(Sender: TObject);
 begin
   Modified := True;
   DoChange;
+end;
+
+procedure TRichEditorViewKMemo.FEditorListTableChanged(AList: TKMemoList;
+  ALevel: TKMemoListLevel);
+begin
+  Logger.Info('ListTableChanged');
+  Events.DoModified;
 end;
 
 procedure TRichEditorViewKMemo.FEditorMouseUp(Sender: TObject;
@@ -880,12 +919,20 @@ begin
   if Assigned(OnChange) and not IsUpdating then
   begin
     OnChange(Self);
+    Events.DoChange;
   end;
   Logger.Watch('ContentHeight', FEditor.ContentHeight);
   Logger.Watch('ContentWidth', FEditor.ContentWidth);
   Logger.Watch('ContentLeft', FEditor.ContentLeft);
   Logger.Watch('ContentTop', FEditor.ContentTop);
   Logger.Watch('SelText', FEditor.Blocks.SelText);
+end;
+
+procedure TRichEditorViewKMemo.DoSelectBlock;
+begin
+  if Assigned(OnSelectBlock) then
+    OnSelectBlock(Self);
+  Events.DoSelectBlock;
 end;
 {$ENDREGION}
 
@@ -923,6 +970,7 @@ begin
   begin
     FContainerForm.Save(AItem);
     Editor.Modified := True;
+    Events.DoModified;
     Result := True;
   end;
 end;
@@ -935,6 +983,7 @@ begin
   begin
     FImageForm.Save(AItem);
     Editor.Modified := True;
+    Events.DoModified;
     Result := True;
   end;
 end;
@@ -947,6 +996,7 @@ begin
   begin
     FHyperlinkForm.Save(AItem);
     Editor.Modified := True;
+    Events.DoModified;
     Result := True;
   end;
 end;
@@ -973,7 +1023,10 @@ procedure TRichEditorViewKMemo.EditParagraphStyle;
 begin
   FParaStyleForm.Load(FEditor, FParaStyle);
   if FParaStyleForm.ShowModal = mrOk then
+  begin
     FParaStyleForm.Save(FParaStyle);
+    Events.DoModified;
+  end;
 end;
 
 procedure TRichEditorViewKMemo.EditTextStyle;
@@ -982,6 +1035,7 @@ begin
   if FTextStyleForm.ShowModal = mrOk then
   begin
     FTextStyleForm.Save(FTextStyle);
+    Events.DoModified;
   end;
 end;
 
@@ -1083,6 +1137,7 @@ begin
     AImage.Assign(AImage.Jpeg);
   end;
   FEditor.Blocks.AddImageBlock(AImage);
+  Events.DoModified;
 end;
 
 { Creates new or updates an existing image block.  }
@@ -1111,6 +1166,7 @@ begin
         FEditor.ClearSelection;
       FEditor.ActiveInnerBlocks.AddAt(LImage, FEditor.SplitAt(FEditor.SelEnd));
     end;
+    Events.DoModified;
     Modified := True;
     Result := True;
   end
@@ -1164,6 +1220,7 @@ begin
       );
     end;
     Modified := True;
+    Events.DoModified;
   end
   else if LCreated then
     LHyperlink.Free;
@@ -1187,6 +1244,7 @@ begin
     end;
     LRow.ParentBlocks.AddAt(LNewRow, LCell.RowIndex);
     LTable.ApplyDefaultCellStyle;
+    Events.DoModified;
   end;
 end;
 
@@ -1209,6 +1267,7 @@ begin
     // AddAt will append if index does not exist.
     LRow.ParentBlocks.AddAt(LNewRow, LCell.RowIndex + 1);
     LTable.ApplyDefaultCellStyle;
+    Events.DoModified;
   end;
 end;
 
@@ -1231,6 +1290,7 @@ begin
       R.Blocks.AddAt(C, LColIndex);
     end;
     LTable.ApplyDefaultCellStyle;
+    Events.DoModified;
   end;
 end;
 
@@ -1253,6 +1313,7 @@ begin
       R.Blocks.AddAt(C, LColIndex + 1);
     end;
     LTable.ApplyDefaultCellStyle;
+    Events.DoModified;
   end;
 end;
 
@@ -1273,6 +1334,7 @@ begin
       if LColIndex < R.CellCount then
         R.Blocks.Delete(LColIndex);
     end;
+    Events.DoModified;
   end;
 end;
 
@@ -1286,6 +1348,7 @@ begin
   begin
     LTable.Blocks.Delete(LCell.RowIndex);
   end;
+  Events.DoModified;
 end;
 
 procedure TRichEditorViewKMemo.SelectTable;
@@ -1318,6 +1381,7 @@ begin
   begin
     FEditor.SelectionParaStyle := P.ParaStyle;
   end;
+  Events.DoModified;
 end;
 
 procedure TRichEditorViewKMemo.CreateNumberedList;
@@ -1343,6 +1407,7 @@ begin
   end;
   LTable.CellStyle.BorderWidth := 2;
   LTable.ApplyDefaultCellStyle;
+  Events.DoModified;
 end;
 
 procedure TRichEditorViewKMemo.IncIndent;
@@ -1407,6 +1472,7 @@ procedure TRichEditorViewKMemo.AddParagraph;
 begin
   FEditor.ActiveInnerBlocks.AddParagraph;
   FEditor.ExecuteCommand(ecInsertNewLine);
+  Events.DoModified;
   Logger.Info('AddParagraph');
 end;
 {$ENDREGION}

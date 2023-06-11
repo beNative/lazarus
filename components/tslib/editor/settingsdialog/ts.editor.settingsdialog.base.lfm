@@ -1,8 +1,8 @@
 object CustomSettingsDialog: TCustomSettingsDialog
-  Left = 416
+  Left = 100
   Height = 240
-  Top = 193
+  Top = 49
   Width = 320
   BorderStyle = bsNone
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.2.2.0'
 end

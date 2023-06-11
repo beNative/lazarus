@@ -34,9 +34,6 @@ uses
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
   SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Busy;
 
-const
-  EDITOR_SETTINGS_FILE = 'settings.xml';
-
 type
   TfrmMain = class(TForm)
     {$REGION 'designer controls'}
@@ -156,6 +153,7 @@ type
 
     {$REGION 'event handlers'}
     procedure FEditorChange(Sender: TObject);
+    procedure FEditorFormEnter(Sender: TObject);
     procedure FEditorHighlighterChange(Sender: TObject);
     procedure FEditorBeforeSave(
       Sender           : TObject;
@@ -166,19 +164,6 @@ type
       var AFileName : string;
       const AText   : string
     );
-    procedure FRichEditorChange(Sender: TObject);
-    procedure FRichEditorDropFiles(
-      Sender           : TObject;
-      const AFileNames : array of string
-    );
-    procedure FRichEditorHideToolView(
-      Sender    : TObject;
-      AToolView : IRichEditorToolView
-    );
-    procedure FRichEditorShowToolView(
-      Sender              : TObject;
-      AToolView : IRichEditorToolView
-    );
     procedure FEditorHideToolView(
       Sender    : TObject;
       AToolView : IEditorToolView
@@ -186,6 +171,20 @@ type
     procedure FEditorShowToolView(
       Sender    : TObject;
       AToolView : IEditorToolView
+    );
+    procedure FRichEditorChange(Sender: TObject);
+    procedure FRichEditorDropFiles(
+      Sender           : TObject;
+      const AFileNames : array of string
+    );
+    procedure FRichEditorFormEnter(Sender: TObject);
+    procedure FRichEditorHideToolView(
+      Sender    : TObject;
+      AToolView : IRichEditorToolView
+    );
+    procedure FRichEditorShowToolView(
+      Sender    : TObject;
+      AToolView : IRichEditorToolView
     );
 
     procedure FTreeDropFiles(
@@ -222,7 +221,7 @@ type
     procedure BuildEditorToolBar;
     procedure BuildApplicationToolBar;
     procedure HideAction(const AActionName: string);
-    procedure InitActions;
+    procedure InitEditorActions;
 
     procedure CreateTreeview;
     procedure CreateEditor;
@@ -335,7 +334,7 @@ begin
 
   BuildEditorToolBar;
   BuildApplicationToolBar;
-  InitActions;
+  InitEditorActions;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
   FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
@@ -477,19 +476,8 @@ begin
   end
   else if Snippet.Highlighter = 'PY' then
   begin
-    //dmTerminal.Execute('.\.venv\Scripts\activate.bat & py "SnippetSource.PY"');
     dmTerminal.Execute(Format(COMMAND, [FSettings.PythonVirtualEnvironmentName]));
   end;
-    //if not Assigned(FConsole) then
-    //begin
-    //  FConsole := TfrmConsole.Create(Self);
-    //end;
-    //FConsole.Show;
-    //FConsole.ExecutePy(Editor.Lines);
-    //FConsole.Execute('SnippetSource.bat');
-
-  //dmTerminal.Execute('SnippetSource.bat');
-  ////dmPython.Execute(Editor.Lines);
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -588,6 +576,11 @@ begin
   DataSet.Edit;
   AssignEditorChanges;
   Logger.Leave(Self, 'EChange');
+end;
+
+procedure TfrmMain.FEditorFormEnter(Sender: TObject);
+begin
+  Editor.Actions.ActionList.State := asNormal;
 end;
 
 procedure TfrmMain.FEditorBeforeSave(Sender: TObject; var AStorageName: string);
@@ -781,6 +774,11 @@ begin
   SaveRichText;
 end;
 
+procedure TfrmMain.FRichEditorFormEnter(Sender: TObject);
+begin
+  FEditor.Actions.ActionList.State := asSuspended;
+end;
+
 procedure TfrmMain.FRichEditorHideToolView(Sender: TObject;
   AToolView: IRichEditorToolView);
 begin
@@ -814,7 +812,6 @@ begin
   AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
   pnlEditorToolViewHost.Visible   := True;
 end;
-
 {$ENDREGION}
 {$ENDREGION}
 
@@ -916,9 +913,12 @@ begin
   AddButton(tlbApplication, actToggleTextEditor);
   AddButton(tlbApplication, actToggleRichTextEditor);
   AddButton(tlbApplication, actLookup);
-  AddButton(tlbApplication, actSQLEditor);
+  if FSettings.DebugMode then
+  begin
+    AddButton(tlbApplication, actSQLEditor);
+    AddButton(tlbApplication, actShowGridForm);
+  end;
   AddButton(tlbApplication, actExecute);
-  AddButton(tlbApplication, actConsole);
   AddButton(tlbApplication, actSettings);
   AddButton(tlbApplication, actAbout);
 end;
@@ -937,24 +937,16 @@ begin
   end;
 end;
 
-procedure TfrmMain.InitActions;
+procedure TfrmMain.InitEditorActions;
 begin
-  //HideAction('actAlignSelection');
   HideAction('actAutoGuessHighlighter');
   HideAction('actClose');
   HideAction('actCreateDesktopLink');
-  //HideAction('actFilterCode');
-//  HideAction('actFindAllOccurences');
-//  HideAction('actFindNext');
-//  HideAction('actFindPrevious');
   HideAction('actFormat');
   HideAction('actInsertCharacterFromMap');
   HideAction('actInsertColorValue');
   HideAction('actMonitorChanges');
   HideAction('actOpenFileAtCursor');
-  //HideAction('actSearch');
-  //HideAction('actSearchReplace');
-  //HideAction('actShapeCode');
   HideAction('actShowActions');
   HideAction('actShowHexEditor');
   HideAction('actShowMiniMap');
@@ -963,7 +955,6 @@ begin
   HideAction('actShowStructureViewer');
   HideAction('actShowViews');
   HideAction('actSmartSelect');
-  //HideAction('actSortSelection');
 end;
 
 procedure TfrmMain.CreateTreeview;
@@ -993,6 +984,7 @@ begin
   FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
   FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
   FEditor.IsFile := False;
+  FEditor.Form.OnEnter :=FEditorFormEnter;
   FEditor.Editor.PopupMenu  := FEditorManager.Menus.EditorPopupMenu;
   btnHighlighter.Menu := FEditorManager.Menus.HighlighterPopupMenu;
   FEditorManager.Settings.AutoFormatXML := False;
@@ -1015,6 +1007,7 @@ begin
     'Comment'
   );
   FRichEditor.IsFile      := False;
+  FRichEditor.Form.OnEnter :=FRichEditorFormEnter;
   FRichEditor.OnChange    := FRichEditorChange;
   FRichEditor.OnDropFiles := FRichEditorDropFiles;
   FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;

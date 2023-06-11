@@ -35,7 +35,7 @@
 					<Options>[,ssoEntireScope]</Options>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings">
-					<Width>403</Width>
+					<Width>408</Width>
 				</TCodeShaperSettings>
 			</Components>
 		</TEditorToolSettings>
@@ -1302,7 +1302,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>PY</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

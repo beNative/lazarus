@@ -260,6 +260,7 @@ type
     function GetAutoHideRichEditor: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
+    function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
     function GetLastFocusedId: Integer;
@@ -269,6 +270,7 @@ type
     procedure SetAutoHideRichEditor(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
+    procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
@@ -280,6 +282,9 @@ type
 
     property Database: string
       read GetDatabase write SetDatabase;
+
+    property DebugMode: Boolean
+      read GetDebugMode write SetDebugMode;
 
     property LastFocusedId: Integer
       read GetLastFocusedId write SetLastFocusedId;

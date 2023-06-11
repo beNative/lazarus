@@ -33,6 +33,7 @@ type
   private
     FFileName                     : string;
     FDatabase                     : string;
+    FDebugMode                    : Boolean;
     FAutoHideRichEditor           : Boolean;
     FAutoHideEditor               : Boolean;
     FAutoHideEditorToolBar        : Boolean;
@@ -45,6 +46,8 @@ type
 
   protected
     {$REGION 'property access methods'}
+    function GetDebugMode: Boolean;
+    procedure SetDebugMode(AValue: Boolean);
     function GetPythonVirtualEnvironmentName: string;
     procedure SetPythonVirtualEnvironmentName(AValue: string);
     function GetEmitLogMessages: Boolean;
@@ -104,6 +107,9 @@ type
 
     property AutoHideRichEditor: Boolean
       read GetAutoHideRichEditor write SetAutoHideRichEditor;
+
+    property DebugMode: Boolean
+      read GetDebugMode write SetDebugMode;
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
@@ -206,6 +212,20 @@ begin
   if AValue <> DefaultRichEditorFontName then
   begin
     FDefaultRichEditorFontName := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetDebugMode: Boolean;
+begin
+  Result := FDebugMode;
+end;
+
+procedure TSettings.SetDebugMode(AValue: Boolean);
+begin
+  if AValue <> DebugMode then
+  begin
+    FDebugMode := AValue;
     Changed;
   end;
 end;

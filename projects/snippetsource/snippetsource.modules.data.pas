@@ -86,7 +86,7 @@ interface
 uses
   Windows,
   Classes, SysUtils, Controls, Graphics,
-  DB,
+  DB, SQLScript,
 
   fgl,
 
@@ -94,7 +94,7 @@ uses
 
   ts.Core.Logger,
 
-  SnippetSource.Interfaces, SQLScript;
+  SnippetSource.Interfaces;
 
 type
   TImageMap = TFPGMapObject<Integer, TBitmap>;
@@ -1369,7 +1369,14 @@ procedure TdmSnippetSource.Lookup(const ASearchString: string;
 begin
   qryLookup.Active := False;
   qryLookup.SQL.Text := Format(
-    'select * from Snippet where Text like ''%%%s%%''',
+    'select'                         + sLineBreak +
+    '  *'                            + sLineBreak +
+    'from'                           + sLineBreak +
+    '  Snippet'                      + sLineBreak +
+    'where'                          + sLineBreak +
+    '  Text like ''%%%0:s%%'''       + sLineBreak +
+    '  or Comment like ''%%%0:s%%''' + sLineBreak +
+    '  or NodeName like ''%%%0:s%%''',
     [ASearchString]
   );
   qryLookup.Active := True;

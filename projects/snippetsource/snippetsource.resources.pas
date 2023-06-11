@@ -24,6 +24,7 @@ uses
   Classes, SysUtils;
 
 const
+  EDITOR_SETTINGS_FILE  = 'settings.xml';
   SETTINGS_FILE         = 'settings.json';
   SQLITE3_DLL           = 'sqlite3.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
@@ -51,7 +52,8 @@ resourcestring
   SDateCreated                  = 'Created: %s';
   SDateModified                 = 'Modified: %s';
   SId                           = 'Id: %d';
-  SAskRecreateTables            = 'Warning: this will delete all data!' + #13#10 +
+  SAskRecreateTables            = 'Warning: this will delete all data!'
+                                  + sLineBreak +
                                   'Are you sure you want to continue?';
 
   SDatabaseBackupCreated  = 'A backup of the database has been written to %s.';

@@ -46,6 +46,7 @@ begin
   GlobalSkipIfNoLeaks := True; // supported as of debugger version 3.1.1
   SetHeapTraceOutput('trace.trc');
 {$ENDIF}
+  Application.Scaled := True;
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TdmPython, dmPython);

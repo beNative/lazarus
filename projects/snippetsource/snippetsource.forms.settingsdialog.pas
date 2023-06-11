@@ -50,7 +50,7 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
-    actRunVirtualEnvironment: TAction;
+    actRunVirtualEnvironment         : TAction;
     actOpenDatabase                  : TAction;
     actRefreshGlyphs                 : TAction;
     actReloadConfigurationData       : TAction;
@@ -73,6 +73,7 @@ type
     chkAutoHideRichEditorToolBar     : TCheckBox;
     chkEmitLogMessages               : TCheckBox;
     chkUseCustomEnvironmentVariables : TCheckBox;
+    chkDebugMode: TCheckBox;
     dlgFont                          : TFontDialog;
     dlgOpen                          : TOpenDialog;
     dscGlyph                         : TDatasource;
@@ -135,6 +136,7 @@ type
     procedure chkAutoHideEditorToolBarClick(Sender: TObject);
     procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
+    procedure chkDebugModeClick(Sender: TObject);
     procedure chkEmitLogMessagesClick(Sender: TObject);
     procedure chkUseCustomEnvironmentVariablesChange(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
@@ -265,6 +267,7 @@ begin
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
   chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
+  chkDebugMode.Checked                 := FSettings.DebugMode;
   pgcMain.ActivePage                   := tsApplication;
   edtFontName.Text                     := FSettings.DefaultRichEditorFontName;
   grdEnvironment.Enabled               := False;
@@ -515,6 +518,11 @@ end;
 procedure TfrmSettingsDialog.chkAutoHideRichEditorToolBarClick(Sender: TObject);
 begin
   FSettings.AutoHideRichEditorToolBar := (Sender as TCheckBox).Checked;
+end;
+
+procedure TfrmSettingsDialog.chkDebugModeClick(Sender: TObject);
+begin
+  FSettings.DebugMode := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.chkEmitLogMessagesClick(Sender: TObject);

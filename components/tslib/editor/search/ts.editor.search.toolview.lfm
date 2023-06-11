@@ -1,408 +1,396 @@
 inherited frmSearchForm: TfrmSearchForm
-  Left = -922
-  Height = 645
-  Top = 69
-  Width = 309
+  Left = 1513
+  Height = 496
+  Top = 141
+  Width = 291
   BorderIcons = [biSystemMenu]
   Caption = 'Find'
-  ClientHeight = 645
-  ClientWidth = 309
+  ClientHeight = 496
+  ClientWidth = 291
   Constraints.MinHeight = 312
-  Constraints.MinWidth = 300
   OnHide = FormHide
   OnShow = FormShow
   PopupMode = pmAuto
   ShowHint = True
   object sbrMain: TScrollBox[0]
     Left = 0
-    Height = 645
+    Height = 496
     Top = 0
-    Width = 309
-    HorzScrollBar.Page = 309
-    VertScrollBar.Page = 451
+    Width = 291
+    HorzScrollBar.Increment = 26
+    HorzScrollBar.Page = 261
+    HorzScrollBar.Smooth = True
+    HorzScrollBar.Tracking = True
+    VertScrollBar.Increment = 42
+    VertScrollBar.Page = 427
+    VertScrollBar.Smooth = True
+    VertScrollBar.Tracking = True
     Align = alClient
+    AutoSize = True
     BorderStyle = bsNone
-    ClientHeight = 628
-    ClientWidth = 309
+    ClientHeight = 496
+    ClientWidth = 291
     TabOrder = 0
-    object pnlOperations: TPanel
-      Left = 4
-      Height = 408
-      Top = 4
-      Width = 314
-      Align = alTop
-      AutoSize = True
-      BorderSpacing.Bottom = 4
-      BorderSpacing.Around = 4
-      BorderSpacing.CellAlignHorizontal = ccaCenter
-      BorderSpacing.CellAlignVertical = ccaCenter
-      BevelOuter = bvNone
-      ChildSizing.HorizontalSpacing = 4
-      ChildSizing.VerticalSpacing = 4
-      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-      ChildSizing.EnlargeVertical = crsScaleChilds
-      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-      ChildSizing.ShrinkVertical = crsScaleChilds
-      ChildSizing.Layout = cclLeftToRightThenTopToBottom
-      ChildSizing.ControlsPerLine = 1
-      ClientHeight = 408
-      ClientWidth = 314
-      TabOrder = 0
-      object grpSearchText: TGroupBox
-        Left = 0
-        Height = 51
-        Top = 0
-        Width = 314
-        Caption = 'Text to find:'
-        ChildSizing.LeftRightSpacing = 8
-        ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 31
-        ClientWidth = 310
-        ParentShowHint = False
-        TabOrder = 0
-        object cbxSearchText: TComboBox
-          Left = 20
-          Height = 23
-          Top = 4
-          Width = 247
-          Anchors = [akTop, akLeft, akRight]
-          Font.Style = [fsBold]
-          ItemHeight = 15
-          OnChange = cbxSearchTextChange
-          ParentFont = False
-          TabOrder = 0
-        end
-        object imgF2Key: TImage
-          Left = 2
-          Height = 16
-          Hint = 'Press the F2 function key to set '#13#10'focus to the search entry field.'
-          Top = 7
-          Width = 16
-          AntialiasingMode = amOn
-          AutoSize = True
-          BorderSpacing.Around = 5
-          BorderSpacing.InnerBorder = 1
-          Center = True
-          Stretch = True
-          Transparent = True
-        end
-      end
-      object grpReplaceWith: TGroupBox
-        Left = 0
-        Height = 51
-        Top = 55
-        Width = 314
-        Caption = 'Replace with:'
-        ChildSizing.LeftRightSpacing = 8
-        ChildSizing.TopBottomSpacing = 4
-        ClientHeight = 31
-        ClientWidth = 310
-        TabOrder = 1
-        object cbxReplaceWith: TComboBox
-          AnchorSideLeft.Side = asrBottom
-          AnchorSideTop.Side = asrBottom
-          AnchorSideRight.Side = asrBottom
-          Left = 20
-          Height = 23
-          Top = 4
-          Width = 247
-          Anchors = [akTop, akLeft, akRight]
-          AutoComplete = True
-          AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
-          BorderSpacing.Left = 6
-          BorderSpacing.Around = 2
-          ItemHeight = 15
-          TabOrder = 0
-        end
-      end
-      object grpOptions: TGroupBox
-        Left = 0
-        Height = 91
-        Top = 110
-        Width = 314
-        Caption = 'Options'
-        ChildSizing.LeftRightSpacing = 20
-        ChildSizing.TopBottomSpacing = 8
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-        ChildSizing.ShrinkVertical = crsHomogenousChildResize
-        ChildSizing.Layout = cclTopToBottomThenLeftToRight
-        ChildSizing.ControlsPerLine = 2
-        ClientHeight = 71
-        ClientWidth = 310
-        TabOrder = 2
-        object chkWholeWordsOnly: TCheckBox
-          Left = 20
-          Height = 30
-          Top = 8
-          Width = 133
-          BorderSpacing.Top = 6
-          Caption = 'Whole words only'
-          Constraints.MinHeight = 30
-          Constraints.MinWidth = 120
-          OnClick = chkClick
-          ParentShowHint = False
-          TabOrder = 0
-        end
-        object chkCaseSensitive: TCheckBox
-          Left = 20
-          Height = 19
-          Top = 44
-          Width = 133
-          BorderSpacing.Top = 6
-          Caption = 'Case sensitive'
-          Constraints.MinWidth = 120
-          OnClick = chkClick
-          ParentShowHint = False
-          TabOrder = 1
-        end
-        object chkRegularExpressions: TCheckBox
-          Left = 153
-          Height = 30
-          Top = 8
-          Width = 137
-          BorderSpacing.Top = 6
-          Caption = 'Regular expressions'
-          Constraints.MinWidth = 120
-          OnClick = chkClick
-          ParentShowHint = False
-          TabOrder = 2
-        end
-        object chkMultiLine: TCheckBox
-          Left = 153
-          Height = 19
-          Top = 44
-          Width = 137
-          BorderSpacing.Top = 6
-          Caption = 'Multiline'
-          Constraints.MinWidth = 120
-          OnClick = chkClick
-          ParentShowHint = False
-          TabOrder = 3
-        end
-      end
-      object grpScope: TGroupBox
-        Left = 0
-        Height = 55
-        Top = 205
-        Width = 314
-        Caption = 'Scope'
-        ChildSizing.LeftRightSpacing = 20
-        ChildSizing.TopBottomSpacing = 8
-        ChildSizing.VerticalSpacing = 4
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-        ChildSizing.ShrinkVertical = crsHomogenousChildResize
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 3
-        ClientHeight = 35
-        ClientWidth = 310
-        TabOrder = 3
-        object rbSelection: TRadioButton
-          Left = 20
-          Height = 19
-          Top = 8
-          Width = 90
-          Caption = '&Selection'
-          Constraints.MinWidth = 90
-          OnClick = rbSelectionClick
-          TabOrder = 0
-        end
-        object rbActiveView: TRadioButton
-          Left = 110
-          Height = 19
-          Top = 8
-          Width = 90
-          Caption = 'Active &view'
-          Constraints.MinWidth = 90
-          OnClick = rbActiveViewClick
-          TabOrder = 1
-        end
-        object rbAllViews: TRadioButton
-          Left = 200
-          Height = 19
-          Hint = 'Search in all views.'
-          Top = 8
-          Width = 90
-          Caption = '&All views'
-          Checked = True
-          Constraints.MinWidth = 90
-          OnClick = rbActiveViewClick
-          TabOrder = 2
-          TabStop = True
-        end
-      end
-      object grpOrigin: TGroupBox
-        Left = 0
-        Height = 55
-        Top = 264
-        Width = 314
-        Caption = 'Origin'
-        ChildSizing.LeftRightSpacing = 20
-        ChildSizing.TopBottomSpacing = 8
-        ChildSizing.VerticalSpacing = 4
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-        ChildSizing.ShrinkVertical = crsHomogenousChildResize
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 2
-        ClientHeight = 35
-        ClientWidth = 310
-        TabOrder = 4
-        object rbFromCursor: TRadioButton
-          Left = 20
-          Height = 19
-          Top = 8
-          Width = 135
-          AutoSize = False
-          Caption = '&From cursor'
-          Constraints.MinWidth = 120
-          OnClick = rbFromCursorClick
-          TabOrder = 0
-        end
-        object rbEntireScope: TRadioButton
-          Left = 155
-          Height = 19
-          Top = 8
-          Width = 135
-          AutoSize = False
-          Caption = '&Entire scope'
-          Checked = True
-          Constraints.MinWidth = 120
-          OnClick = rbEntireScopeClick
-          TabOrder = 1
-          TabStop = True
-        end
-      end
-      object grpDirection: TGroupBox
-        Left = 0
-        Height = 55
-        Top = 323
-        Width = 314
-        Caption = 'Direction'
-        ChildSizing.LeftRightSpacing = 20
-        ChildSizing.TopBottomSpacing = 8
-        ChildSizing.VerticalSpacing = 4
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-        ChildSizing.ShrinkVertical = crsHomogenousChildResize
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 2
-        ClientHeight = 35
-        ClientWidth = 310
-        TabOrder = 5
-        object rbBackward: TRadioButton
-          Left = 20
-          Height = 19
-          Top = 8
-          Width = 135
-          AutoSize = False
-          Caption = 'Backward'
-          Constraints.MinWidth = 120
-          OnChange = rbBackwardChange
-          TabOrder = 0
-        end
-        object rbForward: TRadioButton
-          Left = 155
-          Height = 19
-          Top = 8
-          Width = 135
-          AutoSize = False
-          Caption = 'Forward'
-          Checked = True
-          Constraints.MinWidth = 120
-          OnClick = rbForwardClick
-          TabOrder = 1
-          TabStop = True
-        end
-      end
-      object pnlButtons: TPanel
-        Left = 0
-        Height = 26
-        Top = 382
-        Width = 314
-        AutoSize = True
-        BevelOuter = bvSpace
-        ChildSizing.LeftRightSpacing = 2
-        ChildSizing.HorizontalSpacing = 2
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsScaleChilds
-        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 3
-        ClientHeight = 26
-        ClientWidth = 314
-        TabOrder = 6
-        object btnFind: TBitBtn
-          Left = 2
-          Height = 26
-          Top = 0
-          Width = 102
-          Action = actFind
-          AutoSize = True
-          Constraints.MinWidth = 90
-          Default = True
-          Font.Style = [fsBold]
-          ParentFont = False
-          Spacing = 0
-          TabOrder = 0
-        end
-        object btnReplace: TBitBtn
-          Left = 106
-          Height = 26
-          Top = 0
-          Width = 102
-          Action = actReplace
-          AutoSize = True
-          Constraints.MinWidth = 90
-          Font.Style = [fsBold]
-          ParentFont = False
-          Spacing = 0
-          TabOrder = 1
-        end
-        object btnReplaceAll: TBitBtn
-          Left = 210
-          Height = 26
-          Top = 0
-          Width = 102
-          Action = actReplaceAll
-          AutoSize = True
-          Constraints.MinWidth = 90
-          Font.Style = [fsBold]
-          ParentFont = False
-          Spacing = 0
-          TabOrder = 2
-        end
-      end
-    end
-    object pnlResultList: TPanel
-      Left = 4
-      Height = 177
-      Top = 420
-      Width = 314
-      Align = alClient
-      BorderSpacing.Top = 4
-      BorderSpacing.Bottom = 4
-      BorderSpacing.Around = 4
-      BevelOuter = bvNone
-      ChildSizing.LeftRightSpacing = 2
-      TabOrder = 1
-    end
-    object pnlStatus: TPanel
+    object pnlClient: TPanel
       Left = 0
-      Height = 23
-      Top = 605
-      Width = 322
-      Align = alBottom
+      Height = 496
+      Top = 0
+      Width = 291
+      Align = alClient
       BevelOuter = bvNone
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
+      ClientHeight = 496
+      ClientWidth = 291
+      TabOrder = 0
+      object pnlOperations: TPanel
+        Left = 4
+        Height = 396
+        Top = 4
+        Width = 283
+        Align = alTop
+        BorderSpacing.Bottom = 4
+        BorderSpacing.Around = 4
+        BorderSpacing.CellAlignHorizontal = ccaCenter
+        BorderSpacing.CellAlignVertical = ccaCenter
+        BevelOuter = bvNone
+        ChildSizing.VerticalSpacing = 4
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousSpaceResize
+        ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+        ChildSizing.ShrinkVertical = crsHomogenousSpaceResize
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 396
+        ClientWidth = 283
+        TabOrder = 0
+        object grpSearchText: TGroupBox
+          Left = 0
+          Height = 51
+          Top = 0
+          Width = 283
+          Caption = 'Text to find:'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 4
+          ClientHeight = 31
+          ClientWidth = 279
+          ParentShowHint = False
+          TabOrder = 0
+          object cbxSearchText: TComboBox
+            Left = 5
+            Height = 23
+            Top = 4
+            Width = 268
+            Anchors = [akTop, akLeft, akRight]
+            AutoComplete = True
+            AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactSearchAscending]
+            Font.Style = [fsBold]
+            ItemHeight = 15
+            OnChange = cbxSearchTextChange
+            ParentFont = False
+            TabOrder = 0
+          end
+        end
+        object grpReplaceWith: TGroupBox
+          Left = 0
+          Height = 51
+          Top = 55
+          Width = 283
+          Caption = 'Replace with:'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 4
+          ClientHeight = 31
+          ClientWidth = 279
+          TabOrder = 1
+          object cbxReplaceWith: TComboBox
+            AnchorSideLeft.Side = asrBottom
+            AnchorSideTop.Side = asrBottom
+            AnchorSideRight.Side = asrBottom
+            Left = 5
+            Height = 23
+            Top = 4
+            Width = 268
+            Anchors = [akTop, akLeft, akRight]
+            AutoComplete = True
+            AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
+            BorderSpacing.Left = 6
+            BorderSpacing.Around = 2
+            ItemHeight = 15
+            TabOrder = 0
+          end
+        end
+        object grpOptions: TGroupBox
+          Left = 0
+          Height = 80
+          Top = 110
+          Width = 283
+          Caption = 'Options'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 8
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclTopToBottomThenLeftToRight
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 60
+          ClientWidth = 279
+          TabOrder = 2
+          object chkWholeWordsOnly: TCheckBox
+            Left = 5
+            Height = 19
+            Top = 8
+            Width = 130
+            AutoSize = False
+            BorderSpacing.Top = 6
+            Caption = 'Whole words only'
+            OnClick = chkClick
+            ParentShowHint = False
+            TabOrder = 0
+          end
+          object chkCaseSensitive: TCheckBox
+            Left = 5
+            Height = 19
+            Top = 33
+            Width = 130
+            BorderSpacing.Top = 6
+            Caption = 'Case sensitive'
+            OnClick = chkClick
+            ParentShowHint = False
+            TabOrder = 1
+          end
+          object chkRegularExpressions: TCheckBox
+            Left = 135
+            Height = 19
+            Top = 8
+            Width = 139
+            BorderSpacing.Top = 6
+            Caption = 'Regular expressions'
+            OnClick = chkClick
+            ParentShowHint = False
+            TabOrder = 2
+          end
+          object chkMultiLine: TCheckBox
+            Left = 135
+            Height = 19
+            Top = 33
+            Width = 139
+            BorderSpacing.Top = 6
+            Caption = 'Multiline'
+            OnClick = chkClick
+            ParentShowHint = False
+            TabOrder = 3
+          end
+        end
+        object grpScope: TGroupBox
+          Left = 0
+          Height = 55
+          Top = 194
+          Width = 283
+          Caption = 'Scope'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 8
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 3
+          ClientHeight = 35
+          ClientWidth = 279
+          TabOrder = 3
+          object rbtSelection: TRadioButton
+            Left = 5
+            Height = 19
+            Top = 8
+            Width = 87
+            Caption = '&Selection'
+            OnClick = rbtSelectionClick
+            TabOrder = 0
+          end
+          object rbtActiveView: TRadioButton
+            Left = 92
+            Height = 19
+            Top = 8
+            Width = 99
+            Caption = 'Active &view'
+            Constraints.MinWidth = 40
+            OnClick = rbtActiveViewClick
+            TabOrder = 1
+          end
+          object rbtAllViews: TRadioButton
+            Left = 191
+            Height = 19
+            Hint = 'Search in all views.'
+            Top = 8
+            Width = 83
+            Caption = '&All views'
+            Checked = True
+            Constraints.MinWidth = 40
+            OnClick = rbtActiveViewClick
+            TabOrder = 2
+            TabStop = True
+          end
+        end
+        object grpOrigin: TGroupBox
+          Left = 0
+          Height = 55
+          Top = 253
+          Width = 283
+          Caption = 'Origin'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 8
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 35
+          ClientWidth = 279
+          TabOrder = 4
+          object rbtFromCursor: TRadioButton
+            Left = 5
+            Height = 19
+            Top = 8
+            Width = 135
+            AutoSize = False
+            Caption = '&From cursor'
+            Constraints.MinWidth = 80
+            OnClick = rbtFromCursorClick
+            TabOrder = 0
+          end
+          object rbtEntireScope: TRadioButton
+            Left = 140
+            Height = 19
+            Top = 8
+            Width = 134
+            AutoSize = False
+            Caption = '&Entire scope'
+            Checked = True
+            Constraints.MinWidth = 80
+            OnClick = rbtEntireScopeClick
+            TabOrder = 1
+            TabStop = True
+          end
+        end
+        object grpDirection: TGroupBox
+          Left = 0
+          Height = 55
+          Top = 312
+          Width = 283
+          Caption = 'Direction'
+          ChildSizing.LeftRightSpacing = 5
+          ChildSizing.TopBottomSpacing = 8
+          ChildSizing.VerticalSpacing = 4
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.EnlargeVertical = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkVertical = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 2
+          ClientHeight = 35
+          ClientWidth = 279
+          TabOrder = 5
+          object rbtBackward: TRadioButton
+            Left = 5
+            Height = 19
+            Top = 8
+            Width = 135
+            AutoSize = False
+            Caption = 'Backward'
+            Constraints.MinWidth = 80
+            OnChange = rbtBackwardChange
+            TabOrder = 0
+          end
+          object rbtForward: TRadioButton
+            Left = 140
+            Height = 19
+            Top = 8
+            Width = 134
+            AutoSize = False
+            Caption = 'Forward'
+            Checked = True
+            Constraints.MinWidth = 80
+            OnClick = rbtForwardClick
+            TabOrder = 1
+            TabStop = True
+          end
+        end
+        object pnlButtons: TPanel
+          Left = 0
+          Height = 25
+          Top = 371
+          Width = 283
+          BevelOuter = bvNone
+          ChildSizing.LeftRightSpacing = 2
+          ChildSizing.HorizontalSpacing = 2
+          ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+          ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+          ChildSizing.Layout = cclLeftToRightThenTopToBottom
+          ChildSizing.ControlsPerLine = 3
+          ClientHeight = 25
+          ClientWidth = 283
+          TabOrder = 6
+          object btnFind: TBitBtn
+            Left = 2
+            Height = 25
+            Top = 0
+            Width = 73
+            Action = actFind
+            Default = True
+            Font.Style = [fsBold]
+            ParentFont = False
+            Spacing = 0
+            TabOrder = 0
+          end
+          object btnReplace: TBitBtn
+            Left = 77
+            Height = 25
+            Top = 0
+            Width = 94
+            Action = actReplace
+            Font.Style = [fsBold]
+            ParentFont = False
+            Spacing = 0
+            TabOrder = 1
+          end
+          object btnReplaceAll: TBitBtn
+            Left = 173
+            Height = 25
+            Top = 0
+            Width = 108
+            Action = actReplaceAll
+            Font.Style = [fsBold]
+            ParentFont = False
+            Spacing = 0
+            TabOrder = 2
+          end
+        end
+      end
+      object pnlResultList: TPanel
+        Left = 0
+        Height = 69
+        Top = 408
+        Width = 291
+        Align = alClient
+        BorderSpacing.Top = 4
+        BevelOuter = bvNone
+        ParentColor = False
+        TabOrder = 1
+      end
+      object pnlStatus: TPanel
+        Left = 0
+        Height = 19
+        Top = 477
+        Width = 291
+        Align = alBottom
+        BevelOuter = bvNone
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 2
+      end
     end
   end
   object aclMain: TActionList[1]

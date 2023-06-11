@@ -95,9 +95,9 @@ begin
   Result := Result +
     Format('LineSpacingFactor: %f', [AParaStyle.LineSpacingFactor]) + sLineBreak;
   Result := Result +
-    Format('LineSpacingMode: %s',
-           [GetEnumName(TypeInfo(TKMemoLineSpacingMode),
-            Integer(AParaStyle.LineSpacingMode))]) + sLineBreak;
+    Format('LineSpacingMode: %s', [
+      GetEnumName(TypeInfo(TKMemoLineSpacingMode),
+      Integer(AParaStyle.LineSpacingMode))]) + sLineBreak;
   Result := Result + Format('LineSpacingValue: %d',
     [AParaStyle.LineSpacingValue]) + sLineBreak;
   Result := Result + Format('WordWrap: %s',

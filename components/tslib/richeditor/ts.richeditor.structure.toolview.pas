@@ -49,12 +49,7 @@ type
 
     {$REGION 'event handlers'}
     procedure EditorChange(Sender: TObject);
-
-    procedure KMemoBlockClick(
-      Sender     : TObject;
-      ABlock     : TKMemoBlock;
-      var Result : Boolean
-    );
+    procedure EditorSelectBlock(Sender: TObject);
 
     procedure FTreeDragAllowed(
       Sender      : TBaseVirtualTree;
@@ -164,6 +159,7 @@ begin
   inherited AfterConstruction;
   CreateTreeView;
   Manager.Events.AddOnChangeHandler(EditorChange);
+  Manager.Events.AddOnSelectBlockHandler(EditorSelectBlock);
   BuildTreeView;
 end;
 
@@ -172,6 +168,7 @@ begin
   if Assigned(Manager) and Assigned(Manager.Events) then
   begin
     Manager.Events.RemoveOnChangeHandler(EditorChange);
+    Manager.Events.RemoveOnSelectBlockHandler(EditorSelectBlock);
   end;
   inherited Destroy;
 end;
@@ -200,15 +197,13 @@ end;
 {$ENDREGION}
 
 {$REGION 'event handlers'}
-procedure TStructureToolView.KMemoBlockClick(Sender: TObject;
-  ABlock: TKMemoBlock; var Result: Boolean);
-var
-  N : TVTNode<TKMemoBlock>;
-begin
-  N := FRootNode.Find(ABlock);
-  if Assigned(N) and Assigned(N.VNode) then
-    N.Select;
-end;
+
+//var
+//  N : TVTNode<TKMemoBlock>;
+//begin
+//  N := FRootNode.Find(ABlock);
+//  if Assigned(N) and Assigned(N.VNode) then
+//    N.Select;
 
 procedure TStructureToolView.FTreeDragAllowed(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
@@ -316,6 +311,13 @@ begin
   Modified;
   Logger.Leave(Self, 'EditorChange');
 end;
+
+procedure TStructureToolView.EditorSelectBlock(Sender: TObject);
+begin
+  Logger.Enter(Self, 'EditorSelectBlock');
+  Modified;
+  Logger.Leave(Self, 'EditorSelectBlock');
+end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -328,14 +330,6 @@ begin
   FTree.HintMode                     := hmHintAndDefault;
   FTree.BorderStyle                  := bsNone;
   FTree.ShowHint                     := True;
-  FTree.OnFreeNode                   := FTreeFreeNode;
-  FTree.OnGetText                    := FTreeGetText;
-  FTree.OnFocusChanged               := FTreeFocusChanged;
-  FTree.OnGetImageIndex              := FTreeGetImageIndex;
-  FTree.OnGetHint                    := FTreeGetHint;
-  FTree.OnDragAllowed                := FTreeDragAllowed;
-  FTree.OnDragDrop                   := FTreeDragDrop;
-  FTree.OnDragOver                   := FTreeDragOver;
   FTree.PopupMenu                    := View.PopupMenu;
   FTree.DoubleBuffered               := True;
   FTree.AnimationDuration            := 100;
@@ -385,6 +379,7 @@ begin
     toShowTreeLines,
     toShowVertGridLines,
     toThemeAware,
+    toUseBlendedImages,
     toStaticBackground
   ];
   FTree.TreeOptions.SelectionOptions := [
@@ -392,6 +387,14 @@ begin
     toCenterScrollIntoView,
     toAlwaysSelectNode
   ];
+  FTree.OnFreeNode      := FTreeFreeNode;
+  FTree.OnGetText       := FTreeGetText;
+  FTree.OnFocusChanged  := FTreeFocusChanged;
+  FTree.OnGetImageIndex := FTreeGetImageIndex;
+  FTree.OnGetHint       := FTreeGetHint;
+  FTree.OnDragAllowed   := FTreeDragAllowed;
+  FTree.OnDragDrop      := FTreeDragDrop;
+  FTree.OnDragOver      := FTreeDragOver;
   FRootData      := TKMemoBlock.Create;
   FRootNode      := TVTNode<TKMemoBlock>.Create(FTree, FRootData, False);
   FRootNode.Text := 'Root';
@@ -541,37 +544,43 @@ begin
   Modified;
 end;
 
+{ Rebuilds the treeview and selects the corresponding node for the selected
+  block in the editor. }
+
 procedure TStructureToolView.BuildTreeView;
 var
   I      : Integer;
   LBlock : TKMemoBlock;
   N      : TBlockNode;
 begin
-  Logger.Enter(Self, 'BuildTreeView');
-  KMemo.LockUpdate;
+  FTree.BeginUpdate;
   try
-    ClearTree;
-    if KMemo.Blocks.Count > 0 then
-    begin
-      for I := 0 to KMemo.Blocks.Count - 1 do
+    KMemo.LockUpdate;
+    try
+      ClearTree;
+      if KMemo.Blocks.Count > 0 then
       begin
-        LBlock := KMemo.Blocks.Items[I];
-        AddBlockToTree(LBlock);
-        if LBlock is TKMemoContainer then
-          AddNodes(LBlock as TKMemoContainer);
+        for I := 0 to KMemo.Blocks.Count - 1 do
+        begin
+          LBlock := KMemo.Blocks.Items[I];
+          AddBlockToTree(LBlock);
+          if LBlock is TKMemoContainer then
+            AddNodes(LBlock as TKMemoContainer);
+        end;
+        LBlock := SelectedBlock;
+        if not Assigned(LBlock) then
+          LBlock := KMemo.ActiveBlock;
+        N := FRootNode.Find(LBlock);
       end;
-      LBlock := SelectedBlock;
-      if not Assigned(LBlock) then
-        LBlock := KMemo.ActiveBlock;
-      N := FRootNode.Find(LBlock);
+      FRootNode.Expand;
+    finally
+      KMemo.UnlockUpdate;
     end;
-    FRootNode.Expand;
   finally
-    KMemo.UnlockUpdate;
+    FTree.EndUpdate;
     if Assigned(N) then
-        N.Select;
+      N.Select;
   end;
-  Logger.Leave(Self, 'BuildTreeView');
 end;
 
 procedure TStructureToolView.ClearTree;
@@ -592,9 +601,7 @@ end;
 
 procedure TStructureToolView.UpdateView;
 begin
-  Logger.Enter(Self, 'UpdateView');
   BuildTreeView;
-  Logger.Leave(Self, 'UpdateView');
 end;
 {$ENDREGION}
 

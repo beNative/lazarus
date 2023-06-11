@@ -21,7 +21,7 @@ unit ts.Editor.SettingsDialog;
 interface
 
 uses
-  SysUtils, Forms, ExtCtrls, StdCtrls,
+  SysUtils, Classes, Forms, ExtCtrls, StdCtrls,
 
   ts.Components.VirtualPages,
 
@@ -47,6 +47,13 @@ type
       read GetManager implements IEditorManager;
   end;
 
+var
+  FForm : TEditorSettingsDialog;
+
+procedure ExecuteSettingsDialog(
+  AOwner: TComponent
+);
+
 implementation
 
 {$R *.lfm}
@@ -58,6 +65,13 @@ uses
   ts.Editor.SettingsDialog.Highlighters,
   ts.Editor.SettingsDialog.ApplicationSettings,
   ts.Editor.SettingsDialog.EditorSettings;
+
+procedure ExecuteSettingsDialog(AOwner: TComponent);
+begin
+  if not Assigned(FForm) then
+    FForm := TEditorSettingsDialog.Create(AOwner);
+  FForm.Show;
+end;
 
 {$REGION 'construction and destruction'}
 procedure TEditorSettingsDialog.AfterConstruction;

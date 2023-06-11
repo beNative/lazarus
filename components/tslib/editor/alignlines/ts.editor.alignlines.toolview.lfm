@@ -1,7 +1,7 @@
 inherited frmAlignLines: TfrmAlignLines
-  Left = -448
+  Left = -1059
   Height = 744
-  Top = 283
+  Top = 188
   Width = 324
   Caption = 'Align selection'
   ChildSizing.LeftRightSpacing = 2
@@ -244,12 +244,13 @@ inherited frmAlignLines: TfrmAlignLines
     ClientWidth = 320
     TabOrder = 1
     object btnOK: TButton
-      Left = 96
+      Left = 2
       Height = 26
       Top = 0
-      Width = 129
+      Width = 316
       Action = actExecute
       Align = alCustom
+      Anchors = [akTop, akLeft, akRight]
       Default = True
       ModalResult = 1
       TabOrder = 0

@@ -33,20 +33,20 @@ uses
 
 type
   TCustomSettingsDialog = class(TForm)
-  strict private
+  private
     function GetManager: IEditorManager;
     function GetSettings: IEditorSettings;
 
-  strict protected
+  protected
     procedure LinkProperty(
-            AInstance     : IInterface;
-            ALink         : TPropertyLink;
+      AInstance           : IInterface;
+      ALink               : TPropertyLink;
       const APropertyName : string = ''
     ); overload;
 
     procedure LinkProperty(
-            AInstance     : TPersistent;
-            ALink         : TPropertyLink;
+      AInstance           : TPersistent;
+      ALink               : TPropertyLink;
       const APropertyName : string = ''
     ); overload;
 

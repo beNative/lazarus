@@ -42,51 +42,49 @@ uses
 
   ts.Core.TreeViewPresenter, ts.Core.ColumnDefinitions,
   ts.Core.ColumnDefinitionsDataTemplate,
-
   ts.Editor.Interfaces, ts.Editor.ToolView.Base,
-
   ts.Core.Logger;
 
 type
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
     {$REGION 'designer controls'}
-    aclMain                         : TActionList;
-    actFocusSearchText              : TAction;
-    actReplace                      : TAction;
-    actReplaceAll                   : TAction;
-    actFind                         : TAction;
-    btnFind: TBitBtn;
-    btnReplace: TBitBtn;
-    btnReplaceAll: TBitBtn;
-    cbxReplaceWith: TComboBox;
-    cbxSearchText: TComboBox;
-    chkCaseSensitive: TCheckBox;
-    chkMultiLine: TCheckBox;
-    chkRegularExpressions: TCheckBox;
-    chkReplaceStringsCaseSensitive  : TCheckBox;
-    chkReplaceStringsWholeWordsOnly : TCheckBox;
-    chkWholeWordsOnly: TCheckBox;
-    grdReplaceStrings               : TStringGrid;
-    grpDirection: TGroupBox;
-    grpMisc                         : TGroupBox;
-    grpOptions: TGroupBox;
-    grpOrigin: TGroupBox;
-    grpReplaceWith: TGroupBox;
-    grpScope: TGroupBox;
-    grpSearchText: TGroupBox;
-    imgF2Key: TImage;
-    pnlButtons: TPanel;
-    pnlOperations: TPanel;
-    pnlResultList: TPanel;
-    pnlStatus: TPanel;
-    rbActiveView: TRadioButton;
-    rbAllViews: TRadioButton;
-    rbBackward: TRadioButton;
-    rbEntireScope: TRadioButton;
-    rbForward: TRadioButton;
-    rbFromCursor: TRadioButton;
-    rbSelection: TRadioButton;
-    sbrMain: TScrollBox;
+    aclMain                          : TActionList;
+    actFocusSearchText               : TAction;
+    actReplace                       : TAction;
+    actReplaceAll                    : TAction;
+    actFind                          : TAction;
+    btnFind                          : TBitBtn;
+    btnReplace                       : TBitBtn;
+    btnReplaceAll                    : TBitBtn;
+    cbxReplaceWith                   : TComboBox;
+    cbxSearchText                    : TComboBox;
+    chkCaseSensitive                 : TCheckBox;
+    chkMultiLine                     : TCheckBox;
+    chkRegularExpressions            : TCheckBox;
+    chkReplaceStringsCaseSensitive   : TCheckBox;
+    chkReplaceStringsWholeWordsOnly  : TCheckBox;
+    chkWholeWordsOnly                : TCheckBox;
+    grdReplaceStrings                : TStringGrid;
+    grpDirection                     : TGroupBox;
+    grpMisc                          : TGroupBox;
+    grpOptions                       : TGroupBox;
+    grpOrigin                        : TGroupBox;
+    grpReplaceWith                   : TGroupBox;
+    grpScope                         : TGroupBox;
+    grpSearchText                    : TGroupBox;
+    pnlButtons                       : TPanel;
+    pnlClient                        : TPanel;
+    pnlOperations                    : TPanel;
+    pnlResultList                    : TPanel;
+    pnlStatus                        : TPanel;
+    rbtActiveView                    : TRadioButton;
+    rbtAllViews                      : TRadioButton;
+    rbtBackward                      : TRadioButton;
+    rbtEntireScope                   : TRadioButton;
+    rbtForward                       : TRadioButton;
+    rbtFromCursor                    : TRadioButton;
+    rbtSelection                     : TRadioButton;
+    sbrMain                          : TScrollBox;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -99,15 +97,15 @@ type
     {$REGION 'event handlers'}
     procedure cbxSearchTextChange(Sender: TObject);
     procedure chkClick(Sender: TObject);
-    procedure DoOnSelectionChanged(Sender: TObject);
+    procedure FTVPSelectionChanged(Sender: TObject);
     procedure FormHide(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure rbBackwardChange(Sender: TObject);
-    procedure rbEntireScopeClick(Sender: TObject);
-    procedure rbForwardClick(Sender: TObject);
-    procedure rbFromCursorClick(Sender: TObject);
-    procedure rbActiveViewClick(Sender: TObject);
-    procedure rbSelectionClick(Sender: TObject);
+    procedure rbtBackwardChange(Sender: TObject);
+    procedure rbtEntireScopeClick(Sender: TObject);
+    procedure rbtForwardClick(Sender: TObject);
+    procedure rbtFromCursorClick(Sender: TObject);
+    procedure rbtActiveViewClick(Sender: TObject);
+    procedure rbtSelectionClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -183,9 +181,9 @@ begin
   inherited AfterConstruction;
   FVST := VST.Create(Self, pnlResultList);
   FVST.TreeOptions.AutoOptions :=
-    FVST.TreeOptions.AutoOptions + [toAutoSpanColumns] ;
+    FVST.TreeOptions.AutoOptions + [toAutoSpanColumns];
   FVST.Header.MainColumn := 1;
-
+  FVST.BorderStyle := bsNone;
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := False;
   FTVP.ShowHeader  := False;
@@ -194,7 +192,7 @@ begin
   FTVP.ItemsSource := SearchEngine.ItemGroups;
   FTVP.TreeView    := FVST;
   FTVP.ItemTemplate := TSearchResultGroupTemplate.Create(FTVP.ColumnDefinitions);
-  FTVP.OnSelectionChanged := DoOnSelectionChanged;
+  FTVP.OnSelectionChanged := FTVPSelectionChanged;
   cbxSearchText.Text  := '';
   cbxReplaceWith.Text := '';
 
@@ -221,11 +219,11 @@ begin
     Include(Result, ssoRegExpr);
   if chkMultiLine.Checked then
     Include(Result, ssoRegExprMultiLine);
-  if rbEntireScope.Checked then
+  if rbtEntireScope.Checked then
     Include(Result, ssoEntireScope);
-  if rbSelection.Checked then
+  if rbtSelection.Checked then
     Include(Result, ssoSelectedOnly);
-  if rbBackward.Checked then
+  if rbtBackward.Checked then
     Include(Result, ssoBackwards);
 end;
 
@@ -237,17 +235,17 @@ begin
   chkMultiLine.Checked          := ssoRegExprMultiLine in AValue;
 
   if ssoEntireScope in AValue then
-    rbEntireScope.Checked := True
+    rbtEntireScope.Checked := True
   else
-    rbFromCursor.Checked  := True;
+    rbtFromCursor.Checked  := True;
   if ssoSelectedOnly in AValue then
-    rbSelection.Checked := True
+    rbtSelection.Checked := True
   else
-    rbActiveView.Checked   := True;
+    rbtActiveView.Checked   := True;
   if ssoBackwards in AValue then
-    rbBackward.Checked := True
+    rbtBackward.Checked := True
   else
-    rbForward.Checked  := True;
+    rbtForward.Checked  := True;
 end;
 
 function TfrmSearchForm.GetSearchText: string;
@@ -335,7 +333,7 @@ end;
 procedure TfrmSearchForm.FormShow(Sender: TObject);
 begin
   Options := SearchEngine.Options;
-  rbAllViews.Checked  := SearchEngine.SearchAllViews;
+  rbtAllViews.Checked  := SearchEngine.SearchAllViews;
   cbxSearchText.Text  := SearchEngine.SearchText;
   cbxReplaceWith.Text := SearchEngine.ReplaceText;
   {$IFDEF DARWIN}//THE FORM IN MACOS HAVE SOME PROBLEMS WITH FOCUS, THIS IS TEMPORARY FIX
@@ -343,32 +341,32 @@ begin
   {$ENDIF}
 end;
 
-procedure TfrmSearchForm.rbBackwardChange(Sender: TObject);
+procedure TfrmSearchForm.rbtBackwardChange(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbEntireScopeClick(Sender: TObject);
+procedure TfrmSearchForm.rbtEntireScopeClick(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbForwardClick(Sender: TObject);
+procedure TfrmSearchForm.rbtForwardClick(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbFromCursorClick(Sender: TObject);
+procedure TfrmSearchForm.rbtFromCursorClick(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbActiveViewClick(Sender: TObject);
+procedure TfrmSearchForm.rbtActiveViewClick(Sender: TObject);
 begin
   Modified;
 end;
 
-procedure TfrmSearchForm.rbSelectionClick(Sender: TObject);
+procedure TfrmSearchForm.rbtSelectionClick(Sender: TObject);
 begin
   Modified;
 end;
@@ -430,19 +428,14 @@ procedure TfrmSearchForm.Execute;
 begin
   SearchEngine.SearchText := cbxSearchText.Text;
   cbxSearchText.AddHistoryItem(SearchText, 30, True, True);
-  SearchEngine.SearchAllViews := rbAllViews.Checked;
+  SearchEngine.SearchAllViews := rbtAllViews.Checked;
   SearchEngine.Options        := Options;
-  //Logger.Send(
-  //  'SearchOptions',
-  //  SetToString(TypeInfo(TSynSearchOptions),
-  //  SearchEngine.Options)
-  //);
   SearchEngine.Execute;
 end;
 
 procedure TfrmSearchForm.UpdateView;
 begin
-  if rbAllViews.Checked then
+  if rbtAllViews.Checked then
   begin
     View.BeginUpdate;
     View.SetHighlightSearch(
@@ -457,12 +450,12 @@ procedure TfrmSearchForm.SettingsChanged;
 begin
   inherited SettingsChanged;
   Options            := SearchEngine.Options;
-  rbAllViews.Checked := SearchEngine.SearchAllViews;
+  rbtAllViews.Checked := SearchEngine.SearchAllViews;
 end;
 
 { Updates the active editorview and selects SearchText }
 
-procedure TfrmSearchForm.DoOnSelectionChanged(Sender: TObject);
+procedure TfrmSearchForm.FTVPSelectionChanged(Sender: TObject);
 var
   SR  : TSearchResult;
   SRL : TSearchResultLine;
@@ -510,7 +503,7 @@ begin
   B := (SearchEngine.ItemList.Count > 0) and (ReplaceText <> '');
   btnReplace.Visible     := B;
   btnReplaceAll.Visible  := B;
-  B := not rbAllViews.Checked;
+  B := not rbtAllViews.Checked;
   grpOrigin.Enabled    := B;
   grpDirection.Enabled := B;
   grpOrigin.Visible    := B;
@@ -531,8 +524,6 @@ begin
     end;
     Updated;
   end;
-
-  imgF2Key.Visible := GetFirstParentForm(Screen.ActiveControl) = Self;
 end;
 {$ENDREGION}
 

@@ -41,7 +41,7 @@ type
     settings }
 
   VST = record
-  strict private class var
+  private class var
     FHeaderOptions    : TVTHeaderOptions;
     FAutoOptions      : TVTAutoOptions;
     FStringOptions    : TVTStringOptions;
@@ -50,7 +50,7 @@ type
     FSelectionOptions : TVTSelectionOptions;
     FAnimationOptions : TVTAnimationOptions;
 
- strict private const
+ private const
    {$REGION 'default VST options'}
     DEFAULT_VST_HEADEROPTIONS = [
     { Adjust a column so that the header never exceeds the client width of the
@@ -316,10 +316,9 @@ uses
 {$REGION 'TLocalClass'}
 type
   TLocalClass = class
-  strict private
+  private
     class var FInspector: TTIPropertyGrid;
 
-  private
     class procedure OnSetSelection(const ASelection: TPersistentSelectionList);
 
     class property Inspector: TTIPropertyGrid
@@ -451,7 +450,7 @@ end;
 
 function CreatePI(AOwner: TComponent; AParent: TWinControl): TTIPropertyGrid;
 var
-  PI: TTIPropertyGrid;
+  PI : TTIPropertyGrid;
 begin
   PI := TTIPropertyGrid.Create(AOwner);
   PI.DoubleBuffered     := True;

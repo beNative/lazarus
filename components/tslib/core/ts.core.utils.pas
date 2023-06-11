@@ -168,7 +168,8 @@ procedure OptimizeWidth(APanel: TPanel);
 
 function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
 
- // Variants and TVarRec conversions
+// Variants and TVarRec conversions
+
 function VariantToTypedVarRec(
   const Item : Variant;
   VarType    : TVarType

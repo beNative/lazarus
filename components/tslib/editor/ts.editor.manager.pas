@@ -775,6 +775,7 @@ uses
   ts.Editor.ToolViews,
 
   ts.Editor.SettingsDialog.Old,
+  //ts.Editor.SettingsDialog,
   ts.Editor.SettingsDialog.FileAssociations;
 
 const

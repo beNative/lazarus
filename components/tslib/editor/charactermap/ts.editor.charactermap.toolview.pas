@@ -312,7 +312,7 @@ procedure TfrmCharacterMap.UpdateCharacterBitmap(const ACharacter: string);
 var
   LBitmap : TBitmap;
 begin
-  LBitmap:= CreateCharacterBitmap(
+  LBitmap := CreateCharacterBitmap(
     Manager.Settings.EditorFont.Name,
     ACharacter,
     imgChar.Height
@@ -325,19 +325,19 @@ begin
 end;
 
 procedure TfrmCharacterMap.UpdateUnicodeDisplay(ACol, ARow: Integer);
-var
-  I     : Integer;
-  Start : Cardinal;
-  T1    : string;
-  T2    : string;
+//var
+//  I     : Integer;
+//  Start : Cardinal;
+//  T1    : string;
+//  T2    : string;
 begin
-  Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
+  //Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
   //T1 := UnicodeToUTF8(Start);
-  T2 := '';
-  for I := 1 to Length(T1) do
-    T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
-  lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
-  UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
+  //T2 := '';
+  //for I := 1 to Length(T1) do
+  //  T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
+  //lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
+  //UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
 end;
 
 procedure TfrmCharacterMap.UpdateANSIDisplay(ACol, ARow: Integer);
@@ -346,7 +346,7 @@ var
 begin
   if grdANSI.Cells[ACol, ARow] <> '' then
   begin
-    B  := Ord(grdANSI.Cells[ACol, ARow][1]);
+    B := Ord(grdANSI.Cells[ACol, ARow][1]);
     lblCharInfo.Caption := 'Decimal = ' + IntToStr(B) +
       ', Hex = $' + HexStr(B, 2);
     UpdateCharacterBitmap(grdANSI.Cells[ACol, ARow]);

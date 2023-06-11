@@ -259,10 +259,18 @@ type
     procedure SetOnLoad(AValue: TStorageEvent);
     procedure SetOnNew(AValue: TNewEvent);
     procedure SetOnOpen(AValue: TStorageEvent);
+    procedure SetOnShowRichEditorToolView(AValue: TRichEditorToolViewEvent);
     {$ENDREGION}
+    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
+    procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure AddOnSelectBlockHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
 
     // event dispatch methods
     procedure DoChange;
+    procedure DoModified;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -273,12 +281,7 @@ type
     );
     procedure DoShowToolView(AToolView: IRichEditorToolView);
     procedure DoHideToolView(AToolView: IRichEditorToolView);
-
-    procedure AddOnChangeHandler(AEvent: TNotifyEvent);
-    procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
-    procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
-    procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
-    procedure SetOnShowRichEditorToolView(AValue: TRichEditorToolViewEvent);
+    procedure DoSelectBlock;
 
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;
@@ -394,7 +397,6 @@ type
     { Lets the view respond to changes. }
     procedure UpdateView;
 
-    //procedure Refresh; TODO: refresh all items
     procedure SetFocus;
     function Focused: Boolean;
 

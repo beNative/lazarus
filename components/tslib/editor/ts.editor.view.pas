@@ -975,7 +975,7 @@ begin
   if AValue <> FoldLevel then
   begin
     FFoldLevel := AValue;
-    Editor.FoldAll(FFoldLevel, True);
+    Editor.FoldAll(FFoldLevel, True);  // TODO : replace with Editor.ExecuteCommand();?
     Events.DoModified;
   end;
 end;

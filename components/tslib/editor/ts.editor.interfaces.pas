@@ -790,7 +790,6 @@ type
     { Lets the view respond to changes. }
     procedure UpdateView;
 
-    //procedure Refresh; TODO: refresh all items
     procedure SetFocus;
     function Focused: Boolean;
 

@@ -135,7 +135,6 @@ type
     procedure AddOnActiveViewChangeHandler(AEvent: TNotifyEvent);
     procedure AddOnCaretPositionEvent(AEvent: TCaretPositionEvent);
     procedure AddOnActionExecuteEvent(AEvent: TActionExecuteEvent);
-    // TODO: these are not used...
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnHighlighterChangeHandler(AEvent: TNotifyEvent);

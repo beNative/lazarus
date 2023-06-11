@@ -33,6 +33,7 @@ type
     FManager                  : IRichEditorManager;
     FChangeEvents             : TMethodList;
     FModifiedEvents           : TMethodList;
+    FSelectBlockEvents        : TMethodList;
     FOnNew                    : TNewEvent;
     FOnLoad                   : TStorageEvent;
     FOnOpen                   : TStorageEvent;
@@ -66,6 +67,7 @@ type
     // event dispatch methods
     procedure DoChange;
     procedure DoModified;
+    procedure DoSelectBlock;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -81,6 +83,8 @@ type
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
+    procedure AddOnSelectBlockHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
 
     property View: IRichEditorView
       read GetView;
@@ -128,8 +132,9 @@ end;
 procedure TRichEditorEvents.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangeEvents   := TMethodList.Create;
-  FModifiedEvents := TMethodList.Create;
+  FChangeEvents      := TMethodList.Create;
+  FModifiedEvents    := TMethodList.Create;
+  FSelectBlockEvents := TMethodList.Create;
 end;
 
 destructor TRichEditorEvents.Destroy;
@@ -137,6 +142,7 @@ begin
   FManager := nil;
   FChangeEvents.Free;
   FModifiedEvents.Free;
+  FSelectBlockEvents.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -243,6 +249,11 @@ begin
   FModifiedEvents.CallNotifyEvents(Self);
 end;
 
+procedure TRichEditorEvents.DoSelectBlock;
+begin
+  FSelectBlockEvents.CallNotifyEvents(Self);
+end;
+
 procedure TRichEditorEvents.DoOpen(const AName: string);
 var
   S : string;
@@ -324,6 +335,16 @@ end;
 procedure TRichEditorEvents.RemoveOnModifiedHandler(AEvent: TNotifyEvent);
 begin
    FModifiedEvents.Remove(TMethod(AEvent));
+end;
+
+procedure TRichEditorEvents.AddOnSelectBlockHandler(AEvent: TNotifyEvent);
+begin
+  FSelectBlockEvents.Add(TMethod(AEvent));
+end;
+
+procedure TRichEditorEvents.RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
+begin
+  FSelectBlockEvents.Remove(TMethod(AEvent));
 end;
 {$ENDREGION}
 

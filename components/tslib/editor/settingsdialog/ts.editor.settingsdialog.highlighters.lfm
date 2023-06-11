@@ -1,17 +1,17 @@
 object frmOptionsThemes: TfrmOptionsThemes
-  Left = 560
+  Left = 136
   Height = 446
-  Top = 161
+  Top = 41
   Width = 467
   BorderStyle = bsNone
   ClientHeight = 446
   ClientWidth = 467
-  LCLVersion = '1.9.0.0'
+  LCLVersion = '2.2.2.0'
   object lbTheme: TLabel
     Left = 8
     Height = 15
     Top = 8
-    Width = 40
+    Width = 39
     Caption = '&Theme:'
     FocusControl = cbTheme
     ParentColor = False
@@ -356,7 +356,6 @@ object frmOptionsThemes: TfrmOptionsThemes
         Height = 23
         Top = 104
         Width = 57
-        MaxValue = 0
         OnChange = spnGWidthChange
         TabOrder = 1
       end
@@ -420,7 +419,6 @@ object frmOptionsThemes: TfrmOptionsThemes
           Height = 23
           Top = 74
           Width = 57
-          MaxValue = 0
           OnChange = spnGDigitsCountChange
           TabOrder = 4
         end
@@ -475,7 +473,6 @@ object frmOptionsThemes: TfrmOptionsThemes
           Height = 23
           Top = 74
           Width = 57
-          MaxValue = 0
           OnChange = spnGStepsChange
           TabOrder = 1
         end
@@ -500,7 +497,6 @@ object frmOptionsThemes: TfrmOptionsThemes
           Height = 23
           Top = 10
           Width = 393
-          MaxValue = 0
           OnChange = spnRMFontSizeChange
           TabOrder = 0
         end
@@ -612,7 +608,6 @@ object frmOptionsThemes: TfrmOptionsThemes
           Height = 23
           Top = 10
           Width = 57
-          MaxValue = 0
           OnChange = spnREdgeAtChange
           TabOrder = 0
         end

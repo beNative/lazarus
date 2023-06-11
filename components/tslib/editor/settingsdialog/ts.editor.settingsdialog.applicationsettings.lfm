@@ -1,7 +1,7 @@
 inherited frmApplicationSettings: TfrmApplicationSettings
-  Left = 533
+  Left = 129
   Height = 179
-  Top = 248
+  Top = 63
   Width = 370
   Caption = 'frmApplicationSettings'
   ClientHeight = 179

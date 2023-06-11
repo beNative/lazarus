@@ -1,11 +1,12 @@
 inherited frmCharacterMap: TfrmCharacterMap
-  Left = -489
+  Left = -723
   Height = 588
-  Top = 313
+  Top = 189
   Width = 328
   BorderStyle = bsSingle
   ClientHeight = 588
   ClientWidth = 328
+  ParentFont = True
   PopupMode = pmAuto
   Position = poDefault
   object sbrMain: TScrollBox[0]
@@ -13,8 +14,8 @@ inherited frmCharacterMap: TfrmCharacterMap
     Height = 588
     Top = 0
     Width = 328
-    HorzScrollBar.Page = 213
-    VertScrollBar.Page = 582
+    HorzScrollBar.Page = 102
+    VertScrollBar.Page = 224
     Align = alClient
     BorderStyle = bsNone
     ClientHeight = 588

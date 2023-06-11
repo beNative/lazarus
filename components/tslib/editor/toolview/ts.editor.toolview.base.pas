@@ -49,12 +49,14 @@ type
     // this flag is set when there are pending updates.
     FUpdate: Boolean;
 
+    {$REGION 'property access methods'}
     function GetManager: IEditorManager;
     function GetSettings: IEditorSettings;
     function GetUpdate: Boolean;
     function GetView: IEditorView;
     function GetViews: IEditorViews;
     procedure SetUpdate(AValue: Boolean);
+    {$ENDREGION}
 
   protected
     function GetForm: TForm;

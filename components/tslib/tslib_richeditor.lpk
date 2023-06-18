@@ -3,7 +3,7 @@
   <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="tslib_richeditor"/>
-    <Type Value="RunAndDesignTime"/>
+    <Type Value="RunTimeOnly"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -42,7 +42,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="17">
+    <Files Count="16">
       <Item1>
         <Filename Value="richeditor\ts.richeditor.manager.lfm"/>
         <Type Value="LFM"/>
@@ -76,41 +76,37 @@ limitations under the License.         "/>
         <UnitName Value="ts.RichEditor.Settings"/>
       </Item8>
       <Item9>
-        <Filename Value="richeditor\ts.richeditor.types.pas"/>
-        <UnitName Value="ts.RichEditor.Types"/>
-      </Item9>
-      <Item10>
         <Filename Value="richeditor\ts.richeditor.view.kmemo.lfm"/>
         <Type Value="LFM"/>
-      </Item10>
-      <Item11>
+      </Item9>
+      <Item10>
         <Filename Value="richeditor\ts.richeditor.view.kmemo.pas"/>
         <UnitName Value="ts.RichEditor.View.KMemo"/>
-      </Item11>
-      <Item12>
+      </Item10>
+      <Item11>
         <Filename Value="richeditor\ts.richeditor.toolview.base.pas"/>
         <UnitName Value="ts.RichEditor.ToolView.Base"/>
-      </Item12>
-      <Item13>
+      </Item11>
+      <Item12>
         <Filename Value="richeditor\ts.richeditor.style.toolview.pas"/>
         <UnitName Value="ts.RichEditor.Style.ToolView"/>
-      </Item13>
-      <Item14>
+      </Item12>
+      <Item13>
         <Filename Value="richeditor\ts.richeditor.toolviews.pas"/>
         <UnitName Value="ts.RichEditor.ToolViews"/>
-      </Item14>
-      <Item15>
+      </Item13>
+      <Item14>
         <Filename Value="richeditor\ts.richeditor.structure.toolview.pas"/>
         <UnitName Value="ts.RichEditor.Structure.ToolView"/>
-      </Item15>
-      <Item16>
+      </Item14>
+      <Item15>
         <Filename Value="richeditor\ts.richeditor.test.toolview.pas"/>
         <UnitName Value="ts.RichEditor.Test.Toolview"/>
-      </Item16>
-      <Item17>
+      </Item15>
+      <Item16>
         <Filename Value="richeditor\ts.richeditor.utils.pas"/>
-        <UnitName Value="ts.richeditor.utils"/>
-      </Item17>
+        <UnitName Value="ts.RichEditor.Utils"/>
+      </Item16>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="6">

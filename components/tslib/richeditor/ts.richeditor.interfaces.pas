@@ -25,7 +25,7 @@ uses
 
   KMemo,
 
-  ts.RichEditor.Types;
+  ts.Core.Types;
 
  { All supported actions by the editor views, and holds a collection of all
     registered views. }

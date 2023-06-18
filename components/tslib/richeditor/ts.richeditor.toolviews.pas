@@ -55,7 +55,7 @@ type
       ASettingsClass : TComponentClass;
       const AName    : string
     );
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     property Name: string
       read GetName;
@@ -140,10 +140,10 @@ begin
   //  );
 end;
 
-procedure TRichEditorToolView.BeforeDestruction;
+destructor TRichEditorToolView.Destroy;
 begin
   FManager := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 

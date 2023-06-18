@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.RichEditor.Types;
+unit ts.Core.Types;
 
 {$MODE DELPHI}
 

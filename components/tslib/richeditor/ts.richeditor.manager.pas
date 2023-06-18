@@ -67,7 +67,7 @@ type
     actInsertRowAfter        : TAction;
     actInsertRowBefore       : TAction;
     actInsertTable           : TAction;
-    actDeleteTable: TAction;
+    actDeleteTable           : TAction;
     actShowStructureViewer   : TAction;
     actItalic                : TAction;
     actNumberedList          : TAction;
@@ -167,7 +167,6 @@ type
     function GetActionList: TActionList;
     function GetActions: IRichEditorActions;
     function GetToolViews: IRichEditorToolViews;
-    //function GetActions: TActionList;
     function GetActiveView: IRichEditorView;
     function GetClipboardPopupMenu: TPopupMenu;
     function GetEditorPopupMenu: TPopupMenu;
@@ -307,11 +306,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access mehods'}
-//function TdmRichEditorManager.GetActions: TActionList;
-//  Result := aclActions;
-//begin
-//end;
-
 function TdmRichEditorManager.GetActiveView: IRichEditorView;
 begin
   if not Assigned(FActiveView) then
@@ -374,6 +368,55 @@ end;
 function TdmRichEditorManager.GetEvents: IRichEditorEvents;
 begin
   Result := FEvents;
+end;
+function TdmRichEditorManager.GetActionList: TActionList;
+begin
+  Result := aclActions;
+end;
+
+function TdmRichEditorManager.GetActions: IRichEditorActions;
+begin
+  Result := Self as IRichEditorActions;
+end;
+
+function TdmRichEditorManager.GetToolViews: IRichEditorToolViews;
+begin
+  Result := FToolViews;
+end;
+
+function TdmRichEditorManager.GetInsertPopupMenu: TPopupMenu;
+begin
+  Result := ppmInsert;
+end;
+
+function TdmRichEditorManager.GetClipboardPopupMenu: TPopupMenu;
+begin
+  Result := ppmClipboard;
+end;
+
+function TdmRichEditorManager.GetFilePopupMenu: TPopupMenu;
+begin
+  Result := ppmFile;
+end;
+
+function TdmRichEditorManager.GetSelectionPopupMenu: TPopupMenu;
+begin
+  Result := ppmSelection;
+end;
+
+function TdmRichEditorManager.GetSelectPopupMenu: TPopupMenu;
+begin
+  Result := ppmSelect;
+end;
+
+function TdmRichEditorManager.GetSettingsPopupMenu: TPopupMenu;
+begin
+   Result := ppmSettings;
+end;
+
+function TdmRichEditorManager.GetTablePopupMenu: TPopupMenu;
+begin
+  Result := ppmTable;
 end;
 {$ENDREGION}
 
@@ -751,56 +794,6 @@ begin
   begin
     ActiveView.Undo;
   end;
-end;
-
-function TdmRichEditorManager.GetActionList: TActionList;
-begin
-  Result := aclActions;
-end;
-
-function TdmRichEditorManager.GetActions: IRichEditorActions;
-begin
-  Result := Self as IRichEditorActions;
-end;
-
-function TdmRichEditorManager.GetToolViews: IRichEditorToolViews;
-begin
-  Result := FToolViews;
-end;
-
-function TdmRichEditorManager.GetInsertPopupMenu: TPopupMenu;
-begin
-  Result := ppmInsert;
-end;
-
-function TdmRichEditorManager.GetClipboardPopupMenu: TPopupMenu;
-begin
-  Result := ppmClipboard;
-end;
-
-function TdmRichEditorManager.GetFilePopupMenu: TPopupMenu;
-begin
-  Result := ppmFile;
-end;
-
-function TdmRichEditorManager.GetSelectionPopupMenu: TPopupMenu;
-begin
-  Result := ppmSelection;
-end;
-
-function TdmRichEditorManager.GetSelectPopupMenu: TPopupMenu;
-begin
-  Result := ppmSelect;
-end;
-
-function TdmRichEditorManager.GetSettingsPopupMenu: TPopupMenu;
-begin
-   Result := ppmSettings;
-end;
-
-function TdmRichEditorManager.GetTablePopupMenu: TPopupMenu;
-begin
-  Result := ppmTable;
 end;
 
 procedure TdmRichEditorManager.actToggleWordWrapExecute(Sender: TObject);

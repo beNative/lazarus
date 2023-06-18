@@ -38,7 +38,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="39">
+    <Files Count="40">
       <Item1>
         <Filename Value="core\ts.core.brre.pas"/>
         <UnitName Value="ts.Core.BRRE"/>
@@ -195,6 +195,10 @@ limitations under the License.         "/>
         <Filename Value="core\ts.core.vtnode.pas"/>
         <UnitName Value="ts.Core.VTNode"/>
       </Item39>
+      <Item40>
+        <Filename Value="core\ts.core.types.pas"/>
+        <UnitName Value="ts.core.types"/>
+      </Item40>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="4">

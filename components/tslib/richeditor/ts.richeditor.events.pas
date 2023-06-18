@@ -25,7 +25,7 @@ uses
 
   LazMethodList,
 
-  ts.RichEditor.Types, ts.RichEditor.Interfaces;
+  ts.Core.Types, ts.RichEditor.Interfaces;
 
 type
   TRichEditorEvents = class(TInterfacedObject, IRichEditorEvents)

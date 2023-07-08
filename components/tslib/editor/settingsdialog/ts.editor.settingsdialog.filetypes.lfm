@@ -6,7 +6,8 @@ object frmFileTypeSettings: TfrmFileTypeSettings
   BorderStyle = bsNone
   ClientHeight = 409
   ClientWidth = 447
-  LCLVersion = '2.0.2.0'
+  Font.Height = -12
+  LCLVersion = '2.2.2.0'
   object lbFT: TLabel
     Left = 8
     Height = 15
@@ -393,8 +394,8 @@ object frmFileTypeSettings: TfrmFileTypeSettings
     OnClick = lnkFiltersClick
   end
   object AL: TActionList
-    left = 240
-    top = 8
+    Left = 240
+    Top = 8
     object acAdd: TAction
       Caption = '&Add...'
       OnExecute = acAddExecute

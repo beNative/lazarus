@@ -1,13 +1,12 @@
 object dmEditorManager: TdmEditorManager
   OldCreateOrder = False
   Height = 580
-  HorizontalOffset = 596
-  VerticalOffset = 60
+  HorizontalOffset = 599
+  VerticalOffset = 63
   Width = 675
   object imlMain: TImageList
     AllocBy = 1
     DrawingStyle = dsTransparent
-    Scaled = True
     Left = 213
     Top = 32
     Bitmap = {

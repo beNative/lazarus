@@ -6,6 +6,7 @@ object frmOptionsThemes: TfrmOptionsThemes
   BorderStyle = bsNone
   ClientHeight = 446
   ClientWidth = 467
+  Font.Height = -12
   LCLVersion = '2.2.2.0'
   object lbTheme: TLabel
     Left = 8

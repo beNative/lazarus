@@ -1,14 +1,14 @@
 object EditorView: TEditorView
-  Left = 1872
+  Left = 912
   Height = 421
-  Top = 923
+  Top = 403
   Width = 630
   AllowDropFiles = True
   AlphaBlendValue = 128
   BorderIcons = []
   BorderStyle = bsSingle
   DragMode = dmAutomatic
-  Font.Height = -11
+  Font.Height = -12
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   OnDropFiles = FormDropFiles

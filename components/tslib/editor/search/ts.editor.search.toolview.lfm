@@ -1,13 +1,14 @@
 inherited frmSearchForm: TfrmSearchForm
-  Left = 1513
+  Left = 1517
   Height = 496
-  Top = 141
+  Top = 144
   Width = 291
   BorderIcons = [biSystemMenu]
   Caption = 'Find'
   ClientHeight = 496
   ClientWidth = 291
   Constraints.MinHeight = 312
+  Font.Height = -12
   OnHide = FormHide
   OnShow = FormShow
   PopupMode = pmAuto

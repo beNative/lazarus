@@ -9,12 +9,12 @@ object frmKeyMappings: TfrmKeyMappings
   ClientWidth = 496
   Color = clBtnFace
   Font.Color = clWindowText
-  Font.Height = -11
-  Font.Name = 'MS Sans Serif'
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
   OnClose = FormClose
   OnCreate = FormCreate
   Position = poMainFormCenter
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.2.2.0'
   object pcCustomize: TPageControl
     Left = 8
     Height = 353
@@ -48,14 +48,14 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 8
         Width = 457
         Caption = 'Select Action:'
-        ClientHeight = 127
+        ClientHeight = 125
         ClientWidth = 453
         TabOrder = 0
         object lblActions: TLabel
           Left = 166
           Height = 13
           Top = 2
-          Width = 38
+          Width = 41
           Caption = 'Actions:'
           FocusControl = lvActions
           ParentColor = False
@@ -64,7 +64,7 @@ object frmKeyMappings: TfrmKeyMappings
           Left = 6
           Height = 13
           Top = 2
-          Width = 45
+          Width = 49
           Caption = 'Category:'
           FocusControl = lbCategory
           ParentColor = False
@@ -102,14 +102,14 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 160
         Width = 457
         Caption = 'Select ShortCut:'
-        ClientHeight = 71
+        ClientHeight = 69
         ClientWidth = 453
         TabOrder = 1
         object lblNewSC: TLabel
           Left = 230
           Height = 13
           Top = 2
-          Width = 69
+          Width = 75
           Caption = 'New ShortCur:'
           ParentColor = False
         end
@@ -117,7 +117,7 @@ object frmKeyMappings: TfrmKeyMappings
           Left = 6
           Height = 13
           Top = 2
-          Width = 81
+          Width = 91
           Caption = 'Current ShortCut:'
           FocusControl = lbSC
           ParentColor = False
@@ -154,7 +154,7 @@ object frmKeyMappings: TfrmKeyMappings
         Top = 256
         Width = 457
         Caption = 'Description:'
-        ClientHeight = 39
+        ClientHeight = 37
         ClientWidth = 453
         TabOrder = 2
         object lblDescr: TLabel
@@ -177,7 +177,7 @@ object frmKeyMappings: TfrmKeyMappings
         Left = 16
         Height = 19
         Top = 8
-        Width = 106
+        Width = 110
         Caption = 'Show Large Icons'
         TabOrder = 0
       end
@@ -185,7 +185,7 @@ object frmKeyMappings: TfrmKeyMappings
         Left = 16
         Height = 19
         Top = 24
-        Width = 74
+        Width = 79
         Caption = 'Show Hints'
         TabOrder = 1
       end
@@ -212,8 +212,8 @@ object frmKeyMappings: TfrmKeyMappings
     TabOrder = 2
   end
   object AL: TActionList
-    left = 40
-    top = 112
+    Left = 40
+    Top = 112
     object acAdd: TAction
       Caption = '&Assign'
       OnExecute = acAddExecute
@@ -226,7 +226,7 @@ object frmKeyMappings: TfrmKeyMappings
     end
   end
   object alTmp: TActionList
-    left = 40
-    top = 176
+    Left = 40
+    Top = 176
   end
 end

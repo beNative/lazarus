@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.RichEditor.Factories;
+unit ts.HtmlEditor.Factories;
 
 {$MODE DELPHI}
 
@@ -23,31 +23,31 @@ interface
 uses
   Classes, SysUtils, Controls, Menus, ComCtrls,
 
-  ts.RichEditor.Interfaces;
+  ts.HtmlEditor.Interfaces;
 
 type
-  TRichEditorFactories = class
+  THtmlEditorFactories = class
   public
     class function CreateManager(
       AOwner : TComponent
-     ): IRichEditorManager;
+     ): IHtmlEditorManager;
 
     class function CreateView(
       AParent         : TWinControl;
-      AManager        : IRichEditorManager = nil;
+      AManager        : IHtmlEditorManager = nil;
       const AName     : string = '';
       const AFileName : string = ''
-    ): IRichEditorView;
+    ): IHtmlEditorView;
 
     class function CreateMainMenu(
       AOwner   : TComponent;
-      AActions : IRichEditorActions
+      AActions : IHtmlEditorActions
     ): TMainMenu;
 
     class function CreateMainToolbar(
       AOwner   : TComponent;
       AParent  : TWinControl;
-      AActions : IRichEditorActions
+      AActions : IHtmlEditorActions
     ): TToolbar;
 
   end;
@@ -55,21 +55,20 @@ type
 implementation
 
 uses
-  ts.RichEditor.Manager, ts.RichEditor.Factories.Toolbars,
-  ts.RichEditor.Factories.Menus;
+  ts.HtmlEditor.Manager, ts.HtmlEditor.Factories.Toolbars,
+  ts.HtmlEditor.Factories.Menus;
 
-{$REGION 'public methods'}
-class function TRichEditorFactories.CreateManager(AOwner: TComponent
-  ): IRichEditorManager;
+class function THtmlEditorFactories.CreateManager(AOwner: TComponent
+  ): IHtmlEditorManager;
 begin
-  Result := TdmRichEditorManager.Create(AOwner);
+  Result := TdmHtmlEditorManager.Create(AOwner);
 end;
 
-class function TRichEditorFactories.CreateView(AParent: TWinControl;
-  AManager: IRichEditorManager; const AName: string; const AFileName: string
-  ): IRichEditorView;
+class function THtmlEditorFactories.CreateView(AParent: TWinControl;
+  AManager: IHtmlEditorManager; const AName: string; const AFileName: string
+  ): IHtmlEditorView;
 var
-  V : IRichEditorView;
+  V : IHtmlEditorView;
 begin
   V := AManager.AddView(AName);
   V.BeginUpdate;
@@ -84,24 +83,23 @@ begin
   Result := V;
 end;
 
-class function TRichEditorFactories.CreateMainMenu(AOwner: TComponent;
-  AActions: IRichEditorActions): TMainMenu;
+class function THtmlEditorFactories.CreateMainMenu(AOwner: TComponent;
+  AActions: IHtmlEditorActions): TMainMenu;
 var
-  REMF : IRichEditorMenusFactory;
+  HEMF : IHtmlEditorMenusFactory;
 begin
-  REMF   := TRichEditorMenusFactory.Create(AActions);
-  Result := REMF.CreateMainMenu(AOwner);
+  HEMF   := THtmlEditorMenusFactory.Create(AActions);
+  Result := HEMF.CreateMainMenu(AOwner);
 end;
 
-class function TRichEditorFactories.CreateMainToolbar(AOwner: TComponent;
-  AParent: TWinControl; AActions: IRichEditorActions): TToolbar;
+class function THtmlEditorFactories.CreateMainToolbar(AOwner: TComponent;
+  AParent: TWinControl; AActions: IHtmlEditorActions): TToolbar;
 var
-  RETF : IRichEditorToolbarsFactory;
+  HETF : IHtmlEditorToolbarsFactory;
 begin
-  RETF   := TRichEditorToolbarsFactory.Create(AActions);
-  Result := RETF.CreateMainToolbar(AOwner, AParent);
+  HETF   := THtmlEditorToolbarsFactory.Create(AActions);
+  Result := HETF.CreateMainToolbar(AOwner, AParent);
 end;
-{$ENDREGION}
 
 end.
 

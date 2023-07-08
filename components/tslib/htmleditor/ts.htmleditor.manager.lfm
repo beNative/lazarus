@@ -1,14 +1,13 @@
-object dmRichEditorManager: TdmRichEditorManager
+object dmHtmlEditorManager: TdmHtmlEditorManager
   OldCreateOrder = False
-  Height = 247
-  HorizontalOffset = 954
-  VerticalOffset = 734
-  Width = 521
+  Height = 505
+  HorizontalOffset = 908
+  VerticalOffset = 341
+  Width = 618
   object aclActions: TActionList
     Images = imlMain
-    OnExecute = aclActionsExecute
-    Left = 32
-    Top = 21
+    Left = 60
+    Top = 49
     object actBold: TAction
       Category = 'Selection'
       Caption = 'Bold'
@@ -45,7 +44,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Open'
       Hint = 'Open'
       ImageIndex = 18
-      OnExecute = actOpenExecute
       ShortCut = 16463
     end
     object actSave: TAction
@@ -53,7 +51,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Save'
       Hint = 'Save'
       ImageIndex = 19
-      OnExecute = actSaveExecute
       ShortCut = 16467
     end
     object actSaveAs: TAction
@@ -61,7 +58,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Save as...'
       Hint = 'Save as...'
       ImageIndex = 34
-      OnExecute = actSaveAsExecute
       ShortCut = 49235
     end
     object actSetFontColor: TAction
@@ -69,7 +65,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Set font color'
       Hint = 'Set font color'
       ImageIndex = 24
-      OnExecute = actSetFontColorExecute
       ShortCut = 49219
     end
     object actAlignRight: TAction
@@ -109,7 +104,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Set font'
       Hint = 'Set font'
       ImageIndex = 7
-      OnExecute = actSetFontExecute
       ShortCut = 49222
     end
     object actIncFontSize: TAction
@@ -117,7 +111,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Increase font size'
       Hint = 'Increase font size'
       ImageIndex = 8
-      OnExecute = actIncFontSizeExecute
       ShortCut = 24683
     end
     object actDecFontSize: TAction
@@ -125,7 +118,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Decrease font size'
       Hint = 'Decrease font size'
       ImageIndex = 9
-      OnExecute = actDecFontSizeExecute
       ShortCut = 24685
     end
     object actCut: TAction
@@ -157,6 +149,7 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Select all'
       Hint = 'Select all'
       ImageIndex = 38
+      OnExecute = actSelectAllExecute
       ShortCut = 16449
     end
     object actUndo: TAction
@@ -166,19 +159,11 @@ object dmRichEditorManager: TdmRichEditorManager
       ImageIndex = 10
       OnExecute = actUndoExecute
     end
-    object actToggleWordWrap: TAction
-      Category = 'Settings'
-      Caption = 'Toggle wordwrap'
-      Hint = 'Toggle wordwrap'
-      ImageIndex = 33
-      OnExecute = actToggleWordWrapExecute
-    end
     object actSetBackgroundColor: TAction
       Category = 'Selection'
       Caption = 'Set background color'
       Hint = 'Set background color'
       ImageIndex = 25
-      OnExecute = actSetBackgroundColorExecute
     end
     object actRedo: TAction
       Category = 'Commands'
@@ -205,7 +190,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Category = 'Insert'
       Caption = 'Insert bullet list'
       ImageIndex = 31
-      OnExecute = actInsertBulletListExecute
     end
     object actIncIndent: TAction
       Category = 'Selection'
@@ -223,40 +207,12 @@ object dmRichEditorManager: TdmRichEditorManager
       OnExecute = actDecIndentExecute
       ShortCut = 24661
     end
-    object actEditParagraphStyle: TAction
-      Category = 'Dialogs'
-      Caption = 'Edit paragraph style'
-      Hint = 'Edit paragraph style'
-      ImageIndex = 37
-      OnExecute = actEditParagraphStyleExecute
-    end
     object actClear: TAction
       Category = 'Commands'
       Caption = 'Clear'
       Hint = 'Clear all content'
       ImageIndex = 36
       OnExecute = actClearExecute
-    end
-    object actShowSpecialCharacters: TAction
-      Category = 'Settings'
-      Caption = 'Show special characters'
-      Hint = 'Show special characters'
-      ImageIndex = 37
-      OnExecute = actShowSpecialCharactersExecute
-    end
-    object actShowPreview: TAction
-      Category = 'Dialogs'
-      Caption = 'Show preview'
-      Hint = 'Show preview'
-      ImageIndex = 39
-      OnExecute = actShowPreviewExecute
-    end
-    object actEditSelectedItem: TAction
-      Category = 'Dialogs'
-      Caption = 'Edit'
-      Hint = 'Edit selected item'
-      ImageIndex = 38
-      OnExecute = actEditSelectedItemExecute
     end
     object actAddParagraph: TAction
       Category = 'Commands'
@@ -271,61 +227,47 @@ object dmRichEditorManager: TdmRichEditorManager
       )
       ShortCut = 16464
     end
-    object actEditTextStyle: TAction
-      Category = 'Dialogs'
-      Caption = 'Edit text style'
-      Hint = 'Edit text style'
-      ImageIndex = 7
-      OnExecute = actEditTextStyleExecute
-    end
     object actInsertRowBefore: TAction
       Category = 'Table'
       Caption = 'Insert row before'
       Hint = 'Insert row before current row.'
       ImageIndex = 43
-      OnExecute = actInsertRowBeforeExecute
     end
     object actInsertRowAfter: TAction
       Category = 'Table'
       Caption = 'Insert row after'
       Hint = 'Insert row after current row.'
       ImageIndex = 44
-      OnExecute = actInsertRowAfterExecute
     end
     object actInsertColumnBefore: TAction
       Category = 'Table'
       Caption = 'Insert column before'
       Hint = 'Insert column before current column.'
       ImageIndex = 41
-      OnExecute = actInsertColumnBeforeExecute
     end
     object actInsertColumnAfter: TAction
       Category = 'Table'
       Caption = 'Insert column after'
       Hint = 'Insert column after current column.'
       ImageIndex = 42
-      OnExecute = actInsertColumnAfterExecute
     end
     object actSelectTable: TAction
       Category = 'Table'
       Caption = 'Select table'
       Hint = 'Select current table.'
       ImageIndex = 45
-      OnExecute = actSelectTableExecute
     end
     object actDeleteRow: TAction
       Category = 'Table'
       Caption = 'Delete row'
       Hint = 'Delete current row.'
       ImageIndex = 47
-      OnExecute = actDeleteRowExecute
     end
     object actDeleteColumn: TAction
       Category = 'Table'
       Caption = 'Delete column'
       Hint = 'Delete current column.'
       ImageIndex = 46
-      OnExecute = actDeleteColumnExecute
     end
     object actTableMenu: TAction
       Category = 'Table'
@@ -373,7 +315,6 @@ object dmRichEditorManager: TdmRichEditorManager
       Category = 'Selection'
       Caption = 'Bullet list'
       ImageIndex = 31
-      OnExecute = actBulletListExecute
       ShortCut = 49218
     end
     object actNumberedList: TAction
@@ -382,47 +323,386 @@ object dmRichEditorManager: TdmRichEditorManager
       Caption = 'Numbered list'
       Hint = 'Create/update  numbered list.'
       ImageIndex = 32
-      OnExecute = actNumberedListExecute
     end
     object actInsertTable: TAction
       Category = 'Insert'
       Caption = 'Insert table'
       Hint = 'Insert a table.'
       ImageIndex = 40
-      OnExecute = actInsertTableExecute
-    end
-    object actShowStructureViewer: TAction
-      Category = 'ToolViews'
-      Caption = 'Structure viewer'
-      ImageIndex = 13
-      OnExecute = actShowStructureViewerExecute
-      ShortCut = 49240
     end
     object actDeleteTable: TAction
       Category = 'Table'
       Caption = 'Delete table'
       ImageIndex = 14
-      OnExecute = actDeleteTableExecute
     end
+  end
+  object actBold1: TAction
+    Category = 'Selection'
+    Caption = 'Bold'
+    Hint = 'Bold'
+    ImageIndex = 3
+    ShortCut = 16450
+  end
+  object actItalic1: TAction
+    Category = 'Selection'
+    Caption = 'Italic'
+    Hint = 'Italic'
+    ImageIndex = 4
+    ShortCut = 16457
+  end
+  object actUnderline1: TAction
+    Category = 'Selection'
+    Caption = 'Underline'
+    Hint = 'Underline'
+    ImageIndex = 5
+    ShortCut = 16469
+  end
+  object actStrikeThrough1: TAction
+    Category = 'Selection'
+    Caption = 'Strike through'
+    Hint = 'Strike through'
+    ImageIndex = 30
+  end
+  object actOpen1: TAction
+    Category = 'File'
+    Caption = 'Open'
+    Hint = 'Open'
+    ImageIndex = 18
+    ShortCut = 16463
+  end
+  object actSave1: TAction
+    Category = 'File'
+    Caption = 'Save'
+    Hint = 'Save'
+    ImageIndex = 19
+    ShortCut = 16467
+  end
+  object actSaveAs1: TAction
+    Category = 'File'
+    Caption = 'Save as...'
+    Hint = 'Save as...'
+    ImageIndex = 34
+    ShortCut = 49235
+  end
+  object actSetFontColor1: TAction
+    Category = 'Selection'
+    Caption = 'Set font color'
+    Hint = 'Set font color'
+    ImageIndex = 24
+    ShortCut = 49219
+  end
+  object actAlignRight1: TAction
+    Category = 'Selection'
+    Caption = 'Align right'
+    Hint = 'Align right'
+    ImageIndex = 23
+    ShortCut = 16466
+  end
+  object actAlignLeft1: TAction
+    Category = 'Selection'
+    Caption = 'Align left'
+    Hint = 'Align left'
+    ImageIndex = 20
+    ShortCut = 16460
+  end
+  object actAlignCenter1: TAction
+    Category = 'Selection'
+    Caption = 'Align center'
+    Hint = 'Align center'
+    ImageIndex = 21
+    ShortCut = 16453
+  end
+  object actAlignJustify1: TAction
+    Category = 'Selection'
+    Caption = 'Align justify'
+    Hint = 'Align justify'
+    ImageIndex = 22
+    ShortCut = 16458
+  end
+  object actSetFont1: TAction
+    Category = 'Selection'
+    Caption = 'Set font'
+    Hint = 'Set font'
+    ImageIndex = 7
+    ShortCut = 49222
+  end
+  object actIncFontSize1: TAction
+    Category = 'Selection'
+    Caption = 'Increase font size'
+    Hint = 'Increase font size'
+    ImageIndex = 8
+    ShortCut = 24683
+  end
+  object actDecFontSize1: TAction
+    Category = 'Selection'
+    Caption = 'Decrease font size'
+    Hint = 'Decrease font size'
+    ImageIndex = 9
+    ShortCut = 24685
+  end
+  object actCut1: TAction
+    Category = 'Commands'
+    Caption = 'Cut'
+    Hint = 'Cut'
+    ImageIndex = 0
+    ShortCut = 16472
+  end
+  object actCopy1: TAction
+    Category = 'Commands'
+    Caption = 'Copy'
+    Hint = 'Copy'
+    ImageIndex = 1
+    ShortCut = 16451
+  end
+  object actPaste1: TAction
+    Category = 'Commands'
+    Caption = 'Paste'
+    Hint = 'Paste'
+    ImageIndex = 2
+    ShortCut = 16470
+  end
+  object actSelectAll1: TAction
+    Category = 'Commands'
+    Caption = 'Select all'
+    Hint = 'Select all'
+    ImageIndex = 38
+    ShortCut = 16449
+  end
+  object actUndo1: TAction
+    Category = 'Commands'
+    Caption = 'Undo'
+    Hint = 'Undo'
+    ImageIndex = 10
+  end
+  object actToggleWordWrap1: TAction
+    Category = 'Settings'
+    Caption = 'Toggle wordwrap'
+    Hint = 'Toggle wordwrap'
+    ImageIndex = 33
+  end
+  object actSetBackgroundColor1: TAction
+    Category = 'Selection'
+    Caption = 'Set background color'
+    Hint = 'Set background color'
+    ImageIndex = 25
+  end
+  object actRedo1: TAction
+    Category = 'Commands'
+    Caption = 'Redo'
+    Hint = 'Redo'
+    ImageIndex = 11
+  end
+  object actInsertImage1: TAction
+    Category = 'Insert'
+    Caption = 'Insert image'
+    Hint = 'Insert image at cursor position'
+    ImageIndex = 27
+  end
+  object actInsertHyperLink1: TAction
+    Category = 'Insert'
+    Caption = 'Insert/edit  hyperlink'
+    Hint = 'Insert or edit hyperlink at cursor position'
+    ImageIndex = 26
+  end
+  object actInsertBulletList1: TAction
+    Category = 'Insert'
+    Caption = 'Insert bullet list'
+    ImageIndex = 31
+  end
+  object actIncIndent1: TAction
+    Category = 'Selection'
+    Caption = 'Increase indent'
+    Hint = 'Increase indentation level'
+    ImageIndex = 28
+    ShortCut = 24649
+  end
+  object actDecIndent1: TAction
+    Category = 'Selection'
+    Caption = 'Decrease indent'
+    Hint = 'Decrease indentation level'
+    ImageIndex = 29
+    ShortCut = 24661
+  end
+  object actEditParagraphStyle1: TAction
+    Category = 'Dialogs'
+    Caption = 'Edit paragraph style'
+    Hint = 'Edit paragraph style'
+    ImageIndex = 37
+  end
+  object actClear1: TAction
+    Category = 'Commands'
+    Caption = 'Clear'
+    Hint = 'Clear all content'
+    ImageIndex = 36
+  end
+  object actShowSpecialCharacters1: TAction
+    Category = 'Settings'
+    Caption = 'Show special characters'
+    Hint = 'Show special characters'
+    ImageIndex = 37
+  end
+  object actShowPreview1: TAction
+    Category = 'Dialogs'
+    Caption = 'Show preview'
+    Hint = 'Show preview'
+    ImageIndex = 39
+  end
+  object actEditSelectedItem1: TAction
+    Category = 'Dialogs'
+    Caption = 'Edit'
+    Hint = 'Edit selected item'
+    ImageIndex = 38
+  end
+  object actAddParagraph1: TAction
+    Category = 'Commands'
+    Caption = 'Add paragraph'
+    Hint = 'Add new paragraph'
+    ImageIndex = 37
+    SecondaryShortCuts.Strings = (
+      'Alt+Enter'
+      'Ctrl+Alt+Enter'
+      'F4'
+    )
+    ShortCut = 16464
+  end
+  object actEditTextStyle1: TAction
+    Category = 'Dialogs'
+    Caption = 'Edit text style'
+    Hint = 'Edit text style'
+    ImageIndex = 7
+  end
+  object actInsertRowBefore1: TAction
+    Category = 'Table'
+    Caption = 'Insert row before'
+    Hint = 'Insert row before current row.'
+    ImageIndex = 43
+  end
+  object actInsertRowAfter1: TAction
+    Category = 'Table'
+    Caption = 'Insert row after'
+    Hint = 'Insert row after current row.'
+    ImageIndex = 44
+  end
+  object actInsertColumnBefore1: TAction
+    Category = 'Table'
+    Caption = 'Insert column before'
+    Hint = 'Insert column before current column.'
+    ImageIndex = 41
+  end
+  object actInsertColumnAfter1: TAction
+    Category = 'Table'
+    Caption = 'Insert column after'
+    Hint = 'Insert column after current column.'
+    ImageIndex = 42
+  end
+  object actSelectTable1: TAction
+    Category = 'Table'
+    Caption = 'Select table'
+    Hint = 'Select current table.'
+    ImageIndex = 45
+  end
+  object actDeleteRow1: TAction
+    Category = 'Table'
+    Caption = 'Delete row'
+    Hint = 'Delete current row.'
+    ImageIndex = 47
+  end
+  object actDeleteColumn1: TAction
+    Category = 'Table'
+    Caption = 'Delete column'
+    Hint = 'Delete current column.'
+    ImageIndex = 46
+  end
+  object actTableMenu1: TAction
+    Category = 'Table'
+    Caption = 'Table'
+    DisableIfNoHandler = False
+    ImageIndex = 40
+  end
+  object actInsertMenu1: TAction
+    Category = 'Insert'
+    Caption = 'Insert'
+    DisableIfNoHandler = False
+    ImageIndex = 52
+  end
+  object actSelectionMenu1: TAction
+    Category = 'Selection'
+    Caption = 'Selection'
+    DisableIfNoHandler = False
+    ImageIndex = 49
+  end
+  object actFileMenu1: TAction
+    Category = 'File'
+    Caption = 'File'
+    DisableIfNoHandler = False
+    ImageIndex = 51
+  end
+  object actClipboardMenu1: TAction
+    Category = 'Clipboard'
+    Caption = 'Clipboard'
+    DisableIfNoHandler = False
+    ImageIndex = 50
+  end
+  object actSelectMenu1: TAction
+    Category = 'Select'
+    Caption = 'Select'
+    DisableIfNoHandler = False
+    ImageIndex = 48
+  end
+  object actSettingsMenu1: TAction
+    Category = 'Settings'
+    Caption = 'Settings'
+    DisableIfNoHandler = False
+    ImageIndex = 12
+  end
+  object actBulletList1: TAction
+    Category = 'Selection'
+    Caption = 'Bullet list'
+    ImageIndex = 31
+    ShortCut = 49218
+  end
+  object actNumberedList1: TAction
+    Category = 'Selection'
+    AutoCheck = True
+    Caption = 'Numbered list'
+    Hint = 'Create/update  numbered list.'
+    ImageIndex = 32
+  end
+  object actInsertTable1: TAction
+    Category = 'Insert'
+    Caption = 'Insert table'
+    Hint = 'Insert a table.'
+    ImageIndex = 40
+  end
+  object actShowStructureViewer1: TAction
+    Category = 'ToolViews'
+    Caption = 'Structure viewer'
+    ImageIndex = 13
+    ShortCut = 49240
+  end
+  object actDeleteTable1: TAction
+    Category = 'Table'
+    Caption = 'Delete table'
+    ImageIndex = 14
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    Left = 161
-    Top = 16
+    Left = 189
+    Top = 44
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofNoNetworkButton, ofEnableSizing, ofAutoPreview]
-    Left = 161
-    Top = 72
+    Left = 189
+    Top = 100
   end
-  object ppmRichEditor: TPopupMenu
+  object ppmHtmlEditor: TPopupMenu
     Images = imlMain
-    Left = 32
-    Top = 84
+    Left = 60
+    Top = 112
   end
   object imlMain: TImageList
-    Left = 267
-    Top = 21
+    Left = 295
+    Top = 49
     Bitmap = {
       4C7A350000001000000010000000F53B00000000000078DAED7D095C4DE9FFFF
       89198CB10DBE963196AF7DDFD744B2B42883A2D04E2BB22F514AF63D5B08D90A
@@ -931,48 +1211,48 @@ object dmRichEditorManager: TdmRichEditorManager
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    Left = 168
-    Top = 139
+    Left = 196
+    Top = 167
   end
   object dlgFont: TFontDialog
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdForceFontExist, fdNoSimulations, fdApplyButton]
-    Left = 267
-    Top = 88
+    Left = 295
+    Top = 116
   end
   object ppmTable: TPopupMenu
-    Left = 44
-    Top = 159
+    Left = 72
+    Top = 187
   end
   object ppmInsert: TPopupMenu
     Images = imlMain
-    Left = 104
-    Top = 160
+    Left = 132
+    Top = 188
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
-    Left = 264
-    Top = 152
+    Left = 292
+    Top = 180
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
-    Left = 344
-    Top = 16
+    Left = 372
+    Top = 44
   end
   object ppmSelect: TPopupMenu
     Images = imlMain
-    Left = 344
-    Top = 96
+    Left = 372
+    Top = 124
   end
   object ppmFile: TPopupMenu
     Images = imlMain
-    Left = 440
-    Top = 24
+    Left = 468
+    Top = 52
   end
   object ppmSettings: TPopupMenu
     Images = imlMain
-    Left = 440
-    Top = 104
+    Left = 468
+    Top = 132
   end
 end

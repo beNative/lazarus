@@ -1,12 +1,13 @@
 object frmEditorSettings: TfrmEditorSettings
-  Left = -3
+  Left = 617
   Height = 588
-  Top = 52
+  Top = 124
   Width = 549
   BorderIcons = [biSystemMenu]
   Caption = 'Editor settings'
   ClientHeight = 588
   ClientWidth = 549
+  Font.Height = -12
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True

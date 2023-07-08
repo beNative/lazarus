@@ -1,7 +1,7 @@
 inherited frmTest: TfrmTest
-  Left = 517
+  Left = 641
   Height = 493
-  Top = 258
+  Top = 253
   ClientHeight = 493
   object ToolBar1: TToolBar[0]
     Left = 0

@@ -1,10 +1,11 @@
 inherited frmFilter: TfrmFilter
-  Left = 579
+  Left = 723
   Height = 455
-  Top = 257
+  Top = 254
   Width = 530
   ClientHeight = 455
   ClientWidth = 530
+  Font.Height = -12
   OnCloseQuery = FormCloseQuery
   OnShow = FormShow
   object pnlMain: TPanel[0]

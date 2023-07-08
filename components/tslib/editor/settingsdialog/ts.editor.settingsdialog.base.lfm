@@ -4,5 +4,6 @@ object CustomSettingsDialog: TCustomSettingsDialog
   Top = 49
   Width = 320
   BorderStyle = bsNone
+  Font.Height = -12
   LCLVersion = '2.2.2.0'
 end

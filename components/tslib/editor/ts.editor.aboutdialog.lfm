@@ -1,7 +1,7 @@
 object frmAbout: TfrmAbout
-  Left = 225
+  Left = 518
   Height = 254
-  Top = 159
+  Top = 199
   Width = 636
   ActiveControl = pgcMain
   BorderIcons = [biSystemMenu]
@@ -9,6 +9,7 @@ object frmAbout: TfrmAbout
   Caption = 'About'
   ClientHeight = 254
   ClientWidth = 636
+  Font.Height = -12
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True

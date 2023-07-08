@@ -1,11 +1,12 @@
 object EditorSettingsDialog: TEditorSettingsDialog
-  Left = 208
+  Left = 475
   Height = 633
-  Top = 4
+  Top = 104
   Width = 835
   Caption = 'EditorSettingsDialog'
   ClientHeight = 633
   ClientWidth = 835
+  Font.Height = -12
   LCLVersion = '2.2.2.0'
   object pnlLeft: TPanel
     Left = 0
@@ -23,6 +24,7 @@ object EditorSettingsDialog: TEditorSettingsDialog
       Top = 0
       Width = 250
       Align = alClient
+      BorderStyle = bsNone
       ItemHeight = 0
       OnClick = lbxPagesClick
       TabOrder = 0

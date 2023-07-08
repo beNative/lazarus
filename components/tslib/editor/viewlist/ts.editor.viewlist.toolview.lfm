@@ -1,5 +1,5 @@
 inherited frmViewList: TfrmViewList
-  Left = -916
+  Left = 0
   Height = 501
   Top = 250
   Width = 800
@@ -41,8 +41,8 @@ inherited frmViewList: TfrmViewList
     end
   end
   object aclMain: TActionList[2]
-    left = 256
-    top = 129
+    Left = 256
+    Top = 129
     object actClose: TAction
       Caption = 'Close'
       OnExecute = actCloseExecute
@@ -53,8 +53,8 @@ inherited frmViewList: TfrmViewList
     end
   end
   object ppmMain: TPopupMenu[3]
-    left = 180
-    top = 129
+    Left = 180
+    Top = 129
     object mniClose: TMenuItem
       Action = actCloseSelectedViews
     end

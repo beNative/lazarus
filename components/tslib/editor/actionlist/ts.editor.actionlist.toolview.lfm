@@ -1,17 +1,17 @@
 object frmActionListView: TfrmActionListView
-  Left = 506
+  Left = 761
   Height = 526
-  Top = 90
+  Top = 182
   Width = 800
-  ActiveControl = edtFilterActions
   Caption = 'Actions'
   ClientHeight = 526
   ClientWidth = 800
+  Font.Height = -12
   KeyPreview = True
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   Position = poOwnerFormCenter
-  LCLVersion = '1.5'
+  LCLVersion = '2.2.2.0'
   object pnlEditorList: TPanel
     Left = 0
     Height = 526

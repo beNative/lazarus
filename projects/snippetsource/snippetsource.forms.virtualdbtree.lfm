@@ -1,15 +1,15 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 633
+  Left = 423
   Height = 381
-  Top = 213
+  Top = 146
   Width = 282
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
   ClientHeight = 381
   ClientWidth = 282
   Color = clWindow
+  Font.Height = -12
   KeyPreview = True
-  ParentFont = True
   PopupMenu = ppmTreeView
   ShowHint = True
   LCLVersion = '2.2.2.0'
@@ -67,7 +67,9 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           ClientWidth = 60
           DataSource = dscMain
           Flat = True
+          Font.Height = -11
           Options = []
+          ParentFont = False
           ParentShowHint = False
           ShowHint = True
           TabOrder = 0
@@ -99,8 +101,10 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           EdgeBorders = []
           EdgeInner = esNone
           EdgeOuter = esNone
+          Font.Height = -11
           Images = imlMain
           ParentColor = False
+          ParentFont = False
           TabOrder = 0
           Transparent = True
           object btnNewRoot: TToolButton

@@ -29,7 +29,7 @@ uses
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
-  ts.RichEditor.Interfaces,
+  ts.RichEditor.Interfaces, ts.HtmlEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
   SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Busy;
@@ -43,6 +43,10 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actCloseEditorToolView          : TAction;
+    actHtmlEditor                   : TAction;
+    actTextEditor                   : TAction;
+    actRtfEditor                    : TAction;
+    actToggleHtmlEditor             : TAction;
     actLookup                       : TAction;
     actSettings                     : TAction;
     actShowGridForm                 : TAction;
@@ -63,6 +67,12 @@ type
     lblEditorToolViewHeader         : TLabel;
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
+    nbRight                         : TNotebook;
+    pnlHtmlEditorToolBar            : TPanel;
+    pnlHtmlEditor                   : TPanel;
+    pgTextEditor                    : TPage;
+    pgRichEditor                    : TPage;
+    pgHtmlEditor                    : TPage;
     pnlCapsLock                     : TPanel;
     pnlDateCreated                  : TPanel;
     pnlDateModified                 : TPanel;
@@ -71,6 +81,7 @@ type
     pnlEditorToolBar                : TPanel;
     pnlEditorToolViewHost           : TPanel;
     pnlEditorToolViewHostHeader     : TPanel;
+    pnlRichEditorToolBar            : TPanel;
     pnlId                           : TPanel;
     pnlLeft                         : TPanel;
     pnlLineBreakStyle               : TPanel;
@@ -81,17 +92,16 @@ type
     pnlRichEditorToolViewHostHeader : TPanel;
     pnlRight                        : TPanel;
     pnlSize                         : TPanel;
-    pnlSnippet                      : TPanel;
     pnlSnippetCount                 : TPanel;
     pnlStatusBar                    : TPanel;
     pnlStatusBarCenter              : TPanel;
     pnlTitle                        : TPanel;
     pnlWelcome                      : TPanel;
     shpLine1                        : TShape;
-    shpLine2                        : TShape;
-    shpLine3                        : TShape;
+    shpTextEditorToolBarLine        : TShape;
+    shpHtmlEditorToolBarLine        : TShape;
+    shpRichEditorToolBarLine        : TShape;
     splEditorVertical               : TSplitter;
-    splHorizontal                   : TSplitter;
     splRichEditorVertical           : TSplitter;
     splVertical                     : TSplitter;
     tlbApplication                  : TToolBar;
@@ -103,10 +113,14 @@ type
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
+    procedure actHtmlEditorExecute(Sender: TObject);
+    procedure actRtfEditorExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowGridFormExecute(Sender: TObject);
+    procedure actTextEditorExecute(Sender: TObject);
+    procedure actToggleHtmlEditorExecute(Sender: TObject);
     procedure actToggleRichTextEditorExecute(Sender: TObject);
     procedure actToggleTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
@@ -126,7 +140,10 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
+    procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure FormShow(Sender: TObject);
+    procedure pnlHtmlEditorToolBarClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -143,12 +160,16 @@ type
     FEditor             : IEditorView;
     FRichEditorManager  : IRichEditorManager;
     FRichEditor         : IRichEditorView;
+    FHtmlEditorManager  : IHtmlEditorManager;
+    FHtmlEditor         : IHtmlEditorView;
     FSettings           : TSettings;
     FRichEditorToolBar  : TToolBar;
+    FHtmlEditorToolBar  : TToolBar;
     FUpdate             : Boolean;
     FRichEditorVisible  : Boolean;
     FTextEditorVisible  : Boolean;
-    FRTFStream          : TStringStream;
+    FRtfStream          : TStringStream;
+    FHtmlStream         : TStringStream;
     FUpdateRichTextView : Boolean;
 
     {$REGION 'event handlers'}
@@ -172,6 +193,7 @@ type
       Sender    : TObject;
       AToolView : IEditorToolView
     );
+    procedure FHtmlEditorAfterCreated(Sender: TObject);
     procedure FRichEditorChange(Sender: TObject);
     procedure FRichEditorDropFiles(
       Sender           : TObject;
@@ -202,6 +224,7 @@ type
     function GetConnection: IConnection;
     function GetDataSet: IDataSet;
     function GetEditor: IEditorView;
+    function GetHtmlEditor: IHtmlEditorView;
     function GetQuery: IQuery;
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
@@ -217,15 +240,17 @@ type
       AAction      : TBasicAction;
       AShowCaption : Boolean = False
     ); overload;
-    procedure AssignEditorChanges;
-    procedure BuildEditorToolBar;
+
+    procedure AssignTextEditorChanges;
+    procedure BuildTextEditorToolBar;
     procedure BuildApplicationToolBar;
     procedure HideAction(const AActionName: string);
-    procedure InitEditorActions;
+    procedure InitTextEditorActions;
 
     procedure CreateTreeview;
-    procedure CreateEditor;
+    procedure CreateTextEditor;
     procedure CreateRichEditor;
+    procedure CreateHtmlEditor;
 
     procedure InitializeLogger;
 
@@ -233,8 +258,11 @@ type
 
     function FileExtensionToHighlighter(const AFileExtension: string): string;
 
-    procedure LoadRichText;
-    procedure SaveRichText;
+    procedure LoadRtfData;
+    procedure SaveRtfData;
+
+    procedure LoadHtmlData;
+    procedure SaveHtmlData;
 
     procedure AddPathNode(
       const APath       : string;
@@ -276,6 +304,9 @@ type
 
      property RichEditor : IRichEditorView
        read GetRichEditor;
+
+     property HtmlEditor : IHtmlEditorView
+       read GetHtmlEditor;
   end; 
 
 var
@@ -294,7 +325,7 @@ uses
 
   ts.Editor.AboutDialog,
 
-  ts.Richeditor.Factories,
+  ts.Richeditor.Factories, ts.HtmlEditor.Factories,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
   SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources,
@@ -317,10 +348,15 @@ begin
   pnlDateCreated.Font.Color  := clBlue;
   pnlDateModified.Font.Color := clGreen;
 
-  CreateEditor;
+  CreateTextEditor;
   CreateRichEditor;
+  // TODO page must be active to create the HtmlEditor correctly!
+  nbRight.PageIndex := 2;
+  CreateHtmlEditor;
   CreateTreeview;
-  FRTFStream := TStringStream.Create;
+  FRtfStream := TStringStream.Create;
+  FHtmlStream := TStringStream.Create;
+
 
   dscMain.DataSet := DataSet.DataSet;
   if FSettings.LastFocusedId > 0 then
@@ -332,16 +368,9 @@ begin
   FFileSearcher.OnDirectoryFound := FileSearcherDirectoryFound;
   FFileSearcher.OnFileFound      := FileSearcherFileFound;
 
-  BuildEditorToolBar;
   BuildApplicationToolBar;
-  InitEditorActions;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
-  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
-    Self,
-    pnlRichEditor,
-    FRichEditorManager as IRichEditorActions
-  );
   FVersionInfo := TVersionInfo.Create(Self);
   Caption := Format('%s %s', [ApplicationName, FVersionInfo.ProductVersion]);
 end;
@@ -356,11 +385,14 @@ begin
   FData              := nil;
   FRichEditorManager := nil;
   FEditorManager     := nil;
+  FHtmlEditorManager := nil;
   FEditorSettings    := nil;
   FEditor            := nil;
   FRichEditor        := nil;
+  FHtmlEditor        := nil;
   FreeAndNil(FFileSearcher);
-  FreeAndNil(FRTFStream);
+  FreeAndNil(FRtfStream);
+  FreeAndNil(FHtmlStream);
   inherited Destroy;
   Logger.Leave(Self, 'Destroy');
 end;
@@ -375,6 +407,11 @@ end;
 function TfrmMain.GetEditor: IEditorView;
 begin
   Result := FEditor;
+end;
+
+function TfrmMain.GetHtmlEditor: IHtmlEditorView;
+begin
+  Result := FHtmlEditor;
 end;
 
 function TfrmMain.GetQuery: IQuery;
@@ -416,15 +453,28 @@ begin
   ShowGridForm(DataSet.DataSet);
 end;
 
+procedure TfrmMain.actTextEditorExecute(Sender: TObject);
+begin
+  nbRight.PageIndex := pgTextEditor.PageIndex;
+end;
+
+procedure TfrmMain.actToggleHtmlEditorExecute(Sender: TObject);
+begin
+  nbRight.PageIndex := pgHtmlEditor.PageIndex;
+  FHtmlEditor.Uri := 'http://www.planet-odoo.com/check-out-how-odoo-16-features-help-the-business-organization/';
+  Modified;
+  SaveHtmlData;
+end;
+
 procedure TfrmMain.actToggleRichTextEditorExecute(Sender: TObject);
 begin
-  FRichEditorVisible := actToggleRichTextEditor.Checked;
+  nbRight.PageIndex:= pgRichEditor.PageIndex;
   Modified;
 end;
 
 procedure TfrmMain.actToggleTextEditorExecute(Sender: TObject);
 begin
-  FTextEditorVisible := actToggleTextEditor.Checked;
+  nbRight.PageIndex := pgTextEditor.PageIndex;
   Modified;
 end;
 
@@ -478,6 +528,16 @@ begin
   begin
     dmTerminal.Execute(Format(COMMAND, [FSettings.PythonVirtualEnvironmentName]));
   end;
+end;
+
+procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
+begin
+  nbRight.PageIndex := pgHtmlEditor.PageIndex;
+end;
+
+procedure TfrmMain.actRtfEditorExecute(Sender: TObject);
+begin
+  nbRight.PageIndex := pgRichEditor.PageIndex;
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
@@ -561,7 +621,8 @@ begin
         btnHighlighter.Caption := Snippet.Highlighter;
         FTextEditorVisible := False;
         FRichEditorVisible := False;
-        LoadRichText;
+        LoadRtfData;
+        LoadHtmlData;
         Modified;
       end;
     end;
@@ -574,7 +635,7 @@ procedure TfrmMain.FEditorChange(Sender: TObject);
 begin
   Logger.Enter(Self, 'EChange');
   DataSet.Edit;
-  AssignEditorChanges;
+  AssignTextEditorChanges;
   Logger.Leave(Self, 'EChange');
 end;
 
@@ -602,7 +663,7 @@ begin
   if Snippet.Highlighter <> Editor.HighlighterName then
   begin
     DataSet.Edit;
-    AssignEditorChanges;
+    AssignTextEditorChanges;
   end;
   Logger.Leave(Self, 'EHighlighterChange');
 end;
@@ -612,7 +673,7 @@ begin
   Logger.Enter(Self, 'ENew');
   FTree.NewSubItemNode;
   Editor.Text := AText;
-  AssignEditorChanges;
+  AssignTextEditorChanges;
   Logger.Leave(Self, 'ENew');
 end;
 {$ENDREGION}
@@ -669,11 +730,27 @@ procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
+
+procedure TfrmMain.FormActivate(Sender: TObject);
+begin
+
+end;
+
 {$ENDREGION}
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  //nbRight.PageIndex := 0;
+end;
+
+procedure TfrmMain.pnlHtmlEditorToolBarClick(Sender: TObject);
+begin
+
 end;
 
 {$REGION 'FTree'}
@@ -758,7 +835,8 @@ procedure TfrmMain.FRichEditorChange(Sender: TObject);
 begin
   if DataSet.RecordCount > 0 then
   begin
-    SaveRichText;
+    SaveRtfData;
+    //SaveHtmlData;
   end;
 end;
 
@@ -771,7 +849,7 @@ begin
   begin
     RichEditor.InsertImageFile(S);
   end;
-  SaveRichText;
+  SaveRtfData;
 end;
 
 procedure TfrmMain.FRichEditorFormEnter(Sender: TObject);
@@ -812,6 +890,12 @@ begin
   AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
   pnlEditorToolViewHost.Visible   := True;
 end;
+
+procedure TfrmMain.FHtmlEditorAfterCreated(Sender: TObject);
+begin
+  nbRight.PageIndex := 0;
+end;
+
 {$ENDREGION}
 {$ENDREGION}
 
@@ -855,7 +939,7 @@ begin
     TB.Style := tbsDivider;
 end;
 
-procedure TfrmMain.AssignEditorChanges;
+procedure TfrmMain.AssignTextEditorChanges;
 begin
   Snippet.Text        := Editor.Text;
   Snippet.FoldLevel   := Editor.FoldLevel;
@@ -864,7 +948,7 @@ begin
     Snippet.Highlighter := 'TXT';
 end;
 
-procedure TfrmMain.BuildEditorToolBar;
+procedure TfrmMain.BuildTextEditorToolBar;
 begin
   tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
   AddButton(tlbEditorView, 'actSave');
@@ -910,8 +994,10 @@ end;
 procedure TfrmMain.BuildApplicationToolBar;
 begin
   tlbApplication.Images := imlMain;
-  AddButton(tlbApplication, actToggleTextEditor);
-  AddButton(tlbApplication, actToggleRichTextEditor);
+  AddButton(tlbApplication, actTextEditor, True);
+  AddButton(tlbApplication, actRtfEditor, True);
+  AddButton(tlbApplication, actHtmlEditor, True);
+  AddButton(tlbApplication);
   AddButton(tlbApplication, actLookup);
   if FSettings.DebugMode then
   begin
@@ -937,7 +1023,7 @@ begin
   end;
 end;
 
-procedure TfrmMain.InitEditorActions;
+procedure TfrmMain.InitTextEditorActions;
 begin
   HideAction('actAutoGuessHighlighter');
   HideAction('actClose');
@@ -974,9 +1060,9 @@ begin
   FTree.OnCopyNodeData        := FTreeCopyNodeData;
 end;
 
-procedure TfrmMain.CreateEditor;
+procedure TfrmMain.CreateTextEditor;
 var
-  EV : IEditorEvents;
+  LEvents : IEditorEvents;
 begin
   FEditorSettings := TEditorFactories.CreateSettings(Self);
   FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
@@ -984,18 +1070,20 @@ begin
   FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
   FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
   FEditor.IsFile := False;
-  FEditor.Form.OnEnter :=FEditorFormEnter;
-  FEditor.Editor.PopupMenu  := FEditorManager.Menus.EditorPopupMenu;
+  FEditor.Form.OnEnter := FEditorFormEnter;
+  FEditor.Editor.PopupMenu := FEditorManager.Menus.EditorPopupMenu;
   btnHighlighter.Menu := FEditorManager.Menus.HighlighterPopupMenu;
   FEditorManager.Settings.AutoFormatXML := False;
   FEditorManager.Settings.AutoGuessHighlighterType := False;
-  EV := FEditorManager.Events;
-  EV.OnNew        := FEditorNew;
-  EV.OnBeforeSave := FEditorBeforeSave;
-  EV.AddOnChangeHandler(FEditorChange);
-  EV.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
-  EV.OnShowEditorToolView := FEditorShowToolView;
-  EV.OnHideEditorToolView := FEditorHideToolView;
+  LEvents := FEditorManager.Events;
+  LEvents.OnNew        := FEditorNew;
+  LEvents.OnBeforeSave := FEditorBeforeSave;
+  LEvents.AddOnChangeHandler(FEditorChange);
+  LEvents.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
+  LEvents.OnShowEditorToolView := FEditorShowToolView;
+  LEvents.OnHideEditorToolView := FEditorHideToolView;
+  BuildTextEditorToolBar;
+  InitTextEditorActions;
 end;
 
 procedure TfrmMain.CreateRichEditor;
@@ -1006,13 +1094,37 @@ begin
     FRichEditorManager,
     'Comment'
   );
-  FRichEditor.IsFile      := False;
-  FRichEditor.Form.OnEnter :=FRichEditorFormEnter;
-  FRichEditor.OnChange    := FRichEditorChange;
-  FRichEditor.OnDropFiles := FRichEditorDropFiles;
-  FRichEditor.PopupMenu   := FRichEditorManager.EditorPopupMenu;
+  FRichEditor.IsFile       := False;
+  FRichEditor.Form.OnEnter := FRichEditorFormEnter;
+  FRichEditor.OnChange     := FRichEditorChange;
+  FRichEditor.OnDropFiles  := FRichEditorDropFiles;
+  FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
   FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
   FRichEditorManager.Events.OnHideRichEditorToolView := FRichEditorHideToolView;
+  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
+    Self,
+    pnlRichEditorToolBar,
+    FRichEditorManager as IRichEditorActions
+  );
+  FRichEditorToolBar.Height := 23;
+end;
+
+procedure TfrmMain.CreateHtmlEditor;
+begin
+  FHtmlEditorManager := THtmlEditorFactories.CreateManager(Self);
+  FHtmlEditorToolBar := THtmlEditorFactories.CreateMainToolbar(
+    Self,
+    pnlHtmlEditorToolBar,
+    FHtmlEditorManager as IHtmlEditorActions
+  );
+  FHtmlEditor := THtmlEditorFactories.CreateView(
+    pnlHtmlEditor,
+    FHtmlEditorManager
+  );
+  FHtmlEditorToolBar.Height := 23;
+  FHtmlEditor.SetFocus;
+  FHtmlEditor.OnAfterCreated  := FHtmlEditorAfterCreated;
+  FHtmlEditor.EditMode := True;
 end;
 
 procedure TfrmMain.InitializeLogger;
@@ -1051,34 +1163,34 @@ begin
     Result := HL[I].Highlighter;
 end;
 
-procedure TfrmMain.LoadRichText;
+procedure TfrmMain.LoadRtfData;
 var
   S : string;
 begin
-  if Snippet.CommentRTF <> '' then
+  if Snippet.RtfData <> '' then
   begin
-    S := DecodeStringBase64(Snippet.CommentRTF);
-    if S <> FRTFStream.DataString then
+    S := DecodeStringBase64(Snippet.RtfData);
+    if S <> FRtfStream.DataString then
     begin
-      FRTFStream.Clear;
-      FRTFStream.WriteString(S);
-      FRTFStream.Position := 0;
+      FRtfStream.Clear;
+      FRtfStream.WriteString(S);
+      FRtfStream.Position := 0;
       FUpdateRichTextView := True;
     end
   end
   else
   begin
-    FRTFStream.Clear;
+    FRtfStream.Clear;
     FUpdateRichTextView := True;
   end;
 end;
 
-procedure TfrmMain.SaveRichText;
+procedure TfrmMain.SaveRtfData;
 var
   SS : TStringStream;
   S  : string;
 begin
-  Logger.Enter(Self, 'SaveRichText');
+  Logger.Enter(Self, 'SaveRtfData');
   SS := TStringStream.Create('');
   try
     if Assigned(DataSet) then
@@ -1089,18 +1201,59 @@ begin
       RichEditor.SaveToStream(SS);
       RichEditor.EndUpdate;
       S := EncodeStringBase64(SS.DataString);
-      Snippet.CommentRTF := S;
-      Snippet.Comment    := RichEditor.Text;
+      Snippet.RtfData := S;
+      Snippet.RtfText := RichEditor.Text;
     end
     else
     begin
-      Snippet.CommentRTF := '';
-      Snippet.Comment    := '';
+      Snippet.RtfData := '';
+      Snippet.RtfText := '';
     end;
   finally
     FreeAndNil(SS);
   end;
-  Logger.Leave(Self, 'SaveRichText');
+  Logger.Leave(Self, 'SaveRtfData');
+end;
+
+procedure TfrmMain.LoadHtmlData;
+var
+  S : string;
+begin
+  if Snippet.HtmlData <> '' then
+  begin
+    S := DecodeStringBase64(Snippet.HtmlData);
+   // if S <> FHtmlStream.DataString then
+    begin
+      //FHtmlStream.Clear;
+      //FHtmlStream.WriteString(S);
+      //FHtmlStream.Position := 0;
+      //FUpdateRichTextView := True;
+      FHtmlEditor.HtmlText := S;
+    end
+  end
+  else
+  begin
+    //FHtmlStream.Clear;
+    //FUpdateRichTextView := True;
+  end;
+end;
+
+procedure TfrmMain.SaveHtmlData;
+begin
+  Logger.Enter(Self, 'SaveHtmlData');
+  if Assigned(DataSet) then
+    DataSet.Edit;
+  if not HtmlEditor.IsEmpty then
+  begin
+    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
+    Snippet.HtmlText := HtmlEditor.Text;
+  end
+  else
+  begin
+    Snippet.HtmlData := '';
+    Snippet.HtmlText := '';
+  end;
+  Logger.Leave(Self, 'SaveHtmlData');
 end;
 
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
@@ -1173,7 +1326,7 @@ begin
       Snippet.ParentId    := FParentId;
       RichEditor.Clear;
       RichEditor.InsertImageFile(APath);
-      SaveRichText;
+      SaveRtfData;
       DataSet.Post;
     end
     else if LIsDir then
@@ -1297,15 +1450,16 @@ begin
 end;
 
 procedure TfrmMain.UpdateViews;
-var
-  LRichEditorVisible : Boolean;
-  LTextEditorVisible : Boolean;
+//var
+//  LRichEditorVisible : Boolean;
+//  LTextEditorVisible : Boolean;
+//  LHtmlEditorVisible : Boolean;
 begin
   if FUpdate then
   begin
     if FUpdateRichTextView then
     begin
-      RichEditor.LoadFromStream(FRTFStream);
+      RichEditor.LoadFromStream(FRtfStream);
       FUpdateRichTextView := False;
     end;
 
@@ -1313,29 +1467,37 @@ begin
     begin
       RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
     end;
-    LRichEditorVisible := FRichEditorVisible or
-      (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
-    LTextEditorVisible := FTextEditorVisible or
-      (not (FSettings.AutoHideEditor and Editor.IsEmpty));
+    //LRichEditorVisible := FRichEditorVisible or
+    //  (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
+    //LTextEditorVisible := FTextEditorVisible or
+    //  (not (FSettings.AutoHideEditor and Editor.IsEmpty));
 
-    pnlEditor.Visible     := LTextEditorVisible;
-    pnlRichEditor.Visible := LRichEditorVisible;
-    splHorizontal.Visible := LTextEditorVisible and LRichEditorVisible;
-    if LTextEditorVisible and not LRichEditorVisible then
-      pnlEditor.Align := alClient
-    else if not LTextEditorVisible and LRichEditorVisible then
-      pnlRichEditor.Align := alClient
-    else if LTextEditorVisible and LRichEditorVisible then
-    begin
-      splHorizontal.Align := alTop;
-      pnlEditor.Align     := alClient;
-      pnlRichEditor.Align := alBottom;
-      splHorizontal.Align := alBottom;
-    end;
-    actToggleTextEditor.Checked     := LTextEditorVisible;
-    actToggleRichTextEditor.Checked := LRichEditorVisible;
-    FTextEditorVisible := LTextEditorVisible;
-    FRichEditorVisible := LRichEditorVisible;
+    //if FTextEditorVisible then
+    //  nbRight.PageIndex := pgTextEditor.PageIndex
+    //else if FRichEditorVisible then
+    //  nbRight.PageIndex := pgRichEditor.PageIndex
+    //else if FHtmlEditorVisible then
+      //nbRight.PageIndex := pgHtmlEditor.PageIndex;
+
+
+    //pnlEditor.Visible     := ;
+    //pnlRichEditor.Visible := LRichEditorVisible;
+    //splHorizontal.Visible := LTextEditorVisible and LRichEditorVisible;
+    //if LTextEditorVisible and not LRichEditorVisible then
+    //  pnlEditor.Align := alClient
+    //else if not LTextEditorVisible and LRichEditorVisible then
+    //  pnlRichEditor.Align := alClient
+    //else if LTextEditorVisible and LRichEditorVisible then
+    //begin
+    //  splHorizontal.Align := alTop;
+    //  pnlEditor.Align     := alClient;
+    //  pnlRichEditor.Align := alBottom;
+    //  splHorizontal.Align := alBottom;
+    //end;
+    //actToggleTextEditor.Checked     := LTextEditorVisible;
+    //actToggleRichTextEditor.Checked := LRichEditorVisible;
+    //FTextEditorVisible := LTextEditorVisible;
+    //FRichEditorVisible := LRichEditorVisible;
     FUpdate := False;
   end;
 end;

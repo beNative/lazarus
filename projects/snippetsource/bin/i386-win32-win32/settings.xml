@@ -1302,7 +1302,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>JS</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
@@ -1316,7 +1316,7 @@
 	</FormSettings>
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
-		<Height>-17</Height>
+		<Height>-15</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

@@ -800,6 +800,8 @@ begin
     Indent                        := 20;
     LineMode                      := lmBands;
     PopupMenu                     := ppmTreeView;
+    Font.Name                     := 'Segoe UI';
+    Font.Size                     := 9;
 
     Colors.FocusedSelectionColor  := clGray;
     Colors.HotColor               := clBlue;
@@ -889,6 +891,7 @@ begin
     TreeOptions.StringOptions := [toAutoAcceptEditChange];
     IncrementalSearch := isNone; // disable incremental search feature
   end;
+  FTreeView.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;
 {$ENDREGION}
 

@@ -146,8 +146,10 @@ type
     function GetActive: Boolean;
     function GetAutoApplyUpdates: Boolean;
     function GetAutoCommit: Boolean;
-    function GetComment: string;
-    function GetCommentRtf: string;
+    function GetHtmlData: string;
+    function GetHtmlText: string;
+    function GetRtfText: string;
+    function GetRtfData: string;
     function GetDataSet: TSQLQuery;
     function GetDateCreated: TDateTime;
     function GetDateModified: TDateTime;
@@ -175,8 +177,10 @@ type
     procedure SetActive(AValue: Boolean);
     procedure SetAutoApplyUpdates(AValue: Boolean);
     procedure SetAutoCommit(AValue: Boolean);
-    procedure SetComment(AValue: string);
-    procedure SetCommentRtf(AValue: string);
+    procedure SetHtmlData(AValue: string);
+    procedure SetHtmlText(AValue: string);
+    procedure SetRtfText(AValue: string);
+    procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
     procedure SetDateModified(AValue: TDateTime);
     procedure SetFileName(AValue: string);
@@ -292,12 +296,18 @@ type
     {$REGION 'ISnippet'}
     { Textual representation of the RTF content. This is used for text
       searching. }
-    property Comment: string
-      read GetComment write SetComment;
+    property RtfText: string
+      read GetRtfText write SetRtfText;
 
     { Field containing the RTF content of the node's comment. }
-    property CommentRtf: string
-      read GetCommentRtf write SetCommentRtf;
+    property RtfData: string
+      read GetRtfData write SetRtfData;
+
+    property HtmlText: string
+      read GetHtmlText write SetHtmlText;
+
+    property HtmlData: string
+      read GetHtmlData write SetHtmlData;
 
     { DateTime of creation of the current record. }
     property DateCreated: TDateTime
@@ -615,6 +625,26 @@ begin
   Result := sqoAutoCommit in DataSet.Options;
 end;
 
+function TdmSnippetSource.GetHtmlData: string;
+begin
+  Result := qrySnippet.FieldByName('HtmlData').AsString;
+end;
+
+procedure TdmSnippetSource.SetHtmlData(AValue: string);
+begin
+  qrySnippet.FieldValues['HtmlData'] := AValue;
+end;
+
+function TdmSnippetSource.GetHtmlText: string;
+begin
+  Result := qrySnippet.FieldByName('HtmlText').AsString;
+end;
+
+procedure TdmSnippetSource.SetHtmlText(AValue: string);
+begin
+  qrySnippet.FieldValues['HtmlText'] := AValue;
+end;
+
 procedure TdmSnippetSource.SetAutoCommit(AValue: Boolean);
 begin
   if AValue <> AutoCommit then
@@ -706,24 +736,24 @@ begin
   end;
 end;
 
-function TdmSnippetSource.GetComment: string;
+function TdmSnippetSource.GetRtfText: string;
 begin
-  Result := qrySnippet.FieldByName('Comment').AsString;
+  Result := qrySnippet.FieldByName('RtfText').AsString;
 end;
 
-procedure TdmSnippetSource.SetComment(AValue: string);
+procedure TdmSnippetSource.SetRtfText(AValue: string);
 begin
-  qrySnippet.FieldValues['Comment'] := AValue;
+  qrySnippet.FieldValues['RtfText'] := AValue;
 end;
 
-function TdmSnippetSource.GetCommentRtf: string;
+function TdmSnippetSource.GetRtfData: string;
 begin
-  Result := qrySnippet.FieldByName('CommentRtf').AsString;
+  Result := qrySnippet.FieldByName('RtfData').AsString;
 end;
 
-procedure TdmSnippetSource.SetCommentRtf(AValue: string);
+procedure TdmSnippetSource.SetRtfData(AValue: string);
 begin
-  qrySnippet.FieldValues['CommentRtf'] := AValue;
+  qrySnippet.FieldValues['RtfData'] := AValue;
 end;
 
 function TdmSnippetSource.GetFoldLevel: Integer;
@@ -1369,13 +1399,14 @@ procedure TdmSnippetSource.Lookup(const ASearchString: string;
 begin
   qryLookup.Active := False;
   qryLookup.SQL.Text := Format(
-    'select'                         + sLineBreak +
-    '  *'                            + sLineBreak +
-    'from'                           + sLineBreak +
-    '  Snippet'                      + sLineBreak +
-    'where'                          + sLineBreak +
-    '  Text like ''%%%0:s%%'''       + sLineBreak +
-    '  or Comment like ''%%%0:s%%''' + sLineBreak +
+    'select'                          + sLineBreak +
+    '  *'                             + sLineBreak +
+    'from'                            + sLineBreak +
+    '  Snippet'                       + sLineBreak +
+    'where'                           + sLineBreak +
+    '  Text like ''%%%0:s%%'''        + sLineBreak +
+    '  or RtfText like ''%%%0:s%%'''  + sLineBreak +
+    '  or HtmlText like ''%%%0:s%%''' + sLineBreak +
     '  or NodeName like ''%%%0:s%%''',
     [ASearchString]
   );

@@ -1,13 +1,14 @@
 object frmLookup: TfrmLookup
-  Left = 420
+  Left = 780
   Height = 476
-  Top = 347
+  Top = 293
   Width = 520
   ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 476
   ClientWidth = 520
   Color = clWindow
+  Font.Height = -12
   KeyPreview = True
   OnKeyUp = FormKeyUp
   OnShow = FormShow
@@ -22,9 +23,11 @@ object frmLookup: TfrmLookup
     Width = 253
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
+    Font.Height = -12
     OnKeyDown = edtLookupKeyDown
     OnKeyPress = edtLookupKeyPress
     OnKeyUp = edtLookupKeyUp
+    ParentFont = False
     TabOrder = 0
   end
   object btnSearch: TButton
@@ -35,6 +38,8 @@ object frmLookup: TfrmLookup
     Action = actSearch
     Anchors = [akTop, akRight]
     Default = True
+    Font.Height = -12
+    ParentFont = False
     TabOrder = 1
   end
   object sbrMain: TStatusBar
@@ -52,7 +57,9 @@ object frmLookup: TfrmLookup
     Anchors = [akTop, akRight]
     Caption = 'Name'
     Checked = True
+    Font.Height = -12
     OnChange = chkNameChange
+    ParentFont = False
     State = cbChecked
     TabOrder = 3
   end
@@ -64,7 +71,9 @@ object frmLookup: TfrmLookup
     Anchors = [akTop, akRight]
     Caption = 'Text'
     Checked = True
+    Font.Height = -12
     OnChange = chkNameChange
+    ParentFont = False
     State = cbChecked
     TabOrder = 4
   end
@@ -76,6 +85,8 @@ object frmLookup: TfrmLookup
     Anchors = [akTop, akRight]
     Caption = 'Comment'
     Checked = True
+    Font.Height = -12
+    ParentFont = False
     State = cbChecked
     TabOrder = 5
   end
@@ -86,6 +97,7 @@ object frmLookup: TfrmLookup
     Width = 512
     Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
+    BorderStyle = bsNone
     Color = clWindow
     Columns = <    
       item
@@ -139,13 +151,18 @@ object frmLookup: TfrmLookup
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
+    FixedColor = clWindow
+    FixedCols = 0
+    FixedHotColor = clWindow
     Flat = True
-    Options = [dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+    Font.Height = -12
+    Options = [dgTitles, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
     OptionsExtra = []
+    ParentFont = False
     ReadOnly = True
     Scrollbars = ssAutoBoth
     TabOrder = 6
-    TitleStyle = tsStandard
+    TitleStyle = tsNative
     UseXORFeatures = True
   end
   object dscMain: TDataSource

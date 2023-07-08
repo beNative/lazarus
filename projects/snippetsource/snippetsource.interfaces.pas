@@ -107,9 +107,11 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
+  function GetHtmlData: string;
+  function GetHtmlText: string;
     {$REGION 'property access mehods'}
-    function GetComment: string;
-    function GetCommentRtf: string;
+    function GetRtfText: string;
+    function GetRtfData: string;
     function GetDateCreated: TDateTime;
     function GetDateModified: TDateTime;
     function GetFoldLevel: Integer;
@@ -122,8 +124,10 @@ type
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
     function GetText: string;
-    procedure SetComment(AValue: string);
-    procedure SetCommentRtf(AValue: string);
+    procedure SetHtmlData(AValue: string);
+    procedure SetHtmlText(AValue: string);
+    procedure SetRtfText(AValue: string);
+    procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
     procedure SetDateModified(AValue: TDateTime);
     procedure SetFoldLevel(AValue: Integer);
@@ -137,11 +141,17 @@ type
     procedure SetText(AValue: string);
     {$ENDREGION}
 
-    property Comment: string
-      read GetComment write SetComment;
+    property RtfText: string
+      read GetRtfText write SetRtfText;
 
-    property CommentRtf: string
-      read GetCommentRtf write SetCommentRtf;
+    property RtfData: string
+      read GetRtfData write SetRtfData;
+
+    property HtmlText: string
+      read GetHtmlText write SetHtmlText;
+
+    property HtmlData: string
+      read GetHtmlData write SetHtmlData;
 
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;

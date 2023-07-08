@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 248
-  VerticalOffset = 926
+  HorizontalOffset = 1187
+  VerticalOffset = 230
   Width = 421
   object trsMain: TSQLTransaction
     Active = False
@@ -301,8 +301,10 @@ object dmSnippetSource: TdmSnippetSource
       '  NodePath      varchar,'
       '  Text          text,'
       '  FoldLevel     integer,'
-      '  Comment       text,'
-      '  CommentRtf    text,'
+      '  RtfText       text,'
+      '  RtfData       text,'
+      '  HtmlText      text,'
+      '  HtmlData      text,'
       '  FoldState     varchar,'
       '  DateCreated   datetime,'
       '  DateModified  datetime'

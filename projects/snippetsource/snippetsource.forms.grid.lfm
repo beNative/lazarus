@@ -1,10 +1,11 @@
 object frmGrid: TfrmGrid
-  Left = -2193
+  Left = 954
   Height = 820
-  Top = 391
+  Top = 203
   Width = 1250
   ClientHeight = 820
   ClientWidth = 1250
+  Font.Height = -12
   PopupMode = pmAuto
   Position = poOwnerFormCenter
   ShowHint = True

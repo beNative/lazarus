@@ -107,9 +107,9 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
-  function GetHtmlData: string;
-  function GetHtmlText: string;
     {$REGION 'property access mehods'}
+    function GetHtmlText: string;
+    function GetHtmlData: string;
     function GetRtfText: string;
     function GetRtfData: string;
     function GetDateCreated: TDateTime;
@@ -140,6 +140,8 @@ type
     procedure SetParentId(AValue: Integer);
     procedure SetText(AValue: string);
     {$ENDREGION}
+
+    procedure DuplicateRecords(AValues: TStrings);
 
     property RtfText: string
       read GetRtfText write SetRtfText;

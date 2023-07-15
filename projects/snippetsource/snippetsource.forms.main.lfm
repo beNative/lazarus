@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2874
+  Left = 863
   Height = 595
-  Top = 559
+  Top = 428
   Width = 1125
   Caption = 'SnippetSource'
   ClientHeight = 595
@@ -11,9 +11,7 @@ object frmMain: TfrmMain
   Font.Color = clBlack
   Font.Height = -11
   Font.Name = 'Segoe UI'
-  OnActivate = FormActivate
   OnCloseQuery = FormCloseQuery
-  OnShow = FormShow
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
@@ -525,7 +523,6 @@ object frmMain: TfrmMain
             ClientHeight = 24
             ClientWidth = 839
             TabOrder = 0
-            OnClick = pnlHtmlEditorToolBarClick
             object shpHtmlEditorToolBarLine: TShape
               Left = 0
               Height = 1
@@ -558,7 +555,7 @@ object frmMain: TfrmMain
         Width = 552
         Align = alCustom
         Alignment = taCenter
-        Anchors = [akTop, akLeft, akRight]
+        Anchors = [akTop, akLeft, akRight, akBottom]
         AutoSize = False
         BorderStyle = bsNone
         Font.CharSet = ANSI_CHARSET
@@ -594,12 +591,12 @@ object frmMain: TfrmMain
         ParentFont = False
       end
       object tlbApplication: TToolBar
-        Left = 631
+        Left = 611
         Height = 24
-        Top = 0
-        Width = 208
+        Top = 1
+        Width = 228
         Align = alCustom
-        Anchors = [akTop, akRight]
+        Anchors = [akTop, akRight, akBottom]
         ButtonHeight = 20
         ButtonWidth = 26
         EdgeBorders = []
@@ -657,6 +654,7 @@ object frmMain: TfrmMain
       ShortCut = 24646
     end
     object actToggleStayOnTop: TAction
+      AutoCheck = True
       Caption = 'Stay on top'
       ImageIndex = 0
       OnExecute = actToggleStayOnTopExecute

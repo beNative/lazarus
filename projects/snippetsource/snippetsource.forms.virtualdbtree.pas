@@ -97,6 +97,7 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
+    MenuItem1: TMenuItem;
     mniCancel                 : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
     mniCopyNodeData           : TMenuItem;
@@ -178,14 +179,15 @@ type
     {$ENDREGION}
 
   private
-    FTreeView              : TCheckVirtualDBTreeEx;
-    FOnDropFiles           : TDropFilesEvent;
-    FDataSet               : TDataSet;
-    FOnNewFolderNode       : TNotifyEvent;
-    FOnNewItemNode         : TNotifyEvent;
-    FOnDeleteSelectedNodes : TNotifyEvent;
-    FOnCopyNodeData        : TNotifyEvent;
-    FNodeTypeFieldName     : string;
+    FOnDuplicateSelectedNodes : TNotifyEvent;
+    FTreeView                 : TCheckVirtualDBTreeEx;
+    FOnDropFiles              : TDropFilesEvent;
+    FDataSet                  : TDataSet;
+    FOnNewFolderNode          : TNotifyEvent;
+    FOnNewItemNode            : TNotifyEvent;
+    FOnDeleteSelectedNodes    : TNotifyEvent;
+    FOnCopyNodeData           : TNotifyEvent;
+    FNodeTypeFieldName        : string;
 
     {$REGION 'property access methods'}
     function GetImageFieldName: string;
@@ -242,6 +244,7 @@ type
       const AAttachMode : TVTNodeAttachMode
     ); dynamic;
     procedure DoDeleteSelectedNodes; dynamic;
+    procedure DoDuplicateSelectedNodes; dynamic;
 
     procedure UpdateActions; override;
 
@@ -254,6 +257,7 @@ type
     procedure NewSubItemNode;
     procedure NewRootFolderNode;
     procedure DeleteSelectedNodes;
+    procedure RetrieveSelectedNodeIds(ANodeIds: TStrings);
 
     // public properties
     property KeyField: TField
@@ -329,6 +333,9 @@ type
     property OnDeleteSelectedNodes : TNotifyEvent
       read FOnDeleteSelectedNodes write FOnDeleteSelectedNodes;
 
+    property OnDuplicateSelectedNodes: TNotifyEvent
+      read FOnDuplicateSelectedNodes write FOnDuplicateSelectedNodes;
+
     property OnCopyNodeData : TNotifyEvent
       read FOnCopyNodeData write FOnCopyNodeData;
   end;
@@ -342,12 +349,7 @@ uses
 
   ts.Core.Logger,
 
-  SnippetSource.VirtualTree.Editors;
-
-resourcestring
-  SDeleteSelectedItems = 'Are you sure you want to delete te selected item(s)?';
-  SNewFolder           = 'New folder';
-  SNew                 = 'New';
+  SnippetSource.VirtualTree.Editors, SnippetSource.Resources;
 
 {$REGION 'construction and destruction'}
 procedure TfrmVirtualDBTree.AfterConstruction;
@@ -568,12 +570,10 @@ begin
     FOnDeleteSelectedNodes(Self);
 end;
 
-procedure TfrmVirtualDBTree.UpdateActions;
+procedure TfrmVirtualDBTree.DoDuplicateSelectedNodes;
 begin
-  inherited UpdateActions;
-  actCopyNodeData.Enabled := SelectionCount = 1;
-  actCancel.Enabled       := DataSet.State in dsEditModes;
-  actPost.Enabled         := DataSet.State in dsEditModes;
+  if Assigned(FOnDuplicateSelectedNodes) then
+    FOnDuplicateSelectedNodes(Self);
 end;
 {$ENDREGION}
 
@@ -595,7 +595,7 @@ end;
 
 procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);
 begin
-  //
+  DoDuplicateSelectedNodes;
 end;
 
 procedure TfrmVirtualDBTree.actNewFolderNodeExecute(Sender: TObject);
@@ -760,6 +760,14 @@ end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
+procedure TfrmVirtualDBTree.UpdateActions;
+begin
+  inherited UpdateActions;
+  actCopyNodeData.Enabled := SelectionCount = 1;
+  actCancel.Enabled       := DataSet.State in dsEditModes;
+  actPost.Enabled         := DataSet.State in dsEditModes;
+end;
+
 procedure TfrmVirtualDBTree.PostTreeData(AParentId: Integer;
   ANodeType: Integer; const AName: string);
 begin
@@ -941,6 +949,17 @@ procedure TfrmVirtualDBTree.DeleteSelectedNodes;
 begin
   FTreeView.DeleteSelection;
   DoDeleteSelectedNodes;
+end;
+
+procedure TfrmVirtualDBTree.RetrieveSelectedNodeIds(ANodeIds: TStrings);
+var
+  LNode : PVirtualNode;
+begin
+  for LNode in FTreeView.SelectedNodes do
+  begin
+    FTreeView.GetDBNodeData(LNode);
+    ANodeIds.Add('%2f', [PDBVTData(FTreeView.GetNodeData(LNode)).Id]);
+  end;
 end;
 {$ENDREGION}
 end.

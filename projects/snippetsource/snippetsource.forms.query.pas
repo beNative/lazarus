@@ -62,7 +62,9 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Editor.Factories;
+  ts.Editor.Factories,
+
+  SnippetSource.Resources;
 
 {$REGION 'construction and destruction'}
 constructor TfrmQuery.Create(AOwner: TComponent; AEditorManager: IEditorManager;
@@ -77,8 +79,9 @@ procedure TfrmQuery.AfterConstruction;
 begin
   inherited AfterConstruction;
   FEditor := TEditorFactories.CreateView(pnlQueryEditor, FManager, 'QueryEditor');
-  FEditor.HighlighterName := 'SQL';
+  FEditor.HighlighterName  := 'SQL';
   FEditor.Editor.PopupMenu := FManager.Menus.EditorPopupMenu;
+  FEditor.Text             := SQL_DEFAULT_QUERY;
 end;
 
 destructor TfrmQuery.Destroy;

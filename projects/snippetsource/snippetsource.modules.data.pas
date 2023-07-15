@@ -133,6 +133,8 @@ type
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
 
     procedure FSettingsChange(Sender: TObject);
+    procedure scrInsertDataDirective(Sender: TObject; Directive,
+      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
@@ -267,6 +269,8 @@ type
       ASettings : ISettings
     ); reintroduce; virtual;
     destructor Destroy; override;
+
+    procedure DuplicateRecords(AValues: TStrings);
 
     {$REGION 'ISQLite'}
     property ReadOnly: Boolean
@@ -473,6 +477,15 @@ begin
   inherited Destroy;
   Logger.Info('DM Destroyed');
 end;
+
+procedure TdmSnippetSource.DuplicateRecords(AValues: TStrings);
+var
+  LSql : string;
+begin
+  LSql := Format(SQL_DUPLICATE_IDS, [AValues.CommaText]);
+  ExecuteDirect(LSql);
+end;
+
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -912,6 +925,13 @@ procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
 begin
   ConnectToDatabase(FSettings.Database);
 end;
+
+procedure TdmSnippetSource.scrInsertDataDirective(Sender: TObject; Directive,
+  Argument: AnsiString; var StopExecution: Boolean);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'protected methods'}

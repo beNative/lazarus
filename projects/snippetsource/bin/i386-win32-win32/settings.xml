@@ -35,7 +35,7 @@
 					<Options>[,ssoEntireScope]</Options>
 				</TSearchEngineSettings>
 				<TCodeShaperSettings Name="CodeShaperSettings">
-					<Width>408</Width>
+					<Width>600</Width>
 				</TCodeShaperSettings>
 			</Components>
 		</TEditorToolSettings>
@@ -1302,7 +1302,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>JS</HighlighterType>
+	<HighlighterType>TXT</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
@@ -1316,7 +1316,7 @@
 	</FormSettings>
 	<EditorFont>(TFont)
 		<CharSet>ANSI_CHARSET</CharSet>
-		<Height>-15</Height>
+		<Height>-14</Height>
 		<Name>Consolas</Name>
 		<Pitch>fpFixed</Pitch>
 		<Quality>fqDraft</Quality>

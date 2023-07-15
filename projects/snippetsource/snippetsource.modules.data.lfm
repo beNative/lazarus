@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 1187
-  VerticalOffset = 230
+  HorizontalOffset = 1188
+  VerticalOffset = 231
   Width = 421
   object trsMain: TSQLTransaction
     Active = False
@@ -416,6 +416,7 @@ object dmSnippetSource: TdmSnippetSource
   end
   object scrInsertData: TSQLScript
     Transaction = trsMain
+    OnDirective = scrInsertDataDirective
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (

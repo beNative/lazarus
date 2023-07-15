@@ -1,7 +1,7 @@
 object frmGrid: TfrmGrid
-  Left = 954
+  Left = 675
   Height = 820
-  Top = 203
+  Top = 90
   Width = 1250
   ClientHeight = 820
   ClientWidth = 1250

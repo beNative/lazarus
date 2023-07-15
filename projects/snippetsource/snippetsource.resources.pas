@@ -37,6 +37,45 @@ const
     'where'          + sLineBreak +
     '  (Id >= %d)'   + sLineBreak +
     '  and NodePath = ''%s''';
+  SQL_DEFAULT_QUERY = 'select * from Snippet';
+
+  SQL_DUPLICATE_IDS =
+    'insert into Snippet ('  + sLineBreak +
+    '  HighlighterId,'       + sLineBreak +
+    '  NodeTypeId,'          + sLineBreak +
+    '  ParentId,'            + sLineBreak +
+    '  ImageIndex,'          + sLineBreak +
+    '  Image,'               + sLineBreak +
+    '  NodeName,'            + sLineBreak +
+    '  NodePath,'            + sLineBreak +
+    '  Text,'                + sLineBreak +
+    '  FoldLevel,'           + sLineBreak +
+    '  RtfText,'             + sLineBreak +
+    '  RtfData,'             + sLineBreak +
+    '  HtmlText,'            + sLineBreak +
+    '  HtmlData,'            + sLineBreak +
+    '  FoldState'            + sLineBreak +
+    ')'                      + sLineBreak +
+    'select'                 + sLineBreak +
+    '  HighlighterId,'       + sLineBreak +
+    '  NodeTypeId,'          + sLineBreak +
+    '  ParentId,'            + sLineBreak +
+    '  ImageIndex,'          + sLineBreak +
+    '  Image,'               + sLineBreak +
+    '  NodeName,'            + sLineBreak +
+    '  NodePath,'            + sLineBreak +
+    '  Text,'                + sLineBreak +
+    '  FoldLevel,'           + sLineBreak +
+    '  RtfText,'             + sLineBreak +
+    '  RtfData,'             + sLineBreak +
+    '  HtmlText,'            + sLineBreak +
+    '  HtmlData,'            + sLineBreak +
+    '  FoldState'            + sLineBreak +
+    'from'                   + sLineBreak +
+    '  Snippet s'            + sLineBreak +
+    'where'                  + sLineBreak +
+    '  Id in (%s)';
+
 
   // Windows registry paths to Python installations
   PYTHON_CORE_LOCAL_MACHINE = 'SOFTWARE\Python\PythonCore';
@@ -62,6 +101,10 @@ resourcestring
   SDatabaseIntegrityCheckSuccessful = 'Integrity check was successful!';
   SDatabaseIntegrityCheckFailed     = 'Database failed integrity check!';
   SVirtualEnvironmentAlreadyExists  = 'This virtual environment already exists.';
+
+  SDeleteSelectedItems = 'Are you sure you want to delete te selected item(s)?';
+  SNewFolder           = 'New folder';
+  SNew                 = 'New';
 
 implementation
 

@@ -1,7 +1,7 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 423
+  Left = 425
   Height = 381
-  Top = 146
+  Top = 147
   Width = 282
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
@@ -196,6 +196,9 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     end
     object mniRefresh: TMenuItem
       Action = actRefresh
+    end
+    object MenuItem1: TMenuItem
+      Action = actDuplicateSelectedNodes
     end
     object N2: TMenuItem
       Caption = '-'

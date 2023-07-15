@@ -140,10 +140,7 @@ type
     procedure edtTitleMouseLeave(Sender: TObject);
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
-    procedure FormActivate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure FormShow(Sender: TObject);
-    procedure pnlHtmlEditorToolBarClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -166,8 +163,6 @@ type
     FRichEditorToolBar  : TToolBar;
     FHtmlEditorToolBar  : TToolBar;
     FUpdate             : Boolean;
-    FRichEditorVisible  : Boolean;
-    FTextEditorVisible  : Boolean;
     FRtfStream          : TStringStream;
     FHtmlStream         : TStringStream;
     FUpdateRichTextView : Boolean;
@@ -194,6 +189,7 @@ type
       AToolView : IEditorToolView
     );
     procedure FHtmlEditorAfterCreated(Sender: TObject);
+    procedure FHtmlEditorChange(Sender: TObject);
     procedure FRichEditorChange(Sender: TObject);
     procedure FRichEditorDropFiles(
       Sender           : TObject;
@@ -214,6 +210,7 @@ type
       AFiles      : TStrings;
       AAttachMode : TVTNodeAttachMode
     );
+    procedure FTreeDuplicateSelectedNodes(Sender: TObject);
     procedure FTreeNewFolderNode(Sender: TObject);
     procedure FTreeNewItemNode(Sender: TObject);
     procedure FTreeDeleteSelectedNodes(Sender: TObject);
@@ -229,6 +226,7 @@ type
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
     {$ENDREGION}
+
     procedure AddButton(
       AToolBar          : TToolBar;
       const AActionName : string = '';
@@ -357,7 +355,6 @@ begin
   FRtfStream := TStringStream.Create;
   FHtmlStream := TStringStream.Create;
 
-
   dscMain.DataSet := DataSet.DataSet;
   if FSettings.LastFocusedId > 0 then
   begin
@@ -461,7 +458,7 @@ end;
 procedure TfrmMain.actToggleHtmlEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex := pgHtmlEditor.PageIndex;
-  FHtmlEditor.Uri := 'http://www.planet-odoo.com/check-out-how-odoo-16-features-help-the-business-organization/';
+  FHtmlEditor.Source := 'http://www.planet-odoo.com/check-out-how-odoo-16-features-help-the-business-organization/';
   Modified;
   SaveHtmlData;
 end;
@@ -496,7 +493,7 @@ end;
 
 procedure TfrmMain.actCloseRichEditorToolViewExecute(Sender: TObject);
 var
-  TV: IRichEditorToolView;
+  TV : IRichEditorToolView;
 begin
   pnlRichEditorToolViewHost.Visible     := False;
   splRichEditorVertical.Visible := False;
@@ -564,7 +561,7 @@ end;
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);
 begin
   if (Sender as TAction).Checked then
-    FormStyle := fsStayOnTop
+    FormStyle := fsSystemStayOnTop
   else
     FormStyle := fsNormal;
 end;
@@ -619,8 +616,8 @@ begin
      //btnImage.Glyph.LoadFromStream(LStream);
       //  LStream.Free;
         btnHighlighter.Caption := Snippet.Highlighter;
-        FTextEditorVisible := False;
-        FRichEditorVisible := False;
+        //FTextEditorVisible := False;
+        //FRichEditorVisible := False;
         LoadRtfData;
         LoadHtmlData;
         Modified;
@@ -730,27 +727,11 @@ procedure TfrmMain.FileSearcherFileFound(FileIterator: TFileIterator);
 begin
   AddPathNode(FileIterator.FileName, FCommonPath, FTree.TreeView);
 end;
-
-procedure TfrmMain.FormActivate(Sender: TObject);
-begin
-
-end;
-
 {$ENDREGION}
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
-end;
-
-procedure TfrmMain.FormShow(Sender: TObject);
-begin
-  //nbRight.PageIndex := 0;
-end;
-
-procedure TfrmMain.pnlHtmlEditorToolBarClick(Sender: TObject);
-begin
-
 end;
 
 {$REGION 'FTree'}
@@ -813,6 +794,20 @@ begin
   FBusyForm.Visible := False;
 end;
 
+procedure TfrmMain.FTreeDuplicateSelectedNodes(Sender: TObject);
+var
+  LValues : TStrings;
+begin
+  LValues := TStringList.Create;
+  try
+    FTree.RetrieveSelectedNodeIds(LValues);
+    Snippet.DuplicateRecords(LValues);
+  finally
+    LValues.Free;
+  end;
+  DataSet.DataSet.Refresh;
+end;
+
 procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
 begin
   DataSet.Edit;
@@ -836,7 +831,6 @@ begin
   if DataSet.RecordCount > 0 then
   begin
     SaveRtfData;
-    //SaveHtmlData;
   end;
 end;
 
@@ -896,6 +890,13 @@ begin
   nbRight.PageIndex := 0;
 end;
 
+procedure TfrmMain.FHtmlEditorChange(Sender: TObject);
+begin
+  if DataSet.RecordCount > 0 then
+  begin
+    SaveHtmlData;
+  end;
+end;
 {$ENDREGION}
 {$ENDREGION}
 
@@ -1007,6 +1008,7 @@ begin
   AddButton(tlbApplication, actExecute);
   AddButton(tlbApplication, actSettings);
   AddButton(tlbApplication, actAbout);
+  AddButton(tlbApplication, actToggleStayOnTop);
 end;
 
 procedure TfrmMain.HideAction(const AActionName: string);
@@ -1045,19 +1047,20 @@ end;
 
 procedure TfrmMain.CreateTreeview;
 begin
-  FTree                       := TfrmVirtualDBTree.Create(Self);
-  FTree.DoubleBuffered        := True;
-  FTree.Parent                := pnlLeft;
-  FTree.BorderStyle           := bsNone;
-  FTree.Align                 := alClient;
-  FTree.Visible               := True;
-  FTree.DataSet               := DataSet.DataSet;
-  FTree.ImageList             := (FData as IGlyphs).ImageList;
-  FTree.OnDropFiles           := FTreeDropFiles;
-  FTree.OnNewFolderNode       := FTreeNewFolderNode;
-  FTree.OnNewItemNode         := FTreeNewItemNode;
-  FTree.OnDeleteSelectedNodes := FTreeDeleteSelectedNodes;
-  FTree.OnCopyNodeData        := FTreeCopyNodeData;
+  FTree                          := TfrmVirtualDBTree.Create(Self);
+  FTree.DoubleBuffered           := True;
+  FTree.Parent                   := pnlLeft;
+  FTree.BorderStyle              := bsNone;
+  FTree.Align                    := alClient;
+  FTree.Visible                  := True;
+  FTree.DataSet                  := DataSet.DataSet;
+  FTree.ImageList                := (FData as IGlyphs).ImageList;
+  FTree.OnDropFiles              := FTreeDropFiles;
+  FTree.OnNewFolderNode          := FTreeNewFolderNode;
+  FTree.OnNewItemNode            := FTreeNewItemNode;
+  FTree.OnDeleteSelectedNodes    := FTreeDeleteSelectedNodes;
+  FTree.OnDuplicateSelectedNodes := FTreeDuplicateSelectedNodes;
+  FTree.OnCopyNodeData           := FTreeCopyNodeData;
 end;
 
 procedure TfrmMain.CreateTextEditor;
@@ -1123,7 +1126,8 @@ begin
   );
   FHtmlEditorToolBar.Height := 23;
   FHtmlEditor.SetFocus;
-  FHtmlEditor.OnAfterCreated  := FHtmlEditorAfterCreated;
+  FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;
+  FHtmlEditor.OnChange       := FHtmlEditorChange;
   FHtmlEditor.EditMode := True;
 end;
 
@@ -1167,6 +1171,7 @@ procedure TfrmMain.LoadRtfData;
 var
   S : string;
 begin
+  Logger.Enter(Self, 'LoadRtfData');
   if Snippet.RtfData <> '' then
   begin
     S := DecodeStringBase64(Snippet.RtfData);
@@ -1183,6 +1188,7 @@ begin
     FRtfStream.Clear;
     FUpdateRichTextView := True;
   end;
+  Logger.Leave(Self, 'LoadRtfData');
 end;
 
 procedure TfrmMain.SaveRtfData;
@@ -1219,23 +1225,14 @@ procedure TfrmMain.LoadHtmlData;
 var
   S : string;
 begin
-  if Snippet.HtmlData <> '' then
-  begin
+  Logger.Enter(Self, 'LoadHtmlData');
+  try
     S := DecodeStringBase64(Snippet.HtmlData);
-   // if S <> FHtmlStream.DataString then
-    begin
-      //FHtmlStream.Clear;
-      //FHtmlStream.WriteString(S);
-      //FHtmlStream.Position := 0;
-      //FUpdateRichTextView := True;
-      FHtmlEditor.HtmlText := S;
-    end
-  end
-  else
-  begin
-    //FHtmlStream.Clear;
-    //FUpdateRichTextView := True;
+    FHtmlEditor.HtmlText := S;
+  except
+    Logger.Error('DecodeStringBase64 failed during LoadHtmlData.');
   end;
+  Logger.Leave(Self, 'LoadHtmlData');
 end;
 
 procedure TfrmMain.SaveHtmlData;
@@ -1243,16 +1240,18 @@ begin
   Logger.Enter(Self, 'SaveHtmlData');
   if Assigned(DataSet) then
     DataSet.Edit;
-  if not HtmlEditor.IsEmpty then
-  begin
-    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
-    Snippet.HtmlText := HtmlEditor.Text;
-  end
-  else
-  begin
-    Snippet.HtmlData := '';
-    Snippet.HtmlText := '';
-  end;
+  Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
+
+  //if not HtmlEditor.IsEmpty then
+  //begin
+  //  Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
+  //  //Snippet.HtmlText := HtmlEditor.Text;
+  //end
+  //else
+  //begin
+  //  Snippet.HtmlData := '';
+  //  //Snippet.HtmlText := '';
+  //end;
   Logger.Leave(Self, 'SaveHtmlData');
 end;
 
@@ -1281,7 +1280,6 @@ begin
   else
   begin
     LIsTextFile := FileIsText(APath, LIsReadable);
-
     if not LIsTextFile then
     begin
       LIsImage := TPicture.FindGraphicClassWithFileExt(
@@ -1304,6 +1302,10 @@ begin
   LFileName := Trim(ExtractFileName(APath));
   if LFileName <> '' then
   begin
+    if FilenameExtIn(LFileName, ['html', 'htm', 'mhtml', 'svg', 'pdf']) then
+    begin
+      HtmlEditor.LoadFromFile(LFileName);
+    end;
     if LIsTextFile then
     begin
       DataSet.Append;
@@ -1415,7 +1417,8 @@ begin
       Editor.SelStart
     ]);
   pnlSnippetCount.Caption := Format('%d records.', [DataSet.RecordCount]);
-  pnlSize.Caption := FormatByteText(Editor.TextSize + RichEditor.ContentSize);
+  pnlSize.Caption := FormatByteText(Editor.TextSize + RichEditor.ContentSize
+  + HtmlEditor.ContentSize);
   if DataSet.RecordCount > 0 then
   begin
     pnlId.Caption           := Format(SId, [Snippet.Id]);
@@ -1450,10 +1453,6 @@ begin
 end;
 
 procedure TfrmMain.UpdateViews;
-//var
-//  LRichEditorVisible : Boolean;
-//  LTextEditorVisible : Boolean;
-//  LHtmlEditorVisible : Boolean;
 begin
   if FUpdate then
   begin
@@ -1462,42 +1461,10 @@ begin
       RichEditor.LoadFromStream(FRtfStream);
       FUpdateRichTextView := False;
     end;
-
     if RichEditor.IsEmpty and (FSettings.DefaultRichEditorFontName <> '') then
     begin
       RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
     end;
-    //LRichEditorVisible := FRichEditorVisible or
-    //  (not (FSettings.AutoHideRichEditor and RichEditor.IsEmpty));
-    //LTextEditorVisible := FTextEditorVisible or
-    //  (not (FSettings.AutoHideEditor and Editor.IsEmpty));
-
-    //if FTextEditorVisible then
-    //  nbRight.PageIndex := pgTextEditor.PageIndex
-    //else if FRichEditorVisible then
-    //  nbRight.PageIndex := pgRichEditor.PageIndex
-    //else if FHtmlEditorVisible then
-      //nbRight.PageIndex := pgHtmlEditor.PageIndex;
-
-
-    //pnlEditor.Visible     := ;
-    //pnlRichEditor.Visible := LRichEditorVisible;
-    //splHorizontal.Visible := LTextEditorVisible and LRichEditorVisible;
-    //if LTextEditorVisible and not LRichEditorVisible then
-    //  pnlEditor.Align := alClient
-    //else if not LTextEditorVisible and LRichEditorVisible then
-    //  pnlRichEditor.Align := alClient
-    //else if LTextEditorVisible and LRichEditorVisible then
-    //begin
-    //  splHorizontal.Align := alTop;
-    //  pnlEditor.Align     := alClient;
-    //  pnlRichEditor.Align := alBottom;
-    //  splHorizontal.Align := alBottom;
-    //end;
-    //actToggleTextEditor.Checked     := LTextEditorVisible;
-    //actToggleRichTextEditor.Checked := LRichEditorVisible;
-    //FTextEditorVisible := LTextEditorVisible;
-    //FRichEditorVisible := LRichEditorVisible;
     FUpdate := False;
   end;
 end;

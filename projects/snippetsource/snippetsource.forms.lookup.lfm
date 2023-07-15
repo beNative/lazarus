@@ -1,7 +1,7 @@
 object frmLookup: TfrmLookup
-  Left = 780
+  Left = 782
   Height = 476
-  Top = 293
+  Top = 294
   Width = 520
   ActiveControl = edtLookup
   Caption = 'Lookup'

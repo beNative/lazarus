@@ -1,12 +1,11 @@
 inherited frmScriptEditor: TfrmScriptEditor
-  Left = 602
+  Left = 603
   Height = 486
-  Top = 178
+  Top = 180
   Width = 644
   Caption = 'Script editor'
   ClientHeight = 486
   ClientWidth = 644
-  Font.Height = -12
   OnShow = FormShow
   object pnlMain: TPanel[0]
     Left = 0

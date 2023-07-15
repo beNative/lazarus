@@ -50,6 +50,7 @@ type
     function GetCanPaste: Boolean;
     function GetCanRedo: Boolean;
     function GetCanUndo: Boolean;
+    function GetContentSize: Int64;
     function GetDefaultContextMenusEnabled: Boolean;
     function GetDefaultScriptDialogsEnabled: Boolean;
     function GetDevToolsEnabled: Boolean;
@@ -62,7 +63,6 @@ type
     function GetIsFile: Boolean;
     function GetIsInitialized: Boolean;
     function GetIsNavigating: Boolean;
-    function GetMhtmlText: string;
     function GetModified: Boolean;
     function GetOffline: Boolean;
     function GetOnAfterCreated: TNotifyEvent;
@@ -71,12 +71,10 @@ type
     function GetPopupMenu: TPopupMenu;
     function GetScriptEnabled: Boolean;
     function GetSelAvail: Boolean;
-    function GetSelEnd: Integer;
-    function GetSelStart: Integer;
     function GetSelText: string;
     function GetStatusBarEnabled: Boolean;
     function GetText: string;
-    function GetUri: string;
+    function GetSource: string;
     function GetWebMessageEnabled: Boolean;
     function GetZoomControlEnabled: Boolean;
     procedure SetAlignCenter(AValue: Boolean);
@@ -92,7 +90,6 @@ type
     procedure SetFileName(const AValue: string);
     procedure SetHtmlText(const AValue: string);
     procedure SetIsFile(AValue: Boolean);
-    procedure SetMhtmlText(AValue: string);
     procedure SetModified(const AValue: Boolean);
     procedure SetOffline(AValue: Boolean);
     procedure SetOnAfterCreated(AValue: TNotifyEvent);
@@ -101,12 +98,10 @@ type
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
-    procedure SetSelEnd(const AValue: Integer);
-    procedure SetSelStart(const AValue: Integer);
     procedure SetSelText(const AValue: string);
     procedure SetStatusBarEnabled(AValue: Boolean);
     procedure SetText(const AValue: string);
-    procedure SetUri(AValue: string);
+    procedure SetSource(AValue: string);
     procedure SetWebMessageEnabled(AValue: Boolean);
     {$ENDREGION}
 
@@ -188,6 +183,9 @@ type
   {$ENDREGION}
 
     // properties
+    property ContentSize: Int64
+      read GetContentSize;
+
     property Bullets: Boolean
       read GetBullets write SetBullets;
 
@@ -225,23 +223,14 @@ type
     property HtmlText: string
       read GetHtmlText write SetHtmlText;
 
-    property MhtmlText: string
-      read GetMhtmlText write SetMhtmlText;
-
-    property Uri: string
-      read GetUri write SetUri;
+    property Source: string
+      read GetSource write SetSource;
 
     property Text: string
       read GetText write SetText;
 
     property SelText: string
       read GetSelText write SetSelText;
-
-    property SelStart: Integer
-      read GetSelStart write SetSelStart;
-
-    property SelEnd: Integer
-      read GetSelEnd write SetSelEnd;
 
     property Font: TFont
       read GetFont;
@@ -273,8 +262,8 @@ type
     property OnChange: TNotifyEvent
       read GetOnChange write SetOnChange;
 
-      property OnAfterCreated: TNotifyEvent
-        read GetOnAfterCreated write SetOnAfterCreated;
+    property OnAfterCreated: TNotifyEvent
+      read GetOnAfterCreated write SetOnAfterCreated;
   end;
 
   { Events dispatched by the editor view. }
@@ -292,6 +281,7 @@ type
     procedure SetOnAfterSave(AValue: TStorageEvent);
     procedure SetOnBeforeSave(AValue: TStorageEvent);
     procedure SetOnHideToolView(AValue: THtmlEditorToolViewEvent);
+    procedure SetOnShowToolView(AValue: THtmlEditorToolViewEvent);
     procedure SetOnLoad(AValue: TStorageEvent);
     procedure SetOnNew(AValue: TNewEvent);
     procedure SetOnOpen(AValue: TStorageEvent);
@@ -300,12 +290,16 @@ type
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
-    procedure AddOnSelectBlockHandler(AEvent: TNotifyEvent);
-    procedure RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
+    procedure AddOnContentLoadedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnContentLoadedHandler(AEvent: TNotifyEvent);
+    procedure AddOnSourceChangedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
 
     // event dispatch methods
     procedure DoChange;
     procedure DoModified;
+    procedure DoContentLoaded;
+    procedure DoSourceChanged;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -316,8 +310,6 @@ type
     );
     procedure DoShowToolView(AToolView: IHtmlEditorToolView);
     procedure DoHideToolView(AToolView: IHtmlEditorToolView);
-    procedure DoSelectBlock;
-    procedure SetOnShowToolView(AValue: THtmlEditorToolViewEvent);
 
     property OnLoad: TStorageEvent
       read GetOnLoad write SetOnLoad;

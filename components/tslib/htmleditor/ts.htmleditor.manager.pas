@@ -29,7 +29,8 @@ type
   THtmlEditorViewList = TComponentList;
 
 type
-  TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions)
+  TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions,
+    IHtmlEditorEvents)
     aclActions                : TActionList;
     actAddParagraph           : TAction;
     actAlignCenter            : TAction;
@@ -109,6 +110,7 @@ type
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
+    procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
@@ -155,14 +157,15 @@ type
     property ActionList: TActionList
       read GetActionList;
 
+    { Delegates the implementation of IEditorEvents to an internal object. }
+    property Events: IHtmlEditorEvents
+      read GetEvents implements IHtmlEditorEvents;
+
     property Actions: IHtmlEditorActions
       read GetActions;
 
     property ActiveView: IHtmlEditorView
       read GetActiveView write SetActiveView;
-
-    property Events: IHtmlEditorEvents
-      read GetEvents;
 
     property ToolViews: IHtmlEditorToolViews
       read GetToolViews;
@@ -322,6 +325,15 @@ end;
 procedure TdmHtmlEditorManager.actItalicExecute(Sender: TObject);
 begin
 
+end;
+
+procedure TdmHtmlEditorManager.actOpenExecute(Sender: TObject);
+begin
+  if dlgOpen.Execute then
+  begin
+    ActiveView.LoadFromFile(dlgOpen.FileName);
+    ActiveView.FileName := dlgOpen.FileName;
+  end;
 end;
 
 procedure TdmHtmlEditorManager.actPasteExecute(Sender: TObject);
@@ -514,15 +526,15 @@ end;
 function TdmHtmlEditorManager.AddView(const AName: string;
   const AFileName: string): IHtmlEditorView;
 var
-  V : THtmlEditorView;
+  V : IHtmlEditorView;
 begin
   V := THtmlEditorView.Create(Self);
   // if no name is provided, the view will get an automatically generated one.
   if AName <> '' then
-    V.Name := AName;
+    V.Form.Name := AName;
   V.FileName := AFileName;
-  V.Caption := '';
-  FViews.Add(V);
+  V.Form.Caption := '';
+  FViews.Add(V.Form);
   Result := V as IHtmlEditorView;
   FActiveView := V;
 end;
@@ -593,7 +605,6 @@ begin
   ETV.UpdateView;
   if ASetFocus then
     ETV.SetFocus;
-
 end;
 
 procedure TdmHtmlEditorManager.BuildEditorPopupMenu;

@@ -1,7 +1,7 @@
 object frmKeyMappings: TfrmKeyMappings
-  Left = 301
+  Left = 302
   Height = 400
-  Top = 205
+  Top = 207
   Width = 496
   BorderStyle = bsNone
   Caption = 'Customize'
@@ -25,11 +25,11 @@ object frmKeyMappings: TfrmKeyMappings
     TabOrder = 0
     object tsToolbars: TTabSheet
       Caption = 'Toolbars'
-      ClientHeight = 327
+      ClientHeight = 325
       ClientWidth = 473
       object clbToolbars: TCheckListBox
         Left = 8
-        Height = 279
+        Height = 277
         Top = 8
         Width = 449
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -39,7 +39,7 @@ object frmKeyMappings: TfrmKeyMappings
     end
     object tsKeyboard: TTabSheet
       Caption = 'Shortcuts'
-      ClientHeight = 327
+      ClientHeight = 325
       ClientWidth = 473
       ImageIndex = 1
       object gbActions: TGroupBox
@@ -53,18 +53,18 @@ object frmKeyMappings: TfrmKeyMappings
         TabOrder = 0
         object lblActions: TLabel
           Left = 166
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 41
+          Width = 43
           Caption = 'Actions:'
           FocusControl = lvActions
           ParentColor = False
         end
         object lblCategory: TLabel
           Left = 6
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 49
+          Width = 51
           Caption = 'Category:'
           FocusControl = lbCategory
           ParentColor = False
@@ -107,17 +107,17 @@ object frmKeyMappings: TfrmKeyMappings
         TabOrder = 1
         object lblNewSC: TLabel
           Left = 230
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 75
+          Width = 77
           Caption = 'New ShortCur:'
           ParentColor = False
         end
         object lblCurValue: TLabel
           Left = 6
-          Height = 13
+          Height = 15
           Top = 2
-          Width = 91
+          Width = 93
           Caption = 'Current ShortCut:'
           FocusControl = lbSC
           ParentColor = False
@@ -170,14 +170,14 @@ object frmKeyMappings: TfrmKeyMappings
     end
     object tsOptions: TTabSheet
       Caption = 'Other'
-      ClientHeight = 327
+      ClientHeight = 325
       ClientWidth = 473
       ImageIndex = 2
       object chkLargeIcons: TCheckBox
         Left = 16
         Height = 19
         Top = 8
-        Width = 110
+        Width = 112
         Caption = 'Show Large Icons'
         TabOrder = 0
       end
@@ -185,7 +185,7 @@ object frmKeyMappings: TfrmKeyMappings
         Left = 16
         Height = 19
         Top = 24
-        Width = 79
+        Width = 80
         Caption = 'Show Hints'
         TabOrder = 1
       end

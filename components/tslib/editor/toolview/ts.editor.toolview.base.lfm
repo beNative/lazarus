@@ -1,7 +1,7 @@
 object CustomEditorToolView: TCustomEditorToolView
-  Left = 1162
+  Left = 1163
   Height = 240
-  Top = 547
+  Top = 549
   Width = 320
   Font.Height = -12
   KeyPreview = True

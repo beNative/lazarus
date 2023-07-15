@@ -1,8 +1,8 @@
 object dmHtmlEditorManager: TdmHtmlEditorManager
   OldCreateOrder = False
   Height = 505
-  HorizontalOffset = 908
-  VerticalOffset = 341
+  HorizontalOffset = 909
+  VerticalOffset = 342
   Width = 618
   object aclActions: TActionList
     Images = imlMain
@@ -44,6 +44,7 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Open'
       Hint = 'Open'
       ImageIndex = 18
+      OnExecute = actOpenExecute
       ShortCut = 16463
     end
     object actSave: TAction

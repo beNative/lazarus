@@ -1,7 +1,7 @@
 object frmFileTypeSettings: TfrmFileTypeSettings
-  Left = 539
+  Left = 540
   Height = 409
-  Top = 216
+  Top = 218
   Width = 447
   BorderStyle = bsNone
   ClientHeight = 409

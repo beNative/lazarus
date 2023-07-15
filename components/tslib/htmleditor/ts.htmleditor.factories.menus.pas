@@ -60,8 +60,12 @@ end;
 
 {$REGION 'protected methods'}
 function THtmlEditorMenusFactory.CreateMainMenu(AOwner: TComponent): TMainMenu;
+var
+  MM : TMainMenu;
 begin
-//
+  MM := TMainMenu.Create(AOwner);
+  MM.Images := FActions.ActionList.Images;
+  Result := MM;
 end;
 {$ENDREGION}
 

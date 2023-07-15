@@ -1,7 +1,7 @@
 object CustomSettingsDialog: TCustomSettingsDialog
-  Left = 100
+  Left = 377
   Height = 240
-  Top = 49
+  Top = 51
   Width = 320
   BorderStyle = bsNone
   Font.Height = -12

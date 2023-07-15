@@ -1,7 +1,7 @@
 object frmAbout: TfrmAbout
-  Left = 518
+  Left = 519
   Height = 254
-  Top = 199
+  Top = 201
   Width = 636
   ActiveControl = pgcMain
   BorderIcons = [biSystemMenu]

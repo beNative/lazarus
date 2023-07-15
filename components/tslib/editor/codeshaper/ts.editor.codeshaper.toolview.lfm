@@ -1,7 +1,7 @@
 inherited frmCodeShaper: TfrmCodeShaper
-  Left = 1566
+  Left = 1568
   Height = 665
-  Top = 121
+  Top = 123
   Width = 400
   HorzScrollBar.Visible = False
   VertScrollBar.Visible = False
@@ -10,7 +10,6 @@ inherited frmCodeShaper: TfrmCodeShaper
   ClientHeight = 665
   ClientWidth = 400
   Constraints.MinWidth = 400
-  Font.Height = -12
   OnResize = FormResize
   Position = poDefault
   ShowHint = True

@@ -1,7 +1,7 @@
 object EditorSettingsDialog: TEditorSettingsDialog
-  Left = 475
+  Left = 476
   Height = 633
-  Top = 104
+  Top = 105
   Width = 835
   Caption = 'EditorSettingsDialog'
   ClientHeight = 633

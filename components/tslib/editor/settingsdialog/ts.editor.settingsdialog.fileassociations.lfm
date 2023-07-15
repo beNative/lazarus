@@ -1,7 +1,7 @@
 object frmOptionsAssociate: TfrmOptionsAssociate
-  Left = 1013
+  Left = 1014
   Height = 442
-  Top = 353
+  Top = 354
   Width = 453
   BorderIcons = []
   BorderStyle = bsNone

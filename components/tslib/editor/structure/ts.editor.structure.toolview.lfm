@@ -1,12 +1,11 @@
 inherited frmStructure: TfrmStructure
-  Left = 646
+  Left = 647
   Height = 718
-  Top = 237
+  Top = 239
   Width = 381
   Caption = 'Structure viewer'
   ClientHeight = 718
   ClientWidth = 381
-  Font.Height = -12
   object pnlXmlTree: TPanel[0]
     Left = 4
     Height = 678

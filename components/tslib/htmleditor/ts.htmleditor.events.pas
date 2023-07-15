@@ -30,18 +30,20 @@ uses
 type
   THtmlEditorEvents = class(TInterfacedObject, IHtmlEditorEvents)
   private
-    FManager           : IHtmlEditorManager;
-    FChangeEvents      : TMethodList;
-    FModifiedEvents    : TMethodList;
-    FSelectBlockEvents : TMethodList;
-    FOnNew             : TNewEvent;
-    FOnLoad            : TStorageEvent;
-    FOnOpen            : TStorageEvent;
-    FOnBeforeSave      : TStorageEvent;
-    FOnAfterSave       : TStorageEvent;
-    FOnSave            : TStorageEvent;
-    FOnShowToolView    : THtmlEditorToolViewEvent;
-    FOnHideToolView    : THtmlEditorToolViewEvent;
+    FManager               : IHtmlEditorManager;
+    FChangeEvents          : TMethodList;
+    FModifiedEvents        : TMethodList;
+    FOnContentLoadedEvents : TMethodList;
+    FOnSourceChangedEvents : TMethodList;
+
+    FOnNew                 : TNewEvent;
+    FOnLoad                : TStorageEvent;
+    FOnOpen                : TStorageEvent;
+    FOnBeforeSave          : TStorageEvent;
+    FOnAfterSave           : TStorageEvent;
+    FOnSave                : TStorageEvent;
+    FOnShowToolView        : THtmlEditorToolViewEvent;
+    FOnHideToolView        : THtmlEditorToolViewEvent;
 
     {$REGION 'property access mehods'}
     function GetOnAfterSave: TStorageEvent;
@@ -67,7 +69,8 @@ type
     // event dispatch methods
     procedure DoChange;
     procedure DoModified;
-    procedure DoSelectBlock;
+    procedure DoContentLoaded;
+    procedure DoSourceChanged;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -83,8 +86,10 @@ type
     procedure AddOnModifiedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnModifiedHandler(AEvent: TNotifyEvent);
-    procedure AddOnSelectBlockHandler(AEvent: TNotifyEvent);
-    procedure RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
+    procedure AddOnContentLoadedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnContentLoadedHandler(AEvent: TNotifyEvent);
+    procedure AddOnSourceChangedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
 
     property View: IHtmlEditorView
       read GetView;
@@ -126,9 +131,10 @@ implementation
 procedure THtmlEditorEvents.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangeEvents      := TMethodList.Create;
-  FModifiedEvents    := TMethodList.Create;
-  FSelectBlockEvents := TMethodList.Create;
+  FChangeEvents          := TMethodList.Create;
+  FModifiedEvents        := TMethodList.Create;
+  FOnContentLoadedEvents := TMethodList.Create;
+  FOnSourceChangedEvents := TMethodList.Create;
 end;
 
 constructor THtmlEditorEvents.Create(AManager: IHtmlEditorManager);
@@ -142,7 +148,8 @@ begin
   FManager := nil;
   FChangeEvents.Free;
   FModifiedEvents.Free;
-  FSelectBlockEvents.Free;
+  FOnContentLoadedEvents.Free;
+  FOnSourceChangedEvents.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -245,9 +252,14 @@ begin
   FModifiedEvents.CallNotifyEvents(Self);
 end;
 
-procedure THtmlEditorEvents.DoSelectBlock;
+procedure THtmlEditorEvents.DoContentLoaded;
 begin
-  FSelectBlockEvents.CallNotifyEvents(Self);
+  FOnContentLoadedEvents.CallNotifyEvents(Self);
+end;
+
+procedure THtmlEditorEvents.DoSourceChanged;
+begin
+  FOnSourceChangedEvents.CallNotifyEvents(Self);
 end;
 
 procedure THtmlEditorEvents.DoOpen(const AName: string);
@@ -333,14 +345,24 @@ begin
   FModifiedEvents.Remove(TMethod(AEvent));
 end;
 
-procedure THtmlEditorEvents.AddOnSelectBlockHandler(AEvent: TNotifyEvent);
+procedure THtmlEditorEvents.AddOnContentLoadedHandler(AEvent: TNotifyEvent);
 begin
-  FSelectBlockEvents.Add(TMethod(AEvent));
+  FOnContentLoadedEvents.Add(TMethod(AEvent));
 end;
 
-procedure THtmlEditorEvents.RemoveOnSelectBlockHandler(AEvent: TNotifyEvent);
+procedure THtmlEditorEvents.RemoveOnContentLoadedHandler(AEvent: TNotifyEvent);
 begin
-  FSelectBlockEvents.Remove(TMethod(AEvent));
+  FOnContentLoadedEvents.Remove(TMethod(AEvent));
+end;
+
+procedure THtmlEditorEvents.AddOnSourceChangedHandler(AEvent: TNotifyEvent);
+begin
+  FOnSourceChangedEvents.Add(TMethod(AEvent));
+end;
+
+procedure THtmlEditorEvents.RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
+begin
+  FOnSourceChangedEvents.Remove(TMethod(AEvent));
 end;
 {$ENDREGION}
 

@@ -1,7 +1,7 @@
 inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
-  Left = 874
+  Left = 875
   Height = 639
-  Top = 483
+  Top = 362
   Width = 503
   ClientHeight = 639
   ClientWidth = 503
@@ -44,7 +44,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
       object grpNumeric: TGroupBox
         Left = 12
         Height = 96
-        Top = -48
+        Top = -49
         Width = 482
         Anchors = [akLeft, akRight]
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
@@ -152,7 +152,7 @@ inherited frmEditorSettingsDialog: TfrmEditorSettingsDialog
       object chkBoolean: TGroupBox
         Left = 11
         Height = 56
-        Top = -28
+        Top = -29
         Width = 476
         Anchors = [akLeft, akRight]
         ChildSizing.EnlargeHorizontal = crsHomogenousChildResize

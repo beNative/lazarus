@@ -1,7 +1,7 @@
 object EditorView: TEditorView
-  Left = 912
+  Left = 914
   Height = 421
-  Top = 403
+  Top = 405
   Width = 630
   AllowDropFiles = True
   AlphaBlendValue = 128

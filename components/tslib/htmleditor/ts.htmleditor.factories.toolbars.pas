@@ -122,6 +122,7 @@ begin
   TB.Images      := FActions.ActionList.Images;
   TB.ButtonWidth := 10;
 
+  CreateToolButton(TB, 'actOpen');
   CreateToolButton(TB, 'actSave');
   CreateToolButton(TB, 'actSaveAs');
   CreateToolButton(TB);

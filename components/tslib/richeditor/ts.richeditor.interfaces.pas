@@ -70,12 +70,12 @@ type
     function GetSelStart: Integer;
     function GetSelText: string;
     function GetShowSpecialChars: Boolean;
+    function GetText: string;
     function GetWordWrap: Boolean;
     procedure SetAlignCenter(AValue: Boolean);
     procedure SetAlignJustify(AValue: Boolean);
     procedure SetAlignLeft(AValue: Boolean);
     procedure SetAlignRight(AValue: Boolean);
-    function GetText: string;
     procedure SetBackgroundColor(AValue: TColor);
     procedure SetBullets(AValue: Boolean);
     procedure SetFileName(const AValue: string);

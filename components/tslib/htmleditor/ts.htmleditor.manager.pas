@@ -32,36 +32,27 @@ type
   TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions,
     IHtmlEditorEvents)
     aclActions                : TActionList;
-    actAddParagraph           : TAction;
     actAlignCenter            : TAction;
     actAlignJustify           : TAction;
     actAlignLeft              : TAction;
     actAlignRight             : TAction;
     actBold                   : TAction;
-    actBold1                  : TAction;
     actBulletList             : TAction;
     actClear                  : TAction;
-    actClear1                 : TAction;
     actClipboardMenu          : TAction;
     actCopy                   : TAction;
     actCut                    : TAction;
     actDecFontSize            : TAction;
     actDecIndent              : TAction;
-    actDeleteColumn           : TAction;
-    actDeleteRow              : TAction;
-    actDeleteTable            : TAction;
     actFileMenu               : TAction;
     actIncFontSize            : TAction;
     actIncIndent              : TAction;
-    actInsertBulletList       : TAction;
-    actInsertColumnAfter      : TAction;
-    actInsertColumnBefore     : TAction;
     actInsertHyperLink        : TAction;
     actInsertImage            : TAction;
-    actInsertMenu             : TAction;
-    actInsertRowAfter         : TAction;
-    actInsertRowBefore        : TAction;
-    actInsertTable            : TAction;
+    actToggleEditMode         : TAction;
+    actToggleSourceVisible    : TAction;
+    actShowTaskManager        : TAction;
+    actShowDevTools           : TAction;
     actItalic                 : TAction;
     actNumberedList           : TAction;
     actOpen                   : TAction;
@@ -72,13 +63,11 @@ type
     actSelectAll              : TAction;
     actSelectionMenu          : TAction;
     actSelectMenu             : TAction;
-    actSelectTable            : TAction;
     actSetBackgroundColor     : TAction;
     actSetFont                : TAction;
     actSetFontColor           : TAction;
     actSettingsMenu           : TAction;
     actStrikeThrough          : TAction;
-    actTableMenu              : TAction;
     actUnderline              : TAction;
     actUndo                   : TAction;
     dlgColor                  : TColorDialog;
@@ -106,6 +95,7 @@ type
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
+    procedure actShowDevToolsExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
@@ -114,7 +104,10 @@ type
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
+    procedure actShowTaskManagerExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
+    procedure actToggleEditModeExecute(Sender: TObject);
+    procedure actToggleSourceVisibleExecute(Sender: TObject);
     procedure actUnderlineExecute(Sender: TObject);
     procedure actUndoExecute(Sender: TObject);
     {$ENDREGION}
@@ -192,7 +185,6 @@ type
     );
 
     procedure BuildEditorPopupMenu;
-    procedure BuildInsertPopupMenu;
     procedure BuildSelectionPopupMenu;
     procedure BuildSelectPopupMenu;
     procedure BuildFilePopupMenu;
@@ -298,6 +290,14 @@ begin
   end;
 end;
 
+procedure TdmHtmlEditorManager.actShowDevToolsExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ShowDevTools;
+  end;
+end;
+
 procedure TdmHtmlEditorManager.actIncIndentExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -360,14 +360,38 @@ begin
   end;
 end;
 
+procedure TdmHtmlEditorManager.actShowTaskManagerExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.ShowTaskManager;
+  end;
+end;
+
 procedure TdmHtmlEditorManager.actStrikeThroughExecute(Sender: TObject);
 begin
+//
+end;
 
+procedure TdmHtmlEditorManager.actToggleEditModeExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.EditMode := (Sender as TAction).Checked;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.actToggleSourceVisibleExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.SourceVisible := (Sender as TAction).Checked;
+  end;
 end;
 
 procedure TdmHtmlEditorManager.actUnderlineExecute(Sender: TObject);
 begin
-
+//
 end;
 
 procedure TdmHtmlEditorManager.actUndoExecute(Sender: TObject);
@@ -555,6 +579,29 @@ var
   B : Boolean;
 begin
   B := Assigned(ActiveView);
+  actToggleEditMode.Checked      := B and ActiveView.EditMode;
+  actToggleSourceVisible.Checked := B and ActiveView.SourceVisible;
+  B := B and ActiveView.EditMode;
+  actPaste.Enabled            := B;
+  actAlignCenter.Enabled      := B;
+  actAlignLeft.Enabled        := B;
+  actAlignRight.Enabled       := B;
+  actAlignJustify.Enabled     := B;
+  actBold.Enabled             := B;
+  actClear.Enabled            := B;
+  actBulletList.Enabled       := B;
+  actIncFontSize.Enabled      := B;
+  actIncIndent.Enabled        := B;
+  actDecFontSize.Enabled      := B;
+  actDecIndent.Enabled        := B;
+  actInsertHyperLink.Enabled  := B;
+  actInsertImage.Enabled      := B;
+  actItalic.Enabled           := B;
+  actUnderline.Enabled        := B;
+  actStrikeThrough.Enabled    := B;
+  actUndo.Enabled             := B;
+  actRedo.Enabled             := B;
+  actOpen.Enabled             := B;
 end;
 
 {$ENDREGION}
@@ -565,7 +612,6 @@ begin
   BuildSelectionPopupMenu;
   BuildSelectPopupMenu;
   BuildFilePopupMenu;
-  BuildInsertPopupMenu;
   BuildClipboardPopupMenu;
   BuildSettingsPopupMenu;
   BuildEditorPopupMenu;
@@ -627,20 +673,6 @@ begin
   AddMenuItem(MI);
   AddMenuItem(MI, actUndo);
   AddMenuItem(MI, actRedo);
-end;
-
-procedure TdmHtmlEditorManager.BuildInsertPopupMenu;
-var
-  MI : TMenuItem;
-begin
-  MI := InsertPopupMenu.Items;
-  MI.Clear;
-  MI.Action := actInsertMenu;
-  AddMenuItem(MI, actInsertBulletList);
-  AddMenuItem(MI, actInsertTable);
-  AddMenuItem(MI, actInsertImage);
-  AddMenuItem(MI, actInsertHyperLink);
-  AddMenuItem(MI, actAddParagraph);
 end;
 
 procedure TdmHtmlEditorManager.BuildSelectionPopupMenu;

@@ -6,7 +6,7 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
   Width = 618
   object aclActions: TActionList
     Images = imlMain
-    Left = 60
+    Left = 72
     Top = 49
     object actBold: TAction
       Category = 'Selection'
@@ -187,11 +187,6 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       ImageIndex = 26
       OnExecute = actInsertHyperLinkExecute
     end
-    object actInsertBulletList: TAction
-      Category = 'Insert'
-      Caption = 'Insert bullet list'
-      ImageIndex = 31
-    end
     object actIncIndent: TAction
       Category = 'Selection'
       Caption = 'Increase indent'
@@ -214,67 +209,6 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Hint = 'Clear all content'
       ImageIndex = 36
       OnExecute = actClearExecute
-    end
-    object actAddParagraph: TAction
-      Category = 'Commands'
-      Caption = 'Add paragraph'
-      Hint = 'Add new paragraph'
-      ImageIndex = 37
-      OnExecute = actAddParagraphExecute
-      SecondaryShortCuts.Strings = (
-        'Alt+Enter'
-        'Ctrl+Alt+Enter'
-        'F4'
-      )
-      ShortCut = 16464
-    end
-    object actInsertRowBefore: TAction
-      Category = 'Table'
-      Caption = 'Insert row before'
-      Hint = 'Insert row before current row.'
-      ImageIndex = 43
-    end
-    object actInsertRowAfter: TAction
-      Category = 'Table'
-      Caption = 'Insert row after'
-      Hint = 'Insert row after current row.'
-      ImageIndex = 44
-    end
-    object actInsertColumnBefore: TAction
-      Category = 'Table'
-      Caption = 'Insert column before'
-      Hint = 'Insert column before current column.'
-      ImageIndex = 41
-    end
-    object actInsertColumnAfter: TAction
-      Category = 'Table'
-      Caption = 'Insert column after'
-      Hint = 'Insert column after current column.'
-      ImageIndex = 42
-    end
-    object actSelectTable: TAction
-      Category = 'Table'
-      Caption = 'Select table'
-      Hint = 'Select current table.'
-      ImageIndex = 45
-    end
-    object actDeleteRow: TAction
-      Category = 'Table'
-      Caption = 'Delete row'
-      Hint = 'Delete current row.'
-      ImageIndex = 47
-    end
-    object actDeleteColumn: TAction
-      Category = 'Table'
-      Caption = 'Delete column'
-      Hint = 'Delete current column.'
-      ImageIndex = 46
-    end
-    object actTableMenu: TAction
-      Category = 'Table'
-      Caption = 'Table'
-      DisableIfNoHandler = False
-      ImageIndex = 40
     end
     object actInsertMenu: TAction
       Category = 'Insert'
@@ -325,16 +259,31 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Hint = 'Create/update  numbered list.'
       ImageIndex = 32
     end
-    object actInsertTable: TAction
-      Category = 'Insert'
-      Caption = 'Insert table'
-      Hint = 'Insert a table.'
-      ImageIndex = 40
+    object actShowDevTools: TAction
+      Caption = 'Show DevTools'
+      ImageIndex = 12
+      OnExecute = actShowDevToolsExecute
     end
-    object actDeleteTable: TAction
-      Category = 'Table'
-      Caption = 'Delete table'
-      ImageIndex = 14
+    object actShowTaskManager: TAction
+      Caption = 'Show Task Manager'
+      ImageIndex = 12
+      OnExecute = actShowTaskManagerExecute
+    end
+    object actToggleSourceVisible: TAction
+      Category = 'Settings'
+      AutoCheck = True
+      Caption = 'Show/hide Source'
+      Hint = 'Toggle source field visibility.'
+      ImageIndex = 38
+      OnExecute = actToggleSourceVisibleExecute
+    end
+    object actToggleEditMode: TAction
+      Category = 'Settings'
+      AutoCheck = True
+      Caption = 'Toggle edit mode'
+      Hint = 'Toggle edit mode.'
+      ImageIndex = 52
+      OnExecute = actToggleEditModeExecute
     end
   end
   object actBold1: TAction

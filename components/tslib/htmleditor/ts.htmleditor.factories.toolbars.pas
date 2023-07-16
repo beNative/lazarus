@@ -123,8 +123,8 @@ begin
   TB.ButtonWidth := 10;
 
   CreateToolButton(TB, 'actOpen');
-  CreateToolButton(TB, 'actSave');
-  CreateToolButton(TB, 'actSaveAs');
+  //CreateToolButton(TB, 'actSave');
+  //CreateToolButton(TB, 'actSaveAs');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actCut');
   CreateToolButton(TB, 'actCopy');
@@ -133,14 +133,14 @@ begin
   CreateToolButton(TB, 'actUndo');
   CreateToolButton(TB, 'actRedo');
   CreateToolButton(TB);
-  CreateToolButton(TB, 'actBold');
-  CreateToolButton(TB, 'actItalic');
-  CreateToolButton(TB, 'actUnderline');
-  CreateToolButton(TB, 'actStrikeThrough');
-  CreateToolButton(TB);
-  CreateToolButton(TB, 'actSetFont');
-  CreateToolButton(TB, 'actSetFontColor');
-  CreateToolButton(TB);
+  //CreateToolButton(TB, 'actBold');
+  //CreateToolButton(TB, 'actItalic');
+  //CreateToolButton(TB, 'actUnderline');
+  //CreateToolButton(TB, 'actStrikeThrough');
+  //CreateToolButton(TB);
+  //CreateToolButton(TB, 'actSetFont');
+  //CreateToolButton(TB, 'actSetFontColor');
+  //CreateToolButton(TB);
   CreateToolButton(TB, 'actAlignLeft');
   CreateToolButton(TB, 'actAlignCenter');
   CreateToolButton(TB, 'actAlignRight');
@@ -148,13 +148,18 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actIncIndent');
   CreateToolButton(TB, 'actDecIndent');
-  CreateToolButton(TB, 'actBulletList');
+  //CreateToolButton(TB, 'actBulletList');
   CreateToolButton(TB);
-  CreateToolButton(TB);
-  CreateToolButton(TB, 'actInsertHyperlink');
-  CreateToolButton(TB, 'actInsertImage');
-  CreateToolButton(TB);
+  //CreateToolButton(TB, 'actInsertHyperlink');
+  //CreateToolButton(TB, 'actInsertImage');
+  //CreateToolButton(TB);
   CreateToolButton(TB, 'actClear');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actToggleSourceVisible');
+  CreateToolButton(TB, 'actToggleEditMode');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actShowDevTools');
+  CreateToolButton(TB, 'actShowTaskManager');
   Result := TB;
 end;
 {$ENDREGION}

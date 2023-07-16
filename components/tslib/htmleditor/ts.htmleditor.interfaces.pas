@@ -72,6 +72,7 @@ type
     function GetScriptEnabled: Boolean;
     function GetSelAvail: Boolean;
     function GetSelText: string;
+    function GetSourceVisible: Boolean;
     function GetStatusBarEnabled: Boolean;
     function GetText: string;
     function GetSource: string;
@@ -99,6 +100,7 @@ type
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
     procedure SetSelText(const AValue: string);
+    procedure SetSourceVisible(AValue: Boolean);
     procedure SetStatusBarEnabled(AValue: Boolean);
     procedure SetText(const AValue: string);
     procedure SetSource(AValue: string);
@@ -115,6 +117,9 @@ type
     procedure SaveToFile(const AFileName: string);
     procedure Load(const AStorageName: string = '');
     procedure Save(const AStorageName: string = '');
+
+    procedure ShowDevTools;
+    procedure ShowTaskManager;
 
     procedure BeginUpdate;
     procedure EndUpdate;
@@ -185,6 +190,9 @@ type
     // properties
     property ContentSize: Int64
       read GetContentSize;
+
+    property SourceVisible: Boolean
+      read GetSourceVisible write SetSourceVisible;
 
     property Bullets: Boolean
       read GetBullets write SetBullets;

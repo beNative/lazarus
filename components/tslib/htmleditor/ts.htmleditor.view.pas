@@ -44,9 +44,8 @@ interface
 *)
 
 uses
-  LCLIntf, LCLType, LMessages, Messages,
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, Menus,
-  ActiveX,
+  LCLIntf, LCLType, LMessages, Messages, Classes, SysUtils, Forms, Controls,
+  Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, ActiveX,
 
   uWVBrowser, uWVWindowParent, uWVLoader, uWVTypes, uWVEvents, uWVTypeLibrary,
   uWVCoreWebView2DownloadOperation,
@@ -58,14 +57,16 @@ uses
 type
   THtmlEditorView = class(TForm, IHtmlEditorView)
     dctMain        : TDropComboTarget;
+    edtSource      : TEdit;
     pnlHtmlEditor  : TPanel;
     Timer          : TTimer;
     WVBrowser      : TWVBrowser;
     WVWindowParent : TWVWindowParent;
 
-    procedure TimerTimer(Sender: TObject);
-
     {$REGION 'event handlers'}
+    procedure TimerTimer(Sender: TObject);
+    procedure edtSourceEditingDone(Sender: TObject);
+
     procedure WVBrowserAcceleratorKeyPressed(
       Sender            : TObject;
       const AController : ICoreWebView2Controller;
@@ -312,6 +313,7 @@ type
       const AContents : IStream;
       AResourceID     : Integer
     );
+    procedure WVBrowserWindowCloseRequested(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -326,6 +328,7 @@ type
     FDownloadOperation : TCoreWebView2DownloadOperation;
     FHtmlText          : string;
     FText              : string;
+    FSource            : string;
     FUpdate            : Boolean;
     FModified          : Boolean;
     FEditorFont        : TFont;
@@ -351,6 +354,8 @@ type
 
   protected
     {$REGION 'property access methods'}
+    function GetSourceVisible: Boolean;
+    procedure SetSourceVisible(AValue: Boolean);
     function GetEvents: IHtmlEditorEvents;
     function GetIsNavigating: Boolean;
     function GetActions: IHtmlEditorActions;
@@ -522,6 +527,9 @@ type
     property EditMode: Boolean
       read GetEditMode write SetEditMode;
 
+    property SourceVisible: Boolean
+      read GetSourceVisible write SetSourceVisible;
+
     property Actions: IHtmlEditorActions
       read GetActions;
 
@@ -580,8 +588,7 @@ type
     property FileName: string
        read GetFileName write SetFileName;
 
-    { Source Source. }
-
+    { Browser source URI. }
     property Source: string
       read GetSource write SetSource;
 
@@ -630,7 +637,6 @@ begin
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
   FEditorFont.Name             := 'Segoe UI';
-  FEditMode                    := True;
 
   if GlobalWebView2Loader.InitializationError then
     ShowMessage(UTF8Encode(GlobalWebView2Loader.ErrorMessage))
@@ -671,7 +677,8 @@ procedure THtmlEditorView.WVBrowserAfterCreated(Sender: TObject);
 begin
   Logger.Enter(Self, 'WVBrowserAfterCreated');
   WVWindowParent.UpdateSize;
-  Source := DEFAULT_SOURCE;
+  //Source := DEFAULT_SOURCE;
+
   //WVBrowser.SetVirtualHostNameToFolderMapping('customhost.test', '.', COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW);
   //WVBrowser.AddWebResourceRequestedFilter('*', COREWEBVIEW2_WEB_RESOURCE_CONTEXT_IMAGE);
 
@@ -695,8 +702,8 @@ procedure THtmlEditorView.WVBrowserBrowserProcessExited(Sender: TObject;
   const AEnvironment: ICoreWebView2Environment;
   const AArgs: ICoreWebView2BrowserProcessExitedEventArgs);
 begin
-  //Logger.Enter(Self, 'WVBrowserBrowserProcessExited');
-  //Logger.Leave(Self, 'WVBrowserBrowserProcessExited');
+  Logger.Enter(Self, 'WVBrowserBrowserProcessExited');
+  Logger.Leave(Self, 'WVBrowserBrowserProcessExited');
 end;
 
 procedure THtmlEditorView.WVBrowserBytesReceivedChanged(Sender: TObject;
@@ -781,7 +788,6 @@ begin
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
-  EditMode := True;
 end;
 
 procedure THtmlEditorView.WVBrowserDownloadStarting(Sender: TObject;
@@ -898,10 +904,7 @@ end;
 procedure THtmlEditorView.WVBrowserLostFocus(Sender: TObject);
 begin
   Logger.Track(Self, 'WVBrowserLostFocus');
-
   DoRequestData;
-
-
 end;
 
 procedure THtmlEditorView.WVBrowserMoveFocusRequested(Sender: TObject;
@@ -927,7 +930,7 @@ begin
     Logger.Send('Initialized', LArgs.Initialized);
     Logger.Send('IsSuccess', LArgs.IsSuccess);
     Logger.Send('WebErrorStatus', LArgs.WebErrorStatus);
-    Logger.Send(WVBrowser.Source);
+    Logger.Send('WVBrowser.Source', WVBrowser.Source);
   finally
     LArgs.Free;
   end;
@@ -1029,7 +1032,7 @@ begin
     FRequestingData := False;
     FDataReceived   := True;
   end;
-  Logger.Send('HtmlText', HtmlText);
+  //Logger.Send('HtmlText', HtmlText);
 end;
 
 procedure THtmlEditorView.WVBrowserRetrieveTextCompleted(Sender: TObject;
@@ -1159,6 +1162,11 @@ begin
     Timer.Enabled := True;
 end;
 
+procedure THtmlEditorView.edtSourceEditingDone(Sender: TObject);
+begin
+  Source := edtSource.Text;
+end;
+
 procedure THtmlEditorView.WVBrowserAcceleratorKeyPressed(Sender: TObject;
   const AController: ICoreWebView2Controller;
   const AArgs: ICoreWebView2AcceleratorKeyPressedEventArgs);
@@ -1214,6 +1222,12 @@ procedure THtmlEditorView.WVBrowserWebResourceResponseViewGetContentCompleted
 begin
   Logger.Track(Self, 'WVBrowserWebResourceResponseViewGetContentCompleted');
 end;
+
+procedure THtmlEditorView.WVBrowserWindowCloseRequested(Sender: TObject);
+begin
+  Logger.Info('WVBrowserWindowCloseRequested');
+end;
+
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
@@ -1245,7 +1259,7 @@ end;
 
 procedure THtmlEditorView.DoRequestData;
 begin
-  Logger.Info('DoRequestData');
+  //Logger.Info('DoRequestData');
   WVBrowser.RetrieveHTML;
   FRequestingData := True;
   FDataReceived   := False;
@@ -1254,7 +1268,7 @@ end;
 
 procedure THtmlEditorView.DoSendData;
 begin
-  Logger.Info('DoSendData');
+  //Logger.Info('DoSendData');
   WVBrowser.NavigateToString(UTF8Decode(FHtmlText));
   FSendingData := True;
   FDataSent    := False;
@@ -1263,6 +1277,19 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access methods'}
+function THtmlEditorView.GetSourceVisible: Boolean;
+begin
+  Result := edtSource.Visible;
+end;
+
+procedure THtmlEditorView.SetSourceVisible(AValue: Boolean);
+begin
+  if AValue <> edtSource.Visible then
+  begin
+    edtSource.Visible := AValue;
+  end;
+end;
+
 function THtmlEditorView.GetActions: IHtmlEditorActions;
 begin
   Result := Owner as IHtmlEditorActions;
@@ -1310,7 +1337,10 @@ end;
 
 function THtmlEditorView.GetContentSize: Int64;
 begin
-  Result := Length(HtmlText);
+  if Source.IsEmpty then
+    Result := Length(HtmlText)
+  else
+    Result := 0;
 end;
 
 function THtmlEditorView.GetEditMode: Boolean;
@@ -1472,8 +1502,14 @@ begin
 end;
 
 function THtmlEditorView.GetIsEmpty: Boolean;
+var
+  S : string;
 begin
-  Result := False;
+  S := Trim(HtmlText);
+  if S.IsEmpty or (S = '<html><head></head><body></body></html>') then
+    Result := True
+  else
+    Result := False;
 end;
 
 function THtmlEditorView.GetIsFile: Boolean;
@@ -1576,7 +1612,7 @@ end;
 
 procedure THtmlEditorView.SetOnDropFiles(const AValue: TDropFilesEvent);
 begin
-
+  FOnDropFiles := AValue;
 end;
 
 procedure THtmlEditorView.SetPopupMenu(const AValue: TPopupMenu);
@@ -1586,7 +1622,7 @@ end;
 
 procedure THtmlEditorView.SetSelText(const AValue: string);
 begin
-//
+// not supported
 end;
 
 procedure THtmlEditorView.SetText(const AValue: string);
@@ -1600,12 +1636,23 @@ end;
 
 function THtmlEditorView.GetSource: string;
 begin
-  Result := UTF8Encode(WVBrowser.Source);
+  Result := FSource;
 end;
 
 procedure THtmlEditorView.SetSource(AValue: string);
 begin
-  WVBrowser.Navigate(UTF8Decode(AValue));
+  if AValue <> Source then
+  begin
+    if AValue = 'about:blank' then
+      FSource := ''
+    else
+      FSource := AValue;
+    if FSource <> '' then
+    begin
+      WVBrowser.Navigate(UTF8Decode(FSource));
+    end
+  end;
+  edtSource.Text := FSource;
 end;
 {$ENDREGION}
 
@@ -1645,6 +1692,8 @@ begin
     FUpdate := False;
   end;
   UpdateWatches;
+  if Assigned(Actions) then
+    Actions.UpdateActions;
 end;
 
 procedure THtmlEditorView.UpdateWatches;
@@ -1739,8 +1788,7 @@ end;
 
 function THtmlEditorView.IsUpdating: Boolean;
 begin
-
-
+//
 end;
 
 function THtmlEditorView.ExecuteScript(const AScript: string): Boolean;
@@ -1809,8 +1857,7 @@ end;
 
 procedure THtmlEditorView.Clear;
 begin
-  SelectAll;
-  ExecuteEditingCommand(ecDelete);
+  HtmlText := '';
 end;
 
 procedure THtmlEditorView.Cut;

@@ -39,9 +39,9 @@ type
     chkComment : TCheckBox;
     chkName    : TCheckBox;
     chkText    : TCheckBox;
-    grdLookup  : TDBGrid;
     dscMain    : TDatasource;
     edtLookup  : TEdit;
+    grdLookup  : TDBGrid;
     sbrMain    : TStatusBar;
 
     {$REGION 'action handlers'}

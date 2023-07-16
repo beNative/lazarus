@@ -54,7 +54,10 @@ const
     '  RtfData,'             + sLineBreak +
     '  HtmlText,'            + sLineBreak +
     '  HtmlData,'            + sLineBreak +
-    '  FoldState'            + sLineBreak +
+    '  Source,'              + sLineBreak +
+    '  FoldState,'           + sLineBreak +
+    '  DateCreated,'         + sLineBreak +
+    '  DateModified'         + sLineBreak +
     ')'                      + sLineBreak +
     'select'                 + sLineBreak +
     '  HighlighterId,'       + sLineBreak +
@@ -70,7 +73,10 @@ const
     '  RtfData,'             + sLineBreak +
     '  HtmlText,'            + sLineBreak +
     '  HtmlData,'            + sLineBreak +
-    '  FoldState'            + sLineBreak +
+    '  Source,'              + sLineBreak +
+    '  FoldState,'           + sLineBreak +
+    '  CURRENT_TIMESTAMP,'   + sLineBreak +
+    '  CURRENT_TIMESTAMP'    + sLineBreak +
     'from'                   + sLineBreak +
     '  Snippet s'            + sLineBreak +
     'where'                  + sLineBreak +
@@ -85,6 +91,7 @@ const
   PYTHON_INSTALLPATH        = 'InstallPath';
 
 resourcestring
+  SLastFocusedRecordError       = 'Last focused record could not be located.';
   SQueryLookupErrorRunningQuery = 'Error running query <%s>';
   SQueryLookupTooManyRecords    = 'The query <%s> returned too many records';
   SParameterNotAssigned         = 'Parameter <%s> parameter not assigned';

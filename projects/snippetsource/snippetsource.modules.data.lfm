@@ -305,20 +305,12 @@ object dmSnippetSource: TdmSnippetSource
       '  RtfData       text,'
       '  HtmlText      text,'
       '  HtmlData      text,'
+      '  Source        varchar,'
       '  FoldState     varchar,'
       '  DateCreated   datetime,'
       '  DateModified  datetime'
       ');'
       ''
-      ''
-      '-- Table: History'
-      'drop table if exists History;'
-      ''
-      'create table History ('
-      '  Id          integer  primary key,'
-      '  SnippetId   integer,'
-      '  DateCreated datetime'
-      ');'
     )
     Terminator = ';'
     CommentsinSQL = True
@@ -416,7 +408,6 @@ object dmSnippetSource: TdmSnippetSource
   end
   object scrInsertData: TSQLScript
     Transaction = trsMain
-    OnDirective = scrInsertDataDirective
     AutoCommit = False
     UseDollarString = False
     Directives.Strings = (

@@ -73,7 +73,7 @@ type
     chkAutoHideRichEditorToolBar     : TCheckBox;
     chkEmitLogMessages               : TCheckBox;
     chkUseCustomEnvironmentVariables : TCheckBox;
-    chkDebugMode: TCheckBox;
+    chkDebugMode                     : TCheckBox;
     dlgFont                          : TFontDialog;
     dlgOpen                          : TOpenDialog;
     dscGlyph                         : TDatasource;

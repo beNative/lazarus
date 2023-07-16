@@ -34,6 +34,8 @@ type
     FFileName                     : string;
     FDatabase                     : string;
     FDebugMode                    : Boolean;
+    FHtmlEditMode                 : Boolean;
+    FHtmlSourceVisible            : Boolean;
     FAutoHideRichEditor           : Boolean;
     FAutoHideEditor               : Boolean;
     FAutoHideEditorToolBar        : Boolean;
@@ -46,28 +48,32 @@ type
 
   protected
     {$REGION 'property access methods'}
-    function GetDebugMode: Boolean;
-    procedure SetDebugMode(AValue: Boolean);
-    function GetPythonVirtualEnvironmentName: string;
-    procedure SetPythonVirtualEnvironmentName(AValue: string);
-    function GetEmitLogMessages: Boolean;
-    procedure SetEmitLogMessages(AValue: Boolean);
     function GetAutoHidEditor: Boolean;
-    procedure SetAutoHideEditor(AValue: Boolean);
-    function GetAutoHideRichEditor: Boolean;
-    procedure SetAutoHideRichEditor(AValue: Boolean);
     function GetAutoHideEditorToolBar: Boolean;
-    procedure SetAutoHideEditorToolBar(AValue: Boolean);
+    function GetAutoHideRichEditor: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
-    procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     function GetDatabase: string;
-    procedure SetDatabase(const AValue: string);
-    function GetFileName: string;
-    procedure SetFileName(const AValue: string);
-    function GetLastFocusedId: Integer;
-    procedure SetLastFocusedId(AValue: Integer);
+    function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
+    function GetEmitLogMessages: Boolean;
+    function GetFileName: string;
+    function GetHtmlEditMode: Boolean;
+    function GetHtmlSourceVisible: Boolean;
+    function GetLastFocusedId: Integer;
+    function GetPythonVirtualEnvironmentName: string;
+    procedure SetAutoHideEditor(AValue: Boolean);
+    procedure SetAutoHideEditorToolBar(AValue: Boolean);
+    procedure SetAutoHideRichEditor(AValue: Boolean);
+    procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
+    procedure SetDatabase(const AValue: string);
+    procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
+    procedure SetEmitLogMessages(AValue: Boolean);
+    procedure SetFileName(const AValue: string);
+    procedure SetHtmlEditMode(AValue: Boolean);
+    procedure SetHtmlSourceVisible(AValue: Boolean);
+    procedure SetLastFocusedId(AValue: Integer);
+    procedure SetPythonVirtualEnvironmentName(AValue: string);
     {$ENDREGION}
 
     procedure Changed;
@@ -113,6 +119,12 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property HtmlEditMode: Boolean
+      read GetHtmlEditMode write SetHtmlEditMode;
+
+    property HtmlSourceVisible: Boolean
+      read GetHtmlSourceVisible write SetHtmlSourceVisible;
 
     property PythonVirtualEnvironmentName: string
       read GetPythonVirtualEnvironmentName write SetPythonVirtualEnvironmentName;
@@ -212,6 +224,34 @@ begin
   if AValue <> DefaultRichEditorFontName then
   begin
     FDefaultRichEditorFontName := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetHtmlEditMode: Boolean;
+begin
+  Result := FHtmlEditMode;
+end;
+
+function TSettings.GetHtmlSourceVisible: Boolean;
+begin
+  Result := FHtmlSourceVisible;
+end;
+
+procedure TSettings.SetHtmlEditMode(AValue: Boolean);
+begin
+  if AValue <> HtmlEditMode then
+  begin
+    FHtmlEditMode := AValue;
+    Changed;
+  end;
+end;
+
+procedure TSettings.SetHtmlSourceVisible(AValue: Boolean);
+begin
+  if AValue <> HtmlSourceVisible then
+  begin
+    FHtmlSourceVisible := AValue;
     Changed;
   end;
 end;

@@ -46,15 +46,12 @@ type
     actHtmlEditor                   : TAction;
     actTextEditor                   : TAction;
     actRtfEditor                    : TAction;
-    actToggleHtmlEditor             : TAction;
     actLookup                       : TAction;
     actSettings                     : TAction;
     actShowGridForm                 : TAction;
     actSQLEditor                    : TAction;
     actToggleFullScreen             : TAction;
-    actToggleRichTextEditor         : TAction;
     actToggleStayOnTop              : TAction;
-    actToggleTextEditor             : TAction;
     btnCloseEditorToolView          : TSpeedButton;
     btnCloseRichEditorToolView      : TSpeedButton;
     btnHighlighter                  : TMenuButton;
@@ -120,9 +117,6 @@ type
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowGridFormExecute(Sender: TObject);
     procedure actTextEditorExecute(Sender: TObject);
-    procedure actToggleHtmlEditorExecute(Sender: TObject);
-    procedure actToggleRichTextEditorExecute(Sender: TObject);
-    procedure actToggleTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
@@ -245,6 +239,8 @@ type
     procedure HideAction(const AActionName: string);
     procedure InitTextEditorActions;
 
+    procedure SwitchView;
+
     procedure CreateTreeview;
     procedure CreateTextEditor;
     procedure CreateRichEditor;
@@ -358,8 +354,14 @@ begin
   dscMain.DataSet := DataSet.DataSet;
   if FSettings.LastFocusedId > 0 then
   begin
-    DataSet.DataSet.Locate('Id', FSettings.LastFocusedId, []);
+    try
+      DataSet.DataSet.Locate('Id', FSettings.LastFocusedId, []);
+    except
+      ShowMessage(SLastFocusedRecordError);
+    end;
   end;
+  FHtmlEditor.SourceVisible := FSettings.HtmlSourceVisible;
+  FHtmlEditor.EditMode      := FSettings.HtmlEditMode;
 
   FFileSearcher := TFileSearcher.Create;
   FFileSearcher.OnDirectoryFound := FileSearcherDirectoryFound;
@@ -376,7 +378,9 @@ destructor TfrmMain.Destroy;
 begin
   Logger.Enter(Self, 'Destroy');
   FBusyForm.Free;
-  FSettings.LastFocusedId := Snippet.Id;
+  FSettings.LastFocusedId     := Snippet.Id;
+  FSettings.HtmlEditMode      := FHtmlEditor.EditMode;
+  FSettings.HtmlSourceVisible := FHtmlEditor.SourceVisible;
   FSettings.Save;
   FEditorSettings.Save;
   FData              := nil;
@@ -453,26 +457,6 @@ end;
 procedure TfrmMain.actTextEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex := pgTextEditor.PageIndex;
-end;
-
-procedure TfrmMain.actToggleHtmlEditorExecute(Sender: TObject);
-begin
-  nbRight.PageIndex := pgHtmlEditor.PageIndex;
-  FHtmlEditor.Source := 'http://www.planet-odoo.com/check-out-how-odoo-16-features-help-the-business-organization/';
-  Modified;
-  SaveHtmlData;
-end;
-
-procedure TfrmMain.actToggleRichTextEditorExecute(Sender: TObject);
-begin
-  nbRight.PageIndex:= pgRichEditor.PageIndex;
-  Modified;
-end;
-
-procedure TfrmMain.actToggleTextEditorExecute(Sender: TObject);
-begin
-  nbRight.PageIndex := pgTextEditor.PageIndex;
-  Modified;
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
@@ -620,6 +604,7 @@ begin
         //FRichEditorVisible := False;
         LoadRtfData;
         LoadHtmlData;
+        SwitchView;
         Modified;
       end;
     end;
@@ -805,7 +790,6 @@ begin
   finally
     LValues.Free;
   end;
-  DataSet.DataSet.Refresh;
 end;
 
 procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
@@ -877,12 +861,12 @@ end;
 procedure TfrmMain.FEditorShowToolView(Sender: TObject;
   AToolView: IEditorToolView);
 begin
-  pnlEditorToolViewHost.Visible   := False;
-  pnlEditorToolViewHost.Width     := AToolView.Form.Width;
-  lblEditorToolViewHeader.Caption := AToolView.Form.Caption;
-  splEditorVertical.Visible       := True;
-  AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
-  pnlEditorToolViewHost.Visible   := True;
+  //pnlEditorToolViewHost.Visible   := False;
+  //pnlEditorToolViewHost.Width     := AToolView.Form.Width;
+  //lblEditorToolViewHeader.Caption := AToolView.Form.Caption;
+  //splEditorVertical.Visible       := True;
+  //AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
+  //pnlEditorToolViewHost.Visible   := True;
 end;
 
 procedure TfrmMain.FHtmlEditorAfterCreated(Sender: TObject);
@@ -1045,6 +1029,33 @@ begin
   HideAction('actSmartSelect');
 end;
 
+procedure TfrmMain.SwitchView;
+begin
+  if FHtmlEditor.IsInitialized then
+  begin
+    if not FEditor.Text.IsEmpty then
+    begin
+      actTextEditor.Checked := True;
+      nbRight.PageIndex := pgTextEditor.PageIndex;
+    end
+    else if not FRichEditor.IsEmpty then
+    begin
+      actRtfEditor.Checked := True;
+      nbRight.PageIndex := pgRichEditor.PageIndex;
+    end
+    else if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.Source.IsEmpty) then
+    begin
+      actHtmlEditor.Checked := True;
+      nbRight.PageIndex := pgHtmlEditor.PageIndex;
+    end
+    else
+    begin
+      actTextEditor.Checked := True;
+      nbRight.PageIndex := pgTextEditor.PageIndex;
+    end;
+  end;
+end;
+
 procedure TfrmMain.CreateTreeview;
 begin
   FTree                          := TfrmVirtualDBTree.Create(Self);
@@ -1128,7 +1139,6 @@ begin
   FHtmlEditor.SetFocus;
   FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;
   FHtmlEditor.OnChange       := FHtmlEditorChange;
-  FHtmlEditor.EditMode := True;
 end;
 
 procedure TfrmMain.InitializeLogger;
@@ -1227,8 +1237,18 @@ var
 begin
   Logger.Enter(Self, 'LoadHtmlData');
   try
-    S := DecodeStringBase64(Snippet.HtmlData);
-    FHtmlEditor.HtmlText := S;
+    Logger.Send('Snippet.Source', Snippet.Source);
+    Logger.Send('FHtmlEditor.Source', FHtmlEditor.Source);
+    if Snippet.Source.IsEmpty then
+    begin
+      S := DecodeStringBase64(Snippet.HtmlData);
+      FHtmlEditor.HtmlText := S;
+      FHtmlEditor.Source   := '';
+    end
+    else
+    begin
+      FHtmlEditor.Source := Snippet.Source;
+    end;
   except
     Logger.Error('DecodeStringBase64 failed during LoadHtmlData.');
   end;
@@ -1240,7 +1260,16 @@ begin
   Logger.Enter(Self, 'SaveHtmlData');
   if Assigned(DataSet) then
     DataSet.Edit;
-  Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
+  if HtmlEditor.Source.IsEmpty then
+  begin
+    Snippet.Source   := '';
+    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText)
+  end
+  else
+  begin
+    Snippet.HtmlData := '';
+    Snippet.Source   := HtmlEditor.Source;
+  end;
 
   //if not HtmlEditor.IsEmpty then
   //begin

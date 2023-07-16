@@ -133,8 +133,6 @@ type
     procedure qrySnippetNewRecord(ADataSet: TDataSet);
 
     procedure FSettingsChange(Sender: TObject);
-    procedure scrInsertDataDirective(Sender: TObject; Directive,
-      Argument: AnsiString; var StopExecution: Boolean);
     {$ENDREGION}
 
   private
@@ -175,6 +173,7 @@ type
     function GetReadOnly: Boolean;
     function GetRecordCount: Integer;
     function GetSize: Int64;
+    function GetSource: string;
     function GetText: string;
     procedure SetActive(AValue: Boolean);
     procedure SetAutoApplyUpdates(AValue: Boolean);
@@ -195,6 +194,7 @@ type
     procedure SetNodeTypeId(AValue: Integer);
     procedure SetParentId(AValue: Integer);
     procedure SetReadOnly(AValue: Boolean);
+    procedure SetSource(AValue: string);
     procedure SetText(AValue: string);
     {$ENDREGION}
 
@@ -312,6 +312,9 @@ type
 
     property HtmlData: string
       read GetHtmlData write SetHtmlData;
+
+    property Source: string
+      read GetSource write SetSource;
 
     { DateTime of creation of the current record. }
     property DateCreated: TDateTime
@@ -479,13 +482,12 @@ begin
 end;
 
 procedure TdmSnippetSource.DuplicateRecords(AValues: TStrings);
-var
-  LSql : string;
 begin
-  LSql := Format(SQL_DUPLICATE_IDS, [AValues.CommaText]);
-  ExecuteDirect(LSql);
+  Logger.Enter(Self, 'DuplicateRecords');
+  ExecuteDirect(Format(SQL_DUPLICATE_IDS, [AValues.CommaText]));
+  DataSet.Refresh;
+  Logger.Leave(Self, 'DuplicateRecords');
 end;
-
 {$ENDREGION}
 
 {$REGION 'event handlers'}
@@ -682,6 +684,14 @@ end;
 function TdmSnippetSource.GetSize: Int64;
 begin
   Result := FileSize(FileName);
+end;
+
+function TdmSnippetSource.GetSource: string;
+begin
+  if qrySnippet.FieldValues['Source'] <> Null then
+    Result := qrySnippet.FieldValues['Source']
+  else
+    Result := '';
 end;
 
 function TdmSnippetSource.GetLookupDataSet: TDataSet;
@@ -914,6 +924,11 @@ begin
   FReadOnly := AValue;
 end;
 
+procedure TdmSnippetSource.SetSource(AValue: string);
+begin
+  qrySnippet.FieldValues['Source'] := AValue;
+end;
+
 function TdmSnippetSource.GetDBVersion: string;
 begin
   Result := QueryLookup(conMain, 'select sqlite_version();');
@@ -925,13 +940,6 @@ procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
 begin
   ConnectToDatabase(FSettings.Database);
 end;
-
-procedure TdmSnippetSource.scrInsertDataDirective(Sender: TObject; Directive,
-  Argument: AnsiString; var StopExecution: Boolean);
-begin
-
-end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}

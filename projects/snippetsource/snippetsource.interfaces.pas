@@ -123,6 +123,7 @@ type
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
+    function GetSource: string;
     function GetText: string;
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
@@ -138,6 +139,7 @@ type
     procedure SetNodePath(AValue: string);
     procedure SetNodeTypeId(AValue: Integer);
     procedure SetParentId(AValue: Integer);
+    procedure SetSource(AValue: string);
     procedure SetText(AValue: string);
     {$ENDREGION}
 
@@ -154,6 +156,9 @@ type
 
     property HtmlData: string
       read GetHtmlData write SetHtmlData;
+
+    property Source: string
+      read GetSource write SetSource;
 
     property DateCreated: TDateTime
       read GetDateCreated write SetDateCreated;
@@ -275,6 +280,8 @@ type
     function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
     function GetEmitLogMessages: Boolean;
+    function GetHtmlEditMode: Boolean;
+    function GetHtmlSourceVisible: Boolean;
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
     procedure SetAutoHideEditor(AValue: Boolean);
@@ -285,6 +292,8 @@ type
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
     procedure SetEmitLogMessages(AValue: Boolean);
+    procedure SetHtmlEditMode(AValue: Boolean);
+    procedure SetHtmlSourceVisible(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
     {$ENDREGION}
 
@@ -297,6 +306,12 @@ type
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
+
+    property HtmlEditMode: Boolean
+      read GetHtmlEditMode write SetHtmlEditMode;
+
+    property HtmlSourceVisible: Boolean
+      read GetHtmlSourceVisible write SetHtmlSourceVisible;
 
     property LastFocusedId: Integer
       read GetLastFocusedId write SetLastFocusedId;

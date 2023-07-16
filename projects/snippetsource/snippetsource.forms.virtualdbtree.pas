@@ -79,7 +79,6 @@ type
     {$REGION 'designer controls'}
     actCancel                 : TAction;
     actCollapseAllNodes       : TAction;
-    actCopyNodeData           : TAction;
     actDeleteSelectedNodes    : TAction;
     actDuplicateSelectedNodes : TAction;
     actExpandAllNodes         : TAction;
@@ -100,7 +99,6 @@ type
     MenuItem1: TMenuItem;
     mniCancel                 : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
-    mniCopyNodeData           : TMenuItem;
     mniDelete                 : TMenuItem;
     mniExpandAllNodes         : TMenuItem;
     mniNewChild               : TMenuItem;
@@ -110,7 +108,6 @@ type
     mniRefresh                : TMenuItem;
     N1                        : TMenuItem;
     N2                        : TMenuItem;
-    N3                        : TMenuItem;
     navTreeView               : TDBNavigator;
     pnlMain                   : TPanel;
     pnlTop                    : TPanel;
@@ -118,8 +115,11 @@ type
     pnlTopRight               : TPanel;
     pnlTree                   : TPanel;
     ppmTreeView               : TPopupMenu;
+    Separator1: TMenuItem;
     shpLine                   : TShape;
     tlbTop                    : TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -763,9 +763,8 @@ end;
 procedure TfrmVirtualDBTree.UpdateActions;
 begin
   inherited UpdateActions;
-  actCopyNodeData.Enabled := SelectionCount = 1;
-  actCancel.Enabled       := DataSet.State in dsEditModes;
-  actPost.Enabled         := DataSet.State in dsEditModes;
+  actCancel.Enabled := DataSet.State in dsEditModes;
+  actPost.Enabled   := DataSet.State in dsEditModes;
 end;
 
 procedure TfrmVirtualDBTree.PostTreeData(AParentId: Integer;
@@ -783,41 +782,41 @@ procedure TfrmVirtualDBTree.InitializeTreeView;
 begin
   with FTreeView do
   begin
-    Parent                        := pnlTree;
-    Align                         := alClient;
-    DoubleBuffered                := True;
-    AnimationDuration             := 100;
-    AutoExpandDelay               := 500;
-    BorderStyle                   := bsNone;
-    BorderSpacing.Left            := 0;
-    BorderSpacing.Right           := 0;
-    BorderSpacing.Top             := 0;
-    BorderSpacing.Bottom          := 0;
-    ButtonFillMode                := fmTransparent;
-    Color                         := clWhite;
-    DataSource                    := dscMain;
-    DefaultPasteMode              := amInsertBefore;
-    DefaultText                   := 'Node';
-    DragMode                      := dmAutomatic;
-    DragType                      := dtOLE;
-    DragOperations                := [doMove];
-    EditDelay                     := 200;
-    HintMode                      := hmTooltip;
-    IncrementalSearch             := isAll;
-    IncrementalSearchStart        := ssAlwaysStartOver;
-    Indent                        := 20;
-    LineMode                      := lmBands;
-    PopupMenu                     := ppmTreeView;
-    Font.Name                     := 'Segoe UI';
-    Font.Size                     := 9;
+    Parent                       := pnlTree;
+    Align                        := alClient;
+    DoubleBuffered               := True;
+    AnimationDuration            := 100;
+    AutoExpandDelay              := 500;
+    BorderStyle                  := bsNone;
+    BorderSpacing.Left           := 0;
+    BorderSpacing.Right          := 0;
+    BorderSpacing.Top            := 0;
+    BorderSpacing.Bottom         := 0;
+    ButtonFillMode               := fmTransparent;
+    Color                        := clWhite;
+    DataSource                   := dscMain;
+    DefaultPasteMode             := amInsertBefore;
+    DefaultText                  := 'Node';
+    DragMode                     := dmAutomatic;
+    DragType                     := dtOLE;
+    DragOperations               := [doMove];
+    EditDelay                    := 200;
+    HintMode                     := hmTooltip;
+    IncrementalSearch            := isAll;
+    IncrementalSearchStart       := ssAlwaysStartOver;
+    Indent                       := 20;
+    LineMode                     := lmBands;
+    PopupMenu                    := ppmTreeView;
+    Font.Name                    := 'Segoe UI';
+    Font.Size                    := 9;
 
-    Colors.FocusedSelectionColor  := clGray;
-    Colors.HotColor               := clBlue;
+    Colors.FocusedSelectionColor := clGray;
+    Colors.HotColor              := clBlue;
 
-    Header.AutoSizeIndex          := 0;
-    Header.DefaultHeight          := 17;
-    Header.Options                := [hoAutoResize, hoColumnResize, hoDrag];
-    Header.PopupMenu              := ppmTreeView;
+    Header.AutoSizeIndex         := 0;
+    Header.DefaultHeight         := 17;
+    Header.Options               := [hoAutoResize, hoColumnResize, hoDrag];
+    Header.PopupMenu             := ppmTreeView;
 {
     dboAllowChecking,
     dboAllowStructureChange,

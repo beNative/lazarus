@@ -1,9 +1,10 @@
 object frmLookup: TfrmLookup
-  Left = 782
+  Left = 853
   Height = 476
-  Top = 294
+  Top = 296
   Width = 520
   ActiveControl = edtLookup
+  BorderStyle = bsSizeToolWin
   Caption = 'Lookup'
   ClientHeight = 476
   ClientWidth = 520

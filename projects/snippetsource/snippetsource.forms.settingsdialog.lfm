@@ -1,5 +1,5 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 857
+  Left = 3417
   Height = 465
   Top = 234
   Width = 620
@@ -35,15 +35,6 @@ object frmSettingsDialog: TfrmSettingsDialog
         ClientHeight = 108
         ClientWidth = 268
         TabOrder = 0
-        object chkAutoHideRichEditor: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 77
-          Width = 255
-          Caption = 'Automatically hide rich editor when no data.'
-          OnClick = chkAutoHideRichEditorClick
-          TabOrder = 3
-        end
         object chkAutoHideRichEditorToolBar: TCheckBox
           Left = 8
           Height = 19
@@ -61,15 +52,6 @@ object frmSettingsDialog: TfrmSettingsDialog
           Caption = 'Hide text editor toolbar when not focused.'
           OnClick = chkAutoHideEditorToolBarClick
           TabOrder = 0
-        end
-        object chkAutoHideEditor: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 52
-          Width = 255
-          Caption = 'Automatically hide text editor when no data.'
-          OnClick = chkAutoHideEditorClick
-          TabOrder = 2
         end
       end
       object grpRichtextEditor: TGroupBox
@@ -219,9 +201,9 @@ object frmSettingsDialog: TfrmSettingsDialog
         ClientWidth = 440
         TabOrder = 3
         object grdDBInfo: TStringGrid
-          Left = 0
-          Height = 331
-          Top = 4
+          Left = 8
+          Height = 341
+          Top = 0
           Width = 427
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoEdit = False

@@ -30,11 +30,12 @@ uses
 type
   THtmlEditorEvents = class(TInterfacedObject, IHtmlEditorEvents)
   private
-    FManager               : IHtmlEditorManager;
-    FChangeEvents          : TMethodList;
-    FModifiedEvents        : TMethodList;
-    FOnContentLoadedEvents : TMethodList;
-    FOnSourceChangedEvents : TMethodList;
+    FManager                     : IHtmlEditorManager;
+    FChangeEvents                : TMethodList;
+    FModifiedEvents              : TMethodList;
+    FOnContentLoadedEvents       : TMethodList;
+    FOnSourceChangedEvents       : TMethodList;
+    FOnNavigationCompletedEvents : TMethodList;
 
     FOnNew                 : TNewEvent;
     FOnLoad                : TStorageEvent;
@@ -71,6 +72,7 @@ type
     procedure DoModified;
     procedure DoContentLoaded;
     procedure DoSourceChanged;
+    procedure DoNavigationCompleted;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);
@@ -90,6 +92,8 @@ type
     procedure RemoveOnContentLoadedHandler(AEvent: TNotifyEvent);
     procedure AddOnSourceChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
+    procedure AddOnNavigationCompletedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnNavigationCompletedHandler(AEvent: TNotifyEvent);
 
     property View: IHtmlEditorView
       read GetView;
@@ -131,10 +135,11 @@ implementation
 procedure THtmlEditorEvents.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FChangeEvents          := TMethodList.Create;
-  FModifiedEvents        := TMethodList.Create;
-  FOnContentLoadedEvents := TMethodList.Create;
-  FOnSourceChangedEvents := TMethodList.Create;
+  FChangeEvents                := TMethodList.Create;
+  FModifiedEvents              := TMethodList.Create;
+  FOnContentLoadedEvents       := TMethodList.Create;
+  FOnSourceChangedEvents       := TMethodList.Create;
+  FOnNavigationCompletedEvents := TMethodList.Create;;
 end;
 
 constructor THtmlEditorEvents.Create(AManager: IHtmlEditorManager);
@@ -150,6 +155,7 @@ begin
   FModifiedEvents.Free;
   FOnContentLoadedEvents.Free;
   FOnSourceChangedEvents.Free;
+  FOnNavigationCompletedEvents.Free;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -262,6 +268,11 @@ begin
   FOnSourceChangedEvents.CallNotifyEvents(Self);
 end;
 
+procedure THtmlEditorEvents.DoNavigationCompleted;
+begin
+  FOnNavigationCompletedEvents.CallNotifyEvents(Self);
+end;
+
 procedure THtmlEditorEvents.DoOpen(const AName: string);
 var
   S : string;
@@ -364,6 +375,19 @@ procedure THtmlEditorEvents.RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
 begin
   FOnSourceChangedEvents.Remove(TMethod(AEvent));
 end;
+
+procedure THtmlEditorEvents.AddOnNavigationCompletedHandler(AEvent: TNotifyEvent
+  );
+begin
+  FOnNavigationCompletedEvents.Add(TMethod(AEvent));
+end;
+
+procedure THtmlEditorEvents.RemoveOnNavigationCompletedHandler
+  (AEvent: TNotifyEvent);
+begin
+  FOnNavigationCompletedEvents.Remove(TMethod(AEvent));
+end;
+
 {$ENDREGION}
 
 end.

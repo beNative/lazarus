@@ -1,17 +1,18 @@
 object frmMain: TfrmMain
-  Left = -1950
-  Height = 618
-  Top = 78
+  Left = 459
+  Height = 687
+  Top = 123
   Width = 1183
   Anchors = []
   BorderIcons = [biSystemMenu, biMinimize, biMaximize, biHelp]
   Caption = 'Notepas'
-  ClientHeight = 618
+  ClientHeight = 687
   ClientWidth = 1183
   Color = clBtnFace
   Constraints.MinHeight = 200
   Constraints.MinWidth = 300
   DefaultMonitor = dmPrimary
+  Font.Height = -12
   OnCloseQuery = FormCloseQuery
   OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
@@ -21,7 +22,7 @@ object frmMain: TfrmMain
   object pnlStatusBar: TPanel
     Left = 0
     Height = 18
-    Top = 600
+    Top = 669
     Width = 1183
     Align = alBottom
     BorderSpacing.Top = 2
@@ -275,12 +276,12 @@ object frmMain: TfrmMain
   end
   object pnlTool: TPanel
     Left = 0
-    Height = 573
+    Height = 642
     Top = 25
     Width = 428
     Align = alLeft
     BevelOuter = bvNone
-    ClientHeight = 573
+    ClientHeight = 642
     ClientWidth = 428
     TabOrder = 1
     Visible = False
@@ -345,7 +346,7 @@ object frmMain: TfrmMain
     end
     object pnlToolClient: TPanel
       Left = 0
-      Height = 548
+      Height = 617
       Top = 25
       Width = 428
       Align = alClient
@@ -355,7 +356,7 @@ object frmMain: TfrmMain
   end
   object splVertical: TSplitter
     Left = 428
-    Height = 573
+    Height = 642
     Top = 25
     Width = 7
     Visible = False

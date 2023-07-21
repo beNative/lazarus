@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2021 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
   This library is free software; you can redistribute it and/or modify it
   under the terms of the GNU Library General Public License as published by
@@ -49,6 +49,7 @@ begin
     DeleteFile('Notepas.trc');
   SetHeapTraceOutput('Notepas.trc');
 {$ENDIF}
+  Application.Scaled := True;
   Application.Title := 'Notepas';
 
 {$IFDEF WINDOWS}

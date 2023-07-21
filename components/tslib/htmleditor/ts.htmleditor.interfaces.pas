@@ -302,12 +302,15 @@ type
     procedure RemoveOnContentLoadedHandler(AEvent: TNotifyEvent);
     procedure AddOnSourceChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveOnSourceChangedHandler(AEvent: TNotifyEvent);
+    procedure AddOnNavigationCompletedHandler(AEvent: TNotifyEvent);
+    procedure RemoveOnNavigationCompletedHandler(AEvent: TNotifyEvent);
 
     // event dispatch methods
     procedure DoChange;
     procedure DoModified;
     procedure DoContentLoaded;
     procedure DoSourceChanged;
+    procedure DoNavigationCompleted;
     procedure DoOpen(const AName: string);
     procedure DoBeforeSave(const AName: string);
     procedure DoAfterSave(const AName: string);

@@ -1,5 +1,5 @@
 object frmQuery: TfrmQuery
-  Left = 735
+  Left = 3295
   Height = 600
   Top = 258
   Width = 700

@@ -22,7 +22,7 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
-  StdCtrls, Character, StrUtils,
+  StdCtrls, Character, StrUtils, ComCtrls, ActnList,
 
   LCLType,
 {$IFDEF WINDOWS}
@@ -166,8 +166,6 @@ function GetTextHeight(
 
 procedure OptimizeWidth(APanel: TPanel);
 
-function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
-
 // Variants and TVarRec conversions
 
 function VariantToTypedVarRec(
@@ -284,13 +282,29 @@ function AddMenuItem(
   AMenu   : TMenu
 ): TMenuItem; overload;
 
+function CloneMenuItem(AItem: TMenuItem): TMenuItem;
+
+function AddToolBarButton(
+  AToolBar     : TToolBar;
+  AAction      : TBasicAction = nil;
+  AShowCaption : Boolean      = False
+): TToolButton; overload;
+
+function AddToolBarButton(
+  AToolBar          : TToolBar;
+  AActionList       : TActionList;
+  const AActionName : string      = '';
+  AShowCaption      : Boolean     = False;
+  APopupMenu        : TPopupMenu  = nil
+): TToolButton; overload;
+
 implementation
 
 uses
 {$IFDEF WINDOWS}
   ActiveX, ShlObj, Registry,
 {$ENDIF}
-  Variants, ActnList, Dialogs,
+  Variants, Dialogs,
   LazFileUtils;
 
 resourcestring
@@ -676,11 +690,11 @@ begin
     APanel.Width := 2;
 end;
 
-function CloneMenuItem(SourceItem: TMenuItem): TMenuItem;
+function CloneMenuItem(AItem: TMenuItem): TMenuItem;
 var
   I: Integer;
 Begin
-  with SourceItem do
+  with AItem do
   Begin
     Result := NewItem(Caption, Shortcut, Checked, Enabled, OnClick, HelpContext, Name + 'Copy');
     for I := 0 To Count - 1 do
@@ -2331,6 +2345,56 @@ begin
   end;
   Result := MI;
 end;
+
+ function AddToolBarButton(AToolBar: TToolBar; AAction: TBasicAction;
+   AShowCaption: Boolean): TToolButton;
+ var
+   LButton : TToolButton;
+ begin
+   LButton := TToolButton.Create(AToolBar);
+   LButton.Parent      := AToolBar;
+   LButton.ShowCaption := AShowCaption;
+   if Assigned(AAction) then
+     LButton.Action := AAction
+   else
+     LButton.Style := tbsSeparator;
+   Result := LButton;
+ end;
+
+ function AddToolBarButton(AToolBar: TToolBar; AActionList: TActionList;
+   const AActionName: string; AShowCaption: Boolean; APopupMenu: TPopupMenu):
+   TToolButton;
+ var
+   LButton : TToolButton;
+   LAction : TContainedAction = nil;
+ begin
+   LButton := TToolButton.Create(AToolBar);
+   LButton.Parent      := AToolBar;
+   LButton.ShowCaption := AShowCaption;
+   if Assigned(AActionList) then
+   begin
+     LAction := AActionList.ActionByName(AActionName);
+     if Assigned(APopupMenu) and Assigned(LAction) then
+     begin
+       LButton.Style        := tbsDropDown;
+       LButton.DropdownMenu := APopupMenu;
+       LButton.Action       := LAction;
+     end
+     else if Assigned(LAction) then
+     begin
+       LButton.Action := LAction;
+     end
+     else
+     begin
+       LButton.Style := tbsSeparator;
+     end;
+   end
+   else
+   begin
+     LButton.Style := tbsSeparator;
+   end;
+   Result := LButton;
+ end;
 
 end.
 

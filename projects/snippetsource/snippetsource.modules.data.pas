@@ -202,6 +202,7 @@ type
     procedure CreateLookupFields;
 
     procedure EnsureSqliteExists;
+    procedure EnsureWebView2LoaderExists;
 
     procedure FillImageMapFromDataSet(
       AImageMap : TImageMap;
@@ -244,9 +245,7 @@ type
 
     {$REGION 'IQuery'}
     procedure Execute(const ASQL: string);
-
     function LastId: Integer;
-
     function QueryValue(const ASQL: string): Variant;
 
     property Query: TSQLQuery
@@ -463,6 +462,7 @@ begin
   Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
   EnsureSqliteExists;
+//  EnsureWebView2LoaderExists;
   FHLImages := TImageMap.Create(True);
   qrySnippet.UsePrimaryKeyAsKey := True;
   ConnectToDatabase(FSettings.Database);
@@ -987,6 +987,45 @@ begin
 
       // Create the file and write the resource data to it
       LFileHandle := CreateFile(SQLITE3_DLL,
+        GENERIC_WRITE, 0, nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+      if LFileHandle = INVALID_HANDLE_VALUE then
+        raise Exception.Create('Error creating file');
+      try
+        if not WriteFile(LFileHandle, Pointer(LResourceData)^, LResourceSize, LBytesWritten, nil) then
+          raise Exception.Create('Error writing to file');
+      finally
+        CloseHandle(LFileHandle);
+      end;
+    finally
+      FreeResource(LResourceData);
+    end;
+  end;
+end;
+
+procedure TdmSnippetSource.EnsureWebView2LoaderExists;
+var
+  LResourceHandle : THandle;
+  LResourceData   : THandle;
+  LResourceSize   : LongInt;
+  LFileHandle     : THandle;
+  LBytesWritten   : DWORD;
+begin
+  if not FileExistsUTF8(WEBVIEW2LOADER_DLL) then
+  begin
+    // Find the resource
+    LResourceHandle := FindResource(HInstance, 'WEBVIEW2LOADER', RT_RCDATA);
+    if LResourceHandle = 0 then
+      raise Exception.Create('Resource not found');
+
+    // Load the resource data into memory
+    LResourceData := LoadResource(HInstance, LResourceHandle);
+    if LResourceData = 0 then
+      raise Exception.Create('Error loading resource');
+    try
+      LResourceSize := SizeOfResource(HInstance, LResourceHandle);
+
+      // Create the file and write the resource data to it
+      LFileHandle := CreateFile(WEBVIEW2LOADER_DLL,
         GENERIC_WRITE, 0, nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
       if LFileHandle = INVALID_HANDLE_VALUE then
         raise Exception.Create('Error creating file');

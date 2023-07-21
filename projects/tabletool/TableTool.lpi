@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="TableTool"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -64,25 +66,34 @@
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="6">
+    <RequiredPackages Count="9">
       <Item1>
-        <PackageName Value="tslib_editor"/>
+        <PackageName Value="KControlsLaz"/>
       </Item1>
       <Item2>
-        <PackageName Value="tslib_components"/>
+        <PackageName Value="bgracontrols"/>
       </Item2>
       <Item3>
-        <PackageName Value="tslib_core"/>
+        <PackageName Value="mbColorLibLaz"/>
       </Item3>
       <Item4>
-        <PackageName Value="OMultiPanel_Design"/>
+        <PackageName Value="tslib_editor"/>
       </Item4>
       <Item5>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="tslib_components"/>
       </Item5>
       <Item6>
-        <PackageName Value="LCL"/>
+        <PackageName Value="tslib_core"/>
       </Item6>
+      <Item7>
+        <PackageName Value="OMultiPanel_Design"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
     </RequiredPackages>
     <Units Count="3">
       <Unit0>

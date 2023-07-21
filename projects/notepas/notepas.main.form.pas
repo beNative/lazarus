@@ -264,6 +264,7 @@ begin
   FUniqueInstance.Enabled := Settings.SingleInstance;
 
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
+    //AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
   FMainToolbar := TEditorFactories.CreateMainToolbar(
     Self,
     pnlToolBar,

@@ -18,23 +18,30 @@ object HtmlEditorView: THtmlEditorView
     TabOrder = 0
     object WVWindowParent: TWVWindowParent
       Left = 0
-      Height = 352
-      Top = 21
+      Height = 348
+      Top = 25
       Width = 599
       Align = alClient
       TabOrder = 0
       Browser = WVBrowser
     end
     object edtSource: TEdit
-      Left = 0
-      Height = 21
-      Top = 0
-      Width = 599
+      Left = 4
+      Height = 17
+      Top = 4
+      Width = 591
       Align = alTop
       Alignment = taCenter
+      AutoSize = False
+      BorderSpacing.Around = 4
       BorderStyle = bsNone
-      Font.Height = -16
+      Color = clBtnFace
+      Font.Height = -13
       OnEditingDone = edtSourceEditingDone
+      OnEnter = edtSourceEnter
+      OnExit = edtSourceExit
+      OnMouseEnter = edtSourceMouseEnter
+      OnMouseLeave = edtSourceMouseLeave
       ParentFont = False
       TabOrder = 1
     end
@@ -109,9 +116,10 @@ object HtmlEditorView: THtmlEditorView
     Left = 182
     Top = 102
   end
-  object Timer: TTimer
+  object tmrCreateWebBrowser: TTimer
+    Enabled = False
     Interval = 300
-    OnTimer = TimerTimer
+    OnTimer = tmrCreateWebBrowserTimer
     Left = 179
     Top = 32
   end

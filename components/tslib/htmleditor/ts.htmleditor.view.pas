@@ -64,6 +64,10 @@ type
     WVWindowParent : TWVWindowParent;
 
     {$REGION 'event handlers'}
+    procedure edtSourceEnter(Sender: TObject);
+    procedure edtSourceExit(Sender: TObject);
+    procedure edtSourceMouseEnter(Sender: TObject);
+    procedure edtSourceMouseLeave(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure edtSourceEditingDone(Sender: TObject);
 
@@ -1162,9 +1166,45 @@ begin
     Timer.Enabled := True;
 end;
 
-procedure THtmlEditorView.edtSourceEditingDone(Sender: TObject);
+procedure THtmlEditorView.edtSourceMouseEnter(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
-  Source := edtSource.Text;
+  LEdit.Color      := clWhite;
+  LEdit.Font.Color := clBlack;
+end;
+
+procedure THtmlEditorView.edtSourceEnter(Sender: TObject);
+begin
+end;
+
+procedure THtmlEditorView.edtSourceExit(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
+begin
+  LEdit.Color      := clForm;
+  LEdit.Font.Color := clDkGray;
+  Logger.Info('Exited');
+end;
+
+procedure THtmlEditorView.edtSourceMouseLeave(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
+begin
+  if not LEdit.Focused then
+  begin
+    LEdit.Color      := clForm;
+    LEdit.Font.Color := clDkGray;
+    WVBrowser.SetFocus;
+  end;
+end;
+
+procedure THtmlEditorView.edtSourceEditingDone(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
+begin
+  Source     := LEdit.Text;
+  LEdit.Hint := LEdit.Text;
 end;
 
 procedure THtmlEditorView.WVBrowserAcceleratorKeyPressed(Sender: TObject;
@@ -1689,6 +1729,11 @@ begin
   begin
     DoRequestData;
     ApplySettings;
+    if not edtSource.Focused then
+    begin
+      edtSource.Color      := clForm;
+      edtSource.Font.Color := clDkGray;
+    end;
     FUpdate := False;
   end;
   UpdateWatches;
@@ -1706,6 +1751,7 @@ begin
   Logger.Watch('FDataSent', FDataSent);
   Logger.Watch('FRequestingData', FRequestingData);
   Logger.Watch('FSendingData', FSendingData);
+  Logger.Watch('Source', Source);
 end;
 
 procedure THtmlEditorView.SelectAll;

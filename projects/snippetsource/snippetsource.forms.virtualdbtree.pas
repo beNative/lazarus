@@ -72,9 +72,6 @@ type
   ) of object;
 
 type
-
-  { TfrmVirtualDBTree }
-
   TfrmVirtualDBTree = class(TForm)
     {$REGION 'designer controls'}
     actCancel                 : TAction;
@@ -89,17 +86,19 @@ type
     actRefresh                : TAction;
     alMain                    : TActionList;
     btnCollapseAllNodes       : TToolButton;
-    btnDivider                : TToolButton;
+    btnDivider1               : TToolButton;
+    btnDivider2               : TToolButton;
+    btnDuplicateSelectedNodes : TToolButton;
     btnExpandAllNodes         : TToolButton;
     btnNewFolder              : TToolButton;
     btnNewItem                : TToolButton;
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
-    MenuItem1: TMenuItem;
     mniCancel                 : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
     mniDelete                 : TMenuItem;
+    mniDuplicateSelectedNodes : TMenuItem;
     mniExpandAllNodes         : TMenuItem;
     mniNewChild               : TMenuItem;
     mniNewFolder              : TMenuItem;
@@ -108,6 +107,7 @@ type
     mniRefresh                : TMenuItem;
     N1                        : TMenuItem;
     N2                        : TMenuItem;
+    N3                        : TMenuItem;
     navTreeView               : TDBNavigator;
     pnlMain                   : TPanel;
     pnlTop                    : TPanel;
@@ -115,11 +115,9 @@ type
     pnlTopRight               : TPanel;
     pnlTree                   : TPanel;
     ppmTreeView               : TPopupMenu;
-    Separator1: TMenuItem;
     shpLine                   : TShape;
     tlbTop                    : TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
+
     {$ENDREGION}
 
     {$REGION 'action handlers'}

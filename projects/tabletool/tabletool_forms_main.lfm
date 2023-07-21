@@ -1,13 +1,13 @@
 object frmMain: TfrmMain
-  Left = 508
+  Left = 233
   Height = 581
-  Top = 186
+  Top = 661
   Width = 958
   Caption = 'TableTool'
   ClientHeight = 581
   ClientWidth = 958
   ShowHint = True
-  LCLVersion = '2.0.2.0'
+  LCLVersion = '2.2.2.0'
   object pnlMain: TPanel
     Left = 0
     Height = 466
@@ -299,8 +299,8 @@ object frmMain: TfrmMain
     end
   end
   object aclMain: TActionList
-    left = 224
-    top = 64
+    Left = 224
+    Top = 64
     object actClearSelection: TAction
       Caption = 'Clear selection'
       OnExecute = actClearSelectionExecute
@@ -342,8 +342,8 @@ object frmMain: TfrmMain
     end
   end
   object ppmMain: TPopupMenu
-    left = 147
-    top = 61
+    Left = 147
+    Top = 61
     object mniClearGrid: TMenuItem
       Action = actClearSelection
     end

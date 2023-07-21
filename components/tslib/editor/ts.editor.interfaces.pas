@@ -33,7 +33,7 @@ uses
   SynEdit, SynEditTypes, SynEditHighlighter, SynMacroRecorder,
   SynEditPointClasses,
 
-  ts.Core.FormSettings,
+  ts.Core.FormSettings, ts.Core.Utils,
 
   ts.Editor.AlignLines.Settings, ts.Editor.Search.Engine.Settings,
   ts.Editor.CodeShaper.Settings, ts.Editor.CodeFilter.Settings,

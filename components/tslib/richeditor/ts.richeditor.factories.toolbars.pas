@@ -117,13 +117,14 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  TB.EdgeBorders := [ebLeft, ebTop, ebRight, ebBottom];
-  TB.EdgeInner   := esNone;
-  TB.EdgeOuter   := esNone;
-  TB.Transparent := True;
-  TB.Parent      := AParent;
-  TB.Images      := FActions.ActionList.Images;
-  TB.ButtonWidth := 10;
+  TB.EdgeBorders  := [ebLeft, ebTop, ebRight, ebBottom];
+  TB.EdgeInner    := esNone;
+  TB.EdgeOuter    := esNone;
+  TB.Transparent  := True;
+  TB.List         := True;
+  TB.Parent       := AParent;
+  TB.Images       := FActions.ActionList.Images;
+  TB.Align        := alClient;
 
   CreateToolButton(TB, 'actSave');
   CreateToolButton(TB, 'actSaveAs');

@@ -24,13 +24,12 @@ interface
 
 uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, StdCtrls, ActnList,
-
+  ComCtrls, StdCtrls, ActnList, Types, Registry,
   RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn, Grids, ValEdit,
 
-  VirtualTrees, Registry,
+  VirtualTrees,
 
-  SnippetSource.Interfaces, Types;
+  SnippetSource.Interfaces;
 
 type
   TfrmSettingsDialog = class(TForm)
@@ -67,9 +66,7 @@ type
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
     cbxImageList                     : TComboBox;
-    chkAutoHideEditor                : TCheckBox;
     chkAutoHideEditorToolBar         : TCheckBox;
-    chkAutoHideRichEditor            : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
     chkEmitLogMessages               : TCheckBox;
     chkUseCustomEnvironmentVariables : TCheckBox;
@@ -132,9 +129,7 @@ type
       ARect   : TRect;
       State   : TOwnerDrawState
     );
-    procedure chkAutoHideEditorClick(Sender: TObject);
     procedure chkAutoHideEditorToolBarClick(Sender: TObject);
-    procedure chkAutoHideRichEditorClick(Sender: TObject);
     procedure chkAutoHideRichEditorToolBarClick(Sender: TObject);
     procedure chkDebugModeClick(Sender: TObject);
     procedure chkEmitLogMessagesClick(Sender: TObject);
@@ -265,7 +260,6 @@ begin
   pgcMain.ActivePageIndex := 0;
   chkAutoHideEditorToolBar.Checked     := FSettings.AutoHideEditorToolBar;
   chkAutoHideRichEditorToolBar.Checked := FSettings.AutoHideRichEditorToolBar;
-  chkAutoHideRichEditor.Checked        := FSettings.AutoHideRichEditor;
   chkEmitLogMessages.Checked           := FSettings.EmitLogMessages;
   chkDebugMode.Checked                 := FSettings.DebugMode;
   pgcMain.ActivePage                   := tsApplication;
@@ -500,19 +494,9 @@ begin
 
 end;
 
-procedure TfrmSettingsDialog.chkAutoHideEditorClick(Sender: TObject);
-begin
-  FSettings.AutoHideEditor := (Sender as TCheckBox).Checked;
-end;
-
 procedure TfrmSettingsDialog.chkAutoHideEditorToolBarClick(Sender: TObject);
 begin
   FSettings.AutoHideEditorToolBar := (Sender as TCheckBox).Checked;
-end;
-
-procedure TfrmSettingsDialog.chkAutoHideRichEditorClick(Sender: TObject);
-begin
-  FSettings.AutoHideRichEditor := (Sender as TCheckBox).Checked;
 end;
 
 procedure TfrmSettingsDialog.chkAutoHideRichEditorToolBarClick(Sender: TObject);

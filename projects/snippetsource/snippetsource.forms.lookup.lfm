@@ -24,7 +24,7 @@ object frmLookup: TfrmLookup
     Width = 253
     Anchors = [akTop, akLeft, akRight]
     AutoSize = False
-    Font.Height = -12
+    Font.Height = -16
     OnKeyDown = edtLookupKeyDown
     OnKeyPress = edtLookupKeyPress
     OnKeyUp = edtLookupKeyUp

@@ -71,6 +71,7 @@ end;
 
 destructor THtmlEditorToolbarsFactory.Destroy;
 begin
+  FActions := nil;
   inherited Destroy;
 end;
 {$ENDREGION}
@@ -79,7 +80,7 @@ end;
 function THtmlEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
   AAction: TBasicAction; APopupMenu: TPopupMenu): TToolButton;
 var
-  TB: TToolButton;
+  TB : TToolButton;
 begin
   TB := TToolButton.Create(AParent);
   TB.Parent := AParent;
@@ -114,13 +115,14 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  TB.EdgeBorders := [ebLeft, ebTop, ebRight, ebBottom];
-  TB.EdgeInner   := esNone;
-  TB.EdgeOuter   := esNone;
-  TB.Transparent := True;
-  TB.Parent      := AParent;
-  TB.Images      := FActions.ActionList.Images;
-  TB.ButtonWidth := 10;
+  TB.EdgeBorders  := [ebLeft, ebTop, ebRight, ebBottom];
+  TB.EdgeInner    := esNone;
+  TB.EdgeOuter    := esNone;
+  TB.Transparent  := True;
+  TB.List         := True;
+  TB.Parent       := AParent;
+  TB.Images       := FActions.ActionList.Images;
+  TB.Align        := alClient;
 
   CreateToolButton(TB, 'actOpen');
   //CreateToolButton(TB, 'actSave');

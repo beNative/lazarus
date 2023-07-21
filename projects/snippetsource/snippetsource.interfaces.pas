@@ -272,9 +272,7 @@ type
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']
     {$REGION 'property access methods'}
-    function GetAutoHidEditor: Boolean;
     function GetAutoHideEditorToolBar: Boolean;
-    function GetAutoHideRichEditor: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
     function GetDebugMode: Boolean;
@@ -284,9 +282,7 @@ type
     function GetHtmlSourceVisible: Boolean;
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
-    procedure SetAutoHideEditor(AValue: Boolean);
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
-    procedure SetAutoHideRichEditor(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
     procedure SetDebugMode(AValue: Boolean);
@@ -315,12 +311,6 @@ type
 
     property LastFocusedId: Integer
       read GetLastFocusedId write SetLastFocusedId;
-
-    property AutoHideEditor: Boolean
-      read GetAutoHidEditor write SetAutoHideEditor;
-
-    property AutoHideRichEditor: Boolean
-      read GetAutoHideRichEditor write SetAutoHideRichEditor;
 
     property AutoHideEditorToolBar: Boolean
       read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar;

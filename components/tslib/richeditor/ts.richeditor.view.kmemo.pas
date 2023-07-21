@@ -921,11 +921,6 @@ begin
     OnChange(Self);
     Events.DoChange;
   end;
-  Logger.Watch('ContentHeight', FEditor.ContentHeight);
-  Logger.Watch('ContentWidth', FEditor.ContentWidth);
-  Logger.Watch('ContentLeft', FEditor.ContentLeft);
-  Logger.Watch('ContentTop', FEditor.ContentTop);
-  Logger.Watch('SelText', FEditor.Blocks.SelText);
 end;
 
 procedure TRichEditorViewKMemo.DoSelectBlock;

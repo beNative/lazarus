@@ -135,6 +135,7 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure pnlRichEditorToolViewHostClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -184,6 +185,7 @@ type
     );
     procedure FHtmlEditorAfterCreated(Sender: TObject);
     procedure FHtmlEditorChange(Sender: TObject);
+    procedure FHtmlEditorContentLoaded(Sender: TObject);
     procedure FRichEditorChange(Sender: TObject);
     procedure FRichEditorDropFiles(
       Sender           : TObject;
@@ -220,18 +222,6 @@ type
     function GetRichEditor: IRichEditorView;
     function GetSnippet: ISnippet;
     {$ENDREGION}
-
-    procedure AddButton(
-      AToolBar          : TToolBar;
-      const AActionName : string = '';
-      AShowCaption      : Boolean = False;
-      APopupMenu        : TPopupMenu = nil
-    ); overload;
-    procedure AddButton(
-      AToolBar     : TToolBar;
-      AAction      : TBasicAction;
-      AShowCaption : Boolean = False
-    ); overload;
 
     procedure AssignTextEditorChanges;
     procedure BuildTextEditorToolBar;
@@ -495,6 +485,7 @@ const
   COMMAND    = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
 begin
   LFileName := Format(SCRIPT_FILE, [Snippet.Highlighter]);
+  Logger.Send('FileName', LFileName);
   FS := TFileStream.Create(LFileName, fmCreate);
   try
     Editor.SaveToStream(FS);
@@ -604,8 +595,8 @@ begin
         //FRichEditorVisible := False;
         LoadRtfData;
         LoadHtmlData;
-        SwitchView;
         Modified;
+//        SwitchView;
       end;
     end;
   end;
@@ -662,16 +653,20 @@ end;
 
 {$REGION 'edtTitle'}
 procedure TfrmMain.edtTitleChange(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
-  if Snippet.NodeName <> edtTitle.Text then
+  if Snippet.NodeName <> LEdit.Text then
     DataSet.Edit;
 end;
 
 procedure TfrmMain.edtTitleEditingDone(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
   DataSet.Edit;
-  Snippet.NodeName := edtTitle.Text;
-  edtTitle.Hint    := edtTitle.Text;
+  Snippet.NodeName := LEdit.Text;
+  LEdit.Hint    := LEdit.Text;
 end;
 
 procedure TfrmMain.edtTitleEnter(Sender: TObject);
@@ -680,23 +675,29 @@ begin
 end;
 
 procedure TfrmMain.edtTitleMouseEnter(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
-  edtTitle.Color      := clWhite;
-  edtTitle.Font.Color := clBlack;
+  LEdit.Color      := clWhite;
+  LEdit.Font.Color := clBlack;
 end;
 
 procedure TfrmMain.edtTitleExit(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
-  edtTitle.Color      := clForm;
-  edtTitle.Font.Color := clDkGray;
+  LEdit.Color      := clForm;
+  LEdit.Font.Color := clDkGray;
 end;
 
 procedure TfrmMain.edtTitleMouseLeave(Sender: TObject);
+var
+  LEdit : TEdit absolute Sender;
 begin
-  if not edtTitle.Focused then
+  if not LEdit.Focused then
   begin
-    edtTitle.Color      := clForm;
-    edtTitle.Font.Color := clDkGray;
+    LEdit.Color      := clForm;
+    LEdit.Font.Color := clDkGray;
     Editor.SetFocus;
   end;
 end;
@@ -717,6 +718,11 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
+end;
+
+procedure TfrmMain.pnlRichEditorToolViewHostClick(Sender: TObject);
+begin
+
 end;
 
 {$REGION 'FTree'}
@@ -881,118 +887,92 @@ begin
     SaveHtmlData;
   end;
 end;
+
+procedure TfrmMain.FHtmlEditorContentLoaded(Sender: TObject);
+begin
+  //if FUpdate then
+  //  SwitchView;
+end;
+
 {$ENDREGION}
 {$ENDREGION}
 
 {$REGION 'private methods'}
-procedure TfrmMain.AddButton(AToolBar: TToolBar; const AActionName: string;
-  AShowCaption: Boolean; APopupMenu: TPopupMenu);
-var
-  TB : TToolButton;
-begin
-  TB := TToolButton.Create(Self);
-  TB.Parent := AToolBar;
-  TB.ShowCaption := AShowCaption;
-  if Assigned(APopupMenu) then
-  begin
-    TB.Style := tbsDropDown;
-    TB.DropdownMenu := APopupMenu;
-    TB.Action := FEditorManager.Actions[AActionName];
-  end
-  else
-  begin
-    if AActionName = '' then
-    begin
-      TB.Style := tbsDivider;
-    end
-    else
-      TB.Action := FEditorManager.Actions[AActionName];
-  end;
-end;
-
-procedure TfrmMain.AddButton(AToolBar: TToolBar; AAction: TBasicAction;
-  AShowCaption: Boolean);
-var
-  TB : TToolButton;
-begin
-  TB := TToolButton.Create(Self);
-  TB.Parent      := AToolBar;
-  TB.ShowCaption := AShowCaption;
-  if Assigned(AAction) then
-    TB.Action := AAction
-  else
-    TB.Style := tbsDivider;
-end;
-
 procedure TfrmMain.AssignTextEditorChanges;
 begin
   Snippet.Text        := Editor.Text;
   Snippet.FoldLevel   := Editor.FoldLevel;
   Snippet.Highlighter := Editor.HighlighterName;
+  Logger.Send('Editor.HighlighterName', Editor.HighlighterName);
   if Snippet.Highlighter = '' then
     Snippet.Highlighter := 'TXT';
 end;
 
 procedure TfrmMain.BuildTextEditorToolBar;
+var
+  AL : TActionList;
 begin
-  tlbEditorView.Images  := FEditorManager.Actions.ActionList.Images;
-  AddButton(tlbEditorView, 'actSave');
-  AddButton(tlbEditorView, 'actSaveAs');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actCut');
-  AddButton(tlbEditorView, 'actCopy');
-  AddButton(tlbEditorView, 'actPaste');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actUndo');
-  AddButton(tlbEditorView, 'actRedo');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actSearch');
-  AddButton(tlbEditorView, 'actSearchReplace');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actShowCodeShaper');
-  AddButton(tlbEditorView, 'actShowCodeFilter');
-  AddButton(tlbEditorView, 'actShowCharacterMap');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actShowSpecialCharacters');
-  AddButton(tlbEditorView, 'actSortSelection');
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actSelectAll');
-  AddButton(tlbEditorView, 'actCopyAllToClipboard');
-  AddButton(tlbEditorView, 'actClear');
-  AddButton(tlbEditorView);
-  AddButton(
+  AL := FEditorManager.Actions.ActionList;
+  tlbEditorView.Images  := AL.Images;
+  AddToolBarButton(tlbEditorView, AL, 'actSave');
+  AddToolBarButton(tlbEditorView, AL, 'actSaveAs');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actCut');
+  AddToolBarButton(tlbEditorView, AL, 'actCopy');
+  AddToolBarButton(tlbEditorView, AL, 'actPaste');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actUndo');
+  AddToolBarButton(tlbEditorView, AL, 'actRedo');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actSearch');
+  AddToolBarButton(tlbEditorView, AL, 'actSearchReplace');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actShowCodeShaper');
+  AddToolBarButton(tlbEditorView, AL, 'actShowCodeFilter');
+  AddToolBarButton(tlbEditorView, AL, 'actShowCharacterMap');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actShowSpecialCharacters');
+  AddToolBarButton(tlbEditorView, AL, 'actSortSelection');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actSelectAll');
+  AddToolBarButton(tlbEditorView, AL, 'actCopyAllToClipboard');
+  AddToolBarButton(tlbEditorView, AL, 'actClear');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(
     tlbEditorView,
+    AL,
     'actToggleFoldLevel',
     False,
     FEditorManager.Menus.FoldPopupMenu
   );
-  AddButton(
+  AddToolBarButton(
     tlbEditorView,
+    AL,
     'actToggleHighlighter',
     False,
     FEditorManager.Menus.HighlighterPopupMenu
   );
-  AddButton(tlbEditorView);
-  AddButton(tlbEditorView, 'actSettings');
+  AddToolBarButton(tlbEditorView);
+  AddToolBarButton(tlbEditorView, AL, 'actSettings');
 end;
 
 procedure TfrmMain.BuildApplicationToolBar;
 begin
   tlbApplication.Images := imlMain;
-  AddButton(tlbApplication, actTextEditor, True);
-  AddButton(tlbApplication, actRtfEditor, True);
-  AddButton(tlbApplication, actHtmlEditor, True);
-  AddButton(tlbApplication);
-  AddButton(tlbApplication, actLookup);
+  AddToolBarButton(tlbApplication, actTextEditor, True);
+  AddToolBarButton(tlbApplication, actRtfEditor, True);
+  AddToolBarButton(tlbApplication, actHtmlEditor, True);
+  AddToolBarButton(tlbApplication);
+  AddToolBarButton(tlbApplication, actLookup);
   if FSettings.DebugMode then
   begin
-    AddButton(tlbApplication, actSQLEditor);
-    AddButton(tlbApplication, actShowGridForm);
+    AddToolBarButton(tlbApplication, actSQLEditor);
+    AddToolBarButton(tlbApplication, actShowGridForm);
   end;
-  AddButton(tlbApplication, actExecute);
-  AddButton(tlbApplication, actSettings);
-  AddButton(tlbApplication, actAbout);
-  AddButton(tlbApplication, actToggleStayOnTop);
+  AddToolBarButton(tlbApplication, actExecute);
+  AddToolBarButton(tlbApplication, actSettings);
+  AddToolBarButton(tlbApplication, actAbout);
+  AddToolBarButton(tlbApplication, actToggleStayOnTop);
 end;
 
 procedure TfrmMain.HideAction(const AActionName: string);
@@ -1033,7 +1013,12 @@ procedure TfrmMain.SwitchView;
 begin
   if FHtmlEditor.IsInitialized then
   begin
-    if not FEditor.Text.IsEmpty then
+    if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.Source.IsEmpty) then
+    begin
+      actHtmlEditor.Checked := True;
+      nbRight.PageIndex := pgHtmlEditor.PageIndex;
+    end
+    else if not FEditor.Text.IsEmpty then
     begin
       actTextEditor.Checked := True;
       nbRight.PageIndex := pgTextEditor.PageIndex;
@@ -1042,11 +1027,6 @@ begin
     begin
       actRtfEditor.Checked := True;
       nbRight.PageIndex := pgRichEditor.PageIndex;
-    end
-    else if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.Source.IsEmpty) then
-    begin
-      actHtmlEditor.Checked := True;
-      nbRight.PageIndex := pgHtmlEditor.PageIndex;
     end
     else
     begin
@@ -1135,6 +1115,7 @@ begin
     pnlHtmlEditor,
     FHtmlEditorManager
   );
+  FHtmlEditorManager.Events.AddOnContentLoadedHandler(FHtmlEditorContentLoaded);
   FHtmlEditorToolBar.Height := 23;
   FHtmlEditor.SetFocus;
   FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;

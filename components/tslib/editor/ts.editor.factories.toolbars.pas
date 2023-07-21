@@ -168,9 +168,9 @@ var
 begin
   TB := TToolBar.Create(AOwner);
   ApplyDefaultProperties(TB);
-  TB.Parent := AParent;
-  TB.Images := FActions.ActionList.Images;
-  TB.ButtonWidth:= 10;
+  TB.Parent      := AParent;
+  TB.Images      := FActions.ActionList.Images;
+  TB.ButtonWidth := 10;
 
   CreateToolButton(TB, 'actNew');
   CreateToolButton(TB, 'actOpen');

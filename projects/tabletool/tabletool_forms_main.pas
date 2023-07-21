@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  Grids, ActnList, Menus, StdCtrls, Clipbrd,
+  Grids, ActnList, Menus, StdCtrls, Clipbrd, mbOfficeColorDialog,
+  mbColorPalette, mbColorPreview, BCComboBox, kbuttons,
 
   RTTICtrls, RTTIGrids,
 
@@ -73,6 +74,7 @@ type
     edtColumnCount: TTISpinEdit;
     trbRows: TTITrackBar;
     trbFixedCols: TTITrackBar;
+
     procedure actAutoSizeColumnsExecute(Sender: TObject);
     procedure actCopyAsCSVExecute(Sender: TObject);
     procedure actCopyAsTabDelimitedExecute(Sender: TObject);

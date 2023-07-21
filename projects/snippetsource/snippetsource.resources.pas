@@ -27,6 +27,7 @@ const
   EDITOR_SETTINGS_FILE  = 'settings.xml';
   SETTINGS_FILE         = 'settings.json';
   SQLITE3_DLL           = 'sqlite3.dll';
+  WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_LAST_ID = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =

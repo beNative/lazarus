@@ -36,8 +36,6 @@ type
     FDebugMode                    : Boolean;
     FHtmlEditMode                 : Boolean;
     FHtmlSourceVisible            : Boolean;
-    FAutoHideRichEditor           : Boolean;
-    FAutoHideEditor               : Boolean;
     FAutoHideEditorToolBar        : Boolean;
     FAutoHideRichEditorToolBar    : Boolean;
     FChangeEvents                 : TMethodList;
@@ -48,9 +46,7 @@ type
 
   protected
     {$REGION 'property access methods'}
-    function GetAutoHidEditor: Boolean;
     function GetAutoHideEditorToolBar: Boolean;
-    function GetAutoHideRichEditor: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
     function GetDebugMode: Boolean;
@@ -61,9 +57,7 @@ type
     function GetHtmlSourceVisible: Boolean;
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
-    procedure SetAutoHideEditor(AValue: Boolean);
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
-    procedure SetAutoHideRichEditor(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
     procedure SetDebugMode(AValue: Boolean);
@@ -105,14 +99,8 @@ type
     property AutoHideEditorToolBar: Boolean
       read GetAutoHideEditorToolBar write SetAutoHideEditorToolBar default True;
 
-    property AutoHideEditor: Boolean
-      read GetAutoHidEditor write SetAutoHideEditor;
-
     property AutoHideRichEditorToolBar: Boolean
       read GetAutoHideRichEditorToolBar write SetAutoHideRichEditorToolBar;
-
-    property AutoHideRichEditor: Boolean
-      read GetAutoHideRichEditor write SetAutoHideRichEditor;
 
     property DebugMode: Boolean
       read GetDebugMode write SetDebugMode;
@@ -294,34 +282,6 @@ begin
   if AValue <> EmitLogMessages then
   begin
     FEmitLogMessages := AValue;
-    Changed;
-  end;
-end;
-
-function TSettings.GetAutoHidEditor: Boolean;
-begin
-  Result := FAutoHideEditor;
-end;
-
-procedure TSettings.SetAutoHideEditor(AValue: Boolean);
-begin
-  if AValue <> AutoHideEditor then
-  begin
-    FAutoHideEditor := AValue;
-    Changed;
-  end;
-end;
-
-function TSettings.GetAutoHideRichEditor: Boolean;
-begin
-  Result := FAutoHideRichEditor;
-end;
-
-procedure TSettings.SetAutoHideRichEditor(AValue: Boolean);
-begin
-  if AValue <> AutoHideRichEditor then
-  begin
-    FAutoHideRichEditor := AValue;
     Changed;
   end;
 end;

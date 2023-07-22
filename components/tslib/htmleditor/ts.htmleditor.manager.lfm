@@ -1,7 +1,7 @@
 object dmHtmlEditorManager: TdmHtmlEditorManager
   OldCreateOrder = False
   Height = 280
-  HorizontalOffset = 3469
+  HorizontalOffset = 909
   VerticalOffset = 342
   Width = 543
   object aclActions: TActionList

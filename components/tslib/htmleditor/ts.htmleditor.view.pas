@@ -194,8 +194,8 @@ type
       const AErrorMessage : wvstring
     );
     procedure WVBrowserIsMutedChanged(
-      Sender         : TObject;
-      const aWebView : ICoreWebView2
+      Sender: TObject;
+      const aWebView: ICoreWebView2
     );
     procedure WVBrowserLaunchingExternalUriScheme(
       Sender         : TObject;
@@ -336,7 +336,6 @@ type
     FUpdate            : Boolean;
     FModified          : Boolean;
     FEditorFont        : TFont;
-    FUpdating          : Integer;
 
     FRequestingData : Boolean;  // Webbrowser -> Editor
     FDataReceived   : Boolean;  // Webbrowser -> Editor
@@ -426,7 +425,6 @@ type
     procedure SetZoomControlEnabled(AValue: Boolean);
     {$ENDREGION}
 
-    procedure InitializeWebView;
     procedure ApplySettings;
 
     procedure DoRequestData;
@@ -453,11 +451,7 @@ type
     function IsUpdating: Boolean;
 
     // browser methods
-    function ExecuteScript(
-      const AScript : string;
-      const AArgs   : array of const
-    ): Boolean; overload;
-    function ExecuteScript(const AScript : string): Boolean; overload;
+    function ExecuteScript(const AScript: string): Boolean;
     function ExecuteEditingCommand(ACommand: TWV2EditingCommand): Boolean;
     function ClearCache: Boolean;
     function Refresh: Boolean;
@@ -646,9 +640,9 @@ begin
   FStatusBarEnabled            := True;
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
-  FEditorFont.Name             := 'Segoe UI';
+  FEditorFont.Name             := DEFAULT_EDITOR_FONT;
 
-  InitializeWebView;
+  tmrCreateWebBrowser.Enabled := True;
 end;
 
 destructor THtmlEditorView.Destroy;
@@ -663,7 +657,6 @@ end;
 procedure THtmlEditorView.WMMove(var AMessage: TWMMove);
 begin
   inherited;
-
   if Assigned(WVBrowser) then
     WVBrowser.NotifyParentWindowPositionChanged;
 end;
@@ -672,7 +665,7 @@ procedure THtmlEditorView.WMMoving(var AMessage: TMessage);
 begin
   inherited;
   if Assigned(WVBrowser) then
-      WVBrowser.NotifyParentWindowPositionChanged;
+    WVBrowser.NotifyParentWindowPositionChanged;
 end;
 {$ENDREGION}
 
@@ -698,6 +691,7 @@ procedure THtmlEditorView.WVBrowserBasicAuthenticationRequested
   (Sender: TObject; const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2BasicAuthenticationRequestedEventArgs);
 begin
+  Logger.Info('WVBrowserBasicAuthenticationRequested');
   //Logger.Enter(Self, 'WVBrowserBasicAuthenticationRequested');
   //Logger.Leave(Self, 'WVBrowserBasicAuthenticationRequested');
 end;
@@ -706,8 +700,7 @@ procedure THtmlEditorView.WVBrowserBrowserProcessExited(Sender: TObject;
   const AEnvironment: ICoreWebView2Environment;
   const AArgs: ICoreWebView2BrowserProcessExitedEventArgs);
 begin
-  Logger.Enter(Self, 'WVBrowserBrowserProcessExited');
-  Logger.Leave(Self, 'WVBrowserBrowserProcessExited');
+  Logger.Info('WVBrowserBrowserProcessExited');
 end;
 
 procedure THtmlEditorView.WVBrowserBytesReceivedChanged(Sender: TObject;
@@ -787,8 +780,8 @@ begin
   end
   else if FDataReceived then
   begin
-    FSendingData    := False;
-    FDataSent       := True;
+    FSendingData := False;
+    FDataSent    := True;
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
@@ -877,13 +870,14 @@ end;
 
 procedure THtmlEditorView.WVBrowserGotFocus(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserGotFocus');
+  Logger.Info('WVBrowserGotFocus');
   FUpdate := True;
 end;
 
 procedure THtmlEditorView.WVBrowserHistoryChanged(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserHistoryChanged');
+  //Logger.Info('WVBrowserHistoryChanged');
+  Logger.AddCheckPoint('WVBrowserHistoryChanged');
 end;
 
 procedure THtmlEditorView.WVBrowserInitializationError(Sender: TObject;
@@ -907,7 +901,6 @@ end;
 
 procedure THtmlEditorView.WVBrowserLostFocus(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserLostFocus');
   DoRequestData;
 end;
 
@@ -915,7 +908,7 @@ procedure THtmlEditorView.WVBrowserMoveFocusRequested(Sender: TObject;
   const AController: ICoreWebView2Controller;
   const AArgs: ICoreWebView2MoveFocusRequestedEventArgs);
 begin
-  Logger.Track(Self, 'WVBrowserMoveFocusRequested');
+  Logger.Info('WVBrowserMoveFocusRequested');
 end;
 
 { stop loading }
@@ -942,8 +935,6 @@ begin
   Logger.Leave(Self, 'WVBrowserNavigationCompleted');
 end;
 
-{ start loading }
-
 procedure THtmlEditorView.WVBrowserNavigationStarting(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2NavigationStartingEventArgs);
@@ -969,7 +960,7 @@ procedure THtmlEditorView.WVBrowserNewWindowRequested(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2NewWindowRequestedEventArgs);
 begin
-  Logger.Track(Self, 'WVBrowserNewWindowRequested');
+  Logger.Info('WVBrowserNewWindowRequested');
 end;
 
 procedure THtmlEditorView.WVBrowserOfflineCompleted(Sender: TObject;
@@ -1157,15 +1148,6 @@ begin
   //  end;
 end;
 
-procedure THtmlEditorView.tmrCreateWebBrowserTimer(Sender: TObject);
-begin
-  tmrCreateWebBrowser.Enabled := False;
-  if GlobalWebView2Loader.Initialized then
-    WVBrowser.CreateBrowser(WVWindowParent.Handle)
-  else
-    tmrCreateWebBrowser.Enabled := True;
-end;
-
 procedure THtmlEditorView.edtSourceMouseEnter(Sender: TObject);
 var
   LEdit : TEdit absolute Sender;
@@ -1205,6 +1187,15 @@ var
 begin
   Source     := LEdit.Text;
   LEdit.Hint := LEdit.Text;
+end;
+
+procedure THtmlEditorView.tmrCreateWebBrowserTimer(Sender: TObject);
+begin
+  tmrCreateWebBrowser.Enabled := False;
+  if GlobalWebView2Loader.Initialized then
+    WVBrowser.CreateBrowser(WVWindowParent.Handle)
+  else
+    tmrCreateWebBrowser.Enabled := True;
 end;
 
 procedure THtmlEditorView.WVBrowserAcceleratorKeyPressed(Sender: TObject;
@@ -1546,7 +1537,7 @@ var
   S : string;
 begin
   S := Trim(HtmlText);
-  if S.IsEmpty or (S = EMPTY_PAGE_CONTENT) then
+  if S.IsEmpty or (S = '<html><head></head><body></body></html>') then
     Result := True
   else
     Result := False;
@@ -1683,7 +1674,7 @@ procedure THtmlEditorView.SetSource(AValue: string);
 begin
   if AValue <> Source then
   begin
-    if SameText(AValue, EMPTY_PAGE_SOURCE) then
+    if AValue = 'about:blank' then
       FSource := ''
     else
       FSource := AValue;
@@ -1700,29 +1691,16 @@ end;
 procedure THtmlEditorView.ApplySettings;
 begin
   if FEditMode then
-    ExecuteScript(JS_ENABLE_EDITMODE)
+    ExecuteScript('document.designMode = "on";')
   else
-    ExecuteScript(JS_DISABLE_EDITMODE);
+    ExecuteScript('document.designMode = "off";');
 
-  ExecuteScript(JS_SET_FONTNAME, [FEditorFont.Name]);
-
+  ExecuteScript(
+    Format('document.execCommand(''fontName'', false, ''%s'');',
+           [FEditorFont.Name])
+  );
   WVBrowser.DefaultContextMenusEnabled  := FDefaultContextMenusEnabled;
   WVBrowser.DefaultScriptDialogsEnabled := FDefaultScriptDialogsEnabled;
-end;
-
-procedure THtmlEditorView.InitializeWebView;
-begin
-  if GlobalWebView2Loader.InitializationError then
-  begin
-    Logger.Error(UTF8Encode(GlobalWebView2Loader.ErrorMessage));
-    ShowMessage(UTF8Encode(GlobalWebView2Loader.ErrorMessage));
-  end
-  else
-  begin
-    // Following statement is delayed by 300ms.
-    // WVBrowser.CreateBrowser(WVWindowParent.Handle)
-    tmrCreateWebBrowser.Enabled := True;
-  end;
 end;
 
 procedure THtmlEditorView.ShowDevTools;
@@ -1784,10 +1762,10 @@ var
 begin
   if (Length(AFileName) > 0) and FileExists(AFileName) then
   begin
-    LSource := 'file:///' + AFileName;
+    LSource := UTF8Decode('file:///' + AFileName);
       // TODO: The Filename should be encoded
     Logger.Info(LSource);
-    WVBrowser.Navigate(UTF8Decode(LSource));
+    WVBrowser.Navigate(LSource);
     FSendingData := True;
     FDataSent    := False;
   end;
@@ -1837,24 +1815,17 @@ end;
 
 procedure THtmlEditorView.BeginUpdate;
 begin
-  Inc(FUpdating);
+
 end;
 
 procedure THtmlEditorView.EndUpdate;
 begin
-  if FUpdating > 0 then
-    Dec(FUpdating);
+
 end;
 
 function THtmlEditorView.IsUpdating: Boolean;
 begin
-  Result := FUpdating > 0;
-end;
-
-function THtmlEditorView.ExecuteScript(const AScript: string;
-  const AArgs: array of const): Boolean;
-begin
-  Result := ExecuteScript(Format(AScript, AArgs));
+//
 end;
 
 function THtmlEditorView.ExecuteScript(const AScript: string): Boolean;
@@ -1877,17 +1848,17 @@ end;
 
 function THtmlEditorView.InsertImage: Boolean;
 begin
-  Result := ExecuteEditingCommand(ecInsertImage);
+  ExecuteEditingCommand(ecInsertImage);
 end;
 
 procedure THtmlEditorView.InsertImageFile(const AFileName: string);
 begin
-//
+
 end;
 
 procedure THtmlEditorView.InsertImage(AImage: TPicture);
 begin
-//
+
 end;
 
 procedure THtmlEditorView.InsertHyperlink(const AText: string;

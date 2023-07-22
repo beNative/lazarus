@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2956
+  Left = 3972
   Height = 763
-  Top = 341
+  Top = 464
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -630,7 +630,11 @@ object frmMain: TfrmMain
           EdgeInner = esNone
           EdgeOuter = esNone
           ImagesWidth = 16
+          List = True
           ParentColor = False
+          ParentShowHint = False
+          ShowCaptions = True
+          ShowHint = True
           TabOrder = 0
         end
       end

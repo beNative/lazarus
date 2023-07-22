@@ -65,7 +65,7 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
-    pnlToolBarHost: TPanel;
+    pnlToolBarHost                  : TPanel;
     pnlHtmlEditorToolBar            : TPanel;
     pnlHtmlEditor                   : TPanel;
     pgTextEditor                    : TPage;
@@ -102,7 +102,7 @@ type
     splEditorVertical               : TSplitter;
     splRichEditorVertical           : TSplitter;
     splVertical                     : TSplitter;
-    tlbApplication: TToolBar;
+    tlbApplication                  : TToolBar;
     tlbEditorView                   : TToolBar;
     {$ENDREGION}
 
@@ -599,7 +599,7 @@ begin
         LoadRtfData;
         LoadHtmlData;
         Modified;
-//        SwitchView;
+        SwitchView;
       end;
     end;
   end;
@@ -830,6 +830,7 @@ begin
   for S in AFileNames do
   begin
     RichEditor.InsertImageFile(S);
+    Logger.IncCounter('DroppedCount');
   end;
   SaveRtfData;
 end;
@@ -985,7 +986,7 @@ var
   LButton : TToolButton;
   I       : Integer;
 begin
-  LWidth := 4;
+  LWidth := 2;
   for I := 0 to tlbApplication.ButtonCount - 1 do
   begin
     LButton := tlbApplication.Buttons[I];
@@ -1272,17 +1273,6 @@ begin
     Snippet.HtmlData := '';
     Snippet.Source   := HtmlEditor.Source;
   end;
-
-  //if not HtmlEditor.IsEmpty then
-  //begin
-  //  Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
-  //  //Snippet.HtmlText := HtmlEditor.Text;
-  //end
-  //else
-  //begin
-  //  Snippet.HtmlData := '';
-  //  //Snippet.HtmlText := '';
-  //end;
   Logger.Leave(Self, 'SaveHtmlData');
 end;
 
@@ -1436,6 +1426,12 @@ begin
   UpdateViews;
   UpdateStatusBar;
   UpdateApplicationToolBar;
+  //if not edtTitle.Focused then
+  //begin
+  //  edtTitle.Color      := clForm;
+  //  edtTitle.Font.Color := clDkGray;
+  //end;
+
   pnlWelcome.Visible := DataSet.DataSet.Active and DataSet.DataSet.IsEmpty;
 end;
 
@@ -1511,6 +1507,9 @@ begin
     FRichEditorToolBar.Visible := RichEditor.Focused
   else
   FRichEditorToolBar.Visible := True;
+  //actHtmlEditor.Checked := nbRight.ActivePageComponent = pgHtmlEditor;
+  //actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;
+  //actTextEditor.Checked := nbRight.ActivePageComponent = pgTextEditor;
 end;
 {$ENDREGION}
 

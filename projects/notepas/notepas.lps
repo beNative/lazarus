@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Count="1" Active="Debug">
+    <BuildModes Count="1" Active="Release win64 x86_64 win32">
       <Item1 Name="Release win64 x86_64 win32">
         <CompilerOptions>
           <Version Value="11"/>
@@ -83,7 +83,7 @@ end;"/>
       </Item1>
     </BuildModes>
     <ManyBuildModesSelection Value="Default,Debug,&quot;Release win32 i386 win32&quot;,&quot;Release win32 i386 gtk2&quot;,&quot;Release win32 i386 qt&quot;,&quot;Release win64 x86_64 win32&quot;"/>
-    <Units Count="61">
+    <Units Count="60">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -102,11 +102,10 @@ end;"/>
         <UnitName Value="NotePas.Main.Form"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="634"/>
-        <CursorPos X="20" Y="660"/>
+        <TopLine Value="208"/>
+        <CursorPos Y="245"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="changelog.txt"/>
@@ -174,11 +173,10 @@ end;"/>
       <Unit11>
         <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
         <UnitName Value="ts.Editor.Interfaces"/>
-        <EditorIndex Value="7"/>
-        <TopLine Value="1109"/>
-        <CursorPos X="14" Y="1135"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="751"/>
+        <CursorPos X="3" Y="781"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\components\tslib\richeditor\ts.richeditor.interfaces.pas"/>
@@ -202,7 +200,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.Editor.Manager"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="5"/>
         <CursorPos Y="247"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -573,11 +571,8 @@ end;"/>
       <Unit57>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
         <UnitName Value="ts.Editor.Factories.Toolbars"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="198"/>
-        <CursorPos X="3" Y="224"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit57>
       <Unit58>
         <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
@@ -589,20 +584,13 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
         <UnitName Value="ts.Editor.Factories"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="115"/>
-        <CursorPos X="3" Y="160"/>
+        <TopLine Value="116"/>
+        <CursorPos X="3" Y="130"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit59>
-      <Unit60>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
-        <UnitName Value="ts.Editor.Factories.Views"/>
-        <EditorIndex Value="6"/>
-        <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-      </Unit60>
     </Units>
-    <JumpHistory Count="22" HistoryIndex="21">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="notepas.main.form.pas"/>
         <Caret Line="129" Column="28" TopLine="105"/>
@@ -659,38 +647,6 @@ end;"/>
         <Filename Value="notepas.main.form.pas"/>
         <Caret Line="224" Column="55" TopLine="191"/>
       </Position14>
-      <Position15>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="245" Column="23" TopLine="208"/>
-      </Position15>
-      <Position16>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="135" TopLine="129"/>
-      </Position16>
-      <Position17>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="652" Column="3" TopLine="648"/>
-      </Position17>
-      <Position18>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="135" Column="15" TopLine="110"/>
-      </Position18>
-      <Position19>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="281" Column="59" TopLine="258"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="75" Column="20" TopLine="52"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
-        <Caret Line="160" Column="3" TopLine="115"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
-        <Caret Line="82" Column="35" TopLine="59"/>
-      </Position22>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

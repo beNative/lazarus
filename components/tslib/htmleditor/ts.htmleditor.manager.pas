@@ -81,6 +81,7 @@ type
     actInsertRowAfter1: TAction;
     actInsertRowBefore1: TAction;
     actInsertTable1: TAction;
+    actRefresh: TAction;
     actItalic1: TAction;
     actNumberedList1: TAction;
     actOpen1: TAction;
@@ -150,6 +151,7 @@ type
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
+    procedure actRefreshExecute(Sender: TObject);
     procedure actShowDevToolsExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
@@ -276,7 +278,8 @@ implementation
 uses
   ts.Core.Utils,
 
-  ts.HtmlEditor.View, ts.HtmlEditor.Events, ts.HtmlEditor.ToolViews;
+  ts.HtmlEditor.View, ts.HtmlEditor.Events, ts.HtmlEditor.ToolViews,
+  ts.HtmlEditor.Resources;
 
 {$REGION 'construction and destruction'}
 procedure TdmHtmlEditorManager.AfterConstruction;
@@ -345,6 +348,14 @@ begin
   end;
 end;
 
+procedure TdmHtmlEditorManager.actRefreshExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.Refresh;
+  end;
+end;
+
 procedure TdmHtmlEditorManager.actShowDevToolsExecute(Sender: TObject);
 begin
   if Assigned(ActiveView) then
@@ -379,7 +390,7 @@ end;
 
 procedure TdmHtmlEditorManager.actItalicExecute(Sender: TObject);
 begin
-
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmHtmlEditorManager.actOpenExecute(Sender: TObject);
@@ -425,7 +436,7 @@ end;
 
 procedure TdmHtmlEditorManager.actStrikeThroughExecute(Sender: TObject);
 begin
-//
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmHtmlEditorManager.actToggleEditModeExecute(Sender: TObject);
@@ -446,7 +457,7 @@ end;
 
 procedure TdmHtmlEditorManager.actUnderlineExecute(Sender: TObject);
 begin
-//
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmHtmlEditorManager.actUndoExecute(Sender: TObject);
@@ -714,10 +725,11 @@ var
 begin
   MI := ppmHtmlEditor.Items;
   MI.Clear;
-  AddMenuItem(MI);
   AddMenuItem(MI, actCut);
   AddMenuItem(MI, actCopy);
   AddMenuItem(MI, actPaste);
+  AddMenuItem(MI);
+  AddMenuItem(MI, actRefresh);
   AddMenuItem(MI);
   AddMenuItem(MI, SelectionPopupMenu);
   AddMenuItem(MI, FilePopupMenu);

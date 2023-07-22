@@ -910,8 +910,10 @@ end;
 {$REGION 'event dispatch methods'}
 procedure TRichEditorViewKMemo.DoDropFiles(const AFileNames: array of string);
 begin
+  FEditor.Visible := False;
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, AFileNames);
+  FEditor.Visible := True;
 end;
 
 procedure TRichEditorViewKMemo.DoChange;

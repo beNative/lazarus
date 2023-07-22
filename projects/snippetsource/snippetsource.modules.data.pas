@@ -493,12 +493,12 @@ end;
 {$REGION 'event handlers'}
 procedure TdmSnippetSource.qryGlyphBeforePost(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('DateModified').AsDateTime := Now;
+//  DataSet.FieldByName('DateModified').AsDateTime := Now;
 end;
 
 procedure TdmSnippetSource.qryGlyphNewRecord(DataSet: TDataSet);
 begin
-  DataSet.FieldByName('DateCreated').AsDateTime := Now;
+//  DataSet.FieldByName('DateCreated').AsDateTime := Now;
 end;
 
 {
@@ -1388,9 +1388,6 @@ begin
     qryNodeType.Active := False;
     //FillNodeTypesImageList;
     DataSet.Active := False;
-
-        //conHistory.DatabaseName := LFileName;
-    //conHistory.Connected := True;
     conMain.DatabaseName := LFileName;
     if (not FileExists(LFileName)) or (FileSize(LFileName) = 0) then
     begin
@@ -1403,7 +1400,6 @@ begin
     qryGlyph.Active :=  True;
     qryNodeType.Active := True;
 
-    //qryHistory.Active  := True;
     //FillNodeTypesImageList;
     DataSet.Active := True;
     Logger.Send('DataSet.Active', DataSet.Active);
@@ -1430,15 +1426,12 @@ begin
     LZipper.FileName  := LFileName;
     DataSet.Active    := False;
     conMain.Connected := False;
-    //conHistory.Connected := False;
-    //qryHistory.Active := False;
     LZipper.Entries.AddFileEntry(
       conMain.DatabaseName,
       ExtractFileName(conMain.DatabaseName) // just filename, no path
     );
     LZipper.ZipAllFiles;
     conMain.Connected := True;
-    //conHistory.Connected := True;
     DataSet.Active    := True;
     EnableControls;
   finally

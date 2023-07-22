@@ -219,8 +219,10 @@ implementation
 {$R *.lfm}
 
 uses
-  Process,
+  Process, LazFileUtils,
+
   ts.Core.Utils, ts.Core.Logger,
+
   SnippetSource.Resources;
 
 var
@@ -321,7 +323,6 @@ end;
 procedure TfrmSettingsDialog.actAddGlyphsExecute(Sender: TObject);
 var
   LFile: string;
-  LExt : string;
 begin
   GlyphDS.Active := True;
   if dlgOpen.Execute then
@@ -335,9 +336,7 @@ begin
         if not (GlyphDS.State in dsEditModes) then
           GlyphDS.Append;
         LoadImage(LFile, 'Image');
-        LExt := ExtractFileExt(LFile);
-        LExt := LowerCase(StringReplace(LExt, '.', '', []));
-        GlyphDS.FieldByName('Name').AsString := ExtractFileName(LFile);
+        GlyphDS.FieldByName('Name').AsString := ExtractFileNameOnly(LFile);
         GlyphDS.Post;
       end;
     end;

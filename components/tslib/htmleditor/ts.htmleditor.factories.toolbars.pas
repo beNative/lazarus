@@ -157,6 +157,8 @@ begin
   //CreateToolButton(TB);
   CreateToolButton(TB, 'actClear');
   CreateToolButton(TB);
+  CreateToolButton(TB, 'actRefresh');
+  CreateToolButton(TB);
   CreateToolButton(TB, 'actToggleSourceVisible');
   CreateToolButton(TB, 'actToggleEditMode');
   CreateToolButton(TB);

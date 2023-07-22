@@ -54,6 +54,7 @@ type
     function GetDefaultContextMenusEnabled: Boolean;
     function GetDefaultScriptDialogsEnabled: Boolean;
     function GetDevToolsEnabled: Boolean;
+    function GetDocumentTitle: string;
     function GetEditMode: Boolean;
     function GetFileName: string;
     function GetFont: TFont;
@@ -87,6 +88,7 @@ type
     procedure SetDefaultContextMenusEnabled(AValue: Boolean);
     procedure SetDefaultScriptDialogsEnabled(AValue: Boolean);
     procedure SetDevToolsEnabled(AValue: Boolean);
+    procedure SetDocumentTitle(AValue: string);
     procedure SetEditMode(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetHtmlText(const AValue: string);
@@ -156,6 +158,9 @@ type
     procedure Redo;
 
     {$REGION 'Webview properties'}
+    property DocumentTitle: string
+      read GetDocumentTitle write SetDocumentTitle;
+
     property DefaultContextMenusEnabled: Boolean
       read GetDefaultContextMenusEnabled write SetDefaultContextMenusEnabled;
 

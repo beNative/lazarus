@@ -1,7 +1,7 @@
 object HtmlEditorView: THtmlEditorView
-  Left = 704
+  Left = 743
   Height = 373
-  Top = 216
+  Top = 504
   Width = 599
   ClientHeight = 373
   ClientWidth = 599

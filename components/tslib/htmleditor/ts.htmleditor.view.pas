@@ -30,19 +30,6 @@ interface
   units do that by default.
 }
 
-(*
-
-    function getSelectedText() {
-      return window.getSelection().toString();
-    }
-
-    document.addEventListener('mouseup', function() {
-      var selectedText = getSelectedText();
-      window.chrome.webview.postMessage(selectedText);
-    });
-
-*)
-
 uses
   LCLIntf, LCLType, LMessages, Messages, Classes, SysUtils, Forms, Controls,
   Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, ActiveX,
@@ -194,8 +181,8 @@ type
       const AErrorMessage : wvstring
     );
     procedure WVBrowserIsMutedChanged(
-      Sender         : TObject;
-      const aWebView : ICoreWebView2
+      Sender: TObject;
+      const aWebView: ICoreWebView2
     );
     procedure WVBrowserLaunchingExternalUriScheme(
       Sender         : TObject;
@@ -336,7 +323,6 @@ type
     FUpdate            : Boolean;
     FModified          : Boolean;
     FEditorFont        : TFont;
-    FUpdating          : Integer;
 
     FRequestingData : Boolean;  // Webbrowser -> Editor
     FDataReceived   : Boolean;  // Webbrowser -> Editor
@@ -359,10 +345,6 @@ type
 
   protected
     {$REGION 'property access methods'}
-    function GetSourceVisible: Boolean;
-    procedure SetSourceVisible(AValue: Boolean);
-    function GetEvents: IHtmlEditorEvents;
-    function GetIsNavigating: Boolean;
     function GetActions: IHtmlEditorActions;
     function GetAlignCenter: Boolean;
     function GetAlignJustify: Boolean;
@@ -377,7 +359,9 @@ type
     function GetDefaultContextMenusEnabled: Boolean;
     function GetDefaultScriptDialogsEnabled: Boolean;
     function GetDevToolsEnabled: Boolean;
+    function GetDocumentTitle: string;
     function GetEditMode: Boolean;
+    function GetEvents: IHtmlEditorEvents;
     function GetFileName: string;
     function GetFont: TFont;
     function GetForm: TCustomForm;
@@ -385,6 +369,7 @@ type
     function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetIsInitialized: Boolean;
+    function GetIsNavigating: Boolean;
     function GetModified: Boolean;
     function GetOffline: Boolean;
     function GetOnAfterCreated: TNotifyEvent;
@@ -393,9 +378,10 @@ type
     function GetScriptEnabled: Boolean;
     function GetSelAvail: Boolean;
     function GetSelText: string;
+    function GetSource: string;
+    function GetSourceVisible: Boolean;
     function GetStatusBarEnabled: Boolean;
     function GetText: string;
-    function GetSource: string;
     function GetWebMessageEnabled: Boolean;
     function GetZoomControlEnabled: Boolean;
     procedure SetAlignCenter(AValue: Boolean);
@@ -407,6 +393,7 @@ type
     procedure SetDefaultContextMenusEnabled(AValue: Boolean);
     procedure SetDefaultScriptDialogsEnabled(AValue: Boolean);
     procedure SetDevToolsEnabled(AValue: Boolean);
+    procedure SetDocumentTitle(AValue: string);
     procedure SetEditMode(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetHtmlText(const AValue: string);
@@ -419,14 +406,14 @@ type
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
     procedure SetSelText(const AValue: string);
+    procedure SetSource(AValue: string);
+    procedure SetSourceVisible(AValue: Boolean);
     procedure SetStatusBarEnabled(AValue: Boolean);
     procedure SetText(const AValue: string);
-    procedure SetSource(AValue: string);
     procedure SetWebMessageEnabled(AValue: Boolean);
     procedure SetZoomControlEnabled(AValue: Boolean);
     {$ENDREGION}
 
-    procedure InitializeWebView;
     procedure ApplySettings;
 
     procedure DoRequestData;
@@ -453,11 +440,7 @@ type
     function IsUpdating: Boolean;
 
     // browser methods
-    function ExecuteScript(
-      const AScript : string;
-      const AArgs   : array of const
-    ): Boolean; overload;
-    function ExecuteScript(const AScript : string): Boolean; overload;
+    function ExecuteScript(const AScript: string): Boolean;
     function ExecuteEditingCommand(ACommand: TWV2EditingCommand): Boolean;
     function ClearCache: Boolean;
     function Refresh: Boolean;
@@ -490,6 +473,9 @@ type
     procedure Redo;
 
     {$REGION 'Webview properties'}
+    property DocumentTitle: string
+      read GetDocumentTitle write SetDocumentTitle;
+
     property DefaultContextMenusEnabled: Boolean
       read GetDefaultContextMenusEnabled write SetDefaultContextMenusEnabled;
 
@@ -646,9 +632,9 @@ begin
   FStatusBarEnabled            := True;
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
-  FEditorFont.Name             := 'Segoe UI';
+  FEditorFont.Name             := DEFAULT_EDITOR_FONT;
 
-  InitializeWebView;
+  tmrCreateWebBrowser.Enabled := True;
 end;
 
 destructor THtmlEditorView.Destroy;
@@ -663,7 +649,6 @@ end;
 procedure THtmlEditorView.WMMove(var AMessage: TWMMove);
 begin
   inherited;
-
   if Assigned(WVBrowser) then
     WVBrowser.NotifyParentWindowPositionChanged;
 end;
@@ -672,7 +657,7 @@ procedure THtmlEditorView.WMMoving(var AMessage: TMessage);
 begin
   inherited;
   if Assigned(WVBrowser) then
-      WVBrowser.NotifyParentWindowPositionChanged;
+    WVBrowser.NotifyParentWindowPositionChanged;
 end;
 {$ENDREGION}
 
@@ -687,7 +672,7 @@ begin
   //WVBrowser.AddWebResourceRequestedFilter('*', COREWEBVIEW2_WEB_RESOURCE_CONTEXT_IMAGE);
 
   WVBrowser.AddScriptToExecuteOnDocumentCreated(
-    UTF8Decode(JS_ADD_CONTENT_MODIFIED_EVENT));
+  UTF8Decode(JS_ADD_CONTENT_MODIFIED_EVENT));
 
   DoAfterCreated;
   ApplySettings;
@@ -698,16 +683,14 @@ procedure THtmlEditorView.WVBrowserBasicAuthenticationRequested
   (Sender: TObject; const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2BasicAuthenticationRequestedEventArgs);
 begin
-  //Logger.Enter(Self, 'WVBrowserBasicAuthenticationRequested');
-  //Logger.Leave(Self, 'WVBrowserBasicAuthenticationRequested');
+  Logger.Info('WVBrowserBasicAuthenticationRequested');
 end;
 
 procedure THtmlEditorView.WVBrowserBrowserProcessExited(Sender: TObject;
   const AEnvironment: ICoreWebView2Environment;
   const AArgs: ICoreWebView2BrowserProcessExitedEventArgs);
 begin
-  Logger.Enter(Self, 'WVBrowserBrowserProcessExited');
-  Logger.Leave(Self, 'WVBrowserBrowserProcessExited');
+  Logger.Info('WVBrowserBrowserProcessExited');
 end;
 
 procedure THtmlEditorView.WVBrowserBytesReceivedChanged(Sender: TObject;
@@ -727,19 +710,19 @@ end;
 procedure THtmlEditorView.WVBrowserClearBrowsingDataCompleted(Sender: TObject;
   AErrorCode: HRESULT);
 begin
-  Logger.Track(Self, 'WVBrowserClearBrowsingDataCompleted');
+//  Logger.Track(Self, 'WVBrowserClearBrowsingDataCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserClearCacheCompleted(Sender: TObject;
   AResult: Boolean);
 begin
-  Logger.Track(Self, 'WVBrowserClearCacheCompleted');
+//  Logger.Track(Self, 'WVBrowserClearCacheCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserClearDataForOriginCompleted(Sender: TObject;
   AResult: Boolean);
 begin
-  Logger.Track(Self, 'WVBrowserClearDataForOriginCompleted');
+//  Logger.Track(Self, 'WVBrowserClearDataForOriginCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserContentLoading(Sender: TObject;
@@ -767,7 +750,7 @@ procedure THtmlEditorView.WVBrowserDevToolsProtocolEventReceived
   const AArgs: ICoreWebView2DevToolsProtocolEventReceivedEventArgs;
   const AEventName: wvstring; AEventID: Integer);
 begin
-  Logger.Track(Self, 'WVBrowserDevToolsProtocolEventReceived');
+  Logger.Info('WVBrowserDevToolsProtocolEventReceived');
 end;
 
 { The DOMContentLoaded event is fired when the initial HTML document has been
@@ -787,8 +770,8 @@ begin
   end
   else if FDataReceived then
   begin
-    FSendingData    := False;
-    FDataSent       := True;
+    FSendingData := False;
+    FDataSent    := True;
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
@@ -847,43 +830,43 @@ end;
 procedure THtmlEditorView.WVBrowserFaviconChanged(Sender: TObject;
   const AWebView: ICoreWebView2; const AArgs: IUnknown);
 begin
-  Logger.Track(Self, 'WVBrowserFaviconChanged');
+  //Logger.Track(Self, 'WVBrowserFaviconChanged');
 end;
 
 procedure THtmlEditorView.WVBrowserGetCookiesCompleted(Sender: TObject;
   AResult: HRESULT; const ACookieList: ICoreWebView2CookieList);
 begin
-  Logger.Track(Self, 'WVBrowserGetCookiesCompleted');
+  //Logger.Track(Self, 'WVBrowserGetCookiesCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserGetCustomSchemes(Sender: TObject;
   var ACustomSchemes: TWVCustomSchemeInfoArray);
 begin
-  Logger.Track(Self, 'WVBrowserGetCustomSchemes');
+  //Logger.Track(Self, 'WVBrowserGetCustomSchemes');
 end;
 
 procedure THtmlEditorView.WVBrowserGetFaviconCompleted(Sender: TObject;
   AErrorCode: HRESULT; const AFaviconStream: IStream);
 begin
-  Logger.Track(Self, 'WVBrowserGetFaviconCompleted');
+  //Logger.Track(Self, 'WVBrowserGetFaviconCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserGetNonDefaultPermissionSettingsCompleted
   (Sender: TObject; AErrorCode: HRESULT;
   const aCollectionView: ICoreWebView2PermissionSettingCollectionView);
 begin
-  Logger.Track(Self, 'WVBrowserGetNonDefaultPermissionSettingsCompleted');
+  //Logger.Track(Self, 'WVBrowserGetNonDefaultPermissionSettingsCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserGotFocus(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserGotFocus');
+  Logger.Info('WVBrowserGotFocus');
   FUpdate := True;
 end;
 
 procedure THtmlEditorView.WVBrowserHistoryChanged(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserHistoryChanged');
+  Logger.Info('WVBrowserHistoryChanged');
 end;
 
 procedure THtmlEditorView.WVBrowserInitializationError(Sender: TObject;
@@ -895,19 +878,18 @@ end;
 procedure THtmlEditorView.WVBrowserIsMutedChanged(Sender: TObject;
   const aWebView: ICoreWebView2);
 begin
-  Logger.Track(Self, 'WVBrowserIsMutedChanged');
+  //Logger.Track(Self, 'WVBrowserIsMutedChanged');
 end;
 
 procedure THtmlEditorView.WVBrowserLaunchingExternalUriScheme(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2LaunchingExternalUriSchemeEventArgs);
 begin
-  Logger.Track(Self, 'WVBrowserLaunchingExternalUriScheme');
+  //Logger.Track(Self, 'WVBrowserLaunchingExternalUriScheme');
 end;
 
 procedure THtmlEditorView.WVBrowserLostFocus(Sender: TObject);
 begin
-  Logger.Track(Self, 'WVBrowserLostFocus');
   DoRequestData;
 end;
 
@@ -915,10 +897,8 @@ procedure THtmlEditorView.WVBrowserMoveFocusRequested(Sender: TObject;
   const AController: ICoreWebView2Controller;
   const AArgs: ICoreWebView2MoveFocusRequestedEventArgs);
 begin
-  Logger.Track(Self, 'WVBrowserMoveFocusRequested');
+  Logger.Info('WVBrowserMoveFocusRequested');
 end;
-
-{ stop loading }
 
 procedure THtmlEditorView.WVBrowserNavigationCompleted(Sender: TObject;
   const AWebView: ICoreWebView2;
@@ -939,10 +919,9 @@ begin
     LArgs.Free;
   end;
   Events.DoNavigationCompleted;
+  Logger.Info(WVBrowser.DocumentTitle);
   Logger.Leave(Self, 'WVBrowserNavigationCompleted');
 end;
-
-{ start loading }
 
 procedure THtmlEditorView.WVBrowserNavigationStarting(Sender: TObject;
   const AWebView: ICoreWebView2;
@@ -969,7 +948,7 @@ procedure THtmlEditorView.WVBrowserNewWindowRequested(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2NewWindowRequestedEventArgs);
 begin
-  Logger.Track(Self, 'WVBrowserNewWindowRequested');
+  Logger.Info('WVBrowserNewWindowRequested');
 end;
 
 procedure THtmlEditorView.WVBrowserOfflineCompleted(Sender: TObject;
@@ -1157,15 +1136,6 @@ begin
   //  end;
 end;
 
-procedure THtmlEditorView.tmrCreateWebBrowserTimer(Sender: TObject);
-begin
-  tmrCreateWebBrowser.Enabled := False;
-  if GlobalWebView2Loader.Initialized then
-    WVBrowser.CreateBrowser(WVWindowParent.Handle)
-  else
-    tmrCreateWebBrowser.Enabled := True;
-end;
-
 procedure THtmlEditorView.edtSourceMouseEnter(Sender: TObject);
 var
   LEdit : TEdit absolute Sender;
@@ -1207,6 +1177,15 @@ begin
   LEdit.Hint := LEdit.Text;
 end;
 
+procedure THtmlEditorView.tmrCreateWebBrowserTimer(Sender: TObject);
+begin
+  tmrCreateWebBrowser.Enabled := False;
+  if GlobalWebView2Loader.Initialized then
+    WVBrowser.CreateBrowser(WVWindowParent.Handle)
+  else
+    tmrCreateWebBrowser.Enabled := True;
+end;
+
 procedure THtmlEditorView.WVBrowserAcceleratorKeyPressed(Sender: TObject;
   const AController: ICoreWebView2Controller;
   const AArgs: ICoreWebView2AcceleratorKeyPressedEventArgs);
@@ -1217,7 +1196,7 @@ end;
 procedure THtmlEditorView.WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted
   (Sender: TObject; AErrorCode: HRESULT; const AID: wvstring);
 begin
-  //Logger.Track(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
+  Logger.Track(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserWebResourceResponseReceived(Sender: TObject;
@@ -1317,6 +1296,16 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access methods'}
+function THtmlEditorView.GetDocumentTitle: string;
+begin
+  Result := UTF8Encode(WVBrowser.DocumentTitle);
+end;
+
+procedure THtmlEditorView.SetDocumentTitle(AValue: string);
+begin
+  // not supported yet
+end;
+
 function THtmlEditorView.GetSourceVisible: Boolean;
 begin
   Result := edtSource.Visible;
@@ -1546,7 +1535,7 @@ var
   S : string;
 begin
   S := Trim(HtmlText);
-  if S.IsEmpty or (S = EMPTY_PAGE_CONTENT) then
+  if S.IsEmpty or (S = '<html><head></head><body></body></html>') then
     Result := True
   else
     Result := False;
@@ -1658,6 +1647,7 @@ end;
 procedure THtmlEditorView.SetPopupMenu(const AValue: TPopupMenu);
 begin
   WVWindowParent.PopupMenu := AValue;
+  edtSource.PopupMenu      := AValue;
 end;
 
 procedure THtmlEditorView.SetSelText(const AValue: string);
@@ -1683,7 +1673,7 @@ procedure THtmlEditorView.SetSource(AValue: string);
 begin
   if AValue <> Source then
   begin
-    if SameText(AValue, EMPTY_PAGE_SOURCE) then
+    if AValue = 'about:blank' then
       FSource := ''
     else
       FSource := AValue;
@@ -1699,30 +1689,18 @@ end;
 {$REGION 'protected methods'}
 procedure THtmlEditorView.ApplySettings;
 begin
+  Logger.Track(Self, 'ApplySettings');
   if FEditMode then
-    ExecuteScript(JS_ENABLE_EDITMODE)
+    ExecuteScript('document.designMode = "on";')
   else
-    ExecuteScript(JS_DISABLE_EDITMODE);
+    ExecuteScript('document.designMode = "off";');
 
-  ExecuteScript(JS_SET_FONTNAME, [FEditorFont.Name]);
-
+  ExecuteScript(
+    Format('document.execCommand(''fontName'', false, ''%s'');',
+           [FEditorFont.Name])
+  );
   WVBrowser.DefaultContextMenusEnabled  := FDefaultContextMenusEnabled;
   WVBrowser.DefaultScriptDialogsEnabled := FDefaultScriptDialogsEnabled;
-end;
-
-procedure THtmlEditorView.InitializeWebView;
-begin
-  if GlobalWebView2Loader.InitializationError then
-  begin
-    Logger.Error(UTF8Encode(GlobalWebView2Loader.ErrorMessage));
-    ShowMessage(UTF8Encode(GlobalWebView2Loader.ErrorMessage));
-  end
-  else
-  begin
-    // Following statement is delayed by 300ms.
-    // WVBrowser.CreateBrowser(WVWindowParent.Handle)
-    tmrCreateWebBrowser.Enabled := True;
-  end;
 end;
 
 procedure THtmlEditorView.ShowDevTools;
@@ -1748,8 +1726,9 @@ begin
       edtSource.Font.Color := clDkGray;
     end;
     FUpdate := False;
+    UpdateWatches;
   end;
-  UpdateWatches;
+
   if Assigned(Actions) then
     Actions.UpdateActions;
 end;
@@ -1784,10 +1763,10 @@ var
 begin
   if (Length(AFileName) > 0) and FileExists(AFileName) then
   begin
-    LSource := 'file:///' + AFileName;
+    LSource := UTF8Decode('file:///' + AFileName);
       // TODO: The Filename should be encoded
     Logger.Info(LSource);
-    WVBrowser.Navigate(UTF8Decode(LSource));
+    WVBrowser.Navigate(LSource);
     FSendingData := True;
     FDataSent    := False;
   end;
@@ -1837,24 +1816,17 @@ end;
 
 procedure THtmlEditorView.BeginUpdate;
 begin
-  Inc(FUpdating);
+
 end;
 
 procedure THtmlEditorView.EndUpdate;
 begin
-  if FUpdating > 0 then
-    Dec(FUpdating);
+
 end;
 
 function THtmlEditorView.IsUpdating: Boolean;
 begin
-  Result := FUpdating > 0;
-end;
-
-function THtmlEditorView.ExecuteScript(const AScript: string;
-  const AArgs: array of const): Boolean;
-begin
-  Result := ExecuteScript(Format(AScript, AArgs));
+//
 end;
 
 function THtmlEditorView.ExecuteScript(const AScript: string): Boolean;
@@ -1877,17 +1849,17 @@ end;
 
 function THtmlEditorView.InsertImage: Boolean;
 begin
-  Result := ExecuteEditingCommand(ecInsertImage);
+  ExecuteEditingCommand(ecInsertImage);
 end;
 
 procedure THtmlEditorView.InsertImageFile(const AFileName: string);
 begin
-//
+
 end;
 
 procedure THtmlEditorView.InsertImage(AImage: TPicture);
 begin
-//
+
 end;
 
 procedure THtmlEditorView.InsertHyperlink(const AText: string;

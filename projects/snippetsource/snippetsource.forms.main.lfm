@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 2956
+  Left = 3101
   Height = 763
-  Top = 341
+  Top = 372
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -501,13 +501,13 @@ object frmMain: TfrmMain
       object pgHtmlEditor: TPage
         object pnlHtmlEditor: TPanel
           Left = 0
-          Height = 552
+          Height = 720
           Top = 0
-          Width = 839
+          Width = 825
           Align = alClient
           BevelOuter = bvNone
-          ClientHeight = 552
-          ClientWidth = 839
+          ClientHeight = 720
+          ClientWidth = 825
           Color = clBtnFace
           ParentBackground = False
           ParentColor = False
@@ -516,18 +516,18 @@ object frmMain: TfrmMain
             Left = 0
             Height = 24
             Top = 0
-            Width = 839
+            Width = 825
             Align = alTop
             BevelColor = clScrollBar
             BevelOuter = bvNone
             ClientHeight = 24
-            ClientWidth = 839
+            ClientWidth = 825
             TabOrder = 0
             object shpHtmlEditorToolBarLine: TShape
               Left = 0
               Height = 1
               Top = 23
-              Width = 839
+              Width = 825
               Align = alBottom
               Pen.Color = clScrollBar
             end
@@ -630,7 +630,11 @@ object frmMain: TfrmMain
           EdgeInner = esNone
           EdgeOuter = esNone
           ImagesWidth = 16
+          List = True
           ParentColor = False
+          ParentShowHint = False
+          ShowCaptions = True
+          ShowHint = True
           TabOrder = 0
         end
       end
@@ -5003,6 +5007,7 @@ object frmMain: TfrmMain
   object imlNodes: TImageList
     BkColor = clWhite
     DrawingStyle = dsTransparent
+    Scaled = True
     Left = 56
     Top = 248
     Bitmap = {

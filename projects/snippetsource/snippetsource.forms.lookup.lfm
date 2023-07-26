@@ -1,13 +1,13 @@
 object frmLookup: TfrmLookup
-  Left = 3413
-  Height = 476
-  Top = 296
-  Width = 520
+  Left = 997
+  Height = 689
+  Top = 287
+  Width = 695
   ActiveControl = edtLookup
   BorderStyle = bsSizeToolWin
   Caption = 'Lookup'
-  ClientHeight = 476
-  ClientWidth = 520
+  ClientHeight = 689
+  ClientWidth = 695
   Color = clWindow
   Font.Height = -12
   KeyPreview = True
@@ -19,11 +19,10 @@ object frmLookup: TfrmLookup
   LCLVersion = '2.2.2.0'
   object edtLookup: TEdit
     Left = 2
-    Height = 21
-    Top = 3
-    Width = 253
+    Height = 29
+    Top = 2
+    Width = 447
     Anchors = [akTop, akLeft, akRight]
-    AutoSize = False
     Font.Height = -16
     OnKeyDown = edtLookupKeyDown
     OnKeyPress = edtLookupKeyPress
@@ -32,10 +31,10 @@ object frmLookup: TfrmLookup
     TabOrder = 0
   end
   object btnSearch: TButton
-    Left = 260
-    Height = 25
+    Left = 456
+    Height = 31
     Top = 0
-    Width = 59
+    Width = 46
     Action = actSearch
     Anchors = [akTop, akRight]
     Default = True
@@ -46,12 +45,12 @@ object frmLookup: TfrmLookup
   object sbrMain: TStatusBar
     Left = 0
     Height = 23
-    Top = 453
-    Width = 520
+    Top = 666
+    Width = 695
     Panels = <>
   end
   object chkName: TCheckBox
-    Left = 328
+    Left = 508
     Height = 19
     Top = 5
     Width = 52
@@ -65,7 +64,7 @@ object frmLookup: TfrmLookup
     TabOrder = 3
   end
   object chkText: TCheckBox
-    Left = 386
+    Left = 567
     Height = 19
     Top = 5
     Width = 42
@@ -79,7 +78,7 @@ object frmLookup: TfrmLookup
     TabOrder = 4
   end
   object chkComment: TCheckBox
-    Left = 437
+    Left = 615
     Height = 19
     Top = 5
     Width = 74
@@ -93,11 +92,12 @@ object frmLookup: TfrmLookup
   end
   object grdLookup: TDBGrid
     Left = 4
-    Height = 424
-    Top = 27
-    Width = 512
+    Height = 624
+    Top = 40
+    Width = 687
     Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoFillColumns = True
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
@@ -108,16 +108,16 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'Id'
-        Width = 25
+        Width = 71
         FieldName = 'Id'
       end    
       item
-        MinSize = 100
-        MaxSize = 400
+        MinSize = 300
+        MaxSize = 800
         SizePriority = 0
         Title.Alignment = taCenter
-        Title.Caption = 'NodeName'
-        Width = 76
+        Title.Caption = 'Name'
+        Width = 400
         FieldName = 'NodeName'
       end    
       item
@@ -128,7 +128,7 @@ object frmLookup: TfrmLookup
         SizePriority = 6
         Title.Alignment = taCenter
         Title.Caption = 'Highlighter'
-        Width = 75
+        Width = 71
         FieldName = 'Highlighter'
       end    
       item
@@ -138,7 +138,7 @@ object frmLookup: TfrmLookup
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateCreated'
-        Width = 80
+        Width = 71
         FieldName = 'DateCreated'
       end    
       item
@@ -148,7 +148,7 @@ object frmLookup: TfrmLookup
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateModified'
-        Width = 87
+        Width = 74
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
@@ -156,10 +156,10 @@ object frmLookup: TfrmLookup
     FixedCols = 0
     FixedHotColor = clWindow
     Flat = True
-    Font.Height = -12
-    Options = [dgTitles, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderPushedLook, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+    HeaderHotZones = []
+    HeaderPushZones = []
+    Options = [dgTitles, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
     OptionsExtra = []
-    ParentFont = False
     ReadOnly = True
     Scrollbars = ssAutoBoth
     TabOrder = 6

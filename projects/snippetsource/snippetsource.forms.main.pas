@@ -890,6 +890,7 @@ end;
 procedure TfrmMain.FHtmlEditorContentLoaded(Sender: TObject);
 begin
   //if FUpdate then
+
     SwitchView;
 end;
 
@@ -1432,6 +1433,12 @@ begin
   UpdateViews;
   UpdateStatusBar;
   UpdateApplicationToolBar;
+  //if not edtTitle.Focused then
+  //begin
+  //  edtTitle.Color      := clForm;
+  //  edtTitle.Font.Color := clDkGray;
+  //end;
+
   pnlWelcome.Visible := DataSet.DataSet.Active and DataSet.DataSet.IsEmpty;
 end;
 

@@ -14,8 +14,8 @@
 				</TAlignLinesSettings>
 				<TCodeFilterSettings Name="CodeFilterSettings">
 					<FormSettings>(TFormSettings)
-						<Left>0</Left>
-						<Top>0</Top>
+						<Left>871</Left>
+						<Top>400</Top>
 						<Width>800</Width>
 						<Height>600</Height>
 						<FormStyle>fsNormal</FormStyle>

@@ -129,6 +129,11 @@ type
     function IsUpdating: Boolean;
 
     function ExecuteScript(const AScript: string): Boolean;
+    function Navigate(const ASource: string): Boolean;
+    function GoBack: Boolean;
+    function GoForward: Boolean;
+    function CanGoBack: Boolean;
+    function CanGoForward: Boolean;
     function ClearCache: Boolean;
     function Refresh: Boolean;
 

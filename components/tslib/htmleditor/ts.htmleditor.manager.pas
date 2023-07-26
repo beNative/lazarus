@@ -81,6 +81,8 @@ type
     actInsertRowAfter1: TAction;
     actInsertRowBefore1: TAction;
     actInsertTable1: TAction;
+    actGoBack: TAction;
+    actGoForward: TAction;
     actRefresh: TAction;
     actItalic1: TAction;
     actNumberedList1: TAction;
@@ -151,6 +153,8 @@ type
     procedure actCopyExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
+    procedure actGoBackExecute(Sender: TObject);
+    procedure actGoForwardExecute(Sender: TObject);
     procedure actRefreshExecute(Sender: TObject);
     procedure actShowDevToolsExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
@@ -345,6 +349,22 @@ begin
   if Assigned(ActiveView) then
   begin
     ActiveView.DecIndent;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.actGoBackExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.GoBack;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.actGoForwardExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.GoForward;
   end;
 end;
 
@@ -645,6 +665,8 @@ var
   B : Boolean;
 begin
   B := Assigned(ActiveView);
+  actGoBack.Enabled              := B and ActiveView.CanGoBack;
+  actGoForward.Enabled           := B and ActiveView.CanGoForward;
   actToggleEditMode.Checked      := B and ActiveView.EditMode;
   actToggleSourceVisible.Checked := B and ActiveView.SourceVisible;
   B := B and ActiveView.EditMode;

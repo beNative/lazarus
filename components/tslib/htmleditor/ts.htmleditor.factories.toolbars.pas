@@ -164,6 +164,9 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actShowDevTools');
   CreateToolButton(TB, 'actShowTaskManager');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actGoBack');
+  CreateToolButton(TB, 'actGoForward');
   Result := TB;
 end;
 {$ENDREGION}

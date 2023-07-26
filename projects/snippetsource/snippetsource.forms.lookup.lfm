@@ -97,7 +97,6 @@ object frmLookup: TfrmLookup
     Width = 687
     Align = alCustom
     Anchors = [akTop, akLeft, akRight, akBottom]
-    AutoFillColumns = True
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
@@ -108,7 +107,7 @@ object frmLookup: TfrmLookup
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Caption = 'Id'
-        Width = 71
+        Width = 25
         FieldName = 'Id'
       end    
       item
@@ -128,7 +127,7 @@ object frmLookup: TfrmLookup
         SizePriority = 6
         Title.Alignment = taCenter
         Title.Caption = 'Highlighter'
-        Width = 71
+        Width = 75
         FieldName = 'Highlighter'
       end    
       item
@@ -138,7 +137,7 @@ object frmLookup: TfrmLookup
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateCreated'
-        Width = 71
+        Width = 80
         FieldName = 'DateCreated'
       end    
       item
@@ -148,7 +147,7 @@ object frmLookup: TfrmLookup
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Caption = 'DateModified'
-        Width = 74
+        Width = 87
         FieldName = 'DateModified'
       end>
     DataSource = dscMain

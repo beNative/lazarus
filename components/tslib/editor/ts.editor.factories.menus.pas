@@ -27,7 +27,7 @@ uses
 
 type
   TEditorMenusFactory = class(TInterfacedObject, IEditorMenusFactory)
-  strict private
+  private
     FActions : IEditorActions;
     FMenus   : IEditorMenus;
 
@@ -42,14 +42,14 @@ type
 
   public
     constructor Create(
-      AActions  : IEditorActions;
-      AMenus    : IEditorMenus
+      AActions : IEditorActions;
+      AMenus   : IEditorMenus
     );
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
-    function CreateFileMenu(AMenu : TMenu): TMenuItem;
-    function CreateEditMenu(AMenu : TMenu): TMenuItem;
-    function CreateSelectionMenu(AMenu : TMenu): TMenuItem;
+    function CreateFileMenu(AMenu: TMenu): TMenuItem;
+    function CreateEditMenu(AMenu: TMenu): TMenuItem;
+    function CreateSelectionMenu(AMenu: TMenu): TMenuItem;
     function CreateInsertMenu(AMenu: TMenu): TMenuItem;
     function CreateSearchMenu(AMenu: TMenu): TMenuItem;
     function CreateToolsMenu(AMenu: TMenu): TMenuItem;
@@ -57,7 +57,6 @@ type
     function CreateSettingsMenu(AMenu: TMenu): TMenuItem;
     function CreateHighlightersMenu(AMenu: TMenu): TMenuItem;
     function CreateHelpMenu(AMenu: TMenu): TMenuItem;
-
     function CreateMainMenu(AOwner: TComponent): TMainMenu;
   end;
 
@@ -72,11 +71,11 @@ begin
   FMenus    := AMenus;
 end;
 
-procedure TEditorMenusFactory.BeforeDestruction;
+destructor TEditorMenusFactory.Destroy;
 begin
   FActions := nil;
   FMenus   := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -241,7 +240,7 @@ end;
 
 function TEditorMenusFactory.CreateInsertMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SInsertMenuCaption;
@@ -253,7 +252,7 @@ end;
 
 function TEditorMenusFactory.CreateSearchMenu(AMenu: TMenu): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   MI := TMenuItem.Create(AMenu.Owner);
   MI.Caption := SSearchMenuCaption;

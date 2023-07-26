@@ -1,7 +1,7 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 2985
+  Left = 892
   Height = 381
-  Top = 147
+  Top = 499
   Width = 282
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
@@ -39,23 +39,22 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       ParentColor = False
       TabOrder = 0
       object pnlTopRight: TPanel
-        Left = 217
+        Left = 210
         Height = 24
         Top = 0
-        Width = 65
+        Width = 72
         Align = alRight
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 65
+        ClientWidth = 72
         TabOrder = 0
         object navTreeView: TDBNavigator
-          Left = 5
+          Left = 0
           Height = 24
           Top = 0
-          Width = 60
-          Align = alRight
+          Width = 72
+          Align = alClient
           Alignment = taRightJustify
-          AutoSize = True
           BevelOuter = bvNone
           ChildSizing.EnlargeHorizontal = crsScaleChilds
           ChildSizing.EnlargeVertical = crsScaleChilds
@@ -64,7 +63,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 100
           ClientHeight = 24
-          ClientWidth = 60
+          ClientWidth = 72
           DataSource = dscMain
           Flat = True
           Font.Height = -11
@@ -81,71 +80,73 @@ object frmVirtualDBTree: TfrmVirtualDBTree
         Left = 0
         Height = 24
         Top = 0
-        Width = 217
+        Width = 210
         Align = alClient
         BevelColor = clScrollBar
         BevelOuter = bvNone
         ClientHeight = 24
-        ClientWidth = 217
+        ClientWidth = 210
         TabOrder = 1
         object tlbTop: TToolBar
           Left = 0
           Height = 24
           Top = 0
-          Width = 217
+          Width = 210
           Align = alClient
           AutoSize = True
           ButtonHeight = 20
-          ButtonWidth = 23
-          Color = clBtnFace
+          ButtonWidth = 24
           EdgeBorders = []
           EdgeInner = esNone
           EdgeOuter = esNone
-          Font.Height = -11
           Images = imlMain
-          ParentColor = False
-          ParentFont = False
+          List = True
+          ShowCaptions = True
           TabOrder = 0
           Transparent = True
+          Wrapable = False
           object btnNewRoot: TToolButton
             Left = 1
             Top = 0
             Action = actNewRootFolderNode
           end
           object btnNewFolder: TToolButton
-            Left = 24
+            Left = 27
             Top = 0
             Action = actNewFolderNode
           end
           object btnNewItem: TToolButton
-            Left = 47
+            Left = 53
             Top = 0
             Action = actNewItemNode
           end
           object btnCollapseAllNodes: TToolButton
-            Left = 132
+            Left = 143
             Top = 0
             Action = actCollapseAllNodes
+            ShowCaption = False
           end
           object btnExpandAllNodes: TToolButton
-            Left = 109
+            Left = 119
             Top = 0
             Action = actExpandAllNodes
+            ShowCaption = False
           end
           object btnDivider2: TToolButton
-            Left = 101
+            Left = 111
             Height = 20
             Top = 0
             Caption = 'btnDivider2'
             Style = tbsSeparator
           end
           object btnDuplicateSelectedNodes: TToolButton
-            Left = 78
+            Left = 87
             Top = 0
             Action = actDuplicateSelectedNodes
+            ShowCaption = False
           end
           object btnDivider1: TToolButton
-            Left = 70
+            Left = 79
             Height = 20
             Top = 0
             Caption = 'btnDivider1'

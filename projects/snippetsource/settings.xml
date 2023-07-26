@@ -1093,7 +1093,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>SH</HighlighterType>
+	<HighlighterType>JS</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>

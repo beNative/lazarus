@@ -83,7 +83,8 @@ var
   TB: TToolButton;
 begin
   TB := TToolButton.Create(AParent);
-  TB.Parent := AParent;
+  TB.Parent      := AParent;
+  TB.ShowCaption := False;
   if not Assigned(AAction) then
   begin
     TB.Style := tbsDivider;

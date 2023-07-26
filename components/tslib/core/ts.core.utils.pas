@@ -2357,7 +2357,7 @@ end;
    if Assigned(AAction) then
      LButton.Action := AAction
    else
-     LButton.Style := tbsSeparator;
+     LButton.Style := tbsDivider;
    Result := LButton;
  end;
 
@@ -2386,12 +2386,12 @@ end;
      end
      else
      begin
-       LButton.Style := tbsSeparator;
+       LButton.Style := tbsDivider;
      end;
    end
    else
    begin
-     LButton.Style := tbsSeparator;
+     LButton.Style := tbsDivider;
    end;
    Result := LButton;
  end;

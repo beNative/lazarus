@@ -116,7 +116,7 @@ object frmLookup: TfrmLookup
         SizePriority = 0
         Title.Alignment = taCenter
         Title.Caption = 'Name'
-        Width = 400
+        Width = 47
         FieldName = 'NodeName'
       end    
       item

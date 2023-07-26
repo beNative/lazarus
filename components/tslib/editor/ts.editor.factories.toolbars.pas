@@ -121,10 +121,13 @@ end;
 {$REGION 'private methods'}
 procedure TEditorToolbarsFactory.ApplyDefaultProperties(AToolbar: TToolbar);
 begin
-  AToolbar.EdgeBorders := EdgeBorders;
-  AToolbar.EdgeInner   := EdgeInner;
-  AToolbar.EdgeOuter   := EdgeOuter;
-  AToolbar.Transparent := Transparant;
+  AToolbar.EdgeBorders  := EdgeBorders;
+  AToolbar.EdgeInner    := EdgeInner;
+  AToolbar.EdgeOuter    := EdgeOuter;
+  AToolbar.Transparent  := Transparant;
+  AToolbar.List         := True;
+  AToolbar.ShowCaptions := True;
+  AToolbar.ButtonWidth  := 24;
 end;
 
 function TEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
@@ -170,7 +173,6 @@ begin
   ApplyDefaultProperties(TB);
   TB.Parent      := AParent;
   TB.Images      := FActions.ActionList.Images;
-  TB.ButtonWidth := 10;
 
   CreateToolButton(TB, 'actNew');
   CreateToolButton(TB, 'actOpen');

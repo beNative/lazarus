@@ -123,6 +123,7 @@ begin
   TB.Parent       := AParent;
   TB.Images       := FActions.ActionList.Images;
   TB.Align        := alClient;
+  TB.ButtonWidth  := 24;
 
   CreateToolButton(TB, 'actOpen');
   //CreateToolButton(TB, 'actSave');

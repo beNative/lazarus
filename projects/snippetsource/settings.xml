@@ -32,7 +32,9 @@
 				<TSearchEngineSettings Name="SearchSettings">
 					<Options>[]</Options>
 				</TSearchEngineSettings>
-				<TCodeShaperSettings Name="CodeShaperSettings"/>
+				<TCodeShaperSettings Name="CodeShaperSettings">
+					<Width>765</Width>
+				</TCodeShaperSettings>
 			</Components>
 		</TEditorToolSettings>
 		<THighlighters Name="Highlighters">
@@ -1091,7 +1093,7 @@
 	<EditorOptions>(TEditorOptionsSettings)
 		<BracketHighlightStyle>sbhsLeftOfCursor</BracketHighlightStyle>
 	</EditorOptions>
-	<HighlighterType>TXT</HighlighterType>
+	<HighlighterType>SH</HighlighterType>
 	<LanguageCode>en</LanguageCode>
 	<AutoFormatXML>false</AutoFormatXML>
 	<AutoGuessHighlighterType>false</AutoGuessHighlighterType>
@@ -1104,7 +1106,10 @@
 		<WindowState>wsNormal</WindowState>
 	</FormSettings>
 	<EditorFont>(TFont)
-		<Height>-13</Height>
-		<Name>Courier New</Name>
+		<CharSet>ANSI_CHARSET</CharSet>
+		<Height>-15</Height>
+		<Name>Consolas</Name>
+		<Pitch>fpFixed</Pitch>
+		<Quality>fqDraft</Quality>
 	</EditorFont>
 </TEditorSettings>

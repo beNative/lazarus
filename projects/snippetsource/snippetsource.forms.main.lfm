@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 0
+  Left = 761
   Height = 763
-  Top = 0
+  Top = 496
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -278,10 +278,10 @@ object frmMain: TfrmMain
               Left = 0
               Height = 23
               Top = 0
-              Width = 825
+              Width = 753
               Align = alClient
               ButtonHeight = 22
-              ButtonWidth = 20
+              ButtonWidth = 24
               EdgeBorders = []
               EdgeInner = esNone
               EdgeOuter = esNone
@@ -290,6 +290,7 @@ object frmMain: TfrmMain
               ShowCaptions = True
               TabOrder = 0
               Transparent = True
+              Wrapable = False
             end
             object shpTextEditorToolBarLine: TShape
               Left = 0
@@ -298,6 +299,34 @@ object frmMain: TfrmMain
               Width = 825
               Align = alBottom
               Pen.Color = clScrollBar
+            end
+            object btnHighlighter: TMenuButton
+              Left = 777
+              Height = 23
+              Top = 0
+              Width = 48
+              Align = alRight
+              Flat = True
+              Font.CharSet = ANSI_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Courier New'
+              Font.Pitch = fpVariable
+              Font.Quality = fqDraft
+              Font.Style = [fsBold]
+              ParentFont = False
+            end
+            object btnExecute: TSpeedButton
+              Left = 753
+              Height = 23
+              Top = 0
+              Width = 24
+              Action = actExecute
+              Align = alRight
+              Flat = True
+              Images = imlMain
+              ImageIndex = 3
+              ShowCaption = False
             end
           end
           object pnlEditorToolViewHost: TPanel
@@ -549,10 +578,10 @@ object frmMain: TfrmMain
       ParentColor = False
       TabOrder = 1
       object edtTitle: TEdit
-        Left = 72
+        Left = 78
         Height = 24
         Top = 0
-        Width = 487
+        Width = 481
         Align = alClient
         Alignment = taCenter
         AutoSize = False
@@ -573,22 +602,6 @@ object frmMain: TfrmMain
         ParentFont = False
         TabOrder = 0
       end
-      object btnHighlighter: TMenuButton
-        Left = 24
-        Height = 24
-        Top = 0
-        Width = 48
-        Align = alLeft
-        Flat = True
-        Font.CharSet = ANSI_CHARSET
-        Font.Color = clBlack
-        Font.Height = -11
-        Font.Name = 'Courier New'
-        Font.Pitch = fpVariable
-        Font.Quality = fqDraft
-        Font.Style = [fsBold]
-        ParentFont = False
-      end
       object shpLine1: TShape
         Left = 0
         Height = 1
@@ -597,15 +610,6 @@ object frmMain: TfrmMain
         Align = alBottom
         Pen.Color = clScrollBar
       end
-      object btnImage: TSpeedButton
-        Left = 0
-        Height = 24
-        Top = 0
-        Width = 24
-        Align = alLeft
-        Flat = True
-        Layout = blGlyphTop
-      end
       object pnlToolBarHost: TPanel
         Left = 559
         Height = 24
@@ -613,7 +617,7 @@ object frmMain: TfrmMain
         Width = 266
         Align = alRight
         BevelOuter = bvNone
-        Caption = 'pnlToolBarHost'
+        Caption = 'pnlApplicationToolBarHost'
         ClientHeight = 24
         ClientWidth = 266
         TabOrder = 1
@@ -636,6 +640,40 @@ object frmMain: TfrmMain
           ShowCaptions = True
           ShowHint = True
           TabOrder = 0
+        end
+      end
+      object pnlEditorSelectionToolBarHost: TPanel
+        Left = 0
+        Height = 24
+        Top = 0
+        Width = 78
+        Align = alLeft
+        BevelOuter = bvNone
+        Caption = 'pnlEditorSelectionToolBarHost'
+        ClientHeight = 24
+        ClientWidth = 78
+        TabOrder = 2
+        object tlbEditorSelection: TToolBar
+          Left = 0
+          Height = 24
+          Top = 0
+          Width = 78
+          Align = alClient
+          ButtonHeight = 20
+          ButtonWidth = 26
+          Color = clForm
+          EdgeBorders = []
+          EdgeInner = esNone
+          EdgeOuter = esNone
+          ImagesWidth = 16
+          List = True
+          ParentColor = False
+          ParentShowHint = False
+          ShowCaptions = True
+          ShowHint = True
+          TabOrder = 0
+          Wrapable = False
+          OnClick = tlbEditorSelectionClick
         end
       end
     end
@@ -719,6 +757,7 @@ object frmMain: TfrmMain
       AutoCheck = True
       Caption = 'HTML'
       GroupIndex = 1
+      Hint = 'HTML Editor'
       ImageIndex = 13
       OnExecute = actHtmlEditorExecute
     end
@@ -726,6 +765,7 @@ object frmMain: TfrmMain
       AutoCheck = True
       Caption = 'RTF'
       GroupIndex = 1
+      Hint = 'Rich Text Editor'
       ImageIndex = 12
       OnExecute = actRtfEditorExecute
     end
@@ -733,6 +773,7 @@ object frmMain: TfrmMain
       AutoCheck = True
       Caption = 'TXT'
       GroupIndex = 1
+      Hint = 'Text Editor'
       ImageIndex = 11
       OnExecute = actTextEditorExecute
     end

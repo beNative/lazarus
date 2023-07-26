@@ -122,6 +122,8 @@ begin
   TB.EdgeOuter    := esNone;
   TB.Transparent  := True;
   TB.List         := True;
+  TB.ButtonWidth  := 24;
+  TB.ShowCaptions := True;
   TB.Parent       := AParent;
   TB.Images       := FActions.ActionList.Images;
   TB.Align        := alClient;

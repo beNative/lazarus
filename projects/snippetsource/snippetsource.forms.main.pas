@@ -54,8 +54,8 @@ type
     actToggleStayOnTop              : TAction;
     btnCloseEditorToolView          : TSpeedButton;
     btnCloseRichEditorToolView      : TSpeedButton;
-    btnHighlighter                  : TMenuButton;
-    btnImage                        : TSpeedButton;
+    btnExecute: TSpeedButton;
+    btnHighlighter: TMenuButton;
     btnLineBreakStyle               : TSpeedButton;
     dscMain                         : TDatasource;
     edtTitle                        : TEdit;
@@ -65,6 +65,7 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
+    pnlEditorSelectionToolBarHost: TPanel;
     pnlToolBarHost                  : TPanel;
     pnlHtmlEditorToolBar            : TPanel;
     pnlHtmlEditor                   : TPanel;
@@ -103,6 +104,7 @@ type
     splRichEditorVertical           : TSplitter;
     splVertical                     : TSplitter;
     tlbApplication                  : TToolBar;
+    tlbEditorSelection: TToolBar;
     tlbEditorView                   : TToolBar;
     {$ENDREGION}
 
@@ -136,6 +138,7 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure tlbEditorSelectionClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -227,6 +230,7 @@ type
     procedure AssignTextEditorChanges;
     procedure BuildTextEditorToolBar;
     procedure BuildApplicationToolBar;
+    procedure BuildEditorSelectionToolBar;
     procedure UpdateApplicationToolBar;
     procedure HideAction(const AActionName: string);
     procedure InitTextEditorActions;
@@ -360,6 +364,7 @@ begin
   FFileSearcher.OnFileFound      := FileSearcherFileFound;
 
   BuildApplicationToolBar;
+  BuildEditorSelectionToolBar;
   btnLineBreakStyle.PopupMenu := FEditorManager.Menus.LineBreakStylePopupMenu;
 
   FVersionInfo := TVersionInfo.Create(Self);
@@ -586,8 +591,8 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
-        (FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
-        btnImage.Glyph.Assign(LBitmap);
+        //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
+        //btnImage.Glyph.Assign(LBitmap);
         //LStream := TMemoryStream.Create;
         //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
         //LStream.Position := 0;
@@ -721,6 +726,11 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
+end;
+
+procedure TfrmMain.tlbEditorSelectionClick(Sender: TObject);
+begin
+
 end;
 
 {$REGION 'FTree'}
@@ -971,20 +981,23 @@ end;
 procedure TfrmMain.BuildApplicationToolBar;
 begin
   tlbApplication.Images := imlMain;
-  AddToolBarButton(tlbApplication, actTextEditor, True);
-  AddToolBarButton(tlbApplication, actRtfEditor, True);
-  AddToolBarButton(tlbApplication, actHtmlEditor, True);
-  AddToolBarButton(tlbApplication);
   AddToolBarButton(tlbApplication, actLookup);
   if FSettings.DebugMode then
   begin
     AddToolBarButton(tlbApplication, actSQLEditor);
     AddToolBarButton(tlbApplication, actShowGridForm);
   end;
-  AddToolBarButton(tlbApplication, actExecute);
   AddToolBarButton(tlbApplication, actSettings);
-  AddToolBarButton(tlbApplication, actAbout);
+  //AddToolBarButton(tlbApplication, actAbout);
   AddToolBarButton(tlbApplication, actToggleStayOnTop);
+end;
+
+procedure TfrmMain.BuildEditorSelectionToolBar;
+begin
+  tlbEditorSelection.Images := imlMain;
+  AddToolBarButton(tlbEditorSelection, actTextEditor);
+  AddToolBarButton(tlbEditorSelection, actRtfEditor);
+  AddToolBarButton(tlbEditorSelection, actHtmlEditor);
 end;
 
 procedure TfrmMain.UpdateApplicationToolBar;

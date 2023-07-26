@@ -445,6 +445,8 @@ type
     function Navigate(const ASource: string): Boolean;
     function GoBack: Boolean;
     function GoForward: Boolean;
+    function CanGoBack: Boolean;
+    function CanGoForward: Boolean;
     function ClearCache: Boolean;
     function Refresh: Boolean;
     procedure ShowDevTools;
@@ -1858,6 +1860,16 @@ end;
 function THtmlEditorView.GoForward: Boolean;
 begin
   Result := WVBrowser.GoForward;
+end;
+
+function THtmlEditorView.CanGoBack: Boolean;
+begin
+  Result := WVBrowser.CanGoBack;
+end;
+
+function THtmlEditorView.CanGoForward: Boolean;
+begin
+  Result := WVBrowser.CanGoForward;
 end;
 
 function THtmlEditorView.ClearCache: Boolean;

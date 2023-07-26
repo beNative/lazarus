@@ -40,7 +40,7 @@
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
       <StringTable Comments="A SQLite based snippet repository" CompanyName="Tim Sinaeve" FileDescription="SnippetSource" InternalName="SnippetSource" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="SnippetSource.exe" ProductName="SnippetSource" ProductVersion="3.9.1"/>
     </VersionInfo>
-    <BuildModes Count="4" Active="Default">
+    <BuildModes Count="4" Active="Release win32 win32">
       <Item1 Name="Default" Default="True"/>
       <Item2 Name="Debug">
         <CompilerOptions>
@@ -344,7 +344,6 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.VirtualDBTree"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
         <TopLine Value="369"/>
         <CursorPos X="16" Y="403"/>
@@ -482,7 +481,7 @@ end;"/>
         <EditorIndex Value="20"/>
         <TopLine Value="2227"/>
         <CursorPos X="5" Y="2278"/>
-        <UsageCount Value="83"/>
+        <UsageCount Value="84"/>
         <Loaded Value="True"/>
       </Unit14>
       <Unit15>
@@ -530,12 +529,12 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.RichEditor.Manager"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="12"/>
         <TopLine Value="758"/>
-        <CursorPos X="5" Y="778"/>
+        <CursorPos X="84" Y="787"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit19>
       <Unit20>
         <Filename Value="snippetsource.modules.python.pas"/>
@@ -727,7 +726,7 @@ end;"/>
         <EditorIndex Value="17"/>
         <TopLine Value="113"/>
         <CursorPos X="61" Y="122"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit42>
       <Unit43>
@@ -910,7 +909,7 @@ end;"/>
         <EditorIndex Value="28"/>
         <TopLine Value="1860"/>
         <CursorPos X="22" Y="1884"/>
-        <UsageCount Value="72"/>
+        <UsageCount Value="73"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit64>
@@ -975,7 +974,7 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\ts.editor.toolviews.pas"/>
         <UnitName Value="ts.Editor.ToolViews"/>
         <EditorIndex Value="19"/>
-        <UsageCount Value="66"/>
+        <UsageCount Value="67"/>
         <Loaded Value="True"/>
       </Unit72>
       <Unit73>
@@ -1219,7 +1218,7 @@ end;"/>
         <EditorIndex Value="25"/>
         <TopLine Value="739"/>
         <CursorPos X="31" Y="269"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit99>
       <Unit100>
@@ -1235,14 +1234,14 @@ end;"/>
         <EditorIndex Value="24"/>
         <TopLine Value="138"/>
         <CursorPos X="49" Y="143"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit101>
       <Unit102>
         <Filename Value="..\..\..\components\WebView4Delphi\source\uWVBrowser.pas"/>
         <EditorIndex Value="30"/>
         <CursorPos X="16" Y="35"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit102>
       <Unit103>
@@ -1253,7 +1252,7 @@ end;"/>
       <Unit104>
         <Filename Value="..\..\..\components\WebView4Delphi\source\uWVBrowserBase.pas"/>
         <EditorIndex Value="31"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit104>
       <Unit105>
@@ -1268,7 +1267,7 @@ end;"/>
         <EditorIndex Value="33"/>
         <TopLine Value="454"/>
         <CursorPos X="3" Y="479"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit106>
       <Unit107>
@@ -1285,7 +1284,7 @@ end;"/>
         <EditorIndex Value="23"/>
         <TopLine Value="77"/>
         <CursorPos X="54" Y="116"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit108>
       <Unit109>
@@ -1398,7 +1397,7 @@ end;"/>
         <EditorIndex Value="22"/>
         <TopLine Value="25"/>
         <CursorPos X="56" Y="35"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit124>
       <Unit125>
@@ -1427,7 +1426,7 @@ end;"/>
         <UnitName Value="ts.HtmlEditor.Resources"/>
         <EditorIndex Value="26"/>
         <CursorPos X="47" Y="41"/>
-        <UsageCount Value="21"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit128>
       <Unit129>
@@ -1536,7 +1535,7 @@ end;"/>
       <Unit144>
         <Filename Value="..\htmleditor\HE.lpr"/>
         <EditorIndex Value="37"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit144>
       <Unit145>
@@ -1545,7 +1544,7 @@ end;"/>
         <EditorIndex Value="38"/>
         <TopLine Value="76"/>
         <CursorPos Y="101"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="17"/>
         <Loaded Value="True"/>
       </Unit145>
       <Unit146>
@@ -1553,7 +1552,7 @@ end;"/>
         <EditorIndex Value="32"/>
         <TopLine Value="159"/>
         <CursorPos X="32" Y="190"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit146>
       <Unit147>
@@ -1561,14 +1560,14 @@ end;"/>
         <EditorIndex Value="34"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="50"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit147>
       <Unit148>
         <Filename Value="..\..\..\fpcsrc\rtl\objpas\sysutils\finah.inc"/>
         <EditorIndex Value="36"/>
         <CursorPos X="10" Y="25"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit148>
       <Unit149>
@@ -1592,7 +1591,7 @@ end;"/>
         <UnitName Value="DB"/>
         <EditorIndex Value="35"/>
         <CursorPos X="56" Y="15"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit151>
     </Units>

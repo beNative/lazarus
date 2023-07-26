@@ -32,7 +32,7 @@ uses
   MacOSAll,
 {$ENDIF}
 
-  db, FileUtil;
+  DB, FileUtil;
 
 type
   TVarRecArray = array of TVarRec;
@@ -293,9 +293,9 @@ function AddToolBarButton(
 function AddToolBarButton(
   AToolBar          : TToolBar;
   AActionList       : TActionList;
-  const AActionName : string      = '';
-  AShowCaption      : Boolean     = False;
-  APopupMenu        : TPopupMenu  = nil
+  const AActionName : string     = '';
+  AShowCaption      : Boolean    = False;
+  APopupMenu        : TPopupMenu = nil
 ): TToolButton; overload;
 
 implementation
@@ -692,7 +692,7 @@ end;
 
 function CloneMenuItem(AItem: TMenuItem): TMenuItem;
 var
-  I: Integer;
+  I : Integer;
 Begin
   with AItem do
   Begin
@@ -704,14 +704,14 @@ end;
 
 function GetTextWidth(const AText: string; AFont: TFont): Integer;
 var
-  Bitmap : Graphics.TBitmap;
+  LBitmap : Graphics.TBitmap;
 begin
-  Bitmap := Graphics.TBitmap.Create;
+  LBitmap := Graphics.TBitmap.Create;
   try
-    Bitmap.Canvas.Font.Assign(AFont);
-    Result := Bitmap.Canvas.TextExtent(AText).cx;
+    LBitmap.Canvas.Font.Assign(AFont);
+    Result := LBitmap.Canvas.TextExtent(AText).cx;
   finally
-    Bitmap.Free;
+    LBitmap.Free;
   end;
 end;
 
@@ -762,7 +762,7 @@ function StringToVariant(AString : string): Variant;
 var
   I    : Int64;
   K    : Integer;
-  iPos : Integer;
+  LPos : Integer;
 begin
   Result := Null;
   if AString <> '' then
@@ -777,9 +777,9 @@ begin
       begin
         if FormatSettings.DecimalSeparator <> '.' then
         begin
-          iPos := Pos('.', AString);
-          if iPos > 0 then
-            AString[iPos] := FormatSettings.DecimalSeparator;
+          LPos := Pos('.', AString);
+          if LPos > 0 then
+            AString[LPos] := FormatSettings.DecimalSeparator;
         end;
         Result := StrToFloat(AString);
       end;
@@ -1128,7 +1128,7 @@ end;
 
 function Like(const ASource: string; const ATemplate: string): Boolean;
 const
-  SpecialChars: TSysCharSet = ['%', '*', '?', '_'];
+  SPECIAL_CHARACTERS : TSysCharSet = ['%', '*', '?', '_'];
 var
  I, J, K, LTemplate, LSource: Integer;
 begin
@@ -1143,7 +1143,7 @@ begin
       '?', '_': ;
       '*', '%':
       begin
-        while (ATemplate[I] in SpecialChars) and (I <= LTemplate) do
+        while (ATemplate[I] in SPECIAL_CHARACTERS) and (I <= LTemplate) do
           Inc(I);
         if I > LTemplate then
           Result := True
@@ -1156,9 +1156,9 @@ begin
             K := 0;
             while (ASource[J + K] = ATemplate[I + K]) and
                   (J + K <= LSource) and (I + K <= LTemplate) and
-                  (not (ATemplate[I + K] in SpecialChars)) do
+                  (not (ATemplate[I + K] in SPECIAL_CHARACTERS)) do
               Inc(K);
-            if (ATemplate[I + K] in SpecialChars) or (I + K > LTemplate) then
+            if (ATemplate[I + K] in SPECIAL_CHARACTERS) or (I + K > LTemplate) then
             begin
               Inc(I, K - 1);
               Inc(J, K - 1);
@@ -1189,24 +1189,24 @@ end;
 {$IFDEF WINDOWS}
 function CreateGUIDString: string;
 var
-  ClassID : TCLSID;
-  P       : PWideChar;
+  LClassID : TCLSID;
+  P        : PWideChar;
 begin
-  CoCreateGuid(ClassID);
-  StringFromCLSID(ClassID, P);
+  CoCreateGuid(LClassID);
+  StringFromCLSID(LClassID, P);
   Result := P;
   CoTaskMemFree(P);
 end;
 
 function CreateUniqueID: string;
 var
-  AGUID       : TGUID;
-  AGUIDString : Widestring;
+  LGUID       : TGUID;
+  LGUIDString : Widestring;
 begin
-  CoCreateGUID(AGUID);
-  SetLength(AGUIDString, 39);
-  StringFromGUID2(AGUID, PWideChar(AGUIDString), 39);
-  Result := string(PWideChar(AGUIDString));
+  CoCreateGUID(LGUID);
+  SetLength(LGUIDString, 39);
+  StringFromGUID2(LGUID, PWideChar(LGUIDString), 39);
+  Result := string(PWideChar(LGUIDString));
   Result := Copy(Result, 2, 36);
   Result := StringReplace(Result, '-', '', [rfReplaceAll]);
 end;
@@ -1270,7 +1270,7 @@ end;
 
 function MixColors(C1, C2: TColor; W1: Integer): TColor;
 var
-  W2: Cardinal;
+  W2 : Cardinal;
 begin
   Assert(W1 in [0..255]);
   W2 := W1 xor 255;
@@ -1294,16 +1294,16 @@ function StringReplaceMultiple(const Source: AnsiString;
 
 type
   TFoundPos = record
-    Position: Integer;
-    PatternNum: Integer;
+    Position   : Integer;
+    PatternNum : Integer;
   end;
 
   TPattern = record
-    Old: AnsiString;
-    New: PAnsiChar;
-    LengthOld: Integer;
-    LengthNew: Integer;
-    Diff: Integer;
+    Old       : AnsiString;
+    New       : PAnsiChar;
+    LengthOld : Integer;
+    LengthNew : Integer;
+    Diff      : Integer;
   end;
 
 var
@@ -1695,7 +1695,7 @@ end;
 
 function URLEncode(const AString: string): string;
 var
-  I: Integer;
+  I : Integer;
 begin
   Result := '';
   for I := 1 to Length(AString) do
@@ -1713,9 +1713,10 @@ end;
 
 function URLDecode(const AString: string): string;
 const
-  HexChar = '0123456789ABCDEF';
+  HEX_CHARS = '0123456789ABCDEF';
 var
-  I, J: Integer;
+  I : Integer;
+  J : Integer;
 begin
   SetLength(Result, Length(AString));
   I := 1;
@@ -1724,8 +1725,8 @@ begin
   begin
     if (AString[I] = '%') and (I + 2 < Length(AString)) then
     begin
-      Result[J] := Chr(((pred(Pos(AString[I + 1], HexChar))) shl 4)
-        or (Pred(Pos(AString[I + 2], HexChar))));
+      Result[J] := Chr(((pred(Pos(AString[I + 1], HEX_CHARS))) shl 4)
+        or (Pred(Pos(AString[I + 2], HEX_CHARS))));
       Inc(I, 2);
     end
     else
@@ -1843,19 +1844,19 @@ function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
 
   function GetTagValue(const ATag: String): String;
   var
-    p: Integer;
+    P : Integer;
   begin
-    p := pos('=', ATag);
+    P := pos('=', ATag);
 
-    if p = 0 then
+    if P = 0 then
       Result := ''
     else
-      Result := copy(ATag, p + 1, MaxInt);
+      Result := copy(ATag, P + 1, MaxInt);
   end;
 
-  function ColorCodeToColor(const Value: String): TColor;
+  function ColorCodeToColor(const Value: string): TColor;
   var
-    HexValue: String;
+    LHexValue : string;
   begin
     Result := 0;
 
@@ -1863,17 +1864,17 @@ function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
     begin
       if (length(Value) >= 2) and (copy(Uppercase(Value), 1, 2) = 'CL') then
       begin
-        // Delphi colour
         Result := StringToColor(Value);
-      end else
+      end
+      else
       if Value[1] = '#' then
       begin
         // Web colour
-        HexValue := copy(Value, 2, 6);
+        LHexValue := copy(Value, 2, 6);
 
-        Result := RGB(StrToInt('$'+Copy(HexValue, 1, 2)),
-                      StrToInt('$'+Copy(HexValue, 3, 2)),
-                      StrToInt('$'+Copy(HexValue, 5, 2)));
+        Result := RGB(StrToInt('$'+Copy(LHexValue, 1, 2)),
+                      StrToInt('$'+Copy(LHexValue, 3, 2)),
+                      StrToInt('$'+Copy(LHexValue, 5, 2)));
       end
       else
         // Hex or decimal colour
@@ -1882,14 +1883,14 @@ function DrawHTML(const ARect: TRect; const ACanvas: TCanvas; const Text: string
   end;
 
 const
-  TagBold = 'B';
-  TagItalic = 'I';
-  TagUnderline = 'U';
-  TagBreak = 'BR';
-  TagFontSize = 'FONT-SIZE';
+  TagBold       = 'B';
+  TagItalic     = 'I';
+  TagUnderline  = 'U';
+  TagBreak      = 'BR';
+  TagFontSize   = 'FONT-SIZE';
   TagFontFamily = 'FONT-FAMILY';
   TagFontColour = 'FONT-COLOR';
-  TagColour = 'COLOUR';
+  TagColour     = 'COLOUR';
 
 var
   x, y, idx, CharWidth, MaxCharHeight: Integer;
@@ -2098,7 +2099,7 @@ end;
 
 procedure RegisterFileType(const AExtension: string; const AAppPath: string);
 var
-  R: TRegistry;
+  R : TRegistry;
 begin
   R := TRegistry.Create;
   try
@@ -2124,10 +2125,10 @@ function SetToString(ATypeInfo: PTypeInfo; const AValue;
   AQuoteValues: Boolean = True; ABrackets: Boolean = True;
   ATrimChars: Integer = -1): string;
 var
-  S    : TIntegerSet;
-  I    : Integer;
-  N    : Integer;
-  Name : string;
+  S     : TIntegerSet;
+  I     : Integer;
+  N     : Integer;
+  LName : string;
 
   function GetOrdValue(Info: PTypeInfo; const SetParam): Integer;
   begin
@@ -2171,20 +2172,20 @@ begin
     begin
       if Result <> '' then
         Result := Result + ',';
-      Name := GetEnumName(ATypeInfo, I);
+      LName := GetEnumName(ATypeInfo, I);
 
       if ATrimChars >= 0 then
         N := ATrimChars
       else
-        N := GetPrefixLength(Name);
+        N := GetPrefixLength(LName);
 
       if N > 0 then
-        Name := Copy(Name, N + 1, Length(Name) - N + 1);
+        LName := Copy(LName, N + 1, Length(LName) - N + 1);
 
       if AQuoteValues then
-        Name := QuotedStr(Name);
+        LName := QuotedStr(LName);
 
-      Result := Result + Name;
+      Result := Result + LName;
     end;
   end;
   if ABrackets and (Result <> '') then
@@ -2266,30 +2267,30 @@ end;
 
 function GetFileCreationTime(const AFileName: string): TDateTime;
 var
-   MyRec: TSearchRec;
+   LRec: TSearchRec;
 
    function FileTime2DateTime(FileTime: TFileTime): TDateTime;
    var
-      LocalFileTime: TFileTime;
-      SystemTime: TSystemTime;
+      LLocalFileTime : TFileTime;
+      LSystemTime    : TSystemTime;
    begin
-      FileTimeToLocalFileTime(FileTime, LocalFileTime) ;
-      FileTimeToSystemTime(LocalFileTime, SystemTime) ;
-      Result := SystemTimeToDateTime(SystemTime) ;
+      FileTimeToLocalFileTime(FileTime, LLocalFileTime) ;
+      FileTimeToSystemTime(LLocalFileTime, LSystemTime) ;
+      Result := SystemTimeToDateTime(LSystemTime) ;
    end;
 begin
    Result := Now;
 
-   if FindFirstUTF8(AFileName, faAnyFile, MyRec) = 0 then
+   if FindFirstUTF8(AFileName, faAnyFile, LRec) = 0 then
    begin
-      Result := FileTime2DateTime(MyRec.FindData.ftCreationTime);
-      FindCloseUTF8(MyRec);
+      Result := FileTime2DateTime(LRec.FindData.ftCreationTime);
+      FindCloseUTF8(LRec);
    end;
 end;
 
 function AddMenuItem(AParent: TMenuItem; AAction: TBasicAction): TMenuItem;
 var
-  MI: TMenuItem;
+  MI : TMenuItem;
 begin
   if not Assigned(AAction) then
   begin
@@ -2316,7 +2317,6 @@ begin
     AParent.Add(MI);
     Result := MI;
   end;
-
 end;
 
 function AddMenuItem(AParent: TMenuItem; AMenu: TMenu): TMenuItem;

@@ -116,6 +116,27 @@ implementation
 uses
   StrUtils;
 
+{$REGION 'THtmlEditorToolView'}
+{$REGION 'construction and destruction'}
+constructor THtmlEditorToolView.Create(AManager: IHtmlEditorManager;
+  AFormClass: TComponentClass; ASettingsClass: TComponentClass;
+  const AName: string);
+begin
+  inherited Create;
+  FManager       := AManager;
+  FFormClass     := AFormClass;
+  FSettingsClass := ASettingsClass;
+  FName          := AName;
+end;
+
+destructor THtmlEditorToolView.Destroy;
+begin
+  FManager := nil;
+  inherited Destroy;
+end;
+{$ENDREGION}
+
+{$REGION 'property access methods'}
 function THtmlEditorToolView.GetForm: TForm;
 begin
   if not Assigned(FForm) then
@@ -160,30 +181,35 @@ function THtmlEditorToolView.GetName: string;
 begin
   Result := FName;
 end;
+{$ENDREGION}
 
-constructor THtmlEditorToolView.Create(AManager: IHtmlEditorManager;
-  AFormClass: TComponentClass; ASettingsClass: TComponentClass;
-  const AName: string);
-begin
-  inherited Create;
-  FManager       := AManager;
-  FFormClass     := AFormClass;
-  FSettingsClass := ASettingsClass;
-  FName          := AName;
-end;
-
-destructor THtmlEditorToolView.Destroy;
-begin
-  FManager := nil;
-  inherited Destroy;
-end;
-
+{$REGION 'public methods'}
 procedure THtmlEditorToolView.UpdateView;
 begin
   if Assigned(FToolView) then
     FToolView.UpdateView;
 end;
+{$ENDREGION}
+{$ENDREGION}
 
+{$REGION 'THtmlEditorToolViews'}
+{$REGION 'construction and destruction'}
+constructor THtmlEditorToolViews.Create(AEditorManager: IHtmlEditorManager);
+begin
+  inherited Create;
+  FManager := AEditorManager;
+  FItems   := TInterfaceList.Create;
+end;
+
+destructor THtmlEditorToolViews.Destroy;
+begin
+  FManager := nil;
+  FItems.Free;
+  inherited Destroy;
+end;
+{$ENDREGION}
+
+{$REGION 'property access methods'}
 function THtmlEditorToolViews.GetView(AIndex: Integer): IHtmlEditorToolView;
 begin
   Result := FItems[AIndex] as IHtmlEditorToolView;
@@ -216,7 +242,9 @@ function THtmlEditorToolViews.GetEnumerator: THtmlEditorToolViewListEnumerator;
 begin
   Result := THtmlEditorToolViewListEnumerator.Create(Self);
 end;
+{$ENDREGION}
 
+{$REGION 'protected methods'}
 function THtmlEditorToolViews.Register(AFormClass: TComponentClass;
   ASettingsClass: TComponentClass; const AName: string): Boolean;
 var
@@ -239,20 +267,7 @@ begin
     FManager.Events.DoHideToolView(TV);
   end;
 end;
-
-constructor THtmlEditorToolViews.Create(AEditorManager: IHtmlEditorManager);
-begin
-  inherited Create;
-  FManager := AEditorManager;
-  FItems   := TInterfaceList.Create;
-end;
-
-destructor THtmlEditorToolViews.Destroy;
-begin
-  FManager := nil;
-  FItems.Free;
-  inherited Destroy;
-end;
-
+{$ENDREGION}
+{$ENDREGION}
 end.
 

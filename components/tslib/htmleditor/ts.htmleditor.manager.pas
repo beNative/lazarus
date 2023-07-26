@@ -32,87 +32,32 @@ type
   TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions,
     IHtmlEditorEvents)
     aclActions                : TActionList;
-    actAddParagraph1: TAction;
     actAlignCenter            : TAction;
-    actAlignCenter1: TAction;
     actAlignJustify           : TAction;
-    actAlignJustify1: TAction;
     actAlignLeft              : TAction;
-    actAlignLeft1: TAction;
     actAlignRight             : TAction;
-    actAlignRight1: TAction;
     actBold                   : TAction;
-    actBold1: TAction;
     actBulletList             : TAction;
-    actBulletList1: TAction;
     actClear                  : TAction;
-    actClear1: TAction;
     actClipboardMenu          : TAction;
-    actClipboardMenu1: TAction;
     actCopy                   : TAction;
-    actCopy1: TAction;
     actCut                    : TAction;
-    actCut1: TAction;
     actDecFontSize            : TAction;
-    actDecFontSize1: TAction;
     actDecIndent              : TAction;
-    actDecIndent1: TAction;
-    actDeleteColumn1: TAction;
-    actDeleteRow1: TAction;
-    actDeleteTable1: TAction;
-    actEditParagraphStyle1: TAction;
-    actEditSelectedItem1: TAction;
-    actEditTextStyle1: TAction;
     actFileMenu               : TAction;
-    actFileMenu1: TAction;
+    actGoBack                 : TAction;
+    actGoForward              : TAction;
     actIncFontSize            : TAction;
-    actIncFontSize1: TAction;
     actIncIndent              : TAction;
-    actIncIndent1: TAction;
-    actInsertBulletList1: TAction;
-    actInsertColumnAfter1: TAction;
-    actInsertColumnBefore1: TAction;
     actInsertHyperLink        : TAction;
-    actInsertHyperLink1: TAction;
     actInsertImage            : TAction;
-    actInsertImage1: TAction;
-    actInsertMenu: TAction;
-    actInsertMenu1: TAction;
-    actInsertRowAfter1: TAction;
-    actInsertRowBefore1: TAction;
-    actInsertTable1: TAction;
-    actGoBack: TAction;
-    actGoForward: TAction;
-    actRefresh: TAction;
-    actItalic1: TAction;
-    actNumberedList1: TAction;
-    actOpen1: TAction;
-    actPaste1: TAction;
-    actRedo1: TAction;
-    actSave1: TAction;
-    actSaveAs1: TAction;
-    actSelectAll1: TAction;
-    actSelectionMenu1: TAction;
-    actSelectMenu1: TAction;
-    actSelectTable1: TAction;
-    actSetBackgroundColor1: TAction;
-    actSetFont1: TAction;
-    actSetFontColor1: TAction;
-    actSettingsMenu1: TAction;
-    actShowPreview1: TAction;
-    actShowSpecialCharacters1: TAction;
-    actShowStructureViewer1: TAction;
-    actStrikeThrough1: TAction;
-    actTableMenu1: TAction;
-    actToggleEditMode         : TAction;
-    actToggleSourceVisible    : TAction;
-    actShowTaskManager        : TAction;
-    actShowDevTools           : TAction;
+    actInsertMenu             : TAction;
     actItalic                 : TAction;
     actNumberedList           : TAction;
     actOpen                   : TAction;
     actPaste                  : TAction;
     actRedo                   : TAction;
+    actRefresh                : TAction;
     actSave                   : TAction;
     actSaveAs                 : TAction;
     actSelectAll              : TAction;
@@ -122,12 +67,13 @@ type
     actSetFont                : TAction;
     actSetFontColor           : TAction;
     actSettingsMenu           : TAction;
+    actShowDevTools           : TAction;
+    actShowTaskManager        : TAction;
     actStrikeThrough          : TAction;
-    actToggleWordWrap1: TAction;
+    actToggleEditMode         : TAction;
+    actToggleSourceVisible    : TAction;
     actUnderline              : TAction;
-    actUnderline1: TAction;
     actUndo                   : TAction;
-    actUndo1: TAction;
     dlgColor                  : TColorDialog;
     dlgFont                   : TFontDialog;
     dlgOpen                   : TOpenDialog;
@@ -135,8 +81,8 @@ type
     imlMain                   : TImageList;
     ppmClipboard              : TPopupMenu;
     ppmFile                   : TPopupMenu;
-    ppmInsert                 : TPopupMenu;
     ppmHtmlEditor             : TPopupMenu;
+    ppmInsert                 : TPopupMenu;
     ppmSelect                 : TPopupMenu;
     ppmSelection              : TPopupMenu;
     ppmSettings               : TPopupMenu;
@@ -155,8 +101,6 @@ type
     procedure actDecIndentExecute(Sender: TObject);
     procedure actGoBackExecute(Sender: TObject);
     procedure actGoForwardExecute(Sender: TObject);
-    procedure actRefreshExecute(Sender: TObject);
-    procedure actShowDevToolsExecute(Sender: TObject);
     procedure actIncIndentExecute(Sender: TObject);
     procedure actInsertHyperLinkExecute(Sender: TObject);
     procedure actInsertImageExecute(Sender: TObject);
@@ -164,7 +108,9 @@ type
     procedure actOpenExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
+    procedure actRefreshExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
+    procedure actShowDevToolsExecute(Sender: TObject);
     procedure actShowTaskManagerExecute(Sender: TObject);
     procedure actStrikeThroughExecute(Sender: TObject);
     procedure actToggleEditModeExecute(Sender: TObject);
@@ -189,6 +135,7 @@ type
     function GetEvents: IHtmlEditorEvents;
     function GetFilePopupMenu: TPopupMenu;
     function GetInsertPopupMenu: TPopupMenu;
+    function GetItem(AName: string): TContainedAction;
     function GetSelectionPopupMenu: TPopupMenu;
     function GetSelectPopupMenu: TPopupMenu;
     function GetSettingsPopupMenu: TPopupMenu;
@@ -197,7 +144,6 @@ type
     function GetViewByName(AName: string): IHtmlEditorView;
     function GetViewCount: Integer;
     procedure SetActiveView(const AValue: IHtmlEditorView);
-    function GetItem(AName: string): TContainedAction;
     {$ENDREGION}
 
     function AddView(
@@ -317,7 +263,10 @@ end;
 
 procedure TdmHtmlEditorManager.actBoldExecute(Sender: TObject);
 begin
-
+  if Assigned(ActiveView) then
+  begin
+    //
+  end;
 end;
 
 procedure TdmHtmlEditorManager.actClearExecute(Sender: TObject);

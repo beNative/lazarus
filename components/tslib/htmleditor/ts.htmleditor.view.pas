@@ -442,6 +442,9 @@ type
     // browser methods
     function ExecuteScript(const AScript: string): Boolean;
     function ExecuteEditingCommand(ACommand: TWV2EditingCommand): Boolean;
+    function Navigate(const ASource: string): Boolean;
+    function GoBack: Boolean;
+    function GoForward: Boolean;
     function ClearCache: Boolean;
     function Refresh: Boolean;
     procedure ShowDevTools;
@@ -1647,7 +1650,7 @@ end;
 procedure THtmlEditorView.SetPopupMenu(const AValue: TPopupMenu);
 begin
   WVWindowParent.PopupMenu := AValue;
-  edtSource.PopupMenu      := AValue;
+  //edtSource.PopupMenu      := AValue;
 end;
 
 procedure THtmlEditorView.SetSelText(const AValue: string);
@@ -1673,13 +1676,13 @@ procedure THtmlEditorView.SetSource(AValue: string);
 begin
   if AValue <> Source then
   begin
-    if AValue = 'about:blank' then
+    if AValue = EMPTY_PAGE_SOURCE then
       FSource := ''
     else
       FSource := AValue;
     if FSource <> '' then
     begin
-      WVBrowser.Navigate(UTF8Decode(FSource));
+      Navigate(FSource);
     end
   end;
   edtSource.Text := FSource;
@@ -1840,6 +1843,21 @@ begin
   WVWindowParent.SetFocus;
   Result := WVBrowser.SimulateEditingCommand(ACommand);
   DoChange;
+end;
+
+function THtmlEditorView.Navigate(const ASource: string): Boolean;
+begin
+  WVBrowser.Navigate(UTF8Decode(FSource));
+end;
+
+function THtmlEditorView.GoBack: Boolean;
+begin
+  Result := WVBrowser.GoBack;
+end;
+
+function THtmlEditorView.GoForward: Boolean;
+begin
+  Result := WVBrowser.GoForward;
 end;
 
 function THtmlEditorView.ClearCache: Boolean;

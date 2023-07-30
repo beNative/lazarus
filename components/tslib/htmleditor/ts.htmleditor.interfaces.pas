@@ -64,6 +64,7 @@ type
     function GetIsFile: Boolean;
     function GetIsInitialized: Boolean;
     function GetIsNavigating: Boolean;
+    function GetIsSourceEmpty: Boolean;
     function GetModified: Boolean;
     function GetOffline: Boolean;
     function GetOnAfterCreated: TNotifyEvent;
@@ -237,6 +238,10 @@ type
 
     property IsFile: Boolean
       read GetIsFile write SetIsFile;
+
+    { Returns True if no URI is assigned to the Source property. }
+    property IsSourceEmpty: Boolean
+      read GetIsSourceEmpty;
 
     property HtmlText: string
       read GetHtmlText write SetHtmlText;

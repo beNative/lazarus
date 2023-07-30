@@ -73,7 +73,7 @@ type
   private
     FVKPressed : Boolean;
     FEditor    : IEditorView;
-    FData      : ILookup;
+    FData      : ISearch;
     FUpdate    : Boolean;
 
     function GetDataSet: TDataSet;
@@ -84,7 +84,7 @@ type
     constructor Create(
       AOwner  : TComponent;
       AEditor : IEditorView;
-      ALookup : ILookup
+      ALookup : ISearch
     ); reintroduce; virtual;
     destructor Destroy; override;
 
@@ -96,7 +96,7 @@ type
       read GetDataSet;
   end; 
 
-procedure Lookup(AEditor: IEditorView; ALookup: ILookup);
+procedure Lookup(AEditor: IEditorView; ALookup: ISearch);
 
 implementation
 
@@ -108,7 +108,7 @@ uses
 var
   FLookupForm: TfrmLookup;
 
-procedure Lookup(AEditor: IEditorView; ALookup: ILookup);
+procedure Lookup(AEditor: IEditorView; ALookup: ISearch);
 begin
   if not Assigned(FLookupForm) then
     FLookupForm := TfrmLookup.Create(Application, AEditor, ALookup);
@@ -116,12 +116,12 @@ begin
 end;
 
 {$REGION 'construction and destruction'}
-constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ILookup);
+constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ISearch);
 begin
   inherited Create(AOwner);
   FData           := ALookup;
   FEditor         := AEditor;
-  dscMain.DataSet := ALookup.LookupDataSet;
+  dscMain.DataSet := ALookup.SearchDataSet;
 end;
 
 destructor TfrmLookup.Destroy;
@@ -157,7 +157,7 @@ begin
   if not Assigned(Field) then
   begin
      (FData as IDataSet).DataSet .Locate('Id' , DataSet.FieldByName('Id').AsInteger,[]);
-    if not FData.LookupDataSet.IsEmpty then
+    if not FData.SearchDataSet.IsEmpty then
       FEditor.SearchAndSelectText(edtLookup.Text);
   end;
 end;
@@ -287,18 +287,18 @@ end;
 
 procedure TfrmLookup.Execute;
 begin
-  FData.LookupDataSet.DisableControls;
+  FData.SearchDataSet.DisableControls;
   try
-    (FData as ILookup).Lookup(
+    (FData as ISearch).Search(
       edtLookup.Text,
       chkText.Checked,
       chkName.Checked,
       chkComment.Checked
     );
-    if not FData.LookupDataSet.IsEmpty then
+    if not FData.SearchDataSet.IsEmpty then
       FEditor.SearchAndSelectText(edtLookup.Text);
   finally
-    FData.LookupDataSet.EnableControls;
+    FData.SearchDataSet.EnableControls;
     grdLookup.AutoAdjustColumns;
   end;
 end;

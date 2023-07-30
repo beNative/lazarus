@@ -85,31 +85,28 @@ type
   ISQLite = interface
   ['{334F8C6C-B0C9-4A40-BA70-DEBAFAAE9442}']
     {$REGION 'property access mehods'}
-    function GetDBVersion: string;
-    function GetReadOnly: Boolean;
+    function GetVersion: string;
     function GetSize: Int64;
-    procedure SetReadOnly(AValue: Boolean);
     {$ENDREGION}
 
     function IntegrityCheck: Boolean;
     procedure ShrinkMemory;
     procedure Vacuum;
 
-    property ReadOnly: Boolean
-      read GetReadOnly write SetReadOnly;
-
     property Size: Int64
       read GetSize;
 
-    property DBVersion: string
-      read GetDBVersion;
+    property Version: string
+      read GetVersion;
   end;
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
+  function GetActiveViews: string;
     {$REGION 'property access mehods'}
     function GetHtmlText: string;
     function GetHtmlData: string;
+    function GetLocked: Boolean;
     function GetRtfText: string;
     function GetRtfData: string;
     function GetDateCreated: TDateTime;
@@ -125,8 +122,10 @@ type
     function GetParentId: Integer;
     function GetSource: string;
     function GetText: string;
+    procedure SetActiveViews(AValue: string);
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
+    procedure SetLocked(AValue: Boolean);
     procedure SetRtfText(AValue: string);
     procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
@@ -143,7 +142,11 @@ type
     procedure SetText(AValue: string);
     {$ENDREGION}
 
-    procedure DuplicateRecords(AValues: TStrings);
+    property ActiveViews: string
+      read GetActiveViews write SetActiveViews;
+
+    property Locked: Boolean
+      read GetLocked write SetLocked;
 
     property RtfText: string
       read GetRtfText write SetRtfText;
@@ -212,6 +215,7 @@ type
     function Edit: Boolean;
     function Post: Boolean;
     function ApplyUpdates: Boolean;
+    procedure DuplicateRecords(AValues: TStrings);
 
     procedure EnableControls;
     procedure DisableControls;
@@ -226,21 +230,21 @@ type
       read GetDataSet;
   end;
 
-  ILookup = interface
+  ISearch = interface
   ['{6B45FCDB-7F36-450D-9C2E-820C69204F4D}']
     {$REGION 'property access mehods'}
-    function GetLookupDataSet: TDataSet;
+    function GetSearchDataSet: TSQLQuery;
     {$ENDREGION}
 
-    procedure Lookup(
+    procedure Search(
       const ASearchString : string;
       ASearchInText       : Boolean;
       ASearchInName       : Boolean;
       ASearchInComment    : Boolean
     );
 
-    property LookupDataSet: TDataSet
-      read GetLookupDataSet;
+    property SearchDataSet: TSQLQuery
+      read GetSearchDataSet;
   end;
 
   IGlyphs = interface

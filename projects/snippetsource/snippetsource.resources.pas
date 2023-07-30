@@ -29,6 +29,8 @@ const
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
+  SQL_SQLITE_VERSION = 'select sqlite_version();';
+
   SQL_LAST_ID = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =
     'select'         + sLineBreak +
@@ -39,6 +41,17 @@ const
     '  (Id >= %d)'   + sLineBreak +
     '  and NodePath = ''%s''';
   SQL_DEFAULT_QUERY = 'select * from Snippet';
+
+  SQL_LOOKUP_QUERY =
+    'select'                          + sLineBreak +
+    '  *'                             + sLineBreak +
+    'from'                            + sLineBreak +
+    '  Snippet'                       + sLineBreak +
+    'where'                           + sLineBreak +
+    '  Text like ''%%%0:s%%'''        + sLineBreak +
+    '  or RtfText like ''%%%0:s%%'''  + sLineBreak +
+    '  or HtmlText like ''%%%0:s%%''' + sLineBreak +
+    '  or NodeName like ''%%%0:s%%''';
 
   SQL_DUPLICATE_IDS =
     'insert into Snippet ('  + sLineBreak +

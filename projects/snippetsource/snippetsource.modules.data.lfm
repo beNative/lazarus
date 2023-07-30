@@ -1,7 +1,7 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 3282
+  HorizontalOffset = 2089
   VerticalOffset = 343
   Width = 421
   object trsMain: TSQLTransaction
@@ -2759,7 +2759,7 @@ object dmSnippetSource: TdmSnippetSource
     Left = 256
     Top = 80
   end
-  object qryLookup: TSQLQuery
+  object qrySearch: TSQLQuery
     PacketRecords = -1
     FieldDefs = <>
     Database = conMain
@@ -2808,13 +2808,11 @@ object dmSnippetSource: TdmSnippetSource
       'drop table if exists CommentType;'
       ''
       'create table CommentType ('
-      '  Id           integer  primary key,'
+      '  Id           integer primary key,'
       '  Name         varchar,'
       '  StartTag     varchar,'
       '  EndTag       varchar,'
-      '  SingleLine   boolean  default'
-      '                        (0)'
-      '                        not null'
+      '  SingleLine   boolean default (0) not null'
       ');'
       ''
       ''
@@ -2822,9 +2820,9 @@ object dmSnippetSource: TdmSnippetSource
       'drop table if exists Glyph;'
       ''
       'create table Glyph ('
-      '  Id            integer  primary key,'
+      '  Id            integer primary key,'
       '  Image         blob,'
-      '  Name          varchar  unique'
+      '  Name          varchar unique'
       ');'
       ''
       ''
@@ -2832,10 +2830,10 @@ object dmSnippetSource: TdmSnippetSource
       'drop table if exists Highlighter;'
       ''
       'create table Highlighter ('
-      '  Id                      integer  primary key,'
+      '  Id                      integer primary key,'
       '  StreamCommentTypeId     integer,'
       '  SingleLineCommentTypeId integer,'
-      '  Code                    varchar  unique,'
+      '  Code                    varchar unique,'
       '  Name                    varchar,'
       '  Description             varchar,'
       '  ImageIndex              integer,'
@@ -2847,7 +2845,7 @@ object dmSnippetSource: TdmSnippetSource
       'drop table if exists NodeType;'
       ''
       'create table NodeType ('
-      '  Id            integer  primary key,'
+      '  Id            integer primary key,'
       '  Name          varchar,'
       '  ImageIndex    integer,'
       '  Image         blob'
@@ -2858,9 +2856,9 @@ object dmSnippetSource: TdmSnippetSource
       'drop table if exists Snippet;'
       ''
       'create table Snippet ('
-      '  Id            integer  primary key,'
-      '  HighlighterId integer  not null,'
-      '  NodeTypeId    integer  not null,'
+      '  Id            integer primary key,'
+      '  HighlighterId integer not null,'
+      '  NodeTypeId    integer not null,'
       '  ParentId      integer,'
       '  ImageIndex    integer,'
       '  Image         blob,'
@@ -2872,8 +2870,10 @@ object dmSnippetSource: TdmSnippetSource
       '  RtfData       text,'
       '  HtmlText      text,'
       '  HtmlData      text,'
+      '  Locked        boolean,'
       '  Source        varchar,'
       '  FoldState     varchar,'
+      '  ActiveViews   varchar,'
       '  DateCreated   datetime,'
       '  DateModified  datetime'
       ');'

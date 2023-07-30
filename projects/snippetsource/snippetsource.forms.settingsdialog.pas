@@ -702,7 +702,7 @@ end;
 
 procedure TfrmSettingsDialog.UpdateDataBaseInfo;
 begin
-  grdDBInfo.Cells[1, 0] := SQLite.DBVersion;
+  grdDBInfo.Cells[1, 0] := SQLite.Version;
   grdDBInfo.Cells[1, 1] := FormatByteText(SQLite.Size);
   grdDBInfo.Cells[1, 2] :=
     DateTimeToStr(GetFileCreationTime(Connection.FileName));

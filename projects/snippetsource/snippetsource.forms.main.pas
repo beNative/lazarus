@@ -545,7 +545,12 @@ end;
 
 procedure TfrmMain.actToggleLockedStateExecute(Sender: TObject);
 begin
-  Snippet.Locked := not Snippet.Locked;
+  actToggleLockedState.Checked := not actToggleLockedState.Checked;
+  Logger.Send('Snippet.Locked', Snippet.Locked);
+  Snippet.Locked := actToggleLockedState.Checked;
+  Logger.Send('Snippet.Locked', Snippet.Locked);
+  Logger.Send('actLocked.Checked', actToggleLockedState.Checked);
+  Modified;
 end;
 
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);
@@ -598,6 +603,7 @@ begin
         end;
         edtTitle.Text := Snippet.NodeName;
         edtTitle.Hint := Snippet.NodeName;
+        actToggleLockedState.Checked := Snippet.Locked;
         //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
         //btnImage.Glyph.Assign(LBitmap);
         //LStream := TMemoryStream.Create;
@@ -1454,11 +1460,17 @@ begin
   UpdateViews;
   UpdateStatusBar;
   UpdateApplicationToolBar;
+  if Assigned(Snippet) then
+  begin
+    Logger.Watch('Snippet.Locked', Snippet.Locked);
+    Logger.Watch('actLocked.Checked', actToggleLockedState.Checked);
+
   //if not edtTitle.Focused then
   //begin
   //  edtTitle.Color      := clForm;
   //  edtTitle.Font.Color := clDkGray;
   //end;
+  end;
 
   pnlWelcome.Visible := DataSet.DataSet.Active and DataSet.DataSet.IsEmpty;
 end;
@@ -1521,6 +1533,11 @@ begin
     begin
       RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
     end;
+    if actToggleLockedState.Checked then
+      actToggleLockedState.ImageIndex := 14
+    else
+      actToggleLockedState.ImageIndex := 15;
+
     FUpdate := False;
   end;
 end;

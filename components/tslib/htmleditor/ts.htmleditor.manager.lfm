@@ -261,11 +261,17 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
     end
     object actShowDevTools: TAction
       Caption = 'Show DevTools'
+      Hint = 'Show the browser''s developer tools.'
       ImageIndex = 12
       OnExecute = actShowDevToolsExecute
+      SecondaryShortCuts.Strings = (
+        'Ctrl+Shift+I'
+      )
+      ShortCut = 123
     end
     object actShowTaskManager: TAction
-      Caption = 'Show Task Manager'
+      Caption = 'Show task manager'
+      Hint = 'Show the task manager for the browser.'
       ImageIndex = 12
       OnExecute = actShowTaskManagerExecute
     end
@@ -281,9 +287,10 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Category = 'Settings'
       AutoCheck = True
       Caption = 'Toggle edit mode'
-      Hint = 'Toggle edit mode.'
+      Hint = 'Toggle edit mode'
       ImageIndex = 52
       OnExecute = actToggleEditModeExecute
+      ShortCut = 113
     end
     object actRefresh: TAction
       Category = 'Commands'
@@ -295,15 +302,19 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
     end
     object actGoBack: TAction
       Category = 'Commands'
-      Caption = 'Go Back'
+      Caption = 'Go back'
+      Hint = 'Go back'
       ImageIndex = 54
       OnExecute = actGoBackExecute
+      ShortCut = 32805
     end
     object actGoForward: TAction
       Category = 'Commands'
-      Caption = 'Go Forward'
+      Caption = 'Go forward'
+      Hint = 'Go forward'
       ImageIndex = 55
       OnExecute = actGoForwardExecute
+      ShortCut = 32807
     end
   end
   object actBold1: TAction

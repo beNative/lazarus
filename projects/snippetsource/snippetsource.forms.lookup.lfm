@@ -2,12 +2,10 @@ object frmLookup: TfrmLookup
   Left = 997
   Height = 689
   Top = 287
-  Width = 695
-  ActiveControl = edtLookup
-  BorderStyle = bsSizeToolWin
+  Width = 764
   Caption = 'Lookup'
   ClientHeight = 689
-  ClientWidth = 695
+  ClientWidth = 764
   Color = clWindow
   Font.Height = -12
   KeyPreview = True
@@ -17,86 +15,19 @@ object frmLookup: TfrmLookup
   Position = poMainFormCenter
   ShowHint = True
   LCLVersion = '2.2.2.0'
-  object edtLookup: TEdit
-    Left = 2
-    Height = 29
-    Top = 2
-    Width = 447
-    Anchors = [akTop, akLeft, akRight]
-    Font.Height = -16
-    OnKeyDown = edtLookupKeyDown
-    OnKeyPress = edtLookupKeyPress
-    OnKeyUp = edtLookupKeyUp
-    ParentFont = False
-    TabOrder = 0
-  end
-  object btnSearch: TButton
-    Left = 456
-    Height = 31
-    Top = 0
-    Width = 46
-    Action = actSearch
-    Anchors = [akTop, akRight]
-    Default = True
-    Font.Height = -12
-    ParentFont = False
-    TabOrder = 1
-  end
   object sbrMain: TStatusBar
     Left = 0
     Height = 23
     Top = 666
-    Width = 695
+    Width = 764
     Panels = <>
   end
-  object chkName: TCheckBox
-    Left = 508
-    Height = 19
-    Top = 5
-    Width = 52
-    Anchors = [akTop, akRight]
-    Caption = 'Name'
-    Checked = True
-    Font.Height = -12
-    OnChange = chkNameChange
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 3
-  end
-  object chkText: TCheckBox
-    Left = 567
-    Height = 19
-    Top = 5
-    Width = 42
-    Anchors = [akTop, akRight]
-    Caption = 'Text'
-    Checked = True
-    Font.Height = -12
-    OnChange = chkNameChange
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 4
-  end
-  object chkComment: TCheckBox
-    Left = 615
-    Height = 19
-    Top = 5
-    Width = 74
-    Anchors = [akTop, akRight]
-    Caption = 'Comment'
-    Checked = True
-    Font.Height = -12
-    ParentFont = False
-    State = cbChecked
-    TabOrder = 5
-  end
   object grdLookup: TDBGrid
-    Left = 4
-    Height = 624
-    Top = 40
-    Width = 687
-    Align = alCustom
-    Anchors = [akTop, akLeft, akRight, akBottom]
+    Left = 0
+    Height = 635
+    Top = 31
+    Width = 764
+    Align = alClient
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
@@ -161,9 +92,87 @@ object frmLookup: TfrmLookup
     OptionsExtra = []
     ReadOnly = True
     Scrollbars = ssAutoBoth
-    TabOrder = 6
+    TabOrder = 1
     TitleStyle = tsNative
     UseXORFeatures = True
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Height = 31
+    Top = 0
+    Width = 764
+    Align = alTop
+    AutoSize = True
+    BevelOuter = bvNone
+    ClientHeight = 31
+    ClientWidth = 764
+    TabOrder = 2
+    object edtLookup: TEdit
+      Left = 0
+      Height = 29
+      Top = 0
+      Width = 536
+      Anchors = [akTop, akLeft, akRight]
+      Font.Height = -16
+      OnKeyDown = edtLookupKeyDown
+      OnKeyPress = edtLookupKeyPress
+      OnKeyUp = edtLookupKeyUp
+      ParentFont = False
+      TabOrder = 0
+    end
+    object btnSearch: TButton
+      Left = 535
+      Height = 31
+      Top = 0
+      Width = 48
+      Action = actSearch
+      Anchors = [akTop, akRight]
+      Default = True
+      Font.Height = -12
+      ParentFont = False
+      TabOrder = 1
+    end
+    object chkName: TCheckBox
+      Left = 586
+      Height = 19
+      Top = 5
+      Width = 52
+      Anchors = [akTop, akRight]
+      Caption = 'Name'
+      Checked = True
+      Font.Height = -12
+      OnChange = chkNameChange
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 2
+    end
+    object chkText: TCheckBox
+      Left = 640
+      Height = 19
+      Top = 5
+      Width = 42
+      Anchors = [akTop, akRight]
+      Caption = 'Text'
+      Checked = True
+      Font.Height = -12
+      OnChange = chkNameChange
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 3
+    end
+    object chkComment: TCheckBox
+      Left = 690
+      Height = 19
+      Top = 5
+      Width = 74
+      Anchors = [akTop, akRight]
+      Caption = 'Comment'
+      Checked = True
+      Font.Height = -12
+      ParentFont = False
+      State = cbChecked
+      TabOrder = 4
+    end
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange

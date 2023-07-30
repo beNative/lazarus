@@ -670,6 +670,8 @@ begin
   if Edit then
   begin
     DataSet.FieldByName('Locked').AsBoolean := AValue;
+    if not Post then
+      Exception.Create('Database error!');
   end
   else
     Exception.Create('Database error!');

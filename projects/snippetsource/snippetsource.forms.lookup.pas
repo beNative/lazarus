@@ -22,7 +22,7 @@ interface
 
 uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, ActnList, DBGrids,
+  ComCtrls, ActnList, DBGrids, ExtCtrls,
 
   ts.Editor.Interfaces,
 
@@ -35,13 +35,14 @@ type
   TfrmLookup = class(TForm)
     aclMain    : TActionList;
     actSearch  : TAction;
-    btnSearch  : TButton;
-    chkComment : TCheckBox;
-    chkName    : TCheckBox;
-    chkText    : TCheckBox;
+    btnSearch: TButton;
+    chkComment: TCheckBox;
+    chkName: TCheckBox;
+    chkText: TCheckBox;
     dscMain    : TDatasource;
-    edtLookup  : TEdit;
+    edtLookup: TEdit;
     grdLookup  : TDBGrid;
+    pnlTop: TPanel;
     sbrMain    : TStatusBar;
 
     {$REGION 'action handlers'}

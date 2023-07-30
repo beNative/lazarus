@@ -317,7 +317,6 @@ end;"/>
         <Filename Value="snippetsource.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource"/>
-        <EditorIndex Value="6"/>
         <TopLine Value="2"/>
         <CursorPos X="124" Y="10"/>
         <UsageCount Value="243"/>
@@ -330,7 +329,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="786"/>
         <CursorPos X="44" Y="809"/>
         <UsageCount Value="243"/>
@@ -344,7 +343,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.VirtualDBTree"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="369"/>
         <CursorPos X="16" Y="403"/>
         <UsageCount Value="243"/>
@@ -358,6 +357,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Lookup"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="268"/>
         <CursorPos X="30" Y="292"/>
         <UsageCount Value="201"/>
@@ -370,7 +370,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.SettingsDialog"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="705"/>
         <CursorPos X="35" Y="705"/>
         <UsageCount Value="200"/>
@@ -381,9 +381,9 @@ end;"/>
         <Filename Value="snippetsource.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Interfaces"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="61"/>
-        <CursorPos X="33" Y="88"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="127"/>
+        <CursorPos Y="151"/>
         <FoldState Value=" TJW57\"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -399,7 +399,7 @@ end;"/>
         <EditorIndex Value="7"/>
         <TopLine Value="12"/>
         <CursorPos X="66" Y="96"/>
-        <FoldState Value=" TJM1z0312114 pjApH5915]F p0tS15412]NBqI1J]JkMl218 T3,00I3]PLk40T38"/>
+        <FoldState Value=" TJM1z0312114 T3,00I3 pjLk40T3S"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -444,11 +444,10 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Query"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="88" Y="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit10>
       <Unit11>
         <Filename Value="snippetsource.resources.pas"/>
@@ -1601,120 +1600,120 @@ end;"/>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="854" Column="58" TopLine="821"/>
+        <Caret Line="140" Column="31" TopLine="118"/>
       </Position1>
       <Position2>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="140" Column="31" TopLine="118"/>
+        <Caret Line="975" TopLine="937"/>
       </Position2>
       <Position3>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="975" TopLine="937"/>
+        <Caret Line="173" Column="34" TopLine="152"/>
       </Position3>
       <Position4>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="173" Column="34" TopLine="152"/>
+        <Caret Line="288" TopLine="263"/>
       </Position4>
       <Position5>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="288" TopLine="263"/>
+        <Caret Line="103" Column="22" TopLine="80"/>
       </Position5>
       <Position6>
-        <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="103" Column="22" TopLine="80"/>
-      </Position6>
-      <Position7>
         <Filename Value="snippetsource.interfaces.pas"/>
         <Caret Line="91" TopLine="61"/>
-      </Position7>
-      <Position8>
+      </Position6>
+      <Position7>
         <Filename Value="snippetsource.modules.data.pas"/>
         <Caret Line="103" Column="22" TopLine="79"/>
-      </Position8>
-      <Position9>
+      </Position7>
+      <Position8>
         <Filename Value="snippetsource.interfaces.pas"/>
         <Caret Line="89" TopLine="61"/>
+      </Position8>
+      <Position9>
+        <Filename Value="snippetsource.modules.data.pas"/>
+        <Caret Line="197" Column="44" TopLine="174"/>
       </Position9>
       <Position10>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="197" Column="44" TopLine="174"/>
+        <Caret Line="922" Column="20" TopLine="635"/>
       </Position10>
       <Position11>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="922" Column="20" TopLine="635"/>
+        <Caret Line="957" TopLine="937"/>
       </Position11>
       <Position12>
-        <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="957" TopLine="937"/>
+        <Filename Value="snippetsource.interfaces.pas"/>
+        <Caret Line="204" Column="103" TopLine="91"/>
       </Position12>
       <Position13>
         <Filename Value="snippetsource.interfaces.pas"/>
-        <Caret Line="204" Column="103" TopLine="91"/>
       </Position13>
       <Position14>
         <Filename Value="snippetsource.interfaces.pas"/>
+        <Caret Line="236" Column="113" TopLine="227"/>
       </Position14>
       <Position15>
         <Filename Value="snippetsource.interfaces.pas"/>
-        <Caret Line="236" Column="113" TopLine="227"/>
       </Position15>
       <Position16>
-        <Filename Value="snippetsource.interfaces.pas"/>
+        <Filename Value="snippetsource.modules.data.pas"/>
+        <Caret Line="976" Column="27" TopLine="943"/>
       </Position16>
       <Position17>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="976" Column="27" TopLine="943"/>
+        <Caret Line="989" TopLine="945"/>
       </Position17>
       <Position18>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="989" TopLine="945"/>
+        <Caret Line="256" Column="14" TopLine="218"/>
       </Position18>
       <Position19>
-        <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="256" Column="14" TopLine="218"/>
+        <Filename Value="snippetsource.interfaces.pas"/>
+        <Caret Line="234" Column="105" TopLine="227"/>
       </Position19>
       <Position20>
         <Filename Value="snippetsource.interfaces.pas"/>
-        <Caret Line="234" Column="105" TopLine="227"/>
       </Position20>
       <Position21>
         <Filename Value="snippetsource.interfaces.pas"/>
+        <Caret Line="218" Column="5" TopLine="194"/>
       </Position21>
       <Position22>
-        <Filename Value="snippetsource.interfaces.pas"/>
-        <Caret Line="218" Column="5" TopLine="194"/>
+        <Filename Value="snippetsource.modules.data.pas"/>
+        <Caret Line="208" Column="25" TopLine="190"/>
       </Position22>
       <Position23>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="208" Column="25" TopLine="190"/>
+        <Caret Line="292" Column="21" TopLine="262"/>
       </Position23>
       <Position24>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="292" Column="21" TopLine="262"/>
+        <Caret Line="293" Column="17" TopLine="217"/>
       </Position24>
       <Position25>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="293" Column="17" TopLine="217"/>
+        <Caret Line="157" Column="24" TopLine="134"/>
       </Position25>
       <Position26>
         <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="157" Column="24" TopLine="134"/>
+        <Caret Line="293" Column="17" TopLine="217"/>
       </Position26>
       <Position27>
-        <Filename Value="snippetsource.modules.data.pas"/>
-        <Caret Line="293" Column="17" TopLine="217"/>
-      </Position27>
-      <Position28>
         <Filename Value="snippetsource.resources.pas"/>
         <Caret Line="32" Column="51" TopLine="10"/>
-      </Position28>
-      <Position29>
+      </Position27>
+      <Position28>
         <Filename Value="snippetsource.modules.data.pas"/>
         <Caret Line="103" Column="22" TopLine="23"/>
-      </Position29>
-      <Position30>
+      </Position28>
+      <Position29>
         <Filename Value="snippetsource.interfaces.pas"/>
         <Caret Line="88" Column="33" TopLine="61"/>
+      </Position29>
+      <Position30>
+        <Filename Value="snippetsource.modules.data.pas"/>
+        <Caret Line="96" Column="66" TopLine="12"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

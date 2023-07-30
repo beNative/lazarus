@@ -148,12 +148,6 @@ type
     property Locked: Boolean
       read GetLocked write SetLocked;
 
-    property ActiveViews: string
-      read GetActiveViews write SetActiveViews;
-
-    property Locked: Boolean
-      read GetLocked write SetLocked;
-
     property RtfText: string
       read GetRtfText write SetRtfText;
 

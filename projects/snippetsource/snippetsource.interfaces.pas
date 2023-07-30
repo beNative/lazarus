@@ -107,9 +107,11 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
+  function GetActiveViews: string;
     {$REGION 'property access mehods'}
     function GetHtmlText: string;
     function GetHtmlData: string;
+    function GetLocked: Boolean;
     function GetRtfText: string;
     function GetRtfData: string;
     function GetDateCreated: TDateTime;
@@ -125,8 +127,10 @@ type
     function GetParentId: Integer;
     function GetSource: string;
     function GetText: string;
+    procedure SetActiveViews(AValue: string);
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
+    procedure SetLocked(AValue: Boolean);
     procedure SetRtfText(AValue: string);
     procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
@@ -144,6 +148,12 @@ type
     {$ENDREGION}
 
     procedure DuplicateRecords(AValues: TStrings);
+
+    property ActiveViews: string
+      read GetActiveViews write SetActiveViews;
+
+    property Locked: Boolean
+      read GetLocked write SetLocked;
 
     property RtfText: string
       read GetRtfText write SetRtfText;

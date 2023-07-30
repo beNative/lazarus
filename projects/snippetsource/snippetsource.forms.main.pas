@@ -39,23 +39,24 @@ type
     {$REGION 'designer controls'}
     aclMain                         : TActionList;
     actAbout                        : TAction;
+    actCloseEditorToolView          : TAction;
     actCloseRichEditorToolView      : TAction;
     actConsole                      : TAction;
     actExecute                      : TAction;
-    actCloseEditorToolView          : TAction;
     actHtmlEditor                   : TAction;
-    actTextEditor                   : TAction;
-    actRtfEditor                    : TAction;
     actLookup                       : TAction;
+    actRtfEditor                    : TAction;
     actSettings                     : TAction;
     actShowGridForm                 : TAction;
     actSQLEditor                    : TAction;
+    actTextEditor                   : TAction;
     actToggleFullScreen             : TAction;
+    actToggleLockedState            : TAction;
     actToggleStayOnTop              : TAction;
     btnCloseEditorToolView          : TSpeedButton;
     btnCloseRichEditorToolView      : TSpeedButton;
-    btnExecute: TSpeedButton;
-    btnHighlighter: TMenuButton;
+    btnExecute                      : TSpeedButton;
+    btnHighlighter                  : TMenuButton;
     btnLineBreakStyle               : TSpeedButton;
     dscMain                         : TDatasource;
     edtTitle                        : TEdit;
@@ -65,28 +66,27 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
-    pnlEditorSelectionToolBarHost: TPanel;
-    pnlToolBarHost                  : TPanel;
-    pnlHtmlEditorToolBar            : TPanel;
-    pnlHtmlEditor                   : TPanel;
-    pgTextEditor                    : TPage;
-    pgRichEditor                    : TPage;
     pgHtmlEditor                    : TPage;
+    pgRichEditor                    : TPage;
+    pgTextEditor                    : TPage;
     pnlCapsLock                     : TPanel;
     pnlDateCreated                  : TPanel;
     pnlDateModified                 : TPanel;
     pnlEditMode                     : TPanel;
     pnlEditor                       : TPanel;
+    pnlEditorSelectionToolBarHost   : TPanel;
     pnlEditorToolBar                : TPanel;
     pnlEditorToolViewHost           : TPanel;
     pnlEditorToolViewHostHeader     : TPanel;
-    pnlRichEditorToolBar            : TPanel;
+    pnlHtmlEditor                   : TPanel;
+    pnlHtmlEditorToolBar            : TPanel;
     pnlId                           : TPanel;
     pnlLeft                         : TPanel;
     pnlLineBreakStyle               : TPanel;
     pnlNumLock                      : TPanel;
     pnlPosition                     : TPanel;
     pnlRichEditor                   : TPanel;
+    pnlRichEditorToolBar            : TPanel;
     pnlRichEditorToolViewHost       : TPanel;
     pnlRichEditorToolViewHostHeader : TPanel;
     pnlRight                        : TPanel;
@@ -95,16 +95,17 @@ type
     pnlStatusBar                    : TPanel;
     pnlStatusBarCenter              : TPanel;
     pnlTitle                        : TPanel;
+    pnlToolBarHost                  : TPanel;
     pnlWelcome                      : TPanel;
-    shpLine1                        : TShape;
-    shpTextEditorToolBarLine        : TShape;
     shpHtmlEditorToolBarLine        : TShape;
+    shpLine1                        : TShape;
     shpRichEditorToolBarLine        : TShape;
+    shpTextEditorToolBarLine        : TShape;
     splEditorVertical               : TSplitter;
     splRichEditorVertical           : TSplitter;
     splVertical                     : TSplitter;
     tlbApplication                  : TToolBar;
-    tlbEditorSelection: TToolBar;
+    tlbEditorSelection              : TToolBar;
     tlbEditorView                   : TToolBar;
     {$ENDREGION}
 
@@ -121,6 +122,7 @@ type
     procedure actShowGridFormExecute(Sender: TObject);
     procedure actTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
+    procedure actToggleLockedStateExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
 
@@ -541,6 +543,11 @@ begin
     WindowState := wsMaximized;
 end;
 
+procedure TfrmMain.actToggleLockedStateExecute(Sender: TObject);
+begin
+  Snippet.Locked := not Snippet.Locked;
+end;
+
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);
 begin
   if (Sender as TAction).Checked then
@@ -908,7 +915,7 @@ procedure TfrmMain.FHtmlEditorNavigationCompleted(Sender: TObject);
 begin
   //if FUpdate then
   SwitchView;
-  if (Snippet.NodeName.IsEmpty) or (Snippet.NodeName = 'New') then
+  if FHtmlEditor.IsSourceEmpty and MatchText(Snippet.NodeName, ['', 'New']) then
   begin
     DataSet.Edit;
     Snippet.NodeName := FHtmlEditor.DocumentTitle;
@@ -995,6 +1002,7 @@ end;
 procedure TfrmMain.BuildEditorSelectionToolBar;
 begin
   tlbEditorSelection.Images := imlMain;
+  AddToolBarButton(tlbEditorSelection, actToggleLockedState);
   AddToolBarButton(tlbEditorSelection, actTextEditor);
   AddToolBarButton(tlbEditorSelection, actRtfEditor);
   AddToolBarButton(tlbEditorSelection, actHtmlEditor);
@@ -1054,7 +1062,7 @@ procedure TfrmMain.SwitchView;
 begin
   if FHtmlEditor.IsInitialized then
   begin
-    if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.Source.IsEmpty) then
+    if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.IsSourceEmpty) then
     begin
       actHtmlEditor.Checked := True;
       nbRight.PageIndex := pgHtmlEditor.PageIndex;

@@ -40,6 +40,17 @@ const
     '  and NodePath = ''%s''';
   SQL_DEFAULT_QUERY = 'select * from Snippet';
 
+  SQL_LOOKUP_QUERY =
+    'select'                          + sLineBreak +
+    '  *'                             + sLineBreak +
+    'from'                            + sLineBreak +
+    '  Snippet'                       + sLineBreak +
+    'where'                           + sLineBreak +
+    '  Text like ''%%%0:s%%'''        + sLineBreak +
+    '  or RtfText like ''%%%0:s%%'''  + sLineBreak +
+    '  or HtmlText like ''%%%0:s%%''' + sLineBreak +
+    '  or NodeName like ''%%%0:s%%''';
+
   SQL_DUPLICATE_IDS =
     'insert into Snippet ('  + sLineBreak +
     '  HighlighterId,'       + sLineBreak +

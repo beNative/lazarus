@@ -370,6 +370,7 @@ type
     function GetIsFile: Boolean;
     function GetIsInitialized: Boolean;
     function GetIsNavigating: Boolean;
+    function GetIsSourceEmpty: Boolean;
     function GetModified: Boolean;
     function GetOffline: Boolean;
     function GetOnAfterCreated: TNotifyEvent;
@@ -510,6 +511,9 @@ type
 
     property IsNavigating: Boolean
       read GetIsNavigating;
+
+    property IsSourceEmpty: Boolean
+      read GetIsSourceEmpty;
   {$ENDREGION}
 
     // properties
@@ -1446,6 +1450,11 @@ end;
 function THtmlEditorView.GetStatusBarEnabled: Boolean;
 begin
   Result := WVBrowser.StatusBarEnabled;
+end;
+
+function THtmlEditorView.GetIsSourceEmpty: Boolean;
+begin
+  Result := SameText(Source, EMPTY_PAGE_SOURCE);
 end;
 
 function THtmlEditorView.GetWebMessageEnabled: Boolean;

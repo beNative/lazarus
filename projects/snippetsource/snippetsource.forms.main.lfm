@@ -777,6 +777,11 @@ object frmMain: TfrmMain
       ImageIndex = 11
       OnExecute = actTextEditorExecute
     end
+    object actToggleLockedState: TAction
+      Caption = 'Toggle locked state'
+      ImageIndex = 0
+      OnExecute = actToggleLockedStateExecute
+    end
   end
   object imlMain: TImageList
     DrawingStyle = dsTransparent

@@ -144,10 +144,12 @@ type
 
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
+    function GetActiveViews: string;
     function GetAutoApplyUpdates: Boolean;
     function GetAutoCommit: Boolean;
     function GetHtmlData: string;
     function GetHtmlText: string;
+    function GetLocked: Boolean;
     function GetRtfText: string;
     function GetRtfData: string;
     function GetDataSet: TSQLQuery;
@@ -176,10 +178,12 @@ type
     function GetSource: string;
     function GetText: string;
     procedure SetActive(AValue: Boolean);
+    procedure SetActiveViews(AValue: string);
     procedure SetAutoApplyUpdates(AValue: Boolean);
     procedure SetAutoCommit(AValue: Boolean);
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
+    procedure SetLocked(AValue: Boolean);
     procedure SetRtfText(AValue: string);
     procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
@@ -297,6 +301,14 @@ type
     {$ENDREGION}
 
     {$REGION 'ISnippet'}
+    { Last active view(s) for the current record. }
+    property ActiveViews: string
+      read GetActiveViews write SetActiveViews;
+
+    { When locked, the record cannot be edited. }
+    property Locked: Boolean
+      read GetLocked write SetLocked;
+
     { Textual representation of the RTF content. This is used for text
       searching. }
     property RtfText: string
@@ -596,13 +608,13 @@ procedure TdmSnippetSource.qrySnippetNewRecord(ADataSet: TDataSet);
 begin
   Logger.Enter(Self, 'qrySnippetNewRecord');
   // forces new value for AutoInc field
-  qrySnippet.FieldByName('Id').Value                := 0;
-  qrySnippet.FieldByName('DateCreated').AsDateTime  := Now;
-  qrySnippet.FieldByName('HighlighterId').AsInteger := 1;
-  if qrySnippet.FieldByName('NodeTypeId').AsInteger = 0 then
+  ADataSet.FieldByName('Id').Value                := 0;
+  ADataSet.FieldByName('DateCreated').AsDateTime  := Now;
+  ADataSet.FieldByName('HighlighterId').AsInteger := 1;
+  if ADataSet.FieldByName('NodeTypeId').AsInteger = 0 then
   begin
-    qrySnippet.FieldByName('NodeTypeId').AsInteger := 1;
-    qrySnippet.FieldByName('ImageIndex').AsInteger := 0;
+    ADataSet.FieldByName('NodeTypeId').AsInteger := 1;
+    ADataSet.FieldByName('ImageIndex').AsInteger := 0;
   end;
   Logger.Leave(Self, 'qrySnippetNewRecord');
 end;
@@ -611,12 +623,22 @@ end;
 {$REGION 'property access mehods'}
 function TdmSnippetSource.GetActive: Boolean;
 begin
-  Result := qrySnippet.Active;
+  Result := DataSet.Active;
+end;
+
+function TdmSnippetSource.GetActiveViews: string;
+begin
+  Result := DataSet.FieldValues['ActiveViews'];
 end;
 
 procedure TdmSnippetSource.SetActive(AValue: Boolean);
 begin
-  qrySnippet.Active := AValue;
+  DataSet.Active := AValue;
+end;
+
+procedure TdmSnippetSource.SetActiveViews(AValue: string);
+begin
+  DataSet.FieldValues['ActiveViews'] := AValue;
 end;
 
 function TdmSnippetSource.GetAutoApplyUpdates: Boolean;
@@ -642,22 +664,37 @@ end;
 
 function TdmSnippetSource.GetHtmlData: string;
 begin
-  Result := qrySnippet.FieldByName('HtmlData').AsString;
+  Result := DataSet.FieldByName('HtmlData').AsString;
 end;
 
 procedure TdmSnippetSource.SetHtmlData(AValue: string);
 begin
-  qrySnippet.FieldValues['HtmlData'] := AValue;
+  DataSet.FieldValues['HtmlData'] := AValue;
 end;
 
 function TdmSnippetSource.GetHtmlText: string;
 begin
-  Result := qrySnippet.FieldByName('HtmlText').AsString;
+  Result := DataSet.FieldByName('HtmlText').AsString;
+end;
+
+function TdmSnippetSource.GetLocked: Boolean;
+begin
+  Result := DataSet.FieldByName('Locked').AsBoolean;
 end;
 
 procedure TdmSnippetSource.SetHtmlText(AValue: string);
 begin
-  qrySnippet.FieldValues['HtmlText'] := AValue;
+  DataSet.FieldValues['HtmlText'] := AValue;
+end;
+
+procedure TdmSnippetSource.SetLocked(AValue: Boolean);
+begin
+  if Edit then
+  begin
+    DataSet.FieldByName('Locked').AsBoolean := AValue;
+  end
+  else
+    Exception.Create('Database error!');
 end;
 
 procedure TdmSnippetSource.SetAutoCommit(AValue: Boolean);
@@ -678,7 +715,7 @@ end;
 
 function TdmSnippetSource.GetRecordCount: Integer;
 begin
-  Result := qrySnippet.RecordCount;
+  Result := DataSet.RecordCount;
 end;
 
 function TdmSnippetSource.GetSize: Int64;
@@ -688,8 +725,8 @@ end;
 
 function TdmSnippetSource.GetSource: string;
 begin
-  if qrySnippet.FieldValues['Source'] <> Null then
-    Result := qrySnippet.FieldValues['Source']
+  if DataSet.FieldValues['Source'] <> Null then
+    Result := DataSet.FieldValues['Source']
   else
     Result := '';
 end;
@@ -701,15 +738,15 @@ end;
 
 function TdmSnippetSource.GetImageIndex: Integer;
 begin
-  if qrySnippet.FieldValues['ImageIndex'] <> Null then
-    Result := qrySnippet.FieldValues['ImageIndex']
+  if DataSet.FieldValues['ImageIndex'] <> Null then
+    Result := DataSet.FieldValues['ImageIndex']
   else
     Result := 0;
 end;
 
 procedure TdmSnippetSource.SetImageIndex(AValue: Integer);
 begin
-  qrySnippet.FieldValues['ImageIndex'] := AValue;
+  DataSet.FieldValues['ImageIndex'] := AValue;
 end;
 
 function TdmSnippetSource.GetImageList: TImageList;
@@ -719,28 +756,28 @@ end;
 
 function TdmSnippetSource.GetDateCreated: TDateTime;
 begin
-  if qrySnippet.FieldValues['DateCreated'] <> Null then
-    Result := qrySnippet.FieldValues['DateCreated']
+  if DataSet.FieldValues['DateCreated'] <> Null then
+    Result := DataSet.FieldValues['DateCreated']
   else
     Result := 0;
 end;
 
 procedure TdmSnippetSource.SetDateCreated(AValue: TDateTime);
 begin
-  qrySnippet.FieldValues['DateCreated'] := AValue;
+  DataSet.FieldValues['DateCreated'] := AValue;
 end;
 
 function TdmSnippetSource.GetDateModified: TDateTime;
 begin
-  if qrySnippet.FieldValues['DateModified'] <> Null then
-    Result := qrySnippet.FieldValues['DateModified']
+  if DataSet.FieldValues['DateModified'] <> Null then
+    Result := DataSet.FieldValues['DateModified']
   else
     Result := 0;
 end;
 
 procedure TdmSnippetSource.SetDateModified(AValue: TDateTime);
 begin
-  qrySnippet.FieldValues['DateModified'] := AValue;
+  DataSet.FieldValues['DateModified'] := AValue;
 end;
 
 function TdmSnippetSource.GetFileName: string;
@@ -761,32 +798,32 @@ end;
 
 function TdmSnippetSource.GetRtfText: string;
 begin
-  Result := qrySnippet.FieldByName('RtfText').AsString;
+  Result := DataSet.FieldByName('RtfText').AsString;
 end;
 
 procedure TdmSnippetSource.SetRtfText(AValue: string);
 begin
-  qrySnippet.FieldValues['RtfText'] := AValue;
+  DataSet.FieldValues['RtfText'] := AValue;
 end;
 
 function TdmSnippetSource.GetRtfData: string;
 begin
-  Result := qrySnippet.FieldByName('RtfData').AsString;
+  Result := DataSet.FieldByName('RtfData').AsString;
 end;
 
 procedure TdmSnippetSource.SetRtfData(AValue: string);
 begin
-  qrySnippet.FieldValues['RtfData'] := AValue;
+  DataSet.FieldValues['RtfData'] := AValue;
 end;
 
 function TdmSnippetSource.GetFoldLevel: Integer;
 begin
-  Result := qrySnippet.FieldValues['FoldLevel'];
+  Result := DataSet.FieldValues['FoldLevel'];
 end;
 
 procedure TdmSnippetSource.SetFoldLevel(AValue: Integer);
 begin
-  qrySnippet.FieldValues['FoldLevel'] := AValue;
+  DataSet.FieldValues['FoldLevel'] := AValue;
 end;
 
 function TdmSnippetSource.GetGlyphDataSet: TDataSet;
@@ -801,17 +838,17 @@ end;
 
 function TdmSnippetSource.GetFoldState: string;
 begin
-  Result := qrySnippet.FieldByName('FoldState').AsString;
+  Result := DataSet.FieldByName('FoldState').AsString;
 end;
 
 procedure TdmSnippetSource.SetFoldState(AValue: string);
 begin
-  qrySnippet.FieldValues['FoldState'] := AValue;
+  DataSet.FieldValues['FoldState'] := AValue;
 end;
 
 function TdmSnippetSource.GetHighlighter: string;
 begin
-  Result := qrySnippet.FieldByName('Highlighter').AsString;
+  Result := DataSet.FieldByName('Highlighter').AsString;
 end;
 
 procedure TdmSnippetSource.SetHighlighter(AValue: string);
@@ -828,7 +865,7 @@ begin
     LId := qryHighlighter.Lookup('Code', VarArrayOf([AValue]), 'Id');
     if VarIsNull(LId) then
       LId := 1;
-    qrySnippet.FieldValues['HighlighterId'] := LId;
+    DataSet.FieldValues['HighlighterId'] := LId;
 
     //LKey := Integer(LId);
     //if FHLImages.TryGetData(LKey, LBitmap) then
@@ -853,45 +890,45 @@ end;
 
 function TdmSnippetSource.GetId: Integer;
 begin
-  if VarIsNull(qrySnippet.FieldValues['Id']) then
+  if VarIsNull(DataSet.FieldValues['Id']) then
     Result := 0
   else
-    Result := qrySnippet.FieldValues['Id'];
+    Result := DataSet.FieldValues['Id'];
 end;
 
 function TdmSnippetSource.GetNodeName: string;
 begin
-  Result := qrySnippet.FieldByName('NodeName').AsString;
+  Result := DataSet.FieldByName('NodeName').AsString;
 end;
 
 procedure TdmSnippetSource.SetNodeName(AValue: string);
 begin
-  qrySnippet.FieldValues['NodeName'] := AValue;
+  DataSet.FieldValues['NodeName'] := AValue;
 end;
 
 function TdmSnippetSource.GetNodePath: string;
 begin
-  Result := qrySnippet.FieldByName('NodePath').AsString;
+  Result := DataSet.FieldByName('NodePath').AsString;
 end;
 
 procedure TdmSnippetSource.SetNodePath(AValue: string);
 begin
-  qrySnippet.FieldValues['NodePath'] := AValue;
+  DataSet.FieldValues['NodePath'] := AValue;
 end;
 
 function TdmSnippetSource.GetNodeTypeId: Integer;
 begin
-  Result := qrySnippet.FieldValues['NodeTypeId'];
+  Result := DataSet.FieldValues['NodeTypeId'];
 end;
 
 procedure TdmSnippetSource.SetNodeTypeId(AValue: Integer);
 begin
-  qrySnippet.FieldValues['NodeTypeId'] := AValue;
+  DataSet.FieldValues['NodeTypeId'] := AValue;
 end;
 
 function TdmSnippetSource.GetParentId: Integer;
 begin
-  Result := qrySnippet.FieldValues['ParentId'];
+  Result := DataSet.FieldValues['ParentId'];
 end;
 
 function TdmSnippetSource.GetQuery: TSQLQuery;
@@ -901,17 +938,17 @@ end;
 
 procedure TdmSnippetSource.SetParentId(AValue: Integer);
 begin
-  qrySnippet.FieldValues['ParentId'] := AValue;
+  DataSet.FieldValues['ParentId'] := AValue;
 end;
 
 function TdmSnippetSource.GetText: string;
 begin
-  Result := qrySnippet.FieldByName('Text').AsString;
+  Result := DataSet.FieldByName('Text').AsString;
 end;
 
 procedure TdmSnippetSource.SetText(AValue: string);
 begin
-  qrySnippet.FieldValues['Text'] := AValue;
+  DataSet.FieldValues['Text'] := AValue;
 end;
 
 function TdmSnippetSource.GetReadOnly: Boolean;
@@ -926,7 +963,7 @@ end;
 
 procedure TdmSnippetSource.SetSource(AValue: string);
 begin
-  qrySnippet.FieldValues['Source'] := AValue;
+  DataSet.FieldValues['Source'] := AValue;
 end;
 
 function TdmSnippetSource.GetDBVersion: string;
@@ -1289,7 +1326,6 @@ begin
   Result := qryQuery.Fields[0].Value;
   qryQuery.Active := False;
 end;
-
 {$ENDREGION}
 
 {$REGION 'IDataSet'}
@@ -1335,7 +1371,6 @@ function TdmSnippetSource.Edit: Boolean;
 begin
   if DataSet.Active and not (DataSet.State in dsEditModes) then
   begin
-    Logger.Info('Edit');
     DataSet.Edit;
     Result := True;
   end
@@ -1458,18 +1493,7 @@ procedure TdmSnippetSource.Lookup(const ASearchString: string;
   ASearchInText: Boolean; ASearchInName: Boolean; ASearchInComment: Boolean);
 begin
   qryLookup.Active := False;
-  qryLookup.SQL.Text := Format(
-    'select'                          + sLineBreak +
-    '  *'                             + sLineBreak +
-    'from'                            + sLineBreak +
-    '  Snippet'                       + sLineBreak +
-    'where'                           + sLineBreak +
-    '  Text like ''%%%0:s%%'''        + sLineBreak +
-    '  or RtfText like ''%%%0:s%%'''  + sLineBreak +
-    '  or HtmlText like ''%%%0:s%%''' + sLineBreak +
-    '  or NodeName like ''%%%0:s%%''',
-    [ASearchString]
-  );
+  qryLookup.SQL.Text := Format(SQL_LOOKUP_QUERY, [ASearchString]);
   qryLookup.Active := True;
 end;
 {$ENDREGION}

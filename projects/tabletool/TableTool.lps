@@ -8,8 +8,9 @@
       <Unit0>
         <Filename Value="TableTool.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="50" Y="14"/>
-        <UsageCount Value="71"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="88" Y="16"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,7 +23,7 @@
         <EditorIndex Value="2"/>
         <TopLine Value="113"/>
         <CursorPos X="34" Y="123"/>
-        <UsageCount Value="71"/>
+        <UsageCount Value="76"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -31,7 +32,7 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="TableTool.Helpers"/>
         <EditorIndex Value="1"/>
-        <UsageCount Value="67"/>
+        <UsageCount Value="72"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -205,28 +206,28 @@
       <Unit30>
         <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
         <UnitName Value="ts.Editor.Utils"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="540"/>
         <CursorPos X="41" Y="562"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <UnitName Value="ts.Editor.Settings"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="31"/>
         <CursorPos X="14" Y="62"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
         <UnitName Value="ts.Editor.CodeFormatters"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="62"/>
         <CursorPos X="17" Y="93"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -238,26 +239,26 @@
         <EditorIndex Value="14"/>
         <TopLine Value="145"/>
         <CursorPos X="39" Y="165"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.base.pas"/>
         <UnitName Value="ts.Core.Logger.Base"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="962"/>
         <CursorPos X="18" Y="993"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="..\..\components\tslib\core\ts.core.logger.interfaces.pas"/>
         <UnitName Value="ts.Core.Logger.Interfaces"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="236"/>
         <CursorPos X="77" Y="293"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit35>
       <Unit36>
@@ -265,7 +266,7 @@
         <UnitName Value="Notepas"/>
         <EditorIndex Value="9"/>
         <CursorPos X="93" Y="14"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit36>
       <Unit37>
@@ -277,17 +278,16 @@
         <EditorIndex Value="10"/>
         <TopLine Value="15"/>
         <CursorPos X="48" Y="66"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit37>
       <Unit38>
         <Filename Value="..\..\..\lazarus\lcl\include\application.inc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="1052"/>
+        <TopLine Value="1022"/>
         <CursorPos X="96" Y="1092"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit38>
       <Unit39>
@@ -297,7 +297,7 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.RichEditor.ToolView.Base"/>
         <EditorIndex Value="13"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit39>
       <Unit40>
@@ -305,7 +305,7 @@
         <UnitName Value="ts.RichEditor.Test.Toolview"/>
         <EditorIndex Value="12"/>
         <CursorPos Y="16"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit40>
       <Unit41>
@@ -316,7 +316,7 @@
         <UnitName Value="ts.RichEditor.Style.ToolView"/>
         <EditorIndex Value="11"/>
         <CursorPos X="38" Y="21"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit41>

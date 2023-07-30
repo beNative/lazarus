@@ -381,9 +381,6 @@ end;"/>
         <Filename Value="snippetsource.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Interfaces"/>
-        <EditorIndex Value="6"/>
-        <TopLine Value="127"/>
-        <CursorPos Y="151"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>

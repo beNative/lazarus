@@ -34,7 +34,7 @@
       <MajorVersionNr Value="3"/>
       <MinorVersionNr Value="9"/>
       <RevisionNr Value="1"/>
-      <BuildNr Value="190"/>
+      <BuildNr Value="191"/>
       <Language Value="0809"/>
       <CharSet Value="04B0"/>
       <Attributes pvaDebug="True" pvaPreRelease="True"/>
@@ -317,6 +317,7 @@ end;"/>
         <Filename Value="snippetsource.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource"/>
+        <EditorIndex Value="6"/>
         <TopLine Value="2"/>
         <CursorPos X="124" Y="10"/>
         <UsageCount Value="243"/>
@@ -329,7 +330,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="1"/>
         <TopLine Value="786"/>
         <CursorPos X="44" Y="809"/>
         <UsageCount Value="243"/>
@@ -343,7 +344,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.VirtualDBTree"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="4"/>
         <TopLine Value="369"/>
         <CursorPos X="16" Y="403"/>
         <UsageCount Value="243"/>
@@ -357,7 +358,6 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Lookup"/>
-        <EditorIndex Value="1"/>
         <TopLine Value="268"/>
         <CursorPos X="30" Y="292"/>
         <UsageCount Value="201"/>
@@ -370,7 +370,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.SettingsDialog"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="3"/>
         <TopLine Value="705"/>
         <CursorPos X="35" Y="705"/>
         <UsageCount Value="200"/>
@@ -381,6 +381,7 @@ end;"/>
         <Filename Value="snippetsource.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Interfaces"/>
+        <EditorIndex Value="5"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -440,7 +441,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Query"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="2"/>
         <CursorPos X="88" Y="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>

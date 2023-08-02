@@ -131,6 +131,7 @@ type
     function GetOnDropFiles: TDropFilesEvent;
     function GetOnStatusChange: TStatusChangeEvent;
     function GetPreviewText: string;
+    function GetReadOnly: Boolean;
     function GetReplaceHistory: TStrings;
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
@@ -172,6 +173,7 @@ type
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
+    procedure SetReadOnly(AValue: Boolean);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const AValue: string);
     procedure SetSelectionMode(AValue: TSynSelectionMode);
@@ -284,6 +286,9 @@ type
 
     property InsertMode: Boolean
       read GetInsertMode write SetInsertMode;
+
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
 
     property Selection: IEditorSelection
       read GetSelection;

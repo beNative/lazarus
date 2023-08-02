@@ -718,7 +718,7 @@ type
     ); reintroduce; virtual;
 
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -778,13 +778,6 @@ uses
   //ts.Editor.SettingsDialog,
   ts.Editor.SettingsDialog.FileAssociations;
 
-const
-  // prefixes used for naming dynamically created actions.
-  ACTION_PREFIX_ENCODING       = 'actEncoding';
-  ACTION_PREFIX_HIGHLIGHTER    = 'actHighlighter';
-  ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
-  ACTION_PREFIX_LINEBREAKSTYLE = 'actLineBreakStyle';
-
 {$REGION 'construction and destruction'}
 constructor TdmEditorManager.Create(AOwner: TComponent;
   ASettings: IEditorSettings);
@@ -798,19 +791,19 @@ end;
 procedure TdmEditorManager.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FPersistSettings  := False;
+  FPersistSettings := False;
 
-  FSynExporterRTF   := TSynExporterRTF.Create(Self);
-  FScriptFunctions  := TStringList.Create;
+  FSynExporterRTF  := TSynExporterRTF.Create(Self);
+  FScriptFunctions := TStringList.Create;
 
   { TODO -oTS : Move the construction of these objects to the outside and pass
    the instances to the constructor (dependency injection). This will allow to
    create unit tests for each module. }
-  FToolViews        := TEditorToolViews.Create(Self);
-  FEvents           := TEditorEvents.Create(Self);
-  FCommands         := TEditorCommands.Create(Self);
-  FViewList         := TEditorViewList.Create;
-  FSearchEngine     := TSearchEngine.Create(Self);
+  FToolViews    := TEditorToolViews.Create(Self);
+  FEvents       := TEditorEvents.Create(Self);
+  FCommands     := TEditorCommands.Create(Self);
+  FViewList     := TEditorViewList.Create;
+  FSearchEngine := TSearchEngine.Create(Self);
 
   FSettings.AddEditorSettingsChangedHandler(EditorSettingsChanged);
 
@@ -820,7 +813,7 @@ begin
   InitializePopupMenus;
 end;
 
-procedure TdmEditorManager.BeforeDestruction;
+destructor TdmEditorManager.Destroy;
 begin
   FActiveView := nil;
   if PersistSettings then
@@ -834,7 +827,7 @@ begin
   PascalScript  := nil;
   FreeAndNil(FScriptFunctions);
   FreeAndNil(FViewList);
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -1108,7 +1101,7 @@ end;
 {$REGION 'action handlers'}
 procedure TdmEditorManager.actSortSelectionExecute(Sender: TObject);
 begin
-  ShowToolView('SortStrings', False, True);
+  ShowToolView(TV_SORTSTRINGS, False, True);
 end;
 
 procedure TdmEditorManager.actToggleCommentExecute(Sender: TObject);
@@ -1194,29 +1187,29 @@ procedure TdmEditorManager.actSearchExecute(Sender: TObject);
 begin
   if ActiveView.SelAvail then
     SearchEngine.SearchText := ActiveView.SelText;
-  ShowToolView('Search', False, True);
+  ShowToolView(TV_SEARCH, False, True);
 end;
 
 procedure TdmEditorManager.actSearchReplaceExecute(Sender: TObject);
 begin
   if ActiveView.SelAvail then
     SearchEngine.SearchText := ActiveView.SelText;
-  ShowToolView('Search', False, True);
+  ShowToolView(TV_SEARCH, False, True);
 end;
 
 procedure TdmEditorManager.actShowCodeShaperExecute(Sender: TObject);
 begin
-  ShowToolView('CodeShaper', False, True);
+  ShowToolView(TV_CODESHAPER, False, True);
 end;
 
 procedure TdmEditorManager.actShowCharacterMapExecute(Sender: TObject);
 begin
-  ShowToolView('CharacterMap', False, False);
+  ShowToolView(TV_CHARACTERMAP, False, False);
 end;
 
 procedure TdmEditorManager.actAlignSelectionExecute(Sender: TObject);
 begin
-  ShowToolView('AlignLines', False, True);
+  ShowToolView(TV_ALIGNLINES, False, True);
 end;
 
 procedure TdmEditorManager.actAssociateFilesExecute(Sender: TObject);
@@ -1233,52 +1226,52 @@ end;
 
 procedure TdmEditorManager.actSelectionInfoExecute(Sender: TObject);
 begin
-  ShowToolView('SelectionInfo', False, False);
+  ShowToolView(TV_SELECTIONINFO, False, False);
 end;
 
 procedure TdmEditorManager.actShowPreviewExecute(Sender: TObject);
 begin
-  ShowToolView('Preview', False, False);
+  ShowToolView(TV_PREVIEW, False, False);
 end;
 
 procedure TdmEditorManager.actShowTestExecute(Sender: TObject);
 begin
-  ShowToolView('Test', False, False);
+  ShowToolView(TV_TEST, False, False);
 end;
 
 procedure TdmEditorManager.actShowViewsExecute(Sender: TObject);
 begin
-  ShowToolView('ViewList', True, True);
+  ShowToolView(TV_VIEWLIST, True, True);
 end;
 
 procedure TdmEditorManager.actShowActionsExecute(Sender: TObject);
 begin
-  ShowToolView('ActionListView', True, True);
+  ShowToolView(TV_ACTIONLISTVIEW, True, True);
 end;
 
 procedure TdmEditorManager.actShowHexEditorExecute(Sender: TObject);
 begin
-  ShowToolView('HexEditor', False, True);
+  ShowToolView(TV_HEXEDITOR, False, True);
 end;
 
 procedure TdmEditorManager.actShowMiniMapExecute(Sender: TObject);
 begin
-  ShowToolView('MiniMap', False, False);
+  ShowToolView(TV_MINIMAP, False, False);
 end;
 
 procedure TdmEditorManager.actShowScriptEditorExecute(Sender: TObject);
 begin
-  ShowToolView('ScriptEditor', False, False);
+  ShowToolView(TV_SCRIPTEDITOR, False, False);
 end;
 
 procedure TdmEditorManager.actShowStructureViewerExecute(Sender: TObject);
 begin
-  ShowToolView('Structure', False, False);
+  ShowToolView(TV_STRUCTURE, False, False);
 end;
 
 procedure TdmEditorManager.actTestFormExecute(Sender: TObject);
 begin
-  ShowToolView('Test', False, False);
+  ShowToolView(TV_TEST, False, False);
 end;
 
 procedure TdmEditorManager.actSelectAllExecute(Sender: TObject);
@@ -1371,7 +1364,7 @@ end;
 
 procedure TdmEditorManager.actHelpExecute(Sender: TObject);
 begin
-//
+  ShowMessage(SNotImplementedYet);
 end;
 
 procedure TdmEditorManager.actInsertColorValueExecute(Sender: TObject);
@@ -1655,6 +1648,7 @@ end;
 
 procedure TdmEditorManager.actPlaybackMacroExecute(Sender: TObject);
 begin
+  ShowMessage(SNotImplementedYet);
   //SynMacroRecorder.PlaybackMacro(ActiveView.Editor);
 end;
 
@@ -1670,6 +1664,7 @@ end;
 
 procedure TdmEditorManager.actRecordMacroExecute(Sender: TObject);
 begin
+  ShowMessage(SNotImplementedYet);
   //if SynMacroRecorder.State = msRecording then
   //  SynMacroRecorder.Stop
   //else
@@ -1696,11 +1691,11 @@ begin
       if OL.Count = 5  then
         Break;
     end;
-    F := (ToolViews['Filter'].Form as TfrmFilter);
+    F := (ToolViews[TV_FILTER].Form as TfrmFilter);
     F.ColumnDefinitions.AddColumn('Name', 'Name');
     F.ColumnDefinitions.AddColumn('Caption', 'Caption');
     F.ItemsSource := OL;
-    ShowToolView('Filter', True, True);
+    ShowToolView(TV_FILTER, True, True);
   finally
     OL.Free;
   end;
@@ -2433,23 +2428,23 @@ end;
 {$REGION 'Registration'}
 procedure TdmEditorManager.RegisterToolViews;
 begin
-  ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, 'AlignLines');
-  ToolViews.Register(TfrmCodeFilterDialog, TCodeFilterSettings, 'CodeFilter');
-  ToolViews.Register(TfrmSortStrings, TSortStringsSettings, 'SortStrings');
-  ToolViews.Register(TfrmMiniMap, TMiniMapSettings, 'MiniMap');
-  ToolViews.Register(TfrmHexEditor, THexEditorSettings, 'HexEditor');
-  ToolViews.Register(TfrmSearchForm, TSearchEngineSettings, 'Search');
-  ToolViews.Register(TfrmCodeShaper, TCodeShaperSettings, 'CodeShaper');
+  ToolViews.Register(TfrmAlignLines, TAlignLinesSettings, TV_ALIGNLINES);
+  ToolViews.Register(TfrmCodeFilterDialog, TCodeFilterSettings, TV_CODEFILTER);
+  ToolViews.Register(TfrmSortStrings, TSortStringsSettings, TV_SORTSTRINGS);
+  ToolViews.Register(TfrmMiniMap, TMiniMapSettings, TV_MINIMAP);
+  ToolViews.Register(TfrmHexEditor, THexEditorSettings, TV_HEXEDITOR);
+  ToolViews.Register(TfrmSearchForm, TSearchEngineSettings, TV_SEARCH);
+  ToolViews.Register(TfrmCodeShaper, TCodeShaperSettings, TV_CODESHAPER);
 
-  ToolViews.Register(TfrmViewList, nil, 'ViewList');
-  ToolViews.Register(TfrmPreview, nil, 'Preview');
-  ToolViews.Register(TfrmActionListView, nil, 'ActionListView');
-  ToolViews.Register(TfrmTest, nil,  'Test');
-  ToolViews.Register(TfrmSelectionInfo, nil, 'SelectionInfo');
-  ToolViews.Register(TfrmStructure, nil, 'Structure');
-  ToolViews.Register(TfrmCharacterMap, nil, 'CharacterMap');
-  ToolViews.Register(TfrmScriptEditor, nil, 'ScriptEditor');
-  ToolViews.Register(TfrmFilter, nil, 'Filter');
+  ToolViews.Register(TfrmViewList, nil, TV_VIEWLIST);
+  ToolViews.Register(TfrmPreview, nil, TV_PREVIEW);
+  ToolViews.Register(TfrmActionListView, nil, TV_ACTIONLISTVIEW);
+  ToolViews.Register(TfrmTest, nil,  TV_TEST);
+  ToolViews.Register(TfrmSelectionInfo, nil, TV_SELECTIONINFO);
+  ToolViews.Register(TfrmStructure, nil, TV_STRUCTURE);
+  ToolViews.Register(TfrmCharacterMap, nil, TV_CHARACTERMAP);
+  ToolViews.Register(TfrmScriptEditor, nil, TV_SCRIPTEDITOR);
+  ToolViews.Register(TfrmFilter, nil, TV_FILTER);
 end;
 
 procedure TdmEditorManager.LoadScriptFiles;
@@ -2902,10 +2897,10 @@ end;
 
 function TdmEditorManager.ActivateView(const AName: string): Boolean;
 var
-  V: IEditorView;
+  V : IEditorView;
 begin
   V := ViewByName[AName];
-  if  Assigned(V) then
+  if Assigned(V) then
   begin
     ViewByName[AName].Activate;
     Result := True;
@@ -2918,8 +2913,8 @@ end;
 {$REGION 'UpdateActions'}
 procedure TdmEditorManager.UpdateActions;
 var
-  B  : Boolean;
-  V  : IEditorView;
+  B : Boolean;
+  V : IEditorView;
 begin
   V := ActiveView;
   if Assigned(V) then
@@ -2931,7 +2926,7 @@ begin
 
     if Assigned(Settings) and V.Focused then
     begin
-      B := V.SelAvail and not Settings.ReadOnly;
+      B := V.SelAvail and not V.ReadOnly;
       actDequoteSelection.Enabled               := B;
       actLowerCaseSelection.Enabled             := B;
       actToggleBlockCommentSelection.Enabled    := B;
@@ -2963,7 +2958,7 @@ begin
       actIndent.Enabled                         := B;
       actUnindent.Enabled                       := B;
 
-      B := not Settings.ReadOnly;
+      B := not V.ReadOnly;
       actAlignSelection.Visible          := B;
       actCut.Visible                     := B;
       actDelete.Visible                  := B;
@@ -3185,7 +3180,5 @@ begin
 end;
 {$ENDREGION}
 {$ENDREGION}
-
-initialization
 
 end.

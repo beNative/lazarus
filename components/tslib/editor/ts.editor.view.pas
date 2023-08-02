@@ -271,6 +271,7 @@ type
     function GetParent: TWinControl;
     function GetPopupMenu: TPopupMenu; reintroduce;
     function GetPreviewText: string;
+    function GetReadOnly: Boolean;
     function GetReplaceHistory: TStrings;
     function GetSearchOptions: TSynSearchOptions;
     function GetSearchText: string;
@@ -315,6 +316,7 @@ type
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetOnStatusChange(const AValue: TStatusChangeEvent);
     procedure SetPopupMenu(AValue: TPopupMenu);
+    procedure SetReadOnly(AValue: Boolean);
     procedure SetSearchOptions(AValue: TSynSearchOptions);
     procedure SetSearchText(const Value: string); virtual;
     procedure SetSelectionMode(AValue: TSynSelectionMode);
@@ -551,6 +553,9 @@ type
 
     property MonitorChanges: Boolean
       read GetMonitorChanges write SetMonitorChanges;
+
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
 
     property Text: string
       read GetText write SetText;
@@ -1256,6 +1261,16 @@ end;
 procedure TEditorView.SetPopupMenu(AValue: TPopupMenu);
 begin
   Editor.PopupMenu := AValue;
+end;
+
+function TEditorView.GetReadOnly: Boolean;
+begin
+  Result := Editor.ReadOnly;
+end;
+
+procedure TEditorView.SetReadOnly(AValue: Boolean);
+begin
+  Editor.ReadOnly := AValue;
 end;
 
 function TEditorView.GetFoldState: string;

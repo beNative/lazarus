@@ -59,6 +59,30 @@ const
   HL_VB   = 'VB';
   HL_XML  = 'XML';
 
+  // ToolViews
+  TV_ALIGNLINES     = 'AlignLines';
+  TV_CODEFILTER     = 'CodeFilter';
+  TV_SORTSTRINGS    = 'SortStrings';
+  TV_MINIMAP        = 'MiniMap';
+  TV_HEXEDITOR      = 'HexEditor';
+  TV_SEARCH         = 'Search';
+  TV_CODESHAPER     = 'CodeShaper';
+  TV_VIEWLIST       = 'ViewList';
+  TV_PREVIEW        = 'Preview';
+  TV_ACTIONLISTVIEW = 'ActionListView';
+  TV_TEST           = 'Test';
+  TV_SELECTIONINFO  = 'SelectionInfo';
+  TV_STRUCTURE      = 'Structure';
+  TV_CHARACTERMAP   = 'CharacterMap';
+  TV_SCRIPTEDITOR   = 'ScriptEditor';
+  TV_FILTER         = 'Filter';
+
+  // prefixes used for naming dynamically created actions.
+  ACTION_PREFIX_ENCODING       = 'actEncoding';
+  ACTION_PREFIX_HIGHLIGHTER    = 'actHighlighter';
+  ACTION_PREFIX_SELECTIONMODE  = 'actSelectionMode';
+  ACTION_PREFIX_LINEBREAKSTYLE = 'actLineBreakStyle';
+
   LAYOUT_INI   = 'notepas.highlighter.ini.xml';
   LAYOUT_RTF   = 'notepas.highlighter.rtf.xml';
 //  LAYOUT_RES   = 'notepas.highlighter.res.xml';

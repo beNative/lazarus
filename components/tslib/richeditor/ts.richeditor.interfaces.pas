@@ -64,6 +64,7 @@ type
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
     function GetPopupMenu: TPopupMenu;
+    function GetReadOnly: Boolean;
     function GetRTFText: string;
     function GetSelAvail: Boolean;
     function GetSelEnd: Integer;
@@ -85,6 +86,7 @@ type
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
+    procedure SetReadOnly(AValue: Boolean);
     procedure SetRTFText(AValue: string);
     procedure SetSelEnd(const AValue: Integer);
     procedure SetSelStart(const AValue: Integer);
@@ -185,6 +187,9 @@ type
 
     property IsInsideOfTable: Boolean
       read GetIsInsideOfTable;
+
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
 
     property RTFText: string
       read GetRTFText write SetRTFText;

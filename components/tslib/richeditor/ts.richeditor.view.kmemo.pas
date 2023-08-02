@@ -111,9 +111,11 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
+    function GetReadOnly: Boolean;
     {$ENDREGION}
 
     function SelectedBlock: TKMemoBlock;
+    procedure SetReadOnly(AValue: Boolean);
 
     function TableRowCell(
       out ATable : TKMemoTable;
@@ -275,6 +277,9 @@ type
 
     property Font: TFont
       read GetFont;
+
+    property ReadOnly: Boolean
+      read GetReadOnly write SetReadOnly;
 
     property SelStart: Integer
       read GetSelStart write SetSelStart;
@@ -853,6 +858,16 @@ begin
     FEditor.NewTextStyle := FTextStyle;
   Modified := True;
   DoChange;
+end;
+
+function TRichEditorViewKMemo.GetReadOnly: Boolean;
+begin
+  Result := Editor.ReadOnly;
+end;
+
+procedure TRichEditorViewKMemo.SetReadOnly(AValue: Boolean);
+begin
+  Editor.ReadOnly := AValue;
 end;
 
 function TRichEditorViewKMemo.GetBullets: Boolean;

@@ -96,13 +96,16 @@ const
     'where'                  + sLineBreak +
     '  Id in (%s)';
 
-
   // Windows registry paths to Python installations
   PYTHON_CORE_LOCAL_MACHINE = 'SOFTWARE\Python\PythonCore';
   PYTHON_CORE_CURRENT_USER  = 'Software\Python\PythonCore';
   PYTHON_DISPLAYNAME        = 'DisplayName';
   PYTHON_EXECUTABLEPATH     = 'ExecutablePath';
   PYTHON_INSTALLPATH        = 'InstallPath';
+
+  VIEW_TYPE_RTF  = 'rtf';
+  VIEW_TYPE_TXT  = 'txt';
+  VIEW_TYPE_HTML = 'html';
 
 resourcestring
   SLastFocusedRecordError       = 'Last focused record could not be located.';

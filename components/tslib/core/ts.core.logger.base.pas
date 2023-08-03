@@ -149,7 +149,7 @@ type
     function Send(const AValue: WideString): ILogger; overload;
     function Send(const AValue: ShortString): ILogger; overload;
 
-    //function Send(const AValue: Cardinal): ILogger; overload;
+    function Send(const AValue: Cardinal): ILogger; overload;
     function Send(const AValue: Word): ILogger; overload;
     function Send(const AValue: SmallInt): ILogger; overload;
     function Send(const AValue: Byte): ILogger; overload;
@@ -526,11 +526,11 @@ begin
 end;
 
 function TLogger.GetProperties(const AInstance: TValue): string;
-var
-  P             : TRttiProperty;
-  V             : TValue;
-  V2            : TValue;
-  ExcludedTypes : TTypeKinds;
+//var
+//  P             : TRttiProperty;
+//  V             : TValue;
+//  V2            : TValue;
+//  ExcludedTypes : TTypeKinds;
 //  List          : TList<string>;
 begin
   //if not AInstance.IsEmpty then
@@ -844,6 +844,11 @@ begin
   Result := Send('', AValue);
 end;
 
+function TLogger.Send(const AValue: Cardinal): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
 function TLogger.Send(const AValue: Word): ILogger;
 begin
   Result := Send('', AValue);
@@ -879,7 +884,7 @@ var
   P  : TRttiProperty;
   V  : TValue;
   SL : TStringList;
-  S  : string;
+  S  : string = '';
 begin
   SL := TStringList.Create;
   try
@@ -942,7 +947,7 @@ var
   P  : TRttiProperty;
   V  : TValue;
   SL : TStringList;
-  S  : string;
+  S  : string = '';
 begin
   SL := TStringList.Create;
   try
@@ -1016,7 +1021,7 @@ end;
 
 function TLogger.SendException(const AName: string; AValue: Exception): ILogger;
 var
-  S : string;
+  S : string = '';
 begin
   if AValue <> nil then
     S := AValue.ClassName + ' - ' + AValue.Message + sLineBreak;
@@ -1072,8 +1077,7 @@ end;
 function TLogger.SendVariant(const AName: string; const AValue: Variant
   ): ILogger;
 begin
-  Result := Self;
-  //Result := Send(AName, TValue.FromVariant(AValue));
+  Result := Send(AName, TValue.From<Variant>(AValue));
 end;
 
 function TLogger.SendVariant(const AValue: Variant): ILogger;

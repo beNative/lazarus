@@ -140,7 +140,6 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure tlbEditorSelectionClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -192,6 +191,7 @@ type
     procedure FHtmlEditorChange(Sender: TObject);
     procedure FHtmlEditorContentLoaded(Sender: TObject);
     procedure FHtmlEditorNavigationCompleted(Sender: TObject);
+
     procedure FRichEditorChange(Sender: TObject);
     procedure FRichEditorDropFiles(
       Sender           : TObject;
@@ -342,8 +342,6 @@ begin
 
   CreateTextEditor;
   CreateRichEditor;
-  // TODO page must be active to create the HtmlEditor correctly!
-  nbRight.PageIndex := 2;
   CreateHtmlEditor;
   CreateTreeview;
   FRtfStream := TStringStream.Create;
@@ -354,12 +352,16 @@ begin
   begin
     try
       DataSet.DataSet.Locate('Id', FSettings.LastFocusedId, []);
+      SwitchView;
     except
       ShowMessage(SLastFocusedRecordError);
     end;
   end;
-  FHtmlEditor.SourceVisible := FSettings.HtmlSourceVisible;
-  FHtmlEditor.EditMode      := FSettings.HtmlEditMode;
+  if Assigned(FHtmlEditor) then
+  begin
+    FHtmlEditor.SourceVisible := FSettings.HtmlSourceVisible;
+    FHtmlEditor.EditMode      := FSettings.HtmlEditMode;
+  end;
 
   FFileSearcher := TFileSearcher.Create;
   FFileSearcher.OnDirectoryFound := FileSearcherDirectoryFound;
@@ -376,10 +378,12 @@ end;
 destructor TfrmMain.Destroy;
 begin
   Logger.Enter(Self, 'Destroy');
-  FBusyForm.Free;
-  FSettings.LastFocusedId     := Snippet.Id;
-  FSettings.HtmlEditMode      := FHtmlEditor.EditMode;
-  FSettings.HtmlSourceVisible := FHtmlEditor.SourceVisible;
+  FSettings.LastFocusedId := Snippet.Id;
+  if Assigned(FHtmlEditor) then
+  begin
+    FSettings.HtmlEditMode      := FHtmlEditor.EditMode;
+    FSettings.HtmlSourceVisible := FHtmlEditor.SourceVisible;
+  end;
   FSettings.Save;
   FEditorSettings.Save;
   FData              := nil;
@@ -390,6 +394,7 @@ begin
   FEditor            := nil;
   FRichEditor        := nil;
   FHtmlEditor        := nil;
+  FreeAndNil(FBusyForm);
   FreeAndNil(FFileSearcher);
   FreeAndNil(FRtfStream);
   FreeAndNil(FHtmlStream);
@@ -438,11 +443,13 @@ end;
 {$REGION 'action handlers'}
 procedure TfrmMain.actLookupExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   Lookup(Editor, FData as ISearch);
 end;
 
 procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   ExecuteSettingsDialog(FData, FSettings);
   FData.DataSet.Refresh;
   UpdateApplicationToolBar;
@@ -451,16 +458,20 @@ end;
 
 procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   ShowGridForm(DataSet.DataSet);
 end;
 
 procedure TfrmMain.actTextEditorExecute(Sender: TObject);
 begin
-  nbRight.PageIndex := pgTextEditor.PageIndex;
+  Logger.Action(Sender as TBasicAction);
+  Snippet.ActiveViews := VIEW_TYPE_TXT;
+  nbRight.PageIndex   := pgTextEditor.PageIndex;
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   ShowAboutDialog;
 end;
 
@@ -468,7 +479,8 @@ procedure TfrmMain.actCloseEditorToolViewExecute(Sender: TObject);
 var
   TV : IEditorToolView;
 begin
-  pnlEditorToolViewHost.Visible     := False;
+  Logger.Action(Sender as TBasicAction);
+  pnlEditorToolViewHost.Visible := False;
   splEditorVertical.Visible := False;
   for TV in FEditorManager.ToolViews do
     TV.Visible := False;
@@ -479,7 +491,8 @@ procedure TfrmMain.actCloseRichEditorToolViewExecute(Sender: TObject);
 var
   TV : IRichEditorToolView;
 begin
-  pnlRichEditorToolViewHost.Visible     := False;
+  Logger.Action(Sender as TBasicAction);
+  pnlRichEditorToolViewHost.Visible := False;
   splRichEditorVertical.Visible := False;
   for TV in FRichEditorManager.ToolViews do
     TV.Visible := False;
@@ -494,6 +507,7 @@ const
   SCRIPT_FILE = 'SnippetSource.%s';
   COMMAND    = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
 begin
+  Logger.Action(Sender as TBasicAction);
   LFileName := Format(SCRIPT_FILE, [Snippet.Highlighter]);
   Logger.Send('FileName', LFileName);
   FS := TFileStream.Create(LFileName, fmCreate);
@@ -514,18 +528,23 @@ end;
 
 procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
-  nbRight.PageIndex := pgHtmlEditor.PageIndex;
+  Logger.Action(Sender as TBasicAction);
+  nbRight.PageIndex   := pgHtmlEditor.PageIndex;
+  Snippet.ActiveViews := VIEW_TYPE_HTML;
 end;
 
 procedure TfrmMain.actRtfEditorExecute(Sender: TObject);
 begin
-  nbRight.PageIndex := pgRichEditor.PageIndex;
+  Logger.Action(Sender as TBasicAction);
+  nbRight.PageIndex   := pgRichEditor.PageIndex;
+  Snippet.ActiveViews := VIEW_TYPE_RTF;
 end;
 
 procedure TfrmMain.actSQLEditorExecute(Sender: TObject);
 var
   F : TfrmQuery;
 begin
+  Logger.Action(Sender as TBasicAction);
   F := TfrmQuery.Create(Self, FEditorManager, FData as IQuery);
   try
     F.Showmodal;
@@ -537,6 +556,7 @@ end;
 
 procedure TfrmMain.actToggleFullScreenExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   if WindowState = wsMaximized then
     WindowState := wsNormal
   else
@@ -545,16 +565,18 @@ end;
 
 procedure TfrmMain.actToggleLockedStateExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   actToggleLockedState.Checked := not actToggleLockedState.Checked;
-  Logger.Send('Snippet.Locked', Snippet.Locked);
-  Snippet.Locked := actToggleLockedState.Checked;
-  Logger.Send('Snippet.Locked', Snippet.Locked);
-  Logger.Send('actLocked.Checked', actToggleLockedState.Checked);
+  //Logger.Send('Snippet.Locked', Snippet.Locked);
+  //Snippet.Locked := actToggleLockedState.Checked;
+  //Logger.Send('Snippet.Locked', Snippet.Locked);
+  //Logger.Send('actLocked.Checked', actToggleLockedState.Checked);
   Modified;
 end;
 
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);
 begin
+  Logger.Action(Sender as TBasicAction);
   if (Sender as TAction).Checked then
     FormStyle := fsSystemStayOnTop
   else
@@ -579,49 +601,48 @@ begin
 end;
 
 procedure TfrmMain.dscMainDataChange(Sender: TObject; Field: TField);
-var
+//var
   //LStream : TMemoryStream;
-  LBitmap : TBitmap;
+  //LBitmap : TBitmap;
 begin
-  LBitmap := TBitmap.Create;
+  //LBitmap := TBitmap.Create;
   if Field = nil then // browse record
   begin
-    if Assigned(DataSet.DataSet) then
+    Logger.Enter(Self, 'dscMainDataChange');
+    if Assigned(DataSet.DataSet) and (DataSet.DataSet.State = dsBrowse) then
     begin
-      if DataSet.DataSet.State = dsBrowse then
-      begin
-        FParentId := Snippet.ID;
-        Editor.BeginUpdate; // avoid FEditorChange getting triggered
-        try
-          Editor.Text := Snippet.Text;
-          if Snippet.Highlighter <> '' then
-          begin
-            Editor.HighlighterName := Snippet.Highlighter;
-          end;
-        finally
-          Editor.EndUpdate;
+      FParentId := Snippet.ID;
+      Editor.BeginUpdate; // avoid FEditorChange getting triggered
+      try
+        Editor.Text := Snippet.Text;
+        if Snippet.Highlighter <> '' then
+        begin
+          Editor.HighlighterName := Snippet.Highlighter;
         end;
-        edtTitle.Text := Snippet.NodeName;
-        edtTitle.Hint := Snippet.NodeName;
-        actToggleLockedState.Checked := Snippet.Locked;
-        //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
-        //btnImage.Glyph.Assign(LBitmap);
-        //LStream := TMemoryStream.Create;
-        //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
-        //LStream.Position := 0;
-     //btnImage.Glyph.LoadFromStream(LStream);
-      //  LStream.Free;
-        btnHighlighter.Caption := Snippet.Highlighter;
-        //FTextEditorVisible := False;
-        //FRichEditorVisible := False;
-        LoadRtfData;
-        LoadHtmlData;
-        Modified;
-        SwitchView;
+      finally
+        Editor.EndUpdate;
       end;
+      edtTitle.Text := Snippet.NodeName;
+      edtTitle.Hint := Snippet.NodeName;
+      actToggleLockedState.Checked := Snippet.Locked;
+      //(FData as IGlyphs).ImageList.GetBitmap(Snippet.ImageIndex, LBitmap);
+      //btnImage.Glyph.Assign(LBitmap);
+      //LStream := TMemoryStream.Create;
+      //(FData.DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
+      //LStream.Position := 0;
+   //btnImage.Glyph.LoadFromStream(LStream);
+    //  LStream.Free;
+      btnHighlighter.Caption := Snippet.Highlighter;
+      //FTextEditorVisible := False;
+      //FRichEditorVisible := False;
+      LoadRtfData;
+      LoadHtmlData;
+      SwitchView;
+      Modified;
     end;
+    Logger.Leave(Self, 'dscMainDataChange');
   end;
-  LBitmap.Free;
+  //LBitmap.Free;
 end;
 
 {$REGION 'FEditor'}
@@ -739,11 +760,6 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
-end;
-
-procedure TfrmMain.tlbEditorSelectionClick(Sender: TObject);
-begin
-
 end;
 
 {$REGION 'FTree'}
@@ -933,6 +949,95 @@ end;
 {$ENDREGION}
 
 {$REGION 'private methods'}
+procedure TfrmMain.CreateTreeview;
+begin
+  FTree                          := TfrmVirtualDBTree.Create(Self);
+  FTree.DoubleBuffered           := True;
+  FTree.Parent                   := pnlLeft;
+  FTree.BorderStyle              := bsNone;
+  FTree.Align                    := alClient;
+  FTree.Visible                  := True;
+  FTree.DataSet                  := DataSet.DataSet;
+  FTree.ImageList                := (FData as IGlyphs).ImageList;
+  FTree.OnDropFiles              := FTreeDropFiles;
+  FTree.OnNewFolderNode          := FTreeNewFolderNode;
+  FTree.OnNewItemNode            := FTreeNewItemNode;
+  FTree.OnDeleteSelectedNodes    := FTreeDeleteSelectedNodes;
+  FTree.OnDuplicateSelectedNodes := FTreeDuplicateSelectedNodes;
+  FTree.OnCopyNodeData           := FTreeCopyNodeData;
+end;
+
+procedure TfrmMain.CreateTextEditor;
+var
+  LEvents : IEditorEvents;
+begin
+  FEditorSettings := TEditorFactories.CreateSettings(Self);
+  FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
+  FEditorSettings.Load;
+  FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
+  FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
+  FEditor.IsFile := False;
+  FEditor.Form.OnEnter := FEditorFormEnter;
+  FEditor.Editor.PopupMenu := FEditorManager.Menus.EditorPopupMenu;
+  btnHighlighter.Menu := FEditorManager.Menus.HighlighterPopupMenu;
+  FEditorManager.Settings.AutoFormatXML := False;
+  FEditorManager.Settings.AutoGuessHighlighterType := False;
+  LEvents := FEditorManager.Events;
+  LEvents.OnNew        := FEditorNew;
+  LEvents.OnBeforeSave := FEditorBeforeSave;
+  LEvents.AddOnChangeHandler(FEditorChange);
+  LEvents.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
+  LEvents.OnShowEditorToolView := FEditorShowToolView;
+  LEvents.OnHideEditorToolView := FEditorHideToolView;
+  BuildTextEditorToolBar;
+  InitTextEditorActions;
+end;
+
+procedure TfrmMain.CreateRichEditor;
+begin
+  FRichEditorManager := TRichEditorFactories.CreateManager(Self);
+  FRichEditor := TRichEditorFactories.CreateView(
+    pnlRichEditor,
+    FRichEditorManager,
+    'Comment'
+  );
+  FRichEditor.IsFile       := False;
+  FRichEditor.Form.OnEnter := FRichEditorFormEnter;
+  FRichEditor.OnChange     := FRichEditorChange;
+  FRichEditor.OnDropFiles  := FRichEditorDropFiles;
+  FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
+  FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
+  FRichEditorManager.Events.OnHideRichEditorToolView := FRichEditorHideToolView;
+  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
+    Self,
+    pnlRichEditorToolBar,
+    FRichEditorManager as IRichEditorActions
+  );
+  FRichEditorToolBar.Height := 23;
+end;
+
+procedure TfrmMain.CreateHtmlEditor;
+begin
+  // TODO page must be active to create the HtmlEditor correctly!
+  nbRight.PageIndex := 2;
+  FHtmlEditorManager := THtmlEditorFactories.CreateManager(Self);
+  FHtmlEditorToolBar := THtmlEditorFactories.CreateMainToolbar(
+    Self,
+    pnlHtmlEditorToolBar,
+    FHtmlEditorManager as IHtmlEditorActions
+  );
+  FHtmlEditor := THtmlEditorFactories.CreateView(
+    pnlHtmlEditor,
+    FHtmlEditorManager
+  );
+  FHtmlEditorManager.Events.AddOnContentLoadedHandler(FHtmlEditorContentLoaded);
+  FHtmlEditorManager.Events.AddOnNavigationCompletedHandler(FHtmlEditorNavigationCompleted);
+  FHtmlEditorToolBar.Height := 23;
+  FHtmlEditor.SetFocus;
+  FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;
+  FHtmlEditor.OnChange       := FHtmlEditorChange;
+end;
+
 procedure TfrmMain.AssignTextEditorChanges;
 begin
   Snippet.Text        := Editor.Text;
@@ -1064,118 +1169,55 @@ begin
   HideAction('actSmartSelect');
 end;
 
+{ Switches the view to the (first) one found with content. }
+
 procedure TfrmMain.SwitchView;
 begin
-  if FHtmlEditor.IsInitialized then
+  if Assigned(FHtmlEditor) and FHtmlEditor.IsInitialized then
   begin
-    if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.IsSourceEmpty) then
+    if Snippet.ActiveViews.IsEmpty then
     begin
-      actHtmlEditor.Checked := True;
-      nbRight.PageIndex := pgHtmlEditor.PageIndex;
-    end
-    else if not FEditor.Text.IsEmpty then
-    begin
-      actTextEditor.Checked := True;
-      nbRight.PageIndex := pgTextEditor.PageIndex;
-    end
-    else if not FRichEditor.IsEmpty then
-    begin
-      actRtfEditor.Checked := True;
-      nbRight.PageIndex := pgRichEditor.PageIndex;
+      if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.IsSourceEmpty) then
+      begin
+        //actHtmlEditor.Checked := True;
+        nbRight.PageIndex := pgHtmlEditor.PageIndex;
+      end
+      else if not FEditor.Text.IsEmpty then
+      begin
+        //actTextEditor.Checked := True;
+        nbRight.PageIndex := pgTextEditor.PageIndex;
+      end
+      else if not FRichEditor.IsEmpty then
+      begin
+        //actRtfEditor.Checked := True;
+        nbRight.PageIndex := pgRichEditor.PageIndex;
+      end
+      else
+      begin
+        //actTextEditor.Checked := True;
+        nbRight.PageIndex := pgTextEditor.PageIndex;
+      end;
     end
     else
     begin
-      actTextEditor.Checked := True;
-      nbRight.PageIndex := pgTextEditor.PageIndex;
+      if Snippet.ActiveViews = VIEW_TYPE_TXT then
+      begin
+        //actTextEditor.Checked := True;
+        nbRight.PageIndex := pgTextEditor.PageIndex;
+      end
+      else if Snippet.ActiveViews = VIEW_TYPE_RTF then
+      begin
+        //actRtfEditor.Checked := True;
+        nbRight.PageIndex := pgRichEditor.PageIndex;
+      end
+      else
+      begin
+        //actHtmlEditor.Checked := True;
+        nbRight.PageIndex := pgHtmlEditor.PageIndex;
+      end;
     end;
+    Modified;
   end;
-end;
-
-procedure TfrmMain.CreateTreeview;
-begin
-  FTree                          := TfrmVirtualDBTree.Create(Self);
-  FTree.DoubleBuffered           := True;
-  FTree.Parent                   := pnlLeft;
-  FTree.BorderStyle              := bsNone;
-  FTree.Align                    := alClient;
-  FTree.Visible                  := True;
-  FTree.DataSet                  := DataSet.DataSet;
-  FTree.ImageList                := (FData as IGlyphs).ImageList;
-  FTree.OnDropFiles              := FTreeDropFiles;
-  FTree.OnNewFolderNode          := FTreeNewFolderNode;
-  FTree.OnNewItemNode            := FTreeNewItemNode;
-  FTree.OnDeleteSelectedNodes    := FTreeDeleteSelectedNodes;
-  FTree.OnDuplicateSelectedNodes := FTreeDuplicateSelectedNodes;
-  FTree.OnCopyNodeData           := FTreeCopyNodeData;
-end;
-
-procedure TfrmMain.CreateTextEditor;
-var
-  LEvents : IEditorEvents;
-begin
-  FEditorSettings := TEditorFactories.CreateSettings(Self);
-  FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
-  FEditorSettings.Load;
-  FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
-  FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
-  FEditor.IsFile := False;
-  FEditor.Form.OnEnter := FEditorFormEnter;
-  FEditor.Editor.PopupMenu := FEditorManager.Menus.EditorPopupMenu;
-  btnHighlighter.Menu := FEditorManager.Menus.HighlighterPopupMenu;
-  FEditorManager.Settings.AutoFormatXML := False;
-  FEditorManager.Settings.AutoGuessHighlighterType := False;
-  LEvents := FEditorManager.Events;
-  LEvents.OnNew        := FEditorNew;
-  LEvents.OnBeforeSave := FEditorBeforeSave;
-  LEvents.AddOnChangeHandler(FEditorChange);
-  LEvents.AddOnHighlighterChangeHandler(FEditorHighlighterChange);
-  LEvents.OnShowEditorToolView := FEditorShowToolView;
-  LEvents.OnHideEditorToolView := FEditorHideToolView;
-  BuildTextEditorToolBar;
-  InitTextEditorActions;
-end;
-
-procedure TfrmMain.CreateRichEditor;
-begin
-  FRichEditorManager := TRichEditorFactories.CreateManager(Self);
-  FRichEditor := TRichEditorFactories.CreateView(
-    pnlRichEditor,
-    FRichEditorManager,
-    'Comment'
-  );
-  FRichEditor.IsFile       := False;
-  FRichEditor.Form.OnEnter := FRichEditorFormEnter;
-  FRichEditor.OnChange     := FRichEditorChange;
-  FRichEditor.OnDropFiles  := FRichEditorDropFiles;
-  FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
-  FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
-  FRichEditorManager.Events.OnHideRichEditorToolView := FRichEditorHideToolView;
-  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
-    Self,
-    pnlRichEditorToolBar,
-    FRichEditorManager as IRichEditorActions
-  );
-  FRichEditorToolBar.Height := 23;
-end;
-
-procedure TfrmMain.CreateHtmlEditor;
-begin
-  FHtmlEditorManager := THtmlEditorFactories.CreateManager(Self);
-  FHtmlEditorToolBar := THtmlEditorFactories.CreateMainToolbar(
-    Self,
-    pnlHtmlEditorToolBar,
-    FHtmlEditorManager as IHtmlEditorActions
-  );
-  FHtmlEditor := THtmlEditorFactories.CreateView(
-    pnlHtmlEditor,
-    FHtmlEditorManager
-  );
-  FHtmlEditorManager.Events.AddOnContentLoadedHandler(FHtmlEditorContentLoaded);
-  FHtmlEditorManager.Events.AddOnNavigationCompletedHandler(FHtmlEditorNavigationCompleted);
-  FHtmlEditorToolBar.Height := 23;
-  FHtmlEditor.SetFocus;
-  FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;
-  FHtmlEditor.OnChange       := FHtmlEditorChange;
 end;
 
 procedure TfrmMain.InitializeLogger;
@@ -1274,8 +1316,6 @@ var
 begin
   Logger.Enter(Self, 'LoadHtmlData');
   try
-    Logger.Send('Snippet.Source', Snippet.Source);
-    Logger.Send('FHtmlEditor.Source', FHtmlEditor.Source);
     if Snippet.Source.IsEmpty then
     begin
       S := DecodeStringBase64(Snippet.HtmlData);
@@ -1462,8 +1502,8 @@ begin
   UpdateApplicationToolBar;
   if Assigned(Snippet) then
   begin
-    Logger.Watch('Snippet.Locked', Snippet.Locked);
-    Logger.Watch('actLocked.Checked', actToggleLockedState.Checked);
+    //Logger.Watch('Snippet.Locked', Snippet.Locked);
+    //Logger.Watch('actLocked.Checked', actToggleLockedState.Checked);
 
   //if not edtTitle.Focused then
   //begin
@@ -1544,17 +1584,27 @@ end;
 
 procedure TfrmMain.UpdateToolBars;
 begin
-  if FSettings.AutoHideEditorToolBar then
-    pnlEditorToolBar.Visible := Editor.Focused
+  if actToggleLockedState.Checked then
+  begin
+    FRichEditor.ReadOnly := True;
+    FEditor.ReadOnly     := True;
+  end
   else
-    pnlEditorToolBar.Visible := True;
-  if FSettings.AutoHideRichEditorToolBar then
-    FRichEditorToolBar.Visible := RichEditor.Focused
-  else
-  FRichEditorToolBar.Visible := True;
-  //actHtmlEditor.Checked := nbRight.ActivePageComponent = pgHtmlEditor;
-  //actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;
-  //actTextEditor.Checked := nbRight.ActivePageComponent = pgTextEditor;
+  begin
+    FEditor.ReadOnly     := False;
+    FRichEditor.ReadOnly := False;
+    if FSettings.AutoHideEditorToolBar then
+      pnlEditorToolBar.Visible := Editor.Focused
+    else
+      pnlEditorToolBar.Visible := True;
+    if FSettings.AutoHideRichEditorToolBar then
+      FRichEditorToolBar.Visible := RichEditor.Focused
+    else
+      FRichEditorToolBar.Visible := True;
+  end;
+  actHtmlEditor.Checked := nbRight.ActivePageComponent = pgHtmlEditor;
+  actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;
+  actTextEditor.Checked := nbRight.ActivePageComponent = pgTextEditor;
 end;
 {$ENDREGION}
 

@@ -416,11 +416,11 @@ object frmMain: TfrmMain
           Left = 0
           Height = 720
           Top = 0
-          Width = 839
+          Width = 825
           Align = alClient
           BevelOuter = bvNone
           ClientHeight = 720
-          ClientWidth = 839
+          ClientWidth = 825
           Color = clBtnFace
           ParentBackground = False
           ParentColor = False
@@ -509,18 +509,18 @@ object frmMain: TfrmMain
             Left = 0
             Height = 24
             Top = 0
-            Width = 839
+            Width = 825
             Align = alTop
             BevelColor = clScrollBar
             BevelOuter = bvNone
             ClientHeight = 24
-            ClientWidth = 839
+            ClientWidth = 825
             TabOrder = 2
             object shpRichEditorToolBarLine: TShape
               Left = 0
               Height = 1
               Top = 23
-              Width = 839
+              Width = 825
               Align = alBottom
               Pen.Color = clScrollBar
             end
@@ -674,7 +674,6 @@ object frmMain: TfrmMain
           TabOrder = 0
           Transparent = True
           Wrapable = False
-          OnClick = tlbEditorSelectionClick
         end
       end
     end

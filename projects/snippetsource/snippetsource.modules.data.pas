@@ -632,12 +632,13 @@ end;
 {$REGION 'ISnippet'}
 function TdmSnippetSource.GetActiveViews: string;
 begin
-  Result := DataSet.FieldValues['ActiveViews'];
+  Result := DataSet.FieldByName('ActiveViews').AsString;
 end;
 
 procedure TdmSnippetSource.SetActiveViews(AValue: string);
 begin
-  DataSet.FieldValues['ActiveViews'] := AValue;
+  if Edit then
+    DataSet.FieldValues['ActiveViews'] := AValue;
 end;
 
 function TdmSnippetSource.GetHtmlData: string;

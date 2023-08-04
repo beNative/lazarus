@@ -465,8 +465,8 @@ end;
 procedure TfrmMain.actTextEditorExecute(Sender: TObject);
 begin
   Logger.Action(Sender as TBasicAction);
-  Snippet.ActiveViews := VIEW_TYPE_TXT;
   nbRight.PageIndex   := pgTextEditor.PageIndex;
+  Snippet.ActiveViews := VIEW_TYPE_TXT;
 end;
 
 procedure TfrmMain.actAboutExecute(Sender: TObject);

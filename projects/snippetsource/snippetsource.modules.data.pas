@@ -617,6 +617,7 @@ begin
   // forces new value for AutoInc field
   ADataSet.FieldByName('Id').Value                := 0;
   ADataSet.FieldByName('DateCreated').AsDateTime  := Now;
+  ADataSet.FieldByName('ActiveViews').AsString    := VIEW_TYPE_TXT ;
   ADataSet.FieldByName('HighlighterId').AsInteger := 1;
   if ADataSet.FieldByName('NodeTypeId').AsInteger = 0 then
   begin
@@ -638,7 +639,9 @@ end;
 procedure TdmSnippetSource.SetActiveViews(AValue: string);
 begin
   if Edit then
-    DataSet.FieldValues['ActiveViews'] := AValue;
+    DataSet.FieldValues['ActiveViews'] := AValue
+  else
+    Logger.Error('Saving value %s failed!', [AValue]);
 end;
 
 function TdmSnippetSource.GetHtmlData: string;
@@ -1387,9 +1390,10 @@ end;
 
 function TdmSnippetSource.Edit: Boolean;
 begin
-  if DataSet.Active and not (DataSet.State in dsEditModes) then
+  if DataSet.Active then
   begin
-    DataSet.Edit;
+    if not (DataSet.State in dsEditModes) then
+      DataSet.Edit;
     Result := True;
   end
   else

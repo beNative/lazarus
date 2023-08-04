@@ -36,9 +36,9 @@ uses
   Menus, Variants, Windows, ImgList, ActiveX,
   DB, DBCtrls,
 
-  VirtualTrees,
+  VirtualTrees, DropComboTarget,
 
-  ts.Components.VirtualDBTreeEx;
+  ts.Components.VirtualDBTreeEx, Types, DropTarget;
 
 { Form holding data-aware treeview for flat database files.
   To support this treeview, the table must include following fields for storing
@@ -665,6 +665,7 @@ var
   LNode       : PVirtualNode;
 begin
   LNode := Sender.GetNodeAt(Pt.x, Pt.y);
+  Sender.ClearSelection;
   Sender.FocusedNode := LNode;
   if Mode = dmOnNode then
     LAttachMode := amInsertBefore

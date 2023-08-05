@@ -60,6 +60,7 @@ type
     function GetFont: TFont;
     function GetForm: TCustomForm;
     function GetHtmlText: string;
+    function GetIconBitmap: TBitmap;
     function GetIsEmpty: Boolean;
     function GetIsFile: Boolean;
     function GetIsInitialized: Boolean;
@@ -108,6 +109,7 @@ type
     procedure SetText(const AValue: string);
     procedure SetSource(AValue: string);
     procedure SetWebMessageEnabled(AValue: Boolean);
+    procedure SetZoomControlEnabled(AValue: Boolean);
     {$ENDREGION}
 
     function Focused: Boolean;
@@ -158,44 +160,57 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
-    procedure SetZoomControlEnabled(AValue: Boolean);
 
     procedure Undo;
     procedure Redo;
 
-    {$REGION 'Webview properties'}
+    {$REGION 'WebView properties'}
+    { Gets the title for the current html document. }
     property DocumentTitle: string
       read GetDocumentTitle write SetDocumentTitle;
 
+    { Determines whether the default WevView2 context menus of are shown. }
     property DefaultContextMenusEnabled: Boolean
       read GetDefaultContextMenusEnabled write SetDefaultContextMenusEnabled;
 
+    { Determines whether the default JavaScript dialog box is available. }
     property DefaultScriptDialogsEnabled: Boolean
       read GetDefaultScriptDialogsEnabled write SetDefaultScriptDialogsEnabled;
 
+    { Determines whether the user is able to use the context menu or keyboard
+      shortcuts to open the DevTools window. }
     property DevToolsEnabled: Boolean
       read GetDevToolsEnabled write SetDevToolsEnabled;
 
+    { Determines whether host objects are accessible from the view. }
     property AllowHostObjects: Boolean
       read GetAllowHostObjects write SetAllowHostObjects;
 
     property Offline: Boolean
       read GetOffline write SetOffline;
 
+    { Determines whether running JavaScript is enabled in the view . }
     property ScriptEnabled: Boolean
       read GetScriptEnabled write SetScriptEnabled;
 
+    { Determines whether the status bar is displayed. }
     property StatusBarEnabled: Boolean
       read GetStatusBarEnabled write SetStatusBarEnabled;
 
+    { Determines whether communication from the host to the top-level HTML
+      document of the view is allowed. }
     property WebMessageEnabled: Boolean
       read GetWebMessageEnabled write SetWebMessageEnabled;
 
+    { Determines whether the user is able to impact the zoom of the view. }
     property ZoomControlEnabled: Boolean
       read GetZoomControlEnabled write SetZoomControlEnabled;
 
     property IsNavigating: Boolean
       read GetIsNavigating;
+
+    property IconBitmap: TBitmap
+      read GetIconBitmap;
   {$ENDREGION}
 
     // properties
@@ -246,6 +261,7 @@ type
     property HtmlText: string
       read GetHtmlText write SetHtmlText;
 
+    { Embedded browser source in URI format. }
     property Source: string
       read GetSource write SetSource;
 

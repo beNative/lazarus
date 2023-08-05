@@ -39,25 +39,31 @@ uses
 
   DropComboTarget,
 
-  ts.HtmlEditor.Interfaces;
+  ts.HtmlEditor.Interfaces, Types, DropTarget, DragDropInternet, DragDropFile;
 
 type
   THtmlEditorView = class(TForm, IHtmlEditorView)
     dctMain             : TDropComboTarget;
     edtSource           : TEdit;
+    imgFavIcon          : TImage;
+    pnlTop              : TPanel;
     pnlHtmlEditor       : TPanel;
     tmrCreateWebBrowser : TTimer;
     WVBrowser           : TWVBrowser;
     WVWindowParent      : TWVWindowParent;
 
     {$REGION 'event handlers'}
-    procedure edtSourceEnter(Sender: TObject);
+    procedure dctMainDrop(
+      Sender     : TObject;
+      ShiftState : TShiftState;
+      APoint     : TPoint;
+      var Effect : Longint
+    );
     procedure edtSourceExit(Sender: TObject);
     procedure edtSourceMouseEnter(Sender: TObject);
     procedure edtSourceMouseLeave(Sender: TObject);
     procedure edtSourceEditingDone(Sender: TObject);
     procedure tmrCreateWebBrowserTimer(Sender: TObject);
-
     procedure WVBrowserAcceleratorKeyPressed(
       Sender            : TObject;
       const AController : ICoreWebView2Controller;
@@ -323,6 +329,7 @@ type
     FUpdate            : Boolean;
     FModified          : Boolean;
     FEditorFont        : TFont;
+    FFavIcon           : TPicture;
 
     FRequestingData : Boolean;  // Webbrowser -> Editor
     FDataReceived   : Boolean;  // Webbrowser -> Editor
@@ -340,6 +347,7 @@ type
     FStatusBarEnabled            : Boolean;
     FScriptEnabled               : Boolean;
 
+    function GetIconBitmap: TBitmap;
     procedure WMMove(var AMessage : TWMMove); message WM_MOVE;
     procedure WMMoving(var AMessage : TMessage); message WM_MOVING;
 
@@ -514,6 +522,9 @@ type
 
     property IsSourceEmpty: Boolean
       read GetIsSourceEmpty;
+
+    property IconBitmap: TBitmap
+      read GetIconBitmap;
   {$ENDREGION}
 
     // properties
@@ -593,7 +604,7 @@ type
     property FileName: string
        read GetFileName write SetFileName;
 
-    { Browser source URI. }
+    { Browser source in URI format. }
     property Source: string
       read GetSource write SetSource;
 
@@ -617,6 +628,8 @@ implementation
 {$R *.lfm}
 
 uses
+  StrUtils,
+
   uWVCoreWebView2Args, uWVCoreWebView2WebResourceResponseView,
   uWVCoreWebView2HttpResponseHeaders, uWVCoreWebView2HttpHeadersCollectionIterator,
 
@@ -642,13 +655,15 @@ begin
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
   FEditorFont.Name             := DEFAULT_EDITOR_FONT;
-
+  FFavIcon                     := TPicture.Create;
+  imgFavIcon.Picture := FFavIcon;
   tmrCreateWebBrowser.Enabled := True;
   Logger.SetLogLevel(10);
 end;
 
 destructor THtmlEditorView.Destroy;
 begin
+  FFavIcon.Free;
   FHeaders.Free;
   FEditorFont.Free;
   inherited Destroy;
@@ -661,6 +676,11 @@ begin
   inherited;
   if Assigned(WVBrowser) then
     WVBrowser.NotifyParentWindowPositionChanged;
+end;
+
+function THtmlEditorView.GetIconBitmap: TBitmap;
+begin
+  Result := imgFavIcon.Picture.Bitmap;
 end;
 
 procedure THtmlEditorView.WMMoving(var AMessage: TMessage);
@@ -857,8 +877,17 @@ end;
 
 procedure THtmlEditorView.WVBrowserGetFaviconCompleted(Sender: TObject;
   AErrorCode: HRESULT; const AFaviconStream: IStream);
+var
+  LStream : TStream;
 begin
-  //Logger.Track(Self, 'WVBrowserGetFaviconCompleted');
+  LStream := TMemoryStream.Create;
+  try
+    LoadIStreamIntoTStream(AFaviconStream, LStream);
+    imgFavIcon.Picture.LoadFromStream(LStream);
+  finally
+    LStream.Free;
+  end;
+  Events.DoNavigationCompleted;
 end;
 
 procedure THtmlEditorView.WVBrowserGetNonDefaultPermissionSettingsCompleted
@@ -920,6 +949,7 @@ begin
   LArgs := TCoreWebView2NavigationCompletedEventArgs.Create(AArgs);
   try
     LArgs.HttpStatusCode;
+    WVBrowser.GetFavicon;
     //Logger.Send('HttpStatusCode', LArgs.HttpStatusCode);
     //Logger.Send('Initialized', LArgs.Initialized);
     //Logger.Send('IsSuccess', LArgs.IsSuccess);
@@ -928,7 +958,7 @@ begin
   finally
     LArgs.Free;
   end;
-  Events.DoNavigationCompleted;
+  //Events.DoNavigationCompleted;
   //Logger.Info(WVBrowser.DocumentTitle);
   //Logger.Leave(Self, 'WVBrowserNavigationCompleted');
 end;
@@ -1154,8 +1184,22 @@ begin
   LEdit.Font.Color := clBlack;
 end;
 
-procedure THtmlEditorView.edtSourceEnter(Sender: TObject);
+procedure THtmlEditorView.dctMainDrop(Sender: TObject; ShiftState: TShiftState;
+  APoint: TPoint; var Effect: Longint);
+var
+  LSource : string;
 begin
+  if dctMain.URL.IsEmpty then
+  begin;
+    LSource := 'file:///' + string(dctMain.Files.Text);
+  end
+  else
+  begin
+    LSource := dctMain.URL
+  end;
+  edtSource.Text := LSource;
+  edtSource.Hint := LSource;
+  Source         := LSource;
 end;
 
 procedure THtmlEditorView.edtSourceExit(Sender: TObject);
@@ -1455,7 +1499,7 @@ end;
 
 function THtmlEditorView.GetIsSourceEmpty: Boolean;
 begin
-  Result := SameText(Source, EMPTY_PAGE_SOURCE);
+  Result := MatchText(Source, [EMPTY_PAGE_SOURCE, '']);
 end;
 
 function THtmlEditorView.GetWebMessageEnabled: Boolean;
@@ -1550,7 +1594,7 @@ var
   S : string;
 begin
   S := Trim(HtmlText);
-  if S.IsEmpty or (S = '<html><head></head><body></body></html>') then
+  if S.IsEmpty or SameText(S, EMPTY_PAGE_CONTENT) then
     Result := True
   else
     Result := False;
@@ -1613,6 +1657,7 @@ end;
 
 procedure THtmlEditorView.SetBullets(AValue: Boolean);
 begin
+  imgFavIcon.Picture.Bitmap.Empty;
 end;
 
 procedure THtmlEditorView.SetFileName(const AValue: string);
@@ -1704,7 +1749,6 @@ end;
 {$REGION 'protected methods'}
 procedure THtmlEditorView.ApplySettings;
 begin
-//  Logger.Track(Self, 'ApplySettings');
   if FEditMode then
     ExecuteScript('document.designMode = "on";')
   else
@@ -1714,8 +1758,8 @@ begin
     Format('document.execCommand(''fontName'', false, ''%s'');',
            [FEditorFont.Name])
   );
-  //WVBrowser.DefaultContextMenusEnabled  := FDefaultContextMenusEnabled;
-  //WVBrowser.DefaultScriptDialogsEnabled := FDefaultScriptDialogsEnabled;
+  WVBrowser.DefaultContextMenusEnabled  := FDefaultContextMenusEnabled;
+  WVBrowser.DefaultScriptDialogsEnabled := FDefaultScriptDialogsEnabled;
 end;
 
 procedure THtmlEditorView.ShowDevTools;
@@ -1734,7 +1778,7 @@ begin
   if FUpdate and IsInitialized then
   begin
     DoRequestData;
-    //ApplySettings;
+    ApplySettings;
     if not edtSource.Focused then
     begin
       edtSource.Color      := clForm;

@@ -2,35 +2,46 @@ object HtmlEditorView: THtmlEditorView
   Left = 743
   Height = 373
   Top = 504
-  Width = 599
+  Width = 1250
   ClientHeight = 373
-  ClientWidth = 599
+  ClientWidth = 1250
   LCLVersion = '2.2.2.0'
   object pnlHtmlEditor: TPanel
     Left = 0
-    Height = 373
-    Top = 0
-    Width = 599
+    Height = 347
+    Top = 26
+    Width = 1250
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 373
-    ClientWidth = 599
+    ClientHeight = 347
+    ClientWidth = 1250
     TabOrder = 0
     object WVWindowParent: TWVWindowParent
       Left = 0
-      Height = 348
-      Top = 25
-      Width = 599
+      Height = 347
+      Top = 0
+      Width = 1250
       Align = alClient
       TabOrder = 0
       Browser = WVBrowser
     end
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Height = 26
+    Top = 0
+    Width = 1250
+    Align = alTop
+    BevelOuter = bvNone
+    ClientHeight = 26
+    ClientWidth = 1250
+    TabOrder = 1
     object edtSource: TEdit
-      Left = 4
-      Height = 17
+      Left = 31
+      Height = 18
       Top = 4
-      Width = 591
-      Align = alTop
+      Width = 1215
+      Align = alClient
       Alignment = taCenter
       AutoSize = False
       BorderSpacing.Around = 4
@@ -38,12 +49,20 @@ object HtmlEditorView: THtmlEditorView
       Color = clBtnFace
       Font.Height = -13
       OnEditingDone = edtSourceEditingDone
-      OnEnter = edtSourceEnter
       OnExit = edtSourceExit
       OnMouseEnter = edtSourceMouseEnter
       OnMouseLeave = edtSourceMouseLeave
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 0
+    end
+    object imgFavIcon: TImage
+      Left = 0
+      Height = 26
+      Top = 0
+      Width = 27
+      Align = alLeft
+      Center = True
+      Transparent = True
     end
   end
   object WVBrowser: TWVBrowser
@@ -108,19 +127,19 @@ object HtmlEditorView: THtmlEditorView
     Left = 80
     Top = 116
   end
-  object dctMain: TDropComboTarget
-    DragTypes = [dtCopy, dtLink]
-    ShowImage = False
-    MultiTarget = True
-    Formats = [mfURL]
-    Left = 182
-    Top = 102
-  end
   object tmrCreateWebBrowser: TTimer
     Enabled = False
     Interval = 300
     OnTimer = tmrCreateWebBrowserTimer
     Left = 179
     Top = 32
+  end
+  object dctMain: TDropComboTarget
+    DragTypes = [dtCopy, dtLink]
+    OnDrop = dctMainDrop
+    Target = edtSource
+    Formats = [mfFile, mfURL]
+    Left = 319
+    Top = 204
   end
 end

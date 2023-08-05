@@ -22,11 +22,11 @@ interface
 
 uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
-  StdCtrls, Character, StrUtils, ComCtrls, ActnList,
+  StdCtrls, Character, StrUtils, ComCtrls, ActnList, Types,
 
   LCLType,
 {$IFDEF WINDOWS}
-  Windows,
+  Windows, ActiveX, ComObj,
 {$ENDIF}
 {$IFDEF DARWIN}
   MacOSAll,
@@ -298,11 +298,18 @@ function AddToolBarButton(
   APopupMenu        : TPopupMenu = nil
 ): TToolButton; overload;
 
+{ Loads contents of an OLE IStream into a TStream instance. }
+
+procedure LoadIStreamIntoTStream(
+  ASource          : IStream;
+  var ADestination : TStream
+);
+
 implementation
 
 uses
 {$IFDEF WINDOWS}
-  ActiveX, ShlObj, Registry,
+  ShlObj, Registry,
 {$ENDIF}
   Variants, Dialogs,
   LazFileUtils;
@@ -1268,7 +1275,7 @@ end;
 
 { Mixes two colors for a given transparancy level  }
 
-function MixColors(C1, C2: TColor; W1: Integer): TColor;
+function MixColors(C1: TColor; C2: TColor; W1: Integer): TColor;
 var
   W2 : Cardinal;
 begin
@@ -1289,8 +1296,8 @@ begin
 end;
 
 function StringReplaceMultiple(const Source: AnsiString;
-  const OldPatterns, NewPatterns: array of AnsiString;
-  CaseSensitive: Boolean = True): AnsiString;
+  const OldPatterns: array of AnsiString;
+  const NewPatterns: array of AnsiString; CaseSensitive: Boolean): AnsiString;
 
 type
   TFoundPos = record
@@ -1746,7 +1753,7 @@ begin
   Result := StringReplace(Result,  '''', '&apos;',[rfReplaceAll]);
 end;
 
-function XMLDecode(const ASource: String): string;
+function XMLDecode(const ASource: string): string;
 begin
   Result := StringReplace(ASource, '&apos;', '''',[rfReplaceAll]);
   Result := StringReplace(Result,  '&quot;', '"',[rfReplaceAll]);
@@ -2395,6 +2402,21 @@ end;
    end;
    Result := LButton;
  end;
+
+ procedure LoadIStreamIntoTStream(ASource: IStream; var ADestination: TStream);
+var
+  LPos        : QWord;
+  LRes1       : QWord;
+  LRes2       : QWord;
+  LStreamStat : TStatStg;
+  LAdapter    : TStreamAdapter;
+begin
+  ASource.Seek(0, 0, LPos);
+  LAdapter := TStreamAdapter.Create(ADestination);
+  ASource.Stat(LStreamStat, 1);
+  ASource.CopyTo(LAdapter, LStreamStat.cbSize, LRes1, LRes2);
+  ADestination.Position :=  0;
+end;
 
 end.
 

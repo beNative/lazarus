@@ -67,7 +67,7 @@ type
   public
     // constructors and destructors
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure InitSynHighlighter(
       { Optional instance to assign the settings to. }
@@ -140,6 +140,7 @@ type
       FPosition     : Integer;
 
       function GetCurrent: THighlighterItem;
+
     public
       constructor Create(AHighlighters: THighlighters);
 
@@ -158,10 +159,6 @@ type
     procedure SetItemByName(const AName: string; const AValue: THighlighterItem);
 
   public
-    // constructors and destructors
-    procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
-
     function Add: THighlighterItem;
     function AsString: string;
     function Exists(const AName: string): Boolean;
@@ -206,18 +203,18 @@ implementation
 uses
   Forms, StrUtils, Dialogs,
 
-  ts.Components.UniHighlighter;
+  ts.Core.Logger, ts.Components.UniHighlighter;
 
 {$REGION 'THighlighterEnumerator'}
-function THighlighters.THighlighterEnumerator.GetCurrent: THighlighterItem;
-begin
-  Result := FHighlighters[FPosition];
-end;
-
 constructor THighlighters.THighlighterEnumerator.Create(AHighlighters: THighlighters);
 begin
   FHighlighters := AHighlighters;
-  FPosition := -1;
+  FPosition     := -1;
+end;
+
+function THighlighters.THighlighterEnumerator.GetCurrent: THighlighterItem;
+begin
+  Result := FHighlighters[FPosition];
 end;
 
 function THighlighters.THighlighterEnumerator.MoveNext: Boolean;
@@ -228,18 +225,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'THighlighters'}
-{$REGION 'construction and destruction'}
-procedure THighlighters.AfterConstruction;
-begin
-  inherited AfterConstruction;
-end;
-
-procedure THighlighters.BeforeDestruction;
-begin
-  inherited BeforeDestruction;
-end;
-{$ENDREGION}
-
 {$REGION 'property access mehods'}
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
@@ -258,8 +243,8 @@ end;
 
 function THighlighters.GetFileFilter: string;
 var
-  S: string;
-  HI: THighlighterItem;
+  S  : string;
+  HI : THighlighterItem;
 begin
   S := '';
   for HI in Self do
@@ -284,11 +269,11 @@ end;
 
 procedure THighlighters.SetItemByName(const AName: string; const AValue: THighlighterItem);
 var
-  Item: THighlighterItem;
+  LItem: THighlighterItem;
 begin
-  Item := Find(AName);
-  if Assigned(Item) then
-    Item.Assign(AValue);
+  LItem := Find(AName);
+  if Assigned(LItem) then
+    LItem.Assign(AValue);
 end;
 {$ENDREGION}
 
@@ -325,8 +310,8 @@ end;
 
 function THighlighters.IndexOf(const AName: string): Integer;
 var
-  I: Integer;
-  B: Boolean;
+  I : Integer;
+  B : Boolean;
 begin
   I := 0;
   B := False;
@@ -344,7 +329,7 @@ end;
 
 function THighlighters.Find(const AName: string): THighlighterItem;
 var
-  I: Integer;
+  I : Integer;
 begin
   I := IndexOf(AName);
   if I < 0 then
@@ -365,7 +350,7 @@ begin
   S := LowerCase(AFileExt);
   for I := 0 to Count - 1 do
   begin
-    HL :=  Items[I].SynHighlighter;
+    HL := Items[I].SynHighlighter;
     if Assigned(HL) then
     begin
       if IsWordPresent(S, Items[I].FileExtensions, [','])
@@ -426,19 +411,15 @@ begin
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
   FSmartSelectionTags        := TCodeTags.Create(nil);
-  //FSmartSelectionTags.Name := 'SmartSelectionTags';
-
   FUseCommonAttributes       := True;
 end;
 
-procedure THighlighterItem.BeforeDestruction;
+destructor THighlighterItem.Destroy;
 begin
   FCodeFormatter := nil;
-  //if Assigned(FSynHighlighter) then
-  //  FreeAndNil(FSynHighlighter);
   FreeAndNil(FFileExtensions);
   FreeAndNil(FSmartSelectionTags);
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -585,7 +566,7 @@ end;
 
 procedure THighlighterItem.Reload;
 var
-  S: string;
+  S : string;
 begin
   S := GetApplicationPath;
   if FileExists(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then

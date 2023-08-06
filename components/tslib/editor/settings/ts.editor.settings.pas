@@ -618,25 +618,25 @@ end;
 {$REGION 'public methods'}
 procedure TEditorSettings.LoadXML;
 var
-  Reader : TXmlObjectReader;
-  Doc    : TNativeXml;
-  S      : string;
+  LReader : TXmlObjectReader;
+  LDoc    : TNativeXml;
+  S       : string;
 begin
   S := GetApplicationPath + FFileName;
-  Logger.Send('LoadXML', S);
+  Logger.Info('LoadXML', [S]);
   if FileExists(S) then
   begin
-    Doc := TNativeXml.Create(nil);
+    LDoc := TNativeXml.Create(nil);
     try
-      Doc.LoadFromFile(S);
-      Reader := TXmlObjectReader.Create;
+      LDoc.LoadFromFile(S);
+      LReader := TXmlObjectReader.Create;
       try
-        Reader.ReadComponent(Doc.Root, Self, nil);
+        LReader.ReadComponent(LDoc.Root, Self, nil);
       finally
-        FreeAndNil(Reader);
+        FreeAndNil(LReader);
       end;
     finally
-      FreeAndNil(Doc);
+      FreeAndNil(LDoc);
     end;
   end;
   InitializeHighlighters; // create higlighters if they cannot be loaded.

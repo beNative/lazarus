@@ -2919,13 +2919,11 @@ begin
   V := ActiveView;
   if Assigned(V) then
   begin
-    B := ActiveView.Focused;
-
-    actCopy.Enabled  := actCopy.Visible and B;
-    //actPaste.Enabled := actPaste.Visible and ActiveView.CanPaste and B;
-
+    B := V.Focused;
     if Assigned(Settings) and V.Focused then
     begin
+      actCopy.Enabled := B;
+
       B := V.SelAvail and not V.ReadOnly;
       actAlignSelection.Enabled              := B;
       actCompressSpace.Enabled               := B;

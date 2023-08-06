@@ -31411,7 +31411,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actSearch: TAction
       Category = 'Find'
-      Caption = '&Find...'
+      Caption = 'Find...'
       Hint = 'Find'
       ImageIndex = 9
       OnExecute = actSearchExecute
@@ -31435,7 +31435,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actSearchReplace: TAction
       Category = 'Find'
-      Caption = '&Replace...'
+      Caption = 'Replace...'
       Hint = 'Replace'
       ImageIndex = 10
       OnExecute = actSearchReplaceExecute
@@ -31856,7 +31856,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actHelp: TAction
       Category = 'Help'
-      Caption = '&Help'
+      Caption = 'Help'
       Hint = 'Show help dialog.'
       ImageIndex = 54
       OnExecute = actHelpExecute
@@ -31879,7 +31879,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actCopy: TAction
       Category = 'Clipboard'
-      Caption = '&Copy'
+      Caption = 'Copy'
       Hint = 'Copy selection'
       ImageIndex = 1
       OnExecute = actCopyExecute
@@ -32085,7 +32085,7 @@ object dmEditorManager: TdmEditorManager
     end
     object actSelectAll: TAction
       Category = 'Select'
-      Caption = 'Select &All'
+      Caption = 'Select All'
       Hint = 'Select all.'
       ImageIndex = 23
       OnExecute = actSelectAllExecute

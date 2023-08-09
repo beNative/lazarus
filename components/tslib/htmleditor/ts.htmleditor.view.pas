@@ -108,6 +108,7 @@ type
       Sender  : TObject;
       AResult : Boolean
     );
+    procedure WVBrowserContainsFullScreenElementChanged(Sender: TObject);
     procedure WVBrowserContentLoading(
       Sender         : TObject;
       const AWebView : ICoreWebView2;
@@ -663,10 +664,12 @@ end;
 
 destructor THtmlEditorView.Destroy;
 begin
+  Logger.Enter(Self, 'Destroy');
   FFavIcon.Free;
   FHeaders.Free;
   FEditorFont.Free;
   inherited Destroy;
+    Logger.Leave(Self, 'Destroy');
 end;
 {$ENDREGION}
 
@@ -703,6 +706,10 @@ begin
 
   WVBrowser.AddScriptToExecuteOnDocumentCreated(
   UTF8Decode(JS_ADD_CONTENT_MODIFIED_EVENT));
+
+
+
+  //WVBrowser.AddScriptToExecuteOnDocumentCreated(UTF8Decode( 'document.documentElement.requestFullscreen();'));
 
   DoAfterCreated;
   ApplySettings;
@@ -755,6 +762,12 @@ begin
 //  Logger.Track(Self, 'WVBrowserClearDataForOriginCompleted');
 end;
 
+procedure THtmlEditorView.WVBrowserContainsFullScreenElementChanged
+  (Sender: TObject);
+begin
+  Logger.Track(Self, 'WVBrowserContainsFullScreenElementChanged');
+end;
+
 procedure THtmlEditorView.WVBrowserContentLoading(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2ContentLoadingEventArgs);
@@ -805,6 +818,9 @@ begin
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
+
+
+
 end;
 
 procedure THtmlEditorView.WVBrowserDownloadStarting(Sender: TObject;
@@ -851,10 +867,10 @@ procedure THtmlEditorView.WVBrowserExecuteScriptCompleted(Sender: TObject;
   AErrorCode: HRESULT; const AResultObjectAsJson: wvstring;
   AExecutionID: Integer);
 begin
-  //Logger.Enter(Self, 'WVBrowserExecuteScriptCompleted');
-  //Logger.Send('AResultObjectAsJson', AResultObjectAsJson);
-  //Logger.Send('AExecutionID', AExecutionID);
-  //Logger.Leave(Self, 'WVBrowserExecuteScriptCompleted');
+  Logger.Enter(Self, 'WVBrowserExecuteScriptCompleted');
+  Logger.Send('AResultObjectAsJson', AResultObjectAsJson);
+  Logger.Send('AExecutionID', AExecutionID);
+  Logger.Leave(Self, 'WVBrowserExecuteScriptCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserFaviconChanged(Sender: TObject;
@@ -961,6 +977,7 @@ begin
   //Events.DoNavigationCompleted;
   //Logger.Info(WVBrowser.DocumentTitle);
   //Logger.Leave(Self, 'WVBrowserNavigationCompleted');
+
 end;
 
 procedure THtmlEditorView.WVBrowserNavigationStarting(Sender: TObject;
@@ -1362,14 +1379,14 @@ end;
 
 function THtmlEditorView.GetSourceVisible: Boolean;
 begin
-  Result := edtSource.Visible;
+  Result := pnlTop.Visible;
 end;
 
 procedure THtmlEditorView.SetSourceVisible(AValue: Boolean);
 begin
-  if AValue <> edtSource.Visible then
+  if AValue <> pnlTop.Visible then
   begin
-    edtSource.Visible := AValue;
+    pnlTop.Visible := AValue;
   end;
 end;
 

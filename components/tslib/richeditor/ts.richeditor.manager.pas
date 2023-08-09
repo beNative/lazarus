@@ -994,7 +994,7 @@ procedure TdmRichEditorManager.UpdateActions;
 var
   B : Boolean;
 begin
-  B := Assigned(ActiveView);
+  B := Assigned(ActiveView) and not ActiveView.ReadOnly;
   actUndo.Enabled                  := B and ActiveView.CanUndo;
   actRedo.Enabled                  := B and ActiveView.CanRedo;
   actCut.Enabled                   := B and ActiveView.SelAvail;
@@ -1005,6 +1005,8 @@ begin
   actAlignCenter.Enabled           := B;
   actAlignLeft.Enabled             := B;
   actAlignRight.Enabled            := B;
+  actBold.Enabled                  := B;
+  actBulletList.Enabled            := B;
   actClear.Enabled                 := B;
   actDecFontSize.Enabled           := B;
   actDecIndent.Enabled             := B;
@@ -1029,25 +1031,23 @@ begin
   actToggleWordWrap.Enabled        := B;
   actUnderline.Enabled             := B;
 
-  actBold.Checked           := B and ActiveView.Font.Bold;
-  actUnderline.Checked      := B and ActiveView.Font.Underline;
-  actItalic.Checked         := B and ActiveView.Font.Italic;
-  actStrikeThrough.Checked  := B and ActiveView.Font.StrikeThrough;
   actAlignCenter.Checked    := B and ActiveView.AlignCenter;
   actAlignLeft.Checked      := B and ActiveView.AlignLeft;
   actAlignRight.Checked     := B and ActiveView.AlignRight;
-  //actAlignJustify.Checked   := B and ActiveView.AlignJustify;
+  actBold.Checked           := B and ActiveView.Font.Bold;
+  actBulletList.Checked     := B and ActiveView.Bullets;
+  actItalic.Checked         := B and ActiveView.Font.Italic;
+  actStrikeThrough.Checked  := B and ActiveView.Font.StrikeThrough;
   actToggleWordWrap.Checked := B and ActiveView.WordWrap;
-
-  actBulletList.Checked := B and ActiveView.Bullets;
+  actUnderline.Checked      := B and ActiveView.Font.Underline;
 
   B := B and ActiveView.IsInsideOfTable;
+  actDeleteColumn.Visible       := B;
+  actDeleteRow.Visible          := B;
   actInsertColumnAfter.Visible  := B;
   actInsertColumnBefore.Visible := B;
   actInsertRowAfter.Visible     := B;
   actInsertRowBefore.Visible    := B;
-  actDeleteColumn.Visible       := B;
-  actDeleteRow.Visible          := B;
   actSelectTable.Visible        := B;
   actTableMenu.Visible          := B;
 end;

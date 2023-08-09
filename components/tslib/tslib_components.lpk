@@ -13,6 +13,16 @@
         <OtherUnitFiles Value="components"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(FPCVer)\components"/>
       </SearchPaths>
+      <CodeGeneration>
+        <Checks>
+          <IOChecks Value="True"/>
+        </Checks>
+      </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="False"/>
+        </Debugging>
+      </Linking>
       <Other>
         <Verbosity>
           <ShowHintsForUnusedUnitsInMainSrc Value="True"/>

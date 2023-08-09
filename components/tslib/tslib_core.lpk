@@ -14,10 +14,15 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(FPCVer)\core"/>
       </SearchPaths>
       <CodeGeneration>
-        <Optimizations>
-          <OptimizationLevel Value="3"/>
-        </Optimizations>
+        <Checks>
+          <IOChecks Value="True"/>
+        </Checks>
       </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="False"/>
+        </Debugging>
+      </Linking>
       <Other>
         <CompilerMessages>
           <IgnoredMessages idx6058="True" idx5024="True"/>

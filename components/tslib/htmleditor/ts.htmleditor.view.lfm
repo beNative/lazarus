@@ -2,25 +2,25 @@ object HtmlEditorView: THtmlEditorView
   Left = 743
   Height = 373
   Top = 504
-  Width = 1250
+  Width = 610
   ClientHeight = 373
-  ClientWidth = 1250
+  ClientWidth = 610
   LCLVersion = '2.2.2.0'
   object pnlHtmlEditor: TPanel
     Left = 0
     Height = 347
     Top = 26
-    Width = 1250
+    Width = 610
     Align = alClient
     BevelOuter = bvNone
     ClientHeight = 347
-    ClientWidth = 1250
+    ClientWidth = 610
     TabOrder = 0
     object WVWindowParent: TWVWindowParent
       Left = 0
       Height = 347
       Top = 0
-      Width = 1250
+      Width = 610
       Align = alClient
       TabOrder = 0
       Browser = WVBrowser
@@ -30,17 +30,17 @@ object HtmlEditorView: THtmlEditorView
     Left = 0
     Height = 26
     Top = 0
-    Width = 1250
+    Width = 610
     Align = alTop
     BevelOuter = bvNone
     ClientHeight = 26
-    ClientWidth = 1250
+    ClientWidth = 610
     TabOrder = 1
     object edtSource: TEdit
       Left = 31
       Height = 18
       Top = 4
-      Width = 1215
+      Width = 575
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -83,6 +83,7 @@ object HtmlEditorView: THtmlEditorView
     OnPermissionRequested = WVBrowserPermissionRequested
     OnProcessFailed = WVBrowserProcessFailed
     OnWebMessageReceived = WVBrowserWebMessageReceived
+    OnContainsFullScreenElementChanged = WVBrowserContainsFullScreenElementChanged
     OnWindowCloseRequested = WVBrowserWindowCloseRequested
     OnDevToolsProtocolEventReceived = WVBrowserDevToolsProtocolEventReceived
     OnMoveFocusRequested = WVBrowserMoveFocusRequested

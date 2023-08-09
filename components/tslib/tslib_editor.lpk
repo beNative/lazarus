@@ -14,13 +14,13 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\$(FPCVer)\editor"/>
       </SearchPaths>
       <CodeGeneration>
-        <Optimizations>
-          <OptimizationLevel Value="3"/>
-        </Optimizations>
+        <Checks>
+          <IOChecks Value="True"/>
+        </Checks>
       </CodeGeneration>
       <Linking>
         <Debugging>
-          <UseLineInfoUnit Value="False"/>
+          <GenerateDebugInfo Value="False"/>
         </Debugging>
       </Linking>
       <Other>
@@ -122,7 +122,7 @@ limitations under the License.         "/>
       </Item19>
       <Item20>
         <Filename Value="editor\ts.editor.toolviews.pas"/>
-        <UnitName Value="ts.editor.toolviews"/>
+        <UnitName Value="ts.Editor.ToolViews"/>
       </Item20>
       <Item21>
         <Filename Value="editor\ts.editor.types.pas"/>

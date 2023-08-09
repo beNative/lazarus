@@ -226,7 +226,7 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.Utils,
+  ts.Core.Utils, ts.Core.Logger,
 
   ts.HtmlEditor.View, ts.HtmlEditor.Events, ts.HtmlEditor.ToolViews,
   ts.HtmlEditor.Resources;
@@ -244,11 +244,13 @@ end;
 
 destructor TdmHtmlEditorManager.Destroy;
 begin
+  Logger.Enter(Self, 'Destroy');
   FActiveView := nil;
   FEvents     := nil;
   FToolViews  := nil;
   FreeAndNil(FViews);
   inherited Destroy;
+  Logger.Leave(Self, 'Destroy');
 end;
 {$ENDREGION}
 

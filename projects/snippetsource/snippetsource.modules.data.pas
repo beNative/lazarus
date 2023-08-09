@@ -140,6 +140,7 @@ type
     FBulkInsertMode : Boolean;
     FHLImages       : TImageMap;
     FFocusedId      : Int64;
+    FImage          : TBitmap;
 
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
@@ -148,6 +149,7 @@ type
     function GetAutoCommit: Boolean;
     function GetHtmlData: string;
     function GetHtmlText: string;
+    function GetImage: TBitmap;
     function GetLocked: Boolean;
     function GetRtfText: string;
     function GetRtfData: string;
@@ -181,6 +183,7 @@ type
     procedure SetAutoCommit(AValue: Boolean);
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
+    procedure SetImage(AValue: TBitmap);
     procedure SetLocked(AValue: Boolean);
     procedure SetRtfText(AValue: string);
     procedure SetRtfData(AValue: string);
@@ -379,6 +382,9 @@ type
       key. }
     property ImageIndex: Integer
       read GetImageIndex write SetImageIndex;
+
+    property Image: TBitmap
+      read GetImage write SetImage;
     {$ENDREGION}
 
     {$REGION 'IDataSet'}
@@ -480,6 +486,7 @@ procedure TdmSnippetSource.AfterConstruction;
 begin
   Logger.Enter(Self, 'AfterConstruction');
   inherited AfterConstruction;
+  FImage := TBitmap.Create;
   EnsureSqliteExists;
 //  EnsureWebView2LoaderExists;
   FHLImages := TImageMap.Create(True);
@@ -495,6 +502,7 @@ begin
   DataSet.Active := False;
   conMain.Connected := False;
   FSettings := nil;
+  FImage.Free;
   FHLImages.Free;
   inherited Destroy;
   Logger.Info('DM Destroyed');
@@ -659,6 +667,20 @@ begin
   Result := DataSet.FieldByName('HtmlText').AsString;
 end;
 
+function TdmSnippetSource.GetImage: TBitmap;
+var
+  LStream : TStream;
+begin
+  LStream := TMemoryStream.Create;
+  try
+    (DataSet.FieldByName('Image') as TBlobField).SaveToStream(LStream);
+    FImage.LoadFromStream(LStream);
+  finally
+    LStream.Free;
+  end;
+  Result := FImage;
+end;
+
 function TdmSnippetSource.GetLocked: Boolean;
 begin
   Result := DataSet.FieldByName('Locked').AsBoolean;
@@ -667,6 +689,27 @@ end;
 procedure TdmSnippetSource.SetHtmlText(AValue: string);
 begin
   DataSet.FieldValues['HtmlText'] := AValue;
+end;
+
+procedure TdmSnippetSource.SetImage(AValue: TBitmap);
+var
+  LStream : TStream;
+begin
+  if not AValue.Empty then
+  begin
+    FImage.Assign(AValue);
+    LStream := TMemoryStream.Create;
+    try
+      FImage.SaveToStream(LStream);
+      if Edit then
+      begin
+        (DataSet.FieldByName('Image') as TBlobField).LoadFromStream(LStream);
+        Post;
+      end;
+    finally
+      LStream.Free;
+    end;
+  end;
 end;
 
 procedure TdmSnippetSource.SetLocked(AValue: Boolean);
@@ -1417,6 +1460,8 @@ begin
     Commit;
   end;
 end;
+
+{ Connects to the SQLite database file specified by AFileName. }
 
 procedure TdmSnippetSource.ConnectToDatabase(const AFileName: string);
 var

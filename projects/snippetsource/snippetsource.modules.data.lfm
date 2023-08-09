@@ -1,8 +1,8 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
   Height = 315
-  HorizontalOffset = 2089
-  VerticalOffset = 343
+  HorizontalOffset = 2024
+  VerticalOffset = 330
   Width = 421
   object trsMain: TSQLTransaction
     Active = False
@@ -2958,12 +2958,6 @@ object dmSnippetSource: TdmSnippetSource
       '  ParentId asc'
       ');'
       ''
-      '-- Index: idx_HistorySnippetId'
-      'drop index if exists idx_HistorySnippetId;'
-      ''
-      'create index idx_HistorySnippetId on History ('
-      '  SnippetId'
-      ');'
     )
     Terminator = ';'
     CommentsinSQL = True

@@ -36,9 +36,9 @@ uses
   Menus, Variants, Windows, ImgList, ActiveX,
   DB, DBCtrls,
 
-  VirtualTrees, DropComboTarget,
+  VirtualTrees,
 
-  ts.Components.VirtualDBTreeEx, Types, DropTarget;
+  ts.Components.VirtualDBTreeEx, Types;
 
 { Form holding data-aware treeview for flat database files.
   To support this treeview, the table must include following fields for storing
@@ -79,6 +79,7 @@ type
     actDeleteSelectedNodes    : TAction;
     actDuplicateSelectedNodes : TAction;
     actExpandAllNodes         : TAction;
+    actClearImage: TAction;
     actNewFolderNode          : TAction;
     actNewItemNode            : TAction;
     actNewRootFolderNode      : TAction;
@@ -95,6 +96,7 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
+    MenuItem1: TMenuItem;
     mniCancel                 : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
     mniDelete                 : TMenuItem;
@@ -122,6 +124,7 @@ type
 
     {$REGION 'action handlers'}
     procedure actCancelExecute(Sender: TObject);
+    procedure actClearImageExecute(Sender: TObject);
     procedure actCopyNodeDataExecute(Sender: TObject);
     procedure actDuplicateSelectedNodesExecute(Sender: TObject);
     procedure actNewRootFolderNodeExecute(Sender: TObject);
@@ -589,6 +592,19 @@ end;
 procedure TfrmVirtualDBTree.actCancelExecute(Sender: TObject);
 begin
   DataSet.Cancel;
+end;
+
+procedure TfrmVirtualDBTree.actClearImageExecute(Sender: TObject);
+begin
+  if not (DataSet.State in dsEditModes) then
+  begin
+    DataSet.Edit;
+  end;
+  FTreeView.ImageField.Clear;
+  DataSet.Post;
+  DataSet.Refresh;
+  //FTreeView.InvalidateNode(FTreeView.FocusedNode);
+  FTreeView.Refresh;
 end;
 
 procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);

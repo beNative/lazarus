@@ -23,7 +23,7 @@ unit SnippetSource.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, Controls,
+  Classes, SysUtils, Controls, Graphics,
 
   DB, SQLDB;
 
@@ -106,6 +106,7 @@ type
     {$REGION 'property access mehods'}
     function GetHtmlText: string;
     function GetHtmlData: string;
+    function GetImage: TBitmap;
     function GetLocked: Boolean;
     function GetRtfText: string;
     function GetRtfData: string;
@@ -125,6 +126,7 @@ type
     procedure SetActiveViews(AValue: string);
     procedure SetHtmlData(AValue: string);
     procedure SetHtmlText(AValue: string);
+    procedure SetImage(AValue: TBitmap);
     procedure SetLocked(AValue: Boolean);
     procedure SetRtfText(AValue: string);
     procedure SetRtfData(AValue: string);
@@ -195,6 +197,9 @@ type
 
     property Text: string
       read GetText write SetText;
+
+    property Image: TBitmap
+      read GetImage write SetImage;
 
     property ImageIndex: Integer
       read GetImageIndex write SetImageIndex;

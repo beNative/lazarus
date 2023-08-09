@@ -136,11 +136,12 @@ type
     {$ENDREGION}
 
   private
-    FSettings       : ISettings;
-    FBulkInsertMode : Boolean;
-    FHLImages       : TImageMap;
-    FFocusedId      : Int64;
-    FImage          : TBitmap;
+    FSettings        : ISettings;
+    FBulkInsertMode  : Boolean;
+    FHLImages        : TImageMap;
+    FFocusedId       : Int64;
+    FLastActiveViews : string;
+    FImage           : TBitmap;
 
     {$REGION 'property access mehods'}
     function GetActive: Boolean;
@@ -573,6 +574,7 @@ end;
 procedure TdmSnippetSource.qrySnippetBeforePost(ADataSet: TDataSet);
 begin
   DateModified := Now;
+  FLastActiveViews := ActiveViews;
 end;
 
 procedure TdmSnippetSource.qrySnippetBeforeRefresh(DataSet: TDataSet);
@@ -625,7 +627,7 @@ begin
   // forces new value for AutoInc field
   ADataSet.FieldByName('Id').Value                := 0;
   ADataSet.FieldByName('DateCreated').AsDateTime  := Now;
-  ADataSet.FieldByName('ActiveViews').AsString    := VIEW_TYPE_TXT ;
+  ADataSet.FieldByName('ActiveViews').AsString    := FLastActiveViews;
   ADataSet.FieldByName('HighlighterId').AsInteger := 1;
   if ADataSet.FieldByName('NodeTypeId').AsInteger = 0 then
   begin
@@ -648,8 +650,6 @@ procedure TdmSnippetSource.SetActiveViews(AValue: string);
 begin
   if Edit then
     DataSet.FieldValues['ActiveViews'] := AValue
-  else
-    Logger.Error('Saving value %s failed!', [AValue]);
 end;
 
 function TdmSnippetSource.GetHtmlData: string;
@@ -1480,7 +1480,6 @@ begin
   begin
     LFileName := CreateAbsolutePath(FSettings.Database, ProgramDirectory);
   end;
-  Logger.Send('LFileName', LFileName);
   if not SameFileName(LFileName, conMain.DatabaseName) then
   begin
     conMain.Connected := False;
@@ -1501,10 +1500,8 @@ begin
       //FillImageMapFromDataSet(FHLImages, qryHighlighter);
     qryGlyph.Active :=  True;
     qryNodeType.Active := True;
-
     //FillNodeTypesImageList;
     DataSet.Active := True;
-    Logger.Send('DataSet.Active', DataSet.Active);
   end;
 end;
 
@@ -1552,6 +1549,7 @@ end;
 procedure TdmSnippetSource.EnableControls;
 begin
   DataSet.Locate('Id', FFocusedId, []);
+  FLastActiveViews := ActiveViews;
   DataSet.EnableControls;
 end;
 {$ENDREGION}
@@ -1560,9 +1558,9 @@ end;
 procedure TdmSnippetSource.Search(const ASearchString: string;
   ASearchInText: Boolean; ASearchInName: Boolean; ASearchInComment: Boolean);
 begin
-  SearchDataSet.Active := False;
+  SearchDataSet.Active   := False;
   SearchDataSet.SQL.Text := Format(SQL_LOOKUP_QUERY, [ASearchString]);
-  SearchDataSet.Active := True;
+  SearchDataSet.Active   := True;
 end;
 {$ENDREGION}
 {$ENDREGION}

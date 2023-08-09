@@ -71,6 +71,7 @@ type
     function GetOnAfterCreated: TNotifyEvent;
     function GetOnChange: TNotifyEvent;
     function GetOnDropFiles: TDropFilesEvent;
+    function GetOnInitialized: TNotifyEvent;
     function GetPopupMenu: TPopupMenu;
     function GetScriptEnabled: Boolean;
     function GetSelAvail: Boolean;
@@ -100,6 +101,7 @@ type
     procedure SetOnAfterCreated(AValue: TNotifyEvent);
     procedure SetOnChange(const AValue: TNotifyEvent);
     procedure SetOnDropFiles(const AValue: TDropFilesEvent);
+    procedure SetOnInitialized(AValue: TNotifyEvent);
     procedure SetParent(NewParent: TWinControl);
     procedure SetPopupMenu(const AValue: TPopupMenu);
     procedure SetScriptEnabled(AValue: Boolean);
@@ -303,6 +305,9 @@ type
 
     property OnAfterCreated: TNotifyEvent
       read GetOnAfterCreated write SetOnAfterCreated;
+
+    property OnInitialized: TNotifyEvent
+      read GetOnInitialized write SetOnInitialized;
   end;
 
   { Events dispatched by the editor view. }

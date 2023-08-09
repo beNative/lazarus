@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 761
+  Left = 3087
   Height = 763
-  Top = 496
+  Top = 559
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -245,7 +245,7 @@ object frmMain: TfrmMain
       Height = 720
       Top = 25
       Width = 825
-      PageIndex = 0
+      PageIndex = 2
       Align = alClient
       TabOrder = 0
       object pgTextEditor: TPage
@@ -412,6 +412,7 @@ object frmMain: TfrmMain
         end
       end
       object pgRichEditor: TPage
+        OnBeforeShow = pgRichEditorBeforeShow
         object pnlRichEditor: TPanel
           Left = 0
           Height = 720
@@ -524,6 +525,24 @@ object frmMain: TfrmMain
               Align = alBottom
               Pen.Color = clScrollBar
             end
+            object tlbRichEditorView: TToolBar
+              Left = 0
+              Height = 23
+              Top = 0
+              Width = 825
+              Align = alClient
+              ButtonHeight = 22
+              ButtonWidth = 24
+              EdgeBorders = []
+              EdgeInner = esNone
+              EdgeOuter = esNone
+              ImagesWidth = 16
+              List = True
+              ShowCaptions = True
+              TabOrder = 0
+              Transparent = True
+              Wrapable = False
+            end
           end
         end
       end
@@ -559,6 +578,24 @@ object frmMain: TfrmMain
               Width = 825
               Align = alBottom
               Pen.Color = clScrollBar
+            end
+            object tlbHtmlEditorView: TToolBar
+              Left = 0
+              Height = 23
+              Top = 0
+              Width = 825
+              Align = alClient
+              ButtonHeight = 22
+              ButtonWidth = 24
+              EdgeBorders = []
+              EdgeInner = esNone
+              EdgeOuter = esNone
+              ImagesWidth = 16
+              List = True
+              ShowCaptions = True
+              TabOrder = 0
+              Transparent = True
+              Wrapable = False
             end
           end
         end
@@ -628,7 +665,7 @@ object frmMain: TfrmMain
           Width = 266
           Align = alClient
           ButtonHeight = 20
-          ButtonWidth = 26
+          ButtonWidth = 24
           Color = clForm
           EdgeBorders = []
           EdgeInner = esNone
@@ -640,6 +677,7 @@ object frmMain: TfrmMain
           ShowCaptions = True
           ShowHint = True
           TabOrder = 0
+          Wrapable = False
         end
       end
       object pnlEditorSelectionToolBarHost: TPanel

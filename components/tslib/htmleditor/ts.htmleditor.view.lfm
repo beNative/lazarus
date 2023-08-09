@@ -37,10 +37,10 @@ object HtmlEditorView: THtmlEditorView
     ClientWidth = 610
     TabOrder = 1
     object edtSource: TEdit
-      Left = 31
+      Left = 28
       Height = 18
       Top = 4
-      Width = 575
+      Width = 578
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -56,12 +56,18 @@ object HtmlEditorView: THtmlEditorView
       TabOrder = 0
     end
     object imgFavIcon: TImage
-      Left = 0
-      Height = 26
-      Top = 0
-      Width = 27
+      Left = 2
+      Height = 16
+      Top = 5
+      Width = 22
       Align = alLeft
+      BorderSpacing.Left = 2
+      BorderSpacing.Top = 5
+      BorderSpacing.Right = 2
+      BorderSpacing.Bottom = 5
       Center = True
+      Proportional = True
+      Stretch = True
       Transparent = True
     end
   end
@@ -70,6 +76,8 @@ object HtmlEditorView: THtmlEditorView
     TargetCompatibleBrowserVersion = '95.0.1020.44'
     AllowSingleSignOnUsingOSPrimaryAccount = False
     OnInitializationError = WVBrowserInitializationError
+    OnEnvironmentCompleted = WVBrowserEnvironmentCompleted
+    OnControllerCompleted = WVBrowserControllerCompleted
     OnAfterCreated = WVBrowserAfterCreated
     OnExecuteScriptCompleted = WVBrowserExecuteScriptCompleted
     OnNavigationStarting = WVBrowserNavigationStarting
@@ -77,6 +85,7 @@ object HtmlEditorView: THtmlEditorView
     OnSourceChanged = WVBrowserSourceChanged
     OnHistoryChanged = WVBrowserHistoryChanged
     OnContentLoading = WVBrowserContentLoading
+    OnDocumentTitleChanged = WVBrowserDocumentTitleChanged
     OnNewWindowRequested = WVBrowserNewWindowRequested
     OnWebResourceRequested = WVBrowserWebResourceRequested
     OnScriptDialogOpening = WVBrowserScriptDialogOpening
@@ -125,22 +134,22 @@ object HtmlEditorView: THtmlEditorView
     OnGetNonDefaultPermissionSettingsCompleted = WVBrowserGetNonDefaultPermissionSettingsCompleted
     OnSetPermissionStateCompleted = WVBrowserSetPermissionStateCompleted
     OnLaunchingExternalUriScheme = WVBrowserLaunchingExternalUriScheme
-    Left = 80
-    Top = 116
+    Left = 168
+    Top = 40
   end
   object tmrCreateWebBrowser: TTimer
     Enabled = False
     Interval = 300
     OnTimer = tmrCreateWebBrowserTimer
-    Left = 179
-    Top = 32
+    Left = 56
+    Top = 40
   end
   object dctMain: TDropComboTarget
     DragTypes = [dtCopy, dtLink]
     OnDrop = dctMainDrop
     Target = edtSource
     Formats = [mfFile, mfURL]
-    Left = 319
-    Top = 204
+    Left = 264
+    Top = 40
   end
 end

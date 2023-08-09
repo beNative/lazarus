@@ -44,7 +44,7 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
-    actFullScreen: TAction;
+    actFullScreen                   : TAction;
     actLookup                       : TAction;
     actRtfEditor                    : TAction;
     actSettings                     : TAction;
@@ -108,6 +108,8 @@ type
     tlbApplication                  : TToolBar;
     tlbEditorSelection              : TToolBar;
     tlbEditorView                   : TToolBar;
+    tlbRichEditorView               : TToolBar;
+    tlbHtmlEditorView               : TToolBar;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -142,6 +144,8 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure pgRichEditorBeforeShow(ASender: TObject; ANewPage: TPage;
+      ANewIndex: Integer);
     {$ENDREGION}
 
   private
@@ -161,8 +165,6 @@ type
     FHtmlEditorManager  : IHtmlEditorManager;
     FHtmlEditor         : IHtmlEditorView;
     FSettings           : TSettings;
-    FRichEditorToolBar  : TToolBar;
-    FHtmlEditorToolBar  : TToolBar;
     FUpdate             : Boolean;
     FRtfStream          : TStringStream;
     FHtmlStream         : TStringStream;
@@ -192,6 +194,7 @@ type
     procedure FHtmlEditorAfterCreated(Sender: TObject);
     procedure FHtmlEditorChange(Sender: TObject);
     procedure FHtmlEditorContentLoaded(Sender: TObject);
+    procedure FHtmlEditorInitialized(Sender: TObject);
     procedure FHtmlEditorNavigationCompleted(Sender: TObject);
 
     procedure FRichEditorChange(Sender: TObject);
@@ -233,6 +236,8 @@ type
 
     procedure AssignTextEditorChanges;
     procedure BuildTextEditorToolBar;
+    procedure BuildRichEditorToolBar;
+    procedure BuildHtmlEditorToolBar;
     procedure BuildApplicationToolBar;
     procedure BuildEditorSelectionToolBar;
     procedure UpdateApplicationToolBar;
@@ -770,6 +775,12 @@ begin
   dmTerminal.prcTerminal.Active := False;
 end;
 
+procedure TfrmMain.pgRichEditorBeforeShow(ASender: TObject; ANewPage: TPage;
+  ANewIndex: Integer);
+begin
+
+end;
+
 {$REGION 'FTree'}
 procedure TfrmMain.FTreeDeleteSelectedNodes(Sender: TObject);
 begin
@@ -917,7 +928,7 @@ procedure TfrmMain.FEditorShowToolView(Sender: TObject;
 begin
   //pnlEditorToolViewHost.Visible   := False;
   //pnlEditorToolViewHost.Width     := AToolView.Form.Width;
-  //lblEditorToolViewHeader.Caption := AToolView.Form.Caption;
+  //lblEditorToolVieHeader.Caption := AToolView.Form.Caption;
   //splEditorVertical.Visible       := True;
   //AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
   //pnlEditorToolViewHost.Visible   := True;
@@ -940,6 +951,12 @@ procedure TfrmMain.FHtmlEditorContentLoaded(Sender: TObject);
 begin
   //if FUpdate then
   SwitchView;
+end;
+
+procedure TfrmMain.FHtmlEditorInitialized(Sender: TObject);
+begin
+  SwitchView;
+  FHtmlEditor.Refresh;
 end;
 
 procedure TfrmMain.FHtmlEditorNavigationCompleted(Sender: TObject);
@@ -1020,12 +1037,13 @@ begin
   FRichEditor.PopupMenu    := FRichEditorManager.EditorPopupMenu;
   FRichEditorManager.Events.OnShowRichEditorToolView := FRichEditorShowToolView;
   FRichEditorManager.Events.OnHideRichEditorToolView := FRichEditorHideToolView;
-  FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
-    Self,
-    pnlRichEditorToolBar,
-    FRichEditorManager as IRichEditorActions
-  );
-  FRichEditorToolBar.Height := 23;
+  BuildRichEditorToolBar;
+  //FRichEditorToolBar := TRichEditorFactories.CreateMainToolbar(
+  //  Self,
+  //  pnlRichEditorToolBar,
+  //  FRichEditorManager as IRichEditorActions
+  //);
+  //FRichEditorToolBar.Height := 23;
 end;
 
 procedure TfrmMain.CreateHtmlEditor;
@@ -1033,21 +1051,17 @@ begin
   // TODO page must be active to create the HtmlEditor correctly!
   nbRight.PageIndex := 2;
   FHtmlEditorManager := THtmlEditorFactories.CreateManager(Self);
-  FHtmlEditorToolBar := THtmlEditorFactories.CreateMainToolbar(
-    Self,
-    pnlHtmlEditorToolBar,
-    FHtmlEditorManager as IHtmlEditorActions
-  );
   FHtmlEditor := THtmlEditorFactories.CreateView(
     pnlHtmlEditor,
     FHtmlEditorManager
   );
   FHtmlEditorManager.Events.AddOnContentLoadedHandler(FHtmlEditorContentLoaded);
   FHtmlEditorManager.Events.AddOnNavigationCompletedHandler(FHtmlEditorNavigationCompleted);
-  FHtmlEditorToolBar.Height := 23;
   FHtmlEditor.SetFocus;
   FHtmlEditor.OnAfterCreated := FHtmlEditorAfterCreated;
+  FHtmlEditor.OnInitialized  := FHtmlEditorInitialized;
   FHtmlEditor.OnChange       := FHtmlEditorChange;
+  BuildHtmlEditorToolBar;
 end;
 
 procedure TfrmMain.AssignTextEditorChanges;
@@ -1063,49 +1077,144 @@ end;
 procedure TfrmMain.BuildTextEditorToolBar;
 var
   AL : TActionList;
+  TB : TToolBar;
 begin
   AL := FEditorManager.Actions.ActionList;
-  tlbEditorView.Images  := AL.Images;
-  AddToolBarButton(tlbEditorView, AL, 'actSave');
-  AddToolBarButton(tlbEditorView, AL, 'actSaveAs');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actCut');
-  AddToolBarButton(tlbEditorView, AL, 'actCopy');
-  AddToolBarButton(tlbEditorView, AL, 'actPaste');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actUndo');
-  AddToolBarButton(tlbEditorView, AL, 'actRedo');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actSearch');
-  AddToolBarButton(tlbEditorView, AL, 'actSearchReplace');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actShowCodeShaper');
-  AddToolBarButton(tlbEditorView, AL, 'actShowCodeFilter');
-  AddToolBarButton(tlbEditorView, AL, 'actShowCharacterMap');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actShowSpecialCharacters');
-  AddToolBarButton(tlbEditorView, AL, 'actSortSelection');
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actSelectAll');
-  AddToolBarButton(tlbEditorView, AL, 'actCopyAllToClipboard');
-  AddToolBarButton(tlbEditorView, AL, 'actClear');
-  AddToolBarButton(tlbEditorView);
+  TB := tlbEditorView;
+  TB.Images  := AL.Images;
+  AddToolBarButton(TB, AL, 'actSave');
+  AddToolBarButton(TB, AL, 'actSaveAs');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actCut');
+  AddToolBarButton(TB, AL, 'actCopy');
+  AddToolBarButton(TB, AL, 'actPaste');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actUndo');
+  AddToolBarButton(TB, AL, 'actRedo');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actSearch');
+  AddToolBarButton(TB, AL, 'actSearchReplace');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actShowCodeShaper');
+  AddToolBarButton(TB, AL, 'actShowCodeFilter');
+  AddToolBarButton(TB, AL, 'actShowCharacterMap');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actShowSpecialCharacters');
+  AddToolBarButton(TB, AL, 'actSortSelection');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actSelectAll');
+  AddToolBarButton(TB, AL, 'actCopyAllToClipboard');
+  AddToolBarButton(TB, AL, 'actClear');
+  AddToolBarButton(TB);
   AddToolBarButton(
-    tlbEditorView,
+    TB,
     AL,
     'actToggleFoldLevel',
     False,
     FEditorManager.Menus.FoldPopupMenu
   );
   AddToolBarButton(
-    tlbEditorView,
+    TB,
     AL,
     'actToggleHighlighter',
     False,
     FEditorManager.Menus.HighlighterPopupMenu
   );
-  AddToolBarButton(tlbEditorView);
-  AddToolBarButton(tlbEditorView, AL, 'actSettings');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actSettings');
+end;
+
+procedure TfrmMain.BuildRichEditorToolBar;
+var
+  AL : TActionList;
+  TB : TToolBar;
+begin
+  TB := tlbRichEditorView;
+  AL := FRichEditorManager.Actions.ActionList;
+  TB.Images  := AL.Images;
+  AddToolBarButton(TB, AL, 'actSave');
+  AddToolBarButton(TB, AL, 'actSaveAs');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actCut');
+  AddToolBarButton(TB, AL, 'actCopy');
+  AddToolBarButton(TB, AL, 'actPaste');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actBold');
+  AddToolBarButton(TB, AL, 'actItalic');
+  AddToolBarButton(TB, AL, 'actUnderline');
+  AddToolBarButton(TB, AL, 'actStrikeThrough');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actSetFont');
+  AddToolBarButton(TB, AL, 'actSetFontColor');
+  AddToolBarButton(TB, AL, 'actSetBackgroundColor');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actAlignLeft');
+  AddToolBarButton(TB, AL, 'actAlignCenter');
+  AddToolBarButton(TB, AL, 'actAlignRight');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actIncIndent');
+  AddToolBarButton(TB, AL, 'actDecIndent');
+  AddToolBarButton(TB, AL, 'actBulletList');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actToggleWordWrap');
+  AddToolBarButton(TB, AL, 'actShowSpecialCharacters');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actEditParagraphStyle');
+  AddToolBarButton(TB, AL, 'actEditTextStyle');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actInsertHyperlink');
+  AddToolBarButton(TB, AL, 'actInsertImage');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actClear');
+  AddToolBarButton(TB, AL, 'actShowPreview');
+  AddToolBarButton(TB, AL, 'actShowStructureViewer');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actSelectTable');
+  AddToolBarButton(TB, AL, 'actInsertColumnBefore');
+  AddToolBarButton(TB, AL, 'actInsertColumnAfter');
+  AddToolBarButton(TB, AL, 'actInsertRowBefore');
+  AddToolBarButton(TB, AL, 'actInsertRowAfter');
+  AddToolBarButton(TB, AL, 'actDeleteRow');
+  AddToolBarButton(TB, AL, 'actDeleteColumn');
+end;
+
+procedure TfrmMain.BuildHtmlEditorToolBar;
+var
+  AL : TActionList;
+  TB : TToolBar;
+begin
+  TB := tlbHtmlEditorView;
+  AL := FHtmlEditorManager.Actions.ActionList;
+  TB.Images := AL.Images;
+  AddToolBarButton(TB, AL, 'actOpen');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actCut');
+  AddToolBarButton(TB, AL, 'actCopy');
+  AddToolBarButton(TB, AL, 'actPaste');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actUndo');
+  AddToolBarButton(TB, AL, 'actRedo');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actAlignLeft');
+  AddToolBarButton(TB, AL, 'actAlignCenter');
+  AddToolBarButton(TB, AL, 'actAlignRight');
+  AddToolBarButton(TB, AL, 'actAlignJustify');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actIncIndent');
+  AddToolBarButton(TB, AL, 'actDecIndent');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actClear');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actRefresh');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actToggleSourceVisible');
+  AddToolBarButton(TB, AL, 'actToggleEditMode');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actShowDevTools');
+  AddToolBarButton(TB, AL, 'actShowTaskManager');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actGoBack');
+  AddToolBarButton(TB, AL, 'actGoForward');
 end;
 
 procedure TfrmMain.BuildApplicationToolBar;
@@ -1185,6 +1294,7 @@ end;
 
 procedure TfrmMain.SwitchView;
 begin
+  Logger.Send('FHtmlEditor.IsInitialized', FHtmlEditor.IsInitialized);
   if Assigned(FHtmlEditor) and FHtmlEditor.IsInitialized then
   begin
     if Snippet.ActiveViews.IsEmpty then
@@ -1618,9 +1728,9 @@ begin
     else
       pnlEditorToolBar.Visible := True;
     if FSettings.AutoHideRichEditorToolBar then
-      FRichEditorToolBar.Visible := RichEditor.Focused
+      pnlRichEditorToolBar.Visible := RichEditor.Focused
     else
-      FRichEditorToolBar.Visible := True;
+      pnlRichEditorToolBar.Visible := True;
   end;
   actHtmlEditor.Checked := nbRight.ActivePageComponent = pgHtmlEditor;
   actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;

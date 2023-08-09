@@ -244,13 +244,11 @@ end;
 
 destructor TdmHtmlEditorManager.Destroy;
 begin
-  Logger.Enter(Self, 'Destroy');
   FActiveView := nil;
   FEvents     := nil;
   FToolViews  := nil;
   FreeAndNil(FViews);
   inherited Destroy;
-  Logger.Leave(Self, 'Destroy');
 end;
 {$ENDREGION}
 

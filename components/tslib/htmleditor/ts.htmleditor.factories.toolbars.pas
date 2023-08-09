@@ -60,7 +60,9 @@ type
 implementation
 
 uses
-  Toolwin;
+  Toolwin,
+
+  ts.Core.Utils;
 
 {$REGION 'construction and destruction'}
 constructor THtmlEditorToolbarsFactory.Create(AActions: IHtmlEditorActions);
@@ -79,25 +81,29 @@ end;
 {$REGION 'protected methods'}
 function THtmlEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
   AAction: TBasicAction; APopupMenu: TPopupMenu): TToolButton;
-var
-  TB : TToolButton;
+//var
+//  TB : TToolButton;
 begin
-  TB := TToolButton.Create(AParent);
-  TB.Parent := AParent;
-  if not Assigned(AAction) then
-  begin
-    TB.Style := tbsDivider;
-  end
-  else
-  begin
-    if Assigned(APopupMenu) then
-    begin
-      TB.Style        := tbsDropDown;
-      TB.DropdownMenu := APopupMenu;
-    end;
-    TB.Action := AAction;
-  end;
-  Result := TB;
+
+  Result := AddToolBarButton(AParent, AAction);
+
+  //TB := TToolButton.Create(AParent);
+  //TB.Parent := AParent;
+  //TB.ShowCaption := False;
+  //if not Assigned(AAction) then
+  //begin
+  //  TB.Style := tbsDivider;
+  //end
+  //else
+  //begin
+  //  if Assigned(APopupMenu) then
+  //  begin
+  //    TB.Style        := tbsDropDown;
+  //    TB.DropdownMenu := APopupMenu;
+  //  end;
+  //  TB.Action := AAction;
+  //end;
+  //Result := TB;
 end;
 
 function THtmlEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
@@ -115,15 +121,20 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  TB.EdgeBorders  := [ebLeft, ebTop, ebRight, ebBottom];
+  //TB.EdgeBorders  := [ebLeft, ebTop, ebRight, ebBottom];
+  TB.EdgeBorders  := [];
   TB.EdgeInner    := esNone;
   TB.EdgeOuter    := esNone;
   TB.Transparent  := True;
   TB.List         := True;
+  TB.Wrapable     := False;
   TB.Parent       := AParent;
   TB.Images       := FActions.ActionList.Images;
   TB.Align        := alClient;
-  TB.ButtonWidth  := 24;
+  TB.ImagesWidth  := 16;
+  TB.ButtonWidth  := 26;
+  TB.ShowCaptions := True;
+  TB.AutoSize     := False;
 
   CreateToolButton(TB, 'actOpen');
   //CreateToolButton(TB, 'actSave');

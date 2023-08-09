@@ -35,14 +35,14 @@ type
   TfrmLookup = class(TForm)
     aclMain    : TActionList;
     actSearch  : TAction;
-    btnSearch: TButton;
-    chkComment: TCheckBox;
-    chkName: TCheckBox;
-    chkText: TCheckBox;
+    btnSearch  : TButton;
+    chkComment : TCheckBox;
+    chkName    : TCheckBox;
+    chkText    : TCheckBox;
     dscMain    : TDatasource;
-    edtLookup: TEdit;
+    edtLookup  : TEdit;
     grdLookup  : TDBGrid;
-    pnlTop: TPanel;
+    pnlTop     : TPanel;
     sbrMain    : TStatusBar;
 
     {$REGION 'action handlers'}
@@ -79,7 +79,7 @@ type
 
     function GetDataSet: TDataSet;
 
-    procedure Changed;
+    procedure Modified;
 
   public
     constructor Create(
@@ -117,7 +117,8 @@ begin
 end;
 
 {$REGION 'construction and destruction'}
-constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView; ALookup: ISearch);
+constructor TfrmLookup.Create(AOwner: TComponent; AEditor: IEditorView;
+  ALookup: ISearch);
 begin
   inherited Create(AOwner);
   FData           := ALookup;
@@ -252,40 +253,42 @@ end;
 
 procedure TfrmLookup.grdLookupKeyPress(Sender: TObject; var Key: char);
 begin
-  //if Ord(Key) = VK_ESCAPE then
-  //begin
-  //  ModalResult := mrCancel;
-  //  CloseQuery;
-  //end
-  //else if not edtLookup.Focused then
-  //begin
-  //  edtLookup.SetFocus;
-  //  PostMessage(edtLookup.Handle, WM_CHAR, Ord(Key), 0);
-  //  edtLookup.SelStart := Length(edtLookup.Text);
-  //  // required to prevent the invocation of accelerator keys!
-  //  Key := #0;
-  //end;
+  if Ord(Key) = VK_ESCAPE then
+  begin
+    ModalResult := mrCancel;
+    CloseQuery;
+  end
+  else if not edtLookup.Focused then
+  begin
+    edtLookup.SetFocus;
+    PostMessage(edtLookup.Handle, WM_CHAR, Ord(Key), 0);
+    edtLookup.SelStart := Length(edtLookup.Text);
+    // required to prevent the invocation of accelerator keys!
+    Key := #0;
+  end;
 end;
 
 procedure TfrmLookup.grdLookupKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-///  Changed;
+  Modified;
 end;
 
 procedure TfrmLookup.grdLookupMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  //Changed;
+  Modified;
+end;
+{$ENDREGION}
+
+{$REGION 'private methods'}
+procedure TfrmLookup.Modified;
+begin
+  FUpdate := True;
 end;
 {$ENDREGION}
 
 {$REGION 'public methods'}
-procedure TfrmLookup.Changed;
-begin
-  FUpdate := True;
-end;
-
 procedure TfrmLookup.Execute;
 begin
   FData.SearchDataSet.DisableControls;

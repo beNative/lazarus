@@ -119,6 +119,7 @@ type
       const AWebView : ICoreWebView2;
       const AArgs    : ICoreWebView2ContextMenuRequestedEventArgs
     );
+    procedure WVBrowserControllerCompleted(Sender: TObject);
     procedure WVBrowserCustomItemSelected(
       Sender          : TObject;
       const AMenuItem : ICoreWebView2ContextMenuItem
@@ -130,6 +131,7 @@ type
       const AEventName : wvstring;
       AEventID         : Integer
     );
+    procedure WVBrowserDocumentTitleChanged(Sender: TObject);
     procedure WVBrowserDOMContentLoaded(
       Sender         : TObject;
       const AWebView : ICoreWebView2;
@@ -145,6 +147,7 @@ type
       const ADownloadOperation : ICoreWebView2DownloadOperation;
       ADownloadID              : Integer
     );
+    procedure WVBrowserEnvironmentCompleted(Sender: TObject);
     procedure WVBrowserEstimatedEndTimeChanged(
       Sender                   : TObject;
       const ADownloadOperation : ICoreWebView2DownloadOperation;
@@ -320,6 +323,7 @@ type
     FIsFile            : Boolean;
     FOnDropFiles       : TDropFilesEvent;
     FOnAfterCreated    : TNotifyEvent;
+    FOnInitialized     : TNotifyEvent;
     FOnChange          : TNotifyEvent;
     FGetHeaders        : Boolean;
     FHeaders           : TStringList;
@@ -330,7 +334,6 @@ type
     FUpdate            : Boolean;
     FModified          : Boolean;
     FEditorFont        : TFont;
-    FFavIcon           : TPicture;
 
     FRequestingData : Boolean;  // Webbrowser -> Editor
     FDataReceived   : Boolean;  // Webbrowser -> Editor
@@ -348,12 +351,14 @@ type
     FStatusBarEnabled            : Boolean;
     FScriptEnabled               : Boolean;
 
-    function GetIconBitmap: TBitmap;
     procedure WMMove(var AMessage : TWMMove); message WM_MOVE;
     procedure WMMoving(var AMessage : TMessage); message WM_MOVING;
 
   protected
     {$REGION 'property access methods'}
+    function GetIconBitmap: TBitmap;
+    function GetOnInitialized: TNotifyEvent;
+    procedure SetOnInitialized(AValue: TNotifyEvent);
     function GetActions: IHtmlEditorActions;
     function GetAlignCenter: Boolean;
     function GetAlignJustify: Boolean;
@@ -430,6 +435,7 @@ type
     procedure DoSendData;
     procedure DoChange;
     procedure DoAfterCreated;
+    procedure DoInitialized;
     procedure DoDropFiles(const AFileNames: array of string);
 
     procedure UpdateActions; override;
@@ -612,6 +618,9 @@ type
     property OnAfterCreated: TNotifyEvent
       read GetOnAfterCreated write SetOnAfterCreated;
 
+    property OnInitialized: TNotifyEvent
+      read GetOnInitialized write SetOnInitialized;
+
     property OnDropFiles: TDropFilesEvent
       read GetOnDropFiles write SetOnDropFiles;
 
@@ -656,8 +665,6 @@ begin
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
   FEditorFont.Name             := DEFAULT_EDITOR_FONT;
-  FFavIcon                     := TPicture.Create;
-  imgFavIcon.Picture := FFavIcon;
   tmrCreateWebBrowser.Enabled := True;
   Logger.SetLogLevel(10);
 end;
@@ -665,7 +672,6 @@ end;
 destructor THtmlEditorView.Destroy;
 begin
   Logger.Enter(Self, 'Destroy');
-  FFavIcon.Free;
   FHeaders.Free;
   FEditorFont.Free;
   inherited Destroy;
@@ -679,11 +685,6 @@ begin
   inherited;
   if Assigned(WVBrowser) then
     WVBrowser.NotifyParentWindowPositionChanged;
-end;
-
-function THtmlEditorView.GetIconBitmap: TBitmap;
-begin
-  Result := imgFavIcon.Picture.Bitmap;
 end;
 
 procedure THtmlEditorView.WMMoving(var AMessage: TMessage);
@@ -703,14 +704,9 @@ begin
 
   //WVBrowser.SetVirtualHostNameToFolderMapping('customhost.test', '.', COREWEBVIEW2_HOST_RESOURCE_ACCESS_KIND_ALLOW);
   //WVBrowser.AddWebResourceRequestedFilter('*', COREWEBVIEW2_WEB_RESOURCE_CONTEXT_IMAGE);
-
   WVBrowser.AddScriptToExecuteOnDocumentCreated(
   UTF8Decode(JS_ADD_CONTENT_MODIFIED_EVENT));
-
-
-
   //WVBrowser.AddScriptToExecuteOnDocumentCreated(UTF8Decode( 'document.documentElement.requestFullscreen();'));
-
   DoAfterCreated;
   ApplySettings;
   //Logger.Leave(Self, 'WVBrowserAfterCreated');
@@ -782,6 +778,13 @@ begin
   //Logger.Track(Self, 'WVBrowserContextMenuRequested');
 end;
 
+procedure THtmlEditorView.WVBrowserControllerCompleted(Sender: TObject);
+begin
+  Logger.Enter(Self, 'WVBrowserControllerCompleted');
+  Logger.Send('IsInitialized', IsInitialized);
+  Logger.Leave(Self, 'WVBrowserControllerCompleted');
+end;
+
 procedure THtmlEditorView.WVBrowserCustomItemSelected(Sender: TObject;
   const AMenuItem: ICoreWebView2ContextMenuItem);
 begin
@@ -796,6 +799,11 @@ begin
   //Logger.Info('WVBrowserDevToolsProtocolEventReceived');
 end;
 
+procedure THtmlEditorView.WVBrowserDocumentTitleChanged(Sender: TObject);
+begin
+  Logger.Info('WVBrowserDocumentTitleChanged');
+end;
+
 { The DOMContentLoaded event is fired when the initial HTML document has been
   completely loaded and parsed.  }
 
@@ -803,10 +811,6 @@ procedure THtmlEditorView.WVBrowserDOMContentLoaded(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2DOMContentLoadedEventArgs);
 begin
-  //Logger.Info('WVBrowserDOMContentLoaded');
-
-    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
-    //LStatus := LArgs.HttpStatusCode;
   if not FSendingData then
   begin
     DoRequestData;
@@ -818,9 +822,6 @@ begin
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
-
-
-
 end;
 
 procedure THtmlEditorView.WVBrowserDownloadStarting(Sender: TObject;
@@ -854,6 +855,11 @@ procedure THtmlEditorView.WVBrowserDownloadStateChanged(Sender: TObject;
   );
 begin
   //Logger.Track(Self, 'WVBrowserDownloadStateChanged');
+end;
+
+procedure THtmlEditorView.WVBrowserEnvironmentCompleted(Sender: TObject);
+begin
+  Logger.Track(Self, 'WVBrowserEnvironmentCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserEstimatedEndTimeChanged(Sender: TObject;
@@ -1173,12 +1179,12 @@ end;
 procedure THtmlEditorView.WVBrowserWebResourceRequested(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2WebResourceRequestedEventArgs);
-var
+//var
 //  LArgs     : TCoreWebView2WebResourceRequestedEventArgs;
-  LResponse : ICoreWebView2WebResourceResponse;
+//  LResponse : ICoreWebView2WebResourceResponse;
 begin
 //  Logger.Enter(Self, 'WVBrowserWebResourceRequested');
-  LResponse := nil;
+//  LResponse := nil;
 //  Logger.Leave(Self, 'WVBrowserWebResourceRequested');
 
    //WVBrowser.CoreWebView2Environment
@@ -1267,7 +1273,10 @@ end;
 procedure THtmlEditorView.WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted
   (Sender: TObject; AErrorCode: HRESULT; const AID: wvstring);
 begin
-  //Logger.Track(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
+  Logger.Enter(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
+  Logger.Send('IsInitialized', IsInitialized);
+  DoInitialized;
+  Logger.Leave(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserWebResourceResponseReceived(Sender: TObject;
@@ -1341,6 +1350,12 @@ begin
     FOnAfterCreated(Self);
 end;
 
+procedure THtmlEditorView.DoInitialized;
+begin
+  if Assigned(FOnInitialized) then
+    FOnInitialized(Self);
+end;
+
 procedure THtmlEditorView.DoDropFiles(const AFileNames: array of string);
 begin
   if Assigned(FOnDropFiles) then
@@ -1375,6 +1390,21 @@ end;
 procedure THtmlEditorView.SetDocumentTitle(AValue: string);
 begin
   // not supported yet
+end;
+
+function THtmlEditorView.GetIconBitmap: TBitmap;
+begin
+  Result := imgFavIcon.Picture.Bitmap;
+end;
+
+function THtmlEditorView.GetOnInitialized: TNotifyEvent;
+begin
+  Result := FOnInitialized;
+end;
+
+procedure THtmlEditorView.SetOnInitialized(AValue: TNotifyEvent);
+begin
+  FOnInitialized := AValue;
 end;
 
 function THtmlEditorView.GetSourceVisible: Boolean;
@@ -1674,7 +1704,7 @@ end;
 
 procedure THtmlEditorView.SetBullets(AValue: Boolean);
 begin
-  imgFavIcon.Picture.Bitmap.Empty;
+  //imgFavIcon.Picture.Bitmap.Empty;
 end;
 
 procedure THtmlEditorView.SetFileName(const AValue: string);
@@ -1767,14 +1797,10 @@ end;
 procedure THtmlEditorView.ApplySettings;
 begin
   if FEditMode then
-    ExecuteScript('document.designMode = "on";')
+    ExecuteScript(JS_ENABLE_EDITMODE)
   else
-    ExecuteScript('document.designMode = "off";');
-
-  ExecuteScript(
-    Format('document.execCommand(''fontName'', false, ''%s'');',
-           [FEditorFont.Name])
-  );
+    ExecuteScript(JS_DISABLE_EDITMODE);
+  ExecuteScript(Format(JS_SET_FONTNAME, [FEditorFont.Name]));
   WVBrowser.DefaultContextMenusEnabled  := FDefaultContextMenusEnabled;
   WVBrowser.DefaultScriptDialogsEnabled := FDefaultScriptDialogsEnabled;
 end;
@@ -1811,15 +1837,15 @@ end;
 
 procedure THtmlEditorView.UpdateWatches;
 begin
-  //Logger.Watch('IsInitialized', IsInitialized);
-  //Logger.Watch('Modified', Modified);
-  //Logger.Watch('FUpdate', FUpdate);
-  //Logger.Watch('IsNavigating', IsNavigating);
-  //Logger.Watch('FDataReceived', FDataReceived);
-  //Logger.Watch('FDataSent', FDataSent);
-  //Logger.Watch('FRequestingData', FRequestingData);
-  //Logger.Watch('FSendingData', FSendingData);
-  //Logger.Watch('Source', Source);
+  Logger.Watch('IsInitialized', IsInitialized);
+  Logger.Watch('Modified', Modified);
+  Logger.Watch('FUpdate', FUpdate);
+  Logger.Watch('IsNavigating', IsNavigating);
+  Logger.Watch('FDataReceived', FDataReceived);
+  Logger.Watch('FDataSent', FDataSent);
+  Logger.Watch('FRequestingData', FRequestingData);
+  Logger.Watch('FSendingData', FSendingData);
+  Logger.Watch('Source', Source);
 end;
 
 procedure THtmlEditorView.SelectAll;
@@ -1830,6 +1856,8 @@ end;
 function THtmlEditorView.Refresh: Boolean;
 begin
   Result := WVBrowser.Refresh;
+  if not IsSourceEmpty then
+    Navigate(Source);
   ApplySettings;
 end;
 
@@ -2028,7 +2056,7 @@ end;
 initialization
   GlobalWebView2Loader                := TWVLoader.Create(nil);
   GlobalWebView2Loader.UserDataFolder := UTF8Decode(
-  ExtractFileDir(Application.ExeName) + '\CustomCache');
+    ExtractFileDir(Application.ExeName) + '\CustomCache');
   GlobalWebView2Loader.StartWebView2;
 
 end.

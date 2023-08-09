@@ -44,6 +44,7 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
+    actFullScreen: TAction;
     actLookup                       : TAction;
     actRtfEditor                    : TAction;
     actSettings                     : TAction;
@@ -114,6 +115,7 @@ type
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
+    procedure actFullScreenExecute(Sender: TObject);
     procedure actHtmlEditorExecute(Sender: TObject);
     procedure actRtfEditorExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
@@ -526,6 +528,12 @@ begin
   end;
 end;
 
+procedure TfrmMain.actFullScreenExecute(Sender: TObject);
+begin
+Logger.Track(Self, 'actFullScreenExecute');
+  FHtmlEditor.ExecuteScript('document.body.requestFullscreen()};');
+end;
+
 procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
   Logger.Action(Sender as TBasicAction);
@@ -567,10 +575,7 @@ procedure TfrmMain.actToggleLockedStateExecute(Sender: TObject);
 begin
   Logger.Action(Sender as TBasicAction);
   actToggleLockedState.Checked := not actToggleLockedState.Checked;
-  //Logger.Send('Snippet.Locked', Snippet.Locked);
-  //Snippet.Locked := actToggleLockedState.Checked;
-  //Logger.Send('Snippet.Locked', Snippet.Locked);
-  //Logger.Send('actLocked.Checked', actToggleLockedState.Checked);
+  Snippet.Locked := actToggleLockedState.Checked;
   Modified;
 end;
 
@@ -636,7 +641,10 @@ begin
       //FTextEditorVisible := False;
       //FRichEditorVisible := False;
       LoadRtfData;
-      LoadHtmlData;
+      if Assigned(FHtmlEditor) then
+      begin
+        LoadHtmlData;
+      end;
       SwitchView;
       Modified;
     end;
@@ -814,8 +822,10 @@ begin
     end;
   finally
     Connection.EndBulkInserts;
+    FLastId := Query.LastId;
     DataSet.DataSet.Refresh;
     DataSet.EnableControls;
+    DataSet.DataSet.Locate('Id', FLastId, []);
     Sender.Refresh;
   end;
   Cursor := crDefault;
@@ -929,22 +939,24 @@ end;
 procedure TfrmMain.FHtmlEditorContentLoaded(Sender: TObject);
 begin
   //if FUpdate then
-
-    SwitchView;
+  SwitchView;
 end;
 
 procedure TfrmMain.FHtmlEditorNavigationCompleted(Sender: TObject);
 begin
   //if FUpdate then
   SwitchView;
-  if FHtmlEditor.IsSourceEmpty and MatchText(Snippet.NodeName, ['', 'New']) then
+  if not HtmlEditor.IsSourceEmpty and MatchText(Snippet.NodeName, ['', 'New']) then
   begin
     DataSet.Edit;
-    Snippet.NodeName := FHtmlEditor.DocumentTitle;
+    Snippet.NodeName := HtmlEditor.DocumentTitle;
     edtTitle.Text    := Snippet.NodeName;
   end;
+  //if not HtmlEditor.IconBitmap.Empty then
+  //begin
+  //  Snippet.Image := HtmlEditor.IconBitmap;
+  //end;
 end;
-
 {$ENDREGION}
 {$ENDREGION}
 
@@ -1179,22 +1191,18 @@ begin
     begin
       if (not FHtmlEditor.IsEmpty) or (not FHtmlEditor.IsSourceEmpty) then
       begin
-        //actHtmlEditor.Checked := True;
         nbRight.PageIndex := pgHtmlEditor.PageIndex;
       end
       else if not FEditor.Text.IsEmpty then
       begin
-        //actTextEditor.Checked := True;
         nbRight.PageIndex := pgTextEditor.PageIndex;
       end
       else if not FRichEditor.IsEmpty then
       begin
-        //actRtfEditor.Checked := True;
         nbRight.PageIndex := pgRichEditor.PageIndex;
       end
       else
       begin
-        //actTextEditor.Checked := True;
         nbRight.PageIndex := pgTextEditor.PageIndex;
       end;
     end
@@ -1202,17 +1210,14 @@ begin
     begin
       if Snippet.ActiveViews = VIEW_TYPE_TXT then
       begin
-        //actTextEditor.Checked := True;
         nbRight.PageIndex := pgTextEditor.PageIndex;
       end
       else if Snippet.ActiveViews = VIEW_TYPE_RTF then
       begin
-        //actRtfEditor.Checked := True;
         nbRight.PageIndex := pgRichEditor.PageIndex;
       end
       else
       begin
-        //actHtmlEditor.Checked := True;
         nbRight.PageIndex := pgHtmlEditor.PageIndex;
       end;
     end;
@@ -1260,7 +1265,6 @@ procedure TfrmMain.LoadRtfData;
 var
   S : string;
 begin
-  Logger.Enter(Self, 'LoadRtfData');
   if Snippet.RtfData <> '' then
   begin
     S := DecodeStringBase64(Snippet.RtfData);
@@ -1277,7 +1281,6 @@ begin
     FRtfStream.Clear;
     FUpdateRichTextView := True;
   end;
-  Logger.Leave(Self, 'LoadRtfData');
 end;
 
 procedure TfrmMain.SaveRtfData;
@@ -1285,7 +1288,6 @@ var
   SS : TStringStream;
   S  : string;
 begin
-  Logger.Enter(Self, 'SaveRtfData');
   SS := TStringStream.Create('');
   try
     if Assigned(DataSet) then
@@ -1307,14 +1309,12 @@ begin
   finally
     FreeAndNil(SS);
   end;
-  Logger.Leave(Self, 'SaveRtfData');
 end;
 
 procedure TfrmMain.LoadHtmlData;
 var
   S : string;
 begin
-  Logger.Enter(Self, 'LoadHtmlData');
   try
     if Snippet.Source.IsEmpty then
     begin
@@ -1329,12 +1329,10 @@ begin
   except
     Logger.Error('DecodeStringBase64 failed during LoadHtmlData.');
   end;
-  Logger.Leave(Self, 'LoadHtmlData');
 end;
 
 procedure TfrmMain.SaveHtmlData;
 begin
-  Logger.Enter(Self, 'SaveHtmlData');
   if Assigned(DataSet) then
     DataSet.Edit;
   if HtmlEditor.Source.IsEmpty then
@@ -1347,7 +1345,6 @@ begin
     Snippet.HtmlData := '';
     Snippet.Source   := HtmlEditor.Source;
   end;
-  Logger.Leave(Self, 'SaveHtmlData');
 end;
 
 procedure TfrmMain.AddPathNode(const APath: string; const ACommonPath: string;
@@ -1361,6 +1358,8 @@ var
   LRelPath    : string;
   LParentPath : string;
   LFileName   : string;
+  LExtension  : string;
+  LHighLighter : string;
 begin
   Logger.Enter(Self, 'AddPathNode');
   Logger.Send('APath', APath);
@@ -1399,15 +1398,27 @@ begin
   begin
     if FilenameExtIn(LFileName, ['html', 'htm', 'mhtml', 'svg', 'pdf']) then
     begin
-      HtmlEditor.LoadFromFile(LFileName);
-    end;
-    if LIsTextFile then
+      DataSet.Append;
+      Snippet.NodeName    := LFileName;
+      Snippet.NodeTypeId  := 2;
+      Snippet.ImageIndex  := 2;
+      Snippet.ParentId    := FParentId;
+      HtmlEditor.LoadFromFile(APath);
+      SaveHtmlData;
+      DataSet.Post;
+    end
+    else if LIsTextFile then
     begin
       DataSet.Append;
       Snippet.Text        := ReadFileToString(APath);
-      Snippet.Highlighter := FileExtensionToHighlighter(
-        DelChars(UpperCase(ExtractFileExt(APath)), '.')
+      LExtension          := DelChars(UpperCase(ExtractFileExt(APath)), '.');
+      Logger.Send('LExtension', LExtension);
+      LHighLighter        := FileExtensionToHighlighter(
+         LExtension
       );
+      Logger.Send('HighLighter', LHighLighter);
+      Snippet.Highlighter := LHighLighter;
+
       Snippet.NodeName    := LFileName;
       Snippet.NodeTypeId  := 2;
       Snippet.ImageIndex  := 2;
@@ -1437,6 +1448,7 @@ begin
       DataSet.Post;
     end;
     Logger.Send('NodeName', Snippet.NodeName);
+    Logger.Send('HighLighter', Snippet.Highlighter);
     if LIsDir then
       FParentId := Snippet.Id
     else if LIsTextFile then
@@ -1502,9 +1514,6 @@ begin
   UpdateApplicationToolBar;
   if Assigned(Snippet) then
   begin
-    //Logger.Watch('Snippet.Locked', Snippet.Locked);
-    //Logger.Watch('actLocked.Checked', actToggleLockedState.Checked);
-
   //if not edtTitle.Focused then
   //begin
   //  edtTitle.Color      := clForm;
@@ -1525,8 +1534,12 @@ begin
       Editor.SelStart
     ]);
   pnlSnippetCount.Caption := Format('%d records.', [DataSet.RecordCount]);
-  pnlSize.Caption := FormatByteText(Editor.TextSize + RichEditor.ContentSize
-  + HtmlEditor.ContentSize);
+  if Assigned(FHtmlEditor) then
+  begin
+    pnlSize.Caption := FormatByteText(Editor.TextSize + RichEditor.ContentSize
+    + HtmlEditor.ContentSize);
+
+  end;
   if DataSet.RecordCount > 0 then
   begin
     pnlId.Caption           := Format(SId, [Snippet.Id]);
@@ -1561,9 +1574,16 @@ begin
 end;
 
 procedure TfrmMain.UpdateViews;
+var
+  B : Boolean;
 begin
   if FUpdate then
   begin
+    B := Snippet.Locked;
+    RichEditor.ReadOnly := B;
+    Editor.ReadOnly := B;
+    if Assigned(HtmlEditor) then
+      HtmlEditor.EditMode := not B;
     if FUpdateRichTextView then
     begin
       RichEditor.LoadFromStream(FRtfStream);

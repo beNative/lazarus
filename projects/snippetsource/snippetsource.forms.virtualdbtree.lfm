@@ -198,6 +198,9 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object mniDuplicateSelectedNodes: TMenuItem
       Action = actDuplicateSelectedNodes
     end
+    object MenuItem1: TMenuItem
+      Action = actClearImage
+    end
     object N2: TMenuItem
       Caption = '-'
     end
@@ -301,6 +304,10 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       ImageIndex = 8
       OnExecute = actCancelExecute
       ShortCut = 27
+    end
+    object actClearImage: TAction
+      Caption = 'Clear image'
+      OnExecute = actClearImageExecute
     end
   end
   object imlMain: TImageList

@@ -783,6 +783,11 @@ object frmMain: TfrmMain
       ImageIndex = 15
       OnExecute = actToggleLockedStateExecute
     end
+    object actFullScreen: TAction
+      Caption = 'Full Screen Test'
+      OnExecute = actFullScreenExecute
+      ShortCut = 49222
+    end
   end
   object imlMain: TImageList
     DrawingStyle = dsTransparent

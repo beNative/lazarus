@@ -221,6 +221,8 @@ type
     function Post: Boolean;
     function ApplyUpdates: Boolean;
     procedure DuplicateRecords(AValues: TStrings);
+    procedure MoveDownRecords(AValues: TStrings);
+    procedure MoveUpRecords(AValues: TStrings);
 
     procedure EnableControls;
     procedure DisableControls;

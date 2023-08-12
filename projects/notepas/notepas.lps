@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Count="1" Active="Release win64 x86_64 win32">
+    <BuildModes Count="1" Active="Default">
       <Item1 Name="Release win64 x86_64 win32">
         <CompilerOptions>
           <Version Value="11"/>
@@ -54,6 +54,7 @@ end;"/>
           <Linking>
             <Debugging>
               <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsDwarf3"/>
               <StripSymbols Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>
@@ -100,12 +101,12 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="NotePas.Main.Form"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="208"/>
         <CursorPos Y="245"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="changelog.txt"/>
@@ -200,8 +201,10 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.Editor.Manager"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <CursorPos Y="247"/>
+        <TopLine Value="764"/>
+        <CursorPos Y="793"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -590,7 +593,7 @@ end;"/>
         <Loaded Value="True"/>
       </Unit59>
     </Units>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="15" HistoryIndex="14">
       <Position1>
         <Filename Value="notepas.main.form.pas"/>
         <Caret Line="129" Column="28" TopLine="105"/>
@@ -647,6 +650,10 @@ end;"/>
         <Filename Value="notepas.main.form.pas"/>
         <Caret Line="224" Column="55" TopLine="191"/>
       </Position14>
+      <Position15>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
+        <Caret Line="29" Column="47" TopLine="19"/>
+      </Position15>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

@@ -33,6 +33,7 @@ object dmSnippetSource: TdmSnippetSource
       'order by'
       '  ParentId,'
       '  NodeTypeId,'
+      '  Sequence,'
       '  Id'
     )
     RefreshSQL.Strings = (
@@ -2874,6 +2875,7 @@ object dmSnippetSource: TdmSnippetSource
       '  Source        varchar,'
       '  FoldState     varchar,'
       '  ActiveViews   varchar,'
+      '  Sequence      integer,'
       '  DateCreated   datetime,'
       '  DateModified  datetime'
       ');'
@@ -2957,6 +2959,14 @@ object dmSnippetSource: TdmSnippetSource
       'create index idx_SnippetParentId on Snippet ('
       '  ParentId asc'
       ');'
+      ''
+      '-- Index: idx_SnippetSequence'
+      'drop index if exists idx_SnippetSequence;'
+      ''
+      'create index idx_SnippetSequence on Snippet ('
+      '    Sequence asc'
+      ');'
+      ''
       ''
     )
     Terminator = ';'
@@ -3421,6 +3431,53 @@ object dmSnippetSource: TdmSnippetSource
     Params = <>
     Macros = <>
     Left = 211
+    Top = 248
+  end
+  object scrCreateTriggers: TSQLScript
+    Transaction = trsMain
+    AutoCommit = False
+    UseDollarString = False
+    Directives.Strings = (
+      'SET TERM'
+      'COMMIT WORK'
+      'COMMIT RETAIN'
+      'COMMIT'
+      '#IFDEF'
+      '#IFNDEF'
+      '#ELSE'
+      '#ENDIF'
+      '#DEFINE'
+      '#UNDEF'
+      '#UNDEFINE'
+    )
+    Script.Strings = (
+      'create trigger trg_insert_Sequence after insert on Snippet for each row'
+      'begin'
+      '    update Snippet'
+      '       set Sequence = ('
+      '               select COALESCE(MAX(Sequence) + 1, 1)'
+      '                 from Snippet'
+      '                where ParentId = NEW.ParentId'
+      '           )'
+      '     where Id = NEW.Id;'
+      'end;'
+      ''
+      'create trigger trg_delete_Sequence after delete on Snippet for each row'
+      'begin'
+      '    update Snippet'
+      '       set Sequence = Sequence - 1'
+      '     where ParentId = OLD.ParentId and'
+      '           Sequence > OLD.Sequence;'
+      'end;'
+      ''
+      ''
+    )
+    Terminator = ';'
+    CommentsinSQL = False
+    UseSetTerm = False
+    UseCommit = False
+    UseDefines = False
+    Left = 320
     Top = 248
   end
 end

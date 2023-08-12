@@ -115,6 +115,7 @@ type
     qryQuery         : TSQLQuery;
     qrySnippet       : TSQLQuery;
     scrCreateIndexes : TSQLScript;
+    scrCreateTriggers: TSQLScript;
     scrCreateTables  : TSQLScript;
     scrInsertData    : TSQLScript;
     trsMain          : TSQLTransaction;
@@ -243,6 +244,7 @@ type
     procedure CreateNewDatabase;
     procedure CreateDatabaseTables;
     procedure CreateDatabaseIndexes;
+    procedure CreateDatabaseTriggers;
     procedure SetupConfigurationData;
 
     procedure ExecuteDirect(const ASQL: string);
@@ -268,6 +270,8 @@ type
     function Edit: Boolean;
     function Append: Boolean;
     procedure DuplicateRecords(AValues: TStrings);
+    procedure MoveDownRecords(AValues: TStrings);
+    procedure MoveUpRecords(AValues: TStrings);
 
     procedure EnableControls;
     procedure DisableControls;
@@ -1316,6 +1320,7 @@ procedure TdmSnippetSource.CreateNewDatabase;
 begin
   CreateDatabaseTables;
   CreateDatabaseIndexes;
+  CreateDatabaseTriggers;
   SetupConfigurationData;
 end;
 
@@ -1334,6 +1339,12 @@ procedure TdmSnippetSource.CreateDatabaseIndexes;
 begin
   Logger.Info('Creating new indexes...');
   scrCreateIndexes.ExecuteScript;
+end;
+
+procedure TdmSnippetSource.CreateDatabaseTriggers;
+begin
+  Logger.Info('Creating new triggers...');
+  ExecuteDirect(SQL_CREATETRIGGERS);
 end;
 
 { Inserts configuration data for highlighters, comment types and node types.
@@ -1407,6 +1418,50 @@ begin
   ExecuteDirect(Format(SQL_DUPLICATE_IDS, [AValues.CommaText]));
   DataSet.Refresh;
   Logger.Leave(Self, 'DuplicateRecords');
+end;
+
+procedure TdmSnippetSource.MoveDownRecords(AValues: TStrings);
+var
+  S1 : string;
+  S2 : string;
+begin
+  Logger.Enter(Self, 'MoveDownRecords');
+  S1 := Format(SQL_MOVEDOWN_IDS1, [
+    AValues.Count,
+    IntToStr(ParentId),
+    AValues[0]
+  ]);
+  S2 := Format(SQL_MOVEDOWN_IDS2, [
+    AValues.CommaText
+  ]);
+  Logger.SendText(S1);
+  Logger.SendText(S2);
+  ExecuteDirect(S1);
+  ExecuteDirect(S2);
+  DataSet.Refresh;
+  Logger.Leave(Self, 'MoveDownRecords');
+end;
+
+procedure TdmSnippetSource.MoveUpRecords(AValues: TStrings);
+var
+  S1 : string;
+  S2 : string;
+begin
+  Logger.Enter(Self, 'MoveUpRecords');
+  S1 := Format(SQL_MOVEUP_IDS1, [
+    AValues.Count,
+    IntToStr(ParentId),
+    AValues[0]
+  ]);
+  S2 := Format(SQL_MOVEUP_IDS2, [
+    AValues.CommaText
+  ]);
+  Logger.SendText(S1);
+  Logger.SendText(S2);
+  ExecuteDirect(S1);
+  ExecuteDirect(S2);
+  DataSet.Refresh;
+  Logger.Leave(Self, 'MoveUpRecords');
 end;
 
 function TdmSnippetSource.Post: Boolean;

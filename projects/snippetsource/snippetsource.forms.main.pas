@@ -218,6 +218,8 @@ type
       AAttachMode : TVTNodeAttachMode
     );
     procedure FTreeDuplicateSelectedNodes(Sender: TObject);
+    procedure FTreeMoveDownSelectedNodes(Sender: TObject);
+    procedure FTreeMoveUpSelectedNodes(Sender: TObject);
     procedure FTreeNewFolderNode(Sender: TObject);
     procedure FTreeNewItemNode(Sender: TObject);
     procedure FTreeDeleteSelectedNodes(Sender: TObject);
@@ -856,6 +858,32 @@ begin
   end;
 end;
 
+procedure TfrmMain.FTreeMoveDownSelectedNodes(Sender: TObject);
+var
+  LValues : TStrings;
+begin
+  LValues := TStringList.Create;
+  try
+    FTree.RetrieveSelectedNodeIds(LValues);
+    DataSet.MoveDownRecords(LValues);
+  finally
+    LValues.Free;
+  end;
+end;
+
+procedure TfrmMain.FTreeMoveUpSelectedNodes(Sender: TObject);
+var
+  LValues : TStrings;
+begin
+  LValues := TStringList.Create;
+  try
+    FTree.RetrieveSelectedNodeIds(LValues);
+    DataSet.MoveUpRecords(LValues);
+  finally
+    LValues.Free;
+  end;
+end;
+
 procedure TfrmMain.FTreeNewFolderNode(Sender: TObject);
 begin
   DataSet.Edit;
@@ -926,12 +954,12 @@ end;
 procedure TfrmMain.FEditorShowToolView(Sender: TObject;
   AToolView: IEditorToolView);
 begin
-  //pnlEditorToolViewHost.Visible   := False;
-  //pnlEditorToolViewHost.Width     := AToolView.Form.Width;
-  //lblEditorToolVieHeader.Caption := AToolView.Form.Caption;
-  //splEditorVertical.Visible       := True;
-  //AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
-  //pnlEditorToolViewHost.Visible   := True;
+  pnlEditorToolViewHost.Visible   := False;
+  pnlEditorToolViewHost.Width     := AToolView.Form.Width;
+  lblEditorToolViewHeader.Caption := AToolView.Form.Caption;
+  splEditorVertical.Visible       := True;
+  AssignFormParent(AToolView.Form, pnlEditorToolViewHost);
+  pnlEditorToolViewHost.Visible   := True;
 end;
 
 procedure TfrmMain.FHtmlEditorAfterCreated(Sender: TObject);
@@ -993,6 +1021,8 @@ begin
   FTree.OnNewItemNode            := FTreeNewItemNode;
   FTree.OnDeleteSelectedNodes    := FTreeDeleteSelectedNodes;
   FTree.OnDuplicateSelectedNodes := FTreeDuplicateSelectedNodes;
+  FTree.OnMoveUpSelectedNodes    := FTreeMoveUpSelectedNodes;
+  FTree.OnMoveDownSelectedNodes  := FTreeMoveDownSelectedNodes;
   FTree.OnCopyNodeData           := FTreeCopyNodeData;
 end;
 
@@ -1425,19 +1455,15 @@ procedure TfrmMain.LoadHtmlData;
 var
   S : string;
 begin
-  try
-    if Snippet.Source.IsEmpty then
-    begin
-      S := DecodeStringBase64(Snippet.HtmlData);
-      FHtmlEditor.HtmlText := S;
-      FHtmlEditor.Source   := '';
-    end
-    else
-    begin
-      FHtmlEditor.Source := Snippet.Source;
-    end;
-  except
-    Logger.Error('DecodeStringBase64 failed during LoadHtmlData.');
+  if Snippet.Source.IsEmpty then
+  begin
+    S := DecodeStringBase64(Snippet.HtmlData);
+    FHtmlEditor.HtmlText := S;
+    FHtmlEditor.Source   := '';
+  end
+  else
+  begin
+    FHtmlEditor.Source := Snippet.Source;
   end;
 end;
 

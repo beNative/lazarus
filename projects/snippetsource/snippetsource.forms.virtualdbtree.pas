@@ -75,11 +75,13 @@ type
   TfrmVirtualDBTree = class(TForm)
     {$REGION 'designer controls'}
     actCancel                 : TAction;
+    actClearImage             : TAction;
     actCollapseAllNodes       : TAction;
     actDeleteSelectedNodes    : TAction;
     actDuplicateSelectedNodes : TAction;
     actExpandAllNodes         : TAction;
-    actClearImage: TAction;
+    actMoveDown               : TAction;
+    actMoveUp                 : TAction;
     actNewFolderNode          : TAction;
     actNewItemNode            : TAction;
     actNewRootFolderNode      : TAction;
@@ -96,12 +98,14 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
-    MenuItem1: TMenuItem;
     mniCancel                 : TMenuItem;
+    mniClearImage             : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
     mniDelete                 : TMenuItem;
     mniDuplicateSelectedNodes : TMenuItem;
     mniExpandAllNodes         : TMenuItem;
+    mniMoveDown               : TMenuItem;
+    mniMoveUp                 : TMenuItem;
     mniNewChild               : TMenuItem;
     mniNewFolder              : TMenuItem;
     mniNewRoot                : TMenuItem;
@@ -110,6 +114,7 @@ type
     N1                        : TMenuItem;
     N2                        : TMenuItem;
     N3                        : TMenuItem;
+    N4                        : TMenuItem;
     navTreeView               : TDBNavigator;
     pnlMain                   : TPanel;
     pnlTop                    : TPanel;
@@ -119,7 +124,6 @@ type
     ppmTreeView               : TPopupMenu;
     shpLine                   : TShape;
     tlbTop                    : TToolBar;
-
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -127,6 +131,8 @@ type
     procedure actClearImageExecute(Sender: TObject);
     procedure actCopyNodeDataExecute(Sender: TObject);
     procedure actDuplicateSelectedNodesExecute(Sender: TObject);
+    procedure actMoveDownExecute(Sender: TObject);
+    procedure actMoveUpExecute(Sender: TObject);
     procedure actNewRootFolderNodeExecute(Sender: TObject);
     procedure actNewFolderNodeExecute(Sender: TObject);
     procedure actNewItemNodeExecute(Sender: TObject);
@@ -180,13 +186,15 @@ type
     {$ENDREGION}
 
   private
-    FOnDuplicateSelectedNodes : TNotifyEvent;
     FTreeView                 : TCheckVirtualDBTreeEx;
     FOnDropFiles              : TDropFilesEvent;
     FDataSet                  : TDataSet;
     FOnNewFolderNode          : TNotifyEvent;
     FOnNewItemNode            : TNotifyEvent;
     FOnDeleteSelectedNodes    : TNotifyEvent;
+    FOnDuplicateSelectedNodes : TNotifyEvent;
+    FOnMoveUpSelectedNodes    : TNotifyEvent;
+    FOnMoveDownSelectedNodes  : TNotifyEvent;
     FOnCopyNodeData           : TNotifyEvent;
     FNodeTypeFieldName        : string;
 
@@ -246,6 +254,8 @@ type
     ); dynamic;
     procedure DoDeleteSelectedNodes; dynamic;
     procedure DoDuplicateSelectedNodes; dynamic;
+    procedure DoMoveUpSelectedNodes; dynamic;
+    procedure DoMoveDownSelectedNodes; dynamic;
 
     procedure UpdateActions; override;
 
@@ -336,6 +346,12 @@ type
 
     property OnDuplicateSelectedNodes: TNotifyEvent
       read FOnDuplicateSelectedNodes write FOnDuplicateSelectedNodes;
+
+    property OnMoveUpSelectedNodes: TNotifyEvent
+      read FOnMoveUpSelectedNodes write FOnMoveUpSelectedNodes;
+
+    property OnMoveDownSelectedNodes: TNotifyEvent
+      read FOnMoveDownSelectedNodes write FOnMoveDownSelectedNodes;
 
     property OnCopyNodeData : TNotifyEvent
       read FOnCopyNodeData write FOnCopyNodeData;
@@ -576,6 +592,18 @@ begin
   if Assigned(FOnDuplicateSelectedNodes) then
     FOnDuplicateSelectedNodes(Self);
 end;
+
+procedure TfrmVirtualDBTree.DoMoveUpSelectedNodes;
+begin
+  if Assigned(FOnMoveUpSelectedNodes) then
+    FOnMoveUpSelectedNodes(Self);
+end;
+
+procedure TfrmVirtualDBTree.DoMoveDownSelectedNodes;
+begin
+  if Assigned(FOnMoveDownSelectedNodes) then
+    FOnMoveDownSelectedNodes(Self);
+end;
 {$ENDREGION}
 
 {$REGION 'action handlers'}
@@ -610,6 +638,16 @@ end;
 procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);
 begin
   DoDuplicateSelectedNodes;
+end;
+
+procedure TfrmVirtualDBTree.actMoveDownExecute(Sender: TObject);
+begin
+  DoMoveDownSelectedNodes;
+end;
+
+procedure TfrmVirtualDBTree.actMoveUpExecute(Sender: TObject);
+begin
+  DoMoveUpSelectedNodes;
 end;
 
 procedure TfrmVirtualDBTree.actNewFolderNodeExecute(Sender: TObject);
@@ -648,7 +686,8 @@ end;
 
 procedure TfrmVirtualDBTree.actRefreshExecute(Sender: TObject);
 begin
-  Refresh;
+  DataSet.Refresh;
+  FTreeView.UpdateTree;
 end;
 {$ENDREGION}
 
@@ -972,7 +1011,7 @@ begin
   for LNode in FTreeView.SelectedNodes do
   begin
     FTreeView.GetDBNodeData(LNode);
-    ANodeIds.Add('%2f', [PDBVTData(FTreeView.GetNodeData(LNode)).Id]);
+    ANodeIds.Add('%1.0f', [PDBVTData(FTreeView.GetNodeData(LNode)).Id]);
   end;
 end;
 {$ENDREGION}

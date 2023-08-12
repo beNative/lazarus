@@ -29,9 +29,36 @@ const
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
-  SQL_SQLITE_VERSION = 'select sqlite_version();';
+  SQL_SQLITE_VERSION    = 'select sqlite_version();';
 
-  SQL_LAST_ID = 'select Id from Snippet order by Id desc limit 1';
+  SQL_CREATETRIGGERS =
+    'drop trigger if exists trg_insert_Sequence;'          + sLineBreak +
+    'create trigger trg_insert_Sequence'                   + sLineBreak +
+    '                       after insert'                  + sLineBreak +
+    '                          on Snippet'                 + sLineBreak +
+    '                    for each row'                     + sLineBreak +
+    'begin'                                                + sLineBreak +
+    '    update Snippet'                                   + sLineBreak +
+    '       set Sequence             = ('                  + sLineBreak +
+    '               select COALESCE(MAX(Sequence) + 1, 1)' + sLineBreak +
+    '                 from Snippet'                        + sLineBreak +
+    '                where ParentId  = NEW.ParentId'       + sLineBreak +
+    '           )'                                         + sLineBreak +
+    '     where Id                   = NEW.Id;'            + sLineBreak +
+    'end;'                                                 + sLineBreak +
+    'drop trigger if exists trg_delete_Sequence;'          + sLineBreak +
+    'create trigger trg_delete_Sequence'                   + sLineBreak +
+    '                       after delete'                  + sLineBreak +
+    '                          on Snippet'                 + sLineBreak +
+    '                    for each row'                     + sLineBreak +
+    'begin'                                                + sLineBreak +
+    '    update Snippet'                                   + sLineBreak +
+    '       set Sequence             = Sequence - 1'       + sLineBreak +
+    '     where ParentId             = OLD.ParentId and'   + sLineBreak +
+    '           Sequence > OLD.Sequence;'                  + sLineBreak +
+    'end;';
+
+  SQL_LAST_ID   = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =
     'select'         + sLineBreak +
     '  Id'           + sLineBreak +
@@ -94,6 +121,54 @@ const
     'from'                   + sLineBreak +
     '  Snippet s'            + sLineBreak +
     'where'                  + sLineBreak +
+    '  Id in (%s)';
+
+  SQL_MOVEDOWN_IDS1 =
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence - %d' + sLineBreak +
+    'where'                      + sLineBreak +
+    '  ParentId = %s'            + sLineBreak +
+    '  and Sequence = ('         + sLineBreak +
+    '    select '                + sLineBreak +
+    '      Sequence + 1'         + sLineBreak +
+    '    from'                   + sLineBreak +
+    '      Snippet'              + sLineBreak +
+    '    where '                 + sLineBreak +
+    '      Id = %s'              + sLineBreak +
+    '  )';
+
+  SQL_MOVEDOWN_IDS2 =
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence + 1'  + sLineBreak +
+    'where'                      + sLineBreak +
+    '  Id in (%s)';
+
+  SQL_MOVEUP_IDS1 =
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence + %d' + sLineBreak +
+    'where'                      + sLineBreak +
+    '  ParentId = %s'            + sLineBreak +
+    '  and Sequence = ('         + sLineBreak +
+    '    select '                + sLineBreak +
+    '      Sequence - 1'         + sLineBreak +
+    '    from'                   + sLineBreak +
+    '      Snippet'              + sLineBreak +
+    '    where '                 + sLineBreak +
+    '      Id = %s'              + sLineBreak +
+    '  )';
+
+  SQL_MOVEUP_IDS2 =
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence - 1'  + sLineBreak +
+    'where'                      + sLineBreak +
     '  Id in (%s)';
 
   // Windows registry paths to Python installations

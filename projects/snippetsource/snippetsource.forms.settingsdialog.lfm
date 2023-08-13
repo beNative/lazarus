@@ -1,12 +1,12 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 4354
+  Left = 3540
   Height = 465
-  Top = 820
-  Width = 620
+  Top = 583
+  Width = 615
   ActiveControl = btnClose
   Caption = 'Settings'
   ClientHeight = 465
-  ClientWidth = 620
+  ClientWidth = 615
   Font.Height = -12
   PopupMode = pmAuto
   Position = poMainFormCenter
@@ -16,16 +16,16 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 431
     Top = 0
-    Width = 620
-    ActivePage = tsImages
+    Width = 615
+    ActivePage = tsDataBase
     Align = alClient
-    TabIndex = 4
+    TabIndex = 1
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
       Caption = 'Application'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       object grpLayout: TGroupBox
         Left = 0
         Height = 128
@@ -58,11 +58,11 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 280
         Height = 51
         Top = 0
-        Width = 330
+        Width = 325
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Richtext editor'
         ClientHeight = 31
-        ClientWidth = 326
+        ClientWidth = 321
         TabOrder = 1
         object edtFontName: TEditButton
           Left = 80
@@ -94,11 +94,11 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 280
         Height = 74
         Top = 54
-        Width = 330
+        Width = 325
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Diagnostics'
         ClientHeight = 54
-        ClientWidth = 326
+        ClientWidth = 321
         TabOrder = 2
         object chkEmitLogMessages: TCheckBox
           Left = 8
@@ -137,12 +137,12 @@ object frmSettingsDialog: TfrmSettingsDialog
     object tsDataBase: TTabSheet
       Caption = 'Database'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       object edtDatabaseFile: TFileNameEdit
         Left = 67
         Height = 23
         Top = 6
-        Width = 543
+        Width = 538
         InitialDir = '.'
         OnAcceptFileName = edtDatabaseFileAcceptFileName
         DialogOptions = [ofEnableSizing]
@@ -167,7 +167,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         ParentColor = False
       end
       object btnDatabaseIntegrityCheck: TBitBtn
-        Left = 454
+        Left = 449
         Height = 26
         Top = 224
         Width = 150
@@ -179,7 +179,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 1
       end
       object btnDatabaseVacuum: TBitBtn
-        Left = 454
+        Left = 449
         Height = 26
         Top = 192
         Width = 150
@@ -194,17 +194,17 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 0
         Height = 367
         Top = 30
-        Width = 444
+        Width = 439
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'SQLite Database information'
         ClientHeight = 347
-        ClientWidth = 440
+        ClientWidth = 435
         TabOrder = 3
         object grdDBInfo: TStringGrid
           Left = 8
           Height = 341
           Top = 0
-          Width = 427
+          Width = 422
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoEdit = False
           BorderStyle = bsNone
@@ -247,7 +247,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         end
       end
       object btnOpenDatabase: TBitBtn
-        Left = 454
+        Left = 449
         Height = 25
         Top = 34
         Width = 150
@@ -259,7 +259,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 4
       end
       object btnCreateNewDatabase: TBitBtn
-        Left = 454
+        Left = 449
         Height = 25
         Top = 64
         Width = 150
@@ -271,7 +271,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 5
       end
       object btnCreateDatabaseIndexes: TBitBtn
-        Left = 454
+        Left = 449
         Height = 25
         Top = 96
         Width = 150
@@ -317,7 +317,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 6
       end
       object btnCreateDatabaseTables: TBitBtn
-        Left = 454
+        Left = 449
         Height = 25
         Top = 128
         Width = 150
@@ -363,7 +363,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 7
       end
       object btnCreateDatabaseTriggers: TBitBtn
-        Left = 454
+        Left = 449
         Height = 25
         Top = 160
         Width = 150
@@ -409,7 +409,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 8
       end
       object btnBackupDatabase: TBitBtn
-        Left = 453
+        Left = 448
         Height = 26
         Top = 255
         Width = 150
@@ -454,11 +454,32 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         TabOrder = 9
       end
+      object btnUpdateNodePaths: TBitBtn
+        Left = 449
+        Height = 26
+        Top = 296
+        Width = 150
+        Action = actUpdateNodePaths
+        Anchors = [akTop, akRight]
+        Caption = 'Update node paths'
+        Margin = 22
+        TabOrder = 10
+      end
+      object btnSequences: TBitBtn
+        Left = 449
+        Height = 26
+        Top = 324
+        Width = 150
+        Action = actUpdateSequences
+        Anchors = [akTop, akRight]
+        Margin = 22
+        TabOrder = 11
+      end
     end
     object tsTerminalSettings: TTabSheet
       Caption = 'Terminal settings'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       object chkUseCustomEnvironmentVariables: TCheckBox
         Left = 8
         Height = 19
@@ -472,7 +493,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 1
         Height = 369
         Top = 32
-        Width = 610
+        Width = 605
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoAdvance = aaRightDown
         AutoEdit = False
@@ -514,13 +535,13 @@ object frmSettingsDialog: TfrmSettingsDialog
     object tsPython: TTabSheet
       Caption = 'Python'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       OnContextPopup = tsPythonContextPopup
       object grdPythonInterpreters: TStringGrid
         Left = 0
         Height = 336
         Top = 0
-        Width = 610
+        Width = 605
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoAdvance = aaRightDown
         AutoEdit = False
@@ -559,7 +580,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 269
         Height = 23
         Top = 339
-        Width = 338
+        Width = 333
         Anchors = [akLeft, akRight, akBottom]
         TabOrder = 1
       end
@@ -567,7 +588,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 1
         Height = 31
         Top = 368
-        Width = 607
+        Width = 602
         Action = actCreateVirtualEnvironment
         Anchors = [akLeft, akRight, akBottom]
         Font.Style = [fsBold]
@@ -587,7 +608,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     object tsImages: TTabSheet
       Caption = 'Glyphs'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       object btnOpenGlyphs: TButton
         Left = 98
         Height = 25
@@ -631,7 +652,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 98
         Height = 369
         Top = 32
-        Width = 518
+        Width = 513
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False
         Color = clWindow
@@ -672,7 +693,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     object Highlighters: TTabSheet
       Caption = 'Highlighters'
       ClientHeight = 403
-      ClientWidth = 612
+      ClientWidth = 607
       TabVisible = False
       object cbxImageList: TComboBox
         Left = 8
@@ -690,7 +711,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Left = 88
         Height = 385
         Top = 8
-        Width = 518
+        Width = 513
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -708,14 +729,14 @@ object frmSettingsDialog: TfrmSettingsDialog
     Left = 0
     Height = 34
     Top = 431
-    Width = 620
+    Width = 615
     Align = alBottom
     BevelOuter = bvNone
     ClientHeight = 34
-    ClientWidth = 620
+    ClientWidth = 615
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 494
+      Left = 489
       Height = 25
       Top = 3
       Width = 120
@@ -828,6 +849,16 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actRunVirtualEnvironment: TAction
       Caption = 'Run virtual environment'
       OnExecute = actRunVirtualEnvironmentExecute
+    end
+    object actUpdateNodePaths: TAction
+      Category = 'Database'
+      Caption = 'actUpdateNodePaths'
+      OnExecute = actUpdateNodePathsExecute
+    end
+    object actUpdateSequences: TAction
+      Category = 'Database'
+      Caption = 'Update sequences'
+      OnExecute = actUpdateSequencesExecute
     end
   end
   object dscGlyph: TDataSource

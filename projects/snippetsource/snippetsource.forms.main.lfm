@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 4246
+  Left = 866
   Height = 763
-  Top = 762
+  Top = 263
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -404,7 +404,7 @@ object frmMain: TfrmMain
             Left = 248
             Height = 696
             Top = 24
-            Width = 5
+            Width = 4
             Color = clScrollBar
             ParentColor = False
             Visible = False
@@ -501,7 +501,7 @@ object frmMain: TfrmMain
             Left = 248
             Height = 696
             Top = 24
-            Width = 5
+            Width = 4
             Color = clScrollBar
             ParentColor = False
             Visible = False

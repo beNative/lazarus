@@ -126,7 +126,7 @@ begin
   AToolbar.EdgeOuter    := EdgeOuter;
   AToolbar.Transparent  := Transparant;
   AToolbar.List         := True;
-  AToolbar.ShowCaptions := True;
+  AToolbar.ShowCaptions := False;
   AToolbar.ButtonWidth  := 24;
 end;
 
@@ -136,7 +136,8 @@ var
   TB : TToolButton;
 begin
   TB := TToolButton.Create(AParent);
-  TB.Parent := AParent;
+  TB.ShowCaption := False;
+  TB.Parent      := AParent;
   if not Assigned(AAction) then
   begin
     TB.Style := tbsDivider;

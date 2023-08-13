@@ -121,6 +121,7 @@ type
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
+    function GetSequence: Integer;
     function GetSource: string;
     function GetText: string;
     procedure SetActiveViews(AValue: string);
@@ -140,6 +141,7 @@ type
     procedure SetNodePath(AValue: string);
     procedure SetNodeTypeId(AValue: Integer);
     procedure SetParentId(AValue: Integer);
+    procedure SetSequence(AValue: Integer);
     procedure SetSource(AValue: string);
     procedure SetText(AValue: string);
     {$ENDREGION}
@@ -176,6 +178,9 @@ type
 
     property FoldState: string
       read GetFoldState write SetFoldState;
+
+    property Sequence: Integer
+      read GetSequence write SetSequence;
 
     property Highlighter: string
       read GetHighlighter write SetHighlighter;
@@ -223,6 +228,8 @@ type
     procedure DuplicateRecords(AValues: TStrings);
     procedure MoveDownRecords(AValues: TStrings);
     procedure MoveUpRecords(AValues: TStrings);
+    procedure UpdateNodePaths;
+    procedure UpdateSequences;
 
     procedure EnableControls;
     procedure DisableControls;

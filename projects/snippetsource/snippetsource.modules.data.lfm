@@ -1,9 +1,9 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
-  Height = 315
-  HorizontalOffset = 2024
-  VerticalOffset = 330
-  Width = 421
+  Height = 655
+  HorizontalOffset = 3737
+  VerticalOffset = 326
+  Width = 775
   object trsMain: TSQLTransaction
     Active = False
     Action = caNone
@@ -32,9 +32,7 @@ object dmSnippetSource: TdmSnippetSource
       '  Snippet'
       'order by'
       '  ParentId,'
-      '  NodeTypeId,'
-      '  Sequence,'
-      '  Id'
+      '  Sequence'
     )
     RefreshSQL.Strings = (
       ''
@@ -2788,6 +2786,7 @@ object dmSnippetSource: TdmSnippetSource
     Top = 80
   end
   object scrCreateTables: TSQLScript
+    DataBase = conMain
     Transaction = trsMain
     AutoCommit = False
     UseDollarString = False
@@ -2904,6 +2903,7 @@ object dmSnippetSource: TdmSnippetSource
     Top = 248
   end
   object scrCreateIndexes: TSQLScript
+    DataBase = conMain
     Transaction = trsMain
     AutoCommit = False
     UseDollarString = False
@@ -2978,6 +2978,7 @@ object dmSnippetSource: TdmSnippetSource
     Top = 160
   end
   object scrInsertData: TSQLScript
+    DataBase = conMain
     Transaction = trsMain
     AutoCommit = False
     UseDollarString = False
@@ -3431,53 +3432,6 @@ object dmSnippetSource: TdmSnippetSource
     Params = <>
     Macros = <>
     Left = 211
-    Top = 248
-  end
-  object scrCreateTriggers: TSQLScript
-    Transaction = trsMain
-    AutoCommit = False
-    UseDollarString = False
-    Directives.Strings = (
-      'SET TERM'
-      'COMMIT WORK'
-      'COMMIT RETAIN'
-      'COMMIT'
-      '#IFDEF'
-      '#IFNDEF'
-      '#ELSE'
-      '#ENDIF'
-      '#DEFINE'
-      '#UNDEF'
-      '#UNDEFINE'
-    )
-    Script.Strings = (
-      'create trigger trg_insert_Sequence after insert on Snippet for each row'
-      'begin'
-      '    update Snippet'
-      '       set Sequence = ('
-      '               select COALESCE(MAX(Sequence) + 1, 1)'
-      '                 from Snippet'
-      '                where ParentId = NEW.ParentId'
-      '           )'
-      '     where Id = NEW.Id;'
-      'end;'
-      ''
-      'create trigger trg_delete_Sequence after delete on Snippet for each row'
-      'begin'
-      '    update Snippet'
-      '       set Sequence = Sequence - 1'
-      '     where ParentId = OLD.ParentId and'
-      '           Sequence > OLD.Sequence;'
-      'end;'
-      ''
-      ''
-    )
-    Terminator = ';'
-    CommentsinSQL = False
-    UseSetTerm = False
-    UseCommit = False
-    UseDefines = False
-    Left = 320
     Top = 248
   end
 end

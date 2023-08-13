@@ -31,33 +31,6 @@ const
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_SQLITE_VERSION    = 'select sqlite_version();';
 
-  SQL_CREATETRIGGERS =
-    'drop trigger if exists trg_insert_Sequence;'          + sLineBreak +
-    'create trigger trg_insert_Sequence'                   + sLineBreak +
-    '                       after insert'                  + sLineBreak +
-    '                          on Snippet'                 + sLineBreak +
-    '                    for each row'                     + sLineBreak +
-    'begin'                                                + sLineBreak +
-    '    update Snippet'                                   + sLineBreak +
-    '       set Sequence             = ('                  + sLineBreak +
-    '               select COALESCE(MAX(Sequence) + 1, 1)' + sLineBreak +
-    '                 from Snippet'                        + sLineBreak +
-    '                where ParentId  = NEW.ParentId'       + sLineBreak +
-    '           )'                                         + sLineBreak +
-    '     where Id                   = NEW.Id;'            + sLineBreak +
-    'end;'                                                 + sLineBreak +
-    'drop trigger if exists trg_delete_Sequence;'          + sLineBreak +
-    'create trigger trg_delete_Sequence'                   + sLineBreak +
-    '                       after delete'                  + sLineBreak +
-    '                          on Snippet'                 + sLineBreak +
-    '                    for each row'                     + sLineBreak +
-    'begin'                                                + sLineBreak +
-    '    update Snippet'                                   + sLineBreak +
-    '       set Sequence             = Sequence - 1'       + sLineBreak +
-    '     where ParentId             = OLD.ParentId and'   + sLineBreak +
-    '           Sequence > OLD.Sequence;'                  + sLineBreak +
-    'end;';
-
   SQL_LAST_ID   = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =
     'select'         + sLineBreak +
@@ -123,6 +96,29 @@ const
     'where'                  + sLineBreak +
     '  Id in (%s)';
 
+  SQL_MOVEDOWN_IDS =
+    '--SQL_MOVEDOWN_IDS'         + sLineBreak +
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence - %d' + sLineBreak +
+    'where'                      + sLineBreak +
+    '  ParentId = %s'            + sLineBreak +
+    '  and Sequence = ('         + sLineBreak +
+    '    select '                + sLineBreak +
+    '      Sequence + 1'         + sLineBreak +
+    '    from'                   + sLineBreak +
+    '      Snippet'              + sLineBreak +
+    '    where '                 + sLineBreak +
+    '      Id = %s'              + sLineBreak +
+    '  );'                       + sLineBreak +
+    'update'                     + sLineBreak +
+    '  Snippet'                  + sLineBreak +
+    'set'                        + sLineBreak +
+    '  Sequence = Sequence + 1'  + sLineBreak +
+    'where'                      + sLineBreak +
+    '  Id in (%s);';
+
   SQL_MOVEDOWN_IDS1 =
     'update'                     + sLineBreak +
     '  Snippet'                  + sLineBreak +
@@ -170,6 +166,61 @@ const
     '  Sequence = Sequence - 1'  + sLineBreak +
     'where'                      + sLineBreak +
     '  Id in (%s)';
+
+  SQL_UPDATE_SEQUENCE =
+    'update'                                    + sLineBreak +
+    '  Snippet'                                 + sLineBreak +
+    'set'                                       + sLineBreak +
+    '  Sequence = ('                            + sLineBreak +
+    '    select'                                + sLineBreak +
+    '      count(*) + 1'                        + sLineBreak +
+    '    from'                                  + sLineBreak +
+    '      Snippet as S'                        + sLineBreak +
+    '    where'                                 + sLineBreak +
+    '      S.ParentId = Snippet.ParentId'       + sLineBreak +
+    '        and S.Sequence < Snippet.Sequence' + sLineBreak +
+    '  )'                                       + sLineBreak +
+    'where'                                     + sLineBreak +
+    '  ParentId <> 0';
+
+  SQL_UPDATE_NODEPATH =
+    'with recursive NodePaths as ('                       + sLineBreak +
+    '  select'                                            + sLineBreak +
+    '    Id,'                                             + sLineBreak +
+    '    NodeName,'                                       + sLineBreak +
+    '    ParentId,'                                       + sLineBreak +
+    '    cast (NodeName as text) as NodePath'             + sLineBreak +
+    '  from'                                              + sLineBreak +
+    '    Snippet'                                         + sLineBreak +
+    '  where'                                             + sLineBreak +
+    '    ParentId = 0'                                    + sLineBreak +
+    '  union all'                                         + sLineBreak +
+    '  select'                                            + sLineBreak +
+    '    S.Id,'                                           + sLineBreak +
+    '    S.NodeName,'                                     + sLineBreak +
+    '    S.ParentId,'                                     + sLineBreak +
+    '    NP.NodePath || ''/'' || S.NodeName as NodePath'  + sLineBreak +
+    '  from'                                              + sLineBreak +
+    '    Snippet as S'                                    + sLineBreak +
+    '    join NodePaths as NP'                            + sLineBreak +
+    '      on S.ParentId = NP.Id'                         + sLineBreak +
+    ')'                                                   + sLineBreak +
+    'update'                                              + sLineBreak +
+    '  Snippet'                                           + sLineBreak +
+    'set'                                                 + sLineBreak +
+    '  NodePath = NodePaths.NodePath'                     + sLineBreak +
+    'from'                                                + sLineBreak +
+    '  NodePaths'                                         + sLineBreak +
+    'where'                                               + sLineBreak +
+    '  Snippet.Id = NodePaths.Id';
+
+  SQL_NEW_SEQUENCE =
+    'select'                            + sLineBreak +
+    '  coalesce(max(Sequence), 0) + 1'  + sLineBreak +
+    'from'                              + sLineBreak +
+    '  Snippet'                         + sLineBreak +
+    'where'                             + sLineBreak +
+    '  ParentId = %d';
 
   // Windows registry paths to Python installations
   PYTHON_CORE_LOCAL_MACHINE = 'SOFTWARE\Python\PythonCore';

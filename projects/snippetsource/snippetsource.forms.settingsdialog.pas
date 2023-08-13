@@ -49,11 +49,14 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
+    actUpdateSequences               : TAction;
+    actUpdateNodePaths               : TAction;
     actRunVirtualEnvironment         : TAction;
     actOpenDatabase                  : TAction;
     actRefreshGlyphs                 : TAction;
     actReloadConfigurationData       : TAction;
     btnBackupDatabase                : TBitBtn;
+    btnUpdateNodePaths               : TBitBtn;
     btnClose                         : TBitBtn;
     btnCreateDatabaseIndexes         : TBitBtn;
     btnCreateDatabaseTables          : TBitBtn;
@@ -65,6 +68,7 @@ type
     btnOpenDatabase                  : TBitBtn;
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
+    btnSequences                     : TBitBtn;
     cbxImageList                     : TComboBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
@@ -120,6 +124,8 @@ type
     procedure actRefreshGlyphsExecute(Sender: TObject);
     procedure actReloadConfigurationDataExecute(Sender: TObject);
     procedure actRunVirtualEnvironmentExecute(Sender: TObject);
+    procedure actUpdateNodePathsExecute(Sender: TObject);
+    procedure actUpdateSequencesExecute(Sender: TObject);
     {$ENDREGION}
 
     {$REGION 'event handlers'}
@@ -279,7 +285,7 @@ end;
 
 destructor TfrmSettingsDialog.Destroy;
 begin
-  (FData as IGlyphs).GlyphDataSet.Active := False;
+  GlyphDS.Active := False;
   FData     := nil;
   FSettings := nil;
   FreeAndNil(FPythonInterpreters);
@@ -380,6 +386,16 @@ begin
   //finally
   //  LOutput.Free;
   //end;
+end;
+
+procedure TfrmSettingsDialog.actUpdateNodePathsExecute(Sender: TObject);
+begin
+  DataSet.UpdateNodePaths;
+end;
+
+procedure TfrmSettingsDialog.actUpdateSequencesExecute(Sender: TObject);
+begin
+  DataSet.UpdateSequences;
 end;
 
 procedure TfrmSettingsDialog.actCreateNewDatabaseExecute(Sender: TObject);

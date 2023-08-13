@@ -357,12 +357,12 @@ begin
   );
   AddCredit(
     'Virtual TreeView',
-    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara with slight modifications by Tim Sinaeve',
+    'Mike Lischke, FPC port by Luiz Américo Pereira Câmara',
     'http://www.soft-gems.net/'
   );
   AddCredit(
     'Anchor Docking',
-    'Mattias Gaertner, with slight modifications by Tim Sinaeve',
+    'Mattias Gaertner',
     ''
   );
   AddCredit(
@@ -374,11 +374,6 @@ begin
     'NativeXML',
     'Nils Haeck',
     'http://www.simdesign.nl/xml.html'
-  );
-  AddCredit(
-    'SynEdit',
-    'Lazarus development team. Original implementation by Martin Waldenburg.',
-    'http://sourceforge.net/apps/mediawiki/synedit/index.php?title=SynEdit_Home_Page'
   );
   AddCredit(
     'OMultiPanel',
@@ -407,12 +402,12 @@ procedure TfrmAbout.FillTranslations;
   procedure AddTranslation(const ACode: string; const AName: string;
     const AAuthor: string);
   var
-    T: TTranslation;
+    T : TTranslation;
   begin
     T := TTranslation.Create;
     T.LanguageCode := ACode;
     T.LanguageName := AName;
-    T.Author := AAuthor;
+    T.Author       := AAuthor;
     FTranslations.Add(T);
   end;
 

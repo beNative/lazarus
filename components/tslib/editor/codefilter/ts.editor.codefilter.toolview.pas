@@ -350,8 +350,7 @@ end;
 
 function TfrmCodeFilterDialog.GetSettings: TCodeFilterSettings;
 begin
-  Result := (Manager as IEditorSettings)
-    .ToolSettings.ItemsByClass[TCodeFilterSettings] as TCodeFilterSettings;
+  Result := (Manager as IEditorSettings).CodeFilterSettings;
 end;
 
 function TfrmCodeFilterDialog.GetView: IEditorView;

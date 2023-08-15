@@ -34,12 +34,12 @@ type
 
   protected
     {$REGION 'property access methods'}
-    function GetPort: Integer; virtual;
-    function GetEnabled: Boolean; virtual;
-    procedure SetEnabled(const Value: Boolean); virtual;
-    function GetConnected: Boolean; virtual;
     function GetAutoConnect: Boolean;
+    function GetConnected: Boolean; virtual;
+    function GetEnabled: Boolean; virtual;
+    function GetPort: Integer; virtual;
     procedure SetAutoConnect(const Value: Boolean);
+    procedure SetEnabled(const Value: Boolean); virtual;
     {$ENDREGION}
 
     { Will try to (re)connect automatically to a disconnected channel if a

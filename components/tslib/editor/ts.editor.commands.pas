@@ -913,8 +913,7 @@ procedure TEditorCommands.SortStrings;
 var
   SSS: TSortStringsSettings;
 begin
-  SSS := Settings.ToolSettings
-    .ItemsByClass[TSortStringsSettings] as TSortStringsSettings;
+  SSS := Settings.SortStringsSettings;
   Selection.Store;
   Selection.Text := ts.Editor.Utils.SortStrings(
     Selection.Text,

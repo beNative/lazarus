@@ -29,7 +29,7 @@ const
   DEFAULT_WIDTH = 360;
 
 type
-  TSortStringsSettings = class(TComponent)
+  TSortStringsSettings = class(TPersistent)
   strict private
     FCaseSensitive : Boolean;
     FIgnoreSpaces  : Boolean;

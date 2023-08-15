@@ -41,7 +41,7 @@ uses
   ts.Editor.SortStrings.Settings, ts.Editor.Options.Settings,
 
   ts.Editor.Types, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
-  ts.Editor.Colors.Settings, ts.Editor.Tools.Settings;
+  ts.Editor.Colors.Settings;
 
 type
   // forward declarations
@@ -640,9 +640,12 @@ type
   IEditorSettings = interface
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
     {$REGION 'property access methods'}
+    function GetAlignLinesSettings: TAlignLinesSettings;
     function GetAutoFormatXML: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
     function GetCloseWithESC: Boolean;
+    function GetCodeFilterSettings: TCodeFilterSettings;
+    function GetCodeShaperSettings: TCodeShaperSettings;
     function GetColors: TEditorColorSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
@@ -650,17 +653,24 @@ type
     function GetEditorOptions: TEditorOptionsSettings;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
+    function GetHexEditorSettings: THexEditorSettings;
     function GetHighlighterAttributes: THighlighterAttributes;
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetLanguageCode: string;
+    function GetMiniMapSettings: TMiniMapSettings;
     function GetReadOnly: Boolean;
+    function GetSearchEngineSettings: TSearchEngineSettings;
     function GetSingleInstance: Boolean;
-    function GetToolSettings: TEditorToolSettings;
+    function GetSortStringsSettings: TSortStringsSettings;
+    //function GetToolSettings: TEditorToolSettings;
     function GetXML: string;
+    procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
     procedure SetAutoFormatXML(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
     procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCodeFilterSettings(AValue: TCodeFilterSettings);
+    procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetColors(AValue: TEditorColorSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
@@ -668,12 +678,15 @@ type
     procedure SetEditorOptions(AValue: TEditorOptionsSettings);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
+    procedure SetHexEditorSettings(AValue: THexEditorSettings);
     procedure SetHighlighterAttributes(AValue: THighlighterAttributes);
     procedure SetHighlighterType(const AValue: string);
     procedure SetLanguageCode(AValue: string);
+    procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetReadOnly(const AValue: Boolean);
+    procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetSingleInstance(AValue: Boolean);
-    procedure SetToolSettings(AValue: TEditorToolSettings);
+    //procedure SetToolSettings(AValue: TEditorToolSettings);
     {$ENDREGION}
 
     procedure Load;
@@ -682,12 +695,34 @@ type
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+    procedure SetSortStringsSettings(AValue: TSortStringsSettings);
 
     property Colors: TEditorColorSettings
       read GetColors write SetColors;
 
-    property ToolSettings:  TEditorToolSettings
-      read GetToolSettings write SetToolSettings;
+    //property ToolSettings:  TEditorToolSettings
+    //  read GetToolSettings write SetToolSettings;
+
+    property AlignLinesSettings: TAlignLinesSettings
+      read GetAlignLinesSettings write SetAlignLinesSettings;
+
+    property CodeFilterSettings: TCodeFilterSettings
+      read GetCodeFilterSettings write SetCodeFilterSettings;
+
+    property CodeShaperSettings: TCodeShaperSettings
+      read GetCodeShaperSettings write SetCodeShaperSettings;
+
+    property HexEditorSettings: THexEditorSettings
+      read GetHexEditorSettings write SetHexEditorSettings;
+
+    property MiniMapSettings: TMiniMapSettings
+      read GetMiniMapSettings write SetMiniMapSettings;
+
+    property SortStringsSettings: TSortStringsSettings
+      read GetSortStringsSettings write SetSortStringsSettings;
+
+    property SearchEngineSettings: TSearchEngineSettings
+      read GetSearchEngineSettings write SetSearchEngineSettings;
 
     property FileName: string
       read GetFileName write SetFileName;
@@ -820,7 +855,7 @@ type
 
     function Register(
       AFormClass     : TComponentClass;
-      ASettingsClass : TComponentClass;
+      ASettingsClass : TPersistentClass;
       const AName    : string = ''
     ): Boolean;
     procedure Hide;

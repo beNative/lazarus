@@ -26,12 +26,13 @@ uses
   SynEditTypes;
 
 type
-  TSearchEngineSettings = class(TComponent)
+  TSearchEngineSettings = class(TPersistent)
   private
     FOptions        : TSynSearchOptions;
     FSearchAllViews : Boolean;
 
   public
+    procedure AfterConstruction; override;
     procedure AssignTo(Dest: TPersistent); override;
     procedure Assign(Source: TPersistent); override;
 
@@ -45,6 +46,12 @@ type
   end;
 
 implementation
+
+procedure TSearchEngineSettings.AfterConstruction;
+begin
+  //FComponentStyle := [csSubComponent];
+  inherited AfterConstruction;
+end;
 
 procedure TSearchEngineSettings.AssignTo(Dest: TPersistent);
 var

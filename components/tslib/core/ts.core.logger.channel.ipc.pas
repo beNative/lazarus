@@ -136,35 +136,38 @@ var
   LTextSize : Integer;
   LDataSize : Integer;
 begin
-  if Connected then
+  Result := False;
+  if Enabled then
   begin
-    FBuffer.Clear;
-    LTextSize := Length(AMsg.Text);
-    FBuffer.Seek(0, soFromBeginning);
-    FBuffer.WriteBuffer(AMsg.MsgType, SizeOf(TLogMessageType));
-    FBuffer.WriteBuffer(AMsg.LogLevel, SizeOf(Byte));
-    FBuffer.WriteBuffer(AMsg.Reserved1, SizeOf(Byte));
-    FBuffer.WriteBuffer(AMsg.Reserved2, SizeOf(Byte));
-    FBuffer.WriteBuffer(AMsg.TimeStamp, SizeOf(TDateTime));
-    FBuffer.WriteBuffer(LTextSize, SizeOf(Integer));
-    if LTextSize > 0 then
+    if not Connected and AutoConnect then
+      Connect;
+    if Connected then
     begin
-      FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
+      FBuffer.Clear;
+      LTextSize := Length(AMsg.Text);
+      FBuffer.Seek(0, soFromBeginning);
+      FBuffer.WriteBuffer(AMsg.MsgType, SizeOf(TLogMessageType));
+      FBuffer.WriteBuffer(AMsg.LogLevel, SizeOf(Byte));
+      FBuffer.WriteBuffer(AMsg.Reserved1, SizeOf(Byte));
+      FBuffer.WriteBuffer(AMsg.Reserved2, SizeOf(Byte));
+      FBuffer.WriteBuffer(AMsg.TimeStamp, SizeOf(TDateTime));
+      FBuffer.WriteBuffer(LTextSize, SizeOf(Integer));
+      if LTextSize > 0 then
+        FBuffer.WriteBuffer(AMsg.Text[1], LTextSize);
+      if AMsg.Data <> nil then
+      begin
+        LDataSize := AMsg.Data.Size;
+        FBuffer.WriteBuffer(LDataSize, SizeOf(Integer));
+        AMsg.Data.Position := 0;
+        FBuffer.CopyFrom(AMsg.Data, LDataSize);
+      end
+      else
+        FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
+      FClient.SendMessage(LongInt(GetCurrentProcessId), FBuffer);
+      //FClient.SendStream(FBuffer);
+      Result := True;
     end;
-    if AMsg.Data <> nil then
-    begin
-      LDataSize := AMsg.Data.Size;
-      FBuffer.WriteBuffer(LDataSize,SizeOf(Integer));
-      AMsg.Data.Position := 0;
-      FBuffer.CopyFrom(AMsg.Data,LDataSize);
-    end
-    else
-      FBuffer.WriteBuffer(ZERO_BUF, SizeOf(Integer)); // indicates empty stream
-    FClient.SendMessage(GetCurrentProcessId, FBuffer);
-    Result := True;
-  end
-  else
-    Result := False;
+  end;
 end;
 {$ENDREGION}
 

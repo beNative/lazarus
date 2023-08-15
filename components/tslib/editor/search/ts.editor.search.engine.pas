@@ -226,8 +226,7 @@ end;
 
 function TSearchEngine.GetSettings: TSearchEngineSettings;
 begin
-  Result := (Manager as IEditorSettings)
-    .ToolSettings.ItemsByClass[TSearchEngineSettings] as TSearchEngineSettings;
+  Result := (Manager as IEditorSettings).SearchEngineSettings;
 end;
 
 procedure TSearchEngine.SetSearchText(AValue: string);

@@ -29,7 +29,7 @@ const
   DEFAULT_WIDTH = 360;
 
 type
-  TAlignLinesSettings = class(TComponent)
+  TAlignLinesSettings = class(TPersistent)
   private
     FAlignInParagraphs    : Boolean;
     FAlignToToken         : TAlignToToken;

@@ -69,8 +69,7 @@ end;
 {$REGION 'property access mehods'}
 function TfrmMiniMap.GetSettings: TMiniMapSettings;
 begin
-  Result := inherited Settings.
-    ToolSettings.ItemsByClass[TMiniMapSettings] as TMiniMapSettings;
+  Result := inherited Settings.MiniMapSettings;
 end;
 {$ENDREGION}
 

@@ -211,8 +211,7 @@ end;
 
 function TfrmCodeShaper.GetSettings: TCodeShaperSettings;
 begin
-  Result := inherited Settings
-    .ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
+  Result := inherited Settings.CodeShaperSettings;
 end;
 {$ENDREGION}
 

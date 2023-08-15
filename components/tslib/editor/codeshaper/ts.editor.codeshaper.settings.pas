@@ -27,7 +27,7 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-  TCodeShaperSettings = class(TComponent)
+  TCodeShaperSettings = class(TPersistent)
   private
     FWidth : Integer;
 

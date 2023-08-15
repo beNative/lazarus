@@ -27,7 +27,7 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-  TMiniMapSettings = class(TComponent)
+  TMiniMapSettings = class(TPersistent)
   private
     FWidth : Integer;
 

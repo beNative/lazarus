@@ -29,7 +29,7 @@ uses
   ts.Editor.Search.Engine, ts.Editor.Search.Engine.Settings, 
   ts.Editor.Search.Templates, ts.Editor.Search.ToolView, 
   ts.Editor.SelectionInfo.ToolView, ts.Editor.Colors.Settings, 
-  ts.Editor.Options.Settings, ts.Editor.Settings, ts.Editor.Tools.Settings, 
+  ts.Editor.Options.Settings, ts.Editor.Settings, 
   ts.Editor.SettingsDialog.ApplicationSettings, ts.Editor.SettingsDialog.Base, 
   ts.Editor.SettingsDialog.EditorSettings, 
   ts.Editor.SettingsDialog.Extensions, 

@@ -75,8 +75,7 @@ end;
 {$REGION 'property access mehods'}
 function TfrmSortStrings.GetSettings: TSortStringsSettings;
 begin
-  Result := inherited Settings
-    .ToolSettings.ItemsByClass[TSortStringsSettings] as TSortStringsSettings;
+  Result := inherited Settings.SortStringsSettings;
 end;
 {$ENDREGION}
 

@@ -163,7 +163,6 @@ uses
   ts.Components.FileAssociation,
 
   ts.Editor.HighlighterAttributes, ts.Editor.Highlighters,
-  ts.Editor.Tools.Settings,
   ts.Core.Utils,
 
   ts.Core.Logger;
@@ -454,14 +453,14 @@ begin
   FTSTVP.MultiSelect := True;
   FTSTVP.ColumnDefinitions.AddColumn(NAME, SToolName, dtString, 150);
   FTSList.Clear;
-  for I := 0 to Settings.ToolSettings.Count - 1 do
-  begin
-    //Logger.Send(
-    //  Settings.ToolSettings.Components[I].ClassName,
-    //  TComponent(Settings.ToolSettings.Components[I]).Name
-    //);
-    FTSList.Add(Settings.ToolSettings.Components[I]);
-  end;
+  //for I := 0 to Settings.ToolSettings.Count - 1 do
+  //begin
+  //  //Logger.Send(
+  //  //  Settings.ToolSettings.Components[I].ClassName,
+  //  //  TComponent(Settings.ToolSettings.Components[I]).Name
+  //  //);
+  //  FTSList.Add(Settings.ToolSettings.Components[I]);
+  //end;
   FTSTVP.ItemsSource := FTSList;
   FTSTVP.TreeView := FTSVST;
   FTSTVP.OnSelectionChanged := FTSTVPSelectionChanged;

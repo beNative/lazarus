@@ -27,7 +27,7 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-  THexEditorSettings = class(TComponent)
+  THexEditorSettings = class(TPersistent)
   private
     FWidth : Integer;
 

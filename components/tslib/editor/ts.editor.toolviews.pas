@@ -25,7 +25,7 @@ interface
 uses
   Classes, SysUtils, Forms,
 
-  ts.Editor.Interfaces, ts.Editor.Tools.Settings;
+  ts.Editor.Interfaces;
 
 type
   TEditorToolView = class(TInterfacedObject, IEditorToolView)
@@ -34,7 +34,7 @@ type
     FFormClass     : TComponentClass;
     FForm          : TForm;
     FManager       : IEditorManager;
-    FSettingsClass : TComponentClass;
+    FSettingsClass : TPersistentClass;
     FToolView      : IEditorToolView;
 
   protected
@@ -52,7 +52,7 @@ type
     constructor Create(
       AManager       : IEditorManager;
       AFormClass     : TComponentClass;
-      ASettingsClass : TComponentClass;
+      ASettingsClass : TPersistentClass;
       const AName    : string
     );
     procedure BeforeDestruction; override;
@@ -69,7 +69,7 @@ type
     property FormClass: TComponentClass
       read FFormClass write FFormClass;
 
-    property SettingsClass: TComponentClass
+    property SettingsClass: TPersistentClass
       read FSettingsClass write FSettingsClass;
 
     property Visible: Boolean
@@ -92,7 +92,7 @@ type
 
     function Register(
       AFormClass     : TComponentClass;
-      ASettingsClass : TComponentClass;
+      ASettingsClass : TPersistentClass;
       const AName    : string = ''
     ): Boolean;
 
@@ -123,7 +123,7 @@ uses
 {$REGION 'TToolView'}
 {$REGION 'construction and destruction'}
 constructor TEditorToolView.Create(AManager: IEditorManager;
-  AFormClass: TComponentClass; ASettingsClass: TComponentClass;
+  AFormClass: TComponentClass; ASettingsClass: TPersistentClass;
   const AName: string);
 begin
   inherited Create;
@@ -132,11 +132,11 @@ begin
   FSettingsClass := ASettingsClass;
   FName          := AName;
 
-  if Assigned(ASettingsClass) then
-    FManager.Settings.ToolSettings.RegisterSettings(
-      ASettingsClass,
-      ASettingsClass.ClassName
-    );
+  //if Assigned(ASettingsClass) then
+  //  FManager.Settings.ToolSettings.RegisterSettings(
+  //    ASettingsClass,
+  //    ASettingsClass.ClassName
+  //  );
 end;
 
 procedure TEditorToolView.BeforeDestruction;
@@ -256,7 +256,7 @@ end;
 
 {$REGION 'protected methods'}
 function TEditorToolViews.Register(AFormClass: TComponentClass;
-  ASettingsClass: TComponentClass; const AName: string): Boolean;
+  ASettingsClass: TPersistentClass; const AName: string): Boolean;
 var
   S  : string;
   TV : IEditorToolView;

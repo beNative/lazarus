@@ -43,7 +43,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="67">
+    <Files Count="66">
       <Item1>
         <Filename Value="editor\ts.editor.aboutdialog.pas"/>
         <UnitName Value="ts.Editor.AboutDialog"/>
@@ -241,77 +241,73 @@ limitations under the License.         "/>
         <UnitName Value="ts.Editor.Settings"/>
       </Item49>
       <Item50>
-        <Filename Value="editor\settings\ts.editor.tools.settings.pas"/>
-        <UnitName Value="ts.Editor.Tools.Settings"/>
-      </Item50>
-      <Item51>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.applicationsettings.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.ApplicationSettings"/>
-      </Item51>
-      <Item52>
+      </Item50>
+      <Item51>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.base.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.Base"/>
-      </Item52>
-      <Item53>
+      </Item51>
+      <Item52>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.editorsettings.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.EditorSettings"/>
-      </Item53>
-      <Item54>
+      </Item52>
+      <Item53>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.extensions.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.Extensions"/>
-      </Item54>
-      <Item55>
+      </Item53>
+      <Item54>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.fileassociations.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.FileAssociations"/>
-      </Item55>
-      <Item56>
+      </Item54>
+      <Item55>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.filetypes.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.FileTypes"/>
-      </Item56>
-      <Item57>
+      </Item55>
+      <Item56>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.highlighters.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.Highlighters"/>
-      </Item57>
-      <Item58>
+      </Item56>
+      <Item57>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.keymappings.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.KeyMappings"/>
-      </Item58>
-      <Item59>
+      </Item57>
+      <Item58>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog.Old"/>
-      </Item59>
-      <Item60>
+      </Item58>
+      <Item59>
         <Filename Value="editor\settingsdialog\ts.editor.settingsdialog.pas"/>
         <UnitName Value="ts.Editor.SettingsDialog"/>
-      </Item60>
-      <Item61>
+      </Item59>
+      <Item60>
         <Filename Value="editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
         <UnitName Value="ts.Editor.SortStrings.Settings"/>
-      </Item61>
-      <Item62>
+      </Item60>
+      <Item61>
         <Filename Value="editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
         <UnitName Value="ts.Editor.SortStrings.ToolView"/>
-      </Item62>
-      <Item63>
+      </Item61>
+      <Item62>
         <Filename Value="editor\structure\ts.editor.structure.toolview.pas"/>
         <UnitName Value="ts.Editor.Structure.ToolView"/>
-      </Item63>
-      <Item64>
+      </Item62>
+      <Item63>
         <Filename Value="editor\test\ts.editor.test.toolview.pas"/>
         <UnitName Value="ts.Editor.Test.ToolView"/>
-      </Item64>
-      <Item65>
+      </Item63>
+      <Item64>
         <Filename Value="editor\toolview\ts.editor.toolview.base.pas"/>
         <UnitName Value="ts.Editor.ToolView.Base"/>
-      </Item65>
-      <Item66>
+      </Item64>
+      <Item65>
         <Filename Value="editor\viewlist\ts.editor.viewlist.data.pas"/>
         <UnitName Value="ts.Editor.ViewList.Data"/>
-      </Item66>
-      <Item67>
+      </Item65>
+      <Item66>
         <Filename Value="editor\viewlist\ts.editor.viewlist.toolview.pas"/>
         <UnitName Value="ts.Editor.ViewList.ToolView"/>
-      </Item67>
+      </Item66>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="10">

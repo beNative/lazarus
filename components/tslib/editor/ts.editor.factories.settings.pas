@@ -23,12 +23,11 @@ interface
 uses
   Classes, SysUtils,
 
-  ts.Editor.Tools.Settings, ts.Editor.Highlighters, ts.Editor.Interfaces;
+  ts.Editor.Highlighters, ts.Editor.Interfaces;
 
 type
   TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
-    procedure RegisterToolSettings(ASettings: TEditorToolSettings);
     procedure RegisterHighlighters(AHighlighters: THighlighters);
     class procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
     procedure RegisterClasses;
@@ -66,18 +65,6 @@ uses
   ts.Components.UniHighlighter;
 
 {$REGION 'private methods'}
-procedure TEditorSettingsFactory.RegisterToolSettings(
-  ASettings: TEditorToolSettings);
-begin
-  ASettings.RegisterSettings(TAlignLinesSettings, 'AlignLinesSettings');
-  ASettings.RegisterSettings(TCodeFilterSettings, 'CodeFilterSettings');
-  ASettings.RegisterSettings(TSortStringsSettings, 'SortStringsSettings');
-  ASettings.RegisterSettings(TMiniMapSettings, 'MiniMapSettings');
-  ASettings.RegisterSettings(THexEditorSettings, 'HexEditorSettings');
-  ASettings.RegisterSettings(TSearchEngineSettings, 'SearchSettings');
-  ASettings.RegisterSettings(TCodeShaperSettings, 'CodeShaperSettings');
-end;
-
 procedure TEditorSettingsFactory.RegisterHighlighters(
   AHighlighters: THighlighters);
 
@@ -167,42 +154,42 @@ begin
   FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_PAS].SynHighlighter);
   for I := Low(EditorOptionsDividerInfoPas) to High(EditorOptionsDividerInfoPas) do
   begin
-    FH.DividerDrawConfig[I].MaxDrawDepth :=
-      EditorOptionsDividerInfoPas[I].MaxLevel;
+    //FH.DividerDrawConfig[I].MaxDrawDepth :=
+    //  EditorOptionsDividerInfoPas[I].MaxLevel;
   end;
   for I := Low(EditorOptionsFoldInfoPas) to High(EditorOptionsFoldInfoPas) do
   begin
     N := EditorOptionsFoldInfoPas[I].Index;
-    if N >= 0 then
-      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
+    //if N >= 0 then
+    //  FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
   end;
   FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_XML].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoXML) to High(EditorOptionsFoldInfoXML) do
   begin
     N := EditorOptionsFoldInfoXML[I].Index;
-    if N >= 0 then
-      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
+    //if N >= 0 then
+    //  FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
   end;
   FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_LFM].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoLFM) to High(EditorOptionsFoldInfoLFM) do
   begin
     N := EditorOptionsFoldInfoLFM[I].Index;
-    if N >= 0 then
-      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
+    //if N >= 0 then
+    //  FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
   end;
   FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_HTML].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoHTML) to High(EditorOptionsFoldInfoHTML) do
   begin
     N := EditorOptionsFoldInfoHTML[I].Index;
-    if N >= 0 then
-      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
+    //if N >= 0 then
+    //  FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
   end;
   FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_DIFF].SynHighlighter);
   for I := Low(EditorOptionsFoldInfoDiff) to High(EditorOptionsFoldInfoDiff) do
   begin
     N := EditorOptionsFoldInfoDiff[I].Index;
-    if N >= 0 then
-      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoDiff[I].Enabled;
+    //if N >= 0 then
+    //  FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoDiff[I].Enabled;
   end;
 end;
 
@@ -248,7 +235,6 @@ var
 begin
   RegisterClasses;
   ES := TEditorSettings.Create(AOwner);
-  RegisterToolSettings(ES.ToolSettings);
   RegisterHighlighters(ES.Highlighters);
   if AFileName <> '' then
   begin

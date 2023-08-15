@@ -52,7 +52,7 @@ type
     FFileExtensions       : TStringList;
     FUseCommonAttributes  : Boolean;
 
-    // private property access methods
+    {$REGION 'property access methods'}
     function GetDefaultFilter: string;
     function GetFileExtensions: string;
     function GetIndex: Integer;
@@ -63,6 +63,10 @@ type
     procedure SetSmartSelectionTags(AValue: TCodeTags);
     procedure SetSynHighlighterClass(AValue: TSynHighlighterClass);
     procedure SetUseCommonAttributes(AValue: Boolean);
+    {$ENDREGION}
+
+  protected
+    procedure GetChildren(Proc: TGetChildProc; Root: TComponent); override;
 
   public
     // constructors and destructors
@@ -91,6 +95,7 @@ type
       read FSmartSelectionTags write SetSmartSelectionTags;
 
   published
+
     property Highlighter: string
       read FHighlighter write FHighlighter;
 
@@ -159,6 +164,8 @@ type
     procedure SetItemByName(const AName: string; const AValue: THighlighterItem);
 
   public
+    procedure AfterConstruction; override;
+
     function Add: THighlighterItem;
     function AsString: string;
     function Exists(const AName: string): Boolean;
@@ -192,10 +199,14 @@ type
     property FileFilter: string
       read GetFileFilter;
 
-  published
     { Provides indexed access to the list of items. }
     property Items[Index: Integer]: THighlighterItem
       read GetItem write SetItem; default;
+
+    procedure GetChildren(Proc: TGetChildProc; Root: TComponent); override;
+  published
+
+
   end;
 
 implementation
@@ -275,6 +286,13 @@ begin
   if Assigned(LItem) then
     LItem.Assign(AValue);
 end;
+
+procedure THighlighters.AfterConstruction;
+begin
+  FComponentStyle := [csSubComponent];
+  inherited AfterConstruction;
+end;
+
 {$ENDREGION}
 
 {$REGION 'public methods'}
@@ -398,6 +416,18 @@ begin
   if HI.FileExtensions = '' then
     HI.FileExtensions := AFileExtensions;
 end;
+
+procedure THighlighters.GetChildren(Proc: TGetChildProc; Root: TComponent);
+Var
+  I : Integer;
+
+begin
+  For I:=0 to ComponentCount-1 do
+  begin
+    Proc(Components[i]);
+  end;
+end;
+
 {$ENDREGION}
 {$ENDREGION}
 
@@ -407,9 +437,11 @@ end;
 procedure THighlighterItem.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FComponentStyle := [csSubComponent];
   FFileExtensions            := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
+  FComponentStyle             := [csSubComponent];
   FSmartSelectionTags        := TCodeTags.Create(nil);
   FUseCommonAttributes       := True;
 end;
@@ -506,7 +538,18 @@ begin
     FUseCommonAttributes := AValue;
   end;
 end;
+{$ENDREGION}
 
+{$REGION 'protected methods'}
+procedure THighlighterItem.GetChildren(Proc: TGetChildProc; Root: TComponent);
+var
+  I : Integer;
+begin
+  for I := 0 to ComponentCount - 1 do
+  begin
+    Proc(Components[I]);
+  end;
+end;
 {$ENDREGION}
 
 {$REGION 'public methods'}

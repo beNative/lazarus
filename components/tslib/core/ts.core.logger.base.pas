@@ -16,14 +16,6 @@
 
 unit ts.Core.Logger.Base;
 
-{
-  The Original Code is part of the LuiPack library for Freepascal/Lazarus.
-  The Initial Developer of the Original Code (multilog.pas) is Luiz Américo
-  Pereira Câmara (pascalive@bol.com.br). Portions created by the Initial
-  Developer are Copyright (C) 2006. All Rights Reserved. You may obtain a copy
-  of the original code at http://code.google.com/p/luipack/
-}
-
 {$MODE DELPHI}
 
 interface
@@ -82,7 +74,7 @@ type
     procedure SetLogLevel(const AValue: Byte);
     procedure SetMaxStackCount(const AValue: Integer);
     function GetEnabled: Boolean;
-    procedure SetEnabled(const Value: Boolean);
+    procedure SetEnabled(const AValue: Boolean);
     {$ENDREGION}
 
     function InternalSend(
@@ -132,49 +124,50 @@ type
     function Send(const AName: string; const AValue: TValue): ILogger; overload;
     function Send(const AValue: TValue): ILogger; overload;
 
-    function Send(const AName: string; const AValue: string): ILogger; overload;
-    //function Send(const AName: string; const AValue: AnsiString): ILogger; overload;
-    function Send(const AName: string; const AValue: WideString): ILogger; overload;
-    function Send(const AName: string; const AValue: ShortString): ILogger; overload;
-
     // Overloads for builtin integer types
-    function Send(const AName: string; const AValue: Word): ILogger; overload;
-    function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
     function Send(const AName: string; const AValue: Byte): ILogger; overload;
-    function Send(const AName: string; const AValue: ShortInt): ILogger; overload;
-    function Send(const AName: string; const AValue: UInt64): ILogger; overload;
-    function Send(const AName: string; const AValue: Integer): ILogger; overload;
-
-    function Send(const AValue: string): ILogger; overload;
-    function Send(const AValue: WideString): ILogger; overload;
-    function Send(const AValue: ShortString): ILogger; overload;
-
-    function Send(const AValue: Cardinal): ILogger; overload;
-    function Send(const AValue: Word): ILogger; overload;
-    function Send(const AValue: SmallInt): ILogger; overload;
     function Send(const AValue: Byte): ILogger; overload;
-    function Send(const AValue: ShortInt): ILogger; overload;
-    function Send(const AValue: UInt64): ILogger; overload;
+    function Send(const AName: string; const AValue: Word): ILogger; overload;
+    function Send(const AValue: Word): ILogger; overload;
+    function Send(const AName: string; const AValue: Cardinal): ILogger; overload;
+    function Send(const AValue: Cardinal): ILogger; overload;
+    function Send(const AName: string; const AValue: Integer): ILogger; overload;
     function Send(const AValue: Integer): ILogger; overload;
+    function Send(const AName: string; const AValue: UInt64): ILogger; overload;
+    function Send(const AValue: UInt64): ILogger; overload;
+    function Send(const AName: string; const AValue: ShortInt): ILogger; overload;
+    function Send(const AValue: ShortInt): ILogger; overload;
+    function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
+    function Send(const AValue: SmallInt): ILogger; overload;
 
+    // Overloads for float types
     function Send(const AName: string; const AValue: Double): ILogger; overload;
     function Send(const AValue: Double): ILogger; overload;
+
+    // Overloads for string types
+    function Send(const AName: string; const AValue: string): ILogger; overload;
+    function Send(const AValue: string): ILogger; overload;
+    function Send(const AName: string; const AValue: WideString): ILogger; overload;
+    function Send(const AValue: WideString): ILogger; overload;
+    function Send(const AName: string; const AValue: ShortString): ILogger; overload;
+    function Send(const AValue: ShortString): ILogger; overload;
+
+    // Send common custom types
+    function SendDateTime(const AName: string; AValue: TDateTime): ILogger; overload;
+    function SendDateTime(AValue: TDateTime): ILogger; overload;
+    function SendDate(const AName: string; AValue: TDate): ILogger; overload;
+    function SendDate(AValue: TDate): ILogger; overload;
+    function SendTime(const AName: string; AValue: TTime): ILogger; overload;
+    function SendTime(AValue: TTime): ILogger; overload;
+
+    function SendColor(const AName: string; AColor: TColor): ILogger; overload;
+    function SendColor(AValue: TColor): ILogger; overload;
 
     { Will send object data using RTTI information. }
     function SendObject(const AName: string; AValue: TObject): ILogger; overload;
     function SendObject(AValue: TObject): ILogger; overload;
 
-    function SendText(
-      const AName        : string;
-      const AText        : string;
-      const AHighlighter : string = ''
-    ): ILogger; overload;
-    function SendText(const AText: string): ILogger; overload;
-
-    //function Send(const AName: string; const AValue: FixedInt): ILogger; overload;
-
     //procedure SendBitmap(const AText: string; ABitmap: TBitmap); //inline;
-    //procedure SendColor(const AText: string; AColor: TColor); //inline;
     //procedure SendCallStack(const AText: string); overload; inline;
     //procedure SendHeapInfo(const AText: string); overload; inline;
     //procedure SendMemory(const AText: string; AAddress: Pointer; ASize: LongWord); overload; inline;
@@ -208,30 +201,28 @@ type
     function SendVariant(const AName: string; const AValue: Variant): ILogger; overload;
     function SendVariant(const AValue: Variant): ILogger; overload;
 
-    function Info(const AText: string): ILogger; overload;
+    function SendText(
+      const AName        : string;
+      const AText        : string;
+      const AHighlighter : string = ''
+    ): ILogger; overload;
+    function SendText(const AText: string): ILogger; overload;
+
     function Info(const AText: string; AArgs: array of const): ILogger; overload;
-    function Warn(const AText: string): ILogger; overload;
+    function Info(const AText: string): ILogger; overload;
     function Warn(const AText: string; AArgs: array of const): ILogger; overload;
-    function Error(const AText: string): ILogger; overload;
+    function Warn(const AText: string): ILogger; overload;
     function Error(const AText: string; AArgs: array of const): ILogger; overload;
+    function Error(const AText: string): ILogger; overload;
 
-    { Checkpoints are used to count how many times the application enters a
-      certain position in the code. }
-    function AddCheckPoint(const AName: string = ''): ILogger;
-    function ResetCheckPoint(const AName: string = ''): ILogger;
-
-    function Action(AAction: TBasicAction): ILogger;
-
-    { Counter support }
-    function IncCounter(const AName: string): ILogger;
-    function DecCounter(const AName: string): ILogger;
-    function ResetCounter(const AName: string): ILogger;
-    function GetCounter(const AName: string): Int64;
-
-    function Enter(const AName: string): ILogger; overload; inline;
-    function Enter(ASender: TObject; const AName: string): ILogger; overload; inline;
-    function Leave(const AName: string): ILogger; overload; inline;
-    function Leave(ASender: TObject; const AName: string): ILogger; overload; inline;
+    function Enter(const AName: string): ILogger; overload;
+    function Enter(const AName: string; const AArgs: array of const): ILogger; overload;
+    function Enter(ASender: TObject; const AName: string): ILogger; overload;
+    function Enter(ASender: TObject; const AName: string; const AArgs: array of const): ILogger; overload;
+    function Leave(const AName: string): ILogger; overload;
+    function Leave(const AName: string; const AArgs: array of const): ILogger; overload;
+    function Leave(ASender: TObject; const AName: string): ILogger; overload;
+    function Leave(ASender: TObject; const AName: string; const AArgs: array of const): ILogger; overload;
     function Track(const AName: string): IInterface; overload;
     function Track(
       const AName : string;
@@ -243,6 +234,20 @@ type
       const AName : string;
       const AArgs : array of const
     ): IInterface; overload;
+
+    function Action(AAction: TBasicAction): ILogger;
+
+    { Checkpoints are used to count how many times the application enters a
+      certain position in the code. }
+    function AddCheckPoint(const AName: string = ''): ILogger;
+    function ResetCheckPoint(const AName: string = ''): ILogger;
+
+    { Counter support }
+    function IncCounter(const AName: string): ILogger;
+    function DecCounter(const AName: string): ILogger;
+    function ResetCounter(const AName: string): ILogger;
+    function GetCounter(const AName: string): Int64;
+
     //
     function Watch(const AName: string; const AValue: TValue): ILogger; overload;
     function Watch(const AName, AValue: string): ILogger; overload;
@@ -500,11 +505,11 @@ begin
   Result := FEnabled;
 end;
 
-procedure TLogger.SetEnabled(const Value: Boolean);
+procedure TLogger.SetEnabled(const AValue: Boolean);
 begin
-  if Value <> Enabled then
+  if AValue <> Enabled then
   begin
-    FEnabled := Value;
+    FEnabled := AValue;
   end;
 end;
 {$ENDREGION}
@@ -605,7 +610,6 @@ begin
   //  end;
   //end; // if not AInstance.IsEmpty then
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -809,6 +813,11 @@ begin
   Result := Send(AName, TValue(AValue));
 end;
 
+function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;
+begin
+  Result := Send(AName, TValue(AValue));
+end;
+
 function TLogger.Send(const AName: string; const AValue: ShortInt): ILogger;
 begin
   Result := Send(AName, TValue(AValue));
@@ -842,6 +851,56 @@ end;
 function TLogger.Send(const AValue: ShortString): ILogger;
 begin
   Result := Send('', AValue);
+end;
+
+function TLogger.SendDateTime(const AName: string; AValue: TDateTime): ILogger;
+begin
+  Result := Send(AName, TValue(AValue));
+end;
+
+function TLogger.SendDateTime(AValue: TDateTime): ILogger;
+begin
+  Result := SendDateTime('', AValue);
+end;
+
+function TLogger.SendDate(const AName: string; AValue: TDate): ILogger;
+begin
+  Result := Send(AName, TValue(AValue));
+end;
+
+function TLogger.SendDate(AValue: TDate): ILogger;
+begin
+  Result := SendDate('', AValue);
+end;
+
+function TLogger.SendTime(const AName: string; AValue: TTime): ILogger;
+begin
+  Result := Send(AName, TValue(AValue));
+end;
+
+function TLogger.SendTime(AValue: TTime): ILogger;
+begin
+  Result := SendTime('', AValue);
+end;
+
+function TLogger.SendColor(const AName: string; AColor: TColor): ILogger;
+var
+  LHex   : string;
+  LColor : string;
+  S      : string;
+begin
+  LHex   := '$' + Integer(AColor).ToHexString;
+  LColor := ColorToString(AColor);
+  if LHex = LColor then
+    S := Format('%s (TColor) = %s', [AName, LHex])
+  else
+    S := Format('%s (TColor) = %s (%s)', [AName, LHex, LColor]);
+  Result := InternalSend(lmtColor, S);
+end;
+
+function TLogger.SendColor(AValue: TColor): ILogger;
+begin
+  Result := SendColor('', AValue);
 end;
 
 function TLogger.Send(const AValue: Cardinal): ILogger;
@@ -1097,6 +1156,12 @@ begin
   Result := Enter(nil, AName);
 end;
 
+function TLogger.Enter(const AName: string;
+  const AArgs: array of const): ILogger;
+begin
+    Result := Enter(nil, AName, AArgs);
+end;
+
 function TLogger.Enter(ASender: TObject; const AName: string): ILogger;
 begin
   Result := Self;
@@ -1112,9 +1177,21 @@ begin
     InternalSend(lmtEnterMethod, AName);
 end;
 
+function TLogger.Enter(ASender: TObject; const AName: string;
+  const AArgs: array of const): ILogger;
+begin
+  Result := Enter(ASender, Format(AName, AArgs));
+end;
+
 function TLogger.Leave(const AName: string): ILogger;
 begin
   Result := Leave(nil, AName);
+end;
+
+function TLogger.Leave(const AName: string;
+  const AArgs: array of const): ILogger;
+begin
+  Result := Leave(nil, AName, AArgs);
 end;
 
 function TLogger.Leave(ASender: TObject; const AName: string): ILogger;
@@ -1139,6 +1216,12 @@ begin
   end
   else
     InternalSend(lmtLeaveMethod, AName);
+end;
+
+function TLogger.Leave(ASender: TObject; const AName: string;
+  const AArgs: array of const): ILogger;
+begin
+  Result := Leave(ASender, Format(AName, AArgs));
 end;
 
 function TLogger.Track(const AName: string): IInterface;

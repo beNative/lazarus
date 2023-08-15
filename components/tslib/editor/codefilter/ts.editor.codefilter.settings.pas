@@ -29,7 +29,7 @@ const
   DEFAULT_WIDTH = 400;
 
 type
-  TCodeFilterSettings = class(TComponent)
+  TCodeFilterSettings = class(TPersistent)
   private
     FFormSettings : TFormSettings;
 

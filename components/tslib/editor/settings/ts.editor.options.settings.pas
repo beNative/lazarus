@@ -650,7 +650,7 @@ end;
 {$REGION 'public methods'}
 procedure TEditorOptionsSettings.Assign(ASource: TPersistent);
 var
-  EOS: TEditorOptionsSettings;
+  EOS : TEditorOptionsSettings;
 begin
   if ASource is TEditorOptionsSettings then
   begin

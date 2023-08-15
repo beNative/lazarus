@@ -26,6 +26,8 @@ uses
   Classes, SysUtils,
   LazMethodList,
 
+  ts.Editor.Settings,
+
   SnippetSource.Interfaces, SnippetSource.Resources;
 
 type
@@ -43,9 +45,12 @@ type
     FDefaultRichEditorFontName    : string;
     FEmitLogMessages              : Boolean;
     FPythonVirtualEnvironmentName : string;
+    FEditorSettings               : TEditorSettings;
 
   protected
     {$REGION 'property access methods'}
+    function GetEditorSettings: TEditorSettings;
+    procedure SetEditorSettings(AValue: TEditorSettings);
     function GetAutoHideEditorToolBar: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
@@ -119,6 +124,9 @@ type
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
+
+    property EditorSettings: TEditorSettings
+      read GetEditorSettings write SetEditorSettings;
   end;
 
 implementation
@@ -132,6 +140,7 @@ uses
 procedure TSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FEditorSettings        := TEditorSettings.Create(Self);
   FChangeEvents          := TMethodList.Create;
   Name                   := 'Settings';
   FFileName              := SETTINGS_FILE;
@@ -159,6 +168,16 @@ begin
     FFileName := AValue;
     Changed;
   end;
+end;
+
+function TSettings.GetEditorSettings: TEditorSettings;
+begin
+  Result := FEditorSettings;
+end;
+
+procedure TSettings.SetEditorSettings(AValue: TEditorSettings);
+begin
+  FEditorSettings.Assign(AValue);
 end;
 
 function TSettings.GetAutoHideEditorToolBar: Boolean;

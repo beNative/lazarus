@@ -641,9 +641,9 @@ type
   ['{CDB18A45-54AA-49F2-82C7-15D68C952197}']
     {$REGION 'property access methods'}
     function GetAlignLinesSettings: TAlignLinesSettings;
-    function GetAutoFormatXML: Boolean;
+    function GetAutoFormatXml: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
-    function GetCloseWithESC: Boolean;
+    function GetCloseWithEsc: Boolean;
     function GetCodeFilterSettings: TCodeFilterSettings;
     function GetCodeShaperSettings: TCodeShaperSettings;
     function GetColors: TEditorColorSettings;
@@ -663,12 +663,10 @@ type
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetSingleInstance: Boolean;
     function GetSortStringsSettings: TSortStringsSettings;
-    //function GetToolSettings: TEditorToolSettings;
-    function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
-    procedure SetAutoFormatXML(const AValue: Boolean);
+    procedure SetAutoFormatXml(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
-    procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCloseWithEsc(const AValue: Boolean);
     procedure SetCodeFilterSettings(AValue: TCodeFilterSettings);
     procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetColors(AValue: TEditorColorSettings);
@@ -686,7 +684,6 @@ type
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetSingleInstance(AValue: Boolean);
-    //procedure SetToolSettings(AValue: TEditorToolSettings);
     {$ENDREGION}
 
     procedure Load;
@@ -699,9 +696,6 @@ type
 
     property Colors: TEditorColorSettings
       read GetColors write SetColors;
-
-    //property ToolSettings:  TEditorToolSettings
-    //  read GetToolSettings write SetToolSettings;
 
     property AlignLinesSettings: TAlignLinesSettings
       read GetAlignLinesSettings write SetAlignLinesSettings;
@@ -743,11 +737,11 @@ type
     property ReadOnly: Boolean
       read GetReadOnly write SetReadOnly;
 
-    property AutoFormatXML: Boolean
-      read GetAutoFormatXML write SetAutoFormatXML;
+    property AutoFormatXml: Boolean
+      read GetAutoFormatXml write SetAutoFormatXml;
 
-    property CloseWithESC: Boolean
-      read GetCloseWithESC write SetCloseWithESC;
+    property CloseWithEsc: Boolean
+      read GetCloseWithEsc write SetCloseWithEsc;
 
     property AutoGuessHighlighterType: Boolean
       read GetAutoGuessHighlighterType write SetAutoGuessHighlighterType;
@@ -766,9 +760,6 @@ type
 
     property SingleInstance: Boolean
       read GetSingleInstance write SetSingleInstance;
-
-    property XML: string
-      read GetXML;
 
     // Editor options
     property EditorOptions: TEditorOptionsSettings

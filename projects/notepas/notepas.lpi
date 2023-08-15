@@ -28,10 +28,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <RevisionNr Value="1"/>
-      <BuildNr Value="277"/>
+      <MinorVersionNr Value="1"/>
+      <BuildNr Value="283"/>
       <Attributes pvaPrivateBuild="True"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.0.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -44,6 +44,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\editor;..\..\components\tslib\editor\settings"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -66,9 +67,7 @@
           <Linking>
             <Debugging>
               <DebugInfoType Value="dsDwarf3"/>
-              <UseHeaptrc Value="True"/>
             </Debugging>
-            <LinkSmart Value="True"/>
             <Options>
               <Win32>
                 <GraphicApplication Value="True"/>
@@ -936,7 +935,7 @@ end;"/>
         <PackageName Value="LCL"/>
       </Item11>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="43">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -963,6 +962,197 @@ end;"/>
         <Filename Value="notepas.main.form.lfm"/>
         <IsPartOfProject Value="True"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.events.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Events"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Interfaces"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="dmEditorManager"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+        <UnitName Value="ts.Editor.Manager"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.commands.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Commands"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.toolviews.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.ToolViews"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.utils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Utils"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Colors.Settings"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Options.Settings"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Tools.Settings"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="EditorView"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.View"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.resources.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <UnitName Value="ts.Editor.Resources"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAbout"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.AboutDialog"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.codetags.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeTags"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.menus.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Menus"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Settings"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.toolbars.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Toolbars"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.types.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Types"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="..\..\components\tslib\tslib_components.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="..\..\components\tslib\tslib_core.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="..\..\components\tslib\tslib_editor.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.lrt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="dlgSetupFilters"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.aboutdialog.lrj"/>
+        <IsPartOfProject Value="True"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.CommentStripper"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.manager.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Manager"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.factories.views.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Factories.Views"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighterattributes.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.HighlighterAttributes"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Highlighters"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.resources.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.selection.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Selection"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.view.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit42>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -973,6 +1163,7 @@ end;"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\editor;..\..\components\tslib\editor\settings"/>
       <UnitOutputDirectory Value="lib"/>
     </SearchPaths>
     <CodeGeneration>

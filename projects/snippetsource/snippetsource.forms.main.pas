@@ -144,8 +144,6 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure pgRichEditorBeforeShow(ASender: TObject; ANewPage: TPage;
-      ANewIndex: Integer);
     {$ENDREGION}
 
   private
@@ -158,7 +156,6 @@ type
     FCommonPath         : string;
     FData               : IDataSet;
     FEditorManager      : IEditorManager;
-    FEditorSettings     : IEditorSettings;
     FEditor             : IEditorView;
     FRichEditorManager  : IRichEditorManager;
     FRichEditor         : IRichEditorView;
@@ -167,7 +164,6 @@ type
     FSettings           : TSettings;
     FUpdate             : Boolean;
     FRtfStream          : TStringStream;
-    FHtmlStream         : TStringStream;
     FUpdateRichTextView : Boolean;
 
     {$REGION 'event handlers'}
@@ -354,7 +350,6 @@ begin
   CreateHtmlEditor;
   CreateTreeview;
   FRtfStream := TStringStream.Create;
-  FHtmlStream := TStringStream.Create;
 
   dscMain.DataSet := DataSet.DataSet;
   if FSettings.LastFocusedId > 0 then
@@ -394,19 +389,16 @@ begin
     FSettings.HtmlSourceVisible := FHtmlEditor.SourceVisible;
   end;
   FSettings.Save;
-  FEditorSettings.Save;
   FData              := nil;
   FRichEditorManager := nil;
   FEditorManager     := nil;
   FHtmlEditorManager := nil;
-  FEditorSettings    := nil;
   FEditor            := nil;
   FRichEditor        := nil;
   FHtmlEditor        := nil;
   FreeAndNil(FBusyForm);
   FreeAndNil(FFileSearcher);
   FreeAndNil(FRtfStream);
-  FreeAndNil(FHtmlStream);
   inherited Destroy;
   Logger.Leave(Self, 'Destroy');
 end;
@@ -512,12 +504,9 @@ procedure TfrmMain.actExecuteExecute(Sender: TObject);
 var
   FS        : TFileStream;
   LFileName : string;
-const
-  SCRIPT_FILE = 'SnippetSource.%s';
-  COMMAND    = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
 begin
   Logger.Action(Sender as TBasicAction);
-  LFileName := Format(SCRIPT_FILE, [Snippet.Highlighter]);
+  LFileName := Format(EXECUTE_SCRIPT_FILE, [Snippet.Highlighter]);
   Logger.Send('FileName', LFileName);
   FS := TFileStream.Create(LFileName, fmCreate);
   try
@@ -531,13 +520,17 @@ begin
   end
   else if Snippet.Highlighter = 'PY' then
   begin
-    dmTerminal.Execute(Format(COMMAND, [FSettings.PythonVirtualEnvironmentName]));
+    dmTerminal.Execute(
+      Format(EXECUTE_PYTHON_SCRIPT, [FSettings.PythonVirtualEnvironmentName])
+    );
   end;
 end;
 
+{ Does not work. }
+
 procedure TfrmMain.actFullScreenExecute(Sender: TObject);
 begin
-Logger.Track(Self, 'actFullScreenExecute');
+  Logger.Track(Self, 'actFullScreenExecute');
   FHtmlEditor.ExecuteScript('document.body.requestFullscreen()};');
 end;
 
@@ -775,12 +768,6 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
-end;
-
-procedure TfrmMain.pgRichEditorBeforeShow(ASender: TObject; ANewPage: TPage;
-  ANewIndex: Integer);
-begin
-
 end;
 
 {$REGION 'FTree'}
@@ -1030,10 +1017,7 @@ procedure TfrmMain.CreateTextEditor;
 var
   LEvents : IEditorEvents;
 begin
-  FEditorSettings := TEditorFactories.CreateSettings(Self);
-  FEditorSettings.FileName := EDITOR_SETTINGS_FILE;
-  FEditorSettings.Load;
-  FEditorManager := TEditorFactories.CreateManager(Self, FEditorSettings);
+  FEditorManager := TEditorFactories.CreateManager(Self, FSettings.EditorSettings);
   FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
   FEditor.IsFile := False;
   FEditor.Form.OnEnter := FEditorFormEnter;

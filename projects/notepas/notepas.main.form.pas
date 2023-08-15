@@ -32,10 +32,8 @@ uses
 
   // for debugging
   ts.Core.Logger,
-
   ts.Components.Docking, ts.Components.Docking.Storage,
   ts.Components.UniqueInstance,
-
   ts.Editor.Interfaces;
 
 {
@@ -248,7 +246,7 @@ begin
   FUniqueInstance.OnTerminateInstance := UniqueInstanceTerminateInstance;
 
   FSettings := TEditorFactories.CreateSettings(Self);
-  FSettings.FileName := 'notepas.xml';
+  FSettings.FileName := 'notepas.json';
   FSettings.Load;
 
   TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
@@ -264,7 +262,6 @@ begin
   FUniqueInstance.Enabled := Settings.SingleInstance;
 
   FMainMenu := TEditorFactories.CreateMainMenu(Self, Actions, Menus);
-    //AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
   FMainToolbar := TEditorFactories.CreateMainToolbar(
     Self,
     pnlToolBar,
@@ -288,7 +285,6 @@ begin
   InitializeEvents;
 
   actCheckForNewVersion.ActionList := Manager.Actions.GetActionList;
-  //AddToolButton(FMainToolbar, actCheckForNewVersion);
 
   if ParamCount > 0 then
   begin
@@ -806,18 +802,6 @@ begin
     V.Form.Caption := ExtractFileName(V.FileName);
   end;
 end;
-
-//procedure TfrmMain.AddToolButton(const AParent: TToolBar;
-//  const AAction: TContainedAction);
-//var
-//  TB: TToolButton;
-//begin
-//  TB := TToolButton.Create(AParent);
-//  TB.Parent := AParent;
-//  begin
-//    TB.Action := AAction;
-//  end;
-//end;
 
 { Just a proof of concept. Implementation pending. }
 

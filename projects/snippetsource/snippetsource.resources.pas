@@ -24,8 +24,12 @@ uses
   Classes, SysUtils;
 
 const
-  EDITOR_SETTINGS_FILE  = 'settings.xml';
+  //EDITOR_SETTINGS_FILE  = 'settings.xml';
   SETTINGS_FILE         = 'settings.json';
+
+  EXECUTE_SCRIPT_FILE   = 'SnippetSource.%s';
+  EXECUTE_PYTHON_SCRIPT = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
+
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
@@ -119,31 +123,7 @@ const
     'where'                      + sLineBreak +
     '  Id in (%s);';
 
-  SQL_MOVEDOWN_IDS1 =
-    'update'                     + sLineBreak +
-    '  Snippet'                  + sLineBreak +
-    'set'                        + sLineBreak +
-    '  Sequence = Sequence - %d' + sLineBreak +
-    'where'                      + sLineBreak +
-    '  ParentId = %s'            + sLineBreak +
-    '  and Sequence = ('         + sLineBreak +
-    '    select '                + sLineBreak +
-    '      Sequence + 1'         + sLineBreak +
-    '    from'                   + sLineBreak +
-    '      Snippet'              + sLineBreak +
-    '    where '                 + sLineBreak +
-    '      Id = %s'              + sLineBreak +
-    '  )';
-
-  SQL_MOVEDOWN_IDS2 =
-    'update'                     + sLineBreak +
-    '  Snippet'                  + sLineBreak +
-    'set'                        + sLineBreak +
-    '  Sequence = Sequence + 1'  + sLineBreak +
-    'where'                      + sLineBreak +
-    '  Id in (%s)';
-
-  SQL_MOVEUP_IDS1 =
+  SQL_MOVEUP_IDS =
     'update'                     + sLineBreak +
     '  Snippet'                  + sLineBreak +
     'set'                        + sLineBreak +
@@ -157,15 +137,13 @@ const
     '      Snippet'              + sLineBreak +
     '    where '                 + sLineBreak +
     '      Id = %s'              + sLineBreak +
-    '  )';
-
-  SQL_MOVEUP_IDS2 =
+    '  );'                       + sLineBreak +
     'update'                     + sLineBreak +
     '  Snippet'                  + sLineBreak +
     'set'                        + sLineBreak +
     '  Sequence = Sequence - 1'  + sLineBreak +
     'where'                      + sLineBreak +
-    '  Id in (%s)';
+    '  Id in (%s);';
 
   SQL_UPDATE_SEQUENCE =
     'update'                                    + sLineBreak +

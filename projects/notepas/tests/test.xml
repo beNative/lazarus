@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TParentComponent>
 	<Components>
-		<TChildComponent Name="Child0">
+		<TChildComponent Name="AddChildrenToParentComponentChild0">
 			<TestString>0</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child1">
+		<TChildComponent Name="AddChildrenToParentComponentChild1">
 			<TestString>1</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child2">
+		<TChildComponent Name="AddChildrenToParentComponentChild2">
 			<TestString>2</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child3">
+		<TChildComponent Name="AddChildrenToParentComponentChild3">
 			<TestString>3</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child4">
+		<TChildComponent Name="AddChildrenToParentComponentChild4">
 			<TestString>4</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child5">
+		<TChildComponent Name="AddChildrenToParentComponentChild5">
 			<TestString>5</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child6">
+		<TChildComponent Name="AddChildrenToParentComponentChild6">
 			<TestString>6</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child7">
+		<TChildComponent Name="AddChildrenToParentComponentChild7">
 			<TestString>7</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child8">
+		<TChildComponent Name="AddChildrenToParentComponentChild8">
 			<TestString>8</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child9">
+		<TChildComponent Name="AddChildrenToParentComponentChild9">
 			<TestString>9</TestString>
 		</TChildComponent>
-		<TChildComponent Name="Child10">
+		<TChildComponent Name="AddChildrenToParentComponentChild10">
 			<TestString>10</TestString>
 		</TChildComponent>
+		<TComponent Name="AddChildrenToComponentChild0"/>
+		<TComponent Name="AddChildrenToComponentChild1"/>
+		<TComponent Name="AddChildrenToComponentChild2"/>
+		<TComponent Name="AddChildrenToComponentChild3"/>
+		<TComponent Name="AddChildrenToComponentChild4"/>
+		<TComponent Name="AddChildrenToComponentChild5"/>
+		<TComponent Name="AddChildrenToComponentChild6"/>
+		<TComponent Name="AddChildrenToComponentChild7"/>
+		<TComponent Name="AddChildrenToComponentChild8"/>
+		<TComponent Name="AddChildrenToComponentChild9"/>
+		<TComponent Name="AddChildrenToComponentChild10"/>
 	</Components>
+	<Children>(TObjectList)</Children>
 </TParentComponent>

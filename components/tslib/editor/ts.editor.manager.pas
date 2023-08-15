@@ -1522,7 +1522,7 @@ end;
 procedure TdmEditorManager.actAutoFormatXMLExecute(Sender: TObject);
 begin
   (Sender as TAction).Checked := not (Sender as TAction).Checked;
-  Settings.AutoFormatXML := (Sender as TAction).Checked;
+  Settings.AutoFormatXml := (Sender as TAction).Checked;
 end;
 
 procedure TdmEditorManager.actMonitorChangesExecute(Sender: TObject);

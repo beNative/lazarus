@@ -1,35 +1,35 @@
 object TParentComponent
-  object Child0: TChildComponent
+  object AddChildrenToParentComponentChild0: TChildComponent
     TestString = '0'
   end
-  object Child1: TChildComponent
+  object AddChildrenToParentComponentChild1: TChildComponent
     TestString = '1'
   end
-  object Child2: TChildComponent
+  object AddChildrenToParentComponentChild2: TChildComponent
     TestString = '2'
   end
-  object Child3: TChildComponent
+  object AddChildrenToParentComponentChild3: TChildComponent
     TestString = '3'
   end
-  object Child4: TChildComponent
+  object AddChildrenToParentComponentChild4: TChildComponent
     TestString = '4'
   end
-  object Child5: TChildComponent
+  object AddChildrenToParentComponentChild5: TChildComponent
     TestString = '5'
   end
-  object Child6: TChildComponent
+  object AddChildrenToParentComponentChild6: TChildComponent
     TestString = '6'
   end
-  object Child7: TChildComponent
+  object AddChildrenToParentComponentChild7: TChildComponent
     TestString = '7'
   end
-  object Child8: TChildComponent
+  object AddChildrenToParentComponentChild8: TChildComponent
     TestString = '8'
   end
-  object Child9: TChildComponent
+  object AddChildrenToParentComponentChild9: TChildComponent
     TestString = '9'
   end
-  object Child10: TChildComponent
+  object AddChildrenToParentComponentChild10: TChildComponent
     TestString = '10'
   end
 end

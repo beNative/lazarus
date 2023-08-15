@@ -23,34 +23,14 @@ unit ts.Editor.Settings;
   TEditorSettings is a component that implements IEditorSettings and holds
   all settings that can be persisted.
 
-  All published properties are streamed from/to a XML file in a similar way as
+  All published properties are streamed from/to a Json file in a similar way as
   components are stored in a DFM/LFM file so there is no special code needed
   that handles the storage and retrieval of properties.
 
   Reading qnd writing of the settings is handled completely by these methods,
-  which utilize the NativeXml object storage mechanism.
+  which utilize the fpjsonrtti object storage mechanism.
     procedure Load;
     procedure Save;
-
-  To support another persistence mechanism (like e.g. LFM or JSON) you only
-  need to override these two methods.
-
-  Some remarks:
-  - Don't use TPersistent objects with published TComponent properties as these
-    will not be persisted. If you call SetSubComponent(True) on the nested
-    component they will be stored to XML, but they will not be read if you
-    try to load it back from XML.
-  - Collections can be stored and loaded from XML without problems, but keep in
-    mind that you don't wrap TComponent properties in your collection items (as
-    these descend from TPersistent).
-  - If you need to store a list of components the best way is to rely on the
-    ownership mechanism of TComponent to store sub components.
-    Both TToolSettings and THighlighters are components that are used as a
-    container to host other components. Every subcomponent that they own will
-    be persisted automatically. The property that references the container
-    component does not need to be published.
-    All the component types you want to store this way need to be registered
-    with the RegisterClass procedure found in the Classes unit.
 }
 {$ENDREGION}
 
@@ -70,14 +50,10 @@ uses
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
   ts.Editor.Colors.Settings,
 
-  ts.Editor.AlignLines.Settings,
-  ts.Editor.CodeFilter.Settings,
-  ts.Editor.CodeShaper.Settings,
-  ts.Editor.HexEditor.Settings,
-  ts.Editor.MiniMap.Settings,
-  ts.Editor.Options.Settings,
-  ts.Editor.SortStrings.Settings,
-  ts.Editor.Search.Engine.Settings,
+  ts.Editor.AlignLines.Settings, ts.Editor.CodeFilter.Settings,
+  ts.Editor.CodeShaper.Settings, ts.Editor.HexEditor.Settings,
+  ts.Editor.MiniMap.Settings, ts.Editor.Options.Settings,
+  ts.Editor.SortStrings.Settings, ts.Editor.Search.Engine.Settings,
 
   ts.Editor.CodeTags,
 
@@ -92,12 +68,11 @@ const
   DEFAULT_LANGUAGE_CODE               = 'en';
   DEFAULT_FONT_NAME                   = 'Courier New';
   DEFAULT_SETTINGS_FILE               = 'settings.json';
-  //DEFAULT_SETTINGS_FILE               = 'settings.xml';
 
 type
   TEditorSettings = class(TComponent, IEditorSettings)
   private
-    FAutoFormatXML            : Boolean;
+    FAutoFormatXml            : Boolean;
     FChangedEventList         : TMethodList;
     FReadOnly                 : Boolean;
     FHighlighterType          : string;
@@ -113,7 +88,6 @@ type
     FEditorFont               : TFont;
     FHighlighterAttributes    : THighlighterAttributes;
     FColors                   : TEditorColorSettings;
-    //FToolSettings             : TEditorToolSettings;
     FEditorOptions            : TEditorOptionsSettings;
     FAlignLinesSettings       : TAlignLinesSettings;
     FCodeFilterSettings       : TCodeFilterSettings;
@@ -133,18 +107,19 @@ type
     procedure FEditorOptionsChanged(Sender: TObject);
     procedure FFormSettingsChanged(Sender: TObject);
     procedure FColorsChanged(Sender: TObject);
-    function GetAlignLinesSettings: TAlignLinesSettings;
 
     {$REGION 'property access methods'}
-    function GetAutoFormatXML: Boolean;
+    function GetAlignLinesSettings: TAlignLinesSettings;
+    function GetAutoFormatXml: Boolean;
     function GetAutoGuessHighlighterType: Boolean;
-    function GetCloseWithESC: Boolean;
+    function GetCloseWithEsc: Boolean;
     function GetCodeFilterSettings: TCodeFilterSettings;
     function GetCodeShaperSettings: TCodeShaperSettings;
     function GetColors: TEditorColorSettings;
     function GetDebugMode: Boolean;
     function GetDimInactiveView: Boolean;
     function GetEditorFont: TFont;
+    function GetEditorOptions: TEditorOptionsSettings;
     function GetFileName: string;
     function GetFormSettings: TFormSettings;
     function GetHexEditorSettings: THexEditorSettings;
@@ -152,24 +127,22 @@ type
     function GetHighlighters: THighlighters;
     function GetHighlighterType: string;
     function GetLanguageCode: string;
-    function GetEditorOptions: TEditorOptionsSettings;
     function GetMiniMapSettings: TMiniMapSettings;
     function GetReadOnly: Boolean;
     function GetSearchEngineSettings: TSearchEngineSettings;
     function GetSingleInstance: Boolean;
     function GetSortStringsSettings: TSortStringsSettings;
-    //function GetToolSettings: TEditorToolSettings;
-    function GetXML: string;
     procedure SetAlignLinesSettings(AValue: TAlignLinesSettings);
-    procedure SetAutoFormatXML(const AValue: Boolean);
+    procedure SetAutoFormatXml(const AValue: Boolean);
     procedure SetAutoGuessHighlighterType(const AValue: Boolean);
-    procedure SetCloseWithESC(const AValue: Boolean);
+    procedure SetCloseWithEsc(const AValue: Boolean);
     procedure SetCodeFilterSettings(AValue: TCodeFilterSettings);
     procedure SetCodeShaperSettings(AValue: TCodeShaperSettings);
     procedure SetColors(AValue: TEditorColorSettings);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDimInactiveView(const AValue: Boolean);
     procedure SetEditorFont(AValue: TFont);
+    procedure SetEditorOptions(AValue: TEditorOptionsSettings);
     procedure SetFileName(const AValue: string);
     procedure SetFormSettings(const AValue: TFormSettings);
     procedure SetHexEditorSettings(AValue: THexEditorSettings);
@@ -177,13 +150,11 @@ type
     procedure SetHighlighters(const AValue: THighlighters);
     procedure SetHighlighterType(const AValue: string);
     procedure SetLanguageCode(AValue: string);
-    procedure SetEditorOptions(AValue: TEditorOptionsSettings);
     procedure SetMiniMapSettings(AValue: TMiniMapSettings);
     procedure SetReadOnly(const AValue: Boolean);
     procedure SetSearchEngineSettings(AValue: TSearchEngineSettings);
     procedure SetSingleInstance(AValue: Boolean);
     procedure SetSortStringsSettings(AValue: TSortStringsSettings);
-    //procedure SetToolSettings(AValue: TEditorToolSettings);
     {$ENDREGION}
 
   protected
@@ -192,35 +163,27 @@ type
     procedure InitializeHighlighters;
     procedure Changed;
 
+    procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+    procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
+
+    procedure LoadJson;
+    procedure SaveJson;
+
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure Apply; // to manually force a notification
-    procedure LoadXml; virtual;
-    procedure SaveXml; virtual;
-
-    procedure LoadJson; virtual;
-    procedure SaveJson; virtual;
 
     procedure Load; virtual;
     procedure Save; virtual;
 
-    procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
-    procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
-
     property FileName: string
       read GetFileName write SetFileName;
-
-    property XML: string
-      read GetXML;
 
   published
     property Highlighters: THighlighters
       read GetHighlighters write SetHighlighters;
-
-    //property ToolSettings: TEditorToolSettings
-    //  read GetToolSettings write SetToolSettings;
 
     property AlignLinesSettings: TAlignLinesSettings
       read GetAlignLinesSettings write SetAlignLinesSettings;
@@ -266,8 +229,8 @@ type
       read GetDimInactiveView write SetDimInactiveView
       default DEFAULT_DIM_ACTIVE_VIEW;
 
-    property AutoFormatXML: Boolean
-      read GetAutoFormatXML write SetAutoFormatXML
+    property AutoFormatXml: Boolean
+      read GetAutoFormatXml write SetAutoFormatXml
       default DEFAULT_AUTO_FORMAT_XML;
 
     property AutoGuessHighlighterType: Boolean
@@ -275,8 +238,8 @@ type
       default DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
 
     { Determines if the application can be closed with the ESCAPE key. }
-    property CloseWithESC: Boolean
-      read GetCloseWithESC write SetCloseWithESC default False;
+    property CloseWithEsc: Boolean
+      read GetCloseWithEsc write SetCloseWithEsc default False;
 
     property FormSettings: TFormSettings
       read GetFormSettings write SetFormSettings;
@@ -297,18 +260,11 @@ implementation
 uses
   SynEditStrConst, SynEditTypes,
 
-  ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage, ts.Core.Utils,
+  ts.Core.Utils,
 
   ts.Editor.Resources;
 
 {$REGION 'construction and destruction'}
-
-procedure OngetObject(Sender: TOBject; AObject: TObject; Info: PPropInfo;
-  AData: TJSONObject; DataName: TJSONStringType; Var AValue: TObject);
-begin
-  Logger.Send('DataName', DataName);
-end;
-
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
@@ -328,16 +284,12 @@ begin
   FMiniMapSettings      := TMiniMapSettings.Create;
   FSearchEngineSettings := TSearchEngineSettings.Create;
 
-  FStreamer   := TJSONStreamer.Create(Self);
+  FStreamer         := TJSONStreamer.Create(Self);
   FStreamer.Options :=  FStreamer.Options + [jsoStreamChildren];
-  FDeStreamer := TJSONDeStreamer.Create(Self);
+  FDeStreamer         := TJSONDeStreamer.Create(Self);
   FDeStreamer.Options := FDeStreamer.Options + [jdoIgnorePropertyErrors];
-  FDeStreamer.BeforeReadObject := FDeStreamerBeforeReadObject;
+  FDeStreamer.BeforeReadObject  := FDeStreamerBeforeReadObject;
   FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
-  FDeStreamer.OngetObject :=OngetObject ;
-
-  //FToolSettings      := TEditorToolSettings.Create(Self);
-  //FToolSettings.Name := 'ToolSettings';
 
   FHighlighters          := THighLighters.Create(Self);
   FHighlighters.Name     := 'Highlighters';
@@ -345,7 +297,7 @@ begin
 
   FFileName := DEFAULT_SETTINGS_FILE;
   FHighlighterType          := HL_TXT;
-  FAutoFormatXML            := DEFAULT_AUTO_FORMAT_XML;
+  FAutoFormatXml            := DEFAULT_AUTO_FORMAT_XML;
   FAutoGuessHighlighterType := DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
   FSingleInstance           := DEFAULT_SINGLE_INSTANCE;
   FEditorFont               := TFont.Create;
@@ -359,9 +311,8 @@ begin
   AssignDefaultColors;
 end;
 
-procedure TEditorSettings.BeforeDestruction;
+destructor TEditorSettings.Destroy;
 begin
-  //FToolSettings.Free;
   FAlignLinesSettings.Free;
   FCodeFilterSettings.Free;
   FCodeShaperSettings.Free;
@@ -369,7 +320,6 @@ begin
   FSortStringsSettings.Free;
   FMiniMapSettings.Free;
   FSearchEngineSettings.Free;
-
   FColors.Free;
   FEditorOptions.Free;
   FFormSettings.Free;
@@ -377,7 +327,7 @@ begin
   FEditorFont.Free;
   FHighlighterAttributes.Free;
   FChangedEventList.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -399,23 +349,8 @@ end;
 
 procedure TEditorSettings.FDeStreamerRestoreProperty(Sender: TObject;
   AObject: TObject; Info: PPropInfo; AValue: TJSONData; var Handled: Boolean);
-var
-  C : TComponent;
-  I: Integer;
-  A : TJSONArray;
 begin
   Logger.Send('AValueType', GetEnumName(TypeInfo(AValue.JSONType), Integer(AValue.JSONType)));
-  if Info.Name = 'Highlighters' then
-  begin
-    //AValue.;
-//    Handled := True;
-  end
-  else if Info.Name = 'ToolSettings' then
-  begin
-    //FDeStreamer.JSONToObject(AValue as TJSONObject, ToolSettings);
-    //Logger.Info(AObject.ClassName);
-    //Handled := True;
-  end;
 end;
 
 procedure TEditorSettings.FDeStreamerBeforeReadObject(Sender: TObject;
@@ -431,16 +366,16 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access methods'}
-function TEditorSettings.GetAutoFormatXML: Boolean;
+function TEditorSettings.GetAutoFormatXml: Boolean;
 begin
-  Result := FAutoFormatXML;
+  Result := FAutoFormatXml;
 end;
 
-procedure TEditorSettings.SetAutoFormatXML(const AValue: Boolean);
+procedure TEditorSettings.SetAutoFormatXml(const AValue: Boolean);
 begin
-  if AValue <> AutoFormatXML then
+  if AValue <> AutoFormatXml then
   begin
-    FAutoFormatXML := AValue;
+    FAutoFormatXml := AValue;
   end;
 end;
 
@@ -457,7 +392,7 @@ begin
   end;
 end;
 
-function TEditorSettings.GetCloseWithESC: Boolean;
+function TEditorSettings.GetCloseWithEsc: Boolean;
 begin
   Result := FCloseWithESC;
 end;
@@ -472,9 +407,9 @@ begin
   Result := FCodeShaperSettings;
 end;
 
-procedure TEditorSettings.SetCloseWithESC(const AValue: Boolean);
+procedure TEditorSettings.SetCloseWithEsc(const AValue: Boolean);
 begin
-  if AValue <> CloseWithESC then
+  if AValue <> CloseWithEsc then
   begin
     FCloseWithESC := AValue;
   end;
@@ -692,7 +627,7 @@ begin
   if AValue <> SingleInstance then
   begin
     FSingleInstance := AValue;
-    // we need to SaveXml here to make sure that any other instance runs with the
+    // we need to Save here to make sure that any other instance runs with the
     // same configuration.
     Save;
     Changed;
@@ -705,28 +640,11 @@ begin
   Changed;
 end;
 
-//function TEditorSettings.GetToolSettings: TEditorToolSettings;
-//begin
-//  Result := FToolSettings;
-//end;
-//
-//procedure TEditorSettings.SetToolSettings(AValue: TEditorToolSettings);
-//begin
-//  FToolSettings.Assign(AValue);
-//  Changed;
-//end;
-
-function TEditorSettings.GetXML: string;
-begin
-  Result := ReadFileToString(FileName);
-end;
-
 procedure TEditorSettings.SetAlignLinesSettings(AValue: TAlignLinesSettings);
 begin
   FAlignLinesSettings.Assign(AValue);
   Changed;
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}
@@ -765,132 +683,6 @@ end;
 procedure TEditorSettings.Changed;
 begin
   FChangedEventList.CallNotifyEvents(Self);
-end;
-{$ENDREGION}
-
-{$REGION 'public methods'}
-procedure TEditorSettings.LoadXml;
-var
-  LReader : TXmlObjectReader;
-  LDoc    : TNativeXml;
-  S       : string;
-begin
-  S := GetApplicationPath + FFileName;
-  Logger.Info('LoadXml %s', [S]);
-  if FileExists(S) then
-  begin
-    LDoc := TNativeXml.Create(nil);
-    try
-      LDoc.LoadFromFile(S);
-      LReader := TXmlObjectReader.Create;
-      try
-        LReader.ReadComponent(LDoc.Root, Self, nil);
-      finally
-        FreeAndNil(LReader);
-      end;
-    finally
-      FreeAndNil(LDoc);
-    end;
-  end;
-  InitializeHighlighters; // create higlighters if they cannot be loaded.
-  InitializeHighlighterAttributes;
-end;
-
-procedure TEditorSettings.SaveXml;
-var
-  LWriter : TXmlObjectWriter;
-  LDoc    : TNativeXml;
-  S       : string;
-begin
-  Logger.Enter(Self, 'SaveXml');
-  S :=   GetApplicationPath + FFileName;
-  Logger.Info('SaveXml %s', [S]);
-  LDoc := TNativeXml.CreateName('Root', nil);
-  try
-    LWriter := TXmlObjectWriter.Create;
-    try
-      LDoc.XmlFormat := xfReadable;
-      LWriter.WriteComponent(LDoc.Root, Self);
-      LDoc.SaveToFile(S);
-    finally
-      FreeAndNil(LWriter);
-    end;
-  finally
-    FreeAndNil(LDoc);
-  end;
-  Logger.Leave(Self, 'SaveXml');
-
-end;
-
-procedure TEditorSettings.LoadJson;
-var
-  LFileName  : string;
-begin
-  Logger.Enter(Self, 'LoadJson');
-  LFileName := GetApplicationPath + FFileName;
-  Logger.Info('LoadJson %s', [LFileName]);
-  if FileExists(LFileName) then
-  begin
-    Logger.SendText(ReadFileToString(LFileName));
-    FDeStreamer.JSONToObject(ReadFileToString(LFileName), Self);
-    InitializeHighlighters;
-    InitializeHighlighterAttributes;
-  end;
-  Logger.Leave(Self, 'LoadJson');
-end;
-
-procedure TEditorSettings.SaveJson;
-var
-  S         : string;
-  LFileName : string;
-  SL        : TStringList;
-  JO        : TJSONObject;
-  JA        : TJSONArray;
-  I         : Integer;
-  HL        : TJSONObject;
-  IT        : TJSONArray;
-begin
-  Logger.Enter(Self, 'SaveJson');
-  LFileName := GetApplicationPath + FFileName;;
-  Logger.Info('SaveJson %s', [LFileName]);
-  JO := FStreamer.ObjectToJSON(Self);
-
-  //JA := TJSONArray.Create;
-  //
-  //HL := JO['Highlighters'] as TJSONObject;
-  //JA := HL['Children'] as TJSONArray;
-  //for I := 0 to Highlighters.Count -1 do
-  //  begin
-  //    JA.Add(FStreamer.ObjectToJSON(Highlighters.Items[I]));
-  //  end;
-  //JO['Highlighters'].Add('Items', JA);
-  S := JO.FormatJSON;
-  Logger.SendText(S);
-  SL := TStringList.Create;
-  try
-    SL.Text := S;
-    SL.SaveToFile(LFileName);
-  finally
-    SL.Free;
-  end;
-  Logger.Leave(Self, 'SaveJson');
-end;
-
-procedure TEditorSettings.Load;
-begin
-  LoadJson;
-  //LoadXml;
-end;
-
-procedure TEditorSettings.Save;
-begin
-  //SaveXml;
-  SaveJson;
-end;
-
-procedure TEditorSettings.Apply;
-begin
-  Changed;
 end;
 
 procedure TEditorSettings.AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
@@ -1042,6 +834,77 @@ begin
   begin
     HI.InitSynHighlighter(HI.SynHighlighter);
   end;
+end;
+
+procedure TEditorSettings.LoadJson;
+var
+  LFileName  : string;
+begin
+  Logger.Enter(Self, 'LoadJson');
+  LFileName := GetApplicationPath + FFileName;
+  Logger.Info('LoadJson %s', [LFileName]);
+  if FileExists(LFileName) then
+  begin
+    Logger.SendText(ReadFileToString(LFileName));
+    FDeStreamer.JSONToObject(ReadFileToString(LFileName), Self);
+    InitializeHighlighters;
+    InitializeHighlighterAttributes;
+  end;
+  Logger.Leave(Self, 'LoadJson');
+end;
+
+procedure TEditorSettings.SaveJson;
+var
+  S         : string;
+  LFileName : string;
+  SL        : TStringList;
+  JO        : TJSONObject;
+  //JA        : TJSONArray;
+  //I         : Integer;
+  //HL        : TJSONObject;
+  //IT        : TJSONArray;
+begin
+  Logger.Enter(Self, 'SaveJson');
+  LFileName := GetApplicationPath + FFileName;;
+  Logger.Info('SaveJson %s', [LFileName]);
+  JO := FStreamer.ObjectToJSON(Self);
+
+  //JA := TJSONArray.Create;
+  //
+  //HL := JO['Highlighters'] as TJSONObject;
+  //JA := HL['Children'] as TJSONArray;
+  //for I := 0 to Highlighters.Count -1 do
+  //  begin
+  //    JA.Add(FStreamer.ObjectToJSON(Highlighters.Items[I]));
+  //  end;
+  //JO['Highlighters'].Add('Items', JA);
+  S := JO.FormatJSON;
+  Logger.SendText(S);
+  SL := TStringList.Create;
+  try
+    SL.Text := S;
+    SL.SaveToFile(LFileName);
+  finally
+    SL.Free;
+  end;
+  Logger.Leave(Self, 'SaveJson');
+end;
+{$ENDREGION}
+
+{$REGION 'public methods'}
+procedure TEditorSettings.Load;
+begin
+  LoadJson;
+end;
+
+procedure TEditorSettings.Save;
+begin
+  SaveJson;
+end;
+
+procedure TEditorSettings.Apply;
+begin
+  Changed;
 end;
 {$ENDREGION}
 

@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit Test.ComponentStreaming;
@@ -30,7 +28,7 @@ uses
 
   Test.ComponentStreaming.TestComponents,
 
-  ts.Editor.Tools.Settings, ts.Editor.Factories.Settings;
+  ts.Editor.Factories.Settings;
 
 type
 
@@ -46,8 +44,13 @@ type
     FStreamer   : TJSONStreamer;
     FDeStreamer : TJSONDeStreamer;
 
-    procedure FDeStreamerRestoreProperty(Sender: TObject; AObject: TObject;
-      Info: PPropInfo; AValue: TJSONData; Var Handled: Boolean);
+    procedure FDeStreamerRestoreProperty(
+      Sender      : TObject;
+      AObject     : TObject;
+      Info        : PPropInfo;
+      AValue      : TJSONData;
+      var Handled : Boolean
+    );
 
   protected
     procedure SetUp; override;
@@ -67,7 +70,6 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
 
   published
     procedure TestLoadXML;
@@ -90,50 +92,73 @@ uses
 
   ts.Core.Logger, ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage;
 
-{ TTestComponentStreaming }
+{$REGION 'construction and destruction'}
+procedure TTestComponentStreaming.AfterConstruction;
+begin
+  inherited AfterConstruction;
+  Logger.Clear;
+end;
+{$ENDREGION}
 
+{$REGION 'event handlers'}
 procedure DoOngetObject(Sender: TOBject; AObject: TObject; Info: PPropInfo;
   AData: TJSONObject; DataName: TJSONStringType; Var AValue: TObject);
 begin
-  Logger.Info(DataName);
+  Logger.Enter('DoOngetObject');
+  Logger.Send('DataName', DataName);
+  Logger.SendObject('AValue', AValue);
+  Logger.Leave('DoOngetObject');
 end;
 
 procedure TTestComponentStreaming.FDeStreamerRestoreProperty(Sender: TObject;
-  AObject: TObject; Info: PPropInfo; AValue: TJSONData; Var Handled: Boolean);
+  AObject: TObject; Info: PPropInfo; AValue: TJSONData; var Handled: Boolean);
 var
-  C : TComponent;
-  I: Integer;
+  C : TComponent = nil;
+  I : Integer;
   A : TJSONArray;
 begin
-  //Logger.Track('FDeStreamerRestoreProperty');
-  Logger.Send('AValueType', Integer(AValue.JSONType));
-  Logger.Info(AValue.AsJSON);
+  Logger.Enter(Self, 'FDeStreamerRestoreProperty');
+  Logger.Send('AValueType', GetEnumName(
+    TypeInfo(AValue.JSONType), Integer(AValue.JSONType))
+  );
+  Logger.SendText(AValue.FormatJSON, 'JSON');
   if AValue.JSONType = jtArray then
   begin
     A := AValue as TJSONArray;
     for I := 0 to A.Count - 1 do
     begin
-      ;
-      Logger.Info(AValue.Items[I].AsJSON);
-      FDeStreamer.JSONToObject(AValue.Items[I].AsJSON, C);
+      Logger.SendText(AValue.Items[I].FormatJSON, 'JSON');
+      FDeStreamer.JSONToObject(AValue.Items[I].FormatJSON, C);
       if Assigned(C) then
-      FParent.Children.Add(C);
+        FParent.Children.Add(C);
     end;
   end;
+  Logger.Leave(Self, 'FDeStreamerRestoreProperty');
 end;
+{$ENDREGION}
 
+{$REGION 'protected methods'}
 procedure TTestComponentStreaming.SetUp;
 begin
   inherited SetUp;
+  FXMLFile  := ExtractFilePath(Application.ExeName) + 'test.xml';
+  FLFMFile  := ExtractFilePath(Application.ExeName) + 'test.lfm';
+  FJSONFile := ExtractFilePath(Application.ExeName) + 'test.json';
+  FParent := TParentComponent.Create(nil);
+  FComponent := FParent;
+
   FStreamer := TJSONStreamer.Create(nil);
   FStreamer.Options := FStreamer.Options + [jsoComponentsInline];
-  FDeStreamer := TJSONDeStreamer.Create(nil);
-  FDeStreamer.OngetObject := @DoOngetObject;
+  FDeStreamer                   := TJSONDeStreamer.Create(nil);
+  FDeStreamer.OngetObject       := @DoOngetObject;
   FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
 end;
 
 procedure TTestComponentStreaming.TearDown;
 begin
+  FComponent := nil;
+  FParent.Free;
+
   FreeAndNil(FDeStreamer);
   FreeAndNil(FStreamer);
   inherited TearDown;
@@ -141,43 +166,43 @@ end;
 
 procedure TTestComponentStreaming.LoadXML(AComponent: TComponent);
 var
-  Reader : TXmlObjectReader;
-  Doc    : TNativeXml;
+  LReader : TXmlObjectReader;
+  LDoc    : TNativeXml;
 begin
   if FileExists(FXMLFile) then
   begin
-    Doc := TNativeXml.Create(nil);
+    LDoc := TNativeXml.Create(nil);
     try
-      Doc.LoadFromFile(FXMLFile);
-      Reader := TXmlObjectReader.Create;
+      LDoc.LoadFromFile(FXMLFile);
+      LReader := TXmlObjectReader.Create;
       try
-        Reader.ReadComponent(Doc.Root, AComponent, nil);
+        LReader.ReadComponent(LDoc.Root, AComponent, nil);
       finally
-        FreeAndNil(Reader);
+        FreeAndNil(LReader);
       end;
     finally
-      FreeAndNil(Doc);
+      FreeAndNil(LDoc);
     end;
   end;
 end;
 
 procedure TTestComponentStreaming.SaveXML(AComponent: TComponent);
 var
-  Writer : TXmlObjectWriter;
-  Doc    : TNativeXml;
+  LWriter : TXmlObjectWriter;
+  LDoc    : TNativeXml;
 begin
-  Doc := TNativeXml.CreateName('Root', nil);
+  LDoc := TNativeXml.CreateName('Root', nil);
   try
-    Writer := TXmlObjectWriter.Create;
+    LWriter := TXmlObjectWriter.Create;
     try
-      Doc.XmlFormat := xfReadable;
-      Writer.WriteComponent(Doc.Root, AComponent);
-      Doc.SaveToFile(FXMLFile);
+      LDoc.XmlFormat := xfReadable;
+      LWriter.WriteComponent(LDoc.Root, AComponent);
+      LDoc.SaveToFile(FXMLFile);
     finally
-      FreeAndNil(Writer);
+      FreeAndNil(LWriter);
     end;
   finally
-    FreeAndNil(Doc);
+    FreeAndNil(LDoc);
   end;
 end;
 
@@ -186,20 +211,23 @@ var
   MS : TMemoryStream;
   FS : TFileStream;
 begin
-  FS := TFileStream.Create(FLFMFile, fmOpenRead);
-  try
-    MS := TMemoryStream.Create;
+  if FileExists(FLFMFile) then
+  begin
+    FS := TFileStream.Create(FLFMFile, fmOpenRead);
     try
-      ObjectTextToBinary(FS, MS);
-      MS.Position := 0;
-      MS.ReadComponent(AComponent);
+      MS := TMemoryStream.Create;
+      try
+        ObjectTextToBinary(FS, MS);
+        MS.Position := 0;
+        MS.ReadComponent(AComponent);
+      finally
+        MS.Free;
+      end;
     finally
-      MS.Free;
+      FS.Free;
     end;
-  finally
-    FS.Free;
+    Logger.SendComponent(AComponent);
   end;
-  Logger.SendComponent(AComponent);
 end;
 
 procedure TTestComponentStreaming.SaveLFM(AComponent: TComponent);
@@ -248,88 +276,79 @@ end;
 
 procedure TTestComponentStreaming.AddChildrenToParentComponent;
 var
-  I : Integer;
-  Child : TChildComponent;
+  I      : Integer;
+  LChild : TChildComponent;
 begin
   for I := 0 to 10 do
   begin
-    Child := TChildComponent.Create(FParent);
-    Child.Name := 'Child' + IntToStr(I);
-    Child.TestString := IntToStr(I);
-    FParent.Children.Add(Child);
+    LChild := TChildComponent.Create(FParent);
+    LChild.Name := 'AddChildrenToParentComponentChild' + IntToStr(I);
+    LChild.TestString := IntToStr(I);
+    FParent.Children.Add(LChild);
   end;
 end;
 
 procedure TTestComponentStreaming.AddChildrenToComponent;
 var
-  I : Integer;
-  Child : TComponent;
+  I      : Integer;
+  LChild : TComponent;
 begin
   for I := 0 to 10 do
   begin
-    Child := TComponent.Create(FComponent);
-    Child.Name := 'Child' + IntToStr(I);
+    LChild := TComponent.Create(FComponent);
+    LChild.Name := 'AddChildrenToComponentChild' + IntToStr(I);
   end;
 end;
+{$ENDREGION}
 
-procedure TTestComponentStreaming.AfterConstruction;
-begin
-  inherited AfterConstruction;
-  FXMLFile  := ExtractFilePath(Application.ExeName) + 'test.xml';
-  FLFMFile  := ExtractFilePath(Application.ExeName) + 'test.lfm';
-  FJSONFile := ExtractFilePath(Application.ExeName) + 'test.json';
-  FParent := TParentComponent.Create(nil);
-  FComponent := FParent;
-end;
-
-procedure TTestComponentStreaming.BeforeDestruction;
-begin
-  FParent.Free;
-  inherited BeforeDestruction;
-end;
-
+{$REGION 'published methods'}
 procedure TTestComponentStreaming.TestLoadXML;
 var
   C : TComponent;
 begin
+  Logger.Enter(Self, 'TestLoadXML');
   LoadXML(FComponent);
   Logger.SendComponent(FComponent);
   for C in FComponent do
   begin
-    Logger.Send('Component', C);
+    Logger.SendComponent('Component', C);
     if Assigned(C.GetParentComponent) then
-      Logger.Send('ParentComponent', C.GetParentComponent);
+      Logger.SendComponent('ParentComponent', C.GetParentComponent);
     if Assigned(C.Owner) then
-      Logger.Send('Owner', C.Owner);
+      Logger.SendComponent('Owner', C.Owner);
   end;
   SaveXML(FComponent);
+  Logger.Leave(Self, 'TestLoadXML');
 end;
 
 procedure TTestComponentStreaming.TestSaveXML;
 var
   C : TComponent;
 begin
+  Logger.Enter(Self, 'TestSaveXML');
   AddChildrenToParentComponent;
-  //SaveXML(FParent);
-  //AddChildrenToComponent;
+  SaveXML(FParent);
+  AddChildrenToComponent;
   //TEditorSettingsFactory.RegisterToolSettings(FToolSettings);
 
-  // for C in FComponent do
-  //begin
-  //  Logger.Send('Component', C);
-  //  if Assigned(C.GetParentComponent) then
-  //    Logger.Send('ParentComponent', C.GetParentComponent);
-  //  if Assigned(C.Owner) then
-  //        Logger.Send('Owner', C.Owner);
-  //end;
+   for C in FComponent do
+  begin
+    Logger.SendComponent('Component', C);
+    if Assigned(C.GetParentComponent) then
+      Logger.SendComponent('ParentComponent', C.GetParentComponent);
+    if Assigned(C.Owner) then
+          Logger.SendComponent('Owner', C.Owner);
+  end;
 
   SaveXML(FComponent);
+  Logger.Leave(Self, 'TestSaveXML');
 end;
 
 procedure TTestComponentStreaming.TestLoadLFM;
 var
   C : TComponent;
 begin
+  Logger.Enter(Self, 'TestLoadLFM');
   LoadLFM(FComponent);
   Logger.SendComponent(FComponent);
 
@@ -339,21 +358,25 @@ begin
     if Assigned(C.GetParentComponent) then
       Logger.SendComponent(C.GetParentComponent);
   end;
+  Logger.Leave(Self, 'TestLoadLFM');
 end;
 
 procedure TTestComponentStreaming.TestSaveLFM;
 begin
+  Logger.Enter(Self, 'TestSaveLFM');
   if FComponent.ComponentCount = 0 then
   begin
     AddChildrenToParentComponent;
   end;
   SaveLFM(FComponent);
+  Logger.Leave(Self, 'TestSaveLFM');
 end;
 
 procedure TTestComponentStreaming.TestLoadJSON;
 var
   C : TComponent;
 begin
+  Logger.Enter(Self, 'TestLoadJSON');
   LoadJSON(FParent);
   Logger.SendComponent(FParent);
 
@@ -363,13 +386,17 @@ begin
     if Assigned(C.GetParentComponent) then
       Logger.SendComponent(C.GetParentComponent);
   end;
+  Logger.Leave(Self, 'TestLoadJSON');
 end;
 
 procedure TTestComponentStreaming.TestSaveJSON;
 begin
+  Logger.Enter(Self, 'TestSaveJSON');
   AddChildrenToParentComponent;
   SaveJSON(FParent);
+  Logger.Leave(Self, 'TestSaveJSON');
 end;
+{$ENDREGION}
 
 initialization
   RegisterTest(TTestComponentStreaming);

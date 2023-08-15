@@ -892,7 +892,7 @@ begin
   //);
   if (Lines.Count = 0) and Settings.AutoGuessHighlighterType then
     Commands.GuessHighlighterType;
-  if (HighlighterName = HL_XML) and Settings.AutoFormatXML then
+  if (HighlighterName = HL_XML) and Settings.AutoFormatXml then
   begin
     AText := FormatXML(AText);
   end;

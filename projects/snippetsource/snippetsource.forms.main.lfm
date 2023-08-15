@@ -412,7 +412,6 @@ object frmMain: TfrmMain
         end
       end
       object pgRichEditor: TPage
-        OnBeforeShow = pgRichEditorBeforeShow
         object pnlRichEditor: TPanel
           Left = 0
           Height = 720

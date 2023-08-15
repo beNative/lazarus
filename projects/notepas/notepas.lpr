@@ -1,19 +1,17 @@
 {
   Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 program Notepas;
@@ -35,6 +33,16 @@ uses
   ExceptionLogger,
 
   ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
+  tslib_components, tslib_core, tslib_editor, SetupFiltersDialog,
+  ts.Editor.AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
+  ts.Editor.CodeTags, ts.Editor.Commands, ts.Editor.CommentStripper,
+  ts.Editor.Events, ts.Editor.Factories.Manager, ts.Editor.Factories.Menus,
+  ts.Editor.Factories, ts.Editor.Factories.Settings,
+  ts.Editor.Factories.Toolbars, ts.Editor.Factories.Views,
+  ts.Editor.HighlighterAttributes, ts.Editor.Highlighters, ts.Editor.Interfaces,
+  ts.Editor.Manager, ts.Editor.Resources, ts.Editor.Selection,
+  ts.Editor.ToolViews, ts.Editor.Types, ts.Editor.Utils, ts.Editor.View,
+  ts.Editor.Colors.Settings, ts.Editor.Options.Settings, ts.Editor.Settings,
 
   Notepas.Main.Form;
 

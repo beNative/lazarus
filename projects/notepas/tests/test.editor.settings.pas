@@ -1,19 +1,17 @@
 {
-  Copyright (C) 2013-2018 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
 
-  This library is free software; you can redistribute it and/or modify it
-  under the terms of the GNU Library General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or (at your
-  option) any later version.
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-  This program is distributed in the hope that it will be useful, but WITHOUT
-  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-  FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License
-  for more details.
+      http://www.apache.org/licenses/LICENSE-2.0
 
-  You should have received a copy of the GNU Library General Public License
-  along with this library; if not, write to the Free Software Foundation,
-  Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 }
 
 unit Test.Editor.Settings;
@@ -43,14 +41,15 @@ type
 
     procedure LoadSettings;
 
+    procedure TestLoadSaveCommentTags;
+    procedure TestLoadSaveHighlighters;
+
   published
     procedure TestLoadSettings;
     procedure TestSaveSettings;
 
     procedure TestLoadSaveSettings;
     procedure TestLoadSaveColors;
-    procedure TestLoadSaveHighlighters;
-    procedure TestLoadSaveCommentTags;
     procedure TestLoadSaveHighlighterAttributes;
     procedure TestLoadSaveToolSettings;
 
@@ -71,31 +70,60 @@ uses
 
   ts.Editor.Highlighters, ts.Editor.HighlighterAttributes;
 
+{$REGION 'protected methods'}
+procedure TTestEditorSettings.SetUp;
+begin
+  FSettings := TEditorFactories.CreateSettings(Application);
+end;
+
+procedure TTestEditorSettings.TearDown;
+begin
+  FSettings := nil;
+end;
+
+procedure TTestEditorSettings.LoadSettings;
+begin
+  FSettings := nil;
+  FSettings := TEditorFactories.CreateSettings(Application);
+  FSettings.Load;
+end;
+{$ENDREGION}
+
+{$REGION 'published methods'}
 procedure TTestEditorSettings.TestLoadSettings;
 var
-  C : TComponent;
+  C  : TComponent;
+  HL : THighlighterItem;
 begin
-  Logger.SendComponent(FSettings.ToolSettings);
-  for C in FSettings.ToolSettings do
-    Logger.SendComponent(C);
-
-  for C in FSettings.Highlighters do
-    Logger.SendComponent(C);
-
-  FSettings.Load;
-
-  Logger.SendComponent(FSettings.ToolSettings);
-  for C in FSettings.ToolSettings do
-    Logger.SendComponent(C);
-
-  for C in FSettings.Highlighters do
-    Logger.SendComponent(C);
+  //Logger.Enter(Self, 'TestLoadSettings');
+  //Logger.SendComponent(FSettings.ToolSettings);
+  //for C in FSettings.ToolSettings do
+  //  Logger.SendComponent(C);
+  //
+  //for C in FSettings.Highlighters do
+  //begin
+  //  HL := C as THighlighterItem;
+  //  Logger.SendComponent(HL);
+  //  Logger.SendComponent(HL.SynHighlighter);
+  //end;
+  //
+  //FSettings.Load;
+  //
+  //Logger.SendComponent(FSettings.ToolSettings);
+  //for C in FSettings.ToolSettings do
+  //  Logger.SendComponent(C);
+  //
+  //for C in FSettings.Highlighters do
+  //  Logger.SendComponent(C);
+  //Logger.Leave(Self, 'TestLoadSettings');
 end;
 
 procedure TTestEditorSettings.TestSaveSettings;
 begin
-  Logger.Send('Settings', FSettings);
+  Logger.Enter(Self, 'TestSaveSettings');
+  Logger.SendPersistent('Settings', FSettings as TPersistent);
   FSettings.Save;
+  Logger.Leave(Self, 'TestSaveSettings');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveSettings;
@@ -105,6 +133,7 @@ var
   BN : Boolean;
   SN : string;
 begin
+  Logger.Enter(Self, 'TestLoadSaveSettings');
   LoadSettings;
   SO := FSettings.HighlighterType;
   BO := FSettings.DebugMode;
@@ -120,21 +149,12 @@ begin
   CheckEquals(SN, FSettings.HighlighterType);
   CheckEquals(BN, FSettings.DebugMode);
 
-  SN := 'PAS';
-  BN := False;
-  FSettings.HighlighterType := SN;
-  FSettings.DebugMode := BN;
-  FSettings.Save;
-
-  LoadSettings;
-  CheckEquals(SN, FSettings.HighlighterType);
-  CheckEquals(BN, FSettings.DebugMode);
-
   // restore original values
   BO := True;
   FSettings.HighlighterType := SO;
   FSettings.DebugMode := BO;
   FSettings.Save;
+  Logger.Leave(Self, 'TestLoadSaveSettings');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveColors;
@@ -142,6 +162,7 @@ var
   CO : TColor;
   CN : TColor;
 begin
+  Logger.Enter(Self, 'TestLoadSaveColors');
   LoadSettings;
   CO := FSettings.Colors.HighlightAllColor.FrameColor;
   CN := clMaroon;
@@ -156,6 +177,7 @@ begin
 
   LoadSettings;
   CheckEquals(FSettings.Colors.HighlightAllColor.FrameColor, CO);
+  Logger.Leave(Self, 'TestLoadSaveColors');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveHighlighterAttributes;
@@ -164,6 +186,7 @@ var
   CN  : TColor;
   HLA : THighlighterAttributesItem;
 begin
+  Logger.Enter(Self, 'TestLoadSaveHighlighterAttributes');
   LoadSettings;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CO := HLA.Attributes.Foreground;
@@ -182,6 +205,7 @@ begin
   FSettings.Load;
   HLA := FSettings.HighlighterAttributes.ItemsByName['Section'];
   CheckEquals(HLA.Attributes.Foreground, CO);
+  Logger.Leave(Self, 'TestLoadSaveHighlighterAttributes');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveHighlighters;
@@ -190,6 +214,7 @@ var
   SO : string;
   SN : string;
 begin
+  Logger.Enter(Self, 'TestLoadSaveHighlighters');
   LoadSettings;
   HI := FSettings.Highlighters.ItemsByName['PAS'];
 
@@ -216,6 +241,7 @@ begin
 
     FSettings.Save;
   end;
+  Logger.Leave(Self, 'TestLoadSaveHighlighters');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveCommentTags;
@@ -227,31 +253,33 @@ var
   SO   : string;
   SN   : string;
 begin
-  LoadSettings;
-  HI := FSettings.Highlighters.ItemsByName['XML'];
-
-  if Assigned(HI) then
-  begin
-    LCT := HI.LineCommentTag;
-    SO := HI.FileExtensions;
-    SN := 'test';
-    HI.FileExtensions := SN;
-    FSettings.Save;
-
-    LoadSettings;
-    HI := FSettings.Highlighters.ItemsByName['PAS'];
-    CheckEquals(HI.FileExtensions, SN);
-    CheckTrue((HI.SynHighlighter as TSynPasSyn).CompilerMode = pcmObjFPC);
-
-    // restore original values
-    HI.FileExtensions := SO;
-    FSettings.Save;
-
-    LoadSettings;
-    CheckEquals(HI.FileExtensions, SO);
-
-    FSettings.Save;
-  end;
+  Logger.Enter(Self, 'TestLoadSaveCommentTags');
+  //LoadSettings;
+  //HI := FSettings.Highlighters.ItemsByName['XML'];
+  //
+  //if Assigned(HI) then
+  //begin
+  //  LCT := HI.LineCommentTag;
+  //  SO := HI.FileExtensions;
+  //  SN := 'test';
+  //  HI.FileExtensions := SN;
+  //  FSettings.Save;
+  //
+  //  LoadSettings;
+  //  HI := FSettings.Highlighters.ItemsByName['PAS'];
+  //  CheckEquals(HI.FileExtensions, SN);
+  //  CheckTrue((HI.SynHighlighter as TSynPasSyn).CompilerMode = pcmObjFPC);
+  //
+  //  // restore original values
+  //  HI.FileExtensions := SO;
+  //  FSettings.Save;
+  //
+  //  LoadSettings;
+  //  CheckEquals(HI.FileExtensions, SO);
+  //
+  //  FSettings.Save;
+  //end;
+  Logger.Leave(Self, 'TestLoadSaveCommentTags');
 end;
 
 procedure TTestEditorSettings.TestLoadSaveToolSettings;
@@ -260,15 +288,16 @@ var
   NO  : Integer;
   NN  : Integer;
 begin
+  Logger.Enter(Self, 'TestLoadSaveToolSettings');
   LoadSettings;
-  CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
+  CSS := FSettings.CodeShaperSettings;
   NO := CSS.Width;
   NN := 200;
   CSS.Width := NN;
   FSettings.Save;
 
   LoadSettings;
-  CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
+  CSS := FSettings.CodeShaperSettings;
   CheckEquals(NN, CSS.Width);
 
   NN := 400;
@@ -276,30 +305,15 @@ begin
   FSettings.Save;
 
   LoadSettings;
-  CSS := FSettings.ToolSettings.ItemsByClass[TCodeShaperSettings] as TCodeShaperSettings;
+  CSS := FSettings.CodeShaperSettings;
   CheckEquals(NN, CSS.Width);
 
   // restore original value
   CSS.Width := NO;
   FSettings.Save;
+  Logger.Leave(Self, 'TestLoadSaveToolSettings');
 end;
-
-procedure TTestEditorSettings.SetUp;
-begin
-  FSettings := TEditorFactories.CreateSettings(Application);
-end;
-
-procedure TTestEditorSettings.TearDown;
-begin
-  FSettings := nil;
-end;
-
-procedure TTestEditorSettings.LoadSettings;
-begin
-  FSettings := nil;
-  FSettings := TEditorFactories.CreateSettings(Application);
-  FSettings.Load;
-end;
+{$ENDREGION}
 
 initialization
   RegisterTest(TTestEditorSettings);

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <CompatibilityMode Value="True"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="fpcunitnotepas"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
@@ -45,7 +47,7 @@
         <PackageName Value="FCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="5">
+    <Units Count="9">
       <Unit0>
         <Filename Value="fpcunitnotepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -70,6 +72,26 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Test.Editor.Commands"/>
       </Unit4>
+      <Unit5>
+        <Filename Value="..\..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Settings"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\..\..\components\tslib\editor\settings\ts.editor.tools.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Tools.Settings"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\..\..\components\tslib\editor\settings\ts.editor.colors.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Colors.Settings"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\..\..\components\tslib\editor\settings\ts.editor.options.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.Options.Settings"/>
+      </Unit8>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -77,6 +99,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\..\..\components\tslib\core;..\..\..\components\tslib\components;..\..\..\components\tslib\editor;..\..\..\components\tslib\editor\settings;..\..\..\components\tslib\editor\actionlist;..\..\..\components\tslib\editor\alignlines;..\..\..\components\tslib\editor\charactermap;..\..\..\components\tslib\editor\codefilter;..\..\..\components\tslib\editor\codeshaper;..\..\..\components\tslib\editor\filter;..\..\..\components\tslib\editor\hexeditor;..\..\..\components\tslib\editor\minimap;..\..\..\components\tslib\editor\preview;..\..\..\components\tslib\editor\scripteditor;..\..\..\components\tslib\editor\search;..\..\..\components\tslib\editor\selectioninfo;..\..\..\components\tslib\editor\settingsdialog;..\..\..\components\tslib\editor\sortstrings;..\..\..\components\tslib\editor\structure;..\..\..\components\tslib\editor\test;..\..\..\components\tslib\editor\toolview;..\..\..\components\tslib\editor\viewlist;..\..\..\components\tslib\richeditor;..\..\..\components\tslib\htmleditor"/>
     </SearchPaths>
     <CodeGeneration>
       <Checks>
@@ -87,14 +110,27 @@
       </Checks>
       <TargetCPU Value="i386"/>
       <TargetOS Value="win32"/>
+      <Optimizations>
+        <OptimizationLevel Value="0"/>
+      </Optimizations>
     </CodeGeneration>
     <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>
         </Win32>
       </Options>
     </Linking>
+    <Other>
+      <Verbosity>
+        <ShoLineNum Value="True"/>
+        <ShowHintsForUnusedUnitsInMainSrc Value="True"/>
+      </Verbosity>
+      <WriteFPCLogo Value="False"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="3">

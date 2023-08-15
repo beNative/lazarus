@@ -102,45 +102,45 @@ type
 
   ISnippet = interface
   ['{72ECC77F-765D-417E-ABCE-D78355A53CB7}']
-  function GetActiveViews: string;
     {$REGION 'property access mehods'}
-    function GetHtmlText: string;
-    function GetHtmlData: string;
-    function GetImage: TBitmap;
-    function GetLocked: Boolean;
-    function GetRtfText: string;
-    function GetRtfData: string;
+    function GetActiveViews: string;
     function GetDateCreated: TDateTime;
     function GetDateModified: TDateTime;
     function GetFoldLevel: Integer;
     function GetFoldState: string;
     function GetHighlighter: string;
+    function GetHtmlData: string;
+    function GetHtmlText: string;
     function GetId: Integer;
+    function GetImage: TBitmap;
     function GetImageIndex: Integer;
+    function GetLocked: Boolean;
     function GetNodeName: string;
     function GetNodePath: string;
     function GetNodeTypeId: Integer;
     function GetParentId: Integer;
+    function GetRtfData: string;
+    function GetRtfText: string;
     function GetSequence: Integer;
     function GetSource: string;
     function GetText: string;
     procedure SetActiveViews(AValue: string);
-    procedure SetHtmlData(AValue: string);
-    procedure SetHtmlText(AValue: string);
-    procedure SetImage(AValue: TBitmap);
-    procedure SetLocked(AValue: Boolean);
-    procedure SetRtfText(AValue: string);
-    procedure SetRtfData(AValue: string);
     procedure SetDateCreated(AValue: TDateTime);
     procedure SetDateModified(AValue: TDateTime);
     procedure SetFoldLevel(AValue: Integer);
     procedure SetFoldState(AValue: string);
     procedure SetHighlighter(AValue: string);
+    procedure SetHtmlData(AValue: string);
+    procedure SetHtmlText(AValue: string);
+    procedure SetImage(AValue: TBitmap);
     procedure SetImageIndex(AValue: Integer);
+    procedure SetLocked(AValue: Boolean);
     procedure SetNodeName(AValue: string);
     procedure SetNodePath(AValue: string);
     procedure SetNodeTypeId(AValue: Integer);
     procedure SetParentId(AValue: Integer);
+    procedure SetRtfData(AValue: string);
+    procedure SetRtfText(AValue: string);
     procedure SetSequence(AValue: Integer);
     procedure SetSource(AValue: string);
     procedure SetText(AValue: string);
@@ -284,8 +284,6 @@ type
   end;
 
   { Holds persistable application settings. }
-
-  { ISettings }
 
   ISettings = interface
   ['{60E1B364-44E0-4A91-B12B-EF21059AC8C9}']

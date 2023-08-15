@@ -1445,22 +1445,8 @@ end;
 procedure TdmSnippetSource.MoveDownRecords(AValues: TStrings);
 var
   S : string;
-  S2 : string;
 begin
   Logger.Enter(Self, 'MoveDownRecords');
-  //S1 := Format(SQL_MOVEDOWN_IDS1, [
-  //  AValues.Count,
-  //  IntToStr(ParentId),
-  //  AValues[0]
-  //]);
-  //S2 := Format(SQL_MOVEDOWN_IDS2, [
-  //  AValues.CommaText
-  //]);
-  //Logger.SendText(S1);
-  //Logger.SendText(S2);
-  //ExecuteDirect(S1);
-  //ExecuteDirect(S2);
-
   S := Format(SQL_MOVEDOWN_IDS, [
     AValues.Count,
     IntToStr(ParentId),
@@ -1475,22 +1461,16 @@ end;
 
 procedure TdmSnippetSource.MoveUpRecords(AValues: TStrings);
 var
-  S1 : string;
-  S2 : string;
+  S : string;
 begin
   Logger.Enter(Self, 'MoveUpRecords');
-  S1 := Format(SQL_MOVEUP_IDS1, [
+  S := Format(SQL_MOVEUP_IDS, [
     AValues.Count,
     IntToStr(ParentId),
-    AValues[0]
-  ]);
-  S2 := Format(SQL_MOVEUP_IDS2, [
+    AValues[0],
     AValues.CommaText
   ]);
-  Logger.SendText(S1);
-  Logger.SendText(S2);
-  ExecuteDirect(S1);
-  ExecuteDirect(S2);
+  ExecuteDirect(S);
   DataSet.Refresh;
   Logger.Leave(Self, 'MoveUpRecords');
 end;

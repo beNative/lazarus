@@ -245,7 +245,7 @@ object frmMain: TfrmMain
       Height = 720
       Top = 25
       Width = 825
-      PageIndex = 0
+      PageIndex = 1
       Align = alClient
       TabOrder = 0
       object pgTextEditor: TPage

@@ -28,8 +28,9 @@ uses
 type
   TEditorSettingsFactory = class(TInterfacedObject, IEditorSettingsFactory)
   public
-    procedure RegisterHighlighters(AHighlighters: THighlighters);
     class procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
+
+    procedure RegisterHighlighters(AHighlighters: THighlighters);
     procedure RegisterClasses;
 
     function CreateInstance(
@@ -60,9 +61,7 @@ uses
   ts.Editor.SortStrings.Settings,
   ts.Editor.Search.Engine.Settings,
 
-  ts.Editor.Resources, ts.Editor.Settings,
-
-  ts.Components.UniHighlighter;
+  ts.Editor.Resources, ts.Editor.Settings;
 
 {$REGION 'private methods'}
 procedure TEditorSettingsFactory.RegisterHighlighters(
@@ -116,29 +115,6 @@ begin
   Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
   Reg(TSynVBSyn, nil, HL_VB, FILE_EXTENSIONS_VB, SVBDescription, '', '', '');
   Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
-
-{
-  S := GetApplicationPath;
-  F := S + LAYOUT_LOG;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_LOG, 'txt log', SLOGDescription, '', '', '', nil, F);
-  end;
-  F := S + LAYOUT_RTF;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_RTF, FILE_EXTENSIONS_RTF, SRTFDescription, '', '', '', nil, F);
-  end;
-  F := S + LAYOUT_RES;
-  if FileExistsUTF8(F) then
-  begin
-    SU := TSynUniSyn.Create(Application);
-    Reg(TSynUniSyn, SU, HL_RES, FILE_EXTENSIONS_RES, SRESDescription, ';', '', '', nil, F);
-  end;
-
-}
 end;
 
 { Initializes extra information related to the built-in highlighters like
@@ -219,7 +195,6 @@ begin
     TSynRubySyn,
     TSynSQLSyn,
     TSynTeXSyn,
-    TSynUniSyn,
     TSynUNIXShellScriptSyn,
     TSynVBSyn,
     TSynXMLSyn

@@ -29,7 +29,7 @@ uses
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
-  ts.RichEditor.Interfaces, ts.HtmlEditor.Interfaces,
+  ts.RichEditor.Interfaces, ts.HtmlEditor.Interfaces, OMultiPanel,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
   SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Busy;
@@ -44,7 +44,7 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
-    actFullScreen                   : TAction;
+    actToggleSplitView: TAction;
     actLookup                       : TAction;
     actRtfEditor                    : TAction;
     actSettings                     : TAction;
@@ -57,6 +57,7 @@ type
     btnCloseEditorToolView          : TSpeedButton;
     btnCloseRichEditorToolView      : TSpeedButton;
     btnExecute                      : TSpeedButton;
+    btnToggleSplitView: TSpeedButton;
     btnHighlighter                  : TMenuButton;
     btnLineBreakStyle               : TSpeedButton;
     dscMain                         : TDatasource;
@@ -67,6 +68,7 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
+    pnlMulti: TOMultiPanel;
     pgHtmlEditor                    : TPage;
     pgRichEditor                    : TPage;
     pgTextEditor                    : TPage;
@@ -117,7 +119,6 @@ type
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
-    procedure actFullScreenExecute(Sender: TObject);
     procedure actHtmlEditorExecute(Sender: TObject);
     procedure actRtfEditorExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
@@ -127,6 +128,7 @@ type
     procedure actTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleLockedStateExecute(Sender: TObject);
+    procedure actToggleSplitViewExecute(Sender: TObject);
     procedure actToggleStayOnTopExecute(Sender: TObject);
     {$ENDREGION}
 
@@ -144,6 +146,7 @@ type
     procedure FileSearcherDirectoryFound(FileIterator: TFileIterator);
     procedure FileSearcherFileFound(FileIterator: TFileIterator);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure pnlEditorClick(Sender: TObject);
     {$ENDREGION}
 
   private
@@ -157,6 +160,7 @@ type
     FData               : IDataSet;
     FEditorManager      : IEditorManager;
     FEditor             : IEditorView;
+    FSlaveEditor        : IEditorView;
     FRichEditorManager  : IRichEditorManager;
     FRichEditor         : IRichEditorView;
     FHtmlEditorManager  : IHtmlEditorManager;
@@ -207,6 +211,7 @@ type
       Sender    : TObject;
       AToolView : IRichEditorToolView
     );
+    procedure FSlaveEditorFormEnter(Sender: TObject);
 
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
@@ -332,10 +337,10 @@ uses
 procedure TfrmMain.AfterConstruction;
 begin
   inherited AfterConstruction;
+  InitializeLogger;
   FSettings := TSettings.Create(Self);
   FSettings.Load;
-
-  InitializeLogger;
+  //InitializeLogger;
 
   FData := TdmSnippetSource.Create(Self, FSettings);
   FBusyForm := TfrmBusy.Create(Self);
@@ -394,6 +399,7 @@ begin
   FEditorManager     := nil;
   FHtmlEditorManager := nil;
   FEditor            := nil;
+  FSlaveEditor       := nil;
   FRichEditor        := nil;
   FHtmlEditor        := nil;
   FreeAndNil(FBusyForm);
@@ -526,14 +532,6 @@ begin
   end;
 end;
 
-{ Does not work. }
-
-procedure TfrmMain.actFullScreenExecute(Sender: TObject);
-begin
-  Logger.Track(Self, 'actFullScreenExecute');
-  FHtmlEditor.ExecuteScript('document.body.requestFullscreen()};');
-end;
-
 procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
   Logger.Action(Sender as TBasicAction);
@@ -577,6 +575,11 @@ begin
   actToggleLockedState.Checked := not actToggleLockedState.Checked;
   Snippet.Locked := actToggleLockedState.Checked;
   Modified;
+end;
+
+procedure TfrmMain.actToggleSplitViewExecute(Sender: TObject);
+begin
+  pnlMulti.PanelCollection[1].Visible := (Sender as TAction).Checked;
 end;
 
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);
@@ -623,6 +626,7 @@ begin
         if Snippet.Highlighter <> '' then
         begin
           Editor.HighlighterName := Snippet.Highlighter;
+          FSlaveEditor.HighlighterName := Snippet.Highlighter;
         end;
       finally
         Editor.EndUpdate;
@@ -665,6 +669,7 @@ end;
 procedure TfrmMain.FEditorFormEnter(Sender: TObject);
 begin
   Editor.Actions.ActionList.State := asNormal;
+  Editor.Activate;
 end;
 
 procedure TfrmMain.FEditorBeforeSave(Sender: TObject; var AStorageName: string);
@@ -768,6 +773,11 @@ end;
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
   dmTerminal.prcTerminal.Active := False;
+end;
+
+procedure TfrmMain.pnlEditorClick(Sender: TObject);
+begin
+
 end;
 
 {$REGION 'FTree'}
@@ -932,6 +942,11 @@ begin
   pnlRichEditorToolViewHost.Visible   := True;
 end;
 
+procedure TfrmMain.FSlaveEditorFormEnter(Sender: TObject);
+begin
+  FSlaveEditor.Activate;
+end;
+
 procedure TfrmMain.FEditorHideToolView(Sender: TObject;
   AToolView: IEditorToolView);
 begin
@@ -1017,8 +1032,15 @@ procedure TfrmMain.CreateTextEditor;
 var
   LEvents : IEditorEvents;
 begin
-  FEditorManager := TEditorFactories.CreateManager(Self, FSettings.EditorSettings);
-  FEditor := TEditorFactories.CreateView(pnlEditor, FEditorManager, 'Editor');
+  FEditorManager := TEditorFactories.CreateManager(Self, FSettings.TextEditorSettings as IEditorSettings);
+  InitTextEditorActions;
+  FEditor := TEditorFactories.CreateView(pnlMulti, FEditorManager, 'Editor');
+  FSlaveEditor := TEditorFactories.CreateView(pnlMulti, FEditorManager, 'SlaveEditor');;
+  FSlaveEditor.MasterView := FEditor;
+  FSlaveEditor.Form.OnEnter  := FSlaveEditorFormEnter;
+
+  FEditor.SlaveView := FSlaveEditor;
+
   FEditor.IsFile := False;
   FEditor.Form.OnEnter := FEditorFormEnter;
   FEditor.Editor.PopupMenu := FEditorManager.Menus.EditorPopupMenu;
@@ -1033,7 +1055,6 @@ begin
   LEvents.OnShowEditorToolView := FEditorShowToolView;
   LEvents.OnHideEditorToolView := FEditorHideToolView;
   BuildTextEditorToolBar;
-  InitTextEditorActions;
 end;
 
 procedure TfrmMain.CreateRichEditor;
@@ -1288,6 +1309,7 @@ procedure TfrmMain.InitTextEditorActions;
 begin
   HideAction('actAutoGuessHighlighter');
   HideAction('actClose');
+  HideAction('actCloseOthers');
   HideAction('actCreateDesktopLink');
   HideAction('actFormat');
   HideAction('actInsertCharacterFromMap');
@@ -1351,7 +1373,7 @@ end;
 
 procedure TfrmMain.InitializeLogger;
 begin
-  if FSettings.EmitLogMessages then
+  //if FSettings.EmitLogMessages then
   begin
     Logger.Channels.Add(TIpcChannel.Create);
     Logger.Clear; // first few messages can be lost by receiver instance, so
@@ -1726,13 +1748,15 @@ procedure TfrmMain.UpdateToolBars;
 begin
   if actToggleLockedState.Checked then
   begin
-    FRichEditor.ReadOnly := True;
-    FEditor.ReadOnly     := True;
+    FRichEditor.ReadOnly  := True;
+    FEditor.ReadOnly      := True;
+    FSlaveEditor.ReadOnly := True;
   end
   else
   begin
-    FEditor.ReadOnly     := False;
-    FRichEditor.ReadOnly := False;
+    FEditor.ReadOnly      := False;
+    FSlaveEditor.ReadOnly := False;
+    FRichEditor.ReadOnly  := False;
     if FSettings.AutoHideEditorToolBar then
       pnlEditorToolBar.Visible := Editor.Focused
     else

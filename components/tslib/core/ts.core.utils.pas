@@ -250,7 +250,7 @@ function DrawHTML(
 ): Integer;
 {$ENDIF}
 
-function GetApplicationPath: string;
+function GetApplicationConfigPath: string;
 
 procedure SetCheckedState(
   ACheckBox : TCheckBox;
@@ -2242,34 +2242,9 @@ begin
 end;
 {$ENDIF}
 
-function GetApplicationPath(): string;
-{$IFDEF DARWIN}
-var
-  pathRef: CFURLRef;
-  pathCFStr: CFStringRef;
-  pathStr,BundleResourcesDirectory: shortstring;
-{$ENDIF}
+function GetApplicationConfigPath: string;
 begin
-  {$IFDEF DARWIN}
-    BundleResourcesDirectory := '/Contents/Resources/';
-    pathRef := CFBundleCopyBundleURL(CFBundleGetMainBundle());
-    pathCFStr := CFURLCopyFileSystemPath(pathRef, kCFURLPOSIXPathStyle);
-    CFStringGetPascalString(pathCFStr, @pathStr, 255, CFStringGetSystemEncoding());
-    CFRelease(pathRef);
-    CFRelease(pathCFStr);
-    if (FileExistsUTF8(pathStr + BundleResourcesDirectory +
-      'settings.xml')) then //use settings.xml to detect directory
-       Result := pathStr + BundleResourcesDirectory
-  {$ELSE}
-  if (FileExists(ExtractFilePath(Application.ExeName) + PathDelim +
-    'settings.xml')) then //use settings.xml to detect directory
-     Result := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName))
-  {$ENDIF}
-  else
-  begin
-    ForceDirectories(GetAppConfigDir(False));
-    Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False));
-  end;
+  Result := IncludeTrailingPathDelimiter(GetAppConfigDirUTF8(False, True));
 end;
 
 function GetFileCreationTime(const AFileName: string): TDateTime;

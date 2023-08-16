@@ -611,7 +611,7 @@ procedure THighlighterItem.Reload;
 var
   S : string;
 begin
-  S := GetApplicationPath;
+  S := GetApplicationConfigPath;
   if FileExists(S + LayoutFileName) and (SynHighlighterClass = TSynUniSyn) then
   begin
     if Assigned(SynHighlighter) then

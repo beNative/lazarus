@@ -46,50 +46,43 @@ type
 
   TfrmEditorSettings = class(TForm)
     {$REGION 'designer controls'}
-    aclMain                              : TActionList;
-    actApplySettings                     : TAction;
-    actAssociate                         : TAction;
-    actReloadSettings                    : TAction;
-    actOpenSettingsFile                  : TAction;
-    btnApply                             : TButton;
-    btnOpenSettingsFile                  : TButton;
-    btnReloadSettings                    : TButton;
-    btnAssociate                         : TButton;
-    btnClose                             : TButton;
-    btnOK                                : TButton;
-    Label1                               : TLabel;
-    lblAttributeAliases                  : TLabel;
-    pnlHARightTop                        : TPanel;
-    pnlHARightBottom                     : TPanel;
-    pnlToolSettings                      : TPanel;
-    pnlTSLeft                            : TPanel;
-    pnlTSRight                           : TPanel;
-    pnlTSRightBottom                     : TPanel;
-    pnlHLRightTop                        : TPanel;
-    imlMain                              : TImageList;
-    pcMain                               : TPageControl;
-    pnlBottom                            : TPanel;
-    pnlHALeft                            : TPanel;
-    pnlHLLeft                            : TPanel;
-    pnlHARight                           : TPanel;
-    pnlHLRight                           : TPanel;
-    pnlHighlighterAttributes             : TPanel;
-    pnlHighlighters                      : TPanel;
-    pnlHLRightBottom                     : TPanel;
-    pnlTSRightTop                        : TPanel;
-    pnlPI                                : TPanel;
-    pnlTop                               : TPanel;
-    pnlXML                               : TPanel;
-    splHAVertical                        : TSplitter;
-    splHLVertical                        : TSplitter;
-    mmoAliasNames                        : TTIMemo;
-    splHLVertical1                       : TSplitter;
-    tsToolSettings                       : TTabSheet;
-    tsHighlighters                       : TTabSheet;
-    tsDebug                              : TTabSheet;
-    tsXML                                : TTabSheet;
-    tsHighlighterAttributes              : TTabSheet;
-    tsSettings                           : TTabSheet;
+    aclMain                  : TActionList;
+    actApplySettings         : TAction;
+    actAssociate             : TAction;
+    actReloadSettings        : TAction;
+    actOpenSettingsFile      : TAction;
+    btnApply                 : TButton;
+    btnOpenSettingsFile      : TButton;
+    btnReloadSettings        : TButton;
+    btnAssociate             : TButton;
+    btnClose                 : TButton;
+    btnOK                    : TButton;
+    Label1                   : TLabel;
+    lblAttributeAliases      : TLabel;
+    pnlHARightTop            : TPanel;
+    pnlHARightBottom         : TPanel;
+    pnlHLRightTop            : TPanel;
+    imlMain                  : TImageList;
+    pcMain                   : TPageControl;
+    pnlBottom                : TPanel;
+    pnlHALeft                : TPanel;
+    pnlHLLeft                : TPanel;
+    pnlHARight               : TPanel;
+    pnlHLRight               : TPanel;
+    pnlHighlighterAttributes : TPanel;
+    pnlHighlighters          : TPanel;
+    pnlHLRightBottom         : TPanel;
+    pnlPI                    : TPanel;
+    pnlTop                   : TPanel;
+    pnlXML                   : TPanel;
+    splHAVertical            : TSplitter;
+    splHLVertical            : TSplitter;
+    mmoAliasNames            : TTIMemo;
+    tsHighlighters           : TTabSheet;
+    tsDebug                  : TTabSheet;
+    tsXML                    : TTabSheet;
+    tsHighlighterAttributes  : TTabSheet;
+    tsSettings               : TTabSheet;
     {$ENDREGION}
 
     procedure actApplySettingsExecute(Sender: TObject);
@@ -103,26 +96,20 @@ type
     procedure FHLTVPSelectionChanged(Sender: TObject);
     procedure FPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;
       var aShow: boolean);
-    procedure FTSTVPSelectionChanged(Sender: TObject);
     procedure OKButtonClick(Sender: TObject);
     procedure plObjectInspector1AddAvailPersistent(APersistent: TPersistent;
       var Allowed: boolean);
   private
     FHATVP   : TTreeViewPresenter; // HighlighterAttributes presenter
     FHLTVP   : TTreeViewPresenter; // Highlighters presenter
-    FTSTVP   : TTreeViewPresenter; // ToolSettings presenter
     FHAList  : TObjectList;
     FHLList  : TObjectList;
-    FTSList  : TObjectList;
     FPI      : TTIPropertyGrid;
     FHAPI    : TTIPropertyGrid;
     FHLPI    : TTIPropertyGrid;
     FSHLPI   : TTIPropertyGrid;
-    FTSPI    : TTIPropertyGrid;
     FHAVST   : TVirtualStringTree;
     FHLVST   : TVirtualStringTree;
-    FTSVST   : TVirtualStringTree;
-//    FXMLTree : TXMLTree;
 
     procedure SettingsChangedHandler(ASender: TObject);
 
@@ -135,7 +122,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     function Execute: Boolean;
     procedure Apply;
@@ -248,17 +235,12 @@ begin
   FHLList             := TObjectList.Create(False);
   FHLTVP              := TTreeViewPresenter.Create(Self);
   FHLTVP.ItemTemplate := THighlightersDataTemplate.Create;
-  FTSList             := TObjectList.Create(False);
-  FTSTVP              := TTreeViewPresenter.Create(Self);
-  FTSTVP.ItemTemplate := TToolSettingsDataTemplate.Create;
   FPI                 := CreatePI(Self, pnlPI);
   FHAPI               := CreatePI(Self, pnlHARightBottom);
   FHLPI               := CreatePI(Self, pnlHLRightTop);
   FSHLPI              := CreatePI(Self, pnlHLRightBottom);
-  FTSPI               := CreatePI(Self, pnlTSRightBottom);
   FHAVST              := VST.Create(Self, pnlHALeft);
   FHLVST              := VST.Create(Self, pnlHLLeft);
-  FTSVST              := VST.Create(Self, pnlTSLeft);
 
   Settings.AddEditorSettingsChangedHandler(SettingsChangedHandler);
   UpdateControls;
@@ -267,19 +249,17 @@ begin
   FPI.OnEditorFilter    := FPIEditorFilter;
   FHAPI.OnEditorFilter  := FPIEditorFilter;
   FSHLPI.OnEditorFilter := FPIEditorFilter;
-  FTSPI.OnEditorFilter  := FPIEditorFilter;
   UpdateData;
   pcMain.ActivePageIndex := 0;
 end;
 
-procedure TfrmEditorSettings.BeforeDestruction;
+destructor TfrmEditorSettings.Destroy;
 begin
   if Assigned(Manager) and Assigned(Settings) then
     Settings.RemoveEditorSettingsChangedHandler(SettingsChangedHandler);
   FreeAndNil(FHAList);
   FreeAndNil(FHLList);
-  FreeAndNil(FTSList);
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -301,18 +281,7 @@ begin
   mmoAliasNames.Link.TIObject := FHATVP.CurrentItem as TPersistent;
   mmoAliasNames.Link.TIPropertyName := ALIASNAMES_PROPERTY;
   FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY);
-  //FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLE_PROPERTY);
-  //FHAPI.ExpandedProperties.Add(ATTRIBUTES_PROPERTY + '.' + STYLEMASK_PROPERTY);
   FHAPI.TIObject := FHATVP.CurrentItem as TPersistent;
-end;
-
-procedure TfrmEditorSettings.FTSTVPSelectionChanged(Sender: TObject);
-begin
-  if Assigned(FTSTVP.CurrentItem) then
-  begin
-    //Logger.Send(FTSTVP.CurrentItem.ClassName, (FTSTVP.CurrentItem as TComponent).Name);
-    FTSPI.TIObject := (FTSTVP.CurrentItem as TComponent);
-  end;
 end;
 
 procedure TfrmEditorSettings.FHLPIEditorFilter(Sender: TObject;
@@ -368,9 +337,9 @@ end;
 {$REGION 'action handlers'}
 procedure TfrmEditorSettings.actOpenSettingsFileExecute(Sender: TObject);
 var
-  S: String;
+  S : string;
 begin
-  S := GetApplicationPath + Settings.FileName;
+  S := GetApplicationConfigPath + Settings.FileName;
   Manager.OpenFile(S);
 end;
 { TEMP: just a test! }
@@ -390,7 +359,7 @@ begin
   AR.CmdData         := Format('"%s"', [Application.ExeName]) + '"%1"';
   AR.CmdIcon         := Format('%s', [ExtractFilePath(Application.ExeName) + 'Notepas.ico']);
   AR.CmdName         := 'Edit with Notepas';
-  AR.CmdNameNoSpaces :=  'Open';
+  AR.CmdNameNoSpaces := 'Open';
 
   CreateFileAssociation(
     AR,
@@ -420,8 +389,6 @@ begin
   tsDebug.TabVisible        := Settings.DebugMode;
   tsXML.TabVisible          := Settings.DebugMode;
   tsHighlighters.TabVisible := Settings.DebugMode;
-  //if Settings.DebugMode then
-  //  FXMLTree.XML := Settings.XML;
 end;
 
 procedure TfrmEditorSettings.UpdateData;
@@ -450,20 +417,6 @@ begin
   FHLTVP.ItemsSource := FHLList;
   FHLTVP.TreeView := FHLVST;
   FHLTVP.OnSelectionChanged := FHLTVPSelectionChanged;
-  FTSTVP.MultiSelect := True;
-  FTSTVP.ColumnDefinitions.AddColumn(NAME, SToolName, dtString, 150);
-  FTSList.Clear;
-  //for I := 0 to Settings.ToolSettings.Count - 1 do
-  //begin
-  //  //Logger.Send(
-  //  //  Settings.ToolSettings.Components[I].ClassName,
-  //  //  TComponent(Settings.ToolSettings.Components[I]).Name
-  //  //);
-  //  FTSList.Add(Settings.ToolSettings.Components[I]);
-  //end;
-  FTSTVP.ItemsSource := FTSList;
-  FTSTVP.TreeView := FTSVST;
-  FTSTVP.OnSelectionChanged := FTSTVPSelectionChanged;
 end;
 {$ENDREGION}
 

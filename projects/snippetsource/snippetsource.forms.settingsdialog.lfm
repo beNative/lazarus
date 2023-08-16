@@ -1,7 +1,7 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 4438
+  Left = 1108
   Height = 465
-  Top = 776
+  Top = 348
   Width = 615
   ActiveControl = btnClose
   Caption = 'Settings'
@@ -17,9 +17,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 431
     Top = 0
     Width = 615
-    ActivePage = tsDataBase
+    ActivePage = tsSettingsFile
     Align = alClient
-    TabIndex = 1
+    TabIndex = 6
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
@@ -722,6 +722,21 @@ object frmSettingsDialog: TfrmSettingsDialog
         Scrollbars = ssAutoBoth
         TabOrder = 1
         OnDrawColumnCell = grdHighlightersDrawColumnCell
+      end
+    end
+    object tsSettingsFile: TTabSheet
+      Caption = 'Settings file'
+      ClientHeight = 403
+      ClientWidth = 607
+      object pnlSettingsFile: TPanel
+        Left = 0
+        Height = 403
+        Top = 0
+        Width = 607
+        Align = alClient
+        BevelOuter = bvNone
+        Caption = 'pnlSettingsFile'
+        TabOrder = 0
       end
     end
   end

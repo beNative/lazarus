@@ -47,69 +47,6 @@ object frmEditorSettings: TfrmEditorSettings
           TabOrder = 0
         end
       end
-      object tsToolSettings: TTabSheet
-        Caption = 'Tool settings'
-        ClientHeight = 521
-        ClientWidth = 537
-        object pnlToolSettings: TPanel
-          Left = 3
-          Height = 515
-          Top = 3
-          Width = 531
-          Align = alClient
-          BorderSpacing.Around = 3
-          BevelOuter = bvNone
-          ClientHeight = 515
-          ClientWidth = 531
-          TabOrder = 0
-          object pnlTSLeft: TPanel
-            Left = 2
-            Height = 511
-            Top = 2
-            Width = 154
-            Align = alLeft
-            BorderSpacing.Around = 2
-            BevelOuter = bvNone
-            TabOrder = 0
-          end
-          object pnlTSRight: TPanel
-            Left = 168
-            Height = 511
-            Top = 2
-            Width = 361
-            Align = alClient
-            BorderSpacing.Around = 2
-            BevelOuter = bvNone
-            ClientHeight = 511
-            ClientWidth = 361
-            TabOrder = 1
-            object pnlTSRightTop: TPanel
-              Left = 0
-              Height = 28
-              Top = 0
-              Width = 361
-              Align = alTop
-              BevelOuter = bvNone
-              TabOrder = 0
-            end
-            object pnlTSRightBottom: TPanel
-              Left = 0
-              Height = 483
-              Top = 28
-              Width = 361
-              Align = alClient
-              BevelOuter = bvNone
-              TabOrder = 1
-            end
-          end
-          object splHLVertical1: TSplitter
-            Left = 158
-            Height = 515
-            Top = 0
-            Width = 8
-          end
-        end
-      end
       object tsHighlighterAttributes: TTabSheet
         Caption = 'Common highlighter attributes'
         ClientHeight = 521

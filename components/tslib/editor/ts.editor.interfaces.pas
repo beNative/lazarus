@@ -690,6 +690,9 @@ type
     procedure Save;
     procedure Apply;
 
+    procedure AssignDefaultColors;
+    procedure AssignDefaultHighlighterAttibutesValues;
+
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure RemoveEditorSettingsChangedHandler(AEvent: TNotifyEvent);
     procedure SetSortStringsSettings(AValue: TSortStringsSettings);

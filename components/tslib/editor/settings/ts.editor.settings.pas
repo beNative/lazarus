@@ -66,7 +66,7 @@ const
   DEFAULT_DIM_ACTIVE_VIEW             = True;
   DEFAULT_SINGLE_INSTANCE             = False;
   DEFAULT_LANGUAGE_CODE               = 'en';
-  DEFAULT_FONT_NAME                   = 'Courier New';
+  DEFAULT_FONT_NAME                   = 'Consolas';
   DEFAULT_SETTINGS_FILE               = 'settings.json';
 
 type
@@ -158,9 +158,6 @@ type
     {$ENDREGION}
 
   protected
-    procedure AssignDefaultColors;
-    procedure InitializeHighlighterAttributes;
-    procedure InitializeHighlighters;
     procedure Changed;
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
@@ -172,6 +169,11 @@ type
   public
     procedure AfterConstruction; override;
     destructor Destroy; override;
+
+    procedure InitializeHighlighterAttributes;
+    procedure InitializeHighlighters;
+    procedure AssignDefaultColors;
+    procedure AssignDefaultHighlighterAttibutesValues;
 
     procedure Apply; // to manually force a notification
 
@@ -258,7 +260,7 @@ type
 implementation
 
 uses
-  SynEditStrConst, SynEditTypes,
+  SynEditStrConst, SynEditTypes, SynEditHighlighter,
 
   ts.Core.Utils,
 
@@ -268,6 +270,7 @@ uses
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
+  FComponentStyle := [csSubComponent];
   FChangedEventList        := TMethodList.Create;
   FFormSettings            := TFormSettings.Create;
   FFormSettings.OnChanged  := FFormSettingsChanged;
@@ -285,7 +288,7 @@ begin
   FSearchEngineSettings := TSearchEngineSettings.Create;
 
   FStreamer         := TJSONStreamer.Create(Self);
-  FStreamer.Options :=  FStreamer.Options + [jsoStreamChildren];
+  FStreamer.Options :=  FStreamer.Options + [jsoStreamChildren, jsoComponentsInline];
   FDeStreamer         := TJSONDeStreamer.Create(Self);
   FDeStreamer.Options := FDeStreamer.Options + [jdoIgnorePropertyErrors];
   FDeStreamer.BeforeReadObject  := FDeStreamerBeforeReadObject;
@@ -307,8 +310,13 @@ begin
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
   FLanguageCode    := DEFAULT_LANGUAGE_CODE;
 
+  InitializeHighlighters;
+  InitializeHighlighterAttributes;
+  AssignDefaultHighlighterAttibutesValues;
+
   RegisterClass(TSynSelectedColor);
   AssignDefaultColors;
+
 end;
 
 destructor TEditorSettings.Destroy;
@@ -674,10 +682,93 @@ begin
   Colors.LineHighlightColor.FrameAlpha := 64;
   Colors.LineHighlightColor.FrameStyle := slsDashed;
 
-  Colors.FoldedCodeColor.Background := clSilver;
-  Colors.FoldedCodeColor.BackAlpha  := 50;
+  Colors.FoldedCodeColor.Background := clNone;
+  Colors.FoldedCodeColor.BackAlpha  := 128;
   Colors.FoldedCodeColor.Foreground := clMedGray;
   Colors.FoldedCodeColor.FrameColor := clMedGray;
+end;
+
+procedure TEditorSettings.AssignDefaultHighlighterAttibutesValues;
+var
+  LAttributes : TSynHighlighterAttributes;
+begin
+  if FHighlighterAttributes.Count = 0 then
+    InitializeHighlighterAttributes;
+  with FHighlighterAttributes do
+  begin
+    LAttributes := ItemsByName[SYNS_XML_AttrComment].Attributes;
+    LAttributes.Foreground := clGray;
+    LAttributes := ItemsByName[SYNS_XML_AttrString].Attributes;
+    LAttributes.Foreground := clGreen;
+    LAttributes.Style      := [fsBold];
+    LAttributes := ItemsByName[SYNS_XML_AttrNumber].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+    LAttributes := ItemsByName[SYNS_XML_AttrKey].Attributes;
+    LAttributes.Foreground := clBlue;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrSymbol].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrFloat].Attributes;
+    LAttributes.Foreground := clFuchsia;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrReservedWord].Attributes;
+    LAttributes.Foreground := clBlue;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrDirective].Attributes;
+    LAttributes.Foreground := clOlive;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrOperator].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrVariable].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrNull].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrOperator].Attributes;
+    LAttributes.Foreground := clRed;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrAttributeName].Attributes;
+    LAttributes.Foreground := clMaroon;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrAttributeValue].Attributes;
+    LAttributes.Foreground := clGreen;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrCharacter].Attributes;
+    LAttributes.Foreground := clGreen;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrMacro].Attributes;
+    LAttributes.Foreground := clTeal;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrText].Attributes;
+    LAttributes.Foreground := clBlack;
+    LAttributes.Style      := [];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrSection].Attributes;
+    LAttributes.Foreground := clGray;
+    LAttributes.Style      := [fsBold];
+
+    LAttributes := ItemsByName[SYNS_XML_AttrDataType].Attributes;
+    LAttributes.Foreground := clTeal;
+    LAttributes.Style      := [fsBold];
+  end;
+  Apply;
 end;
 
 procedure TEditorSettings.Changed;
@@ -841,15 +932,15 @@ var
   LFileName  : string;
 begin
   Logger.Enter(Self, 'LoadJson');
-  LFileName := GetApplicationPath + FFileName;
+  LFileName := GetApplicationConfigPath + FFileName;
   Logger.Info('LoadJson %s', [LFileName]);
   if FileExists(LFileName) then
   begin
     Logger.SendText(ReadFileToString(LFileName));
     FDeStreamer.JSONToObject(ReadFileToString(LFileName), Self);
-    InitializeHighlighters;
-    InitializeHighlighterAttributes;
   end;
+  InitializeHighlighters;
+  InitializeHighlighterAttributes;
   Logger.Leave(Self, 'LoadJson');
 end;
 
@@ -865,7 +956,7 @@ var
   //IT        : TJSONArray;
 begin
   Logger.Enter(Self, 'SaveJson');
-  LFileName := GetApplicationPath + FFileName;;
+  LFileName := GetApplicationConfigPath + FFileName;;
   Logger.Info('SaveJson %s', [LFileName]);
   JO := FStreamer.ObjectToJSON(Self);
 

@@ -33489,7 +33489,10 @@ object dmEditorManager: TdmEditorManager
       Hint = 'Toggle comment for current line or each selected line.'
       ImageIndex = 17
       OnExecute = actToggleCommentExecute
-      ShortCut = 16575
+      SecondaryShortCuts.Strings = (
+        'Ctrl+/'
+      )
+      ShortCut = 16495
     end
     object actAlignSelection: TAction
       Category = 'Selection'

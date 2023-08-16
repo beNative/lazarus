@@ -77,8 +77,8 @@ var
   S        : string;
   T        : string;
 begin
-  S := GetApplicationPath + AExeName;
-  T := GetApplicationPath + ATempFile;
+  S := GetApplicationConfigPath + AExeName;
+  T := GetApplicationConfigPath + ATempFile;
   if FileExists(S) then
   begin
     SL := TStringList.Create;

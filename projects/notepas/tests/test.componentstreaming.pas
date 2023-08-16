@@ -141,14 +141,15 @@ end;
 procedure TTestComponentStreaming.SetUp;
 begin
   inherited SetUp;
-  FXMLFile  := ExtractFilePath(Application.ExeName) + 'test.xml';
-  FLFMFile  := ExtractFilePath(Application.ExeName) + 'test.lfm';
-  FJSONFile := ExtractFilePath(Application.ExeName) + 'test.json';
-  FParent := TParentComponent.Create(nil);
+  FXMLFile   := ExtractFilePath(Application.ExeName) + 'test.xml';
+  FLFMFile   := ExtractFilePath(Application.ExeName) + 'test.lfm';
+  FJSONFile  := ExtractFilePath(Application.ExeName) + 'test.json';
+  FParent    := TParentComponent.Create(nil);
   FComponent := FParent;
 
-  FStreamer := TJSONStreamer.Create(nil);
+  FStreamer         := TJSONStreamer.Create(nil);
   FStreamer.Options := FStreamer.Options + [jsoComponentsInline];
+
   FDeStreamer                   := TJSONDeStreamer.Create(nil);
   FDeStreamer.OngetObject       := @DoOngetObject;
   FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
@@ -157,8 +158,7 @@ end;
 procedure TTestComponentStreaming.TearDown;
 begin
   FComponent := nil;
-  FParent.Free;
-
+  FreeAndNil(FParent);
   FreeAndNil(FDeStreamer);
   FreeAndNil(FStreamer);
   inherited TearDown;

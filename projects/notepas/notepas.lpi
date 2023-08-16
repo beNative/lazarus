@@ -28,10 +28,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="1"/>
-      <BuildNr Value="283"/>
+      <MinorVersionNr Value="2"/>
+      <BuildNr Value="288"/>
       <Attributes pvaPrivateBuild="True"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.1" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.2" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -1026,7 +1026,9 @@ end;"/>
       <Unit16>
         <Filename Value="..\..\components\tslib\editor\ts.editor.resources.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="ResourcesDataModule"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.Editor.Resources"/>
       </Unit16>
       <Unit17>

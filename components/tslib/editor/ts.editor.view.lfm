@@ -12,6 +12,7 @@ object EditorView: TEditorView
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
   OnDropFiles = FormDropFiles
+  OnResize = FormResize
   OnShortCut = FormShortCut
   ShowHint = True
   ShowInTaskBar = stNever

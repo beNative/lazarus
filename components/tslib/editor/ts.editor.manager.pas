@@ -2991,7 +2991,7 @@ begin
         Settings.EditorOptions.ShowSpecialCharacters;
 
       actSave.Enabled := ActiveView.Modified;
-      actCloseOthers.Visible := ViewCount > 1;
+      actCloseOthers.Visible := actCloseOthers.Visible and (ViewCount > 1);
 
       actToggleMaximized.Checked :=
         Settings.FormSettings.WindowState = wsMaximized;
@@ -3006,7 +3006,7 @@ begin
     // Hide close view actions when there is only one editor view
     B := ViewCount = 1;
     actClose.Enabled       := not B;
-    actCloseOthers.Visible := not B;
+    actCloseOthers.Visible := actCloseOthers.Visible and not B;
 
     UpdatePopupMenus;
   end;

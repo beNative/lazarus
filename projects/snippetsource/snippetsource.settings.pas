@@ -26,7 +26,7 @@ uses
   Classes, SysUtils,
   LazMethodList,
 
-  ts.Editor.Settings,
+  ts.Editor.Settings, ts.Editor.Interfaces,
 
   SnippetSource.Interfaces, SnippetSource.Resources;
 
@@ -45,12 +45,12 @@ type
     FDefaultRichEditorFontName    : string;
     FEmitLogMessages              : Boolean;
     FPythonVirtualEnvironmentName : string;
-    FEditorSettings               : TEditorSettings;
+    FTextEditorSettings           : IEditorSettings;
 
   protected
     {$REGION 'property access methods'}
-    function GetEditorSettings: TEditorSettings;
-    procedure SetEditorSettings(AValue: TEditorSettings);
+    function GetTextEditorSettings: TEditorSettings;
+    procedure SetTextEditorSettings(AValue: TEditorSettings);
     function GetAutoHideEditorToolBar: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
@@ -82,6 +82,8 @@ type
   public
     procedure AfterConstruction; override;
     destructor Destroy; override;
+
+    function ToJson: string;
 
     procedure Load;
     procedure Save;
@@ -125,8 +127,8 @@ type
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;
 
-    property EditorSettings: TEditorSettings
-      read GetEditorSettings write SetEditorSettings;
+    property TextEditorSettings: TEditorSettings
+      read GetTextEditorSettings write SetTextEditorSettings;
   end;
 
 implementation
@@ -134,13 +136,15 @@ implementation
 uses
   Dialogs,
 
-  fpjsonrtti;
+  ts.Core.Logger, ts.Editor.Factories,
+
+  fpjsonrtti, FileUtil;
 
 {$REGION 'construction and destruction'}
 procedure TSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FEditorSettings        := TEditorSettings.Create(Self);
+  FTextEditorSettings    := TEditorFactories.CreateSettings(Self);
   FChangeEvents          := TMethodList.Create;
   Name                   := 'Settings';
   FFileName              := SETTINGS_FILE;
@@ -170,14 +174,14 @@ begin
   end;
 end;
 
-function TSettings.GetEditorSettings: TEditorSettings;
+function TSettings.GetTextEditorSettings: TEditorSettings;
 begin
-  Result := FEditorSettings;
+  Result := FTextEditorSettings as TEditorSettings;
 end;
 
-procedure TSettings.SetEditorSettings(AValue: TEditorSettings);
+procedure TSettings.SetTextEditorSettings(AValue: TEditorSettings);
 begin
-  FEditorSettings.Assign(AValue);
+  (FTextEditorSettings as TEditorSettings).Assign(AValue);
 end;
 
 function TSettings.GetAutoHideEditorToolBar: Boolean;
@@ -338,49 +342,53 @@ end;
 {$ENDREGION}
 
 {$REGION 'public methods'}
+function TSettings.ToJson: string;
+var
+  LStreamer : TJSONStreamer;
+begin
+  LStreamer := TJSONStreamer.Create(nil);
+  try
+    LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline, jsoStreamChildren];
+    Result := LStreamer.ObjectToJSON(Self).FormatJSON;
+  finally
+    LStreamer.Free;
+  end;
+end;
+
 procedure TSettings.Load;
 var
   LDeStreamer : TJSONDeStreamer;
-  SL          : TStringList;
   S           : string;
 begin
   if FileExists(FileName) then
   begin
-    SL := TStringList.Create;
-    try
-      SL.LoadFromFile(FileName);
-      S := SL.Text;
-    finally
-      SL.Free;
-    end;
-    LDeStreamer := TJSONDeStreamer.Create(nil);
-    try
-      LDeStreamer.JSONToObject(S, Self);
-    finally
-      LDeStreamer.Free;
+    S := ReadFileToString(FileName);
+    if not S.IsEmpty then
+    begin;
+      LDeStreamer := TJSONDeStreamer.Create(nil);
+      try
+        LDeStreamer.JSONToObject(S, Self);
+        TextEditorSettings.InitializeHighlighters;
+    //    TextEditorSettings.AssignDefaultColors;
+  //      TextEditorSettings.AssignDefaultHighlighterAttibutesValues;
+        Logger.SendComponent('TextEditorSettings', TextEditorSettings);
+      finally
+        LDeStreamer.Free;
+      end;
     end;
   end;
 end;
 
 procedure TSettings.Save;
 var
-  LStreamer : TJSONStreamer;
-  S         : string;
-  SL        : TStringList;
+  SL : TStringList;
 begin
-  LStreamer := TJSONStreamer.Create(nil);
+  SL := TStringList.Create;
   try
-    LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline];
-    S  := LStreamer.ObjectToJSON(Self).FormatJSON;
-    SL := TStringList.Create;
-    try
-      SL.Text := S;
-      SL.SaveToFile(FileName);
-    finally
-      SL.Free;
-    end;
+    SL.Text := ToJson;
+    SL.SaveToFile(FileName);
   finally
-    LStreamer.Free;
+    SL.Free;
   end;
 end;
 {$ENDREGION}

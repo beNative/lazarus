@@ -295,27 +295,28 @@ type
     function GetDatabase: string;
     function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
-    function GetEditorSettings: TEditorSettings;
     function GetEmitLogMessages: Boolean;
     function GetHtmlEditMode: Boolean;
     function GetHtmlSourceVisible: Boolean;
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
+    function GetTextEditorSettings: TEditorSettings;
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
-    procedure SetEditorSettings(AValue: TEditorSettings);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetHtmlEditMode(AValue: Boolean);
     procedure SetHtmlSourceVisible(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
+    procedure SetTextEditorSettings(AValue: TEditorSettings);
     {$ENDREGION}
 
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure SetPythonVirtualEnvironmentName(AValue: string);
+    function ToJson: string;
 
     property Database: string
       read GetDatabase write SetDatabase;
@@ -347,8 +348,8 @@ type
     property PythonVirtualEnvironmentName: string
       read GetPythonVirtualEnvironmentName write SetPythonVirtualEnvironmentName;
 
-    property EditorSettings: TEditorSettings
-      read GetEditorSettings write SetEditorSettings;
+    property TextEditorSettings: TEditorSettings
+      read GetTextEditorSettings write SetTextEditorSettings;
   end;
 
 implementation

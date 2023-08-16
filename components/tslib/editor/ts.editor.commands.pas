@@ -204,13 +204,12 @@ end;
 function TEditorCommands.StripComments(const AString: string;
   const AHighlighter: string): string;
 var
-  LSSIn  : TStringStream;
-  LSSOut : TStringStream;
-  CS     : TCustomCommentStripper;
-  C      : Char;
-  S      : string;
+  LStreamIn  : TStringStream;
+  LStreamOut : TStringStream;
+  CS         : TCustomCommentStripper = nil;
+  C          : Char;
+  S          : string;
 begin
-  CS := nil;
   if AnsiMatchStr(AHighlighter, [HL_PAS]) then
     CS := TPasCommentStripper.Create(nil)
   else if AnsiMatchStr(AHighlighter, [HL_CPP, HL_JAVA, HL_CS]) then
@@ -218,26 +217,26 @@ begin
   if Assigned(CS) then
   begin
     try
-      LSSIn := TStringStream.Create('');
+      LStreamIn := TStringStream.Create('');
       try
-        LSSIn.WriteString(AString);
+        LStreamIn.WriteString(AString);
         C := #0;
-        LSSIn.Write(C, 1);
-        LSSIn.Position := 0;
-        LSSOut := TStringStream.Create('');
+        LStreamIn.Write(C, 1);
+        LStreamIn.Position := 0;
+        LStreamOut := TStringStream.Create('');
         try
-          CS.InStream  := LSSIn;
-          CS.OutStream := LSSOut;
+          CS.InStream  := LStreamIn;
+          CS.OutStream := LStreamOut;
           CS.Parse;
-          LSSOut.Position := 0;
-          S := LSSOut.ReadString(LSSOut.Size);
+          LStreamOut.Position := 0;
+          S := LStreamOut.ReadString(LStreamOut.Size);
           S := MergeBlankLines(S);
           Result := S;
         finally
-          LSSOut.Free;
+          LStreamOut.Free;
         end;
       finally
-        LSSIn.Free;
+        LStreamIn.Free;
       end;
     finally
       CS.Free;
@@ -911,16 +910,16 @@ end;
 
 procedure TEditorCommands.SortStrings;
 var
-  SSS: TSortStringsSettings;
+  LSettings : TSortStringsSettings;
 begin
-  SSS := Settings.SortStringsSettings;
+  LSettings := Settings.SortStringsSettings;
   Selection.Store;
   Selection.Text := ts.Editor.Utils.SortStrings(
     Selection.Text,
-    SSS.SortDirection,
-    SSS.SortScope,
-    SSS.CaseSensitive,
-    SSS.IgnoreSpaces
+    LSettings.SortDirection,
+    LSettings.SortScope,
+    LSettings.CaseSensitive,
+    LSettings.IgnoreSpaces
   );
   Selection.Restore;
 end;

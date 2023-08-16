@@ -80,6 +80,7 @@ type
     imlBookmarkImages : TImageList;
 
     procedure FormDropFiles(Sender: TObject; const FileNames: array of string);
+    procedure FormResize(Sender: TObject);
     procedure FormShortCut(var Msg: TLMKey; var Handled: Boolean);
 
   private
@@ -709,6 +710,11 @@ begin
   if Assigned(FOnDropFiles) then
     FOnDropFiles(Self, FileNames);
   Events.DoChange;
+end;
+
+procedure TEditorView.FormResize(Sender: TObject);
+begin
+  UpdateSharedViews;
 end;
 
 procedure TEditorView.EditorProcessUserCommand(Sender: TObject;
@@ -1837,36 +1843,73 @@ begin
   N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+N'));
   AEditor.Keystrokes.Delete(N);
 
-  // TEMP CODE FOR MACOS FIX
-{$IFDEF DARWIN}
-  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+C'));
-  //AEditor.Keystrokes.Delete(N);
-  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+V'));
-  //AEditor.Keystrokes.Delete(N);
-  //N := AEditor.Keystrokes.FindShortcut(TextToShortCut('Ctrl+X'));
-  //AEditor.Keystrokes.Delete(N);
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_UP;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecMoveLineUp;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_DOWN;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecMoveLineDown;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_LEFT;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecMoveSelectLeft;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_RIGHT;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecMoveSelectRight;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := Ord('D');
+    Shift     := [ssCtrl];
+    ShiftMask := [];
+    Command   := ecDuplicateSelection;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := Ord('D');
+    Shift     := [ssCtrl, ssShift];
+    ShiftMask := [];
+    Command   := ecDuplicateLine;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_ADD;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecUnfoldCurrent;
+  end;
+  with AEditor.Keystrokes.Add do
+  begin
+    Key       := VK_SUBTRACT;
+    Shift     := [ssShift, ssAlt, ssCtrl];
+    ShiftMask := [];
+    Command   := ecFoldCurrent;
+  end;
   //with AEditor.Keystrokes.Add do
   //begin
-  //    Key       := ord('C');
-  //    Shift     := [ssMeta];
-  //    ShiftMask := [];
-  //    Command   := ecCopy;
+  //  Key       := VK_DIVIDE;
+  //  Shift     := [ssCtrl];
+  //  ShiftMask := [];
   //end;
-  //with AEditor.Keystrokes.Add do
-  //begin
-  //    Key       := ord('V');
-  //    Shift     := [ssMeta];
-  //    ShiftMask := [];
-  //    Command   := ecPaste;
-  //end;
-  //with AEditor.Keystrokes.Add do
-  //begin
-  //    Key       := ord('X');
-  //    Shift     := [ssMeta];
-  //    ShiftMask := [];
-  //    Command   := ecCut;
-  //end;
-{$ENDIF}
+
+
+
+
+
 
   // highlights all words that are the same as the one surrounding the caret position
   FMHAC := Editor.MarkupByClass[TSynEditMarkupHighlightAllCaret]

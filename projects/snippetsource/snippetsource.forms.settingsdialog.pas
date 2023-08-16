@@ -29,6 +29,8 @@ uses
 
   VirtualTrees,
 
+  ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
+
   SnippetSource.Interfaces;
 
 type
@@ -99,6 +101,8 @@ type
     lblVirtualEnvironmentName        : TLabel;
     pgcMain                          : TPageControl;
     pnlBottom                        : TPanel;
+    pnlSettingsFile                  : TPanel;
+    tsSettingsFile                   : TTabSheet;
     tsApplication                    : TTabSheet;
     tsDataBase                       : TTabSheet;
     tsImages                         : TTabSheet;
@@ -172,6 +176,8 @@ type
     FData               : IInterface;
     FSettings           : ISettings;
     FPythonInterpreters : TStrings;
+    FEditorManager      : IEditorManager;
+    FEditor             : IEditorView;
 
     {$REGION 'property access methods'}
     function GetConnection: IConnection;
@@ -262,6 +268,11 @@ procedure TfrmSettingsDialog.AfterConstruction;
 //  I : Integer;
 begin
   inherited AfterConstruction;
+  FEditorManager := TEditorFactories.CreateManager(Self);
+  FEditor        := TEditorFactories.CreateView(pnlSettingsFile, FEditorManager);
+  FEditorManager.Settings.Apply;
+  FEditor.Text   := FSettings.ToJson;
+
   edtDatabaseFile.FileName :=
     ExtractRelativePath(ExtractFilePath(ParamStr(0)), Connection.FileName);
 

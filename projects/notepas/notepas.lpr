@@ -33,7 +33,7 @@ uses
   ExceptionLogger,
 
   ts.Core.Logger.Channel.IPC, ts.Core.Logger.Interfaces, ts.Core.Logger,
-  tslib_components, tslib_core, tslib_editor, SetupFiltersDialog,
+  tslib_components, tslib_core, tslib_editor,
   ts.Editor.AboutDialog, ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
   ts.Editor.CodeTags, ts.Editor.Commands, ts.Editor.CommentStripper,
   ts.Editor.Events, ts.Editor.Factories.Manager, ts.Editor.Factories.Menus,

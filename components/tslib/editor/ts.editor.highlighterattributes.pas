@@ -121,8 +121,8 @@ type
     function Owner: TComponent; reintroduce;
 
     function RegisterItem(
-      const AName       : string;
-            AAliasNames : array of string
+      const AName : string;
+      AAliasNames : array of string
     ): Boolean;
 
     function GetEnumerator: THighlighterAttributesEnumerator;

@@ -245,13 +245,13 @@ begin
 end;
 
 procedure TTestEditorSettings.TestLoadSaveCommentTags;
-var
-  HI   : THighlighterItem;
-  LCTO : string;
-  LCTN : string;
-  LCT  : string;
-  SO   : string;
-  SN   : string;
+//var
+//  HI   : THighlighterItem;
+//  LCTO : string;
+//  LCTN : string;
+//  LCT  : string;
+//  SO   : string;
+//  SN   : string;
 begin
   Logger.Enter(Self, 'TestLoadSaveCommentTags');
   //LoadSettings;
@@ -291,8 +291,8 @@ begin
   Logger.Enter(Self, 'TestLoadSaveToolSettings');
   LoadSettings;
   CSS := FSettings.CodeShaperSettings;
-  NO := CSS.Width;
-  NN := 200;
+  NO  := CSS.Width;
+  NN  := 200;
   CSS.Width := NN;
   FSettings.Save;
 

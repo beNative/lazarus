@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 3157
+  Left = 2642
   Height = 763
-  Top = 506
+  Top = 591
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -444,6 +444,7 @@ object frmMain: TfrmMain
             MinPosition = 0.02
             SplitterSize = 4
             SplitterColor = clSilver
+            SplitterHoverColor = clSilver
             Align = alClient
             TabOrder = 3
           end

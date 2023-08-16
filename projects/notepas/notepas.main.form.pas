@@ -249,8 +249,6 @@ begin
   FSettings.FileName := 'notepas.json';
   FSettings.Load;
 
-  TEditorSettingsFactory.InitializeFoldHighlighters(FSettings.Highlighters);
-
   SetDefaultLang(FSettings.LanguageCode);
 
   FManager := TEditorFactories.CreateManager(

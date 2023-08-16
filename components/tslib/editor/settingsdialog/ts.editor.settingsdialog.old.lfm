@@ -199,21 +199,6 @@ object frmEditorSettings: TfrmEditorSettings
           end
         end
       end
-      object tsXML: TTabSheet
-        Caption = 'XML'
-        ClientHeight = 521
-        ClientWidth = 537
-        object pnlXML: TPanel
-          Left = 3
-          Height = 515
-          Top = 3
-          Width = 531
-          Align = alClient
-          BorderSpacing.Around = 3
-          BevelOuter = bvNone
-          TabOrder = 0
-        end
-      end
       object tsDebug: TTabSheet
         Caption = 'Debug'
         ClientHeight = 521
@@ -227,17 +212,17 @@ object frmEditorSettings: TfrmEditorSettings
           TabOrder = 0
         end
         object btnReloadSettings: TButton
-          Left = 10
+          Left = 136
           Height = 25
-          Top = 38
+          Top = 8
           Width = 123
           Action = actReloadSettings
           TabOrder = 1
         end
         object btnAssociate: TButton
-          Left = 10
+          Left = 264
           Height = 25
-          Top = 70
+          Top = 8
           Width = 123
           Action = actAssociate
           TabOrder = 2

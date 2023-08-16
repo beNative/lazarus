@@ -3,7 +3,7 @@
   <ProjectSession>
     <PathDelim Value="\"/>
     <Version Value="12"/>
-    <BuildModes Count="1" Active="Release win32 i386 win32">
+    <BuildModes Count="1" Active="Debug">
       <Item1 Name="Release win64 x86_64 win32">
         <CompilerOptions>
           <Version Value="11"/>
@@ -103,8 +103,8 @@ end;"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="NotePas.Main.Form"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="583"/>
-        <CursorPos X="40" Y="618"/>
+        <TopLine Value="215"/>
+        <CursorPos X="46" Y="250"/>
         <UsageCount Value="201"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -131,7 +131,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="71" Y="20"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit4>
       <Unit5>
@@ -141,7 +141,7 @@ end;"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="402"/>
         <CursorPos X="39" Y="410"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit5>
       <Unit6>
@@ -151,7 +151,7 @@ end;"/>
         <EditorIndex Value="10"/>
         <TopLine Value="238"/>
         <CursorPos X="14" Y="259"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -161,11 +161,10 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.Editor.Manager"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
-        <TopLine Value="1107"/>
-        <CursorPos X="3" Y="1109"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="767"/>
+        <CursorPos Y="805"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit7>
@@ -175,7 +174,7 @@ end;"/>
         <UnitName Value="ts.Editor.Commands"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="13" Y="915"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit8>
       <Unit9>
@@ -185,7 +184,7 @@ end;"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="39"/>
         <CursorPos X="111" Y="58"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit9>
       <Unit10>
@@ -195,7 +194,7 @@ end;"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="97"/>
         <CursorPos X="10" Y="127"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit10>
       <Unit11>
@@ -205,7 +204,7 @@ end;"/>
         <EditorIndex Value="6"/>
         <TopLine Value="230"/>
         <CursorPos X="3" Y="288"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit11>
       <Unit12>
@@ -215,17 +214,18 @@ end;"/>
         <EditorIndex Value="12"/>
         <TopLine Value="639"/>
         <CursorPos Y="28"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Settings"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="15"/>
-        <TopLine Value="739"/>
-        <CursorPos X="37" Y="686"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="164"/>
+        <CursorPos X="18" Y="194"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit13>
       <Unit14>
@@ -233,7 +233,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Tools.Settings"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit14>
       <Unit15>
@@ -246,7 +246,7 @@ end;"/>
         <EditorIndex Value="16"/>
         <TopLine Value="1872"/>
         <CursorPos Y="1902"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit15>
@@ -260,7 +260,7 @@ end;"/>
         <EditorIndex Value="13"/>
         <TopLine Value="436"/>
         <CursorPos X="79" Y="457"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit16>
@@ -274,7 +274,7 @@ end;"/>
         <EditorIndex Value="4"/>
         <TopLine Value="430"/>
         <CursorPos X="52" Y="453"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
@@ -282,7 +282,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeTags"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit18>
       <Unit19>
@@ -290,7 +290,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Menus"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit19>
       <Unit20>
@@ -298,7 +298,9 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Factories.Settings"/>
         <EditorIndex Value="7"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="9"/>
+        <CursorPos X="93" Y="38"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
@@ -308,7 +310,7 @@ end;"/>
         <EditorIndex Value="8"/>
         <TopLine Value="190"/>
         <CursorPos X="55" Y="206"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit21>
       <Unit22>
@@ -316,7 +318,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Types"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit22>
       <Unit23>
@@ -325,7 +327,7 @@ end;"/>
         <UnitName Value="ts.Editor.Factories"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="59" Y="25"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit23>
       <Unit24>
@@ -335,7 +337,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit24>
       <Unit25>
@@ -345,7 +347,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
       <Unit26>
@@ -355,7 +357,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit26>
       <Unit27>
@@ -365,7 +367,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit27>
       <Unit28>
@@ -375,7 +377,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit28>
       <Unit29>
@@ -387,7 +389,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit29>
       <Unit30>
@@ -397,7 +399,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit30>
       <Unit31>
@@ -407,7 +409,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit31>
       <Unit32>
@@ -417,7 +419,7 @@ end;"/>
         <EditorIndex Value="5"/>
         <TopLine Value="57"/>
         <CursorPos X="28" Y="81"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit32>
       <Unit33>
@@ -428,7 +430,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit33>
       <Unit34>
@@ -439,7 +441,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit34>
       <Unit35>
@@ -450,7 +452,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit35>
       <Unit36>
@@ -461,7 +463,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit36>
       <Unit37>
@@ -472,7 +474,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit37>
       <Unit38>
@@ -480,9 +482,9 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Highlighters"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="585"/>
-        <CursorPos X="28" Y="614"/>
-        <UsageCount Value="34"/>
+        <TopLine Value="47"/>
+        <CursorPos Y="67"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit38>
       <Unit39>
@@ -492,7 +494,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit39>
       <Unit40>
@@ -502,7 +504,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit40>
       <Unit41>
@@ -510,7 +512,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.Selection"/>
         <EditorIndex Value="14"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit41>
       <Unit42>
@@ -520,7 +522,7 @@ end;"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit42>
       <Unit43>
@@ -831,11 +833,12 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.SettingsDialog.Old"/>
-        <EditorIndex Value="18"/>
-        <TopLine Value="255"/>
-        <CursorPos X="74" Y="275"/>
+        <EditorIndex Value="19"/>
+        <TopLine Value="385"/>
+        <CursorPos X="29" Y="406"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit77>
       <Unit78>
         <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.pas"/>
@@ -919,7 +922,7 @@ end;"/>
       <Unit87>
         <Filename Value="..\..\components\tslib\core\ts.core.utils.pas"/>
         <UnitName Value="ts.Core.Utils"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="17"/>
         <TopLine Value="2222"/>
         <CursorPos X="24" Y="2245"/>
         <UsageCount Value="12"/>
@@ -948,7 +951,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.ActionList.ToolView"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <TopLine Value="651"/>
         <CursorPos X="20" Y="677"/>
         <UsageCount Value="11"/>
@@ -958,122 +961,124 @@ end;"/>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
-        <Caret Line="964" Column="22" TopLine="937"/>
+        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.toolview.pas"/>
+        <Caret Line="110" Column="15" TopLine="90"/>
       </Position1>
       <Position2>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="1370" Column="79" TopLine="1331"/>
+        <Caret Line="363" Column="59" TopLine="334"/>
       </Position2>
       <Position3>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="1291" Column="35" TopLine="1271"/>
+        <Caret Line="1857" Column="63" TopLine="1832"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
-        <Caret Line="1729" Column="44" TopLine="1708"/>
-      </Position4>
-      <Position5>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
-        <Caret Line="547" Column="14" TopLine="527"/>
-      </Position5>
-      <Position6>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="242" Column="14" TopLine="202"/>
-      </Position6>
-      <Position7>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="201" Column="75" TopLine="177"/>
-      </Position7>
-      <Position8>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.interfaces.pas"/>
-        <Caret Line="259" Column="14" TopLine="238"/>
-      </Position8>
-      <Position9>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="1302" Column="17" TopLine="1289"/>
-      </Position9>
-      <Position10>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="1583" Column="40" TopLine="1574"/>
-      </Position10>
-      <Position11>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="747" Column="116" TopLine="715"/>
-      </Position11>
-      <Position12>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-      </Position12>
-      <Position13>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="376" Column="23" TopLine="343"/>
-      </Position13>
-      <Position14>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="2012" Column="3" TopLine="2008"/>
-      </Position14>
-      <Position15>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="188" Column="46" TopLine="177"/>
-      </Position15>
-      <Position16>
-        <Filename Value="notepas.main.form.pas"/>
-      </Position16>
-      <Position17>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="97" Column="26" TopLine="63"/>
-      </Position17>
-      <Position18>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="400" Column="31" TopLine="377"/>
-      </Position18>
-      <Position19>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="413" Column="18" TopLine="378"/>
-      </Position19>
-      <Position20>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="503" Column="15" TopLine="468"/>
-      </Position20>
-      <Position21>
-        <Filename Value="notepas.main.form.pas"/>
-        <Caret Line="549" Column="13" TopLine="514"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.toolview.pas"/>
-        <Caret Line="330" Column="13" TopLine="322"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\..\components\tslib\editor\actionlist\ts.editor.actionlist.toolview.pas"/>
-        <Caret Line="110" Column="15" TopLine="90"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="363" Column="59" TopLine="334"/>
-      </Position24>
-      <Position25>
-        <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
-        <Caret Line="1857" Column="63" TopLine="1832"/>
-      </Position25>
-      <Position26>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
         <Caret Line="1879" Column="38" TopLine="1839"/>
-      </Position26>
-      <Position27>
+      </Position4>
+      <Position5>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
         <Caret Line="1893" Column="20" TopLine="1872"/>
-      </Position27>
-      <Position28>
+      </Position5>
+      <Position6>
         <Filename Value="..\..\..\lazarus\components\synedit\syneditkeycmds.pp"/>
         <Caret Line="232" Column="3" TopLine="211"/>
-      </Position28>
-      <Position29>
+      </Position6>
+      <Position7>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.pas"/>
         <Caret Line="1892" Column="31" TopLine="1872"/>
-      </Position29>
-      <Position30>
+      </Position7>
+      <Position8>
         <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
         <Caret Line="2711" Column="93" TopLine="2669"/>
+      </Position8>
+      <Position9>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.manager.pas"/>
+        <Caret Line="1162" Column="33" TopLine="1131"/>
+      </Position9>
+      <Position10>
+        <Filename Value="notepas.main.form.pas"/>
+        <Caret Line="610" Column="43" TopLine="583"/>
+      </Position10>
+      <Position11>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="519" Column="63" TopLine="498"/>
+      </Position11>
+      <Position12>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="719" Column="23" TopLine="691"/>
+      </Position12>
+      <Position13>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="315" Column="3" TopLine="307"/>
+      </Position13>
+      <Position14>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="178" Column="15" TopLine="155"/>
+      </Position14>
+      <Position15>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="1075" Column="3" TopLine="1070"/>
+      </Position15>
+      <Position16>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="307" TopLine="267"/>
+      </Position16>
+      <Position17>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="314" Column="26" TopLine="291"/>
+      </Position17>
+      <Position18>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="287" Column="3" TopLine="274"/>
+      </Position18>
+      <Position19>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="161" Column="15" TopLine="138"/>
+      </Position19>
+      <Position20>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="966" Column="36" TopLine="935"/>
+      </Position20>
+      <Position21>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="174" Column="15" TopLine="138"/>
+      </Position21>
+      <Position22>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
+        <Caret Line="284" Column="93" TopLine="255"/>
+      </Position22>
+      <Position23>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
+        <Caret Line="283" Column="93" TopLine="254"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\components\tslib\editor\settingsdialog\ts.editor.settingsdialog.old.pas"/>
+        <Caret Line="282" Column="93" TopLine="253"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="1060" Column="89" TopLine="1026"/>
+      </Position25>
+      <Position26>
+        <Filename Value="..\..\components\tslib\editor\settings\ts.editor.settings.pas"/>
+        <Caret Line="193" Column="12" TopLine="170"/>
+      </Position26>
+      <Position27>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
+        <Caret Line="140" Column="3" TopLine="96"/>
+      </Position27>
+      <Position28>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
+        <Caret Line="298" TopLine="275"/>
+      </Position28>
+      <Position29>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
+        <Caret Line="529" TopLine="506"/>
+      </Position29>
+      <Position30>
+        <Filename Value="..\..\components\tslib\editor\ts.editor.highlighters.pas"/>
+        <Caret Line="158" Column="12" TopLine="135"/>
       </Position30>
     </JumpHistory>
     <RunParams>

@@ -45,12 +45,11 @@ type
     FDefaultRichEditorFontName    : string;
     FEmitLogMessages              : Boolean;
     FPythonVirtualEnvironmentName : string;
+    FTextEditorSplitViewEnabled   : Boolean;
     FTextEditorSettings           : IEditorSettings;
 
   protected
     {$REGION 'property access methods'}
-    function GetTextEditorSettings: TEditorSettings;
-    procedure SetTextEditorSettings(AValue: TEditorSettings);
     function GetAutoHideEditorToolBar: Boolean;
     function GetAutoHideRichEditorToolBar: Boolean;
     function GetDatabase: string;
@@ -62,6 +61,8 @@ type
     function GetHtmlSourceVisible: Boolean;
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
+    function GetTextEditorSettings: TEditorSettings;
+    function GetTextEditorSplitViewEnabled: Boolean;
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
@@ -73,6 +74,8 @@ type
     procedure SetHtmlSourceVisible(AValue: Boolean);
     procedure SetLastFocusedId(AValue: Integer);
     procedure SetPythonVirtualEnvironmentName(AValue: string);
+    procedure SetTextEditorSettings(AValue: TEditorSettings);
+    procedure SetTextEditorSplitViewEnabled(AValue: Boolean);
     {$ENDREGION}
 
     procedure Changed;
@@ -129,6 +132,10 @@ type
 
     property TextEditorSettings: TEditorSettings
       read GetTextEditorSettings write SetTextEditorSettings;
+
+    property TextEditorSplitViewEnabled: Boolean
+      read GetTextEditorSplitViewEnabled write SetTextEditorSplitViewEnabled;
+
   end;
 
 implementation
@@ -170,6 +177,20 @@ begin
   if AValue <> FileName then
   begin
     FFileName := AValue;
+    Changed;
+  end;
+end;
+
+function TSettings.GetTextEditorSplitViewEnabled: Boolean;
+begin
+  Result := FTextEditorSplitViewEnabled;
+end;
+
+procedure TSettings.SetTextEditorSplitViewEnabled(AValue: Boolean);
+begin
+  if AValue <> TextEditorSplitViewEnabled then
+  begin
+    FTextEditorSplitViewEnabled := AValue;
     Changed;
   end;
 end;
@@ -348,7 +369,7 @@ var
 begin
   LStreamer := TJSONStreamer.Create(nil);
   try
-    LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline, jsoStreamChildren];
+    LStreamer.Options :=  LStreamer.Options + [jsoComponentsInline];
     Result := LStreamer.ObjectToJSON(Self).FormatJSON;
   finally
     LStreamer.Free;
@@ -368,9 +389,6 @@ begin
       LDeStreamer := TJSONDeStreamer.Create(nil);
       try
         LDeStreamer.JSONToObject(S, Self);
-        TextEditorSettings.InitializeHighlighters;
-    //    TextEditorSettings.AssignDefaultColors;
-  //      TextEditorSettings.AssignDefaultHighlighterAttibutesValues;
         Logger.SendComponent('TextEditorSettings', TextEditorSettings);
       finally
         LDeStreamer.Free;

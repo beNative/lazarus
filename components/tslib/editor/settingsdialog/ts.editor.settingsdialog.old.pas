@@ -74,13 +74,11 @@ type
     pnlHLRightBottom         : TPanel;
     pnlPI                    : TPanel;
     pnlTop                   : TPanel;
-    pnlXML                   : TPanel;
     splHAVertical            : TSplitter;
     splHLVertical            : TSplitter;
     mmoAliasNames            : TTIMemo;
     tsHighlighters           : TTabSheet;
     tsDebug                  : TTabSheet;
-    tsXML                    : TTabSheet;
     tsHighlighterAttributes  : TTabSheet;
     tsSettings               : TTabSheet;
     {$ENDREGION}
@@ -387,7 +385,6 @@ end;
 procedure TfrmEditorSettings.UpdateControls;
 begin
   tsDebug.TabVisible        := Settings.DebugMode;
-  tsXML.TabVisible          := Settings.DebugMode;
   tsHighlighters.TabVisible := Settings.DebugMode;
 end;
 
@@ -406,7 +403,7 @@ begin
   end;
   FHATVP.ItemsSource := FHAList;
   FHATVP.TreeView := FHAVST;
-  FHATVP.OnSelectionChanged   := FHATVPSelectionChanged;
+  FHATVP.OnSelectionChanged := FHATVPSelectionChanged;
   FHLTVP.MultiSelect := True;
   FHLTVP.ColumnDefinitions.AddColumn(NAME, SHighlighter, dtString, 150);
   FHLList.Clear;

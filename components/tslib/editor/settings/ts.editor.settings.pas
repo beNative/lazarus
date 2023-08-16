@@ -158,6 +158,14 @@ type
     {$ENDREGION}
 
   protected
+    procedure RegisterClasses;
+    procedure RegisterHighlighters(AHighlighters: THighlighters);
+    procedure InitializeFoldHighlighters(AHighlighters: THighlighters);
+    procedure InitializeHighlighterAttributes;
+    procedure InitializeHighlighters;
+    procedure AssignDefaultColors;
+    procedure AssignDefaultHighlighterAttibutesValues;
+
     procedure Changed;
 
     procedure AddEditorSettingsChangedHandler(AEvent: TNotifyEvent);
@@ -170,11 +178,6 @@ type
     procedure AfterConstruction; override;
     destructor Destroy; override;
 
-    procedure InitializeHighlighterAttributes;
-    procedure InitializeHighlighters;
-    procedure AssignDefaultColors;
-    procedure AssignDefaultHighlighterAttibutesValues;
-
     procedure Apply; // to manually force a notification
 
     procedure Load; virtual;
@@ -183,10 +186,13 @@ type
     property FileName: string
       read GetFileName write SetFileName;
 
-  published
     property Highlighters: THighlighters
       read GetHighlighters write SetHighlighters;
 
+    property Name;
+    property Tag;
+
+  published
     property AlignLinesSettings: TAlignLinesSettings
       read GetAlignLinesSettings write SetAlignLinesSettings;
 
@@ -208,6 +214,7 @@ type
     property SearchEngineSettings: TSearchEngineSettings
       read GetSearchEngineSettings write SetSearchEngineSettings;
 
+    { Common styling attributes to apply to all supported highlighters. }
     property HighlighterAttributes: THighlighterAttributes
       read GetHighlighterAttributes write SetHighlighterAttributes;
 
@@ -217,7 +224,7 @@ type
     property EditorOptions: TEditorOptionsSettings
       read GetEditorOptions write SetEditorOptions;
 
-    { Default highlighter type to use. }
+    { Default highlighter type to use when a new editor view is created. }
     property HighlighterType: string
       read GetHighlighterType write SetHighlighterType;
 
@@ -260,7 +267,16 @@ type
 implementation
 
 uses
-  SynEditStrConst, SynEditTypes, SynEditHighlighter,
+  SynEditStrConst, SynEditTypes, SynEditHighlighter, SynEditHighlighterFoldBase,
+  SynHighlighterPas, SynHighlighterSQL, SynHighlighterLFM, SynHighlighterXML,
+  SynHighlighterBat, SynHighlighterHTML, SynHighlighterCpp, SynHighlighterJava,
+  SynHighlighterPerl, SynHighlighterPython, SynHighlighterPHP, SynHighlighterCss,
+  SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
+  SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
+  SynHighlighterPike, SynHighlighterVB, SynHighlighterCS, SynHighlighterRC,
+  SynHighlighterRuby, SynHighlighterInno,
+
+  ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
   ts.Core.Utils,
 
@@ -270,14 +286,16 @@ uses
 procedure TEditorSettings.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FComponentStyle := [csSubComponent];
+  RegisterClasses;
+  FComponentStyle          := [csSubComponent];
   FChangedEventList        := TMethodList.Create;
   FFormSettings            := TFormSettings.Create;
   FFormSettings.OnChanged  := FFormSettingsChanged;
-  FColors                  := TEditorColorSettings.Create;
-  FColors.OnChanged        := FColorsChanged;
   FEditorOptions           := TEditorOptionsSettings.Create;
   FEditorOptions.OnChanged := FEditorOptionsChanged;
+  FColors                  := TEditorColorSettings.Create;
+  FColors.OnChanged        := FColorsChanged;
+  AssignDefaultColors;
 
   FCodeFilterSettings   := TCodeFilterSettings.Create;
   FSortStringsSettings  := TSortStringsSettings.Create;
@@ -288,17 +306,20 @@ begin
   FSearchEngineSettings := TSearchEngineSettings.Create;
 
   FStreamer         := TJSONStreamer.Create(Self);
-  FStreamer.Options :=  FStreamer.Options + [jsoStreamChildren, jsoComponentsInline];
+  FStreamer.Options :=  FStreamer.Options + [jsoComponentsInline];  //jsoStreamChildren,
   FDeStreamer         := TJSONDeStreamer.Create(Self);
   FDeStreamer.Options := FDeStreamer.Options + [jdoIgnorePropertyErrors];
   FDeStreamer.BeforeReadObject  := FDeStreamerBeforeReadObject;
   FDeStreamer.OnRestoreProperty := FDeStreamerRestoreProperty;
 
-  FHighlighters          := THighLighters.Create(Self);
-  FHighlighters.Name     := 'Highlighters';
-  FHighlighterAttributes := THighlighterAttributes.Create(Self);
+  FHighlighters      := THighLighters.Create(Self);
+  FHighlighters.Name := 'Highlighters';
+  InitializeHighlighters;
 
-  FFileName := DEFAULT_SETTINGS_FILE;
+  FHighlighterAttributes := THighlighterAttributes.Create(Self);
+  AssignDefaultHighlighterAttibutesValues;
+
+  FFileName                 := DEFAULT_SETTINGS_FILE;
   FHighlighterType          := HL_TXT;
   FAutoFormatXml            := DEFAULT_AUTO_FORMAT_XML;
   FAutoGuessHighlighterType := DEFAULT_AUTO_GUESS_HIGHLIGHTER_TYPE;
@@ -309,14 +330,6 @@ begin
 
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
   FLanguageCode    := DEFAULT_LANGUAGE_CODE;
-
-  InitializeHighlighters;
-  InitializeHighlighterAttributes;
-  AssignDefaultHighlighterAttibutesValues;
-
-  RegisterClass(TSynSelectedColor);
-  AssignDefaultColors;
-
 end;
 
 destructor TEditorSettings.Destroy;
@@ -345,11 +358,6 @@ begin
   Changed;
 end;
 
-function TEditorSettings.GetAlignLinesSettings: TAlignLinesSettings;
-begin
-  Result := FAlignLinesSettings;
-end;
-
 procedure TEditorSettings.FEditorOptionsChanged(Sender: TObject);
 begin
   Changed;
@@ -374,6 +382,11 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access methods'}
+function TEditorSettings.GetAlignLinesSettings: TAlignLinesSettings;
+begin
+  Result := FAlignLinesSettings;
+end;
+
 function TEditorSettings.GetAutoFormatXml: Boolean;
 begin
   Result := FAutoFormatXml;
@@ -402,7 +415,7 @@ end;
 
 function TEditorSettings.GetCloseWithEsc: Boolean;
 begin
-  Result := FCloseWithESC;
+  Result := FCloseWithEsc;
 end;
 
 function TEditorSettings.GetCodeFilterSettings: TCodeFilterSettings;
@@ -419,7 +432,7 @@ procedure TEditorSettings.SetCloseWithEsc(const AValue: Boolean);
 begin
   if AValue <> CloseWithEsc then
   begin
-    FCloseWithESC := AValue;
+    FCloseWithEsc := AValue;
   end;
 end;
 
@@ -542,6 +555,7 @@ end;
 procedure TEditorSettings.SetHighlighters(const AValue: THighlighters);
 begin
   FHighlighters.Assign(AValue);
+  Changed;
 end;
 
 function TEditorSettings.GetHighlighterType: string;
@@ -917,14 +931,151 @@ begin
   end;
 end;
 
+procedure TEditorSettings.RegisterClasses;
+begin
+  Classes.RegisterClasses([
+    TSynBatSyn,
+    TSynCppSyn,
+    TSynCssSyn,
+    TSynCsSyn,
+    TSynCustomHighlighter,
+    TSynDiffSyn,
+    TSynHTMLSyn,
+    TSynINISyn,
+    TSynInnoSyn,
+    TSynJavaSyn,
+    TSynJScriptSyn,
+    TSynLFMSyn,
+    TSynLuaSyn,
+    TSynPasSyn,
+    TSynPerlSyn,
+    TSynPHPSyn,
+    TSynPikeSyn,
+    TSynPoSyn,
+    TSynPythonSyn,
+    TSynRCSyn,
+    TSynRubySyn,
+    TSynSQLSyn,
+    TSynTeXSyn,
+    TSynUNIXShellScriptSyn,
+    TSynVBSyn,
+    TSynXMLSyn,
+    TSynSelectedColor
+  ]);
+end;
+
+procedure TEditorSettings.RegisterHighlighters(AHighlighters: THighlighters);
+
+  procedure Reg(ASynHighlighterClass: TSynHighlighterClass;
+    ASynHighlighter: TSynCustomHighlighter; const AName: string;
+    const AFileExtensions: string = ''; const ADescription: string = '';
+    const ALineCommentTag: string = ''; const ABlockCommentStartTag: string = '';
+    const ABlockCommentEndTag: string = ''; ACodeFormatter: ICodeFormatter = nil;
+    const ALayoutFileName: string = '');
+  begin
+    AHighlighters.RegisterHighlighter(
+      ASynHighlighterClass,
+      ASynHighlighter,
+      AName,
+      AFileExtensions,
+      ALineCommentTag,
+      ABlockCommentStartTag,
+      ABlockCommentEndTag,
+      ACodeFormatter,
+      ADescription,
+      ALayoutFileName
+    );
+  end;
+
+begin
+  Reg(nil, nil, HL_TXT, FILE_EXTENSIONS_TXT, STXTDescription);
+  Reg(TSynBatSyn, nil, HL_BAT, FILE_EXTENSIONS_BAT, SBATDescription, '::');
+  Reg(TSynCppSyn, nil, HL_CPP, FILE_EXTENSIONS_CPP, SCPPDescription, '//', '/*', '*/', TCPPFormatter.Create);
+  Reg(TSynCssSyn, nil, HL_CSS, FILE_EXTENSIONS_CSS, SCSSDescription);
+  Reg(TSynCsSyn, nil, HL_CS, FILE_EXTENSIONS_CS, SCSDescription, '//', '/*', '*/');
+  Reg(TSynDiffSyn, nil, HL_DIFF, FILE_EXTENSIONS_DIFF, SDIFFDescription);
+  Reg(TSynHTMLSyn, nil, HL_HTML, FILE_EXTENSIONS_HTML, SHTMLDescription, '', '<!--', '-->', THTMLFormatter.Create);
+  Reg(TSynIniSyn, nil, HL_INI, FILE_EXTENSIONS_INI, SINIDescription, ';');
+  Reg(TSynInnoSyn, nil, HL_ISS, FILE_EXTENSIONS_ISS, SISSDescription, ';');
+  Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
+  Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription, '//', '/*', '*/');
+  Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
+  Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
+  Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
+  Reg(TSynPerlSyn, nil, HL_PERL, FILE_EXTENSIONS_PERL, SPERLDescription, '#', '/*', '*/');
+  Reg(TSynPHPSyn, nil, HL_PHP, FILE_EXTENSIONS_PHP, SPHPDescription, '');
+  Reg(TSynPikeSyn, nil, HL_PIKE, FILE_EXTENSIONS_PIKE, SPikeDescription, '', '', '');
+  Reg(TSynPoSyn, nil, HL_PO, FILE_EXTENSIONS_PO, SPODescription, '#');
+  Reg(TSynPythonSyn, nil, HL_PY, FILE_EXTENSIONS_PY, SPYDescription, '#', '/*', '*/');
+  Reg(TSynRCSyn, nil, HL_RC, FILE_EXTENSIONS_RC, SRCDescription, '//', '/*', '*/');
+  Reg(TSynRubySyn, nil, HL_RUBY, FILE_EXTENSIONS_RUBY, SRUBYDescription, '#');
+  Reg(TSynSQLSyn, nil, HL_SQL, FILE_EXTENSIONS_SQL, SSQLDescription, '--', '/*', '*/', TSQLFormatter.Create);
+  Reg(TSynTeXSyn, nil, HL_TEX, FILE_EXTENSIONS_TEX, STEXDescription);
+  Reg(TSynUNIXShellScriptSyn, nil, HL_SH, FILE_EXTENSIONS_SH, SSHDescription);
+  Reg(TSynVBSyn, nil, HL_VB, FILE_EXTENSIONS_VB, SVBDescription, '', '', '');
+  Reg(TSynXMLSyn, nil, HL_XML, FILE_EXTENSIONS_XML, SXMLDescription, '', '<!--', '-->', TXMLFormatter.Create);
+end;
+
+procedure TEditorSettings.InitializeFoldHighlighters
+  (AHighlighters: THighlighters);
+var
+  I  : Integer;
+  N  : Integer;
+  FH : TSynCustomFoldHighlighter;
+begin
+  FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_PAS].SynHighlighter);
+  for I := Low(EditorOptionsDividerInfoPas) to High(EditorOptionsDividerInfoPas) do
+  begin
+    FH.DividerDrawConfig[I].MaxDrawDepth :=
+      EditorOptionsDividerInfoPas[I].MaxLevel;
+  end;
+  for I := Low(EditorOptionsFoldInfoPas) to High(EditorOptionsFoldInfoPas) do
+  begin
+    N := EditorOptionsFoldInfoPas[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoPas[I].Enabled;
+  end;
+  FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_XML].SynHighlighter);
+  for I := Low(EditorOptionsFoldInfoXML) to High(EditorOptionsFoldInfoXML) do
+  begin
+    N := EditorOptionsFoldInfoXML[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoXML[I].Enabled;
+  end;
+  FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_LFM].SynHighlighter);
+  for I := Low(EditorOptionsFoldInfoLFM) to High(EditorOptionsFoldInfoLFM) do
+  begin
+    N := EditorOptionsFoldInfoLFM[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoLFM[I].Enabled;
+  end;
+  FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_HTML].SynHighlighter);
+  for I := Low(EditorOptionsFoldInfoHTML) to High(EditorOptionsFoldInfoHTML) do
+  begin
+    N := EditorOptionsFoldInfoHTML[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoHTML[I].Enabled;
+  end;
+  FH := TSynCustomFoldHighlighter(AHighlighters.ItemsByName[HL_DIFF].SynHighlighter);
+  for I := Low(EditorOptionsFoldInfoDiff) to High(EditorOptionsFoldInfoDiff) do
+  begin
+    N := EditorOptionsFoldInfoDiff[I].Index;
+    if N >= 0 then
+      FH.FoldConfig[N].Enabled := EditorOptionsFoldInfoDiff[I].Enabled;
+  end;
+end;
+
 procedure TEditorSettings.InitializeHighlighters;
 var
-  HI: THighlighterItem;
+  HI : THighlighterItem;
 begin
+  RegisterHighlighters(Highlighters);
+
   for HI in Highlighters do
   begin
     HI.InitSynHighlighter(HI.SynHighlighter);
   end;
+  InitializeFoldHighlighters(Highlighters);
 end;
 
 procedure TEditorSettings.LoadJson;
@@ -939,8 +1090,6 @@ begin
     Logger.SendText(ReadFileToString(LFileName));
     FDeStreamer.JSONToObject(ReadFileToString(LFileName), Self);
   end;
-  InitializeHighlighters;
-  InitializeHighlighterAttributes;
   Logger.Leave(Self, 'LoadJson');
 end;
 
@@ -950,25 +1099,11 @@ var
   LFileName : string;
   SL        : TStringList;
   JO        : TJSONObject;
-  //JA        : TJSONArray;
-  //I         : Integer;
-  //HL        : TJSONObject;
-  //IT        : TJSONArray;
 begin
   Logger.Enter(Self, 'SaveJson');
   LFileName := GetApplicationConfigPath + FFileName;;
   Logger.Info('SaveJson %s', [LFileName]);
   JO := FStreamer.ObjectToJSON(Self);
-
-  //JA := TJSONArray.Create;
-  //
-  //HL := JO['Highlighters'] as TJSONObject;
-  //JA := HL['Children'] as TJSONArray;
-  //for I := 0 to Highlighters.Count -1 do
-  //  begin
-  //    JA.Add(FStreamer.ObjectToJSON(Highlighters.Items[I]));
-  //  end;
-  //JO['Highlighters'].Add('Items', JA);
   S := JO.FormatJSON;
   Logger.SendText(S);
   SL := TStringList.Create;

@@ -44,7 +44,7 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
-    actToggleSplitView: TAction;
+    actToggleSplitView              : TAction;
     actLookup                       : TAction;
     actRtfEditor                    : TAction;
     actSettings                     : TAction;
@@ -57,7 +57,7 @@ type
     btnCloseEditorToolView          : TSpeedButton;
     btnCloseRichEditorToolView      : TSpeedButton;
     btnExecute                      : TSpeedButton;
-    btnToggleSplitView: TSpeedButton;
+    btnToggleSplitView              : TSpeedButton;
     btnHighlighter                  : TMenuButton;
     btnLineBreakStyle               : TSpeedButton;
     dscMain                         : TDatasource;
@@ -68,7 +68,7 @@ type
     lblRichEditorToolViewHeader     : TLabel;
     lblWelcome                      : TLabel;
     nbRight                         : TNotebook;
-    pnlMulti: TOMultiPanel;
+    pnlMulti                        : TOMultiPanel;
     pgHtmlEditor                    : TPage;
     pgRichEditor                    : TPage;
     pgTextEditor                    : TPage;
@@ -354,6 +354,10 @@ begin
   CreateRichEditor;
   CreateHtmlEditor;
   CreateTreeview;
+
+  actToggleSplitView.Checked          := FSettings.TextEditorSplitViewEnabled;
+  pnlMulti.PanelCollection[1].Visible := FSettings.TextEditorSplitViewEnabled;
+
   FRtfStream := TStringStream.Create;
 
   dscMain.DataSet := DataSet.DataSet;
@@ -579,7 +583,8 @@ end;
 
 procedure TfrmMain.actToggleSplitViewExecute(Sender: TObject);
 begin
-  pnlMulti.PanelCollection[1].Visible := (Sender as TAction).Checked;
+  pnlMulti.PanelCollection[1].Visible  := (Sender as TAction).Checked;
+  FSettings.TextEditorSplitViewEnabled := (Sender as TAction).Checked;
 end;
 
 procedure TfrmMain.actToggleStayOnTopExecute(Sender: TObject);

@@ -1237,3 +1237,205 @@ msgstr ""
 msgid "Total count of editor viewer instances."
 msgstr "Recuento total de instancias de vistas del editor."
 
+#: ts.editor.aboutdialog.sauthor
+msgid "Author"
+msgstr ""
+
+#: ts.editor.aboutdialog.slanguagecode
+msgid "Code"
+msgstr ""
+
+#: ts.editor.aboutdialog.slanguagename
+msgid "Language"
+msgstr ""
+
+#: ts.editor.aboutdialog.sname
+msgid "Name"
+msgstr ""
+
+#: ts.editor.aboutdialog.svalue
+msgid "Value"
+msgstr ""
+
+#: ts.editor.resources.sapplicationmenucaption
+msgid "&Application"
+msgstr ""
+
+#: ts.editor.resources.sasksavechanges
+#, object-pascal-format
+msgid "File %s is modified. Do you want to save changes?"
+msgstr ""
+
+#: ts.editor.resources.sbatdescription
+msgid "Windows batch script"
+msgstr ""
+
+#: ts.editor.resources.scppdescription
+msgid "C++"
+msgstr ""
+
+#: ts.editor.resources.scsdescription
+msgid "C#"
+msgstr ""
+
+#: ts.editor.resources.scssdescription
+msgid "Cascading Style Sheet"
+msgstr ""
+
+#: ts.editor.resources.sdiffdescription
+msgid "Diff"
+msgstr ""
+
+#: ts.editor.resources.sfilemenucaption
+msgid "&File"
+msgstr ""
+
+#: ts.editor.resources.shelpmenucaption
+msgid "&Help"
+msgstr ""
+
+#: ts.editor.resources.shighlightersmenucaption
+msgid "&Highlighters"
+msgstr ""
+
+#: ts.editor.resources.shtmldescription
+msgid "HTML document"
+msgstr ""
+
+#: ts.editor.resources.sinidescription
+msgid "Settings file"
+msgstr ""
+
+#: ts.editor.resources.sinsertmenucaption
+msgid "&Insert"
+msgstr ""
+
+#: ts.editor.resources.sissdescription
+msgid "Inno Setup script"
+msgstr ""
+
+#: ts.editor.resources.sjavadescription
+msgid "Java"
+msgstr ""
+
+#: ts.editor.resources.sjsdescription
+msgid "JavaScript"
+msgstr ""
+
+#: ts.editor.resources.slfmdescription
+msgid "Object Pascal form definition"
+msgstr ""
+
+#: ts.editor.resources.slineswithmatchfound
+#, object-pascal-format
+msgid "%d lines with match found."
+msgstr ""
+
+#: ts.editor.resources.slogdescription
+msgid "Log"
+msgstr ""
+
+#: ts.editor.resources.sluadescription
+msgid "Lua"
+msgstr ""
+
+#: ts.editor.resources.sneweditorviewfilename
+msgid "<new>"
+msgstr ""
+
+#: ts.editor.resources.snotimplementedyet
+msgid "This feature is not implemented yet"
+msgstr ""
+
+#: ts.editor.resources.sonelinewithmatchfound
+msgid "1 line with match found."
+msgstr ""
+
+#: ts.editor.resources.spasdescription
+msgid "Object Pascal"
+msgstr ""
+
+#: ts.editor.resources.sperldescription
+msgid "Perl"
+msgstr ""
+
+#: ts.editor.resources.sphpdescription
+msgid "PHP"
+msgstr ""
+
+#: ts.editor.resources.spikedescription
+msgid "Pike"
+msgstr ""
+
+#: ts.editor.resources.spodescription
+msgid "Gettext translation strings"
+msgstr ""
+
+#: ts.editor.resources.spydescription
+msgid "Python"
+msgstr ""
+
+#: ts.editor.resources.srcdescription
+msgid "Windows resource file"
+msgstr ""
+
+#: ts.editor.resources.srtfdescription
+msgid "Rich Text Format document"
+msgstr ""
+
+#: ts.editor.resources.srubydescription
+msgid "Ruby"
+msgstr ""
+
+#: ts.editor.resources.ssearching
+msgid "Searching..."
+msgstr ""
+
+#: ts.editor.resources.ssearchmenucaption
+msgid "&Search"
+msgstr ""
+
+#: ts.editor.resources.sselectionmenucaption
+msgid "Se&lection"
+msgstr ""
+
+#: ts.editor.resources.ssettingsmenucaption
+msgid "&Settings"
+msgstr ""
+
+#: ts.editor.resources.sshdescription
+msgid "Shell script"
+msgstr ""
+
+#: ts.editor.resources.ssqldescription
+msgid "SQL"
+msgstr ""
+
+#: ts.editor.resources.stexdescription
+msgid "TeX"
+msgstr ""
+
+#: ts.editor.resources.stextnotfound
+msgid "Text not found"
+msgstr ""
+
+#: ts.editor.resources.stoolsmenucaption
+msgid "&Tools"
+msgstr ""
+
+#: ts.editor.resources.stxtdescription
+msgid "Text document"
+msgstr ""
+
+#: ts.editor.resources.svbdescription
+msgid "Visual Basic"
+msgstr ""
+
+#: ts.editor.resources.sviewmenucaption
+msgid "&View"
+msgstr ""
+
+#: ts.editor.resources.sxmldescription
+msgid "XML document"
+msgstr ""
+

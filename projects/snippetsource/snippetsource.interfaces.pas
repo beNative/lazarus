@@ -301,6 +301,7 @@ type
     function GetLastFocusedId: Integer;
     function GetPythonVirtualEnvironmentName: string;
     function GetTextEditorSettings: TEditorSettings;
+    function GetTextEditorSplitViewEnabled: Boolean;
     procedure SetAutoHideEditorToolBar(AValue: Boolean);
     procedure SetAutoHideRichEditorToolBar(AValue: Boolean);
     procedure SetDatabase(const AValue: string);
@@ -316,6 +317,7 @@ type
     procedure AddOnChangeHandler(AEvent: TNotifyEvent);
     procedure RemoveOnChangeHandler(AEvent: TNotifyEvent);
     procedure SetPythonVirtualEnvironmentName(AValue: string);
+    procedure SetTextEditorSplitViewEnabled(AValue: Boolean);
     function ToJson: string;
 
     property Database: string
@@ -350,6 +352,9 @@ type
 
     property TextEditorSettings: TEditorSettings
       read GetTextEditorSettings write SetTextEditorSettings;
+
+    property TextEditorSplitViewEnabled: Boolean
+      read GetTextEditorSplitViewEnabled write SetTextEditorSplitViewEnabled;
   end;
 
 implementation

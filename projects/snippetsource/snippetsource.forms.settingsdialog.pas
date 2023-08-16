@@ -270,7 +270,7 @@ begin
   inherited AfterConstruction;
   FEditorManager := TEditorFactories.CreateManager(Self);
   FEditor        := TEditorFactories.CreateView(pnlSettingsFile, FEditorManager);
-  FEditorManager.Settings.Apply;
+  FEditor.HighlighterName := 'JS';
   FEditor.Text   := FSettings.ToJson;
 
   edtDatabaseFile.FileName :=

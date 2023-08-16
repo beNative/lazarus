@@ -65,9 +65,6 @@ type
     procedure SetUseCommonAttributes(AValue: Boolean);
     {$ENDREGION}
 
-  protected
-    procedure GetChildren(Proc: TGetChildProc; Root: TComponent); override;
-
   public
     // constructors and destructors
     procedure AfterConstruction; override;
@@ -155,13 +152,15 @@ type
         read GetCurrent;
     end;
 
-    // property access methods
+  protected
+    {$REGION 'property access methods'}
     function GetCount: Integer;
     function GetFileFilter: string;
     function GetItem(Index: Integer): THighlighterItem;
     function GetItemByName(const AName: string): THighlighterItem;
     procedure SetItem(Index: Integer; const Value: THighlighterItem);
     procedure SetItemByName(const AName: string; const AValue: THighlighterItem);
+    {$ENDREGION}
 
   public
     procedure AfterConstruction; override;
@@ -189,7 +188,6 @@ type
       const ALayoutFileName       : string = ''   // only for TSynUNIHighlighter
     ); virtual;
 
-    // public properties
     property Count: Integer
       read GetCount;
 
@@ -202,10 +200,6 @@ type
     { Provides indexed access to the list of items. }
     property Items[Index: Integer]: THighlighterItem
       read GetItem write SetItem; default;
-
-    procedure GetChildren(Proc: TGetChildProc; Root: TComponent); override;
-  published
-
 
   end;
 
@@ -236,6 +230,14 @@ end;
 {$ENDREGION}
 
 {$REGION 'THighlighters'}
+{$REGION 'construction and destruction'}
+procedure THighlighters.AfterConstruction;
+begin
+  FComponentStyle := [csSubComponent];
+  inherited AfterConstruction;
+end;
+{$ENDREGION}
+
 {$REGION 'property access mehods'}
 function THighlighters.GetItem(Index: Integer): THighlighterItem;
 begin
@@ -286,13 +288,6 @@ begin
   if Assigned(LItem) then
     LItem.Assign(AValue);
 end;
-
-procedure THighlighters.AfterConstruction;
-begin
-  FComponentStyle := [csSubComponent];
-  inherited AfterConstruction;
-end;
-
 {$ENDREGION}
 
 {$REGION 'public methods'}
@@ -416,28 +411,14 @@ begin
   if HI.FileExtensions = '' then
     HI.FileExtensions := AFileExtensions;
 end;
-
-procedure THighlighters.GetChildren(Proc: TGetChildProc; Root: TComponent);
-Var
-  I : Integer;
-
-begin
-  For I:=0 to ComponentCount-1 do
-  begin
-    Proc(Components[i]);
-  end;
-end;
-
 {$ENDREGION}
 {$ENDREGION}
 
 {$REGION 'THighlighterItem'}
-
 {$REGION 'construction and destruction'}
 procedure THighlighterItem.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FComponentStyle := [csSubComponent];
   FFileExtensions            := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
@@ -540,18 +521,6 @@ begin
 end;
 {$ENDREGION}
 
-{$REGION 'protected methods'}
-procedure THighlighterItem.GetChildren(Proc: TGetChildProc; Root: TComponent);
-var
-  I : Integer;
-begin
-  for I := 0 to ComponentCount - 1 do
-  begin
-    Proc(Components[I]);
-  end;
-end;
-{$ENDREGION}
-
 {$REGION 'public methods'}
 procedure THighlighterItem.Assign(Source: TPersistent);
 var
@@ -582,9 +551,9 @@ end;
 function THighlighterItem.AsString: string;
 const
   DATA =
-    'SynHighlighter = %s' + #13#10 +
-    'Name           = %s' + #13#10 +
-    'Description    = %s' + #13#10 +
+    'SynHighlighter = %s' + sLineBreak +
+    'Name           = %s' + sLineBreak +
+    'Description    = %s' + sLineBreak +
     'LayoutFileName = %s';
 begin
   Result := Format(DATA, [SynHighlighter.ClassName, Highlighter, Description, LayoutFileName]);

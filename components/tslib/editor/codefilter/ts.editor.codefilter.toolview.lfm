@@ -2,10 +2,10 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   Left = 565
   Height = 572
   Top = 161
-  Width = 740
+  Width = 747
   Caption = 'Code filter'
   ClientHeight = 572
-  ClientWidth = 740
+  ClientWidth = 747
   Font.Height = -12
   OnCloseQuery = FormCloseQuery
   OnResize = FormResize
@@ -18,7 +18,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Left = 3
     Height = 517
     Top = 29
-    Width = 734
+    Width = 741
     Align = alClient
     BorderSpacing.Around = 3
     BevelOuter = bvNone
@@ -28,14 +28,14 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Left = 0
     Height = 23
     Top = 549
-    Width = 740
+    Width = 747
     Panels = <>
   end
   object tlbMain: TToolBar
     Left = 2
     Height = 24
     Top = 2
-    Width = 736
+    Width = 743
     BorderSpacing.Around = 2
     Caption = 'tlbMain'
     EdgeBorders = []
@@ -47,7 +47,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     TabOrder = 2
     Transparent = True
     object lblSearch: TLabel
-      Left = 27
+      Left = 3
       Height = 18
       Top = 3
       Width = 38
@@ -60,25 +60,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Layout = tlCenter
       ParentColor = False
     end
-    object Image1: TImage
-      Left = 4
-      Height = 18
-      Top = 3
-      Width = 16
-      Align = alLeft
-      BorderSpacing.Around = 3
-      Proportional = True
-    end
-    object ToolButton1: TToolButton
-      Left = 20
-      Height = 22
-      Top = 0
-      AutoSize = True
-      Caption = 'ToolButton1'
-      Style = tbsDivider
-    end
     object btnMatchCase: TSpeedButton
-      Left = 385
+      Left = 437
       Height = 24
       Top = 0
       Width = 88
@@ -95,7 +78,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Margin = 4
     end
     object btnRegularExpression: TSpeedButton
-      Left = 478
+      Left = 525
       Height = 24
       Top = 0
       Width = 127
@@ -112,7 +95,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       Margin = 4
     end
     object btnApply: TSpeedButton
-      Left = 610
+      Left = 652
       Height = 24
       Top = 0
       Width = 86
@@ -126,25 +109,11 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       ImageIndex = 2
       Margin = 4
     end
-    object ToolButton3: TToolButton
-      Left = 605
-      Height = 22
-      Top = 0
-      Caption = 'ToolButton3'
-      Style = tbsDivider
-    end
-    object ToolButton4: TToolButton
-      Left = 473
-      Height = 22
-      Top = 0
-      Caption = 'ToolButton4'
-      Style = tbsDivider
-    end
     object edtFilter: TEdit
-      Left = 72
+      Left = 48
       Height = 20
       Top = 2
-      Width = 313
+      Width = 389
       Align = alLeft
       Anchors = [akTop, akLeft, akRight, akBottom]
       BorderSpacing.Around = 2

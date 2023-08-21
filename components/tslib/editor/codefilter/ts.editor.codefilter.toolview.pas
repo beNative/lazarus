@@ -37,43 +37,38 @@ type
     {$REGION 'designer controls'}
     aclMain              : TActionList;
     actApplyFilter       : TAction;
+    actCopy              : TAction;
     actCopyToNewView     : TAction;
     actFocusSearchFilter : TAction;
-    actCopy              : TAction;
     actMatchCase         : TAction;
     actRegularExpression : TAction;
     actSelectAll         : TAction;
+    btnApply             : TSpeedButton;
     btnMatchCase         : TSpeedButton;
     btnRegularExpression : TSpeedButton;
-    btnApply             : TSpeedButton;
     edtFilter            : TEdit;
-    grpOutput            : TGroupBox;
-    Image1               : TImage;
     imlMain              : TImageList;
     lblSearch            : TLabel;
-    MenuItem1            : TMenuItem;
-    MenuItem2            : TMenuItem;
-    MenuItem3            : TMenuItem;
     mniCopy              : TMenuItem;
     mniCopyToNewView     : TMenuItem;
     mniSelectAll         : TMenuItem;
     pnlVST               : TPanel;
     ppmMain              : TPopupMenu;
     sbrMain              : TStatusBar;
-    tmrUpdate            : TTimer;
     tlbMain              : TToolBar;
-    ToolButton1          : TToolButton;
-    ToolButton3          : TToolButton;
-    ToolButton4          : TToolButton;
+    tmrUpdate            : TTimer;
     {$ENDREGION}
 
+    {$REGION 'action handlers'}
     procedure actApplyFilterExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
     procedure actCopyToNewViewExecute(Sender: TObject);
     procedure actFocusSearchFilterExecute(Sender: TObject);
     procedure actMatchCaseExecute(Sender: TObject);
     procedure actSelectAllExecute(Sender: TObject);
+    {$ENDREGION}
 
+    {$REGION 'event handlers'}
     procedure EditorSettingsChanged(Sender: TObject);
     procedure EditorActiveViewChanged(Sender: TObject);
     procedure EditorChange(Sender: TObject);
@@ -93,6 +88,7 @@ type
     procedure FVSTKeyPress(Sender: TObject; var Key: Char);
     procedure FVSTKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure tmrUpdateTimer(Sender: TObject);
+    {$ENDREGION}
 
   private
     FTVP              : TTreeViewPresenter;
@@ -105,6 +101,7 @@ type
     FRegExpr          : TRegExpr;
     FIsCompiled       : Boolean;
 
+    {$REGION 'property access methods'}
     function GetManager: IEditorManager;
     function GetFilter: string;
     function GetSettings: TCodeFilterSettings;
@@ -114,6 +111,7 @@ type
     function GetView: IEditorView;
     function GetForm: TForm;
     function GetName: string;
+    {$ENDREGION}
 
   protected
     procedure Modified;
@@ -182,10 +180,7 @@ uses
 
   ts.Core.ColumnDefinitionsDataTemplate, ts.Core.Helpers, ts.Core.Utils,
   ts.Core.Logger,
-
-  ts.Editor.Resources,
-
-  ts.Editor.CodeFilter.Data;
+  ts.Editor.Resources, ts.Editor.CodeFilter.Data;
 
 type
   TVKSet = set of Byte;
@@ -244,26 +239,31 @@ begin
   Manager.Events.AddOnActiveViewChangeHandler(EditorActiveViewChanged);
   Manager.Events.AddOnChangeHandler(EditorChange);
   FTextStyle.SingleLine := True;
-  FTextStyle.Opaque := False;
+  FTextStyle.Opaque     := False;
   FTextStyle.ExpandTabs := False;
-  FTextStyle.Wordbreak := False;
+  FTextStyle.Wordbreak  := False;
   FTextStyle.ShowPrefix := True;
-  FTextStyle.Clipping := False;
+  FTextStyle.Clipping   := False;
   FTextStyle.SystemFont := False;
-  FTextStyle.Alignment := taLeftJustify;
-  FTextStyle.Layout := tlCenter;
+  FTextStyle.Alignment  := taLeftJustify;
+  FTextStyle.Layout     := tlCenter;
+
   FVST := VST.Create(Self, pnlVST);
+  FVST.BorderStyle := bsNone;
   FVST.Font.Assign(Manager.Settings.EditorFont);
   FVST.Font.Size := 8;
-  FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions - [toShowHorzGridLines, toShowVertGridLines];
-  FVST.Colors.FocusedSelectionColor := clSilver;
-  FVST.Colors.FocusedSelectionBorderColor := clSilver;
+  FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions
+    - [toShowHorzGridLines, toShowVertGridLines];
+  FVST.Colors.FocusedSelectionColor         := clSilver;
+  FVST.Colors.FocusedSelectionBorderColor   := clSilver;
   FVST.Colors.SelectionRectangleBorderColor := clSilver;
-  FVST.Colors.SelectionRectangleBlendColor := clSilver;
+  FVST.Colors.SelectionRectangleBlendColor  := clSilver;
+
   FVST.OnKeyPress := FVSTKeyPress;
   FVST.OnKeyUp := FVSTKeyUp;
   FVST.Header.MainColumn := 1;
   FVST.DefaultNodeHeight := 16;
+
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.SelectionMode := smMulti;
@@ -730,7 +730,7 @@ begin
     end
     else
     begin
-      APos := StrPos(Filter, AString, MatchCase);
+      APos   := StrPos(Filter, AString, MatchCase);
       AMatch := System.Copy(AString, APos, Length(Filter));
       Result := APos > 0;
     end;
@@ -763,7 +763,7 @@ end;
 
 procedure TfrmCodeFilterDialog.UpdateActions;
 var
-  L: TLine;
+  L : TLine;
 begin
   inherited UpdateActions;
   actApplyFilter.Enabled := RegEx;

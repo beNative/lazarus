@@ -46,7 +46,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="20">
+    <Files Count="17">
       <Item1>
         <Filename Value="components\ts.components.dbgridview.pas"/>
         <UnitName Value="ts.Components.DBGridView"/>
@@ -115,18 +115,6 @@ limitations under the License.         "/>
         <Filename Value="components\ts.components.virtualpages.pas"/>
         <UnitName Value="ts.Components.VirtualPages"/>
       </Item17>
-      <Item18>
-        <Filename Value="components\ts.components.xmltree.editors.pas"/>
-        <UnitName Value="ts.Components.XMLTree.Editors"/>
-      </Item18>
-      <Item19>
-        <Filename Value="components\ts.components.xmltree.nodeattributes.pas"/>
-        <UnitName Value="ts.Components.XMLTree.NodeAttributes"/>
-      </Item19>
-      <Item20>
-        <Filename Value="components\ts.components.xmltree.pas"/>
-        <UnitName Value="ts.Components.XMLTree"/>
-      </Item20>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">

@@ -23,8 +23,6 @@ interface
 uses
   ExtCtrls, StdCtrls,
 
-  ts.Components.XMLTree,
-
   ts.Editor.Interfaces, ts.Editor.ToolView.Base;
 
 type
@@ -39,8 +37,6 @@ type
     procedure btnExpandClick(Sender: TObject);
     procedure btnInspectClick(Sender: TObject);
 
-  strict private
-    FXMLTree: TXMLTree;
 
   public
     procedure UpdateView; override;
@@ -59,35 +55,31 @@ uses
 procedure TfrmStructure.AfterConstruction;
 begin
   inherited AfterConstruction;
-//  FXMLTree := CreateXMLTree(Self, pnlXmlTree);
+
 end;
 {$ENDREGION}
 
 {$REGION 'action handlers'}
 procedure TfrmStructure.btnInspectClick(Sender: TObject);
 begin
-  InspectComponent(FXMLTree);
+//
 end;
 
 procedure TfrmStructure.btnExpandClick(Sender: TObject);
 begin
-  FXMLTree.FullExpand;
+  //
 end;
 
 procedure TfrmStructure.btnCollapseClick(Sender: TObject);
 begin
-  FXMLTree.FullCollapse;
+  //
 end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
 procedure TfrmStructure.UpdateView;
 begin
-  try
-    FXMLTree.XML := View.Text;
-  except
-    // ignore parsing errors
-  end;
+//
 end;
 {$ENDREGION}
 

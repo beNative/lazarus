@@ -50,7 +50,7 @@ uses
 {$ENDIF}
   VirtualTrees,
 
-  ts.Core.Logger, ts.Core.NativeXml,
+  ts.Core.Logger,
 
   ts.Components.XMLTree.Editors, ts.Components.XMLTree.NodeAttributes;
 

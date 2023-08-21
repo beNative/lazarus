@@ -71,13 +71,13 @@ type
   TfrmAlignLines = class(TCustomEditorToolView, IEditorToolView)
     aclMain          : TActionList;
     actExecute       : TAction;
-    btnOK: TButton;
+    btnOK            : TButton;
     gbxInsertSpace   : TCheckGroup;
     gbxOptions       : TCheckGroup;
     gbxTokenList     : TGroupBox;
     gbxTokensFound   : TGroupBox;
     mmoTokens        : TMemo;
-    pnlBottom: TPanel;
+    pnlBottom        : TPanel;
     pnlTokens        : TOMultiPanel;
     pnlVST           : TPanel;
     rgpAlignAt       : TRadioGroup;

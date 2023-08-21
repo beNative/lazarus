@@ -38,6 +38,7 @@ type
 
   private
     FVPM : TVirtualPageManager;
+
     function GetManager: IEditorManager;
 
   public

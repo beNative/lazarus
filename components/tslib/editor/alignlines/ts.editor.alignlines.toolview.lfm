@@ -1,7 +1,7 @@
 inherited frmAlignLines: TfrmAlignLines
-  Left = -1059
+  Left = 1530
   Height = 744
-  Top = 188
+  Top = 118
   Width = 324
   Caption = 'Align selection'
   ChildSizing.LeftRightSpacing = 2

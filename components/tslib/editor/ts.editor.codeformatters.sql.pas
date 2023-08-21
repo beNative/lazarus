@@ -28,44 +28,45 @@ uses
   ts.Editor.CodeFormatters;
 
 type
-  TSQLFormatter = class(TInterfacedObject, ICodeFormatter)
+  TSqlFormatter = class(TInterfacedObject, ICodeFormatter)
   private
     FLineReader : TStreamLineReader;
-    FSQLParser  : TSQLParser;
-    FSQLScanner : TSQLScanner;
-    FSQLStream  : TStringStream;
+    FSqlParser  : TSQLParser;
+    FSqlScanner : TSQLScanner;
+    FSqlStream  : TStringStream;
 
   protected
     function Format(const AString: string): string; virtual;
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
+
   end;
 
 implementation
 
 {$REGION 'construction and destruction'}
-procedure TSQLFormatter.AfterConstruction;
+procedure TSqlFormatter.AfterConstruction;
 begin
   inherited AfterConstruction;
-  FLineReader := TStreamLineReader.Create(FSQLStream);
-  FSQLScanner := TSQLScanner.Create(FLineReader);
-  FSQLParser  := TSQLParser.Create(FSQLScanner);
+  FLineReader := TStreamLineReader.Create(FSqlStream);
+  FSqlScanner := TSQLScanner.Create(FLineReader);
+  FSqlParser  := TSQLParser.Create(FSqlScanner);
 end;
 
-procedure TSQLFormatter.BeforeDestruction;
+destructor TSqlFormatter.Destroy;
 begin
-  FSQLStream.Free;
+  FSqlStream.Free;
   FLineReader.Free;
-  FSQLScanner.Free;
-  FSQLParser.Free;
-  inherited BeforeDestruction;
+  FSqlScanner.Free;
+  FSqlParser.Free;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
 {$REGION 'protected methods'}
-function TSQLFormatter.Format(const AString: string): string;
+function TSqlFormatter.Format(const AString: string): string;
 var
   SS : TStringStream = nil;
   LR : TStreamLineReader = nil;

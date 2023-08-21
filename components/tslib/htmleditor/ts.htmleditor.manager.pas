@@ -32,48 +32,103 @@ type
   TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions,
     IHtmlEditorEvents)
     aclActions                : TActionList;
+    actAddParagraph1: TAction;
     actAlignCenter            : TAction;
+    actAlignCenter1: TAction;
     actAlignJustify           : TAction;
+    actAlignJustify1: TAction;
     actAlignLeft              : TAction;
+    actAlignLeft1: TAction;
     actAlignRight             : TAction;
+    actAlignRight1: TAction;
     actBold                   : TAction;
+    actBold1: TAction;
     actBulletList             : TAction;
+    actBulletList1: TAction;
     actClear                  : TAction;
+    actClear1: TAction;
     actClipboardMenu          : TAction;
+    actClipboardMenu1: TAction;
     actCopy                   : TAction;
+    actCopy1: TAction;
     actCut                    : TAction;
+    actCut1: TAction;
     actDecFontSize            : TAction;
+    actDecFontSize1: TAction;
     actDecIndent              : TAction;
+    actDecIndent1: TAction;
+    actDeleteColumn1: TAction;
+    actDeleteRow1: TAction;
+    actDeleteTable1: TAction;
+    actEditParagraphStyle1: TAction;
+    actEditSelectedItem1: TAction;
+    actEditTextStyle1: TAction;
     actFileMenu               : TAction;
+    actFileMenu1: TAction;
     actGoBack                 : TAction;
     actGoForward              : TAction;
     actIncFontSize            : TAction;
+    actIncFontSize1: TAction;
     actIncIndent              : TAction;
+    actIncIndent1: TAction;
+    actInsertBulletList1: TAction;
+    actInsertColumnAfter1: TAction;
+    actInsertColumnBefore1: TAction;
     actInsertHyperLink        : TAction;
+    actInsertHyperLink1: TAction;
     actInsertImage            : TAction;
+    actInsertImage1: TAction;
     actInsertMenu             : TAction;
+    actInsertMenu1: TAction;
+    actInsertRowAfter1: TAction;
+    actInsertRowBefore1: TAction;
+    actInsertTable1: TAction;
+    actOpenInDefaultBrowser: TAction;
     actItalic                 : TAction;
+    actItalic1: TAction;
     actNumberedList           : TAction;
+    actNumberedList1: TAction;
     actOpen                   : TAction;
+    actOpen1: TAction;
     actPaste                  : TAction;
+    actPaste1: TAction;
     actRedo                   : TAction;
+    actRedo1: TAction;
     actRefresh                : TAction;
     actSave                   : TAction;
+    actSave1: TAction;
     actSaveAs                 : TAction;
+    actSaveAs1: TAction;
     actSelectAll              : TAction;
+    actSelectAll1: TAction;
     actSelectionMenu          : TAction;
+    actSelectionMenu1: TAction;
     actSelectMenu             : TAction;
+    actSelectMenu1: TAction;
+    actSelectTable1: TAction;
     actSetBackgroundColor     : TAction;
+    actSetBackgroundColor1: TAction;
     actSetFont                : TAction;
+    actSetFont1: TAction;
     actSetFontColor           : TAction;
+    actSetFontColor1: TAction;
     actSettingsMenu           : TAction;
+    actSettingsMenu1: TAction;
     actShowDevTools           : TAction;
+    actShowPreview1: TAction;
+    actShowSpecialCharacters1: TAction;
+    actShowStructureViewer1: TAction;
     actShowTaskManager        : TAction;
     actStrikeThrough          : TAction;
+    actStrikeThrough1: TAction;
+    actTableMenu1: TAction;
     actToggleEditMode         : TAction;
     actToggleSourceVisible    : TAction;
+    actToggleWordWrap1: TAction;
     actUnderline              : TAction;
+    actUnderline1: TAction;
     actUndo                   : TAction;
+    actUndo1: TAction;
     dlgColor                  : TColorDialog;
     dlgFont                   : TFontDialog;
     dlgOpen                   : TOpenDialog;
@@ -106,6 +161,7 @@ type
     procedure actInsertImageExecute(Sender: TObject);
     procedure actItalicExecute(Sender: TObject);
     procedure actOpenExecute(Sender: TObject);
+    procedure actOpenInDefaultBrowserExecute(Sender: TObject);
     procedure actPasteExecute(Sender: TObject);
     procedure actRedoExecute(Sender: TObject);
     procedure actRefreshExecute(Sender: TObject);
@@ -226,8 +282,9 @@ implementation
 {$R *.lfm}
 
 uses
-  ts.Core.Utils, ts.Core.Logger,
+  LCLIntf,
 
+  ts.Core.Utils, ts.Core.Logger,
   ts.HtmlEditor.View, ts.HtmlEditor.Events, ts.HtmlEditor.ToolViews,
   ts.HtmlEditor.Resources;
 
@@ -368,6 +425,18 @@ begin
   begin
     ActiveView.LoadFromFile(dlgOpen.FileName);
     ActiveView.FileName := dlgOpen.FileName;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.actOpenInDefaultBrowserExecute(Sender: TObject);
+var
+  S : string;
+begin
+  if Assigned(ActiveView) then
+  begin
+    S := ActiveView.Source;
+    Logger.Info('Opening URL: %s', [S]);
+    OpenURL(S);
   end;
 end;
 
@@ -614,33 +683,33 @@ var
   B : Boolean;
 begin
   B := Assigned(ActiveView);
-  actGoBack.Enabled              := B and ActiveView.CanGoBack;
-  actGoForward.Enabled           := B and ActiveView.CanGoForward;
-  actToggleEditMode.Checked      := B and ActiveView.EditMode;
-  actToggleSourceVisible.Checked := B and ActiveView.SourceVisible;
+  actOpenInDefaultBrowser.Enabled := B and not ActiveView.IsSourceEmpty;
+  actGoBack.Enabled               := B and ActiveView.CanGoBack;
+  actGoForward.Enabled            := B and ActiveView.CanGoForward;
+  actToggleEditMode.Checked       := B and ActiveView.EditMode;
+  actToggleSourceVisible.Checked  := B and ActiveView.SourceVisible;
   B := B and ActiveView.EditMode;
-  actPaste.Enabled            := B;
-  actAlignCenter.Enabled      := B;
-  actAlignLeft.Enabled        := B;
-  actAlignRight.Enabled       := B;
-  actAlignJustify.Enabled     := B;
-  actBold.Enabled             := B;
-  actClear.Enabled            := B;
-  actBulletList.Enabled       := B;
-  actIncFontSize.Enabled      := B;
-  actIncIndent.Enabled        := B;
-  actDecFontSize.Enabled      := B;
-  actDecIndent.Enabled        := B;
-  actInsertHyperLink.Enabled  := B;
-  actInsertImage.Enabled      := B;
-  actItalic.Enabled           := B;
-  actUnderline.Enabled        := B;
-  actStrikeThrough.Enabled    := B;
-  actUndo.Enabled             := B;
-  actRedo.Enabled             := B;
-  actOpen.Enabled             := B;
+  actPaste.Enabled           := B;
+  actAlignCenter.Enabled     := B;
+  actAlignLeft.Enabled       := B;
+  actAlignRight.Enabled      := B;
+  actAlignJustify.Enabled    := B;
+  actBold.Enabled            := B;
+  actClear.Enabled           := B;
+  actBulletList.Enabled      := B;
+  actIncFontSize.Enabled     := B;
+  actIncIndent.Enabled       := B;
+  actDecFontSize.Enabled     := B;
+  actDecIndent.Enabled       := B;
+  actInsertHyperLink.Enabled := B;
+  actInsertImage.Enabled     := B;
+  actItalic.Enabled          := B;
+  actUnderline.Enabled       := B;
+  actStrikeThrough.Enabled   := B;
+  actUndo.Enabled            := B;
+  actRedo.Enabled            := B;
+  actOpen.Enabled            := B;
 end;
-
 {$ENDREGION}
 
 {$REGION 'public methods'}

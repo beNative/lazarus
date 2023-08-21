@@ -538,9 +538,9 @@ procedure TEditorCommands.XMLFromSelection(ADecode: Boolean);
 begin
   Selection.Store(True, True);
   if ADecode then
-    Selection.Text := XMLDecode(Selection.Text)
+    Selection.Text := XmlDecode(Selection.Text)
   else
-    Selection.Text := XMLEncode(Selection.Text);
+    Selection.Text := XmlEncode(Selection.Text);
   Selection.Restore;
   View.Modified := True;
 end;

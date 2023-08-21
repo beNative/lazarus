@@ -30,6 +30,8 @@ uses
 {$ENDIF}
   Classes, SysUtils, TypInfo,
 
+  OXmlPDOM, OXMLUtils,
+
   AVL_Tree,
 
   ts.Core.Logger,
@@ -47,9 +49,9 @@ type
   );
 
 const
-  AllChars           = [Low(Char) .. High(Char)];
-  DefaultWordBorders = AllChars - ['a'..'z', 'A'..'Z', '0'..'9', '_'];
-  WhiteSpaces        = [' ', #9, #10, #13];
+  ALL_CHARS            = [Low(Char) .. High(Char)];
+  DEFAULT_WORD_BORDERS = ALL_CHARS - ['a'..'z', 'A'..'Z', '0'..'9', '_'];
+  WHITESPACE_CHARS     = [' ', #9, #10, #13];
 
 type
   // comments
@@ -203,23 +205,27 @@ procedure AddStringsPresentInString(
   const AFilterString : string
 );
 
-function IsXML(
+function IsXml(
   const AString: string
 ): Boolean;
 
-function IsSQL(
+function IsJson(
   const AString: string
 ): Boolean;
 
-function IsLOG(
+function IsSql(
   const AString: string
 ): Boolean;
 
-function IsLFM(
+function IsLog(
   const AString: string
 ): Boolean;
 
-function IsHTML(
+function IsLfm(
+  const AString: string
+): Boolean;
+
+function IsHtml(
   const AString: string
 ): Boolean;
 
@@ -362,7 +368,7 @@ function FindPos(
   AStartPosition     : Integer;
   ACount             : Integer;
   const AOptions     : TSearchOptions;
-  const AWordBorders : TSysCharSet = DefaultWordBorders
+  const AWordBorders : TSysCharSet = DEFAULT_WORD_BORDERS
 ): Integer;
 
 function IsPrefix(
@@ -437,24 +443,22 @@ function GetFileFilterExtsStr(
   const AFileFilter : string
 ): string;
 
-function XMLEncode(
+function XmlEncode(
   const AString : string
 ): string;
 
-function XMLDecode(
-  const AXMLString : string
+function XmlDecode(
+  const AXmlString : string
 ): string;
 
 implementation
 
 uses
   StrUtils, Dialogs, Math,
-
   LazFileUtils, LazUTF8, Laz2_DOM,
-
   RegExpr,
-
-  OXmlPDOM, OXMLUtils,
+  fpjson, jsonparser,
+  XMLRead, XMLWrite,
 
   ts.Core.BRRE, ts.Core.BRREUnicode,
 
@@ -1359,8 +1363,6 @@ begin
 //end;
 end;
 
-{ REMARK: In Delphi we can use a native VCL function to do this! }
-
 function FormatXML(const AXMLString: string): string;
 var
   Doc : IXMLDocument;
@@ -1464,14 +1466,24 @@ begin
   end;
 end;
 
-function IsXML(const AString: string): Boolean;
+function IsXml(const AString: string): Boolean;
 const
   MATCH = '^\<\?xml version\=.+\?\>$';
 begin
   Result := MatchRegExpr(AString, MATCH, False);
 end;
 
-function IsSQL(const AString: string): Boolean;
+function IsJson(const AString: string): Boolean;
+begin
+  Result := False;
+  try
+    GetJSON(AString);
+    Result    := True
+  except
+  end;
+end;
+
+function IsSql(const AString: string): Boolean;
 //const
 //  MATCH_SELECT = 'select (.|\n)*from (.|\n)*';
 //  MATCH_UPDATE = 'update (.|\n)*set (.|\n)*';
@@ -1486,21 +1498,21 @@ begin
    //or MatchRegExpr(AString, MATCH_DELETE, False);
 end;
 
-function IsLOG(const AString: string): Boolean;
+function IsLog(const AString: string): Boolean;
 const
   MATCH =  ' (I|P|W|E): \[.+\]';
 begin
   Result := MatchRegExpr(AString, MATCH);
 end;
 
-function IsLFM(const AString: string): Boolean;
+function IsLfm(const AString: string): Boolean;
 const
   MATCH = '(object|inherited) .+:.+\n(.\n)*end';
 begin
   Result := MatchRegExpr(AString, MATCH);
 end;
 
-function IsHTML(const AString: string): Boolean;
+function IsHtml(const AString: string): Boolean;
 begin
   Result := AnsiContainsText(AString, '<!DOCTYPE HTML')
     or AnsiContainsText(AString, '<HTML');
@@ -1523,112 +1535,112 @@ begin
       if SL.Count > 0 then
       begin
         S := Trim(SL[0]);
-        if IsXML(S) then
+        if IsXml(S) then
           Result := HL_XML
         else
         begin
           //
         end
-        //if IsLOG(AText) then
+        //if IsLog(AText) then
         //  Result := HL_LOG
         //else if IsPAS(AText) then
         //  Result := HL_PAS
-        //else if IsLFM(AText) then
+        //else if IsLfm(AText) then
         //  Result := HL_LFM
-        //else if IsHTML(AText) then
+        //else if IsHtml(AText) then
         //  Result := HL_HTML
-        //else if IsXML(AText) then
+        //else if IsXml(AText) then
         //  Result := HL_XML
-        //else if IsSQL(AText) then
+        //else if IsSql(AText) then
         //  Result := HL_SQL;
       end
     finally
       SL.Free;
     end;
   end;
-  //if IsLOG(AText) then
+  //if IsLog(AText) then
   //  Result := HL_LOG
   //else if IsPAS(AText) then
   //  Result := HL_PAS
-  //else if IsLFM(AText) then
+  //else if IsLfm(AText) then
   //  Result := HL_LFM
-  //else if IsHTML(AText) then
+  //else if IsHtml(AText) then
   //  Result := HL_HTML
-  //else if IsXML(AText) then
+  //else if IsXml(AText) then
   //  Result := HL_XML
-  //else if IsSQL(AText) then
+  //else if IsSql(AText) then
   //  Result := HL_SQL;
 end;
 
 function ChangeLineBreakStyle(const AString: string;
     ALineBreakStyle: TTextLineBreakStyle): string;
 var
-  NewLength     : Integer;
-  P             : Integer;
-  StartPos      : Integer;
-  Src           : PChar;
-  Dest          : PChar;
-  EndLen        : Integer;
-  EndPos        : PChar;
-  NewLineEnding : string;
+  LNewLength     : Integer;
+  P              : Integer;
+  LStartPos      : Integer;
+  LSrc           : PChar;
+  LDest          : PChar;
+  LEndLen        : Integer;
+  LEndPos        : PChar;
+  LNewLineEnding : string;
 begin
   case ALineBreakStyle of
-    tlbsLF   : NewLineEnding := #10;
-    tlbsCRLF : NewLineEnding := #13#10;
-    tlbsCR   : NewLineEnding := #13;
+    tlbsLF   : LNewLineEnding := #10;
+    tlbsCRLF : LNewLineEnding := #13#10;
+    tlbsCR   : LNewLineEnding := #13;
   end;
-  NewLineEnding := ALineBreaks[ALineBreakStyle];
+  LNewLineEnding := ALineBreaks[ALineBreakStyle];
   if AString = '' then
   begin
     Result := AString;
     Exit;
   end;
-  EndLen := Length(NewLineEnding);
-  NewLength := Length(AString);
+  LEndLen := Length(LNewLineEnding);
+  LNewLength := Length(AString);
   P := 1;
   while P < Length(AString) do
   begin
     if AString[P] in [#10, #13] then
     begin
-      StartPos := P;
+      LStartPos := P;
       Inc(P);
       if (AString[P] in [#10, #13]) and (AString[P] <> AString[P - 1]) then
         Inc(P);
-      Inc(NewLength, EndLen - (P - StartPos));
+      Inc(LNewLength, LEndLen - (P - LStartPos));
     end
     else
       Inc(P);
   end;
-  SetLength(Result, NewLength);
-  Src := PChar(AString);
-  Dest := PChar(Result);
-  EndPos := Dest + NewLength;
-  while Dest < EndPos do
+  SetLength(Result, LNewLength);
+  LSrc := PChar(AString);
+  LDest := PChar(Result);
+  LEndPos := LDest + LNewLength;
+  while LDest < LEndPos do
   begin
-    if Src^ in [#10, #13] then
+    if LSrc^ in [#10, #13] then
     begin
-      for P := 1 to EndLen do
+      for P := 1 to LEndLen do
       begin
-        Dest^ := NewLineEnding[P];
-        Inc(Dest);
+        LDest^ := LNewLineEnding[P];
+        Inc(LDest);
       end;
-      if (Src[1] in [#10, #13]) and (Src^ <> Src[1]) then
-        Inc(Src, 2)
+      if (LSrc[1] in [#10, #13]) and (LSrc^ <> LSrc[1]) then
+        Inc(LSrc, 2)
       else
-        Inc(Src);
+        Inc(LSrc);
     end
     else
     begin
-      Dest^ := Src^;
-      Inc(Src);
-      Inc(Dest);
+      LDest^ := LSrc^;
+      Inc(LSrc);
+      Inc(LDest);
     end;
   end;
 end;
 
 function GuessLineBreakStyle(const AString: string): TTextLineBreakStyle;
 var
-  I: Integer;
+  I : Integer;
 begin
   I := 1;
   Result := tlbsCRLF;
@@ -1703,19 +1715,19 @@ end;
 
 function StripMarkup(const AString: string): string;
 var
-  TagBegin  : Integer;
-  TagEnd    : Integer;
-  TagLength : Integer;
-  S         : string;
+  LTagBegin  : Integer;
+  LTagEnd    : Integer;
+  LTagLength : Integer;
+  S          : string;
 begin
   S := AString;
-  TagBegin := Pos( '<', S);      // search position of first <
+  LTagBegin := Pos( '<', S);      // search position of first <
 
-  while (TagBegin > 0) do begin  // while there is a < in S
-    TagEnd := Pos('>', S);              // find the matching >
-    TagLength := TagEnd - TagBegin + 1;
-    Delete(S, TagBegin, TagLength);     // delete the tag
-    TagBegin := Pos( '<', S);            // search for next <
+  while (LTagBegin > 0) do begin  // while there is a < in S
+    LTagEnd := Pos('>', S);              // find the matching >
+    LTagLength := LTagEnd - LTagBegin + 1;
+    Delete(S, LTagBegin, LTagLength);     // delete the tag
+    LTagBegin := Pos( '<', S);            // search for next <
   end;
 
   S := StringReplace(S,'&nbsp;',' ',[rfReplaceAll]);
@@ -1730,9 +1742,9 @@ end;
 
 function RemoveDoubles(const AString: string): string;
 var
-  SL1: TStringList;
-  SL2: TStringList;
-  S  : string;
+  SL1 : TStringList;
+  SL2 : TStringList;
+  S   : string;
 begin
   SL1 := TStringList.Create;
   try
@@ -1754,9 +1766,9 @@ end;
 
 procedure MergeBlankLines(ALines: TStrings);
 var
-  I          : Integer;
-  PreIsBlank : Boolean;
-  CurIsBlank : Boolean;
+  I           : Integer;
+  LPreIsBlank : Boolean;
+  LCurIsBlank : Boolean;
 
   function IsBlankLine(const ALine: string): Boolean;
   var
@@ -1782,19 +1794,19 @@ var
 
 begin
   I := ALines.Count - 1;
-  PreIsBlank := False;
+  LPreIsBlank := False;
   while I >= 0 do
   begin
     if not IsBlankLine(ALines[I]) then
-      CurIsBlank := False
+      LCurIsBlank := False
     else
     begin
-      if PreIsBlank then
+      if LPreIsBlank then
         ALines.Delete(I);
-      CurIsBlank := True;
+      LCurIsBlank := True;
     end;
     Dec(I);
-    PreIsBlank := CurIsBlank;
+    LPreIsBlank := LCurIsBlank;
   end;
 end;
 
@@ -1821,7 +1833,7 @@ end;
 function MatchRegExpr(const AString: string; const ARegExpr: string;
   ACaseSensitive: Boolean): Boolean;
 var
-  RE: TRegExpr;
+  RE : TRegExpr;
 begin
   RE := TRegExpr.Create;
   try
@@ -2004,22 +2016,22 @@ function FindPos(const ASubString: string; const AString: string;
   const AWordBorders: TSysCharSet): Integer;
 
 var
-  S    : string;
-  SubS : string;
-  I    : Integer;
+  S     : string;
+  LSubS : string;
+  I     : Integer;
 
   function MatchingPos(APos: Integer): Boolean;
   var
     I : Integer;
   begin
     Result := false;
-    if Copy(S, APos, Length(SubS)) = SubS then
+    if Copy(S, APos, Length(LSubS)) = LSubS then
     begin
       if soWholeWord in AOptions then
       begin
         I := APos+AStartPosition-1;
         if ( (I = 1) or (AString[I-1] in AWordBorders) ) and
-        ( (I+length(subS)-1 = length(AString)) or (AString[I+length(subS)] in AWordBorders) )
+        ( (I+length(LSubS)-1 = length(AString)) or (AString[I+length(LSubS)] in AWordBorders) )
      then
        Result := True
     end
@@ -2030,16 +2042,16 @@ var
 
 begin
   S := Copy(AString, AStartPosition, ACount);
-  SubS := ASubString;
+  LSubS := ASubString;
   if not (soMatchCase in AOptions) then
   begin
     S := AnsiUpperCase(S);
-    SubS := AnsiUpperCase(SubS);
+    LSubS := AnsiUpperCase(LSubS);
   end;
   Result := 0;
   if soBackwards in AOptions then
   begin
-    for I := ACount-Length(SubS)+1 downto 1 do
+    for I := ACount-Length(LSubS)+1 downto 1 do
       if MatchingPos(I) then
       begin
        Result := I;
@@ -2048,7 +2060,7 @@ begin
    end
    else
    begin
-     for I := 1 to ACount-Length(SubS)+1 do
+     for I := 1 to ACount-Length(LSubS)+1 do
        if MatchingPos(I) then
        begin
          Result := I;
@@ -2061,7 +2073,7 @@ end;
 
 function CharPos(AChar: Char; const AString: string; AOffset: Integer = 1): Integer;
 var
-  I: Integer;
+  I : Integer;
 begin
   for I := AOffset to Length(AString) do
     if AString[I] = AChar then
@@ -2080,8 +2092,9 @@ end;
 function SRight(const s: string; const rpart: Integer): string;
 begin
  if Length(s) < rpart then
-  Result := s else
-  Result := Copy(s, Length(s)-rpart+1, rpart);
+   Result := s
+ else
+   Result := Copy(s, Length(s)-rpart+1, rpart);
 end;
 
 function IsPrefix(const APrefix: string; const AString: string;
@@ -2105,13 +2118,14 @@ function PrefixRemove(const APrefix: string; const AString: string;
 
   function SEnding(const S: string; P: Integer): string;
   begin
-   Result := Copy(S, P, MaxInt)
+    Result := Copy(S, P, MaxInt)
   end;
 
 begin
  if IsPrefix(APrefix, AString, AIgnoreCase) then
-  Result := SEnding(AString, Length(APrefix) + 1) else
-  Result := AString;
+   Result := SEnding(AString, Length(APrefix) + 1)
+ else
+   Result := AString;
 end;
 
 function SuffixRemove(const ASuffix: string; const AString: string;
@@ -2128,30 +2142,39 @@ end;
 
 procedure GetFileFilterExts(const AFileFilter: string; AExtensions: TStringList);
 var
-  N: Integer;
-  P: Integer;
-  LExt: string;
+  N         : Integer;
+  P         : Integer;
+  LExt      : string;
   LFileMask : string;
 
-    function NextToken(const S: string; var SeekPos: Integer;
-      const TokenDelims: TSysCharSet): string;
+    function NextToken(const AString: string; var ASeekPos: Integer;
+      const ATokenDelims: TSysCharSet): string;
     var
-      TokStart: Integer;
+      LTokStart : Integer;
     begin
       repeat
-        if SeekPos > Length(s) then begin Result := ''; Exit end;
-        if S[SeekPos] in TokenDelims then Inc(SeekPos) else Break;
-      until false;
-      TokStart := SeekPos; { TokStart := first character not in TokenDelims }
+        if ASeekPos > Length(AString) then
+        begin
+          Result := '';
+          Exit
+        end;
+        if AString[ASeekPos] in ATokenDelims then
+          Inc(ASeekPos)
+        else
+          Break;
+      until False;
+      LTokStart := ASeekPos; { LTokStart := first character not in ATokenDelims }
 
-      while (SeekPos <= Length(s)) and not(S[SeekPos] in TokenDelims) do Inc(SeekPos);
+      while (ASeekPos <= Length(AString)) and
+        not(AString[ASeekPos] in ATokenDelims) do
+        Inc(ASeekPos);
 
-      { Calculate Result := s[TokStart, ... , SeekPos-1] }
-      Result := Copy(s, TokStart, SeekPos-TokStart);
+      { Calculate Result := AString[LTokStart, ... , ASeekPos-1] }
+      Result := Copy(AString, LTokStart, ASeekPos-LTokStart);
 
-      { We don't have to do Inc(seekPos) below. But it's obvious that searching
-        for next token can skip SeekPos, since we know S[SeekPos] is TokenDelim. }
-      Inc(SeekPos);
+      { We don't have to do Inc(seekPos) below. But it'AString obvious that searching
+        for next token can skip ASeekPos, since we know AString[ASeekPos] is TokenDelim. }
+      Inc(ASeekPos);
     end;
 
 begin
@@ -2159,26 +2182,28 @@ begin
   LExt := GetFileFilterExtsStr(AFileFilter);
   P := 1;
   repeat
-  LFileMask := NextToken(LExt, P,[';']);
-  if LFileMask = '' then break;
-  N := CharPos('.', LFileMask);
-  if N > 0 then
-   Delete(LFileMask, 1, N-1) else { delete name from LFileMask }
-   LFileMask := '.'+LFileMask; { it means there was no name and dot in LFileMask. So prepend dot. }
-  AExtensions.Add(LFileMask);
+    LFileMask := NextToken(LExt, P,[';']);
+    if LFileMask = '' then
+      Break;
+      N := CharPos('.', LFileMask);
+      if N > 0 then
+        Delete(LFileMask, 1, N - 1)
+      else { delete name from LFileMask }
+        LFileMask := '.' + LFileMask; { it means there was no name and dot in LFileMask. So prepend dot. }
+      AExtensions.Add(LFileMask);
   until False;
 end;
 
 function GetFileFilterName(const AFileFilter: string): string;
 var
-  LLeft: string;
-  LRight: string;
-  N: Integer;
-  L: Integer;
+  LLeft  : string;
+  LRight : string;
+  N      : Integer;
+  L      : Integer;
 
   function SReplaceChars(const s: string; FromChar, ToChar: char): string;
   var
-    I: Integer;
+    I : Integer;
   begin
    Result := S;
    for I := 1 to Length(Result) do
@@ -2217,7 +2242,7 @@ begin
     begin
      if LLeft[N+L] = ')' then
       begin Inc(L); break end else
-     if LLeft[N+L] in WhiteSpaces then
+     if LLeft[N+L] in WHITESPACE_CHARS then
       Inc(L) else
       break;
     end;
@@ -2225,7 +2250,7 @@ begin
     begin
      if LLeft[N-1] = '(' then
       begin Dec(N); Inc(L); break end else
-     if LLeft[N-1] in WhiteSpaces then
+     if LLeft[N-1] in WHITESPACE_CHARS then
       begin Dec(N); Inc(L) end else
       break;
     end;
@@ -2246,14 +2271,14 @@ begin
   Result := '';
 end;
 
-function XMLEncode(const AString: string): string;
+function XmlEncode(const AString: string): string;
 begin
   Result := StrToXMLValue(AString);
 end;
 
-function XMLDecode(const AXMLString: string): string;
+function XmlDecode(const AXmlString: string): string;
 begin
-  Result := XMLValueToStr(AXMLString);
+  Result := XMLValueToStr(AXmlString);
 end;
 
 function CompressWhiteSpace(const AString: string): string;
@@ -2272,21 +2297,21 @@ begin
   SPos := 1;
   SetLength(Result, Length(AString)); { resulting string is at most as long as AString }
 
-  if SCharIs(AString, 1, WhiteSpaces) then
+  if SCharIs(AString, 1, WHITESPACE_CHARS) then
   begin
     Result[1] := ' ';
     Inc(ResultPos);
-    while SCharIs(AString, SPos, WhiteSpaces) do Inc(SPos);
+    while SCharIs(AString, SPos, WHITESPACE_CHARS) do Inc(SPos);
   end;
 
   while SPos <= Length(AString) do
   begin
-    Assert(not (AString[SPos] in WhiteSpaces));
+    Assert(not (AString[SPos] in WHITESPACE_CHARS));
 
     { read next non-white-space chunk }
     NextSPos := SPos + 1;
     while (NextSPos <= Length(AString)) and
-          not (AString[NextSPos] in WhiteSpaces) do
+          not (AString[NextSPos] in WHITESPACE_CHARS) do
       Inc(NextSPos);
 
     Move(AString[SPos], Result[ResultPos], NextSPos - SPos);
@@ -2295,11 +2320,11 @@ begin
     SPos := NextSPos;
 
     { omit next white-space chunk }
-    if SCharIs(AString, SPos, WhiteSpaces) then
+    if SCharIs(AString, SPos, WHITESPACE_CHARS) then
     begin
       Result[ResultPos] := ' ';
       Inc(ResultPos);
-      while SCharIs(AString, SPos, WhiteSpaces) do Inc(SPos);
+      while SCharIs(AString, SPos, WHITESPACE_CHARS) do Inc(SPos);
     end;
   end;
 
@@ -2310,5 +2335,3 @@ begin
 end;
 
 end.
-//  /**/ style comments : /\*[\d\D]*?\*/
-// (\/\*(\s*|.*?)*\*\/)|(\/\/.*)

@@ -172,7 +172,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
     procedure UpdateActions; override;
 
@@ -215,18 +215,14 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, TypInfo, Dialogs,
-
+  StrUtils, TypInfo, Dialogs, LCLIntf,
   FileUtil,
-
   SynEditTypes,
-
   LCLTranslator,
 
   httpsend,
 
   ts.Core.VersionInfo, ts.Core.Utils, ts.Core.Helpers,
-
   ts.Editor.AboutDialog, ts.Editor.Resources, ts.Editor.Factories.Settings,
   ts.Editor.Factories,
 
@@ -304,12 +300,12 @@ begin
   Manager.ActiveView := V;
 end;
 
-procedure TfrmMain.BeforeDestruction;
+destructor TfrmMain.Destroy;
 begin
   Settings.FormSettings.Assign(Self);
   FSettings := nil;
   FManager  := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -441,10 +437,7 @@ end;
 
 procedure TfrmMain.btnFileNameClick(Sender: TObject);
 begin
-{ TODO -oTS : Make this work in a cross platform fashion }
-{$IFDEF Windows}
-  ExploreFile(Editor.FileName);
-{$ENDIF}
+  OpenDocument(ExtractFilePath(Editor.FileName));
 end;
 
 procedure TfrmMain.btnHighlighterClick(Sender: TObject);

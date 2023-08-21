@@ -25,11 +25,11 @@ uses
   StdCtrls, Menus, Buttons, DB,
   LazFileUtils, FileUtil,
 
-  VirtualTrees, MenuButton,
+  VirtualTrees, MenuButton, OMultiPanel,
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
-  ts.RichEditor.Interfaces, ts.HtmlEditor.Interfaces, OMultiPanel,
+  ts.RichEditor.Interfaces, ts.HtmlEditor.Interfaces,
 
   SnippetSource.Forms.Lookup, SnippetSource.Forms.VirtualDBTree,
   SnippetSource.Interfaces, SnippetSource.Settings, SnippetSource.Forms.Busy;
@@ -1255,6 +1255,8 @@ begin
   AddToolBarButton(TB);
   AddToolBarButton(TB, AL, 'actGoBack');
   AddToolBarButton(TB, AL, 'actGoForward');
+  AddToolBarButton(TB);
+  AddToolBarButton(TB, AL, 'actOpenInDefaultBrowser');
 end;
 
 procedure TfrmMain.BuildApplicationToolBar;

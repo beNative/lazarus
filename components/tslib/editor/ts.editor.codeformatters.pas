@@ -30,32 +30,37 @@ type
   end;
 
   TPascalFormatter = class(TInterfacedObject, ICodeFormatter)
-  strict protected
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
-  TCPPFormatter = class (TInterfacedObject, ICodeFormatter)
-  strict protected
+  TCppFormatter = class (TInterfacedObject, ICodeFormatter)
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
   TJavaFormatter = class (TInterfacedObject, ICodeFormatter)
-  strict protected
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
   TCSharpFormatter = class (TInterfacedObject, ICodeFormatter)
-  strict protected
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
-  TXMLFormatter = class(TInterfacedObject, ICodeFormatter)
-  strict protected
+  TXmlFormatter = class(TInterfacedObject, ICodeFormatter)
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
-  THTMLFormatter = class(TInterfacedObject, ICodeFormatter)
-  strict protected
+  THtmlFormatter = class(TInterfacedObject, ICodeFormatter)
+  protected
+    function Format(const AString: string): string; virtual;
+  end;
+
+  TJsonFormatter = class(TInterfacedObject, ICodeFormatter)
+  protected
     function Format(const AString: string): string; virtual;
   end;
 
@@ -64,6 +69,7 @@ implementation
 uses
   Forms,
   Process, FileUtil,
+  fpjson, jsonparser,
 
   ts.Editor.Utils,
 
@@ -110,7 +116,15 @@ begin
     raise Exception.CreateFmt('%s not found!', [S]);
 end;
 
-function TCPPFormatter.Format(const AString: string): string;
+function TJsonFormatter.Format(const AString: string): string;
+var
+  LJsonData : TJSONData;
+begin
+  LJsonData := GetJSON(AString);
+  Result := LJsonData.FormatJSON;
+end;
+
+function TCppFormatter.Format(const AString: string): string;
 begin
   Result := RunFormatterProcess(
     'AStyle.exe',
@@ -140,12 +154,12 @@ begin
   );
 end;
 
-function TXMLFormatter.Format(const AString: string): string;
+function TXmlFormatter.Format(const AString: string): string;
 begin
   Result := ts.Editor.Utils.FormatXML(AString);
 end;
 
-function THTMLFormatter.Format(const AString: string): string;
+function THtmlFormatter.Format(const AString: string): string;
 begin
   Result := ts.Editor.Utils.FormatXML(AString);
 end;

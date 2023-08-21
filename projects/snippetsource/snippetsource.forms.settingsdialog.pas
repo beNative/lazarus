@@ -51,6 +51,7 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
+    actOpenVenvPath: TAction;
     actUpdateSequences               : TAction;
     actUpdateNodePaths               : TAction;
     actRunVirtualEnvironment         : TAction;
@@ -125,6 +126,7 @@ type
     procedure actFontDialogExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actAddGlyphsExecute(Sender: TObject);
+    procedure actOpenVenvPathExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
     procedure actReloadConfigurationDataExecute(Sender: TObject);
     procedure actRunVirtualEnvironmentExecute(Sender: TObject);
@@ -360,6 +362,11 @@ begin
     GlyphDS.EnableControls;
     Connection.EndBulkInserts;
   end;
+end;
+
+procedure TfrmSettingsDialog.actOpenVenvPathExecute(Sender: TObject);
+begin
+//
 end;
 
 procedure TfrmSettingsDialog.actRefreshGlyphsExecute(Sender: TObject);

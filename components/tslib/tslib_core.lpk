@@ -43,7 +43,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.         "/>
     <Version Major="1"/>
-    <Files Count="40">
+    <Files Count="32">
       <Item1>
         <Filename Value="core\ts.core.brre.pas"/>
         <UnitName Value="ts.Core.BRRE"/>
@@ -105,105 +105,73 @@ limitations under the License.         "/>
         <UnitName Value="ts.Core.Helpers"/>
       </Item15>
       <Item16>
-        <Filename Value="core\ts.core.keyvalues.pas"/>
-        <UnitName Value="ts.Core.KeyValues"/>
-      </Item16>
-      <Item17>
         <Filename Value="core\ts.core.logger.channel.ipc.pas"/>
         <UnitName Value="ts.Core.Logger.Channel.Ipc"/>
-      </Item17>
-      <Item18>
+      </Item16>
+      <Item17>
         <Filename Value="core\ts.core.logger.channel.pas"/>
         <UnitName Value="ts.Core.Logger.Channel"/>
-      </Item18>
-      <Item19>
+      </Item17>
+      <Item18>
         <Filename Value="core\ts.core.logger.interfaces.pas"/>
         <UnitName Value="ts.Core.Logger.Interfaces"/>
-      </Item19>
-      <Item20>
+      </Item18>
+      <Item19>
         <Filename Value="core\ts.core.logger.base.pas"/>
         <UnitName Value="ts.Core.Logger.Base"/>
-      </Item20>
-      <Item21>
-        <Filename Value="core\ts.core.nativexml.debug.pas"/>
-        <UnitName Value="ts.Core.NativeXml.Debug"/>
-      </Item21>
-      <Item22>
-        <Filename Value="core\ts.Core.NativeXml.inc"/>
-        <Type Value="Include"/>
-      </Item22>
-      <Item23>
-        <Filename Value="core\ts.core.nativexml.objectstorage.pas"/>
-        <UnitName Value="ts.Core.NativeXml.ObjectStorage"/>
-      </Item23>
-      <Item24>
-        <Filename Value="core\ts.core.nativexml.pas"/>
-        <UnitName Value="ts.Core.NativeXml"/>
-      </Item24>
-      <Item25>
-        <Filename Value="core\ts.core.nativexml.streams.pas"/>
-        <UnitName Value="ts.Core.NativeXml.Streams"/>
-      </Item25>
-      <Item26>
-        <Filename Value="core\ts.core.nativexml.stringtable.pas"/>
-        <UnitName Value="ts.Core.NativeXml.StringTable"/>
-      </Item26>
-      <Item27>
-        <Filename Value="core\ts.core.nativexml.win32compat.pas"/>
-        <UnitName Value="ts.Core.NativeXml.Win32Compat"/>
-      </Item27>
-      <Item28>
+      </Item19>
+      <Item20>
         <Filename Value="core\ts.core.logger.pas"/>
         <UnitName Value="ts.Core.Logger"/>
-      </Item28>
-      <Item29>
+      </Item20>
+      <Item21>
         <Filename Value="core\ts.core.sqlparser.pas"/>
         <UnitName Value="ts.Core.SQLParser"/>
-      </Item29>
-      <Item30>
+      </Item21>
+      <Item22>
         <Filename Value="core\ts.core.sqlscanner.pas"/>
         <UnitName Value="ts.Core.SQLScanner"/>
-      </Item30>
-      <Item31>
+      </Item22>
+      <Item23>
         <Filename Value="core\ts.core.sqltree.pas"/>
         <UnitName Value="ts.Core.SQLTree"/>
-      </Item31>
-      <Item32>
+      </Item23>
+      <Item24>
         <Filename Value="core\ts.core.stringutils.pas"/>
         <UnitName Value="ts.Core.StringUtils"/>
-      </Item32>
-      <Item33>
+      </Item24>
+      <Item25>
         <Filename Value="core\ts.core.systeminfo.pas"/>
         <UnitName Value="ts.Core.SystemInfo"/>
-      </Item33>
-      <Item34>
+      </Item25>
+      <Item26>
         <Filename Value="core\ts.core.treeviewpresenter.pas"/>
         <UnitName Value="ts.Core.TreeViewPresenter"/>
-      </Item34>
-      <Item35>
+      </Item26>
+      <Item27>
         <Filename Value="core\ts.core.utils.pas"/>
         <UnitName Value="ts.Core.Utils"/>
-      </Item35>
-      <Item36>
+      </Item27>
+      <Item28>
         <Filename Value="core\ts.core.value.pas"/>
         <UnitName Value="ts.Core.Value"/>
-      </Item36>
-      <Item37>
+      </Item28>
+      <Item29>
         <Filename Value="core\ts.core.versioninfo.pas"/>
         <UnitName Value="ts.Core.VersionInfo"/>
-      </Item37>
-      <Item38>
+      </Item29>
+      <Item30>
         <Filename Value="core\ts.core.xmlutils.pas"/>
         <UnitName Value="ts.Core.XMLUtils"/>
-      </Item38>
-      <Item39>
+      </Item30>
+      <Item31>
         <Filename Value="core\ts.core.vtnode.pas"/>
         <UnitName Value="ts.Core.VTNode"/>
-      </Item39>
-      <Item40>
+      </Item31>
+      <Item32>
         <Filename Value="core\ts.core.types.pas"/>
-        <UnitName Value="ts.core.types"/>
-      </Item40>
+        <UnitName Value="ts.Core.Types"/>
+      </Item32>
     </Files>
     <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="4">

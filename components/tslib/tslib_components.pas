@@ -14,9 +14,7 @@ uses
   ts.Components.FileAssociation, ts.Components.GridView, 
   ts.Components.Inspector, ts.Components.MultiPanel, ts.Components.SynMiniMap, 
   ts.Components.UNIHighlighter, ts.Components.UniqueInstance, 
-  ts.Components.VirtualDBTreeEx, ts.Components.VirtualPages, 
-  ts.Components.XMLTree.Editors, ts.Components.XMLTree.NodeAttributes, 
-  ts.Components.XMLTree;
+  ts.Components.VirtualDBTreeEx, ts.Components.VirtualPages;
 
 implementation
 

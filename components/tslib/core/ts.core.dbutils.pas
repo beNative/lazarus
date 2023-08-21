@@ -20,19 +20,10 @@ unit ts.Core.DBUtils;
 
   Author: Tim Sinaeve }
 
-{
-  TODO:
-  - Global variable tsDBUtilsADOConnection. If assigned the first parameter
-    can be omitted => needs to be investigated.
-
-  - QueryLookup with TtsKeyValues
-}
-
 interface
 
 uses
   SysUtils, Classes, Variants, Graphics, DB, DBGrids,
-
   BufDataset;
 
 type
@@ -65,8 +56,6 @@ function FieldTypeForVariant(const Value: Variant): TFieldType;
 
 procedure CloneDataSet(ASource: TDataSet; ADest: TBufDataset);
 
-//-----------------------------------------------------------------------------
-
 // assign the fieldvalue; returns True if the Value was posted.
 
 function AssignFieldValue(      AField  : TField;
@@ -87,37 +76,25 @@ procedure ClearFieldValue(      ADataSet   : TDataSet;
                           const AFieldName : string;
                                 ADoPost    : Boolean = True); overload;
 
-//-----------------------------------------------------------------------------
-
 function PostData(ADataSet : TDataSet) : Boolean;
 
-//-----------------------------------------------------------------------------
-
 procedure ShowDataSet(ADataSet : TDataSet);
-
-//-----------------------------------------------------------------------------
 
 function DataSetToString(ADataSet : TDataSet;
                          AFields  : array of string): string; overload;
 
 function DataSetToString(ADataSet : TDataSet): string; overload;
 
-//*****************************************************************************
-
 implementation
 
 uses
   TypInfo, Forms, Controls, Dialogs, StrUtils;
-
-//=============================================================================
 
 resourcestring
   SQueryLookupErrorRunningQuery = 'Error running query [%s]';
   SQueryLookupTooManyRecords    = 'The query [%s] returned too many records';
   SNoFieldTypeForVariantValue   = 'No fieldtype for Variant value %s';
   SParameterNotAssigned         = 'Parameter <%s> parameter not assigned';
-
-//-----------------------------------------------------------------------------
 
 const
   AnsiStringFieldTypes    = [ftString, ftFixedChar, ftGuid];
@@ -166,8 +143,6 @@ begin
   Result := ADataType in ObjectFieldTypes;
 end;
 
-//-----------------------------------------------------------------------------
-
 { Returns the corresponding fieldtype for a given Variant }
 
 function FieldTypeForVariant(const Value: Variant): TFieldType;
@@ -186,8 +161,6 @@ begin
     raise Exception.CreateFmt(SNoFieldTypeForVariantValue, [Value]);
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 procedure AutoSizeDisplayWidths(ADataSet : TDataSet;
                                 AFont    : TFont;
@@ -262,8 +235,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 {
   REMARK : This method is not suitable for filtered datasets. For filtered
   datasets the records should be enumerated with the dataset's FindFirst and
@@ -317,7 +288,7 @@ begin
         for J := 0 to ADataSet.Fields.Count - 1 do
         begin
           if ADataSet.Fields[J].DataType in
-            [ftMemo, {ftWideMemo,} ftString, ftWideString]  then
+            [ftMemo, ftWideMemo, ftString, ftWideString]  then
             L := GetTextWidth(ADataSet.Fields[J].DisplayText) + AOffset
           else
             L := Length(ADataSet.Fields[J].DisplayText) + AOffset;
@@ -382,8 +353,6 @@ begin
     raise Exception.Create('No value assigned to ASource and/or ADest.');
 end;
 
-//-----------------------------------------------------------------------------
-
 function AssignFieldValue(AField : TField; const AValue : Variant;
   ADoPost : Boolean): Boolean;
 begin
@@ -403,8 +372,6 @@ begin
   end;
 end;
 
-//-----------------------------------------------------------------------------
-
 function AssignFieldValue(ADataSet: TDataSet; const AFieldName : string;
  const AValue: Variant; ADoPost: Boolean): Boolean;
 begin
@@ -423,8 +390,6 @@ begin
     end;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 procedure ClearFieldValue(AField: TField; ADoPost: Boolean);
 begin
@@ -448,7 +413,6 @@ begin
   if ADoPost then
     ADataSet.Post;
 end;
-
 
 { Post any pending changes in the given dataset. Returns True if any changes
   were posted. }
@@ -476,7 +440,6 @@ begin
     GV.Align   := alClient;
     GV.DataSource := DataSource;
     GV.AutoAdjustColumns;
-//    GV.AutoSizeColumns;
     Form.Width := 800;
     Form.Height := 600;
     Form.Position := poScreenCenter;
@@ -485,8 +448,6 @@ begin
     Form.Free;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function DataSetToString(ADataSet : TDataSet;
                          AFields  : array of string): string; overload;
@@ -547,8 +508,6 @@ begin
     ADataSet.EnableControls;
   end;
 end;
-
-//-----------------------------------------------------------------------------
 
 function DataSetToString(ADataSet : TDataSet): string; overload;
 var

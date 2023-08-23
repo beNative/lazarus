@@ -305,6 +305,8 @@ procedure LoadIStreamIntoTStream(
   var ADestination : TStream
 );
 
+function GetClipboardFormatName(AFormat: Word): string;
+
 implementation
 
 uses
@@ -2391,6 +2393,64 @@ begin
   ASource.Stat(LStreamStat, 1);
   ASource.CopyTo(LAdapter, LStreamStat.cbSize, LRes1, LRes2);
   ADestination.Position :=  0;
+end;
+
+function GetClipboardFormatName(AFormat: Word): string;
+begin
+  case AFormat of
+    CF_TEXT:
+      Result := 'CF_TEXT';
+    CF_BITMAP:
+      Result := 'CF_BITMAP';
+    CF_DSPBITMAP:
+      Result := 'CF_DSPBITMAP';
+    CF_DSPENHMETAFILE:
+      Result := 'CF_DSPENHMETAFILE';
+    CF_DSPMETAFILEPICT:
+      Result := 'CF_DSPMETAFILEPICT';
+    CF_DSPTEXT:
+      Result := 'CF_DSPTEXT';
+    CF_GDIOBJFIRST:
+      Result := 'CF_GDIOBJFIRST';
+    CF_GDIOBJLAST:
+      Result := 'CF_GDIOBJLAST';
+    CF_PRIVATEFIRST:
+      Result := 'CF_PRIVATEFIRST';
+    CF_PRIVATELAST:
+      Result := 'CF_PRIVATELAST';
+    CF_LOCALE:
+      Result := 'CF_LOCALE';
+    CF_OWNERDISPLAY:
+      Result := 'CF_OWNERDISPLAY';
+    CF_METAFILEPICT:
+      Result := 'CF_METAFILEPICT';
+    CF_SYLK:
+      Result := 'CF_SYLK';
+    CF_DIF:
+      Result := 'CF_DIF';
+    CF_TIFF:
+      Result := 'CF_TIFF';
+    CF_OEMTEXT:
+      Result := 'CF_OEMTEXT';
+    CF_DIB:
+      Result := 'CF_DIB';
+    CF_PALETTE:
+      Result := 'CF_PALETTE';
+    CF_PENDATA:
+      Result := 'CF_PENDATA';
+    CF_RIFF:
+      Result := 'CF_RIFF';
+    CF_WAVE:
+      Result := 'CF_WAVE';
+    CF_UNICODETEXT:
+      Result := 'CF_UNICODETEXT';
+    CF_ENHMETAFILE:
+      Result := 'CF_ENHMETAFILE';
+    CF_HDROP:
+      Result := 'CF_HDROP';
+    else
+      Result := 'Unknown Format';
+  end;
 end;
 
 end.

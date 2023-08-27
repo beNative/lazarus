@@ -72,6 +72,7 @@ type
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
     btnSequences                     : TBitBtn;
+    Button1: TButton;
     cbxImageList                     : TComboBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
@@ -148,7 +149,7 @@ type
     procedure chkUseCustomEnvironmentVariablesChange(Sender: TObject);
     procedure dscGlyphStateChange(Sender: TObject);
     procedure dscGlyphUpdateData(Sender: TObject);
-    procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: String);
+    procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: string);
     procedure edtFontNameButtonClick(Sender: TObject);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
@@ -366,7 +367,8 @@ end;
 
 procedure TfrmSettingsDialog.actOpenVenvPathExecute(Sender: TObject);
 begin
-//
+  OpenFilePath(ExtractFilePath(ParamStr(0))
+    + PathDelim + FSettings.PythonVirtualEnvironmentName);
 end;
 
 procedure TfrmSettingsDialog.actRefreshGlyphsExecute(Sender: TObject);
@@ -566,7 +568,7 @@ begin
 end;
 
 procedure TfrmSettingsDialog.edtDatabaseFileAcceptFileName(Sender: TObject;
-  var Value: String);
+  var Value: string);
 begin
   if FileExists(Value) then
     FSettings.Database := Value;
@@ -584,11 +586,11 @@ var
   F  : TBlobField;
   MS : TMemoryStream;
 begin
-  if Column.FieldName = 'Image' then
+  if Column.FieldName = FIELDNAME_IMAGE then
   begin
     with Sender as TDBGrid do
     begin
-      F  := TBlobField(GlyphDS.FieldByName('Image'));
+      F  := TBlobField(GlyphDS.FieldByName(FIELDNAME_IMAGE));
       if not F.IsNull then
       begin
         P := TPicture.Create;
@@ -618,11 +620,11 @@ var
   F  : TBlobField;
   MS : TMemoryStream;
 begin
-  if Column.FieldName = 'Image' then
+  if Column.FieldName = FIELDNAME_IMAGE then
   begin
     with Sender as TDBGrid do
     begin
-      F := TBlobField(HighlighterDataSet.FieldByName('Image'));
+      F := TBlobField(HighlighterDataSet.FieldByName(FIELDNAME_IMAGE));
       Canvas.FillRect(Rect);
       if not F.IsNull then
       begin
@@ -835,6 +837,7 @@ begin
       LProcess.Options := [poUsePipes, poNoConsole];
       LProcess.Execute;
       LOutput.LoadFromStream(LProcess.Output);
+      Logger.SendText(LOutput.Text);
       Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);
     finally
       LProcess.Free;

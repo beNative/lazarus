@@ -148,6 +148,8 @@ type
     procedure SetText(AValue: string);
     {$ENDREGION}
 
+    { Field to store the active (shown) views for the corresponding snippet
+      node record. }
     property ActiveViews: string
       read GetActiveViews write SetActiveViews;
 

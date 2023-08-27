@@ -48,8 +48,6 @@ object dmSnippetSource: TdmSnippetSource
   object qryGlyph: TSQLQuery
     PacketRecords = -1
     FieldDefs = <>
-    BeforePost = qryGlyphBeforePost
-    OnNewRecord = qryGlyphNewRecord
     Database = conMain
     Transaction = trsMain
     SQL.Strings = (

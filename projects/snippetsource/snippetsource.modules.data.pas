@@ -121,8 +121,6 @@ type
     {$ENDREGION}
 
     {$REGION 'event handlers'}
-    procedure qryGlyphBeforePost(DataSet: TDataSet);
-    procedure qryGlyphNewRecord(DataSet: TDataSet);
     procedure qrySnippetAfterOpen(ADataSet: TDataSet);
     procedure qrySnippetAfterPost(ADataSet: TDataSet);
     procedure qrySnippetAfterRefresh(ADataSet: TDataSet);
@@ -527,18 +525,6 @@ procedure TdmSnippetSource.FSettingsChange(Sender: TObject);
 begin
   ConnectToDatabase(FSettings.Database);
 end;
-
-{$REGION 'qryGlyph'}
-procedure TdmSnippetSource.qryGlyphBeforePost(DataSet: TDataSet);
-begin
-//  DataSet.FieldByName('DateModified').AsDateTime := Now;
-end;
-
-procedure TdmSnippetSource.qryGlyphNewRecord(DataSet: TDataSet);
-begin
-//  DataSet.FieldByName('DateCreated').AsDateTime := Now;
-end;
-{$ENDREGION}
 
 {$REGION 'qrySnippet'}
 {

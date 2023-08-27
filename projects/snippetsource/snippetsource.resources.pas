@@ -24,7 +24,6 @@ uses
   Classes, SysUtils;
 
 const
-  //EDITOR_SETTINGS_FILE  = 'settings.xml';
   SETTINGS_FILE         = 'settings.json';
 
   EXECUTE_SCRIPT_FILE   = 'SnippetSource.%s';
@@ -35,18 +34,22 @@ const
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_SQLITE_VERSION    = 'select sqlite_version();';
 
+  FIELDNAME_IMAGE = 'Image';
+
   SQL_LAST_ID   = 'select Id from Snippet order by Id desc limit 1';
   SQL_PARENT_ID =
-    'select'         + sLineBreak +
-    '  Id'           + sLineBreak +
-    'from'           + sLineBreak +
-    '  Snippet'      + sLineBreak +
-    'where'          + sLineBreak +
-    '  (Id >= %d)'   + sLineBreak +
+    '--SQL_PARENT_ID' + sLineBreak +
+    'select'          + sLineBreak +
+    '  Id'            + sLineBreak +
+    'from'            + sLineBreak +
+    '  Snippet'       + sLineBreak +
+    'where'           + sLineBreak +
+    '  (Id >= %d)'    + sLineBreak +
     '  and NodePath = ''%s''';
   SQL_DEFAULT_QUERY = 'select * from Snippet';
 
   SQL_LOOKUP_QUERY =
+    '--SQL_LOOKUP_QUERY'              + sLineBreak +
     'select'                          + sLineBreak +
     '  *'                             + sLineBreak +
     'from'                            + sLineBreak +
@@ -58,6 +61,7 @@ const
     '  or NodeName like ''%%%0:s%%''';
 
   SQL_DUPLICATE_IDS =
+    '--SQL_DUPLICATE_IDS'    + sLineBreak +
     'insert into Snippet ('  + sLineBreak +
     '  HighlighterId,'       + sLineBreak +
     '  NodeTypeId,'          + sLineBreak +
@@ -124,6 +128,7 @@ const
     '  Id in (%s);';
 
   SQL_MOVEUP_IDS =
+    '--SQL_MOVEUP_IDS'           + sLineBreak +
     'update'                     + sLineBreak +
     '  Snippet'                  + sLineBreak +
     'set'                        + sLineBreak +
@@ -146,6 +151,7 @@ const
     '  Id in (%s);';
 
   SQL_UPDATE_SEQUENCE =
+    '--SQL_UPDATE_SEQUENCE'                     + sLineBreak +
     'update'                                    + sLineBreak +
     '  Snippet'                                 + sLineBreak +
     'set'                                       + sLineBreak +
@@ -162,6 +168,7 @@ const
     '  ParentId <> 0';
 
   SQL_UPDATE_NODEPATH =
+    '--SQL_UPDATE_NODEPATH'                               + sLineBreak +
     'with recursive NodePaths as ('                       + sLineBreak +
     '  select'                                            + sLineBreak +
     '    Id,'                                             + sLineBreak +
@@ -211,6 +218,12 @@ const
   VIEW_TYPE_TXT  = 'txt';
   VIEW_TYPE_HTML = 'html';
 
+  EDIT_MODE_INS = 'INS';
+  EDIT_MODE_OVR = 'OVR';
+
+  KEYBOARD_NUMLOCK  = 'NUM ';
+  KEYBOARD_CAPSLOCK = 'CAPS';
+
 resourcestring
   SLastFocusedRecordError       = 'Last focused record could not be located.';
   SQueryLookupErrorRunningQuery = 'Error running query <%s>';
@@ -219,9 +232,9 @@ resourcestring
   SDateCreated                  = 'Created: %s';
   SDateModified                 = 'Modified: %s';
   SId                           = 'Id: %d';
-  SAskRecreateTables            = 'Warning: this will delete all data!'
-                                  + sLineBreak +
-                                  'Are you sure you want to continue?';
+  SAskRecreateTables            =
+    'Warning: this will delete all data!' + sLineBreak +
+    'Are you sure you want to continue?';
 
   SDatabaseBackupCreated  = 'A backup of the database has been written to %s.';
   SDatabaseIndexesRebuilt = 'All database indexes have been rebuilt.';

@@ -17,9 +17,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 431
     Top = 0
     Width = 615
-    ActivePage = tsPython
+    ActivePage = tsTerminalSettings
     Align = alClient
-    TabIndex = 3
+    TabIndex = 2
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
@@ -603,6 +603,14 @@ object frmSettingsDialog: TfrmSettingsDialog
         Anchors = [akLeft, akBottom]
         Caption = 'Name (a subfolder with this name will be created):'
         ParentColor = False
+      end
+      object Button1: TButton
+        Left = 208
+        Height = 25
+        Top = 368
+        Width = 224
+        Action = actOpenVenvPath
+        TabOrder = 3
       end
     end
     object tsImages: TTabSheet

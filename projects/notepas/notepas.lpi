@@ -28,10 +28,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="2"/>
-      <BuildNr Value="288"/>
+      <MinorVersionNr Value="3"/>
+      <BuildNr Value="293"/>
       <Attributes pvaPrivateBuild="True"/>
-      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.2" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
+      <StringTable Comments="Multiplatform text editor" CompanyName="Tim Sinaeve" FileDescription="notepas text editor" InternalName="notepas" LegalCopyright="(c) 2023 Tim Sinaeve" OriginalFilename="notepas.exe" ProductName="notepas" ProductVersion="1.3" HomePage="http://github.com/beNative/lazarus" ProjectPage="http://github.com/beNative/lazarus"/>
     </VersionInfo>
     <BuildModes Count="13">
       <Item1 Name="Default" Default="True"/>
@@ -1111,7 +1111,7 @@ end;"/>
       <Unit33>
         <Filename Value="..\..\components\tslib\editor\ts.editor.codeformatters.sql.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ts.Editor.CodeFormatters.SQL"/>
+        <UnitName Value="ts.Editor.CodeFormatters.Sql"/>
       </Unit33>
       <Unit34>
         <Filename Value="..\..\components\tslib\editor\ts.editor.commentstripper.pas"/>

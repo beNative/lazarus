@@ -1,11 +1,11 @@
 object frmMain: TfrmMain
-  Left = 2642
+  Left = 3976
   Height = 763
-  Top = 591
+  Top = 440
   Width = 1111
   Caption = 'SnippetSource'
-  ClientHeight = 0
-  ClientWidth = 0
+  ClientHeight = 763
+  ClientWidth = 1111
   Color = clWindow
   Font.CharSet = ANSI_CHARSET
   Font.Color = clBlack
@@ -134,7 +134,7 @@ object frmMain: TfrmMain
     object pnlSize: TPanel
       Left = 214
       Height = 18
-      Hint = 'Size of node content.'
+      Hint = 'Node content size.'
       Top = 0
       Width = 54
       Align = alLeft
@@ -263,7 +263,6 @@ object frmMain: TfrmMain
           ParentBackground = False
           ParentColor = False
           TabOrder = 0
-          OnClick = pnlEditorClick
           object pnlEditorToolBar: TPanel
             Left = 0
             Height = 24
@@ -729,7 +728,7 @@ object frmMain: TfrmMain
         ClientHeight = 24
         ClientWidth = 104
         TabOrder = 2
-        object tlbEditorSelection: TToolBar
+        object tlbActiveView: TToolBar
           Left = 0
           Height = 24
           Top = 0

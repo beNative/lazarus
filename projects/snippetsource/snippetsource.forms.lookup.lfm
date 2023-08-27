@@ -24,8 +24,8 @@ object frmLookup: TfrmLookup
   end
   object grdLookup: TDBGrid
     Left = 0
-    Height = 635
-    Top = 31
+    Height = 637
+    Top = 29
     Width = 764
     Align = alClient
     BorderStyle = bsNone
@@ -95,83 +95,33 @@ object frmLookup: TfrmLookup
     TabOrder = 1
     TitleStyle = tsNative
     UseXORFeatures = True
+    OnKeyPress = grdLookupKeyPress
+    OnKeyUp = grdLookupKeyUp
+    OnMouseUp = grdLookupMouseUp
   end
   object pnlTop: TPanel
     Left = 0
-    Height = 31
+    Height = 29
     Top = 0
     Width = 764
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 31
+    ClientHeight = 29
     ClientWidth = 764
     TabOrder = 2
     object edtLookup: TEdit
       Left = 0
       Height = 29
       Top = 0
-      Width = 536
-      Anchors = [akTop, akLeft, akRight]
+      Width = 764
+      Align = alClient
       Font.Height = -16
       OnKeyDown = edtLookupKeyDown
       OnKeyPress = edtLookupKeyPress
       OnKeyUp = edtLookupKeyUp
       ParentFont = False
       TabOrder = 0
-    end
-    object btnSearch: TButton
-      Left = 535
-      Height = 31
-      Top = 0
-      Width = 48
-      Action = actSearch
-      Anchors = [akTop, akRight]
-      Default = True
-      Font.Height = -12
-      ParentFont = False
-      TabOrder = 1
-    end
-    object chkName: TCheckBox
-      Left = 586
-      Height = 19
-      Top = 5
-      Width = 52
-      Anchors = [akTop, akRight]
-      Caption = 'Name'
-      Checked = True
-      Font.Height = -12
-      OnChange = chkNameChange
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 2
-    end
-    object chkText: TCheckBox
-      Left = 640
-      Height = 19
-      Top = 5
-      Width = 42
-      Anchors = [akTop, akRight]
-      Caption = 'Text'
-      Checked = True
-      Font.Height = -12
-      OnChange = chkNameChange
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 3
-    end
-    object chkComment: TCheckBox
-      Left = 690
-      Height = 19
-      Top = 5
-      Width = 74
-      Anchors = [akTop, akRight]
-      Caption = 'Comment'
-      Checked = True
-      Font.Height = -12
-      ParentFont = False
-      State = cbChecked
-      TabOrder = 4
     end
   end
   object dscMain: TDataSource

@@ -364,7 +364,7 @@ implementation
 uses
   SysUtils, ShellApi,
 
-  ts.Core.Logger,
+  ts.Core.Logger, ts.Core.Utils,
 
   SnippetSource.VirtualTree.Editors, SnippetSource.Resources;
 
@@ -733,7 +733,7 @@ begin
 
   for I := 0 to High(Formats) - 1 do
   begin
-    Logger.Send('I', I);
+    Logger.Send(I.ToString, GetClipboardFormatName(I));
     if Formats[I] = CF_HDROP then
     begin
       SL := TStringList.Create;

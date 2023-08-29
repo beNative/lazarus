@@ -527,9 +527,9 @@ procedure TEditorCommands.URLFromSelection(ADecode: Boolean);
 begin
   Selection.Store(True, True);
   if ADecode then
-    Selection.Text := URLDecode(Selection.Text)
+    Selection.Text := UrlDecode(Selection.Text)
   else
-    Selection.Text := URLEncode(Selection.Text);
+    Selection.Text := UrlEncode(Selection.Text);
   Selection.Restore;
   View.Modified := True;
 end;

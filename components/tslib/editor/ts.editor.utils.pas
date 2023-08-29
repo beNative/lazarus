@@ -176,13 +176,8 @@ function CommentText(
   ACommentType  : TCommentType
 ): string;
 
-function UnCommentText(
-  const AString : string;
-  ACommentType  : TCommentType
-): string;
-
-function FormatXML(
-  const AXMLString: string
+function FormatXml(
+  const AXmlString: string
 ): string;
 
 function PascalStringOf(
@@ -480,8 +475,11 @@ type
     Start    : PChar;
     Len      : Integer;
 
-    constructor Create(TheSettings: TTextBlockCompareSettings;
-      NewStart: PChar; NewLen: integer);
+    constructor Create(
+      ASettings : TTextBlockCompareSettings;
+      ANewStart : PChar;
+      ANewLen   : Integer
+    );
   end;
 
 var
@@ -489,73 +487,73 @@ var
 
 { TTextBlock }
 
-constructor TTextBlock.Create(TheSettings: TTextBlockCompareSettings;
-  NewStart: PChar; NewLen: integer);
+constructor TTextBlock.Create(ASettings: TTextBlockCompareSettings;
+  ANewStart: PChar; ANewLen: integer);
 begin
-  Settings := TheSettings;
-  Start    := NewStart;
-  Len      := NewLen;
+  Settings := ASettings;
+  Start    := ANewStart;
+  Len      := ANewLen;
 end;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
 
-function CompareText(Txt1: PChar; Len1: integer; Txt2: PChar; Len2: integer;
-  CaseSensitive: boolean): integer; overload;
+function CompareText(ATxt1: PChar; ALen1: Integer; ATxt2: PChar; ALen2: Integer;
+  ACaseSensitive: Boolean): Integer; overload;
 begin
-  if CaseSensitive then
+  if ACaseSensitive then
   begin
-    while (Len1>0) and (Len2>0) do
+    while (ALen1 > 0) and (ALen2 > 0) do
     begin
-      if Txt1^=Txt2^ then
+      if ATxt1^ = ATxt2^ then
       begin
-        Inc(Txt1);
-        Dec(Len1);
-        Inc(Txt2);
-        Dec(Len2);
+        Inc(ATxt1);
+        Dec(ALen1);
+        Inc(ATxt2);
+        Dec(ALen2);
       end
       else
       begin
-        if Txt1^<Txt2^ then
-          Result:=1
+        if ATxt1^ < ATxt2^ then
+          Result := 1
         else
-          Result:=-1;
+          Result := -1;
         Exit;
       end;
     end;
   end
   else
   begin
-    while (Len1>0) and (Len2>0) do
+    while (ALen1 > 0) and (ALen2 > 0) do
     begin
-      if UpChars[Txt1^]=UpChars[Txt2^] then
+      if UpChars[ATxt1^] = UpChars[ATxt2^] then
       begin
-        Inc(Txt1);
-        Dec(Len1);
-        Inc(Txt2);
-        Dec(Len2);
+        Inc(ATxt1);
+        Dec(ALen1);
+        Inc(ATxt2);
+        Dec(ALen2);
       end
       else
       begin
-        if UpChars[Txt1^]<UpChars[Txt2^] then
-          Result:=1
+        if UpChars[ATxt1^] < UpChars[ATxt2^] then
+          Result := 1
         else
-          Result:=-1;
+          Result := -1;
         Exit;
       end;
     end;
   end;
-  if Len1>Len2 then
-    Result:=-1
-  else if Len1<Len2 then
-    Result:=1
+  if ALen1 > ALen2 then
+    Result := -1
+  else if ALen1 < ALen2 then
+    Result := 1
   else
-    Result:=0;
+    Result := 0;
 end;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
 
-function CompareTextIgnoringSpace(Txt1: PChar; Len1: integer;
-  Txt2: PChar; Len2: integer; CaseSensitive: boolean): integer;
+function CompareTextIgnoringSpace(ATxt1: PChar; ALen1: Integer;
+  ATxt2: PChar; ALen2: Integer; ACaseSensitive: Boolean): Integer;
 
   function IsIdentChar(const AChar: Char): Boolean;
   begin
@@ -569,101 +567,117 @@ function CompareTextIgnoringSpace(Txt1: PChar; Len1: integer;
    A;    A      -1
 }
 var
-  P1, P2: integer;
+  P1, P2: Integer;
 begin
-  P1:=0;
-  P2:=0;
-  while (P1<Len1) and (P2<Len2) do begin
-    if (CaseSensitive and (Txt1[P1]=Txt2[P2]))
-    or ((not CaseSensitive) and (UpChars[Txt1[P1]]=UpChars[Txt2[P2]])) then
+  P1 := 0;
+  P2 := 0;
+  while (P1 < ALen1) and (P2 < ALen2) do
+  begin
+    if (ACaseSensitive and (ATxt1[P1] = ATxt2[P2]))
+      or ((not ACaseSensitive) and (UpChars[ATxt1[P1]] = UpChars[ATxt2[P2]])) then
     begin
-      inc(P1);
-      inc(P2);
-    end else begin
+      Inc(P1);
+      Inc(P2);
+    end
+    else
+    begin
       // different chars found
-      if (P1>0) and (IsIdentChar(Txt1[P1-1]))
-      and (IsIdentChar(Txt1[P1]) xor IsIdentChar(Txt2[P2])) then begin
+      if (P1 > 0) and (IsIdentChar(ATxt1[P1 - 1]))
+        and (IsIdentChar(ATxt1[P1]) xor IsIdentChar(ATxt2[P2])) then
+      begin
         // one identifier is longer than the other
-        if IsIdentChar(Txt1[P1]) then
-          // identifier in Txt1 is longer than in Txt2
-          Result:=-1
+        if IsIdentChar(ATxt1[P1]) then
+          // identifier in ATxt1 is longer than in ATxt2
+          Result := -1
         else
-          // identifier in Txt2 is longer than in Txt1
-          Result:=+1;
-        exit;
-      end else if (ord(Txt1[P1])<=ord(' ')) then begin
-        // ignore/skip spaces in Txt1
+          // identifier in ATxt2 is longer than in ATxt1
+          Result := +1;
+        Exit;
+      end
+      else if Ord(ATxt1[P1]) <= Ord(' ') then
+      begin
+        // ignore/skip spaces in ATxt1
         repeat
-          inc(P1);
-        until (P1>=Len1) or (ord(Txt1[P1])>ord(' '));
-        if (ord(Txt2[P2])<=ord(' ')) then begin
-          // ignore/skip spaces in Txt2
+          Inc(P1);
+        until (P1 >= ALen1) or (Ord(ATxt1[P1]) > Ord(' '));
+        if (Ord(ATxt2[P2]) <= Ord(' ')) then
+        begin
+          // ignore/skip spaces in ATxt2
           repeat
-            inc(P2);
-          until (P2>=Len2) or (ord(Txt2[P2])>ord(' '));
+            Inc(P2);
+          until (P2 >= ALen2) or (Ord(ATxt2[P2]) > Ord(' '));
         end;
-      end else if (ord(Txt2[P2])<=ord(' ')) then begin
-        // ignore/skip spaces in Txt2
+      end
+      else if (Ord(ATxt2[P2]) <= Ord(' ')) then
+      begin
+        // ignore/skip spaces in ATxt2
         repeat
-          inc(P2);
-        until (P2>=Len2) or (ord(Txt2[P2])>ord(' '));
-      end else begin
-        // Txt1<>Txt2
-        if (CaseSensitive and (Txt1[P1]>Txt2[P2]))
-        or ((not CaseSensitive) and (UpChars[Txt1[P1]]>UpChars[Txt2[P2]])) then
-          Result:=-1
+          Inc(P2);
+        until (P2 >= ALen2) or (Ord(ATxt2[P2]) > Ord(' '));
+      end
+      else
+      begin
+        if (ACaseSensitive and (ATxt1[P1] > ATxt2[P2]))
+          or ((not ACaseSensitive) and (UpChars[ATxt1[P1]] > UpChars[ATxt2[P2]])) then
+          Result := -1
         else
-          Result:=+1;
-        exit;
+          Result := +1;
+        Exit;
       end;
     end;
   end;
   // one text was totally read -> check the rest of the other one
   // skip spaces
-  while (P1<Len1) and (ord(Txt1[P1])<=ord(' ')) do
-    inc(P1);
-  while (P2<Len2) and (ord(Txt2[P2])<=ord(' ')) do
-    inc(P2);
-  if (P1>=Len1) then begin
+  while (P1 < ALen1) and (Ord(ATxt1[P1]) <= Ord(' ')) do
+    Inc(P1);
+  while (P2 < ALen2) and (Ord(ATxt2[P2]) <= Ord(' ')) do
+    Inc(P2);
+  if (P1 >= ALen1) then
+  begin
     // rest of P1 was only space
-    if (P2>=Len2) then
+    if P2 >= ALen2 then
       // rest of P2 was only space
-      Result:=0
+      Result := 0
     else
       // there is some text at the end of P2
-      Result:=1;
-  end else begin
+      Result := 1;
+  end
+  else
+  begin
     // there is some text at the end of P1
-    Result:=-1
+    Result := -1
   end;
 end;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
 
-function CompareText(Txt1: PChar; Len1: integer; Txt2: PChar; Len2: integer;
-  CaseSensitive, IgnoreSpace: boolean): integer; overload;
+function CompareText(ATxt1: PChar; ALen1: Integer; ATxt2: PChar; ALen2: Integer;
+  ACaseSensitive, AIgnoreSpace: Boolean): Integer; overload;
 begin
-  if IgnoreSpace then
-    Result:=CompareTextIgnoringSpace(Txt1,Len1,Txt2,Len2,CaseSensitive)
+  if AIgnoreSpace then
+    Result :=
+      CompareTextIgnoringSpace(ATxt1, ALen1, ATxt2, ALen2, ACaseSensitive)
   else
-    Result:=CompareText(Txt1,Len1,Txt2,Len2,CaseSensitive);
+    Result := CompareText(ATxt1, ALen1, ATxt2, ALen2, ACaseSensitive);
 end;
 
 { Author: Mattias Gaertner (BasicCodeTools.pas) }
 
-function CompareTextBlock(Data1, Data2: Pointer): integer;
+function CompareTextBlock(AData1, AData2: Pointer): Integer;
 var
-  Block1   : TTextBlock;
-  Block2   : TTextBlock;
-  Settings : TTextBlockCompareSettings;
+  LBlock1   : TTextBlock;
+  LBlock2   : TTextBlock;
+  LSettings : TTextBlockCompareSettings;
 begin
-  Block1:=TTextBlock(Data1);
-  Block2:=TTextBlock(Data2);
-  Settings:=Block1.Settings;
-  Result:=CompareText(Block1.Start,Block1.Len,Block2.Start,Block2.Len,
-                      Settings.CaseSensitive,Settings.IgnoreSpace);
-  if not Settings.Ascending then
-    Result:=-Result;
+  LBlock1 := TTextBlock(AData1);
+  LBlock2 := TTextBlock(AData2);
+  LSettings := LBlock1.Settings;
+  Result := CompareText(
+    LBlock1.Start, LBlock1.Len, LBlock2.Start, LBlock2.Len,
+    LSettings.CaseSensitive, LSettings.IgnoreSpace
+  );
+  if not LSettings.Ascending then
+    Result := -Result;
 end;
 
 { Will remove all spaces from the given string, but preserves one space
@@ -840,7 +854,7 @@ end;
 
 function JoinLines(const AString: string; ABreakStyle: TTextLineBreakStyle): string;
 var
-  BR: string;
+  BR : string;
 begin
   BR := ALineBreaks[ABreakStyle];
   Result := StringsReplace(
@@ -1053,8 +1067,8 @@ function QuoteLines(const AString: string; const AQuoteChar: Char;
   ATrimSpace: Boolean): string;
 var
   SL : TStringList;
-  I :  Integer;
-  T :  string;
+  I  : Integer;
+  T  : string;
 begin
   SL := TStringList.Create;
   try
@@ -1077,8 +1091,8 @@ function QuoteLinesAndDelimit(const AString: string; const AQuoteChar: Char;
   const ADelimiter: string; ATrimSpace: Boolean): string;
 var
   SL : TStringList;
-  I :  Integer;
-  T :  string;
+  I  : Integer;
+  T  : string;
 begin
   Result := '';
   SL := TStringList.Create;
@@ -1104,8 +1118,8 @@ function DequoteLines(const AString: string; const AQuoteChar: Char;
   ATrimSpace: Boolean): string;
 var
   SL : TStringList;
-  I :  Integer;
-  T :  string;
+  I  : Integer;
+  T  : string;
 begin
   SL := TStringList.Create;
   try
@@ -1134,7 +1148,7 @@ function CommentText(const AString: string; ACommentType: TCommentType): string;
   begin
     ALen       := Length(AString);
     ALineCount := 1;
-    P         := 1;
+    P          := 1;
     while P <= ALen do
       if not (AString[P] in [#10, #13]) then
       begin
@@ -1252,133 +1266,22 @@ begin
   end;
 end;
 
-function UnCommentText(const AString: string; ACommentType: TCommentType): string;
-begin
-  Result := AString;
-//  function TUnCommentExpert.ProcessSelected(Lines: TStrings): Boolean;
-//
-//  function RemoveFirstString(const SubString, InString: string): string;
-//  var
-//    Success: Boolean;
-//
-//    function RemoveFirstInternal(const SubString, InString: string): string;
-//    var
-//      SubStringPos: Integer;
-//    begin
-//      if StrLComp(PChar(Trim(InString)), PChar(SubString), Length(SubString)) = 0 then
-//      begin
-//        SubStringPos := Pos(SubString, InString);
-//        if SubStringPos > 1 then
-//        begin
-//          Result := Copy(InString, 1, SubStringPos - 1) +
-//            Copy(InString, SubStringPos + Length(SubString), MaxInt)
-//        end
-//        else
-//          Result := Copy(InString, Length(SubString) + 1, MaxInt);
-//
-//        Success := True;
-//      end
-//      else
-//        Result := InString;
-//    end;
-//
-//  begin
-//    Success := False;
-//    // If spaces are to be removed, try to first kill
-//    // WITH space, otherwise continue with default
-//    // comment removal.
-//    if InsertRemoveSpace then
-//    begin
-//      Result := RemoveFirstInternal(SubString + ' ', InString);
-//      if Success then
-//        Exit;
-//    end;
-//
-//    Result := RemoveFirstInternal(SubString, InString);
-//  end;
-//
-//  function RemoveLastString(const SubString, InString: string): string;
-//  var
-//    Success: Boolean;
-//
-//    function RemoveLastInternal(const SubString, InString: string): string;
-//    var
-//      SubStringStartPos: Integer;
-//      TempString: string;
-//    begin
-//      TempString := TrimRight(InString);
-//
-//      SubStringStartPos := Length(TempString) - Length(SubString) + 1;
-//
-//      if SubString = Copy(TempString, SubStringStartPos, Length(SubString)) then
-//      begin
-//        Result := Copy(TempString, 1, SubStringStartPos - 1);
-//        Success := True;
-//      end
-//      else
-//        Result := InString;
-//    end;
-//
-//  begin
-//    Success := False;
-//    // If spaces are to be removed, try to first kill
-//    // WITH space, otherwise continue with default
-//    // comment removal.
-//    if InsertRemoveSpace then
-//    begin
-//      Result := RemoveLastInternal(' ' + SubString, InString);
-//      if Success then
-//        Exit;
-//    end;
-//
-//    Result := RemoveLastInternal(SubString, InString);
-//  end;
-//
-//var
-//  i: Integer;
-//begin
-//  Assert(Assigned(Lines));
-//
-//  case CommentType of
-//    ctSlash:
-//      for i := 0 to Lines.Count - 1 do
-//        Lines[i] := RemoveFirstString('//', Lines[i]);
-//    ctC:
-//      begin
-//        Lines[0] := RemoveFirstString('(*', Lines[0]);
-//        Lines[Lines.Count - 1] := RemoveLastString('*)', Lines[Lines.Count - 1]);
-//      end;
-//    ctCpp:
-//      begin
-//        Lines[0] := RemoveFirstString('/*', Lines[0]);
-//        Lines[Lines.Count - 1] := RemoveLastString('*/', Lines[Lines.Count - 1]);
-//      end;
-//    ctPascal:
-//      begin
-//        Lines[0] := RemoveFirstString('{', Lines[0]);
-//        Lines[Lines.Count - 1] := RemoveLastString('}', Lines[Lines.Count - 1]);
-//      end;
-//  end;
-//  Result := True;
-//end;
-end;
-
-function FormatXML(const AXMLString: string): string;
+function FormatXml(const AXmlString: string): string;
 var
   Doc : IXMLDocument;
 begin
   Result := '';
   Doc := CreateXMLDoc;
-  Doc.LoadFromXML(AXMLString);
+  Doc.LoadFromXML(AXmlString);
   Doc.SaveToXML(Result, itIndent);
 end;
 
 function PascalStringOf(const AString: string; ATrimLines: Boolean): string;
 var
   SL : TStringList;
-  I :  Integer;
-  S :  string;
-  T :  string;
+  I  : Integer;
+  S  : string;
+  T  : string;
 begin
   S  := '';
   SL := TStringList.Create;
@@ -1454,8 +1357,8 @@ end;
 procedure AddStringsPresentInString(ASource: TStrings; ADest: TStrings;
   const AFilterString: string);
 var
-  I: Integer;
-  S: string;
+  I : Integer;
+  S : string;
 begin
   ADest.Clear;
   for I := 0 to ASource.Count - 1 do
@@ -1867,7 +1770,7 @@ end;
 
 function MatchRegExpr2(const AString: string; const ARegExpr: string; ACaseSensitive: Boolean): Boolean;
 var
-  RE: TBRRERegExp;
+  RE : TBRRERegExp;
 begin
   RE := TBRRERegExp.Create(ARegExpr);
   try
@@ -2170,7 +2073,7 @@ var
         Inc(ASeekPos);
 
       { Calculate Result := AString[LTokStart, ... , ASeekPos-1] }
-      Result := Copy(AString, LTokStart, ASeekPos-LTokStart);
+      Result := Copy(AString, LTokStart, ASeekPos - LTokStart);
 
       { We don't have to do Inc(seekPos) below. But it'AString obvious that searching
         for next token can skip ASeekPos, since we know AString[ASeekPos] is TokenDelim. }
@@ -2205,17 +2108,18 @@ var
   var
     I : Integer;
   begin
-   Result := S;
-   for I := 1 to Length(Result) do
-    if Result[I] = FromChar then Result[I] := ToChar;
+    Result := S;
+    for I := 1 to Length(Result) do
+      if Result[I] = FromChar then
+        Result[I] := ToChar;
   end;
 
 begin
- N := CharPos('|', AFileFilter);
- if N = 0 then Result := Trim(AFileFilter) else
- begin
-  LLeft := Trim(Copy(AFileFilter, 1, N-1));
-  LRight := Trim(SEnding(AFileFilter, N+1));
+  N := CharPos('|', AFileFilter);
+  if N = 0 then Result := Trim(AFileFilter) else
+  begin
+  LLeft := Trim(Copy(AFileFilter, 1, N - 1));
+  LRight := Trim(SEnding(AFileFilter, N + 1));
   if LRight = '' then
   begin
    Result := LLeft;
@@ -2229,16 +2133,19 @@ begin
     { trim once again to delete rightmost whitespace (as in 'xxx ()|') }
     Result := TrimRight(Result);
    end;
-  end else
+  end
+  else
   begin
-   N := FindPos(LRight, LLeft, 1, Length(LLeft), [soBackwards]);
+    N := FindPos(LRight, LLeft, 1, Length(LLeft), [soBackwards]);
+    if N = 0 then
+      N := FindPos(SReplaceChars(LRight, ';', ','), LLeft, 1, Length(LLeft), [soBackwards]);
    if N = 0 then
-    N := FindPos(SReplaceChars(LRight, ';', ','), LLeft, 1, Length(LLeft), [soBackwards]);
-   if N = 0 then Result := LLeft else
+     Result := LLeft
+   else
    begin
     L := Length(LRight);
     {zwieksz L tak zeby objelo biale znaki az do ')'}
-    while N+L <= Length(LLeft) do
+    while N + L <= Length(LLeft) do
     begin
      if LLeft[N+L] = ')' then
       begin Inc(L); break end else
@@ -2251,8 +2158,12 @@ begin
      if LLeft[N-1] = '(' then
       begin Dec(N); Inc(L); break end else
      if LLeft[N-1] in WHITESPACE_CHARS then
-      begin Dec(N); Inc(L) end else
-      break;
+     begin
+       Dec(N);
+       Inc(L)
+     end
+     else
+       Break;
     end;
     Delete(LLeft, N, L);
     Result := Trim(LLeft);
@@ -2265,10 +2176,11 @@ function GetFileFilterExtsStr(const AFileFilter: string): string;
 var
   N : Integer;
 begin
- N := CharPos('|', AFileFilter);
- if N > 0 then
-  Result := SEnding(AFileFilter, N+1) else
-  Result := '';
+  N := CharPos('|', AFileFilter);
+  if N > 0 then
+    Result := SEnding(AFileFilter, N + 1)
+  else
+    Result := '';
 end;
 
 function XmlEncode(const AString: string): string;

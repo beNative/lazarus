@@ -105,10 +105,16 @@ type
     );
     procedure FEditorEndDrag(Sender, Target: TObject; X, Y: Integer);
     procedure FEditorExit(Sender: TObject);
-    procedure FEditorListTableChanged(AList: TKMemoList; ALevel: TKMemoListLevel
-      );
-    procedure FEditorMouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
+    procedure FEditorListTableChanged(
+      AList  : TKMemoList;
+      ALevel : TKMemoListLevel
+    );
+    procedure FEditorMouseUp(
+      Sender : TObject;
+      Button : TMouseButton;
+      Shift  : TShiftState;
+      X, Y   : Integer
+    );
     procedure FParaStyleChanged(Sender: TObject; AReasons: TKMemoUpdateReasons);
     procedure FTextStyleChanged(Sender: TObject);
     function GetReadOnly: Boolean;
@@ -221,7 +227,6 @@ type
     procedure DecIndent;
 
     procedure ShowPreview;
-
     procedure Clear;
 
     // clipboard commands
@@ -384,7 +389,7 @@ begin
   FEditor.OnExit              := FEditorExit;
   FEditor.OnBlockEdit         := FEditorBlockEdit;
   FEditor.OnBlockClick        := FEditorBlockClick;
-  FEditor.ListTable.OnChanged  := FEditorListTableChanged;
+  FEditor.ListTable.OnChanged := FEditorListTableChanged;
   // needed?
   FEditor.OnAlignPosition     := FEditorAlignPosition;
   // needed?

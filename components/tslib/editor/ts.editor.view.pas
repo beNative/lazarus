@@ -900,7 +900,7 @@ begin
     Commands.GuessHighlighterType;
   if (HighlighterName = HL_XML) and Settings.AutoFormatXml then
   begin
-    AText := FormatXML(AText);
+    AText := FormatXml(AText);
   end;
 end;
 
@@ -1905,11 +1905,6 @@ begin
   //  Shift     := [ssCtrl];
   //  ShiftMask := [];
   //end;
-
-
-
-
-
 
   // highlights all words that are the same as the one surrounding the caret position
   FMHAC := Editor.MarkupByClass[TSynEditMarkupHighlightAllCaret]

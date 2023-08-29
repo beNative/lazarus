@@ -91,7 +91,6 @@ type
     procedure SetDefaultContextMenusEnabled(AValue: Boolean);
     procedure SetDefaultScriptDialogsEnabled(AValue: Boolean);
     procedure SetDevToolsEnabled(AValue: Boolean);
-    procedure SetDocumentTitle(AValue: string);
     procedure SetEditMode(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetHtmlText(const AValue: string);
@@ -169,7 +168,7 @@ type
     {$REGION 'WebView properties'}
     { Gets the title for the current html document. }
     property DocumentTitle: string
-      read GetDocumentTitle write SetDocumentTitle;
+      read GetDocumentTitle;
 
     { Determines whether the default WevView2 context menus of are shown. }
     property DefaultContextMenusEnabled: Boolean

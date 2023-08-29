@@ -646,7 +646,10 @@ end;
 procedure TdmRichEditorManager.aclActionsExecute(AAction: TBasicAction;
   var Handled: Boolean);
 begin
-  Logger.Action(AAction);
+  if (AAction is TContainedAction) and not (AAction is TCustomHintAction) then
+  begin
+    Logger.Action(AAction);
+  end;
 end;
 
 procedure TdmRichEditorManager.actAddParagraphExecute(Sender: TObject);

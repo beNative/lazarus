@@ -654,7 +654,7 @@ end;
 
 procedure TfrmCodeFilterDialog.FTVPFilter(Item: TObject; var Accepted: Boolean);
 var
-  L: TLine;
+  L : TLine;
 begin
   L := TLine(Item);
   Accepted := IsMatch(L.Text);
@@ -704,7 +704,7 @@ end;
 {$REGION 'private methods'}
 procedure TfrmCodeFilterDialog.FillList(AStrings: TStrings);
 var
-  I: Integer;
+  I : Integer;
 begin
   FLines.Clear;
   for I := 0 to AStrings.Count - 1 do
@@ -795,7 +795,7 @@ end;
 
 procedure TfrmCodeFilterDialog.ApplyFilter;
 var
-  B: Boolean;
+  B : Boolean;
 begin
   B := True;
   if RegEx and (Filter <> '') then
@@ -821,7 +821,7 @@ end;
 
 procedure TfrmCodeFilterDialog.UpdateView;
 var
-  SL: TStringList;
+  SL : TStringList;
 begin
   SL := TStringList.Create;
   try

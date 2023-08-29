@@ -156,12 +156,12 @@ end;
 
 function TXmlFormatter.Format(const AString: string): string;
 begin
-  Result := ts.Editor.Utils.FormatXML(AString);
+  Result := ts.Editor.Utils.FormatXml(AString);
 end;
 
 function THtmlFormatter.Format(const AString: string): string;
 begin
-  Result := ts.Editor.Utils.FormatXML(AString);
+  Result := ts.Editor.Utils.FormatXml(AString);
 end;
 
 function TPascalFormatter.Format(const AString: string): string;

@@ -1263,28 +1263,58 @@ begin
 end;
 
 function TLogger.Watch(const AName, AValue: string): ILogger;
+var
+  S : string;
 begin
-  Result := Self;
+  S := Format('%s = %s', [
+    AName,
+    AValue
+  ]);
+  Result := InternalSend(lmtWatch, S);
 end;
 
 function TLogger.Watch(const AName: string; AValue: Integer): ILogger;
+var
+  S : string;
 begin
-  Result := Self;
+  S := Format('%s = %d', [
+    AName,
+    AValue
+  ]);
+  Result := InternalSend(lmtWatch, S);
 end;
 
 function TLogger.Watch(const AName: string; AValue: Cardinal): ILogger;
+var
+  S : string;
 begin
-  Result := Self;
+  S := Format('%s = %d', [
+    AName,
+    AValue
+  ]);
+  Result := InternalSend(lmtWatch, S);
 end;
 
 function TLogger.Watch(const AName: string; AValue: Double): ILogger;
+var
+  S : string;
 begin
-  Result := Self;
+  S := Format('%s = %f', [
+    AName,
+    AValue
+  ]);
+  Result := InternalSend(lmtWatch, S);
 end;
 
 function TLogger.Watch(const AName: string; AValue: Boolean): ILogger;
+var
+  S : string;
 begin
-  Result := Self;
+  S := Format('%s = %d', [
+    AName,
+    Integer(AValue)
+  ]);
+  Result := InternalSend(lmtWatch, S);
 end;
 {$ENDREGION}
 {$ENDREGION}

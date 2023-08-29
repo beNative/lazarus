@@ -144,6 +144,7 @@ type
     ppmTable                  : TPopupMenu;
 
     {$REGION 'action handlers'}
+    procedure aclActionsExecute(AAction: TBasicAction; var Handled: Boolean);
     procedure actAddParagraphExecute(Sender: TObject);
     procedure actAlignCenterExecute(Sender: TObject);
     procedure actAlignJustifyExecute(Sender: TObject);
@@ -527,6 +528,15 @@ begin
   if Assigned(ActiveView) then
   begin
     ActiveView.AddParagraph;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.aclActionsExecute(AAction: TBasicAction;
+  var Handled: Boolean);
+begin
+  if (AAction is TContainedAction) and not (AAction is TCustomHintAction) then
+  begin
+    Logger.Action(AAction);
   end;
 end;
 

@@ -6,6 +6,7 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
   Width = 543
   object aclActions: TActionList
     Images = imlMain
+    OnExecute = aclActionsExecute
     Left = 72
     Top = 49
     object actBold: TAction

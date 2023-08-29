@@ -25,7 +25,7 @@ object RichEditorViewKMemo: TRichEditorViewKMemo
     ShowImage = False
     MultiTarget = True
     Formats = [mfURL]
-    Left = 154
-    Top = 74
+    Left = 48
+    Top = 16
   end
 end

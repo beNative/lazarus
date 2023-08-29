@@ -400,7 +400,7 @@ procedure TfrmCodeShaper.actURLDecodeExecute(Sender: TObject);
 var
   S : string;
 begin
-  S := URLDecode(Text);
+  S := UrlDecode(Text);
   AssignText(S);
 end;
 
@@ -408,7 +408,7 @@ procedure TfrmCodeShaper.actURLEncodeExecute(Sender: TObject);
 var
   S : string;
 begin
-  S := URLEncode(Text);
+  S := UrlEncode(Text);
   AssignText(S);
 end;
 {$ENDREGION}

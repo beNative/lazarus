@@ -14,7 +14,7 @@
   limitations under the License.
 }
 
-unit ts.Editor.CodeFormatters.SQL;
+unit ts.Editor.CodeFormatters.Sql;
 
 {$MODE DELPHI}
 

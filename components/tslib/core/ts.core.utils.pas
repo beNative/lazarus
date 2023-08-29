@@ -24,7 +24,7 @@ uses
   Graphics, SysUtils, Classes, Controls, ExtCtrls, Forms, Menus, TypInfo,
   StdCtrls, Character, StrUtils, ComCtrls, ActnList, Types,
 
-  LCLType,
+  LCLType, LCLIntf,
 {$IFDEF WINDOWS}
   Windows, ActiveX, ComObj,
 {$ENDIF}
@@ -111,13 +111,13 @@ function ExtractWord(
   const AWordDelims : TSysCharSet = AnsiWhiteSpace
 ): string;
 
-function URLEncode(const AString: string): string;
+function UrlEncode(const AString: string): string;
 
-function URLDecode(const AString: string): string;
+function UrlDecode(const AString: string): string;
 
-function XMLEncode(const ASource: string): string;
+function XmlEncode(const ASource: string): string;
 
-function XMLDecode(const ASource: string): string;
+function XmlDecode(const ASource: string): string;
 
 // string formatting routines
 
@@ -133,11 +133,11 @@ function GetLocalUserName: string;
 function GetLocalComputerName: string;
 {$ENDIF}
 
-function GetParentDir(APath: string) : string;
+function GetParentDir(const APath: string): string;
+procedure OpenFilePath(const APath: string);
 
 {$IFDEF WINDOWS}
 procedure CreateShellLink(ShellLink: TShellLink);
-function ExploreFile(const AFileName: string): Boolean;
 {$ENDIF}
 
 // FCL utilities
@@ -355,14 +355,14 @@ type
 function SizeGripWndProc(hWnd: hWnd; Msg: UINT; wParam: wParam; lParam: lParam)
   : LRESULT; stdcall;
 var
-  Info : PGripInfo;
-  dc   : HDC;
-  pt   : TPoint;
+  LInfo  : PGripInfo;
+  DC     : HDC;
+  LPoint : TPoint;
 
   // Invalidate the current grip rectangle
   procedure InvalidateGrip;
   begin
-    with Info^ do
+    with LInfo^ do
       if (GripRect.Right > GripRect.Left)
         and (GripRect.Bottom > GripRect.Top) then
         InvalidateRect(hWnd, @GripRect, true);
@@ -371,7 +371,7 @@ var
   // Update (and invalidate) the current grip rectangle
   procedure UpdateGrip;
   begin
-    with Info^ do
+    with LInfo^ do
     begin
       GetClientRect(hWnd, GripRect);
       GripRect.Left := GripRect.Right - GetSystemMetrics(SM_CXHSCROLL);
@@ -382,14 +382,14 @@ var
 
   function CallOld: LRESULT;
   begin
-    Result := CallWindowProc(@Info^.OldWndProc, hWnd, Msg, wParam, lParam);
+    Result := CallWindowProc(@LInfo^.OldWndProc, hWnd, Msg, wParam, lParam);
   end;
 
 begin
-  Info := PGripInfo(GetProp(hWnd, SizeGripProp));
-  if Info = nil then
+  LInfo := PGripInfo(GetProp(hWnd, SizeGripProp));
+  if LInfo = nil then
     Result := DefWindowProc(hWnd, Msg, wParam, lParam)
-  else if not Info^.Enabled then
+  else if not LInfo^.Enabled then
     Result := CallOld
   else
   begin
@@ -397,9 +397,9 @@ begin
       WM_NCDESTROY:
       begin
         Result := CallOld;
-        SetWindowLong(hWnd, GWL_WNDPROC, LongInt(@Info^.OldWndProc));
+        SetWindowLong(hWnd, GWL_WNDPROC, LongInt(@LInfo^.OldWndProc));
         RemoveProp(hWnd, SizeGripProp);
-        Dispose(Info);
+        Dispose(LInfo);
       end;
 
       WM_PAINT:
@@ -407,19 +407,19 @@ begin
         Result := CallOld;
         if wParam = 0 then
         begin
-          dc := GetDC(hWnd);
-          DrawFrameControl(dc, Info^.GripRect, DFC_SCROLL,
+          DC := GetDC(hWnd);
+          DrawFrameControl(DC, LInfo^.GripRect, DFC_SCROLL,
             DFCS_SCROLLSIZEGRIP);
-          ReleaseDC(hWnd, dc);
+          ReleaseDC(hWnd, DC);
         end;
       end;
 
       WM_NCHITTEST:
       begin
-        pt.x := TSmallPoint(Integer(lParam)).x;
-        pt.y := TSmallPoint(Integer(lParam)).y;
-        ScreenToClient(hWnd, pt);
-        if PtInRect(Info^.GripRect, pt) then
+        LPoint.x := TSmallPoint(Integer(lParam)).x;
+        LPoint.y := TSmallPoint(Integer(lParam)).y;
+        ScreenToClient(hWnd, LPoint);
+        if PtInRect(LInfo^.GripRect, LPoint) then
           Result := HTBOTTOMRIGHT
         else
           Result := CallOld;
@@ -444,30 +444,30 @@ end;
 }
 procedure SetWindowSizeGrip(hWnd: HWND; Enable: Boolean);
 var
-  Info: PGripInfo;
+  LInfo : PGripInfo;
 begin
-  Info := PGripInfo(GetProp(hWnd, SizeGripProp));
-  if (Info = nil) and Enable then
+  LInfo := PGripInfo(GetProp(hWnd, SizeGripProp));
+  if (LInfo = nil) and Enable then
   begin
-    New(Info);
-    FillChar(Info^, SizeOf(TGripInfo), 0);
+    New(LInfo);
+    FillChar(LInfo^, SizeOf(TGripInfo), 0);
 
-    with Info^ do
+    with LInfo^ do
     begin
-      Info^.OldWndProc := TWndProc(Pointer(GetWindowLong(hWnd, GWL_WNDPROC)));
+      LInfo^.OldWndProc := TWndProc(Pointer(GetWindowLong(hWnd, GWL_WNDPROC)));
 
       GetClientRect(hWnd, GripRect);
       GripRect.Left := GripRect.Right - GetSystemMetrics(SM_CXHSCROLL);
       GripRect.Top := GripRect.Bottom - GetSystemMetrics(SM_CYVSCROLL);
     end;
 
-    SetProp(hWnd, SizeGripProp, Cardinal(Info));
+    SetProp(hWnd, SizeGripProp, Cardinal(LInfo));
     SetWindowLong(hWnd, GWL_WNDPROC, LongInt(@SizeGripWndProc));
   end;
 
-  if Info <> nil then
-    if Enable <> Info^.Enabled then
-      with Info^ do
+  if LInfo <> nil then
+    if Enable <> LInfo^.Enabled then
+      with LInfo^ do
       begin
         Enabled := Enable;
         if (GripRect.Right > GripRect.Left) and
@@ -479,8 +479,8 @@ end;
 
 function GetCommonPath(ASL: TStrings): string;
 var
-  I        : Integer;
-  NextPath : string;
+  I         : Integer;
+  LNextPath : string;
 begin
   if not Assigned(ASL) or (ASL.Count = 0) then
     Exit;
@@ -488,8 +488,8 @@ begin
   Result := ExtractFilePath(ASL[0]);
   I := 1;
   while I < ASL.Count do begin
-    NextPath :=  ASL[I];
-    while Copy(NextPath, 1, Length(Result)) <> Result do
+    LNextPath :=  ASL[I];
+    while Copy(LNextPath, 1, Length(Result)) <> Result do
       Result := ExtractFilePath(ExtractFileDir(Result));
     Inc(I);
   end;
@@ -497,7 +497,7 @@ end;
 
 function AskConfirmation(const AMessage: string): Boolean;
 var
-  MR: TModalResult;
+  MR : TModalResult;
 begin
   MR := MessageDlg(AMessage, mtConfirmation, [mbYes, mbNo], 0);
   if MR = mrYes then
@@ -647,12 +647,12 @@ end;
 {$IFDEF WINDOWS}
 function GetLocalComputerName: string;
 var
-  Count : DWORD;
-  S     : string;
+  LCount : DWORD;
+  S      : string;
 begin
-  Count := MAX_COMPUTERNAME_LENGTH + 1;
-  SetLength(S, Count);
-  if GetComputerName(PChar(S), Count) then
+  LCount := MAX_COMPUTERNAME_LENGTH + 1;
+  SetLength(S, LCount);
+  if GetComputerName(PChar(S), LCount) then
     SetLength(S, StrLen(PChar(S)))
   else
     S := '';
@@ -661,13 +661,13 @@ end;
 
 function GetLocalUserName: string;
 var
-  Count : DWORD;
-  S     : string;
+  LCount : DWORD;
+  S      : string;
 begin
-  Count := 256 + 1; // UNLEN + 1
+  LCount := 256 + 1; // UNLEN + 1
   // set buffer size to 256 + 2 characters
-  SetLength(S, Count);
-  if GetUserName(PChar(S), Count) then
+  SetLength(S, LCount);
+  if GetUserName(PChar(S), LCount) then
     SetLength(S, StrLen(PChar(S)))
   else
     S := '';
@@ -677,14 +677,14 @@ end;
 
 function GetTextHeight(const AText: string; AFont: TFont): Integer;
 var
-  Bitmap: Graphics.TBitmap;
+  LBitmap : Graphics.TBitmap;
 begin
-  Bitmap := Graphics.TBitmap.Create;
+  LBitmap := Graphics.TBitmap.Create;
   try
-    Bitmap.Canvas.Font.Assign(AFont);
-    Result := Bitmap.Canvas.TextExtent(AText).cy;
+    LBitmap.Canvas.Font.Assign(AFont);
+    Result := LBitmap.Canvas.TextExtent(AText).cy;
   finally
-    Bitmap.Free;
+    LBitmap.Free;
   end;
 end;
 
@@ -1055,22 +1055,22 @@ end;
 function VarRecToOleVariant(const AVarRec: TVarRec): OleVariant;
 begin
   case AVarRec.VType of
-   vtInteger    : Result := AVarRec.VInteger;
-   vtBoolean    : Result := AVarRec.VBoolean;
-   vtChar       : Result := AVarRec.VChar;
-   vtExtended   : Result := AVarRec.VExtended^;
-   vtString     : Result := AVarRec.VString^;
-   vtPChar      : Result := string(AVarRec.VPChar);
-   vtWideChar   : Result := AVarRec.VWideChar;
-   vtPWideChar  : Result := WideString(AVarRec.VPWideChar);
-   vtAnsiString : Result := string(AVarRec.VAnsiString);
-   vtCurrency   : Result := AVarRec.VCurrency^;
-   vtVariant    : Result := AVarRec.VVariant^;
-   vtWideString : Result := WideString(AVarRec.VWideString);
-   vtPointer    : TVarData(Result).VPointer := AVarRec.VPointer;
-   vtObject     : TVarData(Result).VPointer := AVarRec.VObject;
-   vtClass      : TVarData(Result).VPointer := AVarRec.VClass;
-   vtInterface  : TVarData(Result).VDispatch := AVarRec.VInterface;
+    vtInteger    : Result := AVarRec.VInteger;
+    vtBoolean    : Result := AVarRec.VBoolean;
+    vtChar       : Result := AVarRec.VChar;
+    vtExtended   : Result := AVarRec.VExtended^;
+    vtString     : Result := AVarRec.VString^;
+    vtPChar      : Result := string(AVarRec.VPChar);
+    vtWideChar   : Result := AVarRec.VWideChar;
+    vtPWideChar  : Result := WideString(AVarRec.VPWideChar);
+    vtAnsiString : Result := string(AVarRec.VAnsiString);
+    vtCurrency   : Result := AVarRec.VCurrency^;
+    vtVariant    : Result := AVarRec.VVariant^;
+    vtWideString : Result := WideString(AVarRec.VWideString);
+    vtPointer    : TVarData(Result).VPointer := AVarRec.VPointer;
+    vtObject     : TVarData(Result).VPointer := AVarRec.VObject;
+    vtClass      : TVarData(Result).VPointer := AVarRec.VClass;
+    vtInterface  : TVarData(Result).VDispatch := AVarRec.VInterface;
   end;
 end;
 
@@ -1129,7 +1129,7 @@ end;
 function VariantCompare(AVariant1, AVariant2 : Variant) : Boolean;
 begin
   Result := False;
-  if (VarType(AVariant1) = VarType(AVariant2)) then
+  if VarType(AVariant1) = VarType(AVariant2) then
      Result := AVariant1 = AVariant2;
 end;
 
@@ -1139,13 +1139,17 @@ function Like(const ASource: string; const ATemplate: string): Boolean;
 const
   SPECIAL_CHARACTERS : TSysCharSet = ['%', '*', '?', '_'];
 var
- I, J, K, LTemplate, LSource: Integer;
+ I         : Integer;
+ J         : Integer;
+ K         : Integer;
+ LTemplate : Integer;
+ LSource   : Integer;
 begin
-  Result := False;
+  Result    := False;
   LTemplate := Length(ATemplate);
-  LSource := Length(ASource);
-  I := 1;
-  J := 1;
+  LSource   := Length(ASource);
+  I         := 1;
+  J         := 1;
   while (I <= LTemplate) and (J <= LSource) do
   begin
     case ATemplate[I] of
@@ -1316,24 +1320,21 @@ type
   end;
 
 var
-  C: Integer;
-  FoundCount: Integer;
-
-  Positions: array of TFoundPos;
-  PositionLength: Integer;
-
-  Patterns: array of TPattern;
-  PatternCount: Integer;
-  PNum: Integer;
-
-  SourcePosition: Integer;
-  SourceLength: Integer;
-  SearchSource: AnsiString;
-
-  DeltaOld: Integer;
-  Delta: Integer;
-
-  PSource, PDest, PNew: PAnsiChar;
+  C               : Integer;
+  LFoundCount     : Integer;
+  LPositions      : array of TFoundPos;
+  LPositionLength : Integer;
+  LPatterns       : array of TPattern;
+  LPatternCount   : Integer;
+  LPNum           : Integer;
+  LSourcePosition : Integer;
+  LSourceLength   : Integer;
+  LSearchSource   : AnsiString;
+  LDeltaOld       : Integer;
+  LDelta          : Integer;
+  LSource         : PAnsiChar;
+  LDest           : PAnsiChar;
+  LNew            : PAnsiChar;
 begin
   // Is there anything to do at all?
   if (Source = '') or (Length(OldPatterns) <> Length(NewPatterns)) then
@@ -1343,82 +1344,82 @@ begin
   end;
 
   // Initialize the Pattern records
-  PatternCount := Length(OldPatterns);
+  LPatternCount := Length(OldPatterns);
 
-  FoundCount := 0;
-  SetLength(Patterns, PatternCount);
-  for C := 0 to PatternCount - 1 do
+  LFoundCount := 0;
+  SetLength(LPatterns, LPatternCount);
+  for C := 0 to LPatternCount - 1 do
     if (OldPatterns[C] <> '') and (OldPatterns[C] <> NewPatterns[C]) then
     begin
       if CaseSensitive then
-        Patterns[FoundCount].Old := OldPatterns[C]
+        LPatterns[LFoundCount].Old := OldPatterns[C]
       else
-        Patterns[FoundCount].Old := AnsiLowerCase(OldPatterns[C]);
-      Patterns[FoundCount].LengthOld := Length(OldPatterns[C]);
-      Patterns[FoundCount].New := PAnsiChar(NewPatterns[C]);
-      Patterns[FoundCount].LengthNew := Length(NewPatterns[C]);
-      Patterns[FoundCount].Diff :=
-        Patterns[FoundCount].LengthNew - Patterns[FoundCount].LengthOld;
+        LPatterns[LFoundCount].Old := AnsiLowerCase(OldPatterns[C]);
+      LPatterns[LFoundCount].LengthOld := Length(OldPatterns[C]);
+      LPatterns[LFoundCount].New := PAnsiChar(NewPatterns[C]);
+      LPatterns[LFoundCount].LengthNew := Length(NewPatterns[C]);
+      LPatterns[LFoundCount].Diff :=
+        LPatterns[LFoundCount].LengthNew - LPatterns[LFoundCount].LengthOld;
 
-      Inc(FoundCount);
+      Inc(LFoundCount);
     end;
-  PatternCount := FoundCount;
-  SetLength(Patterns, PatternCount);
+  LPatternCount := LFoundCount;
+  SetLength(LPatterns, LPatternCount);
 
   // Nothing to replace
-  if PatternCount = 0 then
+  if LPatternCount = 0 then
   begin
     Result := Source;
     Exit;
   end;
 
   if CaseSensitive then
-    SearchSource := Source
+    LSearchSource := Source
   else
-    SearchSource := AnsiLowerCase(Source);
+    LSearchSource := AnsiLowerCase(Source);
 
   try
     // Initialize some variables
-    SourceLength := Length(SearchSource);
-    Delta := 0;
+    LSourceLength := Length(LSearchSource);
+    LDelta := 0;
 
-    DeltaOld := 0;
-    for C := 0 to PatternCount - 1 do
-      Inc(DeltaOld, Patterns[C].LengthOld);
-    DeltaOld := Round(DeltaOld / PatternCount);
+    LDeltaOld := 0;
+    for C := 0 to LPatternCount - 1 do
+      Inc(LDeltaOld, LPatterns[C].LengthOld);
+    LDeltaOld := Round(LDeltaOld / LPatternCount);
 
-    FoundCount := 0;
+    LFoundCount := 0;
 
     // ----------------------------------
     // Check the amount of replaces
     // ----------------------------------
 
     // We *should* range check here, but who has strings > 2GB ?
-    PositionLength := SourceLength div DeltaOld + 1;
-    SetLength(Positions, PositionLength);
+    LPositionLength := LSourceLength div LDeltaOld + 1;
+    SetLength(LPositions, LPositionLength);
 
     C := 1;
-    while C <= SourceLength do
+    while C <= LSourceLength do
     begin
-      for PNum := 0 to PatternCount - 1 do
+      for LPNum := 0 to LPatternCount - 1 do
       begin
         // Check first char before we waste a jump to CompareMem
-        if (SearchSource[C]) = (Patterns[PNum].Old[1]) then
+        if (LSearchSource[C]) = (LPatterns[LPNum].Old[1]) then
         begin
-          if CompareMem(@SearchSource[C], @Patterns[PNum].Old[1], Patterns[PNum].LengthOld) then
+          if CompareMem(@LSearchSource[C], @LPatterns[LPNum].Old[1], LPatterns[LPNum].LengthOld) then
           begin
-            if FoundCount >= PositionLength then
+            if LFoundCount >= LPositionLength then
             begin
-              // Make room for more Positions
-              Inc(PositionLength, 4);
-              SetLength(Positions, PositionLength);
+              // Make room for more LPositions
+              Inc(LPositionLength, 4);
+              SetLength(LPositions, LPositionLength);
             end;
 
-            Positions[FoundCount].Position := C; // Store the found position
-            Positions[FoundCount].PatternNum := PNum;
-            Inc(FoundCount);
-            Inc(C, Patterns[PNum].LengthOld - 1); // Jump to after OldPattern
-            Inc(Delta, Patterns[PNum].Diff);
+            LPositions[LFoundCount].Position := C; // Store the found position
+            LPositions[LFoundCount].PatternNum := LPNum;
+            Inc(LFoundCount);
+            Inc(C, LPatterns[LPNum].LengthOld - 1); // Jump to after OldPattern
+            Inc(LDelta, LPatterns[LPNum].Diff);
             Break;
           end;
         end;
@@ -1430,48 +1431,48 @@ begin
     // Actual replace
     // ----------------------------------
 
-    if FoundCount > 0 then // Have we found anything?
+    if LFoundCount > 0 then // Have we found anything?
     begin
       // We know the length of the result
       // Again, we *should* range check here...
-      SetLength(Result, SourceLength + Delta);
+      SetLength(Result, LSourceLength + LDelta);
 
       // Initialize some variables
-      SourcePosition := 1;
-      PSource := PAnsiChar(Source);
-      PDest := PAnsiChar(Result);
+      LSourcePosition := 1;
+      LSource := PAnsiChar(Source);
+      LDest := PAnsiChar(Result);
 
       // Replace...
 
-      for C := 0 to FoundCount - 1 do
+      for C := 0 to LFoundCount - 1 do
       begin
-        PNum := Positions[C].PatternNum;
+        LPNum := LPositions[C].PatternNum;
 
         // Copy original and advance resultpos
-        PNew := Patterns[PNum].New;
+        LNew := LPatterns[LPNum].New;
 
-        Delta := Positions[C].Position - SourcePosition;
-        System.Move(PSource^, PDest^, Delta);
-        Inc(PDest, Delta);
+        LDelta := LPositions[C].Position - LSourcePosition;
+        System.Move(LSource^, LDest^, LDelta);
+        Inc(LDest, LDelta);
 
         // Append NewPattern and advance resultpos
-        System.Move(PNew^, PDest^, Patterns[PNum].LengthNew);
-        Inc(PDest, Patterns[PNum].LengthNew);
+        System.Move(LNew^, LDest^, LPatterns[LPNum].LengthNew);
+        Inc(LDest, LPatterns[LPNum].LengthNew);
 
         // Jump to after OldPattern
-        Inc(PSource, Delta + Patterns[PNum].LengthOld);
-        SourcePosition := Positions[C].Position + Patterns[PNum].LengthOld;
+        Inc(LSource, LDelta + LPatterns[LPNum].LengthOld);
+        LSourcePosition := LPositions[C].Position + LPatterns[LPNum].LengthOld;
       end;
 
       // Append characters after last OldPattern
-      System.Move(PSource^, PDest^, SourceLength - SourcePosition + 1);
+      System.Move(LSource^, LDest^, LSourceLength - LSourcePosition + 1);
     end else
       Result := Source; // Nothing to replace
 
   finally
     // Clean up
-    Finalize(Positions);
-    Finalize(Patterns);
+    Finalize(LPositions);
+    Finalize(LPatterns);
   end;
 end;
 
@@ -1491,14 +1492,14 @@ end;
 function GetPIMTOffset(const I: IInterface): Integer;
 // PIMT = Pointer to Interface Method Table
 const
-  AddByte = $04244483; // opcode for ADD DWORD PTR [ESP+4], Shortint
-  AddLong = $04244481; // opcode for ADD DWORD PTR [ESP+4], Longint
+  ADD_BYTE = $04244483; // opcode for ADD DWORD PTR [ESP+4], Shortint
+  ADD_LONG = $04244481; // opcode for ADD DWORD PTR [ESP+4], Longint
 type
   PAdjustSelfThunk = ^TAdjustSelfThunk;
   TAdjustSelfThunk = packed record
     case AddInstruction: longint of
-      AddByte : (AdjustmentByte : ShortInt);
-      AddLong : (AdjustmentLong : LongInt);
+      ADD_BYTE : (AdjustmentByte : ShortInt);
+      ADD_LONG : (AdjustmentLong : LongInt);
   end;
   PInterfaceMT = ^TInterfaceMT;
   TInterfaceMT = packed record
@@ -1513,52 +1514,33 @@ begin
     try
       QueryInterfaceThunk := TInterfaceRef(I)^.QueryInterfaceThunk;
       case QueryInterfaceThunk.AddInstruction of
-        AddByte: Result := -QueryInterfaceThunk.AdjustmentByte;
-        AddLong: Result := -QueryInterfaceThunk.AdjustmentLong;
+        ADD_BYTE: Result := -QueryInterfaceThunk.AdjustmentByte;
+        ADD_LONG: Result := -QueryInterfaceThunk.AdjustmentLong;
       end;
     except
       // Protect against non-Delphi or invalid interface references
     end;
 end;
 
-{$IFDEF WINDOWS}
-function ExploreFile(const AFileName: string): Boolean;
-const
-  PARAM = '/e,/select,"%s"';
+function GetParentDir(const APath: string): string;
 var
-  S : string;
-begin
-  if FileExists(AFileName) then
-  begin
-    S := Format(PARAM, [AFileName]);
-    ShellExecute(
-      Application.MainForm.Handle,
-      'open',
-      PChar('explorer.exe'),
-      PChar(S),
-      nil,
-      SW_SHOWNORMAL
-    );
-    Result := True;
-  end
-  else
-    Result := False;
-end;
-{$ENDIF}
-
-function GetParentDir(APath : string) : string;
-var
-  I : Integer;
+  I     : Integer;
+  LPath : string;
 begin
   Result := '';
-  APath := ExcludeTrailingPathDelimiter(APath);
+  LPath := ExcludeTrailingPathDelimiter(APath);
   // Start from one character before last.
-  for I := length(APath) - 1 downto 1 do
-    if APath[I] = DirectorySeparator then
+  for I := Length(LPath) - 1 downto 1 do
+    if LPath[I] = DirectorySeparator then
     begin
-      Result := Copy(APath, 1, I);
+      Result := Copy(LPath, 1, I);
       Break;
     end;
+end;
+
+procedure OpenFilePath(const APath: string);
+begin
+  OpenDocument(CleanAndExpandDirectory(APath));
 end;
 
 {$IFDEF WINDOWS}
@@ -1702,7 +1684,7 @@ begin
   end;
 end;
 
-function URLEncode(const AString: string): string;
+function UrlEncode(const AString: string): string;
 var
   I : Integer;
 begin
@@ -1720,7 +1702,7 @@ begin
   end;
 end;
 
-function URLDecode(const AString: string): string;
+function UrlDecode(const AString: string): string;
 const
   HEX_CHARS = '0123456789ABCDEF';
 var
@@ -1746,7 +1728,7 @@ begin
   SetLength(Result, pred(J));
 end;
 
-function XMLEncode(const ASource: string): string;
+function XmlEncode(const ASource: string): string;
 begin
   Result := StringReplace(ASource, '&',  '&amp;',[rfReplaceAll]);
   Result := StringReplace(Result,  '<',  '&lt;',[rfReplaceAll]);
@@ -1755,7 +1737,7 @@ begin
   Result := StringReplace(Result,  '''', '&apos;',[rfReplaceAll]);
 end;
 
-function XMLDecode(const ASource: string): string;
+function XmlDecode(const ASource: string): string;
 begin
   Result := StringReplace(ASource, '&apos;', '''',[rfReplaceAll]);
   Result := StringReplace(Result,  '&quot;', '"',[rfReplaceAll]);
@@ -2155,8 +2137,8 @@ var
 
   function GetPrefixLength(const AString: string): Integer;
   var
-    C: Char;
-    N: Integer;
+    C : Char;
+    N : Integer;
   begin
     N := 0;
     if Length(AString) > 0 then

@@ -32,17 +32,18 @@ interface
 
 uses
   LCLIntf, LCLType, LMessages, Messages, Classes, SysUtils, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, ActiveX,
+  Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, ActiveX, Types,
 
   uWVBrowser, uWVWindowParent, uWVLoader, uWVTypes, uWVEvents, uWVTypeLibrary,
   uWVCoreWebView2DownloadOperation,
 
-  DropComboTarget,
+  DropComboTarget, DropTarget, DragDropInternet, DragDropFile,
 
-  ts.HtmlEditor.Interfaces, Types, DropTarget, DragDropInternet, DragDropFile;
+  ts.HtmlEditor.Interfaces;
 
 type
   THtmlEditorView = class(TForm, IHtmlEditorView)
+    {$REGION 'designer controls'}
     dctMain             : TDropComboTarget;
     edtSource           : TEdit;
     imgFavIcon          : TImage;
@@ -51,6 +52,7 @@ type
     tmrCreateWebBrowser : TTimer;
     WVBrowser           : TWVBrowser;
     WVWindowParent      : TWVWindowParent;
+    {$ENDREGION}
 
     {$REGION 'event handlers'}
     procedure dctMainDrop(
@@ -408,7 +410,6 @@ type
     procedure SetDefaultContextMenusEnabled(AValue: Boolean);
     procedure SetDefaultScriptDialogsEnabled(AValue: Boolean);
     procedure SetDevToolsEnabled(AValue: Boolean);
-    procedure SetDocumentTitle(AValue: string);
     procedure SetEditMode(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetHtmlText(const AValue: string);
@@ -495,7 +496,7 @@ type
 
     {$REGION 'Webview properties'}
     property DocumentTitle: string
-      read GetDocumentTitle write SetDocumentTitle;
+      read GetDocumentTitle;
 
     property DefaultContextMenusEnabled: Boolean
       read GetDefaultContextMenusEnabled write SetDefaultContextMenusEnabled;
@@ -672,10 +673,12 @@ end;
 destructor THtmlEditorView.Destroy;
 begin
   Logger.Enter(Self, 'Destroy');
+
   FHeaders.Free;
   FEditorFont.Free;
   inherited Destroy;
-    Logger.Leave(Self, 'Destroy');
+
+  Logger.Leave(Self, 'Destroy');
 end;
 {$ENDREGION}
 
@@ -780,9 +783,8 @@ end;
 
 procedure THtmlEditorView.WVBrowserControllerCompleted(Sender: TObject);
 begin
-  Logger.Enter(Self, 'WVBrowserControllerCompleted');
-  Logger.Send('IsInitialized', IsInitialized);
-  Logger.Leave(Self, 'WVBrowserControllerCompleted');
+  //Logger.Enter(Self, 'WVBrowserControllerCompleted');
+  //Logger.Leave(Self, 'WVBrowserControllerCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserCustomItemSelected(Sender: TObject;
@@ -873,10 +875,12 @@ procedure THtmlEditorView.WVBrowserExecuteScriptCompleted(Sender: TObject;
   AErrorCode: HRESULT; const AResultObjectAsJson: wvstring;
   AExecutionID: Integer);
 begin
-  Logger.Enter(Self, 'WVBrowserExecuteScriptCompleted');
-  Logger.Send('AResultObjectAsJson', AResultObjectAsJson);
-  Logger.Send('AExecutionID', AExecutionID);
-  Logger.Leave(Self, 'WVBrowserExecuteScriptCompleted');
+  //Logger.Enter(Self, 'WVBrowserExecuteScriptCompleted');
+  //
+  //Logger.Send('AResultObjectAsJson', AResultObjectAsJson);
+  //Logger.Send('AExecutionID', AExecutionID);
+  //
+  //Logger.Leave(Self, 'WVBrowserExecuteScriptCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserFaviconChanged(Sender: TObject;
@@ -1273,10 +1277,10 @@ end;
 procedure THtmlEditorView.WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted
   (Sender: TObject; AErrorCode: HRESULT; const AID: wvstring);
 begin
-  Logger.Enter(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
-  Logger.Send('IsInitialized', IsInitialized);
+  //Logger.Enter(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
+  // At this moment the IsInitialised property is True.
   DoInitialized;
-  Logger.Leave(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
+  //Logger.Leave(Self, 'WVBrowserAddScriptToExecuteOnDocumentCreatedCompleted');
 end;
 
 procedure THtmlEditorView.WVBrowserWebResourceResponseReceived(Sender: TObject;
@@ -1290,7 +1294,7 @@ var
   LName     : wvstring;
   LValue    : wvstring;
 begin
-  //Logger.Enter(Self, 'WVBrowserWebResourceResponseReceived');
+  // Logger.Enter(Self, 'WVBrowserWebResourceResponseReceived');
   if FGetHeaders then
     try
       FHeaders.Clear;
@@ -1326,13 +1330,11 @@ procedure THtmlEditorView.WVBrowserWindowCloseRequested(Sender: TObject);
 begin
   //Logger.Info('WVBrowserWindowCloseRequested');
 end;
-
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}
 procedure THtmlEditorView.DoChange;
 begin
-  //Logger.Info('DoChange');
   UpdateWatches;
   FUpdate   := True;
   FModified := True;
@@ -1385,11 +1387,6 @@ end;
 function THtmlEditorView.GetDocumentTitle: string;
 begin
   Result := UTF8Encode(WVBrowser.DocumentTitle);
-end;
-
-procedure THtmlEditorView.SetDocumentTitle(AValue: string);
-begin
-  // not supported yet
 end;
 
 function THtmlEditorView.GetIconBitmap: TBitmap;
@@ -1704,7 +1701,7 @@ end;
 
 procedure THtmlEditorView.SetBullets(AValue: Boolean);
 begin
-  //imgFavIcon.Picture.Bitmap.Empty;
+//
 end;
 
 procedure THtmlEditorView.SetFileName(const AValue: string);
@@ -1983,12 +1980,12 @@ end;
 
 procedure THtmlEditorView.InsertImageFile(const AFileName: string);
 begin
-
+  //
 end;
 
 procedure THtmlEditorView.InsertImage(AImage: TPicture);
 begin
-
+  //
 end;
 
 procedure THtmlEditorView.InsertHyperlink(const AText: string;
@@ -2057,6 +2054,8 @@ initialization
   GlobalWebView2Loader                := TWVLoader.Create(nil);
   GlobalWebView2Loader.UserDataFolder := UTF8Decode(
     ExtractFileDir(Application.ExeName) + '\CustomCache');
+  //GlobalWebView2Loader.DebugLog := dlEnabledStdOut;
+  //GlobalWebView2Loader.DebugLogLevel := dllInfo;
   GlobalWebView2Loader.StartWebView2;
 
 end.

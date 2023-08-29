@@ -337,10 +337,9 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Main"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <TopLine Value="329"/>
-        <CursorPos X="42" Y="358"/>
+        <CursorPos X="44" Y="354"/>
         <FoldState Value=" TJjU5H021u"/>
         <UsageCount Value="243"/>
         <Loaded Value="True"/>
@@ -418,6 +417,7 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="SnippetSource.Forms.Grid"/>
+        <IsVisibleTab Value="True"/>
         <CursorPos X="3"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
@@ -494,7 +494,7 @@ end;"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.Editor.View"/>
         <EditorIndex Value="29"/>
-        <TopLine Value="1827"/>
+        <TopLine Value="2286"/>
         <CursorPos X="108" Y="1837"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -578,6 +578,7 @@ end;"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="SnippetSource.Modules.Terminal"/>
         <EditorIndex Value="10"/>
+        <TopLine Value="10"/>
         <CursorPos X="110" Y="3"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -702,7 +703,7 @@ end;"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.Editor.Manager"/>
         <EditorIndex Value="26"/>
-        <TopLine Value="1770"/>
+        <TopLine Value="3132"/>
         <CursorPos X="67" Y="1789"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -1822,7 +1823,6 @@ end;"/>
       </Unit164>
       <Unit165>
         <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.lfm"/>
-        <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
@@ -1844,11 +1844,11 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\SetupFiltersDialog.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="dlgSetupFilters"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <TopLine Value="52"/>
+        <CursorPos X="82" Y="22"/>
         <UsageCount Value="150"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit167>
@@ -1877,7 +1877,7 @@ end;"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="ts.Editor.CodeFormatters.Sql"/>
         <EditorIndex Value="16"/>
-        <TopLine Value="68"/>
+        <TopLine Value="25"/>
         <CursorPos X="3" Y="77"/>
         <UsageCount Value="150"/>
         <Loaded Value="True"/>

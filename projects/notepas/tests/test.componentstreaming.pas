@@ -56,9 +56,6 @@ type
     procedure SetUp; override;
     procedure TearDown; override;
 
-    procedure LoadXML(AComponent: TComponent);
-    procedure SaveXML(AComponent: TComponent);
-
     procedure LoadLFM(AComponent: TComponent);
     procedure SaveLFM(AComponent: TComponent);
 
@@ -72,9 +69,6 @@ type
     procedure AfterConstruction; override;
 
   published
-    procedure TestLoadXML;
-    procedure TestSaveXML;
-
     procedure TestLoadLFM;
     procedure TestSaveLFM;
 
@@ -90,7 +84,7 @@ uses
 
   FileUtil,
 
-  ts.Core.Logger, ts.Core.NativeXml, ts.Core.NativeXml.ObjectStorage;
+  ts.Core.Logger;
 
 {$REGION 'construction and destruction'}
 procedure TTestComponentStreaming.AfterConstruction;
@@ -162,48 +156,6 @@ begin
   FreeAndNil(FDeStreamer);
   FreeAndNil(FStreamer);
   inherited TearDown;
-end;
-
-procedure TTestComponentStreaming.LoadXML(AComponent: TComponent);
-var
-  LReader : TXmlObjectReader;
-  LDoc    : TNativeXml;
-begin
-  if FileExists(FXMLFile) then
-  begin
-    LDoc := TNativeXml.Create(nil);
-    try
-      LDoc.LoadFromFile(FXMLFile);
-      LReader := TXmlObjectReader.Create;
-      try
-        LReader.ReadComponent(LDoc.Root, AComponent, nil);
-      finally
-        FreeAndNil(LReader);
-      end;
-    finally
-      FreeAndNil(LDoc);
-    end;
-  end;
-end;
-
-procedure TTestComponentStreaming.SaveXML(AComponent: TComponent);
-var
-  LWriter : TXmlObjectWriter;
-  LDoc    : TNativeXml;
-begin
-  LDoc := TNativeXml.CreateName('Root', nil);
-  try
-    LWriter := TXmlObjectWriter.Create;
-    try
-      LDoc.XmlFormat := xfReadable;
-      LWriter.WriteComponent(LDoc.Root, AComponent);
-      LDoc.SaveToFile(FXMLFile);
-    finally
-      FreeAndNil(LWriter);
-    end;
-  finally
-    FreeAndNil(LDoc);
-  end;
 end;
 
 procedure TTestComponentStreaming.LoadLFM(AComponent: TComponent);
@@ -302,48 +254,6 @@ end;
 {$ENDREGION}
 
 {$REGION 'published methods'}
-procedure TTestComponentStreaming.TestLoadXML;
-var
-  C : TComponent;
-begin
-  Logger.Enter(Self, 'TestLoadXML');
-  LoadXML(FComponent);
-  Logger.SendComponent(FComponent);
-  for C in FComponent do
-  begin
-    Logger.SendComponent('Component', C);
-    if Assigned(C.GetParentComponent) then
-      Logger.SendComponent('ParentComponent', C.GetParentComponent);
-    if Assigned(C.Owner) then
-      Logger.SendComponent('Owner', C.Owner);
-  end;
-  SaveXML(FComponent);
-  Logger.Leave(Self, 'TestLoadXML');
-end;
-
-procedure TTestComponentStreaming.TestSaveXML;
-var
-  C : TComponent;
-begin
-  Logger.Enter(Self, 'TestSaveXML');
-  AddChildrenToParentComponent;
-  SaveXML(FParent);
-  AddChildrenToComponent;
-  //TEditorSettingsFactory.RegisterToolSettings(FToolSettings);
-
-   for C in FComponent do
-  begin
-    Logger.SendComponent('Component', C);
-    if Assigned(C.GetParentComponent) then
-      Logger.SendComponent('ParentComponent', C.GetParentComponent);
-    if Assigned(C.Owner) then
-          Logger.SendComponent('Owner', C.Owner);
-  end;
-
-  SaveXML(FComponent);
-  Logger.Leave(Self, 'TestSaveXML');
-end;
-
 procedure TTestComponentStreaming.TestLoadLFM;
 var
   C : TComponent;

@@ -70,6 +70,7 @@ type
     FCheckState : TCheckState;
     FCheckType  : TCheckType;
     FOwnsObject : Boolean;
+
   private
     function SearchTree(ANode: TVTNode<T>; const AData: T): TVTNode<T>;
     function VTNodeFromVNode(const AVNode: PVirtualNode): TVTNode<T>;
@@ -77,52 +78,53 @@ type
   protected
     {$REGION 'property access methods'}
     function GetAlign: Byte;
-    procedure SetAlign(const Value: Byte);
     function GetCheckState: TCheckState;
-    procedure SetCheckState(const Value: TCheckState);
     function GetCheckType: TCheckType;
-    procedure SetCheckType(const Value: TCheckType);
     function GetChildCount: UInt32;
     function GetData: T;
-    procedure SetData(const Value: T);
     function GetExpanded: Boolean;
-    procedure SetExpanded(const Value: Boolean);
-    function GetFocused: Boolean;
-    procedure SetFocused(const Value: Boolean);
-    function GetItem(AIndex: UInt32): T;
-    function GetLevel: Integer;
-    function GetHint: string;
-    procedure SetHint(const Value: string);
-    function GetImageIndex: Integer;
-    procedure SetImageIndex(const Value: Integer);
-    function GetIndex: Integer;
-    function GetNode(AIndex: UInt32): TVTNode<T>;
-    function GetNodeHeight: Word;
-    procedure SetNodeHeight(const Value: Word);
-    function GetOwnsObject: Boolean;
-    procedure SetOwnsObject(AValue: Boolean);
-    function GetSelected: Boolean;
-    procedure SetSelected(const Value: Boolean);
-    function GetStates: TVirtualNodeStates;
-    function GetText: string; virtual;
-    procedure SetText(const Value: string); virtual;
-    function GetTotalCount: Cardinal;
-    function GetTotalHeight: Cardinal;
-    function GetTree: TCustomVirtualStringTree;
-    function GetVisible: Boolean;
-    procedure SetVisible(const Value: Boolean);
-    function GetVNode: PVirtualNode;
-    procedure SetVNode(const Value: PVirtualNode);
     function GetFirstChildData: T;
     function GetFirstChildNode: TVTNode<T>;
+    function GetFocused: Boolean;
+    function GetHint: string;
+    function GetImageIndex: Integer;
+    function GetIndex: Integer;
+    function GetItem(AIndex: UInt32): T;
     function GetLastChildData: T;
     function GetLastChildNode: TVTNode<T>;
+    function GetLevel: Integer;
     function GetNextSiblingData: T;
     function GetNextSiblingNode: TVTNode<T>;
+    function GetNode(AIndex: UInt32): TVTNode<T>;
+    function GetNodeHeight: Word;
+    function GetOwnsObject: Boolean;
     function GetParentData: T;
     function GetParentNode: TVTNode<T>;
     function GetPrevSiblingData: T;
     function GetPrevSiblingNode: TVTNode<T>;
+    function GetSelected: Boolean;
+    function GetStates: TVirtualNodeStates;
+    function GetText: string; virtual;
+    function GetTotalCount: Cardinal;
+    function GetTotalHeight: Cardinal;
+    function GetTree: TCustomVirtualStringTree;
+    function GetVisible: Boolean;
+    function GetVNode: PVirtualNode;
+    procedure SetAlign(const Value: Byte);
+    procedure SetCheckState(const Value: TCheckState);
+    procedure SetCheckType(const Value: TCheckType);
+    procedure SetData(const Value: T);
+    procedure SetExpanded(const Value: Boolean);
+    procedure SetFocused(const Value: Boolean);
+    procedure SetHint(const Value: string);
+    procedure SetImageIndex(const Value: Integer);
+    procedure SetNodeHeight(const Value: Word);
+    procedure SetOwnsObject(AValue: Boolean);
+    procedure SetSelected(const Value: Boolean);
+    procedure SetText(const Value: string); virtual;
+    procedure SetVisible(const Value: Boolean);
+    procedure SetVNode(const Value: PVirtualNode);
+
     {$ENDREGION}
 
   public

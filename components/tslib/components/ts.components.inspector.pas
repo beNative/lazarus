@@ -51,8 +51,10 @@ type
   protected
     procedure UpdateBounds(ScrollCaret: Boolean); override;
     procedure UpdateColors; override;
+
   public
     procedure Invalidate; override;
+
   end;
 
 { TCustomInspector }

@@ -137,9 +137,6 @@ begin
   CreateToolButton(TB, 'actCut');
   CreateToolButton(TB, 'actCopy');
   CreateToolButton(TB, 'actPaste');
-  //CreateToolButton(TB);
-  //CreateToolButton(TB, 'actUndo');
-  //CreateToolButton(TB, 'actRedo');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actBold');
   CreateToolButton(TB, 'actItalic');
@@ -153,10 +150,6 @@ begin
   CreateToolButton(TB, 'actAlignLeft');
   CreateToolButton(TB, 'actAlignCenter');
   CreateToolButton(TB, 'actAlignRight');
-  //CreateToolButton(TB, 'actAlignJustify'); // not working yet
-  //CreateToolButton(TB);
-  //CreateToolButton(TB, 'actIncFontSize');
-  //CreateToolButton(TB, 'actDecFontSize');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actIncIndent');
   CreateToolButton(TB, 'actDecIndent');

@@ -23,15 +23,24 @@ interface
 uses
   ts.Core.Logger.Base, ts.Core.Logger.Interfaces;
 
-var
-  Logger : ILogger;
-  
+function Logger(const ALogLevel: Byte = 0): ILogger;
+
 implementation
 
+var
+  FLogger : ILogger;
+
+function Logger(const ALogLevel: Byte): ILogger;
+begin
+  if Assigned(FLogger) then
+    FLogger.LogLevel := ALogLevel;
+  Result := FLogger;
+end;
+
 initialization
-  Logger := TLogger.Create;
+  FLogger := TLogger.Create;
 
 finalization
-  Logger := nil;
+  FLogger := nil;
 
 end.

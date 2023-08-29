@@ -346,7 +346,6 @@ end;"/>
         <CursorPos X="16" Y="16"/>
         <UsageCount Value="44"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\components\tslib\tslib_editor.pas"/>

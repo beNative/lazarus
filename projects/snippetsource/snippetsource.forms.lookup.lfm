@@ -3,6 +3,7 @@ object frmLookup: TfrmLookup
   Height = 689
   Top = 287
   Width = 764
+  ActiveControl = edtLookup
   Caption = 'Lookup'
   ClientHeight = 689
   ClientWidth = 764
@@ -42,8 +43,8 @@ object frmLookup: TfrmLookup
         FieldName = 'Id'
       end    
       item
-        MinSize = 300
-        MaxSize = 800
+        MinSize = 200
+        MaxSize = 400
         SizePriority = 0
         Title.Alignment = taCenter
         Title.Caption = 'Name'
@@ -51,23 +52,12 @@ object frmLookup: TfrmLookup
         FieldName = 'NodeName'
       end    
       item
-        Alignment = taCenter
-        DropDownRows = 30
-        MinSize = 70
-        MaxSize = 70
-        SizePriority = 6
-        Title.Alignment = taCenter
-        Title.Caption = 'Highlighter'
-        Width = 75
-        FieldName = 'Highlighter'
-      end    
-      item
         MinSize = 120
         MaxSize = 120
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
-        Title.Caption = 'DateCreated'
+        Title.Caption = 'Date Created'
         Width = 80
         FieldName = 'DateCreated'
       end    
@@ -77,7 +67,7 @@ object frmLookup: TfrmLookup
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
-        Title.Caption = 'DateModified'
+        Title.Caption = 'Date Modified'
         Width = 87
         FieldName = 'DateModified'
       end>
@@ -95,6 +85,7 @@ object frmLookup: TfrmLookup
     TabOrder = 1
     TitleStyle = tsNative
     UseXORFeatures = True
+    OnDblClick = grdLookupDblClick
     OnKeyPress = grdLookupKeyPress
     OnKeyUp = grdLookupKeyUp
     OnMouseUp = grdLookupMouseUp

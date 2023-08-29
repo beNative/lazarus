@@ -28,11 +28,17 @@ uses
 
   SnippetSource.Interfaces;
 
+{      edtLookupKeyDown
+       edtLookupKeyPress
+       FormKeyUp
+       edtLookupKeyUp
+
+
+}
+
 type
-
-  { TfrmLookup }
-
   TfrmLookup = class(TForm)
+    {$REGION ''}
     aclMain   : TActionList;
     actSearch : TAction;
     dscMain   : TDatasource;
@@ -40,6 +46,7 @@ type
     grdLookup : TDBGrid;
     pnlTop    : TPanel;
     sbrMain   : TStatusBar;
+    {$ENDREGION}
 
     {$REGION 'action handlers'}
     procedure actSearchExecute(Sender: TObject);
@@ -52,6 +59,7 @@ type
     procedure edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
+    procedure grdLookupDblClick(Sender: TObject);
     procedure grdLookupKeyPress(Sender: TObject; var Key: Char);
     procedure grdLookupKeyUp(
       Sender  : TObject;
@@ -72,8 +80,10 @@ type
     FData      : ISearch;
     FUpdate    : Boolean;
 
+    {$REGION 'property access methods'}
     function GetDataSet: TDataSet;
     function GetSearchDataSet: TDataSet;
+    {$ENDREGION}
 
     procedure Modified;
 
@@ -103,7 +113,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLType, Windows,
+  LCLType, Windows, TypInfo, Rtti,
 
   ts.Core.Logger;
 
@@ -145,7 +155,6 @@ function TfrmLookup.GetSearchDataSet: TDataSet;
 begin
   Result := dscMain.DataSet;
 end;
-
 {$ENDREGION}
 
 {$REGION 'action handlers'}
@@ -160,97 +169,107 @@ procedure TfrmLookup.dscMainDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then
   begin
-    DataSet.Locate('Id' , DataSet.FieldByName('Id').AsInteger,[]);
-    //if not FData.SearchDataSet.IsEmpty then
-    //  FEditor.SearchAndSelectText(edtLookup.Text);
+    DataSet.Locate('Id' , SearchDataSet.FieldByName('Id').AsInteger, []);
+    if not FData.SearchDataSet.IsEmpty then
+      FEditor.SearchAndSelectText(edtLookup.Text);
   end;
 end;
 
 procedure TfrmLookup.edtLookupKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   Logger.Enter(Self, 'edtLookupKeyDown');
+
+  FVKPressed := False;
+  Logger.Watch('Key', Key);
+  Logger.Watch('ChrKey', Chr(Key));
+
+  //Logger.Send('Shift', TValue.From<TShiftState>(Shift).ToString);
+
   if not (
-    (ssAlt in Shift) or
-    (ssShift in Shift) or
-    (Key in [VK_DELETE, VK_LEFT, VK_RIGHT, VK_HOME, VK_END, VK_SHIFT, VK_CONTROL]) or
-    ((Key in [VK_INSERT, VK_DELETE, VK_LEFT, VK_RIGHT, VK_HOME, VK_END]) and
+    (ssAlt in Shift) or (ssShift in Shift) or
+    (Key in [VK_DELETE, VK_LEFT, VK_RIGHT, VK_HOME, VK_END, VK_SHIFT, VK_CONTROL, VK_UP, VK_DOWN, VK_PRIOR, VK_NEXT]) or
+    ((Key in [VK_INSERT, VK_DELETE, VK_LEFT, VK_RIGHT, VK_HOME, VK_END, VK_UP, VK_DOWN, VK_PRIOR, VK_NEXT]) and
     ((ssShift in Shift) or (ssCtrl in Shift)))
   ) then
   begin
+    Modified;
+    //FVKPressed := True;
+    //Logger.Info('VKPressed');
+    //Logger.Watch('FVKPressed', FVKPressed);
+  end
+  else
     FVKPressed := True;
-    //Key := 0;
+
+  if Key = VK_DOWN then
+  begin
+    SearchDataSet.Next;
+  end
+  else if Key = VK_UP then
+  begin
+    SearchDataSet.Prior;
+  end
+  else if Key = VK_HOME then
+  begin
+    SearchDataSet.First;
+  end
+  else if Key = VK_END then
+  begin
+    SearchDataSet.Last;
   end;
 
-  //if DataSet.IsEmpty then
-  //  Exit;
-
-    if Key = VK_Down then
-    begin
-      //if (LV.Items.IndexOf(LV.ItemFocused) + 1) < LV.Items.Count then
-      //  LV.ItemFocused := LV.Items[(LV.Items.IndexOf(LV.ItemFocused) + 1)];
-    end
-    else if Key = VK_Up then
-    begin
-      //if (LV.Items.IndexOf(LV.ItemFocused) - 1) >= 0 then
-      //  LV.ItemFocused := LV.Items[(LV.Items.IndexOf(LV.ItemFocused) - 1)];
-    end
-    else if Key = VK_Home then
-    begin
-  //    LV.ItemFocused := LV.Items[0];
-    end
-    else if Key = VK_End then
-    begin
-  //    LV.ItemFocused := LV.Items[LV.Items.Count - 1];
-    end;
-
-    //if LV.ItemFocused<>nil then
-    //begin
-    //  LV.Selected := LV.ItemFocused;
-    //  if Assigned(LV.Selected) then
-    //    LV.Selected.MakeVisible(True);
-    //end;
-    Logger.Leave(Self, 'edtLookupKeyDown');
+  Logger.Leave(Self, 'edtLookupKeyDown');
 end;
 
 procedure TfrmLookup.edtLookupKeyPress(Sender: TObject; var Key: Char);
 begin
   Logger.Enter(Self, 'edtLookupKeyPress');
+
   case Ord(Key) of
     VK_RETURN:
-      begin
-        //JumpToSelection;
-        Key := #0;
-      end;
-    VK_ESCAPE:
-      begin
-        ModalResult := mrCancel;
-        Key := #0;
-      end;
+    begin
+      Close;
+      Key := #0;
     end;
+    VK_ESCAPE:
+    begin
+      ModalResult := mrCancel;
+      Key := #0;
+    end;
+  end;
+
   Logger.Leave(Self, 'edtLookupKeyPress');
 end;
 
 procedure TfrmLookup.edtLookupKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   Logger.Enter(Self, 'edtLookupKeyUp');
+
   if FVKPressed and grdLookup.Enabled then
   begin
-    PostMessage(grdLookup.Handle, WM_KEYDOWN, Key, 0);
-    grdLookup.SetFocus;
+    //PostMessage(grdLookup.Handle, WM_KEYDOWN, Key, 0);
+    //grdLookup.SetFocus;
+  end
+  else
+  begin
+    Modified;
   end;
   FVKPressed := False;
-  Modified;
+
   Logger.Leave(Self, 'edtLookupKeyUp');
 end;
+
+{ Will get called when KeyPreview = True. }
 
 procedure TfrmLookup.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   Logger.Enter(Self, 'FormKeyUp');
+
   if Key = VK_ESCAPE then
   begin
     ModalResult := mrCancel;
     Close;
   end;
+
   Logger.Leave(Self, 'FormKeyUp');
 end;
 
@@ -259,9 +278,15 @@ begin
   edtLookup.SetFocus;
 end;
 
+procedure TfrmLookup.grdLookupDblClick(Sender: TObject);
+begin
+  Close;
+end;
+
 procedure TfrmLookup.grdLookupKeyPress(Sender: TObject; var Key: Char);
 begin
   Logger.Enter(Self, 'grdLookupKeyPress');
+
   if Ord(Key) = VK_ESCAPE then
   begin
     ModalResult := mrCancel;
@@ -270,24 +295,25 @@ begin
   else if not edtLookup.Focused then
   begin
     edtLookup.SetFocus;
-    PostMessage(edtLookup.Handle, WM_CHAR, Ord(Key), 0);
+    //PostMessage(edtLookup.Handle, WM_CHAR, Ord(Key), 0);
     edtLookup.SelStart := Length(edtLookup.Text);
     // required to prevent the invocation of accelerator keys!
-    //Key := #0;
+    Key := #0;
   end;
+
   Logger.Leave(Self, 'grdLookupKeyPress');
 end;
 
 procedure TfrmLookup.grdLookupKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  Modified;
+  //Modified;
 end;
 
 procedure TfrmLookup.grdLookupMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  Modified;
+//  Modified;
 end;
 {$ENDREGION}
 
@@ -295,6 +321,7 @@ end;
 procedure TfrmLookup.Modified;
 begin
   FUpdate := True;
+  Logger.Watch('FUpdate', FUpdate);
 end;
 {$ENDREGION}
 
@@ -302,7 +329,8 @@ end;
 procedure TfrmLookup.Execute;
 begin
   Logger.Enter(Self, 'Execute');
-  SearchDataSet.DisableControls;
+
+  //SearchDataSet.DisableControls;
   try
     (FData as ISearch).Search(
       edtLookup.Text,
@@ -311,11 +339,12 @@ begin
       True
     );
     //if not FData.SearchDataSet.IsEmpty then
-    //  /FEditor.SearchAndSelectText(edtLookup.Text);
-    finally
-      SearchDataSet.EnableControls;
-   //   grdLookup.AutoAdjustColumns;
-    end;
+    //  FEditor.SearchAndSelectText(edtLookup.Text);
+  finally
+//    SearchDataSet.EnableControls;
+ //   grdLookup.AutoAdjustColumns;
+  end;
+
   Logger.Leave(Self, 'Execute');
 end;
 
@@ -327,7 +356,7 @@ begin
     if Visible then
     begin
       Execute;
-//      FEditor.SearchAndSelectText(edtLookup.Text);
+      FEditor.SearchAndSelectText(edtLookup.Text);
     end;
     FUpdate := False;
   end;
@@ -335,8 +364,8 @@ begin
   begin
     sbrMain.SimpleText := Format('%d record(s)', [SearchDataSet.RecordCount]);
   end;
+  Logger.Watch('FUpdate', FUpdate);
 end;
 {$ENDREGION}
 
 end.
-

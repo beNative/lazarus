@@ -1,7 +1,7 @@
 object frmMain: TfrmMain
-  Left = 3976
+  Left = 1208
   Height = 763
-  Top = 440
+  Top = 198
   Width = 1111
   Caption = 'SnippetSource'
   ClientHeight = 763
@@ -245,7 +245,7 @@ object frmMain: TfrmMain
       Height = 720
       Top = 25
       Width = 825
-      PageIndex = 0
+      PageIndex = 2
       Align = alClient
       TabOrder = 0
       object pgTextEditor: TPage
@@ -760,6 +760,7 @@ object frmMain: TfrmMain
   end
   object aclMain: TActionList
     Images = imlMain
+    OnExecute = aclMainExecute
     Left = 200
     Top = 104
     object actExecute: TAction

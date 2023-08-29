@@ -1,7 +1,7 @@
 object frmGrid: TfrmGrid
-  Left = 3235
+  Left = 704
   Height = 820
-  Top = 90
+  Top = 288
   Width = 1250
   ClientHeight = 820
   ClientWidth = 1250
@@ -46,7 +46,9 @@ object frmGrid: TfrmGrid
           Color = clWindow
           Columns = <>
           DataSource = dscMain
-          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderHotTracking, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize]
+          Flat = True
+          HeaderPushZones = []
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderHotTracking, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
           Scrollbars = ssAutoBoth
           TabOrder = 0
           TitleStyle = tsNative

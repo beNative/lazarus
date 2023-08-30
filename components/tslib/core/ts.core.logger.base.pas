@@ -108,8 +108,7 @@ type
     //Helper functions
     function RectToStr(const ARect: TRect): string;
     function PointToStr(const APoint: TPoint): string;
-
-    function GetProperties(const AInstance: TValue): string;
+    function StringValueOf(const AValue: TValue): string;
 
   public
     procedure AfterConstruction; override;
@@ -139,6 +138,8 @@ type
     function Send(const AValue: ShortInt): ILogger; overload;
     function Send(const AName: string; const AValue: SmallInt): ILogger; overload;
     function Send(const AValue: SmallInt): ILogger; overload;
+    function Send(const AName: string; const AValue: Int64): ILogger; overload;
+    function Send(const AValue: Int64): ILogger; overload;
 
     // Overloads for float types
     function Send(const AName: string; const AValue: Double): ILogger; overload;
@@ -167,7 +168,10 @@ type
     function SendObject(const AName: string; AValue: TObject): ILogger; overload;
     function SendObject(AValue: TObject): ILogger; overload;
 
-    //procedure SendBitmap(const AText: string; ABitmap: TBitmap); //inline;
+    function SendBitmap(const AName: string; AValue: TBitmap): ILogger; overload;
+    function SendBitmap(AValue: TBitmap): ILogger; overload;
+    function SendGraphic(const AName: string; AValue: TGraphic): ILogger; overload;
+    function SendGraphic(AValue: TGraphic): ILogger; overload;
     //procedure SendCallStack(const AText: string); overload; inline;
     //procedure SendHeapInfo(const AText: string); overload; inline;
     //procedure SendMemory(const AText: string; AAddress: Pointer; ASize: LongWord); overload; inline;
@@ -530,85 +534,37 @@ begin
     Result := Format('(X: %d; Y: %d)',[X,Y]);
 end;
 
-function TLogger.GetProperties(const AInstance: TValue): string;
-//var
-//  P             : TRttiProperty;
-//  V             : TValue;
-//  V2            : TValue;
-//  ExcludedTypes : TTypeKinds;
-//  List          : TList<string>;
+function TLogger.StringValueOf(const AValue: TValue): string;
+var
+  V : TValue;
+  S : string;
+  I : Integer;
 begin
-  //if not AInstance.IsEmpty then
-  //begin
-  //  //Clear;
-  //  ExcludedTypes := [
-  //    tkClassRef, tkMethod, tkInterface, tkPointer, tkUnknown, tkArray,
-  //    tkDynArray, tkClass, tkProcedure
-  //  ];
-  //  List := TList<string>.Create;
-  //  try
-  //    List.AddRange(ANames);
-  //    if AAssignProperties then
-  //    begin
-  //      for P in FRttiContext.GetType(AInstance.TypeInfo).GetProperties do
-  //      begin
-  //        if (List.Count = 0) or List.Contains(P.Name) then
-  //        begin
-  //          if not (P.PropertyType.TypeKind in ExcludedTypes) and P.IsReadable then
-  //          begin
-  //            if AInstance.IsObject then
-  //              V := P.GetValue(AInstance.AsObject)
-  //            else
-  //              V := P.GetValue(AInstance.GetReferenceToRawData);
-  //            if V.Kind = tkRecord then
-  //            begin
-  //              if TryGetUnderlyingValue(V, V2) then
-  //              begin
-  //                if AAssignNulls or (not AAssignNulls and not V2.IsEmpty) then
-  //                  Values[P.Name] := V2;
-  //              end
-  //              else
-  //              begin
-  //                raise Exception.Create('TryGetUnderlyingValue failed.');
-  //              end;
-  //            end
-  //            else
-  //            begin
-  //              if AAssignNulls or (not AAssignNulls and not V.IsEmpty) then
-  //                Values[P.Name] := V;
-  //            end;
-  //          end;
-  //        end;
-  //      end;
-  //    end;
-  //    if AAssignFields then
-  //    begin
-  //      for F in FRttiContext.GetType(AInstance.TypeInfo).GetFields do
-  //      begin
-  //        if (List.Count = 0) or List.Contains(F.Name) then
-  //        begin
-  //          if not (F.FieldType.TypeKind in ExcludedTypes) then
-  //          begin
-  //            if AInstance.IsObject then
-  //              V := F.GetValue(AInstance.AsObject)
-  //            else
-  //              V := F.GetValue(AInstance.GetReferenceToRawData);
-  //
-  //            if V.Kind = tkRecord then
-  //            begin
-  //              if TryGetUnderlyingValue(V, V2) then
-  //                Values[F.Name] := V2;
-  //            end
-  //            else
-  //              Values[F.Name] := V
-  //          end;
-  //        end;
-  //      end;
-  //    end;
-  //  finally
-  //    FreeAndNil(List);
-  //  end;
-  //end; // if not AInstance.IsEmpty then
+  case AValue.Kind of
+    tkArray, tkDynArray:
+    begin
+      for I := 0 to AValue.GetArrayLength - 1 do
+      begin
+        V := AValue.GetArrayElement(I);
+        S := S + StringValueOf(V) + sLineBreak;
+      end
+    end;
+    tkSet:
+    begin
+      S := SetToString(AValue.TypeInfo, AValue.GetReferenceToRawData, True);
+    end;
+    tkInterface:
+      //S := sLineBreak + Reflect.Fields(AValue).ToString;
+      S := '';
+    tkRecord:
+      S := '';
+      //S := sLineBreak + Reflect.Fields(AValue).ToString;
+    else
+    begin
+      S := AValue.ToString;
+    end;
+  end;
+  Result := S;
 end;
 {$ENDREGION}
 
@@ -754,21 +710,18 @@ end;
 
 {$REGION 'Send overloads'}
 function TLogger.Send(const AName: string; const AValue: string): ILogger;
-var
-  S : string;
 begin
-  S := Format('%s = %s', [AName, AValue]);
-  Result := InternalSend(lmtValue, S);
+  Result := Send(AName, TValue.From<string>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: ShortString): ILogger;
 begin
-  Result := Send(AName, string(AValue));
+  Result := Send(AName, TValue.From<ShortString>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: WideString): ILogger;
 begin
-  Result := Send(AName, string(AValue));
+  Result := Send(AName, TValue.From<WideString>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AArgs: array of const)
@@ -779,22 +732,44 @@ end;
 
 function TLogger.Send(const AName: string; const AValue: UInt64): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<UInt64>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: Integer): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<Integer>(AValue));
 end;
+
+//function TLogger.Send(const AName: string; const AValue: TValue): ILogger;
+//var
+//  S : string;
+//begin
+//  S := Format('%s = %s', [
+//    AName,
+//    AValue.ToString
+//  ]);
+//  Result := InternalSend(lmtValue, S);
+//end;
 
 function TLogger.Send(const AName: string; const AValue: TValue): ILogger;
 var
   S : string;
 begin
-  S := Format('%s = %s', [
-    AName,
-    AValue.ToString
-  ]);
+  if AValue.TypeInfo <> nil then
+  begin
+    S := Format('%s (%s) = %s', [
+      AName,
+      AValue.TypeInfo.Name,
+      StringValueOf(AValue)
+    ]);
+  end
+  else
+  begin
+    S := Format('%s = %s', [
+      AName,
+      StringValueOf(AValue)
+    ]);
+  end;
   Result := InternalSend(lmtValue, S);
 end;
 
@@ -805,27 +780,27 @@ end;
 
 function TLogger.Send(const AName: string; const AValue: Byte): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<Byte>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: Word): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<Word>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: Cardinal): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<Cardinal>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: ShortInt): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<ShortInt>(AValue));
 end;
 
 function TLogger.Send(const AName: string; const AValue: Double): ILogger;
 begin
-  Result := Send(AName, Format('%f', [AValue]));
+  Result := Send(AName, TValue.From<Double>(AValue));
 end;
 
 function TLogger.Send(const AValue: Double): ILogger;
@@ -835,7 +810,7 @@ end;
 
 function TLogger.Send(const AName: string; const AValue: SmallInt): ILogger;
 begin
-  Result := Send(AName, IntToStr(AValue));
+  Result := Send(AName, TValue.From<SmallInt>(AValue));
 end;
 
 function TLogger.Send(const AValue: string): ILogger;
@@ -855,7 +830,7 @@ end;
 
 function TLogger.SendDateTime(const AName: string; AValue: TDateTime): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<TDateTime>(AValue));
 end;
 
 function TLogger.SendDateTime(AValue: TDateTime): ILogger;
@@ -865,7 +840,7 @@ end;
 
 function TLogger.SendDate(const AName: string; AValue: TDate): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<TDate>(AValue));
 end;
 
 function TLogger.SendDate(AValue: TDate): ILogger;
@@ -875,7 +850,7 @@ end;
 
 function TLogger.SendTime(const AName: string; AValue: TTime): ILogger;
 begin
-  Result := Send(AName, TValue(AValue));
+  Result := Send(AName, TValue.From<TTime>(AValue));
 end;
 
 function TLogger.SendTime(AValue: TTime): ILogger;
@@ -914,6 +889,16 @@ begin
 end;
 
 function TLogger.Send(const AValue: SmallInt): ILogger;
+begin
+  Result := Send('', AValue);
+end;
+
+function TLogger.Send(const AName: string; const AValue: Int64): ILogger;
+begin
+  Result := Send(AName, TValue.From<Int64>(AValue));
+end;
+
+function TLogger.Send(const AValue: Int64): ILogger;
 begin
   Result := Send('', AValue);
 end;
@@ -969,6 +954,35 @@ begin
   Result := SendObject('', AValue);
 end;
 
+function TLogger.SendBitmap(const AName: string; AValue: TBitmap): ILogger;
+begin
+  Result := SendGraphic(AName, AValue);
+end;
+
+function TLogger.SendBitmap(AValue: TBitmap): ILogger;
+begin
+  Result := SendBitmap('', AValue);
+end;
+
+function TLogger.SendGraphic(const AName: string; AValue: TGraphic): ILogger;
+var
+  LStream  : TMemoryStream;
+begin
+  Result := Self;
+  LStream := TMemoryStream.Create;
+  try
+    AValue.SaveToStream(LStream);
+    InternalSendStream(lmtBitmap, AName, LStream);
+  finally
+    LStream.Free;
+  end;
+end;
+
+function TLogger.SendGraphic(AValue: TGraphic): ILogger;
+begin
+  Result := SendGraphic('', AValue);
+end;
+
 {$ENDREGION}
 
 {$REGION 'Specialized Send methods'}
@@ -988,7 +1002,7 @@ function TLogger.SendText(const AText: string): ILogger;
 var
   S : string;
 begin
-  S := #13#10 + AText;
+  S := sLineBreak + AText;
   Result := InternalSend(lmtText, S);
 end;
 

@@ -21,6 +21,7 @@ unit ts.Core.Logger;
 interface
 
 uses
+  System.UITypes,
   ts.Core.Logger.Base, ts.Core.Logger.Interfaces;
 
 function Logger(const ALogLevel: Byte = 0): ILogger;

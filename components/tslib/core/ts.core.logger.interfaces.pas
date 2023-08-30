@@ -21,7 +21,7 @@ unit ts.Core.Logger.Interfaces;
 interface
 
 uses
-  Classes, SysUtils, Graphics, Rtti;
+  Classes, SysUtils, Graphics, Rtti, System.UITypes;
 
 type
   TLogMessageType = (
@@ -183,6 +183,9 @@ type
     { Int32 = Integer = FixedInt }
     function Send(const AName: string; const AValue: Integer): ILogger; overload;
     function Send(const AValue: Integer): ILogger; overload;
+    { Int64 }
+    function Send(const AName: string; const AValue: Int64): ILogger; overload;
+    function Send(const AValue: Int64): ILogger; overload;
 
     // Overloads for string types
     { These three overloads are here because TValue would cast them implicitely
@@ -214,6 +217,11 @@ type
 
     function SendObject(const AName: string; AValue: TObject): ILogger; overload;
     function SendObject(AValue: TObject): ILogger; overload;
+
+    function SendBitmap(const AName: string; AValue: TBitmap): ILogger; overload;
+    function SendBitmap(AValue: TBitmap): ILogger; overload;
+    function SendGraphic(const AName: string; AValue: TGraphic): ILogger; overload;
+    function SendGraphic(AValue: TGraphic): ILogger; overload;
 
     function SendPersistent(const AName: string; AValue: TPersistent): ILogger; overload;
     function SendPersistent(AValue: TPersistent): ILogger; overload;

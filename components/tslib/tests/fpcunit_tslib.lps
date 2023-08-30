@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="fpcunit_tslib.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <CursorPos Y="15"/>
+        <UsageCount Value="34"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="test.core.logger.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.Core.Logger"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="204"/>
+        <CursorPos Y="205"/>
+        <UsageCount Value="34"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\projects\notepas\tests\test.editor.settings.pas"/>
+        <UnitName Value="Test.Editor.Settings"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\projects\notepas\tests\test.componentstreaming.pas"/>
+        <UnitName Value="Test.ComponentStreaming"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="44"/>
+        <CursorPos X="3" Y="93"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\packages\fcl-fpcunit\src\fpcunit.pp"/>
+        <EditorIndex Value="9"/>
+        <TopLine Value="653"/>
+        <CursorPos X="3" Y="656"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\projects\snippetsource\snippetsource.forms.main.pas"/>
+        <UnitName Value="SnippetSource.Forms.Main"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="1334"/>
+        <CursorPos X="45" Y="1366"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="86"/>
+        <CursorPos X="3" Y="109"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\core\ts.core.logger.interfaces.pas"/>
+        <UnitName Value="ts.Core.Logger.Interfaces"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="200"/>
+        <CursorPos X="64" Y="224"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <UnitName Value="ts.Core.Logger.Base"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="5"/>
+        <TopLine Value="535"/>
+        <CursorPos X="69" Y="554"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\packages\rtl-objpas\src\inc\rtti.pp"/>
+        <UnitName Value="Rtti"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="110"/>
+        <CursorPos X="58" Y="149"/>
+        <UsageCount Value="18"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\config_lazarus\onlinepackagemanager\packages\atsynedit\atsynedit\atsynedit_keymap.pas"/>
+        <UnitName Value="ATSynEdit_Keymap"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="122"/>
+        <CursorPos X="72" Y="139"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\lazarus\lcl\lclproc.pas"/>
+        <UnitName Value="LCLProc"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="18"/>
+        <CursorPos Y="18"/>
+        <UsageCount Value="17"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\lazarus\components\lazutils\laztracer.pas"/>
+        <UnitName Value="LazTracer"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="34"/>
+        <UsageCount Value="9"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\config_lazarus\onlinepackagemanager\packages\CEF4Delphi\source\uFMXBufferPanel.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="52"/>
+        <CursorPos X="27" Y="69"/>
+        <UsageCount Value="16"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\packages\rtl-objpas\src\inc\system.uitypes.pp"/>
+        <UnitName Value="System.UITypes"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="3"/>
+        <CursorPos X="31" Y="27"/>
+        <UsageCount Value="16"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\lazarus\components\lazutils\uitypes.pas"/>
+        <UnitName Value="UITypes"/>
+        <EditorIndex Value="8"/>
+        <CursorPos X="13" Y="3"/>
+        <UsageCount Value="17"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\core\ts.core.logger.pas"/>
+        <UnitName Value="ts.Core.Logger"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="33" Y="20"/>
+        <UsageCount Value="14"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="test.data.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.Data"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="test.utils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Test.Utils"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="11"/>
+        <CursorPos X="3" Y="32"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\config_lazarus\onlinepackagemanager\packages\luipack\luicomponents\luirttiutils.pas"/>
+        <UnitName Value="LuiRTTIUtils"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="253"/>
+        <CursorPos X="3" Y="276"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\config_lazarus\onlinepackagemanager\packages\luipack\luicomponents\tests\rttiutilstests.pas"/>
+        <UnitName Value="RTTIUtilsTests"/>
+        <EditorIndex Value="-1"/>
+        <CursorPos X="29" Y="21"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\packages\fcl-base\src\rttiutils.pp"/>
+        <UnitName Value="RttiUtils"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="11"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\..\fpcsrc\rtl\objpas\typinfo.pp"/>
+        <UnitName Value="TypInfo"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="874"/>
+        <CursorPos X="87" Y="886"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="29">
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="147" TopLine="125"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="883" Column="53" TopLine="866"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="143" Column="14" TopLine="125"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="981" Column="3" TopLine="977"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="129" Column="14" TopLine="122"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="897" Column="45" TopLine="874"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="894" Column="6" TopLine="931"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="801" Column="3" TopLine="764"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="1499" TopLine="1453"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="133" Column="22" TopLine="118"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="567" TopLine="538"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="112" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="55" Column="44" TopLine="51"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="21" Column="44" TopLine="15"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="827" Column="66" TopLine="746"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\..\fpcsrc\packages\rtl-objpas\src\inc\rtti.pp"/>
+        <Caret Line="175" Column="14" TopLine="135"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="461" Column="65" TopLine="440"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="165" Column="33" TopLine="137"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="167" Column="20" TopLine="136"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="165" Column="35" TopLine="136"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="166" Column="5" TopLine="136"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="146" Column="12" TopLine="121"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="137" Column="79" TopLine="121"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="1085" Column="61" TopLine="1059"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="272" TopLine="240"/>
+      </Position>
+      <Position>
+        <Filename Value="test.core.logger.pas"/>
+        <Caret Line="227" Column="33" TopLine="156"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="762" Column="20" TopLine="737"/>
+      </Position>
+      <Position>
+        <Filename Value="..\core\ts.core.logger.base.pas"/>
+        <Caret Line="111" Column="14" TopLine="90"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

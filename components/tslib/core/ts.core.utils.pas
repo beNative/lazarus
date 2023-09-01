@@ -131,14 +131,12 @@ function CreateGUIDString: string;
 function CreateUniqueID: string;
 function GetLocalUserName: string;
 function GetLocalComputerName: string;
+procedure CreateShellLink(ShellLink: TShellLink);
+//function RunAsAdmin(const APath: string; const AParams: string): Boolean;
 {$ENDIF}
 
 function GetParentDir(const APath: string): string;
 procedure OpenFilePath(const APath: string);
-
-{$IFDEF WINDOWS}
-procedure CreateShellLink(ShellLink: TShellLink);
-{$ENDIF}
 
 // FCL utilities
 
@@ -1573,6 +1571,21 @@ begin
     // just ignore the creation
   end;
 end;
+
+//function RunAsAdmin(const APath: string; const AParams: string): Boolean;
+//var
+//  SEI : TShellExecuteInfoA;
+//begin
+//  FillChar(SEI, SizeOf(SEI), 0);
+//  SEI.cbSize := SizeOf(SEI);
+//  SEI.Wnd := Application.MainFormHandle;
+//  SEI.fMask := SEE_MASK_FLAG_DDEWAIT or SEE_MASK_FLAG_NO_UI;
+//  SEI.lpVerb := 'runas';
+//  SEI.lpFile := PAnsiChar(APath);
+//  SEI.lpParameters := PAnsiChar(AParams);
+//  SEI.nShow := SW_SHOWNORMAL;
+//  Result := ShellExecuteExA(@SEI);
+//end;
 {$ENDIF}
 
 function WordCount(const AString: string; const AWordDelims: TSysCharSet)

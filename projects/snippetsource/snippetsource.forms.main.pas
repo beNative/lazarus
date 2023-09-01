@@ -495,7 +495,10 @@ var
   FS        : TFileStream;
   LFileName : string;
 begin
-  LFileName := Format(EXECUTE_SCRIPT_FILE, [Snippet.Highlighter]);
+  LFileName := Format(
+    EXECUTE_SCRIPT_FILE,
+    [Snippet.Id, Snippet.Highlighter.ToLower]
+  );
   Logger.Send('FileName', LFileName);
   FS := TFileStream.Create(LFileName, fmCreate);
   try
@@ -510,7 +513,9 @@ begin
   else if Snippet.Highlighter = 'PY' then
   begin
     dmTerminal.Execute(
-      Format(EXECUTE_PYTHON_SCRIPT, [FSettings.PythonVirtualEnvironmentName])
+      Format(EXECUTE_PYTHON_SCRIPT,
+       [FSettings.PythonVirtualEnvironmentName, LFileName]
+      )
     );
   end;
 end;
@@ -1492,11 +1497,13 @@ begin
   if HtmlEditor.Source.IsEmpty then
   begin
     Snippet.Source   := '';
-    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText)
+    Snippet.HtmlText := HtmlEditor.Text;
+    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
   end
   else
   begin
     Snippet.HtmlData := '';
+    Snippet.HtmlText := '';
     Snippet.Source   := HtmlEditor.Source;
   end;
 

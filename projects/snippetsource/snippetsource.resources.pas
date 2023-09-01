@@ -26,8 +26,8 @@ uses
 const
   SETTINGS_FILE         = 'settings.json';
 
-  EXECUTE_SCRIPT_FILE   = 'SnippetSource.%s';
-  EXECUTE_PYTHON_SCRIPT = '.\%s\Scripts\activate.bat & py "SnippetSource.PY"';
+  EXECUTE_SCRIPT_FILE   = 'snippetsource_%d.%s';
+  EXECUTE_PYTHON_SCRIPT = '.\%s\Scripts\activate.bat & py "%s"';
 
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';

@@ -34,7 +34,7 @@ type
     ppmPreview                  : TPopupMenu;
 
   private
-     FSynExporterRTF: TSynExporterRTF;
+     FSynExporterRTF : TSynExporterRTF;
 
   protected
     procedure EditorCaretPositionChange(Sender: TObject; X, Y: Integer); override;

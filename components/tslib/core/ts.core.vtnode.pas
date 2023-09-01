@@ -124,7 +124,6 @@ type
     procedure SetText(const Value: string); virtual;
     procedure SetVisible(const Value: Boolean);
     procedure SetVNode(const Value: PVirtualNode);
-
     {$ENDREGION}
 
   public

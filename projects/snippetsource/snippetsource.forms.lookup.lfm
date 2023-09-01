@@ -1,12 +1,12 @@
 object frmLookup: TfrmLookup
-  Left = 997
+  Left = 876
   Height = 689
-  Top = 287
-  Width = 764
+  Top = 288
+  Width = 794
   ActiveControl = edtLookup
-  Caption = 'Lookup'
+  Caption = 'Search'
   ClientHeight = 689
-  ClientWidth = 764
+  ClientWidth = 794
   Color = clWindow
   Font.Height = -12
   KeyPreview = True
@@ -20,66 +20,92 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 23
     Top = 666
-    Width = 764
+    Width = 784
+    BorderSpacing.Right = 10
+    Font.Height = -11
     Panels = <>
+    ParentFont = False
   end
   object grdLookup: TDBGrid
     Left = 0
-    Height = 637
-    Top = 29
-    Width = 764
+    Height = 644
+    Top = 22
+    Width = 794
     Align = alClient
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
       item
+        Font.Color = clRed
+        Font.Height = -11
         MinSize = 40
         MaxSize = 40
         ReadOnly = True
         SizePriority = 8
         Title.Alignment = taCenter
+        Title.Font.Color = clRed
+        Title.Font.Height = -11
+        Title.Font.Style = [fsBold]
         Title.Caption = 'Id'
         Width = 25
         FieldName = 'Id'
       end    
       item
-        MinSize = 200
-        MaxSize = 400
+        Font.Height = -11
+        MinSize = 400
+        MaxSize = 2000
         SizePriority = 0
         Title.Alignment = taCenter
+        Title.Font.Height = -11
+        Title.Font.Style = [fsBold]
         Title.Caption = 'Name'
-        Width = 47
+        Width = 500
         FieldName = 'NodeName'
       end    
       item
+        Alignment = taCenter
+        Color = clDefault
+        Font.Color = clBlue
+        Font.Height = -11
         MinSize = 120
         MaxSize = 120
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
+        Title.Font.Color = clBlue
+        Title.Font.Height = -11
+        Title.Font.Style = [fsBold]
         Title.Caption = 'Date Created'
-        Width = 80
+        Width = 120
         FieldName = 'DateCreated'
       end    
       item
+        Alignment = taCenter
+        Color = clDefault
+        Font.Color = clGreen
+        Font.Height = -11
         MinSize = 120
         MaxSize = 120
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
+        Title.Font.Color = clGreen
+        Title.Font.Height = -11
+        Title.Font.Style = [fsBold]
         Title.Caption = 'Date Modified'
-        Width = 87
+        Width = 120
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
     FixedColor = clWindow
     FixedCols = 0
     FixedHotColor = clWindow
-    Flat = True
+    Font.Height = -11
     HeaderHotZones = []
     HeaderPushZones = []
-    Options = [dgTitles, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+    Options = [dgTitles, dgColumnResize, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgThumbTracking, dgDblClickAutoSize]
     OptionsExtra = []
+    ParentFont = False
     ReadOnly = True
     Scrollbars = ssAutoBoth
     TabOrder = 1
@@ -92,21 +118,23 @@ object frmLookup: TfrmLookup
   end
   object pnlTop: TPanel
     Left = 0
-    Height = 29
+    Height = 21
     Top = 0
-    Width = 764
+    Width = 794
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 29
-    ClientWidth = 764
+    ClientHeight = 21
+    ClientWidth = 794
     TabOrder = 2
     object edtLookup: TEdit
-      Left = 0
-      Height = 29
+      Left = 10
+      Height = 21
       Top = 0
-      Width = 764
+      Width = 784
       Align = alClient
+      BorderSpacing.Left = 10
+      BorderStyle = bsNone
       Font.Height = -16
       OnKeyDown = edtLookupKeyDown
       OnKeyPress = edtLookupKeyPress
@@ -114,6 +142,15 @@ object frmLookup: TfrmLookup
       ParentFont = False
       TabOrder = 0
     end
+  end
+  object shLine: TShape
+    Left = 0
+    Height = 1
+    Top = 21
+    Width = 794
+    Align = alTop
+    Brush.Color = clDefault
+    Pen.Color = clBtnFace
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange

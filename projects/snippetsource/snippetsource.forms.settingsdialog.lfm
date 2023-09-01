@@ -17,9 +17,9 @@ object frmSettingsDialog: TfrmSettingsDialog
     Height = 431
     Top = 0
     Width = 615
-    ActivePage = tsTerminalSettings
+    ActivePage = tsApplication
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
@@ -155,7 +155,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Font.Style = [fsBold]
         MaxLength = 0
         ParentFont = False
-        TabOrder = 0
+        TabOrder = 9
       end
       object lblDataBaseFile: TLabel
         Left = 8
@@ -176,7 +176,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         Images = imlMain
         ImageIndex = 0
-        TabOrder = 1
+        TabOrder = 5
       end
       object btnDatabaseVacuum: TBitBtn
         Left = 449
@@ -188,7 +188,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         Images = imlMain
         ImageIndex = 1
-        TabOrder = 2
+        TabOrder = 4
       end
       object grpDatabaseInfo: TGroupBox
         Left = 0
@@ -199,7 +199,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Caption = 'SQLite Database information'
         ClientHeight = 347
         ClientWidth = 435
-        TabOrder = 3
+        TabOrder = 10
         object grdDBInfo: TStringGrid
           Left = 8
           Height = 341
@@ -256,7 +256,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         Images = imlMain
         ImageIndex = 3
-        TabOrder = 4
+        TabOrder = 0
       end
       object btnCreateNewDatabase: TBitBtn
         Left = 449
@@ -268,7 +268,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Margin = 4
         Images = imlMain
         ImageIndex = 2
-        TabOrder = 5
+        TabOrder = 1
       end
       object btnCreateDatabaseIndexes: TBitBtn
         Left = 449
@@ -314,7 +314,7 @@ object frmSettingsDialog: TfrmSettingsDialog
           55665555556655555566555555665555554D5555550055555500
         }
         Margin = 4
-        TabOrder = 6
+        TabOrder = 2
       end
       object btnCreateDatabaseTables: TBitBtn
         Left = 449
@@ -360,59 +360,13 @@ object frmSettingsDialog: TfrmSettingsDialog
           55665555556655555566555555665555554D5555550055555500
         }
         Margin = 4
-        TabOrder = 7
-      end
-      object btnCreateDatabaseTriggers: TBitBtn
-        Left = 449
-        Height = 25
-        Top = 160
-        Width = 150
-        Action = actCreateDatabaseTriggers
-        Anchors = [akTop, akRight]
-        Glyph.Data = {
-          36040000424D3604000000000000360000002800000010000000100000000100
-          2000000000000004000064000000640000000000000000000000FFFFFF00FFFF
-          FF000C0C0C600808088105050581040404810404048204040483050505830606
-          068308080883064A03CE065E01E6076202AC086602000E8C0000FFFFFF00FFFF
-          FF001A1A1A73EAEAEAFFDFDFDFFFD6D6D6FFD3D2D2FFC2C0BCFFB4B8ACFFB5BF
-          AEFFBECBB9FF329428FF2BDF1AFF0D7803E30D8501000E8C0000FFFFFF00FFFF
-          FF002D2D2D69E6E6E6FFD0D0D0FFBDBDBDFFB9B9B9FFA8A8A2FF9CA293FF4899
-          3DFF2E9622FF329A26FF3DE22CFF118405E20E8C00CC0E8D0099FFFFFF00FFFF
-          FF0040404065E6E6E6FFD0D0D0FFBDBDBDFFB9B9B9FFA8A8A2FF9DA293FF2E9A
-          1FFF52E741FF52E741FF52E741FF52E741FF52E741FF109500CCFFFFFF00FFFF
-          FF004C4C4C66EAEAEAFFDFDFDFFFD6D6D6FFD3D2D2FFC3C0BCFFB8B7ADFF5AAE
-          4BFF35A726FF38A929FF66EB55FF189608E1129D00CC129C0099FFFFFF00FFFF
-          FF004E4E4E336C6C6CB39B9B9BFF999999FF8F8F8FFF7C7C7CFF787878FF8080
-          80FF8C8C8CFF2FA21FFF75EE64FF17A004D713A10000129D0000FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFAAA7A2FFA1A095FFA9AB
-          9EFFB8BCAFFF5CB74DFF3DB52BFF288D1AC336792D0032772900FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFAAA6A2FFA39F96FFABAA
-          9FFFBBBCB0FFCDCDC4FFE2E2DAFF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFABA5A2FFA59F97FFAEAA
-          A0FFBEBBB2FFD0CDC5FFE5E2DBFF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E66EAEAEAFFDFDFDFFFD6D6D6FFD3D2D2FFC5BEBCFFBFB6B1FFC5BD
-          B7FFD0CAC3FFDED8D2FFECE6E0FF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E336C6C6CB39B9B9BFF999999FF8F8F8FFF7C7C7CFF787878FF8080
-          80FF8C8C8CFF9B9B9BFF757575B74E4E4E365151510051515100FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFACA4A3FFA99D99FFB5A8
-          A4FFC6BAB6FFD8CCC9FFEDE2DFFF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFADA4A3FFAB9C9AFFB6A8
-          A5FFC8BAB7FFDBCCCAFFF0E2E0FF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E66E6E6E6FFD0D0D0FFBDBDBDFFBAB9B9FFADA3A3FFAB9C9BFFB8A7
-          A6FFCAB9B8FFDDCCCBFFF2E2E1FF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF004E4E4E66EAEAEAFFDFDFDFFFD6D6D6FFD3D2D2FFC7BDBDFFC5B4B4FFCEBC
-          BCFFDBC9C9FFE9D7D7FFF7E6E6FF4E4E4E6A5151510051515100FFFFFF00FFFF
-          FF005555554D5555556655555566555555665555556655555566555555665555
-          55665555556655555566555555665555554D5555550055555500
-        }
-        Margin = 4
-        TabOrder = 8
+        TabOrder = 3
       end
       object btnBackupDatabase: TBitBtn
         Left = 448
         Height = 26
         Top = 255
-        Width = 150
+        Width = 151
         Action = actBackupDatabase
         Anchors = [akTop, akRight]
         Glyph.Data = {
@@ -452,28 +406,28 @@ object frmSettingsDialog: TfrmSettingsDialog
           5566555555665555556655555566555555665555554DFFFFFF00
         }
         Margin = 4
-        TabOrder = 9
+        TabOrder = 6
       end
       object btnUpdateNodePaths: TBitBtn
-        Left = 449
+        Left = 448
         Height = 26
-        Top = 296
-        Width = 150
+        Top = 288
+        Width = 151
         Action = actUpdateNodePaths
         Anchors = [akTop, akRight]
         Caption = 'Update node paths'
         Margin = 22
-        TabOrder = 10
+        TabOrder = 7
       end
       object btnSequences: TBitBtn
-        Left = 449
+        Left = 448
         Height = 26
-        Top = 324
-        Width = 150
+        Top = 320
+        Width = 151
         Action = actUpdateSequences
         Anchors = [akTop, akRight]
         Margin = 22
-        TabOrder = 11
+        TabOrder = 8
       end
     end
     object tsTerminalSettings: TTabSheet
@@ -545,6 +499,7 @@ object frmSettingsDialog: TfrmSettingsDialog
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoAdvance = aaRightDown
         AutoEdit = False
+        BorderStyle = bsNone
         Color = clDefault
         ColCount = 2
         Columns = <        
@@ -582,15 +537,17 @@ object frmSettingsDialog: TfrmSettingsDialog
         Top = 339
         Width = 333
         Anchors = [akLeft, akRight, akBottom]
+        OnEditingDone = edtVenvNameEditingDone
         TabOrder = 1
       end
       object btnCreateVirtualEnvironment: TButton
         Left = 1
-        Height = 31
+        Height = 26
         Top = 368
-        Width = 199
+        Width = 200
         Action = actCreateVirtualEnvironment
         Anchors = [akLeft, akRight, akBottom]
+        Caption = 'Create Virtual Environment'
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 2
@@ -604,13 +561,21 @@ object frmSettingsDialog: TfrmSettingsDialog
         Caption = 'Name (a subfolder with this name will be created):'
         ParentColor = False
       end
-      object Button1: TButton
-        Left = 208
-        Height = 25
+      object btnOpenVenvPath: TButton
+        Left = 204
+        Height = 26
         Top = 368
-        Width = 224
+        Width = 200
         Action = actOpenVenvPath
         TabOrder = 3
+      end
+      object btnOpenVenvConsole: TButton
+        Left = 407
+        Height = 26
+        Top = 368
+        Width = 200
+        Action = actOpenVenvConsole
+        TabOrder = 4
       end
     end
     object tsImages: TTabSheet
@@ -849,10 +814,6 @@ object frmSettingsDialog: TfrmSettingsDialog
       Hint = '(Re)creates all database tables. All preexisting tables are dropped fist.'
       OnExecute = actCreateDatabaseTablesExecute
     end
-    object actCreateDatabaseTriggers: TAction
-      Category = 'Database'
-      Caption = '(Re)create all triggers'
-    end
     object actBackupDatabase: TAction
       Caption = 'Backup database'
       OnExecute = actBackupDatabaseExecute
@@ -860,9 +821,6 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actFontDialog: TAction
       ImageIndex = 6
       OnExecute = actFontDialogExecute
-    end
-    object actCleanupHistory: TAction
-      Caption = 'Cleanup history'
     end
     object actCreateVirtualEnvironment: TAction
       Caption = 'Create virtual environment'
@@ -876,16 +834,23 @@ object frmSettingsDialog: TfrmSettingsDialog
     object actUpdateNodePaths: TAction
       Category = 'Database'
       Caption = 'actUpdateNodePaths'
+      Hint = 'This will recalculate the path strings for each node in the Snippet table.'
       OnExecute = actUpdateNodePathsExecute
     end
     object actUpdateSequences: TAction
       Category = 'Database'
       Caption = 'Update sequences'
+      Hint = 'This will recalculate the Sequence field values for each node. The Sequence field holds the order of each node relative to its parent.'
       OnExecute = actUpdateSequencesExecute
     end
     object actOpenVenvPath: TAction
       Caption = 'Open Virtual Environment path'
+      Hint = 'Opens the path where Python''s virtual environment is installed.'
       OnExecute = actOpenVenvPathExecute
+    end
+    object actOpenVenvConsole: TAction
+      Caption = 'Open Virtual Environment Console'
+      OnExecute = actOpenVenvConsoleExecute
     end
   end
   object dscGlyph: TDataSource
@@ -898,8 +863,8 @@ object frmSettingsDialog: TfrmSettingsDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    Left = 496
-    Top = 160
+    Left = 296
+    Top = 264
   end
   object dscHighlighter: TDataSource
     Left = 416

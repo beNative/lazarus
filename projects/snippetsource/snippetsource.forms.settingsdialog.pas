@@ -39,11 +39,9 @@ type
     aclMain                          : TActionList;
     actAddGlyphs                     : TAction;
     actBackupDatabase                : TAction;
-    actCleanupHistory                : TAction;
     actClose                         : TAction;
     actCreateDatabaseIndexes         : TAction;
     actCreateDatabaseTables          : TAction;
-    actCreateDatabaseTriggers        : TAction;
     actCreateNewDatabase             : TAction;
     actCreateVirtualEnvironment      : TAction;
     actDatabaseIntegrityCheck        : TAction;
@@ -51,7 +49,8 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
-    actOpenVenvPath: TAction;
+    actOpenVenvConsole: TAction;
+    actOpenVenvPath                  : TAction;
     actUpdateSequences               : TAction;
     actUpdateNodePaths               : TAction;
     actRunVirtualEnvironment         : TAction;
@@ -59,11 +58,11 @@ type
     actRefreshGlyphs                 : TAction;
     actReloadConfigurationData       : TAction;
     btnBackupDatabase                : TBitBtn;
+    btnOpenVenvConsole: TButton;
     btnUpdateNodePaths               : TBitBtn;
     btnClose                         : TBitBtn;
     btnCreateDatabaseIndexes         : TBitBtn;
     btnCreateDatabaseTables          : TBitBtn;
-    btnCreateDatabaseTriggers        : TBitBtn;
     btnCreateNewDatabase             : TBitBtn;
     btnCreateVirtualEnvironment      : TButton;
     btnDatabaseIntegrityCheck        : TBitBtn;
@@ -72,7 +71,7 @@ type
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
     btnSequences                     : TBitBtn;
-    Button1: TButton;
+    btnOpenVenvPath: TButton;
     cbxImageList                     : TComboBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
@@ -115,6 +114,7 @@ type
 
     {$REGION 'action handlers'}
     procedure actBackupDatabaseExecute(Sender: TObject);
+    procedure actCleanupHistoryExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
@@ -127,6 +127,7 @@ type
     procedure actFontDialogExecute(Sender: TObject);
     procedure actOpenDatabaseExecute(Sender: TObject);
     procedure actAddGlyphsExecute(Sender: TObject);
+    procedure actOpenVenvConsoleExecute(Sender: TObject);
     procedure actOpenVenvPathExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
     procedure actReloadConfigurationDataExecute(Sender: TObject);
@@ -151,6 +152,7 @@ type
     procedure dscGlyphUpdateData(Sender: TObject);
     procedure edtDatabaseFileAcceptFileName(Sender: TObject; var Value: string);
     procedure edtFontNameButtonClick(Sender: TObject);
+    procedure edtVenvNameEditingDone(Sender: TObject);
     procedure grdGlyphDrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure grdHighlightersDrawColumnCell(Sender: TObject; const Rect: TRect;
@@ -238,7 +240,7 @@ uses
 
   ts.Core.Utils, ts.Core.Logger,
 
-  SnippetSource.Resources;
+  SnippetSource.Resources, SnippetSource.Modules.Terminal;
 
 var
   FSettingsDialog : TfrmSettingsDialog;
@@ -365,6 +367,11 @@ begin
   end;
 end;
 
+procedure TfrmSettingsDialog.actOpenVenvConsoleExecute(Sender: TObject);
+begin
+  dmTerminal.Execute(Format('.\%s\Scripts\activate.bat', [FSettings.PythonVirtualEnvironmentName]));
+end;
+
 procedure TfrmSettingsDialog.actOpenVenvPathExecute(Sender: TObject);
 begin
   OpenFilePath(ExtractFilePath(ParamStr(0))
@@ -475,6 +482,11 @@ begin
   ShowMessageFmt(SDatabaseBackupCreated, [S]);
 end;
 
+procedure TfrmSettingsDialog.actCleanupHistoryExecute(Sender: TObject);
+begin
+
+end;
+
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
@@ -577,6 +589,11 @@ end;
 procedure TfrmSettingsDialog.edtFontNameButtonClick(Sender: TObject);
 begin
   actFontDialog.Execute;
+end;
+
+procedure TfrmSettingsDialog.edtVenvNameEditingDone(Sender: TObject);
+begin
+  FSettings.PythonVirtualEnvironmentName := (Sender as TEdit).Text;
 end;
 
 procedure TfrmSettingsDialog.grdGlyphDrawColumnCell(Sender: TObject;

@@ -5,71 +5,70 @@ object frmGrid: TfrmGrid
   Width = 1250
   ClientHeight = 820
   ClientWidth = 1250
-  Font.Height = -12
+  Font.Height = -11
   PopupMode = pmAuto
   Position = poOwnerFormCenter
   ShowHint = True
   LCLVersion = '2.2.2.0'
   object pnlMain: TPanel
-    Left = 4
-    Height = 761
-    Top = 30
-    Width = 1242
+    Left = 0
+    Height = 776
+    Top = 23
+    Width = 1250
     Align = alClient
-    BorderSpacing.Bottom = 4
-    BorderSpacing.Around = 4
     BevelOuter = bvNone
-    ClientHeight = 761
-    ClientWidth = 1242
+    ClientHeight = 776
+    ClientWidth = 1250
     TabOrder = 0
     object enbMain: TExtendedNotebook
       Left = 0
-      Height = 761
+      Height = 776
       Top = 0
-      Width = 1242
+      Width = 1250
       ActivePage = tsGrid
       Align = alClient
+      ShowTabs = False
+      Style = tsFlatButtons
       TabIndex = 0
       TabOrder = 0
       object tsGrid: TTabSheet
         Caption = 'DBGrid'
-        ClientHeight = 733
-        ClientWidth = 1234
+        ClientHeight = 768
+        ClientWidth = 1242
         object grdMain: TDBGrid
-          Left = 3
-          Height = 727
-          Top = 3
-          Width = 1228
+          Left = 0
+          Height = 768
+          Top = 0
+          Width = 1242
           Align = alClient
-          BorderSpacing.Around = 3
           BorderStyle = bsNone
           Color = clWindow
           Columns = <>
           DataSource = dscMain
-          Flat = True
+          HeaderHotZones = []
           HeaderPushZones = []
-          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderHotTracking, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgHeaderHotTracking, dgHeaderPushedLook, dgAutoSizeColumns, dgCellHints, dgCellEllipsis, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
           Scrollbars = ssAutoBoth
           TabOrder = 0
           TitleStyle = tsNative
         end
       end
-      object tsSettings: TTabSheet
-        Caption = 'Settings'
-      end
     end
   end
   object tbrMain: TToolBar
     Left = 0
-    Height = 26
+    Height = 23
     Top = 0
     Width = 1250
+    EdgeBorders = []
+    EdgeInner = esNone
+    EdgeOuter = esNone
     ShowCaptions = True
     TabOrder = 1
     object navMain: TDBNavigator
       Left = 1
       Height = 22
-      Top = 2
+      Top = 0
       Width = 224
       BevelOuter = bvNone
       ChildSizing.EnlargeHorizontal = crsScaleChilds
@@ -87,37 +86,37 @@ object frmGrid: TfrmGrid
     end
     object btnApplyUpdates: TToolButton
       Left = 225
-      Top = 2
+      Top = 0
       Action = actApplyUpdates
     end
     object btnCommit: TToolButton
-      Left = 307
-      Top = 2
+      Left = 305
+      Top = 0
       Action = actCommit
     end
     object btnInspectDataSet: TToolButton
-      Left = 359
-      Top = 2
+      Left = 352
+      Top = 0
       Action = actInspectDataSet
     end
     object btnInspectDBGrid: TToolButton
-      Left = 448
-      Top = 2
+      Left = 440
+      Top = 0
       Action = actInspectDBGrid
     end
     object btnInspectFields: TToolButton
-      Left = 534
-      Top = 2
+      Left = 524
+      Top = 0
       Action = actInspectFields
     end
     object btnInspectTransaction: TToolButton
-      Left = 613
-      Top = 2
+      Left = 602
+      Top = 0
       Action = actInspectTransaction
     end
     object btnInspectConnection: TToolButton
-      Left = 723
-      Top = 2
+      Left = 710
+      Top = 0
       Action = actInspectConnection
     end
   end

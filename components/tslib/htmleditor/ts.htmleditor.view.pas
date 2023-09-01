@@ -343,6 +343,9 @@ type
     FSendingData    : Boolean;    // Editor -> Webbrowser
     FDataSent       : Boolean;    // Editor -> Webbrowser
 
+    FRequestingText : Boolean;  // Webbrowser -> Editor
+    FTextReceived   : Boolean;  // Webbrowser -> Editor
+
     FOffline                     : Boolean;
     FDefaultContextMenusEnabled  : Boolean;
     FDefaultScriptDialogsEnabled : Boolean;
@@ -433,6 +436,7 @@ type
     procedure ApplySettings;
 
     procedure DoRequestData;
+    procedure DoRequestText;
     procedure DoSendData;
     procedure DoChange;
     procedure DoAfterCreated;
@@ -816,11 +820,12 @@ begin
   if not FSendingData then
   begin
     DoRequestData;
+    DoRequestText;
   end
   else if FDataReceived then
   begin
-    FSendingData := False;
-    FDataSent    := True;
+    FSendingData    := False;
+    FDataSent       := True;
     FRequestingData := False;
   end;
   Events.DoContentLoaded;
@@ -956,6 +961,7 @@ end;
 procedure THtmlEditorView.WVBrowserLostFocus(Sender: TObject);
 begin
   DoRequestData;
+  DoRequestText;
 end;
 
 procedure THtmlEditorView.WVBrowserMoveFocusRequested(Sender: TObject;
@@ -1089,9 +1095,15 @@ end;
 procedure THtmlEditorView.WVBrowserRetrieveTextCompleted(Sender: TObject;
   AResult: Boolean; const AText: wvstring);
 begin
-  //Logger.Track(Self, 'WVBrowserRetrieveTextCompleted');
   if AResult then
-    Text := UTF8Encode(AText);
+  begin
+    if FRequestingText and not FTextReceived then
+    begin;
+      Text := UTF8Encode(AText);
+    end;
+    FRequestingText := False;
+    FTextReceived   := True;
+  end;
 end;
 
 procedure THtmlEditorView.WVBrowserScriptDialogOpening(Sender: TObject;
@@ -1370,6 +1382,14 @@ begin
   WVBrowser.RetrieveHTML;
   FRequestingData := True;
   FDataReceived   := False;
+  UpdateWatches;
+end;
+
+procedure THtmlEditorView.DoRequestText;
+begin
+  WVBrowser.RetrieveText;
+  FRequestingText := True;
+  FTextReceived   := False;
   UpdateWatches;
 end;
 
@@ -1818,6 +1838,7 @@ begin
   if FUpdate and IsInitialized then
   begin
     DoRequestData;
+    DoRequestText;
     ApplySettings;
     if not edtSource.Focused then
     begin

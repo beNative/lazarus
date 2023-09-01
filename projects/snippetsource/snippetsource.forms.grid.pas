@@ -58,7 +58,6 @@ type
     pnlUpdateStatus       : TPanel;
     tbrMain               : TToolBar;
     tsGrid                : TTabSheet;
-    tsSettings            : TTabSheet;
     {$ENDREGION}
 
     {$REGION 'action handlers'}

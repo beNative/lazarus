@@ -227,27 +227,22 @@ uses
 
 procedure TInspectorEdit.UpdateBounds(ScrollCaret: Boolean);
 begin
-  {we determine position}
   inherited;
-  {we correct the width of button}
   ButtonWidth := Height;
 end;
 
 procedure TInspectorEdit.UpdateColors;
 begin
-  {we obtain colors on silence}
   inherited;
-  {we correct background and color of type}
   Color := clWindow;
   Font.Color := clBtnText;
 end;
 
 procedure TInspectorEdit.Invalidate;
 begin
-  {it is renovated line}
   inherited;
-  {we consider focus}
-  if Grid <> nil then Grid.InvalidateFocus;
+  if Grid <> nil then
+    Grid.InvalidateFocus;
 end;
 
 { TCustomInspector }

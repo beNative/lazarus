@@ -9,7 +9,7 @@
         <Filename Value="fpcunit_tslib.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos Y="15"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -19,7 +19,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="204"/>
         <CursorPos Y="205"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="36"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -58,7 +58,7 @@
         <EditorIndex Value="12"/>
         <TopLine Value="86"/>
         <CursorPos X="3" Y="109"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -73,10 +73,9 @@
       <Unit>
         <Filename Value="..\core\ts.core.logger.base.pas"/>
         <UnitName Value="ts.Core.Logger.Base"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <TopLine Value="535"/>
-        <CursorPos X="69" Y="554"/>
+        <CursorPos X="26" Y="549"/>
         <UsageCount Value="18"/>
         <Loaded Value="True"/>
       </Unit>
@@ -141,7 +140,7 @@
         <UnitName Value="ts.Core.Logger"/>
         <EditorIndex Value="4"/>
         <CursorPos X="33" Y="20"/>
-        <UsageCount Value="14"/>
+        <UsageCount Value="15"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -149,17 +148,17 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Test.Data"/>
         <EditorIndex Value="2"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="test.utils.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Test.Utils"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="11"/>
         <CursorPos X="3" Y="32"/>
-        <UsageCount Value="25"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -189,7 +188,7 @@
         <EditorIndex Value="13"/>
         <TopLine Value="874"/>
         <CursorPos X="87" Y="886"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>

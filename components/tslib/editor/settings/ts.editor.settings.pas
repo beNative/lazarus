@@ -842,7 +842,8 @@ begin
         SYNS_XML_AttrSQLKey,
         SYNS_XML_AttrSQLPlus,
         SYNS_XML_AttrTeXCommand,
-        SYNS_XML_AttrSASMKey
+        SYNS_XML_AttrSASMKey,
+        SYNS_XML_AttrNonReservedKeyword
       ]
     );
     RegisterItem(
@@ -859,7 +860,11 @@ begin
       SYNS_XML_AttrReservedWord, [
         SYNS_XML_AttrReservedWord,
         SYNS_XML_AttrPLSQL,
-        SYNS_XML_AttrSecondReservedWord
+        SYNS_XML_AttrSecondReservedWord,
+        SYNS_XML_AttrInternalFunction,
+        SYNS_XML_AttrUserFunction,
+        SYNS_XML_AttrUser,
+        SYNS_XML_AttrSystem
       ]
     );
     RegisterItem(

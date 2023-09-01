@@ -141,7 +141,7 @@ type
 
   public
     constructor Create(ATree: TBaseVirtualDBTreeEx); virtual;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
 
   protected
     procedure ActiveChanged; override;
@@ -149,6 +149,7 @@ type
     procedure DataSetScrolled(Distance: Integer); override;
     procedure EditingChanged; override;
     procedure RecordChanged(Field: TField); override;
+
   end;
 
   TBaseVirtualDBTreeEx = class(TCustomVirtualStringTree)
@@ -213,6 +214,8 @@ type
     procedure RefreshListNode;
     procedure RefreshNodeByParent;
     procedure RefreshNodeByPath;
+
+    procedure LogDBStatus;
 
   protected
     function GetOptionsClass: TTreeOptionsClass; override;
@@ -730,7 +733,7 @@ type
 implementation
 
 uses
-  SysUtils, Math,
+  SysUtils, Math, Rtti,
 
   ts.Core.Logger;
 
@@ -745,10 +748,10 @@ begin
   FVirtualDBTreeEx := ATree;
 end;
 
-procedure TVirtualDBTreeExDataLink.BeforeDestruction;
+destructor TVirtualDBTreeExDataLink.Destroy;
 begin
   FVirtualDBTreeEx := nil;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -1099,6 +1102,8 @@ begin
     and (AComponent = DataSource)
   then
     DataSource := nil;
+
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DataLinkActiveChanged;
@@ -1115,11 +1120,12 @@ begin
     else
       FDBStatus := FDBStatus + [dbtsChanged];
   end;
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DataLinkScrolled;
 var
-  KeyID: Double;
+  LKeyId : Double;
 begin
   if not (csDesigning in ComponentState) then
   begin
@@ -1127,14 +1133,15 @@ begin
       (dboTrackCursor in FDBOptions) then
     begin
       FDBStatus := FDBStatus + [dbtsDataChanging];
-      KeyID := FKeyField.AsFloat;
-      if (KeyID <> 0.0) and (KeyID <> FCurId) then
-        SetFocusToNode(FindNode(nil, KeyID));
+      LKeyId := FKeyField.AsFloat;
+      if (LKeyId <> 0.0) and (LKeyId <> FCurId) then
+        SetFocusToNode(FindNode(nil, LKeyId));
       FDBStatus := FDBStatus - [dbtsDataChanging];
       if not Assigned(FocusedNode) then
         SetFocusToNode(GetFirst);
     end;
   end;
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DataLinkChanged;
@@ -1149,30 +1156,32 @@ begin
         FDBStatus := FDBStatus + [dbtsChanged];
     end;
   end;
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DataLinkRecordChanged(Field: TField);
 var
-  UpdateField: Boolean;
-  Node: PVirtualNode;
+  LUpdateField : Boolean;
+  LNode        : PVirtualNode;
 begin
   if not (csDesigning in ComponentState) then
   begin
     if Assigned(Field) and (dboTrackChanges in FDBOptions) then
     begin
-      UpdateField := False;
+      LUpdateField := False;
       if dboTrackCursor in FDBOptions then
-        Node := FocusedNode
+        LNode := FocusedNode
       else
-        Node := FindNode(nil, FKeyField.AsFloat);
-      if Assigned(Node) then
+        LNode := FindNode(nil, FKeyField.AsFloat);
+      if Assigned(LNode) then
       begin
-        DoNodeDataChanged(Node, Field, UpdateField);
-        if UpdateField then
-          InvalidateNode(Node);
+        DoNodeDataChanged(LNode, Field, LUpdateField);
+        if LUpdateField then
+          InvalidateNode(LNode);
       end;
     end;
   end;
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DataLinkEditingChanged;
@@ -1207,7 +1216,7 @@ begin
           LData.Status := dbnsInited;
           ReadNodeFromDB(LNode);
           LData.Status := dbnsNew;
-          if (dboTrackCursor in FDBOptions) then
+          if dboTrackCursor in FDBOptions then
             SetFocusToNode(LNode);
         end;
       end
@@ -1220,6 +1229,7 @@ begin
       InvalidateNode(FocusedNode);
     end;
   end;
+  LogDBStatus;
 end;
 {$ENDREGION}
 
@@ -1299,6 +1309,7 @@ begin
     end;
   end;
   inherited;
+  LogDBStatus;
 end;
 
 procedure TBaseVirtualDBTreeEx.DoEdit;
@@ -1537,7 +1548,7 @@ end;
 
 procedure TBaseVirtualDBTreeEx.DoOpeningDataSet(var Allow: Boolean);
 begin
-  Allow := (FViewField <> nil);
+  Allow := FViewField <> nil;
   if Allow then
   begin
     if Assigned(FOnOpeningDataSet) then
@@ -1718,6 +1729,7 @@ var
   LNode     : PVirtualNode;
   LData     : PDBVTData;
 begin
+  Logger.Info('AddNode');
   EndEditNode;
   if CanWriteToDataSet(AParent, 0, dbcmInsert) then
   begin
@@ -1860,6 +1872,8 @@ var
   LTemp : PVirtualNode;
   I     : Integer;
 begin
+  Logger.Info('RefreshNodes');
+
   if not (dbtsDataChanging in FDBStatus) and CanOpenDataSet then
   begin
     FDBStatus := FDBStatus + [dbtsDataChanging];
@@ -1912,7 +1926,7 @@ begin
     if I > 0 then
       FDataLink.DataSet.MoveBy(-I);
     I := 0;
-    while not (FDataLink.DataSet.Bof) do
+    while not FDataLink.DataSet.Bof do
     begin
       RefreshNode;
       FDataLink.DataSet.Prior;
@@ -2079,6 +2093,11 @@ begin
     ReadNodeFromDB(LNode);
 end;
 
+procedure TBaseVirtualDBTreeEx.LogDBStatus;
+begin
+//  Logger.Send('DBStatus', TValue.From<TDBVTStatuses>(DBStatus));
+end;
+
 procedure TBaseVirtualDBTreeEx.RefreshNodeByParent;
 var
   LId       : Double;
@@ -2091,7 +2110,7 @@ var
 begin
   LId := FKeyField.AsFloat;
   LParentId := FParentField.AsFloat;
-  if (LId = 0.0) then
+  if LId = 0.0 then
   begin
     Exit;
   end;
@@ -2106,9 +2125,9 @@ begin
   while Assigned(LTemp) and (not Assigned(LThis) or not Assigned(LParent)) do
   begin
     LData := GetNodeData(LTemp);
-    if (LData.Id = LId) then
+    if LData.Id = LId then
     begin
-      if (LData.Status = dbnsRefreshed) then
+      if LData.Status = dbnsRefreshed then
       begin
         Exit;
       end;

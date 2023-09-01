@@ -199,6 +199,8 @@ type
     FNodeTypeFieldName        : string;
 
     {$REGION 'property access methods'}
+    procedure FTreeViewWritePathToDB(Sender: TBaseVirtualDBTreeEx;
+      var Path: string);
     function GetImageFieldName: string;
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
@@ -213,6 +215,7 @@ type
     function GetParentField: TField;
     function GetParentFieldName: string;
     function GetPathField: TField;
+    function GetPathFieldName: string;
     function GetSelectionCount: Integer;
     function GetToolbarTopVisible: Boolean;
     function GetViewField: TField;
@@ -226,6 +229,7 @@ type
     procedure SetMultiSelect(const Value: Boolean);
     procedure SetNodeTypeFieldName(AValue: string);
     procedure SetParentFieldName(const AValue: string);
+    procedure SetPathFieldName(AValue: string);
     procedure SetToolbarTopVisible(const Value: Boolean);
     procedure SetViewFieldName(const AValue: string);
     {$ENDREGION}
@@ -310,6 +314,9 @@ type
     property KeyFieldName: string
       read GetKeyFieldName write SetKeyFieldName;
 
+    property PathFieldName: string
+      read GetPathFieldName write SetPathFieldName;
+
     property ParentFieldName: string
       read GetParentFieldName write SetParentFieldName;
 
@@ -362,7 +369,7 @@ implementation
 {$R *.lfm}
 
 uses
-  SysUtils, ShellApi,
+  SysUtils, ShellApi, Rtti,
 
   ts.Core.Logger, ts.Core.Utils,
 
@@ -376,6 +383,7 @@ begin
   InitializeTreeView;
   MultiSelect       := True;
   ToolbarTopVisible := True;
+  Logger.Send('FTreeView.DBOptions', TValue.From<TDBVTOptions>(FTreeView.DBOptions));
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   LevelFieldName    := DEFAULT_LEVELFIELDNAME;
@@ -508,6 +516,16 @@ begin
   Result := FTreeView.PathField;
 end;
 
+function TfrmVirtualDBTree.GetPathFieldName: string;
+begin
+  Result := FTreeView.PathFieldName;
+end;
+
+procedure TfrmVirtualDBTree.SetPathFieldName(AValue: string);
+begin
+  FTreeView.PathFieldName := AValue;
+end;
+
 procedure TfrmVirtualDBTree.SetParentFieldName(const AValue: string);
 begin
   FTreeView.ParentFieldName := AValue;
@@ -531,6 +549,12 @@ end;
 function TfrmVirtualDBTree.GetImageFieldName: string;
 begin
   Result := FTreeView.ImageFieldName;
+end;
+
+procedure TfrmVirtualDBTree.FTreeViewWritePathToDB
+  (Sender: TBaseVirtualDBTreeEx; var Path: string);
+begin
+  Logger.Info(Path);
 end;
 
 procedure TfrmVirtualDBTree.SetImageFieldName(AValue: string);
@@ -913,6 +937,7 @@ begin
     OnDragOver     := FTreeViewDragOver;
     OnDragDrop     := FTreeViewDragDrop;
     OnEdited       := FTreeViewEdited;
+    OnWritePathToDB  := FTreeViewWritePathToDB;
 
     TreeOptions.AnimationOptions := [
       toAnimatedToggle,
@@ -950,7 +975,7 @@ begin
     ];
     TreeOptions.SelectionOptions := [toMultiSelect, toCenterScrollIntoView];
     TreeOptions.StringOptions := [toAutoAcceptEditChange];
-    IncrementalSearch := isNone; // disable incremental search feature
+    //IncrementalSearch := isNone; // disable incremental search feature
   end;
   FTreeView.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;

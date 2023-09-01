@@ -46,6 +46,7 @@ type
     grdLookup : TDBGrid;
     pnlTop    : TPanel;
     sbrMain   : TStatusBar;
+    shLine: TShape;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -113,7 +114,7 @@ implementation
 {$R *.lfm}
 
 uses
-  LCLType, Windows, TypInfo, Rtti,
+  LCLType, Windows, TypInfo, //Rtti,
 
   ts.Core.Logger;
 
@@ -342,7 +343,6 @@ begin
     //  FEditor.SearchAndSelectText(edtLookup.Text);
   finally
 //    SearchDataSet.EnableControls;
- //   grdLookup.AutoAdjustColumns;
   end;
 
   Logger.Leave(Self, 'Execute');

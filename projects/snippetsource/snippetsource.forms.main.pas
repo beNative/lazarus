@@ -1492,11 +1492,13 @@ begin
   if HtmlEditor.Source.IsEmpty then
   begin
     Snippet.Source   := '';
-    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText)
+    Snippet.HtmlText := HtmlEditor.Text;
+    Snippet.HtmlData := EncodeStringBase64(HtmlEditor.HtmlText);
   end
   else
   begin
     Snippet.HtmlData := '';
+    Snippet.HtmlText := '';
     Snippet.Source   := HtmlEditor.Source;
   end;
 

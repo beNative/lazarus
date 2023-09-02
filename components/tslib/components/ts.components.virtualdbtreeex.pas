@@ -46,15 +46,12 @@ type
     dboCheckDBStructure,
     dboListView,
     dboParentStructure,
-    dboPathStructure,
     dboReadOnly,
     dboShowChecks,
     dboTrackActive,
     dboTrackChanges,
     dboTrackCursor,
-    dboViewAll,
-    dboWriteLevel,
-    dboWriteSecondary
+    dboViewAll
   );
   TDBVTOptions = set of TDBVTOption;
 
@@ -130,11 +127,6 @@ type
     Node   : PVirtualNode
   ) of object;
 
-  TVTPathToDBEvent = procedure(
-    Sender   : TBaseVirtualDBTreeEx;
-    var Path : string
-  ) of object;
-
   TVirtualDBTreeExDataLink = class(TDataLink)
   private
     FVirtualDBTreeEx: TBaseVirtualDBTreeEx;
@@ -165,19 +157,13 @@ type
     FImgIdxFieldName   : string;
     FKeyField          : TField;
     FKeyFieldName      : string;
-    FLevelField        : TField;
-    FLevelFieldName    : string;
     FMaxLevel          : Integer;
     FOnNodeDataChanged : TVTNodeDataChangedEvent;
     FOnOpeningDataSet  : TVTDBOpenQueryEvent;
     FOnReadNodeFromDB  : TVTNodeFromDBEvent;
-    FOnReadPathFromDB  : TVTPathToDBEvent;
-    FOnWritePathToDB   : TVTPathToDBEvent;
     FOnWritingDataSet  : TVTDBWriteQueryEvent;
     FParentField       : TField;
     FParentFieldName   : string;
-    FPathField         : TField;
-    FPathFieldName     : string;
     FViewField         : TField;
     FViewFieldName     : string;
 
@@ -193,10 +179,8 @@ type
     procedure SetImageFieldName(AValue: string);
     procedure SetImgIdxFieldName(const Value: string);
     procedure SetKeyFieldName(const Value: string);
-    procedure SetLevelFieldName(const Value: string);
     procedure SetOptions(const Value: TStringTreeOptions);
     procedure SetParentFieldName(const Value: string);
-    procedure SetPathFieldName(const Value: string);
     procedure SetViewFieldName(const Value: string);
     {$ENDREGION}
 
@@ -213,7 +197,6 @@ type
 
     procedure RefreshListNode;
     procedure RefreshNodeByParent;
-    procedure RefreshNodeByPath;
 
     procedure LogDBStatus;
 
@@ -275,8 +258,6 @@ type
       const ItemRect : TRect
     ); override;
     procedure DoReadNodeFromDB(Node: PVirtualNode); virtual;
-    procedure DoReadPathFromDB(var APath: string); virtual;
-    procedure DoWritePathToDB(var APath: string); virtual;
     procedure DoWritingDataSet(
       Node       : PVirtualNode;
       Column     : TColumnIndex;
@@ -340,8 +321,8 @@ type
     property KeyField: TField
       read FKeyField;
 
-    property LevelField: TField
-      read FLevelField;
+    //property LevelField: TField
+    //  read FLevelField;
 
     property OnNodeDataChanged: TVTNodeDataChangedEvent
       read FOnNodeDataChanged write FOnNodeDataChanged;
@@ -352,8 +333,8 @@ type
     property ParentField: TField
       read FParentField;
 
-    property PathField: TField
-      read FPathField;
+    //property PathField: TField
+    //  read FPathField;
 
     property ViewField: TField
       read FViewField;
@@ -376,26 +357,14 @@ type
     property KeyFieldName: string
       read FKeyFieldName write SetKeyFieldName;
 
-    property LevelFieldName: string
-      read FLevelFieldName write SetLevelFieldName;
-
     property OnOpeningDataSet: TVTDBOpenQueryEvent
       read FOnOpeningDataSet write FOnOpeningDataSet;
-
-    property OnReadPathFromDB: TVTPathToDBEvent
-      read FOnReadPathFromDB write FOnReadPathFromDB;
-
-    property OnWritePathToDB: TVTPathToDBEvent
-      read FOnWritePathToDB write FOnWritePathToDB;
 
     property OnWritingDataSet: TVTDBWriteQueryEvent
       read FOnWritingDataSet write FOnWritingDataSet;
 
     property ParentFieldName: string
       read FParentFieldName write SetParentFieldName;
-
-    property PathFieldName: string
-      read FPathFieldName write SetPathFieldName;
 
     property ImageFieldName: string
       read FImageFieldName write SetImageFieldName;
@@ -789,9 +758,15 @@ begin
   FDataLink    := TVirtualDBTreeExDataLink.Create(Self);
   FDBDataSize  := SizeOf(TDBVTData);
   NodeDataSize := FDBDataSize;
-  FDBOptions   := [dboCheckDBStructure, dboParentStructure, dboWriteLevel,
-    dboWriteSecondary, dboTrackActive, dboTrackChanges, dboTrackCursor,
-    dboAlwaysStructured, dboViewAll];
+  FDBOptions   := [
+    dboCheckDBStructure,
+    dboParentStructure,
+    dboTrackActive,
+    dboTrackChanges,
+    dboTrackCursor,
+    dboAlwaysStructured,
+    dboViewAll
+  ];
   OnDragOver := OnDragOverHandler;
   with TStringTreeOptions(inherited TreeOptions) do
   begin
@@ -850,8 +825,6 @@ begin
     begin
       FDBStatus := FDBStatus + [dbtsChanged];
       FKeyField := nil;
-      if FDataLink.Active and (FKeyFieldName <> '') then
-        FKeyField := FDataLink.DataSet.FieldByName(FPathFieldName);
     end;
   end;
 end;
@@ -883,46 +856,6 @@ begin
       if FDataLink.Active and (FParentFieldName <> '') then
         FParentField := FDataLink.DataSet.FieldByName(FParentFieldName);
     end;
-  end;
-end;
-
-procedure TBaseVirtualDBTreeEx.SetPathFieldName(const Value: string);
-begin
-  if FPathFieldName <> Value then
-  begin
-    FPathFieldName := Value;
-    FPathField := nil;
-    if (dboPathStructure in FDBOptions) and (dboTrackActive in FDBOptions) then
-    begin
-      if not (dboListView in FDBOptions) then
-        DataLinkActiveChanged
-      else if (dboAlwaysStructured in FDBOptions) then
-        DataLinkActiveChanged
-      else
-      begin
-        FDBStatus := FDBStatus + [dbtsStructured];
-        if FDataLink.Active and (FPathFieldName <> '') then
-          FPathField := FDataLink.DataSet.FieldByName(FPathFieldName);
-      end;
-    end
-    else
-    begin
-      if not (dboTrackActive in FDBOptions) then
-        FDBStatus := FDBStatus + [dbtsChanged];
-      if FDataLink.Active and (FPathFieldName <> '') then
-        FPathField := FDataLink.DataSet.FieldByName(FPathFieldName);
-    end;
-  end;
-end;
-
-procedure TBaseVirtualDBTreeEx.SetLevelFieldName(const Value: string);
-begin
-  if FLevelFieldName <> Value then
-  begin
-    FLevelFieldName := Value;
-    FLevelField := nil;
-    if FDataLink.Active and (FLevelFieldName <> '') then
-      FLevelField := FDataLink.DataSet.FieldByName(FLevelFieldName);
   end;
 end;
 
@@ -1041,31 +974,16 @@ begin
       FDBOptions := FDBOptions + [dboViewAll];
   end;
 
-  if dboPathStructure in LToBeSet then
+  if dboParentStructure in LToBeSet then
   begin
-    FDBOptions := FDBOptions - [dboParentStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end
-  else if dboParentStructure in LToBeSet then
-  begin
-    FDBOptions := FDBOptions - [dboPathStructure];
-    if dboTrackActive in FDBOptions then
-      UpdateTree;
-  end
-  else if dboPathStructure in LToBeCleared then
-  begin
-    FDBOptions := FDBOptions + [dboParentStructure];
     if dboTrackActive in FDBOptions then
       UpdateTree;
   end
   else if dboParentStructure in LToBeCleared then
   begin
-    FDBOptions := FDBOptions + [dboPathStructure];
     if dboTrackActive in FDBOptions then
       UpdateTree;
   end;
-
   if dboAlwaysStructured in LToBeSet then
   begin
     if not (dbtsStructured in FDBStatus) then
@@ -1483,37 +1401,14 @@ begin
       LData := GetNodeData(LParent);
       LLevel := LData.Level + 1;
       LParentId := LData.Id;
-      if (dboPathStructure in FDBOptions)
-        or (dboWriteSecondary in FDBOptions) then
-      begin
-        LPath := FloatToStr(LParentId);
-        LParent := LParent.Parent;
-        while LParent <> RootNode do
-        begin
-          LData := GetNodeData(LParent);
-          LPath := Format('%d.%s', [LData.Id, LPath]);
-          LParent := LParent.Parent;
-        end;
-      end;
     end;
     LData := GetNodeData(Node);
     LData.Level := LLevel;
     FDataLink.DataSet.Locate(FKeyFieldName, LData.Id, []);
     FDataLink.DataSet.Edit;
-    if (dboPathStructure in FDBOptions) or
-      (dboWriteSecondary in FDBOptions) then
-    begin
-      DoWritePathToDB(LPath);
-      FPathField.AsString := LPath;
-    end;
-    if (dboParentStructure in FDBOptions)
-      or (dboWriteSecondary in FDBOptions) then
+    if dboParentStructure in FDBOptions then
     begin
       FParentField.AsFloat := LParentId;
-    end;
-    if dboWriteLevel in FDBOptions then
-    begin
-      FLevelField.AsInteger := LLevel;
     end;
     FDataLink.DataSet.Post;
     inherited;
@@ -1587,18 +1482,6 @@ procedure TBaseVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
 begin
   if Assigned(FOnNodeDataChanged) then
     FOnNodeDataChanged(Self, Node, Field, UpdateNode);
-end;
-
-procedure TBaseVirtualDBTreeEx.DoReadPathFromDB(var APath: string);
-begin
-  if Assigned(FOnReadPathFromDB) then
-    FOnReadPathFromDB(Self, APath);
-end;
-
-procedure TBaseVirtualDBTreeEx.DoWritePathToDB(var APath: string);
-begin
-  if Assigned(FOnWritePathToDB) then
-    FOnWritePathToDB(Self, APath);
 end;
 
 function TBaseVirtualDBTreeEx.DoGetImageIndex(Node: PVirtualNode; Kind:
@@ -1746,18 +1629,6 @@ begin
       LData := GetNodeData(AParent);
       LLevel := LData.Level + 1;
       LParentId := LData.Id;
-      if (dboPathStructure in FDBOptions) or (dboWriteSecondary in FDBOptions)
-      then
-      begin
-        LPath := FloatToStr(LParentId);
-        AParent := AParent.Parent;
-        while AParent <> RootNode do
-        begin
-          LData := GetNodeData(AParent);
-          LPath := Format('%d.%s', [LData.Id, LPath]);
-          AParent := AParent.Parent;
-        end;
-      end;
     end;
     LData := GetNodeData(LNode);
     LData.Id := 0.0;
@@ -1767,18 +1638,8 @@ begin
     FDataLink.DataSet.Insert;
     if not (dboListView in FDBOptions) then
     begin
-      if (dboPathStructure in FDBOptions) or (dboWriteSecondary in FDBOptions)
-      then
-      begin
-        DoWritePathToDB(LPath);
-        FPathField.AsString := LPath;
-      end;
-      if (dboParentStructure in FDBOptions) or
-        (dboWriteSecondary in FDBOptions)
-      then
+      if dboParentStructure in FDBOptions then
         FParentField.AsFloat := LParentId;
-      if (dboWriteLevel in FDBOptions) then
-        FLevelField.AsInteger := LLevel;
     end;
     DoReadNodeFromDB(LNode);
     FCurId := 0.0;
@@ -1872,8 +1733,6 @@ var
   LTemp : PVirtualNode;
   I     : Integer;
 begin
-  Logger.Info('RefreshNodes');
-
   if not (dbtsDataChanging in FDBStatus) and CanOpenDataSet then
   begin
     FDBStatus := FDBStatus + [dbtsDataChanging];
@@ -1982,8 +1841,6 @@ procedure TBaseVirtualDBTreeEx.RefreshNode;
 begin
   if not (dbtsStructured in FDBStatus) then
     RefreshListNode
-  else if dboPathStructure in FDBOptions then
-    RefreshNodeByPath
   else
     RefreshNodeByParent;
 end;
@@ -2009,88 +1866,6 @@ begin
     LData.Status := dbnsInited;
   end;
   ReadNodeFromDB(LNode);
-end;
-
-procedure TBaseVirtualDBTreeEx.RefreshNodeByPath;
-var
-  LPos   : Integer;
-  LId    : Double;
-  LLevel : Integer;
-  LNode  : PVirtualNode;
-  LLast  : PVirtualNode;
-  LData  : PDBVTData;
-  LTemp  : string;
-  LPath  : string;
-begin
-  LData := nil;
-  LPath := FPathField.AsString;
-  LLast := RootNode;
-  DoReadPathFromDB(LPath);
-  LTemp := FloatToStr(FKeyField.AsFloat);
-  if LPath = '' then
-    LPath := LTemp
-  else
-    LPath := Format('%s.%s', [LPath, LTemp]);
-
-  repeat
-    LNode := LLast;
-    LPos := System.Pos('.', LPath);
-    if LPos = 0 then
-    begin
-      LTemp := LPath;
-      LPos := Length(LPath);
-    end
-    else
-      LTemp := Copy(LPath, 1, LPos - 1);
-
-    LId := StrToFloat(LTemp);
-    LLast := FindChild(LNode, LId);
-
-    if Assigned(LLast) then
-      Delete(LPath, 1, LPos);
-  until not Assigned(LLast) or (LPath = '');
-
-  if LPath = '' then
-  begin
-    LNode := LLast;
-    LData := GetNodeData(LNode);
-  end
-  else
-  begin
-    if LNode = RootNode then
-      LLevel := -1
-    else
-    begin
-      LData := GetNodeData(LNode);
-      LLevel := LData.Level;
-    end;
-
-    repeat
-      LPos := System.Pos('.', LPath);
-      if LPos = 0 then
-      begin
-        LTemp := LPath;
-        LPos := Length(LPath);
-      end
-      else
-        LTemp := Copy(LPath, 1, LPos - 1);
-
-      LId := StrToFloat(LTemp);
-      LNode := AddChild(LNode);
-      ValidateNode(LNode, False);
-      LData := GetNodeData(LNode);
-      Inc(LLevel);
-      LData.Id := LId;
-      LData.Level := LLevel;
-      LData.Status := dbnsInited;
-      LData.Parent := nil;
-      Delete(LPath, 1, LPos);
-    until LPath = '';
-  end;
-  if LData <> nil then
-    FMaxLevel := Max(FMaxLevel, LData.Level);
-  if LNode <> nil then
-    ReadNodeFromDB(LNode);
 end;
 
 procedure TBaseVirtualDBTreeEx.LogDBStatus;
@@ -2261,8 +2036,6 @@ procedure TBaseVirtualDBTreeEx.ResetFields;
 begin
   FKeyField := nil;
   FParentField := nil;
-  FPathField := nil;
-  FLevelField := nil;
   FViewField := nil;
   FImgIdxField := nil;
   FImageField := nil;
@@ -2274,10 +2047,6 @@ begin
     FKeyField := FDataLink.DataSet.FieldByName(FKeyFieldName);
   if (FParentFieldName <> '') then
     FParentField := FDataLink.DataSet.FieldByName(FParentFieldName);
-  if (FPathFieldName <> '') then
-    FPathField := FDataLink.DataSet.FieldByName(FPathFieldName);
-  if (FLevelFieldName <> '') then
-    FLevelField := FDataLink.DataSet.FieldByName(FLevelFieldName);
   if FViewFieldName <> '' then
     FViewField := DataSource.DataSet.FieldByName(FViewFieldName);
   if FImgIdxFieldName <> '' then
@@ -2291,8 +2060,7 @@ begin
   Result := (FKeyField <> nil);
   if Result and (not (dboListView in FDBOptions) or (dboAlwaysStructured in
     FDBOptions)) then
-    Result := ((dboPathStructure in FDBOptions) and Assigned(FPathField)) or
-      ((dboParentStructure in FDBOptions) and Assigned(FParentField));
+    Result := (dboParentStructure in FDBOptions) and Assigned(FParentField);
   if Result then
     DoOpeningDataSet(Result);
 end;
@@ -2327,13 +2095,8 @@ begin
     end
     else if (ChangeMode = dbcmStructure) or (ChangeMode = dbcmInsert) then
     begin
-      Result := (((dboPathStructure in FDBOptions) or (dboWriteSecondary in
-        FDBOptions)) and Assigned(FPathField) and FPathField.CanModify) or
-        (((dboParentStructure in FDBOptions) or
-        (dboWriteSecondary in FDBOptions))
-        and Assigned(FParentField) and FParentField.CanModify);
-      if Result and (dboWriteLevel in FDBOptions) then
-        Result := Assigned(FLevelField) and FLevelField.CanModify;
+      Result := (dboParentStructure in FDBOptions) and Assigned(FParentField)
+        and FParentField.CanModify;
     end;
     if Result then
       DoWritingDataSet(Node, Column, ChangeMode, Result);
@@ -2376,8 +2139,7 @@ begin
     end
     else if not (dboViewAll in FDBOptions) then
       ToggleViewMode;
-    if not (dbtsChecking in FDBStatus) and (dboPathStructure in
-      FDBOptions) then
+    if not (dbtsChecking in FDBStatus) then
       RefreshNodes;
     EndUpdate;
     inherited;
@@ -3071,4 +2833,3 @@ end;
 {$ENDREGION}
 {$ENDREGION}
 end.
-

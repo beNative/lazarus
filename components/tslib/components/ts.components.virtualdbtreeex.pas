@@ -91,7 +91,6 @@ type
   );
 
   PDBVTData = ^TDBVTData;
-
   TDBVTData = record
     Id     : Double;
     Level  : Integer;
@@ -158,14 +157,14 @@ type
     FKeyField          : TField;
     FKeyFieldName      : string;
     FMaxLevel          : Integer;
+    FParentField       : TField;
+    FParentFieldName   : string;
+    FNameField         : TField;
+    FNameFieldName     : string;
     FOnNodeDataChanged : TVTNodeDataChangedEvent;
     FOnOpeningDataSet  : TVTDBOpenQueryEvent;
     FOnReadNodeFromDB  : TVTNodeFromDBEvent;
     FOnWritingDataSet  : TVTDBWriteQueryEvent;
-    FParentField       : TField;
-    FParentFieldName   : string;
-    FViewField         : TField;
-    FViewFieldName     : string;
 
     {$REGION 'property access methods'}
     function GetDataSource: TDataSource;
@@ -181,7 +180,7 @@ type
     procedure SetKeyFieldName(const Value: string);
     procedure SetOptions(const Value: TStringTreeOptions);
     procedure SetParentFieldName(const Value: string);
-    procedure SetViewFieldName(const Value: string);
+    procedure SetNameFieldName(const Value: string);
     {$ENDREGION}
 
     procedure OnDragOverHandler(
@@ -321,9 +320,6 @@ type
     property KeyField: TField
       read FKeyField;
 
-    //property LevelField: TField
-    //  read FLevelField;
-
     property OnNodeDataChanged: TVTNodeDataChangedEvent
       read FOnNodeDataChanged write FOnNodeDataChanged;
 
@@ -333,11 +329,8 @@ type
     property ParentField: TField
       read FParentField;
 
-    //property PathField: TField
-    //  read FPathField;
-
-    property ViewField: TField
-      read FViewField;
+    property NameField: TField
+      read FNameField;
 
     property ImgIdxField: TField
       read FImgIdxField;
@@ -372,8 +365,8 @@ type
     property TreeOptions: TStringTreeOptions
       read GetOptions write SetOptions;
 
-    property ViewFieldName: string
-      read FViewFieldName write SetViewFieldName;
+    property NameFieldName: string
+      read FNameFieldName write SetNameFieldName;
 
     property ImgIdxFieldName: string
       read FImgIdxFieldName write SetImgIdxFieldName;
@@ -702,12 +695,14 @@ type
 implementation
 
 uses
-  SysUtils, Math, Rtti,
+  SysUtils, Math,
+
+  //Rtti,
 
   ts.Core.Logger;
 
 type
-  THackedTreeOptions = class(TStringTreeOptions);
+  TAccessTreeOptions = class(TStringTreeOptions);
 
 {$REGION 'TVirtualDBTreeExDataLink'}
 {$REGION 'construction and destruction'}
@@ -942,8 +937,8 @@ begin
     else
     begin
       BeginUpdate;
-      THackedTreeOptions(TreeOptions).MiscOptions :=
-        THackedTreeOptions(TreeOptions).MiscOptions + [toCheckSupport];
+      TAccessTreeOptions(TreeOptions).MiscOptions :=
+        TAccessTreeOptions(TreeOptions).MiscOptions + [toCheckSupport];
       if not (dboViewAll in FDBOptions) then
         ToggleViewMode;
       EndUpdate;
@@ -952,8 +947,8 @@ begin
   else if dboShowChecks in LToBeCleared then
   begin
     BeginUpdate;
-    THackedTreeOptions(TreeOptions).MiscOptions :=
-      THackedTreeOptions(TreeOptions).MiscOptions - [toCheckSupport];
+    TAccessTreeOptions(TreeOptions).MiscOptions :=
+      TAccessTreeOptions(TreeOptions).MiscOptions - [toCheckSupport];
     if not (dboViewAll in FDBOptions) then
     begin
       FDBOptions := FDBOptions + [dboViewAll];
@@ -1152,12 +1147,12 @@ end;
 {$ENDREGION}
 
 {$REGION 'property access methods'}
-procedure TBaseVirtualDBTreeEx.SetViewFieldName(const Value: string);
+procedure TBaseVirtualDBTreeEx.SetNameFieldName(const Value: string);
 begin
-  if FViewFieldName <> Value then
+  if FNameFieldName <> Value then
   begin
-    FViewField := nil;
-    FViewFieldName := Value;
+    FNameField := nil;
+    FNameFieldName := Value;
     DataLinkActiveChanged;
   end;
 end;
@@ -1386,12 +1381,11 @@ end;
 procedure TBaseVirtualDBTreeEx.DoNodeMoved(Node: PVirtualNode);
 var
   LData     : PDBVTData;
-  LPath     : string;
   LParent   : PVirtualNode;
   LParentId : Double;
   LLevel    : Integer;
 begin
-  if (dbtsDragDrop in FDBStatus) then
+  if dbtsDragDrop in FDBStatus then
   begin
     LParentId := 0.0;
     LLevel := 0;
@@ -1443,7 +1437,7 @@ end;
 
 procedure TBaseVirtualDBTreeEx.DoOpeningDataSet(var Allow: Boolean);
 begin
-  Allow := FViewField <> nil;
+  Allow := FNameField <> nil;
   if Allow then
   begin
     if Assigned(FOnOpeningDataSet) then
@@ -1608,7 +1602,6 @@ procedure TBaseVirtualDBTreeEx.AddNode(AParent: PVirtualNode);
 var
   LLevel    : Integer;
   LParentId : Double;
-  LPath     : string;
   LNode     : PVirtualNode;
   LData     : PDBVTData;
 begin
@@ -1622,7 +1615,6 @@ begin
     begin
       LLevel := 0;
       LParentId := 0.0;
-      LPath := '';
     end
     else
     begin
@@ -2036,7 +2028,7 @@ procedure TBaseVirtualDBTreeEx.ResetFields;
 begin
   FKeyField := nil;
   FParentField := nil;
-  FViewField := nil;
+  FNameField := nil;
   FImgIdxField := nil;
   FImageField := nil;
 end;
@@ -2047,8 +2039,8 @@ begin
     FKeyField := FDataLink.DataSet.FieldByName(FKeyFieldName);
   if (FParentFieldName <> '') then
     FParentField := FDataLink.DataSet.FieldByName(FParentFieldName);
-  if FViewFieldName <> '' then
-    FViewField := DataSource.DataSet.FieldByName(FViewFieldName);
+  if FNameFieldName <> '' then
+    FNameField := DataSource.DataSet.FieldByName(FNameFieldName);
   if FImgIdxFieldName <> '' then
     FImgIdxField := DataSource.DataSet.FieldByName(FImgIdxFieldName);
   if FImageFieldName <> '' then
@@ -2107,7 +2099,7 @@ procedure TBaseVirtualDBTreeEx.DoWritingDataSet(Node: PVirtualNode; Column:
   TColumnIndex; ChangeMode: TDBVTChangeMode; var Allow: Boolean);
 begin
   if (ChangeMode = dbcmEdit) and (Column = Header.MainColumn) then
-    Allow := FViewField.CanModify;
+    Allow := FNameField.CanModify;
   if Allow then
   begin
     if Assigned(FOnWritingDataSet) then
@@ -2310,7 +2302,7 @@ var
   LData : PDBNodeData;
 begin
   inherited DoReadNodeFromDB(Node);
-  NodeText[Node] := ViewField.AsString;
+  NodeText[Node] := NameField.AsString;
   LData := PDBNodeData(GetDBNodeData(Node));
   if Assigned(ImgIdxField) then
   begin
@@ -2329,7 +2321,7 @@ procedure TVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field: TField;
 var
   LData: PDBNodeData;
 begin
-  if Field = ViewField then
+  if Field = NameField then
   begin
     NodeText[Node] := Field.AsString;
     UpdateNode := True;
@@ -2363,7 +2355,7 @@ procedure TVirtualDBTreeEx.DoNewText(Node: PVirtualNode; Column: TColumnIndex;
   const Text: string);
 begin
   if Column = Header.MainColumn then
-    ViewField.AsString := Text;
+    NameField.AsString := Text;
 end;
 
 procedure TVirtualDBTreeEx.DoWritingDataSet(Node: PVirtualNode; Column:
@@ -2553,7 +2545,7 @@ var
   LData : PDBNodeData;
 begin
   inherited;
-  NodeText[Node] := ViewField.AsString;
+  NodeText[Node] := NameField.AsString;
   LData := PDBNodeData(GetDBNodeData(Node));
   if ImgIdxField <> nil then
   begin
@@ -2568,7 +2560,7 @@ procedure TDBCheckVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
 var
   LData : PDBNodeData;
 begin
-  if Field = ViewField then
+  if Field = NameField then
   begin
     NodeText[Node] := Field.AsString;
     UpdateNode := True;
@@ -2597,7 +2589,7 @@ procedure TDBCheckVirtualDBTreeEx.DoNewText(Node: PVirtualNode; Column:
   TColumnIndex; const Text: string);
 begin
   if Column = Header.MainColumn then
-    ViewField.AsString := Text;
+    NameField.AsString := Text;
 end;
 
 procedure TDBCheckVirtualDBTreeEx.DoWritingDataSet(Node: PVirtualNode; Column:
@@ -2730,7 +2722,7 @@ var
   LData : PDBNodeData;
 begin
   inherited DoReadNodeFromDB(Node);
-  NodeText[Node] := ViewField.AsString;
+  NodeText[Node] := NameField.AsString;
   LData := PDBNodeData(GetDBNodeData(Node));
   if Assigned(ImgIdxField) then
     LData.ImageIndex := ImgIdxField.AsInteger
@@ -2747,7 +2739,7 @@ procedure TCheckVirtualDBTreeEx.DoNodeDataChanged(Node: PVirtualNode; Field:
 var
   LData : PDBNodeData;
 begin
-  if Field = ViewField then
+  if Field = NameField then
   begin
     NodeText[Node] := Field.AsString;
     UpdateNode := True;
@@ -2782,7 +2774,7 @@ procedure TCheckVirtualDBTreeEx.DoNewText(Node: PVirtualNode; Column:
   TColumnIndex; const Text: string);
 begin
   if Column = Header.MainColumn then
-    ViewField.AsString := Text;
+    NameField.AsString := Text;
 end;
 
 procedure TCheckVirtualDBTreeEx.DoWritingDataSet(Node: PVirtualNode; Column:

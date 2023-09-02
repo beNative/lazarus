@@ -33,12 +33,12 @@ interface
 
 uses
   ActnList, Classes, ComCtrls, Controls, Dialogs, ExtCtrls, Forms, Graphics,
-  Menus, Variants, Windows, ImgList, ActiveX,
+  Menus, Variants, Windows, ImgList, ActiveX, Types,
   DB, DBCtrls,
 
   VirtualTrees,
 
-  ts.Components.VirtualDBTreeEx, Types;
+  ts.Components.VirtualDBTreeEx;
 
 { Form holding data-aware treeview for flat database files.
   To support this treeview, the table must include following fields for storing
@@ -55,7 +55,6 @@ uses
 
 const
   DEFAULT_KEYFIELDNAME      = 'Id';
-  DEFAULT_LEVELFIELDNAME    = 'Id';
   DEFAULT_PARENTFIELDNAME   = 'ParentId';
   DEFAULT_IMGIDXFIELDNAME   = 'ImageIndex';
   DEFAULT_IMAGEFIELDNAME    = 'Image';
@@ -207,15 +206,11 @@ type
     function GetImgIdxFieldName: string;
     function GetKeyField: TField;
     function GetKeyFieldName: string;
-    function GetLevelField: TField;
-    function GetLevelFieldName: string;
     function GetMultiSelect: Boolean;
     function GetNodeTypeField: TField;
     function GetNodeTypeFieldName: string;
     function GetParentField: TField;
     function GetParentFieldName: string;
-    function GetPathField: TField;
-    function GetPathFieldName: string;
     function GetSelectionCount: Integer;
     function GetToolbarTopVisible: Boolean;
     function GetViewField: TField;
@@ -225,11 +220,9 @@ type
     procedure SetImageList(AValue: TCustomImageList);
     procedure SetImgIdxFieldName(const AValue: string);
     procedure SetKeyFieldName(const AValue: string);
-    procedure SetLevelFieldName(const AValue: string);
     procedure SetMultiSelect(const Value: Boolean);
     procedure SetNodeTypeFieldName(AValue: string);
     procedure SetParentFieldName(const AValue: string);
-    procedure SetPathFieldName(AValue: string);
     procedure SetToolbarTopVisible(const Value: Boolean);
     procedure SetViewFieldName(const AValue: string);
     {$ENDREGION}
@@ -281,17 +274,11 @@ type
     property ParentField: TField
       read GetParentField;
 
-    property LevelField: TField
-      read GetLevelField;
-
     property ImgIdxField: TField
       read GetImgIdxField;
 
     property NodeTypeField: TField
       read GetNodeTypeField;
-
-    property PathField: TField
-      read GetPathField;
 
     property ViewField: TField
       read GetViewField;
@@ -314,14 +301,8 @@ type
     property KeyFieldName: string
       read GetKeyFieldName write SetKeyFieldName;
 
-    property PathFieldName: string
-      read GetPathFieldName write SetPathFieldName;
-
     property ParentFieldName: string
       read GetParentFieldName write SetParentFieldName;
-
-    property LevelFieldName: string
-      read GetLevelFieldName write SetLevelFieldName;
 
     property NodeTypeFieldName: string
       read GetNodeTypeFieldName write SetNodeTypeFieldName;
@@ -386,7 +367,6 @@ begin
   Logger.Send('FTreeView.DBOptions', TValue.From<TDBVTOptions>(FTreeView.DBOptions));
 
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
-  LevelFieldName    := DEFAULT_LEVELFIELDNAME;
   ParentFieldName   := DEFAULT_PARENTFIELDNAME;
   ImgIdxFieldName   := DEFAULT_IMGIDXFIELDNAME;
   ViewFieldName     := DEFAULT_VIEWFIELDNAME;
@@ -441,9 +421,9 @@ begin
   Result := FTreeView.KeyFieldName;
 end;
 
-function TfrmVirtualDBTree.GetLevelField: TField;
+procedure TfrmVirtualDBTree.SetKeyFieldName(const AValue: string);
 begin
-  Result := FTreeView.LevelField;
+  FTreeView.KeyFieldName := AValue;
 end;
 
 function TfrmVirtualDBTree.GetImgIdxFieldName: string;
@@ -471,16 +451,6 @@ begin
   FTreeView.ImgIdxFieldName := AValue;
 end;
 
-procedure TfrmVirtualDBTree.SetKeyFieldName(const AValue: string);
-begin
-  FTreeView.KeyFieldName := AValue;
-end;
-
-function TfrmVirtualDBTree.GetLevelFieldName: string;
-begin
-  Result := FTreeView.LevelFieldName;
-end;
-
 function TfrmVirtualDBTree.GetNodeTypeField: TField;
 begin
   Result := DataSet.FieldByName(NodeTypeFieldName);
@@ -501,29 +471,9 @@ begin
   Result := FTreeView.ParentField;
 end;
 
-procedure TfrmVirtualDBTree.SetLevelFieldName(const AValue: string);
-begin
-  FTreeView.LevelFieldName := AValue;
-end;
-
 function TfrmVirtualDBTree.GetParentFieldName: string;
 begin
   Result := FTreeView.ParentFieldName;
-end;
-
-function TfrmVirtualDBTree.GetPathField: TField;
-begin
-  Result := FTreeView.PathField;
-end;
-
-function TfrmVirtualDBTree.GetPathFieldName: string;
-begin
-  Result := FTreeView.PathFieldName;
-end;
-
-procedure TfrmVirtualDBTree.SetPathFieldName(AValue: string);
-begin
-  FTreeView.PathFieldName := AValue;
 end;
 
 procedure TfrmVirtualDBTree.SetParentFieldName(const AValue: string);

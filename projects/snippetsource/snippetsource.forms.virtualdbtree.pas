@@ -59,7 +59,7 @@ const
   DEFAULT_IMGIDXFIELDNAME   = 'ImageIndex';
   DEFAULT_IMAGEFIELDNAME    = 'Image';
   DEFAULT_NODETYPEFIELDNAME = 'NodeTypeId';
-  DEFAULT_VIEWFIELDNAME     = 'NodeName';
+  DEFAULT_NAMEFIELDNAME     = 'NodeName';
 
 type
   TNewFolderNodeEvent = procedure(Sender: TObject) of object;
@@ -198,8 +198,6 @@ type
     FNodeTypeFieldName        : string;
 
     {$REGION 'property access methods'}
-    procedure FTreeViewWritePathToDB(Sender: TBaseVirtualDBTreeEx;
-      var Path: string);
     function GetImageFieldName: string;
     function GetImageList: TCustomImageList;
     function GetImgIdxField: TField;
@@ -213,8 +211,8 @@ type
     function GetParentFieldName: string;
     function GetSelectionCount: Integer;
     function GetToolbarTopVisible: Boolean;
-    function GetViewField: TField;
-    function GetViewFieldName: string;
+    function GetNameField: TField;
+    function GetNameFieldName: string;
     procedure SetDataSet(const Value: TDataSet);
     procedure SetImageFieldName(AValue: string);
     procedure SetImageList(AValue: TCustomImageList);
@@ -224,7 +222,7 @@ type
     procedure SetNodeTypeFieldName(AValue: string);
     procedure SetParentFieldName(const AValue: string);
     procedure SetToolbarTopVisible(const Value: Boolean);
-    procedure SetViewFieldName(const AValue: string);
+    procedure SetNameFieldName(const AValue: string);
     {$ENDREGION}
 
     procedure GetFileListFromObj(
@@ -280,8 +278,8 @@ type
     property NodeTypeField: TField
       read GetNodeTypeField;
 
-    property ViewField: TField
-      read GetViewField;
+    property NameField: TField
+      read GetNameField;
 
     property DataSet: TDataSet
       read FDataSet write SetDataSet;
@@ -313,8 +311,8 @@ type
     property ImgIdxFieldName: string
       read GetImgIdxFieldName write SetImgIdxFieldName;
 
-    property ViewFieldName: string
-      read GetViewFieldName write SetViewFieldName;
+    property NameFieldName: string
+      read GetNameFieldName write SetNameFieldName;
 
     property ImageList: TCustomImageList
       read GetImageList write SetImageList;
@@ -369,7 +367,7 @@ begin
   KeyFieldName      := DEFAULT_KEYFIELDNAME;
   ParentFieldName   := DEFAULT_PARENTFIELDNAME;
   ImgIdxFieldName   := DEFAULT_IMGIDXFIELDNAME;
-  ViewFieldName     := DEFAULT_VIEWFIELDNAME;
+  NameFieldName     := DEFAULT_NAMEFIELDNAME;
   NodeTypeFieldName := DEFAULT_NODETYPEFIELDNAME;
   ImageFieldName    := DEFAULT_IMAGEFIELDNAME;
 end;
@@ -486,25 +484,19 @@ begin
   Result := FTreeView.SelectedCount;
 end;
 
-function TfrmVirtualDBTree.GetViewField: TField;
+function TfrmVirtualDBTree.GetNameField: TField;
 begin
-  Result := FTreeView.ViewField;
+  Result := FTreeView.NameField;
 end;
 
-function TfrmVirtualDBTree.GetViewFieldName: string;
+function TfrmVirtualDBTree.GetNameFieldName: string;
 begin
-  Result := FTreeView.ViewFieldName;
+  Result := FTreeView.NameFieldName;
 end;
 
 function TfrmVirtualDBTree.GetImageFieldName: string;
 begin
   Result := FTreeView.ImageFieldName;
-end;
-
-procedure TfrmVirtualDBTree.FTreeViewWritePathToDB
-  (Sender: TBaseVirtualDBTreeEx; var Path: string);
-begin
-  Logger.Info(Path);
 end;
 
 procedure TfrmVirtualDBTree.SetImageFieldName(AValue: string);
@@ -523,9 +515,9 @@ begin
   end;
 end;
 
-procedure TfrmVirtualDBTree.SetViewFieldName(const AValue: string);
+procedure TfrmVirtualDBTree.SetNameFieldName(const AValue: string);
 begin
-  FTreeView.ViewFieldName := AValue;
+  FTreeView.NameFieldName := AValue;
 end;
 {$ENDREGION}
 
@@ -736,7 +728,7 @@ begin
     ShowMessage('Dataset not in edit mode');
     DataSet.Edit;
   end;
-  ViewField.AsString := FTreeView.NodeText[Node];
+  NameField.AsString := FTreeView.NodeText[Node];
 end;
 {$ENDREGION}
 
@@ -801,7 +793,7 @@ begin
   DataSet.Append;
   ParentField.AsInteger   := AParentId;
   NodeTypeField.AsInteger := ANodeType;
-  ViewField.AsString      := AName;
+  NameField.AsString      := AName;
   if DataSet.State in dsEditModes then
     DataSet.Post;
 end;
@@ -887,7 +879,6 @@ begin
     OnDragOver     := FTreeViewDragOver;
     OnDragDrop     := FTreeViewDragDrop;
     OnEdited       := FTreeViewEdited;
-    OnWritePathToDB  := FTreeViewWritePathToDB;
 
     TreeOptions.AnimationOptions := [
       toAnimatedToggle,

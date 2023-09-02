@@ -141,11 +141,11 @@ type
 implementation
 
 uses
-  Dialogs,
+  Dialogs, FileUtil,
+  fpjsonrtti,
 
-  ts.Core.Logger, ts.Editor.Factories,
-
-  fpjsonrtti, FileUtil;
+  ts.Core.Logger,
+  ts.Editor.Factories;
 
 {$REGION 'construction and destruction'}
 procedure TSettings.AfterConstruction;
@@ -265,11 +265,6 @@ begin
   Result := FHtmlEditMode;
 end;
 
-function TSettings.GetHtmlSourceVisible: Boolean;
-begin
-  Result := FHtmlSourceVisible;
-end;
-
 procedure TSettings.SetHtmlEditMode(AValue: Boolean);
 begin
   if AValue <> HtmlEditMode then
@@ -277,6 +272,11 @@ begin
     FHtmlEditMode := AValue;
     Changed;
   end;
+end;
+
+function TSettings.GetHtmlSourceVisible: Boolean;
+begin
+  Result := FHtmlSourceVisible;
 end;
 
 procedure TSettings.SetHtmlSourceVisible(AValue: Boolean);

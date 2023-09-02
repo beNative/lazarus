@@ -2,11 +2,11 @@ object frmLookup: TfrmLookup
   Left = 876
   Height = 689
   Top = 288
-  Width = 794
+  Width = 796
   ActiveControl = edtLookup
   Caption = 'Search'
   ClientHeight = 689
-  ClientWidth = 794
+  ClientWidth = 796
   Color = clWindow
   Font.Height = -12
   KeyPreview = True
@@ -20,8 +20,8 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 23
     Top = 666
-    Width = 784
-    BorderSpacing.Right = 10
+    Width = 796
+    AutoHint = True
     Font.Height = -11
     Panels = <>
     ParentFont = False
@@ -30,7 +30,7 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 644
     Top = 22
-    Width = 794
+    Width = 796
     Align = alClient
     BorderStyle = bsNone
     Color = clWindow
@@ -47,7 +47,7 @@ object frmLookup: TfrmLookup
         Title.Font.Height = -11
         Title.Font.Style = [fsBold]
         Title.Caption = 'Id'
-        Width = 25
+        Width = 40
         FieldName = 'Id'
       end    
       item
@@ -120,18 +120,18 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 21
     Top = 0
-    Width = 794
+    Width = 796
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
     ClientHeight = 21
-    ClientWidth = 794
+    ClientWidth = 796
     TabOrder = 2
     object edtLookup: TEdit
       Left = 10
       Height = 21
       Top = 0
-      Width = 784
+      Width = 786
       Align = alClient
       BorderSpacing.Left = 10
       BorderStyle = bsNone
@@ -147,7 +147,7 @@ object frmLookup: TfrmLookup
     Left = 0
     Height = 1
     Top = 21
-    Width = 794
+    Width = 796
     Align = alTop
     Brush.Color = clDefault
     Pen.Color = clBtnFace

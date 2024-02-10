@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -451,6 +451,11 @@ type
       AOwner  : TComponent;
       AParent : TWinControl
     ): TToolbar;
+
+    function CreateBrowserToolbar(
+      AOwner  : TComponent;
+      AParent : TWinControl
+    ): TToolbar;
   end;
 
   IHtmlEditorMenusFactory = interface
@@ -502,28 +507,28 @@ type
 
   IHtmlEditorToolViews = interface
   ['{C76482DF-8875-4D25-9FA6-CE6E538E954E}']
-  {$REGION 'property access methods'}
-  function GetView(AIndex: Integer): IHtmlEditorToolView;
-  function GetViewByName(AName: string): IHtmlEditorToolView;
-  function GetCount: Integer;
-  {$ENDREGION}
+    {$REGION 'property access methods'}
+    function GetView(AIndex: Integer): IHtmlEditorToolView;
+    function GetViewByName(AName: string): IHtmlEditorToolView;
+    function GetCount: Integer;
+    {$ENDREGION}
 
-  function GetEnumerator: THtmlEditorToolViewListEnumerator;
+    function GetEnumerator: THtmlEditorToolViewListEnumerator;
 
-  function Register(
-    AFormClass     : TComponentClass;
-    ASettingsClass : TComponentClass;
-    const AName    : string = ''
-  ): Boolean;
-  procedure Hide;
+    function Register(
+      AFormClass     : TComponentClass;
+      ASettingsClass : TComponentClass;
+      const AName    : string = ''
+    ): Boolean;
+    procedure Hide;
 
-  property Views[AIndex: Integer]: IHtmlEditorToolView
-    read GetView;
+    property Views[AIndex: Integer]: IHtmlEditorToolView
+      read GetView;
 
-  property ViewByName[AName: string]: IHtmlEditorToolView
-    read GetViewByName; default;
+    property ViewByName[AName: string]: IHtmlEditorToolView
+      read GetViewByName; default;
 
-  property Count: Integer
+    property Count: Integer
     read GetCount;
   end;
 

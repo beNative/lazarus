@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -45,6 +45,12 @@ type
     ): TMainMenu;
 
     class function CreateMainToolbar(
+      AOwner   : TComponent;
+      AParent  : TWinControl;
+      AActions : IHtmlEditorActions
+    ): TToolbar;
+
+    class function CreateBrowserToolbar(
       AOwner   : TComponent;
       AParent  : TWinControl;
       AActions : IHtmlEditorActions
@@ -99,6 +105,15 @@ var
 begin
   HETF   := THtmlEditorToolbarsFactory.Create(AActions);
   Result := HETF.CreateMainToolbar(AOwner, AParent);
+end;
+
+class function THtmlEditorFactories.CreateBrowserToolbar(AOwner: TComponent;
+  AParent: TWinControl; AActions: IHtmlEditorActions): TToolbar;
+var
+  HETF : IHtmlEditorToolbarsFactory;
+begin
+  HETF   := THtmlEditorToolbarsFactory.Create(AActions);
+  Result := HETF.CreateBrowserToolbar(AOwner, AParent);
 end;
 
 end.

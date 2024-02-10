@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -775,7 +775,7 @@ procedure THtmlEditorView.WVBrowserContentLoading(Sender: TObject;
   const AWebView: ICoreWebView2;
   const AArgs: ICoreWebView2ContentLoadingEventArgs);
 begin
-  //Logger.Info('WVBrowserContentLoading');
+  Logger.Info('WVBrowserContentLoading');
 end;
 
 procedure THtmlEditorView.WVBrowserContextMenuRequested(Sender: TObject;
@@ -1144,16 +1144,17 @@ procedure THtmlEditorView.WVBrowserSourceChanged(Sender: TObject;
 var
   LArgs : TCoreWebView2SourceChangedEventArgs;
 begin
-  //Logger.Enter(Self, 'WVBrowserSourceChanged');
+  Logger.Enter(Self, 'WVBrowserSourceChanged');
   LArgs := TCoreWebView2SourceChangedEventArgs.Create(AArgs);
   try
     //Logger.Send('Initialized', LArgs.Initialized);
     //Logger.Send('IsNewDocument', LArgs.IsNewDocument);
     Events.DoSourceChanged;
+//    Source := WVBrowser.Source;
   finally
     LArgs.Free;
   end;
-  //Logger.Leave(Self, 'WVBrowserSourceChanged');
+  Logger.Leave(Self, 'WVBrowserSourceChanged');
 end;
 
 procedure THtmlEditorView.WVBrowserStatusBarTextChanged(Sender: TObject;
@@ -1306,7 +1307,7 @@ var
   LName     : wvstring;
   LValue    : wvstring;
 begin
-  // Logger.Enter(Self, 'WVBrowserWebResourceResponseReceived');
+  //Logger.Enter(Self, 'WVBrowserWebResourceResponseReceived');
   if FGetHeaders then
     try
       FHeaders.Clear;
@@ -1328,7 +1329,7 @@ begin
       FreeAndNil(LResponse);
       FreeAndNil(LArgs);
     end;
-    //Logger.Leave(Self, 'WVBrowserWebResourceResponseReceived');
+  //Logger.Leave(Self, 'WVBrowserWebResourceResponseReceived');
 end;
 
 procedure THtmlEditorView.WVBrowserWebResourceResponseViewGetContentCompleted
@@ -1378,7 +1379,6 @@ end;
 
 procedure THtmlEditorView.DoRequestData;
 begin
-  //Logger.Info('DoRequestData');
   WVBrowser.RetrieveHTML;
   FRequestingData := True;
   FDataReceived   := False;
@@ -1395,7 +1395,6 @@ end;
 
 procedure THtmlEditorView.DoSendData;
 begin
-  //Logger.Info('DoSendData');
   WVBrowser.NavigateToString(UTF8Decode(FHtmlText));
   FSendingData := True;
   FDataSent    := False;
@@ -1966,6 +1965,7 @@ end;
 
 function THtmlEditorView.Navigate(const ASource: string): Boolean;
 begin
+  Logger.Info('Navigate %s', [UTF8Decode(FSource)]);
   WVBrowser.Navigate(UTF8Decode(FSource));
 end;
 

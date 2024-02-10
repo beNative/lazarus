@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -52,6 +52,11 @@ type
     destructor Destroy; override;
 
     function CreateMainToolbar(
+      AOwner  : TComponent;
+      AParent : TWinControl
+    ): TToolbar;
+
+    function CreateBrowserToolbar(
       AOwner  : TComponent;
       AParent : TWinControl
     ): TToolbar;
@@ -179,6 +184,41 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actGoBack');
   CreateToolButton(TB, 'actGoForward');
+  Result := TB;
+end;
+
+function THtmlEditorToolbarsFactory.CreateBrowserToolbar(AOwner: TComponent;
+  AParent: TWinControl): TToolbar;
+var
+  TB : TToolbar;
+begin
+  TB := TToolBar.Create(AOwner);
+  //TB.EdgeBorders  := [ebLeft, ebTop, ebRight, ebBottom];
+  TB.EdgeBorders  := [];
+  TB.EdgeInner    := esNone;
+  TB.EdgeOuter    := esNone;
+  TB.Transparent  := True;
+  TB.List         := True;
+  TB.Wrapable     := False;
+  TB.Parent       := AParent;
+  TB.Images       := FActions.ActionList.Images;
+  TB.Align        := alClient;
+  TB.ImagesWidth  := 16;
+  TB.ButtonWidth  := 26;
+  TB.ShowCaptions := True;
+  TB.AutoSize     := False;
+
+  CreateToolButton(TB, 'actRefresh');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actToggleSourceVisible');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actShowDevTools');
+  CreateToolButton(TB, 'actShowTaskManager');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actGoBack');
+  CreateToolButton(TB, 'actGoForward');
+  CreateToolButton(TB);
+  CreateToolButton(TB, 'actOpenInDefaultBrowser');
   Result := TB;
 end;
 {$ENDREGION}

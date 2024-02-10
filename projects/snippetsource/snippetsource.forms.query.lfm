@@ -1,7 +1,7 @@
 object frmQuery: TfrmQuery
-  Left = 3295
+  Left = 604
   Height = 600
-  Top = 258
+  Top = 316
   Width = 700
   ClientHeight = 600
   ClientWidth = 700
@@ -41,11 +41,12 @@ object frmQuery: TfrmQuery
       Columns = <>
       DataSource = dscMain
       FixedColor = clWindow
-      Flat = True
-      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+      Font.Height = -11
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgTabs, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgCellHints, dgRowHighlight, dgThumbTracking, dgDblClickAutoSize, dgDisplayMemoText]
+      ParentFont = False
       Scrollbars = ssAutoBoth
       TabOrder = 0
-      TitleFont.Height = -12
+      TitleFont.Height = -11
       TitleFont.Style = [fsBold]
       TitleStyle = tsNative
     end

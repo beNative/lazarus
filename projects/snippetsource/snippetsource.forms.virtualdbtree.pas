@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -699,7 +699,7 @@ begin
 
   for I := 0 to High(Formats) - 1 do
   begin
-    Logger.Send(I.ToString, GetClipboardFormatName(I));
+    //Logger.Send(I.ToString, GetClipboardFormatName(I));
     if Formats[I] = CF_HDROP then
     begin
       SL := TStringList.Create;
@@ -725,7 +725,6 @@ procedure TfrmVirtualDBTree.FTreeViewEdited(Sender: TBaseVirtualTree;
 begin
   if not (DataSet.State in dsEditModes) then
   begin
-    ShowMessage('Dataset not in edit mode');
     DataSet.Edit;
   end;
   NameField.AsString := FTreeView.NodeText[Node];
@@ -837,24 +836,6 @@ begin
     Header.DefaultHeight         := 17;
     Header.Options               := [hoAutoResize, hoColumnResize, hoDrag];
     Header.PopupMenu             := ppmTreeView;
-{
-    dboAllowChecking,
-    dboAllowStructureChange,
-    dboAlwaysStructured,
-    dboCheckChildren,
-    dboCheckDBStructure,
-    dboListView,
-    dboParentStructure,
-    dboPathStructure,
-    dboReadOnly,
-    dboShowChecks,
-    dboTrackActive,
-    dboTrackChanges,
-    dboTrackCursor,
-    dboViewAll,
-    dboWriteLevel,
-    dboWriteSecondary
- }
     DBOptions := [
       dboAllowStructureChange,
       dboAlwaysStructured,
@@ -915,8 +896,7 @@ begin
       toStaticBackground
     ];
     TreeOptions.SelectionOptions := [toMultiSelect, toCenterScrollIntoView];
-    TreeOptions.StringOptions := [toAutoAcceptEditChange];
-    //IncrementalSearch := isNone; // disable incremental search feature
+    TreeOptions.StringOptions    := [toAutoAcceptEditChange];
   end;
   FTreeView.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;
@@ -977,7 +957,7 @@ begin
   for LNode in FTreeView.SelectedNodes do
   begin
     FTreeView.GetDBNodeData(LNode);
-    ANodeIds.Add('%1.0f', [PDBVTData(FTreeView.GetNodeData(LNode)).Id]);
+    ANodeIds.Add('%d', [PDBVTData(FTreeView.GetNodeData(LNode)).Id]);
   end;
 end;
 {$ENDREGION}

@@ -1,7 +1,7 @@
 inherited frmPreview: TfrmPreview
-  Left = 1037
+  Left = 376
   Height = 517
-  Top = 333
+  Top = 774
   Width = 673
   Caption = 'Preview'
   object ppmPreview: TPopupMenu[0]

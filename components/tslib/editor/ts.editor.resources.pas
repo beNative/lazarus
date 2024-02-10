@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -39,6 +39,7 @@ const
   HL_ISS  = 'ISS';
   HL_JAVA = 'JAVA';
   HL_JS   = 'JS';
+  HL_JSON = 'JSON';
   HL_LFM  = 'LFM';
   HL_LOG  = 'LOG';
   HL_LUA  = 'LUA';
@@ -155,8 +156,8 @@ const
   FILE_EXTENSIONS_PY   = 'py';
   FILE_EXTENSIONS_HTML = 'html,htm';
   FILE_EXTENSIONS_PO   = 'po';
-  FILE_EXTENSIONS_JS   = 'js,' +
-                         'json';               // Javascript Object Notation
+  FILE_EXTENSIONS_JS   = 'js';
+  FILE_EXTENSIONS_JSON = 'json';               // Javascript Object Notation
   FILE_EXTENSIONS_CSS  = 'css';
   FILE_EXTENSIONS_CS   = 'cs';
   FILE_EXTENSIONS_DIFF = 'diff';
@@ -183,6 +184,7 @@ resourcestring
   SISSDescription  = 'Inno Setup script';
   SJavaDescription = 'Java';
   SJSDescription   = 'JavaScript';
+  SJSONDescription = 'JavaScript Object Notation';
   SLFMDescription  = 'Object Pascal form definition';
   SLOGDescription  = 'Log';
   SLUADescription  = 'Lua';

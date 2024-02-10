@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -418,12 +418,12 @@ type
     {$REGION 'event handlers'}
     procedure SynMacroRecorderStateChange(Sender: TObject);
     procedure SynMacroRecorderUserCommand(
-      aSender    : TCustomSynMacroRecorder;
-      aCmd       : TSynEditorCommand;
-      var aEvent : TSynMacroEvent
+      ASender    : TCustomSynMacroRecorder;
+      ACmd       : TSynEditorCommand;
+      var AEvent : TSynMacroEvent
     );
     procedure PascalScriptCompile(Sender: TPSScript);
-    procedure PascalScriptCompImport(Sender: TObject; x: TPSPascalCompiler);
+    procedure PascalScriptCompImport(Sender: TObject; ACompiler: TPSPascalCompiler);
     {$ENDREGION}
 
   private
@@ -1884,14 +1884,14 @@ begin
 end;
 
 procedure TdmEditorManager.PascalScriptCompImport(Sender: TObject;
-  x: TPSPascalCompiler);
+  ACompiler: TPSPascalCompiler);
 begin
-  SIRegister_Std(x);
-  SIRegister_Classes(x, True);
-  SIRegister_Graphics(x, True);
-  SIRegister_Controls(x);
-  SIRegister_stdctrls(x);
-  SIRegister_Forms(x);
+  SIRegister_Std(ACompiler);
+  SIRegister_Classes(ACompiler, True);
+  SIRegister_Graphics(ACompiler, True);
+  SIRegister_Controls(ACompiler);
+  SIRegister_stdctrls(ACompiler);
+  SIRegister_Forms(ACompiler);
 end;
 
 procedure TdmEditorManager.SynMacroRecorderStateChange(Sender: TObject);
@@ -1900,12 +1900,12 @@ begin
 end;
 
 procedure TdmEditorManager.SynMacroRecorderUserCommand(
-  aSender: TCustomSynMacroRecorder; aCmd: TSynEditorCommand;
-  var aEvent: TSynMacroEvent);
+  ASender: TCustomSynMacroRecorder; ACmd: TSynEditorCommand;
+  var AEvent: TSynMacroEvent);
 begin
   //Logger.Send(
   //   'SynMacroRecorderUserCommand(Command = %s)',
-  //   [EditorCommandToCodeString(aCmd)]
+  //   [EditorCommandToCodeString(ACmd)]
   // );
 end;
 
@@ -2005,25 +2005,28 @@ end;
 
 procedure TdmEditorManager.RedefineActionsShortcuts;
 {$IFDEF DARWIN}
-var i:integer;
-    TheKey: Word;
-    TheShiftState: TShiftState;
+var
+  I           : Integer;
+  LKey        : Word;
+  LShiftState : TShiftState;
+  LAction     : TAction;
 {$ENDIF}
 begin
-    {$IFDEF DARWIN}
-    for i:=0 to aclActions.ActionCount-1 do
-    begin
-        ShortCutToKey(tAction(aclActions.Actions[i]).ShortCut, TheKey, TheShiftState);
-        if TheShiftState = [ssCtrl] then
-           tAction(aclActions.Actions[i]).ShortCut := ShortCut(TheKey, [ssMeta]);
-        if TheShiftState = [ssCtrl, ssShift] then
-           tAction(aclActions.Actions[i]).ShortCut := ShortCut(TheKey, [ssMeta, ssShift]);
-        if tAction(aclActions.Actions[i]).Name='actFindNext' then
-           tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta]);
-        if tAction(aclActions.Actions[i]).Name='actFindPrevious' then
-           tAction(aclActions.Actions[i]).ShortCut := ShortCut(ord('G'), [ssMeta, ssShift]);
-    end;
-    {$ENDIF}
+  {$IFDEF DARWIN}
+  for I := 0 to aclActions.ActionCount - 1 do
+  begin
+    LAction := TAction(aclActions.Actions[I]);
+      ShortCutToKey(LAction.ShortCut, LKey, LShiftState);
+      if LShiftState = [ssCtrl] then
+         LAction.ShortCut := ShortCut(LKey, [ssMeta]);
+      if LShiftState = [ssCtrl, ssShift] then
+         LAction.ShortCut := ShortCut(LKey, [ssMeta, ssShift]);
+      if LAction.Name = 'actFindNext' then
+         LAction.ShortCut := ShortCut(ord('G'), [ssMeta]);
+      if LAction.Name = 'actFindPrevious' then
+         LAction.ShortCut := ShortCut(ord('G'), [ssMeta, ssShift]);
+  end;
+  {$ENDIF}
 end;
 
 { Applies common highlighter attributes }
@@ -2096,7 +2099,7 @@ begin
     MI.Clear;
     MI.Action := actEncodingMenu;
     GetSupportedEncodings(SL);
-    for I := 0 to SL.Count - 1 do //change for ... in loop by esvignolo
+    for I := 0 to SL.Count - 1 do
     begin
       S := SL[I];
       S := ACTION_PREFIX_ENCODING + DelChars(S, '-');
@@ -2121,7 +2124,7 @@ begin
   MI := LineBreakStylePopupMenu.Items;
   MI.Clear;
   MI.Action := actLineBreakStyleMenu;
-  for T := Low(TTextLineBreakStyle) to High(TTextLineBreakStyle) do //change for .. in loop
+  for T := Low(TTextLineBreakStyle) to High(TTextLineBreakStyle) do
   begin
     S:= ALineBreakStyles[T];
     MI := TMenuItem.Create(LineBreakStylePopupMenu);

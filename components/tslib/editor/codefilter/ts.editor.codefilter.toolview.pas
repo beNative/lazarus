@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -43,19 +43,14 @@ type
     actMatchCase         : TAction;
     actRegularExpression : TAction;
     actSelectAll         : TAction;
-    btnApply             : TSpeedButton;
-    btnMatchCase         : TSpeedButton;
-    btnRegularExpression : TSpeedButton;
-    edtFilter            : TEdit;
+    edtFilter: TEdit;
     imlMain              : TImageList;
-    lblSearch            : TLabel;
     mniCopy              : TMenuItem;
     mniCopyToNewView     : TMenuItem;
     mniSelectAll         : TMenuItem;
     pnlVST               : TPanel;
     ppmMain              : TPopupMenu;
     sbrMain              : TStatusBar;
-    tlbMain              : TToolBar;
     tmrUpdate            : TTimer;
     {$ENDREGION}
 
@@ -251,7 +246,7 @@ begin
   FVST := VST.Create(Self, pnlVST);
   FVST.BorderStyle := bsNone;
   FVST.Font.Assign(Manager.Settings.EditorFont);
-  FVST.Font.Size := 8;
+  FVST.Font.Size := 9;
   FVST.TreeOptions.PaintOptions := FVST.TreeOptions.PaintOptions
     - [toShowHorzGridLines, toShowVertGridLines];
   FVST.Colors.FocusedSelectionColor         := clSilver;
@@ -262,17 +257,17 @@ begin
   FVST.OnKeyPress := FVSTKeyPress;
   FVST.OnKeyUp := FVSTKeyUp;
   FVST.Header.MainColumn := 1;
-  FVST.DefaultNodeHeight := 16;
+  FVST.DefaultNodeHeight := 17;
 
   FTVP := TTreeViewPresenter.Create(Self);
   FTVP.MultiSelect := True;
   FTVP.SelectionMode := smMulti;
   FTVP.MultiLine := False;
   FTVP.ItemTemplate := TColumnDefinitionsDataTemplate.Create(FTVP.ColumnDefinitions);
-  FTVP.ColumnDefinitions.AddColumn('Index', SLineIndex, dtNumeric, 50);
+  FTVP.ColumnDefinitions.AddColumn('Index', SLineIndex, dtNumeric, 80);
   FTVP.ColumnDefinitions.AddColumn('Text', SLineText, dtString, 600, 500, 4000);
   FTVP.ColumnDefinitions.Items[0].Fixed := False;
-  FTVP.ColumnDefinitions.Items[0].MaxWidth := 50;
+  FTVP.ColumnDefinitions.Items[0].MaxWidth := 100;
   FTVP.ColumnDefinitions.Items[0].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
   FTVP.ColumnDefinitions.Items[1].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
   FTVP.TreeView := FVST;
@@ -282,6 +277,7 @@ begin
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
   FRegExpr := TRegExpr.Create;
   Settings.FormSettings.AssignTo(Self);
+  FVST.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;
 
 destructor TfrmCodeFilterDialog.Destroy;
@@ -368,7 +364,7 @@ end;
 procedure TfrmCodeFilterDialog.EditorSettingsChanged(Sender: TObject);
 begin
   FVST.Font.Assign(Manager.Settings.EditorFont);
-  FVST.Font.Size := 8;
+  FVST.Font.Size := 9;
 end;
 
 procedure TfrmCodeFilterDialog.EditorActiveViewChanged(Sender: TObject);

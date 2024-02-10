@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -100,10 +100,18 @@ type
     FDeStreamer : TJSONDeStreamer;
     FStreamer   : TJSONStreamer;
 
-    procedure FDeStreamerBeforeReadObject(Sender: TObject; AObject: TObject;
-      JSON: TJSONObject);
-    procedure FDeStreamerRestoreProperty(Sender: TObject; AObject: TObject;
-      Info: PPropInfo; AValue: TJSONData; Var Handled: Boolean);
+    procedure FDeStreamerBeforeReadObject(
+      Sender  : TObject;
+      AObject : TObject;
+      JSON    : TJSONObject
+    );
+    procedure FDeStreamerRestoreProperty(
+      Sender      : TObject;
+      AObject     : TObject;
+      Info        : PPropInfo;
+      AValue      : TJSONData;
+      var Handled : Boolean
+    );
     procedure FEditorOptionsChanged(Sender: TObject);
     procedure FFormSettingsChanged(Sender: TObject);
     procedure FColorsChanged(Sender: TObject);
@@ -274,7 +282,7 @@ uses
   SynHighlighterJScript, SynHighlighterDiff, SynHighlighterTeX, SynHighlighterPo,
   SynhighlighterUnixShellScript, SynHighlighterIni, SynHighlighterLua,
   SynHighlighterPike, SynHighlighterVB, SynHighlighterCS, SynHighlighterRC,
-  SynHighlighterRuby, SynHighlighterInno,
+  SynHighlighterRuby, SynHighlighterInno, SynHighlighterJSON,
 
   ts.Editor.CodeFormatters, ts.Editor.CodeFormatters.SQL,
 
@@ -809,6 +817,7 @@ procedure TEditorSettings.InitializeHighlighterAttributes;
 begin
   with FHighlighterAttributes do
   begin
+    // Comment
     RegisterItem(
       SYNS_XML_AttrComment, [
         SYNS_XML_AttrComment,
@@ -817,72 +826,106 @@ begin
         SYNS_XML_AttrSASMComment
       ]
     );
+
+    {$REGION 'literals'}
+    // String literal
     RegisterItem(
       SYNS_XML_AttrString, [
-        SYNS_XML_AttrString
+        SYNS_XML_AttrString,
+        SYNS_XML_AttrEmbedSQL,
+        SYNS_XML_AttrEmbedText
       ]
     );
     RegisterItem(
-      SYNS_XML_AttrSymbol, [
-        SYNS_XML_AttrSymbol,
-        SYNS_XML_AttrBrackets,
-        SYNS_XML_AttrSquareBracket,
-        SYNS_XML_AttrRoundBracket
+      SYNS_XML_AttrCharacter, [
+        SYNS_XML_AttrCharacter
       ]
     );
+    // Integer number literal
     RegisterItem(
       SYNS_XML_AttrNumber, [
         SYNS_XML_AttrNumber
       ]
     );
+    // Float literal
+    RegisterItem(
+      SYNS_XML_AttrFloat, [
+        SYNS_XML_AttrFloat
+      ]
+    );
+    // Hex literal
+    RegisterItem(
+      SYNS_XML_AttrHexadecimal, [
+        SYNS_XML_AttrHexadecimal
+      ]
+    );
+    // Octal
+    RegisterItem(
+      SYNS_XML_AttrOctal, [
+        SYNS_XML_AttrOctal
+      ]
+    );
+    {$ENDREGION}
+
+    // Symbol
+    RegisterItem(
+      SYNS_XML_AttrSymbol, [
+        SYNS_XML_AttrSymbol,
+        SYNS_XML_AttrBrackets,
+        SYNS_XML_AttrSquareBracket,
+        SYNS_XML_AttrRoundBracket,
+        SYNS_XML_AttrEscapeAmpersand
+      ]
+    );
+    // Keyword
     RegisterItem(
       SYNS_XML_AttrKey, [
         SYNS_XML_AttrKey,
         SYNS_XML_AttrRplKey,
         SYNS_XML_AttrSQLKey,
         SYNS_XML_AttrSQLPlus,
-        SYNS_XML_AttrTeXCommand,
         SYNS_XML_AttrSASMKey,
+        SYNS_XML_AttrSystem,
         SYNS_XML_AttrNonReservedKeyword
       ]
     );
-    RegisterItem(
-      SYNS_XML_AttrFloat, [
-        SYNS_XML_AttrFloat
-      ]
-    );
-    RegisterItem(
-      SYNS_XML_AttrHexadecimal, [
-        SYNS_XML_AttrHexadecimal
-      ]
-    );
+    // Reserved word
     RegisterItem(
       SYNS_XML_AttrReservedWord, [
         SYNS_XML_AttrReservedWord,
         SYNS_XML_AttrPLSQL,
-        SYNS_XML_AttrSecondReservedWord,
-        SYNS_XML_AttrInternalFunction,
-        SYNS_XML_AttrUserFunction,
-        SYNS_XML_AttrUser,
-        SYNS_XML_AttrSystem
+        SYNS_XML_AttrSecondReservedWord
       ]
     );
+    // Functions
+    RegisterItem(
+      SYNS_XML_AttrFunction, [
+        SYNS_XML_AttrFunction,
+        SYNS_XML_AttrInternalFunction,
+        SYNS_XML_AttrTeXCommand,
+        SYNS_XML_AttrUserFunction,
+        SYNS_XML_AttrUser
+      ]
+    );
+    // Directives, preprocessor, macros
     RegisterItem(
       SYNS_XML_AttrDirective, [
+        SYNS_XML_AttrDirective,
+        SYNS_XML_AttrDir,
+        SYNS_XML_AttrPragma,
         SYNS_XML_AttrIDEDirective,
         SYNS_XML_AttrInclude,
         SYNS_XML_AttrPreprocessor,
+        SYNS_XML_AttrAnnotation,
         SYNS_XML_AttrProcessingInstr
-      ]
-    );  //
-    RegisterItem(
-      SYNS_XML_AttrCharacter, [
-        SYNS_XML_AttrCharacter
       ]
     );
     RegisterItem(
       SYNS_XML_AttrVariable, [
-        SYNS_XML_AttrSpecialVariable
+        SYNS_XML_AttrVariable,
+        SYNS_XML_AttrSpecialVariable,
+        SYNS_XML_AttrRegister,
+        SYNS_XML_AttrFlags
       ]
     );
     RegisterItem(
@@ -905,19 +948,36 @@ begin
       SYNS_XML_AttrAttributeValue, [
         SYNS_XML_AttrValue,
         SYNS_XML_AttrNamespaceAttrValue,
+        SYNS_XML_AttrSystemValue,
         SYNS_XML_AttrCDATA,
         SYNS_XML_AttrDOCTYPE
       ]
     );
     RegisterItem(
       SYNS_XML_AttrMacro, [
-        SYNS_XML_AttrPragma
+        SYNS_XML_AttrMacro
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrLabel, [
+        SYNS_XML_AttrLabel,
+        SYNS_XML_AttrMarker,
+        SYNS_XML_AttrQualifier,
+        SYNS_XML_AttrCaseLabel,
+        SYNS_XML_AttrTerminator,
+        SYNS_XML_AttrEntityReference,
+        SYNS_XML_AttrIcon,
+        SYNS_XML_AttrForm
       ]
     );
     RegisterItem(
       SYNS_XML_AttrText, [
-        SYNS_XML_AttrText,
-        SYNS_XML_AttrEmbedText
+        SYNS_XML_AttrText
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrIdentifier, [
+        SYNS_XML_AttrIdentifier
       ]
     );
     RegisterItem(
@@ -933,6 +993,30 @@ begin
         SYNS_XML_AttrDataType
       ]
     );
+    RegisterItem(
+      SYNS_XML_AttrException, [
+        SYNS_XML_AttrException
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrSyntaxError, [
+        SYNS_XML_AttrInvalidSymbol,
+        SYNS_XML_AttrIllegalChar,
+        SYNS_XML_AttrSyntaxError,
+        SYNS_XML_AttrUnknownWord
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrAssembler, [
+        SYNS_XML_AttrAssembler
+      ]
+    );
+    RegisterItem(
+      SYNS_XML_AttrMessage, [
+        SYNS_XML_AttrMessage
+      ]
+    );
+
   end;
 end;
 
@@ -950,6 +1034,7 @@ begin
     TSynInnoSyn,
     TSynJavaSyn,
     TSynJScriptSyn,
+    TSynJSONSyn,
     TSynLFMSyn,
     TSynLuaSyn,
     TSynPasSyn,
@@ -1004,6 +1089,7 @@ begin
   Reg(TSynInnoSyn, nil, HL_ISS, FILE_EXTENSIONS_ISS, SISSDescription, ';');
   Reg(TSynJavaSyn, nil, HL_JAVA, FILE_EXTENSIONS_JAVA, SJavaDescription, '//', '/*', '*/', TJavaFormatter.Create);
   Reg(TSynJScriptSyn, nil, HL_JS, FILE_EXTENSIONS_JS, SJSDescription, '//', '/*', '*/', TJsonFormatter.Create);
+  Reg(TSynJSONSyn, nil, HL_JSON, FILE_EXTENSIONS_JSON, SJSONDescription, '', '', '', TJsonFormatter.Create);
   Reg(TSynLFMSyn, nil, HL_LFM, FILE_EXTENSIONS_LFM, SLFMDescription);
   Reg(TSynLuaSyn, nil, HL_LUA, FILE_EXTENSIONS_LUA, SLUADescription, '--');
   Reg(TSynPasSyn, nil, HL_PAS, FILE_EXTENSIONS_PAS, SPASDescription, '//', '{', '}', TPascalFormatter.Create);
@@ -1085,7 +1171,7 @@ end;
 
 procedure TEditorSettings.LoadJson;
 var
-  LFileName  : string;
+  LFileName : string;
 begin
   Logger.Enter(Self, 'LoadJson');
   LFileName := GetApplicationConfigPath + FFileName;

@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -177,7 +177,7 @@ type
 
     procedure RegisterHighlighter(
       ASynHighlighterClass        : TSynHighlighterClass;
-      ASynHighlighter             : TSynCustomHighlighter;  // To ASSIGN the settings!!!
+      ASynHighlighter             : TSynCustomHighlighter;
       const AName                 : string;       // unique name
       const AFileExtensions       : string = '';  // comma separated list
       const ALineCommentTag       : string = '';
@@ -280,7 +280,8 @@ begin
     Result := Find('None');
 end;
 
-procedure THighlighters.SetItemByName(const AName: string; const AValue: THighlighterItem);
+procedure THighlighters.SetItemByName(const AName: string;
+  const AValue: THighlighterItem);
 var
   LItem: THighlighterItem;
 begin
@@ -353,7 +354,8 @@ end;
 
 { Finds the corresponding highlighteritem for a given file extension. }
 
-function THighlighters.FindHighlighterForFileType(const AFileExt: string): THighlighterItem;
+function THighlighters.FindHighlighterForFileType(const AFileExt: string)
+  : THighlighterItem;
 var
   I  : Integer;
   HL : TSynCustomHighlighter;
@@ -377,8 +379,6 @@ end;
 
 { Registers a new highlighter or updates an exiting one if the corresponding
   properties are not assigned yet. }
-
-  { TODO: ASynHighlighter is of no use? }
 
 procedure THighlighters.RegisterHighlighter(ASynHighlighterClass:
   TSynHighlighterClass; ASynHighlighter: TSynCustomHighlighter;
@@ -422,7 +422,7 @@ begin
   FFileExtensions            := TStringList.Create;
   FFileExtensions.Duplicates := dupIgnore;
   FFileExtensions.Sorted     := True;
-  FComponentStyle             := [csSubComponent];
+  FComponentStyle            := [csSubComponent];
   FSmartSelectionTags        := TCodeTags.Create(nil);
   FUseCommonAttributes       := True;
 end;

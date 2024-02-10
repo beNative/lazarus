@@ -1,11 +1,12 @@
 object frmCodeFilterDialog: TfrmCodeFilterDialog
-  Left = 565
+  Left = 1423
   Height = 572
-  Top = 161
-  Width = 747
+  Top = 387
+  Width = 768
   Caption = 'Code filter'
   ClientHeight = 572
-  ClientWidth = 747
+  ClientWidth = 768
+  Color = clWindow
   Font.Height = -12
   OnCloseQuery = FormCloseQuery
   OnResize = FormResize
@@ -16,9 +17,9 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   LCLVersion = '2.2.2.0'
   object pnlVST: TPanel
     Left = 3
-    Height = 517
-    Top = 29
-    Width = 741
+    Height = 519
+    Top = 27
+    Width = 762
     Align = alClient
     BorderSpacing.Around = 3
     BevelOuter = bvNone
@@ -28,103 +29,24 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Left = 0
     Height = 23
     Top = 549
-    Width = 747
+    Width = 768
     Panels = <>
   end
-  object tlbMain: TToolBar
-    Left = 2
+  object edtFilter: TEdit
+    Left = 10
     Height = 24
-    Top = 2
-    Width = 743
-    BorderSpacing.Around = 2
-    Caption = 'tlbMain'
-    EdgeBorders = []
-    EdgeInner = esNone
-    EdgeOuter = esNone
-    Images = imlMain
-    ParentShowHint = False
-    ShowHint = True
+    Top = 0
+    Width = 758
+    Align = alTop
+    AutoSize = False
+    BorderSpacing.Left = 10
+    BorderStyle = bsNone
+    Font.Height = -16
+    OnChange = edtFilterChange
+    OnKeyDown = edtFilterKeyDown
+    OnKeyUp = edtFilterKeyUp
+    ParentFont = False
     TabOrder = 2
-    Transparent = True
-    object lblSearch: TLabel
-      Left = 3
-      Height = 18
-      Top = 3
-      Width = 38
-      Align = alLeft
-      Alignment = taCenter
-      BorderSpacing.Left = 4
-      BorderSpacing.Right = 4
-      BorderSpacing.Around = 3
-      Caption = 'Search:'
-      Layout = tlCenter
-      ParentColor = False
-    end
-    object btnMatchCase: TSpeedButton
-      Left = 437
-      Height = 24
-      Top = 0
-      Width = 88
-      Action = actMatchCase
-      AllowAllUp = True
-      AutoSize = True
-      BorderSpacing.Left = 4
-      BorderSpacing.Right = 4
-      BorderSpacing.InnerBorder = 2
-      Flat = True
-      GroupIndex = 1
-      Images = imlMain
-      ImageIndex = 1
-      Margin = 4
-    end
-    object btnRegularExpression: TSpeedButton
-      Left = 525
-      Height = 24
-      Top = 0
-      Width = 127
-      Action = actRegularExpression
-      AllowAllUp = True
-      AutoSize = True
-      BorderSpacing.Left = 4
-      BorderSpacing.Right = 4
-      BorderSpacing.InnerBorder = 2
-      Flat = True
-      GroupIndex = 2
-      Images = imlMain
-      ImageIndex = 2
-      Margin = 4
-    end
-    object btnApply: TSpeedButton
-      Left = 652
-      Height = 24
-      Top = 0
-      Width = 86
-      Action = actApplyFilter
-      AutoSize = True
-      BorderSpacing.Left = 4
-      BorderSpacing.Right = 4
-      BorderSpacing.InnerBorder = 2
-      Flat = True
-      Images = imlMain
-      ImageIndex = 2
-      Margin = 4
-    end
-    object edtFilter: TEdit
-      Left = 48
-      Height = 20
-      Top = 2
-      Width = 389
-      Align = alLeft
-      Anchors = [akTop, akLeft, akRight, akBottom]
-      BorderSpacing.Around = 2
-      Font.Height = -12
-      Font.Style = [fsBold]
-      OnChange = edtFilterChange
-      OnKeyDown = edtFilterKeyDown
-      OnKeyUp = edtFilterKeyUp
-      ParentFont = False
-      TabOrder = 0
-    end
   end
   object aclMain: TActionList
     Images = imlMain

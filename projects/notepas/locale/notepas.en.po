@@ -1316,6 +1316,10 @@ msgstr ""
 msgid "JavaScript"
 msgstr ""
 
+#: ts.editor.resources.sjsondescription
+msgid "JavaScript Object Notation"
+msgstr ""
+
 #: ts.editor.resources.slfmdescription
 msgid "Object Pascal form definition"
 msgstr ""

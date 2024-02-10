@@ -1,7 +1,7 @@
 inherited StyleToolView: TStyleToolView
-  Left = 356
+  Left = 1205
   Height = 302
-  Top = 181
+  Top = 375
   Width = 239
   Caption = 'StyleToolView'
   ClientHeight = 302

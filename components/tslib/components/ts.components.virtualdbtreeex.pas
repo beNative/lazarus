@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ type
 
   PDBVTData = ^TDBVTData;
   TDBVTData = record
-    Id     : Double;
+    Id     : Integer;
     Level  : Integer;
     Status : TDBVTNodeStatus;
     Parent : PVirtualNode;
@@ -145,7 +145,7 @@ type
 
   TBaseVirtualDBTreeEx = class(TCustomVirtualStringTree)
   private
-    FCurId             : Double;
+    FCurId             : Integer;
     FDataLink          : TVirtualDBTreeExDataLink;
     FDBDataSize        : Integer;
     FDBOptions         : TDBVTOptions;
@@ -1123,7 +1123,7 @@ begin
           LNode := AddChild(nil);
           ValidateNode(LNode, False);
           LData := GetNodeData(LNode);
-          LData.Id := 0.0;
+          LData.Id := 0;
           LData.Level := 0;
           LData.Parent := nil;
           LData.Status := dbnsInited;
@@ -1267,7 +1267,7 @@ begin
       if FDataLink.Editing then
         FDataLink.DataSet.Post;
       FDBStatus := FDBStatus - [dbtsDataChanging];
-      LData.Id := FKeyField.AsFloat;
+      LData.Id := FKeyField.AsInteger;
       FCurId := LData.Id;
     end;
   end;
@@ -1367,7 +1367,7 @@ begin
       EndUpdate;
       FDataLink.DataSet.EnableControls;
       FDBStatus := FDBStatus - [dbtsDataChanging, dbtsDragDrop];
-      FCurId := 0.0;
+      FCurId := 0;
       FocusedNode := LFocus;
     end
     else
@@ -1623,7 +1623,7 @@ begin
       LParentId := LData.Id;
     end;
     LData := GetNodeData(LNode);
-    LData.Id := 0.0;
+    LData.Id := 0;
     LData.Level := LLevel;
     LData.Parent := nil;
     FDBStatus := FDBStatus + [dbtsInsert];
@@ -1634,7 +1634,7 @@ begin
         FParentField.AsFloat := LParentId;
     end;
     DoReadNodeFromDB(LNode);
-    FCurId := 0.0;
+    FCurId := 0;
     SetFocusToNode(LNode);
     FDBStatus := FDBStatus - [dbtsDataChanging];
     EditNode(LNode, Header.MainColumn);
@@ -1730,7 +1730,7 @@ begin
     FDBStatus := FDBStatus + [dbtsDataChanging];
     BeginUpdate;
     FMaxLevel := 0;
-    FCurId := 0.0;
+    FCurId := 0;
     if dboAlwaysStructured in FDBOptions then
     begin
       if not (dbtsStructured in FDBStatus) then
@@ -1766,7 +1766,7 @@ begin
     end;
     FDataLink.DataSet.DisableControls;
     if not FDataLink.DataSet.EOF or not FDataLink.DataSet.Bof then
-      FCurId := FKeyField.AsFloat;
+      FCurId := FKeyField.AsInteger;
     I := 0;
     while not FDataLink.DataSet.EOF do
     begin
@@ -1841,9 +1841,9 @@ procedure TBaseVirtualDBTreeEx.RefreshListNode;
 var
   LData : PDBVTData;
   LNode : PVirtualNode;
-  LId   : Double;
+  LId   : Integer;
 begin
-  LId := FKeyField.AsFloat;
+  LId := FKeyField.AsInteger;
   if dbtsEmpty in FDBStatus then
     LNode := nil
   else
@@ -1867,27 +1867,27 @@ end;
 
 procedure TBaseVirtualDBTreeEx.RefreshNodeByParent;
 var
-  LId       : Double;
-  LParentId : Double;
+  LId       : Integer;
+  LParentId : Integer;
   LData     : PDBVTData;
   LThis     : PVirtualNode;
   LParent   : PVirtualNode;
   LTemp     : PVirtualNode;
   LCreated  : Boolean;
 begin
-  LId := FKeyField.AsFloat;
-  LParentId := FParentField.AsFloat;
-  if LId = 0.0 then
+  LId := FKeyField.AsInteger;
+  LParentId := FParentField.AsInteger;
+  if LId = 0 then
   begin
     Exit;
   end;
   LThis := nil;
   LParent := nil;
   LTemp := GetFirst;
-  if (LParentId = 0.0) or (LParentId = LId) then
+  if (LParentId = 0) or (LParentId = LId) then
   begin
     LParent := RootNode;
-    LParentId := 0.0;
+    LParentId := 0;
   end;
   while Assigned(LTemp) and (not Assigned(LThis) or not Assigned(LParent)) do
   begin

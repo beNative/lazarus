@@ -1,26 +1,27 @@
 object HtmlEditorView: THtmlEditorView
-  Left = 743
-  Height = 373
-  Top = 504
-  Width = 610
-  ClientHeight = 373
-  ClientWidth = 610
-  LCLVersion = '2.2.2.0'
+  Left = 744
+  Height = 560
+  Top = 505
+  Width = 915
+  ClientHeight = 560
+  ClientWidth = 915
+  DesignTimePPI = 144
+  LCLVersion = '3.2.0.0'
   object pnlHtmlEditor: TPanel
     Left = 0
-    Height = 347
-    Top = 26
-    Width = 610
+    Height = 521
+    Top = 39
+    Width = 915
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 347
-    ClientWidth = 610
+    ClientHeight = 521
+    ClientWidth = 915
     TabOrder = 0
     object WVWindowParent: TWVWindowParent
       Left = 0
-      Height = 347
+      Height = 521
       Top = 0
-      Width = 610
+      Width = 915
       Align = alClient
       TabOrder = 0
       Browser = WVBrowser
@@ -28,43 +29,43 @@ object HtmlEditorView: THtmlEditorView
   end
   object pnlTop: TPanel
     Left = 0
-    Height = 26
+    Height = 39
     Top = 0
-    Width = 610
+    Width = 915
     Align = alTop
     BevelOuter = bvNone
-    ClientHeight = 26
-    ClientWidth = 610
+    ClientHeight = 39
+    ClientWidth = 915
     TabOrder = 1
     object edtSource: TEdit
-      Left = 28
-      Height = 18
-      Top = 4
-      Width = 578
+      Left = 42
+      Height = 27
+      Top = 6
+      Width = 867
       Align = alClient
       Alignment = taCenter
       AutoSize = False
-      BorderSpacing.Around = 4
+      BorderSpacing.Around = 6
       BorderStyle = bsNone
       Color = clBtnFace
-      Font.Height = -13
+      Font.Height = -20
+      ParentFont = False
+      TabOrder = 0
       OnEditingDone = edtSourceEditingDone
       OnExit = edtSourceExit
       OnMouseEnter = edtSourceMouseEnter
       OnMouseLeave = edtSourceMouseLeave
-      ParentFont = False
-      TabOrder = 0
     end
     object imgFavIcon: TImage
-      Left = 2
-      Height = 16
-      Top = 5
-      Width = 22
+      Left = 3
+      Height = 23
+      Top = 8
+      Width = 33
       Align = alLeft
-      BorderSpacing.Left = 2
-      BorderSpacing.Top = 5
-      BorderSpacing.Right = 2
-      BorderSpacing.Bottom = 5
+      BorderSpacing.Left = 3
+      BorderSpacing.Top = 8
+      BorderSpacing.Right = 3
+      BorderSpacing.Bottom = 8
       Center = True
       Proportional = True
       Stretch = True
@@ -134,22 +135,22 @@ object HtmlEditorView: THtmlEditorView
     OnGetNonDefaultPermissionSettingsCompleted = WVBrowserGetNonDefaultPermissionSettingsCompleted
     OnSetPermissionStateCompleted = WVBrowserSetPermissionStateCompleted
     OnLaunchingExternalUriScheme = WVBrowserLaunchingExternalUriScheme
-    Left = 168
-    Top = 40
+    Left = 252
+    Top = 60
   end
   object tmrCreateWebBrowser: TTimer
     Enabled = False
     Interval = 300
     OnTimer = tmrCreateWebBrowserTimer
-    Left = 56
-    Top = 40
+    Left = 84
+    Top = 60
   end
   object dctMain: TDropComboTarget
     DragTypes = [dtCopy, dtLink]
     OnDrop = dctMainDrop
     Target = edtSource
     Formats = [mfFile, mfURL]
-    Left = 264
-    Top = 40
+    Left = 396
+    Top = 60
   end
 end

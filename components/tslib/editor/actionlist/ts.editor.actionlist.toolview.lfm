@@ -1,61 +1,63 @@
 object frmActionListView: TfrmActionListView
-  Left = 3740
-  Height = 526
-  Top = 511
-  Width = 800
+  Left = 973
+  Height = 789
+  Top = 541
+  Width = 1200
   Caption = 'Actions'
-  ClientHeight = 526
-  ClientWidth = 800
-  Font.Height = -12
+  ClientHeight = 789
+  ClientWidth = 1200
+  DesignTimePPI = 144
+  Font.Height = -18
   KeyPreview = True
   OnKeyUp = FormKeyUp
   OnShow = FormShow
+  PopupMode = pmAuto
   Position = poOwnerFormCenter
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object pnlEditorList: TPanel
     Left = 0
-    Height = 526
+    Height = 789
     Top = 0
-    Width = 800
+    Width = 1200
     Align = alClient
     BevelOuter = bvSpace
-    ClientHeight = 526
-    ClientWidth = 800
+    ClientHeight = 789
+    ClientWidth = 1200
     TabOrder = 0
     object pgcMain: TPageControl
       Left = 1
-      Height = 524
+      Height = 787
       Top = 1
-      Width = 798
+      Width = 1198
       ActivePage = tsActions
       Align = alClient
       TabIndex = 0
       TabOrder = 0
       object tsActions: TTabSheet
         Caption = 'Actions'
-        ClientHeight = 496
-        ClientWidth = 790
+        ClientHeight = 749
+        ClientWidth = 1190
         object pnlActions: TPanel
-          Left = 3
-          Height = 464
-          Top = 29
-          Width = 784
+          Left = 4
+          Height = 704
+          Top = 41
+          Width = 1182
           Align = alClient
-          BorderSpacing.Around = 3
+          BorderSpacing.Around = 4
           BevelOuter = bvNone
           TabOrder = 0
         end
         object edtFilterActions: TEdit
-          Left = 3
-          Height = 23
-          Top = 3
-          Width = 784
+          Left = 4
+          Height = 33
+          Top = 4
+          Width = 1182
           Align = alTop
-          BorderSpacing.Around = 3
+          BorderSpacing.Around = 4
+          TabOrder = 1
           OnChange = edtFilterActionsChange
           OnKeyDown = edtFilterActionsKeyDown
           OnKeyUp = edtFilterActionsKeyUp
-          TabOrder = 1
         end
       end
       object tsCommands: TTabSheet

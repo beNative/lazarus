@@ -1,57 +1,59 @@
 object frmCodeFilterDialog: TfrmCodeFilterDialog
-  Left = 1423
-  Height = 572
-  Top = 387
-  Width = 768
+  Left = 1424
+  Height = 858
+  Top = 388
+  Width = 1152
   Caption = 'Code filter'
-  ClientHeight = 572
-  ClientWidth = 768
+  ClientHeight = 858
+  ClientWidth = 1152
   Color = clWindow
-  Font.Height = -12
+  DesignTimePPI = 144
+  Font.Height = -18
   OnCloseQuery = FormCloseQuery
   OnResize = FormResize
   OnShow = FormShow
   PopupMenu = ppmMain
   PopupMode = pmExplicit
   Position = poMainFormCenter
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object pnlVST: TPanel
-    Left = 3
-    Height = 519
-    Top = 27
-    Width = 762
+    Left = 4
+    Height = 778
+    Top = 40
+    Width = 1144
     Align = alClient
-    BorderSpacing.Around = 3
+    BorderSpacing.Around = 4
     BevelOuter = bvNone
+    ParentBackground = False
     TabOrder = 0
   end
   object sbrMain: TStatusBar
     Left = 0
-    Height = 23
-    Top = 549
-    Width = 768
+    Height = 36
+    Top = 822
+    Width = 1152
     Panels = <>
   end
   object edtFilter: TEdit
-    Left = 10
-    Height = 24
+    Left = 15
+    Height = 36
     Top = 0
-    Width = 758
+    Width = 1137
     Align = alTop
     AutoSize = False
-    BorderSpacing.Left = 10
+    BorderSpacing.Left = 15
     BorderStyle = bsNone
-    Font.Height = -16
+    Font.Height = -24
+    ParentFont = False
+    TabOrder = 2
     OnChange = edtFilterChange
     OnKeyDown = edtFilterKeyDown
     OnKeyUp = edtFilterKeyUp
-    ParentFont = False
-    TabOrder = 2
   end
   object aclMain: TActionList
     Images = imlMain
-    Left = 328
-    Top = 80
+    Left = 492
+    Top = 120
     object actApplyFilter: TAction
       AutoCheck = True
       Caption = 'Apply filter'
@@ -100,8 +102,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     end
   end
   object imlMain: TImageList
-    Left = 200
-    Top = 80
+    Left = 300
+    Top = 120
     Bitmap = {
       4C7A0400000010000000100000003F0200000000000078DAED966F6BDA5018C5
       FB9DF699FA424514F715F67A74EBE670DD4A8774B495A8F14F5BA4EDDC586196
@@ -125,8 +127,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     }
   end
   object ppmMain: TPopupMenu
-    Left = 264
-    Top = 80
+    Left = 396
+    Top = 120
     object mniSelectAll: TMenuItem
       Action = actSelectAll
     end
@@ -141,7 +143,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     Enabled = False
     Interval = 300
     OnTimer = tmrUpdateTimer
-    Left = 384
-    Top = 80
+    Left = 576
+    Top = 120
   end
 end

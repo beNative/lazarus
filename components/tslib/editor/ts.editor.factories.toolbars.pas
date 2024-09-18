@@ -127,7 +127,6 @@ begin
   AToolbar.Transparent  := Transparant;
   AToolbar.List         := True;
   AToolbar.ShowCaptions := False;
-  AToolbar.ButtonWidth  := 24;
 end;
 
 function TEditorToolbarsFactory.CreateToolButton(AParent: TToolBar;
@@ -171,8 +170,8 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  ApplyDefaultProperties(TB);
   TB.Parent      := AParent;
+  ApplyDefaultProperties(TB);
   TB.Images      := FActions.ActionList.Images;
 
   CreateToolButton(TB, 'actNew');
@@ -224,8 +223,8 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  ApplyDefaultProperties(TB);
   TB.Parent := AParent;
+  ApplyDefaultProperties(TB);
   TB.Images := FActions.ActionList.Images;
 
   CreateToolButton(TB, 'actShowViews');
@@ -242,8 +241,8 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  ApplyDefaultProperties(TB);
   TB.Parent := AParent;
+  ApplyDefaultProperties(TB);
   TB.Images := FActions.ActionList.Images;
 
   CreateToolButton(TB, 'actAlignSelection');

@@ -43,6 +43,7 @@ type
     FChangeEvents                 : TMethodList;
     FLastFocusedId                : Integer;
     FDefaultRichEditorFontName    : string;
+    FDefaultRichEditorFontSize    : Integer;
     FEmitLogMessages              : Boolean;
     FPythonVirtualEnvironmentName : string;
     FTextEditorSplitViewEnabled   : Boolean;
@@ -55,6 +56,7 @@ type
     function GetDatabase: string;
     function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
+    function GetDefaultRichEditorFontSize: Integer;
     function GetEmitLogMessages: Boolean;
     function GetFileName: string;
     function GetHtmlEditMode: Boolean;
@@ -68,6 +70,7 @@ type
     procedure SetDatabase(const AValue: string);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
+    procedure SetDefaultRichEditorFontSize(AValue: Integer);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetFileName(const AValue: string);
     procedure SetHtmlEditMode(AValue: Boolean);
@@ -117,6 +120,9 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property DefaultRichEditorFontSize: Integer
+      read GetDefaultRichEditorFontSize write SetDefaultRichEditorFontSize;
 
     property HtmlEditMode: Boolean
       read GetHtmlEditMode write SetHtmlEditMode;
@@ -203,6 +209,20 @@ end;
 procedure TSettings.SetTextEditorSettings(AValue: TEditorSettings);
 begin
   (FTextEditorSettings as TEditorSettings).Assign(AValue);
+end;
+
+function TSettings.GetDefaultRichEditorFontSize: Integer;
+begin
+  Result := FDefaultRichEditorFontSize;
+end;
+
+procedure TSettings.SetDefaultRichEditorFontSize(AValue: Integer);
+begin
+  if AValue <> DefaultRichEditorFontSize then
+  begin
+    FDefaultRichEditorFontSize := AValue;
+    Changed;
+  end;
 end;
 
 function TSettings.GetAutoHideEditorToolBar: Boolean;

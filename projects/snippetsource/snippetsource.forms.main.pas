@@ -25,7 +25,7 @@ uses
   StdCtrls, Menus, Buttons, DB,
   LazFileUtils, FileUtil,
 
-  VirtualTrees, MenuButton, OMultiPanel,
+  VirtualTrees, MenuButton, DropComboTarget, OMultiPanel,
 
   ts.Core.VersionInfo,
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.Factories,
@@ -44,6 +44,8 @@ type
     actConsole                      : TAction;
     actExecute                      : TAction;
     actHtmlEditor                   : TAction;
+    actStartJupyterLab              : TAction;
+    actPythonVenv                   : TAction;
     actToggleSplitView              : TAction;
     actLookup                       : TAction;
     actRtfEditor                    : TAction;
@@ -60,6 +62,7 @@ type
     btnToggleSplitView              : TSpeedButton;
     btnHighlighter                  : TMenuButton;
     btnLineBreakStyle               : TSpeedButton;
+    dctMain                         : TDropComboTarget;
     dscMain                         : TDatasource;
     edtTitle                        : TEdit;
     imlMain                         : TImageList;
@@ -119,13 +122,16 @@ type
     procedure actAboutExecute(Sender: TObject);
     procedure actCloseEditorToolViewExecute(Sender: TObject);
     procedure actCloseRichEditorToolViewExecute(Sender: TObject);
+    procedure actConsoleExecute(Sender: TObject);
     procedure actExecuteExecute(Sender: TObject);
     procedure actHtmlEditorExecute(Sender: TObject);
+    procedure actPythonVenvExecute(Sender: TObject);
     procedure actRtfEditorExecute(Sender: TObject);
     procedure actSQLEditorExecute(Sender: TObject);
     procedure actLookupExecute(Sender: TObject);
     procedure actSettingsExecute(Sender: TObject);
     procedure actShowGridFormExecute(Sender: TObject);
+    procedure actStartJupyterLabExecute(Sender: TObject);
     procedure actTextEditorExecute(Sender: TObject);
     procedure actToggleFullScreenExecute(Sender: TObject);
     procedure actToggleLockedStateExecute(Sender: TObject);
@@ -150,25 +156,27 @@ type
     {$ENDREGION}
 
   private
-    FTree               : TfrmVirtualDBTree;
-    FBusyForm           : TfrmBusy;
-    FLastId             : Integer;
-    FVersionInfo        : TVersionInfo;
-    FFileSearcher       : TFileSearcher;
-    FParentId           : Integer;
-    FCommonPath         : string;
-    FData               : IDataSet;
-    FEditorManager      : IEditorManager;
-    FEditor             : IEditorView;
-    FSlaveEditor        : IEditorView;
-    FRichEditorManager  : IRichEditorManager;
-    FRichEditor         : IRichEditorView;
-    FHtmlEditorManager  : IHtmlEditorManager;
-    FHtmlEditor         : IHtmlEditorView;
-    FSettings           : TSettings;
-    FUpdate             : Boolean;
-    FRtfStream          : TStringStream;
-    FUpdateRichTextView : Boolean;
+    FTree                           : TfrmVirtualDBTree;
+    FBusyForm                       : TfrmBusy;
+    FLastId                         : Integer;
+    FVersionInfo                    : TVersionInfo;
+    FFileSearcher                   : TFileSearcher;
+    FParentId                       : Integer;
+    FCommonPath                     : string;
+    FData                           : IDataSet;
+    FTerminal                       : ITerminal;
+    FEditorManager                  : IEditorManager;
+    FEditor                         : IEditorView;
+    FSlaveEditor                    : IEditorView;
+    FRichEditorManager              : IRichEditorManager;
+    FRichEditor                     : IRichEditorView;
+    FHtmlEditorManager              : IHtmlEditorManager;
+    FHtmlEditor                     : IHtmlEditorView;
+    FSettings                       : TSettings;
+    FUpdate                         : Boolean;
+    FRtfStream                      : TStringStream;
+    FUpdateRichTextView             : Boolean;
+    FHtmlEditorToggleEditModeAction : TAction;
 
     {$REGION 'event handlers'}
     procedure FEditorChange(Sender: TObject);
@@ -204,12 +212,17 @@ type
       Sender    : TObject;
       AToolView : IRichEditorToolView
     );
+    procedure FTreeClearNodeData(Sender: TObject);
 
     procedure FTreeDropFiles(
       Sender      : TBaseVirtualTree;
       AFiles      : TStrings;
       AAttachMode : TVTNodeAttachMode
     );
+    procedure FTreeDropText(
+      Sender      : TBaseVirtualTree;
+      AText       : TStrings;
+      AAttachMode : TVTNodeAttachMode);
     procedure FTreeDuplicateSelectedNodes(Sender: TObject);
     procedure FTreeMoveDownSelectedNodes(Sender: TObject);
     procedure FTreeMoveUpSelectedNodes(Sender: TObject);
@@ -270,6 +283,10 @@ type
       const ACommonPath : string;
       ATree             : TBaseVirtualTree
     );
+    procedure AddURLNode(
+      const AURL : string;
+      ATree      : TBaseVirtualTree
+    );
     // not in use?
     procedure ExportNode;
 
@@ -313,13 +330,11 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils, Base64, Dialogs,
+  StrUtils, Base64, Dialogs, ActiveX, TypInfo,
   LclIntf, LclType,
 
   ts.Core.Utils, ts.Core.Logger, ts.Core.Helpers, ts.Core.Logger.Channel.IPC,
-  ts.Editor.AboutDialog,
-  ts.Richeditor.Factories,
-  ts.HtmlEditor.Factories,
+  ts.Editor.AboutDialog, ts.Richeditor.Factories, ts.HtmlEditor.Factories,
 
   SnippetSource.Forms.SettingsDialog, SnippetSource.Modules.Data,
   SnippetSource.Forms.Query, SnippetSource.Forms.Grid, SnippetSource.Resources,
@@ -336,6 +351,8 @@ begin
   InitializeLogger;
 
   Logger.Enter(Self, 'AfterConstruction');
+
+  FTerminal := TdmTerminal.Create(Self, FSettings);
 
   FData := TdmSnippetSource.Create(Self, FSettings);
   FBusyForm := TfrmBusy.Create(Self);
@@ -376,6 +393,7 @@ begin
     FSettings.HtmlSourceVisible := FHtmlEditor.SourceVisible;
   end;
   FSettings.Save;
+  FTerminal          := nil;
   FData              := nil;
   FRichEditorManager := nil;
   FEditorManager     := nil;
@@ -438,7 +456,7 @@ end;
 
 procedure TfrmMain.actSettingsExecute(Sender: TObject);
 begin
-  ExecuteSettingsDialog(FData, FSettings);
+  ExecuteSettingsDialog(FData, FTerminal, FSettings);
   FData.DataSet.Refresh;
   UpdateApplicationToolBar;
   Modified;
@@ -447,6 +465,11 @@ end;
 procedure TfrmMain.actShowGridFormExecute(Sender: TObject);
 begin
   ShowGridForm(DataSet.DataSet);
+end;
+
+procedure TfrmMain.actStartJupyterLabExecute(Sender: TObject);
+begin
+  FTerminal.LaunchJupyterLab;
 end;
 
 procedure TfrmMain.actTextEditorExecute(Sender: TObject);
@@ -490,6 +513,11 @@ begin
   FRichEditorManager.ActiveView.SetFocus;
 end;
 
+procedure TfrmMain.actConsoleExecute(Sender: TObject);
+begin
+  //;
+end;
+
 procedure TfrmMain.actExecuteExecute(Sender: TObject);
 var
   FS        : TFileStream;
@@ -508,11 +536,11 @@ begin
   end;
   if Snippet.Highlighter = 'BAT' then
   begin
-    dmTerminal.Execute(LFileName);
+    FTerminal.Execute(LFileName);
   end
   else if Snippet.Highlighter = 'PY' then
   begin
-    dmTerminal.Execute(
+    FTerminal.Execute(
       Format(EXECUTE_PYTHON_SCRIPT,
        [FSettings.PythonVirtualEnvironmentName, LFileName]
       )
@@ -524,6 +552,11 @@ procedure TfrmMain.actHtmlEditorExecute(Sender: TObject);
 begin
   nbRight.PageIndex   := pgHtmlEditor.PageIndex;
   Snippet.ActiveViews := VIEW_TYPE_HTML;
+end;
+
+procedure TfrmMain.actPythonVenvExecute(Sender: TObject);
+begin
+  FTerminal.LaunchPythonVenv;
 end;
 
 procedure TfrmMain.actRtfEditorExecute(Sender: TObject);
@@ -538,7 +571,7 @@ var
 begin
   F := TfrmQuery.Create(Self, FEditorManager, FData as IQuery);
   try
-    F.Showmodal;
+    F.ShowModal;
     DataSet.DataSet.Refresh;
   finally
     F.Free;
@@ -759,7 +792,7 @@ end;
 
 procedure TfrmMain.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  dmTerminal.prcTerminal.Active := False;
+  //dmTerminal.prcTerminal.Active := False;
 end;
 
 {$REGION 'FTree'}
@@ -783,45 +816,59 @@ begin
   FBusyForm.Visible := True;
   FBusyForm.Repaint;
   Cursor := crHourGlass;
-  FCommonPath := GetCommonPath(AFiles);
-  Logger.Watch('FCommonPath', FCommonPath);
-  FLastId := Query.LastId;
-  T := Snippet.NodeTypeId;
-  if T = 1 then // FOLDER
-  begin
-    FParentId := Snippet.Id;
-  end
-  else
-  begin
-    FParentId := Snippet.ParentId;
-  end;
-  DataSet.DisableControls;
-  Connection.BeginBulkInserts;
   try
-    for I := 0 to AFiles.Count - 1 do
+    FCommonPath := GetCommonPath(AFiles);
+    Logger.Watch('FCommonPath', FCommonPath);
+    FLastId := Query.LastId;
+    T := Snippet.NodeTypeId;
+    if T = 1 then // FOLDER
     begin
-      LFile := AFiles[I];
-      Logger.Send('LFile', LFile);
-      if DirectoryExists(LFile) then // add files in directory
+      FParentId := Snippet.Id;
+    end
+    else
+    begin
+      FParentId := Snippet.ParentId;
+    end;
+    DataSet.DisableControls;
+    Connection.BeginBulkInserts;
+    try
+      for I := 0 to AFiles.Count - 1 do
       begin
-        AddDirectoryNode(LFile, FCommonPath, Sender);
-        FFileSearcher.Search(LFile);
-      end
-      else
-      begin
-        AddPathNode(LFile, FCommonPath, Sender);
+        LFile := AFiles[I];
+        Logger.Send('LFile', LFile);
+        if DirectoryExists(LFile) then // add files in directory
+        begin
+          AddDirectoryNode(LFile, FCommonPath, Sender);
+          FFileSearcher.Search(LFile);
+        end
+        else
+        begin
+          AddPathNode(LFile, FCommonPath, Sender);
+        end;
       end;
+    finally
+      Connection.EndBulkInserts;
+      FLastId := Query.LastId;
+      DataSet.DataSet.Refresh;
+      DataSet.EnableControls;
+      DataSet.DataSet.Locate('Id', FLastId, []);
+      Sender.Refresh;
     end;
   finally
-    Connection.EndBulkInserts;
-    FLastId := Query.LastId;
-    DataSet.DataSet.Refresh;
-    DataSet.EnableControls;
-    DataSet.DataSet.Locate('Id', FLastId, []);
-    Sender.Refresh;
+    Cursor := crDefault;
+    FBusyForm.Visible := False;
   end;
-  Cursor := crDefault;
-  FBusyForm.Visible := False;
+end;
+
+procedure TfrmMain.FTreeDropText(Sender: TBaseVirtualTree; AText: TStrings;
+  AAttachMode: TVTNodeAttachMode);
+begin
+  if IsURL(AText) then
+  begin
+
+    AddURLNode(AText.Text, Sender);
+    Logger.Send('AttachMode', GetEnumName(TypeInfo(TVTNodeAttachMode), Ord(AAttachMode)));
+  end;
 end;
 
 procedure TfrmMain.FTreeDuplicateSelectedNodes(Sender: TObject);
@@ -918,6 +965,11 @@ begin
   pnlRichEditorToolViewHost.Visible   := True;
 end;
 
+procedure TfrmMain.FTreeClearNodeData(Sender: TObject);
+begin
+  // TODO
+end;
+
 procedure TfrmMain.FSlaveEditorFormEnter(Sender: TObject);
 begin
   FSlaveEditor.Activate;
@@ -992,6 +1044,7 @@ begin
   FTree.DataSet                  := DataSet.DataSet;
   FTree.ImageList                := (FData as IGlyphs).ImageList;
   FTree.OnDropFiles              := FTreeDropFiles;
+  FTree.OnDropText               := FTreeDropText;
   FTree.OnNewFolderNode          := FTreeNewFolderNode;
   FTree.OnNewItemNode            := FTreeNewItemNode;
   FTree.OnDeleteSelectedNodes    := FTreeDeleteSelectedNodes;
@@ -999,6 +1052,9 @@ begin
   FTree.OnMoveUpSelectedNodes    := FTreeMoveUpSelectedNodes;
   FTree.OnMoveDownSelectedNodes  := FTreeMoveDownSelectedNodes;
   FTree.OnCopyNodeData           := FTreeCopyNodeData;
+  FTree.OnClearNodeData          := FTreeClearNodeData;
+
+  //dctMain.Target := FTree;
 
   Logger.Leave(Self, 'CreateTreeview');
 end;
@@ -1078,6 +1134,8 @@ begin
   FHtmlEditor.OnInitialized  := FHtmlEditorInitialized;
   FHtmlEditor.OnChange       := FHtmlEditorChange;
   FHtmlEditor.SetFocus;
+  FHtmlEditorToggleEditModeAction :=
+    FHtmlEditorManager.Actions['actToggleEditMode'] as TAction;
   BuildHtmlEditorToolBar;
 
   Logger.Leave(Self, 'CreateHtmlEditor');
@@ -1248,8 +1306,11 @@ begin
     AddToolBarButton(tlbApplication, actShowGridForm);
   end;
   AddToolBarButton(tlbApplication, actSettings);
+  AddToolBarButton(tlbApplication, actPythonVenv);
+  AddToolBarButton(tlbApplication, actStartJupyterLab);
+
   //AddToolBarButton(tlbApplication, actAbout);
-  AddToolBarButton(tlbApplication, actToggleStayOnTop);
+//  AddToolBarButton(tlbApplication, actToggleStayOnTop);
 end;
 
 procedure TfrmMain.BuildActiveViewToolBar;
@@ -1660,6 +1721,25 @@ begin
   Logger.Leave(Self, 'AddDirectoryNode');
 end;
 
+procedure TfrmMain.AddURLNode(const AURL: string; ATree: TBaseVirtualTree);
+begin
+  Logger.Enter(Self, 'AddURLNode');
+
+  // Append a new node for the URL
+  DataSet.Append;
+  try
+    Snippet.NodeTypeId := 2;
+    Snippet.ImageIndex := 2;
+    Snippet.ParentId   := FParentId;
+    Snippet.Source     := AURL; // Assuming Snippet has a URL property
+  finally
+    DataSet.Post;
+  end;
+
+
+  Logger.Leave(Self, 'AddURLNode');
+end;
+
 procedure TfrmMain.ExportNode;
 begin
   if Snippet.NodeTypeId = 2 then
@@ -1677,15 +1757,6 @@ begin
   UpdateViews;
   UpdateStatusBar;
   UpdateApplicationToolBar;
-  if Assigned(Snippet) then
-  begin
-  //if not edtTitle.Focused then
-  //begin
-  //  edtTitle.Color      := clForm;
-  //  edtTitle.Font.Color := clDkGray;
-  //end;
-  end;
-
   pnlWelcome.Visible := DataSet.DataSet.Active and DataSet.DataSet.IsEmpty;
 end;
 
@@ -1745,9 +1816,11 @@ begin
   begin
     B := Snippet.Locked;
     RichEditor.ReadOnly := B;
-    Editor.ReadOnly := B;
-    if Assigned(HtmlEditor) then
+    Editor.ReadOnly     := B;
+    if Assigned(HtmlEditor) and B then
+    begin
       HtmlEditor.EditMode := not B;
+    end;
     if FUpdateRichTextView then
     begin
       RichEditor.LoadFromStream(FRtfStream);
@@ -1755,7 +1828,9 @@ begin
     end;
     if RichEditor.IsEmpty and (FSettings.DefaultRichEditorFontName <> '') then
     begin
-      RichEditor.Font.Name := FSettings.DefaultRichEditorFontName;
+      RichEditor.Editor.Font.Name := FSettings.DefaultRichEditorFontName;
+      RichEditor.Editor.Font.Size := FSettings.DefaultRichEditorFontSize;
+      Logger.SendComponent(RichEditor.Editor);
     end;
     if actToggleLockedState.Checked then
       actToggleLockedState.ImageIndex := 14
@@ -1791,6 +1866,7 @@ begin
   actHtmlEditor.Checked := nbRight.ActivePageComponent = pgHtmlEditor;
   actRtfEditor.Checked  := nbRight.ActivePageComponent = pgRichEditor;
   actTextEditor.Checked := nbRight.ActivePageComponent = pgTextEditor;
+  FHtmlEditorToggleEditModeAction.Enabled := not Snippet.Locked;
 end;
 {$ENDREGION}
 

@@ -24,8 +24,8 @@ interface
 
 uses
   Classes, SysUtils, DB, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, StdCtrls, ActnList, Types, Registry,
-  RTTICtrls, DBGrids, ExtCtrls, Buttons, EditBtn, Grids, ValEdit,
+  ComCtrls, StdCtrls, ActnList, Types, Registry, RTTICtrls, DBGrids, ExtCtrls,
+  Buttons, EditBtn, Grids, ValEdit,
 
   VirtualTrees,
 
@@ -49,16 +49,15 @@ type
     actDatabaseVacuum                : TAction;
     actDeleteDatabase                : TAction;
     actFontDialog                    : TAction;
-    actOpenVenvConsole: TAction;
+    actOpenVenvConsole               : TAction;
     actOpenVenvPath                  : TAction;
     actUpdateSequences               : TAction;
     actUpdateNodePaths               : TAction;
-    actRunVirtualEnvironment         : TAction;
     actOpenDatabase                  : TAction;
     actRefreshGlyphs                 : TAction;
     actReloadConfigurationData       : TAction;
     btnBackupDatabase                : TBitBtn;
-    btnOpenVenvConsole: TButton;
+    btnOpenVenvConsole               : TButton;
     btnUpdateNodePaths               : TBitBtn;
     btnClose                         : TBitBtn;
     btnCreateDatabaseIndexes         : TBitBtn;
@@ -71,7 +70,7 @@ type
     btnOpenGlyphs                    : TButton;
     btnRefresh                       : TButton;
     btnSequences                     : TBitBtn;
-    btnOpenVenvPath: TButton;
+    btnOpenVenvPath                  : TButton;
     cbxImageList                     : TComboBox;
     chkAutoHideEditorToolBar         : TCheckBox;
     chkAutoHideRichEditorToolBar     : TCheckBox;
@@ -94,7 +93,6 @@ type
     grpDiagnostics                   : TGroupBox;
     grpLayout                        : TGroupBox;
     grpRichtextEditor                : TGroupBox;
-    Highlighters                     : TTabSheet;
     imlMain                          : TImageList;
     lblApplicationNeedsToBeRestarted : TLabel;
     lblDataBaseFile                  : TLabel;
@@ -106,6 +104,7 @@ type
     tsSettingsFile                   : TTabSheet;
     tsApplication                    : TTabSheet;
     tsDataBase                       : TTabSheet;
+    tsHighlighters                   : TTabSheet;
     tsImages                         : TTabSheet;
     tsPython                         : TTabSheet;
     tsTerminalSettings               : TTabSheet;
@@ -114,7 +113,6 @@ type
 
     {$REGION 'action handlers'}
     procedure actBackupDatabaseExecute(Sender: TObject);
-    procedure actCleanupHistoryExecute(Sender: TObject);
     procedure actCloseExecute(Sender: TObject);
     procedure actCreateDatabaseIndexesExecute(Sender: TObject);
     procedure actCreateDatabaseTablesExecute(Sender: TObject);
@@ -131,7 +129,6 @@ type
     procedure actOpenVenvPathExecute(Sender: TObject);
     procedure actRefreshGlyphsExecute(Sender: TObject);
     procedure actReloadConfigurationDataExecute(Sender: TObject);
-    procedure actRunVirtualEnvironmentExecute(Sender: TObject);
     procedure actUpdateNodePathsExecute(Sender: TObject);
     procedure actUpdateSequencesExecute(Sender: TObject);
     {$ENDREGION}
@@ -179,6 +176,7 @@ type
 
   private
     FData               : IInterface;
+    FTerminal           : ITerminal;
     FSettings           : ISettings;
     FPythonInterpreters : TStrings;
     FEditorManager      : IEditorManager;
@@ -195,12 +193,12 @@ type
     procedure LoadImage(const AFileName, AFieldName: string);
     procedure UpdateDataBaseInfo;
     procedure LoadPythonInterpreters;
-    function CreatePythonVirtualEnvironment(const APythonPath: string): Boolean;
 
   public
     constructor Create(
       AOwner          : TComponent;
       const AData     : IInterface;
+      const ATerminal : ITerminal;
       const ASettings : ISettings
     ); reintroduce; virtual;
 
@@ -228,6 +226,7 @@ type
 
 procedure ExecuteSettingsDialog(
   const AData     : IInterface;
+  const ATerminal : ITerminal;
   const ASettings : ISettings
 );
 
@@ -236,7 +235,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Process, LazFileUtils,
+  LazFileUtils,
 
   ts.Core.Utils, ts.Core.Logger,
 
@@ -246,19 +245,22 @@ var
   FSettingsDialog : TfrmSettingsDialog;
 
 procedure ExecuteSettingsDialog(const AData: IInterface;
-  const ASettings: ISettings);
+  const ATerminal: ITerminal; const ASettings: ISettings);
 begin
   if not Assigned(FSettingsDialog) then
-    FSettingsDialog := TfrmSettingsDialog.Create(Application, AData, ASettings);
+    FSettingsDialog :=
+      TfrmSettingsDialog.Create(Application, AData, ATerminal, ASettings);
   FSettingsDialog.ShowModal;
 end;
 
 {$REGION 'construction and destruction'}
 constructor TfrmSettingsDialog.Create(AOwner: TComponent;
-  const AData: IInterface; const ASettings: ISettings);
+  const AData: IInterface; const ATerminal: ITerminal;
+  const ASettings: ISettings);
 begin
   inherited Create(AOwner);
   FData     := AData;
+  FTerminal := ATerminal;
   FSettings := ASettings;
   dscGlyph.DataSet := (FData as IGlyphs).GlyphDataSet;
   (FData as IGlyphs).GlyphDataSet.Active := True;
@@ -369,7 +371,10 @@ end;
 
 procedure TfrmSettingsDialog.actOpenVenvConsoleExecute(Sender: TObject);
 begin
-  dmTerminal.Execute(Format('.\%s\Scripts\activate.bat', [FSettings.PythonVirtualEnvironmentName]));
+  FTerminal.Execute(
+    Format('.\%s\Scripts\activate.bat',
+    [FSettings.PythonVirtualEnvironmentName])
+  );
 end;
 
 procedure TfrmSettingsDialog.actOpenVenvPathExecute(Sender: TObject);
@@ -388,31 +393,6 @@ end;
 procedure TfrmSettingsDialog.actReloadConfigurationDataExecute(Sender: TObject);
 begin
   Connection.SetupConfigurationData;
-end;
-
-procedure TfrmSettingsDialog.actRunVirtualEnvironmentExecute(Sender: TObject);
-//var
-//  LProcess : TProcess;
-//  LOutput  : TStringList;
-begin
-  //LOutput := TStringList.Create;
-  //try
-  //  LProcess := TProcess.Create(nil);
-  //  try
-  //    LProcess.Executable := APythonPath;
-  //    LProcess.Parameters.Add('-m');
-  //    LProcess.Parameters.Add('venv');
-  //    LProcess.Parameters.Add(edtVenvName.Text);
-  //    LProcess.Options := [{poWaitOnExit,} poUsePipes];
-  //    LProcess.Execute;
-  //    LOutput.LoadFromStream(LProcess.Output);
-  //    Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);
-  //  finally
-  //    LProcess.Free;
-  //  end;
-  //finally
-  //  LOutput.Free;
-  //end;
 end;
 
 procedure TfrmSettingsDialog.actUpdateNodePathsExecute(Sender: TObject);
@@ -435,12 +415,14 @@ procedure TfrmSettingsDialog.actCreateVirtualEnvironmentExecute(Sender: TObject
   );
 var
   LPath : string;
+  LName : string;
 begin
   LPath := grdPythonInterpreters.Cells[1, grdPythonInterpreters.Row];
-  if not CreatePythonVirtualEnvironment(LPath) then
+  LName := edtVenvName.Text;
+  if not FTerminal.CreatePythonVenv(LPath, LName) then
     ShowMessage(SVirtualEnvironmentAlreadyExists)
   else
-    FSettings.PythonVirtualEnvironmentName := edtVenvName.Caption;
+    FSettings.PythonVirtualEnvironmentName := LName;
 end;
 
 procedure TfrmSettingsDialog.actDatabaseIntegrityCheckExecute(Sender: TObject);
@@ -482,11 +464,6 @@ begin
   ShowMessageFmt(SDatabaseBackupCreated, [S]);
 end;
 
-procedure TfrmSettingsDialog.actCleanupHistoryExecute(Sender: TObject);
-begin
-
-end;
-
 procedure TfrmSettingsDialog.actCreateDatabaseIndexesExecute(Sender: TObject);
 begin
   Connection.CreateDatabaseIndexes;
@@ -513,6 +490,7 @@ begin
   begin
     edtFontName.Text := dlgFont.Font.Name;
     FSettings.DefaultRichEditorFontName := dlgFont.Font.Name;
+    FSettings.DefaultRichEditorFontSize := dlgFont.Font.Size;
   end;
 end;
 {$ENDREGION}
@@ -835,33 +813,6 @@ begin
     grdPythonInterpreters.Cells[1, I + 1] := FPythonInterpreters.ValueFromIndex[I];
   end;
   grdPythonInterpreters.AutoSizeColumns;
-end;
-
-function TfrmSettingsDialog.CreatePythonVirtualEnvironment(const APythonPath: string
-  ): Boolean;
-var
-  LProcess : TProcess;
-  LOutput  : TStringList;
-begin
-  LOutput := TStringList.Create;
-  try
-    LProcess := TProcess.Create(nil);
-    try
-      LProcess.Executable := APythonPath;
-      LProcess.Parameters.Add('-m');
-      LProcess.Parameters.Add('venv');
-      LProcess.Parameters.Add(edtVenvName.Text);
-      LProcess.Options := [poUsePipes, poNoConsole];
-      LProcess.Execute;
-      LOutput.LoadFromStream(LProcess.Output);
-      Logger.SendText(LOutput.Text);
-      Result := (LOutput.Count > 0) and (Pos('already exists', LOutput[0]) = 0);
-    finally
-      LProcess.Free;
-    end;
-  finally
-    LOutput.Free;
-  end;
 end;
 {$ENDREGION}
 

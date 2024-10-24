@@ -1,106 +1,107 @@
 object frmLookup: TfrmLookup
-  Left = 1115
-  Height = 689
-  Top = 104
-  Width = 796
+  Left = 1116
+  Height = 1034
+  Top = 105
+  Width = 1194
   ActiveControl = edtLookup
   Caption = 'Search'
-  ClientHeight = 689
-  ClientWidth = 796
+  ClientHeight = 1034
+  ClientWidth = 1194
   Color = clWindow
-  Font.Height = -12
+  DesignTimePPI = 144
+  Font.Height = -18
   KeyPreview = True
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object sbrMain: TStatusBar
     Left = 0
-    Height = 23
-    Top = 666
-    Width = 796
+    Height = 36
+    Top = 998
+    Width = 1194
     AutoHint = True
-    Font.Height = -11
+    Font.Height = -17
     Panels = <>
     ParentFont = False
   end
   object grdLookup: TDBGrid
     Left = 0
-    Height = 644
-    Top = 22
-    Width = 796
+    Height = 964
+    Top = 34
+    Width = 1194
     Align = alClient
     BorderStyle = bsNone
     Color = clWindow
     Columns = <    
       item
         Font.Color = clRed
-        Font.Height = -11
-        MinSize = 40
-        MaxSize = 40
+        Font.Height = -17
+        MinSize = 60
+        MaxSize = 60
         ReadOnly = True
         SizePriority = 8
         Title.Alignment = taCenter
         Title.Font.Color = clRed
-        Title.Font.Height = -11
+        Title.Font.Height = -17
         Title.Font.Style = [fsBold]
         Title.Caption = 'Id'
-        Width = 40
+        Width = 60
         FieldName = 'Id'
       end    
       item
-        Font.Height = -11
-        MinSize = 400
-        MaxSize = 2000
+        Font.Height = -17
+        MinSize = 600
+        MaxSize = 3000
         SizePriority = 0
         Title.Alignment = taCenter
-        Title.Font.Height = -11
+        Title.Font.Height = -17
         Title.Font.Style = [fsBold]
         Title.Caption = 'Name'
-        Width = 500
+        Width = 750
         FieldName = 'NodeName'
       end    
       item
         Alignment = taCenter
         Color = clDefault
         Font.Color = clBlue
-        Font.Height = -11
-        MinSize = 120
-        MaxSize = 120
+        Font.Height = -17
+        MinSize = 180
+        MaxSize = 180
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Font.Color = clBlue
-        Title.Font.Height = -11
+        Title.Font.Height = -17
         Title.Font.Style = [fsBold]
         Title.Caption = 'Date Created'
-        Width = 120
+        Width = 180
         FieldName = 'DateCreated'
       end    
       item
         Alignment = taCenter
         Color = clDefault
         Font.Color = clGreen
-        Font.Height = -11
-        MinSize = 120
-        MaxSize = 120
+        Font.Height = -17
+        MinSize = 180
+        MaxSize = 180
         ReadOnly = True
         SizePriority = 7
         Title.Alignment = taCenter
         Title.Font.Color = clGreen
-        Title.Font.Height = -11
+        Title.Font.Height = -17
         Title.Font.Style = [fsBold]
         Title.Caption = 'Date Modified'
-        Width = 120
+        Width = 180
         FieldName = 'DateModified'
       end>
     DataSource = dscMain
     FixedColor = clWindow
     FixedCols = 0
     FixedHotColor = clWindow
-    Font.Height = -11
+    Font.Height = -17
     HeaderHotZones = []
     HeaderPushZones = []
     Options = [dgTitles, dgColumnResize, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgCancelOnExit, dgDisableDelete, dgDisableInsert, dgCellHints, dgCellEllipsis, dgThumbTracking, dgDblClickAutoSize]
@@ -118,48 +119,49 @@ object frmLookup: TfrmLookup
   end
   object pnlTop: TPanel
     Left = 0
-    Height = 21
+    Height = 32
     Top = 0
-    Width = 796
+    Width = 1194
     Align = alTop
     AutoSize = True
     BevelOuter = bvNone
-    ClientHeight = 21
-    ClientWidth = 796
+    ClientHeight = 32
+    ClientWidth = 1194
+    ParentBackground = False
     TabOrder = 2
     object edtLookup: TEdit
-      Left = 10
-      Height = 21
+      Left = 15
+      Height = 32
       Top = 0
-      Width = 786
+      Width = 1179
       Align = alClient
-      BorderSpacing.Left = 10
+      BorderSpacing.Left = 15
       BorderStyle = bsNone
-      Font.Height = -16
+      Font.Height = -24
+      ParentFont = False
+      TabOrder = 0
       OnKeyDown = edtLookupKeyDown
       OnKeyPress = edtLookupKeyPress
       OnKeyUp = edtLookupKeyUp
-      ParentFont = False
-      TabOrder = 0
     end
   end
   object shLine: TShape
     Left = 0
-    Height = 1
-    Top = 21
-    Width = 796
+    Height = 2
+    Top = 32
+    Width = 1194
     Align = alTop
     Brush.Color = clDefault
     Pen.Color = clBtnFace
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    Left = 160
-    Top = 144
+    Left = 240
+    Top = 216
   end
   object aclMain: TActionList
-    Left = 239
-    Top = 144
+    Left = 359
+    Top = 216
     object actSearch: TAction
       Caption = 'Search'
       OnExecute = actSearchExecute

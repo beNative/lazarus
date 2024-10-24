@@ -28,11 +28,18 @@ const
 
   EXECUTE_SCRIPT_FILE   = 'snippetsource_%d.%s';
   EXECUTE_PYTHON_SCRIPT = '.\%s\Scripts\activate.bat & py "%s"';
+  LOAD_PYTHON_VENV      = '.\%s\Scripts\activate.bat';
+  EXECUTE_PYTHON_VENV   = '.\%s\Scripts\activate.bat & %s';
+  LAUNCH_JUPYTER_LAB    = 'jupyter lab --no-browser --LabApp.token=''''';
+
 
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_SQLITE_VERSION    = 'select sqlite_version();';
+
+  DEFAULT_LINUX_DISTRIBUTION = 'ubuntu';
+
 
   FIELDNAME_IMAGE = 'Image';
 

@@ -1,16 +1,17 @@
 object dmSnippetSource: TdmSnippetSource
   OldCreateOrder = False
-  Height = 655
-  HorizontalOffset = 1735
-  VerticalOffset = 326
-  Width = 775
+  Height = 518
+  HorizontalOffset = 1121
+  VerticalOffset = 539
+  Width = 633
+  PPI = 144
   object trsMain: TSQLTransaction
     Active = False
     Action = caNone
     Database = conMain
     Options = [stoUseImplicit]
-    Left = 184
-    Top = 24
+    Left = 276
+    Top = 36
   end
   object qrySnippet: TSQLQuery
     PacketRecords = -1
@@ -42,8 +43,8 @@ object dmSnippetSource: TdmSnippetSource
     Macros = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
-    Left = 40
-    Top = 160
+    Left = 60
+    Top = 240
   end
   object qryGlyph: TSQLQuery
     PacketRecords = -1
@@ -62,8 +63,8 @@ object dmSnippetSource: TdmSnippetSource
     Options = [sqoKeepOpenOnCommit]
     Params = <>
     Macros = <>
-    Left = 184
-    Top = 80
+    Left = 276
+    Top = 120
   end
   object qryNodeType: TSQLQuery
     FieldDefs = <>
@@ -78,13 +79,13 @@ object dmSnippetSource: TdmSnippetSource
     )
     Params = <>
     Macros = <>
-    Left = 112
-    Top = 80
+    Left = 168
+    Top = 120
   end
   object imlGlyphs: TImageList
     Scaled = True
-    Left = 112
-    Top = 248
+    Left = 168
+    Top = 372
     Bitmap = {
       4C7A0F0000001000000010000000350A00000000000078DAED9A7F5054D715C7
       B7C9B4FD23FE9199644A3BD3669C8E763A4EC6DAB19338E924B5B57564DAA641
@@ -2753,8 +2754,8 @@ object dmSnippetSource: TdmSnippetSource
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 256
-    Top = 80
+    Left = 384
+    Top = 120
   end
   object qrySearch: TSQLQuery
     PacketRecords = -1
@@ -2780,8 +2781,8 @@ object dmSnippetSource: TdmSnippetSource
     Macros = <>
     Sequence.FieldName = 'Id'
     Sequence.SequenceName = 'test'
-    Left = 40
-    Top = 80
+    Left = 60
+    Top = 120
   end
   object scrCreateTables: TSQLScript
     DataBase = conMain
@@ -2877,14 +2878,33 @@ object dmSnippetSource: TdmSnippetSource
       '  DateModified  datetime'
       ');'
       ''
+      ''
+      '-- Table: Favorite'
+      'drop table if exists Favorite;'
+      ''
+      'create table if not exists Favorite ('
+      '    Id           integer primary key,'
+      '    SnippetId    integer,'
+      '    Color        integer,'
+      '    FontColor    integer,'
+      '    Caption      text,'
+      '    Image        blob,'
+      '    Sequence     integer,'
+      '    DateCreated  datetime,'
+      '    DateModified datetime'
+      ');'
+      ''
+      ''
+      ''
+      ''
     )
     Terminator = ';'
     CommentsinSQL = True
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    Left = 120
-    Top = 160
+    Left = 180
+    Top = 240
   end
   object conMain: TSQLite3Connection
     Connected = False
@@ -2893,12 +2913,13 @@ object dmSnippetSource: TdmSnippetSource
     Transaction = trsMain
     LogEvents = [detCustom, detPrepare, detExecute, detCommit, detRollBack, detParamValue, detActualSQL]
     AlwaysUseBigint = False
-    Left = 40
-    Top = 24
+    Left = 60
+    Top = 36
   end
   object imlNodeTypes: TImageList
-    Left = 40
-    Top = 248
+    Scaled = True
+    Left = 60
+    Top = 372
   end
   object scrCreateIndexes: TSQLScript
     DataBase = conMain
@@ -2972,8 +2993,8 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    Left = 216
-    Top = 160
+    Left = 324
+    Top = 240
   end
   object scrInsertData: TSQLScript
     DataBase = conMain
@@ -3418,8 +3439,8 @@ object dmSnippetSource: TdmSnippetSource
     UseSetTerm = True
     UseCommit = True
     UseDefines = True
-    Left = 312
-    Top = 160
+    Left = 468
+    Top = 240
   end
   object qryQuery: TSQLQuery
     PacketRecords = -1
@@ -3429,7 +3450,26 @@ object dmSnippetSource: TdmSnippetSource
     Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
     Params = <>
     Macros = <>
-    Left = 211
-    Top = 248
+    Left = 317
+    Top = 372
+  end
+  object qryFavorite: TSQLQuery
+    PacketRecords = -1
+    IndexFieldNames = 'Id'
+    FieldDefs = <>
+    Database = conMain
+    Transaction = trsMain
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  Favorite'
+      ''
+    )
+    Options = [sqoKeepOpenOnCommit, sqoAutoApplyUpdates, sqoAutoCommit]
+    Params = <>
+    Macros = <>
+    Left = 516
+    Top = 120
   end
 end

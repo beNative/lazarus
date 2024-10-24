@@ -32,13 +32,11 @@ uses
        edtLookupKeyPress
        FormKeyUp
        edtLookupKeyUp
-
-
 }
 
 type
   TfrmLookup = class(TForm)
-    {$REGION ''}
+    {$REGION 'designer controls'}
     aclMain   : TActionList;
     actSearch : TAction;
     dscMain   : TDatasource;
@@ -46,7 +44,7 @@ type
     grdLookup : TDBGrid;
     pnlTop    : TPanel;
     sbrMain   : TStatusBar;
-    shLine: TShape;
+    shLine    : TShape;
     {$ENDREGION}
 
     {$REGION 'action handlers'}

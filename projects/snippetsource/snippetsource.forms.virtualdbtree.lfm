@@ -1,58 +1,62 @@
 object frmVirtualDBTree: TfrmVirtualDBTree
-  Left = 892
-  Height = 381
-  Top = 499
-  Width = 282
+  Left = 894
+  Height = 572
+  Top = 500
+  Width = 423
   AllowDropFiles = True
   BorderStyle = bsSizeToolWin
-  ClientHeight = 381
-  ClientWidth = 282
+  ClientHeight = 572
+  ClientWidth = 423
   Color = clWindow
-  Font.Height = -12
+  DesignTimePPI = 144
+  Font.Height = -18
   KeyPreview = True
   PopupMenu = ppmTreeView
   ShowHint = True
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object pnlMain: TPanel
     Left = 0
-    Height = 381
+    Height = 572
     Top = 0
-    Width = 282
+    Width = 423
     Align = alClient
     BevelOuter = bvNone
-    ClientHeight = 381
-    ClientWidth = 282
-    Constraints.MinWidth = 185
+    ClientHeight = 572
+    ClientWidth = 423
+    Constraints.MinWidth = 278
+    ParentBackground = False
     PopupMenu = ppmTreeView
     TabOrder = 0
     object pnlTop: TPanel
       Left = 0
-      Height = 24
+      Height = 36
       Top = 0
-      Width = 282
+      Width = 423
       Align = alTop
       BevelColor = clScrollBar
       BevelOuter = bvNone
-      ClientHeight = 24
-      ClientWidth = 282
+      ClientHeight = 36
+      ClientWidth = 423
       Color = clBtnFace
+      ParentBackground = False
       ParentColor = False
       TabOrder = 0
       object pnlTopRight: TPanel
-        Left = 210
-        Height = 24
+        Left = 315
+        Height = 36
         Top = 0
-        Width = 72
+        Width = 108
         Align = alRight
         BevelOuter = bvNone
-        ClientHeight = 24
-        ClientWidth = 72
+        ClientHeight = 36
+        ClientWidth = 108
+        ParentBackground = False
         TabOrder = 0
         object navTreeView: TDBNavigator
           Left = 0
-          Height = 24
+          Height = 36
           Top = 0
-          Width = 72
+          Width = 108
           Align = alClient
           Alignment = taRightJustify
           BevelOuter = bvNone
@@ -62,11 +66,11 @@ object frmVirtualDBTree: TfrmVirtualDBTree
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 100
-          ClientHeight = 24
-          ClientWidth = 72
+          ClientHeight = 36
+          ClientWidth = 108
           DataSource = dscMain
           Flat = True
-          Font.Height = -11
+          Font.Height = -17
           Options = []
           ParentFont = False
           ParentShowHint = False
@@ -78,24 +82,25 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       end
       object pnlTopLeft: TPanel
         Left = 0
-        Height = 24
+        Height = 36
         Top = 0
-        Width = 210
+        Width = 315
         Align = alClient
         BevelColor = clScrollBar
         BevelOuter = bvNone
-        ClientHeight = 24
-        ClientWidth = 210
+        ClientHeight = 36
+        ClientWidth = 315
+        ParentBackground = False
         TabOrder = 1
         object tlbTop: TToolBar
           Left = 0
-          Height = 24
+          Height = 36
           Top = 0
-          Width = 210
+          Width = 315
           Align = alClient
           AutoSize = True
-          ButtonHeight = 20
-          ButtonWidth = 24
+          ButtonHeight = 30
+          ButtonWidth = 36
           EdgeBorders = []
           EdgeInner = esNone
           EdgeOuter = esNone
@@ -111,43 +116,43 @@ object frmVirtualDBTree: TfrmVirtualDBTree
             Action = actNewRootFolderNode
           end
           object btnNewFolder: TToolButton
-            Left = 27
+            Left = 43
             Top = 0
             Action = actNewFolderNode
           end
           object btnNewItem: TToolButton
-            Left = 53
+            Left = 85
             Top = 0
             Action = actNewItemNode
           end
           object btnCollapseAllNodes: TToolButton
-            Left = 143
+            Left = 215
             Top = 0
             Action = actCollapseAllNodes
             ShowCaption = False
           end
           object btnExpandAllNodes: TToolButton
-            Left = 119
+            Left = 179
             Top = 0
             Action = actExpandAllNodes
             ShowCaption = False
           end
           object btnDivider2: TToolButton
-            Left = 111
-            Height = 20
+            Left = 171
+            Height = 30
             Top = 0
             Caption = 'btnDivider2'
             Style = tbsSeparator
           end
           object btnDuplicateSelectedNodes: TToolButton
-            Left = 87
+            Left = 135
             Top = 0
             Action = actDuplicateSelectedNodes
             ShowCaption = False
           end
           object btnDivider1: TToolButton
-            Left = 79
-            Height = 20
+            Left = 127
+            Height = 30
             Top = 0
             Caption = 'btnDivider1'
             Style = tbsSeparator
@@ -157,26 +162,27 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     end
     object pnlTree: TPanel
       Left = 0
-      Height = 356
-      Top = 25
-      Width = 282
+      Height = 534
+      Top = 38
+      Width = 423
       Align = alClient
       BevelOuter = bvNone
+      ParentBackground = False
       TabOrder = 1
     end
     object shpLine: TShape
       Left = 0
-      Height = 1
-      Top = 24
-      Width = 282
+      Height = 2
+      Top = 36
+      Width = 423
       Align = alTop
       Pen.Color = clScrollBar
     end
   end
   object ppmTreeView: TPopupMenu
     Images = imlMain
-    Left = 24
-    Top = 104
+    Left = 40
+    Top = 156
     object mniNewChild: TMenuItem
       Action = actNewItemNode
       Caption = 'New item'
@@ -210,6 +216,9 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object mniClearImage: TMenuItem
       Action = actClearImage
     end
+    object mniClearNodeData: TMenuItem
+      Action = actClearNodeData
+    end
     object N2: TMenuItem
       Caption = '-'
     end
@@ -240,13 +249,13 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   end
   object dscMain: TDataSource
     OnDataChange = dscMainDataChange
-    Left = 104
-    Top = 40
+    Left = 156
+    Top = 60
   end
   object alMain: TActionList
     Images = imlMain
-    Left = 24
-    Top = 40
+    Left = 36
+    Top = 60
     object actNewRootFolderNode: TAction
       Hint = 'Add a new rootfolder to the tree'
       ImageIndex = 2
@@ -330,13 +339,18 @@ object frmVirtualDBTree: TfrmVirtualDBTree
       OnExecute = actMoveDownExecute
       ShortCut = 16424
     end
+    object actClearNodeData: TAction
+      Caption = 'Clear node data'
+      Hint = 'Clear all node data.'
+      OnExecute = actClearNodeDataExecute
+    end
   end
   object imlMain: TImageList
     BkColor = clWhite
     DrawingStyle = dsTransparent
     Scaled = True
-    Left = 104
-    Top = 104
+    Left = 156
+    Top = 156
     Bitmap = {
       4C7A0D0000001000000010000000C91800000000000078DAED9A77541449B4C6
       7B08665DC1EC2E838ABAAB28A8ABAE71CDBB6631605CC3AA987344455D500922

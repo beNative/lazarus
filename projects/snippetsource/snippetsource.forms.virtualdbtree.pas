@@ -44,8 +44,8 @@ uses
   To support this treeview, the table must include following fields for storing
   the node data:
 
-  ID    : the primary key of the table
-  Parent: reference to the parent node ID (0 means that record is the rootnode)
+  Id    : the primary key of the table
+  Parent: reference to the parent node Id (0 means that record is the rootnode)
   Type  : node-type      0 : node item
                          1 : folder node
   Name  : name to be shown as the node identifier in the treeview }
@@ -69,6 +69,11 @@ type
     AFiles      : TStrings;
     AAttachMode : TVTNodeAttachMode
   ) of object;
+  TDropTextEvent     = procedure(
+    Sender      : TBaseVirtualTree;
+    AText       : TStrings;
+    AAttachMode : TVTNodeAttachMode
+  ) of object;
 
 type
   TfrmVirtualDBTree = class(TForm)
@@ -79,6 +84,7 @@ type
     actDeleteSelectedNodes    : TAction;
     actDuplicateSelectedNodes : TAction;
     actExpandAllNodes         : TAction;
+    actClearNodeData          : TAction;
     actMoveDown               : TAction;
     actMoveUp                 : TAction;
     actNewFolderNode          : TAction;
@@ -97,6 +103,7 @@ type
     btnNewRoot                : TToolButton;
     dscMain                   : TDataSource;
     imlMain                   : TImageList;
+    mniClearNodeData          : TMenuItem;
     mniCancel                 : TMenuItem;
     mniClearImage             : TMenuItem;
     mniCollapseAllNodes       : TMenuItem;
@@ -128,6 +135,7 @@ type
     {$REGION 'action handlers'}
     procedure actCancelExecute(Sender: TObject);
     procedure actClearImageExecute(Sender: TObject);
+    procedure actClearNodeDataExecute(Sender: TObject);
     procedure actCopyNodeDataExecute(Sender: TObject);
     procedure actDuplicateSelectedNodesExecute(Sender: TObject);
     procedure actMoveDownExecute(Sender: TObject);
@@ -187,6 +195,7 @@ type
   private
     FTreeView                 : TCheckVirtualDBTreeEx;
     FOnDropFiles              : TDropFilesEvent;
+    FOnDropText               : TDropTextEvent;
     FDataSet                  : TDataSet;
     FOnNewFolderNode          : TNotifyEvent;
     FOnNewItemNode            : TNotifyEvent;
@@ -195,6 +204,7 @@ type
     FOnMoveUpSelectedNodes    : TNotifyEvent;
     FOnMoveDownSelectedNodes  : TNotifyEvent;
     FOnCopyNodeData           : TNotifyEvent;
+    FOnClearNodeData          : TNotifyEvent;
     FNodeTypeFieldName        : string;
 
     {$REGION 'property access methods'}
@@ -226,8 +236,12 @@ type
     {$ENDREGION}
 
     procedure GetFileListFromObj(
-      const DataObj : IDataObject;
-      AFileList     : TStrings
+      const ADataObj : IDataObject;
+      AFileList      : TStrings
+    );
+    procedure GetTextFromObj(
+      ADataObject : IDataObject;
+      AStrings    : TStringList
     );
 
   protected
@@ -247,10 +261,15 @@ type
       AFiles            : TStrings;
       const AAttachMode : TVTNodeAttachMode
     ); dynamic;
+    procedure DoDropText(
+      AText             : TStrings;
+      const AAttachMode : TVTNodeAttachMode
+    ); dynamic;
     procedure DoDeleteSelectedNodes; dynamic;
     procedure DoDuplicateSelectedNodes; dynamic;
     procedure DoMoveUpSelectedNodes; dynamic;
     procedure DoMoveDownSelectedNodes; dynamic;
+    procedure DoClearNodeData; dynamic;
 
     procedure UpdateActions; override;
 
@@ -327,6 +346,9 @@ type
     property OnDropFiles: TDropFilesEvent
       read FOnDropFiles write FOnDropFiles;
 
+    property OnDropText: TDropTextEvent
+      read FOnDropText write FOnDropText;
+
     property OnDeleteSelectedNodes : TNotifyEvent
       read FOnDeleteSelectedNodes write FOnDeleteSelectedNodes;
 
@@ -339,8 +361,11 @@ type
     property OnMoveDownSelectedNodes: TNotifyEvent
       read FOnMoveDownSelectedNodes write FOnMoveDownSelectedNodes;
 
-    property OnCopyNodeData : TNotifyEvent
+    property OnCopyNodeData: TNotifyEvent
       read FOnCopyNodeData write FOnCopyNodeData;
+
+    property OnClearNodeData: TNotifyEvent
+      read FOnClearNodeData write FOnClearNodeData;
   end;
 
 implementation
@@ -348,7 +373,7 @@ implementation
 {$R *.lfm}
 
 uses
-  SysUtils, ShellApi, Rtti,
+  SysUtils, ShellApi, Rtti, ComObj, Clipbrd, TypInfo,
 
   ts.Core.Logger, ts.Core.Utils,
 
@@ -547,6 +572,13 @@ begin
     FOnDropFiles(FTreeView, AFiles, AAttachMode);
 end;
 
+procedure TfrmVirtualDBTree.DoDropText(AText: TStrings;
+  const AAttachMode: TVTNodeAttachMode);
+begin
+  if Assigned(AText) and Assigned(FOnDropText) then
+    FOnDropText(FTreeView, AText, AAttachMode);
+end;
+
 procedure TfrmVirtualDBTree.DoDeleteSelectedNodes;
 begin
   if Assigned(FOnDeleteSelectedNodes) then
@@ -569,6 +601,12 @@ procedure TfrmVirtualDBTree.DoMoveDownSelectedNodes;
 begin
   if Assigned(FOnMoveDownSelectedNodes) then
     FOnMoveDownSelectedNodes(Self);
+end;
+
+procedure TfrmVirtualDBTree.DoClearNodeData;
+begin
+  if Assigned(FOnClearNodeData) then
+    FOnClearNodeData(Self);
 end;
 {$ENDREGION}
 
@@ -599,6 +637,11 @@ begin
   DataSet.Refresh;
   //FTreeView.InvalidateNode(FTreeView.FocusedNode);
   FTreeView.Refresh;
+end;
+
+procedure TfrmVirtualDBTree.actClearNodeDataExecute(Sender: TObject);
+begin
+  DoClearNodeData;
 end;
 
 procedure TfrmVirtualDBTree.actDuplicateSelectedNodesExecute(Sender: TObject);
@@ -673,7 +716,7 @@ end;
 procedure TfrmVirtualDBTree.FTreeViewDragAllowed(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; var Allowed: Boolean);
 begin
-  Allowed  := True;
+  Allowed := True;
 end;
 
 procedure TfrmVirtualDBTree.FTreeViewDragDrop(Sender: TBaseVirtualTree;
@@ -685,21 +728,26 @@ var
   LAttachMode : TVTNodeAttachMode;
   LNode       : PVirtualNode;
 begin
-  LNode := Sender.GetNodeAt(Pt.x, Pt.y);
-  Sender.ClearSelection;
-  Sender.FocusedNode := LNode;
-  if Mode = dmOnNode then
-    LAttachMode := amInsertBefore
-  else if Mode = dmAbove then
-    LAttachMode := amInsertBefore
-  else if Mode = dmBelow then
-    LAttachMode := amInsertAfter
+  LNode := Sender.GetNodeAt(Pt.X, Pt.Y);
+  if Assigned(LNode) then
+  begin
+    Sender.ClearSelection;
+    Sender.FocusedNode := LNode;
+  end;
+
+  case Mode of
+    dmOnNode, dmAbove:
+      LAttachMode := amInsertBefore;
+    dmBelow:
+      LAttachMode := amInsertAfter;
   else
     LAttachMode := amAddChildLast;
+  end;
+  Logger.Send('AttachMode', GetEnumName(TypeInfo(TVTNodeAttachMode), Ord(LAttachMode)));
 
   for I := 0 to High(Formats) - 1 do
   begin
-    //Logger.Send(I.ToString, GetClipboardFormatName(I));
+    Logger.Send(I.ToString, GetClipboardFormatName(Formats[I]));
     if Formats[I] = CF_HDROP then
     begin
       SL := TStringList.Create;
@@ -709,6 +757,16 @@ begin
       finally
         FreeAndNil(SL);
       end;
+    end
+    else if Formats[I] in [CF_TEXT, CF_UNICODETEXT] then
+    begin
+      SL := TStringList.Create;
+       try
+         GetTextFromObj(DataObject, SL);
+         DoDropText(SL, LAttachMode);
+       finally
+         FreeAndNil(SL);
+       end;
     end;
   end;
 end;
@@ -732,7 +790,7 @@ end;
 {$ENDREGION}
 
 {$REGION 'private methods'}
-procedure TfrmVirtualDBTree.GetFileListFromObj(const DataObj: IDataObject;
+procedure TfrmVirtualDBTree.GetFileListFromObj(const ADataObj: IDataObject;
   AFileList: TStrings);
 var
   LFmtEtc           : TFormatEtc;         // specifies required data format
@@ -748,7 +806,7 @@ begin
   LFmtEtc.dwAspect := DVASPECT_CONTENT;
   LFmtEtc.lindex   := -1;
   LFmtEtc.tymed    := TYMED_HGLOBAL;
-  DataObj.GetData(LFmtEtc, LMedium);
+  ADataObj.GetData(LFmtEtc, LMedium);
   try
     try
       // Get count of files dropped
@@ -776,6 +834,70 @@ begin
     ReleaseStgMedium(LMedium);
   end;
 end;
+
+procedure TfrmVirtualDBTree.GetTextFromObj(ADataObject: IDataObject;
+  AStrings: TStringList);
+var
+  FormatEtc: TFormatEtc;
+  StgMedium: TStgMedium;
+  PText: Pointer;
+  Text: string;
+begin
+  AStrings.Clear;
+
+  // First, try to get the CF_UNICODETEXT format.
+  FormatEtc.cfFormat := CF_UNICODETEXT;
+  FormatEtc.ptd := nil;
+  FormatEtc.dwAspect := DVASPECT_CONTENT;
+  FormatEtc.lindex := -1;
+  FormatEtc.tymed := TYMED_HGLOBAL;
+
+  if ADataObject.GetData(FormatEtc, StgMedium) = S_OK then
+  begin
+    try
+      if StgMedium.tymed = TYMED_HGLOBAL then
+      begin
+        PText := GlobalLock(StgMedium.hGlobal);
+        if Assigned(PText) then
+        begin
+          try
+            Text := WideString(PWideChar(PText));  // Convert PWideChar to WideString.
+            AStrings.Text := Text;
+          finally
+            GlobalUnlock(StgMedium.hGlobal);
+          end;
+        end;
+      end;
+    finally
+      ReleaseStgMedium(StgMedium);
+    end;
+    Exit;  // If CF_UNICODETEXT is successfully retrieved, exit the procedure.
+  end;
+
+  // If CF_UNICODETEXT is not available, try to get CF_TEXT.
+  FormatEtc.cfFormat := CF_TEXT;
+  if ADataObject.GetData(FormatEtc, StgMedium) = S_OK then
+  begin
+    try
+      if StgMedium.tymed = TYMED_HGLOBAL then
+      begin
+        PText := GlobalLock(StgMedium.hGlobal);
+        if Assigned(PText) then
+        begin
+          try
+            Text := string(PAnsiChar(PText));  // Convert PAnsiChar to String.
+            AStrings.Text := Text;
+          finally
+            GlobalUnlock(StgMedium.hGlobal);
+          end;
+        end;
+      end;
+    finally
+      ReleaseStgMedium(StgMedium);
+    end;
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION 'protected methods'}

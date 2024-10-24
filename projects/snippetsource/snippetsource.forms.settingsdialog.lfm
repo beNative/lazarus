@@ -1,22 +1,23 @@
 object frmSettingsDialog: TfrmSettingsDialog
-  Left = 1108
-  Height = 465
-  Top = 348
-  Width = 615
+  Left = 1541
+  Height = 579
+  Top = 804
+  Width = 871
   ActiveControl = btnClose
   Caption = 'Settings'
-  ClientHeight = 465
-  ClientWidth = 615
-  Font.Height = -12
+  ClientHeight = 579
+  ClientWidth = 871
+  DesignTimePPI = 144
+  Font.Height = -18
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '3.2.0.0'
   object pgcMain: TPageControl
     Left = 0
-    Height = 431
+    Height = 528
     Top = 0
-    Width = 615
+    Width = 871
     ActivePage = tsApplication
     Align = alClient
     TabIndex = 0
@@ -24,53 +25,54 @@ object frmSettingsDialog: TfrmSettingsDialog
     OnChange = pgcMainChange
     object tsApplication: TTabSheet
       Caption = 'Application'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       object grpLayout: TGroupBox
         Left = 0
-        Height = 128
+        Height = 192
         Top = 0
-        Width = 272
+        Width = 408
         Caption = 'Layout'
-        ClientHeight = 108
-        ClientWidth = 268
+        ClientHeight = 162
+        ClientWidth = 404
         TabOrder = 0
         object chkAutoHideRichEditorToolBar: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 27
-          Width = 244
+          Left = 12
+          Height = 29
+          Top = 40
+          Width = 361
           Caption = 'Hide rich editor toolbar when not focused.'
-          OnClick = chkAutoHideRichEditorToolBarClick
           TabOrder = 1
+          OnClick = chkAutoHideRichEditorToolBarClick
         end
         object chkAutoHideEditorToolBar: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 2
-          Width = 244
+          Left = 12
+          Height = 29
+          Top = 3
+          Width = 362
           Caption = 'Hide text editor toolbar when not focused.'
-          OnClick = chkAutoHideEditorToolBarClick
           TabOrder = 0
+          OnClick = chkAutoHideEditorToolBarClick
         end
       end
       object grpRichtextEditor: TGroupBox
-        Left = 280
-        Height = 51
+        Left = 420
+        Height = 76
         Top = 0
-        Width = 325
+        Width = 440
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Richtext editor'
-        ClientHeight = 31
-        ClientWidth = 321
+        ClientHeight = 46
+        ClientWidth = 436
         TabOrder = 1
         object edtFontName: TEditButton
-          Left = 80
-          Height = 23
-          Top = 4
-          Width = 199
+          Left = 120
+          Height = 33
+          Top = 6
+          Width = 307
           Action = actFontDialog
-          ButtonWidth = 23
+          Anchors = [akTop, akLeft, akRight]
+          ButtonWidth = 34
           Font.Style = [fsBold]
           Images = imlMain
           ImageIndex = 6
@@ -82,74 +84,74 @@ object frmSettingsDialog: TfrmSettingsDialog
           TabOrder = 0
         end
         object lblFontName: TLabel
-          Left = 8
-          Height = 15
-          Top = 7
-          Width = 66
+          Left = 12
+          Height = 25
+          Top = 10
+          Width = 99
           Caption = 'Default font:'
           ParentColor = False
         end
       end
       object grpDiagnostics: TGroupBox
-        Left = 280
-        Height = 74
-        Top = 54
-        Width = 325
+        Left = 420
+        Height = 111
+        Top = 81
+        Width = 440
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Diagnostics'
-        ClientHeight = 54
-        ClientWidth = 321
+        ClientHeight = 81
+        ClientWidth = 436
         TabOrder = 2
         object chkEmitLogMessages: TCheckBox
-          Left = 8
-          Height = 19
-          Top = 3
-          Width = 194
+          Left = 12
+          Height = 29
+          Top = 4
+          Width = 289
           Caption = 'Emit log messages for LogViewer'
-          OnClick = chkEmitLogMessagesClick
           TabOrder = 0
+          OnClick = chkEmitLogMessagesClick
         end
         object lblApplicationNeedsToBeRestarted: TLabel
-          Left = 8
-          Height = 28
-          Top = 24
-          Width = 271
+          Left = 12
+          Height = 42
+          Top = 36
+          Width = 406
           AutoSize = False
           Caption = 'The application needs to be restarted for changes to this setting to take effect.'
           Font.Color = clBlue
-          Font.Height = 14
+          Font.Height = 21
+          OptimalFill = True
           ParentColor = False
           ParentFont = False
           WordWrap = True
-          OptimalFill = True
         end
         object chkDebugMode: TCheckBox
-          Left = 227
-          Height = 19
-          Top = 3
-          Width = 89
+          Left = 340
+          Height = 29
+          Top = 4
+          Width = 131
           Caption = 'Debug mode'
-          OnClick = chkDebugModeClick
           TabOrder = 1
+          OnClick = chkDebugModeClick
         end
       end
     end
     object tsDataBase: TTabSheet
       Caption = 'Database'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       object edtDatabaseFile: TFileNameEdit
-        Left = 67
-        Height = 23
-        Top = 6
-        Width = 538
+        Left = 100
+        Height = 33
+        Top = 9
+        Width = 760
         InitialDir = '.'
         OnAcceptFileName = edtDatabaseFileAcceptFileName
         DialogOptions = [ofEnableSizing]
         FilterIndex = 0
         DefaultExt = 'db'
         HideDirectories = False
-        ButtonWidth = 23
+        ButtonWidth = 34
         NumGlyphs = 1
         Anchors = [akTop, akLeft, akRight]
         Font.Style = [fsBold]
@@ -158,19 +160,19 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 9
       end
       object lblDataBaseFile: TLabel
-        Left = 8
-        Height = 15
-        Top = 10
-        Width = 51
+        Left = 12
+        Height = 25
+        Top = 15
+        Width = 74
         Caption = 'Filename:'
         FocusControl = edtDatabaseFile
         ParentColor = False
       end
       object btnDatabaseIntegrityCheck: TBitBtn
-        Left = 449
-        Height = 26
-        Top = 224
-        Width = 150
+        Left = 626
+        Height = 39
+        Top = 336
+        Width = 225
         Action = actDatabaseIntegrityCheck
         Anchors = [akTop, akRight]
         Margin = 4
@@ -179,10 +181,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 5
       end
       object btnDatabaseVacuum: TBitBtn
-        Left = 449
-        Height = 26
-        Top = 192
-        Width = 150
+        Left = 626
+        Height = 39
+        Top = 288
+        Width = 225
         Action = actDatabaseVacuum
         Anchors = [akTop, akRight]
         Margin = 4
@@ -192,19 +194,19 @@ object frmSettingsDialog: TfrmSettingsDialog
       end
       object grpDatabaseInfo: TGroupBox
         Left = 0
-        Height = 367
-        Top = 30
-        Width = 439
+        Height = 436
+        Top = 45
+        Width = 611
         Anchors = [akTop, akLeft, akRight, akBottom]
         Caption = 'SQLite Database information'
-        ClientHeight = 347
-        ClientWidth = 435
+        ClientHeight = 406
+        ClientWidth = 607
         TabOrder = 10
         object grdDBInfo: TStringGrid
-          Left = 8
-          Height = 341
+          Left = 12
+          Height = 397
           Top = 0
-          Width = 422
+          Width = 587
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoEdit = False
           BorderStyle = bsNone
@@ -223,8 +225,8 @@ object frmSettingsDialog: TfrmSettingsDialog
           TabOrder = 0
           TitleStyle = tsNative
           ColWidths = (
-            136
-            136
+            204
+            204
           )
           Cells = (
             5
@@ -247,10 +249,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         end
       end
       object btnOpenDatabase: TBitBtn
-        Left = 449
-        Height = 25
-        Top = 34
-        Width = 150
+        Left = 626
+        Height = 38
+        Top = 51
+        Width = 225
         Action = actOpenDatabase
         Anchors = [akTop, akRight]
         Margin = 4
@@ -259,10 +261,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 0
       end
       object btnCreateNewDatabase: TBitBtn
-        Left = 449
-        Height = 25
-        Top = 64
-        Width = 150
+        Left = 626
+        Height = 38
+        Top = 96
+        Width = 225
         Action = actCreateNewDatabase
         Anchors = [akTop, akRight]
         Margin = 4
@@ -271,10 +273,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 1
       end
       object btnCreateDatabaseIndexes: TBitBtn
-        Left = 449
-        Height = 25
-        Top = 96
-        Width = 150
+        Left = 626
+        Height = 38
+        Top = 144
+        Width = 225
         Action = actCreateDatabaseIndexes
         Anchors = [akTop, akRight]
         Glyph.Data = {
@@ -317,10 +319,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 2
       end
       object btnCreateDatabaseTables: TBitBtn
-        Left = 449
-        Height = 25
-        Top = 128
-        Width = 150
+        Left = 626
+        Height = 38
+        Top = 192
+        Width = 225
         Action = actCreateDatabaseTables
         Anchors = [akTop, akRight]
         Glyph.Data = {
@@ -363,10 +365,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 3
       end
       object btnBackupDatabase: TBitBtn
-        Left = 448
-        Height = 26
-        Top = 255
-        Width = 151
+        Left = 625
+        Height = 39
+        Top = 382
+        Width = 226
         Action = actBackupDatabase
         Anchors = [akTop, akRight]
         Glyph.Data = {
@@ -409,10 +411,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 6
       end
       object btnUpdateNodePaths: TBitBtn
-        Left = 448
-        Height = 26
-        Top = 288
-        Width = 151
+        Left = 625
+        Height = 39
+        Top = 432
+        Width = 226
         Action = actUpdateNodePaths
         Anchors = [akTop, akRight]
         Caption = 'Update node paths'
@@ -420,10 +422,10 @@ object frmSettingsDialog: TfrmSettingsDialog
         TabOrder = 7
       end
       object btnSequences: TBitBtn
-        Left = 448
-        Height = 26
-        Top = 320
-        Width = 151
+        Left = 625
+        Height = 39
+        Top = 480
+        Width = 226
         Action = actUpdateSequences
         Anchors = [akTop, akRight]
         Margin = 22
@@ -432,22 +434,22 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsTerminalSettings: TTabSheet
       Caption = 'Terminal settings'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       object chkUseCustomEnvironmentVariables: TCheckBox
-        Left = 8
-        Height = 19
-        Top = 8
-        Width = 202
+        Left = 12
+        Height = 29
+        Top = 12
+        Width = 297
         Caption = 'Use custom environment variables'
-        OnChange = chkUseCustomEnvironmentVariablesChange
         TabOrder = 0
+        OnChange = chkUseCustomEnvironmentVariablesChange
       end
       object grdEnvironment: TStringGrid
-        Left = 1
-        Height = 369
-        Top = 32
-        Width = 605
+        Left = 2
+        Height = 439
+        Top = 48
+        Width = 859
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoAdvance = aaRightDown
         AutoEdit = False
@@ -455,20 +457,20 @@ object frmSettingsDialog: TfrmSettingsDialog
         ColCount = 2
         Columns = <        
           item
-            MaxSize = 100
+            MaxSize = 150
             SizePriority = 0
             Title.Alignment = taCenter
             Title.Font.Style = [fsBold]
             Title.Caption = 'Name'
-            Width = 100
+            Width = 150
           end        
           item
-            MinSize = 400
-            MaxSize = 500
+            MinSize = 600
+            MaxSize = 750
             Title.Alignment = taCenter
             Title.Font.Style = [fsBold]
             Title.Caption = 'Value'
-            Width = 500
+            Width = 750
           end>
         ExtendedSelect = False
         FixedCols = 0
@@ -481,21 +483,21 @@ object frmSettingsDialog: TfrmSettingsDialog
         TitleStyle = tsNative
         UseXORFeatures = True
         ColWidths = (
-          100
-          500
+          150
+          750
         )
       end
     end
     object tsPython: TTabSheet
       Caption = 'Python'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       OnContextPopup = tsPythonContextPopup
       object grdPythonInterpreters: TStringGrid
         Left = 0
-        Height = 336
+        Height = 232
         Top = 0
-        Width = 605
+        Width = 860
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoAdvance = aaRightDown
         AutoEdit = False
@@ -504,20 +506,20 @@ object frmSettingsDialog: TfrmSettingsDialog
         ColCount = 2
         Columns = <        
           item
-            MaxSize = 100
+            MaxSize = 150
             SizePriority = 0
             Title.Alignment = taCenter
             Title.Font.Style = [fsBold]
             Title.Caption = 'Python version'
-            Width = 100
+            Width = 150
           end        
           item
-            MinSize = 400
-            MaxSize = 500
+            MinSize = 600
+            MaxSize = 750
             Title.Alignment = taCenter
             Title.Font.Style = [fsBold]
             Title.Caption = 'Installation path'
-            Width = 500
+            Width = 750
           end>
         ExtendedSelect = False
         FixedCols = 0
@@ -527,82 +529,87 @@ object frmSettingsDialog: TfrmSettingsDialog
         TitleStyle = tsNative
         UseXORFeatures = True
         ColWidths = (
-          100
-          500
+          150
+          750
         )
       end
       object edtVenvName: TEdit
-        Left = 269
-        Height = 23
-        Top = 339
-        Width = 333
+        Left = 444
+        Height = 33
+        Top = 237
+        Width = 416
         Anchors = [akLeft, akRight, akBottom]
-        OnEditingDone = edtVenvNameEditingDone
+        Font.Height = -18
+        Font.Style = [fsBold]
+        ParentFont = False
         TabOrder = 1
+        OnEditingDone = edtVenvNameEditingDone
       end
       object btnCreateVirtualEnvironment: TButton
-        Left = 1
-        Height = 26
-        Top = 368
-        Width = 200
+        Left = 0
+        Height = 39
+        Top = 280
+        Width = 310
         Action = actCreateVirtualEnvironment
-        Anchors = [akLeft, akRight, akBottom]
+        Anchors = [akLeft, akBottom]
         Caption = 'Create Virtual Environment'
         Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 2
       end
       object lblVirtualEnvironmentName: TLabel
-        Left = 0
-        Height = 15
-        Top = 342
-        Width = 265
+        Left = 12
+        Height = 25
+        Top = 241
+        Width = 394
         Anchors = [akLeft, akBottom]
         Caption = 'Name (a subfolder with this name will be created):'
         ParentColor = False
       end
       object btnOpenVenvPath: TButton
-        Left = 204
-        Height = 26
-        Top = 368
-        Width = 200
+        Left = 312
+        Height = 39
+        Top = 280
+        Width = 300
         Action = actOpenVenvPath
+        Anchors = [akLeft, akBottom]
         TabOrder = 3
       end
       object btnOpenVenvConsole: TButton
-        Left = 407
-        Height = 26
-        Top = 368
-        Width = 200
+        Left = 612
+        Height = 39
+        Top = 280
+        Width = 300
         Action = actOpenVenvConsole
+        Anchors = [akLeft, akBottom]
         TabOrder = 4
       end
     end
     object tsImages: TTabSheet
       Caption = 'Glyphs'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       object btnOpenGlyphs: TButton
-        Left = 98
-        Height = 25
-        Top = 3
-        Width = 104
+        Left = 147
+        Height = 38
+        Top = 4
+        Width = 156
         Action = actAddGlyphs
         TabOrder = 0
       end
       object btnRefresh: TButton
-        Left = 208
-        Height = 25
-        Top = 3
-        Width = 104
+        Left = 312
+        Height = 38
+        Top = 4
+        Width = 156
         Action = actRefreshGlyphs
         TabOrder = 1
       end
       object vstImageList: TVirtualStringTree
         Left = 0
-        Height = 398
-        Top = 3
-        Width = 88
+        Height = 483
+        Top = 4
+        Width = 132
         Anchors = [akTop, akLeft, akBottom]
         DefaultText = 'Node'
         Header.AutoSizeIndex = 0
@@ -615,46 +622,46 @@ object frmSettingsDialog: TfrmSettingsDialog
             Position = 1
             Text = 'Image'
           end>
-        Header.DefaultHeight = 17
-        Header.Height = 17
+        Header.DefaultHeight = 26
+        Header.Height = 48
         TabOrder = 2
         OnAfterCellPaint = vstImageListAfterCellPaint
         OnGetText = vstImageListGetText
       end
       object grdGlyph: TDBGrid
-        Left = 98
-        Height = 369
-        Top = 32
-        Width = 513
+        Left = 147
+        Height = 439
+        Top = 48
+        Width = 722
         Anchors = [akTop, akLeft, akRight, akBottom]
         AutoEdit = False
         Color = clWindow
         Columns = <        
           item
-            MinSize = 30
-            MaxSize = 30
+            MinSize = 45
+            MaxSize = 45
             SizePriority = 4
             Title.Caption = 'ID'
-            Width = 26
+            Width = 39
             FieldName = 'ID'
           end        
           item
-            MinSize = 65
-            MaxSize = 100
+            MinSize = 98
+            MaxSize = 150
             Title.ImageLayout = blGlyphLeft
             Title.Caption = 'Image'
-            Width = 80
+            Width = 120
             FieldName = 'Image'
           end        
           item
-            MinSize = 80
+            MinSize = 120
             SizePriority = 0
             Title.Caption = 'Name'
-            Width = 47
+            Width = 70
             FieldName = 'Name'
           end>
         DataSource = dscGlyph
-        DefaultRowHeight = 70
+        DefaultRowHeight = 105
         FixedCols = 0
         Flat = True
         Options = [dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiselect, dgDisableDelete, dgDisplayMemoText]
@@ -663,28 +670,28 @@ object frmSettingsDialog: TfrmSettingsDialog
         OnDrawColumnCell = grdGlyphDrawColumnCell
       end
     end
-    object Highlighters: TTabSheet
-      Caption = 'Highlighters'
-      ClientHeight = 403
-      ClientWidth = 607
+    object tsHighlighters: TTabSheet
+      Caption = 'tsHighlighters'
+      ClientHeight = 490
+      ClientWidth = 863
       TabVisible = False
       object cbxImageList: TComboBox
-        Left = 8
-        Height = 24
-        Top = 8
-        Width = 72
+        Left = 12
+        Height = 33
+        Top = 12
+        Width = 108
         AutoCompleteText = []
         DropDownCount = 40
-        ItemHeight = 18
-        OnDrawItem = cbxImageListDrawItem
+        ItemHeight = 27
         Style = csOwnerDrawFixed
         TabOrder = 0
+        OnDrawItem = cbxImageListDrawItem
       end
       object grdHighlighters: TDBGrid
-        Left = 88
-        Height = 385
-        Top = 8
-        Width = 513
+        Left = 132
+        Height = 463
+        Top = 12
+        Width = 722
         Anchors = [akTop, akLeft, akRight, akBottom]
         Color = clWindow
         Columns = <>
@@ -699,13 +706,13 @@ object frmSettingsDialog: TfrmSettingsDialog
     end
     object tsSettingsFile: TTabSheet
       Caption = 'Settings file'
-      ClientHeight = 403
-      ClientWidth = 607
+      ClientHeight = 490
+      ClientWidth = 863
       object pnlSettingsFile: TPanel
         Left = 0
-        Height = 403
+        Height = 490
         Top = 0
-        Width = 607
+        Width = 863
         Align = alClient
         BevelOuter = bvNone
         Caption = 'pnlSettingsFile'
@@ -715,19 +722,19 @@ object frmSettingsDialog: TfrmSettingsDialog
   end
   object pnlBottom: TPanel
     Left = 0
-    Height = 34
-    Top = 431
-    Width = 615
+    Height = 51
+    Top = 528
+    Width = 871
     Align = alBottom
     BevelOuter = bvNone
-    ClientHeight = 34
-    ClientWidth = 615
+    ClientHeight = 51
+    ClientWidth = 871
     TabOrder = 1
     object btnClose: TBitBtn
-      Left = 489
-      Height = 25
-      Top = 3
-      Width = 120
+      Left = 682
+      Height = 38
+      Top = 4
+      Width = 180
       Action = actClose
       Anchors = [akTop, akRight]
       Default = True
@@ -739,8 +746,8 @@ object frmSettingsDialog: TfrmSettingsDialog
   end
   object aclMain: TActionList
     Images = imlMain
-    Left = 24
-    Top = 160
+    Left = 48
+    Top = 120
     object actCreateNewDatabase: TAction
       Category = 'Database'
       Caption = 'Create new'
@@ -827,10 +834,6 @@ object frmSettingsDialog: TfrmSettingsDialog
       ImageIndex = 7
       OnExecute = actCreateVirtualEnvironmentExecute
     end
-    object actRunVirtualEnvironment: TAction
-      Caption = 'Run virtual environment'
-      OnExecute = actRunVirtualEnvironmentExecute
-    end
     object actUpdateNodePaths: TAction
       Category = 'Database'
       Caption = 'actUpdateNodePaths'
@@ -856,24 +859,24 @@ object frmSettingsDialog: TfrmSettingsDialog
   object dscGlyph: TDataSource
     OnStateChange = dscGlyphStateChange
     OnUpdateData = dscGlyphUpdateData
-    Left = 320
-    Top = 160
+    Left = 492
+    Top = 120
   end
   object dlgOpen: TOpenDialog
     Title = 'Open glyph'
     DefaultExt = '.png'
     Options = [ofAllowMultiSelect, ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail, ofAutoPreview]
-    Left = 296
-    Top = 264
+    Left = 756
+    Top = 120
   end
   object dscHighlighter: TDataSource
-    Left = 416
-    Top = 160
+    Left = 636
+    Top = 120
   end
   object imlMain: TImageList
     Scaled = True
-    Left = 96
-    Top = 160
+    Left = 156
+    Top = 120
     Bitmap = {
       4C7A080000001000000010000000E00F00000000000078DABD98075814E7BAC7
       BF99DDA52AC5C251EC5129A148316ABC8A9A6372308A313196ABB1A12C48AC81
@@ -3178,7 +3181,7 @@ object frmSettingsDialog: TfrmSettingsDialog
     Font.Quality = fqDraft
     MinFontSize = 0
     MaxFontSize = 0
-    Left = 216
-    Top = 160
+    Left = 336
+    Top = 120
   end
 end

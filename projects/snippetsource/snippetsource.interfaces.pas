@@ -287,6 +287,25 @@ type
       read GetHighlighterDataSet;
   end;
 
+  IFavorites = interface
+  ['{35871EF3-43F0-461A-803B-2542433C567E}']
+    function GetFavoriteDataSet: TDataSet;
+
+    property FavoriteDataSet: TDataSet
+      read GetFavoriteDataSet;
+  end;
+
+  ITerminal = interface
+  ['{7CF9C5B0-31DA-4F82-9ADB-CE3C323DE119}']
+    procedure Execute(const ACommand: string);
+    function CreatePythonVenv(
+      const APythonPath : string;
+      const AVenvName   : string
+    ): Boolean;
+    procedure LaunchPythonVenv(const ACommand: string = '');
+    procedure LaunchJupyterLab;
+  end;
+
   { Holds persistable application settings. }
 
   ISettings = interface
@@ -297,6 +316,7 @@ type
     function GetDatabase: string;
     function GetDebugMode: Boolean;
     function GetDefaultRichEditorFontName: string;
+    function GetDefaultRichEditorFontSize: Integer;
     function GetEmitLogMessages: Boolean;
     function GetHtmlEditMode: Boolean;
     function GetHtmlSourceVisible: Boolean;
@@ -309,6 +329,7 @@ type
     procedure SetDatabase(const AValue: string);
     procedure SetDebugMode(AValue: Boolean);
     procedure SetDefaultRichEditorFontName(AValue: string);
+    procedure SetDefaultRichEditorFontSize(AValue: Integer);
     procedure SetEmitLogMessages(AValue: Boolean);
     procedure SetHtmlEditMode(AValue: Boolean);
     procedure SetHtmlSourceVisible(AValue: Boolean);
@@ -345,6 +366,9 @@ type
 
     property DefaultRichEditorFontName: string
       read GetDefaultRichEditorFontName write SetDefaultRichEditorFontName;
+
+    property DefaultRichEditorFontSize: Integer
+      read GetDefaultRichEditorFontSize write SetDefaultRichEditorFontSize;
 
     property EmitLogMessages: Boolean
       read GetEmitLogMessages write SetEmitLogMessages;

@@ -102,7 +102,7 @@ type
 type
   TdmSnippetSource = class(TDataModule,
     ISQLite, IConnection, ISnippet, IDataSet, ISearch, IGlyphs, IHighlighters,
-    IQuery
+    IFavorites, IQuery
   )
     {$REGION 'designer controls'}
     conMain          : TSQLite3Connection;
@@ -110,6 +110,7 @@ type
     imlNodeTypes     : TImageList;
     qryGlyph         : TSQLQuery;
     qryHighlighter   : TSQLQuery;
+    qryFavorite      : TSQLQuery;
     qrySearch        : TSQLQuery;
     qryNodeType      : TSQLQuery;
     qryQuery         : TSQLQuery;
@@ -146,6 +147,7 @@ type
     function GetActiveViews: string;
     function GetAutoApplyUpdates: Boolean;
     function GetAutoCommit: Boolean;
+    function GetFavoriteDataSet: TDataSet;
     function GetHtmlData: string;
     function GetHtmlText: string;
     function GetImage: TBitmap;
@@ -423,6 +425,11 @@ type
     property HighlighterDataSet: TDataSet
       read GetHighlighterDataSet;
     {$ENDREGION}
+
+    {$REGION 'IFavorites'}
+    property FavoriteDataSet: TDataSet
+      read GetFavoriteDataSet;
+{$ENDREGION}
   end;
 
 implementation
@@ -942,6 +949,11 @@ end;
 function TdmSnippetSource.GetAutoCommit: Boolean;
 begin
   Result := sqoAutoCommit in DataSet.Options;
+end;
+
+function TdmSnippetSource.GetFavoriteDataSet: TDataSet;
+begin
+  Result := qryFavorite;
 end;
 
 procedure TdmSnippetSource.SetAutoCommit(AValue: Boolean);

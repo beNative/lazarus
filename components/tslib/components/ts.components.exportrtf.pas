@@ -120,7 +120,7 @@ begin
   inherited Create(AOwner);
   FListColors := TList.Create;
   FClipboardFormat := RegisterClipboardFormat(CF_RTF);
-  FDefaultFilter := SYNS_FilterRTF;
+  //FDefaultFilter := SYNS_FilterRTF;
   FReplaceReserved['\'] := '\\';
   FReplaceReserved['{'] := '\{';
   FReplaceReserved['}'] := '\}';

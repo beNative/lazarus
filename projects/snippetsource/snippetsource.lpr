@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2023 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ uses
   python4lazarus_package,
 
   { you can add units after this }
-  SnippetSource.Forms.Main,
+  SnippetSource.Forms.Main, //SnippetSource.Forms.Favorites,
   SnippetSource.Modules.Data, SnippetSource.Modules.Python,
   SnippetSource.Forms.Grid, SnippetSource.Settings,
   SnippetSource.Forms.Busy, SnippetSource.Modules.Terminal;
@@ -50,7 +50,6 @@ begin
   Application.Title := 'SnippetSource';
   Application.Initialize;
   Application.CreateForm(TdmPython, dmPython);
-  Application.CreateForm(TdmTerminal, dmTerminal);
   Application.CreateForm(TfrmMain, frmMain);
   Application.Run;
 end.

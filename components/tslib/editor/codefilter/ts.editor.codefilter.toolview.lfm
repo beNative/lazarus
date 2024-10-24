@@ -102,6 +102,7 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     end
   end
   object imlMain: TImageList
+    Scaled = True
     Left = 300
     Top = 120
     Bitmap = {

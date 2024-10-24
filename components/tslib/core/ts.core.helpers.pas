@@ -463,9 +463,6 @@ begin
   PI.GutterEdgeColor    := clSilver;
   PI.Parent             := AParent;
   PI.Align              := alClient;
-  PI.DefaultItemHeight  := 23;
-  PI.PreferredSplitterX := 200;
-  PI.SplitterX          := 200;
   PI.Filter             := [
     tkInteger,
     tkChar,

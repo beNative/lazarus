@@ -87,6 +87,7 @@ type
     procedure actAssociateExecute(Sender: TObject);
     procedure actOpenSettingsFileExecute(Sender: TObject);
     procedure actReloadSettingsExecute(Sender: TObject);
+
     procedure btnOKClick(Sender: TObject);
     procedure FHATVPSelectionChanged(Sender: TObject);
     procedure FHLPIEditorFilter(Sender: TObject; aEditor: TPropertyEditor;

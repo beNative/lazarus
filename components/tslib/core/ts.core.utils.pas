@@ -39,6 +39,8 @@ type
 
 const
   AnsiWhitespace = [' '];
+  DESIGNTIME_PPI = 144;
+
 
 type
   TShellLink = record
@@ -305,13 +307,20 @@ procedure LoadIStreamIntoTStream(
 
 function GetClipboardFormatName(AFormat: Word): string;
 
+function Scale(
+  ASize          : Integer;
+  ADesignTimePPI : Integer = DESIGNTIME_PPI
+): Integer;
+
+function IsURL(AText: TStrings): Boolean;
+
 implementation
 
 uses
 {$IFDEF WINDOWS}
   ShlObj, Registry,
 {$ENDIF}
-  Variants, Dialogs,
+  Variants, Dialogs, RegExpr,
   LazFileUtils;
 
 resourcestring
@@ -2445,6 +2454,35 @@ begin
       Result := 'CF_HDROP';
     else
       Result := 'Unknown Format';
+  end;
+end;
+
+function Scale(ASize: Integer; ADesignTimePPI: Integer): Integer;
+begin
+  Result := ScaleX(ASize, ADesignTimePPI);
+end;
+
+function IsURL(AText: TStrings): Boolean;
+const
+  URLPattern = '([A-Za-z]{3,9})://([-;:&=\+\$,\w]+@{1})?([-A-Za-z0-9\.]+)+:?(\d+)?((/[-\+~%/\.\w]+)?\??([-\+=&;%@\.\w]+)?#?([\w]+)?)?';
+var
+  Regex: TRegExpr;
+  i: Integer;
+begin
+  Regex := TRegExpr.Create;
+  try
+    Regex.Expression := URLPattern;
+    Result := False;
+    for i := 0 to AText.Count - 1 do
+    begin
+      if Regex.Exec(AText[i]) then
+      begin
+        Result := True;
+        Break;
+      end;
+    end;
+  finally
+    Regex.Free;
   end;
 end;
 

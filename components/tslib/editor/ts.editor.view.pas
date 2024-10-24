@@ -608,7 +608,7 @@ implementation
 uses
   GraphUtil, TypInfo, Clipbrd,
 
-  LazUTF8Classes, LConvEncoding, LCLProc,
+  LConvEncoding, LCLProc,
 
   ts.Editor.Utils;
 
@@ -2216,7 +2216,7 @@ end;
 procedure TEditorView.Load(const AStorageName: string);
 var
   S  : string;
-  FS : TFileStreamUTF8;
+  FS : TFileStream;
 begin
   Events.DoLoad(AStorageName);
   if IsFile then
@@ -2224,7 +2224,7 @@ begin
     if (AStorageName <> '') and FileExists(AStorageName) then
       FileName := AStorageName;
 
-    FS := TFileStreamUTF8.Create(FileName, fmOpenRead + fmShareDenyNone);
+    FS := TFileStream.Create(FileName, fmOpenRead + fmShareDenyNone);
     try
       LoadFromStream(FS);
     finally

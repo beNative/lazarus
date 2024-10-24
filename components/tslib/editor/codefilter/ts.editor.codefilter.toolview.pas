@@ -43,7 +43,7 @@ type
     actMatchCase         : TAction;
     actRegularExpression : TAction;
     actSelectAll         : TAction;
-    edtFilter: TEdit;
+    edtFilter            : TEdit;
     imlMain              : TImageList;
     mniCopy              : TMenuItem;
     mniCopyToNewView     : TMenuItem;
@@ -265,7 +265,14 @@ begin
   FTVP.MultiLine := False;
   FTVP.ItemTemplate := TColumnDefinitionsDataTemplate.Create(FTVP.ColumnDefinitions);
   FTVP.ColumnDefinitions.AddColumn('Index', SLineIndex, dtNumeric, 80);
-  FTVP.ColumnDefinitions.AddColumn('Text', SLineText, dtString, 600, 500, 4000);
+  FTVP.ColumnDefinitions.AddColumn(
+    'Text',
+    SLineText,
+    dtString,
+    600,
+    500,
+    4000
+  );
   FTVP.ColumnDefinitions.Items[0].Fixed := False;
   FTVP.ColumnDefinitions.Items[0].MaxWidth := 100;
   FTVP.ColumnDefinitions.Items[0].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
@@ -277,6 +284,8 @@ begin
   FTVP.OnSelectionChanged := FTVPSelectionChanged;
   FRegExpr := TRegExpr.Create;
   Settings.FormSettings.AssignTo(Self);
+  // REMARK: All sizes are for an assumed PPI of 96. These will automatically
+  // be scaled to the right size when the following statement is executed.
   FVST.AutoAdjustLayout(lapAutoAdjustForDPI, 96, Self.PixelsPerInch, 0,0);
 end;
 
@@ -612,7 +621,8 @@ begin
       while I <= Length(Line) do
       begin
         P.X := I;
-        if Assigned(View.HighlighterItem.SynHighlighter) then
+        if Assigned(View.HighlighterItem)
+          and Assigned(View.HighlighterItem.SynHighlighter) then
         begin
           if View.Editor.GetHighlighterAttriAtRowCol(P, S, A) then
           begin

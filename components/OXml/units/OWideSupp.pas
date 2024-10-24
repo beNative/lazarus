@@ -92,7 +92,7 @@ uses
   {$ENDIF}
 
   {$IFDEF FPC}
-  , LazUTF8Classes, FileUtil
+
   {$ENDIF}
   ;
 
@@ -390,7 +390,7 @@ type
   TOFileStream = TFileStream;
   {$ELSE}{$IFDEF FPC}
   //FPC
-  TOFileStream = class(TFileStreamUTF8)
+  TOFileStream = class(TFileStream)
   public
     constructor Create(const aFileName: OWideString; aMode: Word); overload;
     constructor Create(const aFileName: OWideString; aMode: Word; aRights: Cardinal); overload;

@@ -208,9 +208,6 @@ begin
   FInspector := TTIPropertyGrid.Create(Self);
   FInspector.Parent := pnlMain;
   FInspector.Align := alClient;
-  FInspector.DefaultItemHeight := 17;
-  FInspector.PreferredSplitterX := 150;
-  FInspector.SplitterX := 150;
   FInspector.DoubleBuffered := True;
   FInspector.Filter := [
     tkInteger,

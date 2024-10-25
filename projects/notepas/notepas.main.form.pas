@@ -28,8 +28,6 @@ uses
 
   DefaultTranslator,
 
-  UExceptionLogger,
-
   // for debugging
   ts.Core.Logger,
   ts.Components.Docking, ts.Components.Docking.Storage,
@@ -61,7 +59,6 @@ type
     btnMacro              : TSpeedButton;
     btnSelectionMode      : TSpeedButton;
     btnCurrentChar        : TSpeedButton;
-    ExceptionLogger       : TExceptionLogger;
     imlMain               : TImageList;
     lblHeader             : TLabel;
     pnlMacro              : TPanel;

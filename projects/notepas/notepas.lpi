@@ -44,7 +44,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\editor;..\..\components\tslib\editor\settings"/>
+            <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\core;..\..\components\tslib\components;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\actionlist;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\charactermap;..\..\components\tslib\editor\codefilter;..\..\components\tslib\editor\codeshaper;..\..\components\tslib\editor\filter;..\..\components\tslib\editor\hexeditor;..\..\components\tslib\editor\minimap;..\..\components\tslib\editor\preview;..\..\components\tslib\editor\scripteditor;..\..\components\tslib\editor\search;..\..\components\tslib\editor\selectioninfo;..\..\components\tslib\editor\settingsdialog;..\..\components\tslib\editor\sortstrings;..\..\components\tslib\editor\structure;..\..\components\tslib\editor\test;..\..\components\tslib\editor\toolview;..\..\components\tslib\editor\viewlist;..\..\components\tslib\richeditor;..\..\components\tslib\htmleditor"/>
             <UnitOutputDirectory Value="lib"/>
           </SearchPaths>
           <Parsing>
@@ -900,7 +900,7 @@ end;"/>
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="11">
+    <RequiredPackages Count="9">
       <Item1>
         <PackageName Value="tslib_editor"/>
       </Item1>
@@ -914,25 +914,22 @@ end;"/>
         <PackageName Value="laz_synapse"/>
       </Item4>
       <Item5>
-        <PackageName Value="ExceptionLogger"/>
+        <PackageName Value="virtualtreeview_package"/>
       </Item5>
       <Item6>
-        <PackageName Value="virtualtreeview_package"/>
+        <PackageName Value="SynEdit"/>
       </Item6>
       <Item7>
-        <PackageName Value="SynEdit"/>
+        <PackageName Value="RunTimeTypeInfoControls"/>
       </Item7>
       <Item8>
-        <PackageName Value="RunTimeTypeInfoControls"/>
+        <PackageName Value="FCL"/>
       </Item8>
       <Item9>
-        <PackageName Value="FCL"/>
-      </Item9>
-      <Item10>
         <PackageName Value="LCL"/>
-      </Item10>
+      </Item9>
     </RequiredPackages>
-    <Units Count="39">
+    <Units Count="45">
       <Unit0>
         <Filename Value="notepas.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -1133,6 +1130,41 @@ end;"/>
         <Filename Value="..\..\components\tslib\editor\ts.editor.view.lfm"/>
         <IsPartOfProject Value="True"/>
       </Unit38>
+      <Unit39>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.toolview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAlignLines"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.AlignLines.ToolView"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="..\..\components\tslib\editor\alignlines\ts.editor.alignlines.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.AlignLines.Settings"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.settings.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Editor.SortStrings.Settings"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="..\..\components\tslib\editor\sortstrings\ts.editor.sortstrings.toolview.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSortStrings"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="ts.Editor.SortStrings.ToolView"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="..\..\components\tslib\core\ts.core.datatemplates.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Core.DataTemplates"/>
+      </Unit43>
+      <Unit44>
+        <Filename Value="..\..\components\tslib\components\ts.components.docking.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ts.Components.Docking"/>
+      </Unit44>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -1143,7 +1175,7 @@ end;"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\editor;..\..\components\tslib\editor\settings"/>
+      <OtherUnitFiles Value="..\..\components\tslib;..\..\components\tslib\editor;..\..\components\tslib\editor\settings;..\..\components\tslib\editor\alignlines;..\..\components\tslib\editor\sortstrings;..\..\components\tslib\core;..\..\components\tslib\components"/>
       <UnitOutputDirectory Value="lib"/>
     </SearchPaths>
     <CodeGeneration>

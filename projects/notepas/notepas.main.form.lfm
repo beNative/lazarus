@@ -532,9 +532,4 @@ object frmMain: TfrmMain
       DC37F6FF278479AFF6FFBC579F85FE2FEEB7FF06864FF818
     }
   end
-  object ExceptionLogger: TExceptionLogger
-    MaxCallStackDepth = 20
-    Left = 200
-    Top = 365
-  end
 end

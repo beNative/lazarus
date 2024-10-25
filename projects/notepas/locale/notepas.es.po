@@ -1151,6 +1151,38 @@ msgstr ""
 msgid "Translations"
 msgstr ""
 
+#: tfrmalignlines.actexecute.caption
+msgid "Execute"
+msgstr ""
+
+#: tfrmalignlines.caption
+msgid "Align selection"
+msgstr ""
+
+#: tfrmalignlines.gbxinsertspace.caption
+msgid "Keep at least one space"
+msgstr ""
+
+#: tfrmalignlines.gbxoptions.caption
+msgid "Options"
+msgstr ""
+
+#: tfrmalignlines.gbxtokenlist.caption
+msgid "Tokens to align to:"
+msgstr ""
+
+#: tfrmalignlines.gbxtokensfound.caption
+msgid "Tokens found in selection:"
+msgstr ""
+
+#: tfrmalignlines.rgpalignat.caption
+msgid "Align at:"
+msgstr ""
+
+#: tfrmalignlines.rgpsortdirection.caption
+msgid "Sort direction:"
+msgstr ""
+
 #: tfrmmain.actabout.caption
 msgctxt "tfrmmain.actabout.caption"
 msgid "About"
@@ -1255,6 +1287,10 @@ msgstr ""
 
 #: ts.editor.aboutdialog.svalue
 msgid "Value"
+msgstr ""
+
+#: ts.editor.alignlines.toolview.stoken
+msgid "Token"
 msgstr ""
 
 #: ts.editor.resources.sapplicationmenucaption

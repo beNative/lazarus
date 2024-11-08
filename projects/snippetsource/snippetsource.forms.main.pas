@@ -966,8 +966,16 @@ begin
 end;
 
 procedure TfrmMain.FTreeClearNodeData(Sender: TObject);
+var
+  LValues : TStrings;
 begin
-  // TODO
+  LValues := TStringList.Create;
+  try
+    FTree.RetrieveSelectedNodeIds(LValues);
+    DataSet.ClearRecords(LValues);
+  finally
+    LValues.Free;
+  end;
 end;
 
 procedure TfrmMain.FSlaveEditorFormEnter(Sender: TObject);

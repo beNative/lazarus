@@ -12,11 +12,11 @@ object frmMain: TfrmMain
   Font.Color = clBlack
   Font.Height = -17
   Font.Name = 'Segoe UI'
-  OnCloseQuery = FormCloseQuery
   Position = poScreenCenter
   SessionProperties = 'Left;Top;Width;Height;Position;WindowState;FormStyle'
   ShowHint = True
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
+  OnCloseQuery = FormCloseQuery
   object pnlLeft: TPanel
     Left = 0
     Height = 1117
@@ -793,18 +793,18 @@ object frmMain: TfrmMain
       Caption = 'Execute'
       Hint = 'Execute'
       ImageIndex = 3
-      OnExecute = actExecuteExecute
       ShortCut = 49268
+      OnExecute = actExecuteExecute
     end
     object actLookup: TAction
       Caption = 'Search snippet database'
       Hint = 'Search snippet database'
       ImageIndex = 5
-      OnExecute = actLookupExecute
       SecondaryShortCuts.Strings = (
         'F3'
       )
       ShortCut = 24646
+      OnExecute = actLookupExecute
     end
     object actToggleStayOnTop: TAction
       AutoCheck = True
@@ -815,40 +815,40 @@ object frmMain: TfrmMain
     object actToggleFullScreen: TAction
       Caption = 'Toggle full screen'
       ImageIndex = 1
-      OnExecute = actToggleFullScreenExecute
       ShortCut = 122
+      OnExecute = actToggleFullScreenExecute
     end
     object actAbout: TAction
       Caption = 'About'
       ImageIndex = 2
-      OnExecute = actAboutExecute
       ShortCut = 49217
+      OnExecute = actAboutExecute
     end
     object actSettings: TAction
       Caption = 'Settings'
       ImageIndex = 4
-      OnExecute = actSettingsExecute
       ShortCut = 49235
+      OnExecute = actSettingsExecute
     end
     object actShowGridForm: TAction
       Caption = 'Show grid form'
       ImageIndex = 10
-      OnExecute = actShowGridFormExecute
       ShortCut = 16496
+      OnExecute = actShowGridFormExecute
     end
     object actConsole: TAction
       Caption = 'Console'
       Hint = 'Open Console.'
       ImageIndex = 9
-      OnExecute = actConsoleExecute
       ShortCut = 49269
+      OnExecute = actConsoleExecute
     end
     object actSQLEditor: TAction
       Caption = 'SQL editor'
       Hint = 'Start SQL editor.'
       ImageIndex = 8
-      OnExecute = actSQLEditorExecute
       ShortCut = 24657
+      OnExecute = actSQLEditorExecute
     end
     object actCloseRichEditorToolView: TAction
       Caption = 'Close toolview.'

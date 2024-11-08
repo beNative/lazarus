@@ -67,6 +67,20 @@ const
     '  or HtmlText like ''%%%0:s%%''' + sLineBreak +
     '  or NodeName like ''%%%0:s%%''';
 
+  SQL_CLEAR_IDS =
+    '--SQL_CLEAR_IDS'    + sLineBreak +
+    'update'             + sLineBreak +
+    '  Snippet'          + sLineBreak +
+    'set'                + sLineBreak +
+    '  Text = null,'     + sLineBreak +
+    '  RtfData = null,'  + sLineBreak +
+    '  RtfText = null,'  + sLineBreak +
+    '  HtmlData = null,' + sLineBreak +
+    '  HtmlText = null,' + sLineBreak +
+    '  Source = null'    + sLineBreak +
+    'where'              + sLineBreak +
+    '  Id in (%s)';
+
   SQL_DUPLICATE_IDS =
     '--SQL_DUPLICATE_IDS'    + sLineBreak +
     'insert into Snippet ('  + sLineBreak +

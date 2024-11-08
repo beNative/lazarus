@@ -897,7 +897,6 @@ begin
     end;
   end;
 end;
-
 {$ENDREGION}
 
 {$REGION 'protected methods'}

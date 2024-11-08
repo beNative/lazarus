@@ -271,6 +271,7 @@ type
     function Post: Boolean;
     function Edit: Boolean;
     function Append: Boolean;
+    procedure ClearRecords(AValues: TStrings);
     procedure DuplicateRecords(AValues: TStrings);
     procedure MoveDownRecords(AValues: TStrings);
     procedure MoveUpRecords(AValues: TStrings);
@@ -1505,6 +1506,14 @@ begin
   end
   else
     Result := False;
+end;
+
+procedure TdmSnippetSource.ClearRecords(AValues: TStrings);
+begin
+  Logger.Enter(Self, 'DuplicateRecords');
+  ExecuteDirect(Format(SQL_CLEAR_IDS, [AValues.CommaText]));
+  DataSet.Refresh;
+  Logger.Leave(Self, 'DuplicateRecords');
 end;
 
 function TdmSnippetSource.Edit: Boolean;

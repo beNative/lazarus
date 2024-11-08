@@ -230,6 +230,7 @@ type
     function Post: Boolean;
     function ApplyUpdates: Boolean;
     procedure DuplicateRecords(AValues: TStrings);
+    procedure ClearRecords(AValues: TStrings);
     procedure MoveDownRecords(AValues: TStrings);
     procedure MoveUpRecords(AValues: TStrings);
     procedure UpdateNodePaths;

@@ -52,6 +52,7 @@ begin
   V.PopupMenu := AManager.Menus.EditorPopupMenu;
   V.Form.Visible := True;
   V.Form.EnableAutoSizing;
+  V.Clear; // workaround to avoid access violation
   Result := V;
 end;
 

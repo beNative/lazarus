@@ -28,8 +28,9 @@ uses
 type
   TSearchEngineSettings = class(TPersistent)
   private
-    FOptions        : TSynSearchOptions;
-    FSearchAllViews : Boolean;
+    FOptions               : TSynSearchOptions;
+    FSearchAllViews        : Boolean;
+    FSearchAllViewsVisible : Boolean;
 
   public
     procedure AfterConstruction; override;
@@ -43,19 +44,23 @@ type
     property SearchAllViews: Boolean
       read FSearchAllViews write FSearchAllViews default False;
 
+    property SearchAllViewsVisible: Boolean
+      read FSearchAllViewsVisible write FSearchAllViewsVisible default True;
+
   end;
 
 implementation
 
 procedure TSearchEngineSettings.AfterConstruction;
 begin
-  //FComponentStyle := [csSubComponent];
   inherited AfterConstruction;
+  FSearchAllViews        := False;
+  FSearchAllViewsVisible := True;
 end;
 
 procedure TSearchEngineSettings.AssignTo(Dest: TPersistent);
 var
-  SES: TSearchEngineSettings;
+  SES : TSearchEngineSettings;
 begin
   if Dest is TSearchEngineSettings then
   begin

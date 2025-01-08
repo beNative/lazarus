@@ -48,43 +48,43 @@ uses
 type
   TfrmSearchForm = class(TCustomEditorToolView, IEditorToolView)
     {$REGION 'designer controls'}
-    aclMain                          : TActionList;
-    actFocusSearchText               : TAction;
-    actReplace                       : TAction;
-    actReplaceAll                    : TAction;
-    actFind                          : TAction;
-    btnFind                          : TBitBtn;
-    btnReplace                       : TBitBtn;
-    btnReplaceAll                    : TBitBtn;
-    cbxReplaceWith                   : TComboBox;
-    cbxSearchText                    : TComboBox;
-    chkCaseSensitive                 : TCheckBox;
-    chkMultiLine                     : TCheckBox;
-    chkRegularExpressions            : TCheckBox;
-    chkReplaceStringsCaseSensitive   : TCheckBox;
-    chkReplaceStringsWholeWordsOnly  : TCheckBox;
-    chkWholeWordsOnly                : TCheckBox;
-    grdReplaceStrings                : TStringGrid;
-    grpDirection                     : TGroupBox;
-    grpMisc                          : TGroupBox;
-    grpOptions                       : TGroupBox;
-    grpOrigin                        : TGroupBox;
-    grpReplaceWith                   : TGroupBox;
-    grpScope                         : TGroupBox;
-    grpSearchText                    : TGroupBox;
-    pnlButtons                       : TPanel;
-    pnlClient                        : TPanel;
-    pnlOperations                    : TPanel;
-    pnlResultList                    : TPanel;
-    pnlStatus                        : TPanel;
-    rbtActiveView                    : TRadioButton;
-    rbtAllViews                      : TRadioButton;
-    rbtBackward                      : TRadioButton;
-    rbtEntireScope                   : TRadioButton;
-    rbtForward                       : TRadioButton;
-    rbtFromCursor                    : TRadioButton;
-    rbtSelection                     : TRadioButton;
-    sbrMain                          : TScrollBox;
+    aclMain                         : TActionList;
+    actFocusSearchText              : TAction;
+    actReplace                      : TAction;
+    actReplaceAll                   : TAction;
+    actFind                         : TAction;
+    btnFind                         : TBitBtn;
+    btnReplace                      : TBitBtn;
+    btnReplaceAll                   : TBitBtn;
+    cbxReplaceWith                  : TComboBox;
+    cbxSearchText                   : TComboBox;
+    chkCaseSensitive                : TCheckBox;
+    chkMultiLine                    : TCheckBox;
+    chkRegularExpressions           : TCheckBox;
+    chkReplaceStringsCaseSensitive  : TCheckBox;
+    chkReplaceStringsWholeWordsOnly : TCheckBox;
+    chkWholeWordsOnly               : TCheckBox;
+    grdReplaceStrings               : TStringGrid;
+    grpDirection                    : TGroupBox;
+    grpMisc                         : TGroupBox;
+    grpOptions                      : TGroupBox;
+    grpOrigin                       : TGroupBox;
+    grpReplaceWith                  : TGroupBox;
+    grpScope                        : TGroupBox;
+    grpSearchText                   : TGroupBox;
+    pnlButtons                      : TPanel;
+    pnlClient                       : TPanel;
+    pnlOperations                   : TPanel;
+    pnlResultList                   : TPanel;
+    pnlStatus                       : TPanel;
+    rbtActiveView                   : TRadioButton;
+    rbtAllViews                     : TRadioButton;
+    rbtBackward                     : TRadioButton;
+    rbtEntireScope                  : TRadioButton;
+    rbtForward                      : TRadioButton;
+    rbtFromCursor                   : TRadioButton;
+    rbtSelection                    : TRadioButton;
+    sbrMain                         : TScrollBox;
     {$ENDREGION}
 
     {$REGION 'action handlers'}
@@ -237,11 +237,11 @@ begin
   if ssoEntireScope in AValue then
     rbtEntireScope.Checked := True
   else
-    rbtFromCursor.Checked  := True;
+    rbtFromCursor.Checked := True;
   if ssoSelectedOnly in AValue then
     rbtSelection.Checked := True
   else
-    rbtActiveView.Checked   := True;
+    rbtActiveView.Checked := True;
   if ssoBackwards in AValue then
     rbtBackward.Checked := True
   else
@@ -333,7 +333,7 @@ end;
 procedure TfrmSearchForm.FormShow(Sender: TObject);
 begin
   Options := SearchEngine.Options;
-  rbtAllViews.Checked  := SearchEngine.SearchAllViews;
+  rbtAllViews.Checked := SearchEngine.SearchAllViews;
   cbxSearchText.Text  := SearchEngine.SearchText;
   cbxReplaceWith.Text := SearchEngine.ReplaceText;
   {$IFDEF DARWIN}//THE FORM IN MACOS HAVE SOME PROBLEMS WITH FOCUS, THIS IS TEMPORARY FIX
@@ -373,6 +373,7 @@ end;
 
 procedure TfrmSearchForm.EditorSettingsChanged(Sender: TObject);
 begin
+  inherited EditorSettingsChanged(Sender);
   Modified;
 end;
 
@@ -449,7 +450,7 @@ end;
 procedure TfrmSearchForm.SettingsChanged;
 begin
   inherited SettingsChanged;
-  Options            := SearchEngine.Options;
+  Options             := SearchEngine.Options;
   rbtAllViews.Checked := SearchEngine.SearchAllViews;
 end;
 
@@ -495,7 +496,7 @@ end;
 
 procedure TfrmSearchForm.UpdateActions;
 var
-  B: Boolean;
+  B : Boolean;
 begin
   inherited UpdateActions;
   { Focus the corresponding search result in the list when we do find next/

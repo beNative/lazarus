@@ -48,14 +48,11 @@ uses
   ts.Core.FormSettings,
 
   ts.Editor.Interfaces, ts.Editor.Highlighters, ts.Editor.HighlighterAttributes,
-  ts.Editor.Colors.Settings,
-
-  ts.Editor.AlignLines.Settings, ts.Editor.CodeFilter.Settings,
-  ts.Editor.CodeShaper.Settings, ts.Editor.HexEditor.Settings,
-  ts.Editor.MiniMap.Settings, ts.Editor.Options.Settings,
-  ts.Editor.SortStrings.Settings, ts.Editor.Search.Engine.Settings,
-
-  ts.Editor.CodeTags,
+  ts.Editor.Colors.Settings, ts.Editor.AlignLines.Settings,
+  ts.Editor.CodeFilter.Settings, ts.Editor.CodeShaper.Settings,
+  ts.Editor.HexEditor.Settings, ts.Editor.MiniMap.Settings,
+  ts.Editor.Options.Settings, ts.Editor.SortStrings.Settings,
+  ts.Editor.Search.Engine.Settings, ts.Editor.CodeTags,
 
   ts.Core.Logger;
 
@@ -67,6 +64,7 @@ const
   DEFAULT_SINGLE_INSTANCE             = False;
   DEFAULT_LANGUAGE_CODE               = 'en';
   DEFAULT_FONT_NAME                   = 'Consolas';
+  DEFAULT_FONT_SIZE                   = 10;
   DEFAULT_SETTINGS_FILE               = 'settings.json';
 
 type
@@ -314,7 +312,7 @@ begin
   FSearchEngineSettings := TSearchEngineSettings.Create;
 
   FStreamer         := TJSONStreamer.Create(Self);
-  FStreamer.Options :=  FStreamer.Options + [jsoComponentsInline];  //jsoStreamChildren,
+  FStreamer.Options :=  FStreamer.Options + [jsoComponentsInline];
   FDeStreamer         := TJSONDeStreamer.Create(Self);
   FDeStreamer.Options := FDeStreamer.Options + [jdoIgnorePropertyErrors];
   FDeStreamer.BeforeReadObject  := FDeStreamerBeforeReadObject;
@@ -334,7 +332,7 @@ begin
   FSingleInstance           := DEFAULT_SINGLE_INSTANCE;
   FEditorFont               := TFont.Create;
   FEditorFont.Name          := DEFAULT_FONT_NAME;
-  FEditorFont.Size          := 10;
+  FEditorFont.Size          := DEFAULT_FONT_SIZE;
 
   FDimInactiveView := DEFAULT_DIM_ACTIVE_VIEW;
   FLanguageCode    := DEFAULT_LANGUAGE_CODE;

@@ -36,7 +36,6 @@ unit ts.Editor.Search.Engine;
 
   Replace
     Replace search matches
-
 }
 
 interface
@@ -48,8 +47,7 @@ uses
 
   SynEditTypes, SynEditSearch,
 
-  ts.Editor.Interfaces, ts.Editor.Search.Engine.Settings,
-  ts.Editor.Search.Data,
+  ts.Editor.Interfaces, ts.Editor.Search.Engine.Settings, ts.Editor.Search.Data,
 
   ts.Core.Logger;
 
@@ -74,6 +72,7 @@ type
     function GetOptions: TSynSearchOptions;
     function GetReplaceText: string;
     function GetSearchAllViews: Boolean;
+    function GetSearchAllViewsVisible: Boolean;
     function GetSearchText: string;
     function GetSettings: TSearchEngineSettings;
     function GetView: IEditorView;
@@ -82,6 +81,7 @@ type
     procedure SetOptions(AValue: TSynSearchOptions);
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
+    procedure SetSearchAllViewsVisible(AValue: Boolean);
     procedure SetSearchText(AValue: string);
     {$ENDREGION}
 
@@ -133,6 +133,9 @@ type
     property SearchAllViews: Boolean
       read GetSearchAllViews write SetSearchAllViews;
 
+    property SearchAllViewsVisible: Boolean
+      read GetSearchAllViewsVisible write SetSearchAllViewsVisible;
+
     property Settings: TSearchEngineSettings
       read GetSettings;
 
@@ -144,7 +147,7 @@ type
 
   public
     procedure AfterConstruction; override;
-    procedure BeforeDestruction; override;
+    destructor Destroy; override;
   end;
 
 implementation
@@ -167,14 +170,14 @@ begin
   Options        := Settings.Options;
 end;
 
-procedure TSearchEngine.BeforeDestruction;
+destructor TSearchEngine.Destroy;
 begin
   FItemList.Free;
   FItemGroups.Free;
   FSESearch.Free;
   FChangeEvents.Free;
   FExecuteEvents.Free;
-  inherited BeforeDestruction;
+  inherited Destroy;
 end;
 {$ENDREGION}
 
@@ -279,6 +282,17 @@ procedure TSearchEngine.SetSearchAllViews(AValue: Boolean);
 begin
   Settings.SearchAllViews := AValue;
 end;
+
+function TSearchEngine.GetSearchAllViewsVisible: Boolean;
+begin
+  //
+end;
+
+procedure TSearchEngine.SetSearchAllViewsVisible(AValue: Boolean);
+begin
+//
+end;
+
 {$ENDREGION}
 
 {$REGION 'event dispatch methods'}

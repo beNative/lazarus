@@ -77,6 +77,7 @@ type
 
   public
     procedure Parse;
+
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 

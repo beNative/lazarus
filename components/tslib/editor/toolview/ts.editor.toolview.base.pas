@@ -131,7 +131,6 @@ begin
   end;
   inherited Destroy;
 end;
-
 {$ENDREGION}
 
 {$REGION 'property access mehods'}

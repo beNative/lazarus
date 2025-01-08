@@ -131,12 +131,6 @@ begin
   FFormClass     := AFormClass;
   FSettingsClass := ASettingsClass;
   FName          := AName;
-
-  //if Assigned(ASettingsClass) then
-  //  FManager.Settings.ToolSettings.RegisterSettings(
-  //    ASettingsClass,
-  //    ASettingsClass.ClassName
-  //  );
 end;
 
 procedure TEditorToolView.BeforeDestruction;

@@ -487,11 +487,13 @@ type
     function GetOptions: TSynSearchOptions;
     function GetReplaceText: string;
     function GetSearchAllViews: Boolean;
+    function GetSearchAllViewsVisible: Boolean;
     function GetSearchText: string;
     procedure SetCurrentIndex(AValue: Integer);
     procedure SetOptions(AValue: TSynSearchOptions);
     procedure SetReplaceText(AValue: string);
     procedure SetSearchAllViews(AValue: Boolean);
+    procedure SetSearchAllViewsVisible(AValue: Boolean);
     procedure SetSearchText(AValue: string);
     {$ENDREGION}
 
@@ -520,6 +522,9 @@ type
 
     property SearchAllViews: Boolean
       read GetSearchAllViews write SetSearchAllViews;
+
+    property SearchAllViewsVisible: Boolean
+      read GetSearchAllViewsVisible write SetSearchAllViewsVisible;
 
     property ItemList: TObjectList
       read GetItemList;

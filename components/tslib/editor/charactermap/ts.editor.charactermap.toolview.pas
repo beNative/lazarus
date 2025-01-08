@@ -38,7 +38,6 @@ type
     pcMain             : TPageControl;
     pnlChar            : TPanel;
     sbrMain            : TScrollBox;
-    shpChar            : TShape;
     tsANSI             : TTabSheet;
     tsUnicode          : TTabSheet;
 
@@ -47,8 +46,8 @@ type
     procedure grdANSIKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure grdANSIMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure grdANSIPrepareCanvas(sender: TObject; ACol, ARow: Integer;
-      aState: TGridDrawState);
+    procedure grdANSIPrepareCanvas(Sender: TObject; ACol, ARow: Integer;
+      AState: TGridDrawState);
     procedure grdANSISelectCell(Sender: TObject; ACol, ARow: Integer;
       var CanSelect: Boolean);
     procedure grdUnicodeKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState
@@ -137,9 +136,9 @@ begin
   lblCharInfo.Caption := '-';
   lblUnicodeCharInfo.Caption := '-';
   grdANSI.Font.Assign(Manager.Settings.EditorFont);
-  grdANSI.Font.Size := MulDiv(12, Screen.PixelsPerInch, 96);
+  grdANSI.Font.Size := 12;
   grdUnicode.Font.Assign(Manager.Settings.EditorFont);
-  grdUnicode.Font.Size := MulDiv(12, Screen.PixelsPerInch, 96);
+  grdUnicode.Font.Size := 12;
   FillCharMap;
   grdANSI.AutoSizeColumns;
   cbxUnicodeRange.Items.Clear;
@@ -216,10 +215,10 @@ begin
   end;
 end;
 
-procedure TfrmCharacterMap.grdANSIPrepareCanvas(sender: TObject; ACol,
-  ARow: Integer; aState: TGridDrawState);
+procedure TfrmCharacterMap.grdANSIPrepareCanvas(Sender: TObject; ACol,
+  ARow: Integer; AState: TGridDrawState);
 begin
-  if gdFixed in aState then
+  if gdFixed in AState then
   begin
     grdANSI.Canvas.Font.Assign(Font);
     grdANSI.Canvas.Font.Size := 8;

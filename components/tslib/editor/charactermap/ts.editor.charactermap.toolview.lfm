@@ -1,11 +1,11 @@
 inherited frmCharacterMap: TfrmCharacterMap
-  Left = 3956
+  Left = 2977
   Height = 1110
-  Top = 98
-  Width = 517
+  Top = 228
+  Width = 352
   BorderStyle = bsSingle
   ClientHeight = 1110
-  ClientWidth = 517
+  ClientWidth = 352
   ParentFont = True
   PopupMode = pmAuto
   Position = poDefault
@@ -13,19 +13,19 @@ inherited frmCharacterMap: TfrmCharacterMap
     Left = 0
     Height = 1110
     Top = 0
-    Width = 517
+    Width = 352
     HorzScrollBar.Page = 213
     VertScrollBar.Page = 1086
     Align = alClient
     BorderStyle = bsNone
     ClientHeight = 1110
-    ClientWidth = 517
+    ClientWidth = 352
     TabOrder = 0
     object pcMain: TPageControl
       Left = 2
       Height = 991
       Top = 2
-      Width = 513
+      Width = 348
       ActivePage = tsANSI
       Align = alClient
       BorderSpacing.Around = 2
@@ -34,7 +34,7 @@ inherited frmCharacterMap: TfrmCharacterMap
       object tsANSI: TTabSheet
         Caption = 'ANSI'
         ClientHeight = 953
-        ClientWidth = 505
+        ClientWidth = 340
         object lblCharInfo: TLabel
           AnchorSideLeft.Control = tsANSI
           AnchorSideTop.Side = asrBottom
@@ -45,11 +45,10 @@ inherited frmCharacterMap: TfrmCharacterMap
           Left = 6
           Height = 25
           Top = 922
-          Width = 493
+          Width = 328
           Anchors = [akLeft, akRight, akBottom]
           BorderSpacing.Around = 6
           Caption = 'lblCharInfo'
-          ParentColor = False
         end
         object grdANSI: TStringGrid
           AnchorSideLeft.Control = tsANSI
@@ -60,7 +59,7 @@ inherited frmCharacterMap: TfrmCharacterMap
           Left = 0
           Height = 916
           Top = 0
-          Width = 505
+          Width = 340
           AlternateColor = clNone
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoEdit = False
@@ -85,29 +84,29 @@ inherited frmCharacterMap: TfrmCharacterMap
           OnSelectCell = grdANSISelectCell
           ColWidths = (
             16
-            31
-            31
-            31
-            31
-            31
-            31
-            31
-            31
-            31
-            30
-            30
-            30
-            30
-            30
-            30
-            30
+            21
+            21
+            21
+            21
+            20
+            20
+            20
+            20
+            20
+            20
+            20
+            20
+            20
+            20
+            20
+            20
           )
         end
       end
       object tsUnicode: TTabSheet
         Caption = 'Unicode'
         ClientHeight = 953
-        ClientWidth = 505
+        ClientWidth = 340
         object lblUnicodeCharInfo: TLabel
           AnchorSideTop.Control = cbxUnicodeRange
           AnchorSideTop.Side = asrCenter
@@ -128,9 +127,10 @@ inherited frmCharacterMap: TfrmCharacterMap
           Left = 0
           Height = 888
           Top = 0
-          Width = 505
+          Width = 340
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoFillColumns = True
+          BorderStyle = bsNone
           ColCount = 16
           DefaultColWidth = 25
           FixedCols = 0
@@ -148,22 +148,22 @@ inherited frmCharacterMap: TfrmCharacterMap
           OnMouseMove = grdUnicodeMouseMove
           OnSelectCell = grdUnicodeSelectCell
           ColWidths = (
-            32
-            32
-            32
-            32
-            32
-            32
-            32
-            32
-            31
-            31
-            31
-            31
-            31
-            31
-            31
-            31
+            22
+            22
+            22
+            22
+            21
+            21
+            21
+            21
+            21
+            21
+            21
+            21
+            21
+            21
+            21
+            21
           )
         end
         object cbxUnicodeRange: TComboBox
@@ -171,7 +171,7 @@ inherited frmCharacterMap: TfrmCharacterMap
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = tsUnicode
           AnchorSideBottom.Side = asrBottom
-          Left = 310
+          Left = 145
           Height = 33
           Top = 894
           Width = 189
@@ -189,31 +189,20 @@ inherited frmCharacterMap: TfrmCharacterMap
       Left = 4
       Height = 109
       Top = 997
-      Width = 509
+      Width = 344
       Align = alBottom
       BorderSpacing.Around = 4
       BevelOuter = bvNone
       ClientHeight = 109
-      ClientWidth = 509
-      Color = clWhite
+      ClientWidth = 344
       ParentBackground = False
       ParentColor = False
       TabOrder = 1
-      object shpChar: TShape
-        Left = 0
-        Height = 109
-        Top = 0
-        Width = 509
-        Align = alClient
-        Brush.Style = bsClear
-        Pen.Color = clSilver
-        Pen.Width = 2
-      end
       object imgChar: TImage
         Left = 2
         Height = 105
         Top = 2
-        Width = 505
+        Width = 340
         AntialiasingMode = amOn
         Align = alClient
         AutoSize = True

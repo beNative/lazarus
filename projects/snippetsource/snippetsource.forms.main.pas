@@ -499,7 +499,8 @@ begin
   splEditorVertical.Visible := False;
   for TV in FEditorManager.ToolViews do
     TV.Visible := False;
-  FEditorManager.ActiveView.SetFocus;
+  if FEditorManager.ActiveView.CanFocus then
+    FEditorManager.ActiveView.SetFocus;
 end;
 
 procedure TfrmMain.actCloseRichEditorToolViewExecute(Sender: TObject);

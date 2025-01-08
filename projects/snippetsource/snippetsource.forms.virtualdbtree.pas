@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -793,12 +793,12 @@ end;
 procedure TfrmVirtualDBTree.GetFileListFromObj(const ADataObj: IDataObject;
   AFileList: TStrings);
 var
-  LFmtEtc           : TFormatEtc;         // specifies required data format
-  LMedium           : TStgMedium;         // storage medium containing file list
-  LDroppedFileCount : Integer;            // number of dropped files
-  I                 : Integer;            // loops thru dropped files
-  LFileNameLength   : Integer;            // length of a dropped file name
-  LFileName         : WideString;         // name of a dropped file
+  LFmtEtc           : TFormatEtc;      // specifies required data format
+  LMedium           : TStgMedium;      // storage medium containing file list
+  LDroppedFileCount : Integer;         // number of dropped files
+  I                 : Integer;         // loops thru dropped files
+  LFileNameLength   : Integer;         // length of a dropped file name
+  LFileName         : WideString;      // name of a dropped file
 begin
   // Get required storage LMedium from data object
   LFmtEtc.cfFormat := CF_HDROP;

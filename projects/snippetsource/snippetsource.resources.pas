@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -32,14 +32,12 @@ const
   EXECUTE_PYTHON_VENV   = '.\%s\Scripts\activate.bat & %s';
   LAUNCH_JUPYTER_LAB    = 'jupyter lab --no-browser --LabApp.token=''''';
 
-
   SQLITE3_DLL           = 'sqlite3.dll';
   WEBVIEW2LOADER_DLL    = 'WebView2Loader.dll';
   DEFAULT_DATABASE_NAME = 'snippets.db';
   SQL_SQLITE_VERSION    = 'select sqlite_version();';
 
   DEFAULT_LINUX_DISTRIBUTION = 'ubuntu';
-
 
   FIELDNAME_IMAGE = 'Image';
 

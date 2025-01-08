@@ -10,7 +10,7 @@ object frmQuery: TfrmQuery
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
   object pnlQueryEditor: TPanel
     Left = 0
     Height = 352
@@ -70,8 +70,8 @@ object frmQuery: TfrmQuery
     Top = 168
     object actExecute: TAction
       Caption = 'Execute'
-      OnExecute = actExecuteExecute
       ShortCut = 116
+      OnExecute = actExecuteExecute
     end
   end
 end

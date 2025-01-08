@@ -13,7 +13,7 @@ object frmVirtualDBTree: TfrmVirtualDBTree
   KeyPreview = True
   PopupMenu = ppmTreeView
   ShowHint = True
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
   object pnlMain: TPanel
     Left = 0
     Height = 572
@@ -259,46 +259,46 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object actNewRootFolderNode: TAction
       Hint = 'Add a new rootfolder to the tree'
       ImageIndex = 2
-      OnExecute = actNewRootFolderNodeExecute
       ShortCut = 24621
+      OnExecute = actNewRootFolderNodeExecute
     end
     object actNewFolderNode: TAction
       Hint = 'Add a new subfolder to the tree'
       ImageIndex = 2
-      OnExecute = actNewFolderNodeExecute
       ShortCut = 16429
+      OnExecute = actNewFolderNodeExecute
     end
     object actNewItemNode: TAction
       Hint = 'Add a new item to the tree'
       ImageIndex = 3
-      OnExecute = actNewItemNodeExecute
       ShortCut = 45
+      OnExecute = actNewItemNodeExecute
     end
     object actDeleteSelectedNodes: TAction
       Hint = 'Delete all selected nodes (Del)'
       ImageIndex = 5
-      OnExecute = actDeleteSelectedNodesExecute
       ShortCut = 46
+      OnExecute = actDeleteSelectedNodesExecute
     end
     object actExpandAllNodes: TAction
       Caption = 'Expand all nodes'
       Hint = 'Expand all nodes'
       ImageIndex = 4
-      OnExecute = actExpandAllNodesExecute
       SecondaryShortCuts.Strings = (
         'Ctrl++'
       )
       ShortCut = 24683
+      OnExecute = actExpandAllNodesExecute
     end
     object actCollapseAllNodes: TAction
       Caption = 'Collapse all nodes'
       Hint = 'Collapse all nodes'
       ImageIndex = 6
-      OnExecute = actCollapseAllNodesExecute
       SecondaryShortCuts.Strings = (
         'Ctrl+Shift+-'
       )
       ShortCut = 24685
+      OnExecute = actCollapseAllNodesExecute
     end
     object actDuplicateSelectedNodes: TAction
       Caption = 'Duplicate selected node(s)'
@@ -309,8 +309,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object actRefresh: TAction
       Caption = 'Refresh'
       ImageIndex = 9
-      OnExecute = actRefreshExecute
       ShortCut = 116
+      OnExecute = actRefreshExecute
     end
     object actPost: TAction
       Caption = 'Post'
@@ -320,8 +320,8 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object actCancel: TAction
       Caption = 'Cancel'
       ImageIndex = 8
-      OnExecute = actCancelExecute
       ShortCut = 27
+      OnExecute = actCancelExecute
     end
     object actClearImage: TAction
       Caption = 'Clear image'
@@ -330,14 +330,14 @@ object frmVirtualDBTree: TfrmVirtualDBTree
     object actMoveUp: TAction
       Caption = 'Move up'
       ImageIndex = 11
-      OnExecute = actMoveUpExecute
       ShortCut = 16422
+      OnExecute = actMoveUpExecute
     end
     object actMoveDown: TAction
       Caption = 'Move down'
       ImageIndex = 12
-      OnExecute = actMoveDownExecute
       ShortCut = 16424
+      OnExecute = actMoveDownExecute
     end
     object actClearNodeData: TAction
       Caption = 'Clear node data'

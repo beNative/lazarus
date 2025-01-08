@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -323,7 +323,7 @@ type
   end; 
 
 var
-  frmMain: TfrmMain;
+  frmMain : TfrmMain;
 
 implementation
 
@@ -1316,9 +1316,8 @@ begin
   AddToolBarButton(tlbApplication, actSettings);
   AddToolBarButton(tlbApplication, actPythonVenv);
   AddToolBarButton(tlbApplication, actStartJupyterLab);
-
-  //AddToolBarButton(tlbApplication, actAbout);
-//  AddToolBarButton(tlbApplication, actToggleStayOnTop);
+  AddToolBarButton(tlbApplication, actAbout);
+  AddToolBarButton(tlbApplication, actToggleStayOnTop);
 end;
 
 procedure TfrmMain.BuildActiveViewToolBar;

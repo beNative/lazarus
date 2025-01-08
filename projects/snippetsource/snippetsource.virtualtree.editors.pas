@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -190,7 +190,7 @@ end;
 
 procedure TPropertyEditLink.SetBounds(R: TRect);
 var
-  LDummy: Integer;
+  LDummy : Integer;
 begin
   // Since we don't want to activate grid extensions in the tree (this would
   // influence how the selection is drawn)

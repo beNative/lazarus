@@ -1,31 +1,31 @@
 inherited frmCharacterMap: TfrmCharacterMap
-  Left = -723
-  Height = 588
-  Top = 189
-  Width = 328
+  Left = 3956
+  Height = 1110
+  Top = 98
+  Width = 517
   BorderStyle = bsSingle
-  ClientHeight = 588
-  ClientWidth = 328
+  ClientHeight = 1110
+  ClientWidth = 517
   ParentFont = True
   PopupMode = pmAuto
   Position = poDefault
   object sbrMain: TScrollBox[0]
     Left = 0
-    Height = 588
+    Height = 1110
     Top = 0
-    Width = 328
-    HorzScrollBar.Page = 102
-    VertScrollBar.Page = 224
+    Width = 517
+    HorzScrollBar.Page = 213
+    VertScrollBar.Page = 1086
     Align = alClient
     BorderStyle = bsNone
-    ClientHeight = 588
-    ClientWidth = 328
+    ClientHeight = 1110
+    ClientWidth = 517
     TabOrder = 0
     object pcMain: TPageControl
       Left = 2
-      Height = 469
+      Height = 991
       Top = 2
-      Width = 324
+      Width = 513
       ActivePage = tsANSI
       Align = alClient
       BorderSpacing.Around = 2
@@ -33,8 +33,8 @@ inherited frmCharacterMap: TfrmCharacterMap
       TabOrder = 0
       object tsANSI: TTabSheet
         Caption = 'ANSI'
-        ClientHeight = 441
-        ClientWidth = 316
+        ClientHeight = 953
+        ClientWidth = 505
         object lblCharInfo: TLabel
           AnchorSideLeft.Control = tsANSI
           AnchorSideTop.Side = asrBottom
@@ -43,9 +43,9 @@ inherited frmCharacterMap: TfrmCharacterMap
           AnchorSideBottom.Control = tsANSI
           AnchorSideBottom.Side = asrBottom
           Left = 6
-          Height = 15
-          Top = 420
-          Width = 304
+          Height = 25
+          Top = 922
+          Width = 493
           Anchors = [akLeft, akRight, akBottom]
           BorderSpacing.Around = 6
           Caption = 'lblCharInfo'
@@ -58,9 +58,9 @@ inherited frmCharacterMap: TfrmCharacterMap
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = lblCharInfo
           Left = 0
-          Height = 414
+          Height = 916
           Top = 0
-          Width = 316
+          Width = 505
           AlternateColor = clNone
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoEdit = False
@@ -85,36 +85,36 @@ inherited frmCharacterMap: TfrmCharacterMap
           OnSelectCell = grdANSISelectCell
           ColWidths = (
             16
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
+            31
+            31
+            31
+            31
+            31
+            31
+            31
+            31
+            31
+            30
+            30
+            30
+            30
+            30
+            30
             30
           )
         end
       end
       object tsUnicode: TTabSheet
         Caption = 'Unicode'
-        ClientHeight = 441
-        ClientWidth = 316
+        ClientHeight = 953
+        ClientWidth = 505
         object lblUnicodeCharInfo: TLabel
           AnchorSideTop.Control = cbxUnicodeRange
           AnchorSideTop.Side = asrCenter
           Left = 6
-          Height = 15
-          Top = 414
-          Width = 103
+          Height = 25
+          Top = 898
+          Width = 152
           BorderSpacing.Around = 6
           Caption = 'lblUnicodeCharInfo'
           ParentColor = False
@@ -126,9 +126,9 @@ inherited frmCharacterMap: TfrmCharacterMap
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = cbxUnicodeRange
           Left = 0
-          Height = 404
+          Height = 888
           Top = 0
-          Width = 316
+          Width = 505
           Anchors = [akTop, akLeft, akRight, akBottom]
           AutoFillColumns = True
           ColCount = 16
@@ -148,22 +148,22 @@ inherited frmCharacterMap: TfrmCharacterMap
           OnMouseMove = grdUnicodeMouseMove
           OnSelectCell = grdUnicodeSelectCell
           ColWidths = (
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            18
-            28
+            32
+            32
+            32
+            32
+            32
+            32
+            32
+            32
+            31
+            31
+            31
+            31
+            31
+            31
+            31
+            31
           )
         end
         object cbxUnicodeRange: TComboBox
@@ -171,38 +171,39 @@ inherited frmCharacterMap: TfrmCharacterMap
           AnchorSideRight.Side = asrBottom
           AnchorSideBottom.Control = tsUnicode
           AnchorSideBottom.Side = asrBottom
-          Left = 121
-          Height = 23
-          Top = 410
+          Left = 310
+          Height = 33
+          Top = 894
           Width = 189
           Anchors = [akRight]
           BorderSpacing.Around = 6
           DropDownCount = 30
-          ItemHeight = 15
-          OnSelect = cbxUnicodeRangeSelect
+          ItemHeight = 25
           Style = csDropDownList
           TabOrder = 1
+          OnSelect = cbxUnicodeRangeSelect
         end
       end
     end
     object pnlChar: TPanel
       Left = 4
       Height = 109
-      Top = 475
-      Width = 320
+      Top = 997
+      Width = 509
       Align = alBottom
       BorderSpacing.Around = 4
       BevelOuter = bvNone
       ClientHeight = 109
-      ClientWidth = 320
+      ClientWidth = 509
       Color = clWhite
+      ParentBackground = False
       ParentColor = False
       TabOrder = 1
       object shpChar: TShape
         Left = 0
         Height = 109
         Top = 0
-        Width = 320
+        Width = 509
         Align = alClient
         Brush.Style = bsClear
         Pen.Color = clSilver
@@ -212,7 +213,7 @@ inherited frmCharacterMap: TfrmCharacterMap
         Left = 2
         Height = 105
         Top = 2
-        Width = 316
+        Width = 505
         AntialiasingMode = amOn
         Align = alClient
         AutoSize = True

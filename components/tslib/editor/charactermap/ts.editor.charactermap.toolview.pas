@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -82,7 +82,7 @@ implementation
 uses
   Graphics,
 
-  LCLType, LCLIntf;
+  LazUTF8, LCLType, LCLIntf;
 
 {$R *.lfm}
 
@@ -100,19 +100,30 @@ end;
 
 function CreateCharacterBitmap(const AFontName: string; const ACharacter: string;
   const ABitmapHeight: Integer): TBitmap;
+var
+  LTextWidth  : Integer;
+  LTextHeight : Integer;
 begin
   Result := TBitmap.Create;
-  Result.Height := ABitmapHeight;
-  Result.Width  := ABitmapHeight;
-  Result.Canvas.Brush.Color := clWhite;
-  Result.Canvas.FillRect(Result.Canvas.ClipRect);
-  Result.Canvas.Font.Name := AFontName;
-  Result.Canvas.Font.Height := ABitmapHeight - 10;
-  Result.Canvas.TextOut(
-    (Result.Width - Result.Canvas.GetTextWidth(ACharacter)) div 2,
-    0,
-    ACharacter
-  );
+  try
+    Result.SetSize(ABitmapHeight, ABitmapHeight);
+    with Result.Canvas do
+    begin
+      Brush.Color := clWhite;
+      FillRect(ClipRect);
+      Font.Name   := AFontName;
+      Font.Height := ABitmapHeight - 10;
+      LTextWidth  := TextExtent(ACharacter).cx;
+      LTextHeight :=TextExtent(ACharacter).cy;
+      TextOut(
+        (Result.Width - LTextWidth) div 2,
+        (Result.Height - LTextHeight) div 2, ACharacter
+      );
+    end;
+  except
+    FreeAndNil(Result);
+    raise;
+  end;
 end;
 {$ENDREGION}
 
@@ -170,7 +181,7 @@ begin
     for X := 0 to grdUnicode.ColCount - 1 do
     begin
       if S + N <= E then
-        //grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N);
+        grdUnicode.Cells[X, Y] := UnicodeToUTF8(S + N);
       Inc(N);
     end;
   grdUnicode.AutoSizeColumns;
@@ -325,19 +336,19 @@ begin
 end;
 
 procedure TfrmCharacterMap.UpdateUnicodeDisplay(ACol, ARow: Integer);
-//var
-//  I     : Integer;
-//  Start : Cardinal;
-//  T1    : string;
-//  T2    : string;
+var
+  I     : Integer;
+  Start : Cardinal;
+  T1    : string;
+  T2    : string;
 begin
-  //Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
-  //T1 := UnicodeToUTF8(Start);
-  //T2 := '';
-  //for I := 1 to Length(T1) do
-  //  T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
-  //lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
-  //UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
+  Start  := UnicodeBlocks[cbxUnicodeRange.ItemIndex].S + ACol + (ARow * 16);
+  T1 := UnicodeToUTF8(Start);
+  T2 := '';
+  for I := 1 to Length(T1) do
+    T2 := T2 + '$' + IntToHex(Ord(T1[I]), 2);
+  lblUnicodeCharInfo.Caption := 'U+' + IntToHex(Start, 4) + ', UTF-8 = ' + T2;
+  UpdateCharacterBitmap(grdUnicode.Cells[ACol, ARow]);
 end;
 
 procedure TfrmCharacterMap.UpdateANSIDisplay(ACol, ARow: Integer);

@@ -1,26 +1,27 @@
 object EditorView: TEditorView
-  Left = 914
-  Height = 421
-  Top = 405
-  Width = 630
+  Left = 1170
+  Height = 941
+  Top = 545
+  Width = 1249
   AllowDropFiles = True
   AlphaBlendValue = 128
   BorderIcons = []
   BorderStyle = bsSingle
+  DesignTimePPI = 144
   DragMode = dmAutomatic
-  Font.Height = -12
+  Font.Height = -18
   Font.Name = 'MS Sans Serif'
   KeyPreview = True
-  OnDropFiles = FormDropFiles
-  OnResize = FormResize
-  OnShortCut = FormShortCut
   ShowHint = True
   ShowInTaskBar = stNever
   UseDockManager = True
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
+  OnDropFiles = FormDropFiles
+  OnResize = FormResize
+  OnShortCut = FormShortCut
   object imlBookmarkImages: TImageList
-    Left = 157
-    Top = 75
+    Left = 236
+    Top = 113
     Bitmap = {
       4C7A0A00000010000000100000009F0400000000000078DAED9A5B4F1B4714C7
       77BF559F9BA7240F79CD43C0D8C6F66213832F092476804879C90788905A0955

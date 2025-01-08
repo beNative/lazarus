@@ -15,7 +15,7 @@ inherited frmHexEditor: TfrmHexEditor
     Align = alClient
     BorderStyle = bsNone
     DisabledDrawStyle = eddNormal
-    Font.Height = -13
+    Font.Height = -16
     Font.Name = 'Consolas'
     Font.Pitch = fpFixed
     Font.Style = [fsBold]

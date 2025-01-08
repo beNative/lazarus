@@ -1,37 +1,38 @@
 object dmHtmlEditorManager: TdmHtmlEditorManager
   OldCreateOrder = False
-  Height = 280
-  HorizontalOffset = 843
-  VerticalOffset = 612
-  Width = 543
+  Height = 420
+  HorizontalOffset = 1265
+  VerticalOffset = 918
+  Width = 815
+  PPI = 144
   object aclActions: TActionList
     Images = imlMain
     OnExecute = aclActionsExecute
-    Left = 72
-    Top = 49
+    Left = 108
+    Top = 74
     object actBold: TAction
       Category = 'Selection'
       Caption = 'Bold'
       Hint = 'Bold'
       ImageIndex = 3
-      OnExecute = actBoldExecute
       ShortCut = 16450
+      OnExecute = actBoldExecute
     end
     object actItalic: TAction
       Category = 'Selection'
       Caption = 'Italic'
       Hint = 'Italic'
       ImageIndex = 4
-      OnExecute = actItalicExecute
       ShortCut = 16457
+      OnExecute = actItalicExecute
     end
     object actUnderline: TAction
       Category = 'Selection'
       Caption = 'Underline'
       Hint = 'Underline'
       ImageIndex = 5
-      OnExecute = actUnderlineExecute
       ShortCut = 16469
+      OnExecute = actUnderlineExecute
     end
     object actStrikeThrough: TAction
       Category = 'Selection'
@@ -45,8 +46,8 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Open'
       Hint = 'Open'
       ImageIndex = 18
-      OnExecute = actOpenExecute
       ShortCut = 16463
+      OnExecute = actOpenExecute
     end
     object actSave: TAction
       Category = 'File'
@@ -74,32 +75,32 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Align right'
       Hint = 'Align right'
       ImageIndex = 23
-      OnExecute = actAlignRightExecute
       ShortCut = 16466
+      OnExecute = actAlignRightExecute
     end
     object actAlignLeft: TAction
       Category = 'Selection'
       Caption = 'Align left'
       Hint = 'Align left'
       ImageIndex = 20
-      OnExecute = actAlignLeftExecute
       ShortCut = 16460
+      OnExecute = actAlignLeftExecute
     end
     object actAlignCenter: TAction
       Category = 'Selection'
       Caption = 'Align center'
       Hint = 'Align center'
       ImageIndex = 21
-      OnExecute = actAlignCenterExecute
       ShortCut = 16453
+      OnExecute = actAlignCenterExecute
     end
     object actAlignJustify: TAction
       Category = 'Selection'
       Caption = 'Align justify'
       Hint = 'Align justify'
       ImageIndex = 22
-      OnExecute = actAlignJustifyExecute
       ShortCut = 16458
+      OnExecute = actAlignJustifyExecute
     end
     object actSetFont: TAction
       Category = 'Selection'
@@ -127,32 +128,32 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Cut'
       Hint = 'Cut'
       ImageIndex = 0
-      OnExecute = actCutExecute
       ShortCut = 16472
+      OnExecute = actCutExecute
     end
     object actCopy: TAction
       Category = 'Commands'
       Caption = 'Copy'
       Hint = 'Copy'
       ImageIndex = 1
-      OnExecute = actCopyExecute
       ShortCut = 16451
+      OnExecute = actCopyExecute
     end
     object actPaste: TAction
       Category = 'Commands'
       Caption = 'Paste'
       Hint = 'Paste'
       ImageIndex = 2
-      OnExecute = actPasteExecute
       ShortCut = 16470
+      OnExecute = actPasteExecute
     end
     object actSelectAll: TAction
       Category = 'Commands'
       Caption = 'Select all'
       Hint = 'Select all'
       ImageIndex = 38
-      OnExecute = actSelectAllExecute
       ShortCut = 16449
+      OnExecute = actSelectAllExecute
     end
     object actUndo: TAction
       Category = 'Commands'
@@ -193,16 +194,16 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Increase indent'
       Hint = 'Increase indentation level'
       ImageIndex = 28
-      OnExecute = actIncIndentExecute
       ShortCut = 24649
+      OnExecute = actIncIndentExecute
     end
     object actDecIndent: TAction
       Category = 'Selection'
       Caption = 'Decrease indent'
       Hint = 'Decrease indentation level'
       ImageIndex = 29
-      OnExecute = actDecIndentExecute
       ShortCut = 24661
+      OnExecute = actDecIndentExecute
     end
     object actClear: TAction
       Category = 'Commands'
@@ -264,11 +265,11 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Show DevTools'
       Hint = 'Show the browser''s developer tools.'
       ImageIndex = 12
-      OnExecute = actShowDevToolsExecute
       SecondaryShortCuts.Strings = (
         'Ctrl+Shift+I'
       )
       ShortCut = 123
+      OnExecute = actShowDevToolsExecute
     end
     object actShowTaskManager: TAction
       Caption = 'Show task manager'
@@ -290,32 +291,32 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       Caption = 'Toggle edit mode'
       Hint = 'Toggle edit mode'
       ImageIndex = 52
-      OnExecute = actToggleEditModeExecute
       ShortCut = 113
+      OnExecute = actToggleEditModeExecute
     end
     object actRefresh: TAction
       Category = 'Commands'
       Caption = 'Refresh'
       Hint = 'Refresh'
       ImageIndex = 53
-      OnExecute = actRefreshExecute
       ShortCut = 116
+      OnExecute = actRefreshExecute
     end
     object actGoBack: TAction
       Category = 'Commands'
       Caption = 'Go back'
       Hint = 'Go back'
       ImageIndex = 54
-      OnExecute = actGoBackExecute
       ShortCut = 32805
+      OnExecute = actGoBackExecute
     end
     object actGoForward: TAction
       Category = 'Commands'
       Caption = 'Go forward'
       Hint = 'Go forward'
       ImageIndex = 55
-      OnExecute = actGoForwardExecute
       ShortCut = 32807
+      OnExecute = actGoForwardExecute
     end
     object actOpenInDefaultBrowser: TAction
       Caption = 'Open URL'
@@ -675,24 +676,24 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
   end
   object dlgSave: TSaveDialog
     Options = [ofOverwritePrompt, ofHideReadOnly, ofShowHelp, ofPathMustExist, ofCreatePrompt, ofShareAware, ofEnableSizing]
-    Left = 189
-    Top = 44
+    Left = 284
+    Top = 66
   end
   object dlgOpen: TOpenDialog
     Options = [ofNoValidate, ofNoTestFileCreate, ofNoNetworkButton, ofEnableSizing, ofAutoPreview]
-    Left = 189
-    Top = 100
+    Left = 284
+    Top = 150
   end
   object ppmHtmlEditor: TPopupMenu
     Images = imlMain
-    Left = 60
-    Top = 112
+    Left = 90
+    Top = 168
   end
   object imlMain: TImageList
     DrawingStyle = dsTransparent
     Scaled = True
-    Left = 295
-    Top = 49
+    Left = 443
+    Top = 74
     Bitmap = {
       4C7A3900000010000000100000009B4800000000000078DAED7D095C4D5BFBFF
       0E17D775CDAF99324F91794824D2A0322485662A92CC4394927988889014292A
@@ -16643,48 +16644,48 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       'ColorS=F0FBFF'
       'ColorT=A4A0A0'
     )
-    Left = 196
-    Top = 167
+    Left = 294
+    Top = 251
   end
   object dlgFont: TFontDialog
     MinFontSize = 0
     MaxFontSize = 0
     Options = [fdEffects, fdForceFontExist, fdNoSimulations, fdApplyButton]
-    Left = 295
-    Top = 116
+    Left = 443
+    Top = 174
   end
   object ppmTable: TPopupMenu
-    Left = 72
-    Top = 187
+    Left = 108
+    Top = 281
   end
   object ppmInsert: TPopupMenu
     Images = imlMain
-    Left = 132
-    Top = 188
+    Left = 198
+    Top = 282
   end
   object ppmSelection: TPopupMenu
     Images = imlMain
-    Left = 292
-    Top = 180
+    Left = 438
+    Top = 270
   end
   object ppmClipboard: TPopupMenu
     Images = imlMain
-    Left = 372
-    Top = 44
+    Left = 558
+    Top = 66
   end
   object ppmSelect: TPopupMenu
     Images = imlMain
-    Left = 372
-    Top = 124
+    Left = 558
+    Top = 186
   end
   object ppmFile: TPopupMenu
     Images = imlMain
-    Left = 468
-    Top = 52
+    Left = 702
+    Top = 78
   end
   object ppmSettings: TPopupMenu
     Images = imlMain
-    Left = 468
-    Top = 132
+    Left = 702
+    Top = 198
   end
 end

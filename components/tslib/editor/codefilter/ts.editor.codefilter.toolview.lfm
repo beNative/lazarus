@@ -9,13 +9,13 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
   Color = clWindow
   DesignTimePPI = 144
   Font.Height = -18
-  OnCloseQuery = FormCloseQuery
-  OnResize = FormResize
-  OnShow = FormShow
   PopupMenu = ppmMain
   PopupMode = pmExplicit
   Position = poMainFormCenter
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
+  OnCloseQuery = FormCloseQuery
+  OnResize = FormResize
+  OnShow = FormShow
   object pnlVST: TPanel
     Left = 4
     Height = 778
@@ -58,13 +58,13 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       AutoCheck = True
       Caption = 'Apply filter'
       ImageIndex = 2
-      OnExecute = actApplyFilterExecute
       ShortCut = 116
+      OnExecute = actApplyFilterExecute
     end
     object actSelectAll: TAction
       Caption = 'Select all'
-      OnExecute = actSelectAllExecute
       ShortCut = 16449
+      OnExecute = actSelectAllExecute
     end
     object actCopyToNewView: TAction
       Caption = 'Copy to new view'
@@ -74,8 +74,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     object actFocusSearchFilter: TAction
       Caption = 'Set focus to searchfilter'
       ImageIndex = 1
-      OnExecute = actFocusSearchFilterExecute
       ShortCut = 113
+      OnExecute = actFocusSearchFilterExecute
     end
     object actMatchCase: TAction
       AutoCheck = True
@@ -83,8 +83,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
       DisableIfNoHandler = False
       GroupIndex = 1
       ImageIndex = 1
-      OnExecute = actMatchCaseExecute
       ShortCut = 114
+      OnExecute = actMatchCaseExecute
     end
     object actRegularExpression: TAction
       AutoCheck = True
@@ -97,8 +97,8 @@ object frmCodeFilterDialog: TfrmCodeFilterDialog
     object actCopy: TAction
       Caption = 'Copy'
       Hint = 'Copy selected lines to the clipboard.'
-      OnExecute = actCopyExecute
       ShortCut = 16451
+      OnExecute = actCopyExecute
     end
   end
   object imlMain: TImageList

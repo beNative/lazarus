@@ -114,7 +114,7 @@ begin
       Font.Name   := AFontName;
       Font.Height := ABitmapHeight - 10;
       LTextWidth  := TextExtent(ACharacter).cx;
-      LTextHeight :=TextExtent(ACharacter).cy;
+      LTextHeight := TextExtent(ACharacter).cy;
       TextOut(
         (Result.Width - LTextWidth) div 2,
         (Result.Height - LTextHeight) div 2, ACharacter
@@ -137,9 +137,9 @@ begin
   lblCharInfo.Caption := '-';
   lblUnicodeCharInfo.Caption := '-';
   grdANSI.Font.Assign(Manager.Settings.EditorFont);
-  grdANSI.Font.Size := 12;
+  grdANSI.Font.Size := MulDiv(12, Screen.PixelsPerInch, 96);
   grdUnicode.Font.Assign(Manager.Settings.EditorFont);
-  grdUnicode.Font.Size := 12;
+  grdUnicode.Font.Size := MulDiv(12, Screen.PixelsPerInch, 96);
   FillCharMap;
   grdANSI.AutoSizeColumns;
   cbxUnicodeRange.Items.Clear;

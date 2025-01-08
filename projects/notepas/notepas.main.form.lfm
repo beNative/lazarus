@@ -14,12 +14,12 @@ object frmMain: TfrmMain
   DefaultMonitor = dmPrimary
   DesignTimePPI = 144
   Font.Height = -18
-  OnCloseQuery = FormCloseQuery
-  OnWindowStateChange = FormWindowStateChange
   PopupMode = pmAuto
   Position = poScreenCenter
   ShowHint = True
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
+  OnCloseQuery = FormCloseQuery
+  OnWindowStateChange = FormWindowStateChange
   object pnlStatusBar: TPanel
     Left = 0
     Height = 27
@@ -412,8 +412,8 @@ object frmMain: TfrmMain
     end
     object actCloseToolView: TAction
       Caption = 'Close toolview'
-      OnExecute = actCloseToolViewExecute
       ShortCut = 27
+      OnExecute = actCloseToolViewExecute
     end
     object actCheckForNewVersion: TAction
       Caption = 'Check for new version'

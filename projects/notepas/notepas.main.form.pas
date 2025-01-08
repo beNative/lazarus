@@ -1,5 +1,5 @@
 {
-  Copyright (C) 2013-2024 Tim Sinaeve tim.sinaeve@gmail.com
+  Copyright (C) 2013-2025 Tim Sinaeve tim.sinaeve@gmail.com
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -581,6 +581,10 @@ begin
   DisableAutoSizing;
   try
     V := AEditorView;
+    // workaround to avoid access violation (bug in TSynEdit?)
+    V.Text := ' ';
+    V.Clear;
+
     V.IsFile := True;
     V.Form.DisableAutoSizing;
     try

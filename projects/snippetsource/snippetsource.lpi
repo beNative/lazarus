@@ -388,9 +388,10 @@ end;"/>
         <Filename Value="snippetsource.interfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="SnippetSource.Interfaces"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="20"/>
-        <TopLine Value="279"/>
-        <CursorPos X="60" Y="2"/>
+        <TopLine Value="6"/>
+        <CursorPos X="3" Y="28"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -868,7 +869,6 @@ end;"/>
         <CursorPos X="3" Y="100"/>
         <UsageCount Value="208"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit52>
       <Unit53>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
@@ -877,7 +877,6 @@ end;"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="ts.HtmlEditor.View"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <TopLine Value="763"/>
         <CursorPos X="19" Y="775"/>
@@ -1223,8 +1222,8 @@ end;"/>
         <ResourceBaseClass Value="DataModule"/>
         <UnitName Value="ts.HtmlEditor.Manager"/>
         <EditorIndex Value="34"/>
-        <TopLine Value="282"/>
-        <CursorPos Y="290"/>
+        <TopLine Value="215"/>
+        <CursorPos X="56" Y="227"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1393,7 +1392,6 @@ end;"/>
         <CursorPos X="56" Y="35"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit107>
       <Unit108>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.resources.pas"/>
@@ -1542,7 +1540,6 @@ end;"/>
         <CursorPos X="68" Y="29"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit127>
       <Unit128>
         <Filename Value="..\..\..\fpcsrc\packages\fcl-db\src\base\db.pas"/>
@@ -2458,102 +2455,102 @@ end;"/>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\components\tslib\editor\toolview\ts.editor.toolview.base.pas"/>
-        <Caret Line="71" Column="15" TopLine="51"/>
+        <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.toolview.pas"/>
+        <Caret Line="376" Column="3" TopLine="373"/>
       </Position1>
       <Position2>
         <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.toolview.pas"/>
-        <Caret Line="134" Column="15" TopLine="89"/>
+        <Caret Line="134" Column="15" TopLine="107"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.toolview.pas"/>
-        <Caret Line="376" Column="3" TopLine="373"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="205" Column="36" TopLine="187"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\components\tslib\editor\search\ts.editor.search.toolview.pas"/>
-        <Caret Line="134" Column="15" TopLine="107"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="357" Column="49" TopLine="333"/>
       </Position4>
       <Position5>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="205" Column="36" TopLine="187"/>
+        <Caret Line="411" Column="96" TopLine="394"/>
       </Position5>
       <Position6>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="357" Column="49" TopLine="333"/>
+        <Caret Line="120" Column="23" TopLine="106"/>
       </Position6>
       <Position7>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="411" Column="96" TopLine="394"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
+        <Caret Line="1106" Column="100" TopLine="1083"/>
       </Position7>
       <Position8>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="120" Column="23" TopLine="106"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
       </Position8>
       <Position9>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="1106" Column="100" TopLine="1083"/>
+        <Caret Line="497" Column="23" TopLine="444"/>
       </Position9>
       <Position10>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
+        <Caret Line="2066" Column="5" TopLine="2032"/>
       </Position10>
       <Position11>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="497" Column="23" TopLine="444"/>
+        <Caret Line="465" Column="14" TopLine="439"/>
       </Position11>
       <Position12>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="2066" Column="5" TopLine="2032"/>
+        <Caret Line="1992" Column="37" TopLine="1957"/>
       </Position12>
       <Position13>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="465" Column="14" TopLine="439"/>
+        <Caret Line="2066" Column="23" TopLine="2032"/>
       </Position13>
       <Position14>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="1992" Column="37" TopLine="1957"/>
+        <Caret Line="699" Column="76" TopLine="658"/>
       </Position14>
       <Position15>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="2066" Column="23" TopLine="2032"/>
+        <Caret Line="2007" Column="43" TopLine="1976"/>
       </Position15>
       <Position16>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="699" Column="76" TopLine="658"/>
+        <Caret Line="2005" Column="75" TopLine="1960"/>
       </Position16>
       <Position17>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="2007" Column="43" TopLine="1976"/>
+        <Caret Line="497" Column="22" TopLine="445"/>
       </Position17>
       <Position18>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="2005" Column="75" TopLine="1960"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="45" Column="15" TopLine="36"/>
       </Position18>
       <Position19>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="497" Column="22" TopLine="445"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="92" Column="46" TopLine="57"/>
       </Position19>
       <Position20>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="45" Column="15" TopLine="36"/>
       </Position20>
       <Position21>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="92" Column="46" TopLine="57"/>
+        <Caret Line="102" Column="28" TopLine="67"/>
       </Position21>
       <Position22>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="288" Column="3" TopLine="285"/>
       </Position22>
       <Position23>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="102" Column="28" TopLine="67"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
-        <Caret Line="288" Column="3" TopLine="285"/>
-      </Position24>
-      <Position25>
         <Filename Value="snippetsource.forms.main.pas"/>
         <Caret Line="537" Column="85" TopLine="513"/>
+      </Position23>
+      <Position24>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
+        <Caret Line="643" Column="89" TopLine="624"/>
+      </Position24>
+      <Position25>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
+        <Caret Line="644" Column="89" TopLine="625"/>
       </Position25>
       <Position26>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
@@ -2561,19 +2558,19 @@ end;"/>
       </Position26>
       <Position27>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="644" Column="89" TopLine="625"/>
+        <Caret Line="660" Column="60" TopLine="37"/>
       </Position27>
       <Position28>
         <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="643" Column="89" TopLine="624"/>
+        <Caret Line="775" Column="19" TopLine="763"/>
       </Position28>
       <Position29>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="660" Column="60" TopLine="37"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="236" Column="18" TopLine="214"/>
       </Position29>
       <Position30>
-        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.view.pas"/>
-        <Caret Line="74" Column="25" TopLine="312"/>
+        <Filename Value="..\..\components\tslib\htmleditor\ts.htmleditor.manager.pas"/>
+        <Caret Line="227" Column="56" TopLine="215"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

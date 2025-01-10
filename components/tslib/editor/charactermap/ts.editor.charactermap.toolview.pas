@@ -136,9 +136,9 @@ begin
   lblCharInfo.Caption := '-';
   lblUnicodeCharInfo.Caption := '-';
   grdANSI.Font.Assign(Manager.Settings.EditorFont);
-  grdANSI.Font.Size := 12;
+  grdANSI.Font.Size := 14;
   grdUnicode.Font.Assign(Manager.Settings.EditorFont);
-  grdUnicode.Font.Size := 12;
+  grdUnicode.Font.Size := 14;
   FillCharMap;
   grdANSI.AutoSizeColumns;
   cbxUnicodeRange.Items.Clear;

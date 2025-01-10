@@ -161,6 +161,7 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
+    procedure CopyUrl;
 
     procedure Undo;
     procedure Redo;

@@ -6,7 +6,7 @@ object HtmlEditorView: THtmlEditorView
   ClientHeight = 560
   ClientWidth = 915
   DesignTimePPI = 144
-  LCLVersion = '3.2.0.0'
+  LCLVersion = '4.99.0.0'
   object pnlHtmlEditor: TPanel
     Left = 0
     Height = 521
@@ -41,7 +41,7 @@ object HtmlEditorView: THtmlEditorView
       Left = 42
       Height = 27
       Top = 6
-      Width = 867
+      Width = 832
       Align = alClient
       Alignment = taCenter
       AutoSize = False
@@ -70,6 +70,18 @@ object HtmlEditorView: THtmlEditorView
       Proportional = True
       Stretch = True
       Transparent = True
+    end
+    object btnCopyUrl: TSpeedButton
+      Left = 880
+      Height = 39
+      Top = 0
+      Width = 35
+      Align = alRight
+      Flat = True
+      Transparent = False
+      ShowCaption = False
+      ShowHint = True
+      ParentShowHint = False
     end
   end
   object WVBrowser: TWVBrowser

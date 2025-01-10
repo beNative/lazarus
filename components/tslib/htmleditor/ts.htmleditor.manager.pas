@@ -29,8 +29,8 @@ type
   THtmlEditorViewList = TComponentList;
 
 type
-  TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager, IHtmlEditorActions,
-    IHtmlEditorEvents)
+  TdmHtmlEditorManager = class(TDataModule, IHtmlEditorManager,
+    IHtmlEditorActions, IHtmlEditorEvents)
     aclActions                : TActionList;
     actAlignCenter            : TAction;
     actAlignJustify           : TAction;
@@ -41,6 +41,7 @@ type
     actClear                  : TAction;
     actClipboardMenu          : TAction;
     actCopy                   : TAction;
+    actCopyUrl                : TAction;
     actCut                    : TAction;
     actDecFontSize            : TAction;
     actDecIndent              : TAction;
@@ -99,6 +100,7 @@ type
     procedure actBoldExecute(Sender: TObject);
     procedure actClearExecute(Sender: TObject);
     procedure actCopyExecute(Sender: TObject);
+    procedure actCopyUrlExecute(Sender: TObject);
     procedure actCutExecute(Sender: TObject);
     procedure actDecIndentExecute(Sender: TObject);
     procedure actGoBackExecute(Sender: TObject);
@@ -286,6 +288,14 @@ begin
   if Assigned(ActiveView) then
   begin
     ActiveView.Copy;
+  end;
+end;
+
+procedure TdmHtmlEditorManager.actCopyUrlExecute(Sender: TObject);
+begin
+  if Assigned(ActiveView) then
+  begin
+    ActiveView.CopyUrl;
   end;
 end;
 

@@ -32,7 +32,7 @@ interface
 
 uses
   LCLIntf, LCLType, LMessages, Messages, Classes, SysUtils, Forms, Controls,
-  Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, ActiveX, Types,
+  Graphics, Dialogs, ExtCtrls, Menus, StdCtrls, Buttons, ActiveX, Types,
 
   uWVBrowser, uWVWindowParent, uWVLoader, uWVTypes, uWVEvents, uWVTypeLibrary,
   uWVCoreWebView2DownloadOperation,
@@ -49,6 +49,7 @@ type
     imgFavIcon          : TImage;
     pnlTop              : TPanel;
     pnlHtmlEditor       : TPanel;
+    btnCopyUrl          : TSpeedButton;
     tmrCreateWebBrowser : TTimer;
     WVBrowser           : TWVBrowser;
     WVWindowParent      : TWVWindowParent;
@@ -494,6 +495,7 @@ type
     procedure Cut;
     procedure Copy;
     procedure Paste;
+    procedure CopyUrl;
 
     procedure Undo;
     procedure Redo;
@@ -643,7 +645,7 @@ implementation
 {$R *.lfm}
 
 uses
-  StrUtils,
+  StrUtils, Clipbrd,
 
   uWVCoreWebView2Args, uWVCoreWebView2WebResourceResponseView,
   uWVCoreWebView2HttpResponseHeaders, uWVCoreWebView2HttpHeadersCollectionIterator,
@@ -670,6 +672,7 @@ begin
   FOffline                     := False;
   FEditorFont                  := TFont.Create;
   FEditorFont.Name             := DEFAULT_EDITOR_FONT;
+  btnCopyUrl.Action            := Actions.Items['actCopyUrl'];
   tmrCreateWebBrowser.Enabled := True;
   Logger.SetLogLevel(10);
 end;
@@ -2058,6 +2061,11 @@ end;
 procedure THtmlEditorView.Paste;
 begin
   ExecuteEditingCommand(ecPaste);
+end;
+
+procedure THtmlEditorView.CopyUrl;
+begin
+  Clipboard.AsText := FSource;
 end;
 
 procedure THtmlEditorView.Undo;

@@ -324,6 +324,13 @@ object dmHtmlEditorManager: TdmHtmlEditorManager
       ImageIndex = 56
       OnExecute = actOpenInDefaultBrowserExecute
     end
+    object actCopyUrl: TAction
+      Category = 'Commands'
+      Caption = 'Copy URL'
+      Hint = 'Copy URL'
+      ImageIndex = 1
+      OnExecute = actCopyUrlExecute
+    end
   end
   object actBold1: TAction
     Category = 'Selection'

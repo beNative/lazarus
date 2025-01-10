@@ -172,6 +172,8 @@ begin
   //CreateToolButton(TB, 'actInsertHyperlink');
   //CreateToolButton(TB, 'actInsertImage');
   //CreateToolButton(TB);
+
+
   CreateToolButton(TB, 'actClear');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actRefresh');
@@ -184,6 +186,7 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actGoBack');
   CreateToolButton(TB, 'actGoForward');
+  CreateToolButton(TB, 'actCopyUrl');
   Result := TB;
 end;
 
@@ -219,6 +222,7 @@ begin
   CreateToolButton(TB, 'actGoForward');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actOpenInDefaultBrowser');
+  CreateToolButton(TB, 'actCopyUrl');
   Result := TB;
 end;
 {$ENDREGION}

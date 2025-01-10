@@ -389,7 +389,7 @@ type
     property ImageList: TCustomImageList read FImageList write SetImageList;
     property ListMode: Boolean read FListMode write SetListMode default True;
     property MultiSelect: Boolean read FMultiSelect write SetMultiSelect default False;
-    property MultiLine: Boolean read FMultiLine write FMultiLine default True;
+    property MultiLine: Boolean read FMultiLine write FMultiLine default False;
     property OnCollectionChanged: TCollectionChangedEvent read GetOnCollectionChanged;
     property OnCompare: TCompareEvent read FOnCompare write FOnCompare;
     property OnDoubleClick: TNotifyEvent read FOnDoubleClick write FOnDoubleClick;
@@ -464,7 +464,7 @@ begin
   FProgressBar.Visible := False;
   FAllowMove := True;
   FListMode := True;
-  FMultiLine := True;
+  FMultiLine := False;
   FCheckedItems := TObjectList.Create(False);
   FExpandedItems := TObjectList.Create(False);
   FSelectedItems := TObjectList.Create(False);
@@ -1972,17 +1972,17 @@ end;
 
 procedure TTreeViewPresenter.InitColumns;
 var
-  i: Integer;
-  CD: TColumnDefinition;
+  I  : Integer;
+  CD : TColumnDefinition;
 begin
   if Assigned(FTreeView) and not (csDesigning in ComponentState) then
   begin
     FTreeView.Header.Columns.Clear;
     if Assigned(FColumnDefinitions) then
     begin
-      for i := 0 to Pred(FColumnDefinitions.Count) do
+      for I := 0 to Pred(FColumnDefinitions.Count) do
       begin
-        CD := TColumnDefinition(FColumnDefinitions[i]);
+        CD := TColumnDefinition(FColumnDefinitions[I]);
         with FTreeView.Header.Columns.Add do
         begin
           Text      := CD.Caption;
@@ -1996,8 +1996,7 @@ begin
           Options := Options + [
             coWrapCaption,  // Caption could be wrapped across several header lines to fit columns width.
             coSmartResize,  // Column is resized to its largest entry which is in view (instead of its largest visible entry).
-            coResizable,    // Column can be resized.
-            coAutoSpring
+            coResizable     // Column can be resized.
           ];
           if CD.Fixed then
           begin
@@ -2140,6 +2139,7 @@ begin
     // TSI
     FTreeView.Hint := ' '; // otherwise no tooltips are shown!
 
+    FTreeView.Header.Options := FTreeView.Header.Options + [hoDblClickResize];
     FTreeView.TreeOptions.AutoOptions :=
       FTreeView.TreeOptions.AutoOptions - [toAutoDeleteMovedNodes] + [toAutoSort];
     FTreeView.TreeOptions.MiscOptions :=

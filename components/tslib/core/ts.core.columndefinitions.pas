@@ -81,7 +81,7 @@ const
   CDefaultWidth = 100;
   CDefaultSpacing = 4;
   CDefaultMargin  = 4;
-  CDefaultMinWidth = 0;
+  CDefaultMinWidth = 50;
   CDefaultMaxWidth = 1000;
   CDefaultDataType = dtString;
 
@@ -283,7 +283,8 @@ end;
 
 procedure TColumnDefinition.SetMinWidth(AValue: Integer);
 begin
-  if FMinWidth = AValue then exit;
+  if FMinWidth = AValue then
+    Exit;
   FMinWidth := AValue;
 end;
 
@@ -322,17 +323,17 @@ end;
 
 procedure TColumnDefinition.SetAutoSize(AValue: Boolean);
 var
-  i: Integer;
+  I : Integer;
 begin
   FAutoSize := AValue;
 
   if FAutoSize then
   begin
-    for i := 0 to Collection.Count - 1 do
+    for I := 0 to Collection.Count - 1 do
     begin
-      if Collection[i].AutoSize and (Collection[i] <> Self) then
+      if Collection[I].AutoSize and (Collection[I] <> Self) then
       begin
-        Collection[i].AutoSize := False;
+        Collection[I].AutoSize := False;
       end;
     end;
   end;
@@ -345,17 +346,17 @@ end;
 
 procedure TColumnDefinition.SetSortingDirection(AValue: TSortingDirection);
 var
-  i: Integer;
+  I : Integer;
 begin
   FSortingDirection := AValue;
   if FSortingDirection <> sdNone then
   begin
-    for i := 0 to Collection.Count - 1 do
+    for I := 0 to Collection.Count - 1 do
     begin
-      if (TColumnDefinition(Collection.Items[i]).SortingDirection <> sdNone)
-        and (Collection.Items[i] <> Self) then
+      if (TColumnDefinition(Collection.Items[I]).SortingDirection <> sdNone)
+        and (Collection.Items[I] <> Self) then
       begin
-        TColumnDefinition(Collection.Items[i]).SortingDirection := sdNone;
+        TColumnDefinition(Collection.Items[I]).SortingDirection := sdNone;
       end;
     end;
   end;
@@ -400,7 +401,7 @@ begin
     begin
       Result.MaxWidth := AMaxWidth;
     end;
-  end;
+  end
 end;
 
 function TColumnDefinitions.AddColumn(const AName: string;
@@ -429,7 +430,7 @@ begin
     begin
       Result.MaxWidth := AMaxWidth;
     end;
-  end;
+  end
 end;
 
 end.

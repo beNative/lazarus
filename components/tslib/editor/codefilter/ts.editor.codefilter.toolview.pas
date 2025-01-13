@@ -274,7 +274,7 @@ begin
     4000
   );
   FTVP.ColumnDefinitions.Items[0].Fixed := False;
-  FTVP.ColumnDefinitions.Items[0].MaxWidth := 100;
+  FTVP.ColumnDefinitions.Items[0].MaxWidth := Scale96ToScreen(100);
   FTVP.ColumnDefinitions.Items[0].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
   FTVP.ColumnDefinitions.Items[1].OnCustomDraw := FTVPColumnDefinitionsItemsCustomDraw;
   FTVP.TreeView := FVST;

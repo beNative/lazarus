@@ -170,9 +170,9 @@ var
   TB : TToolbar;
 begin
   TB := TToolBar.Create(AOwner);
-  TB.Parent      := AParent;
+  TB.Parent := AParent;
   ApplyDefaultProperties(TB);
-  TB.Images      := FActions.ActionList.Images;
+  TB.Images := FActions.ActionList.Images;
 
   CreateToolButton(TB, 'actNew');
   CreateToolButton(TB, 'actOpen');

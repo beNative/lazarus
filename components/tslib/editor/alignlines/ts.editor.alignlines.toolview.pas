@@ -128,6 +128,8 @@ implementation
 {$R *.lfm}
 
 uses
+  Controls,
+
   ts.Core.Utils, ts.Core.Helpers,
 
   ts.Editor.Utils;
@@ -165,6 +167,7 @@ begin
   FTokens := TObjectList.Create;
   FVST := VST.Create(Self, pnlVST);
   FVST.Font.Name := Manager.Settings.EditorFont.Name;
+  FVST.BorderStyle := bsNone;
   FTVP := TTreeViewPresenter.Create(Self);
   with FTVP.ColumnDefinitions.AddColumn(SToken) do
   begin

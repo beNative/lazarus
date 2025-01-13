@@ -26,7 +26,7 @@ uses
   ts.Editor.Types;
 
 const
-  DEFAULT_WIDTH = 360;
+  DEFAULT_WIDTH = 300;  // 96dpi is used as the baseline
 
 type
   TAlignLinesSettings = class(TPersistent)

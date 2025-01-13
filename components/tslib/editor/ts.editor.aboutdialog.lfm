@@ -1,186 +1,187 @@
 object frmAbout: TfrmAbout
   Left = 519
-  Height = 254
+  Height = 381
   Top = 201
-  Width = 636
+  Width = 954
   ActiveControl = pgcMain
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'About'
-  ClientHeight = 254
-  ClientWidth = 636
-  Font.Height = -12
+  ClientHeight = 381
+  ClientWidth = 954
+  DesignTimePPI = 144
+  Font.Height = -18
   PopupMode = pmAuto
   Position = poMainFormCenter
   ShowHint = True
-  LCLVersion = '2.2.2.0'
+  LCLVersion = '4.99.0.0'
   object pgcMain: TPageControl
-    Left = 240
-    Height = 204
-    Top = 4
-    Width = 394
+    Left = 360
+    Height = 306
+    Top = 6
+    Width = 591
     ActivePage = tsAbout
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabIndex = 0
     TabOrder = 0
     object tsAbout: TTabSheet
       Caption = 'Version'
-      ClientHeight = 176
-      ClientWidth = 386
+      ClientHeight = 268
+      ClientWidth = 583
       object lblFPCVersion: TLabel
-        Left = 8
-        Height = 15
-        Top = 9
-        Width = 65
+        Left = 12
+        Height = 25
+        Top = 14
+        Width = 96
         Caption = 'FPC version:'
         ParentColor = False
       end
       object pnlFPCVersion: TPanel
-        Left = 165
-        Height = 18
-        Top = 9
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 14
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 0
       end
       object lblTargetOS: TLabel
-        Left = 8
-        Height = 15
-        Top = 58
-        Width = 53
+        Left = 12
+        Height = 25
+        Top = 87
+        Width = 81
         Caption = 'Target OS:'
         ParentColor = False
       end
       object lblTargetCPU: TLabel
-        Left = 8
-        Height = 15
-        Top = 78
-        Width = 61
+        Left = 12
+        Height = 25
+        Top = 117
+        Width = 90
         Caption = 'Target CPU:'
         ParentColor = False
       end
       object pnlTargetOS: TPanel
-        Left = 165
-        Height = 18
-        Top = 58
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 87
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 1
       end
       object pnlTargetCPU: TPanel
-        Left = 165
-        Height = 18
-        Top = 78
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 117
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 2
       end
       object lbBuildDate: TLabel
-        Left = 8
-        Height = 15
-        Top = 133
-        Width = 56
+        Left = 12
+        Height = 25
+        Top = 200
+        Width = 83
         Caption = 'Build date:'
         ParentColor = False
       end
       object pnlBuildDate: TPanel
-        Left = 165
-        Height = 18
-        Top = 133
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 200
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 3
       end
       object lblWidgetSet: TLabel
-        Left = 8
-        Height = 15
-        Top = 105
-        Width = 59
+        Left = 12
+        Height = 25
+        Top = 158
+        Width = 90
         Caption = 'Widget set:'
         ParentColor = False
       end
       object pnlWidgetSet: TPanel
-        Left = 165
-        Height = 18
-        Top = 105
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 158
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 4
       end
       object lbLCLVersion: TLabel
-        Left = 8
-        Height = 15
-        Top = 29
-        Width = 64
+        Left = 12
+        Height = 25
+        Top = 44
+        Width = 92
         Caption = 'LCL version:'
         ParentColor = False
       end
       object pnlLCLVersion: TPanel
-        Left = 165
-        Height = 18
-        Top = 29
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 44
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         FullRepaint = False
         TabOrder = 5
       end
       object lblFileVersion: TLabel
-        Left = 8
-        Height = 15
-        Top = 151
-        Width = 41
+        Left = 12
+        Height = 25
+        Top = 226
+        Width = 62
         Caption = 'Version:'
         ParentColor = False
       end
       object pnlFileVersion: TPanel
-        Left = 165
-        Height = 18
-        Top = 151
-        Width = 105
+        Left = 251
+        Height = 27
+        Top = 226
+        Width = 158
         Anchors = [akTop, akRight]
         BevelOuter = bvNone
         TabOrder = 6
       end
       object Shape1: TShape
-        Left = 8
-        Height = 1
-        Top = 50
-        Width = 285
+        Left = 12
+        Height = 2
+        Top = 75
+        Width = 428
         Pen.Color = clGray
         Pen.Style = psDot
       end
       object Shape2: TShape
-        Left = 8
-        Height = 1
-        Top = 100
-        Width = 285
+        Left = 12
+        Height = 2
+        Top = 150
+        Width = 428
         Pen.Color = clGray
         Pen.Style = psDot
       end
       object Shape3: TShape
-        Left = 8
-        Height = 1
-        Top = 128
-        Width = 285
+        Left = 12
+        Height = 2
+        Top = 192
+        Width = 428
         Pen.Color = clGray
         Pen.Style = psDot
       end
       object Shape4: TShape
-        Left = 140
-        Height = 154
-        Top = 9
-        Width = 1
+        Left = 210
+        Height = 231
+        Top = 14
+        Width = 2
         Pen.Color = clGray
         Pen.Style = psDot
       end
@@ -197,10 +198,10 @@ object frmAbout: TfrmAbout
     end
   end
   object imgMain: TImage
-    Left = 88
-    Height = 64
-    Top = 6
-    Width = 64
+    Left = 132
+    Height = 96
+    Top = 9
+    Width = 96
     AntialiasingMode = amOn
     Center = True
     Picture.Data = {
@@ -741,23 +742,24 @@ object frmAbout: TfrmAbout
     Transparent = True
   end
   object pnlName: TPanel
-    Left = 4
-    Height = 40
-    Top = 74
-    Width = 235
+    Left = 6
+    Height = 60
+    Top = 111
+    Width = 352
     BevelOuter = bvNone
     Color = clWhite
-    Font.Height = -19
+    Font.Height = -29
     Font.Style = [fsBold]
+    ParentBackground = False
     ParentColor = False
     ParentFont = False
     TabOrder = 1
   end
   object lblLegalCopyright: TLabel
-    Left = 4
-    Height = 16
-    Top = 119
-    Width = 236
+    Left = 6
+    Height = 24
+    Top = 178
+    Width = 354
     Alignment = taCenter
     AutoSize = False
     Color = clWhite
@@ -766,10 +768,10 @@ object frmAbout: TfrmAbout
     Transparent = False
   end
   object btnClose: TButton
-    Left = 512
-    Height = 25
-    Top = 224
-    Width = 120
+    Left = 768
+    Height = 38
+    Top = 335
+    Width = 180
     Action = actClose
     Anchors = [akRight, akBottom]
     ModalResult = 11
@@ -777,17 +779,17 @@ object frmAbout: TfrmAbout
   end
   object lblHomePage: TLabel
     Cursor = crHandPoint
-    Left = 4
-    Height = 17
+    Left = 6
+    Height = 26
     Hint = 'Homepage'
-    Top = 139
-    Width = 236
+    Top = 208
+    Width = 354
     Alignment = taCenter
     AutoSize = False
     Caption = 'URL'
     Color = clWhite
     Font.Color = clBlue
-    Font.Height = -11
+    Font.Height = -17
     Font.Style = [fsUnderline]
     Layout = tlCenter
     ParentColor = False
@@ -797,17 +799,17 @@ object frmAbout: TfrmAbout
     OnDblClick = lblHomePageDblClick
   end
   object Image1: TImage
-    Left = 77
+    Left = 116
     Height = 38
-    Top = 186
+    Top = 279
     Width = 96
     AutoSize = True
   end
   object btnDonate: TSpeedButton
-    Left = 4
-    Height = 24
-    Top = 228
-    Width = 24
+    Left = 6
+    Height = 36
+    Top = 342
+    Width = 36
     Action = actDonate
     Anchors = [akLeft, akBottom]
     Glyph.Data = {
@@ -849,10 +851,10 @@ object frmAbout: TfrmAbout
     ShowCaption = False
   end
   object btnReportIssue: TSpeedButton
-    Left = 32
-    Height = 24
-    Top = 228
-    Width = 24
+    Left = 48
+    Height = 36
+    Top = 342
+    Width = 36
     Action = actReportDefect
     Anchors = [akLeft, akBottom]
     Glyph.Data = {
@@ -894,11 +896,11 @@ object frmAbout: TfrmAbout
     ShowCaption = False
   end
   object btnCopyToClipboard: TSpeedButton
-    Left = 61
-    Height = 24
+    Left = 92
+    Height = 36
     Hint = 'Copy to clipboard'
-    Top = 228
-    Width = 24
+    Top = 342
+    Width = 36
     Action = actCopyToClipboard
     Anchors = [akLeft, akBottom]
     Glyph.Data = {
@@ -940,13 +942,13 @@ object frmAbout: TfrmAbout
     ShowCaption = False
   end
   object aclMain: TActionList
-    Left = 200
-    Top = 192
+    Left = 300
+    Top = 288
     object actClose: TAction
       Category = 'About'
       Caption = '&Close'
-      OnExecute = actCloseExecute
       ShortCut = 27
+      OnExecute = actCloseExecute
     end
     object actHomePage: TAction
       Category = 'About'

@@ -36,15 +36,14 @@ type
     FOnContentLoadedEvents       : TMethodList;
     FOnSourceChangedEvents       : TMethodList;
     FOnNavigationCompletedEvents : TMethodList;
-
-    FOnNew                 : TNewEvent;
-    FOnLoad                : TStorageEvent;
-    FOnOpen                : TStorageEvent;
-    FOnBeforeSave          : TStorageEvent;
-    FOnAfterSave           : TStorageEvent;
-    FOnSave                : TStorageEvent;
-    FOnShowToolView        : THtmlEditorToolViewEvent;
-    FOnHideToolView        : THtmlEditorToolViewEvent;
+    FOnNew                       : TNewEvent;
+    FOnLoad                      : TStorageEvent;
+    FOnOpen                      : TStorageEvent;
+    FOnBeforeSave                : TStorageEvent;
+    FOnAfterSave                 : TStorageEvent;
+    FOnSave                      : TStorageEvent;
+    FOnShowToolView              : THtmlEditorToolViewEvent;
+    FOnHideToolView              : THtmlEditorToolViewEvent;
 
     {$REGION 'property access mehods'}
     function GetOnAfterSave: TStorageEvent;
@@ -387,7 +386,6 @@ procedure THtmlEditorEvents.RemoveOnNavigationCompletedHandler
 begin
   FOnNavigationCompletedEvents.Remove(TMethod(AEvent));
 end;
-
 {$ENDREGION}
 
 end.

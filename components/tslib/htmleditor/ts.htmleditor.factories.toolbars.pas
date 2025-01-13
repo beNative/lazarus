@@ -136,8 +136,8 @@ begin
   TB.Parent       := AParent;
   TB.Images       := FActions.ActionList.Images;
   TB.Align        := alClient;
-  TB.ImagesWidth  := 16;
-  TB.ButtonWidth  := 26;
+  //TB.ImagesWidth  := 16;
+  //TB.ButtonWidth  := 26;
   TB.ShowCaptions := True;
   TB.AutoSize     := False;
 
@@ -186,7 +186,6 @@ begin
   CreateToolButton(TB);
   CreateToolButton(TB, 'actGoBack');
   CreateToolButton(TB, 'actGoForward');
-  CreateToolButton(TB, 'actCopyUrl');
   Result := TB;
 end;
 
@@ -206,8 +205,8 @@ begin
   TB.Parent       := AParent;
   TB.Images       := FActions.ActionList.Images;
   TB.Align        := alClient;
-  TB.ImagesWidth  := 16;
-  TB.ButtonWidth  := 26;
+  //TB.ImagesWidth  := 16;
+  //TB.ButtonWidth  := 26;
   TB.ShowCaptions := True;
   TB.AutoSize     := False;
 
@@ -222,7 +221,6 @@ begin
   CreateToolButton(TB, 'actGoForward');
   CreateToolButton(TB);
   CreateToolButton(TB, 'actOpenInDefaultBrowser');
-  CreateToolButton(TB, 'actCopyUrl');
   Result := TB;
 end;
 {$ENDREGION}

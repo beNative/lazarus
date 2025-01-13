@@ -701,7 +701,8 @@ var
 begin
   S := APanel.Caption;
   if Trim(S) <> '' then
-    APanel.Width := GetTextWidth(APanel.Caption, APanel.Font) + 10
+    APanel.Width :=
+      APanel.ScaleScreenToFont(GetTextWidth(APanel.Caption, APanel.Font)) + 15
   else
     APanel.Width := 2;
 end;
